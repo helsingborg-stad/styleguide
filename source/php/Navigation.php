@@ -55,4 +55,11 @@ class Navigation
     public static function readableFilename($name) {
         return ucfirst(self::sanitizeFileName($name)); 
     }
+
+    public static function currentClass($item, $currentPage) {
+        if(preg_match("/".$item."/i", $currentPage)) {
+            return "current-page"; 
+        }
+        return ""; 
+    }
 }

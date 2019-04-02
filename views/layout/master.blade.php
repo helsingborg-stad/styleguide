@@ -13,7 +13,12 @@
     <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
 
     <style>
-
+        .current-page {
+            background: #eee;
+        }
+        .current-page .sub-menu {
+            display: block;
+        }
     </style>
 
     <noscript>
