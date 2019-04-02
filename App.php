@@ -37,7 +37,6 @@ class App
         $data['pageNow'] = $this->page;
 
         //Pages 
-        \HbgStyleGuide\View::show($this->page, $data);
-        return true; 
+        return \HbgStyleGuide\View::show($this->page, $data);
     }
 }
