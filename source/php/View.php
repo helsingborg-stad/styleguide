@@ -15,7 +15,13 @@ class View
     public static function show($view, $data = array())
     {
         $blade = new Blade(VIEWS_PATH, CACHE_PATH);
-        echo $blade->view()->make($view, $data)->render();
-        return true;
+
+        if($blade->view()->exists($view)) {
+            echo $blade->view()->make($view, $data)->render();
+            return true;
+        } else {
+            echo $blade->view()->make('404', $data)->render();
+            return false;
+        }
     }
 }

@@ -36,7 +36,6 @@ class App
         // Navigation
         $data['nav'] = $this->loadNavigation($this->page);
         $data['pageNow'] = $this->page;
-        $data['theme'] = ""; 
 
         // Home
         if ($this->page == 'home') {
@@ -44,10 +43,9 @@ class App
             return true;
         }
 
-        // Sections
-        /*$data['docs'] = $this->loadPageDocumentation($this->page);
-        \HbgStyleGuide\View::show('sections', $data);*/ 
-        return true;
+        //Pages 
+        \HbgStyleGuide\View::show($this->page, $data);
+        return true; 
     }
 
     /**

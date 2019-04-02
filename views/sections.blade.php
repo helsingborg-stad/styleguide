@@ -1,9 +1,5 @@
 @extends('layout.master')
 
 @section('content')
-    @foreach ($docs as $section)
-        <section>
-            @include('section')
-        </section>
-    @endforeach
+This is the content
 @stop
