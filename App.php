@@ -34,7 +34,7 @@ class App
     public function loadPage()
     {
         // Navigation
-        $data['nav'] = Navigation::items();
+        $data['nav']     = Navigation::items();
         $data['pageNow'] = $this->page;
 
         // Home
@@ -46,27 +46,5 @@ class App
         //Pages 
         \HbgStyleGuide\View::show($this->page, $data);
         return true; 
-    }
-
-    /**
-     * Reads the navigation from the json
-     * @return object Navigation
-     */
-    public function loadNavigation()
-    {
-        /*$nav = (array)$this->documentation->nav;
-        ksort($nav);
-*/ 
-        return (object) array();
-    }
-
-    /**
-     * Loads the documentation of a specific page
-     * @param  string $page The page
-     * @return array        The documentation
-     */
-    public function loadPageDocumentation()
-    {
-        return "HEllo"; 
     }
 }
