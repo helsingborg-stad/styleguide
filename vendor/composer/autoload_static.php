@@ -36,13 +36,17 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'H' => 
+        array (
+            'HelsingborgStad\\Blade\\' => 22,
+        ),
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
-        'C' => 
+        'B' => 
         array (
-            'Carbon\\' => 7,
+            'BladeComponentLibrary\\' => 22,
         ),
     );
 
@@ -107,14 +111,22 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
+        'HelsingborgStad\\Blade\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/laravel-blade/src',
+        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
-        'Carbon\\' => 
+        'BladeComponentLibrary\\' => 
         array (
-            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+            0 => __DIR__ . '/..' . '/helsingborg-stad/blade-component-library/src',
         ),
+    );
+
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -122,6 +134,7 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$fallbackDirsPsr4;
 
         }, null, ClassLoader::class);
     }

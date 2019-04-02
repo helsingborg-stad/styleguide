@@ -21,6 +21,8 @@ return array(
     'Illuminate\\Events\\' => array($vendorDir . '/illuminate/events'),
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
+    'HelsingborgStad\\Blade\\' => array($vendorDir . '/helsingborg-stad/laravel-blade/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
-    'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
+    'BladeComponentLibrary\\' => array($vendorDir . '/helsingborg-stad/blade-component-library/src'),
+    '' => array($vendorDir . '/nesbot/carbon/src'),
 );
