@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
     <link rel="stylesheet" type="text/css" href="/dist/css/hbg-prime-red.dev.css">
+    <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
 
     <style>
 
@@ -57,7 +58,11 @@
                 @include('layout.navigation')
             </div>
             <div class="grid-md-9">
-                @yield('content')
+                <section>
+                    <article>
+                        @yield('content')
+                    </article>
+                </section>
             </div>
         </div>
     </div>

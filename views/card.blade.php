@@ -1,5 +1,6 @@
 @extends('layout.master')
 
 @section('content')
-This is the content
+    <h1>Card</h1>
+    <p>The card component.</p>
 @stop

@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
     <link rel="stylesheet" type="text/css" href="/dist/css/hbg-prime-red.dev.css">
+    <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
 
     <style>
 
@@ -57,7 +58,11 @@
                 <?php echo $__env->make('layout.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             </div>
             <div class="grid-md-9">
-                <?php echo $__env->yieldContent('content'); ?>
+                <section>
+                    <article>
+                        <?php echo $__env->yieldContent('content'); ?>
+                    </article>
+                </section>
             </div>
         </div>
     </div>
