@@ -1,13 +1,13 @@
 <nav>
     <ul class="nav-aside">
         @foreach ($nav as $item => $subitems)
-            <li class="{{ ($subitems) ? 'has-children' : '' }} {{ ($pageNow == $item) ? 'current' : '' }}">
-                <a href="/{{ $item }}">{{ ucwords($item) }}</a>
-                @if ($pageNow == $item && $subitems)
-                    <ul class="sub-menu">
-                    @foreach ($subitems as $subitem)
-                        <li><a href="#{{ \HbgStyleGuide\Helper\FormatString::slug($subitem) }}">{{ ucwords($subitem) }}</a></li>
-                    @endforeach
+            <li class="">
+                <a href="/{{ $item }}">{{ \HbgStyleGuide\Navigation::readableFilename($item) }}</a>
+                @if (is_array($subitems) && !empty($subitems))
+                    <ul class="sub-menu" style="display: block;">
+                        @foreach ($subitems as $subitem)
+                            <li><a href="/{{ $item }}/{{ $subitem }}">{{ \HbgStyleGuide\Navigation::readableFilename($subitem) }}</a></li>
+                        @endforeach
                     </ul>
                 @endif
             </li>

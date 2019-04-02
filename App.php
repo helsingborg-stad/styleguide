@@ -34,7 +34,7 @@ class App
     public function loadPage()
     {
         // Navigation
-        $data['nav'] = $this->loadNavigation($this->page);
+        $data['nav'] = Navigation::items();
         $data['pageNow'] = $this->page;
 
         // Home
