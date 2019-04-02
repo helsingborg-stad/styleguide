@@ -33,6 +33,7 @@
     ],
     "require": {
         "philo/laravel-blade": "^3.1",
-        "helsingborg-stad/blade-component-library": "^0.0.1"
+        "helsingborg-stad/blade-component-library": "^0.0.1",
+        "helsingborg-stad/laravel-blade": "^5.5"
     }
 }
