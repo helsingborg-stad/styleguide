@@ -1,0 +1,37 @@
+{
+    "name": "helsingborg-stad/hwstyleguide-web",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sebastian Thulin",
+            "email": "sebastian.thulin@helsingborg.se"
+        },
+        {
+            "name": "Nikolas Ramstedt",
+            "email": "nikolas.ramstedt@helsingborg.se"
+        },
+        {
+            "name": "Jonatan Hanson",
+            "email": "jonatan.hanson@helsingborg.se"
+        },
+        {
+            "name": "Johan Silvergrund",
+            "email": "johan.silvergrund@hiq.se"
+        }
+    ],
+    "minimum-stability" : "stable",
+    "repositories": [
+        {
+            "type":"composer",
+            "url":"https://packagist.org"
+        },
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "philo/laravel-blade": "^3.1"
+    }
+}

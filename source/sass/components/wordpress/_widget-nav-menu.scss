@@ -1,0 +1,38 @@
+//
+// @name WP Widget: Nav menu
+// @description Wordpress built-in nav-menu functionality markup.
+//
+// @page Wordpress/WP Widget: Nav menu
+//
+// @markup
+//
+// <div class="widget_nav_menu">
+// <h2 class="footer-title">Custom nav menu</h2>
+// <div class="menu-menu-1-container">
+//  <ul id="menu-menu-1" class="menu">
+//    <li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2 current_page_item menu-item-has-children menu-item-56">
+//     <a href="http://dunkerskulturhus.dev/">Exempelsida</a>
+//      <ul class="sub-menu">
+//        <li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
+//          <a href="http://dunkerskulturhus.dev/adipiscing-magna/">Adipiscing Magna</a>
+//        </li>
+//      </ul>
+//    </li>
+//    <li id="menu-item-58" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-2 current_page_item menu-item-58">
+//      <a href="http://dunkerskulturhus.dev/">Exempelsida</a>
+//    </li>
+//   </ul>
+//  </div>
+// </div>
+//
+
+.sidebar-left-sidebar .widget_nav_menu > div,
+.sidebar-right-sidebar .widget_nav_menu > div {
+    @include box-content;
+}
+
+.sidebar-left-sidebar .widget_nav_menu a,
+.sidebar-right-sidebar .widget_nav_menu a {
+    color: #fff;
+}
+

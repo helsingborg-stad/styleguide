@@ -1,0 +1,71 @@
+// ***************************************************************
+// ***  HIP CARD / SCHOOL TESTIMONIALS
+// ***************************************************************
+
+.section-school-testimonial {
+    padding-top: 10vh;
+    padding-bottom: calc(10vh - 30px);
+}
+
+.grid.no-gutter > [class*="grid-"] .hip-card > *:not(.image) {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+.hip-card {
+    margin-bottom: $content-gutter * 2;
+
+    .image {
+        max-height: 60vh;
+        overflow: hidden;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .header {
+        > * {
+            padding: 0;
+        }
+
+        *:first-child {
+            font-size: 150%;
+
+            @media #{$screen-sm-up} {
+                font-size: 180%;
+            }
+
+            @media #{$screen-xl-up} {
+                font-size: 240%;
+            }
+
+            line-height: 1;
+            font-weight: 700;
+
+            & + * {
+                margin-top: $content-gutter / 2;
+            }
+        }
+    }
+
+    .content {
+        font-size: 90%;
+        font-style: italic;
+    }
+
+    > * + * {
+        margin-top: $content-gutter;
+    }
+}
+
+@each $color in $palette-map {
+    $total: length($palette-map);
+    $i: index($palette-map, $color);
+
+    *:nth-child(#{$total}n+#{$i}) > .hip-card > .header {
+        color: $color;
+    }
+}

@@ -1,0 +1,21 @@
+.google-translate-fold {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 500px;
+    padding: 30px 20px;
+    background-color: #fff;
+    border: 1px solid $creamy;
+    border-right: 0;
+    box-shadow: 0 0 30px rgba(#000, .5);
+    z-index: $level-top;
+
+    @media screen and (max-width: 499px) {
+        width: 100%;
+        bottom: 0;
+        left: auto;
+        top: auto;
+        transform: translateY(0);
+    }
+}

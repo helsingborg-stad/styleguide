@@ -1,0 +1,46 @@
+.vngage-banner.vngage-dooreye.vngage-active, .vngage-banner.vngage-dooreye.vngage-inactive {
+    bottom: 60px !important;
+}
+@media only screen and (max-width: 610px) {
+
+    .vngage-tab {
+        bottom: -7px !important;
+        top: unset !important;
+        transform: rotate(0deg) !important;
+        right: -6px !important;
+        z-index: 10000 !important;
+        &:after {
+            transform: rotate(0deg) !important;
+            width: 44px;
+            height: 44px;
+            bottom: 0px !important;
+            right: 153.6px!important;
+        }
+    }
+
+    .vngage-tab-text {
+        padding-right: 27px!important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        font-size:1.2em !important;
+    }
+    .vngage-overlay {
+        z-index: 9998 !important;
+    }
+    .vngage-content {
+        z-index: 9999 !important;
+    }
+    .home {
+        .hero {
+            .search {
+                top: 38%;
+            }
+        }
+    }
+    .vngage-banner.vngage-dooreye.vngage-active .vngage-tab, .vngage-banner.vngage-dooreye.vngage-inactive .vngage-tab {
+        background-size: 21px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+}

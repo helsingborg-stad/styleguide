@@ -1,0 +1,48 @@
+.material {
+    @include material-shadow;
+    @include material-radius;
+}
+
+.material-md,
+.material-medium {
+    @include material-shadow-medium;
+    @include material-radius-medium;
+}
+
+.material-lg,
+.material-large {
+    @include material-shadow-large;
+    @include material-radius-large;
+}
+
+.material-shadow,
+.material-shadow-sm,
+.material-shadow-small {
+    @include material-shadow;
+}
+
+.material-shadow-md,
+.material-shadow-medium {
+    @include material-shadow-medium;
+}
+
+.material-shadow-lg,
+.material-shadow-large {
+    @include material-shadow-large;
+}
+
+.material-radius,
+.material-radius-sm,
+.material-radius-small {
+    @include material-radius;
+}
+
+.material-radius-md,
+.material-radius-medium {
+    @include material-radius-medium;
+}
+
+.material-radius-lg,
+.material-radius-large {
+    @include material-radius-large;
+}

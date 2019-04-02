@@ -1,0 +1,228 @@
+//
+// @name Navigation bar
+// @description The navbar is typically used for the main menu. Using the class <code>.nav-justify</code> on the <code>ul</code> element will make the menu items fill the width of the navbar container.
+// @author Kristoffer Svanmark, Sebastian Thulin
+//
+// @page Navigation/Navbar
+//
+// @state .current - Indicates the currently active menu item
+//
+// @markup
+// <nav class="navbar hidden-xs hidden-sm">
+//     <div class="container">
+//         <div class="grid">
+//             <div class="grid-sm-12">
+//                 <ul class="nav nav-justify">
+//                     <li><a href="#">Brownie</a></li>
+//                     <li><a href="#">Fruitcake</a></li>
+//                     <li><a href="#">Pie</a></li>
+//                     <li><a href="#">Sweet lemon drops</a></li>
+//                 </ul>
+//             </div>
+//         </div>
+//     </div>
+// </nav>
+//
+
+.navbar {
+    @include material-shadow;
+    @include textrendering;
+    position: relative;
+    font-size: 18px;
+
+
+    &:not(.navbar-creamy) {
+        background-color: $palette-4;
+    }
+
+    &.navbar-transparent {
+        background-color: transparent;
+        transition: $stickyTransition all ease-in-out;
+
+        &.is-sticky-scroll {
+            background-color: $palette-4;
+
+            .menu-trigger {
+                margin-top: 16px;
+            }
+
+            .dropdown .dropdown-menu {
+                right: 0;
+                width: auto;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .logotype .h1,
+    .logotype svg {
+        transition: $stickyTransition all ease-in-out;
+    }
+
+    &.is-sticky-scroll {
+        .logotype .h1 {
+            font-size: 1.7em;
+        }
+
+        .logotype svg {
+            height: 40px;
+        }
+    }
+
+    &.navbar-fixed {
+        position: fixed;
+        z-index: $level-8;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    &.navbar-absolute {
+        position: absolute;
+        z-index: $level-8;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    &.is-sticky-scroll {
+        width: 100%;
+    }
+
+    ul a {
+        display: inline-block;
+        padding: 16px 0;
+        color: #fff;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    ul.nav-has-sublevel {
+        font-weight: bold;
+    }
+
+    ul.nav-has-sublevel a,
+    ul.nav-sublevel a {
+        padding: 10px 0;
+    }
+
+    ul button[data-load-submenu] {
+        display: none;
+    }
+
+    &:not(.navbar-transparent) .nav:not(.nav-dropdown) .current-menu-item > a,
+    &:not(.navbar-transparent) .nav:not(.nav-dropdown) .current-page-ancestor > a,
+    &:not(.navbar-transparent) .nav:not(.nav-dropdown) .current-menu-ancestor > a {
+        position: relative;
+        text-decoration: underline;
+
+        &::after {
+            bottom: 0;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #ffffff;
+            border-width: 8px;
+            margin-left: -5px;
+        }
+    }
+
+    &:not(.navbar-transparent) .nav-has-sublevel .current-menu-item.has-children > a,
+    &:not(.navbar-transparent) .nav-has-sublevel .current-page-ancestor.has-children > a,
+    &:not(.navbar-transparent) .nav-has-sublevel .current-menu-ancestor.has-children > a {
+        position: relative;
+        text-decoration: underline;
+
+        &::after {
+            bottom: 0;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: rgba(#fff, .2);
+            border-width: 8px;
+            margin-left: -5px;
+        }
+    }
+
+    .nav.nav-justify li {
+        padding-right: 16px;
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+
+
+    @media #{$screen-md-up} {
+        .menu-item-search {
+            float: right;
+        }
+    }
+}
+
+.navbar .nav-sublevel {
+    position: relative;
+
+    &::after {
+        content: '';
+        display: block;
+        background-color: rgba(#fff, .2);
+        width: 100vw;
+        height: 100%;
+        top: 0;
+        z-index: 1;
+        @include center(true, false);
+    }
+
+    li {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+@media #{$screen-md-up} {
+    .header-transparent .navbar {
+        background-color:  transparent;
+    }
+}
+
+.navbar-creamy {
+    background-color: $creamy;
+    padding: 0 10px;
+
+    a {
+        display: block;
+        padding: 10px 0;
+        font-size: .9em;
+        color: $base-font-color;
+    }
+
+    &.navbar-creamy-inner-shadow {
+        position: relative;
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 10px;
+            @include gradient(rgba(0,0,0,0), rgba(0,0,0,.1));
+        }
+    }
+}

@@ -1,0 +1,335 @@
+//
+// @name Post
+// @description A simple blog post
+//
+// @page Blog/Post
+//
+// @state .post-full - Shows the full post
+// @state .post-collapsed - Collapsed post (faded out content)
+// @state .post-compressed - Minimal post
+// @state .post-single - Single post
+//
+// @markup
+// <div class="post post-collapsed">
+//     <header class="post-header">
+//         <h1>Candy tootsie roll cookie</h1>
+//         <ul>
+//             <li class="post-author">
+//                 <span style="background-image:url('https:\/\/unsplash.it/200/300?image=1005');" class="post-author-image"><img alt="Baker Bakersson" src="https:\/\/unsplash.it/200/300?image=1005"></span>
+//                 <span class="post-author-name">Baker</span>
+//             </li>
+//             <li class="post-date">
+//                 <time>19 february, 2016 10:46</time>
+//             </li>
+//             <li class="post-comments">
+//                 <a href="#">Comments (0)</a>
+//             </li>
+//         </ul>
+//     </header>
+//     <article>
+//         <p>Dessert dessert I love powder sweet fruitcake soufflé bonbon. I love jelly beans carrot cake chupa chups lemon drops croissant lemon drops. I love cheesecake brownie oat cake topping candy canes caramels. Lemon drops bonbon gingerbread pastry I love dessert jujubes caramels ice cream. Topping sugar plum cookie tiramisu I love I love powder. Tiramisu bear claw candy cotton candy croissant macaroon bear claw. Chocolate bar cupcake halvah gummi bears I love.</p>
+//         <p>Sesame snaps bonbon fruitcake dragée pastry. Caramels icing cake lollipop donut liquorice. Sweet roll pudding gingerbread apple pie cheesecake I love caramels chocolate bar. Cheesecake apple pie muffin cake toffee lemon drops apple pie. Danish oat cake pastry sugar plum jelly chocolate bar pastry pudding. Sesame snaps jujubes soufflé liquorice cake.</p>
+//     </article>
+//     <footer class="grid-table">
+//         <div class="grid-md-6"><strong>Published:</strong> 2016-01-01</div>
+//         <div class="grid-md-6 text-right">Share</div>
+//     </footer>
+// </div>
+//
+
+.post {
+    .post-full, .post-compressed, .post-collapsed {
+        @include material-radius;
+        @include material-shadow;
+    }
+}
+
+.post-single {
+    .post-header ul {
+        margin: 5px 0 20px 0;
+    }
+
+    footer {
+        margin-top: $content-gutter * 2;
+        padding: 0;
+
+        [class*="grid-"] {
+            padding: 0;
+        }
+    }
+}
+
+.post-full {
+    border: 1px solid $creamy-darker;
+
+    .post-header {
+        padding: $content-gutter * 2;
+        padding-bottom: 0;
+    }
+
+    article {
+        padding: $content-gutter * 2;
+    }
+
+    footer {
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        padding: $content-gutter $content-gutter;
+    }
+}
+
+.post-compressed {
+    border: 1px solid $creamy-darker;
+
+    .post-header {
+        padding: $content-gutter * 2;
+        padding-bottom: 0;
+    }
+
+    article {
+        padding: $content-gutter * 2;
+    }
+
+    footer {
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        padding: $content-gutter $content-gutter;
+    }
+
+    .box {
+        padding: $content-gutter;
+    }
+
+    time {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+.post-collapsed {
+    border: 1px solid $creamy-darker;
+
+    .post-header {
+        padding: $content-gutter * 2;
+        padding-bottom: 0;
+    }
+
+    article {
+        padding: $content-gutter * 2;
+        max-height: 300px;
+        overflow: hidden;
+        position: relative;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2;
+
+            height: 80%;
+
+            @include gradient(rgba(#fff, 0), rgba(#fff, 1));
+        }
+    }
+
+    footer {
+        background-color: $creamy;
+        border-top: 1px solid $creamy-darker;
+        padding: $content-gutter $content-gutter;
+    }
+
+    &.post-expanded {
+        article {
+            max-height: none !important;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+.no-js .post-collapsed article {
+    max-height: none;
+    overflow: auto;
+
+    &:hover {
+        cursor: auto;
+    }
+
+    &::after {
+        display: none;
+    }
+}
+
+.post-horizontal {
+    padding: $content-gutter;
+    background-color: $creamy;
+    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.30);
+
+    @media #{$screen-md-up} {
+        padding: $content-gutter + 10;
+    }
+
+    &__content {
+        order: 2;
+
+        @media #{$screen-md-up} {
+            order: 0;
+        }
+
+        .post-header {
+            li {
+                font-size: 0.85em;
+                color: $palette-gray-4;
+            }
+        }
+
+        article {
+            font-size: 0.8em;
+            padding-top: $content-gutter - 5;
+            margin-bottom: $content-gutter - 5;
+
+            @media #{$screen-md-up} {
+                font-size: 0.9em;
+            }
+        }
+    }
+
+    &__image {
+        display: block;
+        background-size: cover;
+        width: 100%;
+        min-height: 230px;
+        height: auto;
+    }
+
+    &__content + &__image-container {
+        padding-bottom: $content-gutter - 5;
+
+        @media #{$screen-md-up} {
+            padding-bottom: 0;
+        }
+    }
+
+    footer {
+        padding-top: 1em;
+
+        .grid + .grid {
+            margin-top: $content-gutter;
+        }
+
+        .share .pricon {
+            font-size: 1em;
+        }
+    }
+}
+
+.post + .post {
+    margin-top: $content-gutter * 2;
+}
+
+.post-header {
+    h1, h2 {
+        padding-bottom: 0;
+    }
+
+    > ul {
+        font-size: .9em;
+
+        > li {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+
+            & + li {
+                &::before {
+                    display: inline-block;
+                    vertical-align: middle;
+                    content: '';
+                    width: 1px;
+                    height: 20px;
+                    background-color: $creamy-darker;
+                    margin: 0 10px;
+                }
+            }
+        }
+    }
+}
+
+.post-categories {
+    display: inline-block;
+
+    li {
+        display: inline-block;
+    }
+}
+
+.post-tags-wrapper + .post-categories-wrapper {
+    margin-top: 5px;
+}
+
+.post-categories-wrapper,
+.post-tags-wrapper {
+    font-size: .9em;
+
+    ul {
+        display: inline-block;
+    }
+}
+
+.post-author {
+    .post-author-image {
+        $image-size: 25px;
+
+        display: inline-block;
+        margin-right: 5px;
+        width: $image-size;
+        height: $image-size;
+        overflow: hidden;
+        border-radius: 50%;
+        vertical-align: middle;
+        position: relative;
+        top: -1.5px;
+
+        background-size: cover;
+        background-position: center center;
+
+        img {
+            display: none;
+        }
+    }
+
+    &.post-author-margin-left {
+        margin-left: 5px;
+    }
+}
+
+.post-footer {
+    font-size: .9em;
+}
+
+public.post {
+    .post-footer [class*="grid-"]:first-child {
+        padding-left: 0;
+    }
+
+    .post-footer [class*="grid-"]:last-child {
+        padding-right: 0;
+    }
+}
+
+.post-header .dropdown-open {
+    display: inline;
+}
+
+.post-settings-toggle {
+    color: $black;
+}

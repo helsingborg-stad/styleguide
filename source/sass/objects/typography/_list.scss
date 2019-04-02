@@ -1,0 +1,120 @@
+//
+// @name Unordered list
+// @description Stanrdard unordered list.
+//
+// @state .unordered-list - Applies the style to lists used outside <code>article</code>. There's no need to apply this class when using <code>ul</code> inside an <code>article</code>
+//
+// @page Typography/Unordered list
+//
+// @markup
+// <ul class="unordered-list">
+//     <li>Cupcake</li>
+//     <li>Brownie</li>
+//     <li>Gingerbread</li>
+// </ul>
+//
+
+.modularity-mod-text .box-content ul:not(.social-feed),
+.mce-content-body ul,
+article ul:not(.nav, .slider-items, .line-numbers, .player-playlist, .social-feed, .dropdown-menu, .image-gallery, .unlist),
+.unordered-list {
+    padding-left: $content-gutter * 2;
+
+    li {
+        position: relative;
+
+        & + li {
+            margin-top: 5px;
+        }
+
+        &::before {
+            position: absolute;
+            left: -20px;
+            top: .55em;
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: $palette-3;
+        }
+    }
+}
+
+
+article .mod-inlaylist ul.nav {
+    margin-top: 0;
+}
+
+article .modularity-mod-inlaylist ul {
+    padding-left: 0 !important;
+    margin-top: 0;
+
+    li::before {
+        display: none;
+    }
+}
+
+.modularity-mod-text .box-filled .box-content ul li::before {
+    background-color: #fff !important;
+}
+
+article + ul,
+article ul + ul,
+.unordered-list + .unordered-list {
+    margin-top: $content-gutter;
+}
+
+//
+// @name Ordered list
+// @description Stanrdard ordered list.
+//
+// @page Typography/Ordered list
+//
+// @markup
+// <ol class="ordered-list">
+//     <li>Cupcake</li>
+//     <li>Brownie</li>
+//     <li>Gingerbread</li>
+// </ol>
+//
+
+.mce-content-body ol,
+article ol,
+.ordered-list {
+    padding-left: $content-gutter * 2;
+    list-style-type: decimal;
+}
+
+li.title {
+    font-size: .8em;
+    font-weight: bold;
+    color: $palette-2;
+    letter-spacing: .5px;
+}
+
+li + li.title {
+    margin-top: 10px;
+}
+
+.list-hierarchical {
+    li > ul {
+        padding-left: 15px;
+    }
+}
+
+.list-item-spacing li + li {
+    margin-top: 8px;
+}
+
+.mod-contacts .accordion-content li::before {
+    background-color: transparent !important;
+}
+
+.mod-contacts .accordion-content ul {
+    padding-left: 0px !important;
+}
+
+.mod-contacts .accordion-content a:hover {
+    background-color:transparent !important;
+    overflow: auto !important;
+    width: unset;
+}

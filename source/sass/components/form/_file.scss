@@ -1,0 +1,65 @@
+//
+// @name File input
+// @description File upload input
+//
+// @page Forms/File
+//
+// @state .invalid - Invalid input value
+//
+// @markup
+// <div class="form-group">
+//     <label>Upload file(s)</label>
+//     <label class="input-file">
+//        <input type="file" name="file[]">
+//        <span>Select file…</span>
+//     </label>
+// </div>
+//
+
+.input-file {
+    display: inline-table;
+    position: relative;
+    table-layout: fixed;
+    background-color: $creamy;
+    border: 1px solid $creamy-darker;
+    padding: 3px;
+    border-radius: 3px;
+    max-width: 300px;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 50%;
+        @include gradient(rgba($creamy, 1), rgba($creamy, 0), to left);
+    }
+
+    input[type="file"] {
+        position: fixed;
+        top: -10000px;
+        left: -10000px;
+    }
+
+    span {
+        display: table-cell;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .input-file-selected {
+        font-weight: normal;
+        padding-left: 10px;
+    }
+}
+
+ul.input-files li + li {
+    margin-top: 10px;
+}
+
+.input-file + .input-file {
+    margin-top: 10px;
+}

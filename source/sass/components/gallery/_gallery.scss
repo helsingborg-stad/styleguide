@@ -1,0 +1,188 @@
+//
+// @name Modals
+// @description CSS only modal box (exception for positioning).
+// @author Sebastian Thulin
+//
+// @page Gallery/Image Grid
+//
+// @state .modal-backdrop-1 - Stripe color 1 as backdrop
+//
+// @markup
+// <ul class="image-gallery grid grid-gallery">
+//     <li class="grid-md-3">
+//         <a class="box lightbox-trigger" href="https:\/\/unsplash.it/2000/1400/?image=557">
+//             <img alt="Image alt text" src="https:\/\/unsplash.it/200/150/?image=577"/>
+//         </a>
+//      </li>
+//      <li class="grid-md-3">
+//         <a class="box lightbox-trigger" href="https:\/\/unsplash.it/2000/1400/?image=582" data-caption="Caption text Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.">
+//             <img alt="Image alt text" src="https:\/\/unsplash.it/200/150/?image=582"/>
+//         </a>
+//      </li>
+// </ul>
+
+/* Gallery styling */
+.image-gallery {
+	list-style: none;
+	padding: 0;
+
+	a, span {
+		display: block;
+		line-height: 0;
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	.popover {
+		z-index: $level-top;
+		display: none;
+		opacity: 0;
+		img {
+			display: none;
+		}
+	}
+}
+
+/* Gallery overflow */
+.gallery-hidden {
+	overflow: hidden;
+	position: relative;
+}
+
+/* The lightbox */
+#lightbox {
+	@include cover();
+	background: rgba(0,0,0,.7);
+	z-index: $level-top;
+	overflow: auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+.lightbox-image-wrapper {
+	@include center();
+	position: fixed;
+	max-width: 80%;
+	max-height: 80vh;
+	line-height: 0;
+	margin: 0;
+	cursor: default;
+
+	@media screen and #{$screen-xs} {
+		width: 98%;
+		height: auto;
+		max-width: initial;
+		max-height: initial;
+
+		@media all and (orientation:portrait) {
+			display: inline-block;
+			width: auto;
+			height: 100vh;
+		}
+	}
+
+	@media screen and #{$screen-sm} {
+		width: 90%;
+		height: auto;
+		max-width: initial;
+		max-height: initial;
+
+		@media all and (orientation:portrait) {
+			display: inline-block;
+			width: auto;
+			height: 90vh;
+		}
+	}
+
+	@media screen and #{$screen-md} {
+		width: 80%;
+		height: auto;
+		max-width: initial;
+		max-height: initial;
+
+		@media all and (orientation:portrait) {
+			display: inline-block;
+			width: auto;
+			height: 80vh;
+		}
+	}
+
+	@media screen and #{$screen-lg} {
+		width: 70%;
+		height: 70vh;
+		max-width: initial;
+		max-height: initial;
+
+		@media all and (orientation:portrait) {
+			display: inline-block;
+			width: auto;
+			height: 70vh;
+		}
+	}
+
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+
+	//Caption
+	&:after {
+		content: attr(data-caption);
+		line-height: $base-line-height;
+		padding: $grid-gutter-sm;
+		display: block;
+		text-align: center;
+		text-align: center;
+		width: 70%;
+		margin: 0 auto;
+		color: #fff;
+		text-shadow: 0 0 3px rgba(#000,.3);
+
+		@media screen and #{$screen-xs} {
+			width: 90%;
+		}
+	}
+
+	//Hide captions
+	&:not([data-caption]):after,
+	&[data-caption=""]:after {
+		display: none !important;
+	}
+
+	.btn-close {
+		position: absolute;
+	    top: 0;
+	    left: auto;
+	    height: 2em;
+	    width: 2em;
+	    margin: 1em .8em;
+	    line-height: 2em;
+	    text-align: center;
+	    padding: 0;
+	    font-size: 1em;
+	    text-shadow: 0 0 .2em rgba($black, .8);
+
+		&:after {
+			@include pricon($pricon-close-o);
+			@include cover();
+			font-size: 1.5em;
+			line-height: 1;
+			color: #fff;
+		}
+
+		@media screen and #{$screen-xs} {
+			top: .5em;
+			right: .5em;
+			width: 1.8em;
+			height: 1.8em;
+			margin: 0;
+			font-size: .8em;
+			line-height: .8em;
+		}
+	}
+}
+
+

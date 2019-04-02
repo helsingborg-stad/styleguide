@@ -1,0 +1,71 @@
+//
+// @name Search results
+// @description A list of search results.
+//
+// @page Search/Search results
+//
+// @markup
+// <ul class="search-result-list">
+//     <li>
+//         <div class="search-result-item">
+//             <span class="search-result-date">13 jan 2016</span>
+//             <h3><a href="#" class="link-item">Sweet roll brownie jelly</a></h3>
+//             <p>Jujubes oat cake sweet sugar plum cupcake. Bonbon pudding I love I love soufflé. Halvah I love pie pudding…</p>
+//             <div class="search-result-info">
+//                 <span class="search-result-url"><i class="fa fa-globe"></i> <a href="#">www.helsingborg.se/startsida/forskola-och-utbildning/forskola/</a></span>
+//             </div>
+//         </div>
+//     </li>
+//     <li>
+//         <div class="search-result-item">
+//             <span class="search-result-date">13 jan 2016</span>
+//             <h3><a href="#" class="link-item">Candy canes bear claw</a></h3>
+//             <p>Biscuit jujubes candy canes bear claw donut. I love tootsie roll I love cheesecake apple pie lollipop jelly. Marshmallow marzipan lemon drops dessert…</p>
+//             <div class="search-result-info">
+//                 <span class="search-result-url"><i class="fa fa-globe"></i> <a href="#">www.helsingborg.se/startsida/forskola-och-utbildning/forskola/</a></span>
+//             </div>
+//         </div>
+//     </li>
+// </ul>
+//
+
+.search-result-list {
+    .search-result-item  + .search-result-item {
+        margin-top: $content-gutter * 1.5;
+        padding-top: $content-gutter * 1.5;
+        border-top: 1px solid $creamy-darker;
+    }
+}
+
+
+ul.search-result-list {
+    margin: 32px 0;
+}
+ul.search-result-list li + li {
+    margin-top: 32px;
+}
+
+.search-result-item {
+    max-width: 700px;
+}
+
+.search-result-date {
+    font-size: .9em;
+}
+
+.search-result-info {
+    margin-top: 5px;
+}
+
+.search-result-url {
+    font-size: .9em;
+
+    .fa,
+    .pricon {
+        color: $gray-dark;
+    }
+
+    a {
+        color: $gray;
+    }
+}

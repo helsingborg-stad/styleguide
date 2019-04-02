@@ -1,0 +1,181 @@
+//
+// @name Label
+// @description Label a text with a filled background
+//
+// @page Typography/Label
+//
+// @state .label-tag - Adds arrow shape to label end
+//
+// @state .label-sm - Smaller label
+// @state .label-lg - Larger label
+//
+// @state .label-theme - Uses the current theme color
+// @state .label-red-1 - First color in red stripe (color 1-5 available)
+// @state .label-blue-1 - First color in blue stripe (color 1-5 available)
+// @state .label-green-1 - First color in green stripe (color 1-5 available)
+// @state .label-purple-1 - First color in purple stripe (color 1-5 available)
+//
+// @markup
+// I love tiramisu I love. Topping I love cake <span class="label label-red-2">carrot cake</span> fruitcake topping.
+//
+
+.label {
+    display: inline-block;
+    background-color: $creamy-darker;
+    color: $base-font-color;
+    padding: .45em .5em;
+    font-weight: normal;
+    border-radius: 3px;
+    line-height: 1;
+}
+
+.label-number {
+    position: relative;
+    top: -.1em;
+    vertical-align: middle;
+    text-align: center;
+    margin-right: .1em;
+    width: 1.2em;
+    height: 1.2em;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px solid;
+    color: $gray;
+    background-color: transparent;
+    line-height: 1;
+
+    em {
+        @include center(false, true);
+        left: 0;
+        width: 100%;
+        font-size: .7em;
+        font-weight: bold;
+    }
+}
+
+.label-rounded {
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1;
+
+    $padding: .5em;
+    padding-top: $padding / 2;
+    padding-bottom: $padding / 1.4;
+    padding-left: $padding;
+    padding-right: $padding;
+}
+
+.label-theme {
+    background-color: $palette-4;
+    color: #fff;
+}
+
+.label-sm {
+    font-size: .8em;
+}
+
+.label-lg {
+    font-size: 1.1em;
+    padding: .3em .6em;
+}
+
+.label-creamy {
+    background-color: $creamy;
+    border: 1px solid $creamy-darker;
+}
+
+.label-red-1 {
+    background-color: $palette-red-1;
+}
+
+.label-red-2 {
+    background-color: $palette-red-2;
+    color: #fff;
+}
+
+.label-red-3 {
+    background-color: $palette-red-3;
+    color: #fff;
+}
+
+.label-red-4 {
+    background-color: $palette-red-4;
+    color: #fff;
+}
+
+.label-red-5 {
+    background-color: $palette-red-5;
+    color: #fff;
+}
+
+.label-blue-1 {
+    background-color: $palette-blue-1;
+}
+
+.label-blue-2 {
+    background-color: $palette-blue-2;
+    color: #fff;
+}
+
+.label-blue-3 {
+    background-color: $palette-blue-3;
+    color: #fff;
+}
+
+.label-blue-4 {
+    background-color: $palette-blue-4;
+    color: #fff;
+}
+
+.label-blue-5 {
+    background-color: $palette-blue-5;
+    color: #fff;
+}
+
+.label-green-1 {
+    background-color: $palette-green-1;
+}
+
+.label-green-2 {
+    background-color: $palette-green-2;
+    color: #fff;
+}
+
+.label-green-3 {
+    background-color: $palette-green-3;
+    color: #fff;
+}
+
+.label-green-4 {
+    background-color: $palette-green-4;
+    color: #fff;
+}
+
+.label-green-5 {
+    background-color: $palette-green-5;
+    color: #fff;
+}
+
+.label-purple-1 {
+    background-color: $palette-purple-1;
+}
+
+.label-purple-2 {
+    background-color: $palette-purple-2;
+    color: #fff;
+}
+
+.label-purple-3 {
+    background-color: $palette-purple-3;
+    color: #fff;
+}
+
+.label-purple-4 {
+    background-color: $palette-purple-4;
+    color: #fff;
+}
+
+.label-purple-5 {
+    background-color: $palette-purple-5;
+    color: #fff;
+}

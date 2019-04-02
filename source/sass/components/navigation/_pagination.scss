@@ -1,0 +1,93 @@
+//
+// @name Pagination
+// @description Standard pagination.
+//
+// @page Navigation/Pagination
+//
+// @state .current - The currently active page number
+// @state .paging-lg - Bigger paging
+//
+// @markup
+// <ul class="pagination">
+//     <li><a class="prev" href="#">&laquo; Previous</a></li>
+//     <li><a class="page" href="#">1</a></li>
+//     <li class="ellipsis"></li>
+//     <li><a class="page" href="#">2</a></li>
+//     <li><a class="page current" href="#">3</a></li>
+//     <li><a class="page" href="#">4</a></li>
+//     <li class="ellipsis"></li>
+//     <li><a class="page" href="#">15</a></li>
+//     <li><a class="next" href="#">Next &raquo;</a></li>
+// </ul>
+//
+
+.pagination,
+.page-numbers {
+	$page-size: 30px;
+
+	li {
+		display: inline-block;
+		margin-right: 3px;
+		line-height: 3;
+	}
+
+	a {
+		background-color: #fff;
+	}
+
+	a,
+	.current {
+		@include material-radius;
+        @include material-shadow;
+
+		display: inline-block;
+		border: 1px solid $creamy-darker;
+		font-size: .85em;
+		text-align: center;
+		color: $gray-dark;
+		padding-left: 8px;
+		padding-right: 8px;
+
+		height: $page-size;
+		line-height: $page-size - 3px;
+
+		&:hover,
+		&:focus,
+		&.current {
+			background-color: $palette-2;
+			border-color: $palette-2;
+			color: #fff;
+			text-decoration: none;
+		}
+	}
+
+	a:not(.next):not(.prev), span:not(.next):not(.prev) {
+		width: $page-size;
+		height: $page-size;
+		line-height: $page-size - 3px;
+		padding: 0;
+	}
+
+	.ellipsis {
+		&:after {
+			content: "…";
+			display: inline-block;
+		}
+	}
+
+	.dots {
+		display: block;
+		font-size: .85em;
+	}
+}
+
+.pagination-lg {
+	$page-size: 40px;
+
+	a:not(.next):not(.prev) {
+		font-size: 1.1em;
+		height: $page-size;
+		width: $page-size;
+		line-height: $page-size - 3px;
+	}
+}

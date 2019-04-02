@@ -1,0 +1,15 @@
+.sally {
+    border-radius: 100%;
+    width: 64px;
+    height: 64px;
+    background-image: linear-gradient($palette-1, $palette-2);
+}
+
+.is-stand-by {
+    animation: sallyStandBy 4000ms infinite linear;
+}
+
+@keyframes sallyStandBy {
+    0%  {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}

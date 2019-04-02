@@ -1,0 +1,80 @@
+//
+// @name Spinner
+// @description Spinning loading incidator
+//
+// @page Utilities/Spinner
+//
+// @markup
+// <div class="spinner spinner-dark"></div>
+//
+
+.spinner {
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    border: .25em solid #fff;
+    border-top-color: rgba(#000, 0);
+    vertical-align: -15%;
+
+    animation: spin 1s infinite linear;
+}
+
+.spinner.spinner-dark {
+    border: .25em solid $base-font-color;
+    border-top-color: rgba(#000, 0);
+}
+
+.spinner-color {
+    border: .25em solid $palette-red-1;
+    border-top-color: rgba(#000, 0);
+
+    animation: spin-and-color 4s infinite linear;
+}
+
+div.spinner {
+    display: block;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin-and-color {
+    0% {
+        transform: rotate(0deg);
+        border: .25em solid $palette-red-1;
+        border-top-color: rgba(#000, 0);
+    }
+
+    25% {
+        transform: rotate(360deg);
+        border: .25em solid $palette-red-2;
+        border-top-color: rgba(#000, 0);
+    }
+
+    50% {
+        transform: rotate(720deg);
+        border: .25em solid $palette-red-3;
+        border-top-color: rgba(#000, 0);
+    }
+
+    75% {
+        transform: rotate(1080deg);
+        border: .25em solid $palette-red-4;
+        border-top-color: rgba(#000, 0);
+    }
+
+    100% {
+        transform: rotate(1440deg);
+        border: .25em solid $palette-red-1;
+        border-top-color: rgba(#000, 0);
+    }
+}

@@ -1,0 +1,205 @@
+//
+// @name Filled
+// @description Filled box. Typically used in sidebars. If used in a looping grid the filled boxes will be coloured according to the brand stripe colors.
+//
+// @page Boxes/Filled
+//
+// @state .box-filled-1 - Use the first stripe color as background-color
+// @state .box-filled-2 - Use the second stripe color as background-color
+// @state .box-filled-3 - Use the third stripe color as background-color
+// @state .box-filled-4 - Use the fourth stripe color as background-color
+// @state .box-filled-5 - Use the fifth stripe color as background-color
+//
+// @markup
+// <div class="box box-filled box-filled-3">
+//     <h4 class="box-title">Chupa chups</h4>
+//     <div class="box-content">
+//         <p>Candy canes donut jelly caramels chocolate cake chupa chups caramels wafer. I love tart danish croissant gummies gummi bears. Tiramisu croissant cheesecake chocolate cake.</p>
+//     </div>
+// </div>
+// <div class="box box-filled box-filled-4">
+//     <h4 class="box-title">Chupa cis</h4>
+//     <div class="box-content">
+//         <p><img src="https:\/\/unsplash.it/1000/600/?image=446" width="1000" height="600" alt="This will be smaller than orginal size."/></p>
+//         <p>Candy canes donut jelly caramels chocolate cake chupa chups caramels wafer. I love tart danish croissant gummies gummi bears. Tiramisu croissant cheesecake chocolate cake.</p>
+//     </div>
+// </div>
+//
+
+.box-filled {
+    @include box-filled;
+    color: #fff;
+
+    a, .link-item {
+        text-decoration: underline;
+    }
+
+    .title + .date {
+        display: block;
+    }
+
+    [class*="text-"] {
+        color: #fff;
+    }
+}
+
+.box-filled {
+    .box-title + ul,
+    .box-title + div,
+    .box-title + p {
+        padding-top: $content-gutter;
+    }
+}
+
+.box-filled .box-index-title {
+    color: #fff !important;
+}
+
+.box-filled .box-index-title.link-item::before {
+    color: rgba(255,255,255,.7);
+}
+
+.box-filled-card {
+    .box-content {
+        padding: 1em 1.5em;
+        font-size: 1em;
+    }
+}
+
+.box-filled-1,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 1) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 1) .box-filled {
+    background-color: $palette-1-safe;
+}
+
+.box-filled-2,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 2) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 2) .box-filled {
+    background-color: $palette-2-safe;
+}
+
+.box-filled-3,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 3) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 3) .box-filled {
+    background-color: $palette-3-safe;
+}
+
+.box-filled-4,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 4) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 4) .box-filled {
+    background-color: $palette-4-safe;
+}
+
+.box-filled-5,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 5) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 5) .box-filled {
+    background-color: $palette-5-safe;
+}
+
+
+.box-filled-red-1.box-filled-red-1 {
+    background-color: $palette-red-1;
+}
+
+.box-filled-red-2.box-filled-red-2 {
+    background-color: $palette-red-2;
+}
+
+.box-filled-red-3.box-filled-red-3 {
+    background-color: $palette-red-3;
+}
+
+.box-filled-red-4.box-filled-red-4 {
+    background-color: $palette-red-4;
+}
+
+.box-filled-red-5.box-filled-red-5 {
+    background-color: $palette-red-5;
+}
+
+.box-filled-blue-1.box-filled-blue-1 {
+    background-color: $palette-blue-1;
+}
+
+.box-filled-blue-2.box-filled-blue-2 {
+    background-color: $palette-blue-2;
+}
+
+.box-filled-blue-3.box-filled-blue-3 {
+    background-color: $palette-blue-3;
+}
+
+.box-filled-blue-4.box-filled-blue-4 {
+    background-color: $palette-blue-4;
+}
+
+.box-filled-blue-5.box-filled-blue-5 {
+    background-color: $palette-blue-5;
+}
+
+.box-filled-green-1.box-filled-green-1 {
+    background-color: $palette-green-1;
+}
+
+.box-filled-green-2.box-filled-green-2 {
+    background-color: $palette-green-2;
+}
+
+.box-filled-green-3.box-filled-green-3 {
+    background-color: $palette-green-3;
+}
+
+.box-filled-green-4.box-filled-green-4 {
+    background-color: $palette-green-4;
+}
+
+.box-filled-green-5.box-filled-green-5 {
+    background-color: $palette-green-5;
+}
+
+.box-filled-purple-1.box-filled-purple-1 {
+    background-color: $palette-purple-1;
+}
+
+.box-filled-purple-2.box-filled-purple-2 {
+    background-color: $palette-purple-2;
+}
+
+.box-filled-purple-3.box-filled-purple-3 {
+    background-color: $palette-purple-3;
+}
+
+.box-filled-purple-4.box-filled-purple-4 {
+    background-color: $palette-purple-4;
+}
+
+.box-filled-purple-5.box-filled-purple-5 {
+    background-color: $palette-purple-5;
+}
+
+
+
+
+.box-filled-1,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 1) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 1) .box-filled,
+.box-filled-2,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 2) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 2) .box-filled,
+.box-filled-3,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 3) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 3) .box-filled,
+.box-filled-4,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 4) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 4) .box-filled,
+.box-filled-5,
+.sidebar-right-sidebar [class*="grid-"]:nth-child(5n + 5) .box-filled,
+.sidebar-left-sidebar [class*="grid-"]:nth-child(5n + 5) .box-filled {
+    @media print {
+        background-color: transparent !important;
+        color: $base-font-color !important;
+    }
+}
+
+
+

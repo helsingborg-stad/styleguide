@@ -1,0 +1,136 @@
+//
+// @name Section split
+// @description Split section in two parts where the majority is kept for the content. The image adapts to the remaining surface. All "boxes" is compatible to embed inside .grid class.
+//
+// @page Section/Split
+//
+// @state .section-sm/md/lg - Sets a minimum height on the section. Aproxmently 60px, 40% 100%.
+// @state .padding-sm/md/lg - Sets a padding on the area.
+// @state .image-left/right - Where to place the image in the split view
+// @state .image-focus-right-top - Sets focal point of the image. Supports standard placement. Refer to the css documentation.
+// @state .background-color-1 - A background color for the text.
+// @state .text-top/middle/bottom - Where to place the text vertically.
+//
+//
+// @markup
+// <section class="section section-split image-focus-right-top image-left text-middle background-1 section-md padding-md text-md">
+//     <div class="section-image-mobile hidden-md hidden-lg ratio-16-9" style="background-image: url(https:\/\/unsplash.it/800/450?image=1001);"></div>
+//     <div class="container">
+//     <div class="grid">
+//      <div class="grid-xs-12 grid-md-7 grid-lg-6">
+//          <div class="vertical-alignment-wrapper">
+//              <article class="section-article">
+//                  <h2 class="section-title">Cheesecake chocolate cake</h2>
+//                  <div class="section-text">
+//                      <p>Chocolate bar jujubes pastry halvah. Jujubes soufflé cotton candy. Liquorice bear claw carrot cake. Sesame snaps dessert sesame snaps donut soufflé danish bonbon. Toffee powder macaroon tiramisu apple pie sweet donut.</p>
+//                      <p><a class="btn btn-lg btn-btn" href="https:\/\/www.youtube.com/watch?v=ug4c2mqlE_0">Cotton candy donut</a></p>
+//                  </div>
+//              </article>
+//          </div>
+//      </div>
+//     </div>
+//     </div>
+//     <div class="section-image hidden-xs hidden-sm" style="background-image: url(https:\/\/unsplash.it/500/600?image=1001);" data-equal-item></div>
+// </section>
+
+.section-split {
+
+    .section-article {
+        max-width: 700px;
+        margin: auto;
+    }
+
+    @media screen and #{$screen-below-md} {
+
+        &.padding-sm .section-article,
+        &.padding-md .section-article,
+        &.padding-lg .section-article {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        &.section-sm .section-article,
+        &.section-md .section-article,
+        &.section-lg .section-article {
+            min-height: 0;
+        }
+    }
+
+    @media screen and #{$screen-md-up} {
+        .section-article {
+            padding-left: $content-gutter * 4;
+            padding-right: $content-gutter * 4;
+        }
+
+        &:after,
+        .section-image {
+            content: "";
+            z-index: 5;
+            background-color: $creamy;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+
+    @media screen and #{$screen-below-md} {
+        .btn {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    .section-image {
+        z-index: 7;
+        background-color: inherit;
+    }
+
+    .section-image-mobile {
+        background-size: cover;
+    }
+
+    .section-submodules {
+        margin-top: $grid-gutter-md;
+    }
+
+    /* Image alignment */
+
+    &.image-left {
+        .grid {
+            justify-content: flex-end;
+        }
+    }
+
+    &.image-right {
+        .grid {
+            justify-content: flex-start;
+        }
+    }
+
+    /* Height inherit */
+
+    @media screen and #{$screen-md-up} {
+        > .container {
+            height: inherit;
+            > .grid {
+                height: inherit;
+                > div {
+                    height: inherit;
+                }
+            }
+        }
+    }
+
+    /* Vertical alignment */
+
+    &.text-middle .content-grid {
+        align-items: center;
+    }
+
+    &.text-top .content-grid {
+        align-items: flex-start;
+    }
+
+    &.text-bottom .content-grid {
+        align-items: flex-end;
+    }
+}

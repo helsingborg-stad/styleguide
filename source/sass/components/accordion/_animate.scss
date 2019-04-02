@@ -1,0 +1,23 @@
+
+	.accordion:not(.no-animation) {
+
+		.accordion-content {
+			animation: accordion-fade-in 500ms;
+			opacity: 0;  
+		}
+
+	}
+	
+	@keyframes accordion-fade-in {
+	  0% {
+	    display: none;
+	    opacity: 0;
+	  }
+	  1% {
+	    display: block;
+	    opacity: 0;
+	  }
+	  100% {
+	    opacity: 1;
+	  }
+	}

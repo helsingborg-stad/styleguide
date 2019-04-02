@@ -1,0 +1,110 @@
+/**
+ * Top level
+ */
+.header-business .nav-dropdown > li,
+.header-casual .nav-dropdown > li {
+    padding: 0 !important;
+
+    a {
+        padding: $content-gutter;
+    }
+}
+.nav-dropdown > li > ul.sub-menu {
+    display: none;
+    position: absolute;
+    z-index: $level-top;
+    top: 100%;
+    left: 0;
+}
+
+.nav-dropdown > li.menu-item-has-children,
+.nav-dropdown > li.has-children {
+    > a {
+        position: relative;
+        padding-right: $content-gutter * 3;
+
+        &::after {
+            @include pricon($pricon-caret-down);
+            position: absolute;
+            right: $content-gutter;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+        }
+    }
+
+    &:hover {
+        background-color: darken($palette-4, 10%);
+    }
+}
+
+.nav-dropdown > li:hover > ul.sub-menu {
+    display: block;
+}
+
+.nav-dropdown > li {
+    position: relative;
+}
+
+.nav-dropdown ul.sub-menu {
+    background-color: darken($palette-4, 8%);
+}
+
+/**
+ * Sub menu
+ */
+.nav-dropdown ul.sub-menu {
+    width: 250px;
+
+    li {
+        display: block;
+        padding: 0;
+        position: relative;
+
+        ul.sub-menu {
+            display: none;
+        }
+    }
+
+    li.menu-item-has-children > a,
+    li.has-children > a {
+        position: relative;
+        padding-right: $content-gutter * 3;
+
+        &::after {
+            @include pricon($pricon-caret-right);
+            position: absolute;
+            right: $content-gutter;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+        }
+    }
+
+    li:hover > ul.sub-menu {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 100%;
+    }
+
+    li:first-child {
+        padding-top: 5px;
+    }
+
+    li:last-child {
+        padding-bottom: 5px;
+    }
+
+    a {
+        display: block;
+        padding: 5px $content-gutter;
+    }
+
+    li.current > a,
+    li.current-menu-item > a {
+        &::after {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+@mixin textrendering() {
+    text-rendering: geometricPrecision;
+    font-feature-settings: "kern" 1;
+    font-smoothing: antialiased;
+}
+
+@mixin antialias {
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

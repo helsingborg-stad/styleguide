@@ -1,0 +1,275 @@
+//
+// @name Pricons
+// @description Iconfont (credit: <a href="http:\/\/iconmonstr.com/">Iconmonstr.com</a>)
+// @author Kristoffer Svanmark
+//
+// @page Icons/Pricons
+//
+// @state .<%= className %>-space-right - Adds space to the right of the icon
+// @state .<%= className %>-xs - Extra small icon
+// @state .<%= className %>-sm - Small icon
+// @state .<%= className %>-lg - Large icon
+// @state .<%= className %>-2x - 2x size
+// @state .<%= className %>-3x - 3x size
+// @state .<%= className %>-4s - 4x size
+// @state .<%= className %>-5x - 5x size
+// @state .<%= className %>-fw - Fixed width
+//
+// @markup
+// <% _.each(glyphs, function(glyph) { %><i class="<%= className %> <%= className %>-<%= glyph.name %>"></i> <%= className %>-<%= glyph.name %><br>
+// <% }); %>
+//
+@font-face {
+    font-family: "<%= fontName %>";
+    src: url('<%= fontPath %><%= fontName %>.eot');
+    src: url('<%= fontPath %><%= fontName %>.eot?#iefix') format('eot'),
+         url('<%= fontPath %><%= fontName %>.woff2') format('woff2'),
+         url('<%= fontPath %><%= fontName %>.woff') format('woff'),
+         url('<%= fontPath %><%= fontName %>.ttf') format('truetype'),
+         url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.<%= className %> {
+    line-height: 1;
+}
+
+.<%= className %>::before {
+    display: inline-block;
+    font: normal normal normal 14px/1 <%= fontName %>;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.<%= className %>-space-right::before {
+    margin-right: .5em;
+}
+
+//
+// @name Icon badge
+// @description
+// @author Kristoffer Svanmark
+//
+// @page Icons/Icon badge
+//
+// @markup
+// <i class="pricon pricon-badge pricon-badge-red-1 pricon-4x pricon-dog"></i>
+//
+.<%= className %>-badge {
+    $badge-size: 1.5em;
+    $line-height: 1;
+    display: inline-block;
+    position: relative;
+    width: $badge-size;
+    height: $badge-size;
+
+    background-color: $palette-gray-2;
+
+    border-radius: 50%;
+    text-align: center;
+    line-height: $line-height;
+    color: #fff;
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        color: #fff;
+    }
+}
+
+.<%= className %>-badge-theme {
+    background-color: $palette-2;
+}
+
+/* Badge colors */
+.<%= className %>-badge-red-1,
+.<%= className %>-badge-red-1::before {
+    background-color: $palette-red-1;
+}
+
+.<%= className %>-badge-red-2,
+.<%= className %>-badge-red-2::before {
+    background-color: $palette-red-2;
+}
+
+.<%= className %>-badge-red-3,
+.<%= className %>-badge-red-3::before {
+    background-color: $palette-red-3;
+}
+
+.<%= className %>-badge-red-4,
+.<%= className %>-badge-red-4::before {
+    background-color: $palette-red-4;
+}
+
+.<%= className %>-badge-red-5,
+.<%= className %>-badge-red-5::before {
+    background-color: $palette-red-5;
+}
+
+.<%= className %>-badge-blue-1,
+.<%= className %>-badge-blue-1::before {
+    background-color: $palette-blue-1;
+}
+
+.<%= className %>-badge-blue-2,
+.<%= className %>-badge-blue-2::before {
+    background-color: $palette-blue-2;
+}
+
+.<%= className %>-badge-blue-3,
+.<%= className %>-badge-blue-3::before {
+    background-color: $palette-blue-3;
+}
+
+.<%= className %>-badge-blue-4,
+.<%= className %>-badge-blue-4::before {
+    background-color: $palette-blue-4;
+}
+
+.<%= className %>-badge-blue-5,
+.<%= className %>-badge-blue-5::before {
+    background-color: $palette-blue-5;
+}
+
+.<%= className %>-badge-green-1,
+.<%= className %>-badge-green-1::before {
+    background-color: $palette-green-1;
+}
+
+.<%= className %>-badge-green-2,
+.<%= className %>-badge-green-2::before {
+    background-color: $palette-green-2;
+}
+
+.<%= className %>-badge-green-3,
+.<%= className %>-badge-green-3::before {
+    background-color: $palette-green-3;
+}
+
+.<%= className %>-badge-green-4,
+.<%= className %>-badge-green-4::before {
+    background-color: $palette-green-4;
+}
+
+.<%= className %>-badge-green-5,
+.<%= className %>-badge-green-5::before {
+    background-color: $palette-green-5;
+}
+
+.<%= className %>-badge-purple-1,
+.<%= className %>-badge-purple-1::before {
+    background-color: $palette-purple-1;
+}
+
+.<%= className %>-badge-purple-2,
+.<%= className %>-badge-purple-2::before {
+    background-color: $palette-purple-2;
+}
+
+.<%= className %>-badge-purple-3,
+.<%= className %>-badge-purple-3::before {
+    background-color: $palette-purple-3;
+}
+
+.<%= className %>-badge-purple-4,
+.<%= className %>-badge-purple-4::before {
+    background-color: $palette-purple-4;
+}
+
+.<%= className %>-badge-purple-5,
+.<%= className %>-badge-purple-5::before {
+    background-color: $palette-purple-5;
+}
+
+/* Size modifiers */
+.<%= className %>-xs {
+    font-size: .6em;
+    vertical-align: 12%;
+}
+
+.<%= className %>-sm {
+    font-size: .8em;
+    vertical-align: 5%;
+}
+
+.<%= className %>-lg {
+    font-size: 1.3333333333333333em;
+    vertical-align: -5%;
+}
+
+.<%= className %>-2x {
+    font-size: 2em;
+    vertical-align: -10%;
+}
+
+.<%= className %>-3x {
+    font-size: 3em;
+    vertical-align: -12%;
+}
+
+.<%= className %>-4x {
+    font-size: 4em;
+    vertical-align: -15%;
+}
+
+.<%= className %>-5x {
+    font-size: 5em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-6x {
+    font-size: 6em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-7x {
+    font-size: 7em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-8x {
+    font-size: 8em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-9x {
+    font-size: 9em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-10x {
+    font-size: 10em;
+    vertical-align: -18%;
+}
+
+.<%= className %>-fw {
+    width: 1.2857142857142858em;
+    text-align: center;
+}
+
+/* Icon variables */
+<% _.each(glyphs, function(glyph) { %>$pricon-<%= glyph.name %>: "\<%= glyph.unicode[0].charCodeAt(0).toString(16).toUpperCase() %>";
+<% }); %>
+
+/* Glyphs */
+<% _.each(glyphs, function(glyph) { %>.<%= className %>-<%= glyph.name %>:before { content: $pricon-<%= glyph.name %> }
+<% }); %>
+
+/* Mixin */
+@mixin <%= className %>($icon, $vertical-align: -15%) {
+    font-family: <%= fontName %>;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: $vertical-align;
+    content: $icon;
+}

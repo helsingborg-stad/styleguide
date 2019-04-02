@@ -1,0 +1,59 @@
+// ***************************************************************
+// *** Absolute center
+// *** Centers any element horizontally, vertically or both depending on params
+// *** @param bool $horizontal
+// *** @param bool $vertical
+// ***************************************************************
+@mixin center($horizontal: true, $vertical: true) {
+    position: absolute;
+
+    @if ($horizontal and $vertical) {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    } @else if ($horizontal) {
+        left: 50%;
+        transform: translate(-50%, 0);
+    } @else if ($vertical) {
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+}
+
+// ***************************************************************
+// *** Absolute cover
+// *** Fills the entire screen
+// ***************************************************************
+@mixin cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+// ***************************************************************
+// *** Aspect ratio
+// *** Creates sizing elements that keeps the given aspect ratio
+// ***************************************************************
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    > .content,
+    > iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+}

@@ -1,0 +1,201 @@
+//
+// @name Image upload
+// @description Drag and drop ui for image uploading
+//
+// @page Forms/Image upload
+//
+// @markup
+// <div class="image-upload">
+//     <div class="placeholder">
+//         <span class="fa-stack fa-2x">
+//             <i class="fa fa-picture-o fa-stack-2x"></i>
+//             <i class="fa fa-plus-circle fa-stack-1x"></i>
+//         </span>
+//         <div class="placeholder-text">
+//             <span class="placeholder-text-drag">Drag a photo here</span>
+//             <span class="placeholder-text-browse">
+//                 <em class="placeholder-text-or">or</em>
+//                 <button class="btn btn-secondary">Select a photo</button>
+//             </span>
+//         </div>
+//     </div>
+// </div>
+//
+
+.image-upload {
+    position: relative;
+    padding: 30px;
+    overflow: hidden;
+
+    background-color: $creamy;
+    border: 2px dashed $creamy-darker;
+    border-radius: 5px;
+
+    transition: 300ms background-color;
+
+    &.is-dragover {
+        background-color: lighten($palette-blue-5, 50%);
+        border-color: lighten($palette-blue-5, 40%);
+
+        .placeholder:not(.placeholder-is-dragover) {
+            opacity: 0;
+        }
+
+        .placeholder-is-dragover {
+            display: block;
+            opacity: 1;
+            animation: 300ms fallDown ease-in-out 1;
+        }
+    }
+
+    &.is-selected {
+        background-color: lighten($palette-green-5, 50%);
+        border-color: lighten($palette-green-5, 40%);
+
+        &.selected-file {
+            display: block;
+            animation: 500ms 200ms scaleIn ease-in-out forwards;
+        }
+
+        .placeholder {
+            opacity: 0;
+        }
+    }
+
+    &.is-error {
+        background-color: lighten($palette-red-5, 50%);
+        border-color: lighten($palette-red-5, 40%);
+    }
+
+    .selected-file {
+        display: none;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        opacity: 0;
+
+        background-size: cover;
+        background-position: center center;
+    }
+
+    &[data-preview-image] .selected-file {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+    }
+
+    &[data-preview-image].is-selected .selected-file {
+        animation: 500ms 200ms fadeIn ease-in-out forwards;
+        display: block;
+    }
+
+    .placeholder-is-dragover {
+        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+
+    .placeholder {
+        @include center(false, true);
+        text-align: center;
+        transition: 300ms all;
+        width: 100%;
+        left: 0;
+
+        .placeholder-text-drag,
+        .placeholder-text-browse {
+            display: block;
+        }
+
+        .placeholder-text span:first-child {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        @media #{$screen-below-md} {
+            .placeholder-text-drag,
+            .placeholder-text-or {
+                display: none;
+            }
+
+            .placeholder-text-browse {
+                margin-top: 8px;
+            }
+        }
+
+        .fa-plus-circle {
+            position: relative;
+            color: $palette-green-2;
+            left: 1.1em;
+            top: -0.8em;
+
+            &::after {
+                display: block;
+                content: '';
+                background-color: #fff;
+                width: 30%;
+                height: 30%;
+                @include center();
+                z-index: 0;
+            }
+
+            &::before {
+                position: relative;
+                z-index: 3;
+            }
+        }
+
+        .fa-picture-o {
+            color: $gray-dark;
+        }
+
+        button,
+        .btn-select-file {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    }
+}
+
+@keyframes fallDown {
+    0% {
+        top: 0;
+    }
+    70% {
+        top: 60%;
+    }
+    100% {
+        top: 50%;
+    }
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: translateY(-50%) scale(3);
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

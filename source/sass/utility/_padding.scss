@@ -1,0 +1,47 @@
+// ==========================================================================
+// Padding Utility
+//
+//
+// SYNTAX: u-p{sides}-{size}@{mediaQuery}
+//
+// Sides:
+// t - Top
+// b - Bottom
+// l - Left
+// r - Right
+// x - left & right
+// y - top & bottom
+// blank - all sides
+//
+//
+// Example
+// .u-pt-0 {
+//      padding-top: 0px !important;
+// }
+// .u-px-0 {
+//      padding-left: 0px !important;
+//      padding-right: 0px !important;
+// }
+// ==========================================================================
+@include mixLoopStyles(
+    '.u-p',
+    (
+        '-0'    : (padding: 0px !important),
+        '-1'    : (padding: $baseline !important),
+        '-2'    : (padding: $baseline * 2!important),
+        '-3'    : (padding: $baseline * 3 !important),
+        '-4'    : (padding: $baseline * 4 !important),
+        '-5'    : (padding: $baseline * 5 !important),
+        '-6'    : (padding: $baseline * 6 !important),
+        '-7'    : (padding: $baseline * 7 !important),
+        '-8'    : (padding: $baseline * 8 !important)
+    ),
+    (
+        'x' : ('padding-left', 'padding-right'),
+        'y' : ('padding-top', 'padding-bottom'),
+        'l' : 'padding-left',
+        'r' : 'padding-right',
+        't' : 'padding-top',
+        'b' : 'padding-bottom',
+    )
+);

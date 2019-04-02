@@ -1,0 +1,93 @@
+//Baseline
+$baseline: 8px !default;
+
+//Space
+$space: $baseline * 4 !default; //32px
+$space-lg: $baseline * 8 !default; //64px
+$space-md: $space-lg - $space !default; //48px
+
+//Colors
+$color-primary: $palette-4 !default;
+$color-primary-2: $palette-5 !default;
+$color-primary-3: $palette-3 !default;
+
+$color-secondary: $palette-1 !default;
+$color-secondary-2: $palette-2 !default;
+
+$color-dark: rgba(#000000, 0.95) !default;
+$color-dark-muted: rgba(#000000, 0.60) !default;
+$color-dark-disabled:rgba(#000000, 0.38) !default;
+
+$color-light: rgba(#FFFFFF, 1) !default;
+$color-light-muted: rgba(#FFFFFF, 0.7) !default;
+$color-light-disabled: rgba(#FFFFFF, 0.5) !default;
+
+$color-gray: #979797 !default;
+$color-gray-dark: #464646 !default;
+$color-gray-light: #7f7f7f !default;
+
+$color-creamy: #f4f4f4 !default;
+$color-creamy-darker: #e5e5e5 !default;
+
+$color-danger: #FFD700 !default;
+$color-warning: #e3000f !default;
+$color-info: #b1f5ff !default;
+$color-success: #11a636 !default;
+
+//Color map
+$colorMap: (
+    'primary': (
+        'base' : $color-primary,
+        'muted' : $color-primary,
+        'disabled' : $color-primary,
+        'hover' : darken($color-primary, 5%),
+    ),
+    'secondary': (
+        'base' : $color-secondary,
+        'muted' : $color-secondary,
+        'disabled' : $color-secondary,
+        'hover' : darken($color-secondary, 5%),
+    )
+) !default;
+
+//Typography
+$base-font-family: system, "Segoe UI", Tahoma, -apple-system !default; // Using local fonts (localfont.scss)
+$code-font-family: 'Fira Sans', 'Monaco', 'Consolas', 'Menlo', 'Lucida Console', 'Courier New', 'Courier', 'Console' !default; //Puhh, i think i got them all!
+
+$root-font-size: 100% !default;
+
+$base-font-size: 16px !default;
+$base-line-height: 1.5 !default;
+$base-font-weight: 1.5 !default;
+$base-color: $color-dark !default;
+
+$small-font-size: 15px !default;
+$small-line-height: 1.5 !default;
+
+$large-font-size: 19px !default;
+$large-line-height: 1.2 !default;
+
+$link-color: $color-primary !default;
+$link-color-hover: lighten($link-color, 20%) !default;
+
+//Breakpoints
+$breakpoints-map: (
+    xs : 0,         //0px
+    sm : 32.5em,    //520px
+    md : 56em,      //980px
+    lg : 78em,      //1248px
+    xl : 100em      //1600px
+) !default;
+
+//Grid
+$grid-columns: 12 !default;
+$grid-breakpoints: map-keys($breakpoints-map) !default;
+$grid-gutters: (
+    xs : $baseline,
+    sm : $baseline * 4
+) !default;
+
+
+//HBG MIX variables
+$mix-mq-breakpoints: $breakpoints-map;
+$mix-color-map: $colorMap;

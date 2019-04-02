@@ -1,0 +1,370 @@
+//
+// @name Navigation
+// @description Vertical navigation a.k.a sidebar navigation with nestled sub menu support.
+// @author Kristoffer Svanmark, Sebastian Thulin
+//
+// @page Navigation/Sidebar navigation
+//
+// @state .has-children - Indicates if a menu item has children (sub menu)
+// @state .current-node - Indicates the currently active parent node
+// @state .current - Indicates currently active menu item
+//
+// @markup
+// <nav>
+//     <ul class="nav-aside">
+//         <li><a href="#">Sweet apple pie</a></li>
+//         <li class="has-children"><a href="#">Chocolate bar</a></li>
+//         <li class="current-node has-children">
+//             <a href="#">Marshmallow</a>
+//             <ul class="sub-menu">
+//                 <li><a href="#">Caramels</a></li>
+//                 <li class="current"><a href="#">Sweet roll.</a></li>
+//                 <li><a href="#">Ice cream</a></li>
+//             </ul>
+//         </li>
+//         <li><a href="#">Pudding</a></li>
+//     </ul>
+// </nav>
+//
+
+// ***************************************************************
+// *** Sidebar navigation
+// ***************************************************************
+
+.nav-aside,
+.nav-mobile {
+    border: 1px solid $creamy;
+
+    li {
+        position: relative;
+    }
+
+    li > span {
+        position: relative;
+        display: block;
+    }
+
+    li.has-sub-menu > span {
+        padding-right: 40px;
+    }
+
+    li + li {
+        border-top: 1px solid $creamy;
+    }
+
+    li.menu-item-search {
+        display: none; //Search always avabile in menu
+    }
+
+    a {
+        display: block;
+        padding: 8px 16px;
+        font-size: 15px;
+        color: $base-font-color;
+        text-decoration: none;
+        position: relative;
+        transition: 300ms background;
+        word-wrap: break-word;
+
+        &:hover {
+            color: $palette-4;
+            background: $creamy;
+        }
+    }
+
+    // Indicates if a item has children
+    .has-children,
+    .has-sub-menu,
+    .page_item_has_children,
+    .menu-item-has-children {
+        > div {
+            display: flex;
+            align-items: stretch;
+            position: relative;
+        }
+
+        > div > [data-load-submenu] {
+            height: 100%;
+        }
+
+        > div > a {
+            width: 100%;
+        }
+
+        a {
+            padding-right: 48px;
+        }
+
+        /*> a::after {
+            position: absolute;
+            right: 10px;
+            top: 11px;
+            @include pricon($pricon-plus-o);
+            font-size: 1em;
+            color: $gray-light;
+        }*/
+    }
+
+    [data-load-submenu] {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: transparent;
+        border: none;
+        font-size: 1em;
+        cursor: pointer;
+
+        border-bottom: none;
+        height: 38px;
+        width: 40px;
+        overflow: hidden;
+
+        .icon {
+            display: inline-block;
+            line-height: 0;
+            font-size: 18px;
+        }
+
+        .icon::after {
+            @include pricon($pricon-caret-down);
+            font-size: .7em;
+            color: $black;
+        }
+    }
+
+    .is-expanded > [data-load-submenu],
+    .is-expanded > div > [data-load-submenu] {
+        .icon::after {
+            @include pricon($pricon-caret-up);
+        }
+    }
+
+    .is-expanded > .sub-menu {
+        display: block;
+    }
+
+    .is-loading > [data-load-submenu],
+    .is-loading > div > [data-load-submenu] {
+        .icon {
+            animation: 500ms spinme infinite;
+        }
+
+        .icon::after {
+            font-size: .8em;
+            @include pricon($pricon-loading-o);
+        }
+    }
+    .is-expanded .icon{
+        animation: unset;
+    }
+    // Indicates currently active menu item that has children
+    .has-children.current,
+    .has-children.current-node,
+    .has-children.current-ancestor,
+    .menu-item-has-children.current-menu-item,
+    .menu-item-has-children.current-menu-ancestor {
+        > a::after {
+            position: absolute;
+            right: 13px;
+            top: 14px;
+            @include pricon($pricon-caret-down);
+            font-size: 1em;
+            color: $gray-light;
+        }
+
+        > .sub-menu,
+        > .children,
+        > .span > .sub-menu {
+            display: block;
+        }
+    }
+
+    .current,
+    .current-menu-item > a {
+        color: $palette-4;
+    }
+
+    .sub-menu .current,
+    .sub-menu .current-menu-item {
+        > a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            bottom: 0;
+            width: 8px;
+            display: block;
+            background-color: $palette-4;
+        }
+    }
+
+    // Sub menu
+    .sub-menu,
+    .children {
+        display: none;
+        border-top: 1px solid $creamy;
+        border-left: 8px solid $creamy;
+    }
+}
+
+.nav-aside {
+    margin-bottom: $baseline * 4;
+
+    [data-load-submenu] {
+        outline: 1px solid $creamy;
+    }
+
+    .is-expanded:not(.is-loading) > [data-load-submenu],
+    .is-expanded:not(.is-loading) > div > [data-load-submenu] {
+        background-color: $creamy;
+    }
+}
+
+.nav-mobile {
+    .current,
+    .current-menu-item > a {
+        color: #fff !important;
+    }
+}
+
+// ***************************************************************
+// *** Menu icons
+// ***************************************************************
+
+$nav-duration: 200ms;
+
+.menu-trigger {
+    height: inherit;
+    cursor: hand;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    opacity: .99;
+    transition: $nav-duration/2;
+    display: inline-block;
+
+    .menu-icon::before,
+    .menu-icon::after {
+        transition: $nav-duration/2;
+    }
+
+    .menu-icon {
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        top: -2px;
+        width: 28px;
+        height: 4px;
+        background-color: $palette-5;
+        transition: $nav-duration;
+        border-radius: 1px;
+
+        &::before,
+        &::after {
+            display: block;
+            content: "";
+            height: 4px;
+            width: 28px;
+            background-color: darken($palette-5, 10%);
+            position: absolute;
+            z-index: -1;
+            transition: $nav-duration $nav-duration/2;
+            border-radius: 1px;
+        }
+
+        &:before { top: 7px;  }
+        &:after  { top: -7px; }
+
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        .menu-icon {
+            &:before { top: 9px;  }
+            &:after  { top: -9px; }
+        }
+    }
+
+    &:target,
+    &.open {
+        .menu-icon {
+            background: transparent;
+
+            &:before {
+                transform: rotate(-45deg);
+                top: 0 !important;
+            }
+
+            &:after {
+                transform: rotate(45deg);
+                top: 0 !important;
+            }
+        }
+    }
+}
+
+
+// ***************************************************************
+// *** Navigation actions
+// ***************************************************************
+
+/*
+.menu-trigger:target + ul.nav-aside,
+.menu-trigger:target + ul.nav-mobile,
+.menu-trigger:target + div.nav-aside,
+.menu-trigger:target + div.nav-mobile {
+    display: block !important;
+}
+*/
+
+// ***************************************************************
+// *** Navigation modifiers
+// ***************************************************************
+
+.nav-horizontal {
+    > li {
+        display: inline-block;
+
+        & + li {
+            margin-left: 15px;
+        }
+    }
+}
+
+.nav-justify {
+    display: table;
+    width: 100%;
+
+    > li {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
+
+.nav-left {
+    @extend .nav-horizontal;
+    text-align: left;
+}
+
+.nav-center {
+    @extend .nav-horizontal;
+    text-align: center;
+}
+
+.nav-right {
+    @extend .nav-horizontal;
+    text-align: right;
+}
+
+@keyframes spinme {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

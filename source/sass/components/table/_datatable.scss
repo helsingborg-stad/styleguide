@@ -1,0 +1,114 @@
+.dataTables_wrapper {
+    border: 1px solid $creamy-darker;
+
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        padding: $content-gutter;
+        width: 50%;
+        float: left;
+    }
+
+    .dataTables_length {
+        font-size: .8em;
+
+        select {
+            width: 60px;
+            margin: 0 5px;
+            padding: 4px 6px;
+            background-size: 20px;
+        }
+    }
+
+    .dataTables_filter {
+        font-size: .8em;
+
+        label {
+            position: relative;
+            display: block;
+            padding: 0;
+            margin: 0;
+
+            &::before {
+                position: absolute;
+                z-index: $level-3;
+                top: 0;
+                left: 0;
+                height: 100%;
+                padding: 11px 9px;
+                background-color: $creamy;
+                border: 1px solid $creamy-darker;
+
+                @include pricon($pricon-search);
+            }
+        }
+
+        input {
+            padding: 7px;
+            padding-left: 40px;
+        }
+    }
+
+    .dataTables_paginate,
+    .dataTables_info {
+        font-size: .8em;
+    }
+
+    .dataTables_paginate {
+        text-align: right;
+
+        .disabled {
+            color: $gray-dark;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        * + * {
+            margin-left: 5px;
+        }
+    }
+
+    .grid + .grid {
+        margin-top: 0;
+    }
+
+    .datatable {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .pagination-wrapper {
+        background-color: $creamy;
+    }
+
+    .sorting,
+    .sorting_asc,
+    .sorting_desc {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .sorting::after {
+        display: block;
+        @include center(false, true);
+        right: $content-gutter;
+        @include pricon($pricon-sort);
+    }
+
+    .sorting_asc::after {
+        display: block;
+        @include center(false, true);
+        right: $content-gutter;
+        @includepricon($pricon-sort-asc);
+    }
+
+    .sorting_desc::after {
+        display: block;
+        @include center(false, true);
+        right: $content-gutter;
+        @include pricon($pricon-sort-desc);
+    }
+}

@@ -1,0 +1,310 @@
+/**
+ * * * * * * * * * * *
+ * Calendar Component
+ * * * * * * * * * * *
+ *
+ */
+
+/**
+ * Variables
+ */
+$calendarBackground: white;
+$calendarColor: black;
+$calendarGutter: 4px;
+
+$calendarBorderColor: #f4f4f4;
+
+$calendarHeaderBackground: $palette-4;
+$calendarHeaderColor: white;
+
+$cellBackground: white;
+$cellColor: black;
+$cellOffRangeBackground: $calendarBackground;
+$cellOffRangeColor: $gray;
+
+$cellEventBackground: $palette-2;
+$cellEventColor: white;
+
+$eventBorderRadius: 4px;
+
+/**
+ * General
+ */
+.calendar {
+    width: 100%;
+    background: $calendarBackground;
+    color: $calendarColor;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+/**
+ * Layout
+ */
+
+.calendar__week,
+.calendar__row,
+.calendar__body {
+    display: flex;
+    width: 100%;
+}
+
+.calendar__body {
+    @include mq('lg') {
+        padding: 24px;
+    }
+    flex-direction: column;
+    // height: 500px;
+}
+
+.calendar__week {
+    flex: 1;
+    padding-top: 48px;
+}
+
+.calendar__row {
+    position: relative;
+
+    /* Modifier */
+    &.calendar__row--float {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.calendar__row:not(.calendar__row--bg) + .calendar__row {
+    margin-top: 1px;
+}
+
+.calendar__cell {
+    position: relative;
+    color: $cellColor;
+    width: 100%;
+    flex: 1 1;
+    min-width: 0;
+    flex-grow: 1;
+
+    /* State */
+    &.is-off-range {
+        color: $cellOffRangeColor;
+    }
+}
+
+@for $i from 1 through 7 {
+    .calendar__cell--#{$i} {
+        max-width: 100% / 7 * $i;
+        flex-basis: 100% / 7 * $i;
+    }
+    /**
+     * .calendar__cell--1,
+     * .calendar__cell--2,
+     * .calendar__cell--3 ... etc
+     */
+
+    .calendar__cell--offset-#{$i} {
+        margin-left: 100% / 7 * $i;
+    }
+    /**
+     * .calendar__cell--offset-1,
+     * .calendar__cell--offset-2,
+     * .calendar__cell--offset-3 ... etc
+     */
+}
+
+.calendar__week:not(:last-child) .calendar__row--bg {
+    border-bottom: solid 1px $calendarBorderColor;
+}
+
+.calendar__cell--bg {
+    background: $calendarBackground;
+    width: 100%;
+    height: 100%;
+
+    &:not(:last-child) {
+        border-right: solid 1px $calendarBorderColor;
+    }
+
+    &.is-off-range {
+        background: $cellOffRangeBackground;
+    }
+}
+
+.calendar__week {
+    flex-direction: column;
+    position: relative;
+}
+
+/**
+ * Calendar Header
+ */
+.calendar__header {
+    padding: 16px 0 8px 0;
+    @include mq('lg') {
+        padding: 16px 24px 8px 24px;
+    }
+    background: $calendarHeaderBackground;
+    color: $calendarHeaderColor;
+
+    i {
+        color: $calendarHeaderColor;
+    }
+
+    // padding-left: 16px;
+    // padding-right: 16px;
+    .calendar__cell {
+        color: $calendarHeaderColor;
+    }
+}
+
+.calendar__row--weekdays {
+    margin-top: 0 !important;
+    padding-bottom: 4px;
+}
+
+.calendar__day,
+.calendar__month,
+.calendar__year {
+    text-align: center;
+    font-weight: bold;
+
+    &::first-letter {
+        text-transform: uppercase;
+    }
+}
+
+.calendar__day {
+    text-align: left;
+    padding: 0px 24px;
+}
+
+.calendar__year {
+    margin-bottom: 8px;
+}
+
+/**
+ * Calendar Navigation
+ */
+.calendar__nav--prev,
+.calendar__nav--next {
+    padding-top: 8px;
+}
+.calendar__nav--prev {
+    text-align: left;
+    padding-left: 24px;
+}
+
+.calendar__nav--next {
+    text-align: right;
+    padding-right: 24px;
+}
+
+.calendar__title {
+    text-align: center;
+}
+
+/**
+ * Cell date
+ */
+.calendar__date {
+    text-align: left;
+    padding: 16px 24px;
+    height: 100%;
+    font-size: 13px;
+}
+
+/**
+ * Event
+ */
+.calendar__event {
+    font-size: 13px;
+    border-radius: $eventBorderRadius;
+    padding: 4px 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    &.calendar__event--action:hover {
+        cursor: pointer;
+    }
+}
+
+.calendar__event.is-active {
+    background-color: $cellEventBackground;
+}
+
+.calendar__event.is-disabled {
+    background-color: gray;
+}
+
+.calendar__row--event:last-child {
+    margin-bottom: 16px;
+}
+
+.calendar__row--event:first-of-type {
+    margin-top: 32px;
+}
+
+.calendar__event--extend-left {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    margin-left: 0px;
+}
+.calendar__event--extend-right {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    margin-right: 0px;
+}
+
+.calendar__event {
+    background: #11a636;
+    color: $cellEventColor;
+    overflow: hidden;
+    width: calc(100% - 16px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.calendar__event.calendar__event--action {
+    .calendar__event_content,
+    .calendar__event_hidden,
+    .calendar__event_hidden_right {
+        transition: transform 150ms ease;
+    }
+
+    .calendar__event_content {
+        display: inline-block;
+    }
+
+    .calendar__event_hidden {
+        position: absolute;
+        left: 8px;
+    }
+
+    //Initial states
+    .calendar__event_content {
+        transform: translateY(0);
+    }
+
+    .calendar__event_hidden {
+        transform: translateY(-120%);
+    }
+
+    //Hover states
+    &:hover .calendar__event_hidden {
+        transform: translateY(0);
+    }
+
+    &:hover .calendar__event_content {
+        transform: translateY(120%);
+    }
+}
+
+.calendar__event--slot.is-disabled {
+    cursor: not-allowed;
+}

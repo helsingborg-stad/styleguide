@@ -1,0 +1,120 @@
+//
+// @name Inputs
+// @description Input fields
+//
+// @page Forms/Input
+//
+// @state .invalid (or :invalid) - Invalid input value
+//
+// @markup
+// <div class="form-group">
+//     <label for="firstname">First name</label>
+//     <input type="text" name="firstname" id="firstname" placeholder="First name">
+// </div>
+// <div class="form-group">
+//     <label for="disabledInput">Disabled input</label>
+//     <input type="text" name="disabledInput" id="disabledInput" placeholder="Disabled input[text]" disabled>
+// </div>
+// <div class="form-group">
+//     <label for="textarea">Textarea</label>
+//     <textarea id="textarea" required></textarea>
+// </div>
+//
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea {
+    apperance: none;
+    width: 100%;
+    padding: $content-gutter/2 $content-gutter/1.5;
+    background: #fff;
+    border: 1px solid $creamy-darker;
+    font-family: $base-font-family;
+    font-size: .9em;
+    box-shadow: inset 0 0 5px rgba(#000, .1);
+    line-height: 1.6;
+
+    &:disabled {
+        @extend .disabled;
+        background-color: $creamy;
+    }
+
+    &.form-control-lg {
+        padding: $content-gutter;
+        font-size: 1.2em;
+    }
+
+    &.invalid {
+        border: 1px solid $danger-bg;
+    }
+}
+
+input[type="file"].hidden {
+    display: static;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label.checkbox,
+label.radio {
+    font-weight: normal;
+}
+
+//
+// @name Checkboxes and radiobuttons
+// @description
+//
+// @page Forms/Checkboxes
+// @markup
+// <div class="form-group">
+//     <label class="checkbox">
+//         <input type="checkbox"> Check me
+//     </label>
+//     <label class="checkbox disabled">
+//         <input type="checkbox" disabled> But you can't check me
+//     </label>
+// </div>
+// <div class="form-group">
+//     <label class="radio">
+//         <input type="radio" name="radio"> Alternative 1
+//     </label>
+//     <label class="radio">
+//         <input type="radio" name="radio"> Alternative 2
+//     </label>
+// </div>
+//
+
+input[type="checkbox"],
+input[type="radio"], {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+
+    &:disabled {
+        @extend .disabled;
+        background-color: $creamy;
+    }
+}
+
+input[type="radio"] {
+    top: -4px;
+}
+

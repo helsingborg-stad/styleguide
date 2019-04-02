@@ -1,0 +1,82 @@
+//
+// @name Tag manager
+// @description Tags input and list (js dependet)
+//
+// @page Forms/Tag manager
+//
+// @markup
+// <div class="tag-manager" data-input-name="tags">
+//     <div class="tag-manager-input">
+//         <div class="input-group">
+//             <input type="text" name="tag" class="form-control" placeholder="Add tags…" autocomplete="off">
+//             <span class="input-group-addon-btn"><button name="add-tag" class="btn">Add</button></span>
+//         </div>
+//     </div>
+//     <div class="tag-manager-selected">
+//         <label class="label-sm">Tags</label>
+//         <ul class="tags">
+//             <li>
+//                 <button class="btn btn-plain" data-action="remove">&times;</button>
+//                 Predefined tag
+//                 <input type="hidden" name="tags[]" value="{{ $item }}">
+//             </li>
+//         </ul>
+//     </div>
+// </div>
+//
+
+.tag-manager {
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+
+    .tag-manager-input {
+        border-bottom: 1px solid $creamy-darker;
+
+        input {
+            border: none;
+        }
+    }
+
+    .tag-manager-selected {
+        padding: $content-gutter;
+
+        li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        button[data-action="remove"] {
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 3px;
+            padding: 0;
+            line-height: 1;
+        }
+    }
+
+    .autocomplete {
+        border-top: 1px solid $creamy-darker;
+        padding: 5px 0;
+
+        li button {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            font-size: .9em;
+            text-align: left;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $creamy;
+            }
+        }
+
+        li + li {
+            margin-top: 2px;
+        }
+    }
+}

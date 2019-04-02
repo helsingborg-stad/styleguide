@@ -1,0 +1,68 @@
+:not(.no-flexbox):not(.is-draggable) {
+
+    // .grid {
+    //     display: flex;
+    //     flex: 0 1 auto;
+    //     flex-direction: row;
+    //     flex-wrap: wrap;
+
+    //     > div:not([class*="grid-"]) {
+    //         flex: 1 0 auto;
+    //         flex-basis: 100%;
+    //     }
+    // }
+
+    // .grid-auto {
+    //     max-width: 100%;
+    //     flex-grow: 1;
+    //     flex-basis: 0;
+    // }
+
+    // .grid-defined-width {
+    //     flex: 0 0 auto !important;
+    // }
+
+    // .grid-fit-content {
+    //     flex: 0 1 auto;
+    //     width: auto;
+    // }
+
+    // // X-Small screens
+    // // This will generate grid-xs-*
+    // @include grid-flexbox($screen-xs-up, $screen-xs, 'xs');
+
+    // // Small screens
+    // // This will generate grid-sm-*
+    // @include grid-flexbox($screen-sm-up, $screen-sm, 'sm');
+
+    // // Medium screens
+    // // This will generate grid-md-*
+    // @include grid-flexbox($screen-md-up, $screen-md, 'md');
+
+    // // Large screens and up
+    // // This will generate grid-lg-*
+    // @include grid-flexbox($screen-lg-up, $screen-lg, 'lg');
+
+    // // Print grid size
+    // @media print {
+    //     @for $i from 1 to $grid-column-count + 1 {
+    //         .grid-print-#{$i}.grid-print-#{$i} {
+    //             width: auto;
+    //             flex-basis: (100% / $grid-column-count) * $i;
+    //             max-width: (100% / $grid-column-count) * $i;
+    //         }
+    //     }
+
+    //     .grid-tester::after {
+    //         content: 'print';
+    //     }
+    // }
+
+    [data-equal-container] > [class*="grid-"],
+    [data-equal-container] > [data-equal-item] {
+        display: flex;
+        min-height: .5px;
+        -ms-flex-preferred-size: auto;
+    }
+
+}

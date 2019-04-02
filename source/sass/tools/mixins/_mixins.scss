@@ -1,0 +1,52 @@
+@mixin hbg-icon($icon: $home, $iconset: #{'FontAwesome'}) {
+    font-family: $iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: $icon;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin elements-margin($elements, $margin-top: 1.3em, $hr-margin-top: 2em) {
+    $selector: null;
+    $hrselector: null;
+
+    @each $element in $elements {
+        @each $subelement in $elements {
+            $selector: $selector unquote('#{$element} + #{$subelement}');
+            $hrselector: $hrselector unquote('hr + #{$subelement}, #{$subelement} + hr');
+
+            // Add comma if not dealing with the last item of list
+            @if $subelement != nth($elements, length($elements)) {
+                $selector: $selector unquote(',');
+                $hrselector: $hrselector unquote(',');
+            }
+        }
+
+        // Add comma if not dealing with the last item of list
+        @if $element != nth($elements, length($elements)) {
+            $selector: $selector unquote(',');
+            $hrselector: $hrselector unquote(',');
+        }
+    }
+
+    #{$selector} {
+        margin-top: $margin-top;
+    }
+
+    #{$hrselector} {
+        margin-top: $hr-margin-top;
+    }
+}

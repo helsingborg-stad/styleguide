@@ -1,0 +1,137 @@
+//
+// @name Video Player
+// @description <span class="label label-theme">JavaScript dependent</span> Video player.
+// @author Sebastian Thulin
+//
+// @page Media/VideoPlayer
+//
+// @markup
+// <div class="player ratio-16-9" style="background-image:url('https:\/\/unsplash.it\/800\/800\/?image=890');">
+//     <a href="#video-player-GQxqaoJNx_E" data-video-id="GQxqaoJNx_E" data-unavailable="Video playback unavailable, activate enable JavaScript to enable."></a>
+// </div>
+//
+// <div class="player ratio-16-9" style="background-image:url('https:\/\/unsplash.it\/800\/800\/?image=892');">
+//     <a href="#video-player-101935278" data-video-id="101935278" data-unavailable="Video playback unavailable, activate enable JavaScript to enable."></a>
+// </div>
+//
+.box .player-wrapper {
+    display: table;
+    width: 100%;
+}
+
+ol.player-playlist {
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    border-top: 0;
+    margin: 0;
+    padding: 0;
+
+    overflow-y: auto;
+    max-height: 400px;
+
+    list-style-type: none;
+
+    counter-reset: playlist-item;
+
+    li {
+        counter-increment: playlist-item;
+        padding: $content-gutter/1.5 $content-gutter;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &::before {
+            display: inline-block;
+            content: counter(playlist-item) ". ";
+            width: 30px;
+            padding-right: 5px;
+        }
+    }
+
+    li + li {
+        border-top: 1px solid $creamy-darker;
+    }
+
+    li > a,
+    li > a:visited {
+        color: $palette-4;
+        text-decoration: none;
+    }
+
+    li > a:hover {
+        color: darken($palette-4, 5%);
+    }
+}
+
+.player-wrapper.is-playlist .player {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.player {
+    background-size: cover;
+    background-position: center;
+
+    @include material-radius;
+    @include material-shadow;
+
+    > a {
+        display: block;
+        text-align: center;
+        @include center();
+        font-size: 6em;
+        opacity: .7;
+        transition: opacity 200ms ease;
+        color: #fff;
+        line-height: 1;
+        text-decoration: none;
+
+        &::before {
+            display: inline-block;
+            color: #fff;
+            @include pricon($pricon-play-o);
+        }
+
+        &:hover,
+        &:active,
+        &:visited {
+            text-decoration: none;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    iframe {
+        background-color: #000;
+        @include cover();
+    }
+
+    &.is-playing {
+        a {
+            opacity: 0;
+        }
+    }
+}
+
+.no-js .player a {
+    opacity: 1;
+
+    &::before {
+        @include pricon($pricon-forbidden);
+        text-shadow: 0 0 40px rgba(#000, .8);
+    }
+
+    &::after {
+        display: block;
+        content: attr(data-unavailable);
+        font-size: .2em;
+        line-height: 1.3;
+        text-shadow: 0 0 10px rgba(#000, 1);
+    }
+}
+
+.player + .player {
+    margin-top: 15px;
+}

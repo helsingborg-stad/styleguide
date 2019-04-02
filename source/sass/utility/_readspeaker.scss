@@ -1,0 +1,18 @@
+.readspeaker-play-button {
+    &::before {
+        @include pricon($pricon-volume);
+        font-size: 1.2em;
+        vertical-align: -20%;
+        padding-right: .3em;
+    }
+}
+
+.readspeaker-player-element {
+    display: none;
+    margin-bottom: $content-gutter;
+    margin-top: $content-gutter;
+
+    .rsexpanded {
+        display: block;
+    }
+}

@@ -1,0 +1,24 @@
+[class^="widget_"]:not(.widget_calendar) {
+    @include box;
+
+    *:not(.main-footer) .textwidget,
+    *:not(.main-footer) form {
+        @include box-content;
+    }
+
+    .sidebar-left-sidebar &,
+    .sidebar-right-sidebar & {
+        @include box-filled;
+    }
+}
+
+.widgettitle {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.widget_categories ul {
+    margin-top: 10px;
+}
+
+

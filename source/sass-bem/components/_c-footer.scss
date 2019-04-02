@@ -1,0 +1,19 @@
+.c-footer {
+    padding: $baseline*8 0;
+}
+
+.c-footer.c-footer--sm {
+    padding: $baseline*4 0;
+}
+
+.c-footer.c-footer--lg {
+    padding: $baseline*16 0;
+}
+
+.c-footer.c-footer--xl {
+    padding: $baseline*24 0;
+}
+
+.c-footer .c-footer__widget + .c-footer__widget {
+    margin-top: $baseline * 4;
+}

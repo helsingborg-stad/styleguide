@@ -1,0 +1,32 @@
+@media #{$screen-xs} {
+    .js-autoslide-xs:after {
+        content: 'flickity';
+        display: none;
+    }
+}
+
+@media #{$screen-sm} {
+    .js-autoslide-sm:after {
+        content: 'flickity';
+        display: none;
+    }
+}
+
+@media #{$screen-md} {
+    .js-autoslide-md:after {
+        content: 'flickity';
+        display: none;
+    }
+}
+
+@media #{$screen-lg-up} {
+    .js-autoslide-lg:after {
+        content: 'flickity';
+        display: none;
+    }
+}
+
+.js-autoslide:after {
+    content: 'flickity';
+    display: none;
+}

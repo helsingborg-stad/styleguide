@@ -1,0 +1,218 @@
+.social-feed {
+    overflow: auto;
+}
+
+.mod-social-user {
+    display: table;
+    table-layout: fixed;
+
+    img {
+        border-radius: 5px;
+        width: 35px;
+        height: 35px;
+        margin-right: 5px;
+        display: table-cell;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    div {
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 5px;
+    }
+
+    span {
+        display: block;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    time {
+        color: $gray;
+    }
+}
+
+.box-filled {
+    .social-feed-instagram,
+    .social-feed-pinterest {
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.modularity-mod-social .box-filled {
+    padding-bottom: 18px;
+
+    .box-content {
+        padding-bottom: 0px;
+    }
+}
+
+.box-filled .mod-social-user time {
+    color: #fff;
+    font-size: .8em;
+    line-height: 1;
+    margin-top: 3px;
+}
+
+.social-feed-twitter,
+.social-feed-facebook {
+    li {
+        padding: 15px 0 15px 0 !important;
+    }
+
+    .mod-social-story {
+        margin-top: 10px;
+    }
+
+    .mod-social-attachment {
+        $image-width: 20%;
+        $content-width: 80%;
+
+        @extend .clearfix;
+        font-size: .9em;
+        display: block;
+        position: relative;
+        margin-top: $content-gutter;
+        padding: $content-gutter - 5;
+        border: 1px solid $creamy-darker;
+        background-color: $creamy;
+
+        .mod-social-attachment-image {
+            display: block;
+            float: left;
+            width: $image-width;
+            height: auto;
+        }
+
+        .mod-social-attachment-content {
+            float: left;
+            width: $content-width;
+            padding-left: $content-gutter;
+            color: $base-font-color;
+
+            h4 {
+                color: $base-font-color !important;
+                font-size: 1.1em;
+            }
+
+            p {
+                margin-bottom: 5px;
+            }
+
+            .caption {
+                color: $gray-dark;
+                text-transform: uppercase;
+                font-size: .8em;
+            }
+        }
+    }
+
+    .mod-social-attachment-type-added_photos {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+
+        * {
+            display: none;
+        }
+
+        .mod-social-attachment-image {
+            display: block;
+            float: none;
+        }
+    }
+}
+
+.box-filled .social-feed-twitter li,
+.box-filled .social-feed-facebook li {
+    padding: 15px 0 !important;
+}
+
+.social-feed-instagram,
+.social-feed-pinterest {
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    border-top: 0;
+    font-size: 0;
+
+    li {
+        display: inline-block;
+        width: 33.3333%;
+        border: 0;
+        padding: 0;
+    }
+
+    @media #{$screen-below-md} {
+        li {
+            width: 50% !important;
+        }
+    }
+
+    .mod-social-image {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 0;
+        padding-bottom: 100% !important;
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+    .mod-social-attachment-image {
+        display: none;
+    }
+
+    .mod-social-user {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        width: 100%;
+
+        @include gradient(rgba(#000, 0), rgba(#000, .8));
+        color: #fff;
+        font-size: .8rem;
+        line-height: 1.2;
+
+        img {
+            display: none;
+        }
+
+        time {
+            color: #fff;
+            display: block;
+        }
+    }
+
+    .mod-social-story {
+        display: none;
+    }
+}
+
+
+.social-feed-button {
+    padding-top: 10px;
+
+    .btn {
+        text-decoration: none;
+    }
+}
+
+.modularity-mod-social .box-content {
+    padding-top: 0px;
+}
+
+.box-panel .social-feed-wrapper > .social-feed-button {
+    padding: 10px;
+    background-color: #fff;
+}
+
+.box-filled .social-feed-wrapper {
+    padding: 10px 10px 0 10px;
+}

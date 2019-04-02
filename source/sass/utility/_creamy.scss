@@ -1,0 +1,27 @@
+//
+// @name Creamy section
+// @description A section with creamy background and border.
+//
+// @page Utilities/Creamy
+//
+// @state .creamy-border-bottom - Only use border at bottom
+//
+// @markup
+// <div class="creamy">Oh, creamy.</div>
+
+.creamy {
+    background-color: $creamy;
+    border: 1px solid $creamy-darker;
+
+    &.creamy-border-bottom {
+        border-width: 0 0 1px 0;
+    }
+
+    &.creamy-border-top {
+        border-width: 1px 0 0 0;
+    }
+}
+
+.creamy-darker {
+    background-color: $creamy-darker;
+}

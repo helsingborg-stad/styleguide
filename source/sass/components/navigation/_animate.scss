@@ -1,0 +1,21 @@
+
+	nav:not(.no-animation) {
+		
+		.nav-aside {
+			animation: nav-bounce-in 500ms ease-in-out; 
+		}
+	}
+	
+	@keyframes modal-fade-backdrop {
+	  0% {
+	    display: none;
+	    opacity: 0;
+	  }
+	  1% {
+	    display: block;
+	    opacity: 0;
+	  }
+	  100% {
+	    opacity: 1;
+	  }
+	}

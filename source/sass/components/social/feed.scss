@@ -1,0 +1,512 @@
+//
+// @name Feed
+// @description New generation social feed apparence
+// @author Sebastian Thulin
+//
+// @page Social/Feed
+//
+// @state .social-compressed - Apperance is adjusted to fit a narrow view horizontally.
+//
+// @markup
+// <ul class="social social-feed-v2 grid no-gutter" data-packery='{ "itemSelector": ".social-item", "percentPosition": true, "transitionDuration": 0 }'>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//
+//
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//
+//
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+//  <li class="social-item grid-xs-12 grid-sm-6 grid-md-6 grid-lg-4">
+//      <div class="material">
+//          <div class="social-image">
+//              <a href="#post" class="ratio-16-9" style="background-image: url('https:\/\/unsplash.it/300/200?image=468');"></a>
+//          </div>
+//          <div class="social-user">
+//              <div class="user-image material-shadow-md">
+//                  <img src="https:\/\/unsplash.it/75/75?image=469"/>
+//              </div>
+//              <div class="social-post-details">
+//                  <a class="social-author" rel="author" href="#author">John Doe</a>
+//                  <time class="social-publish">9 hours ago</time>
+//              </div>
+//          </div>
+//          <div class="social-content">
+//              <a href="#post" class="social-text" class="social-text">
+//                  Nulla vitae elit libero, a pharetra augue. Sed posuere consectetur est at lobortis. Sed posuere consectetur est at lobortis. Donec id elit non mi porta gravida at eget metus.
+//              </a>
+//              <a href="#link" class="social-link">
+//                  <span class="social-link-image" style="background-image: url(https:\/\/unsplash.it/75/75?image=169);"></span>
+//                  <span class="social-link-text">
+//                      <h4>Magna Bibendum Fermentum</h4>
+//                      <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Cras mattis consectetur purus sit amet fermentum.</p>
+//                  </span>
+//              </a>
+//          </div>
+//          <div class="social-footer clearfix">
+//              <span class="text-left"><i class="pricon pricon-thumbs-up"></i> 394 likes</span>
+//              <span class="text-right">posted on facebook</span>
+//          </div>
+//      </div>
+//  </li>
+// </ul>
+// <a class="btn btn-primary btn-block" href="#feed">View all posts</a>
+
+$user-image-size: 50px;
+$link-image-size: 50px;
+
+.social.social-feed-v2 {
+
+    margin: -$grid-gutter-md/2;
+
+    .social-item {
+        display: block;
+        padding: $grid-gutter-md/2;
+
+        .material {
+            background: #fff;
+        }
+
+        .material:hover {
+            @include material-shadow-large;
+            cursor: hand;
+            cursor: pointer;
+
+            .social-image {
+
+                a {
+                    opacity: .8;
+                    filter: blur(1px);
+                    background-size: 102% auto;
+                }
+
+                &:before {
+                    opacity: .95;
+                }
+            }
+        }
+    }
+
+    .social-image {
+        background-color: darken($palette-2, 20%);
+        line-height: 0;
+        position: relative;
+        min-height: 50px;
+        overflow: hidden;
+        clip: rect(auto, auto, auto, auto);
+
+        a {
+            transition: all 200ms;
+            display: block;
+            background-position: top center;
+            background-size: 100% auto;
+        }
+
+        &:before {
+            @include center();
+            pointer-events: none;
+            font-family: "hbg-pricons";
+            content: '#{$pricon-eye}';
+            font-weight: 400;
+            color: #fff;
+            font-size: 4em;
+            z-index: $level-9;
+            opacity: 0;
+            transition: 300ms opacity;
+            transition-delay: 200ms;
+        }
+
+        &:after {
+            content: "";
+            @include cover();
+            top: auto;
+            height: 40px;
+            @include gradient(rgba(#000,0), rgba(#000,.5));
+        }
+    }
+
+    .social-image + .social-user {
+        margin-top: -30px;
+        padding: 0 $box-padding;
+        background: none;
+
+        .social-author {
+            color: #fff;
+        }
+    }
+
+    .social-user {
+        @extend .clearfix;
+        padding: $box-padding $box-padding 0 $box-padding;
+        line-height: 0;
+        position: relative;
+        z-index: $level-8;
+
+        .user-image {
+            border-radius: 50%;
+            width: $user-image-size;
+            height: $user-image-size;
+            float: left;
+        }
+
+        .user-image img {
+            border-radius: 50%;
+            width: $user-image-size;
+            height: $user-image-size;
+        }
+
+        .social-post-details {
+            float: left;
+            width: calc(100% - #{$grid-gutter-sm + $user-image-size});
+            height: $user-image-size;
+            padding: 4px 0;
+        }
+
+        .user-image + .social-post-details {
+            margin-left: $grid-gutter-sm;
+        }
+
+        .social-author,
+        .social-publish {
+            display: block;
+            color: #4a4a4a;
+            text-decoration: none;
+            line-height: 24px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .social-author {
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .social-publish {
+            font-size: .8em;
+        }
+    }
+
+    .social-content {
+        width: 100%;
+        padding: $box-padding;
+        font-size: .85em;
+        color: #4a4a4a;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: #4a4a4a;
+            text-decoration: none;
+            display: block;
+        }
+    }
+
+    .social-link-image + .social-link-text {
+        padding-left: $grid-gutter-sm + $link-image-size;
+    }
+
+    .social-link {
+        @extend .clearfix;
+        border: 1px solid $creamy-darker;
+        background: $creamy;
+    }
+
+    .social-text + .social-link {
+        margin-top: $grid-gutter-sm;
+    }
+
+    .social-link-image {
+        width: $link-image-size;
+        height: $link-image-size;
+        display: block;
+        background-size: contain;
+        background-position: center;
+        float: left;
+    }
+
+    .social-link-text {
+        display: block;
+        width: auto;
+        padding: 5px;
+        line-height: 11px;
+
+        h4 {
+            font-size: .9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        p {
+            font-size: .9em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .social-user + .social-footer {
+        margin-top: $grid-gutter-sm;
+    }
+
+    .social-footer {
+        padding: $box-padding/2 $grid-gutter-sm * 2;
+        border-top: 1px solid #f9f9f9;
+        color: #9b9b9b;
+
+        i, a, span {
+            color: #9b9b9b;
+        }
+
+        i {
+            vertical-align: text-top;
+            margin-right: 3px;
+        }
+
+        .text-right {
+            float: right;
+            color: $gray;
+            font-size: .7em;
+        }
+
+        .text-left {
+            float: left;
+            font-size: .8em;
+        }
+    }
+
+}
+
+.social.social-compressed.social-feed-v2 {
+
+    columns: 1;
+
+    .social-item + .social-item {
+        border-top: 1px solid $creamy-darker;
+    }
+
+    .social-image {
+        margin: $grid-gutter-sm;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .social-text + .social-link {
+        display: none;
+    }
+
+    .social-user {
+        padding: $box-padding 0 0 0;
+        margin: 0;
+        float: none;
+
+        .user-image {
+            display: none;
+        }
+
+        .social-post-details {
+            padding-left: 0;
+            height: auto;
+            width: calc(100% - #{$grid-gutter-sm*2});
+
+            a {
+                font-size: 1em;
+            }
+
+            time {
+                color: $gray;
+                float: right;
+            }
+
+            a,
+            time {
+                color: $black;
+                display: inline;
+            }
+        }
+    }
+
+    .social-footer {
+        background-color: $creamy;
+        margin-top: $box-padding;
+    }
+}
+
+.social.social-feed-v2 + .btn {
+    margin-top: $grid-gutter-md/2;
+}

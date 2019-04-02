@@ -1,0 +1,138 @@
+//
+// @name Headings
+// @description Headings for use within articles and more. Please always set the <code>id</code> attribute on headings to enable anchor-linking.
+//
+// @page Typography/Headings
+//
+// @state .text-highlight - Will highlight any heading in the current theme color
+// @state .underline - Underlines the heading
+//
+// @markup
+// <h1 id="anchor-1" class="{$state}">Heading 1</h1>
+// <h2 id="anchor-2">Heading 2</h2>
+// <h3 id="anchor-3">Heading 3</h3>
+// <h4 id="anchor-4">Heading 4</h4>
+// <h5 id="anchor-5">Heading 5</h5>
+// <h6 id="anchor-6">Heading 6</h6>
+//
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+    @include textrendering();
+    display: block;
+    font-weight: bold;
+    line-height: 140%;
+    margin: 0;
+    word-wrap: break-word;
+
+    &.underline {
+        border-bottom: 1px solid $creamy-darker;
+        padding-bottom: .1em;
+        margin-bottom: .5em;
+    }
+
+    @media print {
+        color: #000 !important;
+    }
+}
+
+h1, .h1 {
+    font-size: 2.2rem;
+    color: $palette-4;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.8rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 2rem;
+    }
+}
+
+h2, .h2 {
+    font-size: 1.5rem;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.6rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 1.5rem;
+    }
+}
+
+h3, .h3 {
+    font-size: 1.3rem;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.3rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 1.2rem;
+    }
+}
+
+h4, .h4 {
+    font-size: 1.15rem;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.15rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 1.15rem;
+    }
+}
+
+h5, .h5 {
+    font-size: 1.1rem;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1.1rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 1.1rem;
+    }
+}
+
+h6, .h6 {
+    font-size: 1.1rem;
+
+    @media screen and #{$screen-xs} {
+        font-size: 1rem;
+    }
+
+    @media screen and #{$screen-sm} {
+        font-size: 1rem;
+    }
+}
+
+//
+// @name Sub heading
+// @description Subheading element to combine with a ordinary heading
+//
+// @page Typography/Sub heading
+//
+// @markup
+// <div class="sub-heading">I love cake</div>
+//
+
+.sub-heading {
+    padding: 8px 0;
+    border-top: 1px solid $creamy-darker;
+    border-bottom: 1px solid $creamy-darker;
+    color: $gray;
+    font-size: 1rem;
+}
+
+.box-filled .sub-heading,
+.box-news:not(.box-news-horizontal) .sub-heading {
+    color: #fff;
+    border-color: #fff;
+}

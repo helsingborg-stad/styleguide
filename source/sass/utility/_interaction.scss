@@ -1,0 +1,84 @@
+.no-select {
+    user-select: none;
+}
+
+//
+// @name Disabled
+// @description Prevents clicking on any element and fades it out.
+//
+// @page Utilities/Disabled
+//
+// @markup
+// <div class="box box-filled-3 disabled">
+//     <div class="box-content">
+//         <h5>I love jelly jelly-o</h5>
+//         <p>Halvah powder brownie. Brownie I love danish marshmallow I love I love cake. I love jelly jelly-o chupa chups caramels sweet roll cupcake. Danish croissant caramels jelly-o cheesecake.</p>
+//     </div>
+// </div>
+//
+
+.disabled {
+    cursor: no-drop;
+
+    &:not(input):not(select):not(.checkbox):not(.radio) {
+        @extend .no-select;
+        opacity: .7;
+
+        * {
+            pointer-events: none;
+        }
+    }
+}
+
+
+@mixin loading-dot($size: 1em) {
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    animation: loading-dot 1500ms ease-in-out infinite;
+}
+
+.loading-dots {
+    $size: .8em;
+    display: block;
+    position: relative;
+    width: $size * 2.3;
+    height: $size;
+
+    &::before,
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+
+        background-color: $base-font-color;
+        @include loading-dot($size);
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+        animation-delay: 750ms;
+    }
+}
+
+.loading-dots-highight::before,
+.loading-dots-highight::after {
+    background-color: $palette-2;
+}
+
+@keyframes loading-dot {
+    0% {
+        opacity: .3;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .3;
+    }
+}

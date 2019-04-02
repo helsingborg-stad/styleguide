@@ -1,0 +1,56 @@
+
+.u-square\@xs,
+.u-vertical-rectangle\@xs,
+.u-horizontal-rectangle\@xs,
+.u-square\@sm,
+.u-vertical-rectangle\@sm,
+.u-horizontal-rectangle\@sm,
+.u-square\@md,
+.u-vertical-rectangle\@md,
+.u-horizontal-rectangle\@md,
+.u-square\@lg,
+.u-vertical-rectangle\@lg,
+.u-horizontal-rectangle\@lg,
+.u-square\@xl,
+.u-vertical-rectangle\@xl,
+.u-horizontal-rectangle\@xl {
+    &:before {
+        content: '';
+        float: left;
+    }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@media screen and #{$screen-xs-up} {
+    .u-square\@xs:before {padding-top: 100%;}
+    .u-vertical-rectangle\@xs:before {padding-top: 200%;}
+    .u-horizontal-rectangle\@xs:before {padding-top: 50%;}
+}
+
+@media screen and #{$screen-sm-up} {
+    .u-square\@sm:before {padding-top: 100%;}
+    .u-vertical-rectangle\@sm:before {padding-top: 200%;}
+    .u-horizontal-rectangle\@sm:before {padding-top: 50%;}
+}
+
+@media screen and #{$screen-md-up} {
+    .u-square\@md:before {padding-top: 100%;}
+    .u-vertical-rectangle\@md:before {padding-top: 200%;}
+    .u-horizontal-rectangle\@md:before {padding-top: 50%;}
+}
+
+@media screen and #{$screen-lg-up} {
+    .u-square\@lg:before {padding-top: 100%;}
+    .u-vertical-rectangle\@lg:before {padding-top: 200%;}
+    .u-horizontal-rectangle\@lg:before {padding-top: 50%;}
+}
+
+@media screen and #{$screen-xl-up} {
+    .u-square\@xl:before {padding-top: 100%;}
+    .u-vertical-rectangle\@xl:before {padding-top: 200%;}
+    .u-horizontal-rectangle\@xl:before {padding-top: 50%;}
+}

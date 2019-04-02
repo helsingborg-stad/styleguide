@@ -1,0 +1,69 @@
+.share {
+
+}
+
+.share-social {
+    a {
+        color: $gray;
+    }
+}
+
+.share-social-icon-lg {
+    .fa,
+    .pricon {
+        font-size: 2em;
+    }
+}
+
+.share-social-icon-md {
+    .fa,
+    .pricon {
+        font-size: 1.3em;
+    }
+}
+
+.share-no-labels {
+    a {
+        span {
+            @extend .sr-only;
+        }
+    }
+}
+
+.share-horizontal {
+    > li {
+        display: inline-block;
+
+        & + li {
+            margin-left: 15px;
+        }
+    }
+
+    li + li {
+        margin-left: 10px;
+    }
+}
+
+.share-social-facebook {
+    &:hover {
+        color: #3B5998;
+    }
+}
+
+.share-social-twitter {
+    position: relative;
+    top: -1px;
+
+    &:hover {
+        color: #55ACEE;
+    }
+}
+
+.share-social-linkedin {
+    position: relative;
+    top: -2px;
+
+    &:hover {
+        color: #1583BB;
+    }
+}

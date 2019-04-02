@@ -1,0 +1,166 @@
+//
+// @name Featured section
+// @description A text featuring a specific item. With a simple image or icon (all content is padded). All "boxes" is compatible to embed inside .grid class.
+//
+// @page Section/Featured
+//
+// @state .section-sm/md/lg - Sets a minimum height on the section. Aproxmently 60px, 40% 100%.
+// @state .padding-sm/md/lg - Sets a padding on the area.
+// @state .image-left/right - Where to place the image in the split view
+// @state .background-color-1 - A background color for the text.
+// @state .effect-multiply - Make color shite trough image
+// @state .effect-parallax - Make background image stay put, creates an efficient parallax illusion. This function should not be used with images of illustrative importantness, as they can be cropped weird. Cannot be combined with image focusing.
+//
+// @markup
+// <section class="section section-featured background-4 section-md padding-md text-md image-right effect-multiply effect-parallax" style="background-image: url(https:\/\/unsplash.it/1250/1250?image=1005); ">
+//     <div class="container">
+//      <div class="grid">
+//          <div class="grid-xs-12">
+//                  <article class="section-article">
+//                      <div class="grid content-grid">
+//                          <div class="section-image grid-xs-12 grid-lg-4 text-center">
+//                              <i class="pricon pricon-construction"></i>
+//                          </div>
+//                          <div class="section-text grid-xs-12 grid-lg-8">
+//                              <h2>Cheesecake chocolate cake</h2>
+//                              <p>Chocolate bar jujubes pastry halvah. Jujubes soufflé cotton candy. Liquorice bear claw carrot cake. Sesame snaps dessert sesame snaps donut soufflé danish bonbon. Toffee powder macaroon tiramisu apple pie sweet donut.</p>
+//                              <p> Candy canes macaroon brownie gingerbread sweet croissant marshmallow. Soufflé halvah toffee. Cake marzipan wafer jelly beans. Marzipan jelly beans icing liquorice.</p>
+//                          </div>
+//                      </div>
+//                  </article>
+//          </div>
+//      </div>
+//     </div>
+// </section>
+
+.section-featured {
+
+    background-size: cover;
+
+    @media screen and #{$screen-below-md} {
+        .btn {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    @media screen and #{$screen-below-md} {
+        text-align: left;
+    }
+
+    @media screen and #{$screen-lg-up} {
+        .section-title {
+            margin-top: -.6rem;
+        }
+    }
+
+    .section-article {
+        max-width: 700px;
+    }
+
+    .section-image {
+        display: flex;
+        flex-direction: column;
+        img, svg, i   {
+            font-size: calc(2em + 5vw);
+        }
+
+        img[src$=".jpg"],
+        img[src$=".jpeg"],
+        img[src$=".png"] {
+            width: 100%;
+            /*height: 100%;*/
+
+            flex-shrink: 0;
+
+            @media screen and #{$screen-below-md} {
+                height: auto;
+            }
+        }
+
+        img[src$=".svg"],
+        svg,
+        i {
+            width: 60%;
+            height: auto;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media screen and #{$screen-below-lg} {
+            margin-bottom: $grid-gutter-md;
+        }
+    }
+
+    /* Image alignment */
+    &.image-left {
+        .section-article {
+            margin-left: auto;
+        }
+    }
+
+    &.image-right {
+        .section-article {
+            margin-right: auto;
+        }
+    }
+
+    @media screen and #{$screen-below-lg} {
+        &.image-left, &.image-right {
+            .section-article {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+
+    /* Vertical alignment */
+
+    &.text-middle {
+        .section-content {
+            align-items: center;
+            display: flex;
+        }
+
+         .section-image{
+            justify-content: center;
+        }
+    }
+
+    &.text-top {
+        .section-content {
+            align-items: flex-start;
+            display: flex;
+        }
+
+        .section-image{
+            justify-content: flex-start;
+        }
+    }
+
+    &.text-bottom {
+        .section-content {
+            align-items: flex-end;
+            display: flex;
+        }
+
+        .section-image{
+            justify-content: flex-end;
+        }
+    }
+
+    /*  Image Frame */
+    &.image-frame-width-lg img {
+        border: solid 10px;
+    }
+
+    &.image-frame-width-md img {
+        border: solid 7px;
+    }
+
+    &.image-frame-width-sm img {
+        border: solid 5px;
+    }
+
+}

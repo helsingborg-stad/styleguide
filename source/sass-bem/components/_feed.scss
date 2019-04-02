@@ -1,0 +1,15 @@
+.c-feed {
+    .c-feed__header {
+        position: relative;
+    }
+
+    &:hover .c-feed__title {
+        color: $palette-4;
+    }
+}
+
+.c-feed.c-feed--rss {
+    .c-feed__source:before {
+        content: '-';
+    }
+}

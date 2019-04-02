@@ -1,0 +1,143 @@
+//
+// @name Contact Card
+// @description View of a persons contactcard. Use buttons to link to profiles etc.
+//
+// @page Boxes/Contact
+//
+// @state .vertical-card - Show description on the right hand side in desktop (identical to mobile).
+//
+// @markup
+// <div class="grid">
+//     <div class="grid-md-4">
+//         <span class="box box-card">
+//             <img class="box-image" src="https:\/\/unsplash.it/267/267/?image=64">
+//             <div class="box-content">
+//                 <h5>John Doe</h5>
+//                 <ul>
+//						<li class="card-title">Cupcake king</li>
+//						<li><a class="link-item" href="tel:+4673000000">073 00 00 00</a></li>
+//						<li><a class="link-item" href="mailto:john.doe@helsingborg.se">john.dow@helsingborg.se</a></li>
+//						<li class="small description">Macaroon pastry sweet pastry lollipop tootsie roll candy canes sweet roll. Candy canes lollipop cake I love. Candy canes I love ice cream caramels I love I love.</li>
+//				   </ul>
+//             </div>
+//         </span>
+//     </div>
+// </div>
+//
+// <div class="grid">
+//	   <div class="grid-md-12">
+//         <span class="box box-card vertical-card">
+//             <img class="box-image" src="https:\/\/unsplash.it/267/267/?image=823">
+//             <div class="box-content">
+//                 <h5>Jane Roe</h5>
+//                 <ul>
+//						<li class="card-title">Macaroon princess</li>
+//                      <li><a class="link-item" href="tel:+4673000000">073 00 00 00</a></li>
+//                      <li><a class="link-item" href="mailto:jane.roe@helsingborg.se">jane.roe@helsingborg.se</a></li>
+//                      <li class="small description">Macaroon pastry sweet pastry lollipop tootsie roll candy canes sweet roll. Candy canes lollipop cake I love. Candy canes I love ice cream caramels I love I love.</li>
+//                 </ul>
+//             </div>
+//         </span>
+//     </div>
+// </div>
+//
+//
+
+.box-card {
+    display: block;
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    color: $base-font-color;
+
+	h1, h2, h3, h4, h5, h6 {
+		padding-bottom: 0;
+	}
+
+    &.has-image {
+        text-align: center;
+    }
+
+    .box-image,
+    figure {
+        width: 60%;
+        max-width: 300px;
+        border-radius: 50%;
+        margin: $grid-gutter-sm*2 20% $grid-gutter-sm 20%;
+        display: inline-block;
+    }
+
+    figure {
+        padding-bottom: 0;
+
+        &:after {
+            @include pricon($pricon-user);
+        }
+    }
+
+    .box-content {
+        h5 {
+            font-size: $base-font-size*1.3;
+        }
+    }
+
+    .box-title {
+        padding: 10px;
+        padding-bottom: 0;
+    }
+
+    a[href^="mailto:"] {
+        word-break: break-all;
+    }
+
+	.card-title {
+		margin-bottom: $grid-gutter-sm;
+
+        span {
+            display: block;
+        }
+	}
+
+	.description {
+		margin-top: $grid-gutter-sm;
+	}
+
+    &.vertical-card {
+	    overflow: hidden;
+        text-align: left;
+
+	    .box-image,
+        figure {
+		    float: left;
+		    width: 180px;
+            margin: 0;
+            border-radius: 0;
+	    }
+
+        @media screen and #{$screen-xs} {
+            .box-image,
+            figure {
+                width: 100%;
+                float: none;
+                max-width: 1000px;
+            }
+        }
+
+	    @media screen and #{$screen-sm-up} {
+		    &.has-image .box-content {
+			    margin-left: 180px;
+
+			    ul, h1, h2, h3, h4, h5, h6 {
+				    padding-left: $grid-gutter-sm;
+			    }
+		    }
+
+		}
+
+    }
+
+    @media screen and #{$screen-below-md} {
+    	.box-content {
+	    	margin-left: 0;
+    	}
+    }
+}

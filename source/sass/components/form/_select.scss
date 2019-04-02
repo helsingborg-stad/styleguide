@@ -1,0 +1,69 @@
+//
+// @name Select
+// @description Select field. Single and multiple choises.
+//
+// @page Forms/Select
+//
+// @markup
+// <select name="yummie">
+//     <option value="Gingerbread">Gingerbread</option>
+//     <option value="Brownie">Brownie</option>
+//     <option value="Candy canes">Candy canes</option>
+//     <option value="Marzipan jujubes">Marzipan jujubes</option>
+//     <option value="Macaroon">Macaroon</option>
+//     <option value="Lollipop">Lollipop</option>
+// </select>
+// <select name="yummie" disabled>
+//     <option value="Gingerbread">Gingerbread</option>
+//     <option value="Brownie">Brownie</option>
+//     <option value="Candy canes">Candy canes</option>
+//     <option value="Marzipan jujubes">Marzipan jujubes</option>
+//     <option value="Macaroon">Macaroon</option>
+//     <option value="Lollipop">Lollipop</option>
+// </select>
+// <select name="yummie" multiple>
+//     <option value="Gingerbread">Gingerbread</option>
+//     <option value="Brownie">Brownie</option>
+//     <option value="Candy canes">Candy canes</option>
+//     <option value="Marzipan jujubes">Marzipan jujubes</option>
+//     <option value="Macaroon">Macaroon</option>
+//     <option value="Lollipop">Lollipop</option>
+// </select>
+//
+
+select {
+    border-radius: 0;
+    width: 100%;
+    padding: floor($content-gutter/2) $content-gutter/1.5;
+    background-color: #fff;
+    border: 1px solid $creamy-darker;
+    box-shadow: inset 0 0 5px rgba(#000, .1);
+    line-height: 1.6;
+
+    font-family: $base-font-family;
+    font-size: .9em;
+
+    &:disabled {
+        @extend .disabled;
+        background-color: $creamy;
+    }
+}
+
+select:not([multiple]) {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxMzM5IDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTMzOSA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDojOEY4RjhGO30KPC9zdHlsZT4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTUwMi42LDEwNy4xbC0wLjQtMC4zYy01LjgtNi43LTEzLjgtMTAuOS0yMi44LTEwLjlIMzIuNmMtOS4yLDAtMTcuMyw0LjQtMjMuMSwxMS4zbC0wLjEtMC4xCgljLTEyLjUsMTMuOS0xMi41LDM2LjQsMCw1MC4zbDIyMy45LDI0OC4xYzEyLjUsMTQsMzIuNywxNCw0NS4yLDBsMC44LTEuM2wyMjMuNC0yNDYuN0M1MTUuMSwxNDMuNiw1MTUuMSwxMjEsNTAyLjYsMTA3LjEKCUw1MDIuNiwxMDcuMXoiLz4KPC9zdmc+Cg==');
+    background-size: 25px;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+select[multiple] option {
+    padding: $content-gutter/3 $content-gutter/2;
+}
+
+select + select {
+    margin-top: $content-gutter;
+}
+
+option {
+    padding: 5px 7px;
+}

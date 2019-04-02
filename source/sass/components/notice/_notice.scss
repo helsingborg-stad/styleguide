@@ -1,0 +1,194 @@
+//
+// @name Notice
+// @description Notice to inform or warn the user.
+//
+// @page Notice/Notice
+//
+// @state .notice-lg - Larger notice
+// @state .notice-sm - Smaller notice
+// @state .notice-fullwidth - Used when filling window width to hide left and right borders
+// @state .warning - Yellow warning color
+// @state .danger - Red danger color
+// @state .info - Blue info color
+//
+// @markup
+// <div class="notice success">
+//      <i class="pricon pricon-check"></i> Sugar plum gummi bears.
+// </div>
+// <div class="notice warning">
+//      <i class="pricon pricon-notice-warning"></i> Lollipop cake candy canes.
+// </div>
+// <div class="notice danger">
+//      <i class="pricon pricon-notice-error"></i> Jujubes oat cake sweet sugar plum.
+// </div>
+// <div class="notice info">
+//      <i class="pricon pricon-info-o"></i> Caramels chocolate cake ice cream.
+// </div>
+//
+
+.notice {
+    display: block;
+    padding: 8px 16px;
+    background-color: $creamy;
+    color: $base-font-color;
+
+    &:not(.notice-fullwidth):not(.notice-inline-block) {
+        @include material-radius;
+        @include material-shadow;
+    }
+
+    .pricon,
+    .fa {
+        display: inline-block;
+        margin-right: 8px;
+        font-size: 1.5em;
+        vertical-align: -7%;
+    }
+
+    span {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 90%;
+    }
+
+    a,
+    .link {
+        text-decoration: underline;
+    }
+
+    & + .notice {
+        margin-top: 4px;
+    }
+
+    &.bottom-fixed {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .grid-col-icon {
+        margin-right: 4px;
+    }
+}
+
+@media #{$screen-below-md} {
+    html:not(.no-flexbox) .notice .grid-auto {
+        flex: 1 1 auto;
+        flex-basis: 100%;
+        padding: 4px 0;
+    }
+}
+
+[data-action='toggle-notice-content'] {
+    position: relative;
+    top: -2px;
+}
+
+.notice-content,
+.grid + .grid.notice-content {
+    margin-top: 8px;
+}
+
+.notices .notice + .notice {
+    margin-top: 0;
+}
+
+.notice-inline-block {
+    display: inline-block;
+    @include material-radius;
+}
+
+.notice-lg {
+    font-size: 1.2em;
+
+    .grid-col-icon {
+        margin-right: 10px;
+    }
+}
+
+.notice-sm {
+    font-size: 0.9em;
+    padding: 0.2em 0.5em;
+
+    &.pricon-space-right::before {
+        margin-right: 0.2em;
+    }
+
+    &.pricon::before {
+        vertical-align: -10%;
+    }
+
+    .grid-col-icon {
+        margin-right: 0px;
+    }
+
+    [class*='grid-'] {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+.notice-fullwidth {
+    border-left: 0;
+    border-right: 0;
+}
+
+.notice.success {
+    background-color: $success-bg;
+    color: $success-text;
+
+    a, .link {
+        color: $success-text;
+    }
+}
+
+.notice.warning {
+    background-color: $warning-bg;
+    color: $warning-text;
+
+    a, .link {
+        color: $warning-text;
+    }
+}
+
+.notice.danger {
+    background-color: $danger-bg;
+    color: $danger-text;
+
+    a, .link {
+        color: $danger-text;
+    }
+}
+
+.notice.info {
+    background-color: $info-bg;
+    color: $info-text;
+
+    a, .link {
+        color: $info-text;
+    }
+}
+
+@media print {
+    #cookie-consent {
+        display: none;
+    }
+}
+
+.modularity-mod-notice .notice {
+    margin-bottom: $grid-gutter-xs;
+
+    @media #{$screen-sm} {
+        margin-bottom: $grid-gutter-sm;
+    }
+
+    @media #{$screen-md} {
+        margin-bottom: $grid-gutter-md;
+    }
+
+    @media #{$screen-lg} {
+        margin-bottom: $grid-gutter-lg;
+    }
+}

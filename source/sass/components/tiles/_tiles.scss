@@ -1,0 +1,147 @@
+// ***************************************************************
+// ***  TILE GRID
+// ***************************************************************
+.section-tiles .container, .section-tribute .container {
+    width: auto;
+}
+
+.modularity-mod-tile-grid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.section-tiles {
+    background-color: $creamy;
+
+    .container {
+        margin: 0;
+
+        @media #{$screen-lg-up} {
+            max-width: $screen-lg-max;
+            margin: 0 auto;
+        }
+    }
+}
+
+//Colors
+.c-tiles {
+    background-color: #fff;
+
+    @each $color in $palette-map {
+        $total: length($palette-map);
+        $i: index($palette-map, $color);
+
+        *:nth-child(#{$total}n+#{$i}) > .c-tiles__tile:not(.c-tiles__tile--invert) {
+            background-color: $color;
+
+            &:hover {
+                background-color: darken($color, 4%);
+            }
+        }
+
+        *:nth-child(#{$total}n+#{$i}) > .c-tiles__tile--invert {
+            background-color: white;
+            color: $color;
+
+            &:hover {
+                color: darken($color, 4%);
+                background-color: white;
+            }
+
+
+            .c-tiles__divider {
+                transition: background-color 200ms;
+                background-color: $color;
+
+                &:hover {
+                    background-color: darken($color, 4%);
+                }
+            }
+        }
+    }
+}
+
+.c-tiles__tile {
+    overflow: hidden;
+    position: relative;
+    color: white;
+    transition: background-color 200ms;
+
+    a:hover, a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    font-size: 120%;
+
+    @media #{$screen-sm-up} {
+        font-size: 180%;
+    }
+
+    @media #{$screen-lg-up} {
+        font-size: 180%;
+    }
+
+    @media #{$screen-xl-up} {
+        font-size: 220%;
+    }
+
+    h1, h2, h3, h4 {
+        font-size: 1.3em;
+        padding-bottom: 0;
+        font-weight: 300;
+        line-height: 1.2;
+
+        @include antialias;
+    }
+}
+
+.c-tiles__tile--invert {
+    h1, h2, h3, h4 {
+        font-weight: 700;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.5em;
+        }
+    }
+}
+.c-tiles__image {
+    background-size: cover;
+}
+
+.c-tiles__content {
+    width: 100%;
+
+    * + * {
+        margin-top: 1em !important;
+    }
+
+    p {
+        font-size: 17px;
+    }
+}
+
+.c-tiles__tile {
+    display: flex;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+.c-tiles__link {
+    display: flex;
+    align-items: flex-end;
+    align-content: stretch;
+    width: 100%;
+
+    padding: 1em;
+    @media #{$screen-sm-up} {
+        padding: 1.25em;
+    }
+}
+
+.c-tiles__divider {
+    margin-bottom: 0;
+    border-radius: 0;
+    height: .2em;
+    background-color: white;
+}

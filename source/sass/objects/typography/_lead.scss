@@ -1,0 +1,15 @@
+//
+// @name Lead
+// @description A large paragraph to use as article lead.
+//
+// @page Typography/Lead
+//
+// @markup
+// <p class="lead">Dragée I love macaroon jelly-o I love. Soufflé I love I love I love. Cotton candy sugar plum caramels. Soufflé halvah sweet. Wafer jujubes dessert tart donut cookie chupa chups croissant. Jelly jujubes fruitcake tart danish sesame snaps pie dessert.</p>
+//
+
+.lead {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: $content-gutter;
+}

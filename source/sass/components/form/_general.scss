@@ -1,0 +1,113 @@
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+textarea,
+select,
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+//
+// @name Form
+// @description Basic form
+//
+// @page Forms/Basic form
+//
+// @markup
+// <form method="post" action="/">
+//     <div class="form-group">
+//         <label for="name">Name</label>
+//         <input type="text" name="name" id="name" placeholder="Name">
+//     </div>
+//     <div class="form-group">
+//         <label for="email">Email address</label>
+//         <input type="email" name="email" id="email" placeholder="Email">
+//     </div>
+//     <div class="form-group">
+//         <label for="yummie">Yummie</label>
+//         <select name="yummie" id="yummie">
+//             <option value="Gingerbread">Gingerbread</option>
+//             <option value="Brownie">Brownie</option>
+//             <option value="Candy canes">Candy canes</option>
+//             <option value="Marzipan jujubes">Marzipan jujubes</option>
+//             <option value="Macaroon">Macaroon</option>
+//             <option value="Lollipop">Lollipop</option>
+//         </select>
+//     </div>
+//     <div class="form-group">
+//         <input type="submit" class="btn btn-primary" value="Send">
+//     </div>
+// </form>
+//
+
+form {
+    @include input-placeholder($gray, 1, 300);
+}
+
+.form-group {
+    display: block;
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0px;
+    }
+
+    & + .form-group {
+        margin-top: $content-gutter;
+    }
+}
+
+//
+// @name Horizontal form
+// @description A basic horizontal form
+//
+// @page Forms/Horizontal form
+//
+// @markup
+// <form method="post" action="/" class="form-horizontal">
+//     <div class="form-group">
+//         <label for="name">Name</label>
+//         <input type="text" name="name" id="name" placeholder="Name">
+//     </div>
+//     <div class="form-group">
+//         <label for="email">Email address</label>
+//         <input type="email" name="email" id="email" placeholder="Email">
+//     </div>
+//     <div class="form-group">
+//         <input type="submit" class="btn btn-primary" value="Send">
+//     </div>
+// </form>
+//
+
+.form-horizontal {
+    .form-group {
+        display: inline-block;
+        vertical-align: middle;
+
+        & + .form-group {
+            margin-top: 0;
+            margin-left: $content-gutter;
+        }
+
+        label,
+        input,
+        select,
+        textarea {
+            display: inline-block;
+            width: auto;
+        }
+
+        label {
+            margin-right: 5px;
+        }
+    }
+}
+
+.form-horizontal-block {
+    [class*="grid-"] input[type="submit"],
+    [class*="grid-"] button {
+        margin-top: 27px;
+    }
+}

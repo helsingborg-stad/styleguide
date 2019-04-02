@@ -1,0 +1,85 @@
+//
+// @name WP Widget: RSS
+// @description Wordpress built-in rss functionality markup.
+//
+// @page Wordpress/WP Widget: RSS
+//
+// @markup
+//
+// <div class="widget_rss">
+//  <h2 class="footer-title">
+//    <a class="rsswidget" href="http://www.hd.se/rss.xml?id=928848">
+//      <img class="rss-widget-icon" style="border:0" width="14" height="14" src="http://dunkerskulturhus.dev/wp/wp-includes/images/rss.png" alt="RSS">
+//    </a>
+//    <a class="rsswidget" href="http://www.hd.se/">RSS</a>
+//  </h2>
+//  <ul>
+//    <li>
+//      <a class="rsswidget" href="http://www.hd.se/lokalt/landskrona/2016/02/05/rivning-stoppas-efter-protest/">
+//        Rivning stoppas efter protest
+//      </a>
+//      <span class="rss-date">5 February, 2016</span>
+//      <div class="rssSummary">Ett hus på Sydgången i Axeltofta fritidsområde skulle rivas av Landskrona stad efter att kolonilottens ägare blivit vräkt.Nu ändrar sig ansvariga tjänstemän efter protester från Axeltofta fritidsförening som är oroliga för områdets framtid.</div>
+//      <cite>Anders Andersson</cite>
+//    </li>
+//    <li>
+//      <a class="rsswidget" href="http://www.hd.se/lokalt/helsingborg/2016/02/05/olycka-vid-ramlosa-station/">
+//        Olycka vid Ramlösa station
+//      </a>
+//      <span class="rss-date">5 February, 2016</span>
+//      <div class="rssSummary">Flera bilar är inblandade i en trafikolycka på motorvägen vid Ramlösa station.</div>
+//      <cite></cite>
+//    </li>
+//  </ul>
+// </div>
+//
+
+.box-filled .widget {
+    padding: $content-gutter/1.5;
+
+    h2 .rsswidget:first-child {
+        display: none;
+    }
+}
+
+.widget_rss {
+    .sidebar-left-sidebar &,
+    .sidebar-right-sidebar & {
+        ul {
+            margin: $box-padding;
+
+            li a {
+                font-weight: bold;
+            }
+
+            li + li {
+                margin-top: 10px;
+                padding-top: 10px;
+            }
+        }
+
+        a {
+            color: #fff;
+        }
+
+        .rssSummary {
+            padding-left: $content-gutter;
+            margin-left: 5px;
+            border-left: 2px solid #fff;
+        }
+    }
+
+    .rss-date {
+        display: block;
+        font-size: .8em;
+    }
+
+    .rssSummary {
+        margin-top: 10px;
+        font-style: italic;
+
+        &:empty {
+            display: none;
+        }
+    }
+}

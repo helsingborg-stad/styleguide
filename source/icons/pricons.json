@@ -1,0 +1,8 @@
+[
+    <% var i = 0; _.each(glyphs, function(glyph) { i++; %>{
+        "name": "<%= glyph.name %>",
+        "class": "<%= className %>-<%= glyph.name %>",
+        "unicode": "<%= glyph.unicode[0].charCodeAt(0).toString(16).toUpperCase() %>"
+    }<% if (i !== glyphs.length) { %>,<% } %>
+    <% }); %>
+]

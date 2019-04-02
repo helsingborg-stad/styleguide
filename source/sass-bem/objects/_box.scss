@@ -1,0 +1,6 @@
+.o-box {
+    @include material-radius;
+    @include material-shadow;
+
+    background: #fff;
+}

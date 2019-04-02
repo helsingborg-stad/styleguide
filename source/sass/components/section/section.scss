@@ -1,0 +1,498 @@
+/* General */
+
+.section {
+    background: white;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    min-height: $grid-gutter-md*2;
+    -webkit-backface-visibility: hidden;
+
+    &.image-right {
+        .grid {
+            flex-direction: row-reverse;
+        }
+    }
+
+    &.has-background-image {
+        .section-article .section-text {
+            p, ul, ol, h1, h2, h3, h4, h5, h6 {
+                text-shadow: 0 0 3px rgba(0,0,0,.1);
+            }
+        }
+    }
+
+    article {
+        margin-bottom: 0;
+    }
+
+    .section-article {
+        max-width: none;
+
+        .section-text {
+            margin-left: auto;
+            margin-right: auto;
+            p, ul, ol, h1, h2, h3, h4, h5, h6 {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: none;
+            }
+        }
+    }
+}
+
+.section .content-grid {
+    width: 100%;
+}
+
+/* Overlay Effect */
+
+.section {
+
+    &.effect-overlay {
+        .overlay {
+            top: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            z-index: $level-3;
+        }
+
+        .container {
+            position: relative;
+            z-index: $level-4 !important;
+        }
+    }
+
+    &.effect-overlay.effect-overlay-opacity-hi .overlay {
+        opacity: 0.25;
+    }
+
+    &.effect-overlay.effect-overlay-opacity-md .overlay {
+        opacity: 0.50;
+    }
+
+    &.effect-overlay.effect-overlay-opacity-lo .overlay {
+        opacity: 0.75;
+    }
+}
+
+
+/* Text color */
+
+.section.text-color-dark {
+    .section-article, .section-image-caption {
+
+        h1, h2, h3, h4, h5, h6 {
+            color: $palette-4;
+        }
+
+        p, ul, ol {
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        a:not(.btn-outline) {
+            &:link, &:active, &:hover, &:visited {
+                color: rgba(0, 0, 0, 0.87);
+            }
+        }
+    }
+}
+
+.section.text-color-light {
+    .section-article, .section-image-caption {
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #fff;
+        }
+
+        p, ul, ol {
+            color: #fff;
+        }
+
+        a:not(.btn), a:not(.btn):link, a:not(.btn):active, a:not(.btn):hover, a:not(.btn):visited {
+            color: #eee;
+        }
+    }
+
+    a.no-color {
+        color: #fff;
+    }
+}
+
+/* Justify text */
+
+.section.justify-text {
+    .section-text {
+        p, ul, ol, h1, h2:not(.section-title), h3, h4, h5, h6 {
+            text-align: justify;
+        }
+    }
+}
+
+/* Font size */
+@media screen and #{$screen-lg-up} {
+    .section.fontsize-large h2.section-title {
+        font-size: 3rem;
+    }
+
+    .section.fontsize-xlarge h2.section-title {
+        font-size: 4rem;
+    }
+}
+
+/* Effects */
+
+.section-featured.effect-multiply,
+.section-featured.effect-blur,
+.section-featured.effect-inner-shadow,
+.section-full.effect-multiply,
+.section-full.effect-blur,
+.section-full.effect-inner-shadow {
+    &:after {
+        @include cover();
+        content: "";
+        background: inherit;
+        z-index: $level-1;
+    }
+}
+
+/* Paralax effect */
+
+.section.effect-parallax {
+    @media screen and #{$screen-md-up} {
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }
+}
+
+/* Multiply effect */
+
+.section-full.effect-multiply,
+.section-featured.effect-multiply {
+    background-blend-mode: multiply;
+
+    .container {
+        position: relative;
+        z-index: $level-2;
+    }
+
+    &:after {
+        opacity: .7;
+    }
+}
+
+.section-split.effect-multiply .section-image {
+    background-blend-mode: multiply;
+}
+
+/* Blur effect */
+
+.section.effect-blur {
+    .container {
+        position: relative;
+        z-index: $level-2;
+    }
+
+    &:after {
+        filter: blur(2px);
+    }
+}
+
+.section.effect-blur:not(.effect-multiply) {
+    &:after {
+        margin: -5px;
+    }
+}
+
+/* Inner shadow effect */
+
+.section.effect-inner-shadow {
+    .container {
+        position: relative;
+        z-index: $level-2;
+    }
+
+    &:after {
+        box-shadow: inset 0 0 300px rgba(0,0,0,.35);
+    }
+}
+
+/* Coverage & vertical padding */
+
+.section {
+
+    /* Paddings */
+    &.section-full.padding-sm,
+    &.section-featured.padding-sm,
+    &.section-split.padding-sm .section-article {
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+
+        @media screen and #{$screen-below-md} {
+            padding-top: $grid-gutter-md;
+            padding-bottom: $grid-gutter-md;
+        }
+    }
+
+    &.section-full.padding-md,
+    &.section-featured.padding-md,
+    &.section-split.padding-md .section-article {
+        padding-top: 10vh;
+        padding-bottom: 10vh;
+
+        @media screen and #{$screen-below-md} {
+            padding-top: $grid-gutter-md;
+            padding-bottom: $grid-gutter-md;
+        }
+    }
+
+    &.section-full.padding-lg,
+    &.section-featured.padding-lg,
+    &.section-split.padding-lg .section-article {
+        padding-top: 20vh;
+        padding-bottom: 20vh;
+
+        @media screen and #{$screen-below-md} {
+            padding-top: $grid-gutter-md;
+            padding-bottom: $grid-gutter-md;
+        }
+    }
+
+    /* Heights */
+    &.section-full.section-sm,
+    &.section-featured.section-sm,
+    &.section-split.section-sm .section-article {
+        min-height: $grid-gutter-md*2;
+    }
+
+    &.section-full.section-md,
+    &.section-featured.section-md,
+    &.section-split.section-md .section-article {
+        min-height: 40vh;
+    }
+
+    &.section-full.section-lg,
+    &.section-featured.section-lg,
+    &.section-split.section-lg .section-article {
+        min-height: 97vh;
+    }
+
+}
+
+/* Titles */
+
+.section .section-article {
+
+    h1, .h1 {
+        font-size: 2.7rem;
+        color: $palette-4;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.8rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 2rem;
+        }
+    }
+
+    h2, .h2 {
+        font-size: 2.5rem;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.6rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 1.5rem;
+        }
+    }
+
+    h3, .h3 {
+        font-size: 2rem;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.3rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 1.2rem;
+        }
+    }
+
+    h4, .h4 {
+        font-size: 1.15rem;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.15rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 1.15rem;
+        }
+    }
+
+    h5, .h5 {
+        font-size: 1.1rem;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1.1rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 1.1rem;
+        }
+    }
+
+    h6, .h6 {
+        font-size: 1.1rem;
+
+        @media screen and #{$screen-xs} {
+            font-size: 1rem;
+        }
+
+        @media screen and #{$screen-sm} {
+            font-size: 1rem;
+        }
+    }
+
+}
+
+/* Image focusing */
+
+.section {
+
+    $vertical-positions: top center bottom;
+    $horizontal-positions: left center right;
+
+    @each $vertical-position in $vertical-positions {
+        @each $horizontal-position in $horizontal-positions {
+            &.image-focus-#{$horizontal-position}-#{$vertical-position},
+            &.image-focus-#{$horizontal-position}-#{$vertical-position}:after,
+            &.image-focus-#{$horizontal-position}-#{$vertical-position} .section-image {
+                background-position: #{$horizontal-position} #{$vertical-position};
+            }
+        }
+    }
+}
+
+/* Margin to submodules */
+
+.grid + .grid.section-submodules {
+    margin-top: $grid-gutter-md*2;
+}
+
+/* General animations */
+.scroll-animations-enabled {
+    .section.animate .section-content,
+    .section.animate .section-submodules,
+    .section.animate .section-image {
+        opacity: 0;
+    }
+
+    .section.animate.animated .section-content,
+    .section.animate.animated .section-submodules,
+    .section.animate.animated .section-image {
+        animation: fade-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        opacity: 1;
+    }
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-in-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes fade-in-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Section divider */
+$section-pad-sm: 5vh;
+$section-pad-md: 10vh;
+$section-pad-lg: 20vh;
+
+$divider-size: 5.5vw;
+
+.has-divider + div {
+
+    .section.padding-sm:not(.section-split) {
+        padding-top: calc(#{$section-pad-sm} + (#{$divider-size} * 1)) !important;
+    }
+
+    .section.padding-md:not(.section-split) {
+        padding-top: calc(#{$section-pad-md} + (#{$divider-size} * 1)) !important;
+    }
+
+    .section.padding-lg:not(.section-split) {
+        padding-top: calc(#{$section-pad-lg} + (#{$divider-size} * 1)) !important;
+    }
+
+    .section-split.padding-sm .section-article {
+        padding-top: calc(#{$section-pad-sm} + (#{$divider-size} * 1)) !important;
+    }
+    .section-split.padding-md .section-article {
+        padding-top: calc(#{$section-pad-md} + (#{$divider-size} * 1)) !important;
+    }
+    .section-split.padding-lg .section-article {
+        padding-top: calc(#{$section-pad-lg} + (#{$divider-size} * 1)) !important;
+    }
+
+}
+
+.divider-skew, .divider-skew-reverse  {
+    position: relative;
+    overflow: visible;
+
+    &:after {
+        content: '';
+        width: 100%;
+        height: $divider-size;
+        background: inherit;
+        position: absolute;
+        bottom: $divider-size / 2 * -1;
+        z-index: $level-4;
+        pointer-events: none;
+    }
+
+    .container {
+        z-index: $level-5;
+        position: relative;
+    }
+}
+
+.divider-skew:after {
+    transform: skew(0, 3deg);
+}
+
+.divider-skew-reverse:after {
+    transform: skew(0, -3deg);
+}
+
+html[data-useragent*="Windows"][data-useragent*="rv:11"] .section.section-full {
+    height: 100%;
+}
