@@ -1,7 +1,5 @@
-/cache/*
 .DS_Store
 node_modules
 composer.lock
-/config/salts.php
-/config/developer.php
-/config/database.php
+/cache
+/cache/*
