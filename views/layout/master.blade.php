@@ -28,10 +28,25 @@
         <div class="container">
             <div class="grid">
                 <div class="grid-md-3">
-                    <a href="/"><img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35"></a>
+                    <a href="/"><img id="logotype" src="/logotype.svg" alt="Helsingborg Stad" height="35"></a>
                 </div>
                 <div class="grid-md-9">
-                    
+                    <ul class="nav nav-horizontal text-right">
+                        <li>
+                            <span class="dropdown">
+                                <span class="btn btn-primary dropdown-toggle">Change theme</span>
+                                <ul class="dropdown-menu">
+                                    <li><a href="?theme=gray">Gray (default)</a></li>
+                                    <li><a href="?theme=red">Red</a></li>
+                                    <li><a href="?theme=blue">Blue</a></li>
+                                    <li><a href="?theme=green">Green</a></li>
+                                    <li><a href="?theme=purple">Purple</a></li>
+                                    <li><a href="?theme=familjen">Familjen</a></li>
+                                </ul>
+                            </span>
+                        </li>
+                        <li><a href="http://www.helsingborg.se">Visit Helsingborg.se</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
