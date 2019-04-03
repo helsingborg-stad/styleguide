@@ -4,10 +4,10 @@
 <article>
 
     {!! markdown("
-    
+
         #Helsingborg Stad - Styleguide [V2]
 
-        Welcome to the online style guide intended for websites within Helsingborgs stad. The guide provides examples, markup and themes for our standardized components.
+        Welcome to the online style guide intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components.
 
         ##Getting started
 

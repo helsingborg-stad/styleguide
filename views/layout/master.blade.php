@@ -51,7 +51,7 @@
     </div>
     @endif
 
-    <div class="container">
+    <div class="container" style="margin: 70px auto">
         <div class="grid">
             <div class="grid-md-3">
                 @include('layout.navigation')
