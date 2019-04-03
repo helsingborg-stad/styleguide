@@ -23,10 +23,6 @@
     "minimum-stability" : "stable",
     "repositories": [
         {
-            "type": "vcs",
-            "url": "./source/library/"
-        },
-        {
             "type":"composer",
             "url":"https://packagist.org"
         },

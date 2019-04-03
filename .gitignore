@@ -1,8 +1,6 @@
 .DS_Store
 node_modules
-composer.lock
 /cache
 /cache/*
 source/library
 source/library/*
-.gitmodules

@@ -44,7 +44,7 @@
         <div class="grid">
             <div class="grid-xs-12">
                 <div class="notice warning">
-                    <i class="pricon pricon-notice-warning"></i> The blade component library is not instlled, please run "sh setup.sh" to complete the installation process and start developing. 
+                    <i class="pricon pricon-notice-warning"></i> The blade component library is not installed, please run "composer install" in the root directory to complete the installation process and start developing. 
                 </div>
             </div>
         </div>
