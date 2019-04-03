@@ -1,0 +1,3 @@
+[submodule "source/library"]
+	path = source/library
+	url = git@github.com:helsingborg-stad/blade-component-library.git
