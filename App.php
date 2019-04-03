@@ -35,6 +35,8 @@ class App
         // Navigation
         $data['nav']     = Navigation::items();
         $data['pageNow'] = $this->page;
+        $data['componentLibraryIsInstalled'] = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
+        $data['isLocalDomain'] = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
 
         //Pages 
         return \HbgStyleGuide\View::show($this->page, $data);

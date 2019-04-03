@@ -35,10 +35,21 @@
                 <div class="grid-md-3">
                     <a href="/"><img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35"></a>
                 </div>
-                
             </div>
         </div>
     </nav>
+
+    @if(!$componentLibraryIsInstalled && $isLocalDomain) 
+    <div class="container">
+        <div class="grid">
+            <div class="grid-xs-12">
+                <div class="notice warning">
+                    <i class="pricon pricon-notice-warning"></i> The blade component library is not instlled, please run "sh setup.sh" to complete the installation process and start developing. 
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <div class="container">
         <div class="grid">
