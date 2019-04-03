@@ -22,3 +22,6 @@ $loader->register();
 
 //Load component library
 \HbgStyleGuide\Helper\Enviroment::loadInstalledComponentLibrary();
+
+//Include public functions
+require_once(BASEPATH . "Public.php"); 

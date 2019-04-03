@@ -121,12 +121,23 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         0 => __DIR__ . '/..' . '/nesbot/carbon/src',
     );
 
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'Parsedown' => 
+            array (
+                0 => __DIR__ . '/..' . '/erusev/parsedown',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixDirsPsr4;
             $loader->fallbackDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$fallbackDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
