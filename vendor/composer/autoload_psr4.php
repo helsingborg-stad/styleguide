@@ -23,6 +23,5 @@ return array(
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
     'HelsingborgStad\\Blade\\' => array($vendorDir . '/helsingborg-stad/laravel-blade/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
-    'BladeComponentLibrary\\' => array($vendorDir . '/helsingborg-stad/blade-component-library/src'),
     '' => array($vendorDir . '/nesbot/carbon/src'),
 );

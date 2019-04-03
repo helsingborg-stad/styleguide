@@ -5,6 +5,7 @@
  * 1. Defines root path of the app
  * 2. Requires config file
  * 3. Requires and initializes autoloader
+ * 4. Initiates local component library if installed
  */
 
 define('BASEPATH', dirname(__FILE__) . '/');
@@ -18,3 +19,6 @@ $loader = new HbgStyleGuide\Vendor\Psr4ClassLoader();
 $loader->addPrefix('HbgStyleGuide', BASEPATH);
 $loader->addPrefix('HbgStyleGuide', BASEPATH . 'source/php/');
 $loader->register();
+
+//Load component library
+\HbgStyleGuide\Helper\Enviroment::loadInstalledComponentLibrary();

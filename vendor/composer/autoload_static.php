@@ -44,10 +44,6 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
-        'B' => 
-        array (
-            'BladeComponentLibrary\\' => 22,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -118,10 +114,6 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
-        ),
-        'BladeComponentLibrary\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/helsingborg-stad/blade-component-library/src',
         ),
     );
 

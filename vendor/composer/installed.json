@@ -69,44 +69,6 @@
         ]
     },
     {
-        "name": "helsingborg-stad/blade-component-library",
-        "version": "0.0.1",
-        "version_normalized": "0.0.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/helsingborg-stad/blade-component-library.git",
-            "reference": "3b337a0946e27d3b3ccae043b159a5dac9a15e3e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/blade-component-library/zipball/3b337a0946e27d3b3ccae043b159a5dac9a15e3e",
-            "reference": "3b337a0946e27d3b3ccae043b159a5dac9a15e3e",
-            "shasum": ""
-        },
-        "require": {
-            "helsingborg-stad/laravel-blade": "^5.5"
-        },
-        "time": "2019-03-22T09:37:22+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "BladeComponentLibrary\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Sebastian Thulin",
-                "email": "sebastian.thulin@helsingborg.se"
-            }
-        ],
-        "description": "A component library based upon blade engine."
-    },
-    {
         "name": "helsingborg-stad/laravel-blade",
         "version": "5.5.1",
         "version_normalized": "5.5.1.0",
@@ -779,17 +741,17 @@
     },
     {
         "name": "symfony/debug",
-        "version": "v3.4.23",
-        "version_normalized": "3.4.23.0",
+        "version": "v3.4.24",
+        "version_normalized": "3.4.24.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/debug.git",
-            "reference": "8d8a9e877b3fcdc50ddecf8dcea146059753f782"
+            "reference": "adbdd5d66342fb0a0bce7422ba68181842b6610d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/debug/zipball/8d8a9e877b3fcdc50ddecf8dcea146059753f782",
-            "reference": "8d8a9e877b3fcdc50ddecf8dcea146059753f782",
+            "url": "https://api.github.com/repos/symfony/debug/zipball/adbdd5d66342fb0a0bce7422ba68181842b6610d",
+            "reference": "adbdd5d66342fb0a0bce7422ba68181842b6610d",
             "shasum": ""
         },
         "require": {
@@ -802,7 +764,7 @@
         "require-dev": {
             "symfony/http-kernel": "~2.8|~3.0|~4.0"
         },
-        "time": "2019-02-24T15:45:11+00:00",
+        "time": "2019-03-10T17:07:42+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -837,8 +799,8 @@
     },
     {
         "name": "symfony/finder",
-        "version": "v3.4.23",
-        "version_normalized": "3.4.23.0",
+        "version": "v3.4.24",
+        "version_normalized": "3.4.24.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
@@ -949,17 +911,17 @@
     },
     {
         "name": "symfony/translation",
-        "version": "v4.2.4",
-        "version_normalized": "4.2.4.0",
+        "version": "v4.2.5",
+        "version_normalized": "4.2.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/translation.git",
-            "reference": "748464177a77011f8f4cdd076773862ce4915f8f"
+            "reference": "e46933cc31b68f51f7fc5470fb55550407520f56"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/748464177a77011f8f4cdd076773862ce4915f8f",
-            "reference": "748464177a77011f8f4cdd076773862ce4915f8f",
+            "url": "https://api.github.com/repos/symfony/translation/zipball/e46933cc31b68f51f7fc5470fb55550407520f56",
+            "reference": "e46933cc31b68f51f7fc5470fb55550407520f56",
             "shasum": ""
         },
         "require": {
@@ -989,7 +951,7 @@
             "symfony/config": "",
             "symfony/yaml": ""
         },
-        "time": "2019-02-27T03:31:50+00:00",
+        "time": "2019-04-01T14:13:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
