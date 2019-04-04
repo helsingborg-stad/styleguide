@@ -1,7 +1,10 @@
-<section class="example">
+<?php
+    
+?>
+<section id="docblock-{{rand(0,99999)}}" class="example">
     <h3>Example</h3>
     <div class="markup-preview">
-    {!! $markup !!}
+        {!! $markup !!}
     </div>
-    <pre><code>{{ $markup }}</code></pre>
+    <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($markup)}}</code></pre>
 </section>

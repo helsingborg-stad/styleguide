@@ -21,6 +21,17 @@
         )
     ])
 
+    @include('layout.doc', [
+        'markup' => component(
+            'card',
+            [
+                'title' => "Another card, yay!",
+                'image' => "https://picsum.photos/700/450?image=1073",
+                'content' => "Yay, Im a card!"
+            ]
+        )
+    ])
+
 @stop
 
 
