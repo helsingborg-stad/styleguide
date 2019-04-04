@@ -8,7 +8,8 @@ class Navigation
         '.',
         '..',
         'layout',
-        '404.blade.php'
+        '404.blade.php',
+        '.DS_Store'
     );
 
 
@@ -53,7 +54,11 @@ class Navigation
     }
 
     public static function readableFilename($name) {
-        return ucfirst(self::sanitizeFileName($name)); 
+        return str_replace("-", " ",
+                ucfirst(
+                    self::sanitizeFileName($name)
+                )
+            );
     }
 
     public static function currentClass($item, $currentPage) {
