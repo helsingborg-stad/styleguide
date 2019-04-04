@@ -10,7 +10,6 @@
     !!}
 
     <div class="markup-preview">
-
         <div class="grid">
             <div class="grid-md-6">
                 {!! component('card') !!}
@@ -21,7 +20,16 @@
         </div>
     </div>
 
-    <pre><code>{{ component('card') }}{{ component('card') }}</code></pre>
+    <pre><code>
+        <div class="grid">
+            <div class="grid-md-6">
+                {{ component('card') }}
+            </div>
+            <div class="grid-md-6">
+                {{ component('card') }}
+            </div>
+        </div>
+    </code></pre>
 
     <div class="code-source-file clearfix">
         <div class="pull-left"><strong>Source file:</strong> ~/source/sass/components/card/_card.scss</div>

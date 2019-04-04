@@ -7,9 +7,10 @@ class Navigation
     private static $unlisted = array(
         '.',
         '..',
+        '.DS_Store',
         'layout',
         '404.blade.php',
-        '.DS_Store'
+        'home.blade.php',
     );
 
 
