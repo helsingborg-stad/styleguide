@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('content')
+    
     {!!
         markdown('
             #Cards
@@ -9,7 +10,16 @@
         ')
     !!}
 
-    @include('layout.doc', ['markup' => component('card')])
+    @include('layout.doc', [
+        'markup' => component(
+            'card',
+            [
+                'title' => "The card title",
+                'image' => "https://picsum.photos/700/450?image=1072",
+                'content' => "Yay, im a beautiful card. I'm right here! Look at me!"
+            ]
+        )
+    ])
 
 @stop
 
