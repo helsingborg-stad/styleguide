@@ -15,7 +15,8 @@ class Enviroment
     public static function loadInstalledComponentLibrary()
     {
         if (file_exists(BASEPATH . "source/library/src/Init.php")) {
-            require_once BASEPATH . "source/library/src/Init.php";
+            require_once BASEPATH . "source/library/load.php";
+            new \BladeComponentLibrary\init();
             return true; 
         }
         return false;
