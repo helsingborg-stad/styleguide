@@ -13,12 +13,13 @@
     @include('layout.doc', [
         'markup' => component(
             'card',
-            [
+            $settings = [
                 'title' => "The card title",
                 'image' => "https://picsum.photos/700/450?image=1072",
                 'content' => "Yay, im a beautiful card. I'm right here! Look at me!"
             ]
-        )
+        ),
+        'settings' => $settings
     ])
 
     @include('layout.doc', [
