@@ -9,7 +9,7 @@
     <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($markup)}}</code></pre>
 
     @if($settings)
-    <h3>Component settings</h3>
+    <h3>Blade component settings</h3>
     <table>
         @foreach($settings as $key => $item)
             <tr>
