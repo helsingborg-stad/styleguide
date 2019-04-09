@@ -13,7 +13,13 @@ class ParseString
             'wrap'           => 200,
             'show-body-only' => true
         ), 'utf8');
+        
         $tidy->cleanRepair();
-        return $tidy->value;
+
+        if(isset($tidy->value)) {
+            return $tidy->value;
+        }
+
+        return ""; 
     }
 }
