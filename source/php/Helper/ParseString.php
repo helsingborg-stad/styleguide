@@ -14,6 +14,6 @@ class ParseString
             'show-body-only' => true
         ), 'utf8');
         $tidy->cleanRepair();
-        return $tidy;
+        return $tidy->value;
     }
 }
