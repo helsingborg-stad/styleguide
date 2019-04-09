@@ -33,8 +33,7 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "helsingborg-stad/laravel-blade-one-static":"^1.0",
-        "philo/laravel-blade": "^3.1"
+        "helsingborg-stad/laravel-blade-one-static":"^1.0"
 
     },
     "scripts": {
