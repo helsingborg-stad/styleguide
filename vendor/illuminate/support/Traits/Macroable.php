@@ -33,18 +33,22 @@ trait Macroable
      * Mix another object into the class.
      *
      * @param  object  $mixin
+     * @param  bool  $replace
      * @return void
+     *
+     * @throws \ReflectionException
      */
-    public static function mixin($mixin)
+    public static function mixin($mixin, $replace = true)
     {
         $methods = (new ReflectionClass($mixin))->getMethods(
             ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
         );
 
         foreach ($methods as $method) {
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
+            if ($replace || ! static::hasMacro($method->name)) {
+                $method->setAccessible(true);
+                static::macro($method->name, $method->invoke($mixin));
+            }
         }
     }
 
@@ -71,7 +75,9 @@ trait Macroable
     public static function __callStatic($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-            throw new BadMethodCallException("Method {$method} does not exist.");
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
         }
 
         if (static::$macros[$method] instanceof Closure) {
@@ -93,7 +99,9 @@ trait Macroable
     public function __call($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-            throw new BadMethodCallException("Method {$method} does not exist.");
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
         }
 
         $macro = static::$macros[$method];

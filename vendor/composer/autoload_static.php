@@ -12,6 +12,11 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
     );
 
     public static $prefixLengthsPsr4 = array (
+        'e' => 
+        array (
+            'eftec\\tests\\' => 12,
+            'eftec\\bladeone\\' => 15,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -27,6 +32,10 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
             'Psr\\Container\\' => 14,
             'Philo\\Blade\\' => 12,
         ),
+        'L' => 
+        array (
+            'LaravelBladeOneStatic\\BladeOneStatic\\' => 37,
+        ),
         'I' => 
         array (
             'Illuminate\\View\\' => 16,
@@ -36,17 +45,25 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
-        'H' => 
-        array (
-            'HelsingborgStad\\Blade\\' => 22,
-        ),
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
         ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'eftec\\tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/eftec/bladeone/tests',
+        ),
+        'eftec\\bladeone\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/eftec/bladeone/lib',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -83,6 +100,10 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         array (
             0 => __DIR__ . '/..' . '/philo/laravel-blade/src',
         ),
+        'LaravelBladeOneStatic\\BladeOneStatic\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/laravel-blade-one-static/src',
+        ),
         'Illuminate\\View\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/view',
@@ -107,18 +128,14 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
         ),
-        'HelsingborgStad\\Blade\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/helsingborg-stad/laravel-blade/src',
-        ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
-    );
-
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/nesbot/carbon/src',
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -136,7 +153,6 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit4e702b13dd016235dca753117e2918e0::$prefixesPsr0;
 
         }, null, ClassLoader::class);
