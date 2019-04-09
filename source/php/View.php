@@ -15,9 +15,10 @@ class View
         }
 
         $bladeOne = new \LaravelBladeOneStatic\BladeOneStatic\BladeOneStatic();
-        echo $bladeOne::loadPageTemplate($params = array(
+        echo $bladeOne::runBladeOne($params = array(
             'template' => str_replace('/','.', $view),
-            'data' => $data
+            'data' => $data,
+            'path' => 'page'
         ));
     }
 }
