@@ -175,16 +175,16 @@
         },
         {
             "name": "helsingborg-stad/laravel-blade-one-static",
-            "version": "1.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/laravel-blade-one-static.git",
-                "reference": "efe78348714515bcbc093da1ba45eb701ae1db85"
+                "reference": "4b3d757039487b69c1773c158dead89c48384557"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/laravel-blade-one-static/zipball/efe78348714515bcbc093da1ba45eb701ae1db85",
-                "reference": "efe78348714515bcbc093da1ba45eb701ae1db85",
+                "url": "https://api.github.com/repos/helsingborg-stad/laravel-blade-one-static/zipball/4b3d757039487b69c1773c158dead89c48384557",
+                "reference": "4b3d757039487b69c1773c158dead89c48384557",
                 "shasum": ""
             },
             "require": {
@@ -216,7 +216,7 @@
                 "blade",
                 "laravel"
             ],
-            "time": "2019-04-08T13:27:14+00:00"
+            "time": "2019-04-09T08:58:46+00:00"
         },
         {
             "name": "illuminate/container",

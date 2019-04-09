@@ -2,26 +2,22 @@
 
 namespace HbgStyleGuide;
 
-use Philo\Blade\Blade as Blade;
-
 class View
 {
     /**
-     * Displays the given view
-     * @param  string  $template      The view path (if in subfolder) and filename
-     * @param  boolean $displayErrors Weather to output errors or not
-     * @return boolean
+     * @param $view
+     * @param array $data
      */
     public static function show($view, $data = array())
     {
-        $blade = new Blade(VIEWS_PATH, CACHE_PATH);
-
-        if($blade->view()->exists($view)) {
-            echo $blade->view()->make($view, $data)->render();
-            return true;
-        } else {
-            echo $blade->view()->make('404', $data)->render();
+        if (!class_exists('\LaravelBladeOneStatic\BladeOneStatic\BladeOneStatic')) {
             return false;
         }
+
+        $bladeOne = new \LaravelBladeOneStatic\BladeOneStatic\BladeOneStatic();
+        echo $bladeOne::loadPageTemplate($params = array(
+            'template' => str_replace('/','.', $view),
+            'data' => $data
+        ));
     }
 }

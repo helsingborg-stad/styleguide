@@ -33,6 +33,26 @@ class BladeOneStatic
         return self::$bladeOne;
     }
 
+    /**
+     * @param $params
+     * @return string
+     * @throws \Exception
+     */
+    public static function loadPageTemplate($params)
+    {
+        if (!class_exists('eftec\bladeone\BladeOne')) {
+            throw new \Exception("Error running Blade one");
+        }
+
+        self::$bladeOne = new Blade(
+            __DIR__ . '/../../../../views/',
+            __DIR__ . '/../../../../cache/'
+        );
+
+        return self::$bladeOne->run($params['template'],$params['data']);
+
+    }
+
 
     /**
      * Run Blade Engine
@@ -47,7 +67,6 @@ class BladeOneStatic
         }
 
         if (class_exists('\BladeComponentLibrary\Register')) {
-
             return self::$bladeOne->run(
                 (string)$params['utilityViewName'],
                 (array)$params['utilityArgsControlerData']
