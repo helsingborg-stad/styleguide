@@ -8,7 +8,7 @@
     </div>
     <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($markup)}}</code></pre>
 
-    @if($settings)
+    @if(isset($settings))
     <h3>Blade component settings</h3>
     <table>
         @foreach($settings as $key => $item)

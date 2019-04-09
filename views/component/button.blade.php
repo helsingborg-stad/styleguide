@@ -3,9 +3,19 @@
 @section('content')
     {!!
         markdown('
-            #Blank
+            #Button
 
-            Demo page
+            The button component
         ')
     !!}
+
+    @include('layout.doc', [
+        'markup' => component(
+            'button',
+            [
+                'title' => "Another card, yay!",
+                'content' => "Yay, Im a card!"
+            ]
+        )
+    ])
 @stop
