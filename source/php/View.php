@@ -1,7 +1,7 @@
 <?php
 
 namespace HbgStyleGuide;
-
+use BC\Blade\Blade as Blade; 
 class View
 {
     /**
@@ -10,15 +10,7 @@ class View
      */
     public static function show($view, $data = array())
     {
-        if (!class_exists('\LaravelBladeOneStatic\BladeOneStatic\BladeOneStatic')) {
-            return false;
-        }
-
-        $bladeOne = new \LaravelBladeOneStatic\BladeOneStatic\BladeOneStatic();
-        echo $bladeOne::runBladeOne($params = array(
-            'template' => str_replace('/','.', $view),
-            'data' => $data,
-            'path' => 'page'
-        ));
+        $blade = new Blade(BASEPATH . '/views', BASEPATH . '/cache');
+        echo $blade->make($view, $data)->render();
     }
 }
