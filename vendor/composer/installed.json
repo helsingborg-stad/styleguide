@@ -166,6 +166,44 @@
         ]
     },
     {
+        "name": "helsingborg-stad/global-blade-engine",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/helsingborg-stad/global-blade-engine.git",
+            "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/helsingborg-stad/global-blade-engine/zipball/e2cdb5bf687ff81bd6a433900881272027fc934a",
+            "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a",
+            "shasum": ""
+        },
+        "require": {
+            "benjamincrozat/blade": "^2.0"
+        },
+        "time": "2019-04-12T08:28:47+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "HelsingborgStad\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sebastian Thulin",
+                "email": "sebastian.thulin@helsingborg.se"
+            }
+        ],
+        "description": "A static instance of blade engine to be used cross-package."
+    },
+    {
         "name": "illuminate/container",
         "version": "v5.8.11",
         "version_normalized": "5.8.11.0",

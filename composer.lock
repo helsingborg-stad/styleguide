@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2682cf56356b4c2441f0b4518c24c99",
+    "content-hash": "4a40c4d276c4afe393c7ad810ee1d8d6",
     "packages": [
         {
             "name": "benjamincrozat/blade",
@@ -165,6 +165,42 @@
                 "parser"
             ],
             "time": "2019-03-17T18:48:37+00:00"
+        },
+        {
+            "name": "helsingborg-stad/global-blade-engine",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/global-blade-engine.git",
+                "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/global-blade-engine/zipball/e2cdb5bf687ff81bd6a433900881272027fc934a",
+                "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a",
+                "shasum": ""
+            },
+            "require": {
+                "benjamincrozat/blade": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Thulin",
+                    "email": "sebastian.thulin@helsingborg.se"
+                }
+            ],
+            "description": "A static instance of blade engine to be used cross-package.",
+            "time": "2019-04-12T08:28:47+00:00"
         },
         {
             "name": "illuminate/container",

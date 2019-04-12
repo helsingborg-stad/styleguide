@@ -2,7 +2,7 @@
 
 namespace HbgStyleGuide;
 
-use BC\Blade\Blade as Blade; 
+use \HelsingborgStad\GlobalBladeEngine as Blade; 
 
 class View
 {
@@ -12,11 +12,7 @@ class View
      */
     public static function show($view, $data = array())
     {
-        $blade = new Blade(
-            BASEPATH . '/views', 
-            BASEPATH . '/cache'
-        );
-
-        echo $blade->make($view, $data)->render();
+        Blade::addViewPath(BASEPATH . 'views');
+        echo Blade::instance()->make($view, $data)->render();
     }
 }

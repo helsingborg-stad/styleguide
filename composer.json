@@ -33,7 +33,8 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "benjamincrozat/blade": "^2.0"
+        "benjamincrozat/blade": "^2.0",
+        "helsingborg-stad/global-blade-engine": "^1.0"
 
     },
     "scripts": {

@@ -20,6 +20,7 @@ return array(
     'Illuminate\\Events\\' => array($vendorDir . '/illuminate/events'),
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),
     'Illuminate\\Container\\' => array($vendorDir . '/illuminate/container'),
+    'HelsingborgStad\\' => array($vendorDir . '/helsingborg-stad/global-blade-engine/src'),
     'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib/Doctrine/Common/Inflector'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'BC\\Blade\\' => array($vendorDir . '/benjamincrozat/blade/src'),

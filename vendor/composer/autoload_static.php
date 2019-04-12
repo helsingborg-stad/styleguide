@@ -35,6 +35,10 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
+        'H' => 
+        array (
+            'HelsingborgStad\\' => 16,
+        ),
         'D' => 
         array (
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -105,6 +109,10 @@ class ComposerStaticInit4e702b13dd016235dca753117e2918e0
         'Illuminate\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/illuminate/container',
+        ),
+        'HelsingborgStad\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/helsingborg-stad/global-blade-engine/src',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
