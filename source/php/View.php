@@ -12,6 +12,9 @@ class View
      */
     public static function show($view, $data = array())
     {
-        echo Blade::instance()->make($view, $data)->render();
+        echo Blade::instance()->make(
+            $view,
+            $data
+        )->render();
     }
 }
