@@ -2,6 +2,8 @@
 
 namespace HbgStyleGuide\Helper;
 
+use \HelsingborgStad\GlobalBladeEngine as Blade; 
+
 class Enviroment
 {
     public static function componentLibraryIsInstalled()
@@ -14,6 +16,9 @@ class Enviroment
 
     public static function loadInstalledComponentLibrary()
     {
+        //Add view path to renderer
+        Blade::addViewPath(BASEPATH . 'source/library/src/Component');
+
         if (file_exists(BASEPATH . "source/library/src/Init.php")) {
             require_once BASEPATH . "source/library/load.php";
             new \BladeComponentLibrary\init();
