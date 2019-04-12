@@ -10,20 +10,7 @@ class App
     public function __construct()
     {
         $this->page = isset($_GET['p']) ? $_GET['p'] : $this->default;
-
-        $this->createCacheDir();
         $this->loadPage();
-    }
-
-    /**
-     * Automatically creates a cache dir for blade
-     * @return string Theme
-     */
-    public function createCacheDir()
-    {
-        if (!is_dir(BASEPATH . "cache")) {
-            mkdir(BASEPATH . "cache");
-        }
     }
 
     /**
