@@ -167,23 +167,23 @@
     },
     {
         "name": "helsingborg-stad/global-blade-engine",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/helsingborg-stad/global-blade-engine.git",
-            "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a"
+            "reference": "855fa8ad4784e0cb2a08a57e663762b21834049b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/global-blade-engine/zipball/e2cdb5bf687ff81bd6a433900881272027fc934a",
-            "reference": "e2cdb5bf687ff81bd6a433900881272027fc934a",
+            "url": "https://api.github.com/repos/helsingborg-stad/global-blade-engine/zipball/855fa8ad4784e0cb2a08a57e663762b21834049b",
+            "reference": "855fa8ad4784e0cb2a08a57e663762b21834049b",
             "shasum": ""
         },
         "require": {
             "benjamincrozat/blade": "^2.0"
         },
-        "time": "2019-04-12T08:28:47+00:00",
+        "time": "2019-04-12T08:56:14+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
