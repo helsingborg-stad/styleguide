@@ -21,10 +21,10 @@ $loader->addPrefix('HbgStyleGuide', BASEPATH . 'source/php/');
 $loader->register();
 
 //Register view path
-\HelsingborgStad\GlobalBladeEngine::addViewPath(BASEPATH . 'view');
+\HelsingborgStad\GlobalBladeEngine::addViewPath(BASEPATH . 'views');
 
 //Load component library
 \HbgStyleGuide\Helper\Enviroment::loadInstalledComponentLibrary();
 
 //Include public functions
-require_once(BASEPATH . "Public.php"); 
+require_once(BASEPATH . "Public.php");
