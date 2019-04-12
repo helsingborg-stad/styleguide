@@ -20,7 +20,10 @@ class View
         } catch(\Throwable $e) {
             echo Blade::instance()->make(
                 '404',
-                $data
+                array_merge(
+                    $data,
+                    array('errorMessage' => $e->getMessage())
+                )
             )->render();
         }
     }
