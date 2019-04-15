@@ -10,28 +10,22 @@
         ')
     !!}
 
-    @include('layout.doc', [
-        'markup' => component(
-            'card',
-            $settings = [
-                'title' => "The card title",
-                'image' => "https://picsum.photos/700/450?image=1072",
-                'content' => "Yay, im a beautiful card. I'm right here! Look at me!"
-            ]
-        ),
-        'settings' => $settings
-    ])
+    @component('layout.doc', ['settings' => ['test' => "hejk"]])
+        @card([
+            'title' => "The card title",
+            'image' => "https://picsum.photos/700/450?image=1072",
+            'content' => "Yay, im a beautiful card. I'm right here! Look at me!",
+            'href' => "",
+        ])
+    @endcomponent
 
-    @include('layout.doc', [
-        'markup' => component(
-            'card',
-            [
-                'title' => "Another card, yay!",
-                'content' => "Yay, Im a card!"
-            ]
-        )
-    ])
-
+    @component('layout.doc', ['settings' => ['test' => "hejk"]])
+        @card()
+            @slot('title')
+                Hello
+            @endslot
+        @endcard
+    @endcomponent
 @stop
 
 

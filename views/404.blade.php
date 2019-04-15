@@ -98,10 +98,6 @@
             ]
         ])
 
-        @component('gallery.gallery')
-                test
-        @endcomponent
-
         @icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
 
         @hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
