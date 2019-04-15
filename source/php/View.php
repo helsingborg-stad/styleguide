@@ -16,12 +16,12 @@ class View
 
         try {
             echo Blade::instance()->make(
-                $view,
+                'pages.' . $view,
                 $data
             )->render();
         } catch(\Throwable $e) {
             echo Blade::instance()->make(
-                '404',
+                'pages.404',
                 array_merge(
                     $data,
                     array('errorMessage' => $e->getMessage())

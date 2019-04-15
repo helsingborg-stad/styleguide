@@ -20,7 +20,7 @@ class App
     public function loadPage()
     {
         // Navigation
-        $data['nav']     = Navigation::items();
+        $data['nav']     = Navigation::items('pages/');
         $data['pageNow'] = $this->page;
         $data['componentLibraryIsInstalled'] = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
         $data['isLocalDomain'] = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();

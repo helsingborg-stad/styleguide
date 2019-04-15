@@ -5,10 +5,6 @@
     <p>This page dosen't exists.</p>
     <pre><code>{{$errorMessage}}</code></pre>
 
-
-
-
-
         @button([
             'href' => 'http://helsingborg.se/?variant=1', 
             'label' => "Button one", 

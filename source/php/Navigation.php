@@ -10,9 +10,8 @@ class Navigation
         '.DS_Store',
         'layout',
         '404.blade.php',
-        'home.blade.php',
+        'home.blade.php'
     );
-
 
     /**
      * Creates a navigation array
