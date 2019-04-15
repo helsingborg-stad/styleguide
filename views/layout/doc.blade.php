@@ -1,6 +1,3 @@
-<?php
-    
-?>
 <section id="docblock-{{rand(0,99999)}}" class="example">
     <h3>Example</h3>
     <div class="markup-preview">
@@ -10,7 +7,14 @@
 
     @if(isset($settings))
     <h3>Blade component settings</h3>
+
+
+    <?php var_dump($settings); ?>
+
     <table>
+
+
+
         @foreach($settings as $key => $item)
             <tr>
                 <td>{{$key}}</td>

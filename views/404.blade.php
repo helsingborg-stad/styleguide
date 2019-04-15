@@ -9,28 +9,28 @@
 
 
 
-    @component_button([
+        @button([
             'href' => 'http://helsingborg.se/?variant=1', 
             'label' => "Button one", 
             'isOutlined' => true, 
             'isPrimary' => false
         ])
 
-        @component_button([
+        @button([
             'href' => 'http://helsingborg.se/?variant=2', 
             'label' => "Button two", 
             'isOutlined' => true, 
             'isPrimary' => true
         ])
 
-        @component_button([
+        @button([
             'href' => 'http://helsingborg.se/?variant=3', 
             'label' => "Button three", 
             'isOutlined' => false, 
             'isPrimary' => true
         ])
 
-        @component_table([
+        @table([
             'list' => [
                 ['Hello', 'Hi!', 'Howdy'],
                 ['Goodbye', 'Bye', 'See ya!']
@@ -40,7 +40,7 @@
             'isSmall' => true
         ])
 
-        @component_breadcrumb([
+        @breadcrumb([
             'list' => [
                 ['href' => 'https://google.se', 'label' => 'Main page'],
                 ['href' => 'https://google.se', 'label' => 'Sub page'],
@@ -48,7 +48,7 @@
             ]
         ])
 
-        @component_pagination([
+        @pagination([
             'list' => [
                 ['href' => 'https://google.se', 'label' => 'Main page'],
                 ['href' => 'https://google.se', 'label' => 'Sub page'],
@@ -56,7 +56,7 @@
             ]
         ])
 
-        @component_listing([
+        @listing([
             'list' => [
                 ['href' => 'https://google.se', 'label' => 'Main page'],
                 ['href' => 'https://google.se', 'label' => 'Sub page'],
@@ -65,18 +65,18 @@
             'elementType' => "ol"
         ])
 
-        @component_notice([
+        @notice([
             'content' => "This is the content of this masterpiece called notice.",
             'isWarning' => true
         ])
 
-        @component_image([
+        @image([
             'src'=> "https://picsum.photos/300/200?image=1026",
             'alt' => "This is a image",
             'caption' => "Hey, I am a caption"
         ])
 
-        @component_accordion([
+        @accordion([
             'list'=> [
                 ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."],
                 ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."],
@@ -85,9 +85,9 @@
             ]
         ])
 
-        @component_code([])
+        @code([])
 
-        @component_gallery([
+        @gallery([
             'list' => [
                 ['largeImage' => "https://picsum.photos/900/600?image=1026", 'smallImage' => "https://picsum.photos/300/200?image=1026", 'caption' => "Image with stuff", 'alt' => "The alt text"],
                 ['largeImage' => "https://picsum.photos/900/600?image=1038", 'smallImage' => "https://picsum.photos/300/200?image=1038", 'caption' => "Image with stuff", 'alt' => "The alt text"],
@@ -98,25 +98,29 @@
             ]
         ])
 
-        @component_icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
+        @component('gallery.gallery')
+                test
+        @endcomponent
 
-        @component_hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
+        @icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
 
-        @component_video([
+        @hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
+
+        @video([
             'formats' => [
                 ['src' => "https://storage.googleapis.com/coverr-main/mp4/Self-Serve-in-Arizona.mp4", 'type' => "mp4"],
             ]
         ])
 
-        @component_avatar([
+        @avatar([
             'name' => "Sebastian Thulin"
         ])
 
-        @component_avatar([
+        @avatar([
             'image' => "https://picsum.photos/70/70?image=64"
         ])
 
-        @component_heading([
+        @heading([
             'label' => "Yo, im a heading.",
             'level' => 3
         ])
