@@ -5,14 +5,7 @@
     <p>This page dosen't exists.</p>
     <pre><code>{{$errorMessage}}</code></pre>
 
-        @pagination([
-            'list' => [
-                ['href' => 'https://google.se', 'label' => 'Main page'],
-                ['href' => 'https://google.se', 'label' => 'Sub page'],
-                ['href' => 'https://google.se', 'label' => 'Sub sub page'],
-            ]
-        ])
-        @endpagination
+        
 
         @listing([
             'list' => [
