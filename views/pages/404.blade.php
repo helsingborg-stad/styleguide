@@ -11,6 +11,7 @@
             'isOutlined' => true, 
             'isPrimary' => false
         ])
+        @endbutton
 
         @button([
             'href' => 'http://helsingborg.se/?variant=2', 
@@ -18,6 +19,7 @@
             'isOutlined' => true, 
             'isPrimary' => true
         ])
+        @endbutton
 
         @button([
             'href' => 'http://helsingborg.se/?variant=3', 
@@ -25,6 +27,7 @@
             'isOutlined' => false, 
             'isPrimary' => true
         ])
+        @endbutton
 
         @table([
             'list' => [
@@ -35,6 +38,7 @@
             'showFooter' => true,
             'isSmall' => true
         ])
+        @endtable
 
         @breadcrumb([
             'list' => [
@@ -43,6 +47,7 @@
                 ['href' => 'https://google.se', 'label' => 'Sub sub page'],
             ]
         ])
+        @endbreadcrumb
 
         @pagination([
             'list' => [
@@ -51,6 +56,7 @@
                 ['href' => 'https://google.se', 'label' => 'Sub sub page'],
             ]
         ])
+        @endpagination
 
         @listing([
             'list' => [
@@ -60,17 +66,20 @@
             ],
             'elementType' => "ol"
         ])
+        @endlisting
 
         @notice([
             'content' => "This is the content of this masterpiece called notice.",
             'isWarning' => true
         ])
+        @endnotice
 
         @image([
             'src'=> "https://picsum.photos/300/200?image=1026",
             'alt' => "This is a image",
             'caption' => "Hey, I am a caption"
         ])
+        @endimage
 
         @accordion([
             'list'=> [
@@ -80,8 +89,10 @@
                 ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."]
             ]
         ])
+        @endaccordion
 
         @code([])
+        @endcode
 
         @gallery([
             'list' => [
@@ -93,28 +104,35 @@
                 ['largeImage' => "https://picsum.photos/900/600?image=993", 'smallImage' => "https://picsum.photos/300/200?image=993", 'caption' => "Image with stuff", 'alt' => "The alt text"],
             ]
         ])
+        @endgallery
 
         @icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
+        @endicon
 
         @hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
+        @endhero
 
         @video([
             'formats' => [
                 ['src' => "https://storage.googleapis.com/coverr-main/mp4/Self-Serve-in-Arizona.mp4", 'type' => "mp4"],
             ]
         ])
+        @endvideo
 
         @avatar([
             'name' => "Sebastian Thulin"
         ])
+        @endavatar
 
         @avatar([
             'image' => "https://picsum.photos/70/70?image=64"
         ])
+        @endavatar
 
         @heading([
             'label' => "Yo, im a heading.",
             'level' => 3
         ])
+        @endbutton
 
 @stop
