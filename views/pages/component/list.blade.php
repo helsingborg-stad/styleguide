@@ -10,9 +10,9 @@
 
         @listing([
             'list' => [
-                ['href' => 'https://google.se', 'label' => 'Main page'],
-                ['href' => 'https://google.se', 'label' => 'Sub page'],
-                ['href' => 'https://google.se', 'label' => 'Sub sub page'],
+                ['label' => 'List item 1'],
+                ['label' => 'List item 2'],
+                ['href' => 'https://google.se', 'label' => 'Linked list item'],
             ],
             'elementType' => "ol"
         ])
