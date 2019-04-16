@@ -73,7 +73,11 @@ class View
                 $settings = array(); 
             }
 
-            $view->with(['settings' => $settings]); 
+            $view->with([
+                'settings' => $settings,
+                'settingsLocation' => $configFile,
+                'componentSlug' => $viewData['slug']
+            ]); 
 
         });
     }

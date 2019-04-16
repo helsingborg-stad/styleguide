@@ -13,13 +13,44 @@
 
     @doc(['slug' => 'card'])
 
-        @card()
+        @card(['image' => 'https://picsum.photos/300/200?image=1077'])
 
-            @slot('title')
-                Hej! 
+            @slot('top')
+                @link(['href' => "http://google.se"])
+                    @image(['src' => 'https://picsum.photos/300/200?image=1077'])@endimage
+                    @image(['src' => 'https://picsum.photos/300/200?image=1077'])@endimage
+                @endlink
             @endslot
 
+            
+
+            @link(['href' => "http://google.se"])
+                A link
+            @endlink
+        
+            @link(['href' => "http://google.se"])
+                Hej! 
+            @endlink
+
         @endcard
+
+
+
+        @card()
+
+            @slot('top')
+                Top slot
+            @endslot
+
+            Middle slot
+
+            @slot('bottom')
+                Bottom slot
+            @endslot
+
+
+        @endcard
+
 
     @enddoc
     

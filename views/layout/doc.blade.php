@@ -5,9 +5,22 @@
     </div>
     <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}</code></pre>
 
+    @if(isset($slug))
+
+    <h3>Blade component</h3>
+    <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
+    {{'$slot'}}
+{{"@end"}}{{$slug}}</code></pre>
+
+    @endif
+
     @if(isset($settings))
         <h3>Blade component parameters</h3>
         <table>
+            <thead>
+                <td>Key</td>
+                <td>Default value</td>
+            </thead>
             @foreach($settings as $key => $item)
                 <tr>
                     <td>{{$key}}</td>
@@ -19,5 +32,10 @@
                 </tr>
             @endforeach
         </table>
+        <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
     @endif
+
+
+    
+
 </section>
