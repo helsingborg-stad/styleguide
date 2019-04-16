@@ -11,7 +11,15 @@
 
     <h3>Blade component</h3>
     <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
+
+    <?php echo '@slot("parameter")'; ?>
+
+        Value
+    <?php echo '@endslot'; ?>
+
+
     {{'$slot'}}
+
 {{"@end"}}{{$slug}}</code></pre>
 
     @endif
