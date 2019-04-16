@@ -37,6 +37,8 @@
                     <td>{{$key}}</td>
                     @if(is_array($item)||is_object($item)) 
                     <td>{{json_encode($item)}}</td>
+                    @elseif(is_bool($item))
+                    <td>{{$item ? 'true' : 'false'}}</td>
                     @else
                     <td>{{$item}}</td>
                     @endif
