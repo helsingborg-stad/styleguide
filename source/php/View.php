@@ -12,7 +12,8 @@ class View
      */
     public static function show($view, $data = array())
     {
-        self::registerLayoutViewComposer(); 
+        self::registerLayoutViewComposer();
+        self::registerMarkdownViewComposer();
 
         try {
             echo Blade::instance()->make(
@@ -83,6 +84,25 @@ class View
     }
 
     /**
+     * Register Markdown component alias and view composer
+     * @throws \Exception
+     */
+    public static function registerMarkdownViewComposer()
+    {
+        // Register component alias
+        Blade::instance()->component('layout.markdown', 'markdown');
+
+        // Markdown module
+        Blade::instance()->composer('layout.markdown', function ($view) {
+            $viewData = self::accessProtected($view, 'data');
+
+            $viewData['slot'] = isset($viewData['slot']) ? markdown($viewData['slot']) : '';
+
+            $view->with($viewData);
+        });
+    }
+
+    /**
      * Proxy for accessing provate props
      *
      * @return string Array of values
@@ -94,5 +114,4 @@ class View
         $property->setAccessible(true);
         return $property->getValue($obj);
     }
-
 }
