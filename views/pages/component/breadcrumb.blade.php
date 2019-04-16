@@ -1,11 +1,21 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        #Breadcrumb
+        Used to indicate where the user is in the structure of a page. 
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+    @doc(['slug' => 'breadcrumb'])
+
+        @breadcrumb([
+                'list' => [
+                    ['href' => 'https://google.se', 'label' => 'Main page'],
+                    ['href' => 'https://google.se', 'label' => 'Sub page'],
+                    ['href' => 'https://google.se', 'label' => 'Sub sub page'],
+                ]
+            ])
+        @endbreadcrumb
+
+    @enddoc
 @stop
