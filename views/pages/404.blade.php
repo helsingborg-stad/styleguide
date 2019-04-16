@@ -5,21 +5,6 @@
     <p>This page dosen't exists.</p>
     <pre><code>{{$errorMessage}}</code></pre>
 
-        
-
-        @table([
-            'list' => [
-                ['Hello', 'Hi!', 'Howdy'],
-                ['Goodbye', 'Bye', 'See ya!']
-            ],
-            'headings' => ['Formal', 'Casual', 'Redneck'],
-            'showFooter' => true,
-            'isSmall' => true
-        ])
-        @endtable
-
-        
-
         @pagination([
             'list' => [
                 ['href' => 'https://google.se', 'label' => 'Main page'],

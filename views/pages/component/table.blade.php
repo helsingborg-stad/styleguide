@@ -1,11 +1,24 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        #Table
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+    @doc(['slug' => 'table'])
+
+        @table([
+            'list' => [
+                ['Hello', 'Hi!', 'Howdy'],
+                ['Goodbye', 'Bye', 'See ya!']
+            ],
+            'headings' => ['Formal', 'Casual', 'Redneck'],
+            'showFooter' => true
+        ])
+        @endtable
+
+    @enddoc
 @stop
+
+
+
