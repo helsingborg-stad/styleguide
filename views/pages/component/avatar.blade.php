@@ -1,11 +1,27 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        #Avatar
+        The avatar displays a reprensation of a user account in the platform. It adapts to the input, and displays the most fuitful content. It will sort in descending order between the folowing parameters.
 
-            Demo page
-        ')
-    !!}
+        - User image 
+        - User icon
+        - User initials (calculated form name)
+        
+    @endmarkdown
+
+    @doc(['slug' => 'avatar'])
+
+        @avatar([
+            'name' => "Cookie Monster"
+        ])
+        @endavatar
+
+        @avatar([
+            'image' => "https://picsum.photos/70/70?image=64"
+        ])
+        @endavatar
+
+    @enddoc
 @stop
