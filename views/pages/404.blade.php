@@ -17,11 +17,7 @@
         ])
         @endlisting
 
-        @notice([
-            'content' => "This is the content of this masterpiece called notice.",
-            'isWarning' => true
-        ])
-        @endnotice
+        
 
         @image([
             'src'=> "https://picsum.photos/300/200?image=1026",
