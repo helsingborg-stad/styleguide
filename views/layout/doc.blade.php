@@ -6,7 +6,7 @@
     <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}</code></pre>
 
     @if(isset($settings))
-        <h3>Blade component settings</h3>
+        <h3>Blade component parameters</h3>
         <table>
             @foreach($settings as $key => $item)
                 <tr>

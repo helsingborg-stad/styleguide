@@ -10,13 +10,18 @@
         ')
     !!}
 
-    @card()
 
-        @slot('title')
-            Hej! 
-        @endslot
+    @doc(['slug' => 'card'])
 
-    @endcard
+        @card()
+
+            @slot('title')
+                Hej! 
+            @endslot
+
+        @endcard
+
+    @enddoc
     
 
 @stop

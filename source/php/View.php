@@ -12,7 +12,7 @@ class View
      */
     public static function show($view, $data = array())
     {
-        self::registerViewComposer(); 
+        self::registerLayoutViewComposer(); 
 
         try {
             echo Blade::instance()->make(
@@ -34,11 +34,61 @@ class View
      * @param $view
      * @param array $data
      */
-    public static function registerViewComposer()
+    public static function registerLayoutViewComposer()
     {
+        //Documentation module alias
+        Blade::instance()->component("layout.doc", "doc");
+
         //Documentation module
         Blade::instance()->composer('layout.doc', function ($view) {
-            $view->with(['settings' => ['key' => 'value']]); 
+            
+            $viewData = self::accessProtected($view, 'data');
+
+            if(isset($viewData['slug'])) {
+
+                //Locate config file
+                $configFile = glob(BASEPATH . "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json");
+
+                //Get first occurance of config
+                if(is_array($configFile) && !empty($configFile)) {
+                    $configFile = array_pop($configFile); 
+                } else {
+                    throw new \Exception("No config file found in " . $configFile);
+                }
+
+                //Read config
+                if(!$configJson = file_get_contents($configFile)) {
+                    throw new \Exception("Configuration file unreadable at " . $configFile);
+                }
+
+                //Check if valid json
+                if(!$configJson = json_decode($configJson, true)) {
+                    throw new \Exception("Invalid formatting of configuration file in " . $configFile);
+                }
+
+                //Check if has default object
+                $settings = $configJson['default']; 
+
+            } else {
+                $settings = array(); 
+            }
+
+            $view->with(['settings' => $settings]); 
+
         });
     }
+
+    /**
+     * Proxy for accessing provate props
+     *
+     * @return string Array of values
+     */
+    public static function accessProtected($obj, $prop)
+    {
+        $reflection = new \ReflectionClass($obj);
+        $property = $reflection->getProperty($prop);
+        $property->setAccessible(true);
+        return $property->getValue($obj);
+    }
+
 }
