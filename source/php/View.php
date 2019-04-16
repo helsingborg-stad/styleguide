@@ -68,13 +68,26 @@ class View
                 }
 
                 //Check if has default object
-                $settings = $configJson['default']; 
+                if(isset($configJson['default'])) {
+                    $settings = $configJson['default']; 
+                } else {
+                    $settings = array(); 
+                }
+
+                 //Check if has description object
+                 if(isset($configJson['description'])) {
+                    $description = $configJson['description']; 
+                } else {
+                    $description = array(); 
+                }
 
             } else {
                 $settings = array(); 
+                $description = array(); 
             }
 
             $view->with([
+                'description' => $description,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
                 'componentSlug' => $viewData['slug']

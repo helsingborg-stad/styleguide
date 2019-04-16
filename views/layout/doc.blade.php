@@ -31,6 +31,7 @@
                 <td>Key</td>
                 <td>Default value</td>
                 <td>Type</td>
+                <td>Description</td>
             </thead>
             @foreach($settings as $key => $item)
                 <tr>
@@ -43,6 +44,13 @@
                     <td>{{$item}}</td>
                     @endif
                     <td>{{gettype($item)}}</td>
+
+
+                    @if(isset($description[$key]))
+                    <td>{{$description[$key]}}</td>
+                    @else 
+                    <td>-</td>
+                    @endif
                 </tr>
             @endforeach
         </table>
