@@ -3,7 +3,9 @@
     <div class="markup-preview">
         {!! $slot !!}
     </div>
-    <pre><code>{{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}</code></pre>
+    @code(['language' => 'html', 'content' => ""]) 
+        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
+    @endcode
 
     @if(isset($slug))
 
