@@ -22,6 +22,7 @@
             <thead>
                 <td>Key</td>
                 <td>Default value</td>
+                <td>Type</td>
             </thead>
             @foreach($settings as $key => $item)
                 <tr>
@@ -31,13 +32,10 @@
                     @else
                     <td>{{$item}}</td>
                     @endif
+                    <td>{{gettype($item)}}</td>
                 </tr>
             @endforeach
         </table>
         <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
     @endif
-
-
-    
-
 </section>
