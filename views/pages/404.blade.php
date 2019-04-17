@@ -7,30 +7,6 @@
 
         
 
-        
-
-        
-
-        @image([
-            'src'=> "https://picsum.photos/300/200?image=1026",
-            'alt' => "This is a image",
-            'caption' => "Hey, I am a caption"
-        ])
-        @endimage
-
-        @accordion([
-            'list'=> [
-                ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."],
-                ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."],
-                ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."],
-                ['heading' => "Mattis Risus Tristique Commodo", 'content' => "Donec ullamcorper nulla non metus auctor fringilla. Curabitur blandit tempus porttitor."]
-            ]
-        ])
-        @endaccordion
-
-        @code([])
-        @endcode
-
         @gallery([
             'list' => [
                 ['largeImage' => "https://picsum.photos/900/600?image=1026", 'smallImage' => "https://picsum.photos/300/200?image=1026", 'caption' => "Image with stuff", 'alt' => "The alt text"],
