@@ -23,6 +23,7 @@
                 'content' => 'On of the main focus of this styleguide is usability. Read more of our guidelines here.',
                 'href' => '/about/accessibility'
             ])
+            @endcard
         </div>
 
         <div class="grid-xs-12 grid-md-4">
@@ -32,6 +33,7 @@
                 'content' => 'This styleguide is in many parts crated with our own blade component library to enable swift development and maintaince.',
                 'href' => '/about/styleguide-structre'
             ])
+            @endcard
         </div>
 
         <div class="grid-xs-12 grid-md-4">
@@ -41,6 +43,7 @@
                 'content' => 'The styleguide and lirbraries where created by the awesome development team @ helsingborg stad.',
                 'href' => '/about/authors'
             ])
+            @endcard
         </div>
 
     </div>
