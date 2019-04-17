@@ -86,8 +86,9 @@
         The same goes for when using text ontop of image backgrounds.
         There are multiple online services for measuring contrast accessibility, [for example Material.io Color Tool](https://material.io/tools/color).
 
-        ## Font size enlargement
+        ## Font size and spacing enlargement
         It must be possible to increase the font size to at least double height and width without any problems.
+        It must also be possible to increase spacing between letters and paragraphs without losing any information.
 
         ## Element focusing
         Clearly show which field or element that is in focus.
@@ -101,6 +102,18 @@
         ### Example
         ```html
         <button aria-label=\"Close\">Close</button>
+        ```
+
+        ## Clickable areas
+        Clickable areas should be atleast 44x44px.
+
+        ## Use autocomplete attribute for input fields
+        Help users fill in input fields by specifying the content type in the code. Then web browsers can automatically suggest input based on, for example, previous input in fields of the same type in regular form fields.
+
+        ### Example
+        ```html
+        <label for=\"email\">Email</label>
+        <input type=\"email\" autocomplete=\"email\" id=\"email\" name=\"email\">
         ```
 
     ") !!}
