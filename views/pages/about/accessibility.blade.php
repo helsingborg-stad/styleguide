@@ -12,7 +12,7 @@
         All code is validated by a linter in the build process before deployed to production.
 
         ## Use built in HTML elements
-        Primarly use the built in HTML elements before creating custom components.
+        Primarly use the built in HTML elements before creating custom components. Make sure custom components work correctly with different accessibility equipment.
         ### Don't
         ```html
         <span class=\"heading-1\">Lorem ipsum</span>
@@ -23,8 +23,8 @@
         <h1>Lorem ipsum</h1>
         ```
 
-        ## Use HTML-elements correctly
-        Increase the chance that the information is presented correctly regardless of the users equipment, by using the HTML elements correctly.
+        ## Write semantic HTML and use elements correctly
+        Increase the chance that the information is presented correctly regardless of the users equipment, by writing semantic HTML and use elements correctly.
 
         *Example:*
         Use list-related HTML elements (ol, ul, li) for list items only.
@@ -94,6 +94,14 @@
 
         ## Keyboard navigation
         Possibility to navigate on a keyboard with tabs through the page and its components.
+
+        ## Machine-readable labels on buttons and controls
+        Make sure that text on buttons and other controls correspond to machine-readable labels.
+
+        ### Example
+        ```html
+        <button aria-label=\"Close\">Close</button>
+        ```
 
     ") !!}
 
