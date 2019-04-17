@@ -53,6 +53,23 @@
                     @endif
                 </tr>
             @endforeach
+
+            <!-- Class list -->
+            <tr>
+                <td>classList</td>
+                <td>[]</td>
+                <td>array</td>
+                <td>Array containing wrapping classes array</td>
+            </tr>
+
+            <!-- Attribute list -->
+            <tr>
+                <td>attributeList</td>
+                <td>[]</td>
+                <td>array</td>
+                <td>Array containing keys and values rendered as attributes</td>
+            </tr>
+
         </table>
         <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
     @endif
