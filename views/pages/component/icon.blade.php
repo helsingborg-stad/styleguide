@@ -8,17 +8,22 @@
 
     @doc(['slug' => 'icon'])
 
+        <div>
         @icon(['icon' => 'home'])
             Mutch icon, wow!
         @endicon
+        </div>
 
-        @icon(['icon' => 'caret-left'])
-            Mutch left pointing icon, wow!
+        <div>
+        @icon(['icon' => 'close-o'])
         @endicon
+        </div>
 
+        <div>
         @icon(['icon' => 'plus'])
             Mutch icon plus, wow!
         @endicon
+        </div>
 
     @enddoc
 @stop

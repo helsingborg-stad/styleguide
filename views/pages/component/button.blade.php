@@ -10,26 +10,26 @@
 
         @button([
             'href' => 'http://helsingborg.se/?variant=1', 
-            'label' => "Button one", 
             'isOutlined' => true, 
             'isPrimary' => false
         ])
+            Button one
         @endbutton
 
         @button([
             'href' => 'http://helsingborg.se/?variant=2', 
-            'label' => "Button two", 
             'isOutlined' => true, 
             'isPrimary' => true
         ])
+            Button two
         @endbutton
 
         @button([
             'href' => 'http://helsingborg.se/?variant=3', 
-            'label' => "Button three", 
             'isOutlined' => false, 
             'isPrimary' => true
         ])
+        Button three
         @endbutton
 
     @enddoc
