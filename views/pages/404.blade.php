@@ -8,10 +8,6 @@
         @icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
         @endicon
 
-        @heading([
-            'label' => "Yo, im a heading.",
-            'level' => 3
-        ])
-        @endbutton
+        
 
 @stop
