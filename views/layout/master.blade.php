@@ -21,6 +21,8 @@
         }
     </style>
 
+
+
     <noscript>
         <style>
             .visible-noscript {display: block !important;}
@@ -105,6 +107,75 @@
             });
             hljs.initHighlightingOnLoad();
         });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
+
+    <script>
+
+        anime({
+            targets: '.navbar',
+            opacity: [0,1],
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
+            targets: '.c-card',
+            opacity: [0,1],
+            translateY: ['50px','0px'],
+            delay: anime.stagger(140),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
+            targets: 'nav ul li a, nav ul li ul li a',
+            opacity: [0,1],
+            translateX: ['5px','0px'],
+            delay: anime.stagger(30),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
+            targets: '.gallery li',
+            opacity: [0,1],
+            translateY: ['50px','0px'],
+            delay: anime.stagger(140),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
+            targets: 'table tr',
+            opacity: [0,1],
+            translateX: ['20px','0px'],
+            delay: anime.stagger(40),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+/*
+        anime({
+                targets: 'body',
+                opacity: ['0','1'],
+            });
+
+        var matches = document.querySelectorAll("nav a");
+
+        for (var i = 0; i < matches.length; i++) {
+            matches[i].addEventListener('click', function(event) {
+
+                event.preventDefault(); 
+
+                setTimeout(function(url) { window.location = url; }, 1000, this.href);
+
+                anime({
+                    targets: 'body',
+                    opacity: ['1', '0'],
+                    duration: 1000
+                });
+
+                
+            });
+        }
+*/ 
     </script>
 </body>
 </html>
