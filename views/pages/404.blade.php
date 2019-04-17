@@ -11,8 +11,7 @@
         @icon(['icon' => 'home', 'label' => 'Mutch icon, wow!'])
         @endicon
 
-        @hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
-        @endhero
+        
 
         @video([
             'formats' => [
