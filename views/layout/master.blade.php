@@ -181,5 +181,37 @@
         }
 */ 
     </script>
+
+<script>
+	// init controller
+	var controller = new ScrollMagic.Controller();
+
+	// build scene
+	var scene = new ScrollMagic.Scene({triggerElement: "code", duration: 200})
+    .addTo(controller)
+    .on("enter", function (e) {
+        anime({
+            targets: 'code',
+            opacity: [0,1],
+            translateX: ['20px','0px'],
+            easing: 'spring(1, 80, 10, 0)',
+            delay: anime.stagger(140),
+        });
+    }).on("leave", function (e) {
+        anime({
+            targets: 'code',
+            opacity: [1,0],
+            translateX: ['0','20px'],
+            easing: 'spring(1, 80, 10, 0)',
+            delay: anime.stagger(140),
+        });
+    });
+</script>
+
+
+
+
+
+
 </body>
 </html>
