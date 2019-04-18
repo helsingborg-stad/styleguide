@@ -109,10 +109,6 @@
         });
     </script>
 
-    <!-- Scroll magic -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/plugins/debug.addIndicators.min.js"></script>
-
     <!-- Anime JS -->
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
 
@@ -155,63 +151,43 @@
             delay: anime.stagger(40),
             easing: 'spring(1, 80, 10, 0)'
         });
-/*
-        anime({
-                targets: 'body',
-                opacity: ['0','1'],
-            });
 
-        var matches = document.querySelectorAll("nav a");
-
-        for (var i = 0; i < matches.length; i++) {
-            matches[i].addEventListener('click', function(event) {
-
-                event.preventDefault(); 
-
-                setTimeout(function(url) { window.location = url; }, 1000, this.href);
-
-                anime({
-                    targets: 'body',
-                    opacity: ['1', '0'],
-                    duration: 1000
-                });
-
-                
-            });
-        }
-*/ 
     </script>
 
-<script>
-	// init controller
-	var controller = new ScrollMagic.Controller();
+    <script>
 
-	// build scene
-	var scene = new ScrollMagic.Scene({triggerElement: "code", duration: 200})
-    .addTo(controller)
-    .on("enter", function (e) {
-        anime({
-            targets: 'code',
-            opacity: [0,1],
-            translateX: ['20px','0px'],
-            easing: 'spring(1, 80, 10, 0)',
-            delay: anime.stagger(140),
+        const codeElements = document.querySelectorAll('code');
+
+        const observerConfig = {
+            threshold: 0.2
+        };
+
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.intersectionRatio > observerConfig.threshold) {
+                    anime({
+                        targets: entry.target,
+                        opacity: [0,1],
+                        translateX: ['20px','0px'],
+                        delay: anime.stagger(40),
+                        easing: 'spring(1, 80, 10, 0)'
+                    });
+                } else {
+                    anime({
+                        targets: entry.target,
+                        opacity: [1,0],
+                        translateX: ['0','20px'],
+                        delay: anime.stagger(40),
+                        easing: 'spring(1, 80, 10, 0)'
+                    });
+                }
+            });
+        }, observerConfig);
+
+        codeElements.forEach(codeElement => {
+            observer.observe(codeElement);
         });
-    }).on("leave", function (e) {
-        anime({
-            targets: 'code',
-            opacity: [1,0],
-            translateX: ['0','20px'],
-            easing: 'spring(1, 80, 10, 0)',
-            delay: anime.stagger(140),
-        });
-    });
-</script>
-
-
-
-
-
+    </script>
 
 </body>
 </html>
