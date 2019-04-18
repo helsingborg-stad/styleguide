@@ -129,14 +129,6 @@
         });
 
         anime({
-            targets: 'nav ul li a, nav ul li ul li a',
-            opacity: [0,1],
-            translateX: ['5px','0px'],
-            delay: anime.stagger(30),
-            easing: 'spring(1, 80, 10, 0)'
-        });
-
-        anime({
             targets: '.gallery li',
             opacity: [0,1],
             translateY: ['50px','0px'],
@@ -144,19 +136,11 @@
             easing: 'spring(1, 80, 10, 0)'
         });
 
-        anime({
-            targets: 'table tr',
-            opacity: [0,1],
-            translateX: ['20px','0px'],
-            delay: anime.stagger(40),
-            easing: 'spring(1, 80, 10, 0)'
-        });
-
     </script>
 
     <script>
 
-        const codeElements = document.querySelectorAll('code');
+        const codeElements = document.querySelectorAll('table tr, code, nav ul li a, nav ul li ul li a');
 
         const observerConfig = {
             threshold: 0.2
@@ -169,7 +153,6 @@
                         targets: entry.target,
                         opacity: [0,1],
                         translateX: ['20px','0px'],
-                        delay: anime.stagger(40),
                         easing: 'spring(1, 80, 10, 0)'
                     });
                 } else {
@@ -177,7 +160,6 @@
                         targets: entry.target,
                         opacity: [1,0],
                         translateX: ['0','20px'],
-                        delay: anime.stagger(40),
                         easing: 'spring(1, 80, 10, 0)'
                     });
                 }
@@ -188,6 +170,7 @@
             observer.observe(codeElement);
         });
     </script>
+
 
 </body>
 </html>
