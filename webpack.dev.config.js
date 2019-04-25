@@ -14,13 +14,6 @@ module.exports = {
     entry: {
         'index': glob.sync('./source/js/**/*.js'),
         'red': './source/sass/themes/red.scss',
-        'blue': './source/sass/themes/blue.scss',
-        'familjen': './source/sass/themes/familjen.scss',
-        'gray': './source/sass/themes/gray.scss',
-        'green': './source/sass/themes/green.scss',
-        'hultsfred': './source/sass/themes/hultsfred.scss',
-        'purple': './source/sass/themes/purple.scss',
-        'astorp': './source/sass/themes/astorp.scss'
     },
 
     /**
@@ -29,10 +22,10 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/[name].min.js'
+        filename: 'js/[name].dev.js'
     },
 
-    mode: 'production',
+    mode: 'development',
 
     watch: true,
     watchOptions: {
@@ -69,9 +62,9 @@ module.exports = {
                     {
                         loader: "css-loader",
                     },
-                    {
+                    /*{
                         loader: "postcss-loader"
-                    },
+                    },*/
                     {
                         loader: "sass-loader",
                         options: {
@@ -103,8 +96,8 @@ module.exports = {
      */
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/[name].min.css',
-            chunkFilename: 'css/[name].min.css'
+            filename: 'css/[name].dev.css',
+            chunkFilename: 'css/[name].dev.css'
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
