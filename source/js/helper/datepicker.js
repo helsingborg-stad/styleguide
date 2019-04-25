@@ -49,7 +49,7 @@ HelsingborgPrime.Helper.Datepicker = (function ($) {
 /* Datepicker language */
 (function(factory) {
     if (typeof define === "function" && define.amd) {
-        define(["../widgets/datepicker"], factory);
+        //define(["../widgets/datepicker"], factory); // Webpack ger error på denna.
     } else {
         factory( jQuery.datepicker );
     }

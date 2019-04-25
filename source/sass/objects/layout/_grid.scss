@@ -72,9 +72,7 @@
         }
 
         //Apply common column styles
-        #{$columnClasses},
-        .grid-#{$breakpoint}-auto,
-        .grid-#{$breakpoint}-fit-content {
+        .blank-Holder-to-avoid-commas, #{$columnClasses}, .grid-#{$breakpoint}-auto, .grid-#{$breakpoint}-fit-content {
             @extend %column;
         }
 
