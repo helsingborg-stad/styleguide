@@ -1,11 +1,12 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        # Stripe
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+    @doc(['slug' => 'stripe'])
+        @stripe
+        @endstripe
+    @enddoc
 @stop
