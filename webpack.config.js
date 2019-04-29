@@ -3,7 +3,8 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const package = require('./package.json');
-const CopyPlugin = require('copy-webpack-plugin');
+//const CopyPlugin = require('copy-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const version = package.version;
 
@@ -91,7 +92,6 @@ module.exports = {
     },
 
 
-
     /**
      * Plugins
      */
@@ -110,8 +110,15 @@ module.exports = {
         }),
 
         // Copy dist from version and create latest in dist
-        new CopyPlugin([
-            {from: 'assets/dist/' + version + '/', to: '../' }
-        ])
+        new FileManagerPlugin({
+            onEnd: [
+                {
+                    copy: [
+                        {source: './assets/dist/' + version + '/', destination: './assets/dist/'}
+                    ]
+                }
+
+            ]
+        })
     ]
 };
