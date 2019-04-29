@@ -102,9 +102,9 @@
         'list' => [
             ['js-bind', 'Event to bind on (onload = init animation, scroll = in view animation)', 'scroll/onload'],
             ['js-action', 'Animate keyword for animations.', 'animate'],
-            ['js-animate-target', 'A sub element of the bound target, if left blank bound target will be animated.', 'li.list-element'],
+            ['js-animate-target', 'A sub element of the bound target, if left blank bound target will be animated. The target element is automatically prefixed by the dom-node of the bound element.', 'li.list-element'],
             ['js-animate-type', 'Type of animation', 'fade/fadeUp/fadeLeft/bounce'],
-            ['js-animate-stagger', 'Stagger (delay) each item in list of items (ms).', '300'],
+            ['js-animate-stagger', 'Stagger (delay) each item in list of items (ms). Use 0 or false to turn off staggering.', '300'],
             ['js-animate-time', 'Time to complete animation.', '50']
         ],
         'headings' => ['Attribute', 'Description', 'Example value(s)'],
