@@ -1,11 +1,8 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const glob = require('glob');
-const webpack = require('webpack');
 const package = require('./package.json');
-//const CopyPlugin = require('copy-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-
 const version = package.version;
 
 module.exports = {
@@ -17,7 +14,6 @@ module.exports = {
         'prime-js': glob.sync('./source/js/**/*.js'),
         'prime-css': './source/sass/main.scss',
     },
-
     mode: 'production',
     watch: true,
     watchOptions: {
@@ -101,12 +97,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/hbg-[name].min.css',
             chunkFilename: 'css/hbg-[name].min.css'
-        }),
-
-        // Add Jquery - Remove when dependency is gone
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
         }),
 
         // Copy dist from version and create latest in dist
