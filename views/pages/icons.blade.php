@@ -16,9 +16,10 @@
                 ['A', 'B', 'C', 'D']
             ],
             'headings' => ['Icon', 'Class', 'Tag', 'Component'],
-            'showFooter' => true
+            'showFooter' => true,
+            'isSmall' => true
         ])
         @endtable
-        
+
 </article>
 @stop
