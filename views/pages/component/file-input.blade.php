@@ -1,11 +1,18 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        #File input
+        Displays a file input.
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+    @doc(['slug' => 'fileinput'])
+
+        @fileinput([
+            'display' => 'area',
+            'multiple' => true
+        ])
+        @endfileinput
+
+    @enddoc
 @stop
