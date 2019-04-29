@@ -1,5 +1,5 @@
 <nav>
-    <ul class="nav-aside">
+    <ul class="nav-aside unlist">
         @foreach ($nav as $item => $subitems)
             <li class="{{ \HbgStyleGuide\Navigation::currentClass($item, $pageNow) }}">
                 <a href="/{{ $item }}">{{ \HbgStyleGuide\Navigation::readableFilename($item) }}</a>

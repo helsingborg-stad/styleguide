@@ -48,3 +48,6 @@ ol.unlist {
 ul.unlist li:before {
     content: none;
 }
+pre li:before {
+    background: transparent;
+}

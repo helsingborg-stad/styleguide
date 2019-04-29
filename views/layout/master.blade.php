@@ -9,7 +9,7 @@
     <meta name="description" content="">
 
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
-    <link rel="stylesheet" type="text/css" href="/dist/css/hbg-prime-css.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/dist/css/hbg-prime-css.min.css">
     <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
 
     <style>
