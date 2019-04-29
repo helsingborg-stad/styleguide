@@ -1,0 +1,11 @@
+$body-font-size: 1rem;
+$body-font-weight: $font-weight-normal;
+$body-font-family: $font-family-roboto;
+$body-line-height: 1.625;
+
+body {
+    font-size: $body-font-size;
+    font-family: $body-font-family;
+    line-height: $body-line-height;
+    font-weight: $body-font-weight;
+}

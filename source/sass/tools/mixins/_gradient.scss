@@ -1,3 +1,0 @@
-@mixin gradient($from, $to, $direction: to bottom) {
-    background: linear-gradient($direction,  $from, $to);
-}

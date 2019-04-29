@@ -3,26 +3,19 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const package = require('./package.json');
-const CopyPlugin = require('copy-webpack-plugin');
+//const CopyPlugin = require('copy-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const version = package.version;
 
 module.exports = {
 
     /**
-     * Entry files
+     * Entry files - Add more entries if needed.
      */
-
     entry: {
-        'index': glob.sync('./source/js/**/*.js'),
-        'red': './source/sass/themes/red.scss',
-        'blue': './source/sass/themes/blue.scss',
-        'familjen': './source/sass/themes/familjen.scss',
-        'gray': './source/sass/themes/gray.scss',
-        'green': './source/sass/themes/green.scss',
-        'hultsfred': './source/sass/themes/hultsfred.scss',
-        'purple': './source/sass/themes/purple.scss',
-        'astorp': './source/sass/themes/astorp.scss'
+        'prime-js': glob.sync('./source/js/**/*.js'),
+        'prime-css': './source/sass/main.scss',
     },
 
     mode: 'production',
@@ -35,10 +28,9 @@ module.exports = {
     /**
      * Output files
      */
-
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/hbg-prime-[name].min.js'
+        filename: 'js/hbg-[name].min.js'
     },
 
     module: {
@@ -100,28 +92,33 @@ module.exports = {
     },
 
 
-
     /**
-     * Minify css and create css file
+     * Plugins
      */
     plugins: [
+
+        //Minify css and create css file
         new MiniCssExtractPlugin({
-            filename: 'css/hbg-prime-[name].min.css',
-            chunkFilename: 'css/hbg-prime-[name].min.css'
+            filename: 'css/hbg-[name].min.css',
+            chunkFilename: 'css/hbg-[name].min.css'
         }),
 
+        // Add Jquery - Remove when dependency is gone
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
         }),
 
-        new CopyPlugin([
-            {
-                from: 'css/*',
-                to: '/assets/dist/latest/'
-            },
-            //{ from: 'js/*', to: './assets/dist/latest/', force: true  },
-            //{ from: 'fonts/*', to: './assets/dist/latest/', force: true  },
-        ])
+        // Copy dist from version and create latest in dist
+        new FileManagerPlugin({
+            onEnd: [
+                {
+                    copy: [
+                        {source: './assets/dist/' + version + '/', destination: './assets/dist/'}
+                    ]
+                }
+
+            ]
+        })
     ]
 };

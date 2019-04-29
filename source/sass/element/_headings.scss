@@ -1,0 +1,79 @@
+$h1-font-size: $font-size-headline !default;
+$h1-line-height: $line-height-headline!default;
+$h1-font-weight: $font-weight-bold !default;
+
+$h2-font-size: $font-size-title !default;
+$h2-line-height: $line-height-heading !default;
+$h2-font-weight: $font-weight-medium !default;
+
+$h3-font-size: $font-size-subtitle !default;
+$h3-line-height: $line-height-heading !default;
+$h3-font-weight: $font-weight-medium !default;
+
+$h4-font-size: $font-size-body !default;
+$h4-line-height: $line-height-heading !default;
+$h4-font-weight: $font-weight-medium !default;
+
+$h5-font-size: $font-size-body !default;
+$h5-line-height: $line-height-heading !default;
+$h5-font-weight: $font-weight-medium !default;
+
+
+$h6-font-size: $font-size-body !default;
+$h6-line-height: $line-height-heading !default;
+$h6-font-weight: $font-weight-medium !default;
+
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+    margin: 0;
+}
+
+h1,
+.h1 {
+    font-size: $h1-font-size;
+    font-weight: $h1-font-weight;
+    line-height: $h1-line-height;
+}
+
+h2,
+.h2 {
+    font-size: $h2-font-size;
+    font-weight: $h2-font-weight;
+    line-height: $h2-line-height;
+}
+
+h3,
+.h3 {
+    font-size: $h3-font-size;
+    font-weight: $h3-font-weight;
+    line-height: $h3-line-height;
+}
+
+h4, .h4 {
+    font-size: $h4-font-size;
+    font-weight: $h4-font-weight;
+    line-height: $h4-line-height;
+}
+
+h5, .h5 {
+    font-size: $h5-font-size;
+    font-weight: $h5-font-weight;
+    line-height: $h5-line-height;
+}
+
+h6, .h6 {
+    font-size: $h6-font-size;
+    font-weight: $h6-font-weight;
+    line-height: $h6-line-height;
+}
