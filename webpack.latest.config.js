@@ -3,8 +3,6 @@ const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
 const package = require('./package.json');
-const CopyPlugin = require('copy-webpack-plugin');
-
 const version = package.version;
 
 module.exports = {
@@ -30,15 +28,6 @@ module.exports = {
     watchOptions: {
         poll: 1000,
         ignored: /node_modules/
-    },
-
-    /**
-     * Output files
-     */
-
-    output: {
-        path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/hbg-prime-[name].min.js'
     },
 
     module: {
@@ -99,29 +88,26 @@ module.exports = {
         ]
     },
 
+    /**
+     * Output files
+     */
 
+    output: {
+        path: path.resolve(__dirname, 'assets/dist/'),
+        filename: 'js/hbg-prime-latest.min.js'
+    },
 
     /**
      * Minify css and create css file
      */
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/hbg-prime-[name].min.css',
-            chunkFilename: 'css/hbg-prime-[name].min.css'
+            filename: 'css/hbg-prime-latest.min.css',
+            chunkFilename: 'css/hbg-prime-latest.min.css'
         }),
-
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
-        }),
-
-        new CopyPlugin([
-            {
-                from: 'css/*',
-                to: '/assets/dist/latest/'
-            },
-            //{ from: 'js/*', to: './assets/dist/latest/', force: true  },
-            //{ from: 'fonts/*', to: './assets/dist/latest/', force: true  },
-        ])
+        })
     ]
 };

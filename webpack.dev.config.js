@@ -7,6 +7,12 @@ const version = package.version;
 
 module.exports = {
 
+    devServer: {
+        lazy: true,
+        writeToDisk: true,
+
+    },
+
     /**
      * Entry files
      */
@@ -62,9 +68,9 @@ module.exports = {
                     {
                         loader: "css-loader",
                     },
-                    /*{
+                    {
                         loader: "postcss-loader"
-                    },*/
+                    },
                     {
                         loader: "sass-loader",
                         options: {
