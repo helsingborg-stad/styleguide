@@ -1,6 +1,0 @@
-/* A wrapper aware breakpoint */
-@mixin wrapper-breakpoint($breakpointWidth: 600, $desktopWidth: 33.333%, $mobileWidth: 100%) {
-    max-width: $mobileWidth;
-    width: calc((#{$breakpointWidth}px - 100%) * #{$breakpointWidth});
-    min-width: $desktopWidth;
-}

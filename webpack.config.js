@@ -10,19 +10,11 @@ const version = package.version;
 module.exports = {
 
     /**
-     * Entry files
+     * Entry files - Add more entries if needed.
      */
-
     entry: {
         'index': glob.sync('./source/js/**/*.js'),
-        'red': './source/sass/themes/red.scss',
-        'blue': './source/sass/themes/blue.scss',
-        'familjen': './source/sass/themes/familjen.scss',
-        'gray': './source/sass/themes/gray.scss',
-        'green': './source/sass/themes/green.scss',
-        'hultsfred': './source/sass/themes/hultsfred.scss',
-        'purple': './source/sass/themes/purple.scss',
-        'astorp': './source/sass/themes/astorp.scss'
+        'css': './source/sass/main.scss',
     },
 
     mode: 'production',
@@ -35,7 +27,6 @@ module.exports = {
     /**
      * Output files
      */
-
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
         filename: 'js/hbg-prime-[name].min.js'
@@ -102,26 +93,25 @@ module.exports = {
 
 
     /**
-     * Minify css and create css file
+     * Plugins
      */
     plugins: [
+
+        //Minify css and create css file
         new MiniCssExtractPlugin({
             filename: 'css/hbg-prime-[name].min.css',
             chunkFilename: 'css/hbg-prime-[name].min.css'
         }),
 
+        // Add Jquery - Remove when dependency is gone
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
         }),
 
+        // Copy dist from version and create latest in dist
         new CopyPlugin([
-            {
-                from: 'css/*',
-                to: '/assets/dist/latest/'
-            },
-            //{ from: 'js/*', to: './assets/dist/latest/', force: true  },
-            //{ from: 'fonts/*', to: './assets/dist/latest/', force: true  },
+            {from: 'assets/dist/' + version + '/', to: '../' }
         ])
     ]
 };

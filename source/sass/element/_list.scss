@@ -1,0 +1,50 @@
+ul, ol {
+    margin: 0;
+    padding-left: $base * 3.5;
+
+    li {
+        padding-left: $base * 1.5;
+    }
+
+    li + li {
+        margin-top: $base * 2;
+    }
+}
+
+ul {
+    list-style: none;
+
+    li {
+        position: relative;
+    }
+
+    li:before {
+        content: '';
+        background: black;
+        width: 6px;
+        height: 6px;
+        display:  block;
+        border-radius: 1px;
+        position: absolute;
+        left: $base * -1.5;
+        top: 10px;
+    }
+}
+
+ul.unlist,
+ol.unlist {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        padding-left: 0;
+    }
+
+    li + li {
+        margin: 0;
+    }
+}
+
+ul.unlist li:before {
+    content: none;
+}

@@ -1,0 +1,28 @@
+a, .link {
+    color: $color-link;
+    text-decoration-style: dotted;
+
+    &:hover {
+        color: $color-link-hover;
+        text-decoration-style: solid;
+    }
+
+    &:active, &:focus {
+        outline: dotted 1px;
+        text-decoration: none;
+    }
+
+    &:active {
+        color: lighten($color-link-hover, 10%);
+    }
+
+    &:visited {
+        color: $color-link-visited;
+        &:hover {
+            color: $color-link-visited-hover;
+        }
+        &:active {
+            color: lighten($color-link-visited-hover, 10%);
+        }
+    }
+}
