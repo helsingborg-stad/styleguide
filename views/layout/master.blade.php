@@ -86,12 +86,16 @@
         </div>
     </footer>
 
+    <!-- jQuery --> 
     <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script>
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous"></script>
+
+    <!-- Highlight js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
 
+    <!-- Run highlight --> 
     <script>
         $(function(){
             $('pre code').each(function(){
@@ -123,7 +127,7 @@
         anime({
             targets: '.c-card',
             opacity: [0,1],
-            translateY: ['50px','0px'],
+            translateY: ['20px','0px'],
             delay: anime.stagger(140),
             easing: 'spring(1, 80, 10, 0)'
         });
