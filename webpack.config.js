@@ -13,8 +13,8 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'index': glob.sync('./source/js/**/*.js'),
-        'css': './source/sass/main.scss',
+        'prime-js': glob.sync('./source/js/**/*.js'),
+        'prime-css': './source/sass/main.scss',
     },
 
     mode: 'production',
@@ -29,7 +29,7 @@ module.exports = {
      */
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/hbg-prime-[name].min.js'
+        filename: 'js/hbg-[name].min.js'
     },
 
     module: {
@@ -99,8 +99,8 @@ module.exports = {
 
         //Minify css and create css file
         new MiniCssExtractPlugin({
-            filename: 'css/hbg-prime-[name].min.css',
-            chunkFilename: 'css/hbg-prime-[name].min.css'
+            filename: 'css/hbg-[name].min.css',
+            chunkFilename: 'css/hbg-[name].min.css'
         }),
 
         // Add Jquery - Remove when dependency is gone
