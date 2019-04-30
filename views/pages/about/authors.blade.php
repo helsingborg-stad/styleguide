@@ -15,7 +15,7 @@
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Sebastian Thulin', 'content' => 'Lead developer'])
+            @card(['title' => 'Sebastian Thulin', 'byline' => 'Lead developer'])
 
                 @slot('top')
                     @avatar(['image' => 'https://picsum.photos/70/70?image=64', 'name' => 'Sebastian Thulin'])
@@ -48,7 +48,7 @@
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Nikolas Ramstedt', 'content' => 'Web developer'])
+            @card(['title' => 'Nikolas Ramstedt', 'byline' => 'Web developer'])
 
                 @slot('top')
                     @avatar(['image' => 'https://picsum.photos/70/70?image=65', 'name' => 'Nikolas Ramstedt'])
@@ -81,7 +81,7 @@
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Jonatan Hanson', 'content' => 'Web developer'])
+            @card(['title' => 'Jonatan Hanson', 'byline' => 'Web developer'])
 
                 @slot('top')
                     @avatar(['image' => 'https://picsum.photos/70/70?image=66', 'name' => 'Jonatan Hanson'])
@@ -114,7 +114,7 @@
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Johan Silvergrund', 'content' => 'Web consultant'])
+            @card(['title' => 'Johan Silvergrund', 'byline' => 'Web consultant'])
 
                 @slot('top')
                     @avatar(['image' => 'https://picsum.photos/70/70?image=67', 'name' => 'Johan Silvergrund'])
@@ -122,23 +122,23 @@
                 @endslot
 
                 @slot('bottom')
-                    @link(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
+                    @button(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
                         @icon(['icon' => 'github', 'isTipBoxLabel' => true])
                             Github
                         @endicon
-                    @endlink
+                    @endbutton
 
-                    @link(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
+                    @button(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
                         @icon(['icon' => 'email', 'isTipBoxLabel' => true])
                             Email
                         @endicon
-                    @endlink
+                    @endbutton
 
-                    @link(['link' => 'tel:+46723949388', 'target' => '_blank'])
+                    @button(['link' => 'tel:+46723949388', 'target' => '_blank'])
                         @icon(['icon' => 'phone', 'isTipBoxLabel' => true])
                             Call
                         @endicon
-                    @endlink
+                    @endbutton
                 @endslot
 
             @endcard
