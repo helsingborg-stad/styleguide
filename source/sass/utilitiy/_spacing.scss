@@ -1,0 +1,5 @@
+.u-content-spacing {
+    > * + *:not(.u-content-spacing__ignore) {
+        margin-top: $content-gutter;
+    }
+}

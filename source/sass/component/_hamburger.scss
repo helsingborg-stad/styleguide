@@ -1,0 +1,14 @@
+.hamburger {
+    vertical-align: initial !important;
+    display: flex;
+    padding: 16px;
+    line-height: 1;
+
+    span.hamburger-label {
+        margin-left: 12px;
+    }
+
+    span.hamburger-box {
+        top: 2px;
+    }
+}
