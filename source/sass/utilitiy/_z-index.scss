@@ -1,0 +1,13 @@
+@for $i from 1 through 10 {
+    .u-level-#{$i} { 
+        z-index: #{$i}000 !important; 
+    }   
+}
+
+.u-level-top { 
+    z-index: #{$level-top} !important; 
+}  
+
+.u-level-bottom {
+    z-index: #{$level-bottom} !important; 
+}
