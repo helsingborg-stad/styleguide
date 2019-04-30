@@ -84,13 +84,14 @@ class View
             } else {
                 $settings = array(); 
                 $description = array(); 
+                $configFile = false; 
             }
 
             $view->with([
                 'description' => $description,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
-                'componentSlug' => $viewData['slug']
+                'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false
             ]); 
 
         });

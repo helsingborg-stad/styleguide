@@ -24,7 +24,7 @@
 
     @endif
 
-    @if(isset($settings))
+    @if(isset($settings) && isset($slug) && !empty($slug))
         <h3>Blade component parameters</h3>
         <table>
             <thead>
