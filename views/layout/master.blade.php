@@ -99,7 +99,7 @@
     crossorigin="anonymous"></script>
 
     <!-- Styleguide - js -->
-    <script src="/assets/dist/js/hbg-prime-js.min.js"></script>
+    <script src="/assets/dist/js/styleguide-js.min.js"></script>
 
     <!-- Highlight js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
