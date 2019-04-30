@@ -10,7 +10,10 @@
 
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
     <link rel="stylesheet" type="text/css" href="/assets/dist/css/hbg-prime-css.min.css">
+
+    @if(!isset($_GET['v2']))
     <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
+    @endif
 
     <style>
         .current-page {
@@ -20,8 +23,6 @@
             display: block;
         }
     </style>
-
-
 
     <noscript>
         <style>
@@ -36,6 +37,11 @@
             <div class="grid">
                 <div class="grid-md-3">
                     <a href="/"><img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35" style="margin: 20px 0 12px 0"></a>
+                </div>
+                <div class="grid-md-3">
+                    @button(['href'=>'?v2', 'isPrimary' => false])
+                            Preview
+                    @endbutton
                 </div>
             </div>
         </div>
@@ -86,8 +92,6 @@
         </div>
     </footer>
 
-
-
     <!-- jQuery --> 
     <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -96,7 +100,6 @@
 
     <!-- Styleguide - js -->
     <script src="/assets/dist/js/hbg-prime-js.min.js"></script>
-
 
     <!-- Highlight js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
@@ -121,7 +124,6 @@
 
     <!-- Anime JS -->
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.0.1/lib/anime.min.js"></script>
-
 
     <script>
 
