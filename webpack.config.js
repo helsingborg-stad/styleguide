@@ -11,8 +11,8 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'prime-js': glob.sync('./source/js/**/*.js'),
-        'prime-css': './source/sass/main.scss',
+        'styleguide-js': glob.sync('./source/js/**/*.js'),
+        'styleguide-css': './source/sass/main.scss',
     },
     mode: 'production',
     watch: true,
@@ -26,7 +26,7 @@ module.exports = {
      */
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/hbg-[name].min.js'
+        filename: 'js/[name].min.js'
     },
 
     module: {
