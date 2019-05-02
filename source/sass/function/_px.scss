@@ -1,0 +1,16 @@
+@function px($value, $emBase: $mix-em-base, $remBase: $mix-rem-base) {
+    @if unit($value) == 'em' {
+        @return strip-unit($value) / $emBase * 1em;
+    } @else if unit($value) == 'rem' {
+        @return strip-unit($value) / $remBase * 1rem;
+    } @else if unit($value) == 'px' {
+        @return $value;
+    } @else if unitless($value) {
+        @if $value == 0 {
+            @return 0;
+        }
+        @return $value * 1px;
+    } @else {
+        @error '$value parameter must be in EM, REM or PX';
+    }
+}

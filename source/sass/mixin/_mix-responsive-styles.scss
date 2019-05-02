@@ -1,0 +1,24 @@
+@mixin mixResponsiveStyles($styles, $breakpoints: all, $limitToBreakpoint: true) {
+    $breakpoints: validateBreakpointList($breakpoints, $limitToBreakpoint);
+
+    @each $breakpoint in $breakpoints {
+        $suffix: get-breakpoint-suffix($breakpoint, true);
+        $next: null;
+
+        @if $limitToBreakpoint == true {
+            $next: next-breakpoint($breakpoint);
+        }
+
+        @include mq($breakpoint, $next) {
+            @each $selector, $style in $styles {
+                $class: #{$selector}#{$suffix};
+
+                #{$class} {
+                    @each $propety, $value in $style {
+                        #{$propety}: #{$value};
+                    }
+                }
+            }
+        }
+    }
+}

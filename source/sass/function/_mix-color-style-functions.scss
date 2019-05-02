@@ -1,0 +1,21 @@
+@function _hoverElements($hoverElements) {
+    @if $hoverElements == null {
+        $hoverElements: '';
+    }
+
+    @if type-of $hoverElements != list {
+        $hoverElements: ($hoverElements);
+    }
+
+    @return $hoverElements;
+}
+
+@function _importantToString($important) {
+    @if $important == true {
+        $important: ' !important';
+    } @else {
+        $important: '';
+    }
+
+    @return $important;
+}

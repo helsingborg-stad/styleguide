@@ -1,0 +1,66 @@
+/*
+ *  @mixin mq
+ *  @param $from null/px/em/print - min width value
+ *  @param $until null/px/em/print - max width value
+ *  @param $orientation landscape/portrait - orientation
+ *  @param $and string - additional condition eg. "and (min-height: 200px)"
+ */
+
+@mixin mq($from: null, $until: null, $orientation: null, $and: null) {
+    $queryString: 'screen';
+    $min-width: null;
+    $max-width: null;
+
+    //Min-width
+    @if ($from != null and $from != 'print') {
+        @if map-has-key($mix-mq-breakpoints, $from) {
+            $min-width: em(map-get($mix-mq-breakpoints, $from));
+        } @else {
+            $min-width: em($from);
+        }
+    }
+
+    //Max-width
+    @if ($until != null and $until != 'print') {
+        @if map-has-key($mix-mq-breakpoints, $until) {
+            $max-width: em(map-get($mix-mq-breakpoints, $until)) - em(1px);
+        } @else {
+            $max-width: em($until);
+        }
+    }
+
+    //Build media query string
+    @if $min-width != null and strip-unit($min-width) > 0 {
+        $queryString: '#{$queryString} and (min-width: #{$min-width})';
+    }
+
+    @if $max-width != null and strip-unit($max-width) > 0 {
+        $queryString: '#{$queryString} and (max-width: #{$max-width})';
+    }
+
+    //Orientation
+    @if $orientation == 'landscape' {
+        $queryString: '#{$queryString} and (orientation:landscape)';
+    } @else if $orientation == 'portrait' {
+        $queryString: '#{$queryString} and (orientation:portrait)';
+    }
+
+    //Additional condition
+    @if $and != null {
+        $queryString: '#{$queryString} #{$and}';
+    }
+
+    //Reset media query string to print
+    @if $from == 'print' or $until == 'print' {
+        $queryString: 'print';
+    }
+
+    //Wrap content in media query if a query is defined, else only output content
+    @if $queryString != 'screen' {
+        @media #{$queryString} {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}

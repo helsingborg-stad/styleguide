@@ -1,0 +1,16 @@
+@function next-breakpoint($breakpoint) {
+    @if map-has-key($mix-mq-breakpoints, $breakpoint) {
+        $last: length($mix-mq-breakpoints);
+        $current: index(map-keys($mix-mq-breakpoints), $breakpoint);
+
+        @if ($current == $last) {
+            @return null;
+        }
+
+        @return nth(map-keys($mix-mq-breakpoints), $current + 1);
+
+    } @else {
+        @return null;
+    }
+}
+

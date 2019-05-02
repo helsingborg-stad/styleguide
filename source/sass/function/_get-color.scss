@@ -1,0 +1,7 @@
+@function getColor($colorName, $colorType) {
+    @if map-has-key($mix-color-map, $colorName) and map-has-key(map-get($mix-color-map, $colorName), $colorType) {
+        @return map-get(map-get($mix-color-map, $colorName), $colorType);
+    }
+
+    @return null;
+}
