@@ -19,14 +19,9 @@
                 @endlink
             @endslot
 
-            
 
-            @link(['href' => "http://google.se"])
-                A link
-            @endlink
-        
-            @link(['href' => "http://google.se"])
-                Hej! 
+            @link(['href' => "https://helsingborg.se"])
+                I'm a link to the city of Helsingborg
             @endlink
 
         @endcard

@@ -9,18 +9,16 @@
     .c-card__top,
     .c-card__bottom,
     .c-card__middle {
-        padding: 0px map-get($spacers, '3')px;
+        padding: 0px map-get($spacers, '3');
     }
 
     .c-card__top, .c-card__middle {
-
-        padding-top:  map-get($spacers, '3')px;
+        padding-top:  map-get($spacers, '3');
     }
 
     .c-card__bottom {
-        padding-bottom: map-get($spacers, '3')px;
+        padding-bottom: map-get($spacers, '3');
     }
-
 }
 
 
