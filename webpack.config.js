@@ -26,7 +26,7 @@ module.exports = {
      */
     output: {
         path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
-        filename: 'js/[name].min.js'
+        filename: 'js/hbg-[name].min.js'
     },
 
     module: {
