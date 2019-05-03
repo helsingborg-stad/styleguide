@@ -22,6 +22,13 @@
         .current-page .sub-menu {
             display: block;
         }
+
+        .markup-preview {
+            border:none;
+            background: transparent;
+            padding:0px;
+            margin-bottom:32px;
+        }
     </style>
 
     <noscript>
