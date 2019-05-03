@@ -1,0 +1,5 @@
+@for $i from 1 through 5 {
+    .u-shadow-level--#{$i} {
+        box-shadow: 0 0 (4px*$i) $color-shadow; 
+    }
+}
