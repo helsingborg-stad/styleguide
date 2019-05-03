@@ -79,6 +79,9 @@ $breakpoints-map: (
     xl: 100em,  //1600px
 ) !default;
 
+//Display states
+$display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
+
 //  Spacer
 $spacers: (
     '0': 0,

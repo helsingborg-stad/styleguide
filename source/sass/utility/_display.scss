@@ -1,35 +1,16 @@
-.u-display-none {
-    display: none; 
+
+/* All sizes */ 
+@each $display-state in $display-states {
+    .u-display-#{$display-state} {
+        display: #{$display-state}; 
+    }
 }
 
-.u-display-inline {
-    display: inline; 
-}
-
-.u-display-inline-block {
-    display: inline-block; 
-}
-
-.u-display-block {
-    display: block; 
-}
-
-.u-display-table {
-    display: table; 
-}
-
-.u-display-table-cell {
-    display: table-cell; 
-}
-
-.u-display-table-row {
-    display: table-row; 
-}
-
-.u-display-flex {
-    display: flex; 
-}
-
-.u-display-inline-flex {
-    display: inline-flex; 
+/* Media query aware */ 
+@each $breakpoint, $breakpoint-size in $breakpoints-map {
+    @each $display-state in $display-states {
+        .u-display-#{$display-state}-#{$breakpoint} {
+            display: #{$display-state}; 
+        }
+    }
 }
