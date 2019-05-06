@@ -1,4 +1,4 @@
-@mixin mixResponsiveStyles($styles, $breakpoints: all, $limitToBreakpoint: true) {
+@mixin responsiveStyles($styles, $breakpoints: all, $limitToBreakpoint: true) {
     $breakpoints: validateBreakpointList($breakpoints, $limitToBreakpoint);
 
     @each $breakpoint in $breakpoints {

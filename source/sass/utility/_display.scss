@@ -1,18 +1,8 @@
 
-/* All sizes */ 
 @each $display-state in $display-states {
-    .u-display-#{$display-state} {
-        display: #{$display-state}; 
-    }
-}
-
-/* Media query aware */ 
-@each $breakpoint, $breakpoint-size in $breakpoints-map {
-    @each $display-state in $display-states {
-        @mq($breakpoint-size) {
-            .u-display-#{$display-state}-#{$breakpoint} {
-                display: #{$display-state}; 
-            }
-        }
-    }
+    @include responsiveStyles(
+        (
+            '.u-display-#{$display-state}' : (display: #{$display-state} !important),
+        )
+    );
 }

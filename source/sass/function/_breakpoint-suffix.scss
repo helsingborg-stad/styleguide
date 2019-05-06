@@ -1,6 +1,6 @@
 @function get-breakpoint-suffix($screen, $includeZero: null) {
-    @if map-has-key($mix-mq-breakpoints, $screen) {
-        @if map-get($mix-mq-breakpoints, $screen) == 0 and $includeZero == null {
+    @if map-has-key($breakpoints-map, $screen) {
+        @if map-get($breakpoints-map, $screen) == 0 and $includeZero == null {
             @return '';
         } @else {
             @return \@#{$screen};
