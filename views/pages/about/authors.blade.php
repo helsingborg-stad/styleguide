@@ -117,8 +117,10 @@
             @card(['title' => 'Johan Silvergrund', 'byline' => 'Web consultant'])
 
                 @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/500/500?image=67', 'name' => 'Johan Silvergrund', 'size' => 'full'])
-                    @endavatar
+                    <div class="">
+                        @avatar(['name' => 'Johan Silvergrund', 'size' => 'full'])
+                        @endavatar
+                    </div>
                 @endslot
 
                 @slot('bottom')

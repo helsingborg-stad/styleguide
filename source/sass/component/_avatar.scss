@@ -24,6 +24,13 @@
     }
 
     /* Nested elements */
+
+    &__image, 
+    &__initials,
+    &_icon {
+        @include ratio(1,1,true); 
+    }
+
     &__image {
         border-radius: inherit;
         width: 100%; 
