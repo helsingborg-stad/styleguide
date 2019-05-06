@@ -4,6 +4,7 @@
     font-size: $font-size-body;
     text-align: left;
     border-radius:2px;
+    margin-bottom: map-get($spacers, '3');
 
     .c-card__body,
     .c-card__top,
