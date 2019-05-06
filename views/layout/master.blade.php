@@ -7,9 +7,9 @@
 
     <title>Helsingborg Style Guide</title>
     <meta name="description" content="">
-
+    <link rel="stylesheet" type="text/css" href="/assets/dist/css/hbg-styleguide-css.min.css">
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
-    <link rel="stylesheet" type="text/css" href="/assets/dist/css/styleguide-css.min.css">
+
 
     @if(!isset($_GET['v2']))
     <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' />
@@ -21,6 +21,13 @@
         }
         .current-page .sub-menu {
             display: block;
+        }
+
+        .markup-preview {
+            border:none;
+            background: transparent;
+            padding:0px;
+            margin-bottom:32px;
         }
     </style>
 
@@ -99,7 +106,7 @@
     crossorigin="anonymous"></script>
 
     <!-- Styleguide - js -->
-    <script src="/assets/dist/js/styleguide-js.min.js"></script>
+    <script src="/assets/dist/js/hbg-styleguide-js.min.js"></script>
 
     <!-- Highlight js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>

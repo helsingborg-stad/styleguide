@@ -1,0 +1,16 @@
+@include mixLoopStyles(
+                '.u-border',
+                (
+                        '-0'    : (border: 0 !important),
+                        '-1'    : (border: solid 1px !important),
+                        '-2'    : (border: solid 2px !important),
+                ),
+                (
+                        '-x'        : ('border-right', 'border-left'),
+                        '-y'        : ('border-top', 'border-bottom'),
+                        '-right'    : 'border-right',
+                        '-left'     : 'border-left',
+                        '-top'      : 'border-top',
+                        '-bottom'   : 'border-bottom',
+                )
+);
