@@ -18,7 +18,7 @@
             @card(['title' => 'Sebastian Thulin', 'byline' => 'Lead developer'])
 
                 @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/70/70?image=64', 'name' => 'Sebastian Thulin'])
+                    @avatar(['image' => 'https://picsum.photos/500/500?image=64', 'name' => 'Sebastian Thulin', 'size' => 'full'])
                     @endavatar
                 @endslot
 
@@ -51,7 +51,7 @@
             @card(['title' => 'Nikolas Ramstedt', 'byline' => 'Web developer'])
 
                 @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/70/70?image=65', 'name' => 'Nikolas Ramstedt'])
+                    @avatar(['image' => 'https://picsum.photos/500/500?image=65', 'name' => 'Nikolas Ramstedt', 'size' => 'full'])
                     @endavatar
                 @endslot
 
@@ -84,7 +84,7 @@
             @card(['title' => 'Jonatan Hanson', 'byline' => 'Web developer'])
 
                 @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/70/70?image=66', 'name' => 'Jonatan Hanson'])
+                    @avatar(['image' => 'https://picsum.photos/500/500?image=66', 'name' => 'Jonatan Hanson', 'size' => 'full'])
                     @endavatar
                 @endslot
 
@@ -117,7 +117,7 @@
             @card(['title' => 'Johan Silvergrund', 'byline' => 'Web consultant'])
 
                 @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/70/70?image=67', 'name' => 'Johan Silvergrund'])
+                    @avatar(['image' => 'https://picsum.photos/500/500?image=67', 'name' => 'Johan Silvergrund', 'size' => 'full'])
                     @endavatar
                 @endslot
 

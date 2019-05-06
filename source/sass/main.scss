@@ -27,7 +27,6 @@
 @import 'function/px';
 @import 'function/breakpoint-suffix';
 @import 'function/next-breakpoint';
-
 @import 'function/get-color';
 @import 'function/remove-list-item';
 @import 'function/validate-breakpoint-list';
@@ -66,6 +65,7 @@
 // ***************************************************************
 // *** Components
 // ***************************************************************
+@import 'component/avatar';
 @import 'component/card';
 
 // ***************************************************************
