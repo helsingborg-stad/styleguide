@@ -1,0 +1,20 @@
+
+.u-shadow-level-1 {
+    box-shadow: 0 0 ($base/2) $color-shadow; 
+}
+
+.u-shadow-level-2 {
+    box-shadow: 0 0 ($base) $color-shadow; 
+}
+
+.u-shadow-level-3 {
+    box-shadow: 0 0 ($base*2) $color-shadow; 
+}
+
+.u-shadow-level-4 {
+    box-shadow: 0 0 ($base*3) $color-shadow; 
+}
+
+.u-shadow-level-5 {
+    box-shadow: 0 0 ($base*4) $color-shadow; 
+}

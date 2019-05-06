@@ -1,6 +1,6 @@
 @for $i from 1 through 10 {
     .u-level-#{$i} { 
-        z-index: #{$i}000 !important; 
+        z-index: ($i*1000) !important; 
     }   
 }
 

@@ -1,0 +1,29 @@
+.u-border-radius-none {
+    border-radius: 0; 
+}
+
+.u-border-radius,
+.u-border-radius-xs {
+    border-radius: ($base/4); 
+}
+
+.u-border-radius-sm {
+    border-radius: ($base/2); 
+}
+
+.u-border-radis-md {
+    border-radius: ($base); 
+}
+
+.u-border-radius-lg {
+    border-radius: ($base*2); 
+}
+
+.u-border-radius-xl {
+    border-radius: ($base*4); 
+}
+
+.u-border-radius-full,
+.u-rounded {
+    border-radius: 50%; 
+}

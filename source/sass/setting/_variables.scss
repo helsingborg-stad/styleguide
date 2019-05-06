@@ -68,6 +68,8 @@ $color-link-hover: $color-link;
 $color-link-visited: #712089 !default;
 $color-link-visited-hover: $color-link-visited;
 
+$color-shadow: rgba($color-black, 0.3) !default;
+
 //  Breakpoints
 $breakpoints-map: (
     xs: 0,
@@ -76,6 +78,9 @@ $breakpoints-map: (
     lg: 78em,   //1248px
     xl: 100em,  //1600px
 ) !default;
+
+//Display states
+$display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
 
 //  Spacer
 $spacers: (

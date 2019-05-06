@@ -14,12 +14,11 @@ module.exports = {
     },
 
     /**
-     * Entry files
+     * Entry files - Add more entries if needed.
      */
-
     entry: {
-        'index': glob.sync('./source/js/**/*.js'),
-        'red': './source/sass/themes/red.scss',
+        'styleguide-js': glob.sync('./source/js/**/*.js'),
+        'styleguide-css': './source/sass/main.scss',
     },
 
     /**
