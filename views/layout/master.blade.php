@@ -28,6 +28,7 @@
             background: transparent;
             padding:0px;
             margin-bottom:32px;
+            box-shadow: none;
         }
     </style>
 

@@ -9,39 +9,31 @@
     @endmarkdown
 
     @doc(['slug' => 'card'])
+        <div  class="grid">
+            <div class="grid-s-12 grid-md-6">
+                @card(
+                    [
+                    'slot' => 'Detta är en slot',
+                    'image' => 'https://picsum.photos/300/200?image=1077',
+                    'title' => 'Plats ingalunda varit, miljoner.',
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma rännil.'
+                    ])
+                @endcard
 
-        @card(['image' => 'https://picsum.photos/300/200?image=1077'])
+            </div>
 
-            @slot('top')
-                @link(['href' => "http://google.se"])
-                    @image(['src' => 'https://picsum.photos/300/200?image=1077'])@endimage
-                    @image(['src' => 'https://picsum.photos/300/200?image=1077'])@endimage
-                @endlink
-            @endslot
+            <div class="grid-s-12 grid-md-6">
+                @card(
+                    ['image' => 'https://picsum.photos/300/200?image=1077',
+                    'title' => 'Plats ingalunda varit, miljoner.',
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma rännil.'
+                ])
+                @endcard
 
-
-            @link(['href' => "https://helsingborg.se"])
-                I'm a link to the city of Helsingborg
-            @endlink
-
-        @endcard
-
-
-
-        @card()
-
-            @slot('top')
-                Top slot
-            @endslot
-
-            Middle slot
-
-            @slot('bottom')
-                Bottom slot
-            @endslot
+            </div>
+        </div>
 
 
-        @endcard
 
 
     @enddoc
