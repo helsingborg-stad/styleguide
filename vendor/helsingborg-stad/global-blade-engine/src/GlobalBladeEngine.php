@@ -93,9 +93,9 @@ class GlobalBladeEngine {
         if(is_array($globalBladeEngineInstanceViewPaths)) {
             return $globalBladeEngineInstanceViewPaths; 
         }
-        
-        //Error if something went wrong
-        throw new \Exception("Error getting view paths " . $path);
+
+        //Return empty (undefined)
+        return array();
     }
 
     /**
