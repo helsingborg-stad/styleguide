@@ -13,8 +13,8 @@
 
     //Min-width
     @if ($from != null and $from != 'print') {
-        @if map-has-key($mix-mq-breakpoints, $from) {
-            $min-width: em(map-get($mix-mq-breakpoints, $from));
+        @if map-has-key($breakpoints-map, $from) {
+            $min-width: em(map-get($breakpoints-map, $from));
         } @else {
             $min-width: em($from);
         }
@@ -22,8 +22,8 @@
 
     //Max-width
     @if ($until != null and $until != 'print') {
-        @if map-has-key($mix-mq-breakpoints, $until) {
-            $max-width: em(map-get($mix-mq-breakpoints, $until)) - em(1px);
+        @if map-has-key($breakpoints-map, $until) {
+            $max-width: em(map-get($breakpoints-map, $until)) - em(1px);
         } @else {
             $max-width: em($until);
         }

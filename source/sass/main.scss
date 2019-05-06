@@ -19,9 +19,25 @@
 @import 'setting/variables';
 
 // ***************************************************************
+// *** Settings
+// ***************************************************************
+@import 'function/strip-unit';
+@import 'function/em';
+@import 'function/rem';
+@import 'function/px';
+@import 'function/breakpoint-suffix';
+@import 'function/next-breakpoint';
+
+@import 'function/get-color';
+@import 'function/remove-list-item';
+@import 'function/validate-breakpoint-list';
+@import 'function/mix-color-style-functions.scss'; 
+
+// ***************************************************************
 // *** Mixins
 // ***************************************************************
 @import 'mixin/mq';
+@import 'mixin/responsive-styles'; 
 
 // ***************************************************************
 // *** Generic
