@@ -9,8 +9,10 @@
 /* Media query aware */ 
 @each $breakpoint, $breakpoint-size in $breakpoints-map {
     @each $display-state in $display-states {
-        .u-display-#{$display-state}-#{$breakpoint} {
-            display: #{$display-state}; 
+        @mq($breakpoint-size) {
+            .u-display-#{$display-state}-#{$breakpoint} {
+                display: #{$display-state}; 
+            }
         }
     }
 }

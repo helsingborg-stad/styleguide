@@ -95,8 +95,8 @@ module.exports = {
 
         //Minify css and create css file
         new MiniCssExtractPlugin({
-            filename: 'css/hbg-[name].min.css',
-            chunkFilename: 'css/hbg-[name].min.css'
+            filename: 'css/[name].min.css',
+            chunkFilename: 'css/[name].min.css'
         }),
 
         // Copy dist from version and create latest in dist
