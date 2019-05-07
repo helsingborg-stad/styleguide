@@ -1,9 +1,13 @@
 .c-card {
     box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 5px 5px 0 rgba(0,0,0,.12), 0 3px 3px -2px rgba(0,0,0,.2);
+    border: solid 1px $color-border;
+    border-radius:2px;
     font-size: $font-size-body;
     text-align: left;
-    border-radius:2px;
     margin-bottom: map-get($spacers, '3');
+    background: #fff;
+    display: block;
+    width: 100%;
 
     .c-card__body,
     .c-card__top,
@@ -19,7 +23,11 @@
     .c-card__bottom {
         padding-bottom: map-get($spacers, '3');
     }
+
+    .c-card__image img, img.c-card__image {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
 }
-
-
 
