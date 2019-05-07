@@ -1,0 +1,12 @@
+
+nav.pagination {
+
+    ul {
+        list-style: none;
+        li:before {
+            background-color: transparent !important; /* remove after We remove hbg prime from site */
+        }
+    }
+
+
+}

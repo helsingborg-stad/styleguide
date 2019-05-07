@@ -1,0 +1,90 @@
+.markup-preview {
+    padding:10px;
+    border: 1px solid $color-code-background;
+    border-bottom: 0;
+    box-shadow: inset 0 0 10px rgba(#000, .1);
+    border-radius: 5px;
+}
+
+pre.xdebug-var-dump {
+    background-color: #f9f9f9;
+    color: $color-base;
+    width: auto;
+    padding: 10px 15px;
+    border: 2px solid $color-code-background;
+    margin: 15px;
+}
+
+pre:not(.xdebug-var-dump) {
+    position: relative;
+    overflow: auto;
+    background-color: $color-code-background;
+    border: 1px solid $color-code-background;
+    font-size: 1em;
+    line-height: 130%;
+    //max-height: 200px;
+    //overflow: auto;
+
+    .line-numbers {
+        font-family: $font-family-code;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: .5em .6em;
+        text-align: center;
+        background-color: $color-code-background;
+        border-right: 1px solid $color-code-background;
+        font-size: .8em;
+        color: $color-base;
+        line-height: 1.4;
+        margin-top: 4px;
+        li {
+            margin-top:unset;
+        }
+    }
+
+    code {
+        background: transparent;
+        font-size: .8em;
+    }
+
+    code.has-numbering {
+        margin-left: 40px;
+    }
+}
+
+.no-js pre:not(.xdebug-var-dump) code {
+    padding: 10px;
+    border: none;
+}
+
+code {
+    display: inline-block;
+    padding: 2px 5px 0;
+    font-family: $font-family-code;
+    font-size: .9em;
+    line-height: 1.4em;
+    background-color: $color-code-background;
+    border: 1px solid $color-code-background;
+    border-radius: 3px;
+
+    span {
+
+    }
+}
+
+.code-source-file {
+    border: 1px solid $color-code-background;
+    border-top: none;
+    padding: map-get($spacers, '1') / 2 map-get($spacers, '1');
+    font-size: .8em;
+}
+
+.hljs {
+    background-color: transparent !important;
+    border: none;
+    padding: .5em 1em;
+}
+
+
