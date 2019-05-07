@@ -1,0 +1,114 @@
+
+@mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
+    .grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    %column {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+    }
+
+    //Column styling to all children
+    .grid > * {
+        @extend %column;
+    }
+
+    //Gutter styles
+    @each $breakpoint, $gutter in $gutters {
+        @include mq($breakpoint) {
+            .grid {
+                margin-left: $gutter/2 * -1;
+                margin-right: $gutter/2 * -1;
+            }
+
+            %column {
+                padding-right: $gutter/2;
+                padding-left: $gutter/2;
+                // margin-bottom: $gutter;
+            }
+        }
+    }
+
+    //Include print breakpoint
+    @if $includePrint == true {
+        $breakpoints: append($breakpoints, 'print');
+    }
+
+    //Generate Columns
+    @each $breakpoint in $breakpoints {
+
+        //Generate list of column classes
+        $columnClasses: ();
+        @for $i from 1 to $columns + 1 {
+            $columnClasses: append($columnClasses, ", .grid-#{$breakpoint}-#{$i}");
+        }
+
+        //Apply common column styles
+        
+        .grid-#{$breakpoint}-auto,
+        .grid-#{$breakpoint}-fit-content,
+        #{$columnClasses} {
+            @extend %column;
+        }
+
+        //Breakpoint specific
+        @include mq($breakpoint) {
+
+            //Auto width column (eg .grid-md-auto)
+            .grid-#{$breakpoint}-auto {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+
+            //Fit content column (eg .grid-md-fit-content)
+            .grid-#{$breakpoint}-fit-content {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: none;
+            }
+
+            //Width based Columns (eg .grid-md-6)
+            @for $i from 1 to $columns + 1 {
+                .grid-#{$breakpoint}-#{$i} {
+                    flex: 0 0 #{$i / $columns * 100 * 1%};
+                    max-width: #{$i / $columns * 100 * 1%};
+                }
+            }
+
+            //Order (eg .order-md-6)
+            @for $i from 1 to $columns + 1 {
+                .order-#{$breakpoint}-#{$i} {
+                    order: $i;
+                }
+            }
+
+            //Offset (eg .offset-md-6)
+            @for $i from 1 to $columns + 1 {
+                .offset-#{$breakpoint}-#{$i} {
+                    margin-left: #{$i / $columns * 100 * 1%};
+                }
+            }
+        }
+    }
+
+    //Prevent old classes from breaking
+    .grid-fit-content {
+        @extend .grid-xs-fit-content;
+    }
+    .grid-auto {
+        @extend .grid-xs-auto;
+    }
+}
+
+$grid-columns: 12 !default;
+$grid-breakpoints: map-keys($breakpoints-map) !default;
+$grid-gutters: (
+    xs : $base,
+    sm : $base * 4
+) !default;
+
+@include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);
