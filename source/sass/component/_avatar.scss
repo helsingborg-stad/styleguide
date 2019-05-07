@@ -1,6 +1,10 @@
 .c-avatar {
+    @include ratio(1,1,false); 
+
     border-radius: 50%;
     background: #eee;
+    line-height: 0;
+    position: relative;
 
     /* Modifiers */ 
     &--size-sm {
@@ -25,22 +29,14 @@
 
     /* Nested elements */
 
-    &__image, 
-    &__initials,
-    &_icon {
-        @include ratio(1,1,true); 
-    }
-
     &__image {
+        @include cover();
         border-radius: inherit;
-        width: 100%; 
     }
 
-    &__initials {
-        color: #fff; 
-    }
-
+    &__initials,
     &__icon {
-        color: #fff; 
+        border-radius: inherit;
+        @include cover();
     }
 }
