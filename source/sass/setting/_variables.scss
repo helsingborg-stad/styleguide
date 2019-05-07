@@ -21,6 +21,16 @@ $font-size-meta: 12px !default;
 $font-size-hero: 48px !default;
 $font-size-hero-body: 18px !default;
 
+$font-size-btn: 0.9em;
+$font-size-btn-line-height: 1.3;
+
+$font-size-btn-lg: 1.2em;
+$font-size-btn-lg-line-height: 1.3;
+
+$font-size-btn-sm: 0.75em;
+$font-size-btn-sm-line-height: 1;
+
+
 //  Font Weights
 $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
@@ -44,7 +54,7 @@ $color-secondary-light: #f7a600 !default;
 $color-black: black !default;
 $color-gray: #979797 !default;
 $color-gray-light: #7f7f7f !default;
-$color-gray-lighter: #7f7f7f !default;
+$color-gray-lighter: rgba(0, 0, 0, 0.5) !default;
 $color-white: white !default;
 
 $color-success: #11a636 !default;
