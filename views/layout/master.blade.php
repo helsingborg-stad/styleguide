@@ -161,7 +161,7 @@
 
     <script>
 
-        const codeElements = document.querySelectorAll('table tr, code, nav ul li a, nav ul li ul li a');
+        const codeElements = document.querySelectorAll('table tr,  nav ul li a, nav ul li ul li a');
 
         const observerConfig = {
             threshold: 0.2
