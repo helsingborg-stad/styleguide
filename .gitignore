@@ -4,6 +4,9 @@ node_modules
 /cache/*
 source/library
 source/library/*
-/dist
 /dist/*
-
+dist/*
+dist
+/dist
+/source/icons/outlined-icons/
+/source/icons/stroked-icons/
