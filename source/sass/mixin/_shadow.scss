@@ -1,0 +1,13 @@
+@mixin shadow($level: 1) {
+    @if $level == 1 {
+        box-shadow: 0 0 ($base/2) $color-shadow; 
+    } @else if $level == 2 {
+        box-shadow: 0 0 ($base) lighten($color-shadow, 2%); 
+    } @else if $level == 3 {
+        box-shadow: 0 0 ($base*2) lighten($color-shadow, 3%);
+    } @else if $level == 4 {
+        box-shadow: 0 0 ($base*3) lighten($color-shadow, 4%);
+    } @else if $level == 5 {
+        box-shadow: 0 0 ($base*4) lighten($color-shadow, 5%);
+    }
+}

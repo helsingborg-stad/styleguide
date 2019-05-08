@@ -1,0 +1,32 @@
+.c-icon {
+
+    /* Modifiers */
+    &--size-xs {
+        font-size: 10px; 
+    }
+
+    &--size-sm {
+        font-size: 10px; 
+    }
+
+    &--size-md {
+        font-size: 20px; 
+    }
+
+    &--size-lg {
+        font-size: 30px; 
+    }
+
+    &--size-xl {
+        font-size: 40px; 
+    }
+
+    &--size-xxl {
+        font-size: 50px; 
+    }
+
+    /* Nested elements */
+    &__label {
+        color: inherit;
+    }
+}

@@ -41,12 +41,15 @@
 @import 'mixin/ratio'; 
 @import 'mixin/cover'; 
 @import 'mixin/center'; 
+@import 'mixin/size'; 
+@import 'mixin/shadow';
 
 
 // ***************************************************************
 // *** Generic
 // ***************************************************************
 @import 'generic/normalize';
+@import 'generic/grid';
 
 // ***************************************************************
 // *** Elements
@@ -72,9 +75,11 @@
 // ***************************************************************
 @import 'component/avatar';
 @import 'component/card';
+@import 'component/icon';
 @import 'component/pagination';
 @import 'component/code';
-@import 'component/button';
+@import 'component/notice';
+
 
 // ***************************************************************
 // *** Misc

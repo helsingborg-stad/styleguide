@@ -1,0 +1,31 @@
+.c-notice {
+    @include shadow(1);
+    padding: map-get($spacers, '2') map-get($spacers, '3');
+    background-color: $color-base;
+    border-radius: $border-radius-xs;
+
+    &--success {
+        background-color: $color-success; 
+
+        .c-notice__label {
+            color: $color-white; 
+        }
+    }
+
+    &--danger {
+        background-color: $color-danger; 
+
+        .c-notice__label {
+            color: $color-white; 
+        }
+    }
+
+    &--info {
+        background-color: $color-info; 
+    }
+
+    &--warning {
+        background-color: $color-warning; 
+    }
+}
+

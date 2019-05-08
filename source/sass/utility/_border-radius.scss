@@ -4,23 +4,19 @@
 
 .u-border-radius,
 .u-border-radius-xs {
-    border-radius: ($base/4); 
+    border-radius: $border-radius-xs; 
 }
 
 .u-border-radius-sm {
-    border-radius: ($base/2); 
+    border-radius: $border-radius-sm;
 }
 
 .u-border-radis-md {
-    border-radius: ($base); 
+    border-radius: $border-radius-md;
 }
 
 .u-border-radius-lg {
-    border-radius: ($base*2); 
-}
-
-.u-border-radius-xl {
-    border-radius: ($base*4); 
+    border-radius: $border-radius-lg; 
 }
 
 .u-border-radius-full,
