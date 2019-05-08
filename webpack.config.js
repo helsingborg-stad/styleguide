@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const glob = require('glob');
-const package = require('./package.json');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 
@@ -31,8 +30,6 @@ module.exports = {
 
     module: {
         rules: [
-
-
 
             /**
              * Babel
@@ -89,7 +86,6 @@ module.exports = {
         ]
     },
 
-
     /**
      * Plugins
      */
@@ -107,7 +103,7 @@ module.exports = {
             onStart: [
                 {
                     copy: [
-                        {source: './assets/dist/icons/styleguide-icons.css', destination: './source/sass/component/_icons.scss'}
+                        {source: './assets/dist/icons/styleguide-icons.css', destination: './source/sass/generic/_icons.scss'}
                     ]
                 }
 
