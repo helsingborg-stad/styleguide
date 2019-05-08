@@ -1,0 +1,61 @@
+.btn {
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 0;
+    margin-top: 2.66667px;
+    margin-bottom: 2.66667px;
+    border:2px solid;
+
+    @include button-mix($color-body, false, $color-body);
+
+    &.btn-primary {
+        @include button-mix($color-white, $color-primary, $color-primary);
+
+        &.btn-outline {
+            @include button-mix($color-primary, false, $color-primary);
+        }
+    }
+
+
+    &.btn-contrasted {
+        @include button-mix($color-white, $color-gray, $color-gray);
+    }
+
+    &.btn-light {
+        @include button-mix($color-black, $color-gray-lighter, $color-gray-lighter);
+    }
+
+    &.btn-danger {
+        @include button-mix($color-white, $color-danger, $color-danger);
+
+        &.btn-outline {
+            @include button-mix($color-danger, false, $color-danger);
+        }
+    }
+
+    &.btn-plain {
+        @include button-mix($color-black, false, false);
+    }
+
+    &.disabled {
+        opacity: .7;
+    }
+
+    @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
+
+    &.btn-lg {
+        @include button-size(0.5em, 0.9em, $font-size-btn-lg, $font-size-btn-lg-line-height, 2px);
+    }
+
+    &.btn-sm {
+        @include button-size(0.4em, 0.6em, $font-size-btn-sm, $font-size-btn-sm-line-height, 2px);
+    }
+
+    &.btn-block {
+        width: 100%;
+    }
+
+}
