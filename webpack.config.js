@@ -2,8 +2,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const glob = require('glob');
 const package = require('./package.json');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
-const version = package.version;
+//const FileManagerPlugin = require('filemanager-webpack-plugin');
+
 
 module.exports = {
 
@@ -25,7 +25,7 @@ module.exports = {
      * Output files
      */
     output: {
-        path: path.resolve(__dirname, 'assets/dist/' + version + '/'),
+        path: path.resolve(__dirname, 'assets/dist/'),
         filename: 'js/[name].min.js'
     },
 
@@ -99,16 +99,17 @@ module.exports = {
             chunkFilename: 'css/[name].min.css'
         }),
 
-        // Copy dist from version and create latest in dist
-        new FileManagerPlugin({
+        // Copy dist or other files to destination
+        // Deactivated ....
+        /*new FileManagerPlugin({
             onEnd: [
                 {
                     copy: [
-                        {source: './assets/dist/' + version + '/', destination: './assets/dist/'}
+                        {source: './assets/dist/', destination: './assets/dist/dirWhereYouPrefer'}
                     ]
                 }
 
             ]
-        })
+        })*/
     ]
 };

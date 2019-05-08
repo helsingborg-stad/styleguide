@@ -5,7 +5,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
+    "prebuild": "node build.js",
+    "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/ -n styleguide-icons -p c-icon-",
+    "postbuild": "webpack --config webpack.config.js",
     "latest": "webpack --config webpack.latest.config.js",
     "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js"
   },
