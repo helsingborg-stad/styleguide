@@ -1,3 +1,4 @@
+// Button Focus, Hover - Color, Background, Borders
 @mixin button-mix($color, $background, $border) {
     $fallback-hover: false;
 
@@ -46,7 +47,14 @@
         &:focus,
         &.focus {
             color: $color;
-            background-color: darken($background, 17%);
+            @if $fallback-hover == true {
+                color: $color-white;
+                background-color: darken($border, 17%);
+            }
+            @else {
+                background-color: darken($background, 17%);
+            }
+
             border-color: darken($border, 25%);
         }
     }

@@ -4,3 +4,5 @@ node_modules
 /cache/*
 source/library
 source/library/*
+dist
+/dist

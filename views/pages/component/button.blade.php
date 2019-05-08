@@ -32,6 +32,15 @@
         Button three
         @endbutton
 
+        @button([
+        'href' => 'http://helsingborg.se/?variant=3',
+        'isOutlined' => false,
+        'isPrimary' => false,
+        'isContrasted' => true
+        ])
+        Button three
+        @endbutton
+
     @enddoc
 @stop
 
