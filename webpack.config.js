@@ -91,14 +91,13 @@ module.exports = {
      */
     plugins: [
 
-        //Minify css and create css file
+        // Minify css and create css file
         new MiniCssExtractPlugin({
             filename: 'css/[name].min.css',
             chunkFilename: 'css/[name].min.css'
         }),
 
-        // Copy dist or other files to destination
-        // Deactivated ....
+        // Copy css icon file created by icon-font-generator to sass in source before bundling
         new FileManagerPlugin({
             onStart: [
                 {
