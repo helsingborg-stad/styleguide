@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const glob = require('glob');
-const package = require('./package.json');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 
@@ -31,8 +30,6 @@ module.exports = {
 
     module: {
         rules: [
-
-
 
             /**
              * Babel
@@ -89,25 +86,23 @@ module.exports = {
         ]
     },
 
-
     /**
      * Plugins
      */
     plugins: [
 
-        //Minify css and create css file
+        // Minify css and create css file
         new MiniCssExtractPlugin({
             filename: 'css/[name].min.css',
             chunkFilename: 'css/[name].min.css'
         }),
 
-        // Copy dist or other files to destination
-        // Deactivated ....
+        // Copy css icon file created by icon-font-generator to sass in source before bundling
         new FileManagerPlugin({
             onStart: [
                 {
                     copy: [
-                        {source: './assets/dist/icons/styleguide-icons.css', destination: './source/sass/component/_icons.scss'}
+                        {source: './assets/dist/icons/styleguide-icons.css', destination: './source/sass/generic/_icons.scss'}
                     ]
                 }
 
