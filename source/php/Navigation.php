@@ -31,17 +31,33 @@ class Navigation
                     //Remove blade suffix 
                     $item = self::sanitizeFileName($item); 
 
-                    //Check if is dir (and traverse it)
-                    if(is_dir(VIEWS_PATH . $folder . $item)) {
-                        if(!array_key_exists($item, $response)) {
-                            $response[$item] = self::items($folder . $item); 
-                        }
+                    //Create array
+                    if(!isset($response[$item]) ||!is_array($response[$item])) {
+                        $response[$item] = []; 
                     }
 
                     //Add current level item
-                    if(!array_key_exists($item, $response)) {
-                        $response[$item] = $item;
+                    if(array_key_exists($item, $response)) {
+                        $response[$item]['label'] = self::readableFilename($item);
+                        $response[$item]['href'] = implode(
+                            "/", 
+                            array_filter([
+                                str_replace("/", "", $folder), 
+                                str_replace("/", "", $item), 
+                            ])
+                        ); 
+
+                        //Remove pages prefix 
+                        $response[$item]['href'] =  str_replace("pages", "", $response[$item]['href']);
                     }
+
+                    //Check if is dir (and traverse it)
+                    if(is_dir(VIEWS_PATH . $folder . $item)) {
+                        if(array_key_exists($item, $response)) {
+                            $response[$item]['children'] = self::items($folder . $item); 
+                        }
+                    }
+
                 }
             }
         }

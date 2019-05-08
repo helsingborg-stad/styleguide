@@ -45,11 +45,6 @@
                 <div class="grid-md-3">
                     <a href="/"><img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35" style="margin: 20px 0 12px 0"></a>
                 </div>
-                <div class="grid-md-3">
-                    @button(['href'=>'?v2', 'isPrimary' => false])
-                            Preview
-                    @endbutton
-                </div>
             </div>
         </div>
     </nav>

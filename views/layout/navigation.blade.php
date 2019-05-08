@@ -1,16 +1,5 @@
-<nav>
-    <ul class="nav-aside unlist">
-        @foreach ($nav as $item => $subitems)
-            <li class="{{ \HbgStyleGuide\Navigation::currentClass($item, $pageNow) }}">
-                <a href="/{{ $item }}">{{ \HbgStyleGuide\Navigation::readableFilename($item) }}</a>
-                @if (is_array($subitems) && !empty($subitems))
-                    <ul class="sub-menu">
-                        @foreach ($subitems as $subitem)
-                            <li><a href="/{{ $item }}/{{ $subitem }}">{{ \HbgStyleGuide\Navigation::readableFilename($subitem) }}</a></li>
-                        @endforeach
-                    </ul>
-                @endif
-            </li>
-        @endforeach
-    </ul>
-</nav>
+@menu([
+    'items' => $nav,
+    'elementType' => "ul"
+])
+@endmenu

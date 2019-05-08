@@ -22,6 +22,15 @@
         padding-bottom: map-get($spacers, '3');
     }
 
+    &__link,
+    &__link:visited,
+    &__link:visited:hover,
+    &__link:active,
+    &__link:hover {
+        color: $color-body;
+        text-decoration: none;
+    }
+
     &__image img, 
     img.c-card__image {
         width: 100%;
