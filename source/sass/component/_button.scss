@@ -8,7 +8,7 @@
     margin-top: 2.66667px;
     margin-bottom: 2.66667px;
     border:2px solid;
-    
+
     @include button-mix($color-body, false, $color-body);
 
     &.btn-primary {
