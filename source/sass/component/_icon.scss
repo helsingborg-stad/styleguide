@@ -1,6 +1,11 @@
 .c-icon {
 
-    /* Modifiers */
+    /* Set baseline to align icon to text */ 
+    &:before {
+        vertical-align: -12.5%; 
+    }
+
+    /* Modifiers  - Sizes */
     &--size-xs {
         font-size: 10px; 
     }
@@ -25,8 +30,32 @@
         font-size: 50px; 
     }
 
+    /* Modifiers  - Colors */
+
+    &--color-black {
+        color: $color-black; 
+    }
+
+    &--color-gray {
+        color: $color-gray; 
+    }
+
+    &--color-gray-light {
+        color: $color-gray-light; 
+    }
+
+    &--color-gray-lighter {
+        color: $color-gray-lighter; 
+    }
+
+    &--color-white {
+        color: $color-white; 
+    }
+
     /* Nested elements */
     &__label {
+        font-size: 1rem; 
+        font-style: normal; 
         color: inherit;
     }
 }
