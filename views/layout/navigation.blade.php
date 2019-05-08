@@ -1,5 +1,4 @@
 @menu([
-    'items' => $nav,
-    'elementType' => "ul"
+    'items' => $nav
 ])
 @endmenu

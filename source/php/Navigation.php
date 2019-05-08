@@ -39,16 +39,18 @@ class Navigation
                     //Add current level item
                     if(array_key_exists($item, $response)) {
                         $response[$item]['label'] = self::readableFilename($item);
-                        $response[$item]['href'] = implode(
+                        $response[$item]['href'] = "//" . self::getPageDomain() . "/" . implode(
                             "/", 
                             array_filter([
-                                str_replace("/", "", $folder), 
+                                str_replace("/", "", str_replace("pages", "", $folder)), 
                                 str_replace("/", "", $item), 
                             ])
                         ); 
 
-                        //Remove pages prefix 
-                        $response[$item]['href'] =  str_replace("pages", "", $response[$item]['href']);
+                        //Add current item
+                        if(self::isActiveItem($item)) {
+                            $response[$item]['active'] = true; 
+                        }
                     }
 
                     //Check if is dir (and traverse it)
@@ -77,10 +79,18 @@ class Navigation
             );
     }
 
-    public static function currentClass($item, $currentPage) {
-        if(preg_match("/".$item."/i", $currentPage)) {
-            return "current-page"; 
+    public static function isActiveItem($item) {
+        if(preg_match("/".$item."/i", self::getPageUrl())) {
+            return true; 
         }
-        return ""; 
+        return false; 
+    }
+
+    public static function getPageDomain() {
+        return $_SERVER['HTTP_HOST']; 
+    }
+
+    public static function getPageUrl() {
+        return $_SERVER['REQUEST_URI']; 
     }
 }

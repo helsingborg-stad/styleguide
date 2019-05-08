@@ -44,6 +44,7 @@
 @import 'mixin/size'; 
 @import 'mixin/shadow';
 @import 'mixin/button';
+@import 'mixin/list';
 
 // ***************************************************************
 // *** Generic
@@ -80,7 +81,11 @@
 @import 'component/code';
 @import 'component/notice';
 @import 'component/button';
+<<<<<<< HEAD
 @import 'component/_icons';
+=======
+@import 'component/menu';
+>>>>>>> c45623d3e38f05e197db6e9eee46898c918cdfbb
 
 // ***************************************************************
 // *** Misc
