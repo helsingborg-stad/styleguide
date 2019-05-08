@@ -1,0 +1,36 @@
+.c-menu {
+
+    @include shadow(2);
+    padding: 0;
+    border-radius: $border-radius-xs; 
+
+    &__list {
+        @include unlist();
+        padding: 0;
+    }
+
+    &__list &__list {
+        display: none; 
+        border-left: 4px solid #999; 
+    }
+
+    &__item {
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid #eee; 
+    }
+
+    &__link{
+        display: block;
+        padding: map-get($spacers, '1') map-get($spacers, '2');
+    }
+
+    &__label {
+
+    }
+
+    &--active &__list {
+        background: #eee; 
+        display: block; 
+    }
+}
