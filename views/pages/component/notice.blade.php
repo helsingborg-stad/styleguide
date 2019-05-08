@@ -12,7 +12,7 @@
             This is the content of this masterpiece called notice.
         @endnotice
 
-        @notice(['isSuccess' => true])
+        @notice(['isSuccess' => true, 'icon' => ['icon' => 'home']])
             This is the content of this masterpiece called notice.
         @endnotice
 
