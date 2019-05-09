@@ -83,23 +83,21 @@
         </div>
     </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="grid">
-                <div class="grid-lg-12">
-                    <a href="/" class="logotype"><img src="/assets/img/logotype.svg" alt="Helsingborg Stad" width="239" height="68"></a>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="grid-lg-6">
-                    
-                </div>
-                <div class="grid-lg-6">
-             
-                </div>
-            </div>
-        </div>
-    </footer>
+    @footer()
+
+        @slot('logotype')
+            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
+        @endslot
+        
+        @slot('menu')
+            @menu([
+                'items' => $topNavigation,
+                'isHorizontal' => true
+            ])
+            @endmenu
+        @endslot
+
+    @endfooter
 
     <!-- jQuery --> 
     <script

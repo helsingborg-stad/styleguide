@@ -1,19 +1,23 @@
 .c-footer {
-    padding: $baseline*8 0;
-}
+    border-top: 1px solid $color-gray-light; 
+    background-color: $color-footer-background; 
+    @include shadow(3, true);
 
-.c-footer.c-footer--sm {
-    padding: $baseline*4 0;
-}
+    &__body {
+        padding: map-get($spacers, '5') 0;
+        display: flex; 
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
 
-.c-footer.c-footer--lg {
-    padding: $baseline*16 0;
-}
+    &__home-link {
+        line-height: 0; 
+        display: block;
+        height: 40px;
 
-.c-footer.c-footer--xl {
-    padding: $baseline*24 0;
-}
-
-.c-footer .c-footer__widget + .c-footer__widget {
-    margin-top: $baseline * 4;
+        img, svg {
+            height: 100%;
+        }
+    }
 }
