@@ -20,6 +20,10 @@
   "bugs": {
     "url": "https://github.com/helsingborg-stad/styleguide/issues"
   },
+  "browserslist": [
+    "> 1%",
+    "not dead"
+  ],
   "homepage": "https://github.com/helsingborg-stad/styleguide#readme",
   "devDependencies": {
     "@babel/core": "^7.4.4",
