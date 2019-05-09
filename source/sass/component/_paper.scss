@@ -1,0 +1,11 @@
+.c-paper {
+    @include shadow(2);
+    background-color: $color-card-background;
+    border-radius: $border-radius-xs; 
+
+    @each $number, $size in $spacers {
+        &--padding-#{$number} {
+            padding: map-get($spacers, $number);
+        }
+    }
+}
