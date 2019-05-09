@@ -9,19 +9,20 @@
     @doc(['slug' => 'icon'])
 
         <div>
-        @icon(['icon' => 'home'])
+        @icon(['icon' => 'close'])
             Mutch icon, wow!
         @endicon
         </div>
 
         <div>
-        @icon(['icon' => 'close-o'])
+        @icon(['icon' => 'apps', 'size' => 'lg'])
+            Here are apps!
         @endicon
         </div>
 
         <div>
-        @icon(['icon' => 'plus'])
-            Mutch icon plus, wow!
+        @icon(['icon' => 'bookmark', 'size' => 'xxl'])
+            Bookmark me!
         @endicon
         </div>
 
