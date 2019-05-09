@@ -1,4 +1,4 @@
-.btn {
+.c-btn {
     display: inline-block;
     vertical-align: middle;
     font-weight: 500;
@@ -11,32 +11,32 @@
 
     @include button-mix($color-body, false, $color-body);
 
-    &.btn-primary {
+    &.c-btn--primary {
         @include button-mix($color-white, $color-primary, $color-primary);
 
-        &.btn-outline {
+        &.c-btn--outline {
             @include button-mix($color-primary, false, $color-primary);
         }
     }
 
 
-    &.btn-contrasted {
+    &.c-btn--contrasted {
         @include button-mix($color-white, $color-gray, $color-gray);
     }
 
-    &.btn-light {
+    &.c-btn--light {
         @include button-mix($color-black, $color-gray-lighter, $color-gray-lighter);
     }
 
-    &.btn-danger {
+    &.c-btn--danger {
         @include button-mix($color-white, $color-danger, $color-danger);
 
-        &.btn-outline {
+        &.c-btn--outline {
             @include button-mix($color-danger, false, $color-danger);
         }
     }
 
-    &.btn-plain {
+    &.c-btn--plain {
         @include button-mix($color-black, false, false);
     }
 
@@ -46,15 +46,15 @@
 
     @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
 
-    &.btn-lg {
+    &.c-btn--lg {
         @include button-size(0.5em, 0.9em, $font-size-btn-lg, $font-size-btn-lg-line-height, 2px);
     }
 
-    &.btn-sm {
+    &.c-btn--sm {
         @include button-size(0.4em, 0.6em, $font-size-btn-sm, $font-size-btn-sm-line-height, 2px);
     }
 
-    &.btn-block {
+    &.c-btn--block {
         width: 100%;
     }
 
