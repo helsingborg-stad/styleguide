@@ -39,15 +39,22 @@
 
 </head>
 <body class="no-js">
-    <nav class="navbar">
-        <div class="container">
-            <div class="grid">
-                <div class="grid-md-3">
-                    <a href="/"><img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35" style="margin: 20px 0 12px 0"></a>
-                </div>
-            </div>
-        </div>
-    </nav>
+
+    @header()
+
+        @slot('logotype')
+            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" style="width: 100%;">
+        @endslot
+        
+        @slot('menu')
+            @menu([
+                'items' => $topNavigation,
+                'isHorizontal' => true
+            ])
+            @endmenu
+        @endslot
+
+    @endheader
 
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 
     <div class="container">

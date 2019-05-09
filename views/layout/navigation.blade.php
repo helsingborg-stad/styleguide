@@ -1,4 +1,4 @@
 @menu([
-    'items' => $nav
+    'items' => $sideNavigation
 ])
 @endmenu

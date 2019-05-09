@@ -19,7 +19,7 @@ class Navigation
      * @param  boolean $displayErrors Weather to output errors or not
      * @return boolean
      */
-    public static function items($folder = "/", $response = array())
+    public static function items($folder = "/", $response = array(), $includeChildren = true)
     {
 
         $dirContents = scandir(VIEWS_PATH . $folder);
@@ -54,12 +54,14 @@ class Navigation
                     }
 
                     //Check if is dir (and traverse it)
-                    if(is_dir(VIEWS_PATH . $folder . $item)) {
-                        if(array_key_exists($item, $response)) {
-                            $response[$item]['children'] = self::items($folder . $item); 
+                    if($includeChildren) {
+                        if(is_dir(VIEWS_PATH . $folder . $item)) {
+                            if(array_key_exists($item, $response)) {
+                                $response[$item]['children'] = self::items($folder . $item); 
+                            }
                         }
                     }
-
+                
                 }
             }
         }
