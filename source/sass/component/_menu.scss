@@ -1,9 +1,5 @@
+/* General behaviour */
 .c-menu {
-
-    @include shadow(2);
-    padding: 0;
-    border-radius: $border-radius-xs; 
-
     &__list {
         @include unlist();
         padding: 0;
@@ -11,26 +7,85 @@
 
     &__list &__list {
         display: none; 
-        border-left: 4px solid #999; 
+    }
+
+    &--active &__list {
+        display: block; 
     }
 
     &__item {
         padding: 0;
         margin: 0;
-        border-top: 1px solid #eee; 
+        display: block; 
     }
 
-    &__link{
-        display: block;
+    &__link,
+    &__link:visited, 
+    &__link:visited:hover {
+        color: $color-gray;
+        text-decoration: none; 
+    }
+}
+
+/* Horizontal menu */ 
+.c-menu.c-menu--horizontal {
+    height: 100%;
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+
+    .c-menu__list {
+        display: flex;
+        flex-wrap: nowrap;
+        margin-right: map-get($spacers, '2') * -1;
+    }
+
+    .c-menu__item .c-menu__link {
         padding: map-get($spacers, '1') map-get($spacers, '2');
     }
 
-    &__label {
-
+    .c-menu__item  .c-menu__link:after {
+        content: ""; 
+        @include centerX(); 
+        bottom: 0;
+        border-bottom: 3px solid #eee;  
+        width: 0%; 
+        transition: width 250ms; 
+    }
+    
+    .c-menu__item.c-menu--active .c-menu__link:after {
+        transition-duration: 400ms; 
+        width: calc(100% - #{map-get($spacers, '4')}); 
     }
 
-    &--active &__list {
-        background: #eee; 
-        display: block; 
+    .c-menu__item .c-menu__link:hover:after {
+        width: calc(100% - #{map-get($spacers, '2')}); 
     }
+
+}
+
+/* Vertical menu */ 
+.c-menu.c-menu--vertical {
+    @include shadow(2);
+    padding: 0;
+    border-radius: $border-radius-xs; 
+    background-color: $color-menu-background; 
+
+    .c-menu__list .c-menu__list {
+        border-left: 4px solid $color-gray-light; 
+    }
+
+    .c-menu__item {
+        border-top: 1px solid $color-menu-separator; 
+    }
+
+    .c-menu__link{
+        display: block;
+        padding: $base*1.5 $base*3;
+    }
+
+    .c-menu--active .c-menu__list {
+        background: $color-menu-active-background; 
+    }
+
 }

@@ -8,28 +8,7 @@
     <title>Helsingborg Style Guide</title>
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
-    @if(!isset($_GET['v2']))
-    <!-- <link rel='stylesheet' id='hbg-prime-css'  href='//helsingborg-stad.github.io/styleguide-web/dist/css/hbg-prime-red.min.css' type='text/css' media='all' /> -->
-    @endif
-
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
-
-    <style>
-        .current-page {
-            background: #eee;
-        }
-        .current-page .sub-menu {
-            display: block;
-        }
-
-        .markup-preview {
-            border:none;
-            background: transparent;
-            padding:0px;
-            margin-bottom:32px;
-            box-shadow: none;
-        }
-    </style>
 
     <noscript>
         <style>
@@ -37,13 +16,23 @@
         </style>
     </noscript>
 
+    <style>
+        .c-paper {
+            margin-bottom: 32px; 
+        }
+
+        .example {
+            margin-top: 32px;
+        }
+    </style>
+
 </head>
 <body class="no-js">
 
     @header()
 
         @slot('logotype')
-            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" style="width: 100%;">
+            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
         @endslot
         
         @slot('menu')
@@ -68,14 +57,14 @@
     </div>
     @endif
 
-    <div class="container" style="margin: 70px auto">
+    <div class="container container--main">
         <div class="grid">
             <div class="grid-md-3">
                 @include('layout.navigation')
             </div>
             <div class="grid-md-9">
                 <section>
-                    <article>
+                    <article class="article">
                         @yield('content')
                     </article>
                 </section>
@@ -83,23 +72,21 @@
         </div>
     </div>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="grid">
-                <div class="grid-lg-12">
-                    <a href="/" class="logotype"><img src="/assets/img/logotype.svg" alt="Helsingborg Stad" width="239" height="68"></a>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="grid-lg-6">
-                    
-                </div>
-                <div class="grid-lg-6">
-             
-                </div>
-            </div>
-        </div>
-    </footer>
+    @footer()
+
+        @slot('logotype')
+            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
+        @endslot
+        
+        @slot('menu')
+            @menu([
+                'items' => $topNavigation,
+                'isHorizontal' => true
+            ])
+            @endmenu
+        @endslot
+
+    @endfooter
 
     <!-- jQuery --> 
     <script

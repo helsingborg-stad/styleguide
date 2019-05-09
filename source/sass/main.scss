@@ -30,18 +30,18 @@
 @import 'function/get-color';
 @import 'function/remove-list-item';
 @import 'function/validate-breakpoint-list';
-@import 'function/mix-color-style-functions.scss'; 
+@import 'function/mix-color-style-functions.scss';
 
 // ***************************************************************
 // *** Mixins
 // ***************************************************************
 @import 'mixin/mq';
-@import 'mixin/responsive-styles'; 
-@import 'mixin/psuedo'; 
-@import 'mixin/ratio'; 
-@import 'mixin/cover'; 
-@import 'mixin/center'; 
-@import 'mixin/size'; 
+@import 'mixin/responsive-styles';
+@import 'mixin/psuedo';
+@import 'mixin/ratio';
+@import 'mixin/cover';
+@import 'mixin/center';
+@import 'mixin/size';
 @import 'mixin/shadow';
 @import 'mixin/button';
 @import 'mixin/list';
@@ -76,6 +76,9 @@
 // ***************************************************************
 // *** Components
 // ***************************************************************
+@import 'component/header';
+@import 'component/footer';
+@import 'component/paper';
 @import 'component/avatar';
 @import 'component/card';
 @import 'component/icon';
@@ -87,6 +90,7 @@
 @import 'component/breadcrumb';
 @import 'component/fileinput';
 @import 'component/table';
+@import 'component/accordion';
 
 // ***************************************************************
 // *** Misc
@@ -100,3 +104,4 @@
 @import 'utility/border-radius';
 @import 'utility/display';
 @import 'utility/ratio';
+@import 'utility/text';

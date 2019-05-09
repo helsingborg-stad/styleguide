@@ -5,21 +5,15 @@
 
     @markdown
         #Icons
-        Can beutilirzed by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
+        Can be utilized by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
     @endmarkdown
 
-    @table([
-            'list' => [
-                ['A', 'B', 'C', 'D'],
-                ['A', 'B', 'C', 'D'],
-                ['A', 'B', 'C', 'D'],
-                ['A', 'B', 'C', 'D']
-            ],
-            'headings' => ['Icon', 'Class', 'Tag', 'Component'],
-            'showFooter' => true,
-            'isSmall' => true
-        ])
-        @endtable
+    @paper(['padding' => 3])
+        @foreach(HbgStyleGuide\Helper\Icons::getJson() as $iconKey => $utf)
+            @icon(['icon' => str_replace("icon--", "", $iconKey), 'size' => 'xl'])
+            @endicon
+        @endforeach
+    @endpaper
 
 </article>
 @stop

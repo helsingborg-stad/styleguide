@@ -1,7 +1,10 @@
 
 .article {
-    max-width: 544px;
     margin: auto;
+
+    &--readable-width {
+        max-width: 544px;
+    }
 }
 
 .article {
@@ -14,7 +17,7 @@
         margin-bottom: $base * 2;
 
         &:first-child {
-            margin-top: 0;
+            margin-top: -0.8%;
         }
     }
 

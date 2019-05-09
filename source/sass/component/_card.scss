@@ -1,6 +1,6 @@
 .c-card {
     @include shadow(2);
-    margin-bottom: map-get($spacers, '3');
+    background-color: $color-card-background;
     border-radius: $border-radius-xs; 
     
     &__body,
@@ -31,9 +31,14 @@
         text-decoration: none;
     }
 
+    &__image-link {
+        display: block;
+    }
+
     &__image img,
     img.c-card__image {
-        width: 100%;
+        width: 100%; 
+        display: block;
     }
 }
 
