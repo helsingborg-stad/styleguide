@@ -39,6 +39,20 @@
 
 </head>
 <body class="no-js">
+        @header()
+            @slot('logotype')
+                <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" height="35" style="margin: 20px 0 12px 0">
+            @endslot
+            
+            @slot('menu')
+                @menu([
+                    'items' => $topNavigation
+                ])
+                @endmenu
+            @endslot
+        @endheader
+
+
     <nav class="navbar">
         <div class="container">
             <div class="grid">

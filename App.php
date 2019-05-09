@@ -20,12 +20,20 @@ class App
     public function loadPage()
     {
         // Navigation
-        $data['nav']     = Navigation::items('pages/');
-        $data['pageNow'] = $this->page;
-        $data['componentLibraryIsInstalled'] = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
-        $data['isLocalDomain'] = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
+        $data['topNavigation']                  = Navigation::items('pages/', [], false);
+        $data['sideNavigation']                 = Navigation::items('pages/');
 
-        //Pages 
-        return \HbgStyleGuide\View::show($this->page, $data);
+        //Current page 
+        $data['pageNow']                        = $this->page;
+
+        //Component library
+        $data['componentLibraryIsInstalled']    = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
+        $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
+
+        //Render page 
+        return \HbgStyleGuide\View::show(
+            $this->page,
+            $data
+        );
     }
 }
