@@ -14,7 +14,7 @@
     &.c-btn--primary {
         @include button-mix($color-white, $color-primary, $color-primary);
 
-        &.btn-outline {
+        &.c-btn--outline {
             @include button-mix($color-primary, false, $color-primary);
         }
     }
