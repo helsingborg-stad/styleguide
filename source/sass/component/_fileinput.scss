@@ -1,0 +1,29 @@
+.c-fileinput {
+
+    label {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        margin: 0;
+        margin-top: 2.66667px;
+        margin-bottom: 2.66667px;
+        border:2px solid;
+        @include button-mix($color-white, $color-primary, $color-primary);
+        @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
+        
+    }
+
+
+    .c-fileinput__input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+
+}

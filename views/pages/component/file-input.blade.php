@@ -10,7 +10,8 @@
 
         @fileinput([
             'display' => 'area',
-            'multiple' => true
+            'multiple' => true,
+            'label' => 'Choose files...'
         ])
         @endfileinput
 
