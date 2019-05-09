@@ -30,18 +30,18 @@
 @import 'function/get-color';
 @import 'function/remove-list-item';
 @import 'function/validate-breakpoint-list';
-@import 'function/mix-color-style-functions.scss'; 
+@import 'function/mix-color-style-functions.scss';
 
 // ***************************************************************
 // *** Mixins
 // ***************************************************************
 @import 'mixin/mq';
-@import 'mixin/responsive-styles'; 
-@import 'mixin/psuedo'; 
-@import 'mixin/ratio'; 
-@import 'mixin/cover'; 
-@import 'mixin/center'; 
-@import 'mixin/size'; 
+@import 'mixin/responsive-styles';
+@import 'mixin/psuedo';
+@import 'mixin/ratio';
+@import 'mixin/cover';
+@import 'mixin/center';
+@import 'mixin/size';
 @import 'mixin/shadow';
 @import 'mixin/button';
 @import 'mixin/list';
@@ -90,6 +90,7 @@
 @import 'component/breadcrumb';
 @import 'component/fileinput';
 @import 'component/table';
+@import 'component/accordion';
 
 // ***************************************************************
 // *** Misc
