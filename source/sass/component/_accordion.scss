@@ -1,0 +1,65 @@
+.c-accordion {
+    background: white;
+    border-radius: 3px;
+    @include shadow(1);
+
+    &__heading {
+        line-height: 1;
+        border-top: 1px solid #eee;
+        cursor: pointer;
+        padding: $base * 2 $base * 3;
+
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__content {
+        padding: 0 $base * 3 $base * 2 $base * 3;
+        display: none;
+    }
+
+    &__icon {
+        margin-left: auto;
+    }
+
+    &__arrow::before {
+        display: inline-block;
+        transform: rotate(90deg);
+    }
+
+    &__section--open {
+        .c-accordion__arrow::before {
+            transform: rotate(270deg);
+            transition: ease .3s transform;
+        }
+
+        .c-accordion__content {
+            display: block;
+            transition: ease .3s all;
+            animation-name: fadeIn;
+            animation-duration: .3s;
+            animation-fill-mode: both;
+            will-change: transform;
+        }
+    }
+
+    &__section--close {
+        .c-accordion__arrow::before {
+            transition: ease .3s transform;
+        }
+    }
+
+    &__section:first-child .c-accordion__heading {
+        border-top: none;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
