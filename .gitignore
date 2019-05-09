@@ -2,6 +2,8 @@
 node_modules
 /cache
 /cache/*
+/source/library
+/source/library/*
 source/library
 source/library/*
 /dist/*

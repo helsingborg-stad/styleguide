@@ -3,36 +3,36 @@
     margin-bottom: map-get($spacers, '3');
     border-radius: $border-radius-xs; 
     
-    &.c-card--body,
-    &.c-card--top,
-    &.c-card--bottom,
-    &.c-card--middle {
+    &__body,
+    &__top,
+    &__bottom,
+    &__middle {
         padding: map-get($spacers, '3');
     }
 
-    &.c-card--title {
+    &__title {
         font-size: $font-size-subtitle;
     }
 
-    &.c-card--top {
+    &__top {
         padding-top:  map-get($spacers, '3');
     }
 
-    &.c-card--bottom {
+    &__bottom {
         padding-bottom: map-get($spacers, '3');
     }
 
-    &.c-card--link,
-    &.c-card--link:visited,
-    &.c-card--link:visited:hover,
-    &.c-card--link:active,
-    &.c-card--link:hover {
+    &__link,
+    &__link:visited,
+    &__link:visited:hover,
+    &__link:active,
+    &__link:hover {
         color: $color-body;
         text-decoration: none;
     }
 
-    &.c-card--image img,
-    img.c-card--image {
+    &__image img,
+    img.c-card__image {
         width: 100%;
     }
 }
