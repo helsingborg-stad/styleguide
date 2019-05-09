@@ -32,9 +32,14 @@
         text-decoration: none;
     }
 
+    &__image-link {
+        display: block;
+    }
+
     &__image img,
     img.c-card__image {
-        width: 100%;
+        width: 100%; 
+        display: block;
     }
 }
 

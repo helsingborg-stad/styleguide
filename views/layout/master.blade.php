@@ -64,7 +64,7 @@
             </div>
             <div class="grid-md-9">
                 <section>
-                    <article>
+                    <article class="article">
                         @yield('content')
                     </article>
                 </section>
