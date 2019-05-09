@@ -81,7 +81,7 @@
 
     .c-menu__link{
         display: block;
-        padding: map-get($spacers, '1') map-get($spacers, '2');
+        padding: $base*1.5 $base*3;
     }
 
     .c-menu--active .c-menu__list {
