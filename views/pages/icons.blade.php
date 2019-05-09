@@ -5,7 +5,7 @@
 
     @markdown
         #Icons
-        Can beutilirzed by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
+        Can be utilized by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
     @endmarkdown
 
     @foreach(HbgStyleGuide\Helper\Icons::getJson() as $iconKey => $utf)
