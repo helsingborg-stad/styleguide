@@ -1,7 +1,6 @@
 .c-card {
     @include shadow(2);
     background-color: $color-card-background;
-    margin-bottom: map-get($spacers, '3');
     border-radius: $border-radius-xs; 
     
     &__body,
