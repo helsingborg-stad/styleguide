@@ -1,18 +1,22 @@
-.c-header .c-header__body {
-    padding: $baseline*2 0;
-}
+.c-header {
+    background: $color-header-background;
+    @include shadow(2);
 
-.c-header.c-header--hard .c-header__body {
-    padding: 0 0;
-}
+    &__body {
+        padding: map-get($spacers, '3') 0;
+        display: flex; 
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
 
-.c-header__body {
-    align-items: center;
-    flex-wrap: nowrap;
-}
+    &__home-link {
+        line-height: 0; 
+        display: block;
+        height: 40px;
 
-.c-header.c-header--large .c-header__body {
-    @include mq(lg) {
-        height: 128px;
+        img, svg {
+            height: 100%;
+        }
     }
 }

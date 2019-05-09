@@ -43,7 +43,7 @@
     @header()
 
         @slot('logotype')
-            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad" style="width: 100%;">
+            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
         @endslot
         
         @slot('menu')
