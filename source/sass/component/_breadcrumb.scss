@@ -1,13 +1,31 @@
 .c-breadcrumb {
-    ol {
-        list-style: none;
-        padding:0px;
+    &__list {
+        @include unlist(); 
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding: 0;
     }
 
-    .c-breadcrumb__item {
-        margin-top:0px;
-        padding:0px;
-        padding-right:10px;
-        float:left;
+    &__item {
+        padding: 0 map-get($spacers, '1') 0 0;
+        margin: 0;
+
+        color: $color-breadcrumb-active; 
+    }
+
+    &__link,
+    &__link:visited, 
+    &__link:visited:hover  {
+        color: $color-breadcrumb;
+        text-decoration: none;  
+    }
+
+    .c-icon {
+        color: $color-breadcrumb-icon; 
+
+        &:before {
+            vertical-align: -20%; /* TODO: Fix */
+        }
     }
 }
