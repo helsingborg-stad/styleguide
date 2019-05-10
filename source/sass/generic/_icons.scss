@@ -1,10 +1,10 @@
 @font-face {
     font-family: "styleguide-icons";
-    src: url("/assets/dist/icons/styleguide-icons.eot?1d5a635745e239b94f99a4a39aa3be5d?#iefix") format("embedded-opentype"),
-url("/assets/dist/icons/styleguide-icons.woff2?1d5a635745e239b94f99a4a39aa3be5d") format("woff2"),
-url("/assets/dist/icons/styleguide-icons.woff?1d5a635745e239b94f99a4a39aa3be5d") format("woff"),
-url("/assets/dist/icons/styleguide-icons.ttf?1d5a635745e239b94f99a4a39aa3be5d") format("truetype"),
-url("/assets/dist/icons/styleguide-icons.svg?1d5a635745e239b94f99a4a39aa3be5d#styleguide-icons") format("svg");
+    src: url("/assets/dist/icons/styleguide-icons.eot?008f6db06bfed5f2ab7c7e0a1db39de3?#iefix") format("embedded-opentype"),
+url("/assets/dist/icons/styleguide-icons.woff2?008f6db06bfed5f2ab7c7e0a1db39de3") format("woff2"),
+url("/assets/dist/icons/styleguide-icons.woff?008f6db06bfed5f2ab7c7e0a1db39de3") format("woff"),
+url("/assets/dist/icons/styleguide-icons.ttf?008f6db06bfed5f2ab7c7e0a1db39de3") format("truetype"),
+url("/assets/dist/icons/styleguide-icons.svg?008f6db06bfed5f2ab7c7e0a1db39de3#styleguide-icons") format("svg");
 }
 
 i[class^="c-icon--"]:before, i[class*=" c-icon--"]:before {
@@ -102,7 +102,7 @@ i[class^="c-icon--"]:before, i[class*=" c-icon--"]:before {
 .c-icon--fullscreen:before {
     content: "\f11c";
 }
-.c-icon--local offer:before {
+.c-icon--local-offer:before {
     content: "\f11d";
 }
 .c-icon--menu:before {
@@ -153,6 +153,6 @@ i[class^="c-icon--"]:before, i[class*=" c-icon--"]:before {
 .c-icon--signal-wifi-bar:before {
     content: "\f12d";
 }
-.c-icon--volume up:before {
+.c-icon--volume-up:before {
     content: "\f12e";
 }
