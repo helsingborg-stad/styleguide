@@ -1,8 +1,6 @@
 .markup-preview {
     padding: map-get($spacers, '3');
-    border: 1px solid $color-code-background;
     border-bottom: 0;
-    box-shadow: inset 0 0 10px rgba(#000, .1);
     border-radius: 5px;
 }
 
