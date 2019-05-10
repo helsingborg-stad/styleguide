@@ -18,7 +18,7 @@ ul {
         position: relative;
     }
 
-    li:before {
+    .bullets:before {
         content: '';
         background: black;
         width: 6px;

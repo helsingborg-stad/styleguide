@@ -1,5 +1,6 @@
 /*
     Script for showing selected filenames before upload
+    Helsingborgs Stad
  */
 const fileIn = document.getElementById('fileinput');
 const onChange = event => {
@@ -12,10 +13,11 @@ const onChange = event => {
         upload.setAttribute('id', 'fileNameContainer');
         wrapper.appendChild(upload);
 
-        let ufiles = '';
+        let ufiles = '<ul>';
         for(let int=0;  int < event.target.files.length; int++){
-            ufiles += event.target.files[int].name+'<br />';
+            ufiles += '<li><i class=" c-icon c-icon--cloud-upload "><span class="c-icon__label"> '+event.target.files[int].name+'</span></i></li>';
         }
+        ufiles +='</ul>';
         document.getElementById('fileNameContainer').innerHTML = ufiles;
     }
 };
