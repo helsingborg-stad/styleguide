@@ -1,20 +1,25 @@
-const inputs = document.querySelectorAll( '.c-fileinput__input' );
-Array.prototype.forEach.call( inputs, function( input )
-{
-    var label	 = input.nextElementSibling,
-        labelVal = label.innerHTML;
+/*
+    Script for showing selected filenames before upload
+ */
+const fileIn = document.getElementById('fileinput');
+const onChange = event => {
 
-    input.addEventListener( 'change', function( e )
-    {
-        let fileName = '';
-        if( this.files && this.files.length > 1 )
-            fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-        else
-            fileName = e.target.value.split( "\ " ).pop();
+    if(event.target.files && event.target.files[0]) {
 
-        if( fileName )
-            label.querySelector( 'span' ).innerHTML = fileName;
-        else
-            label.innerHTML = labelVal;
-    });
-});
+        let upload = document.createElement('div');
+        let wrapper = document.querySelector('.c-fileinput');
+
+        upload.setAttribute('id', 'fileNameContainer');
+        wrapper.appendChild(upload);
+
+        let ufiles = '';
+        for(let int=0;  int < event.target.files.length; int++){
+            ufiles += event.target.files[int].name+'<br />';
+        }
+        document.getElementById('fileNameContainer').innerHTML = ufiles;
+    }
+};
+
+fileIn.onchange = function() {
+    onChange(event);
+};
