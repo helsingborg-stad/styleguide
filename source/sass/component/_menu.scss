@@ -22,7 +22,6 @@
     &__link,
     &__link:visited, 
     &__link:visited:hover {
-        color: $color-gray;
         text-decoration: none; 
     }
 }
@@ -44,11 +43,17 @@
         padding: map-get($spacers, '1') map-get($spacers, '2');
     }
 
+    .c-menu__item .c-menu__link,
+    .c-menu__item .c-menu__link:visited, 
+    .c-menu__item .c-menu__link:visited:hover {
+        color: $color-menu-text-horizontal;
+    }
+
     .c-menu__item  .c-menu__link:after {
         content: ""; 
         @include centerX(); 
         bottom: 0;
-        border-bottom: 3px solid #eee;  
+        border-bottom: 3px solid $color-menu-active-indicator-horizontal;  
         width: 0%; 
         transition: width 250ms; 
     }
@@ -72,7 +77,7 @@
     background-color: $color-menu-background; 
 
     .c-menu__list .c-menu__list {
-        border-left: 4px solid $color-gray-light; 
+        border-left: 4px solid $color-menu-active-indicator; 
     }
 
     .c-menu__item {
@@ -82,6 +87,12 @@
     .c-menu__link{
         display: block;
         padding: $base*1.5 $base*3;
+    }
+
+    .c-menu__item .c-menu__link,
+    .c-menu__item .c-menu__link:visited, 
+    .c-menu__item .c-menu__link:visited:hover {
+        color: $color-menu-text;
     }
 
     .c-menu--active .c-menu__list {

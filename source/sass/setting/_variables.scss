@@ -89,10 +89,18 @@ $color-menu-background: $color-white !default;
 $color-menu-separator: $color-gray-light !default; 
 $color-menu-active-indicator: $color-gray-light !default; 
 $color-menu-active-background: $color-gray-lighter !default; 
+$color-menu-text: $color-black; 
+
+$color-menu-active-indicator-horizontal: $color-primary-light !default; 
+$color-menu-text-horizontal: $color-black; 
 
 $color-card-background: $color-white !default; 
 
-$color-footer-background: #efefef; 
+$color-footer-background: #efefef;
+
+$color-breadcrumb-active: $color-gray; 
+$color-breadcrumb-icon: $color-black; 
+$color-breadcrumb: $color-black; 
 
 //Radiuses
 $border-radius-xs: ($base/4) !default;
