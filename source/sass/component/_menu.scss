@@ -71,10 +71,7 @@
 
 /* Vertical menu */ 
 .c-menu.c-menu--vertical {
-    @include shadow(2);
-    padding: 0;
-    border-radius: $border-radius-xs; 
-    background-color: $color-menu-background; 
+    @include paper(2); 
 
     .c-menu__list .c-menu__list {
         border-left: 4px solid $color-menu-active-indicator; 
