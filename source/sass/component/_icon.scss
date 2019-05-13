@@ -6,6 +6,10 @@
     }
 
     /* Modifiers  - Sizes */
+    &--size-inherit {
+        font-size: inherit; 
+    }
+
     &--size-xs {
         font-size: 10px; 
     }
