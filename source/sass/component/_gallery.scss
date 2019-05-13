@@ -12,13 +12,12 @@
         padding: map-get($spacers, '1');
 
         @include mq(map_get($breakpoints-map, 'lg')) {
-            width: 98%;
+            width: 100%;
             height: auto;
             max-width: initial;
             max-height: initial;
 
             @media all and (orientation:portrait) {
-                display: inline-block;
                 width: auto;
                 height: 100vh;
             }
