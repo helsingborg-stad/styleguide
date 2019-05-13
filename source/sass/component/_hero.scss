@@ -19,7 +19,7 @@
 
     &__body {
         z-index: $level-2;
-        width: 100%; 
+        width: calc( 100% - #{map-get($spacers, '8')});
         max-width: $container-width-wide;
 
         height: 100%; 
