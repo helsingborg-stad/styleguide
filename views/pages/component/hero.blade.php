@@ -8,8 +8,19 @@
 
     @doc(['slug' => 'hero'])
 
-        @hero(['backgroundImage' => 'https://picsum.photos/900/600?image=993'])
-        @endhero
+    @hero([
+        'complementaryImage' => '/assets/img/isometric.png',
+        'backgroundColor' => '#444e71',
+        'headline' => 'Helsingborg Stad', 
+        'byline' => 'Styleguide - Version 2.0', 
+        'gradientColor' => 'light'
+    ])
+
+    @slot('content')
+        The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard. 
+    @endslot
+
+    @endhero
 
     @enddoc
 @stop
