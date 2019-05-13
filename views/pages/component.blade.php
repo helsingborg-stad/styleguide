@@ -1,5 +1,22 @@
 @extends('layout.master')
 
+@section('hero')
+
+    @hero([
+        'backgroundColor' => '#fff',
+        'headline' => 'Components', 
+        'byline' => 'Independent views', 
+        'textColor' => 'dark',
+    ])
+
+    @slot('content')
+        A component is a independent functional view. They can accept multiple attributes as an array and acts accordiongly without writing a single row of markup, if you don't want to. 
+    @endslot
+
+    @endhero
+
+@endsection
+
 @section('content')
     @markdown
         #Components

@@ -2,9 +2,8 @@
     @include shadow(2);
     background-color: $color-card-background;
     border-radius: $border-radius-xs; 
+    height: 100%;
 
-    
-    
     &__body,
     &__top,
     &__bottom,

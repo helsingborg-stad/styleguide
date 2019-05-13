@@ -1,5 +1,24 @@
 @extends('layout.master')
 
+
+@section('hero')
+
+        @hero([
+            'backgroundColor' => '#fff',
+            'textColor' => 'dark',
+            'headline' => 'The icon library', 
+            'byline' => 'Material icons', 
+        ])
+
+        @slot('content')
+            We utilize a icon library provided by the Google Material Design team. The pack has been complemented with our very own icons to siut the needs of a municipality.
+        @endslot
+
+        @endhero
+
+
+@endsection
+
 @section('content')
 <article>
 
