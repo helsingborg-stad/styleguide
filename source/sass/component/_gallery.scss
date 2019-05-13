@@ -3,10 +3,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    &.unlist{
-        @include unlist();
-    }
-
     ul {
         list-style: none;
         display: flex;
@@ -14,10 +10,13 @@
         flex-wrap: wrap;
         padding:0px;
         margin:0px;
-
     }
 
-    li {
+    &.unlist{
+        @include unlist();
+    }
+
+    .unlist__item {
         display: inline-block;
         max-width: 100%;
 
@@ -44,17 +43,13 @@
         text-align:center;
     }
 
-    figure {
+    .c-image {
         width:100%;
         margin:0px;
         padding:0px;
+        .c-image__image {
+            object-fit: contain;
+            width:100%;
+        }
     }
-
-    img {
-        object-fit: contain;
-        width:100%;
-    }
-
-
-
 }
