@@ -1,10 +1,9 @@
 .loader {
     /* Loader circular  */
     &.loader--circular {
+
         color: #000;
-
         margin: 100px auto;
-
         border-radius: 50%;
         position: relative;
         text-indent: -9999em;
@@ -108,7 +107,7 @@
         }
     }
 
-
+    /* Loader linear */
     &.loader--linear,
     &.loader--linear:before,
     &.loader--linear:after {
