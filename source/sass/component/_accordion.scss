@@ -1,25 +1,22 @@
 .c-accordion {
     background: white;
-    border-radius: 3px;
+    border-radius: $border-radius-xs;
     @include shadow(1);
 
-    &__heading {
-        line-height: 1;
+    &__header {
         border-top: 1px solid #eee;
         cursor: pointer;
         padding: $base * 2 $base * 3;
-
         display: flex;
         flex-wrap: wrap;
     }
 
-    &__content {
-        padding: 0 $base * 3 $base * 2 $base * 3;
-        display: none;
-    }
-
     &__icon {
         margin-left: auto;
+    }
+
+    &__arrow {
+        line-height: 1;
     }
 
     &__arrow::before {
@@ -27,7 +24,12 @@
         transform: rotate(90deg);
     }
 
-    &__section--open {
+    &__content {
+        padding: 0 $base * 3 $base * 2 $base * 3;
+        display: none;
+    }
+
+    &__section--is-active {
         .c-accordion__arrow::before {
             transform: rotate(270deg);
             transition: ease .3s transform;
@@ -43,13 +45,13 @@
         }
     }
 
-    &__section--close {
-        .c-accordion__arrow::before {
-            transition: ease .3s transform;
-        }
-    }
+    // &__section--close {
+    //     .c-accordion__arrow::before {
+    //         transition: ease .3s transform;
+    //     }
+    // }
 
-    &__section:first-child .c-accordion__heading {
+    &__section:first-child &__header {
         border-top: none;
     }
 
