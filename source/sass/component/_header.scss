@@ -3,7 +3,11 @@
     @include shadow(2);
 
     &__body {
+        width: calc( 100% - #{map-get($spacers, '8')});
+        max-width: $container-width-wide; 
         padding: map-get($spacers, '3') 0;
+        margin-left: auto; 
+        margin-right: auto;
         display: flex; 
         align-items: center;
         flex-wrap: nowrap;

@@ -1,5 +1,22 @@
 @extends('layout.master')
 
+@section('hero')
+
+    @hero([
+        'backgroundColor' => '#fff',
+        'headline' => 'About this styleguide', 
+        'byline' => 'What about [x]?', 
+        'textColor' => 'dark',
+    ])
+
+    @slot('content')
+        Collected thoughts an decitions about how to use the styleguide. 
+    @endslot
+
+    @endhero
+
+@endsection
+
 @section('content')
     {!! markdown("
 

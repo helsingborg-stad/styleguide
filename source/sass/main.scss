@@ -31,6 +31,8 @@
 @import 'function/remove-list-item';
 @import 'function/validate-breakpoint-list';
 @import 'function/mix-color-style-functions.scss';
+@import 'function/legacy-direction';
+@import 'function/is-direction';
 
 // ***************************************************************
 // *** Mixins
@@ -46,6 +48,7 @@
 @import 'mixin/button';
 @import 'mixin/list';
 @import 'mixin/paper';
+@import 'mixin/gradient';
 
 // ***************************************************************
 // *** Generic
@@ -79,6 +82,7 @@
 // ***************************************************************
 @import 'component/header';
 @import 'component/footer';
+@import 'component/hero';
 @import 'component/paper';
 @import 'component/avatar';
 @import 'component/card';

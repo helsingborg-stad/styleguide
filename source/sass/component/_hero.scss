@@ -1,0 +1,87 @@
+.c-hero {
+    @include shadow(5, true);
+    color: $color-white;
+
+    background-size: cover;
+    position: relative;
+    min-height: $base*88; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Gradient fill */ 
+    &:after {
+        @include cover(); 
+        @include gradient(rgba(#fff, 0), rgba(#fff, .3));
+        z-index: $level-1;
+        content: ""; 
+    }
+
+    /* Wrapping body */ 
+    &__body {
+        z-index: $level-2;
+        width: calc( 100% - #{map-get($spacers, '8')});
+        max-width: $container-width-wide;
+
+        height: 100%; 
+
+        display: flex; 
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    /* Content */ 
+    &__content {
+        font-size: $font-size-hero-body; 
+        max-width: 500px; 
+        max-height: 100%; 
+    }
+
+    &__headline {
+        font-size: $font-size-hero; 
+        font-weight: 400; 
+    }
+
+    &__byline {
+        font-size: $font-size-hero-byline; 
+        font-weight: 300; 
+    }
+
+    &__paragraph {
+        font-size: $font-size-hero-body; 
+        font-weight: 300; 
+    }
+
+    &__headline + &__paragraph,
+    &__byline + &__paragraph {
+        margin-top: map-get($spacers, '3'); 
+    }
+
+    /* Aside image */ 
+    &__complementary-image {
+        height: 100%;
+        background-size: contain;
+        width: 40%;
+        background-repeat: no-repeat;
+        background-position: right center;
+    }
+
+    /* Modifiers */ 
+    &--color-light {
+        color: $color-white; 
+    }
+
+    &--color-dark {
+        color: $color-black; 
+    }
+
+    &--gradient-light:after {
+        @include gradient(rgba(#fff, 0), rgba(#fff, .3));
+    }
+
+    &--gradient-dark:after {
+        @include gradient(rgba(#000, 0), rgba(#000, .3));
+    }
+}

@@ -1,5 +1,24 @@
 @extends('layout.master')
 
+@section('hero')
+
+        @hero([
+            'complementaryImage' => '/assets/img/isometric.png',
+            'backgroundColor' => '#444e71',
+            'headline' => 'Helsingborg Stad', 
+            'byline' => 'Styleguide - Version 2.0', 
+        ])
+
+        @slot('content')
+            The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard. 
+        @endslot
+
+        @endhero
+
+
+@endsection
+
+
 @section('content')
 <article>
 
@@ -20,7 +39,7 @@
             @card([
                 'image' => 'https://picsum.photos/300/225?image=919',
                 'title' => 'Usability', 
-                'content' => 'On of the main focus of this styleguide is usability. Read more of our guidelines here.',
+                'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
                 'href' => '/about/accessibility'
             ])
             @endcard
