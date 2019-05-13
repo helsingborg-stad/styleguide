@@ -13,8 +13,9 @@
     /* Wrapping body */ 
     &__body {
         z-index: $level-2;
-        width: calc( 100% - #{map-get($spacers, '8')});
-        max-width: $container-width-wide;
+        width: 100%; 
+        max-width: $container-width-wide; 
+        padding: map-get($spacers, '3') map-get($spacers, '4');
 
         height: 100%; 
 

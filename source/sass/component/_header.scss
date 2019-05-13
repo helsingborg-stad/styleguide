@@ -3,9 +3,9 @@
     @include shadow(2);
 
     &__body {
-        width: calc( 100% - #{map-get($spacers, '8')});
+        width: 100%; 
         max-width: $container-width-wide; 
-        padding: map-get($spacers, '3') 0;
+        padding: map-get($spacers, '3') map-get($spacers, '4');
         margin-left: auto; 
         margin-right: auto;
         display: flex; 
@@ -17,7 +17,7 @@
     &__home-link {
         line-height: 0; 
         display: block;
-        height: 40px;
+        height: $header-logotype-height;
 
         img, svg {
             height: 100%;
