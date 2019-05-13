@@ -5,7 +5,7 @@
 const fileIn = document.getElementById('fileinput');
 const onChange = event => {
 
-    if(event.target.files && event.target.files[0]) {
+    if (event.target.files && event.target.files[0]) {
 
         let upload = document.createElement('div');
         let wrapper = document.querySelector('.c-fileinput');
@@ -14,17 +14,17 @@ const onChange = event => {
         wrapper.appendChild(upload);
 
         let ufiles = '<ul>';
-        for(let int=0;  int < event.target.files.length; int++){
-            ufiles += '<li><i class=" c-icon c-icon--cloud-upload "><span class="c-icon__label"> '+event.target.files[int].name+'</span></i></li>';
+        for (let int = 0; int < event.target.files.length; int++) {
+            ufiles += '<li><i class=" c-icon c-icon--cloud-upload "><span class="c-icon__label"> ' + event.target.files[int].name + '</span></i></li>';
         }
-        ufiles +='</ul>';
+        ufiles += '</ul>';
         document.getElementById('fileNameContainer').innerHTML = ufiles;
     }
 };
 
-fileIn.onchange = function() {
-    if (fileIn) {
-        onChange(event);
-    }
+if (fileIn != null) {
+    fileIn.onchange = function () {
 
-};
+        onChange(event);
+    };
+}
