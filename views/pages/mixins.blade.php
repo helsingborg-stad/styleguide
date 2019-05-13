@@ -1,7 +1,6 @@
 @extends('layout.master')
 
 @section('hero')
-
     @hero([
         'backgroundColor' => '#fff',
         'headline' => 'Mixin library', 
@@ -14,7 +13,6 @@
     @endslot
 
     @endhero
-
 @endsection
 
 @section('content')
