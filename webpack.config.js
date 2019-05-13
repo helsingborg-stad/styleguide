@@ -6,6 +6,10 @@ const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 module.exports = {
 
+    externals: {
+        material: '@material'
+    },
+
     /**
      * Entry files - Add more entries if needed.
      */

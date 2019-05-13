@@ -1,0 +1,60 @@
+.c-hero {
+    @include shadow(6, false);
+    background-size: cover;
+    min-height: 700px; 
+    display: flex; 
+    color: $color-white;
+    position: relative;
+
+    &:after {
+        z-index: $level-1;
+        content: ""; 
+        @include cover(); 
+        @include gradient(rgba(#fff, 0), rgba(#fff, .3));
+    }
+
+    &__body {
+        z-index: $level-2;
+        margin: 0 auto; 
+        width: $container-width-wide; 
+        display: flex; 
+        max-height: 100%; 
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    &__content {
+        max-width: 450px; 
+        max-height: 100%; 
+    }
+
+    &__complementary-image {
+        height: 100%;
+        background-size: contain;
+        width: 40%;
+        background-repeat: no-repeat;
+        background-position: right center;
+    }
+
+    &__headline {
+        text-transform: uppercase; 
+    }
+
+    &__headline + &__paragraph {
+        padding-top: 2rem; 
+    }
+
+    &__paragraph {
+        line-height: 1.5; 
+        font-size: 1.2em; 
+    }
+
+    &--color-light {
+        color: $color-white; 
+    }
+
+    &--color-dark {
+        color: $color-black; 
+    }
+}

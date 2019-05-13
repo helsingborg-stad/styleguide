@@ -45,6 +45,8 @@
 
     @endheader
 
+    @yield('hero')
+
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 
     <div class="container">
         <div class="grid">
