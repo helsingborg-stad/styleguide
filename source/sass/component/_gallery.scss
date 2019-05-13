@@ -1,16 +1,58 @@
 .c-gallery {
     display:flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    &.unlist{
+        @include unlist();
+    }
+
     ul {
         list-style: none;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        padding:0px;
+        margin:0px;
+
     }
 
-    .c-gallery__item {
+    li {
         display: inline-block;
-        width: calc(100% / 3);
+        max-width: 100%;
+
+        @include mq(map_get($breakpoints-map, 'lg')) {
+            width: 98%;
+            height: auto;
+            max-width: initial;
+            max-height: initial;
+
+            @media all and (orientation:portrait) {
+                display: inline-block;
+                width: auto;
+                height: 100vh;
+            }
+        }
+
+        @include mq(map_get($breakpoints-map, 'sm')) {
+            width: 33%;
+        }
+
+        padding: 0px;
+        margin:0px;
+        padding: map-get($spacers, '2');
+        text-align:center;
+    }
+
+    figure {
+        width:100%;
+        margin:0px;
+        padding:0px;
+    }
+
+    img {
+        object-fit: contain;
+        width:100%;
     }
 
 
