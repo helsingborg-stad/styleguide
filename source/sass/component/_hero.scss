@@ -1,10 +1,14 @@
 .c-hero {
-    @include shadow(6, false);
-    background-size: cover;
-    min-height: 700px; 
-    display: flex; 
+    @include shadow(5, true);
     color: $color-white;
+
+    background-size: cover;
     position: relative;
+    min-height: 700px; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:after {
         z-index: $level-1;
@@ -15,17 +19,20 @@
 
     &__body {
         z-index: $level-2;
-        margin: 0 auto; 
-        width: $container-width-wide; 
+        width: 100%; 
+        max-width: $container-width-wide;
+
+        height: 100%; 
+
         display: flex; 
-        max-height: 100%; 
         align-items: center;
         flex-wrap: nowrap;
         justify-content: space-between;
     }
 
     &__content {
-        max-width: 450px; 
+        font-size: $font-size-hero-body; 
+        max-width: 500px; 
         max-height: 100%; 
     }
 
@@ -38,16 +45,17 @@
     }
 
     &__headline {
-        text-transform: uppercase; 
+        font-size: $font-size-hero; 
+        font-weight: 400; 
     }
 
     &__headline + &__paragraph {
-        padding-top: 2rem; 
+        padding-top: map-get($spacers, '3'); 
     }
 
     &__paragraph {
-        line-height: 1.5; 
-        font-size: 1.2em; 
+        font-size: $font-size-hero-body; 
+        font-weight: 300; 
     }
 
     &--color-light {
