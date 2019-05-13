@@ -1,12 +1,17 @@
 .c-image {
     margin: 0px;
 
-    .c-image__image {
-        border-radius:$border-radius-xs;
+    &__image {
+        border-radius: $border-radius-xs;
     }
 
-    .c-image__caption {
+    &__caption {
         font-size:0.8em;
         color: darken($color-gray, 20%);
+    }
+
+    &--full-width &__image {
+        object-fit: contain;
+        width:100%;
     }
 }

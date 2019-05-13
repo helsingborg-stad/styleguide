@@ -3,22 +3,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
 
-    ul {
-        list-style: none;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding:0px;
-        margin:0px;
-    }
+    @include unlist(); 
+    padding: 0; 
+    margin: -#{map-get($spacers, '1')};
 
-    &.unlist{
-        @include unlist();
-    }
-
-    .unlist__item {
-        display: inline-block;
-        max-width: 100%;
+    &__item {
+        margin: 0;
+        padding: map-get($spacers, '1');
 
         @include mq(map_get($breakpoints-map, 'lg')) {
             width: 98%;
@@ -35,21 +26,6 @@
 
         @include mq(map_get($breakpoints-map, 'sm')) {
             width: 33%;
-        }
-
-        padding: 0px;
-        margin:0px;
-        padding: map-get($spacers, '2');
-        text-align:center;
-    }
-
-    .c-image {
-        width:100%;
-        margin:0px;
-        padding:0px;
-        .c-image__image {
-            object-fit: contain;
-            width:100%;
         }
     }
 }
