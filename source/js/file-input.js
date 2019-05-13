@@ -23,5 +23,8 @@ const onChange = event => {
 };
 
 fileIn.onchange = function() {
-    onChange(event);
+    if (fileIn) {
+        onChange(event);
+    }
+
 };
