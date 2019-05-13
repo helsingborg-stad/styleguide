@@ -1,12 +1,11 @@
 @extends('layout.master')
 
 @section('hero')
-
     @hero([
         'backgroundColor' => '#fff',
         'headline' => 'About this styleguide', 
         'byline' => 'What about [x]?', 
-        'textColor' => 'dark',
+        'textColor' => 'dark'
     ])
 
     @slot('content')
@@ -14,7 +13,6 @@
     @endslot
 
     @endhero
-
 @endsection
 
 @section('content')

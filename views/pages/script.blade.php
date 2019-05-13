@@ -1,8 +1,6 @@
 @extends('layout.master')
 
-
 @section('hero')
-
     @hero([
         'backgroundColor' => '#fff',
         'headline' => 'Javascript functions', 
@@ -15,7 +13,6 @@
     @endslot
 
     @endhero
-
 @endsection
 
 @section('content')

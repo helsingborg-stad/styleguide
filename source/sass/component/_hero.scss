@@ -10,14 +10,6 @@
     align-items: center;
     justify-content: center;
 
-    /* Gradient fill */ 
-    &:after {
-        @include cover(); 
-        @include gradient(rgba(#fff, 0), rgba(#fff, .3));
-        z-index: $level-1;
-        content: ""; 
-    }
-
     /* Wrapping body */ 
     &__body {
         z-index: $level-2;
@@ -75,6 +67,14 @@
 
     &--color-dark {
         color: $color-black; 
+    }
+
+    /* Gradient fill */ 
+    &--gradient-light:after,
+    &--gradient-dark:after {
+        @include cover(); 
+        z-index: $level-1;
+        content: ""; 
     }
 
     &--gradient-light:after {
