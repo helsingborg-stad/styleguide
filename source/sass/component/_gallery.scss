@@ -1,0 +1,18 @@
+.c-gallery {
+    display:flex;
+    justify-content: space-between;
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .c-gallery__item {
+        display: inline-block;
+        width: calc(100% / 3);
+    }
+
+
+
+}
