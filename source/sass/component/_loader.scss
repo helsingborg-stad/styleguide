@@ -14,6 +14,18 @@
         -ms-transform: translateZ(0);
         transform: translateZ(0);
 
+        &.loader--xl {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+        }
+
+        &.loader--lg {
+            width: 15px;
+            height: 15px;
+            font-size: 15px;
+        }
+
         &.loader--md {
             width: 10px;
             height: 10px;
@@ -21,15 +33,15 @@
         }
 
         &.loader--sm {
-            width: 4px;
-            height: 4px;
-            font-size: 4px;
+            width: 5px;
+            height: 5px;
+            font-size: 5px;
         }
-        
+
         &.loader--xs {
             width: 2px;
             height: 2px;
-            font-size: 3px;
+            font-size: 2px;
         }
     }
 
