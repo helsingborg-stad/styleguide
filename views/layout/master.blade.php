@@ -147,6 +147,14 @@
             easing: 'spring(1, 80, 10, 0)'
         });
 
+        anime({
+            targets: '.c-hero__content > *',
+            opacity: [0,1],
+            translateX: ['10px','0px'],
+            delay: anime.stagger(50),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
     </script>
 
     <script>
