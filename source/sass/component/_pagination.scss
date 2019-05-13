@@ -1,10 +1,41 @@
 
-nav.pagination {
+.c-pagination {
 
-    ul {
-        list-style: none;
-        li:before {
-            background-color: transparent !important; /* remove after We remove hbg prime from site */
+    &__list {
+        @include unlist(); 
+        padding: 0; 
+        margin: 0;
+        display: flex; 
+    }
+
+    &__item {
+        margin: 0;
+        padding: 0; 
+        line-height: 1; 
+    }
+
+    &_item--is-active &__link {
+        background-color: $color-primary;
+    }
+
+    &__link {
+        display: block;
+        padding: map-get($spacers, '1') map-get($spacers, '2');
+        border: 1px solid #eee; 
+    }
+
+    &__link,
+    &__link:visited, 
+    &__link:visited:hover  {
+        color: $color-black;
+        text-decoration: none;  
+    }
+
+    .c-icon {
+        color: $color-breadcrumb-icon; 
+
+        &:before {
+            vertical-align: -20%; /* TODO: Fix */
         }
     }
 
