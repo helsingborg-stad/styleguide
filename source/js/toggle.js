@@ -1,13 +1,21 @@
-/* Toggling classes */ 
+/* Toggling classes */
 
-export default function () { 
+class ToggleClass {
 
-    let elements = document.querySelectorAll("js-action['toggleClass']"); 
-
-    for(item of elements) {
-        console.log(item); 
+    constructor() {
+        this.toggleElements = document.querySelectorAll("[js-toggle-class]");
+        this.init();
     }
 
-    
+    init() {
+        this.toggleElements.forEach(function (element) {
+            let toggleClass = element.getAttribute('js-toggle-class');
 
-};
+            element.addEventListener('click', function () {
+                element.classList.toggle(toggleClass);
+            });
+        });
+    }
+}
+
+export default ToggleClass;
