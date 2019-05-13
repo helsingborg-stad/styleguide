@@ -1,7 +1,15 @@
 .container {
-    width: 100%;
-    max-width: 1150px; 
+    width: calc( 100% - #{map-get($spacers, '4')});
+    max-width: $container-width; 
     margin: 0 auto; 
+
+    &--wide {
+        max-width: $container-width-wide;
+    }
+
+    &--full {
+        max-width: initial;
+    }
 
     &--main {
         min-height: calc(90vh - 140px); 
