@@ -59,6 +59,11 @@
         width: 40%;
         background-repeat: no-repeat;
         background-position: right center;
+        display: none; 
+
+        @include mq(map_get($breakpoints-map, 'md')) {
+            display: block; 
+        }
     }
 
     /* Modifiers */ 
