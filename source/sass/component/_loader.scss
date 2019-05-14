@@ -118,6 +118,7 @@
         animation-fill-mode: both;
         -webkit-animation: loader--linear-anim 1.8s infinite ease-in-out;
         animation: loader--linear-anim 1.8s infinite ease-in-out;
+
     }
     &.loader--linear {
         color: #000;
@@ -130,6 +131,21 @@
         transform: translateZ(0);
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
+        &.loader--lg {
+            font-size: 14px;
+        }
+
+        &.loader--md {
+            font-size: 10px;
+        }
+
+        &.loader--sm {
+            font-size: 6px;
+        }
+
+        &.loader--xs {
+            font-size: 3px;
+        }
     }
     &.loader--linear:before,
     &.loader--linear:after {
