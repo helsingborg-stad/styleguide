@@ -43,6 +43,9 @@
     &.disabled {
         opacity: .7;
     }
+    &.c-btn--round {
+        border-radius: $border-radius-md;
+    }
 
     @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
 

@@ -49,6 +49,7 @@
 @import 'mixin/list';
 @import 'mixin/paper';
 @import 'mixin/gradient';
+@import 'mixin/arrow';
 
 // ***************************************************************
 // *** Generic
@@ -99,6 +100,8 @@
 @import 'component/gallery';
 @import 'component/image';
 @import 'component/loader';
+@import 'component/tooltip';
+
 @import 'component/logotype';
 
 
