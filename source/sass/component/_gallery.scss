@@ -19,14 +19,22 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, 'lg')) {
+@include mq(map_get($breakpoints-map, 'md')) {
     .c-gallery {
-        grid-template-columns: 1fr 1fr 1fr;
         margin: -#{map-get($spacers, '2')};
 
         &__item {
-            grid-template-columns: 1fr 1fr 1fr;
             margin: #{map-get($spacers, '2')}; 
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, 'lg')) {
+    .c-gallery {
+        grid-template-columns: 1fr 1fr 1fr;
+
+        &__item {
+            grid-template-columns: 1fr 1fr 1fr;
         }
     }
 }
