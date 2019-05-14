@@ -30,9 +30,12 @@
 <body class="no-js">
 
     @header()
-
         @slot('logotype')
-            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
+            @logotype([
+                'src'=> '/assets/img/logotype.svg',
+                'alt' => "Helsingborg Stad Logotype"
+            ])
+            @endlogotype
         @endslot
         
         @slot('menu')
@@ -42,7 +45,6 @@
             ])
             @endmenu
         @endslot
-
     @endheader
 
     @yield('hero')
