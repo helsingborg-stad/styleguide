@@ -106,8 +106,17 @@
         max-height: $base*12;
         z-index: $level-3;
 
+        opacity: 0;
+        animation: fadein 2s forwards;
+        animation-delay: 1s;
+
         @include mq(map_get($breakpoints-map, 'sm')) {
             right: $base*3; 
         }
+    }
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 }
