@@ -59,6 +59,11 @@
         width: 40%;
         background-repeat: no-repeat;
         background-position: right center;
+        display: none; 
+
+        @include mq(map_get($breakpoints-map, 'md')) {
+            display: block; 
+        }
     }
 
     /* Modifiers */ 
@@ -84,5 +89,39 @@
 
     &--gradient-dark:after {
         @include gradient(rgba(#000, 0), rgba(#000, .3));
+    }
+
+    /* Brand */ 
+    &--brand:before {
+        position: absolute;
+        bottom: $base*3;
+        left: auto; 
+        right: auto;
+        width: 8vmax;
+        height: 8vmax;
+
+        content: ''; 
+
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        min-width: $base*10;
+        min-height: $base*10;
+        max-width: $base*12;
+        max-height: $base*12;
+        z-index: $level-3;
+
+        opacity: 0;
+        animation: fadein 2s forwards;
+        animation-delay: 1s;
+
+        @include mq(map_get($breakpoints-map, 'sm')) {
+            right: $base*3; 
+        }
+    }
+
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 }

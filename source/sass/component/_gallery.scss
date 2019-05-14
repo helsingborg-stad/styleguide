@@ -1,31 +1,32 @@
 .c-gallery {
-    display:flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
     @include unlist(); 
+
+    display: grid; 
+    grid-template-columns: 1fr;
+
     padding: 0; 
     margin: -#{map-get($spacers, '1')};
 
     &__item {
-        margin: 0;
-        padding: map-get($spacers, '1');
+        margin: #{map-get($spacers, '1')}; 
+        padding: 0; 
+    }
+}
 
-        @include mq(map_get($breakpoints-map, 'lg')) {
-            width: 98%;
-            height: auto;
-            max-width: initial;
-            max-height: initial;
+@include mq(map_get($breakpoints-map, 'sm')) {
+    .c-gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
-            @media all and (orientation:portrait) {
-                display: inline-block;
-                width: auto;
-                height: 100vh;
-            }
-        }
+@include mq(map_get($breakpoints-map, 'lg')) {
+    .c-gallery {
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: -#{map-get($spacers, '2')};
 
-        @include mq(map_get($breakpoints-map, 'sm')) {
-            width: 33%;
+        &__item {
+            grid-template-columns: 1fr 1fr 1fr;
+            margin: #{map-get($spacers, '2')}; 
         }
     }
 }
