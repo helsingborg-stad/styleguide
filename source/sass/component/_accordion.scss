@@ -3,39 +3,60 @@
     border-radius: $border-radius-xs;
     @include shadow(1);
 
-    &__header {
-        border-top: 1px solid #eee;
+    &__button {
+        @include button-unstyled;
+        border-top: 1px solid $color-gray-light;
         cursor: pointer;
         padding: $base * 2 $base * 3;
+        text-decoration: none;
+        width: 100%;
+        font-weight: $font-weight-bold;
+        color: $color-black;
+
+        & > {
+            line-height: $line-height-heading;
+        }
+
+        &:hover {
+            background-color: $color-gray-light;
+            text-decoration: none;
+        }
+
+        &[aria-expanded="true"] {
+            .c-accordion__icon::before {
+                transform: rotate(270deg);
+                transition: ease .3s transform;
+            }
+        }
+    }
+
+    &__section:first-child &__button {
+        border-top: none;
+    }
+
+    &__button-wrapper {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
     }
 
     &__icon {
         margin-left: auto;
-    }
 
-    &__arrow {
-        line-height: 1;
-    }
-
-    &__arrow::before {
-        display: inline-block;
-        transform: rotate(90deg);
+        &::before {
+            display: inline-block;
+            transform: rotate(90deg);
+        }
     }
 
     &__content {
-        padding: 0 $base * 3 $base * 2 $base * 3;
-        display: none;
-    }
+        padding: $base * 2 $base * 3 $base * 2 $base * 3;
 
-    &__section--is-active {
-        .c-accordion__arrow::before {
-            transform: rotate(270deg);
-            transition: ease .3s transform;
+        &[aria-hidden="true"] {
+            display: none;
         }
 
-        .c-accordion__content {
+        &[aria-hidden="false"] {
             display: block;
             transition: ease .3s all;
             animation-name: fadeIn;
@@ -43,16 +64,6 @@
             animation-fill-mode: both;
             will-change: transform;
         }
-    }
-
-    // &__section--close {
-    //     .c-accordion__arrow::before {
-    //         transition: ease .3s transform;
-    //     }
-    // }
-
-    &__section:first-child &__header {
-        border-top: none;
     }
 
     @keyframes fadeIn {
