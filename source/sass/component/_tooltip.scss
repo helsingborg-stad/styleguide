@@ -8,7 +8,7 @@
             bottom: -8px;
             left: 50%;
             transform: translateY(100%) translateX(-50%);
-            content: attr(title);
+            content: attr(data-title);
             white-space: nowrap;
             text-align: center;
             background-color: rgba($color-black,.9);
@@ -29,11 +29,9 @@
             transform: translateY(0%) translateX(-50%);
             opacity: .9;
             @include arrow('up', 5px, $color-black);
-
-
         }
 
-        &__tooltip-top{
+        &.c-tooltip__top{
             @include mq(map_get($breakpoints-map, 'md')) {
                 &::after {
                     bottom: auto;
@@ -49,13 +47,12 @@
                     right: auto;
                     left: 50%;
                     transform: translateY(0%) translateX(-50%);
-
                     @include arrow('down', 5px, $color-black);
                 }
             }
         }
 
-        &__tooltip-left {
+        &.c-tooltip__left {
             @include mq(map_get($breakpoints-map, 'md')) {
                 &::after {
                     bottom: auto;
@@ -71,13 +68,12 @@
                     left: -10px;
                     right: auto;
                     transform: translateY(-50%);
-
                     @include arrow('right', 5px, $color-black);
                 }
             }
         }
 
-        &__tooltip-right {
+        &.c-tooltip__right {
             @include mq(map_get($breakpoints-map, 'md')) {
                 &::after {
                     bottom: auto;
@@ -106,7 +102,7 @@
 
             &::after {
                 display: inline-block;
-                content: "(" attr(title) ")";
+                content: "(" attr(data-title) ")";
                 margin-left: .3em;
                 color: $color-white;
                 font-size: .8em;
@@ -115,7 +111,7 @@
     }
     :hover,
     :focus,
-    :focus > [title] {
+    :focus > [data-title] {
         &::after,
         &::before {
             display: block;

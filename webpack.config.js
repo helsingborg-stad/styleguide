@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
@@ -94,6 +95,9 @@ module.exports = {
      * Plugins
      */
     plugins: [
+
+        // Prevent Webpack to create javascript css
+        new FixStyleOnlyEntriesPlugin(),
 
         // Minify css and create css file
         new MiniCssExtractPlugin({
