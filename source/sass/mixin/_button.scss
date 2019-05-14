@@ -77,3 +77,22 @@
     line-height: $line-height;
     border-radius: $border-radius;
 }
+
+// Reset button styles
+@mixin button-unstyled() {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-weight: 'normal';
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+    &:hover,
+    &:active {
+        background-color: transparent;
+        box-shadow: none;
+        text-decoration: underline;
+    }
+}

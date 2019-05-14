@@ -1,21 +1,15 @@
 /* Toggling classes */
 
-class ToggleClass {
+const toggleClass = () => {
+    const toggleElements = document.querySelectorAll("[js-toggle-class]");
 
-    constructor() {
-        this.toggleElements = document.querySelectorAll("[js-toggle-class]");
-        this.init();
-    }
+    toggleElements.forEach(function (element) {
+        let toggleClass = element.getAttribute('js-toggle-class');
 
-    init() {
-        this.toggleElements.forEach(function (element) {
-            let toggleClass = element.getAttribute('js-toggle-class');
-
-            element.addEventListener('click', function () {
-                element.classList.toggle(toggleClass);
-            });
+        element.addEventListener('click', function () {
+            element.classList.toggle(toggleClass);
         });
-    }
+    });
 }
 
-export default ToggleClass;
+export default toggleClass;
