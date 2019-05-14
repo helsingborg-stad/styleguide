@@ -1,26 +1,45 @@
 .c-header {
-    background: $color-header-background;
     @include shadow(2);
 
-    &__body {
-        width: 100%; 
-        max-width: $container-width-wide; 
+    &__menu { 
         padding: map-get($spacers, '3') map-get($spacers, '4');
-        margin-left: auto; 
-        margin-right: auto;
-        display: flex; 
+    }
+
+    &__wrapper {
+        background: $color-header-background;
+    }
+
+    &__wrapper.c-header__wrapper--level-1 {
+        background-color: $color-header-background-level-1;
+    }
+
+    &__wrapper.c-header__wrapper--level-2 {
+        background-color: $color-header-background-level-2;
+    }
+
+    &__wrapper.c-header__wrapper--level-3 {
+        background-color: $color-header-background-level-3;
+    }
+
+    &__body {
+        display: flex;
         align-items: center;
         flex-wrap: nowrap;
         justify-content: space-between;
-    }
 
-    &__home-link {
-        line-height: 0; 
+        width: 100%;
+        max-width: $container-width-wide;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.c-header__home-link {
+    display: inline-block; 
+    padding: map-get($spacers, '3') map-get($spacers, '4');
+
+    img, svg {
         display: block;
         height: $header-logotype-height;
-
-        img, svg {
-            height: 100%;
-        }
     }
 }

@@ -11,6 +11,13 @@
         margin: #{map-get($spacers, '1')}; 
         padding: 0; 
     }
+
+    &__link,
+    &__link:visited, 
+    &__link:visited:hover {
+        text-decoration: none; 
+        color: $color-gray;
+    }
 }
 
 @include mq(map_get($breakpoints-map, 'sm')) {

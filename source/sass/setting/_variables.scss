@@ -49,8 +49,8 @@ $line-height-headline: 1.25;
 
 //  Colors
 $color-primary: #ae0b05 !default;
-$color-primary-dark: #ae0b05 !default;
-$color-primary-light: #ae0b05 !default;
+$color-primary-dark: #e3000f !default;
+$color-primary-light: #cb0050 !default;
 
 $color-secondary: #f7a600 !default;
 $color-secondary-dark: #f7a600 !default;
@@ -89,6 +89,9 @@ $color-border: #e5e5e5;
 $color-code-background: #fdfcfb;
 
 $color-header-background: $color-white !default;
+$color-header-background-level-1: $color-gray-light !default;
+$color-header-background-level-2: $color-white !default;
+$color-header-background-level-3: $color-primary !default;
 
 $color-menu-background: $color-white !default; 
 $color-menu-separator: $color-gray-light !default; 

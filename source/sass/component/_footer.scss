@@ -4,7 +4,8 @@
     @include shadow(3, true);
 
     &__body {
-        width: $container-width; 
+        width: 100%; 
+        max-width: $container-width; 
         margin-left: auto; 
         margin-right: auto; 
         padding: map-get($spacers, '5') 0;
