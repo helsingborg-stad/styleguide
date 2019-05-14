@@ -1,3 +1,5 @@
-import ToggleClass from './toggle';
+import toggleClass from './toggle';
+import expandSection from './expand-section';
 
-new ToggleClass;
+toggleClass();
+expandSection();
