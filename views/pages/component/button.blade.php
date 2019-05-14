@@ -33,10 +33,10 @@
         @endbutton
 
         @button([
-        'href' => 'http://helsingborg.se/?variant=3',
+        'href' => 'http://helsingborg.se/?variant=4',
         'isOutlined' => false,
         'isPrimary' => false,
-        'isContrasted' => true
+        'isCircle' => true
         ])
         Button three
         @endbutton

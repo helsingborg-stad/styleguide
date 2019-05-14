@@ -1,0 +1,124 @@
+.c-tooltip {
+
+        position: relative;
+        &::after {
+            display: none;
+            position: absolute;
+            z-index: $level-9;
+            bottom: -8px;
+            left: 50%;
+            transform: translateY(100%) translateX(-50%);
+            content: attr(title);
+            white-space: nowrap;
+            text-align: center;
+            background-color: rgba($color-black,.9);
+            color: $color-white;
+            padding: 3px 8px;
+            border-radius: $border-radius-xs;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        &::before {
+            display: none;
+            content: '';
+            position: absolute;
+            z-index: $level-9;
+            bottom: -9px;
+            left: 50%;
+            transform: translateY(0%) translateX(-50%);
+            opacity: .9;
+            @include arrow('up', 5px, $color-black);
+
+
+        }
+
+        &__tooltip-top{
+            @include mq(map_get($breakpoints-map, 'md')) {
+                &::after {
+                    bottom: auto;
+                    top: -8px;
+                    right: auto;
+                    left: 50%;
+                    transform: translateY(-100%) translateX(-50%);
+                }
+
+                &::before {
+                    bottom: auto;
+                    top: -9px;
+                    right: auto;
+                    left: 50%;
+                    transform: translateY(0%) translateX(-50%);
+
+                    @include arrow('down', 5px, $color-black);
+                }
+            }
+        }
+
+        &__tooltip-left {
+            @include mq(map_get($breakpoints-map, 'md')) {
+                &::after {
+                    bottom: auto;
+                    top: 50%;
+                    left: -10px;
+                    right: auto;
+                    transform: translateY(-50%) translateX(-100%);
+                }
+
+                &::before {
+                    bottom: auto;
+                    top: 50%;
+                    left: -10px;
+                    right: auto;
+                    transform: translateY(-50%);
+
+                    @include arrow('right', 5px, $color-black);
+                }
+            }
+        }
+
+        &__tooltip-right {
+            @include mq(map_get($breakpoints-map, 'md')) {
+                &::after {
+                    bottom: auto;
+                    top: 50%;
+                    right: -10px;
+                    left: auto;
+                    transform: translateY(-50%) translateX(100%);
+                }
+
+                &::before {
+                    bottom: auto;
+                    top: 50%;
+                    right: -10px;
+                    left: auto;
+                    transform: translateY(-50%);
+
+                    @include arrow('left', 5px, $color-black);
+                }
+            }
+        }
+
+        @media print {
+            &::before {
+                display: none !important;
+            }
+
+            &::after {
+                display: inline-block;
+                content: "(" attr(title) ")";
+                margin-left: .3em;
+                color: $color-white;
+                font-size: .8em;
+            }
+        }
+    }
+    :hover,
+    :focus,
+    :focus > [title] {
+        &::after,
+        &::before {
+            display: block;
+        }
+    }
+
