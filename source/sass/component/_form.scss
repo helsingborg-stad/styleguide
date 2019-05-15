@@ -78,7 +78,7 @@
 
     /* Checkboxes */
     .c-checkbox {
-        .c-check__label-box {
+        .c-checkbox__label-box {
             display: flex;
             align-self: center;
             position: relative;
@@ -90,8 +90,8 @@
             cursor: pointer;
         }
 
-        .c-check__hidden-box:checked + .c-check__label {
-            .c-check__label-box {
+        .c-checkbox__hidden-box:checked + .c-checkbox__label {
+            .c-checkbox__label-box {
                 &:after {
                     content: '';
                     display: block;
@@ -106,7 +106,7 @@
                 }
             }
 
-            .c-check__label-text {
+            .c-checkbox__label-text {
                 &:after {
                     width: 85%;
                 }
@@ -116,7 +116,7 @@
 
     /* Radiobuttons*/
     .c-radiobutton {
-        .c-check__label-box {
+        .c-radiobutton__label-box {
             display: flex;
             align-self: center;
             position: relative;
@@ -126,11 +126,10 @@
             background-color: $color-cream;
             border-radius: $border-radius-full;
             cursor: pointer;
-
         }
 
-        .c-check__hidden-box:checked + .c-check__label {
-            .c-check__label-box {
+        .c-radiobutton__hidden-box:checked + .c-radiobutton__label {
+            .c-radiobutton__label-box {
                 &:after {
                     content: '';
                     display: block;
@@ -144,14 +143,16 @@
                 }
             }
 
-            .c-check__label-text {
+            .c-radiobutton__label-text {
                 &:after {
                     width: 85%;
                 }
             }
         }
     }
-    .c-checkbox, .c-radiobutton {
+
+    .c-checkbox,
+    .c-radiobutton {
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -162,7 +163,8 @@
         list-style: none;
         overflow: hidden;
 
-        .c-check__list-item {
+        .c-checkbox__list-item,
+        .c-radiobutton__list-item{
             margin: 0;
             padding: 0;
             position: relative;
@@ -173,7 +175,8 @@
     }
 
     // hide the checkbox
-    .c-check__hidden-box {
+    .c-checkbox__hidden-box,
+    .c-radiobutton__hidden-box {
         position: absolute;
         top: -9999px;
         left: -9999px;
@@ -181,7 +184,8 @@
         opacity: 0;
     }
 
-    .c-check__label {
+    .c-checkbox__label,
+    .c-radiobutton__label {
         margin: 0;
         display: flex;
         flex-direction: row;
@@ -190,7 +194,8 @@
         align-items: center;
     }
 
-    .c-check__label-text {
+    .c-checkbox__label-text,
+    .c-radiobutton__label-text {
         display: flex;
         align-self: flex-start;
         position: relative;
