@@ -1,4 +1,58 @@
 .c-form {
     @include paper(5); 
     padding: map-get($spacers, '2');
+
+    input[type="text"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="url"],
+    input[type="week"],
+    input[type="month"],
+    input[type="number"],
+    input[type="password"],
+    input[type="email"],
+    textarea {
+        margin: 0;
+        outline: 0;
+        -webkit-appearance: none;
+        tap-highlight-color: rgba(255,255,255,0);
+        line-height: 1.32em;
+        padding:  map-get($spacers, '1');
+        font-size: 1em;
+        background: $color-white;
+        border: 1px solid lighten($color-base-secondary, 50%);
+        color: rgba(0,0,0,.87);
+        border-radius: $border-radius-sm;
+        box-shadow: 0 0 0 0 transparent inset;
+        -webkit-transition: color .1s ease,border-color .1s ease;
+        transition: color .1s ease,border-color .1s ease;
+    }
+
+    .c-button,
+    input[type="submit"],
+    input[type="reset"] {
+        display: inline-block;
+        vertical-align: middle;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        margin: 0;
+        margin-top: 2.66667px;
+        margin-bottom: 2.66667px;
+        border:2px solid;
+        @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
+    }
+
+    .c-button, input[type="submit"] {
+        @include button-mix($color-white, $color-primary, $color-primary);
+    }
+
+    input[type="reset"] {
+        @include button-mix($color-primary, false, $color-primary);
+    }
+
+
 }
