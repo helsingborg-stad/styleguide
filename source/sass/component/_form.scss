@@ -135,7 +135,7 @@
         align-self: center;
         position: relative;
         cursor: pointer;
-        padding: map-get($spacers, '1') 9px;
+        padding: map-get($spacers, '1') 11px;
 
         &:after {
             content: '';
