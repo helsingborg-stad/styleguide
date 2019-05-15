@@ -1,14 +1,24 @@
 .c-table {
-    width: 200px;
     position: relative;
-    border: 1px solid #eee; 
-    
-    &__table {
-        border-radius: $border-radius-xs;
-        table-layout: fixed;
-        overflow-x: auto;
-        max-width: 100%;
-        display: inline-block;
+    border: 1px solid $color-table-border;
+    border-radius: $border-radius-sm;
+    overflow: hidden;
+
+    &__inner {
+        display: block;
+        overflow-x: auto; 
+
+        &::-webkit-scrollbar {
+            width: $base;
+        }
+         
+        &::-webkit-scrollbar-track {
+            background-color: $color-table-track-background; 
+        }
+         
+        &::-webkit-scrollbar-thumb {
+          background-color: $color-table-track-control;
+        }
     }
 
     &:after {
@@ -17,13 +27,28 @@
         top: 0; 
         right: 0;
         bottom: 0;
-        width: 40px; 
-        @include gradient(90deg,rgba(#fff, 0), rgba(#fff, 1));
+        width: $base*5; 
+        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    }
+    
+    &__column {
+        padding: map-get($spacers, '1') map-get($spacers, '2');
+        vertical-align: top;
+    }
+
+    &__table {
+        min-width: 100%;
+        vertical-align: top;
     }
 
     &__head,
     &__foot {
-        font-weight: bold; 
+        font-weight: $table-heading-font-weight; 
+        color: $color-table-heading; 
+    }
+
+    &__body {
+        color: $color-table-body; 
     }
 
     &__head,
@@ -32,12 +57,13 @@
         width: 100%; 
     }
 
-    &__line + &__line &__column,
+    &__body &__column,
     &__foot &__column {
-        border-top: 1px solid #eee; 
+        border-top: 1px solid $color-table-border; 
+        min-width: 150px;
     }
 
-    &__line:nth-child(odd) {
+    &__body &__line:nth-child(odd) {
         background-color: $color-table-background-odd; 
     }
 }
