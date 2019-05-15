@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prebuild": "node build.js",
-        "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon- ",
+        "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon- --height 512 ",
         "postbuild": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js"
     },
