@@ -1,7 +1,8 @@
 .c-form {
-    @include paper(5); 
+    @include paper(5);
     padding: map-get($spacers, '2');
 
+    input[type="color"],
     input[type="text"],
     input[type="search"],
     input[type="tel"],
@@ -17,18 +18,24 @@
     textarea {
         margin: 0;
         outline: 0;
-        -webkit-appearance: none;
-        tap-highlight-color: rgba(255,255,255,0);
+        appearance: none;
+        tap-highlight-color: rgba(255, 255, 255, 0);
         line-height: 1.32em;
-        padding:  map-get($spacers, '1');
+        padding: map-get($spacers, '1');
         font-size: 1em;
-        background: $color-white;
-        border: 1px solid lighten($color-base-secondary, 50%);
-        color: rgba(0,0,0,.87);
-        border-radius: $border-radius-sm;
+        background: $color-cream;
+        border: 1px solid darken($color-cream, 10%);
+        border-radius: $border-radius-xs;
         box-shadow: 0 0 0 0 transparent inset;
-        -webkit-transition: color .1s ease,border-color .1s ease;
-        transition: color .1s ease,border-color .1s ease;
+        -webkit-transition: color .1s ease, border-color .1s ease;
+        transition: color .1s ease, border-color .1s ease;
+        background-size: 16px 16px !important;
+
+        &:focus {
+            border-color: $color-gray-light;
+            background: $color-white;
+            box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
+        }
     }
 
     .c-button,
@@ -42,7 +49,7 @@
         margin: 0;
         margin-top: 2.66667px;
         margin-bottom: 2.66667px;
-        border:2px solid;
+        border: 2px solid;
         @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
     }
 
@@ -54,5 +61,146 @@
         @include button-mix($color-primary, false, $color-primary);
     }
 
+    input[type="color"] {
+        /*background: #40E0D0;
+        background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0) no-repeat;
+        background-size: 100% !important;
+        height: 42px;
+        width: 40px;*/
+    }
+
+    input[type="time"],
+    input[type="date"],
+    input[type="datetime-local"] {
+        padding-top: map-get($spacers, '1') - 2;
+        padding-bottom: map-get($spacers, '1') - 1;
+    }
+
+    /* Checkboxes */
+    .c-checkbox {
+        .c-checkbox__label-box {
+            display: flex;
+            align-self: center;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 1px solid darken($color-cream, 10%);
+            background-color: $color-cream;
+            border-radius: $border-radius-xs;
+            cursor: pointer;
+        }
+
+        .c-checkbox__hidden-box:checked + .c-checkbox__label {
+            .c-checkbox__label-box {
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                    left: 4px;
+                    width: 6px;
+                    height: 12px;
+                    border: solid $color-success;
+                    border-width: 0 3px 3px 0;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .c-checkbox__label-text {
+                &:after {
+                    width: 85%;
+                }
+            }
+        }
+    }
+
+    /* Radiobuttons*/
+    .c-radiobutton {
+        .c-radiobutton__label-box {
+            display: flex;
+            align-self: center;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 1px solid darken($color-cream, 10%);
+            background-color: $color-cream;
+            border-radius: $border-radius-full;
+            cursor: pointer;
+        }
+
+        .c-radiobutton__hidden-box:checked + .c-radiobutton__label {
+            .c-radiobutton__label-box {
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 4px;
+                    left: 4px;
+                    width: 10px;
+                    height: 10px;
+                    background-color: $color-success;
+                    border-radius: $border-radius-full;
+                }
+            }
+
+            .c-radiobutton__label-text {
+                &:after {
+                    width: 85%;
+                }
+            }
+        }
+    }
+
+    .c-checkbox,
+    .c-radiobutton {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        width: 80%;
+        max-width: 500px;
+        background-color: $color-white;
+        list-style: none;
+        overflow: hidden;
+
+        .c-checkbox__list-item,
+        .c-radiobutton__list-item{
+            margin: 0;
+            padding: 0;
+            position: relative;
+            &:last-child {
+                border: 0;
+            }
+        }
+    }
+
+    // hide the checkbox
+    .c-checkbox__hidden-box,
+    .c-radiobutton__hidden-box {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        appearance: none;
+        opacity: 0;
+    }
+
+    .c-checkbox__label,
+    .c-radiobutton__label {
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .c-checkbox__label-text,
+    .c-radiobutton__label-text {
+        display: flex;
+        align-self: flex-start;
+        position: relative;
+        cursor: pointer;
+        padding: map-get($spacers, '1') 11px;
+    }
 
 }

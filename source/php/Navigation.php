@@ -13,6 +13,15 @@ class Navigation
         'home.blade.php'
     );
 
+    private static $icons = array(
+        'about' => 'greeting',
+        'mixins' => 'flask',
+        'script' => 'console',
+        'icons' => 'brush',
+        'component' => 'screen',
+        'utilities' => 'wrench'
+    ); 
+
     /**
      * Creates a navigation array
      * @param  string  $template      The view path (if in subfolder) and filename
@@ -46,6 +55,11 @@ class Navigation
                                 str_replace("/", "", $item), 
                             ])
                         ); 
+
+                        //Set icon
+                        if(isset(self::$icons[$item])) {
+                            $response[$item]['icon'] = self::$icons[$item]; 
+                        }
 
                         //Add current item
                         if(self::isActiveItem($item)) {
