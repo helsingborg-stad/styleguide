@@ -5,9 +5,8 @@
 
     &__button {
         @include button-unstyled;
-        border-top: 1px solid $color-gray-light;
+        border-bottom: 1px solid $color-gray-light;
         cursor: pointer;
-        padding: $base * 2 $base * 3;
         text-decoration: none;
         width: 100%;
         font-weight: $font-weight-bold;
@@ -30,13 +29,22 @@
         }
     }
 
-    &__section:first-child &__button {
-        border-top: none;
+    &__button:focus,
+    &__button-wrapper:focus {
+        outline: none;
+    }
+
+    &__button:focus > &__button-wrapper  {
+        outline: 1px dashed $color-gray;
+    }
+
+    &__section:last-child &__button {
+        border-bottom: none;
     }
 
     &__button-wrapper {
+        padding: $base * 2 $base * 3;
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
     }
 

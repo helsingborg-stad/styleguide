@@ -2,10 +2,14 @@
 
 const CONTAINER = '[js-expand-container]';
 const BUTTON = '[js-expand-button]';
+const TOGGLEDISABLED = 'js-disable-toggle';
 const EXPANDED = 'aria-expanded';
 const CONTROLS = 'aria-controls';
 const HIDDEN = 'aria-hidden';
 
+/**
+ * Adds toggle event listeners to expandable elements
+ */
 const expandSection = () => {
     const buttons = document.querySelectorAll(BUTTON);
 
@@ -19,12 +23,23 @@ const expandSection = () => {
     });
 };
 
+/**
+ * Toggles a button's and its siblings "pressed" state
+ * @param {HTMLElement} button
+ * @param {bool} expanded
+ */
 const toggleButton = (button, expanded) => {
     const container = button.closest(CONTAINER);
     let safeExpanded = expanded;
 
     if (!container) {
         throw new Error(`${BUTTON} is missing outer ${CONTAINER}`);
+    }
+
+    const toggleDisabled = button.getAttribute(TOGGLEDISABLED) === 'true';
+    // Bail if toggling is disabled for already selected elements
+    if (expanded && toggleDisabled) {
+        return;
     }
 
     safeExpanded = toggle(button, !expanded);
@@ -40,6 +55,12 @@ const toggleButton = (button, expanded) => {
     }
 };
 
+/**
+ * Toggle helper
+ * @param {HTMLElement} button
+ * @param {bool} expanded
+ * @return {boolean} the resulting state
+ */
 const toggle = (button, expanded) => {
     let safeExpanded = expanded;
 
