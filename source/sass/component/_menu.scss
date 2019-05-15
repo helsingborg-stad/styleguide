@@ -44,6 +44,10 @@
         padding: map-get($spacers, '1') map-get($spacers, '2');
     }
 
+    .c-menu__item  * + * {
+        padding-left: $base * 0.5; 
+    }
+
     .c-menu__item .c-menu__link,
     .c-menu__item .c-menu__link:visited, 
     .c-menu__item .c-menu__link:visited:hover {
@@ -85,6 +89,10 @@
     .c-menu__link{
         display: block;
         padding: $base*1.5 $base*3;
+    }
+
+    .c-menu__item  * + * {
+        padding-left: $base * 0.5; 
     }
 
     .c-menu__item .c-menu__link,
