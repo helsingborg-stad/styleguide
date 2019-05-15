@@ -24,6 +24,10 @@
         .example {
             margin-top: 32px;
         }
+
+        .c-menu .c-icon {
+            font-size: 1.3em; 
+        }
     </style>
 
 </head>
