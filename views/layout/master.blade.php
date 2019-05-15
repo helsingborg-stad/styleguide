@@ -160,7 +160,7 @@
     </script>
 
     <script>
-
+/*
         const codeElements = document.querySelectorAll('table tr');
 
         const observerConfig = {
@@ -190,6 +190,8 @@
         codeElements.forEach(codeElement => {
             observer.observe(codeElement);
         });
+
+        */ 
     </script>
 
 

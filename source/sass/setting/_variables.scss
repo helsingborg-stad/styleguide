@@ -112,7 +112,14 @@ $color-breadcrumb: $color-black !default;
 
 $color-paper-background: $color-white !default; 
 
-$color-table-background-odd: $color-gray-light !default; 
+$color-table-background-odd: $color-gray-lighter !default; 
+$color-table-track-background: $color-white !default; 
+$color-table-track-control: $color-gray-lighter !default; 
+$color-table-gradient: $color-white !default; 
+$color-table-heading: $color-gray !default;
+$color-table-body: $color-black !default;
+$color-table-border: $color-gray-light !default;
+$table-heading-font-weight: bold !default; 
 
 //Header
 $header-logotype-height: $base*5 !default;
