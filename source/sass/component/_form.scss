@@ -76,8 +76,81 @@
         padding-bottom: map-get($spacers, '1') - 1;
     }
 
-
     .c-checkbox {
+        .check--label-box {
+            display: flex;
+            align-self: center;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 1px solid darken($color-cream, 10%);
+            background-color: $color-cream;
+            border-radius: $border-radius-xs;
+            cursor: pointer;
+
+        }
+
+        .hidden-box:checked + .check--label {
+            .check--label-box {
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                    left: 4px;
+                    width: 6px;
+                    height: 12px;
+                    border: solid $color-success;
+                    border-width: 0 3px 3px 0;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .check--label-text {
+                &:after {
+                    width: 85%;
+                }
+            }
+        }
+    }
+    .c-radiobutton {
+        .check--label-box {
+            display: flex;
+            align-self: center;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 1px solid darken($color-cream, 10%);
+            background-color: $color-cream;
+            border-radius: $border-radius-full;
+            cursor: pointer;
+
+        }
+
+        .hidden-box:checked + .check--label {
+            .check--label-box {
+                &:after {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: -1px;
+                    left: 4px;
+                    width: 6px;
+                    height: 12px;
+                    border: solid $color-success;
+                    border-width: 0 3px 3px 0;
+                    transform: rotate(45deg);
+                }
+            }
+
+            .check--label-text {
+                &:after {
+                    width: 85%;
+                }
+            }
+        }
+    }
+    .c-checkbox, .c-radiobutton {
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -117,18 +190,7 @@
         align-items: center;
     }
 
-    .check--label-box {
-        display: flex;
-        align-self: center;
-        position: relative;
-        height: 20px;
-        width: 20px;
-        border: 1px solid darken($color-cream, 10%);
-        background-color: $color-cream;
-        border-radius: $border-radius-xs;
-        cursor: pointer;
 
-    }
 
     .check--label-text {
         display: flex;
@@ -152,26 +214,4 @@
         }
     }
 
-    .hidden-box:checked + .check--label {
-        .check--label-box {
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                top: -1px;
-                left: 4px;
-                width: 6px;
-                height: 12px;
-                border: solid $color-success;
-                border-width: 0 3px 3px 0;
-                transform: rotate(45deg);
-            }
-        }
-
-        .check--label-text {
-            &:after {
-                width: 85%;
-            }
-        }
-    }
 }
