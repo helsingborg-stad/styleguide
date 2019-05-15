@@ -76,8 +76,9 @@
         padding-bottom: map-get($spacers, '1') - 1;
     }
 
+    /* Checkboxes */
     .c-checkbox {
-        .check--label-box {
+        .c-check__label-box {
             display: flex;
             align-self: center;
             position: relative;
@@ -87,11 +88,10 @@
             background-color: $color-cream;
             border-radius: $border-radius-xs;
             cursor: pointer;
-
         }
 
-        .hidden-box:checked + .check--label {
-            .check--label-box {
+        .c-check__hidden-box:checked + .c-check__label {
+            .c-check__label-box {
                 &:after {
                     content: '';
                     display: block;
@@ -106,15 +106,17 @@
                 }
             }
 
-            .check--label-text {
+            .c-check__label-text {
                 &:after {
                     width: 85%;
                 }
             }
         }
     }
+
+    /* Radiobuttons*/
     .c-radiobutton {
-        .check--label-box {
+        .c-check__label-box {
             display: flex;
             align-self: center;
             position: relative;
@@ -127,23 +129,22 @@
 
         }
 
-        .hidden-box:checked + .check--label {
-            .check--label-box {
+        .c-check__hidden-box:checked + .c-check__label {
+            .c-check__label-box {
                 &:after {
                     content: '';
                     display: block;
                     position: absolute;
-                    top: -1px;
+                    top: 4px;
                     left: 4px;
-                    width: 6px;
-                    height: 12px;
-                    border: solid $color-success;
-                    border-width: 0 3px 3px 0;
-                    transform: rotate(45deg);
+                    width: 10px;
+                    height: 10px;
+                    background-color: $color-success;
+                    border-radius: $border-radius-full;
                 }
             }
 
-            .check--label-text {
+            .c-check__label-text {
                 &:after {
                     width: 85%;
                 }
@@ -161,7 +162,7 @@
         list-style: none;
         overflow: hidden;
 
-        .list-item {
+        .c-check__list-item {
             margin: 0;
             padding: 0;
             position: relative;
@@ -172,7 +173,7 @@
     }
 
     // hide the checkbox
-    .hidden-box {
+    .c-check__hidden-box {
         position: absolute;
         top: -9999px;
         left: -9999px;
@@ -180,8 +181,7 @@
         opacity: 0;
     }
 
-    .check--label {
-
+    .c-check__label {
         margin: 0;
         display: flex;
         flex-direction: row;
@@ -190,28 +190,12 @@
         align-items: center;
     }
 
-
-
-    .check--label-text {
+    .c-check__label-text {
         display: flex;
-        align-self: center;
+        align-self: flex-start;
         position: relative;
         cursor: pointer;
         padding: map-get($spacers, '1') 11px;
-
-        &:after {
-            content: '';
-
-            display: block;
-            width: 0%;
-            height: 3px;
-            background-color: $color-success;
-            position: absolute;
-            bottom: 7px;
-            left: 7.5%;
-            transform: translateY(-50%);
-            transition: width 100ms ease-in-out;
-        }
     }
 
 }
