@@ -2,7 +2,6 @@
 
 const CONTAINER = '[js-expand-container]';
 const BUTTON = '[js-expand-button]';
-const TOGGLEDISABLED = 'js-disable-toggle';
 const EXPANDED = 'aria-expanded';
 const CONTROLS = 'aria-controls';
 const HIDDEN = 'aria-hidden';
@@ -36,9 +35,10 @@ const toggleButton = (button, expanded) => {
         throw new Error(`${BUTTON} is missing outer ${CONTAINER}`);
     }
 
-    const toggleDisabled = button.getAttribute(TOGGLEDISABLED) === 'true';
-    // Bail if toggling is disabled for already selected elements
-    if (expanded && toggleDisabled) {
+    // Check if elemnt is a tab
+    const isTab = button.getAttribute('role') === 'tab';
+    // Bail if is tab and is already selected
+    if (expanded && isTab) {
         return;
     }
 
