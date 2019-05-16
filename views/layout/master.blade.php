@@ -63,8 +63,14 @@
         </div>
     </div>
     @endif
-
     <div class="container container--main">
+        <div class="grid" style="margin-bottom: 16px;">
+            <div class="grid-xs-12">
+                @notice(['isInfo' => true]) 
+                    <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
+                @endnotice
+            </div>
+        </div>
         <div class="grid">
             <div class="grid-md-3">
                 @include('layout.navigation')
