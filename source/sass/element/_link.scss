@@ -25,4 +25,19 @@ a, .link {
             color: lighten($color-link-visited-hover, 10%);
         }
     }
+
+    &.c-link--tag {
+        background-color: $color-gray-light;
+        padding: $base/2;
+        margin-right: $base/2;
+        border-radius: $border-radius-sm;
+        text-decoration: none;
+        color: $color-base;
+        font-size: $font-size-meta;
+
+        &:hover {
+            color: $color-white;
+            background-color: $color-gray;
+        }
+    }
 }

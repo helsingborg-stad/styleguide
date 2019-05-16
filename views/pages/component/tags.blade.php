@@ -6,21 +6,20 @@
     @endmarkdown
 
     @doc(['slug' => 'tags'])
-    @tags(['tags' => array(
-        array(
-            'href' => '#',
-            'label' => 'Label one'
-        ),
-        array(
-            'href' => '#',
-            'label' => 'Label two'
-        ),
-        array(
-            'href' => '#',
-            'label' => 'Label three'
-        )
-    )])
-
+        @tags(['tags' => array(
+            array(
+                'href' => '#',
+                'label' => 'footag'
+            ),
+            array(
+                'href' => '#',
+                'label' => 'bartag'
+            ),
+            array(
+                'href' => '#',
+                'label' => 'sometag'
+            )
+        )])
     @endtags
 @enddoc
 @stop
