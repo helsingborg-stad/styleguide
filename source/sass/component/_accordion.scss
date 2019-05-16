@@ -5,7 +5,7 @@
 
     &__button {
         @include button-unstyled;
-        border-bottom: 1px solid $color-gray-light;
+        border-top: 1px solid $color-gray-light;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
@@ -22,8 +22,6 @@
         }
 
         &[aria-expanded="true"] {
-            border-bottom: 1px solid transparent;
-
             .c-accordion__icon::before {
                 transform: rotate(270deg);
                 transition: ease .3s transform;
@@ -37,11 +35,12 @@
     }
 
     &__button:focus > &__button-wrapper  {
+        outline-offset: 1px;
         outline: 1px dashed $color-gray;
     }
 
-    &__section:last-child &__button {
-        border-bottom: none;
+    &__section:first-child &__button {
+        border-top: none;
     }
 
     &__button-wrapper {
@@ -61,7 +60,6 @@
 
     &__content {
         padding: $base * 2 $base * 3 $base * 2 $base * 3;
-        border-bottom: 1px solid $color-gray-light;
 
         &[aria-hidden="true"] {
             display: none;
