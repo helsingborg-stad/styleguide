@@ -16,15 +16,18 @@
     input[type="password"],
     input[type="email"],
     textarea {
+        width:100%;
         margin: 0;
         outline: 0;
+        height:56px;
         appearance: none;
         tap-highlight-color: rgba(255, 255, 255, 0);
         line-height: 1.32em;
         padding: map-get($spacers, '1');
+        padding-top:map-get($spacers, '1') +4;
         font-size: 1em;
-        background: $color-cream;
-        border: 1px solid darken($color-cream, 10%);
+        background: $color-form-fields;
+        border: 1px solid $color-form-fields;
         border-radius: $border-radius-xs;
         box-shadow: 0 0 0 0 transparent inset;
         -webkit-transition: color .1s ease, border-color .1s ease;
@@ -32,9 +35,53 @@
         background-size: 16px 16px !important;
 
         &:focus {
-            border-color: $color-gray-light;
-            background: $color-white;
+            background-color: lighten($color-form-fields, 5%);
             box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
+        }
+    }
+
+    .c-input-text {
+        position:relative;
+        padding-bottom:10px;
+
+        &::after, &::before {
+            content: ' ';
+            width:0%;
+            bottom:10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position:absolute;
+            transition:ease-in-out .2s all;
+        }
+
+        input {
+            padding-left:20px;
+        }
+
+        &:focus-within::after {
+            width:100%;
+        }
+        &::after {
+            border-bottom: 2px solid $color-success;
+        }
+        &::before {
+            width:100%;
+            border-bottom: 1px solid $color-form-fields-border;
+        }
+
+        label {
+            font-size:14px;
+            color:$color-form-fields-label;
+            position:absolute;
+            top:0px;
+            left:20px;
+            transform-origin: top left;
+            transform: translate(0, 16px) scale(1);
+            transition: all .1s ease-in-out;
+            cursor:text;
+        }
+        &.active label {
+            transform: translate(0, 4px) scale(.75);
         }
     }
 
@@ -50,6 +97,7 @@
         margin-top: 2.66667px;
         margin-bottom: 2.66667px;
         border: 2px solid;
+        outline: 0;
         @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
     }
 
@@ -164,7 +212,7 @@
         overflow: hidden;
 
         .c-checkbox__list-item,
-        .c-radiobutton__list-item{
+        .c-radiobutton__list-item {
             margin: 0;
             padding: 0;
             position: relative;
@@ -174,7 +222,6 @@
         }
     }
 
-    // hide the checkbox
     .c-checkbox__hidden-box,
     .c-radiobutton__hidden-box {
         position: absolute;
