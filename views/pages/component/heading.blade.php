@@ -8,41 +8,30 @@
 
     @doc(['slug' => 'heading'])
 
-        @heading([
-            'label' => "Headline size 1",
-            'level' => 1
-        ])
-        @endbutton
+        @for ($i = 1; $i <= 6; $i++)
+            <div>
+                @heading([
+                    'label' => "Headline level " . $i,
+                    'level' => $i
+                ])
+                @endbutton
+            </div>
+        @endfor
 
-        @heading([
-            'label' => "Headline size 2",
-            'level' => 2
-        ])
-        @endbutton
-
-        @heading([
-            'label' => "Headline size 3",
-            'level' => 3
-        ])
-        @endbutton
-
-        @heading([
-            'label' => "Headline size 4",
-            'level' => 4
-        ])
-        @endbutton
-
-        @heading([
-            'label' => "Headline size 5",
-            'level' => 5
-        ])
-        @endbutton
-
-        @heading([
-            'label' => "Headline size 6",
-            'level' => 6
-        ])
-        @endbutton
+        @for ($i = 1; $i <= 4; $i++)
+            <div>
+                @heading([
+                    'label' => "Headline level " . $i,
+                    'level' => $i
+                ])
+                @endbutton
+                @heading([
+                    'label' => "Subheading",
+                    'level' => $i+1
+                ])
+                @endbutton
+            </div>
+        @endfor
 
     @enddoc
 @stop

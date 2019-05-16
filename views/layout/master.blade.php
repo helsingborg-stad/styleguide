@@ -25,9 +25,6 @@
             margin-top: 32px;
         }
 
-        .c-menu .c-icon {
-            font-size: 1.3em; 
-        }
     </style>
 
 </head>
@@ -37,7 +34,9 @@
         @slot('logotype')
             @logotype([
                 'src'=> '/assets/img/logotype.svg',
-                'alt' => "Helsingborg Stad Logotype"
+                'alt' => "Helsingborg Stad Logotype",
+                'classList' => array("c-tooltip", "c-tooltip__bottom"),
+                'attributeList' => array('data-title' => 'Go to home')
             ])
             @endlogotype
         @endslot
