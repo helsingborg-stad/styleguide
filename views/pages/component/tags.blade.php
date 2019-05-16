@@ -3,6 +3,8 @@
 @section('content')
     @markdown
         # Tags
+
+        List of tags constructed to be shown below articles.
     @endmarkdown
 
     @doc(['slug' => 'tags'])
