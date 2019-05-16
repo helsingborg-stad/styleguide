@@ -22,6 +22,6 @@ class ParseString
             }
         }
 
-        return $markup; 
+        return html_entity_decode($markup); 
     }
 }
