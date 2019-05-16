@@ -205,7 +205,7 @@
         }
 
         input[type=range]:focus::-webkit-slider-runnable-track {
-            background: $color-form-fields-label;
+            background: lighten($color-form-fields-label, 50%);
         }
 
         input[type=range]::-moz-range-track {
