@@ -1,0 +1,66 @@
+.c-tabs {
+    &__header {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $color-gray-light;
+    }
+
+    &__button {
+        @include button-unstyled;
+        min-width: 160px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        color: inherit;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &[aria-expanded="true"] {
+            margin-bottom: -3px;
+            border-bottom: 3px solid $color-menu-active-indicator-horizontal;
+        }
+    }
+
+    &__button-wrapper {
+        display: block;
+        padding: $base * 2 0;
+    }
+
+    &__button:focus,
+    &__button-wrapper:focus {
+        outline: none;
+    }
+
+    &__button:focus > &__button-wrapper {
+        outline: 1px dashed $color-gray;
+    }
+
+    &__content {
+        padding: $base * 3;
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+
+        &[aria-hidden="false"] {
+            display: block;
+            transition: ease .3s all;
+            animation-name: fadeIn;
+            animation-duration: .3s;
+            animation-fill-mode: both;
+            will-change: transform;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}

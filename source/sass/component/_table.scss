@@ -54,7 +54,8 @@
     &__head,
     &__foot,
     &__body {
-        width: 100%; 
+        width: 100%;
+        background-color: $color-table-background;  
     }
 
     &__body &__column,
