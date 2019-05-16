@@ -5,7 +5,7 @@
 
     &__button {
         @include button-unstyled;
-        border-bottom: 1px solid $color-gray-light;
+        border-top: 1px solid $color-gray-light;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
@@ -35,11 +35,12 @@
     }
 
     &__button:focus > &__button-wrapper  {
+        outline-offset: 1px;
         outline: 1px dashed $color-gray;
     }
 
-    &__section:last-child &__button {
-        border-bottom: none;
+    &__section:first-child &__button {
+        border-top: none;
     }
 
     &__button-wrapper {
