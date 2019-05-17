@@ -9,7 +9,7 @@
     @doc(['slug' => 'button'])
 
         @button([
-            'href' => 'http://helsingborg.se/?variant=1', 
+            'href' => '#btn-1', 
             'isOutlined' => true, 
             'isPrimary' => false
         ])
@@ -17,7 +17,7 @@
         @endbutton
 
         @button([
-            'href' => 'http://helsingborg.se/?variant=2', 
+            'href' => '#btn-2', 
             'isOutlined' => true, 
             'isPrimary' => true
         ])
@@ -25,7 +25,7 @@
         @endbutton
 
         @button([
-            'href' => 'http://helsingborg.se/?variant=3', 
+            'href' => '#btn-3', 
             'isOutlined' => false, 
             'isPrimary' => true
         ])
@@ -33,12 +33,12 @@
         @endbutton
 
         @button([
-        'href' => 'http://helsingborg.se/?variant=4',
-        'isOutlined' => false,
-        'isPrimary' => false,
-        'isCircle' => true
+            'href' => '#btn-3',
+            'isOutlined' => false,
+            'isPrimary' => false,
+            'isCircle' => true
         ])
-        Button three
+        Button four
         @endbutton
 
     @enddoc

@@ -18,7 +18,10 @@
 
         ###Other
         All animations will be triggerd automatically when toggling display: none, display: block. 
-        
+
+        ###Library
+        We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect. 
+
     @endmarkdown
 
     @paper
