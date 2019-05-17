@@ -41,6 +41,7 @@
     }
     textarea {
         min-height: 200px;
+        padding: map-get($spacers, '3')-2;
     }
 
     // Input
@@ -116,6 +117,7 @@
             color:transparent;
         }
 
+
         input[type="date"] + label,
         input[type="datetime-local"] + label,
         input[type="week"] + label,
@@ -124,6 +126,12 @@
         input[type="year"] + label {
             font-size: 11px;
             top: 3px !important;
+            transform: none;
+        }
+        textarea + label {
+            font-size: 11px;
+            top: 4px !important;
+            padding-left:3px;
             transform: none;
         }
     }
@@ -208,7 +216,8 @@
         }
 
         input[type=range]:focus::-webkit-slider-runnable-track {
-            background: lighten($color-form-fields-label, 50%);
+            background-color: lighten($color-form-fields, 5%);
+            border-bottom: 2px solid $color-success;
         }
 
         input[type=range]::-moz-range-track {
@@ -228,16 +237,16 @@
             color: transparent;
         }
         input[type=range]::-ms-fill-lower {
-            background: #2a6495;
+            background-color: lighten($color-form-fields, 5%);
         }
         input[type=range]:focus::-ms-fill-lower {
-            background: #3071a9;
+            background-color: lighten($color-form-fields, 5%);
         }
         input[type=range]::-ms-fill-upper {
-            background: #3071a9;
+            background-color: lighten($color-form-fields, 5%);
         }
         input[type=range]:focus::-ms-fill-upper {
-            background: #367ebd;
+            background-color: lighten($color-form-fields, 5%);
         }
     }
 
@@ -291,14 +300,6 @@
         }
     }
 
-
-    input[type="color"] {
-        /*background: #40E0D0;
-        background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0) no-repeat;
-        background-size: 100% !important;
-        height: 42px;
-        width: 40px;*/
-    }
 
     input[type="time"],
     input[type="date"],
