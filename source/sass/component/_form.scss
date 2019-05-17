@@ -126,9 +126,9 @@
             top: 3px !important;
             transform: none;
         }
-
     }
 
+    /* Range Slider */
     .c-input-range {
 
         input[type=range] {
@@ -159,7 +159,7 @@
             height: 16px;
             width: 32px;
             border-radius: $border-radius-xs;
-            background: $color-form-fields-border;
+            background: $color-primary;
             cursor: pointer;
             margin-top: 0px;
         }
@@ -184,7 +184,7 @@
             height: 16px;
             width: 32px;
             border-radius: $border-radius-xs;
-            background: $color-form-fields-border;
+            background: $color-primary;
             cursor: pointer;
             margin-top: 0px;
         }
@@ -195,7 +195,7 @@
             height: 16px;
             width: 32px;
             border-radius: $border-radius-xs;
-            background: $color-form-fields-border;
+            background: $color-primary;
             cursor: pointer;
             margin-top: 0px;
         }
@@ -264,6 +264,32 @@
     input[type="reset"] {
         @include button-mix($color-primary, false, $color-primary);
     }
+    .c-input-color {
+
+        padding:0;
+        margin:0;
+
+        input[type="color"] {
+            visibility: hidden;
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+            &:before {
+                padding: map-get($spacers, '2');
+                display: inline-block;
+                visibility: visible;
+                content: 'FÄRG';
+                color: $color-white;
+                background: $color-primary;
+                border: 1px solid $color-form-fields;
+                border-radius: $border-radius-xs;
+                height:10px;
+                width:10px;
+                margin:0px;
+            }
+        }
+    }
+
 
     input[type="color"] {
         /*background: #40E0D0;
@@ -392,6 +418,7 @@
         left: -9999px;
         appearance: none;
         opacity: 0;
+        visibility: hidden;
     }
 
     .c-checkbox__label,
