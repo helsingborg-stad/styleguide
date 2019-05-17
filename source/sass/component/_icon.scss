@@ -11,27 +11,27 @@
     }
 
     &--size-xs {
-        font-size: 10px; 
+        font-size: $base; 
     }
 
     &--size-sm {
-        font-size: 10px; 
+        font-size: $base*2; 
     }
 
     &--size-md {
-        font-size: 20px; 
+        font-size: $base*3; 
     }
 
     &--size-lg {
-        font-size: 30px; 
+        font-size: $base*4; 
     }
 
     &--size-xl {
-        font-size: 40px; 
+        font-size: $base*5; 
     }
 
     &--size-xxl {
-        font-size: 50px; 
+        font-size: $base*6; 
     }
 
     /* Modifiers  - Colors */
@@ -54,6 +54,14 @@
 
     &--color-white {
         color: $color-white; 
+    }
+
+    &--color-primary {
+        color: $color-primary; 
+    }
+
+    &--color-secondary {
+        color: $color-secondary; 
     }
 
     /* Nested elements */
