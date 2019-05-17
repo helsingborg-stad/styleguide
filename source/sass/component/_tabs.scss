@@ -48,7 +48,7 @@
 
         &[aria-hidden="false"] {
             display: block;
-            transition: ease .3s all;
+            transition: ease .3s opacity;
             animation-name: fadeIn;
             animation-duration: .3s;
             animation-fill-mode: both;
