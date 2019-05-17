@@ -1,0 +1,44 @@
+.c-modal {
+
+    @include cover();
+    position: fixed; 
+    z-index: $level-top; 
+
+    &--overlay-light {
+        background-color: rgba($color-white, .85); 
+        outline: 5000px solid rgba($color-white, .85); /* relative container fix */ 
+    }
+
+    &--overlay-dark {
+        background-color: rgba($color-black, .85); 
+        outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
+    }
+
+    &__inner {
+        @include paper(5); 
+        @include center(); 
+        padding: map-get($spacers, '5');
+        overflow: auto;
+    }
+
+    &--is-panel &__inner {
+        width: 100%; 
+        height: 100vh;
+    }
+
+    &--is-modal &__inner {
+        width: calc(100% - #{map-get($spacers, '4')}); 
+        max-width: 700px; 
+        max-height: calc(100vh - #{map-get($spacers, '4')});
+    }
+
+    &__close {
+        position: absolute;
+        top: map-get($spacers, '1');
+        right: map-get($spacers, '2');
+        
+        display: block;
+        color: $color-gray; 
+    }
+    
+}

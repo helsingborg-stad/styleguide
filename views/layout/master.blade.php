@@ -5,10 +5,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Helsingborg Style Guide</title>
+    <title>Helsingborg Styleguide - Version 2.0</title>
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
+    <script type='text/javascript' defer="defer" src='https://cdn.polyfill.io/v3/polyfill.min.js?ver=5.1.1'></script>
+
+    <link rel='dns-prefetch' href='//cdn.polyfill.io' />
+    <link rel='dns-prefetch' href='//highlightjs.org' />
 
     <noscript>
         <style>
@@ -63,8 +67,14 @@
         </div>
     </div>
     @endif
-
     <div class="container container--main">
+        <div class="grid" style="margin-bottom: 16px;">
+            <div class="grid-xs-12">
+                @notice(['isInfo' => true]) 
+                    <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
+                @endnotice
+            </div>
+        </div>
         <div class="grid">
             <div class="grid-md-3">
                 @include('layout.navigation')
@@ -133,6 +143,14 @@
         anime({
             targets: '.navbar',
             opacity: [0,1],
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
+            targets: '.c-modal',
+            opacity: [0,1],
+            translateY: ['20px','0px'],
+            delay: anime.stagger(140),
             easing: 'spring(1, 80, 10, 0)'
         });
 

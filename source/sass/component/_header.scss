@@ -1,5 +1,7 @@
 .c-header {
     @include shadow(2);
+    z-index: $level-7; 
+    position: relative;
 
     &__menu { 
         padding: map-get($spacers, '3') map-get($spacers, '4');
@@ -37,9 +39,19 @@
 .c-header__home-link {
     display: inline-block; 
     padding: map-get($spacers, '3') map-get($spacers, '4');
+    transition: opacity 200ms, transform 100ms;
 
     img, svg {
         display: block;
         height: $header-logotype-height;
     }
+
+    &:hover {
+        opacity: .7;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+
 }
