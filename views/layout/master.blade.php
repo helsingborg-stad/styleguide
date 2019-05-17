@@ -147,6 +147,14 @@
         });
 
         anime({
+            targets: '.c-modal',
+            opacity: [0,1],
+            translateY: ['20px','0px'],
+            delay: anime.stagger(140),
+            easing: 'spring(1, 80, 10, 0)'
+        });
+
+        anime({
             targets: '.c-card',
             opacity: [0,1],
             translateY: ['20px','0px'],
