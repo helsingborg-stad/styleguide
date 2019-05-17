@@ -368,6 +368,7 @@
         .c-radiobutton__hidden-box:checked + .c-radiobutton__label {
             .c-radiobutton__label-box {
                 &:after {
+                    animation: pop-in 150ms; 
                     content: '';
                     display: block;
                     position: absolute;
@@ -442,3 +443,16 @@
     }
 
 }
+
+@keyframes pop-in {
+    0% {
+        transform: scale(0.5);
+    }
+    80% {
+        transform: scale(1.2);
+      }
+    100% {
+        transform: scale(1);
+    }
+  }
+  
