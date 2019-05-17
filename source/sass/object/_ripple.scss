@@ -1,0 +1,30 @@
+.ripple {
+    position: relative;
+    overflow: hidden; 
+
+    &--after:after,
+    &--before:before {
+        content: "";
+        display: block;
+        position: absolute;
+        background: hsl(180, 40%, 80%);
+        border-radius: 100%;
+
+        left: var(--pos-y);
+        top: var(--pos-x);
+
+        width: var(--size); 
+        height: var(--size); 
+
+        transform: scale(0);
+    }
+}
+
+.ripple--after.ripple--is-animating:after,
+.ripple--before.ripple--is-animating:before {
+    animation: ripple 0.65s linear;
+}
+
+@keyframes ripple {
+	100% {opacity: 0; transform: scale(2.5);}
+}
