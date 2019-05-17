@@ -1,0 +1,39 @@
+.c-testimonials {
+    &__header {
+        :first-child {
+            font-weight: $font-weight-bold;
+        }
+
+        :last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__image {
+        max-height: 60vh;
+        overflow: hidden;
+
+        img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__quote {
+        margin-top: $base;
+        font-style: italic;
+    }
+
+    :nth-child(odd) {
+        .c-testimonials__image {
+           margin-top: $base;
+        }
+    }
+
+    :nth-child(even) {
+        .c-testimonials__image {
+           margin-bottom: $base;
+        }
+    }
+}
