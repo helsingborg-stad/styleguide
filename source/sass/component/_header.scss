@@ -39,18 +39,18 @@
 .c-header__home-link {
     display: inline-block; 
     padding: map-get($spacers, '3') map-get($spacers, '4');
-    transition: opacity 200ms, transform 100ms;
 
     img, svg {
         display: block;
         height: $header-logotype-height;
+        transition: opacity 200ms, transform 100ms;
     }
 
-    &:hover {
+    &:hover img, &:hover svg {
         opacity: .7;
     }
 
-    &:active {
+    &:active img, &:active svg {
         transform: scale(0.98);
     }
 
