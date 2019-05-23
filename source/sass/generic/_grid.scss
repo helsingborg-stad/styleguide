@@ -72,6 +72,16 @@
                 max-width: none;
             }
 
+            //Reverse flex column (eg .grid-md-column-reverse)
+            .grid-#{$breakpoint}-column-reverse {
+                flex-direction: column-reverse;
+            }
+
+            //Reverse flex row (eg .grid-md-row-reverse)
+            .grid-#{$breakpoint}-row-reverse {
+                flex-direction: row-reverse;
+            }
+
             //Width based Columns (eg .grid-md-6)
             @for $i from 1 to $columns + 1 {
                 .grid-#{$breakpoint}-#{$i} {
