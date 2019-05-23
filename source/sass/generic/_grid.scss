@@ -94,10 +94,7 @@
                 }
             }
         }
-        @include mq($breakpoint, next-breakpoint($breakpoint)) {
-			.grid-#{$breakpoint}-hidden {
-				display: none;
-			}
+        @include mq($breakpoint, map-get($breakpoints-map, next-breakpoint($breakpoint))) {
             //Flex column (eg .grid-md-fd-column)
             .grid-#{$breakpoint}-fd-column {
                 flex-direction: column;
