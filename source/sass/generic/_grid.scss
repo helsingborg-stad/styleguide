@@ -115,7 +115,12 @@
             }
         }
     }
-
+    @include mq($breakpoint, map-get-next($breakpoints-map, $breakpoint, map-get($breakpoints-map, 'xl'))) {
+        .grid-#{$breakpoint}-hidden {
+            display: none;
+        }
+    }
+    
     //Prevent old classes from breaking
     .grid-fit-content {
         @extend .grid-xs-fit-content;
