@@ -114,10 +114,10 @@
                 }
             }
         }
-    }
-    @include mq($breakpoint, map-get-next($breakpoints-map, $breakpoint, map-get($breakpoints-map, 'xl'))) {
-        .grid-#{$breakpoint}-hidden {
-            display: none;
+        @include mq($breakpoint, map-get-next($breakpoints-map, $breakpoint, map-get($breakpoints-map, 'xl'))) {
+            .grid-#{$breakpoint}-hidden {
+                display: none;
+            }
         }
     }
     
