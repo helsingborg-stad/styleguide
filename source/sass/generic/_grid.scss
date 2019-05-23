@@ -94,7 +94,7 @@
                 }
             }
         }
-        @include mq($breakpoint, next-breakpoint($breakpoint)) {
+        @include mq($breakpoint, map-get($breakpoints-map, next-breakpoint($breakpoint))) {
 			.grid-#{$breakpoint}-hidden {
 				display: none;
 			}
