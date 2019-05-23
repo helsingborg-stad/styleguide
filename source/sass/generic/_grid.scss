@@ -72,26 +72,6 @@
                 max-width: none;
             }
 
-            //Reverse flex column (eg .grid-md-fd-column)
-            .grid-#{$breakpoint}-fd-column {
-                flex-direction: column;
-            }
-
-            //Reverse flex column (eg .grid-md-fd-column-reverse)
-            .grid-#{$breakpoint}-fd-column-reverse {
-                flex-direction: column-reverse;
-            }
-
-            //Reverse flex row (eg .grid-md-fd-row)
-            .grid-#{$breakpoint}-row {
-                flex-direction: row;
-            }
-
-            //Reverse flex row (eg .grid-md-fd-row-reverse)
-            .grid-#{$breakpoint}-row-reverse {
-                flex-direction: row-reverse;
-            }
-
             //Width based Columns (eg .grid-md-6)
             @for $i from 1 to $columns + 1 {
                 .grid-#{$breakpoint}-#{$i} {
@@ -114,6 +94,27 @@
                 }
             }
         }
+        @include mq($breakpoint, next-breakpoint($breakpoint)) {
+            //Flex column (eg .grid-md-fd-column)
+            .grid-#{$breakpoint}-fd-column {
+                flex-direction: column;
+            }
+
+            //Reverse flex column (eg .grid-md-fd-column-reverse)
+            .grid-#{$breakpoint}-fd-column-reverse {
+                flex-direction: column-reverse;
+            }
+
+            //Flex row (eg .grid-md-fd-row)
+            .grid-#{$breakpoint}-row {
+                flex-direction: row;
+            }
+
+            //Reverse flex row (eg .grid-md-fd-row-reverse)
+            .grid-#{$breakpoint}-row-reverse {
+                flex-direction: row-reverse;
+            }
+		}
     }
 
     //Prevent old classes from breaking
