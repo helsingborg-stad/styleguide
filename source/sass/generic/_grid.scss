@@ -72,12 +72,22 @@
                 max-width: none;
             }
 
-            //Reverse flex column (eg .grid-md-column-reverse)
-            .grid-#{$breakpoint}-column-reverse {
+            //Reverse flex column (eg .grid-md-fd-column)
+            .grid-#{$breakpoint}-fd-column {
+                flex-direction: column;
+            }
+
+            //Reverse flex column (eg .grid-md-fd-column-reverse)
+            .grid-#{$breakpoint}-fd-column-reverse {
                 flex-direction: column-reverse;
             }
 
-            //Reverse flex row (eg .grid-md-row-reverse)
+            //Reverse flex row (eg .grid-md-fd-row)
+            .grid-#{$breakpoint}-row {
+                flex-direction: row;
+            }
+
+            //Reverse flex row (eg .grid-md-fd-row-reverse)
             .grid-#{$breakpoint}-row-reverse {
                 flex-direction: row-reverse;
             }
