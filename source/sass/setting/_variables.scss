@@ -1,6 +1,6 @@
 //  Base sizing unit
 $base: 8px !default;
-$em-base: 1em !default; 
+$em-base: 1em !default;
 
 //  Font Family
 $font-family-roboto: 'Roboto', sans-serif;
@@ -11,8 +11,8 @@ $font-family-heading: $font-family-roboto !default;
 $font-family-body: $font-family-roboto !default;
 
 //Width
-$container-width: 1150px !default; 
-$container-width-wide: 1500px !default; 
+$container-width: 1150px !default;
+$container-width-wide: 1500px !default;
 
 //  Font size
 $font-size-headline: 32px !default;
@@ -77,7 +77,7 @@ $color-base-invert-disabled: rgba($color-white, 0.5) !default;
 
 $color-heading: $color-base !default;
 $color-body: $color-base !default;
-$color-body-background: #f4f4f4;
+$color-body-background: #f4f4f4 !default;
 
 $color-link: #0069b4 !default;
 $color-link-hover: $color-link;
@@ -96,34 +96,34 @@ $color-header-background-level-1: $color-gray-light !default;
 $color-header-background-level-2: $color-white !default;
 $color-header-background-level-3: $color-primary !default;
 
-$color-menu-background: $color-white !default; 
-$color-menu-separator: $color-gray-light !default; 
-$color-menu-active-indicator: $color-gray-light !default; 
-$color-menu-active-background: $color-gray-lighter !default; 
-$color-menu-text: $color-black; 
+$color-menu-background: $color-white !default;
+$color-menu-separator: $color-gray-light !default;
+$color-menu-active-indicator: $color-gray-light !default;
+$color-menu-active-background: $color-gray-lighter !default;
+$color-menu-text: $color-black;
 
-$color-menu-active-indicator-horizontal: $color-primary-light !default; 
-$color-menu-text-horizontal: $color-black; 
+$color-menu-active-indicator-horizontal: $color-primary-light !default;
+$color-menu-text-horizontal: $color-black;
 
-$color-card-background: $color-white !default; 
+$color-card-background: $color-white !default;
 
 $color-footer-background: #efefef;
 
-$color-breadcrumb-active: $color-gray !default; 
-$color-breadcrumb-icon: $color-black !default; 
-$color-breadcrumb: $color-black !default; 
+$color-breadcrumb-active: $color-gray !default;
+$color-breadcrumb-icon: $color-black !default;
+$color-breadcrumb: $color-black !default;
 
-$color-paper-background: $color-white !default; 
+$color-paper-background: $color-white !default;
 
-$color-table-background: $color-white !default; 
-$color-table-background-odd: $color-gray-lighter !default; 
-$color-table-track-background: $color-white !default; 
-$color-table-track-control: $color-gray-lighter !default; 
-$color-table-gradient: $color-white !default; 
+$color-table-background: $color-white !default;
+$color-table-background-odd: $color-gray-lighter !default;
+$color-table-track-background: $color-white !default;
+$color-table-track-control: $color-gray-lighter !default;
+$color-table-gradient: $color-white !default;
 $color-table-heading: $color-gray !default;
 $color-table-body: $color-black !default;
 $color-table-border: $color-gray-light !default;
-$table-heading-font-weight: bold !default; 
+$table-heading-font-weight: bold !default;
 
 //Header
 $header-logotype-height: $base*5 !default;
