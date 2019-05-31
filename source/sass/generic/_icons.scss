@@ -1,10 +1,10 @@
 @font-face {
     font-family: "styleguide-icons";
-    src: url("/assets/dist/icons/styleguide-icons.eot?a3fa0a634a4a693042aa56337a71a1a3?#iefix") format("embedded-opentype"),
-url("/assets/dist/icons/styleguide-icons.woff2?a3fa0a634a4a693042aa56337a71a1a3") format("woff2"),
-url("/assets/dist/icons/styleguide-icons.woff?a3fa0a634a4a693042aa56337a71a1a3") format("woff"),
-url("/assets/dist/icons/styleguide-icons.ttf?a3fa0a634a4a693042aa56337a71a1a3") format("truetype"),
-url("/assets/dist/icons/styleguide-icons.svg?a3fa0a634a4a693042aa56337a71a1a3#styleguide-icons") format("svg");
+    src: url("../icons/styleguide-icons.eot?a3fa0a634a4a693042aa56337a71a1a3?#iefix") format("embedded-opentype"),
+url("../icons/styleguide-icons.woff2?a3fa0a634a4a693042aa56337a71a1a3") format("woff2"),
+url("../icons/styleguide-icons.woff?a3fa0a634a4a693042aa56337a71a1a3") format("woff"),
+url("../icons/styleguide-icons.ttf?a3fa0a634a4a693042aa56337a71a1a3") format("truetype"),
+url("../icons/styleguide-icons.svg?a3fa0a634a4a693042aa56337a71a1a3#styleguide-icons") format("svg");
 }
 
 i[class^="c-icon--"]:before, i[class*=" c-icon--"]:before {
