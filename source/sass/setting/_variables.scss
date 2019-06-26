@@ -3,9 +3,9 @@ $base: 8px !default;
 $em-base: 1em !default;
 
 //  Font Family
-$font-family-roboto: 'Roboto', sans-serif;
+$font-family-roboto: 'Roboto', sans-serif !default;
 $font-family-code: 'Fira Sans', 'Monaco', 'Consolas', 'Menlo', 'Lucida Console', 'Courier New',
-    'Courier', 'Console';
+    'Courier', 'Console' !default;
 
 $font-family-heading: $font-family-roboto !default;
 $font-family-body: $font-family-roboto !default;
@@ -43,9 +43,9 @@ $font-weight-bold: 700 !default;
 $font-weight-thin: 200 !default;
 
 // Line heights
-$line-height-base: 1.625;
-$line-height-heading: 1.5;
-$line-height-headline: 1.25;
+$line-height-base: 1.625 !default;
+$line-height-heading: 1.5 !default;
+$line-height-headline: 1.25  !default;
 
 //  Colors
 $color-primary: #ae0b05 !default;
