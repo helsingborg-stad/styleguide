@@ -1,45 +1,4 @@
 
-input[type="color"],
-input[type="text"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="url"],
-input[type="week"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="email"],
-textarea {
-    width: 100%;
-    margin: 0;
-    outline: 0;
-    height: 56px;
-    appearance: none;
-    tap-highlight-color: rgba(255, 255, 255, 0);
-    line-height: 1.32em;
-    padding: map-get($spacers, '1');
-    padding-top: map-get($spacers, '1') +4;
-    font-size: 1em;
-    background: $color-form-fields;
-    border: 1px solid $color-form-fields;
-    border-radius: $border-radius-xs;
-    box-shadow: 0 0 0 0 transparent inset;
-    -webkit-transition: color .1s ease, border-color .1s ease;
-    transition: color .1s ease, border-color .1s ease;
-    background-size: 16px 16px !important;
-
-    &:focus {
-        background-color: lighten($color-form-fields, 5%);
-        box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
-    }
-}
-textarea {
-    min-height: 200px;
-    padding: map-get($spacers, '3')-2;
-}
 
 // Input
 .c-input-text {
