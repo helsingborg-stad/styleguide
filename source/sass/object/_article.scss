@@ -17,7 +17,7 @@
         margin-bottom: $base * 2;
 
         &:first-child {
-            margin-top: -0.8%;
+            // margin-top: -0.8%;
         }
     }
 
@@ -29,7 +29,7 @@
     h1 + h4,
     h2 + h4,
     h3 + h4 {
-        margin-top: $base * -2;
+        margin-top: $base * -1;
         color: $color-base-secondary;
     }
 
