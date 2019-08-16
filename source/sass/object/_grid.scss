@@ -97,8 +97,7 @@
             .offset-#{$breakpoint}-0 {
                 margin-left: 0;
             }
-        }
-        @include mq($breakpoint, map-get($breakpoints-map, next-breakpoint($breakpoint))) {
+
             .grid-#{$breakpoint}-hidden {
 				display: none;
 			}
@@ -121,7 +120,7 @@
             .grid-#{$breakpoint}-row-reverse {
                 flex-direction: row-reverse;
             }
-		}
+        }
     }
 
     
