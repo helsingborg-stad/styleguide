@@ -1,0 +1,37 @@
+.u-color{
+    &__text{
+        &-success{
+            color: $color-success
+        }
+
+        &-danger{
+            color: $color-danger
+        }
+
+        &-info{
+            color: $color-info
+        }
+
+        &-danger{
+            color: $color-warning
+        }
+    }
+
+    &__bg{
+        &-success{
+            background-color: $color-success
+        }
+
+        &-danger{
+            background-color: $color-danger
+        }
+
+        &-info{
+            background-color: $color-info
+        }
+
+        &-danger{
+            background-color: $color-warning
+        }
+    }
+}
