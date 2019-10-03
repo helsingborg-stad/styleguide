@@ -1,25 +1,63 @@
-// @include mixLoopStyles(
-//         '.u-border',
-//         (
-//                 '-0'    : (border: 0 !important),
-//                 '-1'    : (border: solid 1px !important),
-//                 '-2'    : (border: solid 2px !important),
-//         ),
-//         (
-//                 '-x'        : ('border-right', 'border-left'),
-//                 '-y'        : ('border-top', 'border-bottom'),
-//                 '-right'    : 'border-right',
-//                 '-left'     : 'border-left',
-//                 '-top'      : 'border-top',
-//                 '-bottom'   : 'border-bottom',
-//         )
-// );
-
 $colors: (
-	color-primary: $color-primary,
-	color-secondary: $color-secondary,
-	color-success: $color-success,
-	color-danger: $color-danger,
-	color-info: $color-info,
-	color-warning: $color-warning,
+	primary: $color-primary,
+	secondary: $color-secondary,
+	success: $color-success,
+	danger: $color-danger,
+	info: $color-info,
+	warning: $color-warning,
 );
+
+$border-widths: (
+	0: 0,
+	1: 1px,
+	2: 2px
+);
+
+$border-width-default: 1px;
+
+$sides: (top, left, right, bottom);
+
+//Unspecified width or side
+@include responsiveStyles(
+	(
+		'.u-border' : (border: #{$border-width-default} solid #{$color-primary} !important),
+	)
+);
+
+//For specific side and specific width
+@each $side in $sides {
+	@each $width_name, $width in $border-widths {
+		@include responsiveStyles(
+			(
+				'.u-border-#{$side}--#{$width_name}' : (border-#{$side}: #{$width} solid #{$color-primary}  !important),
+			)
+		)
+	}
+}
+
+//For specific width
+@each $width_name, $width in $border-widths {
+	@include responsiveStyles(
+		(
+			'.u-border--#{$width_name}' : (border: #{$width} solid #{$color-primary}  !important),
+		)
+	)
+}
+
+//For specific side
+@each $side in $sides {
+	@include responsiveStyles(
+		(
+			'.u-border-#{$side}' : (border-#{$side}: #{$border-width-default} solid #{$color-primary}  !important),
+		)
+	)
+}
+
+//For specific color
+@each $color_name, $color in $colors { 
+	@include responsiveStyles(
+		(
+			'.u-border--#{$color_name}' : (border-color: #{$color} !important),
+		)
+	)
+}
