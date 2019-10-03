@@ -147,6 +147,8 @@ $breakpoints-map: (
 //Display states
 $display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
 
+
+
 //  Spacer
 $spacers: (
     '0': 0,
@@ -163,6 +165,15 @@ $spacers: (
     '10': $base * 10,
     '11': $base * 11,
     '12': $base * 12,
+) !default;
+
+//  Sizings
+$sizings: (
+    '25',
+    '50',
+    '75',
+    '100',
+    'auto'
 ) !default;
 
 //  Z-index
