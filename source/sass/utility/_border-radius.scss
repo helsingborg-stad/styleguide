@@ -24,3 +24,39 @@
 .u-rounded {
     border-radius: 50%; 
 }
+
+$radius-sides: (
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
+);
+$styling: '';
+$utility-name: '';
+
+@each $side in $radius-sides{
+    @each $radius in $radiuses{
+        @if $side == 'left'{
+            $styling: ('border-radius': '#{$radius}, 0, 0, #{$radius}'); 
+            $utility-name: 'border-radius';
+        }@else{
+            $styling: ('border-#{$side}-radius': $radius);
+            $utility-name: '.u-border-radius--#{$side}--#{if(($radius == 50%), 'full', $radius)}';
+        }
+        @include responsiveStyles(
+            (
+                // Set side-modifier name to full if radius is 50%,
+                // so that we dont have % in the name
+                $utility-name: $styling
+                
+                    
+            )
+        )
+     }
+}
+
+
