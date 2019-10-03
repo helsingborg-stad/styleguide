@@ -1,5 +1,40 @@
-.u-content-spacing {
-    > * + *:not(.u-content-spacing__ignore) {
-        margin-top: $content-gutter;
+//Creates all classes for padding and margin
+@each $prop, $abbrev in (margin: m, padding: p) {
+    @each $size, $length in $spacers {
+
+        .u-#{$abbrev}--#{$size} {
+            #{$prop}: $length $length !important;
+        }
+
+        .u-#{$abbrev}t--#{$size} {
+            #{$prop}-top: $length !important;
+        }
+
+        .u-#{$abbrev}r--#{$size} {
+            #{$prop}-right:  $length !important;
+        }
+
+        .u-#{$abbrev}b--#{$size} {
+            #{$prop}-bottom: $length !important;
+        }
+
+        .u-#{$abbrev}l--#{$size} {
+            #{$prop}-left: $length !important;
+        }
+
+        .u-#{$abbrev}x--#{$size} {
+            #{$prop}-left: $length !important;
+            #{$prop}-right: $length !important;
+        }
+
+        .u-#{$abbrev}x--#{$size} {
+            #{$prop}-left: $length !important;
+            #{$prop}-right: $length !important;
+        }
+
+        .u-#{$abbrev}y--#{$size} {
+            #{$prop}-top: $length !important;
+            #{$prop}-bottom: $length !important;
+        }
     }
 }
