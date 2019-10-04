@@ -1,31 +1,5 @@
-.u-border-radius-none {
-    border-radius: 0; 
-}
-
-.u-border-radius,
-.u-border-radius-xs {
-    border-radius: $border-radius-xs; 
-}
-
-.u-border-radius-sm {
-    border-radius: $border-radius-sm;
-}
-
-.u-border-radis-md {
-    border-radius: $border-radius-md;
-}
-
-.u-border-radius-lg {
-    border-radius: $border-radius-lg; 
-}
-
-.u-border-radius-full,
-.u-border-radius-rounded,
-.u-rounded {
-    border-radius: 50%; 
-}
-
 $radius-sides: (
+    'none',
     'top',
     'bottom',
     'left',
@@ -35,28 +9,39 @@ $radius-sides: (
     'bottom-left',
     'bottom-right'
 );
-$styling: '';
-$utility-name: '';
 
+//Default styling
+$styling: ('border-radius': first($radiuses));
+
+@include responsiveStyles( ('.u-border-radius': $styling) );
+
+//Specified styling for each side, corner and none to remove
 @each $side in $radius-sides{
     @each $radius in $radiuses{
+        $width: strip-unit($radius);
+        
         @if $side == 'left'{
-            $styling: ('border-radius': '#{$radius}, 0, 0, #{$radius}'); 
-            $utility-name: 'border-radius';
-        }@else{
+            $styling: ('border-radius': '#{$radius} 0 0 #{$radius}'); 
+        }
+        @else if $side == 'right'{
+            $styling: ('border-radius': '0 #{$radius} #{$radius} 0'); 
+        }
+        @else if $side == 'top'{
+            $styling: ('border-radius': '#{$radius} #{$radius} 0 0'); 
+        }
+        @else if $side == 'bottom'{
+            $styling: ('border-radius': '0 0 #{$radius} #{$radius}'); 
+        }
+        @else if $side == 'none'{
+            $styling: ('border-radius': 0)
+        }
+        @else{
             $styling: ('border-#{$side}-radius': $radius);
-            $utility-name: '.u-border-radius--#{$side}--#{if(($radius == 50%), 'full', $radius)}';
         }
         @include responsiveStyles(
             (
-                // Set side-modifier name to full if radius is 50%,
-                // so that we dont have % in the name
-                $utility-name: $styling
-                
-                    
+                '.u-border-radius--#{$side}--#{$width}': $styling
             )
         )
      }
 }
-
-
