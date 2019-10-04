@@ -19,7 +19,8 @@ $styling: ('border-radius': first($radiuses));
 @each $side in $radius-sides{
     @each $radius in $radiuses{
         $width: strip-unit($radius);
-        
+        $class: '.u-border-radius--#{$side}--#{$width}';
+
         @if $side == 'left'{
             $styling: ('border-radius': '#{$radius} 0 0 #{$radius}'); 
         }
@@ -33,14 +34,16 @@ $styling: ('border-radius': first($radiuses));
             $styling: ('border-radius': '0 0 #{$radius} #{$radius}'); 
         }
         @else if $side == 'none'{
-            $styling: ('border-radius': 0)
+            $styling: ('border-radius': 0);
+            $class: '.u-border-radius--#{$side}';
         }
         @else{
             $styling: ('border-#{$side}-radius': $radius);
         }
+
         @include responsiveStyles(
             (
-                '.u-border-radius--#{$side}--#{$width}': $styling
+                $class: $styling  
             )
         )
      }
