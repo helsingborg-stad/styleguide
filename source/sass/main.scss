@@ -33,6 +33,7 @@
 @import 'function/mix-color-style-functions.scss';
 @import 'function/legacy-direction';
 @import 'function/is-direction';
+@import 'function/append-important';
 
 // ***************************************************************
 // *** Mixins
@@ -50,6 +51,7 @@
 @import 'mixin/paper';
 @import 'mixin/gradient';
 @import 'mixin/arrow';
+@import 'mixin/build-utility';
 
 // ***************************************************************
 // *** Generic
@@ -124,3 +126,4 @@
 @import 'utility/display';
 @import 'utility/ratio';
 @import 'utility/text';
+@import 'utility/flex'
