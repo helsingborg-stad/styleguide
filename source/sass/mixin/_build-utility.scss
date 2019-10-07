@@ -1,19 +1,4 @@
-
-
 @mixin build-utilities($utility_specs, $responsive:true) {
-    // @each $test, $utility in $utility_specs{
-    //     // @debug $name;
-    //     // @debug $modifiers;
-    //     @each $attr in $utility{
-    //         @each $name, $modi in $attr{
-    //            @each $modifier in $modi{
-    //                 $test: '.u-#{$name}--#{$modifier}{ #{$name}: #{$modifier}}';
-    //                 @debug $test;
-    //             } 
-    //         }
-    //     }
-    // }
-
     @each $utility in $utility_specs{
         $name: map-get($utility,  "name");
         $modifiers: map-get($utility,  "modifiers");
