@@ -24,18 +24,6 @@ $sides: (top, left, right, bottom);
 	)
 );
 
-//For specific side and specific width
-@each $side in $sides {
-	@each $width_name, $width in $border-widths {
-		@include responsiveStyles(
-			(
-				'.u-border-#{$side}--#{$width_name}':
-				(border-#{$side}: #{$width} solid #{$color-primary} !important),
-			)
-		)
-	}
-}
-
 //For specific width
 @each $width_name, $width in $border-widths {
 	@include responsiveStyles(
@@ -53,6 +41,18 @@ $sides: (top, left, right, bottom);
 			(border-#{$side}: #{$border-width-default} solid #{$color-primary}  !important),
 		)
 	)
+}
+
+//For specific side and specific width
+@each $side in $sides {
+	@each $width_name, $width in $border-widths {
+		@include responsiveStyles(
+			(
+				'.u-border-#{$side}--#{$width_name}':
+				(border-#{$side}: #{$width} solid #{$color-primary} !important),
+			)
+		)
+	}
 }
 
 //For specific color
