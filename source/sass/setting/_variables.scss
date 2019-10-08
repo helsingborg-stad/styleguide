@@ -135,6 +135,15 @@ $border-radius-md: ($base) !default;
 $border-radius-lg: ($base*2) !default;
 $border-radius-full: 50% !default;
 
+$radiuses: (
+    0,
+    $border-radius-xs,
+    $border-radius-sm,
+    $border-radius-md,
+    $border-radius-lg,
+    $border-radius-full
+);
+
 //  Breakpoints
 $breakpoints-map: (
     xs: 0,
