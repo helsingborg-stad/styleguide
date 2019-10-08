@@ -33,6 +33,7 @@
 @import 'function/mix-color-style-functions.scss';
 @import 'function/legacy-direction';
 @import 'function/is-direction';
+@import 'function/append-important';
 
 // ***************************************************************
 // *** Mixins
@@ -50,6 +51,7 @@
 @import 'mixin/paper';
 @import 'mixin/gradient';
 @import 'mixin/arrow';
+@import 'mixin/build-utility';
 
 // ***************************************************************
 // *** Generic
@@ -125,3 +127,14 @@
 @import 'utility/ratio';
 @import 'utility/text';
 @import 'utility/visibility';
+@import 'utility/flex'
+@import 'utility/color';
+@import 'utility/accessability';
+@import 'utility/responsive-image';
+@import 'utility/clearfix';
+@import 'utility/border';
+@import 'utility/overflow';
+@import 'utility/sizing';
+@import 'utility/spacing';
+@import 'utility/float'
+

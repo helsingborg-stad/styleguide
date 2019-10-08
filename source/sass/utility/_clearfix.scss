@@ -1,0 +1,9 @@
+@include responsiveStyles(
+    (
+        '.u-clearfix::after': (
+            display: block !important,
+            content: '""' !important,
+            clear: both !important
+        ),
+    )
+);
