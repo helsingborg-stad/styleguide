@@ -1,26 +1,50 @@
-.u-border-radius-none {
-    border-radius: 0; 
-}
+$radius-sides: (
+    'none',
+    'top',
+    'bottom',
+    'left',
+    'right',
+    'top-left',
+    'top-right',
+    'bottom-left',
+    'bottom-right'
+);
 
-.u-border-radius,
-.u-border-radius-xs {
-    border-radius: $border-radius-xs; 
-}
+//Default styling
+$styling: ('border-radius': first($radiuses));
 
-.u-border-radius-sm {
-    border-radius: $border-radius-sm;
-}
+@include responsiveStyles( ('.u-border-radius': $styling) );
 
-.u-border-radis-md {
-    border-radius: $border-radius-md;
-}
+//Specified styling for each side, corner and none to remove
+@each $side in $radius-sides{
+    @each $radius in $radiuses{
+        $width: strip-unit($radius);
+        $class: '.u-border-radius--#{$side}--#{$width}';
 
-.u-border-radius-lg {
-    border-radius: $border-radius-lg; 
-}
+        @if $side == 'left'{
+            $styling: ('border-radius': '#{$radius} 0 0 #{$radius}'); 
+        }
+        @else if $side == 'right'{
+            $styling: ('border-radius': '0 #{$radius} #{$radius} 0'); 
+        }
+        @else if $side == 'top'{
+            $styling: ('border-radius': '#{$radius} #{$radius} 0 0'); 
+        }
+        @else if $side == 'bottom'{
+            $styling: ('border-radius': '0 0 #{$radius} #{$radius}'); 
+        }
+        @else if $side == 'none'{
+            $styling: ('border-radius': 0);
+            $class: '.u-border-radius--#{$side}';
+        }
+        @else{
+            $styling: ('border-#{$side}-radius': $radius);
+        }
 
-.u-border-radius-full,
-.u-border-radius-rounded,
-.u-rounded {
-    border-radius: 50%; 
+        @include responsiveStyles(
+            (
+                $class: $styling  
+            )
+        )
+     }
 }
