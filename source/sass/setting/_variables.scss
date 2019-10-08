@@ -125,6 +125,10 @@ $color-table-body: $color-black !default;
 $color-table-border: $color-gray-light !default;
 $table-heading-font-weight: bold !default; 
 
+$color-disabled-bg: $color-gray-light !default;
+$color-disabled-text: $color-base-disabled !default;
+$color-disabled-border: rgba(0,0,0,.0) !default;
+
 //Header
 $header-logotype-height: $base*5 !default;
 
@@ -163,7 +167,8 @@ $overflows: (
 //Display states
 $display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
 
-
+//Visibility states
+$visibility-states: 'visible', 'hidden' !default;
 
 //  Spacer
 $spacers: (

@@ -1,36 +1,36 @@
 .u-color{
     &__text{
-        &-success{
+        &--success{
             color: $color-success
         }
 
-        &-danger{
+        &--danger{
             color: $color-danger
         }
 
-        &-info{
+        &--info{
             color: $color-info
         }
 
-        &-danger{
+        &--warning{
             color: $color-warning
         }
     }
 
     &__bg{
-        &-success{
+        &--success{
             background-color: $color-success
         }
 
-        &-danger{
+        &--danger{
             background-color: $color-danger
         }
 
-        &-info{
+        &--info{
             background-color: $color-info
         }
 
-        &-danger{
+        &--warning{
             background-color: $color-warning
         }
     }
