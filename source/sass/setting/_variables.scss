@@ -163,7 +163,8 @@ $overflows: (
 //Display states
 $display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
 
-
+//Visibility states
+$visibility-states: 'visible', 'hidden' !default;
 
 //  Spacer
 $spacers: (
