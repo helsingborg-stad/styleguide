@@ -1,0 +1,118 @@
+// @include responsiveStyles(
+//     (
+//         //Flex
+//         '.u-flex--row': (flex-direction:row !important),
+//         '.u-flex--row-reverse': (flex-direction:row-reverse !important),
+//         '.u-flex--column': (flex-direction:column !important),
+//         '.u-flex--column--reverse': (flex-direction:column-reverse !important),
+//         '.u-flex-direction--row': (flex-direction: row !important),
+//         '.u-flex-direction--row-reverse': (flex-direction: row-reverse !important),
+//         '.u-flex-direction--column': (flex-direction: column !important),
+//         '.u-flex-direction--column-reverse': (flex-direction: column-reverse !important),
+//         //Justify
+//         '.u-justify-content--start': (justify-content: flex-start !important),
+//         '.u-justify-content--end': (justify-content: flex-end !important),
+//         '.u-justify-content--center': (justify-content: center !important),
+//         '.u-justify-content--space-between': (justify-content: space-between !important),
+//         '.u-justify-content--space-around': (justify-content: space-around !important),
+//         '.u-justify-content--space-evenly': (justify-content: space-evenly !important),
+//         //Flex fill
+//         '.u-flex-fill': (flex-grow: 1 !important),
+//         //Flex grow & shrink
+//         '.u-flex-grow--0': (flex-grow: 0 !important),
+//         '.u-flex-grow--1': (flex-grow: 1 !important),
+//         '.u-flex-shrink--0': (flex-shrink: 0 !important),
+//         '.u-flex-shrink--1': (flex-shrink: 1 !important),
+//         //Flex wrap
+//         '.u-flex-wrap': (flex-wrap: wrap !important),
+//         '.u-flex-wrap--reverse': (flex-wrap: wrap-reverse !important),
+//         '.u-flex-wrap--nowrap': (flex-wrap: nowrap !important),
+//     )
+// );
+
+
+$flex-utils: (  
+    (
+        name: 'flex-direction',
+        modifiers: (
+            row: (flex-direction: row),
+            row-reverse: (flex-direction: row-reverse),
+            column: (flex-direction: column),
+            column-reverse: (flex-direction: column-reverse),
+        )
+    ),
+    (
+        name: 'justify-content',
+        modifiers: (
+            start: (justify-content: flex-start),
+            end: (justify-content: flex-start),
+            center: (flex-direction: center),
+            space-between: (flex-direction: space-between),
+            space-around: (flex-direction: space-around),
+            space-evenly: (flex-direction: space-evenly),
+        )
+    ),
+    (
+        name: 'flex-wrap',
+        default: (flex-wrap: wrap),
+        modifiers: (
+            reverse: (flex-wrap:  wrap-reverse),
+            no-wrap: (flex-wrap: nowrap)
+        )
+    ),
+    (
+        name: 'flex-grow',
+        modifiers: (
+            0: (flex-grow: 0),
+            1: (flex-grow: 1)
+        )
+    ),
+    (
+        name: 'flex-shrink',
+        modifiers: (
+            0: (flex-shrink: 0),
+            1: (flex-shrink: 1)
+        )
+    ),
+    (
+        name: 'align-items',
+        modifiers: (
+            start: (align-items: start),
+            end: (align-items: end),
+            center: (align-items: center),
+            stretch: (align-items: stretch),
+            baseline: (align-items: baseline),
+        )
+    ),
+    (
+        name: 'align-self',
+        modifiers: (
+            start: (align-self: start),
+            end: (align-self: end),
+            center: (align-self: center),
+            stretch: (align-self: stretch),
+        )
+    ),
+    (
+        name: 'align-content',
+        modifiers: (
+            start: (align-content: start),
+            end: (align-content: end),
+            center: (align-content: center),
+            stretch: (align-content: stretch),
+            around: (align-content: space-around),
+        )
+    )
+);
+
+// Special case, list becomes too long
+$order: 0;
+
+@while($order <= 12){
+    @include responsiveStyles(
+        (
+            '.u-order--#{$order}': (order: $order )
+        )
+    );
+    $order: $order + 1;
+}
