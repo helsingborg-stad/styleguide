@@ -153,6 +153,13 @@ $breakpoints-map: (
     xl: 100em,  //1600px
 ) !default;
 
+$overflows: (
+    'hidden',
+    'auto',
+    'scroll',
+    'visible'
+);
+
 //Display states
 $display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
 
