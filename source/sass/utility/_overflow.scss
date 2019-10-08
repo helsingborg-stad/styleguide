@@ -1,0 +1,11 @@
+@each $modifier in $overflows {
+    @include responsiveStyles(
+        (
+            '.u-overflow--#{$modifier}' : ('overflow': #{$modifier} !important)
+        )
+    )
+
+}
+    
+    
+    
