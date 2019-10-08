@@ -1,11 +1,8 @@
-.u-overflow{
 
-    &--auto{
-        overflow:auto;
-    }
-
-    &--hidden{
-        overflow:hidden;
-    }
-    
+@each $modifier in $overflows {
+    @include responsiveStyles(
+        (
+            '.u-overflow--#{$modifier}' : ('overflow': #{$modifier} !important)
+        )
+    )
 }
