@@ -1,0 +1,21 @@
+{
+    "description": {
+        "u-p--0": "Sets padding around all sides of element to 0",
+        "u-pl--3": "Sets padding on the left side of element to base*3",
+        "u-py--12": "Sets padding on the Y-axis of element to base*12",
+        "u-m--0": "Sets margin around all sides of element to 0",
+        "u-ml--3": "Sets margin on the left side of element to base*3",
+        "u-my--12": "Sets margin on the X-axis of element to base*12"
+
+    },
+    "classes": [
+        "u-p--0",
+        "u-pl--3",
+        "u-py--12",
+        "u-m--0",
+        "u-ml--3",
+        "u-my--12"
+
+    ],
+    "responsive": true
+}
