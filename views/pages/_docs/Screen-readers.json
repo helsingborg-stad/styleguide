@@ -1,0 +1,12 @@
+{
+    "description": {
+        "u-sr-only": "Hides element for screen user but keeps it accessible for screen readers",
+        "u-sr-only--focusable": "Makes a screen reader only element visible when focused"
+    },
+    "classes": [
+        "u-sr-only",
+        "u-sr-only--focusable"
+
+    ],
+    "responsive": false
+}
