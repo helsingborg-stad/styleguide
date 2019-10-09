@@ -3,12 +3,30 @@
 @section('content')
 <article>
 
-    {!! markdown("
+    @markdown
+        #Visibility
+    @endmarkdown
+    @utility_doc(['slug' => 'visibility', 'page_config' => 'true'])
+        @button([
+            'href' => '#btn-3',
+            'isOutlined' => false,
+            'isPrimary' => false,
+            'isCircle' => true,
+            'classList' => ['u-visibility--visible']
+        ])
+            Visible button
+        @endbutton
 
-        #Utilties
-        Lorem ipsum...
-
-    ") !!}
+        @button([
+            'href' => '#btn-3',
+            'isOutlined' => false,
+            'isPrimary' => false,
+            'isCircle' => true,
+            'classList' => ['u-visibility--hidden']
+        ])
+            Hidden Button
+        @endbutton
+    @endutility_doc
 
 </article>
 @stop

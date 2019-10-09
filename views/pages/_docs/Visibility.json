@@ -1,0 +1,11 @@
+{
+    "description": {
+        "u-visibility--visible": "Sets element's visibility to visible.",
+        "u-visibility--hidden": "Sets element's visibility to hidden."
+    },
+    "classes": [
+        "u-visibility--visible",
+        "u-visibility--hidden"
+    ],
+    "responsive": true
+}
