@@ -2,8 +2,7 @@
 const   CONTAINER = "[js-filter-container]",
         ITEM = "[js-filter-item]",
         DATA = "[js-filter-data]",
-        INPUT = "[js-filter-input]",
-        BUTTON = "[js-filter-button]";
+        INPUT = "[js-filter-input]";
 
 const filterBox = () => {
 
