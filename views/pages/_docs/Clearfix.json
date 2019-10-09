@@ -1,0 +1,10 @@
+{
+    "description": {
+        "u-clearfix": "Prevents breaking form use of float"
+    },
+    "classes": [
+        "u-clearfix"
+
+    ],
+    "responsive": true
+}
