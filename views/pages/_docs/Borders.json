@@ -1,0 +1,18 @@
+{
+    "description": {
+        "u-border": "Sets a border on all sides of element",
+        "u-border--1": "Sets specified width on all sides.",
+        "u-border-right": "Sets a border on specified side.",
+        "u-border-left--2": "Sets specified border side to specified width.",
+        "u-border--primary": "Sets border color for all sides."
+    },
+    "classes": [
+        "u-border",
+        "u-border--1",
+        "u-border-right",
+        "u-border-left--2",
+        "u-border--primary"
+
+    ],
+    "responsive": true
+}

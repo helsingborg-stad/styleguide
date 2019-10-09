@@ -3,12 +3,12 @@
 @section('content')
 <article>
 
-    {!! markdown("
-
-        #Utilties
-        Lorem ipsum...
-
-    ") !!}
+    @markdown
+        #Borders
+    @endmarkdown
+    @utility_doc(['slug' => 'borders', 'page_config' => true])
+        
+    @endutility_doc
 
 </article>
 @stop
