@@ -1,19 +1,19 @@
 /* Filter lists */
-const CONTAINER = "[js-filter-container]";
-const ITEM = "[js-filter-item]";
-const DATA = "[js-filter-data]";
-const INPUT = "[js-filter-input]";
+const   CONTAINER = "[js-filter-container]",
+        ITEM = "[js-filter-item]",
+        DATA = "[js-filter-data]",
+        INPUT = "[js-filter-input]",
+        BUTTON = "[js-filter-button]";
 
 const filterBox = () => {
 
-    var list = [];
+    let list = [];
+    let containers = document.querySelectorAll(CONTAINER);//Get filterable elements
 
-    //Get filterable elements
-    let containers = document.querySelectorAll(CONTAINER);
     containers.forEach((container) => {
-        let items = container.querySelectorAll(ITEM);
 
-        items.forEach((item) => {
+        //Get filterable items
+        container.querySelectorAll(ITEM).forEach((item) => {
             let dataItems = item.querySelectorAll(DATA);
             let dataString = '';
 
@@ -30,24 +30,21 @@ const filterBox = () => {
                 data: dataString.toLowerCase()
             });
         });
-    });
 
-    //Add listeners to inputs
-    containers.forEach(container => {
-        let inputs = container.querySelectorAll(INPUT);
-
-        inputs.forEach((input) => {
-            input.addEventListener('change', () => {
+        //Get inputs
+        container.querySelectorAll(INPUT).forEach((input) => {
+            input.addEventListener('keydown', () => {
                 let inputId = input.getAttribute('js-filter-input');
 
                 list.forEach((item) => {
                     if (item.searchId === inputId) {
+                        //Get search term and search in item
                         let res = item.data.search(input.value.toLocaleLowerCase());
 
                         if (res < 0) {
-                            item.element.remove();
+                            item.element.remove(); //Remove unmatched
                         } else {
-                            item.parent.append(item.element);
+                            item.parent.append(item.element); //Readd match
                         }
                     }
                 });
