@@ -8,7 +8,7 @@
     @endmarkdown
     @utility_doc(['slug' => 'spacing', 'page_config' => true])
         <div class="grid">
-            <div class="grid-s-12 grid-md-6 u-pl--6">
+            <div class="grid-s-12 grid-md-6 u-p--left--6">
                 @card([
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
@@ -23,7 +23,7 @@
     
             </div>
     
-            <div class="grid-s-12 grid-md-6 u-my--7">
+            <div class="grid-s-12 grid-md-6 u-m--y--7">
                 @card([
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
