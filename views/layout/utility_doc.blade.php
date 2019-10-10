@@ -13,22 +13,36 @@
 
         @paper(['padding' => 3])
             <h3>Classes</h3>
+
+            @if ($format)
+                <p>Format: <code>{{ $format }}</code></p>
+            @endif
+
             @if ($responsive)
-             <p>This utlitiy is also responsive and can be used like <code>class="u-border--left--1@md"</code></p>
-             @endif
+                <p>This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
+            @endif
+
             <table>
                 <thead>
                     <td>Class</td>
                     <td>Description</td>
+                    <td>Values</td>
                 </thead>
-                @foreach($settings as $item)
-                    <tr>
-                        <td>{{$item}}</td>
 
-                        @if(isset($description[$item]))
-                        <td>{{$description[$item]}}</td>
+                @foreach($settings as $key => $item)
+                    <tr>
+                        <td>{{$key}}</td>
+
+                        @if(isset($description[$key]))
+                        <td>{{$description[$key]}}</td>
                         @else 
                         <td>-</td>
+                        @endif
+                        
+                        @if(isset($item)) 
+                            <td>{{$item}}</td>
+                        @else 
+                            <td>-</td>
                         @endif
                     </tr>
                 @endforeach

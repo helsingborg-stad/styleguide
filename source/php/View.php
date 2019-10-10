@@ -102,6 +102,12 @@ class View
                     $responsive = array(); 
                 }
 
+                if(isset($configJson['format'])) {
+                    $format = $configJson['format']; 
+                } else {
+                    $format = array(); 
+                }
+
             } else {
                 $settings = array(); 
                 $description = array(); 
@@ -109,6 +115,7 @@ class View
             }
 
             $view->with([
+                'format' => $format,
                 'responsive' => $responsive,
                 'description' => $description,
                 'settings' => $settings,
