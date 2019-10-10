@@ -55,13 +55,11 @@ class View
             if(isset($viewData['slug'])) {
 
                 $path = (isset($viewData['slug']) && isset($viewData['page_config'])) ?
-                    "views/pages/_docs/" . ucfirst($viewData['slug']) . ".json":
+                    "views/pages/_docs/" . $viewData['slug'] . "/" . ucfirst($viewData['slug']) . ".json":
                     "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json" ;
-            
+                
                 //Locate config file
-               
                 $configFile = glob(BASEPATH . $path);
-             
                 
                 //Get first occurance of config
                 if(is_array($configFile) && !empty($configFile)) {
@@ -83,8 +81,8 @@ class View
                 //Check if has default object
                 if(isset($configJson['default'])) {
                     $settings = $configJson['default'];
-                } else if (isset($configJson['classes'])) {
-                    $settings = $configJson['classes'];
+                } else if (isset($configJson['modifiers'])) {
+                    $settings = $configJson['modifiers'];
                 } else {
                     $settings = array(); 
                 }
@@ -102,6 +100,12 @@ class View
                     $responsive = array(); 
                 }
 
+                if(isset($configJson['format'])) {
+                    $format = $configJson['format']; 
+                } else {
+                    $format = array(); 
+                }
+
             } else {
                 $settings = array(); 
                 $description = array(); 
@@ -109,6 +113,7 @@ class View
             }
 
             $view->with([
+                'format' => $format,
                 'responsive' => $responsive,
                 'description' => $description,
                 'settings' => $settings,
