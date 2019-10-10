@@ -11,7 +11,7 @@ function compare(a, b) {
 function appendSortable(button, container, buttonId){
     let sorted = [];
     let sortOrder = container.getAttribute(ORDER)
-    let sortData = container.querySelectorAll(`[${DATA}="${buttonId}"]`)
+    let sortData = container.querySelectorAll(`[${DATA}="${buttonId}"]`);
     
     let comparableData = [...sortData].map((data) => 
         {return {data: data.innerText, index: data.closest(`[${SORTABLE}]`)}
@@ -26,13 +26,7 @@ function appendSortable(button, container, buttonId){
     }
     sorted.forEach( sort => {
         container.appendChild(sort.index)
-    })
-}
-
-function appendIcon(button){
-    let icon = document.createElement('i')
-    icon.className = 'c-icon c-icon--size-xl c-icon--arrow-drop-down';
-    button.appendChild(icon) 
+    });
 }
 
 const sortClass = () => {
@@ -41,7 +35,6 @@ const sortClass = () => {
     sortContainers.forEach( container =>{
         const sortButtons = container.querySelectorAll(`[${BUTTON}]`)
         sortButtons.forEach( (button) => {
-            appendIcon(button);
             
             let buttonId = button.getAttribute(BUTTON);
            
