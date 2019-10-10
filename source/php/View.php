@@ -83,8 +83,8 @@ class View
                 //Check if has default object
                 if(isset($configJson['default'])) {
                     $settings = $configJson['default'];
-                } else if (isset($configJson['classes'])) {
-                    $settings = $configJson['classes'];
+                } else if (isset($configJson['modifiers'])) {
+                    $settings = $configJson['modifiers'];
                 } else {
                     $settings = array(); 
                 }

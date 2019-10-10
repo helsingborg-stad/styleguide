@@ -24,7 +24,7 @@
 
             <table>
                 <thead>
-                    <td>Class</td>
+                    <td>Modifiers</td>
                     <td>Description</td>
                     <td>Values</td>
                 </thead>
