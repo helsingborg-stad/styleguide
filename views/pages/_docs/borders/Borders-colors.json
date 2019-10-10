@@ -1,0 +1,10 @@
+{
+    "format": "u-border--color",
+    "modifiers": {
+        "color": "primary, secondary, success, danger, info, warning"
+    },
+    "description": {
+        "color": "Sets the color of elements borders"
+    },
+    "responsive": false
+}
