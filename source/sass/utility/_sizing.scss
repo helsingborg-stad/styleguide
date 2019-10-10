@@ -1,0 +1,9 @@
+@each $dimension in ('height', 'width'){
+    @each $modifier in $sizings{
+        @include responsiveStyles(
+            (
+                '.u-#{$dimension}--#{$modifier}' : ($dimension: #{$modifier} + '%' !important)
+            )
+        )
+    }
+}

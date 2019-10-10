@@ -125,6 +125,10 @@ $color-table-body: $color-black !default;
 $color-table-border: $color-gray-light !default;
 $table-heading-font-weight: bold !default; 
 
+$color-disabled-bg: $color-gray-light !default;
+$color-disabled-text: $color-base-disabled !default;
+$color-disabled-border: rgba(0,0,0,.0) !default;
+
 //Header
 $header-logotype-height: $base*5 !default;
 
@@ -135,6 +139,15 @@ $border-radius-md: ($base) !default;
 $border-radius-lg: ($base*2) !default;
 $border-radius-full: 50% !default;
 
+$radiuses: (
+    0,
+    $border-radius-xs,
+    $border-radius-sm,
+    $border-radius-md,
+    $border-radius-lg,
+    $border-radius-full
+);
+
 //  Breakpoints
 $breakpoints-map: (
     xs: 0,
@@ -144,8 +157,18 @@ $breakpoints-map: (
     xl: 100em,  //1600px
 ) !default;
 
+$overflows: (
+    'hidden',
+    'auto',
+    'scroll',
+    'visible'
+);
+
 //Display states
 $display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
+
+//Visibility states
+$visibility-states: 'visible', 'hidden' !default;
 
 //  Spacer
 $spacers: (
@@ -163,6 +186,15 @@ $spacers: (
     '10': $base * 10,
     '11': $base * 11,
     '12': $base * 12,
+) !default;
+
+//  Sizings
+$sizings: (
+    '25',
+    '50',
+    '75',
+    '100',
+    'auto'
 ) !default;
 
 //  Z-index
