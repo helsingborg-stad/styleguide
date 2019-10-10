@@ -13,18 +13,18 @@
                     'href' => '#btn-1', 
                     'isOutlined' => true, 
                     'isPrimary' => false,
-                    'classList' => ['u-float--right']
+                    'classList' => ['u-float--left']
                 ])
-                    Button one
+                    Float left
                 @endbutton
 
                 @button([
                     'href' => '#btn-2', 
                     'isOutlined' => true, 
                     'isPrimary' => true,
-                    'classList' => ['u-float--right']
+                    'classList' => ['u-float--left']
                 ])
-                    Button two
+                    Float left
                 @endbutton
 
                 @button([
@@ -33,7 +33,7 @@
                     'isPrimary' => true,
                     'classList' => ['u-float--right']
                 ])
-                Button three
+                Float right
                 @endbutton
 
                 @button([
@@ -43,7 +43,7 @@
                     'isCircle' => true,
                     'classList' => ['u-float--right']
                 ])
-                Button four
+                Float right
             @endbutton
         </div>
     @endutility_doc
