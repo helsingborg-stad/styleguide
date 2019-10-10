@@ -4,7 +4,7 @@
     @markdown
             #Border radius
     @endmarkdown
-    @utility_doc(['slug' => 'border-radius', 'page_config' => true])
+    @utility_doc(['slug' => 'border-radius', 'utilitySlug' => 'border-radius'])
         <div class="grid">
 
             <div class="grid-s-12 grid-md-6">
