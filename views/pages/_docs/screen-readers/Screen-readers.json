@@ -1,0 +1,12 @@
+{
+    "format": "u-sr-only--focusable",
+    "modifiers": {
+        "Default": "",
+        "focusable": "focusable"
+    },
+    "description": {
+        "Default": "Hides element while keeping it accessible to screen readers",
+        "focusable": "Shows element when focused on"
+    },
+    "responsive": false
+}
