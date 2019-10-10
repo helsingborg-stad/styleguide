@@ -1,9 +1,0 @@
-{
-    "description": {
-        "u-disabled": "Gives the element the disabled style"
-    },
-    "classes": [
-        "u-disabled"
-    ],
-    "responsive": false
-}
