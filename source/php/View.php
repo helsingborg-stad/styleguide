@@ -53,9 +53,8 @@ class View
             $viewData = self::accessProtected($view, 'data');
          
             if(isset($viewData['slug'])) {
-
-                $path = (isset($viewData['slug']) && isset($viewData['page_config'])) ?
-                    "views/pages/_docs/" . $viewData['slug'] . "/" . ucfirst($viewData['slug']) . ".json":
+                $path = (isset($viewData['slug']) && isset($viewData['utilitySlug'])) ?
+                    "views/pages/_docs/" . $viewData['slug'] . "/" . ucfirst($viewData['utilitySlug']) . ".json":
                     "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json" ;
                 
                 //Locate config file
