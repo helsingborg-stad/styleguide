@@ -1,9 +1,0 @@
-{
-    "description": {
-        "u-responsive-image": "Makes image fill width while keeping ratio"
-    },
-    "classes": [
-        "u-responsive-image"
-    ],
-    "responsive": false
-}
