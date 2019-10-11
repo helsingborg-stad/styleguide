@@ -4,52 +4,56 @@ const   CONTAINER = "[js-filter-container]",
         DATA = "[js-filter-data]",
         INPUT = "[js-filter-input]";
 
-const filterBox = () => {
+export default class Filter {
+    constructor() {
+        this.list = [];
 
-    let list = [];
-    let containers = document.querySelectorAll(CONTAINER);//Get filterable elements
+        this.enableSearch();
+    }
 
-    containers.forEach((container) => {
+    enableSearch() {
+        let containers = document.querySelectorAll(CONTAINER);//Get filterable elements
 
-        //Get filterable items
-        container.querySelectorAll(ITEM).forEach((item) => {
-            let dataItems = item.querySelectorAll(DATA);
-            let dataString = '';
+        containers.forEach((container) => {
 
-            //Build search string
-            dataItems.forEach((data) => {
-                dataString = dataString.concat(data.innerText);
+            //Get filterable items
+            container.querySelectorAll(ITEM).forEach((item) => {
+                let dataItems = item.querySelectorAll(DATA);
+                let dataString = '';
+
+                //Build search string
+                dataItems.forEach((data) => {
+                    dataString = dataString.concat(data.innerText);
+                });
+
+                //Add to search array
+                this.list.push({
+                    searchId: container.getAttribute('js-filter-container'), //Get id
+                    element: item,
+                    parent: item.parentNode,
+                    data: dataString.toLowerCase()
+                });
             });
 
-            //Add to search array
-            list.push({
-                searchId: container.getAttribute('js-filter-container'), //Get id
-                element: item,
-                parent: item.parentNode,
-                data: dataString.toLowerCase()
-            });
-        });
+            //Get inputs
+            container.querySelectorAll(INPUT).forEach((input) => {
+                input.addEventListener('keydown', () => {
+                    let inputId = input.getAttribute('js-filter-input');
 
-        //Get inputs
-        container.querySelectorAll(INPUT).forEach((input) => {
-            input.addEventListener('keydown', () => {
-                let inputId = input.getAttribute('js-filter-input');
+                    this.list.forEach((item) => {
+                        if (item.searchId === inputId) {
+                            //Get search term and search in item
+                            let res = item.data.search(input.value.toLocaleLowerCase());
 
-                list.forEach((item) => {
-                    if (item.searchId === inputId) {
-                        //Get search term and search in item
-                        let res = item.data.search(input.value.toLocaleLowerCase());
-
-                        if (res < 0) {
-                            item.element.remove(); //Remove unmatched
-                        } else {
-                            item.parent.append(item.element); //Readd match
+                            if (res < 0) {
+                                item.element.remove(); //Remove unmatched
+                            } else {
+                                item.parent.append(item.element); //Readd match
+                            }
                         }
-                    }
+                    });
                 });
             });
         });
-    });
-};
-
-export default filterBox;
+    }
+}

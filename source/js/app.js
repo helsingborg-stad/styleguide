@@ -1,7 +1,7 @@
 import toggleClass from './toggle';
 import expandSection from './expand-section';
-import filterBox from './filter';
+import Filter from './filter';
 
 toggleClass();
 expandSection();
-filterBox();
+new Filter;
