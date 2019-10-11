@@ -18,7 +18,7 @@ module.exports = {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
         'styleguide-css': './source/sass/main.scss',
     },
-    mode: 'production',
+    mode: 'development',
     watch: true,
     watchOptions: {
         poll: 1000,
@@ -97,7 +97,7 @@ module.exports = {
     plugins: [
 
         // Prevent Webpack to create javascript css
-        new FixStyleOnlyEntriesPlugin(),
+        //new FixStyleOnlyEntriesPlugin(),
 
         // Minify css and create css file
         new MiniCssExtractPlugin({

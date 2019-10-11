@@ -1,47 +1,54 @@
-const CONTAINER = 'js-sort-container';
-const BUTTON = 'js-sort-button';
-const SORTABLE = 'js-sort-sortable';
-const ORDER = 'js-sort-order';
-const DATA = 'js-sort-data';
 
-function compare(a, b) {
-    return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
-}
-
-function appendSortable(container, dataId){
-    let sorted = [];
-    let sortOrder = container.getAttribute(ORDER);
-    let sortData = container.querySelectorAll(`[${DATA}="${dataId}"]`);
-    let comparableData = [...sortData].map((data) => 
-        {return {data: data.innerText, index: data.closest(`[${SORTABLE}]`)}
-    });
-
-    if(sortOrder === 'asc'){
-        sorted = comparableData.sort(compare);
-        container.setAttribute(ORDER, "desc");
-    }else{
-        sorted = comparableData.reverse(compare);
-        container.setAttribute(ORDER, "asc");
-    }
-    sorted.forEach( sort => {
-        container.appendChild(sort.index);
-    });
-}
-
-const sortClass = () => {
-    const sortContainers = document.querySelectorAll(`[${CONTAINER}]`);
+class Sort{
     
-    sortContainers.forEach( container =>{
-        const sortButtons = container.querySelectorAll(`[${BUTTON}]`);
-        sortButtons.forEach( (button) => {
+    constructor(){
+        this.CONTAINER = 'js-sort-container';
+        this.BUTTON = 'js-sort-button';
+        this.SORTABLE = 'js-sort-sortable';
+        this.ORDER = 'js-sort-order';
+        this.DATA = 'js-sort-data';
+    }
 
-            let dataId = button.getAttribute(BUTTON);
-           
-            button.addEventListener('click', (event)=>{
-                appendSortable(container, dataId);
+    compare(a, b) {
+        return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
+    }
+
+    appendSortable(container, dataId){
+        let sorted = [];
+        let sortOrder = container.getAttribute(this.ORDER);
+        let sortData = container.querySelectorAll(`[${this.DATA}="${dataId}"]`);
+        let comparableData = [...sortData].map((data) => 
+            {return {data: data.innerText, index: data.closest(`[${this.SORTABLE}]`)}
+        });
+    
+        if(sortOrder === 'asc'){
+            sorted = comparableData.sort(this.compare);
+            container.setAttribute(this.ORDER, "desc");
+        }else{
+            sorted = comparableData.reverse(this.compare);
+            container.setAttribute(this.ORDER, "asc");
+        }
+        sorted.forEach( sort => {
+            container.appendChild(sort.index);
+        });
+    }
+
+    applySort(){
+        const sortContainers = document.querySelectorAll(`[${this.CONTAINER}]`);
+    
+        sortContainers.forEach( container =>{
+            const sortButtons = container.querySelectorAll(`[${this.BUTTON}]`);
+            sortButtons.forEach( (button) => {
+
+                let dataId = button.getAttribute(this.BUTTON);
+            
+                button.addEventListener('click', (event)=>{
+                    this.appendSortable(container, dataId);
+                });
             });
         });
-    });
+    }
+
 }
 
-export default sortClass;
+export default Sort;

@@ -12,7 +12,7 @@
         @include mq($breakpoint, $next) {
             @each $selector, $style in $styles {
                 $class: #{$selector}#{$suffix};
-
+                //@debug '$class: #{$selector}#{$suffix}';
                 #{$class} {
                     @each $propety, $value in $style {
                         #{$propety}: #{$value};
