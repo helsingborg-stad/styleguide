@@ -1,0 +1,10 @@
+{
+    "description": {
+        "size": "Sets width of element in percent"
+    },
+    "modifiers":{
+        "size": "25, 50, 75, 100, auto"
+    },
+    "format": "u-width--size",
+    "responsive": true
+}
