@@ -1,0 +1,12 @@
+{
+    "description": {
+        "axis": "The direction of the flex, either horizontal or vertical",
+        "order": "Reverses order"
+    },
+    "modifiers":{
+        "axis": "row, column",
+        "order": "reverse"
+    },
+    "format": "u-flex-direction--axis--order",
+    "responsive": true
+}
