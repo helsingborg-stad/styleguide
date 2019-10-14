@@ -1,0 +1,12 @@
+{
+    "slug": "Disabled",
+    "format": "u-disabled",
+    "modifiers": {
+        "Default": ""
+
+    },
+    "description": {
+        "Default": "Sets disabled style on element."
+    },
+    "responsive": false
+}
