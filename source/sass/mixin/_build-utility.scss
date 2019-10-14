@@ -1,0 +1,23 @@
+@mixin build-utilities($utility_specs, $responsive:true) {
+    @each $utility in $utility_specs{
+        $name: map-get($utility,  "name");
+        $modifiers: map-get($utility,  "modifiers");
+        $default: map-get($utility,  "default");
+
+        @if $default {
+            @include responsiveStyles(
+                ('.u-#{$name}': appendImportant($default))
+            );
+        }
+        
+        @each $modifier in $modifiers {
+            $style: nth($modifier, 2);
+            @if($responsive){
+                @include responsiveStyles(
+                    ('.u-#{$name}--#{nth($modifier,1)}': appendImportant($style))
+                   
+                )
+            }
+        }
+    }
+}
