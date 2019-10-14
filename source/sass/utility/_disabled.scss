@@ -1,0 +1,6 @@
+.u-disabled {
+    background-color: $color-disabled-bg!important;
+    color: $color-disabled-text !important;
+    border-color: $color-disabled-border !important;
+    cursor: not-allowed;
+}
