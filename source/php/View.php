@@ -16,7 +16,6 @@ class View
         self::registerMarkdownViewComposer();
 
         try {
-            print_r($view);
             echo Blade::instance()->make(
                 'pages.' . $view,
                 $data
@@ -40,12 +39,11 @@ class View
     {
         //Documentation module alias
         Blade::instance()->component("layout.doc", "doc");
-
-        //Documentation module alias
         Blade::instance()->component("layout.utility_doc", "utility_doc");
+        Blade::instance()->component("layout.script_doc", "script_doc");
 
         //Doc templates
-        $docTemplates = array('layout.doc','layout.utility_doc');
+        $docTemplates = array('layout.doc','layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
         Blade::instance()->composer($docTemplates, function ($view) {
@@ -82,6 +80,8 @@ class View
                     $settings = $configJson['default'];
                 } else if (isset($configJson['modifiers'])) {
                     $settings = $configJson['modifiers'];
+                } else if (isset($configJson['attributes'])) {
+                    $settings = $configJson['attributes'];
                 } else {
                     $settings = array(); 
                 }
@@ -99,6 +99,12 @@ class View
                     $responsive = array(); 
                 }
 
+                if(isset($configJson['summary'])) {
+                    $summary = $configJson['summary']; 
+                } else {
+                    $summary = array(); 
+                }
+
                 if(isset($configJson['format'])) {
                     $format = $configJson['format']; 
                 } else {
@@ -112,6 +118,7 @@ class View
             }
 
             $view->with([
+                'summary' => $summary,
                 'format' => $format,
                 'responsive' => $responsive,
                 'description' => $description,
