@@ -6,7 +6,7 @@
     @markdown
         #Disabled
     @endmarkdown
-    @utility_doc(['slug'=> 'disabled','utilitySlug' => "Disabled"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'disabled', 'config' => 'disabled']])
         @button([
             'href' => '#btn-1', 
             'isOutlined' => true, 
