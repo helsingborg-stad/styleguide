@@ -1,0 +1,12 @@
+{
+    "slug": "visibility",
+    "format": "u-visible--state",
+    "modifiers": {
+        "state": "visible, hidden"
+
+    },
+    "description": {
+        "state": "Sets visibility on element."
+    },
+    "responsive": true
+}
