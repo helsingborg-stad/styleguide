@@ -12,3 +12,6 @@ dist
 /dist
 /source/icons/outlined-icons/
 /source/icons/stroked-icons/
+/vendor/*
+/vendor
+
