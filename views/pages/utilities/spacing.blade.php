@@ -6,7 +6,7 @@
     @markdown
         #Spacing (Margin & Padding)
     @endmarkdown
-    @utility_doc(['slug' => 'spacing', 'utilitySlug' => "Spacing"])
+    @utility_doc(['viewData' => ['type' => 'Utlility', 'root' => 'spacing', 'config' => 'Spacing']])
         <div class="grid">
             <div class="grid-s-12 grid-md-6 u-p--left--6">
                 @card([
