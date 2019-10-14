@@ -15,6 +15,7 @@
                 '.u-#{$abbrev}--left--#{$size}' : ('#{$prop}-left': #{$length} !important),
 
                 '.u-#{$abbrev}--x--#{$size}' : (
+
                     '#{$prop}-left': #{$length} !important,
                     '#{$prop}-right': #{$length} !important
                 ),
