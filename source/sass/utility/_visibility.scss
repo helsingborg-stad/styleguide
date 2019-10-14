@@ -1,0 +1,5 @@
+@each $state in $visibility-states {
+    @include responsiveStyles(
+        ('.u-visibility--#{$state}' : ('visibility': '#{$state} !important'),)
+    )
+}
