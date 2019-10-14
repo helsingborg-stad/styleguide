@@ -39,17 +39,25 @@ class View
     {
         //Documentation module alias
         Blade::instance()->component("layout.doc", "doc");
+        Blade::instance()->component("layout.utility_doc", "utility_doc");
+        Blade::instance()->component("layout.script_doc", "script_doc");
+
+        //Doc templates
+        $docTemplates = array('layout.doc','layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
-        Blade::instance()->composer('layout.doc', function ($view) {
+        Blade::instance()->composer($docTemplates, function ($view) {
             
             $viewData = self::accessProtected($view, 'data');
-
-            if(isset($viewData['slug'])) {
-
+         
+            if(isset($viewData['slug']) || isset($viewData['viewDoc'])) {
+                $path = (isset($viewData['viewDoc'])) ?
+                    "views/docs/" . $viewData['viewDoc']['type'] . "/". $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json":
+                    "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json" ;
+                
                 //Locate config file
-                $configFile = glob(BASEPATH . "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json");
-
+                $configFile = glob(BASEPATH . $path);
+                
                 //Get first occurance of config
                 if(is_array($configFile) && !empty($configFile)) {
                     $configFile = array_pop($configFile); 
@@ -69,16 +77,38 @@ class View
 
                 //Check if has default object
                 if(isset($configJson['default'])) {
-                    $settings = $configJson['default']; 
+                    $settings = $configJson['default'];
+                } else if (isset($configJson['modifiers'])) {
+                    $settings = $configJson['modifiers'];
+                } else if (isset($configJson['attributes'])) {
+                    $settings = $configJson['attributes'];
                 } else {
                     $settings = array(); 
                 }
 
                  //Check if has description object
-                 if(isset($configJson['description'])) {
+                if(isset($configJson['description'])) {
                     $description = $configJson['description']; 
                 } else {
                     $description = array(); 
+                }
+
+                if(isset($configJson['responsive'])) {
+                    $responsive = $configJson['responsive']; 
+                } else {
+                    $responsive = array(); 
+                }
+
+                if(isset($configJson['summary'])) {
+                    $summary = $configJson['summary']; 
+                } else {
+                    $summary = array(); 
+                }
+
+                if(isset($configJson['format'])) {
+                    $format = $configJson['format']; 
+                } else {
+                    $format = array(); 
                 }
 
             } else {
@@ -88,6 +118,9 @@ class View
             }
 
             $view->with([
+                'summary' => $summary,
+                'format' => $format,
+                'responsive' => $responsive,
                 'description' => $description,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
