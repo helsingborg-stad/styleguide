@@ -9,7 +9,7 @@
       
 
     @endpaper
-    @if(isset($settings) && isset($slug) && !empty($slug))
+    @if(isset($settings))
 
         @paper(['padding' => 3])
             <h3>Classes</h3>
