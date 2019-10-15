@@ -1,0 +1,12 @@
+{
+    "format": "u-border--side--width",
+    "modifiers": {
+        "side": "top. left, right, bottom",
+        "width": "0, 1, 2"
+    },
+    "description": {
+        "side": "Specify specific side",
+        "width": "Sets the width of elements borders"
+    },
+    "responsive": true
+}

@@ -37,7 +37,7 @@ $sides: (top, left, right, bottom);
 @each $side in $sides {
 	@include responsiveStyles(
 		(
-			'.u-border-#{$side}':
+			'.u-border--#{$side}':
 			(border-#{$side}: #{$border-width-default} solid #{$color-primary}  !important),
 		)
 	)
@@ -48,7 +48,7 @@ $sides: (top, left, right, bottom);
 	@each $width_name, $width in $border-widths {
 		@include responsiveStyles(
 			(
-				'.u-border-#{$side}--#{$width_name}':
+				'.u-border--#{$side}--#{$width_name}':
 				(border-#{$side}: #{$width} solid #{$color-primary} !important),
 			)
 		)
