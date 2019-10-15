@@ -9,6 +9,7 @@ export default class Filter {
         this.list = [];
 
         this.enableSearch();
+        console.log("hej")
     }
 
     enableSearch() {
@@ -37,7 +38,7 @@ export default class Filter {
 
             //Get inputs
             container.querySelectorAll(INPUT).forEach((input) => {
-                input.addEventListener('keydown', () => {
+                input.addEventListener('input', () => {
                     let inputId = input.getAttribute('js-filter-input');
 
                     this.list.forEach((item) => {

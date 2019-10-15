@@ -4,4 +4,4 @@ import Filter from './filter';
 
 toggleClass();
 expandSection();
-new Filter;
+let filter = new Filter;
