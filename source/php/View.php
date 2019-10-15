@@ -100,7 +100,7 @@ class View
                 }
 
                 if(isset($configJson['summary'])) {
-                    $summary = $configJson['summary']; 
+                    $summary = implode(' ', $configJson['summary']); 
                 } else {
                     $summary = array(); 
                 }
