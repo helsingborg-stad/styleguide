@@ -1,0 +1,10 @@
+{
+    "description": {
+        "priority": "The priority in which the elements grow"
+    },
+    "modifiers":{
+        "priority": "0, 1"
+    },
+    "format": "u-flex-grow--priority",
+    "responsive": true
+}

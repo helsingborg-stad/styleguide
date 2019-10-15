@@ -1,4 +1,6 @@
 .u-image-responsive {
-    width: 100%;
-    height: auto;
+    img{
+        width: 100% !important;
+        height: auto !important;
+    }
 }

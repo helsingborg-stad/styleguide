@@ -1,0 +1,11 @@
+{
+    "format": "u-image-responsive",
+    "modifiers": {
+        "Default": ""
+
+    },
+    "description": {
+        "Default": "Makes image fill width and keep ratio"
+    },
+    "responsive": false
+}

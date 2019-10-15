@@ -1,0 +1,10 @@
+{
+    "description": {
+        "alignment": "How to distribute items inside flex-box"
+    },
+    "modifiers":{
+        "alignment": "start, end, center, space-between, space-around, space-evenly"
+    },
+    "format": "u-justify-content--alignment",
+    "responsive": true
+}
