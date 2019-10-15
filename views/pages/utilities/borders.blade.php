@@ -6,7 +6,7 @@
     @markdown
         #Borders
     @endmarkdown
-    @utility_doc(['slug' => 'borders', 'utilitySlug' => "Borders"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'borders', 'config' => 'borders']])
 
         <div class="grid">
             <div class="grid-s-12 grid-md-4">
@@ -51,7 +51,7 @@
     @markdown
         ###Border colors
     @endmarkdown
-    @utility_doc(['slug' => 'borders', 'utilitySlug' => "Borders-colors"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'borders', 'config' => 'borders-colors']])
         <div class="grid">
             <div class="grid-s-12 grid-md-4">
                 @card([
