@@ -1,0 +1,10 @@
+{
+    "description": {
+        "alignment": "Where in flex-box to align specific element"
+    },
+    "modifiers":{
+        "alignment": "start, end, center, stretch"
+    },
+    "format": "u-align-self--alignment",
+    "responsive": true
+}
