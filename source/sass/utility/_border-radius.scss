@@ -7,7 +7,8 @@ $radius-sides: (
     'top-left',
     'top-right',
     'bottom-left',
-    'bottom-right'
+    'bottom-right',
+    'full'
 );
 
 //Default styling
@@ -35,6 +36,10 @@ $styling: ('border-radius': first($radiuses));
         }
         @else if $side == 'none'{
             $styling: ('border-radius': 0);
+            $class: '.u-border-radius--#{$side}';
+        }
+        @else if $side == 'full'{
+            $styling: ('border-radius': $radius);
             $class: '.u-border-radius--#{$side}';
         }
         @else{

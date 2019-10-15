@@ -18,7 +18,7 @@
                 <p>Format: <code>{{ $format }}</code></p>
             @endif
 
-            @if ($responsive)
+            @if ($responsive && $format)
                 <p>This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
             @endif
 

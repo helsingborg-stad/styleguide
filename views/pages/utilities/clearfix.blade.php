@@ -3,12 +3,31 @@
 @section('content')
 <article>
 
-    {!! markdown("
+    @markdown
+        #Clearfix
+    @endmarkdown
+    @utility_doc(['slug' => 'clearfix', 'utilitySlug' => 'Clearfix'])
+        <div style="background-color: brown" class="u-clearfix">
+            @button([
+                'href' => '#btn-3', 
+                'isOutlined' => false, 
+                'isPrimary' => true,
+                'classList' => ['float-left']
+            ])
+            Float Left
+            @endbutton
 
-        #Utilties
-        Lorem ipsum...
-
-    ") !!}
+            @button([
+                'href' => '#btn-3',
+                'isOutlined' => false,
+                'isPrimary' => false,
+                'isCircle' => true,
+                'classList' => ['float-right']
+            ])
+            Float Right
+            @endbutton
+        </div>
+    @endutility_doc
 
 </article>
 @stop

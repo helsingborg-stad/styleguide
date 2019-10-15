@@ -1,0 +1,11 @@
+{
+    "description": {
+        "break": "How to break overflowing items"
+
+    },
+    "modifiers":{
+        "break": "nowrap, wrap-reverse"
+    },
+    "format": "u-flex-wrap--break",
+    "responsive": true
+}

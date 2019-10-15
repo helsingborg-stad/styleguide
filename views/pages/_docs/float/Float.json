@@ -1,0 +1,10 @@
+{
+    "description": {
+        "direction": "The direction in which to float"
+    },
+    "modifiers": {
+        "direction": "left, right, none"
+    },
+    "responsive": true,
+    "format": ".u-float--direction"
+}

@@ -4,18 +4,6 @@ $float-states:(
     none
 );
 
-.u-float{
-    &--left{
-        float:left;
-    }
-    &--right{
-        float:right
-    }
-    &--none{
-        float:none;
-    }
-}
-
 @each $state in $float-states{
     @include responsiveStyles(
         ('.u-float--#{$state}': (float: $state))

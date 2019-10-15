@@ -7,7 +7,7 @@
     ###Text color
 @endmarkdown
 
-@utility_doc(['slug' => 'colors', 'utilitySlug' => "colors__text"])
+@utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__text']])
     @table([
         'list' => [
             ['u-align-baseline ', 'Align according to baseline'],
@@ -26,7 +26,8 @@
 @markdown
     ###Background color
 @endmarkdown
-@utility_doc(['slug' => 'colors', 'utilitySlug' => "colors__bg"])
+
+@utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__bg']])
     @table([
         'list' => [
             ['u-align-baseline ', 'Align according to baseline'],
