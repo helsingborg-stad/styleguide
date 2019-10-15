@@ -6,7 +6,7 @@
     @markdown
         #Visibility
     @endmarkdown
-    @utility_doc(['slug' => 'visibility', 'utilitySlug' => "Visibility"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'visibility', 'config' => 'visibility']])
         @button([
             'href' => '#btn-3',
             'isOutlined' => false,
