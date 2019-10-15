@@ -1,0 +1,27 @@
+{
+    "summary": [
+        "The sort script handles sorting on any collection",
+        "of elements. All you have to do is specify the attributes.",
+        "You start by adding the js-sort-container attribute to wrap the rest.",
+        "Inside of the container you got your js-sort-button with a unique id,",
+        "js-sort-data-container which contains js-sort-sortables and js-sort-data.",
+        "Each button will need a unique id. The data to be affected by a button need to have the same id.",
+        "In the example above each element is both a sortable and also data.&lt;br&gt;"
+    ],
+    "description": {
+        "js-sort-container": "Outer container",
+        "js-sort-order": "In what order to sort data",
+        "js-sort-button": "The button to click for sort",
+        "js-sort-data-container": "The container where the sortables will be appended",
+        "js-sort-sortable": "The element to be sorted",
+        "js-sort-data": "The data to sort on"
+    },
+    "attributes": {
+        "js-sort-container": "",
+        "js-sort-order": "asc and desc",
+        "js-sort-button": "unique id",
+        "js-sort-data-container": "",
+        "js-sort-sortable": "",
+        "js-sort-data": "same id as button"
+    }
+}
