@@ -7,7 +7,7 @@
         #Float
     @endmarkdown
 
-    @utility_doc(['slug' => 'float', 'utilitySlug' => "float"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'float', 'config' => 'float']])
         <div>
             @button([
                     'href' => '#btn-1', 

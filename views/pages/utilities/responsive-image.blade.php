@@ -6,7 +6,7 @@
     @markdown
         #Responsive Image
     @endmarkdown
-    @utility_doc(['slug' => 'responsive-image', 'utilitySlug' => 'Responsive-image'])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'responsive-image', 'config' => 'responsive-image']])
         @image([
             'src'=> "https://picsum.photos/300/200?image=1026",
             'alt' => "This is a image",

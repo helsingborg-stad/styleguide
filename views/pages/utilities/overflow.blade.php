@@ -7,7 +7,7 @@
         #Overflow
     @endmarkdown
 
-    @utility_doc(['slug' => 'overflow', 'utilitySlug' => "overflow"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'overflow', 'config' => 'overflow']])
         <div class="grid">
             <div class="grid-md-3">
                 <h3>Scroll</h3>
