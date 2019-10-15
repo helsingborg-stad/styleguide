@@ -29,7 +29,6 @@ class App
         //Component library
         $data['componentLibraryIsInstalled']    = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
         $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
-
         //Render page 
         return \HbgStyleGuide\View::show(
             $this->page,
