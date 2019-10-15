@@ -7,7 +7,9 @@
             {!! $slot !!}
         </div>
       
-
+        @code(['language' => 'html', 'content' => ""]) 
+            {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
+        @endcode
     @endpaper
     @if(isset($settings))
 
