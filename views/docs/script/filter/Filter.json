@@ -1,0 +1,26 @@
+{
+"summary":  [
+    "This script allows you to filter a container which includes items to filter.",
+    "</br></br>",
+    "The <code>input</code> can be anywhere on the page as long as it has the correct attribute.",
+    "The value of the attribute must be the containers id which it should filter.",
+    "</br>The container (which does not have to be direct parent if items) has to have the attribute <code>[js-filter-container]</code> whith the value of a unique id.",
+    "</br></br>",
+    "Apply the <code>[js-filter-item]</code> on the elements that will be filterable (e.g. a row in a table).",
+    "The items should contain at least one child which has the <code>[js-filter-item]</code> attribute.",
+    "The data inside that element will be used for filtering.",
+    "</br></br>",
+    "You can have several filterable items on one page as long as each container has a unique ID and a matching input."],
+    "description": {
+        "js-filter-container": "Top container that contains items that shoiudld be filterable.",
+        "js-filter-item": "Item that should be filterable.",
+        "js-filter-data": "Child of item that contains data that should be considered when filtering.",
+        "js-filter-input": "An input field that will be used to filter a container"
+    },
+    "attributes": {
+        "js-filter-container": "id",
+        "js-filter-item": "",
+        "js-filter-data": "",
+        "js-filter-input": "Matching id of container"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "description": {
+        "overflow": "Sets how to handle overflow"
+    },
+    "modifiers": {
+        "overflow": "hidden, auto, visible, scroll"
+    },
+    "responsive": true,
+    "format": "u-overflow--overflow"
+}

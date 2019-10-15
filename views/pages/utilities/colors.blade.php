@@ -26,6 +26,7 @@
 @markdown
     ###Background color
 @endmarkdown
+
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__bg']])
     @table([
         'list' => [

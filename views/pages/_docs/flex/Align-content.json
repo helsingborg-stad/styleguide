@@ -1,0 +1,10 @@
+{
+    "description": {
+        "alignment": "Where in flex-box to align, relative to extra space"
+    },
+    "modifiers":{
+        "alignment": "start, end, center, stretch, around"
+    },
+    "format": "u-align-content--alignment",
+    "responsive": true
+}
