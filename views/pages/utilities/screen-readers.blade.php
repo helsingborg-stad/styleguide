@@ -6,7 +6,7 @@
     @markdown
         #Screen readers
     @endmarkdown
-    @utility_doc(['slug' => 'screen-readers', 'utilitySlug' => "Screen-readers"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'screen-readers', 'config' => 'screen-readers']])
         <div class="u-border--1 u-border--primary u-mb--1">
             <p>This container a sr-only text</p>
             <div class="u-sr-only">Screen reader only</div>

@@ -10,7 +10,7 @@
         ###Align Content
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "align-content"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'align-content']])
         <div class="grid" style="height: 200px;">
                 <div class="grid-xs-6 grid-md-3 u-display-flex u-flex-wrap u-align-content--start u-border--2">
                     <div class="u-border u-width--50 u-height--50">Start</div>
@@ -36,7 +36,7 @@
     ###Align Items
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "align-items"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'align-items']])
 
         <div class="grid" style="height: 200px;">
             <div class="grid-xs-6 grid-md-3 u-display-flex u-flex-wrap u-align-items--start u-border--2">
@@ -62,7 +62,7 @@
     ###Align Self
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "align-self"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'align-self']])
 
         <div style="height:200px;" class="u-display-flex u-flex-wrap u-border--2">
             <div class="u-border u-width--25 u-height--50 u-align-self--start">Start</div>
@@ -76,7 +76,7 @@
     ###Flex Direction
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "flex-direction"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'flex-direction']])
         <div class="grid">
             <div style="height:200px;" class="grid-xs-6 grid-md-6 u-display-flex u-flex-wrap u-flex-direction--row u-border--2">
                 <div class="u-border u-width--25 u-height--50 u-align-self--start">Row 1</div>
@@ -101,7 +101,7 @@
     ###Flex Grow
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "flex-grow"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'flex-grow']])
         <div class="grid">
             <div class="grid-xs-6 grid-md-6 u-display-flex u-flex-wrap u-border--2 u-p--2">
                 <div class="u-border  u-flex-grow--0">Grow 0</div>
@@ -114,7 +114,7 @@
     ###Flex Shrink
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "flex-shrink"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'flex-shrink']])
        
             <div style="width=300px;"class="u-display-flex u-border--2 u-p--2">
                 <div class="u-border u-width--100">Width 100%</div>
@@ -128,7 +128,7 @@
     ###Flex Wrap
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "flex-wrap"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'flex-wrap']])
         
         <div style="width=300px;"class="u-display-flex u-flex-wrap u-p--2 u-color__bg--success">
             <div class="u-border u-width--50">Default 1</div>
@@ -151,7 +151,7 @@
     ###Justify Content
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "justify-content"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'justify-content']])
         <div class="grid">
             <div style="width=300px;"class="grid-md-4 u-display-flex u-justify-content--start u-color__bg--success">
                 <div class="u-border u-width--25">Start 1</div>
@@ -190,7 +190,7 @@
     ###Order
     @endmarkdown
 
-    @utility_doc(['slug' => 'flex', 'utilitySlug' => "order"])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'order']])
         <div class="u-display-flex">
             <div class="u-order--0 u-p--1 u-mx--1 u-color__bg--warning">0</div>
             <div class="u-order--1 u-p--1 u-mx--1 u-color__bg--warning">1</div>

@@ -10,7 +10,7 @@
     @endmarkdown
     
 
-    @utility_doc(['slug' => 'sizing', 'utilitySlug' => 'sizing_width'])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_width']])
     <div class="grid" style="height:500px;">
     
             @card([
@@ -43,7 +43,7 @@
       ### Sizing height
     @endmarkdown
 
-    @utility_doc(['slug' => 'sizing', 'utilitySlug' => 'sizing_height'])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_height']])
     <div class="grid" style="height:500px;">
     
             @card([

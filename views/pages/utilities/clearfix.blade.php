@@ -6,7 +6,7 @@
     @markdown
         #Clearfix
     @endmarkdown
-    @utility_doc(['slug' => 'clearfix', 'utilitySlug' => 'Clearfix'])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'clearfix', 'config' => 'clearfix']])
         <div style="background-color: brown" class="u-clearfix">
             @button([
                 'href' => '#btn-3', 
