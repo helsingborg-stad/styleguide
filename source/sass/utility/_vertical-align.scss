@@ -1,0 +1,16 @@
+$aligns:(
+    baseline,
+    top,
+    middle,
+    bottom,
+    text-top,
+    text-bottom
+);
+
+.u-align{
+    @each $alignment in $aligns {
+        &--#{$alignment} {
+            vertical-align: $alignment;
+        }
+    } 
+}
