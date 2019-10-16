@@ -1,0 +1,14 @@
+
+{
+    "format": "u-box-shadow--level",
+    "modifiers": {
+        "level": "1, 2, 3, 4, 5"
+        
+
+    },
+    "description": {
+        "level": "sets the blur of the shadow"
+    },
+    "responsive": false
+
+}
