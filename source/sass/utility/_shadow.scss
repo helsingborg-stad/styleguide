@@ -1,20 +1,20 @@
 
-.u-shadow-level-1 {
+.u-box-shadow--1 {
     @include shadow(1);
 }
 
-.u-shadow-level-2 {
+.u-box-shadow--2 {
     @include shadow(2);
 }
 
-.u-shadow-level-3 {
+.u-box-shadow--3 {
     @include shadow(3);
 }
 
-.u-shadow-level-4 {
+.u-box-shadow--4 {
     @include shadow(4);
 }
 
-.u-shadow-level-5 {
+.u-box-shadow--5 {
     @include shadow(5);
 }
