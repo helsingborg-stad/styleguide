@@ -1,0 +1,10 @@
+{
+    "format": "u-fixed--side",
+    "modifiers": {
+        "side": "top, bottom"
+    },
+    "description": {
+        "side": "Sets elemnt fixed to a specified side"
+    },
+    "responsive": true
+}
