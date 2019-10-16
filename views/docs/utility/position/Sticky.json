@@ -1,0 +1,10 @@
+{
+    "format": "u-sticky--side",
+    "modifiers": {
+        "side": "top"
+    },
+    "description": {
+        "side": "Stickies the element to the specified side."
+    },
+    "responsive": true
+}
