@@ -2,7 +2,7 @@
 @each $display-state in $display-states {
     @include responsiveStyles(
         (
-            '.u-display-#{$display-state}' : (display: #{$display-state} !important),
+            '.u-display--#{$display-state}' : (display: #{$display-state} !important),
         )
     );
 }
