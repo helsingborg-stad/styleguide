@@ -1,37 +1,22 @@
-.u-color{
-    &__text{
-        &--success{
-            color: $color-success
-        }
+$color-utils: (  
+    (
+        name: 'color__text',
+        modifiers: (
+            success: (color: $color-success),
+            danger: (color: $color-danger),
+            info: (color: $color-info),
+            warning: (color: $color-warning),
+        )
+    ),
+    (
+        name: 'color__bg',
+        modifiers: (
+            success: (background-color: $color-success),
+            danger: (background-color: $color-danger),
+            info: (background-color: $color-info),
+            warning: (background-color: $color-warning),
+        )
+    )
+);
 
-        &--danger{
-            color: $color-danger
-        }
-
-        &--info{
-            color: $color-info
-        }
-
-        &--warning{
-            color: $color-warning
-        }
-    }
-
-    &__bg{
-        &--success{
-            background-color: $color-success
-        }
-
-        &--danger{
-            background-color: $color-danger
-        }
-
-        &--info{
-            background-color: $color-info
-        }
-
-        &--warning{
-            background-color: $color-warning
-        }
-    }
-}
+@include build-utilities($color-utils);
