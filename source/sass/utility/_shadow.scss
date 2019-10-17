@@ -1,20 +1,5 @@
-
-.u-box-shadow--1 {
-    @include shadow(1);
-}
-
-.u-box-shadow--2 {
-    @include shadow(2);
-}
-
-.u-box-shadow--3 {
-    @include shadow(3);
-}
-
-.u-box-shadow--4 {
-    @include shadow(4);
-}
-
-.u-box-shadow--5 {
-    @include shadow(5);
+@for $level from 1 through 5 {
+    .u-box-shadow--#{$level} {
+        @include shadow($level);
+    }
 }
