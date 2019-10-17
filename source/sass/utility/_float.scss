@@ -1,11 +1,12 @@
-$float-states:(
-    left,
-    right,
-    none
+$float-utils: (  
+    (
+        name: 'float',
+        modifiers: (
+            left: (float: left),
+            right: (float: right),
+            none: (float: none)
+        )
+    )
 );
 
-@each $state in $float-states{
-    @include responsiveStyles(
-        ('.u-float--#{$state}': (float: $state))
-    )
-}
+@include build-utilities($float-utils);
