@@ -7,25 +7,29 @@ class Sort {
         this.SORTABLE = 'js-sort-sortable';
         this.ORDER = 'js-sort-order';
         this.DATA = 'js-sort-data';
-        this.DATACONTAINER = 'js-sort-data-container'
+        this.DATACONTAINER = 'js-sort-data-container';
+        this.INITIAL = 'js-sort-initial';
     }
 
     compare(a, b) {
         return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
     }
 
-    appendSortable(container, dataId) {
+    appendSortable(container, dataId, initialSort = false) {
         let sorted = [];
         let sortOrder = container.getAttribute(this.ORDER);
         let sortData = container.querySelectorAll(`[${this.DATA}="${dataId}"]`);
-        console.log(`[${this.DATA}="${dataId}"]`)
         let comparableData = [...sortData].map((data) => {
             return { data: data.innerText, index: data.closest(`[${this.SORTABLE}]`) }
         });
-
-        if (sortOrder === 'asc') {
+        
+        if (sortOrder === 'asc' || (initialSort && initialSort === 'asc')) {
             sorted = comparableData.sort(this.compare);
             container.setAttribute(this.ORDER, "desc");
+        } else if(initialSort && initialSort === 'desc') {
+            comparableData.sort(this.compare);
+            sorted = comparableData.reverse(this.compare);
+            container.setAttribute(this.ORDER, 'asc');
         } else {
             sorted = comparableData.reverse(this.compare);
             container.setAttribute(this.ORDER, "asc");
@@ -37,7 +41,6 @@ class Sort {
     }
 
     applySort() {
-        console.log("LOL")
         const sortContainers = document.querySelectorAll(`[${this.CONTAINER}]`);
 
         sortContainers.forEach(container => {
@@ -45,9 +48,13 @@ class Sort {
             sortButtons.forEach((button) => {
 
                 let dataId = button.getAttribute(this.BUTTON);
+                let initialSort = container.getAttribute(this.INITIAL)
 
+                if(initialSort){
+                    container.setAttribute(this.ORDER, initialSort)
+                    this.appendSortable(container, dataId, initialSort);
+                }
                 button.addEventListener('click', (event) => {
-                    console.log("HEJ!")
                     this.appendSortable(container, dataId);
                 });
             });

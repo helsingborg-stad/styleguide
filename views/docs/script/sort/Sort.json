@@ -16,7 +16,8 @@
         "js-sort-button": "The button to click for sort",
         "js-sort-data-container": "The container where the sortables will be appended",
         "js-sort-sortable": "The element to be sorted",
-        "js-sort-data": "The data to sort on"
+        "js-sort-data": "The data to sort on",
+        "js-sort-initial": "An optional attribute on the container to have an initial order on the items"
     },
     "attributes": {
         "js-sort-container": "",
@@ -24,6 +25,7 @@
         "js-sort-button": "unique id",
         "js-sort-data-container": "",
         "js-sort-sortable": "",
-        "js-sort-data": "button id"
+        "js-sort-data": "button id",
+        "js-sort-initial": "asc and desc"
     }
 }
