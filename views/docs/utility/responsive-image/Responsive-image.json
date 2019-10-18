@@ -1,11 +1,11 @@
 {
-    "format": "u-image-responsive",
+    "format": "u-image--behavior",
     "modifiers": {
-        "Default": ""
+        "behavior": "responsive"
 
     },
     "description": {
-        "Default": "Makes image fill width and keep ratio"
+        "behavior": "How image should adapt to the layout"
     },
-    "responsive": false
+    "responsive": true
 }
