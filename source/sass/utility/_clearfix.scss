@@ -1,6 +1,10 @@
 $clearfix-utils:
     (name: 'clearfix::after',
-    default: (flex-direction: row-reverse),
+    default: (
+        display: block !important,
+        content: '""' !important,
+        clear: both !important
+    ),
 );
 
 @include build-utilities($clearfix-utils);
