@@ -1,4 +1,4 @@
-$flex-utils: (  
+$disabled-utils: (  
     name: 'disabled',
     default: (
         background-color: $color-disabled-bg,
@@ -8,4 +8,4 @@ $flex-utils: (
     )
 );
 
-@include build-utilities($flex-utils);
+@include build-utilities($disabled-utils);
