@@ -1,6 +1,11 @@
-.u-image-responsive {
-    img{
-        width: 100% !important;
-        height: auto !important;
-    }
-}
+$image-utils: (  
+    name: 'image',
+    modifiers: (
+        responsive: (
+            width: 100%,
+            height: auto
+        )
+    )
+);
+
+@include build-utilities($image-utils);
