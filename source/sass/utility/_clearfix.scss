@@ -1,9 +1,6 @@
-@include responsiveStyles(
-    (
-        '.u-clearfix::after': (
-            display: block !important,
-            content: '""' !important,
-            clear: both !important
-        ),
-    )
+$clearfix-utils:
+    (name: 'clearfix::after',
+    default: (flex-direction: row-reverse),
 );
+
+@include build-utilities($clearfix-utils);
