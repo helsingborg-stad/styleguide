@@ -1,5 +1,9 @@
-@each $state in $visibility-states {
-    @include responsiveStyles(
-        ('.u-visibility--#{$state}' : ('visibility': '#{$state} !important'),)
+$flex-utils: (  
+    name: 'visibility',
+    modifiers: (
+        visible: (visibility: visible),
+        hidden: (visibility: hidden)
     )
-}
+);
+
+@include build-utilities($flex-utils);
