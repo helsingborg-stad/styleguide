@@ -1,15 +1,14 @@
 $vertical-align-utils:(
-    (
-        name: 'vertical-align',
-        modifiers: (
-            baseline: (vertical-align: baseline),
-            top: (vertical-align: top),
-            middle: (vertical-align: middle),
-            bottom: (vertical-align: bottom),
-            text-top: (vertical-align: text-top),
-            text-bottom: (vertical-align: text-bottom),
-        )
+    name: 'align',
+    modifiers: (
+        baseline: (vertical-align: baseline),
+        top: (vertical-align: top),
+        middle: (vertical-align: middle),
+        bottom: (vertical-align: bottom),
+        text-top: (vertical-align: text-top),
+        text-bottom: (vertical-align: text-bottom),
     )
+
 );
 
 @include build-utilities($vertical-align-utils);
