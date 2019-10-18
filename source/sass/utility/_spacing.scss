@@ -1,34 +1,3 @@
-//Creates all classes for padding and margin
-// @each $prop, $abbrev in (margin: m, padding: p) {
-//     @each $size, $length in $spacers {
-//         @include responsiveStyles(
-//             (
-
-//                 '.u-#{$abbrev}--#{$size}' : (#{$prop}: #{$length} !important),
-
-//                 '.u-#{$abbrev}--top--#{$size}' : ('#{$prop}-top': #{$length} !important),
-
-//                 '.u-#{$abbrev}--right--#{$size}' : ('#{$prop}-right': #{$length} !important),
-
-//                 '.u-#{$abbrev}--bottom--#{$size}' : ('#{$prop}-bottom': #{$length} !important),
-
-//                 '.u-#{$abbrev}--left--#{$size}' : ('#{$prop}-left': #{$length} !important),
-
-//                 '.u-#{$abbrev}--x--#{$size}' : (
-
-//                     '#{$prop}-left': #{$length} !important,
-//                     '#{$prop}-right': #{$length} !important
-//                 ),
-//                 '.u-#{$abbrev}--y--#{$size}' : (
-//                     '#{$prop}-top': #{$length} !important,
-//                     '#{$prop}-bottom': #{$length} !important
-//                 ),
-
-//             )
-//         )
-//     }
-// }
-
 $spacing-util: ();
 
 @each $prop in (margin, padding) {
