@@ -102,7 +102,7 @@ class View
                 if(isset($configJson['summary'])) {
                     $summary = implode(' ', $configJson['summary']); 
                 } else {
-                    $summary = array(); 
+                    $summary = null; 
                 }
 
                 if(isset($configJson['format'])) {
