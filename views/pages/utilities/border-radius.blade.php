@@ -14,7 +14,7 @@
                 'title' => 'Border radius to the left',
                 'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
                 därmed annat ännu söka.',
-                "classList" => ['u-border--2', 'u-border-radius--left--16']
+                "classList" => ['u-border--2', 'u-rounded-left--16']
                 ])
 
                 @endcard
@@ -28,7 +28,7 @@
                 'title' => 'Border radius on top left',
                 'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
                 därmed annat ännu söka.',
-                "classList" => ['u-border--2', 'u-border-radius--top-left--16']
+                "classList" => ['u-border--2', 'u-rounded-top-left--16']
 
                 ])
 

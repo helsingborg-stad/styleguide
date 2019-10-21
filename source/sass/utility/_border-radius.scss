@@ -1,55 +1,84 @@
-$radius-sides: (
-    'none',
-    'top',
-    'bottom',
-    'left',
-    'right',
-    'top-left',
-    'top-right',
-    'bottom-left',
-    'bottom-right',
-    'full'
+$full: ('border-radius': '50%');
+$border-radius-utilities:(
+    (
+        "name": "rounded-left",
+        "modifiers": (
+            2: ('border-radius': '2px 0px 0px 2px'),
+            4: ('border-radius': '4px 0px 0px 4px'),
+            8: ('border-radius': '8px 0px 0px 8px'),
+            16: ('border-radius': '16px 0px 0px 16px')
+        )
+    ),
+    (
+        "name": rounded-right,
+        "modifiers": (
+            2: ('border-radius': '0px 2px 2px 0px'),
+            4: ('border-radius': '0px 4px 4px 0px'),
+            8: ('border-radius': '0px 8px 8px 0px'),
+            16: ('border-radius': '0px 16px 16px 0px')
+        )
+    ),
+    (
+        "name": rounded-top,
+        "modifiers": (
+            2: ('border-radius': '2px 2px 0px 0px'),
+            4: ('border-radius': '4px 4px 0px 0px'),
+            8: ('border-radius': '8px 8px 0px 0px'),
+            16: ('border-radius': '16px 16px 0px 0px')
+        )
+    ),
+    (
+        "name": rounded-bottom,
+        "modifiers": (
+            2: ('border-radius': '0px 0px 2px 2px'),
+            4: ('border-radius': '0px 0px 4px 4px'),
+            8: ('border-radius': '0px 0px 8px 8px'),
+            16: ('border-radius': '0px 0px 16px 16px')
+        )
+    ),
+    (
+        "name": rounded-top-left,
+        "modifiers": (
+            2: ('border-top-left-radius': '2px'),
+            4: ('border-top-left-radius': '4px'),
+            8: ('border-top-left-radius': '8px'),
+            16: ('border-top-left-radius': '16px')
+        )
+    ),
+    (
+        "name": rounded-top-right,
+        "modifiers": (
+            2: ('border-top-right-radius': '2'),
+            4: ('border-top-right-radius': '4'),
+            8: ('border-top-right-radius': '8'),
+            16: ('border-top-right-radius': '16')
+        )
+    ),
+    (
+        "name": rounded-bottom-left,
+        "modifiers": (
+            2: ('border-bottom-left-radius': '2px'),
+            4: ('border-bottom-left-radius': '4px'),
+            8: ('border-bottom-left-radius': '8px'),
+            16: ('border-bottom-left-radius': '16px')
+        )
+    ),
+    (
+        "name": rounded-bottom-right,
+        "modifiers": (
+            2: ('border-bottom-right-radius': '2px'),
+            4: ('border-bottom-right-radius': '4px'),
+            8: ('border-bottom-right-radius': '8px'),
+            16: ('border-bottom-right-radius': '16px')
+        )
+    ),
+    (
+        "name": "rounded",
+        "modifiers": (
+            full: (border-radius: 50%),
+            none: (border-radius: none)
+        )
+    )
 );
 
-//Default styling
-$styling: ('border-radius': first($radiuses));
-
-@include responsiveStyles( ('.u-border-radius': $styling) );
-
-//Specified styling for each side, corner and none to remove
-@each $side in $radius-sides{
-    @each $radius in $radiuses{
-        $width: strip-unit($radius);
-        $class: '.u-border-radius--#{$side}--#{$width}';
-
-        @if $side == 'left'{
-            $styling: ('border-radius': '#{$radius} 0 0 #{$radius}'); 
-        }
-        @else if $side == 'right'{
-            $styling: ('border-radius': '0 #{$radius} #{$radius} 0'); 
-        }
-        @else if $side == 'top'{
-            $styling: ('border-radius': '#{$radius} #{$radius} 0 0'); 
-        }
-        @else if $side == 'bottom'{
-            $styling: ('border-radius': '0 0 #{$radius} #{$radius}'); 
-        }
-        @else if $side == 'none'{
-            $styling: ('border-radius': 0);
-            $class: '.u-border-radius--#{$side}';
-        }
-        @else if $side == 'full'{
-            $styling: ('border-radius': $radius);
-            $class: '.u-border-radius--#{$side}';
-        }
-        @else{
-            $styling: ('border-#{$side}-radius': $radius);
-        }
-
-        @include responsiveStyles(
-            (
-                $class: $styling  
-            )
-        )
-     }
-}
+@include build-utilities($border-radius-utilities);
