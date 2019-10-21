@@ -1,7 +1,11 @@
+$modifiers: ();
 @each $modifier in $overflows {
-    @include responsiveStyles(
-        (
-            '.u-overflow--#{$modifier}' : ('overflow': #{$modifier} !important)
-        )
-    )
+        $modifiers: map-merge($modifiers, ($modifier: ('overflow': #{$modifier})))
 }
+
+$overflow-utils:(
+    "name": "overflow",
+    "modifiers": $modifiers
+);
+
+@include build-utilities($overflow-utils)
