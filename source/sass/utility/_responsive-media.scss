@@ -1,5 +1,5 @@
-$image-utils: (  
-    name: 'image',
+$media-utils: (  
+    name: 'media',
     modifiers: (
         responsive: (
             width: 100%,
@@ -8,4 +8,4 @@ $image-utils: (
     )
 );
 
-@include build-utilities($image-utils);
+@include build-utilities($media-utils);

@@ -1,11 +1,11 @@
 {
-    "format": "u-image--behavior",
+    "format": "u-media--behavior",
     "modifiers": {
         "behavior": "responsive"
 
     },
     "description": {
-        "behavior": "How image should adapt to the layout"
+        "behavior": "How media should adapt to the layout"
     },
     "responsive": true
 }
