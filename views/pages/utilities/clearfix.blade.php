@@ -12,7 +12,7 @@
                 'href' => '#btn-3', 
                 'isOutlined' => false, 
                 'isPrimary' => true,
-                'classList' => ['float-left']
+                'classList' => ['u-float--left']
             ])
             Float Left
             @endbutton
@@ -22,7 +22,7 @@
                 'isOutlined' => false,
                 'isPrimary' => false,
                 'isCircle' => true,
-                'classList' => ['float-right']
+                'classList' => ['u-float--right']
             ])
             Float Right
             @endbutton

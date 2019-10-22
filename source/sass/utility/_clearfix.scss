@@ -1,9 +1,9 @@
 $clearfix-utils:
     (name: 'clearfix::after',
     default: (
-        display: block !important,
-        content: '""' !important,
-        clear: both !important
+        display: block,
+        content: '""',
+        clear: both
     ),
 );
 
