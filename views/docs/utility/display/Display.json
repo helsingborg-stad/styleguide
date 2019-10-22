@@ -1,0 +1,10 @@
+{
+    "format": "u-display--state",
+    "modifiers": {
+        "state": "none, inline, inline-block, block, table, table-cell, table-row, flex, inline-flex"
+    },
+    "description": {
+        "state": "Sets display state."
+    },
+    "responsive": false
+}
