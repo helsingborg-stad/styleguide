@@ -1,30 +1,43 @@
-$positions: ('static', 'relative', 'absolute', 'fixed', 'sticky');
-
-@each $position in $positions {
-    @include responsiveStyles(
-        ('.u-position--#{$position}': (position: $position !important))
-        
-    )
-}
-
-@each $position in ('top', 'bottom') {
-    @include responsiveStyles(
-        ('.u-fixed--#{$position}': (
-            position: fixed !important,
-            $position: 0 !important,
-            right: 0 !important,
-            left: 0 !important,
-            z-index: $level-10 !important
+$position_utils: (  
+    (
+        name: 'position',
+        modifiers: (
+            static: (position: static),
+            relative: (position: relative),
+            absolute: (position: absolute),
+            fixed: (position: fixed),
+            sticky: (position: sticky)
+        )
+    ),
+    (
+        name: 'fixed',
+        modifiers: (
+            top: (
+                position: fixed,
+                top: 0,
+                right: 0,
+                left: 0,
+                z-index: $level-10
+            ),
+            bottom: (
+                position: fixed,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                z-index: $level-10
+            )
+        )
+    ),
+    (
+        name: 'sticky',
+        modifiers: (
+            top: (
+                position: sticky,
+                top: 0,
+                z-index: $level-10
             )
         )
     )
-}
+);
 
-@include responsiveStyles(
-    ('.u-sitcky--top': (
-        position: sticky !important,
-        top: 0 !important,
-        z-index: $level-10 !important
-        )
-    )
-)
+@include build-utilities($position_utils);
