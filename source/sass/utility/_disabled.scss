@@ -1,6 +1,11 @@
-.u-disabled {
-    background-color: $color-disabled-bg!important;
-    color: $color-disabled-text !important;
-    border-color: $color-disabled-border !important;
-    cursor: not-allowed;
-}
+$disabled-utils: (  
+    name: 'disabled',
+    default: (
+        background-color: $color-disabled-bg,
+        color: $color-disabled-text,
+        border-color: $color-disabled-border,
+        cursor: not-allowed
+    )
+);
+
+@include build-utilities($disabled-utils);

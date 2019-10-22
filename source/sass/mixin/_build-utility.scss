@@ -20,12 +20,14 @@
         );
     }
     
-    @each $modifier in $modifiers {
-        $style: nth($modifier, 2);
-        
-        @include responsiveStyles(
-            ('.u-#{$name}--#{nth($modifier,1)}': appendImportant($style))
+    @if $modifiers {
+        @each $modifier in $modifiers {
+            $style: nth($modifier, 2);
             
-        )
+            @include responsiveStyles(
+                ('.u-#{$name}--#{nth($modifier,1)}': appendImportant($style))
+                
+            )
+        }
     }
 }
