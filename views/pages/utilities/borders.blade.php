@@ -58,7 +58,7 @@
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
                 'title' => 'Success color',
-                'classList' => ['u-border u-border--success']
+                'classList' => ['u-border u-border__color--success']
                 ])
     
                 @endcard
@@ -70,7 +70,7 @@
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
                 'title' => 'Warning color',    
-                'classList' => ['u-border u-border--warning']
+                'classList' => ['u-border u-border__color--warning']
                 ])
     
                 @endcard
@@ -82,7 +82,7 @@
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
                 'title' => 'Info color',    
-                'classList' => ['u-border u-border--info']
+                'classList' => ['u-border u-border__color--info']
                 ])
     
                 @endcard
