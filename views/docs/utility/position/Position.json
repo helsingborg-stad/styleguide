@@ -1,10 +1,11 @@
 {
     "format": "u-position--type",
+    "summary": ["Sets the position of an element."],
     "modifiers": {
         "type": "static, relative, absolute, fixed, sticky"
     },
     "description": {
-        "type": "Selects waht type of position to apply to element"
+        "type": "Selects what type of position to apply to element"
     },
     "responsive": true
 }

@@ -1,10 +1,11 @@
 {
     "format": "u-fixed--side",
+    "summary": ["Position an element fixed to a side of the view."],
     "modifiers": {
         "side": "top, bottom"
     },
     "description": {
-        "side": "Sets elemnt fixed to a specified side"
+        "side": "Sets element fixed to a specified side"
     },
     "responsive": true
 }

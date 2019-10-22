@@ -1,5 +1,6 @@
 {
     "format": "u-sticky--side",
+    "summary": ["Positions element on the side of the view but only after user has scrolled past the element."],
     "modifiers": {
         "side": "top"
     },
