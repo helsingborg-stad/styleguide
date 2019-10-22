@@ -1,9 +1,10 @@
-@include responsiveStyles(
-    (
-        '.u-clearfix::after': (
-            display: block !important,
-            content: '""' !important,
-            clear: both !important
-        ),
-    )
+$clearfix-utils:
+    (name: 'clearfix::after',
+    default: (
+        display: block !important,
+        content: '""' !important,
+        clear: both !important
+    ),
 );
+
+@include build-utilities($clearfix-utils);
