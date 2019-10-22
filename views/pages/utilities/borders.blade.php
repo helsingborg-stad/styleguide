@@ -26,7 +26,7 @@
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
                 'title' => 'Border only in bottom of element',    
-                'classList' => ['u-border--bottom--2']
+                'classList' => ['u-border__bottom--2']
                 ])
     
                 @endcard
@@ -38,7 +38,7 @@
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'image' => 'https://picsum.photos/300/200?image=1077',
                 'title' => 'Border removed from right',    
-                'classList' => ['u-border--2 u-border--right--0']
+                'classList' => ['u-border--2 u-border__right--0']
                 ])
     
                 @endcard
