@@ -1,14 +1,14 @@
 
 {
-    "format": "u-abbrev--side--spacing",
+    "format": "u-prop__side--spacing",
     "modifiers": {
-        "abbrev": "m, p",
+        "prop": "margin, padding",
         "side": "left, right, top, bottom, y, x",
         "spacing": "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12"
 
     },
     "description": {
-        "abbrev": "Selects p for padding or m for margin",
+        "prop": "Selects padding or margin",
         "side": "Selects side or axis",
         "spacing": "Selects spacing"
     },

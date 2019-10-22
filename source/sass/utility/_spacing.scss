@@ -1,30 +1,64 @@
-//Creates all classes for padding and margin
-@each $prop, $abbrev in (margin: m, padding: p) {
+$spacing-util: ();
+
+@each $prop in (margin, padding) {
+    //Builds sides
+    @each $side in (top, left, right, bottom){
+
+        $mods: ();
+
+        @each $size, $length in $spacers {
+            $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
+            $mods: map-merge($mods, $style);
+        }
+
+        $util: (
+            name: '#{$prop}__#{$side}',
+            default: (#{$prop}-#{$side}: 8px),
+            modifiers: $mods
+        );
+
+        $spacing-util: append($spacing-util, $util);
+    }
+
+    $mods: ();
+
+    //Builds all around
     @each $size, $length in $spacers {
-        @include responsiveStyles(
-            (
+        $style: (#{$size}:(#{$prop}: #{$length}));
+        $mods: map-merge($mods, $style);
+    }
 
-                '.u-#{$abbrev}--#{$size}' : (#{$prop}: #{$length} !important),
+    $util: (
+        name: '#{$prop}',
+        default: (#{$prop}: 8px),
+        modifiers: $mods
+    );
 
-                '.u-#{$abbrev}--top--#{$size}' : ('#{$prop}-top': #{$length} !important),
+    $spacing-util: append($spacing-util, $util);
 
-                '.u-#{$abbrev}--right--#{$size}' : ('#{$prop}-right': #{$length} !important),
+    $mods: ();
 
-                '.u-#{$abbrev}--bottom--#{$size}' : ('#{$prop}-bottom': #{$length} !important),
-
-                '.u-#{$abbrev}--left--#{$size}' : ('#{$prop}-left': #{$length} !important),
-
-                '.u-#{$abbrev}--x--#{$size}' : (
-
-                    '#{$prop}-left': #{$length} !important,
-                    '#{$prop}-right': #{$length} !important
-                ),
-                '.u-#{$abbrev}--y--#{$size}' : (
-                    '#{$prop}-top': #{$length} !important,
-                    '#{$prop}-bottom': #{$length} !important
-                ),
-
-            )
-        )
+    //Builds on axis
+    @each $axis in (x, y) {
+        @each $size, $length in $spacers {
+            $style: (#{$size}:(
+                #{$prop}-left: #{$length},
+                #{$prop}-right: #{$length}
+            ));
+            $mods: map-merge($mods, $style);
+        }
+    
+        $util: (
+            name: '#{$prop}__#{$axis}',
+            default: (
+                #{$prop}-left: 8px,
+                #{$prop}-right: 8px
+            ),
+            modifiers: $mods
+        );
+    
+        $spacing-util: append($spacing-util, $util);
     }
 }
+
+@include build-utilities($spacing-util); 
