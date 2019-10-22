@@ -17,49 +17,46 @@ $border-width-default: 1px;
 
 $sides: (top, left, right, bottom);
 
-//Unspecified width or side
-@include responsiveStyles(
+
+$spacing-util: (
 	(
-		'.u-border': (border: #{$border-width-default} solid #{$color-primary} !important),
+		name: 'border',
+		default: (border: #{$border-width-default} solid #{$color_primary}),
+		modifiers: (
+			0: (border:  #{map-get($border_widths, 0)} solid #{$color_primary}),
+			1: (border:  #{map-get($border_widths, 1)} solid #{$color_primary}),
+			2: (border:  #{map-get($border_widths, 2)} solid #{$color_primary})
+		)
+	),
+	(
+		name: 'border__color',
+		default: (border-color: #{$color_primary}),
+		modifiers: (
+			primary: (border-color:  #{$color_primary}),
+			secondary: (border-color: #{$color_secondary}),
+			success: (border-color:  #{$color_success}),
+			danger: (border-color:  #{$color_danger}),
+			info: (border-color:  #{$color_info}),
+			warning: (border-color:  #{$color_warning})
+		)
 	)
 );
 
-//For specific width
-@each $width_name, $width in $border-widths {
-	@include responsiveStyles(
-		(
-			'.u-border--#{$width_name}': (border: #{$width} solid #{$color-primary}  !important),
-		)
-	)
-}
+@each $side in $sides{
+	$mods: ();
 
-//For specific side
-@each $side in $sides {
-	@include responsiveStyles(
-		(
-			'.u-border--#{$side}':
-			(border-#{$side}: #{$border-width-default} solid #{$color-primary}  !important),
-		)
-	)
-}
-
-//For specific side and specific width
-@each $side in $sides {
 	@each $width_name, $width in $border-widths {
-		@include responsiveStyles(
-			(
-				'.u-border--#{$side}--#{$width_name}':
-				(border-#{$side}: #{$width} solid #{$color-primary} !important),
-			)
-		)
+		$style: (#{$width_name}:(border-#{$side}: #{$width} solid #{$color-primary}));
+		$mods: map-merge($mods, $style);
 	}
+
+	$util: (
+		name: 'border__#{$side}',
+		default: (border-#{$side}: #{$border-width-default}),
+		modifiers: $mods
+	);
+
+	$spacing-util: append($spacing-util, $util);
 }
 
-//For specific color
-@each $color_name, $color in $colors { 
-	@include responsiveStyles(
-		(
-			'.u-border--#{$color_name}': (border-color: #{$color} !important),
-		)
-	)
-}
+@include build-utilities($spacing-util); 

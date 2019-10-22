@@ -1,5 +1,5 @@
 {
-    "format": "u-border--side--width",
+    "format": "u-border__side--width",
     "modifiers": {
         "side": "top. left, right, bottom",
         "width": "0, 1, 2"
