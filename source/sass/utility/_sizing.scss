@@ -1,9 +1,30 @@
-@each $dimension in ('height', 'width'){
-    @each $modifier in $sizings{
-        @include responsiveStyles(
-            (
-                '.u-#{$dimension}--#{$modifier}' : ($dimension: #{$modifier} + '%' !important)
-            )
-        )
-    }
+$width: ();
+$height: ();
+
+@each $modifier in $sizings{
+    $mod: ($modifier: ('width': $modifier + '%'));
+    $width: map-merge($width, $mod);
 }
+
+@each $modifier in $sizings{
+    $mod: ($modifier: ('height': $modifier + '%'));
+    $height: map-merge($height, $mod);
+}
+
+$flex-utils: (  
+    (
+        name: 'width',
+        modifiers: $width
+    ),
+    (
+        name: 'height',
+        modifiers: $height
+    )
+);
+
+@include build-utilities($flex-utils);
+
+
+
+
+

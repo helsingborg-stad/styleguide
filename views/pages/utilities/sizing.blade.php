@@ -4,7 +4,7 @@
 <article>
 
     @markdown
-        #Vertical alignments
+        #Sizing
 
         ### Sizing width
     @endmarkdown
