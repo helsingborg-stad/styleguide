@@ -1,16 +1,22 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
 
+    @if(isset($summary))
+        @paper(['padding' => 3])
+            <h3>Summary</h3>
+            <p>
+                {!! $summary !!}
+            </p>
+        @endpaper
+    @endif
+
     @paper(['padding' => 3])
-    
-    <h3>Example</h3>
+        <h3>Example</h3>
         <div class="markup-preview">
             {!! $slot !!}
         </div>
-      
-
     @endpaper
-    @if(isset($settings))
 
+    @if(isset($settings))
         @paper(['padding' => 3])
             <h3>Classes</h3>
 
@@ -48,6 +54,5 @@
                 @endforeach
             </table>
         @endpaper
-
     @endif
 </section>
