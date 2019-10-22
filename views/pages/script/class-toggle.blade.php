@@ -1,23 +1,19 @@
-@extends('layout.master')
+@extends("layout.master")
 
-@section('content')
+@section("content")
     @markdown
-        #Toggling classes
-        Toggle a class on the specified target element. 
+        #Toggle
     @endmarkdown
 
-    @paper
-        @table([
-            'list' => [
-                ['js-bind', 'Event to bind on', 'keyup'],
-                ['js-action', 'Should always contain "toggleClass" for css toggling of classes.', 'toggleClass'],
-                ['js-toggle-target', 'Target element to toggle the class on, should be a class.', '.somediv'],
-                ['js-toggle-class', 'The class to toggle on the target element.', '.is-active']
-            ],
-            'headings' => ['Attribute', 'Description', 'Example value'],
-            'showFooter' => false,
-            'isSmall' => false
-        ])
-        @endtable
-    @endpaper
+    @script_doc(["viewDoc" => ["type" => "script", "root" => "toggle", "config" => "toggle"]])
+        
+        <div js-toggle-container>
+            <button js-toggle-trigger>Toggle</button>
+            <div js-toggle-multi="u-color__bg--success">
+                <div class="">Test</div>
+                <div class="test">Test</div>
+            </div>
+        </div>
+        
+    @endscript_doc
 @stop
