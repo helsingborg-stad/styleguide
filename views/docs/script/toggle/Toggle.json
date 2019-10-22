@@ -1,0 +1,19 @@
+{
+    "summary": [
+        "The sort script handles toggling of classes.",
+        "You choose to either toggle everything inside <code>js-toggle-multi</code> container",
+        "or by adding <code>js-toggle-single</code> to any element. The data attribute value is the class that you toggle."
+    ],
+    "description": {
+        "js-toggle-container": "Outer container",
+        "js-toggle-single": "a single element to toggle",
+        "js-toggle-multi": "a container where every child is toggled",
+        "js-toggle-trigger": "an element with a click event attached to toggle"
+    },
+    "attributes": {
+        "js-toggle-container": "",
+        "js-toggle-single": "class",
+        "js-toggle-multi": "class",
+        "js-toggle-trigger": ""
+    }
+}
