@@ -9,12 +9,14 @@
         @endpaper
     @endif
 
-    @paper(['padding' => 3])
-        <h3>Example</h3>
-        <div class="markup-preview">
-            {!! $slot !!}
-        </div>
-    @endpaper
+    @if (strlen($slot) > 0)
+        @paper(['padding' => 3])
+            <h3>Example</h3>
+            <div class="markup-preview">
+                {!! $slot !!}
+            </div>
+        @endpaper
+    @endif
 
     @if(isset($settings))
         @paper(['padding' => 3])
