@@ -1,0 +1,15 @@
+//Radiuses
+$border-radius-xs: ($base/4) !default;
+$border-radius-sm: ($base/2) !default;
+$border-radius-md: ($base) !default;
+$border-radius-lg: ($base*2) !default;
+$border-radius-full: 50% !default;
+
+$radiuses: (
+        0,
+        $border-radius-xs,
+        $border-radius-sm,
+        $border-radius-md,
+        $border-radius-lg,
+        $border-radius-full
+);

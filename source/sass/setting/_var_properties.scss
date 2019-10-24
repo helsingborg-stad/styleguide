@@ -1,0 +1,27 @@
+//Overflow
+$overflows: (
+'hidden',
+'auto',
+'scroll',
+'visible'
+);
+
+//Display states
+$display-states: 'none', 'inline', 'inline-block', 'block', 'table', 'table-cell', 'table-row', 'flex', 'inline-flex' !default;
+
+//Visibility states
+$visibility-states: 'visible', 'hidden' !default;
+
+//  Z-index
+$level-top: 99999 !default;
+$level-10: 10000 !default;
+$level-9: 9000 !default;
+$level-8: 8000 !default;
+$level-7: 7000 !default;
+$level-6: 6000 !default;
+$level-5: 5000 !default;
+$level-4: 4000 !default;
+$level-3: 3000 !default;
+$level-2: 2000 !default;
+$level-1: 1000 !default;
+$level-bottom: 1 !default;
