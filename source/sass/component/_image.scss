@@ -1,3 +1,28 @@
+// Border Radius
+$radius: (
+        (
+                "name": "",
+                "size": ""
+        ),
+        (
+                "name": &--rounded-xs,
+                "size": $border-radius-xs
+        ),
+        (
+                "name": &--rounded-sm,
+                "size": $border-radius-sm
+        ),
+        (
+                "name": &--rounded-md,
+                "size": $border-radius-md
+        ),
+        (
+                "name": &--rounded-lg,
+                "size": $border-radius-lg
+        )
+);
+
+
 .c-image {
     margin: 0px;
 
@@ -6,12 +31,68 @@
     }
 
     &__caption {
-        font-size:0.8em;
+        font-size: 0.8em;
         color: darken($color-gray, 20%) !important;
     }
 
     &--full-width &__image {
         object-fit: contain;
-        width:100%;
+        width: 100%;
+    }
+
+    @each $map in $radius {
+
+        $radiusName: map-get($map, "name");
+        $radiusSize: map-get($map, "size");
+
+        &#{$radiusName}.c-image--rounded-top-left img {
+            border-radius: #{$radiusSize} 0 0 0;
+        }
+
+        &#{$radiusName}.c-image--rounded-top-right img {
+            border-radius: 0 #{$radiusSize} 0 0;
+        }
+
+        &#{$radiusName}.c-image--rounded-bottom-left img {
+            border-radius: 0 0 #{$radiusSize} 0;
+        }
+
+        &#{$radiusName}.c-image--rounded-bottom-right img {
+            border-radius: 0 0 0 #{$radiusSize};
+        }
+
+        &#{$radiusName}.c-image--rounded-circle img {
+            border-radius: 50%;
+        }
+
+        // Top left - Top right
+        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-top-right img {
+            border-radius: #{$radiusSize} #{$radiusSize} 0 0;
+        }
+
+        // Bottom left - Bottom right
+        &#{$radiusName}.c-image--rounded-bottom-left.c-image--rounded-bottom-right img {
+            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
+        }
+
+        // Top left - Bottom left
+        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-left img {
+            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
+        }
+
+        // Top left - Bottom right
+        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-right img {
+            border-radius: #{$radiusSize} 0 #{$radiusSize} 0;
+        }
+
+        // Top right - Bottom right
+        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-right img {
+            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
+        }
+
+        // Top right - Bottom left
+        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-left img {
+            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
+        }
     }
 }
