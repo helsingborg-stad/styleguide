@@ -2,7 +2,7 @@
 $radius: (
         (
                 "name": "",
-                "size": ""
+                "size": 0
         ),
         (
                 "name": &--rounded-xs,
@@ -24,7 +24,10 @@ $radius: (
 
 
 .c-image {
+
     margin: 0px;
+    width: 100%;
+    height: auto;
 
     &__image {
         border-radius: $border-radius-xs;
@@ -65,32 +68,26 @@ $radius: (
             border-radius: 50%;
         }
 
-        // Top left - Top right
         &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-top-right img {
             border-radius: #{$radiusSize} #{$radiusSize} 0 0;
         }
 
-        // Bottom left - Bottom right
         &#{$radiusName}.c-image--rounded-bottom-left.c-image--rounded-bottom-right img {
             border-radius: 0 0 #{$radiusSize} #{$radiusSize};
         }
 
-        // Top left - Bottom left
         &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-left img {
             border-radius: #{$radiusSize} 0 0 #{$radiusSize};
         }
 
-        // Top left - Bottom right
         &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-right img {
             border-radius: #{$radiusSize} 0 #{$radiusSize} 0;
         }
 
-        // Top right - Bottom right
         &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-right img {
             border-radius: 0 0 #{$radiusSize} #{$radiusSize};
         }
 
-        // Top right - Bottom left
         &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-left img {
             border-radius: #{$radiusSize} 0 0 #{$radiusSize};
         }
