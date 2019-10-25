@@ -66,8 +66,6 @@
             @endimage
         </div>
 
-
-
     </div>
     @enddoc
 @stop

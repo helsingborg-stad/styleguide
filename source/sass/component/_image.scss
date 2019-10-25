@@ -7,19 +7,19 @@ $radius: (
                 "size": $border-radius-md
         ),
         (
-                "name": & --rounded-xs,
+                "name": &--rounded-xs,
                 "size": $border-radius-xs
         ),
         (
-                "name": & --rounded-sm,
+                "name": &--rounded-sm,
                 "size": $border-radius-sm
         ),
         (
-                "name": & --rounded-md,
+                "name": &--rounded-md,
                 "size": $border-radius-md
         ),
         (
-                "name": & --rounded-lg,
+                "name": &--rounded-lg,
                 "size": $border-radius-lg
         )
 );
@@ -45,10 +45,6 @@ $radius: (
     &--full-width &__image {
         object-fit: contain;
         width: 100%;
-    }
-
-    &--rounded-circle img {
-        border-radius: 50%;
     }
 
     // Rounded Images with different sizes
