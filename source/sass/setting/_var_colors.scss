@@ -1,0 +1,81 @@
+//  Colors
+$color-primary: #ae0b05 !default;
+$color-primary-dark: #e3000f !default;
+$color-primary-light: #cb0050 !default;
+
+$color-secondary: #f7a600 !default;
+$color-secondary-dark: #f7a600 !default;
+$color-secondary-light: #f7a600 !default;
+
+$color-black: black !default;
+$color-gray: lighten($color-black,50%) !default;
+$color-gray-light: lighten($color-gray,45%) !default;
+$color-gray-lighter: lighten($color-gray-light,4%) !default;
+$color-white: white !default;
+
+$color-success: #11a636 !default;
+$color-danger: #e3000f !default;
+$color-info: #b1f5ff !default;
+$color-warning: #ffd700 !default;
+
+$color-base: rgba($color-black, 0.96) !default;
+$color-base-secondary: rgba($color-black, 0.54) !default;
+$color-base-disabled: rgba($color-black, 0.37) !default;
+
+$color-base-invert: $color-white !default;
+$color-base-invert-secondary: rgba($color-white, 0.75) !default;
+$color-base-invert-disabled: rgba($color-white, 0.5) !default;
+
+$color-heading: $color-base !default;
+$color-body: $color-base !default;
+$color-body-background: #f4f4f4;
+
+$color-link: #0069b4 !default;
+$color-link-hover: $color-link;
+$color-link-visited: #712089 !default;
+$color-link-visited-hover: $color-link-visited;
+
+$color-shadow: rgba($color-black, 0.08) !default;
+$color-border: #e5e5e5;
+$color-code-background: #fdfcfb;
+$color-cream: #fdfcfb;
+$color-form-fields: #eeeeee;
+$color-form-fields-border: #dfdfdf;
+$color-form-fields-label: rgba(0,0,0,.6);
+$color-header-background: $color-white !default;
+$color-header-background-level-1: $color-gray-light !default;
+$color-header-background-level-2: $color-white !default;
+$color-header-background-level-3: $color-primary !default;
+
+$color-menu-background: $color-white !default;
+$color-menu-separator: $color-gray-light !default;
+$color-menu-active-indicator: $color-gray-light !default;
+$color-menu-active-background: $color-gray-lighter !default;
+$color-menu-text: $color-black;
+
+$color-menu-active-indicator-horizontal: $color-primary-light !default;
+$color-menu-text-horizontal: $color-black;
+
+$color-card-background: $color-white !default;
+
+$color-footer-background: #efefef;
+
+$color-breadcrumb-active: $color-gray !default;
+$color-breadcrumb-icon: $color-black !default;
+$color-breadcrumb: $color-black !default;
+
+$color-paper-background: $color-white !default;
+
+$color-table-background: $color-white !default;
+$color-table-background-odd: $color-gray-lighter !default;
+$color-table-track-background: $color-white !default;
+$color-table-track-control: $color-gray-lighter !default;
+$color-table-gradient: $color-white !default;
+$color-table-heading: $color-gray !default;
+$color-table-body: $color-black !default;
+$color-table-border: $color-gray-light !default;
+$table-heading-font-weight: bold !default;
+
+$color-disabled-bg: $color-gray-light !default;
+$color-disabled-text: $color-base-disabled !default;
+$color-disabled-border: rgba(0,0,0,.0) !default;
