@@ -30,11 +30,12 @@ $radius: (
 .c-image {
 
     margin: 0px;
-    width: 100%;
     height: auto;
 
     &__image {
         border-radius: $border-radius-xs;
+        width: 100%;
+        max-width: 100%;
     }
 
     &__caption {

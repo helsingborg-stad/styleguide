@@ -4,7 +4,8 @@
 
     @markdown
     #Image
-    Displays a simple image. If it is missing it may be replaced with a placeholder. Alt and captions can be added.
+    Displays a simple image. If it is missing it may be replaced with a placeholder. Alt and captions can be added.<br />
+    You can also add radius to image corners.
     @endmarkdown
 
 
