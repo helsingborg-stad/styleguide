@@ -31,7 +31,6 @@
         @endif
     @endif
 
-
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
