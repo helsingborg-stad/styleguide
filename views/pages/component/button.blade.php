@@ -2,43 +2,44 @@
 
 @section('content')
     @markdown
-        #Button
-        A simple button, for button'ish purposes.         
+        #Button      
     @endmarkdown
 
     @doc(['slug' => 'button'])
 
         @button([
-            'href' => '#btn-1', 
+            'href' => '#btn-3', 
             'isOutlined' => true, 
-            'isPrimary' => false
+            'text' => 'Button',
+            'icon' => 'apps',
+            'size' => 'lg',
+            'color' => 'secondary'
         ])
-            Button one
-        @endbutton
-
-        @button([
-            'href' => '#btn-2', 
-            'isOutlined' => true, 
-            'isPrimary' => true
-        ])
-            Button two
         @endbutton
 
         @button([
             'href' => '#btn-3', 
             'isOutlined' => false, 
-            'isPrimary' => true
+            'background' => 'primary',
+            'text' => 'Button',
+            'icon' => 'apps',
+            'size' => 'lg',
+            'color' => 'secondary',
+            'reverseIcon' => true,
+            'floating' => true
         ])
-        Button three
         @endbutton
 
         @button([
             'href' => '#btn-3',
             'isOutlined' => false,
-            'isPrimary' => false,
-            'isCircle' => true
+            'isIconButton' =>  true,
+            'icon' => 'close',
+            'reverseIcon' => false,
+            'size' => 'lg',
+            'color' => 'secondary',
+            'floatOnHover' => true
         ])
-        Button four
         @endbutton
 
     @enddoc

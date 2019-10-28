@@ -1,4 +1,4 @@
-@mixin shadow($level: 1, $inset: false) {
+@mixin shadow($level: 1, $inset: false, $isButton: false) {
 
     @if $level == 1 {
         box-shadow: if($inset, inset, #{''}) 0 0 ($base/2) $color-shadow; 
@@ -10,5 +10,7 @@
         box-shadow: if($inset, inset, #{''}) 0 0 ($base*3) lighten($color-shadow, 1.3%);
     } @else if $level == 5 {
         box-shadow: if($inset, inset, #{''}) 0 0 ($base*4) lighten($color-shadow, 1.4%);
+    } @else if $level == 6 and $isButton {
+        box-shadow: if($inset, inset, #{''}) 0 2px 5px -2px lighten($color-shadow__button, 1.4%);
     }
 }

@@ -32,6 +32,9 @@ $font-size-btn-line-height: 1.3;
 $font-size-btn-lg: 1.2em;
 $font-size-btn-lg-line-height: 1.3;
 
+$font-size-btn-md: 1em;
+$font-size-btn-md-line-height: 1;
+
 $font-size-btn-sm: 0.75em;
 $font-size-btn-sm-line-height: 1;
 
@@ -85,6 +88,7 @@ $color-link-visited: #712089 !default;
 $color-link-visited-hover: $color-link-visited;
 
 $color-shadow: rgba($color-black, 0.08) !default;
+$color-shadow__button: rgba($color-black, 1) !default;
 $color-border: #e5e5e5;
 $color-code-background: #fdfcfb;
 $color-cream: #fdfcfb;
