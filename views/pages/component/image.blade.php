@@ -39,8 +39,6 @@
     @enddoc
 
 
-
-
     @doc(['slug' => 'image'])
     <div class="grid">
         <div class="grid-s-12 grid-md-6">

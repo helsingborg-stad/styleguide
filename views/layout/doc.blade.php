@@ -1,18 +1,19 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
 
     @paper(['padding' => 3])
-    
+
         <h3>Example</h3>
         <div class="markup-preview">
             {!! $slot !!}
         </div>
-        @code(['language' => 'html', 'content' => ""]) 
+        @code(['language' => 'html', 'content' => ""])
             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
         @endcode
 
     @endpaper
 
     @if(isset($slug))
+        @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
         <h3>Blade component</h3>
         <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
@@ -27,9 +28,10 @@
 
     {{"@end"}}{{$slug}}</code></pre>
         @endpaper
+        @endif
     @endif
 
-    
+
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
@@ -44,7 +46,7 @@
                 @foreach($settings as $key => $item)
                     <tr>
                         <td>{{$key}}</td>
-                        @if(is_array($item)||is_object($item)) 
+                        @if(is_array($item)||is_object($item))
                         <td>{{json_encode($item)}}</td>
                         @elseif(is_bool($item))
                         <td>{{$item ? 'true' : 'false'}}</td>
@@ -56,7 +58,7 @@
 
                         @if(isset($description[$key]))
                         <td>{{$description[$key]}}</td>
-                        @else 
+                        @else
                         <td>-</td>
                         @endif
                     </tr>
