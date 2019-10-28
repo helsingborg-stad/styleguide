@@ -35,6 +35,8 @@ $radius: (
 
     &__image {
         border-radius: $border-radius-xs;
+        width: 100%;
+        max-width: 100%;
     }
 
     &__caption {

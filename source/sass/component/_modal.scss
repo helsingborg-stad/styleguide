@@ -1,44 +1,80 @@
-.c-modal {
-
-    @include cover();
-    position: fixed; 
-    z-index: $level-top; 
-
-    &--overlay-light {
-        background-color: rgba($color-white, .85); 
-        outline: 5000px solid rgba($color-white, .85); /* relative container fix */ 
-    }
-
-    &--overlay-dark {
-        background-color: rgba($color-black, .85); 
-        outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
-    }
-
-    &__inner {
-        @include paper(5); 
-        @include center(); 
-        padding: map-get($spacers, '5');
-        overflow: auto;
-    }
-
-    &--is-panel &__inner {
-        width: 100%; 
-        height: 100vh;
-    }
-
-    &--is-modal &__inner {
-        width: calc(100% - #{map-get($spacers, '4')}); 
-        max-width: 700px; 
-        max-height: calc(100vh - #{map-get($spacers, '4')});
-    }
+.c-modal { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: $level-top;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
 
     &__close {
         position: absolute;
         top: map-get($spacers, '1');
         right: map-get($spacers, '2');
-        
         display: block;
         color: $color-gray; 
     }
-    
+
+    &__inner {
+        position: relative;
+        background-color: white;
+        max-width: 800px;
+        max-height: 80vh;
+        overflow: auto;
+        cursor: default;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &__is-visible {
+        visibility: visible;
+        opacity: 1;
+        background-color: rgba($color-black, .85); 
+        outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
+    }
+}
+
+.c-modal.c-modal__animation-- {
+    &slide-up {
+        .c-modal__inner {
+            transform: translateY(100%);
+        }
+        
+    }
+
+    &slide-down {
+        .c-modal__inner {
+            transform: translateY(-100%);
+        }
+    }
+
+    &scale-down {
+        .c-modal__inner {
+            transform: scale(1.1);
+        }
+    }
+    &scale-up {
+        .c-modal__inner {
+            transform: scale(0.9);
+        }
+    }
+}
+
+.c-modal__is-visible.c-modal__animation-- {
+        &slide-up, &slide-down {
+            .c-modal__inner {
+                transform: translateY(0);
+            }
+        }
+
+        &scale-down, &scale-up {
+            .c-modal__inner {
+                transform: scale(1.0);
+            }
+        }
 }
