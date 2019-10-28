@@ -4,7 +4,7 @@
 
     @markdown
     #Image
-    Displays a simple image. If it is missing it may be replaced with a placeholder. Alt and captions can be added.
+    Displays a simple image. If it is missing it may be replaced with a placeholder. Alt, captions and radius can be added.
     @endmarkdown
 
 
@@ -29,13 +29,31 @@
             ###Open image in modal
             @endmarkdown
             @image([
-            'src'=> "https://picsum.photos/300/200?image=1026",
+            'src'=> "https://picsum.photos/300/200?image=1028",
             'alt' => "This is a image",
-            'caption' => "Click image to open a modal with image"
+            'caption' => "Click image to open a modal with image",
+            'modalRefId' => "exampleModal"
             ])
             @endimage
         </div>
     </div>
+
+    @modal([
+    'heading'=> "Hey, Im a modal with an image?",
+    'isPanel' => false,
+    'id' => 'exampleModal',
+    'overlay' => 'dark',
+    'animation' => 'scale-up'
+    ])
+        @image([
+        'src'=> "https://picsum.photos/600/500?image=1028",
+        'alt' => "This is a image in a modal",
+        'caption' => "Another caption",
+        ])
+        @endimage
+
+    @endmodal
+
     @enddoc
 
     
@@ -48,7 +66,7 @@
             @endmarkdown
 
             @image([
-            'src'=> "https://picsum.photos/300/200?image=1026",
+            'src'=> "https://picsum.photos/300/200?image=1032",
             'alt' => "This is a image",
             'caption' => "Image with rounded corners (default size: md)",
             'rounded' => true
@@ -62,7 +80,7 @@
             @endmarkdown
 
             @image([
-            'src'=> "https://picsum.photos/300/200?image=1026",
+            'src'=> "https://picsum.photos/300/200?image=1050",
             'alt' => "This is a image",
             'caption' => "Larger corner radius (size: lg) with roundedRadius",
             'roundedTopLeft' => true,
