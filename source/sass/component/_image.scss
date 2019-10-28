@@ -48,7 +48,9 @@ $radius: (
         object-fit: contain;
         width: 100%;
     }
-
+    &__modal {
+        cursor:pointer;
+    }
     // Rounded Images with different sizes
     @each $map in $radius {
 
