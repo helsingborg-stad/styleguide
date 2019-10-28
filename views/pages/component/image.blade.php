@@ -28,11 +28,12 @@
             @markdown
             ###Open image in modal
             @endmarkdown
+
             @image([
             'src'=> "https://picsum.photos/300/200?image=1028",
             'alt' => "This is a image",
-            'caption' => "Click image to open a modal with image",
-            'modalRefId' => "exampleModal"
+            'caption' => "Click image to open a modal with a bigger image example",
+            'modalId' => "exampleModal"
             ])
             @endimage
         </div>
@@ -45,18 +46,17 @@
     'overlay' => 'dark',
     'animation' => 'scale-up'
     ])
-        @image([
-        'src'=> "https://picsum.photos/600/500?image=1028",
-        'alt' => "This is a image in a modal",
-        'caption' => "Another caption",
-        ])
-        @endimage
+    @image([
+    'src'=> "https://picsum.photos/600/500?image=1028",
+    'alt' => "This is a image in a modal"
+    ])
+    @endimage
 
     @endmodal
 
     @enddoc
 
-    
+
     @doc(['slug' => 'image'])
     <div class="grid">
         <div class="grid-s-12 grid-md-6">
