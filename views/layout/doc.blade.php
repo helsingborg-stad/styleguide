@@ -31,7 +31,7 @@
 
     
     @if(isset($settings) && isset($slug) && !empty($slug))
-
+        @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
             <h3>Blade component parameters</h3>
             <table>
@@ -81,5 +81,6 @@
             </table>
         @endpaper
         <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
+        @endif
     @endif
 </section>
