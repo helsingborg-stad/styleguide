@@ -1,100 +1,80 @@
-// ***************************************************************
-// *** Mapping for different sizes
-// ***************************************************************
-$radius: (
-        (
-                "name": "",
-                "size": $border-radius-md
-        ),
-        (
-                "name": &--rounded-xs,
-                "size": $border-radius-xs
-        ),
-        (
-                "name": &--rounded-sm,
-                "size": $border-radius-sm
-        ),
-        (
-                "name": &--rounded-md,
-                "size": $border-radius-md
-        ),
-        (
-                "name": &--rounded-lg,
-                "size": $border-radius-lg
-        )
-);
+@extends('layout.master')
 
-// ***************************************************************
-// *** Image
-// ***************************************************************
-.c-image {
+@section('content')
 
-    margin: 0px;
-    width: 100%;
-    height: auto;
+    @markdown
+    #Image
+    Displays a simple image. If it is missing it may be replaced with a placeholder. Alt and captions can be added.
+    @endmarkdown
 
-    &__image {
-        border-radius: $border-radius-xs;
-    }
 
-    &__caption {
-        font-size: 0.8em;
-        color: darken($color-gray, 20%) !important;
-    }
 
-    &--full-width &__image {
-        object-fit: contain;
-        width: 100%;
-    }
+    @doc(['slug' => 'image', 'displayParams' => false])
+    <div class="grid">
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+            ###Just a plain simple Image
+            @endmarkdown
 
-    // Rounded Images with different sizes
-    @each $map in $radius {
+            @image([
+            'src'=> "https://picsum.photos/300/200?image=1026",
+            'alt' => "This is a image",
+            'caption' => "Hey, I am a caption for an image",
+            ])
+            @endimage
+        </div>
 
-        $radiusName: map-get($map, "name");
-        $radiusSize: map-get($map, "size");
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+            ###Open image in modal
+            @endmarkdown
+            @image([
+            'src'=> "https://picsum.photos/300/200?image=1026",
+            'alt' => "This is a image",
+            'caption' => "Click image to open a modal with image"
+            ])
+            @endimage
+        </div>
+    </div>
+    @enddoc
 
-        &#{$radiusName}.c-image--rounded img {
-            border-radius: #{$radiusSize};
-        }
 
-        &#{$radiusName}.c-image--rounded-top-left img {
-            border-radius: #{$radiusSize} 0 0 0;
-        }
 
-        &#{$radiusName}.c-image--rounded-top-right img {
-            border-radius: 0 #{$radiusSize} 0 0;
-        }
 
-        &#{$radiusName}.c-image--rounded-bottom-left img {
-            border-radius: 0 0 #{$radiusSize} 0;
-        }
+    @doc(['slug' => 'image'])
+    <div class="grid">
+        <div class="grid-s-12 grid-md-6">
 
-        &#{$radiusName}.c-image--rounded-bottom-right img {
-            border-radius: 0 0 0 #{$radiusSize};
-        }
+            @markdown
+            ###Rounded corners (All corners)
+            @endmarkdown
 
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-top-right img {
-            border-radius: #{$radiusSize} #{$radiusSize} 0 0;
-        }
+            @image([
+            'src'=> "https://picsum.photos/300/200?image=1026",
+            'alt' => "This is a image",
+            'caption' => "Image with rounded corners (default size: md)",
+            'rounded' => true
+            ])
+            @endimage
+        </div>
+        <div class="grid-s-12 grid-md-6">
 
-        &#{$radiusName}.c-image--rounded-bottom-left.c-image--rounded-bottom-right img {
-            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
-        }
+            @markdown
+            ###Rounded (top-left - bottom-right)
+            @endmarkdown
 
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-left img {
-            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
-        }
+            @image([
+            'src'=> "https://picsum.photos/300/200?image=1026",
+            'alt' => "This is a image",
+            'caption' => "Larger corner radius (size: lg) with roundedRadius",
+            'roundedTopLeft' => true,
+            'roundedBottomRight' => true,
+            'roundedRadius' => "lg"
+            ])
+            @endimage
+        </div>
+    </div>
+    @enddoc
 
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-right img {
-            border-radius: #{$radiusSize} 0 #{$radiusSize} 0;
-        }
 
-        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-right img {
-            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-left img {
-            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
-        }
-    }
-}
+@stop
