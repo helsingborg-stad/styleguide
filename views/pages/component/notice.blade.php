@@ -11,7 +11,7 @@
         @notice(['isWarning' => true, 'message' => 'test', 'slide' => 'right'])
         @endnotice
 
-        @notice(['isSuccess' => true, 'icon' => 'menu', 'slide' => 'left', 'message' => 'yo'])
+        @notice(['isSuccess' => true, 'slide' => 'left', 'message' => 'yo', 'icon' => 'check'])
         @endnotice
 
         @notice(['isDanger' => true, 'message' => 'lol', 'slide' => 'top', ])
