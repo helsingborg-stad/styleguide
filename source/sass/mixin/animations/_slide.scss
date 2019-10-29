@@ -1,0 +1,46 @@
+@mixin slide($direction) {
+    animation-duration: 1.5s;
+    animation-name: $direction;
+}    
+    
+
+
+@keyframes left {
+    from {
+      transform: translateX(-100vh);
+    }
+  
+    to {
+      transform: translateX(0);
+    }
+}
+
+@keyframes right {
+    from {
+      transform: translateX(100vh);
+    }
+  
+    to {
+      transform: translateX(0);
+    }
+}
+
+@keyframes top {
+    from {
+      transform: translateY(-100vh);
+    }
+  
+    to {
+      transform: translateY(0);
+    }
+}
+
+@keyframes bottom {
+    from {
+      transform: translateY(100vh);
+    }
+  
+    to {
+      transform: translateY(0);
+    }
+}
