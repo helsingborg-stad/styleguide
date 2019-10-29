@@ -18,7 +18,8 @@
         top: map-get($spacers, '1');
         right: map-get($spacers, '2');
         display: block;
-        color: $color-gray; 
+        color: $color-gray;
+        cursor:pointer;
     }
 
     &__inner {
@@ -37,6 +38,22 @@
         background-color: rgba($color-black, .85); 
         outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
     }
+
+    &__prev,  &__next {
+        position:absolute;
+        top: calc(50% - 10px); /* 50% - 3/4 of icon height */
+        vertical-align: middle;
+        cursor:pointer;
+    }
+
+    &__prev {
+        left:10px;
+    }
+
+    &__next {
+        right:10px;
+    }
+
 }
 
 .c-modal.c-modal__animation-- {
