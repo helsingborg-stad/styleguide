@@ -1,0 +1,61 @@
+.c-typography__variant-- {
+    &h1 {
+        font-size: $h1-font-size;
+        font-weight: $h1-font-weight;
+        line-height: $h1-line-height;
+    }
+
+    &h2 {
+        font-size: $h2-font-size;
+        font-weight: $h2-font-weight;
+        line-height: $h2-line-height;
+    }
+
+    &h3 {
+        font-size: $h3-font-size;
+        font-weight: $h3-font-weight;
+        line-height: $h3-line-height;
+    }
+
+    &h4 {
+        font-size: $h4-font-size;
+        font-weight: $h4-font-weight;
+        line-height: $h4-line-height;
+    }
+
+    &h5 {
+        font-size: $h5-font-size;
+        font-weight: $h5-font-weight;
+        line-height: $h5-line-height;
+    }
+
+    &h6 {
+        font-size: $h6-font-size;
+        font-weight: $h6-font-weight;
+        line-height: $h6-line-height;
+    }
+
+    &headline {
+        font-size: $font-size-headline;
+    }
+    
+    &title {
+        font-size: $font-size-title;
+    }
+
+    &subtitle {
+        font-size: $font-size-subtitle;
+    }
+    
+    &body {
+        font-size: $font-size-body;
+    }
+
+    &caption {
+        font-size: $font-size-caption;
+    }
+
+    &meta {
+        font-size: $font-size-meta;
+    }
+}
