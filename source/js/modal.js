@@ -1,12 +1,14 @@
+
 class Modal {
+
 
     constructor() {
         this.enableModals();
     }
 
-    /* ----------------------------------------------------
-     *  Enable Modal
-     * ---------------------------------------------------- */
+    /**
+     * Enable Modal
+     */
     enableModals() {
         const self = this;
         const openTrigger = document.querySelectorAll("[data-open]");
@@ -79,9 +81,14 @@ class Modal {
         });
     }
 
-    /* ----------------------------------------------------
-     *  Next & previous Image
-     * ---------------------------------------------------- */
+    /**
+     * Next & previous Image
+     * @param nav
+     * @param displayImage
+     * @param imageDataSet
+     * @param modalImg
+     * @returns {*}
+     */
     cycleImage(nav, displayImage, imageDataSet, modalImg) {
         const self = this;
         const currentIndex = imageDataSet.indexOf(displayImage);
@@ -96,9 +103,11 @@ class Modal {
         return imageDataSet[nextIndex];
     }
 
-    /* ----------------------------------------------------
-     *  Create Image in modal
-     * ---------------------------------------------------- */
+    /**
+     * Create Image in modal
+     * @param containerId
+     * @param imgSrc
+     */
     createImg(containerId, imgSrc) {
         const container = containerId.querySelector('.c-image');
             container.innerHTML = '';
@@ -110,5 +119,6 @@ class Modal {
     }
 
 }
+
 
 export default Modal;
