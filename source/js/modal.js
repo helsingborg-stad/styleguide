@@ -1,12 +1,14 @@
+
 class Modal {
+
 
     constructor() {
         this.enableModals();
     }
 
-    /* ----------------------------------------------------
-     *  Enable Modal
-     * ---------------------------------------------------- */
+    /**
+     * Enable Modal
+     */
     enableModals() {
         const self = this;
         const openTrigger = document.querySelectorAll("[data-open]");
@@ -79,36 +81,48 @@ class Modal {
         });
     }
 
-    /* ----------------------------------------------------
-     *  Next & previous Image
-     * ---------------------------------------------------- */
+    /**
+     * Next & previous Image
+     * @param nav
+     * @param displayImage
+     * @param imageDataSet
+     * @param modalImg
+     * @returns {*}
+     */
     cycleImage(nav, displayImage, imageDataSet, modalImg) {
         const self = this;
         const currentIndex = imageDataSet.indexOf(displayImage);
-        const nextIndex = (nav === 'next') ? (currentIndex +1) % imageDataSet.length : (currentIndex -1) % imageDataSet.length;
+        const nextIndex = (nav === 'next') ? (currentIndex +1) % imageDataSet.length :
+            (currentIndex -1) % imageDataSet.length;
 
-        if (currentIndex > imageDataSet.length) {
-            self.createImg(modalImg, imageDataSet[0]);
-        } else {
+        (currentIndex > imageDataSet.length) ? self.createImg(modalImg, imageDataSet[0]) :
             self.createImg(modalImg, imageDataSet[nextIndex]);
-        }
 
         return imageDataSet[nextIndex];
     }
 
-    /* ----------------------------------------------------
-     *  Create Image in modal
-     * ---------------------------------------------------- */
+    /**
+     * Create Image in modal
+     * @param containerId
+     * @param imgSrc
+     */
     createImg(containerId, imgSrc) {
         const container = containerId.querySelector('.c-image');
+        if (container.querySelectorAll('img').length === 0){
             container.innerHTML = '';
             container.classList.remove('c-image--is-placeholder');
             const img = document.createElement("img");
             img.setAttribute("src", imgSrc);
             img.classList.add('c-image__image');
             container.appendChild(img);
+        }
+        else {
+            container.querySelector('.c-image__image').src = imgSrc;
+        }
+
     }
 
 }
+
 
 export default Modal;
