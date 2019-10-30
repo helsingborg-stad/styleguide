@@ -27,7 +27,7 @@
         background-color: white;
         max-width: 800px;
         max-height: 80vh;
-        overflow: auto;
+        //overflow: auto;
         cursor: default;
         transition: all 0.3s ease-in-out;
     }
@@ -44,14 +44,15 @@
         top: calc(50% - 10px); /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor:pointer;
+        z-index:$level-1;
     }
 
     &__prev {
-        left:10px;
+        left:-30px;
     }
 
     &__next {
-        right:10px;
+        right:-30px;
     }
 
 }
