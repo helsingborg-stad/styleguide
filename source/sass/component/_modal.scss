@@ -95,3 +95,11 @@
             }
         }
 }
+
+.c-modal .c-image, .c-modal .fadeIn {
+    animation: fadein 3s ease-in;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

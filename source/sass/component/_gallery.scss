@@ -1,5 +1,11 @@
 .c-gallery {
-    @include unlist(); 
+
+    .c-image {
+        cursor:pointer;
+
+    }
+
+    @include unlist();
 
     display: grid; 
     grid-template-columns: 1fr;
@@ -18,6 +24,7 @@
         text-decoration: none; 
         color: $color-gray;
     }
+
 }
 
 @include mq(map_get($breakpoints-map, 'sm')) {
@@ -45,3 +52,4 @@
         }
     }
 }
+

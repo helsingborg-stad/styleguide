@@ -1,4 +1,3 @@
-
 class Modal {
 
     constructor() {
@@ -32,6 +31,9 @@ class Modal {
                 displayImage = this.getAttribute('data-imgSrc');
                 if(displayImage) {
                     modalImg = document.getElementById(modalId);
+                    const container = modalImg.querySelector('.c-image');
+                    container.innerHTML = '';
+                    container.classList.remove('c-image--is-placeholder');
                     self.createImg(modalImg, displayImage);
                 }
             });
@@ -40,13 +42,6 @@ class Modal {
         const closeTrigger = document.querySelectorAll("[data-close]");
         const nextTrigger = document.querySelectorAll("[data-next]");
         const prevTrigger = document.querySelectorAll("[data-prev]");
-
-        // Close
-        for (const trigger of closeTrigger) {
-            trigger.addEventListener("click", function() {
-                this.parentElement.parentElement.parentElement.classList.remove(isVisible);
-            });
-        }
 
         // Next Image
         for (const nxt of nextTrigger) {
@@ -59,6 +54,13 @@ class Modal {
         for (const prev of prevTrigger) {
             prev.addEventListener("click", function() {
                 displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
+            });
+        }
+
+        // Close
+        for (const trigger of closeTrigger) {
+            trigger.addEventListener("click", function() {
+                this.parentElement.parentElement.parentElement.classList.remove(isVisible);
             });
         }
 
@@ -99,16 +101,13 @@ class Modal {
      * ---------------------------------------------------- */
     createImg(containerId, imgSrc) {
         const container = containerId.querySelector('.c-image');
-        const img = document.createElement("img");
-
-        container.innerHTML = '';
-        container.classList.remove('c-image--is-placeholder');
-
-        img.setAttribute("src", imgSrc);
-        img.classList.add('c-image__image');
-        container.appendChild(img);
+            container.innerHTML = '';
+            container.classList.remove('c-image--is-placeholder');
+            const img = document.createElement("img");
+            img.setAttribute("src", imgSrc);
+            img.classList.add('c-image__image');
+            container.appendChild(img);
     }
-
 
 }
 
