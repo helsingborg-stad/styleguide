@@ -1,64 +1,108 @@
+// LABEL
+.c-btn__label-icon {
+    order:2;
+    padding-left: 10%;
+    &--reverse{
+        order:1;
+        padding-right: 10%;
+    }
+}
+
+.c-btn__label-text {
+    order:1;
+    &--reverse{
+        order:2;
+    }
+}
+
+// ICON
+
+.c-btn__icon{
+
+    &--sm{
+        @include button-mix($color-black, false, false, true);
+        @include button-size(0.2em, 0.2em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
+    }
+
+    &--md{
+        @include button-mix($color-black, false, false, true);
+        @include button-size(0.3em, 0.4em, $font-size-btn-md, $font-size-btn-md-line-height, 50%);
+    }
+
+    &--lg{
+        @include button-mix($color-black, false, false, true);
+        @include button-size(0.3em, 0.4em, $font-size-btn-lg, $font-size-btn-lg-line-height, 50%);
+    }
+}
+
+// OUTLINED
+.c-btn__outlined{
+    &--secondary {
+        @include button-mix($color-secondary, false, true);
+    }
+
+    &--primary {
+        @include button-mix($color-primary, false, true);
+    }
+}
+
+// BUTTON
 .c-btn {
     display: inline-block;
     vertical-align: middle;
-    font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     margin: 0;
     margin-top: 2.66667px;
     margin-bottom: 2.66667px;
-    border:2px solid;
-
-    @include button-mix($color-body, false, $color-body);
-
-    &.c-btn--primary {
-        @include button-mix($color-white, $color-primary, $color-primary);
-
-        &.c-btn--outline {
-            @include button-mix($color-primary, false, $color-primary);
-        }
+    line-height: 1;
+    &__label{
+        display:flex;
+        flex-direction: row;
+        text-transform: uppercase;
+    }
+    
+    // COLOR
+    &--primary {
+        @include button-mix($color-white, $color-primary, false);
     }
 
-
-    &.c-btn--contrasted {
-        @include button-mix($color-white, $color-gray, $color-gray);
+    &--secondary {
+        @include button-mix($color-white, $color-secondary, false);
     }
 
-    &.c-btn--light {
-        @include button-mix($color-black, $color-gray-lighter, $color-gray-lighter);
-    }
-
-    &.c-btn--danger {
-        @include button-mix($color-white, $color-danger, $color-danger);
-
-        &.c-btn--outline {
-            @include button-mix($color-danger, false, $color-danger);
-        }
-    }
-
-    &.c-btn--plain {
-        @include button-mix($color-black, false, false);
-    }
-
-    &.disabled {
-        opacity: .7;
-    }
-    &.c-btn--round {
-        border-radius: $border-radius-md;
-    }
-
-    @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
-
-    &.c-btn--lg {
+    // SIZE
+    &--lg {
         @include button-size(0.5em, 0.9em, $font-size-btn-lg, $font-size-btn-lg-line-height, 2px);
     }
 
-    &.c-btn--sm {
+    &--sm {
         @include button-size(0.4em, 0.6em, $font-size-btn-sm, $font-size-btn-sm-line-height, 2px);
     }
-
-    &.c-btn--block {
-        width: 100%;
+    
+    // FLOATING
+    &--floating {
+        @include shadow(6);
     }
+
+    &--animated-float-on-hover{
+
+        box-shadow:none;
+        transition: 0.3s;
+        transition-timing-function: ease-in;
+
+        &:hover {
+            @include shadow(6);
+        }
+    }
+
+    &--float-on-hover{
+        box-shadow:none;
+        &:hover {
+            @include shadow(6);
+        }
+    }
+
+    
 
 }
