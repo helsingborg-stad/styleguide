@@ -31,6 +31,43 @@
         @endbutton
 
         @button([
+            'href' => '#btn-3', 
+            'isOutlined' => false, 
+            'background' => 'primary',
+            'text' => 'Button',
+            'size' => 'lg',
+            'color' => 'secondary',
+            'reverseIcon' => false,
+            'floating' => false
+        ])
+        @endbutton
+
+        @button([
+            'href' => '#btn-3', 
+            'isOutlined' => false, 
+            'background' => 'primary',
+            'text' => 'Button',
+            'icon' => 'apps',
+            'size' => 'lg',
+            'color' => 'secondary',
+            'reverseIcon' => false,
+            'floating' => false
+        ])
+        @endbutton
+
+        @button([
+            'href' => '#btn-3',
+            'isOutlined' => false,
+            'isIconButton' =>  true,
+            'icon' => 'close',
+            'reverseIcon' => false,
+            'size' => 'lg',
+            'color' => 'secondary',
+            'floating' => ['animate' => false, 'hover' => false]
+        ])
+        @endbutton
+
+        @button([
             'href' => '#btn-3',
             'isOutlined' => false,
             'isIconButton' =>  true,
@@ -39,6 +76,18 @@
             'size' => 'lg',
             'color' => 'secondary',
             'floating' => ['animate' => true, 'hover' => true]
+        ])
+        @endbutton
+
+        @button([
+            'href' => '#btn-3',
+            'isOutlined' => false,
+            'isIconButton' =>  true,
+            'icon' => 'close',
+            'reverseIcon' => false,
+            'size' => 'lg',
+            'color' => 'secondary',
+            'floating' => ['animate' => false, 'hover' => true]
         ])
         @endbutton
 
