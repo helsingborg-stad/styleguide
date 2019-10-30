@@ -52,6 +52,7 @@
 @import 'mixin/gradient';
 @import 'mixin/arrow';
 @import 'mixin/build-utility';
+@import 'mixin/animations/slide';
 
 // ***************************************************************
 // *** Generic
@@ -112,6 +113,7 @@
 @import 'component/testimonials';
 @import 'component/alert';
 @import 'component/fields';
+@import 'component/typography';
 
 // ***************************************************************
 // *** Misc
