@@ -38,7 +38,7 @@
             'reverseIcon' => false,
             'size' => 'lg',
             'color' => 'secondary',
-            'floatOnHover' => true
+            'floating' => ['animate' => true, 'hover' => true]
         ])
         @endbutton
 

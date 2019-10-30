@@ -82,17 +82,24 @@
     
     // FLOATING
     &--floating {
-        @include shadow(6, false, true);
+        @include shadow(6);
     }
 
-    &--float-on-hover{
+    &--animated-float-on-hover{
 
         box-shadow:none;
         transition: 0.3s;
         transition-timing-function: ease-in;
 
         &:hover {
-            @include shadow(6, false, true);
+            @include shadow(6);
+        }
+    }
+
+    &--float-on-hover{
+        box-shadow:none;
+        &:hover {
+            @include shadow(6);
         }
     }
 
