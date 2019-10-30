@@ -124,7 +124,8 @@ class View
                 'description' => $description,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
-                'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false
+                'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
+				'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true
             ]); 
 
         });

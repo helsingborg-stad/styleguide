@@ -1,23 +1,17 @@
 .c-notice {
-    @include shadow(1);
+    @include shadow(5);
     padding: map-get($spacers, '2') map-get($spacers, '3');
     background-color: $color-base;
     border-radius: $border-radius-xs;
-
+    
     &--success {
         background-color: $color-success; 
-
-        .c-notice__label {
-            color: $color-white; 
-        }
+        color: #ffffff;
     }
 
     &--danger {
         background-color: $color-danger; 
-
-        .c-notice__label {
-            color: $color-white; 
-        }
+        color: #ffffff;
     }
 
     &--info {
@@ -27,5 +21,28 @@
     &--warning {
         background-color: $color-warning; 
     }
+
+    &__icon{
+        margin-right: map-get($spacers, '1');
+    }
 }
+
+.c-notice__slide{
+   
+    &--from-left{
+        @include slide(left);
+    }
+    &--from-right{
+        @include slide(right);
+    }
+    &--from-top{
+        @include slide(top);
+    }
+    &--from-bottom{
+        @include slide(bottom);
+    }    
+
+    
+}
+
 

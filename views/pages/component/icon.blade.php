@@ -10,19 +10,17 @@
 
         <div>
         @icon(['icon' => 'close'])
-            Mutch icon, wow!
+            Icon label will be deprecated
         @endicon
         </div>
 
         <div>
         @icon(['icon' => 'apps', 'size' => 'lg'])
-            Here are apps!
         @endicon
         </div>
 
         <div>
-        @icon(['icon' => 'bookmark', 'size' => 'xxl'])
-            Bookmark me!
+        @icon(['icon' => 'bookmark', 'size' => 'xxl', 'color' => 'Primary'])
         @endicon
         </div>
 
