@@ -1,5 +1,12 @@
-@loader(['shape' => 'circular', 'size' => 'md'])
+@loader(
+    [
+        'shape' => 'circular',
+        'size' => 'md'
+    ]
+)
 @endloader
 
-@loader(['shape' => 'linear'])
+@loader(
+    ['shape' => 'linear']
+)
 @endloader

@@ -1,3 +1,5 @@
-@form([])
+@form(
+    []
+)
 @endform
 

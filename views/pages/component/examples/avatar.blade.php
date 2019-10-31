@@ -1,10 +1,14 @@
-@avatar([
-    'name' => "Cookie Monster"
-])
+@avatar(
+    [
+        'name' => "Cookie Monster"
+    ]
+)
 @endavatar
 
-@avatar([
-    'image' => "https://picsum.photos/70/70?image=64",
-    'name' => "Cookie Monster"
-])
+@avatar(
+    [
+        'image' => "https://picsum.photos/70/70?image=64",
+        'name' => "Cookie Monster"
+    ]
+)
 @endavatar

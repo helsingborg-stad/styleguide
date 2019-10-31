@@ -1,11 +1,27 @@
-<button type="button" data-open="exampleModal">Open Modal</button>
+@button(
+    [
+        'href' => '#',
+        'isOutlined' => false,
+        'background' => 'primary',
+        'text' => 'Button',
+        'icon' => 'apps',
+        'size' => 'lg',
+        'color' => 'secondary',
+        'reverseIcon' => true,
+        'floating' => true,
+        'attributeList' => ['data-open' => "exampleModalId']
+    ]
+)
+@endbutton
 
-@modal([
-    'heading'=> "Hey, have you seen this?",
-    'isPanel' => false,
-    'id' => 'exampleModal',
-    'overlay' => 'dark',
-    'animation' => 'scale-up',
-])
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+@modal(
+    [
+        'heading'=> "Hey, have you seen this?",
+        'isPanel' => false,
+        'id' => 'exampleModalId',
+        'overlay' => 'dark',
+        'animation' => 'scale-up'
+    ]
+)
+    This is the content of the modal. It can also be another component.
 @endmodal
