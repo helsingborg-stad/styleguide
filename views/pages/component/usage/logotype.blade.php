@@ -1,6 +1,6 @@
 @logotype(
     [
-        'src'=> "https://picsum.photos/300/200?image=1026",
+        'src'=> "/assets/img/logotype.svg",
         'alt' => "This is a logotype",
         'caption' => "Hey, I am a caption"
     ]
