@@ -2,14 +2,7 @@
     "variant" => "h1",
     "element" => "h5",
 ])
-    hejdsan
-@endtypography
-
-@typography([
-    "variant" => "body",
-    "element" => "span"
-])
-    Body
+    Hello world!
 @endtypography
 
 @typography([
