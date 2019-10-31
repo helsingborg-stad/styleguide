@@ -1,0 +1,39 @@
+.c-fab {
+    position: fixed;
+    z-index: $level-10;
+    right: 6em;
+    bottom: 5em;
+    .c-btn:first-child{
+        @include shadow(6)
+    }
+}
+
+.c-fab__position {
+    &--top-left {
+        left: 6em;
+        top: 5em;
+        right: unset;
+        bottom: unset;
+    }
+
+    &--top-right {
+        right: 6em;
+        top: 5em;
+        left: unset;
+        bottom: unset;
+    }
+
+    &--bottom-left {
+        left: 6em;
+        bottom: 5em;
+        top: unset;
+        right: unset;
+    }
+
+    &--bottom-right {
+        right: 6em;
+        bottom: 5em;
+        left: unset;
+        top: unset;
+    }
+}
