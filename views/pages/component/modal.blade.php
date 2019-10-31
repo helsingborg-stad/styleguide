@@ -7,15 +7,32 @@
     @endmarkdown
 
     @doc(['slug' => 'modal'])
-        <button type="button" data-open="exampleModal">Open Modal</button>
 
-        @modal([
-            'heading'=> "Hey, have you seen this?",
-            'isPanel' => false,
-            'id' => 'exampleModal',
-            'overlay' => 'dark',
-            'animation' => 'scale-up',
-        ])
+        @button(
+            [
+                'href' => '#',
+                'isOutlined' => false,
+                'background' => 'primary',
+                'text' => 'Open Modal',
+                'icon' => 'favorite',
+                'size' => 'lg',
+                'color' => 'secondary',
+                'reverseIcon' => true,
+                'floating' => true,
+                'attributeList' => ['data-open' => 'exampleModalId']
+            ]
+        )
+        @endbutton
+
+        @modal(
+            [
+                    'heading'=> "Hey, have you seen this?",
+                    'isPanel' => false,
+                    'id' => 'exampleModalId',
+                    'overlay' => 'dark',
+                    'animation' => 'scale-up',
+                ]
+        )
         We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
         
         We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.

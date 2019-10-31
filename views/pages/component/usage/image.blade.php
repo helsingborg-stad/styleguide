@@ -1,11 +1,11 @@
 @image(
     [
         'src'=> "https://your-url.se",
-        'alt' => "This is a image",
+        'alt' => "This is an image",
         'caption' => "Your caption text",
         'roundedTopLeft' => true,
         'roundedBottomRight' => true,
-        'roundedRadius' => "lg"
+        'roundedRadius' => "md"
     ]
 )
 @endimage

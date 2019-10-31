@@ -27,7 +27,7 @@
         {{'$slot'}}
 
     {{"@end"}}{{$slug}}</code></pre>
-            <h3>Usage</h3>
+            <h3>Example usage in blade file</h3>
             @code(['language' => 'scss', 'content' => ""])
                     @php ob_start(); @endphp
                     @verbatim
