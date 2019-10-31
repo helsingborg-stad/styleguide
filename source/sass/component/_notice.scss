@@ -3,6 +3,7 @@
     padding: map-get($spacers, '2') map-get($spacers, '3');
     background-color: $color-base;
     border-radius: $border-radius-xs;
+    cursor: pointer;
     
     &--success {
         background-color: $color-success; 
@@ -24,6 +25,37 @@
 
     &__icon{
         margin-right: map-get($spacers, '1');
+    }
+
+}
+
+.c-notice__message {
+    &--inherit {
+        font-size: inherit; 
+    }
+
+    &--xs {
+        font-size: map-get($icon-sizes, 'xs'); 
+    }
+
+    &--sm {
+        font-size: map-get($icon-sizes, 'sm'); 
+    }
+
+    &--md {
+        font-size: map-get($icon-sizes, 'md'); 
+    }
+
+    &--lg {
+        font-size: map-get($icon-sizes, 'lg'); 
+    }
+
+    &--xl {
+        font-size: map-get($icon-sizes, 'xl'); 
+    }
+
+    &--xxl {
+        font-size: map-get($icon-sizes, 'xxl'); 
     }
 }
 
