@@ -49,6 +49,7 @@
         "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
+        "fs": "0.0.1-security",
         "glob": "^7.1.4",
         "icon-font-generator": "^2.1.10",
         "jquery": "^3.4.1",
