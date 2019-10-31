@@ -27,6 +27,20 @@
         {{'$slot'}}
 
     {{"@end"}}{{$slug}}</code></pre>
+            <h3>Usage</h3>
+            @code(['language' => 'scss', 'content' => ""])
+                    @php ob_start(); @endphp
+                    @verbatim
+				        <?php include_once "views/pages/component/examples/".$slug.".blade.php";  ?>
+                    @endverbatim
+                    @php
+                        $markup = ob_get_contents();
+                        ob_end_clean();
+                        echo htmlentities($markup);
+                    @endphp
+            @endcode
+
+
         @endpaper
         @endif
     @endif
