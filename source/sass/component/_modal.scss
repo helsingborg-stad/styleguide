@@ -8,14 +8,14 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: $level-top;
+    z-index: $level-10;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in-out;
 
     &__close {
         position: absolute;
-        top: map-get($spacers, '1');
+        top: -50px;
         right: map-get($spacers, '2');
         display: block;
         color: $color-gray;
@@ -35,8 +35,12 @@
     &__is-visible {
         visibility: visible;
         opacity: 1;
-        background-color: rgba($color-black, .85); 
-        outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
+        background-color: rgba($color-black, .85);
+        outline: 5000px solid rgba($color-black, .85); /* relative container fix */
+    }
+
+    .modal-content {
+        position:relative;
     }
 
     &__prev,  &__next {
@@ -44,15 +48,21 @@
         top: calc(50% - 10px); /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor:pointer;
-        z-index:$level-1;
+        z-index:$level-top;
+
+    }
+    &__close:focus, &__close i:focus, &__close span:focus,
+    &__prev:focus,  &__next:focus, &__prev i:focus,
+    &__next i:focus, &__prev span:focus, &__next span:focus {
+        outline: 0;
     }
 
     &__prev {
-        left:-30px;
+        left:-50px;
     }
 
     &__next {
-        right:-30px;
+        right:-50px;
     }
 
 }
