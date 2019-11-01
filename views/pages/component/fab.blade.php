@@ -28,7 +28,7 @@
 
         @fab([
             'position' => 'bottom-right',
-            'spacing' => 'xs',
+            'spacing' => 'xl',
             'button' => [
                 'href' => '#btn-3',
                 'text' => 'Extended',
