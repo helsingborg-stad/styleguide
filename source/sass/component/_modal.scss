@@ -51,6 +51,7 @@
         z-index:$level-top;
 
     }
+
     &__close:focus, &__close i:focus, &__close span:focus,
     &__prev:focus,  &__next:focus, &__prev i:focus,
     &__next i:focus, &__prev span:focus, &__next span:focus {
@@ -63,6 +64,15 @@
 
     &__next {
         right:-50px;
+    }
+    @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
+        &__prev {
+            left:10px;
+        }
+
+        &__next {
+            right:10px;
+        }
     }
 
 }
