@@ -11,8 +11,8 @@
             'href' => '#btn-3', 
             'isOutlined' => true, 
             'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
+            'icon' => ['name' => 'close', 'color' => 'black'],
+            'size' => 'sm',
             'color' => 'secondary'
         ])
         @endbutton
@@ -22,11 +22,11 @@
             'isOutlined' => false, 
             'background' => 'primary',
             'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
+            'icon' => ['name' => 'close', 'color' => 'black'],
+            'size' => 'md',
             'color' => 'secondary',
             'reverseIcon' => true,
-            'floating' => true
+            'floating' => ['animate' => true, 'hover' => true]
         ])
         @endbutton
 
@@ -35,19 +35,7 @@
             'isOutlined' => false, 
             'background' => 'primary',
             'text' => 'Button',
-            'size' => 'lg',
-            'color' => 'secondary',
-            'reverseIcon' => false,
-            'floating' => false
-        ])
-        @endbutton
-
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => false, 
-            'background' => 'primary',
-            'text' => 'Button',
-            'icon' => 'apps',
+            'icon' => ['name' => 'close', 'color' => 'black'],
             'size' => 'lg',
             'color' => 'secondary',
             'reverseIcon' => false,
@@ -57,37 +45,25 @@
 
         @button([
             'href' => '#btn-3',
-            'isOutlined' => false,
             'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
+            'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'sm'],
             'floating' => ['animate' => false, 'hover' => false]
         ])
         @endbutton
 
         @button([
             'href' => '#btn-3',
-            'isOutlined' => false,
             'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
-            'floating' => ['animate' => true, 'hover' => true]
+            'icon' => ['name' => 'close', 'color' => 'primary', 'size' => 'md'],
+            'floating' => ['animate' => false, 'hover' => false]
         ])
         @endbutton
 
         @button([
             'href' => '#btn-3',
-            'isOutlined' => false,
             'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
-            'floating' => ['animate' => false, 'hover' => true]
+            'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg']
+      
         ])
         @endbutton
 
