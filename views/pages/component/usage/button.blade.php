@@ -4,7 +4,7 @@
         'isOutlined' => false,
         'background' => 'primary',
         'text' => 'Button',
-        'icon' => 'apps',
+        'icon' => ['name' => 'close', 'color' => 'black'],
         'size' => 'lg',
         'color' => 'secondary',
         'reverseIcon' => true,

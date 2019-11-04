@@ -14,7 +14,7 @@
                 'isOutlined' => false,
                 'background' => 'primary',
                 'text' => 'Open Modal',
-                'icon' => 'favorite',
+                'icon' => ['name' => 'favorite', 'color' => 'black'],
                 'size' => 'lg',
                 'color' => 'secondary',
                 'reverseIcon' => true,
@@ -26,12 +26,12 @@
 
         @modal(
             [
-                    'heading'=> "Hey, have you seen this?",
-                    'isPanel' => false,
-                    'id' => 'exampleModalId',
-                    'overlay' => 'dark',
-                    'animation' => 'scale-up',
-                ]
+                'heading'=> "Hey, have you seen this?",
+                'isPanel' => false,
+                'id' => 'exampleModalId',
+                'overlay' => 'dark',
+                'animation' => 'scale-up',
+            ]
         )
         sWe are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
         

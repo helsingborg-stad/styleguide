@@ -12,14 +12,15 @@
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in-out;
+    line-height:0px;
 
     &__close {
         position: absolute;
-        top: -50px;
+        top: - map-get($spacers, '7');
         right: map-get($spacers, '2');
         display: block;
         color: $color-gray;
-        cursor:pointer;
+        cursor: pointer;
     }
 
     &__inner {
@@ -41,14 +42,19 @@
 
     .modal-content {
         position:relative;
+
+    }
+
+    &--gallery .modal-content {
+        background-color: $color-black;
     }
 
     &__prev,  &__next {
         position:absolute;
         top: calc(50% - 10px); /* 50% - 3/4 of icon height */
         vertical-align: middle;
-        cursor:pointer;
-        z-index:$level-top;
+        cursor: pointer;
+        z-index: $level-top;
 
     }
 
@@ -59,19 +65,19 @@
     }
 
     &__prev {
-        left:-50px;
+        left:- map-get($spacers, '7');
     }
 
     &__next {
-        right:-50px;
+        right:- map-get($spacers, '7');
     }
     @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
         &__prev {
-            left:10px;
+            left: map-get($spacers, '0');
         }
 
         &__next {
-            right:10px;
+            right: map-get($spacers, '0');
         }
     }
 
