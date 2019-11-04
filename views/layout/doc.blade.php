@@ -6,6 +6,7 @@
         <div class="markup-preview">
             {!! $slot !!}
         </div>
+        <h3>HTML rendered by blade component</h3>
         @code(['language' => 'html', 'content' => ""])
             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
         @endcode
