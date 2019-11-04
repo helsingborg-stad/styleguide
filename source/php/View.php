@@ -34,7 +34,8 @@ class View
     /**
      * @param $view
      * @param array $data
-     */
+	 * @throws \Exception
+	 */
     public static function registerLayoutViewComposer()
     {
         //Documentation module alias
