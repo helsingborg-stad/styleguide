@@ -20,7 +20,11 @@
         right: map-get($spacers, '2');
         display: block;
         color: $color-gray;
+<<<<<<< HEAD
         cursor: pointer;
+=======
+        cursor:pointer;
+>>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
     }
 
     &__inner {
@@ -40,6 +44,7 @@
         outline: 5000px solid rgba($color-black, .85); /* relative container fix */
     }
 
+<<<<<<< HEAD
     .modal-content {
         position:relative;
 
@@ -49,10 +54,13 @@
         background-color: $color-black;
     }
 
+=======
+>>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
     &__prev,  &__next {
         position:absolute;
         top: calc(50% - 10px); /* 50% - 3/4 of icon height */
         vertical-align: middle;
+<<<<<<< HEAD
         cursor: pointer;
         z-index: $level-top;
 
@@ -79,6 +87,17 @@
         &__next {
             right: map-get($spacers, '0');
         }
+=======
+        cursor:pointer;
+    }
+
+    &__prev {
+        left:10px;
+    }
+
+    &__next {
+        right:10px;
+>>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
     }
 
 }
