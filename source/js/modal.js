@@ -1,27 +1,16 @@
-
 class Modal {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
     constructor() {
         this.enableModals();
     }
 
-<<<<<<< HEAD
     /**
      * Enable Modal
      */
-=======
-    /* ----------------------------------------------------
-     *  Enable Modal
-     * ---------------------------------------------------- */
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
     enableModals() {
         const self = this;
         const openTrigger = document.querySelectorAll("[data-open]");
-        const isVisible = "c-modal__is-visible";
+        const isVisible = "c-modal__bg--is-visible";
         let modalId;
 
         for(const trigger of openTrigger) {
@@ -42,13 +31,11 @@ class Modal {
                 displayImage = this.getAttribute('data-imgSrc');
                 if(displayImage) {
                     modalImg = document.getElementById(modalId);
-<<<<<<< HEAD
                     const container = modalImg.querySelector('.c-image');
                     container.innerHTML = '';
                     container.classList.remove('c-image--is-placeholder');
-=======
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
                     self.createImg(modalImg, displayImage);
+                    self.lockScroll();
                 }
             });
         }
@@ -57,7 +44,6 @@ class Modal {
         const nextTrigger = document.querySelectorAll("[data-next]");
         const prevTrigger = document.querySelectorAll("[data-prev]");
 
-<<<<<<< HEAD
         // Next Image
         for (const nxt of nextTrigger) {
             nxt.addEventListener("click", function() {
@@ -68,40 +54,23 @@ class Modal {
         // Previous image
         for (const prev of prevTrigger) {
             prev.addEventListener("click", function() {
-                displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
+                displayImage = self.cycleImage('prev', displayImage, imageDataSet, modalImg);
             });
         }
 
-=======
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
         // Close
         for (const trigger of closeTrigger) {
             trigger.addEventListener("click", function() {
                 this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+                self.unlockScroll();
             });
         }
 
-<<<<<<< HEAD
-=======
-        // Next Image
-        for (const nxt of nextTrigger) {
-            nxt.addEventListener("click", function() {
-                displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
-            });
-        }
-
-        // Previous image
-        for (const prev of prevTrigger) {
-            prev.addEventListener("click", function() {
-                displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
-            });
-        }
-
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
         // Click outside modal
         document.addEventListener("click", e => {
             if (e.target == document.querySelector(`.${isVisible}`)) {
                 document.querySelector(`.${isVisible}`).classList.remove(isVisible);
+                self.unlockScroll();
             }
         });
 
@@ -109,11 +78,47 @@ class Modal {
         document.addEventListener("keyup", e => {
             if (e.key == "Escape" && document.querySelector(`.${isVisible}`)) {
                 document.querySelector(`.${isVisible}`).classList.remove(isVisible);
+                self.unlockScroll();
             }
         });
+
+        // Pressing Right key to skip to next
+        for (const nxt of nextTrigger) {
+            document.addEventListener("keyup", e => {
+                if (e.key == "ArrowRight" && document.querySelector(`.${isVisible}`)) {
+                    displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
+                }
+            });
+        }
+
+        // Pressing Left key to skip to previous
+        for (const nxt of nextTrigger) {
+            document.addEventListener("keyup", e => {
+                if (e.key == "ArrowLeft" && document.querySelector(`.${isVisible}`)) {
+                    displayImage = self.cycleImage('prev', displayImage, imageDataSet, modalImg);
+                }
+            });
+        }
     }
 
-<<<<<<< HEAD
+    /**
+     * Lock scroll
+     * @returns {*}
+     */
+    lockScroll() {
+        const overflowHidden = "u-overflow--hidden";
+        document.querySelector(`body`).classList.add(overflowHidden);
+    }
+
+    /**
+     * Unlock scroll
+     * @returns {*}
+     */
+    unlockScroll() {
+        const overflowHidden = "u-overflow--hidden";
+        document.querySelector(`body`).classList.remove(overflowHidden);
+    }
+
     /**
      * Next & previous Image
      * @param nav
@@ -130,26 +135,10 @@ class Modal {
 
         (currentIndex > imageDataSet.length) ? self.createImg(modalImg, imageDataSet[0]) :
             self.createImg(modalImg, imageDataSet[nextIndex]);
-=======
-    /* ----------------------------------------------------
-     *  Next & previous Image
-     * ---------------------------------------------------- */
-    cycleImage(nav, displayImage, imageDataSet, modalImg) {
-        const self = this;
-        const currentIndex = imageDataSet.indexOf(displayImage);
-        const nextIndex = (nav === 'next') ? (currentIndex +1) % imageDataSet.length : (currentIndex -1) % imageDataSet.length;
-
-        if (currentIndex > imageDataSet.length) {
-            self.createImg(modalImg, imageDataSet[0]);
-        } else {
-            self.createImg(modalImg, imageDataSet[nextIndex]);
-        }
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
 
         return imageDataSet[nextIndex];
     }
 
-<<<<<<< HEAD
     /**
      * Create Image in modal
      * @param containerId
@@ -170,27 +159,6 @@ class Modal {
         }
 
     }
-
 }
-
-=======
-    /* ----------------------------------------------------
-     *  Create Image in modal
-     * ---------------------------------------------------- */
-    createImg(containerId, imgSrc) {
-        const container = containerId.querySelector('.c-image');
-        const img = document.createElement("img");
-
-        container.innerHTML = '';
-        container.classList.remove('c-image--is-placeholder');
-
-        img.setAttribute("src", imgSrc);
-        img.classList.add('c-image__image');
-        container.appendChild(img);
-    }
-
-
-}
->>>>>>> c4e8f756ca2032fa7fd8a1de15e234c376aeb5ed
 
 export default Modal;
