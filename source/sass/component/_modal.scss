@@ -1,46 +1,24 @@
 .c-modal { 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: $level-10;
-    visibility: hidden;
-    opacity: 0;
+    position: relative;
+    background-color: white;
+    max-width: 800px;
+    max-height: 80vh;
+    //overflow: auto;
+    cursor: default;
     transition: all 0.3s ease-in-out;
+
+    &__content {
+        overflow: auto;
+    }
+
 
     &__close {
         position: absolute;
-        top: -50px;
-        right: map-get($spacers, '2');
+        top:- map-get($spacers, '4');
+        right:- map-get($spacers, '4');
         display: block;
-        color: $color-gray;
-        cursor:pointer;
-    }
-
-    &__inner {
-        position: relative;
-        background-color: white;
-        max-width: 800px;
-        max-height: 80vh;
-        //overflow: auto;
-        cursor: default;
-        transition: all 0.3s ease-in-out;
-    }
-
-    &__is-visible {
-        visibility: visible;
-        opacity: 1;
-        background-color: rgba($color-black, .85);
-        outline: 5000px solid rgba($color-black, .85); /* relative container fix */
-    }
-
-    .modal-content {
-        position:relative;
+        color: $color-white;
+        cursor: pointer;
     }
 
     &__prev,  &__next {
@@ -58,58 +36,86 @@
     }
 
     &__prev {
-        left:-50px;
+        left:- map-get($spacers, '6');
     }
 
     &__next {
-        right:-50px;
+        right:- map-get($spacers, '6');
     }
 
 }
 
-.c-modal.c-modal__animation-- {
+.c-modal__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: $level-top;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+    &--is-visible {
+        visibility: visible;
+        opacity: 1;
+        background-color: rgba($color-black, .75); 
+        outline: 5000px solid rgba($color-black, .75); /* relative container fix */ 
+        backdrop-filter: blur(3px);
+    }
+}
+
+.c-modal__bg.c-modal__bg__animation-- {
     &slide-up {
-        .c-modal__inner {
+        .c-modal {
             transform: translateY(100%);
         }
         
     }
 
     &slide-down {
-        .c-modal__inner {
+        .c-modal {
             transform: translateY(-100%);
         }
     }
 
     &scale-down {
-        .c-modal__inner {
+        .c-modal {
             transform: scale(1.1);
         }
     }
     &scale-up {
-        .c-modal__inner {
+        .c-modal {
             transform: scale(0.9);
         }
     }
 }
 
-.c-modal__is-visible.c-modal__animation-- {
+.c-modal__bg--is-visible.c-modal__bg__animation-- {
         &slide-up, &slide-down {
-            .c-modal__inner {
+            .c-modal {
                 transform: translateY(0);
             }
         }
 
         &scale-down, &scale-up {
-            .c-modal__inner {
+            .c-modal {
                 transform: scale(1.0);
             }
         }
 }
 
-.c-modal .c-image, .c-modal .fadeIn {
-    animation: fadein 3s ease-in;
+.c-modal .c-image {
+    animation: fadein 1s ease-in;
 }
+
+.c-modal .fadeIn {
+    animation: fadein 4s ease-in;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
