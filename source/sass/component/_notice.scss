@@ -3,8 +3,7 @@
     padding: map-get($spacers, '2') map-get($spacers, '3');
     background-color: $color-base;
     border-radius: $border-radius-xs;
-    cursor: pointer;
-    
+    color: #ffffff;    
     &--success {
         background-color: $color-success; 
         color: #ffffff;
