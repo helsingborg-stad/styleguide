@@ -1,6 +1,4 @@
-
 class Modal {
-
 
     constructor() {
         this.enableModals();
@@ -12,7 +10,7 @@ class Modal {
     enableModals() {
         const self = this;
         const openTrigger = document.querySelectorAll("[data-open]");
-        const isVisible = "c-modal__is-visible";
+        const isVisible = "c-modal__bg--is-visible";
         let modalId;
 
         for(const trigger of openTrigger) {
@@ -20,6 +18,7 @@ class Modal {
             trigger.addEventListener("click", function() {
                 modalId = this.dataset.open;
                 document.getElementById(modalId).classList.add(isVisible);
+                console.log('YO!!!!');
             });
         }
 
@@ -37,6 +36,7 @@ class Modal {
                     container.innerHTML = '';
                     container.classList.remove('c-image--is-placeholder');
                     self.createImg(modalImg, displayImage);
+                    self.lockScroll();
                 }
             });
         }
@@ -55,7 +55,7 @@ class Modal {
         // Previous image
         for (const prev of prevTrigger) {
             prev.addEventListener("click", function() {
-                displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
+                displayImage = self.cycleImage('prev', displayImage, imageDataSet, modalImg);
             });
         }
 
@@ -63,6 +63,7 @@ class Modal {
         for (const trigger of closeTrigger) {
             trigger.addEventListener("click", function() {
                 this.parentElement.parentElement.parentElement.classList.remove(isVisible);
+                self.unlockScroll();
             });
         }
 
@@ -70,6 +71,7 @@ class Modal {
         document.addEventListener("click", e => {
             if (e.target == document.querySelector(`.${isVisible}`)) {
                 document.querySelector(`.${isVisible}`).classList.remove(isVisible);
+                self.unlockScroll();
             }
         });
 
@@ -77,8 +79,45 @@ class Modal {
         document.addEventListener("keyup", e => {
             if (e.key == "Escape" && document.querySelector(`.${isVisible}`)) {
                 document.querySelector(`.${isVisible}`).classList.remove(isVisible);
+                self.unlockScroll();
             }
         });
+
+        // Pressing Right key to skip to next
+        for (const nxt of nextTrigger) {
+            document.addEventListener("keyup", e => {
+                if (e.key == "ArrowRight" && document.querySelector(`.${isVisible}`)) {
+                    displayImage = self.cycleImage('next', displayImage, imageDataSet, modalImg);
+                }
+            });
+        }
+
+        // Pressing Left key to skip to previous
+        for (const nxt of nextTrigger) {
+            document.addEventListener("keyup", e => {
+                if (e.key == "ArrowLeft" && document.querySelector(`.${isVisible}`)) {
+                    displayImage = self.cycleImage('prev', displayImage, imageDataSet, modalImg);
+                }
+            });
+        }
+    }
+
+    /**
+     * Lock scroll
+     * @returns {*}
+     */
+    lockScroll() {
+        const overflowHidden = "u-overflow--hidden";
+        document.querySelector(`body`).classList.add(overflowHidden);
+    }
+
+    /**
+     * Unlock scroll
+     * @returns {*}
+     */
+    unlockScroll() {
+        const overflowHidden = "u-overflow--hidden";
+        document.querySelector(`body`).classList.remove(overflowHidden);
     }
 
     /**
@@ -121,8 +160,6 @@ class Modal {
         }
 
     }
-
 }
-
 
 export default Modal;
