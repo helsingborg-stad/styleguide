@@ -2,20 +2,54 @@
 
 @section('content')
     @markdown
-        #Button group   
+        #Button      
     @endmarkdown
 
     @doc(['slug' => 'buttonGroup'])
 
-        @buttonGroup([
-            'href' => '#btn-3', 
-            'isOutlined' => true, 
-            'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
-            'color' => 'secondary'
-        ])
+        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary'])
+
+            @button([
+                'color' => 'primary',
+                'text' => 'One',
+                'size' => 'lg',
+                'isOutlined' => false,
+                'background' => 'primary'
+            ])
+            @endbutton
+
+            @button([
+                'color' => 'primary',
+                'text' => 'Two',
+                'size' => 'lg',
+                'isOutlined' => true,      
+                'background' => 'primary'      
+            ])
+            @endbutton
+
+            @button([
+                'color' => 'primary',    
+                'isOutlined' => false,
+                'isIconButton' => true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
+                'background' => 'primary'
+            ])
+
+            @endbutton
+
+            @button([
+                'color' => 'primary',
+                'text' => 'Three',
+                'background' => 'primary',
+                'isOutlined' => false,
+                'icon' => ['name' => 'close'],
+                'size' => 'lg',
+                'reverseIcon' => true
+            ])
+            @endbutton
+
         @endbuttonGroup
+        
 
     @enddoc
 @stop
