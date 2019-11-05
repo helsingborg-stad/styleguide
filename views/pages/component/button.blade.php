@@ -7,12 +7,7 @@
 
     @doc(['slug' => 'button'])
 
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => true, 
-            'text' => 'Button',
-            'icon' => ['name' => 'close', 'color' => 'black'],
-            'size' => 'sm',
+        @button([   
             'color' => 'secondary'
         ])
         @endbutton
@@ -24,7 +19,6 @@
             'text' => 'Button',
             'icon' => ['name' => 'close', 'color' => 'black'],
             'size' => 'md',
-            'color' => 'secondary',
             'reverseIcon' => true,
             'floating' => ['animate' => true, 'hover' => true]
         ])
@@ -37,17 +31,22 @@
             'text' => 'Button',
             'icon' => ['name' => 'close', 'color' => 'black'],
             'size' => 'lg',
-            'color' => 'secondary',
             'reverseIcon' => false,
-            'floating' => false
+            'floating' => true
         ])
         @endbutton
 
+        
+
+    @enddoc
+
+    @doc(['slug' => 'button'])
         @button([
             'href' => '#btn-3',
             'isIconButton' =>  true,
             'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'sm'],
-            'floating' => ['animate' => false, 'hover' => false]
+            'floating' => ['animate' => false, 'hover' => false],
+            'background' => false
         ])
         @endbutton
 
@@ -55,18 +54,18 @@
             'href' => '#btn-3',
             'isIconButton' =>  true,
             'icon' => ['name' => 'close', 'color' => 'primary', 'size' => 'md'],
-            'floating' => ['animate' => false, 'hover' => false]
+            'floating' => ['animate' => false, 'hover' => false],
+            'background' => false
         ])
         @endbutton
 
         @button([
             'href' => '#btn-3',
             'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg']
-      
+            'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
+            'background' => false
         ])
         @endbutton
-
     @enddoc
 @stop
 
