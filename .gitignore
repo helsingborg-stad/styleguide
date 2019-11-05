@@ -16,3 +16,4 @@ dist
 /vendor
 
 /source/sass/generic/_icons.scss
+source/sass/generic/_icons.scss

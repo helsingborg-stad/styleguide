@@ -11,27 +11,27 @@
     }
 
     &--size-xs {
-        font-size: $base; 
+        font-size: map-get($icon-sizes, 'xs'); 
     }
 
     &--size-sm {
-        font-size: $base*2; 
+        font-size: map-get($icon-sizes, 'sm'); 
     }
 
     &--size-md {
-        font-size: $base*3; 
+        font-size: map-get($icon-sizes, 'md'); 
     }
 
     &--size-lg {
-        font-size: $base*4; 
+        font-size: map-get($icon-sizes, 'lg'); 
     }
 
     &--size-xl {
-        font-size: $base*5; 
+        font-size: map-get($icon-sizes, 'xl'); 
     }
 
     &--size-xxl {
-        font-size: $base*6; 
+        font-size: map-get($icon-sizes, 'xxl'); 
     }
 
     /* Modifiers  - Colors */
