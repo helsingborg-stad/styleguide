@@ -6,6 +6,7 @@
         <div class="markup-preview">
             {!! $slot !!}
         </div>
+        <h3>HTML rendered by blade component</h3>
         @code(['language' => 'html', 'content' => ""])
             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
         @endcode
@@ -27,6 +28,18 @@
         {{'$slot'}}
 
     {{"@end"}}{{$slug}}</code></pre>
+            <h3>Example usage in blade file</h3>
+            @code(['language' => 'scss', 'content' => ""])
+                    @php ob_start(); @endphp
+                    @verbatim
+				        <?php include_once "views/pages/component/usage/".$slug.".blade.php";  ?>
+                    @endverbatim
+                    @php
+                        $markup = ob_get_contents();
+                        ob_end_clean();
+                        echo htmlentities($markup);
+                    @endphp
+            @endcode
         @endpaper
         @endif
     @endif
