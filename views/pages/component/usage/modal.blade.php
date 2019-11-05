@@ -1,15 +1,15 @@
 @button(
     [
-        'href' => '#',
+        'href' => '',
         'isOutlined' => false,
         'background' => 'primary',
         'text' => 'Open Modal',
-        'icon' => 'favorite',
+        'icon' => ['name' =>'favorite'],
         'size' => 'lg',
         'color' => 'secondary',
         'reverseIcon' => true,
         'floating' => true,
-        'attributeList' => ['data-open' => "exampleModalId']
+        'attributeList' => ['data-open' => 'exampleModalId']
     ]
 )
 @endbutton
