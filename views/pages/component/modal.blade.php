@@ -26,6 +26,7 @@
 
         @modal(
             [
+<<<<<<< Updated upstream
                     'heading'=> "Hey, have you seen this?",
                     'isPanel' => false,
                     'id' => 'exampleModalId',
@@ -37,6 +38,14 @@
                         'u-rounded-bottom--8'
                     ]
                 ]
+=======
+                'heading'=> "Hey, have you seen this?",
+                'isPanel' => false,
+                'id' => 'exampleModalId',
+                'overlay' => 'dark',
+                'animation' => 'scale-up',
+            ]
+>>>>>>> Stashed changes
         )
         We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
         
