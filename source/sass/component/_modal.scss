@@ -1,4 +1,4 @@
-.c-modal {
+.c-modal { 
     position: relative;
     background-color: white;
     max-width: 800px;
@@ -11,10 +11,6 @@
         overflow: auto;
     }
 
-    &--gallery &__content {
-        background-color: $color-black;
-        line-height: 0;
-    }
 
     &__close {
         position: absolute;
@@ -33,21 +29,18 @@
         z-index:$level-top;
 
     }
+    &__close:focus, &__close i:focus, &__close span:focus,
+    &__prev:focus,  &__next:focus, &__prev i:focus,
+    &__next i:focus, &__prev span:focus, &__next span:focus {
+        outline: 0;
+    }
+
     &__prev {
-        left:- map-get($spacers, '7');
+        left:- map-get($spacers, '6');
     }
 
     &__next {
-        right:- map-get($spacers, '7');
-    }
-    @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
-        &__prev {
-            left: map-get($spacers, '0');
-        }
-
-        &__next {
-            right: map-get($spacers, '0');
-        }
+        right:- map-get($spacers, '6');
     }
 
 }
@@ -69,8 +62,8 @@
     &--is-visible {
         visibility: visible;
         opacity: 1;
-        background-color: rgba($color-black, .75);
-        outline: 5000px solid rgba($color-black, .75); /* relative container fix */
+        background-color: rgba($color-black, .75); 
+        outline: 5000px solid rgba($color-black, .75); /* relative container fix */ 
         backdrop-filter: blur(3px);
     }
 }
@@ -80,7 +73,7 @@
         .c-modal {
             transform: translateY(100%);
         }
-
+        
     }
 
     &slide-down {
@@ -102,17 +95,17 @@
 }
 
 .c-modal__bg--is-visible.c-modal__bg__animation-- {
-    &slide-up, &slide-down {
-        .c-modal {
-            transform: translateY(0);
+        &slide-up, &slide-down {
+            .c-modal {
+                transform: translateY(0);
+            }
         }
-    }
 
-    &scale-down, &scale-up {
-        .c-modal {
-            transform: scale(1.0);
+        &scale-down, &scale-up {
+            .c-modal {
+                transform: scale(1.0);
+            }
         }
-    }
 }
 
 .c-modal .c-image {
