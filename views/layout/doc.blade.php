@@ -6,6 +6,7 @@
         <div class="markup-preview">
             {!! $slot !!}
         </div>
+        <h3>HTML rendered by blade component</h3>
         @code(['language' => 'html', 'content' => ""])
             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
         @endcode
@@ -15,18 +16,34 @@
     @if(isset($slug))
         @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
-        <h3>Blade component</h3>
-        <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
+            @if(!file_exists("views/pages/component/usage/".$slug.".blade.php"))
+                <h3>Blade component</h3>
+                <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
 
-        <?php echo '@slot("parameter")'; ?>
+                <?php echo '@slot("parameter")'; ?>
 
-            Value
-        <?php echo '@endslot'; ?>
+                    Value
+                <?php echo '@endslot'; ?>
 
 
-        {{'$slot'}}
+                {{'$slot'}}
 
-    {{"@end"}}{{$slug}}</code></pre>
+                {{"@end"}}{{$slug}}</code></pre>
+            @endif
+           @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
+                <h3>Example usage in blade file</h3>
+                @code(['language' => 'scss', 'content' => ""])
+                        @php ob_start(); @endphp
+                        @verbatim
+                            <?php include_once "views/pages/component/usage/".$slug.".blade.php";  ?>
+                        @endverbatim
+                        @php
+                            $markup = ob_get_contents();
+                            ob_end_clean();
+                            echo htmlentities($markup);
+                        @endphp
+                @endcode
+            @endif
         @endpaper
         @endif
     @endif

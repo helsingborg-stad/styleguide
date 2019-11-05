@@ -34,6 +34,16 @@ $font-size-btn-md-line-height: 1;
 $font-size-btn-sm: 1em;
 $font-size-btn-sm-line-height: 1;
 
+$icon-sizes:(
+    'inherit': inherit,
+    'xs': $base,
+    'sm': $base*2,
+    'md': $base*3,
+    'lg': $base*4,
+    'xl': $base*5,
+    'xxl': $base*6  
+);
+
 //  Font Weights
 $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
@@ -44,6 +54,9 @@ $font-weight-thin: 200 !default;
 $line-height-base: 1.625;
 $line-height-heading: 1.5;
 $line-height-headline: 1.25;
+
+
+
 
 
 
