@@ -27,5 +27,15 @@
     &--secondary{
         border-color: $color-secondary;
     }
-    
 }
+
+.c-btn-group__backgroubnd{
+    &--primary{
+        border-color: $color-primary;
+    }
+
+    &--secondary{
+        border-color: $color-secondary;
+    }
+}
+

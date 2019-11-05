@@ -10,11 +10,10 @@
         @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary'])
 
             @button([
-                'color' => 'primary',
+                'color' => 'secondary',
                 'text' => 'One',
                 'size' => 'lg',
-                'isOutlined' => false,
-                'background' => 'primary'
+                'isOutlined' => true
             ])
             @endbutton
 
@@ -31,7 +30,7 @@
                 'color' => 'primary',    
                 'isOutlined' => false,
                 'isIconButton' => true,
-                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'lg'],
                 'background' => 'primary'
             ])
 
