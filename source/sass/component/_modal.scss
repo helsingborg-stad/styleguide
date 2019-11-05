@@ -1,4 +1,58 @@
-.c-modal { 
+.c-modal {
+    position: relative;
+    background-color: white;
+    max-width: 800px;
+    max-height: 80vh;
+    //overflow: auto;
+    cursor: default;
+    transition: all 0.3s ease-in-out;
+
+    &__content {
+        overflow: auto;
+    }
+
+    &--gallery &__content {
+        background-color: $color-black;
+        line-height: 0;
+    }
+
+    &__close {
+        position: absolute;
+        top:- map-get($spacers, '4');
+        right:- map-get($spacers, '4');
+        display: block;
+        color: $color-white;
+        cursor: pointer;
+    }
+
+    &__prev,  &__next {
+        position:absolute;
+        top: calc(50% - 10px); /* 50% - 3/4 of icon height */
+        vertical-align: middle;
+        cursor:pointer;
+        z-index:$level-top;
+
+    }
+    &__prev {
+        left:- map-get($spacers, '7');
+    }
+
+    &__next {
+        right:- map-get($spacers, '7');
+    }
+    @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
+        &__prev {
+            left: map-get($spacers, '0');
+        }
+
+        &__next {
+            right: map-get($spacers, '0');
+        }
+    }
+
+}
+
+.c-modal__bg {
     position: fixed;
     top: 0;
     left: 0;
@@ -7,99 +61,68 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     z-index: $level-top;
     visibility: hidden;
     opacity: 0;
     transition: all 0.3s ease-in-out;
 
-    &__close {
-        position: absolute;
-        top: map-get($spacers, '1');
-        right: map-get($spacers, '2');
-        display: block;
-        color: $color-gray;
-        cursor:pointer;
-    }
-
-    &__inner {
-        position: relative;
-        background-color: white;
-        max-width: 800px;
-        max-height: 80vh;
-        //overflow: auto;
-        cursor: default;
-        transition: all 0.3s ease-in-out;
-    }
-
-    &__is-visible {
+    &--is-visible {
         visibility: visible;
         opacity: 1;
-        background-color: rgba($color-black, .85); 
-        outline: 5000px solid rgba($color-black, .85); /* relative container fix */ 
+        background-color: rgba($color-black, .75);
+        outline: 5000px solid rgba($color-black, .75); /* relative container fix */
+        backdrop-filter: blur(3px);
     }
-
-    &__prev,  &__next {
-        position:absolute;
-        top: calc(50% - 10px); /* 50% - 3/4 of icon height */
-        vertical-align: middle;
-        cursor:pointer;
-        z-index:$level-1;
-    }
-
-    &__prev {
-        left:-30px;
-    }
-
-    &__next {
-        right:-30px;
-    }
-
 }
 
-.c-modal.c-modal__animation-- {
+.c-modal__bg.c-modal__bg__animation-- {
     &slide-up {
-        .c-modal__inner {
+        .c-modal {
             transform: translateY(100%);
         }
-        
+
     }
 
     &slide-down {
-        .c-modal__inner {
+        .c-modal {
             transform: translateY(-100%);
         }
     }
 
     &scale-down {
-        .c-modal__inner {
+        .c-modal {
             transform: scale(1.1);
         }
     }
     &scale-up {
-        .c-modal__inner {
+        .c-modal {
             transform: scale(0.9);
         }
     }
 }
 
-.c-modal__is-visible.c-modal__animation-- {
-        &slide-up, &slide-down {
-            .c-modal__inner {
-                transform: translateY(0);
-            }
+.c-modal__bg--is-visible.c-modal__bg__animation-- {
+    &slide-up, &slide-down {
+        .c-modal {
+            transform: translateY(0);
         }
+    }
 
-        &scale-down, &scale-up {
-            .c-modal__inner {
-                transform: scale(1.0);
-            }
+    &scale-down, &scale-up {
+        .c-modal {
+            transform: scale(1.0);
         }
+    }
 }
 
-.c-modal .c-image, .c-modal .fadeIn {
-    animation: fadein 3s ease-in;
+.c-modal .c-image {
+    animation: fadein 1s ease-in;
 }
+
+.c-modal .fadeIn {
+    animation: fadein 4s ease-in;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
