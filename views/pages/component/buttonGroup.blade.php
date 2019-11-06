@@ -12,7 +12,7 @@
             @button([
                 'color' => 'secondary',
                 'text' => 'One',
-                'size' => 'lg',
+                'size' => 'md',
                 'isOutlined' => true
             ])
             @endbutton
@@ -20,7 +20,7 @@
             @button([
                 'color' => 'primary',
                 'text' => 'Two',
-                'size' => 'lg',
+                'size' => 'md',
                 'isOutlined' => true,      
                 'background' => 'primary'      
             ])
@@ -30,7 +30,7 @@
                 'color' => 'primary',    
                 'isOutlined' => false,
                 'isIconButton' => true,
-                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'lg'],
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
                 'background' => 'primary'
             ])
 
@@ -42,7 +42,7 @@
                 'background' => 'primary',
                 'isOutlined' => false,
                 'icon' => ['name' => 'close'],
-                'size' => 'lg',
+                'size' => 'md',
                 'reverseIcon' => true
             ])
             @endbutton
