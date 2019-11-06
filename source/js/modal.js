@@ -14,11 +14,9 @@ class Modal {
         let modalId;
 
         for(const trigger of openTrigger) {
-
             trigger.addEventListener("click", function() {
                 modalId = this.dataset.open;
                 document.getElementById(modalId).classList.add(isVisible);
-                console.log('YO!!!!');
             });
         }
 
