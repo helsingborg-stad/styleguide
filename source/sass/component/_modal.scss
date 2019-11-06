@@ -113,17 +113,15 @@
 }
 
 .c-modal__bg--is-visible.c-modal__bg__animation-- {
-        &slide-up, &slide-down {
-            .c-modal {
-                transform: translateY(0);
-            }
+    &slide-up, &slide-down {
+        .c-modal {
+            transform: translateY(0);
         }
     }
 
-        &scale-down, &scale-up {
-            .c-modal {
-                transform: scale(1.0);
-            }
+    &scale-down, &scale-up {
+        .c-modal {
+            transform: scale(1.0);
         }
     }
 }
