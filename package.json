@@ -21,7 +21,9 @@
         "url": "https://github.com/helsingborg-stad/styleguide/issues"
     },
     "browserslist": [
+        "last 1 version",
         "> 1%",
+        "maintained node versions",
         "not dead"
     ],
     "homepage": "https://github.com/helsingborg-stad/styleguide#readme",
