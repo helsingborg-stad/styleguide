@@ -131,8 +131,8 @@ class Modal {
     cycleImage(nav, displayImage, imageDataSet, modalImg) {
         const self = this;
         const currentIndex = imageDataSet.indexOf(displayImage);
-        const nextIndex = (nav === 'next') ? (currentIndex +1) % imageDataSet.length :
-            (currentIndex -1) % imageDataSet.length;
+        let nextIndex = (nav === 'next') ? (currentIndex +1) % imageDataSet.length : (currentIndex -1) % imageDataSet.length;
+        nextIndex = (nextIndex < 0) ? imageDataSet.length-1 : nextIndex;
 
         (currentIndex > imageDataSet.length) ? self.createImg(modalImg, imageDataSet[0]) :
             self.createImg(modalImg, imageDataSet[nextIndex]);
