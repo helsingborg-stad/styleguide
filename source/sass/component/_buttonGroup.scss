@@ -1,0 +1,41 @@
+.c-btn-group .c-btn{
+    margin-bottom:0;
+    border:0;
+    border-right:1px solid black;
+    border-radius: 0;
+    margin:0;
+    float:left;
+    align-items: stretch;
+
+    &:last-child{
+        border:0;
+    }
+
+}
+
+.c-btn-group{
+    border:2px solid black;
+    border-radius: 5px;
+    display:inline-flex;
+}
+
+.c-btn-group__border{
+    &--primary{
+        border-color: $color-primary;
+    }
+
+    &--secondary{
+        border-color: $color-secondary;
+    }
+}
+
+.c-btn-group__backgroubnd{
+    &--primary{
+        border-color: $color-primary;
+    }
+
+    &--secondary{
+        border-color: $color-secondary;
+    }
+}
+

@@ -5,92 +5,212 @@
         #Button      
     @endmarkdown
 
+
+    @doc(['slug' => 'button', 'displayParams' => false])
+    <div class="grid">
+        <div class="grid-s-12 grid-md-6">
+
+            @markdown
+                ###Button sizes ranging from sm to lg
+            @endmarkdown
+
+            @button([
+                'color' => 'secondary',
+                'size' => 'sm',
+                'text' => 'size sm'
+            ])
+            @endbutton
+
+            @button([
+                'color' => 'secondary',
+                'size' => 'md',
+                'text' => 'size md'
+            ])
+            @endbutton
+
+            @button([
+                'color' => 'secondary',
+                'size' => 'lg',
+                'text' => 'size lg'
+            ])
+            @endbutton
+
+        </div>
+        <div class="grid-s-12 grid-md-6">
+
+            @markdown
+                ###Button with icon and text, reversed and not
+            @endmarkdown
+
+            @button([
+                'icon' => ['name' => 'close', 'color' => 'black'],
+                'reverseIcon' => true,
+                'text' => 'Reversed'
+            ])
+            @endbutton
+
+            @button([
+                'icon' => ['name' => 'close', 'color' => 'black'],
+                'text' => 'Not reversed'
+            ])
+            @endbutton
+
+        </div>
+    </div>
+
+        @markdown
+            ###Different backgrounds    
+        @endmarkdown
+
+        @button([
+            'background' => 'primary',
+            'text' => 'Primary bg'
+        ])
+        @endbutton
+
+        @button([
+            'background' => 'secondary',
+            'text' => 'Secondary bg'
+        ])
+        @endbutton
+
+        <br>
+
+        @markdown
+            ###Buttons with floating effect      
+        @endmarkdown
+
+        @button([
+            'floating' => ['animate' => true, 'hover' => true],
+            'text' => 'Animate + hover'
+        ])
+        @endbutton
+
+        @button([
+            'floating' => ['animate' => false, 'hover' => true],
+            'text' => 'Only hover'
+        ])
+        @endbutton
+
+        @button([
+            'floating' => ['animate' => false, 'hover' => false],
+            'text' => 'No hover or animate'
+        ])
+        @endbutton
+
+    @enddoc
+
+    @markdown
+        ###Icon buttons      
+    @endmarkdown
+
     @doc(['slug' => 'button'])
+    <div class="grid">
+        <div class="grid-s-12 grid-md-3">
 
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => true, 
-            'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
-            'color' => 'secondary'
-        ])
-        @endbutton
+            @markdown
+                ####Floating icon buttons
+            @endmarkdown
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'floating' => ['animate' => true, 'hover' => true],
+                'background' => false
+            ])
+            @endbutton
 
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => false, 
-            'background' => 'primary',
-            'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
-            'color' => 'secondary',
-            'reverseIcon' => true,
-            'floating' => true
-        ])
-        @endbutton
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'floating' => ['animate' => false, 'hover' => true],
+                'background' => false
+            ])
+            @endbutton
 
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => false, 
-            'background' => 'primary',
-            'text' => 'Button',
-            'size' => 'lg',
-            'color' => 'secondary',
-            'reverseIcon' => false,
-            'floating' => false
-        ])
-        @endbutton
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'background' => false,
+                'floating' => ['animate' => false, 'hover' => false]
+            ])
+            @endbutton
 
-        @button([
-            'href' => '#btn-3', 
-            'isOutlined' => false, 
-            'background' => 'primary',
-            'text' => 'Button',
-            'icon' => 'apps',
-            'size' => 'lg',
-            'color' => 'secondary',
-            'reverseIcon' => false,
-            'floating' => false
-        ])
-        @endbutton
+        </div>
+        <div class="grid-s-12 grid-md-3">
 
+            @markdown
+                ####Different colors
+            @endmarkdown
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'primary', 'size' => 'md'],
+                'background' => false
+            ])
+            @endbutton
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'md'],
+                'background' => false
+            ])
+            @endbutton
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'background' => false,
+            ])
+            @endbutton
+
+        </div>
+        <div class="grid-s-12 grid-md-4">
+
+            @markdown
+                ####Different sizes: sm, md, lg
+            @endmarkdown
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'sm'],
+                'background' => false
+            ])
+            @endbutton
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'background' => false
+            ])
+            @endbutton
+
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
+                'background' => false,
+            ])
+            @endbutton
+
+        </div>
+    </div>
+        @markdown
+            ####With background, primary and secondary   
+        @endmarkdown
+        
         @button([
-            'href' => '#btn-3',
-            'isOutlined' => false,
             'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
-            'floating' => ['animate' => false, 'hover' => false]
+            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'sm'],
+            'background' => 'primary'
         ])
         @endbutton
 
         @button([
-            'href' => '#btn-3',
-            'isOutlined' => false,
             'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
-            'floating' => ['animate' => true, 'hover' => true]
+            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
+            'background' => 'secondary'
         ])
         @endbutton
-
-        @button([
-            'href' => '#btn-3',
-            'isOutlined' => false,
-            'isIconButton' =>  true,
-            'icon' => 'close',
-            'reverseIcon' => false,
-            'size' => 'lg',
-            'color' => 'secondary',
-            'floating' => ['animate' => false, 'hover' => true]
-        ])
-        @endbutton
-
+    
     @enddoc
 @stop
 

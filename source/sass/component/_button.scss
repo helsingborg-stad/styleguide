@@ -1,10 +1,10 @@
 // LABEL
 .c-btn__label-icon {
     order:2;
-    padding-left: 10%;
+    padding-left: 5%;
     &--reverse{
         order:1;
-        padding-right: 10%;
+        padding-right: 5%;
     }
 }
 
@@ -18,21 +18,8 @@
 // ICON
 
 .c-btn__icon{
-
-    &--sm{
-        @include button-mix($color-black, false, false, true);
-        @include button-size(0.2em, 0.2em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
-    }
-
-    &--md{
-        @include button-mix($color-black, false, false, true);
-        @include button-size(0.3em, 0.4em, $font-size-btn-md, $font-size-btn-md-line-height, 50%);
-    }
-
-    &--lg{
-        @include button-mix($color-black, false, false, true);
-        @include button-size(0.3em, 0.4em, $font-size-btn-lg, $font-size-btn-lg-line-height, 50%);
-    }
+    @include button-size(0.4em, 0.2em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
+    @include button-mix($color-black, false, false, true);
 }
 
 // OUTLINED
@@ -76,8 +63,12 @@
         @include button-size(0.5em, 0.9em, $font-size-btn-lg, $font-size-btn-lg-line-height, 2px);
     }
 
+    &--md {
+        @include button-size(0.5em, 0.7em, $font-size-btn-md, $font-size-btn-md-line-height, 2px);
+    }
+
     &--sm {
-        @include button-size(0.4em, 0.6em, $font-size-btn-sm, $font-size-btn-sm-line-height, 2px);
+        @include button-size(0.5em, 0.6em, $font-size-btn-sm, $font-size-btn-sm-line-height, 2px);
     }
     
     // FLOATING

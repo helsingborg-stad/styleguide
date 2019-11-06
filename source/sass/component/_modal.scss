@@ -21,14 +21,11 @@
         padding: map-get($spacers, '4');
     }
 
-<<<<<<< Updated upstream
-=======
     &--gallery &__content {
         background-color: $color-black;
         line-height: 0;
-        padding: 0;
+      padding: 0;
     }
->>>>>>> Stashed changes
 
     &__close {
         position: absolute;
@@ -47,18 +44,21 @@
         z-index:$level-top;
 
     }
-    &__close:focus, &__close i:focus, &__close span:focus,
-    &__prev:focus,  &__next:focus, &__prev i:focus,
-    &__next i:focus, &__prev span:focus, &__next span:focus {
-        outline: 0;
-    }
-
     &__prev {
-        left:- map-get($spacers, '6');
+        left:- map-get($spacers, '7');
     }
 
     &__next {
-        right:- map-get($spacers, '6');
+        right:- map-get($spacers, '7');
+    }
+    @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
+        &__prev {
+            left: map-get($spacers, '0');
+        }
+
+        &__next {
+            right: map-get($spacers, '0');
+        }
     }
 
 }
@@ -91,7 +91,7 @@
         .c-modal {
             transform: translateY(100%);
         }
-        
+
     }
 
     &slide-down {
@@ -118,12 +118,14 @@
                 transform: translateY(0);
             }
         }
+    }
 
         &scale-down, &scale-up {
             .c-modal {
                 transform: scale(1.0);
             }
         }
+    }
 }
 
 .c-modal .c-image {

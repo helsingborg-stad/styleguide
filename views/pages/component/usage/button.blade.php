@@ -1,14 +1,24 @@
+//Regular button
 @button(
     [
-        'href' => '#',
-        'isOutlined' => false,
-        'background' => 'primary',
+        'href' => 'www.test.com',
         'text' => 'Button',
-        'icon' => 'apps',
+        'icon' => ['name' => 'close'],
+        'background' => 'secondary'
         'size' => 'lg',
-        'color' => 'secondary',
-        'reverseIcon' => true,
-        'floating' => true
+        'reverseIcon' => false,
+        'floating' => ['animate' => true, 'hover' => true]
+    ]
+)
+@endbutton
+
+//Icon Button
+@button(
+    [
+        'isIconButton' =>  true,
+        'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+        'floating' => ['animate' => true, 'hover' => true],
+        'background' => false
     ]
 )
 @endbutton
