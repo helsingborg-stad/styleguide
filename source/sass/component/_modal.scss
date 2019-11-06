@@ -1,4 +1,4 @@
-.c-modal { 
+.c-modal {
     position: relative;
     background-color: white;
     max-width: 800px;
@@ -24,7 +24,7 @@
     &--gallery &__content {
         background-color: $color-black;
         line-height: 0;
-      padding: 0;
+        padding: 0;
     }
 
     &__close {
@@ -80,8 +80,8 @@
     &--is-visible {
         visibility: visible;
         opacity: 1;
-        background-color: rgba($color-black, .75); 
-        outline: 5000px solid rgba($color-black, .75); /* relative container fix */ 
+        background-color: rgba($color-black, .75);
+        outline: 5000px solid rgba($color-black, .75); /* relative container fix */
         backdrop-filter: blur(3px);
     }
 }
@@ -119,11 +119,13 @@
         }
     }
 
+
     &scale-down, &scale-up {
         .c-modal {
             transform: scale(1.0);
         }
     }
+
 }
 
 .c-modal .c-image {
