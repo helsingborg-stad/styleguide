@@ -2,13 +2,15 @@
 // *** Colors
 // ***************************************************************
 
-$color-primary: #ae0b05 !default;
-$color-primary-dark: #e3000f !default;
-$color-primary-light: #cb0050 !default;
+$color-primary: #AE0B05 !default;
+$color-primary-dimmed: #760703 !default;
+$color-primary-dark: #5a0603 !default;
 
-$color-secondary: #f7a600 !default;
-$color-secondary-dark: #f7a600 !default;
-$color-secondary-light: #f7a600 !default;
+$color-secondary: #EC6701 !default;
+$color-secondary-dimmed: #a04601 !default;
+$color-secondary-dark: #7b3601 !default;
+
+$color-default: #F8F8F8 !default;
 
 $color-black: black !default;
 $color-gray: lighten($color-black,50%) !default;
@@ -57,7 +59,7 @@ $color-menu-active-indicator: $color-gray-light !default;
 $color-menu-active-background: $color-gray-lighter !default;
 $color-menu-text: $color-black;
 
-$color-menu-active-indicator-horizontal: $color-primary-light !default;
+$color-menu-active-indicator-horizontal: $color-primary-dimmed !default;
 $color-menu-text-horizontal: $color-black;
 
 $color-card-background: $color-white !default;

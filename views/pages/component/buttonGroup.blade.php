@@ -7,12 +7,12 @@
 
     @doc(['slug' => 'buttonGroup'])
 
-        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary'])
+        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary', 'toggle' => true])
 
             @button([
                 'color' => 'secondary',
                 'text' => 'One',
-                'size' => 'lg',
+                'size' => 'md',
                 'isOutlined' => true
             ])
             @endbutton
@@ -20,7 +20,7 @@
             @button([
                 'color' => 'primary',
                 'text' => 'Two',
-                'size' => 'lg',
+                'size' => 'md',
                 'isOutlined' => true,      
                 'background' => 'primary'      
             ])
@@ -30,10 +30,9 @@
                 'color' => 'primary',    
                 'isOutlined' => false,
                 'isIconButton' => true,
-                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'lg'],
-                'background' => 'primary'
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
+                'background' => 'secondary'
             ])
-
             @endbutton
 
             @button([
@@ -42,7 +41,7 @@
                 'background' => 'primary',
                 'isOutlined' => false,
                 'icon' => ['name' => 'close'],
-                'size' => 'lg',
+                'size' => 'md',
                 'reverseIcon' => true
             ])
             @endbutton
