@@ -1,0 +1,10 @@
+.c-dropdown {
+    &__list{
+        @include shadow(5);
+        //margin-top: -50px;
+        z-index: $level-1;
+        background-color: $color-menu-background;
+        color: $color-menu-text;
+        position:relative;
+    }
+}

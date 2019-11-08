@@ -1,11 +1,16 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+  
+   
+    @doc(['slug' => 'dropdown'])
+    @markdown
+        #Dropdown      
+    @endmarkdown
+        @dropdown([])
 
-            Demo page
-        ')
-    !!}
+        @enddropdown
+
+    @enddoc
+   
 @stop
