@@ -17,7 +17,8 @@
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'size sm'
+                'text' => 'size sm',
+                'toggle' => true
             ])
             @endbutton
 
@@ -69,8 +70,38 @@
         @endbutton
 
         @button([
+            'background' => 'primary-dimmed',
+            'text' => 'Default bg'
+        ])
+        @endbutton
+
+        @button([
+            'background' => 'primary-dark',
+            'text' => 'Default bg'
+        ])
+        @endbutton
+
+        @button([
             'background' => 'secondary',
             'text' => 'Secondary bg'
+        ])
+        @endbutton
+
+        @button([
+            'background' => 'secondary-dimmed',
+            'text' => 'Secondary bg'
+        ])
+        @endbutton
+
+        @button([
+            'background' => 'secondary-dark',
+            'text' => 'Secondary bg'
+        ])
+        @endbutton
+
+        @button([
+            'background' => 'default',
+            'text' => 'Default bg'
         ])
         @endbutton
 

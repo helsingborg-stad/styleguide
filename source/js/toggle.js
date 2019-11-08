@@ -6,14 +6,21 @@ export default class ToggleClasses {
         this.TRIGGER = 'js-toggle-trigger';
     }
 
-    toggleSingles(container, triggerId) {
+    toggleSingles(container, trigger) {
         const singles = container.querySelectorAll(`[${this.SINGLE}]`);
+
         singles.forEach((element) => {
             element.classList.toggle(element.getAttribute(this.SINGLE))
+            let ariaPressed = element.getAttribute('aria-pressed');
+            if(ariaPressed.length === 0 || ariaPressed === 'false' && element === trigger){
+                element.setAttribute('aria-pressed', 'true');
+            }else {
+                element.setAttribute('aria-pressed', 'false');
+            }
         });
     }
 
-    toggleMulti(container, triggerId) {
+    toggleMulti(container) {
         const multies = container.querySelectorAll(`[${this.MULTI}]`);
         multies.forEach((multi)=>{
             const children = multi.children;
@@ -28,10 +35,10 @@ export default class ToggleClasses {
         containers.forEach((container) => {
             const triggers = container.querySelectorAll(`[${this.TRIGGER}]`);
             triggers.forEach((trigger) => {
-                trigger.addEventListener('click', () => {
+                trigger.addEventListener('click', (event) => {
                     let triggerId = trigger.getAttribute(this.TRIGGER);
-                    this.toggleMulti(container, triggerId);
-                    this.toggleSingles(container, triggerId);
+                    this.toggleMulti(container);
+                    this.toggleSingles(container, trigger);
                 });
             });
 

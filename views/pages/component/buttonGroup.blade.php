@@ -7,7 +7,7 @@
 
     @doc(['slug' => 'buttonGroup'])
 
-        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary'])
+        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary', 'toggle' => true])
 
             @button([
                 'color' => 'secondary',
@@ -31,9 +31,8 @@
                 'isOutlined' => false,
                 'isIconButton' => true,
                 'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
-                'background' => 'primary'
+                'background' => 'secondary'
             ])
-
             @endbutton
 
             @button([
