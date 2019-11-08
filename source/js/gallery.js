@@ -1,6 +1,7 @@
 /**
  * Component Gallery
  */
+import Steppers from "./steppers";
 
 class Gallery {
 
@@ -12,6 +13,8 @@ class Gallery {
         this.modalId = null;
         this.container = null;
         this.isVisible = "c-modal__bg--is-visible";
+        this.StepperInstance = {};
+
     }
 
     /**
@@ -40,8 +43,15 @@ class Gallery {
         this.container = document.getElementById(this.modalId);
         this.container.querySelector('.c-image').innerHTML = '';
         self.createImg(this.container, this.imageData);
+
+        this.StepperInstance = new Steppers;
+        this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length);
     }
 
+    /**
+     * Enable Gallery
+     * Next, Previous image by click or keys
+     */
     enableGallery() {
 
         const self = this;
@@ -98,6 +108,8 @@ class Gallery {
 
         (currentIndex > imageDataSet.length) ? self.createImg(this.container, imageDataSet[0]) :
             self.createImg(this.container, imageDataSet[nextIndex]);
+
+        this.StepperInstance.dots(false);
 
         return imageDataSet[nextIndex];
     }

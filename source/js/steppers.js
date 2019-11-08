@@ -1,36 +1,56 @@
 /**
  * Component Steppers
  */
-import Modal from "./modal";
 
 class Steppers  {
 
     constructor() {
 
         this.dataSteps = document.querySelectorAll("[data-step]");
+        this.stepperLength = null;
         this.modalId = null;
+        this.container = null;
     }
 
     /**
-     *
+     * Enable and init Steppers
      */
-    enableStepper(){
+    enableStepper(stepperType, container, stepperLength){
+        const self = this;
+        this.container = container;
+        this.stepperLength = stepperLength;
 
+        switch(stepperType){
+            case 'dots':
+                self.dots(true);
+                break;
+        }
+    }
 
-        let hasSteppers = document.querySelectorAll('.c-steppers- img');
+    /**
+     * Steppers - Dots
+     * @param generate
+     */
+    dots(generate){
 
-        let imageDataSet = [];
-
-
-        /*for(let img of imgSrc) {
-
-            for (let int = 0; int < imageDataSet.length; int++) {
-                console.log(imageDataSet);
-                document.querySelector('.c-steppers--type-dots').insertAdjacentHTML("beforeend",
+        if (generate) {
+            this.container.querySelector('.c-steppers').innerHTML = '';
+            for (let int = 0; int < this.stepperLength ; int++) {
+                this.container.querySelector('.c-steppers--type-dots').insertAdjacentHTML("beforeend",
                     '<i class="c-steppers__dot c-steppers__dot-' + int + '"></i>');
             }
-        }*/
+        }
 
+        // Position
+        let activeStep = this.container.querySelector('[data-step]').getAttribute('data-step');
+
+        // Removing active position
+        for (const dot of this.container.querySelectorAll('.c-steppers__dot')) {
+            dot.classList.remove('c-steppers__dot-active');
+        }
+
+        // Set active position
+        this.container.querySelector('.c-steppers__dot-' + activeStep + '').classList.add('c-steppers__dot-active');
     }
 
 
