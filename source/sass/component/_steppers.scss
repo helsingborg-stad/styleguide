@@ -1,0 +1,29 @@
+.c-steppers {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: - map-get($spacers, '7');
+    @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+        bottom:- map-get($spacers, '6');
+        padding-bottom:7px;
+    }
+
+    &__dot {
+        border-radius: 50%;
+        background: $color-gray;
+        display: inline-block;
+        width: map-get($spacers, '1');
+        height:map-get($spacers, '1');
+        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+            width: map-get($spacers, '05');
+            height:map-get($spacers, '05');
+        }
+
+        margin: map-get($spacers, '05');
+    }
+
+    &__dot-active {
+        background: $color-white;
+    }
+
+}

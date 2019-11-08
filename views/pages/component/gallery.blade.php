@@ -16,6 +16,7 @@
                 ['largeImage' => "https://picsum.photos/900/600?image=1006", 'smallImage' => "https://picsum.photos/300/200?image=1006", 'caption' => "Image with stuff", 'alt' => "The alt text"],
                 ['largeImage' => "https://picsum.photos/900/600?image=993", 'smallImage' => "https://picsum.photos/300/200?image=993", 'caption' => "Image with stuff, and a long description provided in the caption field.", 'alt' => "The alt text"],
             ]
+
         ])
         @endgallery
     @enddoc

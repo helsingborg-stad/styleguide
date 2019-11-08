@@ -20,17 +20,19 @@
     &__footer {
         padding: map-get($spacers, '4');
     }
+    &--gallery {
+        background-color: transparent;
+    }
 
     &--gallery &__content {
-        background-color: $color-black;
         line-height: 0;
         padding: 0;
     }
 
     &__close {
         position: absolute;
-        top:- map-get($spacers, '4');
-        right:- map-get($spacers, '4');
+        top:- map-get($spacers, '7');
+        right: map-get($spacers, '2');
         display: block;
         color: $color-white;
         cursor: pointer;
@@ -45,20 +47,58 @@
 
     }
     &__prev {
-        left:- map-get($spacers, '7');
+        left:- map-get($spacers, '8');
     }
 
     &__next {
-        right:- map-get($spacers, '7');
+        right:- map-get($spacers, '8');
     }
-    @include mq(map_get($breakpoints-map, 'sm'), 'lg') {
+    @include mq(map_get($breakpoints-map, 'xs'), 'lg') {
         &__prev {
             left: map-get($spacers, '0');
         }
-
         &__next {
             right: map-get($spacers, '0');
         }
+
+        &__prev, &__next {
+            vertical-align: bottom;
+            bottom: - map-get($spacers, '8');
+            top: unset;
+        }
+
+    }
+    @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+
+        &__close, &__prev, &__next  {
+            &:hover {
+                box-shadow: none;
+                background: none;
+            }
+        }
+        &__close {
+            top:- map-get($spacers, '6');
+            right: map-get($spacers, '1');
+            i {
+                font-size: map-get($icon-sizes, 'md');
+            }
+        }
+
+        &__prev {
+            left: map-get($spacers, '1');
+        }
+        &__next {
+            right: map-get($spacers, '1');
+        }
+
+        &__prev , &__next {
+            bottom: - map-get($spacers, '6');
+            i {
+                font-size: map-get($icon-sizes, 'md');
+            }
+
+        }
+
     }
 
 }
