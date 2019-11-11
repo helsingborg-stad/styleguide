@@ -7,9 +7,13 @@
     @markdown
         #Dropdown      
     @endmarkdown
-        @dropdown([])
+    @dropdown([
+        'items' => ['cool', 'story', 'bro'],
+        'direction' => 'bottom',
+        'popup' => 'focus'
+    ])
 
-        @enddropdown
+    @enddropdown
 
     @enddoc
    

@@ -8,11 +8,11 @@ export default class ToggleClasses {
 
     toggleSingles(container, trigger) {
         const singles = container.querySelectorAll(`[${this.SINGLE}]`);
-
+        console.log(singles);
         singles.forEach((element) => {
             element.classList.toggle(element.getAttribute(this.SINGLE))
             let ariaPressed = element.getAttribute('aria-pressed');
-            if(ariaPressed.length === 0 || ariaPressed === 'false' && element === trigger){
+            if((ariaPressed !== null && ariaPressed.length === 0) || ariaPressed === 'false' && element === trigger){
                 element.setAttribute('aria-pressed', 'true');
             }else {
                 element.setAttribute('aria-pressed', 'false');
