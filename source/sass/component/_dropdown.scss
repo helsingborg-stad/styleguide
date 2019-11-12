@@ -1,37 +1,38 @@
-.c-dropdown--on-focus{
+.c-dropdown--on-click{
     .c-btn:focus ~ .c-dropdown__list{
         visibility: visible;
+        opacity: 1;
     }
 }
 
 .c-dropdown--on-hover{
-
-    /* .c-btn:hover{
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    } */
     
     .c-btn:hover ~ .c-dropdown__list{
         visibility: visible;
+        opacity: 1;
     }
 
     .c-dropdown__list:hover{
         visibility: visible;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        opacity: 1;
     }
+
 }
     
 .c-dropdown {
     position:relative;
     display:inline-block;
     &__list{
+        transition:opacity 0.3s ease-in;
         position:absolute;
         @include shadow(6);
         z-index: $level-1;
         background-color: $color-menu-background;
         color: $color-menu-text;
         visibility: hidden;
+        opacity: 0;
         & li:hover{
             background-color:darken($color: $color-menu-background, $amount: 10);
         }
@@ -52,39 +53,62 @@
             list-style-type: none;
             cursor:pointer;
         }
+
+        & a{
+            text-decoration: none;
+        }
+
+        & a:visited{
+            color: $color-menu-text;
+        }
     }
 }
 
-.c-dropdown-btn--left{
+.c-dropdown-btn--left__click{
     .c-btn:focus{
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 }
 
-.c-dropdown-btn--right{
+.c-dropdown-btn--right__click{
     .c-btn:focus{
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
+.c-dropdown-btn--left__hover{
+    .c-btn:hover{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
 
-
-
+.c-dropdown-btn--right__hover{
+    .c-btn:hover{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
 
 .c-dropdown__list--right{
     top:0;
-    left:100%;
+    left:96%;
 }
 
 .c-dropdown__list--left{
     top:0;
-    right:100%;
+    right:96%;
 }
 
 .c-dropdown__list--top{
-    bottom:100%;
+    bottom:96%;
+    left:0;
+}
+
+.c-dropdown__list--bottom{
+    top:96%;
     left:0;
 }
 

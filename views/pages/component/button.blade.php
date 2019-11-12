@@ -17,22 +17,21 @@
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'size sm',
-                'toggle' => true
+                'text' => 'Primary'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'md',
-                'text' => 'size md'
+                'text' => 'Primary'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'lg',
-                'text' => 'size lg'
+                'text' => 'Primary'
             ])
             @endbutton
 
@@ -57,77 +56,91 @@
             @endbutton
 
         </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Different backgrounds    
+            @endmarkdown
+    
+            @button([
+                'background' => 'primary',
+                'text' => 'Primary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'primary-dimmed',
+                'text' => 'Primary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'primary-dark',
+                'text' => 'Primary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'secondary',
+                'text' => 'Secondary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'secondary-dimmed',
+                'text' => 'Secondary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'secondary-dark',
+                'text' => 'Secondary bg'
+            ])
+            @endbutton
+    
+            @button([
+                'background' => 'default',
+                'text' => 'Default bg'
+            ])
+            @endbutton
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Buttons with floating effect      
+            @endmarkdown
+    
+            @button([
+                'floating' => ['animate' => true, 'hover' => true],
+                'text' => 'Animate + hover'
+            ])
+            @endbutton
+    
+            @button([
+                'floating' => ['animate' => false, 'hover' => true],
+                'text' => 'Only hover'
+            ])
+            @endbutton
+    
+            @button([
+                'floating' => ['animate' => false, 'hover' => false],
+                'text' => 'No hover or animate'
+            ])
+            @endbutton
+    
+            @markdown
+                ###Button with toggle    
+            @endmarkdown
+    
+            @button([
+                'text' => 'Click to toggle!',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+        </div>
     </div>
 
-        @markdown
-            ###Different backgrounds    
-        @endmarkdown
-
-        @button([
-            'background' => 'primary',
-            'text' => 'Primary bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'primary-dimmed',
-            'text' => 'Default bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'primary-dark',
-            'text' => 'Default bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'secondary',
-            'text' => 'Secondary bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'secondary-dimmed',
-            'text' => 'Secondary bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'secondary-dark',
-            'text' => 'Secondary bg'
-        ])
-        @endbutton
-
-        @button([
-            'background' => 'default',
-            'text' => 'Default bg'
-        ])
-        @endbutton
-
-        <br>
-
-        @markdown
-            ###Buttons with floating effect      
-        @endmarkdown
-
-        @button([
-            'floating' => ['animate' => true, 'hover' => true],
-            'text' => 'Animate + hover'
-        ])
-        @endbutton
-
-        @button([
-            'floating' => ['animate' => false, 'hover' => true],
-            'text' => 'Only hover'
-        ])
-        @endbutton
-
-        @button([
-            'floating' => ['animate' => false, 'hover' => false],
-            'text' => 'No hover or animate'
-        ])
-        @endbutton
 
     @enddoc
 
