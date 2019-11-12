@@ -107,7 +107,8 @@ class Gallery {
             (currentIndex - 1) % this.imageDataSet.length;
 
         nextIndex = (nextIndex < 0) ? this.imageDataSet.length - 1 : nextIndex;
-        (currentIndex > this.imageDataSet.length) ? this.createImg(this.container, this.imageDataSet[0]) :
+        (currentIndex > this.imageDataSet.length) ?
+            this.createImg(this.container, this.imageDataSet[0]) :
             this.createImg(this.container, this.imageDataSet[nextIndex]);
 
         return this.imageDataSet[nextIndex];
@@ -130,6 +131,7 @@ class Gallery {
 
             container.innerHTML = '';
             container.classList.remove('c-image--is-placeholder');
+
             const img = document.createElement("img");
 
             img.setAttribute("src", imgSrc.image);

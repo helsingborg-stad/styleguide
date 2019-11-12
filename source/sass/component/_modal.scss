@@ -8,8 +8,24 @@
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12);
 
+    &--size-sm {
+        max-width: map_get($breakpoints-map, 'sm');
+    }
+
+    &--size-md {
+        max-width: map_get($breakpoints-map, 'md');
+    }
+
+    &--size-lg {
+        max-width: map_get($breakpoints-map, 'lg');
+    }
+
+    &--size-xl {
+        max-width: map_get($breakpoints-map, 'xl');
+    }
+
     &__header {
-        padding: map-get($spacers, '2') map-get($spacers, '4') 0;
+        padding: map-get($spacers, '4') map-get($spacers, '4') 0;
     }
 
     &__content {
@@ -20,8 +36,13 @@
     &__footer {
         padding: map-get($spacers, '4');
     }
+
     &--gallery {
         background-color: transparent;
+    }
+
+    &--gallery &__header, &--gallery &__footer {
+        padding: 0;
     }
 
     &--gallery &__content {
