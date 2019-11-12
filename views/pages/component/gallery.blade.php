@@ -9,12 +9,12 @@
     @doc(['slug' => 'gallery'])
         @gallery([
             'list' => [
-                ['largeImage' => "https://picsum.photos/900/600?image=1026", 'smallImage' => "https://picsum.photos/300/200?image=1026", 'caption' => "Image with stuff", 'alt' => "The alt text"],
-                ['largeImage' => "https://picsum.photos/900/600?image=1038", 'smallImage' => "https://picsum.photos/300/200?image=1038", 'caption' => "Sed posuere consectetur est at lobortis. ", 'alt' => "The alt text"],
-                ['largeImage' => "https://picsum.photos/900/600?image=1043", 'smallImage' => "https://picsum.photos/300/200?image=1043", 'caption' => "Image with stuff", 'alt' => "The alt text"],
-                ['largeImage' => "https://picsum.photos/900/600?image=1039", 'smallImage' => "https://picsum.photos/300/200?image=1039", 'caption' => "Image with stuff", 'alt' => "The alt text"],
-                ['largeImage' => "https://picsum.photos/900/600?image=1006", 'smallImage' => "https://picsum.photos/300/200?image=1006", 'caption' => "Image with stuff", 'alt' => "The alt text"],
-                ['largeImage' => "https://picsum.photos/900/600?image=993", 'smallImage' => "https://picsum.photos/300/200?image=993", 'caption' => "Image with stuff, and a long description provided in the caption field.", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/993-900x600.jpg", 'smallImage' => "/assets/img/993-300x200.jpg", 'caption' => "Image with stuff", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/1026-900x600.jpg", 'smallImage' => "/assets/img/1026-300x200.jpg", 'caption' => "Sed posuere consectetur est at lobortis. ", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/1038-900x600.jpg", 'smallImage' => "/assets/img/1038-300x200.jpg", 'caption' => "Image with stuff", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/1039-900x600.jpg", 'smallImage' => "/assets/img/1039-300x200.jpg", 'caption' => "Image with stuff", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/1043-900x600.jpg", 'smallImage' => "/assets/img/1043-300x200.jpg", 'caption' => "Image with stuff", 'alt' => "The alt text"],
+                ['largeImage' => "/assets/img/1006-900x600.jpg", 'smallImage' => "/assets/img/1006-300x200.jpg", 'caption' => "Image with stuff, and a long description provided in the caption field.", 'alt' => "The alt text"],
             ]
 
         ])

@@ -1,13 +1,20 @@
+// ***************************************************************
+// *** Steppers
+// ***************************************************************
 .c-steppers {
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: - map-get($spacers, '7');
+    bottom: - map-get($spacers, '5');
     @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
         bottom:- map-get($spacers, '6');
         padding-bottom:7px;
     }
 
+    /**
+     * Dots
+     * Ussage in galleries
+     */
     &__dot {
         border-radius: 50%;
         background: $color-gray;

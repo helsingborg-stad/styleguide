@@ -42,7 +42,7 @@ $radius: (
 
     &__caption {
         font-size: 0.8em;
-        color: darken($color-gray, 20%) !important;
+        color: darken($color-gray, 20%);
     }
 
     &--full-width &__image {
@@ -52,6 +52,23 @@ $radius: (
     &__modal {
         cursor:pointer;
     }
+
+    .c-modal--gallery &__caption {
+
+        margin: 0 auto;
+        position: absolute;
+        bottom: - map-get($spacers, '8');
+        color: $color-white;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+            bottom: - map-get($spacers, '8');
+            word-break: break-word;
+        }
+    }
+
     // Rounded Images with different sizes
     @each $map in $radius {
 

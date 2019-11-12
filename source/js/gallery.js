@@ -14,7 +14,6 @@ class Gallery {
         this.container = null;
         this.isVisible = "c-modal__bg--is-visible";
         this.StepperInstance = {};
-
     }
 
     /**
@@ -31,21 +30,20 @@ class Gallery {
         for (let img of document.querySelectorAll("[data-large-img]")) {
             this.imageDataSet.push({
                 image: img.getAttribute('data-large-img'),
-                imageStep: img.getAttribute('data-stepping')
+                imageStep: img.getAttribute('data-stepping'),
+                imageCaption: img.getAttribute('data-caption')
             });
 
             if (img.getAttribute('data-large-img') === this.modalImg) {
                 this.imageData.image = img.getAttribute('data-large-img');
                 this.imageData.imageStep = img.getAttribute('data-stepping');
+                this.imageData.imageCaption = img.getAttribute('data-caption');
             }
         }
 
         this.container = document.getElementById(this.modalId);
         this.container.querySelector('.c-image').innerHTML = '';
         self.createImg(this.container, this.imageData);
-
-        this.StepperInstance = new Steppers;
-        this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length);
     }
 
     /**
@@ -62,22 +60,22 @@ class Gallery {
         // Next Image
         for (const nxt of nextTrigger) {
             nxt.addEventListener("click", function () {
-                self.imageData = self.cycleImage('next', self.imageData, self.imageDataSet);
+                self.imageData = self.cycleImage('next');
             });
         }
 
         // Previous image
         for (const prev of prevTrigger) {
             prev.addEventListener("click", function () {
-                self.imageData = self.cycleImage('prev', self.imageData, self.imageDataSet);
+                self.imageData = self.cycleImage('prev');
             });
         }
 
         // Pressing Right key to skip to next
         for (const nxt of nextTrigger) {
             document.addEventListener("keyup", e => {
-                if (e.key == "ArrowRight" && document.querySelector(`.${self.isVisible}`)) {
-                    self.imageData = self.cycleImage('next', self.imageData, self.imageDataSet);
+                if (e.key === "ArrowRight" && document.querySelector(`.${self.isVisible}`)) {
+                    self.imageData = self.cycleImage('next');
                 }
             });
         }
@@ -85,8 +83,8 @@ class Gallery {
         // Pressing Left key to skip to previous
         for (const nxt of nextTrigger) {
             document.addEventListener("keyup", e => {
-                if (e.key == "ArrowLeft" && document.querySelector(`.${self.isVisible}`)) {
-                    self.imageData = self.cycleImage('prev', self.imageData, self.imageDataSet);
+                if (e.key === "ArrowLeft" && document.querySelector(`.${self.isVisible}`)) {
+                    self.imageData = self.cycleImage('prev');
                 }
             });
         }
@@ -100,18 +98,19 @@ class Gallery {
      * @param modalImg
      * @returns {*}
      */
-    cycleImage(nav, imageData, imageDataSet) {
+    cycleImage(nav) {
         const self = this;
-        const currentIndex = imageDataSet.indexOf(imageData);
-        let nextIndex = (nav === 'next') ? (currentIndex + 1) % imageDataSet.length : (currentIndex - 1) % imageDataSet.length;
-        nextIndex = (nextIndex < 0) ? imageDataSet.length - 1 : nextIndex;
 
-        (currentIndex > imageDataSet.length) ? self.createImg(this.container, imageDataSet[0]) :
-            self.createImg(this.container, imageDataSet[nextIndex]);
+        let currentIndex = parseInt(this.imageData.imageStep);
+        let nextIndex = (nav === 'next') ?
+            (currentIndex + 1) % this.imageDataSet.length :
+            (currentIndex - 1) % this.imageDataSet.length;
 
-        this.StepperInstance.dots(false);
+        nextIndex = (nextIndex < 0) ? this.imageDataSet.length - 1 : nextIndex;
+        (currentIndex > this.imageDataSet.length) ? this.createImg(this.container, this.imageDataSet[0]) :
+            this.createImg(this.container, this.imageDataSet[nextIndex]);
 
-        return imageDataSet[nextIndex];
+        return this.imageDataSet[nextIndex];
     }
 
     /**
@@ -121,20 +120,52 @@ class Gallery {
      */
     createImg(containerId, imgSrc) {
 
+        this.StepperInstance = new Steppers;
+
         const container = containerId.querySelector('.c-image');
+        const containerModalContent = containerId.querySelector('.c-modal__content');
+        this.imageData = imgSrc;
+
         if (container.querySelectorAll('img').length === 0) {
+
             container.innerHTML = '';
             container.classList.remove('c-image--is-placeholder');
             const img = document.createElement("img");
+
             img.setAttribute("src", imgSrc.image);
             img.setAttribute("data-step", imgSrc.imageStep);
-            img.classList.add('c-image__image');
+            img.setAttribute("data-caption", imgSrc.imageCaption);
+
             container.appendChild(img);
+            img.classList.add('c-image__image');
+
+            this.imageCaption(containerModalContent, imgSrc);
+            this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length, true);
+
         } else {
             container.querySelector('.c-image__image').src = imgSrc.image;
             container.querySelector('.c-image__image').setAttribute('data-step', imgSrc.imageStep);
+
+            this.imageCaption(containerModalContent, imgSrc);
+            this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length, false);
         }
     }
+
+    /**
+     * Setting image caption
+     * @param containerModalContent
+     * @param imgSrc
+     */
+    imageCaption (containerModalContent, imgSrc){
+        if (imgSrc.imageCaption) {
+            if (containerModalContent.querySelector('.c-image__caption') !== null) {
+                containerModalContent.querySelector('.c-image__caption').remove();
+            }
+            containerModalContent.insertAdjacentHTML("beforeend",
+                '<figcaption class="c-image__caption">'+imgSrc.imageCaption+'</figcaption>');
+        }
+    }
+
 }
 
 export default Gallery;
