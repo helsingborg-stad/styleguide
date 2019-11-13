@@ -11,18 +11,20 @@
 
             @button([
                 'color' => 'secondary',
-                'text' => 'One',
+                'text' => 'Togge #1',
                 'size' => 'md',
-                'isOutlined' => true
+                'isOutlined' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
             ])
             @endbutton
 
             @button([
                 'color' => 'primary',
-                'text' => 'Two',
+                'text' => 'Toggle #2',
                 'size' => 'md',
                 'isOutlined' => true,      
-                'background' => 'primary'      
+                'background' => 'primary',
+                'attributeList' => ['js-toggle-trigger' => '']   
             ])
             @endbutton
 
@@ -31,7 +33,8 @@
                 'isOutlined' => false,
                 'isIconButton' => true,
                 'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
-                'background' => 'secondary'
+                'background' => 'secondary',
+                'attributeList' => ['js-toggle-trigger' => '']
             ])
             @endbutton
 
