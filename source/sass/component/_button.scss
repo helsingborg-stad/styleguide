@@ -79,12 +79,13 @@
     margin-bottom: 2.66667px;
     line-height: 1;
     font-weight: bold;
+    background-color: transparent;
 
     &__label{
         display:flex;
         flex-direction: row;     
     }
-    
+
     // COLOR
     &--primary {
         @include button-mix($color-white, $color-primary, false);
