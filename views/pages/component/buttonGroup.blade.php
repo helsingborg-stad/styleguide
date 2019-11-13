@@ -7,22 +7,24 @@
 
     @doc(['slug' => 'buttonGroup'])
 
-        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary'])
+        @buttonGroup(['borderColor' => 'primary', 'backgroundColor' => 'primary', 'toggle' => true])
 
             @button([
                 'color' => 'secondary',
-                'text' => 'One',
-                'size' => 'lg',
-                'isOutlined' => true
+                'text' => 'Togge #1',
+                'size' => 'md',
+                'isOutlined' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
             ])
             @endbutton
 
             @button([
                 'color' => 'primary',
-                'text' => 'Two',
-                'size' => 'lg',
+                'text' => 'Toggle #2',
+                'size' => 'md',
                 'isOutlined' => true,      
-                'background' => 'primary'      
+                'background' => 'primary',
+                'attributeList' => ['js-toggle-trigger' => '']   
             ])
             @endbutton
 
@@ -30,10 +32,10 @@
                 'color' => 'primary',    
                 'isOutlined' => false,
                 'isIconButton' => true,
-                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'lg'],
-                'background' => 'primary'
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
+                'background' => 'secondary',
+                'attributeList' => ['js-toggle-trigger' => '']
             ])
-
             @endbutton
 
             @button([
@@ -42,7 +44,7 @@
                 'background' => 'primary',
                 'isOutlined' => false,
                 'icon' => ['name' => 'close'],
-                'size' => 'lg',
+                'size' => 'md',
                 'reverseIcon' => true
             ])
             @endbutton

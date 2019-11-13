@@ -21,7 +21,7 @@ module.exports = {
     mode: 'production',
     watch: true,
     watchOptions: {
-        poll: 1000,
+        poll: 100,
         ignored: /node_modules/
     },
 
@@ -116,5 +116,7 @@ module.exports = {
 
             ]
         })
+
+
     ]
 };

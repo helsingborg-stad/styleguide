@@ -14,7 +14,7 @@
                 'href' => '#btn-3',
                 'background' => 'primary',
                 'isIconButton' => true,
-                'icon' => ['name' => 'close'],
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'lg'],
                 'reverseIcon' => true,
                 'size' => 'lg',
                 'color' => 'secondary',
