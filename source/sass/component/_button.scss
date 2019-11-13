@@ -80,6 +80,14 @@
     line-height: 1;
     font-weight: bold;
     background-color: transparent;
+<<<<<<< HEAD
+=======
+    letter-spacing: 0.1em;
+
+    &:visited, &:active{
+        outline: 0;
+    }
+>>>>>>> origin/develop
 
     &__label{
         display:flex;
@@ -90,6 +98,7 @@
     &--primary {
         @include button-mix($color-white, $color-primary, false);
         &[aria-pressed="true"] {
+<<<<<<< HEAD
             background-color: darken($color: $color-primary, $amount: 10%);
             border-color: darken($color: $color-primary, $amount: 10%);
         }
@@ -108,12 +117,17 @@
         &[aria-pressed="true"] {
             background-color: darken($color: $color-primary-dark, $amount: 10%);
             border-color: darken($color: $color-primary-dark, $amount: 10%);
+=======
+            background-color: $color-primary-dark;
+            border-color: $color-primary-dark;
+>>>>>>> origin/develop
         }
     }
 
     &--secondary {
         @include button-mix($color-white, $color-secondary, false);
         &[aria-pressed="true"] {
+<<<<<<< HEAD
             background-color: darken($color: $color-secondary, $amount: 10%);
             border-color: darken($color: $color-secondary, $amount: 10%);
         }
@@ -131,6 +145,10 @@
         &[aria-pressed="true"] {
             background-color: darken($color: $color-secondary-dark, $amount: 10%);
             border-color: darken($color: $color-secondary-dark, $amount: 10%);
+=======
+            background-color: $color-secondary-dark;
+            border-color: $color-secondary-dark;
+>>>>>>> origin/develop
         }
     }
     
