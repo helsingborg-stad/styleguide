@@ -69,31 +69,7 @@
             @endbutton
     
             @button([
-                'background' => 'primary-dimmed',
-                'text' => 'Primary bg'
-            ])
-            @endbutton
-    
-            @button([
-                'background' => 'primary-dark',
-                'text' => 'Primary bg'
-            ])
-            @endbutton
-    
-            @button([
                 'background' => 'secondary',
-                'text' => 'Secondary bg'
-            ])
-            @endbutton
-    
-            @button([
-                'background' => 'secondary-dimmed',
-                'text' => 'Secondary bg'
-            ])
-            @endbutton
-    
-            @button([
-                'background' => 'secondary-dark',
                 'text' => 'Secondary bg'
             ])
             @endbutton
