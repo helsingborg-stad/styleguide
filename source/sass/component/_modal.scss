@@ -151,6 +151,10 @@
         outline: 5000px solid rgba($color-black, .75); /* relative container fix */
         backdrop-filter: blur(3px);
     }
+
+    &__anim-scaleup-center {
+        @include anim-scaleUp();
+    }
 }
 
 .c-modal__bg.c-modal__bg__animation-- {
