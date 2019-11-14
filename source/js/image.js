@@ -5,7 +5,7 @@ class Image {
 
     constructor() {
 
-        this.imgElement = null;
+        this.image = null;
         this.container = null;
         this.imgAttr = null;
         this.imgCss = null;

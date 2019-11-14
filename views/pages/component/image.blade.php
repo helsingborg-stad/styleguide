@@ -17,9 +17,9 @@
                 @endmarkdown
 
                 @image([
-                'src'=> "https://picsum.photos/300/200?image=1026",
-                'alt' => "This is a image",
-                'caption' => "Hey, I am a caption for an image",
+                    'src'=> "https://picsum.photos/300/200?image=1026",
+                    'alt' => "This is a image",
+                    'caption' => "Hey, I am a caption for an image",
                 ])
                 @endimage
             </div>
@@ -30,25 +30,25 @@
                 @endmarkdown
 
                 @image([
-                'src'=> "https://picsum.photos/300/200?image=1028",
-                'alt' => "This is a image",
-                'caption' => "Click image to open a modal with a bigger image example",
-                'modalId' => "exampleModal"
+                    'src'=> "https://picsum.photos/300/200?image=1028",
+                    'alt' => "This is a image",
+                    'caption' => "Click image to open a modal with a bigger image example",
+                    'modalId' => "exampleModal"
                 ])
                 @endimage
             </div>
         </div>
 
         @modal([
-        'heading'=> "Hey, Im a modal with an image?",
-        'isPanel' => false,
-        'id' => 'exampleModal',
-        'overlay' => 'dark',
-        'animation' => 'scale-up'
+            'heading'=> "Hey, Im a modal with an image?",
+            'isPanel' => false,
+            'id' => 'exampleModal',
+            'overlay' => 'dark',
+            'animation' => 'scale-up'
         ])
             @image([
-            'src'=> "https://picsum.photos/600/500?image=1028",
-            'alt' => "This is a image in a modal"
+                'src'=> "https://picsum.photos/600/500?image=1028",
+                'alt' => "This is a image in a modal"
             ])
             @endimage
 
@@ -66,10 +66,10 @@
                 @endmarkdown
 
                 @image([
-                'src'=> "https://picsum.photos/300/200?image=1032",
-                'alt' => "This is a image",
-                'caption' => "Image with rounded corners (default size: md)",
-                'rounded' => true
+                    'src'=> "https://picsum.photos/300/200?image=1032",
+                    'alt' => "This is a image",
+                    'caption' => "Image with rounded corners (default size: md)",
+                    'rounded' => true
                 ])
                 @endimage
             </div>
@@ -80,12 +80,12 @@
                 @endmarkdown
 
                 @image([
-                'src'=> "https://picsum.photos/300/200?image=1050",
-                'alt' => "This is a image",
-                'caption' => "Larger corner radius (size: lg) with roundedRadius",
-                'roundedTopLeft' => true,
-                'roundedBottomRight' => true,
-                'roundedRadius' => "lg"
+                    'src'=> "https://picsum.photos/300/200?image=1050",
+                    'alt' => "This is a image",
+                    'caption' => "Larger corner radius (size: lg) with roundedRadius",
+                    'roundedTopLeft' => true,
+                    'roundedBottomRight' => true,
+                    'roundedRadius' => "lg"
                 ])
                 @endimage
             </div>

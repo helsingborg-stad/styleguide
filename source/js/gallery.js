@@ -94,7 +94,7 @@ class Gallery {
             });
         }
     }
-    
+
     /**
      * Next & previous Image
      * @param nav
