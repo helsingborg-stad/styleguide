@@ -1,5 +1,5 @@
 // Button Focus, Hover - Color, Background, Borders
-@mixin button-mix($color, $background, $border, $isIconButton: false) {
+@mixin button-mix($color, $background, $isIconButton: false) {
     color: $color;
     
     &:visited {
@@ -17,20 +17,12 @@
     }
         
     @if $background{
-        border: 2px solid $background;
+        border: 1px solid $background;
         background-color: $background;
         &:hover {
             background-color: darken($background, 5);
             border-color: darken($background, 5);
         }
-    }
-    
-    @if $border{
-        &:hover {
-            background-color: transparentize($color, 0.9);
-        }
-
-        border: 2px solid $color;
     }
 
     @if $isIconButton{
