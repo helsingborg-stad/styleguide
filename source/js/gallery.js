@@ -2,6 +2,7 @@
  * Component Gallery
  */
 import Steppers from "./steppers";
+import Image from "./image";
 
 class Gallery {
 
@@ -14,6 +15,9 @@ class Gallery {
         this.container = null;
         this.isVisible = "c-modal__bg--is-visible";
         this.StepperInstance = {};
+
+        this.Image = new Image;
+        this.StepperInstance = new Steppers;
     }
 
     /**
@@ -44,6 +48,7 @@ class Gallery {
         this.container = document.getElementById(this.modalId);
         this.container.querySelector('.c-image').innerHTML = '';
         self.createImg(this.container, this.imageData);
+
     }
 
     /**
@@ -93,9 +98,6 @@ class Gallery {
     /**
      * Next & previous Image
      * @param nav
-     * @param imageData
-     * @param imageDataSet
-     * @param modalImg
      * @returns {*}
      */
     cycleImage(nav) {
@@ -121,8 +123,6 @@ class Gallery {
      */
     createImg(containerId, imgSrc) {
 
-        this.StepperInstance = new Steppers;
-
         const container = containerId.querySelector('.c-image');
         const containerModalContent = containerId.querySelector('.c-modal__content');
         this.imageData = imgSrc;
@@ -132,14 +132,15 @@ class Gallery {
             container.innerHTML = '';
             container.classList.remove('c-image--is-placeholder');
 
-            const img = document.createElement("img");
-
-            img.setAttribute("src", imgSrc.image);
-            img.setAttribute("data-step", imgSrc.imageStep);
-            img.setAttribute("data-caption", imgSrc.imageCaption);
-
-            container.appendChild(img);
-            img.classList.add('c-image__image');
+            this.Image.initImage({
+                'elementContainer': container,
+                'attrList': {
+                    'src': imgSrc.image,
+                    'data-step': imgSrc.imageStep,
+                    'data-caption': imgSrc.imageCaption
+                },
+                'classList': ['c-image__image']
+            });
 
             this.imageCaption(containerModalContent, imgSrc);
             this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length, true);
@@ -158,13 +159,13 @@ class Gallery {
      * @param containerModalContent
      * @param imgSrc
      */
-    imageCaption (containerModalContent, imgSrc){
+    imageCaption(containerModalContent, imgSrc) {
         if (imgSrc.imageCaption) {
             if (containerModalContent.querySelector('.c-image__caption') !== null) {
                 containerModalContent.querySelector('.c-image__caption').remove();
             }
             containerModalContent.insertAdjacentHTML("beforeend",
-                '<figcaption class="c-image__caption">'+imgSrc.imageCaption+'</figcaption>');
+                '<figcaption class="c-image__caption">' + imgSrc.imageCaption + '</figcaption>');
         }
     }
 

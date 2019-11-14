@@ -1,17 +1,31 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
-
-    @paper(['padding' => 3])
+    @if($slug === 'card')
 
         <h3>Example</h3>
         <div class="markup-preview">
             {!! $slot !!}
         </div>
-        <h3>HTML rendered by blade component</h3>
-        @code(['language' => 'html', 'content' => ""])
+        @paper(['padding' => 3])
+            <h3>HTML rendered by blade component</h3>
+            @code(['language' => 'html', 'content' => ""])
             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
-        @endcode
+            @endcode
+        @endpaper
 
-    @endpaper
+    @else
+        @paper(['padding' => 3])
+
+            <h3>Example</h3>
+            <div class="markup-preview">
+                {!! $slot !!}
+            </div>
+            <h3>HTML rendered by blade component</h3>
+            @code(['language' => 'html', 'content' => ""])
+                {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
+            @endcode
+
+        @endpaper
+    @endif
 
     @if(isset($slug))
         @if(isset($displayParams) && !empty($displayParams))
