@@ -25,7 +25,19 @@
         <div class="grid-s-12 grid-md-6">
             @card([
                 'title' => 'I am another title',
-                'byline' => 'I think you know what I am...'
+                'byline' => 'I think you know what I am...',
+                'buttons' => [
+                    [
+                        'href' => 'http://helsingborg.se',
+                        'text' => 'Action 1',
+                        'classList' => ['js-toggle-trigger']
+                    ],
+                    [
+                        'href' => 'http://',
+                        'text' => 'Action 2',
+                        'attributeList' => ['js-toggle-trigger']
+                    ]
+                ]
             ])
 
             @endcard
