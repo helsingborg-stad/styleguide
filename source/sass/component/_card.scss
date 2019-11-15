@@ -4,6 +4,10 @@
     border-radius: $border-radius-xs; 
     height: 100%;
 
+    &__paper {
+        margin-bottom: 0;
+    }
+
     &__body,
     &__top,
     &__bottom,
@@ -14,6 +18,12 @@
     &__title {
         font-size: $font-size-subtitle;
     }
+    &__byline {
+        letter-spacing: $font-letterspacing-subtitle;
+        font-weight: 400;
+        color: $color-gray;
+    }
+
 
     &__top {
         padding-top:  map-get($spacers, '3');

@@ -14,7 +14,8 @@
 
         <div class="grid-s-12 grid-md-6">
             @card([
-                'title' => 'Plats ingalunda varit, miljoner.',
+                'title' => 'I am pretty nice a title',
+                'byline' => 'Sometimes bylines are good'
             ])
 
             @endcard
@@ -23,7 +24,8 @@
 
         <div class="grid-s-12 grid-md-6">
             @card([
-                'title' => 'Plats ingalunda varit, miljoner.',
+                'title' => 'I am another title',
+                'byline' => 'I think you know what I am...'
             ])
 
             @endcard

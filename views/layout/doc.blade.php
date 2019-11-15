@@ -2,7 +2,7 @@
     @if($slug === 'card')
 
         <h3>Example</h3>
-        <div class="markup-preview">
+        <div class="markup-preview markup-preview--align-x">
             {!! $slot !!}
         </div>
         @paper(['padding' => 3])
