@@ -7,15 +7,18 @@ import Toggle from './toggle';
 import Modal from "./modal";
 import Steppers from "./steppers";
 import Image from "./image";
+import SplitButton from './splitButton';
 
 expandSection();
 
 
 let SortInstance = new Sort;
 let ToggleInstance = new Toggle;
+let SplitButtonInstance = new SplitButton;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
+SplitButtonInstance.syncSplitButton();
 
 let filter = new Filter;
 
