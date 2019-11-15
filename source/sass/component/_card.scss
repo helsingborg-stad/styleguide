@@ -10,6 +10,7 @@
 
     &__body,
     &__top,
+    &__top-title,
     &__bottom,
     &__middle {
         padding: map-get($spacers, '3');
@@ -24,12 +25,25 @@
         color: $color-gray;
     }
 
-
     &__top {
         padding-top:  map-get($spacers, '3');
+
+    }
+    &__top-title {
+        padding-bottom: map-get($spacers, '1');
+        .c-card__byline {
+            margin-top: - map-get($spacers, '2');
+        }
+    }
+
+    &__body {
+        .c-card__byline {
+            margin-top: - map-get($spacers, '2');
+        }
     }
 
     &__bottom {
+        padding-top: 0;
         padding-bottom: map-get($spacers, '3');
     }
 

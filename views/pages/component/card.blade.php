@@ -12,29 +12,30 @@
 
     <div class="grid">
 
-        <div class="grid-s-12 grid-md-6">
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
             @card([
-                'title' => 'I am pretty nice a title',
-                'byline' => 'Sometimes bylines are good'
+                'title' => ['text' => 'I am pretty nice a title', 'position' => 'body'],
+                'byline' => ['text' => 'I am cool byline....', 'position' => 'body'],
+                'content' => 'Doodily texas left rappin surfer assal horizontology mono = one craptacular bumbled-bee.'
             ])
 
             @endcard
 
         </div>
 
-        <div class="grid-s-12 grid-md-6">
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
             @card([
-                'title' => 'I am another title',
-                'byline' => 'I think you know what I am...',
+                'title' => ['text' => 'Another title with a few more words. Two lines of text.', 'position' => 'body'],
+                'byline' => ['text' => 'Neglecterino nulecule four krustys flunjer parents', 'position' => 'body'],
                 'buttons' => [
                     [
                         'href' => 'http://helsingborg.se',
-                        'text' => 'Action 1',
-                        'classList' => ['js-toggle-trigger']
+                        'text' => 'Action button 1',
+                        'attributeList' => ['js-toggle-trigger']
                     ],
                     [
                         'href' => 'http://',
-                        'text' => 'Action 2',
+                        'text' => 'Action button 2',
                         'attributeList' => ['js-toggle-trigger']
                     ]
                 ]
@@ -49,39 +50,48 @@
 
     @doc(['slug' => 'card'])
 
-    <div class="grid">
+        @markdown
+        ##Position of Title and byline
 
-        <div class="grid-s-12 grid-md-6">
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Plats ingalunda varit, miljoner.',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
-                dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
-                rännil.'
-            ])
+        There are two positions slots available for title and byline. Top and Body.
 
-            @endcard
+        @endmarkdown
 
+        <div class="grid">
+
+            <div class="grid-s-12 grid-sm-6 grid-md-6">
+                @card([
+                    'href' => 'http://styleguide.helsingborg.se/card',
+                    'image' => 'https://picsum.photos/300/200?image=1077',
+                    'title' => ['text' => 'I am pretty nice a title', 'position' => 'top'],
+                    'byline' => ['text' => 'You all know what laughter sounds like', 'position' => 'top'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                            därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
+                            dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
+                            rännil.'
+                ])
+
+                @endcard
+
+            </div>
+
+            <div class="grid-s-12 grid-sm-6 grid-md-6">
+                @card([
+                    'href' => 'http://styleguide.helsingborg.se/card',
+                    'image' => 'https://picsum.photos/300/200?image=1077',
+                    'title' => ['text' => 'I am pretty nice a title', 'position' => 'body'],
+                    'byline' => ['text' => 'You all know what laughter sounds like', 'position' => 'body'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                        därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
+                        dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
+                        rännil.'
+
+                ])
+
+                @endcard
+
+            </div>
         </div>
-
-        <div class="grid-s-12 grid-md-6">
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Plats ingalunda varit, miljoner.',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
-                dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
-                rännil.'
-
-            ])
-
-            @endcard
-
-        </div>
-    </div>
 
     @enddoc
 
