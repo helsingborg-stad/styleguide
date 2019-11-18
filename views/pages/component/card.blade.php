@@ -16,7 +16,8 @@
             @card([
                 'title' => ['text' => 'I am pretty nice a title', 'position' => 'body'],
                 'byline' => ['text' => 'I am cool byline....', 'position' => 'body'],
-                'content' => 'Doodily texas left rappin surfer assal horizontology mono = one craptacular bumbled-bee.'
+                'content' => 'Doodily texas left rappin surfer assal horizontology mono = one craptacular bumbled-bee.',
+                'hasRipple' => false
             ])
 
             @endcard
@@ -68,7 +69,8 @@
                     'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
                             därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
                             dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
-                            rännil.'
+                            rännil.',
+                    'hasRipple' => false
                 ])
 
                 @endcard
@@ -84,7 +86,8 @@
                     'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
                         därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
                         dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
-                        rännil.'
+                        rännil.',
+                    'hasRipple' => false
 
                 ])
 
@@ -92,6 +95,55 @@
 
             </div>
         </div>
+
+    @enddoc
+
+    @doc(['slug' => 'card'])
+
+    @markdown
+    ##Position of Title and byline
+
+    There are two positions slots available for title and byline. Top and Body.
+
+    @endmarkdown
+
+    <div class="grid">
+
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+            'href' => 'http://styleguide.helsingborg.se/card',
+            'image' => 'https://picsum.photos/300/200?image=1077',
+            'title' => ['text' => 'I am pretty nice a title', 'position' => 'top'],
+            'byline' => ['text' => 'You all know what laughter sounds like', 'position' => 'top'],
+            'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+            därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
+            dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
+            rännil.',
+            'hasRipple' => false
+            ])
+
+            @endcard
+
+        </div>
+
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+            'href' => 'http://styleguide.helsingborg.se/card',
+            'image' => 'https://picsum.photos/300/200?image=1077',
+            'title' => ['text' => 'I am pretty nice a title', 'position' => 'body'],
+            'byline' => ['text' => 'You all know what laughter sounds like', 'position' => 'body'],
+            'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+            därmed annat ännu söka, från se ingalunda dag vi äng plats är. Söka denna erfarenheter flera vidsträckt fram
+            dock stora söka, genom dimma blivit enligt vemod söka nya gör annan, mot annat där enligt faktor dimma
+            rännil.',
+            'hasRipple' => false
+
+            ])
+
+            @endcard
+
+        </div>
+    </div>
 
     @enddoc
 
