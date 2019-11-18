@@ -17,21 +17,21 @@
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'Primary'
+                'text' => 'Size sm'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'md',
-                'text' => 'Primary'
+                'text' => 'Size md'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'lg',
-                'text' => 'Primary'
+                'text' => 'Size lg'
             ])
             @endbutton
 
@@ -103,14 +103,63 @@
                 'text' => 'No hover or animate'
             ])
             @endbutton
-    
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Button with toggle    
+                ###Buttons with toggle    
             @endmarkdown
-    
             @button([
-                'text' => 'Click to toggle!',
+                'text' => 'Primary toggle',
                 'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'background' => 'secondary',
+                'text' => 'Secondary toggle',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'background' => 'default',
+                'text' => 'Default toggle',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Outlined buttons   
+            @endmarkdown
+            @button([
+                'text' => 'Primary outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'primary',
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'secondary',
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'default',
                 'attributeList' => ['js-toggle-trigger' => '']
             ])
             @endbutton
