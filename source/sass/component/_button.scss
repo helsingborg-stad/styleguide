@@ -19,51 +19,46 @@
 
 .c-btn__icon{
     @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
-    @include button-mix($color-black, false, false, true);
+    @include button-mix($color-black, false, true);
     border:none;
 }
 
 // OUTLINED
 .c-btn__outlined{
+    border-style: solid;
+    border-width: 2px;
     &--primary {
-        @include button-mix($color-primary, false, true);
-        &[aria-pressed="true"] {
+        border-color: $color-primary;
+        color:$color-primary;
+        &:hover {
             background-color: transparentize($color-primary, 0.9);
         }
-    }
-
-    &--primary-dimmed {
-        @include button-mix($color-primary-dimmed, false, true);
         &[aria-pressed="true"] {
-            background-color: transparentize($color-primary-dimmed, 0.9);
-        }
-    }
-
-    &--primary-dark {
-        @include button-mix($color-primary-dark, false, true);
-        &[aria-pressed="true"] {
-            background-color: transparentize($color-primary-dark, 0.9);
+            color: darken($color: $color-primary, $amount: 20%);
+            background-color: transparentize($color-primary-dark, 0.5);
         }
     }
 
     &--secondary {
-        @include button-mix($color-secondary, false, true);
-        &[aria-pressed="true"] {
+        border-color: $color-secondary;
+        color:$color-secondary;
+        &:hover {
             background-color: transparentize($color-secondary, 0.9);
+        }
+        &[aria-pressed="true"] {
+            color: darken($color: $color-secondary, $amount: 20%);
+            background-color: transparentize($color-secondary-dark, 0.5);
         }
     }
 
-    &--secondary-dimmed {
-        @include button-mix($color-secondary, false, true);
-        &[aria-pressed="true"] {
-            background-color: transparentize($color-secondary, 0.9);
+    &--default {
+        border-color: $color-default-dark;
+        color:$color-primary;
+        &:hover {
+            background-color: transparentize($color-default-dark, 0.5);
         }
-    }
-
-    &--secondary-dark {
-        @include button-mix($color-secondary-dark, false, true);
         &[aria-pressed="true"] {
-            background-color: transparentize($color-secondary-dark, 0.9);
+            background-color: transparentize($color-default-dark, 0.5);
         }
     }
 }
@@ -82,9 +77,13 @@
     background-color: transparent;
     letter-spacing: 0.1em;
 
+    &:visited, &:active{
+        outline: 0;
+    }
+
     &__label{
         display:flex;
-        flex-direction: row;     
+        flex-direction: row;
     }
 
     // COLOR
@@ -102,15 +101,14 @@
             background-color: $color-secondary-dark;
             border-color: $color-secondary-dark;
         }
-
     }
-    
+
     &--default {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         @include button-mix($color-primary, $color-default, false);
         &[aria-pressed="true"]{
-            background-color: darken($color: $color-default, $amount: 50%);
-            border-color: darken($color: $color-default, $amount: 50%);
+            background-color: $color-default-dark;
+            border-color: $color-default-dark;
         }
     }
 
@@ -128,7 +126,7 @@
         text-transform: uppercase;
         @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 12.5px);
     }
-    
+
     // FLOATING
     &--floating {
         @include shadow(6);
@@ -152,6 +150,6 @@
         }
     }
 
-    
+
 
 }

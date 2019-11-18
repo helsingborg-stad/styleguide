@@ -2,7 +2,7 @@
 
 @section('content')
     @markdown
-        #Button      
+    #Button
     @endmarkdown
 
 
@@ -11,27 +11,27 @@
         <div class="grid-s-12 grid-md-6">
 
             @markdown
-                ###Button sizes ranging from sm to lg
+            ###Button sizes ranging from sm to lg
             @endmarkdown
 
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'Primary'
+                'text' => 'Size sm'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'md',
-                'text' => 'Primary'
+                'text' => 'Size md'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'lg',
-                'text' => 'Primary'
+                'text' => 'Size lg'
             ])
             @endbutton
 
@@ -39,7 +39,7 @@
         <div class="grid-s-12 grid-md-6">
 
             @markdown
-                ###Button with icon and text, reversed and not
+            ###Button with icon and text, reversed and not
             @endmarkdown
 
             @button([
@@ -59,58 +59,107 @@
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Different backgrounds    
+            ###Different backgrounds
             @endmarkdown
-    
+
             @button([
-                'background' => 'primary',
-                'text' => 'Primary bg'
+            'background' => 'primary',
+            'text' => 'Primary bg'
             ])
             @endbutton
-    
+
             @button([
-                'background' => 'secondary',
-                'text' => 'Secondary bg'
+            'background' => 'secondary',
+            'text' => 'Secondary bg'
             ])
             @endbutton
-    
+
             @button([
-                'background' => 'default',
-                'text' => 'Default bg'
+            'background' => 'default',
+            'text' => 'Default bg'
             ])
             @endbutton
         </div>
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Buttons with floating effect      
+            ###Buttons with floating effect
             @endmarkdown
-    
+
             @button([
                 'floating' => ['animate' => true, 'hover' => true],
                 'text' => 'Animate + hover'
             ])
             @endbutton
-    
+
             @button([
                 'floating' => ['animate' => false, 'hover' => true],
                 'text' => 'Only hover'
             ])
             @endbutton
-    
+
             @button([
                 'floating' => ['animate' => false, 'hover' => false],
                 'text' => 'No hover or animate'
             ])
             @endbutton
-    
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Button with toggle    
+            ###Buttons with toggle
             @endmarkdown
-    
             @button([
-                'text' => 'Click to toggle!',
+                'text' => 'Primary toggle',
                 'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'background' => 'secondary',
+                'text' => 'Secondary toggle',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'background' => 'default',
+                'text' => 'Default toggle',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+            ###Outlined buttons
+            @endmarkdown
+            @button([
+                'text' => 'Primary outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'primary',
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'secondary',
+                'attributeList' => ['js-toggle-trigger' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'default',
                 'attributeList' => ['js-toggle-trigger' => '']
             ])
             @endbutton
@@ -121,7 +170,7 @@
     @enddoc
 
     @markdown
-        ###Icon buttons      
+    ###Icon buttons
     @endmarkdown
 
     @doc(['slug' => 'button'])
@@ -129,7 +178,7 @@
         <div class="grid-s-12 grid-md-3">
 
             @markdown
-                ####Floating icon buttons
+            ####Floating icon buttons
             @endmarkdown
             @button([
                 'isIconButton' =>  true,
@@ -159,7 +208,7 @@
         <div class="grid-s-12 grid-md-3">
 
             @markdown
-                ####Different colors
+            ####Different colors
             @endmarkdown
 
             @button([
@@ -187,7 +236,7 @@
         <div class="grid-s-12 grid-md-4">
 
             @markdown
-                ####Different sizes: sm, md, lg
+            ####Different sizes: sm, md, lg
             @endmarkdown
 
             @button([
@@ -213,24 +262,24 @@
 
         </div>
     </div>
-        @markdown
-            ####With background, primary and secondary   
-        @endmarkdown
-        
-        @button([
-            'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'sm'],
-            'background' => 'primary'
-        ])
-        @endbutton
+    @markdown
+    ####With background, primary and secondary
+    @endmarkdown
 
-        @button([
-            'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
-            'background' => 'secondary'
-        ])
-        @endbutton
-    
+    @button([
+        'isIconButton' =>  true,
+        'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'sm'],
+        'background' => 'primary'
+    ])
+    @endbutton
+
+    @button([
+        'isIconButton' =>  true,
+        'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
+        'background' => 'secondary'
+    ])
+    @endbutton
+
     @enddoc
 @stop
 
