@@ -13,7 +13,7 @@
         @navbar([
             'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Helsingborg_vapen.svg/198px-Helsingborg_vapen.svg.png',
             'logoPosition' => 'left',
-            'itemsPosition' => 'left',
+            'itemsPosition' => 'right',
             'items' => [
                 'Level 1 1' => [
                     'href' => '#',
