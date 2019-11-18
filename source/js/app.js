@@ -1,5 +1,6 @@
 
-console.log("Start");
+import "core-js";
+
 import expandSection from './expand-section';
 import Filter from './filter';
 import Sort from './sort';

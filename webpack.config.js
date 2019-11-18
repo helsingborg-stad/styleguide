@@ -18,7 +18,7 @@ module.exports = {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
         'styleguide-css': './source/sass/main.scss',
     },
-    mode: 'production',
+    mode: 'development',
     watch: true,
     watchOptions: {
         poll: 100,
