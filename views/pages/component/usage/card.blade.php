@@ -1,32 +1,41 @@
 @card(
     [
+        'avatar' => [
+            'name' => 'Snowflake'
+        ],
         'image' => 'https://picsum.photos/300/200?image=1077',
-        'title' => ['text' => 'Another title with a few more words. Two lines of text.', 'position' => 'body'],
-        'byline' => ['text' => 'Neglecterino nulecule four krustys flunjer parents', 'position' => 'body'],
-        'content' => 'Your content text',
-        'buttons' => [
+        'href' => 'http://styleguide.helsingborg.se/card',
+        'title' => [
+            'text' => 'Maybe you also need to add some cool icon-buttons',
+            'position' => 'top'
+        ],
+        'byline' => [
+            'text' => 'Social icons or something else...',
+            'position' => 'body'
+        ],
+        'content' => 'Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.
+        Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.',
+        'hasRipple' => false,
+        'icons' => [
             [
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'text' => 'Action button 1',
+                'name' => 'favorite',
+                'size' => 'lg',
                 'attributeList' => ['js-toggle-trigger']
             ],
             [
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'text' => 'Action button 2',
-            ]
-        ],
-        'icons' => [
-            [
-                'name' => 'flask',
-                'attributeList' => ['js-toggle-trigger'],
-                'classList' => ['someClass'],
+                'name' => 'forum',
+                'size' => 'lg',
+                'color' => 'primary',
+                'attributeList' => ['js-toggle-trigger']
             ],
             [
-                'text' => 'shopping-cart',
-                'attributeList' => ['js-toggle-trigger'],
-                'classList' => ['someClass'],
+                'name' => 'place',
+                'size' => 'lg',
+                'color' => 'secondary',
+                'attributeList' => ['js-toggle-trigger']
             ]
         ]
     ]
 )
+
 @endcard

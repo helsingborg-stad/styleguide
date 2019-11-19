@@ -16,6 +16,12 @@
         padding: map-get($spacers, '3');
     }
 
+    .c-avatar {
+        float:left;
+        margin: 0 map-get($spacers, '2') map-get($spacers, '2') 0;
+
+    }
+
     &__title {
         font-size: $font-size-subtitle;
     }
@@ -30,10 +36,14 @@
 
     }
     &__top-title {
-        padding-bottom: map-get($spacers, '1');
+        padding-bottom:0;
         .c-card__byline {
             margin-top: - map-get($spacers, '2');
         }
+    }
+
+    &__with-avatar {
+        margin-bottom:-16px;
     }
 
     &__body {
