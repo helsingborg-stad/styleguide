@@ -55,7 +55,7 @@
         ##Position of Title and byline
 
         There are two positions slots available for title and byline. Top and Body.
-    
+
         @endmarkdown
 
         <div class="grid">
@@ -138,19 +138,22 @@
                     [
                         'name' => 'favorite',
                         'size' => 'lg',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
                     ],
                     [
                         'name' => 'forum',
                         'size' => 'lg',
                         'color' => 'primary',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
                     ],
                     [
                         'name' => 'place',
                         'size' => 'lg',
                         'color' => 'secondary',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
                     ]
                 ]
             ])
