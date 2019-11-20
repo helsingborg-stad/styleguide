@@ -1,7 +1,9 @@
 a, .link {
     color: $color-link;
     text-decoration-style: dotted;
-
+    i {
+        text-decoration: none;
+    }
     &:hover {
         color: $color-link-hover;
         text-decoration-style: solid;

@@ -22,9 +22,6 @@
     </noscript>
 
     <style>
-        .c-paper {
-            margin-bottom: 32px; 
-        }
 
         .example {
             margin-top: 32px;
