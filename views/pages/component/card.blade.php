@@ -54,7 +54,8 @@
         @markdown
         ##Position of Title and byline
 
-        There are two positions slots available for title and byline. Top and Body.
+        There are two positions slots available for title and byline. Top and Body.<br />
+        You can also add "c-card--shadow-on-hover" to classList for a shadow effect on hover.
 
         @endmarkdown
 
