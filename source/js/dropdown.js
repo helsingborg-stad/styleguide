@@ -1,9 +1,10 @@
-import DropdownVisibility from './dropdownVisibility';
-let dropdownVisibilityInstance = new DropdownVisibility;
-
 class Dropdown{
 
-    toggleDropdown(){
+    constructor(){
+        this.DROPDOWNLISTVISIBLE = 'c-dropdown__list--visible';
+    }
+
+    setValidTargets(){
         let dropdowns = document.getElementsByClassName('c-dropdown--on-click');
 
 
@@ -13,13 +14,22 @@ class Dropdown{
             let dropdownButton = dropdown.getElementsByTagName('button')[0];
             let buttonLabel = dropdownButton.getElementsByClassName('c-btn__label-text')[0];
             let buttonIcon = dropdownButton.getElementsByTagName('i')[0];
-            
             let validTargets = [dropDownList, dropdownButton, buttonLabel, buttonIcon]
         
-
-            dropdownVisibilityInstance.toggle(validTargets, dropDownList);
+            this.toggle(validTargets, dropDownList);
         }
         
+    }
+
+    toggle(validTargets, dropDownList){
+        document.addEventListener('click', (event) => {
+            let target = event.target; 
+            if((validTargets.includes(target))  && !dropDownList.classList.contains(this.DROPDOWNLISTVISIBLE)){
+                dropDownList.classList.add(this.DROPDOWNLISTVISIBLE);
+            }else{
+                dropDownList.classList.remove(this.DROPDOWNLISTVISIBLE);
+            }
+        })   
     }
 
 }

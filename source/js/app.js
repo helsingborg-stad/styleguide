@@ -20,7 +20,7 @@ let DropdownInstance = new Dropdown;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
-DropdownInstance.toggleDropdown();
+DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 
 let filter = new Filter;

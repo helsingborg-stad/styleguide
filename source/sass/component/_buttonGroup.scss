@@ -27,6 +27,10 @@
     &--secondary{
         border-color: $color-secondary;
     }
+
+    &--default{
+        border-color: $color-default;
+    }
 }
 
 .c-btn-group__background{

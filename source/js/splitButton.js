@@ -1,5 +1,3 @@
-import DropdownVisibility from './dropdownVisibility';
-let dropdownVisibilityInstance = new DropdownVisibility;
 class SplitButton{
     constructor(){
         this.SPLIT = 'js-split'
