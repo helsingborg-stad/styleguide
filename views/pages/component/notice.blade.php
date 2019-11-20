@@ -44,7 +44,7 @@
             'icon' => [
                 'name' => 'check',
                 'size' => 'md',
-                'color' => 'white'
+                'color' => 'black'
             ]
         ])
         @endnotice
