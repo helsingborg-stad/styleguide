@@ -1,0 +1,4 @@
+@splitbutton([
+    'key' => 'value'
+])
+@endsplitbutton

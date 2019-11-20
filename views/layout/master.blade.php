@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
-    <script type='text/javascript' defer="defer" src='https://cdn.polyfill.io/v3/polyfill.min.js?ver=5.1.1'></script>
+    <script type='text/javascript' defer="defer" src='https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated'></script>
+
 
     <link rel='dns-prefetch' href='//cdn.polyfill.io' />
     <link rel='dns-prefetch' href='//highlightjs.org' />
@@ -21,9 +22,6 @@
     </noscript>
 
     <style>
-        .c-paper {
-            margin-bottom: 32px; 
-        }
 
         .example {
             margin-top: 32px;

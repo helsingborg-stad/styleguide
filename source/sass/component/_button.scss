@@ -19,8 +19,22 @@
 
 .c-btn__icon{
     @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
-    @include button-mix($color-black, false, true);
+    //@include button-mix($color-black, false, true);
+    &:hover {
+        background-color: transparentize($color-black, 0.95);
+    }
     border:none;
+    &[disabled]{
+        background-color: $color-disabled;
+        border-color: $color-disabled;
+        *{
+            color: $color-disabled-text;
+        }
+        &:hover{
+            border-color:$color-disabled;
+            background-color: $color-disabled;
+        }
+    }
 }
 
 // OUTLINED
@@ -61,6 +75,12 @@
             background-color: transparentize($color-default-dark, 0.5);
         }
     }
+
+    &[disabled]{
+        border-color: $color-disabled;
+        color:$color-disabled-text;
+        background-color: transparentize($color-black, 0.5);
+    }
 }
 
 // BUTTON
@@ -83,7 +103,7 @@
 
     &__label{
         display:flex;
-        flex-direction: row;
+        flex-direction: row;     
     }
 
     // COLOR
@@ -102,7 +122,7 @@
             border-color: $color-secondary-dark;
         }
     }
-
+    
     &--default {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         @include button-mix($color-primary, $color-default, false);
@@ -110,6 +130,14 @@
             background-color: $color-default-dark;
             border-color: $color-default-dark;
         }
+    }
+
+    &[disabled]{
+        box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+        border-color: $color-disabled;
+        border:none;
+        color:$color-disabled-text;
+        background-color: $color-disabled;
     }
 
 
@@ -126,7 +154,7 @@
         text-transform: uppercase;
         @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 12.5px);
     }
-
+    
     // FLOATING
     &--floating {
         @include shadow(6);
@@ -150,6 +178,6 @@
         }
     }
 
-
+    
 
 }

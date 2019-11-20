@@ -49,8 +49,7 @@
             ])
             @endbutton
 
-        @endbuttonGroup
-        
+        @endbuttonGroup        
 
     @enddoc
 @stop

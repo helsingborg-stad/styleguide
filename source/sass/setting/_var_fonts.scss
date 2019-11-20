@@ -13,7 +13,7 @@ $font-family-body: $font-family-roboto !default;
 //  Font size
 $font-size-headline: 32px !default;
 $font-size-title: 20px !default;
-$font-size-subtitle: 18px !default;
+$font-size-subtitle: 1.25rem !default;
 $font-size-body: 16px !default;
 $font-size-caption: 14px !default;
 $font-size-meta: 12px !default;
@@ -55,7 +55,9 @@ $line-height-base: 1.625;
 $line-height-heading: 1.5;
 $line-height-headline: 1.25;
 
-
+// Letter spacing
+$font-letterspacing-title: .0125em;
+$font-letterspacing-subtitle: .0178571429em;
 
 
 

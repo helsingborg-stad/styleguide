@@ -1,10 +1,3 @@
-.c-dropdown--on-click{
-    .c-btn:focus ~ .c-dropdown__list{
-        visibility: visible;
-        opacity: 1;
-    }
-}
-
 .c-dropdown--on-hover{
     
     .c-btn:hover ~ .c-dropdown__list{
@@ -20,7 +13,7 @@
     }
 
 }
-    
+
 .c-dropdown {
     position:relative;
     display:inline-block;
@@ -60,6 +53,15 @@
 
         & a:visited{
             color: $color-menu-text;
+        }
+
+        &--hidden{
+            visibility: hidden;
+        }
+    
+        &--visible{
+            visibility: visible;
+            opacity: 1;
         }
     }
 }

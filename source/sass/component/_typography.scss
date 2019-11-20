@@ -15,12 +15,15 @@
         font-size: $h3-font-size;
         font-weight: $h3-font-weight;
         line-height: $h3-line-height;
+        letter-spacing:$font-letterspacing-title;
+
     }
 
     &h4 {
         font-size: $h4-font-size;
         font-weight: $h4-font-weight;
         line-height: $h4-line-height;
+        letter-spacing:$font-letterspacing-title;
     }
 
     &h5 {
@@ -52,6 +55,10 @@
     }
 
     &caption {
+        font-size: $font-size-caption;
+    }
+
+    &byline {
         font-size: $font-size-caption;
     }
 

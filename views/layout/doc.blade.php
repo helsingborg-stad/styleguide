@@ -1,25 +1,39 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
     @if($slug === 'card')
 
-        <h3>Example</h3>
-        <div class="markup-preview">
+        <div class="markup-preview markup-preview--align-x">
             {!! $slot !!}
         </div>
+
         @paper(['padding' => 3])
-            <h3>HTML rendered by blade component</h3>
+            @typography([
+                'variant' => "h3",
+                'element' => "h3",
+                'classList' => [$baseClass."__title"]
+            ])
+                HTML rendered by blade component
+            @endtypography
+
             @code(['language' => 'html', 'content' => ""])
-            {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
+                {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
             @endcode
         @endpaper
 
     @else
         @paper(['padding' => 3])
 
-            <h3>Example</h3>
             <div class="markup-preview">
                 {!! $slot !!}
             </div>
-            <h3>HTML rendered by blade component</h3>
+
+            @typography([
+                'variant' => "h3",
+                'element' => "h3",
+                'classList' => [$baseClass."__title"]
+            ])
+                HTML rendered by blade component
+            @endtypography
+
             @code(['language' => 'html', 'content' => ""])
                 {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
             @endcode
@@ -31,7 +45,14 @@
         @if(isset($displayParams) && !empty($displayParams))
         @paper(['padding' => 3])
             @if(!file_exists("views/pages/component/usage/".$slug.".blade.php"))
-                <h3>Blade component</h3>
+
+                    @typography([
+                        'variant' => "h3",
+                        'element' => "h3",
+                        'classList' => [$baseClass."__title"]
+                    ])
+                    Blade component
+                    @endtypography
                 <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
 
                 <?php echo '@slot("parameter")'; ?>

@@ -59,45 +59,45 @@
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-            ###Different backgrounds
+                ###Different backgrounds    
             @endmarkdown
-
+    
             @button([
-            'background' => 'primary',
-            'text' => 'Primary bg'
+                'background' => 'primary',
+                'text' => 'Primary bg'
             ])
             @endbutton
-
+    
             @button([
-            'background' => 'secondary',
-            'text' => 'Secondary bg'
+                'background' => 'secondary',
+                'text' => 'Secondary bg'
             ])
             @endbutton
-
+    
             @button([
-            'background' => 'default',
-            'text' => 'Default bg'
+                'background' => 'default',
+                'text' => 'Default bg'
             ])
             @endbutton
         </div>
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-            ###Buttons with floating effect
+                ###Buttons with floating effect      
             @endmarkdown
-
+    
             @button([
                 'floating' => ['animate' => true, 'hover' => true],
                 'text' => 'Animate + hover'
             ])
             @endbutton
-
+    
             @button([
                 'floating' => ['animate' => false, 'hover' => true],
                 'text' => 'Only hover'
             ])
             @endbutton
-
+    
             @button([
                 'floating' => ['animate' => false, 'hover' => false],
                 'text' => 'No hover or animate'
@@ -107,7 +107,7 @@
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-            ###Buttons with toggle
+                ###Buttons with toggle    
             @endmarkdown
             @button([
                 'text' => 'Primary toggle',
@@ -135,7 +135,7 @@
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-            ###Outlined buttons
+                ###Outlined buttons   
             @endmarkdown
             @button([
                 'text' => 'Primary outlined',
@@ -164,13 +164,41 @@
             ])
             @endbutton
         </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Disabled buttons
+            @endmarkdown
+            @button([
+                'text' => 'Disabled',
+                'background' => 'disabled',
+                'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
+            ])
+            @endbutton
+            @button([
+                'text' => 'Disabled outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'disabled',
+                'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
+            ])
+            @endbutton
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'background' => 'primary',
+                'attributeList' => ['disabled' => '']
+
+            ])
+            @endbutton
+        </div>
     </div>
 
 
     @enddoc
 
     @markdown
-    ###Icon buttons
+        ###Icon buttons
     @endmarkdown
 
     @doc(['slug' => 'button'])
