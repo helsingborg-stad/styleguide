@@ -3,23 +3,25 @@
     padding: map-get($spacers, '2') map-get($spacers, '3');
     background-color: $color-base;
     border-radius: $border-radius-xs;
-    color: #ffffff;    
+    color: $color-notice-text-default;    
     &--success {
         background-color: $color-success; 
-        color: #ffffff;
+        color: $color-success-text;
     }
 
     &--danger {
         background-color: $color-danger; 
-        color: #ffffff;
+        color: $color-danger-text;
     }
 
     &--info {
-        background-color: $color-info; 
+        background-color: $color-info;
+        color: $color-info-text;  
     }
 
     &--warning {
         background-color: $color-warning; 
+        color: $color-warning-text; 
     }
 
     &__icon{
@@ -73,7 +75,4 @@
         @include slide(bottom);
     }    
 
-    
 }
-
-
