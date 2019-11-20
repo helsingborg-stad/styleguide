@@ -66,6 +66,7 @@
                     'image' => 'https://picsum.photos/300/200?image=1016',
                     'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
                     'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover'],
                     'content' => 'Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce
                                     broccoli celery lotus root carrot winter purslane turnip greens garlic. ',
                     'hasRipple' => false
@@ -80,6 +81,7 @@
                     'href' => 'http://styleguide.helsingborg.se/card',
                     'image' => 'https://picsum.photos/300/200?image=1071',
                     'title' => ['text' => 'Cheddar ricotta croque monsieur', 'position' => 'body'],
+                    'classList' => ['c-card--shadow-on-hover'],
                     'byline' => ['text' => 'Melted cheese camembert de normandie cheese triangles', 'position' => 'body'],
                     'content' => 'Blue castello red leicester camembert de normandie. Swiss cheeseburger taleggio cheesy
                             feet who moved my cheese airedale mozzarella boursin. ',

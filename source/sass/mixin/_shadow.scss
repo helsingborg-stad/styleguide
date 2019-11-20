@@ -1,7 +1,7 @@
 @mixin shadow($level: 1, $inset: false) {
 
     @if $level == 1 {
-        box-shadow: if($inset, inset, #{''}) 0 0 ($base/2) $color-shadow; 
+        box-shadow: if($inset, inset, #{''}) 0 0 ($base/2) $color-shadow;
     } @else if $level == 2 {
         box-shadow: if($inset, inset, #{''}) 0 0 ($base) lighten($color-shadow, 1.1%); 
     } @else if $level == 3 {
@@ -12,5 +12,8 @@
         box-shadow: if($inset, inset, #{''}) 0 0 ($base*4) lighten($color-shadow, 1.4%);
     } @else if $level == 6 {
         box-shadow: if($inset, inset, #{''}) 0 2px 5px -2px lighten($color-shadow-sharp, 1.4%);
+    } @else if $level == 7 {
+        box-shadow: if($inset, inset, #{''}) 0 0 ($base*1) lighten($color-shadow-sharp, 70%); // Sharp on hover
     }
+
 }

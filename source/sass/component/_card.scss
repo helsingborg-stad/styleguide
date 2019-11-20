@@ -3,9 +3,18 @@
     background-color: $color-card-background;
     border-radius: $border-radius-xs; 
     height: 100%;
+    &--shadow-on-hover {
+        &:hover {
+            @include paper(7);
+        }
+    }
+
+    display: block;
 
     &__paper {
         margin-bottom: 0;
+        cursor:pointer;
+
     }
 
     &__body,
