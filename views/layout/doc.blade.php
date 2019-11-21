@@ -8,8 +8,7 @@
         @paper(['padding' => 3])
             @typography([
                 'variant' => "h3",
-                'element' => "h3",
-                'classList' => [$baseClass."__title"]
+                'element' => "h3"
             ])
                 HTML rendered by blade component
             @endtypography
@@ -28,8 +27,7 @@
 
             @typography([
                 'variant' => "h3",
-                'element' => "h3",
-                'classList' => [$baseClass."__title"]
+                'element' => "h3"
             ])
                 HTML rendered by blade component
             @endtypography
@@ -48,8 +46,7 @@
 
                     @typography([
                         'variant' => "h3",
-                        'element' => "h3",
-                        'classList' => [$baseClass."__title"]
+                        'element' => "h3"
                     ])
                     Blade component
                     @endtypography
