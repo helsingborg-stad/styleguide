@@ -169,6 +169,98 @@
             @endcard
 
         </div>
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+                'image' => 'https://picsum.photos/300/200?image=1028',
+                'title' => ['text' => 'More dynamic card with floating menus', 'position' => 'body'],
+                'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'body'],
+                'content' => 'Look at the nice floating dropdown menu in the top right corner. Easy to add and fill with items and links.',
+                'classList' => ['c-card--shadow-on-hover'],
+                'hasRipple' => false,
+                'buttons' => [
+                    [
+                        'href' => 'http://helsingborg.se',
+                        'text' => 'Action button 1',
+                        'attributeList' => ['js-toggle-trigger']
+                    ],
+                    [
+                        'href' => 'http://',
+                        'text' => 'Action button 2',
+                        'attributeList' => ['js-toggle-trigger']
+                    ]
+                ],
+                'dropdown' => [
+                    'direction' => 'top',
+                    'position' => 'bottom',
+                    'items' => []
+                ]
+            ])
+
+            @endcard
+        </div>
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+                'image' => 'https://picsum.photos/300/200?image=1021',
+                'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
+                'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
+                'content' => 'Overflow menus are usually located in the upper-right or lower-right corner of a card.',
+                'classList' => ['c-card--shadow-on-hover'],
+                'hasRipple' => false,
+                'icons' => [
+                    [
+                        'name' => 'share',
+                        'size' => 'lg',
+                        'color' => '',
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
+                    ],
+                    [
+                        'name' => 'local-offer',
+                        'size' => 'lg',
+                        'color' => '',
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
+                    ],
+                    [
+                        'name' => 'place',
+                        'size' => 'lg',
+                        'color' => '',
+                        'attributeList' => ['js-toggle-trigger'],
+                        'classList' => ['u-float--right']
+                    ]
+                ],
+                'dropdown' => [
+                    'direction' => 'bottom',
+                    'position' => 'top',
+                'items' => []
+            ]
+            ])
+
+            @endcard
+
+        </div>
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+                'top' => '<h4>JOHAN TEST</h4>',
+                'bottom' => '<button  class="c-btn c-card__button c-btn__outlined--default c-btn--md" target="_top" js-toggle-single="c-btn--default__toggled" aria-pressed="false" href="http://helsingborg.se" tabindex="0" js-toggle-self="">
+                                <span class="c-btn__label">
+                                    ActionButton with HTML
+                                </span>
+                             </button>
+                            <button  class="c-btn c-card__button c-btn__outlined--default c-btn--md" target="_top" js-toggle-single="c-btn--default__toggled" aria-pressed="false" href="http://helsingborg.se" tabindex="0" js-toggle-self="">
+                                <span class="c-btn__label">
+                                    ActionButton with HTML
+                                </span>
+                            </button>',
+
+
+            ])
+
+            @endcard
+
+        </div>
+
+
     </div>
 
     @enddoc
