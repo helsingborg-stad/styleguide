@@ -17,21 +17,24 @@
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'Size sm'
+                'text' => 'Size sm',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'md',
-                'text' => 'Size md'
+                'text' => 'Size md',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'lg',
-                'text' => 'Size lg'
+                'text' => 'Size lg',
+                'background' => 'default'
             ])
             @endbutton
 
@@ -45,13 +48,15 @@
             @button([
                 'icon' => ['name' => 'close', 'color' => 'black'],
                 'reverseIcon' => true,
-                'text' => 'Reversed'
+                'text' => 'Reversed',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'icon' => ['name' => 'close', 'color' => 'black'],
-                'text' => 'Not reversed'
+                'text' => 'Not reversed',
+                'background' => 'default'
             ])
             @endbutton
 
@@ -88,19 +93,22 @@
     
             @button([
                 'floating' => ['animate' => true, 'hover' => true],
-                'text' => 'Animate + hover'
+                'text' => 'Animate + hover',
+                'background' => 'default'
             ])
             @endbutton
     
             @button([
                 'floating' => ['animate' => false, 'hover' => true],
-                'text' => 'Only hover'
+                'text' => 'Only hover',
+                'background' => 'default'
             ])
             @endbutton
     
             @button([
                 'floating' => ['animate' => false, 'hover' => false],
-                'text' => 'No hover or animate'
+                'text' => 'No hover or animate',
+                'background' => 'default'
             ])
             @endbutton
         </div>
@@ -112,7 +120,8 @@
             @button([
                 'text' => 'Primary toggle',
                 'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'attributeList' => ['js-toggle-trigger' => ''],
+                'background' => 'primary'
             ])
             @endbutton
 
@@ -176,18 +185,41 @@
             ])
             @endbutton
             @button([
-            'text' => 'Disabled outlined',
-            'toggle' => true,
-            'isOutlined' => true,
-            'color' => 'disabled',
-            'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
+                'text' => 'Disabled outlined',
+                'toggle' => true,
+                'isOutlined' => true,
+                'color' => 'disabled',
+                'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
             ])
             @endbutton
             @button([
-            'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
-            'background' => 'primary',
-            'attributeList' => ['disabled' => '']
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'background' => 'primary',
+                'attributeList' => ['disabled' => '']
+            ])
+            @endbutton
+        </div>
+
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Text buttons
+            @endmarkdown
+            @button([
+                'text' => 'Primary',
+                'color' => 'primary'
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary',
+                'color' => 'secondary'
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default',
+                'color' => 'default'
             ])
             @endbutton
         </div>
