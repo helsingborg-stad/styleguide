@@ -37,49 +37,65 @@
     }
 }
 
-// OUTLINED
+// OUTLINED BUTTON
 .c-btn__outlined{
-    border-style: solid;
-    border-width: 2px;
+
+    &--primary{
+        border: 2px solid $color-primary;
+        @extend .c-btn__text--primary;
+    }
+
+    &--secondary{
+        border: 2px solid $color-secondary;
+        @extend .c-btn__text--secondary;
+    }
+
+    &--default{
+        border: 2px solid $color-default-dark;
+        @extend .c-btn__text--default;
+    }
+}
+
+// TEXT BUTTON
+.c-btn__text{
+    border:none;
     &--primary {
-        border-color: $color-primary;
         color:$color-primary;
         &:hover {
             background-color: transparentize($color-primary, 0.9);
         }
         &[aria-pressed="true"] {
-            color: darken($color: $color-primary, $amount: 20%);
-            background-color: transparentize($color-primary-dark, 0.5);
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-primary, 0.5);
         }
     }
 
     &--secondary {
-        border-color: $color-secondary;
         color:$color-secondary;
         &:hover {
             background-color: transparentize($color-secondary, 0.9);
         }
         &[aria-pressed="true"] {
-            color: darken($color: $color-secondary, $amount: 20%);
-            background-color: transparentize($color-secondary-dark, 0.5);
+            color: darken($color-secondary, 20%);
+            background-color: transparentize($color-secondary, 0.5);
         }
     }
 
     &--default {
-        border-color: $color-default-dark;
         color:$color-primary;
         &:hover {
             background-color: transparentize($color-default-dark, 0.5);
         }
         &[aria-pressed="true"] {
-            background-color: transparentize($color-default-dark, 0.5);
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-default-dark, 0.2);
         }
     }
 
     &[disabled]{
-        border-color: $color-disabled;
         color:$color-disabled-text;
         background-color: transparentize($color-black, 0.5);
+        cursor: not-allowed;
     }
 }
 
@@ -138,6 +154,7 @@
         border:none;
         color:$color-disabled-text;
         background-color: $color-disabled;
+        cursor: not-allowed;
     }
 
 
@@ -177,7 +194,4 @@
             @include shadow(6);
         }
     }
-
-    
-
 }
