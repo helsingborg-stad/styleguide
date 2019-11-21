@@ -5,7 +5,10 @@
     @markdown
     #Cards
 
-    Nullam quis risus eget urna mollis ornare vel eu leo. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+    Cards are surfaces that display content and actions on a single topic. <br />
+
+    They should be easy to scan for relevant and actionable information. Elements, like text and images, <br />
+    should be placed on them in a way that clearly indicates hierarchy.
     @endmarkdown
 
     @doc(['slug' => 'card', 'displayParams' => false])
@@ -54,7 +57,8 @@
         @markdown
         ##Position of Title and byline
 
-        There are two positions slots available for title and byline. Top and Body.
+        There are two positions slots available for title and byline. Top and Body.<br />
+        You can also add "c-card--shadow-on-hover" to classList for a shadow effect on hover.
 
         @endmarkdown
 
@@ -101,7 +105,8 @@
     @markdown
     ##Avatars and Icon buttons
 
-    You can add avatar to the top title.
+    You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
+    If you add utillity class "u-float--right" to icon classList the icons will float right.
 
     @endmarkdown
 
@@ -140,6 +145,7 @@
                     [
                         'name' => 'favorite',
                         'size' => 'lg',
+                        'color' => 'primary',
                         'attributeList' => ['js-toggle-trigger'],
                         'classList' => ['u-float--right']
                     ],
