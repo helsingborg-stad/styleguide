@@ -15,36 +15,28 @@
             'logoPosition' => 'left',
             'itemsPosition' => 'right',
             'items' => [
-                'Level 1 1' => [
+                [
+                    'id' => '123',
+                    'name' => 'Level 1 1',
                     'href' => '#',
-                    'list' => [
-                        'Level 2 1' => [
-                            'href' => '#',
-                            'list' => [
-                                'Level 3 1' => [
-                                    'href' => '#'
-                                ]
-                            ]
-                        ],
-                        'Level 2 2' => [
-                            'href' => '#'
-                        ]
-                    ]
+                    'list' => true
                 ],
-                'Level 1 2' => [
-                    'href' => '#'
-                ]
-                ,
-                'Level 1 3' => [
+                [
+                    'id' => '79699676',
+                    'name' => 'Level 2 1',
                     'href' => '#'
                 ],
-                'Level 1 4' => [
+                [
+                    'id' => '959656454',
+                    'name' => 'Level 3 1',
                     'href' => '#'
-                ]
+                ],
+                [
+                    'id' => '46346346346123',
+                    'name' => 'Level 4 1',
+                    'href' => '#'
+                ],
             ],
-            'classList' => [
-                'u-color__bg--danger'
-            ]
         ])
 
         @endnavbar
@@ -56,32 +48,27 @@
         'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Helsingborg_vapen.svg/198px-Helsingborg_vapen.svg.png',
         'logoPosition' => 'center',
         'items' => [
-            'Level 1 1' => [
+            [
+                'id' => '123',
+                'name' => 'Level 1 1',
                 'href' => '#',
-                'list' => [
-                    'Level 2 1' => [
-                    'href' => '#',
-                    'list' => [
-                        'Level 3 1' => [
-                            'href' => '#'
-                        ]
-                    ]
-                ],
-                'Level 2 2' => [
-                    'href' => '#'
-                ]
-            ]
-        ],
-        'Level 1 2' => [
-            'href' => '#'
-        ]
-        ,
-        'Level 1 3' => [
-            'href' => '#'
-        ],
-        'Level 1 4' => [
-            'href' => '#'
-        ]
+                'list' => true
+            ],
+            [
+                'id' => '79699676',
+                'name' => 'Level 2 1',
+                'href' => '#'
+            ],
+            [
+                'id' => '959656454',
+                'name' => 'Level 3 1',
+                'href' => '#'
+            ],
+            [
+                'id' => '46346346346123',
+                'name' => 'Level 4 1',
+                'href' => '#'
+            ],
         ],
         'classList' => [
             'u-color__bg--danger'
