@@ -39,17 +39,18 @@
         "eslint-config-hbg": "^0.1.1",
         "file-loader": "^3.0.1",
         "filemanager-webpack-plugin": "^2.0.5",
+        "fs": "0.0.1-security",
         "hbg-mix": "^2.1.2",
         "icon-font-generator": "^2.1.10",
         "mini-css-extract-plugin": "^0.5.0",
         "postcss-loader": "^3.0.0",
         "sass": "^1.22.12",
+        "sass-lint": "^1.13.1",
         "sass-loader": "^7.3.1",
         "webpack": "^4.41.0",
         "webpack-cli": "^3.3.9",
         "webpack-fix-style-only-entries": "^0.2.2",
-        "webpack-shell-plugin": "^0.5.0",
-        "fs": "0.0.1-security"
+        "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
         "core-js": "^3.4.1",
