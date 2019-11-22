@@ -3,12 +3,12 @@
 @section('content')
 
     @markdown
-    #Cards
+        #Cards
 
-    Cards are surfaces that display content and actions on a single topic. <br />
+        Cards are surfaces that display content and actions on a single topic. <br />
 
-    They should be easy to scan for relevant and actionable information. Elements, like text and images, <br />
-    should be placed on them in a way that clearly indicates hierarchy.
+        They should be easy to scan for relevant and actionable information. Elements, like text and images, <br />
+        should be placed on them in a way that clearly indicates hierarchy.
     @endmarkdown
 
     @doc(['slug' => 'card', 'displayParams' => false])
@@ -103,10 +103,10 @@
     @doc(['slug' => 'card'])
 
     @markdown
-    ##Avatars and Icon buttons
+        ##Avatars and Icon buttons
 
-    You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
-    If you add utillity class "u-float--right" to icon classList the icons will float right.
+        You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
+        If you add utillity class "u-float--right" to icon classList the icons will float right.
 
     @endmarkdown
 
@@ -171,10 +171,9 @@
         </div>
 
         @markdown
-        ##Avatars and Icon buttons
+            ##Floating menus as dropdown
 
-        You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
-        If you add utillity class "u-float--right" to icon classList the icons will float right.
+            More info ...... :-P
 
         @endmarkdown
 
@@ -260,26 +259,7 @@
             @endcard
 
         </div>
-        <div class="grid-s-12 grid-sm-6 grid-md-6">
-            @card([
-                'top' => '<h4>JOHAN TEST</h4>',
-                'bottom' => '<button  class="c-btn c-card__button c-btn__outlined--default c-btn--md" target="_top" js-toggle-single="c-btn--default__toggled" aria-pressed="false" href="http://helsingborg.se" tabindex="0" js-toggle-self="">
-                                <span class="c-btn__label">
-                                    ActionButton with HTML
-                                </span>
-                             </button>
-                            <button  class="c-btn c-card__button c-btn__outlined--default c-btn--md" target="_top" js-toggle-single="c-btn--default__toggled" aria-pressed="false" href="http://helsingborg.se" tabindex="0" js-toggle-self="">
-                                <span class="c-btn__label">
-                                    ActionButton with HTML
-                                </span>
-                            </button>',
 
-
-            ])
-
-            @endcard
-
-        </div>
 
 
     </div>
