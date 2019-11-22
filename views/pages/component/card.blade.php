@@ -169,6 +169,16 @@
             @endcard
 
         </div>
+
+        @markdown
+        ##Avatars and Icon buttons
+
+        You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
+        If you add utillity class "u-float--right" to icon classList the icons will float right.
+
+        @endmarkdown
+
+
         <div class="grid-s-12 grid-sm-6 grid-md-6">
             @card([
                 'image' => 'https://picsum.photos/300/200?image=1028',
@@ -212,21 +222,20 @@
                         'size' => 'lg',
                         'color' => '',
                         'attributeList' => ['js-toggle-trigger'],
-                        'classList' => ['u-float--right']
+
                     ],
                     [
                         'name' => 'local-offer',
                         'size' => 'lg',
                         'color' => '',
-                        'attributeList' => ['js-toggle-trigger'],
-                        'classList' => ['u-float--right']
+
                     ],
                     [
                         'name' => 'place',
                         'size' => 'lg',
                         'color' => '',
                         'attributeList' => ['js-toggle-trigger'],
-                        'classList' => ['u-float--right']
+
                     ]
                 ],
                 'dropdown' => [
