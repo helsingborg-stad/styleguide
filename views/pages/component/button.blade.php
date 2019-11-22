@@ -17,21 +17,24 @@
             @button([
                 'color' => 'secondary',
                 'size' => 'sm',
-                'text' => 'Size sm'
+                'text' => 'Size sm',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'md',
-                'text' => 'Size md'
+                'text' => 'Size md',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'color' => 'secondary',
                 'size' => 'lg',
-                'text' => 'Size lg'
+                'text' => 'Size lg',
+                'background' => 'default'
             ])
             @endbutton
 
@@ -45,13 +48,15 @@
             @button([
                 'icon' => ['name' => 'close', 'color' => 'black'],
                 'reverseIcon' => true,
-                'text' => 'Reversed'
+                'text' => 'Reversed',
+                'background' => 'default'
             ])
             @endbutton
 
             @button([
                 'icon' => ['name' => 'close', 'color' => 'black'],
-                'text' => 'Not reversed'
+                'text' => 'Not reversed',
+                'background' => 'default'
             ])
             @endbutton
 
@@ -88,61 +93,61 @@
     
             @button([
                 'floating' => ['animate' => true, 'hover' => true],
-                'text' => 'Animate + hover'
+                'text' => 'Animate + hover',
+                'background' => 'default'
             ])
             @endbutton
     
             @button([
                 'floating' => ['animate' => false, 'hover' => true],
-                'text' => 'Only hover'
+                'text' => 'Only hover',
+                'background' => 'default'
             ])
             @endbutton
     
             @button([
                 'floating' => ['animate' => false, 'hover' => false],
-                'text' => 'No hover or animate'
+                'text' => 'No hover or animate',
+                'background' => 'default'
             ])
             @endbutton
         </div>
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Buttons with toggle    
+                ###Outlined buttons
             @endmarkdown
             @button([
-                'text' => 'Primary toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'text' => 'Primary outlined',
+                'isOutlined' => true,
+                'color' => 'primary'
             ])
             @endbutton
 
             @button([
-                'background' => 'secondary',
-                'text' => 'Secondary toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'text' => 'Secondary outlined',
+                'isOutlined' => true,
+                'color' => 'secondary'
             ])
             @endbutton
 
             @button([
-                'background' => 'default',
-                'text' => 'Default toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'text' => 'Default outlined',
+                'isOutlined' => true,
+                'color' => 'default'
             ])
             @endbutton
         </div>
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Outlined buttons   
+                ###Outlined buttons with toggle  
             @endmarkdown
             @button([
                 'text' => 'Primary outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'primary',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'primary'
             ])
             @endbutton
 
@@ -150,8 +155,7 @@
                 'text' => 'Secondary outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'secondary',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'secondary'
             ])
             @endbutton
 
@@ -159,8 +163,7 @@
                 'text' => 'Default outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'default',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'default'
             ])
             @endbutton
         </div>
@@ -188,7 +191,29 @@
                 'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
                 'background' => 'primary',
                 'attributeList' => ['disabled' => '']
+            ])
+            @endbutton
+        </div>
 
+        <div class="grid-s-12 grid-md-6">
+            @markdown
+                ###Text buttons
+            @endmarkdown
+            @button([
+                'text' => 'Primary',
+                'color' => 'primary'
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary',
+                'color' => 'secondary'
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default',
+                'color' => 'default'
             ])
             @endbutton
         </div>
