@@ -94,7 +94,7 @@ export default class Menu {
         let target = document.querySelector(`[data-append-submenu="${id}"]`);
 
         list.forEach((item) => {
-            var subItem = this.buildDOM(item)
+            let subItem = this.buildDOM(item)
             target.appendChild(subItem)
             this.getSubitem(subItem);
             this.findTriggers(subItem)
