@@ -202,7 +202,13 @@
                 'dropdown' => [
                     'direction' => 'top',
                     'position' => 'bottom',
-                    'items' => []
+                    'items' => [
+                        ['text' => 'Apple', 'link' => '#'],
+                        ['text' => 'Orange', 'link' => '#'],
+                        ['text' => 'Pear', 'link' => '#'],
+                        ['text' => 'Melon', 'link' => '#'],
+                        ['text' => 'Lemmon', 'link' => '#']
+                    ]
                 ]
             ])
 
@@ -241,8 +247,14 @@
                 'dropdown' => [
                     'direction' => 'bottom',
                     'position' => 'top',
-                'items' => []
-            ]
+                    'items' => [
+                        ['text' => 'Apple', 'link' => '#'],
+                        ['text' => 'Orange', 'link' => '#'],
+                        ['text' => 'Pear', 'link' => '#'],
+                        ['text' => 'Melon', 'link' => '#'],
+                        ['text' => 'Lemmon', 'link' => '#']
+                    ]
+                ]
             ])
 
             @endcard

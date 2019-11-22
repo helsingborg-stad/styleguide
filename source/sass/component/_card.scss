@@ -58,7 +58,7 @@
     &__with-top-dropdown .c-dropdown{
         position:absolute;
         top: map-get($spacers, '2');
-        right: map-get($spacers, '2');
+        right: map-get($spacers, '4');
     }
 
     &__with-avatar {
@@ -85,7 +85,7 @@
     &__with-bottom-dropdown .c-dropdown{
         position:absolute;
         bottom: map-get($spacers, '1');
-        right: map-get($spacers, '2');
+        right: map-get($spacers, '4');
     }
 
     &__link,
