@@ -3,17 +3,14 @@ export default class Menu {
         this.TRIGGER = 'js-menu-trigger';
         this.DART = 'js-menu-dart';
         this.TARGET = 'js-menu-target';
-
         this.EXPANDID = 'data-load-submenu';
-
-        this.DATA = '[{"id":"123","name":"Level 1 1","href":"#","list":[{ "id":"1235235098","name":"Level 2 1098","href":"#","list":[{ "id":"63463634098","name":"Level 3 1098","href":"#"}]},{"id":"1235235","name":"Level 2 1","href":"#","list":[{"id":"63463634","name":"Level 3 1","href":"#"}]}]},{"id":"79699676","name":"Level 2 1","href":"#"},{"id":"959656454","name":"Level 3 1","href":"#"},{"id":"46346346346123","name":"Level 4 1","href":"#"}]';
 
         this.getSubitem();
     }
 
     applyMenu() {
         //Find navbars
-        var navbar = document.querySelectorAll(".c-navbar");
+        let navbar = document.querySelectorAll(".c-navbar");
 
         navbar.forEach((element) => {
             this.findTriggers(element)
@@ -54,13 +51,13 @@ export default class Menu {
     }
 
     fetchJSONFile(path, callback) {
-        var httpRequest = new XMLHttpRequest();
+        let httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = (result) => {
             console.log(result)
             if (httpRequest.readyState === 4 || httpRequest.readyState === 0) {
                 if (httpRequest.status === 200) {
                     console.log(httpRequest.responseText)
-                    var data = JSON.parse(httpRequest.responseText);
+                    let data = JSON.parse(httpRequest.responseText);
                     if (callback) callback(data);
                     return data;
                 }
@@ -108,11 +105,11 @@ export default class Menu {
     buildDOM(item) {
         const uniqID = Math.random().toString(36).substr(2, 9);
 
-        var newEl = document.createElement("div");
+        let newEl = document.createElement("div");
         newEl.className = "c-navbar__item";
 
         //Build link element
-        var newLink = document.createElement("a");
+        let newLink = document.createElement("a");
         newLink.appendChild(document.createTextNode(item.name))
         newLink.href = item.href
 
@@ -120,20 +117,20 @@ export default class Menu {
 
         if (item.list) {
             //Build toggle elements
-            var newTgl = document.createElement("div");
+            let newTgl = document.createElement("div");
             newTgl.className = "c-navbar__toggle";
 
-            var newBtn = document.createElement("button");
+            let newBtn = document.createElement("button");
             newBtn.className = "c-btn c-btn__icon";
 
             newBtn.setAttribute('js-menu-trigger', 'c-navbar__subitem--expanded');
             newBtn.setAttribute('js-menu-dart', uniqID);
             newBtn.setAttribute('data-load-submenu', item.id);
 
-            var newLbl = document.createElement("span");
+            let newLbl = document.createElement("span");
             newLbl.className = "c-btn__label";
 
-            var newIcon = document.createElement("i");
+            let newIcon = document.createElement("i");
             newIcon.className = "c-icon c-icon--color-primary c-icon--size-lg c-icon--menu";
 
             //Append Icon elemetns
@@ -144,7 +141,7 @@ export default class Menu {
             //Append element
             newEl.appendChild(newTgl);
 
-            var newSubItem = document.createElement("div");
+            let newSubItem = document.createElement("div");
             newSubItem.className = "c-navbar__subitem"
             newSubItem.setAttribute('js-menu-target', uniqID);
             newSubItem.setAttribute('data-append-submenu', item.id);
