@@ -10,8 +10,8 @@
         @notice([
             'isSuccess' => true,
             'message' => [
-                'text' => 'yo',
-                'size' => 'md'
+                'text' => 'Tellus Sem Lorem Malesuada Ipsum',
+                'size' => 'sm'
             ],
             'icon' => [
                 'name' => 'check',
@@ -24,11 +24,11 @@
         @notice([
             'isDanger' => true,
             'message' => [
-                'text' => 'yo',
-                'size' => 'md'
+                'text' => 'Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+                'size' => 'sm'
             ],
             'icon' => [
-                'name' => 'check',
+                'name' => 'report',
                 'size' => 'md',
                 'color' => 'white'
             ]
@@ -38,13 +38,13 @@
         @notice([
             'isInfo' => true,
             'message' => [
-                'text' => 'yo',
-                'size' => 'md'
+                'text' => 'Sed posuere consectetur est at lobortis.',
+                'size' => 'sm'
             ],
             'icon' => [
-                'name' => 'check',
+                'name' => 'forum',
                 'size' => 'md',
-                'color' => 'white'
+                'color' => 'black'
             ]
         ])
         @endnotice
@@ -52,11 +52,11 @@
         @notice([
             'isWarning' => true,
             'message' => [
-                'text' => 'yo',
-                'size' => 'md'
+                'text' => 'Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis.',
+                'size' => 'sm'
             ],
             'icon' => [
-                'name' => 'check',
+                'name' => 'greeting',
                 'size' => 'md',
                 'color' => 'black'
             ]
