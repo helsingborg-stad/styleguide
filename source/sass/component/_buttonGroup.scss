@@ -1,4 +1,4 @@
-.c-btn-group .c-btn{
+.c-buttongroup .c-button {
     margin-bottom:0;
     border:0;
     border-right:1px solid $color-shadow;
@@ -7,39 +7,38 @@
     float:left;
     align-items: stretch;
 
-    &:last-child{
+    &:last-child {
         border:0;
     }
 
 }
 
-.c-btn-group{
+.c-buttongroup {
     border:2px solid black;
     border-radius: 5px;
     display:inline-flex;
 }
 
-.c-btn-group__border{
-    &--primary{
+.c-buttongroup__border {
+    &--primary {
         border-color: $color-primary;
     }
 
-    &--secondary{
+    &--secondary {
         border-color: $color-secondary;
     }
 
-    &--default{
+    &--default {
         border-color: $color-default;
     }
 }
 
-.c-btn-group__background{
-    &--primary{
+.c-buttongroup__background {
+    &--primary {
         border-color: $color-primary;
     }
 
-    &--secondary{
+    &--secondary {
         border-color: $color-secondary;
     }
 }
-
