@@ -180,7 +180,7 @@
         @endmarkdown
 
 
-        <div class="grid-s-12 grid-sm-6 grid-md-6">
+        <div class="grid-sm-12 grid-sm-6 grid-md-6">
             @card([
                 'image' => 'https://picsum.photos/300/200?image=1028',
                 'title' => ['text' => 'More dynamic card with floating menus', 'position' => 'body'],

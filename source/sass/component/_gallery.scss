@@ -7,8 +7,6 @@
 
     @include unlist();
 
-    display: grid; 
-    grid-template-columns: 1fr;
 
     padding: 0; 
     margin: -#{map-get($spacers, '1')};
@@ -29,7 +27,7 @@
 
 @include mq(map_get($breakpoints-map, 'sm')) {
     .c-gallery {
-        grid-template-columns: 1fr 1fr;
+
     }
 }
 
@@ -45,10 +43,10 @@
 
 @include mq(map_get($breakpoints-map, 'lg')) {
     .c-gallery {
-        grid-template-columns: 1fr 1fr 1fr;
-
         &__item {
-            grid-template-columns: 1fr 1fr 1fr;
+            width:29%;
+            max-width:29%;
+            flex: 0 0 29%;
         }
     }
 }
