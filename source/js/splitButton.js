@@ -1,7 +1,7 @@
 class SplitButton{
     constructor(){
-        this.SPLIT = 'js-split'
-        this.DROPDOWNLISTVISIBLE = 'c-dropdown__list--visible'
+        this.SPLIT = 'js-split';
+        this.DROPDOWNLISTVISIBLE = 'c-dropdown__list--visible';
     }
 
     syncSplitButton(){
@@ -9,7 +9,7 @@ class SplitButton{
 
 
         splitButtons.forEach((splitButton)=> {
-            let buttons = splitButton.getElementsByClassName('c-btn');
+            let buttons = splitButton.getElementsByClassName('c-button');
             let actionButton = buttons[0];
             let dropDownList = splitButton.getElementsByClassName('c-dropdown__list')[0];
             let listItems = dropDownList.getElementsByTagName('li');
