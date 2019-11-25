@@ -11,12 +11,18 @@
     }
 
     &__item {
-        a {
+        span {
             color: $color-primary;
-            text-decoration-style: unset;
-            text-decoration: none;
-            text-transform: capitalize;
         }
+    }
+    .c-icon__label {
+        display: none;
+    }
+
+    a {
+        text-decoration-style: unset;
+        text-decoration: none;
+        text-transform: capitalize;
     }
 }
 
@@ -68,7 +74,7 @@
             flex-wrap: wrap;
             background: $color-gray-lighter;
 
-            a {
+            span {
                 color: $color-primary;
                 order: 1;
                 flex: 1;
@@ -130,10 +136,12 @@
         &__item {
             position: relative;
             white-space: nowrap;
-            padding: #{map-get($spacers, '1')};
 
-            a, a:active, a:visited, a:hover, a:visited:hover{
-            color: white;
+            span, span:active, span:visited, span:hover, span:visited:hover {
+                color: white;
+                min-height: 44px;
+                min-width: 44px;
+                padding: #{map-get($spacers, '1')};
             }
 
             &:hover > .c-navbar__subcontainer > .c-navbar__subitem:first-of-type,
@@ -174,7 +182,7 @@
             z-index: $level-7;
             padding: #{map-get($spacers, '1')};
 
-            .c-navbar__item > a {
+            .c-navbar__item > span {
                 color: black;
 
                 &:active, &:visited, &:hover, &:visited:hover {

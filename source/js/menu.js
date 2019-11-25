@@ -40,6 +40,8 @@ export default class Menu {
 
         IDS.forEach((id) => {
             id.addEventListener('click', (event) => {
+                event.preventDefault();
+
                 if (!id.hasAttribute("data-isAppended-subitem")) {
                     let subID = id.getAttribute(this.EXPANDID);
                     id.setAttribute('data-isAppended-subitem', '');
@@ -53,10 +55,8 @@ export default class Menu {
     fetchJSONFile(path, callback) {
         let httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = (result) => {
-            console.log(result)
             if (httpRequest.readyState === 4 || httpRequest.readyState === 0) {
                 if (httpRequest.status === 200) {
-                    console.log(httpRequest.responseText)
                     let data = JSON.parse(httpRequest.responseText);
                     if (callback) callback(data);
                     return data;
@@ -105,15 +105,17 @@ export default class Menu {
     buildDOM(item) {
         const uniqID = Math.random().toString(36).substr(2, 9);
 
+        let newLink = document.createElement("a");
+        newLink.href = item.href
+
         let newEl = document.createElement("div");
         newEl.className = "c-navbar__item";
 
         //Build link element
-        let newLink = document.createElement("a");
-        newLink.appendChild(document.createTextNode(item.name))
-        newLink.href = item.href
-
-        newEl.appendChild(newLink);
+        let newSpan = document.createElement("span");
+        newSpan.appendChild(document.createTextNode(item.name))
+        
+        newEl.appendChild(newSpan);
 
         if (item.list) {
             //Build toggle elements
@@ -149,6 +151,8 @@ export default class Menu {
             newEl.appendChild(newSubItem);
         }
 
-        return newEl;
+        newLink.appendChild(newEl)
+
+        return newLink;
     }
 }
