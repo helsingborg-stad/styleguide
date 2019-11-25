@@ -7,7 +7,7 @@
 
 .c-dropdown--on-hover{
     
-    .c-btn:hover ~ .c-dropdown__list{
+    .c-button:hover ~ .c-dropdown__list{
         visibility: visible;
         opacity: 1;
     }
@@ -73,29 +73,29 @@
     }
 }
 
-.c-dropdown-btn--left__click{
-    .c-btn:focus{
+.c-dropdown-button--left__click{
+    .c-button:focus{
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 }
 
-.c-dropdown-btn--right__click{
-    .c-btn:focus{
+.c-dropdown-button--right__click{
+    .c-button:focus{
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
-.c-dropdown-btn--left__hover{
-    .c-btn:hover{
+.c-dropdown-button--left__hover{
+    .c-button:hover{
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 }
 
-.c-dropdown-btn--right__hover{
-    .c-btn:hover{
+.c-dropdown-button--right__hover{
+    .c-button:hover{
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
