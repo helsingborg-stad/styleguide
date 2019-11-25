@@ -1,106 +1,5 @@
-// LABEL
-.c-btn__label-icon {
-    order:2;
-    padding-left: 5%;
-    &--reverse{
-        order:1;
-        padding-right: 5%;
-    }
-}
-
-.c-btn__label-text {
-    order:1;
-    &--reverse{
-        order:2;
-    }
-}
-
-// ICON
-
-.c-btn__icon{
-    @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
-    //@include button-mix($color-black, false, true);
-    &:hover {
-        background-color: transparentize($color-black, 0.95);
-    }
-    border:none;
-    &[disabled]{
-        background-color: $color-disabled;
-        border-color: $color-disabled;
-        *{
-            color: $color-disabled-text;
-        }
-        &:hover{
-            border-color:$color-disabled;
-            background-color: $color-disabled;
-        }
-    }
-}
-
-// OUTLINED BUTTON
-.c-btn__outlined{
-
-    &--primary{
-        border: 2px solid $color-primary;
-        @extend .c-btn__text--primary;
-    }
-
-    &--secondary{
-        border: 2px solid $color-secondary;
-        @extend .c-btn__text--secondary;
-    }
-
-    &--default{
-        border: 2px solid $color-default-dark;
-        @extend .c-btn__text--default;
-    }
-}
-
-// TEXT BUTTON
-.c-btn__text{
-    border:none;
-    &--primary {
-        color:$color-primary;
-        &:hover {
-            background-color: transparentize($color-primary, 0.9);
-        }
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-primary, 0.5);
-        }
-    }
-
-    &--secondary {
-        color:$color-secondary;
-        &:hover {
-            background-color: transparentize($color-secondary, 0.9);
-        }
-        &[aria-pressed="true"] {
-            color: darken($color-secondary, 20%);
-            background-color: transparentize($color-secondary, 0.5);
-        }
-    }
-
-    &--default {
-        color:$color-primary;
-        &:hover {
-            background-color: transparentize($color-default-dark, 0.5);
-        }
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-default-dark, 0.2);
-        }
-    }
-
-    &[disabled]{
-        color:$color-disabled-text;
-        background-color: transparentize($color-black, 0.5);
-        cursor: not-allowed;
-    }
-}
-
 // BUTTON
-.c-btn {
+.c-button {
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
@@ -113,11 +12,15 @@
     background-color: transparent;
     letter-spacing: 0.1em;
 
-    &:visited, &:active{
+    &:visited, &:active, &:focus {
         outline: 0;
     }
+    &:focus {
+        outline:0;
+        @include shadow(8);
+    }
 
-    &__label{
+    &__label {
         display:flex;
         flex-direction: row;     
     }
@@ -142,17 +45,18 @@
     &--default {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         @include button-mix($color-primary, $color-default, false);
-        &[aria-pressed="true"]{
+
+        &[aria-pressed="true"] {
             background-color: $color-default-dark;
             border-color: $color-default-dark;
         }
     }
 
-    &[disabled]{
+    &[disabled] {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         border-color: $color-disabled;
-        border:none;
-        color:$color-disabled-text;
+        border: none;
+        color: $color-disabled-text;
         background-color: $color-disabled;
         cursor: not-allowed;
     }
@@ -178,8 +82,7 @@
     }
 
     &--animated-float-on-hover{
-
-        box-shadow:none;
+        box-shadow: none;
         transition: 0.3s;
         transition-timing-function: ease-in;
 
@@ -188,10 +91,113 @@
         }
     }
 
-    &--float-on-hover{
+    &--float-on-hover {
         box-shadow:none;
+
         &:hover {
             @include shadow(6);
         }
+    }
+}
+
+// LABEL
+.c-button__label-icon {
+    order: 2;
+    padding-left: 5%;
+    &--reverse {
+        order: 1;
+        padding-right: 5%;
+    }
+}
+
+.c-button__label-text {
+    order: 1;
+    &--reverse {
+        order: 2;
+    }
+}
+
+// ICON
+
+.c-button__icon {
+    @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
+    border: none;
+
+    &:hover {
+        background-color: transparentize($color-black, 0.95);
+    }
+
+    &[disabled] {
+        background-color: $color-disabled;
+        border-color: $color-disabled;
+        * {
+            color: $color-disabled-text;
+        }
+        &:hover{
+            border-color: $color-disabled;
+            background-color: $color-disabled;
+        }
+    }
+}
+
+// OUTLINED BUTTON
+.c-button__outlined {
+
+    &--primary {
+        border: 2px solid $color-primary;
+        @extend .c-button__text--primary;
+    }
+
+    &--secondary {
+        border: 2px solid $color-secondary;
+        @extend .c-button__text--secondary;
+    }
+
+    &--default {
+        border: 2px solid $color-default-dark;
+        @extend .c-button__text--default;
+    }
+}
+
+// TEXT BUTTON
+.c-button__text {
+    border: none;
+    &--primary {
+        color: $color-primary;
+        &:hover {
+            background-color: transparentize($color-primary, 0.9);
+        }
+        &[aria-pressed="true"] {
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-primary, 0.5);
+        }
+    }
+
+    &--secondary {
+        color: $color-secondary;
+        &:hover {
+            background-color: transparentize($color-secondary, 0.9);
+        }
+        &[aria-pressed="true"] {
+            color: darken($color-secondary, 20%);
+            background-color: transparentize($color-secondary, 0.5);
+        }
+    }
+
+    &--default {
+        color: $color-primary;
+        &:hover {
+            background-color: transparentize($color-default-dark, 0.5);
+        }
+        &[aria-pressed="true"] {
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-default-dark, 0.2);
+        }
+    }
+
+    &[disabled] {
+        color: $color-disabled-text;
+        background-color: transparentize($color-black, 0.5);
+        cursor: not-allowed;
     }
 }

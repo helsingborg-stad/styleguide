@@ -44,15 +44,25 @@
         padding-top:  map-get($spacers, '3');
 
     }
+
     &__top-title {
         padding-bottom:0;
         .c-card__byline {
             margin-top: - map-get($spacers, '2');
         }
+        &.c-card__with-top-dropdown {
+            width:95%;
+        }
+    }
+
+    &__with-top-dropdown .c-dropdown{
+        position:absolute;
+        top: map-get($spacers, '2');
+        right: map-get($spacers, '4');
     }
 
     &__with-avatar {
-        margin-bottom:-16px;
+        margin-bottom:- map-get($spacers, '5');
     }
 
     &__body {
@@ -67,6 +77,15 @@
         .u-float--right {
             margin-bottom: map-get($spacers, '2');
         }
+        &.c-card__with-bottom-dropdown {
+            width:95%;
+        }
+    }
+
+    &__with-bottom-dropdown .c-dropdown{
+        position:absolute;
+        bottom: map-get($spacers, '1');
+        right: map-get($spacers, '4');
     }
 
     &__link,

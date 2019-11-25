@@ -69,13 +69,16 @@
     
             @button([
                 'background' => 'primary',
-                'text' => 'Primary bg'
+                'text' => 'Primary bg',
+                'color' => 'white'
             ])
             @endbutton
     
             @button([
                 'background' => 'secondary',
-                'text' => 'Secondary bg'
+                'text' => 'Secondary bg',
+                'color' => 'white'
+
             ])
             @endbutton
     
@@ -118,9 +121,8 @@
                 ###Outlined buttons
             @endmarkdown
             @button([
-                'text' => 'Primary outlined',
-                'isOutlined' => true,
-                'color' => 'primary'
+                'text' => 'Primary toggle',
+                'isOutlined' => true
             ])
             @endbutton
 
