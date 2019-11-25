@@ -118,9 +118,10 @@
                 ###Outlined buttons
             @endmarkdown
             @button([
-                'text' => 'Primary outlined',
-                'isOutlined' => true,
-                'color' => 'primary'
+                'text' => 'Primary toggle',
+                'toggle' => true,
+                'attributeList' => ['js-toggle-trigger' => ''],
+                'background' => 'primary'
             ])
             @endbutton
 
