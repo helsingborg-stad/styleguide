@@ -3,9 +3,12 @@
 @section('content')
 
     @markdown
-    #Cards
+        #Cards
 
-    Nullam quis risus eget urna mollis ornare vel eu leo. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        Cards are surfaces that display content and actions on a single topic. <br />
+
+        They should be easy to scan for relevant and actionable information. Elements, like text and images, <br />
+        should be placed on them in a way that clearly indicates hierarchy.
     @endmarkdown
 
     @doc(['slug' => 'card', 'displayParams' => false])
@@ -32,12 +35,14 @@
                     [
                         'href' => 'http://helsingborg.se',
                         'text' => 'Action button 1',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'primary'
                     ],
                     [
                         'href' => 'http://',
                         'text' => 'Action button 2',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'secondary'
                     ]
                 ]
             ])
@@ -54,7 +59,8 @@
         @markdown
         ##Position of Title and byline
 
-        There are two positions slots available for title and byline. Top and Body.
+        There are two positions slots available for title and byline. Top and Body.<br />
+        You can also add "c-card--shadow-on-hover" to classList for a shadow effect on hover.
 
         @endmarkdown
 
@@ -99,9 +105,10 @@
     @doc(['slug' => 'card'])
 
     @markdown
-    ##Avatars and Icon buttons
+        ##Avatars and Icon buttons
 
-    You can add avatar to the top title.
+        You can add avatar to the top title and icon buttons for ex. social sharing etc.<br />
+        If you add utillity class "u-float--right" to icon classList the icons will float right.
 
     @endmarkdown
 
@@ -140,6 +147,7 @@
                     [
                         'name' => 'favorite',
                         'size' => 'lg',
+                        'color' => 'primary',
                         'attributeList' => ['js-toggle-trigger'],
                         'classList' => ['u-float--right']
                     ],
@@ -163,6 +171,101 @@
             @endcard
 
         </div>
+
+        @markdown
+            ##Floating menus as dropdown
+
+            More info ...... :-P
+
+        @endmarkdown
+
+
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+                'image' => 'https://picsum.photos/300/200?image=1028',
+                'title' => ['text' => 'More dynamic card with floating menus', 'position' => 'body'],
+                'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'body'],
+                'content' => 'Look at the nice floating dropdown menu in the top right corner. Easy to add and fill with items and links.',
+                'classList' => ['c-card--shadow-on-hover'],
+                'hasRipple' => false,
+                'buttons' => [
+                    [
+                        'href' => 'http://helsingborg.se',
+                        'text' => 'Action button 1',
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'primary'
+                    ],
+                    [
+                        'href' => 'http://',
+                        'text' => 'Action button 2',
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'secondary'
+                    ]
+                ],
+                'dropdown' => [
+                    'direction' => 'top',
+                    'position' => 'bottom',
+                    'items' => [
+                        ['text' => 'Apple', 'link' => '#'],
+                        ['text' => 'Orange', 'link' => '#'],
+                        ['text' => 'Pear', 'link' => '#'],
+                        ['text' => 'Melon', 'link' => '#'],
+                        ['text' => 'Lemmon', 'link' => '#']
+                    ]
+                ]
+            ])
+
+            @endcard
+        </div>
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+                'image' => 'https://picsum.photos/300/200?image=1021',
+                'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
+                'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
+                'content' => 'Overflow menus are usually located in the upper-right or lower-right corner of a card.',
+                'classList' => ['c-card--shadow-on-hover'],
+                'hasRipple' => false,
+                'icons' => [
+                    [
+                        'name' => 'share',
+                        'size' => 'lg',
+                        'color' => '',
+                        'attributeList' => ['js-toggle-trigger'],
+
+                    ],
+                    [
+                        'name' => 'local-offer',
+                        'size' => 'lg',
+                        'color' => '',
+
+                    ],
+                    [
+                        'name' => 'place',
+                        'size' => 'lg',
+                        'color' => '',
+                        'attributeList' => ['js-toggle-trigger'],
+
+                    ]
+                ],
+                'dropdown' => [
+                    'direction' => 'bottom',
+                    'position' => 'top',
+                    'items' => [
+                        ['text' => 'Apple', 'link' => '#'],
+                        ['text' => 'Orange', 'link' => '#'],
+                        ['text' => 'Pear', 'link' => '#'],
+                        ['text' => 'Melon', 'link' => '#'],
+                        ['text' => 'Lemmon', 'link' => '#']
+                    ]
+                ]
+            ])
+
+            @endcard
+
+        </div>
+
+
+
     </div>
 
     @enddoc

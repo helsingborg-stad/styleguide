@@ -35,6 +35,31 @@
                 'color' => 'secondary',
                 'attributeList' => ['js-toggle-trigger']
             ]
+        ],
+        'buttons' => [
+            [
+                'href' => 'http://helsingborg.se',
+                'text' => 'Action button 1',
+                'attributeList' => ['js-toggle-trigger'],
+                'color' => 'primary'
+            ],
+            [
+                'href' => 'http://',
+                'text' => 'Action button 2',
+                'attributeList' => ['js-toggle-trigger'],
+                'color' => 'secondary'
+            ]
+        ],
+        'dropdown' => [
+            'direction' => 'top',
+            'position' => 'bottom',
+            'items' => [
+                ['text' => 'Apple', 'link' => '#'],
+                ['text' => 'Orange', 'link' => '#'],
+                ['text' => 'Pear', 'link' => '#'],
+                ['text' => 'Melon', 'link' => '#'],
+                ['text' => 'Lemmon', 'link' => '#']
+            ]
         ]
     ]
 )

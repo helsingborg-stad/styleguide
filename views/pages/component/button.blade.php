@@ -115,7 +115,7 @@
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Buttons with toggle    
+                ###Outlined buttons
             @endmarkdown
             @button([
                 'text' => 'Primary toggle',
@@ -126,32 +126,29 @@
             @endbutton
 
             @button([
-                'background' => 'secondary',
-                'text' => 'Secondary toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'text' => 'Secondary outlined',
+                'isOutlined' => true,
+                'color' => 'secondary'
             ])
             @endbutton
 
             @button([
-                'background' => 'default',
-                'text' => 'Default toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => '']
+                'text' => 'Default outlined',
+                'isOutlined' => true,
+                'color' => 'default'
             ])
             @endbutton
         </div>
 
         <div class="grid-s-12 grid-md-6">
             @markdown
-                ###Outlined buttons   
+                ###Outlined buttons with toggle  
             @endmarkdown
             @button([
                 'text' => 'Primary outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'primary',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'primary'
             ])
             @endbutton
 
@@ -159,8 +156,7 @@
                 'text' => 'Secondary outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'secondary',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'secondary'
             ])
             @endbutton
 
@@ -168,8 +164,7 @@
                 'text' => 'Default outlined',
                 'toggle' => true,
                 'isOutlined' => true,
-                'color' => 'default',
-                'attributeList' => ['js-toggle-trigger' => '']
+                'color' => 'default'
             ])
             @endbutton
         </div>
