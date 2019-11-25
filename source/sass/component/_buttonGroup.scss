@@ -1,4 +1,4 @@
-.c-buttongroup-group .c-btn {
+.c-buttongroup .c-button {
     margin-bottom:0;
     border:0;
     border-right:1px solid $color-shadow;
@@ -13,13 +13,13 @@
 
 }
 
-.c-buttongroup-group {
+.c-buttongroup {
     border:2px solid black;
     border-radius: 5px;
     display:inline-flex;
 }
 
-.c-buttongroup-group__border {
+.c-buttongroup__border {
     &--primary {
         border-color: $color-primary;
     }
@@ -33,7 +33,7 @@
     }
 }
 
-.c-buttongroup-group__background {
+.c-buttongroup__background {
     &--primary {
         border-color: $color-primary;
     }
