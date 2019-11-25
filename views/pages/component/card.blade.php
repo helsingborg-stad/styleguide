@@ -35,12 +35,14 @@
                     [
                         'href' => 'http://helsingborg.se',
                         'text' => 'Action button 1',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'primary'
                     ],
                     [
                         'href' => 'http://',
                         'text' => 'Action button 2',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'secondary'
                     ]
                 ]
             ])
@@ -190,12 +192,14 @@
                     [
                         'href' => 'http://helsingborg.se',
                         'text' => 'Action button 1',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'primary'
                     ],
                     [
                         'href' => 'http://',
                         'text' => 'Action button 2',
-                        'attributeList' => ['js-toggle-trigger']
+                        'attributeList' => ['js-toggle-trigger'],
+                        'color' => 'secondary'
                     ]
                 ],
                 'dropdown' => [
