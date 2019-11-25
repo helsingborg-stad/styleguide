@@ -1,7 +1,7 @@
 // Button Focus, Hover - Color, Background, Borders
 @mixin button-mix($color, $background, $isIconButton: false) {
     color: $color;
-    
+
     &:visited {
         color: $color;
         &:hover,
