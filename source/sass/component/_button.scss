@@ -12,8 +12,12 @@
     background-color: transparent;
     letter-spacing: 0.1em;
 
-    &:visited, &:active {
+    &:visited, &:active, &:focus {
         outline: 0;
+    }
+    &:focus {
+        outline:0;
+        @include shadow(8);
     }
 
     &__label {

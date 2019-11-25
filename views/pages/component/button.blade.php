@@ -69,13 +69,16 @@
     
             @button([
                 'background' => 'primary',
-                'text' => 'Primary bg'
+                'text' => 'Primary bg',
+                'color' => 'white'
             ])
             @endbutton
     
             @button([
                 'background' => 'secondary',
-                'text' => 'Secondary bg'
+                'text' => 'Secondary bg',
+                'color' => 'white'
+
             ])
             @endbutton
     
@@ -119,9 +122,7 @@
             @endmarkdown
             @button([
                 'text' => 'Primary toggle',
-                'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => ''],
-                'background' => 'primary'
+                'isOutlined' => true
             ])
             @endbutton
 

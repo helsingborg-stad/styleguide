@@ -14,6 +14,8 @@
         box-shadow: if($inset, inset, #{''}) 0 2px 5px -2px lighten($color-shadow-sharp, 1.4%);
     } @else if $level == 7 {
         box-shadow: if($inset, inset, #{''}) 0 0 ($base*1) lighten($color-shadow-sharp, 70%); // Sharp on hover
+    }@else if $level == 8 {
+        box-shadow: if($inset, inset, #{''}) 0 2px 5px -2px lighten($color-shadow-sharp, 70%); // On focus
     }
 
 }
