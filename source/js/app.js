@@ -1,4 +1,4 @@
-
+import './polyfill';
 import "core-js";
 
 import expandSection from './expand-section';
