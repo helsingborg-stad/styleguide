@@ -9,8 +9,8 @@
         "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon-  --descent 0 --height 512 --center",
         "postbuild": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
-        "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log",
-        "lint-autofix": "stylelint \"./source/sass\" --fix"
+        "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
+        "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix"
     },
     "repository": {
         "type": "git",
