@@ -3,6 +3,7 @@ const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 
 
 module.exports = {
@@ -115,8 +116,12 @@ module.exports = {
                 }
 
             ]
+        }),
+
+        //Lint for scss
+        new StylelintPlugin({
+            context: "./source/sass",
+            configFile: "./.stylelintrc"
         })
-
-
     ]
 };
