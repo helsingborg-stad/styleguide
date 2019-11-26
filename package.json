@@ -8,7 +8,9 @@
         "prebuild": "node build.js",
         "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon-  --descent 0 --height 512 --center",
         "postbuild": "webpack --config webpack.config.js",
-        "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js"
+        "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
+        "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log",
+        "lint-autofix": "stylelint \"./source/sass\" --fix"
     },
     "repository": {
         "type": "git",
@@ -39,17 +41,19 @@
         "eslint-config-hbg": "^0.1.1",
         "file-loader": "^3.0.1",
         "filemanager-webpack-plugin": "^2.0.5",
+        "fs": "0.0.1-security",
         "hbg-mix": "^2.1.2",
         "icon-font-generator": "^2.1.10",
         "mini-css-extract-plugin": "^0.5.0",
         "postcss-loader": "^3.0.0",
         "sass": "^1.22.12",
         "sass-loader": "^7.3.1",
+        "stylelint-webpack-plugin": "^1.1.0",
+        "stylint": "^2.0.0",
         "webpack": "^4.41.0",
         "webpack-cli": "^3.3.9",
         "webpack-fix-style-only-entries": "^0.2.2",
-        "webpack-shell-plugin": "^0.5.0",
-        "fs": "0.0.1-security"
+        "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
         "core-js": "^3.4.1",

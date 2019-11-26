@@ -14,6 +14,7 @@ dist
 /source/icons/stroked-icons/
 /vendor/*
 /vendor
+stylelint.log
 
 /source/sass/generic/_icons.scss
 source/sass/generic/_icons.scss

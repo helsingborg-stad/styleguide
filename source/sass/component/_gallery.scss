@@ -2,7 +2,6 @@
 
     .c-image {
         cursor:pointer;
-
     }
 
     @include unlist();
@@ -30,6 +29,7 @@
 @include mq(map_get($breakpoints-map, 'sm')) {
     .c-gallery {
         grid-template-columns: 1fr 1fr;
+        column-count: 2; /* IE 11 Fix */ 
     }
 }
 
@@ -46,6 +46,7 @@
 @include mq(map_get($breakpoints-map, 'lg')) {
     .c-gallery {
         grid-template-columns: 1fr 1fr 1fr;
+        column-count: 3; /* IE 11 Fix */ 
 
         &__item {
             grid-template-columns: 1fr 1fr 1fr;
