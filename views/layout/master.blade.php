@@ -11,7 +11,6 @@
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
     <script type='text/javascript' defer="defer" src='https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated'></script>
 
-
     <link rel='dns-prefetch' href='//cdn.polyfill.io' />
     <link rel='dns-prefetch' href='//highlightjs.org' />
 
@@ -35,6 +34,7 @@
     @header()
         @slot('logotype')
             @logotype([
+                'id' => 'logotype',
                 'src'=> '/assets/img/logotype.svg',
                 'alt' => "Helsingborg Stad Logotype",
                 'classList' => array("c-tooltip", "c-tooltip__bottom"),
@@ -95,6 +95,7 @@
         
         @slot('menu')
             @menu([
+                'id' => 'footer-menu', 
                 'items' => $topNavigation,
                 'isHorizontal' => true
             ])
