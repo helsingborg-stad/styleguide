@@ -349,10 +349,10 @@
 
             Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli
             @image([
-            'src'=> "https://picsum.photos/100/100?image=1004",
-            'alt' => "This is a image",
-            'caption' => "Hi I am a caption",
-            'classList' => ['c-image--custom-width', 'u-margin__top--1', 'u-margin__right--2', 'u-margin__bottom--1', 'u-float--left']
+                'src'=> "https://picsum.photos/100/100?image=1004",
+                'alt' => "This is a image",
+                'caption' => "Hi I am a caption",
+                'classList' => ['c-image--custom-width', 'u-margin__top--1', 'u-margin__right--2', 'u-margin__bottom--1', 'u-float--left']
             ])
             @endimage
 
