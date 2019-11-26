@@ -175,7 +175,8 @@
         @markdown
             ##Floating menus as dropdown
 
-            More info ...... :-P
+        A menu displays a list of choices on a temporary surface. They appear when users interact with
+        a button, action, or other control.
 
         @endmarkdown
 
@@ -265,6 +266,129 @@
         </div>
 
 
+        @markdown
+        ##Build cards in slot
+
+        There is so many ways to use our components and if you want more control over the card appearance<br />
+        you can with ease build and customize your card by using the different components. Though you loose the charm
+        of writing less code but you gain more control of the look. The example below is one of those.
+        @endmarkdown
+
+
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+            ])
+
+                @image([
+                    'src' => "https://picsum.photos/300/200?image=1004",
+                    'alt' => "I'm a Image build with the image component",
+                    'classList' => ["c-card__image"]
+                ])
+                @endimage
+
+                @typography([
+                    'variant' => "h3",
+                        'element' => "h3",
+                        'classList' => ["c-card__title"]
+                    ])
+                        I'm a Title created with Typography component
+                @endtypography
+
+                @heading([
+                    'label' => 'I am a byline, created with the heading component',
+                    'level' => 4
+                ])
+                @endbutton
+
+                This nice text is just plain text wich is not createcd by any component. But you can use the
+                typography component.
+
+                <br /><br />
+                @button([
+                    'href' => "#",
+                    'text' => "Button component",
+                    'toggle' => true,
+                    'isOutlined' => false,
+                    'color' => "primary",
+                    'attributeList' => ['tabindex' => "1"],
+                    'classList' => ["c-button__button"]
+                ])
+                @endbutton
+
+
+                @button([
+                    'href' => "#",
+                    'text' => "Button component",
+                    'toggle' => true,
+                    'isOutlined' => false,
+                    'color' => "secondary",
+                    'attributeList' => ['tabindex' => "1"],
+                    'classList' => ["c-button__button"]
+                ])
+                @endbutton
+
+            @endcard
+        </div>
+        <div class="grid-s-12 grid-sm-6 grid-md-6">
+            @card([
+            ])
+
+            @typography([
+                'variant' => "h3",
+                'element' => "h3",
+                'classList' => ["c-card__title"]
+            ])
+                I'm a Title created with Typography component
+            @endtypography
+
+            @heading([
+                'label' => 'I am a byline, created with the heading component',
+                'level' => 4
+            ])
+            @endbutton
+
+            Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli
+            @image([
+            'src'=> "https://picsum.photos/100/100?image=1004",
+            'alt' => "This is a image",
+            'caption' => "Hi I am a caption",
+            'classList' => ['c-image--custom-width', 'u-margin__top--1', 'u-margin__right--2', 'u-margin__bottom--1', 'u-float--left']
+            ])
+            @endimage
+
+            celery lotus root carrot winter purslane turnip greens garlic.
+
+            Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.
+            Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
+
+            <br /><br />
+            @button([
+                'href' => "#",
+                'text' => "Button component",
+                'toggle' => true,
+                'isOutlined' => false,
+                'color' => "primary",
+                'attributeList' => ['tabindex' => "1"],
+                'classList' => ["c-button__button"]
+            ])
+            @endbutton
+
+            @button([
+                'href' => "#",
+                'text' => "Button component",
+                'toggle' => true,
+                'isOutlined' => false,
+                'color' => "secondary",
+                'attributeList' => ['tabindex' => "1"],
+                'classList' => ["c-button__button"]
+            ])
+            @endbutton
+            <br /><br />
+            Blue castello red leicester camembert de normandie. Swiss cheeseburger taleggio cheesy feet who moved my
+            cheese airedale mozzarella boursin.
+
+            @endcard
+        </div>
 
     </div>
 
