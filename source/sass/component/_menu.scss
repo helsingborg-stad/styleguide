@@ -3,6 +3,7 @@
     &__list {
         @include unlist();
         padding: 0;
+        margin: 0;
     }
 
     &__list &__list {
