@@ -60,6 +60,18 @@
                 ['text' => 'Melon', 'link' => '#'],
                 ['text' => 'Lemmon', 'link' => '#']
             ]
+        ],
+        'accordion' =>
+        [
+            'items' => [
+                [
+                    'heading' => 'Im a heading for accordion',
+                    'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                    wakame kohlrabi beetroot carrot watercress.'
+                ]
+            ],
+            'classList' => ['c-card--no-accordion']
+
         ]
     ]
 )

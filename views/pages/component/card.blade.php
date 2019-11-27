@@ -102,7 +102,7 @@
 
     @enddoc
 
-    @doc(['slug' => 'card'])
+    @doc(['slug' => 'card', 'displayParams' => false])
 
     @markdown
         ##Avatars and Icon buttons
@@ -170,7 +170,10 @@
 
             @endcard
 
+            </div>
         </div>
+    @enddoc
+    @doc(['slug' => 'card', 'displayParams' => false])
 
         @markdown
             ##Floating menus as dropdown
@@ -180,7 +183,7 @@
 
         @endmarkdown
 
-
+    <div class="grid">
         <div class="grid-s-12 grid-sm-6 grid-md-6">
             @card([
                 'image' => 'https://picsum.photos/300/200?image=1028',
@@ -217,46 +220,97 @@
             ])
 
             @endcard
+            </div>
+            <div class="grid-s-12 grid-sm-6 grid-md-6">
+                @card([
+                    'image' => 'https://picsum.photos/300/200?image=1021',
+                    'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
+                    'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
+                    'content' => 'Overflow menus are usually located in the upper-right or lower-right corner of a card.',
+                    'classList' => ['c-card--shadow-on-hover'],
+                    'hasRipple' => false,
+                    'icons' => [
+                        [
+                            'name' => 'share',
+                            'size' => 'lg',
+                            'color' => '',
+                            'attributeList' => ['js-toggle-trigger'],
+
+                        ],
+                        [
+                            'name' => 'local-offer',
+                            'size' => 'lg',
+                            'color' => '',
+
+                        ],
+                        [
+                            'name' => 'place',
+                            'size' => 'lg',
+                            'color' => '',
+                            'attributeList' => ['js-toggle-trigger'],
+
+                        ]
+                    ],
+                    'dropdown' => [
+                        'direction' => 'bottom',
+                        'position' => 'top',
+                        'items' => [
+                            ['text' => 'Apple', 'link' => '#'],
+                            ['text' => 'Orange', 'link' => '#'],
+                            ['text' => 'Pear', 'link' => '#'],
+                            ['text' => 'Melon', 'link' => '#'],
+                            ['text' => 'Lemmon', 'link' => '#']
+                        ]
+                    ]
+                ])
+
+                @endcard
+
+            </div>
         </div>
+    @enddoc
+
+
+    @doc(['slug' => 'card', 'displayParams' => false])
+
+    @markdown
+        ##Accordion in card
+    @endmarkdown
+
+    <div class="grid">
         <div class="grid-s-12 grid-sm-6 grid-md-6">
             @card([
-                'image' => 'https://picsum.photos/300/200?image=1021',
-                'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
-                'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
-                'content' => 'Overflow menus are usually located in the upper-right or lower-right corner of a card.',
-                'classList' => ['c-card--shadow-on-hover'],
+                'title' => ['text' => 'Sometimes its better to hide data', 'position' => 'body'],
+                'byline' => ['text' => 'Why not in an accordion', 'position' => 'body'],
                 'hasRipple' => false,
-                'icons' => [
-                    [
-                        'name' => 'share',
-                        'size' => 'lg',
-                        'color' => '',
-                        'attributeList' => ['js-toggle-trigger'],
-
-                    ],
-                    [
-                        'name' => 'local-offer',
-                        'size' => 'lg',
-                        'color' => '',
-
-                    ],
-                    [
-                        'name' => 'place',
-                        'size' => 'lg',
-                        'color' => '',
-                        'attributeList' => ['js-toggle-trigger'],
-
-                    ]
-                ],
-                'dropdown' => [
-                    'direction' => 'bottom',
-                    'position' => 'top',
+                'accordion' => [
                     'items' => [
-                        ['text' => 'Apple', 'link' => '#'],
-                        ['text' => 'Orange', 'link' => '#'],
-                        ['text' => 'Pear', 'link' => '#'],
-                        ['text' => 'Melon', 'link' => '#'],
-                        ['text' => 'Lemmon', 'link' => '#']
+                        [
+                            'heading' => 'Accordion List item 1',
+                            'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                            wakame kohlrabi beetroot carrot watercress.'
+                        ],
+                        [
+                            'heading' => 'Accordion List item 2',
+                            'content' => 'Blue castello red leicester camembert de normandie.
+                            Swiss cheeseburger taleggio cheesy
+                            feet who moved my cheese airedale mozzarella boursin.'
+                        ],
+                        [
+                            'heading' => 'Accordion List item 3',
+                            'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                            wakame kohlrabi beetroot carrot watercress.'
+                        ],
+                        [
+                            'heading' => 'Accordion List item 4',
+                            'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                            wakame kohlrabi beetroot carrot watercress.'
+                        ],
+                        [
+                            'heading' => 'Accordion List item 5',
+                            'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                            wakame kohlrabi beetroot carrot watercress.'
+                        ]
                     ]
                 ]
             ])
@@ -264,34 +318,107 @@
             @endcard
 
         </div>
-
-
-        @markdown
-        ##Build cards in slot
-
-        There is so many ways to use our components and if you want more control over the card appearance<br />
-        you can with ease build and customize your card by using the different components. Though you loose the charm
-        of writing less code but you gain more control of the look. The example below is one of those.
-        @endmarkdown
-
-
         <div class="grid-s-12 grid-sm-6 grid-md-6">
+
             @card([
+                'image' => 'https://picsum.photos/300/200?image=1078',
+                'title' => ['text' => 'If you want to skip accordion styling', 'position' => 'top'],
+                'byline' => ['text' => 'Add c-card--no-accordion to the accordion classlist, to remove accordion styling.', 'position' => 'top'],
+                'hasRipple' => false,
+                'accordion' =>
+                    [
+                    'items' => [
+                        [
+                            'heading' => 'Click on me for more info.',
+                            'content' => 'Brussels sprout coriander water chestnut gourd swiss chard
+                            wakame kohlrabi beetroot carrot watercress.'
+                        ]
+
+                    ],
+                    'classList' => ['c-card--no-accordion']
+                ]
             ])
 
-                @image([
-                    'src' => "https://picsum.photos/300/200?image=1004",
-                    'alt' => "I'm a Image build with the image component",
-                    'classList' => ["c-card__image"]
+            @endcard
+        </div>
+    </div>
+    @enddoc
+
+    @doc(['slug' => 'card'])
+        <div class="grid">
+            @markdown
+            ##Build cards in slot
+
+            There is so many ways to use our components and if you want more control over the card appearance<br />
+            you can with ease build and customize your card by using the different components. Though you loose the charm
+            of writing less code but you gain more control of the look. The example below is one of those.
+            @endmarkdown
+
+
+            <div class="grid-s-12 grid-sm-6 grid-md-6">
+                @card([
                 ])
-                @endimage
+
+                    @image([
+                        'src' => "https://picsum.photos/300/200?image=1004",
+                        'alt' => "I'm a Image build with the image component",
+                        'classList' => ["c-card__image"]
+                    ])
+                    @endimage
+
+                    @typography([
+                        'variant' => "h3",
+                            'element' => "h3",
+                            'classList' => ["c-card__title"]
+                        ])
+                            I'm a Title created with Typography component
+                    @endtypography
+
+                    @heading([
+                        'label' => 'I am a byline, created with the heading component',
+                        'level' => 4
+                    ])
+                    @endbutton
+
+                    This nice text is just plain text wich is not createcd by any component. But you can use the
+                    typography component.
+
+                    <br /><br />
+                    @button([
+                        'href' => "#",
+                        'text' => "Button component",
+                        'toggle' => true,
+                        'isOutlined' => false,
+                        'color' => "primary",
+                        'attributeList' => ['tabindex' => "1"],
+                        'classList' => ["c-button__button"]
+                    ])
+                    @endbutton
+
+
+                    @button([
+                        'href' => "#",
+                        'text' => "Button component",
+                        'toggle' => true,
+                        'isOutlined' => false,
+                        'color' => "secondary",
+                        'attributeList' => ['tabindex' => "1"],
+                        'classList' => ["c-button__button"]
+                    ])
+                    @endbutton
+
+                @endcard
+            </div>
+            <div class="grid-s-12 grid-sm-6 grid-md-6">
+                @card([
+                ])
 
                 @typography([
                     'variant' => "h3",
-                        'element' => "h3",
-                        'classList' => ["c-card__title"]
-                    ])
-                        I'm a Title created with Typography component
+                    'element' => "h3",
+                    'classList' => ["c-card__title"]
+                ])
+                    I'm a Title created with Typography component
                 @endtypography
 
                 @heading([
@@ -300,8 +427,19 @@
                 ])
                 @endbutton
 
-                This nice text is just plain text wich is not createcd by any component. But you can use the
-                typography component.
+                Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli
+                @image([
+                    'src'=> "https://picsum.photos/100/100?image=1004",
+                    'alt' => "This is a image",
+                    'caption' => "Hi I am a caption",
+                    'classList' => ['c-image--custom-width', 'u-margin__top--1', 'u-margin__right--2', 'u-margin__bottom--1', 'u-float--left']
+                ])
+                @endimage
+
+                celery lotus root carrot winter purslane turnip greens garlic.
+
+                Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.
+                Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
 
                 <br /><br />
                 @button([
@@ -315,7 +453,6 @@
                 ])
                 @endbutton
 
-
                 @button([
                     'href' => "#",
                     'text' => "Button component",
@@ -326,75 +463,15 @@
                     'classList' => ["c-button__button"]
                 ])
                 @endbutton
+                <br /><br />
+                Blue castello red leicester camembert de normandie. Swiss cheeseburger taleggio cheesy feet who moved my
+                cheese airedale mozzarella boursin.
 
-            @endcard
+                @endcard
+            </div>
         </div>
-        <div class="grid-s-12 grid-sm-6 grid-md-6">
-            @card([
-            ])
-
-            @typography([
-                'variant' => "h3",
-                'element' => "h3",
-                'classList' => ["c-card__title"]
-            ])
-                I'm a Title created with Typography component
-            @endtypography
-
-            @heading([
-                'label' => 'I am a byline, created with the heading component',
-                'level' => 4
-            ])
-            @endbutton
-
-            Sea lettuce gumbo grape kale kombu cauliflower salsify kohlrabi okra sea lettuce broccoli
-            @image([
-                'src'=> "https://picsum.photos/100/100?image=1004",
-                'alt' => "This is a image",
-                'caption' => "Hi I am a caption",
-                'classList' => ['c-image--custom-width', 'u-margin__top--1', 'u-margin__right--2', 'u-margin__bottom--1', 'u-float--left']
-            ])
-            @endimage
-
-            celery lotus root carrot winter purslane turnip greens garlic.
-
-            Brussels sprout coriander water chestnut gourd swiss chard wakame kohlrabi beetroot carrot watercress.
-            Corn amaranth salsify bunya nuts nori azuki bean chickweed potato bell pepper artichoke.
-
-            <br /><br />
-            @button([
-                'href' => "#",
-                'text' => "Button component",
-                'toggle' => true,
-                'isOutlined' => false,
-                'color' => "primary",
-                'attributeList' => ['tabindex' => "1"],
-                'classList' => ["c-button__button"]
-            ])
-            @endbutton
-
-            @button([
-                'href' => "#",
-                'text' => "Button component",
-                'toggle' => true,
-                'isOutlined' => false,
-                'color' => "secondary",
-                'attributeList' => ['tabindex' => "1"],
-                'classList' => ["c-button__button"]
-            ])
-            @endbutton
-            <br /><br />
-            Blue castello red leicester camembert de normandie. Swiss cheeseburger taleggio cheesy feet who moved my
-            cheese airedale mozzarella boursin.
-
-            @endcard
-        </div>
-
-    </div>
 
     @enddoc
-
-
 
 @stop
 
