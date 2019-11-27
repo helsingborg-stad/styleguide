@@ -15,134 +15,99 @@
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Sebastian Thulin', 'byline' => 'Lead developer'])
-
-                @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/500/500?image=64', 'name' => 'Sebastian Thulin', 'size' => 'full'])
-                    @endavatar
-                @endslot
-
-                @slot('bottom')
-                    @link(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
-                        @icon(['icon' => 'github', 'isTipBoxLabel' => true])
-                            Github
-                        @endicon
-                    @endlink
-
-                    @link(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
-                        @icon(['icon' => 'email', 'isTipBoxLabel' => true])
-                            Email
-                        @endicon
-                    @endlink
-
-                    @link(['link' => 'tel:+46723949388', 'target' => '_blank'])
-                        @icon(['icon' => 'phone', 'isTipBoxLabel' => true])
-                            Call
-                        @endicon
-                    @endlink
-                @endslot
-
+            @card([
+                'href' => 'https://github.com/sebastianthulin',
+                'title' => ['text' => 'Sebastian Thulin', 'position' => 'top'],
+                'byline' => ['text' => 'Lead developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars0.githubusercontent.com/u/797129?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
             @endcard
 
         </div>
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Nikolas Ramstedt', 'byline' => 'Web developer'])
 
-                @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/500/500?image=65', 'name' => 'Nikolas Ramstedt', 'size' => 'full'])
-                    @endavatar
-                @endslot
-
-                @slot('bottom')
-                    @link(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
-                        @icon(['icon' => 'github', 'isTipBoxLabel' => true])
-                            Github
-                        @endicon
-                    @endlink
-
-                    @link(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
-                        @icon(['icon' => 'email', 'isTipBoxLabel' => true])
-                            Email
-                        @endicon
-                    @endlink
-
-                    @link(['link' => 'tel:+46723949388', 'target' => '_blank'])
-                        @icon(['icon' => 'phone', 'isTipBoxLabel' => true])
-                            Call
-                        @endicon
-                    @endlink
-                @endslot
-
+            @card([
+                'href' => 'https://github.com/silvergrund',
+                'title' => ['text' => 'Johan Silvergrund', 'position' => 'top'],
+                'byline' => ['text' => 'Lead developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars1.githubusercontent.com/u/4200504?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
             @endcard
 
         </div>
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Jonatan Hanson', 'byline' => 'Web developer'])
 
-                @slot('top')
-                    @avatar(['image' => 'https://picsum.photos/500/500?image=66', 'name' => 'Jonatan Hanson', 'size' => 'full'])
-                    @endavatar
-                @endslot
+            @card([
+                'href' => 'https://github.com/alexanderbomanskoug2',
+                'title' => ['text' => 'Alexander Boman Skoug', 'position' => 'top'],
+                'byline' => ['text' => 'Developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars2.githubusercontent.com/u/39676080?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
+            @endcard
 
-                @slot('bottom')
-                    @link(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
-                        @icon(['icon' => 'github', 'isTipBoxLabel' => true])
-                            Github
-                        @endicon
-                    @endlink
 
-                    @link(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
-                        @icon(['icon' => 'email', 'isTipBoxLabel' => true])
-                            Email
-                        @endicon
-                    @endlink
+        </div>
 
-                    @link(['link' => 'tel:+46723949388', 'target' => '_blank'])
-                        @icon(['icon' => 'phone', 'isTipBoxLabel' => true])
-                            Call
-                        @endicon
-                    @endlink
-                @endslot
+        <div class="grid-sm-4">
 
+            @card([
+                'href' => 'https://github.com/Muckbuck',
+                'title' => ['text' => 'Eric Rosenborg', 'position' => 'top'],
+                'byline' => ['text' => 'Developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars2.githubusercontent.com/u/11438804?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
             @endcard
 
         </div>
 
         <div class="grid-sm-4">
 
-            @card(['title' => 'Johan Silvergrund', 'byline' => 'Web consultant'])
+            @card([
+                'href' => 'https://github.com/jonatanhanson',
+                'title' => ['text' => 'Jonatan Hansson', 'position' => 'top'],
+                'byline' => ['text' => 'Developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars3.githubusercontent.com/u/21363149?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
+            @endcard
 
-                @slot('top')
-                    <div class="">
-                        @avatar(['name' => 'Johan Silvergrund', 'size' => 'full'])
-                        @endavatar
-                    </div>
-                @endslot
+        </div>
 
-                @slot('bottom')
-                    @button(['link' => 'https://github.com/sebastianthulin', 'target' => '_blank'])
-                        @icon(['icon' => 'github', 'isTipBoxLabel' => true])
-                            Github
-                        @endicon
-                    @endbutton
+        <div class="grid-sm-4">
 
-                    @button(['link' => 'mailto:sebastian.thulin@helsingborg.se', 'target' => '_blank'])
-                        @icon(['icon' => 'email', 'isTipBoxLabel' => true])
-                            Email
-                        @endicon
-                    @endbutton
-
-                    @button(['link' => 'tel:+46723949388', 'target' => '_blank'])
-                        @icon(['icon' => 'phone', 'isTipBoxLabel' => true])
-                            Call
-                        @endicon
-                    @endbutton
-                @endslot
-
+            @card([
+                'href' => 'https://github.com/nRamstedt',
+                'title' => ['text' => 'Nikolas Ramstedt', 'position' => 'top'],
+                'byline' => ['text' => 'Developer', 'position' => 'top'],
+                'hasRipple' => false,
+                'avatar' => [
+                    'image' => 'https://avatars1.githubusercontent.com/u/16800993?s=460&v=4',
+                    'name' => 'Cookie Monster'
+                ]
+            ])
             @endcard
 
         </div>
