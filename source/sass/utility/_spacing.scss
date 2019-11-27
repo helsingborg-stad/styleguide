@@ -2,7 +2,7 @@ $spacing-util: ();
 
 @each $prop in (margin, padding) {
     //Builds sides
-    @each $side in (top, left, right, bottom){
+    @each $side in (top, left, right, bottom) {
 
         $mods: ();
 
@@ -12,7 +12,7 @@ $spacing-util: ();
         }
 
         $util: (
-            name: '#{$prop}__#{$side}',
+            name: "#{$prop}__#{$side}",
             default: (#{$prop}-#{$side}: 8px),
             modifiers: $mods
         );
@@ -29,7 +29,7 @@ $spacing-util: ();
     }
 
     $util: (
-        name: '#{$prop}',
+        name: "#{$prop}",
         default: (#{$prop}: 8px),
         modifiers: $mods
     );
@@ -47,18 +47,18 @@ $spacing-util: ();
             ));
             $mods: map-merge($mods, $style);
         }
-    
+
         $util: (
-            name: '#{$prop}__#{$axis}',
+            name: "#{$prop}__#{$axis}",
             default: (
                 #{$prop}-left: 8px,
                 #{$prop}-right: 8px
             ),
             modifiers: $mods
         );
-    
+
         $spacing-util: append($spacing-util, $util);
     }
 }
 
-@include build-utilities($spacing-util); 
+@include build-utilities($spacing-util);

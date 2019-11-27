@@ -1,6 +1,6 @@
 @function _hoverElements($hoverElements) {
     @if $hoverElements == null {
-        $hoverElements: '';
+        $hoverElements: "";
     }
 
     @if type-of $hoverElements != list {
@@ -12,9 +12,9 @@
 
 @function _importantToString($important) {
     @if $important == true {
-        $important: ' !important';
+        $important: " !important";
     } @else {
-        $important: '';
+        $important: "";
     }
 
     @return $important;

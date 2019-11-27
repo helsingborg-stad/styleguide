@@ -1,7 +1,7 @@
 @function em($value, $base: $em-base) {
-    @if unit($value) == 'px' {
+    @if unit($value) == "px" {
         @return strip-unit($value) / $base * 1em;
-    } @else if unit($value) == 'em' {
+    } @else if unit($value) == "em" {
         @return $value;
     } @else if unitless($value) {
         @if $value == 0 {
@@ -9,6 +9,6 @@
         }
         @return $value / $base * 1em;
     } @else {
-        @error '$value parameter must be in PX or EM';
+        @error "$value parameter must be in PX or EM";
     }
 }

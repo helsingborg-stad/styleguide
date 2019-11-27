@@ -1,4 +1,3 @@
-
 input[type="color"],
 input[type="text"],
 input[type="search"],
@@ -20,8 +19,8 @@ textarea {
     appearance: none;
     tap-highlight-color: rgba(255, 255, 255, 0);
     line-height: 1.32em;
-    padding: map-get($spacers, '1');
-    padding-top: map-get($spacers, '1') +4;
+    padding: map-get($spacers, "1");
+    padding-top: map-get($spacers, "1") +4;
     font-size: 1em;
     background: $color-form-fields;
     border: 1px solid $color-form-fields;
@@ -36,19 +35,21 @@ textarea {
         box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
     }
 }
+
 textarea {
     min-height: 200px;
-    padding: map-get($spacers, '3')-2;
+    padding: map-get($spacers, "3")-2;
 }
 
 // Input
+
 .c-input-text {
 
     position: relative;
     padding-bottom: 10px;
 
-    &::after, &::before {
-        content: ' ';
+    &:after, &:before {
+        content: " ";
         width: 0%;
         bottom: 10px;
         left: 50%;
@@ -61,15 +62,15 @@ textarea {
         padding-left: 20px;
     }
 
-    &:focus-within::after {
+    &:focus-within:after {
         width: 100%;
     }
 
-    &::after {
+    &:after {
         border-bottom: 2px solid $color-success;
     }
 
-    &::before {
+    &:before {
         width: 100%;
         border-bottom: 1px solid $color-form-fields-border;
     }
@@ -86,7 +87,7 @@ textarea {
         cursor: text;
     }
 
-    input:focus + label {
+    input:focus+label {
         transform: translate(0, 4px) scale(.75);
     }
 
@@ -94,7 +95,7 @@ textarea {
         transform: translate(0, 4px) scale(.75);
     }
 
-    input:not(:placeholder-shown) + label {
+    input:not(:placeholder-shown)+label {
         transform: translate(0, 4px) scale(.75);
     }
 
@@ -114,18 +115,18 @@ textarea {
         color:transparent;
     }
 
-
-    input[type="date"] + label,
-    input[type="datetime-local"] + label,
-    input[type="week"] + label,
-    input[type="month"] + label,
-    input[type="day"]  + label,
-    input[type="year"] + label {
+    input[type="date"]+label,
+    input[type="datetime-local"]+label,
+    input[type="week"]+label,
+    input[type="month"]+label,
+    input[type="day"]+label,
+    input[type="year"]+label {
         font-size: 11px;
         top: 3px !important;
         transform: none;
     }
-    textarea + label {
+
+    textarea+label {
         font-size: 11px;
         top: 4px !important;
         padding-left:3px;
@@ -134,23 +135,24 @@ textarea {
 }
 
 /* Range Slider */
+
 .c-input-range {
 
-    input[type=range] {
+    input[type="range"] {
         -webkit-appearance: none;
         width: 100%;
         background: transparent;
     }
 
-    input[type=range]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb {
         -webkit-appearance: none;
     }
 
-    input[type=range]:focus {
+    input[type="range"]:focus {
         outline: none;
     }
 
-    input[type=range]::-ms-track {
+    input[type="range"]::-ms-track {
         width: 100%;
         cursor: pointer;
         background: transparent;
@@ -158,8 +160,7 @@ textarea {
         color: transparent;
     }
 
-
-    input[type=range]::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb {
         appearance: none;
         height: 16px;
         width: 32px;
@@ -169,7 +170,7 @@ textarea {
         margin-top: 0px;
     }
 
-    input[type=range]::-webkit-slider-thumb:before {
+    input[type="range"]::-webkit-slider-thumb:before {
         font-family: styleguide-icons !important;
         content: "\f104";
         color:black;
@@ -177,14 +178,15 @@ textarea {
         width:20px;
         height:20px;
     }
-    input[type=range]::-webkit-slider-thumb:after {
+
+    input[type="range"]::-webkit-slider-thumb:after {
         font-family: styleguide-icons !important;
         content: "\f107";
         color:black;
         font-size:20px;
     }
 
-    input[type=range]::-moz-range-thumb {
+    input[type="range"]::-moz-range-thumb {
         appearance: none;
         height: 16px;
         width: 32px;
@@ -194,7 +196,7 @@ textarea {
         margin-top: 0px;
     }
 
-    input[type=range]::-ms-thumb {
+    input[type="range"]::-ms-thumb {
         padding-top:20px;
         appearance: none;
         height: 16px;
@@ -205,26 +207,26 @@ textarea {
         margin-top: 0px;
     }
 
-    input[type=range]::-webkit-slider-runnable-track {
+    input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
         cursor: pointer;
         background: $color-form-fields;
 
     }
 
-    input[type=range]:focus::-webkit-slider-runnable-track {
+    input[type="range"]:focus::-webkit-slider-runnable-track {
         background-color: lighten($color-form-fields, 5%);
         border-bottom: 2px solid $color-success;
     }
 
-    input[type=range]::-moz-range-track {
+    input[type="range"]::-moz-range-track {
         width: 100%;
         height: 8.4px;
         cursor: pointer;
 
     }
 
-    input[type=range]::-ms-track {
+    input[type="range"]::-ms-track {
         width: 100%;
         height: 8.4px;
         cursor: pointer;
@@ -233,16 +235,20 @@ textarea {
         border-width: 16px 0;
         color: transparent;
     }
-    input[type=range]::-ms-fill-lower {
+
+    input[type="range"]::-ms-fill-lower {
         background-color: lighten($color-form-fields, 5%);
     }
-    input[type=range]:focus::-ms-fill-lower {
+
+    input[type="range"]:focus::-ms-fill-lower {
         background-color: lighten($color-form-fields, 5%);
     }
-    input[type=range]::-ms-fill-upper {
+
+    input[type="range"]::-ms-fill-upper {
         background-color: lighten($color-form-fields, 5%);
     }
-    input[type=range]:focus::-ms-fill-upper {
+
+    input[type="range"]:focus::-ms-fill-upper {
         background-color: lighten($color-form-fields, 5%);
     }
 }
@@ -269,6 +275,7 @@ input[type="submit"] {
 input[type="reset"] {
     @include button-mix($color-primary, false, $color-primary);
 }
+
 .c-input-color {
 
     padding:0;
@@ -279,11 +286,12 @@ input[type="reset"] {
         -webkit-appearance: none;
         width: 100%;
         background: transparent;
+
         &:before {
             font-family: styleguide-icons !important;
             content: "\f10a";
             font-size:22px;
-            padding: map-get($spacers, '1');
+            padding: map-get($spacers, "1");
             display: inline-block;
             visibility: visible;
             color: $color-white;
@@ -296,12 +304,11 @@ input[type="reset"] {
     }
 }
 
-
 input[type="time"],
 input[type="date"],
 input[type="datetime-local"] {
-    padding-top: map-get($spacers, '1') - 2;
-    padding-bottom: map-get($spacers, '1') - 1;
+    padding-top: map-get($spacers, "1") - 2;
+    padding-bottom: map-get($spacers, "1") - 1;
 }
 
 ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
@@ -311,7 +318,9 @@ input[type="datetime-local"] {
 }
 
 /* Checkboxes */
+
 .c-checkbox {
+
     .c-checkbox__label-box {
         display: flex;
         align-self: center;
@@ -324,10 +333,12 @@ input[type="datetime-local"] {
         cursor: pointer;
     }
 
-    .c-checkbox__hidden-box:checked + .c-checkbox__label {
+    .c-checkbox__hidden-box:checked+.c-checkbox__label {
+
         .c-checkbox__label-box {
+
             &:after {
-                content: '';
+                content: "";
                 display: block;
                 position: absolute;
                 top: -1px;
@@ -341,6 +352,7 @@ input[type="datetime-local"] {
         }
 
         .c-checkbox__label-text {
+
             &:after {
                 width: 85%;
             }
@@ -349,7 +361,9 @@ input[type="datetime-local"] {
 }
 
 /* Radiobuttons*/
+
 .c-radiobutton {
+
     .c-radiobutton__label-box {
         display: flex;
         align-self: center;
@@ -362,11 +376,13 @@ input[type="datetime-local"] {
         cursor: pointer;
     }
 
-    .c-radiobutton__hidden-box:checked + .c-radiobutton__label {
+    .c-radiobutton__hidden-box:checked+.c-radiobutton__label {
+
         .c-radiobutton__label-box {
+
             &:after {
                 animation: pop-in 150ms;
-                content: '';
+                content: "";
                 display: block;
                 position: absolute;
                 top: 4px;
@@ -379,6 +395,7 @@ input[type="datetime-local"] {
         }
 
         .c-radiobutton__label-text {
+
             &:after {
                 width: 85%;
             }
@@ -436,16 +453,19 @@ input[type="datetime-local"] {
     align-self: flex-start;
     position: relative;
     cursor: pointer;
-    padding: map-get($spacers, '1') 11px;
+    padding: map-get($spacers, "1") 11px;
 }
 
 @keyframes pop-in {
+
     0% {
         transform: scale(0.5);
     }
+
     80% {
         transform: scale(1.2);
     }
+
     100% {
         transform: scale(1);
     }

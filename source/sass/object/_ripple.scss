@@ -1,6 +1,6 @@
 .ripple {
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
 
     &--after:after,
     &--before:before {
@@ -13,8 +13,8 @@
         left: var(--pos-y);
         top: var(--pos-x);
 
-        width: var(--size); 
-        height: var(--size); 
+        width: var(--size);
+        height: var(--size);
 
         transform: scale(0);
     }
@@ -26,5 +26,6 @@
 }
 
 @keyframes ripple {
-	100% {opacity: 0; transform: scale(2.5);}
+
+    100% {opacity: 0; transform: scale(2.5);}
 }

@@ -1,9 +1,11 @@
 a, .link {
     color: $color-link;
     text-decoration-style: dotted;
+
     i {
         text-decoration: none;
     }
+
     &:hover {
         color: $color-link-hover;
         text-decoration-style: solid;
@@ -19,9 +21,11 @@ a, .link {
 
     &:visited {
         color: $color-link-visited;
+
         &:hover {
             color: $color-link-visited-hover;
         }
+
         &:active {
             color: lighten($color-link-visited-hover, 10%);
         }

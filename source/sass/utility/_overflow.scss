@@ -1,6 +1,6 @@
 $modifiers: ();
 @each $modifier in $overflows {
-        $modifiers: map-merge($modifiers, ($modifier: ('overflow': #{$modifier})))
+    $modifiers: map-merge($modifiers, ($modifier: ("overflow": #{$modifier})))
 }
 
 $overflow-utils:(

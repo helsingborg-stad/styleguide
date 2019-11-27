@@ -1,9 +1,11 @@
 @mixin unlist() {
     list-style-type: none;
+
     &:before {
-        display: none; 
+        display: none;
     }
+
     li:before {
-        display: none; 
+        display: none;
     }
 }

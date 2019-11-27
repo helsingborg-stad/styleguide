@@ -1,5 +1,4 @@
 .c-form {
     @include paper(5);
-    padding: map-get($spacers, '2');
+    padding: map-get($spacers, "2");
 }
-  

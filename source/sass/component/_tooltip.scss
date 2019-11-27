@@ -2,7 +2,7 @@
 
     position: relative;
 
-    &::after {
+    &:after {
         display: none;
         position: absolute;
         z-index: $level-9;
@@ -20,21 +20,22 @@
         font-weight: normal;
     }
 
-    &::before {
+    &:before {
         display: none;
-        content: '';
+        content: "";
         position: absolute;
         z-index: $level-9;
         bottom: -9px;
         left: 50%;
         transform: translateY(0%) translateX(-50%);
         opacity: .9;
-        @include arrow('up', 5px, $color-black);
+        @include arrow("up", 5px, $color-black);
     }
 
     &.c-tooltip__top {
-        @include mq(map_get($breakpoints-map, 'md')) {
-            &::after {
+        @include mq(map_get($breakpoints-map, "md")) {
+
+            &:after {
                 bottom: auto;
                 top: -8px;
                 right: auto;
@@ -42,20 +43,21 @@
                 transform: translateY(-100%) translateX(-50%);
             }
 
-            &::before {
+            &:before {
                 bottom: auto;
                 top: -9px;
                 right: auto;
                 left: 50%;
                 transform: translateY(0%) translateX(-50%);
-                @include arrow('down', 5px, $color-black);
+                @include arrow("down", 5px, $color-black);
             }
         }
     }
 
     &.c-tooltip__left {
-        @include mq(map_get($breakpoints-map, 'md')) {
-            &::after {
+        @include mq(map_get($breakpoints-map, "md")) {
+
+            &:after {
                 bottom: auto;
                 top: 50%;
                 left: -10px;
@@ -63,20 +65,21 @@
                 transform: translateY(-50%) translateX(-100%);
             }
 
-            &::before {
+            &:before {
                 bottom: auto;
                 top: 50%;
                 left: -10px;
                 right: auto;
                 transform: translateY(-50%);
-                @include arrow('right', 5px, $color-black);
+                @include arrow("right", 5px, $color-black);
             }
         }
     }
 
     &.c-tooltip__right {
-        @include mq(map_get($breakpoints-map, 'md')) {
-            &::after {
+        @include mq(map_get($breakpoints-map, "md")) {
+
+            &:after {
                 bottom: auto;
                 top: 50%;
                 right: -10px;
@@ -84,24 +87,25 @@
                 transform: translateY(-50%) translateX(100%);
             }
 
-            &::before {
+            &:before {
                 bottom: auto;
                 top: 50%;
                 right: -10px;
                 left: auto;
                 transform: translateY(-50%);
 
-                @include arrow('left', 5px, $color-black);
+                @include arrow("left", 5px, $color-black);
             }
         }
     }
 
     @media print {
-        &::before {
+
+        &:before {
             display: none !important;
         }
 
-        &::after {
+        &:after {
             display: inline-block;
             content: "(" attr(data-title) ")";
             margin-left: .3em;
@@ -113,10 +117,10 @@
 
 :hover,
 :focus,
-:focus > [data-title] {
-    &::after,
-    &::before {
+:focus>[data-title] {
+
+    &:after,
+    &:before {
         display: inline-block;
     }
 }
-

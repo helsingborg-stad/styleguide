@@ -7,33 +7,35 @@ $xAxis: (left, right);
 $yAxis: (top, bottom);
 $sizes: (
     "xs":(
-        'y': 1.5,
-        'x': 2
+        "y": 1.5,
+        "x": 2
     ),
     "sm": (
-        'y': 4,
-        'x': 5
+        "y": 4,
+        "x": 5
     ),
     "md": (
-        'y': 5,
-        'x': 6
+        "y": 5,
+        "x": 6
     ),
     "lg": (
-        'y': 6,
-        'x': 7
+        "y": 6,
+        "x": 7
     ),
     "xl": (
-        'y': 8,
-        'x': 9
+        "y": 8,
+        "x": 9
     )
 );
 
 //Standard styling
+
 .c-fab {
     position: fixed;
     z-index: $level-10;
-    .c-btn:first-child{
-        @include shadow(6)
+
+    .c-btn:first-child {
+        @include shadow(6);
     }
 }
 
@@ -41,11 +43,11 @@ $sizes: (
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
         @each $size in $sizes {
-            $sizing: nth($size, 1);  //e.g. sm, md 
+            $sizing: nth($size, 1);  //e.g. sm, md
             $list: map_get($sizes, nth($size, 1));
-            $x: map_get($list, 'x');
-            $y: map_get($list, 'y');
-    
+            $x: map_get($list, "x");
+            $y: map_get($list, "y");
+
             .c-fab__#{$sideY}-#{$sideX}--#{$sizing} {
                 #{$sideX}: #{$x}rem;
                 #{$sideY}: #{$y}rem;

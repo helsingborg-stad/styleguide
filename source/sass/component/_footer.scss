@@ -1,22 +1,22 @@
 .c-footer {
-    border-top: 1px solid $color-gray-light; 
-    background-color: $color-footer-background; 
+    border-top: 1px solid $color-gray-light;
+    background-color: $color-footer-background;
     @include shadow(3, true);
 
     &__body {
-        width: 100%; 
-        max-width: $container-width; 
-        margin-left: auto; 
-        margin-right: auto; 
-        padding: map-get($spacers, '5') 0;
-        display: flex; 
+        width: 100%;
+        max-width: $container-width;
+        margin-left: auto;
+        margin-right: auto;
+        padding: map-get($spacers, "5") 0;
+        display: flex;
         align-items: center;
         flex-wrap: nowrap;
         justify-content: space-between;
     }
 
     &__home-link {
-        line-height: 0; 
+        line-height: 0;
         display: block;
         height: 40px;
 

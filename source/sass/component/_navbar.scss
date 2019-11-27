@@ -5,16 +5,19 @@
     background-color: $color-primary;
 
     &__logo {
-        *:nth-of-type(1){
+
+        *:nth-of-type(1) {
             max-width: 100px;
         }
     }
 
     &__item {
+
         span {
             color: $color-primary;
         }
     }
+
     .c-icon__label {
         display: none;
     }
@@ -26,10 +29,11 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, 'xs'), 'md') {
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .c-navbar {
         flex-wrap: wrap;
-    
+
         &__logo {
             order: 1;
             flex:1;
@@ -40,9 +44,9 @@
             order: 2;
             display: flex;
             justify-content: flex-end;
-            padding-right: #{map-get($spacers, '1')};
+            padding-right: #{map-get($spacers, "1")};
         }
-    
+
         &__list {
             display: flex;
             flex-direction: column;
@@ -56,11 +60,11 @@
                 max-height: 100vh;
                 transition: max-height 0.5s ease-in-out;
             }
-    
+
             &:nth-of-type(2) {
                 order: 3;
             }
-    
+
             &:nth-of-type(3) {
                 order: 4;
             }
@@ -78,7 +82,7 @@
                 color: $color-primary;
                 order: 1;
                 flex: 1;
-                padding: #{map-get($spacers, '1')};
+                padding: #{map-get($spacers, "1")};
 
                 &:active, &:visited, &:hover, &:visited:hover {
                     color: $color-primary;
@@ -88,7 +92,7 @@
 
         &__subtoggle {
             order: 2;
-            padding: #{map-get($spacers, '1')};
+            padding: #{map-get($spacers, "1")};
         }
 
         &__subcontainer {
@@ -115,8 +119,10 @@
 }
 
 //logo right items left
-@include mq(map_get($breakpoints-map, 'md')) {
+@include mq(map_get($breakpoints-map, "md")) {
+
     .c-navbar {
+
         &__list {
             display: inline-flex;
 
@@ -141,31 +147,32 @@
                 color: white;
                 min-height: 44px;
                 min-width: 44px;
-                padding: #{map-get($spacers, '1')};
+                padding: #{map-get($spacers, "1")};
             }
 
-            &:hover > .c-navbar__subcontainer > .c-navbar__subitem:first-of-type,
-            &:active > .c-navbar__subcontainer > .c-navbar__subitem:first-of-type,
-            &:hover > .c-navbar__subitem,
-            &:active > .c-navbar__subitem {
+            &:hover>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
+            &:active>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
+            &:hover>.c-navbar__subitem,
+            &:active>.c-navbar__subitem {
                 //display: block;
             }
 
             &:after {
                 display:block;
-                content: '';
-                border-bottom: solid 3px $color-secondary;  
-                transform: scaleX(0);  
+                content: "";
+                border-bottom: solid 3px $color-secondary;
+                transform: scaleX(0);
                 transition: transform 250ms ease-in-out;
             }
 
             &:hover,
             &:active {
+
                 &:after {
                     transform: scaleX(1);
                 }
             }
-            
+
         }
 
         &__subcontainer {
@@ -180,9 +187,9 @@
             left: 100%;
             top: 0;
             z-index: $level-7;
-            padding: #{map-get($spacers, '1')};
+            padding: #{map-get($spacers, "1")};
 
-            .c-navbar__item > span {
+            .c-navbar__item>span {
                 color: black;
 
                 &:active, &:visited, &:hover, &:visited:hover {
@@ -193,6 +200,7 @@
     }
 
     //logo center
+
     .c-navbar--logo__center {
         justify-content: center;
 
@@ -216,6 +224,7 @@
     }
 
     //logo top
+
     .c-navbar--logo__top {
         flex-wrap: wrap;
 
@@ -227,6 +236,7 @@
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 2;
                 flex: 1;
@@ -242,6 +252,7 @@
     }
 
     //logo right
+
     .c-navbar--logo__right {
         justify-content: flex-end;
 
@@ -250,6 +261,7 @@
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 1;
             }
@@ -263,21 +275,24 @@
     //logo left items right
 
     .c-navbar--logo__left__items__right {
+
         .c-navbar__logo {
             margin-right: auto;
         }
     }
 
     //logo right items left
+
     .c-navbar--logo__right__items__left {
         justify-content: flex-end;
-        
+
         .c-navbar__logo {
             order: 3;
             margin-left: auto;
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 1;
             }

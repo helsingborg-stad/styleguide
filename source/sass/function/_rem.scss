@@ -1,7 +1,7 @@
 @function rem($value, $base: $mix-rem-base) {
-    @if unit($value) == 'px' {
+    @if unit($value) == "px" {
         @return strip-unit($value) / $base * 1rem;
-    } @else if unit($value) == 'rem' {
+    } @else if unit($value) == "rem" {
         @return $value;
     } @else if unitless($value) {
         @if $value == 0 {
@@ -9,6 +9,6 @@
         }
         @return $value / $base * 1rem;
     } @else {
-        @error '$value parameter must be in PX or REM';
+        @error "$value parameter must be in PX or REM";
     }
 }
