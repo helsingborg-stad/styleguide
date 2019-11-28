@@ -1,4 +1,5 @@
 .c-tabs {
+
     &__header {
         display: flex;
         align-items: center;
@@ -35,7 +36,7 @@
         outline: none;
     }
 
-    &__button:focus > &__button-wrapper {
+    &__button:focus>&__button-wrapper {
         outline: 1px dashed $color-gray;
     }
 
@@ -57,6 +58,7 @@
     }
 
     @keyframes fadeIn {
+
         from {
             opacity: 0;
         }

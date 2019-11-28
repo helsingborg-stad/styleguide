@@ -6,33 +6,33 @@
 
     &__inner {
         display: block;
-        overflow-x: auto; 
+        overflow-x: auto;
 
         &::-webkit-scrollbar {
             width: $base;
         }
-         
+
         &::-webkit-scrollbar-track {
-            background-color: $color-table-track-background; 
+            background-color: $color-table-track-background;
         }
-         
+
         &::-webkit-scrollbar-thumb {
-          background-color: $color-table-track-control;
+            background-color: $color-table-track-control;
         }
     }
 
     &:after {
         position: absolute;
-        content: ""; 
-        top: 0; 
+        content: "";
+        top: 0;
         right: 0;
         bottom: 0;
-        width: $base*5; 
+        width: $base*5;
         @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
     }
-    
+
     &__column {
-        padding: map-get($spacers, '1') map-get($spacers, '2');
+        padding: map-get($spacers, "1") map-get($spacers, "2");
         vertical-align: top;
     }
 
@@ -43,30 +43,28 @@
 
     &__head,
     &__foot {
-        font-weight: $table-heading-font-weight; 
-        color: $color-table-heading; 
+        font-weight: $table-heading-font-weight;
+        color: $color-table-heading;
     }
 
     &__body {
-        color: $color-table-body; 
+        color: $color-table-body;
     }
 
     &__head,
     &__foot,
     &__body {
         width: 100%;
-        background-color: $color-table-background;  
+        background-color: $color-table-background;
     }
 
     &__body &__column,
     &__foot &__column {
-        border-top: 1px solid $color-table-border; 
+        border-top: 1px solid $color-table-border;
         min-width: 150px;
     }
 
     &__body &__line:nth-child(odd) {
-        background-color: $color-table-background-odd; 
+        background-color: $color-table-background-odd;
     }
 }
-
-

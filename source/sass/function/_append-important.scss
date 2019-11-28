@@ -1,8 +1,8 @@
-@function appendImportant($styling){
+@function appendImportant($styling) {
     $altered-list: ();
-    
-    @each $property,$value in $styling{
-        $value: $value + '!important';
+
+    @each $property,$value in $styling {
+        $value: $value + "!important";
         $altered-list: map-merge($altered-list, ($property: $value))
     }
 

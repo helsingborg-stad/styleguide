@@ -1,13 +1,14 @@
 // ***************************************************************
 // *** Steppers
 // ***************************************************************
+
 .c-steppers {
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: - map-get($spacers, '5');
-    @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-        bottom:- map-get($spacers, '6');
+    bottom: - map-get($spacers, "5");
+    @include mq(map_get($breakpoints-map, "xs"), "sm") {
+        bottom:- map-get($spacers, "6");
         padding-bottom:7px;
     }
 
@@ -15,18 +16,19 @@
      * Dots
      * Ussage in galleries
      */
+
     &__dot {
         border-radius: 50%;
         background: $color-gray;
         display: inline-block;
-        width: map-get($spacers, '1');
-        height:map-get($spacers, '1');
-        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-            width: map-get($spacers, '05');
-            height:map-get($spacers, '05');
+        width: map-get($spacers, "1");
+        height:map-get($spacers, "1");
+        @include mq(map_get($breakpoints-map, "xs"), "sm") {
+            width: map-get($spacers, "05");
+            height:map-get($spacers, "05");
         }
 
-        margin: map-get($spacers, '05');
+        margin: map-get($spacers, "05");
     }
 
     &__dot-active {

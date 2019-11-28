@@ -1,13 +1,13 @@
 @function get-breakpoint-suffix($screen, $includeZero: null) {
     @if map-has-key($breakpoints-map, $screen) {
         @if map-get($breakpoints-map, $screen) == 0 and $includeZero == null {
-            @return '';
+            @return "";
         } @else {
             @return \@#{$screen};
         }
-    } @else if $screen == 'print' {
+    } @else if $screen == "print" {
         @return \@#{$screen};
     } @else {
-        @return '';
+        @return "";
     }
 }

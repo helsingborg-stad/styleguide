@@ -7,7 +7,9 @@
         $breakpoints: ($breakpoints);
     }
 
-    @if index($breakpoints, 0) != null and index($breakpoints, 0) != null and $limitToBreakpoint != true {
+    @if index($breakpoints, 0) != null
+        and index($breakpoints, 0) != null
+        and $limitToBreakpoint != true {
         $breakpoints: removeListItem($breakpoints, xs);
     }
 

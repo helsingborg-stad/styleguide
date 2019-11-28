@@ -2,36 +2,38 @@
 // *** Mapping for different sizes
 // ***************************************************************
 $radius: (
-        (
-                "name": "",
-                "size": $border-radius-md
-        ),
-        (
-                "name": &--rounded-xs,
-                "size": $border-radius-xs
-        ),
-        (
-                "name": &--rounded-sm,
-                "size": $border-radius-sm
-        ),
-        (
-                "name": &--rounded-md,
-                "size": $border-radius-md
-        ),
-        (
-                "name": &--rounded-lg,
-                "size": $border-radius-lg
-        )
+    (
+        "name": "",
+        "size": $border-radius-md
+    ),
+    (
+        "name": &--rounded-xs,
+        "size": $border-radius-xs
+    ),
+    (
+        "name": &--rounded-sm,
+        "size": $border-radius-sm
+    ),
+    (
+        "name": &--rounded-md,
+        "size": $border-radius-md
+    ),
+    (
+        "name": &--rounded-lg,
+        "size": $border-radius-lg
+    )
 );
 
 // ***************************************************************
 // *** Image
 // ***************************************************************
+
 .c-image {
 
     margin: 0px;
     width: 100%;
     height: auto;
+
     &--custom-width {
         width:auto;
     }
@@ -52,6 +54,7 @@ $radius: (
         object-fit: contain;
         width: 100%;
     }
+
     &__modal {
         cursor:pointer;
     }
@@ -60,14 +63,14 @@ $radius: (
 
         margin: 0 auto;
         position: absolute;
-        bottom: - map-get($spacers, '8');
+        bottom: - map-get($spacers, "8");
         color: $color-white;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
 
-        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-            bottom: - map-get($spacers, '8');
+        @include mq(map_get($breakpoints-map, "xs"), "sm") {
+            bottom: - map-get($spacers, "8");
             word-break: break-word;
         }
     }

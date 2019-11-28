@@ -1,10 +1,10 @@
 .c-header {
     @include shadow(2);
-    z-index: $level-7; 
+    z-index: $level-7;
     position: relative;
 
-    &__menu { 
-        padding: map-get($spacers, '3') map-get($spacers, '4');
+    &__menu {
+        padding: map-get($spacers, "3") map-get($spacers, "4");
     }
 
     &__wrapper {
@@ -37,8 +37,8 @@
 }
 
 .c-header__home-link {
-    display: inline-block; 
-    padding: map-get($spacers, '3') map-get($spacers, '4');
+    display: inline-block;
+    padding: map-get($spacers, "3") map-get($spacers, "4");
 
     img, svg {
         display: block;

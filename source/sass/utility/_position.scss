@@ -1,6 +1,6 @@
-$position_utils: (  
+$position_utils: (
     (
-        name: 'position',
+        name: "position",
         modifiers: (
             static: (position: static),
             relative: (position: relative),
@@ -10,7 +10,7 @@ $position_utils: (
         )
     ),
     (
-        name: 'fixed',
+        name: "fixed",
         modifiers: (
             top: (
                 position: fixed,
@@ -29,7 +29,7 @@ $position_utils: (
         )
     ),
     (
-        name: 'sticky',
+        name: "sticky",
         modifiers: (
             top: (
                 position: sticky,

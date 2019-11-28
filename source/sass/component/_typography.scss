@@ -1,4 +1,5 @@
 .c-typography__variant-- {
+
     &h1 {
         font-size: $h1-font-size;
         font-weight: $h1-font-weight;
@@ -41,7 +42,7 @@
     &headline {
         font-size: $font-size-headline;
     }
-    
+
     &title {
         font-size: $font-size-title;
     }
@@ -49,7 +50,7 @@
     &subtitle {
         font-size: $font-size-subtitle;
     }
-    
+
     &body {
         font-size: $font-size-body;
     }

@@ -1,6 +1,6 @@
-$color-utils: (  
+$color-utils: (
     (
-        name: 'color__text',
+        name: "color__text",
         modifiers: (
             success: (color: $color-success),
             danger: (color: $color-danger),
@@ -9,7 +9,7 @@ $color-utils: (
         )
     ),
     (
-        name: 'color__bg',
+        name: "color__bg",
         modifiers: (
             success: (background-color: $color-success),
             danger: (background-color: $color-danger),

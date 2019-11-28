@@ -2,79 +2,81 @@
 
 .c-icon {
 
-    /* Set baseline to align icon to text */ 
+    /* Set baseline to align icon to text */
+
     &:before {
-        vertical-align: -12.5%; 
+        vertical-align: -12.5%;
     }
 
     /* Modifiers  - Sizes */
+
     &--size-inherit {
-        font-size: inherit; 
+        font-size: inherit;
     }
 
     &--size-xs {
-        font-size: map-get($icon-sizes, 'xs'); 
+        font-size: map-get($icon-sizes, "xs");
     }
 
     &--size-sm {
-        font-size: map-get($icon-sizes, 'sm'); 
+        font-size: map-get($icon-sizes, "sm");
     }
 
     &--size-md {
-        font-size: map-get($icon-sizes, 'md'); 
+        font-size: map-get($icon-sizes, "md");
     }
 
     &--size-lg {
-        font-size: map-get($icon-sizes, 'lg'); 
+        font-size: map-get($icon-sizes, "lg");
     }
 
     &--size-xl {
-        font-size: map-get($icon-sizes, 'xl'); 
+        font-size: map-get($icon-sizes, "xl");
     }
 
     &--size-xxl {
-        font-size: map-get($icon-sizes, 'xxl'); 
+        font-size: map-get($icon-sizes, "xxl");
     }
 
     /* Modifiers  - Colors */
 
     &--color-black {
-        color: $color-black; 
+        color: $color-black;
     }
 
     &--color-gray {
-        color: $color-gray; 
+        color: $color-gray;
     }
 
     &--color-gray-light {
-        color: $color-gray-light; 
+        color: $color-gray-light;
     }
 
     &--color-gray-lighter {
-        color: $color-gray-lighter; 
+        color: $color-gray-lighter;
     }
 
     &--color-white {
-        color: $color-white; 
+        color: $color-white;
     }
 
     &--color-primary {
-        color: $color-primary; 
+        color: $color-primary;
     }
 
     &--color-secondary {
-        color: $color-secondary; 
+        color: $color-secondary;
     }
 
     /* Nested elements */
+
     &__label {
-        font-size: 1rem; 
-        font-style: normal; 
+        font-size: 1rem;
+        font-style: normal;
         color: inherit;
     }
 
     &--fluid-label &__label {
-        font-size: 1em; 
+        font-size: 1em;
     }
 }
-

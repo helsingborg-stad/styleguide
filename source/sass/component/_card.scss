@@ -1,9 +1,11 @@
 .c-card {
     @include shadow(2);
     background-color: $color-card-background;
-    border-radius: $border-radius-xs; 
+    border-radius: $border-radius-xs;
     height: 100%;
+
     &--shadow-on-hover {
+
         &:hover {
             @include paper(7);
         }
@@ -22,18 +24,19 @@
     &__top-title,
     &__bottom,
     &__middle {
-        padding: map-get($spacers, '3');
+        padding: map-get($spacers, "3");
     }
 
     .c-avatar {
         float:left;
-        margin: 0 map-get($spacers, '2') map-get($spacers, '2') 0;
+        margin: 0 map-get($spacers, "2") map-get($spacers, "2") 0;
 
     }
 
     &__title {
         font-size: $font-size-subtitle;
     }
+
     &__byline {
         letter-spacing: $font-letterspacing-subtitle;
 
@@ -41,51 +44,56 @@
     }
 
     &__top {
-        padding-top:  map-get($spacers, '3');
+        padding-top:  map-get($spacers, "3");
 
     }
 
     &__top-title {
         padding-bottom:0;
+
         .c-card__byline {
-            margin-top: - map-get($spacers, '2');
+            margin-top: - map-get($spacers, "2");
         }
+
         &.c-card__with-top-dropdown {
             width:95%;
         }
     }
 
-    &__with-top-dropdown .c-dropdown{
+    &__with-top-dropdown .c-dropdown {
         position:absolute;
-        top: map-get($spacers, '2');
-        right: map-get($spacers, '4');
+        top: map-get($spacers, "2");
+        right: map-get($spacers, "4");
     }
 
     &__with-avatar {
-        margin-bottom:- map-get($spacers, '5');
+        margin-bottom:- map-get($spacers, "5");
     }
 
     &__body {
+
         .c-card__byline {
-            margin-top: - map-get($spacers, '2');
+            margin-top: - map-get($spacers, "2");
         }
     }
 
     &__bottom {
         padding-top: 0;
-        padding-bottom: map-get($spacers, '3');
+        padding-bottom: map-get($spacers, "3");
+
         .u-float--right {
-            margin-bottom: map-get($spacers, '2');
+            margin-bottom: map-get($spacers, "2");
         }
+
         &.c-card__with-bottom-dropdown {
             width:95%;
         }
     }
 
-    &__with-bottom-dropdown .c-dropdown{
+    &__with-bottom-dropdown .c-dropdown {
         position:absolute;
-        bottom: map-get($spacers, '1');
-        right: map-get($spacers, '4');
+        bottom: map-get($spacers, "1");
+        right: map-get($spacers, "4");
     }
 
     &__link,
@@ -103,7 +111,7 @@
 
     &__image img,
     img.c-card__image {
-        width: 100%; 
+        width: 100%;
         display: block;
     }
     .c-accordion.c-card--no-accordion {
@@ -120,4 +128,3 @@
         }
     }
 }
-
