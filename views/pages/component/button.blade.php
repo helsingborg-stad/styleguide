@@ -310,31 +310,59 @@
 
             @button([
                 'isIconButton' =>  true,
-                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
-                'background' => false,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg']
             ])
             @endbutton
 
         </div>
-    </div>
-        @markdown
-            ####With background, primary and secondary   
-        @endmarkdown
-        
-        @button([
-            'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'sm'],
-            'background' => 'primary'
-        ])
-        @endbutton
+        <div class="grid-s-12 grid-md-4">
 
-        @button([
-            'isIconButton' =>  true,
-            'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
-            'background' => 'secondary'
-        ])
-        @endbutton
+            @markdown
+                ####Hover color
+            @endmarkdown
     
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'hoverColor' => 'primary'
+            ])
+            @endbutton
+    
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'hoverColor' => 'secondary'
+            ])
+            @endbutton
+    
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
+                'hoverColor' => 'default'
+            ])
+            @endbutton
+    
+        </div>
+        <div class="grid-s12 grid-md-4">
+                @markdown
+                ####With background  
+            @endmarkdown
+            
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'sm'],
+                'background' => 'primary'
+            ])
+            @endbutton
+    
+            @button([
+                'isIconButton' =>  true,
+                'icon' => ['name' => 'close', 'color' => 'white', 'size' => 'md'],
+                'background' => 'secondary'
+            ])
+            @endbutton
+        </div>
+    </div>
     @enddoc
 @stop
 
