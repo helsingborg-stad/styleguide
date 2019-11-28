@@ -11,9 +11,8 @@
     @doc(['slug' => 'navbar', 'displayParams' => false])
 
         @navbar([
-            'logo' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Helsingborg_vapen.svg/198px-Helsingborg_vapen.svg.png',
+            'logo' => '/assets/img/logotype.svg',
             'logoPosition' => 'left',
-            'itemsPosition' => 'right',
             'items' => [
                 [
                     'id' => '123',
@@ -69,9 +68,6 @@
                 'name' => 'Level 4 1',
                 'href' => '#'
             ],
-        ],
-        'classList' => [
-            'u-color__bg--danger'
         ]
     ])
 
