@@ -1,7 +1,7 @@
 @icon(
     [
         'icon' => 'bookmark',
-        'size' => 'lg',
+        'size' => 'xl',
         'color' => 'Primary'
     ]
 )
