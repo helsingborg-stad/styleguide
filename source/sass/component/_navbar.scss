@@ -2,19 +2,16 @@
     display: flex;
     width: 100%;
     align-items: center;
-    background-color: $color-primary;
-
-    &__logo {
-
-        *:nth-of-type(1) {
-            max-width: 100px;
-        }
-    }
+    background-color: #ffffff;
+    color: #000000;
+    border-top: 8px solid $color-primary;
+    @include shadow(1);
 
     &__item {
 
         span {
-            color: $color-primary;
+            font-size: 18px;
+            color: #000000;
         }
     }
 
@@ -37,14 +34,25 @@
         &__logo {
             order: 1;
             flex:1;
-
+            max-width: 50%;
+            padding: map-get($spacers, "2");
         }
 
         &__toggle {
             order: 2;
             display: flex;
+            height: auto;
             justify-content: flex-end;
+            margin-left: auto;
             padding-right: #{map-get($spacers, "1")};
+
+            .c-button {
+                transition: all 0.3s ease-in-out;
+
+                &[is-open=""] {
+                    transform: rotate(180deg);
+                }
+            }
         }
 
         &__list {
@@ -72,7 +80,7 @@
 
         &__item {
             width: 100%;
-            height: inherit;
+            //height: inherit;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -122,6 +130,17 @@
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-navbar {
+        height: 140px;
+        padding: map-get($spacers, "5");
+
+        &__logo {
+
+            img {
+                height: 55px;
+                width: auto;
+            }
+            margin-right: map-get($spacers, "10");
+        }
 
         &__list {
             display: inline-flex;
@@ -142,12 +161,11 @@
         &__item {
             position: relative;
             white-space: nowrap;
+            margin: 0 map-get($spacers, "2");
 
             span, span:active, span:visited, span:hover, span:visited:hover {
-                color: white;
                 min-height: 44px;
                 min-width: 44px;
-                padding: #{map-get($spacers, "1")};
             }
 
             &:hover>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
@@ -160,7 +178,9 @@
             &:after {
                 display:block;
                 content: "";
-                border-bottom: solid 3px $color-secondary;
+                width: 24px;
+                height: 2px;
+                background-color: $color-primary;
                 transform: scaleX(0);
                 transition: transform 250ms ease-in-out;
             }

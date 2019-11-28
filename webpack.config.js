@@ -118,7 +118,7 @@ module.exports = {
             ]
         }),
 
-        //Lint for scss
+        // Lint for scss
         new StylelintPlugin({
             context: "./source/sass",
             configFile: "./.stylelintrc",
