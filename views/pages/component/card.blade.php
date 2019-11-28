@@ -115,6 +115,7 @@
     <div class="grid">
 
         <div class="grid-s-12 grid-sm-6 grid-md-6">
+
             @card([
                 'href' => 'http://styleguide.helsingborg.se/card',
                 'title' => ['text' => 'Why not add an avatar to your card', 'position' => 'top'],
