@@ -14,27 +14,10 @@
 @section('hero')
 
     <style>
-        .c-section {
-            display: block; 
-            background: #eee; 
-        }
-
-        .c-section-full, 
-        .c-section-wide {
-            max-width: 100vw;
-            width: 100vw;
-        }
-
-        .c-section--full {
-            margin: 32px calc(50% - 50vw);
-        }
-
-        .c-section--wide {
-            margin: 32px calc(25% - 25vw);
-        }
+        
     </style>
     <div class="container">
-        <section class="c-section c-section--wide">
+        <section class="c-section c-section--wide c-section-padding-md">
             <div class="">
                 Hello
             </div>
