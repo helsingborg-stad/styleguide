@@ -13,14 +13,20 @@
 
 @section('hero')
 
-    <style>
-        
-    </style>
     <div class="container">
         <section class="c-section c-section--wide c-section-padding-md">
             <div class="">
                 Hello
             </div>
+
+            @typography([
+                'variant' => "h2",
+                'element' => "h2",
+                'classList' => [$baseClass."__title"]
+            ])
+                Hello!
+            @endtypography
+
         </section>
     </div>
 

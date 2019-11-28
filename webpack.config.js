@@ -119,10 +119,10 @@ module.exports = {
         }),
 
         //Lint for scss
-        new StylelintPlugin({
+        /*new StylelintPlugin({
             context: "./source/sass",
             configFile: "./.stylelintrc",
             emitWarning: true
-        })
+        })*/
     ]
 };
