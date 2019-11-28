@@ -122,7 +122,8 @@ module.exports = {
         new StylelintPlugin({
             context: "./source/sass",
             configFile: "./.stylelintrc",
-            emitWarning: true
+            emitWarning: true,
+            defaultSeverity: "warning"
         })
     ]
 };
