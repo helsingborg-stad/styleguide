@@ -68,9 +68,6 @@
                 'name' => 'Level 4 1',
                 'href' => '#'
             ],
-        ],
-        'classList' => [
-            'u-color__bg--danger'
         ]
     ])
 

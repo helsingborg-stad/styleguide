@@ -134,12 +134,12 @@
         padding: map-get($spacers, "5");
 
         &__logo {
+            margin-right: map-get($spacers, "10");
 
             img {
                 height: 55px;
                 width: auto;
             }
-            margin-right: map-get($spacers, "10");
         }
 
         &__list {
@@ -226,6 +226,7 @@
 
         .c-navbar__logo {
             order: 2;
+            margin-right: 0;
         }
 
         .c-navbar__list {
@@ -253,6 +254,12 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-right: 0;
+            margin: 0;
+
+            img {
+                margin: 0 auto;
+            }
         }
 
         .c-navbar__list {
@@ -278,6 +285,8 @@
 
         .c-navbar__logo {
             order: 3;
+            margin-left: map-get($spacers, "10");
+            margin-right: 0;
         }
 
         .c-navbar__list {
