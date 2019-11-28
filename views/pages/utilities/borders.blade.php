@@ -11,36 +11,48 @@
         <div class="grid">
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border around whole element',
-                'classList' => ['u-border']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=743',
+                    'title' => ['text' => 'Border around whole element', 'position' => 'top'],
+                    'byline' => ['text' => 'Enclose it', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>
     
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border only in bottom of element',    
-                'classList' => ['u-border__bottom--2']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1001',
+                    'title' => ['text' => 'Border only in the bottom', 'position' => 'top'],
+                    'byline' => ['text' => 'Add as you like', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border__bottom--2'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>
 
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border removed from right',    
-                'classList' => ['u-border--2 u-border__right--0']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=10',
+                    'title' => ['text' => 'Border removed from right', 'position' => 'top'],
+                    'byline' => ['text' => 'Remove as you like', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border', 'u-border__right--0'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>
@@ -55,36 +67,48 @@
         <div class="grid">
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Success color',
-                'classList' => ['u-border u-border__color--success']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1002',
+                    'title' => ['text' => 'Border with success color', 'position' => 'top'],
+                    'byline' => ['text' => 'Any colour you like', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border', 'u-border__color--success'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>
     
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Warning color',    
-                'classList' => ['u-border u-border__color--warning']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1004',
+                    'title' => ['text' => 'Border with warning color', 'position' => 'top'],
+                    'byline' => ['text' => 'Any colour you like', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border', 'u-border__color--warning'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>
 
             <div class="grid-s-12 grid-md-4">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Info color',    
-                'classList' => ['u-border u-border__color--info']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1011',
+                    'title' => ['text' => 'Border with info color', 'position' => 'top'],
+                    'byline' => ['text' => 'Any colour you like', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border', 'u-border__color--info'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
-    
+
                 @endcard
     
             </div>

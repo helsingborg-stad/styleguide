@@ -12,29 +12,29 @@
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_width']])
     <div class="grid" style="height:500px;">
-    
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'WIDTH 25%',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu.',
-                'classList' => ['u-width--25']
-    
-                ])
-    
-            @endcard
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'WIDTH 50%.',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu.',
-                'classList' => ['u-width--50']
-    
-                ])
-    
-            @endcard
+        @card([
+            'href' => '#',
+            'image' => 'https://picsum.photos/300/225?image=1011',
+            'title' => ['text' => 'Width 50%', 'position' => 'top'],
+            'byline' => ['text' => 'One size may not fit all', 'position' => 'top'],
+            'classList' => ['c-card--shadow-on-hover', 'u-width--50'],
+            'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla.',
+            'hasRipple' => false
+        ])
+
+        @endcard
+
+        @card([
+            'href' => '#',
+            'image' => 'https://picsum.photos/300/225?image=1011',
+            'title' => ['text' => 'Width 25%', 'position' => 'top'],
+            'byline' => ['text' => 'One size may not fit all', 'position' => 'top'],
+            'classList' => ['c-card--shadow-on-hover', 'u-width--25'],
+            'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla.',
+            'hasRipple' => false
+        ])
+
+        @endcard
             
     </div>
     @endutility_doc    
@@ -44,32 +44,37 @@
     @endmarkdown
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_height']])
-    <div class="grid" style="height:500px;">
-    
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'HEIGHT 50%.',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu.',
-                'classList' => ['u-width--50','u-height--50']
-    
+        <div class="grid" style="height:500px;">
+            <div class="grid-s-12 grid-md-6">
+                @card([
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1011',
+                    'title' => ['text' => 'Height 50%', 'position' => 'top'],
+                    'byline' => ['text' => 'One size may not fit all', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-height--50', 'u-overflow--hidden'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla.',
+                    'hasRipple' => false
                 ])
-    
-            @endcard
-            @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'HEIGHT 75%.',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu.',
-                'classList' => ['u-width--50','u-height--75']
-    
+
+                @endcard
+            </div>
+
+
+            <div class="grid-s-12 grid-md-6">
+                @card([
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=1011',
+                    'title' => ['text' => 'Height 25%', 'position' => 'top'],
+                    'byline' => ['text' => 'One size may not fit all', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-height--25', 'u-overflow--hidden'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla.',
+                    'hasRipple' => false
                 ])
-    
-            @endcard
-            
-    </div>
+
+                @endcard
+            </div>
+                
+        </div>
     @endutility_doc  
     
 </article>
