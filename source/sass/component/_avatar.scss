@@ -4,26 +4,29 @@
     line-height: 0;
     position: relative;
 
-    /* Modifiers */ 
+    /* Modifiers */
+
     &--size-sm {
-        @include size(40); 
+        @include size(40);
     }
 
     &--size-md {
-        @include size(72); 
+        @include size(72);
     }
 
     &--size-lg {
-        @include size(112); 
+        @include size(112);
     }
 
     &--size-full {
-        @include ratio(1,1,false); 
-        width: 100%; 
+        @include ratio(1,1,false);
+
+        width: 100%;
         height: 100%;
     }
 
     /* Nested elements */
+
     &__image,
     &__initials {
         @include cover();
@@ -40,7 +43,7 @@
 
         .c-icon {
             @include center();
-            color: #fff; 
+            color: #fff;
         }
     }
 }

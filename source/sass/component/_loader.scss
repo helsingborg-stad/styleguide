@@ -1,5 +1,6 @@
 .loader {
     /* Loader circular  */
+
     &.loader--circular {
 
         color: #000;
@@ -45,69 +46,191 @@
     }
 
     @-webkit-keyframes loader--circular-anim {
+
         0%,
         100% {
-            box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+            box-shadow: 0 -3em 0 0.2em,
+                2em -2em 0 0em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 0;
         }
 
         12.5% {
-            box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 0,
+                2em -2em 0 0.2em,
+                3em 0 0 0,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 -1em;
         }
 
         25% {
-            box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -0.5em,
+                2em -2em 0 0,
+                3em 0 0 0.2em,
+                2em 2em 0 0,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 -1em;
         }
 
         37.5% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0em 0 0,
+                2em 2em 0 0.2em,
+                0 3em 0 0em,
+                -2em 2em 0 -1em,
+                -3em 0em 0 -1em,
+                -2em -2em 0 -1em;
         }
 
         50% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 0em,
+                0 3em 0 0.2em,
+                -2em 2em 0 0,
+                -3em 0em 0 -1em,
+                -2em -2em 0 -1em;
         }
 
         62.5% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 0,
+                -2em 2em 0 0.2em,
+                -3em 0 0 0,
+                -2em -2em 0 -1em;
         }
 
         75% {
-            box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+            box-shadow: 0em -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0em 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 0,
+                -3em 0em 0 0.2em,
+                -2em -2em 0 0;
         }
 
         87.5% {
-            box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+            box-shadow: 0em -3em 0 0,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 0,
+                -3em 0em 0 0,
+                -2em -2em 0 0.2em;
         }
     }
 
     @keyframes loader--circular-anim {
+
         0%,
         100% {
-            box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+            box-shadow: 0 -3em 0 0.2em,
+                2em -2em 0 0em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 0;
         }
+
         12.5% {
-            box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 0,
+                2em -2em 0 0.2em,
+                3em 0 0 0,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 -1em;
         }
+
         25% {
-            box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -0.5em,
+                2em -2em 0 0,
+                3em 0 0 0.2em,
+                2em 2em 0 0,
+                0 3em 0 -1em,
+                -2em 2em 0 -1em,
+                -3em 0 0 -1em,
+                -2em -2em 0 -1em;
         }
+
         37.5% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0em 0 0,
+                2em 2em 0 0.2em,
+                0 3em 0 0em,
+                -2em 2em 0 -1em,
+                -3em 0em 0 -1em,
+                -2em -2em 0 -1em;
         }
+
         50% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 0em,
+                0 3em 0 0.2em,
+                -2em 2em 0 0,
+                -3em 0em 0 -1em,
+                -2em -2em 0 -1em;
         }
+
         62.5% {
-            box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+            box-shadow: 0 -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 0,
+                -2em 2em 0 0.2em,
+                -3em 0 0 0,
+                -2em -2em 0 -1em;
         }
+
         75% {
-            box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+            box-shadow: 0em -3em 0 -1em,
+                2em -2em 0 -1em,
+                3em 0em 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 0,
+                -3em 0em 0 0.2em,
+                -2em -2em 0 0;
         }
+
         87.5% {
-            box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+            box-shadow: 0em -3em 0 0,
+                2em -2em 0 -1em,
+                3em 0 0 -1em,
+                2em 2em 0 -1em,
+                0 3em 0 -1em,
+                -2em 2em 0 0,
+                -3em 0em 0 0,
+                -2em -2em 0 0.2em;
         }
     }
 
     /* Loader linear */
+
     &.loader--linear,
     &.loader--linear:before,
     &.loader--linear:after {
@@ -120,6 +243,7 @@
         animation: loader--linear-anim 1.8s infinite ease-in-out;
 
     }
+
     &.loader--linear {
         color: #000;
         font-size: 10px;
@@ -131,6 +255,7 @@
         transform: translateZ(0);
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
+
         &.loader--lg {
             font-size: 14px;
         }
@@ -147,41 +272,46 @@
             font-size: 3px;
         }
     }
+
     &.loader--linear:before,
     &.loader--linear:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
     }
+
     &.loader--linear:before {
         left: -3.5em;
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
     }
+
     &.loader:after {
         left: 3.5em;
     }
     @-webkit-keyframes loader--linear-anim {
+
         0%,
         80%,
         100% {
             box-shadow: 0 2.5em 0 -1.3em;
         }
+
         40% {
             box-shadow: 0 2.5em 0 0;
         }
     }
     @keyframes loader--linear-anim {
+
         0%,
         80%,
         100% {
             box-shadow: 0 2.5em 0 -1.3em;
         }
+
         40% {
             box-shadow: 0 2.5em 0 0;
         }
     }
 
 }
-
-

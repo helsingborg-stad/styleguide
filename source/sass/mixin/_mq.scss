@@ -7,12 +7,12 @@
  */
 
 @mixin mq($from: null, $until: null, $orientation: null, $and: null) {
-    $queryString: 'screen';
+    $queryString: "screen";
     $min-width: null;
     $max-width: null;
 
     //Min-width
-    @if ($from != null and $from != 'print') {
+    @if ($from != null and $from != "print") {
         @if map-has-key($breakpoints-map, $from) {
             $min-width: em(map-get($breakpoints-map, $from));
         } @else {
@@ -21,7 +21,7 @@
     }
 
     //Max-width
-    @if ($until != null and $until != 'print') {
+    @if ($until != null and $until != "print") {
         @if map-has-key($breakpoints-map, $until) {
             $max-width: em(map-get($breakpoints-map, $until)) - em(1px);
         } @else {
@@ -31,32 +31,32 @@
 
     //Build media query string
     @if $min-width != null and strip-unit($min-width) > 0 {
-        $queryString: '#{$queryString} and (min-width: #{$min-width})';
+        $queryString: "#{$queryString} and (min-width: #{$min-width})";
     }
 
     @if $max-width != null and strip-unit($max-width) > 0 {
-        $queryString: '#{$queryString} and (max-width: #{$max-width})';
+        $queryString: "#{$queryString} and (max-width: #{$max-width})";
     }
 
     //Orientation
-    @if $orientation == 'landscape' {
-        $queryString: '#{$queryString} and (orientation:landscape)';
-    } @else if $orientation == 'portrait' {
-        $queryString: '#{$queryString} and (orientation:portrait)';
+    @if $orientation == "landscape" {
+        $queryString: "#{$queryString} and (orientation:landscape)";
+    } @else if $orientation == "portrait" {
+        $queryString: "#{$queryString} and (orientation:portrait)";
     }
 
     //Additional condition
     @if $and != null {
-        $queryString: '#{$queryString} #{$and}';
+        $queryString: "#{$queryString} #{$and}";
     }
 
     //Reset media query string to print
-    @if $from == 'print' or $until == 'print' {
-        $queryString: 'print';
+    @if $from == "print" or $until == "print" {
+        $queryString: "print";
     }
 
     //Wrap content in media query if a query is defined, else only output content
-    @if $queryString != 'screen' {
+    @if $queryString != "screen" {
         @media #{$queryString} {
             @content;
         }

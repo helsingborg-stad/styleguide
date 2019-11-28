@@ -1,11 +1,24 @@
+<<<<<<< HEAD
 .c-dropdown--on-hover{
     
     .c-button:hover ~ .c-dropdown__list{
+=======
+/* .c-dropdown--on-click{
+    .c-btn:focus ~ .c-dropdown__list{
+        visibility: visible;
+        opacity: 1;
+    }
+} */
+
+.c-dropdown--on-hover {
+
+    .c-button:hover~.c-dropdown__list {
+>>>>>>> origin/develop
         visibility: visible;
         opacity: 1;
     }
 
-    .c-dropdown__list:hover{
+    .c-dropdown__list:hover {
         visibility: visible;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -17,7 +30,8 @@
 .c-dropdown {
     position:relative;
     display:inline-block;
-    &__list{
+
+    &__list {
         transition:opacity 0.3s ease-in;
         position:absolute;
         @include shadow(6);
@@ -26,19 +40,22 @@
         color: $color-menu-text;
         visibility: hidden;
         opacity: 0;
-        & li:hover{
+
+        & li:hover {
             background-color:darken($color: $color-menu-background, $amount: 10);
         }
-        & div{
+
+        & div {
             flex-grow: 1;
         }
-        & ul{
+
+        & ul {
             padding:0;
-           
+
             text-align: center;
         }
-    
-        & li{
+
+        & li {
             padding-left: $base * 3.5;
             padding-right: $base * 3.5;
             padding-top: $base;
@@ -47,72 +64,93 @@
             cursor:pointer;
         }
 
-        & a{
+        & a {
             text-decoration: none;
         }
 
-        & a:visited{
+        & a:visited {
             color: $color-menu-text;
         }
 
-        &--hidden{
+        &--hidden {
             visibility: hidden;
         }
-    
-        &--visible{
+
+        &--visible {
             visibility: visible;
             opacity: 1;
         }
     }
 }
 
+<<<<<<< HEAD
 .c-dropdown-button--left__click{
     .c-button:focus{
+=======
+.c-dropdown-button--left__click {
+
+    .c-button:focus {
+>>>>>>> origin/develop
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 }
 
+<<<<<<< HEAD
 .c-dropdown-button--right__click{
     .c-button:focus{
+=======
+.c-dropdown-button--right__click {
+
+    .c-button:focus {
+>>>>>>> origin/develop
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
+<<<<<<< HEAD
 .c-dropdown-button--left__hover{
     .c-button:hover{
+=======
+.c-dropdown-button--left__hover {
+
+    .c-button:hover {
+>>>>>>> origin/develop
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
 }
 
+<<<<<<< HEAD
 .c-dropdown-button--right__hover{
     .c-button:hover{
+=======
+.c-dropdown-button--right__hover {
+
+    .c-button:hover {
+>>>>>>> origin/develop
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
-.c-dropdown__list--right{
+.c-dropdown__list--right {
     top:0;
     left:96%;
 }
 
-.c-dropdown__list--left{
+.c-dropdown__list--left {
     top:0;
     right:96%;
 }
 
-.c-dropdown__list--top{
+.c-dropdown__list--top {
     bottom:96%;
     left:0;
 }
 
-.c-dropdown__list--bottom{
+.c-dropdown__list--bottom {
     top:96%;
     left:0;
 }
-
-
-

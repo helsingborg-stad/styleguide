@@ -2,19 +2,19 @@
     display: flex;
     width: 100%;
     align-items: center;
-    background-color: $color-primary;
-
-    &__logo {
-        *:nth-of-type(1){
-            max-width: 100px;
-        }
-    }
+    background-color: #ffffff;
+    color: #000000;
+    border-top: 8px solid $color-primary;
+    @include shadow(1);
 
     &__item {
+
         span {
-            color: $color-primary;
+            font-size: 18px;
+            color: #000000;
         }
     }
+
     .c-icon__label {
         display: none;
     }
@@ -26,23 +26,35 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, 'xs'), 'md') {
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .c-navbar {
         flex-wrap: wrap;
-    
+
         &__logo {
             order: 1;
             flex:1;
-
+            max-width: 50%;
+            padding: map-get($spacers, "2");
         }
 
         &__toggle {
             order: 2;
             display: flex;
+            height: auto;
             justify-content: flex-end;
-            padding-right: #{map-get($spacers, '1')};
+            margin-left: auto;
+            padding-right: #{map-get($spacers, "1")};
+
+            .c-button {
+                transition: all 0.3s ease-in-out;
+
+                &[is-open=""] {
+                    transform: rotate(180deg);
+                }
+            }
         }
-    
+
         &__list {
             display: flex;
             flex-direction: column;
@@ -56,11 +68,11 @@
                 max-height: 100vh;
                 transition: max-height 0.5s ease-in-out;
             }
-    
+
             &:nth-of-type(2) {
                 order: 3;
             }
-    
+
             &:nth-of-type(3) {
                 order: 4;
             }
@@ -68,7 +80,7 @@
 
         &__item {
             width: 100%;
-            height: inherit;
+            //height: inherit;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -78,7 +90,7 @@
                 color: $color-primary;
                 order: 1;
                 flex: 1;
-                padding: #{map-get($spacers, '1')};
+                padding: #{map-get($spacers, "1")};
 
                 &:active, &:visited, &:hover, &:visited:hover {
                     color: $color-primary;
@@ -88,7 +100,7 @@
 
         &__subtoggle {
             order: 2;
-            padding: #{map-get($spacers, '1')};
+            padding: #{map-get($spacers, "1")};
         }
 
         &__subcontainer {
@@ -115,8 +127,21 @@
 }
 
 //logo right items left
-@include mq(map_get($breakpoints-map, 'md')) {
+@include mq(map_get($breakpoints-map, "md")) {
+
     .c-navbar {
+        height: 140px;
+        padding: map-get($spacers, "5");
+
+        &__logo {
+            margin-right: map-get($spacers, "10");
+
+            img {
+                height: 55px;
+                width: auto;
+            }
+        }
+
         &__list {
             display: inline-flex;
 
@@ -136,36 +161,38 @@
         &__item {
             position: relative;
             white-space: nowrap;
+            margin: 0 map-get($spacers, "2");
 
             span, span:active, span:visited, span:hover, span:visited:hover {
-                color: white;
                 min-height: 44px;
                 min-width: 44px;
-                padding: #{map-get($spacers, '1')};
             }
 
-            &:hover > .c-navbar__subcontainer > .c-navbar__subitem:first-of-type,
-            &:active > .c-navbar__subcontainer > .c-navbar__subitem:first-of-type,
-            &:hover > .c-navbar__subitem,
-            &:active > .c-navbar__subitem {
+            &:hover>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
+            &:active>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
+            &:hover>.c-navbar__subitem,
+            &:active>.c-navbar__subitem {
                 //display: block;
             }
 
             &:after {
                 display:block;
-                content: '';
-                border-bottom: solid 3px $color-secondary;  
-                transform: scaleX(0);  
+                content: "";
+                width: 24px;
+                height: 2px;
+                background-color: $color-primary;
+                transform: scaleX(0);
                 transition: transform 250ms ease-in-out;
             }
 
             &:hover,
             &:active {
+
                 &:after {
                     transform: scaleX(1);
                 }
             }
-            
+
         }
 
         &__subcontainer {
@@ -180,9 +207,9 @@
             left: 100%;
             top: 0;
             z-index: $level-7;
-            padding: #{map-get($spacers, '1')};
+            padding: #{map-get($spacers, "1")};
 
-            .c-navbar__item > span {
+            .c-navbar__item>span {
                 color: black;
 
                 &:active, &:visited, &:hover, &:visited:hover {
@@ -193,11 +220,13 @@
     }
 
     //logo center
+
     .c-navbar--logo__center {
         justify-content: center;
 
         .c-navbar__logo {
             order: 2;
+            margin-right: 0;
         }
 
         .c-navbar__list {
@@ -216,6 +245,7 @@
     }
 
     //logo top
+
     .c-navbar--logo__top {
         flex-wrap: wrap;
 
@@ -224,9 +254,16 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-right: 0;
+            margin: 0;
+
+            img {
+                margin: 0 auto;
+            }
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 2;
                 flex: 1;
@@ -242,14 +279,18 @@
     }
 
     //logo right
+
     .c-navbar--logo__right {
         justify-content: flex-end;
 
         .c-navbar__logo {
             order: 3;
+            margin-left: map-get($spacers, "10");
+            margin-right: 0;
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 1;
             }
@@ -263,21 +304,24 @@
     //logo left items right
 
     .c-navbar--logo__left__items__right {
+
         .c-navbar__logo {
             margin-right: auto;
         }
     }
 
     //logo right items left
+
     .c-navbar--logo__right__items__left {
         justify-content: flex-end;
-        
+
         .c-navbar__logo {
             order: 3;
             margin-left: auto;
         }
 
         .c-navbar__list {
+
             &:nth-of-type(2) {
                 order: 1;
             }

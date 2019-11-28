@@ -1,62 +1,61 @@
 $colors: (
-	primary: $color-primary,
-	secondary: $color-secondary,
-	success: $color-success,
-	danger: $color-danger,
-	info: $color-info,
-	warning: $color-warning,
+    primary: $color-primary,
+    secondary: $color-secondary,
+    success: $color-success,
+    danger: $color-danger,
+    info: $color-info,
+    warning: $color-warning,
 );
 
 $border-widths: (
-	0: 0,
-	1: 1px,
-	2: 2px
+    0: 0,
+    1: 1px,
+    2: 2px
 );
 
 $border-width-default: 1px;
 
 $sides: (top, left, right, bottom);
 
-
 $spacing-util: (
-	(
-		name: 'border',
-		default: (border: #{$border-width-default} solid #{$color_primary}),
-		modifiers: (
-			0: (border:  #{map-get($border_widths, 0)} solid #{$color_primary}),
-			1: (border:  #{map-get($border_widths, 1)} solid #{$color_primary}),
-			2: (border:  #{map-get($border_widths, 2)} solid #{$color_primary})
-		)
-	),
-	(
-		name: 'border__color',
-		default: (border-color: #{$color_primary}),
-		modifiers: (
-			primary: (border-color:  #{$color_primary}),
-			secondary: (border-color: #{$color_secondary}),
-			success: (border-color:  #{$color_success}),
-			danger: (border-color:  #{$color_danger}),
-			info: (border-color:  #{$color_info}),
-			warning: (border-color:  #{$color_warning})
-		)
-	)
+    (
+        name: "border",
+        default: (border: #{$border-width-default} solid #{$color_primary}),
+        modifiers: (
+            0: (border:  #{map-get($border_widths, 0)} solid #{$color_primary}),
+            1: (border:  #{map-get($border_widths, 1)} solid #{$color_primary}),
+            2: (border:  #{map-get($border_widths, 2)} solid #{$color_primary})
+        )
+    ),
+    (
+        name: "border__color",
+        default: (border-color: #{$color_primary}),
+        modifiers: (
+            primary: (border-color:  #{$color_primary}),
+            secondary: (border-color: #{$color_secondary}),
+            success: (border-color:  #{$color_success}),
+            danger: (border-color:  #{$color_danger}),
+            info: (border-color:  #{$color_info}),
+            warning: (border-color:  #{$color_warning})
+        )
+    )
 );
 
-@each $side in $sides{
-	$mods: ();
+@each $side in $sides {
+    $mods: ();
 
-	@each $width_name, $width in $border-widths {
-		$style: (#{$width_name}:(border-#{$side}: #{$width} solid #{$color-primary}));
-		$mods: map-merge($mods, $style);
-	}
+    @each $width_name, $width in $border-widths {
+        $style: (#{$width_name}:(border-#{$side}: #{$width} solid #{$color-primary}));
+        $mods: map-merge($mods, $style);
+    }
 
-	$util: (
-		name: 'border__#{$side}',
-		default: (border-#{$side}: #{$border-width-default}),
-		modifiers: $mods
-	);
+    $util: (
+        name: "border__#{$side}",
+        default: (border-#{$side}: #{$border-width-default}),
+        modifiers: $mods
+    );
 
-	$spacing-util: append($spacing-util, $util);
+    $spacing-util: append($spacing-util, $util);
 }
 
-@include build-utilities($spacing-util); 
+@include build-utilities($spacing-util);

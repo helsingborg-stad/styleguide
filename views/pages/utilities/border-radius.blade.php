@@ -9,12 +9,14 @@
 
             <div class="grid-s-12 grid-md-6">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border radius to the left',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu söka.',
-                "classList" => ['u-border--2', 'u-rounded-left--16']
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=743',
+                    'title' => ['text' => 'Border radius to the left', 'position' => 'top'],
+                    'byline' => ['text' => 'That side', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border--2', 'u-rounded-left--16'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                        därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
 
                 @endcard
@@ -23,13 +25,14 @@
 
             <div class="grid-s-12 grid-md-6">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border radius on top left',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu söka.',
-                "classList" => ['u-border--2', 'u-rounded-top-left--16']
-
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=743',
+                    'title' => ['text' => 'Border radius on top left', 'position' => 'top'],
+                    'byline' => ['text' => 'That one corner', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border--2', 'u-rounded-top-left--16'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
 
                 @endcard
@@ -38,21 +41,19 @@
 
             <div class="grid-s-12 grid-md-6">
                 @card([
-                'href' => 'http://styleguide.helsingborg.se/card',
-                'image' => 'https://picsum.photos/300/200?image=1077',
-                'title' => 'Border radius with full modifier',
-                'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                därmed annat ännu söka.',
-                "classList" => ['u-border--2', 'u-border-radius--full']
-
+                    'href' => '#',
+                    'image' => 'https://picsum.photos/300/225?image=743',
+                    'title' => ['text' => 'Border radius with full modifier', 'position' => 'top'],
+                    'byline' => ['text' => 'All of them', 'position' => 'top'],
+                    'classList' => ['c-card--shadow-on-hover', 'u-border--2', 'u-border-radius--full'],
+                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
+                    därmed annat ännu söka.',
+                    'hasRipple' => false
                 ])
 
                 @endcard
 
             </div>
-
-
-
         </div>
     @endutility_doc
 

@@ -15,17 +15,32 @@
     @endmarkdown
 
     @doc(['slug' => 'avatar'])
+        <div class="grid">
+            <div class="grid-md-3">
+                @avatar([
+                    'name' => "Cookie Monster"
+                ])
+                @endavatar
+            </div>
 
-        @avatar([
-            'name' => "Cookie Monster"
-        ])
-        @endavatar
+            <div class="grid-md-3">
+                @avatar([
+                    'image' => "https://picsum.photos/70/70?image=64",
+                    'name' => "Cookie Monster"
+                ])
+                @endavatar
+            </div>
 
-        @avatar([
-            'image' => "https://picsum.photos/70/70?image=64",
-            'name' => "Cookie Monster"
-        ])
-        @endavatar
-
+            <div class="grid-md-3">
+                @avatar([
+                    'name' => "Cookie Monster",
+                    'icon' => [
+                        'name' => 'favorite',
+                        'size' => 'xl'
+                    ]
+                 ])
+                @endavatar
+            </div>
+        </div>
     @enddoc
 @stop

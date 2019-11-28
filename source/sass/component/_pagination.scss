@@ -1,50 +1,50 @@
-
 .c-pagination {
 
     &__list {
-        @include unlist(); 
-        padding: 0; 
+        @include unlist();
+
+        padding: 0;
         margin: 0;
-        display: flex; 
+        display: flex;
     }
 
     &__item {
         margin: 0;
-        padding: 0; 
-        line-height: 1; 
+        padding: 0;
+        line-height: 1;
         border-radius: $border-radius-sm;
     }
 
     &__item--is-active {
-        @include shadow(2); 
+        @include shadow(2);
+
         background-color: $color-primary;
     }
 
     &__item--is-active &__link,
-    &__item--is-active &__link:visited, 
-    &__item--is-active &__link:visited:hover  {
+    &__item--is-active &__link:visited,
+    &__item--is-active &__link:visited:hover {
         color: $color-white;
     }
 
     &__link {
         display: block;
-        padding: map-get($spacers, '1') map-get($spacers, '2');
+        padding: map-get($spacers, "1") map-get($spacers, "2");
     }
 
     &__link,
-    &__link:visited, 
-    &__link:visited:hover  {
+    &__link:visited,
+    &__link:visited:hover {
         color: $color-black;
-        text-decoration: none;  
+        text-decoration: none;
     }
 
     .c-icon {
-        color: $color-breadcrumb-icon; 
+        color: $color-breadcrumb-icon;
 
         &:before {
             vertical-align: -20%; /* TODO: Fix */
         }
     }
-
 
 }

@@ -6,35 +6,37 @@
     //overflow: auto;
     cursor: default;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 5px 8px 0px rgba(0,0,0,0.14), 0px 1px 14px 0px rgba(0,0,0,0.12);
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
+        0px 5px 8px 0px rgba(0,0,0,0.14),
+        0px 1px 14px 0px rgba(0,0,0,0.12);
 
     &--size-sm {
-        max-width: map_get($breakpoints-map, 'sm');
+        max-width: map_get($breakpoints-map, "sm");
     }
 
     &--size-md {
-        max-width: map_get($breakpoints-map, 'md');
+        max-width: map_get($breakpoints-map, "md");
     }
 
     &--size-lg {
-        max-width: map_get($breakpoints-map, 'lg');
+        max-width: map_get($breakpoints-map, "lg");
     }
 
     &--size-xl {
-        max-width: map_get($breakpoints-map, 'xl');
+        max-width: map_get($breakpoints-map, "xl");
     }
 
     &__header {
-        padding: map-get($spacers, '4') map-get($spacers, '4') 0;
+        padding: map-get($spacers, "4") map-get($spacers, "4") 0;
     }
 
     &__content {
         overflow: auto;
-        padding: map-get($spacers, '2') map-get($spacers, '4');
+        padding: map-get($spacers, "2") map-get($spacers, "4");
     }
 
     &__footer {
-        padding: map-get($spacers, '4');
+        padding: map-get($spacers, "4");
     }
 
     &--gallery {
@@ -52,20 +54,25 @@
 
     &__close {
         position: absolute;
-        top:- map-get($spacers, '7');
-        right: map-get($spacers, '2');
+        top:- map-get($spacers, "7");
+        right: map-get($spacers, "2");
         display: block;
         color: $color-white;
         cursor: pointer;
     }
 
+<<<<<<< HEAD
     &__prev,  &__next, &__close {
+=======
+    &__prev, &__next, &__close {
+
+>>>>>>> origin/develop
         &.c-button__icon:focus {
             outline: none;
         }
     }
 
-    &__prev,  &__next {
+    &__prev, &__next {
         position:absolute;
         top: calc(50% - 10px); /* 50% - 3/4 of icon height */
         vertical-align: middle;
@@ -74,54 +81,61 @@
     }
 
     &__prev {
-        left:- map-get($spacers, '8');
+        left:- map-get($spacers, "8");
     }
 
     &__next {
-        right:- map-get($spacers, '8');
+        right:- map-get($spacers, "8");
     }
-    @include mq(map_get($breakpoints-map, 'xs'), 'lg') {
+    @include mq(map_get($breakpoints-map, "xs"), "lg") {
+
         &__prev {
-            left: map-get($spacers, '0');
+            left: map-get($spacers, "0");
         }
+
         &__next {
-            right: map-get($spacers, '0');
+            right: map-get($spacers, "0");
         }
 
         &__prev, &__next {
             vertical-align: bottom;
-            bottom: - map-get($spacers, '8');
+            bottom: - map-get($spacers, "8");
             top: unset;
         }
 
     }
-    @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+    @include mq(map_get($breakpoints-map, "xs"), "sm") {
 
-        &__close, &__prev, &__next  {
+        &__close, &__prev, &__next {
+
             &:hover {
                 box-shadow: none;
                 background: none;
             }
         }
+
         &__close {
-            top:- map-get($spacers, '6');
-            right: map-get($spacers, '1');
+            top:- map-get($spacers, "6");
+            right: map-get($spacers, "1");
+
             i {
-                font-size: map-get($icon-sizes, 'md');
+                font-size: map-get($icon-sizes, "md");
             }
         }
 
         &__prev {
-            left: map-get($spacers, '1');
-        }
-        &__next {
-            right: map-get($spacers, '1');
+            left: map-get($spacers, "1");
         }
 
-        &__prev , &__next {
-            bottom: - map-get($spacers, '6');
+        &__next {
+            right: map-get($spacers, "1");
+        }
+
+        &__prev, &__next {
+            bottom: - map-get($spacers, "6");
+
             i {
-                font-size: map-get($icon-sizes, 'md');
+                font-size: map-get($icon-sizes, "md");
             }
 
         }
@@ -158,7 +172,9 @@
 }
 
 .c-modal__bg.c-modal__bg__animation-- {
+
     &slide-up {
+
         .c-modal {
             transform: translateY(100%);
         }
@@ -166,17 +182,21 @@
     }
 
     &slide-down {
+
         .c-modal {
             transform: translateY(-100%);
         }
     }
 
     &scale-down {
+
         .c-modal {
             transform: scale(1.1);
         }
     }
+
     &scale-up {
+
         .c-modal {
             transform: scale(0.9);
         }
@@ -184,14 +204,16 @@
 }
 
 .c-modal__bg--is-visible.c-modal__bg__animation-- {
+
     &slide-up, &slide-down {
+
         .c-modal {
             transform: translateY(0);
         }
     }
 
-
     &scale-down, &scale-up {
+
         .c-modal {
             transform: scale(1.0);
         }
@@ -208,6 +230,8 @@
 }
 
 @keyframes fadein {
+
     from { opacity: 0; }
-    to   { opacity: 1; }
+
+    to { opacity: 1; }
 }

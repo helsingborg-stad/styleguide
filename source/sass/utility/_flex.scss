@@ -1,6 +1,6 @@
-$flex-utils: (  
+$flex-utils: (
     (
-        name: 'flex-direction',
+        name: "flex-direction",
         modifiers: (
             row: (flex-direction: row),
             row--reverse: (flex-direction: row-reverse),
@@ -9,7 +9,7 @@ $flex-utils: (
         )
     ),
     (
-        name: 'justify-content',
+        name: "justify-content",
         modifiers: (
             start: (justify-content: flex-start),
             end: (justify-content: flex-end),
@@ -20,7 +20,7 @@ $flex-utils: (
         )
     ),
     (
-        name: 'flex-wrap',
+        name: "flex-wrap",
         default: (flex-wrap: wrap),
         modifiers: (
             reverse: (flex-wrap:  wrap-reverse),
@@ -28,21 +28,21 @@ $flex-utils: (
         )
     ),
     (
-        name: 'flex-grow',
+        name: "flex-grow",
         modifiers: (
             0: (flex-grow: 0),
             1: (flex-grow: 1)
         )
     ),
     (
-        name: 'flex-shrink',
+        name: "flex-shrink",
         modifiers: (
             0: (flex-shrink: 0),
             1: (flex-shrink: 1)
         )
     ),
     (
-        name: 'align-items',
+        name: "align-items",
         modifiers: (
             start: (align-items: flex-start),
             end: (align-items: flex-end),
@@ -52,7 +52,7 @@ $flex-utils: (
         )
     ),
     (
-        name: 'align-self',
+        name: "align-self",
         modifiers: (
             start: (align-self: flex-start),
             end: (align-self: flex-end),
@@ -61,7 +61,7 @@ $flex-utils: (
         )
     ),
     (
-        name: 'align-content',
+        name: "align-content",
         modifiers: (
             start: (align-content: flex-start),
             end: (align-content: flex-end),
@@ -77,10 +77,10 @@ $flex-utils: (
 // Special case, list becomes too long
 $order: 0;
 
-@while($order <= 12){
+@while($order <= 12) {
     @include responsiveStyles(
         (
-            '.u-order--#{$order}': (order: $order )
+            ".u-order--#{$order}": (order: $order )
         )
     );
     $order: $order + 1;

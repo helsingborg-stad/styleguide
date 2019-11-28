@@ -1,4 +1,5 @@
 // BUTTON
+
 .c-button {
     display: inline-block;
     vertical-align: middle;
@@ -15,6 +16,7 @@
     &:visited, &:active, &:focus {
         outline: 0;
     }
+
     &:focus {
         outline:0;
         @include shadow(8);
@@ -22,12 +24,14 @@
 
     &__label {
         display:flex;
-        flex-direction: row;     
+        flex-direction: row;
     }
 
     // COLOR
+
     &--primary {
         @include button-mix($color-white, $color-primary, false);
+
         &[aria-pressed="true"] {
             background-color: $color-primary-dark;
             border-color: $color-primary-dark;
@@ -36,12 +40,13 @@
 
     &--secondary {
         @include button-mix($color-white, $color-secondary, false);
+
         &[aria-pressed="true"] {
             background-color: $color-secondary-dark;
             border-color: $color-secondary-dark;
         }
     }
-    
+
     &--default {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         @include button-mix($color-primary, $color-default, false);
@@ -61,8 +66,8 @@
         cursor: not-allowed;
     }
 
-
     // SIZE
+
     &--lg {
         @include button-size(1em, 1em, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
     }
@@ -75,13 +80,14 @@
         text-transform: uppercase;
         @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 12.5px);
     }
-    
+
     // FLOATING
+
     &--floating {
         @include shadow(6);
     }
 
-    &--animated-float-on-hover{
+    &--animated-float-on-hover {
         box-shadow: none;
         transition: 0.3s;
         transition-timing-function: ease-in;
@@ -101,9 +107,11 @@
 }
 
 // LABEL
+
 .c-button__label-icon {
     order: 2;
     padding-left: 5%;
+
     &--reverse {
         order: 1;
         padding-right: 5%;
@@ -112,6 +120,7 @@
 
 .c-button__label-text {
     order: 1;
+
     &--reverse {
         order: 2;
     }
@@ -130,10 +139,12 @@
     &[disabled] {
         background-color: $color-disabled;
         border-color: $color-disabled;
+
         * {
             color: $color-disabled-text;
         }
-        &:hover{
+
+        &:hover {
             border-color: $color-disabled;
             background-color: $color-disabled;
         }
@@ -141,6 +152,7 @@
 }
 
 // OUTLINED BUTTON
+
 .c-button__outlined {
 
     &--primary {
@@ -160,13 +172,17 @@
 }
 
 // TEXT BUTTON
+
 .c-button__text {
     border: none;
+
     &--primary {
         color: $color-primary;
+
         &:hover {
             background-color: transparentize($color-primary, 0.9);
         }
+
         &[aria-pressed="true"] {
             color: darken($color-primary, 20%);
             background-color: transparentize($color-primary, 0.5);
@@ -175,9 +191,11 @@
 
     &--secondary {
         color: $color-secondary;
+
         &:hover {
             background-color: transparentize($color-secondary, 0.9);
         }
+
         &[aria-pressed="true"] {
             color: darken($color-secondary, 20%);
             background-color: transparentize($color-secondary, 0.5);
@@ -186,9 +204,11 @@
 
     &--default {
         color: $color-primary;
+
         &:hover {
             background-color: transparentize($color-default-dark, 0.5);
         }
+
         &[aria-pressed="true"] {
             color: darken($color-primary, 20%);
             background-color: transparentize($color-default-dark, 0.2);

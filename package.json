@@ -8,7 +8,9 @@
         "prebuild": "node build.js",
         "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon-  --descent 0 --height 512 --center",
         "postbuild": "webpack --config webpack.config.js",
-        "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js"
+        "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
+        "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
+        "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix"
     },
     "repository": {
         "type": "git",
@@ -28,35 +30,38 @@
     ],
     "homepage": "https://github.com/helsingborg-stad/styleguide#readme",
     "devDependencies": {
-        "@babel/core": "^7.6.2",
-        "@babel/plugin-proposal-class-properties": "^7.5.5",
-        "@babel/polyfill": "^7.6.0",
-        "@babel/preset-env": "^7.6.2",
-        "autoprefixer": "^9.6.1",
+        "@babel/core": "^7.7.4",
+        "@babel/plugin-proposal-class-properties": "^7.7.4",
+        "@babel/polyfill": "^7.7.0",
+        "@babel/preset-env": "^7.7.4",
+        "autoprefixer": "^9.7.2",
         "babel-loader": "^8.0.6",
         "css-loader": "^2.1.1",
         "cssnano": "^4.1.10",
         "eslint-config-hbg": "^0.1.1",
         "file-loader": "^3.0.1",
         "filemanager-webpack-plugin": "^2.0.5",
+        "fs": "0.0.1-security",
         "hbg-mix": "^2.1.2",
         "icon-font-generator": "^2.1.10",
         "mini-css-extract-plugin": "^0.5.0",
         "postcss-loader": "^3.0.0",
-        "sass": "^1.22.12",
+        "sass": "^1.23.7",
         "sass-loader": "^7.3.1",
-        "webpack": "^4.41.0",
-        "webpack-cli": "^3.3.9",
+        "stylelint": "^12.0.0",
+        "stylelint-webpack-plugin": "^1.1.0",
+        "stylelint": "^12.0.0",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10",
         "webpack-fix-style-only-entries": "^0.2.2",
-        "webpack-shell-plugin": "^0.5.0",
-        "fs": "0.0.1-security"
+        "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
-        "core-js": "^3.4.1",
-        "glob": "^7.1.4",
+        "core-js": "^3.4.4",
+        "glob": "^7.1.6",
         "icon-font-generator": "^2.1.10",
         "jquery": "^3.4.1",
-        "webpack-dev-server": "^3.8.1"
+        "webpack-dev-server": "^3.9.0"
     },
     "babel": {
         "presets": [

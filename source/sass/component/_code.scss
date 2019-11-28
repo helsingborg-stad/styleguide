@@ -1,11 +1,11 @@
 .markup-preview {
-    padding: map-get($spacers, '3');
+    padding: map-get($spacers, "3");
     border-bottom: 0;
     border-radius: 5px;
 }
 
 .markup-preview--align-x {
-    padding: map-get($spacers, '3') 0;
+    padding: map-get($spacers, "3") 0;
 }
 
 pre.xdebug-var-dump {
@@ -41,6 +41,7 @@ pre:not(.xdebug-var-dump) {
         color: $color-base;
         line-height: 1.4;
         margin-top: 4px;
+
         li {
             margin-top:unset;
         }
@@ -79,7 +80,7 @@ code {
 .code-source-file {
     border: 1px solid $color-code-background;
     border-top: none;
-    padding: map-get($spacers, '1') / 2 map-get($spacers, '1');
+    padding: map-get($spacers, "1") / 2 map-get($spacers, "1");
     font-size: .8em;
 }
 
@@ -88,5 +89,3 @@ code {
     border: none;
     padding: .5em 1em;
 }
-
-

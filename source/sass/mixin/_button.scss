@@ -4,6 +4,7 @@
 
     &:visited {
         color: $color;
+
         &:hover,
         &:active {
             color: $color;
@@ -16,16 +17,22 @@
         color: $color;
     }
 
+<<<<<<< HEAD
     @if $background{
+=======
+    @if $background {
+>>>>>>> origin/develop
         border: 1px solid $background;
         background-color: $background;
+
         &:hover {
             background-color: darken($background, 5);
             border-color: darken($background, 5);
         }
     }
 
-    @if $isIconButton{
+    @if $isIconButton {
+
         &:hover {
             background-color: transparentize($color, 0.95);
         }
@@ -33,7 +40,13 @@
 }
 
 // Button sizes
-@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+@mixin button-size(
+    $padding-vertical,
+    $padding-horizontal,
+    $font-size,
+    $line-height,
+    $border-radius
+) {
     padding-left: $padding-horizontal;
     padding-right: $padding-horizontal;
     padding-top: $padding-vertical;
@@ -48,7 +61,7 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    font-weight: 'normal';
+    font-weight: "normal";
     margin: 0;
     padding: 0;
     text-align: left;

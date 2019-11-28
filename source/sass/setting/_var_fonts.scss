@@ -3,9 +3,9 @@
 // ***************************************************************
 
 //  Font Family
-$font-family-roboto: 'Roboto', sans-serif;
-$font-family-code: 'Fira Sans', 'Monaco', 'Consolas', 'Menlo', 'Lucida Console', 'Courier New',
-'Courier', 'Console';
+$font-family-roboto: "Roboto", sans-serif;
+$font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New",
+    "Courier", "Console";
 
 $font-family-heading: $font-family-roboto !default;
 $font-family-body: $font-family-roboto !default;
@@ -35,13 +35,13 @@ $font-size-btn-sm: 0.6875em;
 $font-size-btn-sm-line-height: 1;
 
 $icon-sizes:(
-    'inherit': inherit,
-    'xs': $base,
-    'sm': $base*2,
-    'md': $base*3,
-    'lg': $base*4,
-    'xl': $base*5,
-    'xxl': $base*6  
+    "inherit": inherit,
+    "xs": $base,
+    "sm": $base*2,
+    "md": $base*3,
+    "lg": $base*4,
+    "xl": $base*5,
+    "xxl": $base*6
 );
 
 //  Font Weights
@@ -58,11 +58,3 @@ $line-height-headline: 1.25;
 // Letter spacing
 $font-letterspacing-title: .0125em;
 $font-letterspacing-subtitle: .0178571429em;
-
-
-
-
-
-
-
-

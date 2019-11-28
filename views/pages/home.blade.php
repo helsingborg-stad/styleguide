@@ -36,31 +36,43 @@
     <div class="grid" data-equal-container>
         <div class="grid-xs-12 grid-md-4">
             @card([
+                'href' => '/about/accessibility',
                 'image' => 'https://picsum.photos/300/225?image=919',
-                'title' => 'Usability', 
+                'title' => ['text' => 'Usability', 'position' => 'top'],
+                'byline' => ['text' => 'A web for everyone', 'position' => 'top'],
+                'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
-                'href' => '/about/accessibility'
+                'hasRipple' => false
             ])
+
             @endcard
         </div>
 
         <div class="grid-xs-12 grid-md-4">
             @card([
+                'href' => '/about/styleguide-structure',
                 'image' => 'https://picsum.photos/300/225?image=743',
-                'title' => 'Blade components', 
+                'title' => ['text' => 'Blade components', 'position' => 'top'],
+                'byline' => ['text' => 'A wide variaty of components', 'position' => 'top'],
+                'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'This styleguide is in many parts crated with our own blade component library to enable swift development and maintaince.',
-                'href' => '/about/styleguide-structre'
+                'hasRipple' => false
             ])
+
             @endcard
         </div>
 
         <div class="grid-xs-12 grid-md-4">
             @card([
+                'href' => '/about/styleguide-structure',
                 'image' => 'https://picsum.photos/300/225?image=455',
-                'title' => 'Authors', 
+                'title' => ['text' => 'Authors', 'position' => 'top'],
+                'byline' => ['text' => 'Behind the screen', 'position' => 'top'],
+                'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'The styleguide and lirbraries where created by the awesome development team @ helsingborg stad.',
-                'href' => '/about/authors'
+                'hasRipple' => false
             ])
+
             @endcard
         </div>
 

@@ -1,5 +1,7 @@
 .c-testimonials {
+
     &__header {
+
         :first-child {
             font-weight: $font-weight-bold;
         }
@@ -26,14 +28,16 @@
     }
 
     :nth-child(odd) {
+
         .c-testimonials__image {
-           margin-top: $base;
+            margin-top: $base;
         }
     }
 
     :nth-child(even) {
+
         .c-testimonials__image {
-           margin-bottom: $base;
+            margin-bottom: $base;
         }
     }
 }

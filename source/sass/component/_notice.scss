@@ -1,78 +1,83 @@
 .c-notice {
     @include shadow(5);
-    padding: map-get($spacers, '2') map-get($spacers, '3');
+    padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
     border-radius: $border-radius-xs;
-    color: $color-notice-text-default;    
+    color: $color-notice-text-default;
+
     &--success {
-        background-color: $color-success; 
+        background-color: $color-success;
         color: $color-success-text;
     }
 
     &--danger {
-        background-color: $color-danger; 
+        background-color: $color-danger;
         color: $color-danger-text;
     }
 
     &--info {
         background-color: $color-info;
-        color: $color-info-text;  
+        color: $color-info-text;
     }
 
     &--warning {
-        background-color: $color-warning; 
-        color: $color-warning-text; 
+        background-color: $color-warning;
+        color: $color-warning-text;
     }
 
-    &__icon{
-        margin-right: map-get($spacers, '1');
+    &__icon {
+        margin-right: map-get($spacers, "1");
     }
 
 }
 
 .c-notice__message {
+
     &--inherit {
-        font-size: inherit; 
+        font-size: inherit;
     }
 
     &--xs {
-        font-size: map-get($icon-sizes, 'xs'); 
+        font-size: map-get($icon-sizes, "xs");
     }
 
     &--sm {
-        font-size: map-get($icon-sizes, 'sm'); 
+        font-size: map-get($icon-sizes, "sm");
     }
 
     &--md {
-        font-size: map-get($icon-sizes, 'md'); 
+        font-size: map-get($icon-sizes, "md");
     }
 
     &--lg {
-        font-size: map-get($icon-sizes, 'lg'); 
+        font-size: map-get($icon-sizes, "lg");
     }
 
     &--xl {
-        font-size: map-get($icon-sizes, 'xl'); 
+        font-size: map-get($icon-sizes, "xl");
     }
 
     &--xxl {
-        font-size: map-get($icon-sizes, 'xxl'); 
+        font-size: map-get($icon-sizes, "xxl");
     }
 }
 
-.c-notice__slide{
-   
-    &--from-left{
+.c-notice__slide {
+
+    &--from-left {
         @include slide(left);
     }
-    &--from-right{
+
+    &--from-right {
         @include slide(right);
     }
-    &--from-top{
+
+    &--from-top {
         @include slide(top);
     }
-    &--from-bottom{
+
+    &--from-bottom {
         @include slide(bottom);
-    }    
+    }
 
 }
