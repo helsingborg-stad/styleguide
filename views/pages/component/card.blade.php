@@ -358,12 +358,6 @@
             of writing less code but you gain more control of the look. The example below is one of those.
             @endmarkdown
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/develop
-
             <div class="grid-s-12 grid-sm-6 grid-md-6">
                 @card([
                 ])

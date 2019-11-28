@@ -17,15 +17,9 @@
         color: $color;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @if $background{
-=======
+
     @if $background {
->>>>>>> origin/develop
-=======
-    @if $background {
->>>>>>> origin/develop
+
         border: 1px solid $background;
         background-color: $background;
 
