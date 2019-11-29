@@ -1,6 +1,6 @@
-class Dropdown{
+class Dropdown {
 
-    constructor(){
+    constructor() {
         this.DROPDOWNLISTVISIBLE = 'c-dropdown__list--visible';
         this.onResize();
     }
@@ -8,7 +8,7 @@ class Dropdown{
     /**
      * Set Valid Targets
      */
-    setValidTargets(){
+    setValidTargets() {
         let dropdowns = document.getElementsByClassName('c-dropdown--on-click');
 
         for (let dropdown of dropdowns) {
@@ -22,7 +22,7 @@ class Dropdown{
 
             this.toggle(validTargets, dropDownList, offsetPositionClass);
         }
-        
+
     }
 
     /**
@@ -30,37 +30,33 @@ class Dropdown{
      * @param validTargets
      * @param dropDownList
      */
-    toggle(validTargets, dropDownList, offsetPositionClass){
+    toggle(validTargets, dropDownList, offsetPositionClass) {
         document.addEventListener('click', (event) => {
             let target = event.target;
 
-            if (offsetPositionClass){
-                if (!dropDownList.classList.contains('c-dropdown__auto--position-right')) {
-                    dropDownList.classList.add('c-dropdown__auto--position-right');
-                }
-                console.log('YES');
-            } else {
-                if (dropDownList.classList.contains('c-dropdown__auto--position-right')) {
-                    dropDownList.classList.remove('c-dropdown__auto--position-right');
-                }
-                console.log('NO');
+            if (!dropDownList.classList.contains('c-dropdown__auto--position-right') && offsetPositionClass) {
+                dropDownList.classList.add('c-dropdown__auto--position-right');
             }
 
-            if ((validTargets.includes(target))  && !dropDownList.classList.contains(this.DROPDOWNLISTVISIBLE)) {
+            if (dropDownList.classList.contains('c-dropdown__auto--position-right') && !offsetPositionClass) {
+                dropDownList.classList.remove('c-dropdown__auto--position-right');
+            }
+
+            if ((validTargets.includes(target)) && !dropDownList.classList.contains(this.DROPDOWNLISTVISIBLE)) {
                 dropDownList.classList.add(this.DROPDOWNLISTVISIBLE);
             } else {
                 dropDownList.classList.remove(this.DROPDOWNLISTVISIBLE);
             }
-        })   
+        })
     }
 
 
     /**
      * Resize - Run check
      */
-    onResize(){
+    onResize() {
         const self = this;
-        window.addEventListener('resize', function(){
+        window.addEventListener('resize', function () {
             self.setValidTargets();
         });
     }
