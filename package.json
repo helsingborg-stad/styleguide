@@ -10,7 +10,9 @@
         "postbuild": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
-        "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix"
+        "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
+        "phpcs-report": "php phpcs.phar source/library --standard=psr2",
+        "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
     },
     "repository": {
         "type": "git",
