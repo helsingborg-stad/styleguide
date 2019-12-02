@@ -13,7 +13,7 @@ class Dropdown {
      */
     setValidTargets() {
 
-        let dropdowns = document.getElementsByClassName('c-dropdown--on-click');
+        const dropdowns = document.getElementsByClassName('c-dropdown--on-click');
 
         for (let dropdown of dropdowns) {
 
