@@ -5,7 +5,8 @@ class Dropdown {
         this.DROPDOWN_LIST_VISIBLE = 'c-dropdown__list--visible';
         this.AUTO_POSITION_LEFT = 'c-dropdown__auto--position-left';
         this.AUTO_POSITION_RIGHT = 'c-dropdown__auto--position-right';
-        this.onResize();
+
+        //this.onResize();
     }
 
     /**
@@ -61,8 +62,8 @@ class Dropdown {
 
         document.addEventListener('click', (event) => {
             let target = event.target;
-            //console.log(validTargets.includes(target));
             if (validTargets.includes(target) && !dropDownList.classList.contains(this.DROPDOWN_LIST_VISIBLE)) {
+                console.log(validTargets.includes(target));
                 dropDownList.classList.add(this.DROPDOWN_LIST_VISIBLE);
             } else {
                 dropDownList.classList.remove(this.DROPDOWN_LIST_VISIBLE);
