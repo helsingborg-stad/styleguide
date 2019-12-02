@@ -18,30 +18,47 @@ class Dropdown {
             let buttonLabel = dropdownButton.getElementsByClassName('c-button__label-text')[0];
             let buttonIcon = dropdownButton.getElementsByTagName('i')[0];
             let validTargets = [dropDownList, dropdownButton, buttonLabel, buttonIcon];
-            let offsetPositionClass = (!this.isInViewport(dropDownList)) ? true : false;
+            let isOut = this.isInViewport(dropDownList);
 
-            this.toggle(validTargets, dropDownList, offsetPositionClass);
+            (isOut.left) ?
+                dropDownList.classList.add('c-dropdown__auto--position-left') :
+                dropDownList.classList.remove('c-dropdown__auto--position-left');
+
+            (isOut.right) ?
+                dropDownList.classList.add('c-dropdown__auto--position-right') :
+                dropDownList.classList.remove('c-dropdown__auto--position-right');
+
+            (isOut.bottom) ?
+                dropDownList.classList.add('c-dropdown__auto--position-bottom') :
+                dropDownList.classList.remove('c-dropdown__auto--position-bottom');
+
+            this.toggle(validTargets, dropDownList);
         }
-
     }
+
+    /**
+     * Resize - Run check
+     */
+    onResize() {
+        const self = this;
+        console.log(12);
+        window.addEventListener('resize', function () {
+            self.setValidTargets();
+        });
+    }
+
 
     /**
      * Toogle dropdown on and of
      * @param validTargets
      * @param dropDownList
      */
-    toggle(validTargets, dropDownList, offsetPositionClass) {
+    //toggle(validTargets, dropDownList, offsetPositionClass) {
+    toggle(validTargets, dropDownList) {
+
         document.addEventListener('click', (event) => {
+
             let target = event.target;
-
-            if (!dropDownList.classList.contains('c-dropdown__auto--position-right') && offsetPositionClass) {
-                dropDownList.classList.add('c-dropdown__auto--position-right');
-            }
-
-            if (dropDownList.classList.contains('c-dropdown__auto--position-right') && !offsetPositionClass) {
-                dropDownList.classList.remove('c-dropdown__auto--position-right');
-            }
-
             if ((validTargets.includes(target)) && !dropDownList.classList.contains(this.DROPDOWNLISTVISIBLE)) {
                 dropDownList.classList.add(this.DROPDOWNLISTVISIBLE);
             } else {
@@ -50,30 +67,24 @@ class Dropdown {
         })
     }
 
-
     /**
-     * Resize - Run check
-     */
-    onResize() {
-        const self = this;
-        window.addEventListener('resize', function () {
-            self.setValidTargets();
-        });
-    }
-
-    /**
-     * Checking Bounding Client - if dropdown is to close to screen edge
+     * Checking Element bounderies
      * @param element
-     * @returns {boolean|boolean}
+     * @returns {{}}
      */
     isInViewport(element) {
         let bounding = element.getBoundingClientRect();
-        return (
-            bounding.top >= 0 && bounding.left >= 0 &&
-            bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    };
+        let out = {};
+
+        out.top = bounding.top < 0;
+        out.left = bounding.left < 0;
+        out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight);
+        out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth);
+        out.any = out.top || out.left || out.bottom || out.right;
+        out.all = out.top && out.left && out.bottom && out.right;
+
+        return out;
+    }
 }
 
 export default Dropdown;
