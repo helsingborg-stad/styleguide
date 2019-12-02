@@ -7,8 +7,13 @@
         }
 
         :last-child {
-            margin-bottom: 0;
+            margin-bottom: map-get($spacers, "1");
         }
+    }
+
+    &__header, &__image {
+        margin: 0 auto;
+        text-align:center;
     }
 
     &__image {
@@ -20,6 +25,19 @@
             width: 100%;
             height: auto;
         }
+    }
+
+    .c-avatar {
+        margin: 0 auto;
+    }
+
+    .c-avatar__image,
+    .c-avatar__initials {
+        position:relative;
+        top: unset;
+        left: unset;
+        right:unset;
+        bottom: unset;
     }
 
     &__quote {
