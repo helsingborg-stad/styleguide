@@ -23,11 +23,22 @@
         Can be utilized by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
     @endmarkdown
 
+
     @paper(['padding' => 3])
-        @foreach(HbgStyleGuide\Helper\Icons::getJson() as $iconKey => $utf)
-            @icon(['icon' => str_replace("icon--", "", $iconKey), 'size' => 'xl'])
+    <div class="grid" style="margin-bottom: 16px;" js-filter-container="5da57cccd46c6">
+        <input placeholder="Search" js-filter-input="5da57cccd46c6">
+        @foreach(HbgStyleGuide\Helper\Icons::getTxt() as $iconKey => $iconName)
+        
+            <div class="grid-md-3" style="overflow-wrap: break-word" >
+                <p>
+                    
+            @icon(['icon' => $iconName, 'size' => 'xl'])
             @endicon
+                </p>
+                <span js-filter-data="">{{$iconName}}</span>
+            </div>
         @endforeach
+    </div>
     @endpaper
 
 </article>
