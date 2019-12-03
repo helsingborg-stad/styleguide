@@ -42,7 +42,7 @@
                     'imageTop' => true
                 ),
                 array(
-                    'name' => 'This stuff is soo scary!',
+                    'name' => 'Excellent work lads!',
                     'title' => 'Alfred Hitchcock, Film producer, director',
                     'testimonial' => "A lot of movies are about life, mine are like a slice of cake. Yummi styleguide!",
                     'titleElement' => 'h5',
