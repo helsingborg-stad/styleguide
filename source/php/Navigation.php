@@ -15,12 +15,12 @@ class Navigation
     );
 
     private static $icons = array(
-        'about' => 'greeting',
-        'mixins' => 'flask',
-        'script' => 'console',
+        'about' => 'people',
+        'mixins' => 'local_bar',
+        'script' => 'code',
         'icons' => 'brush',
-        'component' => 'screen',
-        'utilities' => 'wrench'
+        'component' => 'extension',
+        'utilities' => 'build'
     ); 
 
     /**
