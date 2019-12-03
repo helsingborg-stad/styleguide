@@ -35,7 +35,7 @@
                 ),
                 array(
                     'name' => 'È un capolavoro!!!!!',
-                    'title' => 'Leonardo da Vinci, Painter, scientist, polymath',
+                    'title' => 'Leonardo da Vinci',
                     'testimonial' => "Blinding ignorance does mislead us. Oh! Wretched mortals, open your eyes! Keep up the good work.",
                     'titleElement' => 'h5',
                     'image' => 'https://picsum.photos/200/200?image=1012',
@@ -43,7 +43,7 @@
                 ),
                 array(
                     'name' => 'Excellent work lads!',
-                    'title' => 'Alfred Hitchcock, Film producer, director',
+                    'title' => 'Alfred Hitchcock',
                     'testimonial' => "A lot of movies are about life, mine are like a slice of cake. Yummi styleguide!",
                     'titleElement' => 'h5',
                     'image' => 'https://picsum.photos/200/200?image=1013',
@@ -51,7 +51,7 @@
                 ),
                 array(
                     'name' => "Splendid honey!",
-                    'title' => 'Audrey Hepburn, Actress and humanitarian',
+                    'title' => 'Audrey Hepburn',
                     'testimonial' => "Let's face it, a nice creamy chocolate cake does a lot for a lot of people; it does for me.",
                     'titleElement' => 'h5',
                     'image' => 'https://picsum.photos/200/200?image=1014',
