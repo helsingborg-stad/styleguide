@@ -25,21 +25,51 @@
 
 
     @paper(['padding' => 3])
-    <div class="grid" style="margin-bottom: 16px;" js-filter-container="5da57cccd46c6">
-        <input placeholder="Search" js-filter-input="5da57cccd46c6">
-        @foreach(HbgStyleGuide\Helper\Icons::getTxt() as $iconKey => $iconName)
+        <div class="grid" style="margin-bottom: 16px;" js-filter-container="5da57cccd46c6">
         
-            <div class="grid-md-3" style="overflow-wrap: break-word" >
-                <p>
+            @field(
+                [
+                    'label' => false,
+                    'classList' => [],
+                    'textarea' => false,
+                    'attributeList' => [
+                    'name' => 'search',
+                    'id' => '303',
+                    'placeholder' => 'Search',
+                    'type' => 'text',
+                    'js-filter-input' => '5da57cccd46c6'
+                    ]
+                ]
+            )
+            @endfield
+
+            @foreach(HbgStyleGuide\Helper\Icons::getTxt() as $iconKey => $iconName)
+                <div class="grid-md-2 " style="word-break: break-word; text-align:center;" js-filter-item="">
                     
-            @icon(['icon' => $iconName, 'size' => 'xl'])
-            @endicon
-                </p>
-                <span js-filter-data="">{{$iconName}}</span>
-            </div>
-        @endforeach
-    </div>
+                    <div class="u-margin__bottom--3">      
+                        @icon(['icon' => $iconName, 'size' => 'xl'])
+                        @endicon
+                    </div>
+
+                    <span js-filter-data="" onclick="copy(this)" style="cursor:copy;">
+                        {{$iconName}}
+                    </span>
+                    
+                </div>
+            @endforeach
+        </div>
     @endpaper
 
 </article>
 @stop
+
+<script>
+    function copy(element) {
+        navigator.clipboard.writeText(element.innerText).then(function() {
+           
+        }, function() {
+          
+        });
+    }
+    
+</script>
