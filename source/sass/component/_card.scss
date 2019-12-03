@@ -114,6 +114,11 @@
         width: 100%;
         display: block;
     }
+<<<<<<< HEAD
+=======
+
+    .c-accordion.c-card--no-accordion {
+>>>>>>> feature/icon-generator-fix
 
     .c-accordion.c-card--no-accordion {
         box-shadow: none;
@@ -122,9 +127,14 @@
             background: none;
         }
 
+<<<<<<< HEAD
         .c-accordion__button-wrapper,
         .c-accordion__content {
             padding: 0px;
+=======
+        .c-accordion__button-wrapper, .c-accordion__content {
+            padding:0px;
+>>>>>>> feature/icon-generator-fix
         }
 
         .c-accordion__content {
