@@ -7,8 +7,13 @@
         }
 
         :last-child {
-            margin-bottom: 0;
+            margin-bottom: map-get($spacers, "1");
         }
+    }
+
+    &__header, &__image {
+        margin: 0 auto;
+        text-align:center;
     }
 
     &__image {
@@ -22,9 +27,63 @@
         }
     }
 
+    .c-avatar {
+        margin: 0 auto;
+    }
+
+    .c-avatar__image,
+    .c-avatar__initials {
+        position:relative;
+        top: unset;
+        left: unset;
+        right:unset;
+        bottom: unset;
+    }
+
     &__quote {
         margin-top: $base;
         font-style: italic;
+        position: relative;
+
+        p {
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            padding: map-get($spacers, "05") map-get($spacers, "2");
+        }
+
+        p:first-line {
+            text-indent: 30px;
+        }
+
+        .c-icon {
+            position: absolute;
+            font-size: 53px;
+            z-index: 1;
+            top: -24px;
+            left: -2px;
+        }
+    }
+
+    &__quote-color-grey {
+
+        .c-icon {
+            color: darken($color-gray-light, 6%);
+        }
+    }
+
+    &__quote-color-primary {
+
+        .c-icon {
+            color: $color-primary;
+        }
+    }
+
+    &__quote-color-secondary {
+
+        .c-icon {
+            color: $color-secondary;
+        }
     }
 
     :nth-child(odd) {
@@ -38,6 +97,23 @@
 
         .c-testimonials__image {
             margin-bottom: $base;
+        }
+    }
+
+    h4.c-typography__variant--h2,
+    h4.c-typography__variant--h3,
+    h4.c-typography__variant--h4,
+    h4.c-typography__variant--h5 {
+        margin-bottom: map-get($spacers, "1");
+    }
+
+    &__image-top {
+
+        h2.c-typography__variant--h2,
+        h2.c-typography__variant--h3,
+        h2.c-typography__variant--h4,
+        h2.c-typography__variant--h5 {
+            padding-top: map-get($spacers, "1");
         }
     }
 }
