@@ -134,7 +134,8 @@ export default class Menu {
             newLbl.className = "c-btn__label";
 
             let newIcon = document.createElement("i");
-            newIcon.className = "c-icon c-icon--color-primary c-icon--size-md c-icon--expand-more";
+            newIcon.className = "c-icon c-icon--color-primary c-icon--size-md material-icons";
+            newIcon.appendChild(document.createTextNode("expand_more"))
 
             //Append Icon elemetns
             newLbl.appendChild(newIcon);

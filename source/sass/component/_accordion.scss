@@ -21,10 +21,14 @@
             text-decoration: none;
         }
 
+        .c-accordion__icon {
+            transition: ease .3s transform;
+        }
+
         &[aria-expanded="true"] {
 
-            .c-accordion__icon:before {
-                transform: rotate(270deg);
+            .c-accordion__icon {
+                transform: rotate(180deg);
                 transition: ease .3s transform;
             }
         }
