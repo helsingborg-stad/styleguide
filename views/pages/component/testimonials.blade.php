@@ -26,7 +26,7 @@
                     'quoteColor' => 'secondary'
                 ),
                 array(
-                    'name' => 'Where is my flowers?',
+                    'name' => 'This is all you need...',
                     'title' => 'John Lennon, musician and member of the Beatles',
                     'testimonial' => "Everything will be okay in the end. If it’s not okay, it’s not the end. Love your stuff, Peace!",
                     'titleElement' => 'h5',
