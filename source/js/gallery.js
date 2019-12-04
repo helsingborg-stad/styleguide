@@ -127,6 +127,14 @@ class Gallery {
         const containerModalContent = containerId.querySelector('.c-modal__content');
         this.imageData = imgSrc;
 
+        if (!('remove' in Element.prototype)) {
+            Element.prototype.remove = function() {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            };
+        }
+
         if (container.querySelectorAll('img').length === 0) {
 
             container.innerHTML = '';

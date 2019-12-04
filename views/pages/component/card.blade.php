@@ -21,7 +21,6 @@
                 'byline' => ['text' => 'I am cool byline....', 'position' => 'body'],
                 'content' => 'Doodily texas left rappin surfer assal horizontology mono = one craptacular bumbled-bee.',
                 'hasRipple' => false
-
             ])
 
             @endcard
@@ -46,14 +45,12 @@
                         'color' => 'secondary'
                     ]
                 ]
-
             ])
 
             @endcard
 
         </div>
     </div>
-
 
     @enddoc
 
@@ -242,7 +239,7 @@
 
                         ],
                         [
-                            'name' => 'local-offer',
+                            'name' => 'local_offer',
                             'size' => 'lg',
                             'color' => '',
 
@@ -357,6 +354,7 @@
             you can with ease build and customize your card by using the different components. Though you loose the charm
             of writing less code but you gain more control of the look. The example below is one of those.
             @endmarkdown
+
 
             <div class="grid-s-12 grid-sm-6 grid-md-6">
                 @card([
@@ -476,7 +474,6 @@
 
     @enddoc
 
->>>>>>> origin/develop
 @stop
 
 

@@ -17,9 +17,7 @@
         color: $color;
     }
 
-
     @if $background {
-
         border: 1px solid $background;
         background-color: $background;
 
