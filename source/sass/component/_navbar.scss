@@ -4,7 +4,6 @@
     align-items: center;
     background-color: #ffffff;
     color: #000000;
-    border-top: 8px solid $color-primary;
     @include shadow(1);
 
     &__item {
@@ -23,6 +22,78 @@
         text-decoration-style: unset;
         text-decoration: none;
         text-transform: capitalize;
+    }
+
+    &__top__accent {
+
+        &--primary {
+            border-top: 8px solid $color-primary;
+        }
+
+        &--secondary {
+            border-top: 8px solid $color-secondary;
+        }
+
+        &--success {
+            border-top: 8px solid $color-success;
+        }
+
+        &--danger {
+            border-top: 8px solid $color-danger;
+        }
+
+        &--info {
+            border-top: 8px solid $color-info;
+        }
+
+        &--warning {
+            border-top: 8px solid $color-info;
+        }
+    }
+
+    &__active__accent {
+
+        &--primary {
+
+            .c-navbar__item:after {
+                background-color: $color-primary;
+            }
+        }
+
+        &--secondary {
+
+            .c-navbar__item:after {
+                background-color: $color-secondary;
+            }
+        }
+
+        &--success {
+
+            .c-navbar__item:after {
+                background-color: $color-success;
+            }
+        }
+
+        &--danger {
+
+            .c-navbar__item:after {
+                background-color: $color-danger;
+            }
+        }
+
+        &--info {
+
+            .c-navbar__item:after {
+                background-color: $color-info;
+            }
+        }
+
+        &--warning {
+
+            .c-navbar__item:after {
+                background-color: $color-warning;
+            }
+        }
     }
 }
 
@@ -247,15 +318,17 @@
     //logo top
 
     .c-navbar--logo__top {
+        height: auto;
         flex-wrap: wrap;
+        padding: map-get($spacers, "3");
 
         .c-navbar__logo {
             order: 1;
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-bottom: map-get($spacers, "2");
             margin-right: 0;
-            margin: 0;
 
             img {
                 margin: 0 auto;
@@ -318,6 +391,7 @@
         .c-navbar__logo {
             order: 3;
             margin-left: auto;
+            margin-right: 0;
         }
 
         .c-navbar__list {
