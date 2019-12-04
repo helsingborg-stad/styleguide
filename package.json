@@ -10,13 +10,9 @@
         "postbuild": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
-<<<<<<< HEAD
-        "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix"
-=======
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
         "phpcs-report": "php phpcs.phar source/library --standard=psr2",
         "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
->>>>>>> origin/develop
     },
     "repository": {
         "type": "git",
@@ -57,10 +53,6 @@
         "sass-loader": "^7.3.1",
         "stylelint": "^12.0.0",
         "stylelint-webpack-plugin": "^1.1.0",
-<<<<<<< HEAD
-        "stylelint": "^12.0.0",
-=======
->>>>>>> origin/develop
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.10",
         "webpack-fix-style-only-entries": "^0.2.2",
