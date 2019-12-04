@@ -51,7 +51,7 @@
                         @endicon
                     </div>
 
-                    <span js-filter-data="" onclick="copy(this)" style="cursor:copy;">
+                    <span js-filter-data="" onclick="copy(this)" style="cursor:copy; ">
                         {{$iconName}}
                     </span>
                     

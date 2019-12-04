@@ -239,7 +239,7 @@
 
                         ],
                         [
-                            'name' => 'local-offer',
+                            'name' => 'local_offer',
                             'size' => 'lg',
                             'color' => '',
 
