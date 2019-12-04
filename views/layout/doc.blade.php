@@ -64,7 +64,7 @@
             @endif
            @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
                 <h3>Example usage in blade file</h3>
-                @code(['language' => 'scss', 'content' => ""])
+                @code(['language' => 'php', 'content' => ""])
                         @php ob_start(); @endphp
                         @verbatim
                             <?php include_once "views/pages/component/usage/".$slug.".blade.php";  ?>
