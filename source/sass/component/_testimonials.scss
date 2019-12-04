@@ -53,15 +53,15 @@
         }
 
         p:first-line {
-            text-indent: 30px;
+            text-indent: map-get($spacers, "4");
         }
 
         .c-icon {
             position: absolute;
             font-size: 53px;
             z-index: 1;
-            top: -24px;
-            left: -2px;
+            top: - map-get($spacers, "1");
+            left: - map-get($spacers, "05") + 1;
         }
     }
 
