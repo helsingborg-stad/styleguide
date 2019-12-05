@@ -11,6 +11,7 @@
     @doc(['slug' => 'form'])
 
         @form([])
+
         @endform
 
     @enddoc

@@ -1,27 +1,20 @@
-@field(
-    [
-        'label' => 'Text field',
-        'classList' => [],
-        'textarea' => false,
-        'attributeList' => [
-        'name' => 'adress',
-        'id' => '303',
-        'placeholder' => 'TextField',
-        'type' => 'text'
-        ]
-    ]
-)
+@field([
+    'type' => 'text',
+    'attributeList' => [
+        'type' => 'date',
+        'name' => 'date',
+        'value' => date('Y-m-d'),
+    ],
+    'label' => "Set your date"
+])
 @endfield
 
-@field(
-    [
-        'label' => 'Textarea',
-        'classList' => [],
-        'textarea' => true,
-        'attributeList' => [
-        'name' => 'message',
-        'id' => '909',
-        ]
-    ]
-)
+
+@field([
+    'type' => 'checkbox',
+    'attributeList' => [
+        'name' => 'CheckBoxGroup'
+    ],
+    'label' => "Im a label"
+])
 @endfield
