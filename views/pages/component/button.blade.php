@@ -7,8 +7,6 @@
 
 
     @doc(['slug' => 'button', 'displayParams' => true])
-
-    
     @enddoc
 @stop
 
