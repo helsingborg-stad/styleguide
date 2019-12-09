@@ -1,0 +1,38 @@
+{
+    "size": {
+        "heading": "Different Sizes",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "background": {
+        "heading": "Different backgrounds",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "disabled": {
+        "heading": "Disabled buttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "floating": {
+        "heading": "Floating buttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "icon": {
+        "heading": "Icon buttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "outlined": {
+        "heading": "Outlined buttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "text": {
+        "heading": "Textbuttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "textWithIcon": {
+        "heading": "Buttons with both text and icon",
+        "text": "This is a default colored button and it's pretty sweet"
+    },
+    "toggle": {
+        "heading": "Togglebuttons",
+        "text": "This is a default colored button and it's pretty sweet"
+    }
+}

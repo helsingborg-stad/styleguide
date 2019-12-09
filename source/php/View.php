@@ -3,6 +3,7 @@
 namespace HbgStyleGuide;
 
 use \HelsingborgStad\GlobalBladeEngine as Blade; 
+use \HbgStyleGuide\Helper\Documentation as DocHelper;
 
 class View
 {
@@ -25,7 +26,7 @@ class View
                 'pages.404',
                 array_merge(
                     $data,
-                    array('errorMessage' => $e->getMessage())
+                    array('errorMessage' => $e)
                 )
             )->render();
         }
@@ -126,10 +127,20 @@ class View
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
-				'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true
+                'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
+                'examples' => DocHelper::getUsageExamples($viewData['slug'])
             ]); 
 
         });
+    }
+
+    /**
+     * Fetch examples from the usage directory
+     * @throws \Exception
+     */
+    public static function fetchExamples($slug){
+        $examples = DocHelper::getUsageExamples($slug);
+        
     }
 
     /**
