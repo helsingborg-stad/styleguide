@@ -216,6 +216,13 @@
         &__list {
             display: inline-flex;
 
+            a {
+                min-width: 44px;
+                min-height: 44px;
+                display: table;
+                margin: 0 map-get($spacers, "2");
+            }
+
             &:nth-of-type(2) {
                 order: 2;
             }
@@ -232,7 +239,8 @@
         &__item {
             position: relative;
             white-space: nowrap;
-            margin: 0 map-get($spacers, "2");
+            display: table-cell;
+            vertical-align: middle;
 
             span, span:active, span:visited, span:hover, span:visited:hover {
                 min-height: 44px;
