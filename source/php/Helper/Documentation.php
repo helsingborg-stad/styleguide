@@ -17,17 +17,17 @@ class Documentation
             $json = json_decode($configContent, true);
            
             foreach($files as $key => $file)
-            {
-                $content = file_get_contents($dir . '/' . $file, FILE_USE_INCLUDE_PATH);
-                
+            {   
                 if(strpos($file, '.blade.php'))
                 {
                     $exampleName = str_replace('.blade.php', '', $file);
                     $includePath = ('pages.component.usage.' . $slug . '.' . $exampleName);
+                    $html = Blade::instance()->make($includePath)->render();
+                    $blade = file_get_contents($dir . '/' . $file, FILE_USE_INCLUDE_PATH);
                     $temp = array(
                         "component" => $includePath,
-                        "blade" => $content,
-                        "html" => Blade::instance()->make($includePath)->render(),
+                        "blade" => ['id' => uniqid('', true), 'code' => $blade],
+                        "html" => ['id' => uniqid('', true), 'code' => $html],
                         "description" => $json[$exampleName]
                     );
                     
