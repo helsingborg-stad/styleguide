@@ -18,6 +18,68 @@
             @endcode
         @endpaper
 
+    @elseif(\HbgStyleGuide\Helper\Documentation::getUsageExamples($slug))
+        @foreach(\HbgStyleGuide\Helper\Documentation::getUsageExamples($slug) as $key => $example)
+            
+            @paper(['padding' => 3])
+
+                @typography([
+                    'variant' => "h3",
+                    'element' => "h3"
+                ])
+                    {{$example['description']['heading']}}
+                @endtypography
+
+                <div>
+                    @include($example['component'])
+                </div>
+                <br>
+            
+                @typography([
+                    "variant" => "caption",
+                    "element" => "span"
+                ])
+                    {{$example['description']['text']}}
+                @endtypography
+
+                
+                @typography([
+                    'variant' => "h3",
+                    'element' => "h3"
+                ])
+                    
+                @endtypography
+                
+                @buttonGroup(['borderColor' => 'default', 'toggle' => true])
+                    @button(['text' => 'HTML', 'isOutLined' =>  true, 'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                    'attributeList' => ['js-toggle-trigger' => '1', 'js-toggle-group' => $loop->index]])
+                    @endbutton
+                    @button(['text' => 'Blade', 'isOutLined' =>  true, 'icon' => ['name' => 'dvr', 'color' => 'black', 'size' => 'md'],
+                    'attributeList' => ['js-toggle-trigger' => '2', 'js-toggle-group' => $loop->index]])
+                    @endbutton
+                @endbuttonGroup
+                
+                @paper([])
+                    @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => '1', 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html'])}}
+                    @endcode
+                @endpaper
+                @paper([])
+                @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
+                        @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => '2', 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                            {{$example['blade']}}
+                        @endcode
+                    @else
+                        @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => '2', 'js-toggle-class' => 'u-display--block lol', 'js-toggle-group' => $loop->index]])
+                            {{"@"}}{{$slug}}{{"([])"}}
+
+                            {{"@end"}}{{$slug}}
+                        @endcode 
+                    @endif
+                @endpaper
+
+            @endpaper
+        @endforeach 
     @else
         @paper(['padding' => 3])
 
