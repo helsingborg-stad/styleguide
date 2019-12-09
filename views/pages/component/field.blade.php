@@ -1,6 +1,9 @@
 @extends('layout.master')
 
 @section('content')
+
+    <form autocomplete="on">
+
     @markdown
         #Field
         Displays different type of form fields.
@@ -84,192 +87,221 @@
     @enddoc
 
     @doc(['slug' => 'field'])
+        <form name="demoForm">
+            <div class="grid">
+                <div class="grid-md-6">
 
-        <div class="grid">
-            <div class="grid-md-6">
+                    @markdown
+                        ##Input field - E-mail
+                    @endmarkdown
 
-                @markdown
-                    ##Input field - E-mail
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'email',
-                        'name' => 'email',
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'email',
+                            'name' => 'email',
+                            'required' => true,
+                            'pattern' => "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/",
+                            'autocomplete' => 'e-mail',
+                            'data-validation' => 'styleGuideDemo',
+                            'data-invalid' => 'You need to add a valid E-mail!'
                     ],
-                    'label' => "Add your E-mail"
-                ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
-
-                @markdown
-                    ##Input field - Date
-                @endmarkdown
-
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'date',
-                        'name' => 'date',
-                        'value' => date('Y-m-d'),
-                    ],
-                    'label' => "Set your date"
-                ])
-                @endfield
-            </div>
-
-            <div class="grid-md-6">
-
-                @markdown
-                    ##Input field - Week
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'week',
-                        'name' => 'week',
-                    ],
-                    'label' => "Select week"
-                ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
-
-                @markdown
-                    ##Input field - Time
-                @endmarkdown
-
-                @field([
-                'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'time',
-                        'name' => 'time'
-                    ],
-                    'label' => "Select time"
-                ])
-                @endfield
-            </div>
-
-            <div class="grid-md-6">
-
-                @markdown
-                ##Input field - Number
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'number',
-                        'name' => 'number',
-                    ],
-                    'label' => "Number"
-                ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
-
-                @markdown
-                ##Input field - Password
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'password',
-                        'name' => 'password'
-                    ],
-                    'label' => "Set your password"
-                ])
-                @endfield
-            </div>
-
-            <div class="grid-md-6">
-
-                @markdown
-                ##Input field - Phone
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'tel',
-                        'name' => 'tel',
-                    ],
-                    'label' => "Phone number"
-                ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
-
-                @markdown
-                ##Input field - search
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'search',
-                        'name' => 'search'
-                    ],
-                    'label' => "Search"
-                ])
-                @endfield
-
-            </div>
-
-            <div class="grid-md-6">
-
-                @markdown
-                ##Input field - Url
-                @endmarkdown
-
-                @field([
-                    'type' => 'text',
-                    'attributeList' => [
-                    'type' => 'url',
-                    'name' => 'url',
-                    ],
-                    'label' => "Add website"
+                        'label' => "Add your E-mail"
                     ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                        ##Input field - Date
+                    @endmarkdown
+
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'date',
+                            'name' => 'date',
+                            'value' => date('Y-m-d'),
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Set your date",
+
+                    ])
+                    @endfield
+                </div>
+
+                <div class="grid-md-6">
+
+                    @markdown
+                        ##Input field - Week
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'week',
+                            'name' => 'week',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Select week",
+                    ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                        ##Input field - Time
+                    @endmarkdown
+
+                    @field([
+                    'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'time',
+                            'name' => 'time',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Select time",
+                    ])
+                    @endfield
+                </div>
+
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - Number
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'number',
+                            'name' => 'number',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Number"
+                    ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - Password
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'password',
+                            'name' => 'password',
+                            'required' => true,
+                            'autocomplete' => "new-password",
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Set your password"
+                    ])
+                    @endfield
+                </div>
+
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - Phone
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'tel',
+                            'name' => 'tel',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Phone number"
+                    ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - search
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'search',
+                            'name' => 'search',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Search"
+                    ])
+                    @endfield
+
+                </div>
+
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - Url
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'url',
+                            'name' => 'url',
+                            'required' => true,
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Add website"
+                     ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                    ##Input field - Text
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'text',
+                            'name' => 'text',
+                            'data-validation' => 'styleGuideDemo'
+                        ],
+                        'label' => "Normal text field"
+                    ])
+                    @endfield
+
+                </div>
 
                 @markdown
-                ##Input field - Text
+                ##Textarea
                 @endmarkdown
 
                 @field([
+                    'textarea' => true,
                     'type' => 'text',
                     'attributeList' => [
-                    'type' => 'text',
-                    'name' => 'text'
+                        'type' => 'textarea',
+                        'name' => 'ImaTextarea',
+                        'data-validation' => 'styleGuideDemo'
                     ],
                     'label' => "Normal text field"
                 ])
                 @endfield
 
             </div>
-
-            @markdown
-            ##Textarea
-            @endmarkdown
-
-            @field([
-                'textarea' => true,
-                'type' => 'text',
-                'attributeList' => [
-                    'type' => 'textarea',
-                    'name' => 'text'
-                ],
-                'label' => "Normal text field"
-            ])
-            @endfield
-
-        </div>
+        </form>
     @enddoc
+
+    </form>
+
 @stop
