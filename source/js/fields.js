@@ -10,6 +10,10 @@ class Fields {
         this.form = document.getElementsByTagName('form')[0];
         this.email = document.getElementById('mail');
         this.formElement = null;
+        this.formElementType = null;
+        this.formElementPattern = null;
+        this.formElementRequired = null;
+        this.formElementDataInvalid = null;
 // The following is a trick to reach the next sibling Element node in the DOM
 // This is dangerous because you can easily build an infinite loop.
 // In modern browsers, you should prefer using element.nextElementSibling
@@ -132,25 +136,31 @@ class Fields {
     formEventListerners() {
         
         const self = this;
-        const inputs = document.querySelectorAll('input, textarea');
+        const inputs = document.querySelectorAll('input');
 
-        //for (let int = 0; int < inputs.length; int++) {    Kollaar söndag....
+        for (const formInput of inputs) {
+            let inputId = formInput.getAttribute('id');
+            console.log(inputId);
+            document.getElementById(inputId).addEventListener('click', function (e) {
+                this.formElement = this;
+                this.formElementType = this.formElement.getAttribute('type');
+                this.formElementPattern = this.formElement.getAttribute('pattern');
+                this.formElementRequired = this.formElement.getAttribute('required');
+                this.formElementDataInvalid = this.formElement.getAttribute('data-invalid');
+                console.log(this.formElementType);
+            });
+        }
+        console.log(this.formElementRequired);
+        
+        // this.formElement = inputs[int];
 
-            this.formElement = inputs[int];
-            this.formElement = inputs;
-            this.formElementType = this.formElement.getAttribute('type');
+            const pattern = (this.formElementPattern) ? this.formElementPattern : null;
+            const required = (this.formElementRequired) ? this.formElementRequired : null;
+            const invalidMessage = (this.formElementDataInvalid) ? this.formElementDataInvalid : null;
             
-            const pattern = (this.formElement.getAttribute('pattern')) ?
-                this.formElement.getAttribute('pattern') : false;
-            
-            const required = (this.formElement.getAttribute('required')) ?
-                this.formElement.getAttribute('required') : false;
-            //const type = this.formElement.getAttribute('type');
-            
-            const invalidMessage = (this.formElement.getAttribute('data-invalid')) ?
-                this.formElement.getAttribute('data-invalid') : false;
-            
-            if(required) {
+            if(required !== null) {
+                
+                console.log(required);
                 this.form.addEventListener('load', function (e) {
                     const test = self.formElement.value.length === 0 || pattern.test(self.formElement.value);
                     self.formElement.className = test ? "valid" : "invalid";
@@ -172,7 +182,7 @@ class Fields {
                     } else {
                         
     
-                        console.log('valid');
+                        //console.log('valid');
                         self.formElement.className = "valid";
                         if (invalidMessage) {
                             self.formElement.nextElementSibling.innerHTML =
@@ -200,10 +210,10 @@ class Fields {
                         self.formElement.className = "error";
                     }
                 });
-            }
+            //}
 
 
-        //}
+        }
     }
 
 
