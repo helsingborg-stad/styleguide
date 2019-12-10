@@ -34,5 +34,9 @@
     "toggle": {
         "heading": "Togglebuttons",
         "text": "This is a default colored button and it's pretty sweet"
+    },
+    "iconHoverColor": {
+        "heading": "Changing icon color on hover",
+        "text": "This is a default colored button and it's pretty sweet"
     }
 }

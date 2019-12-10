@@ -6,7 +6,7 @@
     @endmarkdown
 
 
-    @doc(['slug' => 'button', 'displayParams' => true])
+    @doc(['slug' => 'button'])
     @enddoc
 @stop
 

@@ -28,7 +28,6 @@
     }
 
     // COLOR
-
     &--primary {
         @include button-mix($color-white, $color-primary, false);
 
@@ -132,10 +131,6 @@
     @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
     border: none;
 
-    &:hover {
-        background-color: transparentize($color-black, 0.95);
-    }
-
     &[disabled] {
         background-color: $color-disabled;
         border-color: $color-disabled;
@@ -147,6 +142,58 @@
         &:hover {
             border-color: $color-disabled;
             background-color: $color-disabled;
+        }
+    }
+}
+
+.c-button__icon-hover-color {
+    @extend .c-button__icon;
+
+    &--primary{
+
+        &:hover i{
+            color: $color-primary;
+        }
+    }
+
+    &--secondary{
+
+        &:hover i{
+            color: $color-secondary;
+        }
+    }
+
+    &--default{
+
+        &:hover i{
+            color: $color-default-dark;
+        }
+    }
+}
+
+
+
+.c-button__icon-hover-background {
+    @extend .c-button__icon;
+
+    &--primary{
+
+        &:hover{
+            background-color: transparentize($color-primary, 0.9);
+        }
+    }
+
+    &--secondary{
+
+        &:hover{
+            background-color: transparentize($color-secondary, 0.9);
+        }
+    }
+
+    &--default{
+
+        &:hover{
+            background-color: transparentize($color-default-dark, 0.5);
         }
     }
 }
@@ -221,3 +268,4 @@
         cursor: not-allowed;
     }
 }
+
