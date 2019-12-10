@@ -2,21 +2,21 @@
     'isIconButton' =>  true,
     'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
     'background' => false,
-    'hover' => ['background' => 'default']
+    'hover' => ['color' => 'default']
 ])
 @endbutton
 
 @button([
     'isIconButton' =>  true,
-    'icon' => ['name' => 'close', 'color' => 'primary', 'size' => 'lg'],
-    'hover' => ['background' => 'primary']
+    'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
+    'hover' => ['color' => 'primary']
 ])
 @endbutton
 
 @button([
     'isIconButton' =>  true,
-    'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'lg'],
+    'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'lg'],
     'background' => false,
-    'hover' => ['background' => 'secondary']
+    'hover' => ['color' => 'secondary']
 ])
 @endbutton
