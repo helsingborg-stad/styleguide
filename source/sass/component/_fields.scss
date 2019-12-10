@@ -69,7 +69,7 @@
             width: 100%;
         }
 
-        &:after, &:after.valid:after {
+        &:after, &:after.valid:after{
             border-bottom: 2px solid $color-success;
         }
         &.invalid:after {
@@ -459,8 +459,11 @@
             transform: scale(1);
         }
     }
+
+
+
     /* This is our style for the invalid fields */
-    input.invalid{
+    /*input.invalid{
         border-color: #900;
         background-color: #FDD;
     }
@@ -472,17 +475,26 @@
         background-color: $color-primary;
         color: $color-white;
         display:none;
-    }
-    /* This is the style of our error messages */
-    .error {
-        width  : 100%;
-        padding: 0;
+    }*/
 
+    /* This is the style of our error messages */
+    .c-field__input-invalid-message {
+        width  : 100%;
+        padding: map-get($spacers, "1") ;
+        display:none;
         font-size: 80%;
-        color: white;
-        background-color: #900;
+        color: $color-white;
+        background-color: $color-danger;
+        border:none;
         border-radius: 0 0 5px 5px;
         box-sizing: border-box;
+        &.error {
+            display:block;
+        }
+        .c-icon {
+            position: relative;
+            top: 3px;
+        }
     }
 
     .error.active {

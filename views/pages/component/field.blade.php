@@ -100,13 +100,12 @@
                         'attributeList' => [
                             'type' => 'email',
                             'name' => 'email',
-                            'required' => true,
-                            'pattern' => "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/",
+                            'pattern' => '^[^@]+@[^@]+\.[^@]+$',
                             'autocomplete' => 'e-mail',
-                            'data-validation' => 'styleGuideDemo',
-                            'data-invalid' => 'You need to add a valid E-mail!'
+                            'data-invalid-message' => "You need to add a valid E-mail!"
                     ],
-                        'label' => "Add your E-mail"
+                        'label' => "Add your E-mail",
+                        'required' => true,
                     ])
                     @endfield
                 </div>
@@ -124,7 +123,7 @@
                             'name' => 'date',
                             'value' => date('Y-m-d'),
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
+                            'data-invalid-message' => "Enter a valid date"
                         ],
                         'label' => "Set your date",
 
@@ -144,7 +143,7 @@
                             'type' => 'week',
                             'name' => 'week',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
+                            'data-invalid-message' => "Enter a valid week"
                         ],
                         'label' => "Select week",
                     ])
@@ -162,7 +161,7 @@
                             'type' => 'time',
                             'name' => 'time',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
+                            'data-invalid-message' => "Enter valid timestamp"
                         ],
                         'label' => "Select time",
                     ])
@@ -181,7 +180,7 @@
                             'type' => 'number',
                             'name' => 'number',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
+                            'data-invalid-message' => "Must be a number "
                         ],
                         'label' => "Number"
                     ])
@@ -200,7 +199,6 @@
                             'name' => 'password',
                             'required' => true,
                             'autocomplete' => "new-password",
-                            'data-validation' => 'styleGuideDemo'
                         ],
                         'label' => "Set your password"
                     ])
@@ -219,7 +217,6 @@
                             'type' => 'tel',
                             'name' => 'tel',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
                         ],
                         'label' => "Phone number"
                     ])
@@ -237,7 +234,6 @@
                             'type' => 'search',
                             'name' => 'search',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
                         ],
                         'label' => "Search"
                     ])
@@ -257,7 +253,6 @@
                             'type' => 'url',
                             'name' => 'url',
                             'required' => true,
-                            'data-validation' => 'styleGuideDemo'
                         ],
                         'label' => "Add website"
                      ])
@@ -274,7 +269,6 @@
                         'attributeList' => [
                             'type' => 'text',
                             'name' => 'text',
-                            'data-validation' => 'styleGuideDemo'
                         ],
                         'label' => "Normal text field"
                     ])
@@ -292,7 +286,6 @@
                     'attributeList' => [
                         'type' => 'textarea',
                         'name' => 'ImaTextarea',
-                        'data-validation' => 'styleGuideDemo'
                     ],
                     'label' => "Normal text field"
                 ])
