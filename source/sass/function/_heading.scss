@@ -1,0 +1,7 @@
+@function headings($from:1, $to:6, $class:"") {
+    @if $from == $to {
+        @return "h#{$from}#{$class}";
+    } @else {
+        @return "h#{$from}#{$class}," + headings($from+1, $to, $class);
+    }
+}

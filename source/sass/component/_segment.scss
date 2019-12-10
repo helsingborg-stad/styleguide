@@ -1,0 +1,472 @@
+// ***************************************************************
+// *** Segment (Section)
+// ***************************************************************
+
+.c-segment {
+    display: flex;
+    background-color: #eee;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    justify-content: center;
+
+    //Get segment component name
+    $segmentClass: &;
+
+    &__inner {
+        position: relative;
+        display: flex;
+        flex: 0 0 100%;
+        max-width: 1500px;
+        min-height: inherit;
+        z-index: $level-1;
+    }
+
+    &__content {
+        flex: 0 0 100%;
+        display: flex;
+    }
+
+    &__article {
+        //display: flex;
+        z-index: 5;
+        position: relative;
+        max-width: 700px;
+    }
+
+    &__column-article {
+        display: flex;
+    }
+
+    &__article>div+div {
+        margin-top: map-get($spacers, "4");
+    }
+
+    &__column-slot {
+        display: flex;
+        min-height: 100%;
+        padding: map-get($spacers, "4");
+    }
+
+    &__image {
+        z-index: 1;
+    }
+
+    &__cta>*+* {
+        margin-left: map-get($spacers, "2");
+    }
+
+    /* Text Alignment */
+
+    &--text-alignment {
+
+        &-left {
+
+            #{$segmentClass}__article {
+                text-align: left;
+            }
+        }
+
+        &-right {
+
+            #{$segmentClass}__article {
+                text-align: right;
+            }
+        }
+
+        &-center {
+
+            #{$segmentClass}__article {
+                text-align: center;
+            }
+        }
+    }
+
+    /* Card */
+
+    &--card {
+
+        #{$segmentClass}__inner {
+            @include shadow(4);
+            margin-top: map-get($spacers, "4");
+            margin-bottom: map-get($spacers, "4");
+        }
+
+        @include mq("xs", "md") {
+
+            #{$segmentClass}__inner {
+                margin: map-get($spacers, "4");
+            }    
+        }
+
+        &__column-graphics {
+            min-height: 40vh;;
+        }
+
+        &-white {
+
+            #{$segmentClass}__inner {
+                background-color: white;
+            }
+        }
+
+        &-grey,
+        &-gray {
+
+            #{$segmentClass}__inner {
+                background-color: $color-gray-light;
+            }
+        }
+
+        /* Card padding */
+
+        &-padding {
+            @each $size, $length in $spacers {
+
+                &-#{$size} {
+
+                    #{$segmentClass}__inner   {
+                        padding: $length;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Widths */
+
+    &--width-md,
+    &--width-lg {
+        max-width: 100vw;
+        width: 100vw;
+    }
+
+    &--width-md {
+        margin: map-get($spacers, "4") calc(25% - 25vw);
+    }
+
+    &--width-lg {
+        margin: map-get($spacers, "4") calc(50% - 50vw);
+    }
+
+    &--color-light {
+        color: #fff;
+        text-shadow: 2px 2px 3px rgba(34,34,34,.6);
+    }
+
+    &--color-dark {
+        color: #000;
+    }
+
+    /* Vertical alignments */
+
+    &--valign-top {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            align-items: top;
+        }
+    }
+
+    &--valign-center {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            align-items: center;
+        }
+    }
+
+    &--valign-bottom {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            align-items: flex-end;
+        }
+    }
+
+    /* Horizontal alginments */
+
+    &--align-left {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            justify-content: flex-start;
+        }
+    }
+
+    &--align-center {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            justify-content: center;
+        }
+    }
+
+    &--align-right {
+
+        #{$segmentClass}__article,
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__content {
+            justify-content: flex-end;
+        }
+    }
+
+    &--align-space-between {
+        justify-content: space-between;
+    }
+
+    &--align-space-around {
+        justify-content: space-around;
+    }
+
+    &--align-space-evenly {
+        justify-content: space-evenly;
+    }
+
+    &--align-stretch {
+        justify-content: stretch;
+    }
+
+    /* Paddings */
+
+    @include mq("xs", "md") {
+
+        &[class*="--padding-"] {
+            padding: map-get($spacers, "2");
+        }
+    }
+
+    @include mq("md") {
+
+        &--padding-xs {
+            padding: map-get($spacers, "2");
+        }
+
+        &--padding-sm {
+            padding: map-get($spacers, "4");
+        }
+
+        &--padding-md {
+            padding: map-get($spacers, "6") map-get($spacers, "4");
+        }
+
+        &--padding-lg {
+            padding: map-get($spacers, "8") map-get($spacers, "6");
+        }
+
+        &--padding-xl {
+            padding: map-get($spacers, "10") map-get($spacers, "6");
+        }
+
+    }
+
+    /* Image focus */
+    $vertical-positions: top center bottom;
+    $horizontal-positions: left center right;
+
+    @each $vertical-position in $vertical-positions {
+        @each $horizontal-position in $horizontal-positions {
+
+            &--image-focus-#{$horizontal-position}-#{$vertical-position} {
+
+                #{$segmentClass}__column-graphics {
+                    background-position: #{$horizontal-position} #{$vertical-position};
+                }
+            }
+        }
+    }
+
+    /* Heights */
+
+    &--height-sm {
+        min-height: map-get($spacers, "8");
+    }
+
+    &--height-md {
+        min-height: 40vh;
+    }
+
+    &--height-lg {
+        min-height: 95vh;
+    }
+
+    /* Overlays */
+
+    &--overlay-blur:before {
+        backdrop-filter: blur(2px);
+    }
+
+    &--overlay-dark:before,
+    &--overlay-light:before {
+        content: "";
+        @include cover();
+    }
+
+    &--overlay-dark:before {
+        background: #000;
+    }
+
+    &--overlay-light:before {
+        background: #fff;
+    }
+
+    &--overlay-opacity-low:before {
+        opacity: 0.8;
+    }
+
+    &--overlay-opacity-medium:before {
+        opacity: 0.5;
+    }
+
+    &--overlay-opacity-high:before {
+        opacity: 0.3;
+    }
+
+    /* Effects */
+
+    &--effect-paralax {
+        background-attachment: fixed;
+    }
+
+    /* Containment */
+
+    &--not-contained {
+
+        #{$segmentClass}__inner {
+            max-width: unset;
+        }
+    }
+
+    /* Order */
+
+    &--reverse-layout {
+
+        #{$segmentClass}__content {
+            flex-direction: row-reverse;
+        }
+    }
+
+    /* Templates */
+
+    &--template-split {
+
+        #{$segmentClass}__inner {
+        }
+
+        #{$segmentClass}__content {
+        }
+
+        #{$segmentClass}__column-article {
+            flex: 0 0 58.33333%;
+            max-width: 58.33333%;
+            padding: map-get($spacers, "8");
+        }
+
+        #{$segmentClass}__column-graphics {
+            flex: 0 0 41.66667%;
+            height: 100%;
+            max-width: 41.66667%;
+            background-size: cover;
+        }
+
+        #{$segmentClass}__column-slot {
+            flex: 0 0 41.66667%;
+            height: auto;
+            max-width: 41.66667%;
+        }
+    }
+
+    &--template-split-left {
+
+    }
+
+    &--template-featured {
+
+        #{$segmentClass}__content {
+            flex-wrap: wrap;
+        }
+
+        #{$segmentClass}__slot,
+        #{$segmentClass}__article {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-top: map-get($spacers, "3");
+        }
+    }
+
+    &--template-featured-right {
+
+    }
+
+    &--template-featured-left {
+
+    }
+
+    &--template-full {
+        display: flex;
+        font-size: 1.3em;
+
+        #{headings(1, 6, " > [class*="__inner"]")} {
+            font-size: 1.5em;
+        }
+    }
+
+    // Mobile format
+    @include mq("xs", "md") {
+
+        #{$segmentClass}__content {
+            flex-wrap: wrap;
+        }
+
+        #{$segmentClass}__column-article,
+        #{$segmentClass}__column-graphics,
+        #{$segmentClass}__column-slot {
+            max-width: 100%;
+            width: 100%;
+            flex: 0 0 100%;
+        }
+
+        &--graphics-below {
+
+            #{$segmentClass}__column-article {
+                order: 1;
+            }
+
+            #{$segmentClass}__column-graphics {
+                order: 2;
+            }
+        }
+
+        &--graphics-above {
+
+            #{$segmentClass}__column-article {
+                order: 2;
+            }
+
+            #{$segmentClass}__column-graphics {
+                order: 1;
+            }
+        }
+
+        &--graphics-hidden {
+
+            #{$segmentClass}__column-graphics {
+                display: none;
+            }
+        }
+    }
+
+    /* Breakpoint specific */
+
+    @include mq("xs", "md") {
+
+        &__column-graphics {
+            min-height: 40vh;;
+        }
+    }
+}
