@@ -1,11 +1,14 @@
 @field([
     'type' => 'text',
     'attributeList' => [
-        'type' => 'date',
-        'name' => 'date',
-        'value' => date('Y-m-d'),
+        'type' => 'email',
+        'name' => 'add-email',
+        'pattern' => '^[^@]+@[^@]+\.[^@]+$',
+        'autocomplete' => 'e-mail',
+        'data-invalid-message' => "You need to add a valid E-mail!"
     ],
-    'label' => "Set your date"
+    'label' => "Add your E-mail",
+    'required' => true
 ])
 @endfield
 

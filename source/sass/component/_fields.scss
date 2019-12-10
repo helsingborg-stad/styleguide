@@ -43,7 +43,11 @@
         min-height: 200px;
         padding: map-get($spacers, "3")-2;
     }
+    input:focus, textarea:focus {
+        border-bottom: 2px solid $color-in-action;
+        transition: ease-in-out .3s;
 
+    }
     // Input
 
     &__text {
@@ -51,31 +55,38 @@
         position: relative;
         padding-bottom: 10px;
 
-        &:after, &:before {
+        input:after, input:before {
             content: " ";
             width: 0%;
             bottom: 10px;
             left: 50%;
             transform: translate(-50%, -50%);
             position: absolute;
-            transition: ease-in-out .2s all;
+            transition: ease-in-out .3s;
         }
 
         input {
             padding-left: 20px;
         }
 
-        &:focus-within:after {
+        input:focus-within:after {
             width: 100%;
         }
 
-        &:after, &:after.valid:after{
+        input:after, input:after.valid:after{
             border-bottom: 2px solid $color-success;
         }
-        &.invalid:after {
-            border-bottom: 2px solid $color-danger;
+
+        input.invalid {
+            border-bottom: 1px solid $color-primary-dimmed;
+            transition: ease-in-out .3s;
         }
-        &:before {
+        input.valid {
+            border-bottom: 2px solid $color-success;
+            transition: ease-in-out .3s;
+        }
+
+        input:before {
             width: 100%;
             border-bottom: 1px solid $color-form-fields-border;
         }
@@ -294,7 +305,7 @@
             background: transparent;
 
             &:before {
-                font-family: styleguide-icons !important;
+                font-family: 'Material Icons' !important;
                 content: "\f10a";
                 font-size: 22px;
                 padding: map-get($spacers, "1");
@@ -361,7 +372,7 @@
     }
 
     /* Radiobuttons*/
-    //.c-field__radiobutton--
+
     &__radio {
 
         .c-field__radio--label-box {
@@ -461,24 +472,9 @@
     }
 
 
-
-    /* This is our style for the invalid fields */
-    /*input.invalid{
-        border-color: #900;
-        background-color: #FDD;
-    }
-
-    input:focus.invalid {
-        outline: none;
-    }
-    &__error-message {
-        background-color: $color-primary;
-        color: $color-white;
-        display:none;
-    }*/
-
     /* This is the style of our error messages */
-    .c-field__input-invalid-message {
+    .c-field__input-invalid-message,
+    .field__textarea-invalid-message  {
         width  : 100%;
         padding: map-get($spacers, "1") ;
         display:none;
@@ -490,6 +486,7 @@
         box-sizing: border-box;
         &.error {
             display:block;
+            transition: ease-in-out .3s;
         }
         .c-icon {
             position: relative;

@@ -91,6 +91,7 @@ class Fields {
                 }
                 
                 self.formElement.classList.remove('invalid');
+                self.formElement.classList.remove('valid');
                 
                 // If Require is on
                 if (self.formElementRequired) {
