@@ -2,19 +2,15 @@
     display: flex;
     width: 100%;
     align-items: center;
-    background-color: $color-primary;
-
-    &__logo {
-
-        *:nth-of-type(1) {
-            max-width: 100px;
-        }
-    }
+    background-color: #ffffff;
+    color: #000000;
+    @include shadow(1);
 
     &__item {
 
         span {
-            color: $color-primary;
+            font-size: 18px;
+            color: #000000;
         }
     }
 
@@ -27,6 +23,78 @@
         text-decoration: none;
         text-transform: capitalize;
     }
+
+    &__top__accent {
+
+        &--primary {
+            border-top: 8px solid $color-primary;
+        }
+
+        &--secondary {
+            border-top: 8px solid $color-secondary;
+        }
+
+        &--success {
+            border-top: 8px solid $color-success;
+        }
+
+        &--danger {
+            border-top: 8px solid $color-danger;
+        }
+
+        &--info {
+            border-top: 8px solid $color-info;
+        }
+
+        &--warning {
+            border-top: 8px solid $color-info;
+        }
+    }
+
+    &__active__accent {
+
+        &--primary {
+
+            .c-navbar__item:after {
+                background-color: $color-primary;
+            }
+        }
+
+        &--secondary {
+
+            .c-navbar__item:after {
+                background-color: $color-secondary;
+            }
+        }
+
+        &--success {
+
+            .c-navbar__item:after {
+                background-color: $color-success;
+            }
+        }
+
+        &--danger {
+
+            .c-navbar__item:after {
+                background-color: $color-danger;
+            }
+        }
+
+        &--info {
+
+            .c-navbar__item:after {
+                background-color: $color-info;
+            }
+        }
+
+        &--warning {
+
+            .c-navbar__item:after {
+                background-color: $color-warning;
+            }
+        }
+    }
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
@@ -37,14 +105,25 @@
         &__logo {
             order: 1;
             flex:1;
-
+            max-width: 50%;
+            padding: map-get($spacers, "2");
         }
 
         &__toggle {
             order: 2;
             display: flex;
+            height: auto;
             justify-content: flex-end;
+            margin-left: auto;
             padding-right: #{map-get($spacers, "1")};
+
+            .c-button {
+                transition: all 0.3s ease-in-out;
+
+                &[is-open=""] {
+                    transform: rotate(180deg);
+                }
+            }
         }
 
         &__list {
@@ -72,7 +151,7 @@
 
         &__item {
             width: 100%;
-            height: inherit;
+            //height: inherit;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
@@ -122,6 +201,17 @@
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-navbar {
+        height: 140px;
+        padding: map-get($spacers, "5");
+
+        &__logo {
+            margin-right: map-get($spacers, "10");
+
+            img {
+                height: 55px;
+                width: auto;
+            }
+        }
 
         &__list {
             display: inline-flex;
@@ -142,12 +232,11 @@
         &__item {
             position: relative;
             white-space: nowrap;
+            margin: 0 map-get($spacers, "2");
 
             span, span:active, span:visited, span:hover, span:visited:hover {
-                color: white;
                 min-height: 44px;
                 min-width: 44px;
-                padding: #{map-get($spacers, "1")};
             }
 
             &:hover>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
@@ -160,7 +249,9 @@
             &:after {
                 display:block;
                 content: "";
-                border-bottom: solid 3px $color-secondary;
+                width: 24px;
+                height: 2px;
+                background-color: $color-primary;
                 transform: scaleX(0);
                 transition: transform 250ms ease-in-out;
             }
@@ -206,6 +297,7 @@
 
         .c-navbar__logo {
             order: 2;
+            margin-right: 0;
         }
 
         .c-navbar__list {
@@ -226,13 +318,21 @@
     //logo top
 
     .c-navbar--logo__top {
+        height: auto;
         flex-wrap: wrap;
+        padding: map-get($spacers, "3");
 
         .c-navbar__logo {
             order: 1;
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-bottom: map-get($spacers, "2");
+            margin-right: 0;
+
+            img {
+                margin: 0 auto;
+            }
         }
 
         .c-navbar__list {
@@ -258,6 +358,8 @@
 
         .c-navbar__logo {
             order: 3;
+            margin-left: map-get($spacers, "10");
+            margin-right: 0;
         }
 
         .c-navbar__list {
@@ -289,6 +391,7 @@
         .c-navbar__logo {
             order: 3;
             margin-left: auto;
+            margin-right: 0;
         }
 
         .c-navbar__list {

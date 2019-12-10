@@ -7,12 +7,13 @@
 
     <title>Helsingborg Styleguide - Version 2.0</title>
     <meta name="description" content="">
-    <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://highlightjs.org/static/demo/styles/github-gist.css"> -->
+    <link href="/assets/prism/prism.css" rel="stylesheet" />
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
     <script type='text/javascript' defer="defer" src='https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated'></script>
 
     <link rel='dns-prefetch' href='//cdn.polyfill.io' />
-    <link rel='dns-prefetch' href='//highlightjs.org' />
+    <!-- <link rel='dns-prefetch' href='//highlightjs.org' /> -->
 
     <noscript>
         <style>
@@ -114,11 +115,13 @@
     <script src="/assets/dist/js/styleguide-js.min.js"></script>
 
     <!-- Highlight js -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script> -->
+    <script src="/assets/prism/prism.js"></script>
 
     <!-- Run highlight --> 
     <script>
-        $(function(){
+        
+        /**$(function(){
             $('pre code').each(function(){
                 var lines = $(this).text().split('\n').length - 1;
                 var $numbering = $('<ul/>').addClass('line-numbers');
@@ -131,7 +134,7 @@
                 }
             });
             hljs.initHighlightingOnLoad();
-        });
+        }); **/
     </script>
 
     <!-- Anime JS -->

@@ -16,6 +16,7 @@
 // ***************************************************************
 // *** Settings
 // ***************************************************************
+@import "/node_modules/material-design-icons/iconfont/material-icons.css";
 @import "setting/variables";
 
 // ***************************************************************
@@ -54,6 +55,7 @@
 @import "mixin/build-utility";
 @import "mixin/animations/slide";
 @import "mixin/animations/scale-up";
+@import "mixin/animations/fade-in";
 
 // ***************************************************************
 // *** Generic
@@ -62,6 +64,7 @@
 @import "generic/container";
 @import "generic/grid";
 @import "generic/icons";
+@import "generic/load-animation";
 
 // ***************************************************************
 // *** Elements

@@ -24,9 +24,6 @@
 
     .c-icon {
         color: $color-breadcrumb-icon;
-
-        &:before {
-            vertical-align: -20%; /* TODO: Fix */
-        }
+        vertical-align: -10%; /* TODO: Fix */
     }
 }

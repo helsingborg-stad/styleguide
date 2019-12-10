@@ -28,21 +28,16 @@
 
         @fab([
             'position' => 'bottom-right',
-            'spacing' => 'xl',
-            'button' => [
-                'href' => '#btn-3',
-                'text' => 'Extended',
-                'background' => 'primary',
-                'icon' => ['name' => 'close'],
-                'reverseIcon' => true,
-                'size' => 'lg',
-                'color' => 'secondary',
-                'floating' => [
-                    'animate' => false,
-                    'hover' => true
-                ],
-            ]
+            'spacing' => 'xl'
         ])
+
+            @button([
+                'background' => 'primary',
+                'text' => 'Primary bg',
+                'color' => 'white'
+            ])
+            @endbutton
+
         @endfab
     @enddoc
 @stop

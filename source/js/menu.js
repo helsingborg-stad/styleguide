@@ -9,8 +9,8 @@ export default class Menu {
     }
 
     applyMenu() {
-        //Find navbars
-        let navbar = document.querySelectorAll(".c-navbar");
+        // Find navbars
+        const navbar = document.querySelectorAll(".c-navbar");
 
         navbar.forEach((element) => {
             this.findTriggers(element)
@@ -18,12 +18,12 @@ export default class Menu {
     }
 
     findTriggers(element) {
-        //Find triggers
+        // Find triggers
         const triggers = element.querySelectorAll(`[${this.TRIGGER}]`);
 
         triggers.forEach((trigger) => {
-            let toggleClass = trigger.getAttribute(this.TRIGGER);
-            let target = trigger.getAttribute(this.DART);
+            const toggleClass = trigger.getAttribute(this.TRIGGER);
+            const target = trigger.getAttribute(this.DART);
 
             trigger.addEventListener('click', (event) => {
                 const targets = document.querySelectorAll(`[${this.TARGET}="${target}"]`);
@@ -36,14 +36,15 @@ export default class Menu {
     }
 
     getSubitem(root) {
-        let IDS = root ? root.querySelectorAll(`[${this.EXPANDID}]`) : document.querySelectorAll(`[${this.EXPANDID}]`)
+        const IDS = root ? root.querySelectorAll(`[${this.EXPANDID}]`) : document.querySelectorAll(`[${this.EXPANDID}]`)
 
         IDS.forEach((id) => {
             id.addEventListener('click', (event) => {
                 event.preventDefault();
+                id.toggleAttribute("is-open");
 
                 if (!id.hasAttribute("data-isAppended-subitem")) {
-                    let subID = id.getAttribute(this.EXPANDID);
+                    const subID = id.getAttribute(this.EXPANDID);
                     id.setAttribute('data-isAppended-subitem', '');
 
                     this.findItems([], subID)
@@ -53,7 +54,7 @@ export default class Menu {
     }
 
     fetchJSONFile(path, callback) {
-        let httpRequest = new XMLHttpRequest();
+        const httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = (result) => {
             if (httpRequest.readyState === 4 || httpRequest.readyState === 0) {
                 if (httpRequest.status === 200) {
@@ -67,13 +68,13 @@ export default class Menu {
         httpRequest.send(); 
     }
     
-    //Find item in JSON
+    // Find item in JSON
     findItems(data, find) {
         if (data.length > 0) {
             return Object.keys(data).some((k) => {
 
                 if (data[k].id === find) {
-                    this.appendItems(data[k]['list'], data[k]['id']);
+                    this.appendItems(data[k].list, data[k].id);
     
                     return; // return on direct found
                 }
@@ -89,19 +90,19 @@ export default class Menu {
         }
     }
 
-    //Appends nav item
+    // Appends nav item
     appendItems(list, id) {
-        let target = document.querySelector(`[data-append-submenu="${id}"]`);
+        const target = document.querySelector(`[data-append-submenu="${id}"]`);
 
         list.forEach((item) => {
-            let subItem = this.buildDOM(item)
+            const subItem = this.buildDOM(item)
             target.appendChild(subItem)
             this.getSubitem(subItem);
             this.findTriggers(subItem)
         });
     }
 
-    //Builds nav item
+    // Builds nav item
     buildDOM(item) {
         const uniqID = Math.random().toString(36).substr(2, 9);
 
@@ -123,7 +124,7 @@ export default class Menu {
             newTgl.className = "c-navbar__toggle";
 
             let newBtn = document.createElement("button");
-            newBtn.className = "c-btn c-btn__icon";
+            newBtn.className = "c-button c-button__icon";
 
             newBtn.setAttribute('js-menu-trigger', 'c-navbar__subitem--expanded');
             newBtn.setAttribute('js-menu-dart', uniqID);
@@ -133,7 +134,8 @@ export default class Menu {
             newLbl.className = "c-btn__label";
 
             let newIcon = document.createElement("i");
-            newIcon.className = "c-icon c-icon--color-primary c-icon--size-lg c-icon--menu";
+            newIcon.className = "c-icon c-icon--color-primary c-icon--size-md material-icons";
+            newIcon.appendChild(document.createTextNode("expand_more"))
 
             //Append Icon elemetns
             newLbl.appendChild(newIcon);
