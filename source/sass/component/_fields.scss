@@ -43,7 +43,9 @@
         min-height: 200px;
         padding: map-get($spacers, "3")-2;
     }
-    input:focus, textarea:focus {
+
+    input:focus,
+    textarea:focus {
         border-bottom: 2px solid $color-in-action;
         transition: ease-in-out .3s;
 
@@ -73,7 +75,8 @@
             width: 100%;
         }
 
-        input:after, input:after.valid:after{
+        input:after,
+        input:after.valid:after {
             border-bottom: 2px solid $color-success;
         }
 
@@ -81,6 +84,7 @@
             border-bottom: 1px solid $color-primary-dimmed;
             transition: ease-in-out .3s;
         }
+
         input.valid {
             border-bottom: 2px solid $color-success;
             transition: ease-in-out .3s;
@@ -104,7 +108,7 @@
             pointer-events: none;
         }
 
-        input:focus + label {
+        input:focus+label {
             transform: translate(0, 4px) scale(.75);
         }
 
@@ -112,7 +116,7 @@
             transform: translate(0, 4px) scale(.75);
         }
 
-        input:not(:placeholder-shown) + label {
+        input:not(:placeholder-shown)+label {
             transform: translate(0, 4px) scale(.75);
         }
 
@@ -132,18 +136,18 @@
             color: transparent;
         }
 
-        input[type="date"] + label,
-        input[type="datetime-local"] + label,
-        input[type="week"] + label,
-        input[type="month"] + label,
-        input[type="day"] + label,
-        input[type="year"] + label {
+        input[type="date"]+label,
+        input[type="datetime-local"]+label,
+        input[type="week"]+label,
+        input[type="month"]+label,
+        input[type="day"]+label,
+        input[type="year"]+label {
             font-size: 11px;
             top: 3px !important;
             transform: none;
         }
 
-        textarea + label {
+        textarea+label {
             font-size: 11px;
             top: 4px !important;
             padding-left: 3px;
@@ -305,7 +309,7 @@
             background: transparent;
 
             &:before {
-                font-family: 'Material Icons' !important;
+                font-family: "Material Icons" !important;
                 content: "\f10a";
                 font-size: 22px;
                 padding: map-get($spacers, "1");
@@ -321,18 +325,16 @@
         }
     }
 
-
     ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
     ::-webkit-datetime-edit-month-field:not([aria-valuenow]),
     ::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
         color: transparent;
     }
 
-    /* Checkboxes */
-
     &__checkbox {
 
         .c-field__checkbox--label-box {
+
             display: flex;
             align-self: center;
             position: relative;
@@ -344,7 +346,7 @@
             cursor: pointer;
         }
 
-        .c-field__checkbox--hidden-box:checked + .c-field__checkbox--label {
+        .c-field__checkbox--hidden-box:checked+.c-field__checkbox--label {
 
             .c-field__checkbox--label-box {
 
@@ -371,8 +373,6 @@
         }
     }
 
-    /* Radiobuttons*/
-
     &__radio {
 
         .c-field__radio--label-box {
@@ -387,7 +387,7 @@
             cursor: pointer;
         }
 
-        .c-field__radio--hidden-box:checked + .c-field__radio--label {
+        .c-field__radio--hidden-box:checked+.c-field__radio--label {
 
             .c-field__radio--label-box {
 
@@ -456,6 +456,33 @@
         padding: map-get($spacers, "1") 11px;
     }
 
+    .c-field__input-invalid-message,
+    .field__textarea-invalid-message {
+        width  : 100%;
+        padding: map-get($spacers, "1") ;
+        display:none;
+        font-size: 80%;
+        color: $color-white;
+        background-color: $color-danger;
+        border:none;
+        border-radius: 0 0 5px 5px;
+        box-sizing: border-box;
+
+        &.error {
+            display:block;
+            transition: ease-in-out .3s;
+        }
+
+        .c-icon {
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    .error.active {
+        padding: 0.3em;
+    }
+
     @keyframes pop-in {
 
         0% {
@@ -469,32 +496,5 @@
         100% {
             transform: scale(1);
         }
-    }
-
-
-    /* This is the style of our error messages */
-    .c-field__input-invalid-message,
-    .field__textarea-invalid-message  {
-        width  : 100%;
-        padding: map-get($spacers, "1") ;
-        display:none;
-        font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
-        border:none;
-        border-radius: 0 0 5px 5px;
-        box-sizing: border-box;
-        &.error {
-            display:block;
-            transition: ease-in-out .3s;
-        }
-        .c-icon {
-            position: relative;
-            top: 3px;
-        }
-    }
-
-    .error.active {
-        padding: 0.3em;
     }
 }

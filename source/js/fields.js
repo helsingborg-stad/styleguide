@@ -43,7 +43,6 @@ class Fields {
                         ufiles += '</ul>';
                         document.getElementById('fileNameContainer').innerHTML = ufiles;
                     }
-                    
                 });
             };
         }
@@ -51,7 +50,7 @@ class Fields {
     
     
     /**
-     * A simple input validation
+     * A simple input validation matcing input value with value
      */
     formValidationEventListerners() {
         
