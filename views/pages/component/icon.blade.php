@@ -29,11 +29,11 @@
             @endicon
             @icon(['icon' => 'archive', 'size' => 'lg'])
             @endicon
-            @icon(['icon' => 'arrow-back', 'size' => 'lg'])
+            @icon(['icon' => 'keyboard_backspace', 'size' => 'lg'])
             @endicon
             @icon(['icon' => 'check', 'size' => 'lg'])
             @endicon
-            @icon(['icon' => 'cloud-upload', 'size' => 'lg'])
+            @icon(['icon' => 'cloud_upload', 'size' => 'lg'])
             @endicon
             @icon(['icon' => 'people', 'size' => 'lg'])
             @endicon

@@ -4,6 +4,10 @@
     border-radius: $border-radius-xs;
     height: 100%;
 
+    &__background--dark {
+        background-color: $color-card-background-dark;
+    }
+
     &--shadow-on-hover {
 
         &:hover {
@@ -124,10 +128,10 @@
             background: none;
         }
 
-
-      .c-accordion__button-wrapper, 
-      .c-accordion__content {
+        .c-accordion__button-wrapper, 
+        .c-accordion__content {
             padding: 0px;
+
         }
 
         .c-accordion__content {
