@@ -2,7 +2,7 @@ class Fields {
     
     constructor() {
         
-     
+        
         this.form = document.getElementsByTagName('form')[0];
         this.formElement = null;
         this.formElementType = null;
@@ -10,10 +10,11 @@ class Fields {
         this.formElementRequired = null;
         this.formElementDataInvalid = null;
         this.formElementDataInvalid = null;
-
+        
         this.formValidationEventListerners();
         this.fielinpuOnChange();
     }
+    
     
     /**
      * File input
@@ -51,6 +52,7 @@ class Fields {
     
     /**
      * A simple input validation matcing input value with value
+     * Listerners Click and change
      */
     formValidationEventListerners() {
         
@@ -59,7 +61,7 @@ class Fields {
         for (const formInput of inputs) {
             
             let inputId = formInput.getAttribute('id');
-    
+            
             // On Click event listener - Setting data
             document.getElementById(inputId).addEventListener('click', function (e) {
                 self.formElement = this;
@@ -78,56 +80,58 @@ class Fields {
             });
             
             // On Change event listener
-            document.getElementById(inputId).addEventListener('change', function (e) {
-                self.formElement = this;
-                
-                if (!('remove' in Element.prototype)) {
-                    Element.prototype.remove = function() {
-                        if (this.parentNode) {
-                            this.parentNode.removeChild(this);
-                        }
-                    };
-                }
-                
-                self.formElement.classList.remove('invalid');
-                self.formElement.classList.remove('valid');
-                
-                // If Require is on
-                if (self.formElementRequired) {
-                    
-                    let valid = false;
-                    if (self.formElementPattern) {
-                        valid = (self.formElement.value.match(self.formElementPattern)) ? true : false;
-                    } else {
-                        let valid = true;
-                    }
-                    
-                    const id = self.formElement.getAttribute('id');
-                    const message = self.formElement.getAttribute('id');
-                    
-                    if (!valid && !this.checkValidity()) {
-                        self.formElement.classList.add('invalid');
-                        
-                        if (self.formElementDataInvalidMessage) {
-                            const errorMessage = document.getElementById('error_'+id+'_message');
-                            errorMessage.classList.add('error');
-                            errorMessage.getElementsByClassName("errorText")[0].innerHTML = self.formElementDataInvalidMessage;
-                        }
-                
-                    } else {
-                        document.getElementById('error_'+id+'_message').classList.remove('error');
-                        self.formElement.className = "valid";
-                    }
-                }
-        
+            document.getElementById(inputId).addEventListener('change', function (element) {
+                self.validateFormField(element)
             });
-    
         }
-        
-
     }
     
     
+    /**
+     * Validate Form fields by pattern
+     * @param element
+     */
+    validateFormField(element) {
+ 
+        if (!('remove' in Element.prototype)) {
+            Element.prototype.remove = function () {
+                if (this.parentNode) {
+                    this.parentNode.removeChild(this);
+                }
+            };
+        }
+    
+        this.formElement.classList.remove('invalid');
+        this.formElement.classList.remove('valid');
+    
+        // If Require is on
+        if (this.formElementRequired) {
+        
+            let valid = false;
+            if (this.formElementPattern) {
+                valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
+            } else {
+                let valid = true;
+            }
+        
+            const id = this.formElement.getAttribute('id');
+            const message = this.formElement.getAttribute('id');
+        
+            if (!valid && !this.formElement.checkValidity()) {
+                this.formElement.classList.add('invalid');
+            
+                if (this.formElementDataInvalidMessage) {
+                    const errorMessage = document.getElementById('error_' + id + '_message');
+                    errorMessage.classList.add('error');
+                    errorMessage.getElementsByClassName("errorText")[0].innerHTML = this.formElementDataInvalidMessage;
+                }
+            
+            } else {
+                document.getElementById('error_' + id + '_message').classList.remove('error');
+                this.formElement.className = "valid";
+            }
+        }
+    }
 }
 
 export default Fields;
