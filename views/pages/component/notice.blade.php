@@ -56,7 +56,7 @@
                 'size' => 'sm'
             ],
             'icon' => [
-                'name' => 'greeting',
+                'name' => 'accessibility',
                 'size' => 'md',
                 'color' => 'black'
             ]

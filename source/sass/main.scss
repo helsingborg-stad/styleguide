@@ -16,6 +16,7 @@
 // ***************************************************************
 // *** Settings
 // ***************************************************************
+@import "/node_modules/material-design-icons/iconfont/material-icons.css";
 @import "setting/variables";
 
 // ***************************************************************
@@ -34,6 +35,7 @@
 @import "function/legacy-direction";
 @import "function/is-direction";
 @import "function/append-important";
+@import "function/heading";
 
 // ***************************************************************
 // *** Mixins
@@ -54,6 +56,7 @@
 @import "mixin/build-utility";
 @import "mixin/animations/slide";
 @import "mixin/animations/scale-up";
+@import "mixin/animations/fade-in";
 
 // ***************************************************************
 // *** Generic
@@ -62,6 +65,7 @@
 @import "generic/container";
 @import "generic/grid";
 @import "generic/icons";
+@import "generic/load-animation";
 
 // ***************************************************************
 // *** Elements
@@ -117,6 +121,7 @@
 @import "component/buttonGroup";
 @import "component/fab";
 @import "component/steppers";
+@import "component/segment";
 @import "component/navbar";
 @import "component/dropdown";
 

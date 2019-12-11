@@ -4,6 +4,10 @@
     border-radius: $border-radius-xs;
     height: 100%;
 
+    &__background--dark {
+        background-color: $color-card-background-dark;
+    }
+
     &--shadow-on-hover {
 
         &:hover {
@@ -15,7 +19,7 @@
 
     &__paper {
         margin-bottom: 0;
-        cursor:pointer;
+        cursor: pointer;
 
     }
 
@@ -28,7 +32,7 @@
     }
 
     .c-avatar {
-        float:left;
+        float: left;
         margin: 0 map-get($spacers, "2") map-get($spacers, "2") 0;
 
     }
@@ -49,7 +53,7 @@
     }
 
     &__top-title {
-        padding-bottom:0;
+        padding-bottom: 0;
 
         .c-card__byline {
             margin-top: - map-get($spacers, "2");
@@ -86,12 +90,12 @@
         }
 
         &.c-card__with-bottom-dropdown {
-            width:95%;
+            width: 95%;
         }
     }
 
     &__with-bottom-dropdown .c-dropdown {
-        position:absolute;
+        position: absolute;
         bottom: map-get($spacers, "1");
         right: map-get($spacers, "4");
     }
@@ -116,12 +120,12 @@
     }
 
     .c-accordion.c-card--no-accordion {
-
         box-shadow: none;
 
         .c-accordion__button:hover {
             background: none;
         }
+
 
         .c-accordion__button-wrapper, .c-accordion__content {
             padding:0px;

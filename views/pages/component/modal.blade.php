@@ -19,7 +19,7 @@
             'color' => 'secondary',
             'reverseIcon' => true,
             'floating' => true,
-            'attributeList' => ['data-open' => 'exampleModalId']
+            'attributeList' => ['data-open' => 'examplemodalid']
         ]
     )
     @endbutton
@@ -28,7 +28,7 @@
             [
                 'heading'=> "Hey, have you seen this?",
                 'isPanel' => false,
-                'id' => 'exampleModalId',
+                'id' => 'examplemodalid',
                 'overlay' => 'dark',
                 'animation' => 'scale-up',
             ]
