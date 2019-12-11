@@ -12,14 +12,14 @@ class Fields {
         this.formElementDataInvalid = null;
         
         this.formValidationEventListerners();
-        this.fielinpuOnChange();
+        this.fileInputOnChange();
     }
     
     
     /**
      * File input
      */
-    fielinpuOnChange() {
+    fileInputOnChange() {
         
         const fileIn = document.getElementById('fileinput');
         
