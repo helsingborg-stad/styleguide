@@ -119,16 +119,19 @@
         display: block;
     }
 
+
     .c-accordion.c-card--no-accordion {
+
         box-shadow: none;
 
         .c-accordion__button:hover {
             background: none;
         }
 
-        .c-accordion__button-wrapper,
+        .c-accordion__button-wrapper, 
         .c-accordion__content {
             padding: 0px;
+
         }
 
         .c-accordion__content {
