@@ -110,13 +110,13 @@
             padding: map-get($spacers, "2");
 
             .c-image {
-                width: unset;
+                width: auto;
             }
 
             img {
                max-height: 44px;
                height: 44px;
-               width: unset;
+               width: auto;
             }
         }
 
