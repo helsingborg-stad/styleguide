@@ -45,12 +45,24 @@
                 
                
                 
-                @buttonGroup(['borderColor' => 'default', 'toggle' => true])
-                    @button(['text' => 'HTML', 'isOutLined' =>  true, 'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
-                    'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]])
+                @buttonGroup(['borderColor' => 'default'])
+                    @button([
+                        'color' => 'default',
+                        'text' => 'HTML',
+                        'size' => 'md',
+                        'isOutlined' => true,
+                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
+                    ])
                     @endbutton
-                    @button(['text' => 'Blade', 'isOutLined' =>  true, 'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
-                    'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]])
+                    @button([
+                        'color' => 'default',
+                        'text' => 'Blade',
+                        'size' => 'md',
+                        'isOutlined' => true,
+                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
+                    ])
                     @endbutton
                 @endbuttonGroup
                 
