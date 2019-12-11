@@ -35,6 +35,7 @@
 @import "function/legacy-direction";
 @import "function/is-direction";
 @import "function/append-important";
+@import "function/heading";
 
 // ***************************************************************
 // *** Mixins
@@ -120,6 +121,7 @@
 @import "component/buttonGroup";
 @import "component/fab";
 @import "component/steppers";
+@import "component/segment";
 @import "component/navbar";
 @import "component/dropdown";
 

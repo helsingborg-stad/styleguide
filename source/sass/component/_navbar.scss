@@ -103,19 +103,26 @@
         flex-wrap: wrap;
 
         &__logo {
+            display: flex;
+            justify-content: space-between;
             order: 1;
             flex:1;
-            max-width: 50%;
             padding: map-get($spacers, "2");
+
+            .c-image {
+                width: auto;
+            }
+
+            img {
+               max-height: 44px;
+               height: 44px;
+               width: auto;
+            }
         }
 
         &__toggle {
-            order: 2;
-            display: flex;
             height: auto;
-            justify-content: flex-end;
-            margin-left: auto;
-            padding-right: #{map-get($spacers, "1")};
+            width: initial;
 
             .c-button {
                 transition: all 0.3s ease-in-out;
@@ -209,12 +216,20 @@
 
             img {
                 height: 55px;
+                max-height: 55px;
                 width: auto;
             }
         }
 
         &__list {
             display: inline-flex;
+
+            a {
+                min-width: 44px;
+                min-height: 44px;
+                display: table;
+                margin: 0 map-get($spacers, "2");
+            }
 
             &:nth-of-type(2) {
                 order: 2;
@@ -232,7 +247,8 @@
         &__item {
             position: relative;
             white-space: nowrap;
-            margin: 0 map-get($spacers, "2");
+            display: table-cell;
+            vertical-align: middle;
 
             span, span:active, span:visited, span:hover, span:visited:hover {
                 min-height: 44px;

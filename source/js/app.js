@@ -1,5 +1,4 @@
 import './polyfill';
-import "core-js";
 
 import expandSection from './expand-section';
 import Filter from './filter';
@@ -8,8 +7,10 @@ import Toggle from './toggle';
 import Menu from './menu';
 import Modal from "./modal";
 import Steppers from "./steppers";
+import Image from "./image";
 import SplitButton from './splitButton';
 import Dropdown from './dropdown';
+import Fields from './fields';
 
 expandSection();
 
@@ -35,6 +36,8 @@ let SteppersInstance = new Steppers;
 SteppersInstance.enableStepper();
 
 //Menu
-let MenuInstance = new Menu
+let MenuInstance = new Menu;
 MenuInstance.applyMenu();
+
+const FieldsInstance = new Fields;
 

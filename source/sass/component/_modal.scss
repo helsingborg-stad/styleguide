@@ -1,6 +1,8 @@
 .c-modal {
     position: relative;
     background-color: white;
+    display: flex;
+    flex-direction: column;
     max-width: 800px;
     max-height: 80vh;
     //overflow: auto;
@@ -27,15 +29,17 @@
     }
 
     &__header {
+        flex-shrink: 0;
         padding: map-get($spacers, "4") map-get($spacers, "4") 0;
     }
 
     &__content {
-        overflow: auto;
+        overflow-y: auto;
         padding: map-get($spacers, "2") map-get($spacers, "4");
     }
 
     &__footer {
+        flex-shrink: 0;
         padding: map-get($spacers, "4");
     }
 
