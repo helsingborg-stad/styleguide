@@ -5,9 +5,6 @@
     vertical-align: middle;
     text-decoration: none;
     cursor: pointer;
-    margin: 0;
-    margin-top: 2.66667px;
-    margin-bottom: 2.66667px;
     line-height: 1;
     font-weight: bold;
     background-color: transparent;
@@ -29,40 +26,39 @@
 
     // COLOR
     &--primary {
-        @include button-mix($color-white, $color-primary, false);
-
-        &[aria-pressed="true"] {
-            background-color: $color-primary-dark;
-            border-color: $color-primary-dark;
-        }
+        @include button-mix($color-white, $color-primary, $color-primary-dimmed);
     }
 
     &--secondary {
-        @include button-mix($color-white, $color-secondary, false);
-
-        &[aria-pressed="true"] {
-            background-color: $color-secondary-dark;
-            border-color: $color-secondary-dark;
-        }
+        @include button-mix($color-white, $color-secondary, $color-secondary-dimmed);
     }
 
     &--default {
         box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
-        @include button-mix($color-primary, $color-default, false);
-
-        &[aria-pressed="true"] {
-            background-color: $color-default-dark;
-            border-color: $color-default-dark;
+        @include button-mix($color-primary, $color-default, $color-default-dimmed);
+        &:hover{
+            color: $color-primary-dimmed;
         }
     }
 
+    &:hover{
+        box-shadow: 0px 3px 6px rgba(98, 98, 98, 0.18), 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+    }
+
     &[disabled] {
-        box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+       
         border-color: $color-disabled;
-        border: none;
-        color: $color-disabled-text;
         background-color: $color-disabled;
+        color: $color-disabled-text;
         cursor: not-allowed;
+        * {
+            color: $color-disabled-text;
+        }
+
+        &:hover {
+            background-color: $color-disabled;
+            box-shadow: none;
+        }
     }
 
     // SIZE
@@ -72,12 +68,12 @@
     }
 
     &--md {
-        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
+        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 7.5px);
     }
 
     &--sm {
         text-transform: uppercase;
-        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 12.5px);
+        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
     }
 
     // FLOATING
@@ -109,11 +105,11 @@
 
 .c-button__label-icon {
     order: 2;
-    padding-left: 5%;
+    margin-left: 0.5rem;
 
     &--reverse {
         order: 1;
-        padding-right: 5%;
+        margin-right: 0.5rem;
     }
 }
 
@@ -130,20 +126,6 @@
 .c-button__icon {
     @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
     border: none;
-
-    &[disabled] {
-        background-color: $color-disabled;
-        border-color: $color-disabled;
-
-        * {
-            color: $color-disabled-text;
-        }
-
-        &:hover {
-            border-color: $color-disabled;
-            background-color: $color-disabled;
-        }
-    }
 }
 
 .c-button__icon-hover-color {
@@ -244,7 +226,7 @@
         }
 
         &[aria-pressed="true"] {
-            color: darken($color-secondary, 20%);
+            color: darken($color-primary, 20%);
             background-color: transparentize($color-secondary, 0.5);
         }
     }
@@ -260,12 +242,6 @@
             color: darken($color-primary, 20%);
             background-color: transparentize($color-default-dark, 0.2);
         }
-    }
-
-    &[disabled] {
-        color: $color-disabled-text;
-        background-color: transparentize($color-black, 0.5);
-        cursor: not-allowed;
     }
 }
 

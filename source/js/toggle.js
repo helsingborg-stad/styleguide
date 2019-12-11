@@ -40,7 +40,8 @@ export default class ToggleClasses {
             let triggerId = trigger.getAttribute(this.TRIGGER);
             let currentToggleGroup = currentTrigger.getAttribute(this.GROUP);
             let toggleGroup = trigger.getAttribute(this.GROUP);
-            if(ariaPressed && triggerId !== currentTriggerId && toggleGroup === currentToggleGroup){
+            
+            if(ariaPressed && triggerId !== currentTriggerId && currentToggleGroup && toggleGroup === currentToggleGroup){
                 trigger.setAttribute(this.PRESSED, 'false');
             }
         });

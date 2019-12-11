@@ -49,7 +49,7 @@
                     @button(['text' => 'HTML', 'isOutLined' =>  true, 'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                     'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]])
                     @endbutton
-                    @button(['text' => 'Blade', 'isOutLined' =>  true, 'icon' => ['name' => 'dvr', 'color' => 'black', 'size' => 'md'],
+                    @button(['text' => 'Blade', 'isOutLined' =>  true, 'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                     'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]])
                     @endbutton
                 @endbuttonGroup
