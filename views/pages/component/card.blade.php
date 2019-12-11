@@ -326,6 +326,7 @@
                 'title' => ['text' => 'If you want to skip accordion styling', 'position' => 'top'],
                 'byline' => ['text' => 'Add c-card--no-accordion to the accordion classlist, to remove accordion styling.', 'position' => 'top'],
                 'hasRipple' => false,
+                'dark_background' => true,
                 'accordion' =>
                     [
                     'items' => [

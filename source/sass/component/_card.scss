@@ -4,6 +4,10 @@
     border-radius: $border-radius-xs;
     height: 100%;
 
+    &__background--dark {
+        background-color: $color-card-background-dark;
+    }
+
     &--shadow-on-hover {
 
         &:hover {
