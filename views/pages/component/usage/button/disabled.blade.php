@@ -4,6 +4,7 @@
     'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
 ])
 @endbutton
+
 @button([
     'text' => 'Disabled outlined',
     'toggle' => true,
@@ -12,6 +13,7 @@
     'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
 ])
 @endbutton
+
 @button([
     'isIconButton' =>  true,
     'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],

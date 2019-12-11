@@ -1,17 +1,20 @@
 @button([
     'text' => 'Primary',
-    'color' => 'primary'
+    'color' => 'primary',
+    'isTextButton' => true
 ])
 @endbutton
 
 @button([
     'text' => 'Secondary',
-    'color' => 'secondary'
+    'color' => 'secondary',
+    'isTextButton' => true
 ])
 @endbutton
 
 @button([
     'text' => 'Default',
-    'color' => 'default'
+    'color' => 'default',
+    'isTextButton' => true
 ])
 @endbutton
