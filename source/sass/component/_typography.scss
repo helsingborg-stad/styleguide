@@ -25,6 +25,9 @@
         font-weight: $h4-font-weight;
         line-height: $h4-line-height;
         letter-spacing:$font-letterspacing-title;
+        i {
+            @extend .c-icon--typography-adjustment;
+        }
     }
 
     &h5 {
@@ -66,4 +69,7 @@
     &meta {
         font-size: $font-size-meta;
     }
+
+
+
 }

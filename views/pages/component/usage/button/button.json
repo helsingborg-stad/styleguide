@@ -1,42 +1,52 @@
 {
     "size": {
         "heading": "Different Sizes",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "background": {
         "heading": "Different backgrounds",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "disabled": {
         "heading": "Disabled buttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "floating": {
         "heading": "Floating buttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "icon": {
         "heading": "Icon buttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "outlined": {
         "heading": "Outlined buttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "text": {
         "heading": "Textbuttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "textWithIcon": {
         "heading": "Buttons with both text and icon",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "toggle": {
         "heading": "Togglebuttons",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     },
     "iconHoverColor": {
         "heading": "Changing icon color on hover",
+        "subHeading" : "Card is based on a paper component",
         "text": "This is a default colored button and it's pretty sweet"
     }
 }

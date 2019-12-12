@@ -2,12 +2,24 @@
     margin-bottom: 32px;
 
     @include paper(2);
+
+    &--transparent {
+        background: transparent;
+        box-shadow: none;
+    }
+
     @each $number, $size in $spacers {
 
         &--padding-#{$number} {
             padding: map-get($spacers, $number);
         }
     }
+
+    &--divider {
+        border-top: 1px Solid $color-gray-light;
+        padding-top:map-get($spacers, "3");
+    }
+
 }
 
 .c-card  .c-paper {

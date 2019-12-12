@@ -92,7 +92,7 @@ class Fields {
      * @param element
      */
     validateFormField(element) {
- 
+        
         if (!('remove' in Element.prototype)) {
             Element.prototype.remove = function () {
                 if (this.parentNode) {
@@ -100,32 +100,32 @@ class Fields {
                 }
             };
         }
-    
+        
         this.formElement.classList.remove('invalid');
         this.formElement.classList.remove('valid');
-    
+        
         // If Require is on
         if (this.formElementRequired) {
-        
+            
             let valid = false;
             if (this.formElementPattern) {
                 valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
             } else {
                 let valid = true;
             }
-        
+            
             const id = this.formElement.getAttribute('id');
             const message = this.formElement.getAttribute('id');
-        
+            
             if (!valid && !this.formElement.checkValidity()) {
                 this.formElement.classList.add('invalid');
-            
+                
                 if (this.formElementDataInvalidMessage) {
                     const errorMessage = document.getElementById('error_' + id + '_message');
                     errorMessage.classList.add('error');
                     errorMessage.getElementsByClassName("errorText")[0].innerHTML = this.formElementDataInvalidMessage;
                 }
-            
+                
             } else {
                 document.getElementById('error_' + id + '_message').classList.remove('error');
                 this.formElement.className = "valid";

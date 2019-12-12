@@ -1,27 +1,29 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
-    @if($slug === 'card')
-
-        <div class="markup-preview markup-preview--align-x">
-            {!! $slot !!}
-        </div>
-
-        @paper(['padding' => 3])
-            @typography([
-                'variant' => "h3",
-                'element' => "h3"
-            ])
-                HTML rendered by blade component
-            @endtypography
-
-            @code(['language' => 'html', 'content' => ""])
-                {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
-            @endcode
-        @endpaper
-
-    @elseif($examples)
+@if($examples)
         @foreach($examples as $key => $example)
-            
-            @paper(['padding' => 3])
+
+            @if($slug === 'card')
+                @php
+                    $paper = [
+                        'transparencyContainer' => true,
+                        'transparencyDocContainer' => false,
+                        'containerPadding' => 0,
+                        'docContainerPadding' => 3,
+                    ];
+                @endphp
+            @else
+                @php
+                    $paper = [
+                        'transparencyContainer' => false,
+                        'transparencyDocContainer' => true,
+                        'containerPadding' => 3,
+                        'docContainerPadding' => 0,
+                    ];
+                @endphp
+            @endif
+
+            @paper(['padding' => $paper['containerPadding'],
+                'transparent' => $paper['transparencyContainer']])
 
                 @typography([
                     'variant' => "h3",
@@ -34,38 +36,54 @@
                     @include($example['component'])
                 </div>
                 <br>
-            
-                @typography([
-                    "variant" => "caption",
-                    "element" => "p"
-                ])
-                    {{$example['description']['text']}}
-                @endtypography
 
-                
-               
-                
-                @buttonGroup(['borderColor' => 'default'])
-                    @button([
-                        'color' => 'default',
-                        'text' => 'HTML',
-                        'size' => 'md',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
-                        'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
+                @paper([
+                    'padding' => $paper['docContainerPadding'],
+                    'transparent' => $paper['transparencyDocContainer'],
+                    'classList' => ['c-paper--divider']
+                ])
+                    @typography([
+                        'variant' => "h4",
+                        'element' => "h4",
                     ])
-                    @endbutton
-                    @button([
-                        'color' => 'default',
-                        'text' => 'Blade',
-                        'size' => 'md',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
-                        'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
+                        @icon([
+                            'icon' => 'info',
+                            'size' => 'md',
+                            'color' => 'gray'
+                        ])
+                        @endicon
+
+
+                {{$example['description']['subHeading']}}
+                    @endtypography
+                    @typography([
+                        "variant" => "caption",
+                        "element" => "p"
                     ])
-                    @endbutton
-                @endbuttonGroup
-                
+                        {{$example['description']['text']}}
+                    @endtypography
+
+                    @buttonGroup(['borderColor' => 'default'])
+                        @button([
+                            'color' => 'default',
+                            'text' => 'HTML',
+                            'size' => 'md',
+                            'isOutlined' => true,
+                            'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                            'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
+                        ])
+                        @endbutton
+                        @button([
+                            'color' => 'default',
+                            'text' => 'Blade',
+                            'size' => 'md',
+                            'isOutlined' => true,
+                            'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                            'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
+                        ])
+                        @endbutton
+                    @endbuttonGroup
+                @endpaper
                 @paper([])
                     @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
