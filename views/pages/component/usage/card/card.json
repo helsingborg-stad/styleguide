@@ -1,21 +1,25 @@
 {
     "basic": {
+        "grid": "grid-s-12 grid-sm-6 grid-md-6",
         "heading": "Basic Card component",
         "subHeading" : "Card is based on a paper component",
         "text": "The plain basic card contain title, byline and content"
     },
     "buttons": {
+        "grid": "grid-s-12 grid-sm-6 grid-md-6",
         "heading": "Adding action buttons",
         "subHeading" : "Insted of links to pages or some other action",
         "text": "Cards can include buttons for actions."
     },
     "titlePositionTop": {
-        "heading": "Position of Title and byline",
+        "grid": "grid-s-12 grid-sm-6 grid-md-6",
+        "heading": "Position of Title and byline (card top)",
         "subHeading" : "Top Position",
         "text": "Top position for title and byline. "
     },
     "titlePositionBody": {
-        "heading": "Position of Title and byline",
+        "grid": "grid-s-12 grid-sm-6 grid-md-6",
+        "heading": "Position of Title and byline (card body)",
         "subHeading" : "Body Position",
         "text": "Body position for title and byline. "
     }

@@ -20,6 +20,26 @@
         padding-top:map-get($spacers, "3");
     }
 
+    &--component-description-area {
+        background-color: $color-component-doc-background;
+        display: flow-root;
+
+        button, p,i,h4,h5 {
+            color: $color-white;
+        }
+
+        .c-buttongroup {
+            float:right;
+        }
+
+        .c-button__text--primary[aria-pressed=true],
+        [aria-pressed=true].c-button__outlined--primary {
+            color: $color-white;
+            background-color: lighten($color-component-doc-background, 10%);
+        }
+    }
+
+
 }
 
 .c-card  .c-paper {

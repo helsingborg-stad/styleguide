@@ -1,5 +1,6 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
 @if($examples)
+        <div class="grid">
         @foreach($examples as $key => $example)
 
             @if($slug === 'card')
@@ -22,8 +23,13 @@
                 @endphp
             @endif
 
-            @paper(['padding' => $paper['containerPadding'],
-                'transparent' => $paper['transparencyContainer']])
+            @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
+                <div class="{{$example['description']['grid']}}">
+            @endif
+            @paper([
+                'padding' => $paper['containerPadding'],
+                'transparent' => $paper['transparencyContainer']
+            ])
 
                 @typography([
                     'variant' => "h3",
@@ -40,7 +46,7 @@
                 @paper([
                     'padding' => $paper['docContainerPadding'],
                     'transparent' => $paper['transparencyDocContainer'],
-                    'classList' => ['c-paper--divider']
+                    'classList' => ['c-paper--divider', 'c-paper--component-description-area']
                 ])
                     @typography([
                         'variant' => "h4",
@@ -65,18 +71,16 @@
 
                     @buttonGroup(['borderColor' => 'default'])
                         @button([
-                            'color' => 'default',
                             'text' => 'HTML',
-                            'size' => 'md',
+                            'size' => 'sm',
                             'isOutlined' => true,
                             'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                             'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                         ])
                         @endbutton
                         @button([
-                            'color' => 'default',
                             'text' => 'Blade',
-                            'size' => 'md',
+                            'size' => 'sm',
                             'isOutlined' => true,
                             'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                             'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
@@ -89,22 +93,29 @@
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                     @endcode
                 @endpaper
+
+                @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
+                    </div>
+                @endif
+
                 @paper([])
-                @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
+                    @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
                         @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                            {{$example['blade']['code']}}
+                        {{$example['blade']['code']}}
                         @endcode
                     @else
                         @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block lol', 'js-toggle-group' => $loop->index]])
-                            {{"@"}}{{$slug}}{{"([])"}}
+                        {{"@"}}{{$slug}}{{"([])"}}
 
-                            {{"@end"}}{{$slug}}
-                        @endcode 
+                        {{"@end"}}{{$slug}}
+                        @endcode
                     @endif
                 @endpaper
 
             @endpaper
-        @endforeach 
+
+        @endforeach
+        </div>
     @else
         @paper(['padding' => 3])
 
