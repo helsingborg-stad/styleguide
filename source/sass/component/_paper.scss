@@ -39,6 +39,20 @@
         }
     }
 
+    &--component-description-area-full {
+        margin: -25px;
+        margin-top: 20px;
+        margin-bottom: -58px;
+        padding: 24px;
+    }
+
+    &--component-code-area-full {
+        background-color: $color-component-doc-background;
+        margin: 24px -25px -36px;
+        margin-bottom:-30px;
+        padding: 24px;
+    }
+
 
 }
 

@@ -23,6 +23,28 @@
                 @endphp
             @endif
 
+                @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
+                    @php
+                        $componentDesc = [
+                            'c-paper--component-description-area'
+                        ];
+                        $codeArea = [
+                            ''
+                        ]
+                    @endphp
+                @else
+                    @php
+                        $componentDesc = [
+                            'c-paper--component-description-area',
+                            'c-paper--component-description-area-full'
+                        ];
+                        $codeArea = [
+                            'c-paper--component-code-area-full'
+                        ]
+                    @endphp
+
+                @endif
+
             @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
                 <div class="{{$example['description']['grid']}}">
             @endif
@@ -46,7 +68,7 @@
                 @paper([
                     'padding' => $paper['docContainerPadding'],
                     'transparent' => $paper['transparencyDocContainer'],
-                    'classList' => ['c-paper--divider', 'c-paper--component-description-area']
+                    'classList' => $componentDesc
                 ])
                     @typography([
                         'variant' => "h4",
@@ -88,7 +110,9 @@
                         @endbutton
                     @endbuttonGroup
                 @endpaper
-                @paper([])
+                @paper([
+                    'classList' => $codeArea
+                ])
                     @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                     @endcode
@@ -98,13 +122,15 @@
                     </div>
                 @endif
 
-                @paper([])
+                @paper([
+                    'classList' => $codeArea
+                ])
                     @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
                         @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{$example['blade']['code']}}
                         @endcode
                     @else
-                        @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block lol', 'js-toggle-group' => $loop->index]])
+                        @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{"@"}}{{$slug}}{{"([])"}}
 
                         {{"@end"}}{{$slug}}
