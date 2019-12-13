@@ -23,28 +23,31 @@
                 @endphp
             @endif
 
-                @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
-                    @php
-                        $componentDesc = [
-                            'c-paper--component-description-area'
-                        ];
-                        $codeArea = [
-                            ''
-                        ];
-                    @endphp
-                @else
-                    @php
-                        $componentDesc = [
-                            'c-paper--component-description-area',
-                            'c-paper--component-description-area-full'
-                        ];
-                        $codeArea = [
-                            'c-paper--component-code-area-full'
-                        ];
-                        $example['description']['grid'] = 'grid-md-12';
-                    @endphp
+            @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
+                @php
+                      $componentDesc = [
+                        'c-paper--component-description-area'
+                      ];
 
-                @endif
+                      $codeArea = [
+                        ''
+                      ];
+                @endphp
+            @else
+                @php
+                    $componentDesc = [
+                        'c-paper--component-description-area',
+                        'c-paper--component-description-area-full'
+                    ];
+
+                    $codeArea = [
+                        'c-paper--component-code-area-full'
+                    ];
+
+                    $example['description']['grid'] = 'grid-md-12';
+                @endphp
+
+            @endif
 
             <div class="{{$example['description']['grid']}}">
 
@@ -117,10 +120,6 @@
                             {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                         @endcode
                     @endpaper
-
-
-
-
 
                     @paper([
                         'classList' => $codeArea
