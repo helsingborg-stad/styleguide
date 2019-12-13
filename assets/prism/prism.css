@@ -127,7 +127,7 @@ pre[class*="language-"] {
 }
 .toolbar {
 	position: absolute;
-	top: -24px;
+	top: -15px;
 	right: 0px;
 }
 .toolbar-item button {
