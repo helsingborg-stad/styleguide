@@ -146,4 +146,6 @@ pre[class*="language-"] {
 	cursor:pointer;
 	font-size: .6875em;
 }
-
+.toolbar-item button:hover {
+	background-color: #282d60;
+}

@@ -37,6 +37,10 @@
             color: $color-white;
             background-color: lighten($color-component-doc-background, 10%);
         }
+
+        .c-button__outlined--primary:hover, .c-button__text--primary:hover {
+            background-color: lighten($color-component-doc-background, 10%);
+        }
     }
 
     &--component-description-area-full {
