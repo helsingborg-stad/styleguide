@@ -50,13 +50,25 @@
         padding: 24px;
     }
 
-    &--component-code-area-full {
+    &--component-code-area-full, &--component-code-area-grid {
         background-color: $color-component-doc-background;
-        margin: 24px -25px -36px;
-        margin-bottom:-30px;
         .c-code {
             padding: 24px;
         }
+
+    }
+
+    &--component-code-area-grid {
+        margin-top:-52px;
+    }
+
+    &--component-code-area-full {
+        margin: 24px -25px -36px;
+        margin-bottom:-30px;
+    }
+
+    .c-code__output {
+        padding-top:10px;
     }
 
 }

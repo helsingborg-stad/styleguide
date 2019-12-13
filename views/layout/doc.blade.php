@@ -30,7 +30,7 @@
                       ];
 
                       $codeArea = [
-                        ''
+                        'c-paper--component-code-area-grid'
                       ];
                 @endphp
             @else
@@ -46,7 +46,6 @@
 
                     $example['description']['grid'] = 'grid-md-12';
                 @endphp
-
             @endif
 
             <div class="{{$example['description']['grid']}}">
