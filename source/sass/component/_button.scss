@@ -41,9 +41,9 @@
         }
     }
 
-    &:hover{
+    /* &:hover{
         box-shadow: 0px 3px 6px rgba(98, 98, 98, 0.18), 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
-    }
+    } */
 
     &[disabled] {
        
@@ -128,6 +128,20 @@
     border: none;
 }
 
+.c-button__icon-toggle {
+    &--primary[aria-pressed="true"] i{
+        color: $color-primary;
+    }
+
+    &--secondary[aria-pressed="true"] i{
+        color: $color-secondary;
+    }
+
+    &--default[aria-pressed="true"] i{
+        color: $color-default-dimmed; 
+    }
+}
+
 .c-button__icon-hover-color {
     @extend .c-button__icon;
 
@@ -187,16 +201,40 @@
     &--primary {
         border: 2px solid $color-primary;
         @extend .c-button__text--primary;
+
+        &[aria-pressed="true"] {
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-primary, 0.5);
+            &:hover{
+                background-color: transparentize($color-primary, 0.5);
+            }
+        }
     }
 
     &--secondary {
         border: 2px solid $color-secondary;
         @extend .c-button__text--secondary;
+
+        &[aria-pressed="true"] {
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-secondary, 0.5);
+            &:hover{
+                background-color: transparentize($color-secondary, 0.5);
+            }
+        }
     }
 
     &--default {
         border: 2px solid $color-default-dark;
         @extend .c-button__text--default;
+
+        &[aria-pressed="true"] {
+            color: darken($color-primary, 20%);
+            background-color: transparentize($color-default-dark, 0.2);
+            &:hover{
+                background-color: transparentize($color-default-dark, 0.2);
+            }
+        }
     }
 }
 
@@ -211,11 +249,6 @@
         &:hover {
             background-color: transparentize($color-primary, 0.9);
         }
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-primary, 0.5);
-        }
     }
 
     &--secondary {
@@ -224,11 +257,6 @@
         &:hover {
             background-color: transparentize($color-secondary, 0.9);
         }
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-secondary, 0.5);
-        }
     }
 
     &--default {
@@ -236,11 +264,6 @@
 
         &:hover {
             background-color: transparentize($color-default-dark, 0.5);
-        }
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-default-dark, 0.2);
         }
     }
 }
