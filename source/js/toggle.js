@@ -7,44 +7,44 @@ export default class ToggleClasses {
         this.PRESSED = 'aria-pressed';
       }
 
-    toggle(currentTriggerId, groupId, currentTrigger) {
-        const items = document.querySelectorAll(`[${this.ITEM}]`);
-        
-        items.forEach((item) => {
-            let itemId = item.getAttribute(this.ITEM);
-            let itemGroupId = item.getAttribute(this.GROUP);
-            
-            if(itemId === currentTriggerId){
-                item.classList.toggle(item.getAttribute(this.CLASS))
-                let ariaPressed = currentTrigger.getAttribute(this.PRESSED);
-                if((ariaPressed !== null && ariaPressed.length === 0) || ariaPressed === 'false'){
-                    currentTrigger.setAttribute(this.PRESSED, 'true');
-                }else {
-                    currentTrigger.setAttribute(this.PRESSED, 'false');
-                }
-            }
+    togglePressedTrigger(pressedTriggerId, groupId, pressedTrigger) {
+        let query = `[${this.ITEM}="${pressedTriggerId}"]`;
+        let item = document.querySelector(query);
+        let toggleClass = item.getAttribute(this.CLASS);
+        let ariaPressed = pressedTrigger.getAttribute(this.PRESSED);
 
-            if(groupId && itemGroupId === groupId && itemId !== currentTriggerId){
-                item.classList.remove(item.getAttribute(this.CLASS))
-            }
+        item.classList.toggle(toggleClass);
 
-            this.toggleTriggers(currentTrigger, currentTriggerId);
-        });
+        if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
+
+        if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
     }
 
-    toggleTriggers(currentTrigger, currentTriggerId){
+    toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass){
+        let query = `[${this.GROUP}="${groupId}"]:not([${this.TRIGGER}="${pressedTriggerId}"])`
+        let idleTriggers = document.querySelectorAll(query);
         
-        const triggers = document.querySelectorAll(`[${this.TRIGGER}]`);
-        triggers.forEach((trigger)=>{
-            let ariaPressed = trigger.getAttribute(this.PRESSED);
-            let triggerId = trigger.getAttribute(this.TRIGGER);
-            let currentToggleGroup = currentTrigger.getAttribute(this.GROUP);
-            let toggleGroup = trigger.getAttribute(this.GROUP);
-            
-            if(ariaPressed && triggerId !== currentTriggerId && currentToggleGroup && toggleGroup === currentToggleGroup){
-                trigger.setAttribute(this.PRESSED, 'false');
-            }
-        });
+        idleTriggers.forEach((idleTrigger=>{
+            let ariaPressed = idleTrigger.getAttribute(this.PRESSED);
+            console.log(idleTriggers);
+            this.removeClassFromTriggeredItem(idleTrigger, toggleClass)
+
+            if(ariaPressed) this.toggleAriaPressed(ariaPressed, idleTrigger, true);
+        }));
+    }
+
+    removeClassFromTriggeredItem(idleTrigger, toggleClass){
+        let id = idleTrigger.getAttribute(this.TRIGGER);
+        let triggeredItem = document.querySelector(`[${this.ITEM}="${id}"]`);
+        triggeredItem.classList.remove(toggleClass);
+    }
+
+    toggleAriaPressed(ariaPressed, element, idle = false){
+        if(ariaPressed === 'false' && !idle){
+            element.setAttribute(this.PRESSED, 'true');
+        }else {
+            element.setAttribute(this.PRESSED, 'false');
+        }
     }
 
     applyToggle(){
@@ -54,7 +54,7 @@ export default class ToggleClasses {
             trigger.addEventListener('click', (event) => {
                 let triggerId = trigger.getAttribute(this.TRIGGER);
                 let groupId = trigger.getAttribute(this.GROUP);
-                this.toggle(triggerId, groupId, trigger);
+                this.togglePressedTrigger(triggerId, groupId, trigger);
             });
         })
 
