@@ -49,13 +49,9 @@ class Navigation
                     //Add current level item
                     if(array_key_exists($item, $response)) {
                         $response[$item]['label'] = self::readableFilename($item);
-                        $response[$item]['href'] = "//" . self::getPageDomain() . "/" . implode(
-                            "/", 
-                            array_filter([
-                                str_replace("/", "", str_replace("pages", "", $folder)), 
-                                str_replace("/", "", $item), 
-                            ])
-                        ); 
+                        $response[$item]['href'] = str_replace("///", "/", 
+                            "//" . self::getPageDomain() . str_replace("pages", "/", $folder) . '/' . $item
+                        );
 
                         //Set icon
                         if(isset(self::$icons[$item])) {
@@ -70,9 +66,9 @@ class Navigation
 
                     //Check if is dir (and traverse it)
                     if($includeChildren) {
-                        if(is_dir(VIEWS_PATH . $folder . $item)) {
+                        if(is_dir(VIEWS_PATH . $folder . '/' . $item)) {
                             if(array_key_exists($item, $response)) {
-                                $response[$item]['children'] = self::items($folder . $item); 
+                                $response[$item]['children'] = self::items($folder . '/' . $item); 
                             }
                         }
                     }
