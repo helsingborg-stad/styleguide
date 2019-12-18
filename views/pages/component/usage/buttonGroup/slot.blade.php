@@ -2,7 +2,7 @@
 
     @button([
         'color' => 'secondary',
-        'text' => 'Toggle #1',
+        'text' => 'Toggle',
         'size' => 'md',
         'isOutlined' => true,
         'toggle' => true
@@ -11,7 +11,7 @@
 
     @button([
         'color' => 'primary',
-        'text' => 'Toggle #2',
+        'text' => 'Outlined',
         'size' => 'md',
         'isOutlined' => true,      
         'background' => 'primary'
@@ -22,13 +22,6 @@
         'isIconButton' =>  true,
         'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'lg'],
         'hover' => ['background' => 'secondary']
-    ])
-    @endbutton
-
-    @button([
-        'text' => 'Three',
-        'background' => 'primary',
-        'color' => 'white'
     ])
     @endbutton
 
