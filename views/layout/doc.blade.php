@@ -1,92 +1,124 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
-    @if($slug === 'card')
-
-        <div class="markup-preview markup-preview--align-x">
-            {!! $slot !!}
-        </div>
-
-        @paper(['padding' => 3])
-            @typography([
-                'variant' => "h3",
-                'element' => "h3"
-            ])
-                HTML rendered by blade component
-            @endtypography
-
-            @code(['language' => 'html', 'content' => ""])
-                {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
-            @endcode
-        @endpaper
-
-    @elseif($examples)
+@if($examples)
+        <div class="grid">
         @foreach($examples as $key => $example)
-            
-            @paper(['padding' => 3])
 
-                @typography([
-                    'variant' => "h3",
-                    'element' => "h3"
+            @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
+                @php
+                      $componentDesc = [
+                        'c-paper--component-description-area'
+                      ];
+
+                      $codeArea = [
+                        'c-paper--component-code-area-grid'
+                      ];
+                @endphp
+            @else
+                @php
+                    $componentDesc = [
+                        'c-paper--component-description-area',
+                        'c-paper--component-description-area-full'
+                    ];
+
+                    $codeArea = [
+                        'c-paper--component-code-area-full'
+                    ];
+
+                    $example['description']['grid'] = 'grid-md-12';
+                @endphp
+            @endif
+
+            <div class="{{$example['description']['grid']}}">
+
+                @paper([
+                    'padding' => $paper['containerPadding'],
+                    'transparent' => $paper['transparencyContainer']
                 ])
-                    {{$example['description']['heading']}}
-                @endtypography
 
-                <div>
-                    @include($example['component'])
-                </div>
-                <br>
-            
-                @typography([
-                    "variant" => "caption",
-                    "element" => "p"
-                ])
-                    {{$example['description']['text']}}
-                @endtypography
+                    @typography([
+                        'variant' => "h3",
+                        'element' => "h3"
+                    ])
+                        {{$example['description']['heading']}}
+                    @endtypography
 
-                
-               
-                
-                @buttonGroup(['borderColor' => 'default'])
-                    @button([
-                        'color' => 'default',
-                        'text' => 'HTML',
+                    <div>
+                        @include($example['component'])
+                    </div>
+                @endpaper
+
+                @paper([
+                        'padding' => $paper['docContainerPadding'],
+                        'transparent' => $paper['transparencyDocContainer'],
+                        'classList' => $componentDesc
+                    ])
+                    @typography([
+                        'variant' => "h4",
+                        'element' => "h4",
+                    ])
+                    @icon([
+                        'icon' => 'info',
                         'size' => 'md',
+                        'color' => 'gray'
+                    ])
+                    @endicon
+
+
+                    {{$example['description']['subHeading']}}
+                    @endtypography
+                    @typography([
+                        "variant" => "caption",
+                        "element" => "p"
+                    ])
+                        {{$example['description']['text']}}
+                    @endtypography
+
+                    @buttonGroup(['borderColor' => 'default'])
+                    @button([
+                        'text' => 'HTML',
+                        'size' => 'sm',
                         'isOutlined' => true,
                         'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                         'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
                     @button([
-                        'color' => 'default',
                         'text' => 'Blade',
-                        'size' => 'md',
+                        'size' => 'sm',
                         'isOutlined' => true,
                         'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
                         'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
-                @endbuttonGroup
-                
-                @paper([])
+                    @endbuttonGroup
+                @endpaper
+                    @paper([
+                        'classList' => $codeArea
+                    ])
                     @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                     @endcode
                 @endpaper
-                @paper([])
+
+                @paper([
+                    'classList' => $codeArea
+                ])
                 @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
-                        @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                            {{$example['blade']['code']}}
-                        @endcode
-                    @else
-                        @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block lol', 'js-toggle-group' => $loop->index]])
-                            {{"@"}}{{$slug}}{{"([])"}}
+                    @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                        {{$example['blade']['code']}}
+                    @endcode
+                @else
+                    @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                    {{"@"}}{{$slug}}{{"([])"}}
 
-                            {{"@end"}}{{$slug}}
-                        @endcode 
-                    @endif
+                    {{"@end"}}{{$slug}}
+                    @endcode
+                @endif
                 @endpaper
+            </div>
+        @endforeach
+        </div>
 
-            @endpaper
-        @endforeach 
     @else
         @paper(['padding' => 3])
 
@@ -107,6 +139,49 @@
 
         @endpaper
     @endif
+
+    @if(isset($slug))
+        @if(isset($displayParams) && !empty($displayParams))
+
+        @paper(['padding' => 3])
+            @if(!file_exists("views/pages/component/usage/".$slug.".blade.php"))
+
+                    @typography([
+                        'variant' => "h3",
+                        'element' => "h3"
+                    ])
+                    Blade component
+                    @endtypography
+                <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
+
+                <?php echo '@slot("parameter")'; ?>
+
+                    Value
+                <?php echo '@endslot'; ?>
+
+
+                {{'$slot'}}
+
+                {{"@end"}}{{$slug}}</code></pre>
+            @endif
+           @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
+                <h3>Example usage in blade file</h3>
+                @code(['language' => 'php', 'content' => ""])
+                        @php ob_start(); @endphp
+                        @verbatim
+                            <?php include_once "views/pages/component/usage/".$slug.".blade.php";  ?>
+                        @endverbatim
+                        @php
+                            $markup = ob_get_contents();
+                            ob_end_clean();
+                            echo htmlentities($markup);
+                        @endphp
+                @endcode
+            @endif
+        @endpaper
+        @endif
+    @endif
+
 
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
