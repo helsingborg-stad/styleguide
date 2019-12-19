@@ -132,6 +132,36 @@
                 </div>
 
                 <div class="grid-md-6">
+                    @markdown
+                    ##Input field - Date Picker
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'datepicker',
+                        'value' => '',
+                        'label' => 'Enter a date',
+                        'attributeList' => [
+                            'type' => 'text',
+                            'name' => 'text',
+                            'data-invalid-message' => "You need to add a valid date!",
+                        ],
+                        'required' => true,
+                        'datepicker' => [
+                            'title'                 => 'Välj ett datum',
+                            'minDate'               => "6/29/1997",
+                            'maxDate'               => "tomorrow",
+                            'required'              => true,
+                            'showResetButton'       => true,
+                            'showDaysOutOfMonth'    => true,
+                            'showClearButton'       => true,
+                            'hideOnBlur'            => true,
+                            'hideOnSelect'          => false,
+                        ]
+                    ])
+                    @endfield
+                </div>
+
+                <div class="grid-md-6">
 
                     @markdown
                         ##Input field - Week
@@ -225,7 +255,7 @@
                 <div class="grid-md-6">
 
                     @markdown
-                    ##Input field - search
+                    ##Input field - Search
                     @endmarkdown
 
                     @field([
