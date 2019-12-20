@@ -2,7 +2,7 @@
 
 namespace HbgStyleGuide;
 
-use \HelsingborgStad\GlobalBladeEngine as Blade; 
+use \HelsingborgStad\GlobalBladeEngine as Blade;
 use \HbgStyleGuide\Helper\Documentation as DocHelper;
 
 class View
@@ -21,7 +21,7 @@ class View
                 'pages.' . $view,
                 $data
             )->render();
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             echo Blade::instance()->make(
                 'pages.404',
                 array_merge(
@@ -35,8 +35,8 @@ class View
     /**
      * @param $view
      * @param array $data
-	 * @throws \Exception
-	 */
+     * @throws \Exception
+     */
     public static function registerLayoutViewComposer()
     {
         //Documentation module alias
@@ -45,78 +45,94 @@ class View
         Blade::instance()->component("layout.script_doc", "script_doc");
 
         //Doc templates
-        $docTemplates = array('layout.doc','layout.utility_doc', 'layout.script_doc');
+        $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
         Blade::instance()->composer($docTemplates, function ($view) {
-            
+
             $viewData = self::accessProtected($view, 'data');
-         
-            if(isset($viewData['slug']) || isset($viewData['viewDoc'])) {
+
+            if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                 $path = (isset($viewData['viewDoc'])) ?
-                    "views/docs/" . $viewData['viewDoc']['type'] . "/". $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json":
-                    "source/library/src/Component/". ucfirst($viewData['slug']) . "/*.json" ;
-                
+                    "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
+                    "source/library/src/Component/" . ucfirst($viewData['slug']) . "/*.json";
+
                 //Locate config file
                 $configFile = glob(BASEPATH . $path);
-                
+
                 //Get first occurance of config
-                if(is_array($configFile) && !empty($configFile)) {
-                    $configFile = array_pop($configFile); 
+                if (is_array($configFile) && !empty($configFile)) {
+                    $configFile = array_pop($configFile);
                 } else {
                     throw new \Exception("No config file found in " . $configFile);
                 }
 
                 //Read config
-                if(!$configJson = file_get_contents($configFile)) {
+                if (!$configJson = file_get_contents($configFile)) {
                     throw new \Exception("Configuration file unreadable at " . $configFile);
                 }
 
                 //Check if valid json
-                if(!$configJson = json_decode($configJson, true)) {
+                if (!$configJson = json_decode($configJson, true)) {
                     throw new \Exception("Invalid formatting of configuration file in " . $configFile);
                 }
 
                 //Check if has default object
-                if(isset($configJson['default'])) {
+                if (isset($configJson['default'])) {
                     $settings = $configJson['default'];
                 } else if (isset($configJson['modifiers'])) {
                     $settings = $configJson['modifiers'];
                 } else if (isset($configJson['attributes'])) {
                     $settings = $configJson['attributes'];
                 } else {
-                    $settings = array(); 
+                    $settings = array();
                 }
 
-                 //Check if has description object
-                if(isset($configJson['description'])) {
-                    $description = $configJson['description']; 
+                //Check if has description object
+                if (isset($configJson['description'])) {
+                    $description = $configJson['description'];
                 } else {
-                    $description = array(); 
+                    $description = array();
                 }
 
-                if(isset($configJson['responsive'])) {
-                    $responsive = $configJson['responsive']; 
+                if (isset($configJson['responsive'])) {
+                    $responsive = $configJson['responsive'];
                 } else {
-                    $responsive = array(); 
+                    $responsive = array();
                 }
 
-                if(isset($configJson['summary'])) {
-                    $summary = implode(' ', $configJson['summary']); 
+                if (isset($configJson['summary'])) {
+                    $summary = implode(' ', $configJson['summary']);
                 } else {
-                    $summary = null; 
+                    $summary = null;
                 }
 
-                if(isset($configJson['format'])) {
-                    $format = $configJson['format']; 
+                if (isset($configJson['format'])) {
+                    $format = $configJson['format'];
                 } else {
-                    $format = array(); 
+                    $format = array();
                 }
 
             } else {
-                $settings = array(); 
-                $description = array(); 
-                $configFile = false; 
+                $settings = array();
+                $description = array();
+                $configFile = false;
+            }
+
+            if ($viewData['slug'] === 'card') {
+                $paper = [
+                    'transparencyContainer' => true,
+                    'transparencyDocContainer' => false,
+                    'containerPadding' => 0,
+                    'docContainerPadding' => 3,
+                ];
+            } else {
+                $paper = [
+                    'transparencyContainer' => false,
+                    'transparencyDocContainer' => true,
+                    'containerPadding' => 3,
+                    'docContainerPadding' => 0,
+                ];
             }
 
             $view->with([
@@ -128,8 +144,9 @@ class View
                 'settingsLocation' => $configFile,
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                 'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
+                'paper' => $paper,
                 'examples' => DocHelper::getUsageExamples($viewData['slug'])
-            ]); 
+            ]);
 
         });
     }
@@ -138,9 +155,10 @@ class View
      * Fetch examples from the usage directory
      * @throws \Exception
      */
-    public static function fetchExamples($slug){
+    public static function fetchExamples($slug)
+    {
         $examples = DocHelper::getUsageExamples($slug);
-        
+
     }
 
     /**

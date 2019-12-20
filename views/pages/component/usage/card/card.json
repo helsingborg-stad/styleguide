@@ -1,0 +1,69 @@
+{
+  "basic": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Basic Card component",
+    "subHeading": "Card is based on a paper component",
+    "text": "The plain basic card contain title, byline and content"
+  },
+  "buttons": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Adding action buttons",
+    "subHeading": "Insted of links to pages or some other action",
+    "text": "Cards can include buttons for actions."
+  },
+  "titlePositionTop": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Position of Title and byline (card top)",
+    "subHeading": "Top Position",
+    "text": "Top position for title and byline. "
+  },
+  "titlePositionBody": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Position of Title and Byline (card body)",
+    "subHeading": "Body Position",
+    "text": "Body position for title and byline. "
+  },
+  "icons": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Cards with Icons",
+    "subHeading": "Icons for social sharing",
+    "text": "You can add icon buttons for ex. social sharing etc. If you add utillity class 'u-float--right' to icon classList the icons will float right."
+  },
+  "avatars": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Cards with Avatars",
+    "subHeading": "Spice up a card with a avatar",
+    "text": "If you enjoy avatars you can add one to the top title. If you add utillity class 'u-float--right' to icon classList the icons will float right."
+  },
+  "floatingMenuTop": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Floating menus in top",
+    "subHeading": "Floating menus / Dropdown top",
+    "text": "A menu displays a list of choices on a temporary surface. They appear when users interact with\n a button, action, or other control."
+  },
+  "floatingMenuBottom": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Floating menus at the bottom",
+    "subHeading": "Floating menus / Dropdown bottom",
+    "text": "A menu displays a list of choices on a temporary surface. They appear when users interact with a button, action, or other control."
+  },
+  "accordion": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Accordion in card",
+    "subHeading": "List with items",
+    "text": "Accordion is a pretty good way to hide text and just show the title"
+  },
+  "accordionSmall": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Another version of accordion",
+    "subHeading": "Hide content and just show title",
+    "text": "Yes its all about what you need to show."
+  },
+  "slots": {
+    "grid": "grid-s-12 grid-sm-6 grid-md-6",
+    "heading": "Card slot area",
+    "subHeading": "Slot Area",
+    "text": "Yes its all about what you need to show."
+  }
+
+}

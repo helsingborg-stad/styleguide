@@ -2,7 +2,6 @@
     @include shadow(2);
     background-color: $color-card-background;
     border-radius: $border-radius-xs;
-    height: 100%;
 
     &__background--dark {
         background-color: $color-card-background-dark;
@@ -29,6 +28,8 @@
     &__bottom,
     &__middle {
         padding: map-get($spacers, "3");
+        width:100%;
+        display:inline-block;
     }
 
     .c-avatar {
@@ -131,7 +132,6 @@
         .c-accordion__button-wrapper, 
         .c-accordion__content {
             padding: 0px;
-
         }
 
         .c-accordion__content {
