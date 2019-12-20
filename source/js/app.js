@@ -40,3 +40,4 @@ let MenuInstance = new Menu;
 
 const FieldsInstance = new Fields;
 
+import './datepicker';
