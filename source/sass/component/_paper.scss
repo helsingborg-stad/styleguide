@@ -1,15 +1,77 @@
 .c-paper {
-    margin-bottom: 32px;
 
+    position: relative;
     @include paper(2);
+
+    &--transparent {
+        background: transparent;
+        box-shadow: none;
+        height:auto;
+    }
+
     @each $number, $size in $spacers {
 
         &--padding-#{$number} {
             padding: map-get($spacers, $number);
         }
     }
+
+    &--divider {
+        border-top: 1px Solid $color-gray-light;
+        padding-top:map-get($spacers, "3");
+    }
+
+    &--component-description-area {
+        background-color: $color-component-doc-background;
+        display: inline-block;
+        width:100%;
+        button, p,i,h4,h5 {
+            color: $color-white;
+        }
+
+        .c-buttongroup {
+            float:right;
+        }
+
+        .c-button__text--primary[aria-pressed=true],
+        [aria-pressed=true].c-button__outlined--primary {
+            color: $color-white;
+            background-color: lighten($color-component-doc-background, 10%);
+        }
+
+        .c-button__outlined--primary:hover, .c-button__text--primary:hover {
+            background-color: lighten($color-component-doc-background, 10%);
+        }
+
+    }
+
+    &--component-description-area-full {
+        padding: 24px;
+    }
+
+    &--component-code-area-full, &--component-code-area-grid {
+        background-color: $color-component-doc-background;
+        .c-code {
+            //padding: 0 24px;
+        }
+
+    }
+
+    &--component-code-area-grid {
+        margin-top: -8px;
+        padding: 0 24px;
+    }
+
+    &--component-code-area-full {
+        margin-top:-10px;
+    }
+
+    .c-code__output {
+        padding-top:10px;
+    }
+
 }
 
 .c-card  .c-paper {
-    display:contents;
+   //display: flow-root;
 }

@@ -37,7 +37,7 @@ SteppersInstance.enableStepper();
 
 //Menu
 let MenuInstance = new Menu;
-MenuInstance.applyMenu();
 
 const FieldsInstance = new Fields;
 
+import './datepicker';

@@ -5,28 +5,39 @@ export default class Menu {
         this.TARGET = 'js-menu-target';
         this.EXPANDID = 'data-load-submenu';
 
+        this.elm = '';
+
         this.getSubitem();
+        this.getNavbar();
     }
 
-    applyMenu() {
-        // Find navbars
+    /**
+     * Finds each navbar in the document.
+     * 
+     * Finds each navbar in the document and then sends it for further handling
+     */
+    getNavbar() {
         const navbar = document.querySelectorAll(".c-navbar");
 
         navbar.forEach((element) => {
-            this.findTriggers(element)
+            this.addTriggers(element)
         })
     }
 
-    findTriggers(element) {
-        // Find triggers
+    /**
+     * Adds event listeners to the link items.
+     * 
+     * @param {*} element   The navbar element to add triggers to
+     */
+    addTriggers(element) {
         const triggers = element.querySelectorAll(`[${this.TRIGGER}]`);
 
         triggers.forEach((trigger) => {
             const toggleClass = trigger.getAttribute(this.TRIGGER);
-            const target = trigger.getAttribute(this.DART);
+            const targetId = trigger.getAttribute(this.DART);
 
             trigger.addEventListener('click', (event) => {
-                const targets = document.querySelectorAll(`[${this.TARGET}="${target}"]`);
+                const targets = document.querySelectorAll(`[${this.TARGET}="${targetId}"]`);
 
                 targets.forEach((target) => {
                     target.classList.toggle(toggleClass);
@@ -35,6 +46,13 @@ export default class Menu {
         });
     }
 
+    /**
+     * Looks if a nav items has children.
+     * 
+     * First looks if nav items has children, if it does then it add and event listener to the toggle button
+     * 
+     * @param {*} root  The container to look inside, cna be a single nav item or the root navbar
+     */
     getSubitem(root) {
         const IDS = root ? root.querySelectorAll(`[${this.EXPANDID}]`) : document.querySelectorAll(`[${this.EXPANDID}]`)
 
@@ -44,108 +62,132 @@ export default class Menu {
                 id.toggleAttribute("is-open");
 
                 if (!id.hasAttribute("data-isAppended-subitem")) {
-                    const subID = id.getAttribute(this.EXPANDID);
                     id.setAttribute('data-isAppended-subitem', '');
-
-                    this.findItems([], subID)
+                    this.findItems([], id.getAttribute(this.EXPANDID))
                 }
             });
         });
     }
 
-    fetchJSONFile(path, callback) {
+    /**
+     * Fetches JSON data
+     * 
+     * @param {*} path  Path to json file
+     * @param {*} find  What id to look for
+     */
+     fetchJSONFile(path, find) {
         const httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = (result) => {
+        httpRequest.onreadystatechange = () => {
             if (httpRequest.readyState === 4 || httpRequest.readyState === 0) {
                 if (httpRequest.status === 200) {
-                    let data = JSON.parse(httpRequest.responseText);
-                    if (callback) callback(data);
+                    const data = JSON.parse(httpRequest.responseText);
+
+                    this.findItems(data, find)
                     return data;
                 }
             }
+
+            return 0;
         };
         httpRequest.open('GET', path, true);
         httpRequest.send(); 
     }
     
-    // Find item in JSON
+    /**
+     * Looks for a specific nav item
+     * @param {*} data Data to search through
+     * @param {*} find What id to look for
+     */
     findItems(data, find) {
         if (data.length > 0) {
             return Object.keys(data).some((k) => {
-
                 if (data[k].id === find) {
                     this.appendItems(data[k].list, data[k].id);
     
-                    return; // return on direct found
+                    return 0; // return on direct found
                 }
     
                 if (Array.isArray(data[k].list)) {
                     return this.findItems(data[k].list, find); // return result of nested search
                 }
-            });
-        } else {
-            this.fetchJSONFile('/assets/data/nav.json', (data) => {
-                this.findItems(data, find)
+
+                return 0;
+
             });
         }
+
+        // Data is empty. fetch from JSON file
+        this.fetchJSONFile('/assets/data/nav.json', find);
+        
+        return 0;
     }
 
-    // Appends nav item
+    /**
+     * Appends each child item to the parent item.
+     * 
+     * @param {*} list  List of items to be appended
+     * @param {*} id    Identifier for which element to append to.
+     */
     appendItems(list, id) {
         const target = document.querySelector(`[data-append-submenu="${id}"]`);
 
         list.forEach((item) => {
-            const subItem = this.buildDOM(item)
-            target.appendChild(subItem)
-            this.getSubitem(subItem);
-            this.findTriggers(subItem)
+            this.buildDOM(item)
+            target.appendChild(this.elm)
+            this.getSubitem(this.elm);
+            this.addTriggers(this.elm)
         });
     }
 
-    // Builds nav item
+    /**
+     * Builds a nav item dom object 
+     * 
+     * @param {*} item The item data to build the element based on
+     */
     buildDOM(item) {
         const uniqID = Math.random().toString(36).substr(2, 9);
 
-        let newLink = document.createElement("a");
+        const newLink = document.createElement("a");
         newLink.href = item.href
 
-        let newEl = document.createElement("div");
+        const newEl = document.createElement("div");
         newEl.className = "c-navbar__item";
 
-        //Build link element
-        let newSpan = document.createElement("span");
+        // Build link element
+        const newSpan = document.createElement("span");
         newSpan.appendChild(document.createTextNode(item.name))
         
         newEl.appendChild(newSpan);
 
         if (item.list) {
-            //Build toggle elements
-            let newTgl = document.createElement("div");
+            // Item has children
+            // Build toggle elements
+            const newTgl = document.createElement("div");
             newTgl.className = "c-navbar__toggle";
 
-            let newBtn = document.createElement("button");
+            const newBtn = document.createElement("button");
             newBtn.className = "c-button c-button__icon";
 
             newBtn.setAttribute('js-menu-trigger', 'c-navbar__subitem--expanded');
             newBtn.setAttribute('js-menu-dart', uniqID);
             newBtn.setAttribute('data-load-submenu', item.id);
 
-            let newLbl = document.createElement("span");
+            const newLbl = document.createElement("span");
             newLbl.className = "c-btn__label";
 
-            let newIcon = document.createElement("i");
+            const newIcon = document.createElement("i");
             newIcon.className = "c-icon c-icon--color-primary c-icon--size-md material-icons";
             newIcon.appendChild(document.createTextNode("expand_more"))
 
-            //Append Icon elemetns
+            // Append Icon elemetns
             newLbl.appendChild(newIcon);
             newBtn.appendChild(newLbl);
             newTgl.appendChild(newBtn);
 
-            //Append element
+            // Append element
             newEl.appendChild(newTgl);
 
-            let newSubItem = document.createElement("div");
+            const newSubItem = document.createElement("div");
             newSubItem.className = "c-navbar__subitem"
             newSubItem.setAttribute('js-menu-target', uniqID);
             newSubItem.setAttribute('data-append-submenu', item.id);
@@ -155,6 +197,6 @@ export default class Menu {
 
         newLink.appendChild(newEl)
 
-        return newLink;
+        this.elm = newLink;
     }
 }
