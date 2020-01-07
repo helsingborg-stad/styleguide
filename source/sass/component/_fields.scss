@@ -307,17 +307,19 @@
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
-
+            padding:0px;
+            border:none;
+            box-shadow:none;
             &:before {
                 font-family: "Material Icons" !important;
-                content: "\f10a";
+                content: "\e3b8";
                 font-size: 22px;
                 padding: map-get($spacers, "1");
                 display: inline-block;
                 visibility: visible;
-                color: $color-white;
-                background: $color-primary;
-                border: 1px solid $color-form-fields;
+                color: $color-primary;
+                background: transparent;
+                border: none;
                 border-radius: $border-radius-xs;
                 margin: 0px;
                 cursor: pointer;
