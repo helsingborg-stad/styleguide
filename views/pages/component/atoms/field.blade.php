@@ -8,7 +8,11 @@
     @endmarkdown
 
     @doc(['slug' => 'field', 'displayParams' => false])
-        <form autocomplete="on">
+        @form([
+            'attributeList' => [
+                'autocomplete' => 'on'
+            ]
+        ])
             <div class="grid">
                 <div class="grid-md-6">
 
@@ -83,12 +87,15 @@
                     @endfield
                 </div>
             </div>
-
-        </form>
+        @endform
     @enddoc
 
     @doc(['slug' => 'field', 'displayParams' => false])
-        <form name="demoForm">
+        @form([
+            'attributeList' => [
+                'autocomplete' => 'on'
+            ]
+        ])
             <div class="grid">
                 <div class="grid-md-6">
 
@@ -324,46 +331,46 @@
 
                 </div>
             </div>
-        </form>
+        @endform
     @enddoc
 
     @doc(['slug' => 'field', 'displayParams' => false])
-    <form>
-        <div class="grid">
-            <div class="grid-md-6">
-                @markdown
-                ##Range slider
-                @endmarkdown
+        @form([])
+            <div class="grid">
+                <div class="grid-md-6">
+                    @markdown
+                    ##Range slider
+                    @endmarkdown
 
-                @field(
-                [
-                    'textarea' => false,
-                    'type' => 'range',
-                    'attributeList' => [
+                    @field(
+                    [
+                        'textarea' => false,
                         'type' => 'range',
-                        'name' => 'rangeSlider',
-                    ]
-                ])
-                @endfield
-            </div>
-            <div class="grid-md-6">
-                @markdown
-                ##Color picker
-                @endmarkdown
+                        'attributeList' => [
+                            'type' => 'range',
+                            'name' => 'rangeSlider',
+                        ]
+                    ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+                    @markdown
+                    ##Color picker
+                    @endmarkdown
 
-                @field(
-                [
-                    'textarea' => false,
-                    'type' => 'color',
-                    'attributeList' => [
+                    @field(
+                    [
+                        'textarea' => false,
                         'type' => 'color',
-                        'name' => 'colorPicker',
-                    ]
-                ])
-                @endfield
+                        'attributeList' => [
+                            'type' => 'color',
+                            'name' => 'colorPicker',
+                        ]
+                    ])
+                    @endfield
+                </div>
             </div>
-        </div>
-    </form>
+        @endform
     @enddoc
 
 @stop
