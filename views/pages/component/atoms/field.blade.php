@@ -313,23 +313,7 @@
                     @endfield
 
                 </div>
-                <div class="grid-md-12">
-                    @markdown
-                    ##Textarea
-                    @endmarkdown
 
-                    @field([
-                        'textarea' => true,
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'textarea',
-                            'name' => 'ImaTextarea',
-                        ],
-                        'label' => "Normal text field"
-                    ])
-                    @endfield
-
-                </div>
             </div>
         @endform
     @enddoc
@@ -344,7 +328,6 @@
 
                     @field(
                     [
-                        'textarea' => false,
                         'type' => 'range',
                         'attributeList' => [
                             'type' => 'range',
@@ -360,7 +343,6 @@
 
                     @field(
                     [
-                        'textarea' => false,
                         'type' => 'color',
                         'attributeList' => [
                             'type' => 'color',
