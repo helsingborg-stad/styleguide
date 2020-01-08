@@ -2,92 +2,100 @@
 
 @section('content')
 
-    <form autocomplete="on">
-
     @markdown
         #Field
         Displays different type of form fields.
     @endmarkdown
 
     @doc(['slug' => 'field', 'displayParams' => false])
-        <div class="grid">
-            <div class="grid-md-6">
+        @form([
+            'attributeList' => [
+                'autocomplete' => 'on'
+            ]
+        ])
+            <div class="grid">
+                <div class="grid-md-6">
 
-                @markdown
-                    ##Checkboxes
-                    Simple but still nice looking checkboxes.
-                    Styled with CSS for a nicer appearance.
-                @endmarkdown
+                    @markdown
+                        ##Checkboxes
+                        Simple but still nice looking checkboxes.
+                        Styled with CSS for a nicer appearance.
+                    @endmarkdown
 
-                @field([
-                    'type' => 'checkbox',
-                    'attributeList' => [
-                        'name' => 'CheckBoxGroup'
-                    ],
-                    'label' => "Im a label"
-                ])
-                @endfield
+                    @field([
+                        'type' => 'checkbox',
+                        'attributeList' => [
+                            'name' => 'CheckBoxGroup'
+                        ],
+                        'label' => "Im a label"
+                    ])
+                    @endfield
 
-                @field([
-                    'type' => 'checkbox',
-                    'attributeList' => [
-                        'name' => 'CheckBoxGroup',
-                        'checked' => 'checked'
-                    ],
-                    'label' => "No, I am a label..."
-                ])
-                @endfield
+                    @field([
+                        'type' => 'checkbox',
+                        'attributeList' => [
+                            'name' => 'CheckBoxGroup',
+                            'checked' => 'checked'
+                        ],
+                        'label' => "No, I am a label..."
+                    ])
+                    @endfield
 
-                @field([
-                    'type' => 'checkbox',
-                    'attributeList' => [
-                        'name' => 'CheckBoxGroup'
-                    ],
-                    'label' => "Yes, you are."
-                ])
-                @endfield
+                    @field([
+                        'type' => 'checkbox',
+                        'attributeList' => [
+                            'name' => 'CheckBoxGroup'
+                        ],
+                        'label' => "Yes, you are."
+                    ])
+                    @endfield
 
+                </div>
+                <div class="grid-md-6">
+
+                    @markdown
+                        ##Radio buttons
+                        Or why not Radio buttons that also went through a makeover.
+                    @endmarkdown
+
+                    @field([
+                        'type' => 'radio',
+                        'attributeList' => [
+                            'name' => 'familyName',
+                            'checked' => 'checked'
+                        ],
+                        'label' => "Select me!"
+                    ])
+                    @endfield
+
+                    @field([
+                        'type' => 'radio',
+                        'attributeList' => [
+                            'name' => 'familyName',
+                        ],
+                        'label' => "Yes!"
+                    ])
+                    @endfield
+
+                    @field([
+                        'type' => 'radio',
+                        'attributeList' => [
+                            'name' => 'familyName',
+                        ],
+                        'label' => "No select me!!!!!"
+                    ])
+                    @endfield
+                </div>
             </div>
-            <div class="grid-md-6">
-
-                @markdown
-                    ##Radio buttons
-                    Or why not Radio buttons that also went through a makeover.
-                @endmarkdown
-
-                @field([
-                    'type' => 'radio',
-                    'attributeList' => [
-                        'name' => 'familyName',
-                        'checked' => 'checked'
-                    ],
-                    'label' => "Select me!"
-                ])
-                @endfield
-
-                @field([
-                    'type' => 'radio',
-                    'attributeList' => [
-                        'name' => 'familyName',
-                    ],
-                    'label' => "Yes!"
-                ])
-                @endfield
-
-                @field([
-                    'type' => 'radio',
-                    'attributeList' => [
-                        'name' => 'familyName',
-                    ],
-                    'label' => "No select me!!!!!"
-                ])
-                @endfield
-            </div>
-        </div>
+        @endform
     @enddoc
 
-    @doc(['slug' => 'field'])
-        <form name="demoForm">
+    @doc(['slug' => 'field', 'displayParams' => false])
+        @form([
+            'attributeList' => [
+                'autocomplete' => 'on'
+            ]
+        ])
             <div class="grid">
                 <div class="grid-md-6">
 
@@ -305,26 +313,64 @@
                     @endfield
 
                 </div>
+                <div class="grid-md-12">
+                    @markdown
+                    ##Textarea
+                    @endmarkdown
 
-                @markdown
-                ##Textarea
-                @endmarkdown
+                    @field([
+                        'textarea' => true,
+                        'type' => 'text',
+                        'attributeList' => [
+                            'type' => 'textarea',
+                            'name' => 'ImaTextarea',
+                        ],
+                        'label' => "Normal text field"
+                    ])
+                    @endfield
 
-                @field([
-                    'textarea' => true,
-                    'type' => 'text',
-                    'attributeList' => [
-                        'type' => 'textarea',
-                        'name' => 'ImaTextarea',
-                    ],
-                    'label' => "Normal text field"
-                ])
-                @endfield
-
+                </div>
             </div>
-        </form>
+        @endform
     @enddoc
 
-    </form>
+    @doc(['slug' => 'field', 'displayParams' => false])
+        @form([])
+            <div class="grid">
+                <div class="grid-md-6">
+                    @markdown
+                    ##Range slider
+                    @endmarkdown
+
+                    @field(
+                    [
+                        'textarea' => false,
+                        'type' => 'range',
+                        'attributeList' => [
+                            'type' => 'range',
+                            'name' => 'rangeSlider',
+                        ]
+                    ])
+                    @endfield
+                </div>
+                <div class="grid-md-6">
+                    @markdown
+                    ##Color picker
+                    @endmarkdown
+
+                    @field(
+                    [
+                        'textarea' => false,
+                        'type' => 'color',
+                        'attributeList' => [
+                            'type' => 'color',
+                            'name' => 'colorPicker',
+                        ]
+                    ])
+                    @endfield
+                </div>
+            </div>
+        @endform
+    @enddoc
 
 @stop
