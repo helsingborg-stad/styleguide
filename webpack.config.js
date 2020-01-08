@@ -2,7 +2,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 
 
@@ -104,18 +103,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'css/[name].min.css',
             chunkFilename: 'css/[name].min.css'
-        }),
-
-        // Copy css icon file created by icon-font-generator to sass in source before bundling
-        new FileManagerPlugin({
-            onStart: [
-                {
-                    copy: [
-                        {source: './assets/dist/icons/styleguide-icons.css', destination: './source/sass/generic/_icons.scss'}
-                    ]
-                }
-
-            ]
         }),
 
         // Lint for scss
