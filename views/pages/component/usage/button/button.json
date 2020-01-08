@@ -11,13 +11,9 @@
         "heading": "Disabled buttons",
         "text": "This is a default colored button and it's pretty sweet"
     },
-    "floating": {
-        "heading": "Floating buttons",
-        "text": "This is a default colored button and it's pretty sweet"
-    },
     "icon": {
-        "heading": "Icon buttons",
-        "text": "This is a default colored button and it's pretty sweet"
+        "heading": "Button with icon only",
+        "text": "A default colored button with an icon"
     },
     "outlined": {
         "heading": "Outlined buttons",
@@ -33,10 +29,6 @@
     },
     "toggle": {
         "heading": "Togglebuttons",
-        "text": "This is a default colored button and it's pretty sweet"
-    },
-    "iconHoverColor": {
-        "heading": "Changing icon color on hover",
         "text": "This is a default colored button and it's pretty sweet"
     }
 }

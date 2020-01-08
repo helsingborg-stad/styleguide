@@ -1,20 +1,22 @@
 @button([
-    'background' => 'primary',
     'text' => 'Primary bg',
-    'color' => 'white'
+    'color' => 'primary',
+    'type' => 'filled'
+
 ])
 @endbutton
 
 @button([
-    'background' => 'secondary',
     'text' => 'Secondary bg',
-    'color' => 'white'
+    'color' => 'secondary',
+    'type' => 'filled'
 
 ])
 @endbutton
 
 @button([
-    'background' => 'default',
-    'text' => 'Default bg'
+    'text' => 'Default bg',
+    'color' => 'default',
+    'type' => 'filled'
 ])
 @endbutton

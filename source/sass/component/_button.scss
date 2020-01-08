@@ -1,6 +1,171 @@
 // BUTTON
-
 .c-button {
+
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: 500;
+    background-color: transparent;
+    letter-spacing: 0.1em;
+    border:none;
+    box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+
+    &:hover {
+        box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+    }
+
+    &__label {
+        display:flex;
+        flex-direction: row;
+    }
+
+    &--lg {
+        @include button-size(1em, 1em, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+    }
+
+    &--md {
+        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 7.5px);
+    }
+
+    &--sm {
+        text-transform: uppercase;
+        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+    }
+
+    &[disabled] {
+       
+        border-color: $color-disabled;
+        background-color: $color-disabled;
+        color: $color-disabled-text;
+        cursor: not-allowed;
+        * {
+            color: $color-disabled-text;
+        }
+
+        &:hover {
+            background-color: $color-disabled;
+            box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+        }
+    }
+}
+
+// Only text
+.c-button__basic{
+    border: none;
+	box-shadow: none;
+
+    &--primary{
+        color: $color-primary;
+    }
+
+    &--secondary{
+        color: $color-secondary;
+    }
+
+    &--default{
+        color: $color-default-dimmed;
+    }
+}
+
+// Background and border
+.c-button__filled{
+
+    &--primary{
+        background-color: $color-primary;
+        color: $color-white;
+        &:hover{
+            background-color: $color-primary-dimmed;
+        }
+    }
+
+    &--secondary{
+        background-color: $color-secondary;
+        color: $color-white;
+        &:hover{
+            background-color: $color-secondary-dimmed;
+        }
+    }
+
+    &--default{
+        background-color: $color-default;
+        color: $color-primary;
+        &:hover{
+            background-color: $color-default-dimmed;
+        }
+    }
+}
+
+// No background, only border
+.c-button__outlined{
+
+    &--primary{
+        border: 1px solid $color-primary;
+        @extend .c-button__basic--primary;
+    }
+
+    &--secondary{
+        border: 1px solid $color-secondary;
+        @extend .c-button__basic--secondary;
+    }
+
+    &--default{
+        border: 1px solid $color-default-dimmed;
+        color: $color-primary;
+        @extend .c-button__basic--default;
+    }
+}
+
+// Styling for buttons with both text and an icon
+.c-button__label-icon {
+    order: 2;
+    margin-left: 0.5rem;
+
+    &--reverse {
+        order: 1;
+        margin-right: 0.5rem;
+    }
+}
+
+.c-button__label-text {
+    order: 1;
+
+    &--reverse {
+        order: 2;
+    }
+}
+
+// Icon override
+.c-button{
+    &--sm .material-icons i{
+       font-size: $font-size-btn-sm;
+    }
+
+    &--md .material-icons span i{
+        font-size: $font-size-btn-md;
+    }
+
+    &--lg .material-icons i{
+        font-size: $font-size-btn-lg;
+    }
+}
+
+.c-button .material-icons{
+    padding:0;
+    font-weight: 500;
+}
+
+.c-button__toggle{
+    @extend .c-button__filled--default;
+    color: $color-info-text;
+
+    &[aria-pressed="true"]{
+        color: $color-primary;
+    }
+}
+
+/* .c-button {
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
@@ -266,5 +431,5 @@
             background-color: transparentize($color-default-dark, 0.5);
         }
     }
-}
+} */
 

@@ -50,8 +50,7 @@
                         'color' => 'default',
                         'text' => 'HTML',
                         'size' => 'md',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'icon' => 'code',
                         'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
@@ -59,8 +58,7 @@
                         'color' => 'default',
                         'text' => 'Blade',
                         'size' => 'md',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'icon' => 'code',
                         'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
