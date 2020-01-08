@@ -1,20 +1,28 @@
 @extends('layout.master')
 
 @section('content')
-<div class="grid-md-12">
+<div>
     @markdown
     ##Textarea
     @endmarkdown
 
-    @textarea([
-        'type' => 'text',
-        'attributeList' => [
-        'type' => 'textarea',
-        'name' => 'ImaTextarea',
-        ],
-        'label' => "Normal text field"
-    ])
-    @endtextarea
+    @doc(['slug' => 'textarea'])
+        @form([
+        ])
+            @textarea([
+                'required' => true,
+                'attributeList' => [
+                    'type' => 'textarea',
+                    'name' => 'poetric',
+                    'data-invalid-message' => "Write 1 - 250 characters!!!!!",
+                    'pattern' => '[a-z]{1,255}',
+                    'max' => '250'
+                ],
+                'label' => "Normal text field"
+            ])
+            @endtextarea
+        @endform
+    @enddoc
 
 </div>
 @endsection

@@ -117,27 +117,6 @@
                     ])
                     @endfield
                 </div>
-                <div class="grid-md-6">
-
-                    @markdown
-                        ##Input field - Date
-                    @endmarkdown
-
-
-                    @field([
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'date',
-                            'name' => 'date',
-                            'value' => date('Y-m-d'),
-                            'required' => true,
-                            'data-invalid-message' => "Enter a valid date"
-                        ],
-                        'label' => "Set your date",
-
-                    ])
-                    @endfield
-                </div>
 
                 <div class="grid-md-6">
                     @markdown
@@ -165,43 +144,6 @@
                             'hideOnBlur'            => true,
                             'hideOnSelect'          => false,
                         ]
-                    ])
-                    @endfield
-                </div>
-
-                <div class="grid-md-6">
-
-                    @markdown
-                        ##Input field - Week
-                    @endmarkdown
-
-                    @field([
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'week',
-                            'name' => 'week',
-                            'required' => true,
-                            'data-invalid-message' => "Enter a valid week"
-                        ],
-                        'label' => "Select week",
-                    ])
-                    @endfield
-                </div>
-                <div class="grid-md-6">
-
-                    @markdown
-                        ##Input field - Time
-                    @endmarkdown
-
-                    @field([
-                    'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'time',
-                            'name' => 'time',
-                            'required' => true,
-                            'data-invalid-message' => "Enter valid timestamp"
-                        ],
-                        'label' => "Select time",
                     ])
                     @endfield
                 </div>
@@ -246,23 +188,6 @@
                 <div class="grid-md-6">
 
                     @markdown
-                    ##Input field - Phone
-                    @endmarkdown
-
-                    @field([
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'tel',
-                            'name' => 'tel',
-                            'required' => true,
-                        ],
-                        'label' => "Phone number"
-                    ])
-                    @endfield
-                </div>
-                <div class="grid-md-6">
-
-                    @markdown
                     ##Input field - Search
                     @endmarkdown
 
@@ -279,23 +204,6 @@
 
                 </div>
 
-                <div class="grid-md-6">
-
-                    @markdown
-                    ##Input field - Url
-                    @endmarkdown
-
-                    @field([
-                        'type' => 'text',
-                        'attributeList' => [
-                            'type' => 'url',
-                            'name' => 'url',
-                            'required' => true,
-                        ],
-                        'label' => "Add website"
-                     ])
-                    @endfield
-                </div>
                 <div class="grid-md-6">
 
                     @markdown
@@ -318,7 +226,7 @@
         @endform
     @enddoc
 
-    @doc(['slug' => 'field', 'displayParams' => false])
+    @doc(['slug' => 'field'])
         @form([])
             <div class="grid">
                 <div class="grid-md-6">

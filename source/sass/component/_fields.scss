@@ -12,8 +12,7 @@
     input[type="month"],
     input[type="number"],
     input[type="password"],
-    input[type="email"],
-    textarea {
+    input[type="email"] {
         width: 100%;
         margin: 0;
         outline: 0;
@@ -39,13 +38,8 @@
         }
     }
 
-    textarea {
-        min-height: 200px;
-        padding: map-get($spacers, "3")-2;
-    }
 
-    input:focus,
-    textarea:focus {
+    input:focus {
         border-bottom: 2px solid $color-in-action;
         transition: ease-in-out .3s;
 
@@ -147,12 +141,7 @@
             transform: none;
         }
 
-        textarea+label {
-            font-size: 11px;
-            top: 4px !important;
-            padding-left: 3px;
-            transform: none;
-        }
+
     }
 
     /* Range Slider */
@@ -299,9 +288,6 @@
 
     &__color {
 
-        padding: 0;
-        margin: 0;
-
         input[type="color"] {
             visibility: hidden;
             -webkit-appearance: none;
@@ -314,14 +300,10 @@
                 font-family: "Material Icons" !important;
                 content: "\e3b8";
                 font-size: 22px;
-                padding: map-get($spacers, "1");
                 display: inline-block;
                 visibility: visible;
                 color: $color-primary;
-                background: transparent;
-                border: none;
                 border-radius: $border-radius-xs;
-                margin: 0px;
                 cursor: pointer;
             }
         }
@@ -458,8 +440,7 @@
         padding: map-get($spacers, "1") 11px;
     }
 
-    .c-field__input-invalid-message,
-    .c-field__textarea-invalid-message {
+    .c-field__input-invalid-message {
         width  : 100%;
         padding: map-get($spacers, "1") ;
         display:none;
