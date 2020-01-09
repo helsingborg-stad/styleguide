@@ -1,22 +1,19 @@
 // BUTTON
-
 .c-button {
+
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
     cursor: pointer;
     line-height: 1;
-    font-weight: bold;
+    font-weight: 500;
     background-color: transparent;
     letter-spacing: 0.1em;
+    border:none;
+    box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
 
-    &:visited, &:active, &:focus {
-        outline: 0;
-    }
-
-    &:focus {
-        outline:0;
-        @include shadow(8);
+    &:hover {
+        box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
     }
 
     &__label {
@@ -24,25 +21,20 @@
         flex-direction: row;
     }
 
-    // COLOR
-    &--primary {
-        @include button-mix($color-white, $color-primary, $color-primary-dimmed);
+    &--lg {
+        @include button-size(1em, 1em, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        font-size: $font-size-btn-lg;
     }
 
-    &--secondary {
-        @include button-mix($color-white, $color-secondary, $color-secondary-dimmed);
+    &--md {
+        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 7.5px);
+        font-size: $font-size-btn-md;
     }
 
-    &--default {
-        box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
-        @include button-mix($color-primary, $color-default, $color-default-dimmed);
-        &:hover{
-            color: $color-primary-dimmed;
-        }
-    }
-
-    &:hover{
-        box-shadow: 0px 3px 6px rgba(98, 98, 98, 0.18), 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+    &--sm {
+        text-transform: uppercase;
+        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+        font-size: $font-size-btn-sm;
     }
 
     &[disabled] {
@@ -57,52 +49,78 @@
 
         &:hover {
             background-color: $color-disabled;
-            box-shadow: none;
-        }
-    }
-
-    // SIZE
-
-    &--lg {
-        @include button-size(1em, 1em, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
-    }
-
-    &--md {
-        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 7.5px);
-    }
-
-    &--sm {
-        text-transform: uppercase;
-        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
-    }
-
-    // FLOATING
-
-    &--floating {
-        @include shadow(6);
-    }
-
-    &--animated-float-on-hover {
-        box-shadow: none;
-        transition: 0.3s;
-        transition-timing-function: ease-in;
-
-        &:hover {
-            @include shadow(6);
-        }
-    }
-
-    &--float-on-hover {
-        box-shadow:none;
-
-        &:hover {
-            @include shadow(6);
+            box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
         }
     }
 }
 
-// LABEL
+// Only text
+.c-button__basic{
+    border: none;
+	box-shadow: none;
 
+    &--primary{
+        color: $color-primary;
+    }
+
+    &--secondary{
+        color: $color-secondary;
+    }
+
+    &--default{
+        color: $color-default-dark;
+    }
+}
+
+// Background and border
+.c-button__filled{
+
+    &--primary{
+        background-color: $color-primary;
+        color: $color-white;
+        &:hover{
+            background-color: $color-primary-dimmed;
+        }
+    }
+
+    &--secondary{
+        background-color: $color-secondary;
+        color: $color-white;
+        &:hover{
+            background-color: $color-secondary-dimmed;
+        }
+    }
+
+    &--default{
+        background-color: $color-default;
+        color: $color-primary;
+        &:hover{
+            background-color: $color-default-dimmed;
+        }
+    }
+}
+
+// No background, only border
+.c-button__outlined{
+
+    &--primary{
+        border: 2px solid $color-primary;
+        @extend .c-button__basic--primary;
+    }
+
+    &--secondary{
+        border: 2px solid $color-secondary;
+        @extend .c-button__basic--secondary;
+    }
+
+    &--default{
+        border: 2px solid $color-default-dimmed;
+        color: $color-primary;
+        @extend .c-button__basic--default;
+    }
+}
+
+// Styling for buttons with both text and an icon
 .c-button__label-icon {
     order: 2;
     margin-left: 0.5rem;
@@ -121,150 +139,45 @@
     }
 }
 
-// ICON
+// Icon override
+.c-button{
+    &--sm .material-icons i{
+       font-size: $font-size-btn-sm;
+    }
 
-.c-button__icon {
-    @include button-size(0.4em, 0.4em, $font-size-btn-sm, $font-size-btn-sm-line-height, 50%);
-    border: none;
+    &--md .material-icons span i{
+        font-size: $font-size-btn-md;
+    }
+
+    &--lg .material-icons i{
+        font-size: $font-size-btn-lg;
+    }
 }
 
-.c-button__icon-toggle {
-    &--primary[aria-pressed="true"] i{
+.c-button .material-icons{
+    padding:0;
+    font-weight: 500;
+}
+
+.c-button__toggle{
+    @extend .c-button__filled--default;
+    color: $color-info-text;
+
+    &[aria-pressed="true"]{
         color: $color-primary;
     }
-
-    &--secondary[aria-pressed="true"] i{
-        color: $color-secondary;
-    }
-
-    &--default[aria-pressed="true"] i{
-        color: $color-default-dimmed; 
-    }
 }
 
-.c-button__icon-hover-color {
-    @extend .c-button__icon;
-
-    &--primary{
-
-        &:hover i{
-            color: $color-primary;
-        }
+.c-button__icon-size{
+    &--sm{
+        @include button-size(0.5em, 0.5em, 1.125em, $font-size-btn-lg-line-height, 7.5px);
     }
 
-    &--secondary{
-
-        &:hover i{
-            color: $color-secondary;
-        }
+    &--md{
+        @include button-size(0.5em, 0.5em, 1.375em, $font-size-btn-lg-line-height, 7.5px);
     }
 
-    &--default{
-
-        &:hover i{
-            color: $color-default-dark;
-        }
+    &--lg{
+        @include button-size(0.5em, 0.5em, 1.5em, $font-size-btn-lg-line-height, 12.5px);
     }
 }
-
-
-
-.c-button__icon-hover-background {
-    @extend .c-button__icon;
-
-    &--primary{
-
-        &:hover{
-            background-color: transparentize($color-primary, 0.9);
-        }
-    }
-
-    &--secondary{
-
-        &:hover{
-            background-color: transparentize($color-secondary, 0.9);
-        }
-    }
-
-    &--default{
-
-        &:hover{
-            background-color: transparentize($color-default-dark, 0.5);
-        }
-    }
-}
-
-// OUTLINED BUTTON
-
-.c-button__outlined {
-
-    &--primary {
-        border: 2px solid $color-primary;
-        @extend .c-button__text--primary;
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-primary, 0.5);
-            &:hover{
-                background-color: transparentize($color-primary, 0.5);
-            }
-        }
-    }
-
-    &--secondary {
-        border: 2px solid $color-secondary;
-        @extend .c-button__text--secondary;
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-secondary, 0.5);
-            &:hover{
-                background-color: transparentize($color-secondary, 0.5);
-            }
-        }
-    }
-
-    &--default {
-        border: 2px solid $color-default-dark;
-        @extend .c-button__text--default;
-
-        &[aria-pressed="true"] {
-            color: darken($color-primary, 20%);
-            background-color: transparentize($color-default-dark, 0.2);
-            &:hover{
-                background-color: transparentize($color-default-dark, 0.2);
-            }
-        }
-    }
-}
-
-// TEXT BUTTON
-
-.c-button__text {
-    border: none;
-
-    &--primary {
-        color: $color-primary;
-
-        &:hover {
-            background-color: transparentize($color-primary, 0.9);
-        }
-    }
-
-    &--secondary {
-        color: $color-secondary;
-
-        &:hover {
-            background-color: transparentize($color-secondary, 0.9);
-        }
-    }
-
-    &--default {
-        color: $color-primary;
-
-        &:hover {
-            background-color: transparentize($color-default-dark, 0.5);
-        }
-    }
-}
-

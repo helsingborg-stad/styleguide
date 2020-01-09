@@ -1,23 +1,21 @@
 @button([
+    'type' => 'basic',
     'text' => 'Disabled',
-    'background' => 'disabled',
     'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
 ])
 @endbutton
 
 @button([
+    'type' => 'basic',
     'text' => 'Disabled outlined',
-    'toggle' => true,
-    'isOutlined' => true,
-    'color' => 'disabled',
     'attributeList' => ['js-toggle-trigger' => '', 'disabled' => '']
 ])
 @endbutton
 
 @button([
-    'isIconButton' =>  true,
-    'icon' => ['name' => 'close', 'color' => 'black', 'size' => 'md'],
-    'background' => 'primary',
-    'attributeList' => ['disabled' => '']
+    'type' => 'basic',
+    'icon' => 'close',
+    'attributeList' => ['disabled' => ''],
+    'size' => 'md'
 ])
 @endbutton
