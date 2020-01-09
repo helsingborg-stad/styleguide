@@ -1,0 +1,112 @@
+.c-textarea {
+
+  textarea {
+    width: 100%;
+    outline: 0;
+    min-height: 200px;
+    appearance: none;
+    tap-highlight-color: rgba(255, 255, 255, 0);
+    line-height: 1.32em;
+    padding: map-get($spacers, "1");
+    padding-left: map-get($spacers, "2") +5;
+    padding-top: map-get($spacers, "3");
+    font-size: 1em;
+    background: $color-form-fields;
+    border: 1px solid $color-form-fields;
+    border-radius: $border-radius-xs;
+    box-shadow: 0 0 0 0 transparent inset;
+    -webkit-transition: color .1s ease, border-color .1s ease;
+    transition: color .1s ease, border-color .1s ease;
+    background-size: 16px 16px !important;
+    position:relative;
+    &:focus {
+      background-color: lighten($color-form-fields, 5%);
+      box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
+    }
+  }
+
+  textarea:focus {
+    border-bottom: 2px solid $color-in-action;
+    transition: ease-in-out .3s;
+
+  }
+
+  label {
+    font-size: 14px;
+    color: $color-form-fields-label;
+    position: absolute;
+    top: 55px;
+    left: 70px;
+    transform-origin: top left;
+    transform: translate(0, 16px) scale(1);
+    transition: all .1s ease-in-out;
+    cursor: text;
+    pointer-events: none;
+  }
+
+  textarea:focus+label {
+    transform: translate(0, 4px) scale(.75);
+  }
+
+  textarea:not(:placeholder-shown)+label {
+    transform: translate(0, 4px) scale(.75);
+  }
+
+  ::-webkit-input-placeholder {
+    color: transparent;
+  }
+
+  :-moz-placeholder {
+    color: transparent;
+  }
+
+  ::-moz-placeholder {
+    color: transparent;
+  }
+
+  :-ms-input-placeholder {
+    color: transparent;
+  }
+
+
+  textarea:after,
+  textarea:after.valid:after {
+    border-bottom: 2px solid $color-success;
+  }
+
+  textarea.invalid {
+    border-bottom: 1px solid $color-primary-dimmed;
+    transition: ease-in-out .3s;
+  }
+
+  textarea.valid {
+    border-bottom: 2px solid $color-success;
+    transition: ease-in-out .3s;
+  }
+
+  .error.active {
+    padding: 0.3em;
+  }
+
+  .c-textarea-invalid-message {
+    width  : 100%;
+    padding: map-get($spacers, "1") ;
+    display:none;
+    font-size: 80%;
+    color: $color-white;
+    background-color: $color-danger;
+    border:none;
+    border-radius: 0 0 5px 5px;
+    box-sizing: border-box;
+    margin-top:-8px;
+    &.error {
+      display:block;
+      transition: ease-in-out .3s;
+    }
+
+    .c-icon {
+      position: relative;
+      top: 3px;
+    }
+  }
+}

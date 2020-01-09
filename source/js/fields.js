@@ -57,11 +57,9 @@ class Fields {
     formValidationEventListerners() {
         
         const self = this;
-        const inputs = document.querySelectorAll('input');
+        const inputs = document.querySelectorAll('input[required], textarea[required]');
         for (const formInput of inputs) {
-            
             let inputId = formInput.getAttribute('id');
-            
             // On Click event listener - Setting data
             document.getElementById(inputId).addEventListener('click', function (e) {
                 self.formElement = this;
@@ -81,7 +79,7 @@ class Fields {
             
             // On Change event listener
             document.getElementById(inputId).addEventListener('change', function (element) {
-                self.validateFormField(element)
+                self.validateFormField(element);
             });
         }
     }
@@ -92,7 +90,7 @@ class Fields {
      * @param element
      */
     validateFormField(element) {
- 
+        
         if (!('remove' in Element.prototype)) {
             Element.prototype.remove = function () {
                 if (this.parentNode) {
@@ -111,12 +109,11 @@ class Fields {
             if (this.formElementPattern) {
                 valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
             } else {
-                let valid = true;
+                valid = true;
             }
         
             const id = this.formElement.getAttribute('id');
-            const message = this.formElement.getAttribute('id');
-        
+            console.log(this.formElement);
             if (!valid && !this.formElement.checkValidity()) {
                 this.formElement.classList.add('invalid');
             
