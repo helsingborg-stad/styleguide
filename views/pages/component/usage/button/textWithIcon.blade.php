@@ -1,6 +1,6 @@
 @button([
     'icon' => 'close',
-    'reverseIcon' => true,
+    'reversePositions' => true,
     'text' => 'Reversed',
     'type' => 'filled'
 ])

@@ -1,5 +1,5 @@
 @button([
-    'text' => 'Primary bg',
+    'text' => 'Primary filled',
     'color' => 'primary',
     'type' => 'filled'
 
@@ -7,7 +7,7 @@
 @endbutton
 
 @button([
-    'text' => 'Secondary bg',
+    'text' => 'Secondary filled',
     'color' => 'secondary',
     'type' => 'filled'
 
@@ -15,7 +15,7 @@
 @endbutton
 
 @button([
-    'text' => 'Default bg',
+    'text' => 'Default filled',
     'color' => 'default',
     'type' => 'filled'
 ])

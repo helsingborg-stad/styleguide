@@ -3,9 +3,9 @@
         "heading": "Different Sizes",
         "text": "This is a default colored button and it's pretty sweet"
     },
-    "background": {
+    "filled": {
         "heading": "Different backgrounds",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "Buttons of type filled. "
     },
     "disabled": {
         "heading": "Disabled buttons",
@@ -19,7 +19,7 @@
         "heading": "Outlined buttons",
         "text": "This is a default colored button and it's pretty sweet"
     },
-    "text": {
+    "basic": {
         "heading": "Textbuttons",
         "text": "This is a default colored button and it's pretty sweet"
     },

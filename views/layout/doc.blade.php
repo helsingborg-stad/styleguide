@@ -51,6 +51,7 @@
                         'text' => 'HTML',
                         'size' => 'md',
                         'icon' => 'code',
+                        'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
@@ -59,6 +60,7 @@
                         'text' => 'Blade',
                         'size' => 'md',
                         'icon' => 'code',
+                        'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
