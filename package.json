@@ -6,8 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prebuild": "node build.js",
-        "build": " icon-font-generator source/icons/material-icons-black/*.svg -o assets/dist/icons/  --cssfontsurl /assets/dist/icons/ -n styleguide-icons -p c-icon-  --descent 0 --height 512 --center",
-        "postbuild": "webpack --config webpack.config.js",
+        "build": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
@@ -45,7 +44,6 @@
         "filemanager-webpack-plugin": "^2.0.5",
         "fs": "0.0.1-security",
         "hbg-mix": "^2.1.2",
-        "icon-font-generator": "^2.1.10",
         "material-design-icons": "^3.0.1",
         "mini-css-extract-plugin": "^0.5.0",
         "postcss-loader": "^3.0.0",
@@ -60,7 +58,6 @@
     },
     "dependencies": {
         "glob": "^7.1.6",
-        "icon-font-generator": "^2.1.10",
         "jquery": "^3.4.1",
         "webpack-dev-server": "^3.9.0"
     },
