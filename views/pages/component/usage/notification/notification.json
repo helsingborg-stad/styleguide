@@ -1,0 +1,7 @@
+{
+    "notification":{
+        "heading": "Basic Card component",
+        "subHeading": "Card is based on a paper component",
+        "text": "The plain basic card contain title, byline and content"
+    }
+}
