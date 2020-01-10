@@ -6,7 +6,7 @@
             @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
                 @php
                       $componentDesc = [
-                        'c-paper--component-description-area'
+                        '--component-description-area'
                       ];
 
                       $codeArea = [
@@ -76,17 +76,17 @@
                     @buttonGroup(['borderColor' => 'default'])
                     @button([
                         'text' => 'HTML',
-                        'size' => 'sm',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'size' => 'md',
+                        'icon' => 'code',
+                        'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
                     @button([
                         'text' => 'Blade',
-                        'size' => 'sm',
-                        'isOutlined' => true,
-                        'icon' => ['name' => 'code', 'color' => 'black', 'size' => 'md'],
+                        'size' => 'md',
+                        'icon' => 'code',
+                        'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton

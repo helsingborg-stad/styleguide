@@ -1,19 +1,20 @@
 @button([
-    'text' => 'Primary toggle',
-    'isOutlined' => true
+    'text' => 'Primary outlined',
+    'type' => 'outlined',
+    'color' => 'primary'
 ])
 @endbutton
 
 @button([
     'text' => 'Secondary outlined',
-    'isOutlined' => true,
-    'color' => 'secondary'
+    'color' => 'secondary',
+    'type' => 'outlined'
 ])
 @endbutton
 
 @button([
     'text' => 'Default outlined',
-    'isOutlined' => true,
-    'color' => 'default'
+    'color' => 'default',
+    'type' => 'outlined'
 ])
 @endbutton

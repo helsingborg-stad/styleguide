@@ -1,14 +1,14 @@
 @button([
-    'icon' => ['name' => 'close', 'color' => 'black'],
-    'reverseIcon' => true,
+    'icon' => 'close',
+    'reversePositions' => true,
     'text' => 'Reversed',
-    'background' => 'default'
+    'type' => 'filled'
 ])
 @endbutton
 
 @button([
-    'icon' => ['name' => 'close', 'color' => 'black'],
+    'icon' => 'close',
     'text' => 'Not reversed',
-    'background' => 'default'
+    'type' => 'filled'
 ])
 @endbutton
