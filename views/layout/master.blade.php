@@ -69,7 +69,7 @@
     <div class="container container--main">
         <div class="grid" style="margin-bottom: 16px;">
             <div class="grid-xs-12">
-                @notice(['isInfo' => true]) 
+                @notice(['type' => 'info']) 
                     <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
                 @endnotice
             </div>
