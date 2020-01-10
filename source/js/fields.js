@@ -17,38 +17,49 @@ class Fields {
     
     
     /**
-     * File input
+     * File input - List files to upload
      */
     fileInputOnChange() {
         
-        const fileIn = document.getElementById('fileinput');
+        const self = this;
+        const inputs = document.querySelectorAll('.c-fileinput__input');
         
-        if (fileIn !== null) {
-            fileIn.onchange = function () {
-                
-                fileIn.addEventListener('onChange', (event) => {
+        for (const formInput of inputs) {
+            
+            let inputId = formInput.getAttribute('id');
+            
+            document.getElementById(inputId).addEventListener('change', function (e) {
+                if (e.target.files && e.target.files[0]) {
                     
-                    if (event.target.files && event.target.files[0]) {
-                        
-                        let upload = document.createElement('div');
-                        let wrapper = document.querySelector('.c-fileinput');
-                        
-                        upload.setAttribute('id', 'fileNameContainer');
-                        wrapper.appendChild(upload);
-                        
-                        let ufiles = '<ul>';
-                        for (let int = 0; int < event.target.files.length; int++) {
-                            ufiles += '<li><i class=" c-icon c-icon--cloud-upload "><span class="c-icon__label"> ' +
-                                event.target.files[int].name + '</span></i></li>';
-                        }
-                        ufiles += '</ul>';
-                        document.getElementById('fileNameContainer').innerHTML = ufiles;
+                    const findContainer = this.closest('div').querySelector('ul');
+                    const fileNameContainer = findContainer.getAttribute('id');
+                    
+                    for (let int = 0; int < e.target.files.length; int++) {
+                        const createListElement = document.createElement('li');
+                        const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
+                        const fileSize = self.returnFileSize(e.target.files[int].size);
+                        listelement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
+                            'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + e.target.files[int].name + '</b></span>';
                     }
-                });
-            };
+                }
+            });
         }
     }
     
+    /**
+     * returnFileSize
+     * @param number
+     * @returns {string}
+     */
+    returnFileSize(number) {
+        if(number < 1024) {
+            return number + ' bytes';
+        } else if(number >= 1024 && number < 1048576) {
+            return (number/1024).toFixed(1) + ' KB';
+        } else if(number >= 1048576) {
+            return (number/1048576).toFixed(1) + ' MB';
+        }
+    }
     
     /**
      * A simple input validation matcing input value with value
@@ -58,6 +69,7 @@ class Fields {
         
         const self = this;
         const inputs = document.querySelectorAll('input[required], textarea[required]');
+        
         for (const formInput of inputs) {
             let inputId = formInput.getAttribute('id');
             // On Click event listener - Setting data
@@ -98,31 +110,31 @@ class Fields {
                 }
             };
         }
-    
+        
         this.formElement.classList.remove('invalid');
         this.formElement.classList.remove('valid');
-    
+        
         // If Require is on
         if (this.formElementRequired) {
-        
+            
             let valid = false;
             if (this.formElementPattern) {
                 valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
             } else {
                 valid = true;
             }
-        
+            
             const id = this.formElement.getAttribute('id');
             console.log(this.formElement);
             if (!valid && !this.formElement.checkValidity()) {
                 this.formElement.classList.add('invalid');
-            
+                
                 if (this.formElementDataInvalidMessage) {
                     const errorMessage = document.getElementById('error_' + id + '_message');
                     errorMessage.classList.add('error');
                     errorMessage.getElementsByClassName("errorText")[0].innerHTML = this.formElementDataInvalidMessage;
                 }
-            
+                
             } else {
                 document.getElementById('error_' + id + '_message').classList.remove('error');
                 this.formElement.className = "valid";
