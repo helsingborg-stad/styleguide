@@ -47,7 +47,7 @@ class Fields {
     }
     
     /**
-     * returnFileSize
+     * FileSize
      * @param number
      * @returns {string}
      */
