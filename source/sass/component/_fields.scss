@@ -319,4 +319,25 @@
         padding: 0.3em;
     }
 
+    .c-field__input-invalid-message{
+        width  : 100%;
+        padding: map-get($spacers, "1") ;
+        display:none;
+        font-size: 80%;
+        color: $color-white;
+        background-color: $color-danger;
+        border:none;
+        border-radius: 0 0 5px 5px;
+        box-sizing: border-box;
+        margin-top:-8px;
+        &.error {
+            display:block;
+            transition: ease-in-out .3s;
+        }
+
+        .c-icon {
+            position: relative;
+            top: 3px;
+        }
+    }
 }

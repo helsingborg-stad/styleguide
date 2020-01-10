@@ -12,6 +12,10 @@
       background-color: $color-form-fields;
       border-radius: $border-radius-xs;
       cursor: pointer;
+      box-shadow: 0 0 0 1px $color-gray-detail;
+      &:hover {
+        box-shadow: 0 0 0 2px $color-disabled-text;
+      }
     }
 
     .c-option__checkbox--hidden-box:checked + .c-option__checkbox--label {
@@ -26,7 +30,7 @@
           left: 4px;
           width: 6px;
           height: 12px;
-          border: solid $color-success;
+          border: solid $color-primary;
           border-width: 0 3px 3px 0;
           transform: rotate(45deg);
         }
@@ -53,6 +57,10 @@
       background-color: $color-form-fields;
       border-radius: $border-radius-full;
       cursor: pointer;
+      box-shadow: 0 0 0 1px $color-gray-detail;
+      &:hover {
+        box-shadow: 0 0 0 2px $color-disabled-text;
+      }
     }
 
     .c-option__radio--hidden-box:checked + .c-option__radio--label {
@@ -64,11 +72,11 @@
           content: "";
           display: block;
           position: absolute;
-          top: 4px;
-          left: 4px;
-          width: 10px;
-          height: 10px;
-          background-color: $color-success;
+          top: 3px;
+          left: 3px;
+          width: 12px;
+          height: 12px;
+          background-color: $color-primary;
           border-radius: $border-radius-full;
         }
       }
