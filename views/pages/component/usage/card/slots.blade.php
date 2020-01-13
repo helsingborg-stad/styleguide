@@ -30,7 +30,7 @@
         'href' => "#",
         'text' => "Button component",
         'toggle' => true,
-        'isOutlined' => false,
+        'type' => 'filled',
         'color' => "primary",
         'attributeList' => ['tabindex' => "1"],
         'classList' => ["c-button__button"]
@@ -42,7 +42,7 @@
         'href' => "#",
         'text' => "Button component",
         'toggle' => true,
-        'isOutlined' => false,
+        'type' => 'filled',
         'color' => "secondary",
         'attributeList' => ['tabindex' => "1"],
         'classList' => ["c-button__button"]

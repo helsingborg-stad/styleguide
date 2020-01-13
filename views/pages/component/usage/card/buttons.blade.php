@@ -5,16 +5,16 @@
         [
             'href' => 'http://helsingborg.se',
             'text' => 'Action button 1',
-            'attributeList' => ['js-toggle-trigger'],
-            'color' => 'primary',
-            'isTextButton' => true
+            'attributeList' => ['js-toggle-trigger' => ''],
+            'color' => 'default',
+            'type' => 'filled'
         ],
         [
             'href' => 'http://',
             'text' => 'Action button 2',
-            'attributeList' => ['js-toggle-trigger'],
+            'attributeList' => ['js-toggle-trigger' => ''],
             'color' => 'secondary',
-            'isTextButton' => true
+            'type' => 'filled'
         ]
     ]
 ])
