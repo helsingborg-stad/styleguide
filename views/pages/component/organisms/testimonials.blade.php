@@ -34,7 +34,7 @@
                     'quoteColor' => 'grey'
                 ),
                 array(
-                    'name' => 'È un capolavoro!!!!!',
+                    'name' => '',
                     'title' => 'Leonardo da Vinci',
                     'testimonial' => "Blinding ignorance does mislead us. Oh! Wretched mortals, open your eyes! Keep up the good work.",
                     'titleElement' => 'h5',
@@ -42,7 +42,7 @@
                     'imageTop' => true
                 ),
                 array(
-                    'name' => 'Excellent work lads!',
+                    'name' => '',
                     'title' => 'Alfred Hitchcock',
                     'testimonial' => "A lot of movies are about life, mine are like a slice of cake. Yummi styleguide!",
                     'titleElement' => 'h5',
@@ -50,7 +50,7 @@
                     'imageTop' => true
                 ),
                 array(
-                    'name' => "Splendid honey!",
+                    'name' => "",
                     'title' => 'Audrey Hepburn',
                     'testimonial' => "Let's face it, a nice creamy chocolate cake does a lot for a lot of people; it does for me.",
                     'titleElement' => 'h5',

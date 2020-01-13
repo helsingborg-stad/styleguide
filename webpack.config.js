@@ -4,19 +4,27 @@ const path = require('path');
 const glob = require('glob');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 
+const mapFilenamesToEntries = pattern => glob
+    .sync(pattern)
+    .reduce((entries, filename) => {
+        const [, name] = filename.match(/([^/]+)\.scss$/)
+        return {...entries, [name]: filename}
+    }, {});
+
 
 module.exports = {
-
+    // ...
     externals: {
         material: '@material'
     },
-
+    
     /**
      * Entry files - Add more entries if needed.
      */
     entry: {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
-        'styleguide-css': './source/sass/main.scss',
+        //'styleguide-css': './source/sass/main.scss',
+        ...mapFilenamesToEntries('./source/sass/*.scss'),
     },
     mode: 'development',
     watch: true,
@@ -24,7 +32,7 @@ module.exports = {
         poll: 100,
         ignored: /node_modules/
     },
-
+    
     /**
      * Output files
      */
@@ -32,10 +40,10 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/dist/'),
         filename: 'js/[name].min.js'
     },
-
+    
     module: {
         rules: [
-
+            
             /**
              * Babel
              */
@@ -49,7 +57,7 @@ module.exports = {
                     }
                 }
             },
-
+            
             /**
              * Compile sass to css
              */
@@ -73,7 +81,7 @@ module.exports = {
                     }
                 ]
             },
-
+            
             /**
              * Fonts - File loader
              */
@@ -90,21 +98,21 @@ module.exports = {
             }
         ]
     },
-
+    
     /**
      * Plugins
      */
     plugins: [
-
+        
         // Prevent Webpack to create javascript css
         new FixStyleOnlyEntriesPlugin(),
-
+        
         // Minify css and create css file
         new MiniCssExtractPlugin({
             filename: 'css/[name].min.css',
             chunkFilename: 'css/[name].min.css'
         }),
-
+      
         // Lint for scss
         new StylelintPlugin({
             context: "./source/sass",
@@ -113,4 +121,5 @@ module.exports = {
             defaultSeverity: "warning"
         })
     ]
+    // ...
 };
