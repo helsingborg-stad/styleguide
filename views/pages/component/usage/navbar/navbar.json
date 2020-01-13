@@ -1,0 +1,32 @@
+{
+    "alignmentLeft": {
+        "heading": "Left aligned logo",
+        "subHeading": "Navbar Layout",
+        "text": "Align the logo to the left, The links will be positioned next to the logo."
+    },
+    "alignmentLeftRight": {
+        "heading": "Left aligned logo, right aligned items",
+        "subHeading": "Navbar Layout",
+        "text": "Here we align the logo to the left and the link items to the right."
+    },
+    "alignmentRight": {
+        "heading": "Right aligned logo",
+        "subHeading": "Navbar Layout",
+        "text": "Align the logo to the right, The links will be positioned next to the logo."
+    },
+    "alignmentRightLeft": {
+        "heading": "Right aligned logo, left aligned items",
+        "subHeading": "Navbar Layout",
+        "text": "Here we align the logo to the left and the link items to the right"
+    },
+    "alignmentTop": {
+        "heading": "Logo on top of items",
+        "subHeading": "Navbar Layout",
+        "text": "You can also put the logo on top of the link items, in this example we've also changed the hover colour to secondary"
+    },
+    "alignmentCenter": {
+        "heading": "Centered logo",
+        "subHeading": "Navbar Layout",
+        "text": "In this example we've split the link items in the middle and put them on either side of the logo. We've also changed the top accent to secondary"
+    }
+}
