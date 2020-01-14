@@ -20,15 +20,22 @@ export default class Slider {
     applySliders() {
         const sliders = document.querySelectorAll(`[${this.ATTR}]`);
 
-        sliders.forEach((slider) => {
-            this.StepperInstance.enableStepper('dots', slider.parentElement, this.getItemsLength(slider), true);
+        if (sliders.length > 0) {
+            sliders.forEach((slider) => {
+                this.StepperInstance.enableStepper(
+                    'dots',
+                    slider.parentElement,
+                    this.getItemsLength(slider),
+                    true
+                );
 
-            slider.querySelectorAll(`[${this.BTN}]`).forEach((button) => {
-                button.addEventListener('click', (e) => {
-                    this.clickedBtn(e, slider);
-                });
+                slider.querySelectorAll(`[${this.BTN}]`).forEach((button) => {
+                    button.addEventListener('click', (e) => {
+                        this.clickedBtn(e, slider);
+                    });
+                })
             })
-        })
+        }
     }
 
     /**
