@@ -1,11 +1,15 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+        #Button      
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+
+    @doc(['slug' => 'slider'])
+    @enddoc
 @stop
+
+
+
+        
