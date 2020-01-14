@@ -2,7 +2,7 @@
 
 @section('content')
     @markdown
-        #Button      
+        #Slider
     @endmarkdown
 
 

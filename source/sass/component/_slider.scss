@@ -28,10 +28,12 @@
 
         &--prev {
             left: 0;
+            margin-left: map-get($spacers, "3");
         }
 
         &--next {
             right: 0;
+            margin-right: map-get($spacers, "3");
         }
     }
 }
