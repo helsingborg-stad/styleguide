@@ -4,14 +4,6 @@ const path = require('path');
 const glob = require('glob');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 
-const mapFilenamesToEntries = pattern => glob
-    .sync(pattern)
-    .reduce((entries, filename) => {
-        const [, name] = filename.match(/([^/]+)\.scss$/)
-        return {...entries, [name]: filename}
-    }, {});
-
-
 module.exports = {
     // ...
     externals: {
@@ -23,8 +15,7 @@ module.exports = {
      */
     entry: {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
-        //'styleguide-css': './source/sass/main.scss',
-        ...mapFilenamesToEntries('./source/sass/*.scss'),
+        'styleguide-css': './source/sass/main.scss',
     },
     mode: 'development',
     watch: true,
