@@ -1,4 +1,10 @@
 {
+    "dateFormat": {
+        "grid": "",
+        "heading": "Format a date",
+        "subHeading" : "Returns formatted date",
+        "text": "Yes"
+    },
     "timeSince": {
         "grid": "",
         "heading": "Time Since",
