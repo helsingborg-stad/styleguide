@@ -8,20 +8,21 @@
     @endmarkdown
 
     @doc(['slug' => 'tags'])
-        @tags(['tags' => array(
-            array(
+        @tags(['tags' => [
+            [
+                'label' => 'footag',
+                'color' => 'primary'
+            ],
+            [
                 'href' => '#',
-                'label' => 'footag'
-            ),
-            array(
-                'href' => '#',
-                'label' => 'bartag'
-            ),
-            array(
+                'label' => 'bartag',
+                'color' => 'secondary'
+            ],
+            [
                 'href' => '#',
                 'label' => 'sometag'
-            )
-        )])
+            ]
+        ]])
     @endtags
 @enddoc
 @stop
