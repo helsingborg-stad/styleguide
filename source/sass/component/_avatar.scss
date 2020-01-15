@@ -31,8 +31,11 @@
     &__initials {
         @include cover();
         border-radius: inherit;
-        border:2px solid $color-white;
+    }
 
+    &__initials {
+        height: 100%;
+        width: 100%;
     }
 
     &__image {
@@ -48,4 +51,8 @@
             color: #fff;
         }
     }
+}
+
+.c-avatar--image {
+    background: none;
 }
