@@ -1,7 +1,5 @@
 @slider([
-    'background' => 'primary',
-    'text' => 'Primary bg',
-    'color' => 'white'
+    'showStepper' => true
 ])
     @segment([
         'template' => 'featured',
