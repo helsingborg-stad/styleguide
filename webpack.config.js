@@ -4,7 +4,6 @@ const path = require('path');
 const glob = require('glob');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 
-
 //const fs = require('fs');
 
 module.exports = {
