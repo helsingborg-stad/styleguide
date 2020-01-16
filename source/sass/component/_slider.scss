@@ -1,0 +1,39 @@
+.c-slider {
+    padding: 0 30px;
+    overflow: hidden;
+
+    &--inner {
+        display: flex;
+        transition: all 0.7s ease-in-out;
+
+        .c-segment {
+            min-width: 100%;
+        }
+    }
+
+    .c-steppers {
+        bottom: 60px;
+        z-index: $level-9;
+
+        &__dot-active {
+            background-color: $color-primary;
+        }
+    }
+
+    &__button {
+        position: absolute;
+        bottom: 50%;
+        transform: translateY(50%);
+        z-index: $level-9;
+
+        &--prev {
+            left: 0;
+            margin-left: map-get($spacers, "3");
+        }
+
+        &--next {
+            right: 0;
+            margin-right: map-get($spacers, "3");
+        }
+    }
+}

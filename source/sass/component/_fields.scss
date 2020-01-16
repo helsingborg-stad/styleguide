@@ -38,7 +38,6 @@
         }
     }
 
-
     input:focus {
         border-bottom: 2px solid $color-in-action;
         transition: ease-in-out .3s;
@@ -140,7 +139,6 @@
             top: 3px !important;
             transform: none;
         }
-
 
     }
 
@@ -296,6 +294,7 @@
             padding:0px;
             border:none;
             box-shadow:none;
+
             &:before {
                 font-family: "Material Icons" !important;
                 content: "\e3b8";
@@ -319,7 +318,7 @@
         padding: 0.3em;
     }
 
-    .c-field__input-invalid-message{
+    .c-field__input-invalid-message {
         width  : 100%;
         padding: map-get($spacers, "1") ;
         display:none;
@@ -330,6 +329,7 @@
         border-radius: 0 0 5px 5px;
         box-sizing: border-box;
         margin-top:-8px;
+
         &.error {
             display:block;
             transition: ease-in-out .3s;

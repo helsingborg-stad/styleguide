@@ -1,4 +1,5 @@
 // BUTTON
+
 .c-button {
 
     display: inline-block;
@@ -9,7 +10,7 @@
     font-weight: 500;
     background-color: transparent;
     letter-spacing: 0.1em;
-    border:none;
+    border: none;
     box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
 
     &:hover {
@@ -17,7 +18,7 @@
     }
 
     &__label {
-        display:flex;
+        display: flex;
         flex-direction: row;
     }
 
@@ -38,11 +39,12 @@
     }
 
     &[disabled] {
-       
+
         border-color: $color-disabled;
         background-color: $color-disabled;
         color: $color-disabled-text;
         cursor: not-allowed;
+
         * {
             color: $color-disabled-text;
         }
@@ -55,65 +57,71 @@
 }
 
 // Only text
-.c-button__basic{
-    border: none;
-	box-shadow: none;
 
-    &--primary{
+.c-button__basic {
+    border: none;
+    box-shadow: none;
+
+    &--primary {
         color: $color-primary;
     }
 
-    &--secondary{
+    &--secondary {
         color: $color-secondary;
     }
 
-    &--default{
+    &--default {
         color: $color-default-dark;
     }
 }
 
 // Background and border
-.c-button__filled{
 
-    &--primary{
+.c-button__filled {
+
+    &--primary {
         background-color: $color-primary;
         color: $color-white;
-        &:hover{
+
+        &:hover {
             background-color: $color-primary-dimmed;
         }
     }
 
-    &--secondary{
+    &--secondary {
         background-color: $color-secondary;
         color: $color-white;
-        &:hover{
+
+        &:hover {
             background-color: $color-secondary-dimmed;
         }
     }
 
-    &--default{
+    &--default {
         background-color: $color-default;
         color: $color-primary;
-        &:hover{
+
+        &:hover {
             background-color: $color-default-dimmed;
         }
     }
 }
 
 // No background, only border
-.c-button__outlined{
 
-    &--primary{
+.c-button__outlined {
+
+    &--primary {
         border: 2px solid $color-primary;
         @extend .c-button__basic--primary;
     }
 
-    &--secondary{
+    &--secondary {
         border: 2px solid $color-secondary;
         @extend .c-button__basic--secondary;
     }
 
-    &--default{
+    &--default {
         border: 2px solid $color-default-dark;
         color: $color-primary;
         @extend .c-button__basic--default;
@@ -121,6 +129,7 @@
 }
 
 // Styling for buttons with both text and an icon
+
 .c-button__label-icon {
     order: 2;
     margin-left: 0.5rem;
@@ -140,44 +149,47 @@
 }
 
 // Icon override
-.c-button{
-    &--sm .material-icons i{
-       font-size: $font-size-btn-sm;
+
+.c-button {
+
+    &--sm .material-icons i {
+        font-size: $font-size-btn-sm;
     }
 
-    &--md .material-icons span i{
+    &--md .material-icons span i {
         font-size: $font-size-btn-md;
     }
 
-    &--lg .material-icons i{
+    &--lg .material-icons i {
         font-size: $font-size-btn-lg;
     }
 }
 
-.c-button .material-icons{
-    padding:0;
+.c-button .material-icons {
+    padding: 0;
     font-weight: 500;
 }
 
-.c-button__toggle{
+.c-button__toggle {
     @extend .c-button__filled--default;
     color: $color-info-text;
 
-    &[aria-pressed="true"]{
+    &[aria-pressed="true"] {
         color: $color-primary;
     }
 }
 
-.c-button__icon-size{
-    &--sm{
+.c-button__icon-size {
+
+    &--sm {
         @include button-size(0.5em, 0.5em, 1.125em, $font-size-btn-lg-line-height, 7.5px);
     }
 
-    &--md{
+    &--md {
         @include button-size(0.5em, 0.5em, 1.375em, $font-size-btn-lg-line-height, 7.5px);
     }
 
-    &--lg{
+    &--lg {
         @include button-size(0.5em, 0.5em, 1.5em, $font-size-btn-lg-line-height, 12.5px);
     }
 }
