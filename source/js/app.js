@@ -11,6 +11,7 @@ import Image from "./image";
 import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
+import Slider from './slider'
 
 expandSection();
 
@@ -19,11 +20,13 @@ let SortInstance = new Sort;
 let ToggleInstance = new Toggle;
 let SplitButtonInstance = new SplitButton;
 let DropdownInstance = new Dropdown;
+let SliderInstance = new Slider;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
+SliderInstance.applySliders();
 
 let filter = new Filter;
 
@@ -40,3 +43,4 @@ let MenuInstance = new Menu;
 
 const FieldsInstance = new Fields;
 
+import './datepicker';

@@ -8,7 +8,7 @@
 
     @doc(['slug' => 'notice'])
         @notice([
-            'isSuccess' => true,
+            'type' => 'success',
             'message' => [
                 'text' => 'Tellus Sem Lorem Malesuada Ipsum',
                 'size' => 'sm'
@@ -22,7 +22,7 @@
         @endnotice
 
         @notice([
-            'isDanger' => true,
+            'type' => 'info',
             'message' => [
                 'text' => 'Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
                 'size' => 'sm'
@@ -36,7 +36,7 @@
         @endnotice
 
         @notice([
-            'isInfo' => true,
+            'type' => 'danger',
             'message' => [
                 'text' => 'Sed posuere consectetur est at lobortis.',
                 'size' => 'sm'
@@ -50,7 +50,7 @@
         @endnotice
 
         @notice([
-            'isWarning' => true,
+            'type' => 'warning',
             'message' => [
                 'text' => 'Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis.',
                 'size' => 'sm'

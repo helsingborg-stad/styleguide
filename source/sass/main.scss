@@ -111,12 +111,13 @@
 @import "component/loader";
 @import "component/tooltip";
 @import "component/logotype";
-@import "component/form";
 @import "component/tabs";
 @import "component/modal";
 @import "component/testimonials";
 @import "component/alert";
 @import "component/fields";
+@import "component/textarea";
+@import "component/option";
 @import "component/typography";
 @import "component/buttonGroup";
 @import "component/fab";
@@ -124,6 +125,11 @@
 @import "component/segment";
 @import "component/navbar";
 @import "component/dropdown";
+@import "component/date-picker";
+@import "component/notification";
+@import "component/comment";
+@import "component/slider";
+@import "component/tag";
 
 // ***************************************************************
 // *** Misc

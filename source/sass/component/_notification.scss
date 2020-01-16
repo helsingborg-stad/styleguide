@@ -1,0 +1,18 @@
+.c-notification__slide_from {
+
+    &--left {
+        @include slide(left);
+    }
+
+    &--right {
+        @include slide(right);
+    }
+
+    &--top {
+        @include slide(top);
+    }
+
+    &--bottom {
+        @include slide(bottom);
+    }
+}

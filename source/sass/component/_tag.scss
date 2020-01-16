@@ -1,0 +1,47 @@
+.c-tag {
+    padding: $base/2;
+    margin-right: $base/2;
+    border-radius: $border-radius-sm;
+    text-decoration: none;
+    color: $color-base;
+    font-size: $font-size-meta;
+
+    &--default {
+        color: $color-base;
+        background-color: $color-gray-light;
+        
+        &:visited, &:visited:hover {
+            color: $color-base;
+        }
+        &:hover {
+            color: $color-base;
+            background-color: $color-gray;
+        }
+    }
+
+    &--primary {
+        color: $color-white;
+        background-color: $color-primary;
+        
+        &:visited, &:visited:hover {
+            color: $color-white;
+        }
+        &:hover {
+            color: $color-white;
+            background-color: $color-primary-dimmed;
+        }
+    }
+
+    &--secondary {
+        color: $color-white;
+        background-color: $color-secondary;
+        
+        &:visited, &:visited:hover {
+            color: $color-white;
+        }
+        &:hover {
+            color: $color-white;
+            background-color: $color-secondary-dimmed;
+        }
+    }
+}

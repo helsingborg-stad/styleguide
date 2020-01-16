@@ -1,0 +1,38 @@
+.c-comment {
+    margin-top: map-get($spacers, "2");
+
+    &__top {
+        display: flex;
+        align-items: center;
+
+        .c-comment__author {
+            align-self: center;
+            margin: 0;
+        }
+    }
+
+    .c-avatar {
+        width: 50px;
+        height: 50px;
+        margin: map-get($spacers, "1");
+    }
+
+    &__date {
+        align-self: flex-end;
+        margin: map-get($spacers, "1");
+        margin-left: auto;
+        color: $color-comment-date;
+    }
+
+    &__bubble {
+        background-color: $color-comment-bubble-bg;
+        border-radius: $border-radius-lg;
+        border-top-left-radius: $border-radius-sm;
+        padding: map-get($spacers, "1half") map-get($spacers, "2");
+        @include shadow(1);
+    }
+
+    &__is-reply {
+        margin-left: map-get($spacers, "5");
+    }
+}

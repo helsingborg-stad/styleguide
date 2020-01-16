@@ -12,8 +12,7 @@
     input[type="month"],
     input[type="number"],
     input[type="password"],
-    input[type="email"],
-    textarea {
+    input[type="email"] {
         width: 100%;
         margin: 0;
         outline: 0;
@@ -39,13 +38,7 @@
         }
     }
 
-    textarea {
-        min-height: 200px;
-        padding: map-get($spacers, "3")-2;
-    }
-
-    input:focus,
-    textarea:focus {
+    input:focus {
         border-bottom: 2px solid $color-in-action;
         transition: ease-in-out .3s;
 
@@ -147,12 +140,6 @@
             transform: none;
         }
 
-        textarea+label {
-            font-size: 11px;
-            top: 4px !important;
-            padding-left: 3px;
-            transform: none;
-        }
     }
 
     /* Range Slider */
@@ -299,27 +286,23 @@
 
     &__color {
 
-        padding: 0;
-        margin: 0;
-
         input[type="color"] {
             visibility: hidden;
             -webkit-appearance: none;
             width: 100%;
             background: transparent;
+            padding:0px;
+            border:none;
+            box-shadow:none;
 
             &:before {
                 font-family: "Material Icons" !important;
-                content: "\f10a";
+                content: "\e3b8";
                 font-size: 22px;
-                padding: map-get($spacers, "1");
                 display: inline-block;
                 visibility: visible;
-                color: $color-white;
-                background: $color-primary;
-                border: 1px solid $color-form-fields;
+                color: $color-primary;
                 border-radius: $border-radius-xs;
-                margin: 0px;
                 cursor: pointer;
             }
         }
@@ -331,133 +314,11 @@
         color: transparent;
     }
 
-    &__checkbox {
-
-        .c-field__checkbox--label-box {
-
-            display: flex;
-            align-self: center;
-            position: relative;
-            height: 20px;
-            width: 20px;
-            border: 1px solid $color-form-fields;
-            background-color: $color-form-fields;
-            border-radius: $border-radius-xs;
-            cursor: pointer;
-        }
-
-        .c-field__checkbox--hidden-box:checked+.c-field__checkbox--label {
-
-            .c-field__checkbox--label-box {
-
-                &:after {
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    top: -1px;
-                    left: 4px;
-                    width: 6px;
-                    height: 12px;
-                    border: solid $color-success;
-                    border-width: 0 3px 3px 0;
-                    transform: rotate(45deg);
-                }
-            }
-
-            .c-field__checkbox--label-text {
-
-                &:after {
-                    width: 85%;
-                }
-            }
-        }
+    .error.active {
+        padding: 0.3em;
     }
 
-    &__radio {
-
-        .c-field__radio--label-box {
-            display: flex;
-            align-self: center;
-            position: relative;
-            height: 20px;
-            width: 20px;
-            border: 1px solid $color-form-fields;
-            background-color: $color-form-fields;
-            border-radius: $border-radius-full;
-            cursor: pointer;
-        }
-
-        .c-field__radio--hidden-box:checked+.c-field__radio--label {
-
-            .c-field__radio--label-box {
-
-                &:after {
-                    animation: pop-in 150ms;
-                    content: "";
-                    display: block;
-                    position: absolute;
-                    top: 4px;
-                    left: 4px;
-                    width: 10px;
-                    height: 10px;
-                    background-color: $color-success;
-                    border-radius: $border-radius-full;
-                }
-            }
-
-            .c-field__radio--label-text {
-
-                &:after {
-                    width: 85%;
-                }
-            }
-        }
-    }
-
-    .c-field__checkbox,
-    .c-field__radio {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        padding: 0;
-        width: 80%;
-        max-width: 500px;
-        background-color: $color-white;
-        list-style: none;
-        overflow: hidden;
-    }
-
-    .c-field__checkbox--hidden-box,
-    .c-field__radio--hidden-box {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-        appearance: none;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .c-field__checkbox--label,
-    .c-field__radio--label {
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    .c-field__checkbox--label-text,
-    .c-field__radio--label-text {
-        display: flex;
-        align-self: flex-start;
-        position: relative;
-        cursor: pointer;
-        padding: map-get($spacers, "1") 11px;
-    }
-
-    .c-field__input-invalid-message,
-    .c-field__textarea-invalid-message {
+    .c-field__input-invalid-message {
         width  : 100%;
         padding: map-get($spacers, "1") ;
         display:none;
@@ -467,6 +328,7 @@
         border:none;
         border-radius: 0 0 5px 5px;
         box-sizing: border-box;
+        margin-top:-8px;
 
         &.error {
             display:block;
@@ -476,25 +338,6 @@
         .c-icon {
             position: relative;
             top: 3px;
-        }
-    }
-
-    .error.active {
-        padding: 0.3em;
-    }
-
-    @keyframes pop-in {
-
-        0% {
-            transform: scale(0.5);
-        }
-
-        80% {
-            transform: scale(1.2);
-        }
-
-        100% {
-            transform: scale(1);
         }
     }
 }
