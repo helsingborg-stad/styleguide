@@ -56,16 +56,21 @@
         padding: 0;
     }
 
+    .c-button:hover {
+        box-shadow:none;
+        color: $color-secondary;
+    }
+
     &__close {
         position: absolute;
         top:- map-get($spacers, "7");
         right: map-get($spacers, "2");
         display: block;
-        color: $color-white;
         cursor: pointer;
     }
 
     &__prev, &__next, &__close {
+        color: $color-white;
 
         &.c-button__icon:focus {
             outline: none;
