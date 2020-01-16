@@ -11,6 +11,7 @@ import Image from "./image";
 import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
+import EventCalendar from './calendar';
 
 expandSection();
 
@@ -19,11 +20,13 @@ let SortInstance = new Sort;
 let ToggleInstance = new Toggle;
 let SplitButtonInstance = new SplitButton;
 let DropdownInstance = new Dropdown;
+let EventCalendarInstance = new EventCalendar;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
+EventCalendarInstance.initiateCalendar();
 
 let filter = new Filter;
 
