@@ -1,17 +1,18 @@
-.c-notification__slide_from{
-        &--left{
-            @include slide(left);
-        }
-        
-        &--right{
-            @include slide(right);
-        }
+.c-notification__slide_from {
 
-        &--top{
-            @include slide(top);
-        }
+    &--left {
+        @include slide(left);
+    }
 
-        &--bottom{
-            @include slide(bottom);
-        }
+    &--right {
+        @include slide(right);
+    }
+
+    &--top {
+        @include slide(top);
+    }
+
+    &--bottom {
+        @include slide(bottom);
+    }
 }

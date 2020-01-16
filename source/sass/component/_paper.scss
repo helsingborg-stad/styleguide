@@ -25,7 +25,8 @@
         background-color: $color-component-doc-background;
         display: inline-block;
         width:100%;
-        p,h4,h5 {
+
+        p, h4, h5 {
             color: $color-white;
         }
 
@@ -33,8 +34,8 @@
             float:right;
         }
 
-        .c-button__text--primary[aria-pressed=true],
-        [aria-pressed=true].c-button__outlined--primary {
+        .c-button__text--primary[aria-pressed="true"],
+        [aria-pressed="true"].c-button__outlined--primary {
             color: $color-white;
             background-color: lighten($color-component-doc-background, 10%);
         }
@@ -51,6 +52,7 @@
 
     &--component-code-area-full, &--component-code-area-grid {
         background-color: $color-component-doc-background;
+
         .c-code {
             //padding: 0 24px;
         }
@@ -73,5 +75,5 @@
 }
 
 .c-card  .c-paper {
-   //display: flow-root;
+    //display: flow-root;
 }

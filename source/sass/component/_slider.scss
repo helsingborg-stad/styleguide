@@ -5,22 +5,22 @@
     &--inner {
         display: flex;
         transition: all 0.7s ease-in-out;
-        
+
         .c-segment {
             min-width: 100%;
         }
     }
-    
+
     .c-steppers {
         bottom: 60px;
         z-index: $level-9;
 
         &__dot-active {
-            background-color: $color-primary; 
+            background-color: $color-primary;
         }
     }
 
-    &__button{
+    &__button {
         position: absolute;
         bottom: 50%;
         transform: translateY(50%);
