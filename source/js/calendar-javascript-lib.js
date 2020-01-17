@@ -1,5 +1,7 @@
 "use strict";
 
+import Modal from './modal';
+
 function Calendar(id, size, labelSettings, colors, options) {
     this.id = id;
     this.size = size;
@@ -120,7 +122,7 @@ Calendar.prototype.draw = function () {
     var theCalendar = document.createElement("DIV");
     theCalendar.className = "cjslib-calendar cjslib-size-" + this.size;
 
-    document.getElementById(this.id).appendChild(theCalendar.cloneNode(true));
+    //document.getElementById(this.id).appendChild(theCalendar.cloneNode(true));
 
     var theContainers = [],
         theNames = ['year', 'month', 'labels', 'days'];
@@ -188,14 +190,16 @@ Calendar.prototype.draw = function () {
     for (var i = 0, j = 0; i < 42; i++) {
         theRadios[i] = document.createElement("INPUT");
         theRadios[i].className = "cjslib-day-radios";
-        theRadios[i].type = "radio";
+        theRadios[i].type = "button";
         theRadios[i].name = this.id + "-day-radios";
         theRadios[i].id = this.id + "-day-radio-" + (i + 1);
+        theRadios[i].setAttribute('data-open','examplemodalid');
 
         theDays[i] = document.createElement("LABEL");
         theDays[i].className = "cjslib-day";
         theDays[i].htmlFor = this.id + "-day-radio-" + (i + 1);
         theDays[i].id = this.id + "-day-" + (i + 1);
+        theDays[i].setAttribute('data-open','examplemodalid');
 
         var theText = document.createElement("SPAN");
         theText.className = "cjslib-day-num";
@@ -564,8 +568,8 @@ Organizer.prototype.setupBlock = function (blockId, organizerInstance, callback)
                 const dayNumBlock = document.getElementById(calendarInstance.id + "-day-num-" + blockId);
                 const dayBlock = document.getElementById(calendarInstance.id + "-day-" + blockId);
                 const eventList = organizerInstance.changeDateTo(dayNumBlock.innerHTML, blockId);
-            
-                callback(clickEvent, eventList, dayBlock);
+                console.log(calendarInstance)
+                callback(clickEvent, eventList, dayBlock, calendarInstance);
             }
         }
     };
@@ -736,6 +740,23 @@ Organizer.prototype.setOnLongClickListener = function (theCase, backCallback, ne
             break;
     }
 }
+
+
+document.addEventListener('click', (e) => {
+    
+    var targe = e.target;
+    var isVisible = "c-modal__bg--is-visible";
+    console.log(e.targe)
+    if (targe.hasAttribute("data-open")) {
+        var modalId = targe.getAttribute('data-open'); //this.dataset.open;
+        document.getElementById(modalId).classList.add(isVisible);
+
+        if(targe.getAttribute('data-large-img')) {
+            GalleryInstance.initImage(modalId, this.getAttribute('data-large-img'));
+        }
+    }
+    
+})
 
 
 export {Calendar, Organizer};

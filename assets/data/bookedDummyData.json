@@ -1,0 +1,26 @@
+{
+	"2020": {
+		"1": {
+			"1": {
+				"booked": [{
+					"startTime": "10:00",
+					"endTime": "12:00",
+					"text": "Some Event Here"
+				}, {
+					"startTime": "14:00",
+					"endTime": "17:00",
+					"text": "Some Event Here"
+				}],
+				"available": [{
+					"startTime": "10:00",
+					"endTime": "12:00",
+					"text": "Some Event Here"
+				}, {
+					"startTime": "14:00",
+					"endTime": "17:00",
+					"text": "Some Event Here"
+				}]
+			}
+		}
+	}
+}

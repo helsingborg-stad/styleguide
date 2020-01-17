@@ -16,13 +16,14 @@ class Modal {
     enableModals() {
 
         const self = this;
-
+        console.log(this.openTrigger)
         // Gallery
         let GalleryInstance = new Gallery;
         GalleryInstance.enableGallery(this.modalId);
 
         for(const trigger of this.openTrigger) {
             trigger.addEventListener("click", function() {
+                console.log("CLICK")
                 this.modalId = this.getAttribute('data-open'); //this.dataset.open;
                 document.getElementById(this.modalId).classList.add(self.isVisible);
 

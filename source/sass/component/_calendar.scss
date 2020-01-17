@@ -32,14 +32,12 @@
     &__event-list{
         background-color: $color-default;
         color: $color-primary;
-        width:25%;
         padding:2%;
         @include shadow(5);
+        z-index: 9999;
     }
 
-    &__event-list--hidden{
-        display: none;
-    }
+    
 }
 
 .cjslib-calendar {

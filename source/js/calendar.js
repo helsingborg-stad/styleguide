@@ -1,20 +1,20 @@
 import {Calendar, Organizer} from './calendar-javascript-lib';
 
-
 class EventCalendar{
 
 
 
     initiateCalendar(){
 
-        const calendar = document.querySelectorAll('[get]');
-        const getUrl = calendar[0].getAttribute('get');
+        const calendar = document.querySelectorAll('[available]');
+        const availableUrl = calendar[0].getAttribute('available');
+        const bookedUrl = calendar[0].getAttribute('booked');
         const postUrl = calendar[0].getAttribute('post');
         const size = calendar[0].getAttribute('size');
         let weekStart = calendar[0].getAttribute('weekStart');
         weekStart = weekStart[0].toUpperCase() + weekStart.slice(1); 
 
-        this.getEvents(getUrl).then(data => this.setup(data, weekStart, size, calendar));
+        this.getEvents(bookedUrl).then(data => this.setup(data, weekStart, size, calendar));
     }
 
     getEvents(url){ 
@@ -50,22 +50,22 @@ class EventCalendar{
             );
             
             organizer.setOnClickListener('days-blocks',
-                (clickEvent, eventList, element) => {
-         
-                    const yPos = element.getBoundingClientRect().y + 'px';
-                    const xPos = element.getBoundingClientRect().x/4 + 'px';
-   
-                    let list = calendarElement[0].querySelector('.c-calendar__event-list');
-                    list.classList.remove('c-calendar__event-list--hidden')
+                (clickEvent, bookedEventList, element, calendarInstance) => {
+                    console.log(element)
+                    const list = calendarElement[0].querySelector('.c-calendar__event-list');
+                    
+                    let bookedEvents = list.querySelector('.booked__list');
+                    let availableEvents = list.querySelector('.available__list');
 
-                    list.innerHTML += eventList;
-                    list.style.left = xPos;
-                    list.style.top = yPos;
-                    
-                    list.style.position = 'absolute';
-        
-                   
-                    
+                    let listHeader = bookedEvents.closest('.c-modal').querySelector('header')
+                    console.log(typeof calendarInstance.date)
+                    listHeader.innerText = calendarInstance.date;
+
+                    bookedEvents.innerHTML = ' '
+                    bookedEvents.innerHTML += bookedEventList;
+
+                    availableEvents.innerHTML = ' '
+                    availableEvents.innerHTML += bookedEventList;
 
                 }
             );
