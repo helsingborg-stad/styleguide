@@ -67,10 +67,6 @@
         }
     }
 
-    &__cta>*+* {
-        //margin-left: map-get($spacers, "2");
-    }
-
     &__cta--left {
         #{$segmentClass}__cta {
             justify-content: flex-start;
