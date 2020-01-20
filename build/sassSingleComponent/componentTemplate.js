@@ -7,7 +7,7 @@ module.exports.sassTemplate =  `
         @import "../setting/variables";
         
         // ***************************************************************
-        // *** Settings
+        // *** Functions
         // ***************************************************************
         @import "../function/strip-unit";
         @import "../function/em";
