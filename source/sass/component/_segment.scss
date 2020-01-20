@@ -45,14 +45,51 @@
         display: flex;
         min-height: 100%;
         padding: map-get($spacers, "4");
+    }  
+
+    &__heading,
+    &__body {
+        margin-bottom: map-get($spacers, "4");
     }
 
     &__image {
         z-index: 1;
     }
 
+    &__cta {
+        display: flex;
+        button {
+            margin-bottom: map-get($spacers, "2");
+            margin-right:  map-get($spacers, "3");
+            &:last-of-type {
+                margin-right:  0;
+            }
+        }
+    }
+
     &__cta>*+* {
-        margin-left: map-get($spacers, "2");
+        //margin-left: map-get($spacers, "2");
+    }
+
+    &__cta--left {
+        #{$segmentClass}__cta {
+            justify-content: flex-start;
+        }
+    }
+    &__cta--right {
+        #{$segmentClass}__cta {
+            justify-content: flex-end;
+        }
+    }
+    &__cta--center {
+        #{$segmentClass}__cta {
+            justify-content: center;
+        }
+    }
+    &__cta--apart {
+        #{$segmentClass}__cta {
+            justify-content: space-between;
+        }
     }
 
     /* Text Alignment */
@@ -82,8 +119,7 @@
     }
 
     /* Card */
-
-    &--card {
+    &--template-card {
 
         #{$segmentClass}__inner {
             @include shadow(4);
@@ -101,52 +137,23 @@
         &__column-graphics {
             min-height: 40vh;;
         }
+    }
 
-        &-white {
+    /* Padding */
 
-            #{$segmentClass}__inner {
-                background-color: white;
-            }
-        }
+    &__padding {
+        @each $size, $length in $spacers {
 
-        &-grey,
-        &-gray {
+            &--#{$size} {
 
-            #{$segmentClass}__inner {
-                background-color: $color-gray-light;
-            }
-        }
-
-        /* Card padding */
-
-        &-padding {
-            @each $size, $length in $spacers {
-
-                &-#{$size} {
-
-                    #{$segmentClass}__inner   {
-                        padding: $length;
-                    }
+                #{$segmentClass}__inner   {
+                    padding: $length;
                 }
             }
         }
     }
 
-    /* Widths */
-
-    &--width-md,
-    &--width-lg {
-        max-width: 100vw;
-        width: 100vw;
-    }
-
-    &--width-md {
-        margin: map-get($spacers, "4") calc(25% - 25vw);
-    }
-
-    &--width-lg {
-        margin: map-get($spacers, "4") calc(50% - 50vw);
-    }
+    /* Colors */
 
     &--color-light {
         color: #fff;
@@ -294,6 +301,25 @@
         min-height: 95vh;
     }
 
+    /* Background colors */
+    &__background {
+        &--white {
+
+            #{$segmentClass}__inner {
+                background-color: white;
+            }
+        }
+
+        &--grey,
+        &--gray {
+
+            #{$segmentClass}__inner {
+                background-color: $color-gray-light;
+            }
+        }
+    }
+
+
     /* Overlays */
 
     &--overlay-blur:before {
@@ -328,7 +354,7 @@
 
     /* Effects */
 
-    &--effect-paralax {
+    &--effect-parallax {
         background-attachment: fixed;
     }
 
