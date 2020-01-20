@@ -28,7 +28,7 @@ fs.readFile('./build/components.json', 'utf8', function (error, data) {
             fs.writeFile(singleComponentPath + componentFileName + '.scss', imports,
                 function (errors) {
                     (errors) ? console.log("Error Dewd!!!!!  : " + errors) :
-                        console.log("Created new sass file:" + componentFileName + ".scss");
+                        console.log("Created new sass file: " + componentFileName + ".scss");
                 });
         }
     })
