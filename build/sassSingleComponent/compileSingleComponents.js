@@ -5,7 +5,7 @@ var singleComponentPath = './source/sass/imports/';
 /**
  * Read json and Create scss files - for single components
  */
-fs.readFile('./build/components.json', 'utf8', function (error, data) {
+fs.readFile('./build/sassSingleComponent/components.json', 'utf8', function (error, data) {
     
     var jsonData = JSON.parse(data);
     var objectKeysArray = Object.keys(jsonData);
