@@ -21,7 +21,7 @@ module.exports = {
        return obj
     },{
         'styleguide-js': glob.sync('./source/js/**/*.js'),
-        'styleguide-css': './source/sass/main.scss',
+        'styleguide-css': './source/sass/imports/main.scss',
     }),
     
     //entry: {

@@ -1,11 +1,11 @@
 var fs = require('fs');
 var template = require('./componentTemplate.js');
-var singleComponentPath = './source/sass/singleComponent/';
+var singleComponentPath = './source/sass/imports/';
 
 /**
  * Read json and Create scss files - for single components
  */
-fs.readFile('./singleComponent/components.json', 'utf8', function (error, data) {
+fs.readFile('./build/components.json', 'utf8', function (error, data) {
     
     var jsonData = JSON.parse(data);
     var objectKeysArray = Object.keys(jsonData);

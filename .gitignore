@@ -20,7 +20,7 @@ stylelint.log
 source/sass/generic/_icons.scss
 _icons.scss
 
-/source/sass/singleComponent
-/source/sass/singleComponent/
-source/sass/singleComponent/
-source/sass/singleComponent/*
+/source/sass/imports
+/source/sass/imports/
+source/sass/imports/
+source/sass/imports/*
