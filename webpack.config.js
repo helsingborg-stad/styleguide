@@ -15,19 +15,13 @@ module.exports = {
     /**
      * Entry files - Add more entries if needed.
      */
-   
-    //entry: glob.sync('./source/sass/**/*.scss').reduce(function(obj, el){
-    ///   obj[path.parse(el).name] = el;
-    //   return obj
-    //},{
-    //    'styleguide-js': glob.sync('./source/js/**/*.js'),
-    //    'styleguide-css': './source/sass/main.scss',
-    //}),
-    
-    entry: {
+    entry: glob.sync('./source/sass/imports/*.scss').reduce(function(obj, el){
+       obj[path.parse(el).name] = el;
+       return obj
+    },{
         'styleguide-js': glob.sync('./source/js/**/*.js'),
         'styleguide-css': './source/sass/main.scss',
-    },
+    }),
     
     mode: 'development',
     watch: true,

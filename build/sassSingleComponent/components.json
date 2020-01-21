@@ -1,0 +1,250 @@
+{
+  "accordion": {
+    "components": [
+      "accordion"
+    ]
+  },
+  "alert": {
+    "components": [
+      "button",
+      "typography"
+    ]
+  },
+  "avatar": {
+    "components": [
+      "image",
+      "icon"
+    ]
+  },
+  "breadcrumb": {
+    "components": [
+      "breadcrumb",
+      "icon"
+    ]
+  },
+  "button": {
+    "components": [
+      "button",
+      "icon"
+    ]
+  },
+  "buttonGroup": {
+    "components": [
+      "buttonGroup",
+      "button",
+      "dropdown",
+      "icon"
+    ]
+  },
+  "card": {
+    "components": [
+      "card",
+      "paper",
+      "dropdown",
+      "icon",
+      "accordion",
+      "image",
+      "typography",
+      "avatar"
+    ]
+  },
+  "code": {
+    "components": [
+      "code"
+    ]
+  },
+  "comment": {
+    "components": [
+      "comment",
+      "avatar",
+      "typography"
+    ]
+  },
+  "dropdown": {
+    "components": [
+      "dropdown"
+    ]
+  },
+  "fab": {
+    "components": [
+      "fab",
+      "button"
+    ]
+  },
+  "fields": {
+    "components": [
+      "fields",
+      "icon"
+    ]
+  },
+  "fileInput": {
+    "components": [
+      "fileInput",
+      "icon"
+    ]
+  },
+  "footer": {
+    "components": [
+      "footer"
+    ]
+  },
+  "header": {
+    "components": [
+      "header"
+    ]
+  },
+  "gallery": {
+    "components": [
+      "gallery",
+      "modal",
+      "image",
+      "button",
+      "icon"
+    ]
+  },
+  "hero": {
+    "components": [
+      "hero"
+    ]
+  },
+  "icon": {
+    "components": [
+      "icon"
+    ]
+  },
+  "image": {
+    "components": [
+      "image"
+    ]
+  },
+  "list": {
+    "components": [
+      "list"
+    ]
+  },
+  "loader": {
+    "components": [
+      "loader"
+    ]
+  },
+  "logotype": {
+    "components": [
+      "logotype",
+      "image"
+    ]
+  },
+  "menu": {
+    "components": [
+      "menu",
+      "icon"
+    ]
+  },
+  "modal": {
+    "components": [
+      "modal",
+      "icon",
+      "typography",
+      "button"
+    ]
+  },
+  "navbar": {
+    "components": [
+      "navbar",
+      "image",
+      "button"
+    ]
+  },
+  "notice": {
+    "components": [
+      "notice",
+      "icon",
+      "typography"
+    ]
+  },
+  "notification": {
+    "components": [
+      "notification",
+      "notice",
+      "button"
+    ]
+  },
+  "option": {
+    "components": [
+      "option",
+      "icon"
+    ]
+  },
+  "pagination": {
+    "components": [
+      "pagination"
+    ]
+  },
+  "paper": {
+    "components": [
+      "paper"
+    ]
+  },
+  "segment": {
+    "components": [
+      "segment",
+      "button",
+      "typography"
+    ]
+  },
+  "slider": {
+    "components": [
+      "slider",
+      "button",
+      "steppers"
+    ]
+  },
+  "splitbutton": {
+    "components": [
+      "button",
+      "typography",
+      "dropdown",
+      "icon"
+    ]
+  },
+  "table": {
+    "components": [
+      "table"
+    ]
+  },
+  "tabs": {
+    "components": [
+      "tabs"
+    ]
+  },
+  "tags": {
+    "components": [
+      "icon"
+    ]
+  },
+  "testimonials": {
+    "components": [
+      "testimonials",
+      "avatar",
+      "image",
+      "icon",
+      "typography"
+    ]
+  },
+  "textarea": {
+    "components": [
+      "textarea",
+      "icon"
+    ]
+  },
+  "tooltip": {
+    "components": [
+      "tooltip"
+    ]
+  },
+  "typography": {
+    "components": [
+      "typography"
+    ]
+  }
+
+}

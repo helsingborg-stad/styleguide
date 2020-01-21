@@ -20,7 +20,7 @@
 @import "setting/variables";
 
 // ***************************************************************
-// *** Settings
+// *** Functions
 // ***************************************************************
 @import "function/strip-unit";
 @import "function/em";
@@ -31,7 +31,7 @@
 @import "function/get-color";
 @import "function/remove-list-item";
 @import "function/validate-breakpoint-list";
-@import "function/mix-color-style-functions.scss";
+@import "function/mix-color-style-functions";
 @import "function/legacy-direction";
 @import "function/is-direction";
 @import "function/append-important";
@@ -157,3 +157,4 @@
 @import "utility/float";
 @import "utility/vertical-align";
 @import "utility/position";
+
