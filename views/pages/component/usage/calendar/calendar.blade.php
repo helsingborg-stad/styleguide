@@ -2,11 +2,8 @@
     [
         'color' => 'secondary',
         'size' => 'large',
-        'get' => [
-            'available' => '/assets/data/availableDummyData.json',
-            'booked' => '/assets/data/bookedDummyData.json'
-        ],
-        'post' => ''
+        'eventsUrl' => '/assets/data/eventsDummyData.json',
+        'bookingUrl' => ''
     ]
 )
 @endcalendar

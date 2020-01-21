@@ -497,31 +497,39 @@ Organizer.prototype.updateData = function (data) {
 };
 
 Organizer.prototype.list = function (data) {
-    var container = document.createElement("UL");
-    for (var i = 0; i < data.length; i++) {
-        var listItem = document.createElement("LI");
-        listItem.id = this.id + "-list-item-" + i;
+    let events = {'booked': [], 'available': []}
+    console.log("WHAT")
+    console.log(data)
+    for (let i = 0; i < data.length; i++) {
+        console.log(i)
+        for(event in data[type]){
+            let listItem = document.createElement("LI");
+            listItem.id = this.id + "-list-item-" + type;
+    
+            let division = document.createElement("DIV");
+    
+            let span = document.createElement("SPAN");
+            span.id = this.id + "-list-item-" + type + "-time";
+            span.class = this.id + " time";
+            span.appendChild(document.createTextNode(data[type].startTime + ' - ' + data[type].endTime));
+    
+            division.appendChild(span);
+    
+            let paragraph = document.createElement("P");
+            paragraph.id = this.id + "-list-item-" + i + "-text";
+            paragraph.appendChild(document.createTextNode(data[i].text));
+    
+            listItem.appendChild(division);
+            listItem.appendChild(paragraph);
 
-        var division = document.createElement("DIV");
-
-        var span = document.createElement("SPAN");
-        span.id = this.id + "-list-item-" + i + "-time";
-        span.class = this.id + " time";
-        span.appendChild(document.createTextNode(data[i].startTime + ' - ' + data[i].endTime));
-
-        division.appendChild(span);
-
-        var paragraph = document.createElement("P");
-        paragraph.id = this.id + "-list-item-" + i + "-text";
-        paragraph.appendChild(document.createTextNode(data[i].text));
-
-        listItem.appendChild(division);
-        listItem.appendChild(paragraph);
-
-        container.appendChild(listItem);
+            events[type].push(listItem);
+            
+        }
+        
     }
-
-    return container.innerHTML
+    console.log("LIST")
+    console.log(events)
+    return events;
 };
 
 Organizer.prototype.remember = function (date, content) {
@@ -568,7 +576,7 @@ Organizer.prototype.setupBlock = function (blockId, organizerInstance, callback)
                 const dayNumBlock = document.getElementById(calendarInstance.id + "-day-num-" + blockId);
                 const dayBlock = document.getElementById(calendarInstance.id + "-day-" + blockId);
                 const eventList = organizerInstance.changeDateTo(dayNumBlock.innerHTML, blockId);
-                console.log(calendarInstance)
+
                 callback(clickEvent, eventList, dayBlock, calendarInstance);
             }
         }
@@ -598,7 +606,7 @@ Organizer.prototype.showEvents = function (data) {
         content = this.showPlaceholder();
     }
 
-    return content
+    return data[date.getFullYear()][date.getMonth() + 1][date.getDate()]
     //document.getElementById(this.id + "-list").innerHTML = content;
 };
 
@@ -624,6 +632,7 @@ Organizer.prototype.showPlaceholder = function (data) {
 Organizer.prototype.indicateEvents = function (data) {
     data = data || this.data;
     var date = this.calendar.date;
+    console.log(data)
 
     if (this.calendar.indicator) {
         var allDays = document.getElementsByClassName(this.calendar.id + " cjslib-day cjslib-day-listed");
@@ -634,10 +643,15 @@ Organizer.prototype.indicateEvents = function (data) {
 
         try {
             var month = data[date.getFullYear()][date.getMonth() + 1];
-
+            
             for (var key in month) {
-                if (month[key].length > 0)
-                    allDays[key - 1].children[1].innerHTML = (month[key].length > 9) ? "9+" : month[key].length;
+                console.log(key)
+                console.log(month)
+                if (month[key]['booked'].length > 0){
+                    allDays[key - 1].children[1].innerHTML = (month[key]['booked'].length > 9) ? "9+" : month[key]['booked'].length;
+                }
+                    
+        
             }
         } catch (e) {}
     }
@@ -740,23 +754,6 @@ Organizer.prototype.setOnLongClickListener = function (theCase, backCallback, ne
             break;
     }
 }
-
-
-document.addEventListener('click', (e) => {
-    
-    var targe = e.target;
-    var isVisible = "c-modal__bg--is-visible";
-    console.log(e.targe)
-    if (targe.hasAttribute("data-open")) {
-        var modalId = targe.getAttribute('data-open'); //this.dataset.open;
-        document.getElementById(modalId).classList.add(isVisible);
-
-        if(targe.getAttribute('data-large-img')) {
-            GalleryInstance.initImage(modalId, this.getAttribute('data-large-img'));
-        }
-    }
-    
-})
 
 
 export {Calendar, Organizer};
