@@ -11,11 +11,10 @@ class EventCalendar{
         const calendar = document.querySelector('.c-calendar');
         if(calendar){
             const eventsUrl = calendar.getAttribute('eventsUrl');
-        
             const bookingUrl = calendar.getAttribute('bookingUrl');
             const size = calendar.getAttribute('size');
-            let weekStart = calendar.getAttribute('weekStart'); 
-            console.log(weekStart)
+            const weekStart = calendar.getAttribute('weekStart'); 
+
             this.getEvents(eventsUrl).then(data => this.setup(data, weekStart, size, calendar, bookingUrl));
         }
         
@@ -155,6 +154,5 @@ class EventCalendar{
             );
     }
 }
-
 
 export default EventCalendar;
