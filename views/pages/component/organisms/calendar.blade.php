@@ -1,11 +1,11 @@
 @extends('layout.master')
 
 @section('content')
-    {!!
-        markdown('
-            #Blank
+    @markdown
+    #Calendar
+    @endmarkdown
 
-            Demo page
-        ')
-    !!}
+
+    @doc(['slug' => 'calendar'])
+    @enddoc
 @stop
