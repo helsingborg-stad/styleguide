@@ -1,0 +1,56 @@
+.c-tile {
+    &__container {
+        width: 100%;
+    }
+
+    &__item,
+    &--sizer {
+        display: inline-block;
+        width: 33%;
+        padding-top: 33%;
+        position: relative;
+        background-position: center;
+        background-size: cover;
+
+        &--width2 {
+            width: 66%
+        }
+
+        &--width3 {
+            width: 100%
+        }
+
+        &--height2 {
+            padding-top: 66%;
+        }
+
+        &--height3 {
+            padding-top: 100%;
+        }
+    }
+
+    &__content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+    .c-tile {
+        &__item {
+            width: 50%;
+            padding-top: 50%;
+    
+            &--width2 {
+                width: 100%
+            }
+    
+            &--height2 {
+                padding-top: 100%;
+            }
+        }
+    }
+}

@@ -15,152 +15,143 @@
 
     @segment([
         'template' => 'full',
-        'background_color' => '#ff11ff',
-        'height' => 'md',
-        'width' => 'lg',
+        'height' => 'lg',
+        'parallax' => true,
+        'background_image' => "https://picsum.photos/id/1012/3973/2639",
         'content_alignment' => [
             'vertical' => 'center',
             'horizontal' => 'center'
         ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis."
-        ],
-        'article_body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
-        //'image' => "https://picsum.photos/id/1012/3973/2639",
-        'cta' => array( 
-            array(
-                'background' => 'secondary',
+        'heading' => "Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis.",
+        'body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
+        'cta' => [
+            [
+
+                'type' => 'filled',
+                'color' => 'primary',
                 'text' => 'Read More',
-                'color' => 'white',
                 'size' => 'lg'
-            ),
-            array(
-                'background' => 'primary',
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'primary',
                 'text' => 'Apply',
-                'color' => 'white',
                 'size' => 'lg'
-            )
-        )
+            ]
+        ]
     ])
 
     @endsegment
 
     @segment([
         'template' => 'split',
-        'containContent' => true,
-        'height' => 'md',
-        'width' => 'lg',
+        'contain_content' => true,
+        'height' => 'sm',
         'content_alignment' => [
             'vertical' => 'bottom',
             'horizontal' => 'left'
         ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Split Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis."
-        ],
+        'heading' => "Split Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis.",
         'image_focus' => [
-            'vertical' => 'center',
+            'vertical' => 'top',
             'horizontal' => 'right'
         ],
-        'article_body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
+        'body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
         'image' => "https://picsum.photos/id/1012/3973/2639",
-        'cta' => array( 
-            array(
+        'cta' => [
+            [
+                'type' => 'filled',
+                'color' => 'primary',
                 'href' => '#',
                 'text' => 'Apply',
                 'size' => 'lg'
-            ),
-            array(
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'primary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            )
-        )
+            ]
+        ]
     ])
 
     @endsegment
 
     @segment([
         'template' => 'split',
-        'containContent' => true,
+        'contain_content' => true,
         'reverse_layout' => true,
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "0"
-        ],
+        'contain_content' => false,
+        'padding' => 0,
         'height' => 'md',
-        'width' => 'lg',
         'content_alignment' => [
             'vertical' => 'center',
             'horizontal' => 'left'
         ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Split contain Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis."
-        ],
+        'heading' => "Split contain Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis.",
         'image_focus' => [
             'vertical' => 'center',
             'horizontal' => 'right'
         ],
-        'article_body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
+        'body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
         'image' => "https://picsum.photos/id/1012/3973/2639",
-        'cta' => array( 
-            array(
+        'cta_align' => 'apart',
+        'cta' => [
+            [
                 'href' => '#',
+                'type' => 'filled',
                 'text' => 'Apply',
                 'size' => 'lg'
-            ),
-            array(
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'primary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            )
-        )
+            ]
+        ]
     ])
 
     @endsegment
 
     @segment([
         'template' => 'featured',
-        'containContent' => true,
+        'contain_content' => true,
         'height' => 'md',
-        'width' => 'lg',
         'text_alignment' => 'center',
         'content_alignment' => [
             'vertical' => 'center',
             'horizontal' => 'right'
         ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
-        ],
+        'heading' => "Here is some featured content!",
         'image_focus' => [
             'vertical' => 'center',
             'horizontal' => 'right'
         ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
+        'body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
+        'cta_align' => 'center',
+        'cta' => [
+            [
+                'type' => 'outlined',
+                'color' => 'primary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            ),
-            array(
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'secondary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            )
-        )
+            ]
+        ]
     ])
         <div class="grid">
 
@@ -200,44 +191,42 @@
     @endsegment
 
     @segment([
-        'template' => 'featured',
-        'containContent' => true,
+        'template' => 'card',
+        'background_color' => 'white',
+        'heading' => "Here is some featured content!",
+        'contain_content' => true,
         'height' => 'md',
-        'width' => 'lg',
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "10"
-        ],
-        'text_alignment' => 'right',
+        'padding' => "1",
+        'paralax' => true,
+        'text_alignment' => 'center',
         'content_alignment' => [
             'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
+            'horizontal' => 'center'
         ],
         'image_focus' => [
             'vertical' => 'center',
             'horizontal' => 'right'
         ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
+        'body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
+        'cta_align' => 'center',
+        'cta' => [ 
+            [
+                'type' => 'filled',
+                'color' => 'secondary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            ),
-            array(
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'primary',
                 'href' => '#',
                 'text' => 'Read more',
                 'isOutlined' => true,
                 'size' => 'lg'
-            )
-        )
+            ]
+        ]
     ])
 
     @endsegment
