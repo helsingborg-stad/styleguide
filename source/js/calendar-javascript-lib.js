@@ -506,13 +506,14 @@ Organizer.prototype.list = function (data) {
             let listItem = document.createElement("LI");
             listItem.id = this.id + "-list-item-" + type;
     
-            let division = document.createElement("DIV");
+            
     
             let span = document.createElement("SPAN");
             span.id = this.id + "-list-item-" + type + "-time";
             span.class = this.id + " time";
             span.appendChild(document.createTextNode(data[type].startTime + ' - ' + data[type].endTime));
-    
+            
+            let division = document.createElement("DIV");
             division.appendChild(span);
     
             let paragraph = document.createElement("P");
@@ -536,13 +537,13 @@ Organizer.prototype.remember = function (date, content) {
     if (content.startsWith("<div class=\"cjslib-list-placeholder\">"))
         return "";
 
-    var dateTitle = this.calendar.getDateString();
+    let dateTitle = this.calendar.getDateString();
     this.calendar.history.unshift(dateTitle);
 
-    var container = document.createElement("UL");
+    let container = document.createElement("UL");
     container.className = "cjslib-list cjslib-list-history"
 
-    var title = document.createElement("LI");
+    let title = document.createElement("LI");
     title.appendChild(document.createTextNode(dateTitle));
     title.className = "cjslib-list-history-title cjslib-date";
     title.style.backgroundColor = this.calendar.colors[1];
@@ -561,10 +562,9 @@ Organizer.prototype.clearHistory = function () {
 }
 
 Organizer.prototype.setupBlock = function (blockId, organizerInstance, callback) {
-    var calendarInstance = organizerInstance.calendar;
+    const calendarInstance = organizerInstance.calendar;
 
     document.getElementById(calendarInstance.id + "-day-" + blockId).onclick = function (clickEvent) {
-        console.log(event);
         if (document.getElementById(calendarInstance.id + "-day-num-" + blockId).innerHTML.length > 0) {
             if (document.getElementById(calendarInstance.id + "-day-radio-" + blockId).checked)
                 return;
@@ -576,6 +576,8 @@ Organizer.prototype.setupBlock = function (blockId, organizerInstance, callback)
                 const dayNumBlock = document.getElementById(calendarInstance.id + "-day-num-" + blockId);
                 const dayBlock = document.getElementById(calendarInstance.id + "-day-" + blockId);
                 const eventList = organizerInstance.changeDateTo(dayNumBlock.innerHTML, blockId);
+                console.log('sasd')
+                console.log(eventList)
 
                 callback(clickEvent, eventList, dayBlock, calendarInstance);
             }
@@ -585,29 +587,9 @@ Organizer.prototype.setupBlock = function (blockId, organizerInstance, callback)
 
 Organizer.prototype.showEvents = function (data) {
     data = data || this.data;
-    var date = this.calendar.date;
-
-    var content = "";
-    var history = "";
-    try {
-        var historyIndex = this.calendar.history.indexOf(this.calendar.getDateString());
-        if (historyIndex > -1) {
-            this.calendar.history.splice(historyIndex, 1);
-            document.getElementById(this.id + "-history").children[historyIndex].remove();
-        }
-
-        history += 
-        history += document.getElementById(this.id + "-list").innerHTML;
-
-        content = this.list(data[date.getFullYear()][date.getMonth() + 1][date.getDate()]);
-
-        console.log(content)
-    } catch (e) {
-        content = this.showPlaceholder();
-    }
+    const date = this.calendar.date;
 
     return data[date.getFullYear()][date.getMonth() + 1][date.getDate()]
-    //document.getElementById(this.id + "-list").innerHTML = content;
 };
 
 Organizer.prototype.showHistory = function (data) {

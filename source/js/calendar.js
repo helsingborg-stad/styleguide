@@ -9,14 +9,16 @@ class EventCalendar{
     initiateCalendar(){
 
         const calendar = document.querySelector('.c-calendar');
+        if(calendar){
+            const eventsUrl = calendar.getAttribute('eventsUrl');
         
-        const eventsUrl = calendar.getAttribute('eventsUrl');
+            const bookingUrl = calendar.getAttribute('bookingUrl');
+            const size = calendar.getAttribute('size');
+            let weekStart = calendar.getAttribute('weekStart'); 
+            console.log(weekStart)
+            this.getEvents(eventsUrl).then(data => this.setup(data, weekStart, size, calendar, bookingUrl));
+        }
         
-        const bookingUrl = calendar.getAttribute('bookingUrl');
-        const size = calendar.getAttribute('size');
-        let weekStart = calendar.getAttribute('weekStart'); 
-        console.log(weekStart)
-        this.getEvents(eventsUrl).then(data => this.setup(data, weekStart, size, calendar, bookingUrl));
     }
 
     getEvents(eventsUrl){ 
@@ -25,13 +27,6 @@ class EventCalendar{
             .then(data => {
                 return data;
             });
-    }
-
-    setButtonListener(calendarElement, bookingUrl){
-        const button = calendarElement.getElementsByClassName('postEventButton');
-        button[0].addEventListener('click',() =>{
-            this.postEvents(bookingUrl)
-        })
     }
 
     postEvents(bookingUrl){
@@ -44,20 +39,14 @@ class EventCalendar{
         })
     }
 
-    setDayBlockEventListener(){
-        document.addEventListener('click', (e) => {
-    
-            const target = e.target;
-            const isVisible = "c-modal__bg--is-visible";
-             
-            if (target.hasAttribute("data-open")) {
-                const modalId = target.getAttribute('data-open'); 
-                document.getElementById(modalId).classList.add(isVisible);
-            }
-            
+    setButtonListener(calendarElement, bookingUrl){
+        const button = calendarElement.getElementsByClassName('postEventButton');
+        button[0].addEventListener('click',() =>{
+            this.postEvents(bookingUrl)
         })
     }
 
+    // TODO: modify lib to return timestamps directly instead of strings...
     setTimeslotListener(checkbox, date, timeslot){
         checkbox.addEventListener('change', (event) => {
             const timeslotParts = timeslot.split(' - ')
@@ -71,6 +60,7 @@ class EventCalendar{
             if(checkbox.checked){
                 this.timeslots.push(temp)
             }else if(!checkbox.checked) {
+                //remove timestamp if checked and then unchecked
                 for(let i = 0; i < this.timeslots.length; i++){
                     if(JSON.stringify(this.timeslots[i]) === JSON.stringify(temp)){
                         this.timeslots.splice(i, 1)
@@ -80,6 +70,7 @@ class EventCalendar{
         });
     }
 
+    //TODO: Research the possibility to make the elment a bit less complex.
     createListElement(events, date, availableEvents){
         let listItem = document.createElement("LI");
         
@@ -134,23 +125,31 @@ class EventCalendar{
 				data
             );
         
-            this.setDayBlockEventListener();
             this.setButtonListener(calendarElement, postUrl);
             organizer.setOnClickListener('days-blocks',
                 (clickEvent, eventsList, element, calendarInstance) => {
-                    
+                    const modalId = clickEvent.target.getAttribute('data-open'); 
+
+                    let modal = document.getElementById(modalId)
+                    const isVisible = "c-modal__bg--is-visible";
+
+                    modal.classList.add(isVisible);
                     const list = calendarElement.querySelector('.c-calendar__event-list');
                     let bookedEvents = list.querySelector('.booked__list');
                     let availableEvents = list.querySelector('.available__list');
+                    let listHeader = bookedEvents.closest('.c-modal').querySelector('header').querySelector('h2')
 
-                    let listHeader = bookedEvents.closest('.c-modal').querySelector('header')
-                    listHeader.innerText = calendarInstance.date;
+                    listHeader.innerHTML = '';
+                    availableEvents.innerHTML = '';
+                    bookedEvents.innerHTML = '';
 
-                    bookedEvents.innerHTML = ' '
-                    bookedEvents.appendChild(this.createListElement(eventsList.booked, calendarInstance.date, false));
+                    listHeader.innerHTML = calendarInstance.date.getDate() + '/' + calendarInstance.date.getMonth() + 1 + '/' + calendarInstance.date.getFullYear();
 
-                    availableEvents.innerHTML = ' '
-                    availableEvents.appendChild(this.createListElement(eventsList.available, calendarInstance.date, true));
+                    if(eventsList.booked)
+                        bookedEvents.appendChild(this.createListElement(eventsList.booked, calendarInstance.date, false));
+                    if(eventsList.available)
+                        availableEvents.appendChild(this.createListElement(eventsList.available, calendarInstance.date, true));
+
 
                 }
             );
