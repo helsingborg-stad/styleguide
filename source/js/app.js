@@ -12,21 +12,23 @@ import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
 import Slider from './slider'
+import Tiles from './tile';
 
 expandSection();
-
 
 let SortInstance = new Sort;
 let ToggleInstance = new Toggle;
 let SplitButtonInstance = new SplitButton;
 let DropdownInstance = new Dropdown;
 let SliderInstance = new Slider;
+let TilesInstance = new Tiles;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 SliderInstance.applySliders();
+TilesInstance.initTiles();
 
 let filter = new Filter;
 
