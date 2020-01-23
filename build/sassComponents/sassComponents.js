@@ -1,10 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
-
-const template = require('./componentTemplate.js');
-const singleComponentPath = '../../source/sass/imports/';
+const composeSass = require('./composeSass');
 const componentLib = '../../source/library/src/Component/';
+
 
 /**
  * Flatten directories
@@ -29,7 +27,7 @@ const getDirectories = (srcpath) => {
 
 
 /**
- * Get direcorie paths
+ * Get directory paths
  * @param srcpath
  * @returns {*[]}
  */
@@ -42,12 +40,12 @@ const getDirectoriesRecursive = (srcpath) => {
  * Get json data from Components
  * @param components
  */
-const getComponentsJson = (components) => {
+const initSassComponents = (components) => {
     const componentDir = getDirectoriesRecursive(componentLib);
     if (componentDir.length > 0) {
+        
         let fileList = [];
         componentDir.forEach(dir => {
-            
             let files = fs.readdirSync(dir);
             files.forEach(file => {
                 if (file.substring(file.lastIndexOf('.') + 1) === 'json') {
@@ -73,51 +71,12 @@ const getComponentsJson = (components) => {
                     }
                 }
             });
+            
             return componentDependency;
         });
         
-        buildSassImport(componentDependency);
+        composeSass.build(componentDependency);
     }
 };
 
-
-/**
- * Creating Directory & SCSS import file with dependency imports
- * @param componentDependency
- */
-const buildSassImport = (componentDependency) => {
-    
-    componentDependency = componentDependency.sort();
-    
-    let imports = template.sassTemplate + '\n';
-    let encryptFileName = '';
-    
-    for (let i = 0; i < componentDependency.length; i++) {
-        imports += '        @import "../component/' + componentDependency[i] + '"; \n';
-        encryptFileName += componentDependency[i];
-    }
-    
-    const hmac = crypto.createHmac('sha256', 'a secret');
-    hmac.update(encryptFileName);
-    const fileName = hmac.digest('hex');
-    
-    if (!fs.existsSync(singleComponentPath)) {
-        fs.mkdirSync(singleComponentPath);
-    }
-    
-    if (!fs.existsSync(singleComponentPath + '/' + fileName + '/')) {
-        fs.mkdirSync(singleComponentPath + '/' + fileName + '/');
-        if (!fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
-            fs.writeFile(singleComponentPath + '/' + fileName + '/' + fileName + '.scss', imports,
-                function (errors) {
-                    (errors) ? console.log("Error creating scss file!!!!!  : " + errors) :
-                        console.log("Created new sass file: " + fileName + ".scss");
-                });
-        }
-    } else {
-        console.log("File already exist!!!!!");
-    }
-};
-
-getComponentsJson(['button', 'icon', 'card']);
-
+initSassComponents(['button', 'icon', 'card']);
