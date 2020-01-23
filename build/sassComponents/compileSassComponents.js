@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const template = require('./componentTemplate.js');
-const singleComponentPath = './source/sass/imports/';
+const singleComponentPath = '../../source/sass/imports/';
 const componentLib = '../../source/library/src/Component/';
 
 /**
@@ -46,10 +47,11 @@ const getComponentsJson = (components) => {
     if (componentDir.length > 0) {
         let fileList = [];
         componentDir.forEach(dir => {
+            
             let files = fs.readdirSync(dir);
             files.forEach(file => {
-                if(file.substring(file.lastIndexOf('.') + 1) === 'json') {
-                    return fileList.push(dir+'/'+file);
+                if (file.substring(file.lastIndexOf('.') + 1) === 'json') {
+                    return fileList.push(dir + '/' + file);
                 }
             });
         });
@@ -74,38 +76,48 @@ const getComponentsJson = (components) => {
             return componentDependency;
         });
         
-        console.log(componentDependency);
+        buildSassImport(componentDependency);
     }
 };
 
 
-//const objectKeysArray = Object.keys(dependency);
-//objectKeysArray.forEach(function (objKey) {
-//console.log(objectKeysArray);
-//let objValue = jsonData[objKey];
-
-//let componentFileName = objKey;
-// let imports = template.sassTemplate + '\n';
-
-//for (let i = 0; i < objValue.components.length; i++) {
-//    imports += '        @import "../component/' + objValue.components[i] + '"; \n';
-//}
-/*
-if (!fs.existsSync(singleComponentPath)) {
-    fs.mkdirSync(singleComponentPath);
-}
-
-if (!fs.existsSync(singleComponentPath + componentFileName + '.scss')) {
-    fs.writeFile(singleComponentPath + componentFileName + '.scss', imports,
-        function (errors) {
-            (errors) ? console.log("Error Dewd!!!!!  : " + errors) :
-                console.log("Created new sass file: " + componentFileName + ".scss");
-        });
-}
-
+/**
+ * Creating Directory & SCSS import file with dependency imports
+ * @param componentDependency
  */
-//});
-
+const buildSassImport = (componentDependency) => {
+    
+    componentDependency = componentDependency.sort();
+    
+    let imports = template.sassTemplate + '\n';
+    let encryptFileName = '';
+    
+    for (let i = 0; i < componentDependency.length; i++) {
+        imports += '        @import "../component/' + componentDependency[i] + '"; \n';
+        encryptFileName += componentDependency[i];
+    }
+    
+    const hmac = crypto.createHmac('sha256', 'a secret');
+    hmac.update(encryptFileName);
+    const fileName = hmac.digest('hex');
+    
+    if (!fs.existsSync(singleComponentPath)) {
+        fs.mkdirSync(singleComponentPath);
+    }
+    
+    if (!fs.existsSync(singleComponentPath + '/' + fileName + '/')) {
+        fs.mkdirSync(singleComponentPath + '/' + fileName + '/');
+        if (!fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
+            fs.writeFile(singleComponentPath + '/' + fileName + '/' + fileName + '.scss', imports,
+                function (errors) {
+                    (errors) ? console.log("Error creating scss file!!!!!  : " + errors) :
+                        console.log("Created new sass file: " + fileName + ".scss");
+                });
+        }
+    } else {
+        console.log("File already exist!!!!!");
+    }
+};
 
 getComponentsJson(['button', 'icon', 'card']);
 
