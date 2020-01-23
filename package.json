@@ -5,7 +5,7 @@
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "prebuild": "node build/sassSingleComponent/compileSingleComponents.js node build/build.js",
+        "prebuild": "node build/sassComponents/compileSingleComponents.js node build/build.js",
         "build": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
