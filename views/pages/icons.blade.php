@@ -44,14 +44,16 @@
             @endfield
 
             @foreach(HbgStyleGuide\Helper\Icons::getTxt() as $iconKey => $iconName)
-                <div class="grid-md-2 " style="word-break: break-word; text-align:center;" js-filter-item="">
+                <div class="grid-md-2 d-animation" onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="">
                     
-                    <div class="u-margin__bottom--3">      
-                        @icon(['icon' => $iconName, 'size' => 'xl'])
+                    <div class="d-animation__content">      
+                        @icon(['icon' => $iconName, 'size' => 'xl', 'classList' => ['d-animation__icon']])
                         @endicon
+
+                        <p class="d-animation__copied">Copied!</p>
                     </div>
 
-                    <span js-filter-data="" onclick="copy(this)" style="cursor:copy; ">
+                    <span js-filter-data="" js-copy-data>
                         {{$iconName}}
                     </span>
                     
@@ -65,11 +67,15 @@
 
 <script>
     function copy(element) {
-        navigator.clipboard.writeText(element.innerText).then(function() {
-           
-        }, function() {
-          
+        const copyElement = element.querySelector("[js-copy-data]");
+
+        navigator.clipboard.writeText(copyElement.innerText).then(() => {
+            element.classList.add("d-animation--show");
+
+            setTimeout(() => {
+                element.classList.remove("d-animation--show");
+            }, 2000)
+        }, () => {
         });
     }
-    
 </script>

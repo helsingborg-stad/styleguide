@@ -1,0 +1,55 @@
+.d-animation {
+    $base: &;
+    &__content {
+        position: relative;
+        min-height: 70px;
+        * {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            line-height: 100%;
+        }
+    
+        #{$base}__icon {
+            transform: scale(1);
+            line-height: 70px;
+        }
+    
+        #{$base}__copied {
+            transform: scale(0);
+            color: #ef0078;
+            font-weight: bold;
+            line-height: 70px;
+        }
+    }
+
+    &--show{
+        #{$base}__icon {
+            animation-name: iconAnimation;
+            animation-duration: 2s;
+            transform: scale(1)
+        }
+    
+        #{$base}__copied {
+            animation-name: textAnimation;
+            animation-duration: 2s;
+            transform: scale(0)
+        }
+    
+        @keyframes iconAnimation {
+            10% {transform: scale(1.2)}
+            15% {transform: scale(0)}
+            90% {transform: scale(0)}
+        }
+        
+        @keyframes textAnimation {
+            15% {transform: scale(0)}
+            20% {transform: scale(1.15)}
+            25% {transform: scale(1)}
+            80% {transform: scale(1)}
+            90% {transform: scale(0)}
+        }
+    }
+}
