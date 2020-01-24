@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const composeSass = require('./composeSass');
-const componentLib = '../../source/library/src/Component/';
+const componentLib = '../source/library/src/Component/';
 
 
 /**
@@ -40,7 +40,7 @@ const getDirectoriesRecursive = (srcpath) => {
  * Get json data from Components
  * @param components
  */
-const initSassComponents = (components) => {
+module.exports.initSassComponents = (components) => {
     const componentDir = getDirectoriesRecursive(componentLib);
     if (componentDir.length > 0) {
         
@@ -79,4 +79,3 @@ const initSassComponents = (components) => {
     }
 };
 
-initSassComponents(['button', 'icon', 'card']);
