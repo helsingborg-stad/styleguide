@@ -1,48 +1,42 @@
 @mixin slide($direction) {
-    animation-duration: 1.5s;
+    animation-duration: 0.7s;
     animation-name: $direction;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes left {
 
-    from {
-        transform: translateX(-100vh);
+    0% {
+        left:-110%;
+        position:fixed;
+        
+    }
+    70% {
+        left: map-get($spacers, "4");
+        position:fixed;
     }
 
-    to {
-        transform: translateX(0);
+    100% {
+        left: map-get($spacers, "2");
+        position:fixed;
     }
 }
 
 @keyframes right {
 
-    from {
-        transform: translateX(100vh);
+    0% {
+        right:-110%;
+        position:fixed;
+        
+    }
+    70% {
+        right: map-get($spacers, "4");
+        position:fixed;
     }
 
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes top {
-
-    from {
-        transform: translateY(-100vh);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-@keyframes bottom {
-
-    from {
-        transform: translateY(100vh);
-    }
-
-    to {
-        transform: translateY(0);
+    100% {
+        right: map-get($spacers, "2");
+        position:fixed;
+    
     }
 }

@@ -1,17 +1,60 @@
-.c-notification__slide_from{
-        &--left{
+.c-notification{
+    cursor: pointer;
+    transition: all ease-in 0.3;
+    margin-bottom:1%;
+    visibility: visible;
+    opacity: 1;
+}
+
+.c-notification--dying{
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s 0.5 s, opacity 0.5s linear;
+}
+
+.c-notification__container{
+
+    &--bottom-left{
+        bottom: map-get($spacers, "2");
+        left: map-get($spacers, "2");
+    }
+
+    &--bottom-right{
+        bottom: map-get($spacers, "2");
+        right: map-get($spacers, "2");
+    }
+
+    &--top-left{
+        top: map-get($spacers, "2");
+        left: map-get($spacers, "2");
+    }
+
+    &--top-right{
+        top: map-get($spacers, "2");
+        right: map-get($spacers, "2");
+    }
+    z-index: $level-10;
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    
+    max-height: 100vh;
+}
+
+.c-notification__spawn{
+        &--bottom-left{
             @include slide(left);
         }
         
-        &--right{
+        &--bottom-right{
             @include slide(right);
         }
 
-        &--top{
-            @include slide(top);
+        &--top-left{
+            @include slide(left);
         }
 
-        &--bottom{
-            @include slide(bottom);
+        &--top-right{
+            @include slide(right);
         }
 }
