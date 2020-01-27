@@ -11,6 +11,8 @@ import Image from "./image";
 import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
+import Notification from './notification';
+import NotificationDoc from './notificationDoc';
 
 expandSection();
 
@@ -19,11 +21,16 @@ let SortInstance = new Sort;
 let ToggleInstance = new Toggle;
 let SplitButtonInstance = new SplitButton;
 let DropdownInstance = new Dropdown;
+const NotificationInstance = new Notification;
+const NotificationDocInstance = new NotificationDoc;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
+NotificationDocInstance.addListener();
+NotificationInstance.setup();
+
 
 let filter = new Filter;
 

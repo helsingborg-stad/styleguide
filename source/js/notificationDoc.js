@@ -5,17 +5,21 @@ class NotificationDoc{
         const notification = document.getElementsByClassName("c-notification")[0];
 
         if(notification)
-        {const direction = notification.getAttribute('direction');
-        let container = document.createElement('DIV');
-        container.classList.add('c-notification__container');
-        container.classList.add('c-notification__container--' + direction);
-        document.body.appendChild(container);
+        {
+            const direction = notification.getAttribute('direction');
+            let container = document.createElement('DIV');
+            container.classList.add('c-notification__container');
+            container.classList.add('c-notification__container--' + direction);
+            container.setAttribute('maxAmount', 3)
+            document.body.appendChild(container);
 
-        notificationButton.addEventListener('click', ()=>{
-            let notificationCopy = notification.cloneNode(true);
-            notificationCopy.classList.remove('u-display--none');
-            container.appendChild(notificationCopy);
-        })}
+            notificationButton.addEventListener('click', ()=>{
+                let notificationCopy = notification.cloneNode(true);
+                notificationCopy.classList.remove('u-display--none');
+                
+                container.appendChild(notificationCopy);
+            })
+        }
         
             
     }

@@ -6,9 +6,10 @@
     [
         'type' => 'danger',
         'message' => ['text' => 'This is a warning', 'size' => 'md'],
-        'icon' => ['name' => 'warning', 'size' => 'md', 'color' => 'black'],
-        'animation' => ['onPageLoad' => true, 'direction' => 'bottom-left'],
-        'classList' => ['u-display--none']
+        'icon' => ['name' => 'warning', 'size' => 'md', 'color' => 'white'],
+        'animation' => ['onPageLoad' => false, 'direction' => 'bottom-left'],
+        'autoHideDuration' => '10000',
+        'maxAmount' => '3'
     ]
 )
 @endnotification

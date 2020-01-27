@@ -13,22 +13,29 @@ class Notification{
         
     }
 
+    removeFirst(target){
+        const notifications = target.querySelectorAll('.c-notification');
+        const maxAmount = target.getAttribute('maxamount');
+        if(notifications.length > maxAmount){
+            notifications[0].outerHTML = '';
+        } 
+    }
+
     setOnClickClose(targetNode){
-        
+        let count = 0;
         const observerOptions = {
         childList: true
         }
-
         const observer = new MutationObserver((event)=>{
+            count++;
+            this.removeFirst(targetNode);
             event.forEach((record)=>{
                 record.addedNodes.forEach((node) =>{
                     if(node.classList.contains('c-notification')){
+                        this.setAutoHideDuration(node);
                         node.addEventListener('click', ()=>{
-                            node.classList.add('c-notification--dying')
-                            setTimeout(()=>{
-                                node.outerHTML = '';
-                            }, 500)
-                            
+                            node.classList.add('c-notification--dying--'+ count)
+                            node.outerHTML = '';
                         })
                     }
                 })
@@ -38,10 +45,9 @@ class Notification{
         observer.observe(targetNode, observerOptions);
     }
 
-    setTimeToTermination(notifications){
-        notifications.forEach((notification) => {
-            setTimeout(function(){ notification.outerHTML = ""; }, 3000);
-        });
+    setAutoHideDuration(notification){
+        const autoHideDuration = notification.getAttribute('autoHideDuration');
+        setTimeout(function(){ notification.outerHTML = ""; }, autoHideDuration);
     }
 }
 

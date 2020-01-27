@@ -1,15 +1,11 @@
 .c-notification{
     cursor: pointer;
-    transition: all ease-in 0.3;
     margin-bottom:1%;
-    visibility: visible;
-    opacity: 1;
 }
 
 .c-notification--dying{
-    opacity: 0;
-    visibility: hidden;
-    transition: visibility 0s 0.5 s, opacity 0.5s linear;
+    animation: fadeOut 1s;
+   
 }
 
 .c-notification__container{
@@ -43,18 +39,38 @@
 
 .c-notification__spawn{
         &--bottom-left{
+            bottom: map-get($spacers, "2");
             @include slide(left);
         }
         
         &--bottom-right{
+            bottom: map-get($spacers, "2");
             @include slide(right);
         }
 
         &--top-left{
+            top: map-get($spacers, "2");
             @include slide(left);
         }
 
         &--top-right{
+            top: map-get($spacers, "2");
             @include slide(right);
         }
+}
+
+.c-notification .c-notice{
+    border-radius: 0.5em;
+    @include shadow(5);
+}
+
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
+}  
+@keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
 }
