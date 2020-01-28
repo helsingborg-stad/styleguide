@@ -1,7 +1,10 @@
+const path = require('path');
+const fs = require('fs');
+const distDir = './assets/dist';
+
 switch(process.argv[2]) {
     
     case "assets":
-        
         const fs = require('fs');
         const distDir = './assets/dist';
         
@@ -9,17 +12,10 @@ switch(process.argv[2]) {
             fs.mkdirSync(distDir);
             console.log('Dist dir created...');
         }
-        
-        if (!fs.existsSync(iconDir)) {
-            fs.mkdirSync(iconDir);
-            console.log('Icons dir created in dist...');
-        }
         break;
         
     case "buildSass":
-        
         const sassComponents = require('./sassComponents/sassComponents');
-        sassComponents.initSassComponents(['button', 'icon', 'card']);
+        sassComponents.initSassComponents(process.argv[3]);
         break;
-        
 }

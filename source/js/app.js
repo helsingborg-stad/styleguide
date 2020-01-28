@@ -12,6 +12,10 @@ import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
 import Slider from './slider'
+import sassComponentBuilder from "./initBuild";
+
+
+sassComponentBuilder();
 
 expandSection();
 
@@ -44,3 +48,5 @@ let MenuInstance = new Menu;
 const FieldsInstance = new Fields;
 
 import './datepicker';
+
+

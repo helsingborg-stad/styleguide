@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const template = require('./componentTemplate');
-const singleComponentPath = '../source/sass/imports';
+const singleComponentPath = 'source/sass/imports';
 const {exec} = require('child_process');
 
 /**
@@ -15,13 +15,14 @@ const buildFile = (fileName, sassData) => {
             (errors) ? console.log("Error creating scss file!!!!!  : " + errors) :
                 console.log("Created new sass file: " + fileName + ".scss");
         });
-
 };
+
 
 /**
  * Running Webpack to Compile and minify css
  */
 const runWebpack = () => {
+    
     exec('cd / | npm run build-imports', (err, stdout, stderr) => {
         if (err) {
             console.error(err)
@@ -54,6 +55,7 @@ const moveFile = (hash) => {
  * @param fileName
  */
 const checkFileExist = (fileName) => {
+    
     if (!fs.existsSync(singleComponentPath)) {
         fs.mkdirSync(singleComponentPath);
     }
@@ -74,6 +76,7 @@ const checkFileExist = (fileName) => {
  * @param sassData
  */
 const checkFileSize = (fileName, sassData) => {
+    
     if (fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
         const statsTmp = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss');
         const fileSizeInBytesTmp = statsTmp["size"];
@@ -92,6 +95,12 @@ const checkFileSize = (fileName, sassData) => {
 };
 
 
+const clientOutput = (fileName) => {
+    /**document.getElementById('onlineCompiledComponents')
+        .setAttribute('href', '/assets/dist/css/compilations/'+fileName+'/'+fileName+'.min.css');
+    */
+}
+
 /**
  * Creating Directory & SCSS import file with dependency imports
  * @param componentDependency
@@ -102,17 +111,16 @@ module.exports.build = (componentDependency) => {
     
     let sassData = template.sassTemplate + '\n';
     let component = '';
+    let fileName = '';
     
     for (let i = 0; i < componentDependency.length; i++) {
         sassData += '        @import "../../component/' + componentDependency[i] + '"; \n';
         component += componentDependency[i];
     }
     
-    const hmac = crypto.createHmac('sha256', 'a secret');
-    hmac.update(component);
-    const fileName = hmac.digest('hex');
-    
+    fileName = crypto.createHash('md5').update(component).digest("hex");
     checkFileExist(fileName);
     checkFileSize(fileName, sassData);
     runWebpack();
+    clientOutput(fileName);
 };
