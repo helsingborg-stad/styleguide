@@ -64,17 +64,23 @@
 
         @markdown
             ##Yeah! The easy and minimal setup is done!!!!
-            Now you just need to use the Component HTML that you find on the component pages or even better
-            use our Component Library and our blade components to render HTML, So you can do less markup coding and
-            put your effort in doing other Cool logic or just chill and have a nice cup of tea. More fun ;-).
+            Now you just need to use the Component HTML that you find on the component pages or even better,
+            use our Component Library and our blade components to render HTML. Less markup coding, so you can
+            put more effort into doing other Cool things or just chill and have a nice cup of tea. More fun ;-).
+
         @endmarkdown
 
+        @link([
+            'href' => '/component'
+        ])
+            Check out the component library with Markup (HTML) / Blade examples.
+        @endbutton
 
 
         @markdown
             ##Compile CSS for selected components
-            If you dont need all component in your project, you can easily render the Stylesheets just for the components you select.
-            Just check select the components you want to use and press generate CSS.
+            If you dont need all components in your project/web site, you can easily render a stylesheet just for the components you need.
+            Select the components you want to use and press generate CSS. We compile a customize a CSS version for your need.
 
         @endmarkdown
 
