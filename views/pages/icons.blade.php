@@ -25,11 +25,11 @@
 
 
     @paper(['padding' => 3])
-        <div class="grid" style="margin-bottom: 16px;" js-filter-container="5da57cccd46c6">
+        <div class="grid" js-filter-container="5da57cccd46c6">
         
             @field(
                 [
-                    'label' => false,
+                    'label' => 'Filter icons',
                     'classList' => [],
                     'textarea' => false,
                     'attributeList' => [
@@ -42,23 +42,34 @@
                 ]
             )
             @endfield
+                @foreach(HbgStyleGuide\Helper\Icons::getIcons() as $category => $icons)
+                    <div class="grid-md-12">
+                        <div class="grid d-icon__sheet">
+                            <div class="d-icon__category">
+                                <h2>{{$category}}</h2>
+                                @button(['type' => 'basic', 'icon' => 'expand_less', 'color' => 'default'])
+                                @endbutton
+                            </div>
+                            @foreach($icons as $icon)
+                                <div class="grid-md-2 d-animation" onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="">
+                                    
+                                    <div class="d-animation__content">      
+                                        @icon(["icon" => $icon, "size" => "xl", "classList" => ["d-animation__icon"]])
+                                        @endicon
 
-            @foreach(HbgStyleGuide\Helper\Icons::getTxt() as $iconKey => $iconName)
-                <div class="grid-md-2 d-animation" onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="">
-                    
-                    <div class="d-animation__content">      
-                        @icon(['icon' => $iconName, 'size' => 'xl', 'classList' => ['d-animation__icon']])
-                        @endicon
+                                        <p class="d-animation__copied">Copied!</p>
+                                    </div>
 
-                        <p class="d-animation__copied">Copied!</p>
+                                    <span js-filter-data="" js-copy-data>
+                                        {{$icon}}
+                                    </span>
+                                    
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-
-                    <span js-filter-data="" js-copy-data>
-                        {{$iconName}}
-                    </span>
-                    
-                </div>
-            @endforeach
+                @endforeach
+            
         </div>
     @endpaper
 
@@ -66,6 +77,7 @@
 @stop
 
 <script>
+
     function copy(element) {
         const copyElement = element.querySelector("[js-copy-data]");
 
