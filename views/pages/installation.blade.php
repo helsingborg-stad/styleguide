@@ -61,6 +61,12 @@
                 crossorigin="anonymous"&gt;&lt;script&gt;
         @endcode
 
+
+        @markdown
+        ##Yea! The easy and minimal setup is done!!!!
+        Now you just need to use the Component HTML that you find on the component pages or even better
+        @endmarkdown
+
         @markdown
             ##Compile CSS for selected components
             Just check those components you want to use and press generate CSS.
