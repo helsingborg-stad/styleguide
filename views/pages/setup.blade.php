@@ -64,8 +64,8 @@
 
         @markdown
             ##Yeah! The easy and minimal setup is done!!!!
-            Now you just need to use the Component HTML that you find on the component pages or even better,
-            use our Component Library and our blade components to render HTML. Less markup coding, so you can
+        Now you just need to use the Component HTML that you find on the <a href="https://styleguide.local/component">component pages</a> or even better,
+            use our <a href="https://github.com/helsingborg-stad/blade-component-library">Component Library (Open source on GITHUB)</a> and our blade components to render HTML. Less markup programming, so you can
             put more effort into doing other Cool things or just chill and have a nice cup of tea. More fun ;-).
 
         @endmarkdown
@@ -76,12 +76,23 @@
             Check out the component library with Markup (HTML) / Blade examples.
         @endbutton
 
+        @typography([
+            "variant" => "h2",
+            "element" => "h2",
+        ])
+            I'm a senior advanced developer and I think its too much CSS....?
+        @endtypography
+        @typography([
+            "variant" => "h4",
+            "element" => "h4",
+        ])
+            I don't want the whole component library package!
+        @endtypography
 
         @markdown
-            ##I don't want the whole component package!
             Don't worry dude, we compile CSS for selected components....<br />
             If you dont need all components in your project/web site, you can easily render a stylesheet just for the components you need.
-            Select the components you want to use and press generate CSS. We compile a customize CSS version for your need.
+            Select the components you want to use and press generate CSS. We compile a customized CSS version for your need.
 
         @endmarkdown
         @link([
@@ -92,9 +103,15 @@
         <br />
         @typography([
                 "variant" => "h2",
-                "element" => "h4",
+                "element" => "h2",
             ])
-            Select Components to render to CSS
+            Select Components you need.
+        @endtypography
+        @typography([
+            "variant" => "h4",
+            "element" => "h4",
+            ])
+            We take care of all the dependency and serve you a compiled CSS file.
         @endtypography
         <div class="grid">
             @foreach(HbgStyleGuide\Helper\Documentation::getComponentDirectories() as $atomic => $atomicValue)
