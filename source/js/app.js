@@ -14,6 +14,8 @@ import Fields from './fields';
 import Slider from './slider'
 import EventCalendar from './calendar';
 import Tiles from './tile';
+import Notification from './notification';
+import NotificationDoc from './notificationDoc';
 
 expandSection();
 
@@ -24,6 +26,8 @@ let DropdownInstance = new Dropdown;
 let SliderInstance = new Slider;
 let EventCalendarInstance = new EventCalendar;
 let TilesInstance = new Tiles;
+const NotificationInstance = new Notification;
+const NotificationDocInstance = new NotificationDoc;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -31,7 +35,10 @@ DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 SliderInstance.applySliders();
 EventCalendarInstance.initiateCalendar();
-TilesInstance.initTiles();
+//TilesInstance.initTiles();
+NotificationDocInstance.addListener();
+NotificationInstance.setup();
+
 
 let filter = new Filter;
 

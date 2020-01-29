@@ -1,18 +1,76 @@
-.c-notification__slide_from {
+.c-notification{
+    cursor: pointer;
+    margin-bottom:1%;
+}
 
-    &--left {
-        @include slide(left);
+.c-notification--dying{
+    animation: fadeOut 1s;
+   
+}
+
+.c-notification__container{
+
+    &--bottom-left{
+        bottom: map-get($spacers, "2");
+        left: map-get($spacers, "2");
     }
 
-    &--right {
-        @include slide(right);
+    &--bottom-right{
+        bottom: map-get($spacers, "2");
+        right: map-get($spacers, "2");
     }
 
-    &--top {
-        @include slide(top);
+    &--top-left{
+        top: map-get($spacers, "2");
+        left: map-get($spacers, "2");
     }
 
-    &--bottom {
-        @include slide(bottom);
+    &--top-right{
+        top: map-get($spacers, "2");
+        right: map-get($spacers, "2");
     }
+    z-index: $level-10;
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    
+    max-height: 100vh;
+}
+
+.c-notification__spawn{
+        &--bottom-left{
+            bottom: map-get($spacers, "2");
+            @include slide(left);
+        }
+        
+        &--bottom-right{
+            bottom: map-get($spacers, "2");
+            @include slide(right);
+        }
+
+        &--top-left{
+            top: map-get($spacers, "2");
+            @include slide(left);
+        }
+
+        &--top-right{
+            top: map-get($spacers, "2");
+            @include slide(right);
+        }
+}
+
+.c-notification .c-notice{
+    border-radius: 0.5em;
+    @include shadow(5);
+}
+
+@-webkit-keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
+}  
+@keyframes fadeOut {
+    0% { opacity: 1;}
+    99% { opacity: 0.01;width: 100%; height: 100%;}
+    100% { opacity: 0;width: 0; height: 0;}
 }
