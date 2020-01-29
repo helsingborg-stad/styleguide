@@ -55,6 +55,8 @@
 
     @yield('hero')
 
+    <div id="react-root"></div>
+
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 
     <div class="container">
         <div class="grid">
@@ -113,6 +115,9 @@
 
     <!-- Styleguide - js -->
     <script src="/assets/dist/js/styleguide-js.min.js"></script>
+
+    <!-- React.js -->
+    <script src="/assets/dist/js/styleguide-react.min.js"></script>
 
     <!-- Highlight js -->
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script> -->
@@ -218,7 +223,5 @@
 
         */ 
     </script>
-
-
 </body>
 </html>
