@@ -29,7 +29,7 @@
 
         @markdown
             ##Quick start
-            Looking to quickly add our Styleguide to your project? <br><br>
+            Looking for a quick setup to add our Styleguide to your project? <br><br>
             You just have to make sure you link the files properly in your web page. <br>
             Generally it is wise to import Stylesheet into the head and import javascript files at the end of the body to reduce page load time.
             Follow the example below on how to import the styleguide files into your web page/project.
@@ -63,13 +63,18 @@
 
 
         @markdown
-        ##Yea! The easy and minimal setup is done!!!!
-        Now you just need to use the Component HTML that you find on the component pages or even better
+            ##Yeah! The easy and minimal setup is done!!!!
+            Now you just need to use the Component HTML that you find on the component pages or even better
+            use our Component Library and our blade components to render HTML, So you can do less markup coding and
+            put your effort in doing other Cool logic or just chill and have a nice cup of tea. More fun ;-).
         @endmarkdown
+
+
 
         @markdown
             ##Compile CSS for selected components
-            Just check those components you want to use and press generate CSS.
+            If you dont need all component in your project, you can easily render the Stylesheets just for the components you select.
+            Just check select the components you want to use and press generate CSS.
 
         @endmarkdown
 
