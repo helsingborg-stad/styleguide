@@ -2,14 +2,14 @@
 <script src="node_modules/clientside-require/dist/bundle.js"></script>
 @section('hero')
     @hero([
-    'backgroundColor' => '#fff',
-    'textColor' => 'dark',
-    'headline' => 'The icon library',
-    'byline' => 'Material icons',
+        'backgroundColor' => '#fff',
+        'textColor' => 'dark',
+        'headline' => 'Easy to install',
+        'byline' => 'Copy and paste....',
     ])
 
     @slot('content')
-        Installation is pretty simple.
+        The setup is pretty simple. :-)
     @endslot
 
     @endhero
@@ -18,7 +18,7 @@
 @section('content')
 
     @markdown
-    #Installation
+    #Setup
     Getting started with an easy, minimal setup, load the precompiled all-in-one CSS and JS or compile your own component setup.
 
     @endmarkdown
