@@ -8,12 +8,11 @@ export default class Tiles {
     }
 
     initTiles () {
-        if (document.querySelector('.c-tile__container') > 0) {
+        if (document.querySelectorAll('.c-tile__container').length > 0) {
             const msnry = new Masonry( this.containerSelector, {
                 columnWidth: this.tileSizer,
                 itemSelector: this.itemSelector
             });
         }
-
     }
 }
