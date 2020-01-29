@@ -78,12 +78,24 @@
 
 
         @markdown
-            ##Compile CSS for selected components
+            ##I don't want the whole component package!
+            Don't worry dude, we compile CSS for selected components....<br />
             If you dont need all components in your project/web site, you can easily render a stylesheet just for the components you need.
             Select the components you want to use and press generate CSS. We compile a customize CSS version for your need.
 
         @endmarkdown
-
+        @link([
+            'href' => '/component'
+            ])
+            Read about atomic design. Why & how, it is a pretty simple concept....
+        @endbutton
+        <br />
+        @typography([
+                "variant" => "h2",
+                "element" => "h4",
+            ])
+            Select Components to render to CSS
+        @endtypography
         <div class="grid">
             @foreach(HbgStyleGuide\Helper\Documentation::getComponentDirectories() as $atomic => $atomicValue)
                 @typography([
