@@ -80,7 +80,7 @@
         @markdown
             ##Compile CSS for selected components
             If you dont need all components in your project/web site, you can easily render a stylesheet just for the components you need.
-            Select the components you want to use and press generate CSS. We compile a customize a CSS version for your need.
+            Select the components you want to use and press generate CSS. We compile a customize CSS version for your need.
 
         @endmarkdown
 
