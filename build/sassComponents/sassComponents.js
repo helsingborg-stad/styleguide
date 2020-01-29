@@ -76,7 +76,7 @@ module.exports.initSassComponents = (components) => {
             return componentDependency;
         });
  
-        composeSass.build(componentDependency);
+        return composeSass.build(componentDependency);
     }
 };
 

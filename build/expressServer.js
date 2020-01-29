@@ -14,10 +14,13 @@ app.post('/compileSassComponent', function (req, res) {
     
     const data = req.body.payload;
     const result = Object.keys(data).map(function(k) { return data[k] });
-    res.send(result);
-    
     const sassComponents = require('./sassComponents/sassComponents');
-    sassComponents.initSassComponents(result);
+    const output = sassComponents.initSassComponents(result);
+    res.setHeader('Content-type', 'text/css');
+    
+    res.json({ cssFile: output });
+    //res.download(output, output);
+    
 });
 
 app.listen(port, () => console.log(`Express server app listening on port:  ${port}!`));

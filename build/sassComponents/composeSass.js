@@ -3,34 +3,23 @@ const fs = require('fs');
 const template = require('./componentTemplate');
 const singleComponentPath = 'source/sass/imports';
 const {exec} = require('child_process');
+const { promisify } = require("util");
 
 /**
  * Creating scss file
  * @param fileName
  */
-const buildFile = (fileName, sassData) => {
-    
-    fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss', sassData,
-        function (errors) {
-            (errors) ? console.log("Error creating scss file!!!!!  : " + errors) :
-                console.log("Created new sass file: " + fileName + ".scss");
-        });
-};
-
-
-/**
- * Running Webpack to Compile and minify css
- */
-const runWebpack = () => {
-    
-    exec('cd / | npm run build-imports', (err, stdout, stderr) => {
-        if (err) {
-            console.error(err)
+const buildFile = (fileName, sassData, moveFile) => {
+    fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss',
+        sassData, function(error) {
+        if(error) {
+            console.log('[write auth]: ' + err);
         } else {
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
+            console.log('[write auth]: success');
+            moveFile(fileName);
         }
     });
+    
 };
 
 
@@ -43,12 +32,32 @@ const moveFile = (hash) => {
     
     const tmpPath = singleComponentPath + '/tmp/' + hash + '.scss';
     const newPath = singleComponentPath + '/' + hash + '/' + hash + '.scss';
-    fs.rename(tmpPath, newPath, function (err) {
-        if (err) throw err;
-            console.log('Successfully Moved file!')
+    fs.rename(tmpPath, newPath, function (errors, newPath) {
+        if (!errors) {
+            console.log('Successfully Moved file!');
+            runWebpack(newPath);
+        } else {
+            console.log(errors);
+        }
     });
 };
 
+/**
+ * Running Webpack to Compile and minify css
+ */
+const runWebpack = (fileName) => {
+    setTimeout(function (){
+        exec('cd / | npm run build-imports', (errors, stdout, stderr) => {
+            if (errors) {
+                console.error(errors)
+            } else {
+                console.log(`stdout: ${stdout}`);
+                console.log(`stderr: ${stderr}`);
+            }
+        });
+        
+    }, 2000);
+};
 
 /**
  * Check if directories and files exists
@@ -84,26 +93,31 @@ const checkFileSize = (fileName, sassData) => {
         const fileSizeInBytes = stats["size"];
         
         if (fileSizeInBytesTmp !== fileSizeInBytes) {
-            buildFile(fileName, sassData);
-            moveFile(fileName, singleComponentPath);
+            buildFile(fileName, sassData, moveFile);
         }
 
     } else {
-        buildFile(fileName, sassData);
-        moveFile(fileName, singleComponentPath);
+        buildFile(fileName, sassData, moveFile);
     }
+    
 };
 
 
+/**
+ * Render CSS link
+ * @param fileName
+ */
 const clientOutput = (fileName) => {
-    /**document.getElementById('onlineCompiledComponents')
-        .setAttribute('href', '/assets/dist/css/compilations/'+fileName+'/'+fileName+'.min.css');
-    */
-}
+    const output = '/assets/dist/css/compilations/'+ fileName+'/'+fileName+'.min.css';
+    return output;
+    
+};
+
 
 /**
  * Creating Directory & SCSS import file with dependency imports
  * @param componentDependency
+ * @returns {string}
  */
 module.exports.build = (componentDependency) => {
     
@@ -119,8 +133,8 @@ module.exports.build = (componentDependency) => {
     }
     
     fileName = crypto.createHash('md5').update(component).digest("hex");
+    
     checkFileExist(fileName);
     checkFileSize(fileName, sassData);
-    runWebpack();
-    clientOutput(fileName);
+    return clientOutput(fileName);
 };

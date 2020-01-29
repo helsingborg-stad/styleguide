@@ -69,14 +69,7 @@
                 @endbutton
             </div>
 
-        @code([
-            'language' => 'php',
-            'classList' => ['componentLink'],
-            'content' => '<link rel="stylesheet" id="onlineCompiledComponents" type="text/css" href="" type="text/css" media="all">'
-
-        ])
-            <link rel="stylesheet" id="onlineCompiledComponents" type="text/css" href="" type="text/css" media="all">
-        @endcode
+            <pre class="onlineCompiledComponents"></pre>
         @endpaper
 
 

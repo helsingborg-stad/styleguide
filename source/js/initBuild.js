@@ -33,12 +33,18 @@ const fetchFormData = (componentArray) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    }).then(function(response) {
-        console.log(response.status);
-    }, function(error) {
-        error.message;
-    });
-    
+    })
+        .then(res=>{
+            console.log("res1",res);
+            return res.json();
+        })
+        .then(res=>{
+
+           /*document.querySelector('.onlineCompiledComponents').innerHTML =
+                '<link rel="stylesheet" id="styleguide-css" type="text/css" href="'+
+                res.cssFile + '" type="text/css" media="all">';*/
+            document.querySelector('.onlineCompiledComponents').innerHTML = res.cssFile;
+        })
 };
 
 export default sassComponentBuilder;
