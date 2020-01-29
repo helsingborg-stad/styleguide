@@ -19,17 +19,50 @@
 
     @markdown
     #Installation
-    Getting started
-    Lorem ipsum about installation
+    Getting started with an easy, minimal setup, load the precompiled all-in-one CSS and JS or compile your own component setup.
 
     @endmarkdown
 
 
     @paper(['padding' => 3])
     <article>
+
         @markdown
-        ##Compile CSS for selected components
-        Just check those components you want to use and press generate CSS.
+            ##Quick start
+            Looking to quickly add our Styleguide to your project? <br><br>
+            You just have to make sure you link the files properly in your web page. <br>
+            Generally it is wise to import Stylesheet into the head and import javascript files at the end of the body to reduce page load time.
+            Follow the example below on how to import the styleguide files into your web page/project.
+            ##CSS
+            Copy-paste the stylesheet &lt;link&gt; into your &lt;head&gt; before all other stylesheets to load our CSS.
+        @endmarkdown
+        @code([
+            'language' => 'html',
+            'content' => ''
+        ])
+        &lt;link rel="stylesheet" id="styleguide-css" type="text/css"
+        href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/css/styleguide-css.min.css"
+        type="text/css" media="all"&gt;
+        @endcode
+
+        @markdown
+            ##JavaScript
+            Many of our components require the use of JavaScript to function.
+            Our JavaScript is pure vanilla JS, so no need for external plugins or library.
+            Place the following &lt;script&gt; near the end of your pages, right before the closing &lt;/body&gt; tag.
+        @endmarkdown
+
+        @code([
+            'language' => 'html',
+            'content' => ''])
+                &lt;script id="styleguide-js" type="text/javaScript"
+                href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/js/styleguide-js.min.js"
+                crossorigin="anonymous"&gt;&lt;script&gt;
+        @endcode
+
+        @markdown
+            ##Compile CSS for selected components
+            Just check those components you want to use and press generate CSS.
 
         @endmarkdown
 
