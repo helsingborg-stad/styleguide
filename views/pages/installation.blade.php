@@ -33,7 +33,8 @@
             You just have to make sure you link the files properly in your web page. <br>
             Generally it is wise to import Stylesheet into the head and import javascript files at the end of the body to reduce page load time.
             Follow the example below on how to import the styleguide files into your web page/project.
-            ##CSS
+
+            ##CSS - The look and feel
             Copy-paste the stylesheet &lt;link&gt; into your &lt;head&gt; before all other stylesheets to load our CSS.
         @endmarkdown
         @code([
@@ -46,9 +47,9 @@
         @endcode
 
         @markdown
-            ##JavaScript
+            ##JavaScript - Functionality
             Many of our components require the use of JavaScript to function.
-            Our JavaScript is pure vanilla JS, so no need for external plugins or library.
+            Our JavaScript is pure vanilla JS, so no need for external plugins or libraries.
             Place the following &lt;script&gt; near the end of your pages, right before the closing &lt;/body&gt; tag.
         @endmarkdown
 
