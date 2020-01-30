@@ -138,7 +138,23 @@
                 @endforeach
             @endforeach
         </div>
+        <h3 class="SelectedComponentsTitle"></h3>
         <div class="SelectedComponents"></div>
+        @loader([
+            'shape' => 'linear',
+            'size' => 'md',
+            'color' => 'primary',
+            'classList' => ['selectedComponentsLoader', 'u-display--none'],
+            'text' => 'Compiling...'
+        ])
+        @endloader
+
+        <div class="onlineCompiledComponents u-display--none">
+            <pre class="language-html">
+                    <code class="language-html" id="compiledCSS">
+                    </code>
+                </pre>
+        </div>
         <div class="u-padding__bottom--8">
             @button([
                 'color' => 'secondary',
@@ -150,14 +166,6 @@
             ])
             @endbutton
         </div>
-
-        <div class="onlineCompiledComponents">
-                <pre class="language-html">
-                    <code class="language-html" id="compiledCSS">
-                    </code>
-                </pre>
-        </div>
-
 
     </article>
     @endpaper

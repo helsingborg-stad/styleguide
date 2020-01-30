@@ -1,6 +1,6 @@
 {
     "slug": "visibility",
-    "format": "u-visible--state",
+    "format": "u-visibility--state",
     "modifiers": {
         "state": "visible, hidden"
 

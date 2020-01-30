@@ -7,86 +7,104 @@
 .markup-preview--align-x {
     padding: map-get($spacers, "3") 0;
 }
-/*
-pre.xdebug-var-dump {
-    background-color: #f9f9f9;
-    color: $color-base;
-    width: auto;
-    padding: 10px 15px;
-    border: 2px solid $color-code-background;
-    margin: 15px;
+
+div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: 500;
+    background-color: transparent;
+    letter-spacing: .1em;
+    border: none;
+    -webkit-box-shadow: 0 1px 2px rgba(98, 98, 98, .18), 0 0 2px rgba(98, 98, 98, .18);
+    box-shadow: 0 1px 2px rgba(98, 98, 98, .18), 0 0 2px rgba(98, 98, 98, .18);
+    padding: 1em;
+    border-radius: 12.5px;
+    font-size: .875em;
+    background-color: $color-secondary;
+    color: white;
+
+    &:hover {
+        background-color: $color-secondary-dimmed;
+        color: white;
+    }
+
+    &:focus {
+        background-color: $color-primary-dimmed;
+        color: $color-secondary-dimmed;
+    }
 }
 
-pre:not(.xdebug-var-dump) {
-    position: relative;
-    overflow: auto;
-    background-color: $color-code-background;
-    border: 1px solid $color-code-background;
-    font-size: 1em;
-    line-height: 130%;
-    //max-height: 200px;
-    //overflow: auto;
+.toolbar-item {
+    position: absolute;
+    top: -55px;
+    right: -3px;
+}
 
-    .line-numbers {
-        font-family: $font-family-code;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        padding: .5em .6em;
-        text-align: center;
-        background-color: $color-code-background;
-        border-right: 1px solid $color-code-background;
-        font-size: .8em;
-        color: $color-base;
-        line-height: 1.4;
-        margin-top: 4px;
+.selectedComponentsLoader {
+    position:absolute;
+    top:3px;
+}
 
-        li {
-            margin-top:unset;
+.SelectedComponents {
+    width:90%;
+    .componentList {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        text-decoration: none;
+        cursor: pointer;
+        line-height: 1;
+        font-weight: 500;
+        background-color: transparent;
+        letter-spacing: .1em;
+        border: none;
+        padding: 1em;
+        border-radius: 12.5px;
+        font-size: 12px;
+        background-color: $color-gray-detail;
+        color: white;
+        margin-right:10px;
+        margin-bottom:10px;
+        animation: componentListFadeIn 1s linear;
+        animation-fill-mode: both;
+    }
+    @for $i from 1 through 10 {
+        .componentList:nth-child(#{$i}n) {
+            animation-delay: #{$i * 0.1}s;
         }
     }
 
-    code {
-        background: transparent;
-        font-size: .8em;
+}
+@keyframes componentListFadeIn {
+    0% {
+        opacity: 0;
+    }
+    70% {
+        opacity: 0;
+        transform: scale(1);
     }
 
-    code.has-numbering {
-        margin-left: 40px;
+    85% {
+        opacity: 1;
+        transform: scale(1.08);
     }
-}
-
-.no-js pre:not(.xdebug-var-dump) code {
-    padding: 10px;
-    border: none;
-}
-
-code {
-    display: inline-block;
-    padding: 2px 5px 0;
-    font-family: $font-family-code;
-    font-size: .9em;
-    line-height: 1.4em;
-    background-color: $color-code-background;
-    border: 1px solid $color-code-background;
-    border-radius: 3px;
-
-    span {
-
+    100% {
+        transform: scale(1);
     }
 }
 
-.code-source-file {
-    border: 1px solid $color-code-background;
-    border-top: none;
-    padding: map-get($spacers, "1") / 2 map-get($spacers, "1");
-    font-size: .8em;
-}
 
-.hljs {
-    background-color: transparent !important;
-    border: none;
-    padding: .5em 1em;
+
+.onlineCompiledComponents {
+    background: #2d2d2d;
+    animation: componentListFadeIn 1s linear;
+    animation-fill-mode: both;
+    #compiledCSS {
+        display: block;
+
+    }
 }
-*/
