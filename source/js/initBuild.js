@@ -10,6 +10,10 @@ class initBuild {
      */
     sassComponentBuilder() {
         const self = this;
+        if (!document.querySelector('.c-button--generateCSS')) {
+            return;
+        }
+        
         const generateCSS = document.querySelector('.c-button--generateCSS').getAttribute('id');
         document.getElementById(generateCSS).addEventListener('click', function (e) {
             
