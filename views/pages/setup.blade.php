@@ -80,18 +80,19 @@
             "variant" => "h2",
             "element" => "h2",
         ])
-            I'm a senior advanced developer and I think its too much CSS....?
+
+        If your not going to use all our components?
         @endtypography
         @typography([
             "variant" => "h4",
             "element" => "h4",
         ])
-            I don't want the whole component library package!
+        Don't worry dude, we have a solution for you
         @endtypography
 
         @markdown
-            Don't worry dude, we compile CSS for selected components....<br />
-            If you dont need all components in your project/web site, you can easily render a stylesheet just for the components you need.
+            We compile components CSS you select on the fly....<br />
+            You can easily render a stylesheet just for the components you need.
             Select the components you want to use and press generate CSS. We compile a customized CSS version for your need.
 
         @endmarkdown
@@ -150,12 +151,11 @@
         @endloader
 
         <div class="onlineCompiledComponents u-display--none">
-            <pre class="language-html">
-                    <code class="language-html" id="compiledCSS">
-                    </code>
-                </pre>
+         <code class="language-html" id="compiledCSS">
+         </code>
+
         </div>
-        <div class="u-padding__bottom--8">
+        <div class="u-padding__top--3 u-padding__bottom--8">
             @button([
                 'color' => 'secondary',
                 'href' => '',

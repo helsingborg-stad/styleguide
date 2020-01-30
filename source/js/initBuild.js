@@ -61,7 +61,7 @@ class initBuild {
      * @param componentArray
      */
     fetchFormData(componentArray) {
-        
+        const self = this;
         fetch("http://localhost:1337/compileSassComponent", {
             method: "POST",
             mode: 'cors',
@@ -83,14 +83,33 @@ class initBuild {
                     document.querySelector('.selectedComponentsLoader').classList.add('u-display--none');
                     document.querySelector('.c-loader--text').classList.add('u-display--none');
                     document.querySelector('.c-button--generateCSS').innerHTML = 'Generate CSS';
-                    const markup = '&lt;link rel="stylesheet" id="styleguide-css" type="text/css" \n href="https://' +
-                        window.location.hostname + res.cssFile + '" type="text/css" media="all"&gt;';
-                    
-                    document.getElementById('compiledCSS').innerHTML = markup;
+                    document.getElementById('compiledCSS').innerHTML = self.markupTemplate(window
+                        .location.hostname + res.cssFile);
                     document.querySelector('.c-button--generateCSS').removeAttribute('disabled');
                 }, 10000);
             })
     };
+    
+    /**
+     * Markup template
+     * @param cssfile
+     * @returns {string}
+     */
+    markupTemplate(cssfile){
+        return  '<span class="token punctuation">&lt;</span><span class="token tag">link</span> ' +
+                '<span class="token attr-name">rel="</span>' +
+                '<span class="token attr-value">stylesheet</span><span class="token attr-name">"</span> ' +
+                '<span class="token attr-name">id="</span><span class="token attr-value">styleguide-css</span>' +
+                '<span class="token attr-name">"</span> <span class="token attr-name">type="</span>' +
+                '<span class="token attr-value">text/css</span><span class="token attr-name">"</span>' +
+                ' <span class="token attr-name">href="</span><span class="token attr-value">https://' + cssfile +
+                '</span><span class="token attr-name">"</span>' +
+                ' <span class="token attr-name">type="</span><span class="token attr-value">text/css</span>' +
+                '<span class="token attr-name">"</span> <span class="token attr-name">media="</span>' +
+                '<span class="token attr-value">all</span><span class="token attr-name">"</span>' +
+                '<span class="token punctuation">&gt;</span>';
+    }
+    
 }
 
 export default initBuild;

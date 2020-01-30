@@ -100,11 +100,14 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
 
 
 .onlineCompiledComponents {
-    background: #2d2d2d;
+
     animation: componentListFadeIn 1s linear;
     animation-fill-mode: both;
+    background-color: #f5f2f0;
+    padding:15px;
     #compiledCSS {
         display: block;
+        word-break: break-all;
 
     }
 }
