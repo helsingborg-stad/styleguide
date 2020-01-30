@@ -1,27 +1,10 @@
 {
-    "size": {
+    
+    "basic": {
         "grid": "",
-        "heading": "Size",
-        "subHeading" : "asdasdas",
-        "text": "Different sizes ranging from sm to lg"
-    },
-    "filled": {
-        "grid": "",
-        "heading": "Type filled",
+        "heading": "Buttons of type basic",
         "subHeading" : "",
-        "text": "Buttons with type filled and in three different colors."
-    },
-    "disabled": {
-        "grid": "",
-        "heading": "Disabled buttons",
-        "subHeading" : "",
-        "text": "A button with the data-attribute disabled set to true will be greyed out and cursor set to not-allowed."
-    },
-    "icon": {
-        "grid": "",
-        "heading": "Button with icon only",
-        "subHeading" : "",
-        "text": "This is a button with only an icon. This is the only button that will be rendered as a square."
+        "text": "The basic button has no background or border. The text color is determined by the color property."
     },
     "outlined": {
         "grid": "",
@@ -29,17 +12,35 @@
         "subHeading" : "",
         "text": "Outlined buttons consist of a border colored by the color property. The content(icon/text) will also be colored by the color property."
     },
-    "basic": {
+    "filled": {
         "grid": "",
-        "heading": "Buttons of type basic",
+        "heading": "Type filled",
         "subHeading" : "",
-        "text": "The basic button has no background or border. The text color is determined by the color property."
+        "text": "Buttons with type filled and in three different colors."
     },
     "textWithIcon": {
         "grid": "",
         "heading": "Buttons with both text and icon",
         "subHeading" : "",
         "text": "You can choose to have both text and an icon. You can also switch positions of the text and icon by setting reverse to true."
+    },
+    "icon": {
+        "grid": "",
+        "heading": "Button with icon only",
+        "subHeading" : "",
+        "text": "This is a button with only an icon. This is the only button that will be rendered as a square."
+    },
+    "size": {
+        "grid": "",
+        "heading": "Size",
+        "subHeading" : "asdasdas",
+        "text": "Different sizes ranging from sm to lg"
+    },
+    "disabled": {
+        "grid": "",
+        "heading": "Disabled buttons",
+        "subHeading" : "",
+        "text": "A button with the data-attribute disabled set to true will be greyed out and cursor set to not-allowed."
     },
     "toggle": {
         "grid": "",
