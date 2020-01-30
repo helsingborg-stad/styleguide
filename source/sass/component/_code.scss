@@ -98,6 +98,12 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
 }
 
 
+.breaklines {
+    code {
+        word-break: break-all;
+    }
+
+}
 
 .onlineCompiledComponents {
 

@@ -38,6 +38,7 @@
             Copy-paste the stylesheet &lt;link&gt; into your &lt;head&gt; before all other stylesheets to load our CSS.
         @endmarkdown
         @code([
+            'classList' => ['breaklines'],
             'language' => 'html',
             'content' => ''
         ])
@@ -54,6 +55,7 @@
         @endmarkdown
 
         @code([
+            'classList' => ['breaklines'],
             'language' => 'html',
             'content' => ''])
                 &lt;script id="styleguide-js" type="text/javaScript"

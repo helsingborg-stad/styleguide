@@ -102,7 +102,8 @@ class initBuild {
                 '<span class="token attr-name">id="</span><span class="token attr-value">styleguide-css</span>' +
                 '<span class="token attr-name">"</span> <span class="token attr-name">type="</span>' +
                 '<span class="token attr-value">text/css</span><span class="token attr-name">"</span>' +
-                ' <span class="token attr-name">href="</span><span class="token attr-value">https://' + cssfile +
+                ' <span class="token attr-name">href="</span><span class="token attr-value">' +
+                '<a href="https://' + cssfile +'" target="_blank">https://'+cssfile+'</a>'+
                 '</span><span class="token attr-name">"</span>' +
                 ' <span class="token attr-name">type="</span><span class="token attr-value">text/css</span>' +
                 '<span class="token attr-name">"</span> <span class="token attr-name">media="</span>' +
