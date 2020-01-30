@@ -22,36 +22,71 @@
         #Icons
         Can be utilized by the component <?php echo "@icon(['icon' => 'home']) @endicon"; ?>. This page represents the complete list of icons avabile. 
     @endmarkdown
-
-
+    <div js-filter-container="5da57cccd46c6" js-sort-container js-sort-order="asc">
+        @field([
+            'label' => 'Filter icons',
+            'classList' => [],
+            'textarea' => false,
+            'attributeList' => [
+            'name' => 'search',
+            'id' => '303',
+            'placeholder' => 'Search',
+            'type' => 'text',
+            'js-filter-input' => '5da57cccd46c6'
+            ]
+        ])
+        @endfield
+    
     @paper(['padding' => 3])
-        <div class="grid" js-filter-container="5da57cccd46c6">
+    <div class="d-icons__controlls">
+        @buttonGroup(['borderColor' => 'default'])
+            @button([
+                'text' => 'Expand all',
+                'icon' => 'unfold_more',
+                'size' => 'lg',
+                'attributeList' => ['icons_expand' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Minimize all',
+                'size' => 'lg',
+                'icon' => 'unfold_less',
+                'attributeList' => ['icons_minimize' => '']
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Sort icons',
+                'size' => 'lg',
+                'icon' => 'sort_by_alpha',
+                'attributeList' => ['js-sort-button' => '111-0']
+            ])
+            @endbutton
+        @endbuttonGroup 
+    </div>
+    <div class="grid">
+    
+    
         
-            @field(
-                [
-                    'label' => 'Filter icons',
-                    'classList' => [],
-                    'textarea' => false,
-                    'attributeList' => [
-                    'name' => 'search',
-                    'id' => '303',
-                    'placeholder' => 'Search',
-                    'type' => 'text',
-                    'js-filter-input' => '5da57cccd46c6'
-                    ]
-                ]
-            )
-            @endfield
+        
+            
                 @foreach(HbgStyleGuide\Helper\Icons::getIcons() as $category => $icons)
-                    <div class="grid-md-12">
-                        <div class="grid d-icon__sheet">
-                            <div class="d-icon__category">
-                                <h2>{{$category}}</h2>
-                                @button(['type' => 'basic', 'icon' => 'expand_less', 'color' => 'default'])
-                                @endbutton
-                            </div>
+                    <div class="grid-md-12 icon-category"  js-toggle-item="{{$loop->index}}" js-toggle-class="d-icons--close" js-filter-item="">
+                        <div class="d-icons__category">
+                            <h2>{{$category}}</h2>
+                            @icon([
+                                'icon' => 'expand_less',
+                                'color' => 'black',
+                                'size' => 'sm',
+                                "attributeList" => ['js-toggle-trigger' => $loop->index]
+                            ])
+                            @endbutton
+                        </div>
+                        <div class="grid d-icons__sheet" js-sort-data-container>
+                            
                             @foreach($icons as $icon)
-                                <div class="grid-md-2 d-animation" onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="">
+                                <div class="grid-md-2 d-animation"  onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="" js-sort-sortable js-sort-data="111-0">
                                     
                                     <div class="d-animation__content">      
                                         @icon(["icon" => $icon, "size" => "xl", "classList" => ["d-animation__icon"]])
@@ -67,16 +102,42 @@
                                 </div>
                             @endforeach
                         </div>
+                        <div class="d-divider"></div>
                     </div>
                 @endforeach
             
         </div>
+    </div>
     @endpaper
 
 </article>
 @stop
 
 <script>
+
+    window.onload = function() {
+        const expand = document.querySelector('[icons_expand]');
+        const minimize = document.querySelector('[icons_minimize]');
+        const sort = document.querySelector('[icons_sort]');
+
+        minimize.addEventListener('click', (event)=>{
+            let categories = document.getElementsByClassName('icon-category');
+         
+            
+            categories.forEach(category => {
+                if(![...category.classList].includes('d-icons--close')) category.classList.add('d-icons--close');
+            });
+        });
+
+        expand.addEventListener('click', (event)=>{
+            let categories = document.getElementsByClassName('icon-category');
+         
+            
+            categories.forEach(category => {
+                if([...category.classList].includes('d-icons--close')) category.classList.remove('d-icons--close');
+            });
+        });
+    };
 
     function copy(element) {
         const copyElement = element.querySelector("[js-copy-data]");
@@ -89,5 +150,7 @@
             }, 2000)
         }, () => {
         });
+
+        
     }
 </script>
