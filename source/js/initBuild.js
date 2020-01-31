@@ -38,6 +38,8 @@ class initBuild {
         const generateCSS = document.querySelector('.c-button--generate-css').getAttribute('id');
         document.getElementById(generateCSS).addEventListener('click', function (e) {
             
+            self.changeMarkupState('preBuild', null);
+            
             const componentArray = [];
             const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
             
@@ -55,7 +57,7 @@ class initBuild {
                 return;
             }
             
-            self.changeMarkupState('preBuild', null);
+            
             
             // Get selected component values and create list of component from selection
             for (let i = 0; i < checkboxes.length; i++) {
@@ -126,7 +128,7 @@ class initBuild {
         
         switch (buildState) {
             
-            case "prebuild":
+            case "preBuild":
                 document.querySelector('.selected-components').innerHTML = '';
                 document.querySelector('.Selected-components-title').innerHTML = '';
                 break;
