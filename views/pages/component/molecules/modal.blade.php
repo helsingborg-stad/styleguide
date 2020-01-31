@@ -11,14 +11,12 @@
     @button(
         [
             'href' => '',
-            'isOutlined' => false,
-            'background' => 'primary',
+            'type' => 'filled',
             'text' => 'Open Modal',
-            'icon' => ['name' =>'favorite'],
+            'icon' => 'favorite',
             'size' => 'lg',
             'color' => 'secondary',
             'reverseIcon' => true,
-            'floating' => true,
             'attributeList' => ['data-open' => 'examplemodalid']
         ]
     )

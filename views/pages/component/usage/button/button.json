@@ -1,50 +1,50 @@
 {
     "size": {
         "grid": "",
-        "heading": "Different Sizes",
+        "heading": "Size",
         "subHeading" : "asdasdas",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "Different sizes ranging from sm to lg"
     },
     "filled": {
         "grid": "",
-        "heading": "Buttons of type filled",
+        "heading": "Type filled",
         "subHeading" : "",
-        "text": "Buttons of type filled. "
+        "text": "Buttons with type filled and in three different colors."
     },
     "disabled": {
         "grid": "",
         "heading": "Disabled buttons",
         "subHeading" : "",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "A button with the data-attribute disabled set to true will be greyed out and cursor set to not-allowed."
     },
     "icon": {
         "grid": "",
         "heading": "Button with icon only",
         "subHeading" : "",
-        "text": "A default colored button with an icon"
+        "text": "This is a button with only an icon. This is the only button that will be rendered as a square."
     },
     "outlined": {
         "grid": "",
         "heading": "Buttons of type outlined",
         "subHeading" : "",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "Outlined buttons consist of a border colored by the color property. The content(icon/text) will also be colored by the color property."
     },
     "basic": {
         "grid": "",
         "heading": "Buttons of type basic",
         "subHeading" : "",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "The basic button has no background or border. The text color is determined by the color property."
     },
     "textWithIcon": {
         "grid": "",
         "heading": "Buttons with both text and icon",
         "subHeading" : "",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "You can choose to have both text and an icon. You can also switch positions of the text and icon by setting reverse to true."
     },
     "toggle": {
         "grid": "",
         "heading": "Togglebuttons",
         "subHeading" : "",
-        "text": "This is a default colored button and it's pretty sweet"
+        "text": "When pressing a toggle-button the text color will go from black to primary to indicate it being toggled."
     }
 }

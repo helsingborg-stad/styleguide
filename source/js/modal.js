@@ -16,7 +16,6 @@ class Modal {
     enableModals() {
 
         const self = this;
-
         // Gallery
         let GalleryInstance = new Gallery;
         GalleryInstance.enableGallery(this.modalId);

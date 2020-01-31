@@ -2,10 +2,10 @@
 
 @section('content')
     @markdown
-    #Calendar
+        #Tile   
     @endmarkdown
 
 
-    @doc(['slug' => 'calendar'])
+    @doc(['slug' => 'tile'])
     @enddoc
 @stop
