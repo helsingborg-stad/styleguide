@@ -10,6 +10,7 @@ use \HelsingborgStad\GlobalBladeEngine as Blade;
  */
 class Documentation
 {
+
     /**
      * @param $slug
      * @return array
@@ -22,36 +23,47 @@ class Documentation
 
         if(file_exists($dir))
         {
-            $files = array_diff(scandir($dir), array('..', '.'));
-
             if(file_exists($dir . '/' . $slug . '.json')) {
-                $configContent = file_get_contents($dir . '/' . $slug . '.json');
-                $json = json_decode($configContent, true);
+                $json = Documentation::getJson($dir, $slug);
 
-                foreach($files as $key => $file)
+                foreach(array_keys($json) as $file)
                 {
-                    if(strpos($file, '.blade.php'))
-                    {
-                        $exampleName = str_replace('.blade.php', '', $file);
-                        $includePath = ('pages.component.usage.' . $slug . '.' . $exampleName);
+                    $filePath = $file . '.blade.php';
+
+                    if(file_exists($dir . '/' . $filePath)) {
+                        $includePath = ('pages.component.usage.' . $slug . '.' . $file);
                         $html = Blade::instance()->make($includePath)->render();
-                        $blade = file_get_contents($dir . '/' . $file, FILE_USE_INCLUDE_PATH);
+                        $blade = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
                         $temp = array(
                             "component" => $includePath,
                             "blade" => ['id' => uniqid('', true), 'code' => $blade],
                             "html" => ['id' => uniqid('', true), 'code' => $html],
-                            "description" => $json[$exampleName]
+                            "description" => $json[$file]
                         );
-
                         array_push($examples, $temp);
+                    } else {
+                        trigger_error("Couldn't find blade file " . $dir . '/' . $filePath, E_USER_NOTICE);
                     }
                 }
             }
             return $examples;
         }
-
     }
 
+
+    /**
+     * @param $dir
+     * @param $slug
+     * @return mixed
+     */
+    public static function getJson($dir, $slug)
+    {
+        $configContent = file_get_contents($dir . '/' . $slug . '.json');
+        $json = json_decode($configContent, true);
+        return $json;
+    }
+
+    
     /**
      * @return array
      */
