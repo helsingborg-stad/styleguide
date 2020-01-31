@@ -1,49 +1,55 @@
 <?php
 
+
 namespace HbgStyleGuide\Helper;
 use \HelsingborgStad\GlobalBladeEngine as Blade;
 
+/**
+ * Class Documentation
+ * @package HbgStyleGuide\Helper
+ */
 class Documentation
 {
+    /**
+     * @param $slug
+     * @return array
+     * @throws \Exception
+     */
     public static function getUsageExamples($slug)
-    {   
+    {
         $dir = BASEPATH . 'views/pages/component/usage/' . $slug;
         $examples = array();
 
         if(file_exists($dir))
         {
-            if(file_exists($dir . '/' . $slug . '.json')) {
-                $json = Documentation::getJson($dir, $slug);
+            $files = array_diff(scandir($dir), array('..', '.'));
 
-                foreach(array_keys($json) as $file)
+            if(file_exists($dir . '/' . $slug . '.json')) {
+                $configContent = file_get_contents($dir . '/' . $slug . '.json');
+                $json = json_decode($configContent, true);
+
+                foreach($files as $key => $file)
                 {
-                    $filePath = $file . '.blade.php';
-                    
-                    if(file_exists($dir . '/' . $filePath)) {
-                        $includePath = ('pages.component.usage.' . $slug . '.' . $file);
+                    if(strpos($file, '.blade.php'))
+                    {
+                        $exampleName = str_replace('.blade.php', '', $file);
+                        $includePath = ('pages.component.usage.' . $slug . '.' . $exampleName);
                         $html = Blade::instance()->make($includePath)->render();
-                        $blade = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
+                        $blade = file_get_contents($dir . '/' . $file, FILE_USE_INCLUDE_PATH);
                         $temp = array(
                             "component" => $includePath,
                             "blade" => ['id' => uniqid('', true), 'code' => $blade],
                             "html" => ['id' => uniqid('', true), 'code' => $html],
-                            "description" => $json[$file]
+                            "description" => $json[$exampleName]
                         );
+
                         array_push($examples, $temp);
-                    } else {
-                        trigger_error("Couldn't find blade file " . $dir . '/' . $filePath, E_USER_NOTICE);
                     }
                 }
             }
             return $examples;
         }
-    }
 
-    public static function getJson($dir, $slug)
-    {
-        $configContent = file_get_contents($dir . '/' . $slug . '.json');
-        $json = json_decode($configContent, true);
-        return $json;
     }
 
     /**
