@@ -51,7 +51,7 @@ class initBuild {
                 document.querySelector('.online-compiled-components').classList.add('u-display--none');
             }
             
-            if (componentArray.length > 0) {
+            if (!componentArray.length > 0) {
                 return;
             }
             
