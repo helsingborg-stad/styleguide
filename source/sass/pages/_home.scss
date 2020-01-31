@@ -1,5 +1,9 @@
-.c-segment--color-light{
-    background-color: #E5E5E5;
+.p-home__hero.c-segment--overlay-dark:before{
+    background: #F5F5F5;
+}
+
+.p-home__hero.c-segment--overlay-opacity-medium:before{
+    opacity: 0;
 }
 
 .c-card__image-link{
