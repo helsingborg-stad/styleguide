@@ -57,8 +57,6 @@ class initBuild {
                 return;
             }
             
-            
-            
             // Get selected component values and create list of component from selection
             for (let i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = false;
