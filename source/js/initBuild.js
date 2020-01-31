@@ -51,29 +51,30 @@ class initBuild {
                 document.querySelector('.online-compiled-components').classList.add('u-display--none');
             }
             
-            // Get selected component values and create list of component from selection
             if (componentArray.length > 0) {
-                
-                self.changeMarkupState('preBuild', null);
-                
-                for (let i = 0; i < checkboxes.length; i++) {
-                    checkboxes[i].checked = false;
-                    
-                    let node = document.createElement("span");
-                    let textNode = document.createTextNode(componentArray[i]);
-                    
-                    node.appendChild(textNode);
-                    node.classList.add('component-list', 'c-button', 'c-button__basic',
-                        'c-button__basic--default', 'c-button--md');
-                    node.setAttribute('disabled', 'disabled');
-                    document.querySelector('.selected-components').appendChild(node);
-                    
-                }
-                
-                // Create SCSS and Build CSS
-                self.changeMarkupState('build', null);
-                self.fetchFormData(componentArray);
+                return;
             }
+            
+            self.changeMarkupState('preBuild', null);
+            
+            // Get selected component values and create list of component from selection
+            for (let i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+                
+                let node = document.createElement("span");
+                let textNode = document.createTextNode(componentArray[i]);
+                
+                node.appendChild(textNode);
+                node.classList.add('component-list', 'c-button', 'c-button__basic',
+                    'c-button__basic--default', 'c-button--md');
+                node.setAttribute('disabled', 'disabled');
+                document.querySelector('.selected-components').appendChild(node);
+                
+            }
+            
+            // Create SCSS and Build CSS
+            self.changeMarkupState('build', null);
+            self.fetchFormData(componentArray);
             
             // Change markup
             self.changeMarkupState('postBuild', null);
