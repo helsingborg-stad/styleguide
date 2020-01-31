@@ -4,69 +4,92 @@ class initBuild {
         this.sassComponentBuilder();
     }
     
+    /**
+     * Copy Markup to clipboard....
+     */
+    copyGenLinks() {
+        const copyLink = document.querySelector('.c-button--copy-compiled-link').getAttribute('id');
+        document.getElementById(copyLink).addEventListener('click', function (element) {
+            navigator.clipboard.writeText(document.getElementById('compiledCSS').innerText)
+                .then(() => {
+                    document.querySelector('.c-button--copy-compiled-link').innerText = 'COPIED!';
+                    setTimeout(function () {
+                        document.querySelector('.c-button--copy-compiled-link').innerText = 'COPY';
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error('Sorry! - Could not copy markup: ', err);
+                });
+        });
+    }
     
     /**
      * Sending data to CSS compiler
      */
     sassComponentBuilder() {
+        
         const self = this;
-        if (!document.querySelector('.c-button--generateCSS')) {
+        
+        if (!document.querySelector('.c-button--generate-css')) {
             return;
         }
         
-        const generateCSS = document.querySelector('.c-button--generateCSS').getAttribute('id');
+        // Prepare to generate build
+        const generateCSS = document.querySelector('.c-button--generate-css').getAttribute('id');
         document.getElementById(generateCSS).addEventListener('click', function (e) {
             
             const componentArray = [];
             const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
             
+            // Loop through all component checkboxes
             for (let i = 0; i < checkboxes.length; i++) {
                 componentArray.push(checkboxes[i].value);
             }
             
+            // Set display none to CSS Link Code area
             if (!document.body.classList.contains('u-display--none')) {
-                document.querySelector('.onlineCompiledComponents')
-                    .classList.add('u-display--none');
+                document.querySelector('.online-compiled-components').classList.add('u-display--none');
             }
             
+            // Get selected component values and create list of component from selection
             if (componentArray.length > 0) {
                 
-                document.querySelector('.SelectedComponents').innerHTML = '';
-                document.querySelector('.SelectedComponentsTitle').innerHTML = '';
+                self.changeMarkupState('preBuild', null);
                 
                 for (let i = 0; i < checkboxes.length; i++) {
                     checkboxes[i].checked = false;
-        
-                        let node = document.createElement("span");
-                        let textNode = document.createTextNode(componentArray[i]);
-                        
-                        node.appendChild(textNode);
-                        node.classList.add('componentList');
-                        document.querySelector('.SelectedComponents').appendChild(node);
- 
+                    
+                    let node = document.createElement("span");
+                    let textNode = document.createTextNode(componentArray[i]);
+                    
+                    node.appendChild(textNode);
+                    node.classList.add('component-list', 'c-button', 'c-button__basic',
+                        'c-button__basic--default', 'c-button--md');
+                    node.setAttribute('disabled', 'disabled');
+                    document.querySelector('.selected-components').appendChild(node);
+                    
                 }
-                document.querySelector('.c-loader--text').classList.remove('u-display--none');
-                document.querySelector('.selectedComponentsLoader').classList.remove('u-display--none');
                 
-                document.querySelector('.SelectedComponentsTitle')
-                    .innerHTML = 'Compiling CSS with following components:';
+                // Create SCSS and Build CSS
+                self.changeMarkupState('build', null);
                 self.fetchFormData(componentArray);
             }
             
-            document.querySelector('.c-button--generateCSS').blur();
-            document.querySelector('.c-button--generateCSS').innerHTML = 'Compiling CSS';
-            document.querySelector('.c-button--generateCSS').setAttribute('disabled', 'disabled');
+            // Change markup
+            self.changeMarkupState('postBuild', null);
         });
     };
     
     
     /**
      * FetchData - Send componentData to node
+     * Build SCSS & compile SCC
      * @param componentArray
      */
     fetchFormData(componentArray) {
         const self = this;
-        fetch("http://localhost:1337/compileSassComponent", {
+        
+        fetch("http://localhost:1337/compilesasscomponent", {
             method: "POST",
             mode: 'cors',
             body: JSON.stringify({
@@ -81,40 +104,57 @@ class initBuild {
                 return res.json();
             })
             .then(res => {
+                // Wait for 10 secs until stuff is done....
                 setTimeout(function () {
-                    document.querySelector('.onlineCompiledComponents')
-                        .classList.remove('u-display--none');
-                    document.querySelector('.selectedComponentsLoader').classList.add('u-display--none');
-                    document.querySelector('.c-loader--text').classList.add('u-display--none');
-                    document.querySelector('.c-button--generateCSS').innerHTML = 'Generate CSS';
-                    document.getElementById('compiledCSS').innerHTML = self.markupTemplate(window
-                        .location.hostname + res.cssFile);
-                    document.querySelector('.c-button--generateCSS').removeAttribute('disabled');
+                    const cssLink = res.cssFile;
+                    const cssUrl = 'https://' + window.location.hostname + cssLink;
+                    
+                    self.changeMarkupState('result', cssUrl);
+                    self.copyGenLinks();
+                    
                 }, 10000);
             })
     };
     
-    /**
-     * Markup template
-     * @param cssfile
-     * @returns {string}
-     */
-    markupTemplate(cssfile){
-        return  '<span class="token punctuation">&lt;</span><span class="token tag">link</span> ' +
-                '<span class="token attr-name">rel="</span>' +
-                '<span class="token attr-value">stylesheet</span><span class="token attr-name">"</span> ' +
-                '<span class="token attr-name">id="</span><span class="token attr-value">styleguide-css</span>' +
-                '<span class="token attr-name">"</span> <span class="token attr-name">type="</span>' +
-                '<span class="token attr-value">text/css</span><span class="token attr-name">"</span>' +
-                ' <span class="token attr-name">href="</span><span class="token attr-value">' +
-                '<a href="https://' + cssfile +'" target="_blank">https://'+cssfile+'</a>'+
-                '</span><span class="token attr-name">"</span>' +
-                ' <span class="token attr-name">type="</span><span class="token attr-value">text/css</span>' +
-                '<span class="token attr-name">"</span> <span class="token attr-name">media="</span>' +
-                '<span class="token attr-value">all</span><span class="token attr-name">"</span>' +
-                '<span class="token punctuation">&gt;</span>';
-    }
     
+    /**
+     * Change stuff in markup
+     * @param cssUrl
+     */
+    changeMarkupState(buildState, cssUrl) {
+        
+        switch (buildState) {
+            
+            case "prebuild":
+                document.querySelector('.selected-components').innerHTML = '';
+                document.querySelector('.Selected-components-title').innerHTML = '';
+                break;
+            
+            case "build":
+                document.querySelector('.c-loader--text').classList.remove('u-display--none');
+                document.querySelector('.selected-components-loader').classList.remove('u-display--none');
+                document.querySelector('.Selected-components-title')
+                    .innerHTML = 'Compiling CSS with following components:';
+                break;
+            
+            case "postBuild":
+                document.querySelector('.c-button--generate-css').blur();
+                document.querySelector('.c-button--generate-css').innerHTML = 'Compiling CSS';
+                document.querySelector('.c-button--generate-css')
+                    .setAttribute('disabled', 'disabled');
+                break;
+            
+            case "result":
+                document.querySelector('.online-compiled-components').classList.remove('u-display--none');
+                document.querySelector('.selected-components-loader').classList.add('u-display--none');
+                document.querySelector('.c-loader--text').classList.add('u-display--none');
+                document.querySelector('.c-button--generate-css').innerHTML = 'Generate CSS';
+                document.querySelector('.c-button--generate-css').removeAttribute('disabled');
+                document.getElementById('css-code-template').setAttribute('href', cssUrl);
+                document.getElementById('css-code-template').innerHTML = cssUrl;
+                break;
+        }
+    };
 }
 
 export default initBuild;

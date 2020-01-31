@@ -10,7 +10,7 @@ app.use(cors());
 /**
  * Fetching data - and send it to sass compilation
  */
-app.post('/compileSassComponent', function (req, res) {
+app.post('/compilesasscomponent', function (req, res) {
     
     const data = req.body.payload;
     const result = Object.keys(data).map(function(k) { return data[k] });

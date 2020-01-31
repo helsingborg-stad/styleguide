@@ -18,9 +18,8 @@
 @section('content')
 
     @markdown
-    #Setup
-    Getting started with an easy, minimal setup, load the precompiled all-in-one CSS and JS or compile your own component setup.
-
+        #Setup
+        Getting started with an easy, minimal setup, load the precompiled all-in-one CSS and JS or compile your own component setup.
     @endmarkdown
 
 
@@ -31,7 +30,8 @@
             ##Quick start
             Looking for a quick setup to add our Styleguide to your project? <br><br>
             You just have to make sure you link the files properly in your web page. <br>
-            Generally it is wise to import Stylesheet into the head and import javascript files at the end of the body to reduce page load time.
+            Generally it is wise to import Stylesheet into the head and import javascript files at the end of the body to
+            reduce page load time.
             Follow the example below on how to import the styleguide files into your web page/project.
 
             ##CSS - The look and feel
@@ -41,10 +41,10 @@
             'classList' => ['breaklines'],
             'language' => 'html',
             'content' => ''
-        ])
-        &lt;link rel="stylesheet" id="styleguide-css" type="text/css"
-        href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/css/styleguide-css.min.css"
-        type="text/css" media="all"&gt;
+            ])
+                &lt;link rel="stylesheet" id="styleguide-css" type="text/css"
+                href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/css/styleguide-css.min.css"
+                type="text/css" media="all"&gt;
         @endcode
 
         @markdown
@@ -58,18 +58,19 @@
             'classList' => ['breaklines'],
             'language' => 'html',
             'content' => ''])
-                &lt;script id="styleguide-js" type="text/javaScript"
-                href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/js/styleguide-js.min.js"
-                crossorigin="anonymous"&gt;&lt;script&gt;
+            &lt;script id="styleguide-js" type="text/javaScript"
+            href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/assets/dist/js/styleguide-js.min.js"
+            crossorigin="anonymous"&gt;&lt;script&gt;
         @endcode
 
 
         @markdown
-            ##Yeah! The easy and minimal setup is done!!!!
-        Now you just need to use the Component HTML that you find on the <a href="https://styleguide.local/component">component pages</a> or even better,
-            use our <a href="https://github.com/helsingborg-stad/blade-component-library">Component Library (Open source on GITHUB)</a> and our blade components to render HTML. Less markup programming, so you can
+            ##Great! The easy and minimal setup is done!!!!
+            Now you just need to use the Component HTML that you find on the <a href="https://styleguide.local/component">component
+                pages</a> or even better,
+            use our <a href="https://github.com/helsingborg-stad/blade-component-library">Component Library (Open source on
+                GITHUB)</a> and our blade components to render HTML. Less markup programming, so you can
             put more effort into doing other Cool things or just chill and have a nice cup of tea. More fun ;-).
-
         @endmarkdown
 
         @link([
@@ -83,37 +84,38 @@
             "element" => "h2",
         ])
 
-        If your not going to use all our components?
+            If your not going to use all our components?
         @endtypography
+
         @typography([
             "variant" => "h4",
             "element" => "h4",
         ])
-        Don't worry dude, we have a solution for you
+            Don't worry dude, we have a solution for you
         @endtypography
 
         @markdown
-            We compile components CSS you select on the fly....<br />
+            We compile components CSS you select on the fly....<br/>
             You can easily render a stylesheet just for the components you need.
             Select the components you want to use and press generate CSS. We compile a customized CSS version for your need.
 
         @endmarkdown
         @link([
             'href' => '/component'
-            ])
+        ])
             Read about atomic design. Why & how, it is a pretty simple concept....
         @endbutton
-        <br />
+        <br/>
         @typography([
-                "variant" => "h2",
-                "element" => "h2",
-            ])
+            "variant" => "h2",
+            "element" => "h2",
+        ])
             Select Components you need.
         @endtypography
         @typography([
             "variant" => "h4",
             "element" => "h4",
-            ])
+        ])
             We take care of all the dependency and serve you a compiled CSS file.
         @endtypography
         <div class="grid">
@@ -122,7 +124,7 @@
                     "variant" => "headline",
                     "element" => "h5"
                 ])
-                {{ucfirst($atomic)}}
+                    {{ucfirst($atomic)}}
                 @endtypography
 
                 @foreach($atomicValue as $keys => $values)
@@ -130,7 +132,7 @@
                         @option([
                             'type' => 'checkbox',
                             'attributeList' => [
-                                'name' => 'componentGroup'
+                            'name' => 'componentGroup'
                             ],
                             'value' => $values,
                             'label' => ucfirst($values),
@@ -141,30 +143,56 @@
                 @endforeach
             @endforeach
         </div>
-        <h3 class="SelectedComponentsTitle"></h3>
-        <div class="SelectedComponents"></div>
+        <h3 class="Selected-components-title"></h3>
+        <div class="selected-components"></div>
         @loader([
             'shape' => 'linear',
             'size' => 'md',
             'color' => 'primary',
-            'classList' => ['selectedComponentsLoader', 'u-display--none'],
+            'classList' => ['selected-components-loader', 'u-display--none'],
             'text' => 'Compiling...'
         ])
         @endloader
 
-        <div class="onlineCompiledComponents u-display--none">
-         <code class="language-html" id="compiledCSS">
-         </code>
+        <div class="online-compiled-components u-display--none">
+
+            @button([
+                'color' => 'secondary',
+                'size' => 'sm',
+                'text' => 'COPY',
+                'background' => 'default',
+                'classList' => ['c-button--copy-compiled-link']
+            ])
+            @endbutton
+
+            <div id="compiledCSS">
+                <span class="token punctuation">&lt;</span><span class="token tag">link</span>
+                <span
+                        class="token attr-name">rel="</span><span class="token attr-value">stylesheet</span><span
+                        class="token attr-name">"</span>
+                <span class="token attr-name">id="</span><span class="token attr-value">styleguide-css</span><span
+                        class="token attr-name">"</span> <span class="token attr-name">type="</span><span
+                        class="token attr-value">text/css</span><span class="token attr-name">"</span>
+                <br/>
+                <span class="token attr-name">href="</span><span class="token attr-value">
+                 <a id="css-code-template" target="_blank"></a>
+                 </span><span class="token attr-name">"</span>
+                <span class="token attr-name">type="</span><span class="token attr-value">text/css</span><span
+                        class="token attr-name">"</span><br/>
+                <span class="token attr-name">media="</span><span
+                        class="token attr-value">all</span><span class="token attr-name">"</span><span
+                        class="token punctuation">&gt;</span>
+            </div>
 
         </div>
         <div class="u-padding__top--3 u-padding__bottom--8">
             @button([
-                'color' => 'secondary',
+                'color' => 'primary',
                 'href' => '',
                 'size' => 'lg',
                 'text' => 'Generate CSS',
                 'background' => 'default',
-                'classList' => ['u-float--right', 'c-button--generateCSS']
+                'classList' => ['u-float--right', 'c-button--generate-css']
             ])
             @endbutton
         </div>
@@ -174,14 +202,3 @@
 
 
 @stop
-
-<script>
-    function copy(element) {
-        navigator.clipboard.writeText(element.innerText).then(function () {
-
-        }, function () {
-
-        });
-    }
-
-</script>

@@ -9,77 +9,47 @@
 }
 
 div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    text-decoration: none;
-    cursor: pointer;
-    line-height: 1;
-    font-weight: 500;
-    background-color: transparent;
-    letter-spacing: .1em;
-    border: none;
-    -webkit-box-shadow: 0 1px 2px rgba(98, 98, 98, .18), 0 0 2px rgba(98, 98, 98, .18);
-    box-shadow: 0 1px 2px rgba(98, 98, 98, .18), 0 0 2px rgba(98, 98, 98, .18);
-    padding: 1em;
-    border-radius: 12.5px;
-    font-size: .875em;
-    background-color: $color-secondary;
-    color: white;
 
-    &:hover {
-        background-color: $color-secondary-dimmed;
-        color: white;
-    }
+    @extend .c-button;
+    @extend .c-button__filled;
+    @extend .c-button__filled--secondary;
+    @extend .c-button--sm;
 
-    &:focus {
-        background-color: $color-primary-dimmed;
-        color: $color-secondary-dimmed;
-    }
 }
 
 .toolbar-item {
     position: absolute;
-    top: -55px;
+    top: -40px;
     right: -3px;
 }
 
-.selectedComponentsLoader {
+.selected-components-loader {
     position:absolute;
     top:3px;
 }
 
-.SelectedComponents {
+.selected-components {
+
     width:90%;
-    .componentList {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
-        text-decoration: none;
-        cursor: pointer;
-        line-height: 1;
-        font-weight: 500;
-        background-color: transparent;
-        letter-spacing: .1em;
-        border: none;
-        padding: 1em;
-        border-radius: 12.5px;
-        font-size: 12px;
-        background-color: $color-gray-detail;
-        color: white;
+
+    .component-list {
+
+        cursor: not-allowed;
         margin-right:10px;
         margin-bottom:10px;
         animation: componentListFadeIn 1s linear;
         animation-fill-mode: both;
     }
+
     @for $i from 1 through 10 {
-        .componentList:nth-child(#{$i}n) {
+        .component-list:nth-child(#{$i}n) {
             animation-delay: #{$i * 0.1}s;
         }
     }
 
 }
 @keyframes componentListFadeIn {
+
     0% {
         opacity: 0;
     }
@@ -99,13 +69,20 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
 
 
 .breaklines {
+
     code {
         word-break: break-all;
     }
 
 }
 
-.onlineCompiledComponents {
+.c-button--copy-compiled-link {
+    position: absolute;
+    top: -40px;
+    right: 0px;
+}
+
+.online-compiled-components {
 
     animation: componentListFadeIn 1s linear;
     animation-fill-mode: both;
@@ -114,6 +91,7 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
     #compiledCSS {
         display: block;
         word-break: break-all;
-
+        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        font-size: 1em;
     }
 }
