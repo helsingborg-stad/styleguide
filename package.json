@@ -69,6 +69,7 @@
         "glob": "^7.1.6",
         "jquery": "^3.4.1",
         "masonry-layout": "^4.2.2",
+
         "restify": "^8.5.1",
         "restify-router": "^0.5.1",
         "webpack-dev-server": "^3.9.0"
