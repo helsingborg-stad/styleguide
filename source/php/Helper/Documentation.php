@@ -63,7 +63,7 @@ class Documentation
         return $json;
     }
 
-    
+
     /**
      * @return array
      */
