@@ -95,7 +95,7 @@
         @endtypography
 
         @markdown
-        We compile components CSS you select on the fly....<br/>
+        We compile a component CSS for you on the fly....<br/>
         You can easily render a stylesheet just for the components you need.
         Select the components you want to use and press generate CSS. We compile a customized CSS version for your need.
 
