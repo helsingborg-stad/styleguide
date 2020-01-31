@@ -1,12 +1,23 @@
 <?php
 
+
 namespace HbgStyleGuide\Helper;
 use \HelsingborgStad\GlobalBladeEngine as Blade;
 
+/**
+ * Class Documentation
+ * @package HbgStyleGuide\Helper
+ */
 class Documentation
 {
+
+    /**
+     * @param $slug
+     * @return array
+     * @throws \Exception
+     */
     public static function getUsageExamples($slug)
-    {   
+    {
         $dir = BASEPATH . 'views/pages/component/usage/' . $slug;
         $examples = array();
 
@@ -18,7 +29,7 @@ class Documentation
                 foreach(array_keys($json) as $file)
                 {
                     $filePath = $file . '.blade.php';
-                    
+
                     if(file_exists($dir . '/' . $filePath)) {
                         $includePath = ('pages.component.usage.' . $slug . '.' . $file);
                         $html = Blade::instance()->make($includePath)->render();
@@ -39,10 +50,43 @@ class Documentation
         }
     }
 
+
+    /**
+     * @param $dir
+     * @param $slug
+     * @return mixed
+     */
     public static function getJson($dir, $slug)
     {
         $configContent = file_get_contents($dir . '/' . $slug . '.json');
         $json = json_decode($configContent, true);
         return $json;
     }
+
+
+    /**
+     * @return array
+     */
+    public static function getComponentDirectories()
+    {
+        $atomic = ['atoms', 'molecules', 'organisms'];
+        $results = [];
+        foreach ($atomic as $atomicDir) {
+
+            $dir = BASEPATH . '/views/pages/component/' . $atomicDir . '/';
+            $files = scandir($dir);
+            $results[$atomicDir] = [];
+            foreach ($files as $key => $value) {
+                if ($value !== "." &&
+                    $value !== ".." &&
+                    $value !== "" &&
+                    $value !== ".dc_store") {
+
+                    array_push($results[$atomicDir], str_replace('.blade.php', '', $value));
+                }
+            }
+        }
+        return array_filter($results);
+    }
+
 }

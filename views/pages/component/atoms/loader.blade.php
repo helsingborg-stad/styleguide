@@ -10,7 +10,7 @@
         @loader(['shape' => 'circular', 'size' => 'md'])
         @endloader
 
-        @loader(['shape' => 'linear'])
+        @loader(['shape' => 'linear', 'size' => 'sm', 'color' => 'primary'])
         @endloader
     @enddoc
 @stop
