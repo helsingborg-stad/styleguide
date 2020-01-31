@@ -12,8 +12,7 @@ import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
 import Slider from './slider'
-import EventCalendar from './calendar';
-import Tiles from './tile';
+import initBuild from "./initBuild";
 
 expandSection();
 
@@ -22,16 +21,12 @@ let ToggleInstance = new Toggle;
 let SplitButtonInstance = new SplitButton;
 let DropdownInstance = new Dropdown;
 let SliderInstance = new Slider;
-let EventCalendarInstance = new EventCalendar;
-let TilesInstance = new Tiles;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 SliderInstance.applySliders();
-EventCalendarInstance.initiateCalendar();
-TilesInstance.initTiles();
 
 let filter = new Filter;
 
@@ -49,3 +44,8 @@ let MenuInstance = new Menu;
 const FieldsInstance = new Fields;
 
 import './datepicker';
+
+// SCSS/CSS Compiler
+new initBuild();
+
+
