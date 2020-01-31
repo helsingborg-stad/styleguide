@@ -45,4 +45,30 @@ class Documentation
         $json = json_decode($configContent, true);
         return $json;
     }
+
+    /**
+     * @return array
+     */
+    public static function getComponentDirectories()
+    {
+        $atomic = ['atoms', 'molecules', 'organisms'];
+        $results = [];
+        foreach ($atomic as $atomicDir) {
+
+            $dir = BASEPATH . '/views/pages/component/' . $atomicDir . '/';
+            $files = scandir($dir);
+            $results[$atomicDir] = [];
+            foreach ($files as $key => $value) {
+                if ($value !== "." &&
+                    $value !== ".." &&
+                    $value !== "" &&
+                    $value !== ".dc_store") {
+
+                    array_push($results[$atomicDir], str_replace('.blade.php', '', $value));
+                }
+            }
+        }
+        return array_filter($results);
+    }
+
 }
