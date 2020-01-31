@@ -1,20 +1,39 @@
 @extends('layout.master')
 
 @section('hero')
-    @hero([
-        'complementaryImage' => '/assets/img/isometric.png',
-        'backgroundColor' => '#444e71',
-        'headline' => 'Helsingborg Stad', 
-        'byline' => 'Styleguide - Version 2.0', 
-        'gradientColor' => 'light',
-        'brandSymbol' => BASEPATH . '/assets/img/brand.svg'
+    @segment([
+        'template' => 'full',
+        'height' => 'md',
+        'parallax' => true,
+        'background_color' => '#E5E5E5',
+        'content_alignment' => [
+            'vertical' => 'center',
+            'horizontal' => 'center'
+        ],
+        'heading' => "Domesticas me nisi, noctis, comminiscebatur per eventu pede 2 sed nam felis.",
+        'body' => "Impedimenta dextre etiam 250 magnae cum, novembris e optio sem recordationem quasi communis.",
+        'cta' => [
+            [
+
+                'type' => 'filled',
+                'color' => 'primary',
+                'text' => 'Read More',
+                'size' => 'lg'
+            ],
+            [
+                'type' => 'filled',
+                'color' => 'primary',
+                'text' => 'Apply',
+                'size' => 'lg'
+            ]
+        ],
+        'classList' => [
+            'p-home__hero'
+        ]
+
     ])
 
-    @slot('content')
-        The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard. 
-    @endslot
-
-    @endhero
+    @endsegment
 @endsection
 
 
@@ -34,11 +53,11 @@
     ") !!}
 
     <div class="grid" data-equal-container>
-        <div class="grid-xs-12 grid-md-4">
+        <div class="grid-xs-12 grid-md-3">
             @card([
                 'href' => '/about/accessibility',
-                'image' => 'https://picsum.photos/300/225?image=919',
-                'title' => ['text' => 'Usability', 'position' => 'top'],
+                'image' => '/assets/img/component.svg',
+                'title' => ['text' => 'Components', 'position' => 'body'],
                 'byline' => ['text' => 'A web for everyone', 'position' => 'top'],
                 'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
@@ -48,11 +67,11 @@
             @endcard
         </div>
 
-        <div class="grid-xs-12 grid-md-4">
+        <div class="grid-xs-12 grid-md-3">
             @card([
                 'href' => '/about/styleguide-structure',
-                'image' => 'https://picsum.photos/300/225?image=743',
-                'title' => ['text' => 'Blade components', 'position' => 'top'],
+                'image' => '/assets/img/atom.svg',
+                'title' => ['text' => 'Atomic Design', 'position' => 'body'],
                 'byline' => ['text' => 'A wide variaty of components', 'position' => 'top'],
                 'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'This styleguide is in many parts crated with our own blade component library to enable swift development and maintaince.',
@@ -62,11 +81,24 @@
             @endcard
         </div>
 
-        <div class="grid-xs-12 grid-md-4">
+        <div class="grid-xs-12 grid-md-3">
             @card([
                 'href' => '/about/styleguide-structure',
-                'image' => 'https://picsum.photos/300/225?image=455',
-                'title' => ['text' => 'Authors', 'position' => 'top'],
+                'image' => '/assets/img/utility.svg',
+                'title' => ['text' => 'Utilities', 'position' => 'body'],
+                'byline' => ['text' => 'Behind the screen', 'position' => 'top'],
+                'classList' => ['c-card--shadow-on-hover'],
+                'content' => 'The styleguide and lirbraries where created by the awesome development team @ helsingborg stad.',
+                'hasRipple' => false
+            ])
+
+            @endcard
+        </div>
+        <div class="grid-xs-12 grid-md-3">
+            @card([
+                'href' => '/about/styleguide-structure',
+                'image' => '/assets/img/usability.svg',
+                'title' => ['text' => 'Usability', 'position' => 'body'],
                 'byline' => ['text' => 'Behind the screen', 'position' => 'top'],
                 'classList' => ['c-card--shadow-on-hover'],
                 'content' => 'The styleguide and lirbraries where created by the awesome development team @ helsingborg stad.',

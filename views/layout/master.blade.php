@@ -75,10 +75,10 @@
             </div>
         </div>
         <div class="grid">
-            <div class="grid-md-3">
+            {{-- <div class="grid-md-3">
                 @include('layout.navigation')
-            </div>
-            <div class="grid-md-9">
+            </div> --}}
+            <div class="grid-md-12">
                 <section>
                     <article class="article">
                         @yield('content')
