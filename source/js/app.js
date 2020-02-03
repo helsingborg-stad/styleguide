@@ -15,6 +15,8 @@ import Slider from './slider'
 import EventCalendar from './calendar';
 import Tiles from './tile';
 import initBuild from "./initBuild";
+
+
 expandSection();
 
 let SortInstance = new Sort;
@@ -49,6 +51,7 @@ let MenuInstance = new Menu;
 const FieldsInstance = new Fields;
 
 import './datepicker';
+
 // SCSS/CSS Compiler
 new initBuild();
 
