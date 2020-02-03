@@ -67,7 +67,6 @@
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "glob": "^7.1.6",
-        "handlebars": "^4.7.2",
         "jquery": "^3.4.1",
         "masonry-layout": "^4.2.2",
         "restify": "^8.5.1",
