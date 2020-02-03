@@ -9,13 +9,7 @@
     line-height: 1;
     font-weight: 500;
     background-color: transparent;
-    letter-spacing: 0.1em;
     border: none;
-    box-shadow: 0px 1px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
-
-    &:hover {
-        box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
-    }
 
     &__label {
         display: flex;
@@ -23,7 +17,7 @@
     }
 
     &--lg {
-        @include button-size(1em, 1em, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        @include button-size(11px, 20px, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
         font-size: $font-size-btn-lg;
     }
 
@@ -33,6 +27,7 @@
     }
 
     &--sm {
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
         font-size: $font-size-btn-sm;
@@ -63,22 +58,41 @@
     box-shadow: none;
 
     &--primary {
-        color: $color-primary;
+        color: $color-primary-dimmed;
+        &:hover{
+            background-color: $color-primary-alpha;
+        }
+        &:focus{
+            background-color:$color-primary-alpha-dimmed;
+        }
     }
 
     &--secondary {
-        color: $color-secondary;
+        color: $color-secondary-dimmed;
+        &:hover{
+            background-color: $color-secondary-alpha;
+        }
+        &:focus{
+            background-color:$color-secondary-alpha-dimmed;
+        }
     }
 
     &--default {
-        color: $color-default-dark;
+        color: #3D3D3D;
+        &:hover{
+            background-color: $color-default-alpha;
+        }
+        &:focus{
+            background-color:$color-default-alpha-dimmed;
+        }
     }
 }
 
 // Background and border
 
 .c-button__filled {
-
+    box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+   
     &--primary {
         background-color: $color-primary;
         color: $color-white;
@@ -90,7 +104,7 @@
 
     &--secondary {
         background-color: $color-secondary;
-        color: $color-white;
+        color: #3D3D3D;
 
         &:hover {
             background-color: $color-secondary-dimmed;
@@ -99,7 +113,7 @@
 
     &--default {
         background-color: $color-default;
-        color: $color-primary;
+        color: #3D3D3D;
 
         &:hover {
             background-color: $color-default-dimmed;
@@ -110,21 +124,40 @@
 // No background, only border
 
 .c-button__outlined {
-
     &--primary {
         border: 2px solid $color-primary;
         @extend .c-button__basic--primary;
+        color: #3D3D3D;
+        &:hover{
+            background-color: $color-primary-alpha;
+        }
+        &:focus{
+            background-color:$color-primary-alpha-dimmed;
+        }
     }
 
     &--secondary {
-        border: 2px solid $color-secondary;
+        border: 2px solid $color-secondary-dimmed;
         @extend .c-button__basic--secondary;
+        color: #3D3D3D;
+        &:hover{
+            background-color: $color-secondary-alpha;
+        }
+        &:focus{
+            background-color:$color-secondary-alpha-dimmed;
+        }
     }
 
     &--default {
-        border: 2px solid $color-default-dark;
-        color: $color-primary;
+        border: 2px solid #A3A3A3;
         @extend .c-button__basic--default;
+        color:#3D3D3D;
+        &:hover{
+            background-color: $color-default-alpha;
+        }
+        &:focus{
+            background-color:$color-default-alpha-dimmed;
+        }
     }
 }
 
@@ -175,7 +208,7 @@
     color: $color-info-text;
 
     &[aria-pressed="true"] {
-        color: $color-primary;
+        color: $color-primary-dimmed;
     }
 }
 

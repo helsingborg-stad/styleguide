@@ -1,10 +1,12 @@
-.loader {
+.c-loader {
+    &--text {
+        text-align: center;
+    }
     /* Loader circular  */
-
-    &.loader--circular {
+    &__circular {
 
         color: #000;
-        margin: 100px auto;
+        margin: 0px auto;
         border-radius: 50%;
         position: relative;
         text-indent: -9999em;
@@ -14,31 +16,43 @@
         -ms-transform: translateZ(0);
         transform: translateZ(0);
 
-        &.loader--xl {
+        &--color--primary {
+            color: $color-primary;
+        }
+
+        &--color--secondary {
+            color: $color-secondary;
+        }
+
+        &--color--white {
+            color: #fff;
+        }
+
+        &--xl {
             width: 20px;
             height: 20px;
             font-size: 20px;
         }
 
-        &.loader--lg {
+        &--lg {
             width: 15px;
             height: 15px;
             font-size: 15px;
         }
 
-        &.loader--md {
+        &--md {
             width: 10px;
             height: 10px;
             font-size: 10px;
         }
 
-        &.loader--sm {
+        &--sm {
             width: 5px;
             height: 5px;
             font-size: 5px;
         }
 
-        &.loader--xs {
+        &--xs {
             width: 2px;
             height: 2px;
             font-size: 2px;
@@ -231,9 +245,9 @@
 
     /* Loader linear */
 
-    &.loader--linear,
-    &.loader--linear:before,
-    &.loader--linear:after {
+    &__linear,
+    &__linear:before,
+    &__linear:after {
         border-radius: 50%;
         width: 2.5em;
         height: 2.5em;
@@ -244,10 +258,10 @@
 
     }
 
-    &.loader--linear {
+    &__linear {
         color: #000;
         font-size: 10px;
-        margin: 80px auto;
+        margin: 0px auto;
         position: relative;
         text-indent: -9999em;
         -webkit-transform: translateZ(0);
@@ -256,37 +270,49 @@
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
 
-        &.loader--lg {
+        &--color--primary {
+            color: $color-primary;
+        }
+
+        &--color--secondary {
+            color: $color-secondary;
+        }
+
+        &--color--white {
+            color: #fff;
+        }
+
+        &--lg {
             font-size: 14px;
         }
 
-        &.loader--md {
+        &--md {
             font-size: 10px;
         }
 
-        &.loader--sm {
+        &--sm {
             font-size: 6px;
         }
 
-        &.loader--xs {
+        &--xs {
             font-size: 3px;
         }
     }
 
-    &.loader--linear:before,
-    &.loader--linear:after {
+    &__linear:before,
+    &__linear:after {
         content: "";
         position: absolute;
         top: 0;
     }
 
-    &.loader--linear:before {
+    &__linear:before {
         left: -3.5em;
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
     }
 
-    &.loader:after {
+    &:after {
         left: 3.5em;
     }
     @-webkit-keyframes loader--linear-anim {

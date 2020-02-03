@@ -5,11 +5,13 @@
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "prebuild": "node build.js",
+        "build-imports": "webpack --config webpack.import.js",
+        "prebuild": "node build/build.js assets",
         "build": "webpack --config webpack.config.js",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
+        "express-server": "node build/expressServer.js",
         "phpcs-report": "php phpcs.phar source/library --standard=psr2",
         "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
     },
@@ -60,9 +62,20 @@
         "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
+        "body-parser": "^1.19.0",
+        "clientside-require": "^4.7.2",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
         "glob": "^7.1.6",
         "jquery": "^3.4.1",
+        "masonry-layout": "^4.2.2",
+
+        "restify": "^8.5.1",
+        "restify-router": "^0.5.1",
         "webpack-dev-server": "^3.9.0"
+    },
+    "browser": {
+        "child_process": false
     },
     "babel": {
         "presets": [
