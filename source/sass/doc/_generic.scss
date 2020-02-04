@@ -2,6 +2,17 @@
     border: 1px dashed $color-default-dimmed;
     align-self: center;
     margin:0 auto;
-    width:70%;
+    
+    &--sm{
+        width:10%;
+    }
+
+    &--md{
+        width:30%;
+    }
+
+    &--lg{
+        width:70%;
+    }
 
 }

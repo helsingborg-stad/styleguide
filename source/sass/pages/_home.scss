@@ -48,5 +48,24 @@
     font-weight: 900;
 }
 
+.p-home__intro-header{
+    font-weight: 900;
+    font-size: 48px;
+}
 
+
+.p-home__intro-subtitle__divider{
+    @extend .c-footer__link-divider;
+    display:inline-block;
+    height: $base;
+    width: $base;
+}
+
+.p-home__intro-subtitle__part{
+    display:inline-block;
+    font-size: 32px;
+    font-weight: 500;
+    color: #565656;
+    
+}
 

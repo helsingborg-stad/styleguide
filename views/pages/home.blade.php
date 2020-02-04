@@ -13,16 +13,36 @@
             'vertical' => 'center',
             'horizontal' => 'center'
         ],
-        'heading' => "Helsingborgs Stad",
         'classList' => [
             'p-home__hero'
         ]
 
     ])
         @slot('body')
-
-            <div class="p-home__intro-subtitle"></div>
-            <div class="c-footer__link-divider"></div>
+            @typography([
+                'element' => 'h1',
+                'variant' => 'h1',
+                'classList' => ['p-home__intro-header']
+            ])
+                Helsingborg Stad
+            @endtypography
+            <div class="p-home__intro-subtitle">
+                @typography([
+                    'element' => 'h2',
+                    'variant' => 'h2',
+                    'classList' => ['p-home__intro-subtitle__part']
+                ])
+                    Styleguide
+                @endtypography
+                <div class="p-home__intro-subtitle__divider"></div>
+                @typography([
+                    'element' => 'h2',
+                    'variant' => 'h2',
+                    'classList' => ['p-home__intro-subtitle__part']
+                ])
+                    Version 2.0
+                @endtypography
+            </div>
             @typography([
                 'element' => 'p',
                 'variant' => 'body'
