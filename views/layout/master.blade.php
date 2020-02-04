@@ -67,13 +67,7 @@
     </div>
     @endif
     <div class="container container--main">
-        <div class="grid" style="margin-bottom: 16px;">
-            <div class="grid-xs-12">
-                @notice(['type' => 'info']) 
-                    <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
-                @endnotice
-            </div>
-        </div>
+        
         <div class="grid">
             {{-- <div class="grid-md-3">
                 @include('layout.navigation')
@@ -87,21 +81,66 @@
             </div>
         </div>
     </div>
+    @yield('bottom_hero')
+    
 
     @footer()
-
         @slot('logotype')
-            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
+            <img id="logotype" src="/assets/img/logotype-grey.svg" alt="Helsingborg Stad">
         @endslot
         
-        @slot('menu')
-            @menu([
-                'id' => 'footer-menu', 
-                'items' => $topNavigation,
-                'isHorizontal' => true
+        @slot('about')
+            @typography([
+                "variant" => "h4",
+                "element" => "h4"
             ])
-            @endmenu
+                About
+            @endtypography
+            <div class="c-footer__links">
+                <a href="#">The styleguide</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Atomic design</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Usability</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Authors</a>
+            </div>
         @endslot
+
+        @slot('documentation')
+            @typography([
+                "variant" => "h4",
+                "element" => "h4"
+            ])
+                Documentation
+            @endtypography
+            <div class="c-footer__links">
+                <a href="#">Components</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Icons</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Mixins</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Scripts</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Utilities</a>
+            </div>
+        @endslot
+
+        @slot('links')
+            @typography([
+                "variant" => "h4",
+                "element" => "h4"
+            ])
+                Links
+            @endtypography
+            <div class="c-footer__links">
+                <a href="#">Github</a>
+                <div class="c-footer__link-divider"></div>
+                <a href="#">Helsingborg.se</a>
+            </div>
+        @endslot
+        
 
     @endfooter
 

@@ -1,54 +1,63 @@
 @extends('layout.master')
 
 @section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'headline' => 'Components', 
-        'byline' => 'Independent views', 
-        'textColor' => 'dark',
-    ])
+@segment([
+    'template' => 'full',
+    'height' => 'md',
+    'parallax' => true,
+    'background_color' => '#E5E5E5',
+    'text_alignment' => 'left',
+    'cta_align' => 'center',
+    'color' => 'secondary',
+    'content_alignment' => [
+        'vertical' => 'center',
+        'horizontal' => 'center'
+    ],
+    'heading' => "Helsingborgs Stad",
+    'classList' => [
+        'p-home__hero'
+    ]
 
-    @slot('content')
-        A component is a independent functional view. They can accept multiple attributes as an array and acts accordiongly without writing a single row of markup, if you don't want to. 
+])
+    @slot('body')
+
+        <div class="p-home__intro-subtitle"></div>
+        <div class="c-footer__link-divider"></div>
+        @typography([
+            'element' => 'p',
+            'variant' => 'body'
+        ])        
+            The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
+        @endtypography
     @endslot
-
-    @endhero
-@endsection
-
-@section('content')
-    @markdown
-        #Components
-        The component library is a collection of robust views with builtin logic to handle common scenarios. 
-
-        ##Why use components? 
-        The basic purpose of the component library is that they allows third party developer to manipulate data before it enters the view. 
-
-        This simple concept makes it a powerful tool to manipulate display of content without to touch a single line of html. And hey, if thay want to they can replace both controllers and views to make deep customizations.
-    @endmarkdown
-
-    @segment([
-        'template' => 'featured',
+@endsegment
+@segment([
+        'template' => 'full',
         'contain_content' => true,
-        'height' => 'md',
+        'height' => 'sm',
         'width' => 'lg',
         'padding' => 0,
-        'text_alignment' => 'center',
+        'text_alignment' => 'left',
         'content_alignment' => [
             'vertical' => 'center',
-            'horizontal' => 'right'
+            'horizontal' => 'center'
         ],
         'heading' => "Atomic design",
         'body' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
-            The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms."
+            The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
+            'classList' => ['p-home__hero']
     ])
     @endsegment
+@endsection
 
+@section('content')
     @segment([
-        'template' => 'split',
+        'template' => 'card',
         'contain_content' => true,
         'reverse_layout' => true,
-        'background_color' => 'white',
+        'background_color' => 'grey',
         'padding' => 0,
+        'width' => 'sm',
         'content_alignment' => [
             'vertical' => 'center',
             'horizontal' => 'left'
@@ -66,7 +75,7 @@
                 'size' => 'lg'
             ]
         ],
-        'classList' => ['u-margin__bottom--5']
+        'classList' => ['u-margin__bottom--5', 'p-components__segment']
     ])
 
     @endsegment
