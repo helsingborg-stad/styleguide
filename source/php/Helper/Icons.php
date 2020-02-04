@@ -13,7 +13,7 @@ class Icons
     }
 
     private static function getCateGories(){
-        $jsonString = file_get_contents(BASEPATH . "assets/dist/icons/icons.json"); 
+        $jsonString = file_get_contents(BASEPATH . "assets/data/icons.json"); 
         return json_decode($jsonString, true)['icons'];
         
         
