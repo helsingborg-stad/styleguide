@@ -2,11 +2,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
-const StylelintPlugin = require('stylelint-webpack-plugin');
-
-//const fs = require('fs');
-
+/**
+ * Compile css from dynamic scss files
+ * @type {{mode: string, output: {path: string, filename: string}, entry: {} & {[p: string]: *}, watch: boolean, plugins: [WebpackFixStyleOnlyEntriesPlugin, MiniCssExtractPlugin], module: {rules: [{test: RegExp, use: [{loader: string}, {loader: string}, {loader: string}, {loader: string, options: {sourceMap: boolean, implementation: *, name: string, modules: boolean}}]}]}, externals: {material: string}, watchOptions: {ignored: RegExp, poll: number}}}
+ */
 module.exports = {
+    
     // ...
     externals: {
         material: '@material'
@@ -15,12 +16,14 @@ module.exports = {
     /**
      * Entry files - Add more entries if needed.
      */
-    entry: {
-        'styleguide-js': glob.sync('./source/js/**/*.js'),
-        'styleguide-css': './source/sass/main.scss'
-    },
+    entry: glob.sync('./source/sass/imports/**/*.scss').
+    reduce((entries, entry) => Object.
+    assign(entries, {[entry.
+        replace('./source/sass/imports/', '').
+        replace('.scss', '')]: entry}), {}),
+    
     mode: 'development',
-    watch: true,
+    watch: false,
     watchOptions: {
         poll: 100,
         ignored: /node_modules/
@@ -36,20 +39,6 @@ module.exports = {
     
     module: {
         rules: [
-            
-            /**
-             * Babel
-             */
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            },
             
             /**
              * Compile sass to css
@@ -72,27 +61,12 @@ module.exports = {
                             sourceMap: true,
                             modules: true,
                             implementation: require("sass"),
-                            name: "css/[name].css"
+                            name: "css/compilations/[name].css"
                         }
                     }
                 ]
             },
             
-            
-            /**
-             * Fonts - File loader
-             */
-            {
-                test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {
-                            outputPath: 'fonts'
-                        }
-                    }
-                ]
-            }
         ]
     },
     
@@ -103,20 +77,12 @@ module.exports = {
         
         // Prevent Webpack to create javascript css
         new FixStyleOnlyEntriesPlugin(),
-        
         // Minify css and create css file
         new MiniCssExtractPlugin({
-            filename: 'css/[name].min.css',
-            chunkFilename: 'css/[name].min.css'
+            filename: 'css/compilations/[name].min.css',
+            chunkFilename: 'css/compilations/[name].min.css'
         }),
         
-        // Lint for scss
-        new StylelintPlugin({
-            context: "./source/sass",
-            configFile: "./.stylelintrc",
-            emitWarning: true,
-            defaultSeverity: "warning"
-        })
     ]
     // ...
 };

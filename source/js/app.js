@@ -16,6 +16,7 @@ import EventCalendar from './calendar';
 import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
+import initBuild from "./initBuild";
 
 expandSection();
 
@@ -56,3 +57,8 @@ let MenuInstance = new Menu;
 const FieldsInstance = new Fields;
 
 import './datepicker';
+
+// SCSS/CSS Compiler
+new initBuild();
+
+

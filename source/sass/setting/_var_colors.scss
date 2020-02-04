@@ -2,15 +2,22 @@
 // *** Colors
 // ***************************************************************
 
-$color-primary: #ae0b05 !default;
-$color-primary-dimmed: #760703 !default;
+$color-primary-dimmed: #ae0b05 !default;
+$color-primary-dark: #770000 !default;
+$color-primary: #e84c31;
+$color-primary-alpha: rgba(247, 166, 0, 0.08);
+$color-primary-alpha-dimmed: rgba(232, 76, 49, 0.24);
 
-$color-secondary: #ec6701 !default;
-$color-secondary-dimmed: #ba5100 !default;
+$color-secondary-dimmed: #f7a600 !default;
+$color-secondary: #ffd649 !default;
+$color-secondary-alpha: rgba(247, 166, 0, 0.08);
+$color-secondary-alpha-dimmed: rgba(247, 166, 0, 0.24);
 
-$color-default: #f8f8f8 !default;
-$color-default-dimmed: #eeeeee !default;
-$color-default-dark: #595959 !default;
+$color-default: #F5F5F5 !default;
+$color-default-dimmed: #eee !default;
+$color-default-dark: #dadada !default;
+$color-default-alpha: rgba(112, 112, 112, 0.08);
+$color-default-alpha-dimmed: rgba(112, 112, 112, 0.24);
 
 $color-disabled: #f5f5f5 !default;
 $color-disabled-text: #707070;
