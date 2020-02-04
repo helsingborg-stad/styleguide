@@ -13,16 +13,19 @@
         'vertical' => 'center',
         'horizontal' => 'center'
     ],
-    'heading' => "Helsingborgs Stad",
     'classList' => [
         'p-home__hero'
     ]
 
 ])
     @slot('body')
-
-        <div class="p-home__intro-subtitle"></div>
-        <div class="c-footer__link-divider"></div>
+        @typography([
+            'element' => 'h1',
+            'variant' => 'h1',
+            'classList' => ['p-home__intro-header']
+        ])
+            Components
+        @endtypography
         @typography([
             'element' => 'p',
             'variant' => 'body'
@@ -51,86 +54,111 @@
 @endsection
 
 @section('content')
-    @segment([
-        'template' => 'card',
-        'contain_content' => true,
-        'reverse_layout' => true,
-        'background_color' => 'grey',
-        'padding' => 0,
-        'width' => 'sm',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'left'
-        ],
-        'heading' => "Atoms",
-        'body' => "Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.",
-        'image' => "https://images.unsplash.com/photo-1531956656798-56686eeef3d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=956&q=80",
-        'cta' => [
-            [
-                'href' => 'component/atoms',
-                'text' => 'See our atoms',
-                'isOutlined' => true,
-                'type' => 'filled',
-                'color' => 'primary',
-                'size' => 'lg'
-            ]
-        ],
-        'classList' => ['u-margin__bottom--5', 'p-components__segment']
-    ])
+    <div class="p-component__atomic">
+        <div class="p-component__atomic__image">
+            @image([
+            'src'=> '/assets/img/atom.svg',
+            'alt' => 'atom'
+            ])
+            @endimage
+        </div>
+        <div class="p-component__atomic__body">
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Atoms
+            @endtypography
 
-    @endsegment
+            @typography([
+                    'variant' => "p",
+                    'element' => "p",
+                    'classList' => ['c-card__text']
+                ])
+            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
+            @endtypography
 
-    @segment([
-        'template' => 'split',
-        'contain_content' => true,
-        'background_color' => 'white',
-        'padding' => 0,
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'left'
-        ],
-        'heading' => "Molecules",
-        'body' => "Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.",
-        'image' => "https://images.unsplash.com/photo-1557511560-d07d5f64fd59?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-        'cta' => [
-            [
-                'href' => 'component/atoms',
-                'text' => 'See our molecules',
-                'isOutlined' => true,
-                'type' => 'filled',
-                'color' => 'primary',
-                'size' => 'lg'
-            ]
-        ],
-        'classList' => ['u-margin__bottom--5']
-    ])
+            <p>
+                @button([
+                    'type' => 'outlined',
+                    'text' => 'Go to',
+                    'color' => 'primary'
+                ])
+                @endbutton
+            </p>
+            
+        </div>
+    </div>
 
-    @endsegment
+    <div class="p-component__atomic">
+        <div class="p-component__atomic__body">
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Atoms
+            @endtypography
 
-    @segment([
-        'template' => 'split',
-        'contain_content' => true,
-        'reverse_layout' => true,
-        'background_color' => 'white',
-        'padding' => 0,
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'left'
-        ],
-        'heading' => "Organisms",
-        'body' => "Organisms are the final level of our Atomic Design System. These components mostly acts as containers for Atoms and Molecules.",
-        'image' => "https://images.unsplash.com/photo-1535127022272-dbe7ee35cf33?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-        'cta' => [
-            [
-                'href' => 'component/atoms',
-                'text' => 'See our organisms',
-                'type' => 'filled',
-                'color' => 'primary',
-                'size' => 'lg'
-            ]
-        ],
-        'classList' => ['u-margin__bottom--5']
-    ])
+            @typography([
+                    'variant' => "p",
+                    'element' => "p",
+                    'classList' => ['c-card__text']
+                ])
+            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
+            @endtypography
 
-    @endsegment
+            <p>
+                @button([
+                    'type' => 'outlined',
+                    'text' => 'Go to',
+                    'color' => 'primary'
+                ])
+                @endbutton
+            </p>
+            
+        </div>
+        <div class="p-component__atomic__image">
+            @image([
+            'src'=> '/assets/img/molecule.svg',
+            'alt' => 'atom'
+            ])
+            @endimage
+        </div>
+    </div>
+
+    <div class="p-component__atomic">
+        <div class="p-component__atomic__image">
+            @image([
+            'src'=> '/assets/img/organisms.svg',
+            'alt' => 'atom'
+            ])
+            @endimage
+        </div>
+        <div class="p-component__atomic__body">
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Molecules
+            @endtypography
+
+            @typography([
+                    'variant' => "p",
+                    'element' => "p",
+                    'classList' => ['c-card__text']
+                ])
+            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
+            @endtypography
+
+            <p>
+                @button([
+                    'type' => 'outlined',
+                    'text' => 'Go to',
+                    'color' => 'primary'
+                ])
+                @endbutton
+            </p>
+            
+        </div>
+    </div>
 @stop
