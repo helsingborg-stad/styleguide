@@ -9,26 +9,29 @@
 }
 
 .c-notification__container{
-
-    &--bottom-left{
-        bottom: map-get($spacers, "2");
-        left: map-get($spacers, "2");
+    &--bottom{
+        &-left{
+            bottom: map-get($spacers, "2");
+            left: map-get($spacers, "2");
+        }
+        &-right{
+            bottom: map-get($spacers, "2");
+            right: map-get($spacers, "2");
+        }   
     }
 
-    &--bottom-right{
-        bottom: map-get($spacers, "2");
-        right: map-get($spacers, "2");
+    &--top{
+        &-left{
+            top: map-get($spacers, "2");
+            left: map-get($spacers, "2");
+        }
+
+        &-right{
+            top: map-get($spacers, "2");
+            right: map-get($spacers, "2");
+        }
     }
 
-    &--top-left{
-        top: map-get($spacers, "2");
-        left: map-get($spacers, "2");
-    }
-
-    &--top-right{
-        top: map-get($spacers, "2");
-        right: map-get($spacers, "2");
-    }
     z-index: $level-10;
     position: fixed;
     display:flex;
@@ -38,24 +41,28 @@
 }
 
 .c-notification__spawn{
-        &--bottom-left{
-            bottom: map-get($spacers, "2");
-            @include slide(left);
-        }
-        
-        &--bottom-right{
-            bottom: map-get($spacers, "2");
-            @include slide(right);
+        &--bottom{
+            &-left{
+                bottom: map-get($spacers, "2");
+                @include slide(left);
+            }
+
+            &-right{
+                bottom: map-get($spacers, "2");
+                @include slide(right);
+            }
         }
 
-        &--top-left{
-            top: map-get($spacers, "2");
-            @include slide(left);
-        }
+        &--top{
+            &-left{
+                top: map-get($spacers, "2");
+                @include slide(left);        
+            }
 
-        &--top-right{
-            top: map-get($spacers, "2");
-            @include slide(right);
+            &-right{
+                top: map-get($spacers, "2");
+                @include slide(right);
+            }
         }
 }
 

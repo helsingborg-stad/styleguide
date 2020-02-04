@@ -35,7 +35,7 @@ DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 SliderInstance.applySliders();
 EventCalendarInstance.initiateCalendar();
-//TilesInstance.initTiles();
+TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
 
