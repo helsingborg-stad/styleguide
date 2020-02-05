@@ -65,8 +65,7 @@ class initBuild {
                 let textNode = document.createTextNode(componentArray[i]);
                 
                 node.appendChild(textNode);
-                node.classList.add('component-list', 'c-button', 'c-button__basic',
-                    'c-button__basic--default', 'c-button--md');
+                node.classList.add('component-list', 'c-tags', 'c-tag--default');
                 node.setAttribute('disabled', 'disabled');
                 document.querySelector('.selected-components').appendChild(node);
                 

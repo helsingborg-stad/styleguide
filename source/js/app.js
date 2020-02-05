@@ -17,7 +17,6 @@ import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import initBuild from "./initBuild";
-
 expandSection();
 
 let SortInstance = new Sort;
