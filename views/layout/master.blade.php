@@ -32,6 +32,7 @@
 </head>
 <body class="no-js">
 
+{{-- 
     @header()
         @slot('logotype')
             @logotype([
@@ -51,7 +52,18 @@
             ])
             @endmenu
         @endslot
-    @endheader
+    @endheader --}}
+    @navbar([
+        'logo' => '/assets/img/logotype.svg',
+        'logoPosition' => 'left',
+        'linksPosition' => 'right',
+        'topAccent' => 'primary',
+        'activeAccent' => 'primary',
+        'items' => $topNavigation,
+        'sidebar' => true
+    ])
+
+    @endnavbar
 
     @yield('hero')
 
@@ -66,26 +78,18 @@
         </div>
     </div>
     @endif
+
+    @include('layout.navigation')
+    
     <div class="container container--main">
-        <div class="grid" style="margin-bottom: 16px;">
-            <div class="grid-xs-12">
-                @notice(['type' => 'info']) 
-                    <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
-                @endnotice
-            </div>
-        </div>
-        <div class="grid">
-            <div class="grid-md-3">
-                @include('layout.navigation')
-            </div>
-            <div class="grid-md-9">
-                <section>
-                    <article class="article">
-                        @yield('content')
-                    </article>
-                </section>
-            </div>
-        </div>
+        @notice(['type' => 'info', 'classList'=>['u-margin__bottom--2']]) 
+            <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
+        @endnotice
+        <section>
+            <article class="article">
+                @yield('content')
+            </article>
+        </section>
     </div>
 
     @footer()

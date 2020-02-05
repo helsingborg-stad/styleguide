@@ -1,10 +1,31 @@
 .c-navbar {
+    height: 132px;
+    border-top: 8px solid $color-nav-top-accent;
     display: flex;
+    justify-content: space-between;
+    position: absolute;
     width: 100%;
     align-items: center;
     background-color: #ffffff;
     color: #000000;
+    z-index: $level-6;
+    
     @include shadow(1);
+
+    &__logo {
+        max-height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .c-image {
+            width: unset;
+        }
+
+        img {
+            height: 55px;
+        }
+    }
 
     &__item {
 
@@ -23,88 +44,19 @@
         text-decoration: none;
         text-transform: capitalize;
     }
-
-    &__top__accent {
-
-        &--primary {
-            border-top: 8px solid $color-primary;
-        }
-
-        &--secondary {
-            border-top: 8px solid $color-secondary;
-        }
-
-        &--success {
-            border-top: 8px solid $color-success;
-        }
-
-        &--danger {
-            border-top: 8px solid $color-danger;
-        }
-
-        &--info {
-            border-top: 8px solid $color-info;
-        }
-
-        &--warning {
-            border-top: 8px solid $color-info;
-        }
-    }
-
-    &__active__accent {
-
-        &--primary {
-
-            .c-navbar__item:after {
-                background-color: $color-primary;
-            }
-        }
-
-        &--secondary {
-
-            .c-navbar__item:after {
-                background-color: $color-secondary;
-            }
-        }
-
-        &--success {
-
-            .c-navbar__item:after {
-                background-color: $color-success;
-            }
-        }
-
-        &--danger {
-
-            .c-navbar__item:after {
-                background-color: $color-danger;
-            }
-        }
-
-        &--info {
-
-            .c-navbar__item:after {
-                background-color: $color-info;
-            }
-        }
-
-        &--warning {
-
-            .c-navbar__item:after {
-                background-color: $color-warning;
-            }
-        }
-    }
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
 
     .c-navbar {
         flex-wrap: wrap;
+        min-height: 108px;
+        min-width: 108px;
+        justify-content: space-evenly;
 
         &__logo {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             order: 1;
             flex:1;
             padding: map-get($spacers, "2");
@@ -114,15 +66,20 @@
             }
 
             img {
-                max-height: 44px;
-                height: 44px;
+                max-height: 55px;
+                height: 55px;
                 width: auto;
+                order: 2;
             }
         }
 
         &__toggle {
             height: auto;
             width: initial;
+            position: absolute;
+            left: $base * 3;
+            order: 1;
+            cursor: pointer;
 
             .c-button {
                 transition: all 0.3s ease-in-out;
@@ -134,77 +91,11 @@
         }
 
         &__list {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            background: $color-gray-lighter;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease-in-out;
-
-            &--expanded {
-                max-height: 100vh;
-                transition: max-height 0.5s ease-in-out;
-            }
-
-            &:nth-of-type(2) {
-                order: 3;
-            }
-
-            &:nth-of-type(3) {
-                order: 4;
-            }
-        }
-
-        &__item {
-            width: 100%;
-            //height: inherit;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            background: $color-gray-lighter;
-
-            span {
-                color: $color-primary;
-                order: 1;
-                flex: 1;
-                padding: #{map-get($spacers, "1")};
-
-                &:active, &:visited, &:hover, &:visited:hover {
-                    color: $color-primary;
-                }
-            }
-        }
-
-        &__subtoggle {
-            order: 2;
-            padding: #{map-get($spacers, "1")};
-        }
-
-        &__subcontainer {
-            width: 100%;
-            order: 3;
-            background: $color-gray-lighter;
-        }
-
-        &__subitem {
-            background: $color-gray-lighter;
-            max-height: 0;
-            overflow: hidden;
-            width: 100%;
-            order: 3;
-            transition: max-height 0.7s ease-in-out;
-
-            &--expanded {
-                max-height: 100vh;
-                border-left: 7px solid $color-primary;
-                transition: max-height 0.7s ease-in-out;
-            }
+            display: none;
         }
     }
 }
 
-//logo right items left
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-navbar {
@@ -267,158 +158,20 @@
                 content: "";
                 width: 24px;
                 height: 2px;
-                background-color: $color-primary;
+                background-color: $color-nav-active-accent;
                 transform: scaleX(0);
                 transition: transform 250ms ease-in-out;
             }
 
             &:hover,
-            &:active {
+            &:active,
+            &[item-active="true"] {
 
                 &:after {
                     transform: scaleX(1);
                 }
             }
 
-        }
-
-        &__subcontainer {
-            position: absolute;
-        }
-
-        &__subitem {
-            display: none;
-            background-color: white;
-            position: absolute;
-            border: 1px solid grey;
-            left: 100%;
-            top: 0;
-            z-index: $level-7;
-            padding: #{map-get($spacers, "1")};
-
-            .c-navbar__item>span {
-                color: black;
-
-                &:active, &:visited, &:hover, &:visited:hover {
-                    color: black;
-                }
-            }
-        }
-    }
-
-    //logo center
-
-    .c-navbar--logo__center {
-        justify-content: center;
-
-        .c-navbar__logo {
-            order: 2;
-            margin-right: 0;
-        }
-
-        .c-navbar__list {
-            flex: 1;
-
-            &:nth-of-type(2) {
-                order: 1;
-                justify-content: flex-end;
-            }
-
-            &:nth-of-type(3) {
-                order: 3;
-                justify-content: flex-start;
-            }
-        }
-    }
-
-    //logo top
-
-    .c-navbar--logo__top {
-        height: auto;
-        flex-wrap: wrap;
-        padding: map-get($spacers, "3");
-
-        .c-navbar__logo {
-            order: 1;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: map-get($spacers, "2");
-            margin-right: 0;
-
-            img {
-                margin: 0 auto;
-            }
-        }
-
-        .c-navbar__list {
-
-            &:nth-of-type(2) {
-                order: 2;
-                flex: 1;
-                justify-content: flex-end;
-            }
-
-            &:nth-of-type(3) {
-                order: 3;
-                flex: 1;
-                justify-content: flex-start;
-            }
-        }
-    }
-
-    //logo right
-
-    .c-navbar--logo__right {
-        justify-content: flex-end;
-
-        .c-navbar__logo {
-            order: 3;
-            margin-left: map-get($spacers, "10");
-            margin-right: 0;
-        }
-
-        .c-navbar__list {
-
-            &:nth-of-type(2) {
-                order: 1;
-            }
-
-            &:nth-of-type(3) {
-                order: 2;
-            }
-        }
-    }
-
-    //logo left items right
-
-    .c-navbar--logo__left__items__right {
-
-        .c-navbar__logo {
-            margin-right: auto;
-        }
-    }
-
-    //logo right items left
-
-    .c-navbar--logo__right__items__left {
-        justify-content: flex-end;
-
-        .c-navbar__logo {
-            order: 3;
-            margin-left: auto;
-            margin-right: 0;
-        }
-
-        .c-navbar__list {
-
-            &:nth-of-type(2) {
-                order: 1;
-            }
-
-            &:nth-of-type(3) {
-                order: 2;
-            }
         }
     }
 }

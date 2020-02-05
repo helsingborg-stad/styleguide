@@ -12,7 +12,16 @@
     }
 
     &--main {
+        max-width: $container-width-wide;
         min-height: calc(90vh - 140px);
-        padding: 70px 0;
     }
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+    .container {
+        &--main {
+            padding-left: 300px;
+            padding-top: 140px;
+        }
+    }    
 }

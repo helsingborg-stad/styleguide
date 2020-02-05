@@ -1,29 +1,21 @@
 @navbar([
     'logo' => '/assets/img/logotype.svg',
-    'topAccent' => 'primary',
-    'activeAccent' => 'primary',
     'items' => [
-        [
-            'id' => '123',
-            'name' => 'Level 1 1',
-            'href' => '#',
-            'list' => true
+        "about" => [
+            "label" => "About",
+            "href" => "//localhost:8888/about",
+            "icon" => "people"
         ],
-        [
-            'id' => '79699676',
-            'name' => 'Level 2 1',
-            'href' => '#'
+        "stuff" => [
+            "label" => "Stuff",
+            "href" => "//localhost:8888/about",
+            "icon" => "people"
         ],
-        [
-            'id' => '959656454',
-            'name' => 'Level 3 1',
-            'href' => '#'
-        ],
-        [
-            'id' => '46346346346123',
-            'name' => 'Level 4 1',
-            'href' => '#'
-        ],
+        "more" => [
+            "label" => "More",
+            "href" => "//localhost:8888/about",
+            "icon" => "people"
+        ]
     ]
 ])
 

@@ -1,0 +1,193 @@
+$baseClass: '.c-sidebar';
+#{$baseClass} {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-nav-background;
+    width: 288px;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    left: 0;
+    z-index: $level-5;
+    transition: left 0.5s ease-in-out;
+
+    &__logo {
+        min-height: 140px;
+        max-height: 140px;
+        padding: map-get($spacers, "6") map-get($spacers, "5") map-get($spacers, "5");
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 55px;
+        }
+    }
+
+    &__hide {
+        display: flex;
+        width: fit-content;
+        min-height: 44px;
+        line-height: 44px;
+        align-items: center;
+        font-size: $font-size-btn;
+        color: $color-nav-item-text;
+        padding: map-get($spacers, "2") map-get($spacers, "6");
+        cursor: pointer;
+        opacity: 1;
+
+        .c-icon {
+            margin-right: 16px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        &:hover {
+            color: $color-nav-item-text;
+            .c-icon {
+                margin-left: 3px;
+                margin-right: 13px;
+            }
+        }
+    }
+
+    &__item {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: map-get($spacers, "2") map-get($spacers, "6");
+        
+    }
+
+    &__link {
+        position: relative;
+        min-height: 44px;
+        line-height: 44px;
+        font-weight: 900;
+        flex: 1;
+        flex-grow: 1;
+        color: $color-nav-item-text;
+        transition: all 250ms ease-in-out;
+
+        &:after {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            content: "";
+            width: 24px;
+            height: 2px;
+            background-color: $color-nav-active-accent;
+            transform: scaleX(0);
+            transition: transform 250ms ease-in-out;
+        }
+
+        &:hover,
+        &:active,
+        &[item-active="true"] {
+            color: $color-black;
+
+            &:after {
+                color: $color-black;
+                transform: scaleX(1);
+            }
+        }
+    }
+
+    &__link:visited,
+    &__link:hover:visited {
+        color: $color-nav-item-text;
+        text-decoration-style: unset;
+        text-decoration: none;
+        text-transform: capitalize;
+    }
+
+    &__toggle {
+        position: relative;
+        min-width: 44px;
+        min-height: 44px;
+        cursor: pointer;
+
+        &:hover {
+            .bar {
+                background-color: $color-black;
+            }
+        }
+
+        &[aria-pressed="true"] {
+            .bar:nth-of-type(2) {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+
+        .bar {
+            width: 14px;
+            height: 2px;
+            background-color: $color-nav-item-text;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease-in-out;
+            &:nth-of-type(2){
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+    }
+
+    &__subcontainer {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+
+        &#{$baseClass}__item--is-expanded {
+            max-height: 100%;
+        }
+
+        #{$baseClass}__item {
+            padding-left: map-get($spacers, "2");
+            padding-right: 0;
+        }
+
+        #{$baseClass}__link{
+            font-weight: 400;
+        }
+    }
+
+    a, a:visited {
+        text-decoration-style: unset;
+        text-decoration: none;
+    }
+}
+
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+    #{$baseClass} {
+        position: fixed;
+        z-index: $level-8;
+    }
+    #{$baseClass}__logo {
+        min-height: 100px;
+        max-height: 100px;
+        margin-top: 8px;
+    }
+
+    #{$baseClass}--collapsed {
+        left: -288px;
+    }
+
+    .c-sidebar__backdrop {
+        background-color: $color-base-disabled;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: $level-8 - 1;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s linear;
+    }
+    
+    .c-sidebar:not(.c-sidebar--collapsed) + .c-sidebar__backdrop {
+        visibility: visible;
+        opacity: 1;
+    }
+}
