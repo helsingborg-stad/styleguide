@@ -9,7 +9,7 @@ class App
 
     public function __construct()
     {
-        $this->page = isset($_GET['p']) ? $_GET['p'] : $this->default;
+        $this->page = ($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $this->default;
         $this->loadPage();
     }
 
