@@ -12,16 +12,42 @@ class Icons
         return false;
     }
 
-    public static function getTxt()
+    private static function getCateGories(){
+        $jsonString = file_get_contents(BASEPATH . "assets/data/icons.json"); 
+        return json_decode($jsonString, true)['icons'];
+        
+        
+    }
+
+    public static function getIcons(){
+        $categories = self::getCateGories();
+        $names = self::getNames();
+        $icons = [];
+        
+        foreach($names as $key => $name){
+            foreach($categories as $key => $icon){
+                if($icon['name'] == $name){
+                    $icons[ucfirst($icon['categories'][0])][] = $icon['name'];
+                }
+            }
+            
+        }
+        return $icons;
+    }
+
+    private static function getNames()
     {
         $lines = file(BASEPATH . 'node_modules/material-design-icons/iconfont/codepoints');
-        $iconNames = array();
+        $icons = array();
+        $categories = self::getCateGories();
         foreach($lines as $key => $line)
         {
             
             $name = explode(" ", $line);
-            $iconNames[] = $name[0];
+            $icons[] = $name[0];
         }
-        return $iconNames;
+        return $icons;
     }
+
+   
 }
