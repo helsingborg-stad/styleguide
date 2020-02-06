@@ -1,7 +1,26 @@
-.c-card, .c-paper{
-    border-radius: 12.5px;
-    text-align: center;
+.p-home__cards{
+    & .c-card{
+        border-radius: 12.5px;
+        text-align: center;
+        flex-grow: 1;
+    
+    }
+
+    & .c-card__image-link{
+        background-color:#F8F8F8;
+    }
+
+    & .c-card__image-link > figure > img{
+
+
+        margin: 0 auto;
+        padding:30%;
+        padding: 15% 30%;
+    }
 }
+
+
+
 
 .p-home__hero.c-segment--overlay-dark:before{
     background: $color-default;
@@ -12,28 +31,14 @@
     text-shadow: none;
 }
 
-.c-card__image-link{
-    background-color:#F8F8F8;
-}
+
 
 .c-segment__article{
     text-align: center;
 }
 
-.c-card__image-link > figure > img{
-
-
-    margin: 0 auto;
-    padding:30%;
-    padding: 15% 30%;
-}
-
-.grid.p-home__cards{
+.grid.p-home__cards .grid-md-3{
     display: flex;
-}
-
-.c-card__paper{
-    flex: 1;
 }
 
 .p-home__getting-started{

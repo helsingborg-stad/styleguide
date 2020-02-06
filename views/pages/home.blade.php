@@ -1,5 +1,4 @@
 @extends('layout.master')
-
 @section('hero')
     @segment([
         'template' => 'full',
@@ -199,51 +198,32 @@
 
     ])
         @slot('body')
+            @foreach ($updates as $update)
             <div class="p-home__update">
-            @typography([
-                'element' => 'p',
-                'variant' => 'meta'
-            ])
-            February 3, 2020
-            @endtypography
+                @typography([
+                    'element' => 'p',
+                    'variant' => 'meta'
+                ])
+                {{$update['date']}}
+                @endtypography
+    
+                @typography([
+                    'element' => 'h3',
+                    'variant' => 'h3'
+                ])
+                Updates will be showing here
+                @endtypography
+    
+                @typography([
+                    'element' => 'p',
+                    'variant' => 'body'
+                ])
+                    {{$update['message']}}
+                @endtypography
+                </div>
+            @endforeach
+            
 
-            @typography([
-                'element' => 'h3',
-                'variant' => 'h3'
-            ])
-            Updates will be showing here
-            @endtypography
-
-            @typography([
-                'element' => 'p',
-                'variant' => 'body'
-            ])
-            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.            @endtypography
-
-            </div>
-
-            <div class="p-home__update">
-            @typography([
-                'element' => 'p',
-                'variant' => 'meta'
-            ])
-            February 3, 2020
-            @endtypography
-
-            @typography([
-                'element' => 'h3',
-                'variant' => 'h3'
-            ])
-            Updates will be showing here
-            @endtypography
-
-            @typography([
-                'element' => 'p',
-                'variant' => 'body'
-            ])
-            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.            
-            @endtypography
-            </div>
             
         @endslot
     @endsegment

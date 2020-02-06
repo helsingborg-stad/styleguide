@@ -32,8 +32,10 @@
         ])        
             The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
         @endtypography
+        <div class="g-divider--lg"></div>
     @endslot
 @endsegment
+
 @segment([
         'template' => 'full',
         'contain_content' => true,
@@ -47,8 +49,8 @@
         ],
         'heading' => "Atomic design",
         'body' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
-            The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
-            'classList' => ['p-home__hero']
+        The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
+        'classList' => ['p-home__hero']
     ])
     @endsegment
 @endsection

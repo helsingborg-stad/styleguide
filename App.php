@@ -22,7 +22,9 @@ class App
         // Navigation
         $data['topNavigation']                  = Navigation::items('pages/', [], false);
         $data['sideNavigation']                 = Navigation::items('pages/');
-
+        if($this->page == 'home'){
+            $data['updates'] = \HbgStyleGuide\Updates::getUpdates();
+        }
         //Current page 
         $data['pageNow']                        = $this->page;
 

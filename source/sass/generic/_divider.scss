@@ -1,18 +1,18 @@
-.d-divider{
+.g-divider{
     border: 1px dashed $color-default-dimmed;
     align-self: center;
     margin:0 auto;
     
     &--sm{
-        width:10%;
-    }
-
-    &--md{
         width:30%;
     }
 
+    &--md{
+        width:50%;
+    }
+
     &--lg{
-        width:70%;
+        width:500px;
     }
 
 }
