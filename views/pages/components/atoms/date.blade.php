@@ -1,13 +1,11 @@
 @extends('layout.containers.doc')
 
 @section('doc-content')
-
-<article>
-
     @markdown
-        #Utilities
-        List of css utilities. 
+        #Date      
     @endmarkdown
 
-</article>
+
+    @doc(['slug' => 'date'])
+    @enddoc
 @stop

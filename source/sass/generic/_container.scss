@@ -11,8 +11,28 @@
         max-width: initial;
     }
 
-    &--main {
+    &--home {
         min-height: calc(90vh - 140px);
-        padding: 70px 0;
+        padding-left: $base * 17; 
+        padding-right: $base * 17;
+        padding-top: 140px;
+    }
+
+    &--doc {
+        margin-left: 288px;
+        min-height: calc(90vh - 140px);
+        padding: 140px;
+    }
+}
+
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+    .container {
+        &--home {
+            padding: 20px;
+        }
+        &--doc {
+            margin-left: 0;
+            padding: 20px
+        }
     }
 }

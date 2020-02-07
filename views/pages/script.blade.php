@@ -1,21 +1,7 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'headline' => 'Javascript functions', 
-        'byline' => 'Reusable & component independent', 
-        'textColor' => 'dark',
-    ])
+@section('doc-content')
 
-    @slot('content')
-        Our javascript library is small but powerful. By not targeting any component we have made them powerful and reusable in an unique way.
-    @endslot
-
-    @endhero
-@endsection
-
-@section('content')
 <article>
 
     @markdown

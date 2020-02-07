@@ -41,7 +41,6 @@
 // *** Doc
 // ***************************************************************
 @import "doc/icons";
-@import "doc/generic";
 
 // ***************************************************************
 // *** Mixins
@@ -72,6 +71,7 @@
 @import "generic/grid";
 @import "generic/icons";
 @import "generic/load-animation";
+@import "generic/divider";
 
 // ***************************************************************
 // *** Elements
@@ -138,6 +138,7 @@
 @import "component/tag";
 @import "component/calendar";
 @import "component/tile";
+@import "component/sidebar";
 
 // ***************************************************************
 // *** Misc
@@ -166,3 +167,9 @@
 @import "utility/vertical-align";
 @import "utility/position";
 
+// ***************************************************************
+// *** Pages
+// ***************************************************************
+@import "pages/home";
+@import "pages/master";
+@import "pages/component";
