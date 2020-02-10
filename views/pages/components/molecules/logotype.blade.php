@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         #Logotype
         Displays a logotype. If it is missing it may be replaced with a placeholder. Alt and captions can be added.
