@@ -32,28 +32,17 @@
 </head>
 <body class="no-js">
 
-    @header()
-        @slot('logotype')
-            @logotype([
-                'id' => 'logotype',
-                'src'=> '/assets/img/logotype.svg',
-                'alt' => "Helsingborg Stad Logotype",
-                'classList' => array("c-tooltip", "c-tooltip__bottom"),
-                'attributeList' => array('data-title' => 'Go to home')
-            ])
-            @endlogotype
-        @endslot
-        
-        @slot('menu')
-            @menu([
-                'items' => $topNavigation,
-                'isHorizontal' => true
-            ])
-            @endmenu
-        @endslot
-    @endheader
+    @navbar([
+        'logo' => '/assets/img/logotype.svg',
+        'logoPosition' => 'left',
+        'linksPosition' => 'right',
+        'topAccent' => 'primary',
+        'activeAccent' => 'primary',
+        'items' => $topNavigation,
+        'sidebar' => true
+    ])
 
-    @yield('hero')
+    @endnavbar
 
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 
     <div class="container">
@@ -66,44 +55,10 @@
         </div>
     </div>
     @endif
-    <div class="container container--main">
-        <div class="grid" style="margin-bottom: 16px;">
-            <div class="grid-xs-12">
-                @notice(['type' => 'info']) 
-                    <strong>Beta version: </strong> This styleguide is still in beta. It's not recommended to use on a production website.
-                @endnotice
-            </div>
-        </div>
-        <div class="grid">
-            <div class="grid-md-3">
-                @include('layout.navigation')
-            </div>
-            <div class="grid-md-9">
-                <section>
-                    <article class="article">
-                        @yield('content')
-                    </article>
-                </section>
-            </div>
-        </div>
-    </div>
+    
+    @yield('content')
 
-    @footer()
-
-        @slot('logotype')
-            <img id="logotype" src="/assets/img/logotype.svg" alt="Helsingborg Stad">
-        @endslot
-        
-        @slot('menu')
-            @menu([
-                'id' => 'footer-menu', 
-                'items' => $topNavigation,
-                'isHorizontal' => true
-            ])
-            @endmenu
-        @endslot
-
-    @endfooter
+    @yield('bottom_hero')
 
     <!-- jQuery --> 
     <script

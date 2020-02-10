@@ -1,0 +1,18 @@
+.g-divider{
+    border: 1px dashed #707070;
+    margin: 0 auto;
+    opacity: 0.5;
+    
+    &--sm{
+        width: 30%;
+    }
+
+    &--md{
+        width: 50%;
+    }
+
+    &--lg{
+        width: 70%;
+    }
+
+}

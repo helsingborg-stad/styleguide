@@ -18,7 +18,7 @@ class Documentation
      */
     public static function getUsageExamples($slug)
     {
-        $dir = BASEPATH . 'views/pages/component/usage/' . $slug;
+        $dir = BASEPATH . 'views/pages/components/usage/' . $slug;
         $examples = array();
 
         if(file_exists($dir))
@@ -31,7 +31,7 @@ class Documentation
                     $filePath = $file . '.blade.php';
 
                     if(file_exists($dir . '/' . $filePath)) {
-                        $includePath = ('pages.component.usage.' . $slug . '.' . $file);
+                        $includePath = ('pages.components.usage.' . $slug . '.' . $file);
                         $html = Blade::instance()->make($includePath)->render();
                         $blade = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
                         $temp = array(
@@ -73,7 +73,7 @@ class Documentation
         $results = [];
         foreach ($atomic as $atomicDir) {
 
-            $dir = BASEPATH . '/views/pages/component/' . $atomicDir . '/';
+            $dir = BASEPATH . '/views/pages/components/' . $atomicDir . '/';
             $files = scandir($dir);
             $results[$atomicDir] = [];
             foreach ($files as $key => $value) {

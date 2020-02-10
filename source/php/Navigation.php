@@ -11,11 +11,11 @@ class Navigation
         'layout',
         '404.blade.php',
         'home.blade.php',
-		'usage'
+        'usage',
+        'about'
     );
 
     private static $icons = array(
-        'about' => 'people',
         'mixins' => 'local_bar',
         'script' => 'code',
         'icons' => 'brush',

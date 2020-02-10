@@ -45,13 +45,7 @@
                     <div>
                         @include($example['component'])
                     </div>
-                @endpaper
 
-                @paper([
-                        'padding' => $paper['docContainerPadding'],
-                        'transparent' => $paper['transparencyDocContainer'],
-                        'classList' => $componentDesc
-                    ])
                     @typography([
                         'variant' => "h4",
                         'element' => "h4",

@@ -17,6 +17,7 @@ import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import initBuild from "./initBuild";
+import Sidebar from './sidebar';
 
 expandSection();
 
@@ -29,6 +30,7 @@ let EventCalendarInstance = new EventCalendar;
 let TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
+let SidebarInstance = new Sidebar;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -39,7 +41,7 @@ EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
-
+SidebarInstance.applySidebar();
 
 let filter = new Filter;
 

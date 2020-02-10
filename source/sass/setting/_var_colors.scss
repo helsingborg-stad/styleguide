@@ -51,7 +51,8 @@ $color-base-invert-disabled: rgba($color-white, 0.5) !default;
 
 $color-heading: $color-base !default;
 $color-body: $color-base !default;
-$color-body-background: #f9f9f9 !default;
+$color-body-background: #f5f5f5 !default;
+//$color-body-background: $color-white !default;
 
 $color-link: #0069b4 !default;
 $color-link-hover: $color-link;
@@ -79,6 +80,12 @@ $color-menu-text: $color-black;
 
 $color-menu-active-indicator-horizontal: $color-primary-dimmed !default;
 $color-menu-text-horizontal: $color-black;
+
+$color-nav-background: $color-gray-lighter !default;
+$color-nav-item-text: $color-base-secondary !default;
+$color-nav-item-text-active: $color-black !default;
+$color-nav-top-accent: $color-primary !default;
+$color-nav-active-accent: $color-primary !default;
 
 $color-card-background: $color-white !default;
 $color-card-background-dark: $color-body-background !default;

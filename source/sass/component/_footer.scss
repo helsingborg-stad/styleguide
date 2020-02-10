@@ -1,7 +1,6 @@
 .c-footer {
-    border-top: 1px solid $color-gray-light;
-    background-color: $color-footer-background;
-    @include shadow(3, true);
+    background-color: $color-default;
+    margin-top: map-get($spacers, "10");
 
     &__body {
         width: 100%;
@@ -10,18 +9,79 @@
         margin-right: auto;
         padding: map-get($spacers, "5") 0;
         display: flex;
-        align-items: center;
+   
         flex-wrap: nowrap;
-        justify-content: space-between;
+      
     }
 
     &__home-link {
+        margin-right: 5%;
         line-height: 0;
-        display: block;
-        height: 40px;
+        height: 60px;
 
         img, svg {
             height: 100%;
         }
+    }
+
+    &__links {
+        margin-bottom: $base * 3;
+
+        & h4{
+            font-weight: 900;
+            font-size:18px;
+        }
+
+        & a{
+            color: #707070;
+            text-decoration: none;
+            display: inline-block;
+        }
+    }
+        
+
+    &__links div{
+        color: #707070;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    &__link-divider{
+        background-color:#565656;
+        border-radius: 50%;
+        height: $base / 2;
+        width: $base / 2;
+        margin-bottom: $base / 2;
+        margin-left: $base;
+        margin-right: $base;
+    }
+    
+}
+
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+    .c-footer {
+
+        &__body {
+            
+            padding: map-get($spacers, "5") map-get($spacers, "4");
+            display: block;
+            text-align: center;
+        }
+
+        &__home-link{
+            display: block;
+            margin-bottom: map-get($spacers, "5");
+        }
+
+        &__link-divider{
+            display: none;
+        }
+
+        &__links a{
+            display: block;
+            margin-bottom: map-get($spacers, "2");
+        }
+
+       
     }
 }

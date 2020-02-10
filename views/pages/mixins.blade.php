@@ -1,21 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'headline' => 'Mixin library', 
-        'byline' => '@include', 
-        'textColor' => 'dark',
-    ])
-
-    @slot('content')
-        A component is a independent functional view. They can acceppt multiple attributes as an array and acts accordiongly. 
-    @endslot
-
-    @endhero
-@endsection
-
-@section('content')
+@section('doc-content')
 <article>
 
     @markdown

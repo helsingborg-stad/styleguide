@@ -20,7 +20,7 @@
     
         #{$base}__copied {
             transform: scale(0);
-            color: #ef0078;
+            color: $color-primary;
             font-weight: bold;
             line-height: 70px;
         }

@@ -15,7 +15,7 @@ class View
     {
         self::registerLayoutViewComposer();
         self::registerMarkdownViewComposer();
-
+        
         try {
             echo Blade::instance()->make(
                 'pages.' . $view,
@@ -43,8 +43,7 @@ class View
         Blade::instance()->component("layout.doc", "doc");
         Blade::instance()->component("layout.utility_doc", "utility_doc");
         Blade::instance()->component("layout.script_doc", "script_doc");
-
-        //Doc templates
+  //Doc templates
         $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
@@ -147,6 +146,8 @@ class View
                 'paper' => $paper,
                 'examples' => DocHelper::getUsageExamples($viewData['slug'])
             ]);
+
+            
 
         });
     }

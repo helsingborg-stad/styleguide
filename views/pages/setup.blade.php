@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 <script src="node_modules/clientside-require/dist/bundle.js"></script>
 @section('hero')
     @hero([
@@ -15,7 +15,7 @@
     @endhero
 @endsection
 
-@section('content')
+@section('doc-content')
 
     @markdown
         #Setup

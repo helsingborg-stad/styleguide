@@ -1,0 +1,10 @@
+body {
+    padding-top: 140px;
+}
+
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+    body {
+        padding-top: 108px;
+    }
+    
+}
