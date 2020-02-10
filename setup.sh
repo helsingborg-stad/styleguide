@@ -6,3 +6,5 @@ else
         git clone "https://github.com/helsingborg-stad/blade-component-library.git" "source/library"
     fi
 fi
+
+mv ./hooks/* ./.git/hooks
