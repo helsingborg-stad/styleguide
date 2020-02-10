@@ -197,7 +197,29 @@
 
     ])
         @slot('body')
-            @foreach ($updates as $update)
+            <div class="p-home__update">
+                @typography([
+                    'element' => 'p',
+                    'variant' => 'meta'
+                ])
+                    Feb 03, 2020
+                @endtypography
+    
+                @typography([
+                    'element' => 'h3',
+                    'variant' => 'h3'
+                ])
+                    Updates will be showing here
+                @endtypography
+    
+                @typography([
+                    'element' => 'p',
+                    'variant' => 'body'
+                ])
+                    This is just a placeholder, real updates will be showing here soon.
+                @endtypography
+            </div>
+            {{-- @foreach ($updates as $update)
             <div class="p-home__update">
                 @typography([
                     'element' => 'p',
@@ -220,7 +242,7 @@
                     {{$update['message']}}
                 @endtypography
                 </div>
-            @endforeach
+            @endforeach --}}
             
 
             
