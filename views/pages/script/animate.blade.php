@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         #TODO: Animations
         Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js. 
