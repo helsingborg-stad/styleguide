@@ -5,12 +5,20 @@ import sys
 import os
 from git import Repo
 
+repo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
+repo = Repo(repo_path)
+branch = repo.active_branch.name
+
 def abort_commit_process(msg):
-    print ('\n\n\033[5;31;40m')
-    print (msg)
+    error_title = '\n\033[5;31;40mInvalid commit message on active branch: ' + branch + '\x1b[0m'
+    error_msg = '\033[5;31;40m' + msg + '\x1b[0m'
+        
+    print (error_title)
+    print (error_msg)
+
     sys.exit(1)
 
-def validate_msg(msg, branch):
+def validate_msg(msg):
     line_number = 0
     at_body = False
 
@@ -18,27 +26,27 @@ def validate_msg(msg, branch):
 
         for line in msg:
             line_length = len(line)
-
+            line_number_string = str(line_number)
+            
             if line_number == 0 and (line_length < 1 or line_length > 73):
                 abort_commit_process('Lenght of subject has to be 1 - 50 characters.')
             elif line_number == 0 and line[-1] == '.':
-                abort_commit_process('The subject cannot end with period.')
-            elif line_number == 1 and len(line) != 1:
-                abort_commit_process('Second line has to be empty.')
+                abort_commit_process('Unexpected "." on line: ' + line_number_string)
+            elif line_number == 1 and len(line) > 1:
+                print(line_number)
+                abort_commit_process('Unexpected characters on line: ' + line_number_string)
             elif line_number == 2:
                 at_body = True
 
+            if line[0] == '#':
+                abort_commit_process('Unexpected comment on line: ' + line_number_string)
             if at_body and line_length - 1 > 72:
-                abort_commit_process('Wrap each line of the body at 72 characters.')
+                abort_commit_process('Line ' + line_number_string + ' exceeds 72 characters')
 
             line_number += 1
-
+            
 msg_file = open(sys.argv[1], 'r')
 msg = msg_file.readlines()
 msg_file.close()
 
-repo_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
-repo = Repo(repo_path)
-branch = repo.active_branch.name
-
-validate_msg(msg,branch)
+validate_msg(msg)
