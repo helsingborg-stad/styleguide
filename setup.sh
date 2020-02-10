@@ -8,3 +8,4 @@ else
 fi
 
 mv ./hooks/* ./.git/hooks
+rm -rf ./hooks
