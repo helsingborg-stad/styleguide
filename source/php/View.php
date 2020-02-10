@@ -118,7 +118,7 @@ class View
                 $configFile = false;
             }
 
-            if ($viewData['slug'] === 'card') {
+            if (isset($viewData['slug']) && $viewData['slug'] === 'card') {
                 $paper = [
                     'transparencyContainer' => true,
                     'transparencyDocContainer' => false,
@@ -144,7 +144,7 @@ class View
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                 'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                 'paper' => $paper,
-                'examples' => DocHelper::getUsageExamples($viewData['slug'])
+                'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug']) : ""
             ]);
 
             
