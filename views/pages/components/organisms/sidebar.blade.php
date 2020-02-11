@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         #Sidebar
         The sidebar component is a traditional navbar with link items. In smaller screen sizes it becomes an expandable menu.

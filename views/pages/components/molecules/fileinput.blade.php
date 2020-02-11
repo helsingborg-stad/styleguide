@@ -1,5 +1,6 @@
-@extends('layout.master')
-@section('content')
+@extends('layout.containers.doc')
+
+@section('doc-content')
     @markdown
         #File input
         Displays a file input.

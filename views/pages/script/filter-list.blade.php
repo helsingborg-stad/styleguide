@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         #TODO: Filtering lists, tables, etc (search)
         Hide elements based on match with data attributes.

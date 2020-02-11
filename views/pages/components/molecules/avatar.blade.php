@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         #Avatar
         The avatar displays a reprensation of a user account in the platform. It adapts to the input, and displays the most fuitful content. It will sort in descending order between the folowing parameters.

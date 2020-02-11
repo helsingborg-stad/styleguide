@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('content')
+@section('doc-content')
     @markdown
         # Tabs
     @endmarkdown

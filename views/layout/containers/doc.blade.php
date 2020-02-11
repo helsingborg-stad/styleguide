@@ -1,7 +1,7 @@
 @extends('layout.master')
-@include('layout.navigation')
 
 @section('content')
+    @include('layout.navigation')
     <div class="container--doc">
         
         <section>
