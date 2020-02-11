@@ -83,5 +83,8 @@
         "plugins": [
             "@babel/plugin-proposal-class-properties"
         ]
+    },
+    "publishConfig": { 
+        "registry": "https://npm.pkg.github.com/" 
     }
 }
