@@ -9,7 +9,9 @@ class App
 
     public function __construct()
     {
-        $this->page = isset($_GET['p']) ? $_GET['p'] : $this->default;
+
+        $this->page = ($_SERVER['REQUEST_URI'] !== "/") ? $_SERVER['REQUEST_URI'] : $this->default;
+
         $this->loadPage();
     }
 
@@ -22,7 +24,9 @@ class App
         // Navigation
         $data['topNavigation']                  = Navigation::items('pages/', [], false);
         $data['sideNavigation']                 = Navigation::items('pages/');
-
+        if($this->page == 'home'){
+            $data['updates'] = \HbgStyleGuide\Updates::getUpdates();
+        }
         //Current page 
         $data['pageNow']                        = $this->page;
 

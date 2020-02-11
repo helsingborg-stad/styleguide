@@ -22,9 +22,5 @@ _icons.scss
 
 /source/sass/imports
 /source/sass/imports/
-<<<<<<< HEAD
-/source/sass/imports/*
-=======
 source/sass/imports/
 source/sass/imports/*
->>>>>>> origin/develop

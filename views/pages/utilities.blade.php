@@ -1,21 +1,7 @@
-@extends('layout.master')
+@extends('layout.containers.doc')
 
-@section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'textColor' => 'dark',
-        'headline' => 'Css utilities', 
-        'byline' => '.u-do-something', 
-    ])
+@section('doc-content')
 
-    @slot('content')
-        Swiftly create new apperance of anything in the styleguide, or even create a new component. Each utility has their corresponding mixin.
-    @endslot
-
-    @endhero
-@endsection
-
-@section('content')
 <article>
 
     @markdown

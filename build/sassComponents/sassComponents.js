@@ -56,6 +56,7 @@ module.exports.initSassComponents = (components) => {
         });
         
         let componentDependency = [];
+
         fileList.forEach(jsonFile => {
             let data = fs.readFileSync(jsonFile);
             const jsonData = JSON.parse(data);

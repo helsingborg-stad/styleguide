@@ -1,4 +1,5 @@
 .d-animation {
+    margin-right: 2%;
     $base: &;
     &__content {
         position: relative;
@@ -19,7 +20,7 @@
     
         #{$base}__copied {
             transform: scale(0);
-            color: #ef0078;
+            color: $color-primary;
             font-weight: bold;
             line-height: 70px;
         }
@@ -52,4 +53,56 @@
             90% {transform: scale(0)}
         }
     }
+}
+
+.d-icons--close{
+    & > .d-icons__category > .c-icon{
+        transform: rotate(180deg);
+    }
+
+    & > .d-icons__sheet{
+        display:none;
+    }
+}
+
+.d-icons__category{
+
+    display:inline-block;
+    & .c-button:focus{
+        outline: none;
+    }
+    & .c-icon{
+        cursor: pointer;
+        transition: all ease-in-out 0.3s;
+    }
+}
+
+.d-icons__sheet{
+    
+    margin-top: 5%;
+    padding:2%;
+    position: relative;
+    margin: 0 auto;
+
+    & .grid-md-2:hover{
+        background-color: $color-default-dimmed;
+    }
+}
+.d-icons__category{
+    padding:1%;
+    margin-bottom:0;
+    & h2{
+        color:$color-primary;
+        display:inline-block
+
+    }
+    
+    & > .c-button{
+        display:inline-block
+
+    }
+}
+
+.d-icons__controlls{
+    margin-bottom:5%;
 }

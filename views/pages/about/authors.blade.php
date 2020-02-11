@@ -1,6 +1,6 @@
-@extends('layout.master')
+@extends('layout.containers.home')
 
-@section('content')
+@section('home-content')
 <article>
 
     {!! markdown("
