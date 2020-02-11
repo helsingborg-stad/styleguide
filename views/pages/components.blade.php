@@ -1,49 +1,49 @@
 @extends('layout.containers.doc')
 @section('doc-content')
 
-@segment([
-    'template' => 'full',
-    'height' => 'md',
-    'parallax' => true,
-    'background_color' => '#E5E5E5',
-    'text_alignment' => 'left',
-    'cta_align' => 'center',
-    'color' => 'secondary',
-    'content_alignment' => [
-        'vertical' => 'center',
-        'horizontal' => 'center'
-    ],
-    'classList' => [
-        'p-home__hero'
-    ]
+    @segment([
+        'template' => 'full',
+        'height' => 'md',
+        'parallax' => true,
+        'background_color' => '#E5E5E5',
+        'text_alignment' => 'left',
+        'cta_align' => 'center',
+        'color' => 'secondary',
+        'content_alignment' => [
+            'vertical' => 'center',
+            'horizontal' => 'center'
+        ],
+        'classList' => [
+            'p-home__hero'
+        ]
 
-])
+    ])
     @slot('body')
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
             'classList' => ['p-home__intro-header']
         ])
-            Components
+        Components
         @endtypography
         @typography([
             'element' => 'p',
             'variant' => 'body'
-        ])        
-            The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
+        ])
+        The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
         @endtypography
-        
+
     @endslot
-@endsegment
-<div class="g-divider g-divider--sm"></div>
-@segment([
+    @endsegment
+    <div class="g-divider g-divider--sm"></div>
+    @segment([
         'template' => 'full',
         'contain_content' => true,
         'height' => 'sm',
         'width' => 'lg',
         'padding' => 0,
         'text_alignment' => 'left',
-        'content_alignment' => [
+            'content_alignment' => [
             'vertical' => 'center',
             'horizontal' => 'center'
         ],
@@ -59,8 +59,8 @@
     <div class="p-component__atomic">
         <div class="p-component__atomic__image">
             @image([
-            'src'=> '/assets/img/atom.svg',
-            'alt' => 'atom'
+                'src'=> '/assets/img/atom.svg',
+                'alt' => 'atom'
             ])
             @endimage
         </div>
@@ -69,14 +69,14 @@
                 'element' => 'h2',
                 'variant' => 'h2'
             ])
-                Atoms
+            Atoms
             @endtypography
 
             @typography([
-                    'variant' => "p",
-                    'element' => "p",
-                    'classList' => ['c-card__text']
-                ])
+                'variant' => "p",
+                'element' => "p",
+                'classList' => ['c-card__text']
+            ])
             Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
             @endtypography
 
@@ -88,7 +88,7 @@
                 ])
                 @endbutton
             </p>
-            
+
         </div>
     </div>
 
@@ -98,14 +98,14 @@
                 'element' => 'h2',
                 'variant' => 'h2'
             ])
-                Molecules
+            Molecules
             @endtypography
 
             @typography([
-                    'variant' => "p",
-                    'element' => "p",
-                    'classList' => ['c-card__text']
-                ])
+                'variant' => "p",
+                'element' => "p",
+                'classList' => ['c-card__text']
+            ])
             Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.
             @endtypography
 
@@ -117,12 +117,12 @@
                 ])
                 @endbutton
             </p>
-            
+
         </div>
         <div class="p-component__atomic__image">
             @image([
-            'src'=> '/assets/img/molecule.svg',
-            'alt' => 'atom'
+                'src'=> '/assets/img/molecule.svg',
+                'alt' => 'atom'
             ])
             @endimage
         </div>
@@ -131,8 +131,8 @@
     <div class="p-component__atomic">
         <div class="p-component__atomic__image">
             @image([
-            'src'=> '/assets/img/organisms.svg',
-            'alt' => 'atom'
+                'src'=> '/assets/img/organisms.svg',
+                'alt' => 'atom'
             ])
             @endimage
         </div>
@@ -141,17 +141,17 @@
                 'element' => 'h2',
                 'variant' => 'h2'
             ])
-                Organisms
+            Organisms
             @endtypography
 
             @typography([
-                    'variant' => "p",
-                    'element' => "p",
-                    'classList' => ['c-card__text']
-                ])
-                Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.            
+                'variant' => "p",
+                'element' => "p",
+                'classList' => ['c-card__text']
+            ])
+            Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.
             @endtypography
-            
+
             <p>
                 @button([
                     'type' => 'outlined',
@@ -160,7 +160,7 @@
                 ])
                 @endbutton
             </p>
-            
+
         </div>
     </div>
 @stop
