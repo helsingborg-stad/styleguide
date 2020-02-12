@@ -120,62 +120,8 @@
                 {!! $slot !!}
             </div>
 
-            @typography([
-                'variant' => "h3",
-                'element' => "h3"
-            ])
-                HTML rendered by blade component
-            @endtypography
-
-            @code(['language' => 'html', 'content' => ""])
-                {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
-            @endcode
-
         @endpaper
     @endif
-
-    @if(isset($slug))
-        @if(isset($displayParams) && !empty($displayParams))
-
-        @paper(['padding' => 3])
-            @if(!file_exists("views/pages/component/usage/".$slug.".blade.php"))
-
-                    @typography([
-                        'variant' => "h3",
-                        'element' => "h3"
-                    ])
-                    Blade component
-                    @endtypography
-                <pre><code>{{"@"}}{{$slug}}{{"['parameter' => 'value']"}}
-
-                <?php echo '@slot("parameter")'; ?>
-
-                    Value
-                <?php echo '@endslot'; ?>
-
-
-                {{'$slot'}}
-
-                {{"@end"}}{{$slug}}</code></pre>
-            @endif
-           @if(file_exists("views/pages/component/usage/".$slug.".blade.php"))
-                <h3>Example usage in blade file</h3>
-                @code(['language' => 'php', 'content' => ""])
-                        @php ob_start(); @endphp
-                        @verbatim
-                            <?php include_once "views/pages/component/usage/".$slug.".blade.php";  ?>
-                        @endverbatim
-                        @php
-                            $markup = ob_get_contents();
-                            ob_end_clean();
-                            echo htmlentities($markup);
-                        @endphp
-                @endcode
-            @endif
-        @endpaper
-        @endif
-    @endif
-
 
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
