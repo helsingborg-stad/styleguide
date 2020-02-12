@@ -36,7 +36,7 @@ class Modal {
         // Close
         for (const trigger of this.closeTrigger) {
             trigger.addEventListener("click", function() {
-                this.parentElement.parentElement.parentElement.classList.remove(self.isVisible);
+                document.querySelector(`.${self.isVisible}`).classList.remove(self.isVisible);
                 self.unlockScroll();
             });
         }
