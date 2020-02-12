@@ -1,0 +1,17 @@
+{
+    "plain": {
+        "heading": "Plain image",
+        "subHeading": "",
+        "text": "Just a plain image"
+    },
+    "modal": {
+        "heading": "Image in modal",
+        "subHeading": "",
+        "text": "This image can be opened in a modal by clicking it."
+    },
+    "rounded": {
+        "heading": "Rounded corners",
+        "subHeading": "",
+        "text": "An image with border radius for rounded corners"
+    }
+}
