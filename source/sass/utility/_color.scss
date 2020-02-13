@@ -2,6 +2,8 @@ $color-utils: (
     (
         name: "color__text",
         modifiers: (
+            primary: (color: $color-primary),
+            secondary: (color: $color-secondary),
             success: (color: $color-success),
             danger: (color: $color-danger),
             info: (color: $color-info),
@@ -11,6 +13,8 @@ $color-utils: (
     (
         name: "color__bg",
         modifiers: (
+            primary: (background-color: $color-primary),
+            secondary: (background-color: $color-secondary),
             success: (background-color: $color-success),
             danger: (background-color: $color-danger),
             info: (background-color: $color-info),

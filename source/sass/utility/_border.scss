@@ -51,7 +51,7 @@ $spacing-util: (
 
     $util: (
         name: "border__#{$side}",
-        default: (border-#{$side}: #{$border-width-default}),
+        default: (border-#{$side}: 1px solid #{$color-primary}),
         modifiers: $mods
     );
 
