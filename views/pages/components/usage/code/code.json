@@ -1,0 +1,8 @@
+{
+    "code": {
+        "grid": "",
+        "heading": "Code block example",
+        "subHeading" : "",
+        "text": "The code component can be used to display a block of code with syntax highlighting. In this example the language parameter is defined as php."
+    }
+}
