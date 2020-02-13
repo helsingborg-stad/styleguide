@@ -4,7 +4,7 @@
         "color": "Applies given color"
     },
     "modifiers": {
-        "color": "success, info, warning, danger"
+        "color": "primary, secondary, success, info, warning, danger"
     },
     "responsive": false,
     "format": ".u-color__text--color"

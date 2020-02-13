@@ -1,14 +1,14 @@
 {
     "slug": "border-radius",
     "description": {
-        "side": "APA for the accordion",
-        "width": "List of accordion section"
+        "side": "The sides to add radius to",
+        "radius": "The amount of radius"
     },
     "modifiers": {
-        "side": "left, right, top, bottom, top-left, bottom-left, top-right, bottom-right, none, full ",
-        "width": "0, 4, 8, 16"
+        "side": "left, right, top, bottom, top__left, bottom__left, top__right, bottom__right, none, full ",
+        "radius": "0, 4, 8, 16"
     },
     
     "responsive": true,
-    "format": ".u-burder-radius--side--width"
+    "format": ".u-border-radius__side--radius"
 }
