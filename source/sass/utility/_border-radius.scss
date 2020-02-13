@@ -1,8 +1,21 @@
 $full: ("border-radius": "50%");
 $border-radius-utilities:(
     (
-        "name": "rounded-left",
+        "name": "rounded",
+        "default": (
+            "border-radius": "8px"
+        ),
         "modifiers": (
+            full: (border-radius: 50%),
+            none: (border-radius: none)
+        )
+    ),
+    (
+        "name": rounded__left,
+        "modifiers": (
+            0:  ("border-top-left-radius": "0",
+                "border-bottom-left-radius": "0"
+            ),
             2: ("border-radius": "2px 0px 0px 2px"),
             4: ("border-radius": "4px 0px 0px 4px"),
             8: ("border-radius": "8px 0px 0px 8px"),
@@ -10,8 +23,11 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-right,
+        "name": rounded__right,
         "modifiers": (
+            0:  ("border-top-right-radius": "0",
+                "border-bottom-right-radius": "0"
+            ),
             2: ("border-radius": "0px 2px 2px 0px"),
             4: ("border-radius": "0px 4px 4px 0px"),
             8: ("border-radius": "0px 8px 8px 0px"),
@@ -19,8 +35,11 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-top,
+        "name": rounded__top,
         "modifiers": (
+            0:  ("border-top-left-radius": "0",
+                "border-top-right-radius": "0"
+            ),
             2: ("border-radius": "2px 2px 0px 0px"),
             4: ("border-radius": "4px 4px 0px 0px"),
             8: ("border-radius": "8px 8px 0px 0px"),
@@ -28,8 +47,11 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-bottom,
+        "name": rounded__bottom,
         "modifiers": (
+            0:  ("border-bottom-left-radius": "0",
+                "border-bottom-right-radius": "0"
+            ),
             2: ("border-radius": "0px 0px 2px 2px"),
             4: ("border-radius": "0px 0px 4px 4px"),
             8: ("border-radius": "0px 0px 8px 8px"),
@@ -37,8 +59,9 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-top-left,
+        "name": rounded__top__left,
         "modifiers": (
+            0: ("border-top-left-radius": "0"),
             2: ("border-top-left-radius": "2px"),
             4: ("border-top-left-radius": "4px"),
             8: ("border-top-left-radius": "8px"),
@@ -46,17 +69,19 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-top-right,
+        "name": rounded__top__right,
         "modifiers": (
-            2: ("border-top-right-radius": "2"),
-            4: ("border-top-right-radius": "4"),
-            8: ("border-top-right-radius": "8"),
-            16: ("border-top-right-radius": "16")
+            0: ("border-top-right-radius": "0"),
+            2: ("border-top-right-radius": "2px"),
+            4: ("border-top-right-radius": "4px"),
+            8: ("border-top-right-radius": "8px"),
+            16: ("border-top-right-radius": "16px")
         )
     ),
     (
-        "name": rounded-bottom-left,
+        "name": rounded__bottom__left,
         "modifiers": (
+            0: ("border-bottom-left-radius": "0"),
             2: ("border-bottom-left-radius": "2px"),
             4: ("border-bottom-left-radius": "4px"),
             8: ("border-bottom-left-radius": "8px"),
@@ -64,19 +89,13 @@ $border-radius-utilities:(
         )
     ),
     (
-        "name": rounded-bottom-right,
+        "name": rounded__bottom__right,
         "modifiers": (
+            0: ("border-bottom-right-radius": "0"),
             2: ("border-bottom-right-radius": "2px"),
             4: ("border-bottom-right-radius": "4px"),
             8: ("border-bottom-right-radius": "8px"),
             16: ("border-bottom-right-radius": "16px")
-        )
-    ),
-    (
-        "name": "rounded",
-        "modifiers": (
-            full: (border-radius: 50%),
-            none: (border-radius: none)
         )
     )
 );
