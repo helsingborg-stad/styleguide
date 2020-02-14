@@ -38,27 +38,45 @@ $spacing-util: ();
 
     $mods: ();
 
-    //Builds on axis
-    @each $axis in (x, y) {
-        @each $size, $length in $spacers {
-            $style: (#{$size}:(
-                #{$prop}-left: #{$length},
-                #{$prop}-right: #{$length}
-            ));
-            $mods: map-merge($mods, $style);
-        }
-
-        $util: (
-            name: "#{$prop}__#{$axis}",
-            default: (
-                #{$prop}-left: 8px,
-                #{$prop}-right: 8px
-            ),
-            modifiers: $mods
-        );
-
-        $spacing-util: append($spacing-util, $util);
+    //Builds on axis Y
+    @each $size, $length in $spacers {
+        $style: (#{$size}:(
+            #{$prop}-top: #{$length},
+            #{$prop}-bottom: #{$length}
+        ));
+        $mods: map-merge($mods, $style);
     }
+
+    $util: (
+        name: "#{$prop}__y",
+        default: (
+            #{$prop}-top: 8px,
+            #{$prop}-bottom: 8px
+        ),
+        modifiers: $mods
+    );
+    
+    $spacing-util: append($spacing-util, $util);
+
+    //Builds on axis X
+    @each $size, $length in $spacers {
+        $style: (#{$size}:(
+            #{$prop}-left: #{$length},
+            #{$prop}-right: #{$length}
+        ));
+        $mods: map-merge($mods, $style);
+    }
+
+    $util: (
+        name: "#{$prop}__x",
+        default: (
+            #{$prop}-left: 8px,
+            #{$prop}-right: 8px
+        ),
+        modifiers: $mods
+    );
+
+    $spacing-util: append($spacing-util, $util);
 }
 
 @include build-utilities($spacing-util);
