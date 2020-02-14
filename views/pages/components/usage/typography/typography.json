@@ -1,0 +1,14 @@
+{
+    "variant": {
+        "heading": "Variant",
+        "subHeading": "",
+        "text": "In this case, variant is set to h1 and element parameter is left untouched. This results in a <p> element that looks like h5 element.",
+        "grid": "grid-s-12 grid-sm-6 grid-md-6"
+    },
+    "element": {
+        "heading": "Element",
+        "subHeading": "",
+        "text": "When the parameter element is set and the variant element is not, the result is a h1 element that looks like a <p> element.",
+        "grid": "grid-s-12 grid-sm-6 grid-md-6"
+    }
+}
