@@ -7,37 +7,63 @@
         #Spacing (Margin & Padding)
     @endmarkdown
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'spacing', 'config' => 'spacing']])
-        <div class="grid">
-            <div class="grid-s-12 grid-md-6">
-                @card([
-                    'href' => '#',
-                    'image' => 'https://picsum.photos/300/225?image=1011',
-                    'title' => ['text' => 'Padding top is base * 6', 'position' => 'top'],
-                    'byline' => ['text' => 'Gives a bit more whitespace', 'position' => 'top'],
-                    'classList' => ['c-card--shadow-on-hover', 'u-padding__top--6'],
-                    'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                    därmed annat ännu söka.',
-                    'hasRipple' => false
-                ])
-
-                @endcard
+        <div class="d-sizing">
+            @typography([])
+                This example just has padding applied all around.
+            @endtypography
             
+            <div class="u-width--100 u-color__bg--primary u-padding--2" style="height: 100px;">
+                <div class="u-width--100 u-height--100 u-color__bg--secondary">
+                </div>
             </div>
-    
-            <div class="grid-s-12 grid-md-6">
-                @card([
-                        'href' => '#',
-                        'image' => 'https://picsum.photos/300/225?image=1011',
-                        'title' => ['text' => 'Margin on X-axis is base * 6', 'position' => 'top'],
-                        'byline' => ['text' => 'Gives a bit more breathing room', 'position' => 'top'],
-                        'classList' => ['c-card--shadow-on-hover', 'u-margin__x--6'],
-                        'content' => 'Löksås ipsum dimmhöljd björnbär regn faktor sitt del har gamla, fram faktor dimma sista precis
-                        därmed annat ännu söka.',
-                        'hasRipple' => false
-                    ])
-    
-                @endcard
-    
+
+            @typography(['classList' => ['u-margin__top--4']])
+                You can also just target one side.
+            @endtypography
+
+            <div class="u-width--100 u-color__bg--primary u-padding__left--6" style="height: 100px;">
+                <div class="u-width--100 u-height--100 u-color__bg--secondary">
+                </div>
+            </div>
+
+            @typography(['classList' => ['u-margin__top--4']])
+                The class also supports axis'.
+            @endtypography
+
+            <div class="u-width--100 u-color__bg--primary u-padding__y--2" style="height: 100px;">
+                <div class="u-width--100 u-height--100 u-color__bg--secondary">
+                </div>
+            </div>
+        </div>
+    @endutility_doc
+
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'spacing', 'config' => 'spacing', ]])
+        <div class="d-sizing">
+            @typography([])
+                This example just has margin applied all around.
+            @endtypography
+            
+            <div class="u-width--100 u-height--auto u-color__bg--primary">
+                <div class="u-width--auto u-color__bg--secondary u-margin--2" style="height: 100px;">
+                </div>
+            </div>
+
+            @typography(['classList' => ['u-margin__top--4']])
+                You can also just target one side.
+            @endtypography
+
+            <div class="u-width--100 u-height--auto u-color__bg--primary">
+                <div class="u-width--auto u-color__bg--secondary u-margin__left--2" style="height: 100px;">
+                </div>
+            </div>
+
+            @typography(['classList' => ['u-margin__top--4']])
+                The class also supports axis'.
+            @endtypography
+
+            <div class="u-width--100 u-height--auto u-color__bg--primary">
+                <div class="u-width--auto u-color__bg--secondary u-margin__x--2" style="height: 100px;">
+                </div>
             </div>
         </div>
     @endutility_doc
