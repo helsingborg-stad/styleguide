@@ -1,20 +1,20 @@
 @buttonGroup([
-    'exclusiveToggle' => true,
     'buttons' => [
         [
-            'isOutlined' =>  true,
+            'type' => 'outlined',
             'color' => 'primary',
-            'text' => 'exclusive'
+            'text' => 'primary outlined'
         ],
         [
-            'isOutlined' =>  true,
+            'type' =>  'filled',
             'color' => 'primary',
-            'text' => 'exclusive'
+            'text' => 'filled'
         ],
         [
-            'isOutlined' =>  true,
-            'color' => 'primary',
-            'text' => 'exclusive'
+            'type' =>  'outlined',
+            'color' => 'secondary',
+            'text' => 'outlined secondary with icon',
+            'icon' => 'close'
         ]
     ]
 ])

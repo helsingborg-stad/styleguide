@@ -4,7 +4,7 @@
         'color' => 'secondary',
         'text' => 'Toggle',
         'size' => 'md',
-        'isOutlined' => true,
+        'type' => 'filled',
         'toggle' => true
     ])
     @endbutton
@@ -13,22 +13,19 @@
         'color' => 'primary',
         'text' => 'Outlined',
         'size' => 'md',
-        'isOutlined' => true,      
-        'background' => 'primary'
+        'type' => 'outlined'
     ])
     @endbutton
 
     @button([
-        'isIconButton' =>  true,
-        'icon' => ['name' => 'close', 'color' => 'secondary', 'size' => 'lg'],
-        'hover' => ['background' => 'secondary']
+        'type' =>  'outlined',
+        'icon' => 'close'
     ])
     @endbutton
 
     @button([
-        'background' => 'primary',
-        'text' => 'Primary bg',
-        'color' => 'white'
+        'text' => 'Primary filled',
+        'color' => 'primary'
     ])
     @endbutton
 
