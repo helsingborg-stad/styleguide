@@ -8,7 +8,7 @@
     "element": {
         "heading": "Element",
         "subHeading": "",
-        "text": "When the parameter element is set and the variant element is not, the result is a h1 element that looks like a <p> element.",
+        "text": "When the parameter element is set and the variant element is not, the result is a p element that looks like a <h1> element.",
         "grid": "grid-s-12 grid-sm-6 grid-md-6"
     }
 }
