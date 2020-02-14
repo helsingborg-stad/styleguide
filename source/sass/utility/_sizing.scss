@@ -2,12 +2,12 @@ $width: ();
 $height: ();
 
 @each $modifier in $sizings {
-    $mod: ($modifier: ("width": $modifier + "%"));
+    $mod: (str-replace($modifier, '%'): ("width": $modifier));
     $width: map-merge($width, $mod);
 }
 
 @each $modifier in $sizings {
-    $mod: ($modifier: ("height": $modifier + "%"));
+    $mod: (str-replace($modifier, '%'): ("height": $modifier));
     $height: map-merge($height, $mod);
 }
 
