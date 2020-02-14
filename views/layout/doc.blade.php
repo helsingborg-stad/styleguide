@@ -39,7 +39,9 @@
                         'variant' => "h3",
                         'element' => "h3"
                     ])
-                        {{$example['description']['heading']}}
+                        @if($example['description']['heading'])
+                            {{$example['description']['heading']}}
+                        @endif
                     @endtypography
 
                     <div>
