@@ -1,0 +1,17 @@
+{
+    "text": {
+        "heading": "Text",
+        "subHeading": "",
+        "text": "Different text fields."
+    },
+    "range": {
+        "heading": "Range",
+        "subHeading": "",
+        "text": ""
+    },
+    "color": {
+        "heading": "Color",
+        "subHeading": "",
+        "text": ""
+    }
+}
