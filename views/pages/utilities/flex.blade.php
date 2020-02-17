@@ -129,21 +129,35 @@
     @endmarkdown
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'flex-wrap']])
+
+        @typography(['classList' => ['u-margin__top--4','u-margin__bottom--1']])
+            Default breaks line if needed
+        @endtypography
         
-        <div style="width=300px;"class="u-display--flex u-flex-wrap u-p--2 u-color__bg--success">
-            <div class="u-border u-width--50">Default 1</div>
-            <div class="u-border u-width--50">Default 2</div>
-            <div class="u-border u-width--50">Default 3</div>
+        <div class="u-display--flex u-flex-wrap u-p--2 u-color__bg--primary u-padding--2 u-rounded u-text__align--center">
+            <div class="u-color__bg--info u-width--50 u-rounded">Default 1</div>
+            <div class="u-color__bg--info u-width--50 u-rounded">Default 2</div>
+            <div class="u-color__bg--info u-width--50 u-rounded">Default 3</div>
         </div>
-        <div style="width=300px;"class="u-display--flex u-flex-wrap--no-wrap u-color__bg--success u-p--2 u-my--2">
-                <div class="u-border u-width--50">No-wrap 1</div>
-                <div class="u-border u-width--50">No-wrap 2</div>
-                <div class="u-border u-width--50">No-wrap 3</div>
+
+        @typography(['classList' => ['u-margin__top--4','u-margin__bottom--1']])
+            No-wrap prevents flex from breaking line
+        @endtypography
+
+        <div class="u-display--flex u-flex-wrap--no-wrap u-color__bg--primary u-p--2 u-padding--2  u-rounded">
+                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 1</div>
+                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 2</div>
+                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 3</div>
         </div>
-        <div style="width=300px;"class="u-display--flex u-flex-wrap--reverse u-color__bg--success u-p--2">
-                <div class="u-border u-width--50">Reverse 1</div>
-                <div class="u-border u-width--50">Reverse 2</div>
-                <div class="u-border u-width--50">Reverse 3</div>
+
+        @typography(['classList' => ['u-margin__top--4','u-margin__bottom--1']])
+            Flex wrap-reverse acts like default value just reverse order
+        @endtypography
+
+        <div class="u-display--flex u-flex-wrap--reverse u-color__bg--primary u-padding--2  u-rounded">
+                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 1</div>
+                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 2</div>
+                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 3</div>
         </div>
     @endutility_doc
 
@@ -153,35 +167,35 @@
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'justify-content']])
         <div class="grid">
-            <div style="width=300px;"class="grid-md-4 u-display--flex u-justify-content--start u-color__bg--success">
-                <div class="u-border u-width--25">Start 1</div>
-                <div class="u-border u-width--25">Start 2</div>
-                <div class="u-border u-width--25">Start 3</div>
+            <div class="u-display--flex u-justify-content--start u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Start 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Start 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Start 3</div>
             </div>
-            <div style="width=300px;"class="grid-md-4 u-display--flex u-justify-content--end u-color__bg--info">
-                <div class="u-border u-width--25">End 1</div>
-                <div class="u-border u-width--25">End 2</div>
-                <div class="u-border u-width--25">End 3</div>
+            <div class="u-display--flex u-justify-content--end u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">End 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">End 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">End 3</div>
             </div>
-            <div style="width=300px;"class="grid-md-4  u-display--flex u-justify-content--center u-color__bg--warning">
-                <div class="u-border u-width--25">Center 1</div>
-                <div class="u-border u-width--25">Center 2</div>
-                <div class="u-border u-width--25">Center 3</div>
+            <div class="u-display--flex u-justify-content--center u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Center 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Center 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Center 3</div>
             </div>
-            <div style="width=300px;"class="grid-md-4 u-display--flex u-justify-content--space-between u-color__bg--success">
-                <div class="u-border u-width--25">Space Between 1</div>
-                <div class="u-border u-width--25">Space Between 2</div>
-                <div class="u-border u-width--25">Space Between 3</div>
+            <div class="u-display--flex u-justify-content--space-between u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Between 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Between 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Between 3</div>
             </div>
-            <div style="width=300px;"class="grid-md-4 u-display--flex u-justify-content--space-around u-color__bg--info">
-                <div class="u-border u-width--25">Space Around 1</div>
-                <div class="u-border u-width--25">Space Around 2</div>
-                <div class="u-border u-width--25">Space Around 3</div>
+            <div class="u-display--flex u-justify-content--space-around u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Around 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Around 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Around 3</div>
             </div>
-            <div style="width=300px;"class="grid-md-4 u-display--flex u-justify-content--space-evenly u-color__bg--warning">
-                <div class="u-border u-width--25">Space Evenly 1</div>
-                <div class="u-border u-width--25">Space Evenly 2</div>
-                <div class="u-border u-width--25">Space Evenly 3</div>
+            <div class="u-display--flex u-justify-content--space-evenly u-color__bg--primary u-padding--2 u-rounded">
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Evenly 1</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Evenly 2</div>
+                <div class="u-color__bg--secondary u-rounded u-width--25 u-padding--1">Space Evenly 3</div>
             </div>
         </div>
     @endutility_doc
@@ -191,20 +205,20 @@
     @endmarkdown
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'order']])
-        <div class="u-display--flex">
-            <div class="u-order--0 u-p--1 u-mx--1 u-color__bg--warning">0</div>
-            <div class="u-order--1 u-p--1 u-mx--1 u-color__bg--warning">1</div>
-            <div class="u-order--2 u-p--1 u-mx--1 u-color__bg--warning">2</div>
-            <div class="u-order--3 u-p--1 u-mx--1 u-color__bg--warning">3</div>
-            <div class="u-order--9 u-p--1 u-mx--1 u-color__bg--warning">4</div>
-            <div class="u-order--11 u-p--1 u-mx--1 u-color__bg--warning">5</div>
-            <div class="u-order--10 u-p--1 u-mx--1 u-color__bg--warning">6</div>
-            <div class="u-order--12 u-p--1 u-mx--1 u-color__bg--warning">7</div>
-            <div class="u-order--8 u-p--1 u-mx--1 u-color__bg--warning">8</div>
-            <div class="u-order--6 u-p--1 u-mx--1 u-color__bg--warning">9</div>
-            <div class="u-order--7 u-p--1 u-mx--1 u-color__bg--warning">10</div>
-            <div class="u-order--5 u-p--1 u-mx--1 u-color__bg--warning">11</div>
-            <div class="u-order--4 u-p--1 u-mx--1 u-color__bg--warning">12</div>
+        <div class="u-display--flex u-flex-wrap">
+            <div class="u-order--0 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">0</div>
+            <div class="u-order--1 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">1</div>
+            <div class="u-order--2 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">2</div>
+            <div class="u-order--3 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">3</div>
+            <div class="u-order--9 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">4</div>
+            <div class="u-order--11 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">5</div>
+            <div class="u-order--10 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">6</div>
+            <div class="u-order--12 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">7</div>
+            <div class="u-order--8 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">8</div>
+            <div class="u-order--6 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">9</div>
+            <div class="u-order--7 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">10</div>
+            <div class="u-order--5 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">11</div>
+            <div class="u-order--4 u-padding--1 u-margin__x--1 u-color__bg--primary u-rounded u-color__text--secondary">12</div>
 
         </div>
     @endutility_doc
