@@ -8,41 +8,27 @@
     @endmarkdown
 
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'float', 'config' => 'float']])
+        @typography([])
+            The <code>u-float</code> class lets you float elements to the side or remove the float setting on an element. This class does not have any effect on flex items.
+        @endtypography
+
         <div>
             @button([
-                    'href' => '#btn-1', 
-                    'isOutlined' => true, 
-                    'isPrimary' => false,
-                    'classList' => ['u-float--left']
-                ])
-                    Float left
-                @endbutton
+                'href' => '#', 
+                'isOutlined' => true, 
+                'isPrimary' => false,
+                'classList' => ['u-float--left']
+            ])
+                Float left
+            @endbutton
 
-                @button([
-                    'href' => '#btn-2', 
-                    'isOutlined' => true, 
-                    'isPrimary' => true,
-                    'classList' => ['u-float--left']
-                ])
-                    Float left
-                @endbutton
-
-                @button([
-                    'href' => '#btn-3', 
-                    'isOutlined' => false, 
-                    'isPrimary' => true,
-                    'classList' => ['u-float--right']
-                ])
-                Float right
-                @endbutton
-
-                @button([
-                    'href' => '#btn-3',
-                    'isOutlined' => false,
-                    'isPrimary' => false,
-                    'isCircle' => true,
-                    'classList' => ['u-float--right']
-                ])
+            @button([
+                'href' => '#',
+                'isOutlined' => false,
+                'isPrimary' => false,
+                'isCircle' => true,
+                'classList' => ['u-float--right']
+            ])
                 Float right
             @endbutton
         </div>

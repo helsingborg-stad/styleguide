@@ -7,25 +7,32 @@
         #Visibility
     @endmarkdown
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'visibility', 'config' => 'visibility']])
-        @button([
-            'href' => '#btn-3',
-            'isOutlined' => false,
-            'isPrimary' => false,
-            'isCircle' => true,
-            'classList' => ['u-visibility--visible']
-        ])
-            Visible button
-        @endbutton
 
-        @button([
-            'href' => '#btn-3',
-            'isOutlined' => false,
-            'isPrimary' => false,
-            'isCircle' => true,
-            'classList' => ['u-visibility--hidden']
-        ])
-            Hidden Button
-        @endbutton
+        <div class="u-display--flex">
+            @button([
+                'href' => '#btn-3',
+                'isOutlined' => false,
+                'isPrimary' => false,
+                'isCircle' => true,
+                'attributeList' => [
+                    'js-toggle-trigger' => 'example',
+                ]
+            ])
+                Toggle u-visibility--hidden
+            @endbutton
+
+            @typography([
+                'element' => 'p',
+                'variant' => 'subtitle',
+                'attributeList' => [
+                    'js-toggle-item' => 'example',
+                    'js-toggle-class' => 'u-visibility--hidden'
+                ]
+            ])
+            Now you see me!
+            @endtypography
+        </div>
+        
     @endutility_doc
 
 </article>
