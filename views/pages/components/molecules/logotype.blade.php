@@ -7,12 +7,5 @@
     @endmarkdown
 
     @doc(['slug' => 'logotype'])
-
-        @logotype([
-            'src'=> "/assets/img/logotype.svg",
-            'alt' => "This is a logotype"
-        ])
-        @endlogotype
-
     @enddoc
 @stop
