@@ -20,8 +20,9 @@
             ])
                 @button([
                     'text' => 'Left',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_left'],
+                    'icon' => 'keyboard_arrow_left',
                     'size' => 'md',
+                    'reversePositions' => true
                     
                 ])
                 @endbutton
@@ -34,7 +35,7 @@
             ])
                 @button([
                     'text' => 'Right',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_right'],
+                    'icon' => 'keyboard_arrow_right',
                     'size' => 'md',
                     
                 ])
@@ -48,7 +49,7 @@
             ])
                 @button([
                     'text' => 'Top',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_up'],
+                    'icon' => 'keyboard_arrow_up',
                     'size' => 'md',
                     
                 ])
@@ -62,7 +63,7 @@
             ])
                 @button([
                     'text' => 'Bottom',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_down'],
+                    'icon' => 'keyboard_arrow_down',
                     'size' => 'md',
                     
                 ])
@@ -82,7 +83,7 @@
             ])
                 @button([
                     'text' => 'Left',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_left'],
+                    'icon' => 'keyboard_arrow_left',
                     'size' => 'md',
                     
                 ])
@@ -96,7 +97,7 @@
             ])
                 @button([
                     'text' => 'Right',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_right'],
+                    'icon' => 'keyboard_arrow_right',
                     'size' => 'md',
                     
                 ])
@@ -110,7 +111,7 @@
             ])
                 @button([
                     'text' => 'Top',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_up'],
+                    'icon' => 'keyboard_arrow_up',
                     'size' => 'md',
                     
                 ])
@@ -124,7 +125,7 @@
             ])
                 @button([
                     'text' => 'Bottom',
-                    'icon' => ['size' => 'md', 'color' => 'black', 'name' => 'keyboard_arrow_down'],
+                    'icon' => 'keyboard_arrow_down',
                     'size' => 'md',
                     
                 ])

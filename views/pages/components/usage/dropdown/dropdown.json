@@ -1,0 +1,17 @@
+{
+    "click":{
+        "heading": "Click",
+        "subHeading": "",
+        "text": "Click to show the list of items."
+    },
+    "hover":{
+        "heading": "Hover",
+        "subHeading": "",
+        "text": "Hover to show the list of items."
+    },
+    "direction":{
+        "heading": "Direction",
+        "subHeading": "",
+        "text": "Choose the direction of the list."
+    }
+}
