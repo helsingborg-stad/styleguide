@@ -8,19 +8,54 @@
 @endmarkdown
 
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__text']])
-    @table([
-        'list' => [
-            ['u-align-baseline ', 'Align according to baseline'],
-            ['u-align-middle', 'Align middle'],
-            ['u-align-bottom', 'Align with the bottom'],
-            ['u-align-text-bottom', 'Align with the bottom of current row'],
-            ['u-align-text-top', 'Align with the top of current row'],
-        ],
-        'headings' => ['Class', 'Description'],
-        'showFooter' => false,
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--primary']
+    ])
+        Primary Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--secondary']
+    ])
+        Secondary Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
         'classList' => ['u-color__text--danger']
     ])
-    @endtable
+    Danger Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--info']
+    ])
+        Info Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--success']
+    ])
+        Success Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--warning']
+    ])
+        Warning Text
+    @endtypography
+
 @endutility_doc
 
 @markdown
@@ -28,23 +63,29 @@
 @endmarkdown
 
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__bg']])
-    @table([
-        'list' => [
-            ['u-align-baseline ', 'Align according to baseline'],
-            ['u-align-middle', 'Align middle'],
-            ['u-align-bottom', 'Align with the bottom'],
-            ['u-align-text-bottom', 'Align with the bottom of current row'],
-            ['u-align-text-top', 'Align with the top of current row'],
-        ],
-        'headings' => ['Class', 'Description'],
-        'showFooter' => false,
-        'classList' => ['u-color__bg--success']
-    ])
-    @endtable
-    @endutility_doc
 
-    
+    <div class="d-colors">
+        <div class="u-color__bg--primary u-display--inline u-rounded"></div>
 
+        <div class="u-color__bg--secondary u-display--inline u-rounded"></div>
+
+        <div class="u-color__bg--danger u-display--inline u-rounded"></div>
+
+        <div class="u-color__bg--warning u-display--inline u-rounded"></div>
+
+        <div class="u-color__bg--info u-display--inline u-rounded"></div>
+
+        <div class="u-color__bg--success u-display--inline u-rounded"></div>
+
+        <span>Primary</span>
+        <span>Secondary</span>
+        <span>Danger</span>
+        <span>Warning</span>
+        <span>Info</span>
+        <span>Success</span>
+    </div>
+
+@endutility_doc
 </article>
 @stop
 
