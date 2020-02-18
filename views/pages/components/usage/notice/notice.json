@@ -1,0 +1,17 @@
+{
+    "type": {
+        "heading": "Type",
+        "subHeading": "",
+        "text": "The type parameter is meant to be seen as sort of severity indicator. It's value either success, info, warning or danger."
+    },
+    "icon": {
+        "heading": "Icon",
+        "subHeading": "",
+        "text": "The icon parameter is an array that can configured just as the icon component. It could also be left out completely."
+    },
+    "messageSize": {
+        "heading": "Message size",
+        "subHeading": "",
+        "text": "The size of the message can be set to either sm, md or lg and will also affect the icon since our icon package is a font."
+    }
+}
