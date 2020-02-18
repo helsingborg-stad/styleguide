@@ -5,7 +5,8 @@
         'icon' => 'close',
         'size' => 'lg',
         'color' => 'secondary'
-    ]
+    ],
+    'classList' => ['d-fab__left']
 ])
 @endfab
 
@@ -18,7 +19,8 @@
         'type' => 'filled',
         'icon' => 'close',
         'size' => 'lg',
-        'color' => 'secondary'
+        'text' => 'Right',
+        'color' => 'primary'
         
     ])
     @endbutton
