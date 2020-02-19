@@ -7,14 +7,14 @@
         #Screen readers
     @endmarkdown
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'screen-readers', 'config' => 'screen-readers']])
-        <div class="u-border--1 u-border--primary u-mb--1">
-            <p>This container a sr-only text</p>
-            <button class="u-sr__only">Screen reader only</button>
-        </div>
+        @typography(['element' => 'p'])
+            By adding the class <code>u-sr__only</code> we give the element the styling to hide it in the layout but it'll still be accesable in the markup.
+            </br>The container below has a text with the class <code>sr-only--focusable</code>.
+            Uses for this is for items that should only be accessable through tabbing to but when they're focuesd it should be visible.
+        @endtypography
         
-        <div class="u-border--1 u-border--secondary">
-            <p>This container a sr-only--focusable text</p>
-            <button class="u-sr__only--focusable">Screen reader only</button>
+        <div class="u-border--1 u-border--secondary u-padding--2 u-display--inline-block">
+            <button class="u-sr__only--focusable">You found me!</button>
         </div>
     @endutility_doc
 
