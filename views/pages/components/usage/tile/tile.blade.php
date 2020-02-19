@@ -6,7 +6,7 @@
             'u-color__bg--info'
         ]
     ])
-    nejdp
+    
     @endtile
 
     @tile([
@@ -14,7 +14,7 @@
             'u-color__bg--warning'
         ]
     ])
-        hejsan
+        
     @endtile
 
     @tile([
@@ -22,7 +22,6 @@
             'u-color__bg--danger'
         ]
     ])
-        hejsan
     @endtile
 
     @tile([
@@ -31,6 +30,5 @@
             "c-tile__sizer"
         ]
     ])
-        hejsan
     @endtile
 </div>
