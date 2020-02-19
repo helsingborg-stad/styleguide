@@ -65,24 +65,29 @@
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__bg']])
 
     <div class="d-colors">
-        <div class="u-color__bg--primary u-display--inline u-rounded"></div>
+        <div class="u-color__bg--primary u-display--inline u-rounded u-padding--1">
+            <span>Primary</span>
+        </div>
 
-        <div class="u-color__bg--secondary u-display--inline u-rounded"></div>
+        <div class="u-color__bg--secondary u-display--inline u-rounded u-padding--1">
+            <span>Secondary</span>
+        </div>
 
-        <div class="u-color__bg--danger u-display--inline u-rounded"></div>
+        <div class="u-color__bg--danger u-display--inline u-rounded u-padding--1">
+            <span>Danger</span>
+        </div>
 
-        <div class="u-color__bg--warning u-display--inline u-rounded"></div>
+        <div class="u-color__bg--warning u-display--inline u-rounded u-padding--1">
+            <span>Warning</span>
+        </div>
 
-        <div class="u-color__bg--info u-display--inline u-rounded"></div>
+        <div class="u-color__bg--info u-display--inline u-rounded u-padding--1">
+            <span>Info</span>
+        </div>
 
-        <div class="u-color__bg--success u-display--inline u-rounded"></div>
-
-        <span>Primary</span>
-        <span>Secondary</span>
-        <span>Danger</span>
-        <span>Warning</span>
-        <span>Info</span>
-        <span>Success</span>
+        <div class="u-color__bg--success u-display--inline u-rounded u-padding--1">
+            <span>Success</span>
+        </div>
     </div>
 
 @endutility_doc
