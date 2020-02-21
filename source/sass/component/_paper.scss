@@ -50,15 +50,6 @@
         padding: 24px;
     }
 
-    &--component-code-area-full, &--component-code-area-grid {
-        background-color: $color-component-doc-background;
-
-        .c-code {
-            //padding: 0 24px;
-        }
-
-    }
-
     &--component-code-area-grid {
         margin-top: -8px;
         padding: 0 24px;

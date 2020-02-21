@@ -69,42 +69,37 @@
                         {{$example['description']['text']}}
                     @endtypography
 
-                    @buttonGroup(['borderColor' => 'default'])
-                    @button([
-                        'text' => 'HTML',
-                        'size' => 'md',
-                        'icon' => 'code',
-                        'toggle' => true,
-                        'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
-                    ])
-                    @endbutton
-                    @button([
-                        'text' => 'Blade',
-                        'size' => 'md',
-                        'icon' => 'code',
-                        'toggle' => true,
-                        'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
-                    ])
-                    @endbutton
+                    @buttonGroup(['borderColor' => 'default', 'classList' => ['d-code__toggle', 'c-code__toggle']])
+                        @button([
+                            'text' => 'HTML',
+                            'color' => 'default',
+                            'type' => 'basic',
+                            'size' => 'md',
+                            'icon' => 'code',
+                            'toggle' => true,
+                            'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
+                        ])
+                        @endbutton
+                        @button([
+                            'text' => 'Blade',
+                            'color' => 'default',
+                            'type' => 'basic',
+                            'size' => 'md',
+                            'icon' => 'code',
+                            'toggle' => true,
+                            'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
+                        ])
+                        @endbutton
                     @endbuttonGroup
                 @endpaper
-                    @paper([
-                        'classList' => $codeArea
-                    ])
-                    @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
-                    @endcode
-                @endpaper
 
-                @paper([
-                    'classList' => $codeArea
-                ])
-                
-                    @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                        {{$example['blade']['code']}}
-                    @endcode
-               
-                @endpaper
+                @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--grid', 'js-toggle-group' => $loop->index]])
+                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
+                @endcode
+            
+                @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--grid', 'js-toggle-group' => $loop->index]])
+                    {{$example['blade']['code']}}
+                @endcode
             </div>
         @endforeach
         </div>
