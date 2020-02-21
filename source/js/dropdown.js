@@ -58,7 +58,7 @@ class Dropdown {
      */
     toggle(validTargets, dropDownList) {
 
-        this.setOutBound(dropDownList);
+        //this.setOutBound(dropDownList);
 
         document.addEventListener('click', (event) => {
             let target = event.target;
