@@ -1,7 +1,28 @@
 {
-  "card": {
-    "heading": "Card",
+  "order": {
+    "heading": "Image and heading order",
     "subHeading": "",
     "text": ""
+  },
+  "dropdown": {
+    "heading": "With dropdown",
+    "subHeading": "",
+    "text": ""
+  },
+  "collapsible": {
+    "heading": "Card with a collapsible body",
+    "subHeading": "",
+    "text": ""
+  },
+  "image": {
+    "heading": "Card images",
+    "subHeading": "",
+    "text": " The images can be set to cover 100% of the width or if you wish set padded to true to keep the image in the middle. You can also set a background color which can be seen in the example with padding."
+  },
+  "buttons": {
+    "heading": "Buttons",
+    "subHeading": "",
+    "text": "You can configure a card with buttons that will be rendered in the footer."
   }
+  
 }
