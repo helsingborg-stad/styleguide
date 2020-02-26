@@ -116,7 +116,7 @@
 
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
-        @paper(['padding' => 3])
+        @paper(['padding' => 3, 'classList' => ['u-overflow--auto']])
             <h3>Blade component parameters</h3>
             <table>
                 <thead>
