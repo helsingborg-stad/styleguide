@@ -31,6 +31,7 @@ $color-white: #ffffff !default;
 
 $color-default-dimmed: #eee !default;
 $color-default-dark: #dadada !default;
+$color-default-darker: #3d3d3d !default;
 $color-default-alpha: rgba(112, 112, 112, 0.08);
 $color-default-alpha-dimmed: rgba(112, 112, 112, 0.24);
 
@@ -134,3 +135,6 @@ $color-comment-bubble-bg: $color-white !default;
 $color-comment-date: $color-light !default;
 
 $color-footer-background: #efefef;
+
+$color-code-sidebar: $color-default-darker !default;
+$color-code-button: $color-default-darker !default;

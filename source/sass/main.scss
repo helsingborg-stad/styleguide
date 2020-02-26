@@ -41,6 +41,7 @@
 // ***************************************************************
 // *** Doc
 // ***************************************************************
+@import "doc/generic";
 @import "doc/icons";
 @import "doc/fab";
 @import "doc/utilities";
@@ -73,7 +74,7 @@
 @import "generic/container";
 @import "generic/grid";
 @import "generic/layouts";
-//@import "generic/icons";
+@import "generic/icons";
 @import "generic/load-animation";
 @import "generic/divider";
 

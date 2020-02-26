@@ -1,22 +1,19 @@
+<div class="grid">
+    <div class="grid-sm-12 grid-md-4"
 @card([
-    'title' => ['text' => 'Another title with a few more words. Two lines of text.', 'position' => 'body'],
-    'byline' => ['text' => 'Neglecterino nulecule four krustys flunjer parents', 'position' => 'body'],
+    'collapsible' => true,
+    'heading' => 'Heading',
+    'subHeading' => 'SubHeading', 
+    'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
+    'image' => ['src' => 'https://www.w3schools.com/w3css/img_lights.jpg', 'alt' => 'ALT'],
+    'imageFirst' => true,
+    'dropdown' => [
+        'items' => [['text' => 'test']],
+        'buttonColor' => 'white'
+    ],
     'buttons' => [
-        [
-            'href' => 'http://helsingborg.se',
-            'text' => 'Action button 1',
-            'attributeList' => ['js-toggle-trigger' => ''],
-            'color' => 'default',
-            'type' => 'filled'
-        ],
-        [
-            'href' => 'http://',
-            'text' => 'Action button 2',
-            'attributeList' => ['js-toggle-trigger' => ''],
-            'color' => 'secondary',
-            'type' => 'filled'
+            ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!'],
+            ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
         ]
-    ]
 ])
-
 @endcard
