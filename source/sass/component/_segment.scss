@@ -3,491 +3,150 @@
 // ***************************************************************
 
 .c-segment {
-    display: flex;
-    overflow: hidden;
     position: relative;
+    width: 100%;
     background-size: cover;
+    padding: map-get($spacers, "10");
+    display: grid;
     justify-content: center;
+    align-content: center;
+    grid-gap: map-get($spacers, "4");
+    grid-template-columns: minmax(0, 800px);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "top"
+        "main"
+        "bottom"
+    ;
 
-    //Get segment component name
-    $segmentClass: &;
-
-    &__inner {
-        position: relative;
-        display: flex;
-        flex: 0 0 100%;
-        max-width: 1500px;
-        min-height: inherit;
+    &__top,
+    &__main,
+    &__bottom {
         z-index: $level-1;
     }
 
-    &__content {
-        flex: 0 0 100%;
-        display: flex;
+    &__top {
+        grid-area: top;
+        align-self: end;
     }
 
-    &__article {
-        //display: flex;
-        z-index: 5;
-        position: relative;
-        max-width: 700px;
+    &__main {
+        grid-area: main;
     }
 
-    &__column-article {
-        display: flex;
+    &__bottom {
+        grid-area: bottom;
     }
 
-    &__article>div+div {
-        margin-top: map-get($spacers, "4");
-    }
+}
 
-    &__column-slot {
-        display: flex;
-        min-height: 100%;
-        padding: map-get($spacers, "4");
-    }  
-
-    &__heading,
-    &__body {
-        margin-bottom: map-get($spacers, "4");
-    }
-
-    &__image {
-        z-index: 1;
-    }
-
-    &__cta {
-        display: flex;
-        button {
-            margin-bottom: map-get($spacers, "2");
-            margin-right:  map-get($spacers, "3");
-            &:last-of-type {
-                margin-right:  0;
-            }
-        }
-    }
-
-    &__cta--left {
-        #{$segmentClass}__cta {
-            justify-content: flex-start;
-        }
-    }
-    &__cta--right {
-        #{$segmentClass}__cta {
-            justify-content: flex-end;
-        }
-    }
-    &__cta--center {
-        #{$segmentClass}__cta {
-            justify-content: center;
-        }
-    }
-    &__cta--apart {
-        #{$segmentClass}__cta {
-            justify-content: space-between;
-        }
-    }
-
-    /* Text Alignment */
-
-    &--text-alignment {
-
+.c-segment__layout {
+    &--col {
+        &-right,
         &-left {
-
-            #{$segmentClass}__article {
-                text-align: left;
-            }
+            grid-template-columns: minmax(0, 400px) minmax(0, 400px);
+            grid-template-rows: min-content min-content;
         }
-
+        
         &-right {
-
-            #{$segmentClass}__article {
-                text-align: right;
-            }
+            grid-template-areas:
+                "top main"
+                "bottom main"
+            ;
         }
-
-        &-center {
-
-            #{$segmentClass}__article {
-                text-align: center;
-            }
-        }
-    }
-
-    /* Card */
-    &--template-card {
-
-        #{$segmentClass}__inner {
-            @include shadow(4);
-            margin-top: map-get($spacers, "4");
-            margin-bottom: map-get($spacers, "4");
-        }
-
-        @include mq("xs", "md") {
-
-            #{$segmentClass}__inner {
-                margin: map-get($spacers, "4");
-            }
-        }
-
-        &__column-graphics {
-            min-height: 40vh;;
+        &-left {
+            grid-template-areas:
+                "main top"
+                "main bottom"
+            ;
         }
     }
+}
 
-    /* Padding */
-
-    &__padding {
-        @each $size, $length in $spacers {
-
-            &--#{$size} {
-
-                #{$segmentClass}__inner   {
-                    padding: $length;
-                }
-            }
-        }
+.c-segment__color {
+    &--black {
+        color:black;
     }
-
-    /* Colors */
-
-    &--color-light {
-        color: #fff;
-        text-shadow: 2px 2px 3px rgba(34,34,34,.6);
+    &--white {
+        color:white;
     }
+}
 
-    &--color-dark {
-        color: #000;
-    }
-
-    /* Vertical alignments */
-
-    &--valign-top {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            align-items: top;
-        }
-    }
-
-    &--valign-center {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            align-items: center;
-        }
-    }
-
-    &--valign-bottom {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            align-items: flex-end;
-        }
-    }
-
-    /* Horizontal alginments */
-
-    &--align-left {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            justify-content: flex-start;
-        }
-    }
-
-    &--align-center {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            justify-content: center;
-        }
-    }
-
-    &--align-right {
-
-        #{$segmentClass}__article,
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__content {
-            justify-content: flex-end;
-        }
-    }
-
-    &--align-space-between {
-        justify-content: space-between;
-    }
-
-    &--align-space-around {
-        justify-content: space-around;
-    }
-
-    &--align-space-evenly {
-        justify-content: space-evenly;
-    }
-
-    &--align-stretch {
-        justify-content: stretch;
-    }
-
-    /* Paddings */
-
-    @include mq("xs", "md") {
-
-        &[class*="--padding-"] {
-            padding: map-get($spacers, "2");
-        }
-    }
-
-    @include mq("md") {
-
-        &--padding-xs {
-            padding: map-get($spacers, "2");
-        }
-
-        &--padding-sm {
-            padding: map-get($spacers, "4");
-        }
-
-        &--padding-md {
-            padding: map-get($spacers, "6") map-get($spacers, "4");
-        }
-
-        &--padding-lg {
-            padding: map-get($spacers, "8") map-get($spacers, "6");
-        }
-
-        &--padding-xl {
-            padding: map-get($spacers, "10") map-get($spacers, "6");
-        }
-
-    }
-
-    /* Image focus */
-    $vertical-positions: top center bottom;
-    $horizontal-positions: left center right;
-
-    @each $vertical-position in $vertical-positions {
-        @each $horizontal-position in $horizontal-positions {
-
-            &--image-focus-#{$horizontal-position}-#{$vertical-position} {
-
-                #{$segmentClass}__column-graphics {
-                    background-position: #{$horizontal-position} #{$vertical-position};
-                }
-            }
-        }
-    }
-
-    /* Heights */
-
-    &--height-sm {
+.c-segment__height{
+    &--sm {
         min-height: map-get($spacers, "8");
     }
 
-    &--height-md {
+    &--md {
         min-height: 40vh;
     }
 
-    &--height-lg {
+    &--lg {
         min-height: 95vh;
     }
+}
 
-    /* Background colors */
-    &__background {
-        &--white {
-
-            #{$segmentClass}__inner {
-                background-color: white;
-            }
-        }
-
-        &--grey,
-        &--gray {
-
-            #{$segmentClass}__inner {
-                background-color: $color-gray-light;
-            }
-        }
+.c-segment--padding {
+    &-sm {
+        padding: map-get($spacers, "5");
     }
 
-
-    /* Overlays */
-
-    &--overlay-blur:before {
-        backdrop-filter: blur(2px);
+    &-md {
+        padding: map-get($spacers, "10");
     }
 
-    &--overlay-dark:before,
-    &--overlay-light:before {
+    &-lg {
+        padding: map-get($spacers, "16");
+    }
+}
+
+.c-segment__overlay {
+    &--blur:before ,
+    &--dark:before,
+    &--light:before {
         content: "";
         @include cover();
     }
+    
+    &--blur:before {
+        backdrop-filter: blur(2px);
+    }
 
-    &--overlay-dark:before {
+    &--dark:before {
         background: #000;
     }
 
-    &--overlay-light:before {
+    &--light:before {
         background: #fff;
     }
 
-    &--overlay-opacity-low:before {
-        opacity: 0.8;
-    }
+    &--opacity {
+        &-low:before {
+            opacity: 0.8;
+        }
+        &-medium:before {
+            opacity: 0.5;
+        }
 
-    &--overlay-opacity-medium:before {
-        opacity: 0.5;
-    }
-
-    &--overlay-opacity-high:before {
-        opacity: 0.3;
-    }
-
-    /* Effects */
-
-    &--effect-parallax {
-        background-attachment: fixed;
-    }
-
-    /* Containment */
-
-    &--not-contained {
-
-        #{$segmentClass}__inner {
-            max-width: unset;
+        &-high:before {
+            opacity: 0.3;
         }
     }
+}
 
-    /* Order */
-
-    &--reverse-layout {
-
-        #{$segmentClass}__content {
-            flex-direction: row-reverse;
+@include mq(map_get($breakpoints-map, "xs"), "md") {
+.c-segment__layout {
+    &--col {
+        &-right,
+        &-left {
+            grid-template-columns: minmax(0, 800px);
+            grid-template-rows: auto auto auto;
+            grid-template-areas:
+                "top"
+                "main"
+                "bottom"
+            ;
         }
     }
-
-    /* Templates */
-
-    &--template-split {
-
-        #{$segmentClass}__inner {
-        }
-
-        #{$segmentClass}__content {
-        }
-
-        #{$segmentClass}__column-article {
-            flex: 0 0 58.33333%;
-            max-width: 58.33333%;
-            padding: map-get($spacers, "8");
-        }
-
-        #{$segmentClass}__column-graphics {
-            flex: 0 0 41.66667%;
-            height: 100%;
-            max-width: 41.66667%;
-            background-size: cover;
-        }
-
-        #{$segmentClass}__column-slot {
-            flex: 0 0 41.66667%;
-            height: auto;
-            max-width: 41.66667%;
-        }
-    }
-
-    &--template-split-left {
-
-    }
-
-    &--template-featured {
-
-        #{$segmentClass}__content {
-            flex-wrap: wrap;
-        }
-
-        #{$segmentClass}__slot,
-        #{$segmentClass}__article {
-            flex: 0 0 100%;
-            max-width: 100%;
-            margin-top: map-get($spacers, "3");
-        }
-    }
-
-    &--template-featured-right {
-
-    }
-
-    &--template-featured-left {
-
-    }
-
-    &--template-full {
-        display: flex;
-        font-size: 1.3em;
-
-        #{headings(1, 6, " > [class*="__inner"]")} {
-            font-size: 1.5em;
-        }
-    }
-
-    // Mobile format
-    @include mq("xs", "md") {
-
-        #{$segmentClass}__content {
-            flex-wrap: wrap;
-        }
-
-        #{$segmentClass}__column-article,
-        #{$segmentClass}__column-graphics,
-        #{$segmentClass}__column-slot {
-            max-width: 100%;
-            width: 100%;
-            flex: 0 0 100%;
-        }
-
-        &--graphics-below {
-
-            #{$segmentClass}__column-article {
-                order: 1;
-            }
-
-            #{$segmentClass}__column-graphics {
-                order: 2;
-            }
-        }
-
-        &--graphics-above {
-
-            #{$segmentClass}__column-article {
-                order: 2;
-            }
-
-            #{$segmentClass}__column-graphics {
-                order: 1;
-            }
-        }
-
-        &--graphics-hidden {
-
-            #{$segmentClass}__column-graphics {
-                display: none;
-            }
-        }
-    }
-
-    /* Breakpoint specific */
-
-    @include mq("xs", "md") {
-
-        &__column-graphics {
-            min-height: 40vh;;
-        }
-    }
+}
 }
