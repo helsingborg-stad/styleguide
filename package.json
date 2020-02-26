@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "build-imports": "webpack --config webpack.import.js",
         "prebuild": "node build/build.js assets",
-        "build": "webpack --config webpack.config.js",
+        "build": "webpack --config webpack.config.js & node-sass --recursive --watch source/sass/main.scss assets/dist/css/styleguide-css.min.css --output-style compressed",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
@@ -62,6 +62,7 @@
         "hbg-mix": "^2.1.2",
         "material-design-icons": "^3.0.1",
         "mini-css-extract-plugin": "^0.5.0",
+        "node-sass": "^4.13.1",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "postcss-loader": "^3.0.0",
         "sass": "^1.23.7",
@@ -97,7 +98,7 @@
             "@babel/plugin-proposal-class-properties"
         ]
     },
-    "publishConfig": { 
-        "registry": "https://npm.pkg.github.com/" 
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
     }
 }

@@ -1,10 +1,7 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
 const StylelintPlugin = require('stylelint-webpack-plugin');
-
-//const fs = require('fs');
 
 module.exports = {
     // ...
@@ -16,8 +13,7 @@ module.exports = {
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'styleguide-js': glob.sync('./source/js/**/*.js'),
-        'styleguide-css': './source/sass/main.scss'
+        'styleguide-js': glob.sync('./source/js/**/*.js')
     },
     mode: 'development',
     watch: true,
@@ -34,6 +30,9 @@ module.exports = {
         filename: 'js/[name].min.js'
     },
     
+    /**
+     * Modules
+     */
     module: {
         rules: [
             
@@ -50,34 +49,6 @@ module.exports = {
                     }
                 }
             },
-            
-            /**
-             * Compile sass to css
-             */
-            {
-                test: /\.(sa|sc|c)ss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader: "css-loader",
-                    },
-                    {
-                        loader: "postcss-loader",
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: true,
-                            modules: true,
-                            implementation: require("sass"),
-                            name: "css/[name].css"
-                        }
-                    }
-                ]
-            },
-            
             
             /**
              * Fonts - File loader
@@ -103,13 +74,6 @@ module.exports = {
         
         // Prevent Webpack to create javascript css
         new FixStyleOnlyEntriesPlugin(),
-        
-        // Minify css and create css file
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].min.css',
-            chunkFilename: 'css/[name].min.css'
-        }),
-        
         // Lint for scss
         new StylelintPlugin({
             context: "./source/sass",
