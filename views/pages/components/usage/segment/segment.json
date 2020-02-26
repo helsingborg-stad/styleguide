@@ -1,17 +1,17 @@
 {
     "base":{
-        "heading": "Basic Card component",
-        "subHeading": "Card is based on a paper component",
-        "text": "The plain basic card contain title, byline and content"
+        "heading": "Basic Segment component",
+        "subHeading": "Base layout",
+        "text": "This is the base layout for segment, everything stacks on top"
     },
     "col-right":{
-        "heading": "Basic Card component",
-        "subHeading": "Card is based on a paper component",
-        "text": "The plain basic card contain title, byline and content"
+        "heading": "Segment - Column right",
+        "subHeading": "Main content on the right",
+        "text": "This layout gives you the ability to put the main content to the right"
     },
     "col-left":{
-        "heading": "Basic Card component",
-        "subHeading": "Card is based on a paper component",
-        "text": "The plain basic card contain title, byline and content"
+        "heading": "Segment - Column left",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
     }
 }
