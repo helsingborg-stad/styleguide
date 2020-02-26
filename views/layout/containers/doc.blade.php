@@ -1,8 +1,17 @@
 @extends('layout.master')
 
 @section('content')
-    @include('layout.navigation')
-    <div class="container--doc">
+<div class="l-docs">
+    @sidebar([
+        'logo' => '/assets/img/logotype-grey-full.svg',
+        'items' => $sideNavigation,
+        'classList' => ['l-docs--sidebar']
+    ])
+
+    @endsidebar
+
+
+    <div class="container--doc l-docs--content">
         
         <section>
             <article class="article">
@@ -12,4 +21,5 @@
         
         @include('layout.footer')
     </div>
+</div>
 @stop

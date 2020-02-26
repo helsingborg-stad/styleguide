@@ -19,9 +19,8 @@
     }
 
     &--doc {
-        margin-left: 288px;
         min-height: calc(90vh - 140px);
-        padding: 140px;
+        padding: map-get($spacers, "8");
     }
 }
 
