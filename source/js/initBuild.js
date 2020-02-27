@@ -64,13 +64,13 @@ class initBuild {
                 let node = document.createElement("span");
                 let nodeIcon = document.createElement("i");
                 let textNode = document.createTextNode(componentArray[i]);
-                let textNodeIcon = document.createTextNode('layers');
+                let textNodeIcon = document.createTextNode('extension');
                 
                 node.appendChild(textNode);
                 nodeIcon.appendChild(textNodeIcon);
                 
                 node.classList.add('component-list', 'comp-list-item-'+i, 'c-tags', 'c-tag--default');
-                nodeIcon.classList.add('c-icon', 'c-icon--color-primary', 'c-icon--size-sm', 'material-icons');
+                nodeIcon.classList.add('c-icon', 'c-icon--size-sm', 'material-icons');
                 //node.setAttribute('disabled', 'disabled');
                 
                 document.querySelector('.selected-components').appendChild(node);
