@@ -62,12 +62,19 @@ class initBuild {
                 checkboxes[i].checked = false;
                 
                 let node = document.createElement("span");
+                let nodeIcon = document.createElement("i");
                 let textNode = document.createTextNode(componentArray[i]);
+                let textNodeIcon = document.createTextNode('code');
                 
                 node.appendChild(textNode);
-                node.classList.add('component-list', 'c-link', 'c-tags', 'c-tag--default');
-                node.setAttribute('disabled', 'disabled');
+                nodeIcon.appendChild(textNodeIcon);
+                
+                node.classList.add('component-list', 'comp-list-item-'+i, 'c-tags', 'c-tag--default');
+                nodeIcon.classList.add('c-icon', 'c-icon--color-primary', 'c-icon--size-sm', 'material-icons');
+                //node.setAttribute('disabled', 'disabled');
+                
                 document.querySelector('.selected-components').appendChild(node);
+                document.querySelector('.comp-list-item-'+i).prepend(nodeIcon);
                 
             }
             
