@@ -1,41 +1,44 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const template = require('./componentTemplate');
-const singleComponentPath = 'source/sass/imports';
 const {exec} = require('child_process');
-const { promisify } = require("util");
+const {promisify} = require("util");
+const sass = require('node-sass');
+
+const singleComponentPath = 'source/sass/imports';
+const compiledComponentPath = 'assets/dist/css/compilations';
 
 /**
  * Creating scss file
  * @param fileName
+ * @param sassData
  */
-const buildFile = (fileName, sassData, moveFile) => {
+const buildFile = (fileName, sassData) => {
     fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss',
-        sassData, function(error) {
-        if(error) {
-            console.log('[write auth]: ' + err);
-        } else {
-            console.log('[write auth]: success');
-            moveFile(fileName);
-        }
-    });
-    
+        sassData, function (error) {
+            if (error) {
+                console.log('[write auth]: ' + error);
+            } else {
+                moveFile(fileName);
+            }
+        });
 };
-
 
 /**
  * Move files from tmp to production
  * @param hash
- * @param singleComponentPath
  */
 const moveFile = (hash) => {
     
-    const tmpPath = singleComponentPath + '/tmp/' + hash + '.scss';
-    const newPath = singleComponentPath + '/' + hash + '/' + hash + '.scss';
-    fs.rename(tmpPath, newPath, function (errors, newPath) {
+    const serverObj = {
+        'tmp': singleComponentPath + '/tmp/' + hash + '.scss',
+        'scss': singleComponentPath + '/' + hash + '/' + hash + '.scss',
+        'css': compiledComponentPath + '/' + hash + '.min.css'
+    };
+    
+    fs.rename(serverObj.tmp, serverObj.scss, function (errors) {
         if (!errors) {
-            console.log('Successfully Moved file!');
-            runNodeSass(newPath);
+            runNodeSass(serverObj);
         } else {
             console.log(errors);
         }
@@ -44,34 +47,28 @@ const moveFile = (hash) => {
 
 /**
  * Running Webpack to Compile and minify css
+ * @param serverObj
  */
-const runNodeSass = (fileName) => {
-    setTimeout(function (){
+const runNodeSass = (serverObj) => {
     
-        const sass = require('node-sass');
-        const result = sass.renderSync({
-            file: './source/sass/imports/',
-            outputStyle: 'compressed',
-            outFile: './nodesass.css',
-            sourceMap: true,
-        });
-    
-        console.log(sass.info);
-        //console.log(result);
-        //console.log(result.css);
-        //console.log(result.map);
-        //console.log(result.stats);
+    sass.render({
+        file: serverObj.scss,
+        outputStyle: 'compressed',
+        outFile: serverObj.css,
+    }, function (error, result) {
         
-        /*exec('cd / | npm run build-imports', (errors, stdout, stderr) => {
-            if (errors) {
-                console.error(errors)
-            } else {
-                console.log(`stdout: ${stdout}`);
-                console.log(`stderr: ${stderr}`);
-            }
-        });*/
+        if (error) {
+            console.log('Error!');
+        } else {
+            fs.writeFile(serverObj.css, result.css, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log('Custom compiled CSS file was created.');
+            });
+        }
         
-    }, 2000);
+    });
 };
 
 /**
@@ -108,11 +105,11 @@ const checkFileSize = (fileName, sassData) => {
         const fileSizeInBytes = stats["size"];
         
         if (fileSizeInBytesTmp !== fileSizeInBytes) {
-            buildFile(fileName, sassData, moveFile);
+            buildFile(fileName, sassData);
         }
-
+        
     } else {
-        buildFile(fileName, sassData, moveFile);
+        buildFile(fileName, sassData);
     }
     
 };
@@ -123,7 +120,7 @@ const checkFileSize = (fileName, sassData) => {
  * @param fileName
  */
 const clientOutput = (fileName) => {
-    const output = '/assets/dist/css/compilations/'+ fileName+'/'+fileName+'.min.css';
+    const output = '/assets/dist/css/compilations/' + fileName + '.min.css';
     return output;
     
 };

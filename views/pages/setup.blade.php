@@ -157,11 +157,11 @@
         <div class="online-compiled-components u-display--none">
 
             @button([
-            'color' => 'secondary',
-            'size' => 'sm',
-            'text' => 'COPY',
-            'background' => 'default',
-            'classList' => ['c-button--copy-compiled-link']
+                'color' => 'secondary',
+                'size' => 'sm',
+                'text' => 'COPY',
+                'background' => 'default',
+                'classList' => ['c-button--copy-compiled-link']
             ])
             @endbutton
 
@@ -187,12 +187,12 @@
         </div>
         <div class="u-padding__top--3 u-padding__bottom--8">
             @button([
-            'color' => 'primary',
-            'href' => '',
-            'size' => 'lg',
-            'text' => 'Generate CSS',
-            'background' => 'default',
-            'classList' => ['u-float--right', 'c-button--generate-css']
+                'color' => 'primary',
+                'href' => '',
+                'size' => 'lg',
+                'text' => 'Generate CSS',
+                'background' => 'default',
+                'classList' => ['u-float--right', 'c-button--generate-css']
             ])
             @endbutton
         </div>

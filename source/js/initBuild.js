@@ -65,7 +65,7 @@ class initBuild {
                 let textNode = document.createTextNode(componentArray[i]);
                 
                 node.appendChild(textNode);
-                node.classList.add('component-list', 'c-tags', 'c-tag--default');
+                node.classList.add('component-list', 'c-link', 'c-tags', 'c-tag--default');
                 node.setAttribute('disabled', 'disabled');
                 document.querySelector('.selected-components').appendChild(node);
                 
@@ -112,7 +112,7 @@ class initBuild {
                     self.changeMarkupState('result', cssUrl);
                     self.copyGenLinks();
                     
-                }, 10000);
+                }, 2000);
             })
     };
     

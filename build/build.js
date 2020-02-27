@@ -14,6 +14,5 @@ switch (process.argv[2]) {
         const sassComponents = require('./sassComponents/sassComponents');
         sassComponents.initSassComponents(process.argv[3]);
         break;
-    
-
+        
 }
