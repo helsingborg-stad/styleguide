@@ -15,21 +15,5 @@ switch (process.argv[2]) {
         sassComponents.initSassComponents(process.argv[3]);
         break;
     
-    case "test":
-    
-        const sass = require('node-sass');
-        const result = sass.renderSync({
-            file: './source/sass/main.scss',
-            outputStyle: 'compressed',
-            outFile: './nodesass.css',
-            sourceMap: true,
-        });
-    
-        console.log(sass.info);
-        //console.log(result);
-        //console.log(result.css);
-        //console.log(result.map);
-        //console.log(result.stats);
-        
-        break;
+
 }

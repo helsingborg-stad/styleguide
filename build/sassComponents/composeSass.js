@@ -35,7 +35,7 @@ const moveFile = (hash) => {
     fs.rename(tmpPath, newPath, function (errors, newPath) {
         if (!errors) {
             console.log('Successfully Moved file!');
-            runWebpack(newPath);
+            runNodeSass(newPath);
         } else {
             console.log(errors);
         }
@@ -45,16 +45,31 @@ const moveFile = (hash) => {
 /**
  * Running Webpack to Compile and minify css
  */
-const runWebpack = (fileName) => {
+const runNodeSass = (fileName) => {
     setTimeout(function (){
-        exec('cd / | npm run build-imports', (errors, stdout, stderr) => {
+    
+        const sass = require('node-sass');
+        const result = sass.renderSync({
+            file: './source/sass/imports/',
+            outputStyle: 'compressed',
+            outFile: './nodesass.css',
+            sourceMap: true,
+        });
+    
+        console.log(sass.info);
+        //console.log(result);
+        //console.log(result.css);
+        //console.log(result.map);
+        //console.log(result.stats);
+        
+        /*exec('cd / | npm run build-imports', (errors, stdout, stderr) => {
             if (errors) {
                 console.error(errors)
             } else {
                 console.log(`stdout: ${stdout}`);
                 console.log(`stderr: ${stderr}`);
             }
-        });
+        });*/
         
     }, 2000);
 };
