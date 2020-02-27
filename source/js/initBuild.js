@@ -64,7 +64,7 @@ class initBuild {
                 let node = document.createElement("span");
                 let nodeIcon = document.createElement("i");
                 let textNode = document.createTextNode(componentArray[i]);
-                let textNodeIcon = document.createTextNode('code');
+                let textNodeIcon = document.createTextNode('layers');
                 
                 node.appendChild(textNode);
                 nodeIcon.appendChild(textNodeIcon);

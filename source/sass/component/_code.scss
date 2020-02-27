@@ -85,7 +85,9 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     }
 
     .component-list .c-icon {
-        margin-right:5px;
+        margin-right: 3px;
+        position: relative;
+        top: 2px;
     }
 
     @for $i from 1 through 10 {
