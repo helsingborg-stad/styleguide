@@ -1,0 +1,17 @@
+{
+    "container":{
+        "heading": "Grid Container",
+        "subHeading": "Building grids with components",
+        "text": "The grid component allows you to build CSS grids with components. It has 12 columns and an infinite amount of rows."
+    },
+    "item":{
+        "heading": "Grid Item",
+        "subHeading": "Building grids with components",
+        "text": "The grid item is a container inside the grid. With the grid item we can choose at which lines the item should stretch. For example if we have 3 columns and what it to stretch all of them we write 1 as starting line and 4 as the end line."
+    },
+    "gutter":{
+        "heading": "Gutter",
+        "subHeading": "Building grids with components",
+        "text": "We can insert a gutter between the grid items. The gutter allows the same options as spacing utility."
+    }
+}
