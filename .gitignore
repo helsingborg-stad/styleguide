@@ -24,5 +24,8 @@ _icons.scss
 /source/sass/imports/
 source/sass/imports/
 source/sass/imports/*
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 .npmrc
