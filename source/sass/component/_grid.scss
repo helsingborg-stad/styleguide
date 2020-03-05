@@ -1,7 +1,7 @@
 .c-grid__container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto;
+    grid-auto-flow: row;
     width: 100%;
 
     &__cols {
