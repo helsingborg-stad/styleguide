@@ -1,12 +1,24 @@
+/**
+ * Crypto for hash
+ * @type {module:crypto}
+ */
 const crypto = require('crypto');
+
+/**
+ * FileSystem
+ * @type {module:fs}
+ */
 const fs = require('fs');
 const template = require('./componentTemplate');
-//const {exec} = require('child_process');
-//const {promisify} = require("util");
 const sass = require('node-sass');
 
+/**
+ * Server path
+ * @type {string}
+ */
 const singleComponentPath = 'source/sass/imports';
 const compiledComponentPath = 'assets/dist/css/compilations';
+
 
 /**
  * Creating scss file
@@ -17,12 +29,13 @@ const buildFile = (fileName, sassData) => {
     fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss',
         sassData, function (error) {
             if (error) {
-                console.log('[write auth]: ' + error);
+                console.log('Problem building file: ' + error);
             } else {
                 moveFile(fileName);
             }
         });
 };
+
 
 /**
  * Move files from tmp to production
@@ -44,6 +57,7 @@ const moveFile = (hash) => {
         }
     });
 };
+
 
 /**
  * Running Webpack to Compile and minify css
@@ -71,6 +85,7 @@ const runNodeSass = (serverObj) => {
     });
 };
 
+
 /**
  * Check if directories and files exists
  * @param fileName
@@ -92,13 +107,14 @@ const checkFileExist = (fileName) => {
 
 
 /**
- * Check if filesize has changed
+ * Check if file-size has changed
  * @param fileName
  * @param sassData
  */
 const checkFileSize = (fileName, sassData) => {
     
     if (fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
+        
         const statsTmp = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss');
         const fileSizeInBytesTmp = statsTmp["size"];
         const stats = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss');
@@ -120,9 +136,7 @@ const checkFileSize = (fileName, sassData) => {
  * @param fileName
  */
 const clientOutput = (fileName) => {
-    const output = '/assets/dist/css/compilations/' + fileName + '.min.css';
-    return output;
-    
+    return '/assets/dist/css/compilations/' + fileName + '.min.css';
 };
 
 
@@ -137,16 +151,16 @@ module.exports.build = (componentDependency) => {
     
     let sassData = template.sassTemplate + '\n';
     let component = '';
-    let fileName = '';
     
     for (let i = 0; i < componentDependency.length; i++) {
         sassData += '        @import "../../component/' + componentDependency[i] + '"; \n';
         component += componentDependency[i];
     }
     
-    fileName = crypto.createHash('md5').update(component).digest("hex");
+    const fileName = crypto.createHash('md5').update(component).digest("hex");
     
     checkFileExist(fileName);
     checkFileSize(fileName, sassData);
+    
     return clientOutput(fileName);
 };

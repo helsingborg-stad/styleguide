@@ -20,7 +20,7 @@ switch (process.argv[2]) {
      */
     case "assetsMaterial":
         
-        // Lägga till check if
+        // Lägga till check och kolla om npm paketet är uppdaterat.
         if (fs.existsSync('node_modules/material-design-icons/iconfont/')) {
             
             copyfiles([
