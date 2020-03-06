@@ -53,7 +53,6 @@ switch (process.argv[2]) {
                     console.log(errors);
                 }
             });
-            
         }
         
         break;
