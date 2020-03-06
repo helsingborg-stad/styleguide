@@ -1,7 +1,5 @@
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const path = require('path');
 const glob = require('glob');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = {
     // ...
@@ -71,16 +69,7 @@ module.exports = {
      * Plugins
      */
     plugins: [
-        
-        // Prevent Webpack to create javascript css
-        new FixStyleOnlyEntriesPlugin(),
-        // Lint for scss
-        new StylelintPlugin({
-            context: "./source/sass",
-            configFile: "./.stylelintrc",
-            emitWarning: true,
-            defaultSeverity: "warning"
-        })
+    
     ]
     // ...
 };
