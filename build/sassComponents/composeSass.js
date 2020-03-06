@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const fs = require('fs');
 const template = require('./componentTemplate');
-const {exec} = require('child_process');
-const {promisify} = require("util");
+//const {exec} = require('child_process');
+//const {promisify} = require("util");
 const sass = require('node-sass');
 
 const singleComponentPath = 'source/sass/imports';
