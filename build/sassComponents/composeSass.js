@@ -39,17 +39,13 @@ const compiledComponentPath = 'assets/dist/css/compilations';
  * @param sassData
  */
 const buildFile = (fileName, sassData) => {
-    fs.writeFile(
-        singleComponentPath + '/tmp/' + fileName + '.scss',
-        sassData,
-        function(error) {
-            if (error) {
-                log.error(new Error('Problem building file: ' + error));
-            } else {
-                moveFile(fileName);
-            }
+    fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss', sassData, function(error) {
+        if (error) {
+            log.error(new Error('Problem building file: ' + error));
+        } else {
+            moveFile(fileName);
         }
-    );
+    });
 };
 
 /**
@@ -100,17 +96,15 @@ const runNodeSass = serverObj => {
  * @param fileName
  */
 const checkFileExist = fileName => {
-    if (!fs.existsSync(singleComponentPath)) {
-        fs.mkdirSync(singleComponentPath);
-    }
+    !fs.existsSync(singleComponentPath) ? fs.mkdirSync(singleComponentPath) : '';
 
-    if (!fs.existsSync(singleComponentPath + '/tmp/')) {
-        fs.mkdirSync(singleComponentPath + '/tmp/');
-    }
+    !fs.existsSync(singleComponentPath + '/tmp/')
+        ? fs.mkdirSync(singleComponentPath + '/tmp/')
+        : '';
 
-    if (!fs.existsSync(singleComponentPath + '/' + fileName + '/')) {
-        fs.mkdirSync(singleComponentPath + '/' + fileName + '/');
-    }
+    !fs.existsSync(singleComponentPath + '/' + fileName + '/')
+        ? fs.mkdirSync(singleComponentPath + '/' + fileName + '/')
+        : '';
 };
 
 /**
@@ -119,24 +113,16 @@ const checkFileExist = fileName => {
  * @param sassData
  */
 const checkFileSize = (fileName, sassData) => {
-    if (
-        fs.existsSync(
-            singleComponentPath + '/' + fileName + '/' + fileName + '.scss'
-        )
-    ) {
+    if (fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
         const statsTmp = fs.statSync(
                 singleComponentPath + '/' + fileName + '/' + fileName + '.scss'
             ),
             fileSizeInBytesTmp = statsTmp['size'];
 
-        const stats = fs.statSync(
-                singleComponentPath + '/' + fileName + '/' + fileName + '.scss'
-            ),
+        const stats = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss'),
             fileSizeInBytes = stats['size'];
 
-        fileSizeInBytesTmp !== fileSizeInBytes
-            ? buildFile(fileName, sassData)
-            : '';
+        fileSizeInBytesTmp !== fileSizeInBytes ? buildFile(fileName, sassData) : '';
     } else {
         buildFile(fileName, sassData);
     }
@@ -162,10 +148,7 @@ module.exports.build = componentDependency => {
     let component = '';
 
     for (let i = 0; i < componentDependency.length; i++) {
-        sassData +=
-            '        @import "../../component/' +
-            componentDependency[i] +
-            '"; \n';
+        sassData += '        @import "../../component/' + componentDependency[i] + '"; \n';
         component += componentDependency[i];
     }
 
