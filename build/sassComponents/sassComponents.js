@@ -21,49 +21,47 @@ const composeSass = require('./composeSass');
  */
 const componentLib = 'source/library/src/Component/';
 
-
 /**
  * Flatten directories
  * @param lists
  * @returns {*}
  */
-const flatten = (lists) => {
+const flatten = lists => {
     return lists.reduce((a, b) => a.concat(b), []);
 };
-
 
 /**
  * Map Directories
  * @param srcPath
  * @returns {string[]}
  */
-const getDirectories = (srcPath) => {
-    return fs.readdirSync(srcPath).map(file => path.join(srcPath, file)).filter(
-        path => fs.statSync(path).isDirectory()
-    );
+const getDirectories = srcPath => {
+    return fs
+        .readdirSync(srcPath)
+        .map(file => path.join(srcPath, file))
+        .filter(path => fs.statSync(path).isDirectory());
 };
-
 
 /**
  * Get directory paths
  * @param srcPath
  * @returns {*[]}
  */
-const getDirectoriesRecursive = (srcPath) => {
-    return [srcPath, ...flatten(getDirectories(srcPath).map(getDirectoriesRecursive))];
+const getDirectoriesRecursive = srcPath => {
+    return [
+        srcPath,
+        ...flatten(getDirectories(srcPath).map(getDirectoriesRecursive)),
+    ];
 };
-
 
 /**
  * Get json data from Components
  * @param components
  * @returns {string}
  */
-module.exports.initSassComponents = (components) => {
-    
+module.exports.initSassComponents = components => {
     const componentDir = getDirectoriesRecursive(componentLib);
     if (componentDir.length > 0) {
-        
         let fileList = [];
         componentDir.forEach(dir => {
             let files = fs.readdirSync(dir);
@@ -73,15 +71,14 @@ module.exports.initSassComponents = (components) => {
                 }
             });
         });
-        
+
         let componentDependency = [];
 
         fileList.forEach(jsonFile => {
             const data = fs.readFileSync(jsonFile);
             const jsonData = JSON.parse(data);
-            
-            components.forEach(function (compSlug) {
-               
+
+            components.forEach(function(compSlug) {
                 if (compSlug === jsonData.slug) {
                     const dependency = jsonData.dependency.sass.components;
                     if (dependency !== undefined && dependency.length !== 0) {
@@ -93,11 +90,10 @@ module.exports.initSassComponents = (components) => {
                     }
                 }
             });
-            
+
             return componentDependency;
         });
- 
+
         return composeSass.build(componentDependency);
     }
 };
-
