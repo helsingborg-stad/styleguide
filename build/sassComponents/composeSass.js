@@ -6,9 +6,9 @@ const crypto = require('crypto');
 
 /**
  * Consola packet for nicer term log
- * @type object consLog
+ * @type object log
  */
-const consLog = require('consola');
+const log = require('consola');
 
 /**
  * FileSystem
@@ -43,7 +43,7 @@ const buildFile = (fileName, sassData) => {
     fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss',
         sassData, function (error) {
             if (error) {
-                consLog.error(new Error('Problem building file: ' + error));
+                log.error(new Error('Problem building file: ' + error));
             } else {
                 moveFile(fileName);
             }
@@ -67,7 +67,7 @@ const moveFile = (hash) => {
         if (!errors) {
             runNodeSass(serverObj);
         } else {
-            consLog.error(new Error('Error: ' + errors));
+            log.error(new Error('Error: ' + errors));
         }
     });
 };
@@ -87,9 +87,9 @@ const runNodeSass = (serverObj) => {
         
         fs.writeFile(serverObj.css, result.css, (err) => {
             if (err) {
-                consLog.error(new Error('Error: ' + err))
+                log.error(new Error('Error: ' + err))
             } else {
-                consLog.success('Custom compiled CSS file was created.');
+                log.success('Custom compiled CSS file was created.');
             }
         });
         
