@@ -34,10 +34,7 @@ const copyMoveFiles = () => {
 
     if (fs.existsSync('node_modules/material-design-icons/iconfont/')) {
         copyFiles(
-            [
-                'node_modules/material-design-icons/iconfont/* ',
-                'assets/dist/css/',
-            ],
+            ['node_modules/material-design-icons/iconfont/* ', 'assets/dist/css/'],
             3,
             function(errors) {
                 if (!errors) {
@@ -51,18 +48,14 @@ const copyMoveFiles = () => {
                         3,
                         function(errors) {
                             if (!errors) {
-                                log.info(
-                                    'Copying material icon file css to source dir'
-                                );
+                                log.info('Copying material icon file css to source dir');
 
                                 fs.rename(
                                     'source/sass/material/material-icons.css',
                                     'source/sass/material/_material-icons.scss',
                                     function(e) {
                                         !e
-                                            ? log.success(
-                                                  'Changed format on css file to scss'
-                                              )
+                                            ? log.success('Changed format on css file to scss')
                                             : log.error('Error renaming file');
                                     }
                                 );
