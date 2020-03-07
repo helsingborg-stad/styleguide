@@ -5,11 +5,25 @@
 const crypto = require('crypto');
 
 /**
+ * Consola packet for nicer term log
+ * @type object consLog
+ */
+const consLog = require('consola');
+
+/**
  * FileSystem
  * @type {module:fs}
  */
 const fs = require('fs');
+
+/**
+ * Template
+ */
 const template = require('./componentTemplate');
+
+/**
+ * Node-sass package
+ */
 const sass = require('node-sass');
 
 /**
@@ -29,7 +43,7 @@ const buildFile = (fileName, sassData) => {
     fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss',
         sassData, function (error) {
             if (error) {
-                console.log('Problem building file: ' + error);
+                consLog.error(new Error('Problem building file: ' + error));
             } else {
                 moveFile(fileName);
             }
@@ -53,7 +67,7 @@ const moveFile = (hash) => {
         if (!errors) {
             runNodeSass(serverObj);
         } else {
-            console.log(errors);
+            consLog.error(new Error('Error: ' + errors));
         }
     });
 };
@@ -69,18 +83,15 @@ const runNodeSass = (serverObj) => {
         file: serverObj.scss,
         outputStyle: 'compressed',
         outFile: serverObj.css,
-    }, function (error, result) {
+    }, function (result) {
         
-        if (error) {
-            console.log('Error!');
-        } else {
-            fs.writeFile(serverObj.css, result.css, (err) => {
-                if (err) {
-                    console.log(err);
-                }
-                console.log('Custom compiled CSS file was created.');
-            });
-        }
+        fs.writeFile(serverObj.css, result.css, (err) => {
+            if (err) {
+                consLog.error(new Error('Error: ' + err))
+            } else {
+                consLog.success('Custom compiled CSS file was created.');
+            }
+        });
         
     });
 };
@@ -115,19 +126,17 @@ const checkFileSize = (fileName, sassData) => {
     
     if (fs.existsSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss')) {
         
-        const statsTmp = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss');
-        const fileSizeInBytesTmp = statsTmp["size"];
-        const stats = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss');
-        const fileSizeInBytes = stats["size"];
+        const statsTmp = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss'),
+            fileSizeInBytesTmp = statsTmp["size"];
         
-        if (fileSizeInBytesTmp !== fileSizeInBytes) {
-            buildFile(fileName, sassData);
-        }
+        const stats = fs.statSync(singleComponentPath + '/' + fileName + '/' + fileName + '.scss'),
+            fileSizeInBytes = stats["size"];
+        
+        (fileSizeInBytesTmp !== fileSizeInBytes) ? buildFile(fileName, sassData) : '';
         
     } else {
         buildFile(fileName, sassData);
     }
-    
 };
 
 
