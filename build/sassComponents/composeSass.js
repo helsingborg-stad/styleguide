@@ -40,11 +40,7 @@ const compiledComponentPath = 'assets/dist/css/compilations';
  */
 const buildFile = (fileName, sassData) => {
     fs.writeFile(singleComponentPath + '/tmp/' + fileName + '.scss', sassData, function(error) {
-        if (error) {
-            log.error(new Error('Problem building file: ' + error));
-        } else {
-            moveFile(fileName);
-        }
+        error ? log.error(new Error('Problem building file: ' + error)) : moveFile(fileName);
     });
 };
 
@@ -60,11 +56,7 @@ const moveFile = hash => {
     };
 
     fs.rename(serverObj.tmp, serverObj.scss, function(errors) {
-        if (!errors) {
-            runNodeSass(serverObj);
-        } else {
-            log.error(new Error('Error: ' + errors));
-        }
+        !errors ? runNodeSass(serverObj) : log.error(new Error('Error: ' + errors));
     });
 };
 
@@ -81,11 +73,9 @@ const runNodeSass = serverObj => {
         },
         function(result) {
             fs.writeFile(serverObj.css, result.css, err => {
-                if (err) {
-                    log.error(new Error('Error: ' + err));
-                } else {
-                    log.success('Custom compiled CSS file was created.');
-                }
+                err
+                    ? log.error(new Error('Error: ' + err))
+                    : log.success('Custom compiled CSS file was created.');
             });
         }
     );

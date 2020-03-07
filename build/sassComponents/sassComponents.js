@@ -48,10 +48,7 @@ const getDirectories = srcPath => {
  * @returns {*[]}
  */
 const getDirectoriesRecursive = srcPath => {
-    return [
-        srcPath,
-        ...flatten(getDirectories(srcPath).map(getDirectoriesRecursive)),
-    ];
+    return [srcPath, ...flatten(getDirectories(srcPath).map(getDirectoriesRecursive))];
 };
 
 /**
@@ -83,9 +80,9 @@ module.exports.initSassComponents = components => {
                     const dependency = jsonData.dependency.sass.components;
                     if (dependency !== undefined && dependency.length !== 0) {
                         for (let i = 0; i < dependency.length; i++) {
-                            if (!componentDependency.includes(dependency[i])) {
-                                componentDependency.push(dependency[i]);
-                            }
+                            !componentDependency.includes(dependency[i])
+                                ? componentDependency.push(dependency[i])
+                                : null;
                         }
                     }
                 }
