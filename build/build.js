@@ -1,91 +1,118 @@
 /**
- * Filesystem
- * @type {module:fs}
+ * require babel-register and set Babel presets options to es2016
+ * - Npm package
  */
-const fs = require('fs');
+require('babel-register')({
+    presets: ['es2016'],
+});
 
 /**
- * Copy Files
- * @type {copyFiles}
- */
-const copyFiles = require('copyfiles');
-
-/**
- * Consola packet for nicer term log
+ * Consola packet for nicer term log - Npm package
  * @type object log
  */
 const log = require('consola');
 
 /**
- * MakeDir in assets
+ * Filesystem - Npm package
+ * @type {module:fs}
  */
-const makeDir = () => {
-    if (!fs.existsSync('./assets/dist')) {
-        fs.mkdirSync('./assets/dist');
-        log.info('Dist dir created...');
-    }
-};
+const fs = require('fs');
 
 /**
- * Copy and move files
+ * Copy Files - Npm package
+ * @type {copyFiles}
  */
-const copyMoveFiles = () => {
-    // TODO: Lägga till check och kolla om npm paketet är uppdaterat.
+const copyFiles = require('copyfiles');
 
-    if (fs.existsSync('node_modules/material-design-icons/iconfont/')) {
-        copyFiles(
-            ['node_modules/material-design-icons/iconfont/* ', 'assets/dist/css/'],
-            3,
-            function(errors) {
-                if (!errors) {
-                    log.success('Copy material design icon files to assets');
+/**
+ * Build Class
+ */
+class Build {
+    constructor(processArgs) {
+        this.serverLocation = {
+            distLocation: 'assets/dist',
+            sourceLocation: 'source/sass',
+            distCSSLocation: 'assets/dist/css/',
+            distSCSSLocation: 'source/sass/material/',
+            nodeMaterialLocation: './node_modules/material-design-icons/iconfont/',
+        };
 
-                    copyFiles(
-                        [
-                            'node_modules/material-design-icons/iconfont/material-icons.css ',
-                            'source/sass/material/',
-                        ],
-                        3,
-                        function(errors) {
-                            if (!errors) {
-                                log.info('Copying material icon file css to source dir');
+        this.handleFiles(processArgs);
+    }
 
-                                fs.rename(
-                                    'source/sass/material/material-icons.css',
-                                    'source/sass/material/_material-icons.scss',
-                                    function(e) {
-                                        !e
-                                            ? log.success('Changed format on css file to scss')
-                                            : log.error('Error renaming file');
-                                    }
-                                );
-                            } else {
-                                log.error(new Error(errors));
+    /**
+     * Handle Files
+     * @param processArgs
+     */
+    handleFiles(processArgs) {
+        if (processArgs === 'assets') {
+            this.makeDir();
+        } else if (processArgs === 'assetsMaterial') {
+            this.copyMoveFiles();
+        }
+    }
+
+    /**
+     * MakeDir in assets
+     */
+    makeDir() {
+        if (!fs.existsSync(this.serverLocation.distLocation)) {
+            fs.mkdirSync(this.serverLocation.distLocation);
+            log.info('Dist dir created...');
+        }
+    }
+
+    /**
+     * Copy and move files
+     */
+    copyMoveFiles() {
+        // TODO: Lägga till check och kolla om npm paketet är uppdaterat.
+
+        let self = this;
+
+        if (fs.existsSync(this.serverLocation.nodeMaterialLocation)) {
+            copyFiles(
+                [
+                    this.serverLocation.nodeMaterialLocation + '*',
+                    this.serverLocation.distCSSLocation,
+                ],
+                3,
+                function(errors) {
+                    if (!errors) {
+                        log.success('Copy material design icon files to assets');
+
+                        copyFiles(
+                            [
+                                self.serverLocation.nodeMaterialLocation + 'material-icons.css ',
+                                self.serverLocation.distSCSSLocation,
+                            ],
+                            3,
+                            function(errors) {
+                                if (!errors) {
+                                    log.info('Copying material icon file css to source dir');
+
+                                    fs.rename(
+                                        self.serverLocation.distSCSSLocation + 'material-icons.css',
+                                        self.serverLocation.distSCSSLocation +
+                                            '_material-icons.scss',
+                                        function(e) {
+                                            !e
+                                                ? log.success('Changed format on css file to scss')
+                                                : log.error('Error renaming file');
+                                        }
+                                    );
+                                } else {
+                                    log.error(new Error(errors));
+                                }
                             }
-                        }
-                    );
-                } else {
-                    log.error(new Error(errors));
+                        );
+                    } else {
+                        log.error(new Error(errors));
+                    }
                 }
-            }
-        );
+            );
+        }
     }
-};
-
-/**
- * Switch to handle term arguments
- */
-switch (process.argv[2]) {
-    case 'assets':
-        makeDir();
-        break;
-
-    case 'assetsMaterial':
-        copyMoveFiles();
-        break;
-
-    case 'buildSass':
-        const sassComponents = require('./sassComponents/sassComponents');
-        sassComponents.initSassComponents(process.argv[3]);
-        break;
 }
+
+new Build(process.argv[2]);

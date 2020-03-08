@@ -1,4 +1,4 @@
-module.exports.sassTemplate =  `
+module.exports.sassTemplate = `
         
         // ***************************************************************
         // *** Settings

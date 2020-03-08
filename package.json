@@ -52,6 +52,8 @@
         "@babel/preset-env": "^7.7.4",
         "autoprefixer": "^9.7.3",
         "babel-loader": "^8.0.6",
+        "babel-preset-es2016": "^6.24.1",
+        "babel-register": "^6.26.0",
         "consola": "^2.11.3",
         "copyfiles": "^2.2.0",
         "css-loader": "^2.1.1",
