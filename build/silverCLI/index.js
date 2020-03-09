@@ -12,7 +12,7 @@ const log = require('consola');
  */
 class SilverFisk {
     constructor() {
-        this.runSilverFisk(buildHeader.ConsoleHeader);
+        this.runSilverFisk(buildHeader.ConsoleHeader).then(r => '');
     }
 
     /**
