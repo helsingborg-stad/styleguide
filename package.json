@@ -59,6 +59,7 @@
         "babel-jest": "^25.1.0",
         "babel-loader": "^8.0.6",
         "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-register": "^6.26.0",
         "babel-upgrade": "^1.0.1",
         "consola": "^2.11.3",
         "copyfiles": "^2.2.0",
@@ -88,7 +89,6 @@
         "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
-        "babel-register": "^6.26.0",
         "body-parser": "^1.19.0",
         "chalk": "^3.0.0",
         "clientside-require": "^4.7.2",
@@ -115,7 +115,6 @@
             "@babel/plugin-proposal-class-properties"
         ]
     },
-
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/"
     }
