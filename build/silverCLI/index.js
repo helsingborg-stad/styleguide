@@ -11,49 +11,32 @@ const log = require('consola');
  * @type {SilverFisk}
  */
 class SilverFisk {
-    /**
-     *
-     */
     constructor() {
-        this.runSilverFisk(buildHeader.ConsoleHeader).then(r => this.test());
+        this.runSilverFisk(buildHeader.ConsoleHeader);
     }
 
-    test() {}
+    /**
+     * run npm commands
+     * @param cmd
+     */
+    runCommand(cmd) {
+        if (cmd === 'exit') {
+            //shell.exit;
+        } else {
+            process.cwd('npm run ' + cmd);
+        }
+    }
 
     /**
      *
      */
     sysQuestion() {
-        let question = [];
-
-        question['cliMenu'] = [
+        let question = [
             {
                 name: 'Menu',
                 type: 'list',
-                message: 'What can I help you with?',
-                choices: ['FileSystem', 'Commands', 'SSH', 'Valet'],
-            },
-        ];
-
-        question['files'] = [
-            {
-                name: 'DIRECTORY',
-                type: 'input',
-                message: 'Where do you want to create a file?',
-            },
-            {
-                name: 'FILENAME',
-                type: 'input',
-                message: 'What is the name of the file without extension?',
-            },
-            {
-                type: 'list',
-                name: 'EXTENSION',
-                message: 'What is the file extension?',
-                choices: ['.scss', '.js', '.php', '.blade.php'],
-                filter: function(val) {
-                    return val.split('.')[1];
-                },
+                message: chalk.hex('#ffffff').bold('Compile what?'),
+                choices: ['sass', 'js'],
             },
         ];
 
@@ -62,22 +45,10 @@ class SilverFisk {
 
     /**
      *
-     * @param filename
-     * @param extension
-     * @returns {string}
+     * @param runCmd
      */
-    createFile(filename, extension) {
-        const filePath = `${process.cwd()}/${filename}.${extension}`;
-        shell.touch(filePath);
-        return filePath;
-    }
-
-    /**
-     *
-     * @param filepath
-     */
-    success(filepath) {
-        log.info(chalk.white.bgGreen.bold(`Done! File created at ${filepath}`));
+    success(runCmd) {
+        log.success(chalk.hex('#0aab1d').bold('Executing cmd: npm run ' + runCmd));
     }
 
     /**
@@ -85,17 +56,11 @@ class SilverFisk {
      * @returns {Promise<void>}
      */
     async runSilverFisk(data) {
-        //ask questions
         const answers = this.sysQuestion();
-        const { FILENAME, EXTENSION } = answers;
+        const { cmd } = await answers;
 
-        if (answers) {
-            //create the file
-            const filePath = await this.createFile(FILENAME, EXTENSION);
-
-            //show success message
-            await this.success(filePath);
-        }
+        const runCmd = await this.runCommand(cmd);
+        await this.success(runCmd);
     }
 }
 
