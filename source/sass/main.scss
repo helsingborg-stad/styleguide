@@ -2,21 +2,22 @@
  *
  *  Main.scss
  *
- *  1. Settings
- *  2. Tools
- *  3. Generic
- *  4. Elements
- *  5. Objects
- *  6. Components
- *  7. Misc
- *  8. Utilities
+ *  1. Material  design icons
+ *  2. Settings
+ *  3. Tools
+ *  4. Generic
+ *  5. Elements
+ *  6. Objects
+ *  7. Components
+ *  8. Misc
+ *  9. Utilities
  *
  * * * * * * * * * */
 
 // ***************************************************************
 // *** Settings
 // ***************************************************************
-@import "/node_modules/material-design-icons/iconfont/material-icons.css";
+@import "material/material-icons";
 @import "setting/variables";
 
 // ***************************************************************

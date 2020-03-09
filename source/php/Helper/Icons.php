@@ -37,7 +37,7 @@ class Icons
 
     private static function getNames()
     {
-        $lines = file(BASEPATH . 'node_modules/material-design-icons/iconfont/codepoints');
+        $lines = file(BASEPATH . 'assets/dist/css/codepoints');
         $icons = array();
         $categories = self::getCateGories();
         foreach($lines as $key => $line)

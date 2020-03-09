@@ -7,3 +7,33 @@
         box-shadow: none;
     }
 }
+
+.d-params {
+    table {
+        border-collapse:collapse
+    }
+
+    thead {
+        border-bottom: 1px solid #E5E5E5;
+        td {
+            font-weight: bold;
+            color: $color-black;
+        }
+    }
+    tbody tr {
+        &:not(:last-of-type) {
+            border-bottom: 1px solid #E5E5E5;
+        }
+    }
+    tbody td {
+        color: $color-darkest;
+
+        &:first-of-type {
+            color: $color-primary-dark;
+            font-family: monospace, monospace;
+        }
+        &:nth-of-type(3) {
+            font-weight: 600;
+        }
+    }
+}

@@ -87,6 +87,13 @@ class View
                     $settings = array();
                 }
 
+                //Check if has available object
+                if (isset($configJson['available'])) {
+                    $available = $configJson['available'];
+                } else {
+                    $available = array();
+                }
+
                 //Check if has description object
                 if (isset($configJson['description'])) {
                     $description = $configJson['description'];
@@ -139,6 +146,7 @@ class View
                 'format' => $format,
                 'responsive' => $responsive,
                 'description' => $description,
+                'available' => $available,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
