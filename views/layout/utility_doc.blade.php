@@ -19,7 +19,7 @@
     @endif
 
     @if(isset($settings))
-        @paper(['padding' => 3])
+        <div class="d-params u-margin__top--10">
             <h3>Classes</h3>
 
             @if ($format)
@@ -55,6 +55,6 @@
                     </tr>
                 @endforeach
             </table>
-        @endpaper
+        </div>
     @endif
 </section>
