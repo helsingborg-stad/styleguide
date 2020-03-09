@@ -4,36 +4,35 @@ const glob = require('glob');
 module.exports = {
     // ...
     externals: {
-        material: '@material'
+        material: '@material',
     },
-    
+
     /**
      * Entry files - Add more entries if needed.
      */
     entry: {
-        'styleguide-js': glob.sync('./source/js/**/*.js')
+        'styleguide-js': glob.sync('./source/js/**/*.js'),
     },
     mode: 'development',
     watch: true,
     watchOptions: {
         poll: 100,
-        ignored: /node_modules/
+        ignored: /node_modules/,
     },
-    
+
     /**
      * Output files
      */
     output: {
         path: path.resolve(__dirname, 'assets/dist/'),
-        filename: 'js/[name].min.js'
+        filename: 'js/[name].min.js',
     },
-    
+
     /**
      * Modules
      */
     module: {
         rules: [
-            
             /**
              * Babel
              */
@@ -43,11 +42,11 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
+                        presets: ['@babel/preset-env'],
+                    },
+                },
             },
-            
+
             /**
              * Fonts - File loader
              */
@@ -55,21 +54,19 @@ module.exports = {
                 test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
                 use: [
                     {
-                        loader: "file-loader",
+                        loader: 'file-loader',
                         options: {
-                            outputPath: 'fonts'
-                        }
-                    }
-                ]
-            }
-        ]
+                            outputPath: 'fonts',
+                        },
+                    },
+                ],
+            },
+        ],
     },
-    
+
     /**
      * Plugins
      */
-    plugins: [
-    
-    ]
+    plugins: [],
     // ...
 };
