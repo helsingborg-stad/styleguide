@@ -10,7 +10,7 @@ const log = require('consola');
  *
  * @type {SilverFisk}
  */
-class SilverFisk {
+class LazyCLI {
     constructor() {
         this.runSilverFisk(buildHeader.ConsoleHeader).then(r => '');
     }
@@ -64,4 +64,4 @@ class SilverFisk {
     }
 }
 
-module.exports = new SilverFisk();
+module.exports = new LazyCLI();

@@ -63,14 +63,13 @@ class ConsoleHeader {
             textElements: [
                 {
                     name: 'logoText',
-                    ascii: ' SilverFisk',
+                    ascii: '  LazyNpm',
                     font: 'ANSI Regular',
                     color: '#ff9908',
                 },
                 {
                     name: 'logoBylineText',
-                    ascii:
-                        '      NodeJS CLI tool made for simple server tasks by Johan Silvergrund',
+                    ascii: '                    NPM run CLI tool for lazy paople',
                     font: 'term',
                     color: '#ffe673',
                 },
