@@ -3,18 +3,18 @@
         "grid": "",
         "heading": "Format a date",
         "subHeading" : "Returns formatted date",
-        "text": "Yes"
+        "text": "Returns a globally set format of a date"
     },
     "timeSince": {
         "grid": "",
         "heading": "Time Since",
         "subHeading" : "Returns time since a specified date",
-        "text": "Yes"
+        "text": "Returns the time since a given date"
     },
     "timeUntil": {
         "grid": "",
         "heading": "Time Until",
         "subHeading" : "Returns time until a specified date",
-        "text": "Yes"
+        "text": "Returns time until a specified date"
     }
 }
