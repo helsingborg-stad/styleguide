@@ -37,6 +37,8 @@ class Dropdown {
         }
     }
 
+
+
     /**
      * Toogle dropdown on and of
      * @param validTargets
@@ -49,6 +51,22 @@ class Dropdown {
             let target = event.target;
             if (validTargets.includes(target) && !dropDownList.classList.contains(this.DROPDOWN_LIST_VISIBLE)) {
                 dropDownList.classList.add(this.DROPDOWN_LIST_VISIBLE);
+                const boundingRect = dropDownList.getBoundingClientRect();
+
+                if(boundingRect.left < 0){
+                    dropDownList.classList.remove('c-dropdown__list--left');
+                    dropDownList.classList.add('c-dropdown__list--right');
+                }else if(boundingRect.right < 0){
+                    dropDownList.classList.remove('c-dropdown__list--right');
+                    dropDownList.classList.add('c-dropdown__list--left');
+                }else if(boundingRect.top < 0){
+                    dropDownList.classList.remove('c-dropdown__list--top');
+                    dropDownList.classList.add('c-dropdown__list--bottom'); 
+                }else if(boundingRect.bottom < 0){
+                    dropDownList.classList.remove('c-dropdown__list--bottom');
+                    dropDownList.classList.add('c-dropdown__list--top');
+                }
+
             } else {
                 dropDownList.classList.remove(this.DROPDOWN_LIST_VISIBLE);
             }
