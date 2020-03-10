@@ -1,6 +1,7 @@
 .c-slider {
     padding: 0 30px;
     overflow: hidden;
+    position: relative;
 
     &--inner {
         display: flex;
