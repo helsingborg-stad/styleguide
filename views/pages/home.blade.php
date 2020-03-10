@@ -18,7 +18,7 @@
     ]
 
 ])
-    @slot('body')
+    @slot('main')
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
@@ -65,7 +65,7 @@
                 'background_color' => 'white',
                 'text_alignment' => 'left',
                 'cta_align' => 'center',
-                'color' => 'white',
+                'color' => 'black',
                 'content_alignment' => [
                     'vertical' => 'center',
                     'horizontal' => 'center'
@@ -78,7 +78,7 @@
                 ]
 
             ])
-                @slot('body')
+                @slot('main')
                 You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
                 @endslot
             @endsegment
@@ -196,7 +196,7 @@
         ]
 
     ])
-        @slot('body')
+        @slot('main')
             <div class="p-home__update">
                 @typography([
                     'element' => 'p',
