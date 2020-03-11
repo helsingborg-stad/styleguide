@@ -10,7 +10,8 @@ class App
     public function __construct()
     {
 
-        $this->page = ($_SERVER['REQUEST_URI'] !== "/") ? $_SERVER['REQUEST_URI'] : $this->default;
+        $url = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
+        $this->page = ($url !== "/") ? $url : $this->default;
 
         $this->loadPage();
     }
