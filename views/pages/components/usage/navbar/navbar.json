@@ -1,7 +1,7 @@
 {
-    "alignmentLeft": {
-        "heading": "Left aligned logo",
-        "subHeading": "Navbar Layout",
-        "text": "Align the logo to the left, The links will be positioned next to the logo."
+    "base": {
+        "heading": "Navbar",
+        "subHeading": "Navigation with a bar",
+        "text": "The navbar allows you to give the user quick access to top level pages"
     }
 }

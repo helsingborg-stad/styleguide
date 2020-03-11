@@ -3,20 +3,21 @@
     'items' => [
         "about" => [
             "label" => "About",
-            "href" => "//localhost:8888/about",
+            "href" => "#",
             "icon" => "people"
         ],
         "stuff" => [
             "label" => "Stuff",
-            "href" => "//localhost:8888/about",
+            "href" => "#",
             "icon" => "people"
         ],
         "more" => [
             "label" => "More",
-            "href" => "//localhost:8888/about",
+            "href" => "#",
             "icon" => "people"
         ]
-    ]
+    ],
+    'classList' => ['u-position--relative']
 ])
 
 @endnavbar
