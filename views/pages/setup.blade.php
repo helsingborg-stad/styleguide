@@ -1,19 +1,5 @@
 @extends('layout.containers.doc')
 <script src="node_modules/clientside-require/dist/bundle.js"></script>
-@section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'textColor' => 'dark',
-        'headline' => 'Easy to install',
-        'byline' => 'Copy and paste....',
-    ])
-
-    @slot('content')
-        The setup is pretty simple. :-)
-    @endslot
-
-    @endhero
-@endsection
 
 @section('doc-content')
 
