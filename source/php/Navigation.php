@@ -29,10 +29,10 @@ class Navigation
      * @param  boolean $displayErrors Weather to output errors or not
      * @return boolean
      */
-    public static function items($folder = "/", $response = array(), $includeChildren = true)
+    public static function items($folder = "/", $response = array())
     {
 
-        $dirContents = scandir(VIEWS_PATH . $folder);
+        $dirContents = scandir(VIEWS_PATH .  $folder);
 
         if(is_array($dirContents) && !empty($dirContents)) {
             foreach($dirContents as $item) {
@@ -46,12 +46,26 @@ class Navigation
                         $response[$item] = []; 
                     }
 
+                    $itemsDir = VIEWS_PATH . 'pages/' .  $item;
+                    
+                    $hasChildren = (is_dir($itemsDir)) ? true : false;
+                   
+                    
+
+        
                     //Add current level item
                     if(array_key_exists($item, $response)) {
                         $response[$item]['label'] = self::readableFilename($item);
+                        $response[$item]['ID'] = $folder . self::readableFilename($item);
+                        $response[$item]['children'] = $hasChildren;
                         $response[$item]['href'] = str_replace("///", "/", 
                             "//" . self::getPageDomain() . str_replace("pages", "/", $folder) . '/' . $item
                         );
+
+                        if($item == 'setup'){
+                            
+                            //die(var_dump(VIEWS_PATH . 'pages/' . $item));
+                        }
 
                         //Set icon
                         if(isset(self::$icons[$item])) {
@@ -61,15 +75,6 @@ class Navigation
                         //Add current item
                         if(self::isActiveItem($item)) {
                             $response[$item]['active'] = true; 
-                        }
-                    }
-
-                    //Check if is dir (and traverse it)
-                    if($includeChildren) {
-                        if(is_dir(VIEWS_PATH . $folder . '/' . $item)) {
-                            if(array_key_exists($item, $response)) {
-                                $response[$item]['children'] = self::items($folder . '/' . $item); 
-                            }
                         }
                     }
                 
