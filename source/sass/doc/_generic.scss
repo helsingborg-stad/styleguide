@@ -1,7 +1,29 @@
+.d-code {
+    border-radius:  0 0 $border-radius-md $border-radius-md;
+    border-top: 8px solid $color-darkest;
+    transform: translateY(-8px);
+    z-index: $level-1 - 1;
+    margin: 0;
+
+    .toolbar {
+        top: unset !important;
+        right: $base*3 !important;
+        bottom: $base*3 !important;
+
+        &-item {
+            position: unset;
+        }
+    }
+}
+
 .d-code__toggle {
     width: 100%;
     background-color: $color-code-button;
     overflow: hidden;
+    border: none;
+    position: relative;
+    z-index: $level-1;
+
     button {
         background-color: $color-code-button;
         box-shadow: none;
