@@ -91,15 +91,17 @@
                         ])
                         @endbutton
                     @endbuttonGroup
+
+                    @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
+                    @endcode
+                
+                    @code(['language' => 'php', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                        {{$example['blade']['code']}}
+                    @endcode
                 @endpaper
 
-                @code(['language' => 'html', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--grid', 'js-toggle-group' => $loop->index]])
-                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
-                @endcode
-            
-                @code(['language' => 'php', 'content' => "", 'classList' => ['u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--grid', 'js-toggle-group' => $loop->index]])
-                    {{$example['blade']['code']}}
-                @endcode
+                
             </div>
         @endforeach
         </div>
