@@ -1,7 +1,7 @@
 @button([
     'text' => 'Primary filled',
     'color' => 'primary',
-    'type' => 'filled'
+    'style' => 'filled'
 
 ])
 @endbutton
@@ -9,7 +9,7 @@
 @button([
     'text' => 'Secondary filled',
     'color' => 'secondary',
-    'type' => 'filled'
+    'style' => 'filled'
 
 ])
 @endbutton
@@ -17,6 +17,6 @@
 @button([
     'text' => 'Default filled',
     'color' => 'default',
-    'type' => 'filled'
+    'style' => 'filled'
 ])
 @endbutton

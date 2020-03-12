@@ -47,5 +47,11 @@
         "heading": "Togglebuttons",
         "subHeading" : "",
         "text": "When pressing a toggle-button the text color will go from black to primary to indicate it being toggled."
+    },
+    "type": {
+        "grid": "",
+        "heading": "Type",
+        "subHeading" : "",
+        "text": "Use the type attribute to help define the action of the button."
     }
 }
