@@ -1,6 +1,6 @@
 @button([
     'text' => 'Primary outlined',
-    'type' => 'outlined',
+    'style' => 'outlined',
     'color' => 'primary'
 ])
 @endbutton
@@ -8,13 +8,13 @@
 @button([
     'text' => 'Secondary outlined',
     'color' => 'secondary',
-    'type' => 'outlined'
+    'style' => 'outlined'
 ])
 @endbutton
 
 @button([
     'text' => 'Default outlined',
     'color' => 'default',
-    'type' => 'outlined'
+    'style' => 'outlined'
 ])
 @endbutton
