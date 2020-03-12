@@ -1,20 +1,23 @@
 @button([
-    'text' => 'Primary',
+    'text' => 'Submit',
     'color' => 'primary',
-    'style' => 'basic'
+    'style' => 'basic',
+    'type' => 'submit'
 ])
 @endbutton
 
 @button([
     'text' => 'Secondary',
     'color' => 'secondary',
-    'style' => 'basic'
+    'style' => 'basic',
+    'type' => 'button'
 ])
 @endbutton
 
 @button([
     'text' => 'Default',
     'color' => 'default',
-    'style' => 'basic'
+    'style' => 'basic',
+    'type' => 'reset'
 ])
 @endbutton

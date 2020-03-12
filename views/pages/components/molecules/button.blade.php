@@ -9,7 +9,3 @@
     @doc(['slug' => 'button'])
     @enddoc
 @stop
-
-
-
-        

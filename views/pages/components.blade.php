@@ -18,7 +18,7 @@
         ]
 
     ])
-    @slot('body')
+    @slot('main')
         @typography([
             'element' => 'h1',
             'variant' => 'h1',

@@ -1,5 +1,12 @@
-<div class="grid">
-    <div class="grid-md-4">
+@grid([
+    "container" => true,
+    "columns" => "auto-fit",
+    "min_width" => "300px",
+    "max_width" => "400px",
+    "col_gap" => 5,
+    "row_gap" => 5
+])
+    @grid([])
         @card([
             'heading' => 'Heading',
             'subHeading' => 'SubHeading', 
@@ -12,9 +19,9 @@
             ]
         ])
         @endcard
-    </div>
+    @endgrid
 
-    <div class="grid-md-4">
+    @grid([])
         @card([
             'heading' => 'Heading',
             'subHeading' => 'SubHeading', 
@@ -28,5 +35,5 @@
             ]
         ])
         @endcard
-    </div>
-</div>
+    @endgrid
+@endgrid
