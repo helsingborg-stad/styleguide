@@ -2,6 +2,7 @@
     "hejsan": {
         "heading": "horizontal",
         "subHeading": "Sidebar Layout",
-        "text": "In this example we've split the link items in the middle and put them on either side of the logo. We've also changed the top accent to secondary"
+        "text": "In this example we've split the link items in the middle and put them on either side of the logo. We've also changed the top accent to secondary",
+        "childItems": ""
     }
 }
