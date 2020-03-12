@@ -140,10 +140,9 @@ $baseClass: '.c-sidebar';
         width: 100%;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.5s ease-in-out;
 
         &#{$baseClass}__item--is-expanded {
-            max-height: 100%;
+            max-height: unset;
         }
 
         #{$baseClass}__item {
