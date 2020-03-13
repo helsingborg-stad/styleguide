@@ -1,5 +1,5 @@
 {
-    "slug": "border-radius",
+    "slug": "radius",
     "description": {
         "side": "The sides to add radius to",
         "radius": "The amount of radius"
