@@ -5,7 +5,7 @@
             #Border radius
     @endmarkdown
 
-    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'border-radius', 'config' => 'border-radius']])
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'radius', 'config' => 'radius']])
 
         @typography([
             'variant' => 'headline',
