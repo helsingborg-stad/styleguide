@@ -5,7 +5,8 @@
     @sidebar([
         'logo' => '/assets/img/logotype-grey-full.svg',
         'items' => $sideNavigation,
-        'classList' => ['l-docs--sidebar']
+        'classList' => ['l-docs--sidebar'],
+        'childItems' => '/api/navigation'
     ])
 
     @endsidebar

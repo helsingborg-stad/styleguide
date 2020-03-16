@@ -42,9 +42,8 @@ export default class Sidebar {
         sbTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 const label = e.target.getAttribute('aria-label');
-                
                 const parentID = label[0].toLowerCase() + label.substring(1);
-
+                
                 this.getChildren(parentID);
                 this.storeActiveItem(parentID);
             })
@@ -65,15 +64,47 @@ export default class Sidebar {
     appendChildren(children) {
 
     }
+    
+    storeActiveItem(item) {
+        
+        let activeItems = this.fetchActiveItems();
+        const isAlreadyStored =  this.isAlreadyStored(activeItems, item);
+        
 
-    storeActiveItem(item){
-        const alreadyStored = JSON.parse(localStorage.getItem(this.ACTIVEITEMS));
-        alreadyStored.items.push(item);
-        localStorage.setItem(this.ACTIVEITEMS,JSON.stringify(item));
+        if(!('items' in activeItems)) {
+            activeItems[item];
+        }
+        
+        else if(isAlreadyStored){
+            activeItems.items.push(item);
+        }else {
+
+        }
+
+        
+
+        localStorage.setItem(this.ACTIVEITEMS, JSON.stringify(activeItems));
+    }
+
+    getTopLevel(){
+        
+    }
+
+    isAlreadyStored(storedItems, newItem) {
+        if(storedItems && storedItems.items){
+            for(let i = 0; i < storedItems.items.length ; i++){
+                if(storedItems.items[i] === newItem) {
+                    return true;
+                }
+            };
+        }
+
+        return false;
     }
 
     fetchActiveItems(){
-
+        let storedItems = localStorage.getItem(this.ACTIVEITEMS);
+        return JSON.parse(storedItems);
     }
     /**
      * Adds listeners to buttons

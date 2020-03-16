@@ -1,6 +1,7 @@
 @sidebar([
     'logo' => '/assets/img/logotype-grey-full.svg',
-    'items' => $sideNavigation
+    'items' => $sideNavigation,
+    'childItems' => '/api/navigation'
 ])
 
 @endsidebar
