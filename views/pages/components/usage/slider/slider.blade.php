@@ -2,168 +2,141 @@
     'showStepper' => true
 ])
     @segment([
-        'template' => 'featured',
-        'containContent' => true,
-        'height' => 'md',
-        'width' => 'lg',
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "10"
-        ],
-        'text_alignment' => 'right',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
-        ],
-        'image_focus' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
-                'href' => '#',
-                'text' => 'Read more...',
-                'type' => 'basic',
-                'color' => 'primary',
-                'size' => 'lg'
-            )
-        )
+        'title' => 'Base Layout',
+        'sub_title' => 'This is a slightly longer title called subtitle',
+        'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
+        'background_image' => 'https://i.picsum.photos/id/566/1080/720.jpg',
+        'overlay' => 'light',
+        'overlay_opacity' => 'high'
     ])
-
-    @endsegment
-
-    @segment([
-        'template' => 'featured',
-        'containContent' => true,
-        'height' => 'md',
-        'width' => 'lg',
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "10"
-        ],
-        'text_alignment' => 'left',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'left'
-        ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
-        ],
-        'image_focus' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
-                'href' => '#',
-                'text' => 'Read less',
-                'isOutlined' => true,
-                'type' => 'outlined',
+    
+        @slot('bottom')
+            @button([
+                'text' => 'Primary filled',
                 'color' => 'primary',
-                'size' => 'lg'
-            ),
-            array(
-                'href' => '#',
-                'text' => 'Read more',
-                'type' => 'outlined',
+                'type' => 'filled'
+    
+            ])
+            @endbutton
+    
+            @button([
+                'text' => 'Secondary filled',
                 'color' => 'secondary',
-                'size' => 'lg'
-            )
-        )
-    ])
-
+                'type' => 'filled'
+    
+            ])
+            @endbutton
+    
+            @button([
+                'text' => 'Default filled',
+                'color' => 'default',
+                'type' => 'filled'
+            ])
+            @endbutton
+        @endslot
     @endsegment
 
     @segment([
-        'template' => 'featured',
-        'containContent' => true,
-        'height' => 'md',
-        'width' => 'lg',
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "10"
-        ],
-        'text_alignment' => 'center',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
-        ],
-        'image_focus' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
-                'href' => '#',
-                'text' => 'Read more',
-                'isOutlined' => true,
-                'size' => 'lg'
-            ),
-            array(
-                'href' => '#',
-                'text' => 'Read more',
-                'isOutlined' => true,
-                'size' => 'lg'
-            )
-        )
+        'title' => 'Base Layout',
+        'sub_title' => 'This is a slightly longer title called subtitle',
+        'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
+        'background_image' => 'https://i.picsum.photos/id/876/1080/720.jpg',
+        'overlay' => 'light',
+        'overlay_opacity' => 'high'
     ])
 
-    @endsegment
-
-    @segment([
-        'template' => 'featured',
-        'containContent' => true,
-        'height' => 'md',
-        'width' => 'lg',
-        'card' => [
-            'isCard' => true,
-            'background' => "white",
-            'padding' => "10"
-        ],
-        'text_alignment' => 'right',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_heading' => [
-            "variant" => "h1",
-            "element" => "h2",
-            "slot" => "Here is some featured content!"
-        ],
-        'image_focus' => [
-            'vertical' => 'center',
-            'horizontal' => 'right'
-        ],
-        'article_body' => "Let us tell you about something. Something is so awesome and so cool that I can't tell you more. But checkout the components and cta's!",
-        'cta' => array( 
-            array(
-                'href' => '#',
-                'text' => 'More info...',
+        @slot('bottom')
+            @button([
+                'text' => 'Primary filled',
                 'color' => 'primary',
-                'type' => 'filled',
-                'size' => 'lg',
-                'background' => 'default'
-            ),
-        )
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary filled',
+                'color' => 'secondary',
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default filled',
+                'color' => 'default',
+                'type' => 'filled'
+            ])
+            @endbutton
+        @endslot
+    @endsegment
+
+    @segment([
+        'title' => 'Base Layout',
+        'sub_title' => 'This is a slightly longer title called subtitle',
+        'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
+        'background_image' => 'https://i.picsum.photos/id/576/1080/720.jpg',
+        'overlay' => 'light',
+        'overlay_opacity' => 'high'
     ])
 
+        @slot('bottom')
+            @button([
+                'text' => 'Primary filled',
+                'color' => 'primary',
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary filled',
+                'color' => 'secondary',
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default filled',
+                'color' => 'default',
+                'type' => 'filled'
+            ])
+            @endbutton
+        @endslot
+    @endsegment
+
+    @segment([
+        'title' => 'Base Layout',
+        'sub_title' => 'This is a slightly longer title called subtitle',
+        'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
+        'overlay' => 'light',
+        'overlay_opacity' => 'high'
+    ])
+
+        @slot('bottom')
+            @button([
+                'text' => 'Primary filled',
+                'color' => 'primary',
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Secondary filled',
+                'color' => 'secondary',
+                'type' => 'filled'
+
+            ])
+            @endbutton
+
+            @button([
+                'text' => 'Default filled',
+                'color' => 'default',
+                'type' => 'filled'
+            ])
+            @endbutton
+        @endslot
     @endsegment
 @endslider

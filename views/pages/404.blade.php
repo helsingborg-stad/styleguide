@@ -1,22 +1,42 @@
 @extends('layout.master')
 
-@section('hero')
-    @hero([
-        'backgroundColor' => '#fff',
-        'headline' => 'Whoops!', 
-        'byline' => 'Error 404', 
-        'textColor' => 'dark'
-    ])
-
-    @slot('content')
-        We cannot find that, have you looked in the refrigerator? 
-    @endslot
-
-    @endhero
-@endsection
-
 @section('content')
-    <h1>404 - Page cannot be found</h1>
-    <p>This page dosen't exists.</p>
-    <pre><code>{{$errorMessage}}</code></pre>
-@stop
+    @segment([
+        'layout' => 'col-right',
+        'height' => 'md',
+        'color' => 'black'
+    ])
+        @slot('top')
+            @typography([
+                'element' => 'h1',
+                'classList' => ['u-color__text--primary']
+            ])
+                Error 404
+            @endtypography
+
+            @typography([
+                'element' => 'p',
+                'variant' => 'subtitle'
+            ])
+                We cannot find that, have you looked in the refrigerator?
+            @endtypography
+        @endslot
+
+        @slot('main')
+            @code(['language' => 'php', 'content' => ''])
+                {!! $errorMessage !!}
+            @endcode
+        @endslot
+
+        @slot('bottom')
+        @button([
+            'text' => 'Go Home',
+            'href' => '/',
+            'color' => 'primary',
+            'type' => 'filled'
+        
+        ])
+        @endbutton
+    @endslot
+    @endsegment
+@endsection

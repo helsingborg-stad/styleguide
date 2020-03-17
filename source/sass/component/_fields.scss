@@ -224,7 +224,6 @@
 
         input[type="range"]:focus::-webkit-slider-runnable-track {
             background-color: lighten($color-form-fields, 5%);
-            border-bottom: 2px solid $color-success;
         }
 
         input[type="range"]::-moz-range-track {

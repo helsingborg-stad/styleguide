@@ -1,3 +1,32 @@
+.c-code {
+    border-radius: $border-radius-md;
+    margin: 16px 0;
+    overflow: hidden;
+
+    .code-toolbar {
+        overflow: auto;
+        background-color: $color-lighter;
+    }
+
+    &__pre {
+        margin: 0;
+    }
+
+    &__toggle {
+        .c-button__toggle {
+            color: $color-lighter;
+
+            &[aria-pressed=true] {
+                color: $color-default-dimmed;
+
+            }
+            &:hover {
+                color: $color-black;
+            }
+        }
+    }
+}
+
 .markup-preview {
     padding: map-get($spacers, "3");
     border-bottom: 0;
@@ -8,11 +37,11 @@
     padding: map-get($spacers, "3") 0;
 }
 
-div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
+div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>.toolbar span {
 
     @extend .c-button;
     @extend .c-button__filled;
-    @extend .c-button__filled--secondary;
+    @extend .c-button__filled--primary;
     @extend .c-button--sm;
 
 }
@@ -37,8 +66,16 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
         cursor: not-allowed;
         margin-right:10px;
         margin-bottom:10px;
+        padding: 3px 8px;
         animation: componentListFadeIn 1s linear;
         animation-fill-mode: both;
+        background:none;
+    }
+
+    .component-list .c-icon {
+        margin-right: 3px;
+        position: relative;
+        top: 2px;
     }
 
     @for $i from 1 through 10 {
@@ -53,6 +90,7 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
     0% {
         opacity: 0;
     }
+
     70% {
         opacity: 0;
         transform: scale(1);
@@ -62,6 +100,7 @@ div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-tool
         opacity: 1;
         transform: scale(1.08);
     }
+
     100% {
         transform: scale(1);
     }
