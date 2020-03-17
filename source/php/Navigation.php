@@ -46,13 +46,26 @@ class Navigation
                         $response[$item] = []; 
                     }
 
+                    $directory = new \RecursiveDirectoryIterator(VIEWS_PATH . 'pages');
+                    $iterator = new \RecursiveIteratorIterator($directory);
+                    $files = array();
                     $itemsDir = VIEWS_PATH . 'pages/' .  $item;
+                    foreach ($iterator as $info) {
+                        $pathName = $info->getPathName();
+                
+                        if(strpos($pathName,$item) !== false)
+                        {
+                            var_dump($pathName);
+                            echo "\n";
+                            //$itemsDir = $pathName;
+                        }
+                    
+                    }
+
+                    die($itemsDir);
                     
                     $hasChildren = (is_dir($itemsDir)) ? true : false;
-                   
                     
-
-        
                     //Add current level item
                     if(array_key_exists($item, $response)) {
                         $response[$item]['label'] = self::readableFilename($item);

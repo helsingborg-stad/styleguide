@@ -1,3 +1,5 @@
+
+
 export default class Sidebar {
     constructor() {
         this.ATTR = "js-sidebar";
@@ -14,9 +16,8 @@ export default class Sidebar {
      */
     applySidebar() {
         const sb = document.querySelector(`[${this.ATTR}]`);
-        console.log(sb)
         this.URL = sb.getAttribute('child-items-url');
-        console.log(this.URL)
+
         if (sb) {
             const activeItems = sb.querySelectorAll(`[${this.ACTIVE}="true"]`);
 
@@ -42,27 +43,57 @@ export default class Sidebar {
         sbTriggers.forEach(trigger => {
             trigger.addEventListener('click', (e) => {
                 const label = e.target.getAttribute('aria-label');
+                console.log(e.target)
                 const parentID = label[0].toLowerCase() + label.substring(1);
                 
-                this.getChildren(parentID);
+                console.log(e.target.parentElement)
+                this.getChildren(parentID,e.target.parentElement);
                 this.storeActiveItem(parentID);
             })
         });
         
     }
     
-    getChildren(parentID){
+    getChildren(parentID, parent){
+        
         fetch(location.origin + this.URL + '?parent=' + parentID)
-        .then((response) => {
-            response.json();
-        })
-        .then((children) => {
-            this.appendChildren(children);
-        });
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+      
+    this.appendChildren(data, parent)
+  });
     }
 
-    appendChildren(children) {
+    appendChildren(children, parent) {
+        let subContainer = document.createElement('div');
+        subContainer.classList.add('c-sidebar__subcontainer');
 
+        for(let child in children){
+            const childItem = document.createElement('div');
+            childItem.classList.add('c-sidebar__item');
+            let link = document.createElement('a');
+            link.classList.add('c-sidebar__link');
+            link.text = child;
+            childItem.appendChild(link);
+            if(childItem.children){
+                let toggle = document.createElement('div');
+                toggle.classList.add('c-sidebar__toggle');
+                const bar = document.createElement('div');
+                bar.classList.add('bar');
+                toggle.appendChild(bar);
+                toggle.appendChild(bar);
+                toggle.setAttribute('aria-label', child);
+                childItem.appendChild(toggle);
+                
+            }
+            subContainer.appendChild(childItem);
+        };
+        
+        parent.appendChild(subContainer);
+        subContainer.classList.add('c-sidebar__item--is-expanded');
+        this.addItemTriggers()
     }
     
     storeActiveItem(item) {
@@ -71,7 +102,7 @@ export default class Sidebar {
         const isAlreadyStored =  this.isAlreadyStored(activeItems, item);
         
 
-        if(!('items' in activeItems)) {
+        if(activeItems && !('items' in activeItems)) {
             activeItems[item];
         }
         
@@ -103,7 +134,7 @@ export default class Sidebar {
     }
 
     fetchActiveItems(){
-        let storedItems = localStorage.getItem(this.ACTIVEITEMS);
+        const storedItems = localStorage.getItem(this.ACTIVEITEMS);
         return JSON.parse(storedItems);
     }
     /**
