@@ -5,32 +5,32 @@ import Filter from './filter';
 import Sort from './sort';
 import Toggle from './toggle';
 import Menu from './menu';
-import Modal from "./modal";
-import Steppers from "./steppers";
-import Image from "./image";
+import Modal from './modal';
+import Steppers from './steppers';
+import Image from './image';
 import SplitButton from './splitButton';
 import Dropdown from './dropdown';
 import Fields from './fields';
-import Slider from './slider'
+import Slider from './slider';
 import EventCalendar from './calendar';
 import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
-import initBuild from "./initBuild";
+import initBuild from './initBuild';
 import Sidebar from './sidebar';
 
 expandSection();
 
-let SortInstance = new Sort;
-let ToggleInstance = new Toggle;
-let SplitButtonInstance = new SplitButton;
-let DropdownInstance = new Dropdown;
-let SliderInstance = new Slider;
-let EventCalendarInstance = new EventCalendar;
-let TilesInstance = new Tiles;
-const NotificationInstance = new Notification;
-const NotificationDocInstance = new NotificationDoc;
-let SidebarInstance = new Sidebar;
+let SortInstance = new Sort();
+let ToggleInstance = new Toggle();
+let SplitButtonInstance = new SplitButton();
+let DropdownInstance = new Dropdown();
+let SliderInstance = new Slider();
+let EventCalendarInstance = new EventCalendar();
+let TilesInstance = new Tiles();
+const NotificationInstance = new Notification();
+const NotificationDocInstance = new NotificationDoc();
+let SidebarInstance = new Sidebar();
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -43,24 +43,22 @@ NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
 
-let filter = new Filter;
+let filter = new Filter();
 
 // Modal
-let ModalInstance = new Modal;
+let ModalInstance = new Modal();
 ModalInstance.enableModals();
 
 // Steppers
-let SteppersInstance = new Steppers;
+let SteppersInstance = new Steppers();
 SteppersInstance.enableStepper();
 
 //Menu
-let MenuInstance = new Menu;
+let MenuInstance = new Menu();
 
-const FieldsInstance = new Fields;
+const FieldsInstance = new Fields();
 
 import './datepicker';
 
 // SCSS/CSS Compiler
 new initBuild();
-
-
