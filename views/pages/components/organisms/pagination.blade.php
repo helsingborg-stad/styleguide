@@ -9,6 +9,8 @@
     @endmarkdown
 
     @doc(['slug' => 'pagination'])
+<<<<<<< HEAD
+=======
 
         @pagination([
             'list' => [
@@ -20,6 +22,7 @@
         ])
         @endpagination
 
+>>>>>>> develop
     @enddoc
 @stop
 
