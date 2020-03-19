@@ -92,11 +92,25 @@ class Navigation
             );
     }
 
-    public static function isActiveItem($item) {
-        if(preg_match("/".$item."/i", self::getPageUrl())) {
-            return true; 
+    public static function isActiveItem($item, $showFullRoute = false) {
+        $pathArray = self::getPathArray();
+
+        if (!$showFullRoute) {
+            if (end($pathArray) === $item) {
+                return true;
+            }
+            return false;
+        }
+
+        foreach ($pathArray as $pathItem) {
+            if ($pathItem === $item)
+                return true;
         }
         return false; 
+    }
+
+    public static function getPathArray() {
+        return explode('/', parse_url(self::getPageUrl(), PHP_URL_PATH));
     }
 
     public static function getPageDomain() {
