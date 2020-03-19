@@ -11,7 +11,7 @@
            'items' => [ ['text' => 'meh', 'link' => '#'], ['text' => 'story'], ['text' => 'bro']],
            'backgroundColor' => 'secondary',
            'buttonText' => 'Choose an item!',
-           'icon' => ['name' => 'keyboard_arrow_up', 'size' => 'md', 'color' => 'black'],
+           'icon' => 'expand_more',
            'dropdownDirection' => 'top'
         ])
         @endsplitbutton
@@ -21,7 +21,7 @@
            'backgroundColor' => 'default',
            'borderColor' => 'default',
            'buttonText' => 'Choose an item!',
-           'icon' => ['name' => 'keyboard_arrow_up', 'size' => 'md', 'color' => 'black'],
+            'icon' => 'expand_more',
            'dropdownDirection' => 'bottom'
         ])
         @endsplitbutton
