@@ -3,7 +3,7 @@
 
 @segment([
     'template' => 'full',
-    'height' => 'md',
+    'height' => 'sm',
     'parallax' => true,
     'background_color' => '#E5E5E5',
     'text_alignment' => 'left',
@@ -14,7 +14,8 @@
         'horizontal' => 'center'
     ],
     'classList' => [
-        'p-home__hero'
+        'p-home__hero',
+        ''
     ]
 
 ])
@@ -50,42 +51,26 @@
             The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
         @endtypography
     @endslot
+
+    @slot('bottom')
+        You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
+    @endslot
 @endsegment
 
 
 
 <article>
-
-    <div class="grid p-home__cards" data-equal-container>
-        <div class="grid-xs-12 grid-md-12">
-            @segment([
-                'template' => 'full',
-                'height' => 'sm',
-                'parallax' => true,
-                'background_color' => 'white',
-                'text_alignment' => 'left',
-                'cta_align' => 'center',
-                'color' => 'black',
-                'content_alignment' => [
-                    'vertical' => 'center',
-                    'horizontal' => 'center'
-                ],
-                'heading' => "Getting Started",
-                'subtitle' => 'lol',
-                'classList' => [
-                    'p-home__hero',
-                    'p-home__getting-started'
-                ]
-
-            ])
-                @slot('main')
-                You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
-                @endslot
-            @endsegment
-
-        </div>
-        
-        <div class="grid-xs-12 grid-md-3">
+    @grid([
+        "container" => true,
+        "columns" => "auto-fit",
+        "min_width" => "280px",
+        "max_width" => "280px",
+        "col_gap" => 2,
+        "classList" => [
+            "u-justify-content--center"
+        ]
+    ])
+        @grid([])
             @card([
                 'heading' => 'Components',
                 'subHeading' => 'A web for everyone',
@@ -102,9 +87,9 @@
                 ]
             ])
             @endcard
-        </div>
+        @endgrid
 
-        <div class="grid-xs-12 grid-md-3">
+        @grid([])
             @card([
                 'heading' => 'Atomic Design',
                 'subHeading' => 'A wide variaty of components',
@@ -121,9 +106,9 @@
                 ]
             ])
             @endcard
-        </div>
+        @endgrid
 
-        <div class="grid-xs-12 grid-md-3">
+        @grid([])
             @card([
                 'heading' => 'Utilities',
                 'subHeading' => 'Behind the screen',
@@ -140,9 +125,9 @@
                 ]
             ])
             @endcard
-        </div>
+        @endgrid
 
-        <div class="grid-xs-12 grid-md-3">
+        @grid([])
             @card([
                 'heading' => 'Usability',
                 'subHeading' => 'Behind the screen',
@@ -159,9 +144,8 @@
                 ]
             ])
             @endcard
-        </div>
-
-    </div>
+        @endgrid
+    @endgrid
 
 </article>
     @segment([
