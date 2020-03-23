@@ -6,13 +6,16 @@
         'size' => 'lg',
         'color' => 'secondary'
     ],
-    'classList' => ['d-fab__left']
+    'classList' => ['d-fab__left','u-position--static']
 ])
 @endfab
 
 @fab([
     'position' => 'bottom-right',
-    'spacing' => 'md'
+    'spacing' => 'md',
+    'classList' => [
+        'u-position--static'
+    ]
 ])
 
     @button([
