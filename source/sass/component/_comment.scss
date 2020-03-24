@@ -17,6 +17,24 @@
         margin: map-get($spacers, "1");
     }
 
+    .c-comment__link {
+        color: inherit;
+        text-decoration: none;
+        text-decoration-style: unset;
+
+        &:hover,
+        &:visited,
+        &:active {
+            color: inherit;
+            text-decoration: none;
+            text-decoration-style: unset;
+        }
+
+        :hover {
+            color: $color-darker;
+        }
+    }
+
     &__date {
         align-self: flex-end;
         margin: map-get($spacers, "1");
