@@ -2,21 +2,22 @@
  *
  *  Main.scss
  *
- *  1. Settings
- *  2. Tools
- *  3. Generic
- *  4. Elements
- *  5. Objects
- *  6. Components
- *  7. Misc
- *  8. Utilities
+ *  1. Material  design icons
+ *  2. Settings
+ *  3. Tools
+ *  4. Generic
+ *  5. Elements
+ *  6. Objects
+ *  7. Components
+ *  8. Misc
+ *  9. Utilities
  *
  * * * * * * * * * */
 
 // ***************************************************************
 // *** Settings
 // ***************************************************************
-@import "/node_modules/material-design-icons/iconfont/material-icons.css";
+@import "material/material-icons";
 @import "setting/variables";
 
 // ***************************************************************
@@ -65,7 +66,7 @@
 @import "generic/normalize";
 @import "generic/container";
 @import "generic/grid";
-@import "generic/icons";
+@import "generic/layouts";
 @import "generic/load-animation";
 @import "generic/divider";
 
@@ -100,7 +101,6 @@
 // ***************************************************************
 @import "component/header";
 @import "component/footer";
-@import "component/hero";
 @import "component/avatar";
 @import "component/paper";
 @import "component/card";
@@ -141,6 +141,7 @@
 @import "component/calendar";
 @import "component/tile";
 @import "component/sidebar";
+@import "component/grid";
 
 // ***************************************************************
 // *** Misc
@@ -168,6 +169,14 @@
 @import "utility/float";
 @import "utility/vertical-align";
 @import "utility/position";
+
+// ***************************************************************
+// *** Doc
+// ***************************************************************
+@import "doc/generic";
+@import "doc/icons";
+@import "doc/fab";
+@import "doc/utilities";
 
 // ***************************************************************
 // *** Pages

@@ -3,7 +3,7 @@
 
 @segment([
     'template' => 'full',
-    'height' => 'md',
+    'height' => 'sm',
     'parallax' => true,
     'background_color' => '#E5E5E5',
     'text_alignment' => 'left',
@@ -14,11 +14,12 @@
         'horizontal' => 'center'
     ],
     'classList' => [
-        'p-home__hero'
+        'p-home__hero',
+        ''
     ]
 
 ])
-    @slot('body')
+    @slot('main')
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
@@ -50,132 +51,101 @@
             The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
         @endtypography
     @endslot
+
+    @slot('bottom')
+        You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
+    @endslot
 @endsegment
 
 
 
 <article>
-
-    <div class="grid p-home__cards" data-equal-container>
-        <div class="grid-xs-12 grid-md-12">
-            @segment([
-                'template' => 'full',
-                'height' => 'sm',
-                'parallax' => true,
-                'background_color' => 'white',
-                'text_alignment' => 'left',
-                'cta_align' => 'center',
-                'color' => 'white',
-                'content_alignment' => [
-                    'vertical' => 'center',
-                    'horizontal' => 'center'
-                ],
-                'heading' => "Getting Started",
-                'subtitle' => 'lol',
-                'classList' => [
-                    'p-home__hero',
-                    'p-home__getting-started'
-                ]
-
-            ])
-                @slot('body')
-                You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
-                @endslot
-            @endsegment
-
-        </div>
-        <div class="grid-xs-12 grid-md-3">
+    @grid([
+        "container" => true,
+        "columns" => "auto-fit",
+        "min_width" => "280px",
+        "max_width" => "280px",
+        "col_gap" => 2,
+        "classList" => [
+            "u-justify-content--center"
+        ]
+    ])
+        @grid([])
             @card([
-                'href' => '#',
-                'image' => '/assets/img/component.svg',
-                'title' => ['text' => 'Components', 'position' => 'body'],
-                'byline' => ['text' => 'A web for everyone', 'position' => 'top'],
-                'classList' => ['c-card--shadow-on-hover'],
+                'heading' => 'Components',
+                'subHeading' => 'A web for everyone',
+                'imageFirst' => true,
                 'content' => 'The component library is a collection of robust views with built-in logic to handle common scenarios.',
-                'hasRipple' => false,
+                'image' => [
+                    'src' => '/assets/img/component.svg',
+                    'alt' => 'ALT',
+                    'backgroundColor' => 'secondary',
+                    'padded' => true
+                ],
                 'buttons' => [
-                    [
-                        'href' => '/component',
-                        'text' => 'Go to',
-                        'attributeList' => ['js-toggle-trigger'],
-                        'color' => 'primary',
-                        'type' => 'outlined'
-                    ]
+                    ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
                 ]
             ])
-
             @endcard
-        </div>
+        @endgrid
 
-        <div class="grid-xs-12 grid-md-3">
+        @grid([])
             @card([
-                'href' => '#',
-                'image' => '/assets/img/atom.svg',
-                'title' => ['text' => 'Atomic Design', 'position' => 'body'],
-                'byline' => ['text' => 'A wide variaty of components', 'position' => 'top'],
-                'classList' => ['c-card--shadow-on-hover'],
+                'heading' => 'Atomic Design',
+                'subHeading' => 'A wide variaty of components',
+                'imageFirst' => true,
                 'content' => 'The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.',
-                'hasRipple' => false,
+                'image' => [
+                    'src' => '/assets/img/atom.svg',
+                    'alt' => 'ALT',
+                    'backgroundColor' => 'secondary',
+                    'padded' => true
+                ],
                 'buttons' => [
-                    [
-                        'href' => '/component',
-                        'text' => 'Go to',
-                        'attributeList' => ['js-toggle-trigger'],
-                        'color' => 'primary',
-                        'type' => 'outlined'
-                    ]
+                    ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
                 ]
             ])
-
             @endcard
-        </div>
+        @endgrid
 
-        <div class="grid-xs-12 grid-md-3">
+        @grid([])
             @card([
-                'href' => '#',
-                'image' => '/assets/img/utility.svg',
-                'title' => ['text' => 'Utilities', 'position' => 'body'],
-                'byline' => ['text' => 'Behind the screen', 'position' => 'top'],
-                'classList' => ['c-card--shadow-on-hover'],
+                'heading' => 'Utilities',
+                'subHeading' => 'Behind the screen',
+                'imageFirst' => true,
                 'content' => 'Swiftly create new apperance of anything in the styleguide, or even create a new component. Each utility has their corresponding mixin.',
-                'hasRipple' => false,
+                'image' => [
+                    'src' => '/assets/img/utility.svg',
+                    'alt' => 'ALT',
+                    'backgroundColor' => 'secondary',
+                    'padded' => true
+                ],
                 'buttons' => [
-                    [
-                        'href' => '/utilities',
-                        'text' => 'Go to',
-                        'attributeList' => ['js-toggle-trigger'],
-                        'color' => 'primary',
-                        'type' => 'outlined'
-                    ]
+                    ['href' => '/utilities', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
                 ]
             ])
-
             @endcard
-        </div>
-        <div class="grid-xs-12 grid-md-3">
+        @endgrid
+
+        @grid([])
             @card([
-                'href' => '#',
-                'image' => '/assets/img/usability.svg',
-                'title' => ['text' => 'Usability', 'position' => 'body'],
-                'byline' => ['text' => 'Behind the screen', 'position' => 'top'],
-                'classList' => ['c-card--shadow-on-hover'],
+                'heading' => 'Usability',
+                'subHeading' => 'Behind the screen',
+                'imageFirst' => true,
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
-                'hasRipple' => false,
+                'image' => [
+                    'src' => '/assets/img/usability.svg',
+                    'alt' => 'ALT',
+                    'backgroundColor' => 'secondary',
+                    'padded' => true
+                ],
                 'buttons' => [
-                    [
-                        'href' => '/usability',
-                        'text' => 'Go to',
-                        'attributeList' => ['js-toggle-trigger'],
-                        'color' => 'primary',
-                        'type' => 'outlined'
-                    ]
+                    ['href' => '#', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
                 ]
             ])
-
             @endcard
-        </div>
-
-    </div>
+        @endgrid
+    @endgrid
 
 </article>
     @segment([
@@ -196,7 +166,7 @@
         ]
 
     ])
-        @slot('body')
+        @slot('main')
             <div class="p-home__update">
                 @typography([
                     'element' => 'p',

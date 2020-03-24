@@ -9,11 +9,6 @@
     @endmarkdown
 
     @doc(['slug' => 'form'])
-
-        @form([])
-
-        @endform
-
     @enddoc
 
 @stop

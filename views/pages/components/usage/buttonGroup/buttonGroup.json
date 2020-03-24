@@ -3,10 +3,5 @@
         "heading": "Buttongroup built with slot",
         "subHeading": "",
         "text": "Manually created button components."
-    },
-    "param": {
-        "heading": "Buttongroup built with parameters",
-        "subHeading": "",
-        "text": "This is a button group built using arrays, this is recommended if you want to utilize exclusive toggling as ids will be set automatically."
     }
 }

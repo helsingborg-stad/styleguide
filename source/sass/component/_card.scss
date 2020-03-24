@@ -1,140 +1,146 @@
 .c-card {
-    @include shadow(2);
-    background-color: $color-card-background;
-    border-radius: $border-radius-xs;
+    position: relative;
+    background-color: $color-white;
+    min-width:280px;
+    max-width: max-content;
+    width:100%;
+    box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+    border-radius: 12.5px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas:
+    "title"
+    "image"
+    "body"
+    "footer"
+    ;
 
-    &__background--dark {
-        background-color: $color-card-background-dark;
-    }
+    &__image {
+        background-color: $color-default;
 
-    &--shadow-on-hover {
-
-        &:hover {
-            @include paper(7);
-        }
-    }
-
-    display: block;
-
-    &__paper {
-        margin-bottom: 0;
-        cursor: pointer;
-
-    }
-
-    &__body,
-    &__top,
-    &__top-title,
-    &__bottom,
-    &__middle {
-        padding: map-get($spacers, "3");
-        width:100%;
-        display:inline-block;
-    }
-
-    .c-avatar {
-        float: left;
-        margin: 0 map-get($spacers, "2") map-get($spacers, "2") 0;
-
-    }
-
-    &__title {
-        font-size: $font-size-subtitle;
-    }
-
-    &__byline {
-        letter-spacing: $font-letterspacing-subtitle;
-
-        color: $color-gray;
-    }
-
-    &__top {
-        padding-top:  map-get($spacers, "3");
-
-    }
-
-    &__top-title {
-        padding-bottom: 0;
-
-        .c-card__byline {
-            margin-top: - map-get($spacers, "2");
+        &--primary{
+            background-color: $color-primary;
         }
 
-        &.c-card__with-top-dropdown {
-            width:95%;
-        }
-    }
-
-    &__with-top-dropdown .c-dropdown {
-        position:absolute;
-        top: map-get($spacers, "2");
-        right: map-get($spacers, "4");
-    }
-
-    &__with-avatar {
-        margin-bottom:- map-get($spacers, "5");
-    }
-
-    &__body {
-
-        .c-card__byline {
-            margin-top: - map-get($spacers, "2");
-        }
-    }
-
-    &__bottom {
-        padding-top: 0;
-        padding-bottom: map-get($spacers, "3");
-
-        .u-float--right {
-            margin-bottom: map-get($spacers, "2");
+        &--secondary{
+            background-color: $color-secondary;
         }
 
-        &.c-card__with-bottom-dropdown {
-            width: 95%;
+        &--default{
+            background-color: $color-default;
         }
+        
+        &-background{
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            &--padded{
+                background-size: contain;
+                width:auto;
+                background-position: center;
+            }
+            
+        }
+
+        & > .c-image > img{
+            box-sizing: border-box;
+            height: 200px;
+            border-radius: 0;
+            margin: 0 auto;
+        }
+
+        & > figure > .c-image__image{
+            width: unset;
+        }
+    
+        &--padded > .c-image > img{
+            padding:10%;
+        }
+
     }
 
-    &__with-bottom-dropdown .c-dropdown {
+    &__title{
+        grid-area: title;
+        padding: 20px 20px 10px;
+        
+        & h4{
+            margin:0;
+        }
+
+        &-headings{
+            word-break: break-all;
+            display:inline-block;
+        }
+
+        &-expand-button{
+            float:right;
+
+            &[aria-pressed="true"]{
+                transform: rotate(180deg);
+                transition-timing-function: ease-in-out;
+            }
+        }
+    
+    }
+    
+    &__body{
+        padding: 10px 20px;
+        grid-area: body;
+        height: auto;
+    }
+
+    &__footer{
+        padding: 28px 30px;
+        grid-area: footer;
+    }
+
+    &__dropdown{
         position: absolute;
-        bottom: map-get($spacers, "1");
-        right: map-get($spacers, "4");
-    }
+        top: 0;
+        right: 0;
 
-    &__link,
-    &__link:visited,
-    &__link:visited:hover,
-    &__link:active,
-    &__link:hover {
-        color: $color-body;
-        text-decoration: none;
-    }
-
-    &__image-link {
-        display: block;
-    }
-
-    &__image img,
-    img.c-card__image {
-        width: 100%;
-        display: block;
-    }
-
-    .c-accordion.c-card--no-accordion {
-
-        box-shadow: none;
-
-        .c-accordion__button:hover {
-            background: none;
+        &--white .c-button{
+            color: $color-white;
         }
 
-        .c-accordion__button-wrapper,
-        .c-accordion__content {
-            padding: 0px;
+        &--black .c-button{
+            color: $color-black;
         }
+    }
 
-        .c-accordion__content {
-            padding-top: map-get($spacers, "1");
+    &__dropdown .c-button:hover{
+        background-color: unset;
+    }
+
+    &__dropdown .c-button:focus{
+        background-color: unset;
+    }
+
+    &--image-first {
+        & > .c-card__image > .c-card__image-background{
+            width: 100%;
+            height: 200px;
+            border-radius: 12.5px 12.5px 0 0;
+            
         }
+        & > .c-card__image{
+            border-radius: 12.5px 12.5px 0 0;
+        }
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+        "image"
+        "title"
+        "body"
+        "footer"
+        ;
+    }
+
+    &--collapse{
+        visibility:hidden;
+        max-height: 0px;
+        height: 0px;
     }
 }

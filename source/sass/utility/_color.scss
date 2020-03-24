@@ -13,6 +13,7 @@ $color-utils: (
     (
         name: "color__bg",
         modifiers: (
+            default: (background-color: $color-default),
             primary: (background-color: $color-primary),
             secondary: (background-color: $color-secondary),
             success: (background-color: $color-success),

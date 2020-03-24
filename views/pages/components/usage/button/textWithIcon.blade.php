@@ -2,13 +2,13 @@
     'icon' => 'close',
     'reversePositions' => true,
     'text' => 'Reversed',
-    'type' => 'filled'
+    'style' => 'filled'
 ])
 @endbutton
 
 @button([
     'icon' => 'close',
     'text' => 'Not reversed',
-    'type' => 'filled'
+    'style' => 'filled'
 ])
 @endbutton

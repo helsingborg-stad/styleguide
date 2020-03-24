@@ -8,7 +8,7 @@
     @endmarkdown
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'visibility', 'config' => 'visibility']])
 
-        <div class="u-display--flex">
+        <div style="text-align: center;">
             @button([
                 'href' => '#btn-3',
                 'isOutlined' => false,
@@ -22,7 +22,7 @@
             @endbutton
 
             @typography([
-                'element' => 'p',
+                'element' => 'h4',
                 'variant' => 'subtitle',
                 'attributeList' => [
                     'js-toggle-item' => 'example',

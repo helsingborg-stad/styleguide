@@ -17,7 +17,7 @@
         @endtypography
 
         <div class="d-sizing">
-            <div class="u-width--100 u-color__bg--primary u-padding--2  u-rounded" style="height: 100px;">
+            <div class="u-width--100 u-color__bg--default u-padding--2  u-rounded" style="height: 100px;">
                 <div class="u-width--50 u-height--100 u-display--inline-block u-color__bg--success  u-rounded">
                 </div>
 
@@ -39,7 +39,7 @@
         @endtypography
 
         <div class="d-sizing">
-            <div class="u-color__bg--primary u-padding--2 u-rounded" style="height: 300px;">
+            <div class="u-color__bg--default u-padding--2 u-rounded" style="height: 300px;">
                 <div class="u-height--50 u-width--25 u-display--inline-block u-color__bg--success  u-rounded">
                 </div>
 

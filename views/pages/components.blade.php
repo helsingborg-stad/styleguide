@@ -18,7 +18,7 @@
         ]
 
     ])
-    @slot('body')
+    @slot('main')
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
@@ -77,7 +77,8 @@
                 'element' => "p",
                 'classList' => ['c-card__text']
             ])
-            Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
+            Atoms are the fundamental building blocks. They are rarely used just by them self but
+            mostly used to build more advanced components.
             @endtypography
 
             <p>
@@ -149,7 +150,7 @@
                 'element' => "p",
                 'classList' => ['c-card__text']
             ])
-            Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.
+            Organisms are groups of molecules joined together to form a relatively complex, distinct section of an interface.
             @endtypography
 
             <p>

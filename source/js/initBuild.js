@@ -62,12 +62,19 @@ class initBuild {
                 checkboxes[i].checked = false;
                 
                 let node = document.createElement("span");
+                let nodeIcon = document.createElement("i");
                 let textNode = document.createTextNode(componentArray[i]);
+                let textNodeIcon = document.createTextNode('extension');
                 
                 node.appendChild(textNode);
-                node.classList.add('component-list', 'c-tags', 'c-tag--default');
-                node.setAttribute('disabled', 'disabled');
+                nodeIcon.appendChild(textNodeIcon);
+                
+                node.classList.add('component-list', 'comp-list-item-'+i, 'c-tags', 'c-tag--default');
+                nodeIcon.classList.add('c-icon', 'c-icon--size-sm', 'material-icons');
+                //node.setAttribute('disabled', 'disabled');
+                
                 document.querySelector('.selected-components').appendChild(node);
+                document.querySelector('.comp-list-item-'+i).prepend(nodeIcon);
                 
             }
             
@@ -112,7 +119,7 @@ class initBuild {
                     self.changeMarkupState('result', cssUrl);
                     self.copyGenLinks();
                     
-                }, 10000);
+                }, 2000);
             })
     };
     

@@ -1,7 +1,7 @@
 {
     "calendar": {
         "heading": "Calendar",
-        "subheading": "",
-        "grid": ""
+        "subHeading": "Year, Month and day",
+        "text": "The calendar allows you to show an overview of events."
     }
 }

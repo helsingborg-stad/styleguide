@@ -1,19 +1,19 @@
 @button([
-    'type' => 'filled',
+    'style' => 'filled',
     'icon' => 'close',
     'size' => 'sm'
 ])
 @endbutton
 
 @button([
-    'type' => 'filled',
+    'style' => 'filled',
     'icon' => 'close',
     'size' => 'md'
 ])
 @endbutton
 
 @button([
-    'type' => 'filled',
+    'style' => 'filled',
     'icon' => 'close',
     'size' => 'lg'
 ])
