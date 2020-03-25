@@ -20,31 +20,35 @@
                 <p>{!! $summary !!}</p>
             @endif
 
-            <table>
-                <thead>
-                    <td>Attributes</td>
-                    <td>Description</td>
-                    <td>Values</td>
-                </thead>
+            <div class="d-params u-overflow--auto u-margin__top--10">
+                <h3>Blade component parameters</h3>
+                <table>
+                    <thead>
+                        <td>Attributes</td>
+                        <td>Description</td>
+                        <td>Values</td>
+                    </thead>
 
-                @foreach($settings as $key => $item)
-                    <tr>
-                        <td>{{$key}}</td>
+                    @foreach($settings as $key => $item)
 
-                        @if(isset($description[$key]))
-                        <td><code>{{$description[$key]}}</code></td>
-                        @else 
-                        <td>-</td>
-                        @endif
-                        
-                        @if(isset($item)) 
-                            <td>{{$item}}</td>
-                        @else 
+                        <tr>
+                            <td>{{$key}}</td>
+
+                            @if(isset($description[$key]))
+                            <td><code>{{$description[$key]}}</code></td>
+                            @else 
                             <td>-</td>
-                        @endif
-                    </tr>
-                @endforeach
-            </table>
+                            @endif
+                            
+                            @if(isset($item)) 
+                                <td>{{$item}}</td>
+                            @else 
+                                <td>-</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         @endpaper
     @endif
 </section>
