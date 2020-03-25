@@ -20,14 +20,28 @@ export default class Sidebar {
             if (activeItems.length > 0) {
                 activeItems.forEach((item) => {
                     if (item.closest('.c-sidebar__subcontainer')) {
-                        item.closest('.c-sidebar__subcontainer').classList.add(this.EXPAND);
-                        const id = item.closest('.c-sidebar__subcontainer').getAttribute('js-toggle-item')
-                        sb.querySelector(`[js-toggle-trigger="${id}"]`).setAttribute('aria-pressed', true)
+                        this.expandItem(item.closest('.c-sidebar__subcontainer'), sb);
                     }
                 })
             }
             
             this.addTriggers(sb);
+        }
+    }
+
+    /**
+     * Expands items
+     * @param {Object} item The sidebar item
+     * @param {Object} sb The sidebar
+     */
+    expandItem(item, sb) {
+        const subcontainer = item.closest('.c-sidebar__subcontainer');
+        subcontainer.classList.add(this.EXPAND);
+        const id = subcontainer.getAttribute('js-toggle-item');
+        sb.querySelector(`[js-toggle-trigger="${id}"]`).setAttribute('aria-pressed', true);
+
+        if (subcontainer.closest('.c-sidebar__item').closest('.c-sidebar__subcontainer')) {
+            this.expandItem(subcontainer.closest('.c-sidebar__item').closest('.c-sidebar__subcontainer'), sb);
         }
     }
 
