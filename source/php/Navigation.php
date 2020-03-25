@@ -70,6 +70,8 @@ class Navigation
                             if(array_key_exists($item, $response)) {
                                 $response[$item]['children'] = self::items($folder . '/' . $item); 
                             }
+                        }else{
+                            $response[$item]['children'] = false;                    
                         }
                     }
                 
