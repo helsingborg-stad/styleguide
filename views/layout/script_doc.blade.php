@@ -6,7 +6,21 @@
             <div class="markup-preview">
                 {!! $slot !!}
             </div>
-            @code(['language' => 'html', 'content' => ""]) 
+
+            @buttonGroup(['borderColor' => 'default', 'classList' => ['d-code__toggle', 'c-code__toggle']])
+                @button([
+                    'text' => 'HTML',
+                    'color' => 'default',
+                    'type' => 'basic',
+                    'size' => 'md',
+                    'icon' => 'code',
+                    'toggle' => true,
+                    'attributeList' => ['js-toggle-trigger' => '0809417221', 'js-toggle-group' => '0809417221']
+                ])
+                @endbutton
+            @endbuttonGroup
+
+            @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => '0809417221', 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => '0809417221']]) 
                 {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($slot)}}
             @endcode
         @endpaper
