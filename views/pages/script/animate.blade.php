@@ -2,42 +2,66 @@
 
 @section('doc-content')
     @markdown
-        #TODO: Animations
-        Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js. 
-
-        ###Effects
-        - fade
-        - fadeUp (Left, Right, Down)
-        - bounce
-
-        ###Bind 
-        Two types of bind can be done, they are the following: 
-
-        - Scroll: Will animate in and out near the edges of the viewport (compatible with modern browsers)
-        - Onload: Will animate on load of the page. 
-
-        ###Other
-        All animations will be triggerd automatically when toggling display: none, display: block. 
-
-        ###Library
-        We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect. 
-
+        #Animations
     @endmarkdown
 
-    @paper
-        @table([
-            'list' => [
-                ['js-bind', 'Event to bind on (onload = init animation, scroll = in view animation)', 'scroll/onload'],
-                ['js-action', 'Animate keyword for animations.', 'animate'],
-                ['js-animate-target', 'A sub element of the bound target, if left blank bound target will be animated. The target element is automatically prefixed by the dom-node of the bound element.', 'li.list-element'],
-                ['js-animate-type', 'Type of animation', 'fade/fadeUp/fadeLeft/bounce'],
-                ['js-animate-stagger', 'Stagger (delay) each item in list of items (ms). Use 0 or false to turn off staggering.', '300'],
-                ['js-animate-time', 'Time to complete animation.', '50']
-            ],
-            'headings' => ['Attribute', 'Description', 'Example value(s)'],
-            'showFooter' => false,
-            'isSmall' => false
+    @script_doc(["viewDoc" => ["type" => "script", "root" => "animate", "config" => "animate"]])
+        Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js.
+        
+        @typography([
+            'element' => 'h4',
+            'variant' => 'subtitle'
         ])
-        @endtable
-    @endpaper
+            Effects
+        @endtypography
+
+        @listing(
+            [
+            'list' => [
+                    ['label' => 'fade'],
+                    ['label' => 'fadeUp (Left, Right, Down)'],
+                    ['label' => 'bounce'],
+            ],
+            'elementType' => "ul"
+            ]
+        )
+        @endlisting
+
+        @typography([
+            'element' => 'h4',
+            'variant' => 'subtitle'
+        ])
+            Bind
+        @endtypography
+
+        Two types of bind can be done, they are the following:
+
+        @listing(
+            [
+            'list' => [
+                    ['label' => 'Scroll: Will animate in and out near the edges of the viewport (compatible with modern browsers)'],
+                    ['label' => 'Onload: Will animate on load of the page. '],
+            ],
+            'elementType' => "ul"
+            ]
+        )
+        @endlisting
+
+        @typography([
+            'element' => 'h4',
+            'variant' => 'subtitle'
+        ])
+            Other
+        @endtypography
+        All animations will be triggerd automatically when toggling display: none, display: block. 
+
+        @typography([
+            'element' => 'h4',
+            'variant' => 'subtitle'
+        ])
+            Library
+        @endtypography
+        We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect. 
+
+    @endscript_doc
 @stop
