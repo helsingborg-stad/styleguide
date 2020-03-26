@@ -12,10 +12,11 @@
         color: $color-primary;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-        margin-top: $base * 6;
-        margin-bottom: $base * 2;
-    }
+    // Commented as we need to observe the impact of this
+    // h1, h2, h3, h4, h5, h6 {
+    //     margin-top: $base * 6;
+    //     margin-bottom: $base * 2;
+    // }
 
     h1+h2,
     h2+h3,
@@ -25,7 +26,8 @@
     h1+h4,
     h2+h4,
     h3+h4 {
-        margin-top: $base * -2;
+        // Commented as we need to observe the impact of this
+        //margin-top: $base * -2;
         color: $color-base-secondary;
     }
 
