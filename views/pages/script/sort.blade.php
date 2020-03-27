@@ -25,7 +25,8 @@
                 'col_gap' => '2',
                 'classList' => [
                     'u-padding--2',
-                    'u-color__bg--default'
+                    'u-color__bg--default',
+                    'u-text-align--center',
                 ],
                 'attributeList' => [
                     'js-sort-data-container' => ''
@@ -35,53 +36,113 @@
                 @grid([
                     "classList" => [
                         "u-color__bg--secondary",
-                        "u-rounded"
+                        "u-rounded",
+                        "u-padding--2"
                     ],
                     'attributeList' => [
                         'js-sort-sortable' => '',
                         'js-sort-data' => '111-0'
                     ]
                 ])
-                    2
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        2
+                    @endtypography
                 @endgrid
 
                 @grid([
                     "classList" => [
                         "u-color__bg--secondary",
-                        "u-rounded"
+                        "u-rounded",
+                        "u-padding--2"
                     ],
                     'attributeList' => [
                         'js-sort-sortable' => '',
                         'js-sort-data' => '111-0'
                     ]
                 ])
-                    3
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        3
+                    @endtypography
                 @endgrid
 
                 @grid([
                     "classList" => [
                         "u-color__bg--secondary",
-                        "u-rounded"
+                        "u-rounded",
+                        "u-padding--2"
                     ],
                     'attributeList' => [
                         'js-sort-sortable' => '',
                         'js-sort-data' => '111-0'
                     ]
                 ])
-                    50
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        50
+                    @endtypography
                 @endgrid
 
                 @grid([
                     "classList" => [
                         "u-color__bg--secondary",
-                        "u-rounded"
+                        "u-rounded",
+                        "u-padding--2"
                     ],
                     'attributeList' => [
                         'js-sort-sortable' => '',
                         'js-sort-data' => '111-0'
                     ]
                 ])
-                    1
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        1
+                    @endtypography
+                @endgrid
+
+                @grid([
+                    "classList" => [
+                        "u-color__bg--secondary",
+                        "u-rounded",
+                        "u-padding--2"
+                    ],
+                    'attributeList' => [
+                        'js-sort-sortable' => '',
+                        'js-sort-data' => '111-0'
+                    ]
+                ])
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        ABC
+                    @endtypography
+                @endgrid
+
+                @grid([
+                    "classList" => [
+                        "u-color__bg--secondary",
+                        "u-rounded",
+                        "u-padding--2"
+                    ],
+                    'attributeList' => [
+                        'js-sort-sortable' => '',
+                        'js-sort-data' => '111-0'
+                    ]
+                ])
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        AAA
+                    @endtypography
+                @endgrid
+
+                @grid([
+                    "classList" => [
+                        "u-color__bg--secondary",
+                        "u-rounded",
+                        "u-padding--2"
+                    ],
+                    'attributeList' => [
+                        'js-sort-sortable' => '',
+                        'js-sort-data' => '111-0'
+                    ]
+                ])
+                    @typography(['variant' => 'h2', 'element' => 'h2', 'classList' => ['u-color__text--light']])
+                        AAB
+                    @endtypography
                 @endgrid
             @endgrid
         </div>
