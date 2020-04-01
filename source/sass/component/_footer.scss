@@ -47,6 +47,7 @@
     }
 
     &__link-divider{
+        display: inline-block;
         background-color:#565656;
         border-radius: 50%;
         height: $base / 2;
