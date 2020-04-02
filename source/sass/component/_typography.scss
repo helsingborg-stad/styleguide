@@ -66,4 +66,10 @@
     &meta {
         font-size: $font-size-meta;
     }
+
+    &marketing {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-marketing;
+        line-height: 124%;
+    }
 }
