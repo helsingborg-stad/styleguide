@@ -2,12 +2,14 @@ $color-utils: (
     (
         name: "color__text",
         modifiers: (
+            light: (color: $color-white),
+            dark: (color: $color-black),
             primary: (color: $color-primary),
             secondary: (color: $color-secondary),
             success: (color: $color-success),
             danger: (color: $color-danger),
             info: (color: $color-info),
-            warning: (color: $color-warning),
+            warning: (color: $color-warning)
         )
     ),
     (
