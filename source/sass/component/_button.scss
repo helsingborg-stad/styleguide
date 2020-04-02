@@ -33,7 +33,7 @@
         font-size: $font-size-btn-sm;
     }
 
-    &[disabled] {
+    &[disabled='true'] {
 
         border-color: $color-disabled;
         background-color: $color-disabled;
