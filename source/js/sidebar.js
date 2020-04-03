@@ -24,16 +24,7 @@ export default class Sidebar {
 
             if (activeItems.length > 0) {
                 activeItems.forEach(item => {
-                    if (item.closest(`.${this.SUBCONTAINER}`)) {
-                        item.closest(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
-                        const id = item
-                            .closest(`.${this.SUBCONTAINER}`)
-                            .getAttribute(this.TOGGLE_ITEM);
-                        sb.querySelector(`[${this.TOGGLE_TRIGGER}="${id}"]`).setAttribute(
-                            'aria-pressed',
-                            true
-                        );
-                    }
+                    this.expandItem(item, sb);
                     this.expandCurrentItem(item);
                 });
             }
@@ -46,10 +37,45 @@ export default class Sidebar {
      * Expand current item
      * @param {Object} item The current item to expand
      */
+    expandItem(item, sb) {
+        if (item.closest(`.${this.SUBCONTAINER}`)) {
+            const id = this.getToggleId(item)
+                
+            const toggle = sb.querySelector(`[${this.TOGGLE_TRIGGER}="${id}"]`)
+
+            toggle.setAttribute('aria-pressed', true);
+
+            this.addExpandClass(item);
+            this.expandItem(toggle, sb)
+        }
+    }
+
+    /**
+     * @param  {} item Item to recieve ID from
+     * @param  {} ID The attribute ID
+     */
+    getToggleId(item) {
+        return item.closest(`.${this.SUBCONTAINER}`)
+            .getAttribute(this.TOGGLE_ITEM);
+    }
+    
+    /**
+     * @param  {} item Item that is relevant to exppand item
+     */
+    addExpandClass(item) {
+        item.closest(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
+    }
+
+    /**
+     * Expand current item
+     * @param {Object} item The current item to expand
+     */
     expandCurrentItem(item) {
         const parent = item.closest(`.${this.ITEM}`);
-        parent.querySelector(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
-        parent.querySelector(`.${this.TOGGLE}`).setAttribute('aria-pressed', true);
+        if (parent.querySelector(`.${this.SUBCONTAINER}`)) {
+            parent.querySelector(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
+            parent.querySelector(`.${this.TOGGLE}`).setAttribute('aria-pressed', true);
+        }
     }
 
     /**
