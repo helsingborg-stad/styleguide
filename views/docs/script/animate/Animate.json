@@ -1,0 +1,21 @@
+{
+    "summary":  [
+        "Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js."
+    ],
+    "description": {
+        "js-bind": "Event to bind on (onload = init animation, scroll = in view animation)",
+        "js-action": "Animate keyword for animations.",
+        "js-animate-target": "A sub element of the bound target, if left blank bound target will be animated. The target element is automatically prefixed by the dom-node of the bound element.",
+        "js-animate-type": "Type of animation",
+        "js-animate-stagger": "Stagger (delay) each item in list of items (ms). Use 0 or false to turn off staggering.",
+        "js-animate-time": "Time to complete animation."
+    },
+    "attributes": {
+        "js-bind": "scroll/onload",
+        "js-action": "animate",
+        "js-animate-target": "li.list-element",
+        "js-animate-type": "fade/fadeUp/fadeLeft/bounce",
+        "js-animate-stagger": "300",
+        "js-animate-time": "50"
+    }
+}
