@@ -85,7 +85,8 @@
                 @button([
                     'type' => 'outlined',
                     'text' => 'Go to',
-                    'color' => 'primary'
+                    'color' => 'primary',
+                    'href' => '/components/atoms'
                 ])
                 @endbutton
             </p>
@@ -114,7 +115,8 @@
                 @button([
                     'type' => 'outlined',
                     'text' => 'Go to',
-                    'color' => 'primary'
+                    'color' => 'primary',
+                    'href' => '/components/molecules'
                 ])
                 @endbutton
             </p>
@@ -157,7 +159,8 @@
                 @button([
                     'type' => 'outlined',
                     'text' => 'Go to',
-                    'color' => 'primary'
+                    'color' => 'primary',
+                    'href' => '/components/organisms'
                 ])
                 @endbutton
             </p>
