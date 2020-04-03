@@ -6,8 +6,13 @@
     @endmarkdown
 
     @script_doc(["viewDoc" => ["type" => "script", "root" => "animate", "config" => "animate"]])
-        Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js.
-        
+
+        @typography([
+            'element' => 'p'
+        ])
+            Animate elements, or sub elements to a container. You can choose from multiple predefined effects, defined by the styleguide. All animations in done with anime-js.
+        @endtypography
+
         @typography([
             'element' => 'h4',
             'variant' => 'subtitle'
@@ -34,7 +39,13 @@
             Bind
         @endtypography
 
-        Two types of bind can be done, they are the following:
+        @typography([
+            'element' => 'p'
+        ])
+            Two types of bind can be done, they are the following:
+        @endtypography
+
+
 
         @listing(
             [
@@ -53,7 +64,14 @@
         ])
             Other
         @endtypography
-        All animations will be triggerd automatically when toggling display: none, display: block. 
+
+        @typography([
+            'element' => 'p'
+        ])
+            All animations will be triggerd automatically when toggling display: none, display: block.
+        @endtypography
+
+
 
         @typography([
             'element' => 'h4',
@@ -61,7 +79,12 @@
         ])
             Library
         @endtypography
-        We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect. 
+
+    @typography([
+        'element' => 'p'
+    ])
+        We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect.
+    @endtypography
 
     @endscript_doc
 @stop
