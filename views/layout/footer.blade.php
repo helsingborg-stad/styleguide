@@ -5,7 +5,7 @@
             'The styleguide' => ['href' => '/about/styleguide-structure'],
             'Atomic design' => ['href' => '/components'],
             'Accessability' => ['href' => '/about/accessability'],
-            'Authors' => ['href' => 'about/authors']
+            'Authors' => ['href' => '/about/authors']
         ],
         'Documentation' => [
             'Components' => ['href' => '/components'],
