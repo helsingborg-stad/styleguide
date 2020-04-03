@@ -66,6 +66,7 @@
         "min_width" => "280px",
         "max_width" => "280px",
         "col_gap" => 2,
+        "row_gap" => 2,
         "classList" => [
             "u-justify-content--center"
         ]
@@ -84,7 +85,8 @@
                 ],
                 'buttons' => [
                     ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ]
+                ],
+                'classList' => ['u-height--100']
             ])
             @endcard
         @endgrid
@@ -103,7 +105,8 @@
                 ],
                 'buttons' => [
                     ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ]
+                ],
+                'classList' => ['u-height--100']
             ])
             @endcard
         @endgrid
@@ -122,7 +125,8 @@
                 ],
                 'buttons' => [
                     ['href' => '/utilities', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ]
+                ],
+                'classList' => ['u-height--100']
             ])
             @endcard
         @endgrid
@@ -141,7 +145,8 @@
                 ],
                 'buttons' => [
                     ['href' => '#', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ]
+                ],
+                'classList' => ['u-height--100']
             ])
             @endcard
         @endgrid
