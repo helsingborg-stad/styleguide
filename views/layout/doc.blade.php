@@ -48,19 +48,15 @@
                         @include($example['component'])
                     </div>
 
-                    @typography([
+                    <div class="u-padding__top--4">
+                        @typography([
                         'variant' => "h4",
                         'element' => "h4",
-                    ])
-                    @icon([
-                        'icon' => 'info',
-                        'size' => 'md',
-                        'color' => 'gray'
-                    ])
-                    @endicon
+                        ])
 
+                        {{$example['description']['subHeading']}}
+                    </div>
 
-                    {{$example['description']['subHeading']}}
                     @endtypography
                     @typography([
                         "variant" => "caption",
