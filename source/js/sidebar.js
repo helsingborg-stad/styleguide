@@ -39,14 +39,14 @@ export default class Sidebar {
      */
     expandItem(item, sb) {
         if (item.closest(`.${this.SUBCONTAINER}`)) {
-            const id = this.getToggleId(item);
-
-            const toggle = sb.querySelector(`[${this.TOGGLE_TRIGGER}="${id}"]`);
+            const id = this.getToggleId(item)
+                
+            const toggle = sb.querySelector(`[${this.TOGGLE_TRIGGER}="${id}"]`)
 
             toggle.setAttribute('aria-pressed', true);
 
             this.addExpandClass(item);
-            this.expandItem(toggle, sb);
+            this.expandItem(toggle, sb)
         }
     }
 
@@ -55,9 +55,10 @@ export default class Sidebar {
      * @param  {} ID The attribute ID
      */
     getToggleId(item) {
-        return item.closest(`.${this.SUBCONTAINER}`).getAttribute(this.TOGGLE_ITEM);
+        return item.closest(`.${this.SUBCONTAINER}`)
+            .getAttribute(this.TOGGLE_ITEM);
     }
-
+    
     /**
      * @param  {} item Item that is relevant to exppand item
      */
