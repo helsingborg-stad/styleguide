@@ -1,0 +1,36 @@
+.c-signature {
+    display: grid;
+    grid-auto-columns: max-content max-content;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "avatar content"
+    ;
+
+    &__avatar {
+        grid-area: avatar;
+    }
+
+    &__content {
+        grid-area: content;
+        padding: map-get($spacers, "1" );
+    }
+
+    &__author {
+        margin-bottom: -8px;
+    }
+
+    &__title {
+        color: $color-darker;
+        margin-bottom: map-get($spacers, "1" );
+    }
+
+    &__published {
+        color: $color-darker;
+        margin-bottom: 0;
+    }
+
+    &__updated {
+        color: $color-darker;
+        margin-bottom: 0;
+    }
+}
