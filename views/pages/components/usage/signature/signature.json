@@ -1,0 +1,8 @@
+{
+    "base": {
+        "grid": "",
+        "heading": "Signature Component",
+        "subHeading" : "Give credit",
+        "text": "The signature component allows you to display credits and dates"
+    }
+}
