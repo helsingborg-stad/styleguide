@@ -38,9 +38,11 @@
             background-repeat: no-repeat;
 
             &--padded{
-                background-size: contain;
                 width:auto;
+                background-size: contain;
                 background-position: center;
+                background-origin: content-box;
+                padding: map-get($spacers, "5" );
             }
             
         }
