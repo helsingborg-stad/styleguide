@@ -1,19 +1,28 @@
 .c-comment {
-    margin-top: map-get($spacers, "2");
+    margin-top: map-get($spacers, "6");
+
+    &:first-child {
+        margin-top: 0;
+    }
 
     &__top {
         display: flex;
         align-items: center;
-
+        width:80%;
+        padding-left:5px;
+        padding-bottom: map-get($spacers, "1");
         .c-comment__author {
             align-self: center;
             margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-dark;
         }
     }
 
     .c-avatar {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         margin: map-get($spacers, "1");
     }
 
@@ -38,19 +47,43 @@
     &__date {
         align-self: flex-end;
         margin: map-get($spacers, "1");
-        margin-left: auto;
         color: $color-comment-date;
+        font-size: 14px;
+        font-weight: 600;
     }
 
+
     &__bubble {
-        background-color: $color-comment-bubble-bg;
+        justify-content: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        position:relative;
+    }
+
+    .c-avatar {
+        flex-direction: column;
+        position:absolute;
+        top: -36px;
+        left: -65px;
+    }
+
+    &__bubble--color-dark p {
+        flex-direction: row;
+        width:80%;
+        display: flex;
+        align-items: center;
         border-radius: $border-radius-lg;
         border-top-left-radius: $border-radius-sm;
         padding: map-get($spacers, "1half") map-get($spacers, "2");
-        @include shadow(1);
+        background-color: $color-comment-bubble-bg-dark;
+    }
+
+    &__bubble--color-light p {
+        background-color: $color-comment-bubble-bg-dark;
     }
 
     &__is-reply {
         margin-left: map-get($spacers, "5");
+        margin-top: map-get($spacers, "4");
     }
 }
