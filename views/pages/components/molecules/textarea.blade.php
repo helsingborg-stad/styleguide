@@ -6,7 +6,7 @@
     ##Textarea
     @endmarkdown
 
-    @doc(['slug' => 'textarea'])
+    @doc(['slug' => 'textarea', 'displayParams' => true])
         @form([
         ])
             @textarea([
