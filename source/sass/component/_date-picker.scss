@@ -5,6 +5,7 @@
     padding: map-get($spacers, "2");
     line-height: 1em;
     box-sizing: border-box;
+    z-index: 2000;
 
     .c-datepicker__body {
         margin-top: 1em;
@@ -213,6 +214,8 @@
 }
 
 .c-datepicker__container {
+    position: absolute;
+    z-index: 2000;
     left: 50%;
     transform: translate(-50%);
 }
