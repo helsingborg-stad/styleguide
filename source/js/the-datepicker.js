@@ -560,8 +560,6 @@ var TheDatepicker;
         Datepicker.prototype.createContainer = function () {
             var container = this.document.createElement('div');
             container.className = this.options.getClassesPrefix() + 'container';
-            container.style.position = 'absolute';
-            container.style.zIndex = '99';
             return container;
         };
         Datepicker.prototype.createDeselectElement = function () {
