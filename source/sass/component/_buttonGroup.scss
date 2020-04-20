@@ -1,4 +1,4 @@
-.c-buttongroup .c-button {
+.c-buttongroup > .c-button {
     margin-bottom:0;
     border:0;
     border-right:1px solid $color-shadow;
@@ -7,10 +7,13 @@
     float:left;
     align-items: stretch;
 
-    &:last-child {
-        border:0;
+    &:nth-child(1) {
+        border-radius: 5px 0 0 5px;
     }
 
+    &:nth-last-child(1) {
+        border-radius: 0 5px 5px 0;
+    }
 }
 
 .c-buttongroup {
