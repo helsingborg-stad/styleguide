@@ -135,9 +135,9 @@
         @endtypography
         
         <div class="u-display--flex u-flex-wrap u-p--2 u-color__bg--default u-padding--2 u-rounded u-text__align--center">
-            <div class="u-color__bg--info u-width--50 u-rounded">Default 1</div>
-            <div class="u-color__bg--info u-width--50 u-rounded">Default 2</div>
-            <div class="u-color__bg--info u-width--50 u-rounded">Default 3</div>
+            <div class="u-color__bg--secondary u-width--50 u-rounded">Default 1</div>
+            <div class="u-color__bg--secondary u-width--50 u-rounded">Default 2</div>
+            <div class="u-color__bg--secondary u-width--50 u-rounded">Default 3</div>
         </div>
 
         @typography(['classList' => ['u-margin__top--4','u-margin__bottom--1']])
@@ -145,9 +145,9 @@
         @endtypography
 
         <div class="u-display--flex u-flex-wrap--no-wrap u-color__bg--default u-p--2 u-padding--2  u-rounded">
-                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 1</div>
-                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 2</div>
-                <div class="u-color__bg--info u-width--50 u-rounded">No-wrap 3</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">No-wrap 1</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">No-wrap 2</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">No-wrap 3</div>
         </div>
 
         @typography(['classList' => ['u-margin__top--4','u-margin__bottom--1']])
@@ -155,9 +155,9 @@
         @endtypography
 
         <div class="u-display--flex u-flex-wrap--reverse u-color__bg--default u-padding--2  u-rounded">
-                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 1</div>
-                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 2</div>
-                <div class="u-color__bg--info u-width--50 u-rounded">Reverse 3</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">Reverse 1</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">Reverse 2</div>
+                <div class="u-color__bg--secondary u-width--50 u-rounded">Reverse 3</div>
         </div>
     @endutility_doc
 

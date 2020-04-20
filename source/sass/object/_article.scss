@@ -32,7 +32,8 @@
     }
 
     p, ul, ol, table {
-        margin-bottom: $base * 4;
+        // Commented as we need to observe the impact of this
+        //margin-bottom: $base * 4;
         margin-top: 0;
 
         &:last-child {
