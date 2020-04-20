@@ -1,4 +1,4 @@
-const regeneratorRuntime =  require("regenerator-runtime");
+require("regenerator-runtime");
 
 export default class Sidebar {
     constructor() {
@@ -69,18 +69,28 @@ export default class Sidebar {
     }
 
     async loadState() {
-        const activeItems = this.constructor.getItems(this.TOGGLEDITEMS);
+        const toggledItems = this.constructor.getItems(this.TOGGLEDITEMS).items;
 
-        for(const item of activeItems.items) {
-            const children = await this.appendChildren(item);  
-            const parent = document.querySelector(`[aria-label='${item}']`).parentElement;
-            
-            parent.appendChild(children)
-            this.constructor.toggleAriaPressed(document.querySelector(`[aria-label='${item}']`));
-            this.addItemTriggers();
+        if(toggledItems.length > 0) {
+
+            await toggledItems.reduce( async (previousPromise, nextItem) => {
+                await previousPromise;
+    
+                const children = await this.appendChildren(nextItem);  
+                const parent = document.querySelector(`[aria-label='${nextItem}']`).parentElement;
+                const newChildren = parent.appendChild(children);
+                
+                this.constructor.toggleAriaPressed(document.querySelector(`[aria-label='${nextItem}']`));
+                this.addItemTriggers();
+    
+                return previousPromise.then(() => {
+                    return newChildren;
+                });
+    
+            }, Promise.resolve());
+    
+            this.markLinkAsActive();
         }
-
-        this.markLinkAsActive();
     }
 
     static toggleAriaPressed(element) {
@@ -121,7 +131,6 @@ export default class Sidebar {
             this.URL = sb.getAttribute('child-items-url');
             const sbTriggers = document.getElementsByClassName('c-sidebar__toggle');
             
-            /* for(const trigger of sbTriggers) { */
             sbTriggers.forEach((trigger) => {
                 const hasEventAttached = trigger.getAttribute('toggleEvent');
              
@@ -144,12 +153,14 @@ export default class Sidebar {
                                 this.constructor.removeToggledElement(parentID);
                                 this.removeToggledItem(parentID);
                             }
+
+                            this.markLinkAsActive();
     
                         });
                     });
                 } 
             });
-            /* } */
+           
         }
         
     }
