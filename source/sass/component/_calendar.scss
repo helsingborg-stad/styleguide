@@ -1,35 +1,39 @@
-.c-calendar{
-    &--primary .cjslib-calendar{
+/* stylelint-disable */
+
+.c-calendar {
+
+    &--primary .cjslib-calendar {
         color: $color-white;
         background-color: $color-primary;
     }
 
-    &--primary .cjslib-day-indicator{
+    &--primary .cjslib-day-indicator {
         color: $color-primary;
     }
 
-    &--secondary .cjslib-calendar{
+    &--secondary .cjslib-calendar {
         color: $color-white;
         background-color: $color-secondary;
-        & cjslib-day-indicator{
+
+        & cjslib-day-indicator {
             color: $color-secondary;
         }
     }
 
-    &--secondary .cjslib-day-indicator{
+    &--secondary .cjslib-day-indicator {
         color: $color-secondary;
     }
 
-    &--default .cjslib-calendar, cjslib-day-indicator{
+    &--default .cjslib-calendar, cjslib-day-indicator {
         color: $color-primary;
         background-color: $color-default;
     }
 
-    &--default .cjslib-day-indicator{
+    &--default .cjslib-day-indicator {
         color: $color-primary;
     }
 
-    &__event-list{
+    &__event-list {
         background-color: $color-default;
         color: $color-primary;
         padding:2%;
@@ -37,7 +41,6 @@
         z-index: 9999;
     }
 
-    
 }
 
 .cjslib-calendar {
@@ -49,14 +52,14 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     font-family: "Satellite", "Roboto", sans-serif;
     border: 1px solid rgba(21, 21, 21, 0.12);
     -webkit-transform: scale(1);
-     -ms-transform: scale(1);
-         transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
     -webkit-box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
     -ms-user-select: none;
     user-select: none;
     -moz-user-select: none;
@@ -88,45 +91,45 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     padding: 5px;
     font-size: 14px;
 }
 
-.cjslib-year > span {
+.cjslib-year>span {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     text-transform: uppercase;
 }
 
-.cjslib-year > div {
+.cjslib-year>div {
     cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
 }
 
 .cjslib-month {
@@ -138,47 +141,47 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     padding: 20px 5px;
     font-size: 40px;
     -webkit-box-shadow: 0px 1px 4px rgba(21, 21, 21, 0.12);
-            box-shadow: 0px 1px 4px rgba(21, 21, 21, 0.12);
+    box-shadow: 0px 1px 4px rgba(21, 21, 21, 0.12);
 }
 
-.cjslib-month > span {
+.cjslib-month>span {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     text-transform: uppercase;
 }
 
-.cjslib-month > div {
+.cjslib-month>div {
     cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
 }
 
 .cjslib-labels {
@@ -189,13 +192,13 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
 }
 
-.cjslib-labels > span {
+.cjslib-labels>span {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     font-size: 12px;
     text-transform: uppercase;
     display: -webkit-box;
@@ -203,49 +206,49 @@
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     padding: 10px;
 }
 
 .cjslib-days {
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     -webkit-box-shadow: 0px 2px 6px -2px rgba(21, 21, 21, 0.21);
-            box-shadow: 0px 2px 6px -2px rgba(21, 21, 21, 0.21);
+    box-shadow: 0px 2px 6px -2px rgba(21, 21, 21, 0.21);
 }
 
 .cjslib-row {
     width: 100%;
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
 }
 
 .cjslib-day {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     padding: 5px;
     cursor: pointer;
     position: relative;
@@ -255,7 +258,7 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     border-bottom: 1px solid rgba(21, 21, 21, .12);
     border-right: 1px solid rgba(21, 21, 21, .12);
     -webkit-transition: box-shadow 200ms ease-in-out;
@@ -273,7 +276,7 @@
 .cjslib-day:hover {
     background-color: rgba(21, 21, 21, 0.012);
     -webkit-box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
 }
 
 .cjslib-day-radios {
@@ -283,10 +286,10 @@
 .cjslib-day-radios:checked+.cjslib-day {
     background-color: rgba(21, 21, 21, 0.012);
     -webkit-box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
 }
 
-.cjslib-day > .cjslib-day-num {
+.cjslib-day>.cjslib-day-num {
     width: auto;
     height: -webkit-fit-content;
     height: -moz-fit-content;
@@ -294,97 +297,105 @@
     font-size: 14px;
     color: rgba(21, 21, 21, 0.84);
 }
-    .cjslib-day.cjslib-day-today > .cjslib-day-num {
-        padding-bottom: 3px;
-        border-bottom: 2px solid;
-        border-radius: 1px;
-    }
-.cjslib-day > .cjslib-day-indicator {
+
+.cjslib-day.cjslib-day-today>.cjslib-day-num {
+    padding-bottom: 3px;
+    border-bottom: 2px solid;
+    border-radius: 1px;
+}
+
+.cjslib-day>.cjslib-day-indicator {
     font-size: 0px;
     position: absolute;
     border-radius: 100%;
     -webkit-box-shadow: 0px 2px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: 0px 2px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: 0px 2px 4px rgba(21, 21, 21, 0.21);
 }
 
 .cjslib-indicator-type-numeric {
-    padding: 3px;    
-    display: -webkit-box;    
-    display: -ms-flexbox;    
+    padding: 3px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 .cjslib-day.cjslib-day-diluted {
     background-color: rgba(21, 21, 21, 0.021);
     -webkit-box-shadow: inset 0px 0px 1px rgba(21, 21, 21, 0.12);
-            box-shadow: inset 0px 0px 1px rgba(21, 21, 21, 0.12);
+    box-shadow: inset 0px 0px 1px rgba(21, 21, 21, 0.12);
 }
 
-.cjslib-day.cjslib-day-diluted > .cjslib-day-num {
+.cjslib-day.cjslib-day-diluted>.cjslib-day-num {
     width: auto;
     font-size: 10px;
     color: rgba(21, 21, 21, 0.73);
 }
 
 .cjslib-day-indicator:empty,
-.cjslib-day.cjslib-day-diluted > .cjslib-day-indicator {
+.cjslib-day.cjslib-day-diluted>.cjslib-day-indicator {
     display: none !important;
 }
 
-.cjslib-calendar.cjslib-size-small .cjslib-day > .cjslib-day-indicator {
+.cjslib-calendar.cjslib-size-small .cjslib-day>.cjslib-day-indicator {
     width: 8px;
     height: 8px;
     bottom: 7px;
     right: 7px;
 }
-    .cjslib-calendar.cjslib-size-small .cjslib-day > .cjslib-indicator-type-numeric {
-        font-size: 7px;
-    }
-    .cjslib-calendar.cjslib-size-small .cjslib-day > .cjslib-indicator-pos-top {
-        top: 7px;
-        bottom: unset;
-    }
 
-.cjslib-calendar.cjslib-size-medium .cjslib-day > .cjslib-day-indicator {
+.cjslib-calendar.cjslib-size-small .cjslib-day>.cjslib-indicator-type-numeric {
+    font-size: 7px;
+}
+
+.cjslib-calendar.cjslib-size-small .cjslib-day>.cjslib-indicator-pos-top {
+    top: 7px;
+    bottom: unset;
+}
+
+.cjslib-calendar.cjslib-size-medium .cjslib-day>.cjslib-day-indicator {
     width: 18px;
     height: 18px;
     bottom: 10px;
     right: 10px;
 }
-    .cjslib-calendar.cjslib-size-medium .cjslib-day > .cjslib-indicator-type-numeric {
-        font-size: 10px;
-    }
-    .cjslib-calendar.cjslib-size-medium .cjslib-day > .cjslib-indicator-pos-top {
-        top: 10px;
-        bottom: unset;
-    }
 
-.cjslib-calendar.cjslib-size-large .cjslib-day > .cjslib-day-indicator {
+.cjslib-calendar.cjslib-size-medium .cjslib-day>.cjslib-indicator-type-numeric {
+    font-size: 10px;
+}
+
+.cjslib-calendar.cjslib-size-medium .cjslib-day>.cjslib-indicator-pos-top {
+    top: 10px;
+    bottom: unset;
+}
+
+.cjslib-calendar.cjslib-size-large .cjslib-day>.cjslib-day-indicator {
     width: 24px;
     height: 24px;
     bottom: 14px;
     right: 14px;
 }
-    .cjslib-calendar.cjslib-size-large .cjslib-day > .cjslib-indicator-type-numeric {
-        font-size: 12px;
-    }
-    .cjslib-calendar.cjslib-size-large .cjslib-day > .cjslib-indicator-pos-top {
-        top: 14px;
-        bottom: unset;
-    }
+
+.cjslib-calendar.cjslib-size-large .cjslib-day>.cjslib-indicator-type-numeric {
+    font-size: 12px;
+}
+
+.cjslib-calendar.cjslib-size-large .cjslib-day>.cjslib-indicator-pos-top {
+    top: 14px;
+    bottom: unset;
+}
 
 .cjslib-events {
     width: 800px;
     height: 800px;
     font-family: "Satellite", "Roboto", sans-serif;
     -webkit-box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: 0px 0px 4px rgba(21, 21, 21, 0.21);
     border: 1px solid rgba(21, 21, 21, 0.12);
     display: -webkit-box;
     display: -ms-flexbox;
@@ -392,7 +403,7 @@
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     -ms-user-select: none;
     user-select: none;
     -moz-user-select: none;
@@ -424,60 +435,60 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     padding: 5px;
     font-size: 14px;
 }
 
-.cjslib-date > span {
+.cjslib-date>span {
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     text-transform: uppercase;
 }
 
-.cjslib-date > div {
+.cjslib-date>div {
     cursor: pointer;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
 }
 
 .cjslib-rows {
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
     width: 100%;
     -webkit-box-flex: 1;
     -ms-flex: 1;
-            flex: 1;
+    flex: 1;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
     overflow: auto !important;
 }
 
@@ -490,40 +501,44 @@
     color: rgba(21, 21, 21, 0.94);
     padding-bottom: 15px;
 }
-    .cjslib-list-history {
-        padding-top: 10px;
-        width: calc(100% - 20px);
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-        .cjslib-list-history > .cjslib-list-history-title {
-            padding: 5px 0px;
-            border-radius: 2px;
-        }
 
-    .cjslib-list-placeholder {
-        height: 100%;
-        border: none !important;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-                justify-content: center;
-        -ms-flex-line-pack: center;
-            align-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-                align-items: center;
-        color: #757575;
-        pointer-events: none;
-        display: none;
-    }
-        .cjslib-list-placeholder * {
-            pointer-events: all;
-        }
-        .cjslib-list .cjslib-list-placeholder:only-child {
-            display: block !important;
-        }
+.cjslib-list-history {
+    padding-top: 10px;
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
-.cjslib-list > li {
+.cjslib-list-history>.cjslib-list-history-title {
+    padding: 5px 0px;
+    border-radius: 2px;
+}
+
+.cjslib-list-placeholder {
+    height: 100%;
+    border: none !important;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #757575;
+    pointer-events: none;
+    display: none;
+}
+
+.cjslib-list-placeholder * {
+    pointer-events: all;
+}
+
+.cjslib-list .cjslib-list-placeholder:only-child {
+    display: block !important;
+}
+
+.cjslib-list>li {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -531,30 +546,30 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
-            flex-direction: row;
+    flex-direction: row;
     border-bottom: 1px solid rgba(21, 21, 21, 0.12);
 }
 
-.cjslib-list > li:hover {
+.cjslib-list>li:hover {
     -webkit-box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
-            box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
+    box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21);
 }
 
-.cjslib-list > li > div {
+.cjslib-list>li>div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-flex: 2;
     -ms-flex: 2;
-            flex: 2;
+    flex: 2;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     padding: 10px;
     border-right: 1px solid rgba(21, 21, 21, 0.12);
 }
@@ -569,24 +584,24 @@
     padding-left: 5px;
 }
 
-.cjslib-list > li > p {
+.cjslib-list>li>p {
     -webkit-box-flex: 4;
     -ms-flex: 4;
-            flex: 4;
+    flex: 4;
     margin: 10px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
     -webkit-box-align: center;
     -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     -ms-flex-line-pack: center;
-            align-content: center;
+    align-content: center;
     font-size: 18px;
     word-wrap: break-word;
     word-break: break-word;
 }
-
+/* stylelint-enable */

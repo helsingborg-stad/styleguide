@@ -42,6 +42,7 @@
     }
 
     &__item {
+
         span {
             font-size: 18px;
             color: #000000;
@@ -69,6 +70,7 @@
 }
 
 .c-navbar__expanded_menu {
+
     .c-link,
     .c-link:active,
     .c-link:visited {
@@ -79,17 +81,19 @@
     .c-link:hover {
         color: $color-black
     }
-    
+
     padding: map-get($spacers, "4") map-get($spacers, "11");
 }
 
-.c-navbar__expanded_main{
+.c-navbar__expanded_main {
     padding: map-get($spacers, "7") $base * 20;
 }
 
 .c-navbar__expanded_grid {
+
     a {
         color: $color-darker;
+
         &:active,
         &:hover {
             color: $color-black;
@@ -110,8 +114,10 @@
 }
 
 .c-navbar__expand {
+
     .c-button {
         padding: unset;
+
         &:hover,
         &:focus,
         &:active {
@@ -121,6 +127,7 @@
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .c-navbar {
         grid-template-columns: 1fr auto 1fr;
         grid-template-rows: 132px max-content;
@@ -134,7 +141,6 @@
     .c-navbar__list {
         display: none;
     }
-
 
     .c-navbar__logo {
         display: flex;
@@ -171,6 +177,7 @@
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-navbar {
+
         &__list {
             display: inline-flex;
             justify-content: flex-end;

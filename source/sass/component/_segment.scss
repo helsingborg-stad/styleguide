@@ -41,19 +41,22 @@
 }
 
 .c-segment__layout {
+
     &--col {
+
         &-right,
         &-left {
             grid-template-columns: minmax(0, 400px) minmax(0, 400px);
             grid-template-rows: min-content min-content;
         }
-        
+
         &-right {
             grid-template-areas:
                 "top main"
                 "bottom main"
             ;
         }
+
         &-left {
             grid-template-areas:
                 "main top"
@@ -64,15 +67,18 @@
 }
 
 .c-segment__color {
+
     &--black {
         color:black;
     }
+
     &--white {
         color:white;
     }
 }
 
-.c-segment__height{
+.c-segment__height {
+
     &--sm {
         min-height: map-get($spacers, "8");
     }
@@ -87,6 +93,7 @@
 }
 
 .c-segment--padding {
+
     &-sm {
         padding: map-get($spacers, "5");
     }
@@ -101,13 +108,14 @@
 }
 
 .c-segment__overlay {
-    &--blur:before ,
+
+    &--blur:before,
     &--dark:before,
     &--light:before {
         content: "";
         @include cover();
     }
-    
+
     &--blur:before {
         backdrop-filter: blur(2px);
     }
@@ -121,9 +129,11 @@
     }
 
     &--opacity {
+
         &-low:before {
             opacity: 0.8;
         }
+
         &-medium:before {
             opacity: 0.5;
         }
@@ -135,18 +145,20 @@
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
-.c-segment__layout {
-    &--col {
-        &-right,
-        &-left {
-            grid-template-columns: minmax(0, 800px);
-            grid-template-rows: auto auto auto;
-            grid-template-areas:
-                "top"
-                "main"
-                "bottom"
-            ;
+
+    .c-segment__layout {
+
+        &--col {
+
+            &-right,
+            &-left {
+                grid-template-columns: minmax(0, 800px);
+                grid-template-rows: auto auto auto;
+                grid-template-areas:
+                    "top"
+                    "main"
+                    "bottom";
+            }
         }
     }
-}
 }
