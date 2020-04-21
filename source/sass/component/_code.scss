@@ -13,13 +13,15 @@
     }
 
     &__toggle {
+
         .c-button__toggle {
             color: $color-lighter;
 
-            &[aria-pressed=true] {
+            &[aria-pressed="true"] {
                 color: $color-default-dimmed;
 
             }
+
             &:hover {
                 color: $color-black;
             }
@@ -79,6 +81,7 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     }
 
     @for $i from 1 through 10 {
+
         .component-list:nth-child(#{$i}n) {
             animation-delay: #{$i * 0.1}s;
         }
@@ -106,7 +109,6 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     }
 }
 
-
 .breaklines {
 
     code {
@@ -127,10 +129,11 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     animation-fill-mode: both;
     background-color: #f5f2f0;
     padding:15px;
+
     #compiledCSS {
         display: block;
         word-break: break-all;
-        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
         font-size: 1em;
     }
 }

@@ -1,4 +1,5 @@
-$baseClass: '.c-sidebar';
+$baseClass: ".c-sidebar";
+
 #{$baseClass} {
     display: flex;
     flex-direction: column;
@@ -45,6 +46,7 @@ $baseClass: '.c-sidebar';
 
         &:hover {
             color: $color-nav-item-text;
+
             .c-icon {
                 margin-left: 3px;
                 margin-right: 13px;
@@ -58,7 +60,7 @@ $baseClass: '.c-sidebar';
         flex-wrap: wrap;
         align-items: center;
         padding: map-get($spacers, "2") map-get($spacers, "6");
-        
+
     }
 
     &__link {
@@ -110,12 +112,14 @@ $baseClass: '.c-sidebar';
         cursor: pointer;
 
         &:hover {
+
             .bar {
                 background-color: $color-black;
             }
         }
 
         &[aria-pressed="true"] {
+
             .bar:nth-of-type(2) {
                 transform: translate(-50%, -50%) rotate(0deg);
             }
@@ -130,7 +134,8 @@ $baseClass: '.c-sidebar';
             left: 50%;
             transform: translate(-50%, -50%);
             transition: all 0.3s ease-in-out;
-            &:nth-of-type(2){
+
+            &:nth-of-type(2) {
                 transform: translate(-50%, -50%) rotate(90deg);
             }
         }
@@ -150,7 +155,7 @@ $baseClass: '.c-sidebar';
             padding-right: 0;
         }
 
-        #{$baseClass}__link{
+        #{$baseClass}__link {
             font-weight: 400;
         }
     }
@@ -162,10 +167,12 @@ $baseClass: '.c-sidebar';
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
+
     #{$baseClass} {
         position: fixed;
         z-index: $level-8;
     }
+
     #{$baseClass}__logo {
         min-height: 100px;
         max-height: 100px;
@@ -186,8 +193,8 @@ $baseClass: '.c-sidebar';
         opacity: 0;
         transition: visibility 0s, opacity 0.5s linear;
     }
-    
-    .c-sidebar:not(.c-sidebar--collapsed) + .c-sidebar__backdrop {
+
+    .c-sidebar:not(.c-sidebar--collapsed)+.c-sidebar__backdrop {
         visibility: visible;
         opacity: 1;
     }

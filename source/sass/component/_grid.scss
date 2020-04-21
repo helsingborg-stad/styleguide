@@ -6,6 +6,7 @@
 
     &__cols {
         @for $i from 1 through 13 {
+
             &--#{$i} {
                 grid-template-columns: repeat($i, 1fr);
             }
@@ -14,15 +15,19 @@
 }
 
 @each $name, $value in $spacers {
+
     .c-grid__container__gap {
+
         &__col {
-            &--#{$name}{
+
+            &--#{$name} {
                 grid-column-gap: $value;
             }
         }
 
         &__row {
-            &--#{$name}{
+
+            &--#{$name} {
                 grid-row-gap: $value;
             }
         }

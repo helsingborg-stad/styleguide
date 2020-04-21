@@ -55,7 +55,7 @@ $spacing-util: ();
         ),
         modifiers: $mods
     );
-    
+
     $spacing-util: append($spacing-util, $util);
 
     //Builds on axis X
