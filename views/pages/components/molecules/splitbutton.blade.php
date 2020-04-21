@@ -8,21 +8,18 @@
 
     @doc(['slug' => 'splitbutton', 'displayParams' => true])
         @splitbutton([
-           'items' => [ ['text' => 'meh', 'link' => '#'], ['text' => 'story'], ['text' => 'bro']],
-           'backgroundColor' => 'secondary',
-           'buttonText' => 'Choose an item!',
-           'icon' => 'expand_more',
-           'dropdownDirection' => 'top'
+            'items' => [ ['text' => 'meh', 'link' => '#'], ['text' => 'story'], ['text' => 'bro']],
+            'buttonText' => 'Choose an item!',
+            'icon' => 'expand_more',
+            'dropdownDirection' => 'top'
         ])
         @endsplitbutton
 
         @splitbutton([
-           'items' => [ ['text' => 'cool'], ['text' => 'story'], ['text' => 'bro']],
-           'backgroundColor' => 'default',
-           'borderColor' => 'default',
-           'buttonText' => 'Choose an item!',
+            'items' => [ ['text' => 'cool'], ['text' => 'story'], ['text' => 'bro']],
+            'buttonText' => 'Choose an item!',
             'icon' => 'expand_more',
-           'dropdownDirection' => 'bottom'
+            'dropdownDirection' => 'bottom'
         ])
         @endsplitbutton
     @enddoc
