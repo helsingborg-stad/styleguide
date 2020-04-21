@@ -1,0 +1,8 @@
+{
+    "button": {
+        "grid": "",
+        "heading": "Basic",
+        "subHeading" : "Splitbutton",
+        "text": "The splitbutton contains a regular button and a dropdown"
+    }
+}

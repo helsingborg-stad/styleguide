@@ -9,9 +9,9 @@
         margin-right: auto;
         padding: map-get($spacers, "5") 0;
         display: flex;
-   
+
         flex-wrap: nowrap;
-      
+
     }
 
     &__home-link {
@@ -27,26 +27,25 @@
     &__links {
         margin-bottom: $base * 3;
 
-        & h4{
+        & h4 {
             font-weight: 900;
             font-size:18px;
         }
 
-        & a{
+        & a {
             color: #707070;
             text-decoration: none;
             display: inline-block;
         }
     }
-        
 
-    &__links div{
+    &__links div {
         color: #707070;
         text-decoration: none;
         display: inline-block;
     }
 
-    &__link-divider{
+    &__link-divider {
         display: inline-block;
         background-color:#565656;
         border-radius: 50%;
@@ -56,33 +55,33 @@
         margin-left: $base;
         margin-right: $base;
     }
-    
+
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .c-footer {
 
         &__body {
-            
+
             padding: map-get($spacers, "5") map-get($spacers, "4");
             display: block;
             text-align: center;
         }
 
-        &__home-link{
+        &__home-link {
             display: block;
             margin-bottom: map-get($spacers, "5");
         }
 
-        &__link-divider{
+        &__link-divider {
             display: none;
         }
 
-        &__links a{
+        &__links a {
             display: block;
             margin-bottom: map-get($spacers, "2");
         }
 
-       
     }
 }

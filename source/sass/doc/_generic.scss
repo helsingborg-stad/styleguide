@@ -31,22 +31,27 @@
 }
 
 .d-params {
+
     table {
         border-collapse:collapse
     }
 
     thead {
-        border-bottom: 1px solid #E5E5E5;
+        border-bottom: 1px solid #e5e5e5;
+
         td {
             font-weight: bold;
             color: $color-black;
         }
     }
+
     tbody tr {
+
         &:not(:last-of-type) {
-            border-bottom: 1px solid #E5E5E5;
+            border-bottom: 1px solid #e5e5e5;
         }
     }
+
     tbody td {
         color: $color-darkest;
 
@@ -54,6 +59,7 @@
             color: $color-secondary-dark;
             font-family: monospace, monospace;
         }
+
         &:nth-of-type(3) {
             font-weight: 600;
         }

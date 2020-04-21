@@ -9,7 +9,7 @@ export default class Sidebar {
         this.SUBCONTAINER = 'c-sidebar__subcontainer';
         this.ITEM = 'c-sidebar__item';
         this.TOGGLE = 'c-sidebar__toggle';
-        this.COLLAPSED = '.c-sidebar--collapsed';
+        this.COLLAPSED = 'c-sidebar--collapsed';
     }
 
     /**
@@ -87,7 +87,7 @@ export default class Sidebar {
 
         sbTriggers.forEach(btn => {
             btn.addEventListener('click', e => {
-                sb.classList.toggle(`.${this.COLLAPSED}`);
+                sb.classList.toggle(`${this.COLLAPSED}`);
             });
         });
     }

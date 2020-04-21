@@ -1,4 +1,4 @@
-@mixin slide($direction, $animationDirection: 'normal') {
+@mixin slide($direction, $animationDirection: "normal") {
     animation-duration: 0.7s;
     animation-name: $direction;
     animation-timing-function: ease-in-out;
@@ -10,8 +10,9 @@
     0% {
         left:-110%;
         position:fixed;
-        
+
     }
+
     70% {
         left: map-get($spacers, "4");
         position:fixed;
@@ -28,8 +29,9 @@
     0% {
         right:-110%;
         position:fixed;
-        
+
     }
+
     70% {
         right: map-get($spacers, "4");
         position:fixed;
@@ -38,6 +40,6 @@
     100% {
         right: map-get($spacers, "2");
         position:fixed;
-    
+
     }
 }

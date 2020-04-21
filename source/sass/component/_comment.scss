@@ -11,6 +11,7 @@
         width: 80%;
         padding-left: 5px;
         padding-bottom: map-get($spacers, "1");
+
         .c-comment__author {
             align-self: center;
             margin: 0;
@@ -51,7 +52,6 @@
         font-size: 14px;
         font-weight: 600;
     }
-
 
     &__bubble {
         justify-content: flex-start;
