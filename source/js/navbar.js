@@ -6,40 +6,26 @@ export default class Navbar{
         if(this.dynamicNavBar){
             this.pageID = this.dynamicNavBar.getAttribute('data-page-id');
             this.pageParentID = this.dynamicNavBar.getAttribute('data-page-parent-id');
-            
+        
             this.navbarExpandedGrid = this.dynamicNavBar.querySelector('.c-navbar__expanded_grid');
             this.navBarGridItems = this.navbarExpandedGrid.querySelectorAll('a');
-            this.childItemsUrl = this.dynamicNavBar.getAttribute('js-child-items-url');
             this.navbarExpandedMain = this.dynamicNavBar.querySelector('.c-navbar__expanded_main');
-            this.currentPageID = this.constructor.getPageID('currentPageID');
+            this.childItemsUrl = this.dynamicNavBar.getAttribute('js-child-items-url');
     
-            this.setLinkEventHandlers();
-    
-            if(this.currentPageID) {
-                this.cleanUpNavBarContent();
-                this.populateNavBarContent();
-                this.modifyPrevButton();
-                this.setLinkEventHandlers();
-            }
+            this.cleanUpNavBarContent();
+            this.populateNavBarContent();
+            this.setupPrevButton();
         }
         
-    }
-
-    static storePageID(id, type) {
-        localStorage.setItem(type, id);
-    }
-
-    static getPageID(type) {
-        return localStorage.getItem(type);
     }
 
     cleanUpNavBarContent() {
         this.navbarExpandedGrid.innerHTML = ' ';
     }
 
-    getCurrentPageItems() {
+    getPageData(id) {
 
-        return fetch(`${this.childItemsUrl}?parentID=${this.currentPageID}`)
+        return fetch(`${this.childItemsUrl}?pageID=${id}`)
         .then((response) => {
             return response.json();
         })
@@ -49,7 +35,7 @@ export default class Navbar{
     }
 
     populateNavBarContent() {
-        this.getCurrentPageItems().then((currentPageItems) => {
+        this.getPageData(this.pageID).then((currentPageItems) => {
             
             currentPageItems.items.forEach((item) => {
                 const anchorElement = this.constructor.createAnchorElement(item);
@@ -59,6 +45,15 @@ export default class Navbar{
             });
         });
     
+    }
+
+    setupPrevButton() {
+        this.getPageData(this.pageParentID).then((previousPage) => {
+            const previousButton = this.navbarExpandedMain.querySelector('a');
+
+            previousButton.href = previousPage.href;
+            previousButton.querySelector('.c-button__label-text--reverse').innerText = previousPage.title;
+        });
     }
 
     static createAnchorElement(item) {
@@ -74,26 +69,5 @@ export default class Navbar{
                 </p>
             </a>
         `;
-        
-    }
-
-/*     modifyPrevButton() {
-        
-    } */
-
-    setLinkEventHandlers() {
-        this.navBarGridItems.forEach(item => {
-            const currentPageID = item.getAttribute('pageid');
-            
-            item.addEventListener('click', (event) => {
-                this.constructor.storePageID(currentPageID, 'currentPageID');
-
-                if(this.currentPageID) {
-                    this.storePageID(this.currentPageID, 'previousPageID');
-                }
-            });
-        });
-
-
     }
 }
