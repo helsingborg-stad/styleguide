@@ -1,24 +1,20 @@
 @navbar([
     'logo' => '/assets/img/logotype.svg',
-    'multiDimensional' => true,
     'items' => [
         "about" => [
             "label" => "About",
             "href" => "#",
-            "icon" => "people",
-            "id" => 1
+            "icon" => "people"
         ],
         "stuff" => [
             "label" => "Stuff",
             "href" => "#",
-            "icon" => "people",
-            "id" => 2
+            "icon" => "people"
         ],
         "more" => [
             "label" => "More",
             "href" => "#",
-            "icon" => "people",
-            "id" => 3
+            "icon" => "people"
         ]
     ],
     'expanded_prev' => 'Hem',
@@ -27,20 +23,17 @@
         "about" => [
             "label" => "About",
             "href" => "#",
-            "icon" => "people",
-            "id" => 1
+            "icon" => "people"
         ],
         "stuff" => [
             "label" => "Stuff",
             "href" => "#",
-            "icon" => "people",
-            "id" => 2
+            "icon" => "people"
         ],
         "more" => [
             "label" => "More",
             "href" => "#",
-            "icon" => "people",
-            "id" => 3
+            "icon" => "people"
         ]
     ],
     'classList' => ['u-position--relative']
