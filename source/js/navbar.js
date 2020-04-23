@@ -6,8 +6,8 @@ export default class Navbar{
         this.navbars.forEach((navbar) => {
             this.navbarList = navbar.querySelector('.c-navbar__list');
 
-            if(this.checkForOverFlow(navbar)) {
-
+            if(this.constructor.isOverFlowing(navbar)) {
+                this.constructor.switchToMobileMenu(navbar);
             }
             
             this.dynamicNavBar = navbar.getAttribute('[js-is-dynamic]');
@@ -27,6 +27,15 @@ export default class Navbar{
             }
         });
         
+    }
+
+    static switchToMobileMenu(navbar){
+        const navbarToggle = navbar.querySelector('.c-navbar__toggle');
+        const navbarList = navbar.querySelector('.c-navbar__list');
+
+        console.log('OVERFLOW')
+        navbarToggle.style.display = 'block';
+        navbarList.style.display = 'none';
     }
 
     static isOverFlowing(navbarList) {
