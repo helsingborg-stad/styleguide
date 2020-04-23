@@ -1,22 +1,36 @@
 export default class Navbar{
     constructor() {
-    
-        this.dynamicNavBar = document.querySelector('.c-navbar[js-is-dynamic]');
+        
+        this.navbars = document.querySelectorAll('.c-navbar');
 
-        if(this.dynamicNavBar){
-            this.pageID = this.dynamicNavBar.getAttribute('data-page-id');
-            this.pageParentID = this.dynamicNavBar.getAttribute('data-page-parent-id');
-        
-            this.navbarExpandedGrid = this.dynamicNavBar.querySelector('.c-navbar__expanded_grid');
-            this.navBarGridItems = this.navbarExpandedGrid.querySelectorAll('a');
-            this.navbarExpandedMain = this.dynamicNavBar.querySelector('.c-navbar__expanded_main');
-            this.childItemsUrl = this.dynamicNavBar.getAttribute('js-child-items-url');
+        this.navbars.forEach((navbar) => {
+            this.navbarList = navbar.querySelector('.c-navbar__list');
+
+            if(this.checkForOverFlow(navbar)) {
+
+            }
+            
+            this.dynamicNavBar = navbar.getAttribute('[js-is-dynamic]');
     
-            this.cleanUpNavBarContent();
-            this.populateNavBarContent();
-            this.setupPrevButton();
-        }
+            if(this.dynamicNavBar){
+                this.pageID = this.dynamicNavBar.getAttribute('data-page-id');
+                this.pageParentID = this.dynamicNavBar.getAttribute('data-page-parent-id');
+            
+                this.navbarExpandedGrid = this.dynamicNavBar.querySelector('.c-navbar__expanded_grid');
+                this.navBarGridItems = this.navbarExpandedGrid.querySelectorAll('a');
+                this.navbarExpandedMain = this.dynamicNavBar.querySelector('.c-navbar__expanded_main');
+                this.childItemsUrl = this.dynamicNavBar.getAttribute('js-child-items-url');
         
+                this.cleanUpNavBarContent();
+                this.populateNavBarContent();
+                this.setupPrevButton();
+            }
+        });
+        
+    }
+
+    static isOverFlowing(navbarList) {
+        return navbarList.clientWidth < navbarList.scrollWidth;
     }
 
     cleanUpNavBarContent() {

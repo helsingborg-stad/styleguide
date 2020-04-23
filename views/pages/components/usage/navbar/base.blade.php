@@ -15,6 +15,21 @@
             "label" => "More",
             "href" => "#",
             "icon" => "people"
+        ],
+        "more2" => [
+            "label" => "More",
+            "href" => "#",
+            "icon" => "people"
+        ],
+        "more3" => [
+            "label" => "More",
+            "href" => "#",
+            "icon" => "people"
+        ],
+        "more4" => [
+            "label" => "More",
+            "href" => "#",
+            "icon" => "people"
         ]
     ],
     'expanded_prev' => 'Hem',
