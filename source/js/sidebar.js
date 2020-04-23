@@ -23,6 +23,7 @@ export default class Sidebar {
         if(!localStorage.getItem(this.ACTIVEITEMS)){
             localStorage.setItem(this.ACTIVEITEMS, JSON.stringify({items: []}));
         }
+
     }
 
     /**
@@ -214,6 +215,7 @@ export default class Sidebar {
                 }
                 
                 subContainer.appendChild(childItem);
+
             });
             
             subContainer.classList.add('c-sidebar__item--is-expanded');
