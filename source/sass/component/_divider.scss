@@ -1,0 +1,31 @@
+.c-divider{
+    border-width: 1px;
+    border-color: #707070;
+    
+    margin: 0 auto;
+    opacity: 0.5;
+    
+    &--sm{
+        width: 30%;
+    }
+
+    &--md{
+        width: 50%;
+    }
+
+    &--lg{
+        width: 70%;
+    }
+
+    &--dashed{
+        border-style: dashed;
+    }
+
+    &--dotted{
+        border-style: dotted;
+    }
+
+    &--solid{
+        border-style: solid;
+    }
+}

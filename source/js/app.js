@@ -18,6 +18,7 @@ import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import initBuild from './initBuild';
 import Sidebar from './sidebar';
+import Navbar from './navbar';
 
 expandSection();
 
@@ -31,6 +32,7 @@ const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
+const NavbarInstance = new Navbar();
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
