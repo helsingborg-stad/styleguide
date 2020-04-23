@@ -22,16 +22,16 @@ import Navbar from './navbar';
 
 expandSection();
 
-let SortInstance = new Sort();
-let ToggleInstance = new Toggle();
-let SplitButtonInstance = new SplitButton();
-let DropdownInstance = new Dropdown();
-let SliderInstance = new Slider();
-let EventCalendarInstance = new EventCalendar();
-let TilesInstance = new Tiles();
-const NotificationInstance = new Notification();
-const NotificationDocInstance = new NotificationDoc();
-let SidebarInstance = new Sidebar();
+const SortInstance = new Sort;
+const ToggleInstance = new Toggle;
+const SplitButtonInstance = new SplitButton;
+const DropdownInstance = new Dropdown;
+const SliderInstance = new Slider;
+const EventCalendarInstance = new EventCalendar;
+const TilesInstance = new Tiles;
+const NotificationInstance = new Notification;
+const NotificationDocInstance = new NotificationDoc;
+const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
 
 SortInstance.applySort();
@@ -48,11 +48,11 @@ SidebarInstance.applySidebar();
 let filter = new Filter();
 
 // Modal
-let ModalInstance = new Modal();
+const ModalInstance = new Modal;
 ModalInstance.enableModals();
 
 // Steppers
-let SteppersInstance = new Steppers();
+const SteppersInstance = new Steppers;
 SteppersInstance.enableStepper();
 
 //Menu

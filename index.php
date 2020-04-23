@@ -7,6 +7,23 @@ if (isset($_GET['debug'])) {
 	error_reporting(E_ALL);
 }
 
+if(isset($_GET['parentID'])){
+
+	$data = [
+		[	
+			"ID"=> 24963,
+			"post_parent" => 6978,
+			"post_title" => "Test",
+			"href" => "#",
+			"children" => false
+		]
+	];
+
+	header('Content-Type: application/json');
+	echo json_encode($data);
+	die();
+}
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );
 $endpoint = strtolower($uri[1]);
