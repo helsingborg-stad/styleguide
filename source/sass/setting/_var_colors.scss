@@ -47,9 +47,9 @@ $color-gray: $color-light !default; // To be deprecated
 $color-gray-light: $color-lighter !default; // To be deprecated
 $color-gray-lighter: $color-lightest !default; // To be deprecated
 
-$color-success: #91D736 !default;
-$color-danger: #D73640 !default;
-$color-info: #3676D7 !default;
+$color-success: #91d736 !default;
+$color-danger: #d73640 !default;
+$color-info: #3676d7 !default;
 $color-warning: #ffd700 !default;
 $color-in-action: #ffa900 !default;
 
@@ -106,7 +106,6 @@ $color-nav-item-text-active: $color-black !default;
 $color-nav-top-accent: $color-primary !default;
 $color-nav-active-accent: $color-primary !default;
 
-
 // Component Colors
 $color-card-background: $color-white !default;
 $color-card-background-dark: $color-body-background !default;
@@ -131,7 +130,8 @@ $table-heading-font-weight: bold !default;
 
 $color-component-doc-background: #191c3c !default;
 
-$color-comment-bubble-bg: $color-white !default;
+$color-comment-bubble-bg-dark: #f5f5f5 !default;
+$color-comment-bubble-bg-light: $color-white !default;
 $color-comment-date: $color-light !default;
 
 $color-footer-background: #efefef;

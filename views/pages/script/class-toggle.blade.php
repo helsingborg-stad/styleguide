@@ -31,7 +31,7 @@
                 @typography([
                     'element' => 'h4',
                     'variant' => 'subtitle',
-                    'classList' => ['u-color__text--primary']
+                    'classList' => ['u-color__text--primary', 'u-margin__top--2']
                 ])
                     Toggle me!
                 @endtypography

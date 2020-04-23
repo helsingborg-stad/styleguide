@@ -1,24 +1,23 @@
 .c-navbar {
-    position: absolute;
-    top: 0;
-    height: 132px;
-    border-top: 8px solid $color-nav-top-accent;
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    width: 100%;
+    position: relative;
+    display: grid;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    grid-template-columns: auto auto max-content;
+    grid-template-rows: 132px max-content;
+    grid-template-areas:
+        "logo links toggleexpand"
+        "content content content"
+    ;
+    width: 100%;
+    background-color: $color-white;
+    color: $color-black;
+    border-top: 8px solid $color-nav-top-accent;
     z-index: $level-6;
-    
     @include shadow(1);
 
     &__logo {
-        max-height: 55px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        grid-area: logo;
+        padding: map-get($spacers, "5");
 
         .c-image {
             width: unset;
@@ -26,7 +25,20 @@
 
         img {
             height: 55px;
+            max-height: 55px;
+            width: auto;
         }
+    }
+
+    &__list {
+        padding: map-get($spacers, "5");
+        padding-right: 0;
+        grid-area: links;
+    }
+
+    &__expand {
+        padding: map-get($spacers, "5");
+        grid-area: toggleexpand;
     }
 
     &__item {
@@ -48,89 +60,133 @@
     }
 }
 
+.c-navbar__content {
+    display: none;
+    grid-area: content;
+    width: 100%;
+    background-color: $color-default;
+    z-index: $level-6 - 1;
+    border-bottom: 2px solid $color-primary;
+}
+
+.c-navbar__expanded_menu {
+
+    .c-link,
+    .c-link:active,
+    .c-link:visited {
+        color: $color-darkest;
+        font-weight: 700;
+    }
+
+    .c-link:hover {
+        color: $color-black
+    }
+
+    padding: map-get($spacers, "4") map-get($spacers, "11");
+}
+
+.c-navbar__expanded_main {
+    padding: map-get($spacers, "7") $base * 20;
+}
+
+.c-navbar__expanded_grid {
+
+    a {
+        color: $color-darker;
+
+        &:active,
+        &:hover {
+            color: $color-black;
+            cursor: pointer;
+        }
+    }
+}
+
+.c-navbar__title {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.c-navbar__prev {
+    font-size: 18px;
+    position: relative;
+    left: -20px;
+}
+
+.c-navbar__expand {
+
+    .c-button {
+        padding: unset;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: unset;
+        }
+    }
+}
+
 @include mq(map_get($breakpoints-map, "xs"), "md") {
 
     .c-navbar {
-        flex-wrap: wrap;
-        min-height: 108px;
-        min-width: 108px;
-        max-height: 108px;
-        justify-content: space-evenly;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: 132px max-content;
+        grid-template-areas:
+            "togglesidebar logo toggleexpand"
+            "content content content"
+        ;
+        text-align: center;
+    }
 
-        &__logo {
-            display: flex;
-            justify-content: center;
-            order: 1;
-            flex:1;
-            padding: map-get($spacers, "2");
+    .c-navbar__list {
+        display: none;
+    }
 
-            .c-image {
-                width: auto;
-            }
+    .c-navbar__logo {
+        display: flex;
+        justify-content: center;
+        flex:1;
+        padding: 0;
 
-            img {
-                max-height: 55px;
-                height: 55px;
-                width: auto;
-                order: 2;
-            }
+        .c-image {
+            width: auto;
         }
+    }
 
-        &__toggle {
-            height: auto;
-            width: initial;
-            position: absolute;
-            left: $base * 3;
-            order: 1;
-            cursor: pointer;
+    .c-navbar__expand {
+        padding: 0;
+    }
 
-            .c-button {
-                transition: all 0.3s ease-in-out;
+    .c-navbar__expanded_menu.c-grid__container {
+        display: none;
+    }
 
-                &[is-open=""] {
-                    transform: rotate(180deg);
-                }
-            }
-        }
+    .c-navbar__content {
+        text-align: start;
+    }
 
-        &__list {
-            display: none;
-        }
+    .c-navbar__expanded_main {
+        padding: map-get($spacers , "4")
+    }
+
+    .c-navbar__expanded_grid {
+        grid-row-gap: $base * 2 !important;
     }
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-navbar {
-        height: 140px;
-        padding: map-get($spacers, "5");
-
-        &__logo {
-            margin-right: map-get($spacers, "10");
-
-            img {
-                height: 55px;
-                max-height: 55px;
-                width: auto;
-            }
-        }
 
         &__list {
             display: inline-flex;
+            justify-content: flex-end;
 
             a {
                 min-width: 44px;
                 min-height: 44px;
                 display: table;
                 margin: 0 map-get($spacers, "2");
-            }
-
-            &:nth-of-type(2) {
-                order: 2;
-            }
-
-            &:nth-of-type(3) {
-                order: 3;
             }
         }
 
@@ -143,18 +199,6 @@
             white-space: nowrap;
             display: table-cell;
             vertical-align: middle;
-
-            span, span:active, span:visited, span:hover, span:visited:hover {
-                min-height: 44px;
-                min-width: 44px;
-            }
-
-            &:hover>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
-            &:active>.c-navbar__subcontainer>.c-navbar__subitem:first-of-type,
-            &:hover>.c-navbar__subitem,
-            &:active>.c-navbar__subitem {
-                //display: block;
-            }
 
             &:after {
                 display:block;

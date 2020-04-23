@@ -9,10 +9,11 @@
     &--default {
         color: $color-base;
         background-color: $color-gray-light;
-        
+
         &:visited, &:visited:hover {
             color: $color-base;
         }
+
         &:hover {
             color: $color-base;
             background-color: $color-gray;
@@ -22,10 +23,11 @@
     &--primary {
         color: $color-white;
         background-color: $color-primary;
-        
+
         &:visited, &:visited:hover {
             color: $color-white;
         }
+
         &:hover {
             color: $color-white;
             background-color: $color-primary-dimmed;
@@ -35,10 +37,11 @@
     &--secondary {
         color: $color-white;
         background-color: $color-secondary;
-        
+
         &:visited, &:visited:hover {
             color: $color-white;
         }
+
         &:hover {
             color: $color-white;
             background-color: $color-secondary-dimmed;

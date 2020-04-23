@@ -13,9 +13,8 @@
 
     &--home {
         min-height: calc(90vh - 140px);
-        padding-left: $base * 17; 
+        padding-left: $base * 17;
         padding-right: $base * 17;
-        padding-top: 140px;
     }
 
     &--doc {
@@ -25,10 +24,13 @@
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .container {
+
         &--home {
             padding: 20px;
         }
+
         &--doc {
             margin-left: 0;
             padding: 20px

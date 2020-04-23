@@ -1,47 +1,55 @@
-.p-component{
-    &__atomic{
+.p-component {
+
+    &__atomic {
         background-color: $color-white;
-        box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18), 0px 0px 2px rgba(98, 98, 98, 0.18);
+        box-shadow:
+            0px 6px 8px rgba(98, 98, 98, 0.18),
+            0px 2px 2px rgba(98, 98, 98, 0.18),
+            0px 0px 2px rgba(98, 98, 98, 0.18)
+        ;
         border-radius: 12.5px;
         overflow: hidden;
         display: flex;
         margin:0 auto;
         margin-bottom:5%;
-        
-        &__body{
+
+        &__body {
             width:100%;
             padding:10%;
         }
-    
-        &__image{
+
+        &__image {
             padding-top:5%;
             padding-bottom:5%;
             background-color: $color-default;
             width: 50%;
         }
 
-        &__image img{
+        &__image img {
             padding:30%
         }
 
-    }    
+    }
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
-    .p-component{
-        &__atomic{ 
-        display: flex;
 
-        &__body {
-            order:1;
-            padding-top: 20px;
+    .p-component {
+
+        &__atomic {
+            display: flex;
+
+            &__body {
+                order:1;
+                padding-top: 20px;
+            }
+
+            &__image {
+                order:2;
+                margin-left: 0;
+                width:100%;
+                padding-top: 0;
+            }
         }
-        &__image {
-            order:2;
-            margin-left: 0;
-            width:100%;
-            padding-top: 0;
-        }
-        } 
     }
 }

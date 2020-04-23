@@ -16,6 +16,7 @@
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
+
     .l-docs {
         display: block;
     }

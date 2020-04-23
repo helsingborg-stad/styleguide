@@ -5,6 +5,7 @@
     padding: map-get($spacers, "2");
     line-height: 1em;
     box-sizing: border-box;
+    z-index: 2000;
 
     .c-datepicker__body {
         margin-top: 1em;
@@ -180,9 +181,15 @@
                 color: $color-primary;
             }
 
-            a.c-datepicker__button .c-datepicker__day-content, &.c-datepicker__day--highlighted a.c-datepicker__button .c-datepicker__day-content, a.c-datepicker__button:hover .c-datepicker__day-content, &.c-datepicker__day--highlighted a.c-datepicker__button:hover .c-datepicker__day-content {
+            /* stylelint-disable */
+
+            a.c-datepicker__button .c-datepicker__day-content,
+            a.c-datepicker__button:hover .c-datepicker__day-content,
+            &.c-datepicker__day--highlighted a.c-datepicker__button .c-datepicker__day-content,
+            &.c-datepicker__day--highlighted a.c-datepicker__button:hover .c-datepicker__day-content {
                 background-color: transparentize($color-primary, 0.9);
             }
+            /* stylelint-enable */
         }
     }
 
@@ -213,6 +220,8 @@
 }
 
 .c-datepicker__container {
+    position: absolute;
+    z-index: 2000;
     left: 50%;
     transform: translate(-50%);
 }
