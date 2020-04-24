@@ -1,4 +1,5 @@
 import './polyfill';
+import "regenerator-runtime/runtime.js";
 
 import expandSection from './expand-section';
 import Filter from './filter';
