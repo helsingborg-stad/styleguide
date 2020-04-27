@@ -70,6 +70,8 @@ class Navigation
                             if(array_key_exists($item, $response)) {
                                 $response[$item]['children'] = self::items($folder . '/' . $item); 
                             }
+                        }else{
+                            $response[$item]['children'] = false;                    
                         }
                     }
                 
@@ -119,5 +121,20 @@ class Navigation
 
     public static function getPageUrl() {
         return $_SERVER['REQUEST_URI']; 
+    }
+
+    public static function getMockedTopLevel()
+    {
+        $response = [
+            [
+                'href' => '#',
+                'label' => 'topLevel',
+                'children' => true,
+                'ID' => 1
+            ]
+
+        ];
+
+        return $response;
     }
 }
