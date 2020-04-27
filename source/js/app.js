@@ -18,9 +18,11 @@ import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import initBuild from './initBuild';
 import Sidebar from './sidebar';
+import Navbar from './navbar';
 
 expandSection();
 
+<<<<<<< HEAD
 let SortInstance = new Sort();
 let ToggleInstance = new Toggle();
 let SplitButtonInstance = new SplitButton();
@@ -31,6 +33,19 @@ let TilesInstance = new Tiles();
 const NotificationInstance = new Notification();
 const NotificationDocInstance = new NotificationDoc();
 let SidebarInstance = new Sidebar();
+=======
+const SortInstance = new Sort;
+const ToggleInstance = new Toggle;
+const SplitButtonInstance = new SplitButton;
+const DropdownInstance = new Dropdown;
+const SliderInstance = new Slider;
+const EventCalendarInstance = new EventCalendar;
+const TilesInstance = new Tiles;
+const NotificationInstance = new Notification;
+const NotificationDocInstance = new NotificationDoc;
+const SidebarInstance = new Sidebar;
+const NavbarInstance = new Navbar();
+>>>>>>> develop
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -46,11 +61,19 @@ SidebarInstance.applySidebar();
 let filter = new Filter();
 
 // Modal
+<<<<<<< HEAD
 let ModalInstance = new Modal();
 ModalInstance.enableModals();
 
 // Steppers
 let SteppersInstance = new Steppers();
+=======
+const ModalInstance = new Modal;
+ModalInstance.enableModals();
+
+// Steppers
+const SteppersInstance = new Steppers;
+>>>>>>> develop
 SteppersInstance.enableStepper();
 
 //Menu
