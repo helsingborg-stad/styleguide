@@ -41,7 +41,6 @@
         'items' => $topNavigation,
         'sidebar' => true
     ])
-
     @endnavbar
 
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 

@@ -9,6 +9,11 @@ export default class Sidebar {
         this.ACTIVEITEMS = 'active'
         this.ACTIVE = "item-active";
         this.TRIGGER = "js-sidebar-trigger";
+        this.SUBCONTAINER = "c-sidebar__subcontainer";
+        this.TOGGLE = "c-sidebar__toggle";
+        this.TOGGLE_TRIGGER = "js-toggle-trigger";
+        this.TOGGLE_ITEM = "js-toggle-item";
+        this.ITEM = "c-sidebar__item";
         
         const dynamicSidebar = document.querySelector('.c-sidebar[child-items-url]');
 
