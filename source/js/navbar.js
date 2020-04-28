@@ -32,6 +32,9 @@ export default class Navbar{
     static switchToMobileMenu(navbar){
         const navbarToggle = navbar.querySelector('.c-navbar__toggle');
         const navbarList = navbar.querySelector('.c-navbar__list');
+        const sidebar = document.querySelector('.c-sidebar');
+        console.log(sidebar);
+        // sidebar.classList.remove("c-sidebar--collapsed");
 
         console.log('OVERFLOW')
         navbarToggle.style.display = 'block';

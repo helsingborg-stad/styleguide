@@ -5,7 +5,19 @@
     @sidebar([
         'logo' => '/assets/img/logotype-grey-full.svg',
         'items' => $sideNavigation,
-        'classList' => ['l-docs--sidebar']
+        'classList' => ['l-docs--sidebar'],
+        'top_items' => [
+            [
+                'label' => 'Search',
+                'href' => '#',
+                'attributeList' => ['s-serach' => 'hej','s-serach2' => 'hej2']
+            ],
+            [
+                'label' => 'Search2',
+                'href' => '#',
+                'attributeList' => ['s-serach-2' => 'san']
+            ]
+        ]
     ])
 
     @endsidebar
