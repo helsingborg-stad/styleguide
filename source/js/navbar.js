@@ -32,17 +32,13 @@ export default class Navbar{
     static switchToMobileMenu(navbar){
         const navbarToggle = navbar.querySelector('.c-navbar__toggle');
         const navbarList = navbar.querySelector('.c-navbar__list');
-        const sidebar = document.querySelector('.c-sidebar');
-        console.log(sidebar);
-        // sidebar.classList.remove("c-sidebar--collapsed");
-
-        console.log('OVERFLOW')
+        
         navbarToggle.style.display = 'block';
         navbarList.style.display = 'none';
     }
 
-    static isOverFlowing(navbarList) {
-        return navbarList.clientWidth < navbarList.scrollWidth;
+    static isOverFlowing(navbar) {
+        return navbar.clientWidth < navbar.scrollWidth;
     }
 
     cleanUpNavBarContent() {
@@ -70,7 +66,6 @@ export default class Navbar{
                 this.navbarExpandedMain.querySelector('h2').innerText = currentPageItems.title;
             });
         });
-    
     }
 
     setupPrevButton() {

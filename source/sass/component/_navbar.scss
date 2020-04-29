@@ -1,5 +1,11 @@
+body {
+    margin-top: 140px;
+}
+
 .c-navbar {
-    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
     display: grid;
     align-items: center;
     grid-template-columns: auto auto max-content;
@@ -21,6 +27,7 @@
 
         .c-image {
             width: unset;
+            min-width: 208px;
         }
 
         img {
@@ -191,7 +198,9 @@
         }
 
         &__toggle {
-            display: none
+            display: none;
+            margin-left: auto;
+            margin-right: 48px;
         }
 
         &__item {

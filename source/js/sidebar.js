@@ -9,6 +9,7 @@ export default class Sidebar {
         this.ACTIVEITEMS = 'active'
         this.ACTIVE = "item-active";
         this.TRIGGER = "js-sidebar-trigger";
+        this.OVERFLOWONLY = "js-sidebar--overflow-only";
         
         const dynamicSidebar = document.querySelector('.c-sidebar[child-items-url]');
 
@@ -32,6 +33,8 @@ export default class Sidebar {
      */
     applySidebar() {
         const sb = document.querySelector(`[${this.ATTR}]`);
+
+        this.isOverflowOnly(sb);
         
         if (sb) {
             const activeItems = sb.querySelectorAll(`[${this.ACTIVE}="true"]`);
@@ -64,7 +67,8 @@ export default class Sidebar {
 
         sbTriggers.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                sb.classList.toggle('c-sidebar--collapsed');
+                const body = document.querySelector('body');
+                body.classList.toggle('c-sidebar--expanded');
             })
         });
     }
@@ -224,8 +228,16 @@ export default class Sidebar {
         });
 
     }
-    
-    
+
+    isOverflowOnly(sidebar) {
+        const overflowOnly = sidebar.hasAttribute(this.OVERFLOWONLY);
+        console.log(sidebar)
+
+        if (!overflowOnly) {
+            const body = document.querySelector('body');
+            body.classList.toggle('c-sidebar--expanded');
+        }
+    }
     
     isAlreadyStored(newItem) {
         const storedItems = this.constructor.getItems(this.TOGGLEDITEMS);
