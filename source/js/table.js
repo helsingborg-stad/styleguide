@@ -11,7 +11,9 @@ export default class Table{
             const rows = table.querySelectorAll('tr');
             rows.forEach(row => {
                 const href = row.getAttribute('js-row-href');
-                row.style.cursor = 'pointer';
+                if(href) {
+                    row.style.cursor = 'pointer';
+                }
                 
                 if(href) { 
                     row.addEventListener('click', (event) => {
