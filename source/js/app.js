@@ -19,6 +19,7 @@ import NotificationDoc from './notificationDoc';
 import initBuild from './initBuild';
 import Sidebar from './sidebar';
 import Navbar from './navbar';
+import Table from './table';
 
 expandSection();
 
@@ -33,6 +34,7 @@ const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
+const TableInstance = new Table;
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
