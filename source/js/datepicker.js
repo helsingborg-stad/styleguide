@@ -4,7 +4,7 @@ const datepickers = document.querySelectorAll('[js-datepicker="1"]');
 
 if (datepickers.length > 0) {
     datepickers.forEach(element => {
-        const datepicker = new TheDatepicker.Datepicker(element);
+        let datepicker = new TheDatepicker.Datepicker(element);
 
         datepicker.options.setInputFormat('j/n/Y');
         datepicker.options.setTitle(element.getAttribute('c-datepicker-title'));
@@ -17,5 +17,11 @@ if (datepickers.length > 0) {
         datepicker.options.setMaxDate(element.getAttribute('c-datepicker-max'));
 
         datepicker.render();
+    
+        datepicker.options.onSelect((event, date)=>{
+            const timestamp = new Date(`${date.year}-${date.month}-${date.dayNumber}`).getTime();
+
+            element.setAttribute('value',timestamp);
+        })
     });
 }
