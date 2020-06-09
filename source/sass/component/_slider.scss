@@ -39,7 +39,7 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "sm")) {
+@include mq(map_get($breakpoints-map, "md")) {
     .c-slider {
         .c-steppers {
             bottom: 60px;
