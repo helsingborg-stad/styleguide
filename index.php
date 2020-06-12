@@ -1,5 +1,6 @@
 <?php
 
+
 //Enable/disable all errors
 if (isset($_GET['debug'])) {
 	ini_set('display_errors', 1);
@@ -96,5 +97,5 @@ if($endpoint == 'topnav' && isset($_GET['pageID'])){
 
 //Run application
 require_once 'Bootstrap.php';
-new \HbgStyleGuide\App();
+new \HbgStyleGuide\App($blade);
 
