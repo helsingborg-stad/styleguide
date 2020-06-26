@@ -7,22 +7,25 @@ use \HbgStyleGuide\Helper\Documentation as DocHelper;
 
 class View
 {
+    private $blade;
+
     /**
      * @param $view
      * @param array $data
      */
-    public static function show($view, $data = array())
+    public function show($view, $data = array(), $blade)
     {
-        self::registerLayoutViewComposer();
-        self::registerMarkdownViewComposer();
+
+        $blade = $this->registerLayoutViewComposer($blade);
+        $blade = $this->registerMarkdownViewComposer($blade);
         
         try {
-            echo Blade::instance()->make(
+            echo $blade->make(
                 'pages.' . $view,
                 $data
             )->render();
         } catch (\Throwable $e) {
-            echo Blade::instance()->make(
+            echo $blade->make(
                 'pages.404',
                 array_merge(
                     $data,
@@ -37,19 +40,19 @@ class View
      * @param array $data
      * @throws \Exception
      */
-    public static function registerLayoutViewComposer()
+    public function registerLayoutViewComposer($blade)
     {
         //Documentation module alias
-        Blade::instance()->component("layout.doc", "doc");
-        Blade::instance()->component("layout.utility_doc", "utility_doc");
-        Blade::instance()->component("layout.script_doc", "script_doc");
+        $blade->component("layout.doc", "doc");
+        $blade->component("layout.utility_doc", "utility_doc");
+        $blade->component("layout.script_doc", "script_doc");
   //Doc templates
         $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
-        Blade::instance()->composer($docTemplates, function ($view) {
+        $blade->composer($docTemplates, function ($view) {
 
-            $viewData = self::accessProtected($view, 'data');
+            $viewData = $this->accessProtected($view, 'data');
 
             if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                 $path = (isset($viewData['viewDoc'])) ?
@@ -158,6 +161,8 @@ class View
             
 
         });
+
+        return $blade;
     }
 
     /**
@@ -174,19 +179,21 @@ class View
      * Register Markdown component alias and view composer
      * @throws \Exception
      */
-    public static function registerMarkdownViewComposer()
+    public static function registerMarkdownViewComposer($blade)
     {
         // Register component alias
-        Blade::instance()->component('layout.markdown', 'markdown');
+        $blade->component('layout.markdown', 'markdown');
 
         // Markdown module
-        Blade::instance()->composer('layout.markdown', function ($view) {
-            $viewData = self::accessProtected($view, 'data');
+        $blade->composer('layout.markdown', function ($view) {
+            $viewData = $this->accessProtected($view, 'data');
 
             $viewData['slot'] = isset($viewData['slot']) ? markdown($viewData['slot']) : '';
 
             $view->with($viewData);
         });
+
+        return $blade;
     }
 
     /**
