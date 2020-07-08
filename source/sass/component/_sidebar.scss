@@ -4,15 +4,18 @@ $baseClass: ".c-sidebar";
     display: flex;
     flex-direction: column;
     background-color: $color-nav-background;
-    width: 288px;
-    height: 100%;
-    overflow: auto;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: $level-5;
     transition: left 0.5s ease-in-out;
+
+    &--fixed {
+        width: 288px;
+        height: 100%;
+        overflow: auto;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: $level-5;
+    }
 
     &__logo {
         min-height: 140px;
