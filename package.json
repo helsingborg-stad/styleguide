@@ -1,7 +1,7 @@
 {
     "name": "@helsingborg-stad/styleguide",
     "appname": "styleguide",
-    "version": "0.10.4",
+    "version": "0.10.6",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -96,7 +96,7 @@
         "figlet": "^1.3.0",
         "glob": "^7.1.6",
         "inquirer": "^7.0.6",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "masonry-layout": "^4.2.2",
         "restify": "^8.5.1",
         "restify-router": "^0.5.1",
