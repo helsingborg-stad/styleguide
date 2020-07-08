@@ -38,5 +38,4 @@
     ],
     'classList' => ['u-position--relative']
 ])
-
 @endnavbar
