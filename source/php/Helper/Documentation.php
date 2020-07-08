@@ -2,7 +2,6 @@
 
 
 namespace HbgStyleGuide\Helper;
-use \HelsingborgStad\GlobalBladeEngine as Blade;
 
 /**
  * Class Documentation
@@ -10,13 +9,12 @@ use \HelsingborgStad\GlobalBladeEngine as Blade;
  */
 class Documentation
 {
-
     /**
      * @param $slug
      * @return array
      * @throws \Exception
      */
-    public static function getUsageExamples($slug)
+    public static function getUsageExamples($slug, $blade)
     {
         $dir = BASEPATH . 'views/pages/components/usage/' . $slug;
         $examples = array();
@@ -31,16 +29,23 @@ class Documentation
                     $filePath = $file . '.blade.php';
 
                     if(file_exists($dir . '/' . $filePath)) {
+
+                        //Get doc path
                         $includePath = ('pages.components.usage.' . $slug . '.' . $file);
-                        $html = Blade::instance()->make($includePath)->render();
-                        $blade = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
-                        $temp = array(
+                        
+                        //Make view
+                        $html = $blade->make($includePath)->render();
+
+                        //Get contents of file 
+                        $content = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
+                        
+                        //Push as example
+                        array_push($examples, array(
                             "component" => $includePath,
-                            "blade" => ['id' => uniqid('', true), 'code' => $blade],
+                            "blade" => ['id' => uniqid('', true), 'code' => $content],
                             "html" => ['id' => uniqid('', true), 'code' => $html],
                             "description" => $json[$file]
-                        );
-                        array_push($examples, $temp);
+                        ));
                     } else {
                         trigger_error("Couldn't find blade file " . $dir . '/' . $filePath, E_USER_NOTICE);
                     }

@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * This is the bootstrap of the app
  * 1. Defines root path of the app
@@ -18,13 +19,13 @@ require_once BASEPATH . 'config.php';
 $loader = new HbgStyleGuide\Vendor\Psr4ClassLoader();
 $loader->addPrefix('HbgStyleGuide', BASEPATH);
 $loader->addPrefix('HbgStyleGuide', BASEPATH . 'source/php/');
+$loader->addPrefix('BladeComponentLibrary', BASEPATH . 'source/library/src');
 $loader->register();
 
 //Register view path
-\HelsingborgStad\GlobalBladeEngine::addViewPath(BASEPATH . 'views');
 
 //Load component library
-\HbgStyleGuide\Helper\Enviroment::loadInstalledComponentLibrary();
+$blade = \HbgStyleGuide\Helper\Enviroment::loadInstalledComponentLibrary();
 
 //Include public functions
 require_once(BASEPATH . "Public.php");

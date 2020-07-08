@@ -2,7 +2,7 @@
     position: relative;
     display: grid;
     align-items: center;
-    grid-template-columns: auto auto max-content;
+    grid-template-columns: max-content auto max-content;
     grid-template-rows: 132px max-content;
     grid-template-areas:
         "logo links toggleexpand"
@@ -61,12 +61,12 @@
 }
 
 .c-navbar__content {
-    display: none;
+    height: 0;
     grid-area: content;
+    overflow: hidden;
     width: 100%;
     background-color: $color-default;
     z-index: $level-6 - 1;
-    border-bottom: 2px solid $color-primary;
 }
 
 .c-navbar__expanded_menu {
@@ -87,6 +87,8 @@
 
 .c-navbar__expanded_main {
     padding: map-get($spacers, "7") $base * 20;
+    border-bottom: 2px solid $color-primary;
+
 }
 
 .c-navbar__expanded_grid {
