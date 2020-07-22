@@ -9,6 +9,11 @@ export default class Sidebar {
         this.ACTIVEITEMS = 'active'
         this.ACTIVE = "item-active";
         this.TRIGGER = "js-sidebar-trigger";
+        this.SUBCONTAINER = "c-sidebar__subcontainer";
+        this.TOGGLE = "c-sidebar__toggle";
+        this.TOGGLE_TRIGGER = "js-toggle-trigger";
+        this.TOGGLE_ITEM = "js-toggle-item";
+        this.ITEM = "c-sidebar__item";
         
         const dynamicSidebar = document.querySelector('.c-sidebar[child-items-url]');
 
@@ -32,18 +37,15 @@ export default class Sidebar {
      */
     applySidebar() {
         const sb = document.querySelector(`[${this.ATTR}]`);
-        
+
         if (sb) {
             const activeItems = sb.querySelectorAll(`[${this.ACTIVE}="true"]`);
 
             if (activeItems.length > 0) {
-                activeItems.forEach((item) => {
-                    if (item.closest('.c-sidebar__subcontainer')) {
-                        item.closest('.c-sidebar__subcontainer').classList.add(this.EXPAND);
-                        const id = item.closest('.c-sidebar__subcontainer').getAttribute('js-toggle-item')
-                        sb.querySelector(`[js-toggle-trigger="${id}"]`).setAttribute('aria-pressed', true)
-                    }
-                })
+                activeItems.forEach(item => {
+                    this.expandItem(item, sb);
+                    this.expandCurrentItem(item);
+                });
             }
             
             
@@ -56,6 +58,51 @@ export default class Sidebar {
     }
 
     /**
+     * Expand current item
+     * @param {Object} item The current item to expand
+     */
+    expandItem(item, sb) {
+        if (item.closest(`.${this.SUBCONTAINER}`)) {
+            const id = this.getToggleId(item)
+                
+            const toggle = sb.querySelector(`[${this.TOGGLE_TRIGGER}="${id}"]`)
+
+            toggle.setAttribute('aria-pressed', true);
+
+            this.addExpandClass(item);
+            this.expandItem(toggle, sb)
+        }
+    }
+
+    /**
+     * @param  {} item Item to recieve ID from
+     * @param  {} ID The attribute ID
+     */
+    getToggleId(item) {
+        return item.closest(`.${this.SUBCONTAINER}`)
+            .getAttribute(this.TOGGLE_ITEM);
+    }
+    
+    /**
+     * @param  {} item Item that is relevant to exppand item
+     */
+    addExpandClass(item) {
+        item.closest(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
+    }
+
+    /**
+     * Expand current item
+     * @param {Object} item The current item to expand
+     */
+    expandCurrentItem(item) {
+        const parent = item.closest(`.${this.ITEM}`);
+        if (parent.querySelector(`.${this.SUBCONTAINER}`)) {
+            parent.querySelector(`.${this.SUBCONTAINER}`).classList.add(this.EXPAND);
+            parent.querySelector(`.${this.TOGGLE}`).setAttribute('aria-pressed', true);
+        }
+    }
+
+    /**
      * Adds listeners to buttons
      * @param {Object} sb The sidebar
      */
@@ -63,9 +110,9 @@ export default class Sidebar {
         const sbTriggers = document.querySelectorAll(`[${this.TRIGGER}]`);
 
         sbTriggers.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                sb.classList.toggle('c-sidebar--collapsed');
-            })
+            btn.addEventListener('click', e => {
+                sb.classList.toggle(`${this.COLLAPSED}`);
+            });
         });
     }
 
@@ -141,7 +188,8 @@ export default class Sidebar {
     
                         this.constructor.toggleAriaPressed(trigger);
                         const label = e.currentTarget.getAttribute('aria-label');
-                        const parentID = label.toLowerCase() + label.substring(1);
+                        /* const parentID = label.toLowerCase() + label.substring(1); */
+                        const parentID = label;
                         const parent = document.querySelector(`[aria-label='${parentID}']`).parentElement;
     
                         this.appendChildren(parentID, e.target.parentElement).then((children) => {
@@ -185,22 +233,23 @@ export default class Sidebar {
             subContainer.classList.add('c-sidebar__subcontainer');
             
             let linkIndex = 0;
+            
             children.forEach( (child) => {
                 const childItem = document.createElement('div');
                 childItem.classList.add('c-sidebar__item');
                 const link = document.createElement('a');
                 link.href = child.href;
                 link.classList.add('c-sidebar__link');
-                link.text = child.post_title;
+                link.text = child.label;
                 link.setAttribute('item-active', 'false');
-                link.id = `${parentID  }-${  linkIndex}`;
+                link.id = `${child.id}-${linkIndex}`;
                 linkIndex += 1;
 
                 this.addLinkTrigger(link, parentID);
                 
                 childItem.appendChild(link);
 
-                if(Object.keys(child.children).length > 0) {
+                if(child.children) {
                     
                     const bar = document.createElement('div');
                     bar.classList.add('bar');
@@ -209,7 +258,7 @@ export default class Sidebar {
                     toggle.classList.add('c-sidebar__toggle');
                     toggle.appendChild(bar);
                     toggle.appendChild(bar.cloneNode(true));
-                    toggle.setAttribute('aria-label', child.ID);
+                    toggle.setAttribute('aria-label', child.id);
 
                     childItem.appendChild(toggle);  
                 }
