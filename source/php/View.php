@@ -2,7 +2,7 @@
 
 namespace HbgStyleGuide;
 
-use \HelsingborgStad\GlobalBladeEngine as Blade;
+use \HelsingborgStad\BladeEngineWrapper as Blade;
 use \HbgStyleGuide\Helper\Documentation as DocHelper;
 
 class View
@@ -46,11 +46,12 @@ class View
         $blade->component("layout.doc", "doc");
         $blade->component("layout.utility_doc", "utility_doc");
         $blade->component("layout.script_doc", "script_doc");
-  //Doc templates
+  
+      //Doc templates
         $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
 
         //Documentation module
-        $blade->composer($docTemplates, function ($view) {
+        $blade->composer($docTemplates, function ($view) use ($blade) {
 
             $viewData = $this->accessProtected($view, 'data');
 
@@ -155,7 +156,7 @@ class View
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                 'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                 'paper' => $paper,
-                'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug']) : ""
+                'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : ""
             ]);
 
             
@@ -179,7 +180,7 @@ class View
      * Register Markdown component alias and view composer
      * @throws \Exception
      */
-    public static function registerMarkdownViewComposer($blade)
+    public function registerMarkdownViewComposer($blade)
     {
         // Register component alias
         $blade->component('layout.markdown', 'markdown');

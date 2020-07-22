@@ -20,6 +20,8 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
  * Basically, this class removes all objects from the trace.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @deprecated since Symfony 4.4, use Symfony\Component\ErrorHandler\Exception\FlattenException instead.
  */
 class FlattenException
 {
@@ -27,18 +29,25 @@ class FlattenException
     private $code;
     private $previous;
     private $trace;
+    private $traceAsString;
     private $class;
     private $statusCode;
     private $headers;
     private $file;
     private $line;
 
+    /**
+     * @return static
+     */
     public static function create(\Exception $exception, $statusCode = null, array $headers = [])
     {
         return static::createFromThrowable($exception, $statusCode, $headers);
     }
 
-    public static function createFromThrowable(\Throwable $exception, ?int $statusCode = null, array $headers = []): self
+    /**
+     * @return static
+     */
+    public static function createFromThrowable(\Throwable $exception, int $statusCode = null, array $headers = [])
     {
         $e = new static();
         $e->setMessage($exception->getMessage());
@@ -58,7 +67,7 @@ class FlattenException
         $e->setStatusCode($statusCode);
         $e->setHeaders($headers);
         $e->setTraceFromThrowable($exception);
-        $e->setClass($exception instanceof FatalThrowableError ? $exception->getOriginalClassName() : \get_class($exception));
+        $e->setClass($exception instanceof FatalThrowableError ? $exception->getOriginalClassName() : get_debug_type($exception));
         $e->setFile($exception->getFile());
         $e->setLine($exception->getLine());
 
@@ -125,7 +134,7 @@ class FlattenException
      */
     public function setClass($class)
     {
-        $this->class = 'c' === $class[0] && 0 === strpos($class, "class@anonymous\0") ? get_parent_class($class).'@anonymous' : $class;
+        $this->class = false !== strpos($class, "@anonymous\0") ? (get_parent_class($class) ?: key(class_implements($class)) ?: 'class').'@anonymous' : $class;
 
         return $this;
     }
@@ -170,9 +179,9 @@ class FlattenException
      */
     public function setMessage($message)
     {
-        if (false !== strpos($message, "class@anonymous\0")) {
-            $message = preg_replace_callback('/class@anonymous\x00.*?\.php0x?[0-9a-fA-F]++/', function ($m) {
-                return \class_exists($m[0], false) ? get_parent_class($m[0]).'@anonymous' : $m[0];
+        if (false !== strpos($message, "@anonymous\0")) {
+            $message = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', function ($m) {
+                return class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0];
             }, $message);
         }
 
@@ -239,6 +248,8 @@ class FlattenException
 
     public function setTraceFromThrowable(\Throwable $throwable)
     {
+        $this->traceAsString = $throwable->getTraceAsString();
+
         return $this->setTrace($throwable->getTrace(), $throwable->getFile(), $throwable->getLine());
     }
 
@@ -282,7 +293,7 @@ class FlattenException
         return $this;
     }
 
-    private function flattenArgs($args, $level = 0, &$count = 0)
+    private function flattenArgs(array $args, int $level = 0, int &$count = 0): array
     {
         $result = [];
         foreach ($args as $key => $value) {
@@ -318,10 +329,39 @@ class FlattenException
         return $result;
     }
 
-    private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value)
+    private function getClassNameFromIncomplete(\__PHP_Incomplete_Class $value): string
     {
         $array = new \ArrayObject($value);
 
         return $array['__PHP_Incomplete_Class_Name'];
+    }
+
+    public function getTraceAsString()
+    {
+        return $this->traceAsString;
+    }
+
+    public function getAsString()
+    {
+        $message = '';
+        $next = false;
+
+        foreach (array_reverse(array_merge([$this], $this->getAllPrevious())) as $exception) {
+            if ($next) {
+                $message .= 'Next ';
+            } else {
+                $next = true;
+            }
+            $message .= $exception->getClass();
+
+            if ('' != $exception->getMessage()) {
+                $message .= ': '.$exception->getMessage();
+            }
+
+            $message .= ' in '.$exception->getFile().':'.$exception->getLine().
+                "\nStack trace:\n".$exception->getTraceAsString()."\n\n";
+        }
+
+        return rtrim($message);
     }
 }

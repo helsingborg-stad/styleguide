@@ -33,8 +33,7 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "helsingborg-stad/global-blade-engine": "^1.0"
-
+        "helsingborg-stad/blade-engine-wrapper": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
