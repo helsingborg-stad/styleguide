@@ -188,7 +188,7 @@ export default class Sidebar {
     
                         this.constructor.toggleAriaPressed(trigger);
                         const label = e.currentTarget.getAttribute('aria-label');
-                        const parentID = label.toLowerCase() + label.substring(1);
+                        const parentID = label;
                         const parent = document.querySelector(`[aria-label='${parentID}']`).parentElement;
     
                         this.appendChildren(parentID, e.target.parentElement).then((children) => {
@@ -232,22 +232,23 @@ export default class Sidebar {
             subContainer.classList.add('c-sidebar__subcontainer');
             
             let linkIndex = 0;
+            
             children.forEach( (child) => {
                 const childItem = document.createElement('div');
                 childItem.classList.add('c-sidebar__item');
                 const link = document.createElement('a');
                 link.href = child.href;
                 link.classList.add('c-sidebar__link');
-                link.text = child.post_title;
+                link.text = child.label;
                 link.setAttribute('item-active', 'false');
-                link.id = `${parentID  }-${  linkIndex}`;
+                link.id = `${child.id}-${linkIndex}`;
                 linkIndex += 1;
 
                 this.addLinkTrigger(link, parentID);
                 
                 childItem.appendChild(link);
 
-                if(Object.keys(child.children).length > 0) {
+                if(child.children) {
                     
                     const bar = document.createElement('div');
                     bar.classList.add('bar');
@@ -256,7 +257,7 @@ export default class Sidebar {
                     toggle.classList.add('c-sidebar__toggle');
                     toggle.appendChild(bar);
                     toggle.appendChild(bar.cloneNode(true));
-                    toggle.setAttribute('aria-label', child.ID);
+                    toggle.setAttribute('aria-label', child.id);
 
                     childItem.appendChild(toggle);  
                 }
