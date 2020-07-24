@@ -188,7 +188,6 @@ export default class Sidebar {
     
                         this.constructor.toggleAriaPressed(trigger);
                         const label = e.currentTarget.getAttribute('aria-label');
-                        /* const parentID = label.toLowerCase() + label.substring(1); */
                         const parentID = label;
                         const parent = document.querySelector(`[aria-label='${parentID}']`).parentElement;
     
