@@ -1,0 +1,23 @@
+.c-listing {
+    font-size: $font-size-title;
+    
+    &__item,
+    &__link {
+        &,
+        &:visited {
+            color: $color-darker;
+            text-decoration: none;
+        }
+
+        .c-icon {
+            vertical-align: text-bottom;
+        }
+    }
+}
+
+a.c-listing__link {
+    &:hover,
+    &:visited:hover  {
+        color: $color-darkest;
+    }
+}
