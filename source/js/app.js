@@ -19,6 +19,7 @@ import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import initBuild from './initBuild';
 import Sidebar from './sidebar';
+import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
 import Table from './table';
 
@@ -34,6 +35,7 @@ const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
+const DynamicSidebarInstance = new DynamicSidebar;
 const NavbarInstance = new Navbar();
 const TableInstance = new Table;
 
@@ -46,7 +48,9 @@ EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
+DynamicSidebarInstance.applySidebar();
 SidebarInstance.applySidebar();
+
 
 let filter = new Filter();
 

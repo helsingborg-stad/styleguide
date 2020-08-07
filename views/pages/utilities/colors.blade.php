@@ -59,9 +59,25 @@
     @typography([
         'element' => 'h6',
         'variant' => 'h4',
-        'classList' => ['u-color__text--light', 'u-color__bg--info']
+        'classList' => ['u-color__text--light', 'u-color__bg--lighter']
     ])
         Light Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--lighter', 'u-color__bg--light']
+    ])
+        Lighter Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--lightest', 'u-color__bg--light']
+    ])
+        Lightest Text
     @endtypography
 
     @typography([
@@ -70,6 +86,22 @@
         'classList' => ['u-color__text--dark']
     ])
         Dark Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--darker']
+    ])
+        Darker Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--darkest']
+    ])
+        Darkest Text
     @endtypography
 
 @endutility_doc
@@ -120,6 +152,36 @@
         @grid(['classList' => ['u-text-align--center']])
             <div class="u-color__bg--success u-rounded" style="height: 20px;"></div>
             <span>Success</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--darkest u-rounded" style="height: 20px;"></div>
+            <span>Darkest</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--darker u-rounded" style="height: 20px;"></div>
+            <span>Darker</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--dark u-rounded" style="height: 20px;"></div>
+            <span>Dark</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--light u-rounded" style="height: 20px;"></div>
+            <span>Light</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--lighter u-rounded" style="height: 20px;"></div>
+            <span>Lighter</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--lightest u-rounded" style="height: 20px;"></div>
+            <span>Lightest</span>
         @endgrid
     @endgrid
 
