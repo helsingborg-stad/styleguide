@@ -6,7 +6,7 @@ export default class DynamicSidebar {
             this.endpoints = {};
             this.endpoints.children = this.dynamicSidebar.getAttribute('endpoint-children');
             this.endpoints.active = this.dynamicSidebar.getAttribute('endpoint-active');
-            this.pageId = document.getElementsByTagName('body')[0].getAttribute('page-id');
+            this.pageId = document.getElementsByTagName('body')[0].getAttribute('js-page-id');
         }
     }
 
@@ -22,8 +22,7 @@ export default class DynamicSidebar {
         this.toggleActiveTriggers();
     }
 
-    getChildren(parentId) {
-        
+    getChildren(parentId) { 
         return fetch(`${this.endpoints.children  }?pageId=${  parentId}`)
         .then((response) => {
             return response.json();
@@ -45,16 +44,11 @@ export default class DynamicSidebar {
     
     toggleActiveTriggers() {
         this.getActiveItems().then((items) => {
-            
-            
-                const alexander = items.shift();
-                const alexanderTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${alexander}"]`);
-                alexanderTrigger.click();
-                alexanderTrigger.previousElementSibling.setAttribute('item-active', 'true');
-            
-
-            
-
+            const initial = items.shift();
+            const initialTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${initial}"]`);
+            initialTrigger.click();
+            initialTrigger.previousElementSibling.setAttribute('item-active', 'true');
+        
             items.forEach((item, index) => {
                 
                 const config = { childList: true, subtree: true };
@@ -72,8 +66,6 @@ export default class DynamicSidebar {
                         const activePageLink = document.getElementById(item);
                         activePageLink.setAttribute('item-active', 'true');
                     }
-
-
                 })
 
                 observer.observe(this.dynamicSidebar, config);
@@ -122,7 +114,6 @@ export default class DynamicSidebar {
             
             return subContainer;
         });
-
     }
     
     /**
@@ -130,7 +121,6 @@ export default class DynamicSidebar {
      * @param {Object} sb The sidebar
     */
     addTriggers(toggleTriggers) {
-
         toggleTriggers.forEach((trigger) => {
             const parentId = trigger.getAttribute('aria-label');
             const parent = trigger.parentElement;
@@ -155,5 +145,4 @@ export default class DynamicSidebar {
             });
         });
     }
-
 }
