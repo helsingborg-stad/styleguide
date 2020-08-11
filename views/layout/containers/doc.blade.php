@@ -5,7 +5,11 @@
     @sidebar([
         'logo' => '/assets/img/logotype-grey-full.svg',
         'items' => $sideNavigation,
-        'classList' => ['l-docs--sidebar', 'c-sidebar--fixed']
+        'classList' => ['l-docs--sidebar', 'c-sidebar--fixed'],
+        'attributeList' => [
+            'js-toggle-item'    => 'js-mobile-sidebar',
+            'js-toggle-class'   => 'c-sidebar--collapsed'
+        ],
     ])
 
     @endsidebar

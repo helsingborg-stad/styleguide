@@ -15,11 +15,13 @@ export default class DynamicSidebar {
      * @return {void}
      */
     applySidebar() {
-        this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
-        this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
-            subContainer.parentElement.removeChild(subContainer);
-        })
-        this.toggleActiveTriggers();
+        if(this.dynamicSidebar) {
+            this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
+            this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
+                subContainer.parentElement.removeChild(subContainer);
+            })
+            this.toggleActiveTriggers();
+        }
     }
 
     getChildren(parentId) { 
@@ -44,32 +46,37 @@ export default class DynamicSidebar {
     
     toggleActiveTriggers() {
         this.getActiveItems().then((items) => {
+            
             const initial = items.shift();
             const initialTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${initial}"]`);
-            initialTrigger.click();
-            initialTrigger.previousElementSibling.setAttribute('item-active', 'true');
-        
-            items.forEach((item, index) => {
-                
-                const config = { childList: true, subtree: true };
 
-                const observer = new MutationObserver((mutationList, observer) => {
-                    const toggleTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${item}"]`);
+            if(initialTrigger) {
 
-                    if(toggleTrigger) {
-                        toggleTrigger.previousElementSibling.setAttribute('item-active', 'true');                        
-                        toggleTrigger.click();
-                        observer.disconnect();
-                    }
+                initialTrigger.click();
+                initialTrigger.previousElementSibling.setAttribute('item-active', 'true');
+            
+                items.forEach((item, index) => {
+                    
+                    const config = { childList: true, subtree: true };
 
-                    if(index == items.length - 1){
-                        const activePageLink = document.getElementById(item);
-                        activePageLink.setAttribute('item-active', 'true');
-                    }
-                })
+                    const observer = new MutationObserver((mutationList, observer) => {
+                        const toggleTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${item}"]`);
 
-                observer.observe(this.dynamicSidebar, config);
-            }); 
+                        if(toggleTrigger) {
+                            toggleTrigger.previousElementSibling.setAttribute('item-active', 'true');                        
+                            toggleTrigger.click();
+                            observer.disconnect();
+                        }
+
+                        if(index == items.length - 1){
+                            const activePageLink = document.getElementById(item);
+                            activePageLink.setAttribute('item-active', 'true');
+                        }
+                    })
+
+                    observer.observe(this.dynamicSidebar, config);
+                }); 
+            }
         });
     }
 
@@ -141,7 +148,9 @@ export default class DynamicSidebar {
                 }
                 const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
 
-                parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
+                if(parentSubcontainer) {
+                    parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
+                }
             });
         });
     }
