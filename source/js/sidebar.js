@@ -12,6 +12,7 @@ export default class Sidebar {
         this.TOGGLE_TRIGGER = "js-toggle-trigger";
         this.TOGGLE_ITEM = "js-toggle-item";
         this.ITEM = "c-sidebar__item";
+        this.COLLAPSED = "c-sidebar--collapsed"
     }
 
     /**
@@ -29,9 +30,8 @@ export default class Sidebar {
                     this.expandItem(item, sb);
                 });
             }
-            
+
             this.addTriggers(sb);
-          
         }
     }
 
