@@ -128,6 +128,12 @@
     }
 }
 
+.c-navbar__toggle {
+    * {
+        cursor: pointer;
+    }
+}
+
 @include mq(map_get($breakpoints-map, "xs"), "md") {
 
     .c-navbar {

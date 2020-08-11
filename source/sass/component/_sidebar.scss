@@ -191,6 +191,7 @@ $baseClass: ".c-sidebar";
         position: fixed;
         height: 100%;
         width: 100%;
+        top: 0;
         z-index: $level-8 - 1;
         visibility: hidden;
         opacity: 0;
