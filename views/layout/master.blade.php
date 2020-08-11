@@ -39,7 +39,7 @@
         'topAccent' => 'primary',
         'activeAccent' => 'primary',
         'items' => $topNavigation,
-        'sidebar' => true
+        'sidebar'   => ['trigger' => "js-mobile-sidebar"]
     ])
     @endnavbar
 
