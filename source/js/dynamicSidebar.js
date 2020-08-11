@@ -15,11 +15,13 @@ export default class DynamicSidebar {
      * @return {void}
      */
     applySidebar() {
-        this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
-        this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
-            subContainer.parentElement.removeChild(subContainer);
-        })
-        this.toggleActiveTriggers();
+        if(this.dynamicSidebar) {
+            this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
+            this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
+                subContainer.parentElement.removeChild(subContainer);
+            })
+            this.toggleActiveTriggers();
+        }
     }
 
     getChildren(parentId) { 
