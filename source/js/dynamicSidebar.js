@@ -1,6 +1,6 @@
 export default class DynamicSidebar {
-    constructor() {
-        this.dynamicSidebar = document.querySelector('.c-sidebar[endpoint-children]');
+    constructor(sidebar) {
+        this.dynamicSidebar = sidebar;
 
         if(this.dynamicSidebar) {
             this.endpoints = {};
