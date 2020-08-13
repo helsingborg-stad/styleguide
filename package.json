@@ -1,11 +1,7 @@
 {
     "name": "@helsingborg-stad/styleguide",
     "appname": "styleguide",
-<<<<<<< HEAD
-    "version": "0.10.13",
-=======
     "version": "0.10.14",
->>>>>>> develop
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
