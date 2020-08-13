@@ -5,6 +5,8 @@
         ['columns' => ['Mrs. Unknown', 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit tempus porttitor.', 'https://helsingborg.se/kommun-och-politik/kontakt-och-paverkan/kontakta-kommunen/specialistfunktioner-pa-helsingborg-kontaktcenter/']]
     ],
     'headings' => ['Name', 'Description', 'Details', 'Link'],
-    'showFooter' => true
+    'showFooter' => true,
+    'filterable' => true,
+    'sortable' => true
 ])
 @endtable
