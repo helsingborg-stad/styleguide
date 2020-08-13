@@ -21,6 +21,15 @@
         }
     }
 
+    &[js-sort-container] th {
+        cursor: pointer;
+        .c-icon {
+            vertical-align: bottom;
+            cursor: pointer;
+        }
+        
+    }
+
     &:after {
         position: absolute;
         content: "";
