@@ -62,19 +62,19 @@ $baseClass: ".c-sidebar";
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: map-get($spacers, "2") map-get($spacers, "6");
+        padding: map-get($spacers, "1") map-get($spacers, "6");
 
     }
 
     &__link {
         position: relative;
         min-height: 44px;
-        line-height: 44px;
+        line-height: map-get($spacers, "3");
+        padding: map-get($spacers, "2") 0;
         font-weight: 900;
         flex: 1;
         flex-grow: 1;
         color: $color-nav-item-text;
-        transition: all 250ms ease-in-out;
 
         &:after {
             display: block;
