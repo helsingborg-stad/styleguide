@@ -163,11 +163,13 @@ export default class Table{
             return comparableData.reverse(this.compare);
         }
 
+        
         return comparableData;
     }
 
     paginationButtons() {
         const buttons = this.table.querySelectorAll('[js-table-pagination-btn]');
+        this.paginateSetCurrent();
 
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -187,12 +189,14 @@ export default class Table{
         this.table.setAttribute('js-table-pagination--current', current);
 
         if (current === this.paginatePages()) {
-            this.table.querySelector('[js-table-pagination-btn="next"]').disabled = true;
+            this.table.querySelector('[js-table-pagination-btn="next"]').setAttribute('disabled', true);
+
         } else if (current === 1) {
-            this.table.querySelector('[js-table-pagination-btn="prev"]').disabled = true;
+            this.table.querySelector('[js-table-pagination-btn="prev"]').setAttribute('disabled', true);
+
         } else {
-            this.table.querySelector('[js-table-pagination-btn="next"]').disabled = false;
-            this.table.querySelector('[js-table-pagination-btn="prev"]').disabled = false;
+            this.table.querySelector('[js-table-pagination-btn="next"]').removeAttribute('disabled');
+            this.table.querySelector('[js-table-pagination-btn="prev"]').removeAttribute('disabled');
         }
     }
 
@@ -205,6 +209,8 @@ export default class Table{
             }
 
             button.addEventListener('click', (e) => {
+                if (this.isPagination) this.paginateSetCurrent();
+
                 const sortOrder = this.table.getAttribute('js-table-sort--order');
                 const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
                 this.table.setAttribute('js-table-sort--order', newOrder);
