@@ -1,12 +1,33 @@
 @table([
-    'list' => [
-
-        ['href' => 'test', 'columns' => ['Mr. Unknown', 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.', 'Vestibulum id ligula porta felis euismod semper. Cras mattis consectetur purus sit amet fermentum.', 'https://helsingborg.se/kommun-och-politik/kontakt-och-paverkan/kontakta-kommunen/skicka-meddelande/']],
-        ['columns' => ['Mrs. Unknown', 'Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit tempus porttitor.', 'https://helsingborg.se/kommun-och-politik/kontakt-och-paverkan/kontakta-kommunen/specialistfunktioner-pa-helsingborg-kontaktcenter/']]
+    'headings'      => ['Name', 'Description', 'Details', 'Link'],
+    'showFooter'    => true,
+    'filterable'    => true,
+    'sortable'      => false,
+    'pagination'    => 10,
+    'list'          => [
+        ['columns' => ['row1', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row2', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row3', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row4', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row5', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row6', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row7', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row8', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row9', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row10', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row11', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row12', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row13', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row112', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row112', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row112', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row112', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row112', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row113', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row113', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row113', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row113', 'hejsan', 'svejsan', 'urlis']],
+        ['columns' => ['row113', 'hejsan', 'svejsan', 'urlis']],
     ],
-    'headings' => ['Name', 'Description', 'Details', 'Link'],
-    'showFooter' => true,
-    'filterable' => true,
-    'sortable' => true
 ])
 @endtable
