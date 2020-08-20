@@ -2,7 +2,7 @@
     'headings'      => ['Name', 'Description', 'Details', 'Link'],
     'showFooter'    => true,
     'filterable'    => true,
-    'sortable'      => false,
+    'sortable'      => true,
     'pagination'    => 10,
     'list'          => [
         ['columns' => ['row1', 'hejsan', 'svejsan', 'urlis']],
