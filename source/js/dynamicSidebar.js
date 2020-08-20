@@ -18,9 +18,10 @@ export default class DynamicSidebar {
         if(this.dynamicSidebar) {
             this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
             this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
-                subContainer.parentElement.removeChild(subContainer);
+                if(subContainer.childElementCount === 0) {
+                    subContainer.parentElement.removeChild(subContainer);
+                }
             })
-            this.toggleActiveTriggers();
         }
     }
 
@@ -44,42 +45,6 @@ export default class DynamicSidebar {
         });
     }
     
-    toggleActiveTriggers() {
-        this.getActiveItems().then((items) => {
-            
-            const initial = items.shift();
-            const initialTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${initial}"]`);
-
-            if(initialTrigger) {
-
-                initialTrigger.click();
-                initialTrigger.previousElementSibling.setAttribute('item-active', 'true');
-            
-                items.forEach((item, index) => {
-                    
-                    const config = { childList: true, subtree: true };
-
-                    const observer = new MutationObserver((mutationList, observer) => {
-                        const toggleTrigger = this.dynamicSidebar.querySelector(`.c-sidebar__toggle[aria-label="${item}"]`);
-
-                        if(toggleTrigger) {
-                            toggleTrigger.previousElementSibling.setAttribute('item-active', 'true');                        
-                            toggleTrigger.click();
-                            observer.disconnect();
-                        }
-
-                        if(index == items.length - 1){
-                            const activePageLink = document.getElementById(item);
-                            activePageLink.setAttribute('item-active', 'true');
-                        }
-                    })
-
-                    observer.observe(this.dynamicSidebar, config);
-                }); 
-            }
-        });
-    }
-
     appendChildren(parentID) {
         return this.getChildren(parentID).then((children) => {
         
@@ -128,29 +93,36 @@ export default class DynamicSidebar {
      * @param {Object} sb The sidebar
     */
     addTriggers(toggleTriggers) {
-        toggleTriggers.forEach((trigger) => {
-            const parentId = trigger.getAttribute('aria-label');
-            const parent = trigger.parentElement;
-           
-            trigger.addEventListener('click', () => {
-                const ariaPressed = (trigger.getAttribute('aria-pressed') === 'true') ? 'false' : 'true';
-                trigger.setAttribute('aria-pressed', ariaPressed);
-                
-                if (!trigger.getAttribute('aria-loaded')) {
-                    this.appendChildren(parentId).then((child) => {
-                        parent.appendChild(child);
-                        trigger.setAttribute('aria-loaded', 'true');
-                        
-                        const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
+        this.getActiveItems().then((activeItems) =>{
+            toggleTriggers.forEach((trigger) => {
+                const parentId = trigger.getAttribute('aria-label');
+                const parent = trigger.parentElement;
 
-                        this.addTriggers(parentSubcontainer.querySelectorAll('.c-sidebar__toggle'));
-                    });
-                }
-                const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
+                    if(!activeItems.includes(trigger.getAttribute('aria-label'))){
 
-                if(parentSubcontainer) {
-                    parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
-                }
+                        trigger.addEventListener('click', () => {
+
+                            const ariaPressed = (trigger.getAttribute('aria-pressed') === 'true') ? 'false' : 'true';
+                            trigger.setAttribute('aria-pressed', ariaPressed);
+                            
+                            if (!trigger.getAttribute('aria-loaded')) {
+                                this.appendChildren(parentId).then((child) => {
+                                    parent.appendChild(child);
+                                    trigger.setAttribute('aria-loaded', 'true');
+                                    
+                                    const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
+            
+                                    this.addTriggers(parentSubcontainer.querySelectorAll('.c-sidebar__toggle'));
+                                });
+                            }
+            
+                            const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
+            
+                            if(parentSubcontainer) {
+                                parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
+                            }
+                        });
+                    }
             });
         });
     }

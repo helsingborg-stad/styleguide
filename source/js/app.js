@@ -35,7 +35,6 @@ const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
-const DynamicSidebarInstance = new DynamicSidebar;
 const NavbarInstance = new Navbar();
 const TableInstance = new Table;
 
@@ -48,8 +47,13 @@ EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
-DynamicSidebarInstance.applySidebar();
 SidebarInstance.applySidebar();
+
+// Dynamic Sidebars
+document.querySelectorAll('.c-sidebar[endpoint-children]').forEach((sb) => {
+    const DynamicSidebarInstance = new DynamicSidebar(sb);
+    DynamicSidebarInstance.applySidebar();
+});
 
 
 let filter = new Filter();
