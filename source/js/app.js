@@ -36,7 +36,11 @@ const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
-const TableInstance = new Table;
+
+const table = document.querySelector('.c-table');
+if (table) {
+    const TableInstance = new Table(document.querySelector('.c-table'));
+}
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
