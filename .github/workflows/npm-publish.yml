@@ -27,7 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          bump_version_scheme: minor
+          bump_version_scheme: patch
           
       - name: Check Output Parameters
         run: |
