@@ -2,6 +2,10 @@
 
 namespace HbgStyleGuide;
 
+/**
+ * Class App
+ * @package HbgStyleGuide
+ */
 class App
 {
     protected $default = 'home';
