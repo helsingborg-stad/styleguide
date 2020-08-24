@@ -5,7 +5,7 @@ namespace HbgStyleGuide;
 /**
  * Class App
  * @package HbgStyleGuide
- * 
+ * test
  */
 class App
 {
