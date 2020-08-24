@@ -14,15 +14,14 @@ jobs:
 
     steps:
       - name: "build"
-        run: |
-          echo "done!"
+        run: echo "YO! Build and release done!"
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Development Build"
+          title: "Styleguide Release - beta Latest"
   build:
     runs-on: ubuntu-latest
     steps:
