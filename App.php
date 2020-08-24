@@ -12,6 +12,10 @@ class App
     protected $page = null;
     private $blade;
 
+    /**
+     * App constructor.
+     * @param $blade
+     */
     public function __construct($blade)
     {
 
