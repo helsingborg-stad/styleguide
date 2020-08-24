@@ -11,8 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Create GitHub release
-        uses: Roang-zero1/github-create-release-action@master
+      - name: GitHub Create Tag Release
+        uses: Roang-zero1/github-create-release-action@v2.1.0
         with:
           version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
       - uses: actions/checkout@v2
