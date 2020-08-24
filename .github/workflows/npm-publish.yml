@@ -24,6 +24,8 @@ jobs:
           title: "Styleguide Release - beta Latest"
       - id: release
         uses: rymndhng/release-on-push-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump_version_scheme: minor
           
