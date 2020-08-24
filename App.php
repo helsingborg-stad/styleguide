@@ -8,9 +8,9 @@ namespace HbgStyleGuide;
  */
 class App
 {
-    protected $default = 'home';
-    protected $page = null;
-    private $blade;
+    protected $default = 'home'; //Home
+    protected $page = null; // pageVar
+    private $blade; // Blade
 
     /**
      * App constructor.
