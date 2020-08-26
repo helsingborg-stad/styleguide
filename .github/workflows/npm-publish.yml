@@ -1,3 +1,15 @@
+# Left to do ....
+# Need to add somkind of package.json version check 
+# So update just happen if there is new versionnumber in package.json
+#
+#- name: Check if version has been updated
+#        id: check
+#        uses: EndBug/version-check@v1
+        
+#if: steps.check.outputs.changed == 'true'
+# Run task
+# --------------------
+
 name: "pre-release with version number and Npm publish"
 
 on:
@@ -11,57 +23,38 @@ jobs:
     runs-on: "ubuntu-latest"
     
     steps:
-      - name: Check if version has been updated
-        id: check
-        uses: EndBug/version-check@v1
-      
       - name: "build"
+        run: echo "YO! Build and release done!"
+
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Styleguide Release - beta Latest"
-          
-
       - id: release
         uses: rymndhng/release-on-push-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bump_version_scheme: patch
-      
-      - name: Log when unchanged
-        if: steps.check.outputs.changed != 'true'
-        run: 'echo "No version change :/"'
-      
+          
       - name: Check Output Parameters
-        if: steps.check.outputs.changed == 'true'
         run: |
           echo "Got tag name ${{ steps.release.outputs.tag_name }}"
           echo "Got release version ${{ steps.release.outputs.version }}"
   
   build:
     runs-on: ubuntu-latest
-   
     steps:
-      - name: Check if version has been updated
-        id: check
-        uses: EndBug/version-check@v1
-        
-        
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@helsingborg-stad'
-        
-        if: steps.check.outputs.changed == 'true'
       - run: npm ci
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-      
-  
+
