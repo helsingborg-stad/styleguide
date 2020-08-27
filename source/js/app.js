@@ -36,7 +36,11 @@ const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
-const TableInstance = new Table;
+
+const table = document.querySelector('.c-table');
+if (table) {
+    const TableInstance = new Table(document.querySelector('.c-table'));
+}
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -50,11 +54,8 @@ NotificationInstance.setup();
 SidebarInstance.applySidebar();
 
 // Dynamic Sidebars
-document.querySelectorAll('.c-sidebar[endpoint-children]').forEach((sb) => {
-    const DynamicSidebarInstance = new DynamicSidebar(sb);
-    DynamicSidebarInstance.applySidebar();
-});
-
+const DynamicSidebarInstance = new DynamicSidebar();
+DynamicSidebarInstance.applySidebar();
 
 let filter = new Filter();
 
