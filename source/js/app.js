@@ -54,11 +54,8 @@ NotificationInstance.setup();
 SidebarInstance.applySidebar();
 
 // Dynamic Sidebars
-document.querySelectorAll('.c-sidebar[endpoint-children]').forEach((sb) => {
-    const DynamicSidebarInstance = new DynamicSidebar(sb);
-    DynamicSidebarInstance.applySidebar();
-});
-
+const DynamicSidebarInstance = new DynamicSidebar();
+DynamicSidebarInstance.applySidebar();
 
 let filter = new Filter();
 

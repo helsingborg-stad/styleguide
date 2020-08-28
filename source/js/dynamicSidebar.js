@@ -1,11 +1,9 @@
 export default class DynamicSidebar {
     constructor() {
-        this.dynamicSidebar = document.querySelector('.c-sidebar[endpoint-children]');
+        this.dynamicSidebars = document.querySelectorAll('.c-sidebar[endpoint-children]');
 
-        if(this.dynamicSidebar) {
+        if(this.dynamicSidebars) {
             this.endpoints = {};
-            this.endpoints.children = this.dynamicSidebar.getAttribute('endpoint-children');
-            this.endpoints.active = this.dynamicSidebar.getAttribute('endpoint-active');
             this.pageId = document.getElementsByTagName('body')[0].getAttribute('js-page-id');
         }
     }
@@ -15,13 +13,19 @@ export default class DynamicSidebar {
      * @return {void}
      */
     applySidebar() {
-        if(this.dynamicSidebar) {
-            this.addTriggers(this.dynamicSidebar.querySelectorAll('.c-sidebar__toggle'));  
-            this.dynamicSidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
-                if(subContainer.childElementCount === 0) {
-                    subContainer.parentElement.removeChild(subContainer);
-                }
-            })
+        if(this.dynamicSidebars) {
+            this.dynamicSidebars.forEach((sidebar) => {
+
+                this.endpoints.children = sidebar.getAttribute('endpoint-children');
+                this.endpoints.active = sidebar.getAttribute('endpoint-active');
+
+                this.addTriggers(sidebar.querySelectorAll('.c-sidebar__toggle'));  
+                sidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
+                    if(subContainer.childElementCount === 0) {
+                        subContainer.parentElement.removeChild(subContainer);
+                    }
+                });
+            });
         }
     }
 
@@ -99,7 +103,7 @@ export default class DynamicSidebar {
                 const parent = trigger.parentElement;
 
                     if(!activeItems.includes(trigger.getAttribute('aria-label'))){
-
+                        
                         trigger.addEventListener('click', () => {
 
                             const ariaPressed = (trigger.getAttribute('aria-pressed') === 'true') ? 'false' : 'true';
