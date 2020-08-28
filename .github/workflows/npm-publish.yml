@@ -10,76 +10,52 @@
 # Run task
 # --------------------
 
-name: "pre-release with version number and Npm publish"
+#name: "pre-release with version number and Npm publish"
 
-on:
-  push:
-    branches:
-      - "master"
+#on:
+#  push:
+#    branches:
+#      - "master"
 
-jobs:
-        
-  bump-version:
-    name: "Bump Version on master"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: "Checkout source code"
-        uses: "actions/checkout@v2"
-        with:
-          ref: ${{ github.ref }}
-      - name: "cat package.json"
-        run: cat ./package.json
-      - name: "Setup Node.js"
-        uses: "actions/setup-node@v1"
-        with:
-          node-version: 12
-      - name: "Automated Version Bump"
-        uses: "phips28/gh-action-bump-version@master"
-        with:
-          tag-prefix: ''
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "cat package.json"
-        run: cat ./package.json
-          
-  pre-release:
-    name: "Pre Release"
-    runs-on: "ubuntu-latest"
+#jobs:
+                
+#  pre-release:
+#    name: "Pre Release"
+#    runs-on: "ubuntu-latest"
     
-    steps:
-      - name: "build"
-        run: echo "YO! Build and release done!"
+#    steps:
+#      - name: "build"
+#        run: echo "YO! Build and release done!"
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Styleguide Release - beta Latest"
-      - id: release
-        uses: rymndhng/release-on-push-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          bump_version_scheme: patch
+#      - uses: "marvinpinto/action-automatic-releases@latest"
+#        with:
+#          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#          automatic_release_tag: "latest"
+#          prerelease: true
+#          title: "Styleguide Release - beta Latest"
+#      - id: release
+#        uses: rymndhng/release-on-push-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          bump_version_scheme: patch
           
-      - name: Check Output Parameters
-        run: |
-          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
-          echo "Got release version ${{ steps.release.outputs.version }}"
+#      - name: Check Output Parameters
+#        run: |
+#          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+#          echo "Got release version ${{ steps.release.outputs.version }}"
   
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-          registry-url: 'https://npm.pkg.github.com'
-          scope: '@helsingborg-stad'
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: '12.x'
+#          registry-url: 'https://npm.pkg.github.com'
+#          scope: '@helsingborg-stad'
+#      - run: npm ci
+#      - run: npm publish
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
