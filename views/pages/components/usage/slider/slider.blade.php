@@ -1,5 +1,6 @@
 @slider([
-    'showStepper' => true
+    'showStepper' => true,
+    'autoSlide' => true,
 ])
     @segment([
         'title' => 'Base Layout',
@@ -7,7 +8,7 @@
         'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
         'background_image' => 'https://i.picsum.photos/id/566/1080/720.jpg',
         'overlay' => 'light',
-        'overlay_opacity' => 'high'
+        'overlay_opacity' => 'high',
     ])
     
         @slot('bottom')
