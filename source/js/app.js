@@ -29,7 +29,6 @@ const SortInstance = new Sort;
 const ToggleInstance = new Toggle;
 const SplitButtonInstance = new SplitButton;
 const DropdownInstance = new Dropdown;
-const SliderInstance = new Slider;
 const EventCalendarInstance = new EventCalendar;
 const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
@@ -42,11 +41,17 @@ if (table) {
     const TableInstance = new Table(document.querySelector('.c-table'));
 }
 
+const sliders = document.querySelectorAll('.c-slider');
+if (sliders) {
+    sliders.forEach(slider => {
+        const SliderInstance = new Slider(slider);
+    });
+}
+
 SortInstance.applySort();
 ToggleInstance.applyToggle();
 DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
-SliderInstance.applySliders();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
 NotificationDocInstance.addListener();
