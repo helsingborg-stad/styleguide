@@ -18,7 +18,7 @@ export default class Slider {
         
         this.applySliders();
         this.enableStepper();
-        
+
         if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
             this.autoSlider();
             this.autoSliderHoverHandler();
@@ -72,7 +72,11 @@ export default class Slider {
                 }
                 this.autoSlider();
             }
-        , 3000);
+        , this.getAutoSliderDelay());
+    }
+
+    getAutoSliderDelay() {
+        return this.SLIDER.getAttribute(this.AUTOSLIDE) * 1000;
     }
 
     autoSliderHoverHandler () {
