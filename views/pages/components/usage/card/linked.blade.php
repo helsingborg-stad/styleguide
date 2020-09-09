@@ -8,16 +8,12 @@
 ])
     @grid([])
         @card([
-            'collapsible' => true,
             'heading' => 'Heading',
             'subHeading' => 'SubHeading', 
-            'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
+            'content' => 'Linked card is not compatible with either dropdown or buttons. Markup will break if used togheter.',
             'image' => ['src' => 'https://www.w3schools.com/w3css/img_lights.jpg', 'alt' => 'ALT'],
             'imageFirst' => true,
-            'dropdown' => [
-                'items' => [['text' => 'test', 'link' => 'https://helsingborg.se']],
-                'buttonColor' => 'white'
-            ]
+            'link' => "https://helsingborg.se"
         ])
         @endcard
     @endgrid

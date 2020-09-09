@@ -1,5 +1,4 @@
 .c-slider {
-    padding: 0 15px;
     overflow: hidden;
     position: relative;
 
@@ -36,6 +35,24 @@
             right: 0;
             margin-right: map-get($spacers, "1");
         }
+    }
+
+    &__navigation--hover {
+        .c-slider__button,
+        .c-steppers {
+            display: none;
+        }
+
+        &:hover {
+            .c-slider__button,
+            .c-steppers {
+                display: block;
+            }
+        }
+    }
+
+    &__peek {
+        padding: 0 map-get($spacers, "2");
     }
 }
 
