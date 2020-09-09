@@ -15,7 +15,7 @@
             'image' => ['src' => 'https://www.w3schools.com/w3css/img_lights.jpg', 'alt' => 'ALT'],
             'imageFirst' => true,
             'dropdown' => [
-                'items' => [['text' => 'test']],
+                'items' => [['text' => 'test', 'link' => 'https://helsingborg.se']],
                 'buttonColor' => 'white'
             ]
         ])
