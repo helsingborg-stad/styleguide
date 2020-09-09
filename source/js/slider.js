@@ -3,14 +3,27 @@
 import Steppers from "./steppers";
 
 export default class Slider {
-    constructor() {
-        this.CLASS = "c-segment";
-        this.ATTR = "js-slider";
-        this.BTN = "js-slider-btn";
-        this.INDEX = "js-slider-index";
-        this.INNER = "js-slider-inner";
-        this.STEP = "data-step";
+    constructor(slider) {
+        this.SLIDER     = slider;
+        this.CLASS      = "c-segment";
+        this.ATTR       = "js-slider";
+        this.BTN        = "js-slider-btn";
+        this.INDEX      = "js-slider-index";
+        this.INNER      = "js-slider-inner";
+        this.AUTOSLIDE  = "js-slider__autoslide";
+        this.STEP       = "data-step";
+        this.PAUSEHOVER = false;
+
         this.StepperInstance = new Steppers;
+        
+        this.applySliders();
+        this.enableStepper();
+
+        if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
+            this.autoSlider();
+            this.autoSliderHoverHandler();
+        };
+        
     }
 
     /**
@@ -18,82 +31,115 @@ export default class Slider {
      * @return {void}
      */
     applySliders() {
-        const sliders = document.querySelectorAll(`[${this.ATTR}]`);
-
-        if (sliders.length > 0) {
-            sliders.forEach((slider) => {
-                this.StepperInstance.enableStepper(
-                    'dots',
-                    slider.parentElement,
-                    this.getItemsLength(slider),
-                    true
-                );
-
-                slider.querySelectorAll(`[${this.BTN}]`).forEach((button) => {
-                    button.addEventListener('click', (e) => {
-                        this.clickedBtn(e, slider);
-                    });
-                })
-            })
-        }
+        this.SLIDER.querySelectorAll(`[${this.BTN}]`).forEach((button) => {
+            button.addEventListener('click', (e) => {
+                this.clickedBtn(e);
+            });
+        })
     }
 
     /**
      * Handles click on either next och previous button
      * @param {Object} e The click event
-     * @param {Object} elm The slider element
      */
-    clickedBtn(e, elm) {  
+    clickedBtn(e) {  
         let newIndex;
 
         if (e.target.closest("button").getAttribute(this.BTN) === 'prev') {
-            newIndex = this.getCurrentIndex(elm) === 0 ? 
-                this.getItemsLength(elm) -1 :
-                    this.getCurrentIndex(elm) -1;
+            newIndex = this.prevIndex(this.getCurrentIndex(this.SLIDER))
 
         } else if (e.target.closest("button").getAttribute(this.BTN) === 'next') {
-            newIndex = this.getCurrentIndex(elm) <= (this.getItemsLength(elm) - 2) ?
-                this.getCurrentIndex(elm) +1 :
-                    0;
+            newIndex = this.nextIndex(this.getCurrentIndex(this.SLIDER))
         }
 
-        elm.setAttribute(this.INDEX, newIndex);
-        elm.setAttribute(this.STEP, newIndex);
-        this.StepperInstance.enableStepper(
-            'dots',
-            elm.parentElement,
-            this.getItemsLength(elm),
-            false
-        );
-        this.moveToIndex(elm);
+        this.updateSlider(newIndex);
+    }
+
+    updateSlider(newIndex) {
+        this.SLIDER.setAttribute(this.INDEX, newIndex);
+        this.SLIDER.setAttribute(this.STEP, newIndex);
+        this.updateStepper();
+        this.moveToIndex();
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    autoSlider() {
+        setTimeout(
+            () => {
+                if(!this.PAUSEHOVER) {
+                    this.updateSlider(this.nextIndex(this.getCurrentIndex(this.SLIDER)));
+                    
+                }
+                this.autoSlider();
+            }
+        , this.getAutoSliderDelay());
+    }
+
+    getAutoSliderDelay() {
+        return this.SLIDER.getAttribute(this.AUTOSLIDE) * 1000;
+    }
+
+    autoSliderHoverHandler () {
+        this.SLIDER.addEventListener('mouseenter', () => {
+            this.PAUSEHOVER = true
+        })
+
+        this.SLIDER.addEventListener('mouseleave', (e) => {
+            if (e.target === this.SLIDER) {
+                this.PAUSEHOVER = false
+            }
+        })
+    }
+
+    prevIndex(current) {
+        return current === 0 ? this.getItemsLength(this.SLIDER) -1 : current -1;
+    }
+
+    nextIndex(current) {
+        return current <= (this.getItemsLength(this.SLIDER) - 2) ? current +1 : 0;
     }
 
     /**
      * Sets the appropriate styling to slide to the requested slide
-     * @param {Object} elm The slider element
      */
-    moveToIndex(elm) {
+    moveToIndex() {
         /* eslint-disable-next-line */
-        elm.querySelector(`[${this.INNER}]`).style.transform =
-            `translateX(-${elm.getAttribute(this.INDEX)}00%)`;
+        this.SLIDER.querySelector(`[${this.INNER}]`).style.transform =
+            `translateX(-${this.SLIDER.getAttribute(this.INDEX)}00%)`;
     }
 
     /**
      * Returns the current index of the slider component
-     * @param {Object} elm The slider element
      * @return {Int} The current index
      */
-    getCurrentIndex(elm) {
-        return parseInt(elm.getAttribute(this.INDEX), 10)
+    getCurrentIndex() {
+        return parseInt(this.SLIDER.getAttribute(this.INDEX), 10)
     }
 
     /**
      * Returns how many slides are present inside the the slider.
      * Starts at 1.
-     * @param {Object} elm 
      * @return {Int} The amount of slides
      */
-    getItemsLength(elm) {
-        return elm.getElementsByClassName(this.CLASS).length
+    getItemsLength() {
+        return this.SLIDER.getElementsByClassName(this.CLASS).length
+    }
+
+    updateStepper() {
+        this.StepperInstance.enableStepper(
+            'dots',
+            this.SLIDER.parentElement,
+            this.getItemsLength(this.SLIDER),
+            false
+        );
+    }
+
+    enableStepper() {
+        this.StepperInstance.enableStepper(
+            'dots',
+            this.SLIDER.parentElement,
+            this.getItemsLength(this.SLIDER),
+            true
+        );
     }
 }
