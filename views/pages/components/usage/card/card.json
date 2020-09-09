@@ -23,6 +23,10 @@
     "heading": "Buttons",
     "subHeading": "",
     "text": "You can configure a card with buttons that will be rendered in the footer."
+  },
+  "linked": {
+    "heading": "Linked card",
+    "subHeading": "",
+    "text": "Links whole card."
   }
-  
 }
