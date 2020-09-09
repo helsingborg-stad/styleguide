@@ -110,9 +110,9 @@ export default class DynamicSidebar {
                             trigger.setAttribute('aria-pressed', ariaPressed);
                             
                             if (!trigger.getAttribute('aria-loaded')) {
+                                trigger.setAttribute('aria-loaded', 'true');
                                 this.appendChildren(parentId).then((child) => {
                                     parent.appendChild(child);
-                                    trigger.setAttribute('aria-loaded', 'true');
                                     
                                     const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
             
@@ -125,6 +125,7 @@ export default class DynamicSidebar {
                             if(parentSubcontainer) {
                                 parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
                             }
+
                         });
                     }
             });
