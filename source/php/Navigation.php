@@ -58,10 +58,19 @@ class Navigation
                             $response[$item]['icon'] = self::$icons[$item]; 
                         }
 
+                        //Add ancestor item
+                        if(self::isAncestorItem($item)) {
+                            $response[$item]['ancestor'] = true; 
+                        }
+
                         //Add current item
                         if(self::isActiveItem($item)) {
                             $response[$item]['active'] = true; 
                         }
+
+                        //No async on this site
+                        $response[$item]['async'] = false; 
+                        
                     }
 
                     //Check if is dir (and traverse it)
@@ -111,8 +120,18 @@ class Navigation
         return false; 
     }
 
+    public static function isAncestorItem($item, $showFullRoute = false) {
+        $pathArray = self::getPathArray();
+
+        if(in_array($item, $pathArray) && $item != end($pathArray)) {
+            return true;
+        } 
+
+        return false;
+    }
+
     public static function getPathArray() {
-        return explode('/', parse_url(self::getPageUrl(), PHP_URL_PATH));
+        return array_filter(explode('/', parse_url(self::getPageUrl(), PHP_URL_PATH)));
     }
 
     public static function getPageDomain() {
