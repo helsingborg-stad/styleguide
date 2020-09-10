@@ -22,6 +22,7 @@ import Sidebar from './sidebar';
 import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
 import Table from './table';
+import Segment from './segment';
 
 expandSection();
 
@@ -47,6 +48,14 @@ if (sliders) {
         const SliderInstance = new Slider(slider);
     });
 }
+
+const segments = document.querySelectorAll('.c-segment');
+if (segments) {
+    segments.forEach(segment => {
+        const SegmentInstance = new Segment(segment);
+    });
+}
+
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();

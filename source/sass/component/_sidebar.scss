@@ -17,6 +17,10 @@ $baseClass: ".c-sidebar";
         z-index: $level-5;
     }
 
+    &__subcontainer--top {
+        padding: map-get($spacers, "6"); 
+    }
+
     &__logo {
         min-height: 140px;
         max-height: 140px;
@@ -62,14 +66,13 @@ $baseClass: ".c-sidebar";
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: map-get($spacers, "1") map-get($spacers, "6");
-
+        padding: map-get($spacers, "1") map-get($spacers, "1");
     }
-
+ 
     &__link {
         position: relative;
         min-height: 44px;
-        line-height: map-get($spacers, "3");
+        line-height: map-get($spacers, "2");
         padding: map-get($spacers, "2") 0;
         font-weight: 900;
         flex: 1;
@@ -90,8 +93,8 @@ $baseClass: ".c-sidebar";
 
         &:hover,
         &:active,
-        &[item-active="true"] {
-            color: $color-black;
+        &[item-active="1"] {
+            color: $color-black !important;
 
             &:after {
                 color: $color-black;
@@ -115,14 +118,12 @@ $baseClass: ".c-sidebar";
         cursor: pointer;
 
         &:hover {
-
             .bar {
                 background-color: $color-black;
             }
         }
 
         &[aria-pressed="true"] {
-
             .bar:nth-of-type(2) {
                 transform: translate(-50%, -50%) rotate(0deg);
             }
@@ -148,13 +149,13 @@ $baseClass: ".c-sidebar";
         width: 100%;
         max-height: 0;
         overflow: hidden;
+        padding-left: map-get($spacers, "1");
 
         &#{$baseClass}__item--is-expanded {
             max-height: unset;
         }
 
         #{$baseClass}__item {
-            padding-left: map-get($spacers, "2");
             padding-right: 0;
         }
 
@@ -163,6 +164,16 @@ $baseClass: ".c-sidebar";
         }
     }
 
+    &__link[item-ancestor="1"] ~ .c-sidebar__toggle .bar:nth-of-type(2),
+    &__link[item-active="1"] ~ .c-sidebar__toggle .bar:nth-of-type(2) {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    &__link[item-ancestor="1"] ~ &__subcontainer,
+    &__link[item-active="1"] ~ &__subcontainer {
+        max-height: unset;
+    }
+    
     a, a:visited {
         text-decoration-style: unset;
         text-decoration: none;
