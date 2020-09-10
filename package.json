@@ -1,7 +1,11 @@
 {
     "name": "@helsingborg-stad/styleguide",
     "appname": "styleguide",
+<<<<<<< Updated upstream
     "version": "0.10.14",
+=======
+    "version": "0.11.23",
+>>>>>>> Stashed changes
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",

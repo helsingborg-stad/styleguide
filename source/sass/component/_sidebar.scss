@@ -72,8 +72,8 @@ $baseClass: ".c-sidebar";
     &__link {
         position: relative;
         min-height: 44px;
-        line-height: map-get($spacers, "2");
-        padding: map-get($spacers, "2") 0;
+        line-height: map-get($spacers, "4");
+        padding: map-get($spacers, "1") 0;
         font-weight: 900;
         flex: 1;
         flex-grow: 1;
