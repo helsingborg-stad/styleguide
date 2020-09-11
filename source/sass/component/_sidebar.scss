@@ -93,7 +93,7 @@ $baseClass: ".c-sidebar";
         &:hover,
         &:active,
         &[item-active="1"] {
-            color: $color-black !important;
+            color: $color-black;
 
             &:after {
                 color: $color-black;
