@@ -15,15 +15,18 @@ export default class Slider {
         this.PAUSEHOVER = false;
 
         this.StepperInstance = new Steppers;
-        
-        this.applySliders();
-        this.enableStepper();
 
-        if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
-            this.autoSlider();
-            this.autoSliderHoverHandler();
-        };
-        
+        if (this.getItemsLength() > 1) {
+            this.applySliders();
+            this.enableStepper();
+
+            if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
+                this.autoSlider();
+                this.autoSliderHoverHandler();
+            };
+        } else {
+            this.hideControls();
+        }
     }
 
     /**
@@ -141,5 +144,16 @@ export default class Slider {
             this.getItemsLength(this.SLIDER),
             true
         );
+    }
+
+    /**
+     * Removes controls
+     * @return {Void}
+     */
+    hideControls() {
+        const controls = this.SLIDER.querySelectorAll('.c-slider__button');
+        controls.forEach(control => {
+            control.remove();
+        });
     }
 }
