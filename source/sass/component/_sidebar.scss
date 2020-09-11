@@ -164,16 +164,6 @@ $baseClass: ".c-sidebar";
         }
     }
 
-    &__link[item-ancestor="1"] ~ .c-sidebar__toggle .bar:nth-of-type(2),
-    &__link[item-active="1"] ~ .c-sidebar__toggle .bar:nth-of-type(2) {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    &__link[item-ancestor="1"] ~ &__subcontainer,
-    &__link[item-active="1"] ~ &__subcontainer {
-        max-height: unset;
-    }
-    
     a, a:visited {
         text-decoration-style: unset;
         text-decoration: none;
