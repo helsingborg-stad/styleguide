@@ -5,24 +5,64 @@
     border-radius: $border-radius-xs;
     color: $color-notice-text-default;
 
+    a,
+    a:hover,
+    a:active,
+    a:visited {
+        color: $color-notice-text-default;
+        text-decoration: underline;
+    }
+
     &--success {
         background-color: $color-success;
         color: $color-success-text;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: $color-success-text;
+            text-decoration: underline;
+        }
     }
 
     &--danger {
         background-color: $color-danger;
         color: $color-danger-text;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: $color-danger-text;
+            text-decoration: underline;
+        }
     }
 
     &--info {
         background-color: $color-info;
         color: $color-info-text;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: $color-info-text;
+            text-decoration: underline;
+        }
     }
 
     &--warning {
         background-color: $color-warning;
         color: $color-warning-text;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: $color-warning-text;
+            text-decoration: underline;
+        }
     }
 
     &__icon {
