@@ -5,6 +5,7 @@ export default class ToggleClasses {
         this.CLASS = 'js-toggle-class';
         this.GROUP = 'js-toggle-group';
         this.PRESSED = 'aria-pressed';
+        this.observeTriggers();
     }
 
     togglePressedTrigger (pressedTriggerId, groupId, pressedTrigger) {
@@ -48,8 +49,20 @@ export default class ToggleClasses {
         }
     }
 
-    applyToggle () {
-        const triggers = document.querySelectorAll(`[${this.TRIGGER}]`);
+    applyToggle (event = null) {
+        let triggers = document.querySelectorAll(`[${this.TRIGGER}]`);
+
+        if(event) {
+            let newTriggers = []
+            event.forEach((record)=>{
+                record.addedNodes.forEach((node) =>{
+                    if(node.getAttribute && node.getAttribute('js-toggle-trigger')) {
+                        newTriggers.push(node);
+                    }
+                })
+            })
+            triggers = newTriggers;
+        }
 
         triggers.forEach( (trigger)=>{
             trigger.addEventListener('click', (event) => {
@@ -59,5 +72,20 @@ export default class ToggleClasses {
                 this.togglePressedTrigger(triggerId, groupId, trigger);
             });
         })
+    }
+
+    observeTriggers(){
+        
+        const container = document.documentElement || document.body;
+        const observerOptions = {
+            childList: true,
+            subtree: true,
+        };
+ 
+        const observer = new MutationObserver((event) => {
+            this.applyToggle(event);
+        });
+        
+        observer.observe(container, observerOptions);    
     }
 }
