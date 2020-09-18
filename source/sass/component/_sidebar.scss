@@ -4,7 +4,6 @@ $baseClass: ".c-sidebar";
     display: flex;
     flex-direction: column;
     background-color: $color-nav-background;
-    transition: left 0.5s ease-in-out;
 
     &--fixed {
         width: 288px;
@@ -94,7 +93,7 @@ $baseClass: ".c-sidebar";
         &:hover,
         &:active,
         &[item-active="1"] {
-            color: $color-black !important;
+            color: $color-black;
 
             &:after {
                 color: $color-black;
@@ -150,9 +149,12 @@ $baseClass: ".c-sidebar";
         max-height: 0;
         overflow: hidden;
         padding-left: map-get($spacers, "1");
+        transition: opacity 200ms ease-in-out;
+        opacity: 0; 
 
         &#{$baseClass}__item--is-expanded {
             max-height: unset;
+            opacity: 1;
         }
 
         #{$baseClass}__item {

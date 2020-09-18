@@ -67,9 +67,10 @@
         left: -65px;
     }
 
-    &__bubble--color-dark p, &__bubble--color-light p {
+    &__bubble--color-dark &__bubble--inner,
+    &__bubble--color-light &__bubble--inner {
         flex-direction: row;
-        width: 80%;
+        width: 100%;
         display: flex;
         align-items: center;
         border-radius: $border-radius-lg;
@@ -78,11 +79,11 @@
 
     }
 
-    &__bubble--color-dark p {
+    &__bubble--color-dark &__bubble--inner {
         background-color: $color-comment-bubble-bg-dark;
     }
 
-    &__bubble--color-light p {
+    &__bubble--color-light &__bubble--inner {
         background-color: $color-comment-bubble-bg-light;
     }
 
