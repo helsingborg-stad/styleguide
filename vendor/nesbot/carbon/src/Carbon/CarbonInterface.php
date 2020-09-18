@@ -898,6 +898,23 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function calendar($referenceTime = null, array $formats = []);
 
     /**
+     * Checks if the (date)time string is in a given format and valid to create a
+     * new instance.
+     *
+     * @example
+     * ```
+     * Carbon::canBeCreatedFromFormat('11:12:45', 'h:i:s'); // true
+     * Carbon::canBeCreatedFromFormat('13:12:45', 'h:i:s'); // false
+     * ```
+     *
+     * @param string $date
+     * @param string $format
+     *
+     * @return bool
+     */
+    public static function canBeCreatedFromFormat($date, $format);
+
+    /**
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
@@ -1017,7 +1034,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @throws InvalidFormatException
      *
-     * @return static
+     * @return static|false
      */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
@@ -1811,6 +1828,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function floatDiffInRealSeconds($date = null, $absolute = true);
 
     /**
+     * Get the difference in weeks as float (microsecond-precision).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealWeeks($date = null, $absolute = true);
+
+    /**
      * Get the difference in year as float (microsecond-precision) using timestamps.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -1829,6 +1856,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return float
      */
     public function floatDiffInSeconds($date = null, $absolute = true);
+
+    /**
+     * Get the difference in weeks as float (microsecond-precision).
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInWeeks($date = null, $absolute = true);
 
     /**
      * Get the difference in year as float (microsecond-precision).
@@ -2345,8 +2382,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
      * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
      * ```
-     *
-     * @SuppressWarnings(PHPMD.EmptyCatchBlock)
      *
      * @param string $date
      * @param string $format
@@ -3347,8 +3382,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|DateTimeInterface|null $time
+     * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
      *
@@ -3454,8 +3489,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|DateTimeInterface|null $time
+     * @param DateTimeZone|string|null      $tz
      *
      * @throws InvalidFormatException
      *
@@ -3714,7 +3749,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param Closure|static|string|null $testNow real or mock Carbon instance
+     * @param Closure|static|string|false|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null);
 
@@ -4524,14 +4559,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RFC3339
      *
+     * @param bool $extended
+     *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String();
+     * echo Carbon::now()->toRfc3339String() . "\n";
+     * echo Carbon::now()->toRfc3339String(true) . "\n";
      * ```
      *
      * @return string
      */
-    public function toRfc3339String();
+    public function toRfc3339String($extended = false);
 
     /**
      * Format the instance as RFC7231
