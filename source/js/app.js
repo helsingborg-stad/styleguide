@@ -1,4 +1,4 @@
-import './polyfill';
+// import './polyfill';
 import '@babel/polyfill'; 
 
 import expandSection from './expand-section';
@@ -23,6 +23,8 @@ import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
 import Table from './table';
 import Segment from './segment';
+
+import './datepicker';
 
 expandSection();
 
@@ -71,7 +73,7 @@ SidebarInstance.applySidebar();
 const DynamicSidebarInstance = new DynamicSidebar();
 DynamicSidebarInstance.applySidebar();
 
-let filter = new Filter();
+const filter = new Filter();
 
 // Modal
 const ModalInstance = new Modal;
@@ -81,12 +83,10 @@ ModalInstance.enableModals();
 const SteppersInstance = new Steppers;
 SteppersInstance.enableStepper();
 
-//Menu
-let MenuInstance = new Menu();
+// Menu
+const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
-
-import './datepicker';
 
 // SCSS/CSS Compiler
 new initBuild();
