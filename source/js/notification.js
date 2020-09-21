@@ -2,10 +2,10 @@ class Notification{
     setup(){
         const containers = document.getElementsByClassName('c-notification__container');
 
-        if(containers){
+        if(containers && containers.length > 0){
             containers.forEach(container => {
                 const direction = container.getAttribute('direction');
-                const directionClass = 'c-notification__container--' + direction;
+                const directionClass = `c-notification__container--${  direction}`;
                 container.classList.add(directionClass);
                 this.setOnClickClose(container);
             });
@@ -34,7 +34,7 @@ class Notification{
                     if(node.classList.contains('c-notification')){
                         this.setAutoHideDuration(node);
                         node.addEventListener('click', ()=>{
-                            node.classList.add('c-notification--dying--'+ count)
+                            node.classList.add(`c-notification--dying--${ count}`)
                             node.outerHTML = '';
                         })
                     }
