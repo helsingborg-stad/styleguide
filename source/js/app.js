@@ -88,5 +88,7 @@ const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
 
+// Test package.
+
 // SCSS/CSS Compiler
 new initBuild();
