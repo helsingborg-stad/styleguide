@@ -16,20 +16,8 @@ jobs:
         registry-url: 'https://npm.pkg.github.com'
         scope: '@helsingborg-stad'
 
-    - name: Cache node_modules
-      id: cache-modules
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-
-    - name: Npm install
-      if: steps.cache-modules.outputs.cache-hit != 'true'
-      run: npm ci
-
-    - name: Publish
-      uses: mikeal/merge-release@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_REGISTRY_URL: 'https://npm.pkg.github.com'
+    - name: Publish and tag
+      run: |
+        npm ci
+        npm version
+        npm publish
