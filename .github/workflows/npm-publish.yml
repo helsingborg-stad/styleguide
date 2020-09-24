@@ -15,10 +15,15 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://npm.pkg.github.com'
 
-    - name: Publish and tag
-      run: |
-        npm ci
-        npm version
-        npm publish
+    - name: Install
+      run: npm ci
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Version
+      run: npm version patch
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Version
+      run: npm publish
       env:
         NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
