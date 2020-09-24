@@ -79,27 +79,27 @@
     }
 
     &--xs {
-        font-size: map-get($icon-sizes, "xs");
+        font-size: $base; 
     }
 
     &--sm {
-        font-size: map-get($icon-sizes, "sm");
+        font-size: $base * 2; 
     }
 
     &--md {
-        font-size: map-get($icon-sizes, "md");
+        font-size: $base * 2 + ($base / 4); 
     }
 
     &--lg {
-        font-size: map-get($icon-sizes, "lg");
+        font-size: $base * 2 + ($base / 2); 
     }
 
     &--xl {
-        font-size: map-get($icon-sizes, "xl");
+        font-size: $base * 3; 
     }
 
     &--xxl {
-        font-size: map-get($icon-sizes, "xxl");
+        font-size: $base * 4;
     }
 }
 
