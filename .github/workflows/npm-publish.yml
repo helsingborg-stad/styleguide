@@ -21,3 +21,6 @@ jobs:
         npm ci
         npm version
         npm publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
