@@ -2,7 +2,7 @@
     @include shadow(5);
     padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
-    border-radius: $border-radius-xs;
+    border-radius: $border-radius-sm;
     color: $color-notice-text-default;
 
     a,
@@ -66,8 +66,10 @@
     }
 
     &__icon {
-        margin-right: map-get($spacers, "1");
+        margin-right: map-get($spacers, "2");
         vertical-align: sub;
+        opacity: .7;
+        line-height: 1; 
     }
 
 }
