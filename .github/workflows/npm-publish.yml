@@ -38,6 +38,3 @@ jobs:
 
     - name: Publish
       run: npm publish
-
-    - name: Cleanup .npmrc
-      run: rm ~/.npmrc
