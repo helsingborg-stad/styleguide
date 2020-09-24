@@ -40,8 +40,8 @@ jobs:
       run: npm publish
 
     - name: Create release
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          automatic_release_tag: "latest"
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        automatic_release_tag: "latest"
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
