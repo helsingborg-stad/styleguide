@@ -13,8 +13,7 @@
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
         "express-server": "node build/expressServer.js",
         "phpcs-report": "php phpcs.phar source/library --standard=psr2",
-        "phpcs-fix": "php phpcbf.phar source/library --standard=psr2",
-        "postversion": "git push && git push --tags"
+        "phpcs-fix": "php phpcbf.phar source/library --standard=psr2"
     },
     "repository": {
         "type": "git",
