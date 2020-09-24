@@ -4,6 +4,7 @@
     background-color: $color-white;
     transition: box-shadow 200ms, background-color 200ms; 
     border-radius: 12.5px;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto auto auto auto;
