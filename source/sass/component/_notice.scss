@@ -2,7 +2,7 @@
     @include shadow(5);
     padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
-    border-radius: $border-radius-xs;
+    border-radius: $border-radius-sm;
     color: $color-notice-text-default;
 
     a,
@@ -66,8 +66,10 @@
     }
 
     &__icon {
-        margin-right: map-get($spacers, "1");
+        margin-right: map-get($spacers, "2");
         vertical-align: sub;
+        opacity: .7;
+        line-height: 1; 
     }
 
 }
@@ -79,27 +81,27 @@
     }
 
     &--xs {
-        font-size: map-get($icon-sizes, "xs");
+        font-size: $base; 
     }
 
     &--sm {
-        font-size: map-get($icon-sizes, "sm");
+        font-size: $base * 2; 
     }
 
     &--md {
-        font-size: map-get($icon-sizes, "md");
+        font-size: $base * 2 + ($base / 4); 
     }
 
     &--lg {
-        font-size: map-get($icon-sizes, "lg");
+        font-size: $base * 2 + ($base / 2); 
     }
 
     &--xl {
-        font-size: map-get($icon-sizes, "xl");
+        font-size: $base * 3; 
     }
 
     &--xxl {
-        font-size: map-get($icon-sizes, "xxl");
+        font-size: $base * 4;
     }
 }
 
@@ -121,4 +123,8 @@
         @include slide(bottom);
     }
 
+}
+
+.c-notice + .c-notice {
+    margin-top: $base * 2; 
 }
