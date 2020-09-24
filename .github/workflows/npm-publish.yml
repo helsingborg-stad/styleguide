@@ -23,7 +23,7 @@ jobs:
         path: node_modules
         key: ${{ runner.OS }}-build-${{ hashFiles('package.json') }}
 
-    - name: Build
+    - name: Npm install
       if: steps.cache-modules.outputs.cache-hit != 'true'
       run: npm ci
 
@@ -32,3 +32,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_REGISTRY_URL: 'https://npm.pkg.github.com'
