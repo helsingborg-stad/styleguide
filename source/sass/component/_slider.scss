@@ -37,20 +37,6 @@
         }
     }
 
-    &__navigation--hover {
-        .c-slider__button,
-        .c-steppers {
-            display: none;
-        }
-
-        &:hover {
-            .c-slider__button,
-            .c-steppers {
-                display: block;
-            }
-        }
-    }
-
     &__peek {
         padding: 0 map-get($spacers, "2");
     }
