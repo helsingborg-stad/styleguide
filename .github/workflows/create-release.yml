@@ -1,0 +1,22 @@
+name: Build assets and create a release on version tags
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Release
+      uses: docker://antonyurchenko/git-release:latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DRAFT_RELEASE: "false"
+        PRE_RELEASE: "false"
+        CHANGELOG_FILE: "none"
+        ALLOW_TAG_PREFIX: "true"
