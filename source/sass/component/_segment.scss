@@ -169,7 +169,7 @@
 @include mq(map_get($breakpoints-map, "xs"), "md") {
 
     .c-segment {
-        padding: map-get($spacers, "3");
+        padding: map-get($spacers, "6");
         grid-gap: map-get($spacers, "1");
     }
 
