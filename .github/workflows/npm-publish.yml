@@ -14,7 +14,7 @@ jobs:
       with:
         node-version: '12.x'
 
-    - name: Install
+    - name: NPM Install
       run: npm ci
 
     - name: Setup git bot.
@@ -22,7 +22,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: Version
+    - name: NPM Version
       run: npm version patch
 
     - name: Push tag
@@ -36,5 +36,12 @@ jobs:
         echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> .npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
 
-    - name: Publish
+    - name: NPM Publish
       run: npm publish
+
+    - name: Create release
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          automatic_release_tag: "latest"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
