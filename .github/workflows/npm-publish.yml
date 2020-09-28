@@ -39,9 +39,13 @@ jobs:
     - name: NPM Publish
       run: npm publish
 
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
     - name: Create release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        automatic_release_tag: "latest"
+        automatic_release_tag: "${{ steps.package-version.outputs.current-version}}"
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
