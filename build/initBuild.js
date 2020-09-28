@@ -96,7 +96,7 @@ class initBuild {
     fetchFormData(componentArray) {
         const self = this;
         
-        fetch("http://localhost:1337/compilesasscomponent", {
+        fetch("https://"++ window.location.hostname ++":1337/compilesasscomponent", {
             method: "POST",
             mode: 'cors',
             body: JSON.stringify({
