@@ -12,6 +12,7 @@ module.exports = {
      */
     entry: {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
+        'buildcss': './build/index.js'
     },
     mode: 'development',
     watch: true,

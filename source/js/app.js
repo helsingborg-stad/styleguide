@@ -17,7 +17,7 @@ import EventCalendar from './calendar';
 import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
-import initBuild from './initBuild';
+import initBuild from '../../build/initBuild';
 import Sidebar from './sidebar';
 import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
@@ -87,6 +87,3 @@ SteppersInstance.enableStepper();
 const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
-
-// SCSS/CSS Compiler
-new initBuild();

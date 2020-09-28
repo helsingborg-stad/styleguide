@@ -68,6 +68,9 @@
     <!-- Styleguide - js -->
     <script src="/assets/dist/js/styleguide-js.min.js"></script>
 
+    <!-- Build - js -->
+    <script src="/assets/dist/js/buildcss.min.js"></script>
+
     <!-- Highlight js -->
     <script src="/assets/prism/prism.js"></script>
 
