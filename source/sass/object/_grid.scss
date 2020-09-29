@@ -51,7 +51,7 @@
 
     //Generate Columns
     @each $breakpoint in $breakpoints {
-        $suffix: get-breakpoint-suffix($breakpoint, true);
+        $suffix: get-breakpoint-suffix($breakpoint, null);
         
         //Generate list of column classes
         $columnClasses: ();
