@@ -10,6 +10,22 @@
         min-height: 1px;
     }
 
+    .o-grid > * {
+        @extend %column;
+    }
+
+    // Equal height elements modifier
+    .o-grid.o-grid--equal-elements > * {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+
+        > * {
+            flex: 1;
+        }
+    }
+
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
         @include mq($breakpoint) {
@@ -21,7 +37,7 @@
             %column {
                 padding-right: $gutter/2;
                 padding-left: $gutter/2;
-                margin-bottom: $base * 4;
+                margin-bottom: $base * 4;   
             }
         }
     }
