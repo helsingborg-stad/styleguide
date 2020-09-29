@@ -49,8 +49,6 @@
         $breakpoints: append($breakpoints, "print");
     }
 
-    @debug $breakpoints;
-    
     //Generate Columns
     @each $breakpoint in $breakpoints {
         $suffix: get-breakpoint-suffix($breakpoint, true);
