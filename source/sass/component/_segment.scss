@@ -122,16 +122,16 @@
     }
 
     &--dark:before {
-        background: #000;
+        background: $color-darkest;
     }
 
     &--light:before {
-        background: #fff;
+        background: $color-lighter;
     }
 
     &--opacity {
 
-        &-low:before {
+        &-high:before {
             opacity: 0.8;
         }
 
@@ -139,7 +139,7 @@
             opacity: 0.5;
         }
 
-        &-high:before {
+        &-low:before {
             opacity: 0.3;
         }
     }
