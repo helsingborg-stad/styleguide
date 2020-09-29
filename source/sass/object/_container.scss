@@ -1,0 +1,27 @@
+.o-container {
+    width: 100%;
+    max-width: $container-width;
+    margin: 0 auto;   
+    padding: 0 $base * 4;
+}
+
+// Nested containers should not apply padding nor margin
+.o-container .o-container {
+    padding: 0;
+    margin: 0 0;
+}
+
+.o-container.o-container--content {
+    max-width: $container-width-content;
+}
+
+.o-container.o-container--wide,
+.o-container.o-container--fullwidth {
+    width: 100%;
+    max-width: 100%;
+}
+
+.o-container.o-container--fullwidth {
+    padding: 0 0;
+    overflow-x: hidden;
+}
