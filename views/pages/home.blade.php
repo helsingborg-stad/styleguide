@@ -73,7 +73,7 @@
     ])
         @grid([])
             @card([
-                'heading' => 'Components',
+                'heading' => 'Components this titlemight be breaking',
                 'subHeading' => 'A web for everyone',
                 'imageFirst' => true,
                 'content' => 'The component library is a collection of robust views with built-in logic to handle common scenarios.',
