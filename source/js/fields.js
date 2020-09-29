@@ -68,7 +68,7 @@ class Fields {
     formValidationEventListerners() {
         
         const self = this;
-        const inputs = document.querySelectorAll('input[required], textarea[required]');
+        const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
         
         for (const formInput of inputs) {
             let inputId = formInput.getAttribute('id');
@@ -125,7 +125,6 @@ class Fields {
             }
             
             const id = this.formElement.getAttribute('id');
-            console.log(this.formElement);
             if (!valid && !this.formElement.checkValidity()) {
                 this.formElement.classList.add('invalid');
                 
