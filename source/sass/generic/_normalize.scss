@@ -352,3 +352,12 @@ template {
 [hidden] {
     display: none;
 }
+
+
+/**
+   * Make images not bleed outside container
+   */
+
+img {
+    max-width: 100%;
+}
