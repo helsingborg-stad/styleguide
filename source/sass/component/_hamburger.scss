@@ -1,14 +1,52 @@
+
+// Override hamburger settings
+
+$hamburger-padding-x: $base * 3 !default;
+$hamburger-padding-y: $base * 2 !default;
+$hamburger-types     : (slider) !default;
+
+// $hamburger-padding-x           : 15px;
+// $hamburger-padding-y           : 15px;
+$hamburger-layer-width         : 32px !default;
+$hamburger-layer-height        : 3px !default;
+$hamburger-layer-spacing       : 6px !default;
+// $hamburger-layer-color         : #000;
+// $hamburger-layer-border-radius : 4px;
+// $hamburger-hover-opacity       : 0.7;
+// $hamburger-active-layer-color  : $hamburger-layer-color;
+// $hamburger-active-hover-opacity: $hamburger-hover-opacity;
+
+// // To use CSS filters as the hover effect instead of opacity,
+// // set $hamburger-hover-use-filter as true and
+// // change the value of $hamburger-hover-filter accordingly.
+// $hamburger-hover-use-filter   : false;
+// $hamburger-hover-filter       : opacity(50%);
+// $hamburger-active-hover-filter: $hamburger-hover-filter;
+
+@import "~hamburgers/_sass/hamburgers/hamburgers.scss";
+
 .hamburger {
-    vertical-align: initial !important;
     display: flex;
-    padding: 16px;
-    line-height: 1;
+    align-items: center;
+}
 
-    span.hamburger-label {
-        margin-left: 12px;
+.hamburger > * + * {
+    margin-left: $base * 1.5;
+}
+
+.hamburger-label {
+    font-size: 18px;
+}
+
+.hamburger.hamburger--stacked {
+    flex-direction: column;
+
+    .hamburger-label {
+        font-size: 14px;
     }
-
-    span.hamburger-box {
-        top: 2px;
+    & > * + *  {
+        margin-left: 0;
+        margin-top: $base;
     }
 }
+
