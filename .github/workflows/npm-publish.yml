@@ -1,4 +1,4 @@
-name: Tag and push npm package
+name: Tag and push npm package and create a version release.
 
 on:
   push:
@@ -46,6 +46,6 @@ jobs:
     - name: Create release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        automatic_release_tag: "${{ steps.package-version.outputs.current-version}}"
+        automatic_release_tag: "${{ steps.package-version.outputs.current-version }}"
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
