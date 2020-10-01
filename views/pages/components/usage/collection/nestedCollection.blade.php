@@ -19,7 +19,7 @@
     <!-- Alternative 2 for subitem -->
     @collectionItem()
       Pharetra Ultricies Nullam Venenatis Adipiscing
-      @collection()
+      @collection(['subCollection' => true])
         @collectionItem()
           Second level. Pharetra Ultricies Nullam. Alternative 2. 
         @endcollectionItem
