@@ -25,6 +25,11 @@
         bottom: 50%;
         transform: translateY(50%);
         z-index: $level-9;
+        font-size: 2.5em;
+        display: none;
+        padding: 0;
+        color: $color-lightest;
+        text-shadow: 0px 0px 2px $color-black;
 
         &--prev {
             left: 0;
@@ -35,6 +40,7 @@
             right: 0;
             margin-right: map-get($spacers, "1");
         }
+
     }
 
     &__peek {
@@ -44,11 +50,8 @@
 
 @include mq(map_get($breakpoints-map, "md")) {
     .c-slider {
-        .c-steppers {
-            bottom: 60px;
-        }
-
         &__button {
+            display: block;
             &--prev {
                 margin-left: map-get($spacers, "3");
             }
