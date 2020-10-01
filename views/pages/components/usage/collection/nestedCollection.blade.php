@@ -5,12 +5,25 @@
     @collectionItem()
       Condimentum Ullamcorper
     @endcollectionItem
+
+    <!-- Alternative 1 for subitem -->
     @collectionItem()
       Pharetra Ultricies Nullam Venenatis Adipiscing
-      
-      @collectionItem()
-        Second level. Pharetra Ultricies Nullam.
-      @endcollectionItem
-
+      @slot('subItem')
+        @collectionItem()
+          Second level. Pharetra Ultricies Nullam. Alternative 1. 
+        @endcollectionItem
+      @endslot
     @endcollectionItem
+
+    <!-- Alternative 2 for subitem -->
+    @collectionItem()
+      Pharetra Ultricies Nullam Venenatis Adipiscing
+      @collection()
+        @collectionItem()
+          Second level. Pharetra Ultricies Nullam. Alternative 2. 
+        @endcollectionItem
+      @endcollection
+    @endcollectionItem
+
 @endcollection
