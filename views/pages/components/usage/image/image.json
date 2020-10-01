@@ -13,5 +13,10 @@
         "heading": "Rounded corners",
         "subHeading": "",
         "text": "An image with border radius for rounded corners"
+    },
+    "missing": {
+        "heading": "Missing plain image",
+        "subHeading": "",
+        "text": "Image not found but rendered as a placeholder."
     }
 }
