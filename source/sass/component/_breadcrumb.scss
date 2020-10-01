@@ -13,6 +13,16 @@
         padding: 0 map-get($spacers, "1") 0 0;
         margin: 0;
         color: $color-breadcrumb-active;
+        display: none;
+
+        /* Mobile adaption */
+        &:nth-last-child(2) {
+            display: block;
+        }
+
+        @include mq(map_get($breakpoints-map, "sm")) {
+            display: block;
+        }
     }
 
     &__link,
@@ -25,5 +35,9 @@
     .c-icon {
         color: $color-breadcrumb-icon;
         vertical-align: -10%; /* TODO: Fix */
+
+        @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+            transform: rotate(180deg);
+        }
     }
 }
