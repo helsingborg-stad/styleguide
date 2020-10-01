@@ -12,14 +12,38 @@
     align-content: center;
 
     &__container {
-        box-shadow: 0 0 8px rgba(3,3,3,0.18);
-        background-color: #fff;
+        background: #fff;
+        background: rgba(#fff, 0.7);
+        backdrop-filter: blur(4px);
         border-radius: 2px;
         padding: map-get($spacers, "2");
         align-self: center;
-        max-width: 70%;
+        max-width: 90%;
         margin: 0 auto;
         z-index: $level-1;
+
+        &--primary {
+            background: $color-primary;
+            background: rgba($color-primary, 0.7);
+            color: $color-white;
+        }
+
+        &--secondary {
+            background: $color-secondary;
+            background: rgba($color-secondary, 0.7);
+        }
+
+        &--tertiary {
+            background: $color-tertiary;
+            background: rgba($color-tertiary, 0.7);
+            color: $color-white;
+        }
+
+        &--primary,
+        &--secondary,
+        &--third {
+            color: $color-white;
+        }
     }
 }
 
@@ -87,8 +111,22 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "md")) {
+@include mq(map_get($breakpoints-map, "lg")) {
+    .c-segment {
+        &__container {
+            padding: map-get($spacers, "4");
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "lg")) {
     .c-segment {
         padding: map-get($spacers, "6");
+
+        &__container {
+            max-width: 40%;
+            margin-left: 10%;
+            padding: map-get($spacers, "6");
+        }
     }
 }
