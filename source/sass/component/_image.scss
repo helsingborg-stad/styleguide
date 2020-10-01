@@ -25,6 +25,49 @@ $radius: (
 );
 
 // ***************************************************************
+// *** Placeholder
+// ***************************************************************
+
+.c-image--is-placeholder {
+    @include ratio(16,9, true); 
+    position: relative;
+    line-height: 0; 
+    border: 1px solid $color-image-placeholder-border; 
+    background-color: $color-image-placeholder-background; 
+    user-select: none;
+}
+
+.c-image__placeholder {
+    @include cover();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    @include mq(map_get($breakpoints-map, "sm")) {
+        flex-direction: row;
+    }
+
+    .c-icon {
+        color: $color-image-placeholder-icon; 
+    }
+
+    .c-image__placeholder-text {
+        color: $color-image-placeholder-label; 
+        font-weight: bold;
+    }
+
+    .c-icon +.c-image__placeholder-text {
+        margin-top: map-get($spacers, "2");
+
+        @include mq(map_get($breakpoints-map, "sm")) {
+            margin-left: map-get($spacers, "1");
+            margin-top: 0;
+        }
+    }
+}
+
+// ***************************************************************
 // *** Image
 // ***************************************************************
 
