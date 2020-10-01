@@ -23,26 +23,33 @@
         z-index: $level-1;
 
         &--primary {
+            .c-segment__container {
             background: $color-primary;
             background: rgba($color-primary, 0.7);
-            color: $color-white;
+            color: $color-white;}
         }
 
         &--secondary {
-            background: $color-secondary;
-            background: rgba($color-secondary, 0.7);
+            .c-segment__container {
+                background: $color-secondary;
+                background: rgba($color-secondary, 0.7);
+            }
         }
 
         &--tertiary {
-            background: $color-tertiary;
-            background: rgba($color-tertiary, 0.7);
-            color: $color-white;
+            .c-segment__container {
+                background: $color-tertiary;
+                background: rgba($color-tertiary, 0.7);
+                color: $color-white;
+            }
         }
 
         &--primary,
         &--secondary,
         &--third {
+            .c-segment__container {
             color: $color-white;
+            }
         }
     }
 }
