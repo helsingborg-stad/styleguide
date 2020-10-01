@@ -1,0 +1,7 @@
+{
+    "collection":{
+        "heading": "Collection",
+        "subHeading": "",
+        "text": "Displays anything a as a simple list. This component consists of two interacting components @collection and @collectionItem."
+    }
+}
