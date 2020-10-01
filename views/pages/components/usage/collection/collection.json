@@ -2,7 +2,7 @@
     "collection":{
         "heading": "Collection",
         "subHeading": "",
-        "text": "Lists are a continuous group of text or images. They are composed of items containing primary and supplemental actions, which are represented by icons and text. This component consists of multiple interacting components (@collection and @collectionItem)."
+        "text": "Collections are a continuous group of text or images. They are composed of items containing primary and supplemental actions, which are represented by icons and text. This component consists of multiple interacting components (@collection and @collectionItem)."
     },
     "simpleCollection": {
         "heading": "Simple collection",
@@ -30,12 +30,12 @@
         "text": "You should change the list item alignment when displaying 3 lines or more."
     },
     "collectionControls": {
-        "heading": "List item controls",
+        "heading": "Collection item controls",
         "subHeading": "",
         "text": "You can add custom controls to the list item, this can be a checkbox, radio etc."
     },
     "collectionSubheaders": {
-        "heading": "List subheaders",
+        "heading": "Collection subheaders",
         "subHeading": "Subheaders provide context to large collections spanning multiple topics.",
         "text": ""
     }
