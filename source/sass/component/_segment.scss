@@ -4,43 +4,22 @@
 
 .c-segment {
     position: relative;
+    display: flex;
     width: 100%;
     background-size: cover;
-    padding: map-get($spacers, "10");
+    padding: map-get($spacers, "2");
     justify-content: center;
     align-content: center;
 
     &__container {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        box-shadow: 0 0 8px rgba(3,3,3,0.18);
+        background-color: #fff;
+        border-radius: 2px;
+        padding: map-get($spacers, "2");
+        align-self: center;
+        max-width: 70%;
+        margin: 0 auto;
         z-index: $level-1;
-    }
-}
-
-.c-segment__layout {
-
-    &--col {
-
-        &-right,
-        &-left {
-            grid-template-columns: minmax(0, 400px) minmax(0, 400px);
-            grid-template-rows: min-content min-content;
-        }
-
-        &-right {
-            grid-template-areas:
-                "top main"
-                "bottom main"
-            ;
-        }
-
-        &-left {
-            grid-template-areas:
-                "main top"
-                "main bottom"
-            ;
-        }
     }
 }
 
@@ -85,44 +64,6 @@
     }
 }
 
-.c-segment__overlay {
-
-    &--blur:before,
-    &--dark:before,
-    &--light:before {
-        content: "";
-        z-index: $level-1;
-        @include cover();
-    }
-
-    &--blur:before {
-        backdrop-filter: blur(2px);
-    }
-
-    &--dark:before {
-        background: $color-darkest;
-    }
-
-    &--light:before {
-        background: $color-lighter;
-    }
-
-    &--opacity {
-
-        &-high:before {
-            opacity: 0.8;
-        }
-
-        &-medium:before {
-            opacity: 0.5;
-        }
-
-        &-low:before {
-            opacity: 0.3;
-        }
-    }
-}
-
 .c-segment__background--video {
     position: absolute;
     width: 100%;
@@ -146,24 +87,8 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
-
+@include mq(map_get($breakpoints-map, "md")) {
     .c-segment {
         padding: map-get($spacers, "6");
-        grid-gap: map-get($spacers, "1");
-    }
-
-    .c-segment__layout {
-        &--col {
-            &-right,
-            &-left {
-                grid-template-columns: minmax(0, 800px);
-                grid-template-rows: auto auto auto;
-                grid-template-areas:
-                    "top"
-                    "main"
-                    "bottom";
-            }
-        }
     }
 }
