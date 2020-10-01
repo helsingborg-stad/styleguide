@@ -6,37 +6,33 @@
         'height' => 'md',
         'color' => 'black'
     ])
-        @slot('top')
-            @typography([
-                'element' => 'h1',
-                'classList' => ['u-color__text--primary']
-            ])
-                Error 404
-            @endtypography
+        @typography([
+            'element' => 'h1',
+            'classList' => ['u-color__text--primary']
+        ])
+            Error 404
+        @endtypography
 
-            @typography([
-                'element' => 'p',
-                'variant' => 'subtitle'
-            ])
-                We cannot find that, have you looked in the refrigerator?
-            @endtypography
-        @endslot
+        @typography([
+            'element' => 'p',
+            'variant' => 'subtitle'
+        ])
+            We cannot find that, have you looked in the refrigerator?
+        @endtypography
 
-        @slot('main')
-            @code(['language' => 'php', 'content' => ''])
-                {!! $errorMessage !!}
-            @endcode
-        @endslot
+        @code(['language' => 'php', 'content' => ''])
+            {!! $errorMessage !!}
+        @endcode
 
         @slot('bottom')
-        @button([
-            'text' => 'Go Home',
-            'href' => '/',
-            'color' => 'primary',
-            'type' => 'filled'
-        
-        ])
-        @endbutton
-    @endslot
+            @button([
+                'text' => 'Go Home',
+                'href' => '/',
+                'color' => 'primary',
+                'type' => 'filled'
+            
+            ])
+            @endbutton
+        @endslot
     @endsegment
 @endsection

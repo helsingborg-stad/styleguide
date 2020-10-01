@@ -19,38 +19,36 @@
     ]
 
 ])
-    @slot('main')
+    @typography([
+        'element' => 'h1',
+        'variant' => 'h1',
+        'classList' => ['p-home__intro-header']
+    ])
+        Helsingborg Stad
+    @endtypography
+    <div class="p-home__intro-subtitle">
         @typography([
-            'element' => 'h1',
-            'variant' => 'h1',
-            'classList' => ['p-home__intro-header']
+            'element' => 'h2',
+            'variant' => 'h2',
+            'classList' => ['p-home__intro-subtitle__part']
         ])
-            Helsingborg Stad
+            Styleguide
         @endtypography
-        <div class="p-home__intro-subtitle">
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2',
-                'classList' => ['p-home__intro-subtitle__part']
-            ])
-                Styleguide
-            @endtypography
-            <div class="p-home__intro-subtitle__divider"></div>
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2',
-                'classList' => ['p-home__intro-subtitle__part']
-            ])
-                Version 2.0
-            @endtypography
-        </div>
+        <div class="p-home__intro-subtitle__divider"></div>
         @typography([
-            'element' => 'p',
-            'variant' => 'body'
-        ])        
-            The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
+            'element' => 'h2',
+            'variant' => 'h2',
+            'classList' => ['p-home__intro-subtitle__part']
+        ])
+            Version 2.0
         @endtypography
-    @endslot
+    </div>
+    @typography([
+        'element' => 'p',
+        'variant' => 'body'
+    ])        
+        The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
+    @endtypography
 
     @slot('bottom')
         You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
@@ -171,7 +169,6 @@
         ]
 
     ])
-        @slot('main')
             <div class="p-home__update">
                 @typography([
                     'element' => 'p',
@@ -218,10 +215,7 @@
                 @endtypography
                 </div>
             @endforeach --}}
-            
 
-            
-        @endslot
     @endsegment
 @stop
 
