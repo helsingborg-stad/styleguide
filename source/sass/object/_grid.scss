@@ -1,0 +1,131 @@
+@mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
+    .o-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    %column {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+    }
+
+    .o-grid > * {
+        @extend %column;
+    }
+
+    // Equal height elements modifier
+    .o-grid.o-grid--equal-elements > * {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+
+        > * {
+            flex: 1;
+        }
+    }
+
+    //Gutter styles
+    @each $breakpoint, $gutter in $gutters {
+        @include mq($breakpoint) {
+            .o-grid {
+                margin-left: $gutter/2 * -1;
+                margin-right: $gutter/2 * -1;
+            }
+            
+            %column {
+                padding-right: $gutter/2;
+                padding-left: $gutter/2;
+                margin-bottom: $base * 4;   
+            }
+        }
+    }
+
+    .o-grid--no-gutter {
+        margin-left: 0;
+        margin-right: 0;
+
+        > %column {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .o-grid--no-margin > %column {
+        margin-bottom: 0;
+    }
+    
+    .o-grid--valign {
+        align-items: center;
+    }
+
+    //Include print breakpoint
+    @if $includePrint == true {
+        $breakpoints: append($breakpoints, "print");
+    }
+
+    //Generate Columns
+    @each $breakpoint in $breakpoints {
+        $suffix: get-breakpoint-suffix($breakpoint, null);
+        
+        //Generate list of column classes
+        $columnClasses: ();
+        @for $i from 1 to $columns + 1 {
+            $columnClasses: append($columnClasses, ", .o-grid-#{$i}#{$suffix}");
+        }
+
+        //Apply common column styles
+        .o-grid-auto#{$suffix},
+        .o-grid-fit#{$suffix},
+        #{$columnClasses} {
+            @extend %column;
+        }
+
+        //Breakpoint specific
+        @include mq($breakpoint) {
+
+            //Auto width column (eg .o-grid-auto@md)
+            .o-grid-auto#{$suffix} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+
+            //Fit content column (eg .o-grid-fit@md)
+            .o-grid-fit#{$suffix} {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: none;
+            }
+
+            @for $i from 1 to $columns + 1 {
+                //Width based Columns (eg .grid-md-6)
+                .o-grid-#{$i}#{$suffix} {
+                    flex: 0 0 #{$i / $columns * 100 * 1%};
+                    max-width: #{$i / $columns * 100 * 1%};
+                }
+
+                 //Order (eg .order-md-6)
+                .o-order-#{$i}#{$suffix} {
+                    order: $i;
+                }
+
+                //Offset (eg .offset-md-6)
+                .o-offset-#{$i}#{$suffix} {
+                    margin-left: #{$i / $columns * 100 * 1%};
+                }
+            }
+        }
+    }
+}
+
+$grid-columns: 12 !default;
+$grid-breakpoints: map-keys($breakpoints-map) !default;
+$grid-gutters: (
+    xs : $base,
+    md : $base * 3,
+    lg : $base * 4,
+) !default;
+
+@include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);

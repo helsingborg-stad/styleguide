@@ -1,4 +1,4 @@
-name: Tag and push npm package
+name: Tag and push npm package and create a version release.
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       with:
         node-version: '12.x'
 
-    - name: NPM Install
+    - name: NPM Install.
       run: npm ci
 
     - name: Setup git bot.
@@ -22,10 +22,10 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: NPM Version
+    - name: NPM Version.
       run: npm version patch
 
-    - name: Push tag
+    - name: Push tag.
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
         echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> .npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
 
-    - name: NPM Publish
+    - name: NPM Publish.
       run: npm publish
 
     - name: get-npm-version
@@ -46,6 +46,6 @@ jobs:
     - name: Create release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        automatic_release_tag: "${{ steps.package-version.outputs.current-version}}"
+        automatic_release_tag: "${{ steps.package-version.outputs.current-version }}"
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
