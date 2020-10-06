@@ -4,10 +4,10 @@
     "subHeading": "",
     "text": ""
   },
-  "dropdown": {
-    "heading": "With dropdown",
+  "onlySlot": {
+    "heading": "Only slot",
     "subHeading": "",
-    "text": ""
+    "text": "Here we've only sent data to the slot and nothing with the parameters."
   },
   "collapsible": {
     "heading": "Card with a collapsible body",

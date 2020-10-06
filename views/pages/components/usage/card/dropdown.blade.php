@@ -20,6 +20,19 @@
                 'buttonColor' => 'black'
             ]
         ])
+        @notice([
+            'type' => 'success',
+            'message' => [
+                'text' => 'Tellus Sem Lorem Malesuada Ipsum',
+                'size' => 'sm'
+            ],
+            'icon' => [
+                'name' => 'check',
+                'size' => 'md',
+                'color' => 'white'
+            ]
+        ])
+        @endnotice
         @endcard
     @endgrid
 @endgrid
