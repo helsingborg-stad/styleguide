@@ -21,10 +21,6 @@
         padding: map-get($spacers, "2"); 
     }
 
-    &__header {
-        padding-top: map-get($spacers, "3");
-    }
-
     &__body {
         padding-top: map-get($spacers, "3");
         padding-bottom: map-get($spacers, "3");
