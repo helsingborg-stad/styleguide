@@ -17,9 +17,8 @@ export default class DynamicSidebar {
             this.dynamicSidebars.forEach((sidebar) => {
 
                 this.endpoints.children = sidebar.getAttribute('endpoint-children');
-                this.endpoints.active = sidebar.getAttribute('endpoint-active');
-
                 this.addTriggers(sidebar.querySelectorAll('.c-sidebar__toggle'));  
+
                 sidebar.querySelectorAll('.c-sidebar__subcontainer').forEach((subContainer) => {
                     if(subContainer.childElementCount === 0) {
                         subContainer.parentElement.removeChild(subContainer);
@@ -31,16 +30,6 @@ export default class DynamicSidebar {
 
     getChildren(parentId) { 
         return fetch(`${this.endpoints.children  }?pageId=${  parentId}`)
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            return data;
-        });
-    }
-
-    getActiveItems() {
-        return fetch(`${this.endpoints.active  }?pageId=${  this.pageId}`)
         .then((response) => {
             return response.json();
         })
@@ -97,38 +86,34 @@ export default class DynamicSidebar {
      * @param {Object} sb The sidebar
     */
     addTriggers(toggleTriggers) {
-        this.getActiveItems().then((activeItems) =>{
-            toggleTriggers.forEach((trigger) => {
-                const parentId = trigger.getAttribute('aria-label');
-                const parent = trigger.parentElement;
+        toggleTriggers.forEach((trigger) => {
+            const parentId = trigger.getAttribute('aria-label');
+            const parent = trigger.parentElement;
 
-                    if(!activeItems.includes(trigger.getAttribute('aria-label'))){
+            trigger.addEventListener('click', () => {
+
+                const ariaPressed = (trigger.getAttribute('aria-pressed') === 'true') ? 'false' : 'true';
+                trigger.setAttribute('aria-pressed', ariaPressed);
+                
+                if (!trigger.getAttribute('aria-loaded')) {
+                    trigger.setAttribute('aria-loaded', 'true');
+                    this.appendChildren(parentId).then((child) => {
+                        parent.appendChild(child);
                         
-                        trigger.addEventListener('click', () => {
+                        const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
 
-                            const ariaPressed = (trigger.getAttribute('aria-pressed') === 'true') ? 'false' : 'true';
-                            trigger.setAttribute('aria-pressed', ariaPressed);
-                            
-                            if (!trigger.getAttribute('aria-loaded')) {
-                                trigger.setAttribute('aria-loaded', 'true');
-                                this.appendChildren(parentId).then((child) => {
-                                    parent.appendChild(child);
-                                    
-                                    const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
-            
-                                    this.addTriggers(parentSubcontainer.querySelectorAll('.c-sidebar__toggle'));
-                                });
-                            }
-            
-                            const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
-            
-                            if(parentSubcontainer) {
-                                parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
-                            }
+                        this.addTriggers(parentSubcontainer.querySelectorAll('.c-sidebar__toggle'));
+                    });
+                }
 
-                        });
-                    }
+                const parentSubcontainer = parent.querySelector('.c-sidebar__subcontainer');
+
+                if(parentSubcontainer) {
+                    parentSubcontainer.classList.toggle('c-sidebar__item--is-expanded');
+                }
+
             });
+            
         });
     }
 }
