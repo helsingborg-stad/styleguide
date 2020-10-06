@@ -26,25 +26,23 @@
     &--container-primary {
         .c-segment__container {
         background: $color-primary;
-        background: rgba($color-primary, 0.7);
         }
     }
 
     &--container-secondary {
         .c-segment__container {
             background: $color-secondary;
-            background: rgba($color-secondary, 0.7);
         }
     }
 
     &--container-tertiary {
         .c-segment__container {
             background: $color-tertiary;
-            background: rgba($color-tertiary, 0.7);
         }
     }
 
     &__container {
+        border-radius: $border-radius-lg;
         padding: map-get($spacers, "2");
         align-self: center;
         max-width: 90%;
