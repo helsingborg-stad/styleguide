@@ -2,7 +2,7 @@
     overflow: hidden;
     position: relative;
 
-    &--inner {
+    &__inner {
         display: flex;
         transition: all 0.7s ease-in-out;
 
@@ -22,12 +22,12 @@
         color: $color-lightest;
         text-shadow: 0px 0px 2px $color-black;
 
-        &--prev {
+        &-prev {
             left: 0;
             margin-left: map-get($spacers, "1");
         }
 
-        &--next {
+        &-next {
             right: 0;
             margin-right: map-get($spacers, "1");
         }
@@ -73,11 +73,11 @@
     .c-slider {
         &__button {
             display: block;
-            &--prev {
+            &-prev {
                 margin-left: map-get($spacers, "3");
             }
     
-            &--next {
+            &-next {
                 margin-right: map-get($spacers, "3");
             }
         }
