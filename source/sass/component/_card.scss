@@ -133,6 +133,10 @@ a.c-card {
         background-color: $color-code-background;
         color: inherit;
 
+        .c-card__heading {
+            text-decoration: underline;
+        }
+
         .c-card__header,
         .c-card__body {
             background: $color-lightest;
