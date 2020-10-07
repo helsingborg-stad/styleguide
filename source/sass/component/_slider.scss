@@ -2,7 +2,7 @@
     overflow: hidden;
     position: relative;
 
-    &--inner {
+    &__inner {
         display: flex;
         transition: all 0.7s ease-in-out;
 
@@ -11,30 +11,27 @@
         }
     }
 
-    .c-steppers {
-        bottom: -10px;
-        z-index: $level-9;
-
-        &__dot-active {
-            background-color: $color-primary;
-        }
-    }
-
     &__button {
         position: absolute;
         bottom: 50%;
         transform: translateY(50%);
         z-index: $level-9;
+        font-size: 2.5em;
+        display: none;
+        padding: 0;
+        color: $color-lightest;
+        text-shadow: 0px 0px 2px $color-black;
 
-        &--prev {
+        &-prev {
             left: 0;
             margin-left: map-get($spacers, "1");
         }
 
-        &--next {
+        &-next {
             right: 0;
             margin-right: map-get($spacers, "1");
         }
+
     }
 
     &__peek {
@@ -42,18 +39,45 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "md")) {
-    .c-slider {
-        .c-steppers {
-            bottom: 60px;
+.c-slider__steppers {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /**
+     * Dots
+     * Usage in galleries
+     */
+
+     .c-slider__dot {
+        border-radius: 50%;
+        background: $color-lighter;
+        display: inline-block;
+        width: $base * 1.5;
+        height: $base * 1.5;
+        margin: map-get($spacers, "1");
+
+        &:hover,
+        &--active {
+            background: $color-primary;
         }
 
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+    .c-slider {
         &__button {
-            &--prev {
+            display: block;
+            &-prev {
                 margin-left: map-get($spacers, "3");
             }
     
-            &--next {
+            &-next {
                 margin-right: map-get($spacers, "3");
             }
         }

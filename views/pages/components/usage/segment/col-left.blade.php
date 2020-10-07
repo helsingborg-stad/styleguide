@@ -7,10 +7,7 @@
     'color' => 'white',
     'classList' => ['u-color__bg--secondary']
 ])
-    @slot('top')
-    @endslot
 
-    @slot('main')
     @testimonials(
         ['perRow' => 1,
             'testimonials' => array(
@@ -25,8 +22,6 @@
             )]
         )
     @endtestimonials
-
-    @endslot
 
     @slot('bottom')
         @button([
