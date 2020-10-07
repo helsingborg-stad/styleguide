@@ -129,21 +129,44 @@ export default class Slider {
     }
 
     updateStepper() {
-        this.StepperInstance.enableStepper(
-            'dots',
-            this.SLIDER.parentElement,
-            this.getItemsLength(this.SLIDER),
-            false
-        );
+        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
+        const currentActive = stepper.querySelector(`.c-slider__dot--active`)
+        
+        if(currentActive) {
+            currentActive.classList.remove('c-slider__dot--active');
+        }
+
+        const dot = stepper.querySelector(`[js-slider__stepper__dot="${this.getCurrentIndex() ? this.getCurrentIndex() : 0}"]`);
+        dot.classList.add('c-slider__dot--active')
+
     }
 
     enableStepper() {
-        this.StepperInstance.enableStepper(
-            'dots',
-            this.SLIDER.parentElement,
-            this.getItemsLength(this.SLIDER),
-            true
-        );
+        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
+        const dot = stepper.querySelector('.c-slider__dot');
+
+        stepper.setAttribute('js-slider__stepper__current', 1)
+        stepper.innerHTML = ""
+
+        for (let index = 0; index < this.getItemsLength(); index++) {
+            const clone = dot.cloneNode();
+            clone.setAttribute('js-slider__stepper__dot', index)
+            stepper.appendChild(clone)
+        }
+
+        this.addStepperEvent()
+
+        this.updateStepper();
+    }
+
+    addStepperEvent() {
+        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
+
+        stepper.querySelectorAll(`[js-slider__stepper__dot]`).forEach((dot) => {
+            dot.addEventListener('click', (e) => {
+                this.updateSlider(e.target.getAttribute('js-slider__stepper__dot'))
+            });
+        })
     }
 
     /**

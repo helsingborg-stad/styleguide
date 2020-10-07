@@ -18,7 +18,7 @@
         ]
 
     ])
-    @slot('main')
+
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
@@ -32,9 +32,8 @@
         ])
         The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
         @endtypography
-
-    @endslot
     @endsegment
+
     <div class="g-divider g-divider--sm"></div>
     @segment([
         'template' => 'full',
@@ -53,8 +52,6 @@
         'classList' => ['p-home__hero']
     ])
     @endsegment
-
-
 
     <div class="p-component__atomic">
         <div class="p-component__atomic__image">

@@ -18,6 +18,13 @@ $color-secondary-dimmed: $color-secondary-dark !default; // To be deprecated
 $color-secondary-alpha: rgba(247, 166, 0, 0.08);
 $color-secondary-alpha-dimmed: rgba(247, 166, 0, 0.24);
 
+// Tertiary Colors
+$color-tertiary: #cb0050 !default;
+$color-tertiary-dark: #cb0050 !default; //Needs correcting
+$color-tertiary-light: #cb0050 !default; //Needs correcting
+$color-tertiary-alpha: rgba(#cb0050, 0.08);
+$color-tertiary-alpha-dimmed: rgba(#cb0050, 0.24);
+
 // Monotone Colors
 $color-default: #f5f5f5 !default;
 $color-black: #000000 !default;
