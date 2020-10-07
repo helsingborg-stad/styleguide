@@ -11,15 +11,6 @@
         }
     }
 
-    .c-steppers {
-        bottom: 0;
-        z-index: $level-9;
-
-        &__dot-active {
-            background-color: $color-primary;
-        }
-    }
-
     &__button {
         position: absolute;
         bottom: 50%;
@@ -45,6 +36,36 @@
 
     &__peek {
         padding: 0 map-get($spacers, "2");
+    }
+}
+
+.c-slider__steppers {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /**
+     * Dots
+     * Usage in galleries
+     */
+
+     .c-slider__dot {
+        border-radius: 50%;
+        background: $color-lighter;
+        display: inline-block;
+        width: $base * 1.5;
+        height: $base * 1.5;
+        margin: map-get($spacers, "1");
+
+        &:hover,
+        &--active {
+            background: $color-primary;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 
