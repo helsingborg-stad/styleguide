@@ -26,6 +26,13 @@
         padding-bottom: map-get($spacers, "3");
     }
 
+    &__body > *:first-child {
+        margin-top: 0;
+    }
+    &__body > *:last-child {
+        margin-bottom: 0;
+    }
+
     &__footer {
         border-top: 1px solid $color-lighter;
     }
