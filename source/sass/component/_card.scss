@@ -135,6 +135,26 @@ a.c-card {
     text-decoration: none;
     color: inherit; 
 
+    .c-card__image {
+        overflow: hidden;
+        position: relative;
+    }
+
+    .c-card__image:before {
+        content: '';
+        transition: opacity 200ms;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: $color-lighter;
+        opacity: 0;
+        z-index: $level-1; 
+    }
+
+    .c-card__image-background {
+        transition: transform 800ms;
+    }
+    
     &:hover {
         @include shadow(4);
         background-color: $color-code-background;
@@ -149,26 +169,22 @@ a.c-card {
             background: $color-lightest;
         }
 
-        .c-card__image {
-            position: relative;
-
-            &:before {
-                transition: opacity 200ms;
-                content: '';
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                background: $color-lighter;
-                opacity: 0.08
-            }
+        .c-card__image:before {
+            opacity: 0.08; 
+            
         }
+
+        .c-card__image-background {
+            transform: scale(1.03);
+        }
+    
     }
 
     &:focus {
         background-color: darken($color-code-background, 2%);
         .c-card__image {
             &:before {
-                opacity: 0.20
+                opacity: 0.20; 
             }
         }
     }
