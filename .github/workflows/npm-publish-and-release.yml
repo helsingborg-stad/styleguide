@@ -1,0 +1,64 @@
+name: Tag and push npm package and create a version release.
+
+on:
+  push:
+    branches:
+    - "master"
+jobs:
+  publish:
+    name: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: NPM Install.
+      run: npm ci
+
+    - name: Setup git bot.
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: NPM Version.
+      run: npm version patch
+
+    - name: Push tag.
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tags: true
+
+    - name: Inject access token in .npmrc
+      run: | 
+        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> .npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+
+    - name: NPM Publish.
+      run: npm publish
+
+    - name: get-npm-version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
+
+    - name: Run build for full release package.
+      run: php ./build.php --cleanup
+
+    - name: Cleanup .npmrc
+      run: rm ~/.npmrc
+
+    - name: Archive full release package
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'full-release.zip'
+
+    - name: Create release
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        automatic_release_tag: "${{ steps.package-version.outputs.current-version }}"
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: false
+        files: |
+          full-release.zip
