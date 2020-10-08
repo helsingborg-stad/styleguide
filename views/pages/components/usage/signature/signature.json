@@ -4,5 +4,23 @@
         "heading": "Signature Component",
         "subHeading" : "Give credit",
         "text": "The signature component allows you to display credits and dates"
+    },
+    "small": {
+        "grid": "",
+        "heading": "Signature Component - Small Avatar",
+        "subHeading" : "",
+        "text" : "Give credit to someone that barely deserves it."
+    },
+    "link": {
+        "grid": "",
+        "heading": "Linked Signature Component",
+        "subHeading" : "",
+        "text" : "Give credit, with a link."
+    },
+    "date": {
+        "grid": "",
+        "heading": "Signature Component - With dates",
+        "subHeading" : "",
+        "text" : "Give credit, with dates."
     }
 }

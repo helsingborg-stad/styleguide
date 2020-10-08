@@ -15,7 +15,6 @@ module.exports = {
         'buildcss': './build/index.js'
     },
     mode: 'development',
-    watch: true,
     watchOptions: {
         poll: 100,
         ignored: /node_modules/,

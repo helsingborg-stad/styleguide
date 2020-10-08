@@ -5,6 +5,7 @@
     grid-template-areas:
         "avatar content"
     ;
+    text-decoration: none;
 
     &__avatar {
         grid-area: avatar;
@@ -32,5 +33,10 @@
     &__updated {
         color: $color-darker;
         margin-bottom: 0;
+    }
+
+    &__author + &__published,
+    &__author + &__updated {
+        margin-top: map-get($spacers, "1");
     }
 }

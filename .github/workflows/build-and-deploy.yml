@@ -1,0 +1,57 @@
+name: Build site
+
+on:
+  push:
+    branches:
+    - "master"
+    paths-ignore:
+    - '.github/**'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    ######## Skip until we use non master in composer
+    # - name: Validate composer.json and composer.lock
+    #   run: composer validate
+
+    - name: Inject access token in .npmrc.
+      run: | 
+        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+    - name: Execute buildscript.
+      run: php ./build.php --cleanup
+
+    - name: Cleanup .npmrc
+      run: rm ~/.npmrc
+
+    - name: rsync deploy files and set www-data user.
+      uses: burnett01/rsync-deployments@4.1
+      with:
+        switches: -avzrog --backup --backup-dir=${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_STYLEGUIDE_HELSINGBORG_SE }}/$GITHUB_SHA --chown=www-data:www-data
+        path: .
+        remote_path: ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }}
+        remote_host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
+        remote_user: ${{ secrets.DEPLOY_REMOTE_USER }}
+        remote_key: ${{ secrets.DEPLOY_KEY }}
+
+    - name: Set file permissions.
+      uses: appleboy/ssh-action@master
+      with:
+        script: find ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }} -path ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }}/wp-content/uploads -prune -o ! -type l -exec chmod g+rw {} +
+        host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
+        username: ${{ secrets.DEPLOY_REMOTE_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+
+    - name: Clear varnish cache.
+      uses: appleboy/ssh-action@master
+      with:
+        script: |
+          curl -X PURGE https://styleguide.helsingborg.se
+        host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
+        username: ${{ secrets.DEPLOY_REMOTE_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}

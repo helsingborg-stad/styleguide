@@ -20,7 +20,7 @@
             "email": "johan.silvergrund@hiq.se"
         }
     ],
-    "minimum-stability" : "stable",
+    "minimum-stability" : "dev",
     "repositories": [
         {
             "type":"composer",
@@ -37,8 +37,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "sh setup.sh",
-            "cd ./source/library/ | git pull"
+            "sh setup.sh"
         ]
     }
 }
