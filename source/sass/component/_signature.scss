@@ -5,15 +5,20 @@
     grid-template-areas:
         "avatar content"
     ;
+    grid-gap: map-get($spacers, "1" );
     text-decoration: none;
 
-    &__avatar {
+    .c-avatar {
         grid-area: avatar;
+    }
+
+    .c-avatar--size-md + &__content {
+        padding-top: map-get($spacers, "1") * 1.5;
     }
 
     &__content {
         grid-area: content;
-        padding: map-get($spacers, "1" );
+        padding-top: map-get($spacers, "1") / 2;
     }
 
     &__author {
