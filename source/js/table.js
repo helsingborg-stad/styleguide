@@ -8,8 +8,6 @@ export default class Table{
         this.link = null
         this.rowHref = 'js-row-href';
 
-        this.constructor.makeRowClickable();
-
         this.tableRefresh();
 
         if (this.isPagination) this.paginationButtons()
@@ -42,8 +40,6 @@ export default class Table{
             this.paginationLinks();
             this.paginateLinkListeners();
         }
-
-        this.constructor.makeRowClickable();
     }
 
     renderTable(list = null) {
@@ -238,26 +234,5 @@ export default class Table{
     // eslint-disable-next-line class-methods-use-this
     sortCompare(a, b) {
         return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
-    }
-
-    static makeRowClickable() { 
-        const tables = document.querySelectorAll('.c-table');
-
-        tables.forEach(table => {
-            const rows = table.querySelectorAll('tr');
-            rows.forEach(row => {
-                const href = row.getAttribute('js-row-href');
-                if(href) {
-                    row.style.cursor = 'pointer';
-                }
-                
-                if(href) { 
-                    row.addEventListener('click', (event) => {
-                        window.location = href;
-                    });
-                }
-            });
-
-        });
     }
 }
