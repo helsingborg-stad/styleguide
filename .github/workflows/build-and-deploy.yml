@@ -1,11 +1,10 @@
-name: Build site
+name: Build and deploy styleguide
 
 on:
   push:
     branches:
     - "master"
-    paths-ignore:
-    - '.github/**'
+
 jobs:
   build:
 
