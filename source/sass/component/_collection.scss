@@ -1,0 +1,241 @@
+$collection-padding-x: $base * 2 !default;
+$collection-paddding-y: $base * 2 !default;
+$collection-paddding-y-compact: $base * 0.75 !default;
+
+$collection-compact-padding-x: $collection-padding-x !default;
+$collection-compact-padding-y: $base !default;
+
+$collection-border-color: rgba(black, .1) !default;
+$collection-border: solid 1px $collection-border-color !default;
+
+$collection-hover-background: rgba(black, .05) !default;
+$collection-hover-color: rgba(black, .1) !default;
+$collection-hover-border: rgba(black, .1) !default;
+
+// Reset
+.c-collection {
+    padding: 0;
+    margin: 0;
+
+
+    p {
+        margin: 0;
+    }
+    a {
+        text-decoration: none;
+    }
+}
+
+.c-collection {
+    border-radius: 12.5px;
+    border: $collection-border;
+    padding-top: $base;
+    padding-bottom: $base;
+
+
+    // Item
+    .c-collection__item {
+        display: flex;
+        align-items: center;
+    }
+
+    .c-collection__item.is-current {
+        background-color: $color-primary;
+        color: white;
+    }
+
+    // Divider
+    .c-collection__divider {
+        border: none;
+        border-top: $collection-border;
+        margin-top: $base;
+        margin-bottom: $base;
+    }
+
+    // Fix single 1px messing up vertical rythm
+    .c-collection__divider + * {
+        margin-top: -1px;
+    }
+
+    .c-collection__divider.c-collection__divider--inset {
+        margin-left: $collection-padding-x * 3.5;
+    }
+
+    // Content
+    .c-collection__content {
+        flex: 1 1 auto;
+        padding: $collection-paddding-y $collection-padding-x;
+
+        & > *:first-child {
+            margin-top: 0;
+        }
+        & > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    // Content Modifier - Multiline
+    .c-collection__content.c-collection__content--icon {
+        padding-right: $base * 5;
+        position: relative;
+        .c-collection__secondary {
+            position: absolute;
+            top: $base * 1.5;
+            right: $base * 2;
+            float: none;
+        }
+    }
+
+    // Secondary
+    .c-collection__item > .c-collection__secondary {
+        padding: $collection-paddding-y $collection-padding-x;
+        display: flex;
+    }
+    .c-collection__content .c-collection__secondary {
+        float: right;
+    }
+
+
+    // Icon
+    .c-collection__icon {
+        padding: $collection-paddding-y $collection-padding-x;
+        display: flex;
+    }
+
+    .c-collection__icon + .c-collection__content {
+        padding-left: 0;
+    }
+    
+    // Links, Buttons etc
+    .c-collection__action,
+    a.c-collection__item.c-collection__item--action,
+    button.c-collection__item.c-collection__item--action {
+
+        &, a {
+            color: #000000;
+        }
+        
+        &:hover {
+            &, a {
+                color: #000000;
+                background-color: $collection-hover-background;
+            }
+        }
+    }
+
+    // Nested
+    & .c-collection {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: $collection-padding-x;
+        border-top: none;
+        border-right: none;
+        border-bottom: none;
+        border-left: none;
+        display: none;
+    }
+}
+
+
+// Modifiers - Bordered
+.c-collection.c-collection--bordered {
+    .c-collection__item {
+        border-top: $collection-border;
+    }
+    
+    .c-collection__item:first-child {
+        border-top: none;
+    }
+}
+
+// Modifiers - compact
+.c-collection.c-collection--compact {
+    .c-collection__content {
+        padding: $collection-paddding-y-compact $collection-compact-padding-x;
+    }
+    .c-collection__content.c-collection__content--icon {
+        .c-collection__secondary {
+            top: $base * 1.5;
+        }
+    }
+
+    // Secondary
+    .c-collection__item > .c-collection__secondary {
+        padding: $collection-paddding-y-compact $collection-compact-padding-x;
+    }
+    .c-collection__content .c-collection__secondary {
+        float: right;
+    }
+
+
+    // Icon
+    .c-collection__icon {
+        padding: $collection-paddding-y $collection-padding-x;
+        display: flex;
+    }
+}
+
+.c-collection.c-collection--sharp-top {
+    border-radius: 0 0 12.5px 12.5px;   
+}
+
+.c-collection.c-collection--sharp-bot {
+    border-radius: 12.5px 12.5px 0 0;    
+
+}
+.c-collection.c-collection--sharp {
+    border-ardius: 0;
+}
+
+// Modifiers - unbox
+.c-collection.c-collection--unbox {
+    border: none;
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+// Modifiers - Nav
+.c-collection.c-collection--nav {
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .c-collection__item {
+        border-top: $collection-border;
+    }
+    
+    .c-collection__item:first-child {
+        border-top: none;
+    }
+
+    .c-collection__item .c-collection__secondary {
+        display: flex;
+        align-items: center;
+    }
+    .c-collection__item.is-open > .c-collection__secondary i {
+        transform: rotate(180deg);
+    }
+
+    .c-collection__item.is-open + .c-collection {
+        display: block;
+    }
+
+    .c-collection__item > .c-collection__secondary {
+        border-left: $collection-border;
+    }
+
+    .c-collection {
+        border-radius: 0;
+        padding-top: 0;
+        padding-left: unset;
+        border-left: solid $base $collection-border-color;
+        border-top: $collection-border;
+    }
+}
+
+.c-card {
+    .c-collection {
+        border: none;
+    }
+}
