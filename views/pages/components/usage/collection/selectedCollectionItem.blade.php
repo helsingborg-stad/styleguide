@@ -1,11 +1,11 @@
 @collection()
-    @collectionItem()
+    @collection__item()
       Dolor Bibendum Inceptos Nibh
-    @endcollectionItem
-    @collectionItem()
+    @endcollection__item
+    @collection__item()
       Condimentum Ullamcorper
-    @endcollectionItem
-    @collectionItem(['isCurrent' => true])
+    @endcollection__item
+    @collection__item(['isCurrent' => true])
       Pharetra Ultricies Nullam Venenatis Adipiscing
-    @endcollectionItem
+    @endcollection__item
 @endcollection

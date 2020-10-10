@@ -1,29 +1,31 @@
 @collection()
-    @collectionItem()
+    @collection__item()
       Dolor Bibendum Inceptos Nibh
-    @endcollectionItem
-    @collectionItem()
+    @endcollection__item
+    @collection__item()
       Condimentum Ullamcorper
-    @endcollectionItem
+    @endcollection__item
 
     <!-- Alternative 1 for subitem -->
-    @collectionItem()
+    @collection__item()
       Pharetra Ultricies Nullam Venenatis Adipiscing
       @slot('subItem')
-        @collectionItem()
+        @collection__item()
           Second level. Pharetra Ultricies Nullam. Alternative 1. 
-        @endcollectionItem
+        @endcollection__item
       @endslot
-    @endcollectionItem
+    @endcollection__item
 
     <!-- Alternative 2 for subitem -->
-    @collectionItem()
+    @collection__item()
       Pharetra Ultricies Nullam Venenatis Adipiscing
+      
       @collection(['subCollection' => true])
-        @collectionItem()
+        @collection__item()
           Second level. Pharetra Ultricies Nullam. Alternative 2. 
-        @endcollectionItem
+        @endcollection__item
       @endcollection
-    @endcollectionItem
+      
+    @endcollection__item
 
 @endcollection
