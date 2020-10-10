@@ -1,8 +1,8 @@
 @collection(['compressed' => true])
-    @collectionItem()
+    @collection__item()
       Dolor Bibendum Inceptos Nibh
-    @endcollectionItem
-    @collectionItem()
+    @endcollection__item
+    @collection__item()
       Condimentum Ullamcorper
-    @endcollectionItem
+    @endcollection__item
 @endcollection

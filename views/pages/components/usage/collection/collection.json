@@ -2,41 +2,44 @@
     "collection":{
         "heading": "Collection",
         "subHeading": "",
-        "text": "Collections are a continuous group of text or images. They are composed of items containing primary and supplemental actions, which are represented by icons and text. This component consists of multiple interacting components (@collection and @collectionItem)."
+        "text": "Collections are a continuous group of text or images. They are composed of items containing primary and supplemental actions, which are represented by icons and text. This component consists of multiple interacting components (@collection and @collectionItem).",
+        "disabled": {
+            "nestedCollection": {
+                "heading": "Nested collection",
+                "subHeading": "",
+                "text": "Example of a multi-level collection."
+            },
+            "compressedCollection": {
+                "heading": "Compressed collection",
+                "subHeading": "",
+                "text": "A more efficient way of displaying collections, when considering space. "
+            },
+            "selectedCollectionItem": {
+                "heading": "Selected collection item",
+                "subHeading": "",
+                "text": "Expample of a selected choise."
+            },
+            "alignedCollectionItem": {
+                "heading": "Align collection item contents",
+                "subHeading": "",
+                "text": "You should change the list item alignment when displaying 3 lines or more."
+            },
+            "collectionControls": {
+                "heading": "Collection item controls",
+                "subHeading": "",
+                "text": "You can add custom controls to the list item, this can be a checkbox, radio etc."
+            },
+            "collectionSubheaders": {
+                "heading": "Collection subheaders",
+                "subHeading": "",
+                "text": "Subheaders provide context to large collections spanning multiple topics."
+            }
+        } 
     },
     "simpleCollection": {
         "heading": "Simple collection",
         "subHeading": "",
         "text": "Just a plain and simple collection."
-    },
-    "nestedCollection": {
-        "heading": "Nested collection",
-        "subHeading": "",
-        "text": "Example of a multi-level collection."
-    },
-    "compressedCollection": {
-        "heading": "Compressed collection",
-        "subHeading": "",
-        "text": "A more efficient way of displaying collections, when considering space. "
-    },
-    "selectedCollectionItem": {
-        "heading": "Selected collection item",
-        "subHeading": "",
-        "text": "Expample of a selected choise."
-    },
-    "alignedCollectionItem": {
-        "heading": "Align collection item contents",
-        "subHeading": "",
-        "text": "You should change the list item alignment when displaying 3 lines or more."
-    },
-    "collectionControls": {
-        "heading": "Collection item controls",
-        "subHeading": "",
-        "text": "You can add custom controls to the list item, this can be a checkbox, radio etc."
-    },
-    "collectionSubheaders": {
-        "heading": "Collection subheaders",
-        "subHeading": "",
-        "text": "Subheaders provide context to large collections spanning multiple topics."
     }
+
 }

@@ -1,5 +1,5 @@
 @collection()
-  @collectionItem(['isAligned' => true])
+  @collection__item(['isAligned' => true])
 
       @avatar(
         [
@@ -13,11 +13,11 @@
       @endavatar
 
       Dolor Bibendum Inceptos Nibh
-    @endcollectionItem
-    @collectionItem(['isAligned' => true])
+    @endcollection__item
+    @collection__item(['isAligned' => true])
       Condimentum Ullamcorper
-    @endcollectionItem
-    @collectionItem(['isAligned' => true])
+    @endcollection__item
+    @collection__item(['isAligned' => true])
       Pharetra Ultricies Nullam Venenatis Adipiscing
-    @endcollectionItem
+    @endcollection__item
 @endcollection

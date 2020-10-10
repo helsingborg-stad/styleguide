@@ -20,10 +20,13 @@ class View
         $blade = $this->registerMarkdownViewComposer($blade);
         
         try {
-            echo $blade->make(
+            $result = $blade->make(
                 'pages.' . $view,
                 $data
             )->render();
+
+            echo preg_replace('/(id|href)=""/', "", $result);
+
         } catch (\Throwable $e) {
             echo $blade->make(
                 'pages.404',

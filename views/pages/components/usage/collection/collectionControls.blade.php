@@ -1,9 +1,9 @@
 @collection()
-    @collectionItem()
+    @collection__item()
       Dolor Bibendum Inceptos Nibh
-    @endcollectionItem
+    @endcollection__item
 
-    @collectionItem()
+    @collection__item()
       Condimentum Ullamcorper
 
       @button([
@@ -13,9 +13,9 @@
       ])
       @endbutton
 
-    @endcollectionItem
+    @endcollection__item
 
-    @collectionItem()
+    @collection__item()
       Pharetra Ultricies Nullam Venenatis Adipiscing
       @button([
           'icon' => 'send',
@@ -24,6 +24,6 @@
           'href' => "#"
       ])
       @endbutton
-    @endcollectionItem
+    @endcollection__item
 
 @endcollection
