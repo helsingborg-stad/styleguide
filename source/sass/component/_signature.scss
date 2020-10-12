@@ -1,11 +1,5 @@
 .c-signature {
-    display: grid;
-    grid-auto-columns: max-content max-content;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "avatar content"
-    ;
-    grid-gap: map-get($spacers, "1" );
+    display: flex; 
     text-decoration: none;
 
     .c-avatar {
@@ -14,6 +8,10 @@
 
     .c-avatar--size-md + &__content {
         padding-top: map-get($spacers, "1") * 1.5;
+    }
+
+    .c-avatar + &__content {
+        margin-left: $base;
     }
 
     &__content {

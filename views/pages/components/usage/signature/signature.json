@@ -22,5 +22,11 @@
         "heading": "Signature Component - With dates",
         "subHeading" : "",
         "text" : "Give credit, with dates."
+    },
+    "dateonly": {
+        "grid": "",
+        "heading": "Signature Component - Without a name",
+        "subHeading" : "",
+        "text" : "Do not give credit, just some dates."
     }
 }
