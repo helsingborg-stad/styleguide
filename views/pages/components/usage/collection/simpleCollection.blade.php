@@ -3,14 +3,13 @@
 
     <h2>Multiline text + icon + action</h2>
 
-    @collection()
+    @collection(['unbox' => true])
         @collection__item([
           'icon' => 'home',
           'action' => [
             'icon' => 'star',
             'link' => 'http://link.link'
-          ],
-          'link' => 'http://helsingborg.se'
+          ]
         ])
           @typography(['element' => 'h4'])
             This is a multiline
@@ -43,6 +42,22 @@
             @endlink
           @endslot
 
+        @endcollection__item
+
+        @collection__item([
+          'icon' => 'home',
+          'action' => [
+            'icon' => 'star',
+            'link' => 'http://link.link'
+          ],
+          'link' => 'http://helsingborg.se'
+        ])
+          @typography(['element' => 'h4'])
+            This is a multiline
+          @endtypography
+          @typography([])
+            This has the same configuration as above. But applied a link to the item. Actions then dissapear.
+          @endtypography
         @endcollection__item
     @endcollection
   </div>
