@@ -44,7 +44,7 @@ export default class ToggleClasses {
     toggleAriaPressed (ariaPressed, element, idle = false) {
         if(ariaPressed === 'false' && !idle){
             element.setAttribute(this.PRESSED, 'true');
-        }else {
+        }else{
             element.setAttribute(this.PRESSED, 'false');
         }
     }
