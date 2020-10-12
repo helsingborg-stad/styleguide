@@ -16,5 +16,11 @@
         "heading": "Time Until",
         "subHeading" : "Returns time until a specified date",
         "text": "Returns time until a specified date"
+    },
+    "dateBadge": {
+        "grid": "",
+        "heading": "Date badge",
+        "subHeading" : "Displays date as badge-style.",
+        "text": "Displays date as badge-style."
     }
 }
