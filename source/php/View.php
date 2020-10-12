@@ -25,7 +25,27 @@ class View
                 $data
             )->render();
 
-            echo preg_replace('/(id|href)=""/', "", $result);
+            $result = preg_replace('/(id|href)=""/', "", $result);
+
+            if(false && class_exists("tidy")) {
+
+                $tidy = new \tidy;
+                $tidy->parseString($result, array(
+                    'indent'         => true,
+                    'output-xhtml'   => true,
+                    'wrap'           => 5000,
+                    'show-body-only' => false
+                ), 'utf8');
+                
+                $tidy->cleanRepair();
+    
+                if(isset($tidy->value)) {
+                    echo $tidy->value;
+                }
+
+            } else {
+                echo $result; 
+            }
 
         } catch (\Throwable $e) {
             echo $blade->make(
