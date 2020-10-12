@@ -46,14 +46,16 @@
         @endcollection__item
     @endcollection
   </div>
+</div>
 
+<div class="o-grid">
   <div class="o-grid-4">
 
     <h2>Plain text</h2>
 
     @collection()
 
-      @collection__item()
+      @collection__item(['link' => "https://link.link"])
         Pharetra Ultricies
       @endcollection__item
 
@@ -71,7 +73,16 @@
 
   <div class="o-grid-4">
     <h2>Plain text - List input</h2>
-    @collection(['list' => ['Pharetra Ultricies', 'Aenean lacinia', 'Maecenas faucibus ']])
+    @collection(
+        [
+            'list' => [
+                ['content' => 'Linked item', 'link' => "https://helsingborg.se"],
+                'Unlinked item',
+                ['content' => 'Linked item', 'link' => false],
+            ], 
+
+        ]
+    )
     @endcollection
   </div>
 
