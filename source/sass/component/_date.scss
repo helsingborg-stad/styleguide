@@ -1,0 +1,16 @@
+.c-date--badge {
+  display: flex;
+  width: $base*6; 
+  height: $base*6;
+  background: #eee; 
+  flex-direction: column;
+
+  &__month {
+    display: block; 
+  }
+
+  &__day {
+    display: block; 
+    font-size: 2em;
+  }
+}
