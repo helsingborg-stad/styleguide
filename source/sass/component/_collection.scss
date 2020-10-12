@@ -113,6 +113,7 @@ $collection-hover-border: rgba(black, .1) !default;
 
         &, a {
             color: #000000;
+            transition: background-color 100ms;
         }
         
         &:hover {
@@ -175,6 +176,7 @@ $collection-hover-border: rgba(black, .1) !default;
     }
 }
 
+//Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
     border-radius: 0 0 12.5px 12.5px;   
 }
@@ -184,7 +186,7 @@ $collection-hover-border: rgba(black, .1) !default;
 
 }
 .c-collection.c-collection--sharp {
-    border-ardius: 0;
+    border-radius: 0;
 }
 
 // Modifiers - unbox
