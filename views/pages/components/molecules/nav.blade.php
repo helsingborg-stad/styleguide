@@ -2,7 +2,7 @@
 
 @section('doc-content')
     @markdown
-        #Nav
+        #Navigation
     @endmarkdown
 
     @doc(['slug' => 'nav'])
