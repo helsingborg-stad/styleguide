@@ -196,15 +196,15 @@ class Navigation
                     [
                         'href' => '#p4',
                         'label' => 'Page 4',
-                        'children' => true,
-                        'active' => false,
+                        'children' => false,
+                        'active' => true,
                         'ancestor' => false,
                         'id' => 4
                     ],
                     [
                         'href' => '#p5',
                         'label' => 'Page 5',
-                        'children' => true,
+                        'children' => false,
                         'active' => false,
                         'ancestor' => false,
                         'id' => 5
