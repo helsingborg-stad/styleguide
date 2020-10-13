@@ -144,7 +144,7 @@ class Navigation
 
     public static function getMockedTopLevel()
     {
-        $response = [
+        return [
             [
                 'href' => '#p1',
                 'label' => 'Page 1',
@@ -169,15 +169,13 @@ class Navigation
                 'id' => 3
             ]
         ];
-
-        return $response;
     }
 
     
 
     public static function getMockedMultiLevel()
     {
-        $response = [
+        return [
             [
                 'href' => '#p1',
                 'label' => 'Page 1',
@@ -228,7 +226,5 @@ class Navigation
                 'id' => 3
             ]
         ];
-
-        return $response;
     }
 }
