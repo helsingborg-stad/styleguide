@@ -146,12 +146,87 @@ class Navigation
     {
         $response = [
             [
-                'href' => '#',
-                'label' => 'topLevel',
+                'href' => '#p1',
+                'label' => 'Page 1',
                 'children' => true,
-                'ID' => 1
+                'active' => true,
+                'ancestor' => true,
+                'id' => 1
+            ],
+            [
+                'href' => '#p2',
+                'label' => 'Page 2',
+                'children' => true,
+                'active' => false,
+                'ancestor' => false,
+                'id' => 2
+            ],[
+                'href' => '#p3',
+                'label' => 'Page 3',
+                'children' => true,
+                'active' => false,
+                'ancestor' => false,
+                'id' => 3
             ]
+        ];
 
+        return $response;
+    }
+
+    
+
+    public static function getMockedMultiLevel()
+    {
+        $response = [
+            [
+                'href' => '#p1',
+                'label' => 'Page 1',
+                'children' => false,
+                'active' => false,
+                'ancestor' => true,
+                'id' => 1
+            ],
+            [
+                'href' => '#p2',
+                'label' => 'Page 2',
+                'active' => false,
+                'ancestor' => true,
+                'id' => 2,
+                'children' => [
+                    [
+                        'href' => '#p4',
+                        'label' => 'Page 4',
+                        'children' => true,
+                        'active' => false,
+                        'ancestor' => false,
+                        'id' => 4
+                    ],
+                    [
+                        'href' => '#p5',
+                        'label' => 'Page 5',
+                        'children' => true,
+                        'active' => false,
+                        'ancestor' => false,
+                        'id' => 5
+                    ],
+                    [
+                        'href' => '#p6',
+                        'label' => 'Page 6',
+                        'children' => true,
+                        'active' => false,
+                        'ancestor' => false,
+                        'id' => 6
+                    ]
+                ]
+            ],
+            [
+                'href' => '#p3',
+                'label' => 'Page 3',
+                'children' => true,
+                'active' => false,
+                'ancestor' => false,
+                'id' => 3
+            ]
         ];
 
         return $response;
