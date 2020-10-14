@@ -362,3 +362,13 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+/**
+   * Remove IOS default button styling
+   */
+button, [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+     appearance: none;
+     border-radius: 0;
+}
