@@ -2,7 +2,11 @@
     width: 100%;
     max-width: $container-width;
     margin: 0 auto;   
-    padding: 0 $base * 4;
+    padding: 0 $base * 3;
+
+    @include mq('sm', 'md') {
+        max-width: $base * 90;
+    }
 }
 
 // Nested containers should not apply padding nor margin
