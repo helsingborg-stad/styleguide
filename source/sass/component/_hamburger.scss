@@ -7,7 +7,7 @@ $hamburger-types     : (slider) !default;
 
 // $hamburger-padding-x           : 15px;
 // $hamburger-padding-y           : 15px;
-$hamburger-layer-width         : 32px !default;
+$hamburger-layer-width         : $base * 4 !default;
 $hamburger-layer-height        : 3px !default;
 $hamburger-layer-spacing       : 6px !default;
 // $hamburger-layer-color         : #000;
@@ -31,22 +31,86 @@ $hamburger-layer-spacing       : 6px !default;
 }
 
 .hamburger > * + * {
-    margin-left: $base * 1.5;
+    margin-left: $base * 2.5;
 }
+
+.hamburger.hamburger--reverse
 
 .hamburger-label {
-    font-size: 18px;
+    font-size: 16px;
 }
 
-.hamburger.hamburger--stacked {
+@mixin hamburger--stacked()
+{
     flex-direction: column;
 
     .hamburger-label {
         font-size: 14px;
+        order: 2;
     }
+
     & > * + *  {
         margin-left: 0;
         margin-top: $base;
     }
 }
 
+@mixin hamburger--reverse()
+{
+    flex-direction: row-reverse;
+
+    & > * + *  {
+        margin-left: 0;
+        margin-right: $base * 2.5;
+    }
+}
+
+
+
+.hamburger.hamburger--stacked {
+    @include hamburger--stacked();
+}
+
+.hamburger.hamburger--stacked\@xs {
+    @include mq('xs', 'sm') {
+        @include hamburger--stacked();
+    }
+}
+
+.hamburger.hamburger--stacked\@sm {
+    @include mq('xs', 'md') {
+        @include hamburger--stacked();
+    }
+}
+.hamburger.hamburger--stacked\@md {
+    @include mq('xs', 'lg') {
+        @include hamburger--stacked();
+    }
+}
+
+.hamburger.hamburger--reverse {
+    @include hamburger--reverse();
+}
+
+.hamburger.hamburger--reverse\@xs {
+    @include mq('xs') {
+        @include hamburger--reverse();
+    }
+}
+
+.hamburger.hamburger--reverse\@sm {
+    @include mq('sm') {
+        @include hamburger--reverse();
+    }
+}
+.hamburger.hamburger--reverse\@md {
+    @include mq('md') {
+        @include hamburger--reverse();
+    }
+}
+
+.hamburger.hamburger--reverse\@lg {
+    @include mq('lg') {
+        @include hamburger--reverse();
+    }
+}
