@@ -1,34 +1,23 @@
 ul, ol {
     margin: 0;
-    padding-left: $base * 2.5;
-
-    li {
-        padding-left: $base * 2;
-    }
-
-    li + li {
-        margin-top: $base * 1.5;
-    }
-}
-
-
-ul {
-    list-style: none;
+    padding-left: $base * 3;
 
     li {
         position: relative;
     }
 
-    li:before {
-        content: '';
-        background: black;
-        width: 6px;
-        height: 6px;
-        display:  block;
-        border-radius: 4px;
-        position: absolute;
-        left: $base * -1;
-        top: 10px;
+    li {
+        padding-left: $base;
+    }
+
+    li + li {
+        margin-top: $base * 2;
+    }
+}
+
+ul {
+    li::marker {
+        color: $color-primary;
     }
 }
 
@@ -46,11 +35,11 @@ ol.unlist {
     }
 }
 
-ul.unlist li:before {
+ul.unlist li::marker {
     content: none;
 }
 
-pre li:before {
+pre li::marker {
     background: transparent;
 }
 
