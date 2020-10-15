@@ -372,3 +372,11 @@ button, [type="button"], [type="reset"], [type="submit"] {
      appearance: none;
      border-radius: 0;
 }
+
+/**
+   * Remove figure margin
+   */
+
+figure {
+    margin: 0;
+}
