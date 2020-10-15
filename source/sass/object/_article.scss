@@ -21,7 +21,7 @@ $article-content-elements:
 
 
     #{$article-content-headings} {
-        margin-top: $base * 6;
+        margin-top: $base * 5;
     }
 
     #{$article-content-headings} {
@@ -38,6 +38,10 @@ $article-content-elements:
                  margin-top: $base * 2;
             }
         }
+    }
+
+    h1 + * {
+        margin-top: $base * 3;
     }
 
     *:first-child {
