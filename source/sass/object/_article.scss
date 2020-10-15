@@ -1,3 +1,11 @@
+$article-content-headings:
+'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+'.h1', '.h2', '.h3', '.h4', '.h5', '.h6' !default;
+
+$article-content-elements:
+'p', 'ul', 'ol', 'blockquote', 'img', 'figure', 'table', 'div' !default;
+
+
 .article {
     margin: auto;
 
@@ -6,38 +14,33 @@
     }
 }
 
-.article {
-
-    h1 {
-        color: $color-primary;
+.c-article {
+    #{$article-content-elements} {
+        margin-top: $base * 2.5;
     }
 
-    // Commented as we need to observe the impact of this
-    // h1, h2, h3, h4, h5, h6 {
-    //     margin-top: $base * 6;
-    //     margin-bottom: $base * 2;
-    // }
 
-    h1+h2,
-    h2+h3,
-    h3+h4,
-    h4+h5,
-    h6+h6,
-    h1+h4,
-    h2+h4,
-    h3+h4 {
-        // Commented as we need to observe the impact of this
-        //margin-top: $base * -2;
-        color: $color-base-secondary;
+    #{$article-content-headings} {
+        margin-top: $base * 6;
     }
 
-    p, ul, ol, table {
-        // Commented as we need to observe the impact of this
-        //margin-bottom: $base * 4;
-        margin-top: 0;
-
-        &:last-child {
-            margin-bottom: 0;
+    #{$article-content-headings} {
+        @each $element in $article-content-elements {
+            & + #{$element} {
+                 margin-top: $base * 2.5;
+            }
         }
+    }
+
+    #{$article-content-headings} {
+        @each $heading in $article-content-headings {
+            & + #{$heading} {
+                 margin-top: $base;
+            }
+        }
+    }
+
+    *:first-child {
+        margin-top: 0;
     }
 }
