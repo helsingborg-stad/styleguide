@@ -16,7 +16,7 @@ $article-content-elements:
 
 .c-article {
     #{$article-content-elements} {
-        margin-top: $base * 2.5;
+        margin-top: $base * 3;
     }
 
 
@@ -27,7 +27,7 @@ $article-content-elements:
     #{$article-content-headings} {
         @each $element in $article-content-elements {
             & + #{$element} {
-                 margin-top: $base * 2.5;
+                 margin-top: $base * 2;
             }
         }
     }
@@ -35,7 +35,7 @@ $article-content-elements:
     #{$article-content-headings} {
         @each $heading in $article-content-headings {
             & + #{$heading} {
-                 margin-top: $base;
+                 margin-top: $base * 2;
             }
         }
     }
