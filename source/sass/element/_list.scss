@@ -1,15 +1,16 @@
-/* ul, ol {
+ul, ol {
     margin: 0;
-    padding-left: $base * 3.5;
+    padding-left: $base * 2.5;
 
     li {
-        padding-left: $base * 1.5;
+        padding-left: $base * 2;
     }
 
     li + li {
-        margin-top: $base * 2;
+        margin-top: $base * 1.5;
     }
 }
+
 
 ul {
     list-style: none;
@@ -24,9 +25,9 @@ ul {
         width: 6px;
         height: 6px;
         display:  block;
-        border-radius: 1px;
+        border-radius: 4px;
         position: absolute;
-        left: $base * -1.5;
+        left: $base * -1;
         top: 10px;
     }
 }
@@ -48,6 +49,9 @@ ol.unlist {
 ul.unlist li:before {
     content: none;
 }
+
 pre li:before {
     background: transparent;
-} */
+}
+
+
