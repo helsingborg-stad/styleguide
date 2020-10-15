@@ -175,6 +175,9 @@ export default class Slider {
      */
     hideControls() {
         const controls = this.SLIDER.querySelectorAll('.c-slider__button');
+
+        this.SLIDER.querySelector('[js-slider__stepper]').remove();
+
         controls.forEach(control => {
             control.remove();
         });
