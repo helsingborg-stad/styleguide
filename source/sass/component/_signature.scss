@@ -1,24 +1,26 @@
 .c-signature {
-    display: grid;
-    grid-auto-columns: max-content max-content;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "avatar content"
-    ;
-    grid-gap: map-get($spacers, "1" );
+    display: flex; 
     text-decoration: none;
+    align-items: center;
 
-    .c-avatar {
-        grid-area: avatar;
+    &--space-1 .c-avatar {
+        margin-bottom: map-get($spacers, "3");
+    }
+
+    &--space-2 .c-avatar {
+        margin-bottom: map-get($spacers, "6");
+    }
+
+    .c-avatar--size-sm + &__content {
+        margin-left: $base;
     }
 
     .c-avatar--size-md + &__content {
-        padding-top: map-get($spacers, "1") * 1.5;
+        margin-left: $base * 2;
     }
 
-    &__content {
-        grid-area: content;
-        padding-top: map-get($spacers, "1") / 2;
+    .c-avatar--size-lg + &__content {
+        margin-left: $base * 3;
     }
 
     &__author {
@@ -28,6 +30,10 @@
     &__title {
         color: $color-darker;
         margin-bottom: map-get($spacers, "1" );
+    }
+
+    &__dates {
+        clear: both;
     }
 
     &__published {
