@@ -15,10 +15,11 @@ $article-content-elements:
 }
 
 .c-article {
-    #{$article-content-elements} {
-        margin-top: $base * 3;
+    @each $element in $article-content-elements {
+        & > #{$element} {
+             margin-top: $base * 3;
+        }
     }
-
 
     #{$article-content-headings} {
         margin-top: $base * 5;
