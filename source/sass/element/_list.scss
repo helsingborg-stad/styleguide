@@ -1,13 +1,13 @@
 ul, ol {
     margin: 0;
-    padding-left: $base * 3;
+    padding-left: $base * 3.5;
 
     li {
         position: relative;
     }
 
     li {
-        padding-left: $base;
+        padding-left: $base/2;
     }
 
     li + li {
