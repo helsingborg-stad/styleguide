@@ -1,4 +1,5 @@
 .c-field {
+    position: relative;
 
     input[type="color"],
     input[type="text"],
@@ -23,212 +24,59 @@
         background: $color-form-fields;
         border: 1px solid $color-form-fields;
         box-shadow: 0 0 0 0 transparent inset;
-        -webkit-transition: color .1s ease, border-color .1s ease;
         transition: color .1s ease, border-color .1s ease;
-        background-size: $base*2;
+        background-size: $base*2 !important;
         border-radius: $border-radius-md;
-        height: 56px; 
 
         &:focus {
             background-color: lighten($color-form-fields, 5%);
             box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
+            border-bottom: 2px solid $color-in-action;
+            margin-bottom: -2px;
         }
 
-        &--sm {
-            padding: map-get($spacers, "1");
-            padding-left: map-get($spacers, "1");
-            padding-top: map-get($spacers, "1");
+        &--sm & {
+            padding: map-get($spacers, "1"); 
         }
     }
 
-    input:focus {
-        border-bottom: 2px solid $color-in-action;
-        transition: ease-in-out .3s;
+    label {
+        font-size: 14px;
+        color: $color-form-fields-label;
+        position: absolute;
+        top: 50%;
+        left: $base*2;
+        transform-origin: top left;
+        transform: translate(0, -50%) scale(1);
+        transition: all .1s ease-in-out;
+        cursor: text;
+        pointer-events: none;
     }
 
-    // Input
-    &__text {
-
-        position: relative;
-
-        input {
-            padding-left: 20px;
-        }
-
-        input.invalid {
-            border-bottom: 1px solid $color-primary-dimmed;
-            transition: ease-in-out .3s;
-        }
-
-        input.valid {
-            border-bottom: 2px solid $color-success;
-            transition: ease-in-out .3s;
-        }
-
-        label {
-            font-size: 14px;
-            color: $color-form-fields-label;
-            position: absolute;
-            top: 50%;
-            left: $base*2;
-            transform-origin: top left;
-            transform: translate(0, -50%) scale(1);
-            transition: all .1s ease-in-out;
-            cursor: text;
-            pointer-events: none;
-        }
-
-        input:focus+label,
-        label:active,
-        input:not(:placeholder-shown)+label {
-            transform: translate(0, -100%) scale(.75);
-        }
-
-        ::-webkit-input-placeholder {
-            color: transparent;
-        }
-
-        :-moz-placeholder {
-            color: transparent;
-        }
-
-        ::-moz-placeholder {
-            color: transparent;
-        }
-
-        :-ms-input-placeholder {
-            color: transparent;
-        }
-
-        input[type="date"]+label,
-        input[type="datetime-local"]+label,
-        input[type="week"]+label,
-        input[type="month"]+label,
-        input[type="day"]+label,
-        input[type="year"]+label {
-            font-size: 11px;
-            top: 3px !important;
-            transform: none;
-        }
-
+    .invalid + label,
+    label:active,
+    input:not(:empty) + label,
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+        transform: translate(0, -100%) scale(.75);
     }
 
-    /* Range Slider */
+    .invalid + label {
+        display: none;
+    }
 
-    &__range {
+    input.invalid {
+        border-bottom: none;
+        border-bottom-left-radius: 0; 
+        border-bottom-right-radius: 0; 
+    }
 
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
+    input.valid {
+        border-bottom: 2px solid $color-success;
+    }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-        }
-
-        input[type="range"]:focus {
-            outline: none;
-        }
-
-        input[type="range"]::-ms-track {
-            width: 100%;
-            cursor: pointer;
-            background: transparent;
-            border-color: transparent;
-            color: transparent;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            appearance: none;
-            height: 16px;
-            width: 32px;
-            border-radius: $border-radius-xs;
-            background: $color-primary;
-            cursor: pointer;
-            margin-top: 0px;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:before {
-            font-family: styleguide-icons !important;
-            content: "\f104";
-            color: black;
-            font-size: 20px;
-            width: 20px;
-            height: 20px;
-        }
-
-        input[type="range"]::-webkit-slider-thumb:after {
-            font-family: styleguide-icons !important;
-            content: "\f107";
-            color: black;
-            font-size: 20px;
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            appearance: none;
-            height: 16px;
-            width: 32px;
-            border-radius: $border-radius-xs;
-            background: $color-primary;
-            cursor: pointer;
-            margin-top: 0px;
-        }
-
-        input[type="range"]::-ms-thumb {
-            padding-top: 20px;
-            appearance: none;
-            height: 16px;
-            width: 32px;
-            border-radius: $border-radius-xs;
-            background: $color-primary;
-            cursor: pointer;
-            margin-top: 0px;
-        }
-
-        input[type="range"]::-webkit-slider-runnable-track {
-            width: 100%;
-            cursor: pointer;
-            background: $color-form-fields;
-
-        }
-
-        input[type="range"]:focus::-webkit-slider-runnable-track {
-            background-color: lighten($color-form-fields, 5%);
-        }
-
-        input[type="range"]::-moz-range-track {
-            width: 100%;
-            height: 8.4px;
-            cursor: pointer;
-
-        }
-
-        input[type="range"]::-ms-track {
-            width: 100%;
-            height: 8.4px;
-            cursor: pointer;
-            background: transparent;
-            border-color: transparent;
-            border-width: 16px 0;
-            color: transparent;
-        }
-
-        input[type="range"]::-ms-fill-lower {
-            background-color: lighten($color-form-fields, 5%);
-        }
-
-        input[type="range"]:focus::-ms-fill-lower {
-            background-color: lighten($color-form-fields, 5%);
-        }
-
-        input[type="range"]::-ms-fill-upper {
-            background-color: lighten($color-form-fields, 5%);
-        }
-
-        input[type="range"]:focus::-ms-fill-upper {
-            background-color: lighten($color-form-fields, 5%);
-        }
+    ::placeholder {
+        color: transparent;
     }
 
     input[type="submit"],
@@ -254,27 +102,24 @@
         @include button-mix($color-primary, false, $color-primary);
     }
 
-    &__color {
+    input[type="color"] {
+        visibility: hidden;
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+        padding:0px;
+        border:none;
+        box-shadow:none;
 
-        input[type="color"] {
-            visibility: hidden;
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-            padding:0px;
-            border:none;
-            box-shadow:none;
-
-            &:before {
-                font-family: "Material Icons" !important;
-                content: "\e3b8";
-                font-size: 22px;
-                display: inline-block;
-                visibility: visible;
-                color: $color-primary;
-                border-radius: $border-radius-xs;
-                cursor: pointer;
-            }
+        &:before {
+            font-family: "Material Icons" !important;
+            content: "\e3b8";
+            font-size: 22px;
+            display: inline-block;
+            visibility: visible;
+            color: $color-primary;
+            border-radius: $border-radius-xs;
+            cursor: pointer;
         }
     }
 
@@ -289,19 +134,18 @@
     }
 
     .c-field__input-invalid-message {
-        width  : 100%;
+        width: 100%;
         padding: map-get($spacers, "1") ;
-        display:none;
+        display: none;
         font-size: 80%;
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 5px 5px;
+        border-radius: 0 0 $border-radius-sm $border-radius-sm;
         box-sizing: border-box;
-        margin-top:-8px;
 
         &.error {
-            display:block;
+            display: block;
             transition: ease-in-out .3s;
         }
 
