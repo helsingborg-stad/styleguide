@@ -1,24 +1,22 @@
 .c-textarea {
-
+    position: relative;
+    
     textarea {
         width: 100%;
+        margin: 0;
         outline: 0;
-        min-height: 200px;
+        min-height: $base*25;
         appearance: none;
-        tap-highlight-color: rgba(255, 255, 255, 0);
         line-height: 1.32em;
-        padding: map-get($spacers, "1");
-        padding-left: map-get($spacers, "2") +5;
-        padding-top: map-get($spacers, "3");
+        padding: map-get($spacers, "2");
         font-size: 1em;
         background: $color-form-fields;
         border: 1px solid $color-form-fields;
-        border-radius: $border-radius-xs;
         box-shadow: 0 0 0 0 transparent inset;
         -webkit-transition: color .1s ease, border-color .1s ease;
         transition: color .1s ease, border-color .1s ease;
-        background-size: 16px 16px !important;
-        position: relative;
+        background-size: $base*2;
+        border-radius: $border-radius-md;
 
         &:focus {
             background-color: lighten($color-form-fields, 5%);
@@ -29,27 +27,24 @@
     textarea:focus {
         border-bottom: 2px solid $color-in-action;
         transition: ease-in-out .3s;
-
     }
 
     label {
         font-size: 14px;
         color: $color-form-fields-label;
         position: absolute;
-        left: 70px;
+        top: $base*2;
+        left: $base*2;
         transform-origin: top left;
-        transform: translate(0, 16px) scale(1);
+        transform: translate(0, 0) scale(1);
         transition: all .1s ease-in-out;
         cursor: text;
         pointer-events: none;
     }
 
-    textarea:focus+label {
-        transform: translate(0, 4px) scale(.75);
-    }
-
+    textarea:focus+label,
     textarea:not(:placeholder-shown)+label {
-        transform: translate(0, 4px) scale(.75);
+        transform: translate(0, -60%) scale(.75);
     }
 
     ::-webkit-input-placeholder {
