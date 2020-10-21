@@ -14,25 +14,28 @@
     input[type="number"],
     input[type="password"],
     input[type="email"] {
+        appearance: none;
+
         width: 100%;
         margin: 0;
         outline: 0;
-        appearance: none;
+
+        height: $base*6;
         padding: map-get($spacers, "2");
-        font-size: 1em;
+        font-size: $base*2;
         line-height: $base*2; 
-        background: $color-form-fields;
         border: 1px solid $color-form-fields;
-        box-shadow: 0 0 0 0 transparent inset;
-        transition: color .1s ease, border-color .1s ease;
+
+        background: $color-form-fields;
         background-size: $base*2;
+
         border-radius: $border-radius-md;
+
+        transition: color .1s ease, border-color .1s ease;
 
         &:focus {
             background-color: lighten($color-form-fields, 5%);
-            box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
             border-bottom: 2px solid $color-in-action;
-            margin-bottom: -2px;
         }
 
         &--sm & {
