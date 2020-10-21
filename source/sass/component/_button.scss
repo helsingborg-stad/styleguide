@@ -19,11 +19,13 @@
     &--lg {
         @include button-size($base*2, $base*3, $font-size-btn-lg, $font-size-btn-lg-line-height, $border-radius-md);
         font-size: $font-size-btn-lg;
+        line-height: $base*2;
     }
 
     &--md {
         @include button-size($base*1.5, $base*2, $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
         font-size: $font-size-btn-md;
+        line-height: $base*2;
     }
 
     &--sm {
@@ -31,6 +33,7 @@
         text-transform: uppercase;
         @include button-size($base, $base*1.5, $font-size-btn-sm, $font-size-btn-sm-line-height, $border-radius-sm);
         font-size: $font-size-btn-sm;
+        line-height: $base*2;
     }
 
     &[disabled="true"] {
