@@ -17,19 +17,19 @@
     }
 
     &--lg {
-        @include button-size($base*2, $base*3, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        @include button-size($base*2, $base*3, $font-size-btn-lg, $font-size-btn-lg-line-height, $border-radius-md);
         font-size: $font-size-btn-lg;
     }
 
     &--md {
-        @include button-size($base*1.5, $base*2, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
+        @include button-size($base*1.5, $base*2, $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
         font-size: $font-size-btn-md;
     }
 
     &--sm {
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        @include button-size($base, $base*1.5, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+        @include button-size($base, $base*1.5, $font-size-btn-sm, $font-size-btn-sm-line-height, $border-radius-sm);
         font-size: $font-size-btn-sm;
     }
 
@@ -243,15 +243,15 @@
 
 .c-button {
 
-    &--sm .material-icons i {
+    &--sm .c-icon {
         font-size: $font-size-btn-sm;
     }
 
-    &--md .material-icons span i {
+    &--md .c-icon {
         font-size: $font-size-btn-md;
     }
 
-    &--lg .material-icons i {
+    &--lg .c-icon {
         font-size: $font-size-btn-lg;
     }
 }
@@ -263,24 +263,39 @@
 
 .c-button__toggle {
     @extend .c-button__filled--default;
-    color: $color-info-text;
 
     &[aria-pressed="true"] {
+        background-color: darken($color-default,20%);
         color: $color-primary-dimmed;
     }
 }
 
 .c-button__icon-size {
 
-    &--sm {
-        @include button-size(0.5em, 0.5em, 1.125em, $font-size-btn-lg-line-height, 7.5px);
+    &--lg {
+        @include button-size($base*2, $base*2, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        font-size: $font-size-btn-lg;
+        .c-icon {
+            transform: scale(1.7);
+        }
     }
 
     &--md {
-        @include button-size(0.5em, 0.5em, 1.375em, $font-size-btn-lg-line-height, 7.5px);
+        @include button-size($base*1.5, $base*1.5, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
+        font-size: $font-size-btn-md;
+
+        .c-icon {
+            transform: scale(1.3);
+        }
+        
     }
 
-    &--lg {
-        @include button-size(0.5em, 0.5em, 1.5em, $font-size-btn-lg-line-height, 12.5px);
+    &--sm {
+        @include button-size($base, $base, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+        font-size: $font-size-btn-sm;
     }
+}
+
+.c-button + .c-button {
+    margin-left: map-get($spacers, "1");
 }
