@@ -7,14 +7,11 @@
         outline: 0;
         min-height: $base*25;
         appearance: none;
-        line-height: 1.32em;
         padding: map-get($spacers, "2");
         font-size: 1em;
         background: $color-form-fields;
         border: 1px solid $color-form-fields;
-        box-shadow: 0 0 0 0 transparent inset;
-        -webkit-transition: color .1s ease, border-color .1s ease;
-        transition: color .1s ease, border-color .1s ease;
+        transition: color .1s ease;
         background-size: $base*2;
         border-radius: $border-radius-md;
 
@@ -84,15 +81,14 @@
 
     .c-textarea-invalid-message {
         width: 100%;
-        padding: map-get($spacers, "1");
+        padding: map-get($spacers, "1") ;
         display: none;
         font-size: 80%;
         color: $color-white;
         background-color: $color-danger;
-        border: none;
-        border-radius: 0 0 5px 5px;
+        border:none;
+        border-radius: 0 0 $border-radius-sm $border-radius-sm;
         box-sizing: border-box;
-        margin-top: -8px;
 
         &.error {
             display: block;
