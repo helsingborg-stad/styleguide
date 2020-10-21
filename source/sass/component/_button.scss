@@ -17,24 +17,23 @@
     }
 
     &--lg {
-        @include button-size(11px, 20px, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        @include button-size($base*2, $base*3, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
         font-size: $font-size-btn-lg;
     }
 
     &--md {
-        @include button-size(0.7em, 1em, $font-size-btn-md, $font-size-btn-md-line-height, 7.5px);
+        @include button-size($base*1.5, $base*2, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
         font-size: $font-size-btn-md;
     }
 
     &--sm {
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        @include button-size(0.7em, 1em, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+        @include button-size($base, $base*1.5, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
         font-size: $font-size-btn-sm;
     }
 
     &[disabled="true"] {
-
         border-color: $color-disabled;
         background-color: $color-disabled;
         color: $color-disabled-text;
