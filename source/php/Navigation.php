@@ -147,7 +147,96 @@ class Navigation
         $response = [
             [
                 'href' => '#',
-                'label' => 'topLevel',
+                'label' => 'Arbete',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Bo, bygga och miljö',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Förskola och utbildning',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Kommun och politik',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Omsorg och stöd',
+                'children' => true,
+                'ID' => 1
+            ]
+
+        ];
+
+        return $response;
+    }
+
+    public static function getMockedMultilevel()
+    {
+        $response = [
+            [
+                'href' => '#',
+                'label' => 'Arbete',
+                'children' => [
+                    [
+                        'href' => '#',
+                        'label' => 'Arbete - Child 1',
+                        'children' => [
+                            [
+                                'href' => '#',
+                                'label' => 'Arbete - Granchild 1',
+                                'children' => true,
+                                'ID' => 1
+                            ],
+                            [
+                                'href' => '#',
+                                'label' => 'Arbete - Granchild 2',
+                                'children' => true,
+                                'ID' => 1
+                            ]
+                        ],
+                        'ID' => 1
+                    ],
+                    [
+                        'href' => '#',
+                        'label' => 'Arbete - Child 2',
+                        'children' => false,
+                        'ID' => 1
+                    ]
+                ],
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Bo, bygga och miljö',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Förskola och utbildning',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Kommun och politik',
+                'children' => true,
+                'ID' => 1
+            ],
+            [
+                'href' => '#',
+                'label' => 'Omsorg och stöd',
                 'children' => true,
                 'ID' => 1
             ]
