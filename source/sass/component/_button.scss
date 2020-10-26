@@ -271,7 +271,6 @@
 
     &--lg {
         @include button-size($base*2, $base*2, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
-        font-size: $font-size-btn-lg;
         .c-icon {
             transform: scale(1.7);
         }
@@ -279,7 +278,6 @@
 
     &--md {
         @include button-size($base*1.5, $base*1.5, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
-        font-size: $font-size-btn-md;
 
         .c-icon {
             transform: scale(1.3);
@@ -289,7 +287,6 @@
 
     &--sm {
         @include button-size($base, $base, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
-        font-size: $font-size-btn-sm;
     }
 }
 
