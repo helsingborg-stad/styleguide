@@ -1,0 +1,47 @@
+.c-nav {
+  display: block;
+  background: #ff0000;
+
+  .c-nav__container {
+    padding: 0; 
+    @include unlist();
+  }
+
+  .c-nav__item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .c-nav__toggle {
+    display: block;
+    content: "test"; 
+    width: 20px; 
+    background: #eee;
+
+    &:after, &:before {
+      content: "";
+      border: 1px solid #ddd;
+    }
+  }
+}
+
+.c-nav--vertical .c-nav__container {
+  display: flex; 
+  flex-direction: column;
+}
+
+.c-nav--horizontal .c-nav__container {
+  
+  display: flex; 
+  flex-direction: row;
+
+  .c-nav__link {
+    display: block;
+    padding: map-get($spacers, "2");
+    text-decoration: none;
+  }
+
+  .c-nav__item[data-item-active="1"] .c-nav__link {
+    text-decoration: underline;
+  }
+}
