@@ -42,6 +42,7 @@
     padding-bottom: $padding-vertical;
     font-size: $font-size;
     border-radius: $border-radius;
+    min-height: ($padding-vertical*2) + $line-height;
 }
 
 // Reset button styles

@@ -6,38 +6,30 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(-16px, -50%);
+    transform: translate(- #{$base*2}, -50%);
 }
 
 .c-select {
+    appearance: none;
+
     width: 100%;
     margin: 0;
     outline: 0;
-    height: 56px;
-    appearance: none;
-    tap-highlight-color: rgba(255, 255, 255, 0);
-    line-height: 1.32em;
-    padding: map-get($spacers, "1");
-    padding-left: map-get($spacers, "2") +3;
-    padding-top: map-get($spacers, "2");
-    font-size: 1em;
-    background: $color-form-fields;
+
+    height: $base*6;
+    padding: map-get($spacers, "2");
+    font-size: $base*2;
+    line-height: $base*2; 
     border: 1px solid $color-form-fields;
-    border-radius: $border-radius-xs;
-    box-shadow: 0 0 0 0 transparent inset;
-    -webkit-transition: color .1s ease, border-color .1s ease;
-    transition: color .1s ease, border-color .1s ease;
-    background-size: 16px 16px !important;
+
+    background: $color-form-fields;
+    background-size: $base*2;
+
+    border-radius: $border-radius-md;
+
 
     &:focus {
         background-color: lighten($color-form-fields, 5%);
-        box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
-    }
-
-    select:focus {
-        border-bottom: 2px solid $color-in-action;
-        transition: ease-in-out .3s;
-
     }
 
     .error.active {
@@ -45,19 +37,18 @@
     }
 
     .c-select__select-invalid-message {
-        width  : 100%;
+        width: 100%;
         padding: map-get($spacers, "1") ;
-        display:none;
+        display: none;
         font-size: 80%;
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 5px 5px;
+        border-radius: 0 0 $border-radius-sm $border-radius-sm;
         box-sizing: border-box;
-        margin-top:-8px;
 
         &.error {
-            display:block;
+            display: block;
             transition: ease-in-out .3s;
         }
 
