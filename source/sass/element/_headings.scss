@@ -22,23 +22,21 @@ $h6-font-size: $font-size-body !default;
 $h6-line-height: $line-height-heading !default;
 $h6-font-weight: $font-weight-medium !default;
 
-h1,
-.h1,
-h2,
-.h2,
-h3,
-.h3,
-h4,
-.h4,
-h5,
-.h5,
-h6,
-.h6 {
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
     margin: 0;
+    margin-top: $base * 6;
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
-h1,
-.h1 {
+h1, .h1 {
     font-size: $h1-font-size;
     font-weight: $h1-font-weight;
     line-height: $h1-line-height;
@@ -47,15 +45,13 @@ h1,
     }
 }
 
-h2,
-.h2 {
+h2, .h2 {
     font-size: $h2-font-size;
     font-weight: $h2-font-weight;
     line-height: $h2-line-height;
 }
 
-h3,
-.h3 {
+h3, .h3 {
     font-size: $h3-font-size;
     font-weight: $h3-font-weight;
     line-height: $h3-line-height;
@@ -77,4 +73,22 @@ h6, .h6 {
     font-size: $h6-font-size;
     font-weight: $h6-font-weight;
     line-height: $h6-line-height;
+}
+
+
+// Subtitle spacing (heading + heading)
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4 {
+
+    & + h1, & + .h1,
+    & + h2, & + .h2,
+    & + h3, & + .h3,
+    & + h4, & + .h4,
+    & + h5, & + .h5,
+    & + h6, & + .h6,
+    & .subtitle {
+        margin-top: $base;
+    }
 }

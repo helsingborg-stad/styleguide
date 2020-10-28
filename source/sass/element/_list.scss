@@ -1,6 +1,7 @@
 ul, ol {
     margin: 0;
-    padding-left: $base * 3.5;
+    margin-top: $base * 2;
+    padding-left: $base * 3;
 
     li {
         position: relative;
@@ -11,7 +12,7 @@ ul, ol {
     }
 
     li + li {
-        margin-top: $base * 2;
+        margin-top: $base;
     }
 }
 
@@ -23,8 +24,9 @@ ul {
 
 ul.unlist,
 ol.unlist {
-    list-style: none;
+    margin-top: 0;
     padding-left: 0;
+    list-style: none;
 
     li {
         padding-left: 0;
