@@ -3,5 +3,10 @@
         "heading": "Accordion",
         "subHeading": "",
         "text": "The accordion can be used to display larger lists of content on one page."
+    },
+    "slot": {
+        "heading": "Using a slot",
+        "subHeading": "Giving you more flexibility",
+        "text": "The accordion will see if you're using the slot. In this example we're using the sub component accordion item to fill the accordion with items"
     }
 }
