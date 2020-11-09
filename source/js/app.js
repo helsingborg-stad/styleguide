@@ -23,6 +23,7 @@ import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
 import Table from './table';
 import Segment from './segment';
+import Pagination from './pagination';
 
 import './datepicker';
 
@@ -58,6 +59,13 @@ if (segments) {
     });
 }
 
+const paginations = document.querySelectorAll('[js-pagination-target]');
+if(paginations) {
+    paginations.forEach((pagination) => {
+        const paginationInstance = new Pagination(pagination);
+    })
+}
+
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
@@ -87,3 +95,5 @@ SteppersInstance.enableStepper();
 const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
+
+
