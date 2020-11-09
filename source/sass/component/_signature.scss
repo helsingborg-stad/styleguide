@@ -30,7 +30,7 @@
     &__title {
         color: $color-darker;
         margin-bottom: map-get($spacers, "1" );
-        margin-top: - #{map-get($spacers, "1" )};
+        margin-top: -#{map-get($spacers, "1" )};
         display: block;
     }
 
