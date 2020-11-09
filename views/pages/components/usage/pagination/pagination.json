@@ -3,5 +3,10 @@
         "heading": "Pagination",
         "subHeading": "",
         "text": ""
+    },
+    "js": {
+        "heading": "Using JS",
+        "subHeading": "Easier pagination",
+        "text": "With just a few added attributes you can have pagnation made for you"
     }
 }
