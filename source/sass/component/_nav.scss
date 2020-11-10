@@ -40,3 +40,9 @@
 //     text-decoration: underline;
 //   }
 // }
+
+.c-nav--horizontal {
+  .c-nav__item.is-open {
+    text-decoration: underline;
+  }
+}
