@@ -42,7 +42,8 @@
 // }
 
 .c-nav--horizontal {
-  .c-nav__item.is-open {
+  .c-nav__item.is-open,
+  .c-nav__item.is-current {
     text-decoration: underline;
   }
 }
