@@ -1,63 +1,62 @@
 
 .c-group {
-  display: flex;
+    display: flex;
 }
 
 .c-group--horizontal > *:not(:first-child) {
-  margin-left: 0;
-  border-top-left-radius: 0; 
-  border-bottom-left-radius: 0; 
-  border-left: none;
-
-  /* Fields */ 
-  &.c-field input,
-  &.c-field textarea {
+    margin-left: 0;
     border-top-left-radius: 0; 
     border-bottom-left-radius: 0; 
-  }
+    border-left: none;
+
+    /* Fields */ 
+    &.c-field input,
+    &.c-field textarea {
+        border-top-left-radius: 0; 
+        border-bottom-left-radius: 0; 
+    }
 }
 
 .c-group--horizontal > *:not(:last-child) {
-  margin-right: 0;
-  border-top-right-radius: 0; 
-  border-bottom-right-radius: 0; 
-
-  /* Fields */ 
-  &.c-field input,
-  &.c-field textarea {
+    margin-right: 0;
     border-top-right-radius: 0; 
     border-bottom-right-radius: 0; 
-  }
+
+    /* Fields */ 
+    &.c-field input,
+    &.c-field textarea {
+        border-top-right-radius: 0; 
+        border-bottom-right-radius: 0; 
+    }
 }
 
 .c-group--vertical {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .c-group--vertical > *:not(:first-child) {
-  margin-top: 0;
-  border-top-left-radius: 0; 
-  border-top-right-radius: 0; 
-  border-top: none;
+    margin-top: 0;
+    border-top-left-radius: 0; 
+    border-top-right-radius: 0; 
+    border-top: none;
 
   /* Fields */ 
   &.c-field input,
   &.c-field textarea {
-    border-top-left-radius: 0; 
-    border-top-right-radius: 0; 
+      border-top-left-radius: 0; 
+      border-top-right-radius: 0; 
   }
 }
 
 .c-group--vertical > *:not(:last-child) {
-  margin-bottom: 0;
-  border-bottom-left-radius: 0; 
-  border-bottom-right-radius: 0; 
-
-  /* Fields */ 
-  .c-field input,
-  .c-field textarea {
+    margin-bottom: 0;
     border-bottom-left-radius: 0; 
     border-bottom-right-radius: 0; 
-  }
-}
 
+    /* Fields */ 
+    .c-field input,
+    .c-field textarea {
+        border-bottom-left-radius: 0; 
+        border-bottom-right-radius: 0; 
+    }
+}
