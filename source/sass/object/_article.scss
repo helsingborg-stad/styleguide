@@ -11,7 +11,8 @@ $article-content-elements:
     }
 
     h1, .h1 {
-        margin-bottom: $base * 3;
+        color: $color-primary;
+        margin-bottom: $base * 2.5;
     }
 
     *:first-child {
