@@ -6,40 +6,231 @@
     display: flex;
     flex-direction: row;
   }
-
-  // .c-nav__toggle {
-  //   display: block;
-  //   content: "test"; 
-  //   width: 20px; 
-  //   background: #eee;
-
-  //   // &:after, &:before {
-  //   //   content: "";
-  //   //   border: 1px solid #ddd;
-  //   // }
-  // }
 }
 
-// .c-nav.c-nav--vertical .c-nav__container {
-//   display: flex; 
-//   flex-direction: column;
-// }
+.c-nav {
+  display: flex;
+  align-items: center;
 
-// .c-nav.c-nav--horizontal .c-nav__container {
+  .c-nav__brand {
+      padding: $base * 3 $base * 1.5;
+  }
+
+  // Logo
+  .c-nav__logo {
+      display: block;
+      height: $base * 6.5;
+      width: auto;
+
+      @include mq('md') {
+          height: $base * 7;
+      }
+
+      @include mq('lg') {
+          height: $base * 9;
+      }
+  }
+
+  // Item
+  .c-nav__link,
+  .c-nav__action {
+      font-size: 16px;
+      padding: $base * 2 $base;
+      text-decoration: none;
+      color: black;
+  }
+}
+
+// Sizes
+.c-nav.c-nav--sm {
+  .c-nav__link {
+      padding: $base $base;
+  }
+}
+
+.c-nav.c-nav--lg {
+  .c-nav__link {
+      font-size: 16px;
+  }
+}
+
+// Modifiers
+.c-nav.c-nav--stretch {
+  justify-content: stretch;
+
+  .c-nav__link {
+      flex-grow: 1;
+      text-align: center;
+  }
+}
+
+// Vertical
+.c-nav.c-nav--vertical {
+  display: block;
+
+  .c-nav__item {
+      flex-wrap: wrap;
+  }
+
+  .c-nav__link {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+      padding: $base * 2 $base * 4;
+
+      &:hover {
+          text-decoration: underline;
+      }
+  }
   
-//   display: flex; 
-//   flex-direction: row;
+  .c-nav__toggle {
+      position: relative;
+      flex: 0 0 auto;
+      width: auto;
+      max-width: none;
+      align-self: center;
 
-//   .c-nav__link {
-//     display: block;
-//     padding: map-get($spacers, "2");
-//     text-decoration: none;
-//   }
+      i {
+          font-size: 24px;
+          transform: rotate(0deg);
+      }
 
-//   .c-nav__item[data-item-active="1"] .c-nav__link {
-//     text-decoration: underline;
-//   }
-// }
+      .c-loader {
+          display: none;
+          position: absolute;
+          left: 8px;
+          color: white;
+          top: 8px;
+          pointer-events: none;
+      }
+  }
+
+  // Nested
+  .c-nav {
+      display: none;
+      width: 100%;
+
+      .c-nav__link {
+          padding-top: $base * 1.5;
+          padding-bottom: $base * 1.5;
+      }
+  }
+
+  .c-nav__item.is-open > .c-nav {
+      display: block;
+  }
+
+  .c-nav__item.is-loading {
+      .c-nav__toggle {
+          .c-loader {
+              display: block;
+          }
+
+          i {
+              visibility: hidden;
+          }
+      }
+  }
+
+  .c-nav__item.is-open > .c-nav__toggle i {
+      transform: rotate(180deg);
+  }
+}
+
+.c-nav.c-nav--vertical.c-nav--bordered {
+  border: solid 1px #e6e6e6;
+  border-radius: 12.5px;
+
+  .c-loader.c-loader__circular {
+      width: 3px;
+      height: 3px;
+      font-size: 3px;
+  }
+
+  .c-nav__item {
+      border-top: solid 1px rgba(black, 0.1);
+  }
+
+  .c-nav__item:first-child {
+      border-top: none;
+
+      .c-nav__toggle {
+          border-radius: 0 12.5px 0 0;
+      }
+  }
+
+  .c-nav__link {
+      display: flex;
+      align-items: center;
+      padding-top: $base;
+      padding-bottom: $base;
+      padding-left: $base * 2;
+      padding-right: $base * 2;
+      min-height: $base * 6;
+
+      &:hover {
+          color: $color-primary;
+      }
+  }
+
+  .c-nav__toggle .c-loader {
+      color: black;
+  }
+
+  .c-nav__toggle {
+      padding: $base * 1.5;
+      border-radius: 0;
+      align-self: stretch;
+
+      &:hover {
+          color: $color-primary;
+      }
+  }
+
+
+  // Nested
+  .c-nav {
+      .c-nav__item:first-child {
+          .c-nav__toggle {
+              border-radius: 0;
+          }
+      }
+
+      border: 0;
+      border-radius: 0;    
+      padding-left: 0;
+
+      background-color:  rgba(black, 0.05);
+      border-top: solid 1px rgba(black, 0.1);
+
+      .c-nav__link {
+          padding-left: $base * 2;
+          padding-right: $base * 2;
+      }
+  }
+  
+  .c-nav__item.is-current > .c-nav__link {
+      color: $color-primary;
+      font-weight: bold;
+  }
+}
+
+
+.c-nav.c-nav--vertical.c-nav--dark {
+    // Nested
+    .c-nav {
+      background-color:  rgba(black, 0.05);
+      border-top: solid 1px rgba(black, 0.1);
+  }
+}
+
+.c-nav.c-nav--vertical.c-nav--light {
+    // Nested
+    .c-nav {
+      background-color:  rgba(white, 0.05);
+      border-top: solid 1px rgba(white, 0.1);
+  }
+}
 
 .c-nav--horizontal {
   .c-nav__item.is-open,
