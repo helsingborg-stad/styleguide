@@ -1,6 +1,7 @@
 a, .link {
     color: $color-link;
-    text-decoration-style: underline;
+    text-decoration-style: solid;
+    transition: 100ms color; 
 
     i {
         text-decoration: none;
@@ -12,7 +13,8 @@ a, .link {
     }
 
     &:active, &:focus {
-        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-style: dotted;
     }
 
     &:active {

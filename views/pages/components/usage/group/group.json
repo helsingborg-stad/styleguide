@@ -1,0 +1,12 @@
+{
+    "horizontal": {
+        "heading": "Horizontal group",
+        "subHeading": "Simply groups elements.",
+        "text": "The group component resets (removes) margins, and border-radius to make the apperance of horizontally stacked elements."
+    },
+    "vertical": {
+        "heading": "Vertical group",
+        "subHeading": "Simply groups elements, vertically.",
+        "text": "The group component resets (removes) margins, and border-radius to make the apperance of vertically stacked elements."
+    }
+}
