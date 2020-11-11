@@ -3,10 +3,10 @@ $article-content-headings:
 '.h1', '.h2', '.h3', '.h4', '.h5', '.h6' !default;
 
 $article-content-elements:
-'p', 'ul', 'ol', 'blockquote', 'img', 'figure', 'table', 'div' !default;
+'p', 'ul', 'ol', 'blockquote', 'img', 'figure', 'table', '> div' !default;
 
 .c-article {
-    #{$article-content-elements} {
+    > #{$article-content-elements} {
         margin-top: $base * 2;
     }
 
