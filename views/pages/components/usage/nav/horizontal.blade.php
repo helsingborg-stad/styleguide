@@ -1,8 +1,8 @@
 @nav([
     'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
     'classList' => ['u-position--relative'],
-    'childItemsUrl' => '/',
+    'childItemsUrl' => '/', //Currently unsupported in horizontal mode
     'direction' => 'horizontal',
-    'includeToggle' => true
+    'includeToggle' => false //Currently unsupported in horizontal mode
 ])
 @endnav
