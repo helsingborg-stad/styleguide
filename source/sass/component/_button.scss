@@ -26,7 +26,6 @@
 
     &--sm {
         letter-spacing: 0.1em;
-        text-transform: uppercase;
         @include button-size($base*1.5, $base*2, $font-size-btn-sm, $font-size-btn-sm-line-height, $border-radius-sm);
     }
 
