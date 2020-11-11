@@ -235,6 +235,9 @@
 .c-nav--horizontal {
   .c-nav__item.is-open,
   .c-nav__item.is-current {
-    text-decoration: underline;
+
+    .c-nav__link {
+        text-decoration: underline;
+    }
   }
 }
