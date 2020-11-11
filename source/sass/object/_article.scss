@@ -6,7 +6,7 @@ $article-content-elements:
 'p', 'ul', 'ol', 'blockquote', 'img', 'figure', 'table', '> div' !default;
 
 .c-article {
-    > #{$article-content-elements} {
+    #{$article-content-elements} {
         margin-top: $base * 2;
     }
 
