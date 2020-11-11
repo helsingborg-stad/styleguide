@@ -40,12 +40,12 @@
     border-top-right-radius: 0; 
     border-top: none;
 
-  /* Fields */ 
-  &.c-field input,
-  &.c-field textarea {
-      border-top-left-radius: 0; 
-      border-top-right-radius: 0; 
-  }
+    /* Fields */ 
+    &.c-field input,
+    &.c-field textarea {
+        border-top-left-radius: 0; 
+        border-top-right-radius: 0; 
+    }
 }
 
 .c-group--vertical > *:not(:last-child) {
