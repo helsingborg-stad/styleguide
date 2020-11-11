@@ -24,26 +24,31 @@
     }
 
     &__author {
-        margin-bottom: -8px;
+        display: block;
     }
 
     &__title {
         color: $color-darker;
         margin-bottom: map-get($spacers, "1" );
+        margin-top: -#{map-get($spacers, "1" )};
+        display: block;
     }
 
     &__dates {
         clear: both;
+        display: block;
     }
 
     &__published {
         color: $color-darker;
         margin-bottom: 0;
+        display: block;
     }
 
     &__updated {
         color: $color-darker;
         margin-bottom: 0;
+        display: block;
     }
 
     &__author + &__published,

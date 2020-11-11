@@ -75,33 +75,32 @@ $radius: (
     width: 100%;
     height: auto;
 
-    &--custom-width {
-        width:auto;
+    .c-image--custom-width {
+        width: auto;
     }
 
-    &__image {
+    .c-image__image {
         border-radius: $border-radius-xs;
         width: 100%;
         max-width: 100%;
         display: block;
     }
 
-    &__caption {
+    .c-image__caption {
         font-size: 0.8em;
         color: darken($color-gray, 20%);
     }
 
-    &--full-width &__image {
+    .c-image--full-width .c-image__image {
         object-fit: contain;
         width: 100%;
     }
 
-    &__modal {
-        cursor:pointer;
+    .c-image__modal {
+        cursor: pointer;
     }
 
-    .c-modal--gallery &__caption {
-
+    .c-modal--gallery .c-image__caption {
         margin: 0 auto;
         position: absolute;
         bottom: - map-get($spacers, "8");
