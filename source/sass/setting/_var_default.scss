@@ -48,6 +48,6 @@ $breakpoints-map: (
 ) !default;
 
 //Width
-$container-width: 1150px !default;
+$container-width: $base * 156 !default; //1280
 $container-width-content: 700px !default;
 $container-width-wide: 1500px !default;
