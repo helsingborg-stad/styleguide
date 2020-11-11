@@ -79,10 +79,10 @@ $color-body: $color-base !default;
 $color-body-background: $color-default !default;
 //$color-body-background: $color-white !default;
 
-$color-link: $color-black !default;
-$color-link-hover: $color-darker;
-$color-link-visited: $color-black!default;
-$color-link-visited-hover: $color-darker;
+$color-link: $color-primary-dark !default;
+$color-link-hover: $color-primary !default;
+$color-link-visited: $color-black !default;
+$color-link-visited-hover: $color-primary-dark !default;
 
 $color-shadow: rgba($color-black, 0.18) !default;
 $color-shadow-sharp: rgba($color-black, 1) !default;
