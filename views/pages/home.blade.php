@@ -71,7 +71,7 @@
     ])
         @grid([])
             @card([
-                'heading' => 'Components this titlemight be breaking',
+                'heading' => 'Components',
                 'subHeading' => 'A web for everyone',
                 'imageFirst' => true,
                 'content' => 'The component library is a collection of robust views with built-in logic to handle common scenarios.',
@@ -81,9 +81,7 @@
                     'backgroundColor' => 'secondary',
                     'padded' => true
                 ],
-                'buttons' => [
-                    ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ],
+                'link' => '/components',
                 'classList' => ['u-height--100']
             ])
             @endcard
@@ -92,7 +90,7 @@
         @grid([])
             @card([
                 'heading' => 'Atomic Design',
-                'subHeading' => 'A wide variaty of components',
+                'subHeading' => 'Implemented standards',
                 'imageFirst' => true,
                 'content' => 'The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.',
                 'image' => [
@@ -101,9 +99,7 @@
                     'backgroundColor' => 'secondary',
                     'padded' => true
                 ],
-                'buttons' => [
-                    ['href' => '/components', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ],
+                'link' => '/about/styleguide-structure',
                 'classList' => ['u-height--100']
             ])
             @endcard
@@ -121,9 +117,7 @@
                     'backgroundColor' => 'secondary',
                     'padded' => true
                 ],
-                'buttons' => [
-                    ['href' => '/utilities', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ],
+                'link' => '/utilities',
                 'classList' => ['u-height--100']
             ])
             @endcard
@@ -131,8 +125,8 @@
 
         @grid([])
             @card([
-                'heading' => 'Usability',
-                'subHeading' => 'Behind the screen',
+                'heading' => 'Accesability',
+                'subHeading' => 'And usability',
                 'imageFirst' => true,
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
                 'image' => [
@@ -141,9 +135,7 @@
                     'backgroundColor' => 'secondary',
                     'padded' => true
                 ],
-                'buttons' => [
-                    ['href' => '#', 'type' => 'outlined', 'color' => 'primary', 'text' => 'Go to'],
-                ],
+                'link' => '/about/accessability',
                 'classList' => ['u-height--100']
             ])
             @endcard
