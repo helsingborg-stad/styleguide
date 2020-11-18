@@ -10,7 +10,6 @@
         align-items: center;
         width: 80%;
         padding-left: 5px;
-        padding-bottom: map-get($spacers, "1");
 
         .c-comment__author {
             align-self: center;
@@ -76,7 +75,8 @@
         border-radius: $border-radius-lg;
         border-top-left-radius: $border-radius-sm;
         padding: map-get($spacers, "1half") map-get($spacers, "2");
-
+        color: $color-black;
+        margin: 0;
     }
 
     &__bubble--color-dark &__bubble--inner {
