@@ -12,25 +12,6 @@
   display: flex;
   align-items: center;
 
-  .c-nav__brand {
-      padding: $base * 3 $base * 1.5;
-  }
-
-  // Logo
-  .c-nav__logo {
-      display: block;
-      height: $base * 6.5;
-      width: auto;
-
-      @include mq('md') {
-          height: $base * 7;
-      }
-
-      @include mq('lg') {
-          height: $base * 9;
-      }
-  }
-
   // Item
   .c-nav__link,
   .c-nav__action {
@@ -69,18 +50,18 @@
   display: block;
 
   .c-nav__item {
-      flex-wrap: wrap;
+    flex-wrap: wrap;
   }
 
   .c-nav__link {
-      flex-basis: 0;
-      flex-grow: 1;
-      max-width: 100%;
-      padding: $base * 2 $base * 4;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    padding: $base * 2 $base * 4;
 
-      &:hover {
-          text-decoration: underline;
-      }
+    &:hover {
+        text-decoration: underline;
+    }
   }
   
   .c-nav__toggle {
@@ -235,9 +216,6 @@
 .c-nav--horizontal {
   .c-nav__item.is-open,
   .c-nav__item.is-current {
-
-    .c-nav__link {
-        text-decoration: underline;
-    }
+    text-decoration: underline;
   }
 }
