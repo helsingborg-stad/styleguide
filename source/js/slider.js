@@ -20,6 +20,7 @@ export default class Slider {
             this.applySliders();
             this.enableStepper();
             this.handleSwipes();
+            this.fixTabbing();
 
             if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
                 this.autoSlider();
@@ -81,6 +82,7 @@ export default class Slider {
         this.SLIDER.setAttribute(this.STEP, newIndex);
         this.updateStepper();
         this.moveToIndex();
+        this.fixTabbing() 
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -199,5 +201,31 @@ export default class Slider {
         controls.forEach(control => {
             control.remove();
         });
+    }
+
+    /**
+     * Adds the appropriate tabindex's to not breaking slider when tabbing through site
+     * @return {Void}
+     */
+    fixTabbing() {
+        const slideElements = [...this.SLIDER.querySelector(`[${this.INNER}]`).children];
+        const tabTargets = [
+            'button',
+            'video',
+            'input',
+            'textarea'
+        ];
+
+        slideElements.forEach((elm) => {
+            tabTargets.forEach((item) => {
+                elm.querySelectorAll(item).forEach((tabElm) => {
+                    tabElm.setAttribute('tabindex', '-1');
+                })
+            })
+        })
+
+        slideElements[this.getCurrentIndex()].querySelectorAll('[tabindex]').forEach(elm => {
+            elm.removeAttribute("tabindex");
+        })
     }
 }
