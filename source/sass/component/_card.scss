@@ -1,10 +1,25 @@
 .c-card {
     @include shadow(2); 
+    display: block;
     position: relative;
     background-color: $color-white;
     transition: box-shadow 200ms, background-color 200ms; 
     border-radius: 12.5px;
     overflow: hidden;
+
+    &--size-md,
+    &--size-lg {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &--size-md .c-card__image {
+        width: 300px; 
+    }
+
+    &--size-lg .c-card__image {
+        width: 60%; 
+    }
 
     &--panel {
         .c-card__header {
@@ -139,7 +154,6 @@
 }
 
 a.c-card {
-    display: block;
     text-decoration: none;
     color: inherit; 
 

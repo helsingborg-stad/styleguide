@@ -23,6 +23,7 @@ import DynamicSidebar from './dynamicSidebar';
 import Navbar from './navbar';
 import Table from './table';
 import Segment from './segment';
+import ContainerMediaQuery from './mediaQuery';
 
 import './datepicker';
 
@@ -38,6 +39,7 @@ const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
+const ContainerMediaQueryInstance = new ContainerMediaQuery();
 
 const table = document.querySelector('.c-table');
 if (table) {
@@ -68,6 +70,7 @@ TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
+
 
 // Dynamic Sidebars
 const DynamicSidebarInstance = new DynamicSidebar();
