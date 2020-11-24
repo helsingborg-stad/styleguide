@@ -25,6 +25,7 @@ import Table from './table';
 import Segment from './segment';
 
 import './datepicker';
+import './helpers/swipe';
 
 expandSection();
 
