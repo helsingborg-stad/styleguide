@@ -100,19 +100,19 @@
     top: 0;
     left: 0;
 }
-
-.c-segment__video--play__btn {
-    display: none;
+.c-segment:not(:hover) .c-segment__video--play__btn:not(:focus){
+    height: 0px;
+    width: 0px;
+    max-height: 0px;
+    max-width: 0px;
+    padding: 0;
 }
 
-.c-segment:hover {
-    .c-segment__video--play__btn {
-        display: block;
-        position: absolute;
-        right: map-get($spacers, "2");
-        bottom: map-get($spacers, "2");
-        z-index: $level-2;
-    }
+.c-segment__video--play__btn {
+    position: absolute;
+    right: map-get($spacers, "2");
+    bottom: map-get($spacers, "2");
+    z-index: $level-2;
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
