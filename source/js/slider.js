@@ -19,6 +19,7 @@ export default class Slider {
         if (this.getItemsLength() > 1) {
             this.applySliders();
             this.enableStepper();
+            this.handleSwipes();
 
             if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
                 this.autoSlider();
@@ -56,6 +57,23 @@ export default class Slider {
         }
 
         this.updateSlider(newIndex);
+    }
+
+    /**
+     * Handles swipeEvents
+     */
+    handleSwipes() {
+        this.SLIDER.addEventListener('swipeLeft', (e) => {
+            let newIndex;
+            newIndex = this.nextIndex(this.getCurrentIndex(this.SLIDER));
+            this.updateSlider(newIndex);
+        })
+
+        this.SLIDER.addEventListener('swipeRight', (e) => {
+            let newIndex;
+            newIndex = this.prevIndex(this.getCurrentIndex(this.SLIDER));
+            this.updateSlider(newIndex);
+        })
     }
 
     updateSlider(newIndex) {
