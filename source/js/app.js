@@ -27,6 +27,7 @@ import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
 
 import './datepicker';
+import './helpers/swipe';
 
 expandSection();
 
