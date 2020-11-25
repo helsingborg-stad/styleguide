@@ -1,13 +1,60 @@
 .c-slider {
     overflow: hidden;
     position: relative;
+    height: 0;
+
+    &--16-9 {
+        padding-top: 56.25%;
+    }
+
+    &--4-3 {
+        padding-top: 75%;
+    }
+
+    &--10-3 {
+        padding-top: 30%;
+    }
+
+    &--36-7 {
+        padding-top: 19.44%;
+    }
 
     &__inner {
         display: flex;
         transition: all 0.7s ease-in-out;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
 
         .c-segment {
             min-width: 100%;
+        }
+    }
+
+    .c-slider__item {
+        position: relative;
+        min-width: 100%;
+        padding: map-get($spacers, "2");
+    }
+
+    .c-slider__item__container {
+        position: absolute;
+    }
+
+    .c-slider__item__background--video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+    }
+
+    @include mq(map_get($breakpoints-map, "lg")) {
+        .c-slider__item {
+            padding: map-get($spacers, "6") map-get($spacers, "8");
         }
     }
 
