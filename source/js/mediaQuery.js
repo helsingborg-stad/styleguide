@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable class-methods-use-this */
 /**
  * Component Image
@@ -10,21 +11,21 @@ class ContainerMediaQuery {
       
     // Init only if browser supports ResizeObserver
     if ('ResizeObserver' in self) {
-      this.resizeObserver = new ResizeObserver(function(entries) {
+      this.resizeObserver = new ResizeObserver((entries) => {
         
         const defaultBreakpoints = {xs: 384, sm: 576, md: 768, lg: 960};
 
-        entries.forEach(function(entry) {
+        entries.forEach((entry) => {
           
           // If breakpoints are defined on the observed element,
-          let breakpoints = entry.target.dataset.breakpoints ?
+          const breakpoints = entry.target.dataset.breakpoints ?
           JSON.parse(entry.target.dataset.breakpoints) :
           defaultBreakpoints;
 
           // Update the matching breakpoints on the observed element.
-          Object.keys(breakpoints).forEach(function(breakpoint) {
+          Object.keys(breakpoints).forEach((breakpoint) => {
 
-            let minWidth = breakpoints[breakpoint];
+            const minWidth = breakpoints[breakpoint];
 
             if (entry.contentRect.width >= minWidth) {
               entry.target.classList.add(entry.target.classList[0] + prefixName + breakpoint);
@@ -51,45 +52,18 @@ class ContainerMediaQuery {
 
     // Init observer on all target elements
     if(targetElemets.length) {
-      for(let element of targetElemets) {
+      targetElemets.forEach((element) => {
         this.resizeObserver.observe(element);
-      }
+      }); 
     }
-
   }
 
+  /**
+   * Makes query to dom, for observe data attr. 
+   */
   getTargetElements() {
     return document.querySelectorAll('[data-observe-resizes]');
   }
-
-  
-
 }
 
 export default ContainerMediaQuery;
-
-
-
-/*console.log("Rez"); 
-
-if ('ResizeObserver' in self) {
-  console.log("rez init"); 
-  let resizeObserver = new ResizeObserver(function(entries) {
-    
-    let defaultBreakpoints = {SM: 384, MD: 576, LG: 768, XL: 960};
-
-    entries.forEach(function(entry) {
-
-      
-
-    });
-  });
-
-  let elements = document.querySelectorAll('[data-observe-resizes]');
-
-  console.log(elements); 
- 
-  for (var element, i = 0; element = elements[i]; i++) {
-    resizeObserver.observe(element);
-  }
-}*/ 

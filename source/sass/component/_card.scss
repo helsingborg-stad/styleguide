@@ -20,6 +20,10 @@
         .c-card__footer {
             flex: 1;
         }
+
+        .c-card__image-background {
+            height: 100%;
+        }
     }
 
     &--size-md .c-card__image {
@@ -49,8 +53,7 @@
     &--square-image {
         .c-card__image {
             .c-card__image-background {
-                padding-top: 100%;
-                background-position: center;
+                @include ratio(1,1,false);
             }
         }
     }
@@ -99,7 +102,7 @@
 
         &-background {
             width: 100%;
-            height: 200px;
+            @include ratio(16,9,false);
             background-size: cover;
             background-repeat: no-repeat;
 
@@ -109,6 +112,7 @@
                 background-position: center;
                 background-origin: content-box;
                 padding: map-get($spacers, "5" );
+                min-height: 200px;
             }
 
         }
