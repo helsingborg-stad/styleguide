@@ -5,7 +5,7 @@ import Steppers from "./steppers";
 export default class Slider {
     constructor(slider) {
         this.SLIDER     = slider;
-        this.CLASS      = "c-segment";
+        this.SLIDE      = "js-slider-slide";
         this.ATTR       = "js-slider";
         this.BTN        = "js-slider-btn";
         this.INDEX      = "js-slider-index";
@@ -145,7 +145,7 @@ export default class Slider {
      * @return {Int} The amount of slides
      */
     getItemsLength() {
-        return this.SLIDER.getElementsByClassName(this.CLASS).length
+        return this.SLIDER.querySelectorAll(`[${this.SLIDE}]`).length
     }
 
     updateStepper() {
