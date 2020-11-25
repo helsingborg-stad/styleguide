@@ -11,14 +11,31 @@
     &--size-lg {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
+
+        .c-card__body {
+            padding: $base * 3; 
+        }
+
+        .c-card__footer {
+            flex: 1;
+        }
     }
 
     &--size-md .c-card__image {
-        width: 300px; 
+        flex-basis: 300px;
+    }
+
+    &--size-md .c-card__body {
+        flex-basis: calc(100% - 300px);
     }
 
     &--size-lg .c-card__image {
-        width: 60%; 
+        flex-basis: 30%;
+    }
+
+    &--size-lg .c-card__body {
+        flex-basis: calc(100% - 30%);
     }
 
     &--panel {
@@ -33,6 +50,7 @@
         .c-card__image {
             .c-card__image-background {
                 padding-top: 100%;
+                background-position: center;
             }
         }
     }
