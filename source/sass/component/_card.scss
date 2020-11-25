@@ -7,6 +7,7 @@
     border-radius: 12.5px;
     overflow: hidden;
 
+    &--size-sm,
     &--size-md,
     &--size-lg {
         display: flex;
@@ -14,7 +15,7 @@
         flex-wrap: wrap;
 
         .c-card__body {
-            padding: $base * 3; 
+            padding: map-get($spacers, "4"); 
         }
 
         .c-card__footer {
@@ -24,6 +25,14 @@
         .c-card__image-background {
             height: 100%;
         }
+    }
+
+    &--size-sm .c-card__image {
+        flex-basis: 250px;
+    }
+
+    &--size-sm .c-card__body {
+        flex-basis: calc(100% - 250px);
     }
 
     &--size-md .c-card__image {
