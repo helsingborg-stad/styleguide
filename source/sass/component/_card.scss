@@ -164,7 +164,7 @@ a.c-card {
     }
     
     &:hover {
-        @include shadow(4);
+        @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
 
