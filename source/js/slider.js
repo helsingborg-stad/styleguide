@@ -11,6 +11,7 @@ export default class Slider {
         this.INDEX      = "js-slider-index";
         this.INNER      = "js-slider-inner";
         this.AUTOSLIDE  = "js-slider__autoslide";
+        this.REPEAT     = "js-slider-repeat";
         this.STEP       = "data-step";
         this.PAUSEHOVER = false;
 
@@ -21,6 +22,10 @@ export default class Slider {
             this.enableStepper();
             this.handleSwipes();
             this.fixTabbing();
+            
+            if(!(this.SLIDER.getAttribute(this.REPEAT))) {
+                this.noRepeat();
+            }
 
             if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
                 this.autoSlider();
@@ -82,7 +87,11 @@ export default class Slider {
         this.SLIDER.setAttribute(this.STEP, newIndex);
         this.updateStepper();
         this.moveToIndex();
-        this.fixTabbing() 
+        this.fixTabbing();
+
+        if(!(this.SLIDER.getAttribute(this.REPEAT))) {
+            this.noRepeat();
+        }
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -227,5 +236,23 @@ export default class Slider {
         slideElements[this.getCurrentIndex()].querySelectorAll('[tabindex]').forEach(elm => {
             elm.removeAttribute("tabindex");
         })
+    }
+
+    noRepeat() {
+        let next = this.SLIDER.querySelector(`[${this.BTN}="next"]`);
+        let prev = this.SLIDER.querySelector(`[${this.BTN}="prev"]`);
+        
+        next.classList.remove('u-display--none');
+        prev.classList.remove('u-display--none');
+
+        if (this.getCurrentIndex() == (this.getItemsLength() -1)) {
+            next.classList.add('u-display--none');
+            return;
+        }
+        
+        if (this.getCurrentIndex() == 0) {
+            prev.classList.add('u-display--none');
+            return;
+        }
     }
 }
