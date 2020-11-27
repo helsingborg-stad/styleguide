@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import Steppers from "./steppers";
+import VideoControls from "./helpers/video";
 
 export default class Slider {
     constructor(slider) {
@@ -34,6 +35,8 @@ export default class Slider {
         } else {
             this.hideControls();
         }
+
+        this.addVideoControls()
     }
 
     /**
@@ -254,5 +257,13 @@ export default class Slider {
             prev.classList.add('u-display--none');
             return;
         }
+    }
+
+    addVideoControls() {
+        this.SLIDER.querySelectorAll('[js-slider-slide]').forEach((slide) => {
+            if(slide.querySelectorAll('video').length > 0) {
+                const player = new VideoControls(slide);
+            }
+        })
     }
 }
