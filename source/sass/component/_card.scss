@@ -141,7 +141,7 @@ a.c-card {
     display: block;
     text-decoration: none;
     color: inherit; 
-    transition: transform 600ms ease-in-out, box-shadow 500ms ease-in-out, background-color 200ms ease-in-out; 
+    transition: transform 350ms ease-in-out, box-shadow 350ms ease-in-out, background-color 200ms ease-in-out; 
 
     .c-card__image {
         overflow: hidden;
@@ -167,7 +167,7 @@ a.c-card {
         @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
-        transform: translateY(-#{$base/2}); 
+        transform: translateY(-#{$base/4}); 
 
         .c-card__heading {
             text-decoration: underline;
