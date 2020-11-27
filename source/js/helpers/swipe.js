@@ -53,7 +53,6 @@ function handleTouchMove(evt) {
     } else {
         if ( yDiff > 0 ) {
             /* up swipe */ 
-            console.log("swipe")
             evt.target.dispatchEvent(swipeUp)
         } else { 
             /* down swipe */
