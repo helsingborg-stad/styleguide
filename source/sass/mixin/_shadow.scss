@@ -11,5 +11,5 @@
         $result: $result if($inset, #{"inset"}, #{""}) 0 $offset-size $shadow-size rgba($color-shadow-sharp, $shadow-opacity) #{","}
     }
 
-    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 ($base * ($level+1) * 0.6) ($base * ($level+1)) rgba($color-shadow-sharp, 0.06); 
+    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (($base * ($level+1) * 0.6)/$max-level) (($base * ($level+1))/$max-level) rgba($color-shadow-sharp, 0.06); 
 }
