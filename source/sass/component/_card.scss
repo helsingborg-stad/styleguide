@@ -2,7 +2,6 @@
     @include shadow(2); 
     position: relative;
     background-color: $color-white;
-    transition: box-shadow 200ms, background-color 200ms; 
     border-radius: 12.5px;
     overflow: hidden;
 
@@ -142,6 +141,7 @@ a.c-card {
     display: block;
     text-decoration: none;
     color: inherit; 
+    transition: transform 600ms ease-in-out, box-shadow 500ms ease-in-out, background-color 200ms ease-in-out; 
 
     .c-card__image {
         overflow: hidden;
@@ -167,6 +167,7 @@ a.c-card {
         @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
+        transform: translateY(-#{$base/2}); 
 
         .c-card__heading {
             text-decoration: underline;
