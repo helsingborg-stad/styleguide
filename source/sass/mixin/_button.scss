@@ -1,6 +1,7 @@
 // Button Focus, Hover - Color, Background, Borders
 @mixin button-mix($color, $background, $hoverColor) {
     color: $color;
+    white-space: nowrap;
 
     &:visited {
         color: $color;
@@ -42,11 +43,12 @@
     padding-bottom: $padding-vertical;
     font-size: $font-size;
     border-radius: $border-radius;
-    min-height: ($padding-vertical*2) + $line-height;
+    height: ($padding-vertical*2) + $line-height;
 }
 
 // Reset button styles
 @mixin button-unstyled() {
+    white-space: normal;
     background-color: transparent;
     border: 0;
     border-radius: 0;
