@@ -21,6 +21,10 @@ export default class Table{
         // eslint-disable-next-line prefer-destructuring
         let list = this.list;
 
+        if (this.isPagination) {
+            list = this.paginateList(list)
+        }
+
         if (this.isFilterable) {
             list = this.filterList(list, this.filterValue());
         }
@@ -29,9 +33,6 @@ export default class Table{
             list = this.sortList(list)
         }
 
-        if (this.isPagination) {
-            list = this.paginateList(list)
-        }
 
         this.renderTable(list);
         
@@ -102,7 +103,7 @@ export default class Table{
     paginateList(list) {
         const first = (this.paginationCurrent() - 1) * this.paginationRows();
         const last = this.paginationCurrent() * this.paginationRows();
-
+        
         return Array.from(list).slice(first, last);
     }
 
