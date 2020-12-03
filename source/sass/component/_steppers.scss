@@ -12,27 +12,31 @@
         padding-bottom:7px;
     }
 
-    /**
-     * Dots
-     * Ussage in galleries
-     */
-
     &__dot {
-        border-radius: 50%;
         background: $color-gray;
         display: inline-block;
-        width: map-get($spacers, "1");
-        height:map-get($spacers, "1");
-        @include mq(map_get($breakpoints-map, "xs"), "sm") {
-            width: map-get($spacers, "05");
-            height:map-get($spacers, "05");
+        width: $base * 1.5;
+        height: $base * 0.5;
+
+        &:first-of-type {
+            border-top-left-radius: $base * 0.5;
+            border-bottom-left-radius: $base * 0.5;
         }
 
-        margin: map-get($spacers, "05");
+        &:last-of-type {
+            border-top-right-radius: $base * 0.5;
+            border-bottom-right-radius: $base * 0.5;
+        }
+
+        @include mq(map_get($breakpoints-map, "xs"), "sm") {
+            width: $base * 0.5;
+            height: $base * 0.5;
+        }
+
+        margin: $base * 0.5;
     }
 
     &__dot-active {
-        background: $color-white;
+        background: $color-primary;
     }
-
 }
