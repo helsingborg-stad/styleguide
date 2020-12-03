@@ -1,23 +1,15 @@
-@mixin shadow($level: 1, $inset: false) {
+@mixin shadow($level: 1, $inset: false, $result: "") {
 
-    @if $level == 1 {
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base/2) $color-shadow;
-    } @else if $level == 2 {
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base) lighten($color-shadow, 1.1%);
-    } @else if $level == 3 {
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base*2) lighten($color-shadow, 1.2%);
-    } @else if $level == 4 {
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base*3) lighten($color-shadow, 1.3%);
-    } @else if $level == 5 {
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base*4) lighten($color-shadow, 1.4%);
-    } @else if $level == 6 {
-        box-shadow: if($inset, inset, #{""}) 0 2px 5px -2px lighten($color-shadow-sharp, 1.4%);
-    } @else if $level == 7 {
-        // Sharp on hover
-        box-shadow: if($inset, inset, #{""}) 0 0 ($base*1) lighten($color-shadow-sharp, 70%);
-    }@else if $level == 8 {
-        // On focus
-        box-shadow: if($inset, inset, #{""}) 0 2px 5px -2px lighten($color-shadow-sharp, 70%);
+    $level: $level*2;
+    $max-level: 5;
+    
+    @for $i from 1 through ($level) {
+        $shadow-opacity: ((0.08/$i)*6)*0.12; 
+        $shadow-size: $base * ($level/$max-level) * $i; 
+        $offset-size: $shadow-size * 0.6; 
+
+        $result: $result if($inset, #{"inset"}, #{""}) 0 $offset-size $shadow-size rgba($color-shadow-sharp, $shadow-opacity) #{","}
     }
 
+    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (($base * ($level+1) * 0.6)/$max-level) (($base * ($level+1))/$max-level) rgba($color-shadow-sharp, 0.06); 
 }
