@@ -3,7 +3,6 @@
     display: block;
     position: relative;
     background-color: $color-white;
-    transition: box-shadow 200ms, background-color 200ms; 
     border-radius: 12.5px;
     overflow: hidden;
 
@@ -187,6 +186,7 @@
 a.c-card {
     text-decoration: none;
     color: inherit; 
+    transition: transform 350ms ease-in-out, box-shadow 350ms ease-in-out, background-color 200ms ease-in-out; 
 
     .c-card__image {
         overflow: hidden;
@@ -209,9 +209,10 @@ a.c-card {
     }
     
     &:hover {
-        @include shadow(4);
+        @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
+        transform: translateY(-#{$base/4}); 
 
         .c-card__heading {
             text-decoration: underline;

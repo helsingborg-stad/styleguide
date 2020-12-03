@@ -19,6 +19,10 @@ $article-content-elements:
         margin-top: 0;
     }
 
+    h1:first-child {
+        margin-top: -0.21em; /* Mitigates excessive spacing due to line-height */ 
+    }
+
 }
 
 .c-article.c-article--readable-width {
