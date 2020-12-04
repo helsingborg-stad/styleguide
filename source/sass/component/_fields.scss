@@ -160,6 +160,10 @@
         cursor: text;
         pointer-events: none;
         opacity: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70%;
     }
 
     $active: '.invalid + label, label:active, input:not(:empty) + label, input:focus + label, input:not(:placeholder-shown) + label'; 
