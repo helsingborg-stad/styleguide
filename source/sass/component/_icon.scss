@@ -10,61 +10,61 @@
 
     /* Modifiers  - Sizes */
 
-    .c-icon--size-inherit {
+    &.c-icon--size-inherit {
         font-size: inherit;
     }
 
-    .c-icon--size-xs {
+    &.c-icon--size-xs {
         font-size: map-get($icon-sizes, "xs");
     }
 
-    .c-icon--size-sm {
+    &.c-icon--size-sm {
         font-size: map-get($icon-sizes, "sm");
     }
 
-    .c-icon--size-md {
+    &.c-icon--size-md {
         font-size: map-get($icon-sizes, "md");
     }
 
-    .c-icon--size-lg {
+    &.c-icon--size-lg {
         font-size: map-get($icon-sizes, "lg");
     }
 
-    .c-icon--size-xl {
+    &.c-icon--size-xl {
         font-size: map-get($icon-sizes, "xl");
     }
 
-    .c-icon--size-xxl {
+    &.c-icon--size-xxl {
         font-size: map-get($icon-sizes, "xxl");
     }
 
     /* Modifiers  - Colors */
 
-    .c-icon--color-black {
+    &.c-icon--color-black {
         color: $color-black;
     }
 
-    .c-icon--color-gray {
+    &.c-icon--color-gray {
         color: $color-gray;
     }
 
-    .c-icon--color-default {
+    &.c-icon--color-default {
         color: $color-default;
     }
 
-    .c-icon--color-default-dark {
+    &.c-icon--color-default-dark {
         color: $color-default-dark;
     }
 
-    .c-icon--color-white {
+    &.c-icon--color-white {
         color: $color-white;
     }
 
-    .c-icon--color-primary {
+    &.c-icon--color-primary {
         color: $color-primary;
     }
 
-    .c-icon--color-secondary {
+    &.c-icon--color-secondary {
         color: $color-secondary;
     }
 
@@ -76,7 +76,7 @@
         color: inherit;
     }
 
-    .c-icon--fluid-label .c-icon__label {
+    &.c-icon--fluid-label .c-icon__label {
         font-size: 1em;
     }
 }
