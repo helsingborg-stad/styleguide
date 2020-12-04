@@ -212,7 +212,6 @@ a.c-card {
         @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
-        transform: translateY(-#{$base/4}); 
 
         .c-card__heading {
             text-decoration: underline;

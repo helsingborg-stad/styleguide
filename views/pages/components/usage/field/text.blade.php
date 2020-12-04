@@ -94,7 +94,7 @@
                 <div class="grid-md-6">
 
                     @markdown
-                    ##Input field - Search
+                    ##Input field - Search (with icon)
                     @endmarkdown
 
                     @field([
@@ -104,7 +104,8 @@
                             'name' => 'search',
                             'required' => true,
                         ],
-                        'label' => "Search"
+                        'label' => "Search",
+                        'icon' => ['icon' => 'search']
                     ])
                     @endfield
 
