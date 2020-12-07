@@ -18,8 +18,14 @@ export default class Filter {
 
             //Get filterable items
             container.querySelectorAll(ITEM).forEach((item) => {
-                let dataItems = item.querySelectorAll(DATA);
+                let dataItems;
                 let dataString = '';
+
+                if(item.hasAttribute('js-filter-data')) {
+                    dataItems = [item, ...item.querySelectorAll(DATA)];
+                } else {
+                    dataItems = item.querySelectorAll(DATA);
+                }
 
                 //Build search string
                 dataItems.forEach((data) => {
