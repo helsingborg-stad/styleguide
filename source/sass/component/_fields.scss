@@ -1,31 +1,25 @@
 .c-field {
-    position: relative;
 
-    input[type="color"],
-    input[type="text"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="date"],
-    input[type="datetime-local"],
-    input[type="url"],
-    input[type="week"],
-    input[type="month"],
-    input[type="number"],
-    input[type="password"],
-    input[type="email"] {
+    $grandparent: &;
+
+    position: relative; 
+
+    $fields: 'input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
+
+    #{$fields} {
         appearance: none;
 
         width: 100%;
         margin: 0;
         outline: 0;
 
-        height: $base*6;
+        height: map-get($spacers, "6");
         padding: map-get($spacers, "2");
+
         font-size: $base*2;
         line-height: $base*2; 
-        border: 1px solid $color-form-fields;
 
+        border: 1px solid $color-form-fields;
         background: $color-form-fields;
         background-size: $base*2;
 
@@ -37,31 +31,158 @@
             background-color: lighten($color-form-fields, 5%);
             border-bottom: 2px solid $color-in-action;
         }
+    }
 
-        &--sm & {
-            padding: map-get($spacers, "1"); 
+    .c-field--radius-xs {
+        #{$fields} {
+            border-radius: $border-radius-xs;
         }
     }
 
+    /* Border radiuses */ 
+    &.c-field--radius-none {
+        #{$fields} {
+            border-radius: 0;
+        }
+    }
+
+    &.c-field--radius-xs {
+        #{$fields} {
+            border-radius: $border-radius-xs;
+        }
+    }
+
+    &.c-field--radius-sm {
+        #{$fields} {
+            border-radius: $border-radius-sm;
+        }
+    }
+
+    &.c-field--radius-md {
+        #{$fields} {
+            border-radius: $border-radius-md;
+        }
+    }
+
+    &.c-field--radius-lg {
+        #{$fields} {
+            border-radius: $border-radius-lg;
+        }
+    }
+
+    /* Field icon */ 
+    .c-icon {
+        position: absolute;
+        left: map-get($spacers, "2");
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* Size modifiers */ 
+    &.c-field--sm {
+        #{$fields} {
+            padding: map-get($spacers, "1"); 
+            height: (map-get($spacers, "4") + map-get($spacers, "05"));
+            text-indent: map-get($spacers, "1");
+        }
+
+        .c-icon {
+            left: map-get($spacers, "1");
+        }
+
+        &.c-field--icon {
+            #{$fields} {
+                text-indent: map-get($spacers, "3");
+            }
+        }
+
+        &.c-field--icon label {
+            left: map-get($spacers, "4");
+        }
+    }
+
+    &.c-field--md {
+        #{$fields} {
+            padding: map-get($spacers, "2"); 
+            height: map-get($spacers, "6"); 
+        }
+
+        .c-icon {
+            left: map-get($spacers, "2");
+        }
+
+        &.c-field--icon {
+            #{$fields} {
+                text-indent: (map-get($spacers, "4"));
+            }
+        }
+
+        &.c-field--icon label {
+            left: map-get($spacers, "6");
+        }
+    }
+
+    &.c-field--lg {
+        #{$fields} {
+            padding: (map-get($spacers, "2") + map-get($spacers, "05")); 
+            height: map-get($spacers, "8"); 
+        }
+
+        label {
+            left: (map-get($spacers, "2") + map-get($spacers, "05"));
+        }
+
+        .c-icon {
+            left: map-get($spacers, "2") + map-get($spacers, "05");
+        }
+
+        &.c-field--icon {
+            #{$fields} {
+                text-indent: (map-get($spacers, "4") + map-get($spacers, "05"));
+            }
+        }
+
+        &.c-field--icon label {
+            left: map-get($spacers, "7");
+        }
+    }
+
+    /* Label styling */ 
     label {
         font-size: 14px;
         color: $color-form-fields-label;
         position: absolute;
         top: 50%;
-        left: $base*2;
+        left: map-get($spacers, "2");
         transform-origin: top left;
         transform: translate(0, -50%) scale(1);
         transition: all .1s ease-in-out;
         cursor: text;
         pointer-events: none;
+        opacity: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 70%;
     }
 
-    .invalid + label,
-    label:active,
-    input:not(:empty) + label,
-    input:focus + label,
-    input:not(:placeholder-shown) + label {
+    $active: '.invalid + label, label:active, input:not(:empty) + label, input:focus + label, input:not(:placeholder-shown) + label'; 
+
+    #{$active} {
         transform: translate(0, -100%) scale(.75);
+    }
+
+    &.c-field--sm {
+        #{$active}  {
+            opacity: 0;
+            transform: none;
+        }
+    }
+
+    &.c-field--lg {
+        #{$active} {
+            transform: translate(0, -125%) scale(.75);
+        }
     }
 
     .invalid + label {
@@ -155,6 +276,9 @@
         .c-icon {
             position: relative;
             top: 3px;
+            left: 0;
+            transform: none;
+            margin-right: map-get($spacers, "05");
         }
     }
 }

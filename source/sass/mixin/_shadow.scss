@@ -4,7 +4,7 @@
     $max-level: 5;
     
     @for $i from 1 through ($level) {
-        $shadow-opacity: ((0.08/$i)*6)*0.12; 
+        $shadow-opacity: ((0.08/$i)*6)*.2; 
         $shadow-size: $base * ($level/$max-level) * $i; 
         $offset-size: $shadow-size * 0.6; 
 
