@@ -1,6 +1,3 @@
-// import './polyfill';
-// import '@babel/polyfill'; 
-
 import expandSection from './expand-section';
 import Filter from './filter';
 import Sort from './sort';
