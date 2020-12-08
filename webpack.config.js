@@ -2,10 +2,6 @@ const path = require('path');
 const glob = require('glob');
 
 module.exports = {
-    // ...
-    externals: {
-        material: '@material',
-    },
 
     /**
      * Entry files - Add more entries if needed.
@@ -14,7 +10,12 @@ module.exports = {
         'styleguide-js': glob.sync('./source/js/**/*.js'),
         'buildcss': './build/index.js'
     },
-    mode: 'development',
+    mode: 'production',
+
+    optimization: {
+        usedExports: true,
+    },
+
     watchOptions: {
         poll: 100,
         ignored: /node_modules/,

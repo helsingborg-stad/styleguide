@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const glob = require('glob');
-const webpack = require('webpack');
 const package = require('./package.json');
 const version = package.version;
 
@@ -10,7 +9,6 @@ module.exports = {
     devServer: {
         lazy: true,
         writeToDisk: true,
-
     },
 
     /**
@@ -34,7 +32,7 @@ module.exports = {
 
     watch: true,
     watchOptions: {
-        poll: 1000,
+        poll: 300,
         ignored: /node_modules/
     },
 
@@ -96,17 +94,8 @@ module.exports = {
         ]
     },
 
-    /**
-     * Minify css and create css file
+     /**
+     * Plugins
      */
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].dev.css',
-            chunkFilename: 'css/[name].dev.css'
-        }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
-    ]
+    plugins: []
 };
