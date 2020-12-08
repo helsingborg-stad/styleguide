@@ -3,7 +3,6 @@
     "appname": "styleguide",
     "version": "0.11.96",
     "description": "",
-    "sideEffects": false,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prebuild": "node build/build.js assets & node build/build.js assetsMaterial",
