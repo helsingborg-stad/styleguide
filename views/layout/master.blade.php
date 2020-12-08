@@ -9,6 +9,7 @@
     <meta name="description" content="">
 
     <link href="/assets/prism/prism.css" rel="stylesheet" />
+
     <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
     
     <script type='text/javascript' defer="defer" src='https://polyfill.io/v3/polyfill.js?features=es5,es6,es7&flags=gated'></script>
@@ -59,20 +60,14 @@
 
     @yield('bottom_hero')
 
-    <!-- jQuery --> 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-    crossorigin="anonymous"></script>
-
     <!-- Styleguide - js -->
     <script src="/assets/dist/js/styleguide-js.min.js"></script>
 
     <!-- Build - js -->
-    <script src="/assets/dist/js/buildcss.min.js"></script>
+    <script src="/assets/dist/js/buildcss.min.js" defer="defer"></script>
 
     <!-- Highlight js -->
-    <script src="/assets/prism/prism.js"></script>
+    <script src="/assets/prism/prism.js" defer="defer"></script>
 
 </body>
 </html>
