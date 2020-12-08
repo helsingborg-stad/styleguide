@@ -12,10 +12,6 @@ module.exports = {
     },
     mode: 'production',
 
-    optimization: {
-        usedExports: true,
-    },
-
     watchOptions: {
         poll: 100,
         ignored: /node_modules/,
