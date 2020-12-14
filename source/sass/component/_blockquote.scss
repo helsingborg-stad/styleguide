@@ -1,0 +1,11 @@
+.c-blockquote,
+blockquote {
+  background: $color-blockquote-background;
+  border-left: map-get($spacers, "05") solid $color-blockquote-border;
+  margin: map-get($spacers, "2") 0;
+  padding: map-get($spacers, "4");
+
+  p {
+    display: inline;
+  }
+}

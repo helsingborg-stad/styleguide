@@ -78,6 +78,10 @@
             animation-fill-mode: both;
             will-change: transform;
         }
+
+        *:first-child { 
+            margin-top: 0; 
+        }
     }
 
     @keyframes fadeIn {

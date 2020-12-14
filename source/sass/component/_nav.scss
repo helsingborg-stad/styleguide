@@ -20,7 +20,7 @@
   .c-nav__link,
   .c-nav__action {
       font-size: 16px;
-      padding: $base * 2 $base;
+      padding: ($base * 0.5 * 5) $base;
       text-decoration: none;
       color: black;
   }
@@ -221,5 +221,11 @@
   .c-nav__item.is-open,
   .c-nav__item.is-current {
     text-decoration: underline;
+  }
+
+  .c-nav__link {
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
