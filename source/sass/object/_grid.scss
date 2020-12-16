@@ -2,16 +2,18 @@
     .o-grid {
         display: flex;
         flex-wrap: wrap;
+
+        > %column {
+            position: relative;
+            width: 100%;
+            min-height: 1px;
+        }
     }
 
-    %column {
-        position: relative;
-        width: 100%;
-        min-height: 1px;
-    }
-
-    .o-grid > * {
-        @extend %column;
+    .o-grid {
+        > * {
+            @extend %column;
+        }    
     }
 
     // Equal height elements modifier
@@ -34,10 +36,12 @@
                 margin-right: $gutter/2 * -1;
             }
             
-            .o-grid > %column {
-                padding-right: $gutter/2;
-                padding-left: $gutter/2;
-                margin-bottom: $base * 4;   
+            .o-grid {
+                > %column {
+                    padding-right: $gutter/2;
+                    padding-left: $gutter/2;
+                    margin-bottom: $base * 4;   
+                }
             }
 
         }
@@ -73,7 +77,7 @@
         //Generate list of column classes
         $columnClasses: ();
         @for $i from 1 to $columns + 1 {
-            $columnClasses: append($columnClasses, ", .o-grid-#{$i}#{$suffix}");
+            $columnClasses: append($columnClasses, ", .o-grid > .o-grid-#{$i}#{$suffix}");
         }
 
         //Apply common column styles
