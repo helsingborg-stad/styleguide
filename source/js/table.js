@@ -4,7 +4,6 @@ export default class Table{
         this.list = table.querySelectorAll('[js-table-filter-item]');
         this.isPagination = table.hasAttribute('js-table-pagination')
         this.isFilterable = table.hasAttribute('js-table-filter')
-        this.isSortable = table.hasAttribute('js-table-sort')
         this.link = null
         this.rowHref = 'js-row-href';
 
@@ -13,8 +12,6 @@ export default class Table{
         if (this.isPagination) this.paginationButtons()
 
         if (this.isFilterable) this.filterInput();
-
-        if (this.isSortable) this.sortAddButtons();
     }
 
     tableRefresh() {
@@ -28,11 +25,6 @@ export default class Table{
         if (this.isFilterable) {
             list = this.filterList(list, this.filterValue());
         }
-
-        if (this.isSortable) {
-            list = this.sortList(list)
-        }
-
 
         this.renderTable(list);
         
@@ -136,34 +128,6 @@ export default class Table{
         return newList;
     }
 
-    sortList(list) {
-        const sortOrder = this.table.getAttribute('js-table-sort--order');
-
-        if (!sortOrder) {
-            return list;
-        }
-
-        const sortData = []
-        const sortDictator = this.table.getAttribute('js-table-sort--dictator');
-
-        list.forEach(element => {
-            sortData.push(element.querySelector(`[js-table-sort-data="${sortDictator}"]`))
-        });
-
-        const comparableData = [...sortData].map((data) => {
-            return data.closest(`[js-table-sort--sortable]`) 
-        });
-
-        comparableData.sort(this.compare);
-        
-        if (sortOrder === 'desc') {
-            return comparableData.reverse(this.compare);
-        }
-
-        
-        return comparableData;
-    }
-
     paginationButtons() {
         const buttons = this.table.querySelectorAll('[js-table-pagination-btn]');
         this.paginateSetCurrent();
@@ -197,29 +161,6 @@ export default class Table{
         }
     }
 
-    sortAddButtons() {
-        const sortButtons = this.table.querySelectorAll(`[js-table-sort--btn]`);
-        sortButtons.forEach((button) => {
-
-            if (!button.hasAttribute('js-table-sort--order')){
-                button.setAttribute('js-table-sort--order', 'asc')
-            }
-
-            button.addEventListener('click', (e) => {
-                if (this.isPagination) this.paginateSetCurrent();
-
-                const sortOrder = this.table.getAttribute('js-table-sort--order');
-                const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-                this.table.setAttribute('js-table-sort--order', newOrder);
-
-                const buttonId = e.target.closest('[js-table-sort--btn]')
-                const dataId = buttonId.getAttribute('js-table-sort--btn');
-                this.table.setAttribute('js-table-sort--dictator', dataId)
-                this.tableRefresh();
-            });
-        });
-    }
-
     filterValue() {
         return this.table.querySelector('[js-table-filter-input]').value;
     }
@@ -230,10 +171,5 @@ export default class Table{
 
     paginationRows() {
         return this.table.getAttribute('js-table-pagination')
-    }
-
-    // eslint-disable-next-line class-methods-use-this
-    sortCompare(a, b) {
-        return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
     }
 }
