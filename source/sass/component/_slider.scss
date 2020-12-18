@@ -60,6 +60,13 @@
         display: none;
     }
 
+    &.c-slider__item--no-mobile-image {
+        .c-slider__item__image {
+            display: block;
+            flex-grow: 2;
+        }
+    }
+
     // Slider Item Layout Bottom
     &.c-slider__item--layout-bottom {
         display: flex;
@@ -92,6 +99,19 @@
             align-self: center;
             padding: map-get($spacers, "2");
             border-radius: $base * 2;
+        }
+
+        &.c-slider__item--no-mobile-image {
+            .c-slider__item__image {
+                display: block;
+                flex-grow: 2;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                height: 100%;
+            }
         }
     }
 
@@ -244,6 +264,12 @@
 
         .c-slider__item__image {
             display: block;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
         }
         
         .c-slider__item__image__mobile {
