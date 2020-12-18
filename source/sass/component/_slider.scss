@@ -64,6 +64,7 @@
         .c-slider__item__image {
             display: block;
             flex-grow: 2;
+            object-fit: cover;
         }
     }
 
@@ -111,6 +112,7 @@
                 bottom: 0;
                 right: 0;
                 height: 100%;
+                object-fit: cover;
             }
         }
     }
