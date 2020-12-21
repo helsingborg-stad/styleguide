@@ -1,71 +1,200 @@
 .c-slider {
-    overflow: hidden;
     position: relative;
-
-    &__inner {
-        display: flex;
-        transition: all 0.7s ease-in-out;
-
-        .c-segment {
-            min-width: 100%;
-        }
-    }
+    border-radius: $base;
+    margin-bottom: map-get($spacers, "7");
+    @include shadow(2);
 
     &__button {
         position: absolute;
         bottom: 50%;
         transform: translateY(50%);
-        z-index: $level-9;
+        z-index: $level-6;
         font-size: 2.5em;
         display: none;
         padding: 0;
-        color: $color-lightest;
-        text-shadow: 0px 0px 2px $color-black;
+        color: $color-darkest;
+        margin: 0 !important;
 
         &-prev {
             left: 0;
+            transform: translate(-100%, 50%);
             margin-left: map-get($spacers, "1");
         }
 
         &-next {
             right: 0;
+            transform: translate(100%, 50%);
             margin-right: map-get($spacers, "1");
         }
-
     }
 
-    &__peek {
-        padding: 0 map-get($spacers, "2");
+    .c-slider__container {
+        overflow: hidden;
+        position: relative;
+        border-radius: $base;
+    
+        .c-slider__inner {
+            display: flex;
+            transition: all 0.7s ease-in-out;
+    
+            .c-segment {
+                min-width: 100%;
+            }
+        }
     }
 }
 
-.c-slider__steppers {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+// Slider Item
+.c-slider__item {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    min-width: 100%;
+    padding: map-get($spacers, "2");
 
-    /**
-     * Dots
-     * Usage in galleries
-     */
+    .c-slider__item__container {
+        z-index: $level-4;
+    }
 
-     .c-slider__dot {
-        border-radius: 50%;
-        background: $color-lighter;
-        display: inline-block;
-        width: $base * 1.5;
-        height: $base * 1.5;
-        margin: map-get($spacers, "1");
+    .c-slider__item__image {
+        display: none;
+    }
 
-        &:hover,
-        &--active {
-            background: $color-primary;
+    &.c-slider__item--no-mobile-image {
+        .c-slider__item__image {
+            display: block;
+            flex-grow: 2;
+            object-fit: cover;
+        }
+    }
+
+    // Slider Item Layout Bottom
+    &.c-slider__item--layout-bottom {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+
+        .c-slider__item__container {
+            flex-grow: 1;
+            width: 100%;
+            bottom: 0;
+            padding: map-get($spacers, "2");
+        }
+    }
+
+    // Slider Item Layout Center
+    &.c-slider__item--layout-center {
+        display: flex;
+        color: $color-tertiary;
+
+        .c-slider__item__image__mobile {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 100%;
         }
 
-        &:hover {
-            cursor: pointer;
+        .c-slider__item__container {
+            align-self: center;
+            padding: map-get($spacers, "2");
+            border-radius: $base * 2;
         }
+
+        &.c-slider__item--no-mobile-image {
+            .c-slider__item__image {
+                display: block;
+                flex-grow: 2;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    // Text Colors
+    &.c-slider__item--text-white {
+        .c-slider__item__container {
+            color: $color-white;
+        }
+    }
+
+    &.c-slider__item--text-black {
+        .c-slider__item__container {
+            color: $color-black;
+        }
+    }
+
+    &.c-slider__item--text-theme {
+        .c-slider__item__container {
+            color: $color-tertiary;
+        }
+    }
+
+    // Background Colors
+    &.c-slider__item--bg-white {
+        .c-slider__item__container {
+            background: $color-white;
+        }
+    }
+
+    &.c-slider__item--bg-black {
+        .c-slider__item__container {
+            background: $color-white;
+        }
+    }
+
+    &.c-slider__item--bg-theme {
+        .c-slider__item__container {
+            background: $color-tertiary;
+        }
+    }
+
+    &.c-slider__item--bg-theme-opacity {
+        .c-slider__item__container {
+            background: rgba($color-tertiary, 0.7);
+        }
+    }
+
+    &.c-slider__item--layout-bottom {
+        &.c-slider__item--bg-theme-opacity,
+        &.c-slider__item--bg-none {
+            .c-slider__item__image__mobile {
+                min-height: 100%;
+            }
+            .c-slider__item__container {
+                position: absolute;
+            }
+        }
+    }
+
+    //Other
+    .c-slider__item__background--video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        z-index: $level-3 - 1;
+    }
+
+    .c-slider__item__image__mobile {
+        z-index: $level-1;
+        object-fit: cover;
+        min-width: 100%;
+    }
+
+    .c-slider__item__link {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -81,5 +210,147 @@
                 margin-right: map-get($spacers, "3");
             }
         }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+    .c-slider {    
+        &.c-slider--16-9 {
+            .c-slider__container {
+                padding-top: 56.25%;
+            }
+        }
+    
+        &.c-slider--4-3 {
+            .c-slider__container {
+                padding-top: 75%;
+            }
+        }
+    
+        &.c-slider--10-3 {
+            .c-slider__container {
+                padding-top: 30%;
+            }
+        }
+    
+        &.c-slider--36-7 {
+            .c-slider__container {
+                padding-top: 19.44%;
+            }
+        }
+    }
+    
+    .c-slider__container {
+        height: 0;
+
+        .c-slider__item__background--video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+        }
+        
+        .c-slider__inner {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+    }
+
+    .c-slider__item {
+        padding: map-get($spacers, "6") map-get($spacers, "8");
+
+        .c-slider__item__image {
+            display: block;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+        
+        .c-slider__item__image__mobile {
+            display: none;
+        }
+
+        &.c-slider__item--layout-center {
+            display: flex;
+    
+            .c-slider__item__container {
+                align-self: center;
+                padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
+
+        &.c-slider__item--layout-bottom {
+            padding: 0;
+    
+            .c-slider__item__container {
+                position: absolute;
+                left: 0;
+            }
+        }
+
+        &.c-slider__item--layout-featured {
+            .c-slider__item__container {
+                padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
+    }
+}
+
+//Video Additions
+.c-slider__item:not(:hover) .c-slider__item__background--video__play__btn:not(:focus){
+    height: 0px;
+    width: 0px;
+    max-height: 0px;
+    max-width: 0px;
+    padding: 0;
+}
+
+.c-slider__item__background--video__play__btn {
+    position: absolute;
+    right: map-get($spacers, "2");
+    bottom: map-get($spacers, "2");
+    z-index: $level-4 + 1;
+}
+
+// Stepper
+.c-slider__steppers {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    bottom: - map-get($spacers, "5");
+
+    @include mq(map_get($breakpoints-map, "xs"), "sm") {
+        bottom:- map-get($spacers, "6");
+        padding-bottom:7px;
+    }
+
+    .c-slider__dot {
+        background: $color-gray;
+        display: inline-block;
+        width: $base * 1.5;
+        height: $base * 0.5;
+        margin: $base * 0.5;
+
+        &:first-of-type {
+            border-top-left-radius: $base * 0.5;
+            border-bottom-left-radius: $base * 0.5;
+        }
+
+        &:last-of-type {
+            border-top-right-radius: $base * 0.5;
+            border-bottom-right-radius: $base * 0.5;
+        }
+    }
+
+    .c-slider__dot--active {
+        background: $color-primary;
     }
 }

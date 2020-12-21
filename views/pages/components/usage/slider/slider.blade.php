@@ -1,6 +1,6 @@
 @slider([
     'showStepper' => true,
-    'autoSlide' => true,
+    'autoSlide' => false,
 ])
     @segment([
         'title' => 'Base Layout',
@@ -11,6 +11,9 @@
         'background_image' => 'https://picsum.photos/1080/720',
         'overlay' => 'light',
         'overlay_opacity' => 'medium',
+        'attributeList' => [
+            'js-slider-slide' => ''
+        ] 
     ])
     
         @slot('bottom')
@@ -47,7 +50,10 @@
         'containerColor' => 'tertiary',
         'background_image' => 'https://picsum.photos/1080/720',
         'overlay' => 'light',
-        'overlay_opacity' => 'medium'
+        'overlay_opacity' => 'medium',
+        'attributeList' => [
+            'js-slider-slide' => ''
+        ] 
     ])
 
         @slot('bottom')
@@ -85,7 +91,10 @@
         'background_image' => 'https://picsum.photos/1080/720',
         'background_video' => 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1280_10MG.mp4',
         'overlay' => 'light',
-        'overlay_opacity' => 'medium'
+        'overlay_opacity' => 'medium',
+        'attributeList' => [
+            'js-slider-slide' => ''
+        ] 
     ])
 
         @slot('bottom')
@@ -121,7 +130,10 @@
         'containerColor' => 'tertiary',
         'layout' => 'left',
         'overlay' => 'light',
-        'overlay_opacity' => 'medium'
+        'overlay_opacity' => 'medium',
+        'attributeList' => [
+            'js-slider-slide' => ''
+        ] 
     ])
 
         @slot('bottom')
