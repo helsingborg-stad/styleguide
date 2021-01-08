@@ -12,7 +12,7 @@ class Sort {
     }
 
     compare(a, b) {
-        return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
+        return a.data.toLowerCase().localeCompare(b.data.toLowerCase(), 'en', {numeric: true});
     }
 
     appendSortable(container, dataId, initialSort = false) {

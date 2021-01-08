@@ -114,17 +114,18 @@ export default class Table{
         const newList = [];
 
         list.forEach(element => {
+        
             let data = "";
 
             element.querySelectorAll('[js-table-filter-data]').forEach(item => {
                 data += item.innerHTML.toLowerCase();
             })
-
+        
             if (data.includes(query.toLowerCase())) {
                 newList.push(element);
             }
         });
-
+        
         return newList;
     }
 
