@@ -42,10 +42,12 @@ const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 
-const table = document.querySelector('.c-table');
-if (table) {
-    const TableInstance = new Table(document.querySelector('.c-table'));
-}
+const tables = document.querySelectorAll('.c-table');
+if (tables.length > 0) {
+    for (let table of tables) {
+        const TableInstance = new Table(table);
+    }
+}	
 
 const sliders = document.querySelectorAll('.c-slider');
 if (sliders) {
