@@ -1,0 +1,9 @@
+@media print {
+
+    @each $display-state in $display-states {
+        .u-print-display--#{$display-state} {
+            display: #{$display-state};
+        }
+    }
+
+}
