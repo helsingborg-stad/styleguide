@@ -354,3 +354,11 @@
         background: $color-primary;
     }
 }
+
+@media print {
+
+    .c-slider {
+        display: none;
+    }
+
+}

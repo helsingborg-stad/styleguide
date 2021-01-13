@@ -245,6 +245,21 @@ a.c-card {
 
 @media print {
 
+    .c-card__image-background {
+        display: block;
+    }
+
+    .c-card__body {
+        padding: 10px 0 0;
+        margin: 0px;
+    }
+
+    .c-card--panel .c-card__header {
+        background: none;
+        border-bottom: 3px solid #ae0b05;
+        padding-left: 0px;
+    }
+
     .c-card__footer {
         display:none;
     }
