@@ -33,7 +33,6 @@ export default class Filter {
                     dataString = dataString.replace(/(<([^>]+)>)/gi, "");
                 });
 
-
                 //Add to search array
                 this.list.push({
                     searchId: container.getAttribute('js-filter-container'), //Get id
