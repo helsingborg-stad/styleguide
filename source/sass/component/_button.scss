@@ -292,3 +292,11 @@
 .c-button + .c-button {
     margin-left: map-get($spacers, "1");
 }
+
+@media print {
+
+    .c-button {
+        display: none;
+    }
+
+}

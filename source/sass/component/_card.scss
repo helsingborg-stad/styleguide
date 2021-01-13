@@ -242,3 +242,11 @@ a.c-card {
         }
     }
 }
+
+@media print {
+
+    .c-card__footer {
+        display:none;
+    }
+
+}

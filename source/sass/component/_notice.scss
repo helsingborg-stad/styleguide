@@ -128,3 +128,11 @@
 .c-notice + .c-notice {
     margin-top: $base * 2; 
 }
+
+@media print {
+
+    .c-notice {
+        display: none;
+    }
+
+}
