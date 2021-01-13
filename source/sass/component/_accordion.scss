@@ -95,3 +95,11 @@
         }
     }
 }
+
+@media print {
+
+    .c-accordion__content {
+        display: block;
+    }
+
+}

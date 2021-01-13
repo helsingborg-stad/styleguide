@@ -245,10 +245,6 @@ a.c-card {
 
 @media print {
 
-    .c-card__image-background {
-        display: block;
-    }
-
     .c-card__body {
         padding: 10px 0 0;
         margin: 0px;
@@ -260,7 +256,7 @@ a.c-card {
         padding-left: 0px;
     }
 
-    .c-card__footer {
+    .c-card__footer, .c-card__image-background, .c-card__image {
         display:none;
     }
 
