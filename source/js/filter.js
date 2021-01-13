@@ -1,8 +1,8 @@
 /* Filter lists */
-const   CONTAINER = "[js-filter-container]",
-        ITEM = "[js-filter-item]",
-        DATA = "[js-filter-data]",
-        INPUT = "[js-filter-input]";
+const   CONTAINER   = "[js-filter-container]",
+        ITEM        = "[js-filter-item]",
+        DATA        = "[js-filter-data]",
+        INPUT       = "[js-filter-input]";
 
 export default class Filter {
     constructor() {
@@ -29,8 +29,10 @@ export default class Filter {
 
                 //Build search string
                 dataItems.forEach((data) => {
-                    dataString = dataString.concat(data.innerText);
+                    dataString = dataString.concat(data.innerHTML);
+                    dataString = dataString.replace(/(<([^>]+)>)/gi, "");
                 });
+
 
                 //Add to search array
                 this.list.push({
