@@ -96,10 +96,38 @@
     }
 }
 
-@media print {
 
+/* Accordion with table columns */
+
+.accordion-table__head {
+    display: flex;
+    padding: 0 24px;
+}
+
+.accordion-table__head-column-icon,
+.c-accordion-table .c-icon {
+    flex-grow: 0;
+}
+
+.c-accordion-table .c-accordion__button .c-accordion__button-column,
+.accordion-table__head-column {
+    width:20%;
+    flex-grow: 1;
+}
+
+.c-accordion-table button {
+    position:relative;
+}
+
+.c-accordion-table .c-accordion__icon,
+.c-accordion-table .c-accordion__button[aria-expanded="true"] .c-accordion__icon {
+    position:absolute;
+    right:30px;
+}
+
+/* Expand accordion when print page */ 
+@media print {
     .c-accordion__content {
         display: block;
     }
-
 }
