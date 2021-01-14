@@ -101,7 +101,9 @@
 
 .accordion-table__head {
     display: flex;
-    padding: 0 24px;
+    padding: 8px 24px;
+    background: #f5f5f5;
+    font-size: .8em;
 }
 
 .accordion-table__head-column-icon,
