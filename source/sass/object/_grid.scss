@@ -98,7 +98,7 @@
             }
 
             //Fit content column (eg .o-grid-fit@md)
-            .o-grid-fit#{$suffix} {
+            .o-grid > .o-grid-fit#{$suffix} {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: none;
