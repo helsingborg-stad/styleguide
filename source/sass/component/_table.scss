@@ -4,6 +4,10 @@
     border-radius: $border-radius-sm;
     overflow: hidden;
 
+    & th[js-table-sort--order] {
+        cursor:pointer;
+    }
+
     &__inner {
         display: block;
         overflow-x: auto;
@@ -75,5 +79,9 @@
 
     &__body &__line:nth-child(odd) {
         background-color: $color-table-background-odd;
+    }
+
+    &__body &__line:hover {
+        background: $color-primary-alpha-dimmed;
     }
 }

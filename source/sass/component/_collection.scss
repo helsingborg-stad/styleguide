@@ -240,3 +240,33 @@ $collection-hover-border: rgba(black, .1) !default;
         border: none;
     }
 }
+
+@media print {
+
+    .c-collection {
+
+        .c-collection__icon {
+            display: none;
+        }
+
+        .c-collection__action:hover,
+        .c-collection__action:hover a,
+        a.c-collection__item.c-collection__item--action:hover,
+        a.c-collection__item.c-collection__item--action:hover a,
+        button.c-collection__item.c-collection__item--action:hover,
+        button.c-collection__item.c-collection__item--action:hover a {
+            background: transparent;
+            transition: none;
+        }
+    }
+
+    .o-container, .c-collection, c-collection__item {
+        display: unset;
+        overflow: visible;
+        page-break-before: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        break-before: avoid;
+    }
+
+}

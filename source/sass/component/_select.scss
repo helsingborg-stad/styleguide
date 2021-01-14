@@ -2,10 +2,11 @@
     position: relative;
 }
 
-.c-select__icon {
+.c-field .c-select__icon {
     position: absolute;
     right: 0;
     top: 50%;
+    left: auto;
     transform: translate(- #{$base*2}, -50%);
 }
 
@@ -30,6 +31,11 @@
 
     &:focus {
         background-color: lighten($color-form-fields, 5%);
+    }
+
+    select {
+        position: relative;
+        z-index: $level-3;
     }
 
     .error.active {

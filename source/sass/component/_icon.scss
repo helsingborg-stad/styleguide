@@ -80,3 +80,11 @@
         font-size: 1em;
     }
 }
+
+@media print {
+
+    .c-icon {
+        display: none;
+    }
+
+}
