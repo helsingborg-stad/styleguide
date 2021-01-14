@@ -47,7 +47,11 @@ export default class Table{
         body.innerHTML = "";
 
         list.forEach(element => {
-            body.appendChild(element)
+            if(element.index) {
+                body.appendChild(element.index)
+            } else {
+                body.appendChild(element)
+            }
         });
     }
 
@@ -135,6 +139,11 @@ export default class Table{
         return newList;
     }
 
+    // eslint-disable-next-line class-methods-use-this
+    compare(a, b) {
+        return a.data.toLowerCase().localeCompare(b.data.toLowerCase(), 'en', {numeric: true});
+    }
+
     sortList(list) {
         const sortOrder = this.table.getAttribute('js-table-sort--order');
 
@@ -150,7 +159,7 @@ export default class Table{
         });
 
         const comparableData = [...sortData].map((data) => {
-            return data.closest(`[js-table-sort--sortable]`) 
+            return { data: data.innerText.trim(), index: data.closest(`[js-table-sort--sortable]`) }
         });
 
         comparableData.sort(this.compare);
@@ -175,7 +184,7 @@ export default class Table{
                     this.paginationCurrent() +1 :
                     this.paginationCurrent() -1
                 );
-
+                
                 this.tableRefresh();
             })
         });
@@ -184,12 +193,14 @@ export default class Table{
     paginateSetCurrent(current = 1) {
         this.table.setAttribute('js-table-pagination--current', current);
 
+        current = parseInt(current, 10);
+        
         if (current === this.paginatePages()) {
             this.table.querySelector('[js-table-pagination-btn="next"]').setAttribute('disabled', true);
-
+            this.table.querySelector('[js-table-pagination-btn="prev"]').removeAttribute('disabled');
         } else if (current === 1) {
             this.table.querySelector('[js-table-pagination-btn="prev"]').setAttribute('disabled', true);
-
+            this.table.querySelector('[js-table-pagination-btn="next"]').removeAttribute('disabled');
         } else {
             this.table.querySelector('[js-table-pagination-btn="next"]').removeAttribute('disabled');
             this.table.querySelector('[js-table-pagination-btn="prev"]').removeAttribute('disabled');
@@ -231,8 +242,4 @@ export default class Table{
         return this.table.getAttribute('js-table-pagination')
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    sortCompare(a, b) {
-        return a.data.toLowerCase().localeCompare(b.data.toLowerCase());
-    }
 }
