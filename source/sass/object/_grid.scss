@@ -134,3 +134,25 @@ $grid-gutters: (
 ) !default;
 
 @include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);
+
+@media print {
+    .o-grid {
+        margin-bottom: 16px !important;
+    }
+
+    .grid-md-4 {
+        width: 33% !important;
+        float: left !important;
+    }
+
+    .grid-md-6 {
+        width: 50% !important;
+        float: left !important;
+    }
+
+    .grid-md-4, .grid-md-6 {
+        padding-right: 16px !important;
+        padding-left: 16px !important;
+
+    }
+}
