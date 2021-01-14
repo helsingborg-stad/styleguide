@@ -50,7 +50,6 @@ export default class Table{
             if(element.index) {
                 body.appendChild(element.index)
             } else {
-
                 body.appendChild(element)
             }
         });
@@ -179,7 +178,6 @@ export default class Table{
 
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
-                /* if(this.paginationCurrent < ) */
                 const type = btn.getAttribute('js-table-pagination-btn');
 
                 this.paginateSetCurrent(type === 'next' ?
