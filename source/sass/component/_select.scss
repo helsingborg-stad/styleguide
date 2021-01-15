@@ -9,6 +9,7 @@
     left: auto;
     transform: translate(- #{$base*2}, -50%);
     z-index: $level-2;
+    transition: transform 150ms; 
 }
 
 .c-select:focus:hover ~ .c-select__icon {
