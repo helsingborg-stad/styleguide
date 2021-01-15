@@ -6,7 +6,7 @@
         'key'   => 'Option One',
         'key1'  => 'Option Two',
         'key2'  => 'Option Three',
-        'key3'  => 'Option Four',
+        'key3'  => 'Option & Four',
     ]
 ])
 @endselect
