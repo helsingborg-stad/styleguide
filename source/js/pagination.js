@@ -42,11 +42,13 @@ export default class Pagination {
     }
 
     paginatePages() {
-        if(this.maxPages) {
-            return parseInt(this.maxPages);
+        const numberOfPages = Math.ceil(this.list.length / this.perPage);
+
+        if(this.maxPages && (numberOfPages > this.maxPages)) {
+            return this.maxPages;
         }
 
-        return Math.ceil(this.list.length / this.perPage);
+        return numberOfPages;
     }
 
     paginationLinks() {
