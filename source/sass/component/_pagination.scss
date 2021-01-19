@@ -6,22 +6,33 @@
         padding: 0;
         margin: 0;
         display: flex;
-        flex-wrap: wrap;
     }
 
     &__item {
         margin: 0;
         padding: 0;
         border-radius: $border-radius-sm;
+        height: $base*5;
+        min-width: $base*5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &__item + &__item {
         margin-left: map-get($spacers, "1");
     }
 
+    &__item--next {
+        margin-left: map-get($spacers, "1");
+    }
+
+    &__item--previous {
+        margin-right: map-get($spacers, "1");
+    }
+
     &__item--is-active {
         @include shadow(2);
-
         background-color: $color-primary;
     }
 
@@ -32,8 +43,9 @@
     }
 
     &__link {
-        display: block;
+        display: flex;
         padding: map-get($spacers, "1") map-get($spacers, "2");
+        border-radius: $border-radius-sm;
     }
 
     &__link,
