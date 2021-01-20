@@ -1,8 +1,9 @@
 @button([
-    'text' => 'Primary',
+    'text' => 'Primary (href)',
     'color' => 'primary',
-    'style' => 'basic'
-])
+    'style' => 'basic',
+    'href' => 'https://helsingborg.se'
+]) 
 @endbutton
 
 @button([
