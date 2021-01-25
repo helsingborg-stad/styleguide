@@ -34,7 +34,7 @@
 
     .c-icon {
         color: $color-breadcrumb-icon;
-        vertical-align: -10%; /* TODO: Fix */
+        vertical-align: -15%; /* TODO: Fix */
 
         @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
             transform: scaleX(-1);
