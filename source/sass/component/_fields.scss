@@ -199,9 +199,7 @@
         border-bottom: 2px solid $color-success;
     }
 
-    ::placeholder,
-    :-ms-input-placeholder,
-    ::-ms-input-placeholder {
+    ::placeholder {
         color: transparent;
     }
 
