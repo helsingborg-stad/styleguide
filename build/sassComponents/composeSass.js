@@ -24,7 +24,7 @@ const template = require('./componentTemplate');
 /**
  * Node-sass package
  */
-const sass = require('node-sass');
+const sass = require('sass');
 
 /**
  * Server path
