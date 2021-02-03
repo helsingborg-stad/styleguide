@@ -70,3 +70,26 @@
         }
     }
 }
+
+.c-select__container {
+    select[multiple] {
+        height: auto;
+
+        option {
+            border-radius: $base * 0.5;
+        }
+
+        option:last-of-type {
+            margin-bottom: 16px;
+            margin-bottom: map-get($spacers , 2 );
+        }
+        option:checked,
+        option:hover {
+            background-color: $color-primary-alpha-dimmed;
+        }
+    }
+
+    select[multiple] ~ .c-icon {
+        display: none;
+    }
+}
