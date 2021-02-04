@@ -8,7 +8,7 @@ class Enviroment
 {
     public static function componentLibraryIsInstalled()
     {
-        if (file_exists(BASEPATH . "source/library/src/Init.php")) {
+        if (file_exists(BASEPATH . "source/library/source/php/Init.php")) {
             return true; 
         }
         return false;
@@ -16,10 +16,10 @@ class Enviroment
 
     public static function loadInstalledComponentLibrary()
     {
-        if (file_exists(BASEPATH . "source/library/src/Init.php")) {
+        if (file_exists(BASEPATH . "source/library/source/php/Init.php")) {
             require_once BASEPATH . "source/library/load.php";
             
-            $init = new \BladeComponentLibrary\Init([BASEPATH . 'views']);
+            $init = new \ComponentLibrary\Init([BASEPATH . 'views']);
             
             return $init->getEngine();
 
