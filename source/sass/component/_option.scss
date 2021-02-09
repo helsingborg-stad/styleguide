@@ -20,6 +20,8 @@
             }
         }
 
+
+
         .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
 
             .c-option__checkbox--label-box {
@@ -43,6 +45,13 @@
                 &:after {
                     width: 85%;
                 }
+            }
+        }
+
+        .c-option__checkbox--hidden-box:focus+.c-option__checkbox--label {
+            text-decoration: underline;
+            .c-option__checkbox--label-box {
+                box-shadow: 0 0 0 2px $color-disabled-text;
             }
         }
     }
@@ -109,11 +118,10 @@
     .c-option__checkbox--hidden-box,
     .c-option__radio--hidden-box {
         position: absolute;
-        top: -9999px;
-        left: -9999px;
         appearance: none;
-        opacity: 0;
-        visibility: hidden;
+        height: 0;
+        width: 0;
+        display: hidden;
     }
 
     .c-option__checkbox--label,
