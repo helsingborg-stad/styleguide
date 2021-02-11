@@ -2,6 +2,7 @@
     position: relative;
     background-color: white;
     display: flex;
+    gap: map-get($spacers, "2");
     flex-direction: column;
     max-width: 800px;
     max-height: 80vh;
@@ -11,6 +12,18 @@
     box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
         0px 5px 8px 0px rgba(0,0,0,0.14),
         0px 1px 14px 0px rgba(0,0,0,0.12);
+
+    &--border-radius-sm {
+        border-radius: $border-radius-sm;
+    }
+
+    &--border-radius-md {
+        border-radius: $border-radius-md;
+    }
+
+    &--border-radius-lg {
+        border-radius: $border-radius-lg;
+    }
 
     &--size-sm {
         max-width: map_get($breakpoints-map, "sm");
@@ -24,23 +37,38 @@
         max-width: map_get($breakpoints-map, "lg");
     }
 
-    &--size-xl {
-        max-width: map_get($breakpoints-map, "xl");
+    &--is-panel {
+        max-width: 100%;
+        max-height: 100vh;
+        width: 100%; 
+        height: 100vh;
     }
 
-    &__header {
+    @for $i from 1 through 4 {
+        &--padding-#{$i} {
+            padding: map-get($spacers, #{$i}) 0;
+
+            > * {
+                padding: 0 map-get($spacers, #{$i});
+            }
+
+            .c-modal__footer {
+                padding-top: map-get($spacers, #{$i});
+            }
+        }
+    }       
+
+    &__top, &__header {
         flex-shrink: 0;
-        padding: map-get($spacers, "4") map-get($spacers, "4") 0;
     }
 
     &__content {
         overflow-y: auto;
-        padding: map-get($spacers, "2") map-get($spacers, "4");
     }
 
     &__footer {
         flex-shrink: 0;
-        padding: map-get($spacers, "4");
+        border-top: 1px solid $color-gray-light;
     }
 
     &--gallery {
@@ -62,13 +90,14 @@
 
     &__close {
         position: absolute;
-        top:- map-get($spacers, "7");
-        right: map-get($spacers, "2");
+        top: 0;
+        right: 0;
         display: block;
         cursor: pointer;
+        color: $color-black;
     }
 
-    &__prev, &__next, &__close {
+    &__prev, &__next {
         color: $color-white;
 
         &.c-button__icon:focus {
@@ -210,7 +239,6 @@
 .c-modal__bg--is-visible.c-modal__bg__animation-- {
 
     &slide-up, &slide-down {
-
         .c-modal {
             transform: translateY(0);
         }

@@ -1,45 +1,63 @@
-@button(
-        [
-            'href' => '',
-            'type' => 'filled',
-            'text' => 'Open Modal',
-            'icon' => 'favorite',
-            'size' => 'lg',
-            'color' => 'secondary',
-            'reverseIcon' => true,
-            'attributeList' => ['data-open' => 'examplemodalid']
-        ]
-    )
-@endbutton
-
-@modal(
-        [
-            'heading'=> "Hey, have you seen this?",
+@php
+    $modals = [
+        'standard' => [
             'isPanel' => false,
-            'id' => 'examplemodalid',
-            'overlay' => 'dark',
-            'animation' => 'scale-up',
-        ]
+            'overlay' => 'light',
+            'navigation' => true
+        ],
+        'small' => [
+            'size' => 'sm',
+            'padding' => 2,
+            'borderRadius' => 'lg'
+        ],
+        'medium' => [
+            'size' => 'md',
+            'padding' => 3,
+            'borderRadius' => 'md'
+        ],
+        'large' => [
+            'size' => 'lg',
+            'padding' => 4,
+            'borderRadius' => 'sm'
+        ],
+        'panel' => [
+            'isPanel' => true,
+            'animation' => 'slide-up',
+            'padding' => 0
+        ],
+    ];
+@endphp
 
-    )
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+@foreach($modals as $key => $modal)
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+    @button(
+            [
+                'href' => '',
+                'type' => 'filled',
+                'text' => 'Open ' . $key . ' modal',
+                'icon' => 'favorite',
+                'size' => 'md',
+                'color' => 'secondary',
+                'reverseIcon' => true,
+                'attributeList' => ['data-open' => 'modal-' . $key]
+            ]
+        )
+    @endbutton
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+    @modal(array_merge([
+            'heading'=> "Example modal " . $key,
+            'id'=> 'modal-' . $key
+        ], (array) $modal))
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Nullam quis risus eget urna mollis ornare vel eu leo. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+        @slot('top')
+            [Top slot]
+        @endslot
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+        @slot('bottom')
+            [Bottom slot]
+        @endslot
+    @endmodal
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
+@endforeach
 
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-
-    We are presenting the sparkling new styleguide! Curabitur blandit tempus porttitor. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.
-
-@endmodal
