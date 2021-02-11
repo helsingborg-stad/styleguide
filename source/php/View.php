@@ -81,7 +81,7 @@ class View
             if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                 $path = (isset($viewData['viewDoc'])) ?
                     "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
-                    "source/library/src/Component/" . ucfirst($viewData['slug']) . "/*.json";
+                    "source/library/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
 
                 //Locate config file
                 $configFile = glob(BASEPATH . $path);
