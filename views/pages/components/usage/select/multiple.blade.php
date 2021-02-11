@@ -1,7 +1,8 @@
 @select([
-    'label' => 'Select Name',
+    'label' => 'Select Multiple Name',
     'required' => true,
     'preselected' => 'key2',
+    'multiple' => true,
     'options' => [
         'key'   => 'Option One',
         'key1'  => 'Option Two',

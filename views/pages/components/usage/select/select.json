@@ -3,5 +3,10 @@
         "heading": "Select",
         "subHeading": "Plenty of select",
         "text": "Yes"
+    },
+    "multiple":{
+        "heading": "Multiple Select",
+        "subHeading": "Plenty of select",
+        "text": "Yes"
     }
 }
