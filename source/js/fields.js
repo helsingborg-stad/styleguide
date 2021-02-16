@@ -13,7 +13,7 @@ class Fields {
         this.fileInputOnChange();
     }
 
-    cloneFileInput(visibileInput) {
+    createHiddenInput(visibileInput) {
         const form = visibileInput.closest('form'); 
         const hiddenInput = visibileInput.cloneNode(true);
         
