@@ -1,8 +1,6 @@
 class Fields {
     
-    constructor() {
-        
-        
+    constructor() {                
         this.form = document.getElementsByTagName('form')[0];
         this.formElement = null;
         this.formElementType = null;
@@ -13,6 +11,28 @@ class Fields {
         
         this.formValidationEventListerners();
         this.fileInputOnChange();
+    }
+
+    cloneFileInput(visibileInput) {
+        const form = visibileInput.closest('form'); 
+        const hiddenInput = visibileInput.cloneNode(true);
+        
+        hiddenInput.setAttribute('style', 'display:none');
+        visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
+        visibileInput.value = '';                    
+
+        form.addEventListener('submit', (event) => {
+            visibileInput.remove();                
+        });
+
+        const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
+        const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+        
+        if(numberOfInputs == filesMax) {
+            visibileInput.setAttribute('disabled', 'true')
+        }
+
+        return hiddenInput;
     }
     
     
@@ -39,7 +59,22 @@ class Fields {
                         const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
                         const fileSize = self.returnFileSize(e.target.files[int].size);
                         listelement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
-                            'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + e.target.files[int].name + '</b></span>';
+                        'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + e.target.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
+
+                        const hiddenInput = self.createHiddenInput(formInput);
+
+                        listelement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
+                            hiddenInput.remove();
+                            listelement.remove();
+
+                            const form = formInput.closest('form');
+                            const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
+                            const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                            
+                            if(numberOfInputs < filesMax) {
+                                formInput.removeAttribute('disabled')
+                            }
+                        })
                     }
                 }
             });

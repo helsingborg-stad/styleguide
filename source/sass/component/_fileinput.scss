@@ -44,6 +44,21 @@
         z-index: -1;
     }
 
+    &__remove-file:hover {
+        color:$color-danger;
+        cursor:pointer;
+    }
+    
+    &__input[disabled] ~ .c-fileinput__label{
+        background-color: $color-disabled;
+        color: $color-disabled-text;
+        border-color: $color-disabled;
+        cursor:not-allowed;
+        * {
+            color: $color-disabled-text;
+        }
+    }
+
     ul {
         list-style: none;
         margin:0px;
