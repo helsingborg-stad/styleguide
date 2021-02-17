@@ -15,10 +15,6 @@ class Fields {
 
     createHiddenInput(visibileInput, filesMax, numberOfInputs, form) {
         const hiddenInput = visibileInput.cloneNode(true);
-
-        if(numberOfInputs == filesMax || visibileInput.files.length >= filesMax) {
-            visibileInput.setAttribute('disabled', 'true')
-        }
         
         hiddenInput.setAttribute('style', 'display:none');
         visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
@@ -31,6 +27,27 @@ class Fields {
         return hiddenInput;
     }
     
+    createNotice(type, text, icon) {
+                const notice = document.createElement('div');
+                notice.classList.add('c-notice');
+                notice.classList.add('c-notice--' + type);
+        
+                const noticeIcon = document.createElement('span');
+                noticeIcon.classList.add('c-notice__icon')
+        
+                const iconItem = document.createElement('i');
+                iconItem.classList.add('c-icon');
+                iconItem.classList.add('c-icon--size-md');
+                iconItem.classList.add('material-icons');
+                iconItem.innerText = icon;
+        
+                noticeIcon.appendChild(iconItem);
+                notice.appendChild(noticeIcon);
+        
+                notice.innerText = text;
+        
+                return notice;
+          }
     
     /**
      * File input - List files to upload
@@ -39,22 +56,35 @@ class Fields {
         
         const self = this;
         const inputs = document.querySelectorAll('.c-fileinput__input');
+        const noticeText = formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
+        const notice = this.createNotice('danger', noticeText, 'report');
         
         for (const formInput of inputs) {
             
             formInput.addEventListener('change', function (e) {
                 if (e.target.files && e.target.files[0]) {                    
-                    const findContainer = this.closest('div').querySelector('ul');
-                    const fileNameContainer = findContainer.getAttribute('id');
+                    const fileNameContainer = this.closest('div').querySelector('ul');
                     const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
-                    const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                    let numberOfFiles = filesMax;
+                    const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
                     const hiddenInput = self.createHiddenInput(formInput, filesMax, numberOfInputs, form);
 
-                    for (let int = 0; int < Math.abs(filesMax - numberOfInputs); int++) {
+                    if(hiddenInput.files.length + numberOfInputs > filesMax) {
+                        fileNameContainer.appendChild(notice);
+                        numberOfFiles = 0;
+                        hiddenInput.remove();
+                    }
+
+                    if(hiddenInput.files.length + numberOfInputs <= filesMax) {
+                        notice.remove();
+                    }
+
+
+                    for (let int = 0; int < numberOfFiles; int++) {
                         const createListElement = document.createElement('li');
-                        const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
+                        const listelement = fileNameContainer.appendChild(createListElement);
                         const fileSize = self.returnFileSize(clone.files[int].size);
                         listelement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
                         'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
@@ -63,8 +93,8 @@ class Fields {
                             hiddenInput.remove();
                             listelement.remove();
 
-                            if(numberOfInputs < filesMax) {
-                                formInput.removeAttribute('disabled')
+                            if(numberOfInputs <= filesMax) {
+                                notice.remove()
                             }
                         })
                     }
