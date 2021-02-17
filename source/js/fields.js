@@ -46,9 +46,7 @@ class Fields {
         
         for (const formInput of inputs) {
             
-            let inputId = formInput.getAttribute('id');
-            
-            document.getElementById(inputId).addEventListener('change', function (e) {
+            formInput.addEventListener('change', function (e) {
                 if (e.target.files && e.target.files[0]) {
                     
                     const findContainer = this.closest('div').querySelector('ul');
