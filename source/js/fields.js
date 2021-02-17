@@ -64,16 +64,12 @@ class Fields {
             formInput.addEventListener('change', function (e) {
                 if (e.target.files && e.target.files[0]) {                    
                     const fileNameContainer = this.closest('div').querySelector('ul');
-                    //const fileNameContainer = findContainer.getAttribute('id');
                     const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
                     let numberOfFiles = filesMax;
                     const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
                     const hiddenInput = self.createHiddenInput(formInput, filesMax, numberOfInputs, form);
-                    console.log(filesMax)
-                    console.log(numberOfInputs)
-                    console.log(hiddenInput);
 
                     if(hiddenInput.files.length + numberOfInputs > filesMax) {
                         fileNameContainer.appendChild(notice);
