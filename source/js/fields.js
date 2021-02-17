@@ -52,7 +52,6 @@ class Fields {
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
                     const hiddenInput = self.createHiddenInput(formInput, filesMax, numberOfInputs, form);
 
-                    console.log(clone.files)
                     for (let int = 0; int < Math.abs(filesMax - numberOfInputs); int++) {
                         const createListElement = document.createElement('li');
                         const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
