@@ -13,9 +13,12 @@ class Fields {
         this.fileInputOnChange();
     }
 
-    createHiddenInput(visibileInput) {
-        const form = visibileInput.closest('form'); 
+    createHiddenInput(visibileInput, filesMax, numberOfInputs, form) {
         const hiddenInput = visibileInput.cloneNode(true);
+
+        if(numberOfInputs == filesMax || visibileInput.files.length >= filesMax) {
+            visibileInput.setAttribute('disabled', 'true')
+        }
         
         hiddenInput.setAttribute('style', 'display:none');
         visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
@@ -24,13 +27,6 @@ class Fields {
         form.addEventListener('submit', (event) => {
             visibileInput.remove();                
         });
-
-        const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
-        const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
-        
-        if(numberOfInputs == filesMax) {
-            visibileInput.setAttribute('disabled', 'true')
-        }
 
         return hiddenInput;
     }
@@ -47,28 +43,27 @@ class Fields {
         for (const formInput of inputs) {
             
             formInput.addEventListener('change', function (e) {
-                if (e.target.files && e.target.files[0]) {
-                    
+                if (e.target.files && e.target.files[0]) {                    
                     const findContainer = this.closest('div').querySelector('ul');
                     const fileNameContainer = findContainer.getAttribute('id');
-                    
-                    for (let int = 0; int < e.target.files.length; int++) {
+                    const clone = e.target.cloneNode(false);
+                    const form = formInput.closest('form');
+                    const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
+                    const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                    const hiddenInput = self.createHiddenInput(formInput, filesMax, numberOfInputs, form);
+
+                    console.log(clone.files)
+                    for (let int = 0; int < Math.abs(filesMax - numberOfInputs); int++) {
                         const createListElement = document.createElement('li');
                         const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
-                        const fileSize = self.returnFileSize(e.target.files[int].size);
+                        const fileSize = self.returnFileSize(clone.files[int].size);
                         listelement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
-                        'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + e.target.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
-
-                        const hiddenInput = self.createHiddenInput(formInput);
+                        'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
 
                         listelement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
                             hiddenInput.remove();
                             listelement.remove();
 
-                            const form = formInput.closest('form');
-                            const numberOfInputs = form.querySelector('.c-fileinput--area').querySelectorAll('.c-fileinput__input[style="display:none"').length;
-                            const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
-                            
                             if(numberOfInputs < filesMax) {
                                 formInput.removeAttribute('disabled')
                             }
