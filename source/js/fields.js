@@ -1,8 +1,6 @@
 class Fields {
     
-    constructor() {
-        
-        
+    constructor() {                
         this.form = document.getElementsByTagName('form')[0];
         this.formElement = null;
         this.formElementType = null;
@@ -14,7 +12,43 @@ class Fields {
         this.formValidationEventListerners();
         this.fileInputOnChange();
     }
+
+    createHiddenInput(visibileInput, filesMax, numberOfInputs, form) {
+        const hiddenInput = visibileInput.cloneNode(true);
+        
+        hiddenInput.setAttribute('style', 'display:none');
+        hiddenInput.setAttribute('js-field-fileinput', '');
+        visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
+        visibileInput.value = '';                    
+
+        form.addEventListener('submit', (event) => {
+            visibileInput.remove();                
+        });
+
+        return hiddenInput;
+    }
     
+    createNotice(type, text, icon) {
+                const notice = document.createElement('div');
+                notice.classList.add('c-notice');
+                notice.classList.add('c-notice--' + type);
+        
+                const noticeIcon = document.createElement('span');
+                noticeIcon.classList.add('c-notice__icon')
+        
+                const iconItem = document.createElement('i');
+                iconItem.classList.add('c-icon');
+                iconItem.classList.add('c-icon--size-md');
+                iconItem.classList.add('material-icons');
+                iconItem.innerText = icon;
+        
+                noticeIcon.appendChild(iconItem);
+                notice.appendChild(noticeIcon);
+        
+                notice.innerText = text;
+        
+                return notice;
+          }
     
     /**
      * File input - List files to upload
@@ -23,23 +57,52 @@ class Fields {
         
         const self = this;
         const inputs = document.querySelectorAll('.c-fileinput__input');
+        const noticeText = formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
+        const notice = this.createNotice('danger', noticeText, 'report');
+
+        //Removing multiple attribute as this JS will handle that for the browser
+        inputs.forEach(input => {
+            if(input.hasAttribute('multiple')) {
+                input.removeAttribute('multiple');
+            }
+        });
         
         for (const formInput of inputs) {
             
-            let inputId = formInput.getAttribute('id');
-            
-            document.getElementById(inputId).addEventListener('change', function (e) {
+            formInput.addEventListener('change', function (e) {
                 if (e.target.files && e.target.files[0]) {
-                    
-                    const findContainer = this.closest('div').querySelector('ul');
-                    const fileNameContainer = findContainer.getAttribute('id');
-                    
-                    for (let int = 0; int < e.target.files.length; int++) {
+                    const fileNameContainer = this.closest('div').querySelector('ul');
+                    const clone = e.target.cloneNode(false);
+                    const form = formInput.closest('form');
+                    const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                    const hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
+                    const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
+
+                    if (addedFiles == filesMax) {
+                        formInput.setAttribute('disabled', 'true')
+                    } else if (formInput.hasAttribute('disabled')) {
+                        formInput.removeAttribute('disabled')
+                    }
+
+                    for (let int = 0; int < filesMax; int++) {
                         const createListElement = document.createElement('li');
-                        const listelement = document.getElementById(fileNameContainer).appendChild(createListElement);
-                        const fileSize = self.returnFileSize(e.target.files[int].size);
-                        listelement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
-                            'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + e.target.files[int].name + '</b></span>';
+                        const listElement = fileNameContainer.appendChild(createListElement);
+                        const fileSize = self.returnFileSize(clone.files[int].size);
+                        listElement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
+                        'attach_file</i><span class="c-icon__label c-icon__label--size"> '+fileSize +', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
+
+                        listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
+                            hiddenInput.remove();
+                            listElement.remove();
+
+                            if(addedFiles <= filesMax) {
+                                notice.remove()
+                                
+                                if (formInput.hasAttribute('disabled')) {
+                                    formInput.removeAttribute('disabled')
+                                }
+                            }
+                        })
                     }
                 }
             });

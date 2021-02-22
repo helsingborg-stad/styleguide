@@ -1,26 +1,38 @@
 .c-fileinput {
 
     label {
+
         display: inline-block;
         vertical-align: middle;
-        font-weight: 500;
         text-decoration: none;
         cursor: pointer;
-        margin: 0;
-        margin-top: 2.66667px;
-        margin-bottom: 2.66667px;
-        border:2px solid;
-        position:relative;
+        line-height: 1;
+        font-weight: 500;
+        background-color: $color-primary;
+        color: $color-white;
+        border: none;
+        transition: 150ms background-color;
 
-        @include button-mix($color-white, $color-primary, $color-primary);
-        @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
-        padding-left: map-get($spacers, "5");
+        position:relative;
 
         i {
             position:absolute;
-            top: 7px;
+            top: 11px;
             left:10px;
+            color: $color-white;
         }
+
+        @include button-size($base*2, $base*3, $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
+        padding-left: map-get($spacers, "5");
+
+        &:hover {
+            background-color: $color-primary-light;
+        }
+
+        &:focus {
+            background-color:$color-primary-alpha-dimmed;
+        }
+
     }
 
     .c-fileinput__input {
@@ -30,6 +42,21 @@
         overflow: hidden;
         position: absolute;
         z-index: -1;
+    }
+
+    &__remove-file:hover {
+        color:$color-danger;
+        cursor:pointer;
+    }
+    
+    &__input[disabled] ~ .c-fileinput__label{
+        background-color: $color-disabled;
+        color: $color-disabled-text;
+        border-color: $color-disabled;
+        cursor:not-allowed;
+        * {
+            color: $color-disabled-text;
+        }
     }
 
     ul {
