@@ -96,7 +96,7 @@
             }
         }
 
-        &.c-field--icon label {
+        &.c-field--icon .c-field__text--placeholder {
             left: map-get($spacers, "4");
         }
     }
@@ -117,7 +117,7 @@
             }
         }
 
-        &.c-field--icon label {
+        &.c-field--icon .c-field__text--placeholder {
             left: map-get($spacers, "6");
         }
     }
@@ -128,7 +128,7 @@
             height: map-get($spacers, "8"); 
         }
 
-        label {
+        .c-field__text--placeholder {
             left: (map-get($spacers, "2") + map-get($spacers, "05"));
         }
 
@@ -142,13 +142,13 @@
             }
         }
 
-        &.c-field--icon label {
+        &.c-field--icon .c-field__text--placeholder {
             left: map-get($spacers, "7");
         }
     }
 
-    /* Label styling */ 
-    label {
+    /* Placeholder styling */ 
+    .c-field__text--placeholder {
         font-size: 14px;
         color: $color-form-fields-label;
         position: absolute;
@@ -164,9 +164,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 70%;
+        margin-top: 0px;
     }
 
-    $active: '.invalid + label, label:active, input:not(:empty) + label, input:focus + label, input:not(:placeholder-shown) + label'; 
+    $active: '.invalid + .c-field__text--placeholder, .c-field__text--placeholder:active, input:not(:empty) + .c-field__text--placeholder, input:focus + .c-field__text--placeholder, input:not(:placeholder-shown) + .c-field__text--placeholder'; 
 
     #{$active} {
         transform: translate(0, -100%) scale(.75);
@@ -185,7 +186,7 @@
         }
     }
 
-    .invalid + label {
+    .invalid + .c-field__text--placeholder {
         display: none;
     }
 
@@ -281,4 +282,9 @@
             margin-right: map-get($spacers, "05");
         }
     }
+}
+
+/* Label styling */ 
+.c-field__text--label {
+    margin-left: map-get($spacers, "1");
 }
