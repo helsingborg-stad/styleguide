@@ -9,6 +9,7 @@ $color-primary-light: var(--color-primary-light, #e84c31) !default;
 $color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
 $color-primary-alpha: var(--color-primary-alpha, rgba(247, 166, 0, 0.08)) !default;
 $color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(232, 76, 49, 0.24)) !default;
+$color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
 
 // Secondary Colors
 $color-secondary: var(--color-secondary, #ec6701) !default;
@@ -80,6 +81,7 @@ $color-body-background: var(--color-body-background, $color-default) !default;
 
 $color-link: var(--color-link, $color-primary-dark) !default;
 $color-link-hover: var(--color-link-hover, $color-primary) !default;
+$color-link-active: var(--color-link-hover, $color-primary) !default;
 $color-link-visited: var(--color-link-visited, $color-black) !default;
 $color-link-visited-hover: var(--color-link-visited-hover, $color-primary-dark) !default;
 
@@ -87,8 +89,10 @@ $color-shadow: var(--color-shadow, rgba($color-black, 0.18)) rgba!default;
 $color-shadow-sharp: var(--color-shadow-sharp, rgba($color-black, 1)) !default;
 $color-border: var(--color-border, $color-lighter);
 $color-code-background: var(--color-code-background, #fdfcfb);
+$color-code-background-focus: var(--color-code-background-focus, #ededed);
 $color-cream: var(--color-cream, #fdfcfb);
 $color-form-fields: var(--color-form-fields, #eeeeee);
+$color-form-fields-focus: var(--color-form-fields-focus, #f2f2f2);
 $color-form-fields-border: var(--color-form-fields-border, #dfdfdf);
 $color-form-fields-label: var(--color-form-fields-label, rgba(0,0,0,.6));
 $color-form-fields-contrast: var(--color-form-fields-contrast, #fff);
@@ -143,6 +147,7 @@ $color-table-border: var(--color-table-border, $color-lighter) !default;
 $table-heading-font-weight: var(--table-heading-font-weight, bold) !default;
 
 $color-component-doc-background: var(--color-component-doc-background, #191c3c) !default;
+$color-component-doc-background-lighten: var(--color-component-doc-background-lighten, #2F324F) !default;
 
 $color-comment-bubble-bg-dark: var(--color-comment-bubble-bg-dark, #f5f5f5) !default;
 $color-comment-bubble-bg-light: var(--color-comment-bubble-bg-light, $color-white) !default;
