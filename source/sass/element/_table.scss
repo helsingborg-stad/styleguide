@@ -4,7 +4,7 @@ table {
 
 table td,
 table th {
-    padding: $base * 1.5 $base * 2;
+    padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
     font-size: $font-size-caption;
     text-align: left;
     line-height: 24px;

@@ -16,12 +16,12 @@
         height: map-get($spacers, "6");
         padding: map-get($spacers, "2");
 
-        font-size: $base*2;
-        line-height: $base*2; 
+        font-size: calc(#{$base}*2);
+        line-height: calc(#{$base}*2); 
 
         border: 1px solid $color-form-fields;
         background: $color-form-fields;
-        background-size: $base*2;
+        background-size: calc(#{$base}*2);
 
         border-radius: $border-radius-md;
 

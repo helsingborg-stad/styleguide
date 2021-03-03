@@ -46,8 +46,8 @@
     .c-menu__list {
         display: flex;
         flex-wrap: nowrap;
-        margin-right: map-get($spacers, "2") * -1;
-        margin-left: map-get($spacers, "2") * -1;
+        margin-right: calc(map-get($spacers, "2") * -1);
+        margin-left: calc(map-get($spacers, "2") * -1);
     }
 
     .c-menu__item .c-menu__link {
@@ -56,7 +56,7 @@
     }
 
     .c-menu__item  *+* {
-        padding-left: $base * 0.5;
+        padding-left: calc(#{$base} * 0.5);
     }
 
     .c-menu__item .c-menu__link,
@@ -101,11 +101,11 @@
 
     .c-menu__link {
         display: block;
-        padding: $base*1.5 $base*3;
+        padding: calc(#{$base} * 1.5) calc(#{$base} * 3);
     }
 
     .c-menu__item  *+* {
-        padding-left: $base * 0.5;
+        padding-left: calc(#{$base} * 0.5);
     }
 
     .c-menu__item .c-menu__link,

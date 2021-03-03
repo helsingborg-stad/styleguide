@@ -1,6 +1,6 @@
-$collection-padding-x: $base * 2 !default;
-$collection-paddding-y: $base * 2 !default;
-$collection-paddding-y-compact: $base * 0.75 !default;
+$collection-padding-x: calc(#{$base} * 2) !default;
+$collection-paddding-y: calc(#{$base} * 2) !default;
+$collection-paddding-y-compact: calc(#{$base} * 0.75) !default;
 
 $collection-compact-padding-x: $collection-padding-x !default;
 $collection-compact-padding-y: $base !default;
@@ -57,7 +57,7 @@ $collection-hover-border: rgba(black, .1) !default;
     }
 
     .c-collection__divider.c-collection__divider--inset {
-        margin-left: $collection-padding-x * 3.5;
+        margin-left: calc($collection-padding-x * 3.5);
     }
 
     // Content
@@ -75,12 +75,12 @@ $collection-hover-border: rgba(black, .1) !default;
     
     // Content Modifier - Multiline
     .c-collection__content.c-collection__content--icon {
-        padding-right: $base * 5;
+        padding-right: calc(#{$base} * 5);
         position: relative;
         .c-collection__secondary {
             position: absolute;
-            top: $base * 1.5;
-            right: $base * 2;
+            top: calc(#{$base} * 1.5);
+            right: calc(#{$base} * 2);
             float: none;
         }
     }
@@ -155,7 +155,7 @@ $collection-hover-border: rgba(black, .1) !default;
     }
     .c-collection__content.c-collection__content--icon {
         .c-collection__secondary {
-            top: $base * 1.5;
+            top: calc(#{$base} * 1.5);
         }
     }
 

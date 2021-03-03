@@ -7,7 +7,7 @@
     right: 0;
     top: 50%;
     left: auto;
-    transform: translate(- #{$base*2}, -50%);
+    transform: translate(- #{calc(#{$base}*2)}, -50%);
     z-index: $level-2;
     transition: transform 150ms; 
     user-select: none;
@@ -15,7 +15,7 @@
 }
 
 .c-select:focus:hover ~ .c-select__icon {
-    transform: rotate(180deg) translate(#{$base*2}, 50%);
+    transform: rotate(180deg) translate(#{calc(#{$base}*2)}, 50%);
 }
 
 .c-select {
@@ -25,14 +25,14 @@
     margin: 0;
     outline: 0;
 
-    height: $base*6;
+    height: calc(#{$base}*6);
     padding: map-get($spacers, "2");
-    font-size: $base*2;
-    line-height: $base*2; 
+    font-size: calc(#{$base}*2);
+    line-height: calc(#{$base}*2); 
     border: 1px solid $color-form-fields;
 
     background: $color-form-fields;
-    background-size: $base*2;
+    background-size: calc(#{$base}*2);
 
     border-radius: $border-radius-md;
 
@@ -76,7 +76,7 @@
         height: auto;
 
         option {
-            border-radius: $base * 0.5;
+            border-radius: calc(#{$base} * 0.5);
         }
 
         option:last-of-type {

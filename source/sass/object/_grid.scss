@@ -32,15 +32,15 @@
     @each $breakpoint, $gutter in $gutters {
         @include mq($breakpoint) {
             .o-grid {
-                margin-left: $gutter/2 * -1;
-                margin-right: $gutter/2 * -1;
+                margin-left: calc($gutter/2 * -1);
+                margin-right: calc($gutter/2 * -1);
             }
             
             .o-grid {
                 > %column {
-                    padding-right: $gutter/2;
-                    padding-left: $gutter/2;
-                    margin-bottom: $base * 4;   
+                    padding-right: calc($gutter/2);
+                    padding-left: calc($gutter/2);
+                    margin-bottom: calc(#{$base} * 4);   
                 }
             }
 
@@ -129,8 +129,8 @@ $grid-columns: 12 !default;
 $grid-breakpoints: map-keys($breakpoints-map) !default;
 $grid-gutters: (
     xs : $base,
-    md : $base * 3,
-    lg : $base * 4,
+    md : calc(#{$base} * 3),
+    lg : calc(#{$base} * 4),
 ) !default;
 
 @include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);

@@ -2,10 +2,10 @@
 // *** Radius sizes
 // ***************************************************************
 
-$border-radius-xs: ($base/4) !default;
-$border-radius-sm: ($base/2) !default;
-$border-radius-md: ($base) !default;
-$border-radius-lg: ($base*2) !default;
+$border-radius-xs: calc(#{$base}/4) !default;
+$border-radius-sm: calc(#{$base}/2) !default;
+$border-radius-md: calc(#{$base}) !default;
+$border-radius-lg: calc(#{$base}*2) !default;
 $border-radius-full: 50% !default;
 
 $radiuses: (
