@@ -1,33 +1,35 @@
 // ***************************************************************
 // *** Default settings
 // ***************************************************************
-
 //  Base sizing unit
-$base: 8px !default;
-$em-base: 1em !default;
+
+$base: var(--base, 8px) !default;
+$em-base: var(--em-base, 1em) !default;
 
 //Header
-$header-logotype-height: $base*5 !default;
+$header-logotype-height: calc(#{$base}*5) !default;
 
 //  Spacer
 $spacers: (
     "0": 0,
-    "05": $base/2,
-    "1": $base * 1,
-    "1half": $base * 1.5,
-    "2": $base * 2,
-    "3": $base * 3,
-    "4": $base * 4,
-    "6": $base * 6,
-    "7": $base * 7,
-    "8": $base * 8,
-    "5": $base * 5,
-    "9": $base * 9,
-    "10": $base * 10,
-    "11": $base * 11,
-    "12": $base * 12,
+    "05": calc(#{$base}/2),
+    "1": calc(#{$base} * 1),
+    "1half": calc(#{$base} * 1.5),
+    "2": calc(#{$base} * 2),
+    "3": calc(#{$base} * 3),
+    "4": calc(#{$base} * 4),
+    "6": calc(#{$base} * 6),
+    "7": calc(#{$base} * 7),
+    "8": calc(#{$base} * 8),
+    "5": calc(#{$base} * 5),
+    "9": calc(#{$base} * 9),
+    "10": calc(#{$base} * 10),
+    "11": calc(#{$base} * 11),
+    "12": calc(#{$base} * 12),
     "auto": "auto"
 ) !default;
+
+@debug $spacers;
 
 //  Sizings
 $sizings: (
@@ -47,6 +49,6 @@ $breakpoints-map: (
 ) !default;
 
 //Width
-$container-width: $base * 156 !default; //1280
+$container-width: calc(#{$base} * 156) !default; //1280
 $container-width-content: 700px !default;
 $container-width-wide: 1500px !default;
