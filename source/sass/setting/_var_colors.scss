@@ -86,7 +86,7 @@ $color-link-visited: var(--color-link-visited, $color-black) !default;
 $color-link-visited-hover: var(--color-link-visited-hover, $color-primary-dark) !default;
 
 $color-shadow: var(--color-shadow, rgba($color-black, 0.18)) rgba!default;
-$color-shadow-sharp: var(--color-shadow-sharp, rgba($color-black, 1)) !default;
+$color-shadow-sharp: #000000 !default; //TO DO: Fix workaround for applying css variables to rgba values
 $color-border: var(--color-border, $color-lighter);
 $color-code-background: var(--color-code-background, #fdfcfb);
 $color-code-background-focus: var(--color-code-background-focus, #ededed);
