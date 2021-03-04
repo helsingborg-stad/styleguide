@@ -17,16 +17,16 @@
     }
 
     &--lg {
-        @include button-size($base*3, $base*5, $font-size-btn-lg, $font-size-btn-lg-line-height, $border-radius-md);
+        @include button-size(calc(#{$base}*3), calc(#{$base}*5), $font-size-btn-lg, $font-size-btn-lg-line-height, $border-radius-md);
     }
 
     &--md {
-        @include button-size($base*2, $base*3, $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
+        @include button-size(calc(#{$base}*2), calc(#{$base}*3), $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
     }
 
     &--sm {
         letter-spacing: 0.1em;
-        @include button-size($base*1.5, $base*2, $font-size-btn-sm, $font-size-btn-sm-line-height, $border-radius-sm);
+        @include button-size(calc(#{$base}*1.5), calc(#{$base}*2), $font-size-btn-sm, $font-size-btn-sm-line-height, $border-radius-sm);
     }
 
     &[disabled="true"] {
@@ -269,14 +269,14 @@
 .c-button__icon-size {
 
     &--lg {
-        @include button-size($base*2, $base*2, $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
+        @include button-size(calc(#{$base}*2), calc(#{$base}*2), $font-size-btn-lg, $font-size-btn-lg-line-height, 12.5px);
         .c-icon {
             transform: scale(1.7);
         }
     }
 
     &--md {
-        @include button-size($base*1.5, $base*1.5, $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
+        @include button-size(calc(#{$base}*1.5), calc(#{$base}*1.5), $font-size-btn-md, $font-size-btn-md-line-height, 12.5px);
 
         .c-icon {
             transform: scale(1.3);

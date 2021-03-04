@@ -18,11 +18,11 @@
     }
 
     .c-avatar--size-md + &__content {
-        margin-left: $base * 2;
+        margin-left: calc(#{$base} * 2);
     }
 
     .c-avatar--size-lg + &__content {
-        margin-left: $base * 3;
+        margin-left: calc(#{$base} * 3);
     }
 
     &__avatar {

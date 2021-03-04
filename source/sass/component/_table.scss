@@ -40,7 +40,7 @@
         top: 0;
         right: 0;
         bottom: 0;
-        width: $base*5;
+        width: calc(#{$base}*5);
         @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
     }
 

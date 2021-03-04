@@ -22,7 +22,7 @@
             color: $color-white;
         }
 
-        @include button-size($base*2, $base*3, $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
+        @include button-size(calc(#{$base}*2), calc(#{$base}*3), $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
         padding-left: map-get($spacers, "5");
 
         &:hover {

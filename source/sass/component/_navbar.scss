@@ -105,7 +105,7 @@
 }
 
 .c-navbar__expanded_main {
-    padding: map-get($spacers, "7") $base * 20;
+    padding: map-get($spacers, "7") calc(#{$base} * 20);
     border-bottom: 2px solid $color-primary;
 
 }
@@ -197,7 +197,7 @@
     }
 
     .c-navbar__expanded_grid {
-        grid-row-gap: $base * 2 !important;
+        grid-row-gap: calc(#{$base} * 2) !important;
     }
 }
 

@@ -5,7 +5,7 @@
         align-items: center;
         border-bottom: 1px solid $color-gray-light;
         overflow-x: auto;
-        height: $base * 7;
+        height: calc(#{$base} * 7);
     }
 
     &__button {
@@ -28,7 +28,7 @@
     }
 
     &__button-wrapper {
-        padding: $base $base * 2;
+        padding: $base calc(#{$base} * 2);
     }
 
     &__button:focus,
@@ -41,7 +41,7 @@
     }
 
     &__content {
-        padding: $base * 3;
+        padding: calc(#{$base} * 3);
 
         &[aria-hidden="true"] {
             display: none;

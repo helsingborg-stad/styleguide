@@ -7,12 +7,12 @@ $article-content-elements:
 
 .c-article {
     #{$article-content-elements} {
-        margin-top: $base * 2;
+        margin-top: calc(#{$base} * 2);
     }
 
     h1, .h1 {
         color: $color-primary;
-        margin-bottom: $base * 2.5;
+        margin-bottom: calc(#{$base} * 2.5);
     }
 
     *:first-child {
@@ -26,5 +26,5 @@ $article-content-elements:
 }
 
 .c-article.c-article--readable-width {
-    max-width: $base * 76;
+    max-width: calc(#{$base} * 76);
 }

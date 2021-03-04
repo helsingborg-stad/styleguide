@@ -2,10 +2,10 @@
     width: 100%;
     max-width: $container-width;
     margin: 0 auto;   
-    padding: 0 $base * 3;
+    padding: 0 calc(#{$base} * 3);
 
     @include mq('sm', 'md') {
-        max-width: $base * 90;
+        max-width: calc(#{$base} * 90);
     }
 }
 
