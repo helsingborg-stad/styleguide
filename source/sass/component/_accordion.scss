@@ -16,7 +16,8 @@
             line-height: $line-height-heading;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $color-gray-light;
             text-decoration: none;
         }
