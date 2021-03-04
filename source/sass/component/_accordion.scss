@@ -1,6 +1,5 @@
 .c-accordion {
     background: white;
-    border-radius: $border-radius-xs;
     @include shadow(1);
 
     &__button {
