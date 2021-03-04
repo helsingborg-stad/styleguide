@@ -41,7 +41,7 @@
 
 
     &:focus {
-        background-color: lighten($color-form-fields, 5%);
+        background-color: $color-form-fields-focus;
     }
 
     .error.active {

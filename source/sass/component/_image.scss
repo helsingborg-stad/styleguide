@@ -88,7 +88,7 @@ $radius: (
 
     .c-image__caption {
         font-size: 0.8em;
-        color: darken($color-gray, 20%);
+        color: $color-light;
     }
 
     .c-image--full-width .c-image__image {

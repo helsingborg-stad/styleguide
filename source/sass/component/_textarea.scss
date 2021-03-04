@@ -17,7 +17,7 @@
         line-height: 1.5;
 
         &:focus {
-            background-color: lighten($color-form-fields, 5%);
+            background-color: $color-form-fields-focus;
             box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
         }
     }

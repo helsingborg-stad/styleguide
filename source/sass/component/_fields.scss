@@ -28,7 +28,7 @@
         transition: color .1s ease, border-color .1s ease;
 
         &:focus {
-            background-color: lighten($color-form-fields, 5%);
+            background-color: $color-form-fields-focus;
             border-bottom: 2px solid $color-in-action;
         }
     }
