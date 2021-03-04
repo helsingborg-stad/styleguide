@@ -1,6 +1,6 @@
 .c-slider {
     position: relative;
-    border-radius: $base;
+    border-radius: $border-radius-md;
     margin-bottom: map-get($spacers, "7");
     @include shadow(2);
 
@@ -31,7 +31,7 @@
     .c-slider__container {
         overflow: hidden;
         position: relative;
-        border-radius: $base;
+        border-radius: $border-radius-md;
     
         .c-slider__inner {
             display: flex;
@@ -99,7 +99,7 @@
         .c-slider__item__container {
             align-self: center;
             padding: map-get($spacers, "2");
-            border-radius: calc(#{$base} * 2);
+            border-radius: $border-radius-lg;
         }
 
         &.c-slider__item--no-mobile-image {

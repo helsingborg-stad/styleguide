@@ -3,7 +3,7 @@
     display: block;
     position: relative;
     background-color: $color-white;
-    border-radius: 12.5px;
+    border-radius: $border-radius-lg;
     overflow: hidden;
 
     &--size-sm,
