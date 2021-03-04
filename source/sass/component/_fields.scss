@@ -124,16 +124,16 @@
 
     &.c-field--lg {
         #{$fields} {
-            padding: (map-get($spacers, "2") + map-get($spacers, "05")); 
+            padding: calc(map-get($spacers, "2") + map-get($spacers, "05")); 
             height: map-get($spacers, "8"); 
         }
 
         label {
-            left: (map-get($spacers, "2") + map-get($spacers, "05"));
+            left: calc(map-get($spacers, "2") + map-get($spacers, "05"));
         }
 
         .c-icon {
-            left: map-get($spacers, "2") + map-get($spacers, "05");
+            left: calc(map-get($spacers, "2") + map-get($spacers, "05"));
         }
 
         &.c-field--icon {
