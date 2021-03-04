@@ -57,7 +57,7 @@ $collection-hover-border: rgba(black, .1) !default;
     }
 
     .c-collection__divider.c-collection__divider--inset {
-        margin-left: calc($collection-padding-x * 3.5);
+        margin-left: calc(#{$collection-padding-x} * 3.5);
     }
 
     // Content

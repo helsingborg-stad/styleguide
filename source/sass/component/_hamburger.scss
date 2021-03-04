@@ -1,12 +1,12 @@
 
 // Override hamburger settings
-$hamburger-padding-x: $base * 3 !default;
-$hamburger-padding-y: $base * 2 !default;
+$hamburger-padding-x: calc(#{$base} * 3) !default;
+$hamburger-padding-y: calc(#{$base} * 2) !default;
 $hamburger-types     : (slider) !default;
 
 // $hamburger-padding-x           : 15px;
 // $hamburger-padding-y           : 15px;
-$hamburger-layer-width         : $base * 4 !default;
+$hamburger-layer-width         : calc(#{$base} * 4) !default;
 $hamburger-layer-height        : 3px !default;
 $hamburger-layer-spacing       : 6px !default;
 // $hamburger-layer-color         : #000;
@@ -30,7 +30,7 @@ $hamburger-layer-spacing       : 6px !default;
 }
 
 .hamburger > * + * {
-    margin-left: $base * 2.5;
+    margin-left: calc(#{$base} * 2.5);
 }
 
 .hamburger.hamburger--reverse
@@ -60,7 +60,7 @@ $hamburger-layer-spacing       : 6px !default;
 
     & > * + *  {
         margin-left: 0;
-        margin-right: $base * 2.5;
+        margin-right: calc(#{$base} * 2.5);
     }
 }
 
