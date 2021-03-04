@@ -261,7 +261,7 @@
     @extend .c-button__filled--default;
 
     &[aria-pressed="true"] {
-        background-color: darken($color-default,20%);
+        background-color: $color-default-dark;
         color: $color-primary-dimmed;
     }
 }

@@ -36,7 +36,7 @@
         opacity: 0;
 
         & li:hover {
-            background-color:darken($color: $color-menu-background, $amount: 10);
+            background-color: $color-lighter;
         }
 
         & div {

@@ -3,157 +3,161 @@
 // ***************************************************************
 
 // Primary Colors
-$color-primary: #ae0b05 !default;
-$color-primary-dark: #770000 !default;
-$color-primary-light: #e84c31 !default;
-$color-primary-dimmed: $color-primary-dark !default; // To be deprecated
-$color-primary-alpha: rgba(247, 166, 0, 0.08);
-$color-primary-alpha-dimmed: rgba(232, 76, 49, 0.24);
+$color-primary: var(--color-primary, #ae0b05) !default;
+$color-primary-dark: var(--color-primary-dark, #770000) !default;
+$color-primary-light: var(--color-primary-light, #e84c31) !default;
+$color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
+$color-primary-alpha: var(--color-primary-alpha, rgba(247, 166, 0, 0.08)) !default;
+$color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(232, 76, 49, 0.24)) !default;
+$color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
 
 // Secondary Colors
-$color-secondary: #ec6701 !default;
-$color-secondary-dark: #b23700 !default;
-$color-secondary-light: #ff983e !default;
-$color-secondary-dimmed: $color-secondary-dark !default; // To be deprecated
-$color-secondary-alpha: rgba(247, 166, 0, 0.08);
-$color-secondary-alpha-dimmed: rgba(247, 166, 0, 0.24);
+$color-secondary: var(--color-secondary, #ec6701) !default;
+$color-secondary-dark: var(--color-secondary-dark, #b23700) !default;
+$color-secondary-light: var(--color-secondary-light, #ff983e) !default;
+$color-secondary-dimmed: var(--color-secondary-dimmed,$color-secondary-dark) !default; // To be deprecated
+$color-secondary-alpha: var(--color-secondary-alpha, rgba(247, 166, 0, 0.08)) !default;
+$color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(232, 76, 49, 0.24)) !default;
 
 // Tertiary Colors
-$color-tertiary: #cb0050 !default;
-$color-tertiary-dark: #cb0050 !default; //Needs correcting
-$color-tertiary-light: #cb0050 !default; //Needs correcting
-$color-tertiary-alpha: rgba(#cb0050, 0.08);
-$color-tertiary-alpha-dimmed: rgba(#cb0050, 0.24);
+$color-tertiary: var(--color-tertiary, #cb0050) !default;
+$color-tertiary-dark: var(--color-tertiary-dark, #cb0050) !default; //Needs correcting
+$color-tertiary-light: var(--color-tertiary-light, #cb0050) !default; //Needs correcting
+$color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba($color-tertiary, 0.24));
 
 // Monotone Colors
-$color-default: #f5f5f5 !default;
-$color-black: #000000 !default;
-$color-darkest: #3d3d3d !default;
-$color-darker: #565656 !default;
-$color-dark: #707070 !default;
-$color-light: #a3a3a3 !default;
-$color-lighter: #e5e5e5 !default;
-$color-lightest: #fcfcfc !default;
-$color-white: #ffffff !default;
+$color-default: var(--color-default, #f5f5f5) !default;
+$color-black: var(--color-black, #000000) !default;
+$color-darkest: var(--color-darkest, #3d3d3d) !default;
+$color-darker: var(--color-darker, #565656) !default;
+$color-dark: var(--color-dark, #707070) !default;
+$color-light: var(--color-light, #a3a3a3) !default;
+$color-lighter: var(--color-lighter, #e5e5e5) !default;
+$color-lightest: var(--color-lightest, #fcfcfc) !default;
+$color-white: var(--color-white, #ffffff) !default;
 
-$color-default-dimmed: #eee !default;
-$color-default-dark: #dadada !default;
-$color-default-darker: #3d3d3d !default;
-$color-default-alpha: rgba(112, 112, 112, 0.08);
-$color-default-alpha-dimmed: rgba(112, 112, 112, 0.24);
+$color-default-dimmed: var(--color-default-dimmed, #eee) !default;
+$color-default-dark: var(--color-default-dark, #dadada) !default;
+$color-default-darker: var(--color-default-darker, #3d3d3d) !default;
+$color-default-alpha: var(--color-default-alpha, rgba(112, 112, 112, 0.08));
+$color-default-alpha-dimmed: var(--color-default-alpha-dimmed, rgba(112, 112, 112, 0.24));
 
 // Disabled colors
-$color-disabled: $color-default !default;
-$color-disabled-text: $color-dark;
-$color-gray-detail: $color-light;
-$color-disabled-bg: $color-lighter !default;
-$color-disabled-text: $color-base-disabled !default;
-$color-disabled-border: $color-black !default;
+$color-disabled: var(--color-disabled, $color-default) !default;
+$color-disabled-text: var(--color-disabled-text, $color-dark);
+$color-gray-detail: var(--color-gray-detail, $color-light);
+$color-disabled-bg: var(--color-disabled-bg, $color-lighter) !default;
+$color-disabled-text: var(--color-disabled-text, $color-base-disabled) !default;
+$color-disabled-border: var(--color-disabled-border, $color-black) !default;
 
-$color-gray: $color-light !default; // To be deprecated
-$color-gray-light: $color-lighter !default; // To be deprecated
-$color-gray-lighter: $color-lightest !default; // To be deprecated
+$color-gray: var(--color-light, $color-light) !default; // To be deprecated
+$color-gray-light: var(--color-lighter, $color-lighter) !default; // To be deprecated
+$color-gray-lighter: var(--color-lightest, $color-lightest) !default; // To be deprecated
 
-$color-success: #91d736 !default;
-$color-danger: #d73740 !default;
-$color-info: #3d3d3d !default;
-$color-warning: #efbb21 !default;
-$color-in-action: #ffa900 !default;
+$color-success: var(--color-success, #91d736) !default;
+$color-danger: var(--color-danger, #d73740) !default;
+$color-info: var(--color-info, #3d3d3d) !default;
+$color-warning: var(--color-warning, #efbb21) !default;
+$color-in-action: var(--color-in-action, #ffa900) !default;
 
 // Text colors
-$color-success-text: $color-black !default; 
-$color-danger-text: $color-white !default;
-$color-info-text: $color-white !default;
-$color-warning-text: $color-black !default;
+$color-success-text: var(--color-success-text, $color-black) !default; 
+$color-danger-text: var(--color-danger-text, $color-white) !default;
+$color-info-text: var(--color-info-text, $color-white) !default;
+$color-warning-text: var(--color-warning-text, $color-black) !default;
 
-$color-base: rgba($color-black, 0.96) !default;
-$color-base-secondary: rgba($color-black, 0.54) !default;
-$color-base-disabled: rgba($color-black, 0.37) !default;
+$color-base: var(--color-base, rgba($color-black, 0.96)) rgba($color-black, 0.96) !default;
+$color-base-secondary: var(--color-secondary, rgba($color-black, 0.54)) !default;
+$color-base-disabled: var(--color-disabled, rgba($color-black, 0.37)) !default;
 
-$color-base-invert: $color-white !default;
-$color-base-invert-secondary: rgba($color-white, 0.75) !default;
-$color-base-invert-disabled: rgba($color-white, 0.5) !default;
+$color-base-invert: var(--color-base-invert, $color-white) !default;
+$color-base-invert-secondary: var(--color-base-invert-secondary, rgba($color-white, 0.75)) !default;
+$color-base-invert-disabled: var(--color-base-invert-disabled, rgba($color-white, 0.5)) !default;
 
-$color-heading: $color-base !default;
-$color-body: $color-base !default;
-$color-body-background: $color-default !default;
+$color-heading: var(--color-heading, $color-base) !default;
+$color-body: var(--color-body, $color-base) !default;
+$color-body-background: var(--color-body-background, $color-default) !default;
 //$color-body-background: $color-white !default;
 
-$color-link: $color-primary-dark !default;
-$color-link-hover: $color-primary !default;
-$color-link-visited: $color-black !default;
-$color-link-visited-hover: $color-primary-dark !default;
+$color-link: var(--color-link, $color-primary-dark) !default;
+$color-link-hover: var(--color-link-hover, $color-primary) !default;
+$color-link-active: var(--color-link-hover, $color-primary) !default;
+$color-link-visited: var(--color-link-visited, $color-black) !default;
+$color-link-visited-hover: var(--color-link-visited-hover, $color-primary-dark) !default;
 
-$color-shadow: rgba($color-black, 0.18) !default;
-$color-shadow-sharp: rgba($color-black, 1) !default;
-$color-border: $color-lighter;
-$color-code-background: #fdfcfb;
-$color-cream: #fdfcfb;
-$color-form-fields: #eeeeee;
-$color-form-fields-border: #dfdfdf;
-$color-form-fields-label: rgba(0,0,0,.6);
-$color-form-fields-contrast: #fff;
-$color-form-fields-border-contrast: #dfdfdf;
-$color-form-fields-label-contrast: #000;
-$color-header-background: #f8f8f8 !default;
-$color-header-background-level-1: $color-lighter !default;
-$color-header-background-level-2: $color-white !default;
-$color-header-background-level-3: $color-primary !default;
+$color-shadow: var(--color-shadow, rgba($color-black, 0.18)) rgba!default;
+$color-shadow-sharp: #000000 !default; //TO DO: Fix workaround for applying css variables to rgba values
+$color-border: var(--color-border, $color-lighter);
+$color-code-background: var(--color-code-background, #fdfcfb);
+$color-code-background-focus: var(--color-code-background-focus, #ededed);
+$color-cream: var(--color-cream, #fdfcfb);
+$color-form-fields: var(--color-form-fields, #eeeeee);
+$color-form-fields-focus: var(--color-form-fields-focus, #f2f2f2);
+$color-form-fields-border: var(--color-form-fields-border, #dfdfdf);
+$color-form-fields-label: var(--color-form-fields-label, rgba(0,0,0,.6));
+$color-form-fields-contrast: var(--color-form-fields-contrast, #fff);
+$color-form-fields-border-contrast: var(--color-form-fields-border-contrast, #dfdfdf);
+$color-form-fields-label-contrast: var(--color-form-fields-label-contrast, #000);
+$color-header-background: var(--color-header-background, #f8f8f8) !default;
+$color-header-background-level-1: var(--color-header-background-level-1, $color-lighter) !default;
+$color-header-background-level-2: var(--color-header-background-level-2, $color-white) !default;
+$color-header-background-level-3: var(--color-header-background-level-3, $color-primary) !default;
 
 // Menu Colors
-$color-menu-background: $color-white !default;
-$color-menu-separator: $color-lighter !default;
-$color-menu-active-indicator: $color-lighter !default;
-$color-menu-active-background: $color-lightest !default;
-$color-menu-text: $color-black;
-$color-menu-active-indicator-horizontal: $color-primary-dimmed !default;
-$color-menu-text-horizontal: $color-black;
+$color-menu-background: var(--color-menu-background, $color-white) !default;
+$color-menu-separator: var(--color-menu-separator, $color-lighter) !default;
+$color-menu-active-indicator: var(--color-menu-active-indicator, $color-lighter) !default;
+$color-menu-active-background: var(--color-menu-active-background, $color-lightest) !default;
+$color-menu-text: var(--color-menu-text, $color-black);
+$color-menu-active-indicator-horizontal: var(--color-menu-active-indicator-horizontal, $color-primary-dimmed) !default;
+$color-menu-text-horizontal: var(--color-menu-text-horizontal, $color-black);
 
 // Navigation Colors
-$color-nav-background: $color-lightest !default;
-$color-nav-item-text: $color-base-secondary !default;
-$color-nav-item-text-active: $color-black !default;
-$color-nav-top-accent: $color-primary !default;
-$color-nav-active-accent: $color-primary !default;
+$color-nav-background: var(--color-nav-background, $color-lightest) !default;
+$color-nav-item-text: var(--color-nav-item-text, $color-base-secondary) !default;
+$color-nav-item-text-active: var(--color-nav-item-text-active, $color-black) !default;
+$color-nav-top-accent: var(--color-nav-top-accent, $color-primary) !default;
+$color-nav-active-accent: var(--color-nav-active-accent, $color-primary) !default;
 
 // Component Colors
-$color-image-placeholder-background: $color-default !default;
-$color-image-placeholder-border: $color-lighter !default;
-$color-image-placeholder-label: $color-darker !default;
-$color-image-placeholder-icon: $color-darker !default;
+$color-image-placeholder-background: var(--color-image-placeholder-background, $color-default) !default;
+$color-image-placeholder-border: var(--color-image-placeholder-border, $color-lighter) !default;
+$color-image-placeholder-label: var(--color-image-placeholder-label, $color-darker) !default;
+$color-image-placeholder-icon: var(--color-image-placeholder-icon, $color-darker) !default;
 
-$color-card-background: $color-white !default;
-$color-card-background-dark: $color-body-background !default;
+$color-card-background: var(--color-card-background, $color-white) !default;
+$color-card-background-dark: var(--color-card-background-dark, $color-body-background) !default;
 
-$color-notice-text-default: $color-white !default;
+$color-notice-text-default: var(--color-notice-text-default, $color-white) !default;
 
-$color-breadcrumb-active: $color-darker !default;
-$color-breadcrumb-icon: $color-black !default;
-$color-breadcrumb: $color-black !default;
+$color-breadcrumb-active: var(--color-breadcrumb-active, $color-darker) !default;
+$color-breadcrumb-icon: var(--color-breadcrumb-icon, $color-black) !default;
+$color-breadcrumb: var(--color-breadcrumb, $color-black) !default;
 
-$color-paper-background: $color-white !default;
+$color-paper-background: var(--color-paper-background, $color-white) !default;
 
-$color-table-background: $color-white !default;
-$color-table-background-odd: $color-lightest !default;
-$color-table-track-background: $color-white !default;
-$color-table-track-control: $color-lightest !default;
-$color-table-gradient: $color-white !default;
-$color-table-heading: $color-light !default;
-$color-table-body: $color-black !default;
-$color-table-border: $color-lighter !default;
-$table-heading-font-weight: bold !default;
+$color-table-background: var(--color-table-background, $color-white) !default;
+$color-table-background-odd: var(--color-table-background-odd, $color-lightest) !default;
+$color-table-track-background: var(--color-table-track-background, $color-white) !default;
+$color-table-track-control: var(--color-table-track-control, $color-lightest) !default;
+$color-table-gradient: var(--color-table-gradient, $color-white) !default;
+$color-table-heading: var(--color-table-heading, $color-light) !default;
+$color-table-body: var(--color-table-body, $color-black) !default;
+$color-table-border: var(--color-table-border, $color-lighter) !default;
+$table-heading-font-weight: var(--table-heading-font-weight, bold) !default;
 
-$color-component-doc-background: #191c3c !default;
+$color-component-doc-background: var(--color-component-doc-background, #191c3c) !default;
+$color-component-doc-background-lighten: var(--color-component-doc-background-lighten, #2F324F) !default;
 
-$color-comment-bubble-bg-dark: #f5f5f5 !default;
-$color-comment-bubble-bg-light: $color-white !default;
-$color-comment-date: $color-light !default;
+$color-comment-bubble-bg-dark: var(--color-comment-bubble-bg-dark, #f5f5f5) !default;
+$color-comment-bubble-bg-light: var(--color-comment-bubble-bg-light, $color-white) !default;
+$color-comment-date: var(--color-comment-date, $color-light) !default;
 
-$color-footer-background: #efefef;
+$color-footer-background: var(--color-footer-background, #efefef);
 
-$color-code-sidebar: $color-default-darker !default;
-$color-code-button: $color-default-darker !default;
+$color-code-sidebar: var(--color-code-sidebar, $color-default-darker) !default;
+$color-code-button: var(--color-code-button, $color-default-darker) !default;
 
 //Blockquote
-$color-blockquote-background: $color-default-dimmed !default; 
-$color-blockquote-border: $color-primary !default;
+$color-blockquote-background: var(--color-blockquote-background, $color-default-dimmed) !default; 
+$color-blockquote-border: var(--color-blockquote-border, $color-primary) !default;
