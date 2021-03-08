@@ -1,13 +1,15 @@
 .c-signature {
-    display: flex; 
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "avatar signature" "whitespace dates";
     text-decoration: none;
-    align-items: center;
 
-    &--space-1 .c-avatar {
+    &--space-1 {
         margin-bottom: map-get($spacers, "3");
     }
 
-    &--space-2 .c-avatar {
+    &--space-2 {
         margin-bottom: map-get($spacers, "6");
     }
 
@@ -16,43 +18,41 @@
     }
 
     .c-avatar--size-md + &__content {
-        margin-left: $base * 2;
+        margin-left: calc(#{$base} * 2);
     }
 
     .c-avatar--size-lg + &__content {
-        margin-left: $base * 3;
+        margin-left: calc(#{$base} * 3);
     }
 
-    &__author {
-        display: block;
+    &__avatar {
+        grid-area: avatar;
+    }
+
+    &__author-box {
+        grid-area: signature;
+        display: flex;
+        align-items: center;
+        padding-left: map-get($spacers, "2" );
     }
 
     &__title {
         color: $color-darker;
-        margin-bottom: map-get($spacers, "1" );
         margin-top: -#{map-get($spacers, "1" )};
         display: block;
     }
 
     &__dates {
-        clear: both;
-        display: block;
+        grid-area: dates;
     }
 
-    &__published {
-        color: $color-darker;
-        margin-bottom: 0;
-        display: block;
+    &__dates.c-signature__dates--aligned {
+        padding-left: map-get($spacers, "2" );
     }
 
+    &__published,
     &__updated {
         color: $color-darker;
-        margin-bottom: 0;
         display: block;
-    }
-
-    &__author + &__published,
-    &__author + &__updated {
-        margin-top: map-get($spacers, "1");
     }
 }

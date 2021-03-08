@@ -36,7 +36,7 @@
         opacity: 0;
 
         & li:hover {
-            background-color:darken($color: $color-menu-background, $amount: 10);
+            background-color: $color-lighter;
         }
 
         & div {
@@ -50,8 +50,8 @@
         }
 
         & li {
-            padding-left: $base * 3.5;
-            padding-right: $base * 3.5;
+            padding-left: calc(#{$base} * 3.5);
+            padding-right: calc(#{$base} * 3.5);
             padding-top: $base;
             padding-bottom: $base;
             list-style-type: none;

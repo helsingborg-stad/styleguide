@@ -5,19 +5,19 @@
         width: 100%;
         margin: 0;
         outline: 0;
-        min-height: $base*25;
+        min-height: calc(#{$base}*25);
         appearance: none;
         padding: map-get($spacers, "2");
         font-size: 1em;
         background: $color-form-fields;
         border: 1px solid $color-form-fields;
         transition: color .1s ease;
-        background-size: $base*2;
+        background-size: calc(#{$base}*2);
         border-radius: $border-radius-md;
         line-height: 1.5;
 
         &:focus {
-            background-color: lighten($color-form-fields, 5%);
+            background-color: $color-form-fields-focus;
             box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
         }
     }
@@ -31,8 +31,8 @@
         font-size: 14px;
         color: $color-form-fields-label;
         position: absolute;
-        top: $base*2;
-        left: $base*2;
+        top: calc(#{$base}*2);
+        left: calc(#{$base}*2);
         transform-origin: top left;
         transform: translate(0, 0) scale(1);
         transition: all .1s ease-in-out;

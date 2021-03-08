@@ -37,11 +37,11 @@
         .c-button__text--primary[aria-pressed="true"],
         [aria-pressed="true"].c-button__outlined--primary {
             color: $color-white;
-            background-color: lighten($color-component-doc-background, 10%);
+            background-color: $color-component-doc-background-lighten;
         }
 
         .c-button__outlined--primary:hover, .c-button__text--primary:hover {
-            background-color: lighten($color-component-doc-background, 10%);
+            background-color: $color-component-doc-background-lighten;
         }
 
     }

@@ -7,8 +7,8 @@
 
     .toolbar {
         top: unset !important;
-        right: $base*3 !important;
-        bottom: $base*3 !important;
+        right: calc(#{$base}*3) !important;
+        bottom: calc(#{$base}*3) !important;
 
         &-item {
             position: unset;

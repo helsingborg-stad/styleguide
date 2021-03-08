@@ -35,7 +35,7 @@
         border-radius: 0.3em;
 
         &:hover {
-            background-color: transparentize($color-primary, 0.9);
+            background-color: $color-primary-transparent;
             color: $color_primary;
             text-decoration: none;
         }
@@ -154,17 +154,17 @@
                 background-color: transparent;
 
                 .c-datepicker__day-content {
-                    background-color: transparentize($color-primary, 0.9);
+                    background-color: $color-primary-transparent;
                 }
             }
         }
 
         &.c-datepicker__day--highlighted a.c-datepicker__button .c-datepicker__day-content {
-            background-color: transparentize($color-primary, 0.9);
+            background-color: $color-primary-transparent;
         }
 
         &.c-datepicker__day--outside a.c-datepicker__button {
-            color: transparentize($color-primary, 0.9);
+            color: $color-primary-transparent;
         }
 
         &.c-datepicker__day--unavailable a.c-datepicker__button {
@@ -187,7 +187,7 @@
             a.c-datepicker__button:hover .c-datepicker__day-content,
             &.c-datepicker__day--highlighted a.c-datepicker__button .c-datepicker__day-content,
             &.c-datepicker__day--highlighted a.c-datepicker__button:hover .c-datepicker__day-content {
-                background-color: transparentize($color-primary, 0.9);
+                background-color: $color-primary-transparent;
             }
             /* stylelint-enable */
         }

@@ -1,5 +1,5 @@
 
 hr {
-    margin-top: $base * 6;
+    margin-top: calc(#{$base} * 6);
     margin-bottom: 0;
 }

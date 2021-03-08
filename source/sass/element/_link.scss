@@ -18,7 +18,7 @@ a, .link {
     }
 
     &:active {
-        color: lighten($color-link-hover, 10%);
+        color: $color-link-active;
     }
 
     &:visited {
@@ -29,14 +29,14 @@ a, .link {
         }
 
         &:active {
-            color: lighten($color-link-visited-hover, 10%);
+            color: $color-link-active;
         }
     }
 
     &.c-link--tag {
         background-color: $color-gray-light;
-        padding: $base/2;
-        margin-right: $base/2;
+        padding: calc(#{$base}/2);
+        margin-right: calc(#{$base}/2);
         border-radius: $border-radius-sm;
         text-decoration: none;
         color: $color-base;

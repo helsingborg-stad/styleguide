@@ -20,7 +20,7 @@
   .c-nav__link,
   .c-nav__action {
       font-size: 16px;
-      padding: ($base * 0.5 * 5) $base;
+      padding: calc(#{$base} * 0.5 * 5) $base;
       text-decoration: none;
       color: black;
   }
@@ -61,7 +61,7 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
-    padding: $base * 2 $base * 4;
+    padding: calc(#{$base} * 2) calc(#{$base} * 4);
 
     &:hover {
         text-decoration: underline;
@@ -102,8 +102,8 @@
       width: 100%;
 
       .c-nav__link {
-          padding-top: $base * 1.5;
-          padding-bottom: $base * 1.5;
+          padding-top: calc(#{$base} * 1.5);
+          padding-bottom: calc(#{$base} * 1.5);
       }
   }
 
@@ -149,9 +149,9 @@
       align-items: center;
       padding-top: $base;
       padding-bottom: $base;
-      padding-left: $base * 2;
-      padding-right: $base * 2;
-      min-height: $base * 6;
+      padding-left: calc(#{$base} * 2);
+      padding-right: calc(#{$base} * 2);
+      min-height: calc(#{$base} * 6);
 
       &:hover {
           color: $color-primary;
@@ -163,7 +163,7 @@
   }
 
   .c-nav__toggle {
-      padding: $base * 1.5;
+      padding: calc(#{$base} * 1.5);
       border-radius: 0;
       align-self: stretch;
 
@@ -189,8 +189,8 @@
       border-top: solid 1px rgba(black, 0.1);
 
       .c-nav__link {
-          padding-left: $base * 2;
-          padding-right: $base * 2;
+          padding-left: calc(#{$base} * 2);
+          padding-right: calc(#{$base} * 2);
       }
   }
   
