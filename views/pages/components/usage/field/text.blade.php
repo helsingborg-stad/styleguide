@@ -11,6 +11,7 @@
 
                     @field([
                         'type' => 'text',
+                        'placeholder' => 'email@email.com',
                         'attributeList' => [
                             'type' => 'email',
                             'name' => 'email',
