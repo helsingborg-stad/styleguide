@@ -94,6 +94,20 @@
         margin-bottom: 0;
     }
 
+    &--arrow-right {
+        .c-card__body {
+            position: relative; 
+            padding-right: map-get($spacers, "5");
+        }
+        .c-card__arrow-right {
+            position: absolute;
+            top: 50%;
+            right: map-get($spacers, "2");
+            transform: translateY(-50%);
+            color: $color-light;
+        }
+    }
+
     &__footer {
         border-top: 1px solid $color-lighter;
     }
