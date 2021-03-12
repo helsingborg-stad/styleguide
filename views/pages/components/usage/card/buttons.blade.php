@@ -21,7 +21,10 @@
             'buttons' => [
                     ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!'],
                     ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
-                ]
+                ],
+                "classList" => [
+                    "c-card--border-left"
+                    ]
         ])
         @endcard
     @endgrid
