@@ -157,7 +157,7 @@
 
     &.c-slider__item--bg-theme-opacity {
         .c-slider__item__container {
-            background: rgba($color-tertiary, 0.7);
+            background: $color-tertiary-transparent;
         }
     }
 

@@ -38,5 +38,10 @@
     "heading": "Arrow Right",
     "subHeading": "",
     "text": "Adds an arrow to the right."
+  },
+  "leftborder": {
+    "heading": "left border",
+    "subHeading": "",
+    "text": "Enables container awareness on the component (adjusts layout depending on available space)."
   }
 }

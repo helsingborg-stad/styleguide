@@ -82,7 +82,7 @@
     &.c-field--sm {
         #{$fields} {
             padding: map-get($spacers, "1"); 
-            height: (map-get($spacers, "4") + map-get($spacers, "05"));
+            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
             text-indent: map-get($spacers, "1");
         }
 
@@ -124,26 +124,26 @@
 
     &.c-field--lg {
         #{$fields} {
-            padding: calc(map-get($spacers, "2") + map-get($spacers, "05")); 
-            height: map-get($spacers, "8"); 
+            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            height: #{map-get($spacers, "8")}; 
         }
 
         .c-field__text--placeholder {
-            left: calc(map-get($spacers, "2") + map-get($spacers, "05"));
+            left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }
 
         .c-icon {
-            left: calc(map-get($spacers, "2") + map-get($spacers, "05"));
+            left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }
 
         &.c-field--icon {
             #{$fields} {
-                text-indent: (map-get($spacers, "4") + map-get($spacers, "05"));
+                text-indent: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
             }
         }
 
         &.c-field--icon .c-field__text--placeholder {
-            left: map-get($spacers, "7");
+            left: #{map-get($spacers, "7")};
         }
     }
 
@@ -153,7 +153,7 @@
         color: $color-form-fields-label;
         position: absolute;
         top: 50%;
-        left: map-get($spacers, "2");
+        left: #{map-get($spacers, "2")};
         transform-origin: top left;
         transform: translate(0, -50%) scale(1);
         transition: all .1s ease-in-out;
@@ -260,7 +260,7 @@
 
     .c-field__input-invalid-message {
         width: 100%;
-        padding: map-get($spacers, "1") ;
+        padding: #{map-get($spacers, "1")};
         display: none;
         font-size: 80%;
         color: $color-white;
@@ -279,12 +279,12 @@
             top: 3px;
             left: 0;
             transform: none;
-            margin-right: map-get($spacers, "05");
+            margin-right: #{map-get($spacers, "05")};
         }
     }
 }
 
 /* Label styling */ 
 .c-field__text--label {
-    margin-left: map-get($spacers, "1");
+    margin-left: #{map-get($spacers, "1")};
 }

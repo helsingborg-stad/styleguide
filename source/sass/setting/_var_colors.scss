@@ -23,7 +23,8 @@ $color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(232, 76,
 $color-tertiary: var(--color-tertiary, #cb0050) !default;
 $color-tertiary-dark: var(--color-tertiary-dark, #cb0050) !default; //Needs correcting
 $color-tertiary-light: var(--color-tertiary-light, #cb0050) !default; //Needs correcting
-$color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba($color-tertiary, 0.24));
+$color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba(203, 0, 80, 0.24));
+$color-tertiary-transparent: var(--color-tertiary-transparent, rgba(203, 0, 80, 0.7)) !default;
 
 // Monotone Colors
 $color-default: var(--color-default, #f5f5f5) !default;
