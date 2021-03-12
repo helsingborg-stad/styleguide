@@ -76,8 +76,7 @@
     &__body {
         padding-top: map-get($spacers, "3");
         padding-bottom: map-get($spacers, "3");
-        padding-right: 40px;
-        position: relative;
+        
     }
 
     &__body > *:first-child {
@@ -87,14 +86,18 @@
         margin-bottom: 0;
     }
 
-    &__body {
+    &--arrow-right {
+        .c-card__body {
+            padding-right: map-get($spacers, "5");
+            position: relative; 
+        }
         .c-card__chevron {
-        background:blue;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-    }}
+            position: absolute;
+            top: 50%;
+            right: map-get($spacers, "2");
+            transform: translateY(-50%);
+        }
+    }
 
     &__footer {
         border-top: 1px solid $color-lighter;
