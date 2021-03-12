@@ -1,10 +1,18 @@
 .c-card {
-    @include shadow(2); 
+    @include shadow(2);
     display: block;
     position: relative;
     background-color: $color-white;
     border-radius: $border-radius-lg;
     overflow: hidden;
+
+    &--border-left {
+        .c-card__header,
+        .c-card__body,
+        .c-card__footer {
+            border-left: $base solid $color-primary;
+        }
+    }
 
     &--size-sm,
     &--size-md,
@@ -14,7 +22,7 @@
         flex-wrap: wrap;
 
         .c-card__body {
-            padding: map-get($spacers, "4"); 
+            padding: map-get($spacers, '4');
         }
 
         .c-card__footer {
@@ -54,28 +62,29 @@
         .c-card__header {
             background: $color-primary;
             color: $color-white;
-            * {color: $color-white;}
+            * {
+                color: $color-white;
+            }
         }
     }
 
     &--square-image {
         .c-card__image {
             .c-card__image-background {
-                @include ratio(1,1,false);
+                @include ratio(1, 1, false);
             }
         }
     }
 
     &__header,
     &__body,
-    &__footer
-    {
-        padding: map-get($spacers, "2"); 
+    &__footer {
+        padding: map-get($spacers, '2');
     }
 
     &__body {
-        padding-top: map-get($spacers, "3");
-        padding-bottom: map-get($spacers, "3");
+        padding-top: map-get($spacers, '3');
+        padding-bottom: map-get($spacers, '3');
     }
 
     &__body > *:first-child {
@@ -90,7 +99,7 @@
     }
 
     &__image + &__title + &__body {
-        margin-top: map-get($spacers, "2"); 
+        margin-top: map-get($spacers, '2');
     }
 
     &__image {
@@ -110,43 +119,41 @@
 
         &-background {
             width: 100%;
-            @include ratio(16,9,false);
+            @include ratio(16, 9, false);
             background-size: cover;
             background-repeat: no-repeat;
 
             &--padded {
-                width:auto;
+                width: auto;
                 background-size: contain;
                 background-position: center;
                 background-origin: content-box;
-                padding: map-get($spacers, "5" );
+                padding: map-get($spacers, '5');
                 min-height: 200px;
             }
-
         }
 
-        &>.c-image>img {
+        & > .c-image > img {
             box-sizing: border-box;
             height: 200px;
             border-radius: 0;
             margin: 0 auto;
         }
 
-        &>figure>.c-image__image {
+        & > figure > .c-image__image {
             width: unset;
         }
 
-        &--padded>.c-image>img {
-            padding:10%;
+        &--padded > .c-image > img {
+            padding: 10%;
         }
-
     }
 
     &__title {
         &-expand-button {
-            float:right;
+            float: right;
 
-            &[aria-pressed="true"] {
+            &[aria-pressed='true'] {
                 transform: rotate(180deg);
                 transition-timing-function: ease-in-out;
             }
@@ -176,7 +183,7 @@
     }
 
     &--collapse {
-        visibility:hidden;
+        visibility: hidden;
         max-height: 0px;
         height: 0px;
         padding: 0px;
@@ -185,8 +192,9 @@
 
 a.c-card {
     text-decoration: none;
-    color: inherit; 
-    transition: transform 350ms ease-in-out, box-shadow 350ms ease-in-out, background-color 200ms ease-in-out; 
+    color: inherit;
+    transition: transform 350ms ease-in-out, box-shadow 350ms ease-in-out,
+        background-color 200ms ease-in-out;
 
     .c-card__image {
         overflow: hidden;
@@ -201,13 +209,13 @@ a.c-card {
         position: absolute;
         background: $color-lighter;
         opacity: 0;
-        z-index: $level-1; 
+        z-index: $level-1;
     }
 
     .c-card__image-background {
         transition: transform 800ms;
     }
-    
+
     &:hover {
         @include shadow(3);
         background-color: $color-code-background;
@@ -223,28 +231,25 @@ a.c-card {
         }
 
         .c-card__image:before {
-            opacity: 0.08; 
-            
+            opacity: 0.08;
         }
 
         .c-card__image-background {
             transform: scale(1.03);
         }
-    
     }
 
     &:focus {
         background-color: $color-code-background-focus;
         .c-card__image {
             &:before {
-                opacity: 0.20; 
+                opacity: 0.2;
             }
         }
     }
 }
 
 @media print {
-
     .c-card__body {
         padding: 10px 0 0;
         margin: 0px;
@@ -256,8 +261,9 @@ a.c-card {
         padding-left: 0px;
     }
 
-    .c-card__footer, .c-card__image-background, .c-card__image {
-        display:none;
+    .c-card__footer,
+    .c-card__image-background,
+    .c-card__image {
+        display: none;
     }
-
 }

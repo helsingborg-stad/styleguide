@@ -9,7 +9,8 @@
     @grid([])
         @card([
             'classList' => [
-                'c-card--panel'
+                'c-card--panel',
+                'c-card--border-left'
             ]
         ])
         <div class="c-card__header">

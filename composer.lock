@@ -209,12 +209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-engine-wrapper.git",
-                "reference": "db5a99d2c545056e9c439093835af1528b5d2e9e"
+                "reference": "5574eff7d510f493c024cd550dc3b1371f0f12c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/db5a99d2c545056e9c439093835af1528b5d2e9e",
-                "reference": "db5a99d2c545056e9c439093835af1528b5d2e9e",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/5574eff7d510f493c024cd550dc3b1371f0f12c1",
+                "reference": "5574eff7d510f493c024cd550dc3b1371f0f12c1",
                 "shasum": ""
             },
             "require": {
@@ -260,7 +260,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-engine-wrapper/issues",
                 "source": "https://github.com/helsingborg-stad/blade-engine-wrapper/tree/master"
             },
-            "time": "2020-06-09T10:32:15+00:00"
+            "time": "2021-03-05T11:06:33+00:00"
         },
         {
             "name": "illuminate/container",
@@ -588,12 +588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a"
+                "reference": "2fd2c4a77d58a4e95234c8a61c5df1f157a91bf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e2ba3174ce869da1713c38340dbb36572dfacd5a",
-                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2fd2c4a77d58a4e95234c8a61c5df1f157a91bf4",
+                "reference": "2fd2c4a77d58a4e95234c8a61c5df1f157a91bf4",
                 "shasum": ""
             },
             "require": {
@@ -674,32 +674,26 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-07T21:35:59+00:00"
+            "time": "2021-02-24T17:30:44+00:00"
         },
         {
             "name": "psr/container",
-            "version": "dev-master",
+            "version": "1.1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "381524e8568e07f31d504a945b88556548c8c42e"
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/381524e8568e07f31d504a945b88556548c8c42e",
-                "reference": "381524e8568e07f31d504a945b88556548c8c42e",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.0"
             },
-            "default-branch": true,
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -726,9 +720,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
+                "source": "https://github.com/php-fig/container/tree/1.1.x"
             },
-            "time": "2020-10-13T07:07:53+00:00"
+            "time": "2021-03-05T17:36:06+00:00"
         },
         {
             "name": "psr/log",
@@ -736,12 +730,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "dd738d0b4491f32725492cf345f6b501f5922fec"
+                "reference": "a18c1e692e02b84abbafe4856c3cd7cc6903908c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/dd738d0b4491f32725492cf345f6b501f5922fec",
-                "reference": "dd738d0b4491f32725492cf345f6b501f5922fec",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/a18c1e692e02b84abbafe4856c3cd7cc6903908c",
+                "reference": "a18c1e692e02b84abbafe4856c3cd7cc6903908c",
                 "shasum": ""
             },
             "require": {
@@ -779,7 +773,7 @@
             "support": {
                 "source": "https://github.com/php-fig/log/tree/master"
             },
-            "time": "2020-09-18T06:44:51+00:00"
+            "time": "2021-03-02T15:02:34+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -885,7 +879,7 @@
             "description": "Provides tools to ease debugging PHP code",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/debug/tree/4.4"
+                "source": "https://github.com/symfony/debug/tree/v4.4.20"
             },
             "funding": [
                 {
@@ -1111,7 +1105,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -1135,12 +1129,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "a31eceac13cfc9ce617a4e52ef0bf72921e12268"
+                "reference": "1df60f0debacffeead546abb2bc8857960f757bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/a31eceac13cfc9ce617a4e52ef0bf72921e12268",
-                "reference": "a31eceac13cfc9ce617a4e52ef0bf72921e12268",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/1df60f0debacffeead546abb2bc8857960f757bf",
+                "reference": "1df60f0debacffeead546abb2bc8857960f757bf",
                 "shasum": ""
             },
             "require": {
@@ -1221,7 +1215,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-08T10:24:30+00:00"
+            "time": "2021-03-04T15:41:30+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -1229,12 +1223,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "3664aa20bd5f99d7e59e0eb34b7e62cf5b772a00"
+                "reference": "502490047e9064e6f1bc331ab1d43ca3da68983d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/3664aa20bd5f99d7e59e0eb34b7e62cf5b772a00",
-                "reference": "3664aa20bd5f99d7e59e0eb34b7e62cf5b772a00",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/502490047e9064e6f1bc331ab1d43ca3da68983d",
+                "reference": "502490047e9064e6f1bc331ab1d43ca3da68983d",
                 "shasum": ""
             },
             "require": {
@@ -1247,7 +1241,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.3-dev"
+                    "dev-main": "2.4-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -1300,7 +1294,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T16:29:32+00:00"
+            "time": "2021-02-25T16:38:04+00:00"
         }
     ],
     "packages-dev": [],
