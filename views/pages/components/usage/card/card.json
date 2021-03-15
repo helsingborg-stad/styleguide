@@ -42,6 +42,11 @@
   "leftborder": {
     "heading": "left border",
     "subHeading": "",
-    "text": "Enables container awareness on the component (adjusts layout depending on available space)."
+    "text": "Adds a left border to the body."
+  },
+  "panelBordered": {
+    "heading": "bottom border on header",
+    "subHeading": "",
+    "text": "Adds bottom border to the header."
   }
 }

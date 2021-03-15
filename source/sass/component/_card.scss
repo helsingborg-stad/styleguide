@@ -14,6 +14,19 @@
         }
     }
 
+    &--panel-bordered {
+        .c-card {
+            margin-bottom: $base;
+        }
+        .c-card__header {
+            border-bottom: calc(#{$base} / 2) solid $color-primary;
+            background: $color-white;
+        }
+        .c-typography {
+            color: $color-black;
+        }
+    }
+
     &--size-sm,
     &--size-md,
     &--size-lg {
@@ -96,13 +109,13 @@
 
     &--arrow-right {
         .c-card__body {
-            position: relative; 
-            padding-right: map-get($spacers, "5");
+            position: relative;
+            padding-right: map-get($spacers, '5');
         }
         .c-card__arrow-right {
             position: absolute;
             top: 50%;
-            right: map-get($spacers, "2");
+            right: map-get($spacers, '2');
             transform: translateY(-50%);
             color: $color-light;
         }
