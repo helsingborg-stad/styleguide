@@ -1,7 +1,12 @@
 {
     "base": {
-        "heading": "Navbar",
-        "subHeading": "Navigation with a bar",
+        "heading": "Navbar border top",
+        "subHeading": "Navigation with a bar and border on the top",
+        "text": "The navbar allows you to give the user quick access to top level pages"
+    },
+    "borderBottom": {
+        "heading": "Navbar border bottom",
+        "subHeading": "Navigation with a bar and border on the bottom",
         "text": "The navbar allows you to give the user quick access to top level pages"
     }
 }

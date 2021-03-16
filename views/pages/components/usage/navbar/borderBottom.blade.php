@@ -36,6 +36,6 @@
             "icon" => "people"
         ]
     ],
-    'classList' => ['u-position--relative', 'c-navbar--border-top']
+    'classList' => ['u-position--relative', 'c-navbar--border-bottom']
 ])
 @endnavbar
