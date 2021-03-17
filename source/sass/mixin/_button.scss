@@ -10,7 +10,6 @@
         &:active {
             color: $color;
         }
-
     }
 
     &:hover,
@@ -43,7 +42,7 @@
     padding-bottom: $padding-vertical;
     font-size: $font-size;
     border-radius: $border-radius;
-    height: calc(#{$padding-vertical}*2) + $line-height;
+    height: calc(#{$padding-vertical}* 2) + $line-height;
 }
 
 // Reset button styles
@@ -53,7 +52,7 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    font-weight: "normal";
+    font-weight: 'normal';
     margin: 0;
     padding: 0;
     text-align: left;

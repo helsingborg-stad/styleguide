@@ -4,6 +4,11 @@
         "subHeading": "",
         "text": ""
     },
+    "outlined": {
+        "heading": "Pagination outlined",
+        "subHeading": "",
+        "text": ""
+    },
     "js": {
         "heading": "Using JS",
         "subHeading": "Easier pagination",
