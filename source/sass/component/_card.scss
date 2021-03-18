@@ -78,6 +78,15 @@
             * {
                 color: $color-white;
             }
+
+            i, h4 {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            h4 {
+                margin-top: 0px;
+            }
         }
     }
 
