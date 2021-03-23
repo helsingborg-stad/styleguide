@@ -37,7 +37,7 @@
 
     &--outlined {
         .c-pagination__item--is-active {
-            @include shadow(2);
+            box-shadow: none;
             background-color: unset;
             border: calc(#{$base} / 4) solid $color-primary;
             * {
