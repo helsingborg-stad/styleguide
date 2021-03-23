@@ -11,9 +11,16 @@
     width: 100%;
     background-color: $color-white;
     color: $color-black;
-    border-top: 8px solid $color-nav-top-accent;
+    
     z-index: $level-6;
     @include shadow(1);
+
+    &--border-top{
+        border-top: $base solid $color-nav-top-accent;
+    }
+    &--border-bottom{
+        border-bottom: $base solid $color-nav-top-accent;
+    }
 
     &__logo {
         grid-area: logo;
