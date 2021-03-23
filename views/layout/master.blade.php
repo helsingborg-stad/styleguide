@@ -40,7 +40,8 @@
         'topAccent' => 'primary',
         'activeAccent' => 'primary',
         'items' => $topNavigation,
-        'sidebar'   => ['trigger' => "js-mobile-sidebar"]
+        'sidebar'   => ['trigger' => "js-mobile-sidebar"],
+        'classList' => ['c-navbar--border-top']
     ])
     @endnavbar
 
