@@ -139,7 +139,7 @@
     }
 
     &__image {
-        background-color: $color-default;
+        background-color: $color-card-image-background;
 
         &--primary {
             background-color: $color-primary;
@@ -150,7 +150,7 @@
         }
 
         &--default {
-            background-color: $color-default;
+            background-color: $color-card-image-background;
         }
 
         &-background {
