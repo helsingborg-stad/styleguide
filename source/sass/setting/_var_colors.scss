@@ -26,6 +26,12 @@ $color-tertiary-light: var(--color-tertiary-light, #cb0050) !default; //Needs co
 $color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba(203, 0, 80, 0.24));
 $color-tertiary-transparent: var(--color-tertiary-transparent, rgba(203, 0, 80, 0.7)) !default;
 
+// Complementary Colors
+$color-complementary-1: var(--color-complementary-1, #dec2c2) !default;
+$color-complementary-2: var(--color-complementary-2, #f0dbd9) !default;
+$color-complementary-3: var(--color-complementary-3, #f5e4e3) !default;
+$color-complementary-4: var(--color-complementary-4, #faeeec) !default;
+
 // Monotone Colors
 $color-default: var(--color-default, #f5f5f5) !default;
 $color-black: var(--color-black, #000000) !default;
@@ -128,6 +134,7 @@ $color-image-placeholder-icon: var(--color-image-placeholder-icon, $color-darker
 
 $color-card-background: var(--color-card-background, $color-white) !default;
 $color-card-background-dark: var(--color-card-background-dark, $color-body-background) !default;
+$color-card-image-background: var(--color-complementary-1, #{$color-lighter}) !default;
 
 $color-notice-text-default: var(--color-notice-text-default, $color-white) !default;
 
