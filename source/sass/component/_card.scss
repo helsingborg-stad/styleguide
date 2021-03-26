@@ -256,6 +256,7 @@ a.c-card {
         @include shadow(3);
         background-color: $color-code-background;
         color: inherit;
+        transform: translateY(calc( 0px - #{$base} * 0.25 ));
 
         .c-card__heading {
             text-decoration: underline;
@@ -268,10 +269,6 @@ a.c-card {
 
         .c-card__image:before {
             opacity: 0.08;
-        }
-
-        .c-card__image-background {
-            transform: scale(1.03);
         }
     }
 
