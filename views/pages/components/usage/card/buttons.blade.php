@@ -23,7 +23,7 @@
                     ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
                 ],
                 "classList" => [
-                    "c-card--border-left"
+                    "c-card--highlight"
                     ]
         ])
         @endcard

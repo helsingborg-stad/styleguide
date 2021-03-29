@@ -39,10 +39,10 @@
     "subHeading": "",
     "text": "Adds an arrow to the right."
   },
-  "leftborder": {
-    "heading": "left border",
+  "highlight": {
+    "heading": "Hightlight Card",
     "subHeading": "",
-    "text": "Adds a left border to the body."
+    "text": "A modifier to highlight the card."
   },
   "panelBordered": {
     "heading": "bottom border on header",
