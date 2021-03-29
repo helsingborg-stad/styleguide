@@ -44,9 +44,9 @@
     "subHeading": "",
     "text": "A modifier to highlight the card."
   },
-  "panelBordered": {
-    "heading": "bottom border on header",
+  "accented": {
+    "heading": "Accent",
     "subHeading": "",
-    "text": "Adds bottom border to the header."
+    "text": "Gives the card a more plain styling with accent colors"
   }
 }
