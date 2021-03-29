@@ -220,9 +220,9 @@
 
 .c-nav--horizontal {
 
-  .c-nav__link:hover:after,
-  .c-nav__link.is-open:after,
-  .c-nav__item.is-current:after {
+  .c-nav__item .c-nav__link:hover:after,
+  .c-nav__link.is-open .c-nav__link:after,
+  .c-nav__link.is-current .c-nav__link:after {
     display: block; 
   }
 
