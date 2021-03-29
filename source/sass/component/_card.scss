@@ -116,12 +116,12 @@
         margin-bottom: 0;
     }
 
-    &--arrow-right {
+    &--action {
         .c-card__body {
             position: relative;
             padding-right: map-get($spacers, '5');
         }
-        .c-card__arrow-right {
+        .c-card__action {
             position: absolute;
             top: 50%;
             right: map-get($spacers, '2');

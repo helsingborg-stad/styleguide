@@ -34,10 +34,10 @@
     "subHeading": "",
     "text": "Enables container awareness on the component (adjusts layout depending on available space)."
   },
-  "arrowRight": {
-    "heading": "Arrow Right",
+  "action": {
+    "heading": "Card has action",
     "subHeading": "",
-    "text": "Adds an arrow to the right."
+    "text": "Adds visual effect to indicate that the card has an action attached (i.e. a link)"
   },
   "highlight": {
     "heading": "Hightlight Card",
