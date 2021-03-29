@@ -32,7 +32,6 @@ $collection-hover-border: rgba(black, .1) !default;
     padding-top: $base;
     padding-bottom: $base;
 
-
     // Item
     .c-collection__item {
         display: flex;
@@ -112,13 +111,24 @@ $collection-hover-border: rgba(black, .1) !default;
 
         &, a {
             color: #000000;
-            transition: background-color 100ms;
+            .c-collection__content,
+            .c-collection__icon {
+                transition: transform 400ms;
+            }
+
+            .c-collection__icon {
+                transition: transform 300ms;
+            }
         }
         
         &:hover {
             &, a {
                 color: #000000;
                 background-color: $collection-hover-background;
+                .c-collection__content,
+                .c-collection__icon {
+                    transform: translateX(calc(#{$base} * 0.5)); 
+                }
             }
         }
     }
