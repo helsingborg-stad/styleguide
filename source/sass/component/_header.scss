@@ -43,6 +43,7 @@
     img, svg {
         display: block;
         height: $header-logotype-height;
+        max-width: $header-logotype-max-width;
         transition: opacity 200ms, transform 100ms;
     }
 

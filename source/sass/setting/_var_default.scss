@@ -8,6 +8,7 @@ $em-base: var(--em-base, 1em) !default;
 
 //Header
 $header-logotype-height: calc(#{$base}*5) !default;
+$header-logotype-max-width: calc(#{$base}*38) !default;
 
 //  Spacer
 $spacers: (
