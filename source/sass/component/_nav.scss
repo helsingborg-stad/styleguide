@@ -228,13 +228,15 @@
 
   .c-nav__link {
     font-weight: 500;
+    white-space: nowrap;
+    padding: calc(#{$base} * 0.5 * 5) calc(#{$base} * 2);
 
     &:after { 
       content: ""; 
       position: absolute;
-      border-bottom: 2px solid;
+      border-bottom: 3px solid;
       bottom: calc(50% - 1em);
-      left: $base;
+      left: calc( $base * 2 );
       width: 0;
       display: none;
       animation: c-nav-hover-bounce 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
