@@ -10,7 +10,7 @@
         @card([
             'classList' => [
 
-                'c-card--panel-bordered'
+                'c-card--accented'
             ]
         ])
         <div class="c-card__header">
@@ -40,7 +40,7 @@
         @card([
             'classList' => [
 
-                'c-card--panel-bordered'
+                'c-card--accented'
             ]
         ])
         <div class="c-card__header">
