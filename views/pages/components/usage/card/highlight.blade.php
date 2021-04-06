@@ -10,7 +10,7 @@
                 'buttonColor' => 'white'
             ],
             'classList' => [
-              'c-card--border-left'
+              'c-card--highlight'
             ]
         ])
         @endcard

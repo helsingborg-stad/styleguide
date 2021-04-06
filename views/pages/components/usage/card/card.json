@@ -34,19 +34,19 @@
     "subHeading": "",
     "text": "Enables container awareness on the component (adjusts layout depending on available space)."
   },
-  "arrowRight": {
-    "heading": "Arrow Right",
+  "action": {
+    "heading": "Card has action",
     "subHeading": "",
-    "text": "Adds an arrow to the right."
+    "text": "Adds visual effect to indicate that the card has an action attached (i.e. a link)"
   },
-  "leftborder": {
-    "heading": "left border",
+  "highlight": {
+    "heading": "Hightlight Card",
     "subHeading": "",
-    "text": "Adds a left border to the body."
+    "text": "A modifier to highlight the card."
   },
-  "panelBordered": {
-    "heading": "bottom border on header",
+  "accented": {
+    "heading": "Accent",
     "subHeading": "",
-    "text": "Adds bottom border to the header."
+    "text": "Gives the card a more plain styling with accent colors"
   }
 }

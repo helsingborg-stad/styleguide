@@ -10,7 +10,7 @@
         @card([
             'classList' => [
                 'c-card--panel',
-                'c-card--border-left'
+                'c-card--highlight'
             ]
         ])
         <div class="c-card__header">
