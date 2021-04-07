@@ -9,9 +9,8 @@
     width:100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
-        0px 5px 8px 0px rgba(0,0,0,0.14),
-        0px 1px 14px 0px rgba(0,0,0,0.12);
+    
+    @include shadow(3);
 
     &--border-radius-sm {
         border-radius: $border-radius-sm;
@@ -189,14 +188,13 @@
     z-index: $level-top;
     visibility: hidden;
     opacity: 0;
-    transition: all 0.3s ease-in-out;
 
     &--is-visible {
         visibility: visible;
         opacity: 1;
-        background-color: rgba($color-black, .75);
-        outline: 5000px solid rgba($color-black, .75); /* relative container fix */
-        backdrop-filter: blur(3px);
+        background-color: rgba(#000, .5);
+        outline: 5000px solid rgba(#000, .5); /* relative container fix */
+        backdrop-filter: blur(5px);
     }
 
     &__anim-scaleup-center {
