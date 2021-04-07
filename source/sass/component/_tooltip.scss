@@ -12,7 +12,7 @@
         content: attr(data-title);
         white-space: nowrap;
         text-align: center;
-        background-color: rgba($color-black, .9);
+        background-color: $color-black;
         color: $color-white;
         padding: 3px 8px;
         border-radius: $border-radius-xs;
