@@ -49,5 +49,5 @@ $breakpoints-map: (
 
 //Width
 $container-width: calc(#{$base} * 156) !default; //1280
-$container-width-content: 700px !default;
-$container-width-wide: 1500px !default;
+$container-width-content: calc(#{$base} * 87.5)  !default; //700
+$container-width-wide: calc(#{$base} * 200)  !default; //1600

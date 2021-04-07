@@ -1,10 +1,16 @@
+
+.c-tag + .c-tag {
+    margin-left: calc(#{$base} * 0.5);
+}
 .c-tag {
-    padding: $base/2;
-    margin-right: $base/2;
+    padding: calc(#{$base} * 0.5) calc(#{$base});
     border-radius: $border-radius-sm;
     text-decoration: none;
     color: $color-base;
     font-size: $font-size-meta;
+    word-spacing: -0.5ex;
+    transition: background-color 100ms ease-in-out;
+    user-select: none;
 
     &--default {
         color: $color-base;
