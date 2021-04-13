@@ -2,6 +2,10 @@
     z-index: $level-7;
     position: relative;
 
+    &--accented {
+        border-bottom: $color-primary solid $base;
+    }
+
     &__menu {
         padding: map-get($spacers, "3") map-get($spacers, "4");
     }
