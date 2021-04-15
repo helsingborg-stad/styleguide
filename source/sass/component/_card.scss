@@ -101,6 +101,8 @@
     &__header,
     &__body,
     &__footer {
+        word-break: break-word;
+        hyphens: auto;
         padding: map-get($spacers, '2');
     }
 
