@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout municipio repo
-        uses: actions/checkout@v2
-        with:
-          repository: helsingborg-stad/Municipio
-          ref: 3.0/develop
+    - name: Checkout municipio repo
+      uses: actions/checkout@v2
+      with:
+        repository: helsingborg-stad/Municipio
+        ref: 3.0/develop
 
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
