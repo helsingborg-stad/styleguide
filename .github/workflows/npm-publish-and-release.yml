@@ -35,13 +35,13 @@ jobs:
     - name: Push tag.
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.TRIGGER_REMOTE_WORKFLOW_KEY }}
         tags: true
 
     - name: Inject access token in .npmrc
       run: | 
         echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
-        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.TRIGGER_REMOTE_WORKFLOW_KEYN }}" >> ~/.npmrc
 
     - name: NPM Publish.
       run: npm publish
@@ -65,7 +65,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         automatic_release_tag: "${{ steps.package-version.outputs.current-version }}"
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        repo_token: "${{ secrets.TRIGGER_REMOTE_WORKFLOW_KEY }}"
         prerelease: false
         files: |
           full-release.zip
