@@ -1,9 +1,9 @@
-name: Deploy minicipio on modul-test
+name: Deploy municipio on modul-test
 
 on:
   release:
     type: 
-      - published
+      - released
 
 jobs:
   build:
