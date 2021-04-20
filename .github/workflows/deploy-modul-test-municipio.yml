@@ -3,7 +3,7 @@ name: Deploy municipio on modul-test
 on:
   release:
     types: 
-    - released
+    - published
 
 jobs:
   build:
