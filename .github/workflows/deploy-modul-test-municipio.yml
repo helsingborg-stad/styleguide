@@ -2,8 +2,8 @@ name: Deploy municipio on modul-test
 
 on:
   release:
-    type: 
-      - released
+    types: 
+    - released
 
 jobs:
   build:
