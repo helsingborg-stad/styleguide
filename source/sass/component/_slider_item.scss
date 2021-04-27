@@ -72,10 +72,27 @@
     padding: 0;
 
     .c-slider__item__container {
+        min-height: calc($base);
         flex-grow: 1;
         width: 100%;
         bottom: 0;
         padding: map-get($spacers, "2");
+    }
+
+    .c-slider__item_link {
+        display: inline-block;
+        width: auto;
+    }
+
+    .c-slider__item__cta {
+        position: absolute;
+        right: calc(var(--base, 8px) * 2);
+        top: 50%;
+        transform: translateY(-50%);
+
+        i {
+            color: $color-primary;
+        }
     }
 }
 
