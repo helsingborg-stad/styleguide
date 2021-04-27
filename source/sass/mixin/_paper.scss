@@ -1,6 +1,6 @@
 @mixin paper($level: 1, $inset: false, $padding: 0) {
     @include shadow($level, $inset);
     background-color: $color-paper-background;
-    border-radius: 12.5px;
+    border-radius: $border-radius-lg;
     padding: map-get($spacers, $padding);
 }
