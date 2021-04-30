@@ -72,11 +72,12 @@
     padding: 0;
 
     .c-slider__item__container {
-        min-height: calc($base);
         flex-grow: 1;
         width: 100%;
+        min-height: calc(#{$base} * 8);
         bottom: 0;
         padding: map-get($spacers, "2");
+        padding-right: 30%;
     }
 
     .c-slider__item_link {
@@ -211,6 +212,10 @@
 
         &.c-slider__item--layout-center {
             display: flex;
+
+            .c-slider__item__link {
+                flex-direction: row;
+            }
     
             .c-slider__item__container {
                 align-self: center;
