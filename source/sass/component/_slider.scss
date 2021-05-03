@@ -94,6 +94,46 @@
         &__container {
             height: 0;
         }
+        
+        .c-slider__item__image {
+            display: block;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .c-slider__item__image__mobile {
+            display: none;
+        }
+
+        &.c-slider__item--layout-center {
+            display: flex;
+    
+            .c-slider__item__container {
+                align-self: center;
+                padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
+
+        &.c-slider__item--layout-bottom {
+            padding: 0;
+    
+            .c-slider__item__container {
+                position: absolute;
+                left: 0;
+            }
+        }
+
+        &.c-slider__item--layout-featured {
+            .c-slider__item__container {
+                padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
     }
 }
 
