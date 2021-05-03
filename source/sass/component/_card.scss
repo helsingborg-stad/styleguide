@@ -27,6 +27,47 @@
         }
     }
 
+    &--image-16-9,
+    &--image-4-3,
+    &--image-10-3,
+    &--image-36-7 {
+        .c-card__image {
+            position: relative;
+        }
+
+        .c-card__image-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+
+    &--image-16-9 {
+        .c-card__image {
+            padding-top: 56.25%;
+        }
+    }
+
+    &--image-4-3 {
+        .c-card__image {
+            padding-top: 75%;
+        }
+    }
+
+    &--image-10-3 {
+        .c-card__image {
+            padding-top: 30%;
+        }
+    }
+
+    &--image-36-7 {
+        .c-card__image {
+            padding-top: 19.44%;
+        }
+    }
+
     &--size-sm,
     &--size-md,
     &--size-lg {
@@ -107,6 +148,7 @@
     }
 
     &__body {
+        height: inherit;
         padding-top: map-get($spacers, '3');
         padding-bottom: map-get($spacers, '3');
     }
