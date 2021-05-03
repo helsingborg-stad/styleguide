@@ -7,8 +7,8 @@ $color-primary: var(--color-primary, #ae0b05) !default;
 $color-primary-dark: var(--color-primary-dark, #770000) !default;
 $color-primary-light: var(--color-primary-light, #e84c31) !default;
 $color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
-$color-primary-alpha: var(--color-primary-alpha, rgba(247, 166, 0, 0.08)) !default;
-$color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(232, 76, 49, 0.24)) !default;
+$color-primary-alpha: var(--color-primary-alpha, rgba($color-primary, 0.76)) !default;
+$color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(119, 0, 0, 0.76)) !default;
 $color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
 
 // Secondary Colors
@@ -16,21 +16,22 @@ $color-secondary: var(--color-secondary, #ec6701) !default;
 $color-secondary-dark: var(--color-secondary-dark, #b23700) !default;
 $color-secondary-light: var(--color-secondary-light, #ff983e) !default;
 $color-secondary-dimmed: var(--color-secondary-dimmed,$color-secondary-dark) !default; // To be deprecated
-$color-secondary-alpha: var(--color-secondary-alpha, rgba(247, 166, 0, 0.08)) !default;
-$color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(232, 76, 49, 0.24)) !default;
+$color-secondary-alpha: var(--color-secondary-alpha, rgba(236, 103, 1, 0.76)) !default;
+$color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(178, 55, 0, 0.24)) !default;
 
 // Tertiary Colors
 $color-tertiary: var(--color-tertiary, #cb0050) !default;
-$color-tertiary-dark: var(--color-tertiary-dark, #cb0050) !default; //Needs correcting
+$color-tertiary-dark: var(--color-tertiary-dark, #a20040) !default; //Needs correcting
 $color-tertiary-light: var(--color-tertiary-light, #cb0050) !default; //Needs correcting
-$color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba(203, 0, 80, 0.24));
+$color-tertiary-alpha: var(--color-tertiary-alpha, rgba(203, 0, 80, 0.76)) !default;
+$color-tertiary-alpha-dimmed: var(--color-tertiary-alpha-dimmed, rgba(162, 0, 64, 0.76)) !default;
 $color-tertiary-transparent: var(--color-tertiary-transparent, rgba(203, 0, 80, 0.7)) !default;
 
 // Complementary Colors
-$color-complementary-1: var(--color-complementary-1, #dec2c2) !default;
-$color-complementary-2: var(--color-complementary-2, #f0dbd9) !default;
-$color-complementary-3: var(--color-complementary-3, #f5e4e3) !default;
-$color-complementary-4: var(--color-complementary-4, #faeeec) !default;
+$color-complementary: var(--color-complementary, #dec2c2) !default;
+$color-complementary-light: var(--color-complementary-light, #f0dbd9) !default;
+$color-complementary-lighter: var(--color-complementary-lighter, #f5e4e3) !default;
+$color-complementary-lightest: var(--color-complementary-lightest, #faeeec) !default;
 
 // Monotone Colors
 $color-default: var(--color-default, #f5f5f5) !default;
