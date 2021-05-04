@@ -131,6 +131,14 @@
     }
 }
 
+.c-slider__item--hero {
+    min-height: 40vh;
+
+    .c-slider__item__heading {
+        font-size: calc(#{$base} * 5);
+    }
+}
+
 ////////////////////////////////
 // Text Colors
 ////////////////////////////////
@@ -220,6 +228,16 @@
             .c-slider__item__container {
                 align-self: center;
                 padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
+
+        &.c-slider__item--hero {
+            .c-slider__item__container {
+                max-width: 40%;
+            }
+
+            .c-slider__item__heading {
+                font-size: calc(#{$base} * 8);
             }
         }
 
