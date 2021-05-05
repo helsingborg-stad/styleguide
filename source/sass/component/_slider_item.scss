@@ -134,8 +134,17 @@
 .c-slider__item--hero {
     min-height: 40vh;
 
+    &.c-slider__item--text-white img {
+        filter: brightness(.32);
+    }
+
+    &.c-slider__item--text-black img {
+        filter: brightness(.78);
+    }
+
     .c-slider__item__heading {
         font-size: calc(#{$base} * 5);
+        font-weight: 900;
     }
 }
 
@@ -233,6 +242,7 @@
 
         &.c-slider__item--hero {
             .c-slider__item__container {
+                align-self: flex-end;
                 max-width: 40%;
             }
 
