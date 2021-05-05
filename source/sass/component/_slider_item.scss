@@ -243,7 +243,7 @@
         &.c-slider__item--hero {
             .c-slider__item__container {
                 align-self: flex-end;
-                max-width: 40%;
+                max-width: calc(#{$base} * 62);
             }
 
             .c-slider__item__heading {
