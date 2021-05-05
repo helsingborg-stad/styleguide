@@ -135,7 +135,7 @@
     min-height: 40vh;
 
     &.c-slider__item--text-white img {
-        filter: brightness(.32);
+        filter: brightness(.5);
     }
 
     &.c-slider__item--text-black img {
@@ -247,7 +247,7 @@
             }
 
             .c-slider__item__heading {
-                font-size: calc(#{$base} * 8);
+                font-size: calc(#{$base} * 6);
             }
         }
 
