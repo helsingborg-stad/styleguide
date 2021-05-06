@@ -2,7 +2,10 @@
     position: relative;
     border-radius: $border-radius-md;
     margin-bottom: map-get($spacers, "7");
-    @include shadow(2);
+
+    &__shadow {
+        @include shadow(2);
+    }
 
     &__button {
         position: absolute;
