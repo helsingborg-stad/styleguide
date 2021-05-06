@@ -241,9 +241,11 @@
         }
 
         &.c-slider__item--hero {
+            min-height: unset;
+
             .c-slider__item__container {
                 align-self: flex-end;
-                max-width: calc(#{$base} * 62);
+                padding: 0;
             }
 
             .c-slider__item__heading {
@@ -263,6 +265,18 @@
         &.c-slider__item--layout-featured {
             .c-slider__item__container {
                 padding: map-get($spacers, "4") map-get($spacers, "6");
+            }
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "lg")) {
+    .c-slider__item {
+        &.c-slider__item--hero {
+            .c-slider__item__container {
+                align-self: flex-end;
+                max-width: calc(#{$base} * 72);
+                padding: calc(var(--base, 8px)*4) calc(var(--base, 8px)*6);
             }
         }
     }
