@@ -8,5 +8,10 @@
         "heading": "Horizontal navigation",
         "subHeading": "",
         "text": ""
+    },
+    "horizontal-dropdown": {
+        "heading": "Horizontal navigation (with dropdown)",
+        "subHeading": "",
+        "text": ""
     }
 }
