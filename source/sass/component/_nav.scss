@@ -220,6 +220,8 @@
 
 .c-nav--horizontal {
 
+  align-items: flex-start;
+
   .c-nav__item .c-nav__link:hover:after,
   .c-nav__item.is-open .c-nav__link:after,
   .c-nav__item.is-current .c-nav__link:after {
@@ -235,14 +237,102 @@
       content: ""; 
       position: absolute;
       border-bottom: 3px solid;
-      bottom: calc(50% - 1em);
+      bottom: calc(#{$base} * 2.5);
       left: calc(#{$base} * 2);
       width: 0;
       display: none;
       animation: c-nav-hover-bounce 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
   }
+
+  .c-nav__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Dropdown Menu */ 
+  > .c-nav__item > ul.c-nav {
+    position: absolute;
+    bottom: 0; 
+    background: #eee;
+    min-width: 200px;
+    display: none; 
+    background-color: $color-white;
+    border-radius: $border-radius-sm;
+    @include shadow(1);
+    transform: translateY(100%);
+
+    &:after {
+      content: ""; 
+      position: absolute;
+      top: calc(#{$base} * -1); 
+      left: calc(#{$base} * 2.5);
+      width: calc(#{$base} * 2.5);
+      height: calc(#{$base} * 2.5);
+      @include shadow(1);
+      transform: rotate(45deg); 
+      background: $color-white;
+      z-index: $level-8;
+      border-radius: $border-radius-sm;
+    }
+  }
+
+  > .c-nav__item:hover > ul.c-nav {
+    display: block;
+    animation: c-nav-popout 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+
+  > .c-nav__item:hover > ul.c-nav .c-nav__link {
+    padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
+    text-decoration: none;
+    background-color: $color-white;
+    position: relative;
+    z-index: $level-9;
+    white-space: normal;
+
+    &:after { 
+      bottom: calc(#{$base} * 1.5); 
+    }
+  }
+
+  .c-nav__item ul.c-nav .c-nav__item + .c-nav__item {
+    border-top: 1px solid $color-lighter;
+  }
+
+  .c-nav__item ul.c-nav .c-nav__item:first-child {
+    border-radius: $border-radius-sm $border-radius-sm 0 0;
+    overflow: hidden;
+  }
+
+  .c-nav__item ul.c-nav .c-nav__item:last-child {
+    border-radius: 0 0 $border-radius-sm $border-radius-sm;
+    overflow: hidden;
+  }
+
+  
+  
 }
+
+@keyframes c-nav-popout {
+	0% {
+		transform: translateY(120%);
+    opacity: 0;
+	}
+
+  30% {
+    opacity: 1;
+		transform: translateY(100%);
+	}
+
+  55% {
+		transform: translateY(105%);
+	}
+
+  100% {
+		transform: translateY(100%);
+	}
+}
+
 
 @keyframes c-nav-hover-bounce {
 	0% {

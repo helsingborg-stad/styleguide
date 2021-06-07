@@ -190,7 +190,7 @@ class Navigation
                 'children' => [
                     [
                         'href' => '#',
-                        'label' => 'Arbete - Child 1',
+                        'label' => 'Arbete - Child 1 with a long name',
                         'children' => [
                             [
                                 'href' => '#',
