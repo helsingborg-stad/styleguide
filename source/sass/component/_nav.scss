@@ -266,9 +266,9 @@
       content: ""; 
       position: absolute;
       top: calc(#{$base} * -1); 
-      left: calc(#{$base} * 2);
-      width: calc(#{$base} * 2);
-      height: calc(#{$base} * 2);
+      left: calc(#{$base} * 2.5);
+      width: calc(#{$base} * 2.5);
+      height: calc(#{$base} * 2.5);
       @include shadow(1);
       transform: rotate(45deg); 
       background: $color-white;
@@ -290,9 +290,21 @@
     z-index: $level-9;
   }
 
-  .c-nav__item:hover > ul.c-nav .c-nav__item + .c-nav__item {
+  .c-nav__item ul.c-nav .c-nav__item + .c-nav__item {
     border-top: 1px solid $color-lighter;
   }
+
+  .c-nav__item ul.c-nav .c-nav__item:first-child {
+    border-radius: $border-radius-sm $border-radius-sm 0 0;
+    overflow: hidden;
+  }
+
+  .c-nav__item ul.c-nav .c-nav__item:last-child {
+    border-radius: 0 0 $border-radius-sm $border-radius-sm;
+    overflow: hidden;
+  }
+
+  
   
 }
 
