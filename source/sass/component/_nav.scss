@@ -237,7 +237,7 @@
       content: ""; 
       position: absolute;
       border-bottom: 3px solid;
-      bottom: calc(50% - 1em);
+      bottom: calc(#{$base} * 2);
       left: calc(#{$base} * 2);
       width: 0;
       display: none;
@@ -288,6 +288,11 @@
     background-color: $color-white;
     position: relative;
     z-index: $level-9;
+    white-space: normal;
+
+    &:after { 
+      bottom: calc(#{$base} * 1.5); 
+    }
   }
 
   .c-nav__item ul.c-nav .c-nav__item + .c-nav__item {
