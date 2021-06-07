@@ -284,6 +284,7 @@
       position: relative;
       z-index: $level-9;
       white-space: normal;
+      color: $color-black;
   
       &:after { 
         bottom: calc(#{$base} * 1.5); 
@@ -313,6 +314,7 @@
 
 }
 
+/* Dropdown menu */ 
 @keyframes c-nav-popout {
 	0% {
 		transform: translateY(120%);
@@ -333,7 +335,7 @@
 	}
 }
 
-
+/* Active state */ 
 @keyframes c-nav-hover-bounce {
 	0% {
 		width: 0;
