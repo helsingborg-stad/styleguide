@@ -251,16 +251,17 @@
   }
 
   /* Dropdown Menu */ 
-  > .c-nav__item > ul.c-nav {
+  ul.c-nav.c-nav--depth-1 {
     position: absolute;
     bottom: 0; 
     background: #eee;
     min-width: 200px;
-    display: none; 
+    display: none;
     background-color: $color-white;
     border-radius: $border-radius-sm;
     @include shadow(1);
     transform: translateY(100%);
+    animation: c-nav-popout 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
     &:after {
       content: ""; 
@@ -275,42 +276,41 @@
       z-index: $level-8;
       border-radius: $border-radius-sm;
     }
-  }
 
-  > .c-nav__item:hover > ul.c-nav {
-    display: block;
-    animation: c-nav-popout 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  }
+    .c-nav__link {
+      padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
+      text-decoration: none;
+      background-color: $color-white;
+      position: relative;
+      z-index: $level-9;
+      white-space: normal;
+  
+      &:after { 
+        bottom: calc(#{$base} * 1.5); 
+      }
+    }
 
-  > .c-nav__item:hover > ul.c-nav .c-nav__link {
-    padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
-    text-decoration: none;
-    background-color: $color-white;
-    position: relative;
-    z-index: $level-9;
-    white-space: normal;
+    .c-nav__item {
+      overflow: hidden;
+    }
 
-    &:after { 
-      bottom: calc(#{$base} * 1.5); 
+    .c-nav__item + .c-nav__item {
+      border-top: 1px solid $color-lighter;
+    }
+
+    .c-nav__item:first-child {
+      border-radius: $border-radius-sm $border-radius-sm 0 0;
+    }
+  
+    .c-nav__item:last-child {
+      border-radius: 0 0 $border-radius-sm $border-radius-sm;
     }
   }
 
-  .c-nav__item ul.c-nav .c-nav__item + .c-nav__item {
-    border-top: 1px solid $color-lighter;
+  .c-nav__item:hover > ul.c-nav.c-nav--depth-1 {
+    display: block;
   }
 
-  .c-nav__item ul.c-nav .c-nav__item:first-child {
-    border-radius: $border-radius-sm $border-radius-sm 0 0;
-    overflow: hidden;
-  }
-
-  .c-nav__item ul.c-nav .c-nav__item:last-child {
-    border-radius: 0 0 $border-radius-sm $border-radius-sm;
-    overflow: hidden;
-  }
-
-  
-  
 }
 
 @keyframes c-nav-popout {
