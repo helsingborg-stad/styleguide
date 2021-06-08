@@ -231,7 +231,32 @@ class Navigation
             [
                 'href' => '#',
                 'label' => 'Kommun och politik',
-                'children' => true,
+                'children' => [
+                    [
+                        'href' => '#',
+                        'label' => '1',
+                        'children' => false,
+                        'ID' => 1
+                    ],
+                    [
+                        'href' => '#',
+                        'label' => '2',
+                        'children' => false,
+                        'ID' => 1
+                    ],
+                    [
+                        'href' => '#',
+                        'label' => '3',
+                        'children' => false,
+                        'ID' => 1
+                    ],
+                    [
+                        'href' => '#',
+                        'label' => 'Some longer title',
+                        'children' => false,
+                        'ID' => 1
+                    ]
+                ],
                 'ID' => 1
             ],
             [

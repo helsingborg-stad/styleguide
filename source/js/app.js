@@ -22,6 +22,7 @@ import Table from './table';
 import Segment from './segment';
 import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
+import ResizeByChildren from './resizeByChildren';
 
 import './datepicker';
 import './helpers/swipe';
@@ -39,6 +40,8 @@ const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
 const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
+const ResizeByChildrenInstance = new ResizeByChildren(); 
+
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
@@ -98,5 +101,6 @@ SteppersInstance.enableStepper();
 const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
+
 
 
