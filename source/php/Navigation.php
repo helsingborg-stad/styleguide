@@ -234,25 +234,25 @@ class Navigation
                 'children' => [
                     [
                         'href' => '#',
-                        'label' => '1',
+                        'label' => 'About',
                         'children' => false,
                         'ID' => 1
                     ],
                     [
                         'href' => '#',
-                        'label' => '2',
+                        'label' => 'Contact',
                         'children' => false,
                         'ID' => 1
                     ],
                     [
                         'href' => '#',
-                        'label' => '3',
+                        'label' => 'Links',
                         'children' => false,
                         'ID' => 1
                     ],
                     [
                         'href' => '#',
-                        'label' => 'Some longer title',
+                        'label' => 'More info',
                         'children' => false,
                         'ID' => 1
                     ]
