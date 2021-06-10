@@ -308,15 +308,18 @@
     }
   }
 
-  .c-nav__item > ul.c-nav.c-nav--depth-1 {
+  .c-nav__item > ul.c-nav.c-nav--depth-1,
+  .c-nav__item > ul.c-nav.c-nav--depth-2,
+  .c-nav__item > ul.c-nav.c-nav--depth-3,
+  .c-nav__item > ul.c-nav.c-nav--depth-4 {
     display: none; 
   }
 
-  .c-nav__item:hover > ul.c-nav.c-nav--depth-1 {
+  .c-nav__item:hover ul.c-nav.c-nav--depth-1 {
     display: block;
   }
 
-  ul.c-nav.c-nav--depth-1.c-nav--calculated .c-nav__link {
+  .c-nav.c-nav--depth-1.c-nav--calculated .c-nav__link {
     display: block;
   }
 
