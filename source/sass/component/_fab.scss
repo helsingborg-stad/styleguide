@@ -1,0 +1,50 @@
+// ***************************************************************
+// *** Floating Action Button (Popout panel)
+// ***************************************************************
+
+//Values for the loop
+$xAxis: (left, right);
+$yAxis: (top, bottom);
+
+//Standard styling
+.c-fab {
+    position: fixed;
+    z-index: $level-9;
+    bottom: map-get($spacers, "2"); 
+    right: map-get($spacers, "2"); 
+    text-align: right;
+}
+
+.c-fab .c-fab__panel {
+    @extend .c-card; 
+    border-radius: $border-radius-md;
+    display: none;
+    margin-bottom: map-get($spacers, "2");
+    min-width: 200px; 
+    max-width: 250px;
+    text-align: left;
+    background: $color-default; 
+    padding: map-get($spacers, "2");
+}
+
+.c-fab .c-fab__panel--open {
+    display: block;
+}
+
+.c-fab__panel .c-fab__heading {
+    text-align: center;
+    margin-bottom: map-get($spacers, "2");
+    padding: map-get($spacers, "2");
+    padding-top: 0;
+    margin-top: 0;
+}
+
+//Loop to generate the different positions and spacings
+@each $sideX in $xAxis {
+    @each $sideY in $yAxis {
+        .c-fab__#{$sideY}-#{$sideX} {
+            #{$sideX}: map-get($spacers, "2");
+            #{$sideY}: map-get($spacers, "2");
+        }
+    }
+}
