@@ -49,6 +49,27 @@
   }
 }
 
+.c-nav.c-nav.c-nav--tiles {
+
+  .c-nav__item + .c-nav__item {
+    margin: map-get($spacers, "1") 0 0 0;
+  }
+
+  .c-nav__link {
+      background: #fff; 
+      @include shadow(1);
+      border-radius: $border-radius-sm;;
+      padding: map-get($spacers, "1") map-get($spacers, "2"); 
+      font-size: .95em;
+      font-weight: 500;
+      color: $color-darkest;
+
+      .c-icon {
+        color: $color-primary;
+      }
+  }
+}
+
 // Vertical
 .c-nav.c-nav--vertical {
   display: block;
