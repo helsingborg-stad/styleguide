@@ -25,3 +25,4 @@ _icons.scss
 source/sass/imports/
 source/sass/imports/*
 .npmrc
+.dccache
