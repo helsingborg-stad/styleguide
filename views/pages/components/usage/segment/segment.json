@@ -13,5 +13,10 @@
         "heading": "Segment - Column left",
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
+    },
+    "default":{
+        "heading": "Segment - Column left",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
     }
 }
