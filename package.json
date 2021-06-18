@@ -7,7 +7,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "prebuild": "node build/build.js assets & node build/build.js assetsMaterial",
         "build": "node-sass --recursive --output-style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css & webpack --config webpack.config.js",
-        "watch": "node-sass --recursive --output-style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css & webpack --config webpack.config.js --watch",
+        "watch": "node-sass --recursive --output-style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css --watch & webpack --config webpack.config.js --watch",
         "start": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
         "sass": "node build/build.js assetsMaterial & node-sass --recursive --watch --output-style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
