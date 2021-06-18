@@ -5,9 +5,8 @@
 .c-segment {
     display: flex;
     position: relative;
-    overflow: hidden;
-    padding: calc(#{$base} * 8) calc(#{$base} * 3);
-    font-size: calc(#{$base} * 2.5);
+    padding: calc(#{$base} * 8) 0;
+    font-size: 21px;
     background-size: cover;
 
     * {
@@ -28,7 +27,7 @@
 
 .c-segment.c-segment--height {
     &-full-screen {
-        height: 100vh;
+        min-height: 100vh;
     }
 }
 
@@ -62,15 +61,23 @@
     }
 }
 
-.c-segment .c-segment__image {
+.c-segment__image {
     display: block;
-    position: absolute;
     width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: calc(#{$level-1} - 1);
+    height: 100%;
+    object-fit: cover;
+}
+
+.c-segment.c-segment--full-width,
+.c-segment.c-segment--featured {
+    .c-segment__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: calc(#{$level-1} - 1);
+    }
 }
 
 .c-segment .c-segment__title {
@@ -84,6 +91,57 @@
     }
 }
 
+// ************
+// Layout Split
+// ************
+
+.c-segment.c-segment--split {
+    flex-wrap: wrap;
+
+    .c-segment__image {
+        height: auto;
+    }
+
+
+    @include mq(map_get($breakpoints-map, "lg")) {
+
+        .c-segment__image,
+        .c-segment__content {
+            max-width: 50%;
+        }
+
+        .c-segment__image {
+            order: 2;
+        }
+
+        &.c-segment--reverse {
+            .c-segment__image {
+                order: 1;
+            }
+            
+            .c-segment__content {
+                order: 2;
+            }
+        }
+    }
+}
+
+// ************
+// Layout Full-width
+// ************
+
+.c-segment.c-segment--full-width{
+
+}
+
+// ************
+// Layout Featured
+// ************
+
+.c-segment.c-segment--featured {
+
+}
+
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-segment.c-segment--text{
@@ -93,9 +151,3 @@
     }
 
 }
-
-// ## Sections inställningar
-
-// ## Section Feature & Split
-// * Vertical text alignment (Top, Center, Bottom)
-// * Reverse columns (in desktop)

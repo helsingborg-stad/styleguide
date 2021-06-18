@@ -30,3 +30,24 @@
         @endbutton
     @endslot
 @endsegment
+
+@segment([
+    'layout'        => 'split',
+    'background'    => 'https://picsum.photos/1080/720',
+    'height'        => 'full-screen',
+    'textColor'     => 'dark',
+    'reverseColumns' => true
+])
+
+    @segment([
+        'layout'        => 'split',
+        'background'    => 'https://picsum.photos/1080/720',
+        'height'        => 'full-screen',
+        'textColor'     => 'dark',
+        'reverseColumns' => true
+    ])
+
+
+    @endsegment
+
+@endsegment
