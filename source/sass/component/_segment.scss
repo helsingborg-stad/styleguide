@@ -13,6 +13,10 @@
         position: relative;
         z-index: $level-1;
     }
+
+    .c-segment {
+        order: 3;
+    }
 }
 
 .c-segment.c-segment--text{
@@ -114,7 +118,7 @@
             order: 2;
         }
 
-        &.c-segment--reverse {
+        &.c-segment--reverse > {
             .c-segment__image {
                 order: 1;
             }
