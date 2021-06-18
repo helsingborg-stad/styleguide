@@ -1,10 +1,9 @@
 @segment([
-    'layout'        => 'split',
-    'background'    => 'https://picsum.photos/1080/720',
-    'height'        => 'full-screen',
-    'textColor'     => 'dark',
-    'reverseColumns' => true
+    'layout'            => 'full-width',
+    'background'        => 'https://i.picsum.photos/id/1019/5472/3648.jpg?hmac=2mFzeV1mPbDvR0WmuOWSiW61mf9DDEVPDL0RVvg1HPs',
+    'textColor'         => 'light',
+    'overlay'           => 'dark',
+    'reverseColumns'    => true
 ])
-
 
 @endsegment
