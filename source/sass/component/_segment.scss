@@ -130,11 +130,16 @@
     }
 }
 
+.c-segment.c-segment--full-width,
+.c-segment.c-segment--featured {
+    flex-direction: column;
+}
+
 // ************
 // Layout Full-width
 // ************
 
-.c-segment.c-segment--full-width{
+.c-segment.c-segment--full-width {
 
 }
 
