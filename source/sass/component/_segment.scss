@@ -1,7 +1,3 @@
-// ***************************************************************
-// *** Segment (Section)
-// ***************************************************************
-
 .c-segment {
     display: flex;
     position: relative;
@@ -46,30 +42,30 @@
 }
 
 .c-segment.c-segment--alignment {
-    &-top {
-        .c-segment__content {
-            align-self: start;
-        }
+    &-top .c-segment__content {
+        align-self: start;
     }
 
-    &-center {
-        .c-segment__content {
-            align-self: center;
-        }
+    &-center .c-segment__content {
+        align-self: center;
     }
 
-    &-bottom {
-        .c-segment__content {
-            align-self: end;
-        }
+    &-bottom .c-segment__content {
+        align-self: end;
     }
 }
 
-.c-segment__image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.c-segment {
+    .c-segment__title {
+        font-size: calc(#{$base} * 4.5);
+    }
+
+    .c-segment__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 .c-segment.c-segment--full-width,
@@ -84,21 +80,7 @@
     }
 }
 
-.c-segment .c-segment__title {
-    font-size: calc(#{$base} * 4.5);
-}
-
-.c-segment {
-    .c-segment__title,
-    .c-segment__text {
-        max-width: 833px;
-    }
-}
-
-// ************
 // Layout Split
-// ************
-
 .c-segment.c-segment--split {
     flex-wrap: wrap;
 
@@ -106,9 +88,7 @@
         height: auto;
     }
 
-
     @include mq(map_get($breakpoints-map, "lg")) {
-
         .c-segment__image,
         .c-segment__content {
             max-width: 50%;
@@ -130,33 +110,20 @@
     }
 }
 
-.c-segment.c-segment--full-width,
-.c-segment.c-segment--featured {
+// Layout Full-width
+.c-segment.c-segment--full-width {
     flex-direction: column;
 }
 
-// ************
-// Layout Full-width
-// ************
-
-.c-segment.c-segment--full-width {
-
-}
-
-// ************
 // Layout Featured
-// ************
-
 .c-segment.c-segment--featured {
 
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
-
-    .c-segment.c-segment--text{
+    .c-segment.c-segment--text {
         &-large .c-segment__title {
             font-size: calc(#{$base} * 8);
         }
     }
-
 }
