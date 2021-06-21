@@ -10,7 +10,7 @@
         z-index: $level-1;
     }
 
-    .c-segment {
+    .c-segment__slot {
         order: 3;
     }
 }
@@ -37,7 +37,7 @@
     }
 
     &-light .c-segment__image {
-        filter: brightness(1.5);
+        filter: brightness(.78);
     }
 }
 
@@ -113,11 +113,6 @@
 // Layout Full-width
 .c-segment.c-segment--full-width {
     flex-direction: column;
-}
-
-// Layout Featured
-.c-segment.c-segment--featured {
-
 }
 
 @include mq(map_get($breakpoints-map, "md")) {

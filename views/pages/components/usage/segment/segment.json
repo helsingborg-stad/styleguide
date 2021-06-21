@@ -4,11 +4,6 @@
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     },
-    "featured":{
-        "heading": "Featured Section",
-        "subHeading": "Main content on the left",
-        "text": "This layout gives you the ability to put the main content to the left"
-    },
     "split":{
         "heading": "Split Section",
         "subHeading": "Main content on the left",
@@ -21,11 +16,6 @@
     },
     "combined-split":{
         "heading": "Combined Sections",
-        "subHeading": "Main content on the left",
-        "text": "This layout gives you the ability to put the main content to the left"
-    },
-    "featured-component":{
-        "heading": "Featured with component",
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     }
