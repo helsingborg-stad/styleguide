@@ -42,15 +42,18 @@
 }
 
 .c-segment.c-segment--alignment {
-    &-top .c-segment__content {
+    &-top .c-segment__content,
+    &-bottom .c-segment__slot {
         align-self: start;
     }
 
-    &-center .c-segment__content {
+    &-center .c-segment__content,
+    &-bottom .c-segment__slot {
         align-self: center;
     }
 
-    &-bottom .c-segment__content {
+    &-bottom .c-segment__content,
+    &-bottom .c-segment__slot {
         align-self: end;
     }
 }
@@ -68,17 +71,16 @@
     }
 }
 
-.c-segment.c-segment--full-width,
-.c-segment.c-segment--featured {
-    .c-segment__image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: calc(#{$level-1} - 1);
-    }
-}
+// .c-segment.c-segment--full-width {
+//     .c-segment__image {
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         right: 0;
+//         bottom: 0;
+//         z-index: calc(#{$level-1} - 1);
+//     }
+// }
 
 // Layout Split
 .c-segment.c-segment--split {
@@ -112,7 +114,21 @@
 
 // Layout Full-width
 .c-segment.c-segment--full-width {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .c-segment__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: calc(#{$level-1} - 1);
+    }
+
+    .c-segment__slot {
+        min-width: 100%;
+    } 
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
