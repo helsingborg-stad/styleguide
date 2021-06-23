@@ -1,7 +1,7 @@
 .c-segment {
     display: flex;
     position: relative;
-    padding: calc(#{$base} * 8) 0;
+    padding: calc(#{$base} * 10) 0;
     font-size: 21px;
     background-size: cover;
 
@@ -71,23 +71,17 @@
     }
 }
 
-// .c-segment.c-segment--full-width {
-//     .c-segment__image {
-//         position: absolute;
-//         top: 0;
-//         left: 0;
-//         right: 0;
-//         bottom: 0;
-//         z-index: calc(#{$level-1} - 1);
-//     }
-// }
-
 // Layout Split
 .c-segment.c-segment--split {
     flex-wrap: wrap;
+    padding: 0;
 
     .c-segment__image {
         height: auto;
+    }
+
+    .c-segment__content {
+        padding: calc(#{$base} * 10) 0;
     }
 
     @include mq(map_get($breakpoints-map, "lg")) {
