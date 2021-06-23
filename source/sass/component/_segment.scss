@@ -81,7 +81,8 @@
     }
 
     .c-segment__content {
-        padding: calc(#{$base} * 10) 0;
+        padding-top: calc(#{$base} * 10);
+        padding-bottom: calc(#{$base} * 10);
     }
 
     @include mq(map_get($breakpoints-map, "lg")) {
