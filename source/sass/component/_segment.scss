@@ -86,14 +86,14 @@
     }
 
     .c-segment__content {
-        padding: calc(#{$base} * 4) 0; 
+        padding: calc(#{$base} * 4) calc(#{$base} * 3);
 
         @include mq(map_get($breakpoints-map, "md")) {
-            padding: calc(#{$base} * 4); 
+            padding: calc(#{$base} * 4);
         }
 
         @include mq(map_get($breakpoints-map, "lg")) {
-            padding: calc(#{$base} * 6) calc(#{$base} * 10); 
+            padding: calc(#{$base} * 6) calc(#{$base} * 10);
         }
     }
 
