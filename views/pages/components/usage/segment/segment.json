@@ -1,16 +1,21 @@
 {
-    "base":{
-        "heading": "Basic Segment component",
-        "subHeading": "Base layout",
-        "text": "This is the base layout for segment, everything stacks on top"
+    "full-width":{
+        "heading": "Full Width Section",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
     },
-    "col-right":{
-        "heading": "Segment - Column right",
-        "subHeading": "Main content on the right",
-        "text": "This layout gives you the ability to put the main content to the right"
+    "split":{
+        "heading": "Split Section",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
     },
-    "col-left":{
-        "heading": "Segment - Column left",
+    "reversed":{
+        "heading": "Reversed Split Section",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
+    },
+    "combined-split":{
+        "heading": "Combined Sections",
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     }

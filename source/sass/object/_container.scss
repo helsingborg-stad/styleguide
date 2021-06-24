@@ -15,6 +15,11 @@
     margin: 0 0;
 }
 
+.o-container .o-container--keep-spacing {
+    margin: 0 auto;   
+    padding: 0 calc(#{$base} * 3);
+}
+
 .o-container.o-container--content {
     max-width: $container-width-content;
 }
