@@ -2,7 +2,6 @@
     display: flex;
     position: relative;
     padding: calc(#{$base} * 8) 0;
-    font-size: 21px;
     background-size: cover;
 
     * {
@@ -88,6 +87,10 @@
 
     .c-segment__image {
         height: auto;
+    }
+
+    .c-segment__content {
+        padding: calc(#{$base} * 6) calc(#{$base} * 10); 
     }
 
     @include mq(map_get($breakpoints-map, "lg")) {
