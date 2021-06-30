@@ -119,7 +119,7 @@
         }
     }
 
-    @include mq(map_get($breakpoints-map, "lg")) {
+    @include mq(map_get($breakpoints-map, "md")) {
         .c-segment__image,
         .c-segment__content {
             max-width: 50%;
