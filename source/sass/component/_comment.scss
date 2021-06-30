@@ -16,7 +16,7 @@
             margin: 0;
             font-size: 14px;
             font-weight: 600;
-            color: $color-dark;
+            color: $color-darker;
         }
     }
 
@@ -40,14 +40,14 @@
         }
 
         :hover {
-            color: $color-darker;
+            color: $color-darkest;
         }
     }
 
     &__date {
         align-self: flex-end;
         margin: map-get($spacers, "1");
-        color: $color-comment-date;
+        color: $color-dark;
         font-size: 14px;
         font-weight: 600;
     }
