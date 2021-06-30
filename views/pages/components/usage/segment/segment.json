@@ -4,6 +4,11 @@
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     },
+    "full-width-card":{
+        "heading": "Full Width Section - Width Cards",
+        "subHeading": "",
+        "text": "Full width content with sub components in slot."
+    },
     "split":{
         "heading": "Split Section",
         "subHeading": "Main content on the left",
@@ -14,9 +19,9 @@
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     },
-    "combined-split":{
-        "heading": "Combined Sections",
-        "subHeading": "Main content on the left",
-        "text": "This layout gives you the ability to put the main content to the left"
+    "stacked":{
+        "heading": "Stacked Split Section",
+        "subHeading": "Stacking multiple split sections.",
+        "text": "Demonstrates how a stacked array of sections look like."
     }
 }
