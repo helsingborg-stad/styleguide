@@ -101,7 +101,7 @@
     flex-direction: row;
 
     .c-segment__padder {
-        max-width: calc( #{$base} * 50);
+        max-width: calc( #{$base} * 60);
         margin: auto; 
         padding-top: #{map-get($spacers, "4")};
         padding-bottom: #{map-get($spacers, "4")};
