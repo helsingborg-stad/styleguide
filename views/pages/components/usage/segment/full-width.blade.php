@@ -1,6 +1,6 @@
 @segment([
     'layout'            => 'full-width',
-    'image'             => 'https://i.picsum.photos/id/1019/5472/3648.jpg?hmac=2mFzeV1mPbDvR0WmuOWSiW61mf9DDEVPDL0RVvg1HPs',
+    'image'             => 'https://i.picsum.photos/id/342/2896/1944.jpg?hmac=_2cYDHi2iG1XY53gvXOrhrEWIP5R5OJlP7ySYYCA0QA',
     'background'        => 'primary',
     'textColor'         => 'light',
     'overlay'           => 'dark',
