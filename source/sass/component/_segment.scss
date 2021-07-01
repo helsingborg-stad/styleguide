@@ -125,18 +125,8 @@
             max-width: 50%;
         }
 
-        .c-segment__image {
-            order: 2;
-        }
-
-        &.c-segment--reverse > {
-            .c-segment__image {
-                order: 1;
-            }
-            
-            .c-segment__content {
-                order: 2;
-            }
+        &.c-segment--reverse {
+            flex-direction: row-reverse;
         }
     }
 }
