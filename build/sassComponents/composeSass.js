@@ -22,9 +22,9 @@ const fs = require('fs');
 const template = require('./componentTemplate');
 
 /**
- * Node-sass package
+ * Sass package
  */
-const sass = require('node-sass');
+const sass = require('sass');
 
 /**
  * Server path
