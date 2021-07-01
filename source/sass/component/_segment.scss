@@ -157,4 +157,8 @@
         bottom: 0;
         z-index: calc(#{$level-1} - 1);
     }
+
+    &.c-segment--reverse {
+        flex-direction: column-reverse;
+    }
 }
