@@ -16,6 +16,16 @@
         }    
     }
 
+    //Reversed row
+    .o-grid.o-grid--row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    //Reversed col
+    .o-grid.o-grid--col-reverse {
+        flex-direction: column-reverse;
+    }
+
     // Equal height elements modifier
     .o-grid.o-grid--equal-elements > * {
         display: flex;

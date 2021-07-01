@@ -1,157 +1,158 @@
-// ***************************************************************
-// *** Segment (Section)
-// ***************************************************************
-
 .c-segment {
-    position: relative;
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+    position: relative; 
     background-size: cover;
-    padding: map-get($spacers, "2");
-    justify-content: center;
-    align-content: center;
 
-    &---container-primary,
-    &--container-secondary,
-    &--container-third {
-        .c-segment__container {
-            background: #fff;
-            background: rgba(#fff, 0.7);
-            backdrop-filter: blur(4px);
-            border-radius: 2px;
-            color: $color-white;
-        }
-    }
-
-    &--container-primary {
-        .c-segment__container {
-        background: $color-primary;
-        }
-    }
-
-    &--container-secondary {
-        .c-segment__container {
-            background: $color-secondary;
-        }
-    }
-
-    &--container-tertiary {
-        .c-segment__container {
-            background: $color-tertiary;
-        }
-    }
-
-    &__container {
-        border-radius: $border-radius-lg;
-        padding: map-get($spacers, "3");
-        align-self: center;
-        max-width: 90%;
-        margin: 0 auto;
+    * {
+        position: relative;
         z-index: $level-1;
     }
-}
 
-.c-segment--color {
+    .c-segment__slot {
+        order: 3;
+        justify-content: center;
 
-    &-black {
-        color:black;
+        > .o-grid {
+            justify-content: center;
+        }
     }
 
-    &-white {
-        color:white;
-    }
-}
-
-.c-segment--height {
-
-    &-sm {
-        min-height: map-get($spacers, "8");
+    .c-segment__buttons {
+        margin-top: #{map-get($spacers, "4")};
     }
 
-    &-md {
-        min-height: 40vh;
-    }
-
-    &-lg {
-        min-height: 95vh;
+    .c-segment__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
     }
 }
 
-.c-segment--padding {
+/**
+* Modifiers
+*/
+.c-segment.c-segment--stretch { /* Bleed outside container  left&right */ 
+    position: relative;
+    width: 100vw; 
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
 
-    &-sm {
-        padding: map-get($spacers, "5");
+.c-segment.c-segment--text {
+    &-light .c-segment__title,
+    &-light .c-segment__text {
+        color: white;
     }
 
-    &-md {
-        padding: map-get($spacers, "10");
-    }
-
-    &-lg {
-        padding: map-get($spacers, "16");
+    &-dark .c-segment__title,
+    &-dark .c-segment__text {
+        color: black;
     }
 }
 
-.c-segment__background--video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-}
-.c-segment:not(:hover) .c-segment__video--play__btn:not(:focus){
-    height: 0px;
-    width: 0px;
-    max-height: 0px;
-    max-width: 0px;
-    padding: 0;
-}
-
-.c-segment__video--play__btn {
-    position: absolute;
-    right: map-get($spacers, "2");
-    bottom: map-get($spacers, "2");
-    z-index: $level-2;
-}
-
-@include mq(map_get($breakpoints-map, "md")) {
-    .c-segment {
-        &__container {
-            max-width: 80%;
-            padding: map-get($spacers, "4");
+.c-segment.c-segment--text {
+    &-large .c-segment__content {
+        @include mq(map_get($breakpoints-map, "md")) {
+            font-size: 1.2em; 
         }
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
-    .c-segment {
-        padding: map-get($spacers, "6");
+.c-segment.c-segment--height {
+    &-full-screen {
+        min-height: 100vh;
+    }
+}
 
-        &__container {
-            padding: map-get($spacers, "6");
+.c-segment.c-segment--overlay {
+    &-dark .c-segment__image {
+        filter: brightness(.5);
+        opacity: .85; /* tint to bg */ 
+    }
+
+    &-light .c-segment__image {
+        filter: brightness(.78);
+        opacity: .85; /* tint to bg */ 
+    }
+}
+
+.c-segment.c-segment--alignment {
+    &-top .c-segment__content,
+    &-top .c-segment__slot {
+        align-self: start;
+    }
+
+    &-center .c-segment__content,
+    &-center .c-segment__slot {
+        align-self: center;
+    }
+
+    &-bottom .c-segment__content,
+    &-bottom .c-segment__slot {
+        align-self: end;
+    }
+}
+
+/**
+* Layout split
+*/
+.c-segment.c-segment--split {
+    flex-direction: row;
+
+    .c-segment__padder {
+        max-width: calc( #{$base} * 60);
+        margin: auto; 
+        padding-top: #{map-get($spacers, "4")};
+        padding-bottom: #{map-get($spacers, "4")};
+    }
+
+    .c-segment__image {
+        height: auto;
+    }
+
+    .c-segment__slot {
+        margin-top: #{map-get($spacers, "4")};
+
+        @include mq(map_get($breakpoints-map, "md")) {
+            margin-top: #{map-get($spacers, "6")};
         }
     }
 
-    .c-segment--layout {
-        &-left {
-            .c-segment__container {
-                max-width: 40%;
-                margin-left: 10%;
-            }
+    @include mq(map_get($breakpoints-map, "md")) {
+        .c-segment__image,
+        .c-segment__content {
+            max-width: 50%;
         }
-    
-        &-right {
-            .c-segment__container {
-                max-width: 40%;
-                margin-right: 10%;
-            }
+
+        &.c-segment--reverse {
+            flex-direction: row-reverse;
         }
-    
-        &-center {
-            .c-segment__container {
-                max-width: 80%;
-            }
-        }
+    }
+}
+
+/**
+* Layout full width
+*/
+.c-segment.c-segment--full-width {
+    flex-direction: column;
+    gap: #{map-get($spacers, "8")};
+    padding: map-get($spacers, "8") 0;
+
+    .c-segment__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: calc(#{$level-1} - 1);
+    }
+
+    &.c-segment--reverse {
+        flex-direction: column-reverse;
     }
 }

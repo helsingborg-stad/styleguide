@@ -33,8 +33,14 @@
     "size": {
         "grid": "",
         "heading": "Size",
-        "subHeading" : "asdasdas",
+        "subHeading" : "",
         "text": "Different sizes ranging from sm to lg"
+    },
+    "sizewithicon": {
+        "grid": "",
+        "heading": "Size with icons",
+        "subHeading" : "",
+        "text": "Different sizes ranging from sm to lg with icons"
     },
     "disabled": {
         "grid": "",
