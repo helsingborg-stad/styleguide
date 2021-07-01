@@ -68,12 +68,12 @@
 .c-segment.c-segment--overlay {
     &-dark .c-segment__image {
         filter: brightness(.5);
-        opacity: .85;
+        opacity: .85; /* tint to bg */ 
     }
 
     &-light .c-segment__image {
         filter: brightness(.78);
-        opacity: .85;
+        opacity: .85; /* tint to bg */ 
     }
 }
 
