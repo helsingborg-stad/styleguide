@@ -18,6 +18,10 @@
         }
     }
 
+    .c-segment__buttons {
+        margin-top: #{map-get($spacers, "4")};
+    }
+
     .c-segment__image {
         display: block;
         width: 100%;

@@ -3,8 +3,7 @@
     'image'             => 'https://i.picsum.photos/id/308/1536/1024.jpg?hmac=sENdBVMjJ5k40eSlDyPh8CZKbXjOm1S73hukmgfyMKQ',
     'background'        => 'primary',
     'textColor'         => 'light',
-    'overlay'           => 'dark',
-    'reverseColumns'    => true
+    'overlay'           => 'dark'
 ])
 
     <div class="o-grid">
