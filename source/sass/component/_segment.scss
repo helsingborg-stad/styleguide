@@ -113,6 +113,7 @@
 
     .c-segment__image {
         height: auto;
+        @include ratio(16,9,true);
     }
 
     .c-segment__slot {
