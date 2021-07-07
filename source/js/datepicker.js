@@ -7,7 +7,7 @@ const addDatepickers = (target = document) => {
         datepickers.forEach(element => {
             const datepicker = new TheDatepicker.Datepicker(element);
 
-            datepicker.options.setInputFormat('j/n/Y');
+            datepicker.options.setInputFormat('Y-m-d');
             datepicker.options.setTitle(element.getAttribute('c-datepicker-title'));
             datepicker.options.setDaysOutOfMonthVisible(
                 element.getAttribute('c-datepicker-showdaysoutofmonth')
@@ -27,7 +27,7 @@ const addDatepickers = (target = document) => {
 }
 
 
-//Add new datepickers to JS
+// Add new datepickers to JS
 const observer = new MutationObserver((mutationsList, observer) => {
     for(const mutation of mutationsList) {
         if (mutation.type === 'childList') {
