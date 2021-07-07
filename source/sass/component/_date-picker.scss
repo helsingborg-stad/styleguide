@@ -221,7 +221,7 @@
 
 .c-datepicker__container {
     position: absolute;
-    z-index: 2000;
+    z-index: $level-top;
     left: 50%;
     transform: translate(-50%);
 }
