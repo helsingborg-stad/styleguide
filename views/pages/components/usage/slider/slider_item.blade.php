@@ -11,6 +11,7 @@
         'textColor' => 'white',
         'mobile_image' => 'https://picsum.photos/720/720',
         'desktop_image' => 'https://picsum.photos/1080/720',
+        'imageFocus'    => ['top' => '90', 'left' => '100']
     ])
     @endslider__item
 
