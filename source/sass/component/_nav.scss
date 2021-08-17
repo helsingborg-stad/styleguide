@@ -218,6 +218,7 @@
   
   .c-nav__item.is-current > .c-nav__link {
       color: $color-primary;
+      background-color: $color-complementary-light;
       font-weight: bold;
   }
 }
