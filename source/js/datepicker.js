@@ -2,11 +2,16 @@ import TheDatepicker from './the-datepicker';
 
 const addDatepickers = (target = document) => {
     const datepickers = target.querySelectorAll('[js-datepicker="1"]');
-
+    
     if (datepickers.length > 0) {
         datepickers.forEach(element => {
             const datepicker = new TheDatepicker.Datepicker(element);
 
+            if(localizedMonths && localizedDays) {
+                datepicker.options.translator.monthTranslations = localizedMonths;
+                datepicker.options.translator.dayOfWeekTranslations = localizedDays;
+            }
+            
             datepicker.options.setInputFormat('Y-m-d');
             datepicker.options.setTitle(element.getAttribute('c-datepicker-title'));
             datepicker.options.setDaysOutOfMonthVisible(
