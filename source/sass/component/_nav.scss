@@ -220,6 +220,11 @@
       color: $color-primary;
       font-weight: bold;
   }
+
+  .c-nav__item.is-current > .c-nav__link,
+  .c-nav__item.is-current > .c-button {
+    background-color: $color-complementary-light;
+  }
 }
 
 
