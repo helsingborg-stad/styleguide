@@ -116,7 +116,7 @@
         "container" => true,
         "columns" => "auto-fit",
         //"min_width" => "100px",
-        "max_width" => "100px",
+        "max_width" => "150px",
         "col_gap" => "3"
     ])
         @grid(['classList' => ['u-text-align--center']])
@@ -183,6 +183,27 @@
             <div class="u-color__bg--lightest u-rounded" style="height: 20px;"></div>
             <span>Lightest</span>
         @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--complementary u-rounded" style="height: 20px;"></div>
+            <span>Compl.</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--complementary-light u-rounded" style="height: 20px;"></div>
+            <span>Compl. light</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--complementary-lighter u-rounded" style="height: 20px;"></div>
+            <span>Compl. lighter</span>
+        @endgrid
+
+        @grid(['classList' => ['u-text-align--center']])
+            <div class="u-color__bg--complementary-lightest u-rounded" style="height: 20px;"></div>
+            <span>Compl. lightest</span>
+        @endgrid
+
     @endgrid
 
 @endutility_doc
