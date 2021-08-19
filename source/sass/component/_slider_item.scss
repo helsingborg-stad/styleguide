@@ -133,6 +133,8 @@
 
 .c-slider__item--hero {
     min-height: 40vh;
+    background-color: $color-primary-alpha-half;
+    background-blend-mode: overlay;
 
     &.c-slider__item--text-white img {
         filter: brightness(.5);
