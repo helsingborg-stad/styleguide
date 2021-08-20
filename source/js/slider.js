@@ -60,7 +60,6 @@ export default class Slider {
 
         if (e.target.closest("button").getAttribute(this.BTN) === 'prev') {
             newIndex = this.prevIndex(this.getCurrentIndex(this.SLIDER))
-
         } else if (e.target.closest("button").getAttribute(this.BTN) === 'next') {
             newIndex = this.nextIndex(this.getCurrentIndex(this.SLIDER))
         }
@@ -209,6 +208,7 @@ export default class Slider {
         const controls = this.SLIDER.querySelectorAll('.c-slider__button');
 
         this.SLIDER.querySelector('[js-slider__stepper]').remove();
+        this.SLIDER.classList.remove('c-slider--has-stepper'); 
 
         controls.forEach(control => {
             control.remove();
