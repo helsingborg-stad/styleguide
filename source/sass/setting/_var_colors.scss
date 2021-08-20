@@ -10,7 +10,7 @@ $color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default;
 $color-primary-alpha: var(--color-primary-alpha, rgba($color-primary, 0.76)) !default;
 $color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(119, 0, 0, 0.76)) !default;
 $color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
-$color-primary-alpha-half: var(--color-primary-alpha-half, rgba(#ae0b05, 0.5)) !default;
+$color-primary-alpha-half: var(--color-primary-alpha-half, rgba(#770000, 0.5)) !default;
 
 // Secondary Colors
 $color-secondary: var(--color-secondary, #ec6701) !default;
