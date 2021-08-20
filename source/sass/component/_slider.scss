@@ -35,10 +35,17 @@
         overflow: hidden;
         position: relative;
         border-radius: $border-radius-md;
+        padding-top: 100%;
     
         .c-slider__inner {
             display: flex;
             transition: all 0.7s ease-in-out;
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
     
             .c-segment {
                 min-width: 100%;
@@ -86,13 +93,13 @@
             }
         }
         
-        &__inner {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
+        // &__inner {
+        //     position: absolute;
+        //     top: 0;
+        //     bottom: 0;
+        //     right: 0;
+        //     left: 0;
+        // }
 
         &__container {
             height: 0;
