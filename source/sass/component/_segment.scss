@@ -99,8 +99,16 @@
 }
 
 .c-segment.c-segment--highlight {
-    .c-segment__content {
+    .c-segment__image {
+        border-right: $base solid $color-primary;
+    }
+
+    &.c-segment--reverse {
         border-left: $base solid $color-primary;
+        
+        .c-segment__image {
+            border-right: 0;
+        }
     }
 }
 
