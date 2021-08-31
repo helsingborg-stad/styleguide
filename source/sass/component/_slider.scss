@@ -60,6 +60,7 @@
 @include mq(map_get($breakpoints-map, "md")) {
 
     .c-slider {
+        max-height: 80vh;
 
         &__button {
             display: block;
