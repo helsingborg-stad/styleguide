@@ -6,6 +6,33 @@
         border-bottom: $color-primary solid $base;
     }
 
+    &--primary {
+        background-color: $color-primary;
+    }
+
+    &--secondary {
+        background-color: $color-secondary;
+    }
+
+    &--tertiary {
+        background-color: $color-tertiary;
+    }
+
+    &--text-white * ,
+    &--text-white .c-nav .c-nav__link {
+        color: $color-white;
+    }
+
+    &--text-black * ,
+    &--text-black .c-nav .c-nav__link {
+        color: $color-black;
+    }
+
+    &--text-primary * ,
+    &--text-primary .c-nav .c-nav__link {
+        color: $color-primary;
+    }
+
     &__menu {
         padding: map-get($spacers, "3") map-get($spacers, "4");
     }

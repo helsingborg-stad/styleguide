@@ -85,7 +85,7 @@
     padding: calc(#{$base} * 2) calc(#{$base} * 4);
     position: relative;
 
-    &:hover {
+    &:hover .c-nav__text {
         text-decoration: underline;
     }
   }

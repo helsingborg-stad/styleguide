@@ -2,22 +2,31 @@
 
     &__header {
 
-        :first-child {
-            font-weight: $font-weight-bold;
+        & h2 {
+            font-weight: 900;
+            font-size: calc(var(--base, 8px) * 4);
+            color: $color-darkest;
         }
 
-        :last-child {
-            margin-bottom: map-get($spacers, "1");
+        & .c-divider {
+            margin: 0;
+            border-color: $color-lighter;
         }
+
+        
     }
 
-    &__header, &__image {
+    &__title {
+        color: $color-primary-dark;
+    }
+
+    &__image {
         margin: 0 auto;
         text-align:center;
     }
 
     &__image {
-        max-height: 60vh;
+        max-height: 80vh;
         overflow: hidden;
 
         img {
@@ -41,56 +50,9 @@
     }
 
     &__quote {
-        margin-top: $base;
+        margin-top: calc(var(--base, 8px) * 4);
         font-style: italic;
-        position: relative;
-
-        p {
-            position: relative;
-            z-index: 2;
-            font-weight: 500;
-            padding: map-get($spacers, "05") map-get($spacers, "2");
-        }
-
-        p:first-line {
-            text-indent: map-get($spacers, "4");
-        }
-
-        .c-icon {
-            position: absolute;
-            font-size: 53px;
-            z-index: 1;
-            top: - map-get($spacers, "1");
-            left: - map-get($spacers, "05") + 1;
-        }
-    }
-
-    &__quote-color-grey {
-
-        .c-icon {
-            color: $color-lighter;
-        }
-    }
-
-    &__quote-color-primary {
-
-        .c-icon {
-            color: $color-primary;
-        }
-    }
-
-    &__quote-color-secondary {
-
-        .c-icon {
-            color: $color-secondary;
-        }
-    }
-
-    :nth-child(odd) {
-
-        .c-testimonials__image {
-            margin-top: $base;
-        }
+        
     }
 
     :nth-child(even) {
@@ -100,20 +62,12 @@
         }
     }
 
-    h4.c-typography__variant--h2,
-    h4.c-typography__variant--h3,
-    h4.c-typography__variant--h4,
-    h4.c-typography__variant--h5 {
+    h3.c-typography__variant--h3 {
         margin-bottom: map-get($spacers, "1");
+        margin-top: calc(var(--base, 8px));
     }
 
-    &__image-top {
-
-        h2.c-typography__variant--h2,
-        h2.c-typography__variant--h3,
-        h2.c-typography__variant--h4,
-        h2.c-typography__variant--h5 {
-            padding-top: map-get($spacers, "1");
-        }
+    h2.c-typography__variant--h2 {
+        margin-top: calc(var(--base, 8px) * 2);
     }
 }
