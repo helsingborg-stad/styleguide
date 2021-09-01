@@ -6,7 +6,6 @@
 
     * {
         position: relative;
-        z-index: $level-1;
     }
 
     .c-segment__slot {
@@ -150,7 +149,6 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: calc(#{$level-1} - 1);
     }
 
     &.c-segment--reverse {
