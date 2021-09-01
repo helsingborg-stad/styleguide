@@ -75,25 +75,25 @@
 
         &.c-slider--16-9 {
             .c-slider__container {
-                padding-top: 56.25%;
+                padding-top: Min(56.25%, 80vh);
             }
         }
     
         &.c-slider--4-3 {
             .c-slider__container {
-                padding-top: 75%;
+                padding-top: Min(75%, 80vh);
             }
         }
     
         &.c-slider--10-3 {
             .c-slider__container {
-                padding-top: 30%;
+                padding-top: Min(30%, 80vh);
             }
         }
     
         &.c-slider--36-7 {
             .c-slider__container {
-                padding-top: 19.44%;
+                padding-top: Min(19.44%, 80vh);
             }
         }
         
