@@ -73,6 +73,10 @@
             }
         }
 
+        .c-slider__container {
+            padding-top: Min(100%,80vh);
+        }
+
         &.c-slider--16-9 {
             .c-slider__container {
                 padding-top: Min(56.25%, 80vh);
