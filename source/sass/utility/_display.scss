@@ -6,6 +6,6 @@
     );
 }
 
-.u-hide-empty {
+.u-hide-empty:empty {
     display: none !important;
 }
