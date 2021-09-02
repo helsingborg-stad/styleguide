@@ -1,0 +1,16 @@
+{
+    "summary": [
+        "This script allows you to toggle the content of a button",
+        "By adding one of these data attributes, when the button is pressed it will toggle the content of either attribute. You can choose to change either one or both.",
+        "The attribute <code>data-toggle-label</code> will toggle between the original label and the string in the attribute.",
+        "The attribute <code>data-toggle-icon</code> will change the icon between the original icon and the icon name in the attribute."
+    ],
+    "description": {
+        "data-toggle-label": "The label to toggle to",
+        "data-toggle-icon": "The icon to toggle to"
+    },
+    "attributes": {
+        "data-toggle-label": "string",
+        "data-toggle-icon": "string"
+    }
+}
