@@ -41,7 +41,7 @@ $yAxis: (top, bottom);
 
 .c-fab .c-fab__panel {
     .c-nav.c-nav--tiles .c-nav__link {
-        box-shadow: 0px 1px 2px 0px rgba(98, 98, 98, 0.18);
+        @include shadow(0.5);
     }
 }
 
