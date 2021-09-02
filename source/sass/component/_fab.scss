@@ -39,6 +39,12 @@ $yAxis: (top, bottom);
     margin-top: 0;
 }
 
+.c-fab .c-fab__panel {
+    .c-nav.c-nav--tiles .c-nav__link {
+        @include shadow(0.5);
+    }
+}
+
 //Loop to generate the different positions and spacings
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
