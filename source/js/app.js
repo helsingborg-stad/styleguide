@@ -24,6 +24,9 @@ import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
+import ButtonToggle from './buttonToggle';
+
+const ButtonToggleInstance = new ButtonToggle;
 
 
 import './datepicker';
