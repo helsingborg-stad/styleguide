@@ -4,7 +4,9 @@
         opacity: 1;
     }
 } */
-
+.c-dropdown .c-dropdown__list {
+    white-space: nowrap;
+}
 .c-dropdown--on-hover {
 
     .c-button:hover~.c-dropdown__list {
