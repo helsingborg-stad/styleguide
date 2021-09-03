@@ -17,6 +17,9 @@
     }
 
     //Nowrap
+    .o-grid.o-grid--nowrap {
+        flex-wrap: nowrap;
+    }
     @each $breakpoint in $breakpoints {
         $suffix: get-breakpoint-suffix($breakpoint, null);
         @include mq($breakpoint) {
