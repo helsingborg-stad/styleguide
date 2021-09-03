@@ -32,9 +32,11 @@ jobs:
     - name: Install composer dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
+    - name: Remove .npmrc
+      run: rm .npmrc
+
     - name: Execute buildscripts in themes and plugins folders
       run: php ./build.php --cleanup
-
 
     - name: Cleanup node_modules
       run: rm -rf node_modules
