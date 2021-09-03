@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
     - name: Checkout municipio repo
       uses: actions/checkout@v2
@@ -33,8 +31,10 @@ jobs:
     - name: Install composer dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Remove .npmrc
-      run: rm .npmrc
+    - name: Remove .npmrc and inject token
+      run: |
+        rm .npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
     - name: Execute buildscripts in themes and plugins folders
       run: php ./build.php --cleanup
