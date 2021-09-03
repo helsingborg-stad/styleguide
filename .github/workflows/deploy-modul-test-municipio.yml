@@ -34,7 +34,8 @@ jobs:
     - name: Remove .npmrc and inject token
       run: |
         rm .npmrc
-        echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> .npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
 
     - name: Execute buildscripts in themes and plugins folders
       run: php ./build.php --cleanup
