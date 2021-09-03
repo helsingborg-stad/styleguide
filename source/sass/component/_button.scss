@@ -52,6 +52,12 @@
         );
     }
 
+    &.c-button--icon-only {
+        padding-left: 0;
+        padding-right: 0; 
+        justify-content: center;
+    }
+
     &[disabled='true'] {
         border-color: $color-disabled;
         background-color: $color-disabled;
@@ -299,6 +305,10 @@
             $font-size-btn-lg-line-height,
             12.5px
         );
+
+        &.c-button--icon-only {
+            width: calc(#{$base}* 6); 
+        }
     }
 
     &--md {
@@ -309,10 +319,24 @@
             $font-size-btn-md-line-height,
             12.5px
         );
+
+        &.c-button--icon-only {
+            width: calc(#{$base}* 5); 
+        }
     }
 
     &--sm {
-        @include button-size($base, $base, $font-size-btn-sm, $font-size-btn-sm-line-height, 7.5px);
+        @include button-size(
+            $base, 
+            $base, 
+            $font-size-btn-sm, 
+            $font-size-btn-sm-line-height, 
+            7.5px
+        );
+
+        &.c-button--icon-only {
+            width: calc(#{$base}* 3.5); 
+        }
     }
 }
 
