@@ -38,6 +38,11 @@ jobs:
         github_token: ${{ secrets.HBG_GH_TOKEN }}
         tags: true
 
+    - name: Inject access token in .npmrc
+      run: | 
+        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+        echo "//npm.pkg.github.com/:_authToken=${{ secrets.HBG_GH_TOKEN }}" >> ~/.npmrc
+
     - name: NPM Publish.
       run: npm publish
 
@@ -47,6 +52,9 @@ jobs:
 
     - name: Run build for full release package.
       run: php ./build.php --cleanup
+
+    - name: Cleanup .npmrc
+      run: rm ~/.npmrc
 
     - name: Archive full release package
       uses: thedoctor0/zip-release@master
