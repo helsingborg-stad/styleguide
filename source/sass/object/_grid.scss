@@ -16,6 +16,16 @@
         }    
     }
 
+    //Nowrap
+    @each $breakpoint in $breakpoints {
+        $suffix: get-breakpoint-suffix($breakpoint, null);
+        @include mq($breakpoint) {
+            .o-grid.o-grid--nowrap#{$suffix} {
+                flex-wrap: nowrap;
+            }
+        }
+    }
+
     //Reversed row
     .o-grid.o-grid--row-reverse {
         flex-direction: row-reverse;
