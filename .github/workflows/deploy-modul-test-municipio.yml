@@ -33,6 +33,8 @@ jobs:
 
     - name: Remove .npmrc and inject token
       run: |
+        npm i -g npm
+        npm -v
         rm .npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
