@@ -34,8 +34,6 @@ jobs:
     - name: Remove .npmrc and inject token
       run: |
         rm .npmrc
-        npm i -g npm
-        npm -v
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
     - name: Execute buildscripts in themes and plugins folders
