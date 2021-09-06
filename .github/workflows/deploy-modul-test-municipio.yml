@@ -37,6 +37,7 @@ jobs:
         npm i -g npm
         npm -v
         echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> .npmrc
+        echo "registry=https://registry.npmjs.org" >> .npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
 
     - name: Execute buildscripts in themes and plugins folders
