@@ -4,6 +4,11 @@
         "subHeading": "",
         "text": ""
     },
+    "vertical-bordered": {
+        "heading": "Vertical navigation (with border)",
+        "subHeading": "",
+        "text": ""
+    },
     "horizontal": {
         "heading": "Horizontal navigation",
         "subHeading": "",
