@@ -3,7 +3,7 @@ $baseClass: ".c-sidebar";
 #{$baseClass} {
     display: flex;
     flex-direction: column;
-    background-color: $color-nav-background;
+    background-color: $color-sidebar-background;
 
     &--fixed {
         width: 288px;
@@ -40,7 +40,7 @@ $baseClass: ".c-sidebar";
         line-height: 44px;
         align-items: center;
         font-size: $font-size-btn;
-        color: $color-nav-item-text;
+        color: $color-sidebar-item-text;
         padding: map-get($spacers, "2") map-get($spacers, "6");
         cursor: pointer;
         opacity: 1;
@@ -51,7 +51,7 @@ $baseClass: ".c-sidebar";
         }
 
         &:hover {
-            color: $color-nav-item-text;
+            color: $color-sidebar-item-text;
 
             .c-icon {
                 margin-left: 3px;
@@ -76,7 +76,7 @@ $baseClass: ".c-sidebar";
         font-weight: 900;
         flex: 1;
         flex-grow: 1;
-        color: $color-nav-item-text;
+        color: $color-sidebar-item-text;
 
         &:after {
             display: block;
@@ -85,7 +85,7 @@ $baseClass: ".c-sidebar";
             content: "";
             width: 24px;
             height: 2px;
-            background-color: $color-nav-active-accent;
+            background-color: $color-sidebar-active-accent;
             transform: scaleX(0);
             transition: transform 250ms ease-in-out;
         }
@@ -104,7 +104,7 @@ $baseClass: ".c-sidebar";
 
     &__link:visited,
     &__link:hover:visited {
-        color: $color-nav-item-text;
+        color: $color-sidebar-item-text;
         text-decoration-style: unset;
         text-decoration: none;
         text-transform: capitalize;
@@ -131,7 +131,7 @@ $baseClass: ".c-sidebar";
         .bar {
             width: 14px;
             height: 2px;
-            background-color: $color-nav-item-text;
+            background-color: $color-sidebar-item-text;
             position: absolute;
             top: 50%;
             left: 50%;

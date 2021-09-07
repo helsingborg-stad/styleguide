@@ -121,12 +121,23 @@ $color-menu-text: var(--color-menu-text, $color-black);
 $color-menu-active-indicator-horizontal: var(--color-menu-active-indicator-horizontal, $color-primary-dimmed) !default;
 $color-menu-text-horizontal: var(--color-menu-text-horizontal, $color-black);
 
-// Navigation Colors
-$color-nav-background: var(--color-nav-background, $color-lightest) !default;
-$color-nav-item-text: var(--color-nav-item-text, $color-base-secondary) !default;
-$color-nav-item-text-active: var(--color-nav-item-text-active, $color-black) !default;
-$color-nav-top-accent: var(--color-nav-top-accent, $color-primary) !default;
-$color-nav-active-accent: var(--color-nav-active-accent, $color-primary) !default;
+// Navigation Colors (vertical)
+$color-vnav-background: var(--color-vnav-background, $color-white) !default;
+$color-vnav-item-bg-active: var(--color-vnav-item-bg-active, $color-complementary-light) !default;
+$color-vnav-item-text: var(--color-vnav-item-text, $color-black) !default;
+$color-vnav-item-text-active: var(--color-vnav-item-text-active, $color-primary) !default;
+
+//Navigation colors (horizontal)
+$color-nav-top-accent: var(--color-sidebar-top-accent, $color-primary) !default;
+$color-nav-active-accent: var(--color-sidebar-active-accent, $color-primary) !default;
+$color-nav-background: var(--color-sidebar-background, $color-white) !default;
+$color-nav-item-text: var(--color-sidebar-item-text, $color-black) !default;
+
+//Sidebar colors
+$color-sidebar-top-accent: var(--color-sidebar-top-accent, $color-primary) !default;
+$color-sidebar-active-accent: var(--color-sidebar-active-accent, $color-primary) !default;
+$color-sidebar-background: var(--color-sidebar-background, $color-white) !default;
+$color-sidebar-item-text: var(--color-sidebar-item-text, $color-black) !default;
 
 // Component Colors
 $color-image-placeholder-background: var(--color-image-placeholder-background, $color-default) !default;
