@@ -1,6 +1,7 @@
 .c-testimonial {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 80px auto;
+    grid-template-areas: "image header" "quote quote";
     background-color: $color-lightest;
     padding: map-get($spacers, "4");
     border-radius: calc(#{$base} * 0.5);
@@ -8,6 +9,7 @@
 
     .c-testimonial__image {
         width: calc(#{$base} * 10);
+        max-height: calc(#{$base} * 12);
         border-radius: calc(#{$base} * 1);
         overflow: hidden;
         @include shadow(3);
@@ -20,6 +22,7 @@
             font-weight: 900;
             font-size: calc(var(--base, 8px) * 4);
             color: $color-darkest;
+            word-break: break-word;
         }
 
         & .c-divider {
@@ -33,7 +36,7 @@
     }
 
     .c-testimonial__quote {
-        flex-basis: 100%;
+        grid-area: quote;
         margin-top: calc(var(--base, 8px) * 4);
         font-style: italic;
     }
@@ -71,3 +74,4 @@
         }
     }
 }
+
