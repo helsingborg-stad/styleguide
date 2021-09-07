@@ -1,4 +1,4 @@
-.c-testimonials {
+.c-testimonial {
     display: flex;
     flex-wrap: wrap;
     background-color: $color-lightest;
@@ -6,13 +6,13 @@
     border-radius: calc(#{$base} * 0.5);
     @include shadow(0.5);
 
-    .c-testimonials__image {
+    .c-testimonial__image {
         width: calc(#{$base} * 10);
         border-radius: calc(#{$base} * 0.5);
         @include shadow(3);
     }
 
-    .c-testimonials__header {
+    .c-testimonial__header {
         margin-left: map-get($spacers, "2");
 
         & h2 {
@@ -27,11 +27,11 @@
         }
     }
 
-    .c-testimonials__title {
+    .c-testimonial__title {
         color: $color-primary-dark;
     }
 
-    .c-testimonials__quote {
+    .c-testimonial__quote {
         flex-basis: 100%;
         margin-top: calc(var(--base, 8px) * 4);
         font-style: italic;
@@ -44,5 +44,29 @@
 
     h2.c-typography__variant--h2 {
         margin-top: calc(var(--base, 8px) * 2);
+    }
+}
+
+.c-testimonials__button {
+    box-shadow: unset;
+    border-radius: calc(#{$base} * 0.5);
+    margin-top: map-get($spacers, "6");
+}
+
+.c-testimonials__wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: calc(#{$base} * 7);
+}
+
+@include mq(map_get($breakpoints-map, "lg")) {
+    .c-testimonials__wrapper {
+        grid-template-columns: 1fr 1fr;
+        column-gap: calc(#{$base} * 7);
+        row-gap: calc(#{$base} * 6);
+
+        &--is-carousel {
+            row-gap: 0;
+        }
     }
 }
