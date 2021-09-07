@@ -1,6 +1,19 @@
 .c-testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: $color-lightest;
+    padding: map-get($spacers, "4");
+    border-radius: calc(#{$base} * 0.5);
+    @include shadow(0.5);
 
-    &__header {
+    .c-testimonials__image {
+        width: calc(#{$base} * 10);
+        border-radius: calc(#{$base} * 0.5);
+        @include shadow(3);
+    }
+
+    .c-testimonials__header {
+        margin-left: map-get($spacers, "2");
 
         & h2 {
             font-weight: 900;
@@ -12,54 +25,16 @@
             margin: 0;
             border-color: $color-lighter;
         }
-
-        
     }
 
-    &__title {
+    .c-testimonials__title {
         color: $color-primary-dark;
     }
 
-    &__image {
-        margin: 0 auto;
-        text-align:center;
-    }
-
-    &__image {
-        max-height: 80vh;
-        overflow: hidden;
-
-        img {
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-        }
-    }
-
-    .c-avatar {
-        margin: 0 auto;
-    }
-
-    .c-avatar__image,
-    .c-avatar__initials {
-        position:relative;
-        top: unset;
-        left: unset;
-        right:unset;
-        bottom: unset;
-    }
-
-    &__quote {
+    .c-testimonials__quote {
+        flex-basis: 100%;
         margin-top: calc(var(--base, 8px) * 4);
         font-style: italic;
-        
-    }
-
-    :nth-child(even) {
-
-        .c-testimonials__image {
-            margin-bottom: $base;
-        }
     }
 
     h3.c-typography__variant--h3 {
