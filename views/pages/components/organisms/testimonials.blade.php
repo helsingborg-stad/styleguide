@@ -6,8 +6,9 @@
     @endmarkdown
 
     @doc(['slug' => 'testimonials'])
-        @testimonials(
-            ['perRow' => 1,
+        @testimonials([
+            'perRow' => 1,
+            'isCarousel' => true,
             'testimonials' => array(
                 array(
                     'name' => 'David Conradi',
@@ -33,8 +34,8 @@
                     'testimonial' => '"Det är så himla roligt att undervisa ungdomar och att lära av dem. Elever som anstränger sig lyckas och att se glädjen i deras ögon när det sker, är det bästa som finns. De ögonblicken lever jag länge på."',
                     'image' => 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Bill_Gates_2017_%28cropped%29.jpg',
                 )
-            )]
-        )
+            )
+        ])
         @endtestimonials
 
         @testimonials(
