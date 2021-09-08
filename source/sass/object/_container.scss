@@ -9,15 +9,9 @@
     }
 }
 
-// Nested containers should not apply padding nor margin
-.o-container .o-container {
+.o-container.o-container--remove-spacing {
     padding: 0;
-    margin: 0 0;
-}
-
-.o-container .o-container--keep-spacing {
-    margin: 0 auto;   
-    padding: 0 calc(#{$base} * 3);
+    margin: 0 auto;
 }
 
 .o-container.o-container--content {
