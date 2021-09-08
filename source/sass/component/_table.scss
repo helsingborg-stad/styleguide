@@ -2,7 +2,21 @@
     position: relative;
     border: 1px solid $color-table-border;
     border-radius: $border-radius-sm;
-    overflow: hidden;
+    
+    &__scroll-indicator-wrapper {
+        margin-top: $base;
+        position: absolute;
+        width:100%;
+        background-color: $color-lighter;
+        height: 3px;
+        border-radius: $border-radius-lg;
+    }
+    &__scroll-indicator {
+        width:50%;
+        background-color: $color-light;
+        height: inherit;
+        border-radius: $border-radius-lg;
+    }
 
     & th[js-table-sort--order] {
         cursor:pointer;
@@ -11,6 +25,7 @@
     &__inner {
         display: block;
         overflow-x: auto;
+        position: relative;
 
         &::-webkit-scrollbar {
             width: $base;
@@ -35,7 +50,7 @@
     }
 
     &:after {
-        position: absolute;
+        
         content: "";
         top: 0;
         right: 0;
@@ -44,9 +59,18 @@
         @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
     }
 
+    
+    
     &__column {
         padding: map-get($spacers, "1") map-get($spacers, "2");
         vertical-align: top;
+
+        &-0 {
+            background-color: $color-white;
+            position:sticky;            
+            left: 0px;
+        }
+
     }
 
     &__table {
@@ -78,10 +102,17 @@
     }
 
     &__body &__line:nth-child(odd) {
-        background-color: $color-table-background-odd;
+        background-color: $color-default;
+        & .c-table__column-0 {
+            background-color: $color-default;
+        }
     }
 
     &__body &__line:hover {
         background: $color-primary-alpha-dimmed;
     }
+}
+
+th.c-table__column-0 {
+    background-color: $color-primary;
 }
