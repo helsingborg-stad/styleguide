@@ -63,6 +63,35 @@
     row-gap: calc(#{$base} * 7);
 }
 
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
+    .c-testimonials__wrapper--is-carousel {
+        grid-auto-flow: column;
+
+        .c-testimonial {
+            height: 0;
+            display: none;
+        }
+
+        .c-testimonial--is-visible {
+            opacity: 0;
+            height: auto;
+            display: grid;
+            animation-name: showTestimonial;
+            animation-duration: 0.7s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            opacity: 1;
+            height: auto;
+            display: grid;
+            animation-name: hideTestimonial;
+            animation-duration: 0.7s;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
 @include mq(map_get($breakpoints-map, "lg")) {
     .c-testimonials__wrapper {
         grid-template-columns: 1fr 1fr;
@@ -75,3 +104,28 @@
     }
 }
 
+@keyframes hideTestimonial {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        height: auto;
+        display: grid;
+    }
+    100% {
+        opacity: 0;
+        height: 0;
+        display: none;
+    }
+}
+
+@keyframes showTestimonial {
+    0% {
+        opacity: 0;
+        height: auto;
+        display: grid;
+    }
+    100% {
+        opacity: 1;
+    }
+}
