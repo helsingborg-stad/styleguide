@@ -57,8 +57,8 @@
 
   .c-nav__link {
       background: #fff; 
-      @include shadow(1);
-      border-radius: $border-radius-sm;;
+      @include shadow(0.5);
+      border-radius: $border-radius-sm;
       padding: map-get($spacers, "1") map-get($spacers, "2"); 
       font-size: .95em;
       font-weight: 500;
@@ -152,7 +152,14 @@
 
 .c-nav.c-nav--vertical.c-nav--bordered {
   border: solid 1px #e6e6e6;
-  border-radius: $border-radius-lg;
+  border-radius: var(--border-radius-vnav, $border-radius-lg);
+  background-color: $color-vnav-background;
+  @include shadow(1);
+
+  &.c-nav--depth-0  {
+    border-radius: var(--border-radius-vnav, $border-radius-lg);
+    overflow: hidden;
+  }
 
   .c-nav__item {
       border-top: solid 1px rgba(black, 0.1);
@@ -217,7 +224,7 @@
   }
   
   .c-nav__item.is-current > .c-nav__link {
-      color: $color-primary;
+      color: $color-vnav-item-text-active; 
       font-weight: bold;
   }
 
