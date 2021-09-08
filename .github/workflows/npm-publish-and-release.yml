@@ -40,7 +40,7 @@ jobs:
 
     - name: Inject access token in .npmrc
       run: | 
-        echo "registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
+        echo "@helsingborg-stad:registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.HBG_GH_TOKEN }}" >> ~/.npmrc
 
     - name: NPM Publish.
