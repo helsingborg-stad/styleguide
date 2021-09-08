@@ -15,6 +15,24 @@ export default class Table{
         if (this.isFilterable) this.filterInput();
 
         if (this.isSortable) this.sortAddButtons();
+        
+        const resizeObserver = new ResizeObserver(entries => {
+           
+            const tableInner = table.querySelector('.c-table__inner');
+            const tableInnerWidth = tableInner.offsetWidth;
+            const tableLineWidth = tableInner.querySelector('.c-table__line').offsetWidth;
+            const tableScrollIndicator = table.querySelector('.c-table__scroll-indicator');
+            const tableScrollIndicatorWidth = `${(tableInnerWidth / tableLineWidth) * 100}%`;
+            tableScrollIndicator.style.width = tableScrollIndicatorWidth;
+
+            tableInner.addEventListener('scroll', (event) => {
+                const scrolledPixels = tableInner.scrollLeft;
+                tableScrollIndicator.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
+            })
+        
+        });
+
+        resizeObserver.observe(table);
     }
 
     tableRefresh() {
