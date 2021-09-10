@@ -88,7 +88,6 @@
         }
 
         .c-testimonial--is-hidden {
-            display: none;
             animation-name: hideTestimonial;
             animation-duration: 0.8s;
             animation-fill-mode: forwards;
@@ -129,6 +128,9 @@
         opacity: 0;
         position: relative;
     }
+    51% {
+        position: absolute
+    }
     100% {
         opacity: 0;
         position: absolute
@@ -138,11 +140,17 @@
 @keyframes showTestimonial {
     0%{
         opacity: 0;
+        position: absolute;
     }
     50% {
         opacity: 0;
+        position: absolute;
+    }
+    51% {
+        position: relative;
     }
     100% {
         opacity: 1;
+        position: relative;
     }
 }
