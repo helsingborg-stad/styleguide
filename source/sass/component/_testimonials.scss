@@ -1,3 +1,29 @@
+.c-testimonials {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+    grid-template-areas: "carousel carousel" "controls controls";
+    margin: calc(#{$base}* 4) 0;
+}
+
+.c-testimonials__wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: calc(#{$base} * 7);
+    grid-area: carousel;
+}
+
+.c-testimonials__button {
+    box-shadow: unset;
+    border-radius: calc(#{$base} * 0.5);
+    margin-top: map-get($spacers, "6");
+
+    &[js-testimonials__back] {
+        justify-self: end;
+        margin-right: calc(#{$base} * 1);
+    }
+}
+
 .c-testimonial {
     display: grid;
     grid-template-columns: 80px auto;
@@ -51,21 +77,35 @@
     }
 }
 
-.c-testimonials__button {
-    box-shadow: unset;
-    border-radius: calc(#{$base} * 0.5);
-    margin-top: map-get($spacers, "6");
-}
-
-.c-testimonials__wrapper {
-    display: grid;
-    grid-template-columns: 100%;
-    row-gap: calc(#{$base} * 7);
-}
-
 @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
     .c-testimonials__wrapper--is-carousel {
         grid-template-columns: repeat(8, 100%);
+
+        .c-testimonial--is-visible {
+            animation-name: showTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            display: none;
+            animation-name: hideTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "lg")) {
+    .c-testimonials__wrapper {
+        grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
+        column-gap: calc(#{$base} * 7);
+        row-gap: calc(#{$base} * 6);
+    }
+
+    .c-testimonials__wrapper--is-carousel {
+        grid-template-columns: repeat(8, calc(50% - 28px)); //28px because it's half of the column gap
+        row-gap: 0;
 
         .c-testimonial--is-visible {
             animation-name: showTestimonial;
@@ -81,27 +121,17 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
-    .c-testimonials__wrapper {
-        grid-template-columns: 1fr 1fr;
-        column-gap: calc(#{$base} * 7);
-        row-gap: calc(#{$base} * 6);
-
-        &--is-carousel {
-            row-gap: 0;
-        }
-    }
-}
-
 @keyframes hideTestimonial {
     0% {
         opacity: 1;
     }
     50% {
         opacity: 0;
+        position: relative;
     }
     100% {
         opacity: 0;
+        position: absolute
     }
 }
 
