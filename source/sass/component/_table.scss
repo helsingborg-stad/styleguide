@@ -20,9 +20,15 @@
         padding: calc(#{$base} * 2);
     }
 
+    .c-table__fullscreen {
+        position: absolute;
+        right: 16px;
+    }
+
     .c-table__footer {
         position: absolute;
         width: 100%;
+        padding: 0 calc(#{$base} * 2);
     }
 
     .c-table__title {
@@ -147,15 +153,14 @@
 
     &__body &__line:nth-child(odd) {
         background-color: $color-default;
-        & .c-table__column-0 {
-            background-color: $color-default;
-        }
     }
 
     &__body &__line:last-of-type {
         background-color: $color-white;
-        border-top: 1px solid black;
-        
+
+        td {
+            border-top: 2px solid $color-lighter;
+        }
     }
 
     &__body &__line:hover {
