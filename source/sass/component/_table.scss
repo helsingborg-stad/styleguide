@@ -3,6 +3,10 @@
     border-radius: $border-radius-md;
     @include shadow(0.5);
 
+    &[table-sum] tr:last-child td:first-child {
+        font-weight: 900;        
+    }
+
     &:after {
         content: "";
         top: 0;
@@ -159,9 +163,6 @@
     }
 }
 
-tr:last-child td:first-child {
-    font-weight: 900;
-    
-}
+
 
 
