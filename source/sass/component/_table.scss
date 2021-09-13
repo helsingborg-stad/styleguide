@@ -1,7 +1,12 @@
 .c-table {
     position: relative;
     border: 1px solid $color-table-border;
-    border-radius: $border-radius-sm;
+    border-radius: $border-radius-md;
+    
+
+    &__title {
+        margin-left: map-get($spacers, "2");
+    }
     
     &__scroll-indicator-wrapper {
         margin-top: $base;
@@ -26,6 +31,9 @@
         display: block;
         overflow-x: auto;
         position: relative;
+        max-height: 80vh;
+        min-width: 100%;
+        overflow: auto;
 
         &::-webkit-scrollbar {
             width: $base;
@@ -49,8 +57,7 @@
         
     }
 
-    &:after {
-        
+    &:after {        
         content: "";
         top: 0;
         right: 0;
@@ -64,13 +71,18 @@
     &__column {
         padding: map-get($spacers, "1") map-get($spacers, "2");
         vertical-align: top;
+        border-right: 1px solid $color-light;
 
         &-0 {
             background-color: $color-white;
             position:sticky;            
             left: 0px;
+            top: 0;
+            box-shadow:  4px 0 4px 0px rgb(0 0 0 / 30%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;            
         }
-
     }
 
     &__table {
@@ -86,6 +98,10 @@
 
     &__body {
         color: $color-table-body;
+
+        &__column-0 {
+
+        }
     }
 
     &__head,
@@ -97,7 +113,6 @@
 
     &__body &__column,
     &__foot &__column {
-        border-top: 1px solid $color-table-border;
         min-width: 150px;
     }
 
@@ -108,11 +123,24 @@
         }
     }
 
+    &__body &__line:last-of-type {
+        background-color: $color-white;
+        border-top: 1px solid black;
+        
+    }
+
     &__body &__line:hover {
-        background: $color-primary-alpha-dimmed;
+        background: $color-complementary;
     }
 }
 
 th.c-table__column-0 {
     background-color: $color-primary;
 }
+
+tr:last-child td:first-child {
+    font-weight: 900;
+    
+}
+
+
