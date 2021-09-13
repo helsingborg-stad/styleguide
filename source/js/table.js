@@ -5,6 +5,7 @@ export default class Table{
         this.isPagination = table.hasAttribute('js-table-pagination')
         this.isFilterable = table.hasAttribute('js-table-filter')
         this.isSortable = table.hasAttribute('js-table-sort')
+        this.isCollapsible = table.hasAttribute('js-table-collapsible');
         this.link = null
         this.rowHref = 'js-row-href';
 
@@ -15,6 +16,8 @@ export default class Table{
         if (this.isFilterable) this.filterInput();
 
         if (this.isSortable) this.sortAddButtons();
+
+        if (this.isCollapsible) this.addCollapsibleEvent();
         
         const resizeObserver = new ResizeObserver(entries => {
            
@@ -33,6 +36,22 @@ export default class Table{
         });
 
         resizeObserver.observe(table);
+    }
+
+    addCollapsibleEvent() {
+        const collapseButton = this.table.querySelector('.c-table__collapse-button');
+        const firstColCells  = this.table.querySelectorAll('.c-table__column-0');
+        
+        collapseButton.addEventListener('click', () => {
+            console.log(firstColCells);
+            firstColCells.forEach((cell, index) => {
+                console.log(cell.innerText);
+                if(cell.innerText.length > 4 && index !== 0) {
+                    let cellTextDiff = cell.innerText.length - 4;
+                    cell.innerText = cell.innerText.slice(0, cellTextDiff *= -1);  
+                }
+            });
+        });
     }
 
     tableRefresh() {
