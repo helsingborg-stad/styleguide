@@ -1,16 +1,34 @@
 .c-table {
     position: relative;
-    border: 1px solid $color-table-border;
     border-radius: $border-radius-md;
-    
+    @include shadow(0.5);
 
-    &__title {
-        margin-left: map-get($spacers, "2");
+    &:after {
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: calc(#{$base}*5);
+        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    }
+
+    .c-table__header {
+        padding: calc(#{$base} * 2);
+    }
+
+    .c-table__footer {
+        position: absolute;
+        width: 100%;
+    }
+
+    .c-table__title {
+        display: inline-block;
+        margin-bottom: calc(#{$base} * 2);
+        font-weight: 700;
     }
     
     &__scroll-indicator-wrapper {
-        margin-top: $base;
-        position: absolute;
+        margin: calc(#{$base} * 2) 0 calc(#{$base} * 4) 0;
         width:100%;
         background-color: $color-lighter;
         height: 3px;
@@ -23,7 +41,12 @@
         border-radius: $border-radius-lg;
     }
 
-    & th[js-table-sort--order] {
+    th.c-table__column-0 {
+        background-color: $color-primary;
+    }
+    
+
+    th[js-table-sort--order] {
         cursor:pointer;
     }
 
@@ -57,31 +80,37 @@
         
     }
 
-    &:after {        
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: calc(#{$base}*5);
-        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    &__column {
+        position: relative;
+        padding: calc(#{$base} * 2);
+
+        .c-icon {
+            position: absolute;
+            right: $base;
+        }
     }
 
-    
-    
-    &__column {
-        padding: map-get($spacers, "1") map-get($spacers, "2");
-        vertical-align: top;
-        border-right: 1px solid $color-light;
+    .c-table__column-0 {
+        position:sticky;
+        left: 0px;
+        top: 0;
 
-        &-0 {
-            background-color: $color-white;
-            position:sticky;            
-            left: 0px;
+        &:after{
+            box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;
+            content: " ";
+            height: 100%;
+            position: absolute;
             top: 0;
-            box-shadow:  4px 0 4px 0px rgb(0 0 0 / 30%);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;            
+            right: -20px;
+            width: 20px;
+        }
+    }
+
+    td.c-table__column {
+        border-right: 1px solid $color-lighter;
+
+        &:last-of-type {
+            border-right: 0;
         }
     }
 
@@ -98,10 +127,6 @@
 
     &__body {
         color: $color-table-body;
-
-        &__column-0 {
-
-        }
     }
 
     &__head,
@@ -132,10 +157,6 @@
     &__body &__line:hover {
         background: $color-complementary;
     }
-}
-
-th.c-table__column-0 {
-    background-color: $color-primary;
 }
 
 tr:last-child td:first-child {

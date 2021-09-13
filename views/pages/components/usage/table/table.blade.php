@@ -1,6 +1,7 @@
 @table([
+    'title'         => "Title",
     'headings'      => ['Name', 'Description', 'Details', 'Link'],
-    'showFooter'    => true,
+    //'showFooter'    => true,
     'filterable'    => true,
     'sortable'      => true,
     'pagination'    => 10,
