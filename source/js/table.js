@@ -49,9 +49,9 @@ export default class Table{
         const firstColCells  = this.table.querySelectorAll('.c-table__column-0');
         
         collapseButton.addEventListener('click', () => {
-            console.log(firstColCells);
+
             firstColCells.forEach((cell, index) => {
-                console.log(cell.innerText);
+
                 if(cell.innerText.length > 4 && index !== 0) {
                     let cellTextDiff = cell.innerText.length - 4;
                     cell.innerText = cell.innerText.slice(0, cellTextDiff *= -1);  
@@ -196,11 +196,9 @@ export default class Table{
             return list;
         }
 
-        console.log(list);
         if(hasSumRow) {
             sumRow = list.pop();
         }
-        console.log(list);
 
         const sortData = []
         const sortDictator = this.table.getAttribute('js-table-sort--dictator');
@@ -216,13 +214,12 @@ export default class Table{
         comparableData.sort(this.compare);
         
         if (sortOrder === 'desc') {
-            console.log("asdas");
             comparableData.unshift({index: sumRow});
             return comparableData.reverse(this.compare);
         }
 
         comparableData.push({index: sumRow});
-        console.log(comparableData)
+
         return comparableData;
     }
 
