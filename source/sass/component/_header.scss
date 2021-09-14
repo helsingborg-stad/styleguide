@@ -2,6 +2,11 @@
     z-index: $level-7;
     position: relative;
 
+    &.c-header--sticky {
+        position: sticky;
+        top: 0;
+    }
+
     &.c-header--accented {
         border-bottom: $color-primary solid $base;
     }
