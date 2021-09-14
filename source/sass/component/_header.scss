@@ -2,58 +2,58 @@
     z-index: $level-7;
     position: relative;
 
-    &--accented {
+    &.c-header--accented {
         border-bottom: $color-primary solid $base;
     }
 
-    &--primary {
+    &.c-header--primary {
         background-color: $color-primary;
     }
 
-    &--secondary {
+    &.c-header--secondary {
         background-color: $color-secondary;
     }
 
-    &--tertiary {
+    &.c-header--tertiary {
         background-color: $color-tertiary;
     }
 
-    &--text-white * ,
-    &--text-white .c-nav .c-nav__link {
+    &.c-header--text-white * ,
+    &.c-header--text-white .c-nav .c-nav__link {
         color: $color-white;
     }
 
-    &--text-black * ,
-    &--text-black .c-nav .c-nav__link {
+    &.c-header--text-black * ,
+    &.c-header--text-black .c-nav .c-nav__link {
         color: $color-black;
     }
 
-    &--text-primary * ,
-    &--text-primary .c-nav .c-nav__link {
+    &.c-header--text-primary * ,
+    &.c-header--text-primary .c-nav .c-nav__link {
         color: $color-primary;
     }
 
-    &__menu {
+    .c-header__menu {
         padding: map-get($spacers, "3") map-get($spacers, "4");
     }
 
-    &__wrapper {
+    .c-header__wrapper {
         background: $color-header-background;
     }
 
-    &__wrapper.c-header__wrapper--level-1 {
+    .c-header__wrapper.c-header__wrapper--level-1 {
         background-color: $color-header-background-level-1;
     }
 
-    &__wrapper.c-header__wrapper--level-2 {
+    .c-header__wrapper.c-header__wrapper--level-2 {
         background-color: $color-header-background-level-2;
     }
 
-    &__wrapper.c-header__wrapper--level-3 {
+    .c-header__wrapper.c-header__wrapper--level-3 {
         background-color: $color-header-background-level-3;
     }
 
-    &__body {
+    .c-header__body {
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
@@ -64,25 +64,26 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    .c-header__home-link {
+        display: inline-block;
+        padding: map-get($spacers, "3") map-get($spacers, "4");
+    
+        img, svg {
+            display: block;
+            height: $header-logotype-height;
+            max-width: $header-logotype-max-width;
+            transition: opacity 200ms, transform 100ms;
+        }
+    
+        &:hover img, &:hover svg {
+            opacity: .7;
+        }
+    
+        &:active img, &:active svg {
+            transform: scale(0.98);
+        }
+    
+    }
 }
 
-.c-header__home-link {
-    display: inline-block;
-    padding: map-get($spacers, "3") map-get($spacers, "4");
-
-    img, svg {
-        display: block;
-        height: $header-logotype-height;
-        max-width: $header-logotype-max-width;
-        transition: opacity 200ms, transform 100ms;
-    }
-
-    &:hover img, &:hover svg {
-        opacity: .7;
-    }
-
-    &:active img, &:active svg {
-        transform: scale(0.98);
-    }
-
-}
