@@ -25,7 +25,13 @@ export default class Table{
             const tableInnerWidth = tableInner.offsetWidth;
             const tableLineWidth = tableInner.querySelector('.c-table__line').offsetWidth;
             const tableScrollIndicator = table.querySelector('.c-table__scroll-indicator');
+            const tableScrollIndicatorWrapper = table.querySelector('.c-table__scroll-indicator-wrapper');
             const tableScrollIndicatorWidth = `${(tableInnerWidth / tableLineWidth) * 100}%`;
+
+            if(tableScrollIndicatorWidth !== '100%') {
+                tableScrollIndicator.classList.remove('u-display--none');
+                tableScrollIndicatorWrapper.classList.remove('u-display--none');
+            }
             tableScrollIndicator.style.width = tableScrollIndicatorWidth;
 
             tableInner.addEventListener('scroll', (event) => {
@@ -183,10 +189,18 @@ export default class Table{
 
     sortList(list) {
         const sortOrder = this.table.getAttribute('js-table-sort--order');
+        const hasSumRow    = this.table.hasAttribute('table-sum');
+        let sumRow = '';
 
         if (!sortOrder) {
             return list;
         }
+
+        console.log(list);
+        if(hasSumRow) {
+            sumRow = list.pop();
+        }
+        console.log(list);
 
         const sortData = []
         const sortDictator = this.table.getAttribute('js-table-sort--dictator');
@@ -202,10 +216,13 @@ export default class Table{
         comparableData.sort(this.compare);
         
         if (sortOrder === 'desc') {
+            console.log("asdas");
+            comparableData.unshift({index: sumRow});
             return comparableData.reverse(this.compare);
         }
 
-        
+        comparableData.push({index: sumRow});
+        console.log(comparableData)
         return comparableData;
     }
 
