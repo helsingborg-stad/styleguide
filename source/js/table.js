@@ -46,17 +46,11 @@ export default class Table{
 
     addCollapsibleEvent() {
         const collapseButton = this.table.querySelector('.c-table__collapse-button');
-        const firstColCells  = this.table.querySelectorAll('.c-table__column-0');
         
         collapseButton.addEventListener('click', () => {
 
-            firstColCells.forEach((cell, index) => {
-
-                if(cell.innerText.length > 4 && index !== 0) {
-                    let cellTextDiff = cell.innerText.length - 4;
-                    cell.innerText = cell.innerText.slice(0, cellTextDiff *= -1);  
-                }
-            });
+            this.table.classList.toggle('is-collapsed');
+            
         });
     }
 

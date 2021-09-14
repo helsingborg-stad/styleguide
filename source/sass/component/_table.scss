@@ -81,20 +81,14 @@
     &__inner {
         display: block;
         overflow-x: auto;
-        position: relative;        
+        position: relative;
         min-width: 100%;
         overflow: auto;
-
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        
         &::-webkit-scrollbar {
-            width: $base;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: $color-table-track-background;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $color-table-track-control;
+            display: none;
         }
     }
 
@@ -115,6 +109,10 @@
             position: absolute;
             right: $base;
         }
+
+        .c-table__collapse-button {
+            right: calc(#{$base} * 4);
+        }    
     }
 
     .c-table__column-0 {
@@ -171,5 +169,21 @@
 
     &__body &__line:hover {
         background: $color-complementary;
+    }
+
+    /* MODIFIERS */
+
+    &.is-collapsed {
+        .c-table__collapse-button {
+            transform: rotate(180deg);
+        }
+
+        .c-table__column-0 {
+            width: calc(#{$base} * 12);
+            max-width: calc(#{$base} * 12);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 }
