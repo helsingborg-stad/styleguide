@@ -115,22 +115,6 @@
         }    
     }
 
-    .c-table__column-0 {
-        position:sticky;
-        left: 0px;
-        top: 0;
-
-        &:after{
-            box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;
-            content: " ";
-            height: 100%;
-            position: absolute;
-            top: 0;
-            right: -20px;
-            width: 20px;
-        }
-    }
-
     td.c-table__column {
         border-right: 1px solid $color-lighter;
 
@@ -171,8 +155,6 @@
         background: $color-complementary;
     }
 
-    /* MODIFIERS */
-
     &.is-collapsed {
         .c-table__collapse-button {
             transform: rotate(180deg);
@@ -184,6 +166,24 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+        }
+    }
+
+    &.c-table--multidimensional {
+        .c-table__column-0 {
+            position:sticky;
+            left: 0px;
+            top: 0;
+    
+            &:after{
+                box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;
+                content: " ";
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: -20px;
+                width: 20px;
+            }
         }
     }
 }
