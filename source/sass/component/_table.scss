@@ -36,6 +36,29 @@
         margin-bottom: calc(#{$base} * 2);
         font-weight: 700;
     }
+
+    td.c-table__column-0,
+    tbody .c-table__line {
+        background-color: $color-white;
+    }
+
+    tbody .c-table__line:nth-child(odd) {
+        background-color: $color-default;
+    
+        td.c-table__column-0 {
+            background-color: $color-default;
+        }
+    }
+
+    tbody .c-table__line:hover,
+    tbody .c-table__line:hover td.c-table__column-0 {
+        background: $color-complementary;
+    }
+
+    th.c-table__column-0,
+    td.c-table__column-0 {
+        z-index: $level-1;
+    }
     
     &__scroll-indicator-wrapper {
         margin: calc(#{$base} * 2) 0 calc(#{$base} * 4) 0;
@@ -50,11 +73,6 @@
         height: inherit;
         border-radius: $border-radius-lg;
     }
-
-    th.c-table__column-0 {
-        background-color: $color-primary;
-    }
-    
 
     th[js-table-sort--order] {
         cursor:pointer;
@@ -138,20 +156,9 @@
         color: $color-table-body;
     }
 
-    &__head,
-    &__foot,
-    &__body {
-        width: 100%;
-        background-color: $color-table-background;
-    }
-
     &__body &__column,
     &__foot &__column {
         min-width: 150px;
-    }
-
-    &__body &__line:nth-child(odd) {
-        background-color: $color-default;
     }
 
     &__body &__line:last-of-type {
@@ -166,7 +173,3 @@
         background: $color-complementary;
     }
 }
-
-
-
-
