@@ -8,6 +8,7 @@ export default class Table{
         this.isCollapsible = table.hasAttribute('js-table-collapsible');
         this.link = null
         this.rowHref = 'js-row-href';
+        this.hasSumRow    = this.table.hasAttribute('table-sum');
 
         this.tableRefresh();
 
@@ -57,7 +58,7 @@ export default class Table{
     tableRefresh() {
         // eslint-disable-next-line prefer-destructuring
         let list = this.list;
-
+        
         if (this.isFilterable) {
             list = this.filterList(list, this.filterValue());
         }
@@ -160,6 +161,8 @@ export default class Table{
     // eslint-disable-next-line class-methods-use-this
     filterList(list, query) {
         const newList = [];
+        const lastIndex = list.length - 1;
+        const lastRow = list[lastIndex];
 
         list.forEach(element => {
             let data = "";
@@ -173,6 +176,10 @@ export default class Table{
             }
         });
 
+        if(this.hasSumRow) {            
+            newList[lastIndex] = lastRow;
+        }
+
         return newList;
     }
 
@@ -183,14 +190,13 @@ export default class Table{
 
     sortList(list) {
         const sortOrder = this.table.getAttribute('js-table-sort--order');
-        const hasSumRow    = this.table.hasAttribute('table-sum');
         let sumRow = '';
 
         if (!sortOrder) {
             return list;
         }
-
-        if(hasSumRow) {
+        
+        if(this.hasSumRow) {
             sumRow = list.pop();
         }
 
@@ -208,11 +214,17 @@ export default class Table{
         comparableData.sort(this.compare);
         
         if (sortOrder === 'desc') {
-            comparableData.unshift({index: sumRow});
+
+            if(this.hasSumRow) {
+                comparableData.unshift({index: sumRow});
+            }
+
             return comparableData.reverse(this.compare);
         }
 
-        comparableData.push({index: sumRow});
+        if(this.hasSumRow) {
+            comparableData.push({index: sumRow});
+        }
 
         return comparableData;
     }
