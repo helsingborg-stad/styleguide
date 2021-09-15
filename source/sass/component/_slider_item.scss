@@ -89,7 +89,7 @@
     }
 
     .c-slider__item__container {
-        padding: map-get($spacers, "2");
+        padding: map-get($spacers, "4") map-get($spacers, "2");
         border-radius: $border-radius-lg;
         max-width: calc(#{$base} * 100);
         margin-left: auto;
