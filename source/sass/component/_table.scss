@@ -1,8 +1,7 @@
 .c-table {
     position: relative;
     border-radius: $border-radius-sm;
-    margin-bottom: calc(#{$base} * 10);
-    @include shadow(1.5);
+    margin-bottom: calc(#{$base} * 10);    
 
     &[table-sum] tr:last-child td:first-child {
         font-weight: 900;        
@@ -21,13 +20,14 @@
         padding: calc(#{$base} * 2);
     }
 
-    .c-table__fullscreen {
-        cursor: pointer;
+    &.c-table--box-shadow {
+        @include shadow(1.5);
     }
 
     .c-table__fullscreen {
         position: absolute;
         right: 16px;
+        cursor: pointer;
     }
 
     .c-table__footer {
