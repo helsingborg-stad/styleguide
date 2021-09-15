@@ -1,8 +1,8 @@
 .c-table {
     position: relative;
-    border-radius: $border-radius-md;
+    border-radius: $border-radius-sm;
     margin-bottom: calc(#{$base} * 10);
-    @include shadow(0.5);
+    @include shadow(1.5);
 
     &[table-sum] tr:last-child td:first-child {
         font-weight: 900;        
@@ -120,6 +120,7 @@
         }
 
         .c-table__collapse-button {
+            cursor: pointer;
             right: calc(#{$base} * 4);
         }    
     }
@@ -183,6 +184,7 @@
             position:sticky;
             left: 0px;
             top: 0;
+            font-weight: 700;
     
             &:after{
                 box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;

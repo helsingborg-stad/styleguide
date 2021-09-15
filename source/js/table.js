@@ -5,7 +5,7 @@ export default class Table{
         this.isPagination = table.hasAttribute('js-table-pagination')
         this.isFilterable = table.hasAttribute('js-table-filter')
         this.isSortable = table.hasAttribute('js-table-sort')
-        this.isCollapsible = table.hasAttribute('js-table-collapsible');
+        this.isMultidimensional = table.classList.contains('c-table--multidimensional');        
         this.link = null
         this.rowHref = 'js-row-href';
         this.hasSumRow    = this.table.hasAttribute('table-sum');
@@ -18,7 +18,7 @@ export default class Table{
 
         if (this.isSortable) this.sortAddButtons();
 
-        if (this.isCollapsible) this.addCollapsibleEvent();
+        if (this.isMultidimensional) this.addCollapsibleEvent();
         
         const resizeObserver = new ResizeObserver(entries => {
            
@@ -47,9 +47,9 @@ export default class Table{
 
     addCollapsibleEvent() {
         const collapseButton = this.table.querySelector('.c-table__collapse-button');
-        
+        console.log(collapseButton);
         collapseButton.addEventListener('click', () => {
-
+            console.log('CLICK')
             this.table.classList.toggle('is-collapsed');
             
         });
@@ -273,7 +273,7 @@ export default class Table{
                 sortButtons[i].setAttribute('js-table-sort--order', 'asc')
             }
             
-            if(this.isSortable && this.isCollapsible && i === 0) {
+            if(this.isSortable && this.isMultidimensional && i === 0) {
                 sortButtons[i].removeAttribute('js-table-sort--order');
                 continue;
             }
