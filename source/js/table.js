@@ -266,13 +266,22 @@ export default class Table{
 
     sortAddButtons() {
         const sortButtons = this.table.querySelectorAll(`[js-table-sort--btn]`);
-        sortButtons.forEach((button) => {
+        
+        for (let i = 0; i < sortButtons.length; i++ ) {
+            console.log(sortButtons[i])
+        
+        
 
-            if (!button.hasAttribute('js-table-sort--order')){
-                button.setAttribute('js-table-sort--order', 'asc')
+            if (!sortButtons[i].hasAttribute('js-table-sort--order')){
+                sortButtons[i].setAttribute('js-table-sort--order', 'asc')
+            }
+            
+            if(this.isSortable && this.isCollapsible && i === 0) {
+                sortButtons[i].removeAttribute('js-table-sort--order');
+                continue;
             }
 
-            button.addEventListener('click', (e) => {
+            sortButtons[i].addEventListener('click', (e) => {
                 if (this.isPagination) this.paginateSetCurrent();
 
                 const sortOrder = this.table.getAttribute('js-table-sort--order');
@@ -284,7 +293,7 @@ export default class Table{
                 this.table.setAttribute('js-table-sort--dictator', dataId)
                 this.tableRefresh();
             });
-        });
+        };
     }
 
     filterValue() {
