@@ -268,9 +268,6 @@ export default class Table{
         const sortButtons = this.table.querySelectorAll(`[js-table-sort--btn]`);
         
         for (let i = 0; i < sortButtons.length; i++ ) {
-            console.log(sortButtons[i])
-        
-        
 
             if (!sortButtons[i].hasAttribute('js-table-sort--order')){
                 sortButtons[i].setAttribute('js-table-sort--order', 'asc')

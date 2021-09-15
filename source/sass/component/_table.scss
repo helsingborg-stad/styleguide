@@ -22,6 +22,10 @@
     }
 
     .c-table__fullscreen {
+        cursor: pointer;
+    }
+
+    .c-table__fullscreen {
         position: absolute;
         right: 16px;
     }
