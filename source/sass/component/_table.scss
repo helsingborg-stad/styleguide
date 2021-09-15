@@ -1,6 +1,7 @@
 .c-table {
     position: relative;
     border-radius: $border-radius-md;
+    margin-bottom: calc(#{$base} * 10);
     @include shadow(0.5);
 
     &[table-sum] tr:last-child td:first-child {
@@ -61,7 +62,7 @@
     }
     
     &__scroll-indicator-wrapper {
-        margin: calc(#{$base} * 2) 0 calc(#{$base} * 4) 0;
+        margin-top: calc(#{$base} * 2);
         width:100%;
         background-color: $color-lighter;
         height: 3px;
@@ -72,6 +73,10 @@
         background-color: $color-light;
         height: inherit;
         border-radius: $border-radius-lg;
+    }
+
+    .c-table__pagination {
+        margin-top: calc(#{$base} * 2);
     }
 
     th[js-table-sort--order] {
