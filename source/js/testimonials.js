@@ -12,9 +12,9 @@ export default class TestimonialCarousel {
     // eslint-disable-next-line class-methods-use-this
     init() {
         // If desktop show two first card, else just one
-        const KEYS = Array.from(this.ITEMS.keys());
-        const show = this.IS_LARGE_SCREEN ? KEYS.slice(0,2) : KEYS.slice(0,1);
-        const hide = this.IS_LARGE_SCREEN ? KEYS.slice(2) : KEYS.slice(1);
+        const keys = Array.from(this.ITEMS.keys());
+        const show = this.IS_LARGE_SCREEN ? keys.slice(0,2) : keys.slice(0,1);
+        const hide = this.IS_LARGE_SCREEN ? keys.slice(2) : keys.slice(1);
         const buttons = this.CAROUSEL.parentElement.querySelectorAll('.c-testimonials__button');
 
         if (hide.length === 0) {
@@ -60,18 +60,14 @@ export default class TestimonialCarousel {
         const nextInt = parseInt(this.CAROUSEL.getAttribute('js-testimonials-iteration'), 10);
 
         if(!this.IS_LARGE_SCREEN) {
-            // setTimeout(() => {
-                this.toggleVisible([nextInt]);
-                this.toggleHidden([currentIndex]);
-            // }, 800/2)
+            this.toggleVisible([nextInt]);
+            this.toggleHidden([currentIndex]);
         } else {
-            // setTimeout(() => {
-                const sibling = nextInt * 2;
-                const currentSibling = currentIndex * 2;
+            const sibling = nextInt * 2;
+            const currentSibling = currentIndex * 2;
 
-                this.toggleVisible([nextInt *2, sibling +1]);
-                this.toggleHidden([currentIndex*2, currentSibling +1]);
-            // }, 800/2)
+            this.toggleVisible([nextInt *2, sibling +1]);
+            this.toggleHidden([currentIndex *2, currentSibling +1]);
         }
     }
 
