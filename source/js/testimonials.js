@@ -39,7 +39,7 @@ export default class TestimonialCarousel {
 
         backButton.addEventListener('click', () => {
             const current = parseInt(this.CAROUSEL.getAttribute('js-testimonials-iteration'), 10);
-            const amount = this.IS_LARGE_SCREEN ? this.ITEMS.length /2 : this.ITEMS.length; // Desktop has half the slides
+            const amount = Math.ceil(this.IS_LARGE_SCREEN ? this.ITEMS.length /2 : this.ITEMS.length); // Desktop has half the slides
             const next = current === 0 ? amount -1 : current -1;
 
             this.CAROUSEL.setAttribute('js-testimonials-iteration', next);
@@ -48,7 +48,7 @@ export default class TestimonialCarousel {
 
         forwardButton.addEventListener('click', () => {
             const current = parseInt(this.CAROUSEL.getAttribute('js-testimonials-iteration'), 10);
-            const amount = this.IS_LARGE_SCREEN ? this.ITEMS.length /2 : this.ITEMS.length; // Desktop has half amount of slides as it shows two slides at a time
+            const amount = Math.ceil(this.IS_LARGE_SCREEN ? this.ITEMS.length /2 : this.ITEMS.length); // Desktop has half amount of slides as it shows two slides at a time
             const next = current === amount -1 ? 0 : current +1;
 
             this.CAROUSEL.setAttribute('js-testimonials-iteration', next);
