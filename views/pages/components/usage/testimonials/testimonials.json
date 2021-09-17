@@ -1,0 +1,17 @@
+{
+    "single":{
+        "heading": "A Single Testimonial",
+        "subHeading": "Testimonials let's you convey a message from someone",
+        "text": "You cna include a name, occupation and a quote"
+    },
+    "multiple":{
+        "heading": "Multiple Testimonials",
+        "subHeading": "Show multiple peoples opinion",
+        "text": "You can show up to 8 testimonials in a fully responsive manner"
+    },
+    "carousel":{
+        "heading": "Testimonial Carousel",
+        "subHeading": "The carousel is used to save space",
+        "text": "Even here you can show up to 8 testimonials with the carousel"
+    }
+}
