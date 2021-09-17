@@ -1,6 +1,7 @@
 .c-header {
     z-index: $level-7;
     position: relative;
+    background-color: $color-header-background;
 
     &.c-header--sticky {
         position: sticky;
@@ -38,57 +39,14 @@
         color: $color-primary;
     }
 
-    .c-header__menu {
-        padding: map-get($spacers, "3") map-get($spacers, "4");
+    &.c-header--text-secondary * ,
+    &.c-header--text-secondary .c-nav .c-nav__link {
+        color: $color-secondary;
     }
 
-    .c-header__wrapper {
-        background: $color-header-background;
-    }
-
-    .c-header__wrapper.c-header__wrapper--level-1 {
-        background-color: $color-header-background-level-1;
-    }
-
-    .c-header__wrapper.c-header__wrapper--level-2 {
-        background-color: $color-header-background-level-2;
-    }
-
-    .c-header__wrapper.c-header__wrapper--level-3 {
-        background-color: $color-header-background-level-3;
-    }
-
-    .c-header__body {
-        display: flex;
-        align-items: center;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-
-        width: 100%;
-        max-width: $container-width-wide;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .c-header__home-link {
-        display: inline-block;
-        padding: map-get($spacers, "3") map-get($spacers, "4");
-    
-        img, svg {
-            display: block;
-            height: $header-logotype-height;
-            max-width: $header-logotype-max-width;
-            transition: opacity 200ms, transform 100ms;
-        }
-    
-        &:hover img, &:hover svg {
-            opacity: .7;
-        }
-    
-        &:active img, &:active svg {
-            transform: scale(0.98);
-        }
-    
+    &.c-header--text-tertiary * ,
+    &.c-header--text-tertiary .c-nav .c-nav__link {
+        color: $color-tertiary;
     }
 }
 
