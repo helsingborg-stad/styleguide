@@ -51,9 +51,9 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
     .c-slider {
-        .c-slider__container {
+        .c-slider__inner {
             min-height: 70vw;
         }
     }
