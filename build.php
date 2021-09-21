@@ -25,7 +25,6 @@ $removables = [
     'build.php',
     'composer.json',
     'composer.lock',
-    'deploy.sh',
     'node_modules',
     'package-lock.json',
     'package.json',

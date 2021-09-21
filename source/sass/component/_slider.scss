@@ -159,10 +159,10 @@
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: - map-get($spacers, "5");
+    bottom: -#{map-get($spacers, "5")};
 
     @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
-        bottom: - map-get($spacers, "6");
+        bottom: -#{map-get($spacers, "6")};
         padding-bottom:7px;
     }
 
