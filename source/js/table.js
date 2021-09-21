@@ -29,13 +29,19 @@ export default class Table{
             const tableScrollIndicatorWrapper = table.querySelector('.c-table__scroll-indicator-wrapper');
             const tableScrollIndicatorWidth = `${(tableInnerWidth / tableLineWidth) * 100}%`;
 
+            console.log(this.table);
+            console.log(tableScrollIndicatorWidth)
+
             if(tableScrollIndicatorWidth !== '100%') {
                 tableScrollIndicator.classList.remove('u-display--none');
                 tableScrollIndicatorWrapper.classList.remove('u-display--none');
+            } else {
+                tableScrollIndicator.classList.add('u-display--none');
+                tableScrollIndicatorWrapper.classList.add('u-display--none');
             }
             tableScrollIndicator.style.width = tableScrollIndicatorWidth;
 
-            tableInner.addEventListener('scroll', (event) => {
+            tableInner.addEventListener('scroll', () => {
                 const scrolledPixels = tableInner.scrollLeft;
                 tableScrollIndicator.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
             })
@@ -57,7 +63,7 @@ export default class Table{
 
     tableRefresh() {
         // eslint-disable-next-line prefer-destructuring
-        let list = this.list;
+        let list = Array.from(this.list);
         
         if (this.isFilterable) {
             list = this.filterList(list, this.filterValue());
