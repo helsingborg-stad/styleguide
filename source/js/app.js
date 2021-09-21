@@ -25,6 +25,7 @@ import Pagination from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
 import ButtonToggle from './buttonToggle';
+import TestimonialCarousel from './testimonials';
 
 import './datepicker';
 import './helpers/swipe';
@@ -74,6 +75,12 @@ if(paginations) {
     })
 }
 
+const testimonialCarousels = document.querySelectorAll('[js-testimonials--is-carousel]');
+if (testimonialCarousels) {
+    testimonialCarousels.forEach((testimonial) => {
+        const testimonialInstance = new TestimonialCarousel(testimonial);
+    })
+}
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();

@@ -107,7 +107,7 @@ $color-form-fields-label: var(--color-form-fields-label, rgba(0,0,0,.6));
 $color-form-fields-contrast: var(--color-form-fields-contrast, #fff);
 $color-form-fields-border-contrast: var(--color-form-fields-border-contrast, #dfdfdf);
 $color-form-fields-label-contrast: var(--color-form-fields-label-contrast, #000);
-$color-header-background: var(--color-header-background, #f8f8f8) !default;
+$color-header-background: var(--color-header-background, $color-white) !default;
 $color-header-background-level-1: var(--color-header-background-level-1, $color-lighter) !default;
 $color-header-background-level-2: var(--color-header-background-level-2, $color-white) !default;
 $color-header-background-level-3: var(--color-header-background-level-3, $color-primary) !default;

@@ -38,21 +38,23 @@
         overflow: hidden;
         position: relative;
         border-radius: $border-radius-md;
-        padding-top: 70%;
     
         .c-slider__inner {
             display: flex;
             transition: all 0.7s ease-in-out;
+            height: 100%;
 
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-    
             .c-segment {
                 min-width: 100%;
             }
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+    .c-slider {
+        .c-slider__container {
+            min-height: 70vw;
         }
     }
 }
@@ -75,6 +77,7 @@
 
         .c-slider__container {
             padding-top: Min(100%,80vh);
+            min-height: 0;
         }
 
         &.c-slider--16-9 {
@@ -101,16 +104,12 @@
             }
         }
         
-        // &__inner {
-        //     position: absolute;
-        //     top: 0;
-        //     bottom: 0;
-        //     right: 0;
-        //     left: 0;
-        // }
-
-        &__container {
-            height: 0;
+        .c-slider__inner {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
         }
         
         .c-slider__item__image {
@@ -162,7 +161,7 @@
     position: absolute;
     bottom: - map-get($spacers, "5");
 
-    @include mq(map_get($breakpoints-map, "xs"), "sm") {
+    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
         bottom: - map-get($spacers, "6");
         padding-bottom:7px;
     }
