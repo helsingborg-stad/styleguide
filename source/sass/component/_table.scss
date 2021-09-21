@@ -36,6 +36,13 @@
         padding: 0 calc(#{$base} * 2);
     }
 
+    .c-table__caption {
+        font-size: calc(#{$base} * 2);
+        font-weight: 500;
+        font-style: italic;
+        color: $color-dark;
+    }
+
     .c-table__title {
         display: inline-block;
         margin-bottom: calc(#{$base} * 2);
@@ -53,6 +60,11 @@
         td.c-table__column-0 {
             background-color: $color-default;
         }
+    }
+
+    tbody .c-table__line:last-of-type,
+    tbody .c-table__line:last-of-type td.c-table__column-0{
+        background-color: $color-white;
     }
 
     tbody .c-table__line:hover,
@@ -185,6 +197,7 @@
             left: 0px;
             top: 0;
             font-weight: 700;
+            white-space: nowrap;
     
             &:after{
                 box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;
@@ -197,4 +210,8 @@
             }
         }
     }
+}
+
+.c-modal .c-table {
+    margin: 0 calc(#{$base} * -3);
 }
