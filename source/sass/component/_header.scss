@@ -6,6 +6,7 @@
     &.c-header--sticky {
         position: sticky;
         top: 0;
+        z-index: $level-1;
     }
 
     &.c-header--accented {
