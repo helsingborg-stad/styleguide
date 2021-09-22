@@ -1,0 +1,17 @@
+{
+    "small": {
+        "heading": "Small hero",
+        "subHeading": "",
+        "text": "Renders a small hero area."
+    },
+    "normal": {
+        "heading": "Normal hero",
+        "subHeading": "",
+        "text": "Renders a normal hero area."
+    },
+    "large": {
+        "heading": "Large hero",
+        "subHeading": "",
+        "text": "Renders a large hero area."
+    }
+}

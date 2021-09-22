@@ -1,44 +1,98 @@
 .c-hero {
   display: flex; 
+  background-size: cover;
+  position: relative;
 
   /** Modifiers - size **/ 
+  &.c-hero--small {
+    min-height: calc(#{$base} * 40);
+    &:before {
+      @include ratio(10, 3, false); 
+    }
+  }
+
   &.c-hero--normal {
-    background-size: cover;
-    @include ratio(10, 3, true);
+    &:before {
+      @include ratio(10, 3, false); 
+    }
   }
 
   &.c-hero--large {
-    @include ratio(16, 9, true);
     max-height: 70vh;
+    &:before {
+      @include ratio(16, 9, false);
+    }
+  }
+
+  &.c-hero--small:before,
+  &.c-hero--normal:before,
+  &.c-hero--large:before {
+    float: left;
+    content: "";
+    width: 1px;
+    margin-left: -1px;
+    height: 0;
+  }
+
+  &.c-hero--small:before,
+  &.c-hero--normal:before,
+  &.c-hero--large:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  &.c-hero--text-light {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__body {
+      color: #fff;
+    }
+  }
+
+  &.c-hero--text-dark {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__body {
+      color: #000;
+    }
   }
 
   /** Modifiers - overlay **/
-  &.c-hero--overlay--primary {
-    @include cover();
+  &.c-hero--overlay-primary .c-hero__overlay {
+    background-color: rgba(0, 0, 0, .5);
   }
 
-  &.c-hero--overlay--neutral {
-    @include cover();
+  &.c-hero--overlay-neutral .c-hero__overlay {
+    background-color: rgba(0, 0, 0, .5);
   }
 
   /** Sub elements */ 
+  .c-hero__overlay {
+    @include cover();
+    z-index: $level-1;
+  }
+
   .c-hero__container {
     align-self: flex-end;
   }
 
   .c-hero__content {
-    padding: 0 map-get($spacers, "4");
+    padding: map-get($spacers, "6") 0;
+    max-width: calc( #{$base} * 87);
+    z-index: $level-2;
+    position: relative;
   }
 
   .c-hero__title {
-    font-size: 1em;
+    font-size: $font-size-hero;
   }
 
-  .c-hero__paragraph {
-    font-size: 1.2em;
+  .c-hero__byline {
+    font-size: $font-size-hero-byline;
   }
 
-  .c-hero__cta {
+  .c-hero__body {
+    font-size: $font-size-hero-body;
   }
-
 }
