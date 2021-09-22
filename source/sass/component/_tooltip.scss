@@ -113,14 +113,14 @@
             font-size: .8em;
         }
     }
-}
 
-:hover,
-:focus,
-:focus>[data-title] {
+    :hover,
+    :focus,
+    :focus>[data-title] {
 
-    &:after,
-    &:before {
-        display: inline-block;
+        &:after,
+        &:before {
+            display: inline-block;
+        }
     }
 }

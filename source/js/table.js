@@ -5,8 +5,10 @@ export default class Table{
         this.isPagination = table.hasAttribute('js-table-pagination')
         this.isFilterable = table.hasAttribute('js-table-filter')
         this.isSortable = table.hasAttribute('js-table-sort')
+        this.isMultidimensional = table.classList.contains('c-table--multidimensional');        
         this.link = null
         this.rowHref = 'js-row-href';
+        this.hasSumRow    = this.table.hasAttribute('table-sum');
 
         this.tableRefresh();
 
@@ -15,12 +17,54 @@ export default class Table{
         if (this.isFilterable) this.filterInput();
 
         if (this.isSortable) this.sortAddButtons();
+
+        if (this.isMultidimensional) this.addCollapsibleEvent();
+        
+        const resizeObserver = new ResizeObserver(entries => {
+           
+            const tableInner = table.querySelector('.c-table__inner');
+            const tableInnerWidth = tableInner.offsetWidth;
+            const tableLineWidth = tableInner.querySelector('.c-table__line').offsetWidth;
+            const tableScrollIndicator = table.querySelector('.c-table__scroll-indicator');
+            const tableScrollIndicatorWrapper = table.querySelector('.c-table__scroll-indicator-wrapper');
+            const tableScrollIndicatorWidth = `${(tableInnerWidth / tableLineWidth) * 100}%`;
+
+            console.log(this.table);
+            console.log(tableScrollIndicatorWidth)
+
+            if(tableScrollIndicatorWidth !== '100%') {
+                tableScrollIndicator.classList.remove('u-display--none');
+                tableScrollIndicatorWrapper.classList.remove('u-display--none');
+            } else {
+                tableScrollIndicator.classList.add('u-display--none');
+                tableScrollIndicatorWrapper.classList.add('u-display--none');
+            }
+            tableScrollIndicator.style.width = tableScrollIndicatorWidth;
+
+            tableInner.addEventListener('scroll', () => {
+                const scrolledPixels = tableInner.scrollLeft;
+                tableScrollIndicator.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
+            })
+        
+        });
+
+        resizeObserver.observe(table);
+    }
+
+    addCollapsibleEvent() {
+        const collapseButton = this.table.querySelector('.c-table__collapse-button');
+        console.log(collapseButton);
+        collapseButton.addEventListener('click', () => {
+            console.log('CLICK')
+            this.table.classList.toggle('is-collapsed');
+            
+        });
     }
 
     tableRefresh() {
         // eslint-disable-next-line prefer-destructuring
-        let list = this.list;
-
+        let list = Array.from(this.list);
+        
         if (this.isFilterable) {
             list = this.filterList(list, this.filterValue());
         }
@@ -123,6 +167,8 @@ export default class Table{
     // eslint-disable-next-line class-methods-use-this
     filterList(list, query) {
         const newList = [];
+        const lastIndex = list.length - 1;
+        const lastRow = list[lastIndex];
 
         list.forEach(element => {
             let data = "";
@@ -136,6 +182,10 @@ export default class Table{
             }
         });
 
+        if(this.hasSumRow) {            
+            newList[lastIndex] = lastRow;
+        }
+
         return newList;
     }
 
@@ -146,9 +196,14 @@ export default class Table{
 
     sortList(list) {
         const sortOrder = this.table.getAttribute('js-table-sort--order');
+        let sumRow = '';
 
         if (!sortOrder) {
             return list;
+        }
+        
+        if(this.hasSumRow) {
+            sumRow = list.pop();
         }
 
         const sortData = []
@@ -165,10 +220,18 @@ export default class Table{
         comparableData.sort(this.compare);
         
         if (sortOrder === 'desc') {
+
+            if(this.hasSumRow) {
+                comparableData.unshift({index: sumRow});
+            }
+
             return comparableData.reverse(this.compare);
         }
 
-        
+        if(this.hasSumRow) {
+            comparableData.push({index: sumRow});
+        }
+
         return comparableData;
     }
 
@@ -209,13 +272,19 @@ export default class Table{
 
     sortAddButtons() {
         const sortButtons = this.table.querySelectorAll(`[js-table-sort--btn]`);
-        sortButtons.forEach((button) => {
+        
+        for (let i = 0; i < sortButtons.length; i++ ) {
 
-            if (!button.hasAttribute('js-table-sort--order')){
-                button.setAttribute('js-table-sort--order', 'asc')
+            if (!sortButtons[i].hasAttribute('js-table-sort--order')){
+                sortButtons[i].setAttribute('js-table-sort--order', 'asc')
+            }
+            
+            if(this.isSortable && this.isMultidimensional && i === 0) {
+                sortButtons[i].removeAttribute('js-table-sort--order');
+                continue;
             }
 
-            button.addEventListener('click', (e) => {
+            sortButtons[i].addEventListener('click', (e) => {
                 if (this.isPagination) this.paginateSetCurrent();
 
                 const sortOrder = this.table.getAttribute('js-table-sort--order');
@@ -227,7 +296,7 @@ export default class Table{
                 this.table.setAttribute('js-table-sort--dictator', dataId)
                 this.tableRefresh();
             });
-        });
+        };
     }
 
     filterValue() {

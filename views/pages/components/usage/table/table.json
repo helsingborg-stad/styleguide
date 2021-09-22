@@ -1,7 +1,37 @@
 {
-    "table": {
-        "heading": "Table",
+    "basic": {
+        "heading": "A basic table",
         "subHeading": "",
-        "text": ""
+        "text": "Table in it's simplest form."
+    },
+    "multidimensional": {
+        "heading": "Multidimensional",
+        "subHeading": "",
+        "text": "A table with two dimensions, locked first column when scrolling and an indicator showing the user where they are horizontally. This also makes the first column is also collapsible."
+    },
+    "filterable": {
+        "heading": "A filterable table",
+        "subHeading": "",
+        "text": "Renders a searchbar above the table for realtime filtering."
+    },
+    "sortable": {
+        "heading": "Sortable columns",
+        "subHeading": "",
+        "text": "Makes it possible to  sort each column by clicking the headers."
+    },
+    "sum": {
+        "heading": "Sum row",
+        "subHeading": "",
+        "text": "Renders a row at the bottom of the table showing the sum of each cell in corresponding column."
+    },
+    "pagination": {
+        "heading": "Pagination",
+        "subHeading": "",
+        "text": "Renders pagination buttons below the table. Set the value to the max rows per page."
+    },
+    "fullscreen": {
+        "heading": "Fullscreen",
+        "subHeading": "",
+        "text": "Renders an icon in the top right corner, that when clicked opens up the table in fullscreen."
     }
 }

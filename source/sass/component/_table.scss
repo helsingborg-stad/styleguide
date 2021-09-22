@@ -1,27 +1,115 @@
 .c-table {
     position: relative;
-    border: 1px solid $color-table-border;
     border-radius: $border-radius-sm;
-    overflow: hidden;
+    margin-bottom: calc(#{$base} * 10);    
 
-    & th[js-table-sort--order] {
+    &[table-sum] tr:last-child td:first-child {
+        font-weight: 900;        
+    }
+
+    &:after {
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: calc(#{$base}*5);
+        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    }
+
+    .c-table__header {
+        padding: calc(#{$base} * 2);
+    }
+
+    &.c-table--box-shadow {
+        @include shadow(1.5);
+    }
+
+    .c-table__fullscreen {
+        position: absolute;
+        right: 16px;
+        cursor: pointer;
+    }
+
+    .c-table__footer {
+        position: absolute;
+        width: 100%;
+        padding: 0 calc(#{$base} * 2);
+    }
+
+    .c-table__caption {
+        font-size: calc(#{$base} * 2);
+        font-weight: 500;
+        font-style: italic;
+        color: $color-dark;
+    }
+
+    .c-table__title {
+        display: inline-block;
+        margin-bottom: calc(#{$base} * 2);
+        font-weight: 700;
+    }
+
+    td.c-table__column-0,
+    tbody .c-table__line {
+        background-color: $color-white;
+    }
+
+    tbody .c-table__line:nth-child(odd) {
+        background-color: $color-default;
+    
+        td.c-table__column-0 {
+            background-color: $color-default;
+        }
+    }
+
+    tbody .c-table__line:last-of-type,
+    tbody .c-table__line:last-of-type td.c-table__column-0{
+        background-color: $color-white;
+    }
+
+    tbody .c-table__line:hover,
+    tbody .c-table__line:hover td.c-table__column-0 {
+        background: $color-complementary;
+    }
+
+    th.c-table__column-0,
+    td.c-table__column-0 {
+        z-index: $level-1;
+    }
+    
+    &__scroll-indicator-wrapper {
+        margin-top: calc(#{$base} * 2);
+        width:100%;
+        background-color: $color-lighter;
+        height: 3px;
+        border-radius: $border-radius-lg;
+    }
+    &__scroll-indicator {
+        width:50%;
+        background-color: $color-light;
+        height: inherit;
+        border-radius: $border-radius-lg;
+    }
+
+    .c-table__pagination {
+        margin-top: calc(#{$base} * 2);
+    }
+
+    th[js-table-sort--order] {
         cursor:pointer;
     }
 
     &__inner {
         display: block;
         overflow-x: auto;
-
+        position: relative;
+        min-width: 100%;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        
         &::-webkit-scrollbar {
-            width: $base;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: $color-table-track-background;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $color-table-track-control;
+            display: none;
         }
     }
 
@@ -34,19 +122,27 @@
         
     }
 
-    &:after {
-        position: absolute;
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: calc(#{$base}*5);
-        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    &__column {
+        position: relative;
+        padding: calc(#{$base} * 2);
+
+        .c-icon {
+            position: absolute;
+            right: $base;
+        }
+
+        .c-table__collapse-button {
+            cursor: pointer;
+            right: calc(#{$base} * 4);
+        }    
     }
 
-    &__column {
-        padding: map-get($spacers, "1") map-get($spacers, "2");
-        vertical-align: top;
+    td.c-table__column {
+        border-right: 1px solid $color-lighter;
+
+        &:last-of-type {
+            border-right: 0;
+        }
     }
 
     &__table {
@@ -64,24 +160,58 @@
         color: $color-table-body;
     }
 
-    &__head,
-    &__foot,
-    &__body {
-        width: 100%;
-        background-color: $color-table-background;
-    }
-
     &__body &__column,
     &__foot &__column {
-        border-top: 1px solid $color-table-border;
         min-width: 150px;
     }
 
-    &__body &__line:nth-child(odd) {
-        background-color: $color-table-background-odd;
+    &__body &__line:last-of-type {
+        background-color: $color-white;
+
+        td {
+            border-top: 2px solid $color-lighter;
+        }
     }
 
     &__body &__line:hover {
-        background: $color-primary-alpha-dimmed;
+        background: $color-complementary;
     }
+
+    &.is-collapsed {
+        .c-table__collapse-button {
+            transform: rotate(180deg);
+        }
+
+        .c-table__column-0 {
+            width: calc(#{$base} * 12);
+            max-width: calc(#{$base} * 12);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &.c-table--multidimensional {
+        .c-table__column-0 {
+            position:sticky;
+            left: 0px;
+            top: 0;
+            font-weight: 700;
+            white-space: nowrap;
+    
+            &:after{
+                box-shadow: 20px 0 20px -20px rgb(0 0 0 / 30%) inset;
+                content: " ";
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: -20px;
+                width: 20px;
+            }
+        }
+    }
+}
+
+.c-modal .c-table {
+    margin: 0 calc(#{$base} * -3);
 }
