@@ -60,7 +60,7 @@
 
   /** Modifiers - overlay **/
   &.c-hero--overlay-vibrant .c-hero__overlay {
-    background-color: var(--hero-overlay-color--vibrant, $color-primary-alpha-dimmed);
+    background-color: var(--hero-overlay-color--vibrant, $color-primary-dark-alpha);
   }
 
   &.c-hero--overlay-neutral .c-hero__overlay {
