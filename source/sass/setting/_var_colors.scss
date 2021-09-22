@@ -9,6 +9,7 @@ $color-primary-light: var(--color-primary-light, #e84c31) !default;
 $color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
 $color-primary-alpha: var(--color-primary-alpha, rgba($color-primary, 0.76)) !default;
 $color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(119, 0, 0, 0.76)) !default;
+$color-primary-dark-alpha: var(--color-primary-dark-alpha, rgba(119, 0, 0, 0.76)) !default;
 $color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
 $color-primary-alpha-half: var(--color-primary-alpha-half, rgba(#770000, 0.5)) !default;
 
@@ -37,6 +38,7 @@ $color-complementary-lightest: var(--color-complementary-lightest, #faeeec) !def
 // Monotone Colors
 $color-default: var(--color-default, #f5f5f5) !default;
 $color-black: var(--color-black, #000000) !default;
+$color-black-alpha: var(--color-black-alpha, rgba(#000000, .55)) !default;
 $color-darkest: var(--color-darkest, #3d3d3d) !default;
 $color-darker: var(--color-darker, #565656) !default;
 $color-dark: var(--color-dark, #707070) !default;
