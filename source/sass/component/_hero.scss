@@ -1,42 +1,44 @@
 .c-hero {
+  display: flex; 
 
   /** Modifiers - size **/ 
   &.c-hero--normal {
-
+    background-size: cover;
+    @include ratio(10, 3, true);
   }
 
   &.c-hero--large {
-
+    @include ratio(16, 9, true);
+    max-height: 70vh;
   }
 
   /** Modifiers - overlay **/
   &.c-hero--overlay--primary {
-
+    @include cover();
   }
 
   &.c-hero--overlay--neutral {
-    
+    @include cover();
   }
 
   /** Sub elements */ 
   .c-hero__container {
-
+    align-self: flex-end;
   }
 
   .c-hero__content {
-
+    padding: 0 map-get($spacers, "4");
   }
 
   .c-hero__title {
-
+    font-size: 1em;
   }
 
   .c-hero__paragraph {
-
+    font-size: 1.2em;
   }
 
   .c-hero__cta {
-
   }
 
 }
