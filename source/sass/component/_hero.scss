@@ -61,16 +61,19 @@
   /** Modifiers - overlay **/
   &.c-hero--overlay-primary .c-hero__overlay {
     background-color: rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .5); 
   }
 
   &.c-hero--overlay-neutral .c-hero__overlay {
     background-color: rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .5); 
   }
 
   /** Sub elements */ 
   .c-hero__overlay {
     @include cover();
     z-index: $level-1;
+    background-blend-mode: overlay;
   }
 
   .c-hero__container {
@@ -90,6 +93,7 @@
 
   .c-hero__byline {
     font-size: $font-size-hero-byline;
+    font-weight: 300;
   }
 
   .c-hero__body {
