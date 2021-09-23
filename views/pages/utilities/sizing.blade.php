@@ -13,7 +13,7 @@
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_width']])
 
         @typography([])
-            The green element is given 50% width and blue one is given 25%.
+            One element is given 50% width and other one is given 25%.
         @endtypography
 
         <div class="d-sizing">
@@ -35,7 +35,7 @@
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'sizing', 'config' => 'sizing_height']])
 
         @typography([])
-            In this example we've given the green element 50% height and the blue one 25%.
+            In this example we've given one element 50% height and the other 25%.
         @endtypography
 
         <div class="d-sizing">
