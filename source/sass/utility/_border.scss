@@ -1,12 +1,3 @@
-$colors: (
-    primary: $color-primary,
-    secondary: $color-secondary,
-    success: $color-success,
-    danger: $color-danger,
-    info: $color-info,
-    warning: $color-warning,
-);
-
 $border-widths: (
     0: 0,
     1: 1px,
@@ -36,7 +27,16 @@ $spacing-util: (
             success: (border-color:  #{$color_success}),
             danger: (border-color:  #{$color_danger}),
             info: (border-color:  #{$color_info}),
-            warning: (border-color:  #{$color_warning})
+            warning: (border-color:  #{$color_warning}),
+            default: (border-color:  #{$color_default}),
+            black: (border-color: #{$color_black}),
+            darkest: (border-color:  #{$color_darkest}),
+            darker: (border-color:  #{$color_darker}),
+            dark: (border-color:  #{$color_dark}),
+            light: (border-color:  #{$color_light}),
+            lighter: (border-color:  #{$color-lighter}),
+            lightest: (border-color:  #{$color-lightest}),
+            white: (border-color:  #{$color-white})
         )
     )
 );
