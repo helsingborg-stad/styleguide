@@ -6,7 +6,11 @@
     @markdown
         #Visibility
     @endmarkdown
+
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'visibility', 'config' => 'visibility']])
+        @typography([])
+            The class <code>u-visibility</code> is used to set the visibility of an element.
+        @endtypography
 
         <div style="text-align: center;">
             @button([
