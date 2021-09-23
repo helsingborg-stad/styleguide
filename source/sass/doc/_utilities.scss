@@ -1,28 +1,20 @@
 .d-shadows {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 100px;
-    grid-column-gap: 20px;
+    grid-template-rows: calc(#{$base} * 12);
+    grid-column-gap: calc(#{$base} * 2);
 
     div {
         text-align: center;
-        line-height: 60px;
+        line-height: calc(#{$base} * 8);
     }
 }
 
 .d-border {
     display: grid;
-    grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px;
-    grid-column-gap: 20px;
-
-    &--sides {
-        grid-template-columns: 100px 100px 100px 100px;
-    }
-
-    &--colors {
-        grid-template-columns: 100px 100px 100px 100px 100px 100px;
-    }
+    grid-template-columns: repeat(auto-fit, calc(#{$base} * 10));
+    grid-auto-rows: calc(#{$base} * 10);
+    grid-gap: calc(#{$base} * 2);
 
     div {
         background-color: $color-gray-light;
