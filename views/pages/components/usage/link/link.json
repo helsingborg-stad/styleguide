@@ -3,5 +3,10 @@
         "heading": "Link",
         "subHeading": "",
         "text": ""
+    },
+    "keepcontent": {
+        "heading": "Don't Keep Content",
+        "subHeading": "If the link is empty, then don't show the content",
+        "text": ""
     }
 }
