@@ -20,3 +20,14 @@
         background-color: $color-gray-light;
     }
 }
+
+.d-spacing {
+    .d-spacing__container {
+        display: grid;
+        height: calc(#{$base} * 10);
+    }
+
+    .d-spacing__item {
+
+    }
+}

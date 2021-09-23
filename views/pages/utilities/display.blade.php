@@ -24,7 +24,7 @@
     @endtypography
 
     <div class="u-color__bg--default u-padding--2 u-rounded">
-        <div class="u-display--inline-block u-rounded u-padding--1 u-color__bg--info">u-display--inline-block</div>
+        <div class="u-display--inline-block u-rounded u-padding--1 u-color__bg--complementary">u-display--inline-block</div>
         <div class="u-display--inline-block u-rounded u-padding--1 u-color__bg--success">u-display--inline-block</div>
     </div>
 
@@ -44,7 +44,7 @@
     @endtypography
 
     <div class="u-color__bg--default u-padding--2 u-rounded">
-        <div class="u-display--block u-rounded u-padding--1 u-color__bg--info">u-display--block</div>
+        <div class="u-display--block u-rounded u-padding--1 u-color__bg--complementary">u-display--block</div>
         <div class="u-display--block u-rounded u-padding--1 u-color__bg--success">u-display--block</div>
     </div>
     @endutility_doc
