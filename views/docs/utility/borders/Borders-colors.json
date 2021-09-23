@@ -1,7 +1,7 @@
 {
     "format": "u-border__color--name",
     "modifiers": {
-        "name": "primary, secondary, success, danger, info, warning"
+        "name": "primary, secondary, success, danger, info, warning, default, black, darkest, darker, dark, light, lighter, lightest, white"
     },
     "description": {
         "name": "Sets the color of elements borders"

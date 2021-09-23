@@ -97,12 +97,21 @@
         @endtypography
 
         <div class="d-border d-border--colors">
-            <div class="u-border"></div>
-            <div class="u-border u-border__color--secondary"></div>
-            <div class="u-border u-border__color--info"></div>
-            <div class="u-border u-border__color--warning"></div>
-            <div class="u-border u-border__color--danger"></div>
-            <div class="u-border u-border__color--success"></div>
+            <div class="u-border u-border--2"></div>
+            <div class="u-border u-border--2 u-border__color--secondary"></div>
+            <div class="u-border u-border--2 u-border__color--info"></div>
+            <div class="u-border u-border--2 u-border__color--warning"></div>
+            <div class="u-border u-border--2 u-border__color--danger"></div>
+            <div class="u-border u-border--2 u-border__color--success"></div>
+            <div class="u-border u-border--2 u-border__color--default"></div>
+            <div class="u-border u-border--2 u-border__color--black"></div>
+            <div class="u-border u-border--2 u-border__color--darkest"></div>
+            <div class="u-border u-border--2 u-border__color--darker"></div>
+            <div class="u-border u-border--2 u-border__color--dark"></div>
+            <div class="u-border u-border--2 u-border__color--light"></div>
+            <div class="u-border u-border--2 u-border__color--lighter"></div>
+            <div class="u-border u-border--2 u-border__color--lightest"></div>
+            <div class="u-border u-border--2 u-border__color--white"></div>
         </div>
         
     @endutility_doc

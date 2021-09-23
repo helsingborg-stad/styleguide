@@ -11,6 +11,14 @@
     @typography([
         'element' => 'h6',
         'variant' => 'h4',
+        'classList' => ['u-color__text--default', 'u-color__bg--light']
+    ])
+        Default Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
         'classList' => ['u-color__text--primary']
     ])
         Primary Text
@@ -102,6 +110,38 @@
         'classList' => ['u-color__text--darkest']
     ])
         Darkest Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--complementary']
+    ])
+        Complementary Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--complementary-light', 'u-color__bg--light']
+    ])
+        Complementary light Text
+    @endtypography
+
+    @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--complementary-lighter', 'u-color__bg--light']
+    ])
+        Complementary lighter Text
+    @endtypography
+
+        @typography([
+        'element' => 'h6',
+        'variant' => 'h4',
+        'classList' => ['u-color__text--complementary-lightest', 'u-color__bg--light']
+    ])
+        Complementary lightest Text
     @endtypography
 
 @endutility_doc
