@@ -103,14 +103,14 @@ $radius: (
     .c-modal--gallery .c-image__caption {
         margin: 0 auto;
         position: absolute;
-        bottom: - map-get($spacers, "8");
+        bottom: -#{map-get($spacers, "8")};
         color: $color-white;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
 
         @include mq(map_get($breakpoints-map, "xs"), "sm") {
-            bottom: - map-get($spacers, "8");
+            bottom: -#{map-get($spacers, "8")};
             word-break: break-word;
         }
     }

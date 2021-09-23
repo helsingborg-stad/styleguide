@@ -113,11 +113,11 @@
     }
 
     &__prev {
-        left:- map-get($spacers, "8");
+        left: -#{map-get($spacers, "8")};
     }
 
     &__next {
-        right:- map-get($spacers, "8");
+        right: -#{map-get($spacers, "8")};
     }
     @include mq(map_get($breakpoints-map, "xs"), "lg") {
 
@@ -131,7 +131,7 @@
 
         &__prev, &__next {
             vertical-align: bottom;
-            bottom: - map-get($spacers, "8");
+            bottom: -#{map-get($spacers, "8")};
             top: unset;
         }
 
@@ -147,7 +147,7 @@
         }
 
         &__close {
-            top:- map-get($spacers, "6");
+            top: -#{map-get($spacers, "6")};
             right: map-get($spacers, "1");
 
             i {
@@ -164,7 +164,7 @@
         }
 
         &__prev, &__next {
-            bottom: - map-get($spacers, "6");
+            bottom: -#{map-get($spacers, "6")};
 
             i {
                 font-size: map-get($icon-sizes, "md");
