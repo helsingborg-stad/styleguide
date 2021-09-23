@@ -1,4 +1,4 @@
-@icon(['icon' => 'apps', 'size' => 'lg','color' => 'primary'])
+@icon(['icon' => 'apps', 'size' => 'lg','color' => 'primary', 'isBadge' => true])
 @endicon
 
 @icon(['icon' => 'apps', 'size' => 'lg', 'color' => 'secondary'])
