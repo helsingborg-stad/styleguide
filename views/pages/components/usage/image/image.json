@@ -18,5 +18,10 @@
         "heading": "Missing plain image",
         "subHeading": "",
         "text": "Image not found but rendered as a placeholder."
+    },
+    "customize": {
+        "heading": "Customize missing image",
+        "subHeading": "",
+        "text": "Image not found but rendered as a placeholder."
     }
 }
