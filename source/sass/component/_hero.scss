@@ -81,14 +81,7 @@
   .c-hero__overlay {
     @include cover();
     z-index: $level-1;
-    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .4); 
-
-    /* Blend mode */ 
-    background-blend-mode: overlay;
-    background-image: inherit;
-    background-size: inherit;
-    background-position: inherit;
-    /* Blend mode - end */ 
+    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
   }
 
   .c-hero__container {
