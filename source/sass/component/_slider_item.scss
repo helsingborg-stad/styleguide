@@ -53,6 +53,8 @@
     padding: 0;
 
     .c-slider__item__container {
+        display: flex;
+        flex-direction: column;
         flex-grow: 1;
         width: 100%;
         min-height: calc(#{$base} * 8);
@@ -69,10 +71,8 @@
     }
 
     .c-slider__item__cta {
-        position: absolute;
-        right: calc(var(--base, 8px) * 2);
-        top: 50%;
-        transform: translateY(-50%);
+        width: max-content;
+        margin-top: calc(#{$base} * 2);
 
         i {
             color: $color-primary;
@@ -239,6 +239,14 @@
             .c-slider__item__container {
                 position: absolute;
                 left: 0;
+            }
+
+            .c-slider__item__cta {
+                position: absolute;
+                margin-top: 0;
+                right: calc(var(--base, 8px) * 2);
+                top: 50%;
+                transform: translateY(-50%);
             }
         }
 
