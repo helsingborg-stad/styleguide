@@ -9,10 +9,11 @@ $yAxis: (top, bottom);
 //Standard styling
 .c-fab {
     position: fixed;
-    z-index: $level-9;
+    z-index: $level-6;
     bottom: map-get($spacers, "2"); 
     right: map-get($spacers, "2"); 
     text-align: right;
+    z-index: $level-6;
 }
 
 .c-fab .c-fab__panel {
@@ -29,6 +30,7 @@ $yAxis: (top, bottom);
 
 .c-fab .c-fab__panel--open {
     display: block;
+    animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .c-fab__panel .c-fab__heading {
@@ -52,5 +54,25 @@ $yAxis: (top, bottom);
             #{$sideX}: map-get($spacers, "2");
             #{$sideY}: map-get($spacers, "2");
         }
+    }
+}
+
+@keyframes fab-popout {
+    0% {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    55% {
+        transform: translateY(-5%);
+    }
+
+    100% {
+        transform: translateY(0%);
     }
 }

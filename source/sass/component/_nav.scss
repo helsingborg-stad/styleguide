@@ -315,7 +315,7 @@
       @include shadow(1);
       transform: rotate(45deg); 
       background: $color-white;
-      z-index: $level-8;
+      z-index: $level-5;
       border-radius: $border-radius-sm;
     }
 
@@ -324,7 +324,7 @@
       text-decoration: none;
       background-color: $color-white;
       position: relative;
-      z-index: $level-9;
+      z-index: $level-6;
       white-space: normal;
       color: $color-black;
       white-space: nowrap;
