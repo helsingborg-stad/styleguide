@@ -158,7 +158,7 @@
 
 .c-slider__item--bg-theme-opacity {
     .c-slider__item__container {
-        background: $color-tertiary-transparent;
+        background-color: var(--slider-overlay-color, $color-general-overlay);
     }
 }
 
