@@ -105,8 +105,8 @@
 
 .c-slider__item--hero {
     min-height: 40vh;
-    background-color: $color-primary-alpha-half;
     background-blend-mode: overlay;
+    background-color: var(--slider-overlay-color, $color-general-overlay);
 
     .c-slider__item__heading {
         font-size: calc(#{$base} * 4);

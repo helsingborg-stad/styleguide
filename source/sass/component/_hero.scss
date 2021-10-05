@@ -70,11 +70,11 @@
 
   /** Modifiers - overlay **/
   &.c-hero--overlay-vibrant .c-hero__overlay {
-    background-color: var(--hero-overlay-color--vibrant, $color-primary-dark-alpha);
+    background-color: var(--hero-overlay-color--vibrant, $color-general-overlay);
   }
 
   &.c-hero--overlay-neutral .c-hero__overlay {
-    background-color: var(--hero-overlay-color--neutral, $color-black-alpha);
+    background-color: var(--hero-overlay-color--neutral, $color-general-overlay);
   }
 
   /** Sub elements */ 

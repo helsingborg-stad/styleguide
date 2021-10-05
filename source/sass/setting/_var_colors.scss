@@ -184,3 +184,6 @@ $color-code-button: var(--color-code-button, $color-default-darker) !default;
 //Blockquote
 $color-blockquote-background: var(--color-blockquote-background, $color-default-dimmed) !default; 
 $color-blockquote-border: var(--color-blockquote-border, $color-primary) !default;
+
+//Hero
+$color-general-overlay: var(--color-general-overlay, $color-primary-dark-alpha) !default
