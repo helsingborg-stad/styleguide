@@ -280,3 +280,66 @@ $collection-hover-border: rgba(black, .1) !default;
     }
 
 }
+
+
+$event-date-size:  56px;
+
+.c-collection.c-collection--event {
+    .c-collection__date {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: $event-date-size;
+        height: $event-date-size;
+        background-color: rgba(black, 0.05);
+    };
+
+    .c-collection__divider.c-collection__divider--inset {
+        margin-left: 96px;
+    }
+
+    .c-collection__date {
+        font-weight: 500;
+
+    }
+    .c-collection__day {
+        font-size: 20px;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+
+    .c-collection__day.c-collection__day--today,
+    .c-collection__day.c-collection__day--range {
+        font-size: 18px;
+    }
+
+    .c-collection__month {
+        line-height: 1;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    .c-collection__icon,
+    .c-collection__secondary,
+    .c-collection__content {
+        align-self: flex-start;
+    }
+
+    .c-collection__content {
+        h1, h2, h3, h4 {
+            & + p {
+                margin-top: 8px;
+            }
+        }
+
+        p + p {
+            margin-top: 4px;
+        }
+    }
+
+    .c-collection__secondary  {
+        text-align: right;
+    }
+}
+
