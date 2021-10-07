@@ -127,7 +127,7 @@ $color-menu-text-horizontal: var(--color-menu-text-horizontal, $color-black);
 $color-vnav-background: var(--color-vnav-background, $color-white) !default;
 $color-vnav-item-bg-active: var(--color-vnav-item-bg-active, $color-complementary-light) !default;
 $color-vnav-item-text: var(--color-vnav-item-text, $color-black) !default;
-$color-vnav-item-text-active: var(--color-vnav-item-text-active, $color-primary) !default;
+$color-vnav-item-text-active: var(--color-vnav-item-text-active, $color-link) !default;
 
 //Navigation colors (horizontal)
 $color-nav-top-accent: var(--color-sidebar-top-accent, $color-primary) !default;

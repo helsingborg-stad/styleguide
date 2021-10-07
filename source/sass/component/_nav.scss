@@ -85,7 +85,8 @@
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
-    padding: calc(#{$base} * 2) calc(#{$base} * 4);
+    padding: #{$base} calc(#{$base} * 3);
+    min-height: calc(#{$base} * 6);
     position: relative;
 
     &:hover .c-nav__text {
@@ -95,9 +96,9 @@
   
   .c-nav__toggle {
       flex: 0 0 auto;
-      width: auto;
       max-width: none;
       align-self: center;
+      border-radius: 0;
 
       i {
           font-size: 24px;
@@ -185,7 +186,7 @@
       min-height: calc(#{$base} * 6);
 
       &:hover {
-          color: $color-primary;
+        color: $color-vnav-item-text-active;
       }
   }
 
@@ -199,7 +200,7 @@
       align-self: stretch;
 
       &:hover {
-          color: $color-primary;
+          color: $color-vnav-item-text-active;
       }
   }
 
@@ -364,6 +365,11 @@
   }
 }
 
+.c-nav.c-nav--drawer {
+  .c-nav__toggle {
+    margin-right: #{$base};
+  }
+}
 
 
 /* Dropdown menu */ 
