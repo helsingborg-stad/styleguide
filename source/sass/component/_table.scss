@@ -45,7 +45,6 @@
 
     .c-table__title {
         display: inline-block;
-        margin-bottom: calc(#{$base} * 2);
         font-weight: 700;
     }
 
@@ -99,6 +98,10 @@
         cursor:pointer;
     }
 
+    th.c-table__column-0 {
+        padding-right: calc(#{$base} * 6);
+    }
+
     &__inner {
         display: block;
         overflow-x: auto;
@@ -133,8 +136,8 @@
 
         .c-table__collapse-button {
             cursor: pointer;
-            right: calc(#{$base} * 4);
-        }    
+            right: calc(#{$base} * 3);
+        }
     }
 
     td.c-table__column {
