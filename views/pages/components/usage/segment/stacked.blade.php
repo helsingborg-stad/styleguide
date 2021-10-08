@@ -1,25 +1,28 @@
 @segment([
     'layout'        => 'split',
     'image'         => 'https://picsum.photos/1080/720?a',
-    'background'    => 'primary',
+    'background'    => 'secondary',
     'textColor'     => 'light',
-    'textAlignment' => 'center'
+    'textAlignment' => 'center',
+    'classList' => ['c-segment--highlight']
 ])
 @endsegment
 @segment([
     'layout'        => 'split',
     'image'         => 'https://picsum.photos/1080/720?b',
-    'background'    => 'primary',
+    'background'    => 'secondary',
     'textColor'     => 'light',
     'textAlignment' => 'center',
-    'reverseColumns' => true
+    'reverseColumns' => true,
+    'classList' => ['c-segment--highlight']
 ])
 @endsegment
 @segment([
     'layout'        => 'split',
     'image'         => 'https://picsum.photos/1080/720?c',
-    'background'    => 'primary',
+    'background'    => 'secondary',
     'textColor'     => 'light',
-    'textAlignment' => 'center'
+    'textAlignment' => 'center',
+    'classList' => ['c-segment--highlight']
 ])
 @endsegment

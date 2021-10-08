@@ -81,15 +81,37 @@
 }
 
 .c-segment.c-segment--highlight {
-    .c-segment__image {
-        border-right: $base solid $color-primary;
+
+    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+
+        .c-segment__image  {
+            z-index: 2;
+        }
+
+        &:after {
+            content: ''; 
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            border-left: $base solid $color-primary;
+            height: 100%; 
+            z-index: 1;
+        }
     }
 
-    &.c-segment--reverse {
-        border-left: $base solid $color-primary;
-        
-        .c-segment__image {
-            border-right: 0;
+    @include mq(map_get($breakpoints-map, "md")) {
+
+        &:after {
+            content: ''; 
+            position: absolute;
+            top: 0; 
+            left: 50%; 
+            border-left: $base solid $color-primary;
+            height: 100%; 
+        }
+
+        &.c-segment--reverse:after {
+            left: 0;
         }
     }
 }
