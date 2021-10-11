@@ -9,12 +9,14 @@
     font-weight: 500;
     background-color: transparent;
     border: none;
-    transition: 150ms background-color;
+    user-select: none;
 
     &__label {
         display: flex;
         flex-direction: row;
         justify-content: center;
+        position: relative;
+        z-index: $level-2;
 
         * {
             align-self: center;
@@ -52,123 +54,98 @@
         );
     }
 
+    &:after {
+        content: '';
+        @include cover(); 
+        z-index: $level-1;
+        background-color: transparent;
+        opacity: 0;
+        transition: opacity 100ms ease-in-out, transform 150ms ease-in-out, background-color 100ms ease-in-out;
+        transform: translateX(-100%); 
+    }
+
     &.c-button--icon-only {
         padding-left: 0;
         padding-right: 0; 
         justify-content: center;
     }
 
-    &[disabled='true'] {
-        border-color: $color-disabled;
-        background-color: $color-disabled;
-        color: $color-disabled-text;
+    &:disabled {
+        border-color: $color-button-disabled-bg;
+        background-color: $color-button-disabled-bg;
+        color: $color-button-disabled-text;
         cursor: not-allowed;
 
         * {
-            color: $color-disabled-text;
-        }
-
-        &:hover {
-            background-color: $color-disabled;
-            box-shadow: none;
+            color: $color-button-disabled-text;
         }
     }
 }
 
 // Only text
-
 .c-button__basic {
     border: none;
     box-shadow: none;
 
+    /* Allows disabled basic buttons */ 
+    &:not(:disabled) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     &--primary {
-        color: $color-primary-dimmed;
-
-        &:hover {
-            background-color: $color-primary-alpha;
-        }
-
-        &:focus {
-            background-color: $color-primary-alpha-dimmed;
-        }
+        color: $color-button-primary-bg;
     }
 
     &--secondary {
-        color: $color-secondary-dimmed;
-
-        &:hover {
-            background-color: $color-secondary-alpha;
-        }
-
-        &:focus {
-            background-color: $color-secondary-alpha-dimmed;
-        }
+        color: $color-button-secondary-bg;
     }
 
     &--default {
-        color: #3d3d3d;
-
-        &:hover {
-            background-color: $color-default-alpha;
-        }
-
-        &:focus {
-            background-color: $color-default-alpha-dimmed;
-        }
+        color: $color-button-black;
     }
 }
 
 // Background and border
-
 .c-button__filled {
-    box-shadow: 0px 6px 8px rgba(98, 98, 98, 0.18), 0px 2px 2px rgba(98, 98, 98, 0.18),
-        0px 0px 2px rgba(98, 98, 98, 0.18);
+    transition: box-shadow 300ms ease-in-out; 
+    @include shadow(1);
 
     &--primary {
-        background-color: $color-primary;
-        color: $color-white;
-
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: $color-white;
-        }
-
-        &:hover {
-            background-color: $color-primary-light;
-        }
+        background-color: $color-button-primary-bg;
+        color: $color-button-primary-text;
     }
 
     &--secondary {
-        background-color: $color-secondary-light;
-        color: #3d3d3d;
-
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: #3d3d3d;
-        }
-
-        &:hover {
-            background-color: $color-secondary;
-        }
+        background-color: $color-button-secondary-bg;
+        color:$color-button-secondary-text;
     }
 
     &--default {
-        background-color: $color-default;
-        color: #3d3d3d;
+        background-color: $color-button-default-bg;
+        color: $color-button-default-text;
 
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: #3d3d3d;
+        &:active:after {
+            opacity: .1 !important;
         }
+    }
 
-        &:hover {
-            background-color: $color-default-dimmed;
+    &:hover {
+        @include shadow(2);
+    }
+
+    &:hover:after {
+        background: $color-white;
+        opacity: .24;
+        transform: translateX(0%); 
+    }
+
+    &:active:after {
+        background: $color-black;
+        opacity: .32;
+
+        * {
+            opacity: .8;
         }
     }
 }
@@ -176,67 +153,54 @@
 // No background, only border
 
 .c-button__outlined {
+    
     &--primary {
-        border: 2px solid $color-primary;
-        @extend .c-button__basic--primary;
-        color: #3d3d3d;
+        border: 2px solid $color-button-primary-bg;
+        color: $color-button-primary-bg;
 
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: #3d3d3d;
+        &:hover:after {
+            background: $color-button-primary-bg;
+            opacity: .08;
         }
 
-        &:hover {
-            background-color: $color-primary-alpha;
-        }
-
-        &:focus {
-            background-color: $color-primary-alpha-dimmed;
+        &:active:after {
+            background: $color-button-primary-bg;
+            opacity: .24;
         }
     }
 
     &--secondary {
-        border: 2px solid $color-secondary-dimmed;
-        @extend .c-button__basic--secondary;
-        color: #3d3d3d;
+        border: 2px solid $color-button-secondary-bg;
+        color: $color-button-secondary-bg;
 
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: #3d3d3d;
+        &:hover:after {
+            background: $color-button-secondary-bg;
+            opacity: .08;
         }
 
-        &:hover {
-            background-color: $color-secondary-alpha;
-        }
-
-        &:focus {
-            background-color: $color-secondary-alpha-dimmed;
+        &:active:after {
+            background: $color-button-secondary-bg;
+            opacity: .24;
         }
     }
 
     &--default {
-        border: 2px solid #a3a3a3;
-        @extend .c-button__basic--default;
-        color: #3d3d3d;
+        border: 2px solid $color-button-default-text;
+        color: $color-button-default-text;
 
-        &:visited,
-        &:active,
-        &:hover,
-        &:visited:hover {
-            color: #3d3d3d;
+        &:hover:after {
+            background: $color-button-default-text;
+            opacity: .08;
         }
 
-        &:hover {
-            background-color: $color-default-alpha;
+        &:active:after {
+            background: $color-button-default-text;
+            opacity: .24;
         }
+    }
 
-        &:focus {
-            background-color: $color-default-alpha-dimmed;
-        }
+    &:hover:after {
+        transform: translateX(0%); 
     }
 }
 
@@ -245,6 +209,8 @@
 .c-button__label-icon {
     order: 2;
     margin-left: $base;
+    position: relative;
+    z-index: $level-2;
 
     &--reverse {
         order: 1;
@@ -261,7 +227,8 @@
 }
 
 // Icon override
-.c-button {
+.c-button__filled.c-button, 
+.c-button__outlined.c-button {
     &--sm .c-button__label-icon {
         margin-right: calc(calc(#{$base} * -1) * 0.5);
     }
@@ -290,11 +257,29 @@
 .c-button__toggle {
     @extend .c-button__filled--default;
 
-    &[aria-pressed='true'] {
-        background-color: $color-default-dark;
-        color: $color-primary-dimmed;
+    i, span {
+        transition: transform 500ms cubic; 
     }
+
+    &[aria-pressed='true'] { //Default
+        background-color: $color-button-default-bg;
+        color: $color-button-primary-bg;
+
+        i, span {
+            transform: scale(.95);
+        }
+    }
+
+    &--primary[aria-pressed='true'] {
+        color: $color-button-primary-bg;
+    }
+
+    &--secondary[aria-pressed='true'] {
+        color: $color-button-secondary-bg;
+    }
+    
 }
+
 
 .c-button__icon-size {
     &--lg {

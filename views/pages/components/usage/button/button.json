@@ -4,7 +4,7 @@
         "grid": "",
         "heading": "Buttons of type basic",
         "subHeading" : "",
-        "text": "The basic button has no background or border. The text color is determined by the color property."
+        "text": "The basic button has no background or border. The text color is determined by the color property. This button also lacks padding left and right."
     },
     "outlined": {
         "grid": "",

@@ -2,7 +2,9 @@
     'text' => 'Primary (href)',
     'color' => 'primary',
     'style' => 'basic',
-    'href' => 'https://helsingborg.se'
+    'href' => 'https://helsingborg.se',
+    'icon' => 'home',
+    'reversePositions' => 'true'
 ]) 
 @endbutton
 
