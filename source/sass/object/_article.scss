@@ -15,7 +15,7 @@ $article-content-elements:
         margin-bottom: calc(#{$base} * 2.5);
     }
 
-    *:first-child {
+    > *:first-child {
         margin-top: 0;
     }
 
