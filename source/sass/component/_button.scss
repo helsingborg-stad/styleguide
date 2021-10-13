@@ -286,26 +286,25 @@
 
 .c-button__toggle {
     @extend .c-button__filled--default;
-
-    i, span {
-        transition: transform 500ms cubic; 
-    }
+    transition: color 100ms ease-in-out, 
+                background 100ms ease-in-out; 
 
     &[aria-pressed='true'] { //Default
-        background-color: $color-button-default-bg;
-        color: $color-button-primary-bg;
-
-        i, span {
-            transform: scale(.95);
-        }
-    }
-
-    &--primary[aria-pressed='true'] {
         color: $color-button-primary-bg;
     }
 
-    &--secondary[aria-pressed='true'] {
-        color: $color-button-secondary-bg;
+    &.c-button__filled--primary[aria-pressed='true'],
+    &.c-button__basic--primary[aria-pressed='true'],
+    &.c-button__outlined--primary[aria-pressed='true'] {
+        background-color: $color-button-primary-bg;
+        color: $color-button-primary-text;
+    }
+
+    &.c-button__filled--secondary[aria-pressed='true'],
+    &.c-button__basic--secondary[aria-pressed='true'],
+    &.c-button__outlined--secondary[aria-pressed='true'] {
+        background-color: $color-button-secondary-bg;
+        color: $color-button-secondary-text;
     }
     
 }
