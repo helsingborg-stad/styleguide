@@ -98,12 +98,6 @@
 
         &:hover {
             opacity: .8;
-            transform: translateY(calc((#{$base} * 0.25) * -1)); 
-        }
-    
-        &:hover:focus {
-            opacity: .8;
-            transform: translateY(0); 
         }
     }
 

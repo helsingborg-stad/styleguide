@@ -80,7 +80,7 @@ $color-warning-text: var(--color-warning-text, $color-black) !default;
 
 $color-base: var(--color-base, rgba($color-black, 0.96)) rgba($color-black, 0.96) !default;
 $color-base-secondary: var(--color-secondary, rgba($color-black, 0.54)) !default;
-$color-base-disabled: var(--color-disabled, rgba($color-black, 0.37)) !default;
+$color-base-disabled: var(--color-disabled, $color-light) !default;
 
 $color-base-invert: var(--color-base-invert, $color-white) !default;
 $color-base-invert-secondary: var(--color-base-invert-secondary, rgba($color-white, 0.75)) !default;
