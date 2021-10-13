@@ -17,6 +17,7 @@
         justify-content: center;
         position: relative;
         z-index: $level-2;
+        transition: opacity 100ms, color 100ms;
 
         * {
             align-self: center;
@@ -60,7 +61,9 @@
         z-index: $level-1;
         background-color: transparent;
         opacity: 0;
-        transition: opacity 100ms ease-in-out, transform 150ms ease-in-out, background-color 100ms ease-in-out;
+        transition: opacity 100ms ease-in-out, 
+                    transform 150ms ease-in-out, 
+                    background-color 100ms ease-in-out;
         transform: translateX(-100%); 
     }
 
@@ -86,11 +89,22 @@
 .c-button__basic {
     border: none;
     box-shadow: none;
+    transition: transform 100ms ease-in-out;
 
     /* Allows disabled basic buttons */ 
     &:not(:disabled) {
         padding-left: 0;
         padding-right: 0;
+
+        &:hover {
+            opacity: .8;
+            transform: translateY(calc((#{$base} * 0.25) * -1)); 
+        }
+    
+        &:hover:focus {
+            opacity: .8;
+            transform: translateY(0); 
+        }
     }
 
     &--primary {
@@ -108,7 +122,7 @@
 
 // Background and border
 .c-button__filled {
-    transition: box-shadow 300ms ease-in-out; 
+    transition: box-shadow 200ms ease-in-out; 
     @include shadow(1);
 
     &--primary {
@@ -125,26 +139,42 @@
         background-color: $color-button-default-bg;
         color: $color-button-default-text;
 
-        &:active:after {
-            opacity: .1 !important;
+        &:hover:after {
+            background: $color-black !important;
+            opacity: .06 !important;
+        }
+
+        &:hover:active:after {
+            opacity: .12 !important;
         }
     }
 
+    /* Default state */ 
+    &:after {
+        background-color: transparent;
+    }
+
+    /* Hover state (hover) */
     &:hover {
         @include shadow(2);
+
+        &:after {
+            transform: translateX(0%); 
+            background: $color-white;
+            opacity: .24;
+        }
     }
 
-    &:hover:after {
-        background: $color-white;
-        opacity: .24;
-        transform: translateX(0%); 
-    }
+    /* Active state (pressed) */ 
+    &:active {
+        @include shadow(1);
 
-    &:active:after {
-        background: $color-black;
-        opacity: .32;
+        &:after {
+            background: $color-black;
+            opacity: .32;
+        }
 
-        * {
+        .c-button__label {
             opacity: .8;
         }
     }
@@ -201,6 +231,12 @@
 
     &:hover:after {
         transform: translateX(0%); 
+    }
+    
+    &:hover:focus {
+        .c-button__label {
+            opacity: .8;
+        }
     }
 }
 

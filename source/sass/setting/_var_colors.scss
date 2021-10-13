@@ -190,10 +190,10 @@ $color-blockquote-border: var(--color-blockquote-border, $color-primary) !defaul
 $color-general-overlay: var(--color-general-overlay, $color-primary-dark-alpha) !default;
 
 //Button colors
-$color-button-primary-bg: var(--color-button-primary-bg, $color-primary-dark) !default;
+$color-button-primary-bg: var(--color-button-primary-bg, $color-primary) !default;
 $color-button-primary-text: var(--color-button-primary-text, $color-white) !default;
 
-$color-button-secondary-bg: var(--color-button-secondary-bg, $color-secondary-dark) !default;
+$color-button-secondary-bg: var(--color-button-secondary-bg, $color-secondary) !default;
 $color-button-secondary-text: var(--color-button-secondary-text, $color-white) !default;
 
 $color-button-disabled-bg: var(--color-button-disabled-bg, $color-disabled) !default;
