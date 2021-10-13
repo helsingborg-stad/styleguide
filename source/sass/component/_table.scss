@@ -80,7 +80,7 @@
         margin-top: calc(#{$base} * 2);
         width:100%;
         background-color: $color-lighter;
-        height: 3px;
+        height: #{$base};
         border-radius: $border-radius-lg;
     }
     &__scroll-indicator {
@@ -88,6 +88,11 @@
         background-color: $color-light;
         height: inherit;
         border-radius: $border-radius-lg;
+        cursor: grab;
+    }
+
+    &__scroll-indicator:active {
+        cursor: grabbing;
     }
 
     .c-table__pagination {
@@ -95,7 +100,7 @@
     }
 
     th[js-table-sort--order] {
-        cursor:pointer;
+        cursor: pointer;
     }
 
     th.c-table__column-0 {

@@ -9,6 +9,10 @@ export default class Table{
         this.link = null
         this.rowHref = 'js-row-href';
         this.hasSumRow    = this.table.hasAttribute('table-sum');
+        this.tableInner = table.querySelector('.c-table__inner');
+        this.tableTable = table.querySelector('.c-table__table');
+
+
 
         this.tableRefresh();
 
@@ -19,6 +23,8 @@ export default class Table{
         if (this.isSortable) this.sortAddButtons();
 
         if (this.isMultidimensional) this.addCollapsibleEvent();
+
+        this.updateOnScrollFunc = this.updateOnScroll.bind(this);
         
         const resizeObserver = new ResizeObserver(entries => {
            
@@ -29,9 +35,6 @@ export default class Table{
             const tableScrollIndicatorWrapper = table.querySelector('.c-table__scroll-indicator-wrapper');
             const tableScrollIndicatorWidth = `${(tableInnerWidth / tableLineWidth) * 100}%`;
 
-            console.log(this.table);
-            console.log(tableScrollIndicatorWidth)
-
             if(tableScrollIndicatorWidth !== '100%') {
                 tableScrollIndicator.classList.remove('u-display--none');
                 tableScrollIndicatorWrapper.classList.remove('u-display--none');
@@ -41,23 +44,26 @@ export default class Table{
             }
             tableScrollIndicator.style.width = tableScrollIndicatorWidth;
 
-            tableInner.addEventListener('scroll', () => {
-                const scrolledPixels = tableInner.scrollLeft;
-                tableScrollIndicator.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
-            })
-        
+            this.tableInner.addEventListener('scroll', this.updateOnScrollFunc, false)
         });
 
         resizeObserver.observe(table);
+
+        this.indicatorContainer = this.table.querySelector('.c-table__scroll-indicator-wrapper');
+        this.indicatorInput = this.table.querySelector('.c-table__scroll-indicator');
+        this.indicatorInputLeft = this.indicatorInput.offsetLeft;
+        this.initialCursorPosition = 0;
+        this.indicatorInput.style.marginLeft = "0px";
+
+        this.slider()
+
+        this.handleMouseMoveFunc = this.handleMouseMove.bind(this);
     }
 
     addCollapsibleEvent() {
         const collapseButton = this.table.querySelector('.c-table__collapse-button');
-        console.log(collapseButton);
         collapseButton.addEventListener('click', () => {
-            console.log('CLICK')
             this.table.classList.toggle('is-collapsed');
-            
         });
     }
 
@@ -311,4 +317,55 @@ export default class Table{
         return this.table.getAttribute('js-table-pagination')
     }
 
+    slider() {
+        this.indicatorInput.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            this.initialCursorPosition = e.clientX;
+            this.tableInner.removeEventListener('scroll', this.updateOnScrollFunc, false)
+
+
+            window.addEventListener('mousemove', this.handleMouseMoveFunc, false);
+
+            window.addEventListener("mouseup", (ev) => {
+                ev.preventDefault();
+                this.tableInner.addEventListener('scroll', this.updateOnScrollFunc, false)
+                window.removeEventListener('mousemove', this.handleMouseMoveFunc, false);
+            })
+        })
+    }
+
+    updateOnScroll() {
+        const scrolledPixels = this.tableInner.scrollLeft;
+        const tableLineWidth = this.tableInner.querySelector('.c-table__line').offsetWidth;
+        this.indicatorInput.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
+    }
+
+    handleMouseMove(event) {
+        event.preventDefault();
+        const maxOffset = this.indicatorContainer.offsetWidth - this.indicatorInput.offsetWidth;
+        const containerFarLeft = this.indicatorContainer.getBoundingClientRect().left;
+        const inputFarLeft = this.indicatorInput.getBoundingClientRect().left;
+        const inner = this.table.querySelector('.c-table__inner');
+        const movement = (event.clientX - this.initialCursorPosition);
+        const rel = inputFarLeft - containerFarLeft; // Container relation to input
+        const overflow = this.tableTable.offsetWidth - inner.offsetWidth;
+        const scroll = overflow * ((inputFarLeft - containerFarLeft) / maxOffset);
+
+        if(rel <= 0 && !((rel + movement) > 0)) {
+            this.indicatorInput.style.marginLeft = "0px";
+            inner.scrollLeft = 0;
+            this.initialCursorPosition = event.clientX;
+        }
+        else
+        if(rel >= maxOffset && !((rel + movement) <= maxOffset)) {
+            this.indicatorInput.style.marginLeft = maxOffset + "px";
+        }
+        else {
+            const currentMargin = parseInt(this.indicatorInput.style.marginLeft, 10)
+
+            this.indicatorInput.style.marginLeft = (currentMargin + movement) + "px";
+            this.initialCursorPosition = event.clientX;
+            inner.scrollLeft = scroll;
+        }
+    }
 }
