@@ -160,7 +160,7 @@
     }
 
     /* Active state (pressed) */ 
-    &:active {
+    &:hover:active {
         @include shadow(1);
 
         &:after {
