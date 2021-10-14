@@ -39,6 +39,7 @@ $color-complementary-lightest: var(--color-complementary-lightest, #faeeec) !def
 $color-default: var(--color-default, #f5f5f5) !default;
 $color-black: var(--color-black, #000000) !default;
 $color-black-alpha: var(--color-black-alpha, rgba(#000000, .55)) !default;
+$color-black-alpha-x2: var(--color-black-alpha-x2, rgba(#000000, .1)) !default;
 $color-darkest: var(--color-darkest, #3d3d3d) !default;
 $color-darker: var(--color-darker, #565656) !default;
 $color-dark: var(--color-dark, #707070) !default;
@@ -79,7 +80,7 @@ $color-warning-text: var(--color-warning-text, $color-black) !default;
 
 $color-base: var(--color-base, rgba($color-black, 0.96)) rgba($color-black, 0.96) !default;
 $color-base-secondary: var(--color-secondary, rgba($color-black, 0.54)) !default;
-$color-base-disabled: var(--color-disabled, rgba($color-black, 0.37)) !default;
+$color-base-disabled: var(--color-disabled, $color-light) !default;
 
 $color-base-invert: var(--color-base-invert, $color-white) !default;
 $color-base-invert-secondary: var(--color-base-invert-secondary, rgba($color-white, 0.75)) !default;
@@ -186,4 +187,20 @@ $color-blockquote-background: var(--color-blockquote-background, $color-default-
 $color-blockquote-border: var(--color-blockquote-border, $color-primary) !default;
 
 //Hero
-$color-general-overlay: var(--color-general-overlay, $color-primary-dark-alpha) !default
+$color-general-overlay: var(--color-general-overlay, $color-primary-dark-alpha) !default;
+
+//Button colors
+$color-button-primary-bg: var(--color-button-primary-bg, $color-primary) !default;
+$color-button-primary-text: var(--color-button-primary-text, $color-white) !default;
+
+$color-button-secondary-bg: var(--color-button-secondary-bg, $color-secondary) !default;
+$color-button-secondary-text: var(--color-button-secondary-text, $color-white) !default;
+
+$color-button-disabled-bg: var(--color-button-disabled-bg, $color-disabled) !default;
+$color-button-disabled-text: var(--color-button-disabled-text, $color-disabled-text) !default;
+
+$color-button-default-bg: var(--color-button-default-bg, $color-default) !default;
+$color-button-default-text: var(--color-button-default-text, $color-default-darker) !default;
+
+$color-button-black: var(--color-button-black, $color-black) !default;
+$color-button-white: var(--color-button-white, $color-white) !default;
