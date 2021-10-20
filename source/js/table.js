@@ -337,35 +337,32 @@ export default class Table{
     updateOnScroll() {
         const scrolledPixels = this.tableInner.scrollLeft;
         const tableLineWidth = this.tableInner.querySelector('.c-table__line').offsetWidth;
+
         this.indicatorInput.style.marginLeft = `${(scrolledPixels / tableLineWidth) * 100}%`;
     }
 
     handleMouseMove(event) {
         event.preventDefault();
-        const maxOffset = this.indicatorContainer.offsetWidth - this.indicatorInput.offsetWidth;
-        const containerFarLeft = this.indicatorContainer.getBoundingClientRect().left;
-        const inputFarLeft = this.indicatorInput.getBoundingClientRect().left;
-        const inner = this.table.querySelector('.c-table__inner');
-        const movement = (event.clientX - this.initialCursorPosition);
-        const rel = inputFarLeft - containerFarLeft; // Container relation to input
-        const overflow = this.tableTable.offsetWidth - inner.offsetWidth;
-        const scroll = overflow * ((inputFarLeft - containerFarLeft) / maxOffset);
+        const scrollMax         = this.indicatorContainer.offsetWidth - this.indicatorInput.offsetWidth;
+        const inner             = this.table.querySelector('.c-table__inner');
+        const mouseMovedAmount  = (event.clientX - this.initialCursorPosition);
+        const scrolledAmount    = this.indicatorInput.getBoundingClientRect().left - this.indicatorContainer.getBoundingClientRect().left;
 
-        if(rel <= 0 && !((rel + movement) > 0)) {
-            this.indicatorInput.style.marginLeft = "0px";
-            inner.scrollLeft = 0;
-            this.initialCursorPosition = event.clientX;
+        if(scrolledAmount <= 0 && !((scrolledAmount + mouseMovedAmount) > 0)) {
+            this.indicatorInput.style.marginLeft    = "0px";            // Move scroll indicator
+            this.initialCursorPosition              = event.clientX;    // Reset cursor position
+            inner.scrollLeft                        = 0;                // Set scroll
         }
-        else
-        if(rel >= maxOffset && !((rel + movement) <= maxOffset)) {
-            this.indicatorInput.style.marginLeft = maxOffset + "px";
+        else if(scrolledAmount >= scrollMax && !((scrolledAmount + mouseMovedAmount) <= scrollMax)) {
+            this.indicatorInput.style.marginLeft = `${scrollMax}px`;
         }
         else {
-            const currentMargin = parseInt(this.indicatorInput.style.marginLeft, 10)
+            const amountOfOverflow  = this.tableTable.offsetWidth - inner.offsetWidth; // The amount of overflow the table has
+            const indicatorPosition = parseInt(this.indicatorInput.style.marginLeft, 10)
 
-            this.indicatorInput.style.marginLeft = (currentMargin + movement) + "px";
-            this.initialCursorPosition = event.clientX;
-            inner.scrollLeft = scroll;
+            this.indicatorInput.style.marginLeft    = `${indicatorPosition + mouseMovedAmount}px`;  // Move scroll indicator
+            this.initialCursorPosition              = event.clientX;                        // Reset cursor position
+            inner.scrollLeft                        = amountOfOverflow * (scrolledAmount / scrollMax); // Set scroll
         }
     }
 }
