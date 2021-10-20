@@ -56,17 +56,20 @@
     tbody .c-table__line:nth-child(odd) {
         background-color: $color-default;
     
+        th.c-table__column-0,
         td.c-table__column-0 {
             background-color: $color-default;
         }
     }
 
     tbody .c-table__line:last-of-type,
-    tbody .c-table__line:last-of-type td.c-table__column-0{
+    tbody .c-table__line:last-of-type th.c-table__column-0,
+    tbody .c-table__line:last-of-type td.c-table__column-0 {
         background-color: $color-white;
     }
 
     tbody .c-table__line:hover,
+    tbody .c-table__line:hover th.c-table__column-0,
     tbody .c-table__line:hover td.c-table__column-0 {
         background: $color-complementary;
     }
@@ -176,6 +179,7 @@
     &__body &__line:last-of-type {
         background-color: $color-white;
 
+        th,
         td {
             border-top: 2px solid $color-lighter;
         }
