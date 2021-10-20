@@ -19,6 +19,7 @@
         position: relative;
         z-index: $level-2;
         transition: opacity 100ms, color 100ms;
+        text-decoration: none;
 
         * {
             align-self: center;
@@ -38,7 +39,7 @@
     &--md {
         @include button-size(
             calc(#{$base}* 2),
-            calc(#{$base}* 3),
+            calc(#{$base}* 2.5),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
             $border-radius-md
@@ -101,15 +102,15 @@
         }
     }
 
-    &--primary {
+    &--primary .c-button__label {
         color: $color-button-primary-bg;
     }
 
-    &--secondary {
+    &--secondary .c-button__label {
         color: $color-button-secondary-bg;
     }
 
-    &--default {
+    &--default  .c-button__label {
         color: $color-button-black;
     }
 }
@@ -121,18 +122,27 @@
 
     &--primary {
         background-color: $color-button-primary-bg;
-        color: $color-button-primary-text;
+
+        .c-button__label {
+            color: $color-button-primary-text;
+        }
     }
 
     &--secondary {
         background-color: $color-button-secondary-bg;
-        color:$color-button-secondary-text;
+
+        .c-button__label {
+            color:$color-button-secondary-text;
+        }
     }
 
     &--default {
         background-color: $color-button-default-bg;
-        color: $color-button-default-text;
-
+    
+        .c-button__label {
+            color: $color-button-default-text;
+        }
+ 
         &:hover:after {
             background: $color-black !important;
             opacity: .06 !important;
@@ -179,7 +189,10 @@
     
     &--primary {
         border: 2px solid $color-button-primary-bg;
-        color: $color-button-primary-bg;
+    
+        .c-button__label {
+            color: $color-button-primary-bg;
+        }
 
         &:hover:after {
             background: $color-button-primary-bg;
@@ -194,7 +207,10 @@
 
     &--secondary {
         border: 2px solid $color-button-secondary-bg;
-        color: $color-button-secondary-bg;
+
+        .c-button__label {
+            color: $color-button-secondary-bg;
+        }
 
         &:hover:after {
             background: $color-button-secondary-bg;
@@ -209,7 +225,10 @@
 
     &--default {
         border: 2px solid $color-button-default-text;
-        color: $color-button-default-text;
+
+        .c-button__label {
+            color: $color-button-default-text;
+        }
 
         &:hover:after {
             background: $color-button-default-text;
@@ -285,21 +304,29 @@
                 background 100ms ease-in-out; 
 
     &[aria-pressed='true'] { //Default
-        color: $color-button-primary-bg;
+        .c-button__label {
+            color: $color-button-primary-bg;
+        }
     }
 
     &.c-button__filled--primary[aria-pressed='true'],
     &.c-button__basic--primary[aria-pressed='true'],
     &.c-button__outlined--primary[aria-pressed='true'] {
         background-color: $color-button-primary-bg;
-        color: $color-button-primary-text;
+
+        .c-button__label {
+            color: $color-button-primary-text;
+        }
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
         background-color: $color-button-secondary-bg;
-        color: $color-button-secondary-text;
+        
+        .c-button__label {
+            color: $color-button-secondary-text;
+        }
     }
     
 }
