@@ -17,7 +17,7 @@
     }
 
     .c-table__header {
-        padding: calc(#{$base} * 2);
+        padding: calc(#{$base} * 1.5);
     }
 
     &.c-table--box-shadow {
@@ -135,7 +135,7 @@
 
     &__column {
         position: relative;
-        padding: calc(#{$base} * 2);
+        padding: calc(#{$base} * 1.5);
 
         .c-icon {
             position: absolute;
@@ -149,6 +149,7 @@
     }
 
     td.c-table__column {
+        vertical-align: top;
         border-right: 1px solid $color-lighter;
 
         &:last-of-type {
