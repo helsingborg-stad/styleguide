@@ -1,26 +1,26 @@
-$h1-font-size: $font-size-headline !default;
-$h1-line-height: $line-height-headline !default;
-$h1-font-weight: $font-weight-bold !default;
+$h1-font-size:      var(--h1-font-size,     $font-size-headline) !default;
+$h1-line-height:    var(--h1-line-height,   $line-height-headline) !default;
+$h1-font-weight:    var(--h1-font-weight,   $font-weight-bold) !default;
 
-$h2-font-size: $font-size-title !default;
-$h2-line-height: $line-height-heading !default;
-$h2-font-weight: $font-weight-medium !default;
+$h2-font-size:      var(--h2-font-size,     $font-size-title) !default;
+$h2-line-height:    var(--h2-line-height,   $line-height-heading) !default;
+$h2-font-weight:    var(--h2-font-weight,   $font-weight-heading) !default;
 
-$h3-font-size: $font-size-subtitle !default;
-$h3-line-height: $line-height-heading !default;
-$h3-font-weight: $font-weight-medium !default;
-
-$h4-font-size: $font-size-body !default;
-$h4-line-height: $line-height-heading !default;
-$h4-font-weight: $font-weight-medium !default;
-
-$h5-font-size: $font-size-body !default;
-$h5-line-height: $line-height-heading !default;
-$h5-font-weight: $font-weight-medium !default;
-
-$h6-font-size: $font-size-body !default;
-$h6-line-height: $line-height-heading !default;
-$h6-font-weight: $font-weight-medium !default;
+$h3-font-size:      var(--h3-font-size,     $font-size-subtitle) !default;
+$h3-line-height:    var(--h3-line-height,   $line-height-heading) !default;
+$h3-font-weight:    var(--h3-font-weight,   $font-weight-heading) !default;
+ 
+$h4-font-size:      var(--h4-font-size,     $font-size-body) !default;
+$h4-line-height:    var(--h4-line-height,   $line-height-heading) !default;
+$h4-font-weight:    var(--h4-font-weight,   $font-weight-heading) !default;
+ 
+$h5-font-size:      var(--h5-font-size,     $font-size-body) !default;
+$h5-line-height:    var(--h5-line-height,   $line-height-heading) !default;
+$h5-font-weight:    var(--h5-font-weight,   $font-weight-heading) !default;
+ 
+$h6-font-size:      var(--h6-font-size,     $font-size-body) !default;
+$h6-line-height:    var(--h6-line-height,   $line-height-heading) !default;
+$h6-font-weight:    var(--h6-font-weight,   $font-weight-heading) !default;
 
 h1, .h1,
 h2, .h2,
@@ -30,6 +30,8 @@ h5, .h5,
 h6, .h6 {
     margin: 0;
     margin-top: calc(#{$base} * 6);
+    font-family: $font-family-heading;
+    letter-spacing: $letter-spacing-heading;
 
     &:first-child {
         margin-top: 0;
