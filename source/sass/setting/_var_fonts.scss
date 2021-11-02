@@ -10,7 +10,7 @@ $font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console",
 $font-family-base: var(--font-family-base, $font-family-roboto) !default;
 $font-family-heading: var(--font-family-heading, $font-family-base) !default;
 $font-family-body: $font-family-roboto !default;
-
+    
 //  Font size
 $font-size-base: var(--font-size-base, 16px) !default;
 $font-size-marketing: 36px !default;
@@ -68,3 +68,7 @@ $letter-spacing-base: var(--letter-spacing-base, 0) !default;
 $letter-spacing-heading: var(--letter-spacing-heading, 0) !default;
 $font-letterspacing-title: .0125em;
 $font-letterspacing-subtitle: .0178571429em;
+
+//  Text Transform
+$text-transform-base: var(--text-transform-base, 'none') !default;
+$text-transform-heading: var(--text-transform-heading, 'none') !default;
