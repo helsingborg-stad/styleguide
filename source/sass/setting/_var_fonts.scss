@@ -55,6 +55,8 @@ $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
 $font-weight-bold: 700 !default;
 $font-weight-thin: 200 !default;
+$font-weight-base: var(--font-weight-base, #{$font-weight-normal}) !default;
+$font-weight-heading: var(--font-weight-heading, #{$font-weight-medium}) !default;
 
 // Line heights
 $line-height-base: 1.625;
