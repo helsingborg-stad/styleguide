@@ -7,7 +7,8 @@ $font-family-roboto: "Roboto", sans-serif;
 $font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New",
     "Courier", "Console";
 
-$font-family-heading: $font-family-roboto !default;
+$font-family-base: var(--font-family-base, $font-family-roboto) !default;
+$font-family-heading: var(--font-family-heading, $font-family-base) !default;
 $font-family-body: $font-family-roboto !default;
 
 //  Font size
