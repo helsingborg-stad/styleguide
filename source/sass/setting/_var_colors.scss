@@ -66,10 +66,27 @@ $color-gray: var(--color-light, $color-light) !default; // To be deprecated
 $color-gray-light: var(--color-lighter, $color-lighter) !default; // To be deprecated
 $color-gray-lighter: var(--color-lightest, $color-lightest) !default; // To be deprecated
 
+// State Colors
 $color-success: var(--color-success, #91d736) !default;
+$color-success-dark: var(--color-success-dark, #91d736) !default;
+$color-success-light: var(--color-success-light, #91d736) !default;
+$color-success-contrasting: var(--color-success-contrasting, $color-black) !default;
+
 $color-danger: var(--color-danger, #d73740) !default;
+$color-danger-dark: var(--color-danger-dark, #d73740) !default;
+$color-danger-light: var(--color-danger-light, #d73740) !default;
+$color-danger-contrasting: var(--color-danger-contrasting, $color-white) !default;
+
 $color-info: var(--color-info, #3d3d3d) !default;
+$color-info-dark: var(--color-info-dark, #3d3d3d) !default;
+$color-info-light: var(--color-info-light, #3d3d3d) !default;
+$color-info-contrasting: var(--color-info-contrasting, $color-white) !default;
+
 $color-warning: var(--color-warning, #efbb21) !default;
+$color-warning-dark: var(--color-warning-dark, #efbb21) !default;
+$color-warning-light: var(--color-warning-light, #efbb21) !default;
+$color-warning-contrasting: var(--color-warning-contrasting, $color-black) !default;
+
 $color-in-action: var(--color-in-action, #ffa900) !default;
 
 // Text colors
