@@ -87,8 +87,10 @@ $radius: (
     }
 
     .c-image__caption {
-        font-size: 0.8em;
+        font-size: $font-size-caption;
         color: $color-dark;
+        line-height: $line-height-caption;
+        margin-top: map-get($spacers, "1");
     }
 
     .c-image--full-width .c-image__image {
