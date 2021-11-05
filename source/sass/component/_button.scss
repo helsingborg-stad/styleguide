@@ -1,3 +1,9 @@
+
+$button-line-height: var(--button-line-height, $line-height-button);
+$button-font-weight: var(--button-font-weight, $font-weight-button);
+$button-text-transform: var(--button-text-transform, $text-transform-button);
+
+
 // BUTTON
 .c-button {
     display: inline-flex;
@@ -5,8 +11,9 @@
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    line-height: 1;
-    font-weight: 500;
+    line-height: $button-line-height;
+    font-weight: $button-font-weight;
+    text-transform: $button-text-transform;
     background-color: transparent;
     border: none;
     user-select: none;

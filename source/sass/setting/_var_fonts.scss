@@ -57,18 +57,22 @@ $font-weight-bold: 700 !default;
 $font-weight-thin: 200 !default;
 $font-weight-base: var(--font-weight-base, #{$font-weight-normal}) !default;
 $font-weight-heading: var(--font-weight-heading, #{$font-weight-medium}) !default;
+$font-weight-button: var(--font-weight-button, #{$font-weight-medium}) !default;
 
 //  Line heights
 $line-height-base: var(--line-height-base, 1.625) !default;
 $line-height-heading: var(--line-height-heading, 1.33) !default;
+$line-height-button: var(--line-height-button, 1) !default;
 $line-height-headline: 1.25;
 
 //  Letter spacing
 $letter-spacing-base: var(--letter-spacing-base, 0) !default;
 $letter-spacing-heading: var(--letter-spacing-heading, 0) !default;
+$letter-spacing-button: var(--letter-spacing-button, 0) !default;
 $font-letterspacing-title: .0125em;
 $font-letterspacing-subtitle: .0178571429em;
 
 //  Text Transform
 $text-transform-base: var(--text-transform-base, 'none') !default;
 $text-transform-heading: var(--text-transform-heading, 'none') !default;
+$text-transform-button: var(--text-transform-button, 'none') !default;
