@@ -221,3 +221,6 @@ $color-button-default-text: var(--color-button-default-text, $color-default-dark
 
 $color-button-black: var(--color-button-black, $color-black) !default;
 $color-button-white: var(--color-button-white, $color-white) !default;
+
+// Alpha
+$color-alpha: var(--color-alpha, rgba(#000000, .55)) !default;
