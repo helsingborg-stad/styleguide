@@ -13,6 +13,10 @@ export default class Pagination {
         this.prevBtn = 'js-pagination-prev'
         this.nextBtn = 'js-pagination-next'
 
+        if (!this.paginationContainer) {
+            return;
+        }
+
         this.perPage = parseInt(this.paginationContainer.getAttribute('js-pagination-per-page'))
         this.maxPages = this.paginationContainer.getAttribute('js-pagination-max-pages')
 
