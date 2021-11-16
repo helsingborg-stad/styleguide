@@ -321,7 +321,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
             calc(#{$base}* 2),
             $font-size-btn-lg,
             $font-size-btn-lg-line-height,
-            12.5px
+            $c-button-border-radius
         );
 
         &.c-button--icon-only {
@@ -335,7 +335,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
             calc(#{$base}* 1.5),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
-            12.5px
+            $c-button-border-radius
         );
 
         &.c-button--icon-only {
@@ -349,7 +349,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
             $base, 
             $font-size-btn-sm, 
             $font-size-btn-sm-line-height, 
-            7.5px
+            $c-button-border-radius-small
         );
 
         &.c-button--icon-only {
