@@ -1,3 +1,7 @@
+$c-select-border-radius: var(--c-select-border-radius, $border-radius-md) !default;
+$c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
+
+
 .c-select__container {
     position: relative;
 }
@@ -34,7 +38,7 @@
     background: $color-form-fields;
     background-size: calc(#{$base}*2);
 
-    border-radius: $border-radius-md;
+    border-radius: $c-select-border-radius;
 
     position: relative;
     z-index: $level-2;
@@ -56,7 +60,7 @@
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 $border-radius-sm $border-radius-sm;
+        border-radius: 0 0 $c-select-border-radius $c-select-border-radius;
         box-sizing: border-box;
 
         &.error {
@@ -76,7 +80,7 @@
         height: auto;
 
         option {
-            border-radius: calc(#{$base} * 0.5);
+            border-radius: $c-select-border-radius-option;
         }
 
         option:last-of-type {
