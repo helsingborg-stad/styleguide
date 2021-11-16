@@ -12,6 +12,9 @@ $collection-hover-background: rgba(black, .05) !default;
 $collection-hover-color: rgba(black, .1) !default;
 $collection-hover-border: rgba(black, .1) !default;
 
+$c-collection-border-radius: var(--c-collection-border-radius, $border-radius-lg) !default;
+
+
 // Reset
 .c-collection {
     padding: 0;
@@ -27,7 +30,7 @@ $collection-hover-border: rgba(black, .1) !default;
 }
 
 .c-collection {
-    border-radius: 12.5px;
+    border-radius: $c-collection-border-radius;
     border: $collection-border;
     padding-top: $base;
     padding-bottom: $base;
@@ -187,11 +190,11 @@ $collection-hover-border: rgba(black, .1) !default;
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
-    border-radius: 0 0 12.5px 12.5px;   
+    border-radius: 0 0 $c-collection-border-radius $c-collection-border-radius;   
 }
 
 .c-collection.c-collection--sharp-bot {
-    border-radius: 12.5px 12.5px 0 0;    
+    border-radius: $c-collection-border-radius $c-collection-border-radius 0 0;    
 
 }
 .c-collection.c-collection--sharp {
