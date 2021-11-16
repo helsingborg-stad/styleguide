@@ -43,12 +43,3 @@ jobs:
         host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
         username: ${{ secrets.DEPLOY_REMOTE_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
-
-    - name: Clear varnish cache.
-      uses: appleboy/ssh-action@master
-      with:
-        script: |
-          curl -X PURGE https://styleguide.helsingborg.se
-        host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
-        username: ${{ secrets.DEPLOY_REMOTE_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
