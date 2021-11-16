@@ -1,3 +1,6 @@
+$c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default;
+
+
 // ***************************************************************
 // *** Mapping for different sizes
 // ***************************************************************
@@ -80,7 +83,7 @@ $radius: (
     }
 
     .c-image__image {
-        border-radius: $border-radius-xs;
+        border-radius: $c-image-border-radius;
         width: 100%;
         max-width: 100%;
         display: block;
