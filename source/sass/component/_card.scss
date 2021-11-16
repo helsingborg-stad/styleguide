@@ -1,9 +1,11 @@
+$c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
+
 .c-card {
     @include shadow(2);
     display: block;
     position: relative;
     background-color: $color-white;
-    border-radius: $border-radius-lg;
+    border-radius: $c-card-border-radius;
     overflow: hidden;
 
     &__header i{
