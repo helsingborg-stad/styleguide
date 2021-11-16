@@ -1,3 +1,7 @@
+$c-comment-border-radius: var(--c-comment-border-radius, $border-radius-lg) !default;
+$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-radius-sm) !default;
+
+
 .c-comment {
     margin-top: map-get($spacers, "6");
 
@@ -72,8 +76,8 @@
         width: 100%;
         display: flex;
         align-items: center;
-        border-radius: $border-radius-lg;
-        border-top-left-radius: $border-radius-sm;
+        border-radius: $c-comment-border-radius;
+        border-top-left-radius: $c-comment-border-radius-corner;
         padding: map-get($spacers, "1half") map-get($spacers, "2");
         color: $color-black;
         margin: 0;
