@@ -1,3 +1,5 @@
+$c-pagination-border-radius: var(--c-pagination-border-radius, $border-radius-sm) !default;
+
 .c-pagination {
     &__list {
         @include unlist();
@@ -10,7 +12,7 @@
     &__item {
         margin: 0;
         padding: 0;
-        border-radius: $border-radius-sm;
+        border-radius: $c-pagination-border-radius;
         height: calc(#{$base}* 5);
         min-width: calc(#{$base}* 5);
         display: flex;
@@ -55,7 +57,7 @@
     &__link {
         display: flex;
         padding: map-get($spacers, '1') map-get($spacers, '2');
-        border-radius: $border-radius-sm;
+        border-radius: $c-pagination-border-radius;
     }
 
     &__link,
