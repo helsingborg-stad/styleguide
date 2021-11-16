@@ -3,6 +3,8 @@ $button-line-height: var(--button-line-height, $line-height-button);
 $button-font-weight: var(--button-font-weight, $font-weight-button);
 $button-text-transform: var(--button-text-transform, $text-transform-button);
 
+$c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
+$c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
 
 // BUTTON
 .c-button {
@@ -38,7 +40,7 @@ $button-text-transform: var(--button-text-transform, $text-transform-button);
             calc(#{$base}* 5),
             $font-size-btn-lg,
             $font-size-btn-lg-line-height,
-            $border-radius-md
+            $c-button-border-radius
         );
     }
 
@@ -48,7 +50,7 @@ $button-text-transform: var(--button-text-transform, $text-transform-button);
             calc(#{$base}* 3),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
-            $border-radius-md
+            $c-button-border-radius
         );
     }
 
@@ -59,7 +61,7 @@ $button-text-transform: var(--button-text-transform, $text-transform-button);
             calc(#{$base}* 2),
             $font-size-btn-sm,
             $font-size-btn-sm-line-height,
-            $border-radius-sm
+            $c-button-border-radius-small
         );
     }
 
