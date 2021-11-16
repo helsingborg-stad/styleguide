@@ -1,3 +1,5 @@
+$c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
+
 .c-modal {
     position: relative;
     background-color: white;
@@ -9,6 +11,8 @@
     width:100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
+    border-radius: $c-modal-border-radius;
+    
     
     @include shadow(3);
 
