@@ -13,13 +13,13 @@ $c-notice-color-info-background: var(--notice-color-info-background, $color-info
 $c-notice-color-warning-text: var(--notice-color-warning-text, $color-warning-contrasting) !default;
 $c-notice-color-warning-background: var(--notice-color-warning-background, $color-warning) !default;
 
-$c-notice-border-radius: var(--notice-border-radius, #d73740) !default;
+$c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default;
 
 .c-notice {
     @include shadow(5);
     padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
-    border-radius: $border-radius-sm;
+    border-radius: $c-notice-border-radius;
     color: $color-notice-text-default;
 
     a,
