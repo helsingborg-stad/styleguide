@@ -16,7 +16,7 @@ $c-notice-color-warning-background: var(--notice-color-warning-background, $colo
 $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default;
 
 .c-notice {
-    @include shadow(5);
+    filter: $drop-shadow-5;
     padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
     border-radius: $c-notice-border-radius;

@@ -38,7 +38,7 @@
         max-height: calc(#{$base} * 12);
         border-radius: calc(#{$base} * 1);
         overflow: hidden;
-        @include shadow(3);
+        filter: $drop-shadow-3;
 
         &.c-image .c-image__image {
             object-fit: cover;

@@ -7,7 +7,7 @@
     }
 
     &__shadow {
-        @include shadow(2);
+        filter: $drop-shadow-2;
     }
 
     &__button {

@@ -125,8 +125,8 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
 
 // Background and border
 .c-button__filled {
-    transition: box-shadow 200ms ease-in-out; 
-    @include shadow(1);
+    transition: filter 200ms ease-in-out; 
+    filter: $drop-shadow-1;
 
     &--primary {
         background-color: $color-button-primary-bg;
@@ -159,7 +159,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
 
     /* Hover state (hover) */
     &:hover {
-        @include shadow(2);
+        filter: $drop-shadow-2;
 
         &:after {
             background: $color-white;
@@ -169,7 +169,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
 
     /* Active state (pressed) */ 
     &:hover:active {
-        @include shadow(1);
+        filter: $drop-shadow-1;
 
         &:after {
             background: $color-black;

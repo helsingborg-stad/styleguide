@@ -76,7 +76,7 @@
 }
 
 .c-notification .c-notice {
-    @include shadow(5);
+    filter: $drop-shadow-5;
 }
 
 @-webkit-keyframes fadeOut {

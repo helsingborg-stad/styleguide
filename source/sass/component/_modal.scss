@@ -14,7 +14,7 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
     border-radius: $c-modal-border-radius;
     
     
-    @include shadow(3);
+    filter: $drop-shadow-3;
 
     &--border-radius-sm {
         border-radius: $border-radius-sm;

@@ -1,7 +1,7 @@
 $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
 
 .c-card {
-    @include shadow(2);
+    filter: $drop-shadow-2;
     display: block;
     position: relative;
     background-color: $color-white;
@@ -307,7 +307,7 @@ a.c-card {
     }
 
     &:hover {
-        @include shadow(3);
+        filter: $drop-shadow-3;
         background-color: $color-code-background;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));

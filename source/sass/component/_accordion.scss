@@ -1,6 +1,6 @@
 .c-accordion {
     background: white;
-    @include shadow(1);
+    filter: $drop-shadow-1;
 
     &__button {
         @include button-unstyled;

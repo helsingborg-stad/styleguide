@@ -33,7 +33,7 @@ $c-pagination-border-radius: var(--c-pagination-border-radius, $border-radius-sm
     }
 
     &__item--is-active {
-        @include shadow(2);
+        filter: $drop-shadow-2;
         background-color: $color-primary;
     }
 

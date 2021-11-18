@@ -1,7 +1,7 @@
 .c-datepicker__main {
     background-color: $color-base-invert;
     border-top: 8px solid $color-primary;
-    @include shadow(4);
+    filter: $drop-shadow-4;
     padding: map-get($spacers, "2");
     line-height: 1em;
     box-sizing: border-box;
