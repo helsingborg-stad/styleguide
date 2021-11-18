@@ -1,7 +1,7 @@
 
 $lead-font-size: var(--lead-font-size, $font-size-lead);
 $lead-line-height: var(--lead-line-height, $line-height-base);
-$lead-font-weight: var(--lead-font-weight, $font-weight-base);
+$lead-font-weight: var(--lead-font-weight, $font-weight-medium);
 
 .lead {
     font-size: $lead-font-size;
