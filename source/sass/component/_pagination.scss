@@ -40,6 +40,7 @@ $c-pagination-border-radius: var(--c-pagination-border-radius, $border-radius-sm
     &--outlined {
         .c-pagination__item--is-active {
             box-shadow: none;
+            filter: $drop-shadow-0;
             background-color: unset;
             border: calc(#{$base} / 4) solid $color-primary;
             * {
