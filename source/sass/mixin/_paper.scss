@@ -1,7 +1,7 @@
 $c-paper-border-radius: var(--c-paper-border-radius, $border-radius-lg) !default;
 
 @mixin paper($level: 1, $inset: false, $padding: 0) {
-    @include shadow($level, $inset);
+    filter: nth($drop-shadow-list, $level);
     background-color: $color-paper-background;
     border-radius: $c-paper-border-radius;
     padding: map-get($spacers, $padding);
