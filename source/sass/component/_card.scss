@@ -12,6 +12,11 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
     & > *:first-child  {
         border-top-left-radius: $c-card-border-radius;
         border-top-right-radius: $c-card-border-radius;
+
+        .c-card__image-background {
+            border-top-left-radius: $c-card-border-radius;
+            border-top-right-radius: $c-card-border-radius;
+        }
     }
 
     & > *:last-child  {
