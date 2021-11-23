@@ -8,6 +8,16 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
     background-color: $color-white;
     border-radius: $c-card-border-radius;
 
+    & > *:first-child  {
+        border-top-left-radius: $c-card-border-radius;
+        border-top-right-radius: $c-card-border-radius;
+    }
+
+    & > *:last-child  {
+        border-bottom-left-radius: $c-card-border-radius;
+        border-bottom-right-radius: $c-card-border-radius;
+    }
+
     &__header i{
         vertical-align: top;
 
