@@ -41,6 +41,10 @@
     font-size: $font-size;
     border-radius: $border-radius;
     height: calc(#{$padding-vertical} * 2 + #{$line-height});
+
+    &:after {
+        border-radius: $border-radius;
+    }
 }
 
 // Reset button styles
