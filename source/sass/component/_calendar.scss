@@ -267,6 +267,7 @@
     -o-transition: filter 200ms ease-in-out;
     transition: filter 200ms ease-in-out;
     transition: filter 200ms ease-in-out, -webkit-box-shadow 200ms ease-in-out;
+    will-change: filter;
 }
 
 .cjslib-day:last-child {

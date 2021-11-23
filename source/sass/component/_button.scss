@@ -126,6 +126,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
 
 // Background and border
 .c-button__filled {
+    will-change: filter;
     transition: filter 200ms ease-in-out; 
     filter: $drop-shadow-1;
 

@@ -2,6 +2,7 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
 
 .c-card {
     filter: $drop-shadow-2;
+    will-change: filter;
     display: block;
     position: relative;
     background-color: $color-white;
@@ -283,7 +284,7 @@ a.c-card {
     text-decoration: none;
     color: inherit;
     transition: transform 350ms ease-in-out, filter 350ms ease-in-out,
-        background-color 200ms ease-in-out;
+    background-color 200ms ease-in-out;
 
     .c-card__image {
         overflow: hidden;
