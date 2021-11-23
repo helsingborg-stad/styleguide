@@ -3,7 +3,8 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
 .c-card {
     filter: $drop-shadow-2;
     will-change: filter;
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: relative;
     background-color: $color-white;
     border-radius: $c-card-border-radius;
@@ -297,7 +298,6 @@ a.c-card {
     background-color 200ms ease-in-out;
 
     .c-card__image {
-        overflow: hidden;
         position: relative;
     }
 
