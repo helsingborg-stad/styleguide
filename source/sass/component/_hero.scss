@@ -1,4 +1,5 @@
 $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
+$c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
 
 .c-hero {
   display: flex; 
@@ -44,22 +45,6 @@ $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
     clear: both;
   }
 
-  &.c-hero--text-light {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__body {
-      color: $color-white;
-    }
-  }
-
-  &.c-hero--text-dark {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__body {
-      color: $color-black;
-    }
-  }
-
   /** Modifiers - Full width */ 
   &.c-hero--stretch { /* Bleed outside container  left&right */ 
     position: relative;
@@ -87,6 +72,12 @@ $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
     z-index: $level-2;
     position: relative;
     text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
+  }
+
+  .c-hero__title,
+  .c-hero__byline,
+  .c-hero__body {
+    color: $c-hero-color-font; 
   }
 
   .c-hero__title {
