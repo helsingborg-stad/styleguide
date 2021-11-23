@@ -1,3 +1,5 @@
+$c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
+
 .c-hero {
   display: flex; 
   background-size: cover;
@@ -68,15 +70,6 @@
     margin-right: -50vw;
   }
 
-  /** Modifiers - overlay **/
-  &.c-hero--overlay-vibrant .c-hero__overlay {
-    background-color: var(--hero-overlay-color--vibrant, $color-general-overlay);
-  }
-
-  &.c-hero--overlay-neutral .c-hero__overlay {
-    background-color: var(--hero-overlay-color--neutral, $color-general-overlay);
-  }
-
   /** Sub elements */ 
   .c-hero__overlay {
     @include cover();
@@ -108,4 +101,9 @@
   .c-hero__body {
     font-size: calc(#{$font-size-hero-body} + calc(.2vw));
   }
+
+  .c-hero__overlay {
+    background-color: $c-hero-color-overlay;
+  }
+
 }
