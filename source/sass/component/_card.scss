@@ -318,17 +318,12 @@ a.c-card {
 
     &:hover {
         filter: $drop-shadow-3;
-        background-color: $color-code-background;
+        background-color: $color-lighter;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));
 
         .c-card__heading {
             text-decoration: underline;
-        }
-
-        .c-card__header,
-        .c-card__body {
-            background: $color-lightest;
         }
 
         .c-card__image:before {
