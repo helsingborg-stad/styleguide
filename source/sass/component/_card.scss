@@ -6,7 +6,6 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
     position: relative;
     background-color: $color-white;
     border-radius: $c-card-border-radius;
-    overflow: hidden;
 
     &__header i{
         vertical-align: top;
