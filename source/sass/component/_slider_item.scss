@@ -85,7 +85,7 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
 
 .c-slider__item--layout-center {
     display: flex;
-    color: $color-tertiary;
+    color: $color-secondary;
 
     .o-container {
         align-self: center;
@@ -134,7 +134,7 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
 
 .c-slider__item--text-theme {
     .c-slider__item__container {
-        color: $color-tertiary;
+        color: $color-secondary;
     }
 }
 
@@ -155,7 +155,7 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
 
 .c-slider__item--bg-theme {
     .c-slider__item__container {
-        background: $color-tertiary;
+        background: $color-secondary;
     }
 }
 
