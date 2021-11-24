@@ -1,3 +1,6 @@
+$c-slider-color-overlay: var(--c-slider-color-overlay, $color-alpha) !default;
+$c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !default;
+
 .c-slider__item {
     background-position: center;
     background-size: cover;
@@ -106,7 +109,7 @@
 .c-slider__item--hero {
     min-height: 40vh;
     background-blend-mode: overlay;
-    background-color: var(--slider-overlay-color, $color-general-overlay);
+    background-color: $c-slider-color-overlay; 
 
     .c-slider__item__heading {
         font-size: calc(#{$base} * 4);
@@ -158,7 +161,7 @@
 
 .c-slider__item--bg-theme-opacity {
     .c-slider__item__container {
-        background-color: var(--slider-overlay-color, $color-general-overlay);
+        background-color: $c-slider-color-overlay;
     }
 }
 
