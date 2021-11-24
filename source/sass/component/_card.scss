@@ -323,7 +323,7 @@ a.c-card {
 
     &:hover {
         filter: $drop-shadow-3;
-        background-color: $color-lighter;
+        background-color: $color-lightest;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));
 
