@@ -2,31 +2,6 @@
 // *** Colors
 // ***************************************************************
 
-// Primary Colors
-$color-primary: var(--color-primary, #ae0b05) !default;
-$color-primary-dark: var(--color-primary-dark, #770000) !default;
-$color-primary-light: var(--color-primary-light, #e84c31) !default;
-$color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
-$color-primary-alpha: var(--color-primary-alpha, rgba($color-primary, 0.76)) !default;
-$color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(119, 0, 0, 0.76)) !default;
-$color-primary-dark-alpha: var(--color-primary-dark-alpha, rgba(119, 0, 0, 0.76)) !default;
-$color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
-$color-primary-alpha-half: var(--color-primary-alpha-half, rgba(#770000, 0.5)) !default;
-
-// Secondary Colors
-$color-secondary: var(--color-secondary, #ec6701) !default;
-$color-secondary-dark: var(--color-secondary-dark, #b23700) !default;
-$color-secondary-light: var(--color-secondary-light, #ff983e) !default;
-$color-secondary-dimmed: var(--color-secondary-dimmed,$color-secondary-dark) !default; // To be deprecated
-$color-secondary-alpha: var(--color-secondary-alpha, rgba(236, 103, 1, 0.76)) !default;
-$color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(178, 55, 0, 0.24)) !default;
-
-// Complementary Colors
-$color-complementary: var(--color-complementary, #dec2c2) !default;
-$color-complementary-light: var(--color-complementary-light, #f0dbd9) !default;
-$color-complementary-lighter: var(--color-complementary-lighter, #f5e4e3) !default;
-$color-complementary-lightest: var(--color-complementary-lightest, #faeeec) !default;
-
 // Monotone Colors
 $color-default: var(--color-default, #f5f5f5) !default;
 $color-black: var(--color-black, #000000) !default;
@@ -39,6 +14,33 @@ $color-light: var(--color-light, #a3a3a3) !default;
 $color-lighter: var(--color-lighter, #e5e5e5) !default;
 $color-lightest: var(--color-lightest, #fcfcfc) !default;
 $color-white: var(--color-white, #ffffff) !default;
+
+// Primary Colors
+$color-primary: var(--color-primary, #ae0b05) !default;
+$color-primary-dark: var(--color-primary-dark, #770000) !default;
+$color-primary-light: var(--color-primary-light, #e84c31) !default;
+$color-primary-dimmed: var(--color-primary-dimmed,$color-primary-dark) !default; // To be deprecated
+$color-primary-alpha: var(--color-primary-alpha, rgba($color-primary, 0.76)) !default;
+$color-primary-alpha-dimmed: var(--color-primary-alpha-dimmed, rgba(119, 0, 0, 0.76)) !default;
+$color-primary-dark-alpha: var(--color-primary-dark-alpha, rgba(119, 0, 0, 0.76)) !default;
+$color-primary-transparent: var(--color-primary-alpha, rgba(174, 11, 5, 0.9)) !default;
+$color-primary-alpha-half: var(--color-primary-alpha-half, rgba(#770000, 0.5)) !default;
+$color-primary-contrasting: var(--color-primary-contrasting, $color-white) !default;
+
+// Secondary Colors
+$color-secondary: var(--color-secondary, #ec6701) !default;
+$color-secondary-dark: var(--color-secondary-dark, #b23700) !default;
+$color-secondary-light: var(--color-secondary-light, #ff983e) !default;
+$color-secondary-dimmed: var(--color-secondary-dimmed,$color-secondary-dark) !default; // To be deprecated
+$color-secondary-alpha: var(--color-secondary-alpha, rgba(236, 103, 1, 0.76)) !default;
+$color-secondary-alpha-dimmed: var(--color-secondary-alpha-dimmed, rgba(178, 55, 0, 0.24)) !default;
+$color-secondary-contrasting: var(--color-secondary-contrasting, $color-white) !default;
+
+// Complementary Colors
+$color-complementary: var(--color-complementary, #dec2c2) !default;
+$color-complementary-light: var(--color-complementary-light, #f0dbd9) !default;
+$color-complementary-lighter: var(--color-complementary-lighter, #f5e4e3) !default;
+$color-complementary-lightest: var(--color-complementary-lightest, #faeeec) !default;
 
 $color-default-dimmed: var(--color-default-dimmed, #eee) !default;
 $color-default-dark: var(--color-default-dark, #dadada) !default;

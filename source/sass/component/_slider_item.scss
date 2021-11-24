@@ -1,5 +1,5 @@
 $c-slider-color-overlay: var(--c-slider-color-overlay, $color-alpha) !default;
-$c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !default;
+$c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $color-alpha-contrasting) !default;
 
 .c-slider__item {
     background-position: center;
@@ -9,6 +9,13 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
 
     .c-slider__item__container {
         z-index: $level-4;
+        color: $c-slider-color-overlay-contrasting;
+        background-color: $c-slider-color-overlay;
+        backdrop-filter: blur(1px);
+    }
+
+    .c-slider__item__body {
+        margin-top: 0;
     }
 
     //Other
@@ -76,10 +83,6 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
     .c-slider__item__cta {
         width: max-content;
         margin-top: calc(#{$base} * 2);
-
-        i {
-            color: $color-primary;
-        }
     }
 }
 
@@ -104,62 +107,9 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
         font-size: calc(#{$base} * 4);
         font-weight: 900;
     }
-}
 
-////////////////////////////////
-// Text Colors
-////////////////////////////////
-.c-slider__item--text-white {
-    .c-slider__item__container {
-        color: $color-white;
-    }
-}
-
-.c-slider__item--text-black {
-    .c-slider__item__container {
-        color: $color-black;
-    }
-}
-
-.c-slider__item--text-theme {
-    .c-slider__item__container {
-        color: $color-secondary;
-    }
-}
-
-////////////////////////////////
-// Background Colors
-////////////////////////////////
-.c-slider__item--bg-white {
-    .c-slider__item__container {
-        background: $color-white;
-    }
-}
-
-.c-slider__item--bg-black {
-    .c-slider__item__container {
-        background: $color-white;
-    }
-}
-
-.c-slider__item--bg-theme {
-    .c-slider__item__container {
-        background: $color-secondary;
-    }
-}
-
-.c-slider__item--bg-theme-opacity {
-    .c-slider__item__container {
-        background-color: $c-slider-color-overlay;
-    }
-}
-
-.c-slider__item--layout-bottom {
-    &.c-slider__item--bg-theme-opacity,
-    &.c-slider__item--bg-none {
-        .c-slider__item__container {
-            position: absolute;
-        }
+    .c-slider__item__cta {
+        margin-top: calc(#{$base} * 2);
     }
 }
 
