@@ -21,10 +21,6 @@
         background-color: $color-secondary;
     }
 
-    &.c-header--tertiary {
-        background-color: $color-tertiary;
-    }
-
     &.c-header--text-white * ,
     &.c-header--text-white .c-nav .c-nav__link {
         color: $color-white;
@@ -43,11 +39,6 @@
     &.c-header--text-secondary * ,
     &.c-header--text-secondary .c-nav .c-nav__link {
         color: $color-secondary;
-    }
-
-    &.c-header--text-tertiary * ,
-    &.c-header--text-tertiary .c-nav .c-nav__link {
-        color: $color-tertiary;
     }
 }
 

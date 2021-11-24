@@ -106,17 +106,6 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
     }
 }
 
-.c-slider__item--hero {
-    min-height: 40vh;
-    background-blend-mode: overlay;
-    background-color: $c-slider-color-overlay; 
-
-    .c-slider__item__heading {
-        font-size: calc(#{$base} * 4);
-        font-weight: 900;
-    }
-}
-
 ////////////////////////////////
 // Text Colors
 ////////////////////////////////
@@ -209,33 +198,6 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
             }
         }
 
-        &.c-slider__item--hero {
-            min-height: unset;
-
-            .o-container {
-                align-self: flex-end;
-            }
-
-            .c-slider__item__container {
-                max-width: calc(#{$base} * 80);
-                padding: 0;
-                margin-left: 0;
-            }
-
-            .c-slider__item__heading {
-                font-size: calc(#{$base} * 5);
-            }
-
-            &.c-slider__item--bg-white,
-            &.c-slider__item--bg-theme,
-            &.c-slider__item--bg-theme-opacity {
-                .c-slider__item__container {
-                    padding: calc(#{$base} * 2);
-                }
-            }
-            
-        }
-
         &.c-slider__item--layout-bottom {
             padding: 0;
     
@@ -267,30 +229,6 @@ $c-slider-color-font: var(--c-slider-color-font, $color-alpha-contrasting) !defa
         &.c-slider__item--layout-center {
             .c-slider__item__heading {
                 font-size: calc(#{$base} * 6);
-            }
-        }
-
-
-        &.c-slider__item--hero {
-
-            .o-container {
-                align-self: flex-end;
-            }
-
-            .c-slider__item__heading {
-                font-size: calc(#{$base} * 6);
-            }
-
-            .c-slider__item__container {
-                max-width: calc(#{$base} * 80);
-            }
-
-            &.c-slider__item--bg-white,
-            &.c-slider__item--bg-theme,
-            &.c-slider__item--bg-theme-opacity {
-                .c-slider__item__container {
-                    padding: calc(var(--base, 8px)*4) calc(var(--base, 8px)*6);
-                }
             }
         }
     }
