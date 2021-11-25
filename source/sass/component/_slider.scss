@@ -62,20 +62,18 @@
     }
 
     &.c-slider--has-stepper:hover {
-        @include mq(map_get($breakpoints-map, "md")) {
-            .c-slider__button {
+        .c-slider__button {
+            opacity: 1;
+            text-shadow: 0 0 #{$base} black;
+
+            &-next {
                 opacity: 1;
-                text-shadow: 0 0 #{$base} black;
+                transform: translate(0);
+            }
 
-                &-next {
-                    opacity: 1;
-                    transform: translate(0);
-                }
-
-                &-prev {
-                    opacity: 1;
-                    transform: translate(0);
-                }
+            &-prev {
+                opacity: 1;
+                transform: translate(0);
             }
         }
     }
