@@ -15,8 +15,12 @@ $collection-hover-color: rgba(black, .1) !default;
 $collection-hover-border: rgba(black, .1) !default;
 
 $c-collection-border-radius: var(--c-collection-border-radius, $border-radius-md) !default;
-$c-collection-border-width: var(--c-collection-border-width, $border-width-divider) !default;
-$c-collection-border-color: var(--c-collection-border-color, $color-border-divider) !default;
+
+$c-collection-border-width: var(--c-collection-border-width, $border-width-outline) !default;
+$c-collection-border-color: var(--c-collection-border-color, $color-border-outline) !default;
+
+$c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
+$c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 
 
 // Reset
@@ -53,8 +57,8 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-divid
     // Divider
     .c-collection__divider {
         border: none;
-        border-top: $c-collection-border-width solid;
-        border-color: $c-collection-border-color;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
         margin-top: $base;
         margin-bottom: $base;
     }
@@ -159,8 +163,8 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-divid
 // Modifiers - Bordered
 .c-collection.c-collection--bordered {
     .c-collection__item {
-        border-top: $c-collection-border-width solid;
-        border-color: $c-collection-border-color;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
     }
     
     .c-collection__item:first-child {
@@ -223,8 +227,8 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-divid
     padding-bottom: 0;
 
     .c-collection__item {
-        border-top: $c-collection-border-width solid;
-        border-color: $c-collection-border-color;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
     }
     
     .c-collection__item:first-child {
@@ -244,7 +248,7 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-divid
     }
 
     .c-collection__item > .c-collection__secondary {
-        border-left: $c-collection-border-width solid;
+        border-left: $c-collection-divider-border-width solid;
     }
 
     .c-collection {
@@ -252,7 +256,7 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-divid
         padding-top: 0;
         padding-left: unset;
         border-left: solid $base $collection-border-color;
-        border-top: $c-collection-border-width solid;
+        border-top: $c-collection-divider-border-width solid;
     }
 }
 
