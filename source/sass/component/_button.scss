@@ -122,7 +122,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         color: $color-button-secondary-bg;
     }
 
-    &--default {
+    &--default,
+    &--deafult {
         color: $color-button-black;
     }
 }
@@ -143,7 +144,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         color:$color-button-secondary-text;
     }
 
-    &--default {
+    &--default,
+    &--deafult {
         background-color: $color-button-default-bg;
         color: $color-button-default-text;
 
@@ -221,7 +223,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
     }
 
-    &--default {
+    &--default,
+    &--deafult {
         border: $c-button-border-width solid $color-button-default-text;
         color: $color-button-default-text;
 
