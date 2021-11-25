@@ -1,3 +1,4 @@
+$c-card-color-background: var(--c-card-color-background, $color-background-card) !default;
 $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
 
 $c-card-border-width: var(--c-card-border-width, $border-width-card) !default;
@@ -15,7 +16,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: $color-white;
+    background-color: $c-card-color-background;
     border-radius: $c-card-border-radius;
     transition: all 200ms ease-in;
     border: $c-card-border-width solid $c-card-border-color;
