@@ -1,155 +1,99 @@
 .c-slider {
     position: relative;
     border-radius: $border-radius-md;
+    max-height: 80vh;
 
-    &--has-stepper {
-        margin-bottom: map-get($spacers, "7");
-    }
-
-    &__shadow {
+    .c-slider__shadow {
         filter: $drop-shadow-2;
     }
 
-    &__button {
+    .c-slider__button {
         position: absolute;
-        bottom: 50%;
-        transform: translateY(50%);
+        bottom: 0;
+        top: 0;
+        height: 100%;
+        transform: translate(0);
         z-index: $level-6;
-        font-size: 2.5em;
-        display: none;
-        padding: 0;
-        color: $color-darkest;
-        margin: 0 !important;
+        margin: 0;
 
         &-prev {
             left: 0;
-            transform: translate(-100%, 50%);
-            margin-left: map-get($spacers, "1");
         }
 
         &-next {
-            right: 0;
-            transform: translate(100%, 50%);
-            margin-right: map-get($spacers, "1");
+            right: 0; 
+        }
+
+        &-prev, &-next {
+            opacity: 0;
+            transition: transform 0.3s ease-in-out,
+                        opacity 0.3s ease-in-out;
         }
     }
 
     .c-slider__container {
-        overflow: hidden;
-        position: relative;
         border-radius: $border-radius-md;
+        padding-top: Min(100%,80vh);
+        min-height: 0;
+        position: relative;
+        overflow: hidden;
     
         .c-slider__inner {
+            @include cover();
             display: flex;
-            transition: all 0.7s ease-in-out;
+            transition: transform 0.7s ease-in-out;
             height: 100%;
 
             .c-segment {
-                min-width: 100%;
+                width: 100%;
             }
         }
     }
-}
 
-@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
-    .c-slider {
-        .c-slider__inner {
-            min-height: 70vw;
+    /** Modifiers */ 
+    &.c-slider--has-stepper {
+        margin-bottom: map-get($spacers, "7");
+    }
+
+    &.c-slider--has-stepper:hover {
+        @include mq(map_get($breakpoints-map, "md")) {
+            .c-slider__button {
+                opacity: 1;
+
+                &-next {
+                    opacity: 1;
+                    transform: translate(100%, 0);
+                }
+
+                &-prev {
+                    opacity: 1;
+                    transform: translate(-100%, 0);
+                }
+            }
         }
     }
-}
 
-@include mq(map_get($breakpoints-map, "md")) {
-
-    .c-slider {
-        max-height: 80vh;
-
-        &__button {
-            display: block;
-            &-prev {
-                margin-left: map-get($spacers, "3");
-            }
-    
-            &-next {
-                margin-right: map-get($spacers, "3");
-            }
-        }
-
+    &.c-slider--16-9 {
         .c-slider__container {
-            padding-top: Min(100%,80vh);
-            min-height: 0;
+            padding-top: Min(56.25%, 80vh);
         }
+    }
 
-        &.c-slider--16-9 {
-            .c-slider__container {
-                padding-top: Min(56.25%, 80vh);
-            }
+    &.c-slider--4-3 {
+        .c-slider__container {
+            padding-top: Min(75%, 80vh);
         }
-    
-        &.c-slider--4-3 {
-            .c-slider__container {
-                padding-top: Min(75%, 80vh);
-            }
-        }
-    
-        &.c-slider--10-3 {
-            .c-slider__container {
-                padding-top: Min(30%, 80vh);
-            }
-        }
-    
-        &.c-slider--36-7 {
-            .c-slider__container {
-                padding-top: Min(19.44%, 80vh);
-            }
-        }
-        
-        .c-slider__inner {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-        
-        .c-slider__item__image {
-            display: block;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .c-slider__item__image__mobile {
-            display: none;
-        }
+    }
 
-        &.c-slider__item--layout-center {
-            display: flex;
-    
-            .c-slider__item__container {
-                align-self: center;
-                padding: map-get($spacers, "4") map-get($spacers, "6");
-            }
+    &.c-slider--10-3 {
+        .c-slider__container {
+            padding-top: Max(30%, calc(#{$base} * 40));
         }
+    }
 
-        &.c-slider__item--layout-bottom {
-            padding: 0;
-    
-            .c-slider__item__container {
-                position: absolute;
-                left: 0;
-            }
-        }
-
-        &.c-slider__item--layout-featured {
-            .c-slider__item__container {
-                padding: map-get($spacers, "4") map-get($spacers, "6");
-            }
+    &.c-slider--36-7 {
+        .c-slider__container {
+            padding-top: Max(19.44%, calc(#{$base} * 40));
         }
     }
 }
@@ -163,10 +107,11 @@
 
     @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
         bottom: -#{map-get($spacers, "6")};
-        padding-bottom:7px;
+        padding-bottom: #{$base};
     }
 
     .c-slider__dot {
+        cursor: pointer;
         background: $color-gray;
         display: inline-block;
         width: calc(#{$base} * 1.5);
@@ -183,7 +128,8 @@
             border-bottom-right-radius: calc(#{$base} * 0.5);
         }
 
-        &--active {
+        &.c-slider__dot--active {
+            cursor: default;
             background: $color-primary;
         }
     }
