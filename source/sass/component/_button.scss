@@ -6,6 +6,9 @@ $button-text-transform: var(--button-text-transform, $text-transform-button);
 $c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
 $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
 
+$c-button-border-width: var(--c-button-border-width, $border-width-button) !default;
+
+
 // BUTTON
 .c-button {
     display: inline-flex;
@@ -189,7 +192,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
 .c-button__outlined {
     
     &--primary {
-        border: 2px solid $color-button-primary-bg;
+        border: $c-button-border-width solid $color-button-primary-bg;
         color: $color-button-primary-bg;
 
         &:hover:after {
@@ -204,7 +207,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
     }
 
     &--secondary {
-        border: 2px solid $color-button-secondary-bg;
+        border: $c-button-border-width solid $color-button-secondary-bg;
         color: $color-button-secondary-bg;
 
         &:hover:after {
@@ -219,7 +222,7 @@ $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radiu
     }
 
     &--default {
-        border: 2px solid $color-button-default-text;
+        border: $c-button-border-width solid $color-button-default-text;
         color: $color-button-default-text;
 
         &:hover:after {
