@@ -9,6 +9,11 @@
         "subHeading": "",
         "text": "The icon parameter is an array that can configured just as the icon component. It could also be left out completely."
     },
+    "title": {
+        "heading": "Title",
+        "subHeading": "",
+        "text": "The title to show above the message"
+    },
     "messageSize": {
         "heading": "Message size",
         "subHeading": "",
