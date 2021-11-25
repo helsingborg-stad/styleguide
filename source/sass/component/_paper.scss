@@ -1,5 +1,10 @@
-.c-paper {
+$c-paper-border-width: var(--c-paper-border-width, $border-width-card) !default;
+$c-paper-border-color: var(--c-paper-border-color, $color-border-card) !default;
 
+.c-paper {
+    border: $c-paper-border-width solid;
+    border-color: $c-paper-border-color;
+    
     position: relative;
     @include paper(2);
 

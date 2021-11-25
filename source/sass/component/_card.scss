@@ -1,5 +1,14 @@
 $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
 
+$c-card-border-width: var(--c-card-border-width, $border-width-card) !default;
+$c-card-border-color: var(--c-card-border-color, $color-border-card) !default;
+
+$c-card-border-width-outline: var(--c-card-border-width-outline, $border-width-outline) !default;
+$c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-outline) !default;
+
+$c-card-border-width-divider: var(--c-card-border-width-divider, $color-border-divider) !default;
+$c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
+
 .c-card {
     filter: $drop-shadow-2;
     will-change: filter;
@@ -8,6 +17,7 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
     position: relative;
     background-color: $color-white;
     border-radius: $c-card-border-radius;
+    border: $c-card-border-width solid $c-card-border-color;
 
     & > *:first-child  {
         border-top-left-radius: $c-card-border-radius;
@@ -30,6 +40,10 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
         & ~ :is(h1, h2, h3, h4, h5, h6) {
             display: inline;
         }
+    }
+
+    &--outline {
+        border: $c-card-border-width solid;
     }
 
     &--highlight {
@@ -201,7 +215,8 @@ $c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
     }
 
     &__footer {
-        border-top: 1px solid $color-lighter;
+        border-top: $c-card-border-width-divider solid;
+        border-color: $c-card-border-color-divider;
     }
 
     &__image + &__title + &__body {
