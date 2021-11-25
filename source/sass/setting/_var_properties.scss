@@ -39,10 +39,10 @@ $level-bottom: 1 !default;
 //  Drop shadows
 $drop-shadow-amount:    var(--drop-shadow-amount, 1) !default;
 $drop-shadow-0:         var(--drop-shadow-0, drop-shadow(0 0 0 #0000)) !default;
-$drop-shadow-1:         var(--drop-shadow-1, drop-shadow(0px calc(4px * $drop-shadow-amount) calc(6px * $drop-shadow-amount) rgba(0,0,0,.3))) !default;
-$drop-shadow-2:         var(--drop-shadow-2, drop-shadow(0px calc(6px * $drop-shadow-amount) calc(8px * $drop-shadow-amount) rgba(0,0,0,.3))) !default;
-$drop-shadow-3:         var(--drop-shadow-3, drop-shadow(0px calc(8px * $drop-shadow-amount) calc(10px * $drop-shadow-amount) rgba(0,0,0,.3))) !default;
-$drop-shadow-4:         var(--drop-shadow-4, drop-shadow(0px calc(10px * $drop-shadow-amount) calc(12px * $drop-shadow-amount) rgba(0,0,0,.3))) !default;
-$drop-shadow-5:         var(--drop-shadow-5, drop-shadow(0px calc(12px * $drop-shadow-amount) calc(14px * $drop-shadow-amount) rgba(0,0,0,.3))) !default;
+$drop-shadow-1:         var(--drop-shadow-1, drop-shadow(0px calc(4px * #{$drop-shadow-amount}) calc(6px * #{$drop-shadow-amount}) rgba(0,0,0,.3))) !default;
+$drop-shadow-2:         var(--drop-shadow-2, drop-shadow(0px calc(6px * #{$drop-shadow-amount}) calc(8px * #{$drop-shadow-amount}) rgba(0,0,0,.3))) !default;
+$drop-shadow-3:         var(--drop-shadow-3, drop-shadow(0px calc(8px * #{$drop-shadow-amount}) calc(10px * #{$drop-shadow-amount}) rgba(0,0,0,.3))) !default;
+$drop-shadow-4:         var(--drop-shadow-4, drop-shadow(0px calc(10px * #{$drop-shadow-amount}) calc(12px * #{$drop-shadow-amount}) rgba(0,0,0,.3))) !default;
+$drop-shadow-5:         var(--drop-shadow-5, drop-shadow(0px calc(12px * #{$drop-shadow-amount}) calc(14px * #{$drop-shadow-amount}) rgba(0,0,0,.3))) !default;
 
 $drop-shadow-list: $drop-shadow-0 $drop-shadow-1 $drop-shadow-2 $drop-shadow-3 $drop-shadow-4 $drop-shadow-5 !default; //   example usage: nth($drop-shadow-list, 1);
