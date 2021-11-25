@@ -12,16 +12,22 @@
         bottom: 0;
         top: 0;
         height: 100%;
-        transform: translate(0);
         z-index: $level-6;
         margin: 0;
+        
+        i {
+            font-size: calc( #{$base} * 4 );
+            color: $color-white;
+        }
 
         &-prev {
             left: 0;
+            transform: translate(100%, 0);
         }
 
         &-next {
             right: 0; 
+            transform: translate(-100%, 0);
         }
 
         &-prev, &-next {
@@ -33,7 +39,7 @@
 
     .c-slider__container {
         border-radius: $border-radius-md;
-        padding-top: Min(100%,80vh);
+        padding-top: Min(100%, 80vh);
         min-height: 0;
         position: relative;
         overflow: hidden;
@@ -59,15 +65,16 @@
         @include mq(map_get($breakpoints-map, "md")) {
             .c-slider__button {
                 opacity: 1;
+                text-shadow: 0 0 #{$base} black;
 
                 &-next {
                     opacity: 1;
-                    transform: translate(100%, 0);
+                    transform: translate(0);
                 }
 
                 &-prev {
                     opacity: 1;
-                    transform: translate(-100%, 0);
+                    transform: translate(0);
                 }
             }
         }
@@ -75,25 +82,47 @@
 
     &.c-slider--16-9 {
         .c-slider__container {
-            padding-top: Min(56.25%, 80vh);
+            padding-top: Min(100%, 80vh);
+            @include mq(map_get($breakpoints-map, "sm")) {
+                padding-top: Min(75%, 80vh);
+            }
+            @include mq(map_get($breakpoints-map, "md")) {
+                padding-top: Min(56.25%, 80vh);
+            }
         }
     }
 
     &.c-slider--4-3 {
         .c-slider__container {
-            padding-top: Min(75%, 80vh);
+            padding-top: Min(100%, 80vh);
+            @include mq(map_get($breakpoints-map, "sm")) {
+                padding-top: Min(75%, 80vh);
+            }
+            @include mq(map_get($breakpoints-map, "md")) {
+                padding-top: Min(75%, 80vh);
+            }
         }
     }
 
     &.c-slider--10-3 {
         .c-slider__container {
-            padding-top: Max(30%, calc(#{$base} * 40));
+            @include mq(map_get($breakpoints-map, "sm")) {
+                padding-top: Min(75%, 80vh);
+            }
+            @include mq(map_get($breakpoints-map, "md")) {
+                padding-top: Max(30%, calc(#{$base} * 40));
+            } 
         }
     }
 
     &.c-slider--36-7 {
         .c-slider__container {
-            padding-top: Max(19.44%, calc(#{$base} * 40));
+            @include mq(map_get($breakpoints-map, "sm")) {
+                padding-top: Min(75%, 80vh);
+            }
+            @include mq(map_get($breakpoints-map, "md")) {
+                padding-top: Max(19.44%, calc(#{$base} * 40));
+            }
         }
     }
 }

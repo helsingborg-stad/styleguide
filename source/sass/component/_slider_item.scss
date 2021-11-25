@@ -101,10 +101,13 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     .c-slider__item__container {
         padding: map-get($spacers, "4");
         border-radius: $border-radius-lg;
-        max-width: calc(#{$base} * 118);
         margin-left: auto;
         margin-right: auto;
-        width: 100%;
+        width: calc(100% - (#{$base} * 10));
+        max-width: calc(#{$base} * 118);
+        max-height: calc(100% - (#{$base} * 10));
+        align-self: center;
+        overflow: scroll;
     }
 
     .c-slider__item__heading {
