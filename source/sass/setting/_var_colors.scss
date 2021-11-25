@@ -225,3 +225,7 @@ $color-border-divider: var(--color-border-divider, rgba(0,0,0,.1));
 $color-border-card: var(--color-border-card, $color-paper-background);
 $color-border-outline: var(--color-border-outline, $color-border-divider);
 $color-border-input: var(--color-border-input, $color-border-divider);
+
+// Background
+$color-background: var(--color-background, $color-default) !default;
+$color-background-card: var(--color-background-card, $color-white) !default;
