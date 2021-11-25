@@ -47,20 +47,16 @@ $drop-shadow-5:         var(--drop-shadow-5, drop-shadow(0px calc(12px * #{$drop
 
 $drop-shadow-list: $drop-shadow-0 $drop-shadow-1 $drop-shadow-2 $drop-shadow-3 $drop-shadow-4 $drop-shadow-5 !default; //   example usage: nth($drop-shadow-list, 1);
 
-//  Borders
+//  Borders widths
 //  ------------------------
-//  Thin - dividers etc
-//  Medium - button
-//  Large - Card, Paper etc
-
-$border-width-thin:     var(--border-width-thin, 1px) !default;
-$border-width-medium:   var(--border-width-medium, 1px) !default;
-$border-width-large:    var(--border-width-large, 1px) !default;
-
-$border-color-thin:     var(--border-color-thin, rgba(0,0,0,.1)) !default;
-$border-color-medium:   var(--border-color-medium, rgba(0,0,0,.1)) !default;
-$border-color-large:    var(--border-color-large, rgba(0,0,0,.1)) !default;
-
-$border-style-thin:     var(--border-style-thin, solid) !default;
-$border-style-medium:   var(--border-style-medium, solid) !default;
-$border-style-large:    var(--border-style-large, solid) !default;
+$border-width-thin:             var(--border-width-thin, 1px) !default;
+$border-width-medium:           var(--border-width-medium, 2px) !default;
+$border-width-large:            var(--border-width-large, 4px) !default;
+//---------------------------
+$border-width-divider:          var(--border-width-divider, $border-width-thin) !default;       //  Collection, <hr> & other seperators of related content
+$border-width-highlight:        var(--border-width-highlight, $border-width-large) !default;    //  Active Tab, Active nav item etc
+$border-width-card:             var(--border-width-card, 0px) !default;                         //  Elevated card border (none by default)
+$border-width-outline:          var(--border-width-outline, $color-border-divider) !default;    //  Outlined card
+$border-width-button:           var(--border-width-button, $border-width-medium) !default;      //  Outlined button
+$border-width-input:            var(--border-width-input, $border-width-thin) !default;         //  Input
+//---------------------------
