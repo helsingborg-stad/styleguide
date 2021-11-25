@@ -17,6 +17,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     position: relative;
     background-color: $color-white;
     border-radius: $c-card-border-radius;
+    transition: all 200ms ease-in;
     border: $c-card-border-width solid $c-card-border-color;
 
     & > *:first-child  {
@@ -314,8 +315,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 a.c-card {
     text-decoration: none;
     color: inherit;
-    transition: transform 350ms ease-in-out, filter 350ms ease-in-out,
-    background-color 200ms ease-in-out;
+    // transition: transform 350ms ease-in-out, filter 350ms ease-in-out, background-color 350 ease-in-out;
 
     .c-card__image {
         position: relative;
@@ -341,6 +341,7 @@ a.c-card {
         background-color: $color-lightest;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transition: all 200ms ease-out;
 
         .c-card__heading {
             text-decoration: underline;
