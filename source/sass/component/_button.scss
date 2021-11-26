@@ -3,13 +3,13 @@ $button-font-weight: var(--button-font-weight, $font-weight-button);
 
 $button-text-transform: var(--button-text-transform, $text-transform-button);
 $c-button-color: var(--c-button-color, $color-default) !default;
-$c-button-color-contrasting: var(--c-button-contrasting, $color-default-darker) !default;
+$c-button-color-contrasting: var(--c-button-color-contrasting, $color-default-darker) !default;
 
 $c-button-primary-color: var(--c-button-primary-color, $color-primary) !default;
-$c-button-primary-color-contrasting: var(--c-button-primary-contrasting, $color-primary-contrasting) !default;
+$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, $color-primary-contrasting) !default;
 
 $c-button-secondary-color: var(--c-button-secondary-color, $color-secondary) !default;
-$c-button-secondary-color-contrasting: var(--c-button-secondary-contrasting, $color-secondary-contrasting) !default;
+$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, $color-secondary-contrasting) !default;
 
 $c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
 $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
