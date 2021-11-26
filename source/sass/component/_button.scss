@@ -149,7 +149,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--secondary {
         background-color: $c-button-secondary-color;
-        color:$color-button-secondary-text;
+        color: $c-button-secondary-color-contrasting;
     }
 
     &--default,
@@ -324,7 +324,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
         background-color: $c-button-secondary-color;
-        color: $color-button-secondary-text;
+        color: $c-button-secondary-color-contrasting;
     }
     
 }
