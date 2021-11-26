@@ -1,7 +1,15 @@
-
 $button-line-height: var(--button-line-height, $line-height-button);
 $button-font-weight: var(--button-font-weight, $font-weight-button);
+
 $button-text-transform: var(--button-text-transform, $text-transform-button);
+$c-button-color: var(--c-button-color, $color-default) !default;
+$c-button-color-contrasting: var(--c-button-contrasting, $color-default-darker) !default;
+
+$c-button-primary-color: var(--c-button-primary-color, $color-primary) !default;
+$c-button-primary-color-contrasting: var(--c-button-primary-contrasting, $color-primary-contrasting) !default;
+
+$c-button-secondary-color: var(--c-button-secondary-color, $color-secondary) !default;
+$c-button-secondary-color-contrasting: var(--c-button-secondary-contrasting, $color-secondary-contrasting) !default;
 
 $c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
 $c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
@@ -115,11 +123,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &--primary {
-        color: $color-button-primary-bg;
+        color: $c-button-primary-color;
     }
 
     &--secondary {
-        color: $color-button-secondary-bg;
+        color: $c-button-secondary-color;
     }
 
     &--default,
@@ -135,19 +143,19 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     filter: $drop-shadow-1;
 
     &--primary {
-        background-color: $color-button-primary-bg;
-        color: $color-button-primary-text;
+        background-color: $c-button-primary-color;
+        color:  $c-button-primary-color-contrasting;
     }
 
     &--secondary {
-        background-color: $color-button-secondary-bg;
+        background-color: $c-button-secondary-color;
         color:$color-button-secondary-text;
     }
 
     &--default,
     &--deafult {
-        background-color: $color-button-default-bg;
-        color: $color-button-default-text;
+        background-color: $c-button-color;
+        color: $c-button-color-contrasting;
 
         &:hover:after {
             background: $color-black !important;
@@ -194,31 +202,31 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 .c-button__outlined {
     
     &--primary {
-        border: $c-button-border-width solid $color-button-primary-bg;
-        color: $color-button-primary-bg;
+        border: $c-button-border-width solid $c-button-primary-color;
+        color: $c-button-primary-color;
 
         &:hover:after {
-            background: $color-button-primary-bg;
+            background: $c-button-primary-color;
             opacity: .08;
         }
 
         &:active:after {
-            background: $color-button-primary-bg;
+            background: $c-button-primary-color;
             opacity: .24;
         }
     }
 
     &--secondary {
-        border: $c-button-border-width solid $color-button-secondary-bg;
-        color: $color-button-secondary-bg;
+        border: $c-button-border-width solid $c-button-secondary-color;
+        color: $c-button-secondary-color;
 
         &:hover:after {
-            background: $color-button-secondary-bg;
+            background: $c-button-secondary-color;
             opacity: .08;
         }
 
         &:active:after {
-            background: $color-button-secondary-bg;
+            background: $c-button-secondary-color;
             opacity: .24;
         }
     }
@@ -302,20 +310,20 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
                 background 100ms ease-in-out; 
 
     &[aria-pressed='true'] { //Default
-        color: $color-button-primary-bg;
+        color: $c-button-primary-color;
     }
 
     &.c-button__filled--primary[aria-pressed='true'],
     &.c-button__basic--primary[aria-pressed='true'],
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $color-button-primary-bg;
+        background-color: $c-button-primary-color;
         color: $color-button-primary-text;
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $color-button-secondary-bg;
+        background-color: $c-button-secondary-color;
         color: $color-button-secondary-text;
     }
     
