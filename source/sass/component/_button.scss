@@ -145,11 +145,19 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--primary {
         background-color: $c-button-primary-color;
         color:  $c-button-primary-color-contrasting;
+
+        .c-button__label {
+            color:  $c-button-primary-color-contrasting;  
+        }
     }
 
     &--secondary {
         background-color: $c-button-secondary-color;
         color: $c-button-secondary-color-contrasting;
+                
+        .c-button__label {
+            color: $c-button-secondary-color-contrasting;
+        }
     }
 
     &--default,
@@ -164,6 +172,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
         &:hover:active:after {
             opacity: .12 !important;
+        }
+
+                
+        .c-button__label {
+            color: $c-button-color-contrasting;
         }
     }
 
