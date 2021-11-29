@@ -122,16 +122,20 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
     }
 
-    &--primary {
+    &--primary,
+    &--primary .c-button__label
+     {
         color: $c-button-primary-color;
     }
 
-    &--secondary {
+    &--secondary,
+    &--secondary .c-button__label {
         color: $c-button-secondary-color;
     }
 
     &--default,
-    &--deafult {
+    &--deafult,
+    &--deafult .c-button__label {
         color: $color-button-black;
     }
 }
@@ -218,6 +222,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         border: $c-button-border-width solid $c-button-primary-color;
         color: $c-button-primary-color;
 
+        .c-button__label {
+            color: $c-button-primary-color;
+        }
+
         &:hover:after {
             background: $c-button-primary-color;
             opacity: .08;
@@ -232,6 +240,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--secondary {
         border: $c-button-border-width solid $c-button-secondary-color;
         color: $c-button-secondary-color;
+
+        .c-button__label {
+            color: $c-button-secondary-color;
+        }
 
         &:hover:after {
             background: $c-button-secondary-color;
@@ -248,6 +260,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--deafult {
         border: $c-button-border-width solid $color-button-default-text;
         color: $color-button-default-text;
+
+
+        .c-button__label {
+            color: $color-button-default-text;
+        }
 
         &:hover:after {
             background: $color-button-default-text;
