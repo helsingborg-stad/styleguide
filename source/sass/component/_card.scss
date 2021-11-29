@@ -7,7 +7,7 @@ $c-card-border-color: var(--c-card-border-color, $color-border-card) !default;
 $c-card-border-width-outline: var(--c-card-border-width-outline, $border-width-outline) !default;
 $c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-outline) !default;
 
-$c-card-border-width-divider: var(--c-card-border-width-divider, $color-border-divider) !default;
+$c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
 $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
 
 .c-card {
@@ -217,8 +217,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     }
 
     &__footer {
-        border-top: $c-card-border-width-divider solid;
-        border-color: $c-card-border-color-divider;
+        border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
     }
 
     &__image + &__title + &__body {
