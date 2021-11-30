@@ -91,6 +91,11 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
 
 }
 
+.c-typography__variant--notice-title::after {
+    content: "";
+    display: block;
+}
+
 .c-notice__message {
 
     &--inherit {

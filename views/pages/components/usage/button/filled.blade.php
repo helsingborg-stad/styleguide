@@ -1,7 +1,8 @@
 @button([
     'text' => 'Primary filled',
     'color' => 'primary',
-    'style' => 'filled'
+    'style' => 'filled',
+    'href' => 'https://helsingborg.se'
 
 ])
 @endbutton

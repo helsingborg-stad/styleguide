@@ -39,6 +39,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         position: relative;
         z-index: $level-2;
         transition: opacity 100ms, color 100ms;
+        text-decoration: none;
 
         * {
             align-self: center;
@@ -58,7 +59,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--md {
         @include button-size(
             calc(#{$base}* 2),
-            calc(#{$base}* 3),
+            calc(#{$base}* 2.5),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
             $c-button-border-radius
@@ -177,8 +178,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         &:hover:active:after {
             opacity: .12 !important;
         }
-
-                
+  
         .c-button__label {
             color: $c-button-color-contrasting;
         }
@@ -260,7 +260,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--deafult {
         border: $c-button-border-width solid $color-button-default-text;
         color: $color-button-default-text;
-
 
         .c-button__label {
             color: $color-button-default-text;

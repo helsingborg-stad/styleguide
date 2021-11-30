@@ -1,7 +1,8 @@
 @button([
     'text' => 'Primary outlined',
     'style' => 'outlined',
-    'color' => 'primary'
+    'color' => 'primary',
+    'href' => 'https://helsingborg.se'
 ])
 @endbutton
 
