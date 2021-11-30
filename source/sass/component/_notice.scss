@@ -1,8 +1,25 @@
+$c-notice-color-text: var(--notice-color-text, #d73740) !default;
+$c-notice-color-background: var(--notice-color-background, #d73740) !default;
+
+$c-notice-color-success-text: var(--c-notice-color-success-text, $color-success-contrasting) !default;
+$c-notice-color-success-background: var(--notice-color-success-background, $color-success) !default;
+
+$c-notice-color-danger-text: var(--notice-color-danger-text $color-danger-contrasting) !default;
+$c-notice-color-danger-background: var(--notice-color-danger-background, $color-danger) !default;
+
+$c-notice-color-info-text: var(--notice-color-info-text, $color-info-contrasting) !default;
+$c-notice-color-info-background: var(--notice-color-info-background, $color-info) !default;
+
+$c-notice-color-warning-text: var(--notice-color-warning-text, $color-warning-contrasting) !default;
+$c-notice-color-warning-background: var(--notice-color-warning-background, $color-warning) !default;
+
+$c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default;
+
 .c-notice {
-    @include shadow(5);
+    filter: $drop-shadow-5;
     padding: map-get($spacers, "2") map-get($spacers, "3");
     background-color: $color-base;
-    border-radius: $border-radius-sm;
+    border-radius: $c-notice-border-radius;
     color: $color-notice-text-default;
 
     a,
@@ -14,53 +31,53 @@
     }
 
     &--success {
-        background-color: $color-success;
-        color: $color-success-text;
+        background-color: $c-notice-color-success-background;
+        color: $c-notice-color-success-text;
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $color-success-text;
+            color: $c-notice-color-success-text;
             text-decoration: underline;
         }
     }
 
     &--danger {
-        background-color: $color-danger;
-        color: $color-danger-text;
+        background-color: $c-notice-color-danger-background;
+        color: $c-notice-color-danger-text;
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $color-danger-text;
+            color: $c-notice-color-danger-text;
             text-decoration: underline;
         }
     }
 
     &--info {
-        background-color: $color-info;
-        color: $color-info-text;
+        background-color: $c-notice-color-info-background;
+        color: $c-notice-color-info-text;
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $color-info-text;
+            color: $c-notice-color-info-text;
             text-decoration: underline;
         }
     }
 
     &--warning {
-        background-color: $color-warning;
-        color: $color-warning-text;
+        background-color: $c-notice-color-warning-background;
+        color: $c-notice-color-warning-text;
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $color-warning-text;
+            color: $c-notice-color-warning-text;
             text-decoration: underline;
         }
     }

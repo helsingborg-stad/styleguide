@@ -1,3 +1,5 @@
+$c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
+
 .c-modal {
     position: relative;
     background-color: white;
@@ -9,8 +11,10 @@
     width:100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
+    border-radius: $c-modal-border-radius;
     
-    @include shadow(3);
+    
+    filter: $drop-shadow-3;
 
     &--border-radius-sm {
         border-radius: $border-radius-sm;
@@ -142,6 +146,7 @@
 
             &:hover {
                 box-shadow: none;
+                filter: $drop-shadow-0;
                 background: none;
             }
         }

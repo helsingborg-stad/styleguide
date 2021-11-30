@@ -1,10 +1,11 @@
+$c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
 
 .c-tag + .c-tag {
     margin-left: calc(#{$base} * 0.5);
 }
 .c-tag {
     padding: calc(#{$base} * 0.5) calc(#{$base});
-    border-radius: $border-radius-sm;
+    border-radius: $c-tag-border-radius;
     text-decoration: none;
     color: $color-base;
     font-size: $font-size-meta;

@@ -13,7 +13,7 @@
     color: $color-black;
     
     z-index: $level-6;
-    @include shadow(1);
+    filter: $drop-shadow-1;
 
     &--border-top{
         border-top: $base solid $color-nav-top-accent;

@@ -1,3 +1,5 @@
+
+
 .c-notification {
     cursor: pointer;
     margin-bottom:1%;
@@ -74,8 +76,7 @@
 }
 
 .c-notification .c-notice {
-    border-radius: 0.5em;
-    @include shadow(5);
+    filter: $drop-shadow-5;
 }
 
 @-webkit-keyframes fadeOut {

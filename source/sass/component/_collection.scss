@@ -1,3 +1,5 @@
+
+
 $collection-padding-x: calc(#{$base} * 2) !default;
 $collection-paddding-y: calc(#{$base} * 2) !default;
 $collection-paddding-y-compact: calc(#{$base} * 0.75) !default;
@@ -5,12 +7,21 @@ $collection-paddding-y-compact: calc(#{$base} * 0.75) !default;
 $collection-compact-padding-x: $collection-padding-x !default;
 $collection-compact-padding-y: $base !default;
 
-$collection-border-color: rgba(black, .1) !default;
+$collection-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 $collection-border: solid 1px $collection-border-color !default;
 
 $collection-hover-background: rgba(black, .05) !default;
 $collection-hover-color: rgba(black, .1) !default;
 $collection-hover-border: rgba(black, .1) !default;
+
+$c-collection-border-radius: var(--c-collection-border-radius, $border-radius-md) !default;
+
+$c-collection-border-width: var(--c-collection-border-width, $border-width-outline) !default;
+$c-collection-border-color: var(--c-collection-border-color, $color-border-outline) !default;
+
+$c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
+$c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
+
 
 // Reset
 .c-collection {
@@ -27,8 +38,9 @@ $collection-hover-border: rgba(black, .1) !default;
 }
 
 .c-collection {
-    border-radius: 12.5px;
-    border: $collection-border;
+    border-radius: $c-collection-border-radius;
+    border: $c-collection-border-width solid;
+    border-color: $c-collection-border-color;
     padding-top: $base;
     padding-bottom: $base;
 
@@ -45,7 +57,8 @@ $collection-hover-border: rgba(black, .1) !default;
     // Divider
     .c-collection__divider {
         border: none;
-        border-top: $collection-border;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
         margin-top: $base;
         margin-bottom: $base;
     }
@@ -150,7 +163,8 @@ $collection-hover-border: rgba(black, .1) !default;
 // Modifiers - Bordered
 .c-collection.c-collection--bordered {
     .c-collection__item {
-        border-top: $collection-border;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
     }
     
     .c-collection__item:first-child {
@@ -187,11 +201,11 @@ $collection-hover-border: rgba(black, .1) !default;
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
-    border-radius: 0 0 12.5px 12.5px;   
+    border-radius: 0 0 $c-collection-border-radius $c-collection-border-radius;   
 }
 
 .c-collection.c-collection--sharp-bot {
-    border-radius: 12.5px 12.5px 0 0;    
+    border-radius: $c-collection-border-radius $c-collection-border-radius 0 0;    
 
 }
 .c-collection.c-collection--sharp {
@@ -213,7 +227,8 @@ $collection-hover-border: rgba(black, .1) !default;
     padding-bottom: 0;
 
     .c-collection__item {
-        border-top: $collection-border;
+        border-top: $c-collection-divider-border-width solid;
+        border-color: $c-collection-divider-border-color;
     }
     
     .c-collection__item:first-child {
@@ -233,7 +248,7 @@ $collection-hover-border: rgba(black, .1) !default;
     }
 
     .c-collection__item > .c-collection__secondary {
-        border-left: $collection-border;
+        border-left: $c-collection-divider-border-width solid;
     }
 
     .c-collection {
@@ -241,7 +256,7 @@ $collection-hover-border: rgba(black, .1) !default;
         padding-top: 0;
         padding-left: unset;
         border-left: solid $base $collection-border-color;
-        border-top: $collection-border;
+        border-top: $c-collection-divider-border-width solid;
     }
 }
 

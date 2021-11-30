@@ -1,3 +1,6 @@
+$c-field-border-radius: var(--c-field-border-radius, $border-radius-md) !default;
+$c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
+
 .c-field {
 
     $grandparent: &;
@@ -23,7 +26,7 @@
         background: $color-form-fields;
         background-size: calc(#{$base}*2);
 
-        border-radius: $border-radius-md;
+        border-radius: $c-field-border-radius;
 
         transition: color .1s ease, border-color .1s ease;
 
@@ -243,7 +246,7 @@
             display: inline-block;
             visibility: visible;
             color: $color-primary;
-            border-radius: $border-radius-xs;
+            border-radius: $c-field-border-radius-color;
             cursor: pointer;
         }
     }
@@ -266,7 +269,7 @@
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 $border-radius-sm $border-radius-sm;
+        border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
         box-sizing: border-box;
 
         &.error {

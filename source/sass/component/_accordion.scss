@@ -1,14 +1,19 @@
+
+$c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
+$c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
+
+
 .c-accordion {
     background: white;
-    @include shadow(1);
+
 
     &__button {
         @include button-unstyled;
-        border-top: 1px solid $color-gray-light;
+        border-top: $c-accordion-border-width solid $c-accordion-border-color;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
-        font-weight: $font-weight-bold;
+        // font-weight: $font-weight-bold;
         color: inherit;
 
         &> {
@@ -26,11 +31,6 @@
         }
 
         &[aria-expanded="true"] {
-
-            .c-accordion__button-wrapper  {
-                background-color: #fbfbfb;
-            }
-
             .c-accordion__icon {
                 transform: rotate(180deg);
                 transition: ease .3s transform;
@@ -85,16 +85,6 @@
 
         *:first-child { 
             margin-top: 0; 
-        }
-
-        &:before {
-            content: ""; 
-            position: absolute;
-            height: $base;
-            top: 0; 
-            right: 0;
-            left: 0; 
-            background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(255,255,255,0) 100%);
         }
     }
 

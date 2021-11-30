@@ -37,7 +37,7 @@
         background-color: $color-default;
         color: $color-primary;
         padding:2%;
-        @include shadow(5);
+        filter: $drop-shadow-5;
         z-index: 9999;
     }
 
@@ -261,12 +261,13 @@
     flex-direction: row;
     border-bottom: 1px solid rgba(21, 21, 21, .12);
     border-right: 1px solid rgba(21, 21, 21, .12);
-    -webkit-transition: box-shadow 200ms ease-in-out;
+    -webkit-transition: filter 200ms ease-in-out;
     -webkit-transition: -webkit-box-shadow 200ms ease-in-out;
     transition: -webkit-box-shadow 200ms ease-in-out;
-    -o-transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out;
-    transition: box-shadow 200ms ease-in-out, -webkit-box-shadow 200ms ease-in-out;
+    -o-transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out;
+    transition: filter 200ms ease-in-out, -webkit-box-shadow 200ms ease-in-out;
+    will-change: filter;
 }
 
 .cjslib-day:last-child {

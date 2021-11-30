@@ -1,11 +1,32 @@
-@for $level from 1 through 5 {
+// DEPRECATED: u-box-shadow--XX classes will be removed in future
 
-    .u-box-shadow--none,
-    .u-box-shadow--0 {
-        box-shadow: none; 
-    }
-
-    .u-box-shadow--#{$level} {
-        @include shadow($level);
-    }
+.u-drop-shadow-1,
+.u-box-shadow--1 {
+    filter: $drop-shadow-1;
 }
+.u-drop-shadow-2,
+.u-box-shadow--2 {
+    filter: $drop-shadow-2;
+}
+.u-drop-shadow-3,
+.u-box-shadow--3 {
+    filter: $drop-shadow-3;
+}
+.u-drop-shadow-4,
+.u-box-shadow--4 {
+    filter: $drop-shadow-4;
+}
+.u-drop-shadow-5,
+.u-box-shadow--5 {
+    filter: $drop-shadow-5;
+}
+
+
+.u-drop-shadow-0,
+.u-box-shadow--none,
+.u-box-shadow--0 {
+    box-shadow: none; 
+    filter: $drop-shadow-0;
+}
+
+

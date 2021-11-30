@@ -28,17 +28,14 @@
     display: grid;
     grid-template-columns: calc(#{$base} * 10) auto;
     grid-template-areas: "image header" "quote quote";
-    background-color: $color-lightest;
     padding: map-get($spacers, "4");
-    border-radius: calc(#{$base} * 0.5);
-    @include shadow(0.5);
 
     .c-testimonial__image {
         width: calc(#{$base} * 10);
         max-height: calc(#{$base} * 12);
         border-radius: calc(#{$base} * 1);
         overflow: hidden;
-        @include shadow(3);
+        filter: $drop-shadow-3;
 
         &.c-image .c-image__image {
             object-fit: cover;

@@ -1,3 +1,22 @@
+$button-line-height: var(--button-line-height, $line-height-button);
+$button-font-weight: var(--button-font-weight, $font-weight-button);
+
+$button-text-transform: var(--button-text-transform, $text-transform-button);
+$c-button-color: var(--c-button-color, $color-default) !default;
+$c-button-color-contrasting: var(--c-button-color-contrasting, $color-default-darker) !default;
+
+$c-button-primary-color: var(--c-button-primary-color, $color-primary) !default;
+$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, $color-primary-contrasting) !default;
+
+$c-button-secondary-color: var(--c-button-secondary-color, $color-secondary) !default;
+$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, $color-secondary-contrasting) !default;
+
+$c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
+$c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
+
+$c-button-border-width: var(--c-button-border-width, $border-width-button) !default;
+
+
 // BUTTON
 .c-button {
     display: inline-flex;
@@ -5,8 +24,9 @@
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-    line-height: 1;
-    font-weight: 500;
+    line-height: $button-line-height;
+    font-weight: $button-font-weight;
+    text-transform: $button-text-transform;
     background-color: transparent;
     border: none;
     user-select: none;
@@ -32,7 +52,7 @@
             calc(#{$base}* 5),
             $font-size-btn-lg,
             $font-size-btn-lg-line-height,
-            $border-radius-md
+            $c-button-border-radius
         );
     }
 
@@ -42,7 +62,7 @@
             calc(#{$base}* 2.5),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
-            $border-radius-md
+            $c-button-border-radius
         );
     }
 
@@ -53,7 +73,7 @@
             calc(#{$base}* 2),
             $font-size-btn-sm,
             $font-size-btn-sm-line-height,
-            $border-radius-sm
+            $c-button-border-radius-small
         );
     }
 
@@ -90,6 +110,7 @@
 .c-button__basic {
     border: none;
     box-shadow: none;
+    filter: $drop-shadow-0;
     transition: transform 100ms ease-in-out;
 
     /* Allows disabled basic buttons */ 
@@ -102,47 +123,53 @@
         }
     }
 
-    &--primary .c-button__label {
-        color: $color-button-primary-bg;
+    &--primary,
+    &--primary .c-button__label
+     {
+        color: $c-button-primary-color;
     }
 
+    &--secondary,
     &--secondary .c-button__label {
-        color: $color-button-secondary-bg;
+        color: $c-button-secondary-color;
     }
 
-    &--default  .c-button__label {
+    &--default,
+    &--deafult,
+    &--deafult .c-button__label {
         color: $color-button-black;
     }
 }
 
 // Background and border
 .c-button__filled {
-    transition: box-shadow 200ms ease-in-out; 
-    @include shadow(1);
+    will-change: filter;
+    transition: filter 200ms ease-in-out; 
+    filter: $drop-shadow-1;
 
     &--primary {
-        background-color: $color-button-primary-bg;
+        background-color: $c-button-primary-color;
+        color:  $c-button-primary-color-contrasting;
 
         .c-button__label {
-            color: $color-button-primary-text;
+            color:  $c-button-primary-color-contrasting;  
         }
     }
 
     &--secondary {
-        background-color: $color-button-secondary-bg;
-
+        background-color: $c-button-secondary-color;
+        color: $c-button-secondary-color-contrasting;
+                
         .c-button__label {
-            color:$color-button-secondary-text;
+            color: $c-button-secondary-color-contrasting;
         }
     }
 
-    &--default {
-        background-color: $color-button-default-bg;
-    
-        .c-button__label {
-            color: $color-button-default-text;
-        }
- 
+    &--default,
+    &--deafult {
+        background-color: $c-button-color;
+        color: $c-button-color-contrasting;
+
         &:hover:after {
             background: $color-black !important;
             opacity: .06 !important;
@@ -150,6 +177,10 @@
 
         &:hover:active:after {
             opacity: .12 !important;
+        }
+  
+        .c-button__label {
+            color: $c-button-color-contrasting;
         }
     }
 
@@ -160,7 +191,7 @@
 
     /* Hover state (hover) */
     &:hover {
-        @include shadow(2);
+        filter: $drop-shadow-2;
 
         &:after {
             background: $color-white;
@@ -170,7 +201,7 @@
 
     /* Active state (pressed) */ 
     &:hover:active {
-        @include shadow(1);
+        filter: $drop-shadow-1;
 
         &:after {
             background: $color-black;
@@ -188,43 +219,47 @@
 .c-button__outlined {
     
     &--primary {
-        border: 2px solid $color-button-primary-bg;
-    
+        border: $c-button-border-width solid $c-button-primary-color;
+        color: $c-button-primary-color;
+
         .c-button__label {
-            color: $color-button-primary-bg;
+            color: $c-button-primary-color;
         }
 
         &:hover:after {
-            background: $color-button-primary-bg;
+            background: $c-button-primary-color;
             opacity: .08;
         }
 
         &:active:after {
-            background: $color-button-primary-bg;
+            background: $c-button-primary-color;
             opacity: .24;
         }
     }
 
     &--secondary {
-        border: 2px solid $color-button-secondary-bg;
+        border: $c-button-border-width solid $c-button-secondary-color;
+        color: $c-button-secondary-color;
 
         .c-button__label {
-            color: $color-button-secondary-bg;
+            color: $c-button-secondary-color;
         }
 
         &:hover:after {
-            background: $color-button-secondary-bg;
+            background: $c-button-secondary-color;
             opacity: .08;
         }
 
         &:active:after {
-            background: $color-button-secondary-bg;
+            background: $c-button-secondary-color;
             opacity: .24;
         }
     }
 
-    &--default {
-        border: 2px solid $color-button-default-text;
+    &--default,
+    &--deafult {
+        border: $c-button-border-width solid $color-button-default-text;
+        color: $color-button-default-text;
 
         .c-button__label {
             color: $color-button-default-text;
@@ -304,29 +339,21 @@
                 background 100ms ease-in-out; 
 
     &[aria-pressed='true'] { //Default
-        .c-button__label {
-            color: $color-button-primary-bg;
-        }
+        color: $c-button-primary-color;
     }
 
     &.c-button__filled--primary[aria-pressed='true'],
     &.c-button__basic--primary[aria-pressed='true'],
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $color-button-primary-bg;
-
-        .c-button__label {
-            color: $color-button-primary-text;
-        }
+        background-color: $c-button-primary-color;
+        color: $color-button-primary-text;
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $color-button-secondary-bg;
-        
-        .c-button__label {
-            color: $color-button-secondary-text;
-        }
+        background-color: $c-button-secondary-color;
+        color: $c-button-secondary-color-contrasting;
     }
     
 }
@@ -339,7 +366,7 @@
             calc(#{$base}* 2),
             $font-size-btn-lg,
             $font-size-btn-lg-line-height,
-            12.5px
+            $c-button-border-radius
         );
 
         &.c-button--icon-only {
@@ -353,7 +380,7 @@
             calc(#{$base}* 1.5),
             $font-size-btn-md,
             $font-size-btn-md-line-height,
-            12.5px
+            $c-button-border-radius
         );
 
         &.c-button--icon-only {
@@ -367,7 +394,7 @@
             $base, 
             $font-size-btn-sm, 
             $font-size-btn-sm-line-height, 
-            7.5px
+            $c-button-border-radius-small
         );
 
         &.c-button--icon-only {

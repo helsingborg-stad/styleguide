@@ -1,10 +1,40 @@
+$c-card-color-background: var(--c-card-color-background, $color-background-card) !default;
+$c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
+
+$c-card-border-width: var(--c-card-border-width, $border-width-card) !default;
+$c-card-border-color: var(--c-card-border-color, $color-border-card) !default;
+
+$c-card-border-width-outline: var(--c-card-border-width-outline, $border-width-outline) !default;
+$c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-outline) !default;
+
+$c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
+$c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
+
 .c-card {
-    @include shadow(2);
-    display: block;
+    filter: $drop-shadow-2;
+    will-change: filter;
+    display: flex;
+    flex-direction: column;
     position: relative;
-    background-color: $color-white;
-    border-radius: $border-radius-lg;
-    overflow: hidden;
+    background-color: $c-card-color-background;
+    border-radius: $c-card-border-radius;
+    transition: all 200ms ease-in;
+    border: $c-card-border-width solid $c-card-border-color;
+
+    & > *:first-child  {
+        border-top-left-radius: $c-card-border-radius;
+        border-top-right-radius: $c-card-border-radius;
+
+        .c-card__image-background {
+            border-top-left-radius: $c-card-border-radius;
+            border-top-right-radius: $c-card-border-radius;
+        }
+    }
+
+    & > *:last-child  {
+        border-bottom-left-radius: $c-card-border-radius;
+        border-bottom-right-radius: $c-card-border-radius;
+    }
 
     &__header i{
         vertical-align: top;
@@ -12,6 +42,10 @@
         & ~ :is(h1, h2, h3, h4, h5, h6) {
             display: inline;
         }
+    }
+
+    &--outline {
+        border: $c-card-border-width solid;
     }
 
     &--highlight {
@@ -183,7 +217,7 @@
     }
 
     &__footer {
-        border-top: 1px solid $color-lighter;
+        border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
     }
 
     &__image + &__title + &__body {
@@ -281,11 +315,9 @@
 a.c-card {
     text-decoration: none;
     color: inherit;
-    transition: transform 350ms ease-in-out, box-shadow 350ms ease-in-out,
-        background-color 200ms ease-in-out;
+    // transition: transform 350ms ease-in-out, filter 350ms ease-in-out, background-color 350 ease-in-out;
 
     .c-card__image {
-        overflow: hidden;
         position: relative;
     }
 
@@ -305,18 +337,14 @@ a.c-card {
     }
 
     &:hover {
-        @include shadow(3);
-        background-color: $color-code-background;
+        filter: $drop-shadow-3;
+        background-color: $color-lightest;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transition: all 200ms ease-out;
 
         .c-card__heading {
             text-decoration: underline;
-        }
-
-        .c-card__header,
-        .c-card__body {
-            background: $color-lightest;
         }
 
         .c-card__image:before {

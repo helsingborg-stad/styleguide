@@ -1,3 +1,10 @@
+
+$lead-font-size: var(--lead-font-size, $font-size-lead);
+$lead-line-height: var(--lead-line-height, $line-height-base);
+$lead-font-weight: var(--lead-font-weight, $font-weight-medium);
+
 .lead {
-    font-size: $font-size-lead;
+    font-size: $lead-font-size;
+    line-height: $lead-line-height;
+    font-weight: $lead-font-weight;
 }

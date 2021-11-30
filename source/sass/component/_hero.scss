@@ -1,3 +1,6 @@
+$c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
+$c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
+
 .c-hero {
   display: flex; 
   background-size: cover;
@@ -42,22 +45,6 @@
     clear: both;
   }
 
-  &.c-hero--text-light {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__body {
-      color: $color-white;
-    }
-  }
-
-  &.c-hero--text-dark {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__body {
-      color: $color-black;
-    }
-  }
-
   /** Modifiers - Full width */ 
   &.c-hero--stretch { /* Bleed outside container  left&right */ 
     position: relative;
@@ -66,15 +53,6 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-  }
-
-  /** Modifiers - overlay **/
-  &.c-hero--overlay-vibrant .c-hero__overlay {
-    background-color: var(--hero-overlay-color--vibrant, $color-general-overlay);
-  }
-
-  &.c-hero--overlay-neutral .c-hero__overlay {
-    background-color: var(--hero-overlay-color--neutral, $color-general-overlay);
   }
 
   /** Sub elements */ 
@@ -96,6 +74,12 @@
     text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
   }
 
+  .c-hero__title,
+  .c-hero__byline,
+  .c-hero__body {
+    color: $c-hero-color-font; 
+  }
+
   .c-hero__title {
     font-size: calc(#{$font-size-hero} + calc(1vw));
   }
@@ -108,4 +92,9 @@
   .c-hero__body {
     font-size: calc(#{$font-size-hero-body} + calc(.2vw));
   }
+
+  .c-hero__overlay {
+    background-color: $c-hero-color-overlay;
+  }
+
 }
