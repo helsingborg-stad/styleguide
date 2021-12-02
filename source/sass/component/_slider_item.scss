@@ -106,7 +106,7 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
         max-width: calc(#{$base} * 118);
         max-height: calc(100% - (#{$base} * 10));
         align-self: center;
-        overflow: scroll;
+        overflow: auto;
     }
 
     .c-slider__item__heading {
