@@ -62,6 +62,15 @@
         }
     }
 
+    tbody .c-table__line:nth-child(even) {
+        background-color: $color-default;
+    
+        th.c-table__column-0,
+        td.c-table__column-0 {
+            background-color: $color-complementary;
+        }
+    }
+
     tbody .c-table__line:last-of-type,
     tbody .c-table__line:last-of-type th.c-table__column-0,
     tbody .c-table__line:last-of-type td.c-table__column-0 {
