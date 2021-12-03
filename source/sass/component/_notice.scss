@@ -21,6 +21,32 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     background-color: $color-base;
     border-radius: $c-notice-border-radius;
     color: $color-notice-text-default;
+    display: grid;
+    grid-template-columns: min-content 2fr;
+    grid-template-rows: min-content;
+
+    .c-notice__icon {
+        margin-right: map-get($spacers, "2");
+        margin-left: calc(#{map-get($spacers, "1")} * -1);
+        vertical-align: sub;
+        grid-area: 1/1/2/1;
+        line-height: 1em;
+        opacity: .7;
+    }
+
+    .c-notice__title {
+        margin-top: 0;
+        grid-area: 1/2/1/2;
+        line-height: $body-line-height;
+    }
+
+    .c-notice__message {
+        grid-area: 1/2/1/2;
+    }
+
+    .c-notice__title + .c-notice__message {
+        grid-area: 2/2/2/2;
+    }
 
     a,
     a:hover,
@@ -82,49 +108,11 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         }
     }
 
-    &__icon {
-        margin-right: map-get($spacers, "2");
-        vertical-align: sub;
-        opacity: .7;
-        line-height: 1; 
-    }
-
 }
 
 .c-typography__variant--notice-title::after {
     content: "";
     display: block;
-}
-
-.c-notice__message {
-
-    &--inherit {
-        font-size: inherit;
-    }
-
-    &--xs {
-        font-size: $base; 
-    }
-
-    &--sm {
-        font-size: calc(#{$base} * 2); 
-    }
-
-    &--md {
-        font-size: calc(calc(#{$base} * 2) + calc(#{$base} / 4)); 
-    }
-
-    &--lg {
-        font-size: calc(calc(#{$base} * 2) + calc(#{$base} / 2)); 
-    }
-
-    &--xl {
-        font-size: calc(#{$base} * 3); 
-    }
-
-    &--xxl {
-        font-size: calc(#{$base} * 4);
-    }
 }
 
 .c-notice__slide {
@@ -152,9 +140,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
 }
 
 @media print {
-
     .c-notice {
         display: none;
     }
-
 }
