@@ -100,6 +100,10 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
     animation-delay: 600ms;
   }
 
+  .c-hero__title + .c-hero__body {
+    animation-delay: 400ms;
+  }
+
   .c-hero__overlay {
     background-color: $c-hero-color-overlay;
   }
