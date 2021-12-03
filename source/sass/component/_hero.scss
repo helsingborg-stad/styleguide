@@ -15,12 +15,14 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
   }
 
   &.c-hero--normal {
+    min-height: calc(#{$base} * 50);
     &:before {
       @include ratio(10, 3, false); 
     }
   }
 
   &.c-hero--large {
+    min-height: calc(#{$base} * 60);
     max-height: 70vh;
     &:before {
       @include ratio(16, 9, false);
