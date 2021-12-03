@@ -62,14 +62,14 @@
         }
     }
 
-    // tbody .c-table__line:nth-child(even) {
-    //     background-color: $color-white;
+    tbody .c-table__line:nth-child(even) {
+        background-color: $color-white;
     
-    //     th.c-table__column-0,
-    //     td.c-table__column-0 {
-    //         background-color: $color-white;
-    //     }
-    // }
+        th.c-table__column-0,
+        td.c-table__column-0 {
+            background-color: $color-white;
+        }
+    }
 
     tbody .c-table__line:last-of-type,
     tbody .c-table__line:last-of-type th.c-table__column-0,
