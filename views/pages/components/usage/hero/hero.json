@@ -13,5 +13,10 @@
         "heading": "Large hero",
         "subHeading": "",
         "text": "Renders a large hero area."
+    },
+    "largenotext": {
+        "heading": "Large hero (Without text)",
+        "subHeading": "",
+        "text": "Renders a large hero area, without text. Overlay should not be visible."
     }
 }
