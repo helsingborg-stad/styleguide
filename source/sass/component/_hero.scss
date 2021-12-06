@@ -15,12 +15,14 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
   }
 
   &.c-hero--normal {
+    min-height: calc(#{$base} * 50);
     &:before {
       @include ratio(10, 3, false); 
     }
   }
 
   &.c-hero--large {
+    min-height: calc(#{$base} * 60);
     max-height: 70vh;
     &:before {
       @include ratio(16, 9, false);
@@ -56,7 +58,7 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
   }
 
   /** Sub elements */ 
-  .c-hero__overlay {
+  &.c-hero--overlay .c-hero__overlay {
     @include cover();
     z-index: $level-1;
     box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
@@ -77,24 +79,44 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
   .c-hero__title,
   .c-hero__byline,
   .c-hero__body {
-    color: $c-hero-color-font; 
+    color: $c-hero-color-font;
+    animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
   }
 
   .c-hero__title {
     font-size: calc(#{$font-size-hero} + calc(1vw));
+    animation-delay: 200ms;
   }
 
   .c-hero__byline {
     font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
     font-weight: 700;
+    animation-delay: 400ms;
+    display: inline-block;
   }
 
   .c-hero__body {
     font-size: calc(#{$font-size-hero-body} + calc(.2vw));
+    animation-delay: 600ms;
+  }
+
+  .c-hero__title + .c-hero__body {
+    animation-delay: 400ms;
   }
 
   .c-hero__overlay {
     background-color: $c-hero-color-overlay;
   }
 
+}
+
+@keyframes hero-slide-in {
+  0% {
+    transform: translateY(calc(#{$base} * 4));
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
