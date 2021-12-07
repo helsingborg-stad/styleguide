@@ -67,6 +67,9 @@ class Fields {
         });
 
         for (const formInput of inputs) {
+            if (formInput.parentNode.hasAttribute('data-image-preview')) {
+                this.imageDrop(formInput);
+            }
             formInput.addEventListener('change', function (e) {
                 const parentElement = e.target.parentNode;
 
@@ -125,6 +128,22 @@ class Fields {
                 }
             });
         }
+    }
+
+    imageDrop(formInput) {
+        const imagePreviewId = formInput.parentNode.getAttribute('data-image-preview');
+        const imagePreviewArea = document.getElementById(imagePreviewId);
+        imagePreviewArea.addEventListener('dragover', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        imagePreviewArea.addEventListener('drop', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            formInput.files = e.dataTransfer.files;
+            formInput.dispatchEvent(new Event('change'));
+        });
     }
 
     /**
