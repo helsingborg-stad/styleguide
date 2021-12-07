@@ -1,0 +1,42 @@
+.c-imageinput {
+  .c-imageinput__preview {
+    display: block;
+
+    .c-imageinput__image {
+      position: relative;
+      min-height: 150px;
+      max-height: 300px;
+      width: 100%;
+      background-color: $color-form-fields;
+      border: 1px solid $color-form-fields;
+      border-radius: $border-radius-md;
+      transition: color .1s ease;
+      cursor: pointer;
+      overflow: hidden;
+
+      &:hover {
+        background-color: $color-form-fields-focus;
+        box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
+      }
+
+      &::before {
+        content: "\e43e";
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        font-size: 5rem;
+        color: $color-default-alpha;
+      }
+
+      img {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
