@@ -2,18 +2,16 @@
 $c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
 $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
 
-
 .c-accordion {
-    background: white;
+    padding-top: $base;
+    padding-bottom: $base;
 
-
-    &__button {
+    .c-accordion__button {
         @include button-unstyled;
         border-top: $c-accordion-border-width solid $c-accordion-border-color;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
-        // font-weight: $font-weight-bold;
         color: inherit;
 
         &> {
@@ -38,27 +36,27 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         }
     }
 
-    &__button:focus,
-    &__button-wrapper:focus {
+    .c-accordion__button:focus,
+    .c-accordion__button-wrapper:focus {
         outline: none;
     }
 
-    &__button:focus>&__button-wrapper {
+    .c-accordion__button:focus > .c-accordion__button-wrapper {
         outline-offset: 1px;
         outline: 1px dashed $color-gray;
     }
 
-    &__section:first-child &__button {
+    .c-accordion__section:first-child .c-accordion__button {
         border-top: none;
     }
 
-    &__button-wrapper {
+    .c-accordion__button-wrapper {
         padding: calc(#{$base} * 2) calc(#{$base} * 3);
         display: flex;
         align-items: center;
     }
 
-    &__icon {
+    .c-accordion__icon {
         margin-left: auto;
 
         &:before {
@@ -67,7 +65,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         }
     }
 
-    &__content {
+    .c-accordion__content {
         padding: calc(#{$base} * 2) calc(#{$base} * 3) calc(#{$base} * 2) calc(#{$base} * 3);
 
         &[aria-hidden="true"] {
@@ -105,7 +103,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
 .accordion-table__head {
     display: flex;
-    padding: 8px 24px;
+    padding: #{$base} calc(#{$base} * 3);
     background: #f5f5f5;
     font-size: .8em;
 }
@@ -117,18 +115,18 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
 .c-accordion-table .c-accordion__button .c-accordion__button-column,
 .accordion-table__head-column {
-    width:20%;
+    width: 20%;
     flex-grow: 1;
 }
 
-.c-accordion-table button {
-    position:relative;
+.c-accordion-table .c-accordion__button {
+    position: relative;
 }
 
 .c-accordion-table .c-accordion__icon,
 .c-accordion-table .c-accordion__button[aria-expanded="true"] .c-accordion__icon {
-    position:absolute;
-    right:30px;
+    position: absolute;
+    right: calc(#{$base} * 3);
 }
 
 /* Expand accordion when print page */ 

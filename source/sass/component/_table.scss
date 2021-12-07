@@ -20,10 +20,6 @@
         padding: calc(#{$base} * 1.5);
     }
 
-    &.c-table--box-shadow {
-        @include shadow(1.5);
-    }
-
     .c-table__fullscreen {
         position: absolute;
         right: 16px;

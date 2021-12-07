@@ -56,7 +56,7 @@ class Fields {
     fileInputOnChange() {
         const self = this;
         const inputs = document.querySelectorAll('.c-fileinput__input');
-        const noticeText = window.formbuilder?.files_max_exceeded ? window.formbuilder.files_max_exceeded : 'Max number of files exceeded';
+        const noticeText = (typeof formbuilder.files_max_exceeded !== 'undefined') && formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
         const notice = this.createNotice('danger', noticeText, 'report');
 
         //Removing multiple attribute as this JS will handle that for the browser
