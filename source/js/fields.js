@@ -56,10 +56,10 @@ class Fields {
     fileInputOnChange() {
         const self = this;
         const inputs = document.querySelectorAll('.c-fileinput__input');
-        const noticeText = (typeof formbuilder.files_max_exceeded !== 'undefined') && formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
+        const noticeText = (typeof formbuilder !== 'undefined') && formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
         const notice = this.createNotice('danger', noticeText, 'report');
 
-        //Removing multiple attribute as this JS will handle that for the browser
+        // Removing multiple attribute as this JS will handle that for the browser
         inputs.forEach(input => {
             if (input.hasAttribute('multiple')) {
                 input.removeAttribute('multiple');
@@ -68,7 +68,7 @@ class Fields {
 
         for (const formInput of inputs) {
             if (formInput.parentNode.hasAttribute('data-image-preview')) {
-                this.imageDrop(formInput);
+                this.setupImageDrop(formInput);
             }
             formInput.addEventListener('change', function (e) {
                 const parentElement = e.target.parentNode;
@@ -130,9 +130,14 @@ class Fields {
         }
     }
 
-    imageDrop(formInput) {
+    setupImageDrop(formInput) {
         const imagePreviewId = formInput.parentNode.getAttribute('data-image-preview');
         const imagePreviewArea = document.getElementById(imagePreviewId);
+        imagePreviewArea.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            formInput.click();
+        });
         imagePreviewArea.addEventListener('dragover', (e) => {
             e.stopPropagation();
             e.preventDefault();
