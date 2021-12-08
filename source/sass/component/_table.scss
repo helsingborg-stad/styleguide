@@ -1,29 +1,27 @@
 .c-table {
     position: relative;
-    border-radius: $border-radius-sm;
-    margin-bottom: calc(#{$base} * 10);    
 
-    &[table-sum] tr:last-child td:first-child {
-        font-weight: 900;        
-    }
-
-    &:after {
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: calc(#{$base}*5);
-        @include gradient(90deg,rgba($color-table-gradient, 0), rgba($color-table-gradient, 1));
+    .c-table__column-content {
+        width: 100%;
+        display: inline-block;
     }
 
     .c-table__header {
         padding: calc(#{$base} * 1.5);
     }
 
-    .c-table__fullscreen {
-        position: absolute;
-        right: 16px;
-        cursor: pointer;
+    .c-table__inner {
+        display: block;
+        overflow-x: auto;
+        position: relative;
+        min-width: 100%;
+        overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .c-table__footer {
@@ -41,172 +39,190 @@
 
     .c-table__title {
         display: inline-block;
-        font-weight: 700;
     }
 
-    td.c-table__column-0,
-    tbody .c-table__line {
-        background-color: $color-white;
+    .c-table__fullscreen {
+        position: absolute;
+        right: calc(#{$base} * 2);
+        cursor: pointer;
     }
 
-    tbody .c-table__line:nth-child(odd) {
-        background-color: $color-default;
-    
-        th.c-table__column-0,
-        td.c-table__column-0 {
-            background-color: $color-default;
+    /**
+     * Generic table
+     */
+
+    .c-table__table {
+        min-width: 100%;
+        vertical-align: top;
+    }
+
+    .c-table__column {
+        position: relative;
+        padding: calc(#{$base} * 1.5);
+        vertical-align: top;
+    }
+
+    /**
+     * Table head
+     */
+    .c-table__head {
+        font-weight: $table-heading-font-weight;
+        color: $color-table-heading;
+
+        .c-table__column-content  {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .c-table__heading {
+            display: inline-block;
+            padding-right: calc(#{$base} * 2);
+            max-width: calc(100% - calc(#{$base} * 2));
+            text-overflow: ellipsis;
+            overflow: hidden; 
         }
     }
 
-    tbody .c-table__line:last-of-type,
-    tbody .c-table__line:last-of-type th.c-table__column-0,
-    tbody .c-table__line:last-of-type td.c-table__column-0 {
-        background-color: $color-white;
+    /**
+     * Table body
+     */
+    .c-table__body {
+        color: $color-table-body;
+
+        .c-table__line .c-table__column {
+            transition: background-color 100ms ease;
+        }
+
+        .c-table__line:nth-child(odd) .c-table__column {
+            background-color: $color-default;
+        }
+
+        .c-table__line:nth-child(even) .c-table__column {
+            background-color: $color-white;
+        }
+
+        .c-table__line:hover .c-table__column {
+            background: $color-complementary;
+        }
+
+        .c-table__line:last-of-type {
+            .c-table__column {
+                background-color: $color-white;
+                border-top: 2px solid $color-lighter;
+            }
+        }
+
+        .c-table__column {
+            border-right: 1px solid $color-lighter;
+        }
+
+        .c-table__column:last-of-type {
+            border-right: none;
+        }
     }
 
-    tbody .c-table__line:hover,
-    tbody .c-table__line:hover th.c-table__column-0,
-    tbody .c-table__line:hover td.c-table__column-0 {
-        background: $color-complementary;
-    }
-
-    th.c-table__column-0,
-    td.c-table__column-0 {
+    .c-table__column.c-table__column-0 {
         z-index: $level-1;
     }
-    
-    &__scroll-indicator-wrapper {
+
+    /**
+     * Scroll indicator
+     */
+    .c-table__scroll-indicator-wrapper {
         margin-top: calc(#{$base} * 2);
         width:100%;
         background-color: $color-lighter;
         height: #{$base};
         border-radius: $border-radius-lg;
     }
-    &__scroll-indicator {
-        width:50%;
+
+    .c-table__scroll-indicator {
+        width: 50%;
         background-color: $color-light;
         height: inherit;
         border-radius: $border-radius-lg;
         cursor: grab;
     }
 
-    &__scroll-indicator:active {
+    .c-table__scroll-indicator:active {
         cursor: grabbing;
     }
 
-    .c-table__pagination {
-        margin-top: calc(#{$base} * 2);
-    }
-
-    th[js-table-sort--order] {
-        cursor: pointer;
-    }
-
-    th.c-table__column-0 {
-        padding-right: calc(#{$base} * 6);
-    }
-
-    &__inner {
-        display: block;
-        overflow-x: auto;
-        position: relative;
-        min-width: 100%;
-        overflow: auto;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
+    /**
+     * Sorting
+     */
     &[js-sort-container] th {
         cursor: pointer;
         .c-icon {
             vertical-align: bottom;
             cursor: pointer;
         }
-        
     }
 
-    &__column {
-        position: relative;
-        padding: calc(#{$base} * 1.5);
+    /**
+     * Actions
+     */
 
-        .c-icon {
-            position: absolute;
-            right: $base;
-        }
-
-        .c-table__collapse-button {
-            cursor: pointer;
-            right: calc(#{$base} * 3);
-        }
+    .c-table__collapse-button {
+        cursor: pointer;
+        transition: transform 200ms;
     }
 
-    td.c-table__column {
-        vertical-align: top;
-        border-right: 1px solid $color-lighter;
-
-        &:last-of-type {
-            border-right: 0;
-        }
+    .c-table__sort-button {
+        cursor: pointer;
     }
 
-    &__table {
-        min-width: 100%;
-        vertical-align: top;
+    /**
+     * Modifier for summary line
+     */
+    &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
+        font-weight: 900;  
     }
 
-    &__head,
-    &__foot {
-        font-weight: $table-heading-font-weight;
-        color: $color-table-heading;
-    }
-
-    &__body {
-        color: $color-table-body;
-    }
-
-    &__body &__column,
-    &__foot &__column {
-        min-width: 150px;
-    }
-
-    &__body &__line:last-of-type {
-        background-color: $color-white;
-
-        th,
-        td {
-            border-top: 2px solid $color-lighter;
-        }
-    }
-
-    &__body &__line:hover {
-        background: $color-complementary;
-    }
-
-    &.is-collapsed {
-        .c-table__collapse-button {
-            transform: rotate(180deg);
-        }
-
-        .c-table__column-0 {
-            width: calc(#{$base} * 12);
-            max-width: calc(#{$base} * 12);
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-    }
-
+    /**
+     * Modifier for multdimension scroll
+     */
     &.c-table--multidimensional {
+
+        &.is-collapsed {
+           .c-table__column-0 {
+
+                min-width: calc(#{$base} * 10);
+
+                @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+                    max-width: min(calc(#{$base} * 25), 25vw);
+                }
+
+                @include mq(map_get($breakpoints-map, "md")) {
+                    max-width: calc(#{$base} * 25);
+                }
+
+                .c-table__column-content {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+    
+            .c-table__collapse-button {
+                transform: rotate(180deg);
+            }
+        }
+
         .c-table__column-0 {
-            position:sticky;
-            left: 0px;
+            position: sticky;
+            left: 0;
             top: 0;
-            font-weight: 700;
-            white-space: nowrap;
+
+            @include mq(map_get($breakpoints-map, "md")) {
+                max-width: calc(#{$base} * 60);
+            }
+
+            @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
+                min-width: 45vw;
+            }
     
             &:after{
                 box-shadow: 20px 0 20px -20px rgba(0, 0, 0, 0.3) inset;
@@ -221,6 +237,20 @@
     }
 }
 
-.c-modal .c-table {
-    margin: 0 calc(#{$base} * -3);
-}
+/**
+ * Embedded in modal
+ */
+ .c-table__modal {
+    margin: calc(#{$base} * 2);
+    height: calc(100vh - calc(#{$base} * 4));
+
+    .c-table__table {
+        border: 1px solid $color-lighter;
+    }
+
+    .c-table .c-table__header {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+ }
