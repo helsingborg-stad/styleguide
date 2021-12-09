@@ -103,7 +103,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
 .accordion-table__head {
     display: flex;
-    padding: #{$base} calc(#{$base} * 3);
+    padding: #{$base} calc(#{$base} * 6) #{$base} calc(#{$base} * 3);
     background: #f5f5f5;
     font-size: .8em;
 }
@@ -113,7 +113,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
     flex-grow: 0;
 }
 
-.c-accordion-table .c-accordion__button .c-accordion__button-column,
+.c-accordion__button .c-accordion__button-column,
 .accordion-table__head-column {
     width: 20%;
     flex-grow: 1;
