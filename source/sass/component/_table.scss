@@ -60,6 +60,7 @@
         position: relative;
         padding: calc(#{$base} * 1.5);
         vertical-align: top;
+        min-width: calc(#{$base} * 13);
     }
 
     /**
