@@ -133,22 +133,24 @@ class Fields {
     setupImageDrop(formInput) {
         const imagePreviewId = formInput.parentNode.getAttribute('data-image-preview');
         const imagePreviewArea = document.getElementById(imagePreviewId);
-        imagePreviewArea.addEventListener('click', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            formInput.click();
-        });
-        imagePreviewArea.addEventListener('dragover', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'copy';
-        });
-        imagePreviewArea.addEventListener('drop', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            formInput.files = e.dataTransfer.files;
-            formInput.dispatchEvent(new Event('change'));
-        });
+        if (imagePreviewArea) {
+            imagePreviewArea.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                formInput.click();
+            });
+            imagePreviewArea.addEventListener('dragover', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+            });
+            imagePreviewArea.addEventListener('drop', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                formInput.files = e.dataTransfer.files;
+                formInput.dispatchEvent(new Event('change'));
+            });
+        }
     }
 
     /**
