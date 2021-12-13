@@ -41,7 +41,6 @@
     font-size: $font-size;
     border-radius: $border-radius;
     height: calc(#{$padding-vertical} * 2 + #{$line-height});
-    line-height: calc(#{$padding-vertical} * 2 + #{$line-height});
 
     &:after {
         border-radius: $border-radius;
