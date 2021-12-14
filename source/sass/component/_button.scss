@@ -299,6 +299,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
 .c-button__label-text {
     order: 1;
+    word-break: normal;
+    white-space: nowrap;
 
     &--reverse {
         order: 2;
