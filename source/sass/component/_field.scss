@@ -1,0 +1,385 @@
+
+$c-field-label-color: var(--c-field-label-text-transform, $color-darker) !default;
+$c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
+$c-field-label-font-size: var(--c-field-label-font-size, 12px) !default;
+$c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
+
+$c-field-helper-error-color: var(--c-field-helper-error-color, $color-danger-dark) !default;
+$c-field-helper-success-color: var(--c-field-helper-success-color, $color-success-dark) !default;
+$c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
+$c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
+
+$fields: 'input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], textarea'; 
+
+.c-field {
+    .c-field__label,
+    .c-field__helper {
+        display: block;
+        width: 100%;
+    }
+
+    .c-field__label {
+        color: $c-field-label-color;
+        font-size: $c-field-label-font-size;
+        font-weight: $c-field-label-font-weight;
+        text-transform: $c-field-label-text-transform;
+        margin-bottom: calc(#{$base}/2);
+        letter-spacing: 0.05em;
+    }
+
+    .c-field__helper {
+        font-style: italic;
+        font-size: 14px;
+        font-weight: 500;
+        color: #707070;
+        margin-top: calc(#{$base}/2);
+        margin-left: calc(#{$base}/4);
+    }
+
+    #{$fields} {
+        appearance: none;
+
+        width: 100%;
+        margin: 0;
+        outline: 0;
+
+        height: map-get($spacers, "6");
+        padding: map-get($spacers, "2");
+
+        font-size: calc(#{$base}*2);
+        line-height: 1; 
+
+        border: 1px solid $color-light;
+        background: #F5F5F5;
+        border-radius: 2.5px;
+
+        &:focus,
+        &:active {
+            border-color: $color-darkest;
+        }
+    }
+
+    textarea {
+        min-height: map-get($spacers, "6");
+        height: initial;
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    &.is-invalid {
+        input {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-error-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-error-color;
+        }
+    }
+    
+    &.is-valid {
+        input {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-success-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-success-color;
+        }
+    }
+}
+
+
+// .c-field {
+
+//     $grandparent: &;
+
+//     position: relative; 
+
+
+//     #{$fields} {
+//         appearance: none;
+
+//         width: 100%;
+//         margin: 0;
+//         outline: 0;
+
+//         height: map-get($spacers, "6");
+//         padding: map-get($spacers, "2");
+
+//         font-size: calc(#{$base}*2);
+//         line-height: calc(#{$base}*2); 
+
+//         border: 1px solid $color-form-fields;
+//         background: $color-form-fields;
+//         background-size: calc(#{$base}*2);
+
+//         border-radius: $c-field-border-radius;
+
+//         transition: color .1s ease, border-color .1s ease;
+
+//         &:focus {
+//             background-color: $color-form-fields-focus;
+//             border-bottom: 2px solid $color-in-action;
+//         }
+//     }
+
+//     .c-field--radius-xs {
+//         #{$fields} {
+//             border-radius: $border-radius-xs;
+//         }
+//     }
+
+//     /* Border radiuses */ 
+//     &.c-field--radius-none {
+//         #{$fields} {
+//             border-radius: 0;
+//         }
+//     }
+
+//     &.c-field--radius-xs {
+//         #{$fields} {
+//             border-radius: $border-radius-xs;
+//         }
+//     }
+
+//     &.c-field--radius-sm {
+//         #{$fields} {
+//             border-radius: $border-radius-sm;
+//         }
+//     }
+
+//     &.c-field--radius-md {
+//         #{$fields} {
+//             border-radius: $border-radius-md;
+//         }
+//     }
+
+//     &.c-field--radius-lg {
+//         #{$fields} {
+//             border-radius: $border-radius-lg;
+//         }
+//     }
+
+//     /* Field icon */ 
+//     .c-icon {
+//         position: absolute;
+//         left: map-get($spacers, "2");
+//         top: 50%;
+//         transform: translateY(-50%);
+//     }
+
+//     /* Size modifiers */ 
+//     &.c-field--sm {
+//         #{$fields} {
+//             padding: map-get($spacers, "1"); 
+//             height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+//             text-indent: map-get($spacers, "1");
+//         }
+
+//         .c-icon {
+//             left: map-get($spacers, "1");
+//         }
+
+//         &.c-field--icon {
+//             #{$fields} {
+//                 text-indent: map-get($spacers, "3");
+//             }
+//         }
+
+//         &.c-field--icon .c-field__text--placeholder {
+//             left: map-get($spacers, "4");
+//         }
+//     }
+
+//     &.c-field--md {
+//         #{$fields} {
+//             padding: map-get($spacers, "2"); 
+//             height: map-get($spacers, "6"); 
+//         }
+
+//         .c-icon {
+//             left: map-get($spacers, "2");
+//         }
+
+//         &.c-field--icon {
+//             #{$fields} {
+//                 text-indent: (map-get($spacers, "4"));
+//             }
+//         }
+
+//         &.c-field--icon .c-field__text--placeholder {
+//             left: map-get($spacers, "6");
+//         }
+//     }
+
+//     &.c-field--lg {
+//         #{$fields} {
+//             padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+//             height: #{map-get($spacers, "8")}; 
+//         }
+
+//         .c-field__text--placeholder {
+//             left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
+//         }
+
+//         .c-icon {
+//             left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
+//         }
+
+//         &.c-field--icon {
+//             #{$fields} {
+//                 text-indent: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+//             }
+//         }
+
+//         &.c-field--icon .c-field__text--placeholder {
+//             left: #{map-get($spacers, "7")};
+//         }
+//     }
+
+//     /* Placeholder styling */ 
+//     .c-field__text--placeholder {
+//         font-size: 14px;
+//         color: $color-form-fields-label;
+//         position: absolute;
+//         top: 50%;
+//         left: #{map-get($spacers, "2")};
+//         transform-origin: top left;
+//         transform: translate(0, -50%) scale(1);
+//         transition: all .1s ease-in-out;
+//         cursor: text;
+//         pointer-events: none;
+//         opacity: 1;
+//         white-space: nowrap;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//         max-width: 70%;
+//         margin-top: 0px;
+//     }
+
+//     $active: '.invalid + .c-field__text--placeholder, .c-field__text--placeholder:active, input:not(:empty) + .c-field__text--placeholder, input:focus + .c-field__text--placeholder, input:not(:placeholder-shown) + .c-field__text--placeholder'; 
+
+//     #{$active} {
+//         transform: translate(0, -100%) scale(.75);
+//     }
+
+//     &.c-field--sm {
+//         #{$active}  {
+//             opacity: 0;
+//             transform: none;
+//         }
+//     }
+
+//     &.c-field--lg {
+//         #{$active} {
+//             transform: translate(0, -125%) scale(.75);
+//         }
+//     }
+
+//     .invalid + .c-field__text--placeholder {
+//         display: none;
+//     }
+
+//     input.invalid {
+//         border-bottom: none;
+//         border-bottom-left-radius: 0; 
+//         border-bottom-right-radius: 0; 
+//     }
+
+//     input.valid {
+//         border-bottom: 2px solid $color-success;
+//     }
+
+//     ::placeholder {
+//         color: transparent;
+//     }
+
+//     input[type="submit"],
+//     input[type="reset"] {
+//         display: inline-block;
+//         vertical-align: middle;
+//         font-weight: 500;
+//         text-decoration: none;
+//         cursor: pointer;
+//         margin: 0;
+//         margin-top: 2.66667px;
+//         margin-bottom: 2.66667px;
+//         border: 2px solid;
+//         outline: 0;
+//         @include button-size(8px, 16px, $font-size-btn, $font-size-btn-lg-line-height, 2px);
+//     }
+
+//     input[type="submit"] {
+//         @include button-mix($color-white, $color-primary, $color-primary);
+//     }
+
+//     input[type="reset"] {
+//         @include button-mix($color-primary, false, $color-primary);
+//     }
+
+//     input[type="color"] {
+//         visibility: hidden;
+//         -webkit-appearance: none;
+//         width: 100%;
+//         background: transparent;
+//         padding:0px;
+//         border:none;
+//         box-shadow:none;
+
+//         &:before {
+//             font-family: "Material Icons";
+//             content: "\e3b8";
+//             font-size: 22px;
+//             display: inline-block;
+//             visibility: visible;
+//             color: $color-primary;
+//             border-radius: $c-field-border-radius-color;
+//             cursor: pointer;
+//         }
+//     }
+
+//     ::-webkit-datetime-edit-year-field:not([aria-valuenow]),
+//     ::-webkit-datetime-edit-month-field:not([aria-valuenow]),
+//     ::-webkit-datetime-edit-day-field:not([aria-valuenow]) {
+//         color: transparent;
+//     }
+
+//     .error.active {
+//         padding: 0.3em;
+//     }
+
+//     .c-field__input-invalid-message {
+//         width: 100%;
+//         padding: #{map-get($spacers, "1")};
+//         display: none;
+//         font-size: 80%;
+//         color: $color-white;
+//         background-color: $color-danger;
+//         border:none;
+//         border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
+//         box-sizing: border-box;
+
+//         &.error {
+//             display: block;
+//             transition: ease-in-out .3s;
+//         }
+
+//         .c-icon {
+//             position: relative;
+//             top: 3px;
+//             left: 0;
+//             transform: none;
+//             margin-right: #{map-get($spacers, "05")};
+//         }
+//     }
+// }
+
+// /* Label styling */ 
+// .c-field__text--label {
+//     margin-left: #{map-get($spacers, "1")};
+// }
