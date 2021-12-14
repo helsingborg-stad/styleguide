@@ -120,6 +120,15 @@ $radius: (
         }
     }
 
+    /* Inline images resized */
+    &.is-resized {
+        width: auto;
+        display: inline;
+        img {
+            width: auto;
+        }
+    }
+
     // Rounded Images with different sizes
     @each $map in $radius {
 
