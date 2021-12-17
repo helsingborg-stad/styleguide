@@ -117,9 +117,10 @@
 }
 
 /**
-* Layout split
+* Layout split, featured
 */
-.c-segment.c-segment--split {
+.c-segment.c-segment--split,
+.c-segment.c-segment--featured {
     flex-direction: row;
 
     .c-segment__padder {
@@ -143,18 +144,40 @@
     }
 
     @include mq(map_get($breakpoints-map, "md")) {
-        .c-segment__image,
-        .c-segment__content {
-            max-width: 50%;
-        }
-
         &.c-segment--reverse {
             flex-direction: row-reverse;
         }
     }
 }
 
-.c-segment.c-segment--split.c-segment--alignment {
+.c-segment.c-segment--split {
+    @include mq(map_get($breakpoints-map, "md")) {
+        .c-segment__image,
+        .c-segment__content {
+            max-width: 50%;
+        }
+    }
+}
+
+.c-segment.c-segment--featured {
+
+    .c-segment__image {
+        background-repeat: no-repeat;
+        background-size: 80%;
+    }
+
+    @include mq(map_get($breakpoints-map, "md")) {
+        .c-segment__image {
+            max-width: 70%;
+        }
+        .c-segment__content {
+            max-width: 30%;
+        }
+    }
+}
+
+.c-segment.c-segment--split.c-segment--alignment,
+.c-segment.c-segment--featured.c-segment--alignment {
     &-top .c-segment__content,
     &-top .c-segment__slot {
         align-self: start;
