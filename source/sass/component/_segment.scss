@@ -163,12 +163,13 @@
 
     .c-segment__image {
         background-repeat: no-repeat;
-        background-size: 80%;
+        background-size: contain;
     }
 
     @include mq(map_get($breakpoints-map, "md")) {
         .c-segment__image {
             max-width: 70%;
+            background-size: 80%;
         }
         .c-segment__content {
             max-width: 30%;

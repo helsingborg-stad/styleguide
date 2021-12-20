@@ -1,0 +1,14 @@
+.c-logotypegrid {
+    display: flex;
+    gap: calc(#{$base} * 6) calc(#{$base} * 14);
+    flex-wrap: wrap;
+
+    .c-logotypegrid__link {
+        display: inline-block;
+        margin: auto;
+    }
+
+    .c-logotypegrid__logo {
+        height: calc(#{$base} * 10); 
+    }
+}
