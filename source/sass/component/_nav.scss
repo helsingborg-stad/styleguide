@@ -272,6 +272,11 @@
     }
   }
 
+  .c-nav__button {
+    margin-right: calc(#{$base} * 2);
+    margin-left: calc(#{$base} * 2);
+  }
+
   .c-nav__link {
     font-weight: 500;
     white-space: nowrap;
