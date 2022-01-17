@@ -36,6 +36,13 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         margin-left: calc(#{$base}/4);
     }
 
+    .c-field__icon {
+        position: absolute;
+        left: calc(var(--base, 8px)*2);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
     #{$fields} {
         appearance: none;
 
@@ -91,14 +98,13 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
             color: $c-field-helper-success-color;
         }
     }
+
+    &.c-field--icon {
+        #{$fields} {
+            padding-left: calc(#{$base}*6);
+        }
+    }
 }
-
-
-// .c-field {
-
-//     $grandparent: &;
-
-//     position: relative; 
 
 
 //     #{$fields} {
