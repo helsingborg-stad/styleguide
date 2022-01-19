@@ -44,14 +44,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         margin-left: calc(#{$base}/4);
     }
 
-    .c-field__icon {
-        position: absolute;
-        left: calc(var(--base, 8px)*2);
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    #{$fields} {
+    #{$fields}, .c-field__suffix-wrapper {
         appearance: none;
         flex: 1;
         border: 0;
@@ -94,6 +87,22 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         }
         .c-field__suffix {
             padding-right: $c-field-padding;
+        }
+    }
+
+    .c-field__suffix-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-left: 0;
+        .c-field__suffix {
+            margin-top: 1px;
+        }
+        #{$fields} {
+            flex: 1;
+            border: 0;
+            background: none;
         }
     }
 
