@@ -104,6 +104,22 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    .c-field__suffix-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-left: 0;
+        .c-field__suffix {
+            margin-top: 1px;
+        }
+        #{$fields} {
+            flex: 1;
+            border: 0;
+            background: none;
+        }
+    }
+
     textarea {
         min-height: $c-field-height;
         height: initial;
