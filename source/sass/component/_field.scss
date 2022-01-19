@@ -36,7 +36,7 @@ $fields: 'input[type="color"], input[type="text"], input[type="search"], input[t
         margin-left: calc(#{$base}/4);
     }
 
-    #{$fields} {
+    #{$fields}, .c-field__suffix-wrapper {
         appearance: none;
 
         width: 100%;
@@ -54,8 +54,25 @@ $fields: 'input[type="color"], input[type="text"], input[type="search"], input[t
         border-radius: 2.5px;
 
         &:focus,
+        &:focus-within,
         &:active {
             border-color: $color-darkest;
+        }
+    }
+
+    .c-field__suffix-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-left: 0;
+        .c-field__suffix {
+            margin-top: 1px;
+        }
+        #{$fields} {
+            flex: 1;
+            border: 0;
+            background: none;
         }
     }
 
