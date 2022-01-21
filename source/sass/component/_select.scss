@@ -17,6 +17,7 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
     transition: none;
     height: calc(#{$base}*6);
     color: $color-primary;
+    pointer-events: none;
 }
 
 .c-select {
