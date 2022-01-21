@@ -107,4 +107,29 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
             padding-left: calc(#{$base}*6);
         }
     }
+    
+    .c-field__input-invalid-message {
+        width: 100%;
+        padding: #{map-get($spacers, "1")};
+        display: none;
+        font-size: 80%;
+        color: $color-white;
+        background-color: $color-danger;
+        border:none;
+        border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
+        box-sizing: border-box;
+        margin-top: #{map-get($spacers, "05")};
+        &.error {
+            display: block;
+            transition: ease-in-out .3s;
+        }
+
+        .c-icon {
+            position: relative;
+            top: 3px;
+            left: 0;
+            transform: none;
+            margin-right: #{map-get($spacers, "05")};
+        }
+    }
 }
