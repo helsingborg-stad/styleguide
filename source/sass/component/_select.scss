@@ -9,17 +9,14 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
 .c-field .c-select__icon {
     position: absolute;
     right: 0;
-    top: 50%;
+    top: 0;
     left: auto;
-    transform: translate(- #{calc(#{$base}*2)}, -50%);
+    padding: map-get($spacers, "2");
+    line-height: calc(#{$base}*2);
     z-index: $level-2;
-    transition: transform 150ms; 
-    user-select: none;
-    pointer-events: none;
-}
-
-.c-select:focus:hover ~ .c-select__icon {
-    transform: rotate(180deg) translate(#{calc(#{$base}*2)}, 50%);
+    transition: none;
+    height: calc(#{$base}*6);
+    color: $color-primary;
 }
 
 .c-select {
@@ -29,16 +26,15 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
     margin: 0;
     outline: 0;
 
-    height: calc(#{$base}*6);
-    padding: map-get($spacers, "2");
+    height: map-get($spacers, "6");
+    padding: 0 map-get($spacers, "2");
+
     font-size: calc(#{$base}*2);
-    line-height: calc(#{$base}*2); 
-    border: 1px solid $color-form-fields;
+    line-height: 1; 
 
+    border: 1px solid $color-light;
     background: $color-form-fields;
-    background-size: calc(#{$base}*2);
-
-    border-radius: $c-select-border-radius;
+    border-radius: 2.5px;
 
     position: relative;
     z-index: $level-2;
