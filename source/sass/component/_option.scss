@@ -1,59 +1,52 @@
+
+$c-option-label-color: var(--c-option-label-color, $color-darker) !default;
+$c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
+
 .c-option {
 
     &__checkbox {
+        
+        width: 100%;
 
         .c-option__checkbox--label-box {
-
             display: flex;
             align-self: center;
             position: relative;
-            height: 20px;
-            width: 20px;
-            border: 1px solid $color-form-fields;
-            background-color: $color-form-fields;
+            height: 18px;
+            width: 18px;
+            border: 2px solid $color-primary;
+            background-color: $color-white;
             border-radius: $border-radius-xs;
             cursor: pointer;
-            box-shadow: 0 0 0 1px $color-gray-detail;
-
-            &:hover {
-                box-shadow: 0 0 0 2px $color-disabled-text;
-            }
         }
-
-
 
         .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
 
+            .c-option__checkbox--label-text {
+                font-style: normal;
+                font-weight: 500;
+                color: $c-option-label-active-color;
+            }
+
             .c-option__checkbox--label-box {
+                background: $color-primary;
 
                 &:after {
                     content: "";
                     display: block;
                     position: absolute;
-                    top: -1px;
+                    top: -2px;
                     left: 4px;
-                    width: 6px;
-                    height: 12px;
-                    border: solid $color-primary;
-                    border-width: 0 3px 3px 0;
+                    width: 5px;
+                    height: 11px;
+                    border: solid $color-white;
+                    border-width: 0 2px 2px 0;
                     transform: rotate(45deg);
                 }
             }
 
-            .c-option__checkbox--label-text {
-
-                &:after {
-                    width: 85%;
-                }
-            }
         }
 
-        .c-option__checkbox--hidden-box:focus+.c-option__checkbox--label {
-            text-decoration: underline;
-            .c-option__checkbox--label-box {
-                box-shadow: 0 0 0 2px $color-disabled-text;
-            }
-        }
     }
 
     &__radio {
@@ -64,18 +57,19 @@
             position: relative;
             height: 20px;
             width: 20px;
-            border: 1px solid $color-form-fields;
-            background-color: $color-form-fields;
+            border: 2px solid $color-primary;
+            background-color: $color-white;
             border-radius: $border-radius-full;
             cursor: pointer;
-            box-shadow: 0 0 0 1px $color-gray-detail;
-
-            &:hover {
-                box-shadow: 0 0 0 2px $color-disabled-text;
-            }
         }
 
         .c-option__radio--hidden-box:checked+.c-option__radio--label {
+
+            .c-option__radio--label-text {
+                font-style: normal;
+                font-weight: 500;
+                color: $c-option-label-active-color;
+            }
 
             .c-option__radio--label-box {
 
@@ -86,8 +80,8 @@
                     position: absolute;
                     top: 3px;
                     left: 3px;
-                    width: 12px;
-                    height: 12px;
+                    width: 10px;
+                    height: 10px;
                     background-color: $color-primary;
                     border-radius: $border-radius-full;
                 }
@@ -132,6 +126,7 @@
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-items: center;
+        margin-right: map-get($spacers, "05");
     }
 
     .c-option__checkbox--label-text,
@@ -140,7 +135,9 @@
         align-self: flex-start;
         position: relative;
         cursor: pointer;
-        padding: map-get($spacers, "1") 11px;
+        font-style: italic;
+        color: $color-darker;
+        padding: map-get($spacers, "05") 10px;
     }
 
     .c-option__input-invalid-message {
