@@ -17,9 +17,6 @@ $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
 $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
 
 .c-field {
-    .c-field__inner {
-        position: relative;
-    }
     .c-field__label,
     .c-field__helper {
         display: block;
@@ -44,14 +41,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         margin-left: calc(#{$base}/4);
     }
 
-    .c-field__icon {
-        position: absolute;
-        left: calc(var(--base, 8px)*2);
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    #{$fields}, .c-field__suffix-wrapper {
+    #{$fields} {
         appearance: none;
         flex: 1;
         border: 0;
@@ -97,19 +87,14 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         }
     }
 
-    .c-field__suffix-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        padding-left: 0;
-        .c-field__suffix {
-            margin-top: 1px;
+        .c-field__icon, .c-field__prefix, .c-field__suffix {
+            color: $c-field-suffix-color;
         }
-        #{$fields} {
-            flex: 1;
-            border: 0;
-            background: none;
+        .c-field__icon, .c-field__prefix {
+            padding-left: $c-field-padding;
+        }
+        .c-field__suffix {
+            padding-right: $c-field-padding;
         }
     }
 
@@ -177,14 +162,6 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         &.error {
             display: block;
             transition: ease-in-out .3s;
-        }
-
-        .c-icon {
-            position: relative;
-            top: 3px;
-            left: 0;
-            transform: none;
-            margin-right: #{map-get($spacers, "05")};
         }
     }
 }
