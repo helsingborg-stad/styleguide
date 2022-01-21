@@ -9,12 +9,14 @@ $c-field-helper-success-color: var(--c-field-helper-success-color, $color-succes
 $c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
 
+$c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
+$c-field-height: var(--c-field-height, map-get($spacers, "6")) !default;
+$c-field-font-size: var(--c-field-font-size, $font-size-base) !default;
+$c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
+
 $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
 
 .c-field {
-    .c-field__inner {
-        position: relative;
-    }
     .c-field__label,
     .c-field__helper {
         display: block;
@@ -39,55 +41,54 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         margin-left: calc(#{$base}/4);
     }
 
-    .c-field__icon {
-        position: absolute;
-        left: calc(var(--base, 8px)*2);
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    #{$fields}, .c-field__suffix-wrapper {
+    #{$fields} {
         appearance: none;
-
-        width: 100%;
-        margin: 0;
+        flex: 1;
+        border: 0;
+        background: none;
+        height: $c-field-height;
+        line-height: $c-field-height;
+        padding: 0 $c-field-padding;
         outline: 0;
+        margin: 0;
+    }
+    
+    .c-field__inner {
+        position: relative;
 
-        height: map-get($spacers, "6");
-        padding: map-get($spacers, "2");
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        
+        width: 100%;
 
-        font-size: calc(#{$base}*2);
-        line-height: 1; 
+        font-size: $c-field-font-size;
+        line-height: $c-field-font-size; 
 
         border: 1px solid $color-light;
         background: #F5F5F5;
-        border-radius: 2.5px;
+        border-radius: $c-field-border-radius;
 
         &:focus,
         &:focus-within,
         &:active {
             border-color: $color-darkest;
         }
-    }
 
-    .c-field__suffix-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        padding-left: 0;
-        .c-field__suffix {
-            margin-top: 1px;
+        .c-field__icon, .c-field__prefix, .c-field__suffix {
+            color: $c-field-suffix-color;
         }
-        #{$fields} {
-            flex: 1;
-            border: 0;
-            background: none;
+        .c-field__icon, .c-field__prefix {
+            padding-left: $c-field-padding;
+        }
+        .c-field__suffix {
+            padding-right: $c-field-padding;
         }
     }
 
     textarea {
-        min-height: map-get($spacers, "6");
+        min-height: $c-field-height;
         height: initial;
         max-width: 100%;
         min-width: 100%;
@@ -119,12 +120,6 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         }
     }
 
-    &.c-field--icon {
-        #{$fields} {
-            padding-left: calc(#{$base}*6);
-        }
-    }
-
     .c-field__input-invalid-message {
         width: 100%;
         padding: #{map-get($spacers, "1")};
@@ -139,14 +134,6 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         &.error {
             display: block;
             transition: ease-in-out .3s;
-        }
-
-        .c-icon {
-            position: relative;
-            top: 3px;
-            left: 0;
-            transform: none;
-            margin-right: #{map-get($spacers, "05")};
         }
     }
 }
