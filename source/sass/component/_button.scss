@@ -80,7 +80,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--lg.c-button--pill,
     &--md.c-button--pill, 
     &--sm.c-button--pill {
-        border-radius: calc(#{$base}* 10); //No use of percent. 
+        border-radius: calc( #{$base} * 10); //No use of percent. 
     }
 
     &:after {
@@ -92,6 +92,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         transition: opacity 100ms ease-in-out, 
                     transform 150ms ease-in-out, 
                     background-color 100ms ease-in-out;
+        border-radius: inherit;
     }
 
     &.c-button--icon-only {
@@ -409,10 +410,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             width: calc(#{$base}* 3.5); 
         }
     }
-}
-
-.c-button--rounded {
-
 }
 
 .c-button + .c-button {
