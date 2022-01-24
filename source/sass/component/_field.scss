@@ -48,7 +48,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         background: none;
         height: $c-field-height;
         line-height: $c-field-font-size; 
-        padding: 0 $c-field-padding;
+        padding: $c-field-padding;
         outline: 0;
         margin: 0;
     }
