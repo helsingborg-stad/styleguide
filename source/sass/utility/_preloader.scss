@@ -1,0 +1,38 @@
+/** Adds preload like apperance of any component */
+.u-preloader {
+  position: relative;
+  &:after,
+  &:before {
+    content: ""; 
+    @include cover(); 
+
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: -webkit-gradient( linear, left top, right top, color-stop(8%, #eeeeee), color-stop(18%, #dddddd), color-stop(33%, #eeeeee) );
+    background: -webkit-linear-gradient( left, #eeeeee 8%, #dddddd 18%, #eeeeee 33% );
+    background: linear-gradient( to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33% );
+    background-size: 800px 104px;
+  }
+}
+
+@-webkit-keyframes placeHolderShimmer{
+  0%{
+    background-position: -468px 0;
+  }
+  100%{
+    background-position: 468px 0;
+  }
+}
+
+@keyframes placeHolderShimmer{
+  0%{
+    background-position: -468px 0;
+  }
+  100%{
+    background-position: 468px 0;
+  }
+}
