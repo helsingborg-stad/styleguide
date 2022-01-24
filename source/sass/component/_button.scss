@@ -77,6 +77,12 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         );
     }
 
+    &--lg.c-button--pill,
+    &--md.c-button--pill, 
+    &--sm.c-button--pill {
+        border-radius: calc(#{$base}* 10); //No use of percent. 
+    }
+
     &:after {
         content: '';
         @include cover(); 
@@ -403,6 +409,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             width: calc(#{$base}* 3.5); 
         }
     }
+}
+
+.c-button--rounded {
+
 }
 
 .c-button + .c-button {
