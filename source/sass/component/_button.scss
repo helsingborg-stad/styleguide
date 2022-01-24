@@ -31,6 +31,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     border: none;
     user-select: none;
     position: relative;
+    max-width: 100%;
+    
 
     &__label {
         display: flex;
@@ -292,6 +294,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
 // Styling for buttons with both text and an icon
 
+.c-button__label {
+    max-width: 100%;
+}
+
 .c-button__label-icon {
     order: 2;
     margin-left: $base;
@@ -308,6 +314,9 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     order: 1;
     word-break: normal;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
 
     &--reverse {
         order: 2;

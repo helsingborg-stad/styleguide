@@ -1,7 +1,6 @@
 /** Adds preload like apperance of any component */
 .u-preloader {
   position: relative;
-  border-radius: 0 !important;
   filter: unset !important;
 
   &:after,
