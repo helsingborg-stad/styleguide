@@ -1,6 +1,6 @@
-$c-select-border-radius: var(--c-select-border-radius, $border-radius-md) !default;
+$c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
-
+$c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
 
 .c-select__container {
     position: relative;
@@ -12,11 +12,12 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
     top: 0;
     left: auto;
     padding: map-get($spacers, "2");
-    line-height: calc(#{$base}*2);
+    line-height: $c-select-font-size;
     z-index: $level-2;
     transition: none;
     height: calc(#{$base}*6);
     color: $color-primary;
+    pointer-events: none;
 }
 
 .c-select {
@@ -29,12 +30,12 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
     height: map-get($spacers, "6");
     padding: 0 map-get($spacers, "2");
 
-    font-size: calc(#{$base}*2);
-    line-height: 1; 
+    font-size: $c-select-font-size;
+    line-height: $c-select-font-size; 
 
     border: 1px solid $color-light;
     background: $color-form-fields;
-    border-radius: 2.5px;
+    border-radius: $c-select-border-radius;
 
     position: relative;
     z-index: $level-2;
