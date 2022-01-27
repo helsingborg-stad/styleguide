@@ -78,7 +78,6 @@ class Fields {
                     const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
-                    const hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
                     const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
 
                     if (addedFiles == filesMax) {
@@ -113,7 +112,6 @@ class Fields {
                             'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
 
                         listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
-                            hiddenInput.remove();
                             listElement.remove();
 
                             if (addedFiles <= filesMax) {
