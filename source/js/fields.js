@@ -78,6 +78,11 @@ class Fields {
                     const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                    const hasImagePreview = parentElement.hasAttribute('data-image-preview');
+                    let hiddenInput;
+                    if (!hasImagePreview) {
+                        hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
+                    }
                     const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
 
                     if (addedFiles == filesMax) {
@@ -86,7 +91,7 @@ class Fields {
                         formInput.removeAttribute('disabled')
                     }
 
-                    if (parentElement.hasAttribute('data-image-preview')) {
+                    if (hasImagePreview) {
                         const imagePreviewId = parentElement.getAttribute('data-image-preview');
                         const imagePreviewElement = document.getElementById(imagePreviewId);
                         const imgElement = imagePreviewElement.querySelector('img');
@@ -112,6 +117,9 @@ class Fields {
                             'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
 
                         listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
+                            if (!hasImagePreview) {
+                                hiddenInput.remove();
+                            }
                             listElement.remove();
 
                             if (addedFiles <= filesMax) {
