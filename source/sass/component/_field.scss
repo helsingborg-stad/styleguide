@@ -106,7 +106,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
     }
 
     &.is-invalid {
-        input {
+        .c-field__inner {
             &,
             &:focus,
             &:active {
@@ -119,7 +119,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
     }
     
     &.is-valid {
-        input {
+        .c-field__inner {
             &,
             &:focus,
             &:active {
