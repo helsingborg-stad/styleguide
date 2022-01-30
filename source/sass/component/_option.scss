@@ -161,5 +161,29 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
             top: 3px;
         }
     }
-
+    &.is-invalid {
+        .c-option__checkbox--label-box {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-error-color;
+            }
+        }
+        .c-option__checkbox--label-text {
+            color: $c-field-helper-error-color;
+        }
+    }
+    
+    &.is-valid {
+        .c-option__checkbox--label-box {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-success-color;
+            }
+        }
+        .c-option__checkbox--label-text {
+            color: $c-field-helper-success-color;
+        }
+    }
 }

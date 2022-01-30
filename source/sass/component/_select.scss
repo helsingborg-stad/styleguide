@@ -71,6 +71,34 @@ $c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
     }
 }
 
+.c-field {
+    &.is-invalid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-error-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-error-color;
+        }
+    }
+    
+    &.is-valid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-success-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-success-color;
+        }
+    }
+}
+
 .c-select__container {
     select[multiple] {
         height: auto;
