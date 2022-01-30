@@ -106,7 +106,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
     }
 
     &.is-invalid {
-        .c-field__inner {
+        .c-field__inner, select, option {
             &,
             &:focus,
             &:active {
