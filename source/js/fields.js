@@ -94,10 +94,10 @@ class Fields {
                     if (hasImagePreview) {
                         const imagePreviewId = parentElement.getAttribute('data-image-preview');
                         const imagePreviewElement = document.getElementById(imagePreviewId);
-                        const imgElement = imagePreviewElement.querySelector('img');
+                        const imgElement = imagePreviewElement.querySelector('.c-imageinput__image');
                         const previewLabel = imagePreviewElement.querySelector('span');
-                        imgElement.src = URL.createObjectURL(clone.files[0]);
-                        imgElement.classList.remove('u-visibility--hidden');
+
+                        imgElement.style.backgroundImage = "url('" + URL.createObjectURL(clone.files[0]) + "')";
 
                         var image = new Image();
                         image.src = URL.createObjectURL(clone.files[0]);
@@ -105,7 +105,6 @@ class Fields {
                             var height = this.height;
                             var width = this.width;
                             previewLabel.innerText = `${clone.files[0].name}, ${width}*${height}, ${self.returnFileSize(clone.files[0].size)}`;
-                            imagePreviewElement.querySelector('.c-imageinput__image').style = `height: ${height}px;`;
                         };
                     }
 
