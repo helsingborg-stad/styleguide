@@ -1,3 +1,5 @@
+import "babel-polyfill";
+
 class Fields {
 
     constructor() {
@@ -70,15 +72,35 @@ class Fields {
             if (formInput.parentNode.hasAttribute('data-image-preview')) {
                 this.setupImageDrop(formInput);
             }
-            formInput.addEventListener('change', function (e) {
+            formInput.addEventListener('change', async function (e) {
                 const parentElement = e.target.parentNode;
 
+                const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
+                const maxWidth = parentElement.hasAttribute('data-max-width') ? parseInt(parentElement.getAttribute('data-max-width')) : 0;
+                const maxHeight = parentElement.hasAttribute('data-max-height') ? parseInt(parentElement.getAttribute('data-max-height')) : 0;
+                const dataTransfer = new DataTransfer();
+
+                // Validate file size, width, and height
+                for(let i = 0; i < e.target.files.length; i++) {
+                    try {
+                        const file = e.target.files[i];
+                        await self.validateFile(file, maxFileSize, maxWidth, maxHeight);
+                        dataTransfer.items.add(file);
+                    } catch (e) {
+                        formInput.setCustomValidity(e);
+                        formInput.reportValidity();
+                    }
+                }
+
+                e.target.files = dataTransfer.files;
+                
                 if (e.target.files && e.target.files[0]) {
                     const fileNameContainer = this.closest('div').querySelector('ul');
                     const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
                     const hasImagePreview = parentElement.hasAttribute('data-image-preview');
+
                     let hiddenInput;
                     if (!hasImagePreview) {
                         hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
@@ -113,6 +135,7 @@ class Fields {
                         const createListElement = document.createElement('li');
                         const listElement = fileNameContainer.appendChild(createListElement);
                         const fileSize = self.returnFileSize(clone.files[int].size);
+
                         listElement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
                             'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
 
@@ -250,6 +273,31 @@ class Fields {
             } else {
                 document.getElementById('error_' + id + '_message').classList.remove('error');
                 this.formElement.className = "valid";
+            }
+        }
+    }
+
+    getImageDimensions(src) {
+        return new Promise(async (resolve, reject) => {
+            var image = new Image();
+            image.onload = () => resolve({width: image.width, height: image.height})
+            image.onerror = reject
+            image.src = src
+        })
+    }
+
+    async validateFile(file, maxFileSize, maxWidth = 0, maxHeight = 0) {
+        const fileSize = file.size / 1000; // Bytes to Kilobytes
+        
+        if(maxFileSize && fileSize > maxFileSize) {
+            throw 'File size is too big. Maximum allowed file size is ' + maxFileSize + 'kb';
+        }
+
+        if(file['type'].split('/')[0] === 'image' && (maxWidth || maxHeight)) {
+            var src = URL.createObjectURL(file);
+            const dimensions = await this.getImageDimensions(src);
+            if((maxWidth && dimensions.width > maxWidth) || (maxHeight && dimensions.height > maxHeight)) {
+                throw 'Image dimensions are too big.';
             }
         }
     }
