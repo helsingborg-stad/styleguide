@@ -79,16 +79,19 @@ class Fields {
                 const dataTransfer = new DataTransfer();
 
                 // Validate file size, width, and height
+                const validateFilesPromises = [];
                 for(let i = 0; i < e.target.files.length; i++) {
-                    try {
                         const file = e.target.files[i];
-                        await self.validateFile(file, maxFileSize, maxWidth, maxHeight);
-                        dataTransfer.items.add(file);
+                    validateFilesPromises.push(self.validateFile(file, maxFileSize, maxWidth, maxHeight));
+                }
+
+                try {
+                    const files = await Promise.all(validateFilesPromises);
+                    files.forEach(file => dataTransfer.items.add(file));
                     } catch (e) {
                         formInput.setCustomValidity(e);
                         formInput.reportValidity();
                     }
-                }
 
                 e.target.files = dataTransfer.files;
                 
