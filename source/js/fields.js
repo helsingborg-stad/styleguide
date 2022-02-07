@@ -71,7 +71,8 @@ class Fields {
                 this.setupImageDrop(formInput);
             }
             formInput.addEventListener('change', async function (e) {
-                const parentElement = e.target.parentNode;
+                const targetElement = e.target;
+                const parentElement = targetElement.parentNode;
 
                 const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
                 const maxWidth = parentElement.hasAttribute('data-max-width') ? parseInt(parentElement.getAttribute('data-max-width')) : 0;
@@ -80,24 +81,23 @@ class Fields {
 
                 // Validate file size, width, and height
                 const validateFilesPromises = [];
-                for(let i = 0; i < e.target.files.length; i++) {
-                        const file = e.target.files[i];
+                for(let i = 0; i < targetElement.files.length; i++) {
+                    const file = targetElement.files[i];
                     validateFilesPromises.push(self.validateFile(file, maxFileSize, maxWidth, maxHeight));
                 }
 
                 try {
                     const files = await Promise.all(validateFilesPromises);
                     files.forEach(file => dataTransfer.items.add(file));
-                    } catch (e) {
-                        formInput.setCustomValidity(e);
-                        formInput.reportValidity();
-                    }
+                } catch (e) {
+                    formInput.setCustomValidity(e);
+                    formInput.reportValidity();
+                }
 
-                e.target.files = dataTransfer.files;
+                targetElement.files = dataTransfer.files;
                 
-                if (e.target.files && e.target.files[0]) {
+                if (targetElement.files && targetElement.files[0]) {
                     const fileNameContainer = this.closest('div').querySelector('ul');
-                    const clone = e.target.cloneNode(false);
                     const form = formInput.closest('form');
                     const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
                     const hasImagePreview = parentElement.hasAttribute('data-image-preview');
@@ -119,26 +119,27 @@ class Fields {
                         const imagePreviewElement = document.getElementById(imagePreviewId);
                         const imgElement = imagePreviewElement.querySelector('.c-imageinput__image');
                         const previewLabel = imagePreviewElement.querySelector('span');
+                        const objectUrl = URL.createObjectURL(targetElement.files[0]);
 
-                        imgElement.style.backgroundImage = "url('" + URL.createObjectURL(clone.files[0]) + "')";
+                        imgElement.style.backgroundImage = "url('" + objectUrl + "')";
                         imgElement.classList.remove('is-empty');
 
                         var image = new Image();
-                        image.src = URL.createObjectURL(clone.files[0]);
+                        image.src = objectUrl;
                         image.onload = function () {
                             var height = this.height;
                             var width = this.width;
-                            previewLabel.innerText = `${clone.files[0].name}, ${width}*${height}, ${self.returnFileSize(clone.files[0].size)}`;
+                            previewLabel.innerText = `${targetElement.files[0].name}, ${width}*${height}, ${self.returnFileSize(targetElement.files[0].size)}`;
                         };
                     }
 
                     for (let int = 0; int < filesMax; int++) {
                         const createListElement = document.createElement('li');
                         const listElement = fileNameContainer.appendChild(createListElement);
-                        const fileSize = self.returnFileSize(clone.files[int].size);
+                        const fileSize = self.returnFileSize(targetElement.files[int].size);
 
                         listElement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
-                            'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
+                            'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + targetElement.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
 
                         listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
                             if (!hasImagePreview) {
@@ -301,6 +302,8 @@ class Fields {
                 throw 'Image dimensions are too big.';
             }
         }
+
+        return file;
     }
 }
 
