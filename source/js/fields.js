@@ -1,5 +1,3 @@
-import "babel-polyfill";
-
 class Fields {
 
     constructor() {
