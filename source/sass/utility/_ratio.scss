@@ -5,3 +5,7 @@
 .u-ratio-16-9 {
     @include ratio(16,9);
 }
+
+.u-ratio-4-3 {
+    @include ratio(4,3);
+}

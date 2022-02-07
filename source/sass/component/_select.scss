@@ -3,6 +3,7 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
 $c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
 $c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
 $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-white) !default;
+
 .c-select__container {
     position: relative;
 }
