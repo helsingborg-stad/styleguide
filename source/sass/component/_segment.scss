@@ -210,6 +210,18 @@
         right: 0;
         bottom: 0;
     }
+
+    &.c-segment--gap-xs {
+        gap: #{map-get($spacers, "2")}; 
+    }
+
+    &.c-segment--gap-sm {
+        gap: #{map-get($spacers, "4")}; 
+    }
+
+    &.c-segment--gap-md {
+        gap: #{map-get($spacers, "6")}; 
+    }
 }
 
 .c-segment.c-segment--full-width.c-segment--alignment {

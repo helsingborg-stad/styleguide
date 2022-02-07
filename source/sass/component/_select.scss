@@ -1,6 +1,8 @@
 $c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
 $c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
+$c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
+$c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-white) !default;
 
 .c-select__container {
     position: relative;
@@ -71,6 +73,34 @@ $c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
     }
 }
 
+.c-field {
+    &.is-invalid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-error-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-error-color;
+        }
+    }
+    
+    &.is-valid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-success-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-success-color;
+        }
+    }
+}
+
 .c-select__container {
     select[multiple] {
         height: auto;
@@ -83,9 +113,11 @@ $c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
             margin-bottom: 16px;
             margin-bottom: map-get($spacers , 2 );
         }
+        
         option:checked,
         option:hover {
-            background-color: $color-primary-alpha-dimmed;
+            background-color: $c-select-multi-selected-bg;
+            color: $c-select-multi-selected-color;
         }
     }
 
