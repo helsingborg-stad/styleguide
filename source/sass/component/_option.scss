@@ -9,7 +9,6 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
         width: 100%;
 
         .c-option__checkbox--label-box {
-            display: flex;
             align-self: center;
             position: relative;
             height: 18px;
@@ -52,7 +51,6 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
     &__radio {
 
         .c-option__radio--label-box {
-            display: flex;
             align-self: center;
             position: relative;
             height: 20px;
@@ -131,11 +129,10 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
 
     .c-option__checkbox--label-text,
     .c-option__radio--label-text {
-        display: flex;
-        align-self: flex-start;
         position: relative;
         cursor: pointer;
         font-style: italic;
+        flex: 1;
         color: $color-darker;
         padding: map-get($spacers, "05") 10px;
     }
