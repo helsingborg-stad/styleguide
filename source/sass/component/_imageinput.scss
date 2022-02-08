@@ -17,6 +17,11 @@
     cursor: pointer;
     overflow: hidden;
 
+    &.is-empty {
+      padding: 0;
+      height: 150px;
+    }
+
     &:hover {
       background-color: $color-form-fields-focus;
       box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
