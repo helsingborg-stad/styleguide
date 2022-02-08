@@ -98,6 +98,7 @@ class Fields {
                         const previewLabel = imagePreviewElement.querySelector('span');
 
                         imgElement.style.backgroundImage = "url('" + URL.createObjectURL(clone.files[0]) + "')";
+                        imgElement.classList.remove('is-empty');
 
                         var image = new Image();
                         image.src = URL.createObjectURL(clone.files[0]);
