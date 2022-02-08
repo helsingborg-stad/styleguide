@@ -2,8 +2,9 @@
 
     label {
 
-        display: inline-block;
-        vertical-align: middle;
+        display: inline-flex;
+        align-items: center;
+        flex-direction: row;
         text-decoration: none;
         cursor: pointer;
         line-height: 1;
@@ -12,18 +13,20 @@
         color: $color-white;
         border: none;
         transition: 150ms background-color;
-
         position:relative;
+        text-align: center;
+
+        span {
+            flex: 1;
+        }
 
         i {
-            position:absolute;
-            top: 11px;
-            left:10px;
             color: $color-white;
+            padding-right: map-get($spacers, "1");
+            margin-left: -5px;
         }
 
         @include button-size(calc(#{$base}*2), calc(#{$base}*3), $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
-        padding-left: map-get($spacers, "5");
 
         &:hover {
             background-color: $color-primary-light;
