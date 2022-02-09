@@ -24,6 +24,7 @@ class Icons
                 }
             }
         }
+        ksort($icons);
         return $icons;
     }
 

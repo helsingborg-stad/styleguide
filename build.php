@@ -22,6 +22,7 @@ $removables = [
     '.prettierrc',
     '.stylelintignore',
     '.stylelintrc',
+    'build',
     'build.php',
     'composer.json',
     'composer.lock',
