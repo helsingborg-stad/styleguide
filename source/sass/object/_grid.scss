@@ -131,8 +131,8 @@
             @for $i from 1 to $columns + 1 {
                 //Width based Columns (eg .grid-md-6)
                 .o-grid-#{$i}#{$suffix} {
-                    flex: 0 0 #{$i / $columns * 100 * 1%};
-                    max-width: #{$i / $columns * 100 * 1%};
+                    flex: 0 0 #{calc($i / $columns) * 100 * 1%};
+                    max-width: #{calc($i / $columns) * 100 * 1%};
                 }
 
                  //Order (eg .order-md-6)
@@ -142,7 +142,7 @@
 
                 //Offset (eg .offset-md-6)
                 .o-offset-#{$i}#{$suffix} {
-                    margin-left: #{$i / $columns * 100 * 1%};
+                    margin-left: #{calc($i / $columns) * 100 * 1%};
                 }
             }
         }

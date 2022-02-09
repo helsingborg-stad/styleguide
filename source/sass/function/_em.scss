@@ -1,6 +1,6 @@
 @function em($value, $base: 16) {
     @if unit($value) == "px" {
-        @return strip-unit($value) / $base * 1em;
+        @return calc(strip-unit($value) / $base) * 1em;
     } @else if unit($value) == "em" {
         @return $value;
     } @else if unitless($value) {
