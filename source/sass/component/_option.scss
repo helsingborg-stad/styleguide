@@ -1,6 +1,7 @@
 
 $c-option-label-color: var(--c-option-label-color, $color-darker) !default;
 $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-caption) !default;
 
 .c-option {
 
@@ -44,6 +45,12 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
                 }
             }
 
+        }
+
+        &.c-option--sm {
+            .c-option__checkbox--label-text {
+                font-size: $c-option-label-font-size-sm;
+            }
         }
 
     }
@@ -123,7 +130,7 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         margin-right: map-get($spacers, "05");
     }
 
