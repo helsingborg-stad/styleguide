@@ -2,7 +2,9 @@
 $c-option-label-color: var(--c-option-label-color, $color-darker) !default;
 $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
 $c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-caption) !default;
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, $font-size-base) !default;
 $c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $line-height-caption) !default;
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, $line-height-base) !default;
 
 .c-option {
 
@@ -155,6 +157,8 @@ $c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $line-heigh
         flex: 1;
         color: $color-darker;
         padding: map-get($spacers, "05") 10px;
+        font-size: $c-option-label-font-size-md;
+        line-height: $c-option-label-font-size-md;
     }
 
     .c-option__input-invalid-message {
