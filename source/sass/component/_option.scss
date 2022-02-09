@@ -1,6 +1,10 @@
 
 $c-option-label-color: var(--c-option-label-color, $color-darker) !default;
 $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-caption) !default;
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, $font-size-base) !default;
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $line-height-caption) !default;
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, $line-height-base) !default;
 
 .c-option {
 
@@ -44,6 +48,24 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
                 }
             }
 
+        }
+
+        &.c-option--sm {
+            .c-option__checkbox--label-text {
+                font-size: $c-option-label-font-size-sm;
+                line-height: $c-option-label-font-size-sm;
+            }
+            .c-option__checkbox--label-box {
+                width: 16px;
+                height: 16px;
+            }
+            .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
+                .c-option__checkbox--label-box:after {
+                    top: -1px;
+                    width: 3px;
+                    height: 9px;
+                }
+            }
         }
 
     }
@@ -123,7 +145,7 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         margin-right: map-get($spacers, "05");
     }
 
@@ -135,6 +157,8 @@ $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !
         flex: 1;
         color: $color-darker;
         padding: map-get($spacers, "05") 10px;
+        font-size: $c-option-label-font-size-md;
+        line-height: $c-option-label-font-size-md;
     }
 
     .c-option__input-invalid-message {
