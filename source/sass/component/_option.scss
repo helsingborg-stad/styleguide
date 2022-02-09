@@ -2,6 +2,7 @@
 $c-option-label-color: var(--c-option-label-color, $color-darker) !default;
 $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
 $c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-caption) !default;
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $line-height-caption) !default;
 
 .c-option {
 
@@ -50,6 +51,18 @@ $c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-capt
         &.c-option--sm {
             .c-option__checkbox--label-text {
                 font-size: $c-option-label-font-size-sm;
+                line-height: $c-option-label-font-size-sm;
+            }
+            .c-option__checkbox--label-box {
+                width: 16px;
+                height: 16px;
+            }
+            .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
+                .c-option__checkbox--label-box:after {
+                    top: -1px;
+                    width: 3px;
+                    height: 9px;
+                }
             }
         }
 
