@@ -12,7 +12,9 @@ $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
 $c-field-height: var(--c-field-height, map-get($spacers, "6")) !default;
 $c-field-font-size: var(--c-field-font-size, $font-size-base) !default;
+$c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !default;
 $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
+
 
 $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
 
@@ -34,7 +36,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
 
     .c-field__helper {
         font-style: italic;
-        font-size: 14px;
+        font-size: $c-field-helper-font-size;
         font-weight: 500;
         color: #707070;
         margin-top: calc(#{$base}/2);
