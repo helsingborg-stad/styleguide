@@ -88,7 +88,14 @@ class Fields {
 
                 try {
                     const files = await Promise.all(validateFilesPromises);
-                    files.forEach(file => dataTransfer.items.add(file));
+                    files.forEach(file => {
+                        if (file instanceof Error) {
+                            formInput.setCustomValidity(file);
+                            formInput.reportValidity();
+                        } else {
+                            dataTransfer.items.add(file)
+                        }
+                    });
                 } catch (e) {
                     formInput.setCustomValidity(e);
                     formInput.reportValidity();
@@ -204,7 +211,6 @@ class Fields {
      * Listerners Click and change
      */
     formValidationEventListerners() {
-
         const self = this;
         const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
 
@@ -288,18 +294,26 @@ class Fields {
         })
     }
 
+    /**
+     * 
+     * @param {File} file 
+     * @param {number} maxFileSize 
+     * @param {number} maxWidth 
+     * @param {number} maxHeight 
+     * @returns {Promise<File|Error>}
+     */
     async validateFile(file, maxFileSize, maxWidth = 0, maxHeight = 0) {
         const fileSize = file.size / 1000; // Bytes to Kilobytes
         
         if(maxFileSize && fileSize > maxFileSize) {
-            throw 'File size is too big. Maximum allowed file size is ' + maxFileSize + 'kb';
+            return new Error('File size is too big. Maximum allowed file size is ' + maxFileSize + 'kb');
         }
 
         if(file['type'].split('/')[0] === 'image' && (maxWidth || maxHeight)) {
             var src = URL.createObjectURL(file);
             const dimensions = await this.getImageDimensions(src);
             if((maxWidth && dimensions.width > maxWidth) || (maxHeight && dimensions.height > maxHeight)) {
-                throw 'Image dimensions are too big.';
+                return new Error('Image dimensions are too big.');
             }
         }
 
