@@ -34,7 +34,6 @@ $removables = [
     'postcss.config.js',
     'setup.sh',
     'webpack.config.js',
-    'webpack.dev.config.js',
 ];
 
 $dirName = basename(dirname(__FILE__));
