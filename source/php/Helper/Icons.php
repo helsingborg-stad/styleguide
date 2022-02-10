@@ -6,7 +6,7 @@ class Icons
 {
     private static function getCategories()
     {
-        $jsonString = file_get_contents(BASEPATH . "assets/dist/css/fonts/icons.json");
+        $jsonString = file_get_contents(BASEPATH . "assets/data/icons.json");
         
         return json_decode($jsonString, true)['icons'];
     }

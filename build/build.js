@@ -15,7 +15,7 @@ class Build {
         this.distCSS = `${this.dist}/css/`;
         this.materialSCSS = `${this.sass}/material/`;
         this.iconFont = './node_modules/material-design-icons-iconfont/dist/';
-        this.iconsMetadata =`${this.distCSS}/fonts/icons.json`;
+        this.iconsMetadata =`assets/data/icons.json`;
 
         this.handleFiles(processArgs);
     }
