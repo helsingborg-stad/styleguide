@@ -49,7 +49,7 @@ module.exports = {
                             ]
                         ],
                         plugins: [
-                            ['@babel/plugin-transform-runtime', { corejs: 3, regenerator: true, proposals: true }]
+                            ['@babel/plugin-transform-runtime', { corejs: 3, regenerator: true }]
                         ]
                     },
                 },
