@@ -16,7 +16,7 @@ $c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !
 $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
 
 
-$fields: 'textarea, input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
+$fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"]'; 
 
 .c-field {
     .c-field__label,
@@ -43,7 +43,7 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         margin-left: calc(#{$base}/4);
     }
 
-    #{$fields} {
+    #{$fields}, textarea {
         appearance: none;
         flex: 1;
         border: 0;
@@ -69,13 +69,14 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         line-height: $c-field-font-size; 
 
         border: 1px solid $color-light;
-        background: #F5F5F5;
+        background: $color-form-fields;
         border-radius: $c-field-border-radius;
 
         &:focus,
         &:focus-within,
         &:active {
             border-color: $color-darkest;
+            background-color: $color-form-fields-focus;
         }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
@@ -105,6 +106,58 @@ $fields: 'textarea, input, input[type="color"], input[type="text"], input[type="
         height: initial;
         max-width: 100%;
         min-width: 100%;
+    }
+
+    /* Size modifiers */ 
+    &.c-field--sm {
+        #{$fields} {
+            padding: map-get($spacers, "1"); 
+            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+        textarea {
+            padding: map-get($spacers, "1"); 
+            min-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: map-get($spacers, "1");
+        }
+        .c-field__suffix {
+            padding-right: map-get($spacers, "1");
+        }
+    }
+
+    &.c-field--md {
+        #{$fields} {
+            padding: map-get($spacers, "2"); 
+            height: map-get($spacers, "6"); 
+        }
+        textarea {
+            padding: map-get($spacers, "2"); 
+            min-height: map-get($spacers, "6"); 
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: map-get($spacers, "2");
+        }
+        .c-field__suffix {
+            padding-right: map-get($spacers, "2");
+        }
+    }
+
+    &.c-field--lg {
+        #{$fields} {
+            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            height: #{map-get($spacers, "8")}; 
+        }
+        textarea {
+            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            min-height: #{map-get($spacers, "8")}; 
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+        }
+        .c-field__suffix {
+            padding-right: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+        }
     }
 
     &.is-invalid {
