@@ -195,6 +195,58 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    /* Size modifiers */ 
+    &.c-field--sm {
+        #{$fields} {
+            padding: map-get($spacers, "1"); 
+            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+        textarea {
+            padding: map-get($spacers, "1"); 
+            min-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: map-get($spacers, "1");
+        }
+        .c-field__suffix {
+            padding-right: map-get($spacers, "1");
+        }
+    }
+
+    &.c-field--md {
+        #{$fields} {
+            padding: map-get($spacers, "2"); 
+            height: map-get($spacers, "6"); 
+        }
+        textarea {
+            padding: map-get($spacers, "2"); 
+            min-height: map-get($spacers, "6"); 
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: map-get($spacers, "2");
+        }
+        .c-field__suffix {
+            padding-right: map-get($spacers, "2");
+        }
+    }
+
+    &.c-field--lg {
+        #{$fields} {
+            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            height: #{map-get($spacers, "8")}; 
+        }
+        textarea {
+            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            min-height: #{map-get($spacers, "8")}; 
+        }
+        .c-field__icon, .c-field__prefix {
+            padding-left: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+        }
+        .c-field__suffix {
+            padding-right: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+        }
+    }
+
     &.is-invalid {
         .c-field__inner, select, option {
             &,
