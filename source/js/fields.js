@@ -226,6 +226,7 @@ class Fields {
      * Listerners Click and change
      */
     formValidationEventListerners() {
+
         const self = this;
         const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
 
