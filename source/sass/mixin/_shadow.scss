@@ -5,12 +5,12 @@
     $shadow-base: 8px;
     
     @for $i from 1 through ($level) {
-        $shadow-opacity: ((0.08/$i)*6)*.2; 
-        $shadow-size: $shadow-base * ($level/$max-level) * $i; 
+        $shadow-opacity: (calc(0.08/$i)*6)*.2; 
+        $shadow-size: $shadow-base * calc($level/$max-level) * $i; 
         $offset-size: $shadow-size * 0.6; 
 
         $result: $result if($inset, #{"inset"}, #{""}) 0 $offset-size $shadow-size rgba($color-shadow-sharp, $shadow-opacity) #{","}
     }
 
-    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (($shadow-base * ($level+1) * 0.6)/$max-level) (($shadow-base * ($level+1))/$max-level) rgba($color-shadow-sharp, 0.06); 
+    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (calc(($shadow-base * ($level + 1) * 0.6)/$max-level)) calc((($shadow-base * ($level + 1))/$max-level)) rgba($color-shadow-sharp, 0.06); 
 }

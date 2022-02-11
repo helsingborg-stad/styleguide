@@ -80,8 +80,8 @@
             @for $i from 1 to $columns + 1 {
 
                 .grid-#{$breakpoint}-#{$i} {
-                    flex: 0 0 #{$i / $columns * 100 * 1%};
-                    max-width: #{$i / $columns * 100 * 1%};
+                    flex: 0 0 #{calc($i / $columns) * 100 * 1%};
+                    max-width: #{calc($i / $columns) * 100 * 1%};
                 }
             }
 
@@ -97,7 +97,7 @@
             @for $i from 1 to $columns + 1 {
 
                 .offset-#{$breakpoint}-#{$i} {
-                    margin-left: #{$i / $columns * 100 * 1%};
+                    margin-left: #{calc($i / $columns) * 100 * 1%};
                 }
             }
         }

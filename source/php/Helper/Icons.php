@@ -4,50 +4,34 @@ namespace HbgStyleGuide\Helper;
 
 class Icons
 {
-    public static function getJson()
+    private static function getCategories()
     {
-        if($jsonString = file_get_contents(BASEPATH . "assets/dist/icons/styleguide-icons.json")) {
-            return json_decode($jsonString);
-        }
-        return false;
-    }
-
-    private static function getCateGories(){
-        $jsonString = file_get_contents(BASEPATH . "assets/data/icons.json"); 
+        $jsonString = file_get_contents(BASEPATH . "assets/data/icons.json");
+        
         return json_decode($jsonString, true)['icons'];
-        
-        
     }
 
-    public static function getIcons(){
-        $categories = self::getCateGories();
+    public static function getIcons()
+    {
+        $categories = self::getCategories();
         $names = self::getNames();
         $icons = [];
         
-        foreach($names as $key => $name){
-            foreach($categories as $key => $icon){
-                if($icon['name'] == $name){
+        foreach ($names as $key => $name) {
+            foreach ($categories as $key => $icon) {
+                if ($icon['name'] == $name) {
                     $icons[ucfirst($icon['categories'][0])][] = $icon['name'];
                 }
             }
-            
         }
+        ksort($icons);
         return $icons;
     }
 
     private static function getNames()
     {
-        $lines = file(BASEPATH . 'assets/dist/css/codepoints');
-        $icons = array();
-        $categories = self::getCateGories();
-        foreach($lines as $key => $line)
-        {
-            
-            $name = explode(" ", $line);
-            $icons[] = $name[0];
-        }
-        return $icons;
+        $icons = json_decode(file_get_contents((BASEPATH . 'assets/dist/css/fonts/MaterialIcons-Regular.json')), true);
+        
+        return $icons = array_keys($icons);
     }
-
-   
 }

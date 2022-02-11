@@ -7,9 +7,9 @@ if (php_sapi_name() !== 'cli') {
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
 $buildCommands = [
-    'npm install --no-progress',
+    'npm ci --no-progress --no-audit',
     'npm run build',
-    'composer install --prefer-dist --no-progress --no-suggest'
+    'composer install --prefer-dist --no-progress'
 ];
 
 // Files and directories not suitable for prod to be removed.
@@ -22,6 +22,7 @@ $removables = [
     '.prettierrc',
     '.stylelintignore',
     '.stylelintrc',
+    'build',
     'build.php',
     'composer.json',
     'composer.lock',
@@ -33,7 +34,6 @@ $removables = [
     'postcss.config.js',
     'setup.sh',
     'webpack.config.js',
-    'webpack.dev.config.js',
 ];
 
 $dirName = basename(dirname(__FILE__));

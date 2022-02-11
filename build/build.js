@@ -1,45 +1,25 @@
-/**
- * require babel-register and set Babel presets options to es2016
- * - Npm package
- */
-require('babel-register')({
+const log = require('consola');
+const fs = require('fs');
+const https = require('https');
+const copyFiles = require('copyfiles');
+
+
+require('@babel/register')({
     presets: ['es2016'],
 });
 
-/**
- * Consola packet for nicer term log - Npm package
- * @type object log
- */
-const log = require('consola');
-
-/**
- * Filesystem - Npm package
- * @type {module:fs}
- */
-const fs = require('fs');
-
-/**
- * Copy Files - Npm package
- * @type {copyFiles}
- */
-const copyFiles = require('copyfiles');
-
-/**
- * Build Class
- */
 class Build {
     constructor(processArgs) {
-        this.serverLocation = {
-            distLocation: 'assets/dist',
-            sourceLocation: 'source/sass',
-            distCSSLocation: 'assets/dist/css/',
-            distSCSSLocation: 'source/sass/material/',
-            nodeMaterialLocation: './node_modules/material-design-icons/iconfont/',
-        };
+        this.dist = 'assets/dist/';
+        this.sass = 'source/sass/';
+        this.distCSS = `${this.dist}/css/`;
+        this.materialSCSS = `${this.sass}/material/`;
+        this.iconFont = './node_modules/material-design-icons-iconfont/dist/';
+        this.iconsMetadata =`assets/data/icons.json`;
 
         this.handleFiles(processArgs);
     }
-
+ 
     /**
      * Handle Files
      * @param processArgs
@@ -56,9 +36,9 @@ class Build {
      * MakeDir in assets
      */
     makeDir() {
-        if (!fs.existsSync(this.serverLocation.distLocation)) {
-            fs.mkdirSync(this.serverLocation.distLocation);
-            log.info('Dist dir created...');
+        if (!fs.existsSync(this.dist)) {
+            fs.mkdirSync(this.dist);
+            log.info('Dist dir created');
         }
     }
 
@@ -66,52 +46,59 @@ class Build {
      * Copy and move files
      */
     copyMoveFiles() {
-        // TODO: Lägga till check och kolla om npm paketet är uppdaterat.
 
-        let self = this;
 
-        if (fs.existsSync(this.serverLocation.nodeMaterialLocation)) {
-            copyFiles(
-                [
-                    this.serverLocation.nodeMaterialLocation + '*',
-                    this.serverLocation.distCSSLocation,
-                ],
-                3,
-                function(errors) {
-                    if (!errors) {
-                        log.success('Copy material design icon files to assets');
-
-                        copyFiles(
-                            [
-                                self.serverLocation.nodeMaterialLocation + 'material-icons.css ',
-                                self.serverLocation.distSCSSLocation,
-                            ],
-                            3,
-                            function(errors) {
-                                if (!errors) {
-                                    log.info('Copying material icon file css to source dir');
-
-                                    fs.rename(
-                                        self.serverLocation.distSCSSLocation + 'material-icons.css',
-                                        self.serverLocation.distSCSSLocation +
-                                            '_material-icons.scss',
-                                        function(e) {
-                                            !e
-                                                ? log.success('Changed format on css file to scss')
-                                                : log.error('Error renaming file');
-                                        }
-                                    );
-                                } else {
-                                    log.error(new Error(errors));
-                                }
-                            }
-                        );
-                    } else {
-                        log.error(new Error(errors));
-                    }
-                }
-            );
-        }
+        new Promise(
+            (resolve) => copyFiles(
+            [
+                `${this.iconFont}fonts/*`,
+                this.distCSS,
+            ],
+            3,
+            resolve)
+        )
+        .then(() => { 
+            log.success('Copy material design icon files to assets');
+            return new Promise((resolve) => {
+                copyFiles(
+                    [
+                        `${this.iconFont}material-design-icons.css`,
+                        this.materialSCSS,
+                    ],
+                    3,
+                    resolve);
+            })
+        })
+        .then(() => {
+            return new Promise((resolve) => {
+                fs.rename(
+                    `${this.materialSCSS}material-design-icons.css`,
+                    `${this.materialSCSS}_material-icons.scss`,
+                    resolve
+                );
+            })
+        })
+        .then(() => {
+            log.success('Changed format on css file to scss');
+            return new Promise((resolve) => {
+                https.get('https://fonts.google.com/metadata/icons', (response) => {
+                    const file = fs.createWriteStream(this.iconsMetadata);
+                    response.pipe(file);
+                    file.on('finish', () => {resolve(file)});
+                });
+            })
+        })
+        .then((file) => {
+            return new Promise((resolve) => {
+                file.close();
+                let metadata = fs.readFileSync(this.iconsMetadata).toString().split('\n');
+                metadata.shift();
+                metadata = metadata.join('\n');
+                fs.writeFileSync(this.iconsMetadata, metadata);
+                log.success('Downloaded metadata file');
+                resolve();
+            })
+        })
     }
 }
 
