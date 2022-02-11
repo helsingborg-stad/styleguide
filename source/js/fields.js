@@ -70,6 +70,7 @@ class Fields {
         for (const formInput of inputs) {
             if (formInput.parentNode.hasAttribute('data-image-preview')) {
                 this.setupImageDrop(formInput);
+                this.setupImageReset(formInput);
             }
             formInput.addEventListener('change', function (e) {
                 const targetElement = e.target;
@@ -187,6 +188,20 @@ class Fields {
                 e.preventDefault();
                 formInput.files = e.dataTransfer.files;
                 formInput.dispatchEvent(new Event('change'));
+            });
+        }
+    }
+
+    setupImageReset(formInput) {
+        const imagePreviewId = formInput.parentNode.getAttribute('data-image-preview');
+        const imagePreviewArea = document.getElementById(imagePreviewId);
+        if (imagePreviewArea) {
+            formInput.form.addEventListener('reset', function (e) {
+                console.log(imagePreviewArea);
+                const imgElement = imagePreviewArea.querySelector('.c-imageinput__image');
+                const previewLabel = imagePreviewArea.querySelector('span');
+                imgElement.style.backgroundImage = '';
+                previewLabel.innerText = '';
             });
         }
     }
