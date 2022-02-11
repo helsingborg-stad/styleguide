@@ -197,7 +197,6 @@ class Fields {
         const imagePreviewArea = document.getElementById(imagePreviewId);
         if (imagePreviewArea) {
             formInput.form.addEventListener('reset', function (e) {
-                console.log(imagePreviewArea);
                 const imgElement = imagePreviewArea.querySelector('.c-imageinput__image');
                 const previewLabel = imagePreviewArea.querySelector('span');
                 imgElement.style.backgroundImage = '';
