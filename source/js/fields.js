@@ -328,8 +328,32 @@ class Fields {
     validateInput(input) {
         if(input.checkValidity()) {
             this.getFieldWrapper(input).classList.remove('is-invalid');
+            this.removeErrorIcon(input);
         } else {
             this.getFieldWrapper(input).classList.add('is-invalid');
+            this.addErrorIcon(input);
+        }
+    }
+
+    getErrorIcon(input) {
+        return input.parentElement.querySelector('.c-field__error-icon');
+    }
+
+    removeErrorIcon(input) {
+        const errorIcon = this.getErrorIcon(input);
+        if(errorIcon !== null) {
+            errorIcon.remove();
+        }
+    }
+
+    addErrorIcon(input) {
+        if(this.getErrorIcon(input) === null && input.parentNode.matches('.c-field__inner')) {
+            const errorIcon = document.createElement('i');
+            errorIcon.classList.add('c-icon', 'c-field__suffix', 'material-icons', 'c-field__error-icon');
+            errorIcon.setAttribute('translate', 'no');
+            errorIcon.setAttribute('role', 'img');
+            errorIcon.innerText = 'error_outline';
+            input.parentElement.insertAdjacentElement('beforeend', errorIcon);
         }
     }
 
