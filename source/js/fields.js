@@ -10,6 +10,7 @@ class Fields {
         this.formElementDataInvalid = null;
 
         this.formValidationEventListerners();
+        this.setupFormValidate();
         this.fileInputOnChange();
     }
 
@@ -299,6 +300,52 @@ class Fields {
         }
     }
 
+    setupFormValidate() {
+        const self = this;
+        const forms = document.querySelectorAll('.js-event-form');
+        forms.forEach(form => {
+            const inputs = form.querySelectorAll('input, textarea, select');
+
+            // Validate fields on change
+            ['keyup', 'change'].forEach(function(e) {
+                inputs.forEach(input => {
+                    input.addEventListener(e, () => self.validateInput(input));
+                });
+            });
+
+            // Validate fields on submit
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.addEventListener('click', (e) => {
+                if(!form.checkValidity()) {
+                    inputs.forEach(input => {
+                        self.validateInput(input);
+                    });
+                }
+            });
+        });
+    }
+    
+    validateInput(input) {
+        if(input.checkValidity()) {
+            this.getFieldWrapper(input).classList.remove('is-invalid');
+        } else {
+            this.getFieldWrapper(input).classList.add('is-invalid');
+        }
+    }
+
+    getFieldWrapper(input) {
+        var fieldWrapper = input;
+        do {
+            if(fieldWrapper.parentNode !== document.body) {
+                fieldWrapper = fieldWrapper.parentNode;
+            } else {
+                return input;
+            }
+        } while(!fieldWrapper.matches('.c-field, .c-option, .c-select'));
+
+        return fieldWrapper;    
+    }
+  
     getImageDimensions(src) {
         return new Promise((resolve, reject) => {
             var image = new Image();
