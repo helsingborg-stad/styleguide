@@ -92,13 +92,19 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             color: $c-field-helper-error-color;
             display: none;
         }
+
+        &.c-field__inner--textarea .c-field__error-icon {
+            position: absolute;
+            padding: 0;
+            right: map-get($spacers, "2");
+            bottom: map-get($spacers, "2");
+        }
     }
 
     textarea {
         min-height: $c-field-height;
         height: initial;
         max-width: 100%;
-        min-width: 100%;
     }
 
     /* Size modifiers */ 
