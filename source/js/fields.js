@@ -201,6 +201,7 @@ class Fields {
                 const previewLabel = imagePreviewArea.querySelector('span');
                 imgElement.style.backgroundImage = '';
                 previewLabel.innerText = '';
+                imgElement.classList.add('is-empty');
             });
         }
     }
