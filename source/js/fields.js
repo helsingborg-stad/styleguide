@@ -302,7 +302,7 @@ class Fields {
 
     setupFormValidate() {
         const self = this;
-        const forms = document.querySelectorAll('.js-event-form');
+        const forms = document.querySelectorAll('.js-form-validation');
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
 
