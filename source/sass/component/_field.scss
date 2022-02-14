@@ -4,7 +4,7 @@ $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !d
 $c-field-label-font-size: var(--c-field-label-font-size, 12px) !default;
 $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
 
-$c-field-helper-error-color: var(--c-field-helper-error-color, $color-danger-dark) !default;
+$c-field-helper-error-color: var(--c-field-helper-error-color, $color-form-fields-border-error) !default;
 $c-field-helper-success-color: var(--c-field-helper-success-color, $color-success-dark) !default;
 $c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
@@ -75,7 +75,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &:focus,
         &:focus-within,
         &:active {
-            border-color: $color-darkest;
+            border-color: $color-form-fields-border-focus;
             background-color: $color-form-fields-focus;
         }
 
@@ -164,8 +164,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__inner, select, option {
             &,
             &:focus,
+            &:focus-within,
             &:active {
-                border-color: $c-field-helper-error-color;
+                background: $color-form-fields-error;
+                border-color: $color-form-fields-border-error;
             }
         }
         .c-field__helper {
