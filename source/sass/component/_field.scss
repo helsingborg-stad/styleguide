@@ -158,6 +158,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
                 background: $color-form-fields-error;
                 border-color: $color-form-fields-border-error;
             }
+            .c-icon {
+                color: $c-field-helper-error-color;
+            }
         }
         .c-field__helper {
             color: $c-field-helper-error-color;
