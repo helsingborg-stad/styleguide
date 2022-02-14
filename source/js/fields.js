@@ -70,69 +70,101 @@ class Fields {
         for (const formInput of inputs) {
             if (formInput.parentNode.hasAttribute('data-image-preview')) {
                 this.setupImageDrop(formInput);
+                this.setupImageReset(formInput);
             }
             formInput.addEventListener('change', function (e) {
-                const parentElement = e.target.parentNode;
+                const targetElement = e.target;
+                const parentElement = targetElement.parentNode;
 
-                if (e.target.files && e.target.files[0]) {
-                    const fileNameContainer = this.closest('div').querySelector('ul');
-                    const clone = e.target.cloneNode(false);
-                    const form = formInput.closest('form');
-                    const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
-                    const hasImagePreview = parentElement.hasAttribute('data-image-preview');
-                    let hiddenInput;
-                    if (!hasImagePreview) {
-                        hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
-                    }
-                    const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
+                const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
+                const maxWidth = parentElement.hasAttribute('data-max-width') ? parseInt(parentElement.getAttribute('data-max-width')) : 0;
+                const maxHeight = parentElement.hasAttribute('data-max-height') ? parseInt(parentElement.getAttribute('data-max-height')) : 0;
+                const dataTransfer = new DataTransfer();
 
-                    if (addedFiles == filesMax) {
-                        formInput.setAttribute('disabled', 'true')
-                    } else if (formInput.hasAttribute('disabled')) {
-                        formInput.removeAttribute('disabled')
-                    }
-
-                    if (hasImagePreview) {
-                        const imagePreviewId = parentElement.getAttribute('data-image-preview');
-                        const imagePreviewElement = document.getElementById(imagePreviewId);
-                        const imgElement = imagePreviewElement.querySelector('.c-imageinput__image');
-                        const previewLabel = imagePreviewElement.querySelector('span');
-
-                        imgElement.style.backgroundImage = "url('" + URL.createObjectURL(clone.files[0]) + "')";
-                        imgElement.classList.remove('is-empty');
-
-                        var image = new Image();
-                        image.src = URL.createObjectURL(clone.files[0]);
-                        image.onload = function () {
-                            var height = this.height;
-                            var width = this.width;
-                            previewLabel.innerText = `${clone.files[0].name}, ${width}*${height}, ${self.returnFileSize(clone.files[0].size)}`;
-                        };
-                    }
-
-                    for (let int = 0; int < filesMax; int++) {
-                        const createListElement = document.createElement('li');
-                        const listElement = fileNameContainer.appendChild(createListElement);
-                        const fileSize = self.returnFileSize(clone.files[int].size);
-                        listElement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
-                            'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + clone.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
-
-                        listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
-                            if (!hasImagePreview) {
-                                hiddenInput.remove();
-                            }
-                            listElement.remove();
-
-                            if (addedFiles <= filesMax) {
-                                notice.remove()
-
-                                if (formInput.hasAttribute('disabled')) {
-                                    formInput.removeAttribute('disabled')
-                                }
-                            }
-                        })
-                    }
+                // Validate file size, width, and height
+                const validateFilesPromises = [];
+                for (let i = 0; i < targetElement.files.length; i++) {
+                    const file = targetElement.files[i];
+                    validateFilesPromises.push(self.validateFile(file, maxFileSize, maxWidth, maxHeight));
                 }
+
+                Promise.all(validateFilesPromises).then(files => {
+                    files.forEach(file => {
+                        if (file instanceof Error) {
+                            formInput.setCustomValidity(file);
+                            formInput.reportValidity();
+                        } else {
+                            dataTransfer.items.add(file)
+                        }
+                    });
+                }).catch(e => {
+                    formInput.setCustomValidity(e);
+                    formInput.reportValidity();
+                }).finally(() => {
+                    targetElement.files = dataTransfer.files;
+
+                    if (targetElement.files && targetElement.files[0]) {
+                        const fileNameContainer = this.closest('div').querySelector('ul');
+                        const form = formInput.closest('form');
+                        const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+                        const hasImagePreview = parentElement.hasAttribute('data-image-preview');
+
+                        let hiddenInput;
+                        if (!hasImagePreview) {
+                            hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
+                        }
+                        const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
+
+                        if (addedFiles == filesMax) {
+                            formInput.setAttribute('disabled', 'true')
+                        } else if (formInput.hasAttribute('disabled')) {
+                            formInput.removeAttribute('disabled')
+                        }
+
+                        if (hasImagePreview) {
+                            const imagePreviewId = parentElement.getAttribute('data-image-preview');
+                            const imagePreviewElement = document.getElementById(imagePreviewId);
+                            const imgElement = imagePreviewElement.querySelector('.c-imageinput__image');
+                            const previewLabel = imagePreviewElement.querySelector('span');
+                            const objectUrl = URL.createObjectURL(targetElement.files[0]);
+
+                            imgElement.style.backgroundImage = "url('" + objectUrl + "')";
+                            imgElement.classList.remove('is-empty');
+
+                            var image = new Image();
+                            image.src = objectUrl;
+                            image.onload = function () {
+                                var height = this.height;
+                                var width = this.width;
+                                previewLabel.innerText = `${targetElement.files[0].name}, ${width}*${height}, ${self.returnFileSize(targetElement.files[0].size)}`;
+                            };
+                        }
+
+                        for (let int = 0; int < filesMax; int++) {
+                            const createListElement = document.createElement('li');
+                            const listElement = fileNameContainer.appendChild(createListElement);
+                            const fileSize = self.returnFileSize(targetElement.files[int].size);
+
+                            listElement.innerHTML = '<i class="c-icon c-icon--size-sm material-icons">' +
+                                'attach_file</i><span class="c-icon__label c-icon__label--size"> ' + fileSize + ', </span> <span class="c-icon__label"><b>' + targetElement.files[int].name + '</b></span> <i class="c-icon c-fileinput__remove-file c-icon--size-lg  material-icons">delete</i>';
+
+                            listElement.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
+                                if (!hasImagePreview) {
+                                    hiddenInput.remove();
+                                }
+                                listElement.remove();
+
+                                if (addedFiles <= filesMax) {
+                                    notice.remove()
+
+                                    if (formInput.hasAttribute('disabled')) {
+                                        formInput.removeAttribute('disabled')
+                                    }
+                                }
+                            })
+                        }
+                    }
+                });
             });
         }
     }
@@ -160,6 +192,20 @@ class Fields {
         }
     }
 
+    setupImageReset(formInput) {
+        const imagePreviewId = formInput.parentNode.getAttribute('data-image-preview');
+        const imagePreviewArea = document.getElementById(imagePreviewId);
+        if (imagePreviewArea) {
+            formInput.form.addEventListener('reset', function (e) {
+                const imgElement = imagePreviewArea.querySelector('.c-imageinput__image');
+                const previewLabel = imagePreviewArea.querySelector('span');
+                imgElement.style.backgroundImage = '';
+                previewLabel.innerText = '';
+                imgElement.classList.add('is-empty');
+            });
+        }
+    }
+
     /**
      * FileSize
      * @param number
@@ -180,7 +226,6 @@ class Fields {
      * Listerners Click and change
      */
     formValidationEventListerners() {
-
         const self = this;
         const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
 
@@ -298,7 +343,60 @@ class Fields {
             }
         } while(!fieldWrapper.matches('.c-field, .c-option, .c-select'));
 
-        return fieldWrapper;
+        return fieldWrapper;    
+    }
+  
+    getImageDimensions(src) {
+        return new Promise((resolve, reject) => {
+            var image = new Image();
+            image.onload = () => resolve({ width: image.width, height: image.height })
+            image.onerror = reject
+            image.src = src
+        })
+    }
+
+    /**
+     * 
+     * @param {File} file 
+     * @param {number} maxFileSize 
+     * @param {number} maxWidth 
+     * @param {number} maxHeight 
+     * @returns {Promise<File|Error>}
+     */
+    validateFile(file, maxFileSize, maxWidth = 0, maxHeight = 0) {
+        return new Promise((resolve, reject) => {
+            return this.checkFileSize(file, maxFileSize)
+                .then(() => this.checkImageDimensions(file, maxWidth, maxHeight))
+                .then(() => resolve(file))
+                .catch(reject);
+        });
+    }
+
+    checkFileSize(file, maxFileSize) {
+        return new Promise((resolve, reject) => {
+            const fileSize = file.size / 1000; // Bytes to Kilobytes
+
+            if (maxFileSize && fileSize > maxFileSize) {
+                return reject(new Error('File size is too big. Maximum allowed file size is ' + maxFileSize + 'kb'));
+            }
+            resolve();
+        });
+    }
+
+    checkImageDimensions(file, maxWidth, maxHeight) {
+        return new Promise((resolve, reject) => {
+            if (file['type'].split('/')[0] === 'image' && (maxWidth || maxHeight)) {
+                const src = URL.createObjectURL(file);
+                this.getImageDimensions(src).then(dimensions => {
+                    if ((maxWidth && dimensions.width > maxWidth) || (maxHeight && dimensions.height > maxHeight)) {
+                        return reject(new Error('Image dimensions are too big.'));
+                    }
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
     }
 }
 
