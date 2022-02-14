@@ -88,6 +88,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__suffix {
             padding-right: $c-field-padding;
         }
+        .c-field__error-icon {
+            color: $c-field-helper-error-color;
+            display: none;
+        }
     }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
@@ -169,8 +173,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
                 background: $color-form-fields-error;
                 border-color: $color-form-fields-border-error;
             }
-            .c-icon {
-                color: $c-field-helper-error-color;
+            .c-field__error-icon {
+                display: block;
             }
         }
         .c-field__helper {
