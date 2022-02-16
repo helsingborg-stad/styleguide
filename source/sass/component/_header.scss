@@ -40,5 +40,10 @@
     &.c-header--text-secondary .c-nav .c-nav__link {
         color: $color-secondary;
     }
+
+    // Logo
+    .c-logotype {
+        height: calc(var(--c-header-logotype-height, 6) * #{$base});
+    }
 }
 
