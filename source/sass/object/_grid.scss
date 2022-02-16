@@ -152,9 +152,9 @@
 $grid-columns: 12 !default;
 $grid-breakpoints: map-keys($breakpoints-map) !default;
 $grid-gutters: (
-    xs : $base,
-    md : calc(#{$base} * 3),
-    lg : calc(#{$base} * 4),
+    xs : var(--o-grid-gap, #{$base}),
+    md : calc(var(--o-grid-gap, #{$base}) * 3),
+    lg : calc(var(--o-grid-gap, #{$base}) * 4),
 ) !default;
 
 @include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);
