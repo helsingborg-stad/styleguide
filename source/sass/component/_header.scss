@@ -46,6 +46,7 @@ $c-logotype-height: var(--c-logotype-height, calc(var(--c-header-logotype-height
     // Logo
     .c-nav__logo {
         height: $c-logotype-height;
+        
         @include mq('xs') {
             height: clamp(calc(#{$base} * 3), calc($c-logotype-height * 0.5), $c-logotype-height);
         }
