@@ -1,3 +1,4 @@
+
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
     .o-grid {
         display: flex;
@@ -152,9 +153,9 @@
 $o-grid-columns: 12 !default;
 $o-grid-breakpoints: map-keys($breakpoints-map) !default;
 $o-grid-gutters: (
-    xs : var(--o-grid-gap, #{$base}),
-    md : calc(var(--o-grid-gap, #{$base}) * 3),
-    lg : calc(var(--o-grid-gap, #{$base}) * 4),
+    xs : #{$base},
+    md : calc(#{$base} * var(--o-grid-gap * 0.75, 3)),
+    lg : calc(#{$base} * var(--o-grid-gap, 4)),
 ) !default;
 
 @include generateGrid($o-grid-columns, $o-grid-breakpoints, $o-grid-gutters);
@@ -177,6 +178,5 @@ $o-grid-gutters: (
     .grid-md-4, .grid-md-6 {
         padding-right: 16px !important;
         padding-left: 16px !important;
-
     }
 }
