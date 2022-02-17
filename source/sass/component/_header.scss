@@ -1,4 +1,4 @@
-$c-logotype-height: var(--c-logotype-height, calc(var(--c-header-logotype-height, 6) * #{$base})) !default;
+$c-header-logotype-height: var(--c-header-logotype-height, calc(var(--c-header-logotype-height-option, 6) * #{$base})) !default;
 
 .c-header {
     z-index: $level-6;
@@ -44,19 +44,19 @@ $c-logotype-height: var(--c-logotype-height, calc(var(--c-header-logotype-height
     }
 
     // Logo
-    .c-header__logotype {
-        height: $c-logotype-height;
+    &__logotype {
+        height: $c-header-logotype-height;
 
         @include mq('xs') {
-            height: clamp(calc(#{$base} * 3), calc($c-logotype-height * 0.5), $c-logotype-height);
+            height: clamp(calc(#{$base} * 3), calc($c-header-logotype-height * 0.5), $c-header-logotype-height);
         }
     
         @include mq('md') {
-            height: clamp(calc(#{$base} * 3), calc($c-logotype-height * 0.75), $c-logotype-height);
+            height: clamp(calc(#{$base} * 3), calc($c-header-logotype-height * 0.75), $c-header-logotype-height);
         }
     
         @include mq('lg') {
-            height: $c-logotype-height;
+            height: $c-header-logotype-height;
         }
     }
 }
