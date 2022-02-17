@@ -1,4 +1,4 @@
-$c-footer-logotype-height: var(--c-footer-logotype-height, calc(var(--c-footer-logotype-height-option, 6) * #{$base})) !default;
+$c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !default;
 
 .c-footer {
     background-color: $color-default;

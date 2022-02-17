@@ -1,4 +1,4 @@
-$c-header-logotype-height: var(--c-header-logotype-height, calc(var(--c-header-logotype-height-option, 6) * #{$base})) !default;
+$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !default;
 
 .c-header {
     z-index: $level-6;
