@@ -149,15 +149,15 @@
     }
 }
 
-$grid-columns: 12 !default;
-$grid-breakpoints: map-keys($breakpoints-map) !default;
-$grid-gutters: (
+$o-grid-columns: 12 !default;
+$o-grid-breakpoints: map-keys($breakpoints-map) !default;
+$o-grid-gutters: (
     xs : var(--o-grid-gap, #{$base}),
     md : calc(var(--o-grid-gap, #{$base}) * 3),
     lg : calc(var(--o-grid-gap, #{$base}) * 4),
 ) !default;
 
-@include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);
+@include generateGrid($o-grid-columns, $o-grid-breakpoints, $o-grid-gutters);
 
 @media print {
     .o-grid {
