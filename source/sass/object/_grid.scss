@@ -150,12 +150,13 @@
     }
 }
 
+$o-grid-gap: var(--o-grid-gap, 4);
 $o-grid-columns: 12 !default;
 $o-grid-breakpoints: map-keys($breakpoints-map) !default;
 $o-grid-gutters: (
-    xs : #{$base},
-    md : calc(#{$base} * var(--o-grid-gap * 0.75, 3)),
-    lg : calc(#{$base} * var(--o-grid-gap, 4)),
+    xs : $base,
+    md : calc(#{$base} * #{$o-grid-gap} * 0.75),
+    lg : calc(#{$base} * #{$o-grid-gap}),
 ) !default;
 
 @include generateGrid($o-grid-columns, $o-grid-breakpoints, $o-grid-gutters);
