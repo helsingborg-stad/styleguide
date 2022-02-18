@@ -343,7 +343,60 @@ class Fields {
             }
         } while(!fieldWrapper.matches('.c-field, .c-option, .c-select'));
 
-        return fieldWrapper;
+        return fieldWrapper;    
+    }
+  
+    getImageDimensions(src) {
+        return new Promise((resolve, reject) => {
+            var image = new Image();
+            image.onload = () => resolve({ width: image.width, height: image.height })
+            image.onerror = reject
+            image.src = src
+        })
+    }
+
+    /**
+     * 
+     * @param {File} file 
+     * @param {number} maxFileSize 
+     * @param {number} maxWidth 
+     * @param {number} maxHeight 
+     * @returns {Promise<File|Error>}
+     */
+    validateFile(file, maxFileSize, maxWidth = 0, maxHeight = 0) {
+        return new Promise((resolve, reject) => {
+            return this.checkFileSize(file, maxFileSize)
+                .then(() => this.checkImageDimensions(file, maxWidth, maxHeight))
+                .then(() => resolve(file))
+                .catch(reject);
+        });
+    }
+
+    checkFileSize(file, maxFileSize) {
+        return new Promise((resolve, reject) => {
+            const fileSize = file.size / 1000; // Bytes to Kilobytes
+
+            if (maxFileSize && fileSize > maxFileSize) {
+                return reject(new Error('File size is too big. Maximum allowed file size is ' + maxFileSize + 'kb'));
+            }
+            resolve();
+        });
+    }
+
+    checkImageDimensions(file, maxWidth, maxHeight) {
+        return new Promise((resolve, reject) => {
+            if (file['type'].split('/')[0] === 'image' && (maxWidth || maxHeight)) {
+                const src = URL.createObjectURL(file);
+                this.getImageDimensions(src).then(dimensions => {
+                    if ((maxWidth && dimensions.width > maxWidth) || (maxHeight && dimensions.height > maxHeight)) {
+                        return reject(new Error('Image dimensions are too big.'));
+                    }
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
     }
 }
 

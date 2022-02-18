@@ -101,17 +101,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
-        .c-field__icon, .c-field__prefix, .c-field__suffix {
-            color: $c-field-suffix-color;
-        }
-        .c-field__icon, .c-field__prefix {
-            padding-left: $c-field-padding;
-        }
-        .c-field__suffix {
-            padding-right: $c-field-padding;
-        }
-    }
-
     textarea {
         min-height: $c-field-height;
         height: initial;
@@ -198,40 +187,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
         .c-field__helper {
             color: $c-field-helper-success-color;
-        }
-    }
-
-    .c-field__input-invalid-message {
-        width: 100%;
-        padding: #{map-get($spacers, "1")};
-        display: none;
-        font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
-        border:none;
-        border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
-        box-sizing: border-box;
-        margin-top: #{map-get($spacers, "05")};
-        &.error {
-            display: block;
-            transition: ease-in-out .3s;
-        }
-    }
-    
-    .c-field__input-invalid-message {
-        width: 100%;
-        padding: #{map-get($spacers, "1")};
-        display: none;
-        font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
-        border:none;
-        border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
-        box-sizing: border-box;
-        margin-top: #{map-get($spacers, "05")};
-        &.error {
-            display: block;
-            transition: ease-in-out .3s;
         }
     }
 }
