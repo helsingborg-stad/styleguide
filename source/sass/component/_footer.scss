@@ -1,3 +1,5 @@
+$c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !default;
+
 .c-footer {
     background-color: $color-default;
 
@@ -55,6 +57,22 @@
         margin-right: $base;
     }
 
+    // Logo
+    &__logotype {
+        height: $c-footer-logotype-height;
+
+        @include mq('xs') {
+            height: clamp(calc(#{$base} * 3), calc($c-footer-logotype-height * 0.5), $c-footer-logotype-height);
+        }
+    
+        @include mq('md') {
+            height: clamp(calc(#{$base} * 3), calc($c-footer-logotype-height * 0.75), $c-footer-logotype-height);
+        }
+    
+        @include mq('lg') {
+            height: $c-footer-logotype-height;
+        }
+    }
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
