@@ -55,21 +55,9 @@
     @endslot
 @endsegment
 
-
-
-<article>
-    @grid([
-        "container" => true,
-        "columns" => "auto-fit",
-        "min_width" => "280px",
-        "max_width" => "280px",
-        "col_gap" => 2,
-        "row_gap" => 2,
-        "classList" => [
-            "u-justify-content--center"
-        ]
-    ])
-        @grid([])
+<article class="o-container">
+    <div class="o-grid">
+        <div class="o-grid-3@md">
             @card([
                 'heading' => 'Components',
                 'subHeading' => 'A web for everyone',
@@ -85,9 +73,8 @@
                 'classList' => ['u-height--100']
             ])
             @endcard
-        @endgrid
-
-        @grid([])
+        </div>
+        <div class="o-grid-3@md">
             @card([
                 'heading' => 'Atomic Design',
                 'subHeading' => 'Implemented standards',
@@ -103,9 +90,8 @@
                 'classList' => ['u-height--100']
             ])
             @endcard
-        @endgrid
-
-        @grid([])
+        </div>
+        <div class="o-grid-3@md">
             @card([
                 'heading' => 'Utilities',
                 'subHeading' => 'Behind the screen',
@@ -121,9 +107,8 @@
                 'classList' => ['u-height--100']
             ])
             @endcard
-        @endgrid
-
-        @grid([])
+        </div> 
+        <div class="o-grid-3@md">
             @card([
                 'heading' => 'Accesability',
                 'subHeading' => 'And usability',
@@ -139,76 +124,9 @@
                 'classList' => ['u-height--100']
             ])
             @endcard
-        @endgrid
-    @endgrid
-
+        </div>
+    </div>
 </article>
-    @segment([
-        'template' => 'full',
-        'height' => 'md',
-        'parallax' => true,
-        'background_color' => '#E5E5E5',
-        'text_alignment' => 'left',
-        'cta_align' => 'center',
-        'color' => 'secondary',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'center'
-        ],
-        'heading' => "Latest Updates",
-        'classList' => [
-            'p-home__hero'
-        ]
-
-    ])
-            <div class="p-home__update">
-                @typography([
-                    'element' => 'p',
-                    'variant' => 'meta'
-                ])
-                    Feb 03, 2020
-                @endtypography
-    
-                @typography([
-                    'element' => 'h3',
-                    'variant' => 'h3'
-                ])
-                    Updates will be showing here
-                @endtypography
-    
-                @typography([
-                    'element' => 'p',
-                    'variant' => 'body'
-                ])
-                    This is just a placeholder, real updates will be showing here soon.
-                @endtypography
-            </div>
-            {{-- @foreach ($updates as $update)
-            <div class="p-home__update">
-                @typography([
-                    'element' => 'p',
-                    'variant' => 'meta'
-                ])
-                {{$update['date']}}
-                @endtypography
-    
-                @typography([
-                    'element' => 'h3',
-                    'variant' => 'h3'
-                ])
-                Updates will be showing here
-                @endtypography
-    
-                @typography([
-                    'element' => 'p',
-                    'variant' => 'body'
-                ])
-                    {{$update['message']}}
-                @endtypography
-                </div>
-            @endforeach --}}
-
-    @endsegment
 @stop
 
 
