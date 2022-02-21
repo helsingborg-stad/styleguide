@@ -25,7 +25,11 @@
     <style>
 
         .example {
-            margin-top: 32px;
+            margin-top: var(--base);
+        }
+
+        :root {
+            --c-button-color-contrasting: #fff;
         }
 
     </style>
@@ -47,8 +51,8 @@
 
     @if(!$componentLibraryIsInstalled && $isLocalDomain) 
         <div class="container">
-            <div class="grid">
-                <div class="grid-xs-12">
+            <div class="o-grid">
+                <div class="o-grid-12">
                     <div class="notice warning">
                         <i class="pricon pricon-notice-warning"></i> The blade component library is not installed, please run "composer install" in the root directory to complete the installation process and start developing. 
                     </div>
