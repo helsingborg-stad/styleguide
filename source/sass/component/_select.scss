@@ -1,7 +1,8 @@
-$c-select-border-radius: var(--c-select-border-radius, $border-radius-md) !default;
+$c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
-
-
+$c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
+$c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
+$c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-white) !default;
 .c-select__container {
     position: relative;
 }
@@ -9,43 +10,76 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
 .c-field .c-select__icon {
     position: absolute;
     right: 0;
-    top: 50%;
+    top: 0;
     left: auto;
-    transform: translate(- #{calc(#{$base}*2)}, -50%);
+    padding: map-get($spacers, "2");
+    line-height: $c-select-font-size;
     z-index: $level-2;
-    transition: transform 150ms; 
-    user-select: none;
+    transition: none;
+    height: calc(#{$base}*6);
+    color: $color-primary;
     pointer-events: none;
 }
 
-.c-select:focus:hover ~ .c-select__icon {
-    transform: rotate(180deg) translate(#{calc(#{$base}*2)}, 50%);
-}
-
 .c-select {
-    appearance: none;
-
-    width: 100%;
-    margin: 0;
-    outline: 0;
-
-    height: calc(#{$base}*6);
-    padding: map-get($spacers, "2");
-    font-size: calc(#{$base}*2);
-    line-height: calc(#{$base}*2); 
-    border: 1px solid $color-form-fields;
-
-    background: $color-form-fields;
-    background-size: calc(#{$base}*2);
-
-    border-radius: $c-select-border-radius;
-
     position: relative;
-    z-index: $level-2;
 
+    select {
+        appearance: none;
+        width: 100%;
+        margin: 0;
+        outline: 0;
+        height: map-get($spacers, "6");
+        padding: 0 map-get($spacers, "2");
+        font-size: $c-select-font-size;
+        line-height: $c-select-font-size; 
+        border: 1px solid $color-light;
+        background: $color-form-fields;
+        border-radius: $c-select-border-radius;
+        position: relative;
+        z-index: $level-2;
+        &:focus {
+            background-color: $color-form-fields-focus;
+        }
+    }
 
-    &:focus {
-        background-color: $color-form-fields-focus;
+    .c-select__icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: auto;
+        padding: map-get($spacers, "2");
+        line-height: $c-select-font-size;
+        z-index: $level-2;
+        transition: none;
+        height: calc(#{$base}*6);
+        color: $color-primary;
+        pointer-events: none;
+    }
+    
+    /* Size modifiers */ 
+    &.c-select--sm {
+        select, .c-select__icon {
+            padding: 0 map-get($spacers, "1"); 
+            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+            line-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+    }
+
+    &.c-select--md {
+        select, .c-select__icon {
+            padding: 0 map-get($spacers, "2");
+            height: map-get($spacers, "6"); 
+            line-height: map-get($spacers, "6"); 
+        }
+    }
+
+    &.c-select--lg {
+        select, .c-select__icon {
+            padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            height: #{map-get($spacers, "8")};
+            line-height: #{map-get($spacers, "8")};
+        }
     }
 
     .error.active {
@@ -73,11 +107,10 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
             top: 3px;
         }
     }
-}
 
-.c-select__container {
     select[multiple] {
         height: auto;
+        padding: 0 map-get($spacers, "2");
 
         option {
             border-radius: $c-select-border-radius-option;
@@ -87,9 +120,37 @@ $c-select-border-radius-option: var(--c-select-border-radius-option, $border-rad
             margin-bottom: 16px;
             margin-bottom: map-get($spacers , 2 );
         }
+        
         option:checked,
         option:hover {
-            background-color: $color-primary-alpha-dimmed;
+            background-color: $c-select-multi-selected-bg;
+            color: $c-select-multi-selected-color;
+        }
+    }
+
+    &.is-invalid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-error-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-error-color;
+        }
+    }
+    
+    &.is-valid {
+        .c-select {
+            &,
+            &:focus,
+            &:active {
+                border-color: $c-field-helper-success-color;
+            }
+        }
+        .c-field__helper {
+            color: $c-field-helper-success-color;
         }
     }
 

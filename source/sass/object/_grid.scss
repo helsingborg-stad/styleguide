@@ -68,6 +68,17 @@
                 }
             }
 
+            // Form column margins modifier
+            .o-grid--form {
+                padding-right: calc(#{$gutter}/4);
+                padding-left: calc(#{$gutter}/4);
+                > %column {
+                    padding-right: calc(#{$gutter}/4);
+                    padding-left: calc(#{$gutter}/4);
+                    margin-bottom: calc(#{$base} * 2);
+                }
+            }
+
         }
     }
 
