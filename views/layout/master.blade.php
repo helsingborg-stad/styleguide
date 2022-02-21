@@ -27,11 +27,6 @@
         .example {
             margin-top: var(--base);
         }
-
-        :root {
-            --c-button-color-contrasting: #fff;
-        }
-
     </style>
 
 </head>
