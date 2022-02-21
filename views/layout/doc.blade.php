@@ -63,7 +63,7 @@
                         {{$example['description']['text']}}
                     @endtypography
 
-                    @buttonGroup(['borderColor' => 'default', 'classList' => ['d-code__toggle', 'c-code__toggle']])
+                    <div class="d-code__toggle c-code__toggle">
                         @button([
                             'text' => 'HTML',
                             'color' => 'default',
@@ -84,8 +84,7 @@
                             'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                         ])
                         @endbutton
-                    @endbuttonGroup
-
+                    </div>
                     @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                     @endcode
