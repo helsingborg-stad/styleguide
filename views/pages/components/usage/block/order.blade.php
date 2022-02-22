@@ -9,13 +9,12 @@
     @grid([])
         @block([
             'heading' => 'Heading',
-            'subHeading' => 'SubHeading', 
-            'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
+            'meta' => 'Meta',
+            'filled' => true,
             'image' => [
-                'src' => '/assets/img/component.svg',
+                'src' => '/assets/img/1038-900x600.jpg',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-                'padded' => true
             ]
         ])
         @endblock
@@ -24,14 +23,13 @@
     @grid([])
         @block([
             'heading' => 'Heading',
-            'subHeading' => 'SubHeading', 
-            'imageFirst' => true,
-            'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
+            'ratio' => '12:16',
+            'meta' => 'Meta',
+            'filled' => true,
             'image' => [
-                'src' => '/assets/img/component.svg',
+                'src' => '/assets/img/1038-900x600.jpg',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-                'padded' => true
             ]
         ])
         @endblock
