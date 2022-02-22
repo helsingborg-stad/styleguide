@@ -1,4 +1,5 @@
-
+<div class="o-grid">
+    <div class="o-grid-4@md">
         @card([
             'collapsible' => false,
             'heading' => 'Heading',
@@ -17,3 +18,5 @@
                 ]
         ])
         @endcard
+    </div>
+</div>

@@ -1,10 +1,12 @@
 
-        @card([
-            'classList' => [
-                'c-card--panel',
-                'c-card--highlight'
-            ]
-        ])
+<div class="o-grid">
+  <div class="o-grid-4@md">
+    @card([
+        'classList' => [
+            'c-card--panel',
+            'c-card--highlight'
+        ]
+    ])
         <div class="c-card__header">
             <!-- typography.blade.php -->
             <h2 id="" class="c-typography c-typography__variant--h2" data-uid="5f7c265caf00d">
@@ -24,4 +26,6 @@
                 Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
               </p>
             </div>
-        @endcard
+    @endcard
+  </div>
+</div>
