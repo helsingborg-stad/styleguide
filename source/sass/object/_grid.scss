@@ -1,6 +1,7 @@
 
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
-    .o-grid {
+    .o-grid,
+    .grid {
         display: flex;
         flex-wrap: wrap;
 
@@ -137,8 +138,8 @@
                 //Width based Columns (eg .grid-md-6)
                 .o-grid-#{$i}#{$suffix},
                 .grid-#{$breakpoint}-#{$i} {
-                    flex: 0 0 calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}));
-                    max-width: calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}));
+                    flex: 0 0 calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1-($i / $columns)});
+                    max-width: calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1-($i / $columns)});
                 }
 
                  //Order (eg .order-md-6)
