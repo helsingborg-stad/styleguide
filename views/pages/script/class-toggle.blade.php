@@ -68,61 +68,13 @@
             @endbutton
         @endbuttonGroup
 
-        @grid(["container" => true, 'classList' => ['u-color__bg--default', 'u-rounded', 'u-padding']])
-            @grid([
-                "col" => [
-                    "xs" => [1,7],
-                    "sm" => [1,7],
-                    "md" => [1,7],
-                    "lg" => [1,7],
-                    "xl" => [1,7]
-                ],
-                "row" => [
-                    "xs" => [1,2],
-                    "sm" => [1,2],
-                    "md" => [1,2],
-                    "lg" => [1,2],
-                    "xl" => [1,2]
-                ],
-                "classList" => [
-                    "u-rounded",
-                    'u-padding--2'
-                ],
-                "attributeList" => [
-                    "js-toggle-item" => 'iddd',
-                    "js-toggle-class" => 'u-color__bg--secondary',
-                    "js-toggle-group" => "example2"
-                ]
-            ])
-            @endgrid
+        <div class="u-color__bg--default u-rounded">
+            <div class="u-rounded u-padding--2" js-toggle-item = "iddd" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
+            </div>
 
-            @grid([
-                "col" => [
-                    "xs" => [7,13],
-                    "sm" => [7,13],
-                    "md" => [7,13],
-                    "lg" => [7,13],
-                    "xl" => [7,13]
-                ],
-                "row" => [
-                    "xs" => [1,2],
-                    "sm" => [1,2],
-                    "md" => [1,2],
-                    "lg" => [1,2],
-                    "xl" => [1,2]
-                ],
-                "classList" => [
-                    "u-rounded",
-                    'u-padding--2'
-                ],
-                "attributeList" => [
-                    "js-toggle-item" => 'iddd2',
-                    "js-toggle-class" => 'u-color__bg--secondary',
-                    "js-toggle-group" => "example2"
-                ]
-            ])
-            @endgrid
-        @endgrid
+            <div class="u-rounded u-padding--2" js-toggle-item = "iddd2" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
+            </div>
+        </div>
         
     @endscript_doc
 @stop
