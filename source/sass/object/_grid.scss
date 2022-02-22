@@ -11,37 +11,43 @@
         }
     }
 
-    .o-grid {
+    .o-grid,
+    .grid {
         > * {
             @extend %column;
         }    
     }
 
     //Nowrap
-    .o-grid.o-grid--nowrap {
+    .o-grid.o-grid--nowrap,
+    .grid.grid--nowrap  {
         flex-wrap: nowrap;
     }
     @each $breakpoint in $breakpoints {
         $suffix: get-breakpoint-suffix($breakpoint, null);
         @include mq($breakpoint) {
-            .o-grid.o-grid--nowrap#{$suffix} {
+            .o-grid.o-grid--nowrap#{$suffix},
+            .grid.grid-#{$breakpoint}--nowrap {
                 flex-wrap: nowrap;
             }
         }
     }
 
     //Reversed row
-    .o-grid.o-grid--row-reverse {
+    .o-grid.o-grid--row-reverse,
+    .grid.grid--row-reverse {
         flex-direction: row-reverse;
     }
 
     //Reversed col
-    .o-grid.o-grid--col-reverse {
+    .o-grid.o-grid--col-reverse,
+    .grid.grid--col-reverse {
         flex-direction: column-reverse;
     }
 
     // Equal height elements modifier
-    .o-grid.o-grid--equal-elements > * {
+    .o-grid.o-grid--equal-elements > * ,
+    .grid.grid--equal-elements > * {
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
@@ -55,7 +61,8 @@
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
         @include mq($breakpoint) {
-            .o-grid {
+            .o-grid,
+            .grid {
                 gap: #{$gutter};
             }
 
@@ -66,15 +73,18 @@
         }
     }
 
-    .o-grid.o-grid--no-gutter {
+    .o-grid.o-grid--no-gutter,
+    .grid.grid--no-gutter {
         gap:0;
     }
 
-    .o-grid.o-grid--no-margin > %column {
-        margin-bottom: 0;
+    .o-grid.o-grid--no-margin,
+    .grid.grid--no-margin {
+        gap: 0; 
     }
     
-    .o-grid.o-grid--valign {
+    .o-grid.o-grid--valign,
+    .grid.grid--valign {
         align-items: center;
     }
 
@@ -91,11 +101,14 @@
         $columnClasses: ();
         @for $i from 1 to $columns + 1 {
             $columnClasses: append($columnClasses, ", .o-grid > .o-grid-#{$i}#{$suffix}");
+            $columnClasses: append($columnClasses, ", .grid > .grid-#{$breakpoint}-#{$i}");
         }
 
         //Apply common column styles
         .o-grid-auto#{$suffix},
         .o-grid-fit#{$suffix},
+        .grid-#{$breakpoint}-auto,
+        .grid-#{$breakpoint}-fit,
         #{$columnClasses} {
             @extend %column;
         }
@@ -104,7 +117,8 @@
         @include mq($breakpoint) {
 
             //Auto width column (eg .o-grid-auto@md)
-            .o-grid-auto#{$suffix} {
+            .o-grid-auto#{$suffix},
+            .grid-#{$breakpoint}-auto {
                 flex-basis: 0;
                 flex-grow: 1;
                 max-width: 100%;
@@ -112,7 +126,8 @@
             }
 
             //Fit content column (eg .o-grid-fit@md)
-            .o-grid > .o-grid-fit#{$suffix} {
+            .o-grid > .o-grid-fit#{$suffix},
+            .grid > .grid-#{$breakpoint}-fit {
                 flex: 0 0 auto;
                 width: auto;
                 max-width: none;
@@ -120,18 +135,21 @@
 
             @for $i from 1 to $columns + 1 {
                 //Width based Columns (eg .grid-md-6)
-                .o-grid-#{$i}#{$suffix} {
+                .o-grid-#{$i}#{$suffix},
+                .grid-#{$breakpoint}-#{$i} {
                     flex: 0 0 calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}));
                     max-width: calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}));
                 }
 
                  //Order (eg .order-md-6)
-                .o-order-#{$i}#{$suffix} {
+                .o-order-#{$i}#{$suffix},
+                .order-#{$breakpoint}-#{$i} {
                     order: $i;
                 }
 
                 //Offset (eg .offset-md-6)
-                .o-offset-#{$i}#{$suffix} {
+                .o-offset-#{$i}#{$suffix},
+                .offset-#{$breakpoint}-#{$i} {
                     margin-left: #{calc($i / $columns) * 100 * 1%};
                 }
             }
