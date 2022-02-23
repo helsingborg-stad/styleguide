@@ -1,3 +1,4 @@
+@use 'sass:math';
 
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
     .o-grid,
@@ -71,6 +72,11 @@
             .o-grid.o-grid--form {
                 gap: calc(#{$gutter} * .5); 
             }
+
+            //Utility 
+            .u-flex--gridgap {
+                gap: #{$gutter};
+            }
         }
     }
 
@@ -138,8 +144,8 @@
                 //Width based Columns (eg .grid-md-6)
                 .o-grid-#{$i}#{$suffix},
                 .grid-#{$breakpoint}-#{$i} {
-                    flex: 0 0 calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1-($i / $columns)});
-                    max-width: calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1-($i / $columns)});
+                    flex: 0 0 calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1 - math.div($i, $columns)});
+                    max-width: calc(#{calc($i / $columns) * 100 * 1%} - calc(var(--o-grid-gap, 4) * #{$base}) * #{1 - math.div($i, $columns)});
                 }
 
                  //Order (eg .order-md-6)
