@@ -24,6 +24,10 @@ $article-color-heading: var(--article-color-heading, $color-primary);
     h1:first-child {
         margin-top: -0.21em; /* Mitigates excessive spacing due to line-height */ 
     }
+
+    h1:last-child {
+        margin-bottom: 0; 
+    }
 }
 
 .c-article.c-article--readable-width {
