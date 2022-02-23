@@ -8,102 +8,128 @@
 @endmarkdown
 
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__text']])
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--primary']
-    ])
-        Primary Text
-    @endtypography
+    <div class="o-grid">    
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--secondary']
-    ])
-        Secondary Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--primary']
+            ])
+                Primary Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--danger']
-    ])
-    Danger Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--secondary']
+            ])
+                Secondary Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--info']
-    ])
-        Info Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--danger']
+            ])
+            Danger Text
+            @endtypography
+        </div>
+        
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--info']
+            ])
+                Info Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--success']
-    ])
-        Success Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--success']
+            ])
+                Success Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--warning']
-    ])
-        Warning Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--warning']
+            ])
+                Warning Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--light', 'u-color__bg--lighter']
-    ])
-        Light Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--light', 'u-color__bg--lighter']
+            ])
+                Light Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--lighter', 'u-color__bg--light']
-    ])
-        Lighter Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--lighter', 'u-color__bg--light']
+            ])
+                Lighter Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--lightest', 'u-color__bg--light']
-    ])
-        Lightest Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--lightest', 'u-color__bg--light']
+            ])
+                Lightest Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--dark']
-    ])
-        Dark Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--dark']
+            ])
+                Dark Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--darker']
-    ])
-        Darker Text
-    @endtypography
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--darker']
+            ])
+                Darker Text
+            @endtypography
+        </div>
 
-    @typography([
-        'element' => 'h6',
-        'variant' => 'h4',
-        'classList' => ['u-color__text--darkest']
-    ])
-        Darkest Text
-    @endtypography
-
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--darkest']
+            ])
+                Darkest Text
+            @endtypography
+        </div>
+    </div>
 @endutility_doc
 
 @markdown
@@ -112,99 +138,93 @@
 
 @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'colors', 'config' => 'colors__bg']])
 
-    @grid([
-        "container" => true,
-        "columns" => "auto-fit",
-        //"min_width" => "100px",
-        "max_width" => "150px",
-        "col_gap" => "3"
-    ])
-        @grid(['classList' => ['u-text-align--center']])
+    <div class="o-grid">
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--default u-rounded" style="height: 20px;"></div>
             <span>Default</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--primary u-rounded" style="height: 20px;"></div>
             <span>Primary</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--secondary u-rounded" style="height: 20px;"></div>
             <span>Secondary</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--danger u-rounded" style="height: 20px;"></div>
             <span>Danger</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--warning u-rounded" style="height: 20px;"></div>
             <span>Warning</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--info u-rounded" style="height: 20px;"></div>
             <span>Info</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--success u-rounded" style="height: 20px;"></div>
             <span>Success</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--darkest u-rounded" style="height: 20px;"></div>
             <span>Darkest</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--darker u-rounded" style="height: 20px;"></div>
             <span>Darker</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--dark u-rounded" style="height: 20px;"></div>
             <span>Dark</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--light u-rounded" style="height: 20px;"></div>
             <span>Light</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--lighter u-rounded" style="height: 20px;"></div>
             <span>Lighter</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--lightest u-rounded" style="height: 20px;"></div>
             <span>Lightest</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--complementary u-rounded" style="height: 20px;"></div>
             <span>Compl.</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--complementary-light u-rounded" style="height: 20px;"></div>
             <span>Compl. light</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--complementary-lighter u-rounded" style="height: 20px;"></div>
             <span>Compl. lighter</span>
-        @endgrid
+        </div>
 
-        @grid(['classList' => ['u-text-align--center']])
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
             <div class="u-color__bg--complementary-lightest u-rounded" style="height: 20px;"></div>
             <span>Compl. lightest</span>
-        @endgrid
+        </div>
 
-    @endgrid
+    </div>
 
 @endutility_doc
 </article>

@@ -1,12 +1,6 @@
-@grid([
-    "container" => true,
-    "columns" => "auto-fit",
-    "min_width" => "300px",
-    "max_width" => "400px",
-    "col_gap" => 5,
-    "row_gap" => 5
-])
-    @grid([])
+
+<div class="o-grid">
+    <div class="o-grid-4@md">
         @card([
             'heading' => 'Heading',
             'subHeading' => 'SubHeading', 
@@ -16,5 +10,5 @@
             'link' => "https://helsingborg.se"
         ])
         @endcard
-    @endgrid
-@endgrid
+    </div>
+</div>
