@@ -72,7 +72,7 @@
             <div class="u-rounded u-padding--2" js-toggle-item="iddd" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
             </div>
 
-            <div class="u-rounded u-padding--2" js-toggle-item = "iddd2" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
+            <div class="u-rounded u-padding--2" js-toggle-item="iddd2" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
             </div>
         </div>
         
