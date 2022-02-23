@@ -223,5 +223,39 @@
         </div>
     @endutility_doc
 
+
+    @markdown
+    ###Gap
+    @endmarkdown
+
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'flex', 'config' => 'gridgap']])
+        <div class="u-display--flex u-flex-wrap u-flex--gridgap">
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+            <div class="u-color__bg--primary u-rounded" style="height: 20px; width: 100px;"></div>
+        </div>
+    @endutility_doc
+
+
+    
+
+
 </article>
 @stop
