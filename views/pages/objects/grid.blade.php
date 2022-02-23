@@ -3,7 +3,7 @@
 @section('doc-content')
     @markdown
         #Grid
-        Grid is a object that allows you to create a grid of elements. Please note that we support, .grid and .o-grid syntax. We are moving away from .grid class to the better scoped .o-grid. 
+        Grid is an object that allows you to create a grid of elements. Please note that we support both the .grid and .o-grid syntax. However the .grid class should be considered deprecated and .o-grid  as it's better scoped and is therefor favored.
     @endmarkdown
 
     @paper(['padding' => '3'])
