@@ -117,6 +117,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
+    border-radius: 0;
 }
 
 .c-notice + .c-notice {
