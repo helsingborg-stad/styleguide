@@ -20,6 +20,18 @@
         }    
     }
 
+    //Gutter styles
+    @each $breakpoint, $gutter in $gutters {
+        @include mq($breakpoint) {
+            .o-grid + .o-grid,
+            .grid + .grid,
+            .o-grid + .grid,
+            .grid + .o-grid  {
+                margin-top: #{$gutter};
+            }
+        }
+    }
+
     //Nowrap
     .o-grid.o-grid--nowrap,
     .grid.grid--nowrap  {
