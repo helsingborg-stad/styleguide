@@ -29,6 +29,13 @@
             .grid + .o-grid  {
                 margin-top: #{$gutter};
             }
+
+            .o-grid.o-grid--form + .o-grid.o-grid--form,
+            .grid.grid--form + .grid.grid--form,
+            .o-grid.o-grid--form + .grid.grid--form,
+            .grid.grid--form + .o-grid.o-grid--form  {
+                margin-top: calc(#{$gutter} * .5);
+            }
         }
     }
 
