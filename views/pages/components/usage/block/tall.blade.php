@@ -6,7 +6,7 @@
             'meta' => 'Meta',
             'filled' => true,
             'image' => [
-                'src' => '/assets/img/1038-900x600.jpg',
+                'src' => 'https://picsum.photos/680/1000?image=15',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -21,7 +21,7 @@
             'meta' => 'Meta',
             'filled' => true,
             'image' => [
-                'src' => '/assets/img/1038-900x600.jpg',
+                'src' => 'https://picsum.photos/680/1000?image=16',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -35,7 +35,7 @@
             'meta' => 'Meta',
             'filled' => true,
             'image' => [
-                'src' => '/assets/img/1038-900x600.jpg',
+                'src' => 'https://picsum.photos/680/1000?image=17',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -49,7 +49,7 @@
             'meta' => 'Meta',
             'filled' => true,
             'image' => [
-                'src' => '/assets/img/1038-900x600.jpg',
+                'src' => 'https://picsum.photos/680/1000?image=18',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -63,7 +63,7 @@
             'meta' => 'Meta',
             'filled' => true,
             'image' => [
-                'src' => '/assets/img/1038-900x600.jpg',
+                'src' => 'https://picsum.photos/680/1000?image=19',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
