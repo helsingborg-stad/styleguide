@@ -1,6 +1,6 @@
 $c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default;
 $c-block-filled-color: var(--c-block-filled-color, $color-white) !default;
-$c-block-filled-background-color: var(--c-block-filled-background-color $color-gray-light) !default;
+$c-block-filled-background-color: var(--c-block-filled-background-color, $color-gray-light) !default;
 
 .c-block {
     position: relative;
@@ -13,6 +13,12 @@ $c-block-filled-background-color: var(--c-block-filled-background-color $color-g
         bottom: 0;
         left: 0;
         padding: calc(#{$base} * 4) calc(#{$base} * 3);
+    }
+
+    .c-block__image-background {
+        background-position: center;
+        background-size: cover;
+        border-radius: $c-block-border-radius;
     }
 
     &.c-block--filled {
