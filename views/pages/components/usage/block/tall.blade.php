@@ -38,8 +38,7 @@
                 'src' => '/assets/img/1038-900x600.jpg',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-            ],
-            'link' => '#',
+            ]
         ])
         @endblock
     </div>
