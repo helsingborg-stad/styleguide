@@ -52,6 +52,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         color: $c-block-filled-color;
         .c-block__image {
             background-color: $c-block-filled-background-color;
+            border-radius: $c-block-border-radius;
         }
 
         a {
