@@ -1,5 +1,5 @@
 <div class="o-grid">
-    <div class="o-grid-6@sm o-grid-3@md">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
             'heading' => 'Heading',
             'meta' => 'Meta',
@@ -13,7 +13,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-6@sm o-grid-3@md">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
             'heading' => 'Heading',
             'meta' => 'Meta',
@@ -26,7 +26,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-6@sm o-grid-3@md">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
             'heading' => 'Heading',
             'meta' => 'Meta',
@@ -39,7 +39,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-6@sm o-grid-3@md">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
             'heading' => 'Heading',
             'meta' => 'Meta',
@@ -52,7 +52,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-6@sm o-grid-3@md">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
             'heading' => 'Heading',
             'meta' => 'Meta',
