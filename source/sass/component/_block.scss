@@ -71,6 +71,35 @@ $c-block-filled-background-color: var(--c-block-filled-background-color, $color-
     }
 }
 
+a.c-block {
+    transition: all 200ms ease-out;
+
+    .c-block__image-background:before {
+        @include cover(); 
+        content: '';
+        transition: opacity 200ms;
+        @include cover(); 
+        background: $color-lighter;
+        opacity: 0;
+        z-index: $level-1;
+    }
+
+    &:hover {
+        filter: $drop-shadow-3;
+        background-color: $color-lightest;
+        color: inherit;
+        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+
+        .c-block__heading {
+            text-decoration: underline;
+        }
+
+        .c-block__image-background:before {
+            opacity: 0.08;
+        }
+    }
+}
+
 .o-grid--no-gutter > [class*="o-grid-"] .c-block,
 .o-grid--no-gutter > [class*="o-grid-"] .c-block [class*="c-block"] {
     border-radius: unset;
