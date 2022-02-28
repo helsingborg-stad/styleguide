@@ -164,8 +164,8 @@
             @for $i from 1 to $columns + 1 {
                 
                 //Width based Columns (eg .grid-md-6)
-                .o-grid .o-grid-#{$i}#{$suffix},
-                .grid .grid-#{$breakpoint}-#{$i} {
+                .o-grid-#{$i}#{$suffix},
+                .grid-#{$breakpoint}-#{$i} {
                     @if $i != 12 {
                         flex: 0 0 calc(
                             #{calc($i / $columns) * 100 * 1%} 
