@@ -7,6 +7,7 @@ $c-block-filled-background-color: var(--c-block-filled-background-color, $color-
     border-radius: $c-block-border-radius;
     overflow: hidden;
     filter: $drop-shadow-2;
+    display: block;
 
     .c-block__body {
         position: absolute;
