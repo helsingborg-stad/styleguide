@@ -8,5 +8,10 @@
     "heading": "Block ratio 1:1",
     "subHeading": "",
     "text": ""
+  },
+  "gutter": {
+    "heading": "Block ratio 1:1, without spacing between blocks",
+    "subHeading": "",
+    "text": ""
   }
 }

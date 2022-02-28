@@ -69,3 +69,8 @@ $c-block-filled-background-color: var(--c-block-filled-background-color, $color-
         }
     }
 }
+
+.o-grid--no-gutter > [class*="o-grid-"] .c-block,
+.o-grid--no-gutter > [class*="o-grid-"] .c-block [class*="c-block"] {
+    border-radius: unset;
+}
