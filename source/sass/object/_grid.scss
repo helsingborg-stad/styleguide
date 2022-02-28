@@ -88,7 +88,8 @@
             }
 
             // Form column margins modifier
-            .o-grid.o-grid--form {
+            .o-grid.o-grid--form,
+            .o-grid.o-grid--half-gutter {
                 gap: calc(#{$gutter} * .5); 
             }
 
@@ -101,7 +102,7 @@
 
     .o-grid.o-grid--no-gutter,
     .grid.grid--no-gutter {
-        gap:0;
+        gap: 0;
     }
 
     .o-grid.o-grid--no-margin,
