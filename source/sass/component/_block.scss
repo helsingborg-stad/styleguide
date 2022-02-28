@@ -20,6 +20,8 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 4) calc(#{$base} * 3);
         width: 100%;
         z-index: 0;
+        max-height: 100%;
+        overflow: hidden;
 
         &::after {
             content: '';
