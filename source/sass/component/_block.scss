@@ -11,6 +11,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     position: relative;
     border-radius: $c-block-border-radius;
     filter: $drop-shadow-2;
+    display: block;
 
     .c-block__body {
         position: absolute;
