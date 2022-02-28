@@ -1,11 +1,15 @@
 $c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default;
 $c-block-filled-color: var(--c-block-filled-color, $color-white) !default;
-$c-block-filled-background-color: var(--c-block-filled-background-color, $color-gray-light) !default;
+$c-block-filled-background-color: var(
+    --c-block-filled-background-color,
+    $color-gray-light
+) !default;
+
+$c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
 .c-block {
     position: relative;
     border-radius: $c-block-border-radius;
-    overflow: hidden;
     filter: $drop-shadow-2;
     display: block;
 
@@ -14,6 +18,28 @@ $c-block-filled-background-color: var(--c-block-filled-background-color, $color-
         bottom: 0;
         left: 0;
         padding: calc(#{$base} * 4) calc(#{$base} * 3);
+        width: 100%;
+        z-index: 0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: $c-block-color-overlay;
+            background: linear-gradient(
+                180deg,
+                transparent 0,
+                transparent 14%,
+                $c-block-color-overlay 61%,
+                $c-block-color-overlay
+            );
+            z-index: -1;
+            border-bottom-left-radius: $c-block-border-radius;
+            border-bottom-right-radius: $c-block-border-radius;
+        }
     }
 
     .c-block__image-background {
