@@ -1,4 +1,5 @@
 @footer([
+    'classList' => ['u-margin__top--8'],
     'logotype' => '/assets/img/logotype-grey-full.svg',
     'links' => [
         'About' => [

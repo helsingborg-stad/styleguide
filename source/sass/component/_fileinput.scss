@@ -1,38 +1,9 @@
 .c-fileinput {
 
     label {
-
-        display: inline-block;
-        vertical-align: middle;
-        text-decoration: none;
-        cursor: pointer;
-        line-height: 1;
-        font-weight: 500;
-        background-color: $color-primary;
-        color: $color-white;
-        border: none;
-        transition: 150ms background-color;
-
-        position:relative;
-
-        i {
-            position:absolute;
-            top: 11px;
-            left:10px;
-            color: $color-white;
+        .c-icon {
+            margin-right: map-get($spacers, "1");
         }
-
-        @include button-size(calc(#{$base}*2), calc(#{$base}*3), $font-size-btn-md, $font-size-btn-md-line-height, $border-radius-md);
-        padding-left: map-get($spacers, "5");
-
-        &:hover {
-            background-color: $color-primary-light;
-        }
-
-        &:focus {
-            background-color:$color-primary-alpha-dimmed;
-        }
-
     }
 
     .c-fileinput__input {

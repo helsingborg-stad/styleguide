@@ -8,12 +8,19 @@
     min-height: 150px;
     max-height: 300px;
     width: 100%;
+    background-size: cover;
+    background-position: center;
     background-color: $color-form-fields;
     border: 1px solid $color-form-fields;
     border-radius: $border-radius-md;
     transition: color .1s ease;
     cursor: pointer;
     overflow: hidden;
+
+    &.is-empty {
+      padding: 0;
+      height: 150px;
+    }
 
     &:hover {
       background-color: $color-form-fields-focus;

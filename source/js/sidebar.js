@@ -1,5 +1,3 @@
-require("regenerator-runtime");
-
 export default class Sidebar {
     constructor() {
         this.ATTR = "js-sidebar";

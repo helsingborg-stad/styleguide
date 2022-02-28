@@ -24,10 +24,15 @@
     position: relative;
     z-index: $level-1;
 
-    button {
+    .c-button,
+    .c-button:hover {
         background-color: $color-code-button;
-        box-shadow: none;
         filter: $drop-shadow-0;
+        border-radius: 0;
+
+        .c-button__label {
+            color: $color-white;
+        }
     }
 }
 

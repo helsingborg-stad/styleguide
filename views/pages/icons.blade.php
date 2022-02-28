@@ -24,76 +24,72 @@
             @endfield
         
         @paper(['padding' => 3])
-        <div class="d-icons__controlls">
-            @buttonGroup(['borderColor' => 'default'])
-                @button([
-                    'text' => 'Expand all',
-                    'icon' => 'unfold_more',
-                    'size' => 'lg',
-                    'attributeList' => ['icons_expand' => '']
-                ])
-                @endbutton
+            <div class="d-icons__controlls">
+                @buttonGroup(['borderColor' => 'default'])
+                    @button([
+                        'text' => 'Expand all',
+                        'icon' => 'unfold_more',
+                        'size' => 'lg',
+                        'attributeList' => ['icons_expand' => '']
+                    ])
+                    @endbutton
 
-                @button([
-                    'text' => 'Minimize all',
-                    'size' => 'lg',
-                    'icon' => 'unfold_less',
-                    'attributeList' => ['icons_minimize' => '']
-                ])
-                @endbutton
+                    @button([
+                        'text' => 'Minimize all',
+                        'size' => 'lg',
+                        'icon' => 'unfold_less',
+                        'attributeList' => ['icons_minimize' => '']
+                    ])
+                    @endbutton
 
-                @button([
-                    'text' => 'Sort icons',
-                    'size' => 'lg',
-                    'icon' => 'sort_by_alpha',
-                    'attributeList' => ['js-sort-button' => '111-0']
-                ])
-                @endbutton
-            @endbuttonGroup 
-        </div>
-        <div class="grid">
-        
-        
-            
-            
-                
-                    @foreach(HbgStyleGuide\Helper\Icons::getIcons() as $category => $icons)
-                        <div class="grid-md-12 icon-category"  js-toggle-item="{{$loop->index}}" js-toggle-class="d-icons--close" js-filter-item="">
-                            <div class="d-icons__category">
-                                <h2>{{$category}}</h2>
-                                @icon([
-                                    'icon' => 'expand_less',
-                                    'color' => 'black',
-                                    'size' => 'sm',
-                                    "attributeList" => ['js-toggle-trigger' => $loop->index]
-                                ])
-                                @endbutton
-                            </div>
-                            <div class="grid d-icons__sheet" js-sort-data-container>
-                                
-                                @foreach($icons as $icon)
-                                    <div class="grid-md-2 d-animation"  onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="" js-sort-sortable js-sort-data="111-0">
-                                        
-                                        <div class="d-animation__content">      
-                                            @icon(["icon" => $icon, "size" => "xl", "classList" => ["d-animation__icon"]])
-                                            @endicon
-
-                                            <p class="d-animation__copied">Copied!</p>
-                                        </div>
-
-                                        <span js-filter-data="" js-copy-data>
-                                            {{$icon}}
-                                        </span>
-                                        
-                                    </div>
-                                @endforeach
-                            </div>
-                            
-                        </div>
-                    @endforeach
-                
+                    @button([
+                        'text' => 'Sort icons',
+                        'size' => 'lg',
+                        'icon' => 'sort_by_alpha',
+                        'attributeList' => ['js-sort-button' => '111-0']
+                    ])
+                    @endbutton
+                @endbuttonGroup 
             </div>
-        </div>
+
+
+
+            <div class="o-grid">
+                @foreach(HbgStyleGuide\Helper\Icons::getIcons() as $category => $icons)
+                    
+                    <div class="o-grid-12@md icon-category"  js-toggle-item="{{$loop->index}}" js-toggle-class="d-icons--close" js-filter-item="">
+                        
+                        <div class="d-icons__category">
+                            <h2>{{$category}}</h2>
+                            @icon([
+                                'icon' => 'expand_less',
+                                'color' => 'black',
+                                'size' => 'sm',
+                                "attributeList" => ['js-toggle-trigger' => $loop->index]
+                            ])
+                            @endbutton
+                        </div>
+
+                        <div class="o-grid d-icons__sheet" js-sort-data-container>
+                            @foreach($icons as $icon)
+                                <div class="o-grid-6@xs o-grid-4@sm o-grid-3@md o-grid-2@lg d-animation"  onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="" js-sort-sortable js-sort-data="111-0">
+                                    <div class="d-animation__content">      
+                                        @icon(["icon" => $icon, "size" => "xl", "classList" => ["d-animation__icon"]])
+                                        @endicon
+                                        <p class="d-animation__copied">Copied!</p>
+                                    </div>
+
+                                    <span js-filter-data="" js-copy-data>
+                                        {{$icon}}
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                        
+                    </div>
+                @endforeach   
+            </div>
+
         @endpaper
 
     </article>

@@ -36,9 +36,9 @@ const addDatepickers = (target = document) => {
 const observer = new MutationObserver((mutationsList, observer) => {
     for(const mutation of mutationsList) {
         if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) =>{
-                if(node.querySelectorAll('[js-datepicker]').length > 0) {
-                    addDatepickers(node)
+            mutation.addedNodes.forEach((node) => {
+                if(node.nodeType === Node.ELEMENT_NODE && node.querySelectorAll('[js-datepicker]').length > 0) {
+                    addDatepickers(node);
                 }
             })
         }

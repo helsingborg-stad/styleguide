@@ -5,12 +5,8 @@
 
     @markdown
         #Mixins
-        Our mixin library relies on the awesome work of burbon, sassline and mqcss. We have, however extended with some of our very own mixins documentated here. 
-
-        ##Reference documentation
-        - [Burbon documentation](https://www.bourbon.io/docs/latest/)
-        - [Sassline documentation](https://github.com/jakegiltsoff/sassline)
-        - [MqCss documentation](https://github.com/Dan503/mq-scss)
+        Oops! We haven't done our job yet! Mixin documentation is currently missing. If you want to improve this, please send us a PR.
+        
     @endmarkdown
 
 </article>
