@@ -1,6 +1,11 @@
 {
-  "order": {
-    "heading": "Block aspect ratio",
+  "tall": {
+    "heading": "Block ratio 12:16",
+    "subHeading": "",
+    "text": ""
+  },
+  "square": {
+    "heading": "Block ratio 1:1",
     "subHeading": "",
     "text": ""
   }
