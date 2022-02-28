@@ -1,9 +1,9 @@
 <div class="o-grid">
     <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
-            'heading' => 'Heading',
+            'heading' => 'Nibh Dolor Bibendum Vehicula Amet',
             'ratio' => '12:16',
-            'meta' => 'Meta',
+            'meta' => 'Ultricies',
             'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/680/1000?image=15',
@@ -16,9 +16,9 @@
     </div>
     <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
-            'heading' => 'Heading',
+            'heading' => 'Nulla vitae elit libero, a pharetra augue',
             'ratio' => '12:16',
-            'meta' => 'Meta',
+            'meta' => 'Malesuada Parturient Dolor',
             'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/680/1000?image=16',
@@ -30,9 +30,9 @@
     </div>
     <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
-            'heading' => 'Heading',
+            'heading' => 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus',
             'ratio' => '12:16',
-            'meta' => 'Meta',
+            'meta' => 'Porta Ultricies',
             'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/680/1000?image=17',
@@ -44,9 +44,9 @@
     </div>
     <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
-            'heading' => 'Heading',
+            'heading' => 'Maecenas faucibus mollis interdum',
             'ratio' => '12:16',
-            'meta' => 'Meta',
+            'meta' => 'Nibh',
             'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/680/1000?image=18',
@@ -58,9 +58,9 @@
     </div>
     <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
         @block([
-            'heading' => 'Heading',
+            'heading' => 'Curabitur blandit tempus porttitor',
             'ratio' => '12:16',
-            'meta' => 'Meta',
+            'meta' => 'Ornare Malesuada',
             'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/680/1000?image=19',
