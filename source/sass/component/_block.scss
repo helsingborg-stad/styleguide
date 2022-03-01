@@ -1,10 +1,9 @@
 $c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default;
-$c-block-filled-color: var(--c-block-filled-color, $color-white) !default;
-$c-block-filled-background-color: var(
-    --c-block-filled-background-color,
+$c-block-color: var(--c-block-color, $color-white) !default;
+$c-block-background-color: var(
+    --c-block-background-color,
     $color-gray-light
 ) !default;
-
 $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
 .c-block {
@@ -12,6 +11,9 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     border-radius: $c-block-border-radius;
     filter: $drop-shadow-2;
     display: block;
+    background-position: center;
+    background-size: cover;
+    background-color: $c-block-background-color;
 
     .c-block__body {
         position: absolute;
@@ -44,59 +46,22 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         }
     }
 
-    .c-block__image-background {
-        background-position: center;
-        background-size: cover;
-        border-radius: $c-block-border-radius;
+    .c-block__heading, 
+    .c-block__meta {
+        margin: 0; 
+        color: $c-block-color; 
     }
 
-    &.c-block--filled {
-        color: $c-block-filled-color;
-        .c-block__image {
-            background-color: $c-block-filled-background-color;
-            border-radius: $c-block-border-radius;
-        }
-
-        a {
-            color: $c-block-filled-color;
-        }
-
-        .c-block__body {
-            color: $c-block-filled-color;
-            padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 3) calc(#{$base} * 3);
-        }
-
-        .c-block__heading {
-            margin-top: 0;
-            margin-bottom: $base;
-        }
-        .c-block__meta {
-            margin-top: 0;
-            margin-bottom: $base;
-        }
+    .c-block__meta + .c-block__heading {
+        margin-top: $base;
     }
 
     &.c-block--ratio-4-3 {
-        .c-block__image-background {
-            @include ratio(4, 3, false);
-        }
+        @include ratio(4, 3, false);
     }
 
     &.c-block--ratio-12-16 {
-        .c-block__image-background {
-            @include ratio(12, 16, false);
-        }
-    }
-
-    &--default {
-        .c-block__body {
-            padding: 0;
-            padding-top: calc(#{$base} * 3);
-        }
-        .c-block__image {
-            background-color: $color-gray;
-            border-radius: $c-block-border-radius;
-        }
+        @include ratio(12, 16, false);
     }
 }
 
