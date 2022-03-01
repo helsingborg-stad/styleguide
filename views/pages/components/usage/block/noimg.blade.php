@@ -22,7 +22,7 @@
         @block([
             'heading' => 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus',
             'ratio' => '12:16',
-            'meta' => 'Porta Ultricies',
+            'meta' => ['Porta Ultricies', 'Malesuada Parturient Dolor', 'Ultricies'],
             'filled' => true
         ])
         @endblock
