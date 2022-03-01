@@ -13,5 +13,10 @@
     "heading": "Block ratio 4:3, without spacing between blocks",
     "subHeading": "",
     "text": ""
+  },
+  "noimg": {
+    "heading": "Block without a image",
+    "subHeading": "",
+    "text": ""
   }
 }
