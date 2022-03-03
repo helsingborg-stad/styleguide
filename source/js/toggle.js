@@ -10,15 +10,17 @@ export default class ToggleClasses {
 
     togglePressedTrigger (pressedTriggerId, groupId, pressedTrigger) {
         let query = `[${this.ITEM}="${pressedTriggerId}"]`;
-        let item = document.querySelector(query);
-        let toggleClass = item.getAttribute(this.CLASS);
-        let ariaPressed = pressedTrigger.getAttribute(this.PRESSED);
-
-        item.classList.toggle(toggleClass);
-
-        if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
-
-        if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+        let items = document.querySelectorAll(query);
+        items.forEach(item => {
+            let toggleClass = item.getAttribute(this.CLASS);
+            let ariaPressed = pressedTrigger.getAttribute(this.PRESSED);
+            
+            item.classList.toggle(toggleClass);
+            
+            if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
+            
+            if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+        });  
     }
 
     toggleIdleGroupMembers (groupId, pressedTriggerId, toggleClass) {
