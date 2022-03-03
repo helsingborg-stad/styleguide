@@ -41,7 +41,9 @@
     font-size: $font-size;
     border-radius: $border-radius;
     height: calc(#{$padding-vertical} * 2 + #{$line-height});
-
+    .c-button__label-text {
+        line-height: #{$line-height};
+    }
     &:after {
         border-radius: $border-radius;
     }

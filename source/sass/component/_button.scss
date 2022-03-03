@@ -303,6 +303,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     margin-left: $base;
     position: relative;
     z-index: $level-2;
+    display: flex;
 
     &--reverse {
         order: 1;
