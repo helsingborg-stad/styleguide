@@ -1,37 +1,13 @@
+//@import "~splidejs/splide/dist/splide-core.min.css";
+//@import "~splidejs/splide/dist/splide.min.css";
+@import '../../../node_modules/@splidejs/splide/src/css/core';
+
+$c-slider-padding: var(--c-slider-padding, 10rem);
+
 .c-slider {
     position: relative;
     border-radius: $border-radius-md;
     max-height: 80vh;
-
-    .c-slider__button {
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        height: 100%;
-        z-index: $level-6;
-        margin: 0;
-        
-        i {
-            font-size: calc( #{$base} * 4 );
-            color: $color-white;
-        }
-
-        &-prev {
-            left: 0;
-            transform: translate(100%, 0);
-        }
-
-        &-next {
-            right: 0; 
-            transform: translate(-100%, 0);
-        }
-
-        &-prev, &-next {
-            opacity: 0;
-            transition: transform 0.3s ease-in-out,
-                        opacity 0.3s ease-in-out;
-        }
-    }
 
     .c-slider__container {
         border-radius: $border-radius-md;
@@ -39,52 +15,71 @@
         min-height: 0;
         position: relative;
         overflow: hidden;
-    
+
         .c-slider__inner {
             @include cover();
             display: flex;
-            transition: transform 0.7s ease-in-out;
             height: 100%;
 
             .c-segment {
                 width: 100%;
             }
+
+            .c-slider__item {
+                width: calc(100% - #{$c-slider-padding});
+            }
         }
     }
 
-    /** Modifiers */ 
+    .c-slider__arrows {
+        .splide__arrow {
+            background: $color-primary;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            width: calc(#{$base} * 6);
+            height: calc(#{$base} * 6);
+            padding: 0;
+            margin: 0;
+            border-radius: $border-radius-md;
+
+            svg {
+                height: calc(#{$base} * 2.5);
+                width: calc(#{$base} * 2.5);
+                fill: $color-default;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &.splide__arrow--prev {
+                left: 2.5rem;
+                transform: scaleX(-1) translateY(-50%);
+            }
+
+            &.splide__arrow--next {
+                right: 2.5rem;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    /** Modifiers */
     &.c-slider--shadow {
         filter: $drop-shadow-2;
-    }
-
-    &.c-slider--has-stepper {
-        margin-bottom: map-get($spacers, "7");
-    }
-
-    &.c-slider--has-stepper:hover {
-        .c-slider__button {
-            opacity: 1;
-            text-shadow: 0 0 #{$base} black;
-
-            &-next {
-                opacity: 1;
-                transform: translate(0);
-            }
-
-            &-prev {
-                opacity: 1;
-                transform: translate(0);
-            }
-        }
     }
 
     &.c-slider--16-9 {
         .c-slider__container {
             padding-top: Min(100%, 80vh);
-            @include mq(map_get($breakpoints-map, "sm")) {
+            @include mq(map_get($breakpoints-map, 'sm')) {
                 padding-top: Min(75%, 80vh);
             }
-            @include mq(map_get($breakpoints-map, "md")) {
+            @include mq(map_get($breakpoints-map, 'md')) {
                 padding-top: Min(56.25%, 80vh);
             }
         }
@@ -93,10 +88,10 @@
     &.c-slider--4-3 {
         .c-slider__container {
             padding-top: Min(100%, 80vh);
-            @include mq(map_get($breakpoints-map, "sm")) {
+            @include mq(map_get($breakpoints-map, 'sm')) {
                 padding-top: Min(75%, 80vh);
             }
-            @include mq(map_get($breakpoints-map, "md")) {
+            @include mq(map_get($breakpoints-map, 'md')) {
                 padding-top: Min(75%, 80vh);
             }
         }
@@ -104,21 +99,21 @@
 
     &.c-slider--10-3 {
         .c-slider__container {
-            @include mq(map_get($breakpoints-map, "sm")) {
+            @include mq(map_get($breakpoints-map, 'sm')) {
                 padding-top: Min(75%, 80vh);
             }
-            @include mq(map_get($breakpoints-map, "md")) {
+            @include mq(map_get($breakpoints-map, 'md')) {
                 padding-top: Max(30%, calc(#{$base} * 40));
-            } 
+            }
         }
     }
 
     &.c-slider--36-7 {
         .c-slider__container {
-            @include mq(map_get($breakpoints-map, "sm")) {
+            @include mq(map_get($breakpoints-map, 'sm')) {
                 padding-top: Min(75%, 80vh);
             }
-            @include mq(map_get($breakpoints-map, "md")) {
+            @include mq(map_get($breakpoints-map, 'md')) {
                 padding-top: Max(19.44%, calc(#{$base} * 40));
             }
         }
@@ -130,32 +125,45 @@
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
-    bottom: -#{map-get($spacers, "5")};
+    bottom: -#{map-get($spacers, '5')};
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 
-    @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
-        bottom: -#{map-get($spacers, "6")};
+    li {
+        display: inline-block;
+        padding: 0;
+    }
+
+    @include mq(map_get($breakpoints-map, 'xs'), map_get($breakpoints-map, 'sm')) {
+        bottom: -#{map-get($spacers, '6')};
         padding-bottom: #{$base};
+    }
+
+    li:first-of-type {
+        .c-slider__dot {
+            border-top-left-radius: calc(#{$base} * 0.5);
+            border-bottom-left-radius: calc(#{$base} * 0.5);
+        }
+    }
+
+    li:last-of-type {
+        .c-slider__dot {
+            border-top-right-radius: calc(#{$base} * 0.5);
+            border-bottom-right-radius: calc(#{$base} * 0.5);
+        }
     }
 
     .c-slider__dot {
         cursor: pointer;
         background: $color-gray;
         display: inline-block;
-        width: calc(#{$base} * 1.5);
+        width: calc(#{$base} * 2);
         height: calc(#{$base} * 0.5);
         margin: calc(#{$base} * 0.5);
+        border: none;
 
-        &:first-of-type {
-            border-top-left-radius: calc(#{$base} * 0.5);
-            border-bottom-left-radius: calc(#{$base} * 0.5);
-        }
-
-        &:last-of-type {
-            border-top-right-radius: calc(#{$base} * 0.5);
-            border-bottom-right-radius: calc(#{$base} * 0.5);
-        }
-
-        &.c-slider__dot--active {
+        &.c-slider__dot.is-active {
             cursor: default;
             background: $color-primary;
         }
@@ -170,4 +178,4 @@
 }
 
 //Import is here as adding the import in main.scss does not work
-@import "./slider_item";
+@import './slider_item';

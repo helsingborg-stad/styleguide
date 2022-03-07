@@ -5,7 +5,6 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     background-position: center;
     background-size: cover;
     position: relative;
-    min-width: 100%;
 
     .c-slider__item__container {
         z-index: $level-4;
