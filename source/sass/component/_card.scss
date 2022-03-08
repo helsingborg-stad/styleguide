@@ -282,6 +282,13 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &__date {
+        display: flex;
+        gap: calc(#{$base} * 0.5);
+        align-items: center;
+        margin-top: calc(#{$base} * 0.5);
+    }
+
     &__dropdown {
         position: absolute;
         top: 0;
