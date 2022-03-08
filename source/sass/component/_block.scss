@@ -47,11 +47,15 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     }
 
     .c-block__heading, 
-    .c-block__meta {
+    .c-block__meta,
+    .c-block__date {
         margin: 0; 
         color: $c-block-color; 
+        display: block; 
     }
 
+    .c-block__date + .c-block__meta, 
+    .c-block__date + .c-block__heading,
     .c-block__meta + .c-block__heading {
         margin-top: $base;
     }
