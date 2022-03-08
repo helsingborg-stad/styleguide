@@ -76,7 +76,10 @@ $c-slider-color-overlay-contrasting: var(
         right: 0;
         bottom: 0;
         left: 0;
-        padding: map-get($spacers, '2');
+        padding: map-get($spacers, '4');
+        @include mq('md') {
+            padding: map-get($spacers, '2');
+        }
         position: absolute;
 
         display: grid;
