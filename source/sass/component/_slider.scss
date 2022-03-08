@@ -2,7 +2,8 @@
 //@import "~splidejs/splide/dist/splide.min.css";
 @import '../../../node_modules/@splidejs/splide/src/css/core';
 
-$c-slider-padding: var(--c-slider-padding, 10rem);
+$c-slider-padding: var(--c-slider-padding, calc(#{$base} * 7)) !default;
+$c-slider-gap: var(--c-slider-gap, calc(#{$base} * 2)) !default;
 
 .c-slider {
     position: relative;
@@ -24,14 +25,18 @@ $c-slider-padding: var(--c-slider-padding, 10rem);
             .c-segment {
                 width: 100%;
             }
-
-            .c-slider__item {
-                width: calc(100% - #{$c-slider-padding});
-            }
         }
     }
 
     .c-slider__arrows {
+        width: calc(100% - calc(#{$c-slider-padding} + #{$c-slider-gap}));
+        max-width: calc(#{$container-width} - #{$c-slider-padding});
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+
         .splide__arrow {
             background: $color-primary;
             border: 0;
@@ -57,12 +62,12 @@ $c-slider-padding: var(--c-slider-padding, 10rem);
             }
 
             &.splide__arrow--prev {
-                left: 2.5rem;
+                left: calc(#{$base} * -2.5);
                 transform: scaleX(-1) translateY(-50%);
             }
 
             &.splide__arrow--next {
-                right: 2.5rem;
+                right: calc(#{$base} * -2.5);
                 transform: translateY(-50%);
             }
         }

@@ -1,10 +1,21 @@
 $c-slider-color-overlay: var(--c-slider-color-overlay, $color-alpha) !default;
-$c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $color-alpha-contrasting) !default;
+$c-slider-color-overlay-contrasting: var(
+    --c-slider-color-overlay-contrasting,
+    $color-alpha-contrasting
+) !default;
 
 .c-slider__item {
     background-position: center;
     background-size: cover;
     position: relative;
+    width: calc(100% - calc(#{$c-slider-padding} + #{$c-slider-gap}));
+    max-width: calc(#{$container-width} - #{$c-slider-padding});
+    margin-right: $c-slider-gap;
+
+    &:only-child {
+        width: 100%;
+        max-width: 100%;
+    }
 
     .c-slider__item__container {
         z-index: $level-4;
@@ -37,7 +48,7 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     }
 
     //Video Additions
-    &:not(:hover) &__background--video__play__btn:not(:focus){
+    &:not(:hover) &__background--video__play__btn:not(:focus) {
         height: 0px;
         width: 0px;
         max-height: 0px;
@@ -47,11 +58,10 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
 
     &__background--video__play__btn {
         position: absolute;
-        right: map-get($spacers, "2");
-        bottom: map-get($spacers, "2");
+        right: map-get($spacers, '2');
+        bottom: map-get($spacers, '2');
         z-index: $level-4 + 1;
     }
-
 }
 
 ////////////////////////////////
@@ -66,7 +76,7 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
         right: 0;
         bottom: 0;
         left: 0;
-        padding: map-get($spacers, "2");
+        padding: map-get($spacers, '2');
         position: absolute;
 
         display: grid;
@@ -75,7 +85,7 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     }
 
     .c-slider__item__heading {
-        grid-area: 1 / 1 / 2 / 2; 
+        grid-area: 1 / 1 / 2 / 2;
     }
 
     .c-slider__item__body {
@@ -98,9 +108,9 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     }
 
     .c-slider__item__container {
-        padding: map-get($spacers, "4");
+        padding: map-get($spacers, '4');
         border-radius: $border-radius-lg;
-        margin: auto; 
+        margin: auto;
         width: calc(100% - (#{$base} * 10));
         max-width: calc(#{$base} * 118);
         max-height: calc(100% - (#{$base} * 10));
@@ -109,10 +119,10 @@ $c-slider-color-overlay-contrasting: var(--c-slider-color-overlay-contrasting, $
     }
 
     .c-slider__item__heading {
-        @include mq(map_get($breakpoints-map, "md")) {
+        @include mq(map_get($breakpoints-map, 'md')) {
             font-size: calc(#{$base} * 4);
         }
-        
+
         font-weight: 800;
     }
 

@@ -1,23 +1,21 @@
 import Splide from '@splidejs/splide';
 
-const SLIDE = 'js-slider-slide';
+const SLIDER_ITEM = 'c-slider__item';
 const ATTR = 'js-slider';
 const BTN = 'js-slider-btn';
 const INDEX = 'js-slider-index';
 const INNER = 'js-slider-inner';
 const AUTOSLIDE = 'js-slider__autoslide';
 const REPEAT = 'js-slider-repeat';
-const STEP = 'data-step';
 
 export default class Slider {
     constructor(slider) {
         this.sliderElement = slider;
-        const gap = 2; // TODO: Move
         this.splide = new Splide(slider, {
             type: 'loop',
-            gap: `${gap}rem`,
             autoWidth: true,
             focus: 'center',
+            pagination: slider.classList.contains('c-slider--has-stepper'),
             classes: {
                 arrows: 'c-slider__arrows',
                 pagination: 'c-slider__steppers',
@@ -26,6 +24,8 @@ export default class Slider {
         });
         this.PAUSEHOVER = false;
 
-        this.splide.mount();
+        if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
+            this.splide.mount();
+        }
     }
 }
