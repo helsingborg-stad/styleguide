@@ -1,4 +1,5 @@
 import Splide from '@splidejs/splide';
+import VideoControls from './helpers/video';
 
 const SLIDER_ITEM = 'c-slider__item';
 const ATTR = 'js-slider';
@@ -27,5 +28,15 @@ export default class Slider {
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
         }
+
+        this.addVideoControls()
+    }
+
+    addVideoControls() {
+        this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
+            if(slide.querySelectorAll('video').length > 0) {
+                const player = new VideoControls(slide);
+            }
+        })
     }
 }
