@@ -2,13 +2,33 @@
 //@import "~splidejs/splide/dist/splide.min.css";
 @import '../../../node_modules/@splidejs/splide/src/css/core';
 
-$c-slider-padding: var(--c-slider-padding, calc(#{$base} * 7)) !default;
-$c-slider-gap: var(--c-slider-gap, calc(#{$base} * 2)) !default;
+$c-slider-padding: calc(#{$base} * var(--c-slider-padding, 7)) !default;
+$c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
 
 .c-slider {
     position: relative;
     border-radius: $border-radius-md;
     max-height: 80vh;
+
+    &::before, &::after {
+        content: "";
+        width: 2px;
+        height: calc(100% + 4px);
+        position: absolute;
+        top: -2px;
+        background: $color-black;
+        opacity: 0.24;
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+        z-index: 9999;
+    }
+
+    &::before {
+        left: -2px;
+    }
+
+    &::after {
+        right: -2px;
+    }
 
     .c-slider__container {
         border-radius: $border-radius-md;
