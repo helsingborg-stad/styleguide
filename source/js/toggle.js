@@ -1,28 +1,36 @@
 export default class ToggleClasses {
     constructor() {
-        this.TRIGGER = 'js-toggle-trigger';
-        this.ITEM = 'js-toggle-item';
-        this.CLASS = 'js-toggle-class';
-        this.GROUP = 'js-toggle-group';
+        this.TRIGGER = 'data-js-toggle-trigger';
+        this.ITEM = 'data-js-toggle-item';
+        this.CLASS = 'data-js-toggle-class';
+        this.GROUP = 'data-js-toggle-group';
         this.PRESSED = 'aria-pressed';
+        this.TRIGGER_DEPRECATED = 'js-toggle-trigger';
+        this.ITEM_DEPRECATED = 'js-toggle-item';
+        this.CLASS_DEPRECATED = 'js-toggle-class';
+        this.GROUP_DEPRECATED = 'js-toggle-group';
         this.observeTriggers();
     }
 
     togglePressedTrigger (pressedTriggerId, groupId, pressedTrigger) {
-        let query = `[${this.ITEM}="${pressedTriggerId}"]`;
-        let item = document.querySelector(query);
-        let toggleClass = item.getAttribute(this.CLASS);
-        let ariaPressed = pressedTrigger.getAttribute(this.PRESSED);
+        let query = `[${this.ITEM}="${pressedTriggerId}"], [${this.ITEM_DEPRECATED}="${pressedTriggerId}"]`;
+        let items = document.querySelectorAll(query);
+        items.forEach(item => {
+            let toggleClass = item.getAttribute(this.CLASS) || item.getAttribute(this.CLASS_DEPRECATED);
+            let ariaPressed = pressedTrigger.getAttribute(this.PRESSED);
 
-        item.classList.toggle(toggleClass);
+            item.classList.toggle(toggleClass);
 
-        if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
+            if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
 
-        if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+            if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+        }); 
     }
 
     toggleIdleGroupMembers (groupId, pressedTriggerId, toggleClass) {
-        let query = `[${this.GROUP}="${groupId}"][${this.TRIGGER}]:not([${this.TRIGGER}="${pressedTriggerId}"])`
+        let query = `[${this.GROUP}="${groupId}"][${this.TRIGGER}]:not([${this.TRIGGER}="${pressedTriggerId}"]), 
+        [${this.GROUP_DEPRECATED}="${groupId}"][${this.TRIGGER_DEPRECATED}]:not([${this.TRIGGER_DEPRECATED}="${pressedTriggerId}"])`;
+
         let idleTriggers = document.querySelectorAll(query);
 
         idleTriggers.forEach((idleTrigger=>{
@@ -35,8 +43,8 @@ export default class ToggleClasses {
     }
 
     removeClassFromTriggeredItem (idleTrigger, toggleClass) {
-        let id = idleTrigger.getAttribute(this.TRIGGER);
-        let triggeredItem = document.querySelector(`[${this.ITEM}="${id}"]`);
+        let id = idleTrigger.getAttribute(this.TRIGGER) || idleTrigger.getAttribute(this.TRIGGER_DEPRECATED);
+        let triggeredItem = document.querySelector(`[${this.ITEM}="${id}"]`) || document.querySelector(`[${this.ITEM_DEPRECATED}="${id}"]`);
 
         triggeredItem.classList.remove(toggleClass);
     }
@@ -50,13 +58,13 @@ export default class ToggleClasses {
     }
 
     applyToggle (event = null) {
-        let triggers = document.querySelectorAll(`[${this.TRIGGER}]`);
+        let triggers = document.querySelectorAll(`[${this.TRIGGER}], [${this.TRIGGER_DEPRECATED}]`);
 
         if(event) {
             let newTriggers = []
             event.forEach((record)=>{
                 record.addedNodes.forEach((node) =>{
-                    if(node.getAttribute && node.getAttribute('js-toggle-trigger')) {
+                    if(node.getAttribute && (node.getAttribute(this.TRIGGER) || node.getAttribute(this.TRIGGER_DEPRECATED))) {
                         newTriggers.push(node);
                     }
                 })
@@ -66,8 +74,8 @@ export default class ToggleClasses {
 
         triggers.forEach( (trigger)=>{
             trigger.addEventListener('click', (event) => {
-                let triggerId = trigger.getAttribute(this.TRIGGER);
-                let groupId = trigger.getAttribute(this.GROUP);
+                let triggerId = trigger.getAttribute(this.TRIGGER) || trigger.getAttribute(this.TRIGGER_DEPRECATED);
+                let groupId = trigger.getAttribute(this.GROUP) || trigger.getAttribute(this.GROUP_DEPRECATED);
                 
                 this.togglePressedTrigger(triggerId, groupId, trigger);
             });
