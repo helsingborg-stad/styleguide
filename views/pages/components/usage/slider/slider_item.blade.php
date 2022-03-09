@@ -49,7 +49,7 @@
         'textColor' => 'theme',
         'mobile_image' => 'https://picsum.photos/720/720',
         'desktop_image' => 'https://picsum.photos/1080/720',
-        'background_video' => 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1280_10MG.mp4',
+        'background_video' => 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     ])
     @endslider__item
 

@@ -20,7 +20,7 @@ $c-slider-color-overlay-contrasting: var(
     .c-slider__item__container {
         z-index: $level-4;
         color: $c-slider-color-overlay-contrasting;
-        background-color: $c-slider-color-overlay;
+        background-color: transparent;
         backdrop-filter: blur(1px);
     }
 
@@ -61,6 +61,35 @@ $c-slider-color-overlay-contrasting: var(
         right: map-get($spacers, '2');
         bottom: map-get($spacers, '2');
         z-index: $level-4 + 1;
+    }
+
+    // Modifiers
+    &.c-slider__item {
+        &--bg-none {
+            .c-slider__item__container {
+                background-color: none;
+            }
+        }
+
+        &--bg-transparent {
+            .c-slider__item__container {
+                background-color: $c-slider-color-overlay;
+            }
+        }
+
+        &--bg-theme {
+            .c-slider__item__container {
+                background-color: $color-primary;
+            }
+        }
+
+        &--text-align-center {
+            text-align: center;
+        }
+
+        &--text-align-right {
+            text-align: right;
+        }
     }
 }
 
