@@ -42,6 +42,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         z-index: $level-2;
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
+        gap: #{$base};
 
         * {
             align-self: center;
@@ -306,7 +307,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--reverse {
         order: 1;
-        margin-right: $base;
     }
 }
 
@@ -332,6 +332,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--sm .c-button__label-icon--reverse {
         margin-left: calc(calc(#{$base} * -1) * 0.5);
+        margin-right: 0;
     }
 
     &--md .c-button__label-icon {
@@ -340,6 +341,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--md .c-button__label-icon--reverse {
         margin-left: calc(#{$base} * -1);
+        margin-right: 0;
     }
 
     &--lg .c-button__label-icon {
@@ -348,6 +350,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--lg .c-button__label-icon--reverse {
         margin-left: calc(calc(#{$base} * -1) * 1.5);
+        margin-right: 0;
     }
 }
 
