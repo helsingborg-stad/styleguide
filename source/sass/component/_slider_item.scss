@@ -8,8 +8,8 @@ $c-slider-color-overlay-contrasting: var(
     background-position: center;
     background-size: cover;
     position: relative;
-    width: calc(100% - calc(#{$c-slider-padding} + #{$c-slider-gap}));
-    max-width: calc(#{$container-width} - #{$c-slider-padding});
+    width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+    max-width: calc(#{$container-width} - #{$c-slider-inset});
     margin-right: $c-slider-gap;
 
     &:only-child {

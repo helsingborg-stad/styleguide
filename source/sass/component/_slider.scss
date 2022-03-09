@@ -2,7 +2,7 @@
 //@import "~splidejs/splide/dist/splide.min.css";
 @import '../../../node_modules/@splidejs/splide/src/css/core';
 
-$c-slider-padding: calc(#{$base} * var(--c-slider-padding, 7)) !default;
+$c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
 
 .c-slider {
@@ -49,8 +49,8 @@ $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
     }
 
     .c-slider__arrows {
-        width: calc(100% - calc(#{$c-slider-padding} + #{$c-slider-gap}));
-        max-width: calc(#{$container-width} - #{$c-slider-padding});
+        width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+        max-width: calc(#{$container-width} - #{$c-slider-inset});
         position: absolute;
         top: 50%;
         left: 50%;
