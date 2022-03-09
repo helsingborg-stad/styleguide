@@ -31,7 +31,6 @@ $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
     }
 
     .c-slider__container {
-        border-radius: $border-radius-md;
         padding-top: Min(100%, 80vh);
         min-height: 0;
         position: relative;
