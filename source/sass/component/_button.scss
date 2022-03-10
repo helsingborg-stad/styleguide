@@ -22,6 +22,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     display: inline-flex;
     vertical-align: middle;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     cursor: pointer;
     line-height: $button-line-height;
