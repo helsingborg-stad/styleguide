@@ -97,6 +97,14 @@
             .u-flex--gridgap {
                 gap: #{$gutter};
             }
+
+            .u-flex--gridgap-row {
+                row-gap: #{$gutter};
+            }
+
+            .u-flex--gridgap-col {
+                column-gap: #{$gutter};
+            }
         }
     }
 
