@@ -6,8 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prebuild": "node build/build.js assets & node build/build.js assetsMaterial",
-        "build": "sass --style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css & webpack --config webpack.config.js",
-        "watch": "sass --style compressed --watch source/sass/main.scss assets/dist/css/styleguide-css.min.css & webpack --config webpack.config.js --watch",
+        "build": "webpack --config webpack.config.js",
+        "watch": "webpack --config webpack.config.js --watch",
         "sass": "node build/build.js assetsMaterial & sass --watch --style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",
@@ -64,8 +64,9 @@
         "file-loader": "^6.2.0",
         "glob": "^7.2.0",
         "material-design-icons-iconfont": "^6.1.1",
-        "mini-css-extract-plugin": "^2.5.3",
+        "mini-css-extract-plugin": "^2.6.0",
         "postcss-loader": "^6.2.1",
+        "postcss-object-fit-images": "^1.1.2",
         "prettier": "^2.5.1",
         "sass": "^1.49.7",
         "sass-loader": "^12.4.0",
@@ -74,6 +75,7 @@
         "webpack": "^5.68.0",
         "webpack-cli": "^4.9.1",
         "webpack-fix-style-only-entries": "^0.6.1",
+        "webpack-remove-empty-scripts": "^0.7.3",
         "webpack-shell-plugin": "^0.5.0"
     },
     "dependencies": {
