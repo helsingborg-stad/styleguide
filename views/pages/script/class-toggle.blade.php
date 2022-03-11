@@ -21,13 +21,13 @@
                 'isPrimary' => false,
                 'isCircle' => true,
                 'attributeList' => [
-                    'js-toggle-trigger' => 'example',
+                    'data-js-toggle-trigger' => 'example',
                 ]
             ])
                 Toggle background color
             @endbutton
 
-            <div class="u-rounded" js-toggle-item="example" js-toggle-class="u-color__bg--primary">
+            <div class="u-rounded" data-js-toggle-item="example" data-js-toggle-class="u-color__bg--primary">
                 @typography([
                     'element' => 'h4',
                     'variant' => 'subtitle',
@@ -53,7 +53,7 @@
                 'size' => 'md',
                 'icon' => 'code',
                 'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => "iddd", 'js-toggle-group' => "example2"]
+                'attributeList' => ['data-js-toggle-trigger' => "iddd", 'data-js-toggle-group' => "example2"]
             ])
             @endbutton
             @button([
@@ -63,16 +63,16 @@
                 'size' => 'md',
                 'icon' => 'code',
                 'toggle' => true,
-                'attributeList' => ['js-toggle-trigger' => "iddd2", 'js-toggle-group' => "example2"]
+                'attributeList' => ['data-js-toggle-trigger' => "iddd2", 'data-js-toggle-group' => "example2"]
             ])
             @endbutton
         @endbuttonGroup
 
         <div class="u-color__bg--default u-rounded">
-            <div class="u-rounded u-padding--2" js-toggle-item="iddd" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
+            <div class="u-rounded u-padding--2" data-js-toggle-item="iddd" data-js-toggle-class="u-color__bg--secondary" data-js-toggle-group="example2">
             </div>
 
-            <div class="u-rounded u-padding--2" js-toggle-item="iddd2" js-toggle-class="u-color__bg--secondary" js-toggle-group="example2">
+            <div class="u-rounded u-padding--2" data-js-toggle-item="iddd2" data-js-toggle-class="u-color__bg--secondary" data-js-toggle-group="example2">
             </div>
         </div>
         

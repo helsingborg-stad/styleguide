@@ -5,15 +5,15 @@
         "or by adding <code>js-toggle-single</code> to any element. The data attribute value is the class that you toggle."
     ],
     "description": {
-        "js-toggle-container": "Outer container",
-        "js-toggle-single": "a single element to toggle",
-        "js-toggle-multi": "a container where every child is toggled",
-        "js-toggle-trigger": "an element with a click event attached to toggle"
+        "data-js-toggle-container": "Outer container",
+        "data-js-toggle-single": "A single element to toggle",
+        "data-js-toggle-multi": "A container where every child is toggled",
+        "data-js-toggle-trigger": "An element with a click event attached to toggle"
     },
     "attributes": {
-        "js-toggle-container": "",
-        "js-toggle-single": "class",
-        "js-toggle-multi": "class",
-        "js-toggle-trigger": ""
+        "data-js-toggle-container": "",
+        "data-js-toggle-single": "class",
+        "data-js-toggle-multi": "class",
+        "data-js-toggle-trigger": ""
     }
 }
