@@ -20,8 +20,7 @@
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
-  /* Respect document layout direction */
-  direction: inherit;
+  direction: ltr;
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */

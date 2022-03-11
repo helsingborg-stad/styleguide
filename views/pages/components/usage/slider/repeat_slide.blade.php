@@ -1,6 +1,7 @@
 @slider([
     'showStepper' => true,
     'autoSlide' => false,
+    'repeatSlide' => true,
 ])
     @slider__item([
         'title' => 'Base Layout',
@@ -9,6 +10,7 @@
         'layout' => 'center',
         'containerColor' => 'transparent',
         'textColor' => 'white',
+        'textAlignment' => 'center',
         'mobile_image' => 'https://picsum.photos/720/720',
         'desktop_image' => 'https://picsum.photos/1080/720',
         'heroStyle' => true
@@ -59,6 +61,8 @@
         'text' => 'Here I could put some lorem ipsum text but I am too lazy to Google for one so I wrote all this instead. Woo!',
         'containerColor' => 'white',
         'layout' => 'center',
+        'mobile_image' => 'https://picsum.photos/720/720',
+        'desktop_image' => 'https://picsum.photos/1080/720',
     ])
     @endslider__item
 @endslider

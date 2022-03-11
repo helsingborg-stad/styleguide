@@ -1,266 +1,39 @@
-/* eslint-disable no-unused-expressions */
+import Splide from '@splidejs/splide';
+import VideoControls from './helpers/video';
 
-import Steppers from "./steppers";
-import VideoControls from "./helpers/video";
+const SLIDER_ITEM = 'c-slider__item';
+const ATTR = 'js-slider';
+const BTN = 'js-slider-btn';
+const INDEX = 'js-slider-index';
+const INNER = 'js-slider-inner';
+const AUTOSLIDE = 'js-slider__autoslide';
+const REPEAT = 'js-slider-repeat';
 
 export default class Slider {
     constructor(slider) {
-        this.SLIDER     = slider;
-        this.SLIDE      = "js-slider-slide";
-        this.ATTR       = "js-slider";
-        this.BTN        = "js-slider-btn";
-        this.INDEX      = "js-slider-index";
-        this.INNER      = "js-slider-inner";
-        this.AUTOSLIDE  = "js-slider__autoslide";
-        this.REPEAT     = "js-slider-repeat";
-        this.STEP       = "data-step";
+        this.sliderElement = slider;
+        this.splide = new Splide(slider, {
+            type: 'loop',
+            autoWidth: true,
+            focus: 'center',
+            pagination: slider.classList.contains('c-slider--has-stepper'),
+            classes: {
+                arrows: 'c-slider__arrows',
+                pagination: 'c-slider__steppers',
+                page: 'c-slider__dot'
+            }
+        });
         this.PAUSEHOVER = false;
 
-        this.StepperInstance = new Steppers;
-
-        if (this.getItemsLength() > 1) {
-            this.applySliders();
-            this.enableStepper();
-            this.handleSwipes();
-            this.fixTabbing();
-            
-            if(!(this.SLIDER.getAttribute(this.REPEAT))) {
-                this.noRepeat();
-            }
-
-            if(this.SLIDER.hasAttribute(this.AUTOSLIDE)) {
-                this.autoSlider();
-                this.autoSliderHoverHandler();
-            };
-        } else {
-            this.hideControls();
+        if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
+            this.splide.mount();
         }
 
         this.addVideoControls()
     }
 
-    /**
-     * Finds all slides and attaches event listeners.
-     * @return {void}
-     */
-    applySliders() {
-        this.SLIDER.querySelectorAll(`[${this.BTN}]`).forEach((button) => {
-            button.addEventListener('click', (e) => {
-                this.clickedBtn(e);
-            });
-        })
-    }
-
-    /**
-     * Handles click on either next och previous button
-     * @param {Object} e The click event
-     */
-    clickedBtn(e) {  
-        let newIndex;
-
-        if (e.target.closest("button").getAttribute(this.BTN) === 'prev') {
-            newIndex = this.prevIndex(this.getCurrentIndex(this.SLIDER))
-        } else if (e.target.closest("button").getAttribute(this.BTN) === 'next') {
-            newIndex = this.nextIndex(this.getCurrentIndex(this.SLIDER))
-        }
-
-        this.updateSlider(newIndex);
-    }
-
-    /**
-     * Handles swipeEvents
-     */
-    handleSwipes() {
-        this.SLIDER.addEventListener('swipeLeft', (e) => {
-            let newIndex;
-            newIndex = this.nextIndex(this.getCurrentIndex(this.SLIDER));
-            this.updateSlider(newIndex);
-        })
-
-        this.SLIDER.addEventListener('swipeRight', (e) => {
-            let newIndex;
-            newIndex = this.prevIndex(this.getCurrentIndex(this.SLIDER));
-            this.updateSlider(newIndex);
-        })
-    }
-
-    updateSlider(newIndex) {
-        this.SLIDER.setAttribute(this.INDEX, newIndex);
-        this.SLIDER.setAttribute(this.STEP, newIndex);
-        this.updateStepper();
-        this.moveToIndex();
-        this.fixTabbing();
-
-        if(!(this.SLIDER.getAttribute(this.REPEAT))) {
-            this.noRepeat();
-        }
-    }
-
-    // eslint-disable-next-line class-methods-use-this
-    autoSlider() {
-        setTimeout(
-            () => {
-                if(!this.PAUSEHOVER) {
-                    this.updateSlider(this.nextIndex(this.getCurrentIndex(this.SLIDER)));
-                    
-                }
-                this.autoSlider();
-            }
-        , this.getAutoSliderDelay());
-    }
-
-    getAutoSliderDelay() {
-        return this.SLIDER.getAttribute(this.AUTOSLIDE) * 1000;
-    }
-
-    autoSliderHoverHandler () {
-        this.SLIDER.addEventListener('mouseenter', () => {
-            this.PAUSEHOVER = true
-        })
-
-        this.SLIDER.addEventListener('mouseleave', (e) => {
-            if (e.target === this.SLIDER) {
-                this.PAUSEHOVER = false
-            }
-        })
-    }
-
-    prevIndex(current) {
-        return current === 0 ? this.getItemsLength(this.SLIDER) -1 : current -1;
-    }
-
-    nextIndex(current) {
-        return current <= (this.getItemsLength(this.SLIDER) - 2) ? current +1 : 0;
-    }
-
-    /**
-     * Sets the appropriate styling to slide to the requested slide
-     */
-    moveToIndex() {
-        /* eslint-disable-next-line */
-        this.SLIDER.querySelector(`[${this.INNER}]`).style.transform =
-            `translateX(-${this.SLIDER.getAttribute(this.INDEX)}00%)`;
-    }
-
-    /**
-     * Returns the current index of the slider component
-     * @return {Int} The current index
-     */
-    getCurrentIndex() {
-        return parseInt(this.SLIDER.getAttribute(this.INDEX), 10)
-    }
-
-    /**
-     * Returns how many slides are present inside the the slider.
-     * Starts at 1.
-     * @return {Int} The amount of slides
-     */
-    getItemsLength() {
-        return this.SLIDER.querySelectorAll(`[${this.SLIDE}]`).length
-    }
-
-    updateStepper() {
-        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
-        const currentActive = stepper.querySelector(`.c-slider__dot--active`)
-        
-        if(currentActive) {
-            currentActive.classList.remove('c-slider__dot--active');
-        }
-
-        const dot = stepper.querySelector(`[js-slider__stepper__dot="${this.getCurrentIndex() ? this.getCurrentIndex() : 0}"]`);
-        dot.classList.add('c-slider__dot--active')
-
-    }
-
-    enableStepper() {
-        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
-        const dot = stepper.querySelector('.c-slider__dot');
-
-        stepper.setAttribute('js-slider__stepper__current', 1)
-        stepper.innerHTML = ""
-
-        for (let index = 0; index < this.getItemsLength(); index++) {
-            const clone = dot.cloneNode();
-            clone.setAttribute('js-slider__stepper__dot', index)
-            stepper.appendChild(clone)
-        }
-
-        this.addStepperEvent()
-
-        this.updateStepper();
-    }
-
-    addStepperEvent() {
-        const stepper = this.SLIDER.querySelector('[js-slider__stepper]');
-
-        stepper.querySelectorAll(`[js-slider__stepper__dot]`).forEach((dot) => {
-            dot.addEventListener('click', (e) => {
-                this.updateSlider(e.target.getAttribute('js-slider__stepper__dot'))
-            });
-        })
-    }
-
-    /**
-     * Removes controls
-     * @return {Void}
-     */
-    hideControls() {
-        const controls = this.SLIDER.querySelectorAll('.c-slider__button');
-
-        this.SLIDER.querySelector('[js-slider__stepper]').remove();
-        this.SLIDER.classList.remove('c-slider--has-stepper'); 
-
-        controls.forEach(control => {
-            control.remove();
-        });
-    }
-
-    /**
-     * Adds the appropriate tabindex's to not breaking slider when tabbing through site
-     * @return {Void}
-     */
-    fixTabbing() {
-        const slideElements = [...this.SLIDER.querySelector(`[${this.INNER}]`).children];
-        const tabTargets = [
-            'button',
-            'video',
-            'input',
-            'textarea'
-        ];
-
-        slideElements.forEach((elm) => {
-            tabTargets.forEach((item) => {
-                elm.querySelectorAll(item).forEach((tabElm) => {
-                    tabElm.setAttribute('tabindex', '-1');
-                })
-            })
-        })
-
-        slideElements[this.getCurrentIndex()].querySelectorAll('[tabindex]').forEach(elm => {
-            elm.removeAttribute("tabindex");
-        })
-    }
-
-    noRepeat() {
-        let next = this.SLIDER.querySelector(`[${this.BTN}="next"]`);
-        let prev = this.SLIDER.querySelector(`[${this.BTN}="prev"]`);
-        
-        next.classList.remove('u-display--none');
-        prev.classList.remove('u-display--none');
-
-        if (this.getCurrentIndex() == (this.getItemsLength() -1)) {
-            next.classList.add('u-display--none');
-            return;
-        }
-        
-        if (this.getCurrentIndex() == 0) {
-            prev.classList.add('u-display--none');
-            return;
-        }
-    }
-
     addVideoControls() {
-        this.SLIDER.querySelectorAll('[js-slider-slide]').forEach((slide) => {
+        this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
             if(slide.querySelectorAll('video').length > 0) {
                 const player = new VideoControls(slide);
             }

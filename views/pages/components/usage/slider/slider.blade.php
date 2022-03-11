@@ -11,9 +11,9 @@
         'background_image' => 'https://picsum.photos/1080/720',
         'overlay' => 'light',
         'overlay_opacity' => 'medium',
-        'attributeList' => [
-            'js-slider-slide' => ''
-        ] 
+        'classList' => [
+            'splide__slide'
+        ]
     ])
     
         @slot('bottom')
@@ -51,9 +51,9 @@
         'background_image' => 'https://picsum.photos/1080/720',
         'overlay' => 'light',
         'overlay_opacity' => 'medium',
-        'attributeList' => [
-            'js-slider-slide' => ''
-        ] 
+        'classList' => [
+            'splide__slide'
+        ]
     ])
 
         @slot('bottom')
@@ -89,12 +89,12 @@
         'layout' => 'left',
         'containerColor' => 'tertiary',
         'background_image' => 'https://picsum.photos/1080/720',
-        'background_video' => 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_1280_10MG.mp4',
+        'background_video' => 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         'overlay' => 'light',
         'overlay_opacity' => 'medium',
-        'attributeList' => [
-            'js-slider-slide' => ''
-        ] 
+        'classList' => [
+            'splide__slide'
+        ]
     ])
 
         @slot('bottom')
@@ -131,9 +131,9 @@
         'layout' => 'left',
         'overlay' => 'light',
         'overlay_opacity' => 'medium',
-        'attributeList' => [
-            'js-slider-slide' => ''
-        ] 
+        'classList' => [
+            'splide__slide'
+        ]
     ])
 
         @slot('bottom')

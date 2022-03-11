@@ -16,5 +16,11 @@
         "heading": "Single slide",
         "subHeading" : "",
         "text": ""
+    },
+    "repeat_slide": {
+        "grid": "",
+        "heading": "Repeat slide",
+        "subHeading" : "",
+        "text": ""
     }
 }
