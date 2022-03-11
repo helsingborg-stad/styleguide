@@ -1,6 +1,4 @@
-//@import "~splidejs/splide/dist/splide-core.min.css";
-//@import "~splidejs/splide/dist/splide.min.css";
-@import '../../../node_modules/@splidejs/splide/src/css/core';
+@import '~@splidejs/splide/src/css/core';
 
 $c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
