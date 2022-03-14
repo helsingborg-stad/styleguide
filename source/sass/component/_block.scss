@@ -71,6 +71,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
 a.c-block {
     transition: all 200ms ease-out;
+    cursor: pointer;
 
     .c-block__image-background:before {
         @include cover(); 
