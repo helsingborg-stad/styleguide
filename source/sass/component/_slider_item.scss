@@ -11,6 +11,7 @@ $c-slider-color-overlay-contrasting: var(
     width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
     max-width: calc(#{$container-width} - #{$c-slider-inset});
     margin-right: $c-slider-gap;
+    border-radius: $c-slider-border-radius;
 
     &:only-child {
         width: 100%;
@@ -38,6 +39,7 @@ $c-slider-color-overlay-contrasting: var(
         top: 0;
         left: 0;
         z-index: $level-3 - 1;
+        border-radius: $c-slider-border-radius;
     }
 
     .c-slider__item__link {
@@ -114,6 +116,8 @@ $c-slider-color-overlay-contrasting: var(
         display: grid;
         grid-template-columns: 2fr min-content;
         grid-template-rows: min-content;
+        border-bottom-left-radius: $c-slider-border-radius;
+        border-bottom-right-radius: $c-slider-border-radius;
     }
 
     .c-slider__item__heading {

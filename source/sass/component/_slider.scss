@@ -2,6 +2,7 @@
 
 $c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
+$c-slider-border-radius: var(--c-slider-border-radius, $border-radius-lg) !default;
 
 .c-slider {
     position: relative;
