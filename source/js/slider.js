@@ -27,6 +27,8 @@ export default class Slider {
 
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
+        } else {
+            this.sliderElement.querySelector('.c-slider__arrows').remove();
         }
 
         this.addVideoControls()
