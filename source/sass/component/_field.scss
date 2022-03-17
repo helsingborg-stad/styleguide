@@ -9,8 +9,9 @@ $c-field-helper-success-color: var(--c-field-helper-success-color, $color-succes
 $c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
 
+$c-field-border-size: var(--c-field-border-size, 1px) !default;
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
-$c-field-height: var(--c-field-height, map-get($spacers, "6")) !default;
+$c-field-height: var(--c-field-height, calc((map-get($spacers, "6")) - $c-field-border-size * 2)) !default;
 $c-field-font-size: var(--c-field-font-size, $font-size-base) !default;
 $c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !default;
 $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
@@ -69,7 +70,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-size: $c-field-font-size;
         line-height: $c-field-font-size; 
 
-        border: 1px solid $color-light;
+        border: $c-field-border-size solid $color-light;
         background: $color-form-fields;
         border-radius: $c-field-border-radius;
 
@@ -112,11 +113,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     &.c-field--sm {
         #{$fields} {
             padding: map-get($spacers, "1"); 
-            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-size * 2);
         }
         textarea {
             padding: map-get($spacers, "1"); 
-            min-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-size * 2);
         }
         .c-field__icon, .c-field__prefix {
             padding-left: map-get($spacers, "1");
@@ -129,11 +130,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     &.c-field--md {
         #{$fields} {
             padding: map-get($spacers, "2"); 
-            height: map-get($spacers, "6"); 
+            height: $c-field-height; 
         }
         textarea {
             padding: map-get($spacers, "2"); 
-            min-height: map-get($spacers, "6"); 
+            min-height: $c-field-height; 
         }
         .c-field__icon, .c-field__prefix {
             padding-left: map-get($spacers, "2");
@@ -145,18 +146,18 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     &.c-field--lg {
         #{$fields} {
-            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
-            height: #{map-get($spacers, "8")}; 
+            padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
+            height: calc((#{map-get($spacers, "8")}) - $c-field-border-size * 2); 
         }
         textarea {
-            padding: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
-            min-height: #{map-get($spacers, "8")}; 
+            padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
+            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-size * 2); 
         }
         .c-field__icon, .c-field__prefix {
-            padding-left: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+            padding-left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }
         .c-field__suffix {
-            padding-right: calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}));
+            padding-right: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }
     }
 
