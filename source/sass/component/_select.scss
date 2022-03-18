@@ -1,8 +1,19 @@
 $c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
-$c-select-font-size: var(--c-select-font-size, $font-size-base) !default;
+$c-select-font-size-sm: var(--c-select-font-size-sm, $font-size-btn-sm) !default;
+$c-select-font-size-md: var(--c-select-font-size-md, $font-size-btn-md) !default;
+$c-select-font-size-lg: var(--c-select-font-size-lg, $font-size-btn-lg) !default;
+$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, $font-size-btn-sm-line-height) !default;
+$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, $font-size-btn-md-line-height) !default;
+$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
+
+$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
+$c-select-border-color: var(--c-select-border-color, var(--color-border-input, $color-light)) !default;
+$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
+$c-select-success-color: var(--c-select-success-color, var(--color-success, $color-success-dark)) !default;
 $c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
 $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-white) !default;
+
 .c-select__container {
     position: relative;
 }
@@ -13,7 +24,6 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
     top: 0;
     left: auto;
     padding: map-get($spacers, "2");
-    line-height: $c-select-font-size;
     z-index: $level-2;
     transition: none;
     height: calc(#{$base}*6);
@@ -31,9 +41,9 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         outline: 0;
         height: map-get($spacers, "6");
         padding: 0 map-get($spacers, "2");
-        font-size: $c-select-font-size;
-        line-height: $c-select-font-size; 
-        border: 1px solid $color-light;
+        font-size: $c-select-font-size-md;
+        line-height: $c-select-font-size-md-line-height;
+        border: $c-select-border-width solid $c-select-border-color;
         background: $color-form-fields;
         border-radius: $c-select-border-radius;
         position: relative;
@@ -49,10 +59,10 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         top: 0;
         left: auto;
         padding: map-get($spacers, "2");
-        line-height: $c-select-font-size;
         z-index: $level-2;
         transition: none;
         height: calc(#{$base}*6);
+        line-height: calc(#{$base}*6);
         color: $color-primary;
         pointer-events: none;
     }
@@ -62,6 +72,12 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         select, .c-select__icon {
             padding: 0 map-get($spacers, "1"); 
             height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+        }
+        select {
+            font-size: $c-select-font-size-sm;
+            line-height: $c-select-font-size-sm-line-height;
+        }
+        .c-select__icon {
             line-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
         }
     }
@@ -70,6 +86,12 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         select, .c-select__icon {
             padding: 0 map-get($spacers, "2");
             height: map-get($spacers, "6"); 
+        }
+        select {
+            font-size: $c-select-font-size-md;
+            line-height: $c-select-font-size-md-line-height;
+        }
+        .c-select__icon {
             line-height: map-get($spacers, "6"); 
         }
     }
@@ -78,6 +100,12 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         select, .c-select__icon {
             padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
             height: #{map-get($spacers, "8")};
+        }
+        select {
+            font-size: $c-select-font-size-lg;
+            line-height: $c-select-font-size-lg-line-height;
+        }
+        .c-select__icon {
             line-height: #{map-get($spacers, "8")};
         }
     }
@@ -133,11 +161,11 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             &,
             &:focus,
             &:active {
-                border-color: $c-field-helper-error-color;
+                border-color: $c-select-danger-color;
             }
         }
         .c-field__helper {
-            color: $c-field-helper-error-color;
+            color: $c-select-danger-color;
         }
     }
     
@@ -146,11 +174,11 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             &,
             &:focus,
             &:active {
-                border-color: $c-field-helper-success-color;
+                border-color: $c-select-success-color;
             }
         }
         .c-field__helper {
-            color: $c-field-helper-success-color;
+            color: $c-select-success-color;
         }
     }
 

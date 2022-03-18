@@ -1,5 +1,11 @@
+$c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
+
 .c-hamburgermenu {
+    padding: $c-hamburgermenu-padding 0;
     &__link--title {
         font-size: $font-size-title;
+    }
+    &__item--child {
+        padding: map-get($spacers, "1") 0;
     }
 }
