@@ -1,10 +1,14 @@
 
 $c-option-label-color: var(--c-option-label-color, $color-darker) !default;
 $c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-caption) !default;
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, $font-size-base) !default;
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $line-height-caption) !default;
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, $line-height-base) !default;
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-btn-sm) !default;
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $font-size-btn-sm-line-height) !default;
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, $font-size-btn-md) !default;
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, $font-size-btn-md-line-height) !default;
+
+$c-option-border-color: var(--c-option-border-color, var(--color-border-input, $color-light)) !default;
+$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
+$c-option-success-color: var(--c-option-success-color, var(--color-success, $color-success-dark)) !default;
 
 .c-option {
 
@@ -187,11 +191,11 @@ $c-option-label-line-height-md: var(--c-option-label-line-height-md, $line-heigh
             &,
             &:focus,
             &:active {
-                border-color: $c-field-helper-error-color;
+                border-color: $c-option-danger-color;
             }
         }
         .c-option__checkbox--label-text {
-            color: $c-field-helper-error-color;
+            color: $c-option-danger-color;
         }
     }
     
@@ -200,11 +204,11 @@ $c-option-label-line-height-md: var(--c-option-label-line-height-md, $line-heigh
             &,
             &:focus,
             &:active {
-                border-color: $c-field-helper-success-color;
+                border-color: $c-option-success-color;
             }
         }
         .c-option__checkbox--label-text {
-            color: $c-field-helper-success-color;
+            color: $c-option-success-color;
         }
     }
 }

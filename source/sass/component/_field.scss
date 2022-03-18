@@ -4,15 +4,22 @@ $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !d
 $c-field-label-font-size: var(--c-field-label-font-size, 12px) !default;
 $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
 
-$c-field-helper-error-color: var(--c-field-helper-error-color, $color-form-fields-border-error) !default;
-$c-field-helper-success-color: var(--c-field-helper-success-color, $color-success-dark) !default;
+$c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
+$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
+$c-field-success-color: var(--c-field-success-color, var(--color-success, $color-success-dark)) !default;
+
 $c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
 $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
 
-$c-field-border-size: var(--c-field-border-size, 1px) !default;
+$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
-$c-field-height: var(--c-field-height, calc((map-get($spacers, "6")) - $c-field-border-size * 2)) !default;
-$c-field-font-size: var(--c-field-font-size, $font-size-base) !default;
+$c-field-height: var(--c-field-height, calc((map-get($spacers, "6")) - $c-field-border-width * 2)) !default;
+$c-field-font-size-sm: var(--c-field-font-size-sm, $font-size-btn-sm) !default;
+$c-field-font-size-md: var(--c-field-font-size-md, $font-size-btn-md) !default;
+$c-field-font-size-lg: var(--c-field-font-size-lg, $font-size-btn-lg) !default;
+$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, $font-size-btn-sm-line-height) !default;
+$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, $font-size-btn-md-line-height) !default;
+$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
 $c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !default;
 $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
 
@@ -51,7 +58,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border: 0;
         background: none;
         height: $c-field-height;
-        line-height: $c-field-font-size; 
         padding: $c-field-padding;
         outline: 0;
         margin: 0;
@@ -67,10 +73,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         
         width: 100%;
 
-        font-size: $c-field-font-size;
-        line-height: $c-field-font-size; 
+        font-size: $c-field-font-size-md;
+        line-height: $c-field-font-size-md-line-height; 
 
-        border: $c-field-border-size solid $color-light;
+        border: $c-field-border-width solid $c-field-border-color;
         background: $color-form-fields;
         border-radius: $c-field-border-radius;
 
@@ -91,7 +97,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             padding-right: $c-field-padding;
         }
         .c-field__error-icon {
-            color: $c-field-helper-error-color;
+            color: $c-field-danger-color;
             display: none;
         }
 
@@ -111,13 +117,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     /* Size modifiers */ 
     &.c-field--sm {
+        font-size: $c-field-font-size-sm;
+        line-height: $c-field-font-size-sm-line-height; 
         #{$fields} {
             padding: map-get($spacers, "1"); 
-            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-size * 2);
+            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
         }
         textarea {
             padding: map-get($spacers, "1"); 
-            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-size * 2);
+            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
         }
         .c-field__icon, .c-field__prefix {
             padding-left: map-get($spacers, "1");
@@ -145,13 +153,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     &.c-field--lg {
+        font-size: $c-field-font-size-lg;
+        line-height: $c-field-font-size-lg-line-height; 
         #{$fields} {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            height: calc((#{map-get($spacers, "8")}) - $c-field-border-size * 2); 
+            height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2);
         }
         textarea {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-size * 2); 
+            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2); 
         }
         .c-field__icon, .c-field__prefix {
             padding-left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
@@ -168,14 +178,14 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:focus-within,
             &:active {
                 background: $color-form-fields-error;
-                border-color: $color-form-fields-border-error;
+                border-color: $c-field-danger-color;
             }
             .c-field__error-icon {
                 display: block;
             }
         }
         .c-field__helper {
-            color: $c-field-helper-error-color;
+            color: $c-field-danger-color;
         }
     }
     
@@ -184,11 +194,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &,
             &:focus,
             &:active {
-                border-color: $c-field-helper-success-color;
+                border-color: $c-field-success-color;
             }
         }
         .c-field__helper {
-            color: $c-field-helper-success-color;
+            color: $c-field-success-color;
         }
     }
 }
