@@ -49,6 +49,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         width: 100%;
         display: flex;
         flex-direction: column;
+        text-decoration: none;
     }
 
     //Video Additions
