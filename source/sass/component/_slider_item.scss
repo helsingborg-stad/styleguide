@@ -92,6 +92,24 @@ $c-slider-color-overlay-contrasting: var(
         &--text-align-right {
             text-align: right;
         }
+
+        &--overlay-dark::before, &--overlay-light::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: $c-slider-border-radius;
+        }
+
+        &--overlay-dark::before {
+            background-color: rgba(0,0,0, .32);
+        }
+
+        &--overlay-light::before {
+            background-color: rgba(255,255,255, .32);
+        }
     }
 }
 
