@@ -3,13 +3,14 @@ $c-slider-color-overlay-contrasting: var(
     --c-slider-color-overlay-contrasting,
     $color-alpha-contrasting
 ) !default;
+$c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
 
 .c-slider__item {
     background-position: center;
     background-size: cover;
     position: relative;
     width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
-    max-width: calc(#{$container-width} - #{$c-slider-inset});
+    max-width: $c-slider-max-width;
     margin-right: $c-slider-gap;
     border-radius: $c-slider-border-radius;
 
