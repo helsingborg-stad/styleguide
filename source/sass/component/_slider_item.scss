@@ -107,11 +107,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
 
         &--overlay-dark::before {
-            background-color: rgba(0,0,0, .32);
-        }
-
-        &--overlay-light::before {
-            background-color: rgba(255,255,255, .32);
+            background-color: $color-alpha;
         }
     }
 }
