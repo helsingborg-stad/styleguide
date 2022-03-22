@@ -82,6 +82,10 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
+    &.c-slider--has-stepper {
+        margin-bottom: calc(#{$base} * 6);
+    }
+
     &.c-slider--16-9 {
         .c-slider__container {
             padding-top: Min(100%, 80vh);
