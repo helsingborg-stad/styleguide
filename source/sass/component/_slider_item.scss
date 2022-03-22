@@ -3,13 +3,14 @@ $c-slider-color-overlay-contrasting: var(
     --c-slider-color-overlay-contrasting,
     $color-alpha-contrasting
 ) !default;
+$c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
 
 .c-slider__item {
     background-position: center;
     background-size: cover;
     position: relative;
     width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
-    max-width: calc(#{$container-width} - #{$c-slider-inset});
+    max-width: $c-slider-max-width;
     margin-right: $c-slider-gap;
     border-radius: $c-slider-border-radius;
 
@@ -28,6 +29,7 @@ $c-slider-color-overlay-contrasting: var(
     .c-slider__item__body {
         margin-top: 0;
         word-wrap: break-word;
+        max-width: 100%; // p has a max width we need to override
     }
 
     //Other
@@ -47,6 +49,7 @@ $c-slider-color-overlay-contrasting: var(
         width: 100%;
         display: flex;
         flex-direction: column;
+        text-decoration: none;
     }
 
     //Video Additions
@@ -91,6 +94,20 @@ $c-slider-color-overlay-contrasting: var(
 
         &--text-align-right {
             text-align: right;
+        }
+
+        &--overlay-dark::before, &--overlay-light::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: $c-slider-border-radius;
+        }
+
+        &--overlay-dark::before {
+            background-color: $color-alpha;
         }
     }
 }

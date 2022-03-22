@@ -3,6 +3,7 @@
 $c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
 $c-slider-border-radius: var(--c-slider-border-radius, $border-radius-lg) !default;
+$c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
 
 .c-slider {
     position: relative;
@@ -48,7 +49,7 @@ $c-slider-border-radius: var(--c-slider-border-radius, $border-radius-lg) !defau
 
     .c-slider__arrows {
         width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
-        max-width: calc(#{$container-width} - #{$c-slider-inset});
+        max-width: $c-slider-max-width;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -76,7 +77,13 @@ $c-slider-border-radius: var(--c-slider-border-radius, $border-radius-lg) !defau
 
     /** Modifiers */
     &.c-slider--shadow {
-        filter: $drop-shadow-2;
+        .c-slider__arrows, .c-slider__container {
+            filter: $drop-shadow-2;
+        }
+    }
+
+    &.c-slider--has-stepper {
+        margin-bottom: calc(#{$base} * 6);
     }
 
     &.c-slider--16-9 {
