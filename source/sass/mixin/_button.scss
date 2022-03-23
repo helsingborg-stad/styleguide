@@ -39,7 +39,7 @@
     padding-right: $padding-horizontal;
     font-size: $font-size;
     border-radius: $border-radius;
-    height: calc(#{$padding-vertical} * 2);
+    height: calc(#{$padding-vertical} * 3);
 
     &:after {
         border-radius: $border-radius;
