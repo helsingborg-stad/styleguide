@@ -125,6 +125,9 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         bottom: 0;
         left: 0;
         padding: map-get($spacers, '2');
+        @include mq('md') {
+            padding: map-get($spacers, '4');
+        }
         position: absolute;
         display: grid;
         grid-template-columns: 2fr min-content;
