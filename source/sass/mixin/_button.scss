@@ -33,17 +33,14 @@
     $padding-vertical,
     $padding-horizontal,
     $font-size,
-    $line-height,
     $border-radius
 ) {
     padding-left: $padding-horizontal;
     padding-right: $padding-horizontal;
     font-size: $font-size;
     border-radius: $border-radius;
-    height: calc(#{$padding-vertical} * 2 + #{$line-height});
-    .c-button__label-text {
-        line-height: #{$line-height};
-    }
+    height: calc(#{$padding-vertical} * 2);
+
     &:after {
         border-radius: $border-radius;
     }

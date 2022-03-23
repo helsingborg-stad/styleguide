@@ -1,4 +1,3 @@
-$button-line-height: var(--button-line-height, $line-height-button);
 $button-font-weight: var(--button-font-weight, $font-weight-button);
 
 $button-text-transform: var(--button-text-transform, $text-transform-button);
@@ -25,7 +24,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     justify-content: center;
     text-decoration: none;
     cursor: pointer;
-    line-height: $button-line-height;
     font-weight: $button-font-weight;
     text-transform: $button-text-transform;
     background-color: transparent;
@@ -55,7 +53,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             calc(#{$base}* 3),
             calc(#{$base}* 5),
             $font-size-btn-lg,
-            $font-size-btn-lg-line-height,
             $c-button-border-radius
         );
     }
@@ -65,7 +62,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             calc(#{$base}* 2),
             calc(#{$base}* 2.5),
             $font-size-btn-md,
-            $font-size-btn-md-line-height,
             $c-button-border-radius
         );
     }
@@ -76,7 +72,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             calc(#{$base}* 1.5),
             calc(#{$base}* 2),
             $font-size-btn-sm,
-            $font-size-btn-sm-line-height,
             $c-button-border-radius-small
         );
     }
@@ -388,7 +383,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             calc(#{$base}* 2),
             calc(#{$base}* 2),
             $font-size-btn-lg,
-            $font-size-btn-lg-line-height,
             $c-button-border-radius
         );
 
@@ -402,7 +396,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             calc(#{$base}* 1.5),
             calc(#{$base}* 1.5),
             $font-size-btn-md,
-            $font-size-btn-md-line-height,
             $c-button-border-radius
         );
 
@@ -416,7 +409,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             $base, 
             $base, 
             $font-size-btn-sm, 
-            $font-size-btn-sm-line-height, 
             $c-button-border-radius-small
         );
 
