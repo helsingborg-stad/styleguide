@@ -171,10 +171,14 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         cursor: pointer;
         background: $color-gray;
         display: inline-block;
-        width: calc(#{$base} * 2);
+        width: calc(#{$base} * 1.5);
         height: calc(#{$base} * 0.5);
         margin: calc(#{$base} * 0.5);
         border: none;
+
+        @include mq(map_get($breakpoints-map, 'sm')) {
+            width: calc(#{$base} * 2);
+        }
 
         &.c-slider__dot.is-active {
             cursor: default;
