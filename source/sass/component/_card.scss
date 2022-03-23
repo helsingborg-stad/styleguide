@@ -117,6 +117,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         flex-direction: row;
         flex-wrap: wrap;
 
+        &.u-height--100 {
+            height: initial !important;
+        }
+
         .c-card__body {
             padding: map-get($spacers, '4');
         }
@@ -127,6 +131,20 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         .c-card__image-background {
             height: 100%;
+        }
+
+        &:first-child  {
+            .c-card__image, .c-card__image-background {
+                border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+            }
+        }
+
+        &.c-card--has-footer {
+            &:first-child  {
+                .c-card__image, .c-card__image-background {
+                    border-radius: $c-card-border-radius 0 0 0;
+                }
+            }
         }
     }
 
