@@ -54,6 +54,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         padding: calc(#{$base} * 2) calc(#{$base} * 3);
         display: flex;
         align-items: center;
+        font-weight: bold;
     }
 
     .c-accordion__icon {
