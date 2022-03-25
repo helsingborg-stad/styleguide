@@ -4,10 +4,15 @@ $c-slider-color-overlay-contrasting: var(
     $color-alpha-contrasting
 ) !default;
 $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
-$c-slider-item-font-family: var(--c-slider-item-font-family, inherit) !default;
-$c-slider-item-font-weight: var(--c-slider-item-font-weight, inherit) !default;
+$c-slider-item-font-family: var(--c-slider-item-font-family-base, $font-family-base) !default;
+$c-slider-item-font-weight: var(--c-slider-item-font-weight-base, inherit) !default;
 $c-slider-item-font-size-base: var(--c-slider-item-font-size-base, calc(#{$base} * 2)) !default;
-$c-slider-item-heading-font-size: calc(var(--c-slider-item-font-size-base, $c-slider-item-font-size-base) * 2) !default;
+$c-slider-item-font-size-heading: calc(
+    var(--c-slider-item-font-size-heading, calc(#{$c-slider-item-font-size-base} * 2))
+) !default;
+$c-slider-item-font-family-heading: var(--c-slider-item-font-family-heading, inherit) !default;
+$c-slider-item-font-weight-heading: var(--c-slider-item-font-weight-heading, inherit) !default;
+$c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
 .c-slider__item {
     background-position: center;
@@ -100,7 +105,8 @@ $c-slider-item-heading-font-size: calc(var(--c-slider-item-font-size-base, $c-sl
             text-align: right;
         }
 
-        &--overlay-dark::before, &--overlay-light::before {
+        &--overlay-dark::before,
+        &--overlay-light::before {
             content: '';
             position: absolute;
             top: 0;
@@ -115,15 +121,32 @@ $c-slider-item-heading-font-size: calc(var(--c-slider-item-font-size-base, $c-sl
         }
 
         &--hero {
-            .c-slider__item__heading, .c-slider__item__body {
+            .c-slider__item__heading,
+            .c-slider__item__body {
                 font-family: $c-slider-item-font-family;
                 font-weight: $c-slider-item-font-weight;
-                font-size: $c-slider-item-font-size-base;
+                @include fluid-type(
+                    map_get($breakpoints-map, 'sm'),
+                    $c-slider-item-container-max-width,
+                    calc(#{$base} * 2),
+                    $c-slider-item-font-size-base
+                );
+            }
+
+            .c-slider__item__heading {
+                font-family: $c-slider-item-font-family-heading;
+                font-weight: $c-slider-item-font-weight-heading;
+                @include fluid-type(
+                    map_get($breakpoints-map, 'sm'),
+                    $c-slider-item-container-max-width,
+                    $h2-font-size,
+                    $c-slider-item-font-weight-heading
+                );
             }
 
             .c-slider__item__heading {
                 @include mq(map_get($breakpoints-map, 'md')) {
-                    font-size: $c-slider-item-heading-font-size;
+                    font-size: $c-slider-item-font-size-heading;
                 }
             }
         }
@@ -186,7 +209,7 @@ $c-slider-item-heading-font-size: calc(var(--c-slider-item-font-size-base, $c-sl
         border-radius: $border-radius-lg;
         margin: auto;
         width: calc(100% - (#{$base} * 10));
-        max-width: calc(#{$base} * 118);
+        max-width: $c-slider-item-container-max-width;
         max-height: calc(100% - (#{$base} * 10));
         align-self: center;
         overflow: auto;
