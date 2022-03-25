@@ -4,6 +4,15 @@ $c-slider-color-overlay-contrasting: var(
     $color-alpha-contrasting
 ) !default;
 $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
+$c-slider-item-font-family: var(--c-slider-item-font-family-base, $font-family-base) !default;
+$c-slider-item-font-weight: var(--c-slider-item-font-weight-base, inherit) !default;
+$c-slider-item-font-size-base: var(--c-slider-item-font-size-base, calc(#{$base} * 2)) !default;
+$c-slider-item-font-size-heading: calc(
+    var(--c-slider-item-font-size-heading, calc(#{$c-slider-item-font-size-base} * 2))
+) !default;
+$c-slider-item-font-family-heading: var(--c-slider-item-font-family-heading, inherit) !default;
+$c-slider-item-font-weight-heading: var(--c-slider-item-font-weight-heading, inherit) !default;
+$c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
 .c-slider__item {
     background-position: center;
@@ -96,7 +105,8 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             text-align: right;
         }
 
-        &--overlay-dark::before, &--overlay-light::before {
+        &--overlay-dark::before,
+        &--overlay-light::before {
             content: '';
             position: absolute;
             top: 0;
@@ -108,6 +118,37 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
         &--overlay-dark::before {
             background-color: $color-alpha;
+        }
+
+        &--hero {
+            .c-slider__item__heading,
+            .c-slider__item__body {
+                font-family: $c-slider-item-font-family;
+                font-weight: $c-slider-item-font-weight;
+                @include fluid-type(
+                    map_get($breakpoints-map, 'sm'),
+                    $c-slider-item-container-max-width,
+                    calc(#{$base} * 2),
+                    $c-slider-item-font-size-base
+                );
+            }
+
+            .c-slider__item__heading {
+                font-family: $c-slider-item-font-family-heading;
+                font-weight: $c-slider-item-font-weight-heading;
+                @include fluid-type(
+                    map_get($breakpoints-map, 'sm'),
+                    $c-slider-item-container-max-width,
+                    $h2-font-size,
+                    $c-slider-item-font-weight-heading
+                );
+            }
+
+            .c-slider__item__heading {
+                @include mq(map_get($breakpoints-map, 'md')) {
+                    font-size: $c-slider-item-font-size-heading;
+                }
+            }
         }
     }
 }
@@ -124,31 +165,34 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         right: 0;
         bottom: 0;
         left: 0;
-        padding: map-get($spacers, '4');
+        padding: map-get($spacers, '5');
         @include mq('md') {
-            padding: map-get($spacers, '2');
+            padding: map-get($spacers, '4');
         }
         position: absolute;
-
-        display: grid;
-        grid-template-columns: 2fr min-content;
-        grid-template-rows: min-content;
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
     }
 
-    .c-slider__item__heading {
-        grid-area: 1 / 1 / 2 / 2;
-    }
+    @include mq(map_get($breakpoints-map, 'sm')) {
+        .c-slider__item__container {
+            display: grid;
+            grid-template-columns: 2fr min-content;
+            grid-template-rows: min-content;
+        }
+        .c-slider__item__heading {
+            grid-area: 1 / 1 / 2 / 2;
+        }
 
-    .c-slider__item__body {
-        grid-area: 2 / 1 / 3 / 2;
-    }
+        .c-slider__item__body {
+            grid-area: 2 / 1 / 3 / 2;
+        }
 
-    .c-slider__item__cta {
-        grid-area: 1 / 2 / 3 / 3;
-        margin: auto 0 auto calc(#{$base} * 2);
-        white-space: nowrap;
+        .c-slider__item__cta {
+            grid-area: 1 / 2 / 3 / 3;
+            margin: auto 0 auto calc(#{$base} * 2);
+            white-space: nowrap;
+        }
     }
 }
 
@@ -165,7 +209,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         border-radius: $border-radius-lg;
         margin: auto;
         width: calc(100% - (#{$base} * 10));
-        max-width: calc(#{$base} * 118);
+        max-width: $c-slider-item-container-max-width;
         max-height: calc(100% - (#{$base} * 10));
         align-self: center;
         overflow: auto;
