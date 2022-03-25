@@ -4,6 +4,10 @@ $c-slider-color-overlay-contrasting: var(
     $color-alpha-contrasting
 ) !default;
 $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
+$c-slider-item-font-family: var(--c-slider-item-font-family, inherit) !default;
+$c-slider-item-font-weight: var(--c-slider-item-font-weight, inherit) !default;
+$c-slider-item-font-size-base: var(--c-slider-item-font-size-base, calc(#{$base} * 2)) !default;
+$c-slider-item-heading-font-size: calc(var(--c-slider-item-font-size-base, $c-slider-item-font-size-base) * 2) !default;
 
 .c-slider__item {
     background-position: center;
@@ -108,6 +112,20 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
         &--overlay-dark::before {
             background-color: $color-alpha;
+        }
+
+        &--hero {
+            .c-slider__item__heading, .c-slider__item__body {
+                font-family: $c-slider-item-font-family;
+                font-weight: $c-slider-item-font-weight;
+                font-size: $c-slider-item-font-size-base;
+            }
+
+            .c-slider__item__heading {
+                @include mq(map_get($breakpoints-map, 'md')) {
+                    font-size: $c-slider-item-heading-font-size;
+                }
+            }
         }
     }
 }
