@@ -140,14 +140,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                     map_get($breakpoints-map, 'sm'),
                     $c-slider-item-container-max-width,
                     $h2-font-size,
-                    $c-slider-item-font-weight-heading
+                    $c-slider-item-font-size-heading
                 );
-            }
-
-            .c-slider__item__heading {
-                @include mq(map_get($breakpoints-map, 'md')) {
-                    font-size: $c-slider-item-font-size-heading;
-                }
             }
         }
     }
