@@ -24,7 +24,9 @@
                 'src' => 'https://picsum.photos/680/1000?image=16',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-            ]
+            ],
+            'date' => date("Y-m-d H:i"),
+            'dateBadge' => true
         ])
         @endblock
     </div>
@@ -38,7 +40,8 @@
                 'src' => 'https://picsum.photos/680/1000?image=17',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-            ]
+            ],
+            'date' => date("Y-m-d H:i")
         ])
         @endblock
     </div>

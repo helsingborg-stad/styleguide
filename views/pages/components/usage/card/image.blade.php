@@ -9,7 +9,9 @@
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
                 'square' => true
-            ]
+            ],
+            'date' => date('Y-m-d H:i:s'),
+            'dateBadge' => true
         ])
         @endcard
     </div>
@@ -24,7 +26,8 @@
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
                 'padded' => true
-            ]
+            ],
+            'date' => date('Y-m-d H:i:s')
         ])
         @endcard
     </div>
