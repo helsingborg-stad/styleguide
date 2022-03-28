@@ -84,6 +84,11 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
     &.c-slider--has-stepper {
         margin-bottom: calc(#{$base} * 6);
+
+        .c-slider__steppers {
+            margin-bottom: calc(calc(#{$base} * 3) * -1);
+            transform: translateY(-50%);
+        }
     }
 
     &.c-slider--16-9 {
@@ -135,47 +140,37 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
 // Stepper
 .c-slider__steppers {
-    left: 50%;
-    transform: translateX(-50%);
     position: absolute;
-    bottom: -#{map-get($spacers, '5')};
-    list-style-type: none;
+    bottom: 0;
+    display: flex;
+    gap: calc(#{$base} * 0.5);
+    justify-content: center;
+    width: 100%;
+    list-style: none;
     margin: 0;
     padding: 0;
-    width: 100%;
-    text-align: center;
 
     li {
-        display: inline-block;
+        margin: 0;
         padding: 0;
     }
 
-    @include mq(map_get($breakpoints-map, 'xs'), map_get($breakpoints-map, 'sm')) {
-        bottom: -#{map-get($spacers, '6')};
-        padding-bottom: #{$base};
+    li:first-of-type .c-slider__dot {
+        border-top-left-radius: calc(#{$base} * 0.5);
+        border-bottom-left-radius: calc(#{$base} * 0.5);
     }
 
-    li:first-of-type {
-        .c-slider__dot {
-            border-top-left-radius: calc(#{$base} * 0.5);
-            border-bottom-left-radius: calc(#{$base} * 0.5);
-        }
-    }
-
-    li:last-of-type {
-        .c-slider__dot {
-            border-top-right-radius: calc(#{$base} * 0.5);
-            border-bottom-right-radius: calc(#{$base} * 0.5);
-        }
+    li:last-of-type .c-slider__dot {
+        border-top-right-radius: calc(#{$base} * 0.5);
+        border-bottom-right-radius: calc(#{$base} * 0.5);
     }
 
     .c-slider__dot {
         cursor: pointer;
         background: $color-gray;
-        display: inline-block;
+        display: block;
         width: calc(#{$base} * 2);
         height: calc(#{$base} * 0.5);
-        margin: calc(#{$base} * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {

@@ -128,7 +128,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 font-family: $c-slider-item-font-family-heading;
                 font-weight: $c-slider-item-font-weight-heading;
                 @include fluid-type(
-                    $h1-font-size,
+                    $h2-font-size,
                     $c-slider-item-font-size-heading,
                     3.5vw
                 );
