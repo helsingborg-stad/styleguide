@@ -26,6 +26,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     &:only-child {
         width: 100%;
         max-width: 100%;
+        margin: 0;
     }
 
     .c-slider__item__container {
@@ -121,13 +122,13 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         }
 
         &--hero {
+            margin: $c-slider-gap $c-slider-gap $c-slider-gap 0;
+
             .c-slider__item__heading,
             .c-slider__item__body {
                 font-family: $c-slider-item-font-family;
                 font-weight: $c-slider-item-font-weight;
                 @include fluid-type(
-                    map_get($breakpoints-map, 'sm'),
-                    $c-slider-item-container-max-width,
                     calc(#{$base} * 2),
                     $c-slider-item-font-size-base
                 );
@@ -137,8 +138,6 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 font-family: $c-slider-item-font-family-heading;
                 font-weight: $c-slider-item-font-weight-heading;
                 @include fluid-type(
-                    map_get($breakpoints-map, 'sm'),
-                    $c-slider-item-container-max-width,
                     $h2-font-size,
                     $c-slider-item-font-size-heading
                 );

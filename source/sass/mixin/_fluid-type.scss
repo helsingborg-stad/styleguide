@@ -1,15 +1,5 @@
-@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+@mixin fluid-type($min-font-size, $max-font-size) {
     & {
-        font-size: $min-font-size;
-        @media screen and (min-width: $min-vw) {
-            font-size: calc(
-                #{$min-font-size} + calc(#{$max-font-size} - #{$min-font-size}) * (calc(
-                                100vw - #{$min-vw}
-                            ) / calc(#{$max-vw} - #{$min-vw}))
-            );
-        }
-        @media screen and (min-width: $max-vw) {
-            font-size: $max-font-size;
-        }
+        font-size: clamp($min-font-size, 2.5vw, $max-font-size);
     }
 }
