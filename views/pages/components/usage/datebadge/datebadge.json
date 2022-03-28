@@ -1,0 +1,14 @@
+{
+    "default": {
+        "grid": "",
+        "heading": "Datebadge",
+        "subHeading" : "Display a datebadge in it's simpliest form.",
+        "text": ""
+    },
+    "small": {
+        "grid": "",
+        "heading": "Datebadge",
+        "subHeading" : "Display a datebadge in it's simpliest form, small variant.",
+        "text": ""
+    }
+}

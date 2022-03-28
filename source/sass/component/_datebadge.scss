@@ -1,0 +1,36 @@
+$c-datebadge-color-background: var(--c-datebadge-color-background, $color-lighter) !default;
+$c-datebadge-color: var(--c-datebadge-color, $color-black) !default;
+$c-datebadge-border-radius: var(--c-datebadge-border-radius, $border-radius-xs) !default;
+$c-datebadge-size: var(--c-datebadge-border-width, calc(#{$base} * 8)) !default;
+
+.c-datebadge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: $c-datebadge-color-background;
+    border-radius: $c-datebadge-border-radius;
+    color: $c-datebadge-color; 
+    text-align: center;
+    
+    .c-datebadge__date,
+    .c-datebadge__month {
+      line-height: 1; 
+      white-space: nowrap;
+    }
+}
+
+.c-datebadge--sm {
+  width: calc( #{$c-datebadge-size} * .75 );
+  height: calc( #{$c-datebadge-size} * .75 );
+
+  .c-datebadge__date,
+  .c-datebadge__month {
+    transform: scale(.8);
+    line-height: .7;
+  }
+}
+
+.c-datebadge--md {
+  width: $c-datebadge-size; 
+  height: $c-datebadge-size; 
+}
