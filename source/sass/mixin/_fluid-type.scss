@@ -1,5 +1,9 @@
 @mixin fluid-type($min-font-size, $max-font-size, $coefficient) {
     & {
-        font-size: clamp($min-font-size, $coefficient, $max-font-size);
+        font-size: clamp(
+            $min-font-size, 
+            $coefficient, 
+            $max-font-size
+        );
     }
 }
