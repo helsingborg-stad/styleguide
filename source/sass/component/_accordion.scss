@@ -132,7 +132,8 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
 /* Expand accordion when print page */ 
 @media print {
-    .c-accordion .c-accordion__content {
+    .c-accordion .c-accordion__content[aria-hidden="true"],
+    .c-accordion .c-accordion__content[aria-hidden="false"] {
         display: block;
     }
 }
