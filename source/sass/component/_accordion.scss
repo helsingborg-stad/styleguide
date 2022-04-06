@@ -51,7 +51,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
     }
 
     .c-accordion__button-wrapper {
-        padding: calc(#{$base} * 2) calc(#{$base} * 3);
+        padding: calc(#{$base} * 2);
         display: flex;
         align-items: center;
         font-weight: bold;
@@ -67,7 +67,7 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
     }
 
     .c-accordion__content {
-        padding: calc(#{$base} * 2) calc(#{$base} * 3) calc(#{$base} * 2) calc(#{$base} * 3);
+        padding: calc(#{$base} * 2);
 
         &[aria-hidden="true"] {
             display: none;
