@@ -204,9 +204,13 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                li:not(:first-child):before {
+                > li:not(:first-child):before {
                     display: none;
                 }
+            }
+
+            &--align-flex-end .c-footer__subfooter__list li:not(:last-child):before {
+                display: none;
             }
             .c-footer__subfooter__logotype {
                 margin-bottom: map-get($spacers, "4");
