@@ -175,10 +175,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         right: 0;
         bottom: 0;
         left: 0;
-        padding: map-get($spacers, '5');
-        @include mq('md') {
-            padding: map-get($spacers, '4');
-        }
+        padding: map-get($spacers, '2');
         position: absolute;
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
