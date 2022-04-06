@@ -1,4 +1,10 @@
-$c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !default;
+$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{$base}) !default;
+$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{$base}) !default;
+$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, $color-white) !default;
+$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, $color-black) !default;
+$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center) !default;
+$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row) !default;
+$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3) !default;
 
 .c-footer {
     background-color: $color-default;
@@ -10,9 +16,7 @@ $c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !
         margin-right: auto;
         padding: map-get($spacers, "5") 0;
         display: flex;
-
         flex-wrap: nowrap;
-
     }
 
     &__home-link {
@@ -59,18 +63,114 @@ $c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !
 
     // Logo
     &__logotype {
-        height: $c-footer-logotype-height;
+        height: $c-footer-height-logotype;
 
         @include mq('xs') {
-            height: clamp(calc(#{$base} * 3), calc($c-footer-logotype-height * 0.5), $c-footer-logotype-height);
+            height: clamp(calc(#{$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
         }
     
         @include mq('md') {
-            height: clamp(calc(#{$base} * 3), calc($c-footer-logotype-height * 0.75), $c-footer-logotype-height);
+            height: clamp(calc(#{$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
         }
     
         @include mq('lg') {
-            height: $c-footer-logotype-height;
+            height: $c-footer-height-logotype;
+        }
+    }
+
+    &__subfooter {
+        color: $c-footer-subfooter-color-text;
+        background: $c-footer-subfooter-color-background;
+        padding: $c-footer-subfooter-padding 0;
+
+        a {
+            color: $c-footer-subfooter-color-text;
+        }
+
+        &__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: $c-footer-subfooter-alignment;
+            align-items: $c-footer-subfooter-alignment;
+            flex-direction: $c-footer-subfooter-flex-direction;
+        }
+
+        &__list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: $c-footer-subfooter-alignment;
+            align-items: $c-footer-subfooter-alignment;
+            flex-direction: $c-footer-subfooter-flex-direction;
+            margin: calc(-1 * map-get($spacers, "1")) calc(-1 * map-get($spacers, "5"));
+            margin-left: 0;
+            padding: 0;
+            list-style: none;
+            overflow: hidden;
+            flex: 1;
+            li {
+                position: relative;
+                margin: 0;
+                padding: map-get($spacers, "1") map-get($spacers, "5");
+                padding-left: 0;
+                line-height: 1;
+                &:before {
+                    content: "";
+                    border-radius: 50%;
+                    background: $c-footer-subfooter-color-separator;
+                    display: none;
+                    position: absolute;
+                    width: 6px;
+                    height: 6px;
+                    left: -23px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                &:not(:first-child):before {
+                    display: block;
+                }
+            }
+        }
+
+        // Fix for separator dots showing on new lines
+        &--align-flex-end {
+            .c-footer__subfooter__list {
+                margin: calc(-1 * map-get($spacers, "1")) calc(-1 * map-get($spacers, "5"));
+                margin-right: 0;
+                li {
+                    padding: map-get($spacers, "1") map-get($spacers, "5");
+                    padding-right: 0;
+                    &:before {
+                        display: none;
+                    }
+                    &:not(:last-child):before {
+                        display: block;
+                        left: auto;
+                        right: -23px;
+                    }
+                }
+            }
+        }
+
+        &--horizontal {
+            .c-footer__subfooter__wrapper {
+                align-items: center;
+            }
+            .c-footer__subfooter__logotype {
+                margin-right: map-get($spacers, "7");
+                margin-bottom: 0;
+            }
+        }
+
+        &--vertical {
+            .c-footer__subfooter__list {
+                li:not(:first-child):before, li:not(:last-child):before {
+                    display: none;
+                }
+            }
+            .c-footer__subfooter__logotype {
+                margin-bottom: map-get($spacers, "4");
+                margin-right: 0;
+            }
         }
     }
 }
@@ -80,7 +180,6 @@ $c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !
     .c-footer {
 
         &__body {
-
             padding: map-get($spacers, "5") map-get($spacers, "4");
             display: block;
             text-align: center;
@@ -100,5 +199,19 @@ $c-footer-logotype-height: calc(var(--c-footer-logotype-height, 6) * #{$base}) !
             margin-bottom: map-get($spacers, "2");
         }
 
+        &__subfooter {
+            &__list, &__wrapper {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                li:not(:first-child):before {
+                    display: none;
+                }
+            }
+            .c-footer__subfooter__logotype {
+                margin-bottom: map-get($spacers, "4");
+                margin-right: 0;
+            }
+        }
     }
 }
