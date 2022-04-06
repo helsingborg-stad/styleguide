@@ -19,7 +19,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         position: absolute;
         bottom: 0;
         left: 0;
-        padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 4) calc(#{$base} * 3);
+        padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 3) calc(#{$base} * 3);
         width: 100%;
         z-index: 0;
         max-height: 100%;
