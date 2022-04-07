@@ -1,4 +1,5 @@
 $c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{$base}) !default;
+$c-footer-padding: calc(var(--c-footer-padding, 3) * #{$base}) !default;
 $c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{$base}) !default;
 $c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, $color-white) !default;
 $c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, $color-black) !default;
@@ -8,6 +9,11 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
 
 .c-footer {
     background-color: $color-default;
+
+    &__main-wrapper {
+        padding-top: $c-footer-padding;
+        padding-bottom: $c-footer-padding;
+    }
 
     &__body {
         width: 100%;
