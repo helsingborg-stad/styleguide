@@ -11,8 +11,7 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
     background-color: $color-default;
 
     &__main-wrapper {
-        padding-top: $c-footer-padding;
-        padding-bottom: $c-footer-padding;
+        padding: $c-footer-padding 0;
     }
 
     &__body {
