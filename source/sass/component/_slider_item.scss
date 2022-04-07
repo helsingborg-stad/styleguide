@@ -128,6 +128,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 font-family: $c-slider-item-font-family-heading;
                 font-weight: $c-slider-item-font-weight-heading;
                 font-size: $h2-font-size;
+                animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+                animation-delay: 200ms;
 
                 @include mq('sm') { 
                     @include fluid-type(
@@ -146,6 +148,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 font-family: $c-slider-item-font-family;
                 font-weight: $c-slider-item-font-weight;
                 font-size: $font-size-base;
+                animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+                animation-delay: 400ms;
 
                 @include mq('sm') { 
                     @include fluid-type(
@@ -232,5 +236,17 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
     .c-slider__item__cta {
         margin-top: calc(#{$base} * 3);
+    }
+}
+
+
+@keyframes hero-slider-slide-in {
+    0% {
+      transform: translateY(calc(#{$base} * 4));
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
     }
 }
