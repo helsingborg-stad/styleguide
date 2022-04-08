@@ -1,3 +1,4 @@
+$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5) !default;
 $c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{$base}) !default;
 $c-footer-padding: calc(var(--c-footer-padding, 3) * #{$base}) !default;
 $c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{$base}) !default;
@@ -64,6 +65,17 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
         margin-bottom: calc(#{$base} / 2);
         margin-left: $base;
         margin-right: $base;
+    }
+    
+    &__widget-area {
+        gap: calc(#{$base} * 2);
+        .footer-title {
+            margin-bottom: calc(#{$base} * 2);
+        }
+        ul, p, .wp-block-image {
+            margin: 0;
+            margin-bottom: #{$base};
+        }
     }
 
     // Logo
