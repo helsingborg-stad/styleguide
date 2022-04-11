@@ -78,7 +78,7 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
         .footer-title {
             margin-bottom: calc(#{$base} * 2);
         }
-        ul, p, .wp-block-image {
+        ul, p, figure {
             margin: 0;
             margin-bottom: #{$base};
         }
