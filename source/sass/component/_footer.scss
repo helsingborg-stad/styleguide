@@ -83,6 +83,9 @@ $c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #
             margin: 0;
             margin-bottom: #{$base};
         }
+        li {
+            padding-left: 0;
+        }
     }
 
     // Logo
