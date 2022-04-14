@@ -110,6 +110,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
     &--header-border {
         .c-footer__header-wrapper {
             border-bottom: $c-footer-header-border-size solid $c-footer-header-border-color;
+            padding-bottom: $c-footer-padding;
         }
     }
 
