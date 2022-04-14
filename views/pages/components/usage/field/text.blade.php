@@ -31,7 +31,7 @@
                     @endmarkdown
 
                     @field([
-                        'type' => 'datepicker',
+                        'type' => 'date',
                         'value' => '',
                         'label' => 'Enter a date',
                         'attributeList' => [
@@ -41,15 +41,8 @@
                         ],
                         'required' => true,
                         'datepicker' => [
-                            'title'                 => 'Välj ett datum',
                             'minDate'               => "6/29/1997",
                             'maxDate'               => "tomorrow",
-                            'required'              => true,
-                            'showResetButton'       => true,
-                            'showDaysOutOfMonth'    => true,
-                            'showClearButton'       => true,
-                            'hideOnBlur'            => true,
-                            'hideOnSelect'          => false,
                         ]
                     ])
                     @endfield
