@@ -31,5 +31,5 @@ $article-color-heading: var(--article-color-heading, $color-primary);
 }
 
 .c-article.c-article--readable-width {
-    max-width: calc(#{$base} * 76);
+    max-width: var(--container-width-content, calc(#{$base} * 76));
 }
