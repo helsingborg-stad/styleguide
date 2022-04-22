@@ -24,6 +24,9 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         z-index: 0;
         max-height: 100%;
         overflow: hidden;
+        display: flex; 
+        flex-direction: column;
+        gap: #{$base};
 
         &::after {
             content: '';
@@ -52,12 +55,6 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         margin: 0; 
         color: $c-block-color; 
         display: block; 
-    }
-
-    .c-block__date + .c-block__meta, 
-    .c-block__date + .c-block__heading,
-    .c-block__meta + .c-block__heading {
-        margin-top: $base;
     }
 
     &.c-block--ratio-4-3 {
