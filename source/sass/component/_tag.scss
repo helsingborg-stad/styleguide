@@ -9,9 +9,13 @@ $c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
     text-decoration: none;
     color: $color-base;
     font-size: $font-size-meta;
-    word-spacing: -0.5ex;
     transition: background-color 100ms ease-in-out;
     user-select: none;
+
+    &--format {
+        word-spacing: -0.5ex;
+        text-transform: lowercase;
+    }
 
     &--default {
         color: $color-base;
