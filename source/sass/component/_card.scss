@@ -220,20 +220,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         margin-bottom: 0;
     }
 
-    &--action {
-        .c-card__body {
-            position: relative;
-            padding-right: map-get($spacers, '5');
-        }
-        .c-card__action {
-            position: absolute;
-            top: 50%;
-            right: map-get($spacers, '2');
-            transform: translateY(-50%);
-            color: $color-light;
-        }
-    }
-
     &__footer {
         border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
     }
