@@ -81,10 +81,6 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
         .footer-title {
             margin-bottom: calc(#{$base} * 2);
         }
-        ul, p, figure {
-            margin: 0;
-            margin-bottom: #{$base};
-        }
         li {
             padding-left: 0;
         }
@@ -104,6 +100,17 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
     
         @include mq('lg') {
             height: $c-footer-height-logotype;
+        }
+    }
+
+    &__header-wrapper {
+        margin-bottom: $c-footer-padding;
+    }
+
+    &__prefooter-wrapper, &__widget-area {
+        ul, p, figure {
+            margin: 0;
+            margin-bottom: #{$base};
         }
     }
 
