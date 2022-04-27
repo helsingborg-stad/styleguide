@@ -308,11 +308,16 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     z-index: $level-2;
     display: flex;
     margin-right: calc(#{$base} * -1);
+    flex: 1;
 
     &--reverse {
         order: 1;
         margin-right: 0;
         margin-left: calc(#{$base} * -1);
+    }
+
+    .c-icon {
+        margin-left: auto;
     }
 }
 
@@ -324,7 +329,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     overflow: hidden;
     max-width: 100%;
     padding-top: 2px;
-    flex: 1;
     &--reverse {
         order: 2;
     }
