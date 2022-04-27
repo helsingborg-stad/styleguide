@@ -42,10 +42,15 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: #{$base};
+        width: 100%;
 
         * {
             align-self: center;
         }
+    }
+
+    &__full-width {
+        width: 100%;
     }
 
     &--lg {
@@ -319,7 +324,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     overflow: hidden;
     max-width: 100%;
     padding-top: 2px;
-
+    flex: 1;
     &--reverse {
         order: 2;
     }
