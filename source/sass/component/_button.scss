@@ -80,20 +80,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
                 order: 1;
             }
         }
-
-        .c-button__label-text {
-            order: 1;
-            word-break: normal;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 100%;
-            padding-top: 2px;
-    
-            &--reverse {
-                order: 2;
-            }
-        }
     }
 
     &.c-button--lg {
@@ -348,6 +334,12 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &[aria-pressed='true'] { //Default
         color: $c-button-primary-color;
+
+        .c-button__label,
+        .c-button__icon {
+            color: $c-button-primary-color;
+            text-decoration: underline;
+        }
     }
 
     &.c-button__filled--primary[aria-pressed='true'],
@@ -355,6 +347,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &.c-button__outlined--primary[aria-pressed='true'] {
         background-color: $c-button-primary-color;
         color: $color-button-primary-text;
+
+        .c-button__label,
+        .c-button__icon {
+            color: $c-button-secondary-color-contrasting;
+        }
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
@@ -362,6 +359,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &.c-button__outlined--secondary[aria-pressed='true'] {
         background-color: $c-button-secondary-color;
         color: $c-button-secondary-color-contrasting;
+
+        .c-button__label,
+        .c-button__icon {
+            color: $c-button-secondary-color-contrasting;
+        }
     }
     
 }
