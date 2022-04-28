@@ -104,7 +104,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             width: calc(#{$base} * 8); 
         }
 
-        .c-button__label .c-button__label-icon {
+        &.c-button__outlined .c-button__label .c-button__label-icon,
+        &.c-button__filled .c-button__label .c-button__label-icon {
             margin-right: calc(#{$base} * -1.5);
             &--reverse {
                 margin-right: 0;
@@ -123,7 +124,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             width: calc(#{$base} * 6); 
         }
 
-        .c-button__label .c-button__label-icon {
+        &.c-button__outlined .c-button__label .c-button__label-icon,
+        &.c-button__filled .c-button__label .c-button__label-icon {
             margin-right: calc(#{$base} * -1);
             &--reverse {
                 margin-right: 0;
@@ -143,7 +145,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             width: calc(#{$base}* 4.5); 
         }
 
-        .c-button__label .c-button__label-icon {
+        &.c-button__outlined .c-button__label .c-button__label-icon,
+        &.c-button__filled .c-button__label .c-button__label-icon {
             margin-right: calc(#{$base} * -.5);
             &--reverse {
                 margin-right: 0;
