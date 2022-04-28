@@ -32,56 +32,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     position: relative;
     max-width: 100%;
     
-
-    &__label {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        position: relative;
-        z-index: $level-2;
-        transition: opacity 100ms, color 100ms;
-        text-decoration: none;
-        gap: #{$base};
-
-        * {
-            align-self: center;
-        }
-    }
-
-    &--lg {
-        @include button-size(
-            calc(#{$base}* 3),
-            calc(#{$base}* 5),
-            $font-size-btn-lg,
-            $c-button-border-radius
-        );
-    }
-
-    &--md {
-        @include button-size(
-            calc(#{$base}* 2),
-            calc(#{$base}* 2.5),
-            $font-size-btn-md,
-            $c-button-border-radius
-        );
-    }
-
-    &--sm {
-        letter-spacing: 0.1em;
-        @include button-size(
-            calc(#{$base}* 1.5),
-            calc(#{$base}* 2),
-            $font-size-btn-sm,
-            $c-button-border-radius-small
-        );
-    }
-
-    &--lg.c-button--pill,
-    &--md.c-button--pill, 
-    &--sm.c-button--pill {
-        border-radius: calc( #{$base} * 10); //No use of percent. 
-    }
-
     &:after {
         content: '';
         @include cover(); 
@@ -94,12 +44,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         border-radius: inherit;
     }
 
-    &.c-button--icon-only {
-        padding-left: 0;
-        padding-right: 0; 
-        justify-content: center;
-    }
-
     &:disabled {
         border-color: $color-button-disabled-bg;
         background-color: $color-button-disabled-bg;
@@ -109,6 +53,115 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         * {
             color: $color-button-disabled-text;
         }
+    }
+
+    .c-button__label {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        position: relative;
+        z-index: $level-2;
+        transition: opacity 100ms, color 100ms;
+        text-decoration: none;
+        gap: #{$base};
+        max-width: 100%;
+
+        * {
+            align-self: center;
+        }
+
+        .c-button__label-icon {
+            order: 2;
+            position: relative;
+            z-index: $level-2;
+            display: flex;
+    
+            &--reverse {
+                order: 1;
+            }
+        }
+
+        .c-button__label-text {
+            order: 1;
+            word-break: normal;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 100%;
+            padding-top: 2px;
+    
+            &--reverse {
+                order: 2;
+            }
+        }
+    }
+
+    &.c-button--lg {
+        height: calc(#{$base} * 8); 
+        padding: 0 calc(#{$base} * 5);
+        font-size: $font-size-btn-lg; 
+        border-radius: $c-button-border-radius; 
+
+        &.c-button--icon-only {
+            width: calc(#{$base} * 8); 
+        }
+
+        .c-button__label .c-button__label-icon {
+            margin-right: calc(#{$base} * -1.5);
+            margin-left: 0;
+            &--reverse {
+                margin-left: calc(#{$base} * -1.5);
+            }
+        }
+    }
+
+    &.c-button--md {
+        height: calc(#{$base} * 6); 
+        padding: 0 calc(#{$base} * 4); 
+        font-size: $font-size-btn-md; 
+        border-radius: $c-button-border-radius; 
+
+        &.c-button--icon-only {
+            width: calc(#{$base} * 6); 
+        }
+
+        .c-button__label .c-button__label-icon {
+            margin-right: calc(#{$base} * -1);
+            margin-left: 0;
+            &--reverse {
+                margin-left: calc(#{$base} * -1);
+            }
+        }
+    }
+
+    &.c-button--sm {
+        letter-spacing: 0.1em;
+        height: calc(#{$base} * 4.5); 
+        padding: 0 calc(#{$base} * 2); 
+        font-size: $font-size-btn-sm; 
+        border-radius: $c-button-border-radius-small; 
+
+        &.c-button--icon-only {
+            width: calc(#{$base}* 4.5); 
+        }
+
+        .c-button__label .c-button__label-icon {
+            margin-right: calc(#{$base} * -.5);
+            margin-left: 0;
+            &--reverse {
+                margin-left: calc(#{$base} * -.5);
+            }
+        }
+    }
+
+    &.c-button--pill {
+        border-radius: calc( #{$base} * 4); //No use of percent. 
+    }
+
+    &.c-button--icon-only {
+        padding-left: 0;
+        padding-right: 0; 
+        justify-content: center;
     }
 }
 
@@ -130,8 +183,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &--primary,
-    &--primary .c-button__label
-     {
+    &--primary .c-button__label {
         color: $c-button-primary-color;
     }
 
@@ -141,7 +193,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &--default,
-    &--deafult,
     &--deafult .c-button__label {
         color: $color-button-black;
     }
@@ -289,50 +340,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 }
 
-// Styling for buttons with both text and an icon
-
-.c-button__label {
-    max-width: 100%;
-    display: flex;
-    gap: #{$base};
-}
-
-.c-button__label-icon {
-    order: 2;
-    position: relative;
-    z-index: $level-2;
-    display: flex;
-    margin-right: calc(#{$base} * -1);
-
-    &--reverse {
-        order: 1;
-        margin-right: 0;
-        margin-left: calc(#{$base} * -1);
-    }
-}
-
-.c-button__label-text {
-    order: 1;
-    word-break: normal;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 100%;
-    padding-top: 2px;
-
-    &--reverse {
-        order: 2;
-    }
-}
-
-.c-button--sm {
-    margin-right: calc( #{$base} * -0.5);
-
-    .c-button__label-icon--reverse {
-        margin-right: 0;
-        margin-left: calc( #{$base} * -0.5);
-    }
-}
 
 .c-button__toggle {
     @extend .c-button__filled--default;
@@ -357,48 +364,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         color: $c-button-secondary-color-contrasting;
     }
     
-}
-
-
-.c-button__icon-size {
-    &--lg {
-        @include button-size(
-            calc(#{$base}* 2),
-            calc(#{$base}* 2),
-            $font-size-btn-lg,
-            $c-button-border-radius
-        );
-
-        &.c-button--icon-only {
-            width: calc(#{$base}* 6); 
-        }
-    }
-
-    &--md {
-        @include button-size(
-            calc(#{$base}* 1.5),
-            calc(#{$base}* 1.5),
-            $font-size-btn-md,
-            $c-button-border-radius
-        );
-
-        &.c-button--icon-only {
-            width: calc(#{$base}* 5); 
-        }
-    }
-
-    &--sm {
-        @include button-size(
-            $base, 
-            $base, 
-            $font-size-btn-sm, 
-            $c-button-border-radius-small
-        );
-
-        &.c-button--icon-only {
-            width: calc(#{$base}* 3.5); 
-        }
-    }
 }
 
 .c-button + .c-button {
