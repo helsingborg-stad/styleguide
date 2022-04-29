@@ -159,10 +159,17 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         border-radius: calc( #{$base} * 4); //No use of percent. 
     }
 
-    &.c-button--icon-only {
+    &.c-button--sm.c-button--icon-only,
+    &.c-button--md.c-button--icon-only,
+    &.c-button--lg.c-button--icon-only {
         padding-left: 0;
         padding-right: 0; 
         justify-content: center;
+
+        .c-button__label span.c-button__label-icon {
+            margin-right: 0;
+            margin-left: 0;
+        }
     }
 }
 
