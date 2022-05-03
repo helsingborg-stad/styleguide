@@ -115,21 +115,39 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         max-width: 100%;
     }
 
+    /* Borderless */
+    &.c-field--borderless {
+        .c-field__inner {
+            border-width: 0;
+            border-color: transparent;
+        }
+    }
+
     /* Size modifiers */ 
     &.c-field--sm {
         font-size: $c-field-font-size-sm;
         line-height: $c-field-font-size-sm-line-height; 
+        
         #{$fields} {
             padding: map-get($spacers, "1"); 
             height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
         }
+
+        &.c-field--borderless {
+            #{$fields} {
+                height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
+            }
+        }
+
         textarea {
             padding: map-get($spacers, "1"); 
             min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
         }
+
         .c-field__icon, .c-field__prefix {
             padding-left: map-get($spacers, "1");
         }
+
         .c-field__suffix {
             padding-right: map-get($spacers, "1");
         }
@@ -138,15 +156,24 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     &.c-field--md {
         #{$fields} {
             padding: map-get($spacers, "2"); 
-            height: $c-field-height; 
+            height: calc($c-field-height - ($c-field-border-width * 2)); 
         }
+
+        &.c-field--borderless {
+            #{$fields} {
+                height: $c-field-height;
+            }   
+        }
+
         textarea {
             padding: map-get($spacers, "2"); 
-            min-height: $c-field-height; 
+            min-height: calc($c-field-height - ($c-field-border-width * 2)); 
         }
+
         .c-field__icon, .c-field__prefix {
             padding-left: map-get($spacers, "2");
         }
+
         .c-field__suffix {
             padding-right: map-get($spacers, "2");
         }
@@ -155,17 +182,27 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     &.c-field--lg {
         font-size: $c-field-font-size-lg;
         line-height: $c-field-font-size-lg-line-height; 
+
         #{$fields} {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
             height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2);
         }
+
+        &.c-field--borderless {
+            #{$fields} {
+                height: #{map-get($spacers, "8")};
+            }
+        }
+
         textarea {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2); 
+            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2);
         }
+
         .c-field__icon, .c-field__prefix {
             padding-left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }
+
         .c-field__suffix {
             padding-right: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
         }

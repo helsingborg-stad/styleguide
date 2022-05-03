@@ -230,6 +230,9 @@ class Fields {
         const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
 
         for (const formInput of inputs) {
+            if (formInput.form?.classList.contains('js-form-validation')) {
+                continue;
+            }
             let inputId = formInput.getAttribute('id');
             // On Click event listener - Setting data
             document.getElementById(inputId).addEventListener('click', function (e) {
