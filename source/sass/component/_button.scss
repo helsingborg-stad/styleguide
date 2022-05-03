@@ -388,6 +388,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     overflow: hidden;
     max-width: 100%;
     padding-top: 2px;
+    height: 100%;
     &--reverse {
         order: 2;
     }
