@@ -51,7 +51,8 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
     .c-block__heading, 
     .c-block__meta,
-    .c-block__date {
+    .c-block__date,
+    .c-block__content {
         margin: 0; 
         color: $c-block-color; 
         display: block; 
