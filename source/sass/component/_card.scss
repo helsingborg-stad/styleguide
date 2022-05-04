@@ -152,7 +152,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         flex-basis: 250px;
     }
 
-    &--size-sm .c-card__body {
+    &--size-sm .c-card__image + .c-card__body {
         flex-basis: calc(100% - 250px);
     }
 
@@ -160,7 +160,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         flex-basis: 300px;
     }
 
-    &--size-md .c-card__body {
+    &--size-md .c-card__image + .c-card__body {
         flex-basis: calc(100% - 300px);
     }
 
@@ -168,7 +168,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         flex-basis: 30%;
     }
 
-    &--size-lg .c-card__body {
+    &--size-lg .c-card__image + .c-card__body {
         flex-basis: calc(100% - 30%);
     }
 
