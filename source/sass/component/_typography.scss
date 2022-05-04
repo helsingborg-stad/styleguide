@@ -8,26 +8,29 @@
         font-size: $h1-font-size;
         font-weight: $h1-font-weight;
         line-height: $h1-line-height;
+        font-family: $h1-font-family;
     }
 
     &h2 {
         font-size: $h2-font-size;
         font-weight: $h2-font-weight;
         line-height: $h2-line-height;
+        font-family: $h2-font-family;
     }
 
     &h3 {
         font-size: $h3-font-size;
         font-weight: $h3-font-weight;
         line-height: $h3-line-height;
+        font-family: $h3-font-family;
         letter-spacing:$font-letterspacing-title;
-
     }
 
     &h4 {
         font-size: $h4-font-size;
         font-weight: $h4-font-weight;
         line-height: $h4-line-height;
+        font-family: $h4-font-family;
         letter-spacing:$font-letterspacing-title;
     }
 
@@ -35,12 +38,14 @@
         font-size: $h5-font-size;
         font-weight: $h5-font-weight;
         line-height: $h5-line-height;
+        font-family: $h5-font-family;
     }
 
     &h6 {
         font-size: $h6-font-size;
         font-weight: $h6-font-weight;
         line-height: $h6-line-height;
+        font-family: $h6-font-family;
     }
 
     &headline {
