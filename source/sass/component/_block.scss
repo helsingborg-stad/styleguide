@@ -58,6 +58,10 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: block; 
     }
 
+    &.c-block--ratio-1-1 {
+        @include ratio(1, 1, false);
+    }
+
     &.c-block--ratio-4-3 {
         @include ratio(4, 3, false);
     }
