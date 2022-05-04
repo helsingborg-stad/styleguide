@@ -369,7 +369,7 @@
 
 .c-nav.c-nav--drawer {
   .c-nav__toggle {
-    margin-right: #{$base};
+    margin-right: calc(#{$base} * 2);
   }
 }
 
