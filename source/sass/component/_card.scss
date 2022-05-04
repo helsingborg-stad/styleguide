@@ -248,6 +248,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             @include ratio(16, 9, false);
             background-size: cover;
             background-repeat: no-repeat;
+            background-position: center;
 
             &--padded {
                 width: auto;
