@@ -374,6 +374,12 @@ a.c-card {
     }
 }
 
+.o-grid--no-gutter > [class*="o-grid-"] .c-card,
+.o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"], 
+.o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"]:after {
+    border-radius: unset;
+}
+
 @media print {
     .c-card__body {
         padding: 10px 0 0;
@@ -392,3 +398,4 @@ a.c-card {
         display: none;
     }
 }
+
