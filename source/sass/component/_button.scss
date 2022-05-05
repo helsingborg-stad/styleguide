@@ -55,6 +55,16 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
     }
 
+    &__full-width {
+        width: 100%;
+        .c-button__label-icon {
+            flex: 1;
+            .c-icon {
+                margin-left: auto;
+            }
+        }
+    }
+
     .c-button__label {
         display: flex;
         flex-direction: row;
@@ -64,6 +74,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: #{$base};
+        width: 100%;
         max-width: 100%;
         height: 100%;
 
