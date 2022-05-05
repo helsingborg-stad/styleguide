@@ -105,4 +105,5 @@ a.c-block {
 .o-grid--no-gutter > [class*="o-grid-"] .c-block [class*="c-block"], 
 .o-grid--no-gutter > [class*="o-grid-"] .c-block [class*="c-block"]:after {
     border-radius: unset;
+    filter: none; 
 }

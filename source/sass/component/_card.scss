@@ -374,6 +374,7 @@ a.c-card {
 .o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"], 
 .o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"]:after {
     border-radius: unset;
+    filter: none; 
 }
 
 @media print {
