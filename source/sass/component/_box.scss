@@ -1,0 +1,65 @@
+$c-box-border-radius: var(--c-box-border-radius, $border-radius-sm) !default;
+$c-box-color: var(--c-box-color, $color-primary-contrasting) !default;
+$c-box-background-color: var(--c-box-background-color, $color-primary) !default;
+$c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
+
+
+.c-box {
+    position: relative;
+    border-radius: $c-box-border-radius;
+    filter: $c-box-shadow;
+    display: block;
+    background-color: $c-box-background-color;
+
+    .c-box__body {
+        @include cover(); 
+        padding: calc(#{$base} * 3);
+        width: 100%;
+        z-index: 0;
+        max-height: 100%;
+        overflow: hidden;
+        display: flex; 
+        flex-direction: column;
+        gap: #{$base};
+        text-align: center;
+        justify-content: center;
+    }
+
+    .c-box__icon,
+    .c-box__heading, 
+    .c-box__meta,
+    .c-box__date,
+    .c-box__content {
+        margin: 0; 
+        color: $c-box-color; 
+        display: block; 
+    }
+
+    &.c-box--ratio-1-1 {
+        @include ratio(1, 1, false);
+    }
+
+    &.c-box--ratio-4-3 {
+        @include ratio(4, 3, false);
+    }
+
+    &.c-box--ratio-12-16 {
+        @include ratio(12, 16, false);
+    }
+}
+
+a.c-box {
+    transition: all 200ms ease-out;
+    cursor: pointer;
+
+    &:hover {
+        
+    }
+}
+
+.o-grid--no-gutter > [class*="o-grid-"] .c-box,
+.o-grid--no-gutter > [class*="o-grid-"] .c-box [class*="c-box"], 
+.o-grid--no-gutter > [class*="o-grid-"] .c-box [class*="c-box"]:after {
+    border-radius: unset;
+    filter: none; 
+}
