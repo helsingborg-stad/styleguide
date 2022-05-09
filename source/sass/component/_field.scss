@@ -13,7 +13,7 @@ $c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-
 
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
-$c-field-height: var(--c-field-height, calc((map-get($spacers, "6")) - $c-field-border-width * 2)) !default;
+$c-field-height: var(--c-field-height, calc((map-get($spacers, "6")))) !default;
 $c-field-font-size-sm: var(--c-field-font-size-sm, $font-size-btn-sm) !default;
 $c-field-font-size-md: var(--c-field-font-size-md, $font-size-btn-md) !default;
 $c-field-font-size-lg: var(--c-field-font-size-lg, $font-size-btn-lg) !default;
@@ -130,7 +130,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         
         #{$fields} {
             padding: map-get($spacers, "1"); 
-            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
+            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
         }
 
         &.c-field--borderless {
@@ -141,7 +141,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         textarea {
             padding: map-get($spacers, "1"); 
-            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}) - $c-field-border-width * 2);
+            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
         }
 
         .c-field__icon, .c-field__prefix {
@@ -185,7 +185,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         #{$fields} {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2);
+            height: calc((#{map-get($spacers, "8")}));
         }
 
         &.c-field--borderless {
@@ -196,7 +196,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         textarea {
             padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            min-height: calc((#{map-get($spacers, "8")}) - $c-field-border-width * 2);
+            min-height: calc((#{map-get($spacers, "8")}));
         }
 
         .c-field__icon, .c-field__prefix {
