@@ -69,6 +69,10 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     &.c-block--ratio-12-16 {
         @include ratio(12, 16, false);
     }
+
+    &--svg-background {
+        background-size: 50%;
+    }
 }
 
 a.c-block {
