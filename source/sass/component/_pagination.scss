@@ -3,74 +3,46 @@ $c-pagination-border-radius: var(--c-pagination-border-radius, $border-radius-sm
 .c-pagination {
     &__list {
         @include unlist();
-
+        gap: map-get($spacers, '2');
         padding: 0;
         margin: 0;
-        display: flex;
-    }
-
-    &__item {
-        margin: 0;
-        padding: 0;
-        border-radius: $c-pagination-border-radius;
-        height: calc(#{$base}* 5);
-        min-width: calc(#{$base}* 5);
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-wrap: wrap;
     }
 
-    &__item + &__item {
-        margin-left: map-get($spacers, '1');
-    }
-
-    &__item--next {
-        margin-left: map-get($spacers, '1');
-    }
-
-    &__item--previous {
-        margin-right: map-get($spacers, '1');
-    }
-
-    &__item--is-active {
-        filter: $drop-shadow-2;
-        background-color: $color-primary;
-    }
-
-    &--outlined {
-        .c-pagination__item--is-active {
-            box-shadow: none;
-            filter: $drop-shadow-0;
-            background-color: unset;
-            border: calc(#{$base} / 4) solid $color-primary;
-            * {
-                color: $color-black;
-            }
-        }
-    }
-
-    &__item--is-active &__link,
-    &__item--is-active &__link:visited,
-    &__item--is-active &__link:visited:hover {
-        color: $color-white;
-    }
-
-    &__link {
+    &__pages {
+        @include unlist();
         display: flex;
-        padding: map-get($spacers, '1') map-get($spacers, '2');
-        border-radius: $c-pagination-border-radius;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: map-get($spacers, '05');
+        margin: 0;
+        padding: 0;
     }
 
-    &__link,
-    &__link:visited,
-    &__link:visited:hover {
-        color: inherit;
-        text-decoration: none;
+    &__page-wrapper {
+        margin: 0;
+        padding: 0;
+    }
+
+    .c-pagination__item {
+        margin: 0;
+        padding: 0;
+
+        .c-pagination__link {
+            padding: 0;
+            width: map-get($spacers, '5');
+            height: map-get($spacers, '5');
+            line-height: map-get($spacers, '5');
+        }
     }
 
     .c-icon {
         color: $color-breadcrumb-icon;
-
         &:before {
             vertical-align: -20%; /* TODO: Fix */
         }
