@@ -71,7 +71,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
     &--svg-background {
         .c-card__image-background {
-            background-size: 50%;
+            background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
         }   
     }
 
