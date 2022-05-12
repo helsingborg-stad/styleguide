@@ -3,7 +3,6 @@ $c-box-color: var(--c-box-color, $color-primary-contrasting) !default;
 $c-box-background-color: var(--c-box-background-color, $color-primary) !default;
 $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 
-
 .c-box {
     position: relative;
     border-radius: $c-box-border-radius;
@@ -29,10 +28,6 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
     .c-box__image {
         width: clamp(calc(#{$base} * 6), 30%, calc(#{$base} * 20));
         margin: 0 auto calc(#{$base} * 3);
-
-        &.box__image--icon {
-            /** **/
-        }
     }
 
     .c-box__heading, 
@@ -60,23 +55,18 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 a.c-box {
     cursor: pointer;
 
-    .c-box__body:before {
+    &:before {
         content: "";
-        width: 200%;
-        height: 200%;  
-        z-index: $level-1;
+        @include cover(); 
         background-color: rgba(0,0,0,.2);
-        transition: all 200ms ease-in-out;
-        position: absolute;
-        top: 0;
-        bottom: 0; 
-        left: 0; 
-        border-radius: 0 100% 100% 0;
-        transform: translate(-100%, -50%); 
+        transition: height 200ms;
+        transition-timing-function: ease-in-out;
+        height: 0; 
+        top: auto;
     }
 
-    &:hover .c-box__body:before {
-        transform: translate(-25%, -50%);
+    &:hover:before {
+        height: 100%; 
     }
 }
 

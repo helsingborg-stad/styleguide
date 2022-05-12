@@ -3,5 +3,15 @@
     "heading": "A basic box",
     "subHeading": "",
     "text": ""
+  },
+  "images": {
+    "heading": "Boxes with images",
+    "subHeading": "",
+    "text": ""
+  },
+  "icons": {
+    "heading": "Boxes with icons",
+    "subHeading": "Subheading",
+    "text": "A box with an icon, is simply a box with an svg image."
   }
 }

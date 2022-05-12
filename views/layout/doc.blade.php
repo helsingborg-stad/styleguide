@@ -35,33 +35,35 @@
                     'transparent' => $paper['transparencyContainer']
                 ])
 
-                    @typography([
-                        'variant' => "h3",
-                        'element' => "h3"
-                    ])
-                        @if($example['description']['heading'])
-                            {{$example['description']['heading']}}
-                        @endif
-                    @endtypography
+                    <div class="u-margin__bottom--4">
+                        @typography([
+                            'variant' => "h3",
+                            'element' => "h3"
+                        ])
+                            @if($example['description']['heading'])
+                                {{$example['description']['heading']}}
+                            @endif
+                        @endtypography
 
-                    <div>
-                        @include($example['component'])
+                        @typography([
+                            'variant' => "h4",
+                            'element' => "h4",
+                            'classList' => []
+                        ])
+                            {{$example['description']['subHeading']}}
+                        @endtypography
+
+                        @typography([
+                            "variant" => "caption",
+                            "element" => "p"
+                        ])
+                            {{$example['description']['text']}}
+                        @endtypography
                     </div>
 
-                    @typography([
-                        'variant' => "h4",
-                        'element' => "h4",
-                        'classList' => ['u-padding__top--4']
-                    ])
-                        {{$example['description']['subHeading']}}
-                    @endtypography
-                    
-                    @typography([
-                        "variant" => "caption",
-                        "element" => "p"
-                    ])
-                        {{$example['description']['text']}}
-                    @endtypography
+                    <div class="u-padding--4 u-color__bg--lightest" style="border: 2px dashed var(--color-code-button,var(--color-default-darker,#3d3d3d)); border-bottom: none;">
+                        @include($example['component'])
+                    </div>
 
                     <div class="d-code__toggle c-code__toggle">
                         @button([
@@ -85,6 +87,7 @@
                         ])
                         @endbutton
                     </div>
+
                     @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
                     @endcode
