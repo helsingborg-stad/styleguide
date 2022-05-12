@@ -7,11 +7,11 @@
   "images": {
     "heading": "Boxes with images",
     "subHeading": "",
-    "text": ""
+    "text": "Simple box with images displayed in a grid with a desktiop width of three."
   },
   "icons": {
     "heading": "Boxes with icons",
-    "subHeading": "Subheading",
+    "subHeading": "",
     "text": "A box with an icon, is simply a box with an svg image."
   }
 }

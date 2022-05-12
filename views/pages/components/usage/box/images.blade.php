@@ -4,6 +4,10 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
+            'image' => [
+                'src' => '/assets/img/993-300x200.jpg',
+                'alt' => 'Placeholder image',       
+            ]
         ])
         @endbox
     </div>
@@ -12,6 +16,10 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
+            'image' => [
+                'src' => '/assets/img/993-300x200.jpg',
+                'alt' => 'Placeholder image',       
+            ]
         ])
         @endbox
     </div>
@@ -20,6 +28,10 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
+            'image' => [
+                'src' => '/assets/img/993-300x200.jpg',
+                'alt' => 'Placeholder image',       
+            ]
         ])
         @endbox
     </div>
