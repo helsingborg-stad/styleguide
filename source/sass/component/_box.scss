@@ -13,6 +13,7 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 
     .c-box__body {
         @include cover(); 
+        z-index: $level-2; 
         padding: calc(#{$base} * 3);
         width: 100%;
         z-index: 0;
@@ -25,7 +26,15 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
         justify-content: center;
     }
 
-    .c-box__icon,
+    .c-box__image {
+        width: clamp(calc(#{$base} * 6), 30%, calc(#{$base} * 20));
+        margin: 0 auto calc(#{$base} * 3);
+
+        &.box__image--icon {
+            /** **/
+        }
+    }
+
     .c-box__heading, 
     .c-box__meta,
     .c-box__date,
@@ -51,16 +60,23 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 a.c-box {
     cursor: pointer;
 
-    &:after {
-        transition: all 200ms ease-out;
-        content: ""; 
+    .c-box__body:before {
+        content: "";
+        width: 200%;
+        height: 200%;  
+        z-index: $level-1;
         background-color: rgba(0,0,0,.2);
-        @include cover(); 
-        right: auto;
+        transition: all 200ms ease-in-out;
+        position: absolute;
+        top: 0;
+        bottom: 0; 
+        left: 0; 
+        border-radius: 0 100% 100% 0;
+        transform: translate(-100%, -50%); 
     }
 
-    &:hover:after {
-        right: 0;
+    &:hover .c-box__body:before {
+        transform: translate(-25%, -50%);
     }
 }
 
