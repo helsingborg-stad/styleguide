@@ -70,9 +70,9 @@ export default class Pagination {
             for (let index = 0; index < this.paginatePages(); index++) {
                 const elm = this.link.cloneNode(true);
                 // elm.innerHTML = index +1;
-                elm.classList.remove('c-button__filled--primary');
+                elm.querySelector('.c-button').classList.remove('c-button__filled--primary');
                 elm.setAttribute(this.indexLinks, index +1);
-                elm.querySelector('.c-pagination__label').innerHTML = index +1;
+                elm.querySelector('.c-button__label-text').innerHTML = index +1;
 
                 if((index +1) === this.paginationCurrent() ){
                     elm.classList.add('c-button__filled--primary');
