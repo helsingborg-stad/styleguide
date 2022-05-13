@@ -44,8 +44,8 @@ class Modal {
 
         for(const dialog of this.dialogs) {
             dialog.addEventListener('close', function() {
-                self.unlockScroll();
                 this.classList.remove('c-modal--visible');
+                self.unlockScroll();
             });
         }
     }
