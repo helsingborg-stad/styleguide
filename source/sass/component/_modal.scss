@@ -1,20 +1,13 @@
 $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
 
 .c-modal {
-    position: relative;
     background-color: white;
     display: flex;
     gap: map-get($spacers, "2");
     flex-direction: column;
-    max-width: 800px;
-    max-height: 80vh;
     width:100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
-    border-radius: $c-modal-border-radius;
-    
-    
-    filter: $drop-shadow-3;
 
     &--border-radius-sm {
         border-radius: $border-radius-sm;
@@ -181,79 +174,11 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
 
 }
 
-.c-modal__bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: $level-top;
-    visibility: hidden;
-    opacity: 0;
-
-    &--is-visible {
-        visibility: visible;
-        opacity: 1;
-        background-color: rgba(#000, .5);
-        outline: 5000px solid rgba(#000, .5); /* relative container fix */
-        backdrop-filter: blur(5px);
-    }
-
-    &__anim-scaleup-center {
-        @include anim-scaleUp();
-    }
-}
-
-.c-modal__bg.c-modal__bg__animation-- {
-
-    &slide-up {
-
-        .c-modal {
-            transform: translateY(100%);
-        }
-
-    }
-
-    &slide-down {
-
-        .c-modal {
-            transform: translateY(-100%);
-        }
-    }
-
-    &scale-down {
-
-        .c-modal {
-            transform: scale(1.1);
-        }
-    }
-
-    &scale-up {
-
-        .c-modal {
-            transform: scale(0.9);
-        }
-    }
-}
-
-.c-modal__bg--is-visible.c-modal__bg__animation-- {
-
-    &slide-up, &slide-down {
-        .c-modal {
-            transform: translateY(0);
-        }
-    }
-
-    &scale-down, &scale-up {
-
-        .c-modal {
-            transform: scale(1.0);
-        }
-    }
-
+.c-modal__dialog {
+    border-radius: $c-modal-border-radius;
+    filter: $drop-shadow-3;
+    max-width: 800px;
+    max-height: 80vh;
 }
 
 .c-modal .c-image {
