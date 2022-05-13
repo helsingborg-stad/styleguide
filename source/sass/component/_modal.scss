@@ -179,6 +179,7 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
     filter: $drop-shadow-3;
     max-width: 800px;
     max-height: 80vh;
+    border: none;
 }
 
 .c-modal .c-image {
