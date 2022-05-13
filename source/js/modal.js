@@ -7,7 +7,7 @@ class Modal {
         this.modalId = null;
         this.openTrigger = document.querySelectorAll("[data-open]");
         this.closeTrigger = document.querySelectorAll("[data-close]");
-        this.dialogs = document.querySelectorAll('.c-modal__dialog');
+        this.dialogs = document.querySelectorAll('.c-modal');
     }
 
     /**
@@ -23,7 +23,9 @@ class Modal {
         for(const trigger of this.openTrigger) {
             trigger.addEventListener("click", function() {
                 this.modalId = this.getAttribute('data-open'); //this.dataset.open;
-                document.getElementById(this.modalId).showModal();
+                const modal = document.getElementById(this.modalId);
+                modal.classList.add('c-modal--visible');
+                modal.showModal();
 
                 if(this.getAttribute('data-large-img')) {
                     GalleryInstance.initImage(this.modalId, this.getAttribute('data-large-img'));
@@ -43,6 +45,7 @@ class Modal {
         for(const dialog of this.dialogs) {
             dialog.addEventListener('close', function() {
                 self.unlockScroll();
+                this.classList.remove('c-modal--visible');
             });
         }
     }

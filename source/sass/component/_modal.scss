@@ -2,12 +2,22 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
 
 .c-modal {
     background-color: white;
-    display: flex;
     gap: map-get($spacers, "2");
     flex-direction: column;
     width:100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
+
+    border-radius: $c-modal-border-radius;
+    filter: $drop-shadow-3;
+    max-width: 800px;
+    max-height: 80vh;
+    border: none;
+
+    display: none;
+    &--visible {
+        display: flex;
+    }
 
     &--border-radius-sm {
         border-radius: $border-radius-sm;
@@ -114,7 +124,7 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
     }
 
     &__next {
-        right: -#{map-get($spacers, "8")};
+        right: #{map-get($spacers, "0")};
     }
     @include mq(map_get($breakpoints-map, "xs"), "lg") {
 
@@ -128,8 +138,7 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
 
         &__prev, &__next {
             vertical-align: bottom;
-            bottom: -#{map-get($spacers, "8")};
-            top: unset;
+            bottom: #{map-get($spacers, "8")};
         }
 
     }
@@ -162,7 +171,7 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
         }
 
         &__prev, &__next {
-            bottom: -#{map-get($spacers, "6")};
+            bottom: #{map-get($spacers, "6")};
 
             i {
                 font-size: map-get($icon-sizes, "md");
@@ -172,14 +181,6 @@ $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default
 
     }
 
-}
-
-.c-modal__dialog {
-    border-radius: $c-modal-border-radius;
-    filter: $drop-shadow-3;
-    max-width: 800px;
-    max-height: 80vh;
-    border: none;
 }
 
 .c-modal .c-image {
