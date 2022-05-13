@@ -26,8 +26,12 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
     }
 
     .c-box__image {
-        width: clamp(calc(#{$base} * 6), 30%, calc(#{$base} * 20));
+        width: clamp(calc(#{$base} * 6), 50%, calc(#{$base} * 20));
         margin: 0 auto calc(#{$base} * 3);
+    }
+
+    .c-box__image.c-image--type-svg {
+        width: clamp(calc(#{$base} * 6), 30%, calc(#{$base} * 20));
     }
 
     .c-box__heading, 
