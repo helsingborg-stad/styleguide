@@ -1,50 +1,40 @@
-$c-pagination-border-radius: var(--c-pagination-border-radius, $border-radius-sm) !default;
+.c-pagination,
+.c-pagination .c-pagination__list,
+.c-pagination .c-pagination__pages {
+    @include unlist(); 
+    display: flex;
+    flex-direction: row;
+    gap: calc(#{$base} * 2);
+    margin: 0;
+    padding: 0;
+    align-items: center;
 
-.c-pagination {
-    &__list {
-        @include unlist();
-        gap: map-get($spacers, '2');
+    .c-pagination__item,
+    .c-pagination__page-wrapper {
         padding: 0;
         margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
     }
 
-    &__pages {
-        @include unlist();
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: map-get($spacers, '05');
-        margin: 0;
+    .c-button.c-button--sm.c-pagination__link,
+    .c-button.c-button--md.c-pagination__link,
+    .c-button.c-button--lg.c-pagination__link {
         padding: 0;
     }
 
-    &__page-wrapper {
-        margin: 0;
-        padding: 0;
+    .c-button.c-button--sm.c-pagination__link {
+        min-width: calc(var(--base, 8px)*4.5);
     }
 
-    .c-pagination__item {
-        margin: 0;
-        padding: 0;
-
-        .c-pagination__link {
-            padding: 0;
-            width: map-get($spacers, '5');
-            height: map-get($spacers, '5');
-            line-height: map-get($spacers, '5');
-        }
+    .c-button.c-button--md.c-pagination__link {
+        min-width: calc(var(--base, 8px)*6);
     }
 
-    .c-icon {
-        color: $color-breadcrumb-icon;
-        &:before {
-            vertical-align: -20%; /* TODO: Fix */
-        }
+    .c-button.c-button--lg.c-pagination__link {
+        min-width: calc(var(--base, 8px)*8);
     }
+}
+
+.c-pagination .c-pagination__pages {
+    flex-wrap: wrap;
+    justify-content: center;
 }
