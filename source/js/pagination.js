@@ -75,7 +75,7 @@ export default class Pagination {
                 elm.querySelector('.c-button__label-text').innerHTML = index +1;
 
                 if((index +1) === this.paginationCurrent() ){
-                    elm.classList.add('c-button__filled--primary');
+                    elm.querySelector('.c-button').classList.add('c-button__filled--primary');
                 }
 
                 body.appendChild(elm);
