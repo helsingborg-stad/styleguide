@@ -54,6 +54,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         max-height: 100vh;
         width: 100%; 
         height: 100vh;
+        border-radius: 0;
     }
 
     @for $i from 1 through 4 {
@@ -70,8 +71,11 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         }
     }       
 
-    &__top, &__header {
-        flex-shrink: 0;
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     &__content {
@@ -100,13 +104,13 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         box-shadow:none;
     }
 
-    &__close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: block;
+    &__close.c-button.c-button--lg,
+    &__close.c-button.c-button--md,
+    &__close.c-button.c-button--sm {
         cursor: pointer;
         color: $color-black;
+        height: auto; 
+        width: auto;
     }
 
     &__prev, &__next {
@@ -132,6 +136,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     &__next {
         right: #{map-get($spacers, "0")};
     }
+
     @include mq(map_get($breakpoints-map, "xs"), "lg") {
 
         &__prev {
@@ -190,16 +195,20 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 }
 
 .c-modal .c-image {
-    animation: fadein 1s ease-in;
+    animation: modalEntrance 1s ease-in;
 }
 
-.c-modal .fadeIn {
-    animation: fadein 1s ease-in;
+.c-modal[open] {
+    animation: modalEntrance 300ms ease normal;
 }
 
-@keyframes fadein {
-
-    from { opacity: 0; }
-
-    to { opacity: 1; }
+@keyframes modalEntrance {
+    from {
+        opacity: 0; 
+        transform: translateY(50vh);
+    }
+    to {
+        opacity: 1; 
+        transform: translateY(0);
+    }
 }

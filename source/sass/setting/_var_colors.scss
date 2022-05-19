@@ -46,7 +46,6 @@ $color-default-dimmed: var(--color-default-dimmed, #eee) !default;
 $color-default-dark: var(--color-default-dark, #dadada) !default;
 $color-default-darker: var(--color-default-darker, #3d3d3d) !default;
 $color-default-alpha: var(--color-default-alpha, rgba(112, 112, 112, 0.08));
-$color-default-alpha-dimmed: var(--color-default-alpha-dimmed, rgba(112, 112, 112, 0.24));
 
 // Disabled colors
 $color-disabled: var(--color-disabled, $color-default) !default;
