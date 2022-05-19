@@ -104,9 +104,9 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         box-shadow:none;
     }
 
-    &__close.c-button.c-button--lg,
-    &__close.c-button.c-button--md,
-    &__close.c-button.c-button--sm {
+    .c-modal__close.c-button.c-button--lg,
+    .c-modal__close.c-button.c-button--md,
+    .c-modal__close.c-button.c-button--sm {
         cursor: pointer;
         color: $color-black;
         height: auto; 
