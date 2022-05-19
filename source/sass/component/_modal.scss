@@ -111,6 +111,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         color: $color-black;
         height: auto; 
         width: auto;
+        margin-left: auto;
     }
 
     &__prev, &__next {
@@ -192,10 +193,6 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     }
 
-}
-
-.c-modal .c-image {
-    animation: modalEntrance 1s ease-in;
 }
 
 .c-modal[open] {
