@@ -7,7 +7,7 @@ class Modal {
         this.modalId = null;
         this.openTrigger = document.querySelectorAll("[data-open]");
         this.closeTrigger = document.querySelectorAll("[data-close]");
-        this.isVisible = "c-modal__bg--is-visible";
+        this.dialogs = document.querySelectorAll('.c-modal');
     }
 
     /**
@@ -23,7 +23,9 @@ class Modal {
         for(const trigger of this.openTrigger) {
             trigger.addEventListener("click", function() {
                 this.modalId = this.getAttribute('data-open'); //this.dataset.open;
-                document.getElementById(this.modalId).classList.add(self.isVisible);
+                const modal = document.getElementById(this.modalId);
+                modal.classList.add('c-modal--visible');
+                modal.showModal();
 
                 if(this.getAttribute('data-large-img')) {
                     GalleryInstance.initImage(this.modalId, this.getAttribute('data-large-img'));
@@ -36,26 +38,16 @@ class Modal {
         // Close
         for (const trigger of this.closeTrigger) {
             trigger.addEventListener("click", function() {
-                document.querySelector(`.${self.isVisible}`).classList.remove(self.isVisible);
-                self.unlockScroll();
+                trigger.closest('dialog').close();
             });
         }
 
-        // Click outside modal
-        document.addEventListener("click", e => {
-            if (e.target === document.querySelector(`.${self.isVisible}`)) {
-                document.querySelector(`.${self.isVisible}`).classList.remove(self.isVisible);
+        for(const dialog of this.dialogs) {
+            dialog.addEventListener('close', function() {
+                this.classList.remove('c-modal--visible');
                 self.unlockScroll();
-            }
-        });
-
-        // Pressing Esc key to close modal
-        document.addEventListener("keyup", e => {
-            if (e.key === "Escape" && document.querySelector(`.${self.isVisible}`)) {
-                document.querySelector(`.${self.isVisible}`).classList.remove(self.isVisible);
-                self.unlockScroll();
-            }
-        });
+            });
+        }
     }
 
     /**
