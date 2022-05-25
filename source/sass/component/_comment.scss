@@ -1,33 +1,30 @@
 $c-comment-border-radius: var(--c-comment-border-radius, $border-radius-lg) !default;
 $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-radius-sm) !default;
 
+.c-comment + .c-comment {
+    margin-top: map-get($spacers, "4");
+}
 
-.c-comment {
-    margin-top: map-get($spacers, "6");
+.c-comment { 
+    display: flex;
+    flex-direction: row;
+    gap: map-get($spacers, "2");
 
-    &:first-child {
-        margin-top: 0;
+    .c-comment__top {
+        display: flex;
+        gap: map-get($spacers, "2");
+        margin-bottom: map-get($spacers, "05");
     }
 
-    &__top {
-        display: flex;
-        align-items: center;
-        width: 80%;
-        padding-left: 5px;
-
-        .c-comment__author {
-            align-self: center;
-            margin: 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: $color-darker;
-        }
+    .c-comment__top .c-comment__author {
+        font-size: .9em;
+        font-weight: 600;
+        color: $color-darker;
     }
 
     .c-avatar {
-        width: 45px;
-        height: 45px;
-        margin: map-get($spacers, "1");
+        width: calc(#{$base} * 6);
+        height: calc(#{$base} * 6);
     }
 
     .c-comment__link {
@@ -49,10 +46,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
     }
 
     &__date {
-        align-self: flex-end;
-        margin: map-get($spacers, "1");
         color: $color-comment-date;
-        font-size: 14px;
         font-weight: 600;
     }
 
@@ -61,13 +55,6 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
         display: flex;
         flex-wrap: wrap;
         position: relative;
-    }
-
-    .c-avatar {
-        flex-direction: column;
-        position: absolute;
-        top: -36px;
-        left: -65px;
     }
 
     &__bubble--color-dark &__bubble--inner,
@@ -92,7 +79,6 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
     }
 
     &__is-reply {
-        margin-left: map-get($spacers, "5");
-        margin-top: map-get($spacers, "4");
+        margin-left: map-get($spacers, "8");
     }
 }
