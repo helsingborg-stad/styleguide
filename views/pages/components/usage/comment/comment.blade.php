@@ -6,6 +6,27 @@
     'icon' => 'face',
     'date' => '2019-12-01 17:25:43'
 ])
+    @slot('actions')
+        @button([
+            'text' => 'Reply',
+            'color' => 'default',
+            'style' => 'basic',
+            'href' => '#reply',
+            'icon' => 'reply',
+            'size' => 'sm'
+        ])
+        @endbutton
+
+        @button([
+            'text' => 'Like',
+            'color' => 'default',
+            'style' => 'basic',
+            'href' => '#like',
+            'icon' => 'thumb_up',
+            'size' => 'sm'
+        ])
+        @endbutton
+    @endslot
 @endcomment
 
 @comment([
