@@ -45,6 +45,11 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
         }
     }
 
+    .c-comment__actions {
+        display: flex; 
+        gap: calc(#{$base} * 2);
+    }
+
     &__date {
         color: $color-comment-date;
         font-weight: 600;
