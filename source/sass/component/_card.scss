@@ -337,10 +337,10 @@ a.c-card {
 
     .c-card__image:before {
         content: '';
+        @include cover();
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
-        position: absolute;
         background: $color-lighter;
         opacity: 0;
         z-index: $level-1;
