@@ -1,9 +1,72 @@
+$c-divider-title-border-color: var(--c-divider-title-border-color, $color-dark) !default;
+$c-divider-title-border-radius: var(--c-divider-title-border-radius, $border-radius-lg) !default;
+$c-divider-title-border-width: var(--c-divider-title-border-width, $border-width-card) !default;
+$c-divider-title-background: var(--c-divider-title-background, $color-card-background) !default;
+
+$c-divider-color-text: var(--c-divider-color-text, $color-dark) !default;
+$c-divider-color-divider: var(--c-divider-color-divider, #707070) !default;
+$c-divider-thickness: var(--c-divider-thickness, 1px) !default;
+$c-divider-border-style: var(--c-divider-border-style, solid) !default;
+
+
 .c-divider{
-    border-width: 1px;
-    border-color: #707070;
-    
     margin: 0 auto;
-    opacity: 0.5;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+      
+    &::before,
+    &::after {
+        border-bottom: $c-divider-thickness $c-divider-border-style $c-divider-color-divider;
+        content: '';
+        flex: 1;
+    }
+
+    &__title {
+        padding: map-get($spacers, "1") map-get($spacers, "2");
+    }
+
+    &--has-frame .c-divider__title {
+        background: $c-divider-title-background;
+        border: $c-divider-title-border-width solid $c-divider-title-border-color;
+        border-radius: $c-divider-title-border-radius;
+    }
+
+    &.c-divider--align-left:not(.c-divider--has-frame) .c-divider__title {
+        padding-left: 0;
+    }
+
+    &.c-divider--align-right:not(.c-divider--has-frame) .c-divider__title {
+        padding-right: 0;
+    }
+
+    &--custom-font{
+        .c-divider__title {
+            color: $c-divider-color-text;
+        }
+    }
+
+    &--align-left {
+        &::before {
+            display: none;
+        }
+    }
+
+    &--align-right {
+        &::after {
+            display: none;
+        }
+    }
+    
+    &--without-title {
+        &::before {
+            display: block;
+        }
+        &::after {
+            display: none;
+        }
+    }
     
     &--sm{
         width: 30%;
@@ -17,15 +80,28 @@
         width: 70%;
     }
 
+    &--full-width{
+        width: 100%;
+    }
+
     &--dashed{
-        border-style: dashed;
+        &::before,
+        &::after {
+            border-bottom-style: dashed;
+        }
     }
 
     &--dotted{
-        border-style: dotted;
+        &::before,
+        &::after {
+            border-bottom-style: dotted;
+        }
     }
 
     &--solid{
-        border-style: solid;
+        &::before,
+        &::after {
+            border-bottom-style: solid;
+        }
     }
 }

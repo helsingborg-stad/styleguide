@@ -95,9 +95,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
         .c-button__label-text {
             order: 1;
-            display: flex;
+            display: inline-block;
             align-items: center;
-            line-height: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
 
             &--reverse {
                 order: 2;
