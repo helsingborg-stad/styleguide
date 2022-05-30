@@ -2,7 +2,11 @@ $c-comment-border-radius: var(--c-comment-border-radius, $border-radius-lg) !def
 $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-radius-sm) !default;
 
 .c-comment + .c-comment {
-    margin-top: map-get($spacers, "4");
+    margin-top: map-get($spacers, "2");
+}
+
+.c-comment.c-comment--level-2 + .c-comment.c-comment--level-1 {
+    margin-top: map-get($spacers, "6");
 }
 
 .c-comment { 
