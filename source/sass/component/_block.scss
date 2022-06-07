@@ -72,6 +72,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
     &--svg-background {
         background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
+        background-repeat: no-repeat;
     }
 }
 
