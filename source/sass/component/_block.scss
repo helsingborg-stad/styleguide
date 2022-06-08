@@ -70,6 +70,10 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         @include ratio(12, 16, false);
     }
 
+    &.c-block--ratio-16-9 {
+        @include ratio(16, 9, false);
+    }
+
     &--svg-background {
         background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
         background-repeat: no-repeat;
