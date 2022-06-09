@@ -64,13 +64,11 @@
     .c-testimonial__title {
         color: $color-primary-dark;
         margin-top: var(--base, 8px);
-        max-width: 35ch;
+        max-width: 25ch;
     }
 
     .c-testimonial__quote {
         grid-area: quote;
-        margin-top: calc(var(--base, 8px) * 4);
-        margin-left: calc(var(--base, 8px) * 2);
         font-style: italic;
     }
 
