@@ -106,7 +106,7 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
+@include mq(map_get($breakpoints-map, "md")) {
     .c-testimonials__wrapper {
         grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
         column-gap: calc(#{$base} * 7);
