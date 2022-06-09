@@ -66,6 +66,7 @@
     .c-testimonial__title {
         color: $color-primary-dark;
         margin-top: var(--base, 8px);
+        max-width: 35ch;
     }
 
     .c-testimonial__quote {
