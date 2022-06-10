@@ -209,22 +209,14 @@ $c-segment-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
     padding: map-get($spacers, "8") 0;
 
     .c-segment__overlay {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        @include cover();
         z-index: $level-1;
         box-shadow: inset 0 0 20vh rgb(0 0 0 / 20%);
         background-color: $c-segment-color-overlay;
     }
 
     .c-segment__image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        @include cover();
     }
 
     &.c-segment--gap-xs {
