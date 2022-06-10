@@ -45,14 +45,17 @@ $c-segment-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
 }
 
 .c-segment.c-segment--text {
+    
     &-light .c-segment__title,
     &-light .c-segment__text {
         color: white;
+        z-index: $level-2;
     }
 
     &-dark .c-segment__title,
     &-dark .c-segment__text {
         color: black;
+        z-index: $level-2;
     }
 }
 
@@ -211,7 +214,7 @@ $c-segment-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
         right: 0;
         bottom: 0;
         left: 0;
-        z-index: 1000;
+        z-index: $level-1;
         box-shadow: inset 0 0 20vh rgb(0 0 0 / 20%);
         background-color: $c-segment-color-overlay;
     }
