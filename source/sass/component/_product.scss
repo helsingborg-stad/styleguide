@@ -1,0 +1,22 @@
+/**
+Products component SCSS
+*/
+
+.c-product--featured {
+    margin: calc(#{$base} * -1);
+}
+
+.c-product__price {
+    display: inline-block;
+    padding: #{$base};
+
+    &--primary {
+        background-color: $color-primary;
+        color: $color-primary-contrasting;
+    }
+
+    &--secondary {
+        background-color: $color-secondary;
+        color: $color-secondary-contrasting;
+    }
+}
