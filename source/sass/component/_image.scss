@@ -30,10 +30,6 @@ $radius: (
 // *** Placeholder
 // ***************************************************************
 
-.modularity-mod-image .c-link {
-    text-decoration: none;
-}
-
 .c-image--is-placeholder {
     @include ratio(16, 9, true);
     position: relative;
