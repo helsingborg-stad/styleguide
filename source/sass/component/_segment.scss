@@ -1,4 +1,4 @@
-$c-segment-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
+$c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 
 .c-segment {
     display: flex;
