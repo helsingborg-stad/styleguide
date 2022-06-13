@@ -26,16 +26,17 @@
 
 .c-testimonial {
     display: grid;
-    grid-template-columns: calc(#{$base} * 10) auto;
+    grid-template-columns: calc(#{$base} * 11) auto;
     grid-template-areas: "image header" "quote quote";
     padding: map-get($spacers, "4");
 
     .c-testimonial__image {
-        width: calc(#{$base} * 10);
-        max-height: calc(#{$base} * 12);
+        width: calc(#{$base} * 11);
+        max-height: calc(#{$base} * 14);
         border-radius: calc(#{$base} * 1);
         overflow: hidden;
         filter: $drop-shadow-3;
+        grid-area: image;
 
         &.c-image .c-image__image {
             object-fit: cover;
@@ -45,11 +46,11 @@
     }
 
     .c-testimonial__header {
-        margin-left: map-get($spacers, "2");
+        margin-left: calc(var(--base, 8px) * 4);
 
         & h2 {
             font-weight: 900;
-            font-size: calc(var(--base, 8px) * 4);
+            font-size: calc(var(--base, 8px) * 3);
             color: $color-darkest;
             word-break: break-word;
         }
@@ -62,11 +63,12 @@
 
     .c-testimonial__title {
         color: $color-primary-dark;
+        margin-top: var(--base, 8px);
+        max-width: 25ch;
     }
 
     .c-testimonial__quote {
         grid-area: quote;
-        margin-top: calc(var(--base, 8px) * 4);
         font-style: italic;
     }
 
@@ -98,11 +100,14 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
+@include mq(map_get($breakpoints-map, "md")) {
     .c-testimonials__wrapper {
         grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
         column-gap: calc(#{$base} * 7);
         row-gap: calc(#{$base} * 6);
+
+        margin-left: map-get($spacers, "8");
+        margin-right: map-get($spacers, "8");
     }
 
     .c-testimonials__wrapper--is-carousel {

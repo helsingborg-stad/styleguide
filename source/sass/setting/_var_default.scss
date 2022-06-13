@@ -42,9 +42,9 @@ $sizings: (
 //  Breakpoints
 $breakpoints-map: (
     xs: 0,
-    sm: 32.5em,
-    md: 56em,
-    lg: 78em
+    sm: 32.5em, // 520px
+    md: 56em, // 896px
+    lg: 78em // 1248px
 ) !default;
 
 //Width
