@@ -239,24 +239,3 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 }
-
-/* For the search-field in a hamburgermenu */
-.c-hamburgermenu .c-form {
-    @include mq("xs") {
-        .c-group {
-            justify-content: center;
-        }
-        .c-button {
-            padding: 0 calc(var(--base, 8px) * 0.5);
-        }
-    }
-
-    @include mq("sm") {
-        .c-button {
-            padding: 0 calc(var(--base, 8px) * 4);
-        }
-    }
-
-   
-}
-
