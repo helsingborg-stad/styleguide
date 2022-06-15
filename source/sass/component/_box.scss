@@ -69,7 +69,6 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 a.c-box {
     text-decoration: none;
     color: inherit;
-    // transition: transform 350ms ease-in-out, filter 350ms ease-in-out, background-color 350 ease-in-out;
 
     .c-box__image {
         position: relative;
