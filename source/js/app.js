@@ -27,7 +27,6 @@ import KeepInViewPort from './keepInViewPort';
 import ButtonToggle from './buttonToggle';
 import TestimonialCarousel from './testimonials';
 
-import './datepicker';
 import './helpers/swipe';
 
 expandSection();
