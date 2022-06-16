@@ -13,6 +13,7 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
     .c-segment__slot {
         order: 3;
         justify-content: center;
+        z-index: $level-2;
 
         > .o-grid {
             justify-content: center;
@@ -208,7 +209,7 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
     gap: #{map-get($spacers, "8")};
     padding: map-get($spacers, "8") 0;
     
-    &.c-segment--has-overlay::after {
+    &.c-segment--has-overlay::before {
         content: "";
         @include cover();
         z-index: $level-1;
