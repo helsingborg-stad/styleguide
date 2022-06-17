@@ -209,10 +209,9 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
     gap: #{map-get($spacers, "8")};
     padding: map-get($spacers, "8") 0;
     
-    &.c-segment--has-overlay::before {
+    &.c-segment--has-overlay .c-segment__image::before {
         content: "";
         @include cover();
-        z-index: $level-1;
         box-shadow: inset 0 0 20vh rgb(0 0 0 / 20%);
         background-color: $c-segment-color-overlay;
     }
