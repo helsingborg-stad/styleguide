@@ -20,19 +20,20 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
         overflow: hidden;
         display: flex; 
         flex-direction: column;
-        gap: #{$base};
+        gap: calc(#{$base} * 4);
         text-align: center;
         justify-content: center;
     }
 
     .c-box__image {
         width: clamp(calc(#{$base} * 6), 50%, calc(#{$base} * 20));
-        margin: 0 auto calc(#{$base} * 3);
+        margin: 0 auto;
     }
 
     .c-box__icon.c-icon {
         color: $c-box-color;
-        font-size: calc(#{$base} * 12);
+        font-size: calc(#{$base} * 10);
+        line-height: 60px;
     }
 
     .c-box__image.c-image--type-svg {
@@ -45,7 +46,11 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
     .c-box__content {
         margin: 0; 
         color: $c-box-color; 
-        display: block; 
+        display: block;
+    }
+
+    .c-box__content {
+        text-align: left;
     }
 
     &.c-box--ratio-1-1 {
@@ -62,20 +67,60 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 }
 
 a.c-box {
-    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+
+    .c-box__image {
+        position: relative;
+    }
+
+    .c-box__image:before {
+        content: '';
+        @include cover();
+        transition: opacity 200ms;
+        height: 100%;
+        width: 100%;
+        background: $color-lighter;
+        opacity: 0;
+        z-index: $level-1;
+    }
+
+    .c-box__image-background {
+        transition: transform 800ms;
+    }
 
     &:before {
         content: "";
         @include cover(); 
         background-color: rgba(0,0,0,.2);
-        transition: height 200ms;
-        transition-timing-function: ease-in-out;
-        height: 0; 
-        top: auto;
+        top: 0;
+        left: 0;
+        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transition: all 200ms ease-out;
+        opacity: 0;
     }
 
     &:hover:before {
-        height: 100%; 
+        opacity: 1;
+    }
+
+    &:hover {
+        filter: $drop-shadow-3;
+        color: inherit;
+        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transition: all 200ms ease-out;
+
+        .c-box__heading {
+            text-decoration: underline;
+        }
+
+        .c-box__image:before {
+            opacity: 0.08;
+        }
+    }
+
+    &:focus:before {
+        background-color: rgba(0,0,0,.3);
     }
 }
 
