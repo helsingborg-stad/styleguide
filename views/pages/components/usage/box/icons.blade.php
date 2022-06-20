@@ -4,10 +4,7 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
-            'image' => [
-                'src' => '/assets/img/molecule.svg',
-                'alt' => 'Placeholder image',       
-            ]
+            'icon' => 'card_membership'
         ])
         @endbox
     </div>
@@ -16,10 +13,7 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
-            'image' => [
-                'src' => '/assets/img/atom.svg',
-                'alt' => 'Placeholder image',       
-            ]
+            'icon' => 'dynamic_form'
         ])
         @endbox
     </div>
@@ -28,10 +22,7 @@
             'heading' => 'Purus Tellus',
             'content' => 'Cras justo odio, dapibus ac facilisis in, egestas eget quam.',
             'link' => '#',
-            'image' => [
-                'src' => '/assets/img/component.svg',
-                'alt' => 'Placeholder image',       
-            ]
+            'icon' => 'donut_small'
         ])
         @endbox
     </div>
