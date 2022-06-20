@@ -70,6 +70,7 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 a.c-box {
     text-decoration: none;
     color: inherit;
+    transition: all 200ms ease-out;
 
     .c-box__image {
         position: relative;
@@ -86,10 +87,6 @@ a.c-box {
         z-index: $level-1;
     }
 
-    .c-box__image-background {
-        transition: transform 800ms;
-    }
-
     &:before {
         content: "";
         @include cover(); 
@@ -98,6 +95,7 @@ a.c-box {
         left: 0;
         opacity: 0;
         border-radius: inherit;
+        transition: all 200ms ease-out;
     }
 
     &:hover:before {
@@ -108,7 +106,6 @@ a.c-box {
         filter: $drop-shadow-3;
         color: inherit;
         transform: translateY(calc( 0px - #{$base} * 0.25 ));
-        transition: all 200ms ease-in-out;
 
         .c-box__heading {
             text-decoration: underline;
