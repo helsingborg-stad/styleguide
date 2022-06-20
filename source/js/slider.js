@@ -2,17 +2,11 @@ import Splide from '@splidejs/splide';
 import VideoControls from './helpers/video';
 
 const SLIDER_ITEM = 'c-slider__item';
-const ATTR = 'js-slider';
-const BTN = 'js-slider-btn';
-const INDEX = 'js-slider-index';
-const INNER = 'js-slider-inner';
 const AUTOSLIDE = 'js-slider__autoslide';
-const REPEAT = 'js-slider-repeat';
 
 export default class Slider {
     constructor(slider) {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
-
         this.sliderElement = slider;
         this.splide = new Splide(slider, {
             type: 'loop',
@@ -27,7 +21,6 @@ export default class Slider {
                 page: 'c-slider__dot',
             },
         });
-        this.PAUSEHOVER = false;
 
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
