@@ -20,7 +20,6 @@ export default class Slider {
             focus: 'center',
             autoplay: !!autoPlay,
             interval: !!autoPlay ? autoPlay * 1000 : 5000,
-            perPage: 1,
             pagination: slider.classList.contains('c-slider--has-stepper'),
             classes: {
                 arrows: 'c-slider__arrows',
