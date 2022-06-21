@@ -12,8 +12,8 @@ export default class Slider {
             type: 'loop',
             autoWidth: true,
             focus: 'center',
-            autoplay: !!autoPlay,
-            interval: !!autoPlay ? autoPlay * 1000 : 5000,
+            autoplay: Boolean(autoPlay),
+            interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
             classes: {
                 arrows: 'c-slider__arrows',
