@@ -11,6 +11,12 @@
         "subHeading" : "Returns time since a specified date",
         "text": "Returns the time since a given date"
     },
+    "timeSinceTranslated": {
+        "grid": "",
+        "heading": "Time Since [With translations]",
+        "subHeading" : "Returns time since a specified date",
+        "text": "Returns the time since a given date"
+    },
     "timeUntil": {
         "grid": "",
         "heading": "Time Until",
