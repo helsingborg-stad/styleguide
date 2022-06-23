@@ -41,7 +41,25 @@
 
 @comment([
     'author' => 'Peter Svensson',
-    'date' => '2020-01-09 17:25:43'
+    'date' => '2020-01-09 17:25:43',
+    'dateLabels' => [
+      'year' => 'år',
+      'month' => 'månad',
+      'week' => 'vecka',
+      'day' => 'dag',
+      'hour' => 'timme',
+      'minute' => 'minut',
+      'second' => 'sekund'
+    ],
+    'dateLabelsPlural' => [
+      'year' => 'år',
+      'month' => 'månader',
+      'week' => 'veckor',
+      'day' => 'dagar',
+      'hour' => 'timmar',
+      'minute' => 'minuter',
+      'second' => 'sekund'
+    ]
 ])
     This comment was sent through the slot
 @endcomment
