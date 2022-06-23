@@ -68,10 +68,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
 
     &__bubble--color-dark &__bubble--inner,
     &__bubble--color-light &__bubble--inner {
-        flex-direction: row;
         width: 100%;
-        display: flex;
-        align-items: center;
         border-radius: $c-comment-border-radius;
         border-top-left-radius: $c-comment-border-radius-corner;
         padding: map-get($spacers, "1half") map-get($spacers, "2");
