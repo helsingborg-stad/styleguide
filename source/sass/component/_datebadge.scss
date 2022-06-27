@@ -1,5 +1,5 @@
-$c-datebadge-color-background: var(--c-datebadge-color-background, $color-lighter) !default;
-$c-datebadge-color: var(--c-datebadge-color, $color-black) !default;
+$c-datebadge-color-background: var(--c-datebadge-color-background, $color-black) !default;
+$c-datebadge-color: var(--c-datebadge-color, $color-white) !default;
 $c-datebadge-border-radius: var(--c-datebadge-border-radius, $border-radius-xs) !default;
 $c-datebadge-size: var(--c-datebadge-size, calc(#{$base} * 8)) !default;
 
