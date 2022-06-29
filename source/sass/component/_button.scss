@@ -97,8 +97,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             order: 1;
             display: inline-block;
             align-items: center;
-            text-overflow: ellipsis;
-            overflow: hidden;
             white-space: nowrap;
 
             &--reverse {
