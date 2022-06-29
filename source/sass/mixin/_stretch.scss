@@ -1,6 +1,6 @@
 @mixin stretch {
     position: relative;
-    width: 100vw; 
+    width: calc(100vw - var(--scrollbar, 15px));
     left: 50%;
     right: 50%;
     margin-left: -50vw;
