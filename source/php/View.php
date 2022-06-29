@@ -18,12 +18,13 @@ class View
 
         $blade = $this->registerLayoutViewComposer($blade);
         $blade = $this->registerMarkdownViewComposer($blade);
-        
+
         try {
             $result = $blade->make(
                 'pages.' . $view,
                 $data
             )->render();
+
 
             $result = preg_replace('/(id|href)=""/', "", $result);
 
@@ -48,6 +49,9 @@ class View
             }
 
         } catch (\Throwable $e) {
+
+            error_log($e);
+
             echo $blade->make(
                 'pages.404',
                 array_merge(
