@@ -78,7 +78,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     &__autoslide-toggle {
         position: absolute;
         right: #{$base};
-        bottom: #{$base};
+        bottom: calc(0 - #{$base});
         display: none;
         cursor: pointer;
         width: calc(#{$base} * 4);
