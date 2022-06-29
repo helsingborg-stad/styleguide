@@ -81,8 +81,8 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         bottom: #{$base};
         display: none;
         cursor: pointer;
-        width: calc(#{$base} * 4);
-        height: calc(#{$base} * 4);
+        width: calc(#{$base} * 6);
+        height: calc(#{$base} * 6);
         .c-slider__autoslide-play {
             display: none;
         }
