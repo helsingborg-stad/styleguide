@@ -25,8 +25,8 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
 /* Container around content */
 .c-timeline__event {
     position: relative;
-    list-style: none;
     padding: 0;
+    @include unlist();
 
     .c-timeline__event__card {
         width: calc(50% - calc(#{$base} * 5));
@@ -36,16 +36,16 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
 
     .c-timeline__event__card {
         &::before {
-            content: ' ';
+            content: '';
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: -10px;
+            right: calc(#{$base} * -1);
             height: 0;
             width: 0;
-            z-index: 1;
-            border: medium solid #{$c-timeline-card-background-color};
-            border-width: 10px 0 10px 10px;
+            z-index: $level-1;
+            border: 0 solid #{$c-timeline-card-background-color};
+            border-width: #{$base} 0 #{$base} #{$base};
             border-color: transparent transparent transparent #{$c-timeline-card-background-color};
         }
     }
@@ -66,7 +66,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         }
 
         background-color: #{$c-timeline-marker-background-color};
-        border: 4px solid #{$c-timeline-marker-border-color};
+        border: calc(#{$base} * 0.5) solid #{$c-timeline-marker-border-color};
         border-radius: 50%;
         z-index: 1;
 
@@ -98,9 +98,9 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         .c-timeline__event__card {
             left: calc(50% + calc(#{$base} * 5));
             &::before {
-                left: -10px;
-                border: medium solid #{$c-timeline-card-background-color};
-                border-width: 10px 10px 10px 0;
+                left: calc(#{$base} * -1);
+                border: 0 solid #{$c-timeline-card-background-color};
+                border-width: #{$base} #{$base} #{$base} 0;
                 border-color: transparent #{$c-timeline-card-background-color} transparent transparent;
             }
         }
@@ -122,9 +122,9 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
 
             &::before {
                 top: calc(#{$base} * 4.5);
-                left: -10px;
-                border: medium solid #{$c-timeline-card-background-color};
-                border-width: 10px 10px 10px 0;
+                left: calc(#{$base} * -1);
+                border: 0 solid #{$c-timeline-card-background-color};
+                border-width: #{$base} #{$base} #{$base} 0;
                 border-color: transparent #{$c-timeline-card-background-color} transparent transparent;
             }
         }
@@ -133,12 +133,12 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             text-align: center;
             position: relative;
             color: #fff;
-            font-size: 0.7em;
+            font-size: $font-size-meta;
             display: inline;
         }
 
         .c-timeline__marker {
-            padding: 0.25em 0.4em;
+            padding: calc(#{$base} * 0.5) calc(#{$base} * 0.75);
             border-radius: 3px;
             left: calc(#{$base} * 3);
             top: calc(#{$base} * 5);
