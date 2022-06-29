@@ -1,0 +1,9 @@
+@mixin stretch {
+    position: relative;
+    width: calc(100vw - var(--scrollbar, 15px));
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-radius: 0;
+}

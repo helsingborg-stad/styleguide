@@ -37,12 +37,7 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 * Modifiers
 */
 .c-segment.c-segment--stretch { /* Bleed outside container  left&right */ 
-    position: relative;
-    width: 100vw; 
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    @include stretch();
 }
 
 .c-segment.c-segment--text {

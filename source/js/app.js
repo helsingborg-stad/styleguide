@@ -1,4 +1,5 @@
 import expandSection from './expand-section';
+import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
 import Toggle from './toggle';
@@ -30,6 +31,7 @@ import TestimonialCarousel from './testimonials';
 import './helpers/swipe';
 
 expandSection();
+setScrollbarCSS();
 
 const SortInstance = new Sort;
 const ToggleInstance = new Toggle;

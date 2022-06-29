@@ -111,13 +111,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
 }
 
 .c-notice.c-notice--stretch { /* Bleed outside container  left&right */ 
-    position: relative;
-    width: 100vw; 
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    border-radius: 0;
+    @include stretch();
 }
 
 .c-notice + .c-notice {

@@ -49,12 +49,7 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
 
   /** Modifiers - Full width */ 
   &.c-hero--stretch { /* Bleed outside container  left&right */ 
-    position: relative;
-    width: 100vw; 
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    @include stretch();
   }
 
   /** Sub elements */ 
