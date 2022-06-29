@@ -3,18 +3,25 @@ import VideoControls from './helpers/video';
 
 const SLIDER_ITEM = 'c-slider__item';
 const AUTOSLIDE = 'js-slider__autoslide';
+const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
+const IS_PAUSED = 'c-slider--is-paused';
 
 export default class Slider {
     constructor(slider) {
-        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         this.sliderElement = slider;
+        this.pauseToggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
+        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
+        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
         this.splide = new Splide(slider, {
             type: 'loop',
             autoWidth: true,
             focus: 'center',
-            autoplay: Boolean(autoPlay),
+            autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
+            pauseOnHover: false,
+            pauseOnFocus: false,
             classes: {
                 arrows: 'c-slider__arrows',
                 pagination: 'c-slider__steppers',
@@ -28,7 +35,26 @@ export default class Slider {
             this.sliderElement.querySelector('.c-slider__arrows').remove();
         }
 
+        if(this.sliderElement.classList.contains(IS_PAUSED)) {
+            this.togglePause();
+        }
+        
+        if(this.pauseToggle) {
+            this.pauseToggle.addEventListener('click', this.togglePause.bind(this));
+        }
+
         this.addVideoControls();
+    }
+
+    togglePause() {
+        const { Autoplay } = this.splide.Components;
+        if(Autoplay.isPaused()) {
+            this.sliderElement.classList.remove(IS_PAUSED);
+            Autoplay.play();
+        } else {
+            this.sliderElement.classList.add(IS_PAUSED);
+            Autoplay.pause();
+        }
     }
 
     addVideoControls() {

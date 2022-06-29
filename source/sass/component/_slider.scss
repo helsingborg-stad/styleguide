@@ -75,7 +75,35 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
+    &__autoslide-toggle {
+        position: absolute;
+        right: #{$base};
+        bottom: #{$base};
+        display: none;
+        cursor: pointer;
+        width: calc(#{$base} * 4);
+        height: calc(#{$base} * 4);
+        .c-slider__autoslide-play {
+            display: none;
+        }
+    }
+
+    &[js-slider__autoslide]:hover {
+        .c-slider__autoslide-toggle {
+            display: block;
+        }
+    }
+
     /** Modifiers */
+    &--is-paused {
+        .c-slider__autoslide-play {
+            display: block;
+        }
+        .c-slider__autoslide-pause {
+            display: none;
+        }
+    }
+
     &.c-slider--shadow {
         .c-slider__arrows, .c-slider__container {
             filter: $drop-shadow-2;
