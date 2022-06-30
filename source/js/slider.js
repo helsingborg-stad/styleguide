@@ -9,7 +9,7 @@ const IS_PAUSED = 'c-slider--is-paused';
 export default class Slider {
     constructor(slider) {
         this.sliderElement = slider;
-        this.pauseToggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
+        this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -39,8 +39,8 @@ export default class Slider {
             this.splide.Components.Autoplay.pause();
         }
         
-        if(this.pauseToggle) {
-            this.pauseToggle.addEventListener('click', this.autoslideToggle.bind(this));
+        if(this.autoslideToggleButton) {
+            this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
         }
 
         this.addVideoControls();
