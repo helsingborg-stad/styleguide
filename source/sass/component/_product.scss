@@ -17,7 +17,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product--featured {
-    margin: calc(#{$base} * -1);
+    margin: calc(#{$base} * -2);
 }
 
 .c-product__price {
