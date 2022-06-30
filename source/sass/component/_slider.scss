@@ -77,14 +77,29 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
     &__autoslide-toggle {
         position: absolute;
-        right: #{$base};
-        bottom: #{$base};
+        right: $c-slider-inset;
+        top: $c-slider-gap;
         display: none;
         cursor: pointer;
-        width: calc(#{$base} * 6);
-        height: calc(#{$base} * 6);
+        width: calc(#{$base} * 5);
+        height: calc(#{$base} * 5);
+        color: $color-primary;
+        z-index: 1;
         .c-slider__autoslide-play {
             display: none;
+        }
+        &:before {
+            content: "";
+            display: block;
+            background: #fff;
+            width: calc(#{$base} * 3);
+            height: calc(#{$base} * 3);
+            border-radius: 50%;
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 
