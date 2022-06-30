@@ -88,7 +88,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     }
 
     &--hero {
-        &.c-slider__controls {
+        .c-slider__controls {
             top: $c-slider-gap;
         }
     }
