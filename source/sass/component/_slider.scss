@@ -9,7 +9,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     position: relative;
     border-radius: $border-radius-md;
     max-height: 80vh;
-
+    
     &::before, &::after {
         content: "";
         width: 2px;
@@ -74,20 +74,39 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             }
         }
     }
+    
+    &__controls {
+        width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+        max-width: $c-slider-max-width;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    &--hero {
+        &.c-slider__controls {
+            top: $c-slider-gap;
+        }
+    }
 
     &__autoslide-toggle {
-        position: absolute;
-        right: $c-slider-inset;
-        top: $c-slider-gap;
+        position: relative;
         display: none;
         cursor: pointer;
         width: calc(#{$base} * 5);
         height: calc(#{$base} * 5);
         color: $color-primary;
         z-index: 1;
+        margin: calc(#{$base} * 3);
+
         .c-slider__autoslide-play {
             display: none;
         }
+
         &:before {
             content: "";
             display: block;
