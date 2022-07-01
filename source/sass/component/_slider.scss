@@ -95,6 +95,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     }
 
     &__autoslide-toggle {
+        pointer-events: auto;
         position: relative;
         display: none;
         cursor: pointer;
