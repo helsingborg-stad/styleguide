@@ -85,6 +85,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         top: 0;
         left: 50%;
         transform: translateX(-50%);
+        pointer-events: none;
     }
 
     &--hero {
