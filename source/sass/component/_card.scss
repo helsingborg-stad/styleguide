@@ -10,15 +10,18 @@ $c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-o
 $c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
 $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
 
+ .c-card.c-card--image-first {
+        flex-direction: row;
+        
+           &:first-child  {
+            .c-card__image, .c-card__image-background {
+                 border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+            }
+        }
+    } 
+    
 .c-card {
 
-    &--image-first {
-        flex-direction: row;
-    }
-
-    &--image-last {
-        flex-direction: row-reverse;
-    }
     filter: $drop-shadow-2;
     will-change: filter;
     display: flex;
@@ -129,6 +132,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     &--size-lg {
         display: flex;
         flex-wrap: wrap;
+        flex-direction: row-reverse;
 
         .c-card__body {
             padding: map-get($spacers, '4');
@@ -144,7 +148,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         &:first-child  {
             .c-card__image, .c-card__image-background {
-                border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+                border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
             }
         }
 
