@@ -11,6 +11,14 @@ $c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-d
 $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
 
 .c-card {
+
+    &--image-first {
+        flex-direction: row;
+    }
+
+    &--image-last {
+        flex-direction: row-reverse;
+    }
     filter: $drop-shadow-2;
     will-change: filter;
     display: flex;
@@ -120,7 +128,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     &--size-md,
     &--size-lg {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
 
         .c-card__body {
