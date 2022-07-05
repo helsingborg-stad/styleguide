@@ -24,6 +24,11 @@
         color: $color-gray;
     }
 
+    
+}
+
+.c-image__caption {
+    margin: 1rem 0rem;
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {
