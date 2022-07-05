@@ -16,6 +16,10 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
     }
 }
 
+.c-product__header {
+    text-align: center;
+}
+
 .c-product--featured {
     margin: calc(#{$base} * -2);
 }
