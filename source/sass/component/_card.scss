@@ -10,18 +10,19 @@ $c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-o
 $c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
 $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
 
-.c-card--size-md, 
-.c-card--size-sm,
-.c-card--size-lg {
-    &.c-card.c-card--image-first {
-          &:first-child  {
+  @include mq($from: md) {
+    .c-card--size-md, 
+    .c-card--size-sm,
+    .c-card--size-lg {
+        &.c-card.c-card--image-first {
             .c-card__image, .c-card__image-background {
-                 order:1;
-                 border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+                order:1;
+                border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
             }
-        }
-        .c-card__body {
-            order:2;
+        
+            .c-card__body {
+                order:2;
+            }
         }
     }
 }
@@ -143,11 +144,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         .c-card__body {
             padding: map-get($spacers, '4');
-            order:1;
-        }
-
-        .c-card__image {
-            order: 2;
         }
 
         .c-card__footer {
@@ -158,11 +154,26 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             height: 100%;
         }
 
-        &:first-child  {
-            .c-card__image, .c-card__image-background {
-                border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
+        @include mq($from: md) {
+             &.c-card {
+                .c-card__image, .c-card__image-background {
+                    order: 2;
+                    border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
+                }
+            }
+             
+            .c-card__body {
+                order:1;
             }
         }
+
+
+       // &:first-child  {
+            .c-card__image, .c-card__image-background {
+                border-radius: $c-card-border-radius $c-card-border-radius 0 0;
+                
+            }
+       // }
 
         &.c-card--has-footer {
             &:first-child  {
@@ -171,6 +182,8 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
                 }
             }
         }
+
+
     }
 
     &--size-sm .c-card__image {
