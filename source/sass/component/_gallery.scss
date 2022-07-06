@@ -3,9 +3,9 @@
     .c-image {
         cursor:pointer;
     }
-
+    
     @include unlist();
-
+    
     display: grid;
     grid-template-columns: 1fr;
 
@@ -23,7 +23,11 @@
         text-decoration: none;
         color: $color-gray;
     }
+}
 
+.c-modal--gallery .c-image__caption {
+    margin: $em-base 0;
+    color: $color-white;
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {
