@@ -103,6 +103,13 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
     background-color: $c-hero-color-overlay;
   }
 
+  .c-hero__video {
+    @include cover();
+    object-fit: cover;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @keyframes hero-slide-in {
