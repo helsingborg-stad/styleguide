@@ -3,9 +3,9 @@
     .c-image {
         cursor:pointer;
     }
-
+    
     @include unlist();
-
+    
     display: grid;
     grid-template-columns: 1fr;
 
@@ -23,11 +23,9 @@
         text-decoration: none;
         color: $color-gray;
     }
-
-    
 }
 
-.c-image__caption {
+.c-modal--gallery .c-image__caption {
     margin: 1rem 0rem;
 }
 
