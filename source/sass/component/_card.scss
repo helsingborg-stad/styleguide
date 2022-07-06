@@ -135,33 +135,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             height: 100%;
         }
 
-        @include mq($from: md) {
-             &.c-card {
-                .c-card__image, .c-card__image-background {
-                    order: 2;
-                    border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
-                }
-            }
-             
-            .c-card__body {
-                order:1;
-            }
-
-              &.c-card.c-card--image-first {
-            .c-card__image, .c-card__image-background {
-                order:1;
-                border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
-            }
-        
-            .c-card__body {
-                order:2;
-            }
-        }
-        }
-            .c-card__image, .c-card__image-background {
-                border-radius: $c-card-border-radius $c-card-border-radius 0 0;
+        .c-card__image, .c-card__image-background {
+            border-radius: $c-card-border-radius $c-card-border-radius 0 0;
                 
-            }
+        }
 
     }
 
@@ -390,6 +367,35 @@ a.c-card {
         }
     }
 }
+
+ @include mq($from: md) {
+    .c-card {
+        &--size-sm,
+        &--size-md,
+        &--size-lg {
+            &.c-card {
+                .c-card__image, .c-card__image-background {
+                    order: 2;
+                    border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
+                }
+                .c-card__body {
+                    order:1;
+                }
+                &.c-card.c-card--image-first {
+                    .c-card__image, .c-card__image-background {
+                        order:1;
+                        border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+                    }
+                    .c-card__body {
+                        order:2;
+                    }
+                }
+            }
+        }
+    }
+}
+           
+        
 
 .o-grid--no-gutter > [class*="o-grid-"] .c-card,
 .o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"], 
