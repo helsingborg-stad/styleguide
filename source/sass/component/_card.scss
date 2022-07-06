@@ -376,7 +376,7 @@ a.c-card {
     filter: none; 
 }
 
- @include mq($from: md) {
+@include mq(map_get($breakpoints-map, "md")) {
     .c-card {
         &--size-sm,
         &--size-md,
