@@ -69,8 +69,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
     &--highlight {
         .c-card__header,
-        .c-card__body,
-        .c-card__footer {
+        .c-card__body {
             border-left: $base solid $color-primary;
         }
     }
@@ -167,22 +166,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
         }
 
-
-       // &:first-child  {
             .c-card__image, .c-card__image-background {
                 border-radius: $c-card-border-radius $c-card-border-radius 0 0;
                 
             }
-       // }
-
-        &.c-card--has-footer {
-            &:first-child  {
-                .c-card__image, .c-card__image-background {
-                    border-radius: $c-card-border-radius 0 0 0;
-                }
-            }
-        }
-
 
     }
 
