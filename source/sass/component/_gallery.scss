@@ -29,6 +29,10 @@
     margin: 1rem 0rem;
 }
 
+.c-modal--gallery .c-image__caption {
+    margin: $em-base 0;
+}
+
 @include mq(map_get($breakpoints-map, "sm")) {
 
     .c-gallery {
