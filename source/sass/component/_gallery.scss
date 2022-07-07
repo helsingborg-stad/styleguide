@@ -28,7 +28,6 @@
 .c-modal--gallery .c-image__caption {
     margin: $em-base 0;
     color: $color-white;
-    // Fix line-break here
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {

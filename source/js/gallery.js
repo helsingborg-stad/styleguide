@@ -124,7 +124,7 @@ class Gallery {
     createImg(containerId, imgSrc) {
 
         const container = containerId.querySelector('.c-image');
-        const containerModalContent = containerId.querySelector('.c-modal__content');
+        const containerModalContent = containerId.querySelector('.c-image');
         this.imageData = imgSrc;
 
         if (!('remove' in Element.prototype)) {
