@@ -124,7 +124,7 @@ class Gallery {
     createImg(containerId, imgSrc) {
 
         const container = containerId.querySelector('.c-image');
-        const containerModalContent = containerId.querySelector('.c-modal__content');
+        const containerModalContent = containerId.querySelector('.c-image');
         this.imageData = imgSrc;
 
         if (!('remove' in Element.prototype)) {
@@ -168,13 +168,13 @@ class Gallery {
      * @param imgSrc
      */
     imageCaption(containerModalContent, imgSrc) {
+        if (containerModalContent.querySelector('.c-image__caption') !== null) {
+            containerModalContent.querySelector('.c-image__caption').remove();
+        }
         if (imgSrc.imageCaption) {
-            if (containerModalContent.querySelector('.c-image__caption') !== null) {
-                containerModalContent.querySelector('.c-image__caption').remove();
-            }
             containerModalContent.insertAdjacentHTML("beforeend",
                 '<figcaption class="c-image__caption">' + imgSrc.imageCaption + '</figcaption>');
-        }
+            }
     }
 
 }
