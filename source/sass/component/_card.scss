@@ -117,6 +117,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &--size-xs,
     &--size-sm,
     &--size-md,
     &--size-lg {
@@ -378,6 +379,7 @@ a.c-card {
 
 @include mq(map_get($breakpoints-map, "md")) {
     .c-card {
+        &--size-xs,
         &--size-sm,
         &--size-md,
         &--size-lg {
