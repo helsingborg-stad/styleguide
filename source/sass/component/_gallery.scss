@@ -4,7 +4,6 @@
         cursor:pointer;
     }
     
-    
     @include unlist();
     
     display: grid;
@@ -24,29 +23,7 @@
         text-decoration: none;
         color: $color-gray;
     }
-    
 }
-
-.c-modal__content {
-    // border: 2px solid red;
-    // padding: 2rem;
-
-    .c-image {
-        // border: 1px solid green;
-        // padding: 3rem;
-        height: auto;
-        width: 75% !important;
-        margin: auto;
-    }
-    
-    .c-image__image {
-        // border: 1px solid yellow;
-        // height: auto;
-        // width: 75% !important;
-        // margin: auto;
-    }
-}
-
 
 .c-modal--gallery .c-modal__content .c-image__caption {
     color: $color-white;
@@ -57,6 +34,21 @@
     .c-gallery {
         grid-template-columns: 1fr 1fr;
         column-count: 2; /* IE 11 Fix */
+    }
+
+    // .c-modal__content {
+    //     .c-image {
+    //         height: auto;
+    //         width: 75% !important;
+    //         margin: auto;
+    //     }
+    // }
+
+    .c-modal__content .c-image {
+        height: auto;
+        width: 75% !important;
+        min-width: 518px;
+        margin: auto;
     }
 }
 
