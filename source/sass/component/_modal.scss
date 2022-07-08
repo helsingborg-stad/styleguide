@@ -11,8 +11,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     border-radius: $c-modal-border-radius;
     filter: $drop-shadow-3;
-    max-width: 800px;
-    max-height: 80vh;
+    max-width: 800px;    
+    max-height: unset;
+
+    .c-image__image {
+        max-height: 80vh;
+        object-fit: contain;
+    }
+
     display: none;
     border: none; 
 
