@@ -1,5 +1,7 @@
 $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
 $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
+$c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
+$c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
 .c-modal {
     background-color: white;
@@ -11,13 +13,18 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     border-radius: $c-modal-border-radius;
     filter: $drop-shadow-3;
-    max-width: 800px;    
-    max-height: unset;
+    max-width: 800px;
+    max-height: 90vh;
+    display: none;
+    border: none; 
 
+    &--gallery {
+        max-height:unset;
     .c-image__image {
-        max-height: 80vh;
+        max-height:80vh;
         object-fit: contain;
     }
+}
 
     display: none;
     border: none; 
