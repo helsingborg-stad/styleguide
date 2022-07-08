@@ -4,6 +4,7 @@
         cursor:pointer;
     }
     
+    
     @include unlist();
     
     display: grid;
@@ -23,7 +24,26 @@
         text-decoration: none;
         color: $color-gray;
     }
+    
 }
+
+.c-modal__content {
+    // border: 2px solid red;
+    // padding: 2rem;
+
+    .c-image {
+        // border: 1px solid green;
+        // padding: 3rem;
+    }
+    
+    .c-image__image {
+        // border: 1px solid yellow;
+        height: auto;
+        width: 50% !important;
+        margin: auto;
+    }
+}
+
 
 .c-modal--gallery .c-modal__content .c-image__caption {
     color: $color-white;
