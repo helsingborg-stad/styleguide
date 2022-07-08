@@ -36,18 +36,10 @@
         column-count: 2; /* IE 11 Fix */
     }
 
-    // .c-modal__content {
-    //     .c-image {
-    //         height: auto;
-    //         width: 75% !important;
-    //         margin: auto;
-    //     }
-    // }
-
     .c-modal__content .c-image {
         height: auto;
         width: 75% !important;
-        min-width: 518px;
+        min-width: map_get($breakpoints-map, "sm");
         margin: auto;
     }
 }
