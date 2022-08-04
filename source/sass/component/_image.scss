@@ -178,3 +178,22 @@ $radius: (
         }
     }
 }
+
+// ***************************************************************
+// *** Image box (right-sidebar)
+// ***************************************************************
+
+.box {
+    .box-image {
+        border-radius: var(--c-collection-border-radius, var(--radius-md, var(--base, 8px)));
+        background-color: var(--c-card-color-background, var(--color-background-card, var(--color-white, #ffffff)));
+        border: var(--c-card-border-width, var(--border-width-card, 0px)) solid var(--c-card-border-color, var(--color-border-card, var(--color-paper-background, var(--color-white, #ffffff))));
+        .c-image__image {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .c-image__caption {
+            padding:calc(var(--base, 8px) * 2);
+        }
+    }
+}
