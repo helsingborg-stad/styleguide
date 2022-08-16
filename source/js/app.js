@@ -27,7 +27,7 @@ import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
 import ButtonToggle from './buttonToggle';
 import TestimonialCarousel from './testimonials';
-
+import IframeAcceptance from './iframeAcceptance';
 import './helpers/swipe';
 
 expandSection();
@@ -42,10 +42,11 @@ const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
+const iframeAcceptanceInstance = new IframeAcceptance;
 const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
-const KeepInViewPortInstance = new KeepInViewPort(); 
-const ResizeByChildrenInstance = new ResizeByChildren(); 
+const KeepInViewPortInstance = new KeepInViewPort();
+const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleInstance = new ButtonToggle;
 
 const tables = document.querySelectorAll('.c-table');
@@ -53,7 +54,7 @@ if (tables.length > 0) {
     for (let table of tables) {
         const TableInstance = new Table(table);
     }
-}	
+}
 
 const sliders = document.querySelectorAll('.c-slider');
 if (sliders) {
@@ -70,7 +71,7 @@ if (segments) {
 }
 
 const paginations = document.querySelectorAll('[js-pagination-target]');
-if(paginations) {
+if (paginations) {
     paginations.forEach((pagination) => {
         const paginationInstance = new Pagination(pagination);
     })
@@ -92,6 +93,7 @@ TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
+iframeAcceptanceInstance.initIframes();
 
 
 // Dynamic Sidebars
