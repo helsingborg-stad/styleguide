@@ -10,7 +10,7 @@ class IframeAcceptance {
         localStorage.clear();
         accepted ? revealIframes() : suppressIframes();
 
-        function markup({width, height, title, content, buttonText}) {
+        function markup(width, height, title, content, buttonText) {
             return `<div data-iframe-container style="height: ${height}px; width:${width}px">
                 <div class="u-level-top u-position--absolute u-align-middle u-padding__x--3 u-display-block" data-suppressed-iframe style="width:${width}px;height:${height}px;backdrop-filter:blur(30px);">
                     <h2>${title}</h2>
