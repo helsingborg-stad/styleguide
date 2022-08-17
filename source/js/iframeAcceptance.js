@@ -42,8 +42,8 @@ class IframeAcceptance {
                 wrapper.outerHTML = wrapper.innerHTML;
                 
             });
-            let buttons = document.querySelectorAll('[js-suppressed-iframe-button]');
             
+            let buttons = document.querySelectorAll('[js-suppressed-iframe-button]');
             buttons.forEach(button => {
                 button.addEventListener('click', onClicklHandler);
             });
