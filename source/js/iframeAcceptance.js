@@ -1,7 +1,5 @@
 class IframeAcceptance {
     initIframes() {
-
-
         
         function markup(height) {
             return `<div data-iframe-container style="height: ${height}; width:100%">
@@ -45,7 +43,7 @@ class IframeAcceptance {
                 button.addEventListener('click', onClicklHandler);
             });
         }  
-        
+
         localStorage.getItem('iframeAccepted') === 'accepted' ? revealIframes() : suppressIframes();
     }
 }
