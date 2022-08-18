@@ -10,7 +10,7 @@ class IframeAcceptance {
 
         accepted ? revealIframes() : suppressIframes();
 
-        function markup(width, height, title, content, buttonText) {
+        function markup(height, title, content, buttonText) {
             return `<div data-iframe-container style="height: ${height}; width:100%">
                         <div class="u-level-top u-position--absolute u-align-middle u-padding__x--3 u-padding__y--3 u-flex-direction--column u-overflow--auto" data-suppressed-iframe style="width:100%;height:${height};backdrop-filter:blur(30px);display:flex;">
                             <h4 class="c-typography c-typography__variant--h2">Informationen i den här rutan hämtas från en extern leverantör</h4>
@@ -40,7 +40,8 @@ class IframeAcceptance {
         function suppressIframes() {
             [...document.querySelectorAll('iframe')].forEach(iframe => {
                 const wrapper = document.createElement('div');
-                wrapper.insertAdjacentHTML('beforeend', markup(iframe.width, iframe.parentElement.classList.contains("embed") ? "100%" : iframe.height+"px", "title", "content", "buttonText"));
+                const isVideo = iframe.parentElement.classList.contains("embed");
+                wrapper.insertAdjacentHTML('beforeend', markup(isVideo ? "100%" : iframe.height+"px", "title", "content", "buttonText"));
                 iframe.parentNode.insertBefore(wrapper, iframe);
                 wrapper.firstChild.appendChild(iframe);
                 wrapper.outerHTML = wrapper.innerHTML;
