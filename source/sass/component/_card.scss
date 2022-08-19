@@ -51,7 +51,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
     &--highlight {
         .c-card__header,
-        .c-card__footer,
         .c-card__body {
             border-left: $base solid $color-primary;
         }
