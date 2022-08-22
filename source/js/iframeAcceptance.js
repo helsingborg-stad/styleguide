@@ -1,53 +1,43 @@
-class IframeAcceptance {
-    initIframes() {
-        
-        function markup(height, classes) {
-            return `<div class="${classes}" data-iframe-container style="height:${height}; width:100%;">
-            <div class="u-level-2 u-position--absolute u-align-middle u-padding__x--3 u-padding__y--3 u-flex-direction--column u-overflow--auto u-display--flex" data-suppressed-iframe style="height:${height}; width:100%; backdrop-filter:blur(30px);">
+const template = () => (`
+    <div class="js-suppressed-iframe-wrapper" style="position:relative;">
+        <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color: white; display: flex; align-items: center;">
+            <div style="max-width: 600px; width: 100%; margin: auto; padding: 0 24px;">
             <h4 class="c-typography c-typography__variant--h2">Informationen i den här rutan hämtas från en extern leverantör</h4>
             <p class="c-typography u-padding__bottom--4 c-typography__variant--p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In libero metus, bibendum id dui non, sollicitudin venenatis orci. In venenatis mi mattis, consectetur ipsum sit amet, porta orci.</p> 
-            <button class="c-button c-button__filled c-button__filled--primary c-button--md" target="_top" type="button" aria-pressed="false" style="height:0; padding:calc(var(--base, 8px) * 3) calc(var(--base, 8px) * 4)" js-suppressed-iframe-button>   
-            <span class="c-button__label">
-            <span class="c-button__label-text">
-            Visa informationen
-            </span>
-            </span>
-            </button>  
+                <button class="js-suppressed-iframe-button c-button c-button__filled c-button__filled--primary c-button--md" target="_top" type="button" aria-pressed="false" style="">   
+                    <span class="c-button__label">
+                        <span class="c-button__label-text">Visa informationen</span>
+                    </span>
+                </button>  
             </div>
-            </div>`
-        }
-        
-        function revealIframes() {
-            document.querySelectorAll('[data-suppressed-iframe]').forEach(item => {
-                item.classList.add('u-display--none');
-            });
-        }
-        
-        function onClicklHandler() {
-            localStorage.setItem('iframeAccepted', 'accepted');
-            revealIframes();
-        }
-        
-        function suppressIframes() {
-            [...document.querySelectorAll('iframe')].forEach(iframe => {
-                const wrapper = document.createElement('div');
-                const isVideo = iframe.parentElement.classList.contains("embed");
-                const height = isVideo || !iframe.height ? "100%" : iframe.height + "px";
-                const classes = isVideo ? "u-position--static" : "u-position--relative";
-                wrapper.insertAdjacentHTML('beforeend', markup(height, classes));
-                iframe.parentNode.insertBefore(wrapper, iframe);
-                wrapper.firstChild.appendChild(iframe);
-                wrapper.outerHTML = wrapper.innerHTML;
-                
-            });     
-            let buttons = document.querySelectorAll('[js-suppressed-iframe-button]');
-            buttons.forEach(button => {
-                button.addEventListener('click', onClicklHandler);
-            });
-        }  
+        </div>
+    </div>
+`)
 
-        localStorage.getItem('iframeAccepted') === 'accepted' ? revealIframes() : suppressIframes();
-    }
+const revealIframes = () => {
+    [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
+        .forEach(item => {
+            item.classList.add('u-display--none');
+        });
 }
 
-export default IframeAcceptance;
+const onClicklHandler = () => {
+    localStorage.setItem('iframeAccepted', 'accepted');
+    revealIframes();
+}
+
+const suppressIframes = () => {
+    [...document.querySelectorAll('.js-suppressed-iframe')]
+        .forEach(iframe => {
+            const div = document.createElement('div');
+            div.insertAdjacentHTML('beforeend', template());
+            const wrapper = div.querySelector("*");
+            iframe.parentNode.insertBefore(wrapper, iframe);
+            div.remove();
+            wrapper.appendChild(iframe);
+            wrapper.querySelector('.js-suppressed-iframe-button').addEventListener('click', onClicklHandler);
+        });
+}
+
+
+export default () => addEventListener('DOMContentLoaded', localStorage.getItem('iframeAccepted') !== 'accepted' ? suppressIframes : () => {});
