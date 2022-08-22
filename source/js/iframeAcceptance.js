@@ -32,10 +32,11 @@ const suppressIframes = () => {
             const div = document.createElement('div');
             div.insertAdjacentHTML('beforeend', template());
             const wrapper = div.querySelector("*");
+            const button = wrapper.querySelector('.js-suppressed-iframe-button');
             iframe.parentNode.insertBefore(wrapper, iframe);
-            div.remove();
             wrapper.appendChild(iframe);
-            wrapper.querySelector('.js-suppressed-iframe-button').addEventListener('click', onClicklHandler);
+            button.addEventListener('click', onClicklHandler);
+            div.remove();
         });
 }
 
