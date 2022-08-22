@@ -32,6 +32,7 @@ import './helpers/swipe';
 
 expandSection();
 setScrollbarCSS();
+IframeAcceptance();
 
 const SortInstance = new Sort;
 const ToggleInstance = new Toggle;
@@ -42,7 +43,6 @@ const TilesInstance = new Tiles;
 const NotificationInstance = new Notification;
 const NotificationDocInstance = new NotificationDoc;
 const SidebarInstance = new Sidebar;
-const iframeAcceptanceInstance = new IframeAcceptance;
 const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
@@ -93,7 +93,6 @@ TilesInstance.initTiles();
 NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
-iframeAcceptanceInstance.initIframes();
 
 
 // Dynamic Sidebars
