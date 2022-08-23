@@ -27,6 +27,13 @@
     position:relative;
     display:inline-block;
 
+     &--scrollable {
+        .c-dropdown__list {
+            max-height:60vh;
+            overflow-y: scroll;
+        }           
+    }
+
     &__list {
         transition:opacity 0.3s ease-in;
         position:absolute;
