@@ -194,11 +194,16 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     }
 
     &__header,
-    &__body,
-    &__footer {
+    &__body {
         word-break: break-word;
         hyphens: auto;
         padding: map-get($spacers, '2');
+    }
+
+    &__footer {
+        word-break: break-word;
+        hyphens: auto;
+        padding: map-get($spacers, '2') 0 0 0;
     }
 
     &__body {
