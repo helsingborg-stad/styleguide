@@ -1,5 +1,4 @@
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-$search-border-radius: var(--search-border-radius, $border-radius-sm) !default;
 
 
 /* Document
@@ -298,7 +297,7 @@ textarea {
 [type="search"] {
     -webkit-appearance: textfield; /* 1 */
     outline-offset: -2px; /* 2 */
-    border-radius: $search-border-radius;
+    border-radius: 0;
 }
 
 /**
@@ -374,7 +373,7 @@ button, [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: none;
     -moz-appearance: none;
      appearance: none;
-     border-radius: $search-border-radius;
+     border-radius: 0;
 }
 
 /**
