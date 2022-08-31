@@ -10,24 +10,26 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     border-radius: $border-radius-md;
     max-height: 80vh;
     
-    &::before, &::after {
-        content: "";
-        width: 2px;
-        height: calc(100% + 4px);
-        position: absolute;
-        top: -2px;
-        background: $color-black;
-        opacity: 0.24;
-        transform: matrix(-1, 0, 0, 1, 0, 0);
-        z-index: 0;
-    }
-
-    &::before {
-        left: -2px;
-    }
-
-    &::after {
-        right: -2px;
+    &--slides {
+        &::before, &::after {
+            content: "";
+            width: 2px;
+            height: calc(100% + 4px);
+            position: absolute;
+            top: -2px;
+            background: $color-black;
+            opacity: 0.24;
+            transform: matrix(-1, 0, 0, 1, 0, 0);
+            z-index: 0;
+        }
+    
+        &::before {
+            left: -2px;
+        }
+    
+        &::after {
+            right: -2px;
+        }
     }
 
     .c-slider__container {
