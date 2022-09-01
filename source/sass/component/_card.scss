@@ -56,6 +56,23 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &--flat {
+        background: none;
+        border: none;
+        .c-card__body {
+            padding-left:0;
+            padding-right:0; 
+        }
+
+        &.c-card--size-xs,
+        &.c-card--size-sm {
+            .card__body {
+                padding-left: map-get($spacers, '2');
+                padding-right: map-get($spacers, '2');
+            }
+        }
+    }  
+
     &--accented {
         .c-card {
             margin-bottom: $base;
@@ -340,6 +357,11 @@ a.c-card {
 
     .c-card__image-background {
         transition: transform 800ms;
+    }
+
+    &.c-card--flat:hover {
+        filter:none;
+        background-color: inherit; 
     }
 
     &:hover {
