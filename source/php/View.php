@@ -13,7 +13,7 @@ class View
      * @param $view
      * @param array $data
      */
-    public function show($view, $data = array(), $blade)
+    public function show($view, $data, $blade)
     {
 
         $blade = $this->registerLayoutViewComposer($blade);
@@ -70,9 +70,9 @@ class View
     public function registerLayoutViewComposer($blade)
     {
         //Documentation module alias
-        $blade->component("layout.doc", "doc");
-        $blade->component("layout.utility_doc", "utility_doc");
-        $blade->component("layout.script_doc", "script_doc");
+        $blade->aliasComponent("layout.doc", "doc");
+        $blade->aliasComponent("layout.utility_doc", "utility_doc");
+        $blade->aliasComponent("layout.script_doc", "script_doc");
   
       //Doc templates
         $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
@@ -81,8 +81,9 @@ class View
         $blade->composer($docTemplates, function ($view) use ($blade) {
 
             $viewData = $this->accessProtected($view, 'data');
-
+            
             if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
+                
                 $path = (isset($viewData['viewDoc'])) ?
                     "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
                     "source/library/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
@@ -210,7 +211,7 @@ class View
     public function registerMarkdownViewComposer($blade)
     {
         // Register component alias
-        $blade->component('layout.markdown', 'markdown');
+        $blade->aliasComponent('layout.markdown', 'markdown');
 
         // Markdown module
         $blade->composer('layout.markdown', function ($view) {

@@ -33,7 +33,7 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "helsingborg-stad/blade-engine-wrapper": "dev-master"
+        "helsingborg-stad/blade-engine-wrapper": "dev-3.0/feat-php-update"
     },
     "scripts": {
         "post-install-cmd": [
