@@ -34,7 +34,7 @@ const suppressIframes = () => {
             const options = {
                 labels: {
                     titleText: "We need your consent to continue",
-                    infoText: `This part of the website shows content from another website. By continuing, you are accepting <a href="#policy" target="_blank">GDPR and privacy policy.</a>`,
+                    infoText: `This part of the website shows content from another website. By continuing, you are accepting GDPR and privacy policy.`,
                     buttonText: "I understand, continue."
                 },
                 ...dataAttribute
