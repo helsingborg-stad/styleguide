@@ -2,11 +2,11 @@ const template = () => (`
     <div class="js-suppressed-iframe-wrapper" style="position:relative;">
         <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color: white; display: flex; align-items: center;">
             <div style="max-width: 600px; width: 100%; margin: auto; padding: 0 24px;">
-            <h4 class="c-typography c-typography__variant--h2">Informationen i den här rutan hämtas från en extern leverantör</h4>
-            <p class="c-typography u-padding__bottom--4 c-typography__variant--p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In libero metus, bibendum id dui non, sollicitudin venenatis orci. In venenatis mi mattis, consectetur ipsum sit amet, porta orci.</p> 
+            <h4 class="c-typography c-typography__variant--h2">We need your acceptance to continue</h4>
+            <p class="c-typography u-padding__bottom--4 c-typography__variant--p">This part of the website shows content from another website. By continue, you are accepting <a href="#policy" target="_blank">GDPR and privacy policy</a></p> 
                 <button class="js-suppressed-iframe-button c-button c-button__filled c-button__filled--primary c-button--md" target="_top" type="button" aria-pressed="false" style="">   
                     <span class="c-button__label">
-                        <span class="c-button__label-text">Visa informationen</span>
+                        <span class="c-button__label-text">I understand, continue.</span>
                     </span>
                 </button>  
             </div>
