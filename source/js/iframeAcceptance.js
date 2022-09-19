@@ -1,7 +1,4 @@
-
 let acceptedSupplier = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
-/* for testing */
-console.log(acceptedSupplier);
 
 const template = () => (`
     <div class="js-suppressed-iframe-wrapper" style="position:relative;">
@@ -20,7 +17,6 @@ const template = () => (`
 `)
 
 const revealIframes = (supplier) => {
-    console.log("running");
     [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
         .forEach(item => {
             const iframe = item.nextElementSibling;
