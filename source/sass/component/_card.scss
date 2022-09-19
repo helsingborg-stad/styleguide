@@ -56,19 +56,35 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
-    &--flat {
+    &.c-card--flat {
         background: none;
         border: none;
-        .c-card__body {
-            padding-left:0;
-            padding-right:0; 
+        filter: none;
+
+        .c-card__image, 
+        .c-card__image-background {
+            filter: $drop-shadow-2;
+            will-change: filter;
+            border-radius: $c-card-border-radius;
         }
 
-        &.c-card--size-xs,
-        &.c-card--size-sm {
-            .card__body {
-                padding-left: map-get($spacers, '2');
-                padding-right: map-get($spacers, '2');
+        .c-card__body {
+            padding-left: 0;
+            padding-right: 0; 
+        }
+
+        @include mq(map_get($breakpoints-map, "md")) {
+            &.c-card--image-first.c-card--size-sm,
+            &.c-card--image-first.c-card--size-md,
+            &.c-card--image-first.c-card--size-lg {
+                .c-card__body {
+                    padding: 0 map-get($spacers, '4');
+                }
+
+                .c-card__image, .c-card__image .c-card__image-background {
+                    border-top-right-radius: $c-card-border-radius !important;
+                    border-bottom-right-radius: $c-card-border-radius !important;
+                }
             }
         }
     }  
@@ -154,7 +170,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         .c-card__image, .c-card__image-background {
             border-radius: $c-card-border-radius $c-card-border-radius 0 0;
-                
         }
 
     }
