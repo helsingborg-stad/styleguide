@@ -48,5 +48,10 @@
     "heading": "Accent",
     "subHeading": "",
     "text": "Gives the card a more plain styling with accent colors"
+  },
+  "flat": {
+    "heading": "Flat UI",
+    "subHeading": "",
+    "text": "Gives the card a flat style"
   }
 }
