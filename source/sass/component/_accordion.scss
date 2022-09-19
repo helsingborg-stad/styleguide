@@ -6,6 +6,19 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
     padding-top: $base;
     padding-bottom: $base;
 
+    &.c-accordion--flat .c-accordion__button-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+
+        .c-accordion__button {
+            &:hover,
+            &:focus {
+                background-color: transparent;
+                text-decoration: underline;
+            }
+        }
+    }
+
     .c-accordion__button {
         @include button-unstyled;
         border-top: $c-accordion-border-width solid $c-accordion-border-color;
