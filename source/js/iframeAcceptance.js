@@ -1,3 +1,5 @@
+let acceptedSupplier = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
+
 const template = ({ titleText, infoText, buttonText }) => (`
     <div class="js-suppressed-iframe-wrapper" style="position:relative;">
         <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color: white; display: flex; align-items: center;">
@@ -12,18 +14,27 @@ const template = ({ titleText, infoText, buttonText }) => (`
             </div>
         </div>
     </div>
-`
-)
+`)
 
-const revealIframes = () => {
+const revealIframes = (supplier) => {
     [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
-    .forEach(item => {
-        item.classList.add('u-display--none');
-    });
+        .forEach(item => {
+            const iframe = item.nextElementSibling;
+            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            if(acceptedSupplier.includes(iframeUrl.host)) {
+                iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                item.classList.add('u-display--none');
+            }
+        }); 
 }
 
-const onClickHandler = () => {
-    localStorage.setItem('iframeAccepted', 'accepted');
+const onClicklHandler = (iframe) => {
+    const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+    if (!acceptedSupplier.includes(iframeUrl.host)) {
+        acceptedSupplier.push(iframeUrl.host);
+    }
+    localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSupplier));
+    
     revealIframes();
 }
 
@@ -46,9 +57,23 @@ const suppressIframes = () => {
             const button = wrapper.querySelector('.js-suppressed-iframe-button');
             iframe.parentNode.insertBefore(wrapper, iframe);
             wrapper.appendChild(iframe);
-            button.addEventListener('click', onClickHandler);
+            button.params = {iframe: iframe};
+            button.addEventListener('click', () => {
+                onClicklHandler(iframe);
+            });
             div.remove();
         });
 }
 
-export default () => addEventListener('DOMContentLoaded', localStorage.getItem('iframeAccepted') !== 'accepted' ? suppressIframes : () => {});
+export default () => addEventListener('DOMContentLoaded', () => {
+    if(acceptedSupplier.length > 0) {
+        [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframe => {
+            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            if (acceptedSupplier.includes(iframeUrl.host)) {
+                iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                iframe.classList.remove('js-suppressed-iframe');
+            }
+        })
+    }
+    suppressIframes();
+});
