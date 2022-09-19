@@ -248,6 +248,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
     &__footer {
         border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
+        margin-top: map-get($spacers, '3');
     }
 
     &__image + &__title + &__body {
