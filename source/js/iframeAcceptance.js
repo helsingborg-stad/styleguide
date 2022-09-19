@@ -1,4 +1,4 @@
-let acceptedSupplier = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
+let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
 const template = ({ titleText, infoText, buttonText }) => (`
     <div class="js-suppressed-iframe-wrapper" style="position:relative;">
@@ -16,12 +16,12 @@ const template = ({ titleText, infoText, buttonText }) => (`
     </div>
 `)
 
-const revealIframes = (supplier) => {
+const revealIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
         .forEach(item => {
             const iframe = item.nextElementSibling;
             const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
-            if(acceptedSupplier.includes(iframeUrl.host)) {
+            if(acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 item.classList.add('u-display--none');
             }
@@ -30,10 +30,10 @@ const revealIframes = (supplier) => {
 
 const onClicklHandler = (iframe) => {
     const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
-    if (!acceptedSupplier.includes(iframeUrl.host)) {
-        acceptedSupplier.push(iframeUrl.host);
+    if (!acceptedSuppliers.includes(iframeUrl.host)) {
+        acceptedSuppliers.push(iframeUrl.host);
     }
-    localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSupplier));
+    localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
     
     revealIframes();
 }
@@ -66,10 +66,10 @@ const suppressIframes = () => {
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    if(acceptedSupplier.length > 0) {
+    if(acceptedSuppliers.length > 0) {
         [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframe => {
             const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
-            if (acceptedSupplier.includes(iframeUrl.host)) {
+            if (acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 iframe.classList.remove('js-suppressed-iframe');
             }
