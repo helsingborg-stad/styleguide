@@ -23,7 +23,8 @@
         'classList' => [
           'c-card--flat'
         ],
-        'containerAware' => true
+        'containerAware' => true,
+        'link' => "https://helsingborg.se"
     ])
     @endcard
   </div>
