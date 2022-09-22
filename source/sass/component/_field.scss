@@ -72,6 +72,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         align-items: center;
         
         width: 100%;
+        min-width: calc(#{$base}*10);
 
         font-size: $c-field-font-size-md;
         line-height: $c-field-font-size-md-line-height; 
