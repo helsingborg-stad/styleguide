@@ -39,18 +39,27 @@ const onClicklHandler = (iframe) => {
 }
 
 const suppressIframes = () => {
+  
+    
     [...document.querySelectorAll('.js-suppressed-iframe')]
     .forEach(iframe => {
-            const dataAttribute = JSON.parse(iframe.getAttribute('data-suppressed-iframe-options') ?? '{}');
-            const options = {
-                labels: {
-                    titleText: "We need your consent to continue",
-                    infoText: `This part of the website shows content from another website. By continuing, you are accepting GDPR and privacy policy.`,
-                    buttonText: "I understand, continue."
-                },
-                ...dataAttribute
+
+            const dataAttribute = JSON.parse(iframe.getAttribute('options') ?? '{}');
+            
+            const option = () => {
+                console.log("körs");
+                if (iframe.getAttribute('data-supplier') && iframe.getAttribute('data-policy')) {
+                   let options = dataAttribute.knownSupplierLabels;
+                   console.log(options);
+                    const supplier = options.infoText.replace('{SUPPLIER_WEBSITE}', iframe.getAttribute('data-supplier')).replace('{SUPPLIER_POLICY}', iframe.getAttribute('data-policy'));
+                    options.infoText = supplier;
+                    return options;
+                } else {
+                    return dataAttribute.unknownSupplierLabels;
+                }
             }
-            const { labels: {titleText, infoText, buttonText }} = options; 
+
+            const {titleText, infoText, buttonText } = option(); 
             const div = document.createElement('div');
             div.insertAdjacentHTML('beforeend', template({ titleText, infoText, buttonText }));
             const wrapper = div.querySelector("*");
