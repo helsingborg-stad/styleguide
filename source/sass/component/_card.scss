@@ -86,7 +86,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
         }
 
-        .c-card__header--video {
+        .c-card__header--video, .c-card__header--map {
             border-radius: $c-card-border-radius $c-card-border-radius 0 0;
         }
     
