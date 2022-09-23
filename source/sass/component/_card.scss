@@ -78,10 +78,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         & > *:first-child  {
             border-radius: $c-card-border-radius;
-            filter: $drop-shadow-2;
             will-change: filter;
-
+            
             .c-card__image-background {
+                filter: $drop-shadow-2;
                 border-radius: $c-card-border-radius;
             }
         }
