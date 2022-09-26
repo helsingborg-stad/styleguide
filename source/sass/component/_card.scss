@@ -85,8 +85,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
         }
 
-        .c-card__header--video, .c-card__header--map {
-            border-radius: $c-card-border-radius $c-card-border-radius 0 0;
+        &.c-card__video, &.c-card__map {
+            .c-card__header {
+                border-radius: $c-card-border-radius $c-card-border-radius 0 0;
+            }
         }
     
         &.c-card--size-sm {
