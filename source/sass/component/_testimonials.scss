@@ -69,6 +69,8 @@
     .c-testimonial__quote {
         grid-area: quote;
         font-style: italic;
+        font-weight: $font-weight-italic;
+        font-family: $font-family-italic;
     }
 
     h3.c-typography__variant--h3 {

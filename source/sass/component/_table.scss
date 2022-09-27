@@ -32,7 +32,8 @@
 
     .c-table__caption {
         font-size: calc(#{$base} * 2);
-        font-weight: 500;
+        font-weight: $font-weight-italic;
+        font-family: $font-family-italic;
         font-style: italic;
         color: $color-dark;
     }

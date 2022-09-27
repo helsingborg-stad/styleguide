@@ -43,6 +43,8 @@
 
     .c-icon__label--size {
         font-style: italic;
+        font-family: $font-family-italic;
+        font-weight: $font-weight-italic;
     }
 
     &.unlist {
