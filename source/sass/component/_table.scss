@@ -179,7 +179,8 @@
      * Modifier for summary line
      */
     &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
-        font-weight: 900;  
+        font-weight: $font-weight-bold;  
+        font-family: $font-family-bold;
     }
 
     /**

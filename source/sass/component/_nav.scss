@@ -225,7 +225,8 @@
   
   .c-nav__item.is-current > .c-nav__link {
       color: $color-vnav-item-text-active; 
-      font-weight: bold;
+      font-weight: $font-weight-bold;
+      font-family: $font-family-bold;
   }
 
   .c-nav__item.is-current > .c-nav__link,
@@ -276,7 +277,6 @@
   }
 
   .c-nav__link {
-    font-weight: 500;
     white-space: nowrap;
     padding: calc(#{$base} * 0.5 * 5) calc(#{$base} * 2);
 

@@ -67,7 +67,8 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         padding: calc(#{$base} * 2);
         display: flex;
         align-items: center;
-        font-weight: bold;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-bold;
     }
 
     .c-accordion__icon {

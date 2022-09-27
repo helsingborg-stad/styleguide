@@ -46,7 +46,8 @@
         border-bottom: 1px solid #e5e5e5;
 
         td {
-            font-weight: bold;
+            font-weight: $font-weight-bold;
+            font-family: $font-family-bold;
             color: $color-black;
         }
     }
@@ -67,7 +68,8 @@
         }
 
         &:nth-of-type(3) {
-            font-weight: 600;
+            font-weight: $font-weight-bold;
+            font-family: $font-family-bold;
         }
     }
 }
