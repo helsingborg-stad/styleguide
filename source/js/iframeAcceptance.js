@@ -30,7 +30,7 @@ const revealIframes = () => {
 
 const onClicklHandler = (iframe) => {
     const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
-    if (!acceptedSuppliers.includes(iframeUrl.host)) {
+    if (!acceptedSuppliers.includes(iframeUrl.host) && iframeUrl.host !== "https" && iframeUrl.host !== "http") {
         acceptedSuppliers.push(iframeUrl.host);
     }
     localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
