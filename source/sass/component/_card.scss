@@ -63,6 +63,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    // Flat card design
     &.c-card--flat {
         background: none;
         border: none;
@@ -102,20 +103,24 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             padding-right: 0; 
         }
 
-        @include mq(map_get($breakpoints-map, "md")) {
-            &.c-card--size-sm,
-            &.c-card--size-md,
-            &.c-card--size-lg {
-                .c-card__image, .c-card__image-background {
-                    order: 2;
-                    border-radius: $c-card-border-radius;
-                }
-                .c-card__body {
-                    padding: 0 map-get($spacers, '4');
-                }
+        .c-card__header {
+            padding: 0
+        }
+    }
+
+    @include mq(map_get($breakpoints-map, "md")) {
+        &.c-card--size-sm,
+        &.c-card--size-md,
+        &.c-card--size-lg {
+            .c-card__image, .c-card__image-background {
+                order: 2;
+                border-radius: $c-card-border-radius;
+            }
+            .c-card__body {
+                padding: 0 map-get($spacers, '4');
             }
         }
-    }  
+    }
 
     &--accented {
         .c-card {
@@ -241,6 +246,12 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
             h4 {
                 margin-top: 0px;
+            }
+        }
+
+        &.c-card--flat {
+            .c-card__header {
+                padding: map-get($spacers, '2');
             }
         }
     }
