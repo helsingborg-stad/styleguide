@@ -20,7 +20,7 @@ const revealIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
         .forEach(item => {
             const iframe = item.nextElementSibling;
-            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            const iframeUrl = new URL(iframe.getAttribute('data-src'));
             if(acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 item.classList.add('u-display--none');
@@ -29,7 +29,8 @@ const revealIframes = () => {
 }
 
 const onClicklHandler = (iframe) => {
-    const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+    const iframeUrl = new URL(iframe.getAttribute('data-src'));
+
     if (!acceptedSuppliers.includes(iframeUrl.host) && iframeUrl.host !== "https" && iframeUrl.host !== "http") {
         acceptedSuppliers.push(iframeUrl.host);
     }
@@ -40,12 +41,10 @@ const onClicklHandler = (iframe) => {
 
 const suppressIframes = () => {
   
-    
     [...document.querySelectorAll('.js-suppressed-iframe')]
     .forEach(iframe => {
-
+        
             let lang = JSON.parse(iframe.getAttribute('options') ?? '{}');
-            
             const option = () => {
                 if (iframe.getAttribute('data-supplier-name') && iframe.getAttribute('data-supplier-policy')) {
 
@@ -76,7 +75,7 @@ const suppressIframes = () => {
 export default () => addEventListener('DOMContentLoaded', () => {
     if(acceptedSuppliers.length > 0) {
         [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframe => {
-            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            const iframeUrl = new URL(iframe.getAttribute('data-src'));
             if (acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 iframe.classList.remove('js-suppressed-iframe');
