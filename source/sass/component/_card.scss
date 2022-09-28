@@ -106,21 +106,22 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         .c-card__header {
             padding: 0
         }
-    }
-
-    @include mq(map_get($breakpoints-map, "md")) {
-        &.c-card--size-sm,
-        &.c-card--size-md,
-        &.c-card--size-lg {
-            .c-card__image, .c-card__image-background {
-                order: 2;
-                border-radius: $c-card-border-radius;
-            }
-            .c-card__body {
-                padding: 0 map-get($spacers, '4');
+        
+        @include mq(map_get($breakpoints-map, "md")) {
+            &.c-card--size-sm,
+            &.c-card--size-md,
+            &.c-card--size-lg {
+                .c-card__image, .c-card__image-background {
+                    order: 2;
+                    border-radius: $c-card-border-radius;
+                }
+                .c-card__body {
+                    padding: 0 map-get($spacers, '4');
+                }
             }
         }
     }
+
 
     &--accented {
         .c-card {
