@@ -45,6 +45,12 @@
         }
     }
 
+    &.c-card--flat {
+        .c-testimonial__image {
+            filter: none;
+        }
+    }
+
     .c-testimonial__header {
         margin-left: calc(var(--base, 8px) * 4);
 
