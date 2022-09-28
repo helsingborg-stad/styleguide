@@ -157,9 +157,10 @@
 .c-nav.c-nav--vertical.c-nav--bordered {
   &.c-nav--depth-0  {
     border: solid 1px #e6e6e6;
-    border-radius: var(--border-radius-vnav, $border-radius-lg);
     background-color: $color-vnav-background;
     border-radius: var(--border-radius-vnav, $border-radius-lg);
+    filter: var(--shadow-vnav, $drop-shadow-2); 
+    will-change: filter;
   }
 
   .c-nav__item {
