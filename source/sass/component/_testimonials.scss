@@ -34,10 +34,6 @@
     filter: $drop-shadow-2;
 }
 
-.c-testimonials__wrapper--is-carousel > * {
-    filter: none;
-}
-
 .c-testimonial {
     display: grid;
     grid-template-columns: calc(#{$base} * 11) auto;
