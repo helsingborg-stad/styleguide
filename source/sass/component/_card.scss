@@ -88,11 +88,9 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
 
         &.c-card--contact {
-            .c-card__image {
-                .c-card__image-background {
-                    border-bottom-left-radius: 0;
-                    border-bottom-right-radius: 0;
-                }
+            .c-card__image, .c-card__image-background {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
             }
 
             &.c-card--highlight {
@@ -139,6 +137,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
         }
     }
+    //end flat card design
 
 
     &--accented {
@@ -515,4 +514,3 @@ a.c-card {
         display: none;
     }
 }
-
