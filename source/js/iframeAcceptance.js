@@ -1,8 +1,8 @@
 let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
 const template = ({ title, info, button }) => (`
-    <div class="js-suppressed-iframe-wrapper" style="position:relative;">
-        <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color: white; display: flex; align-items: center;">
+    <div class="js-suppressed-iframe-wrapper">
+        <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; display: flex; align-items: center; overflow:auto;">
             <div style="max-width: 600px; width: 100%; margin: auto; padding: 0 24px;">
             <h4 class="c-typography c-typography__variant--h2">${title}</h4>
             <p class="c-typography u-padding__bottom--4 c-typography__variant--p">${info}</p> 
