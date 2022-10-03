@@ -168,3 +168,64 @@
         position: relative;
     }
 }
+
+.c-testimonials-carousel {
+    section > .c-slider__item__container {
+        margin: map-get($spacers, "4");
+
+        .c-card {
+            padding: map-get($spacers,   "4");
+        }
+        
+    }
+
+    .c-testimonials-carousel__item {        
+        .c-card {
+            display: grid;
+            grid-template-columns: calc(#{$base} * 11) auto;
+            grid-template-areas: "image header" "quote quote";
+            padding: map-get($spacers, "4");
+            
+            .c-testimonial__image {
+                width: calc(#{$base} * 11);
+                max-height: calc(#{$base} * 14);
+                border-radius: calc(#{$base} * 1);
+                overflow: hidden;
+                filter: $drop-shadow-3;
+                grid-area: image;
+                
+                &.c-image .c-image__image {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            
+            .c-testimonial__quote {
+                grid-area: quote;
+            }
+
+            .c-testimonial__header {
+                margin-left: calc(var(--base, 8px) * 4);
+        
+                & h2 {
+                    font-weight: 900;
+                    font-size: calc(var(--base, 8px) * 3);
+                    color: $color-darkest;
+                    word-break: break-word;
+                }
+        
+                & .c-divider {
+                    margin: 0;
+                    border-color: $color-complementary-light;
+                }
+
+                h3.c-typography__variant--h3 {
+                    margin-bottom: map-get($spacers, "1");
+                    margin-top: calc(var(--base, 8px));
+                }
+            }
+        }
+    }
+}
+
