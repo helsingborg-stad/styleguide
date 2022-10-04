@@ -59,7 +59,7 @@
 }
 
 // Styling for cards and slider 
-.c-testimonials, .c-testimonials__carousel {
+.c-testimonials, .c-testimonials__slider {
     .c-testimonial__image {
         width: calc(#{$base} * 11);
         max-height: calc(#{$base} * 14);
@@ -87,8 +87,8 @@
     }
 }
 
-// Styles for Carousel/Slider 
-.c-testimonials__carousel {
+// Styles for Slider 
+.c-testimonials__slider {
     .c-slider {
         max-height: unset;
         
@@ -120,7 +120,7 @@
         padding-top: 0;
     }
 
-    .c-testimonials__carousel__item {
+    .c-testimonials__slider__item {
         .c-card {
             display: grid;
             grid-template-columns: calc(#{$base} * 11) auto;
@@ -165,7 +165,7 @@
         margin-left: map-get($spacers, "8");
         margin-right: map-get($spacers, "8");
     }
-    .c-testimonials__carousel {
+    .c-testimonials__slider {
         .c-slider__item {
             width: 70%;
         }
