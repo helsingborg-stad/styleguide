@@ -108,18 +108,49 @@
 
 
 
+/* Lägg till bättre target (id)? */
+.c-testimonials__carousel .c-slider.c-slider--16-9 .c-slider__container {
+    padding-top:0;
+}
 
+.c-testimonials__carousel .c-slider .c-slider__container .c-slider__inner {
+    position: static;
+}
 
-
+/* Pilar nere (mått stämmer ej) */
+/* .c-testimonials__carousel .splide__arrows.c-slider__arrows {
+    bottom:0;
+    top:unset;
+    width: 20%;
+}
 
 .c-testimonials__carousel {
-    .c-slider__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        .c-slider__item__container {
-            position: static;
+    padding:2rem 0;
+}
+ */
+
+ /* Pilar till kanten */
+.splide__arrows.c-slider__arrows .splide__arrow--prev {
+    left:-4rem;
+}
+
+.splide__arrows.c-slider__arrows .splide__arrow--next {
+    right:-4rem;
+}
+
+ 
+.c-testimonials__carousel {
+    .c-slider {
+        max-height: unset;
+        .c-slider__item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            .c-slider__item__container {
+                position: static;
+                padding-top:0!important;
+            }
         }
     }
 
@@ -199,7 +230,6 @@
             animation-fill-mode: forwards;
         }
     }
-
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
@@ -231,7 +261,7 @@
 
     .c-testimonials__carousel {
     .c-slider__item {
-        width: 90%;
+        width: 70%;
     }
 }
 }
