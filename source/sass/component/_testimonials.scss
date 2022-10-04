@@ -13,37 +13,11 @@
     grid-area: carousel;
 }
 
-.c-testimonials__button {
-    box-shadow: unset;
-    border-radius: calc(#{$base} * 0.5);
-    margin-top: map-get($spacers, "6");
-
-    &[js-testimonials__back] {
-        justify-self: end;
-        margin-right: calc(#{$base} * 1);
-    }
-}
-
 .c-testimonial {
     display: grid;
     grid-template-columns: calc(#{$base} * 11) auto;
     grid-template-areas: "image header" "quote quote";
     padding: map-get($spacers, "4");
-
-    // .c-testimonial__image {
-    //     width: calc(#{$base} * 11);
-    //     max-height: calc(#{$base} * 14);
-    //     border-radius: calc(#{$base} * 1);
-    //     overflow: hidden;
-    //     filter: $drop-shadow-3;
-    //     grid-area: image;
-
-    //     &.c-image .c-image__image {
-    //         object-fit: cover;
-    //         width: 100%;
-    //         height: 100%;
-    //     }
-    // }
 
     &.c-card--flat {
         .c-testimonial__image {
@@ -89,59 +63,19 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Lägg till bättre target (id)? */
-.c-testimonials__carousel .c-slider.c-slider--16-9 .c-slider__container {
-    padding-top:0;
+// Carousel/Slider styling
+.c-testimonials__carousel .c-slider.is-active .c-slider__container {
+    padding-top: 0;
 }
 
 .c-testimonials__carousel .c-slider .c-slider__container .c-slider__inner {
     position: static;
 }
 
-/* Pilar nere (mått stämmer ej) */
-/* .c-testimonials__carousel .splide__arrows.c-slider__arrows {
-    bottom:0;
-    top:unset;
-    width: 20%;
-}
-
-.c-testimonials__carousel {
-    padding:2rem 0;
-}
- */
-
- /* Pilar till kanten */
-/* .splide__arrows.c-slider__arrows .splide__arrow--prev {
-    left:-4rem;
-}
-
-.splide__arrows.c-slider__arrows .splide__arrow--next {
-    right:-4rem;
-} */
-
- 
 .c-testimonials__carousel {
     .c-slider {
         max-height: unset;
+
         .c-slider__item {
             display: flex;
             justify-content: center;
@@ -151,6 +85,13 @@
                 position: static;
                 padding-top:0!important;
             }
+        }
+
+        .c-slider__arrows .splide__arrow.splide__arrow--next {
+            right: calc(var(--base, 8px) * -8);
+        }
+        .c-slider__arrows .splide__arrow.splide__arrow--prev {
+            left: calc(var(--base, 8px) * -8);
         }
     }
 
@@ -212,24 +153,8 @@
     }
 }
 
-
-
 @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
-    .c-testimonials__wrapper--is-carousel {
-        grid-template-columns: repeat(8, 100%);
 
-        .c-testimonial--is-visible {
-            animation-name: showTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-
-        .c-testimonial--is-hidden {
-            animation-name: hideTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-    }
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
@@ -241,63 +166,12 @@
         margin-left: map-get($spacers, "8");
         margin-right: map-get($spacers, "8");
     }
-
-    .c-testimonials__wrapper--is-carousel {
-        grid-template-columns: repeat(8, calc(50% - 28px)); //28px because it's half of the column gap
-        row-gap: 0;
-
-        .c-testimonial--is-visible {
-            animation-name: showTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-
-        .c-testimonial--is-hidden {
-            animation-name: hideTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-    }
-
     .c-testimonials__carousel {
-    .c-slider__item {
-        width: 70%;
-    }
-}
-}
-
-@keyframes hideTestimonial {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-        position: relative;
-    }
-    51% {
-        position: absolute
-    }
-    100% {
-        opacity: 0;
-        position: absolute
+        .c-slider__item {
+            width: 70%;
+        }
     }
 }
 
-@keyframes showTestimonial {
-    0%{
-        opacity: 0;
-        position: absolute;
-    }
-    50% {
-        opacity: 0;
-        position: absolute;
-    }
-    51% {
-        position: relative;
-    }
-    100% {
-        opacity: 1;
-        position: relative;
-    }
-}
+
 
