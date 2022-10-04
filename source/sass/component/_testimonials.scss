@@ -1,22 +1,203 @@
-.c-testimonial__image {
-    width: calc(#{$base} * 11);
-    max-height: calc(#{$base} * 14);
-    border-radius: calc(#{$base} * 1);
-    overflow: hidden;
-    filter: $drop-shadow-3;
-    grid-area: image;
+.c-slider.testimonial-slider {
+    .testimonial__image {
+        width: calc(#{$base} * 11);
+        max-height: calc(#{$base} * 14);
+        border-radius: calc(#{$base} * 1);
+        overflow: hidden;
+        filter: $drop-shadow-3;
+        grid-area: image;
+    
+        &.c-image .c-image__image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }  
+        .testimonial__header {
+            grid-area: header;
+        }
+    
+        .testimonial__quote {
+            grid-area: quote;
+        }
 
-    &.c-image .c-image__image {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
+        .c-slider__item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .c-slider__item__container {
+                position: static;
+            }
+        }
+        .testimonial__grid {
+            grid-template-areas:'image header' 'quote quote';
+            display:grid;
+            grid-template-columns:min-content 4fr;
+        }
+}
+
+
+.c-testimonials {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto auto;
+    grid-template-areas: "carousel carousel" "controls controls";
+    margin: calc(#{$base}* 4) 0;
+}
+
+.c-testimonials__wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: calc(#{$base} * 7);
+    grid-area: carousel;
+}
+
+.c-testimonials__button {
+    box-shadow: unset;
+    border-radius: calc(#{$base} * 0.5);
+    margin-top: map-get($spacers, "6");
+
+    &[js-testimonials__back] {
+        justify-self: end;
+        margin-right: calc(#{$base} * 1);
     }
 }
-    
+
+.c-testimonial {
+    display: grid;
+    grid-template-columns: calc(#{$base} * 11) auto;
+    grid-template-areas: "image header" "quote quote";
+    padding: map-get($spacers, "4");
+
+    .c-testimonial__image {
+        width: calc(#{$base} * 11);
+        max-height: calc(#{$base} * 14);
+        border-radius: calc(#{$base} * 1);
+        overflow: hidden;
+        filter: $drop-shadow-3;
+        grid-area: image;
+
+        &.c-image .c-image__image {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
     .c-testimonial__header {
-        grid-area: header;
+        margin-left: calc(var(--base, 8px) * 4);
+
+        & h2 {
+            font-weight: 900;
+            font-size: calc(var(--base, 8px) * 3);
+            color: $color-darkest;
+            word-break: break-word;
+        }
+
+        & .c-divider {
+            margin: 0;
+            border-color: $color-complementary-light;
+        }
+    }
+
+    .c-testimonial__title {
+        color: $color-primary-dark;
+        margin-top: var(--base, 8px);
+        max-width: 25ch;
     }
 
     .c-testimonial__quote {
         grid-area: quote;
+        font-style: italic;
     }
+
+    h3.c-typography__variant--h3 {
+        margin-bottom: map-get($spacers, "1");
+        margin-top: calc(var(--base, 8px));
+    }
+
+    h2.c-typography__variant--h2 {
+        margin-top: calc(var(--base, 8px) * 2);
+    }
+}
+
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
+    .c-testimonials__wrapper--is-carousel {
+        grid-template-columns: repeat(8, 100%);
+
+        .c-testimonial--is-visible {
+            animation-name: showTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            animation-name: hideTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+    .c-testimonials__wrapper {
+        grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
+        column-gap: calc(#{$base} * 7);
+        row-gap: calc(#{$base} * 6);
+
+        margin-left: map-get($spacers, "8");
+        margin-right: map-get($spacers, "8");
+    }
+
+    .c-testimonials__wrapper--is-carousel {
+        grid-template-columns: repeat(8, calc(50% - 28px)); //28px because it's half of the column gap
+        row-gap: 0;
+
+        .c-testimonial--is-visible {
+            animation-name: showTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            animation-name: hideTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+    }
+}
+
+@keyframes hideTestimonial {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+        position: relative;
+    }
+    51% {
+        position: absolute
+    }
+    100% {
+        opacity: 0;
+        position: absolute
+    }
+}
+
+@keyframes showTestimonial {
+    0%{
+        opacity: 0;
+        position: absolute;
+    }
+    50% {
+        opacity: 0;
+        position: absolute;
+    }
+    51% {
+        position: relative;
+    }
+    100% {
+        opacity: 1;
+        position: relative;
+    }
+}
