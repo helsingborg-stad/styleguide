@@ -47,11 +47,6 @@
         max-width: 25ch;
     }
 
-    .c-testimonial__quote {
-        grid-area: quote;
-        font-style: italic;
-    }
-
     h3.c-typography__variant--h3 {
         margin-bottom: map-get($spacers, "1");
         margin-top: calc(var(--base, 8px));
@@ -131,6 +126,7 @@
     }
 }
 
+// General styles
 .c-testimonials, .c-testimonials__carousel {
     .c-testimonial__image {
         width: calc(#{$base} * 11);
@@ -152,10 +148,11 @@
         margin-top: var(--base, 8px);
         max-width: 25ch;
     }
-}
 
-@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
-
+    .c-testimonial__quote {
+        grid-area: quote;
+        font-style: italic;
+    }
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
