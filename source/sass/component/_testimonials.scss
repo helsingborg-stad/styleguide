@@ -88,93 +88,36 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
-    .c-testimonials__wrapper--is-carousel {
-        grid-template-columns: repeat(8, 100%);
 
-        .c-testimonial--is-visible {
-            animation-name: showTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
 
-        .c-testimonial--is-hidden {
-            animation-name: hideTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-    }
-}
 
-@include mq(map_get($breakpoints-map, "md")) {
-    .c-testimonials__wrapper {
-        grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
-        column-gap: calc(#{$base} * 7);
-        row-gap: calc(#{$base} * 6);
 
-        margin-left: map-get($spacers, "8");
-        margin-right: map-get($spacers, "8");
-    }
 
-    .c-testimonials__wrapper--is-carousel {
-        grid-template-columns: repeat(8, calc(50% - 28px)); //28px because it's half of the column gap
-        row-gap: 0;
 
-        .c-testimonial--is-visible {
-            animation-name: showTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
 
-        .c-testimonial--is-hidden {
-            animation-name: hideTestimonial;
-            animation-duration: 0.8s;
-            animation-fill-mode: forwards;
-        }
-    }
-}
 
-@keyframes hideTestimonial {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-        position: relative;
-    }
-    51% {
-        position: absolute
-    }
-    100% {
-        opacity: 0;
-        position: absolute
-    }
-}
 
-@keyframes showTestimonial {
-    0%{
-        opacity: 0;
-        position: absolute;
-    }
-    50% {
-        opacity: 0;
-        position: absolute;
-    }
-    51% {
-        position: relative;
-    }
-    100% {
-        opacity: 1;
-        position: relative;
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .c-testimonials__carousel {
     .c-slider__item {
         display: flex;
         justify-content: center;
         align-items: center;
-
+        width: 100%;
         .c-slider__item__container {
             position: static;
         }
@@ -235,6 +178,96 @@
         color: $color-primary-dark;
         margin-top: var(--base, 8px);
         max-width: 25ch;
+    }
+}
+
+
+
+@include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "lg")) {
+    .c-testimonials__wrapper--is-carousel {
+        grid-template-columns: repeat(8, 100%);
+
+        .c-testimonial--is-visible {
+            animation-name: showTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            animation-name: hideTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+    }
+
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+    .c-testimonials__wrapper {
+        grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
+        column-gap: calc(#{$base} * 7);
+        row-gap: calc(#{$base} * 6);
+
+        margin-left: map-get($spacers, "8");
+        margin-right: map-get($spacers, "8");
+    }
+
+    .c-testimonials__wrapper--is-carousel {
+        grid-template-columns: repeat(8, calc(50% - 28px)); //28px because it's half of the column gap
+        row-gap: 0;
+
+        .c-testimonial--is-visible {
+            animation-name: showTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        .c-testimonial--is-hidden {
+            animation-name: hideTestimonial;
+            animation-duration: 0.8s;
+            animation-fill-mode: forwards;
+        }
+    }
+
+    .c-testimonials__carousel {
+    .c-slider__item {
+        width: 90%;
+    }
+}
+}
+
+@keyframes hideTestimonial {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+        position: relative;
+    }
+    51% {
+        position: absolute
+    }
+    100% {
+        opacity: 0;
+        position: absolute
+    }
+}
+
+@keyframes showTestimonial {
+    0%{
+        opacity: 0;
+        position: absolute;
+    }
+    50% {
+        opacity: 0;
+        position: absolute;
+    }
+    51% {
+        position: relative;
+    }
+    100% {
+        opacity: 1;
+        position: relative;
     }
 }
 
