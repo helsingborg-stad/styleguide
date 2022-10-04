@@ -64,18 +64,10 @@
 
 
 // Carousel/Slider styling
-.c-testimonials__carousel .c-slider.is-active .c-slider__container {
-    padding-top: 0;
-}
-
-.c-testimonials__carousel .c-slider .c-slider__container .c-slider__inner {
-    position: static;
-}
-
 .c-testimonials__carousel {
     .c-slider {
         max-height: unset;
-
+        
         .c-slider__item {
             display: flex;
             justify-content: center;
@@ -86,13 +78,22 @@
                 padding-top:0!important;
             }
         }
-
+        
         .c-slider__arrows .splide__arrow.splide__arrow--next {
             right: calc(var(--base, 8px) * -8);
         }
+        
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
             left: calc(var(--base, 8px) * -8);
         }
+
+        .c-slider__container .c-slider__inner {
+            position: static;
+        }
+    }
+
+    .c-slider.is-active .c-slider__container {
+        padding-top: 0;
     }
 
     .c-testimonials__carousel__item {
