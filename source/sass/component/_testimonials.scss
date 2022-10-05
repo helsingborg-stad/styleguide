@@ -89,6 +89,8 @@
 
 // Styles for Slider 
 .c-testimonials__slider {
+    margin: calc(#{$base}* 4) 0;
+
     .c-slider {
         max-height: unset;
         
