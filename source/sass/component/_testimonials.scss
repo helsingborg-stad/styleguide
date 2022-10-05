@@ -63,7 +63,7 @@
     .c-testimonial__image {
         width: calc(#{$base} * 11);
         max-height: calc(#{$base} * 14);
-        border-radius: calc(#{$base} * 1);
+        border-radius: $c-card-border-radius;
         overflow: hidden;
         filter: $drop-shadow-3;
         grid-area: image;
@@ -101,7 +101,7 @@
             width: 100%;
             .c-slider__item__container {
                 position: static;
-                padding-top:0!important;
+                padding-top:0;
             }
         }
         
@@ -136,7 +136,7 @@
             .c-testimonial__header {
                 margin-left: calc(var(--base, 8px) * 4);
         
-                & h2 {
+                h2.c-typograhy__variant--h2 {
                     font-weight: 900;
                     font-size: calc(var(--base, 8px) * 3);
                     color: $color-darkest;
@@ -157,7 +157,6 @@
     }
 }
 
-// Media queries
 @include mq(map_get($breakpoints-map, "md")) {
     .c-testimonials__wrapper {
         grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
