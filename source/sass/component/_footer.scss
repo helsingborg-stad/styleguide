@@ -48,7 +48,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
         margin-bottom: calc(#{$base} * 3);
 
         & h4 {
-            font-weight: 900;
+            font-weight: $h4-font-weight;
             font-size:18px;
         }
 

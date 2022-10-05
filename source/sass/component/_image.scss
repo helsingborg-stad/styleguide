@@ -56,7 +56,8 @@ $radius: (
 
     .c-image__placeholder-text {
         color: $color-image-placeholder-label;
-        font-weight: bold;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-bold;
     }
 
     .c-icon + .c-image__placeholder-text {
