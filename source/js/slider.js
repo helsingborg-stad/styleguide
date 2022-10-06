@@ -15,7 +15,7 @@ export default class Slider {
 
         this.splide = new Splide(slider, {
             type: 'loop',
-            autoWidth: true,
+            // autoWidth: true,
             focus: 'center',
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
@@ -27,6 +27,7 @@ export default class Slider {
                 pagination: 'c-slider__steppers',
                 page: 'c-slider__dot',
             },
+            dataSplide: slidesPerPage,
         });
 
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
