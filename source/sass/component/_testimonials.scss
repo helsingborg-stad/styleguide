@@ -60,6 +60,10 @@
 
 // Styling for cards and slider 
 .c-testimonials, .c-testimonials__slider {
+    // .c-slider__item__container {
+    //     padding: 0;
+    // }
+
     .c-testimonial__image {
         width: calc(#{$base} * 11);
         max-height: calc(#{$base} * 14);
@@ -101,7 +105,7 @@
             width: 100%;
             .c-slider__item__container {
                 position: static;
-                padding-top:0;
+                padding: 0;
             }
         }
         
