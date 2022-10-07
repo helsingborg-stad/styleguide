@@ -128,6 +128,8 @@
             grid-template-columns: calc(#{$base} * 11) auto;
             grid-template-areas: "image header" "quote quote";
             padding: map-get($spacers, "4");
+            filter: none;
+            // border: 1px solid red;
             
             .c-testimonial__quote {
                 grid-area: quote;
