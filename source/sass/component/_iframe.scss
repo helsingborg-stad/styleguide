@@ -37,6 +37,8 @@ $radius: (
     .js-suppressed-iframe-prompt {
         @include cover;
         z-index: 1;
+        display: flex;
+        align-items: center;
 
         .js-suppressed-iframe-prompt-content {
             max-width: 600px;

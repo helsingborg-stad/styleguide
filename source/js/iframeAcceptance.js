@@ -3,7 +3,7 @@ let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ??
 const revealIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe-wrapper')]
         .forEach(iframeWrapper => {
-            const iframe = iframeWrapper  .querySelector('iframe');
+            const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframe.getAttribute('data-src'));
             if(acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
@@ -26,9 +26,9 @@ const onClicklHandler = (iframeWrapper) => {
 }
 
 const suppressIframes = () => {
-  
     [...document.querySelectorAll('.js-suppressed-iframe-wrapper')]
     .forEach(iframeWrapper => {
+        console.log("hej");
             const buttonEl = iframeWrapper.querySelector('[js-suppressed-iframe-button]');
             buttonEl.params = {iframe: iframeWrapper};
             buttonEl.addEventListener('click', () => {
