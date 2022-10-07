@@ -28,7 +28,6 @@ const onClicklHandler = (iframeWrapper) => {
 const suppressIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe-wrapper')]
     .forEach(iframeWrapper => {
-        console.log("hej");
             const buttonEl = iframeWrapper.querySelector('[js-suppressed-iframe-button]');
             buttonEl.params = {iframe: iframeWrapper};
             buttonEl.addEventListener('click', () => {
@@ -39,7 +38,7 @@ const suppressIframes = () => {
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    if(acceptedSuppliers.length > 0) {
+    if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-iframe-wrapper').length > 0 ) {
         [...document.querySelectorAll('.js-suppressed-iframe-wrapper')].forEach(iframeWrapper => {
             const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframe.getAttribute('data-src'));
@@ -50,6 +49,6 @@ export default () => addEventListener('DOMContentLoaded', () => {
             }
         })
     }
-    suppressIframes();
+    document.querySelectorAll('.js-suppressed-iframe-wrapper').length > 0 ? suppressIframes() : '';
 });
 
