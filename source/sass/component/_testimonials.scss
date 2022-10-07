@@ -101,7 +101,7 @@
             width: 100%;
             .c-slider__item__container {
                 position: static;
-                padding: 0;
+                padding: calc(#{$base} * 3);
             }
         }
         
@@ -128,8 +128,6 @@
             grid-template-columns: calc(#{$base} * 11) auto;
             grid-template-areas: "image header" "quote quote";
             padding: map-get($spacers, "4");
-            filter: none;
-            // border: 1px solid red;
             
             .c-testimonial__quote {
                 grid-area: quote;
