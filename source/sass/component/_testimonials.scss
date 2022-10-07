@@ -93,11 +93,7 @@
 
     .c-slider--shadow {
         .c-slider__container {
-            .c-slider__inner {
-                .c-testimonials__slider__item {
-                    filter: none !important;
-                }
-            }
+            filter: none !important;
         }
     }
 

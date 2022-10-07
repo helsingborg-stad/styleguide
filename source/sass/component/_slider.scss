@@ -29,11 +29,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
     &.c-slider--shadow {
         .c-slider__container {
-            .c-slider__inner {
-                .c-slider__item {
-                    filter: $drop-shadow-2;
-                }
-            }
+            filter: $drop-shadow-2;
         }
     }
 
