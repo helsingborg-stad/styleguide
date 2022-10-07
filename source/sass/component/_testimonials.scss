@@ -91,6 +91,16 @@
 .c-testimonials__slider {
     margin: calc(#{$base}* 4) 0;
 
+    .c-slider--shadow {
+        .c-slider__container {
+            .c-slider__inner {
+                .c-testimonials__slider__item {
+                    filter: none !important;
+                }
+            }
+        }
+    }
+
     .c-slider {
         max-height: unset;
         
