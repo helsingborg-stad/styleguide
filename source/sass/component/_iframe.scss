@@ -33,4 +33,14 @@ $radius: (
 .js-suppressed-iframe-wrapper {
     position: relative;
     background-color: white;
+
+    .js-suppressed-iframe-prompt {
+        @include cover;
+        z-index: 1;
+
+        .js-suppressed-iframe-prompt-content {
+            max-width: 600px;
+            margin:auto;
+        }
+    }
 }
