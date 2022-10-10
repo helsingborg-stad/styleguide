@@ -1,52 +1,33 @@
-// Styling for testimonials as cards
 .c-testimonials {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: auto auto;
-    grid-template-areas: "carousel carousel" "controls controls";
-    margin: calc(#{$base}* 4) 0;
-}
-
-.c-testimonials__wrapper {
-    display: grid;
-    grid-template-columns: 100%;
-    row-gap: calc(#{$base} * 7);
-    grid-area: carousel;
-}
-
-.c-testimonial {
+    //general
+    .c-testimonial {
     display: grid;
     grid-template-columns: calc(#{$base} * 11) auto;
     grid-template-areas: "image header" "quote quote";
     padding: map-get($spacers, "4");
 
-    &.c-card--flat {
-        .c-testimonial__image {
-            filter: none;
+        .c-testimonial__header {
+            margin-left: calc(var(--base, 8px) * 4);
+
+            & .c-divider {
+                margin: 0;
+                border-color: $color-complementary-light;
+            }
+            .c-testimonial__author {
+                font-size: calc(var(--base, 8px) * 3);
+                color: $color-darkest;
+                word-break: break-word;
+                margin-top: calc(var(--base, 8px) * 2);
+            }
+            .c-testimonial__title {
+                color: $color-primary-dark;
+                max-width: 25ch;
+                margin-bottom: map-get($spacers, "1");
+                margin-top: calc(var(--base, 8px));
+            }
         }
     }
-
-    .c-testimonial__header {
-        margin-left: calc(var(--base, 8px) * 4);
-
-        & h2 {
-            font-size: calc(var(--base, 8px) * 3);
-            color: $color-darkest;
-            word-break: break-word;
-        }
-
-        & .c-divider {
-            margin: 0;
-            border-color: $color-complementary-light;
-        }
-    }
-
-    .c-testimonial__title {
-        color: $color-primary-dark;
-        margin-top: var(--base, 8px);
-        max-width: 25ch;
-    }
-
+    
     .c-testimonial__quote {
         grid-area: quote;
         font-style: italic;
@@ -54,18 +35,6 @@
         font-family: $font-family-italic;
     }
 
-    h3.c-typography__variant--h3 {
-        margin-bottom: map-get($spacers, "1");
-        margin-top: calc(var(--base, 8px));
-    }
-
-    h2.c-typography__variant--h2 {
-        margin-top: calc(var(--base, 8px) * 2);
-    }
-}
-
-// Styling for cards and slider 
-.c-testimonials, .c-testimonials__slider {
     .c-testimonial__image {
         width: calc(#{$base} * 11);
         max-height: calc(#{$base} * 14);
@@ -81,30 +50,10 @@
         }
     }
 
-    .c-testimonial__title {
-        color: $color-primary-dark;
-        margin-top: var(--base, 8px);
-        max-width: 25ch;
-    }
+    //Carousel-slider-style
+    .c-testimonials__slider {
+    margin: 0;
 
-    .c-testimonial__quote {
-        grid-area: quote;
-        font-style: italic;
-        font-weight: $font-weight-italic;
-        font-family: $font-family-italic;
-    }
-}
-
-// Styles for Slider 
-.c-testimonials__slider {
-    margin: calc(#{$base}* 4) 0;
-
-    .c-slider--shadow {
-        .c-slider__container {
-            filter: none !important;
-        }
-    }
-    
     .c-slider {
         max-height: unset;
         
@@ -112,10 +61,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
+
             .c-slider__item__container {
+                width: 100%;
                 position: static;
-                padding: calc(#{$base} * 3);
+                padding: 0;
+
+                & .c-testimonial {
+                    filter:none;
+                }
             }
         }
         
@@ -135,54 +89,40 @@
     .c-slider.is-active .c-slider__container {
         padding-top: 0;
     }
+}
 
-    .c-testimonials__slider__item {
-        .c-card {
-            display: grid;
-            grid-template-columns: calc(#{$base} * 11) auto;
-            grid-template-areas: "image header" "quote quote";
-            padding: map-get($spacers, "4");
-            
-            .c-testimonial__quote {
-                grid-area: quote;
-            }
-
-            .c-testimonial__header {
-                margin-left: calc(var(--base, 8px) * 4);
-        
-                h2.c-typograhy__variant--h2 {
-                    font-weight: 900;
-                    font-size: calc(var(--base, 8px) * 3);
-                    color: $color-darkest;
-                    word-break: break-word;
-                }
-        
-                & .c-divider {
-                    margin: 0;
-                    border-color: $color-complementary-light;
-                }
-
-                h3.c-typography__variant--h3 {
-                    margin-bottom: map-get($spacers, "1");
-                    margin-top: calc(var(--base, 8px));
-                }
-            }
+    //non-carousel
+    .c-testimonials__wrapper {
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: calc(#{$base} * 7);
+    }
+    
+    //flat card
+    &.c-card--flat {
+        .c-testimonial__image {
+            filter: none;
         }
     }
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
-    .c-testimonials__wrapper {
-        grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
-        column-gap: calc(#{$base} * 7);
-        row-gap: calc(#{$base} * 6);
+    .c-testimonials {
+        & .c-testimonials__wrapper {
+            grid-template-columns: 1fr 1fr; //28px because it's half of the column gap
+            column-gap: calc(#{$base} * 7);
+            row-gap: calc(#{$base} * 6);
+    
+            margin-left: map-get($spacers, "8");
+            margin-right: map-get($spacers, "8");
+        }
 
-        margin-left: map-get($spacers, "8");
-        margin-right: map-get($spacers, "8");
-    }
-    .c-testimonials__slider {
-        .c-slider__item {
-            width: 70%;
+        & .c-testimonials__slider {
+            margin: calc(var(--base, 8px) * 6);
+
+            & .c-slider .c-slider__item .c-slider__item__container {
+                padding: map-get($spacers, '2');
+            }
         }
     }
 }
