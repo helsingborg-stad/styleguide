@@ -88,6 +88,16 @@
     }
 
     /**
+     * Flat styling
+     */
+.c-card--flat {
+    .c-table .c-table__header {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+    /**
      * Table body
      */
     .c-table__body {
