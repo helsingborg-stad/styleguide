@@ -73,9 +73,11 @@
                     width: 100%;
                     position: static;
                     padding: 0;
+                    height: 100%;
+                    grid-template-rows: none;
 
                     & .c-testimonial {
-                        filter:none;
+                        filter: none;
                     }
                 }
             }
