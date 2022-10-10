@@ -101,7 +101,8 @@
     .c-link:active,
     .c-link:visited {
         color: $color-darkest;
-        font-weight: 700;
+        font-family: $font-family-bold;
+        font-weight: $font-weight-bold;
     }
 
     .c-link:hover {

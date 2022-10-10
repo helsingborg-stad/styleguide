@@ -32,7 +32,8 @@
 
     .c-table__caption {
         font-size: calc(#{$base} * 2);
-        font-weight: 500;
+        font-weight: $font-weight-italic;
+        font-family: $font-family-italic;
         font-style: italic;
         color: $color-dark;
     }
@@ -179,7 +180,8 @@
      * Modifier for summary line
      */
     &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
-        font-weight: 900;  
+        font-weight: $font-weight-bold;  
+        font-family: $font-family-bold;
     }
 
     /**

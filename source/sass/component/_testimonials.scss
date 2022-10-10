@@ -30,7 +30,6 @@
         margin-left: calc(var(--base, 8px) * 4);
 
         & h2 {
-            font-weight: 900;
             font-size: calc(var(--base, 8px) * 3);
             color: $color-darkest;
             word-break: break-word;
@@ -46,6 +45,13 @@
         color: $color-primary-dark;
         margin-top: var(--base, 8px);
         max-width: 25ch;
+    }
+
+    .c-testimonial__quote {
+        grid-area: quote;
+        font-style: italic;
+        font-weight: $font-weight-italic;
+        font-family: $font-family-italic;
     }
 
     h3.c-typography__variant--h3 {

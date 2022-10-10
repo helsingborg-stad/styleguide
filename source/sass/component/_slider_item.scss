@@ -229,8 +229,6 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         @include mq(map_get($breakpoints-map, 'md')) {
             font-size: calc(#{$base} * 4);
         }
-
-        font-weight: 800;
     }
 
     .c-slider__item__cta {

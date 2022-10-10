@@ -31,7 +31,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 
             .c-option__checkbox--label-text {
                 font-style: normal;
-                font-weight: 500;
+                font-weight: $font-weight-base;
                 color: $c-option-label-active-color;
             }
 

@@ -45,8 +45,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     .c-field__helper {
         font-style: italic;
+        font-family: $font-family-italic;
+        font-weight: $font-family-italic;
         font-size: $c-field-helper-font-size;
-        font-weight: 500;
         color: #707070;
         margin-top: calc(#{$base}/2);
         margin-left: calc(#{$base}/4);
