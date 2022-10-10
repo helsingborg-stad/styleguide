@@ -117,14 +117,6 @@
             margin-left: map-get($spacers, "8");
             margin-right: map-get($spacers, "8");
         }
-
-        & .c-testimonials__slider {
-            margin: calc(var(--base, 8px) * 1);
-
-            // & .c-slider .c-slider__item .c-slider__item__container {
-            //     padding: map-get($spacers, '2');
-            // }
-        }
     }
 }
 
