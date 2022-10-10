@@ -104,7 +104,7 @@
             filter: none !important;
         }
     }
-
+    
     .c-slider {
         max-height: unset;
         
@@ -120,13 +120,13 @@
         }
         
         .c-slider__arrows .splide__arrow.splide__arrow--next {
-            right: calc(var(--base, 8px) * -8);
+            right: calc(var(--base, 8px) * -1);
         }
         
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
-            left: calc(var(--base, 8px) * -8);
+            left: calc(var(--base, 8px) * -1);
         }
-
+        
         .c-slider__container .c-slider__inner {
             position: static;
         }

@@ -34,7 +34,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     }
 
     .c-slider__arrows {
-        width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+        width: 100%;
         max-width: $c-slider-max-width;
         position: absolute;
         top: 50%;
@@ -60,7 +60,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             }
         }
     }
-    
+
     &__controls {
         width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
         max-width: $c-slider-max-width;
