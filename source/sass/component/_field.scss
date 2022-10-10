@@ -83,7 +83,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border-radius: $c-field-border-radius;
 
         input {
-            color: var(--c-field-label-text-transform, $color-darker);
+            color: $color-darkest;
         }
 
         &:focus,
