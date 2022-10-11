@@ -29,3 +29,8 @@ $radius: (
 .c-iframe {
     border-radius: $c-iframe-border-radius;
 }
+
+.js-suppressed-iframe-wrapper {
+    position: relative;
+    background-color: white;
+}

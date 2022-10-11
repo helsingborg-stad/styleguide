@@ -1,14 +1,14 @@
 let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
-const template = ({ titleText, infoText, buttonText }) => (`
-    <div class="js-suppressed-iframe-wrapper" style="position:relative;">
-        <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; background-color: white; display: flex; align-items: center;">
+const template = ({ title, info, button }) => (`
+    <div class="js-suppressed-iframe-wrapper">
+        <div class="js-suppressed-iframe-prompt" style="position:absolute; left:0; top:0; width:100%; height:100%; z-index:1; display: flex; align-items: center; overflow:auto;">
             <div style="max-width: 600px; width: 100%; margin: auto; padding: 0 24px;">
-            <h4 class="c-typography c-typography__variant--h2">${titleText}</h4>
-            <p class="c-typography u-padding__bottom--4 c-typography__variant--p">${infoText}</p> 
+            <h4 class="c-typography c-typography__variant--h2">${title}</h4>
+            <p class="c-typography u-padding__bottom--4 c-typography__variant--p">${info}</p> 
                 <button class="js-suppressed-iframe-button c-button c-button__filled c-button__filled--primary c-button--md" target="_top" type="button" aria-pressed="false" style="">   
                     <span class="c-button__label">
-                        <span class="c-button__label-text">${buttonText}</span>
+                        <span class="c-button__label-text">${button}</span>
                     </span>
                 </button>  
             </div>
@@ -17,48 +17,55 @@ const template = ({ titleText, infoText, buttonText }) => (`
 `)
 
 const revealIframes = () => {
-    [...document.querySelectorAll('.js-suppressed-iframe-prompt')]
+    [...document.querySelectorAll('.js-suppressed-iframe-wrapper')]
         .forEach(item => {
-            const iframe = item.nextElementSibling;
-            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            const iframe = item.querySelector('iframe');
+            const iframeUrl = new URL(iframe.getAttribute('data-src'));
             if(acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
-                item.classList.add('u-display--none');
+                item.classList.remove('js-suppressed-iframe-wrapper');
+                item.style.position = 'static';
+                item.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
             }
         }); 
 }
 
 const onClicklHandler = (iframe) => {
-    const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
-    if (!acceptedSuppliers.includes(iframeUrl.host)) {
+    const iframeUrl = new URL(iframe.getAttribute('data-src'));
+    if (!acceptedSuppliers.includes(iframeUrl.host) && iframeUrl.host !== "https" && iframeUrl.host !== "http") {
         acceptedSuppliers.push(iframeUrl.host);
-    }
+    } 
+    
     localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
     
     revealIframes();
 }
 
 const suppressIframes = () => {
+  
     [...document.querySelectorAll('.js-suppressed-iframe')]
     .forEach(iframe => {
-            const dataAttribute = JSON.parse(iframe.getAttribute('data-suppressed-iframe-options') ?? '{}');
-            const options = {
-                labels: {
-                    titleText: "We need your consent to continue",
-                    infoText: `This part of the website shows content from another website. By continuing, you are accepting GDPR and privacy policy.`,
-                    buttonText: "I understand, continue."
-                },
-                ...dataAttribute
+            let lang = JSON.parse(iframe.getAttribute('options') ?? '{}');
+
+            const option = () => {
+                if (iframe.getAttribute('data-supplier-name') && iframe.getAttribute('data-supplier-policy')) {
+                    lang.knownLabels.info = lang.knownLabels.info.replace('{SUPPLIER_WEBSITE}', iframe.getAttribute('data-supplier-name')).replace('{SUPPLIER_POLICY}', iframe.getAttribute('data-supplier-policy'));
+
+                    return lang.knownLabels;
+
+                } else { 
+                    return lang.unknownLabels;
+                }
             }
-            const { labels: {titleText, infoText, buttonText }} = options; 
+            const {title, info, button } = option(); 
             const div = document.createElement('div');
-            div.insertAdjacentHTML('beforeend', template({ titleText, infoText, buttonText }));
+            div.insertAdjacentHTML('beforeend', template({ title, info, button } ));
             const wrapper = div.querySelector("*");
-            const button = wrapper.querySelector('.js-suppressed-iframe-button');
+            const buttonEl = wrapper.querySelector('.js-suppressed-iframe-button');
             iframe.parentNode.insertBefore(wrapper, iframe);
             wrapper.appendChild(iframe);
-            button.params = {iframe: iframe};
-            button.addEventListener('click', () => {
+            buttonEl.params = {iframe: iframe};
+            buttonEl.addEventListener('click', () => {
                 onClicklHandler(iframe);
             });
             div.remove();
@@ -68,10 +75,10 @@ const suppressIframes = () => {
 export default () => addEventListener('DOMContentLoaded', () => {
     if(acceptedSuppliers.length > 0) {
         [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframe => {
-            const iframeUrl = new URL('https:'.concat(iframe.getAttribute('data-src')));
+            const iframeUrl = new URL(iframe.getAttribute('data-src'));
             if (acceptedSuppliers.includes(iframeUrl.host)) {
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
-                iframe.classList.remove('js-suppressed-iframe');
+                iframe.classList.remove('js-suppressed-iframe'); 
             }
         })
     }
