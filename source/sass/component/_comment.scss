@@ -22,7 +22,8 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
 
     .c-comment__top .c-comment__author {
         font-size: .9em;
-        font-weight: 600;
+        font-weight: $font-weight-bold;
+        font-family: $font-family-bold;
         color: $color-darker;
     }
 

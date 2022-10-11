@@ -48,7 +48,16 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             border-width: #{$base} 0 #{$base} #{$base};
             border-color: transparent transparent transparent #{$c-timeline-card-background-color};
         }
+        
+        &.c-card--flat {
+            background: none;
+
+            &::before {
+                display: none;
+            }
+        }
     }
+
 
     &:nth-child(odd) {
         left: 0%;

@@ -14,7 +14,8 @@ $c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
     font-size: $font-size-meta;
     transition: background-color 100ms ease-in-out;
     user-select: none;
-    font-weight: bold;
+    font-family: $font-family-bold;
+    font-weight: $font-weight-bold;
 
     &--format {
         word-spacing: -0.5ex;

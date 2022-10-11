@@ -85,7 +85,8 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
 
   .c-hero__byline {
     font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
-    font-weight: 700;
+    font-weight: $font-weight-bold;
+    font-family: $font-family-bold;
     animation-delay: 400ms;
     display: inline-block;
   }

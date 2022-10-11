@@ -10,6 +10,8 @@ $font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console",
 $font-family-base: var(--font-family-base, $font-family-roboto) !default;
 $font-family-heading: var(--font-family-heading, $font-family-base) !default;
 $font-family-body: $font-family-roboto !default;
+$font-family-bold: var(--font-family-bold, $font-family-roboto) !default;
+$font-family-italic: var(--font-family-italic, $font-family-roboto) !default;
     
 //  Font size
 $font-size-base: var(--font-size-base, 16px) !default;
@@ -53,8 +55,10 @@ $icon-sizes:(
 //  Font Weights
 $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;
-$font-weight-bold: 700 !default;
+$font-weight-bold: var(--font-weight-bold, 700) !default;
 $font-weight-thin: 200 !default;
+$font-weight-italic: var(--font-weight-italic, 400) !default;
+
 
 $font-weight-base: var(--font-weight-base, #{$font-weight-normal}) !default;
 $font-weight-heading: var(--font-weight-heading, #{$font-weight-medium}) !default;

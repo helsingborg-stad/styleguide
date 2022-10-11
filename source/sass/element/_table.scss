@@ -10,6 +10,11 @@ table th {
     line-height: 24px;
 }
 
+table th {
+    font-weight: $font-weight-bold;
+    font-family: $font-family-bold;
+}
+
 table thead th {
     color: $color-white;
     background-color: $color-primary;

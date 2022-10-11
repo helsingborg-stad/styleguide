@@ -255,7 +255,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             opacity: .12 !important;
         }
   
-        .c-button__label {
+        .c-button__label-text {
             color: $c-button-color-contrasting;
         }
     }

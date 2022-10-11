@@ -63,6 +63,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    // Flat card design
     &.c-card--flat {
         background: none;
         border: none;
@@ -78,11 +79,16 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
         & > *:first-child  {
             border-radius: $c-card-border-radius;
-            filter: $drop-shadow-2;
             will-change: filter;
-
+            
             .c-card__image-background {
                 border-radius: $c-card-border-radius;
+            }
+        }
+
+        &.c-card__video, &.c-card__map {
+            .c-card__header {
+                border-radius: $c-card-border-radius $c-card-border-radius 0 0;
             }
         }
     
@@ -97,6 +103,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             padding-right: 0; 
         }
 
+        .c-card__header {
+            padding: 0
+        }
+        
         @include mq(map_get($breakpoints-map, "md")) {
             &.c-card--size-sm,
             &.c-card--size-md,
@@ -110,7 +120,8 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
                 }
             }
         }
-    }  
+    }
+
 
     &--accented {
         .c-card {
@@ -236,6 +247,12 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
             h4 {
                 margin-top: 0px;
+            }
+        }
+
+        &.c-card--flat {
+            .c-card__header {
+                padding: map-get($spacers, '2');
             }
         }
     }
