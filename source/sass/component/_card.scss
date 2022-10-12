@@ -176,27 +176,33 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
-    &--image-16-9 {
-        .c-card__image {
-            padding-top: 56.25%;
+    .c-card__image {
+        .c-card--image-1-1  {
+            @include ratio(1, 1, false);
         }
     }
 
-    &--image-4-3 {
-        .c-card__image {
-            padding-top: 75%;
+     .c-card__image {
+        .c-card--image-16-9  {
+            @include ratio(16, 9, false);
         }
     }
 
-    &--image-10-3 {
-        .c-card__image {
-            padding-top: 30%;
+     .c-card__image {
+        .c-card--image-4-3  {
+            @include ratio(4, 3, false);
         }
     }
 
-    &--image-36-7 {
-        .c-card__image {
-            padding-top: 19.44%;
+     .c-card__image {
+        .c-card--image-10-3  {
+            @include ratio(10, 3, false);
+        }
+    }
+
+     .c-card__image {
+        .c-card--image-36-7  {
+            @include ratio(36, 7, false);
         }
     }
 
