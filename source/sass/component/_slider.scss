@@ -27,8 +27,14 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
+    &.c-slider--shadow {
+        .c-slider__container {
+            filter: $drop-shadow-2;
+        }
+    }
+
     .c-slider__arrows {
-        width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+        width: 100%;
         max-width: $c-slider-max-width;
         position: absolute;
         top: 50%;
@@ -54,7 +60,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             }
         }
     }
-    
+
     &__controls {
         width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
         max-width: $c-slider-max-width;
@@ -120,11 +126,16 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
-    &.c-slider--shadow {
-        .c-slider__arrows, .c-slider__container {
-            filter: $drop-shadow-2;
-        }
-    }
+    // &.c-slider--shadow {
+    //     // .c-slider__arrows, .c-slider__container {
+    //     //     filter: $drop-shadow-2;
+    //     // }
+    //     border: 1px solid red;
+    // }
+
+    // .c-slider--shadow {
+    //     filter: $drop-shadow-2;
+    // }
 
     &.c-slider--has-stepper {
         margin-bottom: calc(#{$base} * 6);
