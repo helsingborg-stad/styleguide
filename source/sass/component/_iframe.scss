@@ -44,8 +44,8 @@ $radius: (
             margin:auto;
         }
     }
-}
-    &.js-suppressed-video {
+
+     &.js-suppressed-video {
 
         & .js-suppressed-iframe-prompt {
             color:white;
@@ -63,7 +63,5 @@ $radius: (
                 font-size: 80px;
             }
         }
-
-        
     }
 }
