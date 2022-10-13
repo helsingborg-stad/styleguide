@@ -45,3 +45,25 @@ $radius: (
         }
     }
 }
+    &.js-suppressed-video {
+
+        & .js-suppressed-iframe-prompt {
+            color:white;
+            max-width: unset;
+            backdrop-filter: blur(10px);
+            height: 100%;
+            width: 100%;
+            background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));
+        }
+
+        .suppressed-iframe-icon-button {
+            text-align: center;
+            .c-icon {
+                cursor: pointer;
+                font-size: 80px;
+            }
+        }
+
+        
+    }
+}
