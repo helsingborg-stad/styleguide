@@ -59,8 +59,6 @@
 
     // Slider style
     .c-testimonials__slider {
-    margin: 0;
-
         .c-slider {
             max-height: unset;
             
@@ -80,14 +78,6 @@
                         filter: none;
                     }
                 }
-            }
-            
-            .c-slider__arrows .splide__arrow.splide__arrow--next {
-                right: calc(var(--base, 8px) * -2.5);
-            }
-            
-            .c-slider__arrows .splide__arrow.splide__arrow--prev {
-                left: calc(var(--base, 8px) * -2.5);
             }
             
             .c-slider__container .c-slider__inner {
@@ -119,9 +109,10 @@
             margin-left: map-get($spacers, "8");
             margin-right: map-get($spacers, "8");
         }
+
+        & .c-testimonials__slider {
+            padding-left: calc(#{$base} * 7);
+            padding-right: calc(#{$base} * 7);
+        }
     }
 }
-
-
-
-
