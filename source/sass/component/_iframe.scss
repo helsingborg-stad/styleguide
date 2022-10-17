@@ -47,7 +47,7 @@ $radius: (
     }
 
      &.js-suppressed-video {
-
+        position:static;
         & .js-suppressed-iframe-prompt {
             color:white;
             max-width: unset;
