@@ -32,6 +32,7 @@ $radius: (
 
 .js-suppressed-iframe-wrapper {
     background-color: white;
+    position: relative;
 
     .js-suppressed-iframe-prompt {
         @include cover;
@@ -46,7 +47,7 @@ $radius: (
     }
 
      &.js-suppressed-video {
-
+        position:static;
         & .js-suppressed-iframe-prompt {
             color:white;
             max-width: unset;
