@@ -5,12 +5,18 @@ const revealIframes = () => {
         .forEach(iframeWrapper => {
             const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframe.getAttribute('data-src'));
+            const iframeWrapperParent = iframeWrapper.parentNode;
             if(acceptedSuppliers.includes(iframeUrl.host)) {
+                if(iframeWrapperParent.classList.contains('embed__ratio--1-1')) {
+                     console.log(iframeWrapper.parentNode.classList.contains('embed__ratio--16-9'));
+                    iframeWrapperParent.classList.remove('embed__ratio--1-1');
+                    iframeWrapperParent.classList.add('embed__ratio--16-9');
+                 }
                 iframe.setAttribute('src', iframe.getAttribute('data-src'));
                 iframeWrapper.classList.remove('js-suppressed-iframe-wrapper');
                 iframeWrapper.style.position = 'static';
                 iframeWrapper.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
-            }
+            } 
         }); 
 }
 
@@ -42,7 +48,13 @@ export default () => addEventListener('DOMContentLoaded', () => {
         [...document.querySelectorAll('.js-suppressed-iframe-wrapper')].forEach(iframeWrapper => {
             const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframe.getAttribute('data-src'));
+            const iframeWrapperParent = iframeWrapper.parentNode;
             if (acceptedSuppliers.includes(iframeUrl.host)) {
+                if (iframeWrapperParent.classList.contains('embed__ratio--1-1')) {
+                    console.log(iframeWrapper.parentNode.classList.contains('embed__ratio--16-9'));
+                    iframeWrapperParent.classList.remove('embed__ratio--1-1');
+                    iframeWrapperParent.classList.add('embed__ratio--16-9');
+                }
                 iframe.setAttribute('src', iframeWrapper.querySelector('iframe').getAttribute('data-src'));
                 iframeWrapper.querySelector('.js-suppressed-iframe-prompt').style.display = 'none';
                 iframeWrapper.classList.remove('js-suppressed-iframe-wrapper'); 
