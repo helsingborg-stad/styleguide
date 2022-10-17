@@ -30,8 +30,13 @@ $radius: (
     border-radius: $c-iframe-border-radius;
 }
 
+.c-card__video .js-suppressed-iframe-wrapper {
+    position: static;
+}
+
 .js-suppressed-iframe-wrapper {
     background-color: white;
+    position: relative;
 
     .js-suppressed-iframe-prompt {
         @include cover;
