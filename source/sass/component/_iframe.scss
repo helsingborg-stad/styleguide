@@ -33,6 +33,10 @@ $radius: (
 .js-suppressed-iframe-wrapper {
     background-color: white;
 
+     & + .modularity-mod-map__button {
+        z-index: -1;
+    }
+
     .js-suppressed-iframe-prompt {
         @include cover;
         z-index: 1;
