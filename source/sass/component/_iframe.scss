@@ -54,6 +54,9 @@ $radius: (
             height: 100%;
             width: 100%;
             background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));
+            & a {
+                color:white;
+            }
         }
 
         .suppressed-iframe-icon-button {
