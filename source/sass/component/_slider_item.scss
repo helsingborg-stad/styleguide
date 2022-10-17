@@ -33,6 +33,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         color: $c-slider-color-overlay-contrasting;
         background-color: transparent;
         backdrop-filter: blur(1px);
+        display: grid;
     }
 
     .c-slider__item__body {
@@ -187,6 +188,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     @include mq(map_get($breakpoints-map, 'sm')) {
         .c-slider__item__container {
             display: grid;
+            // border: 1px solid red;
             grid-template-columns: 2fr min-content;
             grid-template-rows: min-content;
         }
