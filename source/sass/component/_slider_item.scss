@@ -79,6 +79,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
     // Modifiers
     &.c-slider__item {
+        margin: $c-slider-gap $c-slider-gap $c-slider-gap 0;
+
         &--bg-none {
             .c-slider__item__container {
                 background-color: none;
