@@ -2,6 +2,7 @@
     // General
     .c-testimonial {
     display: grid;
+    grid-template-rows: auto 1fr;
     grid-template-columns: calc(#{$base} * 11) auto;
     grid-template-areas: "image header" "quote quote";
     padding: map-get($spacers, "4");
