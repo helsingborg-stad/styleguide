@@ -33,9 +33,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         color: $c-slider-color-overlay-contrasting;
         background-color: transparent;
         backdrop-filter: blur(1px);
-        display: grid;
     }
-
+    
     .c-slider__item__body {
         margin-top: 0;
         word-wrap: break-word;
@@ -247,6 +246,11 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     }
 }
 
+.c-testimonials {
+    .c-slider__item__container {
+        display: grid;
+    }
+}
 
 @keyframes hero-slider-slide-in {
     0% {
