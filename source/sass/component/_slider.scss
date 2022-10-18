@@ -180,6 +180,31 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             }
         }
     }
+
+    // Posts as slider
+    &.posts-as-slider {
+
+        .c-slider__arrows {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            right: 90%;
+            z-index: 1;
+
+            .splide__arrow {
+                width: 40px;
+                position: relative;
+
+                &.splide__arrow--prev {
+                    left: 90%;
+                }
+    
+                &.splide__arrow--next {
+                    left: 90%;
+                }
+            }
+        }
+    }
 }
 
 // Stepper
@@ -222,6 +247,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             background: $color-primary;
         }
     }
+
 }
 
 // Printing
