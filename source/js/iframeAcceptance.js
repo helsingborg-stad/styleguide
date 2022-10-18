@@ -42,9 +42,15 @@ const suppressIframes = () => {
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    if (window.innerHeight > window.innerWidth) {
+    if (document.querySelectorAll('.embed__ratio--16-9').length > 0) {
         [...document.querySelectorAll('.embed__ratio--16-9')].forEach(embed => {
-            embed.classList.replace('embed__ratio--16-9', 'embed__ratio--1-1');
+            const iframe = embed.querySelector('iframe');
+            const button = embed.querySelector('[js-suppressed-video-placeholder-button]');
+            console.log(button);
+            console.log(iframe);
+            if (window.innerHeight > window.innerWidth)  {
+                embed.classList.replace('embed__ratio--16-9', 'embed__ratio--1-1');
+            }
         });
     }
     if (acceptedSuppliers.length > 0 && 
