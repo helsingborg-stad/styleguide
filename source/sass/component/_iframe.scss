@@ -45,14 +45,14 @@ $radius: (
             margin:auto;
         }
     }
-
+    
      &.js-suppressed-video {
-        position:static;
+        background-color: unset;
         & .js-suppressed-iframe-prompt {
             color:white;
             max-width: unset;
             backdrop-filter: blur(10px);
-            height: 100%;
+            height: min-content;
             width: 100%;
             background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));
         }
