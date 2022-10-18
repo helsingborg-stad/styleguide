@@ -42,7 +42,6 @@ const suppressIframes = () => {
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    console.log(window.innerHeight, window.innerWidth);
     if (window.innerHeight > window.innerWidth) {
         [...document.querySelectorAll('.embed__ratio--16-9')].forEach(embed => {
             embed.classList.replace('embed__ratio--16-9', 'embed__ratio--1-1');
