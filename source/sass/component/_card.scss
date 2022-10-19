@@ -387,6 +387,54 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         height: 0px;
         padding: 0px;
     }
+
+    &--event {
+        .c-card__image {
+            .c-card__image-background {
+                position: relative;
+            }
+        }
+        
+        &.c-card--image-1-1 {
+            .c-card__image {
+                .c-card__image-background {
+                    @include ratio(1, 1, false);
+                }
+            }
+        }
+        
+        &.c-card--image-16-9 {
+            .c-card__image {
+                .c-card__image-background {
+                    @include ratio(16, 9, false);
+                }
+            }
+        }
+        
+        &.c-card--image-4-3 {
+            .c-card__image {
+                .c-card__image-background {
+                    @include ratio(4, 3, false);
+                }
+            }
+        }
+        
+        &.c-card--image-10-3 {
+            .c-card__image {
+                .c-card__image-background {
+                    @include ratio(10, 3, false);
+                }
+            }
+        }
+        
+        &.c-card--image-36-7 {
+            .c-card__image {
+                .c-card__image-background {
+                    @include ratio(36, 7, false);
+                }
+            }
+        }
+    }
 }
 
 a.c-card {
@@ -443,56 +491,6 @@ a.c-card {
 .o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"]:after {
     border-radius: unset;
     filter: none; 
-}
-
-.modularity-event-index {
-    .c-card {
-        .c-card__image {
-            .c-card__image-background {
-                position: relative;
-            }
-        }
-        
-        &.c-card--image-1-1 {
-            .c-card__image {
-                .c-card__image-background {
-                    @include ratio(1, 1, false);
-                }
-            }
-        }
-        
-        &.c-card--image-16-9 {
-            .c-card__image {
-                .c-card__image-background {
-                    @include ratio(16, 9, false);
-                }
-            }
-        }
-        
-        &.c-card--image-4-3 {
-            .c-card__image {
-                .c-card__image-background {
-                    @include ratio(4, 3, false);
-                }
-            }
-        }
-        
-        &.c-card--image-10-3 {
-            .c-card__image {
-                .c-card__image-background {
-                    @include ratio(10, 3, false);
-                }
-            }
-        }
-        
-        &.c-card--image-36-7 {
-            .c-card__image {
-                .c-card__image-background {
-                    @include ratio(36, 7, false);
-                }
-            }
-        }
-    }
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
