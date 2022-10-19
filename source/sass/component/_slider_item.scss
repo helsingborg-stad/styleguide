@@ -167,11 +167,9 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 }
 
 .c-slider {
-    &.posts-as-slider {
+    &.c-slider--post {
         .c-slider__item {
-            margin: 2rem;
-            max-width: 200px;
-            height: 200px;
+           max-height: 30vh;
         }
     }
 }
