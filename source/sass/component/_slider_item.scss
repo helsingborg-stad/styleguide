@@ -163,13 +163,9 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 }
             }
         }
-    }
-}
 
-.c-slider {
-    &.c-slider--post {
-        .c-slider__item {
-           max-height: 30vh;
+        &--post {
+            max-height: 30vh;
         }
     }
 }
