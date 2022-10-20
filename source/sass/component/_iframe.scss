@@ -28,39 +28,79 @@ $radius: (
 
 .c-iframe {
     border-radius: $c-iframe-border-radius;
-}
-
-.js-suppressed-iframe-wrapper {
-    background-color: white;
     position: relative;
+    background-color: white;
 
-    .js-suppressed-iframe-prompt {
+    &__modal {
         @include cover;
         z-index: 1;
         display: flex;
         align-items: center;
-
-        .js-suppressed-iframe-prompt-content {
-            max-width: 600px;
-            margin:auto;
-        }
+        flex-direction: column;
     }
 
-     &.js-suppressed-video {
-        position:static;
-        & .js-suppressed-iframe-prompt {
+    &__description {
+        max-width: 600px;
+        margin:auto;
+    }
+
+     &--ratio {
+        position: relative;
+
+          /* &--video {
             color:white;
             max-width: unset;
             backdrop-filter: blur(10px);
             height: 100%;
             width: 100%;
-            background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));
-        }
+            background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));    
+        } */
 
-        .suppressed-iframe-icon-button {
+        /* 
+           &__action {
             text-align: center;
             .c-icon {
                 cursor: pointer;
+                font-size: 80px;
+        }
+    } */
+        
+    }
+}
+
+.c-acceptance {
+    border-radius: $c-iframe-border-radius;
+    
+    .c-acceptance__modal {
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    &.c-acceptance--video {
+    
+        .c-acceptance__modal {
+            @include cover;
+            overflow: auto;
+            background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));  
+            color:white; 
+            max-width: unset;
+            padding:calc(var(--base, 8px) * 3);
+        }
+        a {
+            color: var(--color-alpha-contrast, white);
+        }
+
+        .c-acceptance__modal-description {
+            margin: auto;
+        }
+
+        .c-acceptance__modal-button {
+            text-align: center;
+            margin-top: calc(var(--base, 8px) * 2);
+            .c-icon {
                 font-size: 80px;
             }
         }
