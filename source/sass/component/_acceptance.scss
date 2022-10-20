@@ -1,0 +1,41 @@
+.c-acceptance {
+    border-radius: $c-iframe-border-radius;
+    background-color: white;
+    position: relative;
+
+    .c-acceptance__modal {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        padding:calc(var(--base, 8px) * 2);
+    }
+
+    .c-acceptance__modal-description {
+        margin: auto;
+        max-width: 100%;
+    }
+
+    &.c-acceptance--video {
+        background-color: unset;
+        position: initial;
+        .c-acceptance__modal {
+            @include cover;
+            overflow: auto;
+            background-color: var(--c-slider-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.55)));  
+            color:white; 
+        }
+        a {
+            color: var(--color-alpha-contrast, white);
+        }
+
+        .c-acceptance__modal-button {
+            text-align: center;
+            margin-top: calc(var(--base, 8px) * 2);
+            .c-icon {
+                font-size: 80px;
+                cursor: pointer;
+            }
+        }
+    }
+}
