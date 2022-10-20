@@ -38,7 +38,7 @@ const suppressIframes = () => {
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-iframe').length > 0 ) {
+    /* if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-iframe').length > 0 ) {
         [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframeWrapper => {
             const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframeWrapper.getAttribute('data-src'));
@@ -48,7 +48,7 @@ export default () => addEventListener('DOMContentLoaded', () => {
                 iframeWrapper.classList.remove('js-suppressed-iframe'); 
             }
         })
-    }
+    } */
     document.querySelectorAll('.js-suppressed-iframe').length > 0 ? suppressIframes() : '';
 });
 
