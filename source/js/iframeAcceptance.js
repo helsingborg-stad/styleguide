@@ -3,14 +3,24 @@ let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ??
 const revealIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe')]
         .forEach(iframeWrapper => {
-            const iframe = iframeWrapper.querySelector('iframe');
             const iframeUrl = new URL(iframeWrapper.getAttribute('data-src'));
-            if(acceptedSuppliers.includes(iframeUrl.host)) {
-                iframe.setAttribute('src', iframeWrapper.getAttribute('data-src'));
-                iframeWrapper.classList.remove('js-suppressed-iframe');
-                iframeWrapper.style.position = 'static';
+
+           if(acceptedSuppliers.includes(iframeUrl.host)) {
+                const template = iframeWrapper.querySelector('template');
+                const iframeContent = iframeWrapper.querySelector('.c-acceptance__content');
                 iframeWrapper.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
-            } 
+                iframeWrapper.classList.remove('js-suppressed-iframe');
+                //iframeWrapper.style.position = 'static';
+                let clone = template.content.cloneNode(true);
+                iframeContent.appendChild(clone);
+                const iframe = iframeContent.querySelector('iframe');
+                if(iframeWrapper.classList.contains('c-acceptance--video')) {
+                    embedVideo(iframe);
+                } else {
+                    iframe.setAttribute('src', iframe.getAttribute('data-src'));
+                }
+                
+            }  
         }); 
 }
 
@@ -35,6 +45,10 @@ const suppressIframes = () => {
             });
            
         });
+}
+
+const embedVideo = (iframe) => {
+    console.log("hej");
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
