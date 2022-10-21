@@ -13,13 +13,13 @@ const setLocalStorage = (contentWrapper) => {
 /* Reveal function */
 const revealContent = (contentWrapper) => {
     const template = contentWrapper.querySelector('template');
-    const iframeContent = contentWrapper.querySelector('.c-acceptance__content');
+    const suppressedContentWrapper = contentWrapper.querySelector('.c-acceptance__content');
     const clone = template.content.cloneNode(true);
-    iframeContent.appendChild(clone);
-    const iframe = template.nextElementSibling;
+    suppressedContentWrapper.appendChild(clone);
+    const suppressedContent = template.nextElementSibling;
     contentWrapper.classList.remove('js-suppressed-content');
     contentWrapper.querySelector('.js-suppressed-content-prompt').classList.add('u-display--none');
-    iframe.setAttribute('src', iframe.getAttribute('data-src'));
+    suppressedContent.setAttribute('src', suppressedContent.getAttribute('data-src'));
 }
 
 /* Loops through an reveal every URL-host matching local storage */
@@ -54,7 +54,7 @@ const setEvents = () => {
         contentWrapper.querySelector('.js-suppressed-content-description').style.display = "block";
         const buttonEl = contentWrapper.querySelector('[js-suppressed-content-accept]');
         buttonEl.addEventListener('click', () => {
-        handleEvents(contentWrapper);
+            handleEvents(contentWrapper);
         });  
     });
 }
