@@ -50,7 +50,7 @@ const handleEvents = (contentWrapper) => {
 const setEvents = () => {
     [...document.querySelectorAll('.js-suppressed-content')]
     .forEach(contentWrapper => {
-        const buttonEl = contentWrapper.querySelector('[js-suppressed-content-button]');
+        const buttonEl = contentWrapper.querySelector('[js-suppressed-content-accept]');
         buttonEl.addEventListener('click', () => {
         handleEvents(contentWrapper);
         });  
