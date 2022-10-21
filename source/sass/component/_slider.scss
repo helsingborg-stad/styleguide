@@ -183,8 +183,6 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
     // Posts as slider
     &.c-slider--post {
-        padding: 3rem 1rem;
-        
         .c-slider__arrows {
             width: 100%;
             height: 20px;
