@@ -3,13 +3,13 @@ let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ??
 const revealIframe = (iframeWrapper) => {
     const template = iframeWrapper.querySelector('template');
     const iframeContent = iframeWrapper.querySelector('.c-acceptance__content');
-    iframeWrapper.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
     iframeWrapper.classList.remove('js-suppressed-iframe');
+    iframeWrapper.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
     //iframeWrapper.style.position = 'static';
     let clone = template.content.cloneNode(true);
     iframeContent.appendChild(clone);
     const iframe = iframeContent.querySelector('iframe');
-    if (iframeWrapper.classList.contains('c-acceptance--video')) {
+    if (iframeWrapper.classList.contains('c-acceptance--video') && iframeWrapper.parentNode.classList.contains('embed')) {
         embedVideo(iframe, iframeWrapper);
     } else {
         iframe.setAttribute('src', iframe.getAttribute('data-src'));
@@ -17,9 +17,13 @@ const revealIframe = (iframeWrapper) => {
 }
 
 const embedVideo = (iframe, iframeWrapper) => {
-    console.log("hej");
-    const embed = iframeWrapper.parentNode;
-    console.log(embed);
+    const parent = iframeWrapper.parentNode;
+    const playButton = parent.querySelector('[js-suppressed-video-button]')
+    playButton.style.display = "block";
+    playButton.onclick = () => {
+        playButton.style.display = "none";
+        iframe.setAttribute('src', iframe.getAttribute('data-src'));
+    }
 }
 
 
@@ -48,7 +52,7 @@ const onClicklHandler = (iframeWrapper) => {
 const suppressIframes = () => {
     [...document.querySelectorAll('.js-suppressed-iframe')]
     .forEach(iframeWrapper => {
-            iframeWrapper.querySelector('.js-suppressed-iframe-prompt').style.display = 'flex';
+            iframeWrapper.querySelector('.js-suppressed-iframe-description').style.display = "block";
             const buttonEl = iframeWrapper.querySelector('[js-suppressed-iframe-button]');
             buttonEl.params = {iframe: iframeWrapper};
             buttonEl.addEventListener('click', () => {

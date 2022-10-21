@@ -12,7 +12,7 @@
     }
 
     .c-acceptance__modal-description {
-        margin-top: auto;
+        margin: auto;
         max-width: 100%;
     }
 
@@ -20,14 +20,9 @@
         height: 100%;
     }
 
-    .c-acceptance__modal-button {
-        margin-bottom: auto;
-    }
-
     &.c-acceptance--video {
         background-color: unset;
         position: initial;
-
         .c-acceptance__modal {
             @include cover;
             overflow: auto;
