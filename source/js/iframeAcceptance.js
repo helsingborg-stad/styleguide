@@ -13,7 +13,7 @@ const setLocalStorage = (contentWrapper) => {
 const revealContent = (contentWrapper) => {
     const template = contentWrapper.querySelector('template');
     const iframeContent = contentWrapper.querySelector('.c-acceptance__content');
-    let clone = template.content.cloneNode(true);
+    const clone = template.content.cloneNode(true);
     iframeContent.appendChild(clone);
     const iframe = template.nextElementSibling;
     contentWrapper.classList.remove('js-suppressed-content');
@@ -38,7 +38,7 @@ const handleEvents = (contentWrapper) => {
     /* Sets local storage  */
     setLocalStorage(contentWrapper);
 
-    /* Modifiers (else equals no modifier) */
+    /* Modifiers (else equals "no modifier") */
     if (contentWrapper.classList.contains('js-suppressed-content--video')) {
         revealContent(contentWrapper);
     } else {
@@ -50,6 +50,7 @@ const handleEvents = (contentWrapper) => {
 const setEvents = () => {
     [...document.querySelectorAll('.js-suppressed-content')]
     .forEach(contentWrapper => {
+        contentWrapper.querySelector('.js-suppressed-content-description').style.display = "block";
         const buttonEl = contentWrapper.querySelector('[js-suppressed-content-accept]');
         buttonEl.addEventListener('click', () => {
         handleEvents(contentWrapper);
