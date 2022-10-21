@@ -33,13 +33,20 @@
             color: var(--color-alpha-contrast, white);
         }
 
-        .c-acceptance__modal-button {
-            text-align: center;
-            margin-top: calc(var(--base, 8px) * 2);
-            .c-icon {
-                font-size: 80px;
-                cursor: pointer;
-            }
+        .c-acceptance__modal-icon-play {
+            cursor: pointer;
+            position: absolute;
+            font-size: 80px;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .c-acceptance__modal-icon-info {
+            position: absolute;
+            top: calc(var(--base, 8px) * 2);
+            right: calc(var(--base, 8px) * 2);
+
         }
     }
 }

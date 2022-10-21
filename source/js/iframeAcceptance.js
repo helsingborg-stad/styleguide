@@ -1,77 +1,73 @@
 let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
-const revealIframe = (iframeWrapper) => {
-    const template = iframeWrapper.querySelector('template');
-    const iframeContent = iframeWrapper.querySelector('.c-acceptance__content');
-    iframeWrapper.classList.remove('js-suppressed-iframe');
-    iframeWrapper.querySelector('.js-suppressed-iframe-prompt').classList.add('u-display--none');
-    //iframeWrapper.style.position = 'static';
-    let clone = template.content.cloneNode(true);
-    iframeContent.appendChild(clone);
-    const iframe = iframeContent.querySelector('iframe');
-    if (iframeWrapper.classList.contains('c-acceptance--video') && iframeWrapper.parentNode.classList.contains('embed')) {
-        embedVideo(iframe, iframeWrapper);
-    } else {
-        iframe.setAttribute('src', iframe.getAttribute('data-src'));
-    }
-}
-
-const embedVideo = (iframe, iframeWrapper) => {
-    const parent = iframeWrapper.parentNode;
-    const playButton = parent.querySelector('[js-suppressed-video-button]')
-    playButton.style.display = "block";
-    playButton.onclick = () => {
-        playButton.style.display = "none";
-        iframe.setAttribute('src', iframe.getAttribute('data-src'));
-    }
-}
-
-
-const revealIframes = () => {
-    [...document.querySelectorAll('.js-suppressed-iframe')]
-        .forEach(iframeWrapper => {
-            const iframeUrl = new URL(iframeWrapper.getAttribute('data-src'));
-
-           if(acceptedSuppliers.includes(iframeUrl.host)) {
-                revealIframe(iframeWrapper);
-            }  
-        }); 
-}
-
-const onClicklHandler = (iframeWrapper) => {
-    const iframeUrl = new URL(iframeWrapper.getAttribute('data-src'));
+/* Sets local storage */
+const setLocalStorage = (contentWrapper) => {
+    const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
     if (!acceptedSuppliers.includes(iframeUrl.host) && iframeUrl.host !== "https" && iframeUrl.host !== "http") {
         acceptedSuppliers.push(iframeUrl.host);
-    } 
-    
+    }
     localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
-   
-    revealIframes();
 }
 
-const suppressIframes = () => {
-    [...document.querySelectorAll('.js-suppressed-iframe')]
-    .forEach(iframeWrapper => {
-            iframeWrapper.querySelector('.js-suppressed-iframe-description').style.display = "block";
-            const buttonEl = iframeWrapper.querySelector('[js-suppressed-iframe-button]');
-            buttonEl.params = {iframe: iframeWrapper};
-            buttonEl.addEventListener('click', () => {
-                onClicklHandler(iframeWrapper);
-            });
-           
-        });
+/* Reveal function */
+const revealContent = (contentWrapper) => {
+    const template = contentWrapper.querySelector('template');
+    const iframeContent = contentWrapper.querySelector('.c-acceptance__content');
+    let clone = template.content.cloneNode(true);
+    iframeContent.appendChild(clone);
+    const iframe = template.nextElementSibling;
+    contentWrapper.classList.remove('js-suppressed-content');
+    contentWrapper.querySelector('.js-suppressed-content-prompt').classList.add('u-display--none');
+    iframe.setAttribute('src', iframe.getAttribute('data-src'));
+}
+
+/* Loops through an reveal every URL-host matching local storage */
+const revealContentLoop = () => {
+    [...document.querySelectorAll('.js-suppressed-content')]
+    .forEach(contentWrapper => {
+        if (contentWrapper.classList.contains('js-suppressed-content--none')) {
+            const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
+            if(acceptedSuppliers.includes(iframeUrl.host)) {
+                revealContent(contentWrapper);
+            }  
+        }
+    }); 
+}
+
+const handleEvents = (contentWrapper) => {
+    /* Sets local storage  */
+    setLocalStorage(contentWrapper);
+
+    /* Modifiers (else equals no modifier) */
+    if (contentWrapper.classList.contains('js-suppressed-content--video')) {
+        revealContent(contentWrapper);
+    } else {
+        revealContentLoop();
+    }
+}
+
+/* Adds click events for all suppressed content */
+const setEvents = () => {
+    [...document.querySelectorAll('.js-suppressed-content')]
+    .forEach(contentWrapper => {
+        const buttonEl = contentWrapper.querySelector('[js-suppressed-content-button]');
+        buttonEl.addEventListener('click', () => {
+        handleEvents(contentWrapper);
+        });  
+    });
 }
 
 export default () => addEventListener('DOMContentLoaded', () => {
-    if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-iframe').length > 0 ) {
-        [...document.querySelectorAll('.js-suppressed-iframe')].forEach(iframeWrapper => {
-            const iframeUrl = new URL(iframeWrapper.getAttribute('data-src'));
-            console.log(iframeUrl);
-            if (acceptedSuppliers.includes(iframeUrl.host)) {
-               revealIframe(iframeWrapper);
+    if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-content').length > 0 ) {
+        /* No modifiers */
+        [...document.querySelectorAll('.js-suppressed-content--none')].forEach(contentWrapper => {
+            const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
+            if (acceptedSuppliers.includes(iframeUrl.host) && contentWrapper.classList.contains('js-suppressed-content--none')) {
+                revealContent(contentWrapper);
             }
         })
+        /* More modifiers... */
     }
-    document.querySelectorAll('.js-suppressed-iframe').length > 0 ? suppressIframes() : '';
+    document.querySelectorAll('.js-suppressed-content').length > 0 ? setEvents() : '';
 });
 
