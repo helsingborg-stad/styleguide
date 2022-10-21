@@ -1,6 +1,5 @@
 let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
-
 /* Sets local storage */
 const setLocalStorage = (contentWrapper) => {
     const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
