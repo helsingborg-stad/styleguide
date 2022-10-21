@@ -33,7 +33,6 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         color: $c-slider-color-overlay-contrasting;
         background-color: transparent;
         backdrop-filter: blur(1px);
-        display: grid;
     }
 
     .c-slider__item__body {
@@ -80,6 +79,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
     // Modifiers
     &.c-slider__item {
+        margin-right:$c-slider-gap;
+
         &--bg-none {
             .c-slider__item__container {
                 background-color: none;
