@@ -70,6 +70,6 @@ export default () => addEventListener('DOMContentLoaded', () => {
         })
         /* More modifiers... */
     }
-    document.querySelectorAll('.js-suppressed-content').length > 0 ? setEvents() : '';
+    document.querySelectorAll('.js-suppressed-content').length > 0 && setEvents();
 });
 
