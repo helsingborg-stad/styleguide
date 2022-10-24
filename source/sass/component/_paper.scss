@@ -69,8 +69,11 @@ $c-paper-border-color: var(--c-paper-border-color, $color-border-card) !default;
         padding-top:10px;
     }
 
-}
-
-.c-card  .c-paper {
-    //display: flow-root;
+    // Flat card design
+    &.c-paper--flat {
+        background: none;
+        border: none;
+        filter: none;
+    }
+    //end flat card design
 }
