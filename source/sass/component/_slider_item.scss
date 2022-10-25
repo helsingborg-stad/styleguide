@@ -165,9 +165,15 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         }
 
         &--post {
+            width: 100%;
+
             .c-slider__item__container {
                 position: relative;
-                top: calc(#{$base} * 4)
+                top: calc(#{$base} * 4);
+            }
+
+            .c-card--slider {
+                //
             }
         }
     }
