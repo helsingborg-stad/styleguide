@@ -111,6 +111,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    &--hidden-label {
+        .c-field__label {
+            display: none;
+        }
+    }
+
     textarea {
         min-height: $c-field-height;
         height: initial;
