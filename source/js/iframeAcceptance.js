@@ -1,11 +1,23 @@
 let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
+/* Undefined check */
+const hasSuppressedContent = (modifier) => {
+    let suppressedContentExists = document.querySelectorAll('.js-suppressed-content' + (modifier ? modifier : '')).length > 0;
+    return suppressedContentExists;
+}
+
+/* Returns url */
+const url = (contentWrapper) => { 
+    let url = new URL(contentWrapper.getAttribute('data-src'));
+    return url; 
+}
+
 /* Sets local storage */
 const setLocalStorage = (contentWrapper) => {
-    const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
+    const contentUrl = url(contentWrapper);
 
-    if (!acceptedSuppliers.includes(iframeUrl.host) && iframeUrl.host !== "https" && iframeUrl.host !== "http") {
-        acceptedSuppliers.push(iframeUrl.host);
+    if (!acceptedSuppliers.includes(contentUrl.host) && contentUrl.host !== "https" && contentUrl.host !== "http") {
+        acceptedSuppliers.push(contentUrl.host);
     }
     localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
 }
@@ -24,11 +36,11 @@ const revealContent = (contentWrapper) => {
 
 /* Loops through an reveal every URL-host matching local storage */
 const revealContentLoop = () => {
-    document.querySelectorAll('.js-suppressed-content').length > 0 && [...document.querySelectorAll('.js-suppressed-content')]
+    hasSuppressedContent() && [...document.querySelectorAll('.js-suppressed-content')]
     .forEach(contentWrapper => {
         if (contentWrapper.classList.contains('js-suppressed-content--none')) {
-            const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
-            if(acceptedSuppliers.includes(iframeUrl.host)) {
+            const contentUrl = url(contentWrapper);
+            if(acceptedSuppliers.includes(contentUrl.host)) {
                 revealContent(contentWrapper);
             }  
         }
@@ -49,8 +61,7 @@ const handleEvents = (contentWrapper) => {
 
 /* Adds click events for all suppressed content */
 const setEvents = () => {
-    document.querySelectorAll('.js-suppressed-content--none').length > 0 && [...document.querySelectorAll('.js-suppressed-content')]
-    .forEach(contentWrapper => {
+    hasSuppressedContent() && [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
         contentWrapper.querySelector('.js-suppressed-content-description').style.display = "block";
         const buttonEl = contentWrapper.querySelector('[js-suppressed-content-accept]');
         buttonEl.addEventListener('click', () => {
@@ -59,17 +70,18 @@ const setEvents = () => {
     });
 }
 
+/* Initiate and reveal already accepted */
 export default () => addEventListener('DOMContentLoaded', () => {
-    if (acceptedSuppliers.length > 0 && document.querySelectorAll('.js-suppressed-content').length > 0 ) {
+    if (acceptedSuppliers.length > 0 && hasSuppressedContent() ) {
         /* No modifiers */
-        document.querySelectorAll('.js-suppressed-content--none').length > 0 && [...document.querySelectorAll('.js-suppressed-content--none')].forEach(contentWrapper => {
-            const iframeUrl = new URL(contentWrapper.getAttribute('data-src'));
-            if (acceptedSuppliers.includes(iframeUrl.host) && contentWrapper.classList.contains('js-suppressed-content--none')) {
+        hasSuppressedContent('--none') && [...document.querySelectorAll('.js-suppressed-content--none')].forEach(contentWrapper => {
+            const contentUrl = url(contentWrapper);
+            if (acceptedSuppliers.includes(contentUrl.host) && contentWrapper.classList.contains('js-suppressed-content--none')) {
                 revealContent(contentWrapper);
             }
         })
         /* More modifiers... */
     }
-    document.querySelectorAll('.js-suppressed-content').length > 0 && setEvents();
+    hasSuppressedContent() && setEvents();
 });
 
