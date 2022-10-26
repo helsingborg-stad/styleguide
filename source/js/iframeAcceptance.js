@@ -8,8 +8,17 @@ const hasSuppressedContent = (modifier) => {
 
 /* Returns url */
 const url = (contentWrapper) => { 
-    let url = new URL(contentWrapper.getAttribute('data-src'));
-    return url; 
+    if(contentWrapper.hasAttribute('data-src')) {
+        let url = new URL(contentWrapper.getAttribute('data-src'));
+        return url; 
+    } 
+    /* modifiers */
+     else if (contentWrapper.classList.contains('js-suppressed-content--script')) {
+        const template = contentWrapper.querySelector('template');
+        const contentUrl = template.content.querySelector('script').getAttribute('src');
+        let url = new URL(contentUrl);
+        return url;
+    }
 }
 
 /* Sets local storage */
@@ -31,7 +40,6 @@ const revealContent = (contentWrapper) => {
     const suppressedContent = template.nextElementSibling;
     contentWrapper.classList.remove('js-suppressed-content');
     contentWrapper.querySelector('.js-suppressed-content-prompt').classList.add('u-display--none');
-    suppressedContent.setAttribute('src', suppressedContent.getAttribute('data-src'));
 }
 
 /* Loops through an reveal every URL-host matching local storage */
@@ -52,7 +60,8 @@ const handleEvents = (contentWrapper) => {
     setLocalStorage(contentWrapper);
 
     /* Modifiers (else equals "no modifier") */
-    if (contentWrapper.classList.contains('js-suppressed-content--video')) {
+    if (contentWrapper.classList.contains('js-suppressed-content--video') || 
+    contentWrapper.classList.contains('js-suppressed-content--script')) {
         revealContent(contentWrapper);
     } else {
         revealContentLoop();
@@ -73,14 +82,17 @@ const setEvents = () => {
 /* Initiate and reveal already accepted */
 export default () => addEventListener('DOMContentLoaded', () => {
     if (acceptedSuppliers.length > 0 && hasSuppressedContent() ) {
-        /* No modifiers */
-        hasSuppressedContent('--none') && [...document.querySelectorAll('.js-suppressed-content--none')].forEach(contentWrapper => {
-            const contentUrl = url(contentWrapper);
-            if (acceptedSuppliers.includes(contentUrl.host) && contentWrapper.classList.contains('js-suppressed-content--none')) {
-                revealContent(contentWrapper);
+        /* Reveal at start  */
+        [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
+            if(contentWrapper.classList.contains('js-suppressed-content--none') || 
+            contentWrapper.classList.contains('js-suppressed-content--script')) {
+                
+                const contentUrl = url(contentWrapper);
+                if (acceptedSuppliers.includes(contentUrl.host)) {
+                    revealContent(contentWrapper);
+                }
             }
         })
-        /* More modifiers... */
     }
     hasSuppressedContent() && setEvents();
 });
