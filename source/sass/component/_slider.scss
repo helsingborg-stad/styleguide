@@ -193,28 +193,24 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             .c-slider__item__container {
                 width: 100%;
                 position: static;
-                height: 90%;
+                height: 100%;
                 grid-template-rows: none;
             }
         }
 
         .c-slider__container {
             padding-top: Min(140%, 100vh);
-            border: 1px solid blue;
 
             @include mq(map_get($breakpoints-map, 'sm')) { // 520px
-                padding-top: Min(110%, 80vh);
-                border: 1px solid red;
-
+                padding-top: Max(110%, 80vh);
             }
+
             @include mq(map_get($breakpoints-map, 'md')) { // 896px
                 padding-top: Min(70%, 80vh);
-                border: 1px solid green;
-
             }
+
             @include mq(map_get($breakpoints-map, 'lg')) { // 1248px
                 padding-top: Min(50%, 80vh);
-                border: 1px solid yellow;
             }
         }
 
@@ -222,7 +218,7 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             width: 100%;
             height: 20px;
             position: absolute;
-            top: 0;
+            top: -25px;
             transform: translateX(-50%);
             z-index: 1;
             display: flex;

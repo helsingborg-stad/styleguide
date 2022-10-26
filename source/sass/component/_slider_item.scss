@@ -79,7 +79,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
     // Modifiers
     &.c-slider__item {
-        margin-right:$c-slider-gap;
+        margin-right: $c-slider-gap;
 
         &--bg-none {
             .c-slider__item__container {
@@ -167,15 +167,14 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         }
 
         &--post {
-            width: 100%;
+            width: 100%;     
+            // For now c-slider__item--post margin is not customizeable
+            // margin-right: $c-slider-gap; 
+            margin: 0;
 
             .c-slider__item__container {
                 position: relative;
                 top: calc(#{$base} * 4);
-            }
-
-            .c-card--slider {
-                //
             }
         }
     }
