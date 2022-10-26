@@ -37,14 +37,15 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         border-bottom-right-radius: $c-card-border-radius;
     }
 
-        &--size-sm.c-card--size-xs {
+    &--size-sm.c-card--size-xs {
         & > *:first-child {
             .c-card__image-background {
                 border-top-right-radius: 0;
             }
         }
+        
         & .c-card__image + .c-card__body {
-             border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
     }
 
@@ -161,8 +162,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
 
     &--size-sm .c-card__image, &--size-sm .c-card__image-background {
         flex-basis: 250px;
-          border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
-          border-top-right-radius: 0;
+        border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
     }
 
     &--size-sm .c-card__image + .c-card__body {
