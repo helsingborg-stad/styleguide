@@ -44,7 +44,7 @@
         .c-acceptance__modal-info {
             cursor: pointer;
             position: absolute;
-            top: calc(var(--base, 8px) * 2);
+            top: calc(var(--base, 8px) * 1);
             right: calc(var(--base, 8px) * 2);
             color: var(--color-alpha-contrast, white);
         }
