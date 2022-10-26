@@ -73,6 +73,7 @@
                     position: static;
                     padding: 0;
                     height: 100%;
+                    display: grid;
                     grid-template-rows: none;
 
                     & .c-testimonial {
