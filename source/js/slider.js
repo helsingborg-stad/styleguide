@@ -32,7 +32,7 @@ export default class Slider {
                 page: 'c-slider__dot',
             },
             breakpoints: {
-                992: {
+                896: {
                     perPage: 1,
                 }
             }

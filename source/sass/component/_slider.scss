@@ -200,15 +200,21 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
         .c-slider__container {
             padding-top: Min(140%, 100vh);
+            border: 1px solid blue;
 
-            @include mq(map_get($breakpoints-map, 'sm')) {
+            @include mq(map_get($breakpoints-map, 'sm')) { // 520px
                 padding-top: Min(110%, 80vh);
+                border: 1px solid red;
+
             }
-            @include mq(map_get($breakpoints-map, 'md')) {
+            @include mq(map_get($breakpoints-map, 'md')) { // 896px
                 padding-top: Min(70%, 80vh);
+                border: 1px solid green;
+
             }
-            @include mq(map_get($breakpoints-map, 'lg')) {
+            @include mq(map_get($breakpoints-map, 'lg')) { // 1248px
                 padding-top: Min(50%, 80vh);
+                border: 1px solid yellow;
             }
         }
 
