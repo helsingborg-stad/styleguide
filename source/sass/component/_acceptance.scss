@@ -41,13 +41,12 @@
             color: var(--color-alpha-contrast, white);
         }
 
-        .c-acceptance__modal-icon-info {
+        .c-acceptance__modal-info {
             cursor: pointer;
             position: absolute;
             top: calc(var(--base, 8px) * 2);
             right: calc(var(--base, 8px) * 2);
             color: var(--color-alpha-contrast, white);
-
         }
 
         .c-modal .c-modal__close {
