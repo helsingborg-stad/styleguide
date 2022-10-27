@@ -185,6 +185,12 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     &.c-slider--post {
         display: block;
 
+        &.c-slider--shadow {
+            .c-slider__container {
+                filter: none;
+            }
+        }
+
         .c-slider__item {
             display: flex;
             justify-content: center;
