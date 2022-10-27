@@ -16,19 +16,24 @@ const url = (contentWrapper) => {
      else if (contentWrapper.classList.contains('js-suppressed-content--script')) {
         const template = contentWrapper.querySelector('template');
         const contentUrl = template.content.querySelector('script').getAttribute('src');
-        let url = new URL(contentUrl);
-        return url;
+        if(contentUrl) {
+            let url = new URL(contentUrl);
+            return url;
+        } else { 
+            return false;
+        }
     }
 }
 
 /* Sets local storage */
 const setLocalStorage = (contentWrapper) => {
     const contentUrl = url(contentWrapper);
-
-    if (!acceptedSuppliers.includes(contentUrl.host) && contentUrl.host !== "https" && contentUrl.host !== "http") {
-        acceptedSuppliers.push(contentUrl.host);
-    }
-    localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
+    if (contentUrl) {
+        if (!acceptedSuppliers.includes(contentUrl.host) && contentUrl.host !== "https" && contentUrl.host !== "http") {
+            acceptedSuppliers.push(contentUrl.host);
+        }
+        localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
+    } 
 }
 
 /* Reveal function */
@@ -37,7 +42,6 @@ const revealContent = (contentWrapper) => {
     const suppressedContentWrapper = contentWrapper.querySelector('.c-acceptance__content');
     const clone = template.content.cloneNode(true);
     suppressedContentWrapper.appendChild(clone);
-    const suppressedContent = template.nextElementSibling;
     contentWrapper.classList.remove('js-suppressed-content');
     contentWrapper.querySelector('.js-suppressed-content-prompt').classList.add('u-display--none');
 }
