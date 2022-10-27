@@ -37,6 +37,8 @@ export default class Slider {
                 next: ariaLabels.next,
                 first: ariaLabels.first,
                 last: ariaLabels.last,
+                slideX: ariaLabels.slideX
+               
             },
             breakpoints: {
                 992: {
