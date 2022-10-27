@@ -248,6 +248,15 @@
             }
         }
     }
+
+    &.c-table--title-none {
+        .c-table__header {
+            text-align: right;
+        }
+        .c-icon {
+            position: inherit;
+        }
+    }
 }
 
 
