@@ -234,7 +234,7 @@
             }
 
             @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
-                min-width: 45vw;
+                min-width: 20vw;
             }
     
             &:after{
@@ -263,9 +263,13 @@
 /**
  * Embedded in modal
  */
- .c-table__modal {
+.c-table__modal {
     margin: calc(#{$base} * 2);
     height: calc(100vh - calc(#{$base} * 4));
+
+    .c-modal__header .c-modal__close .c-icon {
+        color: var(--color-black, #000000);
+    }
 
     .c-table__table {
         border: 1px solid $color-lighter;
