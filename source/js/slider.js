@@ -13,6 +13,8 @@ export default class Slider {
         this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const ariaLabels = JSON.parse(slider.getAttribute('data-aria-labels'));
+        console.log(ariaLabels);
 
         this.splide = new Splide(slider, {
             type: 'loop',
@@ -30,6 +32,12 @@ export default class Slider {
                 arrows: 'c-slider__arrows',
                 pagination: 'c-slider__steppers',
                 page: 'c-slider__dot',
+            },
+            i18n: {
+                prev: ariaLabels.prev,
+                next: ariaLabels.next,
+                first: ariaLabels.first,
+                last: ariaLabels.last,
             },
             breakpoints: {
                 992: {
