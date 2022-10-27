@@ -199,18 +199,10 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
 
         .c-slider__container {
-            padding-top: Min(140%, 100vh);
-
-            @include mq(map_get($breakpoints-map, 'sm')) { // 520px
-                padding-top: Max(110%, 80vh);
-            }
-
-            @include mq(map_get($breakpoints-map, 'md')) { // 896px
-                padding-top: Min(70%, 80vh);
-            }
-
-            @include mq(map_get($breakpoints-map, 'lg')) { // 1248px
-                padding-top: Min(50%, 80vh);
+            padding-top: 0;
+            
+            .c-slider__inner {
+                position: static;
             }
         }
 
