@@ -14,7 +14,6 @@ export default class Slider {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = JSON.parse(slider.getAttribute('data-aria-labels'));
-        console.log(ariaLabels);
 
         this.splide = new Splide(slider, {
             type: 'loop',
