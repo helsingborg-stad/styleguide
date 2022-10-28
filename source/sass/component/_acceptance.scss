@@ -23,7 +23,7 @@
 
     &.c-acceptance--video {
         background-color: unset;
-        position: initial;
+        position: relative;
         .c-acceptance__modal {
             @include cover;
             overflow: auto;
@@ -51,6 +51,15 @@
 
         .c-modal .c-modal__close {
             color: $color-black;
+        }
+    }
+}
+
+/* Since video module uses padding for ratio */
+.c-card__video {
+    .embed {
+        .c-acceptance.c-acceptance--video {
+            position: static;
         }
     }
 }
