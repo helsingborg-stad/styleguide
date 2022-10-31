@@ -24,7 +24,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
     }
 
     &.c-header--text-white > *,
-    &.c-header--text-white .c-button,
+    &.c-header--text-white .c-button__basic,
     &.c-header--text-white .c-nav .c-nav__link {
         color: $color-white;
     }
