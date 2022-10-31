@@ -34,7 +34,7 @@
         .c-acceptance__modal-icon-play {
             cursor: pointer;
             position: absolute;
-            font-size: 80px;
+            font-size: clamp(64px, 10vw, 80px);
             top:50%;
             left:50%;
             transform: translate(-50%, -50%);
