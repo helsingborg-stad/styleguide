@@ -186,6 +186,10 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         display: block;
 
         .c-slider__container {
+            filter: $drop-shadow-2;
+        }
+
+        .c-card {
             filter: none;
         }
 

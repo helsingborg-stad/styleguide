@@ -175,6 +175,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
             .c-slider__item__container {
                 position: relative;
                 top: calc(#{$base} * 4);
+                padding: 0;
             }
         }
     }
