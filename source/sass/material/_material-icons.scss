@@ -20,7 +20,8 @@
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
-  direction: ltr;
+  /* Respect document layout direction */
+  direction: inherit;
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
@@ -49,6 +50,8 @@
     content: "\e958"; }
   .material-icons._17mp:before {
     content: "\e959"; }
+  .material-icons._18_up_rating:before {
+    content: "\f8fd"; }
   .material-icons._18mp:before {
     content: "\e95a"; }
   .material-icons._19mp:before {
@@ -199,6 +202,10 @@
     content: "\e148"; }
   .material-icons.add_comment:before {
     content: "\e266"; }
+  .material-icons.add_home:before {
+    content: "\f8eb"; }
+  .material-icons.add_home_work:before {
+    content: "\f8ed"; }
   .material-icons.add_ic_call:before {
     content: "\e97c"; }
   .material-icons.add_link:before {
@@ -639,6 +646,10 @@
     content: "\e1ad"; }
   .material-icons.brightness_medium:before {
     content: "\e1ae"; }
+  .material-icons.broadcast_on_home:before {
+    content: "\f8f8"; }
+  .material-icons.broadcast_on_personal:before {
+    content: "\f8f9"; }
   .material-icons.broken_image:before {
     content: "\e3ad"; }
   .material-icons.browse_gallery:before {
@@ -1051,6 +1062,10 @@
     content: "\eb9f"; }
   .material-icons.data_usage:before {
     content: "\e1af"; }
+  .material-icons.dataset:before {
+    content: "\f8ee"; }
+  .material-icons.dataset_linked:before {
+    content: "\f8ef"; }
   .material-icons.date_range:before {
     content: "\e916"; }
   .material-icons.deblur:before {
@@ -1083,6 +1098,8 @@
     content: "\ebb6"; }
   .material-icons.design_services:before {
     content: "\f10a"; }
+  .material-icons.desk:before {
+    content: "\f8f4"; }
   .material-icons.desktop_access_disabled:before {
     content: "\e99d"; }
   .material-icons.desktop_mac:before {
@@ -1555,6 +1572,10 @@
     content: "\f1d8"; }
   .material-icons.fire_hydrant:before {
     content: "\f1a3"; }
+  .material-icons.fire_hydrant_alt:before {
+    content: "\f8f1"; }
+  .material-icons.fire_truck:before {
+    content: "\f8f2"; }
   .material-icons.fireplace:before {
     content: "\ea43"; }
   .material-icons.first_page:before {
@@ -2285,6 +2306,8 @@
     content: "\e898"; }
   .material-icons.lock_outline:before {
     content: "\e899"; }
+  .material-icons.lock_person:before {
+    content: "\f8f3"; }
   .material-icons.lock_reset:before {
     content: "\eade"; }
   .material-icons.login:before {
@@ -2599,6 +2622,8 @@
     content: "\ea46"; }
   .material-icons.no_accounts:before {
     content: "\f03e"; }
+  .material-icons.no_adult_content:before {
+    content: "\f8fe"; }
   .material-icons.no_backpack:before {
     content: "\f237"; }
   .material-icons.no_cell:before {
@@ -3041,6 +3066,8 @@
     content: "\ec13"; }
   .material-icons.psychology:before {
     content: "\ea4a"; }
+  .material-icons.psychology_alt:before {
+    content: "\f8ea"; }
   .material-icons.public:before {
     content: "\e80b"; }
   .material-icons.public_off:before {
@@ -3161,6 +3188,8 @@
     content: "\e928"; }
   .material-icons.reorder:before {
     content: "\e8fe"; }
+  .material-icons.repartition:before {
+    content: "\f8e8"; }
   .material-icons.repeat:before {
     content: "\e040"; }
   .material-icons.repeat_on:before {
@@ -4001,6 +4030,8 @@
     content: "\e570"; }
   .material-icons.tram:before {
     content: "\e571"; }
+  .material-icons.transcribe:before {
+    content: "\f8ec"; }
   .material-icons.transfer_within_a_station:before {
     content: "\e572"; }
   .material-icons.transform:before {
@@ -4057,6 +4088,8 @@
     content: "\e647"; }
   .material-icons.two_wheeler:before {
     content: "\e9f9"; }
+  .material-icons.type_specimen:before {
+    content: "\f8f0"; }
   .material-icons.u_turn_left:before {
     content: "\eba1"; }
   .material-icons.u_turn_right:before {
@@ -4221,6 +4254,8 @@
     content: "\e62f"; }
   .material-icons.vrpano:before {
     content: "\f082"; }
+  .material-icons.wallet:before {
+    content: "\f8ff"; }
   .material-icons.wallet_giftcard:before {
     content: "\e8f6"; }
   .material-icons.wallet_membership:before {
@@ -4299,6 +4334,12 @@
     content: "\e177"; }
   .material-icons.widgets:before {
     content: "\e1bd"; }
+  .material-icons.width_full:before {
+    content: "\f8f5"; }
+  .material-icons.width_normal:before {
+    content: "\f8f6"; }
+  .material-icons.width_wide:before {
+    content: "\f8f7"; }
   .material-icons.wifi:before {
     content: "\e63e"; }
   .material-icons.wifi_1_bar:before {

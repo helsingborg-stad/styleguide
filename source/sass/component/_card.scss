@@ -30,13 +30,30 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             border-top-left-radius: $c-card-border-radius;
             border-top-right-radius: $c-card-border-radius;
         }
-    }
+    } 
 
     & > *:last-child  {
         border-bottom-left-radius: $c-card-border-radius;
         border-bottom-right-radius: $c-card-border-radius;
     }
 
+    &--size-sm.c-card--size-xs {
+        & > *:first-child {
+            .c-card__image-background {
+                border-top-right-radius: 0;
+            }
+        }
+        
+        & .c-card__image + .c-card__body {
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    & figure.c-image {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+    }
+ 
     &__header i{
         vertical-align: top;
 
@@ -86,20 +103,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
 
         }
-
-        &.c-card--contact {
-            .c-card__image, .c-card__image-background {
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
-
-            &.c-card--highlight {
-                .c-card__header,
-                .c-card__body {
-                    border: var(--border-width-divider, 1px) solid var(--color-border-divider, #E5E5E5);
-                }
-            }
-        }
         
         &.c-card__video, &.c-card__map {
             .c-card__header {
@@ -122,7 +125,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             padding: 0
         }
 
-        
         @include mq(map_get($breakpoints-map, "md")) {
             &.c-card--size-sm,
             &.c-card--size-md,
@@ -138,7 +140,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
     //end flat card design
-
 
     &--accented {
         .c-card {
@@ -200,9 +201,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
         
     }
-    
-    &--size-sm .c-card__image {
+
+    &--size-sm .c-card__image, &--size-sm .c-card__image-background {
         flex-basis: 250px;
+        border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
     }
     
     &--size-sm .c-card__image + .c-card__body {

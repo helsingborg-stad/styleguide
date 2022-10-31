@@ -1,0 +1,12 @@
+{
+    "iframe":{
+        "heading": "Acceptance: Known provider",
+        "subHeading": "",
+        "text": "Known providers will output a well-formed name if the provider, and include the providers privacy policy. Unknown will just output domain."
+    },
+    "video": {
+        "heading": "Acceptance: Video",
+        "subHeading": "",
+        "text": "Acceptance adapts to video URL's automatically to provide a familiar user interface."
+    }
+}
