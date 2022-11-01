@@ -1,9 +1,6 @@
 @field(
     [
         'type' => 'range',
-        'attributeList' => [
-            'type' => 'range',
-            'name' => 'rangeSlider',
-        ]
+        'name' => 'rangeSlider',
     ])
 @endfield

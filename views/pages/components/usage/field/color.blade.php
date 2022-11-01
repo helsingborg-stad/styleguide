@@ -1,9 +1,6 @@
 @field(
     [
         'type' => 'color',
-        'attributeList' => [
-            'type' => 'color',
-            'name' => 'colorPicker',
-        ]
+        'name' => 'colorPicker',
     ])
 @endfield
