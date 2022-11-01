@@ -113,6 +113,52 @@
 
         <div class="grid-md-6">
             @markdown
+                ##Input field - Validated: invalid
+            @endmarkdown
+
+            @field([
+                'type' => 'email',
+                'placeholder' => 'email@email.com',
+                'name' => 'email',
+                'autocomplete' => 'e-mail',
+                'attributeList' => [
+                    'pattern' => '^[^@]+@[^@]+\.[^@]+$',
+                    'data-invalid-message' => "You need to add a valid E-mail!"
+                ],
+                'label' => "Add your E-mail",
+                'required' => true,
+                'classList' => [
+                    'is-invalid'
+                ]
+            ])
+            @endfield
+        </div>
+
+        <div class="grid-md-6">
+            @markdown
+                ##Input field - Validated: valid
+            @endmarkdown
+
+            @field([
+                'type' => 'email',
+                'placeholder' => 'email@email.com',
+                'name' => 'email',
+                'autocomplete' => 'e-mail',
+                'attributeList' => [
+                    'pattern' => '^[^@]+@[^@]+\.[^@]+$',
+                    'data-invalid-message' => "You need to add a valid E-mail!"
+                ],
+                'label' => "Add your E-mail",
+                'required' => true,
+                'classList' => [
+                    'is-valid'
+                ]
+            ])
+            @endfield
+        </div>
+
+        <div class="grid-md-6">
+            @markdown
                 ##Input field - Hidden label
             @endmarkdown
 
