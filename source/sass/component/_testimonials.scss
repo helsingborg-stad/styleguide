@@ -27,6 +27,13 @@
                 margin-top: calc(var(--base, 8px));
             }
         }
+        
+        // Flat card
+        &.c-card--flat {
+            .c-testimonial__image {
+                filter: none;
+            }
+        }
     }
     
     .c-testimonial__quote {
@@ -91,14 +98,6 @@
             padding-top: 0;
         }
     }
-
-    // Flat card
-    &.c-card--flat {
-        .c-testimonial__image {
-            filter: none;
-        }
-    }
-
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
