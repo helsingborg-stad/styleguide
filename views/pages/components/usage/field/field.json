@@ -2,7 +2,7 @@
     "text": {
         "heading": "Text",
         "subHeading": "",
-        "text": "Different text fields."
+        "text": "Note: Attributes can both be set as component parameters and in attribute list. Using attributes implemented in component parameters, will result in a warning. Attributes set will automatically appear wherever suitable (on html-input or component level)."
     },
     "range": {
         "heading": "Range",
