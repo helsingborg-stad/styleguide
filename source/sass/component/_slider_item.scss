@@ -166,6 +166,11 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
             }
         }
 
+        // Flat card
+        &.c-card--flat {
+            filter: none;
+        }
+
         &--post {
             width: 100%;     
             // For now c-slider__item--post margin is not customizeable
