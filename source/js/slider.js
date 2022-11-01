@@ -13,7 +13,7 @@ export default class Slider {
         this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const ariaLabels = JSON.parse(slider.getAttribute('data-aria-labels'));
+        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
 
         this.splide = new Splide(slider, {
             type: 'loop',
@@ -33,12 +33,11 @@ export default class Slider {
                 page: 'c-slider__dot',
             },
             i18n: {
-                prev: ariaLabels.prev,
-                next: ariaLabels.next,
-                first: ariaLabels.first,
-                last: ariaLabels.last,
-                slideX: ariaLabels.slideX
-               
+                prev: ariaLabels ?  ariaLabels.prev : 'Previous slider item',
+                next: ariaLabels ? ariaLabels.next : 'Next slider item',
+                first: ariaLabels ? ariaLabels.first : 'First slider item',
+                last: ariaLabels ? ariaLabels.last : 'Last slider item',
+                slideX: ariaLabels ? ariaLabels.slideX : 'Go to slide %s',
             },
             breakpoints: {
                 896: {
