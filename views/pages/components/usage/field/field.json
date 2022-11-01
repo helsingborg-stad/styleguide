@@ -4,11 +4,6 @@
         "subHeading": "",
         "text": "Note: Attributes can both be set as component parameters and in attribute list. Using attributes implemented in component parameters, will result in a warning. Attributes set will automatically appear wherever suitable (on html-input or component level)."
     },
-    "textarea": {
-        "heading": "Text",
-        "subHeading": "",
-        "text": ""
-    },
     "range": {
         "heading": "Range",
         "subHeading": "",
