@@ -8,7 +8,6 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 .c-slider {
     position: relative;
     border-radius: $border-radius-md;
-    max-height: 80vh;
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
