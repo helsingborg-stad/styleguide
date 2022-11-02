@@ -30,7 +30,8 @@
         filter: $drop-shadow-0;
         border-radius: 0;
 
-        .c-button__label {
+        .c-button__label .c-button__label-text,
+        .c-button__label .c-button__label-icon {
             color: $color-white;
         }
     }
