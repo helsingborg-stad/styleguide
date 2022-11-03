@@ -97,6 +97,17 @@
         .c-slider.is-active .c-slider__container {
             padding-top: 0;
         }
+
+        .c-slider__arrows {
+            .splide__arrow {
+                &.splide__arrow--prev {
+                    left: calc(#{$base} * -2.5);
+                }
+                &.splide__arrow--next {
+                    right: calc(#{$base} * -2.5);
+                }
+            }
+        }
     }
 }
 

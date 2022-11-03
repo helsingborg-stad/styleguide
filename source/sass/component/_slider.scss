@@ -50,25 +50,13 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             height: calc(#{$base} * 6);
 
             &.splide__arrow--prev {
-                left: calc(#{$base} * -2.5);
-                transform: translateY(-50%);
-            }
-
-            &.splide__arrow--next {
-                right: calc(#{$base} * -2.5);
-                transform: translateY(-50%);
-            }
-        }
-    }
-
-    &.c-slider--hero {
-        .splide__arrow {
-            &.splide__arrow--prev {
                 left: calc(#{$base} * 2.5);
+                transform: translateY(-50%);
             }
 
             &.splide__arrow--next {
                 right: calc(#{$base} * 2.5);
+                transform: translateY(-50%);
             }
         }
     }
