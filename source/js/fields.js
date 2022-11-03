@@ -329,7 +329,7 @@ class Fields {
             });
 
             // Validate fields on submit
-            const submitButton = form.querySelector('input[type="submit"]');
+            const submitButton = form.querySelector('button[type="submit"]');
             submitButton.addEventListener('click', (e) => {
                 if (form.contains(form.querySelector('.c-form__notice-failed')) && 
                 form.contains(form.querySelector('.c-form__notice-success'))) {
