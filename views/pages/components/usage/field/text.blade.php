@@ -1,4 +1,6 @@
 @form([
+    'errorMessage' => 'In some mysterious way, you failed to fill in the form correctly. Please try again.',
+    'validateMessage' => "Yay! we've done it! Form is submitted!",
     'attributeList' => [
         'autocomplete' => 'on'
     ]
