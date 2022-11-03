@@ -234,6 +234,7 @@ class Fields {
                 continue;
             }
             let inputId = formInput.getAttribute('id');
+
             // On Click event listener - Setting data
             document.getElementById(inputId).addEventListener('click', function (e) {
                 self.formElement = this;
@@ -278,7 +279,6 @@ class Fields {
 
         // If Require is on
         if (this.formElementRequired) {
-
             let valid = false;
             if (this.formElementPattern) {
                 valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
@@ -309,8 +309,20 @@ class Fields {
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
 
+            inputs.forEach(input => {
+                if(input.hasAttribute('data-validation-message')) {
+                    this.getFieldWrapper(input).querySelector('.c-field__error').innerHTML = input.getAttribute('data-validation-message');
+
+                    input.addEventListener('keyup', () => {
+                        if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
+                            self.validateInput(input);
+                        }
+                    })
+                }
+            });
+
             // Validate fields on change
-            ['keyup', 'change'].forEach(function(e) {
+            ['focusout', 'change'].forEach(function(e) {
                 inputs.forEach(input => {
                     input.addEventListener(e, () => self.validateInput(input));
                 });
@@ -319,20 +331,46 @@ class Fields {
             // Validate fields on submit
             const submitButton = form.querySelector('button[type="submit"]');
             submitButton.addEventListener('click', (e) => {
-                if(!form.checkValidity()) {
-                    inputs.forEach(input => {
-                        self.validateInput(input);
-                    });
+                if (form.contains(form.querySelector('.c-form__notice-failed')) && 
+                form.contains(form.querySelector('.c-form__notice-success'))) {
+                    const noticeFailed = form.querySelector('.c-form__notice-failed');
+                    const noticeSuccess = form.querySelector('.c-form__notice-success');
+
+                    if (form.checkValidity()) {
+                        this.classToggle(noticeSuccess, 'u-display--block', 'u-display--none', noticeFailed, true);
+
+                    } else {
+                        this.classToggle(noticeFailed, 'u-display--block', 'u-display--none', noticeSuccess, true);
+                    }
                 }
             });
         });
     }
+
+    classToggle(firstElement, addClass, removeClass, secondElement, ariaHidden) {
+        !firstElement.classList.contains(addClass) ? firstElement.classList.add(addClass) : '';
+        firstElement.classList.remove(removeClass);
+
+        if(ariaHidden) {
+            firstElement.setAttribute('aria-hidden', 'false');
+            secondElement ? secondElement.setAttribute('aria-hidden', 'true') : '';
+        }
+
+        if(secondElement) {
+            !secondElement.classList.contains(removeClass) ? secondElement.classList.add(removeClass) : '';
+            secondElement.classList.remove(addClass);
+        }
+    }
     
     validateInput(input) {
-        if(input.checkValidity()) {
-            this.getFieldWrapper(input).classList.remove('is-invalid');
+        if(input.value.length > 0) {
+            if(input.checkValidity()) {
+                this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
+            } else {
+                this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
+            }
         } else {
-            this.getFieldWrapper(input).classList.add('is-invalid');
+            this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
         }
     }
 

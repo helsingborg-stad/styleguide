@@ -226,6 +226,19 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__helper {
             color: $c-field-danger-color;
         }
+
+        .c-field__inner {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .c-field__error {
+            display: block;
+            padding: map-get($spacers, "05") map-get($spacers, "2");
+            color: $color-white;
+            background-color: $c-field-danger-color;
+            border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
+        }
     }
     
     &.is-valid {
@@ -239,6 +252,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__helper {
             color: $c-field-success-color;
         }
+    }
+
+    .c-field__error {
+        display: none;
     }
 }
 

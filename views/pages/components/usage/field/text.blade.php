@@ -1,4 +1,6 @@
 @form([
+    'errorMessage' => 'In some mysterious way, you failed to fill in the form correctly. Please try again.',
+    'validateMessage' => "Yay! we've done it! Form is submitted!",
     'attributeList' => [
         'autocomplete' => 'on'
     ]
@@ -14,10 +16,7 @@
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
                 'autocomplete' => 'e-mail',
-                'attributeList' => [
-                    'pattern' => '^[^@]+@[^@]+\.[^@]+$',
-                    'data-invalid-message' => "You need to add a valid E-mail!"
-                ],
+                'invalidMessage' => 'You need to add a valid E-mail!',
                 'label' => "Add your E-mail",
                 'required' => true,
             ])
@@ -35,9 +34,7 @@
                 'value' => '',
                 'label' => 'Enter a date',
                 'required' => true,
-                'attributeList' => [
-                    'data-invalid-message' => "You need to add a valid date!",
-                ],
+                'invalidMessage' => 'You need to add a valid date!',
                 'datepicker' => [
                     'minDate'               => "6/29/1997",
                     'maxDate'               => "tomorrow",
@@ -56,9 +53,7 @@
                 'name' => 'number',
                 'required' => true,
                 'label' => "Number",
-                'attributeList' => [
-                    'data-invalid-message' => "Must be a number "
-                ]
+                'invalidMessage' => 'Must be a number.',
             ])
             @endfield
         </div>
@@ -74,9 +69,7 @@
                 'placeholder' => 'correct horse battery staple',
                 'required' => true,
                 'autocomplete' => "new-password",
-                'attributeList' => [
-                    //'type' => 'password', //This will override above type, warning will appear.
-                ],
+                'invalidMessage' => 'You need to fill in this field.',
                 'label' => "Set your password",
                 'helperText' => "Hey! Want some help with this?"
             ])
@@ -113,6 +106,46 @@
 
         <div class="grid-md-6">
             @markdown
+                ##Input field - Validated: invalid
+            @endmarkdown
+
+            @field([
+                'type' => 'email',
+                'placeholder' => 'email@email.com',
+                'name' => 'email',
+                'autocomplete' => 'e-mail',
+                'invalidMessage' => 'You need to add a valid E-mail!',
+                'label' => "Add your E-mail",
+                'required' => true,
+                'classList' => [
+                    'is-invalid'
+                ]
+            ])
+            @endfield
+        </div>
+
+        <div class="grid-md-6">
+            @markdown
+                ##Input field - Validated: valid
+            @endmarkdown
+
+            @field([
+                'type' => 'email',
+                'placeholder' => 'email@email.com',
+                'name' => 'email',
+                'autocomplete' => 'e-mail',
+                'invalidMessage' => 'You need to add a valid E-mail!',
+                'label' => "Add your E-mail",
+                'required' => true,
+                'classList' => [
+                    'is-valid'
+                ]
+            ])
+            @endfield
+        </div>
+
+        <div class="grid-md-6">
+            @markdown
                 ##Input field - Hidden label
             @endmarkdown
 
@@ -121,10 +154,26 @@
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
                 'autocomplete' => 'e-mail',
-                'attributeList' => [
-                    'pattern' => '^[^@]+@[^@]+\.[^@]+$',
-                    'data-invalid-message' => "You need to add a valid E-mail!"
-                ],
+                'invalidMessage' => 'You need to add a valid E-mail!',
+                'label' => "Add your E-mail",
+                'required' => true,
+                'hideLabel' => true,
+            ])
+            @endfield
+        </div>
+
+        <div class="grid-md-6">
+            @markdown
+                ##Input field - Custom validation (email)
+            @endmarkdown
+
+            @field([
+                'type' => 'text',
+                'placeholder' => 'email@email.com',
+                'name' => 'email_regexp',
+                'autocomplete' => 'e-mail',
+                'validationRegexp' => '^[^@]+@[^@]+\.[^@]+$',
+                'invalidMessage' => 'You need to add a valid E-mail!',
                 'label' => "Add your E-mail",
                 'required' => true,
                 'hideLabel' => true,
