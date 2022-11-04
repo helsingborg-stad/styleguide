@@ -182,7 +182,6 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
 
     // Posts as slider
     &.c-slider--post {
-        display: block;
 
         .c-slider__shadow {
             .c-slider__container {
@@ -195,19 +194,12 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
 
         .c-slider__item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
             .c-slider__item__container {
                 width: 100%;
                 position: static;
                 height: 100%;
                 grid-template-rows: none;
-                /* padding-bottom: calc(#{$base} * 10);
-                padding-top: calc(#{$base} * 10); */
             }
-
         }
     
         .c-slider__container {
@@ -217,27 +209,6 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
                 position: static;
             }
         }
-
-        /* .c-slider__arrows {
-            width: 100%;
-            height: 20px;
-            position: absolute;
-            top: 20px;
-            transform: translateX(-50%);
-            z-index: 1;
-            display: flex;
-            justify-content: end;
-            
-            .splide__arrow {
-                position: relative;
-                width: calc(#{$base} * 6);
-                height: calc(#{$base} * 6);
-                
-                &.splide__arrow--next {
-                    right: calc(#{$base} * 2.5);
-                }
-            }
-        } */
     }
 }
     
