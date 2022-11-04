@@ -3,11 +3,6 @@
 // ***************************************************************
 
 .c-steppers {
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-    bottom: #{map-get($spacers, "3")};
-
     &__dot {
         background: $color-gray;
         display: inline-block;

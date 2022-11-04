@@ -29,6 +29,15 @@
     color: $color-white;
 }
 
+.c-modal--gallery {
+    .c-steppers {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: #{map-get($spacers, "3")};
+    }
+}
+
 @include mq(map_get($breakpoints-map, "sm")) {
 
     .c-gallery {
