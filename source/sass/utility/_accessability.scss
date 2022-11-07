@@ -17,3 +17,8 @@
     clip: auto !important;
     white-space: normal !important;
 }
+
+a:focus {
+    border: solid $color-warning 2px;
+    outline: solid $color-black 3px; 
+}
