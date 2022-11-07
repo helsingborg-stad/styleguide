@@ -19,6 +19,5 @@
 }
 
 a:focus {
-    border: solid $color-warning 2px;
-    outline: solid $color-black 3px; 
+    outline: solid $color-form-fields-border-focus 4px;
 }
