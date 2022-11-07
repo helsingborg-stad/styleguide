@@ -13,16 +13,6 @@ const url = (contentWrapper) => {
         return url; 
     } 
     /* modifiers */
-     else if (contentWrapper.classList.contains('js-suppressed-content--script')) {
-        const template = contentWrapper.querySelector('template');
-        const contentUrl = template.content.querySelector('script').getAttribute('src');
-        if(contentUrl) {
-            let url = new URL(contentUrl);
-            return url;
-        } else { 
-            return false;
-        }
-    }
 }
 
 /* Sets local storage */
@@ -65,8 +55,7 @@ const handleEvents = (contentWrapper) => {
     setLocalStorage(contentWrapper);
 
     /* Modifiers (else equals "no modifier") */
-    if (contentWrapper.classList.contains('js-suppressed-content--video') || 
-    contentWrapper.classList.contains('js-suppressed-content--script')) {
+    if (contentWrapper.classList.contains('js-suppressed-content--video')) {
         revealContent(contentWrapper);
     } else {
         revealContentLoop();
@@ -89,8 +78,7 @@ export default () => addEventListener('DOMContentLoaded', () => {
     if (acceptedSuppliers.length > 0 && hasSuppressedContent() ) {
         /* Reveal at start  */
         [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
-            if(contentWrapper.classList.contains('js-suppressed-content--none') || 
-            contentWrapper.classList.contains('js-suppressed-content--script')) {
+            if(contentWrapper.classList.contains('js-suppressed-content--none')) {
                 
                 const contentUrl = url(contentWrapper);
                 if (acceptedSuppliers.includes(contentUrl.host)) {
