@@ -28,7 +28,6 @@ const setLocalStorage = (contentWrapper) => {
 
 /* Reveal function */
 const revealContent = (contentWrapper) => {
-    console.log(contentWrapper);
     const template = contentWrapper.querySelector('template');
     const suppressedContentWrapper = contentWrapper.querySelector('.c-acceptance__content');
     const clone = template.content.cloneNode(true);
