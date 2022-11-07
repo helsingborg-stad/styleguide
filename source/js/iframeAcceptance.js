@@ -42,6 +42,7 @@ const revealContent = (contentWrapper) => {
     const suppressedContentWrapper = contentWrapper.querySelector('.c-acceptance__content');
     const clone = template.content.cloneNode(true);
     suppressedContentWrapper.appendChild(clone);
+    contentWrapper.classList.remove('u-level-1');
     contentWrapper.classList.remove('js-suppressed-content');
     contentWrapper.querySelector('.js-suppressed-content-prompt').classList.add('u-display--none');
 }
