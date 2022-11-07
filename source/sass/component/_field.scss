@@ -85,7 +85,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &:focus,
         &:focus-within,
         &:active {
-            outline: 3px solid $color-form-fields-border-focus;
+            outline: 4px solid $color-form-fields-border-focus;
             background-color: $color-form-fields-focus;
         }
 
