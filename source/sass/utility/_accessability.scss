@@ -18,7 +18,10 @@
     white-space: normal !important;
 }
 
-.c-header a:focus, .c-footer a:focus {
+.c-header a:focus, 
+.c-footer a:focus, 
+.sidebar-left-sidebar a:focus, 
+.sidebar-right-sidebar a:focus {
     outline: thick solid -webkit-focus-ring-color;
     outline-offset: 2px;
     box-shadow: 0 0 0 6px $color-white;
