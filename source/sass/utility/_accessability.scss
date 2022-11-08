@@ -19,5 +19,7 @@
 }
 
 .c-header a:focus, .c-footer a:focus {
-    outline: solid $color-form-fields-border-focus 4px;
+    outline: thick solid -webkit-focus-ring-color;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 6px $color-white;
 }
