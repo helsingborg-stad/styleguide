@@ -40,4 +40,10 @@
             transform: scaleX(-1);
         }
     }
+
+    :focus {
+        outline: thick solid -webkit-focus-ring-color;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 6px $color-white;
+    }
 }
