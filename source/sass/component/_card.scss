@@ -437,6 +437,12 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
             }
         }
     }
+
+    &:focus {
+        outline: thick solid -webkit-focus-ring-color;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 6px $color-white;
+    }
 }
 
 a.c-card {
@@ -480,6 +486,7 @@ a.c-card {
     
     &:focus {
         background-color: $color-code-background-focus;
+
         .c-card__image {
             &:before {
                 opacity: 0.2;
