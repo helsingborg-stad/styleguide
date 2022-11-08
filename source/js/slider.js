@@ -15,6 +15,23 @@ export default class Slider {
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
 
+        let hasCustomButtons = false;
+        
+        if(slider.hasAttribute('data-custom-buttons'))  {
+            hasCustomButtons = true;
+            const buttonContainer = document.querySelector('#' + slider.getAttribute('data-custom-buttons'));
+            const prev = buttonContainer.querySelector('.splide__arrow--prev');
+            const next = buttonContainer.querySelector('.splide__arrow--next');
+
+            prev.addEventListener('click', () => {
+                this.splide.go('<');
+            });
+
+            next.addEventListener('click', () => {
+                this.splide.go('>');
+            })
+        }
+
         this.splide = new Splide(slider, {
             type: 'loop',
             autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
@@ -32,6 +49,8 @@ export default class Slider {
                 pagination: 'c-slider__steppers',
                 page: 'c-slider__dot',
             },
+            arrows: !hasCustomButtons,
+    
             i18n: {
                 prev: ariaLabels ?  ariaLabels.prev : 'Previous slider item',
                 next: ariaLabels ? ariaLabels.next : 'Next slider item',
@@ -44,11 +63,11 @@ export default class Slider {
                     perPage: 1,
                 }
             }
-
         });
-
+       
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
+            
         } else {
             this.sliderElement.querySelector('.c-slider__arrows').remove();
         }
