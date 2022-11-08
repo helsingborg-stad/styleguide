@@ -20,7 +20,8 @@
 
 .c-header a:focus, 
 .c-footer a:focus,
-.c-header .site-language-menu:focus, 
+.c-header .site-language-menu:focus,
+a.c-link:focus,
 .sidebar-left-sidebar a:focus, 
 .sidebar-right-sidebar a:focus {
     outline: thick solid -webkit-focus-ring-color;
