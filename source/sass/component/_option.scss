@@ -16,6 +16,16 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         
         width: 100%;
 
+        input:focus {
+            outline: thick solid -webkit-focus-ring-color;
+            outline-offset: calc(#{$base} * 2);
+            box-shadow: 0 0 0 2px $color-white;
+            position: absolute;
+            left: calc(#{$base} * 1.2);
+            bottom: calc(#{$base} * 1.2);
+        }
+
+
         .c-option__checkbox--label-box {
             align-self: center;
             position: relative;

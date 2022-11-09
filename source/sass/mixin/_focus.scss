@@ -1,5 +1,5 @@
 @mixin focus {
     outline: thick solid -webkit-focus-ring-color;
-    outline-offset: 2px;
+    outline-offset: calc(#{$base} * 0.25);
     box-shadow: 0 0 0 6px $color-white;
 }
