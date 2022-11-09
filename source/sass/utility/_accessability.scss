@@ -23,6 +23,7 @@
 .c-header .site-language-menu:focus,
 a.c-link:focus,
 .sidebar-left-sidebar a:focus, 
-.sidebar-right-sidebar a:focus {
+.sidebar-right-sidebar a:focus,
+select:focus {
     @include focus();
 }
