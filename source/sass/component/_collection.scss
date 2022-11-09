@@ -49,9 +49,7 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
         display: flex;
 
         &:focus {
-            outline: thick solid -webkit-focus-ring-color;
-            outline-offset: 2px;
-            box-shadow: 0 0 0 6px $color-white;
+            @include focus();
         }
     }
 

@@ -56,9 +56,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &:focus {
-        outline: thick solid -webkit-focus-ring-color;
-        outline-offset: 2px;
-        box-shadow: 0 0 0 6px $color-white;
+        @include focus();
     }
 
     &__full-width {
