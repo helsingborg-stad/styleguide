@@ -129,7 +129,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         color: $color-white;
 
         &.c-button__icon:focus {
-            outline: none;
+            @include focus();
         }
     }
 
