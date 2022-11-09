@@ -331,6 +331,16 @@ class Fields {
             // Validate fields on submit
             const submitButton = form.querySelector('[type="submit"]');
             submitButton.addEventListener('click', (e) => {
+
+                let emptyForm = false;
+                inputs.forEach(input => {
+                    if (!input.classList.contains('js-no-validation')) {
+                        if (input.getAttribute('type') !== 'hidden') {
+                            input.value.length > 0 ? emptyForm = true : '';
+                        }
+                    }
+                });
+
                 if (form.contains(form.querySelector('.c-form__notice-failed')) && 
                 form.contains(form.querySelector('.c-form__notice-success'))) {
                     const noticeFailed = form.querySelector('.c-form__notice-failed');
@@ -342,7 +352,12 @@ class Fields {
                     } else {
                         this.classToggle(noticeFailed, 'u-display--block', 'u-display--none', noticeSuccess, true);
                     }
+                } 
+                
+                if (!emptyForm) {
+                    e.preventDefault();
                 }
+
             });
         });
     }
