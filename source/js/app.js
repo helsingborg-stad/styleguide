@@ -28,13 +28,13 @@ import KeepInViewPort from './keepInViewPort';
 import ButtonToggle from './buttonToggle';
 import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
-import Inputs from './inputs';
+import StickyKeys from './stickyKeys';
 import './helpers/swipe';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
-Inputs();
+StickyKeys();
 
 const SortInstance = new Sort;
 const ToggleInstance = new Toggle;
