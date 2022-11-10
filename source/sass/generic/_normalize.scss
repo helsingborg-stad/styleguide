@@ -295,9 +295,9 @@ textarea {
    */
 
 [type="search"] {
-    &:focus-visible {
-        @include focus();
-    }
+    -webkit-appearance: none; /* 1 */
+    outline-offset: -2px; /* 2 */
+    border-radius: 0;
 }
 
 /**
