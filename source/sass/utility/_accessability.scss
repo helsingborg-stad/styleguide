@@ -24,6 +24,7 @@
 a.c-link:focus,
 .sidebar-left-sidebar a:focus, 
 .sidebar-right-sidebar a:focus,
-select:focus {
+select:focus,
+.c-article a:focus {
     @include focus();
 }
