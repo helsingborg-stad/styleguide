@@ -103,7 +103,13 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             display: none;
         }
 
-        &.c-field__inner--textarea .c-field__error-icon {
+        .c-field__success-icon {
+            color: $c-field-success-color;
+            display: none;
+        }
+
+        &.c-field__inner--textarea .c-field__error-icon,
+        &.c-field__inner--textarea .c-field__success-icon {
             position: absolute;
             padding: 0;
             right: map-get($spacers, "2");
@@ -248,9 +254,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:active {
                 border-color: $c-field-success-color;
             }
-        }
-        .c-field__helper {
-            color: $c-field-success-color;
+            .c-field__success-icon {
+                display: block;
+            }
         }
     }
 
