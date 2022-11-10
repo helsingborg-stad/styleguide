@@ -374,6 +374,10 @@ button, [type="button"], [type="reset"], [type="submit"] {
     -moz-appearance: none;
      appearance: none;
      border-radius: 0;
+
+    &:focus {
+        @include focus();
+    }
 }
 
 /**
