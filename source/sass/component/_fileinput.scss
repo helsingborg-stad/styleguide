@@ -1,6 +1,6 @@
 .c-fileinput {
 
-    :focus + label {
+    :focus-visible + label {
         @include focus();
     }
 

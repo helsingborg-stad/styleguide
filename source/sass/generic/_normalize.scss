@@ -295,7 +295,7 @@ textarea {
    */
 
 [type="search"] {
-    &:focus {
+    &:focus-visible {
         @include focus();
     }
 }
@@ -375,7 +375,7 @@ button, [type="button"], [type="reset"], [type="submit"] {
      appearance: none;
      border-radius: 0;
 
-    &:focus {
+    &:focus-visible {
         @include focus();
     }
 }

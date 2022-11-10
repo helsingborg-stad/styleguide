@@ -438,7 +438,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
-    &:focus {
+    &:focus-visible {
         @include focus();
     }
 }

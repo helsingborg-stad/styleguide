@@ -14,7 +14,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 
     &__checkbox {
 
-        :focus + label {
+        :focus-visible + label {
             @include focus();
         }
     
@@ -80,7 +80,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 
     &__radio {
 
-        :focus + label {
+        :focus-visible + label {
             @include focus();
         }
 

@@ -48,7 +48,7 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
     .c-collection__item {
         display: flex;
 
-        &:focus {
+        &:focus-visible {
             @include focus();
         }
     }

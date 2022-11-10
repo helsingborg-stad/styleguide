@@ -49,8 +49,8 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         }
     }
 
-    .c-accordion__button:focus,
-    .c-accordion__button-wrapper:focus {
+    .c-accordion__button:focus-visible,
+    .c-accordion__button-wrapper:focus-visible {
         @include focus();
     }
 

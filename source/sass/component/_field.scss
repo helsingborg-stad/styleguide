@@ -85,8 +85,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &:focus,
         &:focus-within,
         &:active {
-            @include focus();
+            border-color: $color-form-fields-border-focus;
             background-color: $color-form-fields-focus;
+            @include focus();
         }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
