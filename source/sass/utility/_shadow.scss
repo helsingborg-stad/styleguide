@@ -25,8 +25,8 @@
 .u-drop-shadow-0,
 .u-box-shadow--none,
 .u-box-shadow--0 {
-    box-shadow: none; 
-    filter: $drop-shadow-0;
+    box-shadow: none !important; 
+    filter: $drop-shadow-0 !important;
 }
 
 
