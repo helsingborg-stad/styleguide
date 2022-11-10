@@ -1,31 +1,68 @@
-const inputs = document.querySelectorAll('input[type="checkbox"], input[type="email"], input[type="text"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="number"]');
+/**
+ * HANDLE STICKY KEYS
+ * This function makes it easier to fill in forms 
+ * by not allowing multiple keystrokes of the same 
+ * character in specified amount of time.
+ */
 
-let keyPressed = false;
-let timeStamp = false;
+ class StickyKeys {
 
-function handleInput(event, delay) {
-    if (!timeStamp) {
-        timeStamp = event.timeStamp;
+    constructor() {
+
+        this.keyPressed = false;
+        this.timeStamp = false;
+
+        const inputTypes = [
+            'input[type="checkbox"]',
+            'input[type="email"]',
+            'input[type="text"]',
+            'input[type="date"]',
+            'datetime-local',
+            'input[type="datetime-local"]',
+            'input[type="month"]',
+            'input[type="number"]'
+        ];
+
+        this.keyStrokeEventListener(
+            [
+                ...document.querySelectorAll(
+                    inputTypes.join(", ")
+                )
+            ]
+        ); 
+
     }
-    if (event.timeStamp >= timeStamp + delay) {
-        timeStamp = event.timeStamp;
-    } else {
-        event.preventDefault();
+
+    keyStrokeEventListener(targetElements) {
+        (targetElements.forEach(input => {
+            input.addEventListener('keydown', (event) => {
+                if (event.code !== "Backspace" && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                    if (event.repeat) {
+                        this.handleInput(event, 2000);
+                    }
+        
+                    if (!event.repeat && event.key === this.keyPressed) {
+                        this.handleInput(event, 500);
+                    }
+        
+                    this.keyPressed = event.key;
+                }
+            });
+        }));
     }
+
+    handleInput(event, delay) {
+        if (!this.timeStamp) {
+            this.timeStamp = event.timeStamp;
+        }
+
+        if (event.timeStamp >= this.timeStamp + delay) {
+            this.timeStamp = event.timeStamp;
+        } else {
+            event.preventDefault();
+        }
+    }
+
 }
 
-inputs.length > 0 ? inputs.forEach(input => {
-    input.addEventListener('keydown', (event) => {
-        if (event.code !== "Backspace" && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
-            if (event.repeat) {
-                handleInput(event, 2000);
-            }
-
-            if (!event.repeat && event.key === keyPressed) {
-                handleInput(event, 500);
-            }
-
-            keyPressed = event.key;
-        }
-    });
-}) : '';
+export default StickyKeys;
