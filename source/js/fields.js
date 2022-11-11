@@ -311,6 +311,8 @@ class Fields {
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
+
+                    this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
                     this.getFieldWrapper(input).querySelector('.c-field__error').innerHTML = input.getAttribute('data-validation-message');
 
                     input.addEventListener('keyup', () => {
@@ -359,30 +361,23 @@ class Fields {
         });
     }
 
-    classToggle(firstElement, addClass, removeClass, secondElement, ariaHidden) {
-        !firstElement.classList.contains(addClass) ? firstElement.classList.add(addClass) : '';
-        firstElement.classList.remove(removeClass);
-
-        if(ariaHidden) {
-            firstElement.setAttribute('aria-hidden', 'false');
-            secondElement ? secondElement.setAttribute('aria-hidden', 'true') : '';
-        }
-
-        if(secondElement) {
-            !secondElement.classList.contains(removeClass) ? secondElement.classList.add(removeClass) : '';
-            secondElement.classList.remove(addClass);
-        }
+    classToggle(element, addClass, removeClass) {
+        !element.classList.contains(addClass) ? element.classList.add(addClass) : '';
+        element.classList.remove(removeClass);
     }
     
     validateInput(input) {
         if(input.value.length > 0) {
             if(input.checkValidity()) {
                 this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
+                this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true);
             } else {
                 this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
+                this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false);
             }
         } else {
             this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
+            this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true);
         }
     }
 
