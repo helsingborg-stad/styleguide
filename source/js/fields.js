@@ -105,15 +105,9 @@ class Fields {
 					formInput.reportValidity();
 				}).finally(() => {
 
-					// targetElement.files = dataTransfer.files;
-
-					console.log(currentFile);
-
 					if (currentFile) {
 
-						const fileNameContainer = this.closest('.c-fileinput--area'); // .querySelector('ul');
-						// const ul = document.createElement("ul");
-						// fileNameContainer.prepend(ul);
+						const fileNameContainer = this.closest('.c-fileinput--area'); 
 
 						const form = formInput.closest('form');
 						const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
@@ -150,8 +144,6 @@ class Fields {
 							};
 						}
 
-						// for (let int = 0; int < filesMax; int++) {
-
 						if (addedFiles <= filesMax) {
 
 							const el = document.createElement('ul');
@@ -182,7 +174,6 @@ class Fields {
 
 					}
 
-					// }
 				});
 			});
 		}
