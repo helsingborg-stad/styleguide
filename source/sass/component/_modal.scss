@@ -7,25 +7,45 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     flex-direction: column;
     width:100%;
     cursor: default;
-    transition: all 0.3s ease-in-out;
-
+    transition: all 0.3s ease-in-out; 
+    display: none;
+    border: none; 
     border-radius: $c-modal-border-radius;
     filter: $drop-shadow-3;
     max-width: 800px;
     max-height: 90vh;
-    display: none;
-    border: none; 
 
-    &--gallery {
-        max-height:unset;
-    .c-image__image {
-        max-height:80vh;
-        object-fit: contain;
+
+    .c-modal__close.c-button {
+        color: $color-black;
     }
-}
 
-    display: none;
-    border: none; 
+    &.c-modal--gallery {
+        max-height:unset;
+
+        .c-image__image {
+            max-height:80vh;
+            object-fit: contain;
+        }
+
+        .c-modal__header, .c-modal__footer {
+            padding: 0;
+        }
+
+        .c-modal__content {
+            line-height: 0;
+            padding: 0;
+        }
+    }
+
+    &.c-modal--transparent {
+        background-color: transparent;
+
+        .c-button.c-modal__close {
+            color: $color-white;
+        }
+    }
+
 
     &::backdrop {
         background-color: $c-modal-backdrop-color; 
@@ -98,19 +118,6 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         border-top: 1px solid $color-gray-light;
     }
 
-    &--gallery {
-        background-color: transparent;
-    }
-
-    &--gallery &__header, &--gallery &__footer {
-        padding: 0;
-    }
-
-    &--gallery &__content {
-        line-height: 0;
-        padding: 0;
-    }
-
     .c-button:hover {
         box-shadow:none;
     }
@@ -119,7 +126,6 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     .c-modal__close.c-button.c-button--md,
     .c-modal__close.c-button.c-button--sm {
         cursor: pointer;
-        color: $color-white;
         height: auto; 
         width: auto;
         margin-left: auto;

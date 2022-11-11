@@ -48,10 +48,6 @@
             right: calc(var(--base, 8px) * 2);
             color: var(--color-alpha-contrast, white);
         }
-
-        .c-modal .c-modal__close {
-            color: $color-black;
-        }
     }
 }
 
