@@ -347,24 +347,36 @@ class Fields {
 				});
 			});
 
-			// Validate fields on submit
-			const submitButton = form.querySelector('[type="submit"]');
-			submitButton.addEventListener('click', (e) => {
-				if (form.contains(form.querySelector('.c-form__notice-failed')) &&
-					form.contains(form.querySelector('.c-form__notice-success'))) {
-					const noticeFailed = form.querySelector('.c-form__notice-failed');
-					const noticeSuccess = form.querySelector('.c-form__notice-success');
+            //General validation errors
+            form.addEventListener('invalid', (e) => {
+                form.classList.add('is-invalid');
+                form.classList.remove('is-valid');
 
-					if (form.checkValidity()) {
-						this.classToggle(noticeSuccess, 'u-display--block', 'u-display--none', noticeFailed, true);
+                
+                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                    element.setAttribute('aria-hidden', false);
+                }); 
 
-					} else {
-						this.classToggle(noticeFailed, 'u-display--block', 'u-display--none', noticeSuccess, true);
-					}
-				}
-			});
-		});
-	}
+                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                    element.setAttribute('aria-hidden', true);
+                }); 
+
+            }, true);
+
+            form.addEventListener('submit', (e) => {
+                form.classList.add('is-valid');
+                form.classList.remove('is-invalid');
+
+                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                    element.setAttribute('aria-hidden', true);
+                }); 
+
+                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                    element.setAttribute('aria-hidden', false);
+                }); 
+            }); 
+        });
+    }
 
 	classToggle(firstElement, addClass, removeClass, secondElement, ariaHidden) {
 		!firstElement.classList.contains(addClass) ? firstElement.classList.add(addClass) : '';

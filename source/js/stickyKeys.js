@@ -17,13 +17,13 @@
             'input[type="email"]',
             'input[type="text"]',
             'input[type="date"]',
-            'datetime-local',
+            'input[type="search"]',
             'input[type="datetime-local"]',
             'input[type="month"]',
             'input[type="number"]'
         ];
 
-        this.keyStrokeEventListener(
+        this.subscribeInput(
             [
                 ...document.querySelectorAll(
                     inputTypes.join(", ")
@@ -33,7 +33,7 @@
 
     }
 
-    keyStrokeEventListener(targetElements) {
+    subscribeInput(targetElements) {
         (targetElements.forEach(input => {
             input.addEventListener('keydown', (event) => {
                 if (event.code !== "Backspace" && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
