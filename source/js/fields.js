@@ -313,7 +313,8 @@ class Fields {
                 if(input.hasAttribute('data-validation-message')) {
 
                     this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
-                    this.getFieldWrapper(input).querySelector('.c-field__error').innerHTML = input.getAttribute('data-validation-message');
+                    this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
+
 
                     input.addEventListener('keyup', () => {
                         if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
