@@ -55,33 +55,35 @@ class Fields {
 	 * File input - List files to upload
 	 */
 	fileInputOnChange() {
+
 		const self = this;
-		const inputs = document.querySelectorAll('.c-fileinput__input');
+
+		const fileInputs = document.querySelectorAll('.c-fileinput__input');
 		const noticeText = (typeof formbuilder !== 'undefined') && formbuilder.files_max_exceeded ? formbuilder.files_max_exceeded : 'Max number of files exceeded';
 		const notice = this.createNotice('danger', noticeText, 'report');
 
-		// Removing multiple attribute as this JS will handle that for the browser
-		inputs.forEach(input => {
+		fileInputs.forEach(input => {
+
+			const dataTransfer = new DataTransfer();
+			const filesMax = input.parentNode.getAttribute('filesmax') || 1;
+			let countFilesUploaded = 0;
+
 			if (input.hasAttribute('multiple')) {
 				input.removeAttribute('multiple');
 			}
-		});
-
-		for (const formInput of inputs) {
-			if (formInput.parentNode.hasAttribute('data-image-preview')) {
-				this.setupImageDrop(formInput);
-				this.setupImageReset(formInput);
+			if (input.parentNode.hasAttribute('data-image-preview')) {
+				this.setupImageDrop(input);
+				this.setupImageReset(input);
 			}
-			formInput.addEventListener('change', function (e) {
+			input.addEventListener('change', function (e) {
 
 				const targetElement = e.target;
 				const parentElement = targetElement.parentNode;
-				const currentFile = formInput.files[0] || null;
+				const currentFile = targetElement.files[0] || null;
 
 				const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
 				const maxWidth = parentElement.hasAttribute('data-max-width') ? parseInt(parentElement.getAttribute('data-max-width')) : 0;
 				const maxHeight = parentElement.hasAttribute('data-max-height') ? parseInt(parentElement.getAttribute('data-max-height')) : 0;
-				const dataTransfer = new DataTransfer();
 
 				// Validate file size, width, and height
 				const validateFilesPromises = [];
@@ -90,36 +92,39 @@ class Fields {
 					validateFilesPromises.push(self.validateFile(file, maxFileSize, maxWidth, maxHeight));
 				}
 
-				Promise.all(validateFilesPromises).then(files => {
-					files.forEach(file => {
-						if (file instanceof Error) {
-							formInput.setCustomValidity(file);
-							formInput.reportValidity();
-						} else {
-							dataTransfer.items.add(file)
-						}
-					});
-				}).catch(e => {
-					formInput.setCustomValidity(e);
-					formInput.reportValidity();
-				}).finally(() => {
+				Promise.all(validateFilesPromises)
+					.then(file => {
+						file.forEach(theFile => {
+							if (theFile instanceof Error) {
+								input.setCustomValidity(theFile);
+								input.reportValidity();
+							} else {
+								dataTransfer.items.add(theFile);
+							}
+						});
+					})
+					.catch(e => {
+						input.setCustomValidity(e);
+						input.reportValidity();
+					})
+					.finally(() => {
 
-					if (currentFile) {
-						const fileNameContainer = this.closest('.c-fileinput--area'); 
-						const form = formInput.closest('form');
-						const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
+						++countFilesUploaded;
+						var uploadedFiles = Object.keys(dataTransfer.items).map((key) => [Number(key), dataTransfer.items[key].getAsFile()]);
+										
+						const fileNameContainer = this.closest('.c-fileinput--area');
+						const form = input.closest('form');
 						const hasImagePreview = parentElement.hasAttribute('data-image-preview');
-						const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
 
 						let hiddenInput;
 						if (!hasImagePreview) {
-							hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
+							hiddenInput = self.createHiddenInput(input, filesMax, 0, form);
 						}
 
-						if (addedFiles >= filesMax) {
-							formInput.setAttribute('disabled', 'true');
-						} else if (formInput.hasAttribute('disabled')) {
-							formInput.removeAttribute('disabled');
+						if (countFilesUploaded >= filesMax) {
+							input.setAttribute('disabled', 'true');
+						} else if (input.hasAttribute('disabled')) {
+							input.removeAttribute('disabled');
 						}
 
 						if (hasImagePreview) {
@@ -141,36 +146,53 @@ class Fields {
 							};
 						}
 
-						if (addedFiles <= filesMax) { 
+						if (countFilesUploaded <= filesMax) {
+
 							const fileSize = self.returnFileSize(currentFile.size);
+
 							const list = fileNameContainer.querySelector('.js-form-file-input');
 							const template = list.querySelector('template');
 							template.content.querySelector('.js-file-input-name').innerHTML = currentFile.name;
 							template.content.querySelector('.js-file-input-size').innerHTML = ` (${fileSize})`;
+
 							const clone = template.content.cloneNode(true);
 							list.appendChild(clone);
 							list.classList.remove('u-display--none');
-							const listItem = list.querySelector('li:last-child');
 
-							listItem.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
-								if (!hasImagePreview) {
-									hiddenInput.remove();
-								}
-								listItem.remove();
+							list
+								.querySelector('li:last-child')
+								.querySelector('.c-fileinput__remove-file')
+								.addEventListener('click', (clickedEl) => {
 
-								if (addedFiles <= filesMax) {
-									notice.remove();
-
-									if (formInput.hasAttribute('disabled')) {
-										formInput.removeAttribute('disabled');
+									if (!hasImagePreview) {
+										hiddenInput.remove();
 									}
-								}
-							})
+
+									const currentListItem = clickedEl.target.parentElement;
+									currentListItem.classList.add('u-border');
+
+									uploadedFiles.forEach((item, index) => {
+										if( index == uploadedFiles.length - 1) {
+											uploadedFiles.splice(index, 1);
+											currentListItem.remove();	
+											--countFilesUploaded;
+										}
+									})
+
+									if (countFilesUploaded <= filesMax) {
+										notice.remove();
+
+										if (input.hasAttribute('disabled')) {
+											input.removeAttribute('disabled');
+										}
+									}
+
+								})
 						}
-					}
-				});
+
+					});
 			});
-		}
+		});
 	}
 
 	setupImageDrop(formInput) {
@@ -332,36 +354,36 @@ class Fields {
 				});
 			});
 
-            //General validation errors
-            form.addEventListener('invalid', (e) => {
-                form.classList.add('is-invalid');
-                form.classList.remove('is-valid');
+			//General validation errors
+			form.addEventListener('invalid', (e) => {
+				form.classList.add('is-invalid');
+				form.classList.remove('is-valid');
 
-                
-                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                    element.setAttribute('aria-hidden', false);
-                }); 
 
-                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                    element.setAttribute('aria-hidden', true);
-                }); 
+				[...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+					element.setAttribute('aria-hidden', false);
+				});
 
-            }, true);
+				[...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+					element.setAttribute('aria-hidden', true);
+				});
 
-            form.addEventListener('submit', (e) => {
-                form.classList.add('is-valid');
-                form.classList.remove('is-invalid');
+			}, true);
 
-                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                    element.setAttribute('aria-hidden', true);
-                }); 
+			form.addEventListener('submit', (e) => {
+				form.classList.add('is-valid');
+				form.classList.remove('is-invalid');
 
-                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                    element.setAttribute('aria-hidden', false);
-                }); 
-            }); 
-        });
-    }
+				[...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+					element.setAttribute('aria-hidden', true);
+				});
+
+				[...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+					element.setAttribute('aria-hidden', false);
+				});
+			});
+		});
+	}
 
 	classToggle(firstElement, addClass, removeClass, secondElement, ariaHidden) {
 		!firstElement.classList.contains(addClass) ? firstElement.classList.add(addClass) : '';
