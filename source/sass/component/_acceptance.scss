@@ -21,9 +21,35 @@
         height: 100%;
     }
 
+    /* Map */ 
+    &.c-acceptance--map {
+        
+        .c-acceptance__modal-description {
+            z-index: $level-3;
+        }
+        
+        .c-acceptance__modal:before {
+            content: "";
+            z-index: $level-1;
+            @include cover(); 
+            background-image: url('https://media.istockphoto.com/id/1137117479/vector/city-urban-streets-roads-abstract-map.jpg?s=612x612&w=0&k=20&c=QXajx6ZG-OmfLmwmKkeCA03rcFPuFHmSTtCpJYiDFSo=');
+            background-size: cover;
+        }
+
+        .c-acceptance__modal:after {
+            content: "";
+            z-index: $level-2;
+            @include cover(); 
+            background-color: rgba(255, 255, 255, 0.619);
+            backdrop-filter: blur(8px);
+        }
+    }
+
+    /* Video */ 
     &.c-acceptance--video {
         background-color: unset;
         position: relative;
+
         .c-acceptance__modal {
             @include cover;
             overflow: auto;
