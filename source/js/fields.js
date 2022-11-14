@@ -76,7 +76,6 @@ class Fields {
 
 				const targetElement = e.target;
 				const parentElement = targetElement.parentNode;
-
 				const currentFile = formInput.files[0] || null;
 
 				const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
@@ -106,23 +105,21 @@ class Fields {
 				}).finally(() => {
 
 					if (currentFile) {
-
 						const fileNameContainer = this.closest('.c-fileinput--area'); 
-
 						const form = formInput.closest('form');
 						const filesMax = form.querySelector('.c-fileinput--area').getAttribute('filesMax');
 						const hasImagePreview = parentElement.hasAttribute('data-image-preview');
+						const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
 
 						let hiddenInput;
 						if (!hasImagePreview) {
 							hiddenInput = self.createHiddenInput(formInput, filesMax, 0, form);
 						}
-						const addedFiles = form.querySelectorAll('input[js-field-fileinput]').length;
 
 						if (addedFiles >= filesMax) {
-							formInput.setAttribute('disabled', 'true')
+							formInput.setAttribute('disabled', 'true');
 						} else if (formInput.hasAttribute('disabled')) {
-							formInput.removeAttribute('disabled')
+							formInput.removeAttribute('disabled');
 						}
 
 						if (hasImagePreview) {
@@ -132,7 +129,7 @@ class Fields {
 							const previewLabel = imagePreviewElement.querySelector('span');
 							const objectUrl = URL.createObjectURL(currentFile);
 
-							imgElement.style.backgroundImage = "url('" + objectUrl + "')";
+							imgElement.style.backgroundImage = `url(${objectUrl})`;
 							imgElement.classList.remove('is-empty');
 
 							var image = new Image();
@@ -144,36 +141,34 @@ class Fields {
 							};
 						}
 
-						if (addedFiles <= filesMax) {
-
-							const el = document.createElement('ul');
-							el.classList.add('u-margin__top--1', 'u-padding--1');
-
+						if (addedFiles <= filesMax) { 
 							const fileSize = self.returnFileSize(currentFile.size);
+							const list = fileNameContainer.querySelector('.js-form-file-input');
+							const template = list.querySelector('template');
+							template.content.querySelector('.js-file-input-name').innerHTML = currentFile.name;
+							template.content.querySelector('.js-file-input-size').innerHTML = ` (${fileSize})`;
+							const clone = template.content.cloneNode(true);
+							list.appendChild(clone);
+							list.classList.remove('u-display--none');
+							const listItem = list.querySelector('li:last-child');
+							console.log(filesMax, addedFiles);
 
-							el.innerHTML = '<li><i class="c-icon c-icon--size-sm material-icons">' +
-								'attach_file</i><span class="u-strong">' + currentFile.name + '</span> <span class="">(' + fileSize + ')</span>  <i class="c-fileinput__remove-file c-icon c-icon--size-md material-icons u-position--absolute">delete</i></li>';
-
-							el.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
+							listItem.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
 								if (!hasImagePreview) {
 									hiddenInput.remove();
 								}
-								el.remove();
+								listItem.remove();
 
 								if (addedFiles <= filesMax) {
-									notice.remove()
+									notice.remove();
 
 									if (formInput.hasAttribute('disabled')) {
-										formInput.removeAttribute('disabled')
+										formInput.removeAttribute('disabled');
 									}
 								}
 							})
-
-							fileNameContainer.appendChild(el);
 						}
-
 					}
-
 				});
 			});
 		}
