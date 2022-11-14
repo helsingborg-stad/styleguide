@@ -151,7 +151,6 @@ class Fields {
 							list.appendChild(clone);
 							list.classList.remove('u-display--none');
 							const listItem = list.querySelector('li:last-child');
-							console.log(filesMax, addedFiles);
 
 							listItem.querySelector('.c-fileinput__remove-file').addEventListener('click', () => {
 								if (!hasImagePreview) {
