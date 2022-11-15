@@ -62,6 +62,7 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
     &.c-acceptance--video {
         background-color: unset;
         position: relative;
+        aspect-ratio: 16/9;
 
         .c-acceptance__modal {
             @include cover;
