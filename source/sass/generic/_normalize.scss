@@ -28,10 +28,10 @@ body {
 
 * {
     box-sizing: border-box;
-}
 
-*:focus-visible {
-    @include focus();
+    &:focus-visible {
+        @include focus();
+    }
 }
 
 /**
