@@ -40,8 +40,4 @@
             transform: scaleX(-1);
         }
     }
-
-    :focus-visible {
-        @include focus();
-    }
 }

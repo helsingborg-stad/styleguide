@@ -149,6 +149,11 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         height: 0;
         width: 0;
         display: hidden;
+
+        &:focus-visible {
+            outline: none;
+            z-index: -1;
+        }
     }
 
     .c-option__checkbox--label,

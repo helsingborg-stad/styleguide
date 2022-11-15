@@ -55,10 +55,6 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
     }
 
-    &:focus-visible {
-        @include focus();
-    }
-
     &__full-width {
         width: 100%;
         .c-button__label-icon {

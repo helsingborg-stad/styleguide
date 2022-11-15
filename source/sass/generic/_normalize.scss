@@ -30,6 +30,10 @@ body {
     box-sizing: border-box;
 }
 
+*:focus-visible {
+    @include focus();
+}
+
 /**
    * Render the `main` element consistently in IE.
    */

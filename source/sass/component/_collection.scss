@@ -47,10 +47,6 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
     // Item
     .c-collection__item {
         display: flex;
-
-        &:focus-visible {
-            @include focus();
-        }
     }
 
     .c-collection__item.is-current {

@@ -127,10 +127,6 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &__prev, &__next {
         color: $color-white;
-
-        &.c-button__icon:focus-visible {
-            @include focus();
-        }
     }
 
     &__prev, &__next {
