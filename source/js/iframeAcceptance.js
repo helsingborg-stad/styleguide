@@ -9,21 +9,44 @@ const hasSuppressedContent = (modifier) => {
 /* Returns url */
 const url = (contentWrapper) => { 
     if(contentWrapper.hasAttribute('data-src')) {
-        let url = new URL(contentWrapper.getAttribute('data-src'));
-        return url; 
+        let json = JSON.parse(contentWrapper.getAttribute('data-src'));
+        let url = [];
+        json.forEach(host => {
+            url.push(new URL(host));
+        });
+
+        return url;
     } 
     /* modifiers */
+}
+
+const handleReveal = (contentWrapper) => {
+    let needsAcceptance = [];
+    const contentUrl = url(contentWrapper);
+     contentUrl.forEach(supplier => {
+         if(acceptedSuppliers.includes(supplier.host)) {
+             needsAcceptance.push(true);
+         } else {
+             needsAcceptance.push(false);
+         }
+     });
+
+     if(!needsAcceptance.includes(false)) {
+         revealContent(contentWrapper);
+     }
 }
 
 /* Sets local storage */
 const setLocalStorage = (contentWrapper) => {
     const contentUrl = url(contentWrapper);
     if (contentUrl) {
-        if (!acceptedSuppliers.includes(contentUrl.host) && contentUrl.host !== "https" && contentUrl.host !== "http") {
-            acceptedSuppliers.push(contentUrl.host);
-        }
-        localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
-    } 
+        contentUrl.forEach(supplier => {
+            if (!acceptedSuppliers.includes(supplier.host) && supplier.host !== "https" && contentUrl.host !== "http") {
+                acceptedSuppliers.push(supplier.host);
+            }
+            localStorage.setItem('acceptedSuppliers', JSON.stringify(acceptedSuppliers));
+        })
+    }
 }
 
 /* Reveal function */
@@ -42,10 +65,7 @@ const revealContentLoop = () => {
     hasSuppressedContent() && [...document.querySelectorAll('.js-suppressed-content')]
     .forEach(contentWrapper => {
         if (contentWrapper.classList.contains('js-suppressed-content--none')) {
-            const contentUrl = url(contentWrapper);
-            if(acceptedSuppliers.includes(contentUrl.host)) {
-                revealContent(contentWrapper);
-            }  
+            handleReveal(contentWrapper);
         }
     }); 
 }
@@ -76,14 +96,10 @@ const setEvents = () => {
 /* Initiate and reveal already accepted */
 export default () => addEventListener('DOMContentLoaded', () => {
     if (acceptedSuppliers.length > 0 && hasSuppressedContent() ) {
-        /* Reveal at start  */
+       
         [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
             if(contentWrapper.classList.contains('js-suppressed-content--none')) {
-                
-                const contentUrl = url(contentWrapper);
-                if (acceptedSuppliers.includes(contentUrl.host)) {
-                    revealContent(contentWrapper);
-                }
+                handleReveal(contentWrapper);
             }
         })
     }
