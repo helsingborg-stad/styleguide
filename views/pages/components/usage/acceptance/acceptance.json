@@ -8,5 +8,10 @@
         "heading": "Acceptance: Video",
         "subHeading": "",
         "text": "Acceptance adapts to video URL's automatically to provide a familiar user interface."
+    },
+    "map": {
+        "heading": "Acceptance: Map",
+        "subHeading": "",
+        "text": "Acceptance adapts to map URL's automatically to provide a familiar user interface."
     }
 }

@@ -221,6 +221,8 @@ $color-button-white: var(--color-button-white, $color-white) !default;
 // Alpha
 $color-alpha: var(--color-alpha, rgba(#000000, .55)) !default;
 $color-alpha-contrasting: var(--color-alpha-contrasting, $color-white) !default;
+$color-alpha-light: var(--color-alpha, rgba(#ffffff, .97)) !default;
+$color-alpha-light-contrasting: var(--color-alpha-light-contrasting, $color-black) !default;
 
 // Border
 $color-border-divider: var(--color-border-divider, rgba(0,0,0,.1));
