@@ -307,7 +307,8 @@ class Fields {
         const self = this;
         const forms = document.querySelectorAll('.js-form-validation');
         forms.forEach(form => {
-            const inputs = form.querySelectorAll('input, textarea, select');
+			const inputs = form.querySelectorAll('input, textarea, select');
+			const submitButton = form.querySelector('[type="submit"]');
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
@@ -347,6 +348,21 @@ class Fields {
             form.addEventListener('submit', (e) => {
                 form.classList.add('is-valid');
                 form.classList.remove('is-invalid');
+
+				let emptyForm = false;
+				inputs.forEach(input => {
+					if (!input.classList.contains('js-no-validation')) {
+						if (input.getAttribute('type') !== 'hidden') {
+							input.value.length > 0 ? emptyForm = true : '';
+						}
+					}
+				});
+
+				if (!emptyForm) {
+					e.preventDefault();
+				} else {
+					submitButton.innerHTML = formbuilder.sending;
+				}
 
                 [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                     element.setAttribute('aria-hidden', true);
