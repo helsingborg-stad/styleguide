@@ -51,12 +51,9 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
             z-index: $level-2;
             @include cover(); 
             background-color: $c-acceptance-alpha-light-color;
-            backdrop-filter: blur(16px);
         }
 
-        .c-acceptance__modal, 
-        .c-acceptance__modal-description,
-        .c-acceptance__modal-description a {
+        .c-acceptance__modal {
             color: $c-acceptance-alpha-color-contransting; 
         }
     }
