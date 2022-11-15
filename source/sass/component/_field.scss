@@ -116,6 +116,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         min-height: $c-field-height;
         height: initial;
         max-width: 100%;
+
+        &:focus-visible {
+            box-shadow: none;
+        }
     }
 
     /* Borderless */
