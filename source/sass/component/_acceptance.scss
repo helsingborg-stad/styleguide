@@ -65,6 +65,11 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
         aspect-ratio: 16/9;
         height: unset !important;
 
+        iframe {
+            height: 100%;
+            width: 100%;
+        }
+
         .c-acceptance__modal {
             @include cover;
             overflow: auto;

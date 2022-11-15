@@ -3,5 +3,10 @@
         "heading": "Iframe displaying helsingborg.se",
         "subHeading": "",
         "text": ""
+    },
+    "video": {
+        "heading": "Iframe displaying a video from youtube.com",
+        "subHeading": "This is not a recommended way of displaying a video.",
+        "text": ""
     }
 }
