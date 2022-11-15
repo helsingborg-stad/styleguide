@@ -63,6 +63,7 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
         background-color: unset;
         position: relative;
         aspect-ratio: 16/9;
+        height: unset !important;
 
         .c-acceptance__modal {
             @include cover;
