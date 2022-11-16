@@ -85,8 +85,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &:focus,
         &:focus-within,
         &:active {
-            border-color: $color-form-fields-border-focus;
             background-color: $color-form-fields-focus;
+            outline: thick solid $color-focus-outline;
+            outline-offset: calc(#{$base} * -0.5);
         }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
@@ -121,6 +122,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         min-height: $c-field-height;
         height: initial;
         max-width: 100%;
+
+        &:focus-visible {
+            box-shadow: none;
+        }
     }
 
     /* Borderless */
@@ -280,20 +285,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-button {
             padding: 0 calc(var(--base, 8px) * 4);
         }
-    }
-}
-
-/* To remove the arrows for a number input */
-.c-field.c-field--textfield {
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0
-    }
-    
-    input[type=number] {
-        -webkit-appearance: none;
-        -moz-appearance: textfield;
     }
 }
 

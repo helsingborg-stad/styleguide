@@ -133,10 +133,6 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &__prev, &__next {
         color: $color-white;
-
-        &.c-button__icon:focus {
-            outline: none;
-        }
     }
 
     &__prev, &__next {

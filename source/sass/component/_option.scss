@@ -13,7 +13,11 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 .c-option {
 
     &__checkbox {
-        
+
+        :focus-visible + label {
+            @include focus();
+        }
+    
         width: 100%;
 
         .c-option__checkbox--label-box {
@@ -76,6 +80,10 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 
     &__radio {
 
+        :focus-visible + label {
+            @include focus();
+        }
+
         .c-option__radio--label-box {
             align-self: center;
             position: relative;
@@ -86,6 +94,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
             border-radius: $border-radius-full;
             cursor: pointer;
         }
+
 
         .c-option__radio--hidden-box:checked+.c-option__radio--label {
 
@@ -140,6 +149,11 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         height: 0;
         width: 0;
         display: hidden;
+
+        &:focus-visible {
+            outline: none;
+            z-index: -1;
+        }
     }
 
     .c-option__checkbox--label,

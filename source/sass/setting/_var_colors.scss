@@ -233,3 +233,6 @@ $color-border-input: var(--color-border-input, $color-border-divider);
 // Background
 $color-background: var(--color-background, $color-default) !default;
 $color-background-card: var(--color-background-card, $color-white) !default;
+
+// Focus Accessibility
+$color-focus-outline: var(--color-focus-outline, #4d90fe);
