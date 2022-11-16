@@ -384,17 +384,17 @@ class Fields {
     }
     
     validateInput(input) {
-        if(input.value.length > 0) {
-            if(input.checkValidity()) {
+        if (input.value.length > 0) {
+            if (input.checkValidity()) {
                 this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
-                this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true);
+                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
             } else {
                 this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
-                this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false);
+                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false) : '';
             }
         } else {
             this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
-            this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true);
+            this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
         }
     }
 
