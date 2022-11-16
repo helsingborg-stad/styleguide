@@ -63,6 +63,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         outline: 0;
         margin: 0;
     }
+
+    input:focus + .c-field_focus-styler {
+        display: block;
+        outline: thick solid $color-focus-outline;
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        z-index: 9999999;
+    }
     
     .c-field__inner {
         position: relative;
@@ -82,13 +91,13 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         background: $color-form-fields;
         border-radius: $c-field-border-radius;
 
-        &:focus,
-        &:focus-within,
-        &:active {
-            background-color: $color-form-fields-focus;
-            outline: thick solid $color-focus-outline;
-            outline-offset: calc(#{$base} * -0.5);
-        }
+        // &:focus,
+        // &:focus-within,
+        // &:active {
+        //     background-color: $color-form-fields-focus;
+        //     outline: thick solid $color-focus-outline;
+        //     outline-offset: calc(#{$base} * -0.5);
+        // }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
