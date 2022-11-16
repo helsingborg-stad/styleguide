@@ -116,7 +116,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             right: map-get($spacers, "2");
             bottom: map-get($spacers, "2");
         }
+
+        &--search {
+            #input_search-form--field,
+            #input_header-search-form--field {
+                box-shadow: none;
+            }
+        }
     }
+
 
     textarea {
         min-height: $c-field-height;
