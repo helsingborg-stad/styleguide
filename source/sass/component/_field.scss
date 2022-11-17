@@ -64,13 +64,22 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         margin: 0;
     }
 
-    input:focus + .c-field_focus-styler {
+    input:focus + .c-field_focus-styler,
+    textarea:focus + .c-field_focus-styler {
         display: block;
         outline: thick solid $color-focus-outline;
         width: 100%;
         position: absolute;
         height: 100%;
     }
+
+    // textarea:focus + .c-field_focus-styler {
+    //     display: block;
+    //     outline: medium solid $color-focus-outline;
+    //     width: 100%;
+    //     position: absolute;
+    //     height: 100%;
+    // }
 
     input#input_header-search-form--field:focus + .c-field_focus-styler {
         width: 97%;
