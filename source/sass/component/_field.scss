@@ -71,6 +71,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         width: 100%;
         position: absolute;
         height: 100%;
+        // box-shadow: none;
     }
 
     // textarea:focus + .c-field_focus-styler {
@@ -141,6 +142,17 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &--search {
             #input_search-form--field,
             #input_header-search-form--field {
+                box-shadow: none;
+            }
+        }
+
+        &--number,
+        &--email,
+        &--text,
+        &--url,
+        &--time,
+        &--date {
+            input:focus {
                 box-shadow: none;
             }
         }
