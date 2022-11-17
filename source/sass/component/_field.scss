@@ -71,16 +71,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         width: 100%;
         position: absolute;
         height: 100%;
-        // box-shadow: none;
     }
-
-    // textarea:focus + .c-field_focus-styler {
-    //     display: block;
-    //     outline: medium solid $color-focus-outline;
-    //     width: 100%;
-    //     position: absolute;
-    //     height: 100%;
-    // }
 
     input#input_header-search-form--field:focus + .c-field_focus-styler {
         width: 97%;
@@ -103,14 +94,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border: $c-field-border-width solid $c-field-border-color;
         background: $color-form-fields;
         border-radius: $c-field-border-radius;
-
-        // &:focus,
-        // &:focus-within,
-        // &:active {
-        //     background-color: $color-form-fields-focus;
-        //     outline: thick solid $color-focus-outline;
-        //     outline-offset: calc(#{$base} * -0.5);
-        // }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
