@@ -1,5 +1,9 @@
 .c-fileinput {
 
+    :focus-visible + label {
+        @include focus();
+    }
+
     label {
         .c-icon {
             margin-right: map-get($spacers, "1");

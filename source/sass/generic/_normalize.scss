@@ -28,6 +28,10 @@ body {
 
 * {
     box-sizing: border-box;
+
+    &:focus-visible {
+        @include focus();
+    }
 }
 
 /**
@@ -374,6 +378,10 @@ button, [type="button"], [type="reset"], [type="submit"] {
     -moz-appearance: none;
      appearance: none;
      border-radius: 0;
+
+    &:focus-visible {
+        @include focus();
+    }
 }
 
 /**

@@ -480,6 +480,7 @@ a.c-card {
     
     &:focus {
         background-color: $color-code-background-focus;
+
         .c-card__image {
             &:before {
                 opacity: 0.2;
