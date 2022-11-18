@@ -34,6 +34,11 @@ body {
     }
 }
 
+#main-menu:target {
+    animation: blink 0.65s ease-in-out 3 both;
+    -webkit-animation: blink 0.65s ease-in-out 3 both;
+}
+
 /**
    * Render the `main` element consistently in IE.
    */
@@ -391,3 +396,28 @@ button, [type="button"], [type="reset"], [type="submit"] {
 figure {
     margin: 0;
 }
+
+/* Accessibility animation */
+@-webkit-keyframes blink {
+    0% {}
+    25% {
+        @include focus();
+    }
+    75% {
+        @include focus();
+    }
+    100% {}
+}
+
+
+@keyframes blink {
+    0% {}
+    25% {
+        @include focus();
+    }
+    75% {
+        @include focus();
+    }
+    100% {}
+}
+  
