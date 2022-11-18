@@ -21,7 +21,6 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
     .c-accordion__button {
         @include button-unstyled;
-        border-top: $c-accordion-border-width solid $c-accordion-border-color;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
@@ -54,7 +53,12 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         outline: 1px dashed $color-gray;
     }
 
-    .c-accordion__section:first-child .c-accordion__button {
+    .c-accordion__section {
+        scroll-margin-top: 112px;
+        border-top: $c-accordion-border-width solid $c-accordion-border-color;
+    }
+
+    .c-accordion__section:first-child {
         border-top: none;
     }
 

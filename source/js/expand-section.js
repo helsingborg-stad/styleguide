@@ -6,21 +6,46 @@ const EXPANDED = 'aria-expanded';
 const CONTROLS = 'aria-controls';
 const HIDDEN = 'aria-hidden';
 
+
 /**
  * Adds toggle event listeners to expandable elements
  */
+
 const expandSection = () => {
     const buttons = document.querySelectorAll(BUTTON);
-
+    let i = 0;
+    let prev = false;
+    
     buttons.forEach((button) => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
+        button.setAttribute('js-accordion-button', i);
+        i++;
 
+        button.addEventListener('click', function (e) {
             const expanded = button.getAttribute(EXPANDED) === 'true';
             toggleButton(button, expanded);
+            prev = handleAnchor(button, prev, expanded, e);
         });
     });
 };
+
+const handleAnchor = (button, prev, expanded, e) => {
+    if (prev && !expanded) {
+        if (parseInt(button.getAttribute('js-accordion-button')) > parseInt(prev.getAttribute('js-accordion-button'))) {
+
+        } else {
+            e.preventDefault();
+        }
+    } else {
+        e.preventDefault();
+    }
+
+    if (!expanded) {
+        return button;
+
+    } else {
+        return false;
+    }
+}
 
 /**
  * Toggles a button's and its siblings "pressed" state
