@@ -65,9 +65,10 @@ class Fields {
         fileInputs.forEach(input => {
 
             const dataTransfer = new DataTransfer();
-            const filesMax = input.parentNode.getAttribute('filesmax') ? parseInt(input.parentNode.getAttribute('filesmax')) : 1;
+            const filesMax = input.parentNode.getAttribute('filesmax') ? parseInt(input.parentNode.getAttribute('filesmax')) : -1;
+			
             let countFilesUploaded = 0;
-
+			
             if (input.hasAttribute('multiple')) {
                 input.removeAttribute('multiple');
             }
@@ -110,7 +111,6 @@ class Fields {
                     .finally(() => {
 
                         ++countFilesUploaded;
-                        console.log(dataTransfer);
                         let uploadedFiles = Object.keys(dataTransfer.items).map((key) => [Number(key), dataTransfer.items[key].getAsFile()]);
 
                         const fileNameContainer = this.closest('.c-fileinput--area');
@@ -122,7 +122,7 @@ class Fields {
                             hiddenInput = self.createHiddenInput(input, filesMax, 0, form);
                         }
 
-                        if (countFilesUploaded >= filesMax) {
+                        if ( filesMax != -1 && countFilesUploaded >= filesMax) {
                             input.setAttribute('disabled', 'true');
                         } else if (input.hasAttribute('disabled')) {
                             input.removeAttribute('disabled');
@@ -147,7 +147,7 @@ class Fields {
                             };
                         }
 
-                        if (countFilesUploaded <= filesMax) {
+                        if (filesMax == -1 || countFilesUploaded <= filesMax) {
                             const fileSize = self.returnFileSize(currentFile.size);
 
                             const list = fileNameContainer.querySelector('.js-form-file-input');
