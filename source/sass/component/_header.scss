@@ -5,6 +5,11 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
     position: relative;
     background-color: $color-header-background;
 
+    #main-menu:target {
+        animation: blink 0.65s ease-in-out 3 both;
+        -webkit-animation: blink 0.65s ease-in-out 3 both;
+    }
+
     &.c-header--sticky {
         position: sticky;
         top: 0;
@@ -60,4 +65,28 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
             height: $c-header-logotype-height;
         }
     }
+}
+
+/* Accessibility animation */
+@-webkit-keyframes blink {
+    0% {}
+    25% {
+        @include focus();
+    }
+    75% {
+        @include focus();
+    }
+    100% {}
+}
+
+
+@keyframes blink {
+    0% {}
+    25% {
+        @include focus();
+    }
+    75% {
+        @include focus();
+    }
+    100% {}
 }
