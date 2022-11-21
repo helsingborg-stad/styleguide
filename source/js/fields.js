@@ -333,6 +333,8 @@ class Fields {
         forms.forEach(form => {
 			const inputs = form.querySelectorAll('input, textarea, select');
 			const submitButton = form.querySelector('[type="submit"]');
+            const checkboxContainers = form.querySelectorAll('.checkbox-group-required');
+
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
@@ -358,7 +360,7 @@ class Fields {
 
             //General validation errors
             form.addEventListener('invalid', (e) => {
-                classToggle(form, 'is-invalid', 'is-valid');
+                this.classToggle(form, 'is-invalid', 'is-valid');
 
                 [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                     element.setAttribute('aria-hidden', false);
@@ -373,8 +375,21 @@ class Fields {
             form.addEventListener('submit', (e) => {
 				let emptyForm = false;
                 let attatchedFiles = false;
-
+                
                 form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
+
+
+                if(checkboxContainers) {
+                    checkboxContainers.forEach(checkboxContainer => {
+                        let checkboxValidation = checkboxContainer.querySelector('.js-checkbox-valid');
+
+                        if(!checkboxValidation.checked) {
+                            e.preventDefault();
+                            this.classToggle(form, 'is-invalid', 'is-valid');
+                        } 
+                    
+                    });
+                }
 
 				inputs.forEach(input => {
 					if (!input.classList.contains('js-no-validation')) {
@@ -383,7 +398,7 @@ class Fields {
 						}
 					}
 				});
-                
+
 				if (!emptyForm) {
 					e.preventDefault();
                     this.classToggle(form, 'is-invalid', 'is-valid');
