@@ -71,10 +71,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         width: 100%;
         position: absolute;
         height: 100%;
+        pointer-events: none;
     }
 
     input#input_header-search-form--field:focus + .c-field_focus-styler {
         width: 97%;
+        pointer-events: none;
     }
     
     .c-field__inner {
