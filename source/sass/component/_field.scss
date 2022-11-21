@@ -72,11 +72,17 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         position: absolute;
         height: 100%;
         pointer-events: none;
+        border-radius: $c-field-border-radius;
+    }
+
+    input#input_search-form--field + .c-field_focus-styler {
+        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
     }
 
     input#input_header-search-form--field:focus + .c-field_focus-styler {
         width: 97%;
         pointer-events: none;
+        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
     }
     
     .c-field__inner {
