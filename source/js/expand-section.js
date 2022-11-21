@@ -11,6 +11,15 @@ const HIDDEN = 'aria-hidden';
  * Adds toggle event listeners to expandable elements
  */
 
+
+/* const variableChanger = () => {
+    let root = document.querySelector(':root');
+    const header = document.querySelector('#site-header');
+    window.addEventListener('resize', () => {
+        console.log(getComputedStyle(root));
+    });
+}
+variableChanger(); */
 const expandSection = () => {
     const buttons = document.querySelectorAll(BUTTON);
     let i = 0;
