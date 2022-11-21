@@ -51,6 +51,16 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         &:focus {
             background-color: $color-form-fields-focus;
         }
+
+        &:focus + .c-select_focus-styler {
+            display: block;
+            outline: thick solid $color-focus-outline;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            border-radius: $c-select-border-radius;
+        }
     }
 
     .c-select__icon {

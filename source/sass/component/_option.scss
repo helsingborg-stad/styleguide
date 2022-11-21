@@ -159,7 +159,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
     .c-option__checkbox--label,
     .c-option__radio--label {
         margin: 0;
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
