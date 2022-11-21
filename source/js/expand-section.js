@@ -11,20 +11,38 @@ const HIDDEN = 'aria-hidden';
  * Adds toggle event listeners to expandable elements
  */
 
+const setMarginEventListener = () => {
+    window.addEventListener('resize', debounce(setMarginVariable, 2000));
+}
 
-/* const variableChanger = () => {
+const setMarginVariable = (root, header) => {
+    root.style.setProperty('--c-accordion-scroll-margin', (header.offsetHeight + 20) + 'px');
+}
+
+const debounce = (func, delay) => {
+    let timer;
     let root = document.querySelector(':root');
     const header = document.querySelector('#site-header');
-    window.addEventListener('resize', () => {
-        console.log(getComputedStyle(root));
-    });
+
+    func(root, header);
+
+    return () => {
+        timer ? clearTimeout(timer) : '';
+        timer = setTimeout(() => {
+            func(root, header);
+        }, delay);
+    }
 }
-variableChanger(); */
+
 const expandSection = () => {
     const buttons = document.querySelectorAll(BUTTON);
     let i = 0;
     let prev = false;
     
+    if (document.querySelector('#site-header').classList.contains('c-header--sticky')) {
+        setMarginEventListener();
+    }
+
     buttons.forEach((button) => {
         button.setAttribute('js-accordion-button', i);
         i++;
