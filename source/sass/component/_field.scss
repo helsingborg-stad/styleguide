@@ -75,11 +75,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border-radius: $c-field-border-radius;
     }
 
-    input#input_search-form--field + .c-field_focus-styler {
+    input#input_search-form__field + .c-field_focus-styler {
         border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
     }
 
-    input#input_header-search-form--field:focus + .c-field_focus-styler {
+    input#input_header-search-form__field:focus + .c-field_focus-styler {
         width: 97%;
         pointer-events: none;
         border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
@@ -131,8 +131,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         &--search {
-            #input_search-form--field,
-            #input_header-search-form--field {
+            #input_search-form__field,
+            #input_header-search-form__field,
+            #input_hero-search-form__field {
                 box-shadow: none;
             }
         }
