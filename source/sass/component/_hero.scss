@@ -3,10 +3,13 @@ $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
 $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
 .c-hero {
-  background-color: $c-hero-background-color;
   display: flex; 
   background-size: cover;
   position: relative;
+
+  &.c-hero--image {
+    background-color: $c-hero-background-color;
+  }
 
   /** Modifiers - size **/ 
   &.c-hero--small {
