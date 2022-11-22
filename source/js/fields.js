@@ -274,6 +274,7 @@ class Fields {
 
                 self.formElementDataInvalidMessage = (self.formElement.getAttribute('data-invalid-message')) ?
                     self.formElement.getAttribute('data-invalid-message') : '';
+
             });
 
             // On Change event listener
@@ -297,7 +298,6 @@ class Fields {
                 }
             };
         }
-
         this.formElement.classList.remove('invalid');
         this.formElement.classList.remove('valid');
 
@@ -333,6 +333,8 @@ class Fields {
         forms.forEach(form => {
 			const inputs = form.querySelectorAll('input, textarea, select');
 			const submitButton = form.querySelector('[type="submit"]');
+            const checkboxContainers = form.querySelectorAll('.checkbox-group-required');
+
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
@@ -358,10 +360,8 @@ class Fields {
 
             //General validation errors
             form.addEventListener('invalid', (e) => {
-                form.classList.add('is-invalid');
-                form.classList.remove('is-valid');
+                this.classToggle(form, 'is-invalid', 'is-valid');
 
-                
                 [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                     element.setAttribute('aria-hidden', false);
                 }); 
@@ -373,22 +373,38 @@ class Fields {
             }, true);
 
             form.addEventListener('submit', (e) => {
-                form.classList.add('is-valid');
-                form.classList.remove('is-invalid');
-
 				let emptyForm = false;
+                let attatchedFiles = false;
+                
+                form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
+
+
+                if(checkboxContainers) {
+                    checkboxContainers.forEach(checkboxContainer => {
+                        let checkboxValidation = checkboxContainer.querySelector('.js-checkbox-valid');
+
+                        if(!checkboxValidation.checked) {
+                            e.preventDefault();
+                            this.classToggle(form, 'is-invalid', 'is-valid');
+                        } 
+                    
+                    });
+                }
+
 				inputs.forEach(input => {
 					if (!input.classList.contains('js-no-validation')) {
 						if (input.getAttribute('type') !== 'hidden') {
-							input.value.length > 0 ? emptyForm = true : '';
+							(input.value.length > 0 || attatchedFiles) ? emptyForm = true : '';
 						}
 					}
 				});
 
 				if (!emptyForm) {
 					e.preventDefault();
+                    this.classToggle(form, 'is-invalid', 'is-valid');
 				} else {
 					submitButton.innerHTML = formbuilder.sending;
+                    this.classToggle(form, 'is-valid', 'is-invalid');
 				}
 
                 [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
@@ -419,6 +435,7 @@ class Fields {
         } else {
             this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
             this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+
         }
     }
 

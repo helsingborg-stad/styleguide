@@ -21,6 +21,15 @@ export default class ToggleClasses {
 
             item.classList.toggle(toggleClass);
 
+            //Let aria hidden be toggked with display none
+            if(toggleClass == 'u-display--none') {
+                if(item.classList.contains(toggleClass)) {
+                    item.attr('aria-hidden', true);
+                } else {
+                    item.attr('aria-hidden', false);
+                }
+            }
+
             if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
 
             if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
