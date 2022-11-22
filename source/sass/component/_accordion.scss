@@ -1,6 +1,7 @@
 
 $c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
 $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
+$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
 .c-accordion {
     padding-top: $base;
@@ -21,7 +22,6 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
 
     .c-accordion__button {
         @include button-unstyled;
-        border-top: $c-accordion-border-width solid $c-accordion-border-color;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
@@ -54,7 +54,12 @@ $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider
         outline: 1px dashed $color-gray;
     }
 
-    .c-accordion__section:first-child .c-accordion__button {
+    .c-accordion__section {
+        scroll-margin-top: $c-accordion-margin-calculator;
+        border-top: $c-accordion-border-width solid $c-accordion-border-color;
+    }
+
+    .c-accordion__section:first-child {
         border-top: none;
     }
 
