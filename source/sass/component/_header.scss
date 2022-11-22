@@ -7,7 +7,6 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        -webkit-animation: blink 0.65s ease-in-out 3 both;
         scroll-margin-top: calc(#{$base} * 2);
     }
 
@@ -67,19 +66,6 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
         }
     }
 }
-
-/* Accessibility animation */
-@-webkit-keyframes blink {
-    0% {}
-    25% {
-        @include focus();
-    }
-    75% {
-        @include focus();
-    }
-    100% {}
-}
-
 
 @keyframes blink {
     0% {}
