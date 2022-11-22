@@ -34,12 +34,6 @@ body {
     }
 }
 
-#sidebar-left-sidebar:target {
-    animation: blink 0.65s ease-in-out 3 both;
-    -webkit-animation: blink 0.65s ease-in-out 3 both;
-    scroll-margin-top: calc(#{$base} * 2);
-}
-
 /**
    * Render the `main` element consistently in IE.
    */
