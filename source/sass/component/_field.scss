@@ -63,6 +63,27 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         outline: 0;
         margin: 0;
     }
+
+    input:focus + .c-field_focus-styler,
+    textarea:focus + .c-field_focus-styler {
+        display: block;
+        outline: thick solid $color-focus-outline;
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        pointer-events: none;
+        border-radius: $c-field-border-radius;
+    }
+
+    input#input_search-form__field + .c-field_focus-styler {
+        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+    }
+
+    input#input_header-search-form__field:focus + .c-field_focus-styler {
+        width: 97%;
+        pointer-events: none;
+        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+    }
     
     .c-field__inner {
         position: relative;
@@ -81,14 +102,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border: $c-field-border-width solid $c-field-border-color;
         background: $color-form-fields;
         border-radius: $c-field-border-radius;
-
-        &:focus,
-        &:focus-within,
-        &:active {
-            background-color: $color-form-fields-focus;
-            outline: thick solid $color-focus-outline;
-            outline-offset: calc(#{$base} * -0.5);
-        }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
@@ -120,7 +133,18 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &--search {
             #input_search-form__field,
             #input_header-search-form__field,
-            #input_hero-search-form__field  {
+            #input_hero-search-form__field {
+                box-shadow: none;
+            }
+        }
+
+        &--number,
+        &--email,
+        &--text,
+        &--url,
+        &--time,
+        &--date {
+            input:focus {
                 box-shadow: none;
             }
         }
