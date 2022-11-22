@@ -413,10 +413,10 @@ class Fields {
             let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
             hasChecked.push(validation);
             if(!validation) { 
-                group.querySelector('label').classList.add('u-color__text--danger');
+                group.querySelector('.c-field__label').classList.add('u-color__text--danger');
 
             } else {
-                group.querySelector('label').classList.remove('u-color__text--danger');
+                group.querySelector('.c-field__label').classList.remove('u-color__text--danger');
             }
         })
         
