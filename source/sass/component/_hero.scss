@@ -1,7 +1,9 @@
 $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
 $c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
+$c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
 .c-hero {
+  background-color: $c-hero-background-color;
   display: flex; 
   background-size: cover;
   position: relative;
