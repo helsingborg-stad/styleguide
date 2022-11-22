@@ -6,11 +6,6 @@ const EXPANDED = 'aria-expanded';
 const CONTROLS = 'aria-controls';
 const HIDDEN = 'aria-hidden';
 
-
-/**
- * Adds toggle event listeners to expandable elements
- */
-
 const setMarginEventListener = () => {
     window.addEventListener('resize', debounce(setMarginVariable, 2000));
 }
@@ -19,6 +14,13 @@ const setMarginVariable = (root, header) => {
     root.style.setProperty('--c-accordion-scroll-margin', (header.offsetHeight + 20) + 'px');
 }
 
+/**
+ * The debounce function takes a function and a delay as arguments, and returns a function that will
+ * call the passed function after the delay has passed.
+ * @param func - the function that will be called
+ * @param delay - the amount of time to wait before running the function
+ * @returns A function that takes two arguments, root and header.
+ */
 const debounce = (func, delay) => {
     let timer;
     let root = document.querySelector(':root');
@@ -34,6 +36,10 @@ const debounce = (func, delay) => {
     }
 }
 
+
+/**
+ * Adds toggle event listeners to expandable elements
+ */
 const expandSection = () => {
     const buttons = document.querySelectorAll(BUTTON);
     let i = 0;
