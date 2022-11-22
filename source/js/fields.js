@@ -378,8 +378,6 @@ class Fields {
 				let emptyForm = false;
                 let attatchedFiles = false;
                 
-                e.preventDefault();
-                
                 form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
               
 				inputs.forEach(input => {
@@ -415,7 +413,6 @@ class Fields {
             let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
             hasChecked.push(validation);
             if(!validation) { 
-                console.log(group);
                 group.querySelector('label').classList.add('u-color__text--danger');
 
             } else {
@@ -434,7 +431,6 @@ class Fields {
     validateInput(input) {
         if(input.type !== 'checkbox') {
             if (input.value.length > 0) {
-                console.log(input.type);
                 if (input.checkValidity()) {
                     this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
                     this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
