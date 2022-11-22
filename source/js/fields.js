@@ -333,7 +333,7 @@ class Fields {
         forms.forEach(form => {
 			const inputs = form.querySelectorAll('input, textarea, select');
 			const submitButton = form.querySelector('[type="submit"]');
-            const checkboxContainers = form.querySelectorAll('.checkbox-group-required');
+            const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
 
 
             inputs.forEach(input => {
@@ -360,8 +360,11 @@ class Fields {
 
             //General validation errors
             form.addEventListener('invalid', (e) => {
-                this.classToggle(form, 'is-invalid', 'is-valid');
 
+                    this.classToggle(form, 'is-invalid', 'is-valid');
+                    
+                    this.validateCheckboxes(checkboxGroups);
+                
                 [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                     element.setAttribute('aria-hidden', false);
                 }); 
@@ -369,7 +372,6 @@ class Fields {
                 [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
                     element.setAttribute('aria-hidden', true);
                 }); 
-
             }, true);
 
             form.addEventListener('submit', (e) => {
@@ -377,20 +379,7 @@ class Fields {
                 let attatchedFiles = false;
                 
                 form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
-
-
-                if(checkboxContainers) {
-                    checkboxContainers.forEach(checkboxContainer => {
-                        let checkboxValidation = checkboxContainer.querySelector('.js-checkbox-valid');
-
-                        if(!checkboxValidation.checked) {
-                            e.preventDefault();
-                            this.classToggle(form, 'is-invalid', 'is-valid');
-                        } 
-                    
-                    });
-                }
-
+              
 				inputs.forEach(input => {
 					if (!input.classList.contains('js-no-validation')) {
 						if (input.getAttribute('type') !== 'hidden') {
@@ -399,7 +388,7 @@ class Fields {
 					}
 				});
 
-				if (!emptyForm) {
+                if (!emptyForm || !this.validateCheckboxes(checkboxGroups)) {
 					e.preventDefault();
                     this.classToggle(form, 'is-invalid', 'is-valid');
 				} else {
@@ -418,24 +407,43 @@ class Fields {
         });
     }
 
+    validateCheckboxes(checkboxGroups) {
+        let hasChecked = [];
+        checkboxGroups.forEach(group => {
+            let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
+            hasChecked.push(validation);
+            if(!validation) { 
+                group.querySelector('label').classList.add('u-color__text--danger');
+
+            } else {
+                group.querySelector('label').classList.remove('u-color__text--danger');
+            }
+        })
+        
+        return hasChecked.includes(false) ? false : true;
+    }
+
     classToggle(element, addClass, removeClass) {
         !element.classList.contains(addClass) ? element.classList.add(addClass) : '';
         element.classList.remove(removeClass);
     }
     
     validateInput(input) {
-        if (input.value.length > 0) {
-            if (input.checkValidity()) {
-                this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
-                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+        if(input.type !== 'checkbox') {
+            if (input.value.length > 0) {
+                if (input.checkValidity()) {
+                    this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
+                    this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+                    
+                } else {
+                    this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
+                    this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false) : '';
+                }
             } else {
-                this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
-                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false) : '';
-            }
-        } else {
-            this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
-            this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+                this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
+                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
 
+            }
         }
     }
 
