@@ -338,7 +338,6 @@ class Fields {
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
-
                     this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
                     this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
 
@@ -348,6 +347,10 @@ class Fields {
                             self.validateInput(input);
                         }
                     })
+                } else {
+                    if (this.getFieldWrapper(input).querySelector('.c-field__error')) {
+                        this.getFieldWrapper(input).querySelector('.c-field__error').remove();
+                    }
                 }
             });
 
