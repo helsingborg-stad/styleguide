@@ -14,8 +14,7 @@
         'horizontal' => 'center'
     ],
     'classList' => [
-        'p-home__hero',
-        ''
+        'p-home__hero'
     ]
 
 ])
