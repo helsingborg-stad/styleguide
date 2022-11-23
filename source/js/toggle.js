@@ -24,9 +24,9 @@ export default class ToggleClasses {
             //Let aria hidden be toggked with display none
             if(toggleClass == 'u-display--none') {
                 if(item.classList.contains(toggleClass)) {
-                    item.attr('aria-hidden', true);
+                    item.setAttribute('aria-hidden', true);
                 } else {
-                    item.attr('aria-hidden', false);
+                    item.setAttribute('aria-hidden', false);
                 }
             }
 
