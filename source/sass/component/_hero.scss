@@ -6,9 +6,15 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   display: flex; 
   background-size: cover;
   position: relative;
+  // max-width: 100%;
+  // overflow: hidden;
 
   &.c-hero--image {
     background-color: $c-hero-background-color;
+  }
+
+  &.c-hero--kenny {
+    @include ken-burns();
   }
 
   /** Modifiers - size **/ 
