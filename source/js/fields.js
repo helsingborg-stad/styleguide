@@ -334,36 +334,39 @@ class Fields {
 			const inputs = form.querySelectorAll('input, textarea, select');
 			const submitButton = form.querySelector('[type="submit"]');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
-
-
+            
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
+                    console.log(input);
                     this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
                     this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
 
-
-                    input.addEventListener('keyup', () => {
-                        if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
-                            self.validateInput(input);
-                        }
-                    })
                 } else {
                     if (this.getFieldWrapper(input).querySelector('.c-field__error')) {
                         this.getFieldWrapper(input).querySelector('.c-field__error').remove();
                     }
                 }
+
+                input.addEventListener('keyup', () => {
+                    if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
+                        self.validateInput(input);
+                    }
+                })
             });
 
             // Validate fields on change
             ['focusout', 'change'].forEach(function(e) {
                 inputs.forEach(input => {
-                    input.addEventListener(e, () => self.validateInput(input));
+                    input.addEventListener(e, () => {
+                        console.log(input);
+                        self.validateInput(input)
+                    
+                    });
                 });
             });
 
             //General validation errors
             form.addEventListener('invalid', (e) => {
-
                     this.classToggle(form, 'is-invalid', 'is-valid');
                     
                     this.validateCheckboxes(checkboxGroups);
