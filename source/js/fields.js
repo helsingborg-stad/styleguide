@@ -337,7 +337,6 @@ class Fields {
             
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
-                    console.log(input);
                     this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
                     this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
 
@@ -354,31 +353,55 @@ class Fields {
                 })
             });
 
+            form.querySelectorAll('.checkbox-group-required').forEach(checkboxGroup => {
+                const checkboxes = checkboxGroup.querySelectorAll('.c-option__checkbox--hidden-box');
+                let validationElement = checkboxGroup.querySelector('.js-checkbox-valid');
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        let validator = checkboxGroup.querySelectorAll('.c-option [type="checkbox"]:checked');
+                        if (validator.length > 0) {
+                            validationElement.setAttribute('checked', true);
+                            checkboxGroup.querySelector('.c-field__label').classList.remove('u-color__text--danger');
+                        } else {
+                            validationElement.removeAttribute('checked');
+                        }
+                    })
+                })
+            });
+
             // Validate fields on change
             ['focusout', 'change'].forEach(function(e) {
                 inputs.forEach(input => {
                     input.addEventListener(e, () => {
-                        console.log(input);
-                        self.validateInput(input)
-                    
+                        self.validateInput(input) 
                     });
                 });
             });
 
-            //General validation errors
-            form.addEventListener('invalid', (e) => {
-                    this.classToggle(form, 'is-invalid', 'is-valid');
-                    
-                    this.validateCheckboxes(checkboxGroups);
-                
-                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                    element.setAttribute('aria-hidden', false);
-                }); 
+            submitButton.addEventListener('click', (e) => {
+                let containsInvalid = [];
 
-                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                    element.setAttribute('aria-hidden', true);
-                }); 
-            }, true);
+                inputs.forEach(input => {
+                    containsInvalid.push(this.validateInput(input, true));
+                });
+
+                containsInvalid.push(this.validateCheckboxes(checkboxGroups));
+
+                if(containsInvalid.includes(false)) {
+                   this.classToggle(form, 'is-invalid', 'is-valid');
+
+                   this.validateCheckboxes(checkboxGroups);
+
+                   [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                       element.setAttribute('aria-hidden', false);
+                   });
+
+                   [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                       element.setAttribute('aria-hidden', true);
+                   });
+                }
+            });
 
             form.addEventListener('submit', (e) => {
 				let emptyForm = false;
@@ -391,7 +414,8 @@ class Fields {
 						if (input.getAttribute('type') !== 'hidden') {
 							(input.value.length > 0 || attatchedFiles) ? emptyForm = true : '';
 						}
-					}
+					} 
+                    this.validateInput(input);
 				});
 
                 if (!emptyForm || !this.validateCheckboxes(checkboxGroups)) {
@@ -428,29 +452,54 @@ class Fields {
         
         return hasChecked.includes(false) ? false : true;
     }
+    
+    validateInput(input, submitCheck = false) {
+        let valueLength = input.value ? input.value.length : 0; 
+
+        if(input.type === 'checkbox') {
+            return;
+        } 
+        
+        if (['date', 'week', 'month', 'time'].indexOf(input.type) != -1) {
+            valueLength = 1;
+        }
+
+        if (valueLength > 0 || submitCheck) {
+            if(input.hasAttribute('required')) {
+                if (input.checkValidity()) {
+                    this.handleValid(input);
+                    return true;
+                        
+                } else {
+                    this.handleInvalid(input);
+                    return false;
+                }
+            }
+        } else {
+            this.handleNotFilled(input);
+            return false;
+        }
+        
+    }
+
+    handleValid(input) {
+        this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
+        this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+    }
+
+    handleInvalid(input) {
+        this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
+        this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false) : '';
+    }
+
+    handleNotFilled(input) {
+        this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
+        this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
+    }
 
     classToggle(element, addClass, removeClass) {
         !element.classList.contains(addClass) ? element.classList.add(addClass) : '';
         element.classList.remove(removeClass);
-    }
-    
-    validateInput(input) {
-        if(input.type !== 'checkbox') {
-            if (input.value.length > 0) {
-                if (input.checkValidity()) {
-                    this.classToggle(this.getFieldWrapper(input), 'is-valid', 'is-invalid');
-                    this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
-                    
-                } else {
-                    this.classToggle(this.getFieldWrapper(input), 'is-invalid', 'is-valid');
-                    this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', false) : '';
-                }
-            } else {
-                this.getFieldWrapper(input).classList.remove('is-valid', 'is-invalid');
-                this.getFieldWrapper(input).querySelector('.c-field__error') ? this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-hidden', true) : '';
-
-            }
-        }
     }
 
     getFieldWrapper(input) {
