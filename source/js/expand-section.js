@@ -45,7 +45,7 @@ const expandSection = () => {
     let i = 0;
     let prev = false;
     
-    if (document.querySelector('#site-header').classList.contains('c-header--sticky')) {
+    if (document.querySelector('#site-header')?.classList.contains('c-header--sticky')) {
         setMarginEventListener();
     }
 
