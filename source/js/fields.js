@@ -379,10 +379,6 @@ class Fields {
                 });
             });
 
-            form.addEventListener('invalid', (e) => {
-                e.preventDefault();
-                console.log(e.sourceElement);
-            }, true);
 
             submitButton.addEventListener('click', (e) => {
                 let containsInvalid = [];
