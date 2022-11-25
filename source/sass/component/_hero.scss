@@ -19,6 +19,20 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     &.c-hero--animation-type-kenny {
       @include ken-burns();
     }
+
+    &.c-hero--animation-paused {
+      animation-play-state: paused;
+    }
+
+    &__controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX(-50%);
+    }
     
     /** Modifiers - size **/ 
     &.c-hero--small {
