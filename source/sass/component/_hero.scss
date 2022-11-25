@@ -87,7 +87,6 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     }
   }
   
-  // CONTENT
   .c-hero__content {
     padding: map-get($spacers, "6") 0;
     max-width: calc( #{$base} * 87);
