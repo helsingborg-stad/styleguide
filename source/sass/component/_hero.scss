@@ -5,132 +5,128 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 .c-hero__wrapper {
   width: 100%;
   overflow: hidden;
-}
-
-.c-hero {
-  display: flex; 
-  background-size: cover;
-  position: relative;
-  bottom: 100%;
-
-  &.c-hero--image {
-    background-color: $c-hero-background-color;
-  }
-
-  &.c-hero--kenny {
-    @include ken-burns();
-  }
-
-  /** Modifiers - size **/ 
-  &.c-hero--small {
-    min-height: calc(#{$base} * 40);
-    &:before {
-      @include ratio(36, 7, false); 
-    }
-  }
-
-  &.c-hero--normal {
-    min-height: calc(#{$base} * 50);
-    &:before {
-      @include ratio(10, 3, false); 
-    }
-  }
-
-  &.c-hero--large {
-    min-height: calc(#{$base} * 60);
-    max-height: 70vh;
-    &:before {
-      @include ratio(16, 9, false);
-    }
-  }
-
-  &.c-hero--small:before,
-  &.c-hero--normal:before,
-  &.c-hero--large:before {
-    float: left;
-    content: "";
-    width: 1px;
-    margin-left: -1px;
-    height: 0;
-  }
-
-  &.c-hero--small:before,
-  &.c-hero--normal:before,
-  &.c-hero--large:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /** Modifiers - Full width */ 
-  &.c-hero--stretch { /* Bleed outside container  left&right */ 
-    @include stretch();
-  }
-
-  /** Sub elements */ 
-  &.c-hero--overlay .c-hero__overlay {
-    @include cover();
-    z-index: $level-1;
-    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
-  }
-
   
-  .c-hero__overlay {
-    background-color: $c-hero-color-overlay;
+  .c-hero {
+    display: flex; 
+    background-size: cover;
+    position: relative;
+    bottom: 100%;
+    
+    &.c-hero--image {
+      background-color: $c-hero-background-color;
+    }
+    
+    &.c-hero--kenny {
+      @include ken-burns();
+    }
+    
+    /** Modifiers - size **/ 
+    &.c-hero--small {
+      min-height: calc(#{$base} * 40);
+      &:before {
+        @include ratio(36, 7, false); 
+      }
+    }
+    
+    &.c-hero--normal {
+      min-height: calc(#{$base} * 50);
+      &:before {
+        @include ratio(10, 3, false); 
+      }
+    }
+    
+    &.c-hero--large {
+      min-height: calc(#{$base} * 60);
+      max-height: 70vh;
+      &:before {
+        @include ratio(16, 9, false);
+      }
+    }
+    
+    &.c-hero--small:before,
+    &.c-hero--normal:before,
+    &.c-hero--large:before {
+      float: left;
+      content: "";
+      width: 1px;
+      margin-left: -1px;
+      height: 0;
+    }
+    
+    &.c-hero--small:before,
+    &.c-hero--normal:before,
+    &.c-hero--large:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    /** Modifiers - Full width */ 
+    &.c-hero--stretch { /* Bleed outside container  left&right */ 
+      @include stretch();
+    }
+    
+    /** Sub elements */ 
+    &.c-hero--overlay .c-hero__overlay {
+      @include cover();
+      z-index: $level-1;
+      box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
+    }
+    
+    
+    .c-hero__overlay {
+      background-color: $c-hero-color-overlay;
+    }
+    
+    .c-hero__video {
+      @include cover();
+      object-fit: cover;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
   }
   
-  .c-hero__video {
-    @include cover();
-    object-fit: cover;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
+  // CONTENT
+  .c-hero__content {
+    padding: map-get($spacers, "6") 0;
+    max-width: calc( #{$base} * 87);
+    z-index: $level-2;
+    position: absolute;
+    bottom: 0;
+    text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
+    
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__body {
+      color: $c-hero-color-font;
+      animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+    
+    .c-hero__title {
+      font-size: calc(#{$font-size-hero} + calc(1vw));
+      animation-delay: 200ms;
+    }
+    
+    .c-hero__byline {
+      font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
+      font-weight: $font-weight-bold;
+      font-family: $font-family-bold;
+      animation-delay: 400ms;
+      display: inline-block;
+    }
+    
+    .c-hero__body {
+      font-size: calc(#{$font-size-hero-body} + calc(.2vw));
+      animation-delay: 600ms;
+    }
+    
+    .c-hero__title + .c-hero__body {
+      animation-delay: 400ms;
+    }
   }
 }
-
-.c-hero__container {
-  align-self: flex-end;
-}
-
-// CONTENT
-.c-hero__content {
-  padding: map-get($spacers, "6") 0;
-  max-width: calc( #{$base} * 87);
-  z-index: $level-2;
-  position: absolute;
-  bottom: 0;
-  text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
-}
-
-.c-hero__title,
-.c-hero__byline,
-.c-hero__body {
-  color: $c-hero-color-font;
-  animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-}
-
-.c-hero__title {
-  font-size: calc(#{$font-size-hero} + calc(1vw));
-  animation-delay: 200ms;
-}
-
-.c-hero__byline {
-  font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
-  font-weight: $font-weight-bold;
-  font-family: $font-family-bold;
-  animation-delay: 400ms;
-  display: inline-block;
-}
-
-.c-hero__body {
-  font-size: calc(#{$font-size-hero-body} + calc(.2vw));
-  animation-delay: 600ms;
-}
-
-.c-hero__title + .c-hero__body {
-  animation-delay: 400ms;
-}
-
+  
 @keyframes hero-slide-in {
   0% {
     transform: translateY(calc(#{$base} * 4));
