@@ -68,7 +68,6 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
 
         .c-acceptance__modal {
             @include cover;
-            overflow: auto;
             background-color: $c-acceptance-alpha-color;  
             color: $c-acceptance-alpha-color-contransting; 
         }
