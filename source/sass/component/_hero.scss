@@ -16,7 +16,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       background-color: $c-hero-background-color;
     }
     
-    &.c-hero--kenny {
+    &.c-hero--animation-type-kenny {
       @include ken-burns();
     }
     
