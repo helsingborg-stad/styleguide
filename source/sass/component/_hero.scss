@@ -20,9 +20,9 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       @include ken-burns();
     }
 
-    &.c-hero--animation-paused {
-      animation-play-state: paused;
-    }
+    // &.c-hero--animation-paused {
+    //   animation-play-state: paused;
+    // }
 
     &__controls {
       display: flex;
@@ -32,6 +32,26 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       top: 0;
       right: 0;
       transform: translateX(-50%);
+      cursor: pointer;
+
+      .c-hero__animation-play-button {
+        display: none;
+      }
+
+      .c-hero__animation-pause-button {
+        display: block;
+      }
+
+      &.show-play-button {
+        .c-hero__animation-pause-button {
+          display: none;
+        }
+
+        .c-hero__animation-play-button {
+          display: block;
+        }
+      }
+
     }
     
     /** Modifiers - size **/ 
