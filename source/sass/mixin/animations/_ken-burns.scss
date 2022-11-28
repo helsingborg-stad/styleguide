@@ -1,8 +1,5 @@
 @mixin ken-burns() {
-    // border: 5px solid red;
-
     animation: ken-burns-animation 40s ease infinite;
-    // overflow: hidden;
 }
 
 @keyframes ken-burns-animation {
