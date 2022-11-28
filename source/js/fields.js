@@ -1,4 +1,5 @@
 import FileInput from "./fileInput";
+import Checkbox from "./checkbox";
 
 class Fields {
 
@@ -98,8 +99,10 @@ class Fields {
     setupFormValidate() {
         const self = this;
         const forms = document.querySelectorAll('.js-form-validation');
+        const checkboxHandler = new Checkbox();
+
         forms.forEach(form => {
-			const inputs = form.querySelectorAll('input, textarea, select');
+            const inputs = form.querySelectorAll('input, textarea, select');
 			const submitButton = form.querySelector('[type="submit"]');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
             
@@ -121,22 +124,7 @@ class Fields {
                 })
             });
 
-            form.querySelectorAll('.checkbox-group-required').forEach(checkboxGroup => {
-                const checkboxes = checkboxGroup.querySelectorAll('.c-option__checkbox--hidden-box');
-                let validationElement = checkboxGroup.querySelector('.js-checkbox-valid');
-
-                checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', () => {
-                        let validator = checkboxGroup.querySelectorAll('.c-option [type="checkbox"]:checked');
-                        if (validator.length > 0) {
-                            validationElement.setAttribute('checked', true);
-                            checkboxGroup.querySelector('.c-field__label').classList.remove('u-color__text--danger');
-                        } else {
-                            validationElement.removeAttribute('checked');
-                        }
-                    })
-                })
-            });
+            checkboxHandler.setListener(checkboxGroups);
 
             // Validate fields on change
             ['focusout', 'change'].forEach(function(e) {
@@ -155,12 +143,13 @@ class Fields {
                     containsInvalid.push(this.validateInput(input, true));
                 });
 
-                containsInvalid.push(this.validateCheckboxes(checkboxGroups));
+                containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
 
                 if(containsInvalid.includes(false)) {
                    this.classToggle(form, 'is-invalid', 'is-valid');
 
-                   this.validateCheckboxes(checkboxGroups);
+                   checkboxHandler.validateCheckboxes(checkboxGroups);
+
 
                    [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                        element.setAttribute('aria-hidden', false);
@@ -187,7 +176,7 @@ class Fields {
                     this.validateInput(input);
 				});
 
-                if (!emptyForm || !this.validateCheckboxes(checkboxGroups)) {
+                if (!emptyForm || !checkboxHandler.validateCheckboxes(checkboxGroups)) {
 					e.preventDefault();
                     this.classToggle(form, 'is-invalid', 'is-valid');
 				} else {
@@ -204,22 +193,6 @@ class Fields {
                 }); 
             }); 
         });
-    }
-
-    validateCheckboxes(checkboxGroups) {
-        let hasChecked = [];
-        checkboxGroups.forEach(group => {
-            let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
-            hasChecked.push(validation);
-            if(!validation) { 
-                group.querySelector('.c-field__label').classList.add('u-color__text--danger');
-
-            } else {
-                group.querySelector('.c-field__label').classList.remove('u-color__text--danger');
-            }
-        })
-        
-        return hasChecked.includes(false) ? false : true;
     }
     
     validateInput(input, submitCheck = false) {
