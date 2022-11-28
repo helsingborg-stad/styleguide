@@ -60,6 +60,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             position: absolute;
             top: 0;
             border-radius: $c-select-border-radius;
+            pointer-events: none;
         }
     }
 
