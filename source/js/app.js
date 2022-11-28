@@ -29,6 +29,7 @@ import ButtonToggle from './buttonToggle';
 import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
+import Hero from './hero';
 import './helpers/swipe';
 
 expandSection();
@@ -36,6 +37,7 @@ setScrollbarCSS();
 IframeAcceptance();
 
 const StickyKeysInstance = new StickyKeys();
+const HeroInstance = new Hero();
 const SortInstance = new Sort;
 const ToggleInstance = new Toggle;
 const SplitButtonInstance = new SplitButton;
