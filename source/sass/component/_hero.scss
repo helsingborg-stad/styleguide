@@ -33,7 +33,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       &:before {
         content: "";
         display: block;
-        background: #fff;
+        background: $color-white;
         width: calc(#{$base} * 3);
         height: calc(#{$base} * 3);
         border-radius: 50%;
