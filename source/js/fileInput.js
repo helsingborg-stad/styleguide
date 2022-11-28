@@ -111,7 +111,7 @@ class FileInput {
                                 .querySelector('li:last-child')
                                 .querySelector('.c-fileinput__remove-file')
                                 .addEventListener('click', (clickedEl) => {
-                                    console.log(hiddenInput);
+
                                     if (!hasImagePreview) {
                                         hiddenInput.remove();
                                     }

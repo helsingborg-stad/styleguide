@@ -3,10 +3,6 @@ class Checkbox {
 
     }
 
-    test() {
-        console.log("hej");
-    }
-
     setListener(checkboxGroups) {
         checkboxGroups.forEach(checkboxGroup => {
             const checkboxes = checkboxGroup.querySelectorAll('.c-option__checkbox--hidden-box');
@@ -27,7 +23,7 @@ class Checkbox {
     }
 
     validateCheckboxes(checkboxGroups) {
-        console.log(checkboxGroups);
+
         let hasChecked = [];
         checkboxGroups.forEach(group => {
             let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
