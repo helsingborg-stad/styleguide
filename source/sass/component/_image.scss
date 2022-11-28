@@ -75,8 +75,6 @@ $radius: (
 // ***************************************************************
 
 .c-image {
-    width: 100%;
-    height: auto;
 
     .c-image--custom-width {
         width: auto;
@@ -84,9 +82,7 @@ $radius: (
 
     .c-image__image {
         border-radius: $c-image-border-radius;
-        width: 100%;
         max-width: 100%;
-        display: block;
     }
 
     .c-image__caption {
@@ -99,6 +95,7 @@ $radius: (
     .c-image--full-width .c-image__image {
         object-fit: contain;
         width: 100%;
+        display: block;
     }
 
     .c-image__modal {
