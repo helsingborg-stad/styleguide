@@ -235,6 +235,15 @@ class FileInput {
         });
     }
 
+    getImageDimensions(src) {
+        return new Promise((resolve, reject) => {
+            var image = new Image();
+            image.onload = () => resolve({ width: image.width, height: image.height })
+            image.onerror = reject
+            image.src = src
+        })
+    }
+
     checkImageDimensions(file, maxWidth, maxHeight) {
         return new Promise((resolve, reject) => {
             if (file['type'].split('/')[0] === 'image' && (maxWidth || maxHeight)) {
