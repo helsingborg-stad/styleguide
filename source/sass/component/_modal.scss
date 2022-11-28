@@ -5,11 +5,11 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     background-color: white;
     gap: map-get($spacers, "2");
     flex-direction: column;
-    width:100%;
+    width: 100%;
     cursor: default;
-    transition: all 0.3s ease-in-out; 
+    transition: all 0.3s ease-in-out;
     display: none;
-    border: none; 
+    border: none;
     border-radius: $c-modal-border-radius;
     filter: $drop-shadow-3;
     max-width: 800px;
@@ -20,15 +20,27 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         color: $color-black;
     }
 
-    &.c-modal--gallery {
-        max-height:unset;
+    .c-image {
+        width: 100%;
+        height: auto;
 
         .c-image__image {
-            max-height:80vh;
+
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &.c-modal--gallery {
+        max-height: unset;
+
+        .c-image__image {
+            max-height: 80vh;
             object-fit: contain;
         }
 
-        .c-modal__header, .c-modal__footer {
+        .c-modal__header,
+        .c-modal__footer {
             padding: 0;
         }
 
@@ -48,7 +60,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
 
     &::backdrop {
-        background-color: $c-modal-backdrop-color; 
+        background-color: $c-modal-backdrop-color;
         backdrop-filter: blur(1px);
     }
 
@@ -83,7 +95,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     &--is-panel {
         max-width: 100%;
         max-height: 100vh;
-        width: 100%; 
+        width: 100%;
         height: 100vh;
         border-radius: 0;
     }
@@ -92,7 +104,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         &--padding-#{$i} {
             padding: map-get($spacers, #{$i}) 0;
 
-            > * {
+            >* {
                 padding: 0 map-get($spacers, #{$i});
             }
 
@@ -100,7 +112,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
                 padding-top: map-get($spacers, #{$i});
             }
         }
-    }       
+    }
 
     &__header {
         display: flex;
@@ -119,27 +131,30 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     }
 
     .c-button:hover {
-        box-shadow:none;
+        box-shadow: none;
     }
 
     .c-modal__close.c-button.c-button--lg,
     .c-modal__close.c-button.c-button--md,
     .c-modal__close.c-button.c-button--sm {
         cursor: pointer;
-        height: auto; 
+        height: auto;
         width: auto;
         margin-left: auto;
     }
 
-    &__prev, &__next {
+    &__prev,
+    &__next {
         color: $color-white;
     }
 
-    &__prev, &__next {
-        position:absolute;
-        top: calc(50% - 10px); /* 50% - 3/4 of icon height */
+    &__prev,
+    &__next {
+        position: absolute;
+        top: calc(50% - 10px);
+        /* 50% - 3/4 of icon height */
         vertical-align: middle;
-        cursor:pointer;
+        cursor: pointer;
         z-index: $level-top;
     }
 
@@ -161,15 +176,19 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
             right: map-get($spacers, "0");
         }
 
-        &__prev, &__next {
+        &__prev,
+        &__next {
             vertical-align: bottom;
             bottom: #{map-get($spacers, "8")};
         }
 
     }
+
     @include mq(map_get($breakpoints-map, "xs"), "sm") {
 
-        &__close, &__prev, &__next {
+        &__close,
+        &__prev,
+        &__next {
 
             &:hover {
                 box-shadow: none;
@@ -195,7 +214,8 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
             right: map-get($spacers, "1");
         }
 
-        &__prev, &__next {
+        &__prev,
+        &__next {
             bottom: #{map-get($spacers, "6")};
 
             i {
@@ -214,11 +234,12 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
 @keyframes modalEntrance {
     from {
-        opacity: 0; 
+        opacity: 0;
         transform: translateY(50vh);
     }
+
     to {
-        opacity: 1; 
+        opacity: 1;
         transform: translateY(0);
     }
 }
