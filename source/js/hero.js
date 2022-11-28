@@ -1,3 +1,4 @@
+import VideoControls from './helpers/video';
 class Hero {
     constructor() {
         this.videoItemClasses = ['c-hero--video'];
@@ -8,9 +9,11 @@ class Hero {
     }
 
     handleVideoPause() {
-       this.videoItemClasses.forEach(videoItemClass => {
+       /* this.videoItemClasses.forEach(videoItemClass => {
         
-       })
+       }) */
+        const video = new VideoControls(document.querySelector('.c-hero'));
+       console.log(video);
     }
 }
 
