@@ -97,14 +97,20 @@ class Fields {
     }
 
     setupFormValidate() {
-        const self = this;
         const forms = document.querySelectorAll('.js-form-validation');
         const checkboxHandler = new Checkbox();
-
+        
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
-			const submitButton = form.querySelector('[type="submit"]');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
+            const params = {form, inputs, checkboxHandler, checkboxGroups};
+            console.log(params);
+
+            //const keyPress = new CustomEvent('listeners', { detail: { name: 'keyup' } });
+
+            form.addEventListener('listeners', (e) => {
+                console.log(e);
+            });
             
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
@@ -116,85 +122,16 @@ class Fields {
                         this.getFieldWrapper(input).querySelector('.c-field__error').remove();
                     }
                 }
-
-                input.addEventListener('keyup', () => {
-                    if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
-                        self.validateInput(input);
-                    }
-                })
             });
-
             checkboxHandler.setListener(checkboxGroups);
-
-            // Validate fields on change
-            ['focusout', 'change'].forEach(function(e) {
-                inputs.forEach(input => {
-                    input.addEventListener(e, () => {
-                        self.validateInput(input) 
-                    });
-                });
-            });
-
-
-            submitButton.addEventListener('click', (e) => {
-                let containsInvalid = [];
-
-                inputs.forEach(input => {
-                    containsInvalid.push(this.validateInput(input, true));
-                });
-
-                containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
-
-                if(containsInvalid.includes(false)) {
-                   this.classToggle(form, 'is-invalid', 'is-valid');
-
-                   checkboxHandler.validateCheckboxes(checkboxGroups);
-
-
-                   [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                       element.setAttribute('aria-hidden', false);
-                   });
-
-                   [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                       element.setAttribute('aria-hidden', true);
-                   });
-                }
-            });
-
-            form.addEventListener('submit', (e) => {
-				let emptyForm = false;
-                let attatchedFiles = false;
-                
-                form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
-              
-				inputs.forEach(input => {
-					if (!input.classList.contains('js-no-validation')) {
-						if (input.getAttribute('type') !== 'hidden') {
-							(input.value.length > 0 || attatchedFiles) ? emptyForm = true : '';
-						}
-					} 
-                    this.validateInput(input);
-				});
-
-                if (!emptyForm || !checkboxHandler.validateCheckboxes(checkboxGroups)) {
-					e.preventDefault();
-                    this.classToggle(form, 'is-invalid', 'is-valid');
-				} else {
-					submitButton.innerHTML = formbuilder.sending;
-                    this.classToggle(form, 'is-valid', 'is-invalid');
-				}
-
-                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                    element.setAttribute('aria-hidden', true);
-                }); 
-
-                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                    element.setAttribute('aria-hidden', false);
-                }); 
-            }); 
+            this.keyup(params);
+            this.focusout(params);
+            this.click(params);
+            this.submit(params);
         });
     }
     
+    /* Handle validation */
     validateInput(input, submitCheck = false) {
         let valueLength = input.value ? input.value.length : 0; 
 
@@ -255,6 +192,92 @@ class Fields {
         } while(!fieldWrapper.matches('.c-field, .c-option, .c-select'));
 
         return fieldWrapper;    
+    }
+
+    /*  Listeners  */
+    keyup({ form, inputs, checkboxHandler, checkboxGroups }) {
+        inputs.forEach(input => {
+            input.addEventListener('keyup', () => {
+                if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
+                    this.validateInput(input);
+                }
+            })
+        })
+    }
+
+    focusout({ form, inputs, checkboxHandler, checkboxGroups }) {
+        const self = this;
+        ['focusout', 'change'].forEach(function (e) {
+            inputs.forEach(input => {
+                input.addEventListener(e, () => {
+                    self.validateInput(input)
+                });
+            });
+        });
+    }
+
+    click({ form, inputs, checkboxHandler, checkboxGroups }) {
+        const submitButton = form.querySelector('[type="submit"]');
+
+        submitButton.addEventListener('click', (e) => {
+            let containsInvalid = [];
+
+            inputs.forEach(input => {
+                containsInvalid.push(this.validateInput(input, true));
+            });
+
+            containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
+
+            if (containsInvalid.includes(false)) {
+                this.classToggle(form, 'is-invalid', 'is-valid');
+
+                checkboxHandler.validateCheckboxes(checkboxGroups);
+
+
+                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                    element.setAttribute('aria-hidden', false);
+                });
+
+                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                    element.setAttribute('aria-hidden', true);
+                });
+            }
+        });
+
+    }
+
+    submit({ form, inputs, checkboxHandler, checkboxGroups }) {
+        form.addEventListener('submit', (e) => {
+            let emptyForm = false;
+            let attatchedFiles = false;
+
+            form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
+
+            inputs.forEach(input => {
+                if (!input.classList.contains('js-no-validation')) {
+                    if (input.getAttribute('type') !== 'hidden') {
+                        (input.value.length > 0 || attatchedFiles) ? emptyForm = true : '';
+                    }
+                }
+                this.validateInput(input);
+            });
+
+            if (!emptyForm || !checkboxHandler.validateCheckboxes(checkboxGroups)) {
+                e.preventDefault();
+                this.classToggle(form, 'is-invalid', 'is-valid');
+            } else {
+                submitButton ? submitButton.innerHTML = formbuilder.sending : '';
+                this.classToggle(form, 'is-valid', 'is-invalid');
+            }
+
+            [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                element.setAttribute('aria-hidden', true);
+            });
+
+            [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                element.setAttribute('aria-hidden', false);
+            });
+        });
     }
 
 }
