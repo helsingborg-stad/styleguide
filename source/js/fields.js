@@ -1,5 +1,6 @@
 import FileInput from "./form/fileInput";
 import Checkbox from "./form/checkbox";
+import Collapse from "./form/collapse";
 
 class Fields {
 
@@ -99,6 +100,7 @@ class Fields {
     setupFormValidate() {
         const forms = document.querySelectorAll('.js-form-validation');
         const checkboxHandler = new Checkbox();
+        const collapseHandler = new Collapse();
         
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
@@ -116,7 +118,9 @@ class Fields {
                     }
                 }
             });
-            checkboxHandler.setListener(checkboxGroups);
+
+            collapseHandler.setListener(params);
+            checkboxHandler.setListener(params);
             this.keyup(params);
             this.focusout(params);
             this.click(params);
