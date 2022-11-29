@@ -7,6 +7,7 @@ export default class VideoControls {
 
     videoInteractions() {
         const btn = this.PLAYER.querySelector('[js-video-control]');
+        
         if(btn) {
             btn.addEventListener('click', () => {
                 if (this.getVideoState() === 'playing' || !this.getVideoState()) {

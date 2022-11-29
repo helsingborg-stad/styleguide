@@ -67,6 +67,7 @@
 @import "mixin/animations/fade-in";
 @import "mixin/stretch";
 @import "mixin/focus";
+@import "mixin/animations/ken-burns";
 
 // ***************************************************************
 // *** Generic
@@ -199,3 +200,4 @@
 @import "utility/text";
 @import "utility/preloader";
 @import "utility/text";
+@import "utility/animation";

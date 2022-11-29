@@ -4,11 +4,73 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
 .c-hero {
   display: flex; 
-  background-size: cover;
   position: relative;
+  overflow: hidden;
+
+  &:hover {
+    .c-hero__controls {
+      display:block;
+    }
+  }
+
+   &__controls {
+      display: none;
+      position: absolute;
+      top: calc(#{$base} * 1.5);
+      right: calc(#{$base} * 1.5);
+      cursor: pointer;
+      z-index: 3000;
+
+      &:before {
+        content: "";
+        display: block;
+        background: $color-white;
+        width: calc(#{$base} * 3);
+        height: calc(#{$base} * 3);
+        border-radius: 50%;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .c-hero__animation-play-button {
+        display: none;
+        color: $color-primary;
+      }
+      
+      .c-hero__animation-pause-button {
+        display: block;
+        color: $color-primary;
+      }
+
+      &.is-paused {
+        .c-hero__animation-pause-button {
+          display: none;
+        }
+
+        .c-hero__animation-play-button {
+          display: block;
+        }
+      }
+    }
 
   &.c-hero--image {
-    background-color: $c-hero-background-color;
+    .c-hero__image {
+      background-color: $c-hero-background-color;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+
+  &.c-hero--animation-type-kenny {
+    .c-hero__image {
+      @include ken-burns();
+    }
   }
 
   /** Modifiers - size **/ 
