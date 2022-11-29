@@ -1,5 +1,5 @@
-import FileInput from "./fileInput";
-import Checkbox from "./checkbox";
+import FileInput from "./form/fileInput";
+import Checkbox from "./form/checkbox";
 
 class Fields {
 
@@ -11,8 +11,8 @@ class Fields {
         this.formElementRequired = null;
         this.formElementDataInvalid = null;
         this.formElementDataInvalid = null;
-
-        this.formValidationEventListerners();
+        /* Is this doing anything that we need? */
+        //this.formValidationEventListerners();
         this.setupFormValidate();
 
         this.fileInput = new FileInput();
@@ -104,14 +104,7 @@ class Fields {
             const inputs = form.querySelectorAll('input, textarea, select');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
             const params = {form, inputs, checkboxHandler, checkboxGroups};
-            console.log(params);
 
-            //const keyPress = new CustomEvent('listeners', { detail: { name: 'keyup' } });
-
-            form.addEventListener('listeners', (e) => {
-                console.log(e);
-            });
-            
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
                     this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
