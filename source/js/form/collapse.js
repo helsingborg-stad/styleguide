@@ -19,10 +19,9 @@ class Collapse {
 
     collapse(collapseButton = false) {
         let element = collapseButton.nextElementSibling;
-        console.log(element);
+
             do {
                 element.classList.toggle('u-display--none');
-                console.log(element.nextElementSibling ? true : false);
                 element = element.nextElementSibling ? element.nextElementSibling : false;
             }
             while (element ? element.classList.contains('mod-form-field') :false);
