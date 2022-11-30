@@ -19,12 +19,13 @@ class Collapse {
 
     collapse(collapseButton = false) {
         let element = collapseButton.nextElementSibling;
-
-        do {
-            element.classList.toggle('u-display--none');
-            element = element.nextElementSibling;
-        }
-        while (element.classList.contains('mod-form-field'));
+        console.log(element);
+            do {
+                element.classList.toggle('u-display--none');
+                console.log(element.nextElementSibling ? true : false);
+                element = element.nextElementSibling ? element.nextElementSibling : false;
+            }
+            while (element ? element.classList.contains('mod-form-field') :false);
     }
 }
 
