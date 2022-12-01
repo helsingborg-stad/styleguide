@@ -14,7 +14,7 @@ class Fields {
         this.formElementDataInvalid = null;
         this.formElementDataInvalid = null;
         /* Is this doing anything that we need? */
-        //this.formValidationEventListerners();
+        this.formValidationEventListerners();
         this.setupFormValidate();
     }
 
