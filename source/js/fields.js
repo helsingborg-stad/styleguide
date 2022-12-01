@@ -1,6 +1,7 @@
 import FileInput from "./form/fileInput";
 import Checkbox from "./form/checkbox";
 import Collapse from "./form/collapse";
+import Policy from "./form/policy";
 
 class Fields {
 
@@ -101,6 +102,7 @@ class Fields {
         const forms = document.querySelectorAll('.js-form-validation');
         const checkboxHandler = new Checkbox();
         const collapseHandler = new Collapse();
+        const policyHandler = new Policy();
         
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
@@ -118,12 +120,12 @@ class Fields {
                     }
                 }
             });
-
+            policyHandler.setListener(params);
             collapseHandler.setListener(params);
             checkboxHandler.setListener(params);
             this.keyup(params);
             this.focusout(params);
-            this.click(params);
+            this.click(params, policyHandler);
             this.submit(params);
         });
     }
@@ -213,7 +215,7 @@ class Fields {
         });
     }
 
-    click({ form, inputs, checkboxHandler, checkboxGroups }) {
+    click({ form, inputs, checkboxHandler, checkboxGroups }, policyHandler) {
         const submitButton = form.querySelector('[type="submit"]');
 
         submitButton.addEventListener('click', (e) => {
@@ -222,7 +224,7 @@ class Fields {
             inputs.forEach(input => {
                 containsInvalid.push(this.validateInput(input, true));
             });
-
+            containsInvalid.push(policyHandler.validatePolicy(form));
             containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
 
             if (containsInvalid.includes(false)) {
