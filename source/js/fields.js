@@ -16,8 +16,6 @@ class Fields {
         /* Is this doing anything that we need? */
         //this.formValidationEventListerners();
         this.setupFormValidate();
-
-        this.fileInput = new FileInput();
     }
 
     formValidationEventListerners() {
@@ -103,11 +101,12 @@ class Fields {
         const checkboxHandler = new Checkbox();
         const collapseHandler = new Collapse();
         const policyHandler = new Policy();
+        const fileinputHandler = new FileInput();
         
         forms.forEach(form => {
             const inputs = form.querySelectorAll('input, textarea, select');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
-            const params = {form, inputs, checkboxHandler, checkboxGroups};
+            const params = { form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler };
 
             inputs.forEach(input => {
                 if(input.hasAttribute('data-validation-message')) {
@@ -195,7 +194,7 @@ class Fields {
     }
 
     /*  Listeners  */
-    keyup({ form, inputs, checkboxHandler, checkboxGroups }) {
+    keyup({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         inputs.forEach(input => {
             input.addEventListener('keyup', () => {
                 if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
@@ -205,7 +204,7 @@ class Fields {
         })
     }
 
-    focusout({ form, inputs, checkboxHandler, checkboxGroups }) {
+    focusout({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         const self = this;
         ['focusout', 'change'].forEach(function (e) {
             inputs.forEach(input => {
@@ -216,7 +215,7 @@ class Fields {
         });
     }
 
-    click({ form, inputs, checkboxHandler, checkboxGroups }, policyHandler) {
+    click({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         const submitButton = form.querySelector('[type="submit"]');
 
         submitButton.addEventListener('click', (e) => {
@@ -226,9 +225,10 @@ class Fields {
                 containsInvalid.push(this.validateInput(input, true));
             });
 
-            containsInvalid.push(policyHandler.validatePolicy(form));
+            containsInvalid.push(policyHandler.validatePolicy());
             containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
-
+            containsInvalid.push(fileinputHandler.validateFileinputs(form));
+        
             if (containsInvalid.includes(false)) {
                 this.classToggle(form, 'is-invalid', 'is-valid');
 
@@ -247,11 +247,11 @@ class Fields {
 
     }
 
-    submit({ form, inputs, checkboxHandler, checkboxGroups }) {
+    submit({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         form.addEventListener('submit', (e) => {
             let emptyForm = false;
             let attatchedFiles = false;
-
+           
             form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
 
             inputs.forEach(input => {
@@ -263,7 +263,7 @@ class Fields {
                 this.validateInput(input);
             });
 
-            if (!emptyForm || !checkboxHandler.validateCheckboxes(checkboxGroups)) {
+            if (!emptyForm || !checkboxHandler.validateCheckboxes(checkboxGroups) || !fileinputHandler.validateFileinputs(form)) {
                 e.preventDefault();
                 this.classToggle(form, 'is-invalid', 'is-valid');
             } else {

@@ -3,7 +3,7 @@ class Policy {
         this.parentElement = null;
     }
 
-    setListener({ form, inputs, checkboxHandler, checkboxGroups }) {
+    setListener({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         this.parentElement = form.querySelector('.js-policy-acceptance');
         if (this.parentElement) {
             this.parentElement.querySelector('.c-option__checkbox--hidden-box').addEventListener('change', () => {
@@ -12,7 +12,7 @@ class Policy {
         }
     }
 
-    validatePolicy(form) {
+    validatePolicy() {
         
         if (this.parentElement) {
             let checked = this.parentElement.querySelector('.c-option [type="checkbox"]:checked') ? true : false;
