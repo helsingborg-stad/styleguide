@@ -36,6 +36,12 @@
         transform: translateX(-50%);
         bottom: #{map-get($spacers, "3")};
     }
+
+    .c-steppers + .c-modal__close.c-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {
