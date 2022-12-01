@@ -18,6 +18,9 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     .c-modal__close.c-button {
         color: $color-black;
+        position: absolute;
+        top: calc(#{$base} * 1.5);
+        right: calc(#{$base} * 1.5);
     }
 
     .c-image {
