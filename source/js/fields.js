@@ -248,6 +248,8 @@ class Fields {
     }
 
     submit({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
+        let submitButton = form.querySelector('[type="submit"]');
+
         form.addEventListener('submit', (e) => {
             let emptyForm = false;
             let attatchedFiles = false;
