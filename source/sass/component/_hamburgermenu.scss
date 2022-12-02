@@ -1,7 +1,9 @@
 $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
 
 .c-hamburgermenu {
-    padding: $c-hamburgermenu-padding 0;
+    padding-top: $c-hamburgermenu-padding;
+    padding-bottom: $c-hamburgermenu-padding;
+    background-color: $color-hamburger-menu-background;
     
     .c-hamburgermenu__link--title {
         font-size: $font-size-title;
@@ -18,9 +20,4 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
     }
 }
 
-.hamburgermenu-container {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-}
 
