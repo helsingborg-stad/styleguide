@@ -128,6 +128,10 @@ $color-header-background-level-1: var(--color-header-background-level-1, $color-
 $color-header-background-level-2: var(--color-header-background-level-2, $color-white) !default;
 $color-header-background-level-3: var(--color-header-background-level-3, $color-primary) !default;
 
+// Hamburger menu colors
+$color-hamburger-menu-heading: var(--color-hamburger-menu-heading, $color-primary-contrasting) !default;
+$color-hamburger-menu-subitem: var(--color-hamburger-menu-subitem, $color-primary-contrasting) !default;
+
 // Menu Colors
 $color-menu-background: var(--color-menu-background, $color-white) !default;
 $color-menu-separator: var(--color-menu-separator, $color-lighter) !default;

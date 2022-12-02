@@ -5,6 +5,7 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
     
     .c-hamburgermenu__link--title {
         font-size: $font-size-title;
+        color: $color-hamburger-menu-heading;
     }
 
     .c-hamburgermenu__item--child {
@@ -12,7 +13,7 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
         
         .c-hamburgermenu__link {
             text-decoration: none;
-            color: $color-base;
+            color: $color-hamburger-menu-subitem;
         }
     }
 }
