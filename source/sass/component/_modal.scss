@@ -108,7 +108,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
             padding: map-get($spacers, #{$i}) 0;
 
             >* {
-                padding: 0 map-get($spacers, #{$i});
+                padding: map-get($spacers, "1") map-get($spacers, #{$i});
             }
 
             .c-modal__footer {
