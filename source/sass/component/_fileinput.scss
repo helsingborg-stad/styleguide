@@ -18,7 +18,7 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
         letter-spacing: 0.05em;
     }
 
-    .c-fileinput__input-label {
+    .c-fileinput__button {
         color: $color-primary;
         display: flex;
         align-items: center;
@@ -39,7 +39,7 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
         cursor:pointer;
     }
     
-    &__input[disabled] ~ .c-fileinput__input-label{
+    &__input[disabled] ~ .c-fileinput__button{
         color: $color-disabled-text;
         cursor:not-allowed;
         * {
