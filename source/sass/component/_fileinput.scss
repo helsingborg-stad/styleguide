@@ -1,13 +1,28 @@
+$c-fileinput-label-color: var(--c-fileinput-label-text-transform, $color-darker) !default;
+$c-fileinput-label-text-transform: var(--c-fileinput-label-text-transform, uppercase) !default;
+$c-fileinput-label-font-size: var(--c-fileinput-label-font-size, 12px) !default;
+$c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
+
 .c-fileinput {
 
     :focus-visible + label {
         @include focus();
     }
 
-    label {
-        .c-icon {
-            margin-right: map-get($spacers, "1");
-        }
+    .c-fileinput__label {
+        color: $c-fileinput-label-color;
+        font-size: $c-fileinput-label-font-size;
+        font-weight: $c-fileinput-label-font-weight;
+        text-transform: $c-fileinput-label-text-transform;
+        margin-bottom: calc(#{$base}/2);
+        letter-spacing: 0.05em;
+    }
+
+    .c-fileinput__input-label {
+        color: $color-primary;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
     }
 
     .c-fileinput__input {
@@ -24,10 +39,8 @@
         cursor:pointer;
     }
     
-    &__input[disabled] ~ .c-fileinput__label{
-        background-color: $color-disabled;
+    &__input[disabled] ~ .c-fileinput__input-label{
         color: $color-disabled-text;
-        border-color: $color-disabled;
         cursor:not-allowed;
         * {
             color: $color-disabled-text;
