@@ -62,7 +62,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: block; 
     }
 
-    @include mq(map_get($breakpoints-map, 'md')) {
+    @include mq(map_get($breakpoints-map, 'xs')) {
         &.c-block--ratio-1-1 {
             @include ratio(1, 1, false);
         }

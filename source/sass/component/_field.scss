@@ -1,7 +1,7 @@
 
 $c-field-label-color: var(--c-field-label-text-transform, $color-darker) !default;
 $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
-$c-field-label-font-size: var(--c-field-label-font-size, 12px) !default;
+$c-field-label-font-size: var(--c-field-label-font-size, 0.75em) !default;
 $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
 
 $c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
