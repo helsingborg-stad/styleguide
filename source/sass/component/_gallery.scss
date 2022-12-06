@@ -30,12 +30,44 @@
 }
 
 .c-modal--gallery {
+
+    * {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .c-modal__next {
+        margin-right: #{map-get($spacers, "1")};
+    }
+
+    .c-modal__prev {
+        margin-left: #{map-get($spacers, "1")};
+    }
+
+    .c-modal__close {
+        margin: #{map-get($spacers, "1")};
+    }
+
+    .c-modal__prev:focus-visible,
+    .c-modal__next:focus-visible,
+    .c-modal__close:focus-visible {
+        @include focus();
+    }
+
     .c-steppers {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         bottom: #{map-get($spacers, "3")};
     }
+
+    .c-steppers + .c-modal__close.c-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {
