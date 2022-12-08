@@ -1,19 +1,51 @@
 .c-tooltip {
-
     position: relative;
     display: inline-block;
 
+    &.c-tooltip--overflow-right {
+        .c-tooltip__container {
+            left:98%;
+            transform: translateX(-98%);
+            .c-tooltip__arrow {
+                left: 92%;
+            }
+        }
+    }
+    &.c-tooltip--overflow-left {
+        .c-tooltip__container {
+            left:2%;
+            transform: translateX(2%);
+            .c-tooltip__arrow {
+                left: 4%;
+            }
+        }
+    }
+
     .c-tooltip__container {
-        border-radius: $border-radius-xs;
         position: absolute;
+        border-radius: $border-radius-xs;
         z-index: $level-9;
+        display: block;
+
+        width: 100vw;
+        transform: none;
+        padding-right: 16px;
+        left: 0;
+
+        .c-tooltip__arrow {
+            display: none;
+        }
+
+        @include mq(map_get($breakpoints-map, "sm")) {
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
+        width: 200px;
 
         /* Arrow */
         .c-tooltip__arrow {
             content: " ";
+            display: flex;
             position: absolute;
             bottom: 100%; 
             left: 50%;
@@ -23,6 +55,7 @@
             border-color: transparent transparent inherit transparent;
             color: inherit;
         }
+    }
 
         .c-tooltip__content {
             color: white;
@@ -75,102 +108,6 @@
         }
     }
 }
-
-/*     &:after {
-        display: inline-block;
-        position: absolute;
-        z-index: $level-9;
-        bottom: -8px;
-        left: 50%;
-        transform: translateY(100%) translateX(-50%);
-        content: attr(data-title);
-        white-space: nowrap;
-        text-align: center;
-        background-color: $color-black;
-        color: $color-white;
-        padding: 3px 8px;
-        border-radius: $border-radius-xs;
-        font-size: 14px;
-    }
-
-    &:before {
-        display: inline-block;
-        content: "";
-        position: absolute;
-        z-index: $level-9;
-        bottom: -9px;
-        left: 50%;
-        transform: translateY(0%) translateX(-50%);
-        opacity: .9;
-        @include arrow("up", 5px, $color-black);
-    }
-
-    &.c-tooltip__top {
-        @include mq(map_get($breakpoints-map, "md")) {
-
-            &:after {
-                bottom: auto;
-                top: -8px;
-                right: auto;
-                left: 50%;
-                transform: translateY(-100%) translateX(-50%);
-            }
-
-            &:before {
-                bottom: auto;
-                top: -9px;
-                right: auto;
-                left: 50%;
-                transform: translateY(0%) translateX(-50%);
-                @include arrow("down", 5px, $color-black);
-            }
-        }
-    }
-
-    &.c-tooltip__left {
-        @include mq(map_get($breakpoints-map, "md")) {
-
-            &:after {
-                bottom: auto;
-                top: 50%;
-                left: -10px;
-                right: auto;
-                transform: translateY(-50%) translateX(-100%);
-            }
-
-            &:before {
-                bottom: auto;
-                top: 50%;
-                left: -10px;
-                right: auto;
-                transform: translateY(-50%);
-                @include arrow("right", 5px, $color-black);
-            }
-        }
-    }
-
-    &.c-tooltip__right {
-        @include mq(map_get($breakpoints-map, "md")) {
-
-            &:after {
-                bottom: auto;
-                top: 50%;
-                right: -10px;
-                left: auto;
-                transform: translateY(-50%) translateX(100%);
-            }
-
-            &:before {
-                bottom: auto;
-                top: 50%;
-                right: -10px;
-                left: auto;
-                transform: translateY(-50%);
-
-                @include arrow("left", 5px, $color-black);
-            }
-        }
-    } */
 
     @media print {
 
