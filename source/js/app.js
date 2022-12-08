@@ -30,6 +30,7 @@ import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
 import Hero from './hero';
+import Tooltip from './tooltip';
 import './helpers/swipe';
 
 expandSection();
@@ -38,6 +39,7 @@ IframeAcceptance();
 
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
+const TooltipInstance = new Tooltip();
 const SortInstance = new Sort;
 const ToggleInstance = new Toggle;
 const SplitButtonInstance = new SplitButton;

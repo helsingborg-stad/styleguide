@@ -1,9 +1,83 @@
 .c-tooltip {
 
     position: relative;
+    display: inline-block;
 
-    &:after {
-        display: none;
+    .c-tooltip__container {
+        border-radius: $border-radius-xs;
+        position: absolute;
+        z-index: $level-9;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* Arrow */
+        .c-tooltip__arrow {
+            content: " ";
+            position: absolute;
+            bottom: 100%; 
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent inherit transparent;
+            color: inherit;
+        }
+
+        .c-tooltip__content {
+            color: white;
+            padding: $base;
+        }
+    }
+
+    &.c-tooltip__top {
+        .c-tooltip__container {
+            top: 0;
+            transform: translateY(-100%) translateX(-50%);
+           
+            .c-tooltip__arrow {
+               bottom:unset;
+               border-color: inherit transparent transparent transparent;
+           }
+        }
+    }
+
+@include mq(map_get($breakpoints-map, "md")) {
+    &.c-tooltip__right {
+        .c-tooltip__container {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            
+        .c-tooltip__arrow {
+            left:0;
+            top: 50%;
+            border-color: transparent inherit transparent transparent;
+            transform: translateY(-50%) translateX(-50%);
+            }
+        }
+    }
+}
+
+@include mq(map_get($breakpoints-map, "md")) {
+     &.c-tooltip__left {
+        .c-tooltip__container {
+            left: 0%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-100%);
+            
+        .c-tooltip__arrow {
+            left:100%;
+            top: 50%;
+            border-color: transparent transparent transparent inherit;
+            transform: translateY(-50%) translateX(50%);
+            }
+        }
+    }
+}
+
+/*     &:after {
+        display: inline-block;
         position: absolute;
         z-index: $level-9;
         bottom: -8px;
@@ -20,7 +94,7 @@
     }
 
     &:before {
-        display: none;
+        display: inline-block;
         content: "";
         position: absolute;
         z-index: $level-9;
@@ -96,7 +170,7 @@
                 @include arrow("left", 5px, $color-black);
             }
         }
-    }
+    } */
 
     @media print {
 
