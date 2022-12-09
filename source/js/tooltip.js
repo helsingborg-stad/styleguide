@@ -4,18 +4,17 @@ constructor(){
 }
 
     setDebounce() {
+        
         const containers = document.querySelectorAll('.c-tooltip__container');
-
         if(containers.length > 0) {
             window.addEventListener('resize', this.debounce(containers, 1000));
-        } else { return };
+        } else { return false;};
     }
 
     debounce(containers, delay) {
         let timer;
         
         this.tooltipLoop(containers);
-
         return () => {
             timer ? clearTimeout(timer) : '';
             timer = setTimeout(() => {

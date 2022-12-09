@@ -1,5 +1,5 @@
 .c-tooltip {
-    display: inline-block;
+    display: inline-flex;
 
     &.c-tooltip--full-width {
         position:unset;
@@ -19,6 +19,7 @@
         z-index: $level-9;
         display: block;
         max-width: 200px;
+        width:max-content;
         transform: none;
         left: 0;
         opacity: 0;
@@ -31,6 +32,7 @@
         .c-tooltip__content {
             color: white;
             padding: $base;
+            text-align:center;
         }
     }
 
@@ -40,9 +42,9 @@
             transform: translateY(-100%) translateX(-50%);
            
             .c-tooltip__arrow {
-               bottom:unset;
-                border-bottom-color: inherit;
-                border-top-color: transparent;
+                bottom:unset;
+                border-bottom-color: transparent;
+                border-top-color: inherit;
                 border-left-color: transparent;
                 border-right-color: transparent;
            }
@@ -110,8 +112,8 @@
             top: 50%;
             border-bottom-color: transparent;
             border-top-color: transparent;
-            border-left-color: inherit;
-            border-right-color: transparent;
+            border-left-color: transparent;
+            border-right-color: inherit;
             transform: translateY(-50%) translateX(-50%);
             }
         }
@@ -128,8 +130,8 @@
             top: 50%;
             border-bottom-color: transparent;
             border-top-color: transparent;
-            border-left-color: transparent;
-            border-right-color: inherit;
+            border-left-color: inherit;
+            border-right-color: transparent;
             transform: translateY(-50%) translateX(50%);
             }
         }
