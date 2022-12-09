@@ -1,92 +1,117 @@
 class Tooltip {
 constructor(){
 
-    //this.tooltip();
-    this.setMarginEventListener();
+    this.setDebounce();
 }
 
-    setMarginEventListener() {
-        const container = document.querySelector('.c-tooltip__container');
-        const arrow = container.querySelector('.c-tooltip__arrow');
-        const containerWidth = container.offsetWidth;
+    setDebounce() {
+        const containers = document.querySelectorAll('.c-tooltip__container');
 
-        window.addEventListener('resize', this.debounce({container, arrow, containerWidth}, 1000));
+        window.addEventListener('resize', this.debounce(containers, 1000));
     }
 
-    handleTooltip({ container, arrow, containerWidth }) {
-        let position = container.getBoundingClientRect();
-
-        console.log(position.right, document.documentElement.clientWidth);
-
-        if(position.width > document.documentElement.clientWidth) {
-                container.parentElement.classList.remove('c-tooltip--overflow-left');
-                container.parentElement.classList.remove('c-tooltip--overflow-right');
-                container.parentElement.classList.add('c-tooltip--full-width');
-        }
-
-        if (position.right > document.documentElement.clientWidth) {
-            container.parentElement.classList.add('c-tooltip--overflow-right');
-            container.parentElement.classList.remove('c-tooltip--overflow-left');
-        }
-
-        if (position.left < 0) {
-            container.parentElement.classList.add('c-tooltip--overflow-left');
-            container.parentElement.classList.remove('c-tooltip--overflow-right');
-
-        } 
-
-        
-    }
-
-    debounce({ container, arrow, containerWidth }, delay) {
+    debounce(containers, delay) {
         let timer;
-
-        this.handleTooltip({ container, arrow, containerWidth });
+        
+        this.tooltipLoop(containers);
 
         return () => {
             timer ? clearTimeout(timer) : '';
             timer = setTimeout(() => {
-                this.handleTooltip({ container, arrow, containerWidth });
+               this.tooltipLoop(containers);
             }, delay);
         }
     }
 
-/*     tooltip() {
-        const container = document.querySelector('.c-tooltip__container');
-        const arrow = container.querySelector('.c-tooltip__arrow');
-        const containerWidth = container.offsetWidth;
-        this.handlePostion(container, arrow, containerWidth);
-        window.addEventListener('resize', () => {
-            this.handlePostion(container, arrow, containerWidth);
-        });
-    } */
+    tooltipLoop(containers) {
+        if(containers.length > 0) {
+            containers.forEach(container => this.handleTooltip(container));
+        } else { return };
+    }
 
-/*     handlePostion(container, arrow, containerWidth) {
+    handleTooltip(container) {
         let position = container.getBoundingClientRect();
-        let widthIsSet = false; */
-        //console.log(position.left, position.right, document.documentElement.clientWidth);
-        /* if(document.documentElement.clientWidth < containerWidth) {
-            container.style.width = 'calc(100vw - 32px)';
-            widthIsSet = true;
+        const parent = container.parentElement;
+        const originalDirection = parent.getAttribute('original');
 
-        } else {
-            container.style.width = containerWidth + 'px';
-            widthIsSet = false;
-        } */
-
-        /* if (position.left < 0 && !widthIsSet) {
-            arrow.style.marginLeft = position.left - 5 + 'px';
-            container.style.marginLeft = Math.abs(position.left) + 'px';
-        } 
-
-        console.log(document.documentElement.clientWidth, window.innerWidth, position.right);
-        console.log(position.right > document.documentElement.clientWidth);
-        if (position.right > document.documentElement.clientWidth && !widthIsSet) {
-            arrow.style.marginLeft = position.right - document.documentElement.clientWidth + 5 + 'px';
-            container.style.left = -(position.right - document.documentElement.clientWidth) + 'px';
+        if (!parent.classList.contains(originalDirection) || 
+        parent.classList.contains('c-tooltip--overflow-left') ||
+        parent.classList.contains('c-tooltip--overflow-right')) {
+            this.resetDirection(parent, position, originalDirection);
         }
-    } */
 
+        if (position.width > document.documentElement.clientWidth) {
+            this.overflowBoth(parent);
+            return;
+        }
 
+        if (position.right > document.documentElement.clientWidth) {
+            this.overflowRight(parent, position);
+        }
+
+        if (position.left < 0) {
+            this.overflowLeft(parent);
+        }
+    }
+
+    overflowRight(parent, position) {
+        if(parent.classList.contains('c-tooltip--right')) {
+            this.handleClasses(parent, ['c-tooltip--right'], 'c-tooltip--left');
+        } else {
+            this.handleClasses(parent, ['c-tooltip--overflow-left'], 'c-tooltip--overflow-right');
+        }
+    }
+
+    overflowLeft(parent) {
+        if(parent.classList.contains('c-tooltip--left')) {
+            this.handleClasses(parent, ['c-tooltip--left'], 'c-tooltip--right');
+        }
+        else {
+            this.handleClasses(parent, ['c-tooltip--overflow-right'], 'c-tooltip--overflow-left');
+        }
+    }
+
+    overflowBoth(parent) {
+        this.handleClasses(parent, ['c-tooltip--overflow-left', 'c-tooltip--overflow-left'], 'c-tooltip--full-width')
+    }
+
+    resetDirection(parent, position, originalDirection) {
+
+        if(originalDirection === 'c-tooltip--right') {
+            if(position.right + position.width < document.documentElement.clientWidth) {
+                this.overflowLeft(parent);  
+            }
+        }
+
+        if(originalDirection === 'c-tooltip--left') {
+            if(position.left > position.width) {
+                this.overflowRight(parent); 
+            }
+        }
+        
+        if(originalDirection === 'c-tooltip--bottom' ||
+           originalDirection === 'c-tooltip--top') {
+
+            if(parent.classList.contains('c-tooltip--overflow-left')) {
+                if(position.left - (position.width/2) > 0 ) {
+                    this.handleClasses(parent, ['c-tooltip--overflow-left']);
+                }
+            }
+
+            if(parent.classList.contains('c-tooltip--overflow-right')) {
+                if (document.documentElement.clientWidth - position.right > position.width/2) {
+                    this.handleClasses(parent, ['c-tooltip--overflow-right']);
+                }
+            }
+        }
+    }
+
+    handleClasses(element, removeClasses, addClass = false) {
+        removeClasses.forEach(className => {
+            element.classList.remove(className);
+        });
+
+        addClass ? element.classList.add(addClass) : '';
+    }
 }
 export default Tooltip;

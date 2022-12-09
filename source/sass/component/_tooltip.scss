@@ -1,22 +1,40 @@
 .c-tooltip {
-    position: relative;
+      @include mq(map_get($breakpoints-map, "sm")) {
+          position: relative;
+      }
     display: inline-block;
 
-    &.c-tooltip--overflow-right {
+    &.c-tooltip--full-width {
+        position:unset;
         .c-tooltip__container {
-            left:98%;
-            transform: translateX(-98%);
+            width: 99vw;
+
             .c-tooltip__arrow {
-                left: 92%;
+                display: none;
             }
         }
     }
-    &.c-tooltip--overflow-left {
-        .c-tooltip__container {
-            left:2%;
-            transform: translateX(2%);
-            .c-tooltip__arrow {
-                left: 4%;
+
+    @include mq(map_get($breakpoints-map, "sm")) {
+        &.c-tooltip--overflow-right {
+            .c-tooltip__container {
+                left:98%;
+                transform: translateX(-98%);
+                .c-tooltip__arrow {
+                    left: 92%;
+                }
+            }
+        }
+    }
+
+    @include mq(map_get($breakpoints-map, "sm")) {
+        &.c-tooltip--overflow-left {
+            .c-tooltip__container {
+                left:2%;
+                transform: translateX(2%);
+                .c-tooltip__arrow {
+                    left: 4%;
+                }
             }
         }
     }
@@ -26,10 +44,8 @@
         border-radius: $border-radius-xs;
         z-index: $level-9;
         display: block;
-
-        width: 100vw;
+        max-width: 200px;
         transform: none;
-        padding-right: 16px;
         left: 0;
 
         .c-tooltip__arrow {
@@ -41,6 +57,7 @@
         left: 50%;
         transform: translateX(-50%);
         width: 200px;
+        max-width: 400px;
 
         /* Arrow */
         .c-tooltip__arrow {
@@ -63,7 +80,7 @@
         }
     }
 
-    &.c-tooltip__top {
+    &.c-tooltip--top {
         .c-tooltip__container {
             top: 0;
             transform: translateY(-100%) translateX(-50%);
@@ -76,7 +93,7 @@
     }
 
 @include mq(map_get($breakpoints-map, "md")) {
-    &.c-tooltip__right {
+    &.c-tooltip--right {
         .c-tooltip__container {
             left: 100%;
             top: 50%;
@@ -93,7 +110,7 @@
 }
 
 @include mq(map_get($breakpoints-map, "md")) {
-     &.c-tooltip__left {
+     &.c-tooltip--left {
         .c-tooltip__container {
             left: 0%;
             top: 50%;
