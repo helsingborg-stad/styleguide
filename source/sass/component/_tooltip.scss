@@ -1,45 +1,19 @@
 .c-tooltip {
-      @include mq(map_get($breakpoints-map, "sm")) {
-          position: relative;
-      }
     display: inline-block;
 
     &.c-tooltip--full-width {
         position:unset;
         .c-tooltip__container {
             width: 99vw;
-
+            
             .c-tooltip__arrow {
                 display: none;
             }
         }
     }
 
-    @include mq(map_get($breakpoints-map, "sm")) {
-        &.c-tooltip--overflow-right {
-            .c-tooltip__container {
-                left:98%;
-                transform: translateX(-98%);
-                .c-tooltip__arrow {
-                    left: 92%;
-                }
-            }
-        }
-    }
-
-    @include mq(map_get($breakpoints-map, "sm")) {
-        &.c-tooltip--overflow-left {
-            .c-tooltip__container {
-                left:2%;
-                transform: translateX(2%);
-                .c-tooltip__arrow {
-                    left: 4%;
-                }
-            }
-        }
-    }
-
     .c-tooltip__container {
+        visibility: hidden;
         position: absolute;
         border-radius: $border-radius-xs;
         z-index: $level-9;
@@ -47,32 +21,12 @@
         max-width: 200px;
         transform: none;
         left: 0;
+        opacity: 0;
+        transition: .2s;
 
         .c-tooltip__arrow {
             display: none;
         }
-
-        @include mq(map_get($breakpoints-map, "sm")) {
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        max-width: 400px;
-
-        /* Arrow */
-        .c-tooltip__arrow {
-            content: " ";
-            display: flex;
-            position: absolute;
-            bottom: 100%; 
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent inherit transparent;
-            color: inherit;
-        }
-    }
 
         .c-tooltip__content {
             color: white;
@@ -87,13 +41,65 @@
            
             .c-tooltip__arrow {
                bottom:unset;
-               border-color: inherit transparent transparent transparent;
+                border-bottom-color: inherit;
+                border-top-color: transparent;
+                border-left-color: transparent;
+                border-right-color: transparent;
            }
         }
     }
 
+    @include mq(map_get($breakpoints-map, "sm")) {
+
+        position: relative;
+
+        &.c-tooltip--overflow-right {
+            .c-tooltip__container {
+                left:98%;
+                transform: translateX(-98%);
+                .c-tooltip__arrow {
+                    left: 92%;
+                }
+            }
+        }
+
+        &.c-tooltip--overflow-left {
+            .c-tooltip__container {
+                left:2%;
+                transform: translateX(2%);
+                .c-tooltip__arrow {
+                    left: 4%;
+                }
+            }
+        }
+    }
+
 @include mq(map_get($breakpoints-map, "md")) {
-    &.c-tooltip--right {
+
+    .c-tooltip__container {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 400px;
+
+        .c-tooltip__arrow {
+            content: " ";
+            display: flex;
+            position: absolute;
+            bottom: 100%; 
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-bottom-color: inherit;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            color: inherit;
+        }
+    }
+
+     &.c-tooltip--right {
         .c-tooltip__container {
             left: 100%;
             top: 50%;
@@ -102,15 +108,16 @@
         .c-tooltip__arrow {
             left:0;
             top: 50%;
-            border-color: transparent inherit transparent transparent;
+            border-bottom-color: transparent;
+            border-top-color: transparent;
+            border-left-color: inherit;
+            border-right-color: transparent;
             transform: translateY(-50%) translateX(-50%);
             }
         }
     }
-}
 
-@include mq(map_get($breakpoints-map, "md")) {
-     &.c-tooltip--left {
+      &.c-tooltip--left {
         .c-tooltip__container {
             left: 0%;
             top: 50%;
@@ -119,35 +126,28 @@
         .c-tooltip__arrow {
             left:100%;
             top: 50%;
-            border-color: transparent transparent transparent inherit;
+            border-bottom-color: transparent;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-right-color: inherit;
             transform: translateY(-50%) translateX(50%);
             }
         }
     }
+
 }
 
     @media print {
-
-        &:before {
+        .c-tooltip__container {
             display: none !important;
         }
-
-        &:after {
-            display: inline-block;
-            content: "(" attr(data-title) ")";
-            margin-left: .3em;
-            color: $color-white;
-            font-size: .8em;
-        }
     }
 
-    :hover,
-    :focus,
-    :focus>[data-title] {
-
-        &:after,
-        &:before {
-            display: inline-block;
+        &:hover,
+        &:focus {
+            .c-tooltip__container {
+                visibility: visible;
+                opacity:1;
+            }
         }
-    }
 }

@@ -1,13 +1,14 @@
 class Tooltip {
 constructor(){
-
     this.setDebounce();
 }
 
     setDebounce() {
         const containers = document.querySelectorAll('.c-tooltip__container');
 
-        window.addEventListener('resize', this.debounce(containers, 1000));
+        if(containers.length > 0) {
+            window.addEventListener('resize', this.debounce(containers, 1000));
+        } else { return };
     }
 
     debounce(containers, delay) {
@@ -24,9 +25,7 @@ constructor(){
     }
 
     tooltipLoop(containers) {
-        if(containers.length > 0) {
             containers.forEach(container => this.handleTooltip(container));
-        } else { return };
     }
 
     handleTooltip(container) {
@@ -76,7 +75,6 @@ constructor(){
     }
 
     resetDirection(parent, position, originalDirection) {
-
         if(originalDirection === 'c-tooltip--right') {
             if(position.right + position.width < document.documentElement.clientWidth) {
                 this.overflowLeft(parent);  
