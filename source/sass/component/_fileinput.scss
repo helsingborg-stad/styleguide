@@ -23,6 +23,7 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
         display: flex;
         align-items: center;
         cursor: pointer;
+        justify-content: unset;
     }
 
     .c-fileinput__input {
