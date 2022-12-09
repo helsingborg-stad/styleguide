@@ -117,7 +117,8 @@ constructor(){
             element.classList.remove(className);
         });
 
-        addClass ? element.classList.add(addClass) : '';
+        addClass && element.classList.add(addClass);
+
     }
 }
 export default Tooltip;
