@@ -1,5 +1,6 @@
 .c-tooltip {
     display: inline-flex;
+    position: relative;
 
     &.c-tooltip--full-width {
         position:unset;
@@ -17,16 +18,30 @@
         position: absolute;
         border-radius: $border-radius-xs;
         z-index: $level-9;
-        display: block;
-        max-width: 200px;
         width:max-content;
-        transform: none;
         left: 0;
         opacity: 0;
         transition: .2s;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 200px;
+
 
         .c-tooltip__arrow {
-            display: none;
+            content: " ";
+            display: flex;
+            position: absolute;
+            bottom: 100%; 
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-bottom-color: inherit;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            color: inherit;
         }
 
         .c-tooltip__content {
@@ -35,25 +50,6 @@
             text-align:center;
         }
     }
-
-    &.c-tooltip--top {
-        .c-tooltip__container {
-            top: 0;
-            transform: translateY(-100%) translateX(-50%);
-           
-            .c-tooltip__arrow {
-                bottom:unset;
-                border-bottom-color: transparent;
-                border-top-color: inherit;
-                border-left-color: transparent;
-                border-right-color: transparent;
-           }
-        }
-    }
-
-    @include mq(map_get($breakpoints-map, "sm")) {
-
-        position: relative;
 
         &.c-tooltip--overflow-right {
             .c-tooltip__container {
@@ -74,30 +70,19 @@
                 }
             }
         }
-    }
 
-@include mq(map_get($breakpoints-map, "md")) {
-
-    .c-tooltip__container {
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 400px;
-
-        .c-tooltip__arrow {
-            content: " ";
-            display: flex;
-            position: absolute;
-            bottom: 100%; 
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-bottom-color: inherit;
-            border-top-color: transparent;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            color: inherit;
+    &.c-tooltip--top {
+        .c-tooltip__container {
+            top: 0;
+            transform: translateY(-100%) translateX(-50%);
+           
+            .c-tooltip__arrow {
+                bottom:unset;
+                border-bottom-color: transparent;
+                border-top-color: inherit;
+                border-left-color: transparent;
+                border-right-color: transparent;
+           }
         }
     }
 
@@ -137,7 +122,11 @@
         }
     }
 
-}
+    @include mq(map_get($breakpoints-map, "md")) {
+        .c-tooltip__container {
+            max-width: 400px;
+        }
+    }
 
     @media print {
         .c-tooltip__container {
