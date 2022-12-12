@@ -7,7 +7,9 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     position: relative;
     border-radius: $c-block-border-radius;
     filter: $drop-shadow-2;
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
     background-position: center;
     background-size: cover;
     background-color: $c-block-background-color;
@@ -60,23 +62,19 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     }
 
     &.c-block--ratio-1-1 {
-        @include ratio(1, 1, false);
+        aspect-ratio: 1 / 1; 
     }
     
     &.c-block--ratio-4-3 {
-        @include ratio(4, 3, false);
+        aspect-ratio: 4 / 3; 
     }
     
     &.c-block--ratio-12-16 {
-        @include ratio(12, 16, false);
+        aspect-ratio: 12 / 16; 
     }
     
     &.c-block--ratio-16-9 {
-        @include ratio(16, 9, false);
-    }
-
-    @include mq(map_get($breakpoints-map, 'sm')) {
-        min-height: calc(#{$base} * 20);
+        aspect-ratio: 16 / 9;
     }
 
     &--svg-background {
