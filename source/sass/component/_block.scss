@@ -30,6 +30,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: flex; 
         flex-direction: column;
         gap: #{$base};
+        margin-top: auto;
 
         &::after {
             content: '';
