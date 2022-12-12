@@ -1,5 +1,5 @@
 {
-    "format": "u-sr-only--focusable",
+    "format": "u-sr__only--focusable",
     "modifiers": {
         "Default": "",
         "focusable": "focusable"
