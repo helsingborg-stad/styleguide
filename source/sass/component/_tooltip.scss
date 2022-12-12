@@ -2,30 +2,30 @@
     display: inline-flex;
     position: relative;
 
-    &.c-tooltip--full-width {
-        position:unset;
+    &.c-tooltip--hidden {
         .c-tooltip__container {
-            width: 99vw;
-            
-            .c-tooltip__arrow {
-                display: none;
-            }
+            display: none!important;
+        }
+    }
+
+    &.c-tooltip--visible {
+        .c-tooltip__container {
+            opacity:1;
+            display: block;
+            animation-name: opacityAnimation;
+            animation-duration: .2s;
         }
     }
 
     .c-tooltip__container {
-        visibility: hidden;
         position: absolute;
         border-radius: $border-radius-xs;
         z-index: $level-9;
         width:max-content;
-        opacity: 0;
-        transition: .2s;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
         max-width: 200px;
-
 
         .c-tooltip__arrow {
             content: " ";
@@ -132,12 +132,9 @@
             display: none !important;
         }
     }
-
-        &:hover,
-        &:focus {
-            .c-tooltip__container {
-                visibility: visible;
-                opacity:1;
-            }
-        }
+    
+    @keyframes opacityAnimation { 
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
 }
