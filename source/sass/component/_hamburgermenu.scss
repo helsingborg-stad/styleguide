@@ -1,10 +1,13 @@
 $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
 
 .c-hamburgermenu {
-    padding: $c-hamburgermenu-padding 0;
+    padding-top: $c-hamburgermenu-padding;
+    padding-bottom: $c-hamburgermenu-padding;
+    background-color: $color-hamburger-menu-background;
     
     .c-hamburgermenu__link--title {
         font-size: $font-size-title;
+        color: $color-hamburger-menu-heading;
     }
 
     .c-hamburgermenu__link {
@@ -19,7 +22,10 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
         align-items: center;
         
         .c-hamburgermenu__link {
-            color: $color-base;
+            text-decoration: none;
+            color: $color-hamburger-menu-subitem;
         }
     }
 }
+
+
