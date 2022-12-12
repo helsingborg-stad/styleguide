@@ -4,22 +4,24 @@ class Tooltip {
     }
 
     setListener() {
-        let tooltips = document.querySelectorAll('.c-tooltip');
-        tooltips.forEach(tooltip => {
-            const container = tooltip.querySelector('.c-tooltip__container');
-
-            ['mouseleave', 'focusout'].forEach(key => {
-                tooltip.addEventListener(key, () => {
-                    this.handleLeave(tooltip, container);
-                })
+        const tooltips = document.querySelectorAll('.c-tooltip');
+        if(tooltips.length > 0) {
+            tooltips.forEach(tooltip => {
+                const container = tooltip.querySelector('.c-tooltip__container');
+    
+                ['mouseleave', 'focusout'].forEach(key => {
+                    tooltip.addEventListener(key, () => {
+                        this.handleLeave(tooltip, container);
+                    })
+                });
+    
+                ['mouseenter', 'focusin'].forEach(key => {
+                    tooltip.addEventListener(key, () => {
+                        this.handleHover(tooltip, container);
+                    })
+                });
             });
-
-            ['mouseenter', 'focusin'].forEach(key => {
-                tooltip.addEventListener(key, () => {
-                    this.handleHover(tooltip, container);
-                })
-            });
-        });
+        }
     }
 
     handleLeave(tooltip, container) {

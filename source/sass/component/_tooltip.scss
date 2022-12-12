@@ -1,10 +1,14 @@
+$c-tooltip-border-radius: var(--c-tooltip-border-radius, $border-radius-xs) !default;
+$c-tooltip-color: var(--c-tooltip-background-color, $color-alpha) !default;
+$c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrasting) !default;
+
 .c-tooltip {
     display: inline-flex;
     position: relative;
 
     &.c-tooltip--hidden {
         .c-tooltip__container {
-            display: none!important;
+            display: none;
         }
     }
 
@@ -19,13 +23,14 @@
 
     .c-tooltip__container {
         position: absolute;
-        border-radius: $border-radius-xs;
+        border-radius: $c-tooltip-border-radius;
         z-index: $level-9;
         width:max-content;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        max-width: 200px;
+        max-width: calc($base * 25);
+        background-color: $c-tooltip-color;
 
         .c-tooltip__arrow {
             content: " ";
@@ -36,15 +41,11 @@
             margin-left: -5px;
             border-width: 5px;
             border-style: solid;
-            border-bottom-color: inherit;
-            border-top-color: transparent;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            color: inherit;
+            border-color: transparent transparent $c-tooltip-color transparent;
         }
 
         .c-tooltip__content {
-            color: white;
+            color: $c-tooltip-content-color;
             padding: $base;
             text-align:center;
         }
@@ -77,10 +78,7 @@
            
             .c-tooltip__arrow {
                 bottom:unset;
-                border-bottom-color: transparent;
-                border-top-color: inherit;
-                border-left-color: transparent;
-                border-right-color: transparent;
+                border-color: $c-tooltip-color transparent transparent transparent;
            }
         }
     }
@@ -94,10 +92,7 @@
         .c-tooltip__arrow {
             left:0;
             top: 50%;
-            border-bottom-color: transparent;
-            border-top-color: transparent;
-            border-left-color: transparent;
-            border-right-color: inherit;
+            border-color: transparent $c-tooltip-color transparent transparent;
             transform: translateY(-50%) translateX(-50%);
             }
         }
@@ -112,10 +107,7 @@
         .c-tooltip__arrow {
             left:100%;
             top: 50%;
-            border-bottom-color: transparent;
-            border-top-color: transparent;
-            border-left-color: inherit;
-            border-right-color: transparent;
+            border-color: transparent transparent transparent $c-tooltip-color;
             transform: translateY(-50%) translateX(50%);
             }
         }
@@ -123,16 +115,16 @@
 
     @include mq(map_get($breakpoints-map, "md")) {
         .c-tooltip__container {
-            max-width: 400px;
+            max-width: calc($base * 50);
         }
     }
 
     @media print {
         .c-tooltip__container {
-            display: none !important;
+            display: none;
         }
     }
-    
+
     @keyframes opacityAnimation { 
         from {opacity: 0;}
         to {opacity: 1;}
