@@ -9,7 +9,7 @@ class Collapse {
         });
     }
 
-    setListener({ form, inputs, checkboxHandler, checkboxGroups }) {
+    setListener({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         form.querySelectorAll('.mod-form-collapse').forEach(collapseButton => {
             collapseButton.addEventListener('click', () => {
                 this.collapse(collapseButton);

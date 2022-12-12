@@ -29,7 +29,8 @@ class FileInput {
                 const targetElement = e.target;
                 const parentElement = targetElement.parentNode;
                 const currentFile = targetElement.files[0] || null;
-
+                
+                parentElement.previousElementSibling.classList.remove('u-color__text--danger');
                 const maxFileSize = parentElement.hasAttribute('data-max-file-size') ? parseInt(parentElement.getAttribute('data-max-file-size')) : 0;
                 const maxWidth = parentElement.hasAttribute('data-max-width') ? parseInt(parentElement.getAttribute('data-max-width')) : 0;
                 const maxHeight = parentElement.hasAttribute('data-max-height') ? parseInt(parentElement.getAttribute('data-max-height')) : 0;
@@ -116,7 +117,7 @@ class FileInput {
                                         hiddenInput.remove();
                                     }
 
-                                    const currentListItem = clickedEl.target.parentElement;
+                                    const currentListItem = clickedEl.target.closest('li');
                                     currentListItem.classList.add('u-border');
 
                                     uploadedFiles.forEach((item, index) => {
@@ -138,6 +139,22 @@ class FileInput {
                     });
             });
         });
+    }
+
+    validateFileinputs(form, inputs) {
+        let hasFile = [];
+
+        form.querySelectorAll('.c-fileinput.js-required').forEach(fileupload => {
+            let validation = fileupload.querySelectorAll('input[js-field-fileinput]').length > 0 ? true : false;
+            if(!validation) { 
+                fileupload.previousElementSibling.classList.add('u-color__text--danger');
+            } else {
+                fileupload.previousElementSibling.classList.remove('u-color__text--danger')
+            }
+            hasFile.push(validation);
+        });
+
+        return hasFile.includes(false) ? false : true;
     }
 
     setupImageDrop(formInput) {
