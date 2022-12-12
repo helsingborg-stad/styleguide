@@ -11,7 +11,7 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
     }
 
     .c-hamburgermenu__link {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         text-decoration: none;
     }
