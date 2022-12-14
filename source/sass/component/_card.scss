@@ -141,6 +141,12 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     }
     //end flat card design
 
+    &--meta-first {
+        .c-card__heading {
+            margin-top: calc($base*.5)px;
+        }
+    }
+
     &--accented {
         .c-card {
             margin-bottom: $base;
