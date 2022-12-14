@@ -8,5 +8,40 @@
         "heading": "Vertical group",
         "subHeading": "Simply groups elements, vertically.",
         "text": "The group component resets (removes) margins, and border-radius to make the apperance of vertically stacked elements."
+    },
+    "justify": {
+        "heading": "Justify items",
+        "subHeading": "Group elements can be justified.",
+        "text": "Align the elements within the group as you to either position"
+    },
+    "alignItems": {
+        "heading": "Align items",
+        "subHeading": "Group elements can be aligned vertcially.",
+        "text": "Align the elements within the group vertcially in relation to each other."
+    },
+    "alignContent": {
+        "heading": "Align items",
+        "subHeading": "Group elements can be aligned vertcially.",
+        "text": "Align the elements within the group vertcially in relation to the group. For this to have any affect, the group must have an active flex-wrap."
+    },  
+    "flex": {
+        "heading": "Flex",
+        "subHeading": "Sets the flex type",
+        "text": "Changes how the container flexes its content."
+    },
+    "wrap": {
+        "heading": "Wrap",
+        "subHeading": "Group elements can wrap",
+        "text": "Wrap decides how the elements will move around. Lower the viewport to see how the elements behave."
+    },
+    "flexGrow": {
+        "heading": "Flex grow",
+        "subHeading": "Allows the child elements to grow",
+        "text": ""
+    },
+    "flexShrink": {
+        "heading": "Flex shrink",
+        "subHeading": "Allows the child elements to shrink",
+        "text": "Resize the viewport to see how the elements behave"
     }
 }

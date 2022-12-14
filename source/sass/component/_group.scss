@@ -27,9 +27,17 @@ $wrap: wrap, wrap-reverse, nowrap;
     }
 
     @each $key in $wrap {
-        &.c-group--flex-wrap-#{$wrap} {
-            display: $key;
+        &.c-group--flex-wrap-#{$key} {
+            flex-wrap: $key;
         }
+    }
+
+    &.c-group--flex-grow > * {
+            flex-grow: 1;
+    }
+
+    &.c-group--flex-shrink-none > * {
+            flex-shrink: 0;
     }
 }
 
