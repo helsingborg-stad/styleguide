@@ -1,6 +1,6 @@
 @group([
     'classList' => ['u-margin__bottom--3', 'u-color__bg--lighter'],
-    'flex' => 'flex',
+    'display' => 'flex',
     'attributeList' => [
         'style' => 'height:200px;'
     ]
@@ -25,7 +25,7 @@
 
 @group([
     'classList' => ['u-margin__bottom--3', 'u-color__bg--lighter'],
-    'flex' => 'inline-flex',
+    'display' => 'inline-flex',
     'attributeList' => [
         'style' => 'height:200px;'
     ]
