@@ -1,5 +1,5 @@
 $position: center, start, end, flex-start, flex-end, left, right, normal, space-between, space-around, space-evenly, stretch;
-$flex: flex, inline-flex;
+$display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
 
 .c-group {
@@ -20,8 +20,8 @@ $wrap: wrap, wrap-reverse, nowrap;
         
     }
 
-    @each $key in $flex {
-        &.c-group--flex-#{$key} {
+    @each $key in $display {
+        &.c-group--display-#{$key} {
             display: $key;
         }
     }
