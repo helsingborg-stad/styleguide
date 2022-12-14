@@ -1,0 +1,13 @@
+.c-progress {
+    .c-progress__bar {
+        height:10px;
+        width: 100%;
+        background-color: $color-lighter;
+        border-radius: $border-radius-md;
+        .c-progress__value {
+            height: 100%;
+            background-color: $color-success;
+            border-radius: inherit;
+        }
+    }
+}
