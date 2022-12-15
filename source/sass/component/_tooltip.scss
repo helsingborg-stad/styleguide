@@ -4,10 +4,10 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
 
 .c-tooltip {
     display: flex;
-    position: relative;
 
     .c-tooltip__wrapper {
         position: relative;
+        display: inline-flex;
     }
 
     &.is-hidden {
