@@ -3,12 +3,12 @@ $c-progress-background-color: var(--c-progress-background-color, $color-lighter)
 $c-progress-value-color: var(--c-progress-value-color, $color-success) !default;
 $c-progress-height: calc(var(--c-progress-height, 1.5) * #{$base}) !default;
 
-.c-progress {
+.c-progressbar {
         height:$c-progress-height;
         width: 100%;
         background-color: $c-progress-background-color;
         border-radius: $c-progress-border-radius;
-        .c-progress__value {
+        .c-progressbar__value {
             height: 100%;
             background-color: $c-progress-value-color;
             border-radius: inherit;
