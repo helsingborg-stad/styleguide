@@ -25,7 +25,7 @@ class Tooltip {
     }
 
     handleLeave(tooltip, container) {
-        this.handleClasses(tooltip, ['c-tooltip--visible'], 'c-tooltip--hidden');
+        this.handleClasses(tooltip, ['is-visible'], 'is-hidden');
         container.setAttribute('aria-hidden', 'true');
     }
 
@@ -49,7 +49,7 @@ class Tooltip {
             this.overflowLeft(tooltip);
         }
 
-        this.handleClasses(tooltip, ['c-tooltip--hidden'], 'c-tooltip--visible');
+        this.handleClasses(tooltip, ['is-hidden'], 'is-visible');
         container.setAttribute('aria-hidden', 'false');
     }
 

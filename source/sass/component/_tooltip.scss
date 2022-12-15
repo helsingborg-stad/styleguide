@@ -6,13 +6,13 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     display: inline-flex;
     position: relative;
 
-    &.c-tooltip--hidden {
+    &.is-hidden {
         .c-tooltip__container {
             display: none;
         }
     }
 
-    &.c-tooltip--visible {
+    &.is-visible {
         .c-tooltip__container {
             opacity:1;
             display: block;
