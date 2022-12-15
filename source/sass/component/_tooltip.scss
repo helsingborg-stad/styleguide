@@ -3,7 +3,7 @@ $c-tooltip-color: var(--c-tooltip-background-color, $color-alpha) !default;
 $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrasting) !default;
 
 .c-tooltip {
-    display: inline-flex;
+    display: flex;
     position: relative;
 
     .c-tooltip__wrapper {
