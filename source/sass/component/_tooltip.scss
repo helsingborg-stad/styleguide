@@ -1,125 +1,132 @@
-.c-tooltip {
+$c-tooltip-border-radius: var(--c-tooltip-border-radius, $border-radius-xs) !default;
+$c-tooltip-color: var(--c-tooltip-background-color, $color-alpha) !default;
+$c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrasting) !default;
 
+.c-tooltip {
+    display: inline-flex;
     position: relative;
 
-    &:after {
-        display: none;
-        position: absolute;
-        z-index: $level-9;
-        bottom: -8px;
-        left: 50%;
-        transform: translateY(100%) translateX(-50%);
-        content: attr(data-title);
-        white-space: nowrap;
-        text-align: center;
-        background-color: $color-black;
-        color: $color-white;
-        padding: 3px 8px;
-        border-radius: $border-radius-xs;
-        font-size: 14px;
+    &.c-tooltip--hidden {
+        .c-tooltip__container {
+            display: none;
+        }
     }
 
-    &:before {
-        display: none;
-        content: "";
-        position: absolute;
-        z-index: $level-9;
-        bottom: -9px;
-        left: 50%;
-        transform: translateY(0%) translateX(-50%);
-        opacity: .9;
-        @include arrow("up", 5px, $color-black);
+    &.c-tooltip--visible {
+        .c-tooltip__container {
+            opacity:1;
+            display: block;
+            animation-name: opacityAnimation;
+            animation-duration: .2s;
+        }
     }
 
-    &.c-tooltip__top {
-        @include mq(map_get($breakpoints-map, "md")) {
+    .c-tooltip__container {
+        position: absolute;
+        border-radius: $c-tooltip-border-radius;
+        z-index: $level-9;
+        width:max-content;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: calc($base * 25);
+        background-color: $c-tooltip-color;
 
-            &:after {
-                bottom: auto;
-                top: -8px;
-                right: auto;
-                left: 50%;
-                transform: translateY(-100%) translateX(-50%);
+        .c-tooltip__arrow {
+            content: " ";
+            display: flex;
+            position: absolute;
+            bottom: 100%; 
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent $c-tooltip-color transparent;
+        }
+
+        .c-tooltip__content {
+            color: $c-tooltip-content-color;
+            padding: $base;
+            text-align:center;
+        }
+    }
+
+        &.c-tooltip--overflow-right {
+            .c-tooltip__container {
+                left:98%;
+                transform: translateX(-98%);
+                .c-tooltip__arrow {
+                    left: 92%;
+                }
             }
+        }
 
-            &:before {
-                bottom: auto;
-                top: -9px;
-                right: auto;
-                left: 50%;
-                transform: translateY(0%) translateX(-50%);
-                @include arrow("down", 5px, $color-black);
+        &.c-tooltip--overflow-left {
+            .c-tooltip__container {
+                left:2%;
+                transform: translateX(2%);
+                .c-tooltip__arrow {
+                    left: 4%;
+                }
+            }
+        }
+
+    &.c-tooltip--top {
+        .c-tooltip__container {
+            top: 0;
+            transform: translateY(-100%) translateX(-50%);
+           
+            .c-tooltip__arrow {
+                bottom:unset;
+                border-color: $c-tooltip-color transparent transparent transparent;
+           }
+        }
+    }
+
+     &.c-tooltip--right {
+        .c-tooltip__container {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            
+        .c-tooltip__arrow {
+            left:0;
+            top: 50%;
+            border-color: transparent $c-tooltip-color transparent transparent;
+            transform: translateY(-50%) translateX(-50%);
             }
         }
     }
 
-    &.c-tooltip__left {
-        @include mq(map_get($breakpoints-map, "md")) {
-
-            &:after {
-                bottom: auto;
-                top: 50%;
-                left: -10px;
-                right: auto;
-                transform: translateY(-50%) translateX(-100%);
-            }
-
-            &:before {
-                bottom: auto;
-                top: 50%;
-                left: -10px;
-                right: auto;
-                transform: translateY(-50%);
-                @include arrow("right", 5px, $color-black);
+      &.c-tooltip--left {
+        .c-tooltip__container {
+            left: 0%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-100%);
+            
+        .c-tooltip__arrow {
+            left:100%;
+            top: 50%;
+            border-color: transparent transparent transparent $c-tooltip-color;
+            transform: translateY(-50%) translateX(50%);
             }
         }
     }
 
-    &.c-tooltip__right {
-        @include mq(map_get($breakpoints-map, "md")) {
-
-            &:after {
-                bottom: auto;
-                top: 50%;
-                right: -10px;
-                left: auto;
-                transform: translateY(-50%) translateX(100%);
-            }
-
-            &:before {
-                bottom: auto;
-                top: 50%;
-                right: -10px;
-                left: auto;
-                transform: translateY(-50%);
-
-                @include arrow("left", 5px, $color-black);
-            }
+    @include mq(map_get($breakpoints-map, "md")) {
+        .c-tooltip__container {
+            max-width: calc($base * 50);
         }
     }
 
     @media print {
-
-        &:before {
-            display: none !important;
-        }
-
-        &:after {
-            display: inline-block;
-            content: "(" attr(data-title) ")";
-            margin-left: .3em;
-            color: $color-white;
-            font-size: .8em;
+        .c-tooltip__container {
+            display: none;
         }
     }
 
-    :hover,
-    :focus,
-    :focus>[data-title] {
-
-        &:after,
-        &:before {
-            display: inline-block;
-        }
+    @keyframes opacityAnimation { 
+        from {opacity: 0;}
+        to {opacity: 1;}
     }
 }

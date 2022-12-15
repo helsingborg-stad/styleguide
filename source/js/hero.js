@@ -4,6 +4,7 @@ class Hero {
         this.heroVideos = document.querySelectorAll('.c-hero--video');
 
         this.heroVideos.length && this.handleVideoPause();
+
     }
 
     handleVideoPause() {
