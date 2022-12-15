@@ -32,11 +32,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     } 
 
-    & > *:last-child  {
-        border-bottom-left-radius: $c-card-border-radius;
-        border-bottom-right-radius: $c-card-border-radius;
-    }
-
     &--size-sm.c-card--size-xs {
         & > *:first-child {
             .c-card__image-background {
