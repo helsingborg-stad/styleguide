@@ -6,6 +6,10 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     display: inline-flex;
     position: relative;
 
+    .c-tooltip__wrapper {
+        position: relative;
+    }
+
     &.is-hidden {
         .c-tooltip__container {
             display: none;
@@ -31,6 +35,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
         transform: translateX(-50%);
         max-width: calc($base * 25);
         background-color: $c-tooltip-color;
+        display: none;
 
         .c-tooltip__arrow {
             content: " ";
