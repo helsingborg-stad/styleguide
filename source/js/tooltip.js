@@ -18,7 +18,7 @@ class Tooltip {
     
                 ['mouseenter', 'focusin'].forEach(key => {
                     tooltipLabel.addEventListener(key, () => {
-                        this.handleHover(tooltip, container);
+                        this.handleHover(tooltip, container, tooltipLabel);
                     })
                 });
             });
@@ -30,10 +30,10 @@ class Tooltip {
         container.setAttribute('aria-hidden', 'true');
     }
 
-    handleHover(tooltip, container) {
+    handleHover(tooltip, container, tooltipLabel) {
         const originalDirection = tooltip.getAttribute('original-placement');
         let tooltipWidth = parseInt(getComputedStyle(container).getPropertyValue('max-width'), 10);
-        let position = tooltip.getBoundingClientRect();
+        let position = tooltipLabel.getBoundingClientRect();
 
         if (!tooltip.classList.contains(originalDirection) ||
             tooltip.classList.contains('c-tooltip--overflow-left') ||
