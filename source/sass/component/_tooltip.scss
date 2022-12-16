@@ -120,7 +120,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
 
     @include mq(map_get($breakpoints-map, "md")) {
         .c-tooltip__container {
-            max-width: calc($base * 50);
+            max-width: calc($base * 30);
         }
     }
 
