@@ -25,6 +25,10 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
         margin: auto;
         max-width: 100%;
         display: none;
+
+        .c-button + .c-button {
+            margin-left: 0;
+        }
     }
 
     .c-acceptance__content  {
