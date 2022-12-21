@@ -1,6 +1,44 @@
 class Tooltip {
     constructor() {
         this.setListener();
+        this.test();
+    }
+
+    test() {
+        const menu = document.querySelector('#main-menu');
+        let menuItems = menu.querySelectorAll('.c-nav__depth-0');
+        
+        menuItems.forEach(menuItem => {
+            if (menuItem.children) {
+                let children = menuItem.children;
+                let child = false;
+
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i].classList.contains('c-nav')) {
+                        child = children[i];
+                        break;
+                    }
+                }
+                if(child) {
+                    menuItem.addEventListener('focusin', (e) => {
+
+                        this.handleVisible(e.target.closest('.c-nav__depth-0'), menuItems, child);
+                    })
+                }
+            }
+        });
+    }
+
+    handleVisible(menuItem, menuItems, child) {
+        menuItems.forEach(item => {
+            if(item === menuItem) {
+                item.classList.add('is-visible');
+                // child.style.display = 'flex';
+            } else {
+                item.classList.remove('is-visible');
+                // child.style.display = 'none';
+            }
+        })
     }
 
     setListener() {

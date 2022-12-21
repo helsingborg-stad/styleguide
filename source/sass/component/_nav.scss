@@ -368,8 +368,11 @@
     display: none; 
   }
 
-  .c-nav__item:hover ul.c-nav.c-nav--depth-1 {
-    display: flex;
+  .c-nav__item.is-visible > ul.c-nav.c-nav--depth-1,
+  .c-nav__item.is-visible > ul.c-nav.c-nav--depth-2,
+  .c-nav__item.is-visible > ul.c-nav.c-nav--depth-3,
+  .c-nav__item.is-visible > ul.c-nav.c-nav--depth-4 {
+    display: flex; 
   }
 }
 
