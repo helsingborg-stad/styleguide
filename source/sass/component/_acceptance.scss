@@ -18,6 +18,7 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
         display: flex;
         flex-direction: column;
         padding:calc(var(--base, 8px) * 2);
+        border-radius: inherit;
     }
 
     .c-acceptance__modal-description {

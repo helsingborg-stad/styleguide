@@ -30,12 +30,26 @@
 }
 
 .c-modal--gallery {
+
+    .c-modal__close,
+    .c-modal__prev,
+    .c-modal__next {
+        margin: #{map-get($spacers, "1")};
+    }
+
+    .c-modal__prev:focus-visible,
+    .c-modal__next:focus-visible,
+    .c-modal__close:focus-visible {
+        @include focus();
+    }
+
     .c-steppers {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: #{map-get($spacers, "3")};
+        bottom: 0;
     }
+
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {

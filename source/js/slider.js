@@ -44,6 +44,7 @@ export default class Slider {
             pauseOnHover: true,
             pauseOnFocus: true,
             lazyLoad: "nearby",
+            slideFocus: false,
             classes: {
                 arrows: 'c-slider__arrows',
                 pagination: 'c-slider__steppers',

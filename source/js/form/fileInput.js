@@ -115,7 +115,7 @@ class FileInput {
                                         hiddenInput.remove();
                                     }
 
-                                    const currentListItem = clickedEl.target.parentElement;
+                                    const currentListItem = clickedEl.target.closest('li');
                                     currentListItem.classList.add('u-border');
 
                                     uploadedFiles.forEach((item, index) => {

@@ -58,6 +58,18 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         }
     }
 
+    &.search-modal {
+        #modal-search-form {
+            margin-top:calc($base * 1);
+            margin-bottom:calc($base * 1);
+        }
+    }
+
+    input:focus {
+        outline: none;
+        outline-offset: none;
+        box-shadow: none;
+    }
 
     &::backdrop {
         background-color: $c-modal-backdrop-color;

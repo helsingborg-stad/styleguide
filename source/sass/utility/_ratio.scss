@@ -6,6 +6,27 @@
     @include ratio(16,9);
 }
 
+.u-ratio-12-16 {
+    @include ratio(12,16);
+}
+
 .u-ratio-4-3 {
     @include ratio(4,3);
+}
+
+/* Modern approach */
+.u-aspect-ratio-1-1 {
+    aspect-ratio: 1 / 1; 
+}
+
+.u-aspect-ratio-12-16 {
+    aspect-ratio: 12 / 16; 
+}
+
+.u-aspect-ratio-16-9 {
+    aspect-ratio: 16 / 9; 
+}
+
+.u-ratio-4-3 {
+    aspect-ratio: 4 / 3;
 }

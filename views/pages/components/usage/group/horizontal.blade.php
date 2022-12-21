@@ -1,16 +1,11 @@
 @group(['direction' => 'horizontal'])
-
-    @field([
-        'type' => 'text',
-        'attributeList' => [
-            'type' => 'text',
-            'name' => 'text',
-        ],
-        'label' => "What are you looking for?",
-        'classList' => ['u-width--50']
+    @button([
+        'color' => 'primary',
+        'size' => 'md',
+        'text' => 'Search',
+        'background' => 'default'
     ])
-    @endfield
-
+    @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',

@@ -109,7 +109,7 @@
         </div> 
         <div class="o-grid-6@md o-grid-3@lg">
             @card([
-                'heading' => 'Accesability',
+                'heading' => 'Accessibility',
                 'subHeading' => 'And usability',
                 'imageFirst' => true,
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',

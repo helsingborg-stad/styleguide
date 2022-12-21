@@ -1,16 +1,15 @@
 $c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default;
 $c-block-color: var(--c-block-color, $color-white) !default;
-$c-block-background-color: var(
-    --c-block-background-color,
-    $color-gray-light
-) !default;
+$c-block-background-color: var(--c-block-background-color, $color-gray-light) !default;
 $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
 
 .c-block {
     position: relative;
     border-radius: $c-block-border-radius;
     filter: $drop-shadow-2;
-    display: block;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
     background-position: center;
     background-size: cover;
     background-color: $c-block-background-color;
@@ -31,6 +30,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: flex; 
         flex-direction: column;
         gap: #{$base};
+        margin-top: auto;
 
         &::after {
             content: '';
@@ -62,25 +62,20 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: block; 
     }
 
-    @include mq(map_get($breakpoints-map, 'md')) {
-        &.c-block--ratio-1-1 {
-            @include ratio(1, 1, false);
-        }
-    
-        &.c-block--ratio-4-3 {
-            @include ratio(4, 3, false);
-        }
-    
-        &.c-block--ratio-12-16 {
-            @include ratio(12, 16, false);
-        }
-    
-        &.c-block--ratio-16-9 {
-            @include ratio(16, 9, false);
-        }
+    &.c-block--ratio-1-1 {
+        aspect-ratio: 1 / 1; 
     }
-    @include mq(map_get($breakpoints-map, 'sm')) {
-        min-height: calc(#{$base} * 20);
+    
+    &.c-block--ratio-4-3 {
+        aspect-ratio: 4 / 3; 
+    }
+    
+    &.c-block--ratio-12-16 {
+        aspect-ratio: 12 / 16; 
+    }
+    
+    &.c-block--ratio-16-9 {
+        aspect-ratio: 16 / 9;
     }
 
     &--svg-background {

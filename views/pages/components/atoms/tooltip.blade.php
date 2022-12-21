@@ -7,4 +7,7 @@
 
     @doc(['slug' => 'tooltip'])
     @enddoc
+
+    @doc(['slug' => 'tooltip'])
+    @enddoc
 @stop

@@ -1,6 +1,44 @@
+$position: center, start, end, flex-start, flex-end, left, right, normal, space-between, space-around, space-evenly, stretch;
+$display: flex, inline-flex, grid;
+$wrap: wrap, wrap-reverse, nowrap;
 
 .c-group {
     display: flex;
+
+    @each $key in $position {
+        &.c-group--justify-content-#{$key} {
+            justify-content: $key;
+        }
+
+        &.c-group--align-items-#{$key} {
+            align-items: $key;
+        }
+
+        &.c-group--align-content-#{$key} {
+            align-content: $key;
+        }
+        
+    }
+
+    @each $key in $display {
+        &.c-group--display-#{$key} {
+            display: $key;
+        }
+    }
+
+    @each $key in $wrap {
+        &.c-group--flex-wrap-#{$key} {
+            flex-wrap: $key;
+        }
+    }
+
+    &.c-group--flex-grow > * {
+            flex-grow: 1;
+    }
+
+    &.c-group--flex-shrink-none > * {
+            flex-shrink: 0;
+    }
 }
 
 .c-group--horizontal > *:not(:first-child) {
@@ -59,4 +97,5 @@
         border-bottom-left-radius: 0; 
         border-bottom-right-radius: 0; 
     }
+
 }
