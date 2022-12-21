@@ -73,8 +73,8 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
 
         .c-acceptance__modal {
             @include cover;
-            background-color: $c-acceptance-alpha-color;  
-            color: $c-acceptance-alpha-color-contransting; 
+            background-color: $c-acceptance-alpha-color;
+            color: $c-acceptance-alpha-color-contransting;
         }
 
         .c-acceptance__modal-icon-play {
@@ -85,6 +85,13 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
             left:50%;
             transform: translate(-50%, -50%);
             color: $c-acceptance-alpha-color-contransting;
+            transition: text-shadow 0.1s linear;
+            text-shadow: 0 0 30px rgba(0,0,0,0.3);
+
+            &:hover {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            }
         }
 
         .c-acceptance__modal-info {
