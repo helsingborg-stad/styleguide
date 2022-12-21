@@ -130,7 +130,11 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
+
+        .c-modal__heading {
+            margin-right: map-get($spacers, "2");
+        }
     }
 
     &__content {
