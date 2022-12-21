@@ -28,6 +28,22 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         margin: 0;
     }
 
+    &:focus-visible {
+        @include focus-remove-default;
+    }
+
+    &:focus-visible::after {
+        @include focus-inset;
+        border-radius: $c-slider-border-radius;
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        pointer-events: none;
+        position: absolute;
+        z-index: $level-3;
+    }
+
     .c-slider__item__container {
         z-index: $level-4;
         color: $c-slider-color-overlay-contrasting;
@@ -51,6 +67,10 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         left: 0;
         z-index: $level-3 - 1;
         border-radius: $c-slider-border-radius;
+
+        &:focus-visible {
+            @include focus-inset;
+        }
     }
 
     .c-slider__item__link {
