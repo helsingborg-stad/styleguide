@@ -5,41 +5,42 @@ class Tooltip {
     }
 
     test() {
-        const menu = document.querySelector('#main-menu');
+        const menu = document.querySelector('#main-menu'); 
         let menuItems = menu.querySelectorAll('.c-nav__depth-0');
         
         menuItems.forEach(menuItem => {
-            if (menuItem.children) {
-                let children = menuItem.children;
-                let child = false;
+            console.log(menuItem);
+            const hasChildren = menuItem.querySelectorAll('.c-nav__item');
 
-                for (let i = 0; i < children.length; i++) {
-                    if (children[i].classList.contains('c-nav')) {
-                        child = children[i];
-                        break;
+                if(hasChildren.length <= 0) {
+                    return;
+                } 
+
+                menuItem.addEventListener('focusout', (e) => {
+                    if(!e.relatedTarget || !e.relatedTarget.classList.contains('c-nav__link')) {
+                        this.handleVisible(false, menuItems);
                     }
-                }
-                if(child) {
-                    menuItem.addEventListener('focusin', (e) => {
+                })
+                menuItem.addEventListener('focusin', (e) => {
+                    this.handleVisible(menuItem, menuItems);
+                })
 
-                        this.handleVisible(e.target.closest('.c-nav__depth-0'), menuItems, child);
-                    })
-                }
-            }
         });
     }
 
-    handleVisible(menuItem, menuItems, child) {
-        menuItems.forEach(item => {
-            if(item === menuItem) {
+handleVisible(menuItem, menuItems) {
+    menuItems.forEach(item => {
+        if(menuItem) {
+            if (item === menuItem) {
                 item.classList.add('is-visible');
-                // child.style.display = 'flex';
             } else {
                 item.classList.remove('is-visible');
-                // child.style.display = 'none';
             }
-        })
-    }
+        } else {
+            item.classList.remove('is-visible');
+        }
+    })
+}
 
     setListener() {
         const tooltips = document.querySelectorAll('.c-tooltip');
