@@ -261,9 +261,9 @@
 .c-nav--horizontal {
   align-items: center;
 
-  .c-nav__item .c-nav__link:hover:after,
-  .c-nav__item.is-open .c-nav__link:after,
-  .c-nav__item.is-current .c-nav__link:after {
+  .c-nav__item > .c-nav__link:hover:after,
+  .c-nav__item.is-open > .c-nav__link:after,
+  .c-nav__item.is-current > .c-nav__link:after {
     display: block; 
   }
 
@@ -369,7 +369,7 @@
       display: none;
     }
   }
-  
+
   .c-nav__item:hover > ul.c-nav {
     &.c-nav--depth-1,
     &.c-nav--depth-2,
