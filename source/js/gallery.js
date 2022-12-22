@@ -31,13 +31,17 @@ class Gallery {
         this.modalId = modalId;
         this.modalImg = modalImage;
 
+        if (this.imageDataSet.length === 0) {
+            for (let img of document.querySelectorAll("[data-large-img]")) {
+                this.imageDataSet.push({
+                    image: img.getAttribute('data-large-img'),
+                    imageStep: img.getAttribute('data-stepping'),
+                    imageCaption: img.getAttribute('data-caption')
+                });
+            }
+        }
+        
         for (let img of document.querySelectorAll("[data-large-img]")) {
-            this.imageDataSet.push({
-                image: img.getAttribute('data-large-img'),
-                imageStep: img.getAttribute('data-stepping'),
-                imageCaption: img.getAttribute('data-caption')
-            });
-
             if (img.getAttribute('data-large-img') === this.modalImg) {
                 this.imageData.image = img.getAttribute('data-large-img');
                 this.imageData.imageStep = img.getAttribute('data-stepping');
