@@ -25,6 +25,10 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
         margin: auto;
         max-width: 100%;
         display: none;
+
+        .c-button + .c-button {
+            margin-left: 0;
+        }
     }
 
     .c-acceptance__content  {
@@ -69,8 +73,8 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
 
         .c-acceptance__modal {
             @include cover;
-            background-color: $c-acceptance-alpha-color;  
-            color: $c-acceptance-alpha-color-contransting; 
+            background-color: $c-acceptance-alpha-color;
+            color: $c-acceptance-alpha-color-contransting;
         }
 
         .c-acceptance__modal-icon-play {
@@ -81,6 +85,13 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
             left:50%;
             transform: translate(-50%, -50%);
             color: $c-acceptance-alpha-color-contransting;
+            transition: filter 100ms linear;
+            filter: $drop-shadow-5;
+
+            &:hover {
+                opacity: 1;
+                filter: $drop-shadow-2;
+            }
         }
 
         .c-acceptance__modal-info {
