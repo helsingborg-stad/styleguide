@@ -20,6 +20,10 @@ class Nav {
                 }
             })
             menuItem.addEventListener('focusin', (e) => {
+                console.log(e);
+                if(!e.relatedTarget) {
+                    return;
+                } 
                 this.handleVisible(menuItem, menuItems);
             })
 
