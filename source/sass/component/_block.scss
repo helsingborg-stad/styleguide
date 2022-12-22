@@ -16,12 +16,6 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     text-decoration: none;
 
     .c-block__body {
-        position: initial;
-        @include mq(map_get($breakpoints-map, 'md')) {
-            position: absolute;
-        }
-        bottom: 0;
-        left: 0;
         padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 3) calc(#{$base} * 3);
         width: 100%;
         z-index: 0;
@@ -63,19 +57,31 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     }
 
     &.c-block--ratio-1-1 {
-        aspect-ratio: 1 / 1; 
+        @include ratio(1, 1, true); 
+        &:before {
+            width: 0;
+        }
     }
     
     &.c-block--ratio-4-3 {
-        aspect-ratio: 4 / 3; 
+        @include ratio(4, 3, true); 
+        &:before {
+            width: 0;
+        }
     }
     
     &.c-block--ratio-12-16 {
-        aspect-ratio: 12 / 16; 
+        @include ratio(12, 16, true); 
+        &:before {
+            width: 0;
+        }
     }
     
     &.c-block--ratio-16-9 {
-        aspect-ratio: 16 / 9;
+        @include ratio(16, 19, true);
+        &:before {
+            width: 0;
+        }
     }
 
     &--svg-background {
