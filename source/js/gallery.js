@@ -32,7 +32,7 @@ class Gallery {
         this.modalImg = modalImage;
 
         if (this.imageDataSet.length === 0) {
-            for (let img of document.querySelectorAll("[data-large-img]")) {
+            for (let img of document.querySelectorAll(`[data-open="${modalId}"][data-large-img]`)) {
                 this.imageDataSet.push({
                     image: img.getAttribute('data-large-img'),
                     imageStep: img.getAttribute('data-stepping'),
