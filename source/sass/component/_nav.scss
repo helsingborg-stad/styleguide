@@ -361,6 +361,21 @@
     }
   }
 
+  .c-nav__item ul.c-nav {
+    &.c-nav--depth-1,
+    &.c-nav--depth-2,
+    &.c-nav--depth-3,
+    &.c-nav--depth-4 {
+      .c-nav__link {
+        width: 100%;
+
+        &:focus-visible {
+          border:2px solid $color-focus-outline;
+        }
+      }
+    }
+  }
+
   .c-nav__item > ul.c-nav {
     &.c-nav--depth-1,
     &.c-nav--depth-2,
