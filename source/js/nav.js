@@ -6,7 +6,6 @@ class Nav {
     setListeners() {
         const menu = document.querySelector('#main-menu');
         let menuItems = menu.querySelectorAll('.c-nav--depth-0 > li');
-        console.log(menuItems);
         menuItems.forEach(menuItem => {
             const hasChildren = menuItem.querySelectorAll('.c-nav__item');
 
@@ -20,7 +19,6 @@ class Nav {
                 }
             })
             menuItem.addEventListener('focusin', (e) => {
-                console.log(e);
                 if(!e.relatedTarget) {
                     return;
                 } 
