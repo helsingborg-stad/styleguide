@@ -101,10 +101,10 @@ class Gallery {
 
     /**
      * Next & previous Image
-     * @param nav
+     * @param string nav
      * @returns {*}
      */
-    cycleImage(nav) {
+    cycleImage(nav = 'prev') {
         const self = this;
 
         let currentIndex = parseInt(this.imageData.imageStep);
