@@ -78,7 +78,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     }
     
     &.c-block--ratio-16-9 {
-        @include ratio(16, 19, true);
+        @include ratio(16, 9, true);
         &:before {
             width: 0;
         }
