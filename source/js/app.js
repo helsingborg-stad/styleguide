@@ -31,6 +31,7 @@ import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
 import Hero from './hero';
 import Tooltip from './tooltip';
+import Nav from './nav';
 import './helpers/swipe';
 
 expandSection();
@@ -54,6 +55,7 @@ const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleInstance = new ButtonToggle;
+const NavInstance = new Nav();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
