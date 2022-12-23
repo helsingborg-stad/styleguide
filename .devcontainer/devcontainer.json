@@ -9,9 +9,9 @@
 	// "customizations": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		8080
-	],
+	// "forwardPorts": [
+	// 	8080
+	// ],
 	
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -25,7 +25,7 @@
 		"additional-packages": "sudo apt-get -y update && sudo apt-get install -y bash-completion",
 		"link-workspace-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 		"enable-apache-modules": "sudo a2enmod rewrite headers",
-		"setup": "npm install && composer install && php build.php"
+		"setup": "php build.php"
 	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
