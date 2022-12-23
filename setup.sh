@@ -7,3 +7,4 @@ else
         git clone "https://github.com/helsingborg-stad/component-library.git" "source/library"
     fi
 fi
+cd ./source/library/ && composer install
