@@ -23,23 +23,8 @@
 The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
 
 ### Requirements
-Requirements can be specified in bullet lists.
 
 - NodeJS >= 16
-
-### File tree
-If you need to document a file structure, consider installing shell application [tree](http://mama.indstate.edu/users/ice/tree/) and put the result inside codeblock.
-
-```
-source/js
-├── gallery.js
-├── gallery.test.ts
-```
-Install on MacOS(Requires [HomeBrew](https://docs.brew.sh/Installation))
-
-```bash
-brew install tree
-```
 
 ## Development
 ### Testing
