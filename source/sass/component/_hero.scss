@@ -179,25 +179,79 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     height: 100%;
   }
 
-  &.c-hero--overflow {
-    padding-top: calc($base * 16);
 
-    .c-hero__image {
-      top:0;
-      filter: blur(30px);
-    }
+
+  /* Overflow styled hero */
+
+  &.c-hero--overflow {
+
+    .c-hero__image, .c-hero__overlay {
+        display: none;
+      }
 
     .c-hero__content {
       max-width:100%;
+      height: 100%;
+      padding:0;
+      align-self: unset;
+      text-shadow: none;
+      border-radius: $border-radius-xs;
+      
     }
 
-    .c-hero__content-group {
-      flex: 0 0 100%;
-    }
+     .c-hero__group {
+        flex: 0 0 100%;
+
+        .c-hero__group-image {
+          height: 100%;
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .c-hero__group-content {
+          height: 100%;
+          padding: 0;
+        }
+      }
 
     @include mq(map_get($breakpoints-map, "md")) {
-      .c-hero__content-group {
-        flex:0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5)
+        padding-top: calc($base * 16);
+        max-height: calc($base * 90);
+
+        .c-hero__content {
+          background-color: $color-white;
+        }
+
+        &::after {
+        content: "";
+        height: 64px;
+        width: 100%;
+        bottom:0;
+        left:0;
+        position: absolute;
+        background-color: $color-default;
+        z-index:$level-1;
+      }
+
+      .c-hero__image {
+        display: block;
+        top:0;
+        filter: blur(30px);
+      }
+
+      .c-hero__overlay {
+        display: block;
+      }
+
+      .c-hero__group {
+        flex:0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
+
+          .c-hero__group-content {
+            padding: calc($base * 6);
+        } 
       }
     }
   }
