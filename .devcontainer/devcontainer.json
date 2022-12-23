@@ -22,9 +22,12 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"additional-packages": "sudo apt-get -y update && sudo apt-get install -y bash-completion",
+		"additional-packages": "sudo apt-get update && sudo apt-get install -y bash-completion",
 		"link-workspace-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"enable-apache-modules": "sudo a2enmod rewrite headers",
+		"enable-apache-modules": "sudo a2enmod rewrite headers"
+	},
+
+	"postStartCommand": {
 		"setup": "php build.php"
 	}
 
