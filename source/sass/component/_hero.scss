@@ -179,27 +179,27 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     height: 100%;
   }
 
-
-
-  /* Overflow styled hero */
-  &.c-hero--two-column {
+  /* Initiative hero */
+  &.c-hero--initiative {
     padding: calc($base*10) 0;
-
+    
     .c-hero__group-image {
         img {
           height: auto;
+          width: 100%;
           max-width:calc($base * 60);
           object-fit: cover;
         }
       }
 
       .c-hero__background {
-        display: none;
         height: 100%;
         width: 100%;
         z-index:-1;
         object-fit: cover;
         position: absolute;
+        top:0;
+        background-repeat: no-repeat;
       }
 
       .c-hero__content {
@@ -218,11 +218,15 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
       &.c-hero--overflow {
         padding: 0;
+
+          .c-hero__background {
+            display:none;
+          }
+
           .c-hero__group-image {
             height: 100%;
             img {
               height: 100%;
-              width: 100%;
               max-width: 100%;
               object-fit: cover;
             }
