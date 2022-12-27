@@ -183,6 +183,10 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   &.c-hero--initiative {
     padding: calc($base*10) 0;
     
+    &:before {
+      display: none;
+    }
+    
     .c-hero__group-image {
         img {
           height: auto;
