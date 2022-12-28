@@ -1,5 +1,5 @@
 {
-    "format": "u-display--state",
+    "format": "u-display--state@md",
     "modifiers": {
         "state": "none, inline, inline-block, block, table, table-cell, table-row, flex, inline-flex"
     },
