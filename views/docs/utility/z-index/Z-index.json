@@ -1,0 +1,10 @@
+{
+    "format": "u-level-value",
+    "modifiers": {
+        "value": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, top, bottom"
+    },
+    "description": {
+        "value": "Sets the z-index (value * 1000) of an element, top and bottom can be used to place the element on top/bottom of other elements."
+    },
+    "responsive": false
+}
