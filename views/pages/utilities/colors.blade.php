@@ -223,6 +223,11 @@
             <div class="u-color__bg--complementary-lightest u-rounded" style="height: 20px;"></div>
             <span>Compl. lightest</span>
         </div>
+        
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg u-text-align--center">
+            <div class="u-color__bg--transparent u-rounded" style="height: 20px;"></div>
+            <span>Transparent</span>
+        </div>
 
     </div>
 
