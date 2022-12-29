@@ -101,24 +101,6 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     &.c-slider__item {
         margin-right: $c-slider-gap;
 
-        &--bg-none {
-            .c-slider__item__container {
-                background-color: none;
-            }
-        }
-
-        &--bg-transparent {
-            .c-slider__item__container {
-                background-color: $c-slider-color-overlay;
-            }
-        }
-
-        &--bg-theme {
-            .c-slider__item__container {
-                background-color: $color-primary;
-            }
-        }
-
         &--text-align-center {
             text-align: center;
         }
