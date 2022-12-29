@@ -1,15 +1,9 @@
 {
-    "slider": {
-        "grid": "",
-        "heading": "Different Sizes",
-        "subHeading" : "Card is based on a paper component",
-        "text": "This is a default colored button and it's pretty sweet"
-    },
     "slider_item": {
         "grid": "",
-        "heading": "Different Sizes",
-        "subHeading" : "Card is based on a paper component",
-        "text": "This is a default colored button and it's pretty sweet"
+        "heading": "Using the slider item component",
+        "subHeading" : "By using the slider item component you can create a slider with ease",
+        "text": ""
     },
     "single_slide": {
         "grid": "",
@@ -21,6 +15,12 @@
         "grid": "",
         "heading": "Repeat slide",
         "subHeading" : "",
+        "text": ""
+    },
+    "button_styling": {
+        "grid": "",
+        "heading": "Button styling",
+        "subHeading": "Styling the buttons",
         "text": ""
     }
 }
