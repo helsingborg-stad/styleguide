@@ -19,7 +19,7 @@
 
       @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-margin__top--3']])
         {{\HbgStyleGuide\Helper\ParseString::tidyHtml('
-            <ul class="example-list">
+            <ul class="mixins-example-list">
                 <li>
                     This list item has no visual list styling.
                 </li>
