@@ -1,0 +1,10 @@
+{
+    "format": ".u-text-align--alignment",
+    "description": {
+        "alignment": "Decides which placement the text will have."
+    },
+    "modifiers": {
+        "alignment": "left, right, center, justify, initial, inherit"
+    },
+    "responsive": false
+}
