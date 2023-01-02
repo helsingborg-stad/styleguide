@@ -4,10 +4,7 @@
 ])
     @field([
         'type' => 'text',
-        'attributeList' => [
-            'type' => 'text',
-            'name' => 'text',
-        ],
+        'name' => 'text',
         'label' => "Enter text"
     ])
     @endfield
