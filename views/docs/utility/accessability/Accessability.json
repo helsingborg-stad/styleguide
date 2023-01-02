@@ -1,0 +1,10 @@
+{
+    "format": ".u-sr__only--focus",
+    "description": {
+        "focus": "Removes an elements visuals but is still accessible for screen readers."
+    },
+    "modifiers": {
+        "focus": "focusable"
+    },
+    "responsive": false
+}
