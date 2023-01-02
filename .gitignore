@@ -27,3 +27,4 @@ source/sass/imports/*
 .npmrc
 .dccache
 .vscode
+/coverage

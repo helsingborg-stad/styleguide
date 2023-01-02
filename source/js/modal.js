@@ -8,6 +8,7 @@ class Modal {
         this.openTrigger = document.querySelectorAll("[data-open]");
         this.closeTrigger = document.querySelectorAll("[data-close]");
         this.dialogs = document.querySelectorAll('.c-modal');
+        this.galleryInstance = null;
     }
 
     /**
@@ -16,9 +17,6 @@ class Modal {
     enableModals() {
 
         const self = this;
-        // Gallery
-        let GalleryInstance = new Gallery;
-        GalleryInstance.enableGallery(this.modalId);
 
         for(const trigger of this.openTrigger) {
             trigger.addEventListener("click", function() {
@@ -28,7 +26,10 @@ class Modal {
                 modal.showModal();
 
                 if(this.getAttribute('data-large-img')) {
-                    GalleryInstance.initImage(this.modalId, this.getAttribute('data-large-img'));
+                    // Gallery
+                    self.galleryInstance = new Gallery;
+                    self.galleryInstance.enableGallery(this.modalId);
+                    self.galleryInstance.initImage(this.modalId, this.getAttribute('data-large-img'));
                 }
 
                 self.lockScroll();
@@ -39,6 +40,7 @@ class Modal {
         for (const trigger of this.closeTrigger) {
             trigger.addEventListener("click", function() {
                 trigger.closest('dialog').close();
+                self.galleryInstance = null;
             });
         }
 
