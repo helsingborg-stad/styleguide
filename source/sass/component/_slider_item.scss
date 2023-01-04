@@ -28,22 +28,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         margin: 0;
     }
 
-    &:focus-visible,
-    .c-card:focus {
-        @include focus-remove-default;
-    }
-
-    &:focus-visible::after,
-    .c-card:focus::after {
-        @include focus-inset;
-        border-radius: $c-slider-border-radius;
-        content: '';
-        display: block;
-        height: 100%;
-        width: 100%;
-        pointer-events: none;
-        position: absolute;
-        z-index: $level-3;
+    &:focus-visible {
+        @include focus-inset($c-slider-border-radius, true);
     }
 
     .c-slider__item__container {

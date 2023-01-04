@@ -10,8 +10,24 @@
     box-shadow: none;
 }
 
-@mixin focus-inset {
-    outline: none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 calc(#{$base} * 0.5)  $color-focus-outline, inset 0 0 0 calc(#{$base} * 0.75) $color-white;
+@mixin focus-inset($border-radius: 0, $remove-default-focus: false) {
+    
+    @if($remove-default-focus) {
+        @include focus-remove-default;
+    }
+
+    &::after {
+        border-radius: $border-radius;
+        box-shadow: inset 0 0 0 calc(#{$base} * 0.5) $color-focus-outline,
+        inset 0 0 0 calc(#{$base} * 0.75) $color-white;
+        content: '';
+        display: block;
+        height: 100%;
+        outline: none;
+        outline-offset: 0;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        z-index: $level-3;
+    }
 }
