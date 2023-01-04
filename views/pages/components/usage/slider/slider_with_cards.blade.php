@@ -20,7 +20,7 @@
                 'image' => ['src' => "https://picsum.photos/id/$i/267", 'alt' => 'ALT'],
                 'heading' => "Card #$i",
                 'content' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                'classList' => ['u-color__text--info'],
+                'classList' => ['u-color__text--info', 'c-card--focus-inset'],
             ])
             @endcard
 
