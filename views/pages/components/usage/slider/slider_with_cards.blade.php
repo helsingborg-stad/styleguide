@@ -19,7 +19,7 @@
                 'link' => 'https://www.helsingborg.se',
                 'image' => ['src' => "https://picsum.photos/id/$i/267", 'alt' => 'ALT'],
                 'heading' => "Card #$i",
-                'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan pharetra porta. Nullam id est suscipit velit tincidunt ultrices a non mi.',
+                'content' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 'classList' => ['u-color__text--info'],
             ])
             @endcard
