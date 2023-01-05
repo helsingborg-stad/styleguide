@@ -4,6 +4,7 @@ namespace HbgStyleGuide;
 
 use \HelsingborgStad\BladeEngineWrapper as Blade;
 use \HbgStyleGuide\Helper\Documentation as DocHelper;
+use \HbgStyleGuide\Helper\ModifierExample;
 
 class View
 {
@@ -131,6 +132,21 @@ class View
                 } else {
                     $description = array();
                 }
+                
+                // Check if has modifiers object.
+                if (isset($configJson['modifiers'])) {
+                    $modifiers = $configJson['modifiers'];
+                } else {
+                    $modifiers = array();
+                }
+
+                // Attempt to set up example usage of modifiers.
+                if (isset($viewData['slug']) && !empty($modifiers)) {
+                    $firstModifier = array_keys((array)$modifiers)[0];
+                    $modifiersExample = ModifierExample::get($viewData['slug'], $firstModifier);
+                } else {
+                    $modifiersExample = null;
+                }
 
                 if (isset($configJson['responsive'])) {
                     $responsive = $configJson['responsive'];
@@ -177,13 +193,15 @@ class View
                 'format' => $format,
                 'responsive' => $responsive,
                 'description' => $description,
+                'modifiers' => $modifiers,
                 'available' => $available,
                 'settings' => $settings,
                 'settingsLocation' => $configFile,
                 'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                 'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                 'paper' => $paper,
-                'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : ""
+                'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : "",
+                'modifiersExample' => $modifiersExample
             ]);
 
             
