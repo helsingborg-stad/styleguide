@@ -1,11 +1,10 @@
 {
-    "slug": "accordion",
+    "format": ".u-color__text--color",
     "description": {
         "color": "Applies given color"
     },
     "modifiers": {
-        "color": "primary, secondary, success, info, warning, danger"
+        "color": "default, primary, secondary, success, info, warning, danger, darkest, darker, dark, light, lighter, lightest"
     },
-    "responsive": false,
-    "format": ".u-color__text--color"
+    "responsive": false
 }

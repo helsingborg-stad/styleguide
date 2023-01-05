@@ -49,6 +49,10 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &--focus-inset:focus {
+        @include focus-inset($c-card-border-radius);
+    }
+
     & figure.c-image {
         border-top-left-radius: inherit;
         border-top-right-radius: inherit;
