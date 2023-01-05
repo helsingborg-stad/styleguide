@@ -25,6 +25,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         flex-direction: column;
         gap: #{$base};
         margin-top: auto;
+        position: relative;
 
         &::after {
             content: '';
