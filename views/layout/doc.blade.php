@@ -204,7 +204,7 @@
                 @endif
                 
                 <p id="modifiers-table-label">Available modifiers for the {{$slug}} component.</p>
-                <table aria-labeledby="modifiers-table-label">
+                <table aria-labelledby="modifiers-table-label">
                     <thead>
                         <th>Modifier</th>
                         <th>Description</th>
