@@ -196,18 +196,18 @@
     @if(isset($modifiers) && !empty($modifiers))
             <div class="d-params u-overflow--auto u-margin__top--10">
                 <h3>Modifiers</h3>
-                <p>
-                    Modifiers can be appended to the base class and should, when needed, be added to the classList.
-                </p>
+                <p>Modifiers can be appended to the base class and should, when needed, be added to the classList.</p>
+                
                 @if(isset($modifiersExample))
                     <p>Example usage: <p>
                     @code(['heading' => 'Example', 'language' => 'php', 'content' => ""]) {{$modifiersExample}} @endcode
                 @endif
-              
-                <table>
+                
+                <p id="modifiers-table-label">Available modifiers for the {{$slug}} component.</p>
+                <table aria-labeledby="modifiers-table-label">
                     <thead>
-                        <td>Modifier</td>
-                        <td>Description</td>
+                        <th>Modifier</th>
+                        <th>Description</th>
                     </thead>
                     @foreach($modifiers as $key => $item)
                         <tr>
