@@ -192,4 +192,32 @@
             <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
         @endif
     @endif
+    
+    @if(isset($modifiers) && !empty($modifiers))
+            <div class="d-params u-overflow--auto u-margin__top--10">
+                <h3>Modifiers</h3>
+                <p>
+                    Modifiers can be appended to the base class and should, when needed, be added to the classList.
+                </p>
+                @if(isset($modifiersExample))
+                    <p>Example usage: <p>
+                    @code(['heading' => 'Example', 'language' => 'php', 'content' => ""]) {{$modifiersExample}} @endcode
+                @endif
+              
+                <table>
+                    <thead>
+                        <td>Modifier</td>
+                        <td>Description</td>
+                    </thead>
+                    @foreach($modifiers as $key => $item)
+                        <tr>
+                            <td>{{$key}}</td>
+                            <td>{{$item}}</td>
+                        </tr>
+                    @endforeach
+
+                </table>
+            </div>
+    @endif
+
 </section>
