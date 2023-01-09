@@ -107,12 +107,14 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--lg {
         height: calc(#{$base} * 8); 
+        min-width: calc(#{$base} * 12);
         padding: 0 calc(#{$base} * 5);
         font-size: $font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
         &.c-button--icon-only {
             width: calc(#{$base} * 8); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
@@ -127,12 +129,14 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--md {
         height: calc(#{$base} * 6); 
+        min-width: calc(#{$base} * 9);
         padding: 0 calc(#{$base} * 4); 
         font-size: $font-size-btn-md; 
         border-radius: $c-button-border-radius; 
 
         &.c-button--icon-only {
             width: calc(#{$base} * 6); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
@@ -147,13 +151,15 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--sm {
         letter-spacing: 0.1em;
-        height: calc(#{$base} * 4.5); 
+        height: calc(#{$base} * 4.5);
+        min-width: calc(#{$base} * 6.75); 
         padding: 0 calc(#{$base} * 2); 
         font-size: $font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
 
         &.c-button--icon-only {
             width: calc(#{$base}* 4.5); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
