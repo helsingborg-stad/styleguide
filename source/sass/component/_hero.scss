@@ -199,7 +199,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       .c-hero__background {
         height: 100%;
         width: 100%;
-        z-index:-1;
+        z-index: -1;
         object-fit: cover;
         position: absolute;
         top:0;
@@ -214,9 +214,9 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
         border-radius: $border-radius-xs;
         .c-hero__group {
           flex: 0 0 100%;
-          .c-hero__group-content {
+        }
+        .c-hero__group-content {
             padding: 0;
-          }
         }
       }
 
@@ -243,7 +243,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     @include mq(map_get($breakpoints-map, "md")) {
       .c-hero__content {
         .c-hero__group {
-          flex:0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
+          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
         } 
       }
       
@@ -259,7 +259,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
         &::after {
           content: "";
-          height: 64px;
+          height: calc($base * 8);
           width: 100%;
           bottom:0;
           left:0;
