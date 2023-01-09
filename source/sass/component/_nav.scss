@@ -346,6 +346,7 @@
     .c-nav__item {
       overflow: hidden;
       width: 100%;
+
     }
 
     .c-nav__item + .c-nav__item {
@@ -358,6 +359,26 @@
   
     .c-nav__item:last-child {
       border-radius: 0 0 $border-radius-sm $border-radius-sm;
+    }
+  }
+
+  .c-nav__item {
+    .c-nav.c-nav--depth-1 {
+      width: calc($base * 27);
+    }
+    
+    .c-nav .c-nav__item {
+      flex-direction: column;
+
+      .c-nav__link {
+        white-space: break-spaces;
+      }
+
+      @each $depth in (2, 3 ,4) {
+        .c-nav--depth-#{$depth} {
+          padding-left: calc($base * $depth * 0.5);
+        }
+      }
     }
   }
 
