@@ -135,7 +135,7 @@ class Navigation
     }
 
     public static function getPageDomain() {
-        return $_SERVER['HTTP_HOST']; 
+        return isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
     }
 
     public static function getPageUrl() {
