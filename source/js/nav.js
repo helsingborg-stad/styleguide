@@ -5,44 +5,49 @@ class Nav {
 
     setListeners() {
         const menu = document.querySelector('#main-menu');
+        const mainItems = menu.querySelectorAll('.c-nav--depth-0 > .c-nav__item');
 
-        if(menu !== null) {
-            let menuItems = menu.querySelectorAll('.c-nav--depth-0 > li');
-            menuItems.forEach(menuItem => {
-                const hasChildren = menuItem.querySelectorAll('.c-nav__item');
+        menu && this.clickListeners(menu, mainItems);
+    }
 
-                if (hasChildren.length <= 0) {
-                    return;
-                }
+    clickListeners(menu, mainItems) {
+        const menuItems = menu.querySelectorAll('.c-nav__item');
 
-                menuItem.addEventListener('focusout', (e) => {
-                    if (!e.relatedTarget || !e.relatedTarget.classList.contains('c-nav__link')) {
-                        this.handleVisible(false, menuItems);
-                    }
+        menuItems.forEach(menuItem => {
+            if(menuItem.querySelector('.c-nav')) {
+                menuItem.querySelector('a') && this.handleLinks(menuItem);
+                menuItem.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.handleClickVisible(menuItem, mainItems);
                 })
-                menuItem.addEventListener('focusin', (e) => {
-                    if(!e.relatedTarget) {
-                        return;
-                    } 
-                    this.handleVisible(menuItem, menuItems);
-                })
+            }
+        });
+    }
 
-            });
+    handleClickVisible(menuItem, mainItems) {
+        mainItems.forEach(item => {
+            if(!item.contains(menuItem)) {
+            item.classList.remove('is-active');
+                item.querySelectorAll('.c-nav__item').forEach(childItem => {
+                    childItem.classList.remove('is-active');
+                })
+            }
+        })
+        if (menuItem.classList.contains('is-active')) {
+            menuItem.classList.remove('is-active');
+        } else {
+            menuItem.classList.add('is-active');
         }
     }
 
-    handleVisible(menuItem, menuItems) {
-        menuItems.forEach(item => {
-            if (menuItem) {
-                if (item === menuItem) {
-                    item.classList.add('is-visible');
-                } else {
-                    item.classList.remove('is-visible');
-                }
-            } else {
-                item.classList.remove('is-visible');
-            }
-        })
+    handleLinks(menuItem) {
+        const link = menuItem.querySelector('a');
+        link.href = "#";
+        if(link.querySelector('template')) {
+            let temp = link.querySelector('template');
+            let clone = temp.content.cloneNode(true);
+            link.appendChild(clone);
+        }
     }
 }
 

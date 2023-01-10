@@ -376,7 +376,12 @@
 
       @each $depth in (2, 3 ,4) {
         .c-nav--depth-#{$depth} {
-          padding-left: calc($base * $depth * 0.5);
+          .c-nav__link {
+            padding-left: calc($base * $depth * 0.5 + $base * 2);
+            &:after {
+              left: calc($base * $depth * 0.5 + $base * 2);
+            }
+          }
         }
       }
     }
@@ -389,6 +394,8 @@
     &.c-nav--depth-4 {
       .c-nav__link {
         width: 100%;
+        display: flex;
+        justify-content: space-between;
 
         &:focus-visible {
           border:2px solid $color-focus-outline;
@@ -398,31 +405,19 @@
   }
 
   .c-nav__item > ul.c-nav {
-    &.c-nav--depth-1,
-    &.c-nav--depth-2,
-    &.c-nav--depth-3,
-    &.c-nav--depth-4 {
       display: none;
-    }
   }
 
-  .c-nav__item:hover > ul.c-nav {
-    &.c-nav--depth-1,
-    &.c-nav--depth-2,
-    &.c-nav--depth-3,
-    &.c-nav--depth-4 {
-      display: flex; 
-    }
-  }
+ .c-nav__item.is-active > ul.c-nav {
+  display:flex;
+ }
 
-  .c-nav__item.is-visible ul {
-    &.c-nav.c-nav--depth-1, 
-    &.c-nav.c-nav--depth-2,
-    &.c-nav.c-nav--depth-3,
-    &.c-nav.c-nav--depth-4 {
-      display: flex; 
+ .c-nav__item.is-active {
+    &>.c-nav__link > .c-icon {
+      transition:.2s;
+      transform:rotate(180deg);
     }
-  }
+ }
 }
 
 .c-nav.c-nav--drawer {
