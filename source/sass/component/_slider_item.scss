@@ -35,7 +35,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     .c-slider__item__container {
         z-index: $level-4;
         color: $c-slider-color-overlay-contrasting;
-        background-color: transparent;
+        background-color: $c-slider-color-overlay;
         backdrop-filter: blur(1px);
     }
     
