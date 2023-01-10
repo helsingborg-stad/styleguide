@@ -74,8 +74,6 @@ $wrap: wrap, wrap-reverse, nowrap;
 
 .c-group--vertical > *:not(:first-child) {
     margin-top: 0;
-    border-top-left-radius: 0; 
-    border-top-right-radius: 0; 
     border-top: none;
 
     /* Fields */ 
