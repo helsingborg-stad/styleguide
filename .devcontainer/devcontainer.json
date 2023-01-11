@@ -28,12 +28,11 @@
 	"postCreateCommand": {
 		"additional-packages": "sudo apt-get update && sudo apt-get install -y bash-completion",
 		"link-workspace-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"enable-apache-modules": "sudo a2enmod rewrite headers"
-	},
-
-	"postStartCommand": {
+		"enable-apache-modules": "sudo a2enmod rewrite headers",
 		"setup": "php build.php"
 	},
+
+	"postStartCommand": {},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	"remoteUser": "root"
