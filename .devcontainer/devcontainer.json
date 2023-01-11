@@ -12,6 +12,10 @@
 	// "forwardPorts": [
 	// 	8080
 	// ],
+
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "zsh"
+	},
 	
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
