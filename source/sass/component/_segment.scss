@@ -66,6 +66,11 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 .c-segment.c-segment--height {
     &-full-screen {
         min-height: 100vh;
+
+        .c-segment__content {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
     }
 }
 
