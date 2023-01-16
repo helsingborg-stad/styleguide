@@ -3,7 +3,7 @@ let sectionElementPositions = [];
 let headerHeight = 0;
 
 const handleAnchorMenu = () => {
-    const scrollItems = scrollContainer.querySelectorAll('.c-anchormenu__item');
+    const scrollItems = scrollContainer ? scrollContainer.querySelectorAll('.c-anchormenu__item') : [];
     if(!scrollContainer || scrollItems.length <= 0) {
         return;
     }
