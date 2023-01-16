@@ -27,7 +27,7 @@ const hasAnchorMenu = () => {
 const setListeners = (scrollItems, sectionElements) => {
 
     if (sectionElements.length > 0) {
-        window.addEventListener('resize', debounce(elementPostions, 2000, sectionElements));
+        window.addEventListener('resize', debounce(elementPositions, 2000, sectionElements));
 
         let currentScroll = 0;
         window.addEventListener('scroll', () => {
@@ -54,7 +54,12 @@ const debounce = (func, delay, sectionElements) => {
     }
 }
 
-const elementPostions = (sectionElements) => {
+const elementPositions = (sectionElements) => {
+    const header = document.querySelector('#site-header');
+
+    if(header && header.classList.contains('c-header--sticky')) {
+        
+    }
     const arr = sectionElements.map(function (sectionElement) {
         return ({"position": window.scrollY + sectionElement.getBoundingClientRect().top, "height": sectionElement.getBoundingClientRect().height});
     });
