@@ -1,5 +1,5 @@
-let sectionElementPositions = [];
 const scrollContainer = document.querySelector('#scroll-spy');
+let sectionElementPositions = [];
 let headerHeight = 0;
 
 const handleAnchorMenu = () => {
@@ -8,27 +8,17 @@ const handleAnchorMenu = () => {
         return;
     }
 
-    let sectionElements = [];
-    let filteredScrollItems = [...scrollItems].filter(item => {
-        if (!item.getAttribute('href') || !item.getAttribute('href').startsWith('#')) {
-            return false;
-        }
-        const element = document.querySelector(item.getAttribute('href'));
-        if (element) {
-            sectionElements.push(element);
-            return true;
-        }
-        item.remove();
-        return false;
-    });
+    const menuElements = [...scrollItems].filter((item) => 
+    document.querySelector(item.getAttribute('href')) ? item : item.remove());
 
-    if(sectionElements.length > 0) {
-        setListeners(filteredScrollItems, sectionElements);
-    }
+    const sectionElements = [...scrollItems].map((item) => 
+    document.querySelector(item.getAttribute('href'))).filter(element => element); 
+
+    sectionElements.length > 0 && setListeners(menuElements, sectionElements);
 }
 
-const setListeners = (filteredScrollItems, sectionElements) => {
-
+const setListeners = (menuElements, sectionElements) => {
+    console.log(menuElements);
     if (sectionElements.length > 0) {
         window.addEventListener('resize', debounce(elementPositions, 300, sectionElements));
 
@@ -36,7 +26,7 @@ const setListeners = (filteredScrollItems, sectionElements) => {
         window.addEventListener('scroll', () => {
             let scrollTop = window.scrollY;
             if(Math.abs(currentScroll - scrollTop > 10 || currentScroll - scrollTop < -10)) {
-                handleScroll(filteredScrollItems);
+                handleScroll(menuElements);
                 currentScroll = scrollTop;
             }
         });
@@ -69,13 +59,13 @@ const elementPositions = (sectionElements) => {
     sectionElementPositions = arr;
 }
 
-const handleScroll = (filteredScrollItems) => {
+const handleScroll = (menuElements) => {
     let i = 0;
     sectionElementPositions.forEach(item => {
         if(window.scrollY > (item.position - (headerHeight + 120)) && ((item.position + item.height) - (headerHeight + 120)) > window.scrollY) {
-            filteredScrollItems[i].classList.add('is-active');
+            menuElements[i].classList.add('is-active');
         } else {
-            filteredScrollItems[i].classList.remove('is-active');
+            menuElements[i].classList.remove('is-active');
         } 
         i++;
     });
