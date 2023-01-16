@@ -3,7 +3,7 @@ const scrollContainer = document.querySelector('#scroll-spy');
 let headerHeight = 0;
 
 const hasAnchorMenu = () => {
-    const scrollItems = scrollContainer.querySelectorAll('.scroll-spy__item');
+    const scrollItems = scrollContainer.querySelectorAll('.c-anchormenu__item');
     if(!scrollContainer || scrollItems.length <= 0) {
         return;
     }
@@ -28,7 +28,7 @@ const hasAnchorMenu = () => {
 const setListeners = (scrollItems, sectionElements) => {
 
     if (sectionElements.length > 0) {
-        window.addEventListener('resize', debounce(elementPositions, 2000, sectionElements));
+        window.addEventListener('resize', debounce(elementPositions, 300, sectionElements));
 
         let currentScroll = 0;
         window.addEventListener('scroll', () => {
