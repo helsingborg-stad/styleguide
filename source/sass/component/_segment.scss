@@ -33,6 +33,10 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
     }
 }
 
+.c-segment__content + * {
+    margin-top: #{map-get($spacers, "6")};
+}
+
 /**
 * Modifiers
 */
@@ -206,7 +210,6 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 */
 .c-segment.c-segment--full-width {
     flex-direction: column;
-    gap: #{map-get($spacers, "8")};
     padding: map-get($spacers, "8") 0;
     
     &.c-segment--has-overlay .c-segment__image::before {
@@ -218,18 +221,6 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
     
     .c-segment__image {
         @include cover();
-    }
-
-    &.c-segment--gap-xs {
-        gap: #{map-get($spacers, "2")}; 
-    }
-
-    &.c-segment--gap-sm {
-        gap: #{map-get($spacers, "4")}; 
-    }
-
-    &.c-segment--gap-md {
-        gap: #{map-get($spacers, "6")}; 
     }
 }
 
