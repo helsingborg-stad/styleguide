@@ -18,7 +18,6 @@ const handleAnchorMenu = () => {
 }
 
 const setListeners = (menuElements, sectionElements) => {
-    console.log(menuElements);
     if (sectionElements.length > 0) {
         window.addEventListener('resize', debounce(elementPositions, 300, sectionElements));
 
