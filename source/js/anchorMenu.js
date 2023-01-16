@@ -1,7 +1,8 @@
 let sectionElementPositions = [];
+const scrollContainer = document.querySelector('#scroll-spy');
+let headerHeight = 0;
 
 const hasAnchorMenu = () => {
-    const scrollContainer = document.querySelector('#scroll-spy');
     const scrollItems = scrollContainer.querySelectorAll('.scroll-spy__item');
     if(!scrollContainer || scrollItems.length <= 0) {
         return;
@@ -56,9 +57,9 @@ const debounce = (func, delay, sectionElements) => {
 
 const elementPositions = (sectionElements) => {
     const header = document.querySelector('#site-header');
-
     if(header && header.classList.contains('c-header--sticky')) {
-        
+        headerHeight = header.offsetHeight;
+        scrollContainer.style.top = header.offsetHeight + 'px';
     }
     const arr = sectionElements.map(function (sectionElement) {
         return ({"position": window.scrollY + sectionElement.getBoundingClientRect().top, "height": sectionElement.getBoundingClientRect().height});
