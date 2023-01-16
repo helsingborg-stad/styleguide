@@ -9,19 +9,21 @@ const hasAnchorMenu = () => {
     }
 
     let sectionElements = [];
-
-    scrollItems.forEach(item => {
-        if (item.getAttribute('href') && item.getAttribute('href').startsWith('#')) {
-            if (document.querySelector(item.getAttribute('href'))) {
-                sectionElements.push(document.querySelector(item.getAttribute('href')));
-            } else {
-                item.remove();
-            }
+    let filteredScrollItems = [...scrollItems].filter(item => {
+        if (!item.getAttribute('href') || !item.getAttribute('href').startsWith('#')) {
+            return false;
         }
+        const element = document.querySelector(item.getAttribute('href'));
+        if (element) {
+            sectionElements.push(element);
+            return true;
+        }
+        item.remove();
+        return false;
     });
 
     if(sectionElements.length > 0) {
-        setListeners(scrollItems, sectionElements);
+        setListeners(filteredScrollItems, sectionElements);
     }
 }
 
