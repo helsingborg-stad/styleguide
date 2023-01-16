@@ -2,7 +2,7 @@ let sectionElementPositions = [];
 const scrollContainer = document.querySelector('#scroll-spy');
 let headerHeight = 0;
 
-const hasAnchorMenu = () => {
+const handleAnchorMenu = () => {
     const scrollItems = scrollContainer.querySelectorAll('.c-anchormenu__item');
     if(!scrollContainer || scrollItems.length <= 0) {
         return;
@@ -27,7 +27,7 @@ const hasAnchorMenu = () => {
     }
 }
 
-const setListeners = (scrollItems, sectionElements) => {
+const setListeners = (filteredScrollItems, sectionElements) => {
 
     if (sectionElements.length > 0) {
         window.addEventListener('resize', debounce(elementPositions, 300, sectionElements));
@@ -36,7 +36,7 @@ const setListeners = (scrollItems, sectionElements) => {
         window.addEventListener('scroll', () => {
             let scrollTop = window.scrollY;
             if(Math.abs(currentScroll - scrollTop > 10 || currentScroll - scrollTop < -10)) {
-                handleScroll(scrollItems);
+                handleScroll(filteredScrollItems);
                 currentScroll = scrollTop;
             }
         });
@@ -69,15 +69,15 @@ const elementPositions = (sectionElements) => {
     sectionElementPositions = arr;
 }
 
-const handleScroll = (scrollItems) => {
+const handleScroll = (filteredScrollItems) => {
     let i = 0;
     sectionElementPositions.forEach(item => {
         if(window.scrollY > (item.position - (headerHeight + 120)) && ((item.position + item.height) - (headerHeight + 120)) > window.scrollY) {
-            scrollItems[i].classList.add('is-active');
+            filteredScrollItems[i].classList.add('is-active');
         } else {
-            scrollItems[i].classList.remove('is-active');
+            filteredScrollItems[i].classList.remove('is-active');
         } 
         i++;
     });
 }
-export default () => { hasAnchorMenu() };
+export default () => { handleAnchorMenu() };
