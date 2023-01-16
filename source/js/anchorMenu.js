@@ -33,7 +33,7 @@ const setListeners = (scrollItems, sectionElements) => {
         let currentScroll = 0;
         window.addEventListener('scroll', () => {
             let scrollTop = window.scrollY;
-            if(Math.abs(currentScroll - scrollTop > 30 || currentScroll - scrollTop < -30)) {
+            if(Math.abs(currentScroll - scrollTop > 10 || currentScroll - scrollTop < -10)) {
                 handleScroll(scrollItems);
                 currentScroll = scrollTop;
             }
@@ -70,7 +70,7 @@ const elementPositions = (sectionElements) => {
 const handleScroll = (scrollItems) => {
     let i = 0;
     sectionElementPositions.forEach(item => {
-        if(window.scrollY > item.position - 80 && (item.position + item.height - 80) > window.scrollY) {
+        if(window.scrollY > (item.position - (headerHeight + 120)) && ((item.position + item.height) - (headerHeight + 120)) > window.scrollY) {
             scrollItems[i].classList.add('is-active');
         } else {
             scrollItems[i].classList.remove('is-active');
