@@ -32,11 +32,13 @@ import StickyKeys from './stickyKeys';
 import Hero from './hero';
 import Tooltip from './tooltip';
 import Nav from './nav';
+import AnchorMenu from './anchorMenu';
 import './helpers/swipe';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
+AnchorMenu();
 
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
