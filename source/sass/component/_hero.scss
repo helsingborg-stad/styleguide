@@ -140,9 +140,14 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
   .c-hero__title,
   .c-hero__byline,
+  .c-hero__meta,
   .c-hero__body {
     color: $c-hero-color-font;
     animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  }
+
+  .c-hero__meta {
+    animation-delay: 200ms;
   }
 
   .c-hero__title {
@@ -177,6 +182,13 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     z-index: -1;
     width: 100%;
     height: 100%;
+  }
+
+  /* Meta */
+  &.c-hero--meta {
+    .c-hero__content .c-hero__title {    
+        margin-top: 0;
+    }
   }
 
   /* Initiative hero */
