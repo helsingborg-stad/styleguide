@@ -210,6 +210,15 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             }
         }
     }
+
+    &.c-slider--flat {
+        .c-slider__item--post {
+            .c-slider__item__container {
+                background-color: unset;
+                color: unset;
+            }
+        }
+    }
 }
     
 // Stepper
