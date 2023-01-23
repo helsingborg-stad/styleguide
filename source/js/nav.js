@@ -18,6 +18,9 @@ class Nav {
                 menuItem.querySelector('a') && this.handleLinks(menuItem);
                 menuItem.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    if (e.target.closest('li').querySelector('ul')) {
+                        e.preventDefault();
+                    }
                     this.handleClickVisible(menuItem, mainItems);
                 })
             }
@@ -42,7 +45,6 @@ class Nav {
 
     handleLinks(menuItem) {
         const link = menuItem.querySelector('a');
-        link.href = "#";
         if(link.querySelector('template')) {
             let temp = link.querySelector('template');
             let clone = temp.content.cloneNode(true);
