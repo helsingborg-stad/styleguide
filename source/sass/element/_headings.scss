@@ -47,14 +47,10 @@ h6, .h6 {
 }
 
 h1, .h1 {
-    font-size: 2rem;
+    font-size: $h1-font-size;
     font-weight: $h1-font-weight;
     line-height: $h1-line-height;
     font-family: $h1-font-family;
-
-    @include mq('lg') {
-        font-size: $h1-font-size;
-    }
 }
 
 h2, .h2 {
