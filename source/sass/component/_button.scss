@@ -151,7 +151,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &.c-button--sm {
-        letter-spacing: 0.1em;
+        letter-spacing: 0.1rem;
         height: calc(#{$base} * 4.5);
         min-width: calc(#{$base} * 6.75); 
         padding: 0 calc(#{$base} * 2); 
