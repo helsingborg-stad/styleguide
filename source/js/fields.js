@@ -217,34 +217,34 @@ class Fields {
 
     click({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
         const submitButton = form.querySelector('[type="submit"]');
+        if(submitButton) {
+            submitButton.addEventListener('click', (e) => {
+                let containsInvalid = [];
 
-        submitButton.addEventListener('click', (e) => {
-            let containsInvalid = [];
-
-            inputs.forEach(input => {
-                containsInvalid.push(this.validateInput(input, true));
-            });
-
-            containsInvalid.push(policyHandler.validatePolicy());
-            containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
-            containsInvalid.push(fileinputHandler.validateFileinputs(form));
-        
-            if (containsInvalid.includes(false)) {
-                this.classToggle(form, 'is-invalid', 'is-valid');
-
-                checkboxHandler.validateCheckboxes(checkboxGroups);
-
-
-                [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
-                    element.setAttribute('aria-hidden', false);
+                inputs.forEach(input => {
+                    containsInvalid.push(this.validateInput(input, true));
                 });
 
-                [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
-                    element.setAttribute('aria-hidden', true);
-                });
-            }
-        });
+                containsInvalid.push(policyHandler.validatePolicy());
+                containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
+                containsInvalid.push(fileinputHandler.validateFileinputs(form));
 
+                if (containsInvalid.includes(false)) {
+                    this.classToggle(form, 'is-invalid', 'is-valid');
+
+                    checkboxHandler.validateCheckboxes(checkboxGroups);
+
+
+                    [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                        element.setAttribute('aria-hidden', false);
+                    });
+
+                    [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                        element.setAttribute('aria-hidden', true);
+                    });
+                }
+            }); 
+        }
     }
 
     submit({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
