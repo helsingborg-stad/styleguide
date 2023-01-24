@@ -36,6 +36,7 @@ export default class Slider {
             type: 'loop',
             autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
             perPage: slider.getAttribute('data-slides-per-page'),
+            perMove: slider.getAttribute('data-slides-per-page'),
             gap: parseInt(slider.getAttribute('data-slider-gap')),
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 1,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
