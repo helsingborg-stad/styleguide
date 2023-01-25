@@ -180,7 +180,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   }
 
   /* Initiative hero */
-  &.c-hero--initiative {
+  &.c-hero--initiative, &.c-hero--twoColumn {
     padding: calc($base*10) 0;
     
     &:before {
@@ -189,6 +189,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     
     .c-hero__group-image {
         img {
+          border-radius: $border-radius-md;
           height: auto;
           width: 100%;
           max-width:calc($base * 60);
@@ -230,6 +231,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
           .c-hero__group-image {
             height: 100%;
             img {
+              border-radius: unset;
               height: 100%;
               max-width: 100%;
               object-fit: cover;
