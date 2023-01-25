@@ -13,6 +13,13 @@ class Nav {
     clickListeners(menu, mainItems) {
         const menuItems = menu.querySelectorAll('.c-nav__item');
 
+        document.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mainItems.forEach(item => {
+                this.handleClickVisible(item, menuItems);
+            });
+        });
+
         menuItems.forEach(menuItem => {
             if(menuItem.querySelector('.c-nav')) {
                 menuItem.querySelector('a') && this.handleLinks(menuItem);
