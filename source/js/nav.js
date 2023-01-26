@@ -15,9 +15,7 @@ class Nav {
 
         document.addEventListener('click', (e) => {
             e.stopPropagation();
-            mainItems.forEach(item => {
-                this.handleClickVisible(item, menuItems);
-            });
+            this.handleClickVisible(e.target, menuItems);
         });
 
         menuItems.forEach(menuItem => {
