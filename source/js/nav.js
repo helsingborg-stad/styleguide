@@ -15,11 +15,10 @@ class Nav {
 
         mainItems.forEach(mainItem => {
             mainItem.addEventListener('click', (e) => {
-                e.preventDefault();
                 e.stopPropagation();
                 this.openChildren(mainItem);
             })
-        })
+        });
 
 
         menuItems.forEach(menuItem => {
