@@ -269,8 +269,10 @@ class Fields {
                 e.preventDefault();
                 this.classToggle(form, 'is-invalid', 'is-valid');
             } else {
-                submitButton ? submitButton.innerHTML = formbuilder.sending : '';
                 this.classToggle(form, 'is-valid', 'is-invalid');
+                if(typeof formbuilder !== 'undefined') {
+                    submitButton ? submitButton.innerHTML = formbuilder.sending : '';
+                }
             }
 
             [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
