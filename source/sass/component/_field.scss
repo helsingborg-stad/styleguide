@@ -170,6 +170,23 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    /* Customizer modifiers */
+    &.c-field--rounded {
+        .c-field__inner {
+            border-radius: calc($base * 3);
+            border: none;
+
+            input::placeholder {
+                font-weight: 700;
+            }
+        }
+
+        input:focus + .c-field_focus-styler,
+        textarea:focus + .c-field_focus-styler {
+                border-radius: calc($base * 3);
+        }
+    }
+
     /* Size modifiers */ 
     &.c-field--sm {
         font-size: $c-field-font-size-sm;

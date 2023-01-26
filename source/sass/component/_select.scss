@@ -77,6 +77,17 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         color: $color-primary;
         pointer-events: none;
     }
+
+    &.c-select--rounded {
+        select {
+            border-radius: calc($base * 3);
+            border: none;
+            font-weight: 700;
+            &:focus + .c-select_focus-styler {
+                border-radius: calc($base * 3);
+            }
+        }
+    }
     
     /* Size modifiers */ 
     &.c-select--sm {
