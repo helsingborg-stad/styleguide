@@ -262,7 +262,7 @@
   align-items: center;
 
   .c-nav__item > .c-nav__link:hover:after,
-  .c-nav__item.is-open > .c-nav__link:after,
+  .c-nav__item[depth="0"].is-open > .c-nav__link:after,
   .c-nav__item.is-current > .c-nav__link:after {
     display: block; 
   }
