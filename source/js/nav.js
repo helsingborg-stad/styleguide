@@ -41,7 +41,6 @@ class Nav {
         if(currentItem) {
             const depth = currentItem.hasAttribute('depth') ? currentItem.getAttribute('depth') : false;
             for (let i = 0; i < depth - 1; i++) {
-                console.log(i, currentItem.closest(`[depth="${i + 1}"]`));
                 currentItem.closest(`[depth="${i + 1}"]`).classList.add('is-active');
             }
         }
