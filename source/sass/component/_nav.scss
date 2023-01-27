@@ -395,7 +395,6 @@
       .c-nav__link {
         width: 100%;
         display: flex;
-        justify-content: space-between;
 
         &:focus-visible {
           border:2px solid $color-focus-outline;
