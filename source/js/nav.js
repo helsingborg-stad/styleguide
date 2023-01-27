@@ -1,15 +1,19 @@
 class Nav {
     constructor() {
-        this.setListeners();
+        this.hasMainMenu() && this.setListeners();
+    }
+
+    hasMainMenu() {
+        return document.querySelector('#main-menu');
     }
 
     setListeners() {
         const menu = document.querySelector('#main-menu');
         const mainItems = menu.querySelectorAll('.c-nav--depth-0 > .c-nav__item');
 
-        menu && this.clickListeners(menu, mainItems);
+        mainItems && this.clickListeners(menu, mainItems);
     }
-
+    
     clickListeners(menu, mainItems) {
         const menuItems = menu.querySelectorAll('.c-nav__item');
 
