@@ -5,7 +5,7 @@
             'meta' => 'Parturient Ultricies',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=88',
+                'src' => 'https://picsum.photos/id/88/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -19,7 +19,7 @@
             'meta' => 'Nibh Sit',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=87',
+                'src' => 'https://picsum.photos/id/87/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -32,7 +32,7 @@
             'meta' => 'Commodo Fringilla',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=32',
+                'src' => 'https://picsum.photos/id/32/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -45,7 +45,7 @@
             'meta' => 'Ullamcorper Euismod Pharetra',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=33',
+                'src' => 'https://picsum.photos/id/33/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -58,7 +58,7 @@
             'meta' => 'Amet',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=34',
+                'src' => 'https://picsum.photos/id/34/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]

@@ -3,7 +3,7 @@
         'avatar' => [
             'name' => 'Snowflake'
         ],
-        'image' => 'https://picsum.photos/300/200?image=1077',
+        'image' => 'https://picsum.photos/id/1077/300/200',
         'href' => 'http://styleguide.helsingborg.se/card',
         'title' => [
             'text' => 'Maybe you also need to add some cool icon-buttons',

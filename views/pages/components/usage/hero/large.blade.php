@@ -1,5 +1,5 @@
 @hero([
-    "image" => "https://picsum.photos/1500/1000?image=1026",
+    "image" => "https://picsum.photos/id/1026/1500/1000",
     "size" => "large",
     "overlay" => "vibrant",
     "title" => "Donec ullamcorper nulla non metus auctor fringilla.",
