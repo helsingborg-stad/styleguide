@@ -1,10 +1,10 @@
 class Nav {
     constructor() {
-        this.hasMainMenu();
+        this.hasMainMenu() && this.setListeners();
     }
 
     hasMainMenu() {
-        document.querySelector('#main-menu') && this.setListeners();
+        return document.querySelector('#main-menu');
     }
 
     setListeners() {
