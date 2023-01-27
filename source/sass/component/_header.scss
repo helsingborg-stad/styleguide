@@ -50,7 +50,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
     }
 
     &.c-header--business {
-        .c-nav--center {
+        .c-nav--gap {
             justify-content: space-between;
         }
     }
