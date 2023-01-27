@@ -2,7 +2,7 @@
     'title'             => 'Fusce Amet Parturient Etiam',
     'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
     'layout'            => 'full-width',
-    'image'             => 'https://i.picsum.photos/id/308/1536/1024.jpg?hmac=sENdBVMjJ5k40eSlDyPh8CZKbXjOm1S73hukmgfyMKQ',
+    'image'             => 'https://picsum.photos/id/308/1536/1024',
     'background'        => 'primary',
     'textColor'         => 'light',
     'overlay'           => 'dark'
