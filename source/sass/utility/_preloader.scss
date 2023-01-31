@@ -1,13 +1,17 @@
 /** Adds preload like apperance of any component */
+@mixin preloaderGradient($color, $stripeColor) {
+  background: linear-gradient( to right, $color 8%, $stripeColor 18%,$color 33% )
+}
+
 .u-preloader {
   position: relative;
   filter: unset !important;
-
+  
   &:after,
   &:before {
     content: ""; 
     @include cover(); 
-
+    
     border-radius: inherit;
     animation-duration: 1s;
     animation-fill-mode: forwards;
@@ -18,22 +22,31 @@
     background: linear-gradient( to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33% );
     background-size: 800px 104px;
   }
-}
-
-@-webkit-keyframes placeHolderShimmer{
-  0%{
-    background-position: -468px 0;
+  
+  @for $i from 1 through 10 {
+    &__opacity--#{$i} {
+      &:after,
+      &:before {
+        opacity: #{$i * 0.1};
+      }
+    }
   }
-  100%{
-    background-position: 468px 0;
+  
+  @-webkit-keyframes placeHolderShimmer{
+    0%{
+      background-position: -468px 0;
+    }
+    100%{
+      background-position: 468px 0;
+    }
   }
-}
-
-@keyframes placeHolderShimmer{
-  0%{
-    background-position: -468px 0;
-  }
-  100%{
-    background-position: 468px 0;
+  
+  @keyframes placeHolderShimmer{
+    0%{
+      background-position: -468px 0;
+    }
+    100%{
+      background-position: 468px 0;
+    }
   }
 }
