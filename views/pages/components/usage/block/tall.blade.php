@@ -6,7 +6,7 @@
             'meta' => 'Ultricies',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/1000?image=15',
+                'src' => 'https://picsum.photos/id/15/680/1000',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -21,7 +21,7 @@
             'meta' => 'Malesuada Parturient Dolor',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/1000?image=16',
+                'src' => 'https://picsum.photos/id/16/680/1000',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -37,7 +37,7 @@
             'meta' => 'Porta Ultricies',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/1000?image=17',
+                'src' => 'https://picsum.photos/id/17/680/1000',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -52,7 +52,7 @@
             'meta' => 'Nibh',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/1000?image=18',
+                'src' => 'https://picsum.photos/id/18/680/1000',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -66,7 +66,7 @@
             'meta' => 'Ornare Malesuada',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/1000?image=19',
+                'src' => 'https://picsum.photos/id/19/680/1000',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]

@@ -33,7 +33,7 @@
     'author' => 'Peter Olsson',
     'text' => 'This is a reply comment text',
     'icon' => 'face',
-    'author_image' => 'https://picsum.photos/70/70?image=64',
+    'author_image' => 'https://picsum.photos/id/64/70/70',
     'date' => '2020-01-01 17:25:43',
     'is_reply' => true
 ])
