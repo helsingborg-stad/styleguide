@@ -2,6 +2,7 @@ import FileInput from "./form/fileInput";
 import Checkbox from "./form/checkbox";
 import Collapse from "./form/collapse";
 import Policy from "./form/policy";
+import Conditions from "./form/conditions";
 
 class Fields {
 
@@ -119,7 +120,7 @@ class Fields {
                     }
                 }
             });
-
+            const conditionsHandler = new Conditions(params);
             policyHandler.setListener(params);
             collapseHandler.setListener(params);
             checkboxHandler.setListener(params);
