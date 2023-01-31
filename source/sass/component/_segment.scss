@@ -58,7 +58,7 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 .c-segment.c-segment--text {
     &-large .c-segment__content {
         @include mq(map_get($breakpoints-map, "md")) {
-            font-size: 1.2rem; 
+            font-size: 1.2em;
         }
     }
 }
