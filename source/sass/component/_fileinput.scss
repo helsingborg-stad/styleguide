@@ -1,6 +1,6 @@
 $c-fileinput-label-color: var(--c-fileinput-label-color, $color-darker) !default;
 $c-fileinput-label-text-transform: var(--c-fileinput-label-text-transform, uppercase) !default;
-$c-fileinput-label-font-size: var(--c-fileinput-label-font-size, .75em) !default;
+$c-fileinput-label-font-size: var(--c-fileinput-label-font-size, .75rem) !default;
 $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
 
 .c-fileinput {
@@ -15,7 +15,7 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
         font-weight: $c-fileinput-label-font-weight;
         text-transform: $c-fileinput-label-text-transform;
         margin-bottom: calc(#{$base}/2);
-        letter-spacing: 0.05em;
+        letter-spacing: 0.05rem;
     }
 
     .c-fileinput__button {

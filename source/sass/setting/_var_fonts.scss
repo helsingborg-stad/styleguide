@@ -14,32 +14,32 @@ $font-family-bold: var(--font-family-bold, $font-family-roboto) !default;
 $font-family-italic: var(--font-family-italic, $font-family-roboto) !default;
     
 //  Font size
-$font-size-base: var(--font-size-base, 1em) !default;
-$font-size-lead: var(--font-size-lead, 1.125em) !default;
-$font-size-caption: var(--font-size-caption, 0.875em) !default;
-$font-size-marketing: 2.25em !default;
-$font-size-headline: 2em !default;
-$font-size-title: 1.375em !default;
-$font-size-subtitle: 1.125em !default;
-$font-size-subtitle-small: 0.875em !default;
-$font-size-body: 1em !default;
-$font-size-meta: 0.875em !default;
+$font-size-base: var(--font-size-base, 1rem) !default;
+$font-size-lead: var(--font-size-lead, 1.125rem) !default;
+$font-size-caption: var(--font-size-caption, 0.875rem) !default;
+$font-size-marketing: 2.25rem !default;
+$font-size-headline: 2rem !default;
+$font-size-title: 1.375rem !default;
+$font-size-subtitle: 1.125rem !default;
+$font-size-subtitle-small: 0.875rem !default;
+$font-size-body: 1rem !default;
+$font-size-meta: 0.875rem !default;
 
 
-$font-size-hero: 2em !default; //+ 1.5vw
-$font-size-hero-byline: 1.25em !default; //+ 1.5vw
-$font-size-hero-body: 1em !default; //+ 1.5vw
+$font-size-hero: 2rem !default; //+ 1.5vw
+$font-size-hero-byline: 1.25rem !default; //+ 1.5vw
+$font-size-hero-body: 1rem !default; //+ 1.5vw
 
-$font-size-btn: 1em;
+$font-size-btn: 1rem;
 $font-size-btn-line-height: calc(#{$base}*2);
 
-$font-size-btn-lg: 1em;
+$font-size-btn-lg: 1rem;
 $font-size-btn-lg-line-height: calc(#{$base}*2);
 
-$font-size-btn-md: 0.95em;
+$font-size-btn-md: 0.95rem;
 $font-size-btn-md-line-height: calc(#{$base}*2);
 
-$font-size-btn-sm: 0.775em;
+$font-size-btn-sm: 0.775rem;
 $font-size-btn-sm-line-height: calc(#{$base}*1.5);
 
 $icon-sizes:(
@@ -76,8 +76,8 @@ $line-height-headline: 1.25;
 $letter-spacing-base: var(--letter-spacing-base, 0) !default;
 $letter-spacing-heading: var(--letter-spacing-heading, 0) !default;
 $letter-spacing-button: var(--letter-spacing-button, 0) !default;
-$font-letterspacing-title: .0125em;
-$font-letterspacing-subtitle: .0178571429em;
+$font-letterspacing-title: .0125rem;
+$font-letterspacing-subtitle: .0178571429rem;
 
 //  Text Transform
 $text-transform-base: var(--text-transform-base, 'none') !default;

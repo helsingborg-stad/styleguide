@@ -137,7 +137,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     max-width: calc( #{$base} * 87);
     z-index: $level-2;
     position: relative;
-    text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
+    text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
   }
 
 
