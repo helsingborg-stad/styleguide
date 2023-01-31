@@ -158,7 +158,6 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   .c-hero__byline {
     font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
     font-weight: $font-weight-bold;
-    font-family: $font-family-bold;
     animation-delay: 400ms;
     display: inline-block;
   }
