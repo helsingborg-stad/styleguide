@@ -135,6 +135,10 @@ class Fields {
     validateInput(input, submitCheck = false) {
         let valueLength = input.value ? input.value.length : 0; 
 
+        if (input.hasAttribute('js-no-validation')) {
+            return;
+        }
+
         if(input.type === 'checkbox') {
             return;
         } 

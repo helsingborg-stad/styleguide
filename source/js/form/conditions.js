@@ -26,12 +26,11 @@ class Checkbox {
     }
 
     show(conditions, condtionalTargets) {
-        console.log(conditions);
         condtionalTargets.forEach(arr => {
             if (conditions.label === arr.json.label) {
                 if (conditions.value === arr.json.value) {
                     arr.element.style.display = 'block';
-                    this.handleRequired(arr.element.querySelectorAll('[js-required-hidden], js-input-required-hidden'), false)
+                    this.handleRequired(arr.element.querySelectorAll('[js-no-validation]' , false));
                 } else {
                     arr.element.style.display = 'none';
                     this.handleRequired(arr.element.querySelectorAll('[js-required], input[required="true"]'), true)
@@ -40,7 +39,7 @@ class Checkbox {
         });
     }
 
-    handleRequired(inputs, isHidden = false) {
+    handleRequired(inputs, isHidden) {
         inputs && inputs.forEach(input => {
             if(isHidden) {
                 input.setAttribute('js-no-validation', '');
@@ -53,24 +52,7 @@ class Checkbox {
                     input.setAttribute('required', 'true');
                 }
             }
-
-/*             if (input.hasAttribute('js-required')) {
-                this.handleAttributes(input, { addAttr: 'js-required-hidden', addVal: '' }, {removeAttr: 'js-required', removeVal: ''});
-            } else if (input.hasAttribute('js-required-hidden')) {
-                this.handleAttributes(input, { addAttr: 'js-required', addVal: '' }, { removeAttr: 'js-required-hidden', removeVal: '' });
-            } 
-            
-            if(input.hasAttribute('required')) {
-                this.handleAttributes(input, { addAttr: 'js-input-required-hidden', addVal: '' }, {removeAttr: 'required', 'removeVal': 'true'});
-            } else if (input.hasAttribute('js-input-required-hidden')) {
-
-            } */
         });   
-    }
-
-    handleAttributes(input, {addAttr, addVal}, {removeAttr, removeVal}) {
-        input.removeAttribute(removeAttr);
-        input.setAttribute(addAttr, addVal);
     }
 }
 export default Checkbox;

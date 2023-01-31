@@ -26,13 +26,11 @@ class Checkbox {
 
         let hasChecked = [];
         checkboxGroups.forEach(group => {
-            let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
+            let input = group.querySelector('[js-required]');
+            let validation = input.getAttribute('checked') ? true : false;
 
-            if (group.closest('.mod-form-field')) {
-                const container = group.closest('.mod-form-field');
-                if (container.hasAttribute('conditional-target') && container.style.display === 'none') {
-                    validation = true;
-                }
+            if (input.hasAttribute('js-no-validation')) {
+                validation = true;
             }
             
             hasChecked.push(validation);
