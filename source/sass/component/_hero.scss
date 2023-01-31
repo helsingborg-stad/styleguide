@@ -148,14 +148,12 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
   }
 
-  &.c-hero--color-white {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__meta,
-    .c-hero__body {
-      color: $c-hero-color-font-white;
-    }
-  }  
+  .c-hero__title,
+  .c-hero__byline,
+  .c-hero__meta,
+  .c-hero__body {
+    color: $c-hero-color-font-white;
+  }
   
   &.c-hero--color-black {
     .c-hero__title,
