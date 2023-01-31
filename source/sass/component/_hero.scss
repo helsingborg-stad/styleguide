@@ -1,5 +1,6 @@
 $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
-$c-hero-color-font-white: var(--c-hero-color-font-white, $color-alpha-contrasting) !default;
+$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, $color-alpha-contrasting) !default;
+$c-hero-color-font-white: var(--c-hero-color-font-white, $color-white) !default;
 $c-hero-color-font-black: var(--c-hero-color-font-black, $color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
@@ -152,7 +153,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   .c-hero__byline,
   .c-hero__meta,
   .c-hero__body {
-    color: $c-hero-color-font-white;
+    color: $c-hero-color-font-contrasting;
   }
   
   &.c-hero--color-black {
@@ -161,6 +162,15 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     .c-hero__meta,
     .c-hero__body {
       color: $c-hero-color-font-black;
+    }
+  }
+
+  &.c-hero--color-white {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-white;
     }
   }
 
