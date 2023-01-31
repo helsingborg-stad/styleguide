@@ -27,6 +27,14 @@ class Checkbox {
         let hasChecked = [];
         checkboxGroups.forEach(group => {
             let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
+
+            if (group.closest('.mod-form-field')) {
+                const container = group.closest('.mod-form-field');
+                if (container.hasAttribute('conditional-target') && container.style.display === 'none') {
+                    validation = true;
+                }
+            }
+            
             hasChecked.push(validation);
             if (!validation) {
                 group.querySelector('.c-field__label').classList.add('u-color__text--danger');
