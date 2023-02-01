@@ -26,7 +26,13 @@ class Checkbox {
 
         let hasChecked = [];
         checkboxGroups.forEach(group => {
-            let validation = group.querySelector('[js-required]').getAttribute('checked') ? true : false;
+            let input = group.querySelector('[js-required]');
+            let validation = input.getAttribute('checked') ? true : false;
+
+            if (input.hasAttribute('js-no-validation')) {
+                validation = true;
+            }
+            
             hasChecked.push(validation);
             if (!validation) {
                 group.querySelector('.c-field__label').classList.add('u-color__text--danger');
