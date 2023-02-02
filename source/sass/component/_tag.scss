@@ -1,5 +1,3 @@
-$c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
-
 .c-tags {
     display: flex;
     flex-wrap: wrap;
@@ -7,15 +5,14 @@ $c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
 }
 
 .c-tag {
-    padding: calc(#{$base} * 0.5) calc(#{$base});
-    border-radius: $c-tag-border-radius;
+    padding: 0 #{$base};
+    border-radius: calc(#{$base} * 4); 
     text-decoration: none;
     color: $color-base;
     font-size: $font-size-meta;
     transition: background-color 100ms ease-in-out;
     user-select: none;
-    font-family: $font-family-bold;
-    font-weight: $font-weight-bold;
+    border: 2px solid; 
 
     &--format {
         word-spacing: -0.5ex;
@@ -23,18 +20,15 @@ $c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
     }
 
     &--default {
-        color: $color-black;
-        background-color: $color-gray-light;
+        border-color: $color-gray-light;
     }
 
     &--primary {
-        color: $color-white;
-        background-color: $color-primary;
+        border-color: $color-primary;
     }
 
     &--secondary {
-        color: $color-white;
-        background-color: $color-secondary;
+        border-color: $color-secondary;
     }
 }
 
@@ -43,32 +37,17 @@ a.c-tag {
         &:visited, &:visited:hover {
             color: $color-base;
         }
-
-        &:hover {
-            color: $color-base;
-            background-color: $color-gray;
-        }
     }
 
     &--primary {
         &:visited, &:visited:hover {
             color: $color-white;
         }
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-primary-dimmed;
-        }
     }
 
     &--secondary {
         &:visited, &:visited:hover {
             color: $color-white;
-        }
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-secondary-dimmed;
         }
     }
 }
