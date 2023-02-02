@@ -280,11 +280,11 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     &__footer {
         word-break: break-word;
         hyphens: auto;
-        padding: map-get($spacers, '2') 0;
+        padding: map-get($spacers, '2');
+        margin-top: auto;
     }
     
     &__body {
-        height: inherit;
         padding-top: map-get($spacers, '3');
         padding-bottom: map-get($spacers, '3');
     }
@@ -298,7 +298,8 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     
     &__footer {
         border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
-        margin-top: map-get($spacers, '3');
+        flex: 0 0 100%;
+        order: 999; 
     }
     
     &__image + &__title + &__body {
