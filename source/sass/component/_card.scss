@@ -298,8 +298,6 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     
     &__footer {
         border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
-        flex: 0 0 100%;
-        order: 999; 
     }
     
     &__image + &__title + &__body {
@@ -516,8 +514,14 @@ a.c-card {
                 order: 2;
                 border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
             }
+            
             .c-card__body {
                 order: 1;
+            }
+
+            .c-card__footer {
+                flex: 0 0 100%;
+                order: 3;
             }
 
             &.c-card--image-first {
