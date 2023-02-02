@@ -1,66 +1,67 @@
-$c-tag-border-radius: var(--c-tag-border-radius, $border-radius-sm) !default;
-
 .c-tags {
     display: flex;
     flex-wrap: wrap;
     gap: #{$base};
+
+    &--format .c-tag {
+        word-spacing: -0.5ex;
+        text-transform: lowercase;
+    }
+}
+
+.c-tags:hover {
+    .c-tag.is-hidden {
+        display: block;
+    }
+    .c-tag.c-tag--more {
+        display: none;
+    }
 }
 
 .c-tag {
-    padding: calc(#{$base} * 0.5) calc(#{$base});
-    border-radius: $c-tag-border-radius;
+    padding: 0 #{$base};
+    margin: auto 0;
+    border-radius: calc(#{$base} * 4); 
     text-decoration: none;
     color: $color-base;
     font-size: $font-size-meta;
     transition: background-color 100ms ease-in-out;
     user-select: none;
-    font-family: $font-family-bold;
-    font-weight: $font-weight-bold;
+    border: 2px solid; 
 
-    &--format {
-        word-spacing: -0.5ex;
-        text-transform: lowercase;
+    &.is-hidden {
+        display: none;
     }
 
     &--default {
-        color: $color-black;
-        background-color: $color-gray-light;
+        border-color: $color-gray-light;
+    }
 
+    &--primary {
+        border-color: $color-primary;
+    }
+
+    &--secondary {
+        border-color: $color-secondary;
+    }
+}
+
+a.c-tag {
+    &--default {
         &:visited, &:visited:hover {
             color: $color-base;
-        }
-
-        &:hover {
-            color: $color-base;
-            background-color: $color-gray;
         }
     }
 
     &--primary {
-        color: $color-white;
-        background-color: $color-primary;
-
         &:visited, &:visited:hover {
             color: $color-white;
-        }
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-primary-dimmed;
         }
     }
 
     &--secondary {
-        color: $color-white;
-        background-color: $color-secondary;
-
         &:visited, &:visited:hover {
             color: $color-white;
-        }
-
-        &:hover {
-            color: $color-white;
-            background-color: $color-secondary-dimmed;
         }
     }
 }

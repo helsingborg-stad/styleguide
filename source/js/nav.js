@@ -1,18 +1,22 @@
 class Nav {
     constructor() {
-        this.setListeners();
+        this.hasMainMenu() && this.setListeners();
+    }
+
+    hasMainMenu() {
+        return document.querySelector('#main-menu');
     }
 
     setListeners() {
         const menu = document.querySelector('#main-menu');
         const mainItems = menu.querySelectorAll('.c-nav--depth-0 > .c-nav__item');
 
-        menu && this.clickListeners(menu, mainItems);
+        mainItems && this.clickListeners(menu, mainItems);
     }
-
+    
     clickListeners(menu, mainItems) {
         const menuItems = menu.querySelectorAll('.c-nav__item');
-
+        
         mainItems.forEach(mainItem => {
             mainItem.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -20,6 +24,10 @@ class Nav {
             })
         });
 
+        document.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleClickVisible(e.target, menuItems);
+        });
 
         menuItems.forEach(menuItem => {
             if(menuItem.querySelector('.c-nav')) {

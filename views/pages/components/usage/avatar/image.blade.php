@@ -1,6 +1,6 @@
 @avatar(
     [
-        'image' => "https://picsum.photos/70/70?image=64",
+        'image' => "https://picsum.photos/id/64/70/70",
         'name' => "Cookie Monster"
     ]
 )

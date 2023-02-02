@@ -161,7 +161,7 @@
             <div class="grid-s-12 grid-sm-6 grid-md-6">
                 @card([
                     'href' => 'http://styleguide.helsingborg.se/card',
-                    'image' => 'https://picsum.photos/300/200?image=1016',
+                    'image' => 'https://picsum.photos/id/1016/300/200',
                     'title' => ['text' => 'Melon sierra leone bologi rutabaga', 'position' => 'top'],
                     'byline' => ['text' => 'Celery quandong swiss chard chicory', 'position' => 'top'],
                     'classList' => ['c-card--shadow-on-hover'],
@@ -177,7 +177,7 @@
             <div class="grid-s-12 grid-sm-6 grid-md-6">
                 @card([
                     'href' => 'http://styleguide.helsingborg.se/card',
-                    'image' => 'https://picsum.photos/300/200?image=1071',
+                    'image' => 'https://picsum.photos/id/1071/300/200',
                     'title' => ['text' => 'Cheddar ricotta croque monsieur', 'position' => 'body'],
                     'classList' => ['c-card--shadow-on-hover'],
                     'byline' => ['text' => 'Melted cheese camembert de normandie cheese triangles', 'position' => 'body'],

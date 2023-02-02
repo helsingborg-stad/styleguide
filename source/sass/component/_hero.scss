@@ -1,6 +1,9 @@
 $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
-$c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
+$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, $color-alpha-contrasting) !default;
+$c-hero-color-font-white: var(--c-hero-color-font-white, $color-white) !default;
+$c-hero-color-font-black: var(--c-hero-color-font-black, $color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
+
 
 .c-hero {
   display: flex; 
@@ -135,15 +138,40 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     max-width: calc( #{$base} * 87);
     z-index: $level-2;
     position: relative;
-    text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
+    text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
+  }
+
+
+  .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
   }
 
   .c-hero__title,
   .c-hero__byline,
   .c-hero__meta,
   .c-hero__body {
-    color: $c-hero-color-font;
-    animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    color: $c-hero-color-font-contrasting;
+  }
+  
+  &.c-hero--color-black {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-black;
+    }
+  }
+
+  &.c-hero--color-white {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-white;
+    }
   }
 
   .c-hero__meta {
@@ -157,8 +185,6 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
   .c-hero__byline {
     font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
-    font-weight: $font-weight-bold;
-    font-family: $font-family-bold;
     animation-delay: 400ms;
     display: inline-block;
   }
@@ -191,8 +217,10 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     }
   }
 
-  /* Initiative hero */
-  &.c-hero--initiative, &.c-hero--twoColumn {
+
+
+  /* TwoColumn hero */
+  &.c-hero--twoColumn {
     padding: calc($base*10) 0;
     
     &:before {

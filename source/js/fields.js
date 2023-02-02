@@ -2,6 +2,7 @@ import FileInput from "./form/fileInput";
 import Checkbox from "./form/checkbox";
 import Collapse from "./form/collapse";
 import Policy from "./form/policy";
+import Conditions from "./form/conditions";
 
 class Fields {
 
@@ -119,7 +120,7 @@ class Fields {
                     }
                 }
             });
-
+            const conditionsHandler = new Conditions(params);
             policyHandler.setListener(params);
             collapseHandler.setListener(params);
             checkboxHandler.setListener(params);
@@ -133,6 +134,10 @@ class Fields {
     /* Handle validation */
     validateInput(input, submitCheck = false) {
         let valueLength = input.value ? input.value.length : 0; 
+
+        if (input.hasAttribute('js-no-validation')) {
+            return;
+        }
 
         if(input.type === 'checkbox') {
             return;
@@ -269,8 +274,10 @@ class Fields {
                 e.preventDefault();
                 this.classToggle(form, 'is-invalid', 'is-valid');
             } else {
-                submitButton ? submitButton.innerHTML = formbuilder.sending : '';
                 this.classToggle(form, 'is-valid', 'is-invalid');
+                if(typeof formbuilder !== 'undefined') {
+                    submitButton ? submitButton.innerHTML = formbuilder.sending : '';
+                }
             }
 
             [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {

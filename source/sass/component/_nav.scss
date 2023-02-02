@@ -68,7 +68,7 @@
       @include shadow(0.5);
       border-radius: $border-radius-sm;
       padding: map-get($spacers, "1") map-get($spacers, "2"); 
-      font-size: .95em;
+      font-size: .95rem;
       font-weight: 500;
       color: $color-darkest;
 
@@ -395,7 +395,6 @@
       .c-nav__link {
         width: 100%;
         display: flex;
-        justify-content: space-between;
 
         &:focus-visible {
           border:2px solid $color-focus-outline;
