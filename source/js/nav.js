@@ -16,6 +16,13 @@ class Nav {
     
     clickListeners(menu, mainItems) {
         const menuItems = menu.querySelectorAll('.c-nav__item');
+        
+        mainItems.forEach(mainItem => {
+            mainItem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.openChildren(mainItem);
+            })
+        });
 
         document.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -36,12 +43,22 @@ class Nav {
         });
     }
 
+    openChildren(mainItem) {
+        const currentItem = mainItem.querySelector('.is-current');
+        if(currentItem) {
+            const depth = currentItem.hasAttribute('depth') ? currentItem.getAttribute('depth') : false;
+            for (let i = 0; i < depth - 1; i++) {
+                currentItem.closest(`[depth="${i + 1}"]`).classList.add('is-active');
+            }
+        }
+    }
+
     handleClickVisible(menuItem, mainItems) {
         mainItems.forEach(item => {
             if(!item.contains(menuItem)) {
             item.classList.remove('is-active');
                 item.querySelectorAll('.c-nav__item').forEach(childItem => {
-                    childItem.classList.remove('is-active');
+                    // childItem.classList.remove('is-active');
                 })
             }
         })
