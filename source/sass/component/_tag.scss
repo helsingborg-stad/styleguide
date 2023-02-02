@@ -9,8 +9,18 @@
     }
 }
 
+.c-tags:hover {
+    .c-tag.is-hidden {
+        display: block;
+    }
+    .c-tag.c-tag--more {
+        display: none;
+    }
+}
+
 .c-tag {
     padding: 0 #{$base};
+    margin: auto 0;
     border-radius: calc(#{$base} * 4); 
     text-decoration: none;
     color: $color-base;
@@ -18,6 +28,10 @@
     transition: background-color 100ms ease-in-out;
     user-select: none;
     border: 2px solid; 
+
+    &.is-hidden {
+        display: none;
+    }
 
     &--default {
         border-color: $color-gray-light;
