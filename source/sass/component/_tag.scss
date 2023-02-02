@@ -2,6 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: #{$base};
+
+    &--format .c-tag {
+        word-spacing: -0.5ex;
+        text-transform: lowercase;
+    }
 }
 
 .c-tag {
@@ -13,11 +18,6 @@
     transition: background-color 100ms ease-in-out;
     user-select: none;
     border: 2px solid; 
-
-    &--format {
-        word-spacing: -0.5ex;
-        text-transform: lowercase;
-    }
 
     &--default {
         border-color: $color-gray-light;
