@@ -157,7 +157,29 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
         border-left: none;
         display: none;
     }
+
+    // Modifiers - Posts
+    &.c-collection--posts {
+        padding-top: 0;
+        padding-bottom: 0; 
+
+        .c-collection__item--post {
+            margin-bottom: calc($base * 3);
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        .c-image {
+            margin: 0;
+            .c-image__image {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
 }
+
 
 
 // Modifiers - Bordered
