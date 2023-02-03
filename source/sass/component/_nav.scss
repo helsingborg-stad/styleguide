@@ -262,7 +262,7 @@
   align-items: center;
 
   .c-nav__item > .c-nav__link:hover:after,
-  .c-nav__item.is-open > .c-nav__link:after,
+  &.c-nav--depth-0 > .c-nav__item.is-open > .c-nav__link:after,
   .c-nav__item.is-current > .c-nav__link:after {
     display: block; 
   }
@@ -305,7 +305,6 @@
     flex-basis: 0;
     position: absolute;
     bottom: 0; 
-    background: $color-white;
     width: auto;
     min-width: calc(#{$base} * 15);
     background-color: $color-white;
@@ -331,7 +330,6 @@
     .c-nav__link {
       padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
       text-decoration: none;
-      background-color: $color-white;
       position: relative;
       z-index: $level-6;
       white-space: normal;
@@ -366,6 +364,10 @@
     .c-nav.c-nav--depth-1 {
       width: calc($base * 27);
     }
+
+    .c-nav__item {
+      background-color: #00000005;
+    }
     
     .c-nav .c-nav__item {
       flex-direction: column;
@@ -385,6 +387,10 @@
         }
       }
     }
+  }
+
+  .c-nav--depth-1 > .c-nav__item > .c-nav__link {
+    background-color: white;
   }
 
   .c-nav__item ul.c-nav {
