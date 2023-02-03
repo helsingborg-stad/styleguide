@@ -322,7 +322,7 @@
       height: calc(#{$base} * 2.5);
       filter: $drop-shadow-1;
       transform: rotate(45deg); 
-      background: $color-white;
+      background: #00000005;
       z-index: $level-5;
       border-radius: $border-radius-sm;
     }
@@ -387,10 +387,6 @@
         }
       }
     }
-  }
-
-  .c-nav--depth-1 > .c-nav__item > .c-nav__link {
-    background-color: white;
   }
 
   .c-nav__item ul.c-nav {
