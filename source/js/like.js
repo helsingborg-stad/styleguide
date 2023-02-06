@@ -8,6 +8,22 @@ class Like {
         this.amountOfLikedPosts(this.getLocalStorage());
         this.setLiked(this.getLocalStorage());
         likeButtons && this.setListeners(likeButtons);
+
+        this.getPosts();
+    }
+
+    getPosts() {
+        const endpoint = "https://localhost/wptest/wp-json/wp/v2/posts";
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(posts => this.handlePosts(posts))
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    handlePosts(posts) {
+        const filteredPosts = posts.filter(post => this.getLocalStorage().includes(post.id.toString()));
     }
 
     setListeners(likeButtons) {
@@ -24,17 +40,17 @@ class Like {
     }
 
     setLocalStorage(postId) {
-        let likedPosts = this.getLocalStorage();
+        let likedPostIds = this.getLocalStorage();
 
-        if (!likedPosts.includes(postId)) {
-            likedPosts.push(postId);
+        if (!likedPostIds.includes(postId)) {
+            likedPostIds.push(postId);
         } else {
-            likedPosts.splice(likedPosts.indexOf(postId), 1);
+            likedPostIds.splice(likedPostIds.indexOf(postId), 1);
         }
 
-        localStorage.setItem('liked-posts', JSON.stringify(likedPosts));
+        localStorage.setItem('liked-posts', JSON.stringify(likedPostIds));
         this.toggleLiked(postId);
-        this.amountOfLikedPosts(likedPosts);
+        this.amountOfLikedPosts(likedPostIds);
     }
 
     toggleLiked(postId) {
@@ -44,23 +60,23 @@ class Like {
         })
      }
 
-    setLiked(likedPosts) {
-        likedPosts.forEach(post => {
-            const icons = document.querySelectorAll(`[data-post-id="${post}"]`);
+    setLiked(likedPostIds) {
+        likedPostIds.forEach(postId => {
+            const icons = document.querySelectorAll(`[data-post-id="${postId}"]`);
             icons && icons.forEach(icon => { 
                 icon.classList.add('is-liked');
             });
         });
     }
 
-    amountOfLikedPosts(likedPosts) {
-        const likedPostsAmount = document.querySelector('#liked-posts-amount');
+    amountOfLikedPosts(likedPostIds) {
+        const likedPostIdsAmount = document.querySelector('#liked-posts-amount');
 
-        if (!likedPostsAmount || !likedPosts) {
+        if (!likedPostIdsAmount || !likedPostIds) {
             return;
         }
 
-        likedPostsAmount.innerHTML = likedPosts.length;
+        likedPostIdsAmount.innerHTML = likedPostIds.length;
     }
 }
 
