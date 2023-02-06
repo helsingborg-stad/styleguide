@@ -54,18 +54,23 @@ class Nav {
     }
 
     handleClickVisible(menuItem, mainItems) {
+        let menuWasClicked = [];
         mainItems.forEach(item => {
             if(!item.contains(menuItem)) {
-            item.classList.remove('is-active');
-                item.querySelectorAll('.c-nav__item').forEach(childItem => {
-                    // childItem.classList.remove('is-active');
-                })
+                item.classList.remove('is-active'); 
+                menuWasClicked.push(false);
+            } else {
+                menuWasClicked.push(true);
             }
         })
-        if (menuItem.classList.contains('is-active')) {
-            menuItem.classList.remove('is-active');
-        } else {
-            menuItem.classList.add('is-active');
+
+        
+        if (menuWasClicked.length > 0 && menuWasClicked.includes(true)) {
+            if (menuItem.classList.contains('is-active')) {
+                menuItem.classList.remove('is-active');
+            } else {
+                menuItem.classList.add('is-active');
+            }
         }
     }
 
