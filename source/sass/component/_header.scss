@@ -5,6 +5,10 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
     position: relative;
     background-color: $color-header-background;
 
+    &#quick-links-header {
+        z-index: $level-5;
+    }
+
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
         scroll-margin-top: calc(#{$base} * 2);
