@@ -232,7 +232,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
           border-radius: $border-radius-md;
           height: auto;
           width: 100%;
-          max-width:calc($base * 60);
+          max-width: 100%;
           object-fit: cover;
         }
       }
@@ -258,6 +258,7 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
         }
         .c-hero__group-content {
             padding: 0;
+            height: 100%;
         }
       }
 
