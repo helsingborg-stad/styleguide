@@ -34,6 +34,7 @@ export default class Slider {
 
         this.splide = new Splide(slider, {
             type: 'loop',
+            start: 1,
             autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
             perPage: slider.getAttribute('data-slides-per-page'),
             perMove: slider.getAttribute('data-slides-per-page'),
