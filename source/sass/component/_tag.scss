@@ -19,49 +19,18 @@
 }
 
 .c-tag {
-    padding: 0 #{$base};
-    margin: auto 0;
-    border-radius: calc(#{$base} * 4); 
-    text-decoration: none;
-    color: $color-base;
     font-size: $font-size-meta;
-    transition: background-color 100ms ease-in-out;
-    user-select: none;
-    border: 2px solid; 
+    text-decoration: none;
 
     &.is-hidden {
         display: none;
     }
 
-    &--default {
-        border-color: $color-gray-light;
+    &:hover, &:visited, &:active {
+        color: inherit;
     }
 
-    &--primary {
-        border-color: $color-primary;
-    }
-
-    &--secondary {
-        border-color: $color-secondary;
-    }
-}
-
-a.c-tag {
-    &--default {
-        &:visited, &:visited:hover {
-            color: $color-base;
-        }
-    }
-
-    &--primary {
-        &:visited, &:visited:hover {
-            color: $color-white;
-        }
-    }
-
-    &--secondary {
-        &:visited, &:visited:hover {
-            color: $color-white;
-        }
+    &:hover {
+        text-decoration: underline;
     }
 }
