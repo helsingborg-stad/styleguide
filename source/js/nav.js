@@ -16,6 +16,18 @@ class Nav {
     
     clickListeners(menu, mainItems) {
         const menuItems = menu.querySelectorAll('.c-nav__item');
+        
+        mainItems.forEach(mainItem => {
+            mainItem.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.openChildren(mainItem);
+            })
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleClickVisible(e.target, menuItems);
+        });
 
         menuItems.forEach(menuItem => {
             if(menuItem.querySelector('.c-nav')) {
@@ -31,19 +43,34 @@ class Nav {
         });
     }
 
+    openChildren(mainItem) {
+        const currentItem = mainItem.querySelector('.is-current');
+        if(currentItem) {
+            const depth = currentItem.hasAttribute('depth') ? currentItem.getAttribute('depth') : false;
+            for (let i = 0; i < depth - 1; i++) {
+                currentItem.closest(`[depth="${i + 1}"]`).classList.add('is-active');
+            }
+        }
+    }
+
     handleClickVisible(menuItem, mainItems) {
+        let menuWasClicked = [];
         mainItems.forEach(item => {
             if(!item.contains(menuItem)) {
-            item.classList.remove('is-active');
-                item.querySelectorAll('.c-nav__item').forEach(childItem => {
-                    childItem.classList.remove('is-active');
-                })
+                item.classList.remove('is-active'); 
+                menuWasClicked.push(false);
+            } else {
+                menuWasClicked.push(true);
             }
         })
-        if (menuItem.classList.contains('is-active')) {
-            menuItem.classList.remove('is-active');
-        } else {
-            menuItem.classList.add('is-active');
+
+        
+        if (menuWasClicked.length > 0 && menuWasClicked.includes(true)) {
+            if (menuItem.classList.contains('is-active')) {
+                menuItem.classList.remove('is-active');
+            } else {
+                menuItem.classList.add('is-active');
+            }
         }
     }
 
