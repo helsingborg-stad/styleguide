@@ -17,6 +17,10 @@ $c-datebadge-size: var(--c-datebadge-size, calc(#{$base} * 8)) !default;
       border-radius: $c-datebadge-border-radius;
       color: $c-datebadge-color; 
       text-align: center;
+      margin-top: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      margin-left: 0;
 
       .c-datebadge__month {
         margin-top: 0; 
