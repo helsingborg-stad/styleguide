@@ -49,8 +49,42 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
         color: $color-secondary;
     }
 
+    &.c-header--casual {
+        #main-menu {
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            .c-nav--casual-left {
+                justify-content: flex-start;
+                .c-nav__item--search {
+                    margin-left: auto;
+                }
+            }
+
+            .c-nav--casual-right {
+                justify-content: flex-end;
+            }
+
+            .c-nav--casual-center {
+                justify-content: center;
+            }
+        }
+    }
+
     &.c-header--business {
-        .c-nav--gap {
+        .c-nav--business-left {
+            justify-content: flex-start;
+            
+            .c-nav__item--search {
+                margin-left: auto;
+            }
+        }
+        .c-nav--business-right {
+            justify-content: flex-end;
+        }
+
+        .c-nav--business-gap {
             justify-content: space-between;
         }
     }
