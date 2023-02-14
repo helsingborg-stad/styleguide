@@ -13,7 +13,7 @@
   }
 
   &.c-form--rounded {
-    button.c-button {
+    button.c-button, input {
       border-radius: calc($base * 3);
     }
   }
