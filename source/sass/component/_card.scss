@@ -66,6 +66,13 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &__icon {
+        position: absolute;
+        right: $base;
+        top: $base;
+        z-index: $level-5;
+    }
+
     &--outline {
         border: $c-card-border-width solid;
     }
