@@ -20,7 +20,7 @@ export default class Menu {
         const navbar = document.querySelectorAll(".c-navbar");
 
         navbar.forEach((element) => {
-            this.addTriggers(element)
+            //this.addTriggers(element)
         })
     }
 

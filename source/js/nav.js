@@ -1,10 +1,10 @@
 class Nav {
     constructor() {
-        this.hasMainMenu() && this.setListeners();
+        //this.hasMainMenu() && this.setListeners();
     }
 
     hasMainMenu() {
-        return document.querySelector('#main-menu');
+        return false;
     }
 
     setListeners() {
@@ -25,7 +25,7 @@ class Nav {
         });
 
         document.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation();    
             this.handleClickVisible(e.target, menuItems);
         });
 

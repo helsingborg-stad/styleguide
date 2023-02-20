@@ -1,9 +1,10 @@
 @nav([
     'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
     'classList' => ['u-position--relative'],
-    'childItemsUrl' => '/', //Currently unsupported in horizontal mode
+    'childItemsUrl' => '/',
     'direction' => 'horizontal',
-    'includeToggle' => false //Currently unsupported in horizontal mode
+    'includeToggle' => true,
+    'allowStyle' => false
 ])
 @endnav
 <div style="height: 200px;"></div><!-- Padder -->
