@@ -113,7 +113,7 @@ const filter = new Filter();
 // Modal
 function enableModals() {
     const ModalInstance = new Modal();
-    ModalInstance.enableModals();
+    // ModalInstance.enableModals();
 }
 window.addEventListener(new CustomEvent('initStyleguideModals'), enableModals(), false);
 

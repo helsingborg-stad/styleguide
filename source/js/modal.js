@@ -7,6 +7,9 @@ class Modal {
         this.closeTrigger = document.querySelectorAll('[data-close]');
         this.dialogs = document.querySelectorAll('.c-modal');
         this.galleryInstance = null;
+
+        console.log('Modal constructor');
+        this.enableModals();
     }
 
     /**
