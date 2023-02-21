@@ -8,7 +8,7 @@ class Modal {
         this.dialogs = document.querySelectorAll('.c-modal');
         this.galleryInstance = null;
 
-        console.log('Modal constructor');
+        // Enable modals as soon as the constructor runs
         this.enableModals();
     }
 
