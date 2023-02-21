@@ -113,8 +113,15 @@ const filter = new Filter();
 // Modal
 function enableModals() {
     const ModalInstance = new Modal();
+    console.log('Modal Instance', ModalInstance);
 }
-window.addEventListener(new CustomEvent('initStyleguideModals'), enableModals());
+// window.addEventListener('initStyleguideModals', enableModals());
+const initModal = new Event('initStyleguideModal', {
+    bubbles: true,
+    cancelable: false,
+    composed: true,
+});
+window.addEventListener(initModal, enableModals());
 
 // Steppers
 const SteppersInstance = new Steppers();
