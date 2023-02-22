@@ -113,16 +113,10 @@ const filter = new Filter();
 // Modal
 function enableModals() {
     const ModalInstance = new Modal();
-    console.log('Modal Instance v3', ModalInstance);
+    console.log('Modal Instanced in app.js', ModalInstance);
 }
-// window.addEventListener('initStyleguideModals', enableModals());
-const initModal = new CustomEvent('initModal', {
-    bubbles: true,
-    cancelable: false,
-    composed: true,
-});
-document.dispatchEvent(initModal);
-document.addEventListener('initModal', enableModals());
+// Hur körs denna vid sidladdning? Skapas eventet iom. addEventListener?
+window.addEventListener('initModal', enableModals());
 
 // Steppers
 const SteppersInstance = new Steppers();
