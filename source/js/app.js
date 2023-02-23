@@ -33,6 +33,7 @@ import Hero from './hero';
 import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
+import QuickLinksMenu from './quickLinksHeader';
 import './helpers/swipe';
 
 expandSection();
@@ -58,6 +59,7 @@ const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleInstance = new ButtonToggle;
 const NavInstance = new Nav();
+const QuickLinksMenuInstance = new QuickLinksMenu();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
