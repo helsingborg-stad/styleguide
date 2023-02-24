@@ -3,34 +3,34 @@
     flex-wrap: wrap;
     gap: #{$base};
 
-    &--format .c-tag {
+    &--format .c-tags__tag {
         word-spacing: -0.5ex;
         text-transform: lowercase;
     }
-}
 
-.c-tags:hover {
-    .c-tag.is-hidden {
-        display: block;
-    }
-    .c-tag.c-tag--more {
-        display: none;
-    }
-}
+    .c-tags__tag {
+        font-size: $font-size-meta;
+        text-decoration: none;
 
-.c-tag {
-    font-size: $font-size-meta;
-    text-decoration: none;
+        &.is-hidden {
+            display: none;
+        }
 
-    &.is-hidden {
-        display: none;
-    }
+        &:hover, &:visited, &:active {
+            color: inherit;
+        }
 
-    &:hover, &:visited, &:active {
-        color: inherit;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     &:hover {
-        text-decoration: underline;
+        .c-tags__tag.is-hidden {
+            display: block;
+        }
+        .c-tags__tag.c-tags__tag-more {
+            display: none;
+        }
     }
 }
