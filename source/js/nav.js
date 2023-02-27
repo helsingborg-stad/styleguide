@@ -18,12 +18,22 @@ class Nav {
                     e.preventDefault();
                     e.stopPropagation();
 
+                    this.closeSiblings(item.closest(targetItemSelector));
+
                     this.toggleChildren(
                         item.closest(targetItemSelector)
                     );
                 });
             });
         });
+    }
+
+    closeSiblings(clickItem) {
+        let items = this.getSiblings(clickItem); 
+        items.forEach(item => {
+            item.classList.remove('is-active'); 
+        });
+        return true;
     }
 
     toggleChildren(toggle) {
@@ -49,6 +59,18 @@ class Nav {
             'aria-pressed',
             false
         )
+    }
+
+    getSiblings(elem) {
+        var siblings = [];
+        var sibling = elem.parentNode.firstChild;
+        while (sibling) {
+            if (sibling.nodeType === 1 && sibling !== elem) {
+                siblings.push(sibling);
+            }
+            sibling = sibling.nextSibling
+        }
+        return siblings;
     }
 }
 
