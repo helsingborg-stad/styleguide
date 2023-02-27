@@ -1,3 +1,7 @@
+$c-tags-pill-background: var(--c-tags-pill-background, $color-background-card) !default;
+$c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
+$c-tags-pill-drop-shadow: var(--c-tags-pill-drop-shadow, drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1))) !default;
+
 .c-tags {
     display: flex;
     flex-wrap: wrap;
@@ -6,6 +10,20 @@
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
         text-transform: lowercase;
+    }
+
+    &.c-tags--pill {
+        .c-tags__tag {
+            background-color: $c-tags-pill-background;
+            color: $c-tags-pill-color;
+            padding: calc($base * 0.5) calc($base * 1.5);
+            border-radius: calc($base * 3);
+            filter: $c-tags-pill-drop-shadow;
+
+            &:hover {
+                color: $c-tags-pill-color;
+            }
+        }
     }
 
     .c-tags__tag {
