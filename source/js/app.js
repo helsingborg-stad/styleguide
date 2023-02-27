@@ -111,12 +111,14 @@ DynamicSidebarInstance.applySidebar();
 const filter = new Filter();
 
 // Modal
-function enableModals() {
-    const ModalInstance = new Modal();
-    console.log('Modal Instanced in app.js', ModalInstance);
-}
-// Hur körs denna vid sidladdning? Skapas eventet iom. addEventListener?
-window.addEventListener('initModal', enableModals());
+const ModalInstance = new Modal();
+ModalInstance.enableModals();
+
+document.querySelectorAll('.open-modal').forEach(function (openModal) {
+    openModal.addEventListener('click', function (event) {
+        ModalInstance.enableModals();
+    });
+});
 
 // Steppers
 const SteppersInstance = new Steppers();

@@ -5,11 +5,9 @@ class Modal {
         this.modalId = null;
         this.openTrigger = document.querySelectorAll('[data-open]');
         this.closeTrigger = document.querySelectorAll('[data-close]');
+
         this.dialogs = document.querySelectorAll('.c-modal');
         this.galleryInstance = null;
-
-        // Enable modals as soon as the constructor runs
-        this.enableModals();
     }
 
     /**
