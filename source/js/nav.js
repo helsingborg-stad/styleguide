@@ -1,21 +1,28 @@
 class Nav {
     constructor() {
-        const menus = [...document.querySelectorAll('.c-nav.c-nav--horizontal')];
+
+        const targetItemSelector = '.c-nav__item.has-children.has-toggle'; 
+
+        const menus = [...document.querySelectorAll(
+            '.c-nav.c-nav--horizontal'
+        )];
 
         menus.forEach(menu => {
-            let items = menu.querySelectorAll(
-                '.c-nav__item.has-children.has-toggle'
-            );
 
-            if(items.length) {
-                items.forEach(item => {
-                    item.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        this.toggleChildren(item, e);
-                    });
+            let items = [...menu.querySelectorAll(
+                [targetItemSelector, '> .c-nav__item-wrapper'].join(' ')
+            )];
+
+            items.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    this.toggleChildren(
+                        item.closest(targetItemSelector)
+                    );
                 });
-            }
+            });
         });
     }
 
@@ -28,7 +35,7 @@ class Nav {
         return false;
     }
 
-    openChildren(toggle,) {
+    openChildren(toggle) {
         toggle.classList.add('is-active');
         toggle.querySelector('.c-nav__toggle').setAttribute(
             'aria-pressed',
