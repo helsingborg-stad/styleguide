@@ -1,10 +1,11 @@
 class Nav {
     constructor() {
 
-        const targetItemSelector = '.c-nav__item.has-children.has-toggle'; 
+        const targetMenuSelector    = '.c-nav.c-nav--horizontal'; 
+        const targetItemSelector    = '.c-nav__item.has-children.has-toggle'; 
 
         const menus = [...document.querySelectorAll(
-            '.c-nav.c-nav--horizontal'
+            targetMenuSelector
         )];
 
         menus.forEach(menu => {
