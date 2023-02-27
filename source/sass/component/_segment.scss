@@ -1,4 +1,6 @@
 $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
+$c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-radius-lg) !default;
+
 
 .c-segment {
     display: flex;
@@ -30,6 +32,45 @@ $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
         height: 100%;
         background-size: cover;
         overflow: hidden;
+    }
+
+    &.c-segment--card {
+        &.c-segment--reverse {
+            .c-segment__image {
+                left: unset; 
+                right: 0;
+            }
+        }
+        .c-segment__image {
+            border-radius: $c-segment-image-border-radius;
+            left: 0;
+            @include ratio(16, 9);
+        }
+
+        .c-segment__content {
+            margin: calc($base * -4) calc($base * 2) 0 calc($base * 2);
+        }
+
+        .c-segment__content-card {
+            padding: calc($base * 3) calc($base * 5);
+        }
+
+        &.c-segment--size-md {
+            .c-segment__image {
+                position: absolute;
+                width: calc(100% - calc($base * 30));
+                padding: 0;
+            }
+
+            .c-segment__content {
+                margin: calc($base * 2) 0;
+                max-width: calc( #{$base} * 60);
+            }
+
+            .c-segment__content-card {
+                padding: calc($base * 5);
+            }
+        }
     }
 }
 
