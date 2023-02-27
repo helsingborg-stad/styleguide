@@ -35,15 +35,9 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     }
 
     &.c-segment--card {
-        &.c-segment--reverse {
-            .c-segment__image {
-                left: unset; 
-                right: 0;
-            }
-        }
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
-            left: 0;
+            right: 0;
             @include ratio(16, 9);
         }
 
@@ -53,6 +47,14 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
         .c-segment__content-card {
             padding: calc($base * 3) calc($base * 5);
+        }
+
+        &.c-segment--reverse {
+            flex-direction: row-reverse;
+            .c-segment__image {
+                left: 0; 
+                right: unset;
+            }
         }
 
         &.c-segment--size-md {
