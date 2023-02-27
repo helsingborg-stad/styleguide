@@ -35,8 +35,15 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     }
 
     &.c-segment--card {
+        &.c-segment--reverse {
+            .c-segment__image {
+                left: unset; 
+                right: 0;
+            }
+        }
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
+            left: 0;
             @include ratio(16, 9);
         }
 
@@ -56,7 +63,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             }
 
             .c-segment__content {
-                margin: calc($base * 2) 0 calc($base * 2) auto;
+                margin: calc($base * 2) 0;
                 max-width: calc( #{$base} * 60);
             }
 
