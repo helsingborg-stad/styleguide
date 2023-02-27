@@ -1,86 +1,47 @@
 class Nav {
     constructor() {
-        //this.hasMainMenu() && this.setListeners();
+        const menus = [...document.querySelectorAll('.c-nav.c-nav--horizontal')];
+
+        menus.forEach(menu => {
+            let items = menu.querySelectorAll(
+                '.c-nav__item.has-children.has-toggle'
+            );
+
+            if(items.length) {
+                items.forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.toggleChildren(item, e);
+                    });
+                });
+            }
+        });
     }
 
-    hasMainMenu() {
+    toggleChildren(toggle) {
+        if(!toggle.classList.contains('is-active')) {
+            this.openChildren(toggle); 
+            return true;
+        }
+        this.closeChildren(toggle);
         return false;
     }
 
-    setListeners() {
-        const menu = document.querySelector('#main-menu');
-        const mainItems = menu.querySelectorAll('.c-nav--depth-0 > .c-nav__item');
-
-        mainItems && this.clickListeners(menu, mainItems);
-    }
-    
-    clickListeners(menu, mainItems) {
-        const menuItems = menu.querySelectorAll('.c-nav__item');
-        
-        mainItems.forEach(mainItem => {
-            mainItem.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.openChildren(mainItem);
-            })
-        });
-
-        document.addEventListener('click', (e) => {
-            e.stopPropagation();    
-            this.handleClickVisible(e.target, menuItems);
-        });
-
-        menuItems.forEach(menuItem => {
-            if(menuItem.querySelector('.c-nav')) {
-                menuItem.querySelector('a') && this.handleLinks(menuItem);
-                menuItem.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (e.target.closest('li').querySelector('ul')) {
-                        e.preventDefault();
-                    }
-                    this.handleClickVisible(menuItem, mainItems);
-                })
-            }
-        });
+    openChildren(toggle,) {
+        toggle.classList.add('is-active');
+        toggle.querySelector('.c-nav__toggle').setAttribute(
+            'aria-pressed',
+            true
+        )
     }
 
-    openChildren(mainItem) {
-        const currentItem = mainItem.querySelector('.is-current');
-        if(currentItem) {
-            const depth = currentItem.hasAttribute('depth') ? currentItem.getAttribute('depth') : false;
-            for (let i = 0; i < depth - 1; i++) {
-                currentItem.closest(`[depth="${i + 1}"]`).classList.add('is-active');
-            }
-        }
-    }
-
-    handleClickVisible(menuItem, mainItems) {
-        let menuWasClicked = [];
-        mainItems.forEach(item => {
-            if(!item.contains(menuItem)) {
-                item.classList.remove('is-active'); 
-                menuWasClicked.push(false);
-            } else {
-                menuWasClicked.push(true);
-            }
-        })
-
-        
-        if (menuWasClicked.length > 0 && menuWasClicked.includes(true)) {
-            if (menuItem.classList.contains('is-active')) {
-                menuItem.classList.remove('is-active');
-            } else {
-                menuItem.classList.add('is-active');
-            }
-        }
-    }
-
-    handleLinks(menuItem) {
-        const link = menuItem.querySelector('a');
-        if(link.querySelector('template')) {
-            let temp = link.querySelector('template');
-            let clone = temp.content.cloneNode(true);
-            link.appendChild(clone);
-        }
+    closeChildren(toggle) {
+        toggle.classList.remove('is-active');
+        toggle.querySelector('.c-nav__toggle').setAttribute(
+            'aria-pressed',
+            false
+        )
     }
 }
 
