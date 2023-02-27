@@ -113,11 +113,10 @@ const filter = new Filter();
 // Modal
 const ModalInstance = new Modal();
 ModalInstance.enableModals();
-
-document.querySelectorAll('.open-modal').forEach(function (openModal) {
-    openModal.addEventListener('click', function (event) {
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('open-modal')) {
         ModalInstance.enableModals();
-    });
+    }
 });
 
 // Steppers
