@@ -46,6 +46,9 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
             border-bottom-left-radius: $c-block-border-radius;
             border-bottom-right-radius: $c-block-border-radius;
         }
+        .c-block__meta {
+            display: flex;
+        }
     }
 
     .c-block__heading, 
