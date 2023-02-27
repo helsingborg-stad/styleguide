@@ -1,7 +1,7 @@
 class Nav {
     constructor() {
 
-        const targetMenuSelector    = '.c-nav.c-nav--horizontal'; 
+        const targetMenuSelector    = '.c-nav.c-nav--depth-1'; 
         const targetItemSelector    = '.c-nav__item.has-children.has-toggle'; 
 
         const menus = [...document.querySelectorAll(
@@ -10,9 +10,15 @@ class Nav {
 
         menus.forEach(menu => {
 
-            let items = [...menu.querySelectorAll(
-                [targetItemSelector, '> .c-nav__item-wrapper'].join(' ')
-            )];
+            let selectorArray = [
+                targetItemSelector,
+                '> .c-nav__item-wrapper'
+            ]; 
+            if(menu.classList.contains('c-nav--vertical')) {
+                selectorArray.push('.c-nav__toggle'); 
+            }
+
+            let items = [...menu.querySelectorAll(selectorArray.join(' '))];
 
             items.forEach(item => {
                 item.addEventListener('click', (e) => {
