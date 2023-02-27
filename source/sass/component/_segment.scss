@@ -53,7 +53,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             height: 100%;
         }
 
-        &.c-segment--size-md {
+        &.c-segment--size-sm {
             .c-segment__content {
                 width: max(60%, calc($base * 60));
                 min-height: calc($base * 40);
@@ -67,7 +67,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             }
         }
 
-        &.c-segment--size-lg {
+        &.c-segment--size-md {
             flex-direction: row;
             .c-segment__image {
                 position: absolute;
