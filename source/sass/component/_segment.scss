@@ -35,42 +35,66 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     }
 
     &.c-segment--card {
+        flex-direction: column;
+        height: 100%;
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
-            right: 0;
-            @include ratio(16, 9);
+            aspect-ratio: 16/9;
+            height: unset;
         }
 
         .c-segment__content {
             margin: calc($base * -4) calc($base * 2) 0 calc($base * 2);
+            flex-grow: 1;
         }
 
         .c-segment__content-card {
             padding: calc($base * 3) calc($base * 5);
-        }
-
-        &.c-segment--reverse {
-            flex-direction: row-reverse;
-            .c-segment__image {
-                left: 0; 
-                right: unset;
-            }
+            height: 100%;
         }
 
         &.c-segment--size-md {
+            .c-segment__content {
+                width: max(60%, calc($base * 60));
+                min-height: calc($base * 40);
+                margin-top: calc($base * -35);
+            }
+
+              &.c-segment--reverse {
+                .c-segment__content {
+                    margin-left: auto;
+                }
+            }
+        }
+
+        &.c-segment--size-lg {
+            flex-direction: row;
             .c-segment__image {
                 position: absolute;
                 width: calc(100% - calc($base * 30));
                 padding: 0;
+                height: 100%;
+                right: 0;
             }
 
             .c-segment__content {
                 margin: calc($base * 2) 0;
-                max-width: calc( #{$base} * 60);
+                width: calc( #{$base} * 60);
+                flex-grow: unset;
+                height: unset;
             }
 
             .c-segment__content-card {
                 padding: calc($base * 5);
+            }
+
+            &.c-segment--reverse {
+                flex-direction: row-reverse;
+                .c-segment__image {
+                    left: 0;
+                    right: unset;
+
+                }
             }
         }
     }
