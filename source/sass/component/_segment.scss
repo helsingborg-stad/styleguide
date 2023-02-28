@@ -22,6 +22,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         }
     }
 
+    .c-segment__date {
+        font-size: $font-size-meta;
+    }
+
     .c-segment__buttons {
         margin-top: #{map-get($spacers, "4")};
     }
@@ -90,6 +94,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
             .c-segment__content-card {
                 padding: calc($base * 5);
+
+                .c-segment__title {
+                    font-size: $h1-font-size;
+                }
             }
 
             &.c-segment--reverse {
