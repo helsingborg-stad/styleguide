@@ -1,3 +1,30 @@
+$c-vnav-color-label: var(--notice-color-danger-text) !default;
+$c-vnav-color-icon: var(--notice-color-danger-text) !default;
+$c-vnav-color-label-active: var(--notice-color-danger-text) !default;
+$c-vnav-color-icon-active: var(--notice-color-danger-text) !default;
+$c-vnav-background: var(--notice-color-danger-text) !default;
+$c-vnav-item-background: var(--notice-color-danger-text) !default;
+$c-vnav-item-background-active: var(--notice-color-danger-text) !default;
+$c-vnav-divider-color: var(--notice-color-danger-text) !default;
+
+$c-hnav-color-label: var(--notice-color-danger-text) !default;
+$c-hnav-color-icon: var(--notice-color-danger-text) !default;
+$c-hnav-color-label-active: var(--notice-color-danger-text) !default;
+$c-hnav-color-icon-active: var(--notice-color-danger-text) !default;
+$c-hnav-background: var(--notice-color-danger-text) !default;
+$c-hnav-item-background: var(--notice-color-danger-text) !default;
+$c-hnav-item-background-active: var(--notice-color-danger-text) !default;
+
+$c-dropdown-nav-color-label: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-color-icon: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-color-label-active: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-color-icon-active: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-background: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-item-background: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-item-background-active: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-divider-color: var(--notice-color-danger-text) !default;
+$c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
+
 .c-nav {
   display: block;
   width: 100%;
