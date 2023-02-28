@@ -1,4 +1,4 @@
-/* import Gallery from "./gallery"
+import Gallery from "./gallery"
 
 describe('Gallery', () => {
 
@@ -62,4 +62,4 @@ describe('Gallery', () => {
 
     })
 
-}) */
+})
