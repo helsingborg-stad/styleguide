@@ -108,6 +108,22 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
                 }
             }
+
+            &.c-segment--slider {
+                &.c-segment--size-md {
+                    min-height: calc($base * 70);
+                    align-items: center; 
+                    .c-segment__image {
+                        width: 100%;
+                    }
+
+                    &.c-segment--reverse {
+                        .c-segment__content {
+                            margin-right: min(15%, calc($base * 12));
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -128,7 +144,9 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     }
 
     &-dark .c-segment__title,
-    &-dark .c-segment__text {
+    &-dark .c-segment__text,
+    &-dark .c-segment__meta,
+    &-dark .c-segment__date {
         color: black;
         z-index: $level-2;
     }
