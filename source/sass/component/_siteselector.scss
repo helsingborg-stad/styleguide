@@ -50,6 +50,10 @@ $c-siteselector-radius: var(--c-siteselector-radius, $c-siteselector-height) !de
         .c-nav__link {
             padding: 0;
             color: $c-siteselector-contrast;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
 
         .c-nav__link:after {
