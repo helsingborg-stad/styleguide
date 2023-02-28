@@ -1,29 +1,63 @@
-$c-vnav-color-label: var(--notice-color-danger-text) !default;
-$c-vnav-color-icon: var(--notice-color-danger-text) !default;
-$c-vnav-color-label-active: var(--notice-color-danger-text) !default;
-$c-vnav-color-icon-active: var(--notice-color-danger-text) !default;
-$c-vnav-background: var(--notice-color-danger-text) !default;
-$c-vnav-item-background: var(--notice-color-danger-text) !default;
-$c-vnav-item-background-active: var(--notice-color-danger-text) !default;
-$c-vnav-divider-color: var(--notice-color-danger-text) !default;
+//Settings vertical
+$c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting) !default;
+$c-nav-v-background-active: var(--c-nav-v-background-active) !default;
+$c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active) !default;
+$c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0,0,0,.05)) !default;
+$c-nav-v-divider-color: var(--c-nav-v-divider-color) !default;
 
-$c-hnav-color-label: var(--notice-color-danger-text) !default;
-$c-hnav-color-icon: var(--notice-color-danger-text) !default;
-$c-hnav-color-label-active: var(--notice-color-danger-text) !default;
-$c-hnav-color-icon-active: var(--notice-color-danger-text) !default;
-$c-hnav-background: var(--notice-color-danger-text) !default;
-$c-hnav-item-background: var(--notice-color-danger-text) !default;
-$c-hnav-item-background-active: var(--notice-color-danger-text) !default;
+//Settings horizontal
+$c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
+$c-nav-h-background-active: var(--c-nav-h-background-active) !default;
+$c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !default;
 
-$c-dropdown-nav-color-label: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-color-icon: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-color-label-active: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-color-icon-active: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-background: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-item-background: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-item-background-active: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-divider-color: var(--notice-color-danger-text) !default;
-$c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
+.c-nav.c-nav.c-nav--horizontal {
+  .c-nav__item {
+    .c-nav__text,
+    .c-nav__icon,
+    .c-nav__toggle {
+      color: $c-nav-h-color-contrasting;
+    }
+
+    &.is-active,
+    &.is-current,
+    &:hover {
+      background-color: $c-nav-h-background-active;
+
+      .c-nav__text,
+      .c-nav__icon,
+      .c-nav__toggle {
+        color: $c-nav-h-color-contrasting-active;
+      }
+    }
+  }
+}
+
+.c-nav.c-nav.c-nav--vertical {
+
+  .c-nav.c-nav--vertical {
+    background-color: $c-nav-v-background-expanded;
+  }
+
+  .c-nav__item {
+    .c-nav__text,
+    .c-nav__icon,
+    .c-nav__toggle {
+      color: $c-nav-v-color-contrasting;
+    }
+
+    &.is-active,
+    &.is-current,
+    &:hover {
+      background-color: $c-nav-v-background-active;
+
+      .c-nav__text,
+      .c-nav__icon,
+      .c-nav__toggle {
+        color: $c-nav-v-color-contrasting-active;
+      }
+    }
+  }
+}
 
 .c-nav {
   display: block;
@@ -74,7 +108,7 @@ $c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
 .c-nav.c-nav--vertical {
   flex-direction: column;
 
-  .c-nav {
+  .c-nav.c-nav--vertical {
     background-color: rgba(0,0,0,.1);
   }
 
@@ -85,7 +119,7 @@ $c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
   //Bordered is suppored in vnav
   &.c-nav--bordered {
     .c-nav__item + .c-nav__item {
-      border-top: 1px solid #eee;
+      border-top: 1px solid #{$c-nav-v-divider-color};
     }
   }
 
@@ -104,6 +138,12 @@ $c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
 // Horizontal menus
 .c-nav.c-nav--horizontal {
   flex-direction: row;
+
+  .c-nav.c-nav--vertical {
+    .c-nav__item .c-nav__link:hover:after {
+      left: calc(#{$base} * 2);
+    }
+  }
 
   &.c-nav--depth-1 {
     gap: calc(#{$base} * 2);
@@ -132,7 +172,7 @@ $c-dropdown-nav-border-radius: var(--notice-color-danger-text) !default;
   }
 
   .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
-  .c-nav__link:hover:after {
+  > .c-nav__link:hover:after {
     display: block;
   }
 

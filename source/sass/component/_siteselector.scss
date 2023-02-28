@@ -53,7 +53,7 @@ $c-siteselector-radius: var(--c-siteselector-radius, $c-siteselector-height) !de
         }
 
         .c-nav__link:after {
-            display: none; 
+            display: none !important; 
         }
     }
 
