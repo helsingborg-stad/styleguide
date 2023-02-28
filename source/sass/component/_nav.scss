@@ -61,6 +61,17 @@
       border-top: 1px solid #eee;
     }
   }
+
+  .c-nav__item.is-current > .c-nav__link {
+    color: $color-vnav-item-text-active; 
+    font-weight: $font-weight-bold;
+    font-family: $font-family-bold;
+  }
+
+  .c-nav__item.is-current > .c-nav__link,
+  .c-nav__item.is-current > .c-button {
+    background-color: $color-complementary-light;
+  }
 }
 
 // Horizontal menus
@@ -93,12 +104,17 @@
     border-radius: $border-radius-sm;
   }
 
+  .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
+  .c-nav__link:hover:after {
+    display: block;
+  }
+
   .c-nav__link:after {
     content: "";
     position: absolute;
     border-bottom: 3px solid;
-    bottom: calc(#{$base} * 2);
-    left: calc(#{$base} * 2);
+    bottom: #{$base};
+    left:  0;
     width: 0;
     display: none;
     animation: c-nav-hover-bounce 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
