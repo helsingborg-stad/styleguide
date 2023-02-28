@@ -35,6 +35,8 @@ class Modal {
 
                 self.lockScroll();
             });
+
+            document.dispatchEvent(new CustomEvent('enableStyleguideModals'));
         }
 
         // Close

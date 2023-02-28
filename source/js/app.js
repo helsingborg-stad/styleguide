@@ -110,13 +110,26 @@ DynamicSidebarInstance.applySidebar();
 
 const filter = new Filter();
 
-// Modal
-const ModalInstance = new Modal();
-ModalInstance.enableModals();
-document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('open-modal')) {
-        ModalInstance.enableModals();
-    }
+// Initialize the modal instance
+const initModal = () => {
+    const modalInstance = new Modal();
+    modalInstance.enableModals();
+};
+
+// Wait for the DOM to be fully loaded before initializing the modal
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Create a mutation observer to watch for changes to the DOM
+    const observer = new MutationObserver((mutationsList, observer) => {
+        // Reinitialize the modal instance if there are mutations
+        initModal();
+    });
+
+    // Configure the observer to watch the body for mutations
+    const config = { childList: true, subtree: true };
+    observer.observe(document.body, config);
+
+    // Initialize the modal instance
+    initModal();
 });
 
 // Steppers
