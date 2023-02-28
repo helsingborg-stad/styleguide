@@ -15,6 +15,9 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     max-width: 800px;
     max-height: 90vh;
 
+    &[data-open] {
+        cursor: pointer;
+    }
 
     .c-modal__close.c-button {
         color: $color-black;
@@ -60,8 +63,8 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &.search-modal {
         #modal-search-form {
-            margin-top:calc($base * 1);
-            margin-bottom:calc($base * 1);
+            margin-top: calc($base * 1);
+            margin-bottom: calc($base * 1);
         }
     }
 
