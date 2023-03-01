@@ -67,6 +67,9 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         }
     }
 
+    /**
+    * Responsive
+    */
     &.c-segment--size-sm {
         &.c-segment--card {
             .c-segment__content {
