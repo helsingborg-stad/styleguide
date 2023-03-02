@@ -9,8 +9,7 @@ class QuickLinksHeader {
     
     setAttribute() {
         const quickLinksHeader = document.querySelector('#quicklinks-header');
-        console.log(quickLinksHeader);
-
+        
         const observer = new IntersectionObserver(
             ([e]) => e.target.classList.toggle('is-stuck', e.intersectionRatio < 1),
             { threshold: [1] }
