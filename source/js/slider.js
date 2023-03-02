@@ -33,13 +33,14 @@ export default class Slider {
         }
 
         this.splide = new Splide(slider, {
-            type: 'loop',
-            start: 1,
+            type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
+            start: slider.hasAttribute('data-slider-loop') ? 1 : 0,
+            clone: slider.hasAttribute('data-slider-loop') ? true : false,
             autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
             perPage: slider.getAttribute('data-slides-per-page'),
             perMove: slider.getAttribute('data-slides-per-page'),
             gap: parseInt(slider.getAttribute('data-slider-gap')),
-            focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 1,
+            focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
