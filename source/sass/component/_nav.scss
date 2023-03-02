@@ -153,6 +153,10 @@ $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !defa
     animation: c-nav-popout-arrow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
 
+  .c-nav__item--depth-1:last-child > ul { /* Prevent outside viewport */
+    right: 0;
+  }
+
   .c-nav__item--depth-1 > .c-nav__item-wrapper {
     white-space: nowrap;
   }
