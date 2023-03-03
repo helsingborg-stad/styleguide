@@ -176,7 +176,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   .c-nav__item--depth-1 > .c-nav__item-wrapper {
     white-space: nowrap;
   }
-  
+
   > .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
   > .c-nav__item:hover      > .c-nav__item-wrapper .c-nav__link:after{
     display: block;
@@ -185,7 +185,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   .c-nav__link:after {
     content: "";
     position: absolute;
-    border-bottom: 3px solid;
+    border-bottom: 3px solid $c-nav-h-color-contrasting-active;
     left:  0;
     width: 0;
     display: none;
