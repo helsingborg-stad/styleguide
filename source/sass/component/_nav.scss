@@ -71,6 +71,10 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   width: 100%;
   display: flex;
 
+  &.c-nav--gap {
+    justify-content: space-between;
+  }
+
   &.c-nav--height-sm > .c-nav__item > .c-nav__item-wrapper {
     min-height: calc(#{$base} * 6);
   }
@@ -192,7 +196,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
-  > .c-nav__link:hover:after {
+  .c-nav__item:hover      > .c-nav__item-wrapper .c-nav__link:after {
     display: block;
   }
 
@@ -200,11 +204,11 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     content: "";
     position: absolute;
     border-bottom: 3px solid;
-    bottom: #{$base};
     left:  0;
     width: 0;
     display: none;
     animation: c-nav-hover-bounce 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    transform: translateY(0.75em);
   }
 
   //Dropdown
