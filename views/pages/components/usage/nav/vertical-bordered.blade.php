@@ -3,6 +3,7 @@
     'classList' => ['u-position--relative', 'c-nav--bordered'],
     'childItemsUrl' => '/',
     'direction' => 'vertical',
-    'includeToggle' => true
+    'includeToggle' => true,
+    'height' => 'sm'
 ])
 @endnav

@@ -4,13 +4,18 @@ $c-nav-v-background-active: var(--c-nav-v-background-active) !default;
 $c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active) !default;
 $c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0,0,0,.05)) !default;
 $c-nav-v-divider-color: var(--c-nav-v-divider-color) !default;
+$c-nav-v-font-size: var(--c-nav-v-font-size) !default;
 
 //Settings horizontal
 $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
 $c-nav-h-background-active: var(--c-nav-h-background-active) !default;
 $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !default;
+$c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
 .c-nav.c-nav.c-nav--horizontal {
+
+  font-size: $c-nav-h-font-size;
+
   .c-nav__item {
     .c-nav__text,
     .c-nav__icon,
@@ -33,6 +38,8 @@ $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !defa
 }
 
 .c-nav.c-nav.c-nav--vertical {
+
+  font-size: $c-nav-v-font-size;
 
   .c-nav.c-nav--vertical {
     background-color: $c-nav-v-background-expanded;
@@ -64,16 +71,28 @@ $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !defa
   width: 100%;
   display: flex;
 
+  &.c-nav--height-sm > .c-nav__item > .c-nav__item-wrapper {
+    min-height: calc(#{$base} * 6);
+  }
+
+  &.c-nav--height-md > .c-nav__item > .c-nav__item-wrapper {
+    min-height: calc(#{$base} * 8);
+  }
+
+  &.c-nav--height-lg > .c-nav__item > .c-nav__item-wrapper {
+    min-height: calc(#{$base} * 10);
+  }
+
   .c-nav__item-wrapper {
     display: flex;
     align-items: center;
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    min-height: calc(#{$base} * 6);
 
-    > * {
-      min-height: calc(#{$base} * 6);
+    .c-nav__link,
+    .c-nav__toggle {
+      min-height: inherit;
     }
   }
 
@@ -189,6 +208,7 @@ $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !defa
 
   //Dropdown
   .c-nav.c-nav--depth-2 {
+    z-index: $level-5;
     position: absolute;
     bottom: 0;
     background: $color-white;
