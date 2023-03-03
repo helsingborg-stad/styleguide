@@ -173,30 +173,12 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     gap: calc(#{$base} * 2);
   }
 
-  .c-nav__toggle:before {
-    animation: c-nav-popout-arrow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  }
-
   .c-nav__item--depth-1 > .c-nav__item-wrapper {
     white-space: nowrap;
   }
-
-  .c-nav__item--depth-1 > .c-nav__item-wrapper > .c-nav__toggle:before {//Arrow
-    content: "";
-    position: absolute;
-    bottom: #{$base};
-    left: calc(#{$base} * 1.75);
-    width: calc(#{$base} * 2.5);
-    height: calc(#{$base} * 2.5);
-    filter: $drop-shadow-1;
-    transform: rotate(45deg);
-    background: $color-white;
-    z-index: $level-5;
-    border-radius: $border-radius-sm;
-  }
-
-  .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
-  .c-nav__item:hover      > .c-nav__item-wrapper .c-nav__link:after {
+  
+  > .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
+  > .c-nav__item:hover      > .c-nav__item-wrapper .c-nav__link:after{
     display: block;
   }
 
@@ -220,7 +202,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     width: auto;
     min-width: calc(#{$base} * 28);
     background-color: $color-white;
-    border-radius: $border-radius-sm;
+    border-radius: 0 0 $border-radius-sm $border-radius-sm;
     filter: $drop-shadow-1;
     transform: translateY(100%);
     animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
