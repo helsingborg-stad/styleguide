@@ -93,12 +93,12 @@ $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !defa
   }
 
   /* Active state */ 
-  .has-toggle:not(.is-active):not(.is-open):not(.is-current) > .c-nav,
-  .has-toggle:not(.is-active):not(.is-open):not(.is-current) .c-nav__toggle:before {
+  .has-toggle:not(.is-open) > .c-nav,
+  .has-toggle:not(.is-open) .c-nav__toggle:before {
     display: none;
   }
 
-  .has-toggle.is-active > .c-nav__item-wrapper .c-icon--expand-more {
+  .has-toggle.is-open > .c-nav__item-wrapper .c-icon--expand-more {
     transform: rotate(180deg);
   }
   /* End active state */ 

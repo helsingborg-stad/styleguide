@@ -25,7 +25,9 @@ class Nav {
                     e.preventDefault();
                     e.stopPropagation();
 
-                    this.closeSiblings(item.closest(targetItemSelector));
+                    if(menu.classList.contains('c-nav--vertical')) {
+                        this.closeSiblings(item.closest(targetItemSelector));
+                    }
 
                     this.toggleChildren(
                         item.closest(targetItemSelector)
@@ -38,7 +40,6 @@ class Nav {
     closeSiblings(clickItem) {
         let items = this.getSiblings(clickItem); 
         items.forEach(item => {
-            item.classList.remove('is-active');
             item.classList.remove('is-open'); 
         });
         return true;
@@ -54,7 +55,6 @@ class Nav {
     }
 
     openChildren(toggle) {
-        toggle.classList.add('is-active');
         toggle.classList.add('is-open');
         toggle.querySelector('.c-nav__toggle').setAttribute(
             'aria-pressed',
@@ -63,7 +63,6 @@ class Nav {
     }
 
     closeChildren(toggle) {
-        toggle.classList.remove('is-active');
         toggle.classList.remove('is-open');
         toggle.querySelector('.c-nav__toggle').setAttribute(
             'aria-pressed',
