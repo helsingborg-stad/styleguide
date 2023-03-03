@@ -20,4 +20,13 @@ module.exports = {
 
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
+  reporters: [
+    [
+      'github-actions',
+      {
+        silent: false
+      }
+    ],
+    'summary'
+  ]
 };
