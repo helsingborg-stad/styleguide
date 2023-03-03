@@ -25,7 +25,7 @@ class Nav {
                     e.preventDefault();
                     e.stopPropagation();
 
-                    if(menu.classList.contains('c-nav--vertical')) {
+                    if(menu.classList.contains('c-nav--horizontal')) {
                         this.closeSiblings(item.closest(targetItemSelector));
                     }
 
@@ -46,7 +46,7 @@ class Nav {
     }
 
     toggleChildren(toggle) {
-        if(!toggle.classList.contains('is-active')) {
+        if(!toggle.classList.contains('is-open')) {
             this.openChildren(toggle); 
             return true;
         }
