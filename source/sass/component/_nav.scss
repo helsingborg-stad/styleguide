@@ -119,12 +119,12 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   /* Active state */ 
-  .has-toggle:not(.is-open) > .c-nav,
-  .has-toggle:not(.is-open) .c-nav__toggle:before {
+  .c-nav__item:not(.is-open) > .c-nav,
+  .c-nav__item:not(.is-open) .c-nav__toggle:before {
     display: none;
   }
 
-  .has-toggle.is-open > .c-nav__item-wrapper .c-icon--expand-more {
+  .c-nav__item.is-open > .c-nav__item-wrapper .c-icon--expand-more {
     transform: rotate(180deg);
   }
   /* End active state */ 
