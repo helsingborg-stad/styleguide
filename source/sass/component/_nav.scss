@@ -204,10 +204,23 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     width: auto;
     min-width: calc(#{$base} * 28);
     background-color: $color-white;
-    border-radius: 0 0 $border-radius-sm $border-radius-sm;
+    border-radius: $border-radius-sm;
     filter: $drop-shadow-1;
     transform: translateY(100%);
     animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+    &:after {
+      position: absolute;
+      background: inherit;
+      content: "";
+      height: calc(#{$base} * 2.5);
+      left: calc(#{$base} * 2.5);
+      top: calc(#{$base} * -1);
+      transform: rotate(45deg);
+      width: calc(#{$base} * 2.5);
+      z-index: $level-5;
+      border-top-left-radius: inherit;
+    }
   }
 }
 
@@ -229,26 +242,6 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
   100% {
     transform: translateY(100%);
-  }
-}
-
-@keyframes c-nav-popout-arrow {
-  0% {
-    transform: translateY(120%) rotate(45deg);
-    opacity: 0;
-  }
-
-  30% {
-    transform: translateY(100%) rotate(45deg);
-  }
-
-  55% {
-    opacity: 1;
-    transform: translateY(105%) rotate(45deg);
-  }
-
-  100% {
-    transform: translateY(100%) rotate(45deg);
   }
 }
 
