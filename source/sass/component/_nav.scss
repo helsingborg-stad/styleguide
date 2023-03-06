@@ -219,7 +219,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
       transform: rotate(45deg);
       width: calc(#{$base} * 2.5);
       z-index: $level-5;
-      border-top-left-radius: inherit;
+      border-top-left-radius: max(calc(#{$base} * .5), $border-radius-sm);
     }
   }
 }
