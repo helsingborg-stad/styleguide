@@ -1,4 +1,5 @@
-/* import Gallery from "./gallery"
+// @ts-ignore
+import Gallery from "./gallery"
 
 describe('Gallery', () => {
 
@@ -62,4 +63,4 @@ describe('Gallery', () => {
 
     })
 
-}) */
+})

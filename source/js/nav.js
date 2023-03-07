@@ -1,86 +1,85 @@
 class Nav {
     constructor() {
-        this.hasMainMenu() && this.setListeners();
-    }
 
-    hasMainMenu() {
-        return document.querySelector('#main-menu');
-    }
+        const targetMenuSelector    = '.c-nav.c-nav--depth-1'; 
+        const targetItemSelector    = '.c-nav__item.has-children.has-toggle'; 
 
-    setListeners() {
-        const menu = document.querySelector('#main-menu');
-        const mainItems = menu.querySelectorAll('.c-nav--depth-0 > .c-nav__item');
+        const menus = [...document.querySelectorAll(
+            targetMenuSelector
+        )];
 
-        mainItems && this.clickListeners(menu, mainItems);
-    }
-    
-    clickListeners(menu, mainItems) {
-        const menuItems = menu.querySelectorAll('.c-nav__item');
-        
-        mainItems.forEach(mainItem => {
-            mainItem.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.openChildren(mainItem);
-            })
-        });
+        menus.forEach(menu => {
 
-        document.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.handleClickVisible(e.target, menuItems);
-        });
+            let selectorArray = [
+                targetItemSelector,
+                '> .c-nav__item-wrapper'
+            ]; 
+            if(menu.classList.contains('c-nav--vertical')) {
+                selectorArray.push('.c-nav__toggle'); 
+            }
 
-        menuItems.forEach(menuItem => {
-            if(menuItem.querySelector('.c-nav')) {
-                menuItem.querySelector('a') && this.handleLinks(menuItem);
-                menuItem.addEventListener('click', (e) => {
+            let items = [...menu.querySelectorAll(selectorArray.join(' '))];
+
+            items.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
                     e.stopPropagation();
-                    if (e.target.closest('li').querySelector('ul')) {
-                        e.preventDefault();
+
+                    if(menu.classList.contains('c-nav--horizontal')) {
+                        this.closeSiblings(item.closest(targetItemSelector));
                     }
-                    this.handleClickVisible(menuItem, mainItems);
-                })
-            }
+
+                    this.toggleChildren(
+                        item.closest(targetItemSelector)
+                    );
+                });
+            });
         });
     }
 
-    openChildren(mainItem) {
-        const currentItem = mainItem.querySelector('.is-current');
-        if(currentItem) {
-            const depth = currentItem.hasAttribute('depth') ? currentItem.getAttribute('depth') : false;
-            for (let i = 0; i < depth - 1; i++) {
-                currentItem.closest(`[depth="${i + 1}"]`).classList.add('is-active');
-            }
-        }
+    closeSiblings(clickItem) {
+        let items = this.getSiblings(clickItem); 
+        items.forEach(item => {
+            item.classList.remove('is-open'); 
+        });
+        return true;
     }
 
-    handleClickVisible(menuItem, mainItems) {
-        let menuWasClicked = [];
-        mainItems.forEach(item => {
-            if(!item.contains(menuItem)) {
-                item.classList.remove('is-active'); 
-                menuWasClicked.push(false);
-            } else {
-                menuWasClicked.push(true);
-            }
-        })
-
-        
-        if (menuWasClicked.length > 0 && menuWasClicked.includes(true)) {
-            if (menuItem.classList.contains('is-active')) {
-                menuItem.classList.remove('is-active');
-            } else {
-                menuItem.classList.add('is-active');
-            }
+    toggleChildren(toggle) {
+        if(!toggle.classList.contains('is-open')) {
+            this.openChildren(toggle); 
+            return true;
         }
+        this.closeChildren(toggle);
+        return false;
     }
 
-    handleLinks(menuItem) {
-        const link = menuItem.querySelector('a');
-        if(link.querySelector('template')) {
-            let temp = link.querySelector('template');
-            let clone = temp.content.cloneNode(true);
-            link.appendChild(clone);
+    openChildren(toggle) {
+        toggle.classList.add('is-open');
+        toggle.querySelector('.c-nav__toggle').setAttribute(
+            'aria-pressed',
+            true
+        )
+    }
+
+    closeChildren(toggle) {
+        toggle.classList.remove('is-open');
+        toggle.querySelector('.c-nav__toggle').setAttribute(
+            'aria-pressed',
+            false
+        )
+    }
+
+    getSiblings(elem) {
+        var siblings = [];
+        var sibling = elem.parentNode.firstChild;
+        while (sibling) {
+            if (sibling.nodeType === 1 && sibling !== elem) {
+                siblings.push(sibling);
+            }
+            sibling = sibling.nextSibling
         }
+        return siblings;
     }
 }
 

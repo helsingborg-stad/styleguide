@@ -263,7 +263,8 @@ class Navigation
                 'href' => '#',
                 'label' => 'Omsorg och stöd',
                 'children' => true,
-                'ID' => 1
+                'ID' => 1,
+                'style' => 'button'
             ]
 
         ];
