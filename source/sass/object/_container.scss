@@ -2,11 +2,17 @@
     width: 100%;
     max-width: $container-width;
     margin: 0 auto;   
-    padding: 0 calc(#{$base} * 3);
+    
+    padding: 0 calc(#{$base} * 2);
 
+    @include mq('sm') {
+        padding: 0 calc(#{$base} * 3);
+    }
+    
     @include mq('sm', 'md') {
         max-width: calc(#{$base} * 90);
     }
+    
 }
 
 .o-container.o-container--remove-spacing {
