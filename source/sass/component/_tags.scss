@@ -37,10 +37,10 @@ $c-tags-pill-drop-shadow: var(--c-tags-pill-drop-shadow, drop-shadow(0 2px 2px r
         &:hover, &:visited, &:active {
             color: inherit;
         }
+    }
 
-        &:hover {
-            text-decoration: underline;
-        }
+    a.c-tags__tag:hover {
+        text-decoration: underline;
     }
 
     &:hover {
