@@ -141,6 +141,11 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
   }
 
+  &.c-hero--has-content-background-color .c-hero__content {
+    margin: calc(var(--base, 8px)*3) 0;
+    padding: map-get($spacers, "6");
+  }
+
 
   .c-hero__title,
     .c-hero__byline,

@@ -18,5 +18,10 @@
         "heading": "Large hero (Without text)",
         "subHeading": "",
         "text": "Renders a large hero area, without text. Overlay should not be visible."
+    },
+    "contentBackgroundColor": {
+        "heading": "With content background color",
+        "subHeading": "",
+        "text": "Renders a hero with a background color for the content area."
     }
 }
