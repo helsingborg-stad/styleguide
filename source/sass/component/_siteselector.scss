@@ -97,7 +97,13 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
         border-radius: #{$c-siteselector-radius};
     }
 
-    .c-siteselector__more .c-nav.c-nav--depth-2:after {
-        left: calc(#{$base} * 0.75);
+    .c-siteselector__more .c-nav.c-nav--depth-2 {
+        left: auto;
+        right: 0;
+
+        &:after {
+            right: calc(#{$base} * 0.75);
+            left: auto;
+        }
     }
 }
