@@ -24,9 +24,14 @@
         "subHeading": "",
         "text": "Renders a hero with a background color for the content area."
     },
-    "contentPlacement": {
-        "heading": "Content placement",
+    "contentAlignment": {
+        "heading": "Content alignment",
         "subHeading": "",
-        "text": "Renders a hero with a content placed horizonal \"middle\" and vertical \"right\""
+        "text": "Renders a hero with a content aligned horizontal \"center\" and vertical \"center\"."
+    },
+    "textAlignment": {
+        "heading": "Text alignment",
+        "subHeading": "",
+        "text": "Renders a hero with text aligned center."
     }
 }
