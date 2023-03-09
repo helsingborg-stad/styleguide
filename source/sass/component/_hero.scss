@@ -131,6 +131,24 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
   .c-hero__container {
     align-self: flex-end;
+    display: flex;
+  }
+
+  &.c-hero--content-horizontal__center .c-hero__container {
+    justify-content: center;
+    text-align: center;
+  }
+
+  &.c-hero--content-horizontal__right .c-hero__container {
+    justify-content: flex-end;
+  }
+  
+  &.c-hero--content-vertical__top .c-hero__container {
+    align-self: flex-start;
+  }
+
+  &.c-hero--content-vertical__center .c-hero__container {
+    align-self: center;
   }
 
   .c-hero__content {

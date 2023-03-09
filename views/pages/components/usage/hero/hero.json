@@ -23,5 +23,10 @@
         "heading": "With content background color",
         "subHeading": "",
         "text": "Renders a hero with a background color for the content area."
+    },
+    "contentPlacement": {
+        "heading": "Content placement",
+        "subHeading": "",
+        "text": "Renders a hero with a content placed horizonal \"middle\" and vertical \"right\""
     }
 }
