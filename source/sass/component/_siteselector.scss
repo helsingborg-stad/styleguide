@@ -6,29 +6,29 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
 .c-siteselector {
 
     &.c-siteselector--radius-xs {
-        $c-siteselector-radius: $border-radius-xs;
+        --c-siteselector-radius: #{$border-radius-xs};
     }
 
     &.c-siteselector--radius-sm {
-        $c-siteselector-radius: $border-radius-sm;
+        --c-siteselector-radius: #{$border-radius-sm};
     }
 
     &.c-siteselector--radius-md {
-        $c-siteselector-radius: $border-radius-md;
+        --c-siteselector-radius: #{$border-radius-md};
     }
 
     &.c-siteselector--radius-lg {
-        $c-siteselector-radius: $border-radius-lg;
+        --c-siteselector-radius: #{$border-radius-lg};
     }
 
     &.c-siteselector--primary {
-        $c-siteselector-background: $color-primary;
-        $c-siteselector-contrast: $color-primary-contrasting;
+        --c-siteselector-background: #{$color-primary};
+        --c-siteselector-contrast: #{$color-primary-contrasting};
     }
 
     &.c-siteselector--secondary {
-        $c-siteselector-background: $color-secondary;
-        $c-siteselector-contrast: $color-secondary-contrasting;
+        --c-siteselector-background: #{$color-secondary};
+        --c-siteselector-contrast: #{$color-secondary-contrasting};
     }
 
     display: inline-flex;

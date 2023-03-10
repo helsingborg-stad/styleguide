@@ -1,6 +1,8 @@
-<div style="min-height: 100px;">
+@foreach(['xs', 'sm', 'md', 'lg', 'pill'] as $radius)
+<div class="u-padding--2">
   @siteselector([
-  'items' => [
+    'radius' => $radius,
+    'items' => [
       ['label' => 'This site', 'href' => 'https://' . $_SERVER['HTTP_HOST']],
       ['label' => 'Google', 'href' => 'https://google.com'],
       ['label' => 'Facebook', 'href' => 'https://facebok.com'],
@@ -9,3 +11,4 @@
   ])
   @endsiteselector
 </div>
+@endforeach

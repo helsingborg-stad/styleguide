@@ -1,6 +1,11 @@
 {
-    "default": {
-        "heading": "Siteselector - A few options",
+    "colors": {
+        "heading": "Siteselector with default color schemes",
+        "subHeading" : "",
+        "text": "A few options avabile."
+    },
+    "radius": {
+        "heading": "Siteselector with different radiuses",
         "subHeading" : "",
         "text": "A few options avabile."
     },
