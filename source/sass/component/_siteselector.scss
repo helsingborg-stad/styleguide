@@ -32,7 +32,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
     }
 
     display: inline-flex;
-    border-radius: $c-siteselector-radius;
+    border-radius: calc($c-siteselector-radius + calc(#{$base} * .5));
     padding: calc(#{$base} * .5);
     background-color: #{$c-siteselector-background}; 
     height: calc(#{$base} * 4.5);
