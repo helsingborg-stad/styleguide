@@ -1,0 +1,100 @@
+.c-filterselect {
+    .c-filterselect__select,
+    .c-filterselect__options {
+        display: none;
+    }
+
+    .c-filterselect__options {
+        background-color: $color-white;
+        padding: $base;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        max-height: calc($base * 30);
+        overflow-y: auto;
+    }
+
+    .c-filterselect__option {
+        padding: $base;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        .c-filter__checked-icon { 
+            display: none;
+        }
+
+        &.is-checked {
+            .c-filter__unchecked-icon {
+                display: none;
+            }
+
+            .c-filter__checked-icon {
+                display: block;
+            }
+        }
+    }
+
+    .c-filterselect__dropdown {
+        display: flex;
+        flex-direction: column;
+        width: calc($base * 40);
+        position: relative;
+    }
+
+    .c-filterselect__expand-button {
+        display: flex;
+        color: $color-light;
+        border: 1px solid $color-lighter;
+        border-radius: $border-radius-sm;
+        min-width: calc($base * 30);
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .c-filterselect__checked-items {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $base;
+        padding: $base;
+    }
+
+    .c-filterselect__checked-item {
+        color: $color-black;
+        font-size: $font-size-meta;
+        display: flex;
+        padding: calc($base * .5);
+        background-color: $color-lighter;
+        border-radius: $border-radius-xs;
+        align-items: center;
+    }
+
+    .c-filterselect__expand-less-icon,
+    .c-filterselect__expand-more-icon {
+        padding: $base;
+        border-left: 1px solid $color-lighter;
+        align-items: center;
+    }
+
+    .c-filterselect__expand-less-icon {
+        display: flex;
+    }
+
+    .c-filterselect__expand-more-icon {
+        display: none;
+    }
+
+     &.is-active {
+        .c-filterselect__options {
+            display: block;
+        }
+        .c-filterselect__expand-less-icon {
+            display: none;
+        }
+        .c-filterselect__expand-more-icon {
+            display: flex;
+        }
+    }
+}
