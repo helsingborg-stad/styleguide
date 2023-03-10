@@ -1,149 +1,84 @@
-/* .c-dropdown--on-click{
-    .c-btn:focus ~ .c-dropdown__list{
-        visibility: visible;
-        opacity: 1;
-    }
-} */
-.c-dropdown .c-dropdown__list {
-    white-space: nowrap;
-}
-.c-dropdown--on-hover {
+$color-primary: var(--color-primary, #76232f);
 
-    .c-button:hover~.c-dropdown__list {
-        visibility: visible;
-        opacity: 1;
-    }
+$dropdown-background: white;
+$dropdown-color: black;
 
-    .c-dropdown__list:hover {
-        visibility: visible;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        opacity: 1;
-    }
+$dropdown-hover-background: $color-secondary;
+$dropdown-hover-color: $color-primary;
 
-}
+$dropdown-active-background: $color-secondary-dark;
+$dropdown-active-color: $color-primary;
 
 .c-dropdown {
-    position:relative;
-    display:inline-block;
+    position: relative;
+}
 
-     &--scrollable {
-        .c-dropdown__list {
-            max-height:60vh;
-            overflow-y: scroll;
-        }           
+.c-dropdown__icon {
+
+    transition: 80ms ease-in-out transform;
+    will-change: transform;
+    transform: rotate(0);
+
+}
+
+.c-dropdown__list {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1;
+    width: 100%;
+    background-color: $dropdown-background;
+    padding: var(--base, 8px) 0;
+    filter: $drop-shadow-4;
+}
+
+.c-dropdown__item {
+    display: flex;
+    font-size: 14px;
+    line-height: $line-height-heading;
+}
+
+.c-dropdown__item a {
+    width: 100%;
+    padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-decoration: none;
+    color: $dropdown-color;
+
+    &:hover {
+        background-color: $dropdown-hover-background;
+        color: $dropdown-hover-color;
     }
 
-    &__list {
-        transition:opacity 0.3s ease-in;
-        position:absolute;
-        @include shadow(6);
-        z-index: $level-1;
-        background-color: $color-menu-background;
-        color: $color-menu-text;
-        visibility: hidden;
-        opacity: 0;
-
-        & li:hover {
-            background-color: $color-lighter;
-        }
-
-        & div {
-            flex-grow: 1;
-        }
-
-        & ul {
-            padding:0;
-
-            text-align: center;
-        }
-
-        & li {
-            padding-left: calc(#{$base} * 3.5);
-            padding-right: calc(#{$base} * 3.5);
-            padding-top: $base;
-            padding-bottom: $base;
-            list-style-type: none;
-            cursor:pointer;
-        }
-
-        & a {
-            text-decoration: none;
-        }
-
-        & a:visited {
-            color: $color-menu-text;
-        }
-
-        &--hidden {
-            visibility: hidden;
-        }
-
-        &--visible {
-            visibility: visible;
-            opacity: 1;
-        }
+    &:active {
+        background-color: $dropdown-active-background;
+        color: $dropdown-active-color;
     }
 }
 
-.c-dropdown-button--left__click {
 
-    .c-button:focus {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+// Modifiers 🎨
+.c-dropdown--left .c-dropdown__list {
+    left: 0;
+    right: initial;
+    max-width: initial;
+}
+
+.c-dropdown--right .c-dropdown__list {
+    left: initial;
+    right: 0;
+    max-width: initial;
+}
+
+// Stateful modifiers 🌤️
+.c-dropdown.is-open {
+    .c-dropdown__icon {
+        transform: rotate(-180deg);
     }
-}
 
-.c-dropdown-button--right__click {
-
-    .c-button:focus {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+    .c-dropdown__list {
+        display: initial;
     }
-}
-
-.c-dropdown-button--left__hover {
-
-    .c-button:hover {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-}
-
-.c-dropdown-button--right__hover {
-
-    .c-button:hover {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-}
-
-.c-dropdown__list--right {
-    top:0;
-    left:96%;
-}
-
-.c-dropdown__list--left {
-    top:0;
-    right:96%;
-}
-
-.c-dropdown__list--top {
-    bottom:96%;
-    left:0;
-}
-
-.c-dropdown__list--bottom {
-    top:96%;
-    left:0;
-}
-
-.c-dropdown__auto--position-right {
-    left: -4rem;
-    right:auto;
-}
-
-.c-dropdown__auto--position-left {
-    right: 58%;
-    left:auto;
-}
+} 
