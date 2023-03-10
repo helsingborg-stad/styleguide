@@ -6,6 +6,7 @@
     "byline" => "This is a byline",
     "paragraph" => "Aenean lacinia bibendum nulla sed consectetur. Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper nulla non metus auctor fringilla.",
     "contentBackgroundColor" => "#FFFFFF",
-    "contentAlignment" => ["horizontal" => "center", "vertical" => "center"]
+    "contentAlignmentHorizontal" => "center",
+    "contentAlignmentVertical" => "center",
 ])
 @endhero
