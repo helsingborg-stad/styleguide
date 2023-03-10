@@ -1,3 +1,4 @@
+import './dropdown';
 import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
@@ -8,7 +9,6 @@ import Modal from './modal';
 import Steppers from './steppers';
 import Image from './image';
 import SplitButton from './splitButton';
-import Dropdown from './dropdown';
 import Fields from './fields';
 import Slider from './slider';
 import EventCalendar from './calendar';
@@ -47,7 +47,6 @@ const TooltipInstance = new Tooltip();
 const SortInstance = new Sort();
 const ToggleInstance = new Toggle();
 const SplitButtonInstance = new SplitButton();
-const DropdownInstance = new Dropdown();
 const EventCalendarInstance = new EventCalendar();
 const TilesInstance = new Tiles();
 const NotificationInstance = new Notification();
@@ -98,7 +97,6 @@ if (testimonialCarousels) {
 
 SortInstance.applySort();
 ToggleInstance.applyToggle();
-DropdownInstance.setValidTargets();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
