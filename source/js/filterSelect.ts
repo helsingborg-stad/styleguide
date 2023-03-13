@@ -10,7 +10,7 @@ class FilterSelect {
         }
 
         selects.forEach((select => {
-            const hiddenSelect = select.querySelector('.c-filterselect__select') as HTMLSelectElement;
+            const hiddenSelect = select.querySelector('.c-filterselect__select select') as HTMLSelectElement;
             const expandButton = select.querySelector('.c-filterselect__expand-button');
             const options = select.querySelectorAll('.c-filterselect__option');
             const container = select.querySelector('.c-filterselect__checked-items');
