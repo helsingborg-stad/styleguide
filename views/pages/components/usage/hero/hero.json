@@ -33,5 +33,10 @@
         "heading": "Text alignment",
         "subHeading": "",
         "text": "Renders a hero with text aligned center."
+    },
+    "buttonArgs": {
+        "heading": "Button",
+        "subHeading": "",
+        "text": "Renders a hero with a button."
     }
 }

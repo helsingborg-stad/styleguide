@@ -193,6 +193,10 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     }
   }
 
+  .c-hero__content--link {
+    text-decoration: none;
+  }
+
   .c-hero__title,
     .c-hero__byline,
     .c-hero__meta,
