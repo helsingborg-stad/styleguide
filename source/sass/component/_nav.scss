@@ -26,12 +26,14 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     &.is-active,
     &.is-current,
     &:hover {
-      background-color: $c-nav-h-background-active;
+      > .c-nav__item-wrapper {
+        background-color: $c-nav-h-background-active;
 
-      .c-nav__text,
-      .c-nav__icon,
-      .c-nav__toggle {
-        color: $c-nav-h-color-contrasting-active;
+        .c-nav__text,
+        .c-nav__icon,
+        .c-nav__toggle {
+          color: $c-nav-h-color-contrasting-active;
+        }
       }
     }
   }
