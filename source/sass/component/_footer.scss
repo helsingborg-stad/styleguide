@@ -222,6 +222,11 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
             }
         }
     }
+    
+    //Todo: whole subfooter list implementation can/should be refactored and simplified
+    .c-footer__subfooter__wrapper {
+        overflow: hidden; //Quick fix until refactor
+    }
 }
 
 @include mq(map_get($breakpoints-map, "xs"), "md") {
