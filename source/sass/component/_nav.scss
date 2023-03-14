@@ -11,6 +11,8 @@ $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
 $c-nav-h-background-active: var(--c-nav-h-background-active) !default;
 $c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active) !default;
 $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
+$c-nav-h-gap: var(--c-nav-h-gap, 2) !default;
+
 
 .c-nav.c-nav.c-nav--horizontal {
 
@@ -172,7 +174,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   &.c-nav--depth-1 {
-    gap: calc(#{$base} * 2);
+    gap: calc($c-nav-h-gap * $base);
   }
 
   .c-nav__item--depth-1 > .c-nav__item-wrapper {
