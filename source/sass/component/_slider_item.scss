@@ -36,7 +36,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         z-index: $level-4;
         color: $c-slider-color-overlay-contrasting;
         background-color: $c-slider-color-overlay;
-        backdrop-filter: blur(1px);
+        // backdrop-filter: blur(1px); not working with firefox (since parent has a filter styling)
     }
     
     .c-slider__item__body {

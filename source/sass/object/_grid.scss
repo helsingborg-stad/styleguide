@@ -88,38 +88,39 @@
         @include mq($breakpoint) {
             .o-grid,
             .grid {
-                gap: #{$gutter};
+                --grid-gap: #{$gutter};
+                gap: var(--grid-gap);
             }
 
             // Form column margins modifier
             .o-grid.o-grid--form,
             .o-grid.o-grid--half-gutter {
-                gap: calc(#{$gutter} * .5); 
+                --grid-gap: #{calc($gutter / 2)}; 
             }
 
             //Utility 
             .u-flex--gridgap {
-                gap: #{$gutter};
+                gap: var(--grid-gap);
             }
 
             .u-flex--gridgap-row {
-                row-gap: #{$gutter};
+                row-gap: var(--grid-gap);
             }
 
             .u-flex--gridgap-col {
-                column-gap: #{$gutter};
+                column-gap: var(--grid-gap);
             }
         }
     }
 
     .o-grid.o-grid--no-gutter,
     .grid.grid--no-gutter {
-        gap: 0;
+        --grid-gap: 0px;
     }
 
     .o-grid.o-grid--no-margin,
     .grid.grid--no-margin {
-        gap: 0; 
+        --grid-gap: 0px;
     }
     
     .o-grid.o-grid--valign,
@@ -158,8 +159,7 @@
             //Auto width column (eg .o-grid-auto@md)
             .o-grid-auto#{$suffix},
             .grid-#{$breakpoint}-auto {
-                flex-basis: 0;
-                flex-grow: 1;
+                flex: 1 1 0;
                 max-width: 100%;
                 min-width: 0;
             }
@@ -173,82 +173,46 @@
             }
 
             //Support for standard gutter
-            @for $i from 1 to $columns + 1 {
-                
-                //Width based Columns (eg .grid-md-6)
+            @for $i from 1 to $columns {
+                $columnWidth: (math.div($i, $columns) * 100) * 1%;
+                $gapWidth: calc(var(--grid-gap) * (1 - ($i/$columns)));
+                $columnWidthAfterSubtractGap: calc(#{$columnWidth} - #{$gapWidth});
+
+                //Width based Columns (eg .o-grid-6@md, o-grid-4@lg)
                 .o-grid-#{$i}#{$suffix},
                 .grid-#{$breakpoint}-#{$i} {
-                    @if $i != 12 {
-                        flex: 0 0 calc(
-                            #{calc($i / $columns) * 100 * 1%} 
-                            - calc(var(--o-grid-gap, 4) * #{$base}) 
-                            * #{1 - math.div($i, $columns)}
-                        );
-                        max-width: calc(
-                            #{calc($i / $columns) * 100 * 1%} 
-                            - calc(var(--o-grid-gap, 4) * #{$base}) 
-                            * #{1 - math.div($i, $columns)}
-                        );
-                    } else {
-                        flex: 1; 
-                    }
+                    flex: 0 0 $columnWidthAfterSubtractGap;
+                    max-width: $columnWidthAfterSubtractGap;
                 }
 
-                //Gutterless
-                .o-grid.o-grid--no-gutter,
-                .grid.grid--no-gutter {
-                    .o-grid-#{$i}#{$suffix},
-                    .grid-#{$breakpoint}-#{$i} {
-                        flex: 0 0 calc(#{calc($i / $columns) * 100%});
-                        max-width: calc(#{calc($i / $columns) * 100%});
-                    }
-                }
-
-                //Form (tight)
-                .o-grid.o-grid--form,
-                .grid.grid--form,
-                .o-grid.o-grid--half-gutter,
-                .grid.grid--half-gutter {
-                    .o-grid-#{$i}#{$suffix},
-                    .grid-#{$breakpoint}-#{$i} {
-                        flex: 0 0 calc(
-                            #{calc($i / $columns) * 100%} 
-                            - calc(var(--o-grid-gap, 4) * #{$base}) 
-                            * #{1 - math.div($i, $columns)}
-                            * 0.5
-                        );
-                        max-width: calc(
-                            #{calc($i / $columns) * 100%} 
-                            - calc(var(--o-grid-gap, 4) * #{$base}) 
-                            * #{1 - math.div($i, $columns)}
-                            * 0.5
-                        );
-                    }
-                }
-
-                //Order (eg .order-md-6)
+                //Order (eg .o-order-1@md)
                 .o-order-#{$i}#{$suffix},
                 .order-#{$breakpoint}-#{$i} {
                     order: $i;
                 }
 
-                //Offset (eg .offset-md-6)
+                //Offset (eg .o-offset-4@md)
                 .o-offset-#{$i}#{$suffix},
                 .offset-#{$breakpoint}-#{$i} {
-                    margin-left: #{calc($i / $columns) * 100 * 1%};
+                    margin-left: calc(#{$columnWidthAfterSubtractGap} + var(--grid-gap));
                 }
             }
         }
     }
 }
 
+
+
+
 $o-grid-gap: var(--o-grid-gap, 4);
 $o-grid-columns: 12 !default;
 $o-grid-breakpoints: map-keys($breakpoints-map) !default;
+
 $o-grid-gutters: (
-    xs : calc(#{$base} * #{$o-grid-gap} * 0.5),
-    md : calc(#{$base} * #{$o-grid-gap} * 0.75),
-    lg : calc(#{$base} * #{$o-grid-gap}),
+    xs : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
+    md : calc(#{$base} * #{$o-grid-gap} * 0.75),  //24
+    lg : calc(#{$base} * #{$o-grid-gap}), // 32
 ) !default;
 
 @include generateGrid($o-grid-columns, $o-grid-breakpoints, $o-grid-gutters);
+

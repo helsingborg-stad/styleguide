@@ -7,57 +7,6 @@
     "content-hash": "b8b048c4fbbbdd8202b1f24db5f90543",
     "packages": [
         {
-            "name": "benjamincrozat/blade",
-            "version": "2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/benjamincrozat/blade.git",
-                "reference": "e269eeb7690d544da40a560a509e9ee353d276c4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/benjamincrozat/blade/zipball/e269eeb7690d544da40a560a509e9ee353d276c4",
-                "reference": "e269eeb7690d544da40a560a509e9ee353d276c4",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/view": "5.*|6.*|7.*",
-                "php": "5.6.*|7.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "5.*|6.*|7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "BC\\Blade\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Benjamin Crozat",
-                    "email": "benjamincrozat@me.com"
-                }
-            ],
-            "description": "Use Laravel Blade in any PHP project.",
-            "homepage": "https://github.com/benjamincrozat/bade",
-            "keywords": [
-                "blade",
-                "engine",
-                "laravel",
-                "templates"
-            ],
-            "support": {
-                "issues": "https://github.com/benjamincrozat/bade/issues",
-                "source": "https://github.com/benjamincrozat/blade/tree/2.0.1"
-            },
-            "time": "2020-02-06T09:55:11+00:00"
-        },
-        {
             "name": "doctrine/inflector",
             "version": "1.4.x-dev",
             "source": {
@@ -204,22 +153,73 @@
             "time": "2019-03-17T18:47:21+00:00"
         },
         {
+            "name": "helsingborg-stad/blade",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/Blade.git",
+                "reference": "052a2b4822843a16123408796bf293073ef13a4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/052a2b4822843a16123408796bf293073ef13a4f",
+                "reference": "052a2b4822843a16123408796bf293073ef13a4f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/view": "5.*|6.*|7.*|8.*",
+                "php": "5.6.*|7.*|8.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*|6.*|7.*|8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BC\\Blade\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Crozat",
+                    "email": "benjamincrozat@me.com"
+                }
+            ],
+            "description": "Use Laravel Blade in any PHP project.",
+            "homepage": "https://github.com/helsingborg-stad/blade",
+            "keywords": [
+                "blade",
+                "engine",
+                "laravel",
+                "templates"
+            ],
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/blade/issues",
+                "source": "https://github.com/helsingborg-stad/Blade/tree/1.0.0"
+            },
+            "time": "2023-03-14T10:11:47+00:00"
+        },
+        {
             "name": "helsingborg-stad/blade-engine-wrapper",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/blade-engine-wrapper.git",
-                "reference": "5574eff7d510f493c024cd550dc3b1371f0f12c1"
+                "reference": "895071376959063c0f23e2461b462cf74967b6db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/5574eff7d510f493c024cd550dc3b1371f0f12c1",
-                "reference": "5574eff7d510f493c024cd550dc3b1371f0f12c1",
+                "url": "https://api.github.com/repos/helsingborg-stad/blade-engine-wrapper/zipball/895071376959063c0f23e2461b462cf74967b6db",
+                "reference": "895071376959063c0f23e2461b462cf74967b6db",
                 "shasum": ""
             },
             "require": {
-                "benjamincrozat/blade": "^2.0",
                 "doctrine/inflector": "^1.4.1",
+                "helsingborg-stad/blade": "^1.0",
                 "illuminate/container": "^5.8.36",
                 "illuminate/contracts": "^5.8.36",
                 "illuminate/events": "^5.8.36",
@@ -260,7 +260,7 @@
                 "issues": "https://github.com/helsingborg-stad/blade-engine-wrapper/issues",
                 "source": "https://github.com/helsingborg-stad/blade-engine-wrapper/tree/master"
             },
-            "time": "2021-03-05T11:06:33+00:00"
+            "time": "2023-03-14T10:35:58+00:00"
         },
         {
             "name": "illuminate/container",
@@ -1383,5 +1383,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
