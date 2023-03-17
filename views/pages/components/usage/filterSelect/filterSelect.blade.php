@@ -1,5 +1,5 @@
 @filterSelect([
-    'options' => HbgStyleGuide\Helper\MockupArrays::getMockupArray(['label', 'value'], 31),
+    'options' => HbgStyleGuide\Helper\MockupArrays::optionsList(['label', 'value'], 31),
     'attributeList' => ['style' => 'height: 400px']
 ])
 @endfilterSelect

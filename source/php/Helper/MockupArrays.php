@@ -4,7 +4,7 @@ namespace HbgStyleGuide\Helper;
 
 class MockupArrays
 {
-    public static function getMockupArray($keys, $amount)
+    public static function optionsList($keys, $amount)
     {
         $arr = [];
             for ($i = 0; $i < $amount; $i++) {
