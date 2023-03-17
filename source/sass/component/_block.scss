@@ -27,6 +27,13 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         margin-top: auto;
         position: relative;
 
+        .c-block__floating {
+            position: absolute;
+            right: $base;
+            top: $base;
+            z-index: $level-3;
+        }
+
         &::after {
             content: '';
             position: absolute;

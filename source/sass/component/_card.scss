@@ -49,6 +49,13 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    .c-card__floating {
+        position: absolute;
+        right: $base;
+        top: $base;
+        z-index: $level-3;
+    }
+
     &--focus-inset:focus {
         @include focus-inset($c-card-border-radius);
     }
