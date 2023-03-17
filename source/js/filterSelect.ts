@@ -4,11 +4,8 @@ class FilterSelect {
     }
 
     setListeners() {
-        const selects = document.querySelectorAll('.c-filterselect');
-        if(!selects) {
-            return;
-        }
-
+        const selects = [...document.querySelectorAll('.c-filterselect')];
+        
         selects.forEach((select => {
             const hiddenSelect = select.querySelector('.c-filterselect__select select') as HTMLSelectElement;
             const expandButton = select.querySelector('.c-filterselect__expand-button');

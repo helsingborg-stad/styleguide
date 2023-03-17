@@ -1,3 +1,16 @@
+$c-filterselect-options-background-color: var(--c-filterselect-options-background-color, $color-white) !default;
+
+/* Expand Button */
+$c-filterselect-expand-color: var(--c-filterselect-expand-color, $c-field-border-color) !default;
+$c-filterselect-expand-border-color: var(--c-filterselect-expand-border-color, $c-field-border-color) !default;
+$c-filterselect-expand-border-radius: var(--c-filterselect-expand-border-radius, $c-field-border-radius) !default;
+
+/* Checked item */
+$c-filterselect-checked-color: var(--c-filterselect-checked-color, $color-black) !default;
+$c-filterselect-checked-background-color: var(--c-filterselect-checked-background-color, $color-lighter) !default;
+$c-filterselect-checked-border-radius: var(--c-filterselect-checked-border-radius, $border-radius-xs) !default;
+$c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font-size-meta) !default;
+
 .c-filterselect {
     .c-filterselect__select,
     .c-filterselect__options {
@@ -5,7 +18,7 @@
     }
 
     .c-filterselect__options {
-        background-color: $color-white;
+        background-color: $c-filterselect-options-background-color;
         padding: $base;
         position: absolute;
         top: 100%;
@@ -43,10 +56,11 @@
 
     .c-filterselect__expand-button {
         display: flex;
-        color: $color-light;
-        border: 1px solid $color-lighter;
-        border-radius: $border-radius-sm;
+        color: $c-filterselect-expand-color;
+        border: 1px solid $c-filterselect-expand-border-color;
+        border-radius: $c-filterselect-expand-border-radius;
         min-width: calc($base * 30);
+        min-height: calc($base * 6.5);
         justify-content: space-between;
         cursor: pointer;
     }
@@ -61,19 +75,19 @@
     }
 
     .c-filterselect__checked-item {
-        color: $color-black;
-        font-size: $font-size-meta;
+        color: $c-filterselect-checked-color;
+        font-size: $c-filterselect-checked-font-size;
         display: flex;
         padding: calc($base * .5);
-        background-color: $color-lighter;
-        border-radius: $border-radius-xs;
+        background-color: $c-filterselect-checked-background-color;
+        border-radius: $c-filterselect-checked-border-radius;
         align-items: center;
     }
 
     .c-filterselect__expand-less-icon,
     .c-filterselect__expand-more-icon {
         padding: $base;
-        border-left: 1px solid $color-lighter;
+        border-left: 1px solid $c-filterselect-expand-border-color;
         align-items: center;
     }
 

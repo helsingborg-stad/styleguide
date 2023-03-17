@@ -1,5 +1,15 @@
+@php 
+$options = [];
+    for ($i = 0; i <= 100; $i++) {
+        $option = [
+            'label' => 'Option' . $i;
+            'value' => 'option-' . $i;
+        ];
+    $options[] = $option;
+    }
+@endphp
 @filterSelect([
-    'options' => [['label' => 'Option 1', 'value' => 'option-1'], ['label' => 'Option 2', 'value' => 'option-2']],
+    'options' => $options,
     'attributeList' => ['style' => 'height: 400px']
 ])
 @endfilterSelect
