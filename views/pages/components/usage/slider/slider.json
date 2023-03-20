@@ -28,5 +28,11 @@
         "heading": "Slider with Cards",
         "subHeading" : "",
         "text": ""
+    },
+    "slider_with_segment": {
+        "grid": "",
+        "heading": "Slider with Segment",
+        "subHeading": "",
+        "text": ""
     }
 }

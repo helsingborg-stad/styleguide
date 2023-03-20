@@ -3,6 +3,7 @@ $c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, $color-alph
 $c-hero-color-font-white: var(--c-hero-color-font-white, $color-white) !default;
 $c-hero-color-font-black: var(--c-hero-color-font-black, $color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radius-lg) !default;
 
 
 .c-hero {
@@ -133,14 +134,68 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     align-self: flex-end;
   }
 
+  @include mq(map_get($breakpoints-map, "md")) {
+
+    .c-hero__container {
+      align-self: flex-end;
+      display: flex;
+    }
+
+    &.c-hero--content-horizontal__center .c-hero__container {
+      justify-content: center;
+    }
+
+    &.c-hero--content-horizontal__right .c-hero__container {
+      justify-content: flex-end;
+    }
+    
+    &.c-hero--content-vertical__top .c-hero__container {
+      align-self: flex-start;
+    }
+
+    &.c-hero--content-vertical__center .c-hero__container {
+      align-self: center;
+    }
+
+    &.c-hero--text-align__center .c-hero__container {
+      text-align: center;
+    }
+
+    &.c-hero--text-align__right .c-hero__container {
+      text-align: right;
+    }
+
+  }
+
   .c-hero__content {
     padding: map-get($spacers, "6") 0;
     max-width: calc( #{$base} * 87);
     z-index: $level-2;
     position: relative;
+  }
+  
+  &.c-hero--overlay .c-hero__content {
     text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
   }
 
+  &.c-hero--has-content-background-color {
+    .c-hero__content {
+      margin: calc(var(--base, 8px)*3) 0;
+      padding: map-get($spacers, "6");
+    }
+
+    &.c-hero--apply-rounded-corners .c-hero__content {
+      border-radius: $c-hero-content-border-radius;
+    }
+
+    &.c-hero--apply-shadows .c-hero__content {
+      filter: $drop-shadow-2;
+    }
+  }
+
+  .c-hero__content--link {
+    text-decoration: none;
+  }
 
   .c-hero__title,
     .c-hero__byline,
@@ -149,11 +204,13 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
   }
 
-  .c-hero__title,
-  .c-hero__byline,
-  .c-hero__meta,
-  .c-hero__body {
-    color: $c-hero-color-font-contrasting;
+  &.c-hero--overlay {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-contrasting;
+    }
   }
   
   &.c-hero--color-black {
