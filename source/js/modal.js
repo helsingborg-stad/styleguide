@@ -20,8 +20,11 @@ class Modal {
             trigger.addEventListener('click', function () {
                 this.modalId = this.getAttribute('data-open'); //this.dataset.open;
                 const modal = document.getElementById(this.modalId);
-                modal.classList.add('c-modal--visible');
-                modal.showModal();
+
+                if (!modal.hasAttribute('open')) { // check if the dialog is already open
+                    modal.classList.add('c-modal--visible');
+                    modal.showModal();
+                }
 
                 if (this.getAttribute('data-large-img')) {
                     // Gallery
