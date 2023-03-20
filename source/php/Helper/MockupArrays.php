@@ -7,12 +7,10 @@ class MockupArrays
     public static function optionsList($keys, $amount)
     {
         $arr = [];
+        foreach ($keys as $key) {
             for ($i = 0; $i < $amount; $i++) {
-                $keyArr = [];
-                foreach ($keys as $key) {
-                    $keyArr[$key] = $key . ' ' . $i;
-                }
-            $arr[] = $keyArr;
+                $arr[$key . ' ' . $i] = $key . ' ' . $i;
+            }
         };
 
         return $arr;
