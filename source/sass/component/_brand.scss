@@ -1,0 +1,38 @@
+
+
+$c-brand-contrast-color: var(--c-brand-contrast-color, $color-primary) !default;
+$c-brand-font-size: var(--c-brand-font-size, $font-size-brand) !default;
+$c-brand-height: var(--c-brand-height) !default;
+
+.c-brand {
+  .c-brand__logotype {
+    height: $c-brand-height;
+  }
+
+  .c-brand__viewbox {
+    height: $c-brand-height;
+  }
+
+  .c-brand__container {
+    height: $c-brand-height;
+    display: flex;
+    gap: map-get($spacers, "3");
+    align-items: center;
+  }
+
+  .c-brand__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    font-size: $c-brand-font-size;
+    color: $c-brand-contrast-color;
+    line-height: 1.2;
+    justify-content: center;
+  }
+
+  .c-brand__line {
+    white-space: nowrap;
+    display: block;
+  }
+}
