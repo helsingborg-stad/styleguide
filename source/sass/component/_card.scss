@@ -66,6 +66,11 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    &.c-card__icon {
+        padding: $base;
+        border-radius: 50%;
+    }
+
     &--outline {
         border: $c-card-border-width solid;
     }
