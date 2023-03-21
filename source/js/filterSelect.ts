@@ -16,6 +16,10 @@ class FilterSelect {
                 return;
             }
 
+            if (hiddenSelect.querySelector("option[selected]")) {
+                this.handlePreselected(hiddenSelect, options, expandButton, container);
+            }
+
             document.addEventListener('click', (e) => {
                 if(!select.contains(e.target as Node)) {
                     select.classList.remove('is-active');
@@ -54,6 +58,21 @@ class FilterSelect {
                 return;
             }
         }
+    }
+
+    handlePreselected(hiddenSelect: HTMLSelectElement, options: NodeListOf<Element>, expandButton: Element, container: Element) {
+        const preselected = [...hiddenSelect.querySelectorAll('option[selected]')]
+        .map(option => option.getAttribute('value'))
+        .filter(value => value !== null) as string[];
+
+        options.forEach(option => {
+            const optionAttr = option.getAttribute('js-select-value');
+            if (optionAttr !== null && preselected.includes(optionAttr)) {
+                this.addTemplate(option, optionAttr, container, hiddenSelect);
+                container.querySelector('.c-filterselect__placeholder')?.remove();
+                option.classList.add('is-checked');
+            }
+        });
     }
 
     addTemplate(option: Element, optionAttr: string | null, container: Element, hiddenSelect: HTMLSelectElement) {
