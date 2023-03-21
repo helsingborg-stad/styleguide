@@ -52,6 +52,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             flex-grow: 1;
         }
 
+        &.c-segment--no-image .c-segment__content {
+            margin-top: 0;
+        }
+
         .c-segment__content-card {
             padding: calc($base * 3) calc($base * 5);
             height: 100%;
@@ -76,6 +80,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 width: min(60%, calc($base * 60));
                 min-height: calc($base * 40);
                 margin-top: calc($base * -35);
+            }
+             
+            &.c-segment--no-image .c-segment__content {
+                margin-top: 0;
             }
 
             &.c-segment--height-full-screen {
