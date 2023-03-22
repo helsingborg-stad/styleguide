@@ -35,6 +35,7 @@ import Nav from './nav';
 import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
 import FilterSelect from './filterSelect';
+import Map from './map';
 import './helpers/swipe';
 
 expandSection();
@@ -61,6 +62,7 @@ const ButtonToggleInstance = new ButtonToggle();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
 const FilterSelectInstance = new FilterSelect();
+const MapInstance = new Map();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
