@@ -1,7 +1,11 @@
 .c-listing {
+    .c-listing__item,
     .c-listing__link {
         display: flex;
-        gap: $base;
+        gap: calc($base * .5);
+    }
+
+    .c-listing__link {
         text-decoration: none;
 
         .c-listing__label {
