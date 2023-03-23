@@ -1,23 +1,23 @@
 .c-listing {
-    font-size: $font-size-title;
-    
-    &__item,
-    &__link {
-        &,
-        &:visited {
-            color: $color-darker;
-            text-decoration: none;
-        }
+    .c-listing__link {
+        display: flex;
+        gap: $base;
+        text-decoration: none;
 
-        .c-icon {
-            vertical-align: text-bottom;
+        .c-listing__label {
+            text-decoration: underline;
         }
     }
-}
 
-a.c-listing__link {
-    &:hover,
-    &:visited:hover  {
-        color: $color-darkest;
+    @for $i from 0 to 11 {
+        &.c-listing--padding-#{$i} {
+            .c-listing__item {
+                padding-bottom: calc($base * ($i/2));
+            }
+
+            .c-listing__item:last-child {
+                padding-bottom: 0;
+            }
+        }
     }
 }
