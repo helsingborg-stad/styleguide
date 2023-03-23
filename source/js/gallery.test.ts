@@ -1,4 +1,3 @@
-// @ts-ignore
 import Gallery from "./gallery"
 
 describe('Gallery', () => {
