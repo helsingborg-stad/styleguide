@@ -1,0 +1,8 @@
+{
+    "description": {
+        "data-move-to": "Query selector used to find the element to append the element to."
+    },
+    "attributes": {
+        "data-move-to": "Ex. \"#target-element\" "
+    }
+}
