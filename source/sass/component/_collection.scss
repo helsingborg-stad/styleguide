@@ -173,6 +173,7 @@ $c-collection-item-border-color: var(--c-collection-card-border-color, $color-li
             margin-top: -1px;
             border-bottom: 1px solid $c-collection-item-border-color;
             border-top: 1px solid $c-collection-item-border-color;
+            gap: calc($base * 2);
             &:last-child {
                 margin-bottom: 0;
             }
