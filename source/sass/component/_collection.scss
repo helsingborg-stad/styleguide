@@ -22,6 +22,9 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-outli
 $c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
 $c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 
+$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, $border-radius-lg) !default;
+$c-collection-item-border-color: var(--c-collection-card-border-color, $color-lighter) !default;
+
 
 // Reset
 .c-collection {
@@ -156,6 +159,44 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
         border-bottom: none;
         border-left: none;
         display: none;
+    }
+
+    // Modifiers - Posts
+    &.c-collection--posts {
+        padding-top: 0;
+        padding-bottom: 0; 
+        border: none;
+        
+        .c-collection__item--post {
+            padding-bottom: calc($base * 1.5);
+            padding-top: calc($base * 1.5 + 1px);
+            margin-top: -1px;
+            border-bottom: 1px solid $c-collection-item-border-color;
+            border-top: 1px solid $c-collection-item-border-color;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            .c-collection__item__image {
+                display: flex;
+
+                img {
+                    aspect-ratio: 16/9;
+                    border-radius: $c-collection-item-image-border-radius;
+                    @include mq('sm') {
+                        max-width: calc($base * 20);
+                        aspect-ratio: 1/1;
+                    }
+                }
+            }
+        }
+        .c-image {
+            margin: 0;
+            .c-image__image {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
     }
 }
 
