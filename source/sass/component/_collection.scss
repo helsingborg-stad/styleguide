@@ -176,7 +176,7 @@ $c-collection-item-border-color: var(--c-collection-card-border-color, $color-li
             &:last-child {
                 margin-bottom: 0;
             }
-            .c-collection__item__image {
+            .c-collection__item__before {
                 display: flex;
 
                 img {
