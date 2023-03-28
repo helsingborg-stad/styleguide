@@ -207,8 +207,11 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
                  .c-collection__content {
                     margin: $base 0;
+                }
+                
+                .c-collection__item__before + .c-collection__content {
                     margin-left: calc($base * -2);
-                 }
+                }
             }
             &.c-collection__item--action {
                 &:hover {
