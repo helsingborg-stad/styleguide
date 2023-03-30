@@ -5,6 +5,12 @@ $wrap: wrap, wrap-reverse, nowrap;
 .c-group {
     display: flex;
 
+    @for $i from 1 through 10 {
+        .c-group--gap-#{$i} {
+            gap: calc($base * #{$i});
+        }
+    }
+
     @each $key in $position {
         &.c-group--justify-content-#{$key} {
             justify-content: $key;
