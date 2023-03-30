@@ -190,6 +190,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             }
         }
 
+        &.c-field--rounded-border {
+            .c-field__inner {
+                border: $c-field-border-width solid $c-field-border-color;
+            }
+        }
+
         input:focus + .c-field_focus-styler,
         textarea:focus + .c-field_focus-styler {
                 border-radius: calc($base * 3);
