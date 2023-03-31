@@ -198,7 +198,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         input:focus + .c-field_focus-styler,
         textarea:focus + .c-field_focus-styler {
-                border-radius: calc($base * 3);
+            border-radius: calc($base * 3);
         }
     }
 

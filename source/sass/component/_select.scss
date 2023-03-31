@@ -87,6 +87,12 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
                 border-radius: calc($base * 3);
             }
         }
+
+        &.c-select--rounded-border {
+            select {
+                border: $c-field-border-width solid $c-field-border-color;
+            }
+        }
     }
     
     /* Size modifiers */ 
