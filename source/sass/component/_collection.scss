@@ -165,7 +165,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         padding-top: 0;
         padding-bottom: 0; 
         border: none;
-        
+
         .c-collection__item--post {
             flex-direction: column;
             height: 100%;
@@ -187,11 +187,21 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                 }
             }
 
+            .c-collection__item__icon { 
+                display: none;
+            }
+
             .c-collection__content {
                 background-color: $c-collection-item-background-color;
                 border-radius: $c-collection-item-content-border-radius;
                 filter: $drop-shadow-2;
                 margin: calc($base * -1) 0 0 0;
+            }
+
+            &.c-collection--show-icon {
+                .c-collection__item__icon {
+                    display: block;
+                }
             }
 
             &.c-collection__item--size-xs {
