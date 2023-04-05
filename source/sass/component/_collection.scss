@@ -198,7 +198,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                 margin: calc($base * -1) 0 0 0;
             }
 
-            &.c-collection--show-icon {
+            &.c-collection__item--show-icon {
                 .c-collection__item__icon {
                     display: block;
                 }
