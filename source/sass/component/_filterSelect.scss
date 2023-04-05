@@ -25,6 +25,7 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         width: 100%;
         max-height: calc($base * 30);
         overflow-y: auto;
+        z-index: $level-3;
     }
 
     .c-filterselect__option {
@@ -63,6 +64,7 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         min-height: calc($base * 6.5);
         justify-content: space-between;
         cursor: pointer;
+        z-index: $level-2;
     }
 
     .c-filterselect__checked-items {
