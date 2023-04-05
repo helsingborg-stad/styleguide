@@ -94,11 +94,11 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
     }
 
     .c-filterselect__expand-less-icon {
-        display: flex;
+        display: none;
     }
 
     .c-filterselect__expand-more-icon {
-        display: none;
+        display: flex;
     }
 
      &.is-active {
@@ -106,10 +106,10 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
             display: block;
         }
         .c-filterselect__expand-less-icon {
-            display: none;
+            display: flex;
         }
         .c-filterselect__expand-more-icon {
-            display: flex;
+            display: none;
         }
     }
 }
