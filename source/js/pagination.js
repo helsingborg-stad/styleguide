@@ -113,7 +113,18 @@ export default class Pagination {
                 let next = e.target.closest(`[${this.indexLinks}]`).getAttribute(this.indexLinks);
                 this.paginateSetCurrent(next);
                 this.tableRefresh();
+                this.scrollToTop();
             })
+        });
+    }
+
+    scrollToTop() {
+        let element = this.listContainer.querySelector('[js-pagination-item]:first-child');
+        if (!element) { return };
+        let elementPosition = element.getBoundingClientRect().top;
+        let offsetPosition = elementPosition + window.pageYOffset - 100;
+        window.scrollTo({
+            top: offsetPosition,
         });
     }
 
@@ -133,6 +144,7 @@ export default class Pagination {
 
             if ((this.paginationCurrent()) != this.paginatePages()) {
                 this.paginateSetCurrent(this.paginationCurrent() +1);
+                this.scrollToTop();
             }
 
             this.tableRefresh();
@@ -142,6 +154,7 @@ export default class Pagination {
             e.preventDefault();
             this.paginateSetCurrent(this.paginationCurrent() -1);
             this.tableRefresh();
+            this.scrollToTop();
         })
     }
 
