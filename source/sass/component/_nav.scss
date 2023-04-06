@@ -55,7 +55,6 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     &.is-active,
-    &.is-current,
     &:hover {
       > .c-nav__item-wrapper {
         background-color: $c-nav-v-background-active;
@@ -182,7 +181,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   > .c-nav__item.is-current > .c-nav__item-wrapper .c-nav__link:after,
-  > .c-nav__item:hover      > .c-nav__item-wrapper .c-nav__link:after{
+  > .c-nav__item > .c-nav__item-wrapper:hover .c-nav__link:after{
     display: block;
   }
 
