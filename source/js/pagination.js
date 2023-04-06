@@ -56,26 +56,44 @@ export default class Pagination {
     }
 
     paginationLinks() {
-        if(!this.link) {
+        if (!this.link) {
             this.link = this.container.querySelector(`[${this.indexLinks}]`);
+            console.log(this.indexLinks);
             this.link.classList.remove("c-pagination__item--is-active");
         }
-        
+
         const body = this.container.querySelector(`[js-table-pagination--links]`);
-        this.paginationContainer.classList.remove('u-display--none')
+        const navigation = this.container.querySelector('[js-pagination]');
+        let pagesToShow = false;
+        if (navigation?.hasAttribute('js-pagination-pages-to-show')) {
+            pagesToShow = parseInt(navigation.getAttribute('js-pagination-pages-to-show'));
+            pagesToShow = pagesToShow % 2 === 0 ? pagesToShow : pagesToShow + 1;
+        }
+        this.paginationContainer.classList.remove('u-display--none');
         body.innerHTML = "";
 
-        if(this.paginatePages() > 1) {
-            // eslint-disable-next-line no-plusplus
-            for (let index = 0; index < this.paginatePages(); index++) {
+        const numPages = this.paginatePages();
+        const currentPage = this.paginationCurrent();
+
+        if (numPages > 1) {
+            let start = Math.max(currentPage - Math.floor(pagesToShow ? (pagesToShow / 2) : 100), 1);
+            let end = Math.min(currentPage + Math.floor(pagesToShow ? (pagesToShow / 2) : 100), numPages);
+
+            if (start === 1) {
+                end = Math.min(numPages, start + (pagesToShow ? pagesToShow : 100));
+            } else if (end === numPages) {
+                start = Math.max(1, end - (pagesToShow ? pagesToShow : 100));
+            }
+
+            for (let index = start; index <= end; index++) {
                 const elm = this.link.cloneNode(true);
-                // elm.innerHTML = index +1;
+                elm.setAttribute(this.indexLinks, index);
+                elm.querySelector('.c-button__label-text').innerHTML = index;
+
                 elm.querySelector('.c-button').classList.remove('c-button__filled--primary');
                 elm.querySelector('.c-button').classList.add('c-button__filled--default');
-                elm.setAttribute(this.indexLinks, index +1);
-                elm.querySelector('.c-button__label-text').innerHTML = index +1;
 
-                if((index +1) === this.paginationCurrent() ){
+                if (index === currentPage) {
                     elm.querySelector('.c-button').classList.add('c-button__filled--primary');
                     elm.querySelector('.c-button').classList.remove('c-button__filled--default');
                 }
@@ -83,7 +101,7 @@ export default class Pagination {
                 body.appendChild(elm);
             }
         } else {
-            this.paginationContainer.classList.add('u-display--none')
+            this.paginationContainer.classList.add('u-display--none');
         }
     }
 
