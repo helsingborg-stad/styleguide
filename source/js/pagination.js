@@ -58,7 +58,6 @@ export default class Pagination {
     paginationLinks() {
         if (!this.link) {
             this.link = this.container.querySelector(`[${this.indexLinks}]`);
-            console.log(this.indexLinks);
             this.link.classList.remove("c-pagination__item--is-active");
         }
 
