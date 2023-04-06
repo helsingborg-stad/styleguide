@@ -121,11 +121,7 @@ export default class Pagination {
     scrollToTop() {
         let element = this.listContainer.querySelector('[js-pagination-item]:first-child');
         if (!element) { return };
-        let elementPosition = element.getBoundingClientRect().top;
-        let offsetPosition = elementPosition + window.pageYOffset - 100;
-        window.scrollTo({
-            top: offsetPosition,
-        });
+        element.scrollIntoView();
     }
 
     // eslint-disable-next-line class-methods-use-this
