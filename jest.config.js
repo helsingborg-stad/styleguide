@@ -4,6 +4,14 @@
  */
 
 module.exports = {
+  preset: 'ts-jest/presets/js-with-ts',
+
+  transform: {
+    '^.+\\.ts?$': ['ts-jest', {
+      tsconfig: 'tsconfig.json',
+    }],
+  },
+
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 

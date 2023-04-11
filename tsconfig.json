@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
-        "target": "es2016",
+        "allowJs": true,
+        "checkJs": false,
+        "target": "es6",
         "module": "commonjs",
+        "useDefineForClassFields": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,

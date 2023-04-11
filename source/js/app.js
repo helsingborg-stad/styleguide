@@ -36,6 +36,8 @@ import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
 import FilterSelect from './filterSelect';
 import './helpers/swipe';
+import {moveElements} from './helpers/moveElements';
+import {moveElement} from './helpers/moveElement';
 
 expandSection();
 setScrollbarCSS();
@@ -117,6 +119,11 @@ const initModal = () => {
     const modalInstance = new Modal();
     modalInstance.enableModals();
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Move all elements marked for moving.
+    moveElements(moveElement);
+});
 
 // Wait for the DOM to be fully loaded before initializing the modal
 document.addEventListener('DOMContentLoaded', (event) => {

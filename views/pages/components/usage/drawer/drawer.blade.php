@@ -1,15 +1,15 @@
- <a class="c-button c-button__filled c-button__filled--default c-button--md" target="_top" data-js-toggle-trigger="drawer" type="button" href="#" data-uid="637791fe94417">
-    <span class="c-button__label">
-        Toggle drawer
-    </span>
-</a>
-
 @drawer([
     'label' => 'Close',
     'attributeList' => [
         'data-js-toggle-item' => 'drawer',
         'data-js-toggle-class' => 'is-open',
-        ],
+    ],
+    'toggleButtonData' => [
+        'text' => "Toggle drawer",
+        'id' => 'mobile-menu-trigger-close',
+        'icon' => 'menu_open',
+        'color' => 'primary'
+    ]
 ])
     @slot('search')
         @form([
@@ -44,9 +44,8 @@
                     'type'          => 'submit',
                     'size'          => 'sm',
                     'attributeList' => [
-                        'id'            => 'mobile-search-form--submit'
+                        'id'            => 'mobile-search-form--submit',
                     ],
-
                 ])
                 @endbutton
             @endgroup
