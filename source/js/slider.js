@@ -15,6 +15,10 @@ export default class Slider {
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
 
+        let showAdjacent = slider.hasAttribute('data-show-adjacent-slides') ? parseInt(slider.getAttribute('data-show-adjacent-slides')) : 0;
+
+        const positioning = this.getSpacings();
+
         let hasCustomButtons = false;
         
         if(slider.hasAttribute('data-custom-buttons'))  {
@@ -34,13 +38,14 @@ export default class Slider {
 
         this.splide = new Splide(slider, {
             type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
-            start: slider.hasAttribute('data-slider-loop') ? 1 : 0,
+            start: positioning.start,
             clone: slider.hasAttribute('data-slider-loop') ? true : false,
             autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
             perPage: slider.getAttribute('data-slides-per-page'),
             perMove: slider.getAttribute('data-slides-per-page'),
-            gap: parseInt(slider.getAttribute('data-slider-gap')),
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
+            gap: positioning.gap,
+            padding: positioning.padding,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
@@ -85,6 +90,18 @@ export default class Slider {
         }
 
         this.addVideoControls();
+    }
+
+    getSpacings() {
+        let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap')) : 48;
+        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides')) : 0;
+        let start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
+
+        if (padding) {
+            return {'gap': gap/2, 'padding': '5rem', 'start': 1};
+        }
+        
+        return {'gap': gap, 'padding': 0, 'start': start}; 
     }
 
     autoslideToggle() {
