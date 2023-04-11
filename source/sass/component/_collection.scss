@@ -50,6 +50,14 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     // Item
     .c-collection__item {
         display: flex;
+  
+        &__floating {
+            position: absolute;
+            right: $base;
+            top: $base;
+            z-index: $level-3;
+            cursor: pointer;
+        }
     }
 
     .c-collection__item.is-current {
@@ -203,6 +211,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                         min-width: calc($base * 20);
                         aspect-ratio: 1/1;
                     }
+                }
+
+                .c-collection__item__floating {
+                    top: calc($base * 2);
                 }
 
                  .c-collection__content {

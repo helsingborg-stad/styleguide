@@ -38,6 +38,14 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         overflow: hidden;
     }
 
+    .c-segment__floating {
+        position: absolute;
+        right: $base;
+        top: $base;
+        z-index: $level-3;
+        cursor: pointer;
+    }
+
     &.c-segment--card {
         flex-direction: column;
         height: 100%;
@@ -129,6 +137,9 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 .c-segment__title {
                     font-size: $h1-font-size;
                 }
+            }
+            .c-segment__floating {
+                top: calc($base * 3);
             }
 
             &.c-segment--reverse {
