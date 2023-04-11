@@ -14,9 +14,6 @@ export default class Slider {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
-
-        let showAdjacent = slider.hasAttribute('data-show-adjacent-slides') ? parseInt(slider.getAttribute('data-show-adjacent-slides')) : 0;
-
         const positioning = this.getSpacings();
 
         let hasCustomButtons = false;
