@@ -14,7 +14,7 @@ export default class Slider {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
-        const positioning = this.getSpacings();
+        const sliderAttributes = this.getAttributes();
 
         let hasCustomButtons = false;
         
@@ -35,14 +35,14 @@ export default class Slider {
 
         this.splide = new Splide(slider, {
             type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
-            start: positioning.start,
+            start: sliderAttributes.start,
             clone: slider.hasAttribute('data-slider-loop') ? true : false,
-            autoWidth: slider.getAttribute('data-slides-per-page') == 1 ? true : false,
-            perPage: slider.getAttribute('data-slides-per-page'),
-            perMove: slider.getAttribute('data-slides-per-page'),
+            autoWidth: sliderAttributes.perPage == 1 ? true : false,
+            perPage: sliderAttributes.perPage,
+            perMove: sliderAttributes.perPage,
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
-            gap: positioning.gap,
-            padding: positioning.padding,
+            gap: sliderAttributes.gap,
+            padding: sliderAttributes.padding,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
@@ -89,16 +89,17 @@ export default class Slider {
         this.addVideoControls();
     }
 
-    getSpacings() {
+    getAttributes() {
+        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides')) : 1;
         let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap')) : 48;
-        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides')) : 0;
         let start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
+        let slidesPerPage = this.sliderElement.hasAttribute('data-slides-per-page') ? this.sliderElement.getAttribute('data-slides-per-page') : 1;
 
-        if (padding) {
-            return {'gap': gap/2, 'padding': '5rem', 'start': 1};
+        if (padding && slidesPerPage == 1) {
+            return {'gap': gap/2, 'padding': '5rem', 'start': 1, 'perPage': slidesPerPage};
         }
         
-        return {'gap': gap, 'padding': 0, 'start': start}; 
+        return { 'gap': gap, 'padding': 0, 'start': start, 'perPage': slidesPerPage }; 
     }
 
     autoslideToggle() {
