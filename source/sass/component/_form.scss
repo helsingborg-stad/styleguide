@@ -11,10 +11,4 @@
   &.is-invalid .c-form__notice-failed {
     display: block;
   }
-
-  &.c-form--rounded {
-    button.c-button, input {
-      border-radius: calc($base * 3);
-    }
-  }
 }
