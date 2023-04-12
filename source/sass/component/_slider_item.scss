@@ -81,13 +81,14 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     // Modifiers
     &.c-slider__item {
         margin-right: $c-slider-gap;
-
-        &--text-align-center {
-            text-align: center;
-        }
-
-        &--text-align-right {
-            text-align: right;
+        &.c-slider__item--layout-center {
+            &.c-slider__item--text-align-center {
+                text-align: center;
+            }
+    
+            &.c-slider__item--text-align-right {
+                text-align: right;
+            }
         }
 
         &--overlay-dark::before,
