@@ -12,6 +12,7 @@ $c-filterselect-checked-border-radius: var(--c-filterselect-checked-border-radiu
 $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font-size-meta) !default;
 
 .c-filterselect {
+
     .c-filterselect__select,
     .c-filterselect__options {
         display: none;
@@ -34,7 +35,8 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         align-items: center;
         justify-content: space-between;
         cursor: pointer;
-        .c-filter__checked-icon { 
+
+        .c-filter__checked-icon {
             display: none;
         }
 
@@ -101,13 +103,16 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         display: flex;
     }
 
-     &.is-active {
+    &.is-active {
         .c-filterselect__options {
             display: block;
+            z-index: 1;
         }
+
         .c-filterselect__expand-less-icon {
             display: flex;
         }
+
         .c-filterselect__expand-more-icon {
             display: none;
         }
