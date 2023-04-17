@@ -45,14 +45,8 @@ export class ComponentRenderer implements IComponentRenderer {
     }
 
     getScriptPath():string {
-        const scriptFileName = 'cli.php'
-        const currentDir = __dirname
-        const relativePath = '/../../../../'
-        const rootDir = dirname(`${currentDir}${relativePath}`);
-        const filePath =  `${rootDir}/${scriptFileName}`
-
         if (!fs.existsSync(this.scriptPath)) {
-            throw new Error(`${scriptFileName} not found in ${rootDir}`)
+            throw new Error(`Script file "${this.scriptPath}" could not be found.`)
         }       
 
         return this.scriptPath
