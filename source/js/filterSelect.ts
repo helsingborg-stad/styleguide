@@ -17,7 +17,7 @@ class FilterSelect {
             }
 
             if (hiddenSelect.querySelector("option[selected]")) {
-                this.handlePreselected(hiddenSelect, options, expandButton, container);
+                this.handlePreselected(hiddenSelect, options, expandButton, container, select);
             }
 
             document.addEventListener('click', (e) => {
@@ -32,6 +32,7 @@ class FilterSelect {
 
             options.forEach((option) => {
                option.addEventListener('click', () => {
+
                    const optionAttr = option.getAttribute('js-select-value');
 
                     if(option.classList.contains('is-checked')) {
@@ -40,13 +41,26 @@ class FilterSelect {
                         this.handleHiddenSelect(optionAttr, hiddenSelect, false);
                     } else {
                         option.classList.add('is-checked');
-                        this.addTemplate(option, optionAttr, container, hiddenSelect);
+                        this.addTemplate(option, optionAttr, container, hiddenSelect, select);
                         this.handleHiddenSelect(optionAttr, hiddenSelect, true);
-                        container.querySelector('.c-filterselect__placeholder')?.remove();
                     }
-               }) 
+
+                    this.handlePlaceholderVisibility(select);
+               })
             });
         }));
+    }
+
+    handlePlaceholderVisibility(select: Element) {
+        if(this.hasSelectedOptions(select)) {
+            this.hidePlaceholder(select);
+        } else {
+            this.showPlaceholder(select);
+        }
+    }
+
+    hasSelectedOptions(container: Element) {
+        return container.querySelectorAll('.is-checked').length > 0;
     }
 
     handleHiddenSelect(optionAttr: string | null, hiddenSelect: HTMLSelectElement, condition: boolean) {
@@ -60,7 +74,7 @@ class FilterSelect {
         }
     }
 
-    handlePreselected(hiddenSelect: HTMLSelectElement, options: NodeListOf<Element>, expandButton: Element, container: Element) {
+    handlePreselected(hiddenSelect: HTMLSelectElement, options: NodeListOf<Element>, expandButton: Element, container: Element, select: Element) {
         const preselected = [...hiddenSelect.querySelectorAll('option[selected]')]
         .map(option => option.getAttribute('value'))
         .filter(value => value !== null) as string[];
@@ -68,14 +82,24 @@ class FilterSelect {
         options.forEach(option => {
             const optionAttr = option.getAttribute('js-select-value');
             if (optionAttr !== null && preselected.includes(optionAttr)) {
-                this.addTemplate(option, optionAttr, container, hiddenSelect);
+                this.addTemplate(option, optionAttr, container, hiddenSelect, select);
                 container.querySelector('.c-filterselect__placeholder')?.remove();
                 option.classList.add('is-checked');
             }
         });
     }
 
-    addTemplate(option: Element, optionAttr: string | null, container: Element, hiddenSelect: HTMLSelectElement) {
+    showPlaceholder(container: Element) {
+        const placeholderElement = container.querySelector('.c-filterselect__placeholder');
+        if(placeholderElement) placeholderElement.classList.remove('u-display--none');
+    }
+
+    hidePlaceholder(container: Element) {
+        const placeholderElement = container.querySelector('.c-filterselect__placeholder');
+        if(placeholderElement) placeholderElement.classList.add('u-display--none');
+    }
+
+    addTemplate(option: Element, optionAttr: string | null, container: Element, hiddenSelect: HTMLSelectElement, select: Element) {
         const template = container.querySelector('template');
         const label = option.querySelector('.c-filterselect__option-label')?.innerHTML;
 
@@ -102,6 +126,7 @@ class FilterSelect {
             this.handleHiddenSelect(optionAttr, hiddenSelect, false);
             option.classList.remove('is-checked');
             
+            this.handlePlaceholderVisibility(select)
         });
     }
 
