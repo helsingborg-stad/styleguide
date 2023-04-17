@@ -67,10 +67,8 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         display: block; 
     }
 
-    &c-block--curator {
-        .c-block__body:after {
-            display: none;
-        }
+    .c-block__body:only-child:not(:empty)::after {
+        display: none;
     }
 
     &.c-block--ratio-1-1 {
