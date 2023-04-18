@@ -38,6 +38,7 @@ import { initializeFilterSelectComponents } from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
+import OpenStreetMap from './openStreetMap';
 
 expandSection();
 setScrollbarCSS();
@@ -62,6 +63,7 @@ const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleInstance = new ButtonToggle();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
+const OpenStreetMapInstance = new OpenStreetMap();
 initializeFilterSelectComponents()
 
 const tables = document.querySelectorAll('.c-table');
