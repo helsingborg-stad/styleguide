@@ -12,7 +12,6 @@ class ContainerMediaQuery {
     // Init only if browser supports ResizeObserver
     if ('ResizeObserver' in self) {
       this.resizeObserver = new ResizeObserver((entries) => {
-        
         const defaultBreakpoints = {xs: 384, sm: 576, md: 768, lg: 960};
 
         entries.forEach((entry) => {
@@ -38,7 +37,28 @@ class ContainerMediaQuery {
       }); 
 
       this.initMediaQueryElements(); 
+      this.observerNewElements();
     }
+  }
+
+  observerNewElements() {
+    const observer = new MutationObserver(mutationsList => {
+      mutationsList.forEach(mutation => {
+        const elements = mutation.addedNodes;
+        if (elements?.length) {
+          elements.forEach(element => {
+            if (element?.nodeType === Node.ELEMENT_NODE && element.matches('[data-observe-resizes]')) {
+              this.resizeObserver.observe(element);
+            }
+          });
+        }
+      });
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   /**
