@@ -42,7 +42,7 @@ class FilterSelect {
         const optionValue = option.getAttribute('js-select-value')
         option.classList.add('is-checked');
         this.addTemplate(option);
-        this.handleHiddenSelect(optionValue, true);
+        this.updateHiddenSelectValue(optionValue, true);
         this.handlePlaceholderVisibility();
     }
 
@@ -50,7 +50,7 @@ class FilterSelect {
         const optionValue = option.getAttribute('js-select-value')
         option.classList.remove('is-checked');
         this.removeTemplate(optionValue);
-        this.handleHiddenSelect(optionValue, false);
+        this.updateHiddenSelectValue(optionValue, false);
         this.handlePlaceholderVisibility();
     }
 
@@ -74,13 +74,10 @@ class FilterSelect {
         return this.selectElement.selectedOptions.length > 0;
     }
 
-    handleHiddenSelect(optionAttr: string | null, condition: boolean) {
-        for (let i = 0; i < this.selectElement.options.length; i++) {
-            const option = this.selectElement.options[i];
-
-            if (option.value == optionAttr) {
+    updateHiddenSelectValue(optionValue: string | null, condition: boolean) {
+        for (const option of this.selectElement.options) {
+            if (option.value == optionValue) {
                 option.selected = condition;
-                return;
             }
         }
     }
@@ -117,7 +114,6 @@ class FilterSelect {
         const template = this.container.querySelector('template');
         const label = option.querySelector('.c-filterselect__option-label')?.innerHTML;
 
-
         if (!template || !optionAttr || !label) {
             return;
         }
@@ -137,7 +133,7 @@ class FilterSelect {
         checkedItemElement?.addEventListener('click', (e) => {
             e.stopPropagation();
             checkedItemElement.remove();
-            this.handleHiddenSelect(optionAttr, false);
+            this.updateHiddenSelectValue(optionAttr, false);
             option.classList.remove('is-checked');
             this.handlePlaceholderVisibility()
         });
