@@ -34,7 +34,7 @@ import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
-import FilterSelect from './filterSelect';
+import { initializeFilterSelectComponents } from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
@@ -62,7 +62,7 @@ const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleInstance = new ButtonToggle();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
-const FilterSelectInstance = new FilterSelect();
+initializeFilterSelectComponents()
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
