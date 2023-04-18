@@ -51,6 +51,8 @@
         "@babel/register": "^7.17.0",
         "@babel/runtime-corejs3": "^7.17.2",
         "@jest/globals": "^29.3.1",
+        "@testing-library/dom": "^9.2.0",
+        "@testing-library/user-event": "^14.4.3",
         "@types/jest": "^29.5.0",
         "autoprefixer": "^10.4.2",
         "babel-loader": "^8.2.3",

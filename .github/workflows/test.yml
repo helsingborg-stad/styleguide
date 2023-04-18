@@ -16,7 +16,16 @@ jobs:
         cache: 'npm'
         cache-dependency-path: ./package-lock.json
 
-    - name: Install dependencies
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: composer:v2
+
+    - name: Install composer packages
+      run: composer i
+
+    - name: Install npm packages
       run: npm ci
 
     - name: Run tests

@@ -1,113 +1,156 @@
 class FilterSelect {
-    constructor() {
-        this.setListeners();
+
+    element: Element
+    selectElement: HTMLSelectElement
+    expandButton: Element
+    options: NodeListOf<Element>
+    container: Element
+
+    constructor(element: Element) {
+        this.element = element
+        this.selectElement = this.element.querySelector('.c-filterselect__select select') as HTMLSelectElement
+        this.expandButton = this.tryAssignElement('.c-filterselect__expand-button')
+        this.options = this.element.querySelectorAll('.c-filterselect__option');
+        this.container = this.tryAssignElement('.c-filterselect__checked-items')
+
+        this.handlePreselected();
+        this.setupEventListeners()
     }
 
-    setListeners() {
-        const selects = [...document.querySelectorAll('.c-filterselect')];
-        
-        selects.forEach((select => {
-            const hiddenSelect = select.querySelector('.c-filterselect__select select') as HTMLSelectElement;
-            const expandButton = select.querySelector('.c-filterselect__expand-button');
-            const options = select.querySelectorAll('.c-filterselect__option');
-            const container = select.querySelector('.c-filterselect__checked-items');
-
-            if(!hiddenSelect || !container || !options || !expandButton) {
-                return;
-            }
-
-            if (hiddenSelect.querySelector("option[selected]")) {
-                this.handlePreselected(hiddenSelect, options, expandButton, container);
-            }
-
-            document.addEventListener('click', (e) => {
-                if(!select.contains(e.target as Node)) {
-                    select.classList.remove('is-active');
-                }
-            });
-
-            expandButton.addEventListener('click', (e) => {
-                select.classList.toggle('is-active');
-            });
-
-            options.forEach((option) => {
-               option.addEventListener('click', () => {
-                   const optionAttr = option.getAttribute('js-select-value');
-
-                    if(option.classList.contains('is-checked')) {
-                        option.classList.remove('is-checked');
-                        this.removeTemplate(optionAttr, container);
-                        this.handleHiddenSelect(optionAttr, hiddenSelect, false);
-                    } else {
-                        option.classList.add('is-checked');
-                        this.addTemplate(option, optionAttr, container, hiddenSelect);
-                        this.handleHiddenSelect(optionAttr, hiddenSelect, true);
-                        container.querySelector('.c-filterselect__placeholder')?.remove();
-                    }
-               }) 
-            });
-        }));
+    tryAssignElement(selector: string): Element {
+        const element = this.element.querySelector(selector)
+        if (element !== null) return element
+        throw new Error(`Element ${selector} not found`)
     }
 
-    handleHiddenSelect(optionAttr: string | null, hiddenSelect: HTMLSelectElement, condition: boolean) {
-        for(let i = 0; i < hiddenSelect.options.length; i++) {
-            const option = hiddenSelect.options[i];
-            
-            if(option.value == optionAttr) {
+    setupEventListeners() {
+        this.expandButton.addEventListener('click', () => this.clickExpandButtonCallback());
+        document.addEventListener('click', e => this.clickAwayCallback(e));
+
+        this.options.forEach((option) => {
+            option.addEventListener('click', () => this.optionClickEventCallback(option));
+        });
+    }
+
+    optionClickEventCallback(option: Element) {
+        option.classList.contains('is-checked')
+            ? this.deselectOption(option)
+            : this.selectOption(option)
+    }
+
+    selectOption(option: Element) {
+        const optionValue = option.getAttribute('js-select-value')
+        option.classList.add('is-checked');
+        this.addTemplate(option);
+        this.updateHiddenSelectValue(optionValue, true);
+        this.handlePlaceholderVisibility();
+    }
+
+    deselectOption(option: Element) {
+        const optionValue = option.getAttribute('js-select-value')
+        option.classList.remove('is-checked');
+        this.removeTemplate(optionValue);
+        this.updateHiddenSelectValue(optionValue, false);
+        this.handlePlaceholderVisibility();
+    }
+
+    clickExpandButtonCallback() {
+        this.element.classList.toggle('is-active');
+    }
+
+    clickAwayCallback(e: MouseEvent) {
+        if (!this.element.contains(e.target as Node)) {
+            this.element.classList.remove('is-active');
+        }
+    }
+
+    handlePlaceholderVisibility() {
+        this.hasSelectedOptions()
+            ? this.hidePlaceholder()
+            : this.showPlaceholder()
+    }
+
+    hasSelectedOptions() {
+        return this.selectElement.selectedOptions.length > 0;
+    }
+
+    updateHiddenSelectValue(optionValue: string | null, condition: boolean) {
+        for (const option of this.selectElement.options) {
+            if (option.value == optionValue) {
                 option.selected = condition;
-                return;
             }
         }
     }
 
-    handlePreselected(hiddenSelect: HTMLSelectElement, options: NodeListOf<Element>, expandButton: Element, container: Element) {
-        const preselected = [...hiddenSelect.querySelectorAll('option[selected]')]
-        .map(option => option.getAttribute('value'))
-        .filter(value => value !== null) as string[];
+    handlePreselected() {
+        const preSelectedValues = this.getPreSelectedValues()
 
-        options.forEach(option => {
+        this.options.forEach(option => {
             const optionAttr = option.getAttribute('js-select-value');
-            if (optionAttr !== null && preselected.includes(optionAttr)) {
-                this.addTemplate(option, optionAttr, container, hiddenSelect);
-                container.querySelector('.c-filterselect__placeholder')?.remove();
-                option.classList.add('is-checked');
+            if (optionAttr !== null && preSelectedValues.includes(optionAttr)) {
+                this.selectOption(option);
             }
         });
     }
 
-    addTemplate(option: Element, optionAttr: string | null, container: Element, hiddenSelect: HTMLSelectElement) {
-        const template = container.querySelector('template');
+    getPreSelectedValues(): string[] {
+        return Array.from(this.selectElement.selectedOptions)
+            .filter(option => option.value !== null)
+            .map(option => option.value);
+    }
+
+    showPlaceholder() {
+        const placeholderElement = this.element.querySelector('.c-filterselect__placeholder');
+        if (placeholderElement) placeholderElement.classList.remove('u-display--none');
+    }
+
+    hidePlaceholder() {
+        const placeholderElement = this.element.querySelector('.c-filterselect__placeholder');
+        if (placeholderElement) placeholderElement.classList.add('u-display--none');
+    }
+
+    addTemplate(option: Element) {
+        const optionAttr = option.getAttribute('js-select-value');
+        const template = this.container.querySelector('template');
         const label = option.querySelector('.c-filterselect__option-label')?.innerHTML;
 
-        
-        if(!template || !optionAttr || !label) {
+        if (!template || !optionAttr || !label) {
             return;
         }
 
         let clone = template.content.cloneNode(true);
         let temp = (clone as HTMLElement).querySelector('.c-filterselect__checked-item');
-        
-        if(!temp) {
+
+        if (!temp) {
             return;
         }
 
         temp.innerHTML = temp.innerHTML.replace('{OPTION_LABEL}', label);
         temp.setAttribute('js-select-value', optionAttr);
-        container.appendChild(clone);
-        const element = container.querySelector('.c-filterselect__checked-item:last-child');
+        this.container.appendChild(clone);
+        const checkedItemElement = this.container.querySelector('.c-filterselect__checked-item:last-child');
 
-        element?.addEventListener('click', (e) => {
+        checkedItemElement?.addEventListener('click', (e) => {
             e.stopPropagation();
-            element.remove();
-            this.handleHiddenSelect(optionAttr, hiddenSelect, false);
+            checkedItemElement.remove();
+            this.updateHiddenSelectValue(optionAttr, false);
             option.classList.remove('is-checked');
-            
+            this.handlePlaceholderVisibility()
         });
     }
 
-    removeTemplate(optionAttr: string | null, container: Element) {
-        container.querySelector(`[js-select-value="${optionAttr}"]`)?.remove();
+    removeTemplate(optionAttr: string | null) {
+        this.container.querySelector(`[js-select-value="${optionAttr}"]`)?.remove();
     }
+}
+
+export function initializeFilterSelectComponents() {
+    const componentElements = [...document.querySelectorAll('.c-filterselect')];
+
+    componentElements.forEach((element) => {
+        new FilterSelect(element);
+    })
+
 }
 
 export default FilterSelect;
