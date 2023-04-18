@@ -1,10 +1,10 @@
 /* Our code */
-#openstreetmap {
+.c-openstreetmap {
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	background-color: $color-white;
-	.openstreetmap__sidebar {
+	.c-openstreetmap__sidebar {
 		position: static;
 		min-height: 100vh;
 		right: 0;
@@ -12,7 +12,7 @@
 		z-index: 1000;
 		background-color: $color-white;
 		
-		.openstreetmap__container {
+		.c-openstreetmap__container {
 			overflow-x: hidden;
 			overflow-y: auto;
 			padding: 1rem;
@@ -28,7 +28,7 @@
 		flex: 1 0 70%
 	}
 
-	.openstreetmap__sidebar {
+	.c-openstreetmap__sidebar {
 		flex: 1 0 30%;
 	}
 
@@ -37,35 +37,35 @@
 			flex: 1 0 20%;
 		}
 
-		.openstreetmap__sidebar {
+		.c-openstreetmap__sidebar {
 			flex: 1 0 80%;
 		}
 	}
 
-	.openstreetmap__marker {
-		padding: 8px;
+	.c-openstreetmap__marker {
+		padding: $base;
 		border-radius: 50%;
-		margin-left: -12px;
+		margin-left: calc($base * -1.5);
 	}
 
-	.openstreetmap__inner-blocks {
+	.c-openstreetmap__inner-blocks {
 		overflow-x: hidden;
 		overflow-y: auto;
 	}
 
-	.openstreetmap__expand-icon {
+	.c-openstreetmap__expand-icon {
 		position: absolute;
 		top: 50%;
 		right: 0;
 		transform: translateY(-50%);
 		color: $color-white;
 		background-color: $color-primary;
-		padding: .5rem;
+		padding: calc($base * .5);
 		cursor: pointer;
 		border-radius: 50% 0px 0px 50%; 
 	}
 
-	&.openstreetmap--full-width {
+	&.c-openstreetmap--full-width {
 		width: calc(100vw - var(--scrollbar, 15px));
 		left: 50%;
 		right: 50%;
