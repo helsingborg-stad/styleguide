@@ -21,7 +21,7 @@ export default class ToggleClasses {
 
             item.classList.toggle(toggleClass);
 
-            //Let aria hidden be toggked with display none
+            //Let aria hidden be toggled with display none
             if(toggleClass == 'u-display--none') {
                 if(item.classList.contains(toggleClass)) {
                     item.setAttribute('aria-hidden', true);
@@ -30,9 +30,13 @@ export default class ToggleClasses {
                 }
             }
 
-            if(ariaPressed) this.toggleAriaPressed(ariaPressed, pressedTrigger);
+            if(ariaPressed) {
+                this.toggleAriaPressed(ariaPressed, pressedTrigger);
+            }
 
-            if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+            if(groupId) {
+                this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
+            }
         }); 
     }
 
