@@ -6,7 +6,7 @@
     },
     "modifiers": {
         "side": "left, right, top, bottom, top__left, bottom__left, top__right, bottom__right, none, full ",
-        "radius": "0, 2, 4, 8, 16"
+        "radius": "0, 2, 4, 8, 16, full"
     },
     
     "responsive": true,
