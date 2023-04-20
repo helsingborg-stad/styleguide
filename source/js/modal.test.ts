@@ -142,5 +142,29 @@ describe('modal', () => {
 
         expect(Gallery).toHaveBeenCalledTimes(1)
     })
+
+    it.only('close modal on backdrop click', async () => {
+        document.body.innerHTML = `<p>test</p>`
+        await renderModalComponent({heading: 'Modal heading'})
+        const modalElement = document.querySelector('.c-modal') as HTMLDialogElement
+        modalElement.open = true
+        const p = getByText(document.body, 'test')
+        modalElement.getBoundingClientRect = jest.fn(() => ({
+            bottom: 748.5,
+            height: 543,
+            left: 880,
+            right: 1680,
+            top: 205.5,
+            width: 800,
+            x: 880,
+            y: 205.5
+        } as DOMRect))
+
+        const modalCoordinates = modalElement.getBoundingClientRect()
+
+        await userEvent.pointer({keys: '[MouseLeft]', target: modalElement, coords: {x: modalCoordinates.left - 20, y: modalCoordinates.top - 20}})
+        
+        expect(modalElement.open).toEqual(false)
+    })
 })
 

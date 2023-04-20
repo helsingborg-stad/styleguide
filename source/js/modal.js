@@ -44,8 +44,9 @@ class Modal {
 
         // Close
         for (const trigger of this.closeTrigger) {
-            trigger.addEventListener('click', function () {
-                this.closest('dialog').close();
+            trigger.addEventListener('click', function (e) {
+                e.stopPropagation()
+                this.closest('dialog').close()
                 self.galleryInstance = null;
             });
         }
@@ -55,7 +56,29 @@ class Modal {
                 this.classList.remove('c-modal--visible');
                 self.unlockScroll();
             });
+
+            dialog.addEventListener('click', (e) => this.handleClickOutside(e))
         }
+    }
+
+    handleClickOutside(e) {
+        const dialogElement = e.target
+
+        // If click is outside the dialog
+        if (this.clickIsOutsideElement(dialogElement, e.clientX, e.clientY)) {
+            dialogElement.close()
+        }
+    }
+
+    clickIsOutsideElement(element, clientX, clientY) {
+        const boundingRect = element.getBoundingClientRect()
+
+        if (clientX < boundingRect.left) return true
+        if (clientX > boundingRect.right) return true
+        if (clientY < boundingRect.top) return true
+        if (clientY > boundingRect.bottom) return true
+
+        return false
     }
 
     /**
