@@ -45,7 +45,7 @@ class Modal {
         // Close
         for (const trigger of this.closeTrigger) {
             trigger.addEventListener('click', function () {
-                trigger.closest('dialog').close();
+                this.closest('dialog').close();
                 self.galleryInstance = null;
             });
         }
