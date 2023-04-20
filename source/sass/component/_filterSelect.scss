@@ -1,9 +1,10 @@
 $c-filterselect-options-background-color: var(--c-filterselect-options-background-color, $color-white) !default;
 
 /* Expand Button */
-$c-filterselect-expand-color: var(--c-filterselect-expand-color, $c-field-border-color) !default;
-$c-filterselect-expand-border-color: var(--c-filterselect-expand-border-color, $c-field-border-color) !default;
-$c-filterselect-expand-border-radius: var(--c-filterselect-expand-border-radius, $c-field-border-radius) !default;
+$c-filterselect-expand-color: var(--c-field-color, $c-field-label-color) !default;
+$c-filterselect-expand-background-color: var(--c-field-background-color, $c-field-background-color) !default;
+$c-filterselect-expand-border-color: var(--c-field-border-color, $c-field-border-color) !default;
+$c-filterselect-expand-border-radius: var(--c-field-border-radius, $c-field-border-radius) !default;
 
 /* Checked item */
 $c-filterselect-checked-color: var(--c-filterselect-checked-color, $color-black) !default;
@@ -60,10 +61,11 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
     .c-filterselect__expand-button {
         display: flex;
         color: $c-filterselect-expand-color;
+        background-color: $c-filterselect-expand-background-color;
         border: 1px solid $c-filterselect-expand-border-color;
-        border-radius: $c-filterselect-expand-border-radius;
+        border-radius: calc($base * $c-filterselect-expand-border-radius);
         min-width: calc($base * 30);
-        min-height: calc($base * 6.5);
+        min-height: calc($base * 6);
         justify-content: space-between;
         cursor: pointer;
         z-index: $level-2;
@@ -115,6 +117,19 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
 
         .c-filterselect__expand-more-icon {
             display: none;
+        }
+    }
+
+    &.c-filterselect--rounded {
+        .c-filterselect__expand-button {
+            border-radius: calc($base * 3);
+            border: none;
+            background-color: $color-form-fields;
+            min-height: calc($base * 5.75);
+
+            .c-filterselect__placeholder {
+                font-weight: 500;
+            }
         }
     }
 }
