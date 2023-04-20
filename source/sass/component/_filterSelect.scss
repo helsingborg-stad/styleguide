@@ -36,16 +36,16 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         justify-content: space-between;
         cursor: pointer;
 
-        .c-filter__checked-icon {
+        .c-filterselect__checked-icon {
             display: none;
         }
 
         &.is-checked {
-            .c-filter__unchecked-icon {
+            .c-filterselect__unchecked-icon {
                 display: none;
             }
 
-            .c-filter__checked-icon {
+            .c-filterselect__checked-icon {
                 display: block;
             }
         }
