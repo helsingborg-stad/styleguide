@@ -1,6 +1,12 @@
 import Gallery from './gallery';
 
 class Modal {
+    modalId: string | null;
+    openTrigger: NodeListOf<Element>;
+    closeTrigger: NodeListOf<Element>;
+    dialogs: NodeListOf<Element>;
+    galleryInstance: Gallery | null;
+
     constructor() {
         this.modalId = null;
         this.openTrigger = document.querySelectorAll('[data-open]');
@@ -17,22 +23,27 @@ class Modal {
         const self = this;
 
         for (const trigger of this.openTrigger) {
-            trigger.addEventListener('click', function () {
-                this.modalId = this.getAttribute('data-open'); //this.dataset.open;
-                const modal = document.getElementById(this.modalId);
+            trigger.addEventListener('click', function (e) {
 
-                if (!modal.hasAttribute('open')) { // check if the dialog is already open
+                self.modalId = trigger.getAttribute('data-open'); //this.dataset.open;
+                const modal = document.getElementById(self.modalId ?? '');
+
+                if (modal && !modal.hasAttribute('open')) { // check if the dialog is already open
                     modal.classList.add('c-modal--visible');
-                    modal.showModal();
+
+                    if (modal.nodeName === 'DIALOG') {
+                        (modal as HTMLDialogElement).showModal();
+                    }
+
                 }
 
-                if (this.getAttribute('data-large-img')) {
+                if (trigger.getAttribute('data-large-img')) {
                     // Gallery
                     self.galleryInstance = new Gallery();
-                    self.galleryInstance.enableGallery(this.modalId);
+                    self.galleryInstance.enableGallery();
                     self.galleryInstance.initImage(
-                        this.modalId,
-                        this.getAttribute('data-large-img')
+                        self.modalId,
+                        trigger.getAttribute('data-large-img')
                     );
                 }
 
@@ -46,14 +57,14 @@ class Modal {
         for (const trigger of this.closeTrigger) {
             trigger.addEventListener('click', function (e) {
                 e.stopPropagation()
-                this.closest('dialog').close()
+                trigger.closest('dialog')?.close()
                 self.galleryInstance = null;
             });
         }
 
         for (const dialog of this.dialogs) {
             dialog.addEventListener('close', function () {
-                this.classList.remove('c-modal--visible');
+                dialog.classList.remove('c-modal--visible');
                 self.unlockScroll();
             });
 
@@ -61,16 +72,21 @@ class Modal {
         }
     }
 
-    handleClickOutside(e) {
-        const dialogElement = e.target
+    handleClickOutside(e: Event) {
+        const dialogElement = <Element|null>e.target
+        const clientX = (e as MouseEvent).clientX ?? null
+        const clientY = (e as MouseEvent).clientY ?? null
 
-        // If click is outside the dialog
-        if (this.clickIsOutsideElement(dialogElement, e.clientX, e.clientY)) {
-            dialogElement.close()
+        if( !dialogElement || !clientX || !clientY ) return
+
+        if (dialogElement && this.clickIsOutsideElement(dialogElement, clientX, clientY)) {
+            if (dialogElement.nodeName === 'DIALOG') {
+                (dialogElement as HTMLDialogElement).close()
+            }
         }
     }
 
-    clickIsOutsideElement(element, clientX, clientY) {
+    clickIsOutsideElement(element: Element, clientX: number, clientY: number) {
         const boundingRect = element.getBoundingClientRect()
 
         if (clientX < boundingRect.left) return true
@@ -87,7 +103,7 @@ class Modal {
      */
     lockScroll() {
         const overflowHidden = 'u-overflow--hidden';
-        document.querySelector(`body`).classList.add(overflowHidden);
+        document.querySelector(`body`)?.classList.add(overflowHidden);
     }
 
     /**
@@ -96,7 +112,7 @@ class Modal {
      */
     unlockScroll() {
         const overflowHidden = 'u-overflow--hidden';
-        document.querySelector(`body`).classList.remove(overflowHidden);
+        document.querySelector(`body`)?.classList.remove(overflowHidden);
     }
 }
 
