@@ -369,29 +369,37 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
 .c-button__toggle {
 
-    transition: color 100ms ease-in-out, background 100ms ease-in-out; 
+    transition: color 100ms ease-in-out, background 100ms ease-in-out, outline 100ms ease-in-out, outline-offset 100ms ease-in-out; 
 
-    &[aria-pressed='true'] { //Default
+    outline-offset: 4px;
+    outline: 0 solid rgba(0,0,0,0.5);
 
+    &[aria-pressed='true'] {
+        outline: 2px solid rgba(255,255,255,0.5);
+        outline-offset: -2px;
+
+        &:after {
+            background: $color-white;
+            opacity: .3;
+        }
     }
 
-
-
-    &.c-button__filled[aria-pressed='true'] {
-        box-shadow: inset 0 0 10px rgba(0,0,0,.2);
+    &.c-button__filled--default[aria-pressed='true'],
+    &.c-button__basic--default[aria-pressed='true'],
+    &.c-button__outlined--default[aria-pressed='true'] {
+        outline-color: $c-button-color-contrasting;
     }
-    
 
     &.c-button__filled--primary[aria-pressed='true'],
     &.c-button__basic--primary[aria-pressed='true'],
     &.c-button__outlined--primary[aria-pressed='true'] {
-
+        outline-color: $c-button-primary-color-contrasting; 
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-
+        outline-color: $c-button-secondary-color-contrasting; 
     }
     
 }
