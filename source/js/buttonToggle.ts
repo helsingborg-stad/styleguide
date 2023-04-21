@@ -17,12 +17,12 @@ export default class ButtonToggle {
         this.toggles.forEach((toggle: Element) => {
             toggle.addEventListener(
                 'click',
-                this.handleToggleClick.bind(this, toggle)
+                (event: Event) => this.handleToggleClick(toggle, event)
             );
         });
     }
 
-    private handleToggleClick(toggle: Element, event: MouseEvent): void {
+    private handleToggleClick = (toggle: Element, event: Event): void => {
         const labelAttrVal: string | null = toggle.hasAttribute(this.labelAttr) ? toggle.getAttribute(this.labelAttr) : null;
         const iconAttrVal: string | null = toggle.hasAttribute(this.iconAttr) ? toggle.getAttribute(this.iconAttr) : null;
 

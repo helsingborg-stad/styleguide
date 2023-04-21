@@ -368,42 +368,30 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 }
 
 .c-button__toggle {
-    @extend .c-button__filled--default;
-    transition: color 100ms ease-in-out, 
-                background 100ms ease-in-out; 
+
+    transition: color 100ms ease-in-out, background 100ms ease-in-out; 
 
     &[aria-pressed='true'] { //Default
-        color: $c-button-primary-color;
 
-        .c-button__label,
-        .c-button__icon {
-            color: $c-button-primary-color;
-            text-decoration: underline;
-        }
     }
+
+
+
+    &.c-button__filled[aria-pressed='true'] {
+        box-shadow: inset 0 0 10px rgba(0,0,0,.2);
+    }
+    
 
     &.c-button__filled--primary[aria-pressed='true'],
     &.c-button__basic--primary[aria-pressed='true'],
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $c-button-primary-color;
-        color: $color-button-primary-text;
 
-        .c-button__label,
-        .c-button__icon {
-            color: $c-button-secondary-color-contrasting;
-        }
     }
 
     &.c-button__filled--secondary[aria-pressed='true'],
     &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $c-button-secondary-color;
-        color: $c-button-secondary-color-contrasting;
 
-        .c-button__label,
-        .c-button__icon {
-            color: $c-button-secondary-color-contrasting;
-        }
     }
     
 }
