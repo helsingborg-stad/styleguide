@@ -25,20 +25,21 @@
 		transition: flex-basis .2s ease-in-out;
 		position: sticky;
 		top: 0;
-		flex: 1 0 70%
+		flex: 1 1 5%;
+		min-width: calc($base * 6);
 	}
 
 	.c-openstreetmap__sidebar {
-		flex: 1 0 30%;
+		flex: 1 1 95%;
 	}
 
 	&.is-expanded {
 		#openstreetmap__map {
-			flex: 1 0 20%;
+			flex: 1 0 100%;
 		}
 
 		.c-openstreetmap__sidebar {
-			flex: 1 0 80%;
+			flex: 0 1 0%;
 		}
 	}
 
@@ -72,6 +73,27 @@
 		margin-left: -50vw;
 		margin-right: -50vw;
 		border-radius: 0;
+	}
+
+	&.c-openstreetmap--size-sm {
+
+		#openstreetmap__map {
+		flex: 1 0 70%
+	}
+
+	.c-openstreetmap__sidebar {
+		flex: 1 0 30%;
+	}
+
+	&.is-expanded {
+		#openstreetmap__map {
+			flex: 1 0 20%;
+		}
+
+		.c-openstreetmap__sidebar {
+			flex: 1 0 80%;
+		}
+	}
 	}
 
 

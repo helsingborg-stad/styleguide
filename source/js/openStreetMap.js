@@ -66,7 +66,6 @@ class OpenStreetMap {
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {
             expand.addEventListener('click', () => {
-                console.log('click');
                 setTimeout(function () {
                     map.invalidateSize();
                 }, 200);
