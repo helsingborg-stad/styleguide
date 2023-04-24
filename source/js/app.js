@@ -38,6 +38,7 @@ import { initializeFilterSelectComponents } from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
+import { initializeClickAways } from './ClickAway';
 
 expandSection();
 setScrollbarCSS();
@@ -121,8 +122,8 @@ const initModal = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Move all elements marked for moving.
     moveElements(moveElement);
+    initializeClickAways();
 });
 
 // Wait for the DOM to be fully loaded before initializing the modal

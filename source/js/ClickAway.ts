@@ -1,5 +1,5 @@
 export class ClickAway {
-    static attributeName = 'data-js-click-outside-remove-class'
+    static attributeName = 'data-js-click-away'
     element: Element
     classesToRemove: string[] = []
 

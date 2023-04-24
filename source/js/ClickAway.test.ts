@@ -23,7 +23,7 @@ describe('ClickAway', () => {
 
         it('separates multiple classes to remove by comma', () => {
             const div = document.createElement('div')
-            div.setAttribute('data-js-click-outside-remove-class', 'one, two')
+            div.setAttribute(ClickAway.attributeName, 'one, two')
             const clickAway = new ClickAway(div)
 
             expect(clickAway.classesToRemove).toEqual(['one', 'two'])
