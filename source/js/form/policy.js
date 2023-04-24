@@ -3,7 +3,7 @@ class Policy {
         this.parentElement = null;
     }
 
-    setListener({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
+    setListener(form) {
         this.parentElement = form.querySelector('.js-policy-acceptance');
         if (this.parentElement) {
             this.parentElement.querySelector('.c-option__checkbox--hidden-box').addEventListener('change', () => {
