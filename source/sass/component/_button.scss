@@ -368,40 +368,106 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 }
 
 .c-button__toggle {
-    @extend .c-button__filled--default;
+
     transition: color 100ms ease-in-out, 
-                background 100ms ease-in-out; 
+    background 100ms ease-in-out, 
+    outline 100ms ease-in-out, 
+    outline-offset 100ms ease-in-out; 
 
-    &[aria-pressed='true'] { //Default
-        color: $c-button-primary-color;
 
-        .c-button__label,
-        .c-button__icon {
-            color: $c-button-primary-color;
-            text-decoration: underline;
+    &[aria-pressed='true']:after {
+        background: $color-white;
+        opacity: .3;
+    }
+
+    &.c-button__filled {
+        outline-offset: 4px;
+        outline: 0 solid rgba(0,0,0,0.5);
+    }
+
+    /* Filled active styles */
+    &.c-button__filled[aria-pressed='true'] {
+        outline: 2px solid rgba(255,255,255,0.5);
+        outline-offset: -2px;
+    }
+
+    /* Basic active styles */ 
+    &.c-button__basic:before {
+        content: "";
+        border-bottom: 2px solid $c-button-color-contrasting;
+        bottom: 4px;
+        position: absolute; 
+        width: 0;
+        transition: width 100ms ease-in-out;
+    } 
+
+    &.c-button__basic[aria-pressed='true']:before {
+        width: 60%;
+    } 
+    
+
+    /* Outlined active styles */
+    &.c-button__outlined {
+        &[aria-pressed='true']:after {
+            display: none;
         }
     }
 
-    &.c-button__filled--primary[aria-pressed='true'],
-    &.c-button__basic--primary[aria-pressed='true'],
+    /* Filled color - active */ 
+    &.c-button__filled--default[aria-pressed='true'] {
+        outline-color: $c-button-color-contrasting;
+    }
+    
+    &.c-button__filled--primary[aria-pressed='true'] {
+        outline-color: $c-button-primary-color-contrasting; 
+    }
+
+    &.c-button__filled--secondary[aria-pressed='true'] {
+        outline-color: $c-button-secondary-color-contrasting; 
+    }
+
+    /* Basic color - active */ 
+
+    &.c-button__basic--default[aria-pressed='true']:before  {
+        border-color: $c-button-color-contrasting;
+    }
+
+    &.c-button__basic--primary[aria-pressed='true']:before {
+        border-color: $c-button-primary-color;
+    }
+
+    &.c-button__basic--secondary[aria-pressed='true']:before {
+        border-color: $c-button-secondary-color;
+    }
+
+    /* Outlined color - active */
+    &.c-button__outlined--default[aria-pressed='true'] {
+        
+        background-color: $c-button-color-contrasting; 
+
+        .c-button__label,
+        .c-button__label-icon,
+        .c-button__label-text {
+            color: $c-button-color;
+        }
+    }
+
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $c-button-primary-color;
-        color: $color-button-primary-text;
+        background-color: $c-button-primary-color; 
 
         .c-button__label,
-        .c-button__icon {
-            color: $c-button-secondary-color-contrasting;
+        .c-button__label-icon,
+        .c-button__label-text {
+            color: $c-button-primary-color-contrasting;
         }
     }
 
-    &.c-button__filled--secondary[aria-pressed='true'],
-    &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $c-button-secondary-color;
-        color: $c-button-secondary-color-contrasting;
+        background-color: $c-button-secondary-color; 
 
         .c-button__label,
-        .c-button__icon {
+        .c-button__label-icon,
+        .c-button__label-text {
             color: $c-button-secondary-color-contrasting;
         }
     }
