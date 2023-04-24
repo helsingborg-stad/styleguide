@@ -4,41 +4,49 @@
     Toggle buttons with interchangable labels & icons
 @endtypography
 
-@button([
-    'icon' => 'format_align_left',
-    'toggle' => true,
-    'size' => 'md',
-    'color' => 'primary',
-    'style' => 'filled',
-    'attributeList' => [
-        'data-toggle-icon' => 'close' //Icon id
-    ]
-])
-@endbutton
+@foreach(['basic', 'filled', 'outlined'] as $style)
 
-@button([
-    'text' => 'Click me!',
-    'toggle' => true,
-    'size' => 'md',
-    'color' => 'primary',
-    'style' => 'filled',
-    'attributeList' => [
-        'data-toggle-label' => 'Close', //New label
-    ]
-])
-@endbutton
+    <div style="margin-bottom: 32px;">
 
-@button([
-    'text' => 'Open',
-    'icon' => 'format_align_center',
-    'toggle' => true,
-    'size' => 'md',
-    'color' => 'secondary',
-    'style' => 'filled',
-    'reversePositions' => true,
-    'attributeList' => [
-        'data-toggle-label' => 'Close', //New label
-        'data-toggle-icon' => 'close' //Icon id
-    ]
-])
-@endbutton
+        @button([
+            'icon' => 'format_align_left',
+            'toggle' => true,
+            'size' => 'md',
+            'color' => 'primary',
+            'style' => $style,
+            'attributeList' => [
+                'data-toggle-icon' => 'close' //Icon id
+            ]
+        ])
+        @endbutton
+
+        @button([
+            'text' => 'Click me!',
+            'toggle' => true,
+            'size' => 'md',
+            'color' => 'primary',
+            'style' => $style,
+            'attributeList' => [
+                'data-toggle-label' => 'Close', //New label
+            ]
+        ])
+        @endbutton
+
+        @button([
+            'text' => 'Open',
+            'icon' => 'format_align_center',
+            'toggle' => true,
+            'size' => 'md',
+            'color' => 'secondary',
+            'style' => $style,
+            'reversePositions' => true,
+            'attributeList' => [
+                'data-toggle-label' => 'Close', //New label
+                'data-toggle-icon' => 'close' //Icon id
+            ]
+        ])
+        @endbutton
+
+    </div>
+
+@endforeach
