@@ -9,6 +9,7 @@ export default class ButtonToggle {
         this.toggles = [];
 
         this.init();
+        this.setupMutationObserver();
     }
 
     private init(): void {
@@ -33,6 +34,7 @@ export default class ButtonToggle {
                 const currentLabel: string = labelEl.innerHTML.trim();
                 labelEl.innerHTML = labelAttrVal;
                 toggle.setAttribute(this.labelAttr, currentLabel);
+                toggle.setAttribute('aria-label', labelAttrVal); 
             }
         }
 
@@ -45,5 +47,33 @@ export default class ButtonToggle {
                 toggle.setAttribute(this.iconAttr, currentIcon);
             }
         }
+    }
+
+    private setupMutationObserver(): void {
+        const observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    const addedNodes: Node[] = Array.from(mutation.addedNodes);
+                    const toggles: Element[] = addedNodes.reduce((acc: Element[], node: Node) => {
+                        if (node instanceof HTMLElement) {
+                            return [...acc, ...Array.from(node.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`))];
+                        } else {
+                            return acc;
+                        }
+                    }, []);
+                    toggles.forEach((toggle: Element) => {
+                        toggle.addEventListener(
+                            'click',
+                            (event: Event) => this.handleToggleClick(toggle, event)
+                        );
+                    });
+                    this.toggles = [...this.toggles, ...toggles];
+                }
+            }
+        });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     }
 }
