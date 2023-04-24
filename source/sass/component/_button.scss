@@ -369,14 +369,20 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
 .c-button__toggle {
 
-    transition: color 100ms ease-in-out, background 100ms ease-in-out, outline 100ms ease-in-out, outline-offset 100ms ease-in-out; 
+    transition: color 100ms ease-in-out, 
+    background 100ms ease-in-out, 
+    outline 100ms ease-in-out, 
+    outline-offset 100ms ease-in-out; 
 
-    outline-offset: 4px;
-    outline: 0 solid rgba(0,0,0,0.5);
 
     &[aria-pressed='true']:after {
         background: $color-white;
         opacity: .3;
+    }
+
+    &.c-button__filled {
+        outline-offset: 4px;
+        outline: 0 solid rgba(0,0,0,0.5);
     }
 
     /* Filled active styles */
@@ -436,12 +442,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     /* Outlined color - active */
     &.c-button__outlined--default[aria-pressed='true'] {
-        background-color: $c-button-color; 
+        
+        background-color: $c-button-color-contrasting; 
 
         .c-button__label,
         .c-button__label-icon,
         .c-button__label-text {
-            color: $c-button-color-contrasting;
+            color: $c-button-color;
         }
     }
 
