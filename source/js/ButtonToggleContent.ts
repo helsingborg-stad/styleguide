@@ -1,4 +1,4 @@
-export default class ButtonToggle {
+export default class ButtonToggleContent {
     private labelAttr: string;
     private iconAttr: string;
     private toggles: Element[];
@@ -10,7 +10,7 @@ export default class ButtonToggle {
 
         this.init();
         this.setupMutationObserver();
-    }
+    } 
 
     private init(): void {
         this.toggles = Array.from(document.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`));

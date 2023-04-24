@@ -25,7 +25,7 @@ import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
-import ButtonToggle from './buttonToggle';
+import ButtonToggleContent from './ButtonToggleContent';
 import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
@@ -59,7 +59,7 @@ const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
-const ButtonToggleInstance = new ButtonToggle();
+const ButtonToggleInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
 initializeFilterSelectComponents()
