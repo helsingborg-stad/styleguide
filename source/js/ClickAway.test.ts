@@ -15,24 +15,60 @@ describe('ClickAway', () => {
             expect(() => new ClickAway(div)).not.toThrow()
         })
 
-        it('sets up click event listener on document', () => {
-            const spy = jest.spyOn(document, 'addEventListener')
-            new ClickAway(document.body)
-            expect(spy).toHaveBeenCalledWith('click', expect.anything())
+        describe('initialize', () => {
+            
+            it('sets up click event listener on document', () => {
+                const spy = jest.spyOn(document, 'addEventListener')
+                new ClickAway(document.body).initialize()
+                expect(spy).toHaveBeenCalledWith('click', expect.anything())
+            })
+
+            it('separates multiple classes to remove by comma', () => {
+                const div = document.createElement('div')
+                div.setAttribute(ClickAway.attributeName, 'one, two')
+                const clickAway = new ClickAway(div)
+                clickAway.initialize()
+    
+                expect(clickAway.classesToRemove).toEqual(['one', 'two'])
+            })
         })
 
-        it('separates multiple classes to remove by comma', () => {
-            const div = document.createElement('div')
-            div.setAttribute(ClickAway.attributeName, 'one, two')
-            const clickAway = new ClickAway(div)
+        describe('handleClick', () => {
 
-            expect(clickAway.classesToRemove).toEqual(['one', 'two'])
+            it('does not call removeClasses if coordinates are inside bounds', () => {
+                const div = document.createElement('div')
+                const clickAway = new ClickAway(div)
+                clickAway.removeClasses = jest.fn()
+                clickAway.coordinatesAreOutsideBounds = jest.fn().mockReturnValue(false)
+
+                clickAway.handleClick({ clientX: 0, clientY: 0 } as PointerEvent)
+
+                expect(clickAway.removeClasses).not.toHaveBeenCalled()
+            })
+
+            it('does not call removeClasses if target is on or within element', () => {
+                const div = document.createElement('div')
+                const clickAway = new ClickAway(div)
+                clickAway.removeClasses = jest.fn()
+                clickAway.coordinatesAreOutsideBounds = jest.fn().mockReturnValue(true)
+                clickAway.targetIsOnOrWithinElement = jest.fn().mockReturnValue(true)
+
+                clickAway.handleClick({ clientX: 0, clientY: 0 } as PointerEvent)
+
+                expect(clickAway.removeClasses).not.toHaveBeenCalled()
+            })
         })
 
         describe('coordinatesAreOutsideBounds', () => {
-            it('returns true if coordinates are outside bounds', () => {
+
+            it.each([
+                { bounds: { left: 1, right: 0, top: 0, bottom: 0 }, x: 0, y: 0 },
+                { bounds: { left: 0, right: 0, top: 0, bottom: 0 }, x: 1, y: 0 },
+                { bounds: { left: 0, right: 0, top: 1, bottom: 0 }, x: 0, y: 0 },
+                { bounds: { left: 0, right: 0, top: 0, bottom: 0 }, x: 0, y: 1 }
+            ])('returns true if coordinates are outside bounds', ({ bounds, x, y }) => {
                 const clickAway = new ClickAway(document.createElement('div'))
-                const result = clickAway.coordinatesAreOutsideBounds({ left: 0, right: 0, top: 0, bottom: 0 }, 1, 1)
+                const result = clickAway.coordinatesAreOutsideBounds(bounds, x, y)
                 expect(result).toEqual(true)
             })
 
@@ -68,8 +104,6 @@ describe('ClickAway', () => {
                 expect(result).toEqual(false)
             })
         })
-
-        it.todo('removes event listener on document when element is removed')
     })
 
     describe('Integration', () => {
@@ -87,8 +121,5 @@ describe('ClickAway', () => {
 
             expect(element.classList.contains('testclass')).toEqual(false)
         })
-
-        it.todo('adds ClickAway to elements added after initialization')
-        
     })
 })

@@ -5,7 +5,10 @@ export class ClickAway {
 
     constructor(element: Element) {
         this.element = element
-        this.setClassesToRemove(element)
+    }
+
+    initialize() {
+        this.setClassesToRemove(this.element)
         document.addEventListener('click', (event) => this.handleClick(event as PointerEvent))
     }
 
@@ -49,6 +52,7 @@ export class ClickAway {
 export function initializeClickAways() {
     const elements = document.querySelectorAll(`[${ClickAway.attributeName}]`)
     elements.forEach(element => {
-        new ClickAway(element)
+        const clickAway = new ClickAway(element)
+        clickAway.initialize()
     })
 }
