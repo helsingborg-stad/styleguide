@@ -4,19 +4,27 @@ class QuickLinksHeader {
     }
 
     handleQuickLinksMenu() :HTMLElement|null {
-        return document.querySelector('#quicklinks-header');
+        return document.querySelector('#quicklinks-header.c-header--sticky');
     }
     
     setAttribute() {
         const quickLinksHeader = document.querySelector('#quicklinks-header');
 
         const observer = new IntersectionObserver(
-            ([e]) => e.target.classList.toggle('is-stuck', e.intersectionRatio < 1),
+            ([e]) => this.test(e),
             { threshold: [1] }
         );
 
         if (quickLinksHeader) {
             observer.observe(quickLinksHeader);
+        }
+    }
+
+    test(event: IntersectionObserverEntry) {
+        if (event.boundingClientRect.top <= 0) {
+            event.target.classList.add('is-stuck');
+        } else {
+            event.target.classList.remove('is-stuck');
         }
     }
 }
