@@ -11,7 +11,7 @@ class QuickLinksHeader {
         const quickLinksHeader = document.querySelector('#quicklinks-header');
 
         const observer = new IntersectionObserver(
-            ([e]) => this.test(e),
+            ([e]) => this.setClasses(e),
             { threshold: [1] }
         );
 
@@ -20,7 +20,7 @@ class QuickLinksHeader {
         }
     }
 
-    test(event: IntersectionObserverEntry) {
+    setClasses(event: IntersectionObserverEntry) {
         if (event.boundingClientRect.top <= 0) {
             event.target.classList.add('is-stuck');
         } else {
