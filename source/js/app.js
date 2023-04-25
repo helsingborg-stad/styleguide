@@ -39,6 +39,7 @@ import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
 import {AriaPressedToggler} from './AriaPressedToggler';
+import OpenStreetMap from './openStreetMap';
 
 expandSection();
 setScrollbarCSS();
@@ -64,6 +65,7 @@ const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
+const OpenStreetMapInstance = new OpenStreetMap();
 initializeFilterSelectComponents()
 
 const tables = document.querySelectorAll('.c-table');

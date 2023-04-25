@@ -104,10 +104,21 @@ export default class Slider {
 
     autoslideToggle() {
         const { Autoplay } = this.splide.Components;
+        const videos = this.sliderElement.querySelectorAll('video');
         if (this.sliderElement.classList.contains(IS_PAUSED)) {
+            if (videos && videos.length > 0) {
+                videos.forEach(video => {
+                    video.play();
+                });
+            }
             Autoplay.play();
             this.sliderElement.classList.remove(IS_PAUSED);
         } else {
+            if (videos && videos.length > 0) {
+                videos.forEach(video => {
+                    video.pause();
+                });
+            }
             Autoplay.pause();
             this.sliderElement.classList.add(IS_PAUSED);
         }
