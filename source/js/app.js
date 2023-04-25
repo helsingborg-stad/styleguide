@@ -3,7 +3,7 @@ import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
-import Toggle from './toggle';
+import ToggleClasses from './toggle';
 import Menu from './menu';
 import Modal from './modal';
 import Steppers from './steppers';
@@ -50,7 +50,7 @@ const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
 const SortInstance = new Sort();
-//const ToggleInstance = new Toggle();
+const ToggleClassesInstance = new ToggleClasses();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
 const TilesInstance = new Tiles();
@@ -104,7 +104,7 @@ if (testimonialCarousels) {
 }
 
 SortInstance.applySort();
-//ToggleInstance.applyToggle();
+ToggleClassesInstance.applyToggle();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
