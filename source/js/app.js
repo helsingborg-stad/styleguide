@@ -38,6 +38,7 @@ import { initializeFilterSelectComponents } from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
+import {AriaPressedToggler} from './AriaPressedToggler';
 
 expandSection();
 setScrollbarCSS();
@@ -48,7 +49,7 @@ const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
 const SortInstance = new Sort();
-const ToggleInstance = new Toggle();
+//const ToggleInstance = new Toggle();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
 const TilesInstance = new Tiles();
@@ -59,9 +60,10 @@ const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
-const ButtonToggleInstance = new ButtonToggleContent();
+const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
+const AriaPressedTogglerInstance = new AriaPressedToggler();
 initializeFilterSelectComponents()
 
 const tables = document.querySelectorAll('.c-table');
@@ -100,7 +102,7 @@ if (testimonialCarousels) {
 }
 
 SortInstance.applySort();
-ToggleInstance.applyToggle();
+//ToggleInstance.applyToggle();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
