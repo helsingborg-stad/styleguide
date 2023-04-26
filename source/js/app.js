@@ -34,10 +34,11 @@ import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
-import { initializeFilterSelectComponents } from './filterSelect';
+import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
+import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import OpenStreetMap from './openStreetMap';
 
@@ -125,8 +126,8 @@ const initModal = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Move all elements marked for moving.
     moveElements(moveElement);
+    initializeClickAways();
 });
 
 // Wait for the DOM to be fully loaded before initializing the modal
