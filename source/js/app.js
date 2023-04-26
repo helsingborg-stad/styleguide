@@ -3,7 +3,7 @@ import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
-import Toggle from './toggle';
+import ToggleClasses from './toggle';
 import Menu from './menu';
 import Modal from './modal';
 import Steppers from './steppers';
@@ -34,10 +34,11 @@ import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
-import { initializeFilterSelectComponents } from './filterSelect';
+import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
+import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import OpenStreetMap from './openStreetMap';
 
@@ -50,7 +51,7 @@ const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
 const SortInstance = new Sort();
-//const ToggleInstance = new Toggle();
+const ToggleClassesInstance = new ToggleClasses();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
 const TilesInstance = new Tiles();
@@ -104,7 +105,7 @@ if (testimonialCarousels) {
 }
 
 SortInstance.applySort();
-//ToggleInstance.applyToggle();
+ToggleClassesInstance.applyToggle();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
@@ -125,8 +126,8 @@ const initModal = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Move all elements marked for moving.
     moveElements(moveElement);
+    initializeClickAways();
 });
 
 // Wait for the DOM to be fully loaded before initializing the modal

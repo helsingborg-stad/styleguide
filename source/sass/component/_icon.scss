@@ -2,6 +2,12 @@
 
 .c-icon {
 
+    &.c-icon--svg {
+        width: 1em;
+        object-fit: contain;
+        aspect-ratio: 1;
+    }
+
     /* Set baseline to align icon to text */
 
     &:before {
@@ -79,6 +85,7 @@
     &.c-icon--fluid-label .c-icon__label {
         font-size: 1rem;
     }
+
 }
 
 @media print {

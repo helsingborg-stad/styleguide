@@ -4,7 +4,6 @@ export default class ToggleClasses {
         this.ITEM = 'data-js-toggle-item';
         this.CLASS = 'data-js-toggle-class';
         this.GROUP = 'data-js-toggle-group';
-        this.PRESSED = 'aria-pressed';
         this.TRIGGER_DEPRECATED = 'js-toggle-trigger';
         this.ITEM_DEPRECATED = 'js-toggle-item';
         this.CLASS_DEPRECATED = 'js-toggle-class';
@@ -21,13 +20,7 @@ export default class ToggleClasses {
 
             item.classList.toggle(toggleClass);
 
-            if(ariaPressed) {
-                this.toggleAriaPressed(ariaPressed, pressedTrigger);
-            }
-
-            if(groupId) {
-                this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
-            }
+            if(groupId) this.toggleIdleGroupMembers(groupId, pressedTriggerId, toggleClass);
         }); 
     }
 

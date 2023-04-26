@@ -404,7 +404,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &.c-button__basic[aria-pressed='true']:before {
         width: 60%;
     } 
-    
+
+    &.c-button__basic[aria-pressed='true']:after {
+        display: none;
+    }
 
     /* Outlined active styles */
     &.c-button__outlined {

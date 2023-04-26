@@ -67,7 +67,6 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       width: 100%;
       height: 100%;
       position: absolute;
-      z-index: -1;
     }
   }
 
@@ -262,7 +261,6 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
   .c-hero__video {
     @include cover();
     object-fit: cover;
-    z-index: -1;
     width: 100%;
     height: 100%;
   }
