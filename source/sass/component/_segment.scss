@@ -122,6 +122,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 padding: 0;
                 height: 100%;
                 right: 0;
+                
+                .c-segment__image {
+                    width: 100%;
+                }
             }
 
             .c-segment__content {
