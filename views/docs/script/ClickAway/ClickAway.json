@@ -1,0 +1,11 @@
+{
+    "summary": [
+        "The click away script removes one or multiple classes from an element when clicking outside the element and its children."
+    ],
+    "description": {
+        "data-js-click-away": "Use on element that should be clicked away from."
+    },
+    "attributes": {
+        "data-js-click-away": "class|class1,class"
+    }
+}
