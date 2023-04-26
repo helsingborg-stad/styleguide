@@ -3,7 +3,7 @@ class Checkbox {
 
     }
 
-    setListener({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
+    setListener(checkboxGroups) {
         checkboxGroups.forEach(checkboxGroup => {
             const checkboxes = checkboxGroup.querySelectorAll('.c-option__checkbox--hidden-box');
             let validationElement = checkboxGroup.querySelector('.js-checkbox-valid');
