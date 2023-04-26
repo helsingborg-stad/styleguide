@@ -3,7 +3,7 @@ import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
-import Toggle from './toggle';
+import ToggleClasses from './toggle';
 import Menu from './menu';
 import Modal from './modal';
 import Steppers from './steppers';
@@ -25,7 +25,7 @@ import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
-import ButtonToggle from './buttonToggle';
+import ButtonToggleContent from './ButtonToggleContent';
 import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
@@ -34,11 +34,13 @@ import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
 import QuickLinksMenu from './quickLinksHeader';
-import { initializeFilterSelectComponents } from './filterSelect';
+import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
-import { initializeClickAways } from './ClickAway';
+import {initializeClickAways} from './ClickAway';
+import {AriaPressedToggler} from './AriaPressedToggler';
+import OpenStreetMap from './openStreetMap';
 
 expandSection();
 setScrollbarCSS();
@@ -49,7 +51,7 @@ const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
 const SortInstance = new Sort();
-const ToggleInstance = new Toggle();
+const ToggleClassesInstance = new ToggleClasses();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
 const TilesInstance = new Tiles();
@@ -60,9 +62,11 @@ const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
-const ButtonToggleInstance = new ButtonToggle();
+const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
+const AriaPressedTogglerInstance = new AriaPressedToggler();
+const OpenStreetMapInstance = new OpenStreetMap();
 initializeFilterSelectComponents()
 
 const tables = document.querySelectorAll('.c-table');
@@ -101,7 +105,7 @@ if (testimonialCarousels) {
 }
 
 SortInstance.applySort();
-ToggleInstance.applyToggle();
+ToggleClassesInstance.applyToggle();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
