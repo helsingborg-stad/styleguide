@@ -45,14 +45,17 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &:disabled {
-        border-color: $color-button-disabled-bg;
-        background-color: $color-button-disabled-bg;
-        color: $color-button-disabled-text;
         cursor: not-allowed;
-
-        * {
+        &:not(.c-button--no-disabled-color) {
+            border-color: $color-button-disabled-bg;
+            background-color: $color-button-disabled-bg;
             color: $color-button-disabled-text;
+            
+            * {
+                color: $color-button-disabled-text;
+            }
         }
+
     }
 
     &__full-width {
