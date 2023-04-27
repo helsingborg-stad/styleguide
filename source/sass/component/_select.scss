@@ -8,7 +8,8 @@ $c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, $fo
 $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
 
 $c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-select-border-color, var(--color-border-input, $color-light)) !default;
+$c-select-border-color: var(--c-field-border-color, $c-field-border-color) !default;
+$c-select-background-color: var(--c-field-background-color, $c-field-background-color) !default;
 $c-select-danger-color: var(--c-select-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-select-success-color: var(--c-select-success-color, var(--color-success, $color-success-dark)) !default;
 $c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
@@ -44,7 +45,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         font-size: $c-select-font-size-md;
         line-height: $c-select-font-size-md-line-height;
         border: $c-select-border-width solid $c-select-border-color;
-        background: $color-form-fields;
+        background: $c-select-background-color;
         border-radius: $c-select-border-radius;
         position: relative;
         z-index: $level-2;
