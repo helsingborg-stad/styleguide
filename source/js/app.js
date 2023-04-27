@@ -40,7 +40,6 @@ import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
-import {SimulateClick} from './SimulateClick';
 import OpenStreetMap from './openStreetMap';
 
 expandSection();
@@ -48,7 +47,6 @@ setScrollbarCSS();
 IframeAcceptance();
 AnchorMenu();
 
-const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
