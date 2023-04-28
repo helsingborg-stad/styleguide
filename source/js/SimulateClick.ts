@@ -11,7 +11,9 @@ export class SimulateClick {
     if(initElements.length) {
       initElements.forEach((element) => {
         const target = element.getAttribute(this.simulateClickAttr) ?? ''; 
-        this.applyOnClickEvent(element as HTMLElement, target); 
+        if(document.querySelectorAll(target).length) {
+          this.applyOnClickEvent(element as HTMLElement, target); 
+        }
       });
     }
   }
