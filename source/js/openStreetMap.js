@@ -84,7 +84,7 @@ class OpenStreetMap {
         let html = template.innerHTML;
         let icon = customIcon?.icon ? customIcon.icon : 'location_on';
         let color = customIcon.backgroundColor ? customIcon.backgroundColor : this.getPrimaryColor();
-        html = html.replace('{icon-name}', icon).replaceAll('{ICON_NAME}', 'location_on').replace('{ICON_BACKGROUND_COLOR}', color);
+        html = html.replace('{icon-name}', icon).replaceAll('{ICON_NAME}', icon).replace('{ICON_BACKGROUND_COLOR}', color);
         let marker = L.divIcon({
             className: 'openstreetmap__icon',
             html: html

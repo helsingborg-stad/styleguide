@@ -112,6 +112,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         border: $c-field-border-width solid $c-field-border-color;
         background: $c-field-background-color;
         border-radius: calc($base * $c-field-border-radius);
+        
+        input {
+            border-radius: calc($base * $c-field-border-radius);
+        }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
@@ -183,7 +187,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     /* Customizer modifiers */
     &.c-field--rounded {
-        .c-field__inner {
+        .c-field__inner,
+        .c-field__inner input {
             border-radius: calc($base * 3);
             border: none;
 
