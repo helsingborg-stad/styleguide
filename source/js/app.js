@@ -41,12 +41,14 @@ import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import OpenStreetMap from './openStreetMap';
+import {SimulateClick} from './SimulateClick';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
 AnchorMenu();
 
+const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();

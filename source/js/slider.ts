@@ -1,4 +1,4 @@
-import Splide from '@splidejs/splide';
+import Splide, { Options } from '@splidejs/splide';
 import VideoControls from './helpers/video';
 
 const SLIDER_ITEM = 'c-slider__item';
@@ -8,32 +8,37 @@ const IS_PAUSED = 'c-slider--is-paused';
 
 
 export default class Slider {
-    constructor(slider) {
+    sliderElement: Element;
+    autoslideToggleButton: any;
+    splide: Splide;
+
+    constructor(slider: Element) {
         this.sliderElement = slider;
         this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
-        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE));
+        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels')) : false;
+        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
         const sliderAttributes = this.getAttributes();
+        const hasCustomButtons = slider.hasAttribute('data-custom-buttons');
 
-        let hasCustomButtons = false;
-        
-        if(slider.hasAttribute('data-custom-buttons'))  {
-            hasCustomButtons = true;
+        if (hasCustomButtons) {
             const buttonContainer = document.querySelector('#' + slider.getAttribute('data-custom-buttons'));
-            const prev = buttonContainer.querySelector('.splide__arrow--prev');
-            const next = buttonContainer.querySelector('.splide__arrow--next');
 
-            prev.addEventListener('click', () => {
-                this.splide.go('<');
-            });
+            if (buttonContainer !== null) {
+                const prev = buttonContainer.querySelector('.splide__arrow--prev');
+                const next = buttonContainer.querySelector('.splide__arrow--next');
 
-            next.addEventListener('click', () => {
-                this.splide.go('>');
-            })
+                prev?.addEventListener('click', () => {
+                    this.splide.go('<');
+                });
+
+                next?.addEventListener('click', () => {
+                    this.splide.go('>');
+                })
+            }
         }
 
-        this.splide = new Splide(slider, {
+        this.splide = new Splide(slider as HTMLElement, {
             type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
             start: sliderAttributes.start,
             clone: slider.hasAttribute('data-slider-loop') ? true : false,
@@ -56,9 +61,9 @@ export default class Slider {
                 page: 'c-slider__dot',
             },
             arrows: !hasCustomButtons,
-    
+
             i18n: {
-                prev: ariaLabels ?  ariaLabels.prev : 'Previous slider item',
+                prev: ariaLabels ? ariaLabels.prev : 'Previous slider item',
                 next: ariaLabels ? ariaLabels.next : 'Next slider item',
                 first: ariaLabels ? ariaLabels.first : 'First slider item',
                 last: ariaLabels ? ariaLabels.last : 'Last slider item',
@@ -70,12 +75,12 @@ export default class Slider {
                 }
             }
         });
-       
+
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
-            
+
         } else {
-            this.sliderElement.querySelector('.c-slider__arrows').remove();
+            this.sliderElement.querySelector('.c-slider__arrows')?.remove();
         }
 
         if (this.sliderElement.classList.contains(IS_PAUSED)) {
@@ -89,17 +94,17 @@ export default class Slider {
         this.addVideoControls();
     }
 
-    getAttributes() {
-        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides')) : 1;
-        let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap')) : 48;
+    getAttributes():Options {
+        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides') as string) : 1;
+        let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap') as string) : 48;
         let start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
-        let slidesPerPage = this.sliderElement.hasAttribute('data-slides-per-page') ? this.sliderElement.getAttribute('data-slides-per-page') : 1;
+        let slidesPerPage = this.sliderElement.hasAttribute('data-slides-per-page') ? parseInt(this.sliderElement.getAttribute('data-slides-per-page') as string) : 1;
 
         if (padding && slidesPerPage == 1) {
-            return {'gap': gap/2, 'padding': '5rem', 'start': 1, 'perPage': slidesPerPage};
+            return { 'gap': gap / 2, 'padding': '5rem', 'start': 1, 'perPage': slidesPerPage };
         }
-        
-        return { 'gap': gap, 'padding': 0, 'start': start, 'perPage': slidesPerPage }; 
+
+        return { 'gap': gap, 'padding': 0, 'start': start, 'perPage': slidesPerPage };
     }
 
     autoslideToggle() {

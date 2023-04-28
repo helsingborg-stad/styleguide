@@ -12,7 +12,9 @@ $c-field-border-color: var(--c-field-border-color, var(--color-border-input, $co
 $c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-field-success-color: var(--c-field-success-color, var(--color-success, $color-success-dark)) !default;
 
-$c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
+$c-field-background-color: var(--c-field-background-color, $color-form-fields) !default;
+
+$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
 
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
@@ -80,17 +82,17 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         position: absolute;
         height: 100%;
         pointer-events: none;
-        border-radius: $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius);
     }
 
     input#input_search-form__field + .c-field_focus-styler {
-        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
     }
 
     input#input_header-search-form__field:focus + .c-field_focus-styler {
         width: 97%;
         pointer-events: none;
-        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
     }
     
     .c-field__inner {
@@ -108,8 +110,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: $c-field-font-size-md-line-height; 
 
         border: $c-field-border-width solid $c-field-border-color;
-        background: $color-form-fields;
-        border-radius: $c-field-border-radius;
+        background: $c-field-background-color;
+        border-radius: calc($base * $c-field-border-radius);
+        
+        input {
+            border-radius: calc($base * $c-field-border-radius);
+        }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
@@ -181,7 +187,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     /* Customizer modifiers */
     &.c-field--rounded {
-        .c-field__inner {
+        .c-field__inner,
+        .c-field__inner input {
             border-radius: calc($base * 3);
             border: none;
 
@@ -314,7 +321,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             padding: map-get($spacers, "05") map-get($spacers, "2");
             color: $color-white;
             background-color: $c-field-danger-color;
-            border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
+            border-radius: 0 0 calc($base * $c-field-border-radius) calc($base * $c-field-border-radius);
         }
     }
     

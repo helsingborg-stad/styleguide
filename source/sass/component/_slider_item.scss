@@ -18,7 +18,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     background-position: center;
     background-size: cover;
     position: relative;
-    width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+    width: 100%;
     max-width: $c-slider-max-width;
     border-radius: $c-slider-border-radius;
 
@@ -163,7 +163,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 
             .c-slider__item__container {
                 position: relative;
-                top: calc(#{$base} * 4);
+                min-height: 100%;
                 padding: 0;
             }
         }
@@ -176,14 +176,11 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
 .c-slider__item--layout-bottom {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     padding: 0;
 
     .c-slider__item__container {
-        right: 0;
-        bottom: 0;
-        left: 0;
         padding: map-get($spacers, '2');
-        position: absolute;
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
         z-index: $level-4;
