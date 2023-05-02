@@ -1,0 +1,12 @@
+{
+    "default": {
+        "heading": "Basic",
+        "subHeading": "",
+        "text": "The map takes an array of pins. Each pin needs latitude (lat) and longitude (lng). The result is a basic map with pins on each location."
+    },
+    "icon": {
+        "heading": "With icon",
+        "subHeading": "",
+        "text": "The map takes an array of pins. Each pin needs latitude (lat) and longitude (lng). The result is a basic map with pins on each location."
+    }
+}

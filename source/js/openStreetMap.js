@@ -2,13 +2,15 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 
 class OpenStreetMap {
-    constructor() {
-        this.container = document.querySelector('#openstreetmap');
+    constructor(container) {
+        this.container = container;
         let map = false;
+        let id = this.container.getAttribute('data-js-map-id') ?? false;
         this.markers = false;
         
-        if (this.container) {
-            map = L.map('openstreetmap__map');
+        if (this.container && id) {
+            console.log(this.container);
+            map = L.map(`openstreetmap__map-${id}`);
             this.markers = L.markerClusterGroup({
                 maxClusterRadius: 50
             });
@@ -38,15 +40,16 @@ class OpenStreetMap {
             maxZoom: 19,
             attribution: tiles?.attribution ? tiles.attribution : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-
         locations.forEach(location => {
-            if (location?.lat && location?.lng && location?.tooltip) {
+            if (location?.lat && location?.lng) {
                 let customIcon = false;
                 if (location?.icon) {
                     customIcon = location.icon;
                 }
                 let marker = L.marker([location.lat, location.lng], { icon: this.createMarker(customIcon) });
-                marker.bindPopup(this.createTooltip(location.tooltip));
+                if (location.tooltip) {
+                    marker.bindPopup(this.createTooltip(location.tooltip));
+                }
                 marker.on('click', (e) => {
                     let latlng = e.latlng ? e.latlng : (e.sourceTarget?._latlng ? e.sourceTarget?._latlng : false);
                     let zoomLevel = map.getZoom();
@@ -124,7 +127,14 @@ class OpenStreetMap {
                 };
         }
     }
+}
 
+export function initializeOpenStreetMaps() {
+    const componentElements = [...document.querySelectorAll('.c-openstreetmap')];
+
+    componentElements.forEach((element) => {
+        new OpenStreetMap(element);
+    })
 }
 
 export default OpenStreetMap;

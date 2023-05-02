@@ -21,7 +21,7 @@
 		}
 	}
 	
-	#openstreetmap__map {
+	.c-openstreetmap__map {
 		transition: flex-basis .2s ease-in-out;
 		position: sticky;
 		top: 0;
@@ -34,7 +34,7 @@
 	}
 
 	&.is-expanded {
-		#openstreetmap__map {
+		.c-openstreetmap__map {
 			flex: 1 0 100%;
 		}
 
@@ -77,7 +77,7 @@
 
 	&.c-openstreetmap--size-sm {
 
-		#openstreetmap__map {
+		.c-openstreetmap__map {
 		flex: 1 0 70%
 	}
 
@@ -86,7 +86,7 @@
 	}
 
 	&.is-expanded {
-		#openstreetmap__map {
+		.c-openstreetmap__map {
 			flex: 1 0 20%;
 		}
 
