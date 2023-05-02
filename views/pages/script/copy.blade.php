@@ -13,17 +13,20 @@
             'attributeList' => [
                 'data-js-copy-target' => 'example',
             ],
-            'classList' => ['u-margin__right--8']
+            'classList' => ['u-margin__bottom--3']
         ])
         @endbutton
 
+        <br><br>
 
          @button([
             'text' => 'Copy self',
             'attributeList' => [
                 'data-js-copy-target' => 'self',
-                'data-js-copy-data' => 'Copy this data'
+                'data-js-copy-data' => 'Copy this data',
+                'data-js-copy-success' => 'The the text was copied successfully.'
             ],
+            'classList' => ['u-margin__left--0']
         ])
         @endbutton
     <div class="u-margin__top--4">
