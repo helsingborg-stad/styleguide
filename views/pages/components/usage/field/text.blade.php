@@ -181,6 +181,27 @@
             @endfield
         </div>
 
+
+        <div class="grid-md-6">
+            @markdown
+                ##Input field - Custom validation (email) & Shadow active
+            @endmarkdown
+
+            @field([
+                'type' => 'text',
+                'placeholder' => 'email@email.com',
+                'name' => 'email_regexp',
+                'autocomplete' => 'email',
+                'validationRegexp' => '^[^@]+@[^@]+\.[^@]+$',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
+                'required' => true,
+                'hideLabel' => true,
+                'shadow' => true
+            ])
+            @endfield
+        </div>
+
         <div class="grid-md-12">
             <input type="submit">
         </div>
