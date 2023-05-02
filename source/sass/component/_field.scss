@@ -187,6 +187,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     /* Shadow */
     &.c-field--shadow {
+        transition: filter 100ms ease-in-out;
         filter: $drop-shadow-1;
     }
 
