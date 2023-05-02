@@ -8,6 +8,7 @@ class Copy {
         let target = element.getAttribute('data-js-copy-target');
         
         element.addEventListener('click', () => {
+            console.log("click");
             let targetEl = target == "self" ? element : document.querySelector(`[data-js-copy-item="${target}"]`);
 
             if (targetEl && targetEl.hasAttribute('data-js-copy-data')) {
