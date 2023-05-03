@@ -40,7 +40,6 @@ import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
-// import OpenStreetMap from './openStreetMap';
 import {SimulateClick} from './SimulateClick';
 import {initializeOpenStreetMaps} from './openStreetMap';
 
