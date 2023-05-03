@@ -5,6 +5,6 @@
         #Map   
     @endmarkdown
 
-    @doc(['slug' => 'openstreetmap'])
+    @doc(['slug' => '_openstreetmap'])
     @enddoc
 @stop

@@ -13,5 +13,10 @@
         "heading": "With icon & tooltip",
         "subHeading": "",
         "text": "Adding the tooltip key to the pins array lets you set a tooltip that pops up when the pin is clicked."
+    },
+    "slot": {
+        "heading": "Using the slot",
+        "subHeading": "",
+        "text": "Adding content to the slot creates a sidebar."
     }
 }
