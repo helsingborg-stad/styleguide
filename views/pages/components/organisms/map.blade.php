@@ -2,9 +2,9 @@
 
 @section('doc-content')
     @markdown
-        #OpenStreetMap   
+        #Map   
     @endmarkdown
 
-    @doc(['slug' => 'openstreetmap'])
+    @doc(['slug' => 'map'])
     @enddoc
 @stop
