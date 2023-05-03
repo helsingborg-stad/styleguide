@@ -7,6 +7,11 @@
     "icon": {
         "heading": "With icon",
         "subHeading": "",
-        "text": "The map takes an array of pins. Each pin needs latitude (lat) and longitude (lng). The result is a basic map with pins on each location."
+        "text": "Adding the icon key to the pins array lets you set colors and icons."
+    },
+    "tooltip": {
+        "heading": "With icon & tooltip",
+        "subHeading": "",
+        "text": "Adding the tooltip key to the pins array lets you set a tooltip that pops up when the pin is clicked."
     }
 }
