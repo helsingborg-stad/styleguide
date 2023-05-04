@@ -14,7 +14,8 @@ class OpenStreetMap {
                 maxClusterRadius: 50
             });
             
-            window.leafletClusters = this.markers;
+            window.leafletClusters = window.leafletClusters || {};
+            window.leafletClusters[`${id}`] = this.markers;
             window.leafletMap = map;
         }
 
