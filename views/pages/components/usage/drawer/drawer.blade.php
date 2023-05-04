@@ -1,12 +1,10 @@
 @drawer([
     'label' => 'Close',
     'attributeList' => [
-        'data-js-toggle-item' => 'drawer',
-        'data-js-toggle-class' => 'is-open',
+        'data-move-to' => 'body',
     ],
     'toggleButtonData' => [
         'text' => "Toggle drawer",
-        'id' => 'mobile-menu-trigger-close',
         'icon' => 'menu_open',
         'color' => 'primary'
     ]
