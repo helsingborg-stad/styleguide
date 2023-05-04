@@ -45,6 +45,7 @@
     @modal(
         array_merge(
             [
+                'closeButtonText' => 'Close',
                 'heading' => 'Example modal ' . $key,
                 'id' => 'modal-' . $key
             ],
