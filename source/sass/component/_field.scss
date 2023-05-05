@@ -185,6 +185,16 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    /* Shadow */
+    &.c-field--shadow {
+        transition: filter 100ms ease-in-out;
+        filter: $drop-shadow-1;
+    }
+
+    &.c-field--shadow:hover {
+        filter: $drop-shadow-2;
+    }
+
     /* Customizer modifiers */
     &.c-field--rounded {
         .c-field__inner,

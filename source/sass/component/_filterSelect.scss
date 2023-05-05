@@ -108,7 +108,7 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
     &.is-active {
         .c-filterselect__options {
             display: block;
-            z-index: 1;
+            z-index: $level-3;
         }
 
         .c-filterselect__expand-less-icon {

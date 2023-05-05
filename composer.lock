@@ -588,12 +588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "1aec3f8d66ea86c3c9bb4ed0f6b31b156cfc1288"
+                "reference": "7df3ea7802f768e7769c402da015dae169c44eb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/1aec3f8d66ea86c3c9bb4ed0f6b31b156cfc1288",
-                "reference": "1aec3f8d66ea86c3c9bb4ed0f6b31b156cfc1288",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7df3ea7802f768e7769c402da015dae169c44eb5",
+                "reference": "7df3ea7802f768e7769c402da015dae169c44eb5",
                 "shasum": ""
             },
             "require": {
@@ -683,7 +683,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-25T13:14:29+00:00"
+            "time": "2023-04-25T13:58:23+00:00"
         },
         {
             "name": "psr/container",

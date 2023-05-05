@@ -12,7 +12,7 @@
     {
       "name": "10k",
       "version": 10,
-      "popularity": 1113,
+      "popularity": 1114,
       "codepoint": 59729,
       "unsupported_families": [],
       "categories": [
@@ -129,7 +129,7 @@
     {
       "name": "12mp",
       "version": 10,
-      "popularity": 664,
+      "popularity": 666,
       "codepoint": 59732,
       "unsupported_families": [],
       "categories": [
@@ -321,7 +321,7 @@
     {
       "name": "18_up_rating",
       "version": 1,
-      "popularity": 522,
+      "popularity": 523,
       "codepoint": 63741,
       "unsupported_families": [],
       "categories": [
@@ -336,7 +336,7 @@
     {
       "name": "18mp",
       "version": 10,
-      "popularity": 585,
+      "popularity": 587,
       "codepoint": 59738,
       "unsupported_families": [],
       "categories": [
@@ -400,7 +400,7 @@
     {
       "name": "1k",
       "version": 10,
-      "popularity": 805,
+      "popularity": 806,
       "codepoint": 59740,
       "unsupported_families": [],
       "categories": [
@@ -431,7 +431,7 @@
     {
       "name": "1k_plus",
       "version": 10,
-      "popularity": 719,
+      "popularity": 721,
       "codepoint": 59741,
       "unsupported_families": [],
       "categories": [
@@ -464,7 +464,7 @@
     {
       "name": "1x_mobiledata",
       "version": 9,
-      "popularity": 1555,
+      "popularity": 1557,
       "codepoint": 61389,
       "unsupported_families": [],
       "categories": [
@@ -593,7 +593,7 @@
     {
       "name": "23mp",
       "version": 10,
-      "popularity": 580,
+      "popularity": 582,
       "codepoint": 59745,
       "unsupported_families": [],
       "categories": [
@@ -625,7 +625,7 @@
     {
       "name": "24mp",
       "version": 10,
-      "popularity": 890,
+      "popularity": 891,
       "codepoint": 59746,
       "unsupported_families": [],
       "categories": [
@@ -657,7 +657,7 @@
     {
       "name": "2k",
       "version": 10,
-      "popularity": 760,
+      "popularity": 762,
       "codepoint": 59747,
       "unsupported_families": [],
       "categories": [
@@ -747,7 +747,7 @@
     {
       "name": "30fps",
       "version": 10,
-      "popularity": 1154,
+      "popularity": 1160,
       "codepoint": 61390,
       "unsupported_families": [],
       "categories": [
@@ -861,7 +861,7 @@
     {
       "name": "3g_mobiledata",
       "version": 9,
-      "popularity": 1041,
+      "popularity": 1044,
       "codepoint": 61392,
       "unsupported_families": [],
       "categories": [
@@ -894,7 +894,7 @@
     {
       "name": "3k",
       "version": 10,
-      "popularity": 624,
+      "popularity": 625,
       "codepoint": 59750,
       "unsupported_families": [],
       "categories": [
@@ -925,7 +925,7 @@
     {
       "name": "3k_plus",
       "version": 10,
-      "popularity": 569,
+      "popularity": 571,
       "codepoint": 59751,
       "unsupported_families": [],
       "categories": [
@@ -958,7 +958,7 @@
     {
       "name": "3mp",
       "version": 10,
-      "popularity": 521,
+      "popularity": 522,
       "codepoint": 59752,
       "unsupported_families": [],
       "categories": [
@@ -1022,7 +1022,7 @@
     {
       "name": "4g_mobiledata",
       "version": 9,
-      "popularity": 1831,
+      "popularity": 1832,
       "codepoint": 61394,
       "unsupported_families": [],
       "categories": [
@@ -1055,7 +1055,7 @@
     {
       "name": "4g_plus_mobiledata",
       "version": 9,
-      "popularity": 1221,
+      "popularity": 1222,
       "codepoint": 61395,
       "unsupported_families": [],
       "categories": [
@@ -1120,7 +1120,7 @@
     {
       "name": "4k_plus",
       "version": 10,
-      "popularity": 839,
+      "popularity": 840,
       "codepoint": 59753,
       "unsupported_families": [],
       "categories": [
@@ -1185,7 +1185,7 @@
     {
       "name": "5g",
       "version": 13,
-      "popularity": 2359,
+      "popularity": 2362,
       "codepoint": 61240,
       "unsupported_families": [],
       "categories": [
@@ -1219,7 +1219,7 @@
     {
       "name": "5k",
       "version": 10,
-      "popularity": 636,
+      "popularity": 638,
       "codepoint": 59755,
       "unsupported_families": [],
       "categories": [
@@ -1315,7 +1315,7 @@
     {
       "name": "60fps",
       "version": 10,
-      "popularity": 989,
+      "popularity": 991,
       "codepoint": 61396,
       "unsupported_families": [],
       "categories": [
@@ -1338,7 +1338,7 @@
     {
       "name": "60fps_select",
       "version": 10,
-      "popularity": 914,
+      "popularity": 915,
       "codepoint": 61397,
       "unsupported_families": [],
       "categories": [
@@ -1488,7 +1488,7 @@
     {
       "name": "7k",
       "version": 10,
-      "popularity": 568,
+      "popularity": 569,
       "codepoint": 59761,
       "unsupported_families": [],
       "categories": [
@@ -1519,7 +1519,7 @@
     {
       "name": "7k_plus",
       "version": 10,
-      "popularity": 572,
+      "popularity": 573,
       "codepoint": 59762,
       "unsupported_families": [],
       "categories": [
@@ -1584,7 +1584,7 @@
     {
       "name": "8k",
       "version": 11,
-      "popularity": 696,
+      "popularity": 697,
       "codepoint": 59764,
       "unsupported_families": [],
       "categories": [
@@ -1615,7 +1615,7 @@
     {
       "name": "8k_plus",
       "version": 11,
-      "popularity": 636,
+      "popularity": 638,
       "codepoint": 59765,
       "unsupported_families": [],
       "categories": [
@@ -1680,7 +1680,7 @@
     {
       "name": "9k",
       "version": 10,
-      "popularity": 582,
+      "popularity": 583,
       "codepoint": 59767,
       "unsupported_families": [],
       "categories": [
@@ -1711,7 +1711,7 @@
     {
       "name": "9k_plus",
       "version": 10,
-      "popularity": 639,
+      "popularity": 641,
       "codepoint": 59768,
       "unsupported_families": [],
       "categories": [
@@ -1776,7 +1776,7 @@
     {
       "name": "abc",
       "version": 1,
-      "popularity": 2772,
+      "popularity": 2780,
       "codepoint": 60308,
       "unsupported_families": [],
       "categories": [
@@ -1838,7 +1838,7 @@
     {
       "name": "access_alarms",
       "version": 12,
-      "popularity": 2184,
+      "popularity": 2187,
       "codepoint": 57745,
       "unsupported_families": [],
       "categories": [
@@ -2124,7 +2124,7 @@
     {
       "name": "ad_units",
       "version": 13,
-      "popularity": 2687,
+      "popularity": 2691,
       "codepoint": 61241,
       "unsupported_families": [],
       "categories": [
@@ -2154,7 +2154,7 @@
     {
       "name": "adb",
       "version": 12,
-      "popularity": 4224,
+      "popularity": 4229,
       "codepoint": 58894,
       "unsupported_families": [],
       "categories": [
@@ -2477,7 +2477,7 @@
     {
       "name": "add_home_work",
       "version": 1,
-      "popularity": 979,
+      "popularity": 983,
       "codepoint": 63725,
       "unsupported_families": [],
       "categories": [
@@ -2542,7 +2542,7 @@
     {
       "name": "add_location",
       "version": 16,
-      "popularity": 5839,
+      "popularity": 5842,
       "codepoint": 58727,
       "unsupported_families": [],
       "categories": [
@@ -2693,7 +2693,7 @@
     {
       "name": "add_road",
       "version": 12,
-      "popularity": 4532,
+      "popularity": 4538,
       "codepoint": 61243,
       "unsupported_families": [],
       "categories": [
@@ -2811,7 +2811,7 @@
     {
       "name": "add_to_home_screen",
       "version": 12,
-      "popularity": 1991,
+      "popularity": 1995,
       "codepoint": 57854,
       "unsupported_families": [],
       "categories": [
@@ -2957,7 +2957,7 @@
     {
       "name": "adjust",
       "version": 12,
-      "popularity": 14136,
+      "popularity": 14144,
       "codepoint": 58270,
       "unsupported_families": [],
       "categories": [
@@ -3263,7 +3263,7 @@
     {
       "name": "airline_seat_recline_extra",
       "version": 12,
-      "popularity": 2346,
+      "popularity": 2348,
       "codepoint": 58934,
       "unsupported_families": [],
       "categories": [
@@ -3677,7 +3677,7 @@
     {
       "name": "align_horizontal_left",
       "version": 7,
-      "popularity": 2999,
+      "popularity": 3001,
       "codepoint": 57357,
       "unsupported_families": [],
       "categories": [
@@ -3758,7 +3758,7 @@
     {
       "name": "align_vertical_center",
       "version": 6,
-      "popularity": 1507,
+      "popularity": 1508,
       "codepoint": 57361,
       "unsupported_families": [],
       "categories": [
@@ -3785,7 +3785,7 @@
     {
       "name": "align_vertical_top",
       "version": 6,
-      "popularity": 1513,
+      "popularity": 1514,
       "codepoint": 57356,
       "unsupported_families": [],
       "categories": [
@@ -3812,7 +3812,7 @@
     {
       "name": "all_inbox",
       "version": 11,
-      "popularity": 7741,
+      "popularity": 7751,
       "codepoint": 59775,
       "unsupported_families": [],
       "categories": [
@@ -3861,7 +3861,7 @@
     {
       "name": "all_out",
       "version": 12,
-      "popularity": 2474,
+      "popularity": 2478,
       "codepoint": 59659,
       "unsupported_families": [],
       "categories": [
@@ -3880,7 +3880,7 @@
     {
       "name": "alt_route",
       "version": 9,
-      "popularity": 8780,
+      "popularity": 8793,
       "codepoint": 61828,
       "unsupported_families": [],
       "categories": [
@@ -3957,7 +3957,7 @@
     {
       "name": "anchor",
       "version": 7,
-      "popularity": 7887,
+      "popularity": 7889,
       "codepoint": 61901,
       "unsupported_families": [],
       "categories": [
@@ -4053,7 +4053,7 @@
     {
       "name": "aod",
       "version": 10,
-      "popularity": 2021,
+      "popularity": 2024,
       "codepoint": 61402,
       "unsupported_families": [],
       "categories": [
@@ -4302,7 +4302,7 @@
     {
       "name": "apps_outage",
       "version": 2,
-      "popularity": 2877,
+      "popularity": 2878,
       "codepoint": 59340,
       "unsupported_families": [],
       "categories": [
@@ -4920,7 +4920,7 @@
     {
       "name": "art_track",
       "version": 13,
-      "popularity": 2048,
+      "popularity": 2051,
       "codepoint": 57440,
       "unsupported_families": [],
       "categories": [
@@ -5176,7 +5176,7 @@
     {
       "name": "assist_walker",
       "version": 1,
-      "popularity": 552,
+      "popularity": 555,
       "codepoint": 63701,
       "unsupported_families": [],
       "categories": [
@@ -5345,7 +5345,7 @@
     {
       "name": "attach_email",
       "version": 16,
-      "popularity": 5438,
+      "popularity": 5442,
       "codepoint": 59998,
       "unsupported_families": [],
       "categories": [
@@ -5521,7 +5521,7 @@
     {
       "name": "audiotrack",
       "version": 12,
-      "popularity": 11461,
+      "popularity": 11472,
       "codepoint": 58273,
       "unsupported_families": [],
       "categories": [
@@ -5590,7 +5590,7 @@
     {
       "name": "auto_awesome_motion",
       "version": 14,
-      "popularity": 6789,
+      "popularity": 6798,
       "codepoint": 58977,
       "unsupported_families": [],
       "categories": [
@@ -6069,7 +6069,7 @@
     {
       "name": "bakery_dining",
       "version": 11,
-      "popularity": 5681,
+      "popularity": 5682,
       "codepoint": 59987,
       "unsupported_families": [],
       "categories": [
@@ -6117,7 +6117,7 @@
     {
       "name": "balcony",
       "version": 4,
-      "popularity": 2186,
+      "popularity": 2190,
       "codepoint": 58767,
       "unsupported_families": [],
       "categories": [
@@ -6274,7 +6274,7 @@
     {
       "name": "battery_0_bar",
       "version": 1,
-      "popularity": 2297,
+      "popularity": 2301,
       "codepoint": 60380,
       "unsupported_families": [],
       "categories": [
@@ -6366,7 +6366,7 @@
     {
       "name": "battery_4_bar",
       "version": 1,
-      "popularity": 2428,
+      "popularity": 2434,
       "codepoint": 60386,
       "unsupported_families": [],
       "categories": [
@@ -6412,7 +6412,7 @@
     {
       "name": "battery_6_bar",
       "version": 1,
-      "popularity": 2163,
+      "popularity": 2166,
       "codepoint": 60370,
       "unsupported_families": [],
       "categories": [
@@ -6561,7 +6561,7 @@
     {
       "name": "battery_unknown",
       "version": 13,
-      "popularity": 2471,
+      "popularity": 2473,
       "codepoint": 57766,
       "unsupported_families": [],
       "categories": [
@@ -6591,7 +6591,7 @@
     {
       "name": "beach_access",
       "version": 12,
-      "popularity": 8927,
+      "popularity": 8934,
       "codepoint": 60222,
       "unsupported_families": [],
       "categories": [
@@ -6673,7 +6673,7 @@
     {
       "name": "bedroom_child",
       "version": 9,
-      "popularity": 2790,
+      "popularity": 2793,
       "codepoint": 61409,
       "unsupported_families": [],
       "categories": [
@@ -6705,7 +6705,7 @@
     {
       "name": "bedroom_parent",
       "version": 9,
-      "popularity": 3473,
+      "popularity": 3478,
       "codepoint": 61410,
       "unsupported_families": [],
       "categories": [
@@ -6737,7 +6737,7 @@
     {
       "name": "bedtime",
       "version": 15,
-      "popularity": 3939,
+      "popularity": 3950,
       "codepoint": 61252,
       "unsupported_families": [],
       "categories": [
@@ -6914,7 +6914,7 @@
     {
       "name": "blind",
       "version": 1,
-      "popularity": 474,
+      "popularity": 476,
       "codepoint": 63702,
       "unsupported_families": [],
       "categories": [
@@ -6968,7 +6968,7 @@
     {
       "name": "blinds_closed",
       "version": 1,
-      "popularity": 488,
+      "popularity": 490,
       "codepoint": 60447,
       "unsupported_families": [],
       "categories": [
@@ -7018,7 +7018,7 @@
     {
       "name": "bloodtype",
       "version": 10,
-      "popularity": 5766,
+      "popularity": 5767,
       "codepoint": 61412,
       "unsupported_families": [],
       "categories": [
@@ -7068,7 +7068,7 @@
     {
       "name": "bluetooth_audio",
       "version": 12,
-      "popularity": 1576,
+      "popularity": 1577,
       "codepoint": 58895,
       "unsupported_families": [],
       "categories": [
@@ -7116,7 +7116,7 @@
     {
       "name": "bluetooth_disabled",
       "version": 17,
-      "popularity": 2613,
+      "popularity": 2614,
       "codepoint": 57769,
       "unsupported_families": [],
       "categories": [
@@ -7178,7 +7178,7 @@
     {
       "name": "bluetooth_searching",
       "version": 13,
-      "popularity": 2765,
+      "popularity": 2767,
       "codepoint": 57770,
       "unsupported_families": [],
       "categories": [
@@ -7200,7 +7200,7 @@
     {
       "name": "blur_circular",
       "version": 12,
-      "popularity": 2284,
+      "popularity": 2285,
       "codepoint": 58274,
       "unsupported_families": [],
       "categories": [
@@ -7432,7 +7432,7 @@
     {
       "name": "bookmark_added",
       "version": 3,
-      "popularity": 8668,
+      "popularity": 8681,
       "codepoint": 58777,
       "unsupported_families": [],
       "categories": [
@@ -7598,7 +7598,7 @@
     {
       "name": "border_clear",
       "version": 12,
-      "popularity": 1523,
+      "popularity": 1524,
       "codepoint": 57898,
       "unsupported_families": [],
       "categories": [
@@ -7681,7 +7681,7 @@
     {
       "name": "border_inner",
       "version": 12,
-      "popularity": 841,
+      "popularity": 842,
       "codepoint": 57901,
       "unsupported_families": [],
       "categories": [
@@ -7735,7 +7735,7 @@
     {
       "name": "border_outer",
       "version": 12,
-      "popularity": 1265,
+      "popularity": 1266,
       "codepoint": 57903,
       "unsupported_families": [],
       "categories": [
@@ -7762,7 +7762,7 @@
     {
       "name": "border_right",
       "version": 12,
-      "popularity": 725,
+      "popularity": 726,
       "codepoint": 57904,
       "unsupported_families": [],
       "categories": [
@@ -8119,7 +8119,7 @@
     {
       "name": "brightness_auto",
       "version": 12,
-      "popularity": 1724,
+      "popularity": 1727,
       "codepoint": 57771,
       "unsupported_families": [],
       "categories": [
@@ -8168,7 +8168,7 @@
     {
       "name": "brightness_low",
       "version": 12,
-      "popularity": 2815,
+      "popularity": 2818,
       "codepoint": 57773,
       "unsupported_families": [],
       "categories": [
@@ -8191,7 +8191,7 @@
     {
       "name": "brightness_medium",
       "version": 12,
-      "popularity": 2861,
+      "popularity": 2863,
       "codepoint": 57774,
       "unsupported_families": [],
       "categories": [
@@ -8214,7 +8214,7 @@
     {
       "name": "broadcast_on_home",
       "version": 1,
-      "popularity": 452,
+      "popularity": 453,
       "codepoint": 63736,
       "unsupported_families": [],
       "categories": [
@@ -8229,7 +8229,7 @@
     {
       "name": "broadcast_on_personal",
       "version": 1,
-      "popularity": 549,
+      "popularity": 550,
       "codepoint": 63737,
       "unsupported_families": [],
       "categories": [
@@ -8244,7 +8244,7 @@
     {
       "name": "broken_image",
       "version": 11,
-      "popularity": 5910,
+      "popularity": 5922,
       "codepoint": 58285,
       "unsupported_families": [],
       "categories": [
@@ -8292,7 +8292,7 @@
     {
       "name": "browser_not_supported",
       "version": 12,
-      "popularity": 1258,
+      "popularity": 1259,
       "codepoint": 61255,
       "unsupported_families": [],
       "categories": [
@@ -8504,7 +8504,7 @@
     {
       "name": "bungalow",
       "version": 4,
-      "popularity": 1942,
+      "popularity": 1944,
       "codepoint": 58769,
       "unsupported_families": [],
       "categories": [
@@ -8533,7 +8533,7 @@
     {
       "name": "burst_mode",
       "version": 12,
-      "popularity": 1758,
+      "popularity": 1760,
       "codepoint": 58428,
       "unsupported_families": [],
       "categories": [
@@ -8558,7 +8558,7 @@
     {
       "name": "bus_alert",
       "version": 15,
-      "popularity": 2220,
+      "popularity": 2223,
       "codepoint": 59791,
       "unsupported_families": [],
       "categories": [
@@ -8969,7 +8969,7 @@
     {
       "name": "call_merge",
       "version": 13,
-      "popularity": 2647,
+      "popularity": 2649,
       "codepoint": 57523,
       "unsupported_families": [],
       "categories": [
@@ -9009,7 +9009,7 @@
     {
       "name": "call_missed_outgoing",
       "version": 15,
-      "popularity": 2184,
+      "popularity": 2185,
       "codepoint": 57572,
       "unsupported_families": [],
       "categories": [
@@ -9030,7 +9030,7 @@
     {
       "name": "call_received",
       "version": 13,
-      "popularity": 4233,
+      "popularity": 4235,
       "codepoint": 57525,
       "unsupported_families": [],
       "categories": [
@@ -9070,7 +9070,7 @@
     {
       "name": "call_to_action",
       "version": 11,
-      "popularity": 3072,
+      "popularity": 3077,
       "codepoint": 57452,
       "unsupported_families": [],
       "categories": [
@@ -9106,7 +9106,7 @@
     {
       "name": "camera",
       "version": 12,
-      "popularity": 12266,
+      "popularity": 12274,
       "codepoint": 58287,
       "unsupported_families": [],
       "categories": [
@@ -9149,7 +9149,7 @@
     {
       "name": "camera_enhance",
       "version": 12,
-      "popularity": 6701,
+      "popularity": 6710,
       "codepoint": 59644,
       "unsupported_families": [],
       "categories": [
@@ -9472,7 +9472,7 @@
     {
       "name": "car_crash",
       "version": 1,
-      "popularity": 1585,
+      "popularity": 1591,
       "codepoint": 60402,
       "unsupported_families": [],
       "categories": [
@@ -9499,7 +9499,7 @@
     {
       "name": "car_rental",
       "version": 10,
-      "popularity": 3894,
+      "popularity": 3898,
       "codepoint": 59989,
       "unsupported_families": [],
       "categories": [
@@ -9523,7 +9523,7 @@
     {
       "name": "car_repair",
       "version": 10,
-      "popularity": 3189,
+      "popularity": 3191,
       "codepoint": 59990,
       "unsupported_families": [],
       "categories": [
@@ -9695,7 +9695,7 @@
     {
       "name": "casino",
       "version": 13,
-      "popularity": 7817,
+      "popularity": 7830,
       "codepoint": 60224,
       "unsupported_families": [],
       "categories": [
@@ -9833,7 +9833,7 @@
     {
       "name": "castle",
       "version": 2,
-      "popularity": 1991,
+      "popularity": 1994,
       "codepoint": 60081,
       "unsupported_families": [],
       "categories": [
@@ -9854,7 +9854,7 @@
     {
       "name": "catching_pokemon",
       "version": 4,
-      "popularity": 7608,
+      "popularity": 7616,
       "codepoint": 58632,
       "unsupported_families": [],
       "categories": [
@@ -9995,7 +9995,7 @@
     {
       "name": "center_focus_weak",
       "version": 12,
-      "popularity": 3967,
+      "popularity": 3968,
       "codepoint": 58293,
       "unsupported_families": [],
       "categories": [
@@ -10048,7 +10048,7 @@
     {
       "name": "chair_alt",
       "version": 9,
-      "popularity": 3229,
+      "popularity": 3232,
       "codepoint": 61422,
       "unsupported_families": [],
       "categories": [
@@ -10071,7 +10071,7 @@
     {
       "name": "chalet",
       "version": 4,
-      "popularity": 1769,
+      "popularity": 1770,
       "codepoint": 58757,
       "unsupported_families": [],
       "categories": [
@@ -10142,7 +10142,7 @@
     {
       "name": "charging_station",
       "version": 8,
-      "popularity": 2745,
+      "popularity": 2750,
       "codepoint": 61853,
       "unsupported_families": [],
       "categories": [
@@ -10586,7 +10586,7 @@
     {
       "name": "chrome_reader_mode",
       "version": 12,
-      "popularity": 5574,
+      "popularity": 5581,
       "codepoint": 59501,
       "unsupported_families": [],
       "categories": [
@@ -10700,7 +10700,7 @@
     {
       "name": "clean_hands",
       "version": 8,
-      "popularity": 4637,
+      "popularity": 4639,
       "codepoint": 61983,
       "unsupported_families": [],
       "categories": [
@@ -10835,7 +10835,7 @@
     {
       "name": "closed_caption",
       "version": 12,
-      "popularity": 4924,
+      "popularity": 4930,
       "codepoint": 57372,
       "unsupported_families": [],
       "categories": [
@@ -10868,7 +10868,7 @@
     {
       "name": "closed_caption_disabled",
       "version": 8,
-      "popularity": 1464,
+      "popularity": 1467,
       "codepoint": 61916,
       "unsupported_families": [],
       "categories": [
@@ -10906,7 +10906,7 @@
     {
       "name": "closed_caption_off",
       "version": 11,
-      "popularity": 2788,
+      "popularity": 2790,
       "codepoint": 59798,
       "unsupported_families": [],
       "categories": [
@@ -11061,7 +11061,7 @@
     {
       "name": "cloud_off",
       "version": 16,
-      "popularity": 8320,
+      "popularity": 8327,
       "codepoint": 58049,
       "unsupported_families": [],
       "categories": [
@@ -11095,7 +11095,7 @@
     {
       "name": "cloud_queue",
       "version": 12,
-      "popularity": 9367,
+      "popularity": 9387,
       "codepoint": 58050,
       "unsupported_families": [],
       "categories": [
@@ -11205,7 +11205,7 @@
     {
       "name": "co_present",
       "version": 1,
-      "popularity": 4148,
+      "popularity": 4160,
       "codepoint": 60144,
       "unsupported_families": [],
       "categories": [
@@ -11255,7 +11255,7 @@
     {
       "name": "code_off",
       "version": 4,
-      "popularity": 4110,
+      "popularity": 4114,
       "codepoint": 58611,
       "unsupported_families": [],
       "categories": [
@@ -11358,7 +11358,7 @@
     {
       "name": "collections_bookmark",
       "version": 12,
-      "popularity": 8610,
+      "popularity": 8623,
       "codepoint": 58417,
       "unsupported_families": [],
       "categories": [
@@ -11620,7 +11620,7 @@
     {
       "name": "compass_calibration",
       "version": 12,
-      "popularity": 1717,
+      "popularity": 1718,
       "codepoint": 58748,
       "unsupported_families": [],
       "categories": [
@@ -12184,7 +12184,7 @@
     {
       "name": "content_paste_off",
       "version": 4,
-      "popularity": 2763,
+      "popularity": 2768,
       "codepoint": 58616,
       "unsupported_families": [],
       "categories": [
@@ -12237,7 +12237,7 @@
     {
       "name": "contrast",
       "version": 1,
-      "popularity": 2654,
+      "popularity": 2655,
       "codepoint": 60215,
       "unsupported_families": [],
       "categories": [
@@ -12313,7 +12313,7 @@
     {
       "name": "control_point_duplicate",
       "version": 12,
-      "popularity": 3599,
+      "popularity": 3604,
       "codepoint": 58299,
       "unsupported_families": [],
       "categories": [
@@ -12604,7 +12604,7 @@
     {
       "name": "credit_card_off",
       "version": 4,
-      "popularity": 5168,
+      "popularity": 5170,
       "codepoint": 58612,
       "unsupported_families": [],
       "categories": [
@@ -12767,7 +12767,7 @@
     {
       "name": "crop_16_9",
       "version": 13,
-      "popularity": 2523,
+      "popularity": 2525,
       "codepoint": 58300,
       "unsupported_families": [],
       "categories": [
@@ -12835,7 +12835,7 @@
     {
       "name": "crop_5_4",
       "version": 13,
-      "popularity": 1866,
+      "popularity": 1868,
       "codepoint": 58303,
       "unsupported_families": [],
       "categories": [
@@ -12868,7 +12868,7 @@
     {
       "name": "crop_7_5",
       "version": 13,
-      "popularity": 2059,
+      "popularity": 2061,
       "codepoint": 58304,
       "unsupported_families": [],
       "categories": [
@@ -12901,7 +12901,7 @@
     {
       "name": "crop_din",
       "version": 12,
-      "popularity": 3761,
+      "popularity": 3763,
       "codepoint": 58305,
       "unsupported_families": [],
       "categories": [
@@ -12961,7 +12961,7 @@
     {
       "name": "crop_landscape",
       "version": 12,
-      "popularity": 1583,
+      "popularity": 1584,
       "codepoint": 58307,
       "unsupported_families": [],
       "categories": [
@@ -13051,7 +13051,7 @@
     {
       "name": "crop_rotate",
       "version": 12,
-      "popularity": 2019,
+      "popularity": 2021,
       "codepoint": 58423,
       "unsupported_families": [],
       "categories": [
@@ -13156,7 +13156,7 @@
     {
       "name": "css",
       "version": 1,
-      "popularity": 1893,
+      "popularity": 1896,
       "codepoint": 60307,
       "unsupported_families": [],
       "categories": [
@@ -13259,7 +13259,7 @@
     {
       "name": "currency_franc",
       "version": 1,
-      "popularity": 625,
+      "popularity": 630,
       "codepoint": 60154,
       "unsupported_families": [],
       "categories": [
@@ -13327,7 +13327,7 @@
     {
       "name": "currency_pound",
       "version": 1,
-      "popularity": 2643,
+      "popularity": 2650,
       "codepoint": 60145,
       "unsupported_families": [],
       "categories": [
@@ -13361,7 +13361,7 @@
     {
       "name": "currency_ruble",
       "version": 1,
-      "popularity": 1851,
+      "popularity": 1865,
       "codepoint": 60140,
       "unsupported_families": [],
       "categories": [
@@ -13497,7 +13497,7 @@
     {
       "name": "curtains",
       "version": 1,
-      "popularity": 489,
+      "popularity": 490,
       "codepoint": 60446,
       "unsupported_families": [],
       "categories": [
@@ -13521,7 +13521,7 @@
     {
       "name": "curtains_closed",
       "version": 1,
-      "popularity": 463,
+      "popularity": 465,
       "codepoint": 60445,
       "unsupported_families": [],
       "categories": [
@@ -13545,7 +13545,7 @@
     {
       "name": "cyclone",
       "version": 1,
-      "popularity": 1045,
+      "popularity": 1046,
       "codepoint": 60373,
       "unsupported_families": [],
       "categories": [
@@ -13674,7 +13674,7 @@
     {
       "name": "data_array",
       "version": 2,
-      "popularity": 1619,
+      "popularity": 1621,
       "codepoint": 60113,
       "unsupported_families": [],
       "categories": [
@@ -13858,7 +13858,7 @@
     {
       "name": "dataset",
       "version": 1,
-      "popularity": 1232,
+      "popularity": 1236,
       "codepoint": 63726,
       "unsupported_families": [],
       "categories": [
@@ -13915,7 +13915,7 @@
     {
       "name": "deblur",
       "version": 1,
-      "popularity": 943,
+      "popularity": 945,
       "codepoint": 60279,
       "unsupported_families": [],
       "categories": [
@@ -13969,7 +13969,7 @@
     {
       "name": "dehaze",
       "version": 12,
-      "popularity": 5548,
+      "popularity": 5553,
       "codepoint": 58311,
       "unsupported_families": [],
       "categories": [
@@ -14111,7 +14111,7 @@
     {
       "name": "density_large",
       "version": 1,
-      "popularity": 1151,
+      "popularity": 1154,
       "codepoint": 60329,
       "unsupported_families": [],
       "categories": [
@@ -14291,7 +14291,7 @@
     {
       "name": "desk",
       "version": 1,
-      "popularity": 489,
+      "popularity": 491,
       "codepoint": 63732,
       "unsupported_families": [],
       "categories": [
@@ -14306,7 +14306,7 @@
     {
       "name": "desktop_access_disabled",
       "version": 11,
-      "popularity": 2106,
+      "popularity": 2109,
       "codepoint": 59805,
       "unsupported_families": [],
       "categories": [
@@ -14341,7 +14341,7 @@
     {
       "name": "desktop_mac",
       "version": 17,
-      "popularity": 5504,
+      "popularity": 5510,
       "codepoint": 58123,
       "unsupported_families": [],
       "categories": [
@@ -14400,7 +14400,7 @@
     {
       "name": "details",
       "version": 16,
-      "popularity": 4987,
+      "popularity": 4990,
       "codepoint": 58312,
       "unsupported_families": [],
       "categories": [
@@ -14447,7 +14447,7 @@
     {
       "name": "developer_board_off",
       "version": 4,
-      "popularity": 1000,
+      "popularity": 1001,
       "codepoint": 58623,
       "unsupported_families": [],
       "categories": [
@@ -14627,7 +14627,7 @@
     {
       "name": "devices_fold",
       "version": 1,
-      "popularity": 457,
+      "popularity": 458,
       "codepoint": 60382,
       "unsupported_families": [],
       "categories": [
@@ -14690,7 +14690,7 @@
     {
       "name": "dialer_sip",
       "version": 12,
-      "popularity": 1712,
+      "popularity": 1715,
       "codepoint": 57531,
       "unsupported_families": [],
       "categories": [
@@ -14807,7 +14807,7 @@
     {
       "name": "dining",
       "version": 9,
-      "popularity": 4498,
+      "popularity": 4502,
       "codepoint": 61428,
       "unsupported_families": [],
       "categories": [
@@ -14832,7 +14832,7 @@
     {
       "name": "dinner_dining",
       "version": 10,
-      "popularity": 5758,
+      "popularity": 5759,
       "codepoint": 59991,
       "unsupported_families": [],
       "categories": [
@@ -14858,7 +14858,7 @@
     {
       "name": "directions",
       "version": 14,
-      "popularity": 10213,
+      "popularity": 10224,
       "codepoint": 58670,
       "unsupported_families": [],
       "categories": [
@@ -15032,7 +15032,7 @@
     {
       "name": "directions_car_filled",
       "version": 10,
-      "popularity": 13586,
+      "popularity": 13594,
       "codepoint": 61431,
       "unsupported_families": [],
       "categories": [
@@ -15218,7 +15218,7 @@
     {
       "name": "directions_transit",
       "version": 12,
-      "popularity": 2356,
+      "popularity": 2359,
       "codepoint": 58677,
       "unsupported_families": [],
       "categories": [
@@ -15246,7 +15246,7 @@
     {
       "name": "directions_transit_filled",
       "version": 10,
-      "popularity": 1172,
+      "popularity": 1174,
       "codepoint": 61434,
       "unsupported_families": [],
       "categories": [
@@ -15415,7 +15415,7 @@
     {
       "name": "discount",
       "version": 1,
-      "popularity": 5656,
+      "popularity": 5671,
       "codepoint": 60361,
       "unsupported_families": [],
       "categories": [
@@ -15632,7 +15632,7 @@
     {
       "name": "do_disturb_off",
       "version": 10,
-      "popularity": 1288,
+      "popularity": 1290,
       "codepoint": 61582,
       "unsupported_families": [],
       "categories": [
@@ -15690,7 +15690,7 @@
     {
       "name": "do_not_disturb",
       "version": 11,
-      "popularity": 8086,
+      "popularity": 8099,
       "codepoint": 58898,
       "unsupported_families": [],
       "categories": [
@@ -15796,7 +15796,7 @@
     {
       "name": "do_not_disturb_on_total_silence",
       "version": 15,
-      "popularity": 1633,
+      "popularity": 1634,
       "codepoint": 61435,
       "unsupported_families": [],
       "categories": [
@@ -15849,7 +15849,7 @@
     {
       "name": "do_not_touch",
       "version": 8,
-      "popularity": 2272,
+      "popularity": 2273,
       "codepoint": 61872,
       "unsupported_families": [],
       "categories": [
@@ -16001,7 +16001,7 @@
     {
       "name": "domain_disabled",
       "version": 12,
-      "popularity": 2252,
+      "popularity": 2255,
       "codepoint": 57583,
       "unsupported_families": [],
       "categories": [
@@ -16274,7 +16274,7 @@
     {
       "name": "door_sliding",
       "version": 10,
-      "popularity": 3139,
+      "popularity": 3142,
       "codepoint": 61438,
       "unsupported_families": [],
       "categories": [
@@ -16346,7 +16346,7 @@
     {
       "name": "downhill_skiing",
       "version": 4,
-      "popularity": 3317,
+      "popularity": 3322,
       "codepoint": 58633,
       "unsupported_families": [],
       "categories": [
@@ -16475,7 +16475,7 @@
     {
       "name": "drafts",
       "version": 17,
-      "popularity": 13082,
+      "popularity": 13096,
       "codepoint": 57681,
       "unsupported_families": [],
       "categories": [
@@ -16717,7 +16717,7 @@
     {
       "name": "drive_folder_upload",
       "version": 11,
-      "popularity": 6920,
+      "popularity": 6926,
       "codepoint": 59811,
       "unsupported_families": [],
       "categories": [
@@ -16744,7 +16744,7 @@
     {
       "name": "dry",
       "version": 8,
-      "popularity": 1450,
+      "popularity": 1451,
       "codepoint": 61875,
       "unsupported_families": [],
       "categories": [
@@ -16767,7 +16767,7 @@
     {
       "name": "dry_cleaning",
       "version": 10,
-      "popularity": 3481,
+      "popularity": 3482,
       "codepoint": 59992,
       "unsupported_families": [],
       "categories": [
@@ -16791,7 +16791,7 @@
     {
       "name": "duo",
       "version": 12,
-      "popularity": 3430,
+      "popularity": 3431,
       "codepoint": 59813,
       "unsupported_families": [],
       "categories": [
@@ -16868,7 +16868,7 @@
     {
       "name": "dynamic_form",
       "version": 7,
-      "popularity": 6537,
+      "popularity": 6541,
       "codepoint": 61887,
       "unsupported_families": [],
       "categories": [
@@ -16917,7 +16917,7 @@
     {
       "name": "earbuds",
       "version": 9,
-      "popularity": 1883,
+      "popularity": 1884,
       "codepoint": 61443,
       "unsupported_families": [],
       "categories": [
@@ -16986,7 +16986,7 @@
     {
       "name": "edgesensor_high",
       "version": 10,
-      "popularity": 1302,
+      "popularity": 1303,
       "codepoint": 61445,
       "unsupported_families": [],
       "categories": [
@@ -17070,7 +17070,7 @@
     {
       "name": "edit_attributes",
       "version": 12,
-      "popularity": 3385,
+      "popularity": 3389,
       "codepoint": 58744,
       "unsupported_families": [],
       "categories": [
@@ -17154,7 +17154,7 @@
     {
       "name": "edit_location_alt",
       "version": 8,
-      "popularity": 3422,
+      "popularity": 3425,
       "codepoint": 57797,
       "unsupported_families": [],
       "categories": [
@@ -17417,7 +17417,7 @@
     {
       "name": "electric_bike",
       "version": 14,
-      "popularity": 2443,
+      "popularity": 2445,
       "codepoint": 60187,
       "unsupported_families": [],
       "categories": [
@@ -17464,7 +17464,7 @@
     {
       "name": "electric_car",
       "version": 14,
-      "popularity": 4181,
+      "popularity": 4187,
       "codepoint": 60188,
       "unsupported_families": [],
       "categories": [
@@ -17517,7 +17517,7 @@
     {
       "name": "electric_moped",
       "version": 14,
-      "popularity": 1465,
+      "popularity": 1466,
       "codepoint": 60189,
       "unsupported_families": [],
       "categories": [
@@ -17838,7 +17838,7 @@
     {
       "name": "emoji_nature",
       "version": 11,
-      "popularity": 8313,
+      "popularity": 8320,
       "codepoint": 59932,
       "unsupported_families": [],
       "categories": [
@@ -18146,7 +18146,7 @@
     {
       "name": "escalator",
       "version": 8,
-      "popularity": 1473,
+      "popularity": 1477,
       "codepoint": 61857,
       "unsupported_families": [],
       "categories": [
@@ -18255,7 +18255,7 @@
     {
       "name": "ev_station",
       "version": 11,
-      "popularity": 4228,
+      "popularity": 4240,
       "codepoint": 58733,
       "unsupported_families": [],
       "categories": [
@@ -18675,7 +18675,7 @@
     {
       "name": "exposure",
       "version": 12,
-      "popularity": 2508,
+      "popularity": 2512,
       "codepoint": 58314,
       "unsupported_families": [],
       "categories": [
@@ -18767,7 +18767,7 @@
     {
       "name": "exposure_plus_1",
       "version": 12,
-      "popularity": 2603,
+      "popularity": 2604,
       "codepoint": 58317,
       "unsupported_families": [],
       "categories": [
@@ -18798,7 +18798,7 @@
     {
       "name": "exposure_plus_2",
       "version": 12,
-      "popularity": 1424,
+      "popularity": 1427,
       "codepoint": 58318,
       "unsupported_families": [],
       "categories": [
@@ -18829,7 +18829,7 @@
     {
       "name": "exposure_zero",
       "version": 12,
-      "popularity": 1923,
+      "popularity": 1925,
       "codepoint": 58319,
       "unsupported_families": [],
       "categories": [
@@ -18942,7 +18942,7 @@
     {
       "name": "face_2",
       "version": 1,
-      "popularity": 1186,
+      "popularity": 1195,
       "codepoint": 63706,
       "unsupported_families": [],
       "categories": [
@@ -19078,7 +19078,7 @@
     {
       "name": "face_6",
       "version": 1,
-      "popularity": 1734,
+      "popularity": 1747,
       "codepoint": 63710,
       "unsupported_families": [],
       "categories": [
@@ -19416,7 +19416,7 @@
     {
       "name": "featured_video",
       "version": 12,
-      "popularity": 2552,
+      "popularity": 2556,
       "codepoint": 57454,
       "unsupported_families": [],
       "categories": [
@@ -19546,7 +19546,7 @@
     {
       "name": "festival",
       "version": 10,
-      "popularity": 4052,
+      "popularity": 4059,
       "codepoint": 60008,
       "unsupported_families": [],
       "categories": [
@@ -19649,7 +19649,7 @@
     {
       "name": "fiber_pin",
       "version": 12,
-      "popularity": 1020,
+      "popularity": 1021,
       "codepoint": 57450,
       "unsupported_families": [],
       "categories": [
@@ -19882,7 +19882,7 @@
     {
       "name": "filter",
       "version": 12,
-      "popularity": 3590,
+      "popularity": 3594,
       "codepoint": 58323,
       "unsupported_families": [],
       "categories": [
@@ -19909,7 +19909,7 @@
     {
       "name": "filter_1",
       "version": 12,
-      "popularity": 4306,
+      "popularity": 4310,
       "codepoint": 58320,
       "unsupported_families": [],
       "categories": [
@@ -19940,7 +19940,7 @@
     {
       "name": "filter_2",
       "version": 12,
-      "popularity": 2491,
+      "popularity": 2493,
       "codepoint": 58321,
       "unsupported_families": [],
       "categories": [
@@ -20002,7 +20002,7 @@
     {
       "name": "filter_4",
       "version": 12,
-      "popularity": 1422,
+      "popularity": 1427,
       "codepoint": 58324,
       "unsupported_families": [],
       "categories": [
@@ -20064,7 +20064,7 @@
     {
       "name": "filter_6",
       "version": 12,
-      "popularity": 1081,
+      "popularity": 1082,
       "codepoint": 58326,
       "unsupported_families": [],
       "categories": [
@@ -20095,7 +20095,7 @@
     {
       "name": "filter_7",
       "version": 12,
-      "popularity": 1448,
+      "popularity": 1451,
       "codepoint": 58327,
       "unsupported_families": [],
       "categories": [
@@ -20126,7 +20126,7 @@
     {
       "name": "filter_8",
       "version": 12,
-      "popularity": 1140,
+      "popularity": 1144,
       "codepoint": 58328,
       "unsupported_families": [],
       "categories": [
@@ -20157,7 +20157,7 @@
     {
       "name": "filter_9",
       "version": 12,
-      "popularity": 1139,
+      "popularity": 1142,
       "codepoint": 58329,
       "unsupported_families": [],
       "categories": [
@@ -20188,7 +20188,7 @@
     {
       "name": "filter_9_plus",
       "version": 13,
-      "popularity": 1426,
+      "popularity": 1431,
       "codepoint": 58330,
       "unsupported_families": [],
       "categories": [
@@ -20327,7 +20327,7 @@
     {
       "name": "filter_drama",
       "version": 12,
-      "popularity": 7146,
+      "popularity": 7154,
       "codepoint": 58333,
       "unsupported_families": [],
       "categories": [
@@ -20353,7 +20353,7 @@
     {
       "name": "filter_frames",
       "version": 13,
-      "popularity": 1771,
+      "popularity": 1772,
       "codepoint": 58334,
       "unsupported_families": [],
       "categories": [
@@ -20385,7 +20385,7 @@
     {
       "name": "filter_hdr",
       "version": 13,
-      "popularity": 2049,
+      "popularity": 2054,
       "codepoint": 58335,
       "unsupported_families": [],
       "categories": [
@@ -20432,7 +20432,7 @@
     {
       "name": "filter_list_off",
       "version": 1,
-      "popularity": 3232,
+      "popularity": 3235,
       "codepoint": 60247,
       "unsupported_families": [],
       "categories": [
@@ -20479,7 +20479,7 @@
     {
       "name": "filter_tilt_shift",
       "version": 14,
-      "popularity": 2460,
+      "popularity": 2461,
       "codepoint": 58338,
       "unsupported_families": [],
       "categories": [
@@ -20508,7 +20508,7 @@
     {
       "name": "filter_vintage",
       "version": 13,
-      "popularity": 7248,
+      "popularity": 7256,
       "codepoint": 58339,
       "unsupported_families": [],
       "categories": [
@@ -20642,7 +20642,7 @@
     {
       "name": "fire_hydrant_alt",
       "version": 1,
-      "popularity": 264,
+      "popularity": 266,
       "codepoint": 63729,
       "unsupported_families": [],
       "categories": [
@@ -20902,7 +20902,7 @@
     {
       "name": "flash_auto",
       "version": 12,
-      "popularity": 2259,
+      "popularity": 2261,
       "codepoint": 58341,
       "unsupported_families": [],
       "categories": [
@@ -20925,7 +20925,7 @@
     {
       "name": "flash_off",
       "version": 12,
-      "popularity": 5271,
+      "popularity": 5280,
       "codepoint": 58342,
       "unsupported_families": [],
       "categories": [
@@ -20977,7 +20977,7 @@
     {
       "name": "flashlight_off",
       "version": 10,
-      "popularity": 1969,
+      "popularity": 1970,
       "codepoint": 61450,
       "unsupported_families": [],
       "categories": [
@@ -21000,7 +21000,7 @@
     {
       "name": "flashlight_on",
       "version": 10,
-      "popularity": 4818,
+      "popularity": 4821,
       "codepoint": 61451,
       "unsupported_families": [],
       "categories": [
@@ -21148,7 +21148,7 @@
     {
       "name": "flip",
       "version": 12,
-      "popularity": 4810,
+      "popularity": 4815,
       "codepoint": 58344,
       "unsupported_families": [],
       "categories": [
@@ -21196,7 +21196,7 @@
     {
       "name": "flip_camera_ios",
       "version": 12,
-      "popularity": 4497,
+      "popularity": 4507,
       "codepoint": 59960,
       "unsupported_families": [],
       "categories": [
@@ -21225,7 +21225,7 @@
     {
       "name": "flip_to_back",
       "version": 12,
-      "popularity": 2618,
+      "popularity": 2623,
       "codepoint": 59522,
       "unsupported_families": [],
       "categories": [
@@ -21251,7 +21251,7 @@
     {
       "name": "flip_to_front",
       "version": 12,
-      "popularity": 3805,
+      "popularity": 3807,
       "codepoint": 59523,
       "unsupported_families": [],
       "categories": [
@@ -21277,7 +21277,7 @@
     {
       "name": "flood",
       "version": 1,
-      "popularity": 899,
+      "popularity": 900,
       "codepoint": 60390,
       "unsupported_families": [],
       "categories": [
@@ -21487,7 +21487,7 @@
     {
       "name": "folder_off",
       "version": 1,
-      "popularity": 1304,
+      "popularity": 1305,
       "codepoint": 60291,
       "unsupported_families": [],
       "categories": [
@@ -21669,7 +21669,7 @@
     {
       "name": "font_download",
       "version": 11,
-      "popularity": 5853,
+      "popularity": 5862,
       "codepoint": 57703,
       "unsupported_families": [],
       "categories": [
@@ -21694,7 +21694,7 @@
     {
       "name": "font_download_off",
       "version": 4,
-      "popularity": 1504,
+      "popularity": 1506,
       "codepoint": 58617,
       "unsupported_families": [],
       "categories": [
@@ -21724,7 +21724,7 @@
     {
       "name": "food_bank",
       "version": 7,
-      "popularity": 4936,
+      "popularity": 4940,
       "codepoint": 61938,
       "unsupported_families": [],
       "categories": [
@@ -21835,7 +21835,7 @@
     {
       "name": "format_align_center",
       "version": 12,
-      "popularity": 6231,
+      "popularity": 6237,
       "codepoint": 57908,
       "unsupported_families": [],
       "categories": [
@@ -21863,7 +21863,7 @@
     {
       "name": "format_align_justify",
       "version": 12,
-      "popularity": 4684,
+      "popularity": 4688,
       "codepoint": 57909,
       "unsupported_families": [],
       "categories": [
@@ -21922,7 +21922,7 @@
     {
       "name": "format_align_right",
       "version": 13,
-      "popularity": 5388,
+      "popularity": 5391,
       "codepoint": 57911,
       "unsupported_families": [],
       "categories": [
@@ -21983,7 +21983,7 @@
     {
       "name": "format_clear",
       "version": 12,
-      "popularity": 2241,
+      "popularity": 2243,
       "codepoint": 57913,
       "unsupported_families": [],
       "categories": [
@@ -22090,7 +22090,7 @@
     {
       "name": "format_color_text",
       "version": 17,
-      "popularity": 5434,
+      "popularity": 5439,
       "codepoint": 57916,
       "unsupported_families": [],
       "categories": [
@@ -22120,7 +22120,7 @@
     {
       "name": "format_indent_decrease",
       "version": 13,
-      "popularity": 2292,
+      "popularity": 2294,
       "codepoint": 57917,
       "unsupported_families": [],
       "categories": [
@@ -22182,7 +22182,7 @@
     {
       "name": "format_italic",
       "version": 12,
-      "popularity": 9421,
+      "popularity": 9425,
       "codepoint": 57919,
       "unsupported_families": [],
       "categories": [
@@ -22214,7 +22214,7 @@
     {
       "name": "format_line_spacing",
       "version": 12,
-      "popularity": 2146,
+      "popularity": 2147,
       "codepoint": 57920,
       "unsupported_families": [],
       "categories": [
@@ -22503,7 +22503,7 @@
     {
       "name": "format_strikethrough",
       "version": 12,
-      "popularity": 1870,
+      "popularity": 1874,
       "codepoint": 57926,
       "unsupported_families": [],
       "categories": [
@@ -22593,7 +22593,7 @@
     {
       "name": "format_underlined",
       "version": 13,
-      "popularity": 7346,
+      "popularity": 7349,
       "codepoint": 57929,
       "unsupported_families": [],
       "categories": [
@@ -22627,7 +22627,7 @@
     {
       "name": "fort",
       "version": 2,
-      "popularity": 1005,
+      "popularity": 1008,
       "codepoint": 60077,
       "unsupported_families": [],
       "categories": [
@@ -22751,7 +22751,7 @@
     {
       "name": "forward_5",
       "version": 13,
-      "popularity": 1990,
+      "popularity": 1993,
       "codepoint": 57432,
       "unsupported_families": [],
       "categories": [
@@ -23193,7 +23193,7 @@
     {
       "name": "generating_tokens",
       "version": 5,
-      "popularity": 5203,
+      "popularity": 5208,
       "codepoint": 59209,
       "unsupported_families": [],
       "categories": [
@@ -23216,7 +23216,7 @@
     {
       "name": "gesture",
       "version": 12,
-      "popularity": 5410,
+      "popularity": 5412,
       "codepoint": 57685,
       "unsupported_families": [],
       "categories": [
@@ -23263,7 +23263,7 @@
     {
       "name": "gif",
       "version": 14,
-      "popularity": 4949,
+      "popularity": 4951,
       "codepoint": 59656,
       "unsupported_families": [],
       "categories": [
@@ -23322,7 +23322,7 @@
     {
       "name": "girl",
       "version": 1,
-      "popularity": 2388,
+      "popularity": 2390,
       "codepoint": 60264,
       "unsupported_families": [],
       "categories": [
@@ -23350,7 +23350,7 @@
     {
       "name": "gite",
       "version": 4,
-      "popularity": 4850,
+      "popularity": 4854,
       "codepoint": 58763,
       "unsupported_families": [],
       "categories": [
@@ -23379,7 +23379,7 @@
     {
       "name": "golf_course",
       "version": 11,
-      "popularity": 4291,
+      "popularity": 4299,
       "codepoint": 60229,
       "unsupported_families": [],
       "categories": [
@@ -23409,7 +23409,7 @@
     {
       "name": "gpp_bad",
       "version": 10,
-      "popularity": 6683,
+      "popularity": 6693,
       "codepoint": 61458,
       "unsupported_families": [],
       "categories": [
@@ -23611,7 +23611,7 @@
     {
       "name": "gradient",
       "version": 12,
-      "popularity": 2874,
+      "popularity": 2876,
       "codepoint": 58345,
       "unsupported_families": [],
       "categories": [
@@ -23733,7 +23733,7 @@
     {
       "name": "grid_3x3",
       "version": 10,
-      "popularity": 1802,
+      "popularity": 1803,
       "codepoint": 61461,
       "unsupported_families": [],
       "categories": [
@@ -23753,7 +23753,7 @@
     {
       "name": "grid_4x4",
       "version": 10,
-      "popularity": 2749,
+      "popularity": 2751,
       "codepoint": 61462,
       "unsupported_families": [],
       "categories": [
@@ -23774,7 +23774,7 @@
     {
       "name": "grid_goldenratio",
       "version": 10,
-      "popularity": 1032,
+      "popularity": 1033,
       "codepoint": 61463,
       "unsupported_families": [],
       "categories": [
@@ -23796,7 +23796,7 @@
     {
       "name": "grid_off",
       "version": 12,
-      "popularity": 1372,
+      "popularity": 1373,
       "codepoint": 58347,
       "unsupported_families": [],
       "categories": [
@@ -24137,7 +24137,7 @@
     {
       "name": "h_plus_mobiledata",
       "version": 9,
-      "popularity": 648,
+      "popularity": 649,
       "codepoint": 61465,
       "unsupported_families": [],
       "categories": [
@@ -24237,7 +24237,7 @@
     {
       "name": "hardware",
       "version": 10,
-      "popularity": 4482,
+      "popularity": 4490,
       "codepoint": 59993,
       "unsupported_families": [],
       "categories": [
@@ -24291,7 +24291,7 @@
     {
       "name": "hdr_auto",
       "version": 10,
-      "popularity": 2548,
+      "popularity": 2550,
       "codepoint": 61466,
       "unsupported_families": [],
       "categories": [
@@ -24418,7 +24418,7 @@
     {
       "name": "hdr_off_select",
       "version": 10,
-      "popularity": 551,
+      "popularity": 552,
       "codepoint": 61468,
       "unsupported_families": [],
       "categories": [
@@ -24571,7 +24571,7 @@
     {
       "name": "hdr_weak",
       "version": 12,
-      "popularity": 1937,
+      "popularity": 1938,
       "codepoint": 58354,
       "unsupported_families": [],
       "categories": [
@@ -24619,7 +24619,7 @@
     {
       "name": "headphones_battery",
       "version": 9,
-      "popularity": 1342,
+      "popularity": 1344,
       "codepoint": 61472,
       "unsupported_families": [],
       "categories": [
@@ -24699,7 +24699,7 @@
     {
       "name": "headset_off",
       "version": 12,
-      "popularity": 1746,
+      "popularity": 1747,
       "codepoint": 58170,
       "unsupported_families": [],
       "categories": [
@@ -24815,7 +24815,7 @@
     {
       "name": "hearing_disabled",
       "version": 14,
-      "popularity": 2020,
+      "popularity": 2021,
       "codepoint": 61700,
       "unsupported_families": [],
       "categories": [
@@ -25040,7 +25040,7 @@
     {
       "name": "hexagon",
       "version": 1,
-      "popularity": 2727,
+      "popularity": 2733,
       "codepoint": 60217,
       "unsupported_families": [],
       "categories": [
@@ -25144,7 +25144,7 @@
     {
       "name": "highlight",
       "version": 14,
-      "popularity": 4838,
+      "popularity": 4841,
       "codepoint": 57951,
       "unsupported_families": [],
       "categories": [
@@ -25177,7 +25177,7 @@
     {
       "name": "highlight_alt",
       "version": 12,
-      "popularity": 8025,
+      "popularity": 8033,
       "codepoint": 61266,
       "unsupported_families": [],
       "categories": [
@@ -25357,7 +25357,7 @@
     {
       "name": "hls",
       "version": 1,
-      "popularity": 590,
+      "popularity": 591,
       "codepoint": 60298,
       "unsupported_families": [],
       "categories": [
@@ -25421,7 +25421,7 @@
     {
       "name": "holiday_village",
       "version": 4,
-      "popularity": 7783,
+      "popularity": 7794,
       "codepoint": 58762,
       "unsupported_families": [],
       "categories": [
@@ -25496,7 +25496,7 @@
     {
       "name": "home_max",
       "version": 10,
-      "popularity": 1406,
+      "popularity": 1407,
       "codepoint": 61476,
       "unsupported_families": [],
       "categories": [
@@ -25648,7 +25648,7 @@
     {
       "name": "horizontal_split",
       "version": 15,
-      "popularity": 4372,
+      "popularity": 4379,
       "codepoint": 59719,
       "unsupported_families": [],
       "categories": [
@@ -25670,7 +25670,7 @@
     {
       "name": "hot_tub",
       "version": 12,
-      "popularity": 3028,
+      "popularity": 3031,
       "codepoint": 60230,
       "unsupported_families": [],
       "categories": [
@@ -25838,7 +25838,7 @@
     {
       "name": "hourglass_full",
       "version": 15,
-      "popularity": 7605,
+      "popularity": 7612,
       "codepoint": 59532,
       "unsupported_families": [],
       "categories": [
@@ -25942,7 +25942,7 @@
     {
       "name": "houseboat",
       "version": 4,
-      "popularity": 2103,
+      "popularity": 2104,
       "codepoint": 58756,
       "unsupported_families": [],
       "categories": [
@@ -26158,7 +26158,7 @@
     {
       "name": "ice_skating",
       "version": 4,
-      "popularity": 1914,
+      "popularity": 1916,
       "codepoint": 58635,
       "unsupported_families": [],
       "categories": [
@@ -26289,7 +26289,7 @@
     {
       "name": "image_search",
       "version": 12,
-      "popularity": 6859,
+      "popularity": 6873,
       "codepoint": 58431,
       "unsupported_families": [],
       "categories": [
@@ -26318,7 +26318,7 @@
     {
       "name": "imagesearch_roller",
       "version": 11,
-      "popularity": 2056,
+      "popularity": 2057,
       "codepoint": 59828,
       "unsupported_families": [],
       "categories": [
@@ -26716,7 +26716,7 @@
     {
       "name": "insert_page_break",
       "version": 2,
-      "popularity": 1053,
+      "popularity": 1056,
       "codepoint": 60106,
       "unsupported_families": [],
       "categories": [
@@ -26824,7 +26824,7 @@
     {
       "name": "install_mobile",
       "version": 1,
-      "popularity": 1979,
+      "popularity": 1986,
       "codepoint": 60274,
       "unsupported_families": [],
       "categories": [
@@ -26903,7 +26903,7 @@
     {
       "name": "interpreter_mode",
       "version": 2,
-      "popularity": 1987,
+      "popularity": 1988,
       "codepoint": 59451,
       "unsupported_families": [],
       "categories": [
@@ -27006,7 +27006,7 @@
     {
       "name": "invert_colors_off",
       "version": 12,
-      "popularity": 1671,
+      "popularity": 1672,
       "codepoint": 57540,
       "unsupported_families": [],
       "categories": [
@@ -27082,7 +27082,7 @@
     {
       "name": "iso",
       "version": 11,
-      "popularity": 2136,
+      "popularity": 2144,
       "codepoint": 58358,
       "unsupported_families": [],
       "categories": [
@@ -27170,7 +27170,7 @@
     {
       "name": "join_inner",
       "version": 1,
-      "popularity": 2483,
+      "popularity": 2491,
       "codepoint": 60148,
       "unsupported_families": [],
       "categories": [
@@ -27194,7 +27194,7 @@
     {
       "name": "join_left",
       "version": 1,
-      "popularity": 1845,
+      "popularity": 1850,
       "codepoint": 60146,
       "unsupported_families": [],
       "categories": [
@@ -27281,7 +27281,7 @@
     {
       "name": "kebab_dining",
       "version": 2,
-      "popularity": 980,
+      "popularity": 981,
       "codepoint": 59458,
       "unsupported_families": [],
       "categories": [
@@ -27497,7 +27497,7 @@
     {
       "name": "keyboard_capslock",
       "version": 13,
-      "popularity": 1908,
+      "popularity": 1910,
       "codepoint": 58136,
       "unsupported_families": [],
       "categories": [
@@ -27516,7 +27516,7 @@
     {
       "name": "keyboard_command_key",
       "version": 1,
-      "popularity": 1416,
+      "popularity": 1419,
       "codepoint": 60135,
       "unsupported_families": [],
       "categories": [
@@ -27536,7 +27536,7 @@
     {
       "name": "keyboard_control_key",
       "version": 1,
-      "popularity": 722,
+      "popularity": 723,
       "codepoint": 60134,
       "unsupported_families": [],
       "categories": [
@@ -27646,7 +27646,7 @@
     {
       "name": "keyboard_hide",
       "version": 13,
-      "popularity": 2514,
+      "popularity": 2516,
       "codepoint": 58138,
       "unsupported_families": [],
       "categories": [
@@ -27811,7 +27811,7 @@
     {
       "name": "kitesurfing",
       "version": 4,
-      "popularity": 2179,
+      "popularity": 2180,
       "codepoint": 58637,
       "unsupported_families": [],
       "categories": [
@@ -27949,7 +27949,7 @@
     {
       "name": "landscape",
       "version": 12,
-      "popularity": 8878,
+      "popularity": 8888,
       "codepoint": 58359,
       "unsupported_families": [],
       "categories": [
@@ -27972,7 +27972,7 @@
     {
       "name": "landslide",
       "version": 1,
-      "popularity": 662,
+      "popularity": 664,
       "codepoint": 60375,
       "unsupported_families": [],
       "categories": [
@@ -28219,7 +28219,7 @@
     {
       "name": "layers_clear",
       "version": 12,
-      "popularity": 3884,
+      "popularity": 3888,
       "codepoint": 58684,
       "unsupported_families": [],
       "categories": [
@@ -28275,7 +28275,7 @@
     {
       "name": "leak_add",
       "version": 12,
-      "popularity": 3580,
+      "popularity": 3581,
       "codepoint": 58360,
       "unsupported_families": [],
       "categories": [
@@ -28589,7 +28589,7 @@
     {
       "name": "lightbulb_circle",
       "version": 1,
-      "popularity": 2571,
+      "popularity": 2582,
       "codepoint": 60414,
       "unsupported_families": [],
       "categories": [
@@ -28634,7 +28634,7 @@
     {
       "name": "line_style",
       "version": 14,
-      "popularity": 3198,
+      "popularity": 3200,
       "codepoint": 59673,
       "unsupported_families": [],
       "categories": [
@@ -28655,7 +28655,7 @@
     {
       "name": "line_weight",
       "version": 14,
-      "popularity": 4509,
+      "popularity": 4510,
       "codepoint": 59674,
       "unsupported_families": [],
       "categories": [
@@ -28762,7 +28762,7 @@
     {
       "name": "linked_camera",
       "version": 15,
-      "popularity": 2312,
+      "popularity": 2320,
       "codepoint": 58424,
       "unsupported_families": [],
       "categories": [
@@ -28928,7 +28928,7 @@
     {
       "name": "living",
       "version": 9,
-      "popularity": 3034,
+      "popularity": 3036,
       "codepoint": 61483,
       "unsupported_families": [],
       "categories": [
@@ -29106,7 +29106,7 @@
     {
       "name": "local_convenience_store",
       "version": 16,
-      "popularity": 3671,
+      "popularity": 3678,
       "codepoint": 58691,
       "unsupported_families": [],
       "categories": [
@@ -29306,7 +29306,7 @@
     {
       "name": "local_hotel",
       "version": 13,
-      "popularity": 2159,
+      "popularity": 2160,
       "codepoint": 58697,
       "unsupported_families": [],
       "categories": [
@@ -29414,7 +29414,7 @@
     {
       "name": "local_movies",
       "version": 12,
-      "popularity": 3170,
+      "popularity": 3178,
       "codepoint": 58701,
       "unsupported_families": [],
       "categories": [
@@ -29480,7 +29480,7 @@
     {
       "name": "local_pharmacy",
       "version": 12,
-      "popularity": 4774,
+      "popularity": 4779,
       "codepoint": 58704,
       "unsupported_families": [],
       "categories": [
@@ -29546,7 +29546,7 @@
     {
       "name": "local_play",
       "version": 12,
-      "popularity": 1395,
+      "popularity": 1397,
       "codepoint": 58707,
       "unsupported_families": [],
       "categories": [
@@ -29640,7 +29640,7 @@
     {
       "name": "local_see",
       "version": 16,
-      "popularity": 4261,
+      "popularity": 4273,
       "codepoint": 58711,
       "unsupported_families": [],
       "categories": [
@@ -29758,7 +29758,7 @@
     {
       "name": "location_disabled",
       "version": 12,
-      "popularity": 1169,
+      "popularity": 1170,
       "codepoint": 57782,
       "unsupported_families": [],
       "categories": [
@@ -29835,7 +29835,7 @@
     {
       "name": "location_searching",
       "version": 12,
-      "popularity": 7441,
+      "popularity": 7449,
       "codepoint": 57783,
       "unsupported_families": [],
       "categories": [
@@ -30020,7 +30020,7 @@
     {
       "name": "logo_dev",
       "version": 2,
-      "popularity": 1674,
+      "popularity": 1675,
       "codepoint": 60118,
       "unsupported_families": [],
       "categories": [
@@ -30091,7 +30091,7 @@
     {
       "name": "looks_3",
       "version": 12,
-      "popularity": 7029,
+      "popularity": 7046,
       "codepoint": 58363,
       "unsupported_families": [],
       "categories": [
@@ -30112,7 +30112,7 @@
     {
       "name": "looks_4",
       "version": 12,
-      "popularity": 3917,
+      "popularity": 3926,
       "codepoint": 58365,
       "unsupported_families": [],
       "categories": [
@@ -30133,7 +30133,7 @@
     {
       "name": "looks_5",
       "version": 12,
-      "popularity": 2955,
+      "popularity": 2961,
       "codepoint": 58366,
       "unsupported_families": [],
       "categories": [
@@ -30154,7 +30154,7 @@
     {
       "name": "looks_6",
       "version": 13,
-      "popularity": 2257,
+      "popularity": 2263,
       "codepoint": 58367,
       "unsupported_families": [],
       "categories": [
@@ -30196,7 +30196,7 @@
     {
       "name": "looks_two",
       "version": 12,
-      "popularity": 8110,
+      "popularity": 8126,
       "codepoint": 58369,
       "unsupported_families": [],
       "categories": [
@@ -30245,7 +30245,7 @@
     {
       "name": "loupe",
       "version": 12,
-      "popularity": 4680,
+      "popularity": 4684,
       "codepoint": 58370,
       "unsupported_families": [],
       "categories": [
@@ -30435,7 +30435,7 @@
     {
       "name": "lyrics",
       "version": 3,
-      "popularity": 1030,
+      "popularity": 1035,
       "codepoint": 60427,
       "unsupported_families": [],
       "categories": [
@@ -30589,7 +30589,7 @@
     {
       "name": "man",
       "version": 2,
-      "popularity": 5756,
+      "popularity": 5772,
       "codepoint": 58603,
       "unsupported_families": [],
       "categories": [
@@ -30611,7 +30611,7 @@
     {
       "name": "man_2",
       "version": 1,
-      "popularity": 529,
+      "popularity": 531,
       "codepoint": 63713,
       "unsupported_families": [],
       "categories": [
@@ -30633,7 +30633,7 @@
     {
       "name": "man_3",
       "version": 1,
-      "popularity": 271,
+      "popularity": 273,
       "codepoint": 63714,
       "unsupported_families": [],
       "categories": [
@@ -30808,7 +30808,7 @@
     {
       "name": "maps_ugc",
       "version": 13,
-      "popularity": 6993,
+      "popularity": 7000,
       "codepoint": 61272,
       "unsupported_families": [],
       "categories": [
@@ -30884,7 +30884,7 @@
     {
       "name": "mark_chat_read",
       "version": 8,
-      "popularity": 4599,
+      "popularity": 4609,
       "codepoint": 61835,
       "unsupported_families": [],
       "categories": [
@@ -31055,7 +31055,7 @@
     {
       "name": "markunread_mailbox",
       "version": 12,
-      "popularity": 6627,
+      "popularity": 6636,
       "codepoint": 59547,
       "unsupported_families": [],
       "categories": [
@@ -31082,7 +31082,7 @@
     {
       "name": "masks",
       "version": 7,
-      "popularity": 10287,
+      "popularity": 10292,
       "codepoint": 61976,
       "unsupported_families": [],
       "categories": [
@@ -31138,7 +31138,7 @@
     {
       "name": "media_bluetooth_off",
       "version": 10,
-      "popularity": 679,
+      "popularity": 682,
       "codepoint": 61489,
       "unsupported_families": [],
       "categories": [
@@ -31171,7 +31171,7 @@
     {
       "name": "media_bluetooth_on",
       "version": 10,
-      "popularity": 1130,
+      "popularity": 1132,
       "codepoint": 61490,
       "unsupported_families": [],
       "categories": [
@@ -31297,7 +31297,7 @@
     {
       "name": "medication_liquid",
       "version": 2,
-      "popularity": 1674,
+      "popularity": 1686,
       "codepoint": 60039,
       "unsupported_families": [],
       "categories": [
@@ -31457,7 +31457,7 @@
     {
       "name": "merge",
       "version": 1,
-      "popularity": 2499,
+      "popularity": 2504,
       "codepoint": 60312,
       "unsupported_families": [],
       "categories": [
@@ -31627,7 +31627,7 @@
     {
       "name": "mic_off",
       "version": 14,
-      "popularity": 13885,
+      "popularity": 13902,
       "codepoint": 57387,
       "unsupported_families": [],
       "categories": [
@@ -31657,7 +31657,7 @@
     {
       "name": "microwave",
       "version": 6,
-      "popularity": 3715,
+      "popularity": 3716,
       "codepoint": 61956,
       "unsupported_families": [],
       "categories": [
@@ -31746,7 +31746,7 @@
     {
       "name": "minor_crash",
       "version": 1,
-      "popularity": 879,
+      "popularity": 882,
       "codepoint": 60401,
       "unsupported_families": [],
       "categories": [
@@ -31788,7 +31788,7 @@
     {
       "name": "missed_video_call",
       "version": 13,
-      "popularity": 1190,
+      "popularity": 1191,
       "codepoint": 57459,
       "unsupported_families": [],
       "categories": [
@@ -31847,7 +31847,7 @@
     {
       "name": "mobile_friendly",
       "version": 12,
-      "popularity": 4447,
+      "popularity": 4451,
       "codepoint": 57856,
       "unsupported_families": [],
       "categories": [
@@ -31883,7 +31883,7 @@
     {
       "name": "mobile_off",
       "version": 12,
-      "popularity": 1142,
+      "popularity": 1143,
       "codepoint": 57857,
       "unsupported_families": [],
       "categories": [
@@ -31913,7 +31913,7 @@
     {
       "name": "mobile_screen_share",
       "version": 12,
-      "popularity": 2566,
+      "popularity": 2570,
       "codepoint": 57575,
       "unsupported_families": [],
       "categories": [
@@ -32074,7 +32074,7 @@
     {
       "name": "mode_fan_off",
       "version": 1,
-      "popularity": 824,
+      "popularity": 830,
       "codepoint": 60439,
       "unsupported_families": [],
       "categories": [
@@ -32270,7 +32270,7 @@
     {
       "name": "money_off",
       "version": 12,
-      "popularity": 7140,
+      "popularity": 7148,
       "codepoint": 57948,
       "unsupported_families": [],
       "categories": [
@@ -32505,7 +32505,7 @@
     {
       "name": "moped",
       "version": 14,
-      "popularity": 3275,
+      "popularity": 3276,
       "codepoint": 60200,
       "unsupported_families": [],
       "categories": [
@@ -32530,7 +32530,7 @@
     {
       "name": "more",
       "version": 13,
-      "popularity": 9158,
+      "popularity": 9166,
       "codepoint": 58905,
       "unsupported_families": [],
       "categories": [
@@ -32657,7 +32657,7 @@
     {
       "name": "mosque",
       "version": 2,
-      "popularity": 1694,
+      "popularity": 1698,
       "codepoint": 60082,
       "unsupported_families": [],
       "categories": [
@@ -32680,7 +32680,7 @@
     {
       "name": "motion_photos_auto",
       "version": 15,
-      "popularity": 2226,
+      "popularity": 2230,
       "codepoint": 61498,
       "unsupported_families": [],
       "categories": [
@@ -32712,7 +32712,7 @@
     {
       "name": "motion_photos_off",
       "version": 14,
-      "popularity": 1063,
+      "popularity": 1064,
       "codepoint": 59840,
       "unsupported_families": [],
       "categories": [
@@ -32737,7 +32737,7 @@
     {
       "name": "motion_photos_on",
       "version": 18,
-      "popularity": 3097,
+      "popularity": 3100,
       "codepoint": 59841,
       "unsupported_families": [],
       "categories": [
@@ -32787,7 +32787,7 @@
     {
       "name": "motion_photos_paused",
       "version": 17,
-      "popularity": 1367,
+      "popularity": 1369,
       "codepoint": 59842,
       "unsupported_families": [],
       "categories": [
@@ -32881,7 +32881,7 @@
     {
       "name": "move_up",
       "version": 2,
-      "popularity": 2893,
+      "popularity": 2902,
       "codepoint": 60260,
       "unsupported_families": [],
       "categories": [
@@ -33024,7 +33024,7 @@
     {
       "name": "multiline_chart",
       "version": 13,
-      "popularity": 2672,
+      "popularity": 2674,
       "codepoint": 59103,
       "unsupported_families": [],
       "categories": [
@@ -33053,7 +33053,7 @@
     {
       "name": "multiple_stop",
       "version": 7,
-      "popularity": 5408,
+      "popularity": 5415,
       "codepoint": 61881,
       "unsupported_families": [],
       "categories": [
@@ -33157,7 +33157,7 @@
     {
       "name": "music_video",
       "version": 15,
-      "popularity": 2272,
+      "popularity": 2273,
       "codepoint": 57443,
       "unsupported_families": [],
       "categories": [
@@ -33203,7 +33203,7 @@
     {
       "name": "nat",
       "version": 11,
-      "popularity": 1294,
+      "popularity": 1295,
       "codepoint": 61276,
       "unsupported_families": [],
       "categories": [
@@ -33221,7 +33221,7 @@
     {
       "name": "nature",
       "version": 12,
-      "popularity": 3515,
+      "popularity": 3518,
       "codepoint": 58374,
       "unsupported_families": [],
       "categories": [
@@ -33243,7 +33243,7 @@
     {
       "name": "nature_people",
       "version": 12,
-      "popularity": 5533,
+      "popularity": 5543,
       "codepoint": 58375,
       "unsupported_families": [],
       "categories": [
@@ -33362,7 +33362,7 @@
     {
       "name": "near_me_disabled",
       "version": 6,
-      "popularity": 1234,
+      "popularity": 1236,
       "codepoint": 61935,
       "unsupported_families": [],
       "categories": [
@@ -33441,7 +33441,7 @@
     {
       "name": "nest_cam_wired_stand",
       "version": 1,
-      "popularity": 461,
+      "popularity": 463,
       "codepoint": 60438,
       "unsupported_families": [],
       "categories": [
@@ -33469,7 +33469,7 @@
     {
       "name": "network_cell",
       "version": 16,
-      "popularity": 2784,
+      "popularity": 2785,
       "codepoint": 57785,
       "unsupported_families": [],
       "categories": [
@@ -33494,7 +33494,7 @@
     {
       "name": "network_check",
       "version": 12,
-      "popularity": 4662,
+      "popularity": 4671,
       "codepoint": 58944,
       "unsupported_families": [],
       "categories": [
@@ -33520,7 +33520,7 @@
     {
       "name": "network_locked",
       "version": 17,
-      "popularity": 1271,
+      "popularity": 1273,
       "codepoint": 58906,
       "unsupported_families": [],
       "categories": [
@@ -33559,7 +33559,7 @@
     {
       "name": "network_ping",
       "version": 1,
-      "popularity": 1188,
+      "popularity": 1190,
       "codepoint": 60362,
       "unsupported_families": [],
       "categories": [
@@ -33827,7 +33827,7 @@
     {
       "name": "night_shelter",
       "version": 6,
-      "popularity": 4650,
+      "popularity": 4655,
       "codepoint": 61937,
       "unsupported_families": [],
       "categories": [
@@ -33883,7 +33883,7 @@
     {
       "name": "nightlight",
       "version": 10,
-      "popularity": 9923,
+      "popularity": 9938,
       "codepoint": 61501,
       "unsupported_families": [],
       "categories": [
@@ -34009,7 +34009,7 @@
     {
       "name": "no_backpack",
       "version": 6,
-      "popularity": 775,
+      "popularity": 776,
       "codepoint": 62007,
       "unsupported_families": [],
       "categories": [
@@ -34062,7 +34062,7 @@
     {
       "name": "no_crash",
       "version": 1,
-      "popularity": 1121,
+      "popularity": 1128,
       "codepoint": 60400,
       "unsupported_families": [],
       "categories": [
@@ -34126,7 +34126,7 @@
     {
       "name": "no_encryption",
       "version": 17,
-      "popularity": 2690,
+      "popularity": 2693,
       "codepoint": 58945,
       "unsupported_families": [],
       "categories": [
@@ -34152,7 +34152,7 @@
     {
       "name": "no_encryption_gmailerrorred",
       "version": 10,
-      "popularity": 1627,
+      "popularity": 1628,
       "codepoint": 61503,
       "unsupported_families": [],
       "categories": [
@@ -34178,7 +34178,7 @@
     {
       "name": "no_flash",
       "version": 8,
-      "popularity": 855,
+      "popularity": 856,
       "codepoint": 61862,
       "unsupported_families": [],
       "categories": [
@@ -34234,7 +34234,7 @@
     {
       "name": "no_luggage",
       "version": 7,
-      "popularity": 1148,
+      "popularity": 1150,
       "codepoint": 62011,
       "unsupported_families": [],
       "categories": [
@@ -34292,7 +34292,7 @@
     {
       "name": "no_meeting_room",
       "version": 11,
-      "popularity": 1541,
+      "popularity": 1542,
       "codepoint": 60238,
       "unsupported_families": [],
       "categories": [
@@ -34325,7 +34325,7 @@
     {
       "name": "no_photography",
       "version": 8,
-      "popularity": 3856,
+      "popularity": 3861,
       "codepoint": 61864,
       "unsupported_families": [],
       "categories": [
@@ -34376,7 +34376,7 @@
     {
       "name": "no_stroller",
       "version": 9,
-      "popularity": 727,
+      "popularity": 728,
       "codepoint": 61871,
       "unsupported_families": [],
       "categories": [
@@ -34409,7 +34409,7 @@
     {
       "name": "no_transfer",
       "version": 7,
-      "popularity": 1092,
+      "popularity": 1093,
       "codepoint": 61909,
       "unsupported_families": [],
       "categories": [
@@ -34440,7 +34440,7 @@
     {
       "name": "noise_aware",
       "version": 2,
-      "popularity": 1598,
+      "popularity": 1602,
       "codepoint": 60396,
       "unsupported_families": [],
       "categories": [
@@ -34569,7 +34569,7 @@
     {
       "name": "north_west",
       "version": 7,
-      "popularity": 4847,
+      "popularity": 4849,
       "codepoint": 61922,
       "unsupported_families": [],
       "categories": [
@@ -34592,7 +34592,7 @@
     {
       "name": "not_accessible",
       "version": 13,
-      "popularity": 1989,
+      "popularity": 1990,
       "codepoint": 61694,
       "unsupported_families": [],
       "categories": [
@@ -34644,7 +34644,7 @@
     {
       "name": "not_listed_location",
       "version": 18,
-      "popularity": 6029,
+      "popularity": 6034,
       "codepoint": 58741,
       "unsupported_families": [],
       "categories": [
@@ -35075,7 +35075,7 @@
     {
       "name": "offline_share",
       "version": 12,
-      "popularity": 2724,
+      "popularity": 2729,
       "codepoint": 59845,
       "unsupported_families": [],
       "categories": [
@@ -35107,7 +35107,7 @@
     {
       "name": "oil_barrel",
       "version": 1,
-      "popularity": 1672,
+      "popularity": 1682,
       "codepoint": 60437,
       "unsupported_families": [],
       "categories": [
@@ -35200,7 +35200,7 @@
     {
       "name": "online_prediction",
       "version": 12,
-      "popularity": 7029,
+      "popularity": 7032,
       "codepoint": 61675,
       "unsupported_families": [],
       "categories": [
@@ -35559,7 +35559,7 @@
     {
       "name": "pages",
       "version": 11,
-      "popularity": 3649,
+      "popularity": 3652,
       "codepoint": 59385,
       "unsupported_families": [],
       "categories": [
@@ -35795,7 +35795,7 @@
     {
       "name": "panorama_photosphere",
       "version": 11,
-      "popularity": 1184,
+      "popularity": 1188,
       "codepoint": 59849,
       "unsupported_families": [],
       "categories": [
@@ -35936,7 +35936,7 @@
     {
       "name": "paragliding",
       "version": 4,
-      "popularity": 2330,
+      "popularity": 2331,
       "codepoint": 58639,
       "unsupported_families": [],
       "categories": [
@@ -35994,7 +35994,7 @@
     {
       "name": "party_mode",
       "version": 12,
-      "popularity": 2226,
+      "popularity": 2230,
       "codepoint": 59386,
       "unsupported_families": [],
       "categories": [
@@ -36038,7 +36038,7 @@
     {
       "name": "pattern",
       "version": 11,
-      "popularity": 3188,
+      "popularity": 3190,
       "codepoint": 61507,
       "unsupported_families": [],
       "categories": [
@@ -36082,7 +36082,7 @@
     {
       "name": "pause_circle",
       "version": 10,
-      "popularity": 13663,
+      "popularity": 13673,
       "codepoint": 57762,
       "unsupported_families": [],
       "categories": [
@@ -36105,7 +36105,7 @@
     {
       "name": "pause_circle_filled",
       "version": 15,
-      "popularity": 7574,
+      "popularity": 7583,
       "codepoint": 57397,
       "unsupported_families": [],
       "categories": [
@@ -36128,7 +36128,7 @@
     {
       "name": "pause_circle_outline",
       "version": 19,
-      "popularity": 7285,
+      "popularity": 7289,
       "codepoint": 57398,
       "unsupported_families": [],
       "categories": [
@@ -36151,7 +36151,7 @@
     {
       "name": "pause_presentation",
       "version": 12,
-      "popularity": 1820,
+      "popularity": 1823,
       "codepoint": 57578,
       "unsupported_families": [],
       "categories": [
@@ -36247,7 +36247,7 @@
     {
       "name": "pedal_bike",
       "version": 14,
-      "popularity": 8597,
+      "popularity": 8603,
       "codepoint": 60201,
       "unsupported_families": [],
       "categories": [
@@ -36525,7 +36525,7 @@
     {
       "name": "perm_device_information",
       "version": 13,
-      "popularity": 3153,
+      "popularity": 3156,
       "codepoint": 59557,
       "unsupported_families": [],
       "categories": [
@@ -36716,7 +36716,7 @@
     {
       "name": "person_3",
       "version": 1,
-      "popularity": 839,
+      "popularity": 843,
       "codepoint": 63717,
       "unsupported_families": [],
       "categories": [
@@ -36831,7 +36831,7 @@
     {
       "name": "person_add_disabled",
       "version": 11,
-      "popularity": 2274,
+      "popularity": 2281,
       "codepoint": 59851,
       "unsupported_families": [],
       "categories": [
@@ -37114,7 +37114,7 @@
     {
       "name": "pest_control",
       "version": 12,
-      "popularity": 3604,
+      "popularity": 3606,
       "codepoint": 61690,
       "unsupported_families": [],
       "categories": [
@@ -37135,7 +37135,7 @@
     {
       "name": "pest_control_rodent",
       "version": 12,
-      "popularity": 1246,
+      "popularity": 1248,
       "codepoint": 61693,
       "unsupported_families": [],
       "categories": [
@@ -37408,7 +37408,7 @@
     {
       "name": "phone_locked",
       "version": 19,
-      "popularity": 1268,
+      "popularity": 1270,
       "codepoint": 58910,
       "unsupported_families": [],
       "categories": [
@@ -37441,7 +37441,7 @@
     {
       "name": "phone_missed",
       "version": 13,
-      "popularity": 2540,
+      "popularity": 2541,
       "codepoint": 58911,
       "unsupported_families": [],
       "categories": [
@@ -37466,7 +37466,7 @@
     {
       "name": "phone_paused",
       "version": 13,
-      "popularity": 1399,
+      "popularity": 1401,
       "codepoint": 58912,
       "unsupported_families": [],
       "categories": [
@@ -37491,7 +37491,7 @@
     {
       "name": "phonelink",
       "version": 12,
-      "popularity": 4916,
+      "popularity": 4919,
       "codepoint": 58150,
       "unsupported_families": [],
       "categories": [
@@ -37664,7 +37664,7 @@
     {
       "name": "phonelink_setup",
       "version": 13,
-      "popularity": 3411,
+      "popularity": 3414,
       "codepoint": 57566,
       "unsupported_families": [],
       "categories": [
@@ -37694,7 +37694,7 @@
     {
       "name": "photo",
       "version": 12,
-      "popularity": 5429,
+      "popularity": 5437,
       "codepoint": 58384,
       "unsupported_families": [],
       "categories": [
@@ -37765,7 +37765,7 @@
     {
       "name": "photo_camera_back",
       "version": 11,
-      "popularity": 1328,
+      "popularity": 1329,
       "codepoint": 61288,
       "unsupported_families": [],
       "categories": [
@@ -37790,7 +37790,7 @@
     {
       "name": "photo_camera_front",
       "version": 11,
-      "popularity": 3073,
+      "popularity": 3074,
       "codepoint": 61289,
       "unsupported_families": [],
       "categories": [
@@ -37819,7 +37819,7 @@
     {
       "name": "photo_filter",
       "version": 12,
-      "popularity": 2103,
+      "popularity": 2108,
       "codepoint": 58427,
       "unsupported_families": [],
       "categories": [
@@ -37889,7 +37889,7 @@
     {
       "name": "photo_size_select_large",
       "version": 12,
-      "popularity": 1981,
+      "popularity": 1982,
       "codepoint": 58419,
       "unsupported_families": [],
       "categories": [
@@ -37948,7 +37948,7 @@
     {
       "name": "php",
       "version": 1,
-      "popularity": 1346,
+      "popularity": 1349,
       "codepoint": 60303,
       "unsupported_families": [],
       "categories": [
@@ -37981,7 +37981,7 @@
     {
       "name": "piano",
       "version": 4,
-      "popularity": 4605,
+      "popularity": 4607,
       "codepoint": 58657,
       "unsupported_families": [],
       "categories": [
@@ -38135,7 +38135,7 @@
     {
       "name": "pie_chart_outline",
       "version": 10,
-      "popularity": 3414,
+      "popularity": 3415,
       "codepoint": 61508,
       "unsupported_families": [],
       "categories": [
@@ -38194,7 +38194,7 @@
     {
       "name": "pin_drop",
       "version": 18,
-      "popularity": 17263,
+      "popularity": 17277,
       "codepoint": 58718,
       "unsupported_families": [],
       "categories": [
@@ -38218,7 +38218,7 @@
     {
       "name": "pin_end",
       "version": 3,
-      "popularity": 1710,
+      "popularity": 1711,
       "codepoint": 59239,
       "unsupported_families": [],
       "categories": [
@@ -38239,7 +38239,7 @@
     {
       "name": "pin_invoke",
       "version": 3,
-      "popularity": 1932,
+      "popularity": 1933,
       "codepoint": 59235,
       "unsupported_families": [],
       "categories": [
@@ -38260,7 +38260,7 @@
     {
       "name": "pinch",
       "version": 1,
-      "popularity": 1794,
+      "popularity": 1795,
       "codepoint": 60216,
       "unsupported_families": [],
       "categories": [
@@ -38326,7 +38326,7 @@
     {
       "name": "pix",
       "version": 2,
-      "popularity": 4348,
+      "popularity": 4355,
       "codepoint": 60067,
       "unsupported_families": [],
       "categories": [
@@ -38496,7 +38496,7 @@
     {
       "name": "play_disabled",
       "version": 10,
-      "popularity": 1371,
+      "popularity": 1373,
       "codepoint": 61290,
       "unsupported_families": [],
       "categories": [
@@ -38544,7 +38544,7 @@
     {
       "name": "play_lesson",
       "version": 10,
-      "popularity": 3021,
+      "popularity": 3023,
       "codepoint": 61511,
       "unsupported_families": [],
       "categories": [
@@ -38659,7 +38659,7 @@
     {
       "name": "playlist_add_circle",
       "version": 2,
-      "popularity": 2236,
+      "popularity": 2239,
       "codepoint": 59365,
       "unsupported_families": [],
       "categories": [
@@ -38920,7 +38920,7 @@
     {
       "name": "polymer",
       "version": 12,
-      "popularity": 4370,
+      "popularity": 4372,
       "codepoint": 59563,
       "unsupported_families": [],
       "categories": [
@@ -39082,7 +39082,7 @@
     {
       "name": "power_input",
       "version": 12,
-      "popularity": 1302,
+      "popularity": 1303,
       "codepoint": 58166,
       "unsupported_families": [],
       "categories": [
@@ -39211,7 +39211,7 @@
     {
       "name": "present_to_all",
       "version": 11,
-      "popularity": 4797,
+      "popularity": 4800,
       "codepoint": 57567,
       "unsupported_families": [],
       "categories": [
@@ -39369,7 +39369,7 @@
     {
       "name": "print_disabled",
       "version": 12,
-      "popularity": 1913,
+      "popularity": 1914,
       "codepoint": 59855,
       "unsupported_families": [],
       "categories": [
@@ -39482,7 +39482,7 @@
     {
       "name": "production_quantity_limits",
       "version": 7,
-      "popularity": 12340,
+      "popularity": 12356,
       "codepoint": 57809,
       "unsupported_families": [],
       "categories": [
@@ -39678,7 +39678,7 @@
     {
       "name": "public_off",
       "version": 8,
-      "popularity": 3214,
+      "popularity": 3216,
       "codepoint": 61898,
       "unsupported_families": [],
       "categories": [
@@ -40050,7 +40050,7 @@
     {
       "name": "queue_play_next",
       "version": 14,
-      "popularity": 2221,
+      "popularity": 2225,
       "codepoint": 57446,
       "unsupported_families": [],
       "categories": [
@@ -40082,7 +40082,7 @@
     {
       "name": "quickreply",
       "version": 12,
-      "popularity": 4676,
+      "popularity": 4682,
       "codepoint": 61292,
       "unsupported_families": [],
       "categories": [
@@ -40185,7 +40185,7 @@
     {
       "name": "radio",
       "version": 12,
-      "popularity": 6508,
+      "popularity": 6514,
       "codepoint": 57406,
       "unsupported_families": [],
       "categories": [
@@ -40347,7 +40347,7 @@
     {
       "name": "ramp_left",
       "version": 1,
-      "popularity": 427,
+      "popularity": 428,
       "codepoint": 60316,
       "unsupported_families": [],
       "categories": [
@@ -40375,7 +40375,7 @@
     {
       "name": "ramp_right",
       "version": 1,
-      "popularity": 414,
+      "popularity": 415,
       "codepoint": 60310,
       "unsupported_families": [],
       "categories": [
@@ -40510,7 +40510,7 @@
     {
       "name": "real_estate_agent",
       "version": 3,
-      "popularity": 9275,
+      "popularity": 9293,
       "codepoint": 59194,
       "unsupported_families": [],
       "categories": [
@@ -40612,7 +40612,7 @@
     {
       "name": "recommend",
       "version": 11,
-      "popularity": 13565,
+      "popularity": 13581,
       "codepoint": 59858,
       "unsupported_families": [],
       "categories": [
@@ -40777,7 +40777,7 @@
     {
       "name": "reduce_capacity",
       "version": 6,
-      "popularity": 5881,
+      "popularity": 5888,
       "codepoint": 61980,
       "unsupported_families": [],
       "categories": [
@@ -40831,7 +40831,7 @@
     {
       "name": "remember_me",
       "version": 10,
-      "popularity": 3310,
+      "popularity": 3313,
       "codepoint": 61521,
       "unsupported_families": [],
       "categories": [
@@ -40991,7 +40991,7 @@
     {
       "name": "remove_moderator",
       "version": 11,
-      "popularity": 3150,
+      "popularity": 3157,
       "codepoint": 59860,
       "unsupported_families": [],
       "categories": [
@@ -41046,7 +41046,7 @@
     {
       "name": "remove_road",
       "version": 1,
-      "popularity": 754,
+      "popularity": 756,
       "codepoint": 60412,
       "unsupported_families": [],
       "categories": [
@@ -41349,7 +41349,7 @@
     {
       "name": "replay_5",
       "version": 14,
-      "popularity": 2211,
+      "popularity": 2214,
       "codepoint": 57435,
       "unsupported_families": [],
       "categories": [
@@ -41379,7 +41379,7 @@
     {
       "name": "replay_circle_filled",
       "version": 12,
-      "popularity": 6392,
+      "popularity": 6399,
       "codepoint": 59864,
       "unsupported_families": [],
       "categories": [
@@ -41429,7 +41429,7 @@
     {
       "name": "reply_all",
       "version": 17,
-      "popularity": 7159,
+      "popularity": 7172,
       "codepoint": 57695,
       "unsupported_families": [],
       "categories": [
@@ -41643,7 +41643,7 @@
     {
       "name": "reset_tv",
       "version": 10,
-      "popularity": 1770,
+      "popularity": 1772,
       "codepoint": 59865,
       "unsupported_families": [],
       "categories": [
@@ -41997,7 +41997,7 @@
     {
       "name": "roller_skating",
       "version": 1,
-      "popularity": 754,
+      "popularity": 756,
       "codepoint": 60365,
       "unsupported_families": [],
       "categories": [
@@ -42233,7 +42233,7 @@
     {
       "name": "roundabout_left",
       "version": 1,
-      "popularity": 530,
+      "popularity": 532,
       "codepoint": 60313,
       "unsupported_families": [],
       "categories": [
@@ -42261,7 +42261,7 @@
     {
       "name": "roundabout_right",
       "version": 1,
-      "popularity": 719,
+      "popularity": 720,
       "codepoint": 60323,
       "unsupported_families": [],
       "categories": [
@@ -42289,7 +42289,7 @@
     {
       "name": "rounded_corner",
       "version": 15,
-      "popularity": 2293,
+      "popularity": 2295,
       "codepoint": 59680,
       "unsupported_families": [],
       "categories": [
@@ -42357,7 +42357,7 @@
     {
       "name": "rowing",
       "version": 14,
-      "popularity": 5611,
+      "popularity": 5614,
       "codepoint": 59681,
       "unsupported_families": [],
       "categories": [
@@ -42441,7 +42441,7 @@
     {
       "name": "rtt",
       "version": 12,
-      "popularity": 1615,
+      "popularity": 1616,
       "codepoint": 59821,
       "unsupported_families": [],
       "categories": [
@@ -42494,7 +42494,7 @@
     {
       "name": "rule_folder",
       "version": 7,
-      "popularity": 4503,
+      "popularity": 4508,
       "codepoint": 61897,
       "unsupported_families": [],
       "categories": [
@@ -42536,7 +42536,7 @@
     {
       "name": "run_circle",
       "version": 11,
-      "popularity": 3501,
+      "popularity": 3504,
       "codepoint": 61295,
       "unsupported_families": [],
       "categories": [
@@ -42709,7 +42709,7 @@
     {
       "name": "sanitizer",
       "version": 6,
-      "popularity": 4450,
+      "popularity": 4452,
       "codepoint": 61981,
       "unsupported_families": [],
       "categories": [
@@ -42957,7 +42957,7 @@
     {
       "name": "scanner",
       "version": 12,
-      "popularity": 2438,
+      "popularity": 2440,
       "codepoint": 58153,
       "unsupported_families": [],
       "categories": [
@@ -43173,7 +43173,7 @@
     {
       "name": "scoreboard",
       "version": 1,
-      "popularity": 1475,
+      "popularity": 1478,
       "codepoint": 60368,
       "unsupported_families": [],
       "categories": [
@@ -43248,7 +43248,7 @@
     {
       "name": "screen_lock_rotation",
       "version": 16,
-      "popularity": 1020,
+      "popularity": 1021,
       "codepoint": 57792,
       "unsupported_families": [],
       "categories": [
@@ -43334,7 +43334,7 @@
     {
       "name": "screen_search_desktop",
       "version": 10,
-      "popularity": 4130,
+      "popularity": 4134,
       "codepoint": 61296,
       "unsupported_families": [],
       "categories": [
@@ -43422,7 +43422,7 @@
     {
       "name": "screenshot_monitor",
       "version": 1,
-      "popularity": 1341,
+      "popularity": 1345,
       "codepoint": 60424,
       "unsupported_families": [],
       "categories": [
@@ -43511,7 +43511,7 @@
     {
       "name": "sd_card",
       "version": 12,
-      "popularity": 2601,
+      "popularity": 2604,
       "codepoint": 58915,
       "unsupported_families": [],
       "categories": [
@@ -43698,7 +43698,7 @@
     {
       "name": "security_update_good",
       "version": 10,
-      "popularity": 2500,
+      "popularity": 2503,
       "codepoint": 61529,
       "unsupported_families": [],
       "categories": [
@@ -43727,7 +43727,7 @@
     {
       "name": "security_update_warning",
       "version": 10,
-      "popularity": 1534,
+      "popularity": 1535,
       "codepoint": 61530,
       "unsupported_families": [],
       "categories": [
@@ -43901,7 +43901,7 @@
     {
       "name": "send_and_archive",
       "version": 11,
-      "popularity": 4268,
+      "popularity": 4270,
       "codepoint": 59916,
       "unsupported_families": [],
       "categories": [
@@ -44001,7 +44001,7 @@
     {
       "name": "sensor_occupied",
       "version": 1,
-      "popularity": 1457,
+      "popularity": 1465,
       "codepoint": 60432,
       "unsupported_families": [],
       "categories": [
@@ -44407,7 +44407,7 @@
     {
       "name": "settings_bluetooth",
       "version": 11,
-      "popularity": 4065,
+      "popularity": 4072,
       "codepoint": 59579,
       "unsupported_families": [],
       "categories": [
@@ -44430,7 +44430,7 @@
     {
       "name": "settings_brightness",
       "version": 12,
-      "popularity": 5436,
+      "popularity": 5442,
       "codepoint": 59581,
       "unsupported_families": [],
       "categories": [
@@ -44616,7 +44616,7 @@
     {
       "name": "settings_input_svideo",
       "version": 11,
-      "popularity": 2730,
+      "popularity": 2732,
       "codepoint": 59587,
       "unsupported_families": [],
       "categories": [
@@ -44712,7 +44712,7 @@
     {
       "name": "settings_remote",
       "version": 11,
-      "popularity": 7656,
+      "popularity": 7674,
       "codepoint": 59591,
       "unsupported_families": [],
       "categories": [
@@ -44761,7 +44761,7 @@
     {
       "name": "settings_system_daydream",
       "version": 12,
-      "popularity": 2325,
+      "popularity": 2327,
       "codepoint": 57795,
       "unsupported_families": [],
       "categories": [
@@ -44783,7 +44783,7 @@
     {
       "name": "settings_voice",
       "version": 11,
-      "popularity": 7206,
+      "popularity": 7220,
       "codepoint": 59592,
       "unsupported_families": [],
       "categories": [
@@ -44805,7 +44805,7 @@
     {
       "name": "severe_cold",
       "version": 1,
-      "popularity": 746,
+      "popularity": 750,
       "codepoint": 60371,
       "unsupported_families": [],
       "categories": [
@@ -44840,7 +44840,7 @@
     {
       "name": "shape_line",
       "version": 1,
-      "popularity": 595,
+      "popularity": 597,
       "codepoint": 63699,
       "unsupported_families": [],
       "categories": [
@@ -44941,7 +44941,7 @@
     {
       "name": "shield_moon",
       "version": 2,
-      "popularity": 2629,
+      "popularity": 2632,
       "codepoint": 60073,
       "unsupported_families": [],
       "categories": [
@@ -45003,7 +45003,7 @@
     {
       "name": "shop_2",
       "version": 9,
-      "popularity": 2389,
+      "popularity": 2396,
       "codepoint": 57758,
       "unsupported_families": [],
       "categories": [
@@ -45029,7 +45029,7 @@
     {
       "name": "shop_two",
       "version": 11,
-      "popularity": 3832,
+      "popularity": 3838,
       "codepoint": 59594,
       "unsupported_families": [],
       "categories": [
@@ -45184,7 +45184,7 @@
     {
       "name": "short_text",
       "version": 15,
-      "popularity": 3330,
+      "popularity": 3332,
       "codepoint": 57953,
       "unsupported_families": [],
       "categories": [
@@ -45309,7 +45309,7 @@
     {
       "name": "shuffle_on",
       "version": 12,
-      "popularity": 2418,
+      "popularity": 2421,
       "codepoint": 59873,
       "unsupported_families": [],
       "categories": [
@@ -45333,7 +45333,7 @@
     {
       "name": "shutter_speed",
       "version": 11,
-      "popularity": 2524,
+      "popularity": 2525,
       "codepoint": 58429,
       "unsupported_families": [],
       "categories": [
@@ -45364,7 +45364,7 @@
     {
       "name": "sick",
       "version": 6,
-      "popularity": 5835,
+      "popularity": 5847,
       "codepoint": 61984,
       "unsupported_families": [],
       "categories": [
@@ -45394,7 +45394,7 @@
     {
       "name": "sign_language",
       "version": 1,
-      "popularity": 1194,
+      "popularity": 1196,
       "codepoint": 60389,
       "unsupported_families": [],
       "categories": [
@@ -45609,7 +45609,7 @@
     {
       "name": "signal_cellular_connected_no_internet_4_bar",
       "version": 13,
-      "popularity": 1669,
+      "popularity": 1674,
       "codepoint": 57805,
       "unsupported_families": [],
       "categories": [
@@ -45651,7 +45651,7 @@
     {
       "name": "signal_cellular_no_sim",
       "version": 11,
-      "popularity": 887,
+      "popularity": 888,
       "codepoint": 57806,
       "unsupported_families": [],
       "categories": [
@@ -45683,7 +45683,7 @@
     {
       "name": "signal_cellular_nodata",
       "version": 10,
-      "popularity": 1202,
+      "popularity": 1205,
       "codepoint": 61538,
       "unsupported_families": [],
       "categories": [
@@ -45739,7 +45739,7 @@
     {
       "name": "signal_cellular_off",
       "version": 12,
-      "popularity": 1209,
+      "popularity": 1210,
       "codepoint": 57808,
       "unsupported_families": [],
       "categories": [
@@ -45770,7 +45770,7 @@
     {
       "name": "signal_wifi_0_bar",
       "version": 15,
-      "popularity": 2821,
+      "popularity": 2825,
       "codepoint": 61616,
       "unsupported_families": [],
       "categories": [
@@ -45824,7 +45824,7 @@
     {
       "name": "signal_wifi_4_bar_lock",
       "version": 13,
-      "popularity": 1191,
+      "popularity": 1192,
       "codepoint": 57817,
       "unsupported_families": [],
       "categories": [
@@ -45896,7 +45896,7 @@
     {
       "name": "signal_wifi_connected_no_internet_4",
       "version": 10,
-      "popularity": 2094,
+      "popularity": 2096,
       "codepoint": 61540,
       "unsupported_families": [],
       "categories": [
@@ -45926,7 +45926,7 @@
     {
       "name": "signal_wifi_off",
       "version": 17,
-      "popularity": 2419,
+      "popularity": 2425,
       "codepoint": 57818,
       "unsupported_families": [],
       "categories": [
@@ -45986,7 +45986,7 @@
     {
       "name": "signal_wifi_statusbar_connected_no_internet_4",
       "version": 11,
-      "popularity": 3741,
+      "popularity": 3745,
       "codepoint": 61542,
       "unsupported_families": [],
       "categories": [
@@ -46082,7 +46082,7 @@
     {
       "name": "sim_card",
       "version": 12,
-      "popularity": 3799,
+      "popularity": 3803,
       "codepoint": 58155,
       "unsupported_families": [],
       "categories": [
@@ -46166,7 +46166,7 @@
     {
       "name": "single_bed",
       "version": 11,
-      "popularity": 3189,
+      "popularity": 3198,
       "codepoint": 59976,
       "unsupported_families": [],
       "categories": [
@@ -46231,7 +46231,7 @@
     {
       "name": "skateboarding",
       "version": 4,
-      "popularity": 3132,
+      "popularity": 3134,
       "codepoint": 58641,
       "unsupported_families": [],
       "categories": [
@@ -46309,7 +46309,7 @@
     {
       "name": "sledding",
       "version": 5,
-      "popularity": 1678,
+      "popularity": 1682,
       "codepoint": 58642,
       "unsupported_families": [],
       "categories": [
@@ -46342,7 +46342,7 @@
     {
       "name": "slideshow",
       "version": 12,
-      "popularity": 8844,
+      "popularity": 8849,
       "codepoint": 58395,
       "unsupported_families": [],
       "categories": [
@@ -46364,7 +46364,7 @@
     {
       "name": "slow_motion_video",
       "version": 11,
-      "popularity": 3408,
+      "popularity": 3410,
       "codepoint": 57448,
       "unsupported_families": [],
       "categories": [
@@ -46527,7 +46527,7 @@
     {
       "name": "smoke_free",
       "version": 12,
-      "popularity": 2523,
+      "popularity": 2524,
       "codepoint": 60234,
       "unsupported_families": [],
       "categories": [
@@ -46645,7 +46645,7 @@
     {
       "name": "snippet_folder",
       "version": 7,
-      "popularity": 3515,
+      "popularity": 3519,
       "codepoint": 61895,
       "unsupported_families": [],
       "categories": [
@@ -46695,7 +46695,7 @@
     {
       "name": "snowboarding",
       "version": 4,
-      "popularity": 2236,
+      "popularity": 2237,
       "codepoint": 58643,
       "unsupported_families": [],
       "categories": [
@@ -46726,7 +46726,7 @@
     {
       "name": "snowmobile",
       "version": 4,
-      "popularity": 1229,
+      "popularity": 1230,
       "codepoint": 58627,
       "unsupported_families": [],
       "categories": [
@@ -46754,7 +46754,7 @@
     {
       "name": "snowshoeing",
       "version": 4,
-      "popularity": 1975,
+      "popularity": 1976,
       "codepoint": 58644,
       "unsupported_families": [],
       "categories": [
@@ -46781,7 +46781,7 @@
     {
       "name": "soap",
       "version": 8,
-      "popularity": 2698,
+      "popularity": 2701,
       "codepoint": 61874,
       "unsupported_families": [],
       "categories": [
@@ -46926,7 +46926,7 @@
     {
       "name": "soup_kitchen",
       "version": 2,
-      "popularity": 2841,
+      "popularity": 2844,
       "codepoint": 59347,
       "unsupported_families": [],
       "categories": [
@@ -46999,7 +46999,7 @@
     {
       "name": "south_america",
       "version": 2,
-      "popularity": 1813,
+      "popularity": 1814,
       "codepoint": 59364,
       "unsupported_families": [],
       "categories": [
@@ -47240,7 +47240,7 @@
     {
       "name": "speaker_group",
       "version": 12,
-      "popularity": 1924,
+      "popularity": 1925,
       "codepoint": 58158,
       "unsupported_families": [],
       "categories": [
@@ -47378,7 +47378,7 @@
     {
       "name": "spellcheck",
       "version": 12,
-      "popularity": 5234,
+      "popularity": 5236,
       "codepoint": 59598,
       "unsupported_families": [],
       "categories": [
@@ -47513,7 +47513,7 @@
     {
       "name": "sports_baseball",
       "version": 11,
-      "popularity": 4078,
+      "popularity": 4081,
       "codepoint": 59985,
       "unsupported_families": [],
       "categories": [
@@ -47565,7 +47565,7 @@
     {
       "name": "sports_cricket",
       "version": 11,
-      "popularity": 2704,
+      "popularity": 2706,
       "codepoint": 59943,
       "unsupported_families": [],
       "categories": [
@@ -47619,7 +47619,7 @@
     {
       "name": "sports_football",
       "version": 12,
-      "popularity": 3532,
+      "popularity": 3534,
       "codepoint": 59945,
       "unsupported_families": [],
       "categories": [
@@ -47645,7 +47645,7 @@
     {
       "name": "sports_golf",
       "version": 11,
-      "popularity": 2475,
+      "popularity": 2476,
       "codepoint": 59946,
       "unsupported_families": [],
       "categories": [
@@ -47698,7 +47698,7 @@
     {
       "name": "sports_handball",
       "version": 11,
-      "popularity": 4197,
+      "popularity": 4201,
       "codepoint": 59955,
       "unsupported_families": [],
       "categories": [
@@ -47728,7 +47728,7 @@
     {
       "name": "sports_hockey",
       "version": 11,
-      "popularity": 1907,
+      "popularity": 1911,
       "codepoint": 59947,
       "unsupported_families": [],
       "categories": [
@@ -47754,7 +47754,7 @@
     {
       "name": "sports_kabaddi",
       "version": 11,
-      "popularity": 6056,
+      "popularity": 6064,
       "codepoint": 59956,
       "unsupported_families": [],
       "categories": [
@@ -47787,7 +47787,7 @@
     {
       "name": "sports_martial_arts",
       "version": 1,
-      "popularity": 2440,
+      "popularity": 2442,
       "codepoint": 60137,
       "unsupported_families": [],
       "categories": [
@@ -47925,7 +47925,7 @@
     {
       "name": "sports_soccer",
       "version": 11,
-      "popularity": 14337,
+      "popularity": 14347,
       "codepoint": 59951,
       "unsupported_families": [],
       "categories": [
@@ -47952,7 +47952,7 @@
     {
       "name": "sports_tennis",
       "version": 11,
-      "popularity": 5523,
+      "popularity": 5529,
       "codepoint": 59954,
       "unsupported_families": [],
       "categories": [
@@ -48104,7 +48104,7 @@
     {
       "name": "stacked_line_chart",
       "version": 6,
-      "popularity": 7465,
+      "popularity": 7470,
       "codepoint": 61995,
       "unsupported_families": [],
       "categories": [
@@ -48228,7 +48228,7 @@
     {
       "name": "star_border_purple500",
       "version": 10,
-      "popularity": 6729,
+      "popularity": 6735,
       "codepoint": 61593,
       "unsupported_families": [],
       "categories": [
@@ -48423,7 +48423,7 @@
     {
       "name": "stay_current_landscape",
       "version": 12,
-      "popularity": 1309,
+      "popularity": 1310,
       "codepoint": 57555,
       "unsupported_families": [],
       "categories": [
@@ -48502,7 +48502,7 @@
     {
       "name": "stay_primary_portrait",
       "version": 12,
-      "popularity": 3267,
+      "popularity": 3274,
       "codepoint": 57558,
       "unsupported_families": [],
       "categories": [
@@ -48697,7 +48697,7 @@
     {
       "name": "store_mall_directory",
       "version": 12,
-      "popularity": 4994,
+      "popularity": 4995,
       "codepoint": 58723,
       "unsupported_families": [],
       "categories": [
@@ -48744,7 +48744,7 @@
     {
       "name": "storm",
       "version": 10,
-      "popularity": 2933,
+      "popularity": 2934,
       "codepoint": 61552,
       "unsupported_families": [],
       "categories": [
@@ -48838,7 +48838,7 @@
     {
       "name": "streetview",
       "version": 12,
-      "popularity": 1936,
+      "popularity": 1939,
       "codepoint": 58734,
       "unsupported_families": [],
       "categories": [
@@ -48857,7 +48857,7 @@
     {
       "name": "strikethrough_s",
       "version": 14,
-      "popularity": 3097,
+      "popularity": 3100,
       "codepoint": 57943,
       "unsupported_families": [],
       "categories": [
@@ -48938,7 +48938,7 @@
     {
       "name": "subdirectory_arrow_left",
       "version": 11,
-      "popularity": 5002,
+      "popularity": 5004,
       "codepoint": 58841,
       "unsupported_families": [],
       "categories": [
@@ -49008,7 +49008,7 @@
     {
       "name": "subscript",
       "version": 13,
-      "popularity": 1508,
+      "popularity": 1509,
       "codepoint": 61713,
       "unsupported_families": [],
       "categories": [
@@ -49120,7 +49120,7 @@
     {
       "name": "subway",
       "version": 11,
-      "popularity": 2661,
+      "popularity": 2666,
       "codepoint": 58735,
       "unsupported_families": [],
       "categories": [
@@ -49172,7 +49172,7 @@
     {
       "name": "superscript",
       "version": 12,
-      "popularity": 1832,
+      "popularity": 1834,
       "codepoint": 61714,
       "unsupported_families": [],
       "categories": [
@@ -49343,7 +49343,7 @@
     {
       "name": "surround_sound",
       "version": 13,
-      "popularity": 1421,
+      "popularity": 1422,
       "codepoint": 57417,
       "unsupported_families": [],
       "categories": [
@@ -49456,7 +49456,7 @@
     {
       "name": "swap_vertical_circle",
       "version": 13,
-      "popularity": 4661,
+      "popularity": 4678,
       "codepoint": 59606,
       "unsupported_families": [],
       "categories": [
@@ -49502,7 +49502,7 @@
     {
       "name": "swipe_down",
       "version": 1,
-      "popularity": 1897,
+      "popularity": 1898,
       "codepoint": 60243,
       "unsupported_families": [],
       "categories": [
@@ -49531,7 +49531,7 @@
     {
       "name": "swipe_down_alt",
       "version": 1,
-      "popularity": 1203,
+      "popularity": 1209,
       "codepoint": 60208,
       "unsupported_families": [],
       "categories": [
@@ -49561,7 +49561,7 @@
     {
       "name": "swipe_left",
       "version": 1,
-      "popularity": 2824,
+      "popularity": 2830,
       "codepoint": 60249,
       "unsupported_families": [],
       "categories": [
@@ -49618,7 +49618,7 @@
     {
       "name": "swipe_right",
       "version": 1,
-      "popularity": 2500,
+      "popularity": 2502,
       "codepoint": 60242,
       "unsupported_families": [],
       "categories": [
@@ -49675,7 +49675,7 @@
     {
       "name": "swipe_up",
       "version": 1,
-      "popularity": 2460,
+      "popularity": 2462,
       "codepoint": 60206,
       "unsupported_families": [],
       "categories": [
@@ -49734,7 +49734,7 @@
     {
       "name": "swipe_vertical",
       "version": 1,
-      "popularity": 1731,
+      "popularity": 1733,
       "codepoint": 60241,
       "unsupported_families": [],
       "categories": [
@@ -49788,7 +49788,7 @@
     {
       "name": "switch_access_shortcut_add",
       "version": 3,
-      "popularity": 3272,
+      "popularity": 3274,
       "codepoint": 59362,
       "unsupported_families": [],
       "categories": [
@@ -49888,7 +49888,7 @@
     {
       "name": "switch_right",
       "version": 9,
-      "popularity": 3679,
+      "popularity": 3681,
       "codepoint": 61906,
       "unsupported_families": [],
       "categories": [
@@ -49909,7 +49909,7 @@
     {
       "name": "switch_video",
       "version": 12,
-      "popularity": 1518,
+      "popularity": 1522,
       "codepoint": 58399,
       "unsupported_families": [],
       "categories": [
@@ -49931,7 +49931,7 @@
     {
       "name": "synagogue",
       "version": 2,
-      "popularity": 815,
+      "popularity": 816,
       "codepoint": 60080,
       "unsupported_families": [],
       "categories": [
@@ -50007,7 +50007,7 @@
     {
       "name": "sync_disabled",
       "version": 16,
-      "popularity": 2918,
+      "popularity": 2923,
       "codepoint": 58920,
       "unsupported_families": [],
       "categories": [
@@ -50111,7 +50111,7 @@
     {
       "name": "system_security_update",
       "version": 10,
-      "popularity": 1387,
+      "popularity": 1389,
       "codepoint": 61554,
       "unsupported_families": [],
       "categories": [
@@ -50140,7 +50140,7 @@
     {
       "name": "system_security_update_good",
       "version": 10,
-      "popularity": 3568,
+      "popularity": 3572,
       "codepoint": 61555,
       "unsupported_families": [],
       "categories": [
@@ -50461,7 +50461,7 @@
     {
       "name": "tablet_android",
       "version": 14,
-      "popularity": 3104,
+      "popularity": 3108,
       "codepoint": 58160,
       "unsupported_families": [],
       "categories": [
@@ -50555,7 +50555,7 @@
     {
       "name": "takeout_dining",
       "version": 16,
-      "popularity": 5140,
+      "popularity": 5145,
       "codepoint": 60020,
       "unsupported_families": [],
       "categories": [
@@ -50579,7 +50579,7 @@
     {
       "name": "tap_and_play",
       "version": 12,
-      "popularity": 2773,
+      "popularity": 2779,
       "codepoint": 58923,
       "unsupported_families": [],
       "categories": [
@@ -50611,7 +50611,7 @@
     {
       "name": "tapas",
       "version": 6,
-      "popularity": 2310,
+      "popularity": 2312,
       "codepoint": 61929,
       "unsupported_families": [],
       "categories": [
@@ -50701,7 +50701,7 @@
     {
       "name": "taxi_alert",
       "version": 11,
-      "popularity": 2864,
+      "popularity": 2867,
       "codepoint": 61300,
       "unsupported_families": [],
       "categories": [
@@ -50741,7 +50741,7 @@
     {
       "name": "temple_buddhist",
       "version": 2,
-      "popularity": 1011,
+      "popularity": 1012,
       "codepoint": 60083,
       "unsupported_families": [],
       "categories": [
@@ -50830,7 +50830,7 @@
     {
       "name": "text_decrease",
       "version": 1,
-      "popularity": 1307,
+      "popularity": 1309,
       "codepoint": 60125,
       "unsupported_families": [],
       "categories": [
@@ -50886,7 +50886,7 @@
     {
       "name": "text_format",
       "version": 12,
-      "popularity": 6317,
+      "popularity": 6322,
       "codepoint": 57701,
       "unsupported_families": [],
       "categories": [
@@ -50968,7 +50968,7 @@
     {
       "name": "text_rotate_vertical",
       "version": 12,
-      "popularity": 2225,
+      "popularity": 2227,
       "codepoint": 59707,
       "unsupported_families": [],
       "categories": [
@@ -50997,7 +50997,7 @@
     {
       "name": "text_rotation_angledown",
       "version": 12,
-      "popularity": 1454,
+      "popularity": 1455,
       "codepoint": 59708,
       "unsupported_families": [],
       "categories": [
@@ -51025,7 +51025,7 @@
     {
       "name": "text_rotation_angleup",
       "version": 12,
-      "popularity": 1447,
+      "popularity": 1449,
       "codepoint": 59709,
       "unsupported_families": [],
       "categories": [
@@ -51053,7 +51053,7 @@
     {
       "name": "text_rotation_down",
       "version": 12,
-      "popularity": 1490,
+      "popularity": 1491,
       "codepoint": 59710,
       "unsupported_families": [],
       "categories": [
@@ -51457,7 +51457,7 @@
     {
       "name": "thumbs_up_down",
       "version": 12,
-      "popularity": 10815,
+      "popularity": 10824,
       "codepoint": 59613,
       "unsupported_families": [],
       "categories": [
@@ -51511,7 +51511,7 @@
     {
       "name": "time_to_leave",
       "version": 12,
-      "popularity": 7416,
+      "popularity": 7429,
       "codepoint": 58924,
       "unsupported_families": [],
       "categories": [
@@ -51540,7 +51540,7 @@
     {
       "name": "timelapse",
       "version": 12,
-      "popularity": 9275,
+      "popularity": 9287,
       "codepoint": 58402,
       "unsupported_families": [],
       "categories": [
@@ -51618,7 +51618,7 @@
     {
       "name": "timer_10",
       "version": 12,
-      "popularity": 1097,
+      "popularity": 1098,
       "codepoint": 58403,
       "unsupported_families": [],
       "categories": [
@@ -51670,7 +51670,7 @@
     {
       "name": "timer_3",
       "version": 12,
-      "popularity": 912,
+      "popularity": 913,
       "codepoint": 58404,
       "unsupported_families": [],
       "categories": [
@@ -51781,7 +51781,7 @@
     {
       "name": "tire_repair",
       "version": 1,
-      "popularity": 1020,
+      "popularity": 1024,
       "codepoint": 60360,
       "unsupported_families": [],
       "categories": [
@@ -51961,7 +51961,7 @@
     {
       "name": "token",
       "version": 2,
-      "popularity": 6250,
+      "popularity": 6255,
       "codepoint": 59941,
       "unsupported_families": [],
       "categories": [
@@ -52178,7 +52178,7 @@
     {
       "name": "traffic",
       "version": 12,
-      "popularity": 9352,
+      "popularity": 9361,
       "codepoint": 58725,
       "unsupported_families": [],
       "categories": [
@@ -52325,7 +52325,7 @@
     {
       "name": "transgender",
       "version": 3,
-      "popularity": 5347,
+      "popularity": 5349,
       "codepoint": 58765,
       "unsupported_families": [],
       "categories": [
@@ -52765,7 +52765,7 @@
     {
       "name": "turn_sharp_left",
       "version": 1,
-      "popularity": 534,
+      "popularity": 536,
       "codepoint": 60327,
       "unsupported_families": [],
       "categories": [
@@ -53027,7 +53027,7 @@
     {
       "name": "type_specimen",
       "version": 1,
-      "popularity": 327,
+      "popularity": 329,
       "codepoint": 63728,
       "unsupported_families": [],
       "categories": [
@@ -53042,7 +53042,7 @@
     {
       "name": "u_turn_left",
       "version": 1,
-      "popularity": 1149,
+      "popularity": 1151,
       "codepoint": 60321,
       "unsupported_families": [],
       "categories": [
@@ -53070,7 +53070,7 @@
     {
       "name": "u_turn_right",
       "version": 1,
-      "popularity": 850,
+      "popularity": 853,
       "codepoint": 60322,
       "unsupported_families": [],
       "categories": [
@@ -53388,7 +53388,7 @@
     {
       "name": "update_disabled",
       "version": 8,
-      "popularity": 2995,
+      "popularity": 2997,
       "codepoint": 57461,
       "unsupported_families": [],
       "categories": [
@@ -53734,7 +53734,7 @@
     {
       "name": "vertical_align_center",
       "version": 12,
-      "popularity": 3027,
+      "popularity": 3028,
       "codepoint": 57945,
       "unsupported_families": [],
       "categories": [
@@ -53821,7 +53821,7 @@
     {
       "name": "vertical_shades",
       "version": 1,
-      "popularity": 459,
+      "popularity": 462,
       "codepoint": 60430,
       "unsupported_families": [],
       "categories": [
@@ -53846,7 +53846,7 @@
     {
       "name": "vertical_shades_closed",
       "version": 1,
-      "popularity": 472,
+      "popularity": 473,
       "codepoint": 60429,
       "unsupported_families": [],
       "categories": [
@@ -53896,7 +53896,7 @@
     {
       "name": "vibration",
       "version": 12,
-      "popularity": 3508,
+      "popularity": 3511,
       "codepoint": 58925,
       "unsupported_families": [],
       "categories": [
@@ -53960,7 +53960,7 @@
     {
       "name": "video_camera_back",
       "version": 10,
-      "popularity": 3337,
+      "popularity": 3339,
       "codepoint": 61567,
       "unsupported_families": [],
       "categories": [
@@ -54138,7 +54138,7 @@
     {
       "name": "video_stable",
       "version": 10,
-      "popularity": 1114,
+      "popularity": 1115,
       "codepoint": 61569,
       "unsupported_families": [],
       "categories": [
@@ -54187,7 +54187,7 @@
     {
       "name": "videocam_off",
       "version": 12,
-      "popularity": 8835,
+      "popularity": 8844,
       "codepoint": 57420,
       "unsupported_families": [],
       "categories": [
@@ -54243,7 +54243,7 @@
     {
       "name": "videogame_asset_off",
       "version": 4,
-      "popularity": 921,
+      "popularity": 924,
       "codepoint": 58624,
       "unsupported_families": [],
       "categories": [
@@ -54299,7 +54299,7 @@
     {
       "name": "view_array",
       "version": 13,
-      "popularity": 2594,
+      "popularity": 2595,
       "codepoint": 59626,
       "unsupported_families": [],
       "categories": [
@@ -54484,7 +54484,7 @@
     {
       "name": "view_day",
       "version": 13,
-      "popularity": 4647,
+      "popularity": 4652,
       "codepoint": 59629,
       "unsupported_families": [],
       "categories": [
@@ -54778,7 +54778,7 @@
     {
       "name": "villa",
       "version": 4,
-      "popularity": 4825,
+      "popularity": 4834,
       "codepoint": 58758,
       "unsupported_families": [],
       "categories": [
@@ -54855,7 +54855,7 @@
     {
       "name": "voice_chat",
       "version": 13,
-      "popularity": 3698,
+      "popularity": 3699,
       "codepoint": 58926,
       "unsupported_families": [],
       "categories": [
@@ -54916,7 +54916,7 @@
     {
       "name": "voicemail",
       "version": 12,
-      "popularity": 2992,
+      "popularity": 2998,
       "codepoint": 57561,
       "unsupported_families": [],
       "categories": [
@@ -55110,7 +55110,7 @@
     {
       "name": "vpn_key_off",
       "version": 1,
-      "popularity": 883,
+      "popularity": 886,
       "codepoint": 60282,
       "unsupported_families": [],
       "categories": [
@@ -55212,7 +55212,7 @@
     {
       "name": "wallpaper",
       "version": 13,
-      "popularity": 6866,
+      "popularity": 6870,
       "codepoint": 57788,
       "unsupported_families": [],
       "categories": [
@@ -55312,7 +55312,7 @@
     {
       "name": "wash",
       "version": 8,
-      "popularity": 3152,
+      "popularity": 3153,
       "codepoint": 61873,
       "unsupported_families": [],
       "categories": [
@@ -55382,7 +55382,7 @@
     {
       "name": "watch_off",
       "version": 1,
-      "popularity": 578,
+      "popularity": 579,
       "codepoint": 60131,
       "unsupported_families": [],
       "categories": [
@@ -55413,7 +55413,7 @@
     {
       "name": "water",
       "version": 11,
-      "popularity": 8564,
+      "popularity": 8570,
       "codepoint": 61572,
       "unsupported_families": [],
       "categories": [
@@ -55491,7 +55491,7 @@
     {
       "name": "waterfall_chart",
       "version": 11,
-      "popularity": 4737,
+      "popularity": 4743,
       "codepoint": 59904,
       "unsupported_families": [],
       "categories": [
@@ -55543,7 +55543,7 @@
     {
       "name": "waving_hand",
       "version": 3,
-      "popularity": 10143,
+      "popularity": 10153,
       "codepoint": 59238,
       "unsupported_families": [],
       "categories": [
@@ -55651,7 +55651,7 @@
     {
       "name": "wb_iridescent",
       "version": 11,
-      "popularity": 1379,
+      "popularity": 1380,
       "codepoint": 58422,
       "unsupported_families": [],
       "categories": [
@@ -55677,7 +55677,7 @@
     {
       "name": "wb_shade",
       "version": 10,
-      "popularity": 1083,
+      "popularity": 1084,
       "codepoint": 59905,
       "unsupported_families": [],
       "categories": [
@@ -55796,7 +55796,7 @@
     {
       "name": "web_asset",
       "version": 12,
-      "popularity": 7900,
+      "popularity": 7909,
       "codepoint": 57449,
       "unsupported_families": [],
       "categories": [
@@ -55831,7 +55831,7 @@
     {
       "name": "web_asset_off",
       "version": 4,
-      "popularity": 1348,
+      "popularity": 1349,
       "codepoint": 58615,
       "unsupported_families": [],
       "categories": [
@@ -55973,7 +55973,7 @@
     {
       "name": "wheelchair_pickup",
       "version": 8,
-      "popularity": 2005,
+      "popularity": 2010,
       "codepoint": 61867,
       "unsupported_families": [],
       "categories": [
@@ -56219,7 +56219,7 @@
     {
       "name": "wifi_calling_3",
       "version": 10,
-      "popularity": 2400,
+      "popularity": 2404,
       "codepoint": 61573,
       "unsupported_families": [],
       "categories": [
@@ -56246,7 +56246,7 @@
     {
       "name": "wifi_channel",
       "version": 1,
-      "popularity": 744,
+      "popularity": 745,
       "codepoint": 60266,
       "unsupported_families": [],
       "categories": [
@@ -56274,7 +56274,7 @@
     {
       "name": "wifi_find",
       "version": 1,
-      "popularity": 1009,
+      "popularity": 1011,
       "codepoint": 60209,
       "unsupported_families": [],
       "categories": [
@@ -56606,7 +56606,7 @@
     {
       "name": "woman",
       "version": 2,
-      "popularity": 5002,
+      "popularity": 5011,
       "codepoint": 57662,
       "unsupported_families": [],
       "categories": [
@@ -56714,7 +56714,7 @@
     {
       "name": "work_off",
       "version": 12,
-      "popularity": 3269,
+      "popularity": 3270,
       "codepoint": 59714,
       "unsupported_families": [],
       "categories": [
@@ -56817,7 +56817,7 @@
     {
       "name": "wrap_text",
       "version": 13,
-      "popularity": 1536,
+      "popularity": 1537,
       "codepoint": 57947,
       "unsupported_families": [],
       "categories": [
