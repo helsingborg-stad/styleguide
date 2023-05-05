@@ -47,7 +47,7 @@ class OpenStreetMap {
                 }
                 let marker = L.marker([location.lat, location.lng], { icon: this.createMarker(customIcon) });
                 if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip(location.tooltip));
+                    marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300});
                 }
                 marker.on('click', (e) => {
                     let latlng = e.latlng ? e.latlng : (e.sourceTarget?._latlng ? e.sourceTarget?._latlng : false);
@@ -98,9 +98,21 @@ class OpenStreetMap {
 
     createTooltip(tooltip) {
         let template = this.container.querySelector('.c-openstreetmap__pin-tooltip');
-        let html = template.innerHTML;
+        let clone = template.cloneNode(true);
+        
+        if (!tooltip.image?.src) {
+            clone.content.querySelector('figure').remove();
+        }
 
-        html = html.replace('{TOOLTIP_HEADING}', tooltip.title).replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.direction.url).replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.direction.label);
+        let html = clone.innerHTML;
+
+        html = html
+        .replace('{TOOLTIP_HEADING}', tooltip.title ?? '')
+        .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ?? '')
+        .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ?? '')
+        .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ?? '')
+        .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ?? '')
+        .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ?? '');
         return html;
     }
 
