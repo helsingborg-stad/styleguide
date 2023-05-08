@@ -22,6 +22,9 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-outli
 $c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
 $c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 
+$c-collection-item-border-width: var(--c-collection-item-border-width, $border-width-medium) !default;
+$c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
+
 $c-collection-item-image-border-radius: var(--c-collection-card-border-radius, $border-radius-lg) !default;
 $c-collection-item-content-border-radius: var(--c-collection-card-border-radius, $border-radius-md) !default;
 $c-collection-item-background-color: var(--c-collection-card-background-color, $color-card-background) !default;
@@ -41,11 +44,13 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 }
 
 .c-collection {
-    border-radius: $c-collection-border-radius;
-    border: $c-collection-border-width solid;
-    border-color: $c-collection-border-color;
-    padding-top: $base;
-    padding-bottom: $base;
+    &.c-collection--bordered {
+        border-radius: $c-collection-border-radius;
+        border-color: $c-collection-border-color;
+        padding-top: $base;
+        padding-bottom: $base;
+        border: $c-collection-border-width solid;
+    }
 
     // Item
     .c-collection__item {
@@ -57,6 +62,32 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
             top: $base;
             z-index: $level-3;
             cursor: pointer;
+        }
+
+        .c-collection__item__before {
+            display: flex;
+
+            img {
+                aspect-ratio: 16/9;
+                border-radius: $c-collection-item-image-border-radius;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                margin: 0;
+                max-width: calc($base * 15);
+                min-width: calc($base * 15);
+            }
+
+            .c-image {
+                margin: 0;
+            }
+        }
+
+        &.c-collection__item--bordered {
+            padding: calc($base * 3) 0;
+            border-bottom: $c-collection-item-border-width solid $c-collection-item-border-color;
+            border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
+            margin-top: calc($c-collection-item-border-width * -1);
         }
     }
 
@@ -166,84 +197,6 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         border-bottom: none;
         border-left: none;
         display: none;
-    }
-
-    // Modifiers - Posts
-    &.c-collection--posts {
-        padding-top: 0;
-        padding-bottom: 0; 
-        border: none;
-
-        .c-collection__item--post {
-            flex-direction: column;
-            height: 100%;
-            &:last-child {
-                margin-bottom: 0;
-            }
-            .c-collection__item__before {
-                display: flex;
-
-                img {
-                    aspect-ratio: 16/9;
-                    border-radius: $c-collection-item-image-border-radius;
-                    height: 100%;
-                    width: 100%;
-                    object-fit: cover;
-                    margin: 0;
-                }
-                .c-image {
-                    margin: 0;
-                }
-            }
-
-            .c-collection__item__icon { 
-                display: none;
-            }
-
-            .c-collection__content {
-                background-color: $c-collection-item-background-color;
-                border-radius: $c-collection-item-content-border-radius;
-                filter: $drop-shadow-2;
-                margin: calc($base * -1) 0 0 0;
-            }
-
-            &.c-collection__item--show-icon {
-                .c-collection__item__icon {
-                    display: block;
-                }
-            }
-
-            &.c-collection__item--size-xs {
-                flex-direction: row;
-
-                .c-collection__item__before {
-                    img {
-                        max-width: calc($base * 20);
-                        min-width: calc($base * 20);
-                        aspect-ratio: 1/1;
-                    }
-                }
-
-                .c-collection__item__floating {
-                    top: calc($base * 2);
-                }
-
-                 .c-collection__content {
-                    margin: $base 0;
-                }
-                
-                .c-collection__item__before + .c-collection__content {
-                    margin-left: calc($base * -2);
-                }
-            }
-            &.c-collection__item--action {
-                &:hover {
-                    &, a {
-                        background-color: transparent;
-                    }
-                }
-            }
-        }
     }
 }
 
