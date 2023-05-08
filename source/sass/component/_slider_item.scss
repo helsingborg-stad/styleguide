@@ -183,6 +183,10 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     justify-content: flex-end;
     padding: 0;
 
+    .c-slider__item__link {
+        justify-content: flex-end;
+    }
+
     .c-slider__item__container {
         padding: map-get($spacers, '2');
         border-bottom-left-radius: $c-slider-border-radius;
