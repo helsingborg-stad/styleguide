@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import 'leaflet.markercluster';
+import showPost from './openstreetmap/showPost';
 
 class OpenStreetMap {
     constructor(container) {
@@ -13,13 +14,11 @@ class OpenStreetMap {
             this.markers = L.markerClusterGroup({
                 maxClusterRadius: 50
             });
-            
-            window.leafletClusters = window.leafletClusters || {};
-            window.leafletClusters[`${id}`] = this.markers;
-            window.leafletMap = map;
         }
+        let run = (this.container && map && this.markers);
 
-        (this.container && map && this.markers) ? this.init(map) : '';
+        run && new showPost(map, this.markers, this.container);
+        run && this.init(map);
     }
 
     init(map) {

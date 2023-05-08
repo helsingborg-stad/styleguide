@@ -1,4 +1,6 @@
 /* Our code */
+$grid-gap: var(--grid-gap, 4) !default;
+
 .c-openstreetmap {
 	position: relative;
 	display: flex;
@@ -23,8 +25,111 @@
 			height: 100%;
 			position: relative;
 		}
+
+		/* Sidebar collection posts (all the way down to next comment) */
+		.c-openstreetmap__collection__item {
+			cursor: pointer;
+			height: 100%;
+
+			.c-collection__content {
+				transition: transform 300ms;
+				transform: translateX(0);
+			}
+			&:hover .c-collection__content {
+				transform: translateX(.25rem);
+			}
+		}
+
+		&.has-active {
+			.c-openstreetmap__collection__item,
+			.c-pagination,
+			[js-pagination-item]:not(.is-active) {
+				display: none;
+			}
+
+			.is-active[js-pagination-item] {
+				.c-openstreetmap__post {
+					display: block;
+				}
+			}
+
+			.c-openstreetmap__container {
+				padding: 0;
+			}
+		}
+
+		.c-openstreetmap__post-icon {
+			position: absolute;
+			top: 1rem;
+			left: 1rem;
+			background-color: $color-primary;
+			padding: .25rem;
+			border-radius: 50%;
+			cursor: pointer;
+			z-index: 3000;
+		}
+		
+		.c-openstreetmap__container {
+			.c-openstreetmap__post {
+				display: none;
+			}
+		}
+
+		.c-openstreetmap__posts {
+			flex: 0 0 100%;
+			max-width: 100%;
+			margin-top: -2px;
+
+			.c-openstreetmap__post {
+				.c-openstreetmap__post-container {
+					flex-direction: column;
+				}
+
+				.c-openstreetmap__post-related-posts {
+					margin-right: auto;
+					margin-left: auto;
+					padding: 0;
+				}
+
+				&.c-group--size-sm {
+					.c-openstreetmap__post-related-post {
+						flex: 0 0 calc(50% - var(--grid-gap)*0.5);
+						max-width: calc(50% - var(--grid-gap)*.5);
+					}
+				}
+
+				&.c-group--size-md {
+					.c-openstreetmap__post-container {
+						flex-direction: row;
+					}
+
+					.c-openstreetmap__post-content {
+						flex: 0 0 calc(75% - var(--grid-gap)*0.25);
+						max-width: calc(75% - var(--grid-gap)*.25);
+					}
+
+					.c-openstreetmap__post-list {
+						flex: 0 0 calc(25% - var(--grid-gap)*0.75);
+						max-width: calc(25% - var(--grid-gap)*.75);
+					}
+				}
+			}
+		}
+		&.c-openstreetmap__sidebar--size-md {
+			.c-openstreetmap__posts {
+				flex: 0 0 calc(50% - $grid-gap * .5);
+				max-width: calc(50% - $grid-gap * .5);
+			}
+		}
+		&.c-openstreetmap__sidebar--size-lg {
+			.c-openstreetmap__posts {
+				flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+				max-width: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+			}
+		}
 	}
-	
+
+	/* Map */
 	.c-openstreetmap__map {
 		transition: flex-basis .2s ease-in-out;
 		position: sticky;
