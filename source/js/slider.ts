@@ -72,6 +72,7 @@ export default class Slider {
             breakpoints: {
                 896: {
                     perPage: 1,
+                    perMove: 1,
                 }
             }
         });

@@ -22,6 +22,10 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     max-width: $c-slider-max-width;
     border-radius: $c-slider-border-radius;
 
+    .c-slider__item__container {
+        backface-visibility: hidden;
+    }
+
     &:only-child {
         width: 100%;
         max-width: 100%;
