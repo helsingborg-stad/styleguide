@@ -19,23 +19,26 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
     position: relative;
 }
 
-.c-field .c-select__icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    left: auto;
-    padding: map-get($spacers, "2");
-    z-index: $level-2;
-    transition: none;
-    height: calc(#{$base}*6);
-    color: $color-primary;
-    pointer-events: none;
-}
-
 .c-select {
     position: relative;
 
-    select {
+    .c-select__action-overlay {
+        @include cover(); 
+        cursor: pointer;
+        z-index: $level-4;
+    }
+
+    .c-select__placeholder {
+        @include cover(); 
+        display: none;
+        align-items: center;
+        z-index: $level-3;
+        padding: 0 map-get($spacers, "2");
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .c-select__select-element {
         appearance: none;
         width: 100%;
         margin: 0;
@@ -49,6 +52,8 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         border-radius: $c-select-border-radius;
         position: relative;
         z-index: $level-2;
+        text-overflow: ellipsis;
+
         &:focus {
             background-color: $color-form-fields-focus;
         }
@@ -65,7 +70,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
     }
 
-    .c-select__icon {
+    .c-select__expand-button {
         position: absolute;
         right: 0;
         top: 0;
@@ -73,10 +78,15 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         padding: map-get($spacers, "2");
         z-index: $level-2;
         transition: none;
-        height: calc(#{$base}*6);
-        line-height: calc(#{$base}*6);
+        height: inherit;
         color: $color-primary;
         pointer-events: none;
+        display: flex;
+        align-items: center;
+
+        .c-select__expand-less-icon {
+            display: none;
+        }
     }
 
     &.c-select--rounded {
@@ -88,54 +98,45 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
                 border-radius: calc($base * 3);
             }
         }
-
-        &.c-select--rounded-border {
-            select {
-                border: $c-field-border-width solid $c-field-border-color;
-            }
-        }
     }
     
     /* Size modifiers */ 
     &.c-select--sm {
-        select, .c-select__icon {
+        .c-select__select-element,
+        .c-select__expand-button {
             padding: 0 map-get($spacers, "1"); 
             height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
         }
-        select {
+        .c-select__select-element,
+        .c-select__placeholder {
             font-size: $c-select-font-size-sm;
             line-height: $c-select-font-size-sm-line-height;
-        }
-        .c-select__icon {
-            line-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
         }
     }
 
     &.c-select--md {
-        select, .c-select__icon {
+        .c-select__select-element, 
+        .c-select__expand-button {
             padding: 0 map-get($spacers, "2");
             height: map-get($spacers, "6"); 
         }
-        select {
+        .c-select__select-element,
+        .c-select__placeholder  {
             font-size: $c-select-font-size-md;
             line-height: $c-select-font-size-md-line-height;
-        }
-        .c-select__icon {
-            line-height: map-get($spacers, "6"); 
         }
     }
 
     &.c-select--lg {
-        select, .c-select__icon {
+        .c-select__select-element,
+        .c-select__expand-button {
             padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
             height: #{map-get($spacers, "8")};
         }
-        select {
+        .c-select__select-element,
+        .c-select__placeholder  {
             font-size: $c-select-font-size-lg;
             line-height: $c-select-font-size-lg-line-height;
-        }
-        .c-select__icon {
-            line-height: #{map-get($spacers, "8")};
         }
     }
 
@@ -165,26 +166,45 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
     }
 
-    select[multiple] {
-        height: auto;
-        padding: 0 map-get($spacers, "2");
+    .c-select__field-container {
+        position: relative;
+        line-height: 0;
+    }
 
-        option {
-            border-radius: $c-select-border-radius-option;
+    /* Multiselect specific */
+    &.c-select--multiselect {
+        .c-select__select-element {
+            overflow: hidden;
+            padding: 0 map-get($spacers, "2");
         }
 
-        option:last-of-type {
-            margin-bottom: 16px;
-            margin-bottom: map-get($spacers , 2 );
+        &.c-select--sm .c-select__select-element {
+            padding: calc(var(--base, 8px)*1.2); 
         }
-        
-        option:checked,
-        option:hover {
-            background-color: $c-select-multi-selected-bg;
-            color: $c-select-multi-selected-color;
+
+        &.c-select--md .c-select__select-element {
+            padding: calc(var(--base, 8px)*1.7);  
+        }
+
+        &.c-select--lg .c-select__select-element {
+            padding: calc(var(--base, 8px)*2.7);  
+        }
+
+        .c-select__select-option {
+            display: none;
+            background: none;
+        }
+
+        .c-select__select-option[selected] {
+            display: inline-block;
+        }
+
+        .c-select__select-option + .c-select__select-option::after {
+            content: ", "; 
         }
     }
 
+    /* States */
     &.is-invalid {
         .c-select {
             &,
@@ -211,7 +231,81 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
     }
 
-    select[multiple] ~ .c-icon {
-        display: none;
+    &.is-open {
+        .c-select__select-element {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .c-select__dropdown {
+            z-index: $level-8;
+            display: block;
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .c-select__expand-button {
+            .c-select__expand-more-icon {
+                display: none;
+            }
+            .c-select__expand-less-icon {
+                display: flex;
+            }
+        }
     }
+
+    &.is-empty {
+        .c-select__placeholder {
+            display: flex;
+            opacity: .7;
+        }
+    }
+
+    .c-select__dropdown {
+        display: none;
+        background-color: #FFF; 
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        max-height: calc($base * 30);
+        overflow-y: auto;
+        z-index: $level-3;
+        padding: #{$base} 0;
+        border: $c-select-border-width solid $c-select-border-color;
+    }
+
+    .c-select__option {
+        display: flex;
+        gap: calc(#{$base} * 1.5); 
+        padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: rgba(#000, .2);
+        }
+
+        .c-select__checked-icon {
+            display: none;
+        }
+
+        &.is-selected {
+            .c-select__unchecked-icon {
+                display: none;
+            }
+
+            .c-select__checked-icon {
+                display: block;
+            }
+        }
+
+        &.is-disabled {
+            opacity: .4;
+        }
+
+        
+    }
+
 }

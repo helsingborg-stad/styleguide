@@ -8,10 +8,10 @@ class FilterSelect {
 
     constructor(element: Element) {
         this.element = element
-        this.selectElement = this.element.querySelector('.c-filterselect__select select') as HTMLSelectElement
-        this.expandButton = this.tryAssignElement('.c-filterselect__expand-button')
-        this.options = this.element.querySelectorAll('.c-filterselect__option');
-        this.container = this.tryAssignElement('.c-filterselect__checked-items')
+        this.selectElement = this.element.querySelector('.c-select__select select') as HTMLSelectElement
+        this.expandButton = this.tryAssignElement('.c-select__expand-button')
+        this.options = this.element.querySelectorAll('.c-select__option');
+        this.container = this.tryAssignElement('.c-select__checked-items')
 
         this.handlePreselected();
         this.setupEventListeners()
@@ -100,26 +100,26 @@ class FilterSelect {
     }
 
     showPlaceholder() {
-        const placeholderElement = this.element.querySelector('.c-filterselect__placeholder');
+        const placeholderElement = this.element.querySelector('.c-select__placeholder');
         if (placeholderElement) placeholderElement.classList.remove('u-display--none');
     }
 
     hidePlaceholder() {
-        const placeholderElement = this.element.querySelector('.c-filterselect__placeholder');
+        const placeholderElement = this.element.querySelector('.c-select__placeholder');
         if (placeholderElement) placeholderElement.classList.add('u-display--none');
     }
 
     addTemplate(option: Element) {
         const optionAttr = option.getAttribute('js-select-value');
         const template = this.container.querySelector('template');
-        const label = option.querySelector('.c-filterselect__option-label')?.innerHTML;
+        const label = option.querySelector('.c-select__option-label')?.innerHTML;
 
         if (!template || !optionAttr || !label) {
             return;
         }
 
         let clone = template.content.cloneNode(true);
-        let temp = (clone as HTMLElement).querySelector('.c-filterselect__checked-item');
+        let temp = (clone as HTMLElement).querySelector('.c-select__checked-item');
 
         if (!temp) {
             return;
@@ -128,7 +128,7 @@ class FilterSelect {
         temp.innerHTML = temp.innerHTML.replace('{OPTION_LABEL}', label);
         temp.setAttribute('js-select-value', optionAttr);
         this.container.appendChild(clone);
-        const checkedItemElement = this.container.querySelector('.c-filterselect__checked-item:last-child');
+        const checkedItemElement = this.container.querySelector('.c-select__checked-item:last-child');
 
         checkedItemElement?.addEventListener('click', (e) => {
             e.stopPropagation();
