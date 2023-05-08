@@ -101,7 +101,7 @@ class OpenStreetMap {
         let template = this.container.querySelector('.c-openstreetmap__pin-tooltip');
         let clone = template.cloneNode(true);
         
-        if (!tooltip.image?.src) {
+        if (!tooltip.image?.src && clone.content.querySelector('figure')) {
             clone.content.querySelector('figure').remove();
         }
 
