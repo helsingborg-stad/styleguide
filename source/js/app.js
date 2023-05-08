@@ -42,6 +42,7 @@ import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
 import {initializeOpenStreetMaps} from './openStreetMap';
+import {setupCopy} from './copy';
 
 expandSection();
 setScrollbarCSS();
@@ -70,6 +71,7 @@ const QuickLinksMenuInstance = new QuickLinksMenu();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
+setupCopy();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {

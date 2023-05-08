@@ -1,0 +1,21 @@
+{
+    "summary": [
+        "Copies an attribute from another element (or itself) to clipboard.",
+        "<br>If the the target attribute is set to 'self'. It copies its own data-js-copy-data."
+
+    ],
+    "description": {
+        "data-js-copy-target": "The element you want to trigger the copy functionality",
+        "data-js-copy-item": "The element to copy it from",
+        "data-js-copy-data": "The content to copy",
+        "data-js-copy-success": "Success feedback to the user",
+        "data-js-copy-error": "Error feedback to the user"
+    },
+    "attributes": {
+        "data-js-copy-target": "",
+        "data-js-copy-item": "",
+        "data-js-copy-data": "",
+        "data-js-copy-success": "",
+        "data-js-copy-error": ""
+    }
+}
