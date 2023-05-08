@@ -4,6 +4,11 @@
 	display: flex;
 	flex-direction: row;
 	background-color: $color-white;
+
+	.c-openstreetmap__tooltip-image {
+		aspect-ratio: 16/9;
+		max-width: 100%;
+	}
 	.c-openstreetmap__sidebar {
 		position: static;
 		right: 0;
@@ -77,24 +82,28 @@
 	&.c-openstreetmap--size-sm {
 
 		.c-openstreetmap__map {
-		flex: 1 0 70%
-	}
-
-	.c-openstreetmap__sidebar {
-		flex: 1 0 30%;
-	}
-
-	&.is-expanded {
-		.c-openstreetmap__map {
-			flex: 1 0 20%;
+			flex: 1 0 70%
 		}
 
 		.c-openstreetmap__sidebar {
-			flex: 1 0 80%;
+			flex: 1 0 30%;
+		}
+
+		&.is-expanded {
+			.c-openstreetmap__map {
+				flex: 1 0 20%;
+			}
+
+			.c-openstreetmap__sidebar {
+				flex: 1 0 80%;
+			}
 		}
 	}
-	}
 
+/* Changes to leaflet css */
+.leaflet-popup-content {
+	width: 100%;
+}
 
 /* Cluster plugin */
 .marker-cluster-small {
@@ -644,10 +653,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	font-size: 13px;
 	font-size: 1.08333em;
 	min-height: 1px;
-	}
-.leaflet-popup-content p {
-	margin: 17px 0;
-	margin: 1.3em 0;
 	}
 .leaflet-popup-tip-container {
 	width: 40px;
