@@ -1,5 +1,6 @@
 export class SimulateClick {
   private readonly simulateClickAttr = 'data-simulate-click';
+  private triggers:Node[] = []
 
   constructor() {
     this.init();
@@ -19,17 +20,18 @@ export class SimulateClick {
   }
 
   private applyOnClickEvent(element: HTMLElement, target: string): void {
-    element.addEventListener('click', (event) => {
+
+    if( this.triggers.includes(element) ) return
+    this.triggers.push(element)
+
+    element.addEventListener('click', (event:MouseEvent) => {
+
       if (event.target instanceof HTMLElement) {
-        const targetElements = document.querySelectorAll(target);
+        const targetElements = document.querySelectorAll<HTMLElement>(target);
   
-        if (targetElements instanceof NodeList) {
-          targetElements.forEach((element: Element, index: number) => {
-            if (element instanceof HTMLElement) {
-              element.click();
-            }
-          });
-        }
+        targetElements.forEach((targetElement) => {
+          targetElement.click();
+        });
       }
     });
   }
