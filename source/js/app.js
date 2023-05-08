@@ -40,10 +40,10 @@ import {moveElements} from './helpers/moveElements';
 import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
-import OpenStreetMap from './openStreetMap';
 import {SimulateClick} from './SimulateClick';
 //import {IsCheckedToggler} from './IsCheckedToggler';
 import {selectOption} from './select/selectOption'; 
+import {initializeOpenStreetMaps} from './openStreetMap';
 
 expandSection();
 setScrollbarCSS();
@@ -72,8 +72,8 @@ const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const QuickLinksMenuInstance = new QuickLinksMenu();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
-const OpenStreetMapInstance = new OpenStreetMap();
-initializeFilterSelectComponents()
+initializeFilterSelectComponents();
+initializeOpenStreetMaps();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
