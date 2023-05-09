@@ -2,8 +2,9 @@ class ShowPost {
     constructor(map, markers, container) {
         this.container = container;
         this.clusters = markers;
+        this.map = map;
 
-        (map && this.container && this.clusters) && this.handleClick();
+        (this.map && this.container && this.clusters) && this.handleClick();
     }
     handleClick() {
         let paginationContainer = this.container.querySelector('[js-pagination-container]');
@@ -57,7 +58,13 @@ class ShowPost {
                     }
                 });
                 if (marker) {
-                    marker.fireEvent('click');
+                    if (marker.__parent) {
+                        let cluster = marker.__parent;
+                        cluster.zoomToBounds();
+                        setTimeout(function () {
+                            marker.openPopup();
+                        }, 300);
+                    }
                 }
             }
         }
