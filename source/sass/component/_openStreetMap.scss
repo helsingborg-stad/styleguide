@@ -7,10 +7,22 @@ $grid-gap: var(--grid-gap, 4) !default;
 	flex-direction: row;
 	background-color: $color-white;
 
+	/* Tooltip */
 	.c-openstreetmap__tooltip-image {
 		aspect-ratio: 16/9;
 		max-width: 100%;
 	}
+
+	a.c-openstreetmap__tooltip-link {
+		color: inherit;
+		text-decoration: none;
+		&:hover {
+			color: $color-link-hover;
+			text-decoration: underline;
+		}
+	}
+
+	/* Sidebar */
 	.c-openstreetmap__sidebar {
 		position: static;
 		right: 0;
@@ -529,9 +541,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	background: #ddd;
 	outline-offset: 1px;
 	}
-.leaflet-container a {
-	color: #0078A8;
-	}
+
 .leaflet-zoom-box {
 	border: 2px dotted #38f;
 	background: rgba(255,255,255,0.5);
