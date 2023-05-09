@@ -24,10 +24,12 @@ class OpenStreetMap {
     }
 
     init(map) {
+
         if (!this.container.hasAttribute('js-map-pin-data') || !this.container.hasAttribute('js-map-start-position')) {
             return;
         }
-
+        
+        map.zoomControl.setPosition('bottomright');
         let startPosition = JSON.parse(this.container.getAttribute('js-map-start-position'));
         let locations = JSON.parse(this.container.getAttribute('js-map-pin-data'));
         let tiles = this.getTilesStyle(this.container);
