@@ -146,18 +146,12 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
-    &.c-slider--16-9 .c-slider__item {
-        aspect-ratio: 16/9;
-    }
-    &.c-slider--4-3 .c-slider__item {
-        aspect-ratio: 4/3;
-    }
-    &.c-slider--10-3 .c-slider__item {
-        aspect-ratio: 10/3;
-    }
-    &.c-slider--36-7 .c-slider__item {
-        aspect-ratio: 36/7;
-    }
+    /** Aspect ratio */
+    @each $modifier, $ratio in ("16-9": 16/9, "4-3": 4/3, "10-3": 10/3, "36-7": 36/7) {
+        &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
+            aspect-ratio: $ratio;
+        }
+    } 
 
     // Posts as slider
     &.c-slider--post {
