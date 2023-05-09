@@ -10,7 +10,9 @@ class OpenStreetMap {
         this.markers = false;
         
         if (this.container && id) {
-            map = L.map(`openstreetmap__map-${id}`);
+            map = L.map(`openstreetmap__map-${id}`, {
+                scrollWheelZoom: false
+            });
             this.markers = L.markerClusterGroup({
                 maxClusterRadius: 50
             });
