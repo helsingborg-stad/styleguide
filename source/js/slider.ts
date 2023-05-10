@@ -73,7 +73,7 @@ export default class Slider {
                 896: {
                     perPage: 1,
                     perMove: 1,
-                    padding: 20,
+                    padding: 0,
                 }
             }
         });
