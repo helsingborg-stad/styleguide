@@ -165,6 +165,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 		.c-openstreetmap__sidebar {
 			flex: 0 1 0%;
+			display: none;
 		}
 	}
 
