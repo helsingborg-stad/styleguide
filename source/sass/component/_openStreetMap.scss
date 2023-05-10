@@ -68,6 +68,10 @@ $grid-gap: var(--grid-gap, 4) !default;
 			cursor: pointer;
 			z-index: 3000;
 		}
+
+		.c-openstreetmap__post-button {
+			width: unset;
+		}
 		
 		.c-openstreetmap__container {
 			.c-openstreetmap__post {
