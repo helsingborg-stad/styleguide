@@ -2,6 +2,7 @@ class ShowPost {
     constructor(map, markers, container) {
         this.container = container;
         this.clusters = markers;
+        this.map = map;
 
         if (map && this.container && this.clusters) {
             this.handleClick();
@@ -71,7 +72,13 @@ class ShowPost {
                     }
                 });
                 if (marker) {
-                    marker.fireEvent('click');
+                    if (marker.__parent) {
+                        let cluster = marker.__parent;
+                        cluster.zoomToBounds();
+                        setTimeout(function () {
+                            marker.openPopup();
+                        }, 300);
+                    }
                 }
             }
         }

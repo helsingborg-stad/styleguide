@@ -129,15 +129,24 @@ class OpenStreetMap {
             clone.content.querySelector('figure').remove();
         }
 
+        if (!tooltip.link) {
+            let link = clone.content.querySelector('.c-openstreetmap__tooltip-link');
+            let title = clone.content.querySelector('.c-openstreetmap__tooltip-title');
+
+            link.parentNode.insertBefore(title, link);
+            link.remove();
+        }
+
         let html = clone.innerHTML;
 
         html = html
-            .replace('{TOOLTIP_HEADING}', tooltip.title ?? '')
-            .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ?? '')
-            .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ?? '')
-            .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ?? '')
-            .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ?? '')
-            .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ?? '');
+        .replace('{TOOLTIP_HEADING}', tooltip.title ?? '')
+        .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ?? '')
+        .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ?? '')
+        .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ?? '')
+        .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ?? '')
+        .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ?? '')
+        .replace('{TOOLTIP_LINK}', tooltip.link ?? '');
         return html;
     }
 
