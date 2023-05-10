@@ -3,42 +3,56 @@ class ShowPost {
         this.container = container;
         this.clusters = markers;
 
-        (map && this.container && this.clusters) && this.handleClick();
+        if (map && this.container && this.clusters) {
+            this.handleClick();
+            window.addEventListener('popstate', () => this.handleBackButton());
+        }
     }
     handleClick() {
         let paginationContainer = this.container.querySelector('[js-pagination-container]');
         let sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         let gridClass = false;
 
-        paginationContainer && paginationContainer.addEventListener('click', (e) => {
-            let collectionItem = e.target.closest('.c-openstreetmap__collection__item');
-            let paginationItem = collectionItem?.parentElement;
-            let backButton = e.target.closest('.c-openstreetmap__post-icon');
-            if (paginationItem) {
-                if (!gridClass) {
-                    gridClass = paginationItem.className ? paginationItem.className : '';
-                }
-                paginationItem.className = "";
-                paginationItem.classList.add('is-active');
-                sidebar.classList.add('has-active');
-                this.setMapZoom(collectionItem);
-                paginationItem.scrollIntoView({ block: "start" });
-            }
-
-            if (backButton) {
-                sidebar.classList.remove('has-active');
-                sidebar.querySelectorAll('[js-pagination-item]').forEach(item => {
-                    if (gridClass) {
-                        !item.classList.contains(gridClass) ? item.classList.add(gridClass) : '';
+        paginationContainer &&
+            paginationContainer.addEventListener('click', (e) => {
+                let collectionItem = e.target.closest('.c-openstreetmap__collection__item');
+                let paginationItem = collectionItem?.parentElement;
+                let backButton = e.target.closest('.c-openstreetmap__post-icon');
+                if (paginationItem) {
+                    if (!gridClass) {
+                        gridClass = paginationItem.className ? paginationItem.className : '';
                     }
-                    item.classList.remove('is-active');
-                });
+                    paginationItem.className = '';
+                    paginationItem.classList.add('is-active');
+                    sidebar.classList.add('has-active');
+                    this.setMapZoom(collectionItem);
+                    paginationItem.scrollIntoView({ block: 'start' });
+                }
+
+                if (backButton) {
+                    this.handleBackButton();
+                }
+            });
+    }
+    handleBackButton() {
+        const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
+        const gridClass = this.gridClass;
+
+        sidebar.classList.remove('has-active');
+        sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
+            if (gridClass) {
+                !item.classList.contains(gridClass) ? item.classList.add(gridClass) : '';
             }
-        })
+            item.classList.remove('is-active');
+        });
     }
 
     setMapZoom(collectionItem) {
-        if (collectionItem && collectionItem.hasAttribute('js-map-lat') && collectionItem.hasAttribute('js-map-lng')) {
+        if (
+            collectionItem &&
+            collectionItem.hasAttribute('js-map-lat') &&
+            collectionItem.hasAttribute('js-map-lng')
+        ) {
             let lat = collectionItem.getAttribute('js-map-lat');
             let lng = collectionItem.getAttribute('js-map-lng');
             if (lat && lng) {
