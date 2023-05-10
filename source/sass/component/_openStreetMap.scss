@@ -215,9 +215,10 @@ $grid-gap: var(--grid-gap, 4) !default;
 			.c-openstreetmap__map {
 				flex: 1 0 20%;
 			}
-
+			
 			.c-openstreetmap__sidebar {
 				flex: 1 0 80%;
+				display: block;
 			}
 		}
 	}
