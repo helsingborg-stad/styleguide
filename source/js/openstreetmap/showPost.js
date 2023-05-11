@@ -28,7 +28,7 @@ class ShowPost {
                     paginationItem.classList.add('is-active');
                     sidebar.classList.add('has-active');
                     this.setMapZoom(collectionItem);
-                    paginationItem.scrollIntoView({ block: 'start' });
+                    this.scrollToTop(sidebar);
                 }
 
                 if (backButton) {
@@ -36,6 +36,25 @@ class ShowPost {
                 }
             });
     }
+
+    scrollToTop(sidebar) {
+        if (!sidebar) return;
+        let rect = sidebar.getBoundingClientRect();
+        let offset = 0;
+        let topPos = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (document.querySelector('.c-header--sticky')) {
+            let headerRect = document.querySelector('.c-header--sticky').getBoundingClientRect();
+            offset = headerRect.height ?? 100;
+        }
+
+        let target = rect.top + topPos - offset;
+
+        window.scrollTo({
+            top: target,
+        })
+    }
+
     handleBackButton() {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         const gridClass = this.gridClass;
