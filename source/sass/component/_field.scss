@@ -206,6 +206,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
                 font-weight: 700;
             }
         }
+        
+        .c-field__label {
+            margin-left: calc($base * 2);
+        }
 
         &.c-field--rounded-border {
             .c-field__inner {
