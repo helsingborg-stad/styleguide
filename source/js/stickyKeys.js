@@ -34,21 +34,28 @@
     }
 
     subscribeInput(targetElements) {
-        (targetElements.forEach(input => {
+        targetElements.forEach(input => {
+            let previousKeyPressed = false;
             input.addEventListener('keydown', (event) => {
-                if (event.code !== "Backspace" && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                if (
+                    event.code !== 'Backspace' &&
+                    !event.shiftKey &&
+                    !event.ctrlKey &&
+                    !event.altKey &&
+                    !event.metaKey
+                ) {
                     if (event.repeat) {
                         this.handleInput(event, 2000);
                     }
-        
-                    if (!event.repeat && event.key === this.keyPressed) {
+
+                    if (!event.repeat && event.key === previousKeyPressed) {
                         this.handleInput(event, 500);
                     }
-        
-                    this.keyPressed = event.key;
+
+                    previousKeyPressed = event.key;
                 }
             });
-        }));
+        });
     }
 
     handleInput(event, delay) {
