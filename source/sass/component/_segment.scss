@@ -26,7 +26,9 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         a {
             text-decoration: none;
 
-            &:hover {
+            &:hover,
+            &:focus,
+            &:active {
                 text-decoration: underline;
             }
         }
