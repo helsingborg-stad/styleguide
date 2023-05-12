@@ -138,15 +138,14 @@ class OpenStreetMap {
         }
 
         let html = clone.innerHTML;
-
         html = html
-        .replace('{TOOLTIP_HEADING}', tooltip.title ?? '')
-        .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ?? '')
-        .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ?? '')
-        .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ?? '')
-        .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ?? '')
-        .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ?? '')
-        .replace('{TOOLTIP_LINK}', tooltip.link ?? '');
+            .replace('{TOOLTIP_HEADING}', tooltip.title ? tooltip.title : '')
+            .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ? tooltip.directions.url  : '')
+            .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ? tooltip.directions.label : '')
+            .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt : '')
+            .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src : '')
+            .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt : '')
+            .replace('{TOOLTIP_LINK}', tooltip.link ? tooltip.link :  '');
         return html;
     }
 
