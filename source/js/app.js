@@ -33,7 +33,7 @@ import Hero from './hero';
 import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
-import {initializeQuickLinks} from './quickLinksHeader';
+import QuickLinksHeader from './quickLinksHeader';
 import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
@@ -68,14 +68,10 @@ const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
+const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
-initializeQuickLinks();
 setupCopy();
-
-document.addEventListener('DOMContentLoaded', () => {
-    const QuickLinksMenuInstance = new QuickLinksMenu();
-});
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {

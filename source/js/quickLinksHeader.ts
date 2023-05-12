@@ -1,38 +1,37 @@
 class QuickLinksHeader {
+
+    stickyQuickLinks: Element | null;
+    
     constructor() {
-        this.handleQuickLinksMenu() && this.setAttribute();
+        this.stickyQuickLinks = document.querySelector('#quicklinks-header.c-header--sticky');
+        this.init();
     }
 
-    handleQuickLinksMenu() :HTMLElement|null {
-        return document.querySelector('#quicklinks-header.c-header--sticky');
+    private init() {
+        if (!this.stickyQuickLinks) return;
+        document.addEventListener('DOMContentLoaded', () => {
+            this.observe();
+        });
     }
     
-    setAttribute() {
-        const quickLinksHeader = document.querySelector('#quicklinks-header');
-
+    private observe() {
         const observer = new IntersectionObserver(
             ([e]) => this.setClasses(e),
             { threshold: [1] }
         );
 
-        if (quickLinksHeader) {
-            observer.observe(quickLinksHeader);
+        if (this.stickyQuickLinks) {
+            observer.observe(this.stickyQuickLinks);
         }
     }
 
-    setClasses(event: IntersectionObserverEntry) {
+    private setClasses(event: IntersectionObserverEntry) {
         if (event.boundingClientRect.top <= 0) {
             event.target.classList.add('is-stuck');
         } else {
             event.target.classList.remove('is-stuck');
         }
     }
-}
-
-export function initializeQuickLinks() {
-    document.addEventListener('DOMContentLoaded', () => {
-        const quickLinksHeader = new QuickLinksHeader();
-    });
 }
 
 export default QuickLinksHeader;
