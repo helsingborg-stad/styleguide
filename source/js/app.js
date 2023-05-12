@@ -33,7 +33,7 @@ import Hero from './hero';
 import Tooltip from './tooltip';
 import Nav from './nav';
 import AnchorMenu from './anchorMenu';
-import QuickLinksMenu from './quickLinksHeader';
+import {initializeQuickLinks} from './quickLinksHeader';
 import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
 import {moveElements} from './helpers/moveElements';
@@ -70,6 +70,7 @@ const NavInstance = new Nav();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
+initializeQuickLinks();
 setupCopy();
 
 document.addEventListener('DOMContentLoaded', () => {

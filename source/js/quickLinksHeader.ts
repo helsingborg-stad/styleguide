@@ -29,4 +29,10 @@ class QuickLinksHeader {
     }
 }
 
+export function initializeQuickLinks() {
+    document.addEventListener('DOMContentLoaded', () => {
+        const quickLinksHeader = new QuickLinksHeader();
+    });
+}
+
 export default QuickLinksHeader;
