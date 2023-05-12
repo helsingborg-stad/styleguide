@@ -67,11 +67,14 @@ const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleContentInstance = new ButtonToggleContent();
 const NavInstance = new Nav();
-const QuickLinksMenuInstance = new QuickLinksMenu();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 setupCopy();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const QuickLinksMenuInstance = new QuickLinksMenu();
+});
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {

@@ -28,4 +28,5 @@ class QuickLinksHeader {
         }
     }
 }
+
 export default QuickLinksHeader;
