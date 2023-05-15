@@ -94,14 +94,10 @@ export class selectOption {
       //Select the options
       for (let i = 0; i < selectElement.options.length; i++) {
         const option = selectElement.options[i];
-
-        if (valueArray.includes(option.value)) {
-          option.selected = true;
-          option.setAttribute('selected','selected'); 
-        } else {
-          option.selected = false;
-          option.removeAttribute('selected'); 
-        }
+        this.selectOption(
+          option, 
+          valueArray.includes(option.value)
+        ); 
       }
       selectElement.dispatchEvent(
         new Event('change')
@@ -112,17 +108,29 @@ export class selectOption {
   private setSingleSelectValue(element: HTMLElement, selectElement: HTMLSelectElement, newValue: string | null) {
     if (typeof newValue === 'string') {
       selectElement.value = newValue;
-      this.closeDropdown(element); 
+      this.closeDropdown(element, 100); //Delay to increase usability
     }
     selectElement.dispatchEvent(
       new Event('change')
     );
   }
 
-  private closeDropdown(element: HTMLElement) {
+  public selectOption(option: HTMLOptionElement, selected: boolean): void {
+    if (selected) {
+      option.selected = true;
+      option.setAttribute('selected','selected'); 
+    } else {
+      option.selected = false;
+      option.removeAttribute('selected'); 
+    }
+  }
+
+  private closeDropdown(element: HTMLElement, delay: number = 0) {
     const isOpenClass = element.getAttribute(this.selectIsOpenClassElementAttribute); 
     if(typeof isOpenClass === 'string') {
-      element.classList.remove(isOpenClass); 
+      setTimeout(() => {
+        element.classList.remove(isOpenClass); 
+      }, delay);
     }
   }
 

@@ -41,16 +41,16 @@ import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
-//import {IsCheckedToggler} from './IsCheckedToggler';
 import {selectOption} from './select/selectOption'; 
 import {initializeOpenStreetMaps} from './openStreetMap';
+import {DeviceDetect} from './deviceDetect';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
 AnchorMenu();
 
-//const IsCheckedTogglerInstance = new IsCheckedToggler(); 
+const DeviceDetectInstance = new DeviceDetect(); 
 const selectOptionInstance = new selectOption(); 
 const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
