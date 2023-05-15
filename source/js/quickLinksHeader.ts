@@ -22,9 +22,9 @@ class QuickLinksHeader {
 
     setClasses(event: IntersectionObserverEntry) {
         if (event.boundingClientRect.top <= 0) {
-            event.target.classList.add('is-stuck');
+            event.target.classList.remove('not-stuck');
         } else {
-            event.target.classList.remove('is-stuck');
+            event.target.classList.add('not-stuck');
         }
     }
 }
