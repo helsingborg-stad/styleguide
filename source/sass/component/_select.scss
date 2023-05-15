@@ -28,6 +28,12 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         z-index: $level-4;
     }
 
+    /* Hides the trigger element, to act natively */
+    &.is-android .c-select__action-overlay,
+    &.is-ios .c-select__action-overlay {
+        display: none;
+    }
+
     .c-select__placeholder {
         @include cover(); 
         display: none;
