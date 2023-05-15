@@ -25,11 +25,13 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     .c-segment__title {
         a {
             text-decoration: none;
+            color: $color-base;
 
             &:hover,
             &:focus,
             &:active {
                 text-decoration: underline;
+                color: $color-link;
             }
         }
     }
