@@ -34,8 +34,8 @@
     }
 
     subscribeInput(targetElements) {
+        let arr = [];            
         targetElements.forEach(input => {
-            let previousKeyPressed = false;
             input.addEventListener('keydown', (event) => {
                 if (
                     event.code !== 'Backspace' &&
@@ -44,23 +44,24 @@
                     !event.altKey &&
                     !event.metaKey
                 ) {
+                    
                     if (event.repeat) {
                         this.handleInput(event, 2000);
                     }
 
-                    if (!event.repeat && event.key === previousKeyPressed) {
+                    if (!event.repeat && arr.pop() === event.key) {
                         this.handleInput(event, 500);
                     }
 
-                    previousKeyPressed = event.key;
                 }
+                arr.push(event.key);
             });
         });
     }
 
     handleInput(event, delay) {
         if (!this.timeStamp) {
-            this.timeStamp = event.timeStamp;
+            this.timeStamp = event.timeStamp - 600;
         }
 
         if (event.timeStamp >= this.timeStamp + delay) {
@@ -69,7 +70,6 @@
             event.preventDefault();
         }
     }
-
 }
 
 export default StickyKeys;
