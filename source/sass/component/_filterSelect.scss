@@ -105,6 +105,17 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         display: flex;
     }
 
+    &.c-filterselect--shadow {
+        .c-filterselect__expand-button {
+            transition: filter 100ms ease-in-out;
+            filter: $drop-shadow-1;
+
+            &:hover {
+                filter: $drop-shadow-2;
+            }
+        }
+    }
+
     &.is-active {
         .c-filterselect__options {
             display: block;
