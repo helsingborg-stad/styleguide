@@ -114,8 +114,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
 
         .c-select__dropdown .c-select__option {
-            padding-top: calc(var(--base, 8px)*0.75); 
-            padding-bottom: calc(var(--base, 8px)*0.75);
+            padding: calc(var(--base, 8px)*0.75) calc(var(--base, 8px)*1.5);
         }
     }
 
@@ -132,8 +131,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
 
         .c-select__dropdown .c-select__option {
-            padding-top: calc(var(--base, 8px)*1); 
-            padding-bottom: calc(var(--base, 8px)*1);
+            padding: calc(var(--base, 8px)*1) calc(var(--base, 8px)*1.75);
         }
     }
 
@@ -150,8 +148,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
 
         .c-select__dropdown .c-select__option {
-            padding-top: calc(var(--base, 8px)*1.5);
-            padding-bottom: calc(var(--base, 8px)*1.5);
+            padding: calc(var(--base, 8px)*1.5) calc(var(--base, 8px)*2.5);
         }
     }
 
