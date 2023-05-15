@@ -112,6 +112,11 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             font-size: $c-select-font-size-sm;
             line-height: $c-select-font-size-sm-line-height;
         }
+
+        .c-select__dropdown .c-select__option {
+            padding-top: calc(var(--base, 8px)*0.75); 
+            padding-bottom: calc(var(--base, 8px)*0.75);
+        }
     }
 
     &.c-select--md {
@@ -125,6 +130,11 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             font-size: $c-select-font-size-md;
             line-height: $c-select-font-size-md-line-height;
         }
+
+        .c-select__dropdown .c-select__option {
+            padding-top: calc(var(--base, 8px)*1); 
+            padding-bottom: calc(var(--base, 8px)*1);
+        }
     }
 
     &.c-select--lg {
@@ -137,6 +147,11 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         .c-select__placeholder  {
             font-size: $c-select-font-size-lg;
             line-height: $c-select-font-size-lg-line-height;
+        }
+
+        .c-select__dropdown .c-select__option {
+            padding-top: calc(var(--base, 8px)*1.5);
+            padding-bottom: calc(var(--base, 8px)*1.5);
         }
     }
 
@@ -263,6 +278,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
     }
 
     .c-select__dropdown {
+        animation: dropdown-swing-in-top-fwd 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
         background-color: #FFF; 
         position: absolute;
@@ -282,6 +298,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         align-items: center;
         cursor: pointer;
         user-select: none;
+        margin-top: 0;
 
         &:hover {
             background-color: rgba(#000, .2);
@@ -304,8 +321,39 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         &.is-disabled {
             opacity: .4;
         }
+    }
 
-        
+    .c-select__option {
+        .c-select__option-label {
+            transition: transform 400ms;
+        }
+        .c-select__option-icon {
+            transition: transform 300ms;
+        }
+        &:hover {
+            .c-select__option-label,
+            .c-select__option-icon {
+                transform: translateX(calc(#{$base} * 0.5)); 
+            }
+        }
     }
 
 }
+
+@keyframes dropdown-swing-in-top-fwd {
+    0% {
+        -webkit-transform: rotateX(-100deg);
+                transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+                transform-origin: top;
+        opacity: 1;
+    }
+}
+  
