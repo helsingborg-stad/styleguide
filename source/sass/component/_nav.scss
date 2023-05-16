@@ -169,23 +169,8 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
   /* Drawer */
   &.c-nav--drawer {
-    gap: $base;
-    padding: calc($base * 3);
-
-    .c-nav--vertical {
-      --c-nav-v-font-size: .95em;
-    }
-
     .c-nav__link {
       gap: calc($base * 3);
-    }
-    .c-nav__icon {
-      font-size: 2em;
-    }
-
-    .c-nav--depth-2 {
-      margin-left: 25%;
-      max-width: 75%;
     }
   }
 }
