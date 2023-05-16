@@ -35,7 +35,7 @@ export class DeviceDetect {
       return 'ios';
     } else if (/android/.test(userAgent)) {
       return 'android';
-    } else if (/windows phone/.test(userAgent)) {
+    } else if (/windows/.test(userAgent)) {
       return 'windows';
     } else if (/macintosh/.test(userAgent)) {
       return 'macos';
