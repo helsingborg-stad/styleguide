@@ -4,25 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Server Start",
-            "hide": true,
+            "label": "Setup",
             "type": "shell",
-            "command": "apache2ctl start",
+            "command": "composer i && npm i && php build.php",
             "problemMatcher": []
         },
         {
-            "label": "Server Stop",
-            "hide": true,
+            "label": "Serve",
             "type": "shell",
-            "command": "apache2ctl stop",
+            "command": "php -S 0.0.0.0:8080",
             "problemMatcher": []
-        },
-        {
-            "label": "Start",
-            "dependsOn": ["Server Start"],
-            "type": "npm",
-            "script": "watch",
-            "problemMatcher": [],
         },
     ]
 }

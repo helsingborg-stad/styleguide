@@ -9,13 +9,9 @@
 	// "customizations": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [
-	// 	8080
-	// ],
-
-	"settings": {
-		"terminal.integrated.defaultProfile.linux": "zsh"
-	},
+	"forwardPorts": [
+		8080
+	],
 	
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
@@ -26,14 +22,11 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"additional-packages": "sudo apt-get update && sudo apt-get install -y bash-completion",
-		"link-workspace-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"enable-apache-modules": "sudo a2enmod rewrite headers",
-		"setup": "php build.php"
+		"install-apt-packages": "export YARNKEY=yarn-keyring.gpg && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmour -o /usr/share/keyrings/$YARNKEY && echo \"deb [signed-by=/usr/share/keyrings/$YARNKEY] https://dl.yarnpkg.com/debian stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install -y subversion nano bash-completion",
 	},
 
-	"postStartCommand": {},
+	"waitFor": "postCreateCommand"
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "root"
+	// "remoteUser": "root"
 }
