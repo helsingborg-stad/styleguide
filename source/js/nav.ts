@@ -1,55 +1,21 @@
 class Nav {
-    private targetMenuSelector: string;
     private targetItemSelector: string;
 
-    constructor() {
-        this.targetMenuSelector = '.c-nav.c-nav--depth-1';
+    constructor(menu: HTMLElement) {
         this.targetItemSelector = '.c-nav__item.has-children.has-toggle';
 
-        const menus = [...document.querySelectorAll(
-            this.targetMenuSelector
-        )] as HTMLElement[];
+        let selectorArray: string[] = [
+            this.targetItemSelector,
+            '> .c-nav__item-wrapper',
+        ];
+        if (menu.classList.contains('c-nav--vertical')) {
+            selectorArray.push('.c-nav__toggle');
+        }
 
-        menus.forEach((menu) => {
-            let selectorArray: string[] = [
-                this.targetItemSelector,
-                '> .c-nav__item-wrapper',
-            ];
-            if (menu.classList.contains('c-nav--vertical')) {
-                selectorArray.push('.c-nav__toggle');
-            }
-
-            const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
-            if (items.length > 0) {
-                this.setListeners(items, menu);
-            }
-
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (
-                        mutation.type === 'childList' &&
-                        mutation.addedNodes.length > 0 &&
-                        (mutation.target as HTMLElement)?.classList?.contains('c-nav__item')
-                    ) {
-                        const newItems: HTMLElement[] = [];
-                        [...mutation.addedNodes].forEach((node) => {
-                            if (
-                                node.nodeType === Node.ELEMENT_NODE &&
-                                (node as HTMLElement).classList?.contains('c-nav') &&
-                                !(node as HTMLElement).classList?.contains('preloader')
-                            ) {
-                                const buttons = [...(node as HTMLElement).querySelectorAll('.c-nav__toggle')] as HTMLElement[];
-                                buttons.forEach((button) => {
-                                    newItems.push(button);
-                                });
-                                this.setListeners(newItems, node as HTMLElement);
-                            }
-                        });
-                    }
-                });
-            });
-            observer.observe(menu, { childList: true, subtree: true });
-        });
+        const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
+        if (items.length > 0) {
+            this.setListeners(items, menu);
+        }
     }
 
     private setListeners(items: HTMLElement[], menu: HTMLElement) {
@@ -114,6 +80,33 @@ class Nav {
 
 export function initializeMenus() {
     // Your initialization logic here
+    const menus = [...document.querySelectorAll('.c-nav.c-nav--depth-1')] as HTMLElement[];
+
+    menus.forEach(menu => {
+        new Nav(menu);
+        console.log(menu);
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (
+                    mutation.type === 'childList' &&
+                    mutation.addedNodes.length > 0 &&
+                    (mutation.target as HTMLElement)?.classList?.contains('c-nav__item')
+                ) {
+                    const newItems: HTMLElement[] = [];
+                    [...mutation.addedNodes].forEach((node) => {
+                        if (
+                            node.nodeType === Node.ELEMENT_NODE &&
+                            (node as HTMLElement).classList?.contains('c-nav') &&
+                            !(node as HTMLElement).classList?.contains('preloader')
+                        ) {
+                           new Nav(node as HTMLElement);
+                        }
+                    });
+                }
+            });
+        });
+        observer.observe(menu, { childList: true, subtree: true });
+    });
 }
 
 export default Nav;
