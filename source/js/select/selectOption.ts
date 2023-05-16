@@ -24,6 +24,7 @@ export class selectOption {
 
   private bind(element: Element): void {
     if(element instanceof HTMLElement) {
+      const isRequired      = this.isRequired(element as HTMLElement);
       const isMultiselect   = this.isMultiselect(element as HTMLElement);
       const selectElement   = this.getSelectElement(element as HTMLElement); 
       const dropdownElement = this.getDropdownElement(element as HTMLElement); 
@@ -205,6 +206,10 @@ export class selectOption {
 
   private getDropdownElement(element: HTMLElement): HTMLElement {
     return element.querySelector(`[${this.selectDropdownElementAttribute}]`) as HTMLElement;
+  }
+
+  private isRequired(element: HTMLElement): boolean {
+    return element.getAttribute('data-js-is-required') === 'true';
   }
 
   private isMultiselect(element: HTMLElement): boolean {
