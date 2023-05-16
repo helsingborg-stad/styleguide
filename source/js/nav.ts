@@ -84,7 +84,6 @@ export function initializeMenus() {
 
     menus.forEach(menu => {
         new Nav(menu);
-        console.log(menu);
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (
