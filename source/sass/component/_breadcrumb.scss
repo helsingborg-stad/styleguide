@@ -1,5 +1,12 @@
 .c-breadcrumb {
+    display: flex;
+    gap: map-get($spacers, "1");
 
+    &__prefix {
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    
     &__list {
         @include unlist();
 

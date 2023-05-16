@@ -1,4 +1,4 @@
-$c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
+$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
 $c-select-font-size-sm: var(--c-select-font-size-sm, $font-size-btn-sm) !default;
 $c-select-font-size-md: var(--c-select-font-size-md, $font-size-btn-md) !default;
@@ -8,7 +8,8 @@ $c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, $fo
 $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
 
 $c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-select-border-color, var(--color-border-input, $color-light)) !default;
+$c-select-border-color: var(--c-field-border-color, $c-field-border-color) !default;
+$c-select-background-color: var(--c-field-background-color, $c-field-background-color) !default;
 $c-select-danger-color: var(--c-select-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-select-success-color: var(--c-select-success-color, var(--color-success, $color-success-dark)) !default;
 $c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
@@ -44,8 +45,8 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         font-size: $c-select-font-size-md;
         line-height: $c-select-font-size-md-line-height;
         border: $c-select-border-width solid $c-select-border-color;
-        background: $color-form-fields;
-        border-radius: $c-select-border-radius;
+        background: $c-select-background-color;
+        border-radius: calc($c-select-border-radius * $base);
         position: relative;
         z-index: $level-2;
         &:focus {
@@ -59,7 +60,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             height: 100%;
             position: absolute;
             top: 0;
-            border-radius: $c-select-border-radius;
+            border-radius: calc($c-select-border-radius * $base);
             pointer-events: none;
         }
     }
@@ -76,6 +77,27 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         line-height: calc(#{$base}*6);
         color: $color-primary;
         pointer-events: none;
+    }
+
+    &.c-select--rounded {
+        select {
+            border-radius: calc($base * 3);
+            border: none;
+            font-weight: 700;
+            &:focus + .c-select_focus-styler {
+                border-radius: calc($base * 3);
+            }
+        }
+
+        .c-field__label {
+            margin-left: calc($base * 2);
+        }
+
+        &.c-select--rounded-border {
+            select {
+                border: $c-field-border-width solid $c-field-border-color;
+            }
+        }
     }
     
     /* Size modifiers */ 
@@ -122,7 +144,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
     }
 
     .error.active {
-        padding: 0.3em;
+        padding: 0.3rem;
     }
 
     .c-select__select-invalid-message {
@@ -133,7 +155,7 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 $c-select-border-radius $c-select-border-radius;
+        border-radius: 0 0 calc($c-select-border-radius * $base) calc($c-select-border-radius * $base);
         box-sizing: border-box;
 
         &.error {

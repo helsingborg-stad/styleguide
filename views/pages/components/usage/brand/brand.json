@@ -1,0 +1,22 @@
+{
+    "single": {
+        "heading": "Single line",
+        "subHeading": "",
+        "text": ""
+    },
+    "double": {
+        "heading": "Two rows",
+        "subHeading": "",
+        "text": ""
+    },
+    "logo": {
+        "heading": "Only logotype (no text)",
+        "subHeading": "",
+        "text": "A logotype component will be shown."
+    },
+    "text": {
+        "heading": "Only text (no logo)",
+        "subHeading": "",
+        "text": "Logotype will be removed"
+    }
+}

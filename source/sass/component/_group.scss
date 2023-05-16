@@ -5,6 +5,12 @@ $wrap: wrap, wrap-reverse, nowrap;
 .c-group {
     display: flex;
 
+    @for $i from 1 through 12 {
+        &.c-group--gap-#{$i} {
+            gap: calc($base * $i);
+        }
+    }
+
     @each $key in $position {
         &.c-group--justify-content-#{$key} {
             justify-content: $key;
@@ -74,8 +80,6 @@ $wrap: wrap, wrap-reverse, nowrap;
 
 .c-group--vertical > *:not(:first-child) {
     margin-top: 0;
-    border-top-left-radius: 0; 
-    border-top-right-radius: 0; 
     border-top: none;
 
     /* Fields */ 

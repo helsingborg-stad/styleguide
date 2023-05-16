@@ -46,6 +46,14 @@ $drop-shadow-3:         var(--drop-shadow-3, drop-shadow(0px calc(8px * #{$drop-
 $drop-shadow-4:         var(--drop-shadow-4, drop-shadow(0px calc(10px * #{$drop-shadow-amount}) calc(12px * #{$drop-shadow-amount}) #{$drop-shadow-color})) !default;
 $drop-shadow-5:         var(--drop-shadow-5, drop-shadow(0px calc(12px * #{$drop-shadow-amount}) calc(14px * #{$drop-shadow-amount}) #{$drop-shadow-color})) !default;
 
+$detail-shadow-amount:  var(--detail-shadow-amount, 0.5) !default;
+$detail-shadow-0:       var(--detail-shadow-0, drop-shadow(0 0 0 #0000)) !default;
+$detail-shadow-1:       var(--detail-shadow-1, drop-shadow(0px calc(2px * #{$detail-shadow-amount}) calc(4px * #{$detail-shadow-amount}) #{$drop-shadow-color})) !default;
+$detail-shadow-2:       var(--detail-shadow-2, drop-shadow(0px calc(4px * #{$detail-shadow-amount}) calc(4px * #{$detail-shadow-amount}) #{$drop-shadow-color})) !default;
+$detail-shadow-3:       var(--detail-shadow-3, drop-shadow(0px calc(6px * #{$detail-shadow-amount}) calc(4px * #{$detail-shadow-amount}) #{$drop-shadow-color})) !default;
+$detail-shadow-4:       var(--detail-shadow-4, drop-shadow(0px calc(8px * #{$detail-shadow-amount}) calc(4px * #{$detail-shadow-amount}) #{$drop-shadow-color})) !default;
+$detail-shadow-5:       var(--detail-shadow-5, drop-shadow(0px calc(8px * #{$detail-shadow-amount}) calc(4px * #{$detail-shadow-amount}) #{$drop-shadow-color})) !default;
+
 $drop-shadow-list: $drop-shadow-0 $drop-shadow-1 $drop-shadow-2 $drop-shadow-3 $drop-shadow-4 $drop-shadow-5 !default; //   example usage: nth($drop-shadow-list, 1);
 
 //  Borders widths

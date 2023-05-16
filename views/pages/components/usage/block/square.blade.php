@@ -5,7 +5,7 @@
             'meta' => 'Etiam Tristique Magna Nullam',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=10',
+                'src' => 'https://picsum.photos/id/10/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ],
@@ -19,7 +19,7 @@
             'meta' => 'Ultricies',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=11',
+                'src' => 'https://picsum.photos/id/11/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -32,7 +32,7 @@
             'meta' => 'Porta Risus Venenatis',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=12',
+                'src' => 'https://picsum.photos/id/12/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -45,7 +45,7 @@
             'meta' => 'Adipiscing Fusce',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=13',
+                'src' => 'https://picsum.photos/id/13/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]
@@ -58,7 +58,7 @@
             'meta' => 'Euismod',
             'filled' => true,
             'image' => [
-                'src' => 'https://picsum.photos/680/510?image=14',
+                'src' => 'https://picsum.photos/id/14/680/510',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
             ]

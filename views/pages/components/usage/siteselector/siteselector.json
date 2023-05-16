@@ -1,0 +1,17 @@
+{
+    "colors": {
+        "heading": "Siteselector with default color schemes",
+        "subHeading" : "",
+        "text": "A few options avabile."
+    },
+    "radius": {
+        "heading": "Siteselector with different radiuses",
+        "subHeading" : "",
+        "text": "A few options avabile."
+    },
+    "many": {
+        "heading": "Siteselector - Many options (overflowing)",
+        "subHeading" : "",
+        "text" : "Many options avabile, overflowing into a dropdown."
+    }
+}

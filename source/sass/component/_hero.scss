@@ -1,6 +1,10 @@
 $c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
-$c-hero-color-font: var(--c-hero-color-font, $color-alpha-contrasting) !default;
+$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, $color-alpha-contrasting) !default;
+$c-hero-color-font-white: var(--c-hero-color-font-white, $color-white) !default;
+$c-hero-color-font-black: var(--c-hero-color-font-black, $color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radius-lg) !default;
+
 
 .c-hero {
   display: flex; 
@@ -63,7 +67,6 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
       width: 100%;
       height: 100%;
       position: absolute;
-      z-index: -1;
     }
   }
 
@@ -130,19 +133,105 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
     align-self: flex-end;
   }
 
+  @include mq(map_get($breakpoints-map, "md")) {
+
+    .c-hero__container {
+      align-self: flex-end;
+      display: flex;
+    }
+
+    &.c-hero--content-horizontal__center .c-hero__container {
+      justify-content: center;
+    }
+
+    &.c-hero--content-horizontal__right .c-hero__container {
+      justify-content: flex-end;
+    }
+    
+    &.c-hero--content-vertical__top .c-hero__container {
+      align-self: flex-start;
+    }
+
+    &.c-hero--content-vertical__center .c-hero__container {
+      align-self: center;
+    }
+
+    &.c-hero--text-align__center .c-hero__container {
+      text-align: center;
+    }
+
+    &.c-hero--text-align__right .c-hero__container {
+      text-align: right;
+    }
+
+  }
+
   .c-hero__content {
     padding: map-get($spacers, "6") 0;
     max-width: calc( #{$base} * 87);
     z-index: $level-2;
     position: relative;
-    text-shadow: 0 0 .8em rgba(0, 0, 0, .4);
+  }
+  
+  &.c-hero--overlay .c-hero__content {
+    text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
+  }
+
+  &.c-hero--has-content-background-color {
+    .c-hero__content {
+      margin: calc(var(--base, 8px)*3) 0;
+      padding: map-get($spacers, "6");
+    }
+
+    &.c-hero--apply-rounded-corners .c-hero__content {
+      border-radius: $c-hero-content-border-radius;
+    }
+
+    &.c-hero--apply-shadows .c-hero__content {
+      filter: $drop-shadow-2;
+    }
+  }
+
+  .c-hero__content--link {
+    text-decoration: none;
   }
 
   .c-hero__title,
-  .c-hero__byline,
-  .c-hero__body {
-    color: $c-hero-color-font;
-    animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+  }
+
+  &.c-hero--overlay {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-contrasting;
+    }
+  }
+  
+  &.c-hero--color-black {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-black;
+    }
+  }
+
+  &.c-hero--color-white {
+    .c-hero__title,
+    .c-hero__byline,
+    .c-hero__meta,
+    .c-hero__body {
+      color: $c-hero-color-font-white;
+    }
+  }
+
+  .c-hero__meta {
+    animation-delay: 200ms;
   }
 
   .c-hero__title {
@@ -152,8 +241,6 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
 
   .c-hero__byline {
     font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
-    font-weight: $font-weight-bold;
-    font-family: $font-family-bold;
     animation-delay: 400ms;
     display: inline-block;
   }
@@ -174,11 +261,122 @@ $c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
   .c-hero__video {
     @include cover();
     object-fit: cover;
-    z-index: -1;
     width: 100%;
     height: 100%;
   }
+
+  /* Meta */
+  &.c-hero--meta {
+    .c-hero__content .c-hero__title {    
+        margin-top: 0;
+    }
+  }
+
+
+
+  /* TwoColumn hero */
+  &.c-hero--twoColumn {
+    padding: calc($base*10) 0;
+    
+    &:before {
+      display: none;
+    }
+    
+    .c-hero__group-image {
+        img {
+          border-radius: $border-radius-md;
+          height: auto;
+          width: 100%;
+          max-width: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .c-hero__background {
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        object-fit: cover;
+        position: absolute;
+        top:0;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .c-hero__content {
+        max-width:100%;
+        padding:0;
+        text-shadow: none;
+        border-radius: $border-radius-xs;
+        .c-hero__group {
+          flex: 0 0 100%;
+        }
+        .c-hero__group-content {
+            padding: 0;
+            height: 100%;
+        }
+      }
+
+      &.c-hero--overflow {
+        padding: 0;
+
+          .c-hero__background {
+            display:none;
+          }
+
+          .c-hero__group-image {
+            height: 100%;
+            img {
+              border-radius: unset;
+              height: 100%;
+              max-width: 100%;
+              object-fit: cover;
+            }
+          }
+          .c-hero__group-content {
+            height: 100%;
+          }
+      }
+
+    @include mq(map_get($breakpoints-map, "md")) {
+      .c-hero__content {
+        .c-hero__group {
+          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
+        } 
+      }
+      
+      &.c-hero--overflow { 
+        padding-top: calc($base * 16);
+        max-height: calc($base * 90);
+        
+        .c-hero__background {
+          display: block;
+          top:0;
+          filter: blur(30px);
+        }
+
+        &::after {
+          content: "";
+          height: calc($base * 8);
+          width: 100%;
+          bottom:0;
+          left:0;
+          position: absolute;
+          background-color: $color-default;
+          z-index:$level-1;
+        }
+
+      .c-hero__content {
+          background-color: $color-white;
+        .c-hero__group-content {
+          padding: calc($base * 6);
+        } 
+      }
+    }
+    }
+  }
 }
+
 
 @keyframes hero-slide-in {
   0% {

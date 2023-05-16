@@ -6,5 +6,5 @@
     "description": {
         "state": "Sets display state."
     },
-    "responsive": false
+    "responsive": true
 }

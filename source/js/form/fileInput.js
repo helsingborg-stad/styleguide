@@ -211,13 +211,10 @@ class FileInput {
         const hiddenInput = visibileInput.cloneNode(true);
 
         hiddenInput.setAttribute('style', 'display:none');
+        hiddenInput.removeAttribute('id');
         hiddenInput.setAttribute('js-field-fileinput', '');
         visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
         visibileInput.value = '';
-
-        form.addEventListener('submit', (event) => {
-            visibileInput.remove();
-        });
 
         return hiddenInput;
     }

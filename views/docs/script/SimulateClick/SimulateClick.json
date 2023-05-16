@@ -1,0 +1,10 @@
+{
+    "summary": [
+        ""
+    ],
+    "description": {
+        "data-simulate-click": "A string with a target element. This target multiple or single elements."},
+    "attributes": {
+        "data-simulate-click": "eg. #link"
+    }
+}

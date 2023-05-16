@@ -16,7 +16,6 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         overflow: hidden;
 
         .c-slider__inner {
-            @include cover();
             display: flex;
             height: 100%;
 
@@ -134,51 +133,25 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
         }
     }
 
-    &.c-slider--16-9 {
-        .c-slider__container {
-            padding-top: Min(100%, 80vh);
-            @include mq(map_get($breakpoints-map, 'sm')) {
-                padding-top: Min(75%, 80vh);
-            }
-            @include mq(map_get($breakpoints-map, 'md')) {
-                padding-top: Min(56.25%, 80vh);
-            }
-        }
-    }
-
-    &.c-slider--4-3 {
-        .c-slider__container {
-            padding-top: Min(100%, 80vh);
-            @include mq(map_get($breakpoints-map, 'sm')) {
-                padding-top: Min(75%, 80vh);
-            }
-            @include mq(map_get($breakpoints-map, 'md')) {
-                padding-top: Min(75%, 80vh);
-            }
-        }
-    }
-
-    &.c-slider--10-3 {
-        .c-slider__container {
-            @include mq(map_get($breakpoints-map, 'sm')) {
-                padding-top: Min(75%, 80vh);
-            }
-            @include mq(map_get($breakpoints-map, 'md')) {
-                padding-top: Max(30%, calc(#{$base} * 40));
-            }
-        }
-    }
-
+    &.c-slider--16-9,
+    &.c-slider--4-3,
+    &.c-slider--10-3,
     &.c-slider--36-7 {
         .c-slider__container {
-            @include mq(map_get($breakpoints-map, 'sm')) {
-                padding-top: Min(75%, 80vh);
-            }
-            @include mq(map_get($breakpoints-map, 'md')) {
-                padding-top: Max(19.44%, calc(#{$base} * 40));
+            padding-top: 0;
+
+            .c-slider__item__container {
+                max-height: unset;
             }
         }
     }
+
+    /** Aspect ratio */
+    @each $modifier, $ratio in ("16-9": 16/9, "4-3": 4/3, "10-3": 10/3, "36-7": 36/7) {
+        &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
+            aspect-ratio: $ratio;
+        }
+    } 
 
     // Posts as slider
     &.c-slider--post {
@@ -193,12 +166,21 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             filter: none;
         }
 
+        .c-slider__arrows .splide__arrow.splide__arrow--prev {
+            left: calc($base * -1);
+        }
+
+        .c-slider__arrows .splide__arrow.splide__arrow--next {
+            right: calc($base * -1);
+        }
+
         .c-slider__item {
             .c-slider__item__container {
                 width: 100%;
                 position: static;
-                height: 100%;
+                // height: 100%;
                 grid-template-rows: none;
+                background-color: transparent;
             }
         }
     
@@ -207,6 +189,15 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             
             .c-slider__inner {
                 position: static;
+            }
+        }
+    }
+
+    &.c-slider--flat {
+        .c-slider__item--post {
+            .c-slider__item__container {
+                background-color: unset;
+                color: unset;
             }
         }
     }

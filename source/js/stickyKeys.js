@@ -34,26 +34,34 @@
     }
 
     subscribeInput(targetElements) {
-        (targetElements.forEach(input => {
+        let arr = [];            
+        targetElements.forEach(input => {
             input.addEventListener('keydown', (event) => {
-                if (event.code !== "Backspace" && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                if (
+                    event.code !== 'Backspace' &&
+                    !event.shiftKey &&
+                    !event.ctrlKey &&
+                    !event.altKey &&
+                    !event.metaKey
+                ) {
+                    
                     if (event.repeat) {
                         this.handleInput(event, 2000);
                     }
-        
-                    if (!event.repeat && event.key === this.keyPressed) {
+
+                    if (!event.repeat && arr.pop() === event.key) {
                         this.handleInput(event, 500);
                     }
-        
-                    this.keyPressed = event.key;
+
                 }
+                arr.push(event.key);
             });
-        }));
+        });
     }
 
     handleInput(event, delay) {
         if (!this.timeStamp) {
-            this.timeStamp = event.timeStamp;
+            this.timeStamp = event.timeStamp - 600;
         }
 
         if (event.timeStamp >= this.timeStamp + delay) {
@@ -62,7 +70,6 @@
             event.preventDefault();
         }
     }
-
 }
 
 export default StickyKeys;

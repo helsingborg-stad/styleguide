@@ -22,6 +22,12 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-outli
 $c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
 $c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 
+$c-collection-item-border-width: var(--c-collection-item-border-width, $border-width-medium) !default;
+$c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
+
+$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, $border-radius-lg) !default;
+$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, $border-radius-md) !default;
+$c-collection-item-background-color: var(--c-collection-card-background-color, $color-card-background) !default;
 
 // Reset
 .c-collection {
@@ -38,15 +44,51 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
 }
 
 .c-collection {
-    border-radius: $c-collection-border-radius;
-    border: $c-collection-border-width solid;
-    border-color: $c-collection-border-color;
-    padding-top: $base;
-    padding-bottom: $base;
+    &.c-collection--bordered {
+        border-radius: $c-collection-border-radius;
+        border-color: $c-collection-border-color;
+        padding-top: $base;
+        padding-bottom: $base;
+        border: $c-collection-border-width solid;
+    }
 
     // Item
     .c-collection__item {
         display: flex;
+  
+        &__floating {
+            position: absolute;
+            right: $base;
+            top: $base;
+            z-index: $level-3;
+            cursor: pointer;
+        }
+
+        .c-collection__item__before {
+            display: flex;
+
+            img {
+                aspect-ratio: 16/9;
+                border-radius: $c-collection-item-image-border-radius;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                margin: 0;
+                max-width: calc($base * 15);
+                min-width: calc($base * 15);
+            }
+
+            .c-image {
+                margin: 0;
+            }
+        }
+
+        &.c-collection__item--bordered {
+            padding: calc($base * 3) 0;
+            border-bottom: $c-collection-item-border-width solid $c-collection-item-border-color;
+            border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
+            margin-top: calc($c-collection-item-border-width * -1);
+        }
     }
 
     .c-collection__item.is-current {
@@ -119,8 +161,7 @@ $c-collection-divider-border-color: var(--c-collection-border-color, $color-bord
     
     // Links, Buttons etc
     .c-collection__action,
-    a.c-collection__item.c-collection__item--action,
-    button.c-collection__item.c-collection__item--action {
+    .c-collection__item--action {
 
         &, a {
             color: #000000;

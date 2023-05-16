@@ -1,14 +1,14 @@
+import './dropdown';
 import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
-import Toggle from './toggle';
+import ToggleClasses from './toggle';
 import Menu from './menu';
 import Modal from './modal';
 import Steppers from './steppers';
 import Image from './image';
 import SplitButton from './splitButton';
-import Dropdown from './dropdown';
 import Fields from './fields';
 import Slider from './slider';
 import EventCalendar from './calendar';
@@ -25,35 +25,53 @@ import ContainerMediaQuery from './mediaQuery';
 import Pagination from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
-import ButtonToggle from './buttonToggle';
+import ButtonToggleContent from './ButtonToggleContent';
 import TestimonialCarousel from './testimonials';
 import IframeAcceptance from './iframeAcceptance';
 import StickyKeys from './stickyKeys';
 import Hero from './hero';
 import Tooltip from './tooltip';
+import Nav from './nav';
+import AnchorMenu from './anchorMenu';
+import QuickLinksHeader from './quickLinksHeader';
+import {initializeFilterSelectComponents} from './filterSelect';
 import './helpers/swipe';
+import {moveElements} from './helpers/moveElements';
+import {moveElement} from './helpers/moveElement';
+import {initializeClickAways} from './ClickAway';
+import {AriaPressedToggler} from './AriaPressedToggler';
+import {SimulateClick} from './SimulateClick';
+import {initializeOpenStreetMaps} from './openStreetMap';
+import {setupCopy} from './copy';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
+AnchorMenu();
 
+const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
 const TooltipInstance = new Tooltip();
-const SortInstance = new Sort;
-const ToggleInstance = new Toggle;
-const SplitButtonInstance = new SplitButton;
-const DropdownInstance = new Dropdown;
-const EventCalendarInstance = new EventCalendar;
-const TilesInstance = new Tiles;
-const NotificationInstance = new Notification;
-const NotificationDocInstance = new NotificationDoc;
-const SidebarInstance = new Sidebar;
+const SortInstance = new Sort();
+const ToggleClassesInstance = new ToggleClasses();
+const SplitButtonInstance = new SplitButton();
+const EventCalendarInstance = new EventCalendar();
+const TilesInstance = new Tiles();
+const NotificationInstance = new Notification();
+const NotificationDocInstance = new NotificationDoc();
+const SidebarInstance = new Sidebar();
 const NavbarInstance = new Navbar();
 const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
-const ButtonToggleInstance = new ButtonToggle;
+const ButtonToggleContentInstance = new ButtonToggleContent();
+const NavInstance = new Nav();
+const AriaPressedTogglerInstance = new AriaPressedToggler();
+const QuickLinksHeaderInstance = new QuickLinksHeader();
+initializeFilterSelectComponents();
+initializeOpenStreetMaps();
+setupCopy();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
@@ -64,14 +82,14 @@ if (tables.length > 0) {
 
 const sliders = document.querySelectorAll('.c-slider');
 if (sliders) {
-    sliders.forEach(slider => {
+    sliders.forEach((slider) => {
         const SliderInstance = new Slider(slider);
     });
 }
 
 const segments = document.querySelectorAll('.c-segment');
 if (segments) {
-    segments.forEach(segment => {
+    segments.forEach((segment) => {
         const SegmentInstance = new Segment(segment);
     });
 }
@@ -80,19 +98,18 @@ const paginations = document.querySelectorAll('[js-pagination-target]');
 if (paginations) {
     paginations.forEach((pagination) => {
         const paginationInstance = new Pagination(pagination);
-    })
+    });
 }
 
 const testimonialCarousels = document.querySelectorAll('[js-testimonials--is-carousel]');
 if (testimonialCarousels) {
     testimonialCarousels.forEach((testimonial) => {
         const testimonialInstance = new TestimonialCarousel(testimonial);
-    })
+    });
 }
 
 SortInstance.applySort();
-ToggleInstance.applyToggle();
-DropdownInstance.setValidTargets();
+ToggleClassesInstance.applyToggle();
 SplitButtonInstance.syncSplitButton();
 EventCalendarInstance.initiateCalendar();
 TilesInstance.initTiles();
@@ -100,25 +117,44 @@ NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
 
-
 // Dynamic Sidebars
 const DynamicSidebarInstance = new DynamicSidebar();
 DynamicSidebarInstance.applySidebar();
 
 const filter = new Filter();
 
-// Modal
-const ModalInstance = new Modal;
-ModalInstance.enableModals();
+// Initialize the modal instance
+const initModal = () => {
+    const modalInstance = new Modal();
+    modalInstance.enableModals();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    moveElements(moveElement);
+    initializeClickAways();
+});
+
+// Wait for the DOM to be fully loaded before initializing the modal
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Create a mutation observer to watch for changes to the DOM
+    const observer = new MutationObserver((mutationsList, observer) => {
+        // Reinitialize the modal instance if there are mutations
+        initModal();
+    });
+
+    // Configure the observer to watch the body for mutations
+    const config = { childList: true, subtree: true };
+    observer.observe(document.body, config);
+
+    // Initialize the modal instance
+    initModal();
+});
 
 // Steppers
-const SteppersInstance = new Steppers;
+const SteppersInstance = new Steppers();
 SteppersInstance.enableStepper();
 
 // Menu
 const MenuInstance = new Menu();
 
 const FieldsInstance = new Fields();
-
-
-

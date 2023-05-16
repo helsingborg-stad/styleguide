@@ -1,15 +1,20 @@
 
 $c-field-label-color: var(--c-field-label-color, $color-darker) !default;
 $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
-$c-field-label-font-size: var(--c-field-label-font-size, 0.75em) !default;
+$c-field-label-font-size: var(--c-field-label-font-size, 0.75rem) !default;
 $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
+
+$c-field-description-font-size: var(--c-field-description-font-size, 0.75rem) !default;
+$c-field-description-color: var(--c-field-description-color, $color-darker) !default;
+
 
 $c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
 $c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-field-success-color: var(--c-field-success-color, var(--color-success, $color-success-dark)) !default;
 
-$c-field-border-radius: var(--c-field-border-radius, $border-radius-xs) !default;
-$c-field-border-radius-color: var(--c-field-border-radius-color, $border-radius-xs) !default;
+$c-field-background-color: var(--c-field-background-color, $color-form-fields) !default;
+
+$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
 
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 $c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
@@ -40,7 +45,13 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-weight: $c-field-label-font-weight;
         text-transform: $c-field-label-text-transform;
         margin-bottom: calc(#{$base}/2);
-        letter-spacing: 0.05em;
+        letter-spacing: 0.05rem;
+    }
+
+    .c-field__description {
+        font-size: $c-field-description-font-size;
+        color: $c-field-description-color;
+        margin-top: 0;
     }
 
     .c-field__helper {
@@ -71,17 +82,17 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         position: absolute;
         height: 100%;
         pointer-events: none;
-        border-radius: $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius);
     }
 
     input#input_search-form__field + .c-field_focus-styler {
-        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
     }
 
     input#input_header-search-form__field:focus + .c-field_focus-styler {
         width: 97%;
         pointer-events: none;
-        border-radius: $c-field-border-radius 0 0 $c-field-border-radius;
+        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
     }
     
     .c-field__inner {
@@ -99,8 +110,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: $c-field-font-size-md-line-height; 
 
         border: $c-field-border-width solid $c-field-border-color;
-        background: $color-form-fields;
-        border-radius: $c-field-border-radius;
+        background: $c-field-background-color;
+        border-radius: calc($base * $c-field-border-radius);
+        
+        input {
+            border-radius: calc($base * $c-field-border-radius);
+        }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
             color: $c-field-suffix-color;
@@ -167,6 +182,44 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__inner {
             border-width: 0;
             border-color: transparent;
+        }
+    }
+
+    /* Shadow */
+    &.c-field--shadow {
+        transition: filter 100ms ease-in-out;
+        filter: $drop-shadow-1;
+    }
+
+    &.c-field--shadow:hover {
+        filter: $drop-shadow-2;
+    }
+
+    /* Customizer modifiers */
+    &.c-field--rounded {
+        .c-field__inner,
+        .c-field__inner input {
+            border-radius: calc($base * 3);
+            border: none;
+
+            input::placeholder {
+                font-weight: 700;
+            }
+        }
+        
+        .c-field__label {
+            margin-left: calc($base * 2);
+        }
+
+        &.c-field--rounded-border {
+            .c-field__inner {
+                border: $c-field-border-width solid $c-field-border-color;
+            }
+        }
+
+        input:focus + .c-field_focus-styler,
+        textarea:focus + .c-field_focus-styler {
+            border-radius: calc($base * 3);
         }
     }
 
@@ -282,7 +335,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             padding: map-get($spacers, "05") map-get($spacers, "2");
             color: $color-white;
             background-color: $c-field-danger-color;
-            border-radius: 0 0 $c-field-border-radius $c-field-border-radius;
+            border-radius: 0 0 calc($base * $c-field-border-radius) calc($base * $c-field-border-radius);
         }
     }
     

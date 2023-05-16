@@ -25,6 +25,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
         flex-direction: column;
         gap: #{$base};
         margin-top: auto;
+        position: relative;
 
         &::after {
             content: '';
@@ -45,6 +46,16 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
             border-bottom-left-radius: $c-block-border-radius;
             border-bottom-right-radius: $c-block-border-radius;
         }
+        .c-block__meta {
+            display: flex;
+        }
+    }
+
+    .c-block__floating {
+        position: absolute;
+        right: $base;
+        top: $base;
+        z-index: $level-3;
     }
 
     .c-block__heading, 

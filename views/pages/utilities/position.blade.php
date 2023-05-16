@@ -16,6 +16,12 @@
     @endutility_doc
 
     @markdown
+        ###Absolute
+    @endmarkdown
+    @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'position', 'config' => 'absolute']])
+    @endutility_doc
+
+    @markdown
         ###Sticky
     @endmarkdown
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'position', 'config' => 'sticky']])

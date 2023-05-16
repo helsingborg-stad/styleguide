@@ -1,6 +1,10 @@
 $c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
 $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
+.c-block[data-open] {
+    cursor: pointer;
+}
+
 .c-modal {
     background-color: white;
     gap: map-get($spacers, "2");
@@ -14,7 +18,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     filter: $drop-shadow-3;
     max-width: 800px;
     max-height: 90vh;
-
+    position: fixed;
 
     .c-modal__close.c-button {
         color: $color-black;
@@ -60,8 +64,8 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &.search-modal {
         #modal-search-form {
-            margin-top:calc($base * 1);
-            margin-bottom:calc($base * 1);
+            margin-top: calc($base * 1);
+            margin-bottom: calc($base * 1);
         }
     }
 

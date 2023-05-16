@@ -41,23 +41,6 @@ $drawer-width: calc(#{$base} * 40);
     left: initial;
 }
 
-.c-drawer.c-drawer--primary,
-.c-drawer.c-drawer--secondary,
-.c-drawer.c-drawer--tertiary {
-    color: white;
-
-    a,
-    button {
-        color: white;
-    }
-
-    .hamburger.hamburger--drawer.is-active .hamburger-inner, 
-    .hamburger.hamburger--drawer.is-active .hamburger-inner::before, 
-    .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
-        background-color: white;
-    }
-}
-
 .c-drawer.c-drawer--primary {
     background-color: $color-primary;
 }

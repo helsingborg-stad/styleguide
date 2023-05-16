@@ -45,14 +45,17 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &:disabled {
-        border-color: $color-button-disabled-bg;
-        background-color: $color-button-disabled-bg;
-        color: $color-button-disabled-text;
         cursor: not-allowed;
-
-        * {
+        &:not(.c-button--no-disabled-color) {
+            border-color: $color-button-disabled-bg;
+            background-color: $color-button-disabled-bg;
             color: $color-button-disabled-text;
+            
+            * {
+                color: $color-button-disabled-text;
+            }
         }
+
     }
 
     &__full-width {
@@ -98,6 +101,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             display: inline-block;
             align-items: center;
             white-space: nowrap;
+            overflow: visible;
 
             &--reverse {
                 order: 2;
@@ -107,12 +111,14 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--lg {
         height: calc(#{$base} * 8); 
+        min-width: calc(#{$base} * 12);
         padding: 0 calc(#{$base} * 5);
         font-size: $font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
         &.c-button--icon-only {
             width: calc(#{$base} * 8); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
@@ -127,12 +133,14 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--md {
         height: calc(#{$base} * 6); 
+        min-width: calc(#{$base} * 9);
         padding: 0 calc(#{$base} * 4); 
         font-size: $font-size-btn-md; 
         border-radius: $c-button-border-radius; 
 
         &.c-button--icon-only {
             width: calc(#{$base} * 6); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
@@ -146,14 +154,16 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &.c-button--sm {
-        letter-spacing: 0.1em;
-        height: calc(#{$base} * 4.5); 
+        letter-spacing: 0.1rem;
+        height: calc(#{$base} * 4.5);
+        min-width: calc(#{$base} * 6.75); 
         padding: 0 calc(#{$base} * 2); 
         font-size: $font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
 
         &.c-button--icon-only {
             width: calc(#{$base}* 4.5); 
+            min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
@@ -255,7 +265,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
             opacity: .12 !important;
         }
   
-        .c-button__label-text {
+        .c-button__label-text,
+        .c-button__label-icon {
             color: $c-button-color-contrasting;
         }
     }
@@ -360,40 +371,109 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 }
 
 .c-button__toggle {
-    @extend .c-button__filled--default;
+
     transition: color 100ms ease-in-out, 
-                background 100ms ease-in-out; 
+    background 100ms ease-in-out, 
+    outline 100ms ease-in-out, 
+    outline-offset 100ms ease-in-out; 
 
-    &[aria-pressed='true'] { //Default
-        color: $c-button-primary-color;
 
-        .c-button__label,
-        .c-button__icon {
-            color: $c-button-primary-color;
-            text-decoration: underline;
+    &[aria-pressed='true']:after {
+        background: $color-white;
+        opacity: .3;
+    }
+
+    &.c-button__filled {
+        outline-offset: 4px;
+        outline: 0 solid rgba(0,0,0,0.5);
+    }
+
+    /* Filled active styles */
+    &.c-button__filled[aria-pressed='true'] {
+        outline: 2px solid rgba(255,255,255,0.5);
+        outline-offset: -2px;
+    }
+
+    /* Basic active styles */ 
+    &.c-button__basic:before {
+        content: "";
+        border-bottom: 2px solid $c-button-color-contrasting;
+        bottom: 4px;
+        position: absolute; 
+        width: 0;
+        transition: width 100ms ease-in-out;
+    } 
+
+    &.c-button__basic[aria-pressed='true']:before {
+        width: 100%;
+    } 
+
+    &.c-button__basic[aria-pressed='true']:after {
+        display: none;
+    }
+
+    /* Outlined active styles */
+    &.c-button__outlined {
+        &[aria-pressed='true']:after {
+            display: none;
         }
     }
 
-    &.c-button__filled--primary[aria-pressed='true'],
-    &.c-button__basic--primary[aria-pressed='true'],
+    /* Filled color - active */ 
+    &.c-button__filled--default[aria-pressed='true'] {
+        outline-color: $c-button-color-contrasting;
+    }
+    
+    &.c-button__filled--primary[aria-pressed='true'] {
+        outline-color: $c-button-primary-color-contrasting; 
+    }
+
+    &.c-button__filled--secondary[aria-pressed='true'] {
+        outline-color: $c-button-secondary-color-contrasting; 
+    }
+
+    /* Basic color - active */ 
+
+    &.c-button__basic--default[aria-pressed='true']:before  {
+        border-color: $c-button-color-contrasting;
+    }
+
+    &.c-button__basic--primary[aria-pressed='true']:before {
+        border-color: $c-button-primary-color;
+    }
+
+    &.c-button__basic--secondary[aria-pressed='true']:before {
+        border-color: $c-button-secondary-color;
+    }
+
+    /* Outlined color - active */
+    &.c-button__outlined--default[aria-pressed='true'] {
+        
+        background-color: $c-button-color-contrasting; 
+
+        .c-button__label,
+        .c-button__label-icon,
+        .c-button__label-text {
+            color: $c-button-color;
+        }
+    }
+
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $c-button-primary-color;
-        color: $color-button-primary-text;
+        background-color: $c-button-primary-color; 
 
         .c-button__label,
-        .c-button__icon {
-            color: $c-button-secondary-color-contrasting;
+        .c-button__label-icon,
+        .c-button__label-text {
+            color: $c-button-primary-color-contrasting;
         }
     }
 
-    &.c-button__filled--secondary[aria-pressed='true'],
-    &.c-button__basic--secondary[aria-pressed='true'],
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $c-button-secondary-color;
-        color: $c-button-secondary-color-contrasting;
+        background-color: $c-button-secondary-color; 
 
         .c-button__label,
-        .c-button__icon {
+        .c-button__label-icon,
+        .c-button__label-text {
             color: $c-button-secondary-color-contrasting;
         }
     }

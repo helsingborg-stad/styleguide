@@ -54,6 +54,12 @@
         "subHeading" : "",
         "text": "When pressing a toggle-button the text color will go from black to primary to indicate it being toggled."
     },
+    "togglewithinterchangable": {
+        "grid": "",
+        "heading": "Togglebuttons with interchangable labels and icons",
+        "subHeading" : "",
+        "text": "When pressing a toggle-button label and/or the icon will be changed to indicate the action."
+    },
     "type": {
         "grid": "",
         "heading": "Type",

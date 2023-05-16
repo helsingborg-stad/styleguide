@@ -15,9 +15,9 @@
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
-                'autocomplete' => 'e-mail',
-                'invalidMessage' => 'You need to add a valid E-mail!',
-                'label' => "Add your E-mail",
+                'autocomplete' => 'email',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
                 'required' => true,
             ])
             @endfield
@@ -113,9 +113,9 @@
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
-                'autocomplete' => 'e-mail',
-                'invalidMessage' => 'You need to add a valid E-mail!',
-                'label' => "Add your E-mail",
+                'autocomplete' => 'email',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your e-mail",
                 'required' => true,
                 'classList' => [
                     'is-invalid'
@@ -133,9 +133,9 @@
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
-                'autocomplete' => 'e-mail',
-                'invalidMessage' => 'You need to add a valid E-mail!',
-                'label' => "Add your E-mail",
+                'autocomplete' => 'email',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
                 'required' => true,
                 'classList' => [
                     'is-valid'
@@ -153,9 +153,9 @@
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
                 'name' => 'email',
-                'autocomplete' => 'e-mail',
-                'invalidMessage' => 'You need to add a valid E-mail!',
-                'label' => "Add your E-mail",
+                'autocomplete' => 'email',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
                 'required' => true,
                 'hideLabel' => true,
             ])
@@ -171,12 +171,33 @@
                 'type' => 'text',
                 'placeholder' => 'email@email.com',
                 'name' => 'email_regexp',
-                'autocomplete' => 'e-mail',
+                'autocomplete' => 'email',
                 'validationRegexp' => '^[^@]+@[^@]+\.[^@]+$',
-                'invalidMessage' => 'You need to add a valid E-mail!',
-                'label' => "Add your E-mail",
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
                 'required' => true,
                 'hideLabel' => true,
+            ])
+            @endfield
+        </div>
+
+
+        <div class="grid-md-6">
+            @markdown
+                ##Input field - Custom validation (email) & Shadow active
+            @endmarkdown
+
+            @field([
+                'type' => 'text',
+                'placeholder' => 'email@email.com',
+                'name' => 'email_regexp',
+                'autocomplete' => 'email',
+                'validationRegexp' => '^[^@]+@[^@]+\.[^@]+$',
+                'invalidMessage' => 'Please enter a valid email',
+                'label' => "Add your email",
+                'required' => true,
+                'hideLabel' => true,
+                'shadow' => true
             ])
             @endfield
         </div>
