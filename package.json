@@ -1,7 +1,7 @@
 {
     "name": "@helsingborg-stad/styleguide",
     "appname": "styleguide",
-    "version": "0.11.879",
+    "version": "0.11.880",
     "description": "",
     "scripts": {
         "test": "jest",
