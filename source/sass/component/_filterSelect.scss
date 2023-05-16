@@ -77,7 +77,7 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         flex-wrap: wrap;
         align-items: center;
         gap: $base;
-        padding: $base;
+        padding: calc($base * 1);
     }
 
     .c-filterselect__checked-item {
@@ -93,7 +93,6 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
     .c-filterselect__expand-less-icon,
     .c-filterselect__expand-more-icon {
         padding: $base;
-        border-left: 1px solid $c-filterselect-expand-border-color;
         align-items: center;
     }
 
@@ -105,7 +104,21 @@ $c-filterselect-checked-font-size: var(--c-filterselect-checked-font-size, $font
         display: flex;
     }
 
+    &.c-filterselect--shadow {
+        filter: $drop-shadow-1;
+        .c-filterselect__expand-button {
+            transition: filter 100ms ease-in-out;
+            &:hover {
+                filter: $drop-shadow-2;
+            }
+        }
+    }
+
     &.is-active {
+        .c-filterselect__expand-button {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
         .c-filterselect__options {
             display: block;
             z-index: $level-3;
