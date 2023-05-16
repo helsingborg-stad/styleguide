@@ -79,7 +79,6 @@ class Nav {
 }
 
 export function initializeMenus() {
-    // Your initialization logic here
     const menus = [...document.querySelectorAll('.c-nav.c-nav--depth-1')] as HTMLElement[];
 
     menus.forEach(menu => {
