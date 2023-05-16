@@ -66,7 +66,6 @@ const ContainerMediaQueryInstance = new ContainerMediaQuery();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleContentInstance = new ButtonToggleContent();
-// const NavInstance = new Nav();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializeFilterSelectComponents();
