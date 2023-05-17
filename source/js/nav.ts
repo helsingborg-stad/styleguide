@@ -90,7 +90,6 @@ export function initializeMenus() {
                     mutation.addedNodes.length > 0 &&
                     (mutation.target as HTMLElement)?.classList?.contains('c-nav__item')
                 ) {
-                    const newItems: HTMLElement[] = [];
                     [...mutation.addedNodes].forEach((node) => {
                         if (
                             node.nodeType === Node.ELEMENT_NODE &&
