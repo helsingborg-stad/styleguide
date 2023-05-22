@@ -58,8 +58,10 @@ class ShowPost {
     handleBackButton() {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         const gridClass = this.gridClass;
-
-        sidebar.classList.remove('has-active');
+        
+        if(sidebar && sidebar.classList.contains('has-active')) {
+            sidebar.classList.remove('has-active');
+        }
         sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
             if (gridClass) {
                 !item.classList.contains(gridClass) ? item.classList.add(gridClass) : '';
