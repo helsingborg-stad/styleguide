@@ -10,6 +10,7 @@ class ShowPost {
         }
     }
     handleClick() {
+
         let paginationContainer = this.container.querySelector('[js-pagination-container]');
         let sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         let gridClass = false;
@@ -21,14 +22,24 @@ class ShowPost {
                 let paginationItem = collectionItem?.parentElement;
                 let backButton = e.target.closest('.c-openstreetmap__post-icon');
                 if (paginationItem) {
+
                     if (!gridClass) {
                         gridClass = paginationItem.className ? paginationItem.className : '';
                     }
                     paginationItem.className = '';
                     paginationItem.classList.add('is-active');
                     sidebar.classList.add('has-active');
+
+                    const url = collectionItem.getAttribute('js-data-url');
+                    if (url) {
+                        if (url.indexOf(window.location.hostname) > -1 || url.startsWith("#")) {
+                            this.updateBrowserHistory(url);
+                        }
+                    }
+
                     this.setMapZoom(collectionItem);
                     this.scrollToTop(sidebar);
+
                 }
 
                 if (backButton) {
@@ -36,7 +47,9 @@ class ShowPost {
                 }
             });
     }
-
+    updateBrowserHistory(url) {
+        window.history.pushState({}, '', url);
+    }
     scrollToTop(sidebar) {
         if (!sidebar) return;
         let rect = sidebar.getBoundingClientRect();
@@ -58,8 +71,8 @@ class ShowPost {
     handleBackButton() {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         const gridClass = this.gridClass;
-        
-        if(sidebar && sidebar.classList.contains('has-active')) {
+
+        if (sidebar && sidebar.classList.contains('has-active')) {
             sidebar.classList.remove('has-active');
         }
         sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
