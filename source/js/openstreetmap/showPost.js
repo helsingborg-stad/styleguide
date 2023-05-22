@@ -15,12 +15,17 @@ class ShowPost {
         let sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         let gridClass = false;
 
+        let previousUrl = window.location.href;
+
+        const moduleArea = document.getElementById('sidebar-right-sidebar');
+
         paginationContainer &&
             paginationContainer.addEventListener('click', (e) => {
                 if (e.target.closest('.c-collection__item__floating')) return;
                 let collectionItem = e.target.closest('.c-openstreetmap__collection__item');
                 let paginationItem = collectionItem?.parentElement;
                 let backButton = e.target.closest('.c-openstreetmap__post-icon');
+
                 if (paginationItem) {
 
                     if (!gridClass) {
@@ -29,6 +34,7 @@ class ShowPost {
                     paginationItem.className = '';
                     paginationItem.classList.add('is-active');
                     sidebar.classList.add('has-active');
+                    moduleArea.classList.add('u-display--none');
 
                     const url = collectionItem.getAttribute('js-data-url');
                     if (url) {
@@ -43,7 +49,8 @@ class ShowPost {
                 }
 
                 if (backButton) {
-                    this.handleBackButton();
+                    this.handleBackButton(previousUrl);
+                    moduleArea.classList.remove('u-display--none');
                 }
             });
     }
@@ -68,7 +75,7 @@ class ShowPost {
         })
     }
 
-    handleBackButton() {
+    handleBackButton(previousUrl = false) {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         const gridClass = this.gridClass;
 
@@ -81,6 +88,10 @@ class ShowPost {
             }
             item.classList.remove('is-active');
         });
+
+        if (previousUrl) {
+            window.history.replaceState(null, null, previousUrl);
+        }
     }
 
     setMapZoom(collectionItem) {
