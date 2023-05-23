@@ -12,6 +12,7 @@ class OpenStreetMap {
         if (this.container && id) {
             map = L.map(`openstreetmap__map-${id}`, {
                 scrollWheelZoom: false,
+                keyboard: false,
             });
             this.markers = L.markerClusterGroup({
                 maxClusterRadius: 50,
@@ -31,6 +32,7 @@ class OpenStreetMap {
             return;
         }
 
+        this.observe(map);
         map.zoomControl.setPosition('bottomright');
         let startPosition = JSON.parse(this.container.getAttribute('js-map-start-position'));
         let locations = JSON.parse(this.container.getAttribute('js-map-pin-data'));
@@ -87,6 +89,9 @@ class OpenStreetMap {
         });
         this.markers.addTo(map);
 
+        //Controls the accessibiltiy of the map, called after printing the map and markers
+        this.handleAccessibility(map);
+
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {
             expand.addEventListener('click', () => {
@@ -95,6 +100,66 @@ class OpenStreetMap {
                 }, 200);
             });
         }
+    }
+
+    handleAccessibility(map) {
+        let markers = [];
+        let currentMarker = 0; 
+        let attributions = this.container.querySelector('.leaflet-control-attribution');
+
+        attributions?.querySelectorAll('a')?.forEach(attribution => {
+            attribution.setAttribute('tabindex', '-1');
+        });
+
+        this.markers.eachLayer(function (layer) {
+            if (layer instanceof L.Marker) {
+                markers.push(layer);
+            }
+        });
+        
+        let amount = markers.length - 1;
+        map.addEventListener('keydown', (e) => {
+            if (!e.originalEvent) return;
+            let event = e.originalEvent;
+            
+            if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
+                event.preventDefault();
+                if (0 < currentMarker) {
+                    currentMarker--;
+                } else {
+                    currentMarker = amount;
+                }
+                this.zoomClusterMarker(markers[currentMarker]);
+            }
+            
+            if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
+                event.preventDefault();
+                if (currentMarker < amount) {
+                    currentMarker++;
+                } else {
+                    currentMarker = 0;
+                }
+                this.zoomClusterMarker(markers[currentMarker]);
+            }
+
+            if (event.key === '+') {
+                map.zoomIn();
+            }
+
+            if (event.key === '-') {
+                map.zoomOut();
+            }
+        });
+    }
+
+    //Zooms and opens a popup
+    zoomClusterMarker(marker) {
+        if (!marker?.__parent) return;
+        let cluster = marker.__parent;
+        cluster.zoomToBounds();
+        setTimeout(function () {
+            marker.openPopup();
+        }, 300);
     }
 
     getPrimaryColor() {
@@ -114,7 +179,7 @@ class OpenStreetMap {
             .replaceAll('{ICON_NAME}', icon)
             .replace('{ICON_BACKGROUND_COLOR}', color);
         let marker = L.divIcon({
-            className: 'openstreetmap__icon',
+            className: 'c-openstreetmap__icon',
             html: html,
         });
 
@@ -189,6 +254,26 @@ class OpenStreetMap {
     }
     updateBrowserHistory(url) {
         window.history.pushState({}, '', url);
+    }
+
+    observe() {
+        let mapContainer = this.container.querySelector('.c-openstreetmap__map');
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((addedNode) => {
+                        if (
+                        addedNode instanceof HTMLElement &&
+                        (addedNode.classList?.contains('c-openstreetmap__icon') || 
+                        addedNode.classList?.contains('marker-cluster'))
+                        ) {
+                            addedNode.setAttribute('tabindex', '-1');
+                        }
+                    });
+                }
+            });
+        });
+        observer.observe(mapContainer, { childList: true, subtree: true });
     }
 }
 
