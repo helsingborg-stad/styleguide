@@ -103,63 +103,50 @@ class OpenStreetMap {
     }
 
     handleAccessibility(map) {
-        let markers = [];
-        let currentMarker = 0; 
-        let attributions = this.container.querySelector('.leaflet-control-attribution');
+        const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker);
+        let currentMarker = 0;
+        const attributions = this.container.querySelector('.leaflet-control-attribution');
 
         attributions?.querySelectorAll('a')?.forEach(attribution => {
             attribution.setAttribute('tabindex', '-1');
         });
 
-        this.markers.eachLayer(function (layer) {
-            if (layer instanceof L.Marker) {
-                markers.push(layer);
-            }
-        });
-        
-        let amount = markers.length - 1;
         map.addEventListener('keydown', (e) => {
-            if (!e.originalEvent) return;
-            let event = e.originalEvent;
-            
-            if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
-                event.preventDefault();
-                if (0 < currentMarker) {
-                    currentMarker--;
-                } else {
-                    currentMarker = amount;
-                }
-                this.zoomClusterMarker(markers[currentMarker]);
-            }
-            
-            if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
-                event.preventDefault();
-                if (currentMarker < amount) {
-                    currentMarker++;
-                } else {
-                    currentMarker = 0;
-                }
-                this.zoomClusterMarker(markers[currentMarker]);
-            }
+            const event = e.originalEvent;
+            switch (event.key) {
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    currentMarker = (currentMarker - 1 + markers.length) % markers.length;
+                    this.zoomClusterMarker(markers[currentMarker]);
+                    break;
 
-            if (event.key === '+') {
-                map.zoomIn();
-            }
+                case 'ArrowUp':
+                case 'ArrowRight':
+                    event.preventDefault();
+                    currentMarker = (currentMarker + 1) % markers.length;
+                    this.zoomClusterMarker(markers[currentMarker]);
+                    break;
 
-            if (event.key === '-') {
-                map.zoomOut();
+                case '+':
+                    map.zoomIn();
+                    break;
+
+                case '-':
+                    map.zoomOut();
+                    break;
             }
         });
     }
 
-    //Zooms and opens a popup
     zoomClusterMarker(marker) {
-        if (!marker?.__parent) return;
-        let cluster = marker.__parent;
-        cluster.zoomToBounds();
-        setTimeout(function () {
-            marker.openPopup();
-        }, 300);
+        if (marker?.__parent) {
+            const cluster = marker.__parent;
+            cluster.zoomToBounds();
+            setTimeout(() => {
+                marker.openPopup();
+            }, 300);
+        }
     }
 
     getPrimaryColor() {
