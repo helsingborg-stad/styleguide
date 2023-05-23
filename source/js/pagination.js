@@ -114,19 +114,24 @@ export default class Pagination {
                 this.paginateSetCurrent(next);
                 this.tableRefresh();
                 this.scrollToTop();
+                this.setFocus();
             })
         });
     }
 
     scrollToTop() {
-        let element = this.listContainer.querySelector('[js-pagination-item]:first-child');
-        if (!element) { return };
         let offset = document.querySelector('.c-header--sticky') ? 100 : 0;
-        let elementPosition = element.getBoundingClientRect().top;
+        let elementPosition = this.listContainer.getBoundingClientRect().top;
         let offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({
             top: offsetPosition,
         });
+    }
+
+    setFocus() {
+        let element = this.listContainer.querySelector('[js-pagination-item]:first-child');
+        if (!element) return; 
+        element.focus();
     }
 
     // eslint-disable-next-line class-methods-use-this
