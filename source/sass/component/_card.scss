@@ -84,6 +84,21 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
         }
     }
 
+    .c-card__datebadge {
+        position: absolute;
+        margin: calc($base * 2);
+    }
+
+    &.c-card--has-datebadge {
+        &:not(.c-card--has-image) {
+            .c-card__datebadge {
+                margin: 0;
+                right: calc($base * 2);
+                top: calc($base * -2);
+            }
+        }
+    }
+    
     &.c-card--flat.c-card--none {
         .c-card__header {
             padding-left: 0;
