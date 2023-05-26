@@ -10,7 +10,7 @@ import Steppers from './steppers';
 import Image from './image';
 import SplitButton from './splitButton';
 import Fields from './fields';
-import Slider from './slider';
+import {initializeSlider} from './slider';
 import EventCalendar from './calendar';
 import Tiles from './tile';
 import Notification from './notification';
@@ -71,6 +71,7 @@ const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 initializeMenus();
+initializeSlider();
 setupCopy();
 
 const tables = document.querySelectorAll('.c-table');
@@ -78,13 +79,6 @@ if (tables.length > 0) {
     for (let table of tables) {
         const TableInstance = new Table(table);
     }
-}
-
-const sliders = document.querySelectorAll('.c-slider');
-if (sliders) {
-    sliders.forEach((slider) => {
-        const SliderInstance = new Slider(slider);
-    });
 }
 
 const segments = document.querySelectorAll('.c-segment');
