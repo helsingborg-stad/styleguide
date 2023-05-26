@@ -196,10 +196,6 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         background-color: $c-slider-color-overlay;
     }
 
-    @include mq(map_get($breakpoints-map, 'md')) {
-        padding: map-get($spacers, '2');
-    }
-
     @include mq(map_get($breakpoints-map, 'sm')) {
         .c-slider__item__container {
             display: grid;
