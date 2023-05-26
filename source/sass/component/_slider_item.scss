@@ -188,12 +188,16 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     }
 
     .c-slider__item__container {
-        padding: map-get($spacers, '2');
+        padding: calc($base * 3);
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
         z-index: $level-4;
         color: $c-slider-color-overlay-contrasting;
         background-color: $c-slider-color-overlay;
+    }
+
+    @include mq(map_get($breakpoints-map, 'md')) {
+        padding: map-get($spacers, '2');
     }
 
     @include mq(map_get($breakpoints-map, 'sm')) {

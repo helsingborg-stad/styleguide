@@ -44,17 +44,30 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{$base} * 6);
-            height: calc(#{$base} * 6);
+            width: calc(#{$base} * 4);
+            height: calc(#{$base} * 4);
 
-            &.splide__arrow--prev {
-                left: calc(#{$base} * 2.5);
+             &.splide__arrow--prev {
+                left: calc($base * -1.5);
                 transform: translateY(-50%);
             }
 
             &.splide__arrow--next {
-                right: calc(#{$base} * 2.5);
+                right: calc($base * -1.5);
                 transform: translateY(-50%);
+            }
+
+            @include mq(map_get($breakpoints-map, "md")) {
+                width: calc(#{$base} * 6);
+                height: calc(#{$base} * 6);
+
+                &.splide__arrow--prev {
+                    left: calc(#{$base} * 2.5);
+                }
+
+                &.splide__arrow--next {
+                    right: calc(#{$base} * 2.5);
+                }
             }
         }
     }
