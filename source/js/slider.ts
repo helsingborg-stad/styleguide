@@ -102,10 +102,6 @@ export default class Slider {
         const start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
 
-        if (slidesPerPage !== 1) {
-            padding = 0;
-        }
-
         return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage };
     }
 
