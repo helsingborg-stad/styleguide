@@ -1,12 +1,12 @@
 class Compressed {
-    element: Element | null;
-    parentElement: Element | null;
+    element: HTMLElement | null;
+    parentElement: HTMLElement | null;
     siblingElements: HTMLElement[] | [];
     compressedAmount: number | null;
     className: string | null;
     toggle: boolean;
 
-    constructor(element: Element) {
+    constructor(element: HTMLElement) {
         this.element = element;
         this.parentElement = element.parentElement;
         this.compressedAmount = this.element.hasAttribute('data-js-compressed')
@@ -24,11 +24,13 @@ class Compressed {
             });
         }
 
-        if (this.element && this.parentElement) this.init();
+        this.init();
     }
 
     private init() {
-        this.element?.setAttribute('is-compressed', '');
+        if (!this.element || !this.parentElement || this.siblingElements.length <= 0 ) return;
+        this.element.setAttribute('is-compressed', '');
+        this.element.style.cursor = 'pointer';
         this.clickListener();
     }
 
@@ -36,7 +38,8 @@ class Compressed {
         this.element?.addEventListener('click', (e) => {
             e.preventDefault();
             this.handleClick();
-            this.element?.remove();
+            
+            if (!this.toggle) this.element?.remove();
         });
     }
 
@@ -63,7 +66,7 @@ class Compressed {
 
 export function initializeCompressed() {
     [...document.querySelectorAll('[data-js-compressed]')].forEach(element => {
-        new Compressed(element);
+        new Compressed(element as HTMLElement);
     });
 }
 
