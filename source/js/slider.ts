@@ -96,18 +96,15 @@ export default class Slider {
         this.addVideoControls();
     }
 
-    getAttributes():Options {
-        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides') as string) : 1;
-        let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap') as string) : 48;
-        let start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
-        let slidesPerPage = this.sliderElement.hasAttribute('data-slides-per-page') ? parseInt(this.sliderElement.getAttribute('data-slides-per-page') as string) : 1;
+    getAttributes(): Options {
+        const padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
+        const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
+        const start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
+        const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
 
-        if (padding && slidesPerPage == 1) {
-            return { 'gap': gap / 2, 'padding': '5rem', 'start': 1, 'perPage': slidesPerPage };
-        }
-
-        return { 'gap': gap, 'padding': 0, 'start': start, 'perPage': slidesPerPage };
+        return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage };
     }
+
 
     autoslideToggle() {
         const { Autoplay } = this.splide.Components;
