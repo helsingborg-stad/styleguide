@@ -188,7 +188,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     }
 
     .c-slider__item__container {
-        padding: map-get($spacers, '2');
+        padding: calc($base * 3);
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
         z-index: $level-4;
