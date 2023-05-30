@@ -43,6 +43,7 @@ import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
 import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
+import { initializeCompressed } from './compressed';
 
 expandSection();
 setScrollbarCSS();
@@ -71,6 +72,7 @@ const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 initializeMenus();
+initializeCompressed();
 setupCopy();
 
 const tables = document.querySelectorAll('.c-table');
