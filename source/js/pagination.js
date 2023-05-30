@@ -4,21 +4,27 @@ export default class Pagination {
     ){
         this.container = container
         this.link = null
-        this.list = this.container.querySelectorAll(`[js-pagination-item]`);
+        let list = [...this.container.querySelectorAll(`[js-pagination-item]`)];
 
         //Targeting attributes
         this.indexLinks = 'js-pagination-index';
         this.paginationContainer = this.container.querySelector(`[js-pagination]`);
         this.listContainer = this.container.querySelector(`[js-pagination-container]`);
-        this.prevBtn = 'js-pagination-prev'
-        this.nextBtn = 'js-pagination-next'
+        this.prevBtn = 'js-pagination-prev';
+        this.nextBtn = 'js-pagination-next';
 
         if (!this.paginationContainer) {
             return;
         }
 
-        this.perPage = parseInt(this.paginationContainer.getAttribute('js-pagination-per-page'))
-        this.maxPages = this.paginationContainer.getAttribute('js-pagination-max-pages')
+        this.perPage = parseInt(this.paginationContainer.getAttribute('js-pagination-per-page'));
+        this.maxPages = this.paginationContainer.getAttribute('js-pagination-max-pages');
+
+        if (this.paginationContainer && this.paginationContainer.hasAttribute('js-pagination-randomize-order')) {
+            list = list.sort(() => Math.random() - 0.5);
+        }
+
+        this.list = list;
 
         this.container.setAttribute('js-table-pagination--current', 1);
 
@@ -177,4 +183,12 @@ export default class Pagination {
     paginationCurrent() {
         return parseInt(this.container.getAttribute('js-table-pagination--current'), 10)
     }
+}
+
+export function initializePagination() {
+    const paginations = [...document.querySelectorAll('[js-pagination-target]')];
+
+    paginations.forEach((pagination) => {
+        new Pagination(pagination);
+    });
 }
