@@ -34,7 +34,9 @@ class ShowPost {
                     paginationItem.className = '';
                     paginationItem.classList.add('is-active');
                     sidebar.classList.add('has-active');
-                    moduleArea.classList.add('u-display--none');
+                    if (moduleArea) {
+                        moduleArea.classList.add('u-display--none');
+                    }
 
                     const url = collectionItem.getAttribute('js-data-url');
                     if (url) {
@@ -50,7 +52,9 @@ class ShowPost {
 
                 if (backButton) {
                     this.handleBackButton(previousUrl);
-                    moduleArea.classList.remove('u-display--none');
+                    if (moduleArea) {
+                        moduleArea.classList.remove('u-display--none');
+                    }
                 }
             });
     }
