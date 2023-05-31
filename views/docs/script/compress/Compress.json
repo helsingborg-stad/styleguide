@@ -1,0 +1,16 @@
+{
+    "summary": [
+        "The compress script removes/adds classes or sets display none on sibling elements."
+    ],
+    "description": {
+        "data-js-compressed": "Compresses sibling elements (using classes or display styling).",
+        "data-js-compressed-class": "A class name to be added/removed",
+        "data-js-compressed-toggle": "Add the attribute to allow toggling of the items."
+    },
+    "attributes": {
+        "data-js-compressed": "number",
+        "data-js-compressed-class": "class",
+        "data-js-compressed-toggle": ""
+        
+    }
+}
