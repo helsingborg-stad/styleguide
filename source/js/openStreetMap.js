@@ -1,6 +1,7 @@
 import L from 'leaflet';
 import 'leaflet.markercluster';
-import showPost from './openstreetmap/showPost';
+import ShowPost from './openstreetmap/showPost';
+import ScrollToMarker from './openstreetmap/scrollToMarker';
 
 class OpenStreetMap {
     constructor(container) {
@@ -19,7 +20,8 @@ class OpenStreetMap {
         }
         let run = this.container && map && this.markers;
 
-        run && new showPost(map, this.markers, this.container);
+        run && new ShowPost(map, this.markers, this.container);
+        run && new ScrollToMarker(map, this.markers, this.container);
         run && this.init(map);
     }
 
