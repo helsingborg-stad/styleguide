@@ -56,7 +56,7 @@ class Compressed {
     private toggleSiblingElements(isCompressed: boolean) {
         this.siblingElements?.forEach(sibling => {
             if (this.className) {
-                isCompressed ? sibling.classList.add('is-hidden') : sibling.classList.remove(this.className);
+                isCompressed ? sibling.classList.add(this.className) : sibling.classList.remove(this.className);
             } else {
                 sibling.style.display = isCompressed ? 'none' : '';
             }
