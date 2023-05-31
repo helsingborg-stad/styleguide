@@ -155,7 +155,8 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
       }
     }
 
-    .c-nav__item.is-current > .c-nav__link {
+    .c-nav__item.is-current > .c-nav__link,
+    .c-nav__item.is-current > .c-nav__item-wrapper > .c-nav__link  {
       color: $color-vnav-item-text-active; 
       font-weight: $font-weight-bold;
       font-family: $font-family-bold;

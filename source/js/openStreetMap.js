@@ -76,10 +76,9 @@ class OpenStreetMap {
                             map.setView(latlng, 16);
                         }
                     }
-
                     if (location.url) {
-                        // if location.url shares the same domain as the current page, use pushState to update the URL
-                        if (location.url.indexOf(window.location.hostname) > -1) {
+                        // if location.url shares the same domain as the current page or is an anchor, use pushState to update the URL
+                        if (location.url.indexOf(window.location.hostname) > -1 || location.url.startsWith("#")) {
                             this.updateBrowserHistory(location.url);
                         }
                     }
@@ -266,7 +265,6 @@ class OpenStreetMap {
 
 export function initializeOpenStreetMaps() {
     const componentElements = [...document.querySelectorAll('.c-openstreetmap')];
-
     componentElements.forEach((element) => {
         new OpenStreetMap(element);
     });

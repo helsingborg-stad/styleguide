@@ -9,6 +9,7 @@ class ShowPost {
             window.addEventListener('popstate', () => this.handleBackButton());
         }
     }
+
     setListeners() {
         const paginationContainer = this.container.querySelector('[js-pagination-container]');
         if (!paginationContainer) return;
@@ -35,20 +36,42 @@ class ShowPost {
         const collectionItem = element.closest('.c-openstreetmap__collection__item');
         const paginationItem = collectionItem?.parentElement;
         const backButton = element.closest('.c-openstreetmap__post-icon');
+      
+        let previousUrl = window.location.href;
+
+        const moduleArea = document.getElementById('sidebar-right-sidebar');
 
         if (paginationItem) {
             paginationItem.className = '';
             paginationItem.classList.add('is-active');
             sidebar.classList.add('has-active');
+          
+            if (moduleArea) {
+                moduleArea.classList.add('u-display--none');
+            }
+
+            const url = collectionItem.getAttribute('js-data-url');
+            if (url) {
+                if (url.indexOf(window.location.hostname) > -1 || url.startsWith("#")) {
+                    this.updateBrowserHistory(url);
+                }
+            }
             this.setMapZoom(collectionItem);
             this.scrollToTop(sidebar);
         }
 
         if (backButton) {
-            this.handleBackButton();
+            this.handleBackButton(previousUrl);
+            if (moduleArea) {
+                moduleArea.classList.remove('u-display--none');
+            }
         }
     }
-
+  
+    updateBrowserHistory(url) {
+        window.history.pushState({}, '', url);
+    }
+  
     scrollToTop(sidebar) {
         if (!sidebar) return;
         const rect = sidebar.getBoundingClientRect();
@@ -67,13 +90,19 @@ class ShowPost {
         })
     }
 
-    handleBackButton() {
+    handleBackButton(previousUrl = false) {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
 
-        sidebar.classList.remove('has-active');
+        if (sidebar && sidebar.classList.contains('has-active')) {
+            sidebar.classList.remove('has-active');
+        }
         sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
             item.classList.remove('is-active');
         });
+
+        if (previousUrl) {
+            window.history.replaceState(null, null, previousUrl);
+        }
     }
 
     setMapZoom(collectionItem) {
