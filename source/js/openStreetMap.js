@@ -60,7 +60,7 @@ class OpenStreetMap {
                     url: location.url ?? '',
                 });
                 if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip(location), { maxWidth: 300 });
+                    marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300 });
                 }
                 marker.on('click', (e) => {
                     let latlng = e.latlng
@@ -172,8 +172,7 @@ class OpenStreetMap {
         return marker;
     }
 
-    createTooltip(location) {
-        const tooltip = location.tooltip;
+    createTooltip(tooltip) {
         let template = this.container.querySelector('.c-openstreetmap__pin-tooltip');
         let clone = template.cloneNode(true);
 
@@ -181,7 +180,7 @@ class OpenStreetMap {
             clone.content.querySelector('figure').remove();
         }
 
-        if (!location.url) {
+        if (!tooltip.url) {
             let link = clone.content.querySelector('.c-openstreetmap__tooltip-link');
             let title = clone.content.querySelector('.c-openstreetmap__tooltip-title');
 
@@ -196,7 +195,7 @@ class OpenStreetMap {
             .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt : '')
             .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src : '')
             .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt : '')
-            .replace('{TOOLTIP_LINK}', location.url ? location.url :  '');
+            .replace('{TOOLTIP_LINK}', tooltip.url ? tooltip.url :  '');
         return html;
     }
 
