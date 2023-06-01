@@ -19,7 +19,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     background-size: cover;
     position: relative;
     width: 100%;
-    max-width: $c-slider-max-width;
+    max-width: calc($base * 120 - $c-slider-inset);
     border-radius: $c-slider-border-radius;
 
     .c-slider__item__container {
@@ -171,6 +171,11 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
                 padding: 0;
             }
         }
+    }
+
+    /* MQ */
+    @include mq('xl') {
+        max-width: calc($base * 200 - $c-slider-inset);
     }
 }
 
