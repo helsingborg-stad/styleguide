@@ -41,7 +41,6 @@ export default class Slider {
         this.splide = new Splide(slider as HTMLElement, {
             type: sliderAttributes.sliderType,
             start: sliderAttributes.start,
-            clone: slider.hasAttribute('data-slider-loop') ? true : false,
             autoWidth: sliderAttributes.perPage == 1 ? true : false,
             perPage: sliderAttributes.perPage,
             perMove: sliderAttributes.perPage,
