@@ -1,10 +1,11 @@
+import { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 class ScrollToMarker {
-    map: Object;
-    markers: Array<Element>;
+    map: LeafletMap;
+    markers: MarkerClusterGroup;
     container: Element;
     scrollToMarkerItems: Array<Element>;
 
-    constructor(map: Object, markers: Array<Element>, container: Element) {
+    constructor(map: LeafletMap, markers: MarkerClusterGroup, container: Element) {
         this.scrollToMarkerItems = [...container.querySelectorAll('[js-scroll-to-marker]')];
         this.map = map;
         this.markers = markers;
@@ -14,6 +15,8 @@ class ScrollToMarker {
     }
 
     init() {
+        console.log(this.map);
+        return;
         if (!this.scrollToItemMarkers.length > 0) return;
 
         this.setListeners();
