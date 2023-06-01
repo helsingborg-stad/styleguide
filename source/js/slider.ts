@@ -39,7 +39,7 @@ export default class Slider {
         }
 
         this.splide = new Splide(slider as HTMLElement, {
-            type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
+            type: sliderAttributes.sliderType,
             start: sliderAttributes.start,
             clone: slider.hasAttribute('data-slider-loop') ? true : false,
             autoWidth: sliderAttributes.perPage == 1 ? true : false,
@@ -101,8 +101,9 @@ export default class Slider {
         const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
         const start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
+        const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
 
-        return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage };
+        return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage, sliderType: sliderType };
     }
 
 
