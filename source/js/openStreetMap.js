@@ -2,6 +2,7 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ScrollToMarker from './openstreetmap/scrollToMarker';
+import ConnectMarkers from './openstreetmap/connectMarkers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -88,6 +89,7 @@ class OpenStreetMap {
             }
         });
         this.markers.addTo(map);
+        new ConnectMarkers(map, this.markers, this.container);
 
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {

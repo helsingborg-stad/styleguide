@@ -15,16 +15,26 @@ class ScrollToMarker {
     }
 
     init() {
-        console.log(this.map);
-        return;
-        if (!this.scrollToItemMarkers.length > 0) return;
-
+        if (this.scrollToMarkerItems.length <= 0) return;
+        
         this.setListeners();
-        console.log(this.container);
+        // console.log(this.scrollToMarkerItems);
     }
     
     setListeners() {
-        
+        let currentScroll = 0;
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.scrollY;
+            if (Math.abs(currentScroll - scrollTop) > 10 || Math.abs(currentScroll - scrollTop) < -10) {
+                this.handleScroll();
+                currentScroll = scrollTop;
+            }
+        });
+    }
+
+
+    handleScroll() {
+        // console.log('scroll');
     }
 
 }
