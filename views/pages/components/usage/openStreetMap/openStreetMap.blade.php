@@ -13,6 +13,7 @@
             'lng' => '12.693904', 
             'tooltip' => [
                 'title' => 'Marker 2',
+                'excerpt' => 'This is an excerpt'
                 ],
             'url' => '#marker2'
         ]
