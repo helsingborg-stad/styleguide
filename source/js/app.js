@@ -43,6 +43,7 @@ import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
 import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
+import { initializeCompressed } from './compressed';
 
 expandSection();
 setScrollbarCSS();
@@ -72,6 +73,7 @@ initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 initializeMenus();
 initializeSlider();
+initializeCompressed();
 setupCopy();
 
 const tables = document.querySelectorAll('.c-table');

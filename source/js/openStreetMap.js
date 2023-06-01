@@ -12,6 +12,7 @@ class OpenStreetMap {
         if (this.container && id) {
             map = L.map(`openstreetmap__map-${id}`, {
                 scrollWheelZoom: false,
+                keyboard: false,
             });
             this.markers = L.markerClusterGroup({
                 maxClusterRadius: 50,
@@ -31,6 +32,7 @@ class OpenStreetMap {
             return;
         }
 
+        this.observe(map);
         map.zoomControl.setPosition('bottomright');
         let startPosition = JSON.parse(this.container.getAttribute('js-map-start-position'));
         let locations = JSON.parse(this.container.getAttribute('js-map-pin-data'));
@@ -74,10 +76,9 @@ class OpenStreetMap {
                             map.setView(latlng, 16);
                         }
                     }
-
                     if (location.url) {
-                        // if location.url shares the same domain as the current page, use pushState to update the URL
-                        if (location.url.indexOf(window.location.hostname) > -1) {
+                        // if location.url shares the same domain as the current page or is an anchor, use pushState to update the URL
+                        if (location.url.indexOf(window.location.hostname) > -1 || location.url.startsWith("#")) {
                             this.updateBrowserHistory(location.url);
                         }
                     }
@@ -87,6 +88,9 @@ class OpenStreetMap {
         });
         this.markers.addTo(map);
 
+        //Controls the accessibiltiy of the map, called after printing the map and markers
+        this.handleAccessibility(map);
+
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {
             expand.addEventListener('click', () => {
@@ -94,6 +98,53 @@ class OpenStreetMap {
                     map.invalidateSize();
                 }, 200);
             });
+        }
+    }
+
+    handleAccessibility(map) {
+        const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker);
+        let currentMarker = 0;
+        const attributions = this.container.querySelector('.leaflet-control-attribution');
+
+        attributions?.querySelectorAll('a')?.forEach(attribution => {
+            attribution.setAttribute('tabindex', '-1');
+        });
+
+        map.addEventListener('keydown', (e) => {
+            const event = e.originalEvent;
+            switch (event.key) {
+                case 'ArrowDown':
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    currentMarker = (currentMarker - 1 + markers.length) % markers.length;
+                    this.zoomClusterMarker(markers[currentMarker]);
+                    break;
+
+                case 'ArrowUp':
+                case 'ArrowRight':
+                    event.preventDefault();
+                    currentMarker = (currentMarker + 1) % markers.length;
+                    this.zoomClusterMarker(markers[currentMarker]);
+                    break;
+
+                case '+':
+                    map.zoomIn();
+                    break;
+
+                case '-':
+                    map.zoomOut();
+                    break;
+            }
+        });
+    }
+
+    zoomClusterMarker(marker) {
+        if (marker?.__parent) {
+            const cluster = marker.__parent;
+            cluster.zoomToBounds();
+            setTimeout(() => {
+                marker.openPopup();
+            }, 300);
         }
     }
 
@@ -114,7 +165,7 @@ class OpenStreetMap {
             .replaceAll('{ICON_NAME}', icon)
             .replace('{ICON_BACKGROUND_COLOR}', color);
         let marker = L.divIcon({
-            className: 'openstreetmap__icon',
+            className: 'c-openstreetmap__icon',
             html: html,
         });
 
@@ -190,11 +241,30 @@ class OpenStreetMap {
     updateBrowserHistory(url) {
         window.history.pushState({}, '', url);
     }
+
+    observe() {
+        let mapContainer = this.container.querySelector('.c-openstreetmap__map');
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((addedNode) => {
+                        if (
+                        addedNode instanceof HTMLElement &&
+                        (addedNode.classList?.contains('c-openstreetmap__icon') || 
+                        addedNode.classList?.contains('marker-cluster'))
+                        ) {
+                            addedNode.setAttribute('tabindex', '-1');
+                        }
+                    });
+                }
+            });
+        });
+        observer.observe(mapContainer, { childList: true, subtree: true });
+    }
 }
 
 export function initializeOpenStreetMaps() {
     const componentElements = [...document.querySelectorAll('.c-openstreetmap')];
-
     componentElements.forEach((element) => {
         new OpenStreetMap(element);
     });
