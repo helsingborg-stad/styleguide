@@ -19,7 +19,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     background-size: cover;
     position: relative;
     width: 100%;
-    max-width: calc($base * 200 - $c-slider-inset);
+    max-width: $c-slider-max-width;
     max-height: 80vh;
     border-radius: $c-slider-border-radius;
 
