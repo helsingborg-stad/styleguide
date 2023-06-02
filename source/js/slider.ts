@@ -40,11 +40,11 @@ export default class Slider {
         }
 
         this.splide = new Splide(slider as HTMLElement, {
-            type: sliderAttributes.sliderType,
-            start: sliderAttributes.start,
-            autoWidth: sliderAttributes.perPage == 1 ? true : false,
-            perPage: sliderAttributes.perPage,
-            perMove: sliderAttributes.perPage,
+            type: this.sliderAttributes.sliderType,
+            start: this.sliderAttributes.start,
+            autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
+            perPage: this.sliderAttributes.perPage,
+            perMove: this.sliderAttributes.perPage,
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
             gap: this.sliderAttributes.gap,
             padding: this.sliderAttributes.padding,
