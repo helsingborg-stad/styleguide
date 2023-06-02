@@ -11,6 +11,7 @@ export default class Slider {
     sliderElement: Element;
     autoslideToggleButton: any;
     splide: Splide;
+    sliderAttributes: Options;
 
     constructor(slider: Element) {
         this.sliderElement = slider;
@@ -18,7 +19,7 @@ export default class Slider {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
-        const sliderAttributes = this.getAttributes();
+        this.sliderAttributes = this.getAttributes();
         const hasCustomButtons = slider.hasAttribute('data-custom-buttons');
 
         if (hasCustomButtons) {
@@ -39,15 +40,14 @@ export default class Slider {
         }
 
         this.splide = new Splide(slider as HTMLElement, {
-            type: slider.hasAttribute('data-slider-loop') ? 'loop' : 'slide',
+            type: sliderAttributes.sliderType,
             start: sliderAttributes.start,
-            clone: slider.hasAttribute('data-slider-loop') ? true : false,
             autoWidth: sliderAttributes.perPage == 1 ? true : false,
             perPage: sliderAttributes.perPage,
             perMove: sliderAttributes.perPage,
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
-            gap: sliderAttributes.gap,
-            padding: sliderAttributes.padding,
+            gap: this.sliderAttributes.gap,
+            padding: this.sliderAttributes.padding,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
@@ -93,21 +93,48 @@ export default class Slider {
             this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
         }
 
+        slider.hasAttribute('data-observe-resizes') && this.observe(slider);
         this.addVideoControls();
     }
 
-    getAttributes():Options {
-        let padding = this.sliderElement.hasAttribute('data-show-adjacent-slides') ? parseInt(this.sliderElement.getAttribute('data-show-adjacent-slides') as string) : 1;
-        let gap = this.sliderElement.hasAttribute('data-slider-gap') ? parseInt(this.sliderElement.getAttribute('data-slider-gap') as string) : 48;
-        let start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
-        let slidesPerPage = this.sliderElement.hasAttribute('data-slides-per-page') ? parseInt(this.sliderElement.getAttribute('data-slides-per-page') as string) : 1;
+    observe(slider: Element) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    if (!slider.classList.contains('c-slider--size-md') && this.splide.options.perPage !== 1) {
+                        this.splide.options.perPage = 1;
+                        this.splide.options.perMove = 1;
+                        handleObserver();
+                    }
 
-        if (padding && slidesPerPage == 1) {
-            return { 'gap': gap / 2, 'padding': '5rem', 'start': 1, 'perPage': slidesPerPage };
+                    if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
+                        this.splide.options.perPage = this.sliderAttributes.perPage;
+                        this.splide.options.perMove = this.sliderAttributes.perPage;
+                        handleObserver();
+                    }
+                }
+            });
+        });
+
+        const handleObserver = () => {
+            observer.disconnect();
+            this.splide.refresh();
+            observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
         }
 
-        return { 'gap': gap, 'padding': 0, 'start': start, 'perPage': slidesPerPage };
+        observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
     }
+
+    getAttributes(): Options {
+        let padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
+        const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
+        const start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
+        const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
+        const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
+
+        return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage, sliderType: sliderType };
+    }
+
 
     autoslideToggle() {
         const { Autoplay } = this.splide.Components;
@@ -136,6 +163,15 @@ export default class Slider {
             if (slide.querySelectorAll('video').length > 0) {
                 const player = new VideoControls(slide);
             }
+        });
+    }
+}
+
+export function initializeSlider() {
+    const sliders = document.querySelectorAll('.c-slider');
+    if (sliders) {
+        sliders.forEach((slider) => {
+            const SliderInstance = new Slider(slider);
         });
     }
 }

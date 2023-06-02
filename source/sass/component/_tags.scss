@@ -41,13 +41,4 @@ $c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
     a.c-tags__tag:hover {
         text-decoration: underline;
     }
-
-    &:hover {
-        .c-tags__tag.is-hidden {
-            display: block;
-        }
-        .c-tags__tag.c-tags__tag-more {
-            display: none;
-        }
-    }
 }

@@ -143,19 +143,24 @@ export default class Pagination {
                 next && this.paginateSetCurrent(parseInt(next));
                 this.tableRefresh();
                 this.scrollToTop();
+                this.setFocus();
             });
         });
     }
 
     private scrollToTop() {
-        let element = this.listContainer?.querySelector('[js-pagination-item]:first-child');
-        if (!element) return;
         let offset = document.querySelector('.c-header--sticky') ? 100 : 0;
-        let elementPosition = element.getBoundingClientRect().top;
+        let elementPosition = this.listContainer?.getBoundingClientRect().top ?? 0;
         let offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({
             top: offsetPosition,
         });
+    }
+
+    setFocus() {
+        let element = this.listContainer?.querySelector('[js-pagination-item]:first-child') as HTMLElement;
+        if (!element) return;
+        element.focus();
     }
 
     private paginateList(list: Element[]): Element[] {
