@@ -156,6 +156,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	.c-openstreetmap__sidebar {
 		flex: 1 1 95%;
+		max-width: 90%;
 	}
 
 	&.is-expanded {
@@ -165,6 +166,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 		.c-openstreetmap__sidebar {
 			flex: 0 1 0%;
+			max-width: 0%;
 			display: none;
 		}
 	}
@@ -204,11 +206,12 @@ $grid-gap: var(--grid-gap, 4) !default;
 	&.c-openstreetmap--size-sm {
 
 		.c-openstreetmap__map {
-			flex: 1 0 70%
+			flex: 1 1 70%
 		}
 
 		.c-openstreetmap__sidebar {
 			flex: 1 0 30%;
+			max-width: 30%;
 		}
 
 		&.is-expanded {
@@ -218,6 +221,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 			
 			.c-openstreetmap__sidebar {
 				flex: 1 0 80%;
+				max-width: 80%;
 				display: block;
 			}
 		}
