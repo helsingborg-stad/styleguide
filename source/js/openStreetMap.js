@@ -180,14 +180,13 @@ class OpenStreetMap {
             clone.content.querySelector('figure').remove();
         }
 
-        if (!tooltip.link) {
+        if (!tooltip.url) {
             let link = clone.content.querySelector('.c-openstreetmap__tooltip-link');
             let title = clone.content.querySelector('.c-openstreetmap__tooltip-title');
 
             link.parentNode.insertBefore(title, link);
             link.remove();
         }
-
         let html = clone.innerHTML;
         html = html
             .replace('{TOOLTIP_HEADING}', tooltip.title ? tooltip.title : '')
@@ -196,7 +195,7 @@ class OpenStreetMap {
             .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt : '')
             .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src : '')
             .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt : '')
-            .replace('{TOOLTIP_LINK}', tooltip.link ? tooltip.link :  '');
+            .replace('{TOOLTIP_LINK}', tooltip.url ? tooltip.url :  '');
         return html;
     }
 
