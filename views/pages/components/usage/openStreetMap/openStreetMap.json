@@ -1,5 +1,10 @@
 {
-    "openStreetMap": {
+    "default": {
+        "heading": "Open Street Map",
+        "subHeading": "",
+        "text": "Displays a map from Open Street Map."
+    },
+    "tooltips": {
         "heading": "Open Street Map",
         "subHeading": "",
         "text": "Displays a map from Open Street Map."

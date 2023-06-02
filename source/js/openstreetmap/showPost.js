@@ -4,67 +4,104 @@ class ShowPost {
         this.clusters = markers;
         this.map = map;
 
-        if (this.map && this.container && this.clusters) {
-            this.handleClick();
+        if (map && this.container && this.clusters) {
+            this.setListeners();
             window.addEventListener('popstate', () => this.handleBackButton());
         }
     }
-    handleClick() {
-        let paginationContainer = this.container.querySelector('[js-pagination-container]');
-        let sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
-        let gridClass = false;
 
-        paginationContainer &&
-            paginationContainer.addEventListener('click', (e) => {
-                if (e.target.closest('.c-collection__item__floating')) return;
-                let collectionItem = e.target.closest('.c-openstreetmap__collection__item');
-                let paginationItem = collectionItem?.parentElement;
-                let backButton = e.target.closest('.c-openstreetmap__post-icon');
-                if (paginationItem) {
-                    if (!gridClass) {
-                        gridClass = paginationItem.className ? paginationItem.className : '';
-                    }
-                    paginationItem.className = '';
-                    paginationItem.classList.add('is-active');
-                    sidebar.classList.add('has-active');
-                    this.scrollToTop(sidebar);
-                }
+    setListeners() {
+        const paginationContainer = this.container.querySelector('[js-pagination-container]');
+        if (!paginationContainer) return;
 
-                if (backButton) {
-                    this.handleBackButton();
-                }
-            });
+        paginationContainer.addEventListener('keydown', (e) => {
+            if (e.target.hasAttribute('js-pagination-item') && e.key === 'Enter') {
+                const el = e.target.querySelector('.c-openstreetmap__collection__item');
+                this.handleClick(el)
+            }
+
+            if (e.key === 'Escape') {
+                this.handleBackButton();
+            }
+        });
+
+        paginationContainer.addEventListener('click', (e) => {
+            this.handleClick(e.target);
+        });
     }
 
+    handleClick(element) {
+        if (!element || element.closest('.c-collection__item__floating')) return;
+        const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
+        const collectionItem = element.closest('.c-openstreetmap__collection__item');
+        const paginationItem = collectionItem?.parentElement;
+        const backButton = element.closest('.c-openstreetmap__post-icon');
+      
+        let previousUrl = window.location.href;
+
+        const moduleArea = document.getElementById('sidebar-right-sidebar');
+
+        if (paginationItem) {
+            paginationItem.className = '';
+            paginationItem.classList.add('is-active');
+            sidebar.classList.add('has-active');
+          
+            if (moduleArea) {
+                moduleArea.classList.add('u-display--none');
+            }
+
+            const url = collectionItem.getAttribute('js-data-url');
+            if (url) {
+                if (url.indexOf(window.location.hostname) > -1 || url.startsWith("#")) {
+                    this.updateBrowserHistory(url);
+                }
+            }
+            this.scrollToTop(sidebar);
+        }
+
+        if (backButton) {
+            this.handleBackButton(previousUrl);
+            if (moduleArea) {
+                moduleArea.classList.remove('u-display--none');
+            }
+        }
+    }
+  
+    updateBrowserHistory(url) {
+        window.history.pushState({}, '', url);
+    }
+  
     scrollToTop(sidebar) {
         if (!sidebar) return;
-        let rect = sidebar.getBoundingClientRect();
+        const rect = sidebar.getBoundingClientRect();
         let offset = 0;
-        let topPos = window.pageYOffset || document.documentElement.scrollTop;
+        const topPos = window.pageYOffset || document.documentElement.scrollTop;
 
         if (document.querySelector('.c-header--sticky')) {
-            let headerRect = document.querySelector('.c-header--sticky').getBoundingClientRect();
+            const headerRect = document.querySelector('.c-header--sticky').getBoundingClientRect();
             offset = headerRect.height ?? 100;
         }
 
-        let target = rect.top + topPos - offset;
+        const target = rect.top + topPos - offset;
 
         window.scrollTo({
             top: target,
         })
     }
 
-    handleBackButton() {
+    handleBackButton(previousUrl = false) {
         const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
-        const gridClass = this.gridClass;
 
-        sidebar.classList.remove('has-active');
+        if (sidebar && sidebar.classList.contains('has-active')) {
+            sidebar.classList.remove('has-active');
+        }
         sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
-            if (gridClass) {
-                !item.classList.contains(gridClass) ? item.classList.add(gridClass) : '';
-            }
             item.classList.remove('is-active');
         });
+
+        if (previousUrl) {
+            window.history.replaceState(null, null, previousUrl);
+        }
     }
 }
 
