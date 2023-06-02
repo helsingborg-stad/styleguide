@@ -1,8 +1,9 @@
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
-import ScrollToMarker from './openstreetmap/scrollToMarker';
-import ConnectMarkers from './openstreetmap/connectMarkers';
+import ZoomMarkerSroll from './openstreetmap/zoomMarkerScroll';
+import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
+import { createMarkerElementPairs } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -21,8 +22,7 @@ class OpenStreetMap {
         }
         let run = this.container && map && this.markers;
 
-        run && new ShowPost(map, this.markers, this.container);
-        run && new ScrollToMarker(map, this.markers, this.container);
+        // run && new ScrollToMarker(map, this.markers, this.container);
         run && this.init(map);
     }
 
@@ -89,7 +89,8 @@ class OpenStreetMap {
             }
         });
         this.markers.addTo(map);
-        new ConnectMarkers(map, this.markers, this.container);
+
+        this.initialize(map);
 
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {
@@ -99,6 +100,12 @@ class OpenStreetMap {
                 }, 200);
             });
         }
+    }
+
+    initialize(map) {
+        const markerElementPairs = createMarkerElementPairs(map, this.markers, this.container);
+        new ShowPost(map, this.markers, this.container);
+        new ZoomMarkerClick(map, this.markers, this.container, markerElementPairs);
     }
 
     getPrimaryColor() {

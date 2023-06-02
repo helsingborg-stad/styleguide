@@ -1,5 +1,6 @@
 import { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-class ScrollToMarker {
+
+class ZoomMarkerSroll {
     map: LeafletMap;
     markers: MarkerClusterGroup;
     container: Element;
@@ -39,4 +40,4 @@ class ScrollToMarker {
 
 }
 
-export default ScrollToMarker;
+export default ZoomMarkerSroll;

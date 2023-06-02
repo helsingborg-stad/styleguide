@@ -4,7 +4,7 @@ class ShowPost {
         this.clusters = markers;
         this.map = map;
 
-        if (map && this.container && this.clusters) {
+        if (this.map && this.container && this.clusters) {
             this.handleClick();
             window.addEventListener('popstate', () => this.handleBackButton());
         }
@@ -27,7 +27,6 @@ class ShowPost {
                     paginationItem.className = '';
                     paginationItem.classList.add('is-active');
                     sidebar.classList.add('has-active');
-                    this.setMapZoom(collectionItem);
                     this.scrollToTop(sidebar);
                 }
 
@@ -66,42 +65,6 @@ class ShowPost {
             }
             item.classList.remove('is-active');
         });
-    }
-
-    setMapZoom(collectionItem) {
-        if (
-            collectionItem &&
-            collectionItem.hasAttribute('js-map-lat') &&
-            collectionItem.hasAttribute('js-map-lng')
-        ) {
-            let lat = collectionItem.getAttribute('js-map-lat');
-            let lng = collectionItem.getAttribute('js-map-lng');
-            if (lat && lng) {
-                let markerLatLng = L.latLng(lat, lng);
-                let markers = this.clusters;
-                let marker;
-                markers.getLayers().forEach(function (layer) {
-                    if (layer instanceof L.Marker && layer.getLatLng().equals(markerLatLng)) {
-                        marker = layer;
-                    } else if (layer instanceof L.MarkerCluster) {
-                        layer.getAllChildMarkers().forEach(function (child) {
-                            if (child.getLatLng().equals(markerLatLng)) {
-                                marker = child;
-                            }
-                        });
-                    }
-                });
-                if (marker) {
-                    if (marker.__parent) {
-                        let cluster = marker.__parent;
-                        cluster.zoomToBounds();
-                        setTimeout(function () {
-                            marker.openPopup();
-                        }, 300);
-                    }
-                }
-            }
-        }
     }
 }
 
