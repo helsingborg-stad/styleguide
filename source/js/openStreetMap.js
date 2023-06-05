@@ -103,8 +103,15 @@ class OpenStreetMap {
 
     initialize(map) {
         const markerElementPairs = createMarkerElementPairs(map, this.markers, this.container);
+        this.handleParams();
         new ShowPost(map, this.markers, this.container, markerElementPairs);
         new ZoomMarkerClick(markerElementPairs);
+    }
+
+    handleParams() {
+        const params = getParams();
+        if (!params) return;
+        console.log(this.markers);
     }
 
     handleAccessibility(map) {

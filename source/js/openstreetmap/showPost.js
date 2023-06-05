@@ -8,7 +8,7 @@ class ShowPost {
         this.markerElementPairs = markerElementPairs;
         this.sidebar = container.querySelector('.c-openstreetmap__sidebar');
 
-        if (this.map && this.container && this.clusters) {
+        if (this.map && this.container && this.clusters && this.sidebar) {
             this.setListeners();
             this.handleParams();
         }
@@ -37,7 +37,17 @@ class ShowPost {
     handleParams() {
         const params = getParams();
         if (!params) return;
+        const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
+        [...posts].forEach((collectionItem) => {
+            const lat = collectionItem.getAttribute('js-map-lat') ?? false;
+            const lng = collectionItem.getAttribute('js-map-lng') ?? false;
+            if (lat && lng) {
+                if (lat === params.lat && lng === params.lng) {
+                    this.handleClick(collectionItem);
+                }
+            }
 
+        });
         
     }
 
@@ -73,7 +83,6 @@ class ShowPost {
     }
   
     scrollToTop() {
-        if (!this.sidebar) return;
         const rect = this.sidebar.getBoundingClientRect();
         let offset = 0;
         const topPos = window.pageYOffset || document.documentElement.scrollTop;
@@ -91,7 +100,7 @@ class ShowPost {
     }
 
     handleBackButton() {
-        if (this.sidebar && this.sidebar.classList.contains('has-active')) {
+        if (this.sidebar.classList.contains('has-active')) {
             this.sidebar.classList.remove('has-active');
         }
         this.sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
