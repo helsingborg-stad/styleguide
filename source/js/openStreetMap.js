@@ -3,7 +3,7 @@ import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerSroll from './openstreetmap/zoomMarkerScroll';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
-import { createMarkerElementPairs } from './openstreetmap/helpers/osmHelpers';
+import { createMarkerElementPairs, setParams, getParams } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -52,15 +52,16 @@ class OpenStreetMap {
                 ? tiles.attribution
                 : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
-        locations.forEach((location) => {
+        locations.forEach((location, index) => {
             if (location?.lat && location?.lng) {
                 let customIcon = false;
                 if (location?.icon) {
                     customIcon = location.icon;
                 }
                 let marker = L.marker([location.lat, location.lng], {
-                    icon: this.createMarker(customIcon),
-                    url: location.url ?? '',
+                    icon: this.createMarker(customIcon, index),
+                    url: {lat: location.lat, lng: location.lng},
+                    id: `${'marker' + index}`,
                 });
                 if (location.tooltip) {
                     marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300 });
@@ -79,19 +80,14 @@ class OpenStreetMap {
                             map.setView(latlng, 16);
                         }
                     }
-                    if (location.url) {
-                        // if location.url shares the same domain as the current page or is an anchor, use pushState to update the URL
-                        if (location.url.indexOf(window.location.hostname) > -1 || location.url.startsWith("#")) {
-                            this.updateBrowserHistory(location.url);
-                        }
-                    }
+                    setParams({lat: location.lat, lng: location.lng});
                 });
                 this.markers.addLayer(marker);
             }
         });
         this.markers.addTo(map);
 
-        this.initialize(map);
+        this.initialize(map); 
         //Controls the accessibiltiy of the map, called after printing the map and markers
         this.handleAccessibility(map);
 
@@ -107,8 +103,8 @@ class OpenStreetMap {
 
     initialize(map) {
         const markerElementPairs = createMarkerElementPairs(map, this.markers, this.container);
-        new ShowPost(map, this.markers, this.container);
-        new ZoomMarkerClick(map, this.markers, this.container, markerElementPairs);
+        new ShowPost(map, this.markers, this.container, markerElementPairs);
+        new ZoomMarkerClick(markerElementPairs);
     }
 
     handleAccessibility(map) {
@@ -163,7 +159,7 @@ class OpenStreetMap {
         return color ? color : '#ae0b05';
     }
 
-    createMarker(customIcon) {
+    createMarker(customIcon, index) {
         let template = this.container.querySelector('.c-openstreetmap__pin-icon');
         let html = template.innerHTML;
         let icon = customIcon?.icon ? customIcon.icon : 'location_on';

@@ -1,12 +1,16 @@
+import { setParams, getParams } from './helpers/osmHelpers';
+
 class ShowPost {
-    constructor(map, markers, container) {
+    constructor(map, markers, container, markerElementPairs) {
         this.container = container;
         this.clusters = markers;
         this.map = map;
+        this.markerElementPairs = markerElementPairs;
+        this.sidebar = container.querySelector('.c-openstreetmap__sidebar');
 
-        if (map && this.container && this.clusters) {
+        if (this.map && this.container && this.clusters) {
             this.setListeners();
-            window.addEventListener('popstate', () => this.handleBackButton());
+            this.handleParams();
         }
     }
 
@@ -30,50 +34,47 @@ class ShowPost {
         });
     }
 
+    handleParams() {
+        const params = getParams();
+        if (!params) return;
+
+        
+    }
+
     handleClick(element) {
         if (!element || element.closest('.c-collection__item__floating')) return;
-        const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
         const collectionItem = element.closest('.c-openstreetmap__collection__item');
         const paginationItem = collectionItem?.parentElement;
         const backButton = element.closest('.c-openstreetmap__post-icon');
-      
-        let previousUrl = window.location.href;
-
         const moduleArea = document.getElementById('sidebar-right-sidebar');
 
         if (paginationItem) {
             paginationItem.className = '';
             paginationItem.classList.add('is-active');
-            sidebar.classList.add('has-active');
+            this.sidebar.classList.add('has-active');
           
             if (moduleArea) {
                 moduleArea.classList.add('u-display--none');
             }
 
-            const url = collectionItem.getAttribute('js-data-url');
-            if (url) {
-                if (url.indexOf(window.location.hostname) > -1 || url.startsWith("#")) {
-                    this.updateBrowserHistory(url);
-                }
-            }
-            this.scrollToTop(sidebar);
+            const lat = collectionItem.getAttribute('js-map-lat') ?? false;
+            const lng = collectionItem.getAttribute('js-map-lng') ?? false;
+
+            setParams({lat: lat, lng: lng});
+            this.scrollToTop();
         }
 
         if (backButton) {
-            this.handleBackButton(previousUrl);
+            this.handleBackButton();
             if (moduleArea) {
                 moduleArea.classList.remove('u-display--none');
             }
         }
     }
   
-    updateBrowserHistory(url) {
-        window.history.pushState({}, '', url);
-    }
-  
-    scrollToTop(sidebar) {
-        if (!sidebar) return;
-        const rect = sidebar.getBoundingClientRect();
+    scrollToTop() {
+        if (!this.sidebar) return;
+        const rect = this.sidebar.getBoundingClientRect();
         let offset = 0;
         const topPos = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -89,19 +90,16 @@ class ShowPost {
         })
     }
 
-    handleBackButton(previousUrl = false) {
-        const sidebar = this.container.querySelector('.c-openstreetmap__sidebar');
-
-        if (sidebar && sidebar.classList.contains('has-active')) {
-            sidebar.classList.remove('has-active');
+    handleBackButton() {
+        if (this.sidebar && this.sidebar.classList.contains('has-active')) {
+            this.sidebar.classList.remove('has-active');
         }
-        sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
+        this.sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
             item.classList.remove('is-active');
         });
 
-        if (previousUrl) {
-            window.history.replaceState(null, null, previousUrl);
-        }
+        setParams();
+
     }
 }
 
