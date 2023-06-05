@@ -11,6 +11,7 @@ export default class Slider {
     sliderElement: Element;
     autoslideToggleButton: any;
     splide: Splide;
+    sliderAttributes: Options;
 
     constructor(slider: Element) {
         this.sliderElement = slider;
@@ -18,7 +19,7 @@ export default class Slider {
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
-        const sliderAttributes = this.getAttributes();
+        this.sliderAttributes = this.getAttributes();
         const hasCustomButtons = slider.hasAttribute('data-custom-buttons');
 
         if (hasCustomButtons) {
@@ -39,14 +40,14 @@ export default class Slider {
         }
 
         this.splide = new Splide(slider as HTMLElement, {
-            type: sliderAttributes.sliderType,
-            start: sliderAttributes.start,
-            autoWidth: sliderAttributes.perPage == 1 ? true : false,
-            perPage: sliderAttributes.perPage,
-            perMove: sliderAttributes.perPage,
+            type: this.sliderAttributes.sliderType,
+            start: this.sliderAttributes.start,
+            autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
+            perPage: this.sliderAttributes.perPage,
+            perMove: this.sliderAttributes.perPage,
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
-            gap: sliderAttributes.gap,
-            padding: sliderAttributes.padding,
+            gap: this.sliderAttributes.gap,
+            padding: this.sliderAttributes.padding,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
             interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
@@ -92,7 +93,36 @@ export default class Slider {
             this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
         }
 
+        slider.hasAttribute('data-observe-resizes') && this.observe(slider);
         this.addVideoControls();
+    }
+
+    observe(slider: Element) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    if (!slider.classList.contains('c-slider--size-md') && this.splide.options.perPage !== 1) {
+                        this.splide.options.perPage = 1;
+                        this.splide.options.perMove = 1;
+                        handleObserver();
+                    }
+
+                    if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
+                        this.splide.options.perPage = this.sliderAttributes.perPage;
+                        this.splide.options.perMove = this.sliderAttributes.perPage;
+                        handleObserver();
+                    }
+                }
+            });
+        });
+
+        const handleObserver = () => {
+            observer.disconnect();
+            this.splide.refresh();
+            observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
+        }
+
+        observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
     }
 
     getAttributes(): Options {
@@ -133,6 +163,15 @@ export default class Slider {
             if (slide.querySelectorAll('video').length > 0) {
                 const player = new VideoControls(slide);
             }
+        });
+    }
+}
+
+export function initializeSlider() {
+    const sliders = document.querySelectorAll('.c-slider');
+    if (sliders) {
+        sliders.forEach((slider) => {
+            const SliderInstance = new Slider(slider);
         });
     }
 }

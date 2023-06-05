@@ -10,7 +10,7 @@ import Steppers from './steppers';
 import Image from './image';
 import SplitButton from './splitButton';
 import Fields from './fields';
-import Slider from './slider';
+import {initializeSlider} from './slider';
 import EventCalendar from './calendar';
 import Tiles from './tile';
 import Notification from './notification';
@@ -22,7 +22,7 @@ import Navbar from './navbar';
 import Table from './table';
 import Segment from './segment';
 import ContainerMediaQuery from './mediaQuery';
-import Pagination from './pagination';
+import {initializePagination} from './pagination';
 import ResizeByChildren from './resizeByChildren';
 import KeepInViewPort from './keepInViewPort';
 import ButtonToggleContent from './ButtonToggleContent';
@@ -72,7 +72,9 @@ const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 initializeMenus();
+initializeSlider();
 initializeCompressed();
+initializePagination();
 setupCopy();
 
 const tables = document.querySelectorAll('.c-table');
@@ -82,24 +84,10 @@ if (tables.length > 0) {
     }
 }
 
-const sliders = document.querySelectorAll('.c-slider');
-if (sliders) {
-    sliders.forEach((slider) => {
-        const SliderInstance = new Slider(slider);
-    });
-}
-
 const segments = document.querySelectorAll('.c-segment');
 if (segments) {
     segments.forEach((segment) => {
         const SegmentInstance = new Segment(segment);
-    });
-}
-
-const paginations = document.querySelectorAll('[js-pagination-target]');
-if (paginations) {
-    paginations.forEach((pagination) => {
-        const paginationInstance = new Pagination(pagination);
     });
 }
 
