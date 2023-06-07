@@ -9,8 +9,10 @@ export default class Pagination {
     perPage: number = 10;
     maxPages: number = 0;
     list: Element[] | [];
+    attributes!: PaginationAttributes;
+    static instances: Map<string, Pagination> = new Map();
 
-    constructor(container: HTMLElement) {
+    constructor(container: HTMLElement, index: number) {
         this.container = container;
         this.link = null;
         this.list = [...this.container.querySelectorAll(`[js-pagination-item]`)];
@@ -26,32 +28,45 @@ export default class Pagination {
             return;
         }
 
-        let attributes = this.getAttributes();
+        this.attributes = this.getAttributes();
 
-        this.perPage = attributes.perPage;
-        this.maxPages = attributes.maxPages;
-
-        if (attributes.randomize) {
+        if (this.attributes.randomize) {
             this.list = this.list.sort(() => Math.random() - 0.5);
+        }
+
+        if (this.list) {
+            this.list.forEach((item, index) => {
+                const pageNumber = Math.floor(index / this.attributes.perPage) + 1;
+                item.setAttribute('js-pagination-page', pageNumber.toString());
+            });
         }
 
         this.container.setAttribute('js-table-pagination--current', '1');
 
         this.tableRefresh();
         this.paginationButtons();
+
+        const instanceId = `pagination-${index}`;
+        this.container.dataset.paginationInstance = instanceId;
+        Pagination.instances.set(instanceId, this);
+    }
+
+    static getInstance(instanceId: string): Pagination | undefined {
+        return Pagination.instances.get(instanceId);
     }
 
     private getAttributes() {
-        let perPage = this.paginationContainer?.getAttribute('js-pagination-per-page');
-        let maxPages = this.paginationContainer?.getAttribute('js-pagination-max-pages');
-        let randomize = this.paginationContainer?.hasAttribute('js-pagination-randomize-order');
+        const perPage = this.paginationContainer?.getAttribute('js-pagination-per-page');
+        const maxPages = this.paginationContainer?.getAttribute('js-pagination-max-pages');
+        const randomize = this.paginationContainer?.hasAttribute('js-pagination-randomize-order');
+        const keepDOM = this.paginationContainer?.hasAttribute('js-pagination-keep-dom');
 
         return {
             'perPage': perPage ? parseInt(perPage) : 10,
             'maxPages': maxPages ? parseInt(maxPages) : 0,
             'randomize': randomize,
+            'keepDOM': keepDOM,
         }
-        
     }
 
     private tableRefresh() {
@@ -65,19 +80,30 @@ export default class Pagination {
 
     private renderTable(list: Element[] | null = null) {
         const body = this.listContainer;
-        if (!body) return;
-        body.innerHTML = "";
+        if (!body || !list) return;
+        if (this.attributes.keepDOM) {
+            Array.from(body.children).forEach(element => {
+                (element as HTMLElement).classList.add('u-display--none');
+            });
 
-        list?.forEach(element => {
-            body.appendChild(element);
-        });
+            list.forEach(element => {
+                (element as HTMLElement).classList.remove('u-display--none'); // Show the element
+                body.appendChild(element);
+            });
+        } else {
+            body.innerHTML = "";
+    
+            list?.forEach(element => {
+                body.appendChild(element);
+            });
+        }
     }
 
     private paginatePages(): number {
-        const numberOfPages = Math.ceil(this.list.length / this.perPage);
+        const numberOfPages = Math.ceil(this.list.length / this.attributes.perPage);
 
-        if (this.maxPages && (numberOfPages > this.maxPages)) {
-            return this.maxPages;
+        if (this.attributes.maxPages && (numberOfPages > this.attributes.maxPages)) {
+            return this.attributes.maxPages;
         }
 
         return numberOfPages;
@@ -164,8 +190,8 @@ export default class Pagination {
     }
 
     private paginateList(list: Element[]): Element[] {
-        const first = (this.paginationCurrent() - 1) * this.perPage;
-        const last = this.paginationCurrent() * this.perPage;
+        const first = (this.paginationCurrent() - 1) * this.attributes.perPage;
+        const last = this.paginationCurrent() * this.attributes.perPage;
 
         return Array.from(list).slice(first, last);
     }
@@ -214,7 +240,14 @@ export default class Pagination {
 export function initializePagination() {
     const paginations = [...document.querySelectorAll('[js-pagination-target]')];
 
-    paginations.forEach((pagination) => {
-        new Pagination(pagination as HTMLElement);
+    paginations.forEach((pagination, index) => {
+        new Pagination(pagination as HTMLElement, index + 1);
     });
+}
+
+interface PaginationAttributes {
+    perPage: number;
+    maxPages: number;
+    randomize?: boolean;
+    keepDOM?: boolean;
 }
