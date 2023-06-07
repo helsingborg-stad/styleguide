@@ -1,9 +1,8 @@
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
-import ZoomMarkerSroll from './openstreetmap/zoomMarkerScroll';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
-import { createMarkerElementPairs, setParams, getParams } from './openstreetmap/helpers/osmHelpers';
+import { createMarkerElementPairs, setParams, getParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -110,8 +109,14 @@ class OpenStreetMap {
 
     handleParams() {
         const params = getParams();
-        if (!params) return;
-        console.log(this.markers);
+        if (!params || !this.markers) return;
+
+        this.markers.getLayers().forEach(marker => {
+            const latLng = marker._latlng;
+            if (latLng && latLng.lat == params.lat && latLng.lng == params.lng) {
+                zoomToMarker(marker);
+            }    
+        });
     }
 
     handleAccessibility(map) {

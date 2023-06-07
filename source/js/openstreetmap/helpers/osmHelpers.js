@@ -15,18 +15,19 @@ export function createMarkerElementPairs(map, markers, container) {
 
     let markerElementPair = [];
 
-    sidebarItems.forEach(item => {
-        if (!item.getAttribute('js-map-lat') || !item.getAttribute('js-map-lng')) return;
-        const lat = parseFloat(item.getAttribute('js-map-lat'));
-        const lng = parseFloat(item.getAttribute('js-map-lng'));
+    sidebarItems.forEach(element => {
+        if (!element.getAttribute('js-map-lat') || !element.getAttribute('js-map-lng')) return;
+        const lat = parseFloat(element.getAttribute('js-map-lat'));
+        const lng = parseFloat(element.getAttribute('js-map-lng'));
+        const id = element.getAttribute('js-map-id') ?? false;
 
         markers.getLayers().find(marker => {
             const markerLatLng = marker.getLatLng();
             if (marker instanceof L.Marker && markerLatLng.equals([lat, lng])) {
-                markerElementPair.push({ marker: marker, element: item, url: {lat: lat, lng: lng} });
+                markerElementPair.push({ marker: marker, element: element, url: {lat: lat, lng: lng} });
             } else if (marker instanceof L.MarkerCluster) {
                 const childMarkers = marker.getAllChildMarkers();
-                return markerElementPair.push({ marker: childMarkers.some(child => child.getLatLng().equals([lat, lng])), element: item, url: { lat: lat, lng: lng }});
+                return markerElementPair.push({ marker: childMarkers.some(child => child.getLatLng().equals([lat, lng])), element: element, url: { lat: lat, lng: lng }});
             }
         });
     });
