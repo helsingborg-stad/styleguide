@@ -1,12 +1,22 @@
 import { setParams, getParams } from './helpers/osmHelpers';
+import Pagination from '../pagination';
 
 class ShowPost {
-    constructor(map, markers, container, markerElementPairs) {
+    constructor(map, markers, container) {
         this.container = container;
         this.clusters = markers;
         this.map = map;
-        this.markerElementPairs = markerElementPairs;
         this.sidebar = container.querySelector('.c-openstreetmap__sidebar');
+        this.paginationInstance = false;
+
+        const paginationTarget = this.container.querySelector('[js-pagination-target]');
+        if (paginationTarget) {
+            const instanceId = paginationTarget?.dataset.paginationInstance;
+
+            if (instanceId) {
+                this.paginationInstance = Pagination.getInstance(instanceId);
+            }
+        }
 
         if (this.map && this.container && this.clusters && this.sidebar) {
             this.setListeners();
@@ -15,6 +25,8 @@ class ShowPost {
     }
 
     setListeners() {
+        window.addEventListener('popstate', () => this.handleBackButton());
+        
         const paginationContainer = this.container.querySelector('[js-pagination-container]');
         if (!paginationContainer) return;
 
@@ -43,6 +55,12 @@ class ShowPost {
             const lng = collectionItem.getAttribute('js-map-lng') ?? false;
             if (lat && lng) {
                 if (lat === params.lat && lng === params.lng) {
+                    const parent = collectionItem.closest('[js-pagination-item]');
+                    if (this.paginationInstance && parent && parent.getAttribute('js-pagination-page')) {
+                        const page = parseInt(parent.getAttribute('js-pagination-page'));
+                        this.paginationInstance.paginateSetCurrent(page);
+                        this.paginationInstance.tableRefresh();
+                    }
                     this.handleClick(collectionItem);
                 }
             }
@@ -57,11 +75,12 @@ class ShowPost {
         const paginationItem = collectionItem?.parentElement;
         const backButton = element.closest('.c-openstreetmap__post-icon');
         const moduleArea = document.getElementById('sidebar-right-sidebar');
-
+        
         if (paginationItem) {
             paginationItem.className = '';
             paginationItem.classList.add('is-active');
             this.sidebar.classList.add('has-active');
+            paginationItem.classList.remove('u-display--none');
           
             if (moduleArea) {
                 moduleArea.classList.add('u-display--none');
@@ -106,9 +125,7 @@ class ShowPost {
         this.sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
             item.classList.remove('is-active');
         });
-
         setParams();
-
     }
 }
 
