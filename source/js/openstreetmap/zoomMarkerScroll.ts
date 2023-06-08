@@ -19,7 +19,6 @@ class ZoomMarkerSroll {
         if (this.scrollToMarkerItems.length <= 0) return;
         
         this.setListeners();
-        // console.log(this.scrollToMarkerItems);
     }
     
     setListeners() {
@@ -35,7 +34,7 @@ class ZoomMarkerSroll {
 
 
     handleScroll() {
-        // console.log('scroll');
+        return;
     }
 
 }
