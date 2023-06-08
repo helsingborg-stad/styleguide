@@ -22,7 +22,6 @@ class OpenStreetMap {
         }
         let run = this.container && map && this.markers;
 
-        // run && new ScrollToMarker(map, this.markers, this.container);
         run && this.init(map);
     }
 
