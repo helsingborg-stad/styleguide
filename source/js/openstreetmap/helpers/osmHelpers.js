@@ -11,7 +11,7 @@ export function zoomToMarker(marker) {
 export function createMarkerElementPairs(map, markers, container) {
     if (!map || !markers || !container) return;
     const sidebar = container.querySelector('.c-openstreetmap__sidebar');
-    const sidebarItems = sidebar.querySelectorAll('[js-map-lng][js-map-lat]');
+    const sidebarItems = sidebar?.querySelectorAll('[js-map-lng][js-map-lat]') ?? [];
 
     let markerElementPair = [];
 
