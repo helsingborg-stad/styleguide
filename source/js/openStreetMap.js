@@ -1,6 +1,8 @@
 import L from 'leaflet';
 import 'leaflet.markercluster';
-import showPost from './openstreetmap/showPost';
+import ShowPost from './openstreetmap/showPost';
+import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
+import { createMarkerElementPairs, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -20,22 +22,21 @@ class OpenStreetMap {
         }
         let run = this.container && map && this.markers;
 
-        run && new showPost(map, this.markers, this.container);
         run && this.init(map);
     }
 
     init(map) {
         if (
-            !this.container.hasAttribute('js-map-pin-data') ||
-            !this.container.hasAttribute('js-map-start-position')
+            !this.container.hasAttribute('data-js-map-pin-data') ||
+            !this.container.hasAttribute('data-js-map-start-position')
         ) {
             return;
         }
 
         this.observe(map);
         map.zoomControl.setPosition('bottomright');
-        let startPosition = JSON.parse(this.container.getAttribute('js-map-start-position'));
-        let locations = JSON.parse(this.container.getAttribute('js-map-pin-data'));
+        let startPosition = JSON.parse(this.container.getAttribute('data-js-map-start-position'));
+        let locations = JSON.parse(this.container.getAttribute('data-js-map-pin-data'));
         let tiles = this.getTilesStyle(this.container);
         this.setMapView(locations, startPosition, tiles, map);
     }
@@ -49,7 +50,7 @@ class OpenStreetMap {
                 ? tiles.attribution
                 : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
-        locations.forEach((location) => {
+        locations.forEach((location, index) => {
             if (location?.lat && location?.lng) {
                 let customIcon = false;
                 if (location?.icon) {
@@ -57,7 +58,8 @@ class OpenStreetMap {
                 }
                 let marker = L.marker([location.lat, location.lng], {
                     icon: this.createMarker(customIcon),
-                    url: location.url ?? '',
+                    url: {lat: location.lat, lng: location.lng},
+                    id: `${'marker' + index}`,
                 });
                 if (location.tooltip) {
                     marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300 });
@@ -76,18 +78,14 @@ class OpenStreetMap {
                             map.setView(latlng, 16);
                         }
                     }
-                    if (location.url) {
-                        // if location.url shares the same domain as the current page or is an anchor, use pushState to update the URL
-                        if (location.url.indexOf(window.location.hostname) > -1 || location.url.startsWith("#")) {
-                            this.updateBrowserHistory(location.url);
-                        }
-                    }
+                    pushCoordinatesToBrowserHistory({lat: location.lat, lng: location.lng});
                 });
                 this.markers.addLayer(marker);
             }
         });
         this.markers.addTo(map);
 
+        this.initialize(map); 
         //Controls the accessibiltiy of the map, called after printing the map and markers
         this.handleAccessibility(map);
 
@@ -99,6 +97,25 @@ class OpenStreetMap {
                 }, 200);
             });
         }
+    }
+
+    initialize(map) {
+        const markerElementPairs = createMarkerElementPairs(map, this.markers, this.container);
+        this.handleParams();
+        new ShowPost(map, this.markers, this.container, markerElementPairs);
+        new ZoomMarkerClick(markerElementPairs);
+    }
+
+    handleParams() {
+        const params = getCoordinatesFromURLSearchParams();
+        if (!params || !this.markers) return;
+
+        this.markers.getLayers().forEach(marker => {
+            const latLng = marker._latlng;
+            if (latLng && latLng.lat == params.lat && latLng.lng == params.lng) {
+                zoomToMarker(marker);
+            }    
+        });
     }
 
     handleAccessibility(map) {
@@ -200,8 +217,8 @@ class OpenStreetMap {
     }
 
     getTilesStyle(container) {
-        let tiles = container.hasAttribute('js-map-style')
-            ? container.getAttribute('js-map-style')
+        let tiles = container.hasAttribute('data-js-map-style')
+            ? container.getAttribute('data-js-map-style')
             : 'default';
 
         switch (tiles) {

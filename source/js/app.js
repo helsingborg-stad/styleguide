@@ -69,12 +69,12 @@ const ResizeByChildrenInstance = new ResizeByChildren();
 const ButtonToggleContentInstance = new ButtonToggleContent();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 const QuickLinksHeaderInstance = new QuickLinksHeader();
+initializePagination();
 initializeFilterSelectComponents();
 initializeOpenStreetMaps();
 initializeMenus();
 initializeSlider();
 initializeCompressed();
-initializePagination();
 setupCopy();
 
 const tables = document.querySelectorAll('.c-table');

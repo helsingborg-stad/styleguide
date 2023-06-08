@@ -55,11 +55,11 @@ $grid-gap: var(--grid-gap, 4) !default;
 		&.has-active {
 			.c-openstreetmap__collection__item,
 			.c-pagination,
-			[js-pagination-item]:not(.is-active) {
+			[data-js-pagination-item]:not(.is-active) {
 				display: none;
 			}
 
-			.is-active[js-pagination-item] {
+			.is-active[data-js-pagination-item] {
 				.c-openstreetmap__post {
 					display: block;
 				}
