@@ -9,7 +9,7 @@ class ShowPost {
         this.sidebar = container.querySelector('.c-openstreetmap__sidebar');
         this.paginationInstance = false;
 
-        const paginationTarget = this.container.querySelector('[js-pagination-target]');
+        const paginationTarget = this.container.querySelector('[data-js-pagination-target]');
         if (paginationTarget) {
             const instanceId = paginationTarget?.dataset.paginationInstance;
 
@@ -27,11 +27,11 @@ class ShowPost {
     setListeners() {
         window.addEventListener('popstate', () => this.handleBackButton());
         
-        const paginationContainer = this.container.querySelector('[js-pagination-container]');
+        const paginationContainer = this.container.querySelector('[data-js-pagination-container]');
         if (!paginationContainer) return;
 
         paginationContainer.addEventListener('keydown', (e) => {
-            if (e.target.hasAttribute('js-pagination-item') && e.key === 'Enter') {
+            if (e.target.hasAttribute('data-js-pagination-item') && e.key === 'Enter') {
                 const el = e.target.querySelector('.c-openstreetmap__collection__item');
                 this.handleClick(el)
             }
@@ -51,13 +51,13 @@ class ShowPost {
         if (!params) return;
         const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
         [...posts].forEach((collectionItem) => {
-            const lat = collectionItem.getAttribute('js-map-lat') ?? false;
-            const lng = collectionItem.getAttribute('js-map-lng') ?? false;
+            const lat = collectionItem.getAttribute('data-js-map-lat') ?? false;
+            const lng = collectionItem.getAttribute('data-js-map-lng') ?? false;
             if (lat && lng) {
                 if (lat === params.lat && lng === params.lng) {
-                    const parent = collectionItem.closest('[js-pagination-item]');
-                    if (this.paginationInstance && parent && parent.getAttribute('js-pagination-page')) {
-                        const page = parseInt(parent.getAttribute('js-pagination-page'));
+                    const parent = collectionItem.closest('[data-js-pagination-item]');
+                    if (this.paginationInstance && parent && parent.getAttribute('data-js-pagination-page')) {
+                        const page = parseInt(parent.getAttribute('data-js-pagination-page'));
                         this.paginationInstance.paginateSetCurrent(page);
                         this.paginationInstance.tableRefresh();
                     }
@@ -86,8 +86,8 @@ class ShowPost {
                 moduleArea.classList.add('u-display--none');
             }
 
-            const lat = collectionItem.getAttribute('js-map-lat') ?? false;
-            const lng = collectionItem.getAttribute('js-map-lng') ?? false;
+            const lat = collectionItem.getAttribute('data-js-map-lat') ?? false;
+            const lng = collectionItem.getAttribute('data-js-map-lng') ?? false;
 
             setParams({lat: lat, lng: lng});
             this.scrollToTop();
@@ -122,7 +122,7 @@ class ShowPost {
         if (this.sidebar.classList.contains('has-active')) {
             this.sidebar.classList.remove('has-active');
         }
-        this.sidebar.querySelectorAll('[js-pagination-item]').forEach((item) => {
+        this.sidebar.querySelectorAll('[data-js-pagination-item]').forEach((item) => {
             item.classList.remove('is-active');
         });
         setParams();

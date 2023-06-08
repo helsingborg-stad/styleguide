@@ -11,14 +11,14 @@ export function zoomToMarker(marker) {
 export function createMarkerElementPairs(map, markers, container) {
     if (!map || !markers || !container) return;
     const sidebar = container.querySelector('.c-openstreetmap__sidebar');
-    const sidebarItems = sidebar?.querySelectorAll('[js-map-lng][js-map-lat]') ?? [];
+    const sidebarItems = sidebar?.querySelectorAll('[data-js-map-lng][data-js-map-lat]') ?? [];
 
     let markerElementPair = [];
 
     sidebarItems.forEach(element => {
-        if (!element.getAttribute('js-map-lat') || !element.getAttribute('js-map-lng')) return;
-        const lat = parseFloat(element.getAttribute('js-map-lat'));
-        const lng = parseFloat(element.getAttribute('js-map-lng'));
+        if (!element.getAttribute('data-js-map-lat') || !element.getAttribute('data-js-map-lng')) return;
+        const lat = parseFloat(element.getAttribute('data-js-map-lat'));
+        const lng = parseFloat(element.getAttribute('data-js-map-lng'));
         const id = element.getAttribute('js-map-id') ?? false;
 
         markers.getLayers().find(marker => {

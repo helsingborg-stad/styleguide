@@ -1,7 +1,7 @@
 
 @card([
     'attributeList' => [
-        'js-pagination-target' => ''
+        'data-js-pagination-target' => ''
     ]
 ])
     <div class="c-card__header">
@@ -13,16 +13,16 @@
     </div>
 
 
-    @collection(['attributeList' => ['js-pagination-container' => '']])
-        @collection__item(['attributeList' => ['js-pagination-item' => '']])
+    @collection(['attributeList' => ['data-js-pagination-container' => '']])
+        @collection__item(['attributeList' => ['data-js-pagination-item' => '']])
             Item 1
         @endcollection__item
 
-        @collection__item(['attributeList' => ['js-pagination-item' => '']])
+        @collection__item(['attributeList' => ['data-js-pagination-item' => '']])
             Item 2
         @endcollection__item
 
-        @collection__item(['attributeList' => ['js-pagination-item' => '']])
+        @collection__item(['attributeList' => ['data-js-pagination-item' => '']])
             Item 3
         @endcollection__item
     @endcollection

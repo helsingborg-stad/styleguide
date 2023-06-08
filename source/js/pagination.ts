@@ -15,14 +15,14 @@ export default class Pagination {
     constructor(container: HTMLElement, index: number) {
         this.container = container;
         this.link = null;
-        this.list = [...this.container.querySelectorAll(`[js-pagination-item]`)];
+        this.list = [...this.container.querySelectorAll(`[data-js-pagination-item]`)];
 
         //Targeting attributes
-        this.indexLinks = 'js-pagination-index';
-        this.paginationContainer = this.container.querySelector(`[js-pagination]`);
-        this.listContainer = this.container.querySelector(`[js-pagination-container]`);
-        this.prevBtn = 'js-pagination-prev';
-        this.nextBtn = 'js-pagination-next';
+        this.indexLinks = 'data-js-pagination-index';
+        this.paginationContainer = this.container.querySelector(`[data-js-pagination]`);
+        this.listContainer = this.container.querySelector(`[data-js-pagination-container]`);
+        this.prevBtn = 'data-js-pagination-prev';
+        this.nextBtn = 'data-js-pagination-next';
 
         if (!this.paginationContainer) {
             return;
@@ -34,15 +34,8 @@ export default class Pagination {
             this.list = this.list.sort(() => Math.random() - 0.5);
         }
 
-        if (this.list) {
-            this.list.forEach((item, index) => {
-                const pageNumber = Math.floor(index / this.attributes.perPage) + 1;
-                item.setAttribute('js-pagination-page', pageNumber.toString());
-            });
-        }
-
         this.container.setAttribute('js-table-pagination--current', '1');
-
+        this.setPageNumberAttribute();
         this.tableRefresh();
         this.paginationButtons();
 
@@ -55,11 +48,20 @@ export default class Pagination {
         return Pagination.instances.get(instanceId);
     }
 
+    private setPageNumberAttribute() {
+        if (this.list) {
+            this.list.forEach((item, index) => {
+                const pageNumber = Math.floor(index / this.attributes.perPage) + 1;
+                item.setAttribute('data-js-pagination-page', pageNumber.toString());
+            });
+        }
+    }
+
     private getAttributes() {
-        const perPage = this.paginationContainer?.getAttribute('js-pagination-per-page');
-        const maxPages = this.paginationContainer?.getAttribute('js-pagination-max-pages');
-        const randomize = this.paginationContainer?.hasAttribute('js-pagination-randomize-order');
-        const keepDOM = this.paginationContainer?.hasAttribute('js-pagination-keep-dom');
+        const perPage = this.paginationContainer?.getAttribute('data-js-pagination-per-page');
+        const maxPages = this.paginationContainer?.getAttribute('data-js-pagination-max-pages');
+        const randomize = this.paginationContainer?.hasAttribute('data-js-pagination-randomize-order');
+        const keepDOM = this.paginationContainer?.hasAttribute('data-js-pagination-keep-dom');
 
         return {
             'perPage': perPage ? parseInt(perPage) : 10,
@@ -116,10 +118,10 @@ export default class Pagination {
         }
 
         const body = this.container.querySelector(`[js-table-pagination--links]`);
-        const navigation = this.container.querySelector('[js-pagination]');
+        const navigation = this.container.querySelector('[data-js-pagination]');
         let pagesToShow = 0;
-        if (navigation?.hasAttribute('js-pagination-pages-to-show')) {
-            pagesToShow = parseInt(navigation.getAttribute('js-pagination-pages-to-show') ?? '0', 10);
+        if (navigation?.hasAttribute('data-js-pagination-pages-to-show')) {
+            pagesToShow = parseInt(navigation.getAttribute('data-js-pagination-pages-to-show') ?? '0', 10);
             pagesToShow = pagesToShow % 2 === 0 ? pagesToShow : pagesToShow + 1;
         }
         this.paginationContainer?.classList.remove('u-display--none');
@@ -184,7 +186,7 @@ export default class Pagination {
     }
 
     setFocus() {
-        let element = this.listContainer?.querySelector('[js-pagination-item]:first-child') as HTMLElement;
+        let element = this.listContainer?.querySelector('[data-js-pagination-item]:first-child') as HTMLElement;
         if (!element) return;
         element.focus();
     }
@@ -238,7 +240,7 @@ export default class Pagination {
 }
 
 export function initializePagination() {
-    const paginations = [...document.querySelectorAll('[js-pagination-target]')];
+    const paginations = [...document.querySelectorAll('[data-js-pagination-target]')];
 
     paginations.forEach((pagination, index) => {
         new Pagination(pagination as HTMLElement, index + 1);

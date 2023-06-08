@@ -28,16 +28,16 @@ class OpenStreetMap {
 
     init(map) {
         if (
-            !this.container.hasAttribute('js-map-pin-data') ||
-            !this.container.hasAttribute('js-map-start-position')
+            !this.container.hasAttribute('data-js-map-pin-data') ||
+            !this.container.hasAttribute('data-js-map-start-position')
         ) {
             return;
         }
 
         this.observe(map);
         map.zoomControl.setPosition('bottomright');
-        let startPosition = JSON.parse(this.container.getAttribute('js-map-start-position'));
-        let locations = JSON.parse(this.container.getAttribute('js-map-pin-data'));
+        let startPosition = JSON.parse(this.container.getAttribute('data-js-map-start-position'));
+        let locations = JSON.parse(this.container.getAttribute('data-js-map-pin-data'));
         let tiles = this.getTilesStyle(this.container);
         this.setMapView(locations, startPosition, tiles, map);
     }
@@ -58,7 +58,7 @@ class OpenStreetMap {
                     customIcon = location.icon;
                 }
                 let marker = L.marker([location.lat, location.lng], {
-                    icon: this.createMarker(customIcon, index),
+                    icon: this.createMarker(customIcon),
                     url: {lat: location.lat, lng: location.lng},
                     id: `${'marker' + index}`,
                 });
@@ -171,7 +171,7 @@ class OpenStreetMap {
         return color ? color : '#ae0b05';
     }
 
-    createMarker(customIcon, index) {
+    createMarker(customIcon) {
         let template = this.container.querySelector('.c-openstreetmap__pin-icon');
         let html = template.innerHTML;
         let icon = customIcon?.icon ? customIcon.icon : 'location_on';
@@ -218,8 +218,8 @@ class OpenStreetMap {
     }
 
     getTilesStyle(container) {
-        let tiles = container.hasAttribute('js-map-style')
-            ? container.getAttribute('js-map-style')
+        let tiles = container.hasAttribute('data-js-map-style')
+            ? container.getAttribute('data-js-map-style')
             : 'default';
 
         switch (tiles) {
