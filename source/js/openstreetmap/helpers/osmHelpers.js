@@ -35,7 +35,7 @@ export function createMarkerElementPairs(map, markers, container) {
     return markerElementPair;
 }
 
-export function setParams({lat, lng} = false) {
+export function pushCoordinatesToBrowserHistory({lat, lng} = false) {
     const searchParams = new URLSearchParams(window.location.search);
 
     if (lat && lng) {
@@ -51,7 +51,7 @@ export function setParams({lat, lng} = false) {
     }
 }
 
-export function getParams() {
+export function getCoordinatesFromURLSearchParams() {
     const queryParams = new URLSearchParams(window.location.search);
     
     if(queryParams.has('osmLat') && queryParams.has('osmLng')) {

@@ -1,4 +1,4 @@
-import { setParams, getParams } from './helpers/osmHelpers';
+import { pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
 import Pagination from '../pagination';
 
 class ShowPost {
@@ -20,7 +20,7 @@ class ShowPost {
 
         if (this.map && this.container && this.clusters && this.sidebar) {
             this.setListeners();
-            this.handleParams();
+            this.handleCoordinatesFromURLSearchParams();
         }
     }
 
@@ -46,8 +46,8 @@ class ShowPost {
         });
     }
 
-    handleParams() {
-        const params = getParams();
+    handleCoordinatesFromURLSearchParams() {
+        const params = getCoordinatesFromURLSearchParams();
         if (!params) return;
         const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
         [...posts].forEach((collectionItem) => {
@@ -64,9 +64,7 @@ class ShowPost {
                     this.handleClick(collectionItem);
                 }
             }
-
         });
-        
     }
 
     handleClick(element) {
@@ -89,7 +87,7 @@ class ShowPost {
             const lat = collectionItem.getAttribute('data-js-map-lat') ?? false;
             const lng = collectionItem.getAttribute('data-js-map-lng') ?? false;
 
-            setParams({lat: lat, lng: lng});
+            pushCoordinatesToBrowserHistory({lat: lat, lng: lng});
             this.scrollToTop();
         }
 
@@ -125,7 +123,7 @@ class ShowPost {
         this.sidebar.querySelectorAll('[data-js-pagination-item]').forEach((item) => {
             item.classList.remove('is-active');
         });
-        setParams();
+        pushCoordinatesToBrowserHistory();
     }
 }
 

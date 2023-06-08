@@ -2,7 +2,7 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
-import { createMarkerElementPairs, setParams, getParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
+import { createMarkerElementPairs, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -78,7 +78,7 @@ class OpenStreetMap {
                             map.setView(latlng, 16);
                         }
                     }
-                    setParams({lat: location.lat, lng: location.lng});
+                    pushCoordinatesToBrowserHistory({lat: location.lat, lng: location.lng});
                 });
                 this.markers.addLayer(marker);
             }
@@ -107,7 +107,7 @@ class OpenStreetMap {
     }
 
     handleParams() {
-        const params = getParams();
+        const params = getCoordinatesFromURLSearchParams();
         if (!params || !this.markers) return;
 
         this.markers.getLayers().forEach(marker => {
