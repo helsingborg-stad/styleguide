@@ -2,6 +2,7 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
+import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
 import { createMarkerElementPairs, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
@@ -104,6 +105,7 @@ class OpenStreetMap {
         this.handleParams();
         new ShowPost(map, this.markers, this.container, markerElementPairs);
         new ZoomMarkerClick(markerElementPairs);
+        new ZoomMarkerScroll(map, this.markers, markerElementPairs);
     }
 
     handleParams() {
