@@ -125,23 +125,27 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
         }
     }
 
-    .c-listing__link {
+    .c-listing__link, 
+    .c-listing__item {
+        display: flex;
+        align-items: center;
         text-decoration: none;
-        .c-listing__label::after {
-            content: "»";
-            float: right;
+        .c-icon:first-child {
+            color: $color-primary;
+        }
+    }
+
+    .c-listing__link {
+        .c-icon:last-child {
+            transition: 100ms ease-in-out;
+        }
+        &:hover .c-icon:last-child {
+            padding-left: calc($base * .5);
         }
     }
 
     .c-listing__label {
         display: block;
         color: $color-black;
-
-        &::before {
-            content: "\e86c";
-            font-family: 'Material Icons';
-            float: left;
-            padding-right: #{$base};
-        }
     }
 }
