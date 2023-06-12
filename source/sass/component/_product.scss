@@ -5,6 +5,9 @@ Products component SCSS
 $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
 .c-product {
+    &, .c-card {
+        height: 100%;
+    }
     .c-card__footer {
         text-align: center;
         border: none;
