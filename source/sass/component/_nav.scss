@@ -54,6 +54,14 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     gap: #{$base};
   }
 
+  .c-nav__item {
+    &.is-fetching.is-loading {
+      .preloader, .preloader > * {
+        height: calc(20 * $base);
+      }
+    }
+  }
+
   .c-nav__toggle {
     margin-bottom: auto;
   }
