@@ -21,8 +21,10 @@ export function getLatLng(el) {
     if (typeof json === 'object' && typeof json !== null && 'lat' in json && 'lng' in json) {
         const lat = json.lat;
         const lng = json.lng;
+        const tooltip = json.tooltip ?? false;
+        const url = json.url ?? false;
 
-        return {lat: lat, lng: lng};
+        return {lat: lat, lng: lng, tooltip: tooltip, url: url, element: el};
     }
     
     return { lat: false, lng: false };
