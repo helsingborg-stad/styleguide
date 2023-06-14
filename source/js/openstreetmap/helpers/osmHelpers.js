@@ -11,7 +11,7 @@ export function zoomToMarker(marker) {
 export function getELementJSONLocation(el) {
     if (!el || !el.hasAttribute('data-js-map-location')) return false;
 
-    const location = JSON.parse(el.getAttribute('data-js-map-location'));
+    const location = JSON.parse(el.getAttribute('data-js-map-location')) ?? false;
 
     return location;
 }
