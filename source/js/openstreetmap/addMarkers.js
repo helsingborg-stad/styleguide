@@ -1,4 +1,4 @@
-import { getLatLng, pushCoordinatesToBrowserHistory } from './helpers/osmHelpers';
+import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory } from './helpers/osmHelpers';
 
 class AddMarkers {
     constructor(map, markers, container) {
@@ -18,7 +18,7 @@ class AddMarkers {
         const placeElements = sidebar.querySelectorAll('[data-js-map-location]');
         
         placeElements.forEach(element => {
-           locations.push(getLatLng(element));
+            locations.push(getMarkerDataFromElement(element));
         });
         
         return locations;

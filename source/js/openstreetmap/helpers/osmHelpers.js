@@ -16,7 +16,7 @@ export function getELementJSONLocation(el) {
     return location;
 }
 
-export function getLatLng(el) {
+export function getMarkerDataFromElement(el) {
     const json = getELementJSONLocation(el);
     if (typeof json === 'object' && typeof json !== null && 'lat' in json && 'lng' in json) {
         const lat = json.lat;
