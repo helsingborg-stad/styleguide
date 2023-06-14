@@ -29,7 +29,7 @@ class ZoomMarkerSroll {
                     if (isFullyInsideViewport) {
                         const pair = filteredArray.find(pair => pair.element === entry.target);
                         let currentDate = new Date();
-                        if (!timeStamp || currentDate - timeStamp >= 300) {
+                        if (!timeStamp || currentDate - timeStamp >= 200) {
                             zoomToMarker(pair.marker);
                             timeStamp = currentDate;
                         }

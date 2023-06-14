@@ -3,7 +3,8 @@ import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
-import { createMarkerElementPairs, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
+import AddMarkers from './openstreetmap/addMarkers';
+import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 
 class OpenStreetMap {
     constructor(container) {
@@ -22,27 +23,19 @@ class OpenStreetMap {
             });
         }
         let run = this.container && map && this.markers;
-
         run && this.init(map);
     }
 
     init(map) {
-        if (
-            !this.container.hasAttribute('data-js-map-pin-data') ||
-            !this.container.hasAttribute('data-js-map-start-position')
-        ) {
-            return;
-        }
-
         this.observe(map);
         map.zoomControl.setPosition('bottomright');
-        let startPosition = JSON.parse(this.container.getAttribute('data-js-map-start-position'));
-        let locations = JSON.parse(this.container.getAttribute('data-js-map-pin-data'));
+        let startPosition = this.container.hasAttribute('data-js-map-start-position') ? JSON.parse(this.container.getAttribute('data-js-map-start-position')) : { lat: '56.04388993324803', lng: '12.695627213683235', zoom: 14};
         let tiles = this.getTilesStyle(this.container);
-        this.setMapView(locations, startPosition, tiles, map);
+
+        this.setMapView(startPosition, tiles, map);
     }
 
-    setMapView(locations, startPosition, tiles, map) {
+    setMapView(startPosition, tiles, map) {
         let expand = this.container.querySelector('.c-openstreetmap__expand-icon');
         map.setView([startPosition.lat, startPosition.lng], startPosition.zoom);
         L.tileLayer(tiles?.url ? tiles.url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,43 +44,8 @@ class OpenStreetMap {
                 ? tiles.attribution
                 : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
-        locations.forEach((location, index) => {
-            if (location?.lat && location?.lng) {
-                let customIcon = false;
-                if (location?.icon) {
-                    customIcon = location.icon;
-                }
-                let marker = L.marker([location.lat, location.lng], {
-                    icon: this.createMarker(customIcon),
-                    url: {lat: location.lat, lng: location.lng},
-                    id: `${'marker' + index}`,
-                });
-                if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300 });
-                }
-                marker.on('click', (e) => {
-                    let latlng = e.latlng
-                        ? e.latlng
-                        : e.sourceTarget?._latlng
-                        ? e.sourceTarget?._latlng
-                        : false;
-                    let zoomLevel = map.getZoom();
-                    if (latlng) {
-                        if (zoomLevel >= 16) {
-                            map.setView(latlng);
-                        } else {
-                            map.setView(latlng, 16);
-                        }
-                    }
-                    pushCoordinatesToBrowserHistory({lat: location.lat, lng: location.lng});
-                });
-                this.markers.addLayer(marker);
-            }
-        });
-        this.markers.addTo(map);
 
         this.initialize(map); 
-        //Controls the accessibiltiy of the map, called after printing the map and markers
         this.handleAccessibility(map);
 
         /* TODO: makes it a little jumpy but centers the map correctly based on the users */
@@ -101,7 +59,8 @@ class OpenStreetMap {
     }
 
     initialize(map) {
-        const markerElementPairs = createMarkerElementPairs(map, this.markers, this.container);
+        const AddMarkersInstance = new AddMarkers(map, this.markers, this.container);
+        const markerElementPairs = AddMarkersInstance.markerElementObjects();
         this.handleParams();
         new ShowPost(map, this.markers, this.container, markerElementPairs);
         new ZoomMarkerClick(markerElementPairs);
@@ -136,14 +95,14 @@ class OpenStreetMap {
                 case 'ArrowLeft':
                     event.preventDefault();
                     currentMarker = (currentMarker - 1 + markers.length) % markers.length;
-                    this.zoomClusterMarker(markers[currentMarker]);
+                    zoomToMarker(markers[currentMarker]);
                     break;
 
                 case 'ArrowUp':
                 case 'ArrowRight':
                     event.preventDefault();
                     currentMarker = (currentMarker + 1) % markers.length;
-                    this.zoomClusterMarker(markers[currentMarker]);
+                    zoomToMarker(markers[currentMarker]);
                     break;
 
                 case '+':
@@ -155,67 +114,6 @@ class OpenStreetMap {
                     break;
             }
         });
-    }
-
-    zoomClusterMarker(marker) {
-        if (marker?.__parent) {
-            const cluster = marker.__parent;
-            cluster.zoomToBounds();
-            setTimeout(() => {
-                marker.openPopup();
-            }, 300);
-        }
-    }
-
-    getPrimaryColor() {
-        let color = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
-        return color ? color : '#ae0b05';
-    }
-
-    createMarker(customIcon) {
-        let template = this.container.querySelector('.c-openstreetmap__pin-icon');
-        let html = template.innerHTML;
-        let icon = customIcon?.icon ? customIcon.icon : 'location_on';
-        let color = customIcon.backgroundColor
-            ? customIcon.backgroundColor
-            : this.getPrimaryColor();
-        html = html
-            .replace('{icon-name}', icon)
-            .replaceAll('{ICON_NAME}', icon)
-            .replace('{ICON_BACKGROUND_COLOR}', color);
-        let marker = L.divIcon({
-            className: 'c-openstreetmap__icon',
-            html: html,
-        });
-
-        return marker;
-    }
-
-    createTooltip(tooltip) {
-        let template = this.container.querySelector('.c-openstreetmap__pin-tooltip');
-        let clone = template.cloneNode(true);
-
-        if (!tooltip.image?.src && clone.content.querySelector('figure')) {
-            clone.content.querySelector('figure').remove();
-        }
-
-        if (!tooltip.url) {
-            let link = clone.content.querySelector('.c-openstreetmap__tooltip-link');
-            let title = clone.content.querySelector('.c-openstreetmap__tooltip-title');
-
-            link.parentNode.insertBefore(title, link);
-            link.remove();
-        }
-        let html = clone.innerHTML;
-        html = html
-            .replace('{TOOLTIP_HEADING}', tooltip.title ? tooltip.title : '')
-            .replace('{TOOLTIP_DIRECTIONS_URL}', tooltip.directions?.url ? tooltip.directions.url  : '')
-            .replace('{TOOLTIP_DIRECTIONS_LABEL}', tooltip.directions?.label ? tooltip.directions.label : '')
-            .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt : '')
-            .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src : '')
-            .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt : '')
-            .replace('{TOOLTIP_LINK}', tooltip.url ? tooltip.url :  '');
-        return html;
     }
 
     getTilesStyle(container) {
@@ -255,9 +153,6 @@ class OpenStreetMap {
                     url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
                 };
         }
-    }
-    updateBrowserHistory(url) {
-        window.history.pushState({}, '', url);
     }
 
     observe() {

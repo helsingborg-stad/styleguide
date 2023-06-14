@@ -8,31 +8,24 @@ export function zoomToMarker(marker) {
     }
 }
 
-export function createMarkerElementPairs(map, markers, container) {
-    if (!map || !markers || !container) return;
-    const sidebar = container.querySelector('.c-openstreetmap__sidebar');
-    const sidebarItems = sidebar?.querySelectorAll('[data-js-map-lng][data-js-map-lat]') ?? [];
+export function getELementJSONLocation(el) {
+    if (!el || !el.hasAttribute('data-js-map-location')) return false;
 
-    let markerElementPair = [];
+    const location = JSON.parse(el.getAttribute('data-js-map-location'));
 
-    sidebarItems.forEach(element => {
-        if (!element.getAttribute('data-js-map-lat') || !element.getAttribute('data-js-map-lng')) return;
-        const lat = parseFloat(element.getAttribute('data-js-map-lat'));
-        const lng = parseFloat(element.getAttribute('data-js-map-lng'));
-        const id = element.getAttribute('js-map-id') ?? false;
+    return location;
+}
 
-        markers.getLayers().find(marker => {
-            const markerLatLng = marker.getLatLng();
-            if (marker instanceof L.Marker && markerLatLng.equals([lat, lng])) {
-                markerElementPair.push({ marker: marker, element: element, url: {lat: lat, lng: lng} });
-            } else if (marker instanceof L.MarkerCluster) {
-                const childMarkers = marker.getAllChildMarkers();
-                return markerElementPair.push({ marker: childMarkers.some(child => child.getLatLng().equals([lat, lng])), element: element, url: { lat: lat, lng: lng }});
-            }
-        });
-    });
+export function getLatLng(el) {
+    const json = getELementJSONLocation(el);
+    if (typeof json === 'object' && typeof json !== null && 'lat' in json && 'lng' in json) {
+        const lat = json.lat;
+        const lng = json.lng;
 
-    return markerElementPair;
+        return {lat: lat, lng: lng};
+    }
+    
+    return { lat: false, lng: false };
 }
 
 export function pushCoordinatesToBrowserHistory({lat, lng} = false) {

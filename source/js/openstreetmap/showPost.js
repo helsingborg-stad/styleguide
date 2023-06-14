@@ -1,4 +1,4 @@
-import { pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
+import { getLatLng, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
 import Pagination from '../pagination';
 
 class ShowPost {
@@ -51,8 +51,10 @@ class ShowPost {
         if (!params) return;
         const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
         [...posts].forEach((collectionItem) => {
-            const lat = collectionItem.getAttribute('data-js-map-lat') ?? false;
-            const lng = collectionItem.getAttribute('data-js-map-lng') ?? false;
+            const latLng = getLatLng(collectionItem);
+            const lat = latLng.lat;
+            const lng = latLng.lng;
+            
             if (lat && lng) {
                 if (lat === params.lat && lng === params.lng) {
                     const parent = collectionItem.closest('[data-js-pagination-item]');
@@ -83,9 +85,9 @@ class ShowPost {
             if (moduleArea) {
                 moduleArea.classList.add('u-display--none');
             }
-
-            const lat = collectionItem.getAttribute('data-js-map-lat') ?? false;
-            const lng = collectionItem.getAttribute('data-js-map-lng') ?? false;
+            const latLng = getLatLng(collectionItem);
+            const lat = latLng.lat;
+            const lng = latLng.lng;
 
             pushCoordinatesToBrowserHistory({lat: lat, lng: lng});
             this.scrollToTop();
