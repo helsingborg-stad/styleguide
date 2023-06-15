@@ -1,4 +1,4 @@
-import { getLatLng, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
+import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
 import Pagination from '../pagination';
 
 class ShowPost {
@@ -51,12 +51,12 @@ class ShowPost {
         if (!params) return;
         const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
         [...posts].forEach((collectionItem) => {
-            const latLng = getLatLng(collectionItem);
+            const latLng = getMarkerDataFromElement(collectionItem);
             const lat = latLng.lat;
             const lng = latLng.lng;
-            
+
             if (lat && lng) {
-                if (lat === params.lat && lng === params.lng) {
+                if (lat == params.lat && lng == params.lng) {
                     const parent = collectionItem.closest('[data-js-pagination-item]');
                     if (this.paginationInstance && parent && parent.getAttribute('data-js-pagination-page')) {
                         const page = parseInt(parent.getAttribute('data-js-pagination-page'));
@@ -85,7 +85,7 @@ class ShowPost {
             if (moduleArea) {
                 moduleArea.classList.add('u-display--none');
             }
-            const latLng = getLatLng(collectionItem);
+            const latLng = getMarkerDataFromElement(collectionItem);
             const lat = latLng.lat;
             const lng = latLng.lng;
 
