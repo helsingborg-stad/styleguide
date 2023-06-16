@@ -68,6 +68,11 @@ source/js
   npm run test:dev
   ```
 
+## Codespaces
+Configuration for Codespaces is available and to get it up and running do the following after opening a Codespace:
+1. Run task `Setup`.
+1. Run task `Serve`.
+
 ## License
 Distributed under the [MIT License][license-url].
 

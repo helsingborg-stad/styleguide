@@ -1,9 +1,28 @@
 /* Our code */
+$grid-gap: var(--grid-gap, 4) !default;
+
 .c-openstreetmap {
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	background-color: $color-white;
+
+	/* Tooltip */
+	.c-openstreetmap__tooltip-image {
+		aspect-ratio: 16/9;
+		max-width: 100%;
+	}
+
+	a.c-openstreetmap__tooltip-link {
+		color: inherit;
+		text-decoration: none;
+		&:hover {
+			color: $color-link-hover;
+			text-decoration: underline;
+		}
+	}
+
+	/* Sidebar */
 	.c-openstreetmap__sidebar {
 		position: static;
 		right: 0;
@@ -18,8 +37,115 @@
 			height: 100%;
 			position: relative;
 		}
+
+		/* Sidebar collection posts (all the way down to next comment) */
+		.c-openstreetmap__collection__item {
+			cursor: pointer;
+			height: 100%;
+
+			.c-collection__content {
+				transition: transform 300ms;
+				transform: translateX(0);
+			}
+			&:hover .c-collection__content {
+				transform: translateX(.25rem);
+			}
+		}
+
+		&.has-active {
+			.c-openstreetmap__collection__item,
+			.c-pagination,
+			[data-js-pagination-item]:not(.is-active) {
+				display: none;
+			}
+
+			.is-active[data-js-pagination-item] {
+				.c-openstreetmap__post {
+					display: block;
+				}
+			}
+
+			.c-openstreetmap__container {
+				padding: 0;
+			}
+		}
+
+		.c-openstreetmap__post-icon {
+			position: absolute;
+			top: 1rem;
+			left: 1rem;
+			background-color: $color-primary;
+			padding: .25rem;
+			border-radius: 50%;
+			cursor: pointer;
+			z-index: 3000;
+		}
+
+		.c-openstreetmap__post-button {
+			width: unset;
+		}
+		
+		.c-openstreetmap__container {
+			.c-openstreetmap__post {
+				display: none;
+			}
+		}
+
+		.c-openstreetmap__posts {
+			flex: 0 0 100%;
+			max-width: 100%;
+			margin-top: -2px;
+
+			.c-openstreetmap__post {
+				.c-openstreetmap__post-container {
+					flex-direction: column;
+				}
+
+				.c-openstreetmap__post-related-posts {
+					margin-right: auto;
+					margin-left: auto;
+					padding: 0;
+				}
+
+				&.c-group--size-sm {
+					.c-openstreetmap__post-related-post {
+						flex: 0 0 calc(50% - var(--grid-gap)*0.5);
+						max-width: calc(50% - var(--grid-gap)*.5);
+					}
+				}
+
+				&.c-group--size-md {
+					.c-openstreetmap__post-container {
+						flex-direction: row;
+					}
+
+					.c-openstreetmap__post-content {
+						flex: 0 0 calc(75% - var(--grid-gap)*0.25);
+						max-width: calc(75% - var(--grid-gap)*.25);
+					}
+
+					.c-openstreetmap__post-list {
+						flex: 0 0 calc(25% - var(--grid-gap)*0.75);
+						max-width: calc(25% - var(--grid-gap)*.75);
+					}
+				}
+			}
+		}
+		&.c-openstreetmap__sidebar--size-lg {
+			.c-openstreetmap__posts {
+				flex: 0 0 calc(50% - $grid-gap * .5);
+				max-width: calc(50% - $grid-gap * .5);
+			}
+		}
+		&.c-openstreetmap__sidebar--size-xl {
+			.c-openstreetmap__posts {
+				flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+				max-width: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+			}
+		}
 	}
-	
+
+	/* Map */
 	.c-openstreetmap__map {
 		transition: flex-basis .2s ease-in-out;
 		position: sticky;
@@ -30,6 +156,7 @@
 
 	.c-openstreetmap__sidebar {
 		flex: 1 1 95%;
+		max-width: 90%;
 	}
 
 	&.is-expanded {
@@ -39,6 +166,8 @@
 
 		.c-openstreetmap__sidebar {
 			flex: 0 1 0%;
+			max-width: 0%;
+			display: none;
 		}
 	}
 
@@ -77,24 +206,31 @@
 	&.c-openstreetmap--size-sm {
 
 		.c-openstreetmap__map {
-		flex: 1 0 70%
-	}
-
-	.c-openstreetmap__sidebar {
-		flex: 1 0 30%;
-	}
-
-	&.is-expanded {
-		.c-openstreetmap__map {
-			flex: 1 0 20%;
+			flex: 1 1 70%
 		}
 
 		.c-openstreetmap__sidebar {
-			flex: 1 0 80%;
+			flex: 1 0 30%;
+			max-width: 30%;
+		}
+
+		&.is-expanded {
+			.c-openstreetmap__map {
+				flex: 1 0 20%;
+			}
+			
+			.c-openstreetmap__sidebar {
+				flex: 1 0 80%;
+				max-width: 80%;
+				display: block;
+			}
 		}
 	}
-	}
 
+/* Changes to leaflet css */
+.leaflet-popup-content {
+	width: 100%;
+}
 
 /* Cluster plugin */
 .marker-cluster-small {
@@ -415,9 +551,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	background: #ddd;
 	outline-offset: 1px;
 	}
-.leaflet-container a {
-	color: #0078A8;
-	}
+
 .leaflet-zoom-box {
 	border: 2px dotted #38f;
 	background: rgba(255,255,255,0.5);
@@ -644,10 +778,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	font-size: 13px;
 	font-size: 1.08333em;
 	min-height: 1px;
-	}
-.leaflet-popup-content p {
-	margin: 17px 0;
-	margin: 1.3em 0;
 	}
 .leaflet-popup-tip-container {
 	width: 40px;

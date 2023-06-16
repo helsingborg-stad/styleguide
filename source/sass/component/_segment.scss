@@ -5,7 +5,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 .c-segment {
     display: flex;
     flex-wrap: wrap;
-    position: relative; 
+    position: relative;
     background-size: cover;
 
     * {
@@ -17,8 +17,22 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         justify-content: center;
         z-index: $level-2;
 
-        > .o-grid {
+        >.o-grid {
             justify-content: center;
+        }
+    }
+
+    .c-segment__title {
+        a {
+            text-decoration: none;
+            color: $color-base;
+
+            &:hover,
+            &:focus,
+            &:active {
+                text-decoration: underline;
+                color: $color-link;
+            }
         }
     }
 
@@ -49,6 +63,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     &.c-segment--card {
         flex-direction: column;
         height: 100%;
+
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
             aspect-ratio: 16/9;
@@ -72,6 +87,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         &.c-segment--height-full-screen {
             flex-direction: row;
             align-items: center;
+
             .c-segment__image {
                 height: 100%;
                 position: absolute;
@@ -89,7 +105,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 min-height: calc($base * 40);
                 margin-top: calc($base * -35);
             }
-             
+
             &.c-segment--no-image .c-segment__content {
                 margin-top: 0;
             }
@@ -101,7 +117,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 }
             }
 
-                &.c-segment--reverse {
+            &.c-segment--reverse {
                 .c-segment__content {
                     margin-left: auto;
                 }
@@ -116,13 +132,14 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     &.c-segment--size-md {
         &.c-segment--card {
             flex-direction: row;
+
             .c-segment__image {
                 position: absolute;
                 width: calc(100% - calc($base * 30));
                 padding: 0;
                 height: 100%;
                 right: 0;
-                
+
                 .c-segment__image {
                     width: 100%;
                 }
@@ -130,7 +147,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
             .c-segment__content {
                 margin: calc($base * 2) 0;
-                width: calc( #{$base} * 60);
+                width: calc(#{$base} * 60);
                 flex-grow: unset;
                 height: unset;
             }
@@ -142,12 +159,14 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                     font-size: $h1-font-size;
                 }
             }
+
             .c-segment__floating {
                 top: calc($base * 3);
             }
 
             &.c-segment--reverse {
                 flex-direction: row-reverse;
+
                 .c-segment__image {
                     left: 0;
                     right: unset;
@@ -157,7 +176,8 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             &.c-segment--slider {
                 &.c-segment--size-md {
                     min-height: calc($base * 70);
-                    align-items: center; 
+                    align-items: center;
+
                     .c-segment__image {
                         width: 100%;
                     }
@@ -173,17 +193,18 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     }
 }
 
-    
+
 
 /**
 * Modifiers
 */
-.c-segment.c-segment--stretch { /* Bleed outside container  left&right */ 
+.c-segment.c-segment--stretch {
+    /* Bleed outside container  left&right */
     @include stretch();
 }
 
 .c-segment.c-segment--text {
-    
+
     &-light .c-segment__title,
     &-light .c-segment__text {
         color: white;
@@ -221,12 +242,14 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 .c-segment.c-segment--overlay {
     &-dark .c-segment__image {
         filter: brightness(.5);
-        opacity: .85; /* tint to bg */ 
+        opacity: .85;
+        /* tint to bg */
     }
 
     &-light .c-segment__image {
         filter: brightness(.78);
-        opacity: .85; /* tint to bg */ 
+        opacity: .85;
+        /* tint to bg */
     }
 }
 
@@ -234,17 +257,17 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
     @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "md")) {
 
-        .c-segment__image  {
+        .c-segment__image {
             z-index: 2;
         }
 
         &:after {
-            content: ''; 
+            content: '';
             position: absolute;
-            top: 0; 
-            left: 0; 
+            top: 0;
+            left: 0;
             border-left: $base solid $color-primary;
-            height: 100%; 
+            height: 100%;
             z-index: 1;
         }
     }
@@ -252,12 +275,12 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     @include mq(map_get($breakpoints-map, "md")) {
 
         &:after {
-            content: ''; 
+            content: '';
             position: absolute;
-            top: 0; 
-            left: 50%; 
+            top: 0;
+            left: 50%;
             border-left: $base solid $color-primary;
-            height: 100%; 
+            height: 100%;
         }
 
         &.c-segment--reverse:after {
@@ -274,15 +297,15 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     flex-direction: row;
 
     .c-segment__padder {
-        max-width: calc( #{$base} * 60);
-        margin: auto; 
+        max-width: calc(#{$base} * 60);
+        margin: auto;
         padding-top: #{map-get($spacers, "4")};
         padding-bottom: #{map-get($spacers, "4")};
     }
 
     .c-segment__image {
         height: auto;
-        @include ratio(16,9,true);
+        @include ratio(16, 9, true);
     }
 
     .c-segment__slot {
@@ -302,6 +325,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
 .c-segment.c-segment--split {
     @include mq(map_get($breakpoints-map, "md")) {
+
         .c-segment__image,
         .c-segment__content {
             max-width: 50%;
@@ -321,6 +345,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
             max-width: 70%;
             background-size: 80%;
         }
+
         .c-segment__content {
             max-width: 30%;
         }
@@ -329,6 +354,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
 .c-segment.c-segment--split.c-segment--alignment,
 .c-segment.c-segment--featured.c-segment--alignment {
+
     &-top .c-segment__content,
     &-top .c-segment__slot {
         align-self: start;
@@ -352,28 +378,28 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
     flex-direction: column;
     gap: #{map-get($spacers, "8")};
     padding: map-get($spacers, "8") 0;
-    
+
     &.c-segment--has-overlay .c-segment__image::before {
         content: "";
         @include cover();
         box-shadow: inset 0 0 20vh rgb(0 0 0 / 20%);
         background-color: $c-segment-color-overlay;
     }
-    
+
     .c-segment__image {
         @include cover();
     }
 
     &.c-segment--gap-xs {
-        gap: #{map-get($spacers, "2")}; 
+        gap: #{map-get($spacers, "2")};
     }
 
     &.c-segment--gap-sm {
-        gap: #{map-get($spacers, "4")}; 
+        gap: #{map-get($spacers, "4")};
     }
 
     &.c-segment--gap-md {
-        gap: #{map-get($spacers, "6")}; 
+        gap: #{map-get($spacers, "6")};
     }
 }
 
@@ -386,7 +412,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
         text-align: center;
     }
 
-    &-right .c-segment__content{
+    &-right .c-segment__content {
         text-align: right;
     }
 }

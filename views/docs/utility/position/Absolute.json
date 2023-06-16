@@ -1,0 +1,11 @@
+{
+    "format": "u-absolute--side",
+    "summary": ["Position an element absolute to a side of the ancestor stacking context."],
+    "modifiers": {
+        "side": "top-left, top, top-right, roght, bottom-right, bottom, bottom-left, left"
+    },
+    "description": {
+        "side": "Sets element absolutely positioned to a specified side"
+    },
+    "responsive": true
+}

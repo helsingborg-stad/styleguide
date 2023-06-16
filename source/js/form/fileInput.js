@@ -216,6 +216,10 @@ class FileInput {
         visibileInput.parentNode.insertBefore(hiddenInput, visibileInput.nextSibling);
         visibileInput.value = '';
 
+        form.addEventListener('submit', (event) => {
+            visibileInput.remove();
+        });
+        
         return hiddenInput;
     }
 

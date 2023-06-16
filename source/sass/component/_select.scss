@@ -1,4 +1,4 @@
-$c-select-border-radius: var(--c-select-border-radius, $border-radius-xs) !default;
+$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
 $c-select-font-size-sm: var(--c-select-font-size-sm, $font-size-btn-sm) !default;
 $c-select-font-size-md: var(--c-select-font-size-md, $font-size-btn-md) !default;
@@ -55,7 +55,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         line-height: $c-select-font-size-md-line-height;
         border: $c-select-border-width solid $c-select-border-color;
         background: $c-select-background-color;
-        border-radius: $c-select-border-radius;
+        border-radius: calc($c-select-border-radius * $base);
         position: relative;
         z-index: $level-2;
         text-overflow: ellipsis;
@@ -71,7 +71,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
             height: 100%;
             position: absolute;
             top: 0;
-            border-radius: $c-select-border-radius;
+            border-radius: calc($c-select-border-radius * $base);
             pointer-events: none;
         }
     }
@@ -110,6 +110,16 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
             font-weight: 700;
             &:focus + .c-select_focus-styler {
                 border-radius: calc($base * 3);
+            }
+        }
+
+        .c-field__label {
+            margin-left: calc($base * 2);
+        }
+
+        &.c-select--rounded-border {
+            select {
+                border: $c-field-border-width solid $c-field-border-color;
             }
         }
     }
@@ -178,7 +188,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         color: $color-white;
         background-color: $color-danger;
         border:none;
-        border-radius: 0 0 $c-select-border-radius $c-select-border-radius;
+        border-radius: 0 0 calc($c-select-border-radius * $base) calc($c-select-border-radius * $base);
         box-sizing: border-box;
 
         &.error {

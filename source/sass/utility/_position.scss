@@ -67,6 +67,55 @@ $position_utils: (
         )
     ),
     (
+        name: "absolute",
+        modifiers: (
+            top: (
+                position: absolute,
+                top: 0,
+                left: 50%,
+                transform: translateX(-50%),
+            ),
+            top-left: (
+                position: absolute,
+                top: 0,
+                left: 0,
+            ),
+            top-right: (
+                position: absolute,
+                top: 0,
+                right: 0,
+            ),
+            bottom: (
+                position: absolute,
+                bottom: 0,
+                left: 50%,
+                transform: translateX(-50%),
+            ),
+            bottom-left: (
+                position: absolute,
+                bottom: 0,
+                left: 0,
+            ),
+            bottom-right: (
+                position: absolute,
+                bottom: 0,
+                right: 0,
+            ),
+            left: (
+                position: absolute,
+                top: 50%,
+                left: 0,
+                transform: translateY(-50%),
+            ),
+            right: (
+                position: absolute,
+                top: 50%,
+                right: 0,
+                transform: translateY(-50%),
+            )
+        )
+    ),
+    (
         name: "sticky",
         modifiers: (
             top: (

@@ -12,7 +12,7 @@ class ContainerMediaQuery {
     // Init only if browser supports ResizeObserver
     if ('ResizeObserver' in self) {
       this.resizeObserver = new ResizeObserver((entries) => {
-        const defaultBreakpoints = {xs: 384, sm: 576, md: 768, lg: 960};
+        const defaultBreakpoints = {xs: 384, sm: 576, md: 768, lg: 960, xl: 1200};
 
         entries.forEach((entry) => {
           
