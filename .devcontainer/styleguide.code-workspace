@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "path": "..",
+            "name": "styleguide",
+        },
+        {
+            "path": "../source/library",
+            "name": "component-library"
+        }
+    ]
+}

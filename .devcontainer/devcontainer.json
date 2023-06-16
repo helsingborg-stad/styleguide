@@ -20,6 +20,16 @@
 		}
 	},
 
+	"customizations": {
+		"codespaces": {
+			"repositories": {
+				"helsingborg-stad/component-library": {
+					"contents": "write"
+				}
+			}
+		}
+	},
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
 		"install-apt-packages": "export YARNKEY=yarn-keyring.gpg && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmour -o /usr/share/keyrings/$YARNKEY && echo \"deb [signed-by=/usr/share/keyrings/$YARNKEY] https://dl.yarnpkg.com/debian stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install -y subversion nano bash-completion",
