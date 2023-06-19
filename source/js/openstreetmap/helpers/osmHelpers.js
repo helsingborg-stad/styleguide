@@ -18,7 +18,7 @@ export function getELementJSONLocation(el) {
 
 export function getMarkerDataFromElement(el) {
     const json = getELementJSONLocation(el);
-    if (typeof json === 'object' && typeof json !== null && 'lat' in json && 'lng' in json) {
+    if (json !== null && typeof json === 'object' && 'lat' in json && 'lng' in json) {
         const lat = json.lat;
         const lng = json.lng;
         const tooltip = json.tooltip ?? false;
