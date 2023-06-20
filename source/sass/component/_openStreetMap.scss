@@ -140,7 +140,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		&.c-openstreetmap__sidebar--size-xl {
 			.c-openstreetmap__posts {
 				flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
-				max-width: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+				max-width: calc(33.33333% - $grid-gap * 0.66667);
 			}
 		}
 	}
