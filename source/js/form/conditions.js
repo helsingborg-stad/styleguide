@@ -1,9 +1,9 @@
-class Checkbox {
-    constructor(params) {
-        this.test(params);
+class Conditions {
+    constructor(form) {
+        this.init(form);
     }
 
-    test({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
+    init(form) {
 
         const groups = form.querySelectorAll('[conditional-target]');
         const conditionalElements = form.querySelectorAll('[conditional]') && Array.from(form.querySelectorAll('[conditional]')).map(element => element).filter(element => element.getAttribute('conditional'));
@@ -55,4 +55,4 @@ class Checkbox {
         });   
     }
 }
-export default Checkbox;
+export default Conditions;
