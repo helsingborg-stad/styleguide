@@ -1,6 +1,7 @@
 $position: center, start, end, flex-start, flex-end, left, right, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
+$grid-gap: var(--grid-gap, 4) !default;
 
 .c-group {
     display: flex;
@@ -101,5 +102,26 @@ $wrap: wrap, wrap-reverse, nowrap;
         border-bottom-left-radius: 0; 
         border-bottom-right-radius: 0; 
     }
+}
 
+/* Fluid grid */
+.c-group.c-group--fluid-grid {
+    align-items: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &.c-group--size-sm {
+        & > * {
+            flex: 0 0 calc(50% - $grid-gap * .5);
+            max-width: calc(50% - $grid-gap * .5);
+        }
+
+    }
+
+    &.c-group--size-xl {
+        & > * {
+            flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
+            max-width: calc(33.33333% - $grid-gap * 0.66667);
+        }
+    }
 }
