@@ -1,17 +1,22 @@
-import L from 'leaflet';
+import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
 import AddMarkers from './openstreetmap/addMarkers';
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
+import { MapPosition, Tiles, MarkerElementPairs } from './openstreetmap/interface/interface';
 
 class OpenStreetMap {
-    constructor(container) {
+    container: HTMLElement;
+    map?: LeafletMap;
+    markers?: MarkerClusterGroup;
+
+    constructor(container: HTMLElement) {
         this.container = container;
-        let map = false;
+        let map;
         let id = this.container.getAttribute('data-js-map-id') ?? false;
-        this.markers = false;
+        this.markers;
 
         if (this.container && id) {
             map = L.map(`openstreetmap__map-${id}`, {
@@ -22,20 +27,23 @@ class OpenStreetMap {
                 maxClusterRadius: 50,
             });
         }
-        let run = this.container && map && this.markers;
-        run && this.init(map);
+        if (this.container && map && this.markers) this.init(map);
     }
 
-    init(map) {
-        this.observe(map);
+    init(map: LeafletMap) {
+        this.observe();
         map.zoomControl.setPosition('bottomright');
-        let startPosition = this.container.hasAttribute('data-js-map-start-position') ? JSON.parse(this.container.getAttribute('data-js-map-start-position')) : { lat: '56.04388993324803', lng: '12.695627213683235', zoom: 14};
-        let tiles = this.getTilesStyle(this.container);
+        const startPositionAttr = this.container.getAttribute('data-js-map-start-position');
+        const startPosition = startPositionAttr
+            ? JSON.parse(startPositionAttr)
+            : { lat: 56.04388993324803, lng: 12.695627213683235, zoom: 14 };
+        const tiles = this.getTilesStyle(this.container);
 
         this.setMapView(startPosition, tiles, map);
     }
 
-    setMapView(startPosition, tiles, map) {
+
+    setMapView(startPosition: MapPosition, tiles: Tiles, map: LeafletMap) {
         let expand = this.container.querySelector('.c-openstreetmap__expand-icon');
         map.setView([startPosition.lat, startPosition.lng], startPosition.zoom);
         L.tileLayer(tiles?.url ? tiles.url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -58,29 +66,33 @@ class OpenStreetMap {
         }
     }
 
-    initialize(map) {
-        const AddMarkersInstance = new AddMarkers(map, this.markers, this.container);
+    initialize(map: LeafletMap) {
+        const AddMarkersInstance = new AddMarkers(map, this.markers as MarkerClusterGroup, this.container);
         const markerElementPairs = AddMarkersInstance.markerElementObjects();
         this.handleParams();
-        new ShowPost(map, this.markers, this.container, markerElementPairs);
-        new ZoomMarkerClick(markerElementPairs);
-        new ZoomMarkerScroll(map, this.markers, markerElementPairs);
+        new ShowPost(map, this.markers as MarkerClusterGroup, this.container);
+        new ZoomMarkerClick(markerElementPairs as MarkerElementPairs[]);
+        new ZoomMarkerScroll(map, this.markers as MarkerClusterGroup, markerElementPairs as MarkerElementPairs[]);
     }
 
     handleParams() {
         const params = getCoordinatesFromURLSearchParams();
         if (!params || !this.markers) return;
 
-        this.markers.getLayers().forEach(marker => {
-            const latLng = marker._latlng;
-            if (latLng && latLng.lat == params.lat && latLng.lng == params.lng) {
-                zoomToMarker(marker);
-            }    
+        this.markers.getLayers().forEach(layer => {
+            if (layer instanceof Marker) {
+                const marker = layer as Marker;
+                const latLng = marker.getLatLng();
+                if (latLng && latLng.lat.toString() == params.lat && latLng.lng.toString() == params.lng) {
+                    zoomToMarker(marker);
+                }
+            }
         });
     }
 
-    handleAccessibility(map) {
-        const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker);
+    handleAccessibility(map: LeafletMap) {
+        if (!this.markers) return;
+        const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker) as Marker<any>[];
         let currentMarker = 0;
         const attributions = this.container.querySelector('.leaflet-control-attribution');
 
@@ -116,7 +128,7 @@ class OpenStreetMap {
         });
     }
 
-    getTilesStyle(container) {
+    getTilesStyle(container: HTMLElement) {
         let tiles = container.hasAttribute('data-js-map-style')
             ? container.getAttribute('data-js-map-style')
             : 'default';
@@ -172,6 +184,7 @@ class OpenStreetMap {
                 }
             });
         });
+        if (!mapContainer) return;
         observer.observe(mapContainer, { childList: true, subtree: true });
     }
 }
@@ -179,7 +192,7 @@ class OpenStreetMap {
 export function initializeOpenStreetMaps() {
     const componentElements = [...document.querySelectorAll('.c-openstreetmap')];
     componentElements.forEach((element) => {
-        new OpenStreetMap(element);
+        new OpenStreetMap(element as HTMLElement);
     });
 }
 

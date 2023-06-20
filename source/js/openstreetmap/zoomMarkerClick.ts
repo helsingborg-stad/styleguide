@@ -1,7 +1,10 @@
 import { zoomToMarker } from './helpers/osmHelpers';
+import { MarkerElementPairs } from './interface/interface';
 
 class ZoomMarkerClick {
-    constructor(markerElementPairs) {
+    markerElementPairs: MarkerElementPairs[];
+    
+    constructor(markerElementPairs: MarkerElementPairs[]) {
         this.markerElementPairs = markerElementPairs;
         
         if (!this.markerElementPairs) return;
@@ -9,7 +12,7 @@ class ZoomMarkerClick {
         this.zoomListener();
     }
     
-    zoomListener() {
+    private zoomListener() {
         this.markerElementPairs.forEach(pair => {
             if (!pair.hasOwnProperty('marker') && !pair.hasOwnProperty('element')) return;
             const marker = pair.marker;

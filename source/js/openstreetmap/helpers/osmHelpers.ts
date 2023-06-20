@@ -1,6 +1,8 @@
-export function zoomToMarker(marker) {
-    if (marker && marker.__parent) {
-        const cluster = marker.__parent;
+import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+
+export function zoomToMarker(marker: Marker | undefined) {
+    if (marker && (marker as any).__parent) {
+        const cluster = (marker as any).__parent;
         cluster.zoomToBounds();
         setTimeout(function () {
             marker.openPopup();
@@ -8,16 +10,19 @@ export function zoomToMarker(marker) {
     }
 }
 
-export function getELementJSONLocation(el) {
+export function getElementJSONLocation(el: HTMLElement) {
     if (!el || !el.hasAttribute('data-js-map-location')) return false;
 
-    const location = JSON.parse(el.getAttribute('data-js-map-location')) ?? false;
+    const locationAttr = el.getAttribute('data-js-map-location');
+    if (!locationAttr) return false;
+
+    const location = JSON.parse(locationAttr);
 
     return location;
 }
 
-export function getMarkerDataFromElement(el) {
-    const json = getELementJSONLocation(el);
+export function getMarkerDataFromElement(el: HTMLElement) {
+    const json = getElementJSONLocation(el);
     if (json !== null && typeof json === 'object' && 'lat' in json && 'lng' in json) {
         const lat = json.lat;
         const lng = json.lng;
@@ -27,15 +32,15 @@ export function getMarkerDataFromElement(el) {
         return {lat: lat, lng: lng, tooltip: tooltip, url: url, element: el};
     }
     
-    return { lat: false, lng: false };
+    return {lat: undefined, lng: undefined};
 }
 
-export function pushCoordinatesToBrowserHistory({lat, lng} = false) {
+export function pushCoordinatesToBrowserHistory({ lat, lng }: { lat: number | undefined, lng: number | undefined }) {
     const searchParams = new URLSearchParams(window.location.search);
 
     if (lat && lng) {
-        searchParams.set('osmLat', lat);
-        searchParams.set('osmLng', lng);
+        searchParams.set('osmLat', lat.toString());
+        searchParams.set('osmLng', lng.toString());
         const setParams = window.location.origin + window.location.pathname + '?' + searchParams.toString();
         history.pushState({}, '', setParams);
     } else {

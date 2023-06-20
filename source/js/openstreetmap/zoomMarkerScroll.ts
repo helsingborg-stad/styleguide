@@ -1,8 +1,13 @@
 import { zoomToMarker } from './helpers/osmHelpers';
+import { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
+import { MarkerElementPairs } from './interface/interface';
 
 class ZoomMarkerSroll {
+    map: LeafletMap;
+    markers: MarkerClusterGroup;
+    markerElementPairs: MarkerElementPairs[];
 
-    constructor(map, markers, markerElementPairs) {
+    constructor(map: LeafletMap, markers: MarkerClusterGroup, markerElementPairs: MarkerElementPairs[]) {
         this.map = map;
         this.markers = markers;
         this.markerElementPairs = markerElementPairs;
@@ -10,27 +15,28 @@ class ZoomMarkerSroll {
         this.init();
     }
 
-    init() {
-        if (!Array.isArray(this.markerElementPairs) && this.markerElementPairs.length <= 0) return;
-        
+    private init() {
+        if (!Array.isArray(this.markerElementPairs) || this.markerElementPairs.length <= 0) return;
+
         const filteredArray = this.markerElementPairs.filter(pair => pair.element.hasAttribute('data-js-scroll-to-marker'));
 
         this.observerIntersection(filteredArray);
     }
 
-    observerIntersection(filteredArray) {
-        let timeStamp = 0;
+    private observerIntersection(filteredArray: MarkerElementPairs[]) {
+        let timeStamp: Date | null = null; // Adjusted the type to Date | null
+
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                    if (entry.intersectionRatio > 0) {
+                if (entry.intersectionRatio > 0) {
                     const rect = entry.boundingClientRect;
                     const isFullyInsideViewport = rect.top >= 0 && rect.bottom <= window.innerHeight;
 
                     if (isFullyInsideViewport) {
                         const pair = filteredArray.find(pair => pair.element === entry.target);
-                        let currentDate = new Date();
-                        if (!timeStamp || currentDate - timeStamp >= 200) {
-                            zoomToMarker(pair.marker);
+                        const currentDate = new Date();
+                        if (!timeStamp || currentDate.getTime() - timeStamp.getTime() >= 200) {
+                            zoomToMarker(pair?.marker);
                             timeStamp = currentDate;
                         }
                     }

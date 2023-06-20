@@ -71,7 +71,7 @@ export default class Pagination {
         }
     }
 
-    private tableRefresh() {
+    public tableRefresh() {
         let list = this.paginateList(this.list);
 
         this.renderTable(list);
@@ -220,7 +220,7 @@ export default class Pagination {
         });
     }
 
-    private paginateSetCurrent(current: number = 1) {
+    public paginateSetCurrent(current: number = 1) {
         this.container.setAttribute('js-table-pagination--current', current.toString());
         this.container.querySelector(`[${this.nextBtn}]`)?.removeAttribute('disabled');
         this.container.querySelector(`[${this.prevBtn}]`)?.removeAttribute('disabled');
