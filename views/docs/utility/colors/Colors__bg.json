@@ -4,7 +4,7 @@
         "color": "Applies given color"
     },
     "modifiers": {
-        "color": "default, primary, secondary, success, info, warning, danger, darkest, darker, dark, light, lighter, lightest, complementary, complementary-light, complementary-lighter, complementary-lightest"
+        "color": "default, primary, secondary, success, success-dark, success-light, info, info-dark, info-light, warning, warning-dark, warning-light, danger, danger-dark, danger-light, darkest, darker, dark, light, lighter, lightest, complementary, complementary-light, complementary-lighter, complementary-lightest"
     },
     "responsive": false
 }
