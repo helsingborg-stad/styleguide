@@ -1,16 +1,14 @@
 class Collapse {
-    constructor() {
-        this.init();
+    constructor(form) {
+        if (!form) return;
+        this.collapseSections = form.querySelectorAll('.mod-form-collapse');
+        this.setListener();
     }
 
-    init() {        
-        document.querySelectorAll('.mod-form-collapse').forEach(collapseButton => {
+    setListener() { 
+        [...this.collapseSections].forEach(collapseButton => {
             this.collapse(collapseButton);
-        });
-    }
-
-    setListener(form) {
-        form.querySelectorAll('.mod-form-collapse').forEach(collapseButton => {
+            
             collapseButton.addEventListener('click', () => {
                 this.collapse(collapseButton);
             })
