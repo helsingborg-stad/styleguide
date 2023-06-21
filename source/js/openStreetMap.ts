@@ -4,6 +4,7 @@ import ShowPost from './openstreetmap/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
 import AddMarkers from './openstreetmap/addMarkers';
+import ControlSidebar from './openstreetmap/controlSidebar';
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 import { MapPosition, Tiles, MarkerElementPairs } from './openstreetmap/interface/interface';
 
@@ -67,6 +68,7 @@ class OpenStreetMap {
     }
 
     initialize(map: LeafletMap) {
+        new ControlSidebar(this.container);
         const AddMarkersInstance = new AddMarkers(map, this.markers as MarkerClusterGroup, this.container);
         const markerElementPairs = AddMarkersInstance.markerElementObjects();
         this.handleParams();
