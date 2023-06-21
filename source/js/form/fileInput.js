@@ -1,7 +1,6 @@
 class FileInput {
     constructor(form) {
-
-        this.fileInputOnChange(form);
+        form && this.fileInputOnChange(form);
     }
 
     fileInputOnChange(form) {

@@ -1,6 +1,6 @@
 class Conditions {
     constructor(form) {
-        this.init(form);
+        form && this.init(form);
     }
 
     init(form) {
