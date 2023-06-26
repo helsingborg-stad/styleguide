@@ -65,13 +65,13 @@ class OpenStreetMap {
     initializeFeatures() {
         const AddMarkersInstance = new AddMarkers(this.map, this.markers as MarkerClusterGroup, this.container);
         const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
-        this.handleParams();
+        this.zoomToMarkerOnLoad();
         new ShowPost(this.map, this.markers as MarkerClusterGroup, this.container);
         new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
         new ZoomMarkerScroll(this.map, this.markers as MarkerClusterGroup, markerElementObjects as MarkerElementObjects[]);
     }
 
-    handleParams() {
+    zoomToMarkerOnLoad() {
         const params = getCoordinatesFromURLSearchParams();
         if (!params || !this.markers) return;
 
