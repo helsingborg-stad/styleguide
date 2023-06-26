@@ -1,29 +1,29 @@
 import { zoomToMarker } from './helpers/osmHelpers';
 import { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
-import { MarkerElementPairs } from './interface/interface';
+import { MarkerElementObjects } from './interface/interface';
 
 class ZoomMarkerSroll {
     map: LeafletMap;
     markers: MarkerClusterGroup;
-    markerElementPairs: MarkerElementPairs[];
+    markerElementObjects: MarkerElementObjects[];
 
-    constructor(map: LeafletMap, markers: MarkerClusterGroup, markerElementPairs: MarkerElementPairs[]) {
+    constructor(map: LeafletMap, markers: MarkerClusterGroup, markerElementObjects: MarkerElementObjects[]) {
         this.map = map;
         this.markers = markers;
-        this.markerElementPairs = markerElementPairs;
+        this.markerElementObjects = markerElementObjects;
 
         this.init();
     }
 
     private init() {
-        if (!Array.isArray(this.markerElementPairs) || this.markerElementPairs.length <= 0) return;
+        if (!Array.isArray(this.markerElementObjects) || this.markerElementObjects.length <= 0) return;
 
-        const filteredArray = this.markerElementPairs.filter(pair => pair.element.hasAttribute('data-js-scroll-to-marker'));
+        const filteredArray = this.markerElementObjects.filter(pair => pair.element.hasAttribute('data-js-scroll-to-marker'));
 
         this.observerIntersection(filteredArray);
     }
 
-    private observerIntersection(filteredArray: MarkerElementPairs[]) {
+    private observerIntersection(filteredArray: MarkerElementObjects[]) {
         let timeStamp: Date | null = null; // Adjusted the type to Date | null
 
         const observer = new IntersectionObserver(entries => {

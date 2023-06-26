@@ -11,7 +11,7 @@ export interface Tiles {
     url: string;
 }
 
-export interface MarkerElementPairs {
+export interface MarkerElementObjects {
     element: HTMLElement;
     marker: Marker;
 }

@@ -1,13 +1,13 @@
 import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory } from './helpers/osmHelpers';
 import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-import { Location, Tooltip, Icon } from './interface/interface';
+import { MarkerElementObjects, Location, Tooltip, Icon } from './interface/interface';
 
 class AddMarkers {
     map?: LeafletMap;
     markers?: MarkerClusterGroup;
     container?: HTMLElement;
-    locations?: Array<Location>;
-    markerElementPairs?: Array<any>;
+    locations?: Location[];
+    markerElementObjects?: MarkerElementObjects[];
 
     constructor(map: LeafletMap, markers: MarkerClusterGroup, container: HTMLElement) {
         if (!map || !markers || !container) return;
@@ -16,7 +16,7 @@ class AddMarkers {
         this.container = container;
         this.map = map;
         this.locations = JSON.parse(this.container.getAttribute('data-js-map-pin-data') || '[]');
-        this.markerElementPairs = [];
+        this.markerElementObjects = [];
 
         this.addMarkersToMap();
     }
@@ -70,7 +70,7 @@ class AddMarkers {
                 });
                 this.markers?.addLayer(marker);
                 if (location.element) {
-                    this.markerElementPairs?.push({marker: marker, element: location.element});
+                    this.markerElementObjects?.push({marker: marker, element: location.element});
                 }
             }
         });
@@ -131,8 +131,8 @@ class AddMarkers {
         return html;
     }
 
-    public markerElementObjects() {
-        return this.markerElementPairs;
+    public getMarkerElementObjects() {
+        return this.markerElementObjects;
     }
 
     private getPrimaryColor() {

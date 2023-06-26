@@ -5,7 +5,7 @@ import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
 import AddMarkers from './openstreetmap/addMarkers';
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
-import { MarkerElementPairs } from './openstreetmap/interface/interface';
+import { MarkerElementObjects } from './openstreetmap/interface/interface';
 
 class OpenStreetMap {
     container: HTMLElement;
@@ -50,7 +50,7 @@ class OpenStreetMap {
                 : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(this.map);
 
-        this.initialize(); 
+        this.initializeFeatures(); 
         this.handleAccessibility();
 
         if (expand) {
@@ -62,13 +62,13 @@ class OpenStreetMap {
         }
     }
 
-    initialize() {
+    initializeFeatures() {
         const AddMarkersInstance = new AddMarkers(this.map, this.markers as MarkerClusterGroup, this.container);
-        const markerElementPairs = AddMarkersInstance.markerElementObjects();
+        const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
         this.handleParams();
         new ShowPost(this.map, this.markers as MarkerClusterGroup, this.container);
-        new ZoomMarkerClick(markerElementPairs as MarkerElementPairs[]);
-        new ZoomMarkerScroll(this.map, this.markers as MarkerClusterGroup, markerElementPairs as MarkerElementPairs[]);
+        new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
+        new ZoomMarkerScroll(this.map, this.markers as MarkerClusterGroup, markerElementObjects as MarkerElementObjects[]);
     }
 
     handleParams() {
