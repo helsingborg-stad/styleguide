@@ -3,15 +3,13 @@ import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import { MarkerElementObjects, Location, Tooltip, Icon } from './interface/interface';
 
 class AddMarkers {
-    map?: LeafletMap;
-    markers?: MarkerClusterGroup;
-    container?: HTMLElement;
+    map: LeafletMap;
+    markers: MarkerClusterGroup;
+    container: HTMLElement;
     locations?: Location[];
     markerElementObjects?: MarkerElementObjects[];
 
     constructor(map: LeafletMap, markers: MarkerClusterGroup, container: HTMLElement) {
-        if (!map || !markers || !container) return;
-
         this.markers = markers;
         this.container = container;
         this.map = map;
