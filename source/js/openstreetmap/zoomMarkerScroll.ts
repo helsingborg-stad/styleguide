@@ -1,42 +1,58 @@
-import { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import { zoomToMarker } from './helpers/osmHelpers';
+import { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
+import { MarkerElementObjects } from './interface/interface';
 
 class ZoomMarkerSroll {
     map: LeafletMap;
     markers: MarkerClusterGroup;
-    container: Element;
-    scrollToMarkerItems: Array<Element>;
+    markerElementObjects: MarkerElementObjects[];
 
-    constructor(map: LeafletMap, markers: MarkerClusterGroup, container: Element) {
-        this.scrollToMarkerItems = [...container.querySelectorAll('[js-scroll-to-marker]')];
+    constructor(map: LeafletMap, markers: MarkerClusterGroup, markerElementObjects: MarkerElementObjects[]) {
         this.map = map;
         this.markers = markers;
-        this.container = container;
+        this.markerElementObjects = markerElementObjects;
 
         this.init();
     }
 
-    init() {
-        if (this.scrollToMarkerItems.length <= 0) return;
-        
-        this.setListeners();
+    private init() {
+        if (!Array.isArray(this.markerElementObjects) || this.markerElementObjects.length <= 0) return;
+
+        const filteredArray = this.markerElementObjects.filter(pair => pair.element.hasAttribute('data-js-scroll-to-marker'));
+
+        this.observerIntersection(filteredArray);
     }
-    
-    setListeners() {
-        let currentScroll = 0;
-        window.addEventListener('scroll', () => {
-            let scrollTop = window.scrollY;
-            if (Math.abs(currentScroll - scrollTop) > 10 || Math.abs(currentScroll - scrollTop) < -10) {
-                this.handleScroll();
-                currentScroll = scrollTop;
+
+    private observerIntersection(filteredArray: MarkerElementObjects[]) {
+        let timeStamp: Date | null = null; // Adjusted the type to Date | null
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.intersectionRatio > 0) {
+                    const rect = entry.boundingClientRect;
+                    const isFullyInsideViewport = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+                    if (isFullyInsideViewport) {
+                        const pair = filteredArray.find(pair => pair.element === entry.target);
+                        const currentDate = new Date();
+                        if (!timeStamp || currentDate.getTime() - timeStamp.getTime() >= 200) {
+                            zoomToMarker(pair?.marker);
+                            timeStamp = currentDate;
+                        }
+                    }
+                }
+            });
+        }, {
+            root: null,
+            threshold: [1]
+        });
+
+        filteredArray.forEach(pair => {
+            if (pair.element) {
+                observer.observe(pair.element);
             }
         });
     }
-
-
-    handleScroll() {
-        return;
-    }
-
 }
 
 export default ZoomMarkerSroll;
