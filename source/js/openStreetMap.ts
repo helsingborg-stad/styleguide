@@ -34,9 +34,7 @@ class OpenStreetMap {
         this.observe();
         map.zoomControl.setPosition('bottomright');
         const startPositionAttr = this.container.getAttribute('data-js-map-start-position');
-        const startPosition = startPositionAttr
-            ? JSON.parse(startPositionAttr)
-            : { lat: 56.04388993324803, lng: 12.695627213683235, zoom: 14 };
+        const startPosition = JSON.parse(startPositionAttr ?? '');
         const tiles = this.getTilesStyle(this.container);
 
         this.setMapView(startPosition, tiles, map);
