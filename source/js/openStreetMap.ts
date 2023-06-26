@@ -168,7 +168,7 @@ class OpenStreetMap {
     }
 
     observe() {
-        let mapContainer = this.container.querySelector('.c-openstreetmap__map');
+        const mapContainer = this.container.querySelector('.c-openstreetmap__map');
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'childList') {
