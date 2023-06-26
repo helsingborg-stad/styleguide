@@ -86,9 +86,13 @@ class OpenStreetMap {
         });
     }
 
+    getMarkersFromLayers() {
+        return [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker) as Marker<any>[];
+    }
+
     addKeyboardEventListeners() {
         if (!this.markers || !this.map) return;
-        const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker) as Marker<any>[];
+        const markers = this.getMarkersFromLayers();
         let currentMarker = 0;
         const attributions = this.container.querySelector('.leaflet-control-attribution');
 
