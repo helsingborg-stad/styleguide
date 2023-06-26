@@ -51,7 +51,7 @@ class OpenStreetMap {
         }).addTo(this.map);
 
         this.initializeFeatures(); 
-        this.handleAccessibility();
+        this.addKeyboardEventListeners();
 
         if (expand) {
             expand.addEventListener('click', () => {
@@ -86,7 +86,7 @@ class OpenStreetMap {
         });
     }
 
-    handleAccessibility() {
+    addKeyboardEventListeners() {
         if (!this.markers || !this.map) return;
         const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker) as Marker<any>[];
         let currentMarker = 0;
