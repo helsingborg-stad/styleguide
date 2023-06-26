@@ -1,27 +1,27 @@
 import { Marker } from 'leaflet';
 
-export interface MapPosition {
+interface MapPosition {
     lat: number;
     lng: number;
     zoom: number;
 }
 
-export interface Tiles {
+interface Tiles {
     attribution: string;
     url: string;
 }
 
-export interface MarkerElementObjects {
+interface MarkerElementObjects {
     element: HTMLElement;
     marker: Marker;
 }
 
-export interface Icon {
+interface Icon {
     icon: String;
     backgroundColor: String;
 }
 
-export interface Tooltip {
+interface Tooltip {
     directions: {
         label: String;
         url: String;
@@ -35,7 +35,7 @@ export interface Tooltip {
     url: String;
 }
 
-export interface Location {
+interface Location {
     element?: HTMLElement;
     lat?: number;
     lng?: number;

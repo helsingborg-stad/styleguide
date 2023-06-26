@@ -48,7 +48,7 @@ class AddMarkers {
                     // id: `${'marker' + index}`,
                 });
                 if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip(location.tooltip), { maxWidth: 300 });
+                    marker.bindPopup(this.createTooltipFromTemplate(location.tooltip), { maxWidth: 300 });
                 }
                 marker.on('click', (e) => {
                     let latlng = e.latlng
@@ -96,7 +96,7 @@ class AddMarkers {
         return marker;
     }
 
-    private createTooltip(tooltip: Tooltip) {
+    private createTooltipFromTemplate(tooltip: Tooltip) {
         let template = this.container?.querySelector('.c-openstreetmap__pin-tooltip');
         let clone = template?.cloneNode(true) as HTMLTemplateElement;
 
