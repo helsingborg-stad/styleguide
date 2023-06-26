@@ -9,10 +9,10 @@ class ControlSidebar {
 
     init() {
         this.expandSidebar();
-        this.sizeClassesListener();
+        this.observeSizeClasses();
     }
 
-    sizeClassesListener() {
+    observeSizeClasses() {
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
                 if (
