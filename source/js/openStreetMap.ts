@@ -39,7 +39,7 @@ class OpenStreetMap {
     setMapView() {
         const startPositionAttr = this.container.getAttribute('data-js-map-start-position');
         const startPosition = JSON.parse(startPositionAttr ?? '');
-        const tiles = this.getTilesStyle(this.container);
+        const tiles = this.getTilesStyle();
         const expand = this.container.querySelector('.c-openstreetmap__expand-icon');
         if (!startPosition.lat || !startPosition.lng || !startPosition.zoom) return;
         this.map.setView([startPosition.lat, startPosition.lng], startPosition.zoom);
@@ -124,9 +124,9 @@ class OpenStreetMap {
         });
     }
 
-    getTilesStyle(container: HTMLElement) {
-        let tiles = container.hasAttribute('data-js-map-style')
-            ? container.getAttribute('data-js-map-style')
+    getTilesStyle() {
+        let tiles = this.container.hasAttribute('data-js-map-style')
+            ? this.container.getAttribute('data-js-map-style')
             : 'default';
 
         switch (tiles) {
