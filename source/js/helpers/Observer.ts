@@ -6,3 +6,13 @@ export function mutationObserver(target: HTMLElement, options: Object, callback:
     });
     observer.observe(target, options);
 }
+
+export function intersectionObserver(target: HTMLElement, options: Object, callback: Function) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            callback(entry);
+        })
+    }, options);
+
+    observer.observe(target);
+}

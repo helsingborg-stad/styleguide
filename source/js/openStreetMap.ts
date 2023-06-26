@@ -7,7 +7,7 @@ import AddMarkers from './openstreetmap/addMarkers';
 import Sidebar from './openstreetmap/sidebar'; 
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 import { MarkerElementObjects } from './openstreetmap/interface/interface';
-import { mutationObserver } from './helpers/MutationObserver';
+import { mutationObserver } from './helpers/Observer';
 
 class OpenStreetMap {
     container: HTMLElement;

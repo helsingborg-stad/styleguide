@@ -1,4 +1,4 @@
-import { mutationObserver } from "../helpers/MutationObserver";
+import { mutationObserver } from "../helpers/Observer";
 class ControlSidebar {
     baseClass: string;
     container: HTMLElement;

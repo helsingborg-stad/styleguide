@@ -1,3 +1,5 @@
+import { intersectionObserver } from "./helpers/Observer";
+
 class QuickLinksHeader {
 
     stickyQuickLinks: Element | null;
@@ -15,21 +17,18 @@ class QuickLinksHeader {
     }
     
     private observe() {
-        const observer = new IntersectionObserver(
-            ([e]) => this.setClasses(e),
-            { threshold: [1] }
-        );
+        const options = {threshold: [1]};
 
-        if (this.stickyQuickLinks) {
-            observer.observe(this.stickyQuickLinks);
-        }
+        intersectionObserver(this.stickyQuickLinks as HTMLElement, options, (entry: IntersectionObserverEntry) => {
+            this.setClasses(entry);
+        })
     }
 
-    private setClasses(event: IntersectionObserverEntry) {
-        if (event.boundingClientRect.top <= 0) {
-            event.target.classList.add('is-stuck');
+    private setClasses(entry: IntersectionObserverEntry) {
+        if (entry.boundingClientRect.top <= 0) {
+            entry.target.classList.add('is-stuck');
         } else {
-            event.target.classList.remove('is-stuck');
+            entry.target.classList.remove('is-stuck');
         }
     }
 }

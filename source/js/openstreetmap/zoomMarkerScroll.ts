@@ -1,6 +1,7 @@
 import { zoomToMarker } from './helpers/osmHelpers';
 import { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
 import { MarkerElementObjects } from './interface/interface';
+import { intersectionObserver } from '../helpers/Observer';
 
 class ZoomMarkerSroll {
     map: LeafletMap;
@@ -26,30 +27,30 @@ class ZoomMarkerSroll {
     private observerIntersection(filteredArray: MarkerElementObjects[]) {
         let timeStamp: Date | null = null; // Adjusted the type to Date | null
 
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.intersectionRatio > 0) {
-                    const rect = entry.boundingClientRect;
-                    const isFullyInsideViewport = rect.top >= 0 && rect.bottom <= window.innerHeight;
+        const options = {
+            root: null,
+            threshold: [1],
+        };
 
-                    if (isFullyInsideViewport) {
-                        const pair = filteredArray.find(pair => pair.element === entry.target);
-                        const currentDate = new Date();
-                        if (!timeStamp || currentDate.getTime() - timeStamp.getTime() >= 200) {
-                            zoomToMarker(pair?.marker);
-                            timeStamp = currentDate;
-                        }
+        const callback = (entry: IntersectionObserverEntry) => {
+            if (entry.intersectionRatio > 0) {
+                const rect = entry.boundingClientRect;
+                const isFullyInsideViewport = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+                if (isFullyInsideViewport) {
+                    const pair = filteredArray.find((pair) => pair.element === entry.target);
+                    const currentDate = new Date();
+                    if (!timeStamp || currentDate.getTime() - timeStamp.getTime() >= 200) {
+                        zoomToMarker(pair?.marker);
+                        timeStamp = currentDate;
                     }
                 }
-            });
-        }, {
-            root: null,
-            threshold: [1]
-        });
+            }
+        };
 
         filteredArray.forEach(pair => {
             if (pair.element) {
-                observer.observe(pair.element);
+                intersectionObserver(pair.element, options, callback);
             }
         });
     }
