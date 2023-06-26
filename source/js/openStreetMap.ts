@@ -7,6 +7,7 @@ import AddMarkers from './openstreetmap/addMarkers';
 import Sidebar from './openstreetmap/sidebar'; 
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
 import { MarkerElementObjects } from './openstreetmap/interface/interface';
+import { mutationObserver } from './helpers/MutationObserver';
 
 class OpenStreetMap {
     container: HTMLElement;
@@ -170,24 +171,22 @@ class OpenStreetMap {
     }
 
     observe() {
+        const options = { childList: true, subtree: true };
         const mapContainer = this.container.querySelector('.c-openstreetmap__map');
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'childList') {
-                    mutation.addedNodes.forEach((addedNode) => {
-                        if (
-                        addedNode instanceof HTMLElement &&
-                        (addedNode.classList?.contains('c-openstreetmap__icon') || 
-                        addedNode.classList?.contains('marker-cluster'))
-                        ) {
-                            addedNode.setAttribute('tabindex', '-1');
-                        }
-                    });
-                }
-            });
-        });
         if (!mapContainer) return;
-        observer.observe(mapContainer, { childList: true, subtree: true });
+        mutationObserver(mapContainer as HTMLElement, options, (mutation: MutationRecord) => {
+            if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach((addedNode) => {
+                    if (
+                        addedNode instanceof HTMLElement &&
+                        (addedNode.classList?.contains('c-openstreetmap__icon') ||
+                        addedNode.classList?.contains('marker-cluster'))
+                    ) {
+                        addedNode.setAttribute('tabindex', '-1');
+                    }
+                });
+            }
+        });
     }
 }
 
