@@ -15,7 +15,7 @@ class OpenStreetMap {
     constructor(container: HTMLElement) {
         this.container = container;
         let map;
-        let id = this.container.getAttribute('data-js-map-id') ?? false;
+        const id = this.container.getAttribute('data-js-map-id') ?? false;
         this.markers;
 
         if (this.container && id) {
@@ -27,7 +27,7 @@ class OpenStreetMap {
                 maxClusterRadius: 50,
             });
         }
-        if (this.container && map && this.markers) this.init(map);
+        if (map && this.markers) this.init(map);
     }
 
     init(map: LeafletMap) {
