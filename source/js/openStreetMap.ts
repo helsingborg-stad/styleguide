@@ -5,72 +5,70 @@ import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
 import AddMarkers from './openstreetmap/addMarkers';
 import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
-import { MapPosition, Tiles, MarkerElementPairs } from './openstreetmap/interface/interface';
+import { MarkerElementPairs } from './openstreetmap/interface/interface';
 
 class OpenStreetMap {
     container: HTMLElement;
-    map?: LeafletMap;
-    markers?: MarkerClusterGroup;
+    map: LeafletMap;
+    markers: MarkerClusterGroup;
 
     constructor(container: HTMLElement) {
         this.container = container;
-        let map;
-        const id = this.container.getAttribute('data-js-map-id') ?? false;
-        this.markers;
+        const id = this.container.getAttribute('data-js-map-id') ?? "";
 
-        if (this.container && id) {
-            map = L.map(`openstreetmap__map-${id}`, {
-                scrollWheelZoom: false,
-                keyboard: false,
-            });
-            this.markers = L.markerClusterGroup({
-                maxClusterRadius: 50,
-            });
-        }
-        if (map && this.markers) this.init(map);
+        this.map = L.map(`openstreetmap__map-${id}`, {
+            scrollWheelZoom: false,
+            keyboard: false,
+        });
+
+        this.markers = L.markerClusterGroup({
+            maxClusterRadius: 50,
+        });
+
+        if (this.map && this.markers) this.init();
     }
 
-    init(map: LeafletMap) {
+    init() {
         this.observe();
-        map.zoomControl.setPosition('bottomright');
+        this.map.zoomControl.setPosition('bottomright');
+
+        this.setMapView();
+    }
+
+
+    setMapView() {
         const startPositionAttr = this.container.getAttribute('data-js-map-start-position');
         const startPosition = JSON.parse(startPositionAttr ?? '');
         const tiles = this.getTilesStyle(this.container);
-
-        this.setMapView(startPosition, tiles, map);
-    }
-
-
-    setMapView(startPosition: MapPosition, tiles: Tiles, map: LeafletMap) {
-        let expand = this.container.querySelector('.c-openstreetmap__expand-icon');
-        map.setView([startPosition.lat, startPosition.lng], startPosition.zoom);
+        const expand = this.container.querySelector('.c-openstreetmap__expand-icon');
+        if (!startPosition.lat || !startPosition.lng || !startPosition.zoom) return;
+        this.map.setView([startPosition.lat, startPosition.lng], startPosition.zoom);
         L.tileLayer(tiles?.url ? tiles.url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: tiles?.attribution
                 ? tiles.attribution
                 : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
+        }).addTo(this.map);
 
-        this.initialize(map); 
-        this.handleAccessibility(map);
+        this.initialize(); 
+        this.handleAccessibility();
 
-        /* TODO: makes it a little jumpy but centers the map correctly based on the users */
         if (expand) {
             expand.addEventListener('click', () => {
-                setTimeout(function () {
-                    map.invalidateSize();
+                setTimeout(() => {
+                    this.map.invalidateSize();
                 }, 200);
             });
         }
     }
 
-    initialize(map: LeafletMap) {
-        const AddMarkersInstance = new AddMarkers(map, this.markers as MarkerClusterGroup, this.container);
+    initialize() {
+        const AddMarkersInstance = new AddMarkers(this.map, this.markers as MarkerClusterGroup, this.container);
         const markerElementPairs = AddMarkersInstance.markerElementObjects();
         this.handleParams();
-        new ShowPost(map, this.markers as MarkerClusterGroup, this.container);
+        new ShowPost(this.map, this.markers as MarkerClusterGroup, this.container);
         new ZoomMarkerClick(markerElementPairs as MarkerElementPairs[]);
-        new ZoomMarkerScroll(map, this.markers as MarkerClusterGroup, markerElementPairs as MarkerElementPairs[]);
+        new ZoomMarkerScroll(this.map, this.markers as MarkerClusterGroup, markerElementPairs as MarkerElementPairs[]);
     }
 
     handleParams() {
@@ -88,8 +86,8 @@ class OpenStreetMap {
         });
     }
 
-    handleAccessibility(map: LeafletMap) {
-        if (!this.markers) return;
+    handleAccessibility() {
+        if (!this.markers || !this.map) return;
         const markers = [...this.markers.getLayers()].filter(layer => layer instanceof L.Marker) as Marker<any>[];
         let currentMarker = 0;
         const attributions = this.container.querySelector('.leaflet-control-attribution');
@@ -98,7 +96,7 @@ class OpenStreetMap {
             attribution.setAttribute('tabindex', '-1');
         });
 
-        map.addEventListener('keydown', (e) => {
+        this.map.addEventListener('keydown', (e) => {
             const event = e.originalEvent;
             switch (event.key) {
                 case 'ArrowDown':
@@ -116,11 +114,11 @@ class OpenStreetMap {
                     break;
 
                 case '+':
-                    map.zoomIn();
+                    this.map.zoomIn();
                     break;
 
                 case '-':
-                    map.zoomOut();
+                    this.map.zoomOut();
                     break;
             }
         });
