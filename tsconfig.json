@@ -10,7 +10,7 @@
         "strict": true,
         "skipLibCheck": true,
         "lib": [
-          "ES2021"
+          "ES2021.String"
         ]
     },
     "include": [
