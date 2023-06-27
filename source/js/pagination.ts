@@ -146,6 +146,7 @@ export default class Pagination {
                 elm.setAttribute(this.indexLinks, index.toString());
                 elm.querySelector('.c-button__label-text')!.innerHTML = index.toString();
 
+                elm.querySelector('.c-button')!.setAttribute('aria-label', index.toString());
                 elm.querySelector('.c-button')!.classList.remove('c-button__filled--primary');
                 elm.querySelector('.c-button')!.classList.add('c-button__filled--default');
 
