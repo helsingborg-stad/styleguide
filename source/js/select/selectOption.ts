@@ -86,9 +86,13 @@ export class selectOption {
 
       //Add or remove value
       let index = valueArray.indexOf(updatedValue);
+      
       if (index === -1) {
-        valueArray.push(updatedValue);
-      } else {
+        const maxSelections = this.getMultiSelectMaxSelections(selectElement);
+        if (maxSelections < 1 || valueArray.length < maxSelections) {
+          valueArray.push(updatedValue);
+        }
+      } else if (index !== -1) {
         valueArray.splice(index, 1);
       }
       
@@ -214,6 +218,11 @@ export class selectOption {
 
   private isMultiselect(element: HTMLElement): boolean {
     return element.getAttribute('data-js-select-type') === 'multiple';
+  }
+  
+  private getMultiSelectMaxSelections(element: HTMLElement): number {
+    const attributeValue = element.getAttribute('data-js-select-max');
+    return parseInt(attributeValue || '0');
   }
 
   private observe(): void {
