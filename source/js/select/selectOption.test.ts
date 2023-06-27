@@ -1,5 +1,5 @@
 import { renderComponent } from '../helpers/ComponentRenderer';
-import { selectOption as SelectOption } from './selectOption';
+import { SelectComponentObserver } from './selectOption';
 import UserEvent from '@testing-library/user-event';
 
 interface ISelectData {
@@ -36,7 +36,7 @@ async function renderSelectComponent(partialModalData: Partial<ISelectData>) {
   const componentView = 'select'
   const component = await renderComponent(componentClassName, componentView, data)
   document.body.innerHTML = document.body.innerHTML + component.innerHTML
-  new SelectOption();
+  new SelectComponentObserver();
   return component
 }
 
@@ -82,5 +82,19 @@ describe('selectOption', () => {
     await UserEvent.click(secondOptionListItem);
 
     expect(select.selectedOptions).toHaveLength(1)
+  });
+  
+  it.skip('should set not selected values as disabled when max number of values are selected', async () => {
+    const maxSelections = 1;
+    const options = {'test-1': 'Test 1', 'test-2': 'Test 2'};
+    await renderSelectComponent({options, maxSelections, multiple: true});
+    const firstOptionListItem = document.querySelector('[data-js-dropdown-option="test-1"]') as HTMLLIElement
+    const secondOptionListItem = document.querySelector('[data-js-dropdown-option="test-2"]') as HTMLLIElement
+    const secondOptionElement = document.querySelector('option[value="test-2"]') as HTMLOptionElement
+    
+    await UserEvent.click(firstOptionListItem);
+
+    expect(secondOptionElement.getAttributeNames).toContain('disabled');
+    expect(secondOptionListItem.getAttributeNames).toContain('data-js-dropdown-option-disabled');
   });
 });

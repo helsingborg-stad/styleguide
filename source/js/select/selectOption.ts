@@ -1,231 +1,207 @@
-export class selectOption {
-  private readonly selectComponentElementAttribute      = 'data-js-select-component'; //Add to main div of component
-  private readonly selectElementAttribute               = 'data-js-select-element';   //Add to the real select dom-element
-  private readonly selectDropdownElementAttribute       = 'data-js-dropdown-element'; //Add to visual (fake) representation of dropdown
-  private readonly selectDropdownOptionElementAttribte  = 'data-js-dropdown-option';  //Add to each visual (fake) representation of option
-  private readonly selectPlaceholderElementAttribte     = 'data-js-placeholder';      //Add to the placeholder element
-  private readonly selectIsOpenClassElementAttribute    = 'data-js-toggle-class';
-  private readonly activeOptionCssClass                 = 'is-selected'; 
-  private readonly emptySelectCssClass                  = 'is-empty';
+export class Select {
+  private readonly selectElementAttribute = 'data-js-select-element';
+  private readonly maxSelectionsAttribute = 'data-js-select-max';
+  private readonly selectDropdownElementAttribute = 'data-js-dropdown-element';
+  private readonly selectDropdownOptionElementAttribte = 'data-js-dropdown-option';
+  private readonly selectPlaceholderElementAttribte = 'data-js-placeholder';
+  private readonly selectIsOpenClassElementAttribute = 'data-js-toggle-class';
+  private readonly activeOptionCssClass = 'is-selected';
+  private readonly emptySelectCssClass = 'is-empty';
+  private element: HTMLElement;
+  private selectElement: HTMLSelectElement;
+  private dropdownElement: HTMLElement;
 
-  constructor() {
-    this.init();
-    this.observe();
+  constructor(element: HTMLElement) {
+    this.element = element
+    this.selectElement = this.getSelectElement(element);
+    this.dropdownElement = this.getDropdownElement(element);
+
+    this.updateSelectedItemsOnClick();
+    this.updateVisualRepresentation();
+    this.setIsEmptyState();
+    this.setPlaceHolderAriaState();
   }
 
-  private init() {
-    const initElements = document.querySelectorAll(`[${this.selectComponentElementAttribute}]`);
-    if(initElements.length) {
-      initElements.forEach((element) => {
-        this.bind(element); 
-      });
-    }
-  }
-
-  private bind(element: Element): void {
-    if(element instanceof HTMLElement) {
-      const isRequired      = this.isRequired(element as HTMLElement);
-      const isMultiselect   = this.isMultiselect(element as HTMLElement);
-      const selectElement   = this.getSelectElement(element as HTMLElement); 
-      const dropdownElement = this.getDropdownElement(element as HTMLElement); 
-
-      this.updateSelectedItemsOnClick(
-        element as HTMLElement,
-        selectElement as HTMLSelectElement, 
-        dropdownElement as HTMLElement,
-        isMultiselect as boolean
-      );
-
-      this.updateVisualRepresentation(
-        selectElement as HTMLSelectElement, 
-        dropdownElement as HTMLElement
-      );
-
-      this.setIsEmptyState(
-        element as HTMLElement,
-        selectElement as HTMLSelectElement,
-      );
-
-      this.setPlaceHolderAriaState(
-        element as HTMLElement,
-        selectElement as HTMLSelectElement,
-      ); 
-    }
-  }
-
-  private updateSelectedItemsOnClick(element: HTMLElement, selectElement: HTMLSelectElement, dropdownElement: HTMLElement, isMultiselect: boolean) : void {
-    const visualOptionsList = dropdownElement.querySelectorAll(`[${this.selectDropdownOptionElementAttribte}]`);
+  updateSelectedItemsOnClick() : void {
+    const visualOptionsList = this.getVisualOptionsList();
     if (visualOptionsList.length) {
       visualOptionsList.forEach((optionElement) => {
         optionElement.addEventListener('click', () => {
           const newValue: string | null = optionElement.getAttribute(this.selectDropdownOptionElementAttribte);
-          if(!isMultiselect) {
-            this.setSingleSelectValue(element, selectElement, newValue); 
+
+          if( newValue === null ) {
+            return
+          }
+
+          if(this.isMultiSelect()) {
+            this.setMultiSelectValue(newValue); 
           } else {
-            this.setMultiSelectValue(selectElement, newValue); 
+            this.setSingleSelectValue(newValue); 
           }
         });
       });
     }
   }
+  
+  setMultiSelectValue(newValue: string) {
+    const selectedValues = this.getSelectedValues();
 
-  private setMultiSelectValue(selectElement: HTMLSelectElement, updatedValue: string | null) {
-
-    if (typeof updatedValue === 'string') {
-      const previousSelectedValues = this.getSelectedValues(selectElement);
-
-      //Get previous state
-      let valueArray = new Array();
-      if (previousSelectedValues.length) {
-        valueArray = previousSelectedValues.map((element) => {
-          if (element instanceof HTMLElement) {
-            return element.value;
-          }
-        });
-      }
-
-      //Add or remove value
-      let index = valueArray.indexOf(updatedValue);
-      
-      if (index === -1) {
-        const maxSelections = this.getMultiSelectMaxSelections(selectElement);
-        if (maxSelections < 1 || valueArray.length < maxSelections) {
-          valueArray.push(updatedValue);
-        }
-      } else if (index !== -1) {
-        valueArray.splice(index, 1);
-      }
-      
-      //Select the options
-      for (let i = 0; i < selectElement.options.length; i++) {
-        const option = selectElement.options[i];
-        this.selectOption(
-          option, 
-          valueArray.includes(option.value)
-        ); 
-      }
-      selectElement.dispatchEvent(
-        new Event('change')
-      );
+    if (selectedValues.includes(newValue)) {
+      selectedValues.splice(selectedValues.indexOf(newValue), 1);
+      this.deSelectOption(newValue); 
+    } else if(!this.maxSelectionsReached()) {
+      selectedValues.push(newValue);
+      this.selectOption(newValue); 
     }
+
+    selectedValues.forEach((value) => {
+      const option = this.dropdownElement.querySelector(`[${this.selectDropdownOptionElementAttribte}="${value}"]`);
+      if (option instanceof HTMLElement) {
+        option.classList.add(this.activeOptionCssClass);
+        option.setAttribute('aria-selected', 'true');
+      }
+    })
+
+    this.setPlaceHolderAriaState();
+    this.setIsEmptyState();
   }
 
-  private setSingleSelectValue(element: HTMLElement, selectElement: HTMLSelectElement, newValue: string | null) {
-    if (typeof newValue === 'string') {
-      selectElement.value = newValue;
-      this.closeDropdown(element, 100); //Delay to increase usability
-    }
-    selectElement.dispatchEvent(
-      new Event('change')
-    );
+  maxSelectionsReached():boolean {
+    const maxSelections = this.getMaxSelections();
+    return maxSelections > 0 && this.getSelectedValues().length >= maxSelections;
   }
 
-  public selectOption(option: HTMLOptionElement, selected: boolean): void {
-    if (selected) {
+  getMaxSelections():number {
+    const maxSelections = this.selectElement.getAttribute(this.maxSelectionsAttribute);
+    return maxSelections ? parseInt(maxSelections) : 0;
+  }
+  
+  selectOption(value: string): void {
+    const option = this.getOptionElementByValue(value)
+    if (option && !option.selected) {
       option.selected = true;
       option.setAttribute('selected','selected'); 
-    } else {
+      this.selectElement.dispatchEvent(new Event('change'));
+    }
+  }
+
+  deSelectOption(value: string): void {
+    const option = this.getOptionElementByValue(value)
+    if (option && option.selected) {
       option.selected = false;
-      option.removeAttribute('selected'); 
+      option.removeAttribute('selected');
+      this.selectElement.dispatchEvent(new Event('change'));
+    }
+  }
+  
+  getOptionElementByValue(value:string) {
+    for (let i = 0; i < this.selectElement.options.length; i++) {
+      const option = this.selectElement.options[i];
+      if (option.value === value) {
+        return option;
+      }
     }
   }
 
-  private closeDropdown(element: HTMLElement, delay: number = 0) {
-    const isOpenClass = element.getAttribute(this.selectIsOpenClassElementAttribute); 
-    if(typeof isOpenClass === 'string') {
-      setTimeout(() => {
-        element.classList.remove(isOpenClass); 
-      }, delay);
+  setSingleSelectValue(newValue: string | null) {
+    const placeholderElement = this.element.querySelector(`[${this.selectPlaceholderElementAttribte}]`);
+    if(placeholderElement instanceof HTMLElement) {
+      placeholderElement.innerText = newValue || '';
     }
+    this.selectElement.value = newValue || '';
+    this.setPlaceHolderAriaState();
+    this.setIsEmptyState();
   }
-
-  private setIsEmptyState(element: HTMLElement, selectElement: HTMLSelectElement) {
-    selectElement.addEventListener('change', (event: Event) => {
-      const selectedElements = this.getSelectedValues(selectElement);
-      if(selectedElements.length) {
-        element.classList.remove(this.emptySelectCssClass); 
+  
+  setIsEmptyState() {
+    const placeholderElement = this.element.querySelector(`[${this.selectPlaceholderElementAttribte}]`);
+    if(placeholderElement instanceof HTMLElement) {
+      if(this.selectElement.value === '') {
+        placeholderElement.classList.add(this.emptySelectCssClass); 
       } else {
-        element.classList.add(this.emptySelectCssClass); 
+        placeholderElement.classList.remove(this.emptySelectCssClass); 
       }
-    }); 
+    }
   }
 
-  private setPlaceHolderAriaState(element: HTMLElement, selectElement: HTMLSelectElement) {
-    selectElement.addEventListener('change', (event: Event) => {
-      const selectedElements    = this.getSelectedValues(selectElement);
-      const placeholderElement  = element.querySelector(`[${this.selectPlaceholderElementAttribte}]`);
-      
-      if(placeholderElement instanceof HTMLElement) {
-        if(selectedElements.length) {
-          placeholderElement.setAttribute('aria-hidden', 'true');
-        } else {
-          placeholderElement.setAttribute('aria-hidden', 'false');
-        }
+  setPlaceHolderAriaState() {
+    const placeholderElement = this.element.querySelector(`[${this.selectPlaceholderElementAttribte}]`);
+    if(placeholderElement instanceof HTMLElement) {
+      if(this.selectElement.value === '') {
+        placeholderElement.setAttribute('aria-hidden', 'false'); 
+      } else {
+        placeholderElement.setAttribute('aria-hidden', 'true'); 
       }
-    }); 
+    }
   }
 
-  private updateVisualRepresentation(selectElement: HTMLSelectElement, dropdownElement: HTMLElement) : void {
-    selectElement.addEventListener("change", (event: Event) => {
+  updateVisualRepresentation(): void {
+    this.selectElement.addEventListener("change", () => {
 
-      this.resetDropdownElement(dropdownElement); 
+      this.resetDropdownElement(this.dropdownElement);
 
-      const selectedValues = this.getSelectedValues(selectElement);
-      if(selectedValues.length) {
-        selectedValues.forEach((element) => {
-          if(element instanceof HTMLElement) {
-            const selectedValue = element.getAttribute('value');
-            if (typeof selectedValue === "string") {
-              const option = dropdownElement.querySelector(`[${this.selectDropdownOptionElementAttribte}="${selectedValue}"]`);
-              if(option instanceof HTMLElement) {
-                option.classList.add(this.activeOptionCssClass); 
-                option.setAttribute('aria-selected', 'true'); 
-              }
-            }
+      const selectedValues = this.getSelectedValues();
+      if (selectedValues.length) {
+        selectedValues.forEach((value) => {
+          const option = this.dropdownElement.querySelector(`[${this.selectDropdownOptionElementAttribte}="${value}"]`);
+          if (option instanceof HTMLElement) {
+            option.classList.add(this.activeOptionCssClass);
+            option.setAttribute('aria-selected', 'true');
           }
         })
       }
     });
   }
+  
+  getSelectedValues(): string[] {
 
-  private resetDropdownElement(dropdownElement: HTMLElement) {
-    const visualOptionsList = dropdownElement.querySelectorAll(`[${this.selectDropdownOptionElementAttribte}]`);
-    if (visualOptionsList.length) {
-      visualOptionsList.forEach((optionElement) => {
-        optionElement.classList.remove(this.activeOptionCssClass); 
-        optionElement.setAttribute('aria-selected', 'false'); 
-      })
+    if (this.isMultiSelect()) {
+      return Array.from(this.selectElement.selectedOptions).map((option) => option.value);
+    }
+
+    return [this.selectElement.value];
+  }
+  
+  resetDropdownElement(dropdownElement: HTMLElement) {
+    const options = dropdownElement.querySelectorAll(`[${this.selectDropdownOptionElementAttribte}]`);
+    if(options.length) {
+      options.forEach((option) => {
+        option.classList.remove(this.activeOptionCssClass); 
+        option.setAttribute('aria-selected', 'false'); 
+      });
     }
   }
 
-  private getSelectedValues(selectElement: HTMLSelectElement) {
-    return Array.from(selectElement.options).filter(function (option) {
-      return option.selected;
-    });
+  getVisualOptionsList(): NodeListOf<HTMLElement> {
+    return this.dropdownElement.querySelectorAll(`[${this.selectDropdownOptionElementAttribte}]`);
   }
 
-  private getSelectElement(element: HTMLElement): HTMLSelectElement {
+  getSelectElement(element: HTMLElement): HTMLSelectElement {
     return element.querySelector(`[${this.selectElementAttribute}]`) as HTMLSelectElement;
   }
 
-  private getDropdownElement(element: HTMLElement): HTMLElement {
+  isMultiSelect(): boolean {
+    return this.selectElement.hasAttribute('multiple');
+  }
+
+  getDropdownElement(element: HTMLElement): HTMLElement {
     return element.querySelector(`[${this.selectDropdownElementAttribute}]`) as HTMLElement;
   }
+}
 
-  private isRequired(element: HTMLElement): boolean {
-    return element.getAttribute('data-js-is-required') === 'true';
-  }
 
-  private isMultiselect(element: HTMLElement): boolean {
-    return element.getAttribute('data-js-select-type') === 'multiple';
+export class SelectComponentObserver {
+  
+  private readonly selectComponentElementAttribute = 'data-js-select-component'; //Add to main div of component
+
+  constructor() {
+    const container = document.documentElement || document.body;
+    container.querySelectorAll(`[${this.selectComponentElementAttribute}]`).forEach((element) => {
+      new Select(element as HTMLElement);
+    })
   }
   
-  private getMultiSelectMaxSelections(element: HTMLElement): number {
-    const attributeValue = element.getAttribute('data-js-select-max');
-    return parseInt(attributeValue || '0');
-  }
-
-  private observe(): void {
+  observe(): void {
     const container = document.documentElement || document.body;
     const observerOptions = {
       childList: true,
@@ -237,7 +213,7 @@ export class selectOption {
         if (mutation.type === "childList") {
           mutation.addedNodes.forEach((node) => {
             if (node instanceof HTMLElement && node.hasAttribute(`[${this.selectComponentElementAttribute}]`)) {
-              this.bind(node); 
+              new Select(node);
             }
           });
         }
