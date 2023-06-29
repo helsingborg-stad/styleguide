@@ -27,10 +27,13 @@ class Fields {
             if (formInput.form?.classList.contains('js-form-validation')) {
                 continue;
             }
-            let inputId = formInput.getAttribute('id');
+            const inputId = formInput.getAttribute('id');
+            const input = document.getElementById(inputId);
+
+            if (!inputId || !input) return;
 
             // On Click event listener - Setting data
-            document.getElementById(inputId).addEventListener('click', function (e) {
+            input.addEventListener('click', function (e) {
                 self.formElement = this;
 
                 self.formElementType = (self.formElement.getAttribute('type')) ?
