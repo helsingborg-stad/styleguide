@@ -97,6 +97,15 @@ class Fields {
         }
     }
 
+    checkFormRequirements(form) {
+        if (form.querySelector('[type="submit"]') === null) {
+            console.error('Form must have a submit button.', form)
+            return false;
+        }
+
+        return true;
+    }
+
     setupFormValidate() {
         const forms = document.querySelectorAll('.js-form-validation');
         const checkboxHandler = new Checkbox();
@@ -107,6 +116,11 @@ class Fields {
         const formEmpty = new CustomEvent('formEmpty', {});
 
         forms.forEach(form => {
+            
+            if (!this.checkFormRequirements(form)) {
+                return
+            }
+
             const inputs = form.querySelectorAll('input, textarea, select');
             const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
             const params = { form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler };

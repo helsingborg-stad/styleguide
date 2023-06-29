@@ -41,7 +41,7 @@ import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
-import {selectOption} from './select/selectOption'; 
+import {SelectComponentObserver} from './select/Select'; 
 import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
 import { initializeCompressed } from './compressed';
@@ -53,7 +53,7 @@ IframeAcceptance();
 AnchorMenu();
 
 const DeviceDetectInstance = new DeviceDetect(); 
-const selectOptionInstance = new selectOption(); 
+const selectComponentObserverInstance = new SelectComponentObserver();
 const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
@@ -80,6 +80,7 @@ initializeMenus();
 initializeSlider();
 initializeCompressed();
 setupCopy();
+selectComponentObserverInstance.observe();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {

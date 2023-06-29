@@ -8,7 +8,7 @@
                 'label' => 'Select Single Name',
                 'hideLabel' => true,
                 'placeholder' => "Placeholder in single ",
-                'required' => true,
+                'required' => false,
 
                 'size' => $size,
                 'options' => [
