@@ -15,7 +15,8 @@ interface ISelectData {
 	name: string,
 	hideLabel: boolean,
 	size: string
-	maxSelections?: number
+	maxSelections?: number,
+	placeholder: string
 }
 
 const defaultComponentData: ISelectData = {
@@ -29,6 +30,7 @@ const defaultComponentData: ISelectData = {
 	hideLabel: false,
 	size: '',
 	name: 'foo',
+	placeholder: ''
 }
 
 async function renderSelectComponent(partialModalData: Partial<ISelectData>) {
@@ -69,6 +71,21 @@ describe('selectOption', () => {
 		await UserEvent.click(secondOptionListItem);
 
 		expect(select.selectedOptions).toHaveLength(2)
+	});
+
+	it('should comma separate selected values in multiselect', async () => {
+		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
+		await renderSelectComponent({ options, multiple: true });
+		const firstOptionListItem = document.querySelector('[data-js-dropdown-option="test-1"]') as HTMLLIElement
+		const secondOptionListItem = document.querySelector('[data-js-dropdown-option="test-2"]') as HTMLLIElement
+
+		await UserEvent.click(firstOptionListItem);
+		await UserEvent.click(secondOptionListItem);
+		const selectedOptionElements = document.querySelectorAll('option:checked') as NodeListOf<HTMLOptionElement>
+		const selectedOptionLabels = Array.from(selectedOptionElements).map((option) => option.textContent || '')
+		const selectedOptionLabelsString = selectedOptionLabels.join('')
+
+		expect(selectedOptionLabelsString).toBe('Test 1, Test 2')
 	});
 
 	it('should allow only max number of selected values when maxSelections is set', async () => {

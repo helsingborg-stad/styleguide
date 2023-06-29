@@ -22,6 +22,29 @@ export class Select {
 		this.setIsEmptyState();
 		this.setPlaceHolderAriaState();
 		this.setupClearButton();
+		this.commaSeparateSelectedValuesInMultiSelect();
+	}
+	
+	commaSeparateSelectedValuesInMultiSelect() {
+		
+		if (!this.isMultiSelect()) return;
+
+		this.selectElement.addEventListener('change', () => {
+			const suffix = ', ';
+			const optionElements = this.selectElement.querySelectorAll<HTMLOptionElement>('option:checked');
+
+			// Add commas to all selected option labels
+			optionElements.forEach((optionElement) => {
+				const optionLabel = optionElement.textContent || '';
+				const optionLabelWithoutComma = optionLabel.replace(/(,\s?)$/gm, '');
+				optionElement.textContent = `${optionLabelWithoutComma.trim()}${suffix}`;
+			})
+
+			// Remove comma from last option label
+			const lastSelectedOptionElement = optionElements[optionElements.length - 1];
+			const lastSelectedOptionLabel = lastSelectedOptionElement.textContent || '';
+			lastSelectedOptionElement.textContent = lastSelectedOptionLabel.replace(/(,\s?)$/gm, '');
+		});
 	}
 
 	updateSelectedItemsOnClick(): void {

@@ -272,10 +272,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         .c-select__select-option[selected] {
             display: inline-block;
         }
-
-        .c-select__select-option + .c-select__select-option::after {
-            content: ", "; 
-        }
     }
 
     /* States */
