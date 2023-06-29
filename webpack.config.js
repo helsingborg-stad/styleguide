@@ -14,6 +14,7 @@ module.exports = {
         buildcss: './build/index.js',
     },
     mode: 'production',
+    cache: true,
 
     //assets/dist/css/styleguide-css.min.css
     watchOptions: {
