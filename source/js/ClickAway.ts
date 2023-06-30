@@ -10,6 +10,12 @@ export class ClickAway {
     initialize() {
         this.setClassesToRemove(this.element)
         document.addEventListener('click', (event) => this.handleClick(event as PointerEvent))
+        document.addEventListener('keydown', (event) => this.handleKeydown(event))
+    }
+    
+    handleKeydown(event: KeyboardEvent): any {
+        if (event.key !== 'Escape') return
+        this.removeClasses(this.element, this.classesToRemove)
     }
 
     handleClick(event: PointerEvent) {

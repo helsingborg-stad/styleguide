@@ -41,7 +41,7 @@ import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
-import {SelectComponentObserver} from './select/Select'; 
+import {SelectComponentObserver} from './select/SelectComponentObserver'; 
 import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
 import { initializeCompressed } from './compressed';
