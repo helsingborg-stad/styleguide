@@ -5,7 +5,6 @@ export class Select {
 	private readonly selectDropdownElementAttribute = 'data-js-dropdown-element';
 	private readonly selectDropdownOptionElementAttribte = 'data-js-dropdown-option';
 	private readonly selectPlaceholderElementAttribte = 'data-js-placeholder';
-	private readonly selectIsOpenClassElementAttribute = 'data-js-toggle-class';
 	private readonly activeOptionCssClass = 'is-selected';
 	private readonly emptySelectCssClass = 'is-empty';
 	private element: HTMLElement;
@@ -17,14 +16,49 @@ export class Select {
 		this.selectElement = this.getSelectElement(element);
 		this.dropdownElement = this.getDropdownElement(element);
 
+		this.setupEventListeners();
+	}
+
+	setupEventListeners() {
+		const clearButton = this.element.querySelector(`[${Select.selectClearAttribute}]`);
+		
+		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
+		this.selectElement.addEventListener('change', () => this.commaSeparateSelectedValuesInMultiSelect());
+		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
+		clearButton?.addEventListener('click', () => this.setSingleSelectValue(null));
+
+		this.runFunctionsRequiredForInitialization();
+	}
+
+	runFunctionsRequiredForInitialization() {
+		this.disableMultiSelectOptionsWhenMaxSelectionsReached()
 		this.updateSelectedItemsOnClick();
 		this.updateVisualRepresentation();
 		this.setIsEmptyState();
 		this.setPlaceHolderAriaState();
-		this.setupClearButton();
+		this.updateClearButtonVisibilityState()
 		this.commaSeparateSelectedValuesInMultiSelect();
-		this.commaSeparateSelectedValuesInMultiSelectOnChange();
+		this.disableMultiSelectOptionsWhenMaxSelectionsReached();
 	}
+
+	disableMultiSelectOptionsWhenMaxSelectionsReached() {
+
+		if (!this.isMultiSelect()) return;
+
+		const limitReached = this.maxSelectionsReached();
+		const optionElements = this.selectElement.querySelectorAll<HTMLOptionElement>('option');
+
+		optionElements.forEach((optionElement) => {
+			const disabled = limitReached && !optionElement.selected;
+			const optionListElementSelector = `[${this.selectDropdownOptionElementAttribte}="${optionElement.value}"]`;
+			const optionListElement = this.dropdownElement.querySelector<HTMLElement>(optionListElementSelector);
+
+			optionElement.disabled = disabled
+			optionListElement?.setAttribute('aria-disabled', disabled ? 'true' : 'false')
+		})
+	}
+
+
 
 	commaSeparateSelectedValuesInMultiSelect() {
 		if (!this.isMultiSelect()) return;
@@ -40,10 +74,6 @@ export class Select {
 				? optionLabelWithoutComma
 				: `${optionLabelWithoutComma}${suffix}`
 		})
-	}
-	
-	commaSeparateSelectedValuesInMultiSelectOnChange() {
-		this.selectElement.addEventListener('change', () => this.commaSeparateSelectedValuesInMultiSelect());
 	}
 
 	updateSelectedItemsOnClick(): void {
@@ -67,29 +97,15 @@ export class Select {
 		}
 	}
 
-	setupClearButton(): void {
+	updateClearButtonVisibilityState() {
 		const clearButton = this.element.querySelector(`[${Select.selectClearAttribute}]`);
-		
-		if (clearButton instanceof HTMLElement) {
-			clearButton.setAttribute('aria-hidden', this.selectElement.value === '' ? 'true' : 'false');
-			this.handleClearButtonVisibilityState()
-			clearButton.addEventListener('click', () => {
-				this.setSingleSelectValue(null);
-			});
-		}
-	}
-	
-	handleClearButtonVisibilityState() {
-		this.selectElement.addEventListener('change', () => {
-			
-			const clearButton = this.element.querySelector(`[${Select.selectClearAttribute}]`);
+		if (!clearButton) return;
 
-			if (this.selectElement.value === '') {
-				clearButton?.setAttribute('aria-hidden', 'true');
-			} else {
-				clearButton?.setAttribute('aria-hidden', 'false');
-			}
-		});
+		if (this.selectElement.value === '') {
+			clearButton?.setAttribute('aria-hidden', 'true');
+		} else {
+			clearButton?.setAttribute('aria-hidden', 'false');
+		}
 	}
 
 	setMultiSelectValue(newValue: string) {
@@ -127,19 +143,19 @@ export class Select {
 
 	selectOption(value: string): void {
 		const option = this.getOptionElementByValue(value)
-		if (option && !option.selected) {
+		if (option) {
 			option.selected = true;
 			option.setAttribute('selected', 'selected');
-			this.dispactSelectChangeEvent();
+			this.dispatchSelectChangeEvent();
 		}
 	}
 
 	deSelectOption(value: string): void {
 		const option = this.getOptionElementByValue(value)
-		if (option && option.selected) {
+		if (option) {
 			option.selected = false;
 			option.removeAttribute('selected');
-			this.dispactSelectChangeEvent();
+			this.dispatchSelectChangeEvent();
 		}
 	}
 
@@ -152,7 +168,7 @@ export class Select {
 		}
 	}
 
-	dispactSelectChangeEvent() {
+	dispatchSelectChangeEvent() {
 		this.selectElement.dispatchEvent(new Event('change'));
 	}
 
@@ -162,7 +178,7 @@ export class Select {
 			placeholderElement.innerText = newValue || '';
 		}
 		this.selectElement.value = newValue || '';
-		this.dispactSelectChangeEvent();
+		this.dispatchSelectChangeEvent();
 		this.setPlaceHolderAriaState();
 		this.setIsEmptyState();
 	}

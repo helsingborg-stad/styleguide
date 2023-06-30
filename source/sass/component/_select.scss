@@ -140,6 +140,18 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
             }
         }
     }
+
+    .c-select__dropdown .c-select__option[aria-disabled="true"] {
+        
+        .c-icon {
+            color: $color-disabled;
+        }
+
+        .c-select__option-label {
+            color: $color-disabled-text;
+            font-style: italic;
+        }
+    }
     
     /* Size modifiers */ 
     &.c-select--sm {

@@ -102,7 +102,7 @@ describe('selectOption', () => {
 		expect(select.selectedOptions).toHaveLength(1)
 	});
 
-	it.skip('should set not selected values as disabled when max number of values are selected', async () => {
+	it('should set not selected values as disabled when max number of values are selected', async () => {
 		const maxSelections = 1;
 		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
 		await renderSelectComponent({ options, maxSelections, multiple: true });
@@ -112,8 +112,21 @@ describe('selectOption', () => {
 
 		await UserEvent.click(firstOptionListItem);
 
-		expect(secondOptionElement.getAttributeNames).toContain('disabled');
-		expect(secondOptionListItem.getAttributeNames).toContain('data-js-dropdown-option-disabled');
+		expect(secondOptionElement.disabled).toBe(true);
+		expect(secondOptionListItem.getAttribute('aria-disabled')).toBe('true');
+	});
+	
+	it('should set not disable selected values when max number of values are selected', async () => {
+		const maxSelections = 1;
+		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
+		await renderSelectComponent({ options, maxSelections, multiple: true });
+		const firstOptionListItem = document.querySelector('[data-js-dropdown-option="test-1"]') as HTMLLIElement
+		const firstOptionElement = document.querySelector('option[value="test-1"]') as HTMLOptionElement
+
+		await UserEvent.click(firstOptionListItem);
+
+		expect(firstOptionElement.disabled).toBe(false);
+		expect(firstOptionListItem.getAttribute('aria-disabled')).toBe('false');
 	});
 
 	describe('clear button', () => {
