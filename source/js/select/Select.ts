@@ -8,6 +8,8 @@ export enum SelectElementSelector {
 	actionOverlayElementAttribute = 'data-js-select-action-overlay',
 	activeOptionCssClass = 'is-selected',
 	emptySelectCssClass = 'is-empty',
+	expandLessIconCssClass = 'c-icon--expand-less',
+	expandMoreIconCssClass = 'c-icon--expand-more',
 }
 
 export class Select {
@@ -16,6 +18,10 @@ export class Select {
 	private dropdownElement: HTMLElement;
 	private actionOverlayElement: HTMLElement;
 	private dropdownOptionElements: NodeListOf<HTMLElement>;
+	private clearButton: HTMLElement|null;
+	private dropDownElement: HTMLElement;
+	private expandLessIcon: HTMLElement;
+	private expandMoreIcon: HTMLElement;
 
 	constructor(element: HTMLElement) {
 		this.element = element
@@ -23,21 +29,36 @@ export class Select {
 		this.dropdownElement = this.getDropdownElement();
 		this.actionOverlayElement = this.getActionOverlayElement();
 		this.dropdownOptionElements = this.getDropdownOptionElements();
+		this.dropDownElement = this.element.querySelector(`[${SelectElementSelector.selectDropdownElementAttribute}]`) as HTMLElement;
+		this.clearButton = this.element.querySelector(`[${SelectElementSelector.selectClearAttribute}]`);
+		this.expandLessIcon = this.element.querySelector(`.${SelectElementSelector.expandLessIconCssClass}`) as HTMLElement;
+		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
 
 		this.setupEventListeners();
 	}
 
 	setupEventListeners() {
-		const clearButton = this.element.querySelector(`[${SelectElementSelector.selectClearAttribute}]`);
-		
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.commaSeparateSelectedValuesInMultiSelect());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
 		this.actionOverlayElement.addEventListener('keydown', (event) => this.openDropdownOnSpacebar(event));
 		this.dropdownOptionElements.forEach(element => element.addEventListener('keydown', (event) => this.selectOptionOnDropdownOptionElementKeyDown(event)))
-		clearButton?.addEventListener('click', () => this.setSingleSelectValue(null));
+		this.clearButton?.addEventListener('click', () => this.setSingleSelectValue(null));
+		this.element.addEventListener('classListChange', () => this.updateDropdownAriaStateOnTopElementClassListChange());
+		this.element.addEventListener('classListChange', () => this.updateExpandIconsAriaStateOnTopElementClassListChange());
 
 		this.runFunctionsRequiredForInitialization();
+	}
+
+	updateExpandIconsAriaStateOnTopElementClassListChange(): void {
+		const isOpen = this.element.classList.contains('is-open');
+		this.expandMoreIcon.setAttribute('aria-hidden', Boolean(isOpen).toString());
+		this.expandLessIcon.setAttribute('aria-hidden', Boolean(!isOpen).toString());
+	}
+	
+	updateDropdownAriaStateOnTopElementClassListChange(): void {
+		const isOpen = this.element.classList.contains('is-open');
+		this.dropDownElement.setAttribute('aria-hidden', Boolean(!isOpen).toString());
 	}
 
 	selectOptionOnDropdownOptionElementKeyDown(event: KeyboardEvent): any {
@@ -63,6 +84,15 @@ export class Select {
 		this.updateClearButtonVisibilityState()
 		this.commaSeparateSelectedValuesInMultiSelect();
 		this.disableMultiSelectOptionsWhenMaxSelectionsReached();
+		this.setupClassListChangeEventDispatcher();
+	}
+
+	setupClassListChangeEventDispatcher() {
+		const classListChangeMutationObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => mutation.attributeName === 'class' && mutation.target.dispatchEvent(new Event('classListChange')));
+		});
+
+		classListChangeMutationObserver.observe(this.element, {attributes: true});
 	}
 
 	disableMultiSelectOptionsWhenMaxSelectionsReached() {
@@ -81,8 +111,6 @@ export class Select {
 			optionListElement?.setAttribute('aria-disabled', disabled ? 'true' : 'false')
 		})
 	}
-
-
 
 	commaSeparateSelectedValuesInMultiSelect() {
 		if (!this.isMultiSelect()) return;

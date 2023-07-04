@@ -1,8 +1,9 @@
 import { renderComponent } from '../helpers/ComponentRenderer';
 import { SelectElementSelector } from './Select';
 import UserEvent from '@testing-library/user-event';
-import { getByText } from "@testing-library/dom";
+import { findByRole, getByRole, getByText } from "@testing-library/dom";
 import { SelectComponentObserver } from './SelectComponentObserver';
+import ToggleClasses from '../toggle';
 
 interface ISelectData {
 	label: string,
@@ -11,7 +12,7 @@ interface ISelectData {
 	required: boolean,
 	options: { [key: string]: string },
 	errorMessage: string
-	preselected?: string[],
+	preselected: string[]|false,
 	multiple: boolean,
 	name: string,
 	hideLabel: boolean,
@@ -30,7 +31,8 @@ const defaultComponentData: ISelectData = {
 	hideLabel: false,
 	size: '',
 	name: 'foo',
-	placeholder: ''
+	placeholder: '',
+	preselected: false
 }
 
 async function renderSelectComponent(partialModalData: Partial<ISelectData>) {
@@ -178,7 +180,7 @@ describe('Select', () => {
 	})
 
 	describe('accessibility', () => {
-		it('space button should open dropdown', async () => {
+		it('keyboard navigation should enable selecting options', async () => {
 			const options = { 'test-1': 'Test 1' };
 			await renderSelectComponent({ options });
 			const select = document.querySelector('select') as HTMLSelectElement
@@ -189,6 +191,6 @@ describe('Select', () => {
 			await UserEvent.type(document.activeElement as HTMLElement, ' ') // Select first option by clicking space on it.
 
 			expect(select.value).toBe('test-1');
-		})
+		})		
 	})
 });
