@@ -1,11 +1,14 @@
+import { toHaveAccessibleDescription } from "@testing-library/jest-dom/matchers";
+
 export enum SelectElementSelector {
 	selectElementAttribute = 'data-js-select-element',
 	maxSelectionsAttribute = 'data-js-select-max',
 	selectClearAttribute = 'data-js-select-clear',
 	selectDropdownElementAttribute = 'data-js-dropdown-element',
 	selectDropdownOptionElementAttribte = 'data-js-dropdown-option',
-	selectPlaceholderElementAttribte = 'data-js-placeholder',
 	actionOverlayElementAttribute = 'data-js-select-action-overlay',
+	preserveNativeBehaviorAttribute = 'data-select-preserve-native-behavior',
+	placeholderAttribute = 'data-js-placeholder',
 	activeOptionCssClass = 'is-selected',
 	emptySelectCssClass = 'is-empty',
 	expandLessIconCssClass = 'c-icon--expand-less',
@@ -22,6 +25,8 @@ export class Select {
 	private dropDownElement: HTMLElement;
 	private expandLessIcon: HTMLElement;
 	private expandMoreIcon: HTMLElement;
+	private preserveNativeBehaviorElement: HTMLElement;
+	private placeholderText: string;
 
 	constructor(element: HTMLElement) {
 		this.element = element
@@ -33,13 +38,19 @@ export class Select {
 		this.clearButton = this.element.querySelector(`[${SelectElementSelector.selectClearAttribute}]`);
 		this.expandLessIcon = this.element.querySelector(`.${SelectElementSelector.expandLessIconCssClass}`) as HTMLElement;
 		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
+		this.preserveNativeBehaviorElement = this.element.querySelector(`[${SelectElementSelector.preserveNativeBehaviorAttribute}]`) as HTMLElement;
+		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || ""
+
+		this.preserveNativeBehaviorElement.addEventListener('click', (e) => {
+			this.selectElement.focus()
+		})
 
 		this.setupEventListeners();
 	}
 
 	setupEventListeners() {
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
-		this.selectElement.addEventListener('change', () => this.commaSeparateSelectedValuesInMultiSelect());
+		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
 		this.actionOverlayElement.addEventListener('keydown', (event) => this.openDropdownOnSpacebar(event));
 		this.dropdownOptionElements.forEach(element => element.addEventListener('keydown', (event) => this.selectOptionOnDropdownOptionElementKeyDown(event)))
@@ -80,9 +91,8 @@ export class Select {
 		this.updateSelectedItemsOnClick();
 		this.updateVisualRepresentation();
 		this.setIsEmptyState();
-		this.setPlaceHolderAriaState();
 		this.updateClearButtonVisibilityState()
-		this.commaSeparateSelectedValuesInMultiSelect();
+		this.updatePlaceholderText();
 		this.disableMultiSelectOptionsWhenMaxSelectionsReached();
 		this.setupClassListChangeEventDispatcher();
 	}
@@ -112,20 +122,10 @@ export class Select {
 		})
 	}
 
-	commaSeparateSelectedValuesInMultiSelect() {
-		if (!this.isMultiSelect()) return;
-
+	updatePlaceholderText() {
 		const optionElements = this.selectElement.querySelectorAll<HTMLOptionElement>('option:checked');
-		const suffix = ', ';
-
-		optionElements.forEach((optionElement, key) => {
-			const optionLabel = optionElement.textContent || '';
-			const optionLabelWithoutComma = optionLabel.replace(/(,\s?)$/gm, '').trim();
-
-			optionElement.textContent = key === optionElements.length - 1
-				? optionLabelWithoutComma
-				: `${optionLabelWithoutComma}${suffix}`
-		})
+		const placeholderText = Array.from(optionElements).map(option => option.textContent?.trim()).join(', ');
+		this.actionOverlayElement.textContent = Boolean(placeholderText) ? placeholderText : this.placeholderText; 
 	}
 
 	updateSelectedItemsOnClick(): void {
@@ -179,7 +179,6 @@ export class Select {
 			}
 		})
 
-		this.setPlaceHolderAriaState();
 		this.setIsEmptyState();
 	}
 
@@ -225,13 +224,8 @@ export class Select {
 	}
 
 	setSingleSelectValue(newValue: string | null) {
-		const placeholderElement = this.element.querySelector(`[${SelectElementSelector.selectPlaceholderElementAttribte}]`);
-		if (placeholderElement instanceof HTMLElement) {
-			placeholderElement.innerText = newValue || '';
-		}
 		this.selectElement.value = newValue || '';
 		this.dispatchSelectChangeEvent();
-		this.setPlaceHolderAriaState();
 		this.setIsEmptyState();
 	}
 
@@ -241,17 +235,6 @@ export class Select {
 			this.element.classList.add(SelectElementSelector.emptySelectCssClass);
 		} else {
 			this.element.classList.remove(SelectElementSelector.emptySelectCssClass);
-		}
-	}
-
-	setPlaceHolderAriaState() {
-		const placeholderElement = this.element.querySelector(`[${SelectElementSelector.selectPlaceholderElementAttribte}]`);
-		if (placeholderElement instanceof HTMLElement) {
-			if (this.element.classList.contains(SelectElementSelector.emptySelectCssClass)) {
-				placeholderElement.setAttribute('aria-hidden', 'false');
-			} else {
-				placeholderElement.setAttribute('aria-hidden', 'true');
-			}
 		}
 	}
 

@@ -22,57 +22,40 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 .c-select {
     position: relative;
 
+    .c-select__select-element {
+        bottom: 0;
+        height: 1px;
+        left: 0;
+        outline: none;
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+    }
+
     .c-select__action-overlay {
-        @include cover(); 
         cursor: pointer;
         z-index: $level-4;
-    }
-
-    /* Hides the trigger element, to act natively */
-    &.is-android .c-select__action-overlay,
-    &.is-ios .c-select__action-overlay {
-        display: none;
-    }
-
-    .c-select__placeholder {
-        @include cover(); 
-        display: none;
-        align-items: center;
-        z-index: $level-3;
-        padding: 0 map-get($spacers, "2");
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .c-select__select-element {
-        appearance: none;
-        width: 100%;
-        margin: 0;
-        outline: 0;
-        height: map-get($spacers, "6");
-        padding: 0 map-get($spacers, "2");
-        font-size: $c-select-font-size-md;
-        line-height: $c-select-font-size-md-line-height;
-        border: $c-select-border-width solid $c-select-border-color;
-        background: $c-select-background-color;
-        border-radius: calc($c-select-border-radius * $base);
-        position: relative;
-        z-index: $level-2;
-        text-overflow: ellipsis;
 
         &:focus {
-            background-color: $color-form-fields-focus;
+            @include focus();
         }
+    }
 
-        &:focus + .c-select_focus-styler {
+    &.is-empty .c-select__action-overlay {
+        color: $color-light;
+    }
+
+    [data-select-preserve-native-behavior] {
+        display: none;
+    }
+
+    &.is-ios, &.is-android {
+        [data-select-preserve-native-behavior] {
             display: block;
-            outline: thick solid $color-focus-outline;
-            width: 100%;
             height: 100%;
             position: absolute;
-            top: 0;
-            border-radius: calc($c-select-border-radius * $base);
-            pointer-events: none;
+            width: 100%;
+            z-index: $level-5;
         }
     }
 
@@ -82,8 +65,8 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         top: 0;
         left: auto;
         padding: map-get($spacers, "2");
-        z-index: $level-5;
-        height: inherit;
+        z-index: $level-6;
+        height: 100%;
         color: $color-primary;
         display: flex;
         align-items: center;
@@ -101,7 +84,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         padding: map-get($spacers, "2");
         z-index: $level-2;
         transition: none;
-        height: inherit;
+        height: 100%;
         color: $color-primary;
         pointer-events: none;
         display: flex;
@@ -155,15 +138,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     
     /* Size modifiers */ 
     &.c-select--sm {
-        .c-select__select-element,
         .c-select__clear-button,
         .c-select__expand-button {
             padding: 0 map-get($spacers, "1"); 
-            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
         }
 
-        .c-select__select-element,
-        .c-select__placeholder,
         .c-select__clear-button {
             font-size: $c-select-font-size-sm;
             line-height: $c-select-font-size-sm-line-height;
@@ -171,7 +150,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
         .c-select__clear-button .c-icon {
             font-size: 1.5em
-            // line-height: $c-select-font-size-sm-line-height;
         }
 
         .c-select__dropdown .c-select__option {
@@ -180,14 +158,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     }
 
     &.c-select--md {
-        .c-select__select-element, 
         .c-select__clear-button,
         .c-select__expand-button {
             padding: 0 map-get($spacers, "2");
-            height: map-get($spacers, "6"); 
         }
-        .c-select__select-element,
-        .c-select__placeholder,
+        
         .c-select__clear-button {
             font-size: $c-select-font-size-md;
             line-height: $c-select-font-size-md-line-height;
@@ -195,7 +170,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
         .c-select__clear-button .c-icon {
             font-size: 1.5em
-            //line-height: $c-select-font-size-md-line-height;
         }
 
         .c-select__dropdown .c-select__option {
@@ -204,14 +178,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     }
 
     &.c-select--lg {
-        .c-select__select-element,
         .c-select__clear-button,
         .c-select__expand-button {
             padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
-            height: #{map-get($spacers, "8")};
         }
-        .c-select__select-element,
-        .c-select__placeholder,
+
         .c-select__clear-button {
             font-size: $c-select-font-size-lg;
             line-height: $c-select-font-size-lg-line-height;
@@ -257,35 +228,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         line-height: 0;
     }
 
-    /* Multiselect specific */
-    &.c-select--multiselect {
-        .c-select__select-element {
-            overflow: hidden;
-            padding: 0 map-get($spacers, "2");
-        }
-
-        &.c-select--sm .c-select__select-element {
-            padding: calc(var(--base, 8px)*1.2); 
-        }
-
-        &.c-select--md .c-select__select-element {
-            padding: calc(var(--base, 8px)*1.7);  
-        }
-
-        &.c-select--lg .c-select__select-element {
-            padding: calc(var(--base, 8px)*2.7);  
-        }
-
-        .c-select__select-option {
-            display: none;
-            background: none;
-        }
-
-        .c-select__select-option[selected] {
-            display: inline-block;
-        }
-    }
-
     /* States */
     &.is-invalid {
         .c-select {
@@ -314,10 +256,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     }
 
     &.is-open {
-        .c-select__select-element {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
 
         .c-select__dropdown {
             z-index: $level-8;
@@ -334,13 +272,6 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
             .c-select__expand-less-icon {
                 display: flex;
             }
-        }
-    }
-
-    &.is-empty {
-        .c-select__placeholder {
-            display: flex;
-            opacity: .7;
         }
     }
 

@@ -103,11 +103,9 @@ describe('Select', () => {
 
 		await UserEvent.click(firstOptionListItem);
 		await UserEvent.click(secondOptionListItem);
-		const selectedOptionElements = document.querySelectorAll('option:checked') as NodeListOf<HTMLOptionElement>
-		const selectedOptionLabels = Array.from(selectedOptionElements).map((option) => option.textContent || '')
-		const selectedOptionLabelsString = selectedOptionLabels.join('')
+		const placeholderElement = document.querySelector('[data-js-placeholder]')
 
-		expect(selectedOptionLabelsString).toBe('Test 1, Test 2')
+		expect(placeholderElement?.textContent).toBe('Test 1, Test 2')
 	});
 
 	describe('attribute maxSelections', () => {
