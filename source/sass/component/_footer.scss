@@ -16,7 +16,10 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
     background-color: $color-default;
     color: $c-footer-color-text;
 
-    a {
+    a,
+    a:hover,
+    a:visited,
+    a:active {
         color: $c-footer-color-text;
     }
 
@@ -127,7 +130,10 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{$color-alph
         padding: $c-footer-subfooter-padding 0;
         font-size: .9rem;
 
-        a {
+        a,
+        a:hover,
+        a:visited,
+        a:active {
             color: $c-footer-subfooter-color-text;
         }
 
