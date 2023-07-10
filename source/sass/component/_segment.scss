@@ -62,7 +62,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
     &.c-segment--card {
         flex-direction: column;
-        height: 100%;
+        min-height: 100%;
 
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
