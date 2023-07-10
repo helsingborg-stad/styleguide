@@ -9,7 +9,7 @@ import Modal from './modal';
 import Steppers from './steppers';
 import Image from './image';
 import SplitButton from './splitButton';
-import Fields from './fields';
+import {initializeForms} from './fields';
 import {initializeSlider} from './slider';
 import EventCalendar from './calendar';
 import Tiles from './tile';
@@ -147,4 +147,4 @@ SteppersInstance.enableStepper();
 // Menu
 const MenuInstance = new Menu();
 
-const FieldsInstance = new Fields();
+initializeForms();

@@ -1,6 +1,7 @@
 class Policy {
-    constructor() {
+    constructor(form) {
         this.parentElement = null;
+        form && this.setListener(form)
     }
 
     setListener(form) {

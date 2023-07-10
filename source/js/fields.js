@@ -6,149 +6,65 @@ import Conditions from "./form/conditions";
 
 class Fields {
 
-    constructor() {
-        this.form = document.getElementsByTagName('form')[0];
-        this.formElement = null;
-        this.formElementType = null;
-        this.formElementPattern = null;
-        this.formElementRequired = null;
-        this.formElementDataInvalid = null;
-        this.formElementDataInvalid = null;
-        /* Is this doing anything that we need? */
-        this.formValidationEventListerners();
-        this.setupFormValidate();
-    }
-
-    formValidationEventListerners() {
-        const self = this;
-        const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
-
-        for (const formInput of inputs) {
-            if (formInput.form?.classList.contains('js-form-validation')) {
-                continue;
-            }
-            const inputId = formInput.getAttribute('id');
-            const input = document.getElementById(inputId);
-
-            if (!inputId || !input) return;
-
-            // On Click event listener - Setting data
-            input.addEventListener('click', function (e) {
-                self.formElement = this;
-
-                self.formElementType = (self.formElement.getAttribute('type')) ?
-                    self.formElement.getAttribute('type') : null;
-
-                self.formElementPattern = (self.formElement.getAttribute('pattern')) ?
-                    self.formElement.getAttribute('pattern') : null;
-
-                self.formElementRequired = (self.formElement.getAttribute('data-required')) ?
-                    self.formElement.getAttribute('pattern') : null;
-
-                self.formElementDataInvalidMessage = (self.formElement.getAttribute('data-invalid-message')) ?
-                    self.formElement.getAttribute('data-invalid-message') : '';
-
-            });
-
-            // On Change event listener
-            document.getElementById(inputId).addEventListener('change', function (element) {
-                self.validateFormField(element);
-            });
-        }
-    }
-
-
-    /**
-     * Validate Form fields by pattern
-     * @param element
-     */
-    validateFormField(element) {
-
-        if (!('remove' in Element.prototype)) {
-            Element.prototype.remove = function () {
-                if (this.parentNode) {
-                    this.parentNode.removeChild(this);
-                }
-            };
-        }
-        this.formElement.classList.remove('invalid');
-        this.formElement.classList.remove('valid');
-
-        // If Require is on
-        if (this.formElementRequired) {
-            let valid = false;
-            if (this.formElementPattern) {
-                valid = (this.formElement.value.match(this.formElementPattern)) ? true : false;
-            } else {
-                valid = true;
-            }
-
-            const id = this.formElement.getAttribute('id');
-            if (!valid && !this.formElement.checkValidity()) {
-                this.formElement.classList.add('invalid');
-
-                if (this.formElementDataInvalidMessage) {
-                    const errorMessage = document.getElementById('error_' + id + '_message');
-                    errorMessage.classList.add('error');
-                    errorMessage.getElementsByClassName("errorText")[0].innerHTML = this.formElementDataInvalidMessage;
-                }
-
-            } else {
-                document.getElementById('error_' + id + '_message').classList.remove('error');
-                this.formElement.className = "valid";
-            }
-        }
+    constructor(form) {
+        if (!form) return;
+        this.form = form;
+        this.inputs = form.querySelectorAll('input, textarea, select');
+        this.checkboxGroups = form.querySelectorAll('.checkbox-group-required');
+        
+        this.setupFormValidate(form);
     }
 
     setupFormValidate() {
-        const forms = document.querySelectorAll('.js-form-validation');
-        const checkboxHandler = new Checkbox();
-        const collapseHandler = new Collapse();
-        const policyHandler = new Policy();
-        const fileinputHandler = new FileInput();
+        const params = this.initialize();
 
+        /* Checks if the form is empty at start (disabled submit button) */
         const formEmpty = new CustomEvent('formEmpty', {});
+        this.checkEmpty();
 
-        forms.forEach(form => {
-            const inputs = form.querySelectorAll('input, textarea, select');
-            const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
-            const params = { form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler };
-            this.checkEmpty(inputs, form);
+        this.form.addEventListener('change', (e) => {
+            this.form.dispatchEvent(formEmpty);
+        });
 
-            form.addEventListener('change', (e) => {
-                form.dispatchEvent(formEmpty);
-            });
+        this.inputs.forEach(input => {
+            if (input.hasAttribute('data-validation-message')) {
+                this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
+                this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
 
-            inputs.forEach(input => {
-                if (input.hasAttribute('data-validation-message')) {
-                    this.getFieldWrapper(input).querySelector('.c-field__error').setAttribute('aria-label', input.getAttribute('data-validation-message'));
-                    this.getFieldWrapper(input).querySelector('.c-field__error-message').innerHTML = input.getAttribute('data-validation-message');
-
-                } else {
-                    if (this.getFieldWrapper(input).querySelector('.c-field__error')) {
-                        this.getFieldWrapper(input).querySelector('.c-field__error').remove();
-                    }
+            } else {
+                if (this.getFieldWrapper(input).querySelector('.c-field__error')) {
+                    this.getFieldWrapper(input).querySelector('.c-field__error').remove();
                 }
+            }
 
-                if (input.closest('.c-filterselect')) {
-                    let filterSelect = input.closest('.c-filterselect');
-                    filterSelect.querySelector('.c-filterselect__options').addEventListener('click', (e) => {
-                        form.dispatchEvent(formEmpty);
-                    })
-                }
-            });
-            const conditionsHandler = new Conditions(params);
-            policyHandler.setListener(params?.form);
-            collapseHandler.setListener(params?.form);
-            checkboxHandler.setListener(params?.checkboxGroups);
-            this.keyup(params.inputs);
-            this.focusout(params.inputs);
-            this.click(params, policyHandler);
-            this.submit(params);
+            if (input.closest('.c-filterselect')) {
+                let filterSelect = input.closest('.c-filterselect');
+                filterSelect.querySelector('.c-filterselect__options').addEventListener('click', (e) => {
+                    this.form.dispatchEvent(formEmpty);
+                })
+            }
+        });
+        this.setValidationListeners(params);
+    }
 
-            form.addEventListener('formEmpty', () => {
-                this.checkEmpty(inputs, form);
-            });
+    initialize() {
+        const checkboxHandler = new Checkbox(this.checkboxGroups);
+        const collapseHandler = new Collapse(this.form);
+        const policyHandler = new Policy(this.form);
+        const fileinputHandler = new FileInput(this.form);
+        const conditionsHandler = new Conditions(this.form);
+
+        return { checkboxHandler, policyHandler, fileinputHandler }
+    }
+
+    setValidationListeners(params) {
+        this.keyup();
+        this.focusout();
+        this.click(params);
+        this.submit(params);
+
+        this.form.addEventListener('formEmpty', () => {
+            this.checkEmpty();
         });
     }
 
@@ -156,11 +72,10 @@ class Fields {
     validateInput(input, submitCheck = false) {
         let valueLength = input.value ? input.value.length : 0;
 
-        if (input.hasAttribute('js-no-validation')) {
-            return;
-        }
-
-        if (input.type === 'checkbox' || input.type === 'radio') {
+        if (input.hasAttribute('js-no-validation') || 
+            input.type === 'checkbox' || 
+            input.type === 'radio'
+        ) {
             return;
         }
 
@@ -220,8 +135,8 @@ class Fields {
     }
 
     /*  Listeners  */
-    keyup(inputs) {
-        inputs.forEach(input => {
+    keyup() {
+        this.inputs.forEach(input => {
             input.addEventListener('keyup', () => {
                 if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
                     this.validateInput(input);
@@ -230,42 +145,41 @@ class Fields {
         })
     }
 
-    focusout(inputs) {
-        const self = this;
-        ['focusout', 'change'].forEach(function (e) {
-            inputs.forEach(input => {
+    focusout() {
+        ['focusout', 'change'].forEach((e) => {
+            [...this.inputs].forEach(input => {
                 input.addEventListener(e, () => {
-                    self.validateInput(input)
+                    this.validateInput(input)
                 });
             });
         });
     }
 
-    click({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
-        const submitButton = form.querySelector('[type="submit"]');
+    click({ checkboxHandler, policyHandler, fileinputHandler }) {
+        const submitButton = this.form.querySelector('[type="submit"]');
         if (submitButton) {
             submitButton.addEventListener('click', (e) => {
                 let containsInvalid = [];
 
-                inputs.forEach(input => {
+                this.inputs.forEach(input => {
                     containsInvalid.push(this.validateInput(input, true));
                 });
 
                 containsInvalid.push(policyHandler.validatePolicy());
-                containsInvalid.push(checkboxHandler.validateCheckboxes(checkboxGroups));
-                containsInvalid.push(fileinputHandler.validateFileinputs(form));
+                containsInvalid.push(checkboxHandler.validateCheckboxes(this.checkboxGroups));
+                containsInvalid.push(fileinputHandler.validateFileinputs(this.form));
 
                 if (containsInvalid.includes(false)) {
-                    this.classToggle(form, 'is-invalid', 'is-valid');
+                    this.classToggle(this.form, 'is-invalid', 'is-valid');
 
-                    checkboxHandler.validateCheckboxes(checkboxGroups);
+                    checkboxHandler.validateCheckboxes(this.checkboxGroups);
 
 
-                    [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+                    [...this.form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                         element.setAttribute('aria-hidden', false);
                     });
 
-                    [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+                    [...this.form.querySelectorAll('.c-form__notice-success')].forEach(element => {
                         element.setAttribute('aria-hidden', true);
                     });
                 }
@@ -273,15 +187,15 @@ class Fields {
         }
     }
 
-    checkEmpty(inputs, form) {
+    checkEmpty() {
         let emptyForm = false;
         let attatchedFiles = false;
         let checkInputs = [];
-        let submitButton = form.querySelector('[type="submit"]');
+        let submitButton = this.form.querySelector('[type="submit"]');
 
-        form.querySelectorAll('input[js-field-fileinput]') ? (form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
+        this.form.querySelectorAll('input[js-field-fileinput]') ? (this.form.querySelectorAll('input[js-field-fileinput]').length > 0 ? attatchedFiles = true : false) : attatchedFiles = false;
 
-        inputs.forEach(input => {
+        this.inputs.forEach(input => {
             if (emptyForm) return;
             if (input?.type && (input?.type === 'radio' || input?.type === 'checkbox')) {
                 checkInputs.push(input);
@@ -307,30 +221,37 @@ class Fields {
         return emptyForm;
     }
 
-    submit({ form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler }) {
-        let submitButton = form.querySelector('[type="submit"]');
+    submit({ checkboxHandler, policyHandler, fileinputHandler }) {
+        let submitButton = this.form.querySelector('[type="submit"]');
 
-        form.addEventListener('submit', (e) => {
-            if (!checkboxHandler.validateCheckboxes(checkboxGroups) || !fileinputHandler.validateFileinputs(form)) {
+        this.form.addEventListener('submit', (e) => {
+            if (!checkboxHandler.validateCheckboxes(this.checkboxGroups) || !fileinputHandler.validateFileinputs(form)) {
                 e.preventDefault();
-                this.classToggle(form, 'is-invalid', 'is-valid');
+                this.classToggle(this.form, 'is-invalid', 'is-valid');
             } else {
-                this.classToggle(form, 'is-valid', 'is-invalid');
+                this.classToggle(this.form, 'is-valid', 'is-invalid');
                 if (typeof formbuilder !== 'undefined') {
                     submitButton ? submitButton.innerHTML = formbuilder.sending : '';
                 }
             }
 
-            [...form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
+            [...this.form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                 element.setAttribute('aria-hidden', true);
             });
 
-            [...form.querySelectorAll('.c-form__notice-success')].forEach(element => {
+            [...this.form.querySelectorAll('.c-form__notice-success')].forEach(element => {
                 element.setAttribute('aria-hidden', false);
             });
         });
     }
 
+}
+
+export function initializeForms() {
+    const forms = document.querySelectorAll('.js-form-validation');
+    [...forms].forEach(form => {
+        new Fields(form);
+    });
 }
 
 export default Fields;
