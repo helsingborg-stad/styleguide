@@ -18,6 +18,12 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
         background-color: $c-product-custom-color;
         color: $c-button-primary-color-contrasting;
     }
+
+    .c-product__prices {
+        display: flex;
+        flex-direction: column;
+        visibility: visible;
+    }
 }
 
 .c-product__header {
