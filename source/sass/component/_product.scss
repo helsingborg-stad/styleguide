@@ -19,10 +19,17 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
         color: $c-button-primary-color-contrasting;
     }
 
-    .c-product__prices {
-        display: flex;
-        flex-direction: column;
-        visibility: visible;
+    .c-product__footer {
+        .c-product__prices {
+            display: flex;
+            flex-direction: column;
+            visibility: visible;
+            margin-bottom: calc($base * 10);
+
+            &.has-button {
+                margin-bottom: calc($base * 4);
+            }
+        }
     }
 }
 
