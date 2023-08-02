@@ -30,6 +30,11 @@ export default class Pagination {
 
         this.attributes = this.getAttributes();
 
+
+        if (container.querySelector('[data-js-pagination-sort]')) {
+            this.setupSortListener();
+        }
+
         if (this.attributes.randomize) {
             this.list = this.list.sort(() => Math.random() - 0.5);
         }
@@ -46,6 +51,74 @@ export default class Pagination {
 
     static getInstance(instanceId: string): Pagination | undefined {
         return Pagination.instances.get(instanceId);
+    }
+
+    private setupSortListener() {
+        const sortElement = this.container.querySelector('[data-js-pagination-sort]');
+        const defaultOption = sortElement?.querySelector('option');
+
+        if (!sortElement) return;
+        const lists = this.createSortedArrays();
+        this.setSortedURLParam((sortElement as HTMLSelectElement).value);
+        
+        sortElement.addEventListener('change', (e) => {
+            const selectedValue = (e.target as HTMLSelectElement)?.value;
+            
+            if (selectedValue === 'random') {
+                this.list = lists.random;
+            } else if (selectedValue === 'alphabetical') {
+                this.list = lists.alpabetical;
+            } else {
+                this.list = lists.default;
+            }
+            this.setSortedURLParam(selectedValue);
+            this.paginateSetCurrent(1);
+            this.tableRefresh();
+        })
+        this.changeSortingFromURLParam(sortElement as HTMLSelectElement);
+    }
+
+    private changeSortingFromURLParam(sortElement: HTMLSelectElement) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const paginationSorting = urlSearchParams.get('paginationSorting');
+
+        if (paginationSorting && sortElement) {
+            // Update the selected value of the <select> element
+            sortElement.value = paginationSorting;
+
+            // Manually trigger the 'change' event after updating the value
+            const event = new Event('change');
+            sortElement.dispatchEvent(event);
+        }
+    }
+
+    private setSortedURLParam(selectedValue: string) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+
+        if (selectedValue) {
+            urlSearchParams.set('paginationSorting', selectedValue);
+        } else {
+            urlSearchParams.delete('paginationSorting');
+        }
+
+        const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
+        window.history.pushState({}, '', updatedUrl);
+    }
+
+    private createSortedArrays() {
+        const alpabetical = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort((a, b) => {
+            const titleA = a.querySelector('[data-js-pagination-item-title]')?.textContent?.toLowerCase() || '';
+            const titleB = b.querySelector('[data-js-pagination-item-title]')?.textContent?.toLowerCase() || '';
+
+            if ((!titleA && titleB) || (titleA > titleB)) return 1;
+            if ((titleA && !titleB) || (titleA < titleB) || (!titleA && !titleB)) return -1;
+
+            return 0;
+        });
+        
+        const random = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort(() => Math.random() - 0.5);
+
+        return {'alpabetical': alpabetical, 'random': random, 'default': this.list};
     }
 
     private setPageNumberAttribute() {
@@ -85,7 +158,10 @@ export default class Pagination {
         if (!body || !list) return;
         if (this.attributes.keepDOM) {
             Array.from(body.children).forEach(element => {
-                (element as HTMLElement).classList.add('u-display--none');
+                if (!element.querySelector('[data-js-pagination-sort]')) {
+                    (element as HTMLElement).classList.add('u-display--none');
+                }
+                
             });
 
             list.forEach(element => {
