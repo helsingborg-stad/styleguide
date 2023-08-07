@@ -115,8 +115,6 @@ export default class Pagination {
         
         const random = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort(() => Math.random() - 0.5);
 
-        console.log(alpabetical);
-
         return {'alpabetical': alpabetical, 'random': random, 'default': this.list};
     }
 
