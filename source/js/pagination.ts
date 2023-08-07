@@ -107,16 +107,15 @@ export default class Pagination {
 
     private createSortedArrays() {
         const alpabetical = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort((a, b) => {
-            const titleA = a.querySelector('[data-js-pagination-item-title]')?.textContent?.toLowerCase() || '';
-            const titleB = b.querySelector('[data-js-pagination-item-title]')?.textContent?.toLowerCase() || '';
+            const titleA = a.getAttribute('data-js-pagination-item-title') || '';
+            const titleB = b.getAttribute('data-js-pagination-item-title') || '';
 
-            if ((!titleA && titleB) || (titleA > titleB)) return 1;
-            if ((titleA && !titleB) || (titleA < titleB) || (!titleA && !titleB)) return -1;
-
-            return 0;
+            return titleA.localeCompare(titleB);
         });
         
         const random = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort(() => Math.random() - 0.5);
+
+        console.log(alpabetical);
 
         return {'alpabetical': alpabetical, 'random': random, 'default': this.list};
     }
