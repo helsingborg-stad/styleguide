@@ -55,15 +55,15 @@ export default class Pagination {
 
     private setupSortListener() {
         const sortElement = this.container.querySelector('[data-js-pagination-sort]');
-        const defaultOption = sortElement?.querySelector('option');
 
         if (!sortElement) return;
         const lists = this.createSortedArrays();
+        this.setSortElementValueFromURL(sortElement as HTMLSelectElement);
         this.setSortedURLParam((sortElement as HTMLSelectElement).value);
         
         sortElement.addEventListener('change', (e) => {
             const selectedValue = (e.target as HTMLSelectElement)?.value;
-            
+            console.log(selectedValue);
             if (selectedValue === 'random') {
                 this.list = lists.random;
             } else if (selectedValue === 'alphabetical') {
@@ -74,21 +74,18 @@ export default class Pagination {
             this.setSortedURLParam(selectedValue);
             this.paginateSetCurrent(1);
             this.tableRefresh();
-        })
-        this.changeSortingFromURLParam(sortElement as HTMLSelectElement);
+        });
+        /* Trigges the change event to sort based of URL param */
+        const event = new Event('change');
+        sortElement.dispatchEvent(event);
     }
 
-    private changeSortingFromURLParam(sortElement: HTMLSelectElement) {
+    private setSortElementValueFromURL(sortElement: HTMLSelectElement) {
         const urlSearchParams = new URLSearchParams(window.location.search);
-        const paginationSorting = urlSearchParams.get('paginationSorting');
+        const paginationSorting = urlSearchParams.get('sortby');
 
         if (paginationSorting && sortElement) {
-            // Update the selected value of the <select> element
             sortElement.value = paginationSorting;
-
-            // Manually trigger the 'change' event after updating the value
-            const event = new Event('change');
-            sortElement.dispatchEvent(event);
         }
     }
 
@@ -96,9 +93,9 @@ export default class Pagination {
         const urlSearchParams = new URLSearchParams(window.location.search);
 
         if (selectedValue) {
-            urlSearchParams.set('paginationSorting', selectedValue);
+            urlSearchParams.set('sortby', selectedValue);
         } else {
-            urlSearchParams.delete('paginationSorting');
+            urlSearchParams.delete('sortby');
         }
 
         const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
