@@ -47,7 +47,7 @@ export function pushCoordinatesToBrowserHistory({ lat, lng }: { lat: number | un
         searchParams.delete('osmLat');
         searchParams.delete('osmLng');
         const setParams = window.location.origin + window.location.pathname + '?' + searchParams.toString();
-        history.pushState({}, '', setParams);
+        history.replaceState({}, '', setParams);
     }
 }
 
