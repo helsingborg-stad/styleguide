@@ -43,6 +43,7 @@ export default class Pagination {
         this.setPageNumberAttribute();
         this.tableRefresh();
         this.paginationButtons();
+        this.handlePopstate();
 
         const instanceId = `pagination-${index}`;
         this.container.dataset.paginationInstance = instanceId;
@@ -58,16 +59,15 @@ export default class Pagination {
 
         if (!sortElement) return;
         const lists = this.createSortedArrays();
-        this.setSortElementValueFromURL(sortElement as HTMLSelectElement);
-        this.setSortedURLParam((sortElement as HTMLSelectElement).value);
-        
+        const event = new Event('change');
+
         sortElement.addEventListener('change', (e) => {
             const selectedValue = (e.target as HTMLSelectElement)?.value;
-            console.log(selectedValue);
+
             if (selectedValue === 'random') {
                 this.list = lists.random;
             } else if (selectedValue === 'alphabetical') {
-                this.list = lists.alpabetical;
+                this.list = lists.alphabetical;
             } else {
                 this.list = lists.default;
             }
@@ -75,8 +75,8 @@ export default class Pagination {
             this.paginateSetCurrent(1);
             this.tableRefresh();
         });
-        /* Trigges the change event to sort based of URL param */
-        const event = new Event('change');
+
+        this.setSortElementValueFromURL(sortElement as HTMLSelectElement);
         sortElement.dispatchEvent(event);
     }
 
@@ -99,11 +99,11 @@ export default class Pagination {
         }
 
         const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
-        window.history.pushState({}, '', updatedUrl);
+        history.replaceState({}, '', updatedUrl);
     }
 
     private createSortedArrays() {
-        const alpabetical = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort((a, b) => {
+        const alphabetical = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort((a, b) => {
             const titleA = a.getAttribute('data-js-pagination-item-title') || '';
             const titleB = b.getAttribute('data-js-pagination-item-title') || '';
 
@@ -112,7 +112,7 @@ export default class Pagination {
         
         const random = [...this.container.querySelectorAll(`[data-js-pagination-item]`)].sort(() => Math.random() - 0.5);
 
-        return {'alpabetical': alpabetical, 'random': random, 'default': this.list};
+        return {'alphabetical': alphabetical, 'random': random, 'default': this.list};
     }
 
     private setPageNumberAttribute() {
@@ -169,6 +169,26 @@ export default class Pagination {
                 body.appendChild(element);
             });
         }
+    }
+
+    private setPageURLParam() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const pageNum = this.paginationCurrent();
+        urlSearchParams.set('pagenum', pageNum.toString());
+        const updatedUrl = `${window.location.pathname}?${urlSearchParams}`;
+        history.pushState({}, '', updatedUrl);
+    }
+
+    private handlePopstate() {
+        window.addEventListener('popstate', (e) => {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const pageNum = urlSearchParams.get('pagenum');
+
+            if (pageNum !== this.paginationCurrent().toString()) {
+                this.paginateSetCurrent(parseInt(pageNum || "1"));
+                this.tableRefresh();
+            }
+        });
     }
 
     private paginatePages(): number {
@@ -294,14 +314,16 @@ export default class Pagination {
         this.container.setAttribute('js-table-pagination--current', current.toString());
         this.container.querySelector(`[${this.nextBtn}]`)?.removeAttribute('disabled');
         this.container.querySelector(`[${this.prevBtn}]`)?.removeAttribute('disabled');
-
+        
         if (current === this.paginatePages()) {
             this.container.querySelector(`[${this.nextBtn}]`)?.setAttribute('disabled', 'true');
-
+            
         } else if (current === 1) {
             this.container.querySelector(`[${this.prevBtn}]`)?.setAttribute('disabled', 'true');
-
+            
         }
+        
+        this.setPageURLParam();
     }
 
     private paginationCurrent(): number {
