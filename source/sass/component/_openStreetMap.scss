@@ -55,6 +55,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		&.has-active {
 			.c-openstreetmap__collection__item,
 			.c-pagination,
+			.c-select,
 			[data-js-pagination-item]:not(.is-active) {
 				display: none;
 			}
