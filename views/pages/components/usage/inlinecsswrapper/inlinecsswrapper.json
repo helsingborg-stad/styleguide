@@ -1,0 +1,7 @@
+{
+    "inlinecsswrapper": {
+        "heading": "A wrapper that only applies while there is inline css attached.",
+        "subHeading": "",
+        "text": "Wraps content based on styles parameter."
+    }
+}
