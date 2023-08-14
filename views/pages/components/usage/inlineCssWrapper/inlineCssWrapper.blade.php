@@ -35,10 +35,3 @@ Without styling parameter.
 ])
 @endicon
 @endinlineCssWrapper
-@alert([
-    'title' => 'title',
-    'dismiss' => 'dismiss',
-    'accept' => 'accept'
-])
-This is the main content
-@endalert
