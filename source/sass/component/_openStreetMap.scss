@@ -147,7 +147,6 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	/* Map */
 	.c-openstreetmap__map {
-		transition: flex-basis .2s ease-in-out;
 		position: sticky;
 		top: 0;
 		flex: 1 0 100%;
@@ -155,6 +154,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	}
 
 	.c-openstreetmap__sidebar {
+		transition: .2s ease-in-out;
 		flex: 0 1 0%;
 		max-width: 0%;
 		display: none;
