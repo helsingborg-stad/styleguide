@@ -1,9 +1,9 @@
 {
     "responsive": false,
     "description": {
-        "Default": "Styles text"
+        "default": "Styles text"
     },
     "modifiers": {
-        "Default": ""
+        "default": ""
     }
 }
