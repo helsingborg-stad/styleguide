@@ -63,7 +63,6 @@ export default class Pagination {
         
         sortElement.addEventListener('change', (e) => {
             const selectedValue = (e.target as HTMLSelectElement)?.value;
-            console.log(selectedValue);
             if (selectedValue === 'random') {
                 this.list = lists.random;
             } else if (selectedValue === 'alphabetical') {
