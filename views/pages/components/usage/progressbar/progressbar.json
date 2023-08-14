@@ -1,7 +1,0 @@
-{
-    "progressbar": {
-        "heading": "Progress bar",
-        "subHeading": "",
-        "text": "The progress bar represents recieved value and can be active or cancelled."
-    }
-}
