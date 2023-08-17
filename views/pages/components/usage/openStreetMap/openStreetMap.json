@@ -1,12 +1,17 @@
 {
     "default": {
-        "heading": "Open Street Map",
+        "heading": "Basic map",
         "subHeading": "",
         "text": "Displays a map from Open Street Map."
     },
     "tooltips": {
-        "heading": "Open Street Map",
+        "heading": "Better tooltips",
         "subHeading": "",
-        "text": "Displays a map from Open Street Map."
+        "text": "Pins with tooltips"
+    },
+    "sidebar": {
+        "heading": "Using sidebar",
+        "subHeading": "",
+        "text": "Sidebar usage"
     }
 }
