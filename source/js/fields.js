@@ -144,9 +144,9 @@ class Fields {
                     }
                 }
 
-                if (input.closest('.c-filterselect')) {
-                    let filterSelect = input.closest('.c-filterselect');
-                    filterSelect.querySelector('.c-filterselect__options').addEventListener('click', (e) => {
+                if (input.closest('.c-select--multiselect')) {
+                    let multiSelect = input.closest('.c-select--multiselect');
+                    multiSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
                         form.dispatchEvent(formEmpty);
                     })
                 }
