@@ -60,7 +60,14 @@
     width: 100%;
 }
 
-/* Input-placeholder */
+/* List */
 .mixin-example-unlist {
     @include unlist();
+}
+
+/* Mq */
+.mixin-example-mq {
+    @include mq("lg") {
+        background-color: blue;
+    }
 }
