@@ -1,0 +1,10 @@
+{
+    "format": ".u-unlist",
+    "description": {
+        "default": "Removes list styling"
+    },
+    "modifiers": {
+        "default": ""
+    },
+    "responsive": false
+}

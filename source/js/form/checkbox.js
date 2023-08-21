@@ -1,6 +1,6 @@
 class Checkbox {
-    constructor(){
-
+    constructor(checkboxGroups){
+        checkboxGroups && this.setListener(checkboxGroups);
     }
 
     setListener(checkboxGroups) {

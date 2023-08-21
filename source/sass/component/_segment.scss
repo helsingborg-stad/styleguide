@@ -1,5 +1,6 @@
 $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-radius-lg) !default;
+$c-segment-card-color-background: var(--c-card-color-background, $color-background-card) !default;
 
 
 .c-segment {
@@ -62,7 +63,7 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 
     &.c-segment--card {
         flex-direction: column;
-        height: 100%;
+        min-height: 100%;
 
         .c-segment__image {
             border-radius: $c-segment-image-border-radius;
@@ -92,6 +93,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
                 height: 100%;
                 position: absolute;
             }
+        }
+
+        .c-segment__content-card.c-card.c-card--flat {
+            background-color: $c-segment-card-color-background;
         }
     }
 

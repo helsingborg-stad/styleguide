@@ -1,13 +1,34 @@
-$c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
+$c-hamburger-menu-heading-color: var(--c-hamburger-menu-heading-color, $color-primary) !default;
+$c-hamburger-menu-subitem-color: var(--c-hamburger-menu-subitem-color, $color-primary) !default;
+$c-hamburger-menu-background-color: var(--c-hamburger-menu-background-color, $color-primary-contrasting) !default;
+$c-hamburger-menu-padding: calc(var(--c-hamburger-menu-padding, 4) * #{$base}) !default;
+$c-hamburger-menu-font: var(--c-hamburger-menu-font, $font-family-base) !default;
 
 .c-hamburgermenu {
-    padding-top: $c-hamburgermenu-padding;
-    padding-bottom: $c-hamburgermenu-padding;
-    background-color: $color-hamburger-menu-background;
+    padding-top: $c-hamburger-menu-padding;
+    padding-bottom: $c-hamburger-menu-padding;
+    background-color: $c-hamburger-menu-background-color;
+
+    &.c-hamburgermenu--secondary {
+        --c-hamburger-menu-heading-color: #{$color-primary};
+        --c-hamburger-menu-subitem-color: #{$color-primary};
+        --c-hamburger-menu-background-color: #{$color-secondary};
+    }
+
+    &.c-hamburgermenu--primary {
+        --c-hamburger-menu-heading-color: #{$color-primary};
+        --c-hamburger-menu-subitem-color: #{$color-black};
+        --c-hamburger-menu-background-color: #{$color-white};
+    }
+
+    &.c-hamburgermenu--font-heading {
+        --c-hamburger-menu-font: #{$font-family-heading};
+    }
     
     .c-hamburgermenu__link--title {
         font-size: $font-size-title;
-        color: $color-hamburger-menu-heading;
+        color: $c-hamburger-menu-heading-color;
+        font-family: $c-hamburger-menu-font;
     }
 
     .c-hamburgermenu__link {
@@ -23,7 +44,7 @@ $c-hamburgermenu-padding: calc(var(--o-grid-gap, 4) * #{$base}) !default;
         
         .c-hamburgermenu__link {
             text-decoration: none;
-            color: $color-hamburger-menu-subitem;
+            color: $c-hamburger-menu-subitem-color;
         }
     }
 }

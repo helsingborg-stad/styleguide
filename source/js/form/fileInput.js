@@ -1,14 +1,13 @@
 class FileInput {
-    constructor() {
-
-        this.fileInputOnChange();
+    constructor(form) {
+        form && this.fileInputOnChange(form);
     }
 
-    fileInputOnChange() {
+    fileInputOnChange(form) {
 
         const self = this;
 
-        const fileInputs = document.querySelectorAll('.c-fileinput__input');
+        const fileInputs = form.querySelectorAll('.c-fileinput__input');
 
         fileInputs.forEach(input => {
 

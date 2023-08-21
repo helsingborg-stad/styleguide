@@ -23,7 +23,8 @@ class AddMarkers {
         let locations = this.locations ?? [];
         const sidebar = this.container?.querySelector('.c-openstreetmap__sidebar');
 
-        if (!sidebar) return;
+        if (!sidebar) return locations;
+        
         const placeElements = sidebar.querySelectorAll('[data-js-map-location]');
         
         placeElements.forEach(element => {

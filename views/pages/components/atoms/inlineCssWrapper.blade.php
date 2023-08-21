@@ -2,9 +2,10 @@
 
 @section('doc-content')
     @markdown
-    #Progress bar 
+        #Inline Css Wrapper      
     @endmarkdown
 
-    @doc(['slug' => 'progressBar'])
+
+    @doc(['slug' => 'inlineCssWrapper'])
     @enddoc
 @stop

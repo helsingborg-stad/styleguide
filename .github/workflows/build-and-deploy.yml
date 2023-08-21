@@ -29,26 +29,31 @@ jobs:
     - name: rsync deploy files and set www-data user.
       uses: burnett01/rsync-deployments@4.1
       with:
-        switches: -avzrog --backup --backup-dir=${{ secrets.DEPLOY_REMOTE_BACKUP_DIR_STYLEGUIDE_HELSINGBORG_SE }}/$GITHUB_SHA --chown=www-data:www-data
+        switches: -avzrog --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
         path: .
-        remote_path: ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }}
-        remote_host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
-        remote_user: ${{ secrets.DEPLOY_REMOTE_USER }}
+        remote_path: ${{ secrets.DEPLOY_PATH }}
+        remote_host: ${{ secrets.DEPLOY_HOST }}
+        remote_user: ${{ secrets.DEPLOY_USER }}
         remote_key: ${{ secrets.DEPLOY_KEY }}
+        remote_port: ${{ secrets.DEPLOY_PORT }}
 
     - name: Set file permissions.
       uses: appleboy/ssh-action@master
       with:
-        script: find ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }} -path ${{ secrets.DEPLOY_REMOTE_PATH_STYLEGUIDE_HELSINGBORG_SE }}/wp-content/uploads -prune -o ! -type l -exec chmod g+rw {} +
-        host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
-        username: ${{ secrets.DEPLOY_REMOTE_USER }}
+        script: find ${{ secrets.DEPLOY_PATH }} -path ${{ secrets.DEPLOY_PATH }}/wp-content/uploads -prune -o ! -type l -exec chmod g+rw {} +
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
+        port: ${{ secrets.DEPLOY_PORT }}
 
-    - name: Clear nginx cache.
-      uses: appleboy/ssh-action@master
+    - name: Clear all cache.
+      uses: appleboy/ssh-action@v0.1.4
       with:
         script: |
-          ${{ secrets.NGINX_CACHE_PURGE_COMMAND }}
-        host: ${{ secrets.DEPLOY_REMOTE_HOST_STYLEGUIDE_HELSINGBORG_SE }}
-        username: ${{ secrets.DEPLOY_REMOTE_USER }}
+          cd ${{ secrets.DEPLOY_PATH }}
+          rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
+          rm /tmp/blade-engine-cache/* || true
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
+        port: ${{ secrets.DEPLOY_PORT }}
