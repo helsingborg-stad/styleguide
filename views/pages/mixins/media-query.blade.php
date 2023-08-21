@@ -4,7 +4,7 @@
 @mixins_doc(["viewDoc" => ["type" => "mixins", "root" => "mediaQuery", "config" => "mediaQuery"]])
     @markdown
         #Media query
-        Creates a media query for a class. Resize the window to see the blue background color appear and disappear.
+        Creates a media query for a class. Resize the window to see the changes between blue and green background color.
     @endmarkdown
 
     @paper(['padding' => '3'])
@@ -23,6 +23,7 @@
       SCSS: 
 
         .mixin-example-mq {
+            background-color: green;
             {{'@'}}include mq("lg") {
                 background-color: blue;
             }

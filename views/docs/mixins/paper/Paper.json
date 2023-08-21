@@ -1,0 +1,8 @@
+{
+    "description": {
+        "paper": "Level, Padding"
+    },
+    "attributes": {
+        "paper": "(number 1-5), (number as a string)"
+    }
+}

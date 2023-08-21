@@ -1,0 +1,8 @@
+{
+    "description": {
+        "ratio": "x, y, pseudo"
+    },
+    "attributes": {
+        "ratio": "(number), (number), boolean"
+    }
+}

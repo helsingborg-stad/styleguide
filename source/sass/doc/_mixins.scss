@@ -3,7 +3,6 @@
     @include arrow("up", 8px, #000);
 }
 
-
 /* Button */
 .mixins-example-button-mix {
     @include button-mix(#000, #42c765, #ac42c7);
@@ -67,7 +66,30 @@
 
 /* Mq */
 .mixin-example-mq {
+    background-color: green;
     @include mq("lg") {
         background-color: blue;
     }
+}
+
+/* Paper */
+.mixin-example-paper {
+    @include paper(2, "2");
+}
+
+/* Pseudo */
+.mixin-example-pseudo {
+    &:before {
+        @include pseudo(block, static, "hi");
+    }
+}
+
+/* Ratio */
+.mixin-example-ratio {
+    @include ratio(16, 2);
+}
+
+/* Shadow */
+.mixin-example-shadow {
+    @include shadow(2, true);
 }
