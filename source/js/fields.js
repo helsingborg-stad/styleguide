@@ -37,9 +37,9 @@ class Fields {
                 }
             }
 
-            if (input.closest('.c-filterselect')) {
-                let filterSelect = input.closest('.c-filterselect');
-                filterSelect.querySelector('.c-filterselect__options').addEventListener('click', (e) => {
+            if (input.closest('.c-select--multiselect')) {
+                let filterSelect = input.closest('.c-select--multiselect');
+                filterSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
                     this.form.dispatchEvent(formEmpty);
                 })
             }
@@ -55,30 +55,6 @@ class Fields {
 
         return true;
     }
-
-    setupFormValidate() {
-        const forms = document.querySelectorAll('.js-form-validation');
-        const checkboxHandler = new Checkbox();
-        const collapseHandler = new Collapse();
-        const policyHandler = new Policy();
-        const fileinputHandler = new FileInput();
-
-        const formEmpty = new CustomEvent('formEmpty', {});
-
-        forms.forEach(form => {
-            
-            if (!this.checkFormRequirements(form)) {
-                return
-            }
-
-            const inputs = form.querySelectorAll('input, textarea, select');
-            const checkboxGroups = form.querySelectorAll('.checkbox-group-required');
-            const params = { form, inputs, checkboxGroups, checkboxHandler, policyHandler, fileinputHandler };
-            this.checkEmpty(inputs, form);
-
-            form.addEventListener('change', (e) => {
-                form.dispatchEvent(formEmpty);
-            });
 
     initialize() {
         const checkboxHandler = new Checkbox(this.checkboxGroups);
@@ -97,31 +73,8 @@ class Fields {
         this.click(params);
         this.submit(params);
 
-                } else {
-                    if (this.getFieldWrapper(input).querySelector('.c-field__error')) {
-                        this.getFieldWrapper(input).querySelector('.c-field__error').remove();
-                    }
-                }
-
-                if (input.closest('.c-select--multiselect')) {
-                    let multiSelect = input.closest('.c-select--multiselect');
-                    multiSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
-                        form.dispatchEvent(formEmpty);
-                    })
-                }
-            });
-            const conditionsHandler = new Conditions(params);
-            policyHandler.setListener(params?.form);
-            collapseHandler.setListener(params?.form);
-            checkboxHandler.setListener(params?.checkboxGroups);
-            this.keyup(params.inputs);
-            this.focusout(params.inputs);
-            this.click(params, policyHandler);
-            this.submit(params);
-
-            form.addEventListener('formEmpty', () => {
-                this.checkEmpty(inputs, form);
-            });
+        this.form.addEventListener('formEmpty', () => {
+            this.checkEmpty();
         });
     }
 
