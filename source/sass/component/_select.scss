@@ -35,6 +35,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     .c-select__action-overlay {
         cursor: pointer;
         z-index: $level-4;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        overflow: hidden;
+        padding-right: 15%;
 
         &:focus {
             @include focus();
