@@ -55,7 +55,7 @@ export default class Pagination {
     }
 
     private setupSortListener() {
-        const sortElement = this.container.querySelector('[data-js-pagination-sort]');
+        const sortElement = this.container.querySelector('[data-js-pagination-sort] select');
 
         if (!sortElement) return;
         const lists = this.createSortedArrays();
@@ -63,7 +63,7 @@ export default class Pagination {
 
         sortElement.addEventListener('change', (e) => {
             const selectedValue = (e.target as HTMLSelectElement)?.value;
-
+            
             if (selectedValue === 'random') {
                 this.list = lists.random;
             } else if (selectedValue === 'alphabetical') {
