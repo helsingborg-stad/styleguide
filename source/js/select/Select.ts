@@ -1,5 +1,3 @@
-import { toHaveAccessibleDescription } from "@testing-library/jest-dom/matchers";
-
 export enum SelectElementSelector {
 	selectElementAttribute = 'data-js-select-element',
 	maxSelectionsAttribute = 'data-js-select-max',
