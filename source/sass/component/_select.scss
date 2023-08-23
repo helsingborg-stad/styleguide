@@ -12,60 +12,71 @@ $c-select-border-color: var(--c-field-border-color, $c-field-border-color) !defa
 $c-select-background-color: var(--c-field-background-color, $c-field-background-color) !default;
 $c-select-danger-color: var(--c-select-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-select-success-color: var(--c-select-success-color, var(--color-success, $color-success-dark)) !default;
-$c-select-multi-selected-bg: var(--c-select-multi-selected-bg, $color-primary) !default;
-$c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-white) !default;
+$c-select-selected-bg: var(--c-select-selected-bg, $color-primary) !default;
+$c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
 .c-select__container {
     position: relative;
 }
 
-.c-field .c-select__icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-    left: auto;
-    padding: map-get($spacers, "2");
-    z-index: $level-2;
-    transition: none;
-    height: calc(#{$base}*6);
-    color: $color-primary;
-    pointer-events: none;
-}
-
 .c-select {
     position: relative;
 
-    select {
-        appearance: none;
-        width: 100%;
-        margin: 0;
-        outline: 0;
-        height: map-get($spacers, "6");
-        padding: 0 map-get($spacers, "2");
-        font-size: $c-select-font-size-md;
-        line-height: $c-select-font-size-md-line-height;
-        border: $c-select-border-width solid $c-select-border-color;
-        background: $c-select-background-color;
-        border-radius: calc($c-select-border-radius * $base);
-        position: relative;
-        z-index: $level-2;
-        &:focus {
-            background-color: $color-form-fields-focus;
-        }
+    .c-select__select-element {
+        bottom: 0;
+        height: 1px;
+        left: 0;
+        outline: none;
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+    }
 
-        &:focus + .c-select_focus-styler {
-            display: block;
-            outline: thick solid $color-focus-outline;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            border-radius: calc($c-select-border-radius * $base);
-            pointer-events: none;
+    .c-select__action-overlay {
+        cursor: pointer;
+        z-index: $level-4;
+
+        &:focus {
+            @include focus();
         }
     }
 
-    .c-select__icon {
+    &.is-empty .c-select__action-overlay {
+        color: $color-light;
+    }
+
+    [data-select-preserve-native-behavior] {
+        display: none;
+    }
+
+    &.is-ios, &.is-android {
+        [data-select-preserve-native-behavior] {
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            z-index: $level-5;
+        }
+    }
+
+    .c-select__clear-button {
+        position: absolute;
+        right: 2em;
+        top: 0;
+        left: auto;
+        padding: map-get($spacers, "2");
+        z-index: $level-6;
+        height: 100%;
+        color: $color-primary;
+        display: flex;
+        align-items: center;
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+    }
+    
+    .c-select__expand-button {
         position: absolute;
         right: 0;
         top: 0;
@@ -73,10 +84,23 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         padding: map-get($spacers, "2");
         z-index: $level-2;
         transition: none;
-        height: calc(#{$base}*6);
-        line-height: calc(#{$base}*6);
+        height: 100%;
         color: $color-primary;
         pointer-events: none;
+        display: flex;
+        align-items: center;
+
+        .c-select__expand-more-icon {
+            animation: c-select-expand-rotate 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+
+        .c-select__expand-less-icon {
+            animation: c-select-expand-rotate-inverted 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+
+        .c-select__expand-less-icon {
+            display: none;
+        }
     }
 
     &.c-select--rounded {
@@ -99,47 +123,77 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
             }
         }
     }
+
+    .c-select__dropdown .c-select__option[aria-disabled="true"] {
+        
+        .c-icon {
+            color: $color-disabled;
+        }
+
+        .c-select__option-label {
+            color: $color-disabled-text;
+            font-style: italic;
+        }
+    }
     
     /* Size modifiers */ 
     &.c-select--sm {
-        select, .c-select__icon {
+        .c-select__clear-button,
+        .c-select__expand-button {
             padding: 0 map-get($spacers, "1"); 
-            height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
         }
-        select {
+
+        .c-select__clear-button {
             font-size: $c-select-font-size-sm;
             line-height: $c-select-font-size-sm-line-height;
         }
-        .c-select__icon {
-            line-height: calc(#{map-get($spacers, "4")} + #{map-get($spacers, "05")});
+
+        .c-select__clear-button .c-icon {
+            font-size: 1.5em
+        }
+
+        .c-select__dropdown .c-select__option {
+            padding: calc(var(--base, 8px)*0.75) calc(var(--base, 8px)*1.5);
         }
     }
 
     &.c-select--md {
-        select, .c-select__icon {
+        .c-select__clear-button,
+        .c-select__expand-button {
             padding: 0 map-get($spacers, "2");
-            height: map-get($spacers, "6"); 
         }
-        select {
+        
+        .c-select__clear-button {
             font-size: $c-select-font-size-md;
             line-height: $c-select-font-size-md-line-height;
         }
-        .c-select__icon {
-            line-height: map-get($spacers, "6"); 
+
+        .c-select__clear-button .c-icon {
+            font-size: 1.5em
+        }
+
+        .c-select__dropdown .c-select__option {
+            padding: calc(var(--base, 8px)*1) calc(var(--base, 8px)*1.75);
         }
     }
 
     &.c-select--lg {
-        select, .c-select__icon {
+        .c-select__clear-button,
+        .c-select__expand-button {
             padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
-            height: #{map-get($spacers, "8")};
         }
-        select {
+
+        .c-select__clear-button {
             font-size: $c-select-font-size-lg;
             line-height: $c-select-font-size-lg-line-height;
         }
-        .c-select__icon {
-            line-height: #{map-get($spacers, "8")};
+
+        .c-select__clear-button .c-icon {
+            font-size: 1.5em
+        }
+
+        .c-select__dropdown .c-select__option {
+            padding: calc(var(--base, 8px)*1.5) calc(var(--base, 8px)*2.5);
         }
     }
 
@@ -169,26 +223,12 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
     }
 
-    select[multiple] {
-        height: auto;
-        padding: 0 map-get($spacers, "2");
-
-        option {
-            border-radius: $c-select-border-radius-option;
-        }
-
-        option:last-of-type {
-            margin-bottom: 16px;
-            margin-bottom: map-get($spacers , 2 );
-        }
-        
-        option:checked,
-        option:hover {
-            background-color: $c-select-multi-selected-bg;
-            color: $c-select-multi-selected-color;
-        }
+    .c-select__field-container {
+        position: relative;
+        line-height: 0;
     }
 
+    /* States */
     &.is-invalid {
         .c-select {
             &,
@@ -215,7 +255,130 @@ $c-select-multi-selected-color: var(--c-select-multi-selected-color, $color-whit
         }
     }
 
-    select[multiple] ~ .c-icon {
+    &.is-open {
+
+        .c-select__dropdown {
+            z-index: $level-8;
+            display: block;
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .c-select__expand-button {
+            .c-select__expand-more-icon {
+                display: none;
+            }
+            .c-select__expand-less-icon {
+                display: flex;
+            }
+        }
+    }
+
+    .c-select__dropdown {
+        animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
+        background-color: #FFF; 
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        max-height: calc($base * 30);
+        overflow-y: auto;
+        z-index: $level-3;
+        padding: #{$base} 0;
+        border: $c-select-border-width solid $c-select-border-color;
+    }
+
+    .c-select__option {
+        display: flex;
+        gap: calc(#{$base} * 1.5); 
+        padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        margin-top: 0;
+
+        &:hover {
+            background-color: rgba(#000, .2);
+        }
+
+        .c-select__option-icon {
+            animation: c-select-option-puff 100ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+
+        .c-select__checked-icon {
+            display: none;
+        }
+
+        &.is-selected {
+            .c-select__unchecked-icon {
+                display: none;
+            }
+
+            .c-select__checked-icon {
+                display: block;
+            }
+        }
+
+        &.is-disabled {
+            opacity: .4;
+        }
+    }
+
+    .c-select__option {
+        .c-select__option-label {
+            transition: transform 400ms;
+        }
+        .c-select__option-icon {
+            transition: transform 300ms;
+        }
+        &:hover {
+            .c-select__option-label,
+            .c-select__option-icon {
+                transform: translateX(calc(#{$base} * 0.5)); 
+            }
+        }
+    }
+
+}
+
+@keyframes c-select-dropdown-expand {
+    0% {
+        transform-origin: top;
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0deg);
+        transform-origin: top;
+        opacity: 1;
+    }
+}
+
+@keyframes c-select-option-puff {
+    0% {
+        filter: blur(4px);
+        opacity: 0;
+    }
+    100% {
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes c-select-expand-rotate {
+    0% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes c-select-expand-rotate-inverted {
+    0% {
+        transform: rotate(-180deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }

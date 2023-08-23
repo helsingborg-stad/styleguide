@@ -41,15 +41,19 @@ import {moveElement} from './helpers/moveElement';
 import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
+import {SelectComponentObserver} from './select/SelectComponentObserver'; 
 import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
 import { initializeCompressed } from './compressed';
+import {DeviceDetect} from './deviceDetect';
 
 expandSection();
 setScrollbarCSS();
 IframeAcceptance();
 AnchorMenu();
 
+const DeviceDetectInstance = new DeviceDetect(); 
+const selectComponentObserverInstance = new SelectComponentObserver();
 const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
@@ -76,6 +80,7 @@ initializeMenus();
 initializeSlider();
 initializeCompressed();
 setupCopy();
+selectComponentObserverInstance.observe();
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {

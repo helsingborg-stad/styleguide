@@ -37,14 +37,23 @@ class Fields {
                 }
             }
 
-            if (input.closest('.c-filterselect')) {
-                let filterSelect = input.closest('.c-filterselect');
-                filterSelect.querySelector('.c-filterselect__options').addEventListener('click', (e) => {
+            if (input.closest('.c-select--multiselect')) {
+                let filterSelect = input.closest('.c-select--multiselect');
+                filterSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
                     this.form.dispatchEvent(formEmpty);
                 })
             }
         });
         this.setValidationListeners(params);
+    }
+
+    checkFormRequirements(form) {
+        if (form.querySelector('[type="submit"]') === null) {
+            console.error('Form must have a submit button.', form)
+            return false;
+        }
+
+        return true;
     }
 
     initialize() {
@@ -56,6 +65,7 @@ class Fields {
 
         return { checkboxHandler, policyHandler, fileinputHandler }
     }
+
 
     setValidationListeners(params) {
         this.keyup();
