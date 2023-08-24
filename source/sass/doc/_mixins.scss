@@ -93,3 +93,13 @@
 .mixin-example-shadow {
     @include shadow(2, true);
 }
+
+/* Size */
+.mixin-example-size {
+    @include size(3, 4, "em");
+}
+
+/* Size */
+.mixin-example-stretch {
+    @include stretch();
+}
