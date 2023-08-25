@@ -5,10 +5,6 @@
     @markdown
         #Responsive styles
         The responsiveStyles mixin facilitates the creation of responsive CSS styles through breakpoints. By providing a map of selectors and styles, this mixin generates media queries for specified breakpoints. The mixin's parameters allow you to customize its behavior. The $breakpoints parameter controls which breakpoints the styles will be applied to, and the $limitToBreakpoint parameter restricts styles to the current breakpoint when set to true. This mixin streamlines the process of crafting responsive designs by encapsulating complex media query logic.
- 
- * @param {Map} $styles - Map of selectors and their corresponding styles.
- * @param {List} $breakpoints - List of breakpoints to apply styles for (default: all).
- * @param {Boolean} $limitToBreakpoint - Limit styles to current breakpoint (default: true)..
     @endmarkdown
 
     @paper(['padding' => '3'])

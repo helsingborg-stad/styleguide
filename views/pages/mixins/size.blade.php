@@ -16,7 +16,7 @@
       @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-margin__top--3']])
         {{\HbgStyleGuide\Helper\ParseString::tidyHtml('
          HTML: 
-             <span class="mixin-example-size"></span>
+             <span class="mixin-example-size">_</span>
         ')}}
       @endcode
       @code(['language' => 'scss', 'content' => "", 'classList' => ['d-code']])

@@ -17,7 +17,7 @@
       @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-margin__top--3']])
         {{\HbgStyleGuide\Helper\ParseString::tidyHtml('
         HTML: 
-            <span class="mixins-example-arrow"></span>
+            <span class="mixins-example-arrow">_</span>
         ')}}
       @endcode
       @code(['language' => 'scss', 'content' => "", 'classList' => ['d-code']])
