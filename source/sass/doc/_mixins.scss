@@ -103,3 +103,23 @@
 .mixin-example-stretch {
     @include stretch();
 }
+
+/* Responsive-styles */
+$exampleOrder: 1;
+@while($exampleOrder <= 2) {
+    @include responsiveStyles(
+        (
+            ".mixin-example-responsive-styles--#{$exampleOrder}": ( background-color: blue )
+        ),
+    );
+    $exampleOrder: $exampleOrder + 1;
+}
+
+.mixin-example-responsive-styles--1 {
+    height: 100px;
+}
+
+.mixin-example-responsive-styles--2 {
+    background-color: green;
+    height: 100px;
+}
