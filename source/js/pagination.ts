@@ -29,17 +29,18 @@ export default class Pagination {
         }
 
         this.attributes = this.getAttributes();
-
-
-        if (container.querySelector('[data-js-pagination-sort]')) {
-            this.setupSortListener();
-        }
-
+        
         if (this.attributes.randomize) {
             this.list = this.list.sort(() => Math.random() - 0.5);
         }
-
-        this.container.setAttribute('js-table-pagination--current', '1');
+        
+        
+        if (container.querySelector('[data-js-pagination-sort]')) {
+            this.setupSortListener();
+        }
+        
+        const paginationCurrent = this.setCurrentPageFromURL();
+        this.container.setAttribute('js-table-pagination--current', paginationCurrent);
         this.setPageNumberAttribute();
         this.tableRefresh();
         this.paginationButtons();
