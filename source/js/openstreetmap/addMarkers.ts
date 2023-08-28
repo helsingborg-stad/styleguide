@@ -39,14 +39,14 @@ class AddMarkers {
         locations.forEach((location, index) => {
             if (location?.lat && location?.lng) {
                 let customIcon: Icon | undefined = undefined;
+                console.log("location: ", location);
                 if (location?.icon) {
                     customIcon = location.icon;
+                    console.log("customIcon: ", customIcon)
                 } 
 
                 let marker = L.marker([location.lat, location.lng], {
                     icon: this.createMarker(customIcon),
-                    // url: { lat: location.lat, lng: location.lng },
-                    // id: `${'marker' + index}`,
                 });
                 if (location.tooltip) {
                     marker.bindPopup(this.createTooltipFromTemplate(location.tooltip), { maxWidth: 300 });
@@ -83,6 +83,8 @@ class AddMarkers {
         let color = customIcon?.backgroundColor
             ? customIcon.backgroundColor
             : this.getPrimaryColor();
+
+            console.log(icon, color);
         
             if (!html) return;
         html = html
