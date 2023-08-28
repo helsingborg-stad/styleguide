@@ -39,10 +39,8 @@ class AddMarkers {
         locations.forEach((location, index) => {
             if (location?.lat && location?.lng) {
                 let customIcon: Icon | undefined = undefined;
-                console.log("location: ", location);
                 if (location?.icon) {
                     customIcon = location.icon;
-                    console.log("customIcon: ", customIcon)
                 } 
 
                 let marker = L.marker([location.lat, location.lng], {
@@ -84,8 +82,6 @@ class AddMarkers {
             ? customIcon.backgroundColor
             : this.getPrimaryColor();
 
-            console.log(icon, color);
-        
             if (!html) return;
         html = html
             .replace('{icon-name}', icon as string)
