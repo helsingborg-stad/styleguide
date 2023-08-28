@@ -60,6 +60,7 @@ export default class Pagination {
         if (!sortElement) return;
         const lists = this.createSortedArrays();
         const event = new Event('change');
+        let manuallyDispatchedEvent = true;
 
         sortElement.addEventListener('change', (e) => {
             const selectedValue = (e.target as HTMLSelectElement)?.value;
@@ -72,34 +73,16 @@ export default class Pagination {
                 this.list = lists.default;
             }
             this.setSortedURLParam(selectedValue);
-            this.paginateSetCurrent(1);
+            if (!manuallyDispatchedEvent) {
+                this.paginateSetCurrent(1);
+            } else {
+                manuallyDispatchedEvent = false;
+            }
             this.tableRefresh();
         });
 
         this.setSortElementValueFromURL(sortElement as HTMLSelectElement);
         sortElement.dispatchEvent(event);
-    }
-
-    private setSortElementValueFromURL(sortElement: HTMLSelectElement) {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const paginationSorting = urlSearchParams.get('sortby');
-
-        if (paginationSorting && sortElement) {
-            sortElement.value = paginationSorting;
-        }
-    }
-
-    private setSortedURLParam(selectedValue: string) {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-
-        if (selectedValue) {
-            urlSearchParams.set('sortby', selectedValue);
-        } else {
-            urlSearchParams.delete('sortby');
-        }
-
-        const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
-        history.replaceState({}, '', updatedUrl);
     }
 
     private createSortedArrays() {
@@ -289,8 +272,6 @@ export default class Pagination {
     }
 
     private paginationButtons() {
-        this.paginateSetCurrent();
-
         this.container.querySelector(`[${this.nextBtn}]`)?.addEventListener('click', (e) => {
             e.preventDefault();
 
