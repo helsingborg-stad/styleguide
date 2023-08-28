@@ -155,26 +155,6 @@ export default class Pagination {
         }
     }
 
-    private setPageURLParam() {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const pageNum = this.paginationCurrent();
-        urlSearchParams.set('pagenum', pageNum.toString());
-        const updatedUrl = `${window.location.pathname}?${urlSearchParams}`;
-        history.pushState({}, '', updatedUrl);
-    }
-
-    private handlePopstate() {
-        window.addEventListener('popstate', (e) => {
-            const urlSearchParams = new URLSearchParams(window.location.search);
-            const pageNum = urlSearchParams.get('pagenum');
-
-            if (pageNum !== this.paginationCurrent().toString()) {
-                this.paginateSetCurrent(parseInt(pageNum || "1"));
-                this.tableRefresh();
-            }
-        });
-    }
-
     private paginatePages(): number {
         const numberOfPages = Math.ceil(this.list.length / this.attributes.perPage);
 
@@ -252,7 +232,7 @@ export default class Pagination {
 
     private scrollToTop() {
         let offset = document.querySelector('.c-header--sticky') ? 100 : 0;
-        let elementPosition = this.listContainer?.getBoundingClientRect().top ?? 0;
+        let elementPosition = this.container?.getBoundingClientRect().top ?? 0;
         let offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({
             top: offsetPosition,
@@ -304,12 +284,61 @@ export default class Pagination {
             this.container.querySelector(`[${this.prevBtn}]`)?.setAttribute('disabled', 'true');
             
         }
-        
         this.setPageURLParam();
     }
 
     private paginationCurrent(): number {
-        return parseInt(this.container.getAttribute('js-table-pagination--current') ?? '0', 10);
+        return parseInt(this.container.getAttribute('js-table-pagination--current') ?? '1', 10);
+    }
+
+    /* URL */
+    private setSortElementValueFromURL(sortElement: HTMLSelectElement) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const paginationSorting = urlSearchParams.get('sortby');
+
+        if (paginationSorting && sortElement) {
+            sortElement.value = paginationSorting;
+        }
+    }
+
+    private setSortedURLParam(selectedValue: string) {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+
+        if (selectedValue) {
+            urlSearchParams.set('sortby', selectedValue);
+        } else {
+            urlSearchParams.delete('sortby');
+        }
+
+        const updatedUrl = `${window.location.pathname}?${urlSearchParams.toString()}`;
+        history.replaceState({}, '', updatedUrl);
+    }
+
+    private setCurrentPageFromURL() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const pageNum = urlSearchParams.get('pagenum');
+
+        return pageNum ? pageNum : '1';
+    }
+
+    private setPageURLParam() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const pageNum = this.paginationCurrent();
+        urlSearchParams.set('pagenum', pageNum.toString());
+        const updatedUrl = `${window.location.pathname}?${urlSearchParams}`;
+        history.pushState({}, '', updatedUrl);
+    }
+
+    private handlePopstate() {
+        window.addEventListener('popstate', (e) => {
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const pageNum = urlSearchParams.get('pagenum');
+            
+            if (pageNum !== this.paginationCurrent().toString()) {
+                this.paginateSetCurrent(parseInt(pageNum || "1"));
+                this.tableRefresh();
+            }
+        });
     }
 }
 
