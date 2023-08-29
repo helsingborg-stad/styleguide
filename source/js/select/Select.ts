@@ -37,10 +37,14 @@ export class Select {
 		this.expandLessIcon = this.element.querySelector(`.${SelectElementSelector.expandLessIconCssClass}`) as HTMLElement;
 		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
 		this.preserveNativeBehaviorElement = this.element.querySelector(`[${SelectElementSelector.preserveNativeBehaviorAttribute}]`) as HTMLElement;
-		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || ""
+		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || "";
+
+		console.log(this.preserveNativeBehaviorElement);
 
 		this.preserveNativeBehaviorElement.addEventListener('click', (e) => {
-			this.selectElement.focus()
+			console.log('click: ' + e.target);
+			console.log("has focus: " + document.activeElement);
+			this.selectElement.click();
 		})
 
 		this.setupEventListeners();
