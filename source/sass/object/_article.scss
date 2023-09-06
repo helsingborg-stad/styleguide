@@ -5,16 +5,10 @@ $article-content-headings:
 $article-content-elements:
 'p', 'ul', 'ol', 'blockquote', 'img', 'figure', 'table', '> div' !default;
 
-$article-color-heading: var(--article-color-heading, $color-primary);
 
 .c-article {
     #{$article-content-elements} {
         margin-top: calc(#{$base} * 2);
-    }
-
-    h1, .h1 {
-        color: $article-color-heading;
-        margin-bottom: calc(#{$base} * 2.5);
     }
 
     > *:first-child {
@@ -24,7 +18,7 @@ $article-color-heading: var(--article-color-heading, $color-primary);
     h1:first-child {
         margin-top: -0.21rem; /* Mitigates excessive spacing due to line-height */ 
     }
-
+    
     h1:last-child {
         margin-bottom: 0; 
     }
