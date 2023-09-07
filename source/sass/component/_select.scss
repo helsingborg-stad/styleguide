@@ -50,12 +50,9 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         color: $color-light;
     }
 
-    [data-select-preserve-native-behavior] {
-        display: none;
-    }
-
-    &.is-ios, &.is-android {
-        [data-select-preserve-native-behavior] {
+    &.is-ios,
+    &.is-android {
+        select {
             display: block;
             height: 100%;
             position: absolute;

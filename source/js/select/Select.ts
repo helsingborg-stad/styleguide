@@ -5,7 +5,6 @@ export enum SelectElementSelector {
 	selectDropdownElementAttribute = 'data-js-dropdown-element',
 	selectDropdownOptionElementAttribute = 'data-js-dropdown-option',
 	actionOverlayElementAttribute = 'data-js-select-action-overlay',
-	preserveNativeBehaviorAttribute = 'data-select-preserve-native-behavior',
 	placeholderAttribute = 'data-js-placeholder',
 	activeOptionCssClass = 'is-selected',
 	emptySelectCssClass = 'is-empty',
@@ -23,7 +22,6 @@ export class Select {
 	private dropDownElement: HTMLElement;
 	private expandLessIcon: HTMLElement;
 	private expandMoreIcon: HTMLElement;
-	private preserveNativeBehaviorElement: HTMLElement;
 	private optionTemplate: HTMLTemplateElement;
 	private placeholderText: string;
 
@@ -37,13 +35,8 @@ export class Select {
 		this.clearButton = this.element.querySelector(`[${SelectElementSelector.selectClearAttribute}]`);
 		this.expandLessIcon = this.element.querySelector(`.${SelectElementSelector.expandLessIconCssClass}`) as HTMLElement;
 		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
-		this.preserveNativeBehaviorElement = this.element.querySelector(`[${SelectElementSelector.preserveNativeBehaviorAttribute}]`) as HTMLElement;
 		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || "";
 		this.optionTemplate = this.element.querySelector('template') as HTMLTemplateElement;
-
-		this.preserveNativeBehaviorElement.addEventListener('click', (e) => {
-			this.selectElement.focus()
-		})
 
 		this.setupEventListeners();
 	}
