@@ -28,8 +28,9 @@ export function getMarkerDataFromElement(el: HTMLElement) {
         const lng = json.lng;
         const tooltip = json.tooltip ?? false;
         const url = json.url ?? false;
+        const icon = json.icon ?? false;
 
-        return {lat: lat, lng: lng, tooltip: tooltip, url: url, element: el};
+        return {lat: lat, lng: lng, tooltip: tooltip, url: url, element: el, icon: icon};
     }
     
     return {lat: undefined, lng: undefined};
