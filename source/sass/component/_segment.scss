@@ -1,6 +1,7 @@
 $c-segment-color-overlay: var(--c-segment-color-overlay, $color-alpha) !default;
 $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-radius-lg) !default;
 $c-segment-card-color-background: var(--c-card-color-background, $color-background-card) !default;
+$c-segment-image-background-color: var(--c-segment-image-color-background, $color-secondary) !default;
 
 
 .c-segment {
@@ -74,6 +75,12 @@ $c-segment-card-color-background: var(--c-card-color-background, $color-backgrou
         .c-segment__content {
             margin: calc($base * -4) calc($base * 2) 0 calc($base * 2);
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+
+            .c-segment__content-card {
+                flex-grow: 1;
+            }
         }
 
         &.c-segment--no-image .c-segment__content {
@@ -206,6 +213,14 @@ $c-segment-card-color-background: var(--c-card-color-background, $color-backgrou
 .c-segment.c-segment--stretch {
     /* Bleed outside container  left&right */
     @include stretch();
+}
+
+.c-segment.c-segment--svg-background {
+    .c-segment__image {
+        background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
+        background-repeat: no-repeat;
+        background-color: $c-segment-image-background-color;
+    }
 }
 
 .c-segment.c-segment--text {
