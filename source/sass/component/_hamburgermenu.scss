@@ -32,7 +32,9 @@ $c-hamburger-menu-font: var(--c-hamburger-menu-font, $font-family-base) !default
     }
 
     .c-hamburgermenu__description {
-        border-top: 2px solid black;
+        border-top: 2px solid $c-hamburger-menu-heading-color;
+        padding-top: calc($base * 1);
+        margin-top: 0;
     }
 
     .c-hamburgermenu__link {
