@@ -10,10 +10,6 @@ $c-segment-image-background-color: var(--c-segment-image-color-background, $colo
     position: relative;
     background-size: cover;
 
-    * {
-        position: relative;
-    }
-
     .c-segment__slot {
         order: 3;
         justify-content: center;
