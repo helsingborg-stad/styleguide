@@ -31,6 +31,10 @@ $c-hamburger-menu-font: var(--c-hamburger-menu-font, $font-family-base) !default
         font-family: $c-hamburger-menu-font;
     }
 
+    .c-hamburgermenu__description {
+        border-top: 2px solid black;
+    }
+
     .c-hamburgermenu__link {
         display: inline-flex;
         align-items: center;
