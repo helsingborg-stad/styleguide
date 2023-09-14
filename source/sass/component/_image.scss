@@ -126,6 +126,13 @@ $radius: (
         }
     }
 
+    /* Gutenberg fixes to center image */
+    &.u-margin__x--auto img,
+    .u-margin__x--auto img {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     // Rounded Images with different sizes
     @each $map in $radius {
         $radiusName: map-get($map, 'name');
