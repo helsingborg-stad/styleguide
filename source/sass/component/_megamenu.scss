@@ -8,6 +8,9 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
     padding-top: $c-mega-menu-padding;
     padding-bottom: $c-mega-menu-padding;
     background-color: $c-mega-menu-background-color;
+    position: absolute;
+    width: 100%;
+    z-index: $level-5;
 
     &.c-megamenu--secondary {
         --c-mega-menu-heading-color: #{$color-primary};
@@ -23,6 +26,13 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
 
     &.c-megamenu--font-heading {
         --c-mega-menu-font: #{$font-family-heading};
+    }
+
+    .c-hamburgermenu__description {
+        border-top: 2px solid $c-mega-menu-heading-color;
+        color: $c-mega-menu-subitem-color;
+        padding-top: calc($base * 1);
+        margin-top: 0;
     }
     
     .c-megamenu__link--title {
