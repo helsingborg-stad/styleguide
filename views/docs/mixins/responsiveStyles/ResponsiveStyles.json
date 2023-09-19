@@ -1,0 +1,8 @@
+{
+    "description": {
+        "responsiveStyles": "styles, breakpoints, limitToBreakpoint "
+    },
+    "attributes": {
+        "responsiveStyles": "(array with styles with selector and styling), (array breakpoints), (bool)"
+    }
+}

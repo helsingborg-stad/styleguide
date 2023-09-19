@@ -1,7 +1,7 @@
 $c-paper-color-background: var(--c-paper-color-background, $color-background-card) !default;
 $c-paper-border-radius: var(--c-paper-border-radius, $border-radius-lg) !default;
 
-@mixin paper($level: 1, $inset: false, $padding: 0) {
+@mixin paper($level: 1, $padding: "0") {
     filter: nth($drop-shadow-list, $level);
     background-color: $c-paper-color-background;
     border-radius: $c-paper-border-radius;

@@ -1,0 +1,12 @@
+{
+    "description": {
+        "focus": "No parameters",
+        "focus-remove-default": "No parameters",
+        "focus-inset": "Border radius, Remove default focus"
+    },
+    "attributes": {
+        "focus": "",
+        "focus-remove-default": "",
+        "focus-inset": "(number)(unit), Boolean"
+    }
+}

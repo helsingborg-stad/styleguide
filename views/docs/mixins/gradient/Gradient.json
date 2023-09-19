@@ -1,0 +1,8 @@
+{
+    "description": {
+        "gradient": "Direction, Color stops"
+    },
+    "attributes": {
+        "gradient": "(number)deg, #(color)..."
+    }
+}

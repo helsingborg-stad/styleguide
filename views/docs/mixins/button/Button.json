@@ -1,0 +1,12 @@
+{
+    "description": {
+        "button-mix": "Color, background, Hover color",
+        "button-size": "Vertical padding, Horizontal adding, Font size, Border radius",
+        "button-unstyled": "No parameters"
+    },
+    "attributes": {
+        "button-mix": "#(color), #(color), #(color)",
+        "button-size": "(number)px, (number)px, (number)px, (number)px",
+        "button-unstyled": ""
+    }
+}

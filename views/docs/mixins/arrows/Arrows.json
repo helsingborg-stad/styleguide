@@ -1,0 +1,8 @@
+{
+    "description": {
+        "Arrow": "Direction, size, color"
+    },
+    "attributes": {
+        "Arrow": "(up, down, left, right), (number)px, #(color)"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "description": {
+        "from": "Width",
+        "until": "Width",
+        "orientation": "Orientation",
+        "and": "Extra condition"
+    },
+    "attributes": {
+        "from": "xs, sm, md, lg",
+        "until": "xs, sm, md, lg",
+        "orientation": "landscape, portrait",
+        "and": "and (min-height: (number)px)"
+    }
+}
