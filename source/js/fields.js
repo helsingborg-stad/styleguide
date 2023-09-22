@@ -235,7 +235,7 @@ class Fields {
         let submitButton = this.form.querySelector('[type="submit"]');
 
         this.form.addEventListener('submit', (e) => {
-            if (!checkboxHandler.validateCheckboxes(this.checkboxGroups) || !fileinputHandler.validateFileinputs(form)) {
+            if (!checkboxHandler.validateCheckboxes(this.checkboxGroups) || !fileinputHandler.validateFileinputs(this.form)) {
                 e.preventDefault();
                 this.classToggle(this.form, 'is-invalid', 'is-valid');
             } else {
