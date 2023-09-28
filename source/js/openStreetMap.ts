@@ -82,7 +82,7 @@ class OpenStreetMap {
                 const marker = layer as Marker;
                 const latLng = marker.getLatLng();
                 if (latLng && latLng.lat.toString() == params.lat && latLng.lng.toString() == params.lng) {
-                    zoomToMarker(marker);
+                    zoomToMarker(marker, this.container);
                 }
             }
         });

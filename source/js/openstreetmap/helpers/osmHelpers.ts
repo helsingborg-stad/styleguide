@@ -1,13 +1,37 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 
-export function zoomToMarker(marker: Marker | undefined) {
+export function zoomToMarker(marker: Marker | undefined, container: HTMLElement | false = false) {
     if (marker && (marker as any).__parent) {
         const cluster = (marker as any).__parent;
-        cluster.zoomToBounds();
+        let hasMoreThanOnePin = true;
+
+        if (container) {
+            hasMoreThanOnePin = allLocations(container).length > 1;
+        }
+
+        if (hasMoreThanOnePin) {
+            cluster.zoomToBounds();
+        } 
+        
         setTimeout(function () {
             marker.openPopup();
         }, 300);
     }
+}
+
+export function allLocations(container: HTMLElement) {
+    let locations = JSON.parse(container.getAttribute('data-js-map-pin-data') || '[]') ?? [];
+    const sidebar = container?.querySelector('.c-openstreetmap__sidebar');
+
+    if (!sidebar) return locations;
+    
+    const placeElements = sidebar.querySelectorAll('[data-js-map-location]');
+    
+    placeElements.forEach(element => {
+        locations.push(getMarkerDataFromElement(element as HTMLElement));
+    });
+    
+    return locations;
 }
 
 export function getElementJSONLocation(el: HTMLElement) {
