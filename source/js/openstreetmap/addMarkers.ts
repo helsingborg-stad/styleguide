@@ -1,4 +1,4 @@
-import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory } from './helpers/osmHelpers';
+import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory, allLocations } from './helpers/osmHelpers';
 import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import { MarkerElementObjects, Location, Tooltip, Icon } from './interface/interface';
 
@@ -18,25 +18,10 @@ class AddMarkers {
 
         this.addMarkersToMap();
     }
-    
-    private getAllLocations() {
-        let locations = this.locations ?? [];
-        const sidebar = this.container?.querySelector('.c-openstreetmap__sidebar');
-
-        if (!sidebar) return locations;
-        
-        const placeElements = sidebar.querySelectorAll('[data-js-map-location]');
-        
-        placeElements.forEach(element => {
-            locations.push(getMarkerDataFromElement(element as HTMLElement));
-        });
-        
-        return locations;
-    }
 
     private addMarkersToMap() {
-        const locations = this.getAllLocations() ?? [];
-        locations.forEach((location, index) => {
+        const locations = allLocations(this.container) ?? [];
+        locations.forEach((location: Location) => {
             if (location?.lat && location?.lng) {
                 let customIcon: Icon | undefined = undefined;
                 if (location?.icon) {
