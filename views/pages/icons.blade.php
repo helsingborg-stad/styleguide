@@ -73,7 +73,7 @@
 
                             <div class="o-grid d-icons__sheet" js-sort-data-container>
                                 @foreach($icons as $icon)
-                                    <div class="o-grid-6@xs o-grid-4@sm o-grid-3@md o-grid-2@lg d-animation"  onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="" js-sort-sortable js-sort-data="111-0">
+                                    <div class="o-grid-6@xs o-grid-4@sm o-grid-3@md o-grid-2@lg o-grid-2@xl d-animation"  onclick="copy(this)"  style="word-break: break-word; text-align:center; cursor: pointer" js-filter-item="" js-sort-sortable js-sort-data="111-0">
                                         <div class="d-animation__content">      
                                             @icon(["icon" => $icon, "size" => "xl", "classList" => ["d-animation__icon"]])
                                             @endicon

@@ -10,7 +10,7 @@
 
     <div class="o-grid">
 
-        <div class="o-grid-4@lg">
+        <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
                 'subHeading' => 'SubHeading', 
@@ -24,7 +24,7 @@
             @endcard
         </div>
 
-        <div class="o-grid-4@lg">
+        <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
                 'subHeading' => 'SubHeading', 
@@ -38,7 +38,7 @@
             @endcard
         </div>
 
-        <div class="o-grid-4@lg">
+        <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
                 'subHeading' => 'SubHeading', 
