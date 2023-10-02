@@ -7,7 +7,6 @@ $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
 $c-field-description-font-size: var(--c-field-description-font-size, 0.75rem) !default;
 $c-field-description-color: var(--c-field-description-color, $color-darker) !default;
 
-
 $c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
 $c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
 $c-field-success-color: var(--c-field-success-color, var(--color-success, $color-success-dark)) !default;
@@ -27,7 +26,6 @@ $c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, $font
 $c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
 $c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !default;
 $c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
-
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]'; 
 
@@ -97,18 +95,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     
     .c-field__inner {
         position: relative;
-
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-        
         width: 100%;
+        height: 100%;
         min-width: calc(#{$base}*10);
-
         font-size: $c-field-font-size-md;
         line-height: $c-field-font-size-md-line-height; 
-
         border: $c-field-border-width solid $c-field-border-color;
         background: $c-field-background-color;
         border-radius: calc($base * $c-field-border-radius);

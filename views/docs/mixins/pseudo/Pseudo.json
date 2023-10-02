@@ -1,0 +1,8 @@
+{
+    "description": {
+        "pseudo": "display, pos, content"
+    },
+    "attributes": {
+        "pseudo": "(CSS display value), (CSS position value), (string)"
+    }
+}

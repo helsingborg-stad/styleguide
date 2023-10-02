@@ -96,15 +96,15 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         border-radius: $border-radius-lg;
     }
 
-    &--size-sm {
+    .c-modal.c-modal--size-sm {
         max-width: map_get($breakpoints-map, "sm");
     }
 
-    &--size-md {
+    .c-modal.c-modal--size-md {
         max-width: map_get($breakpoints-map, "md");
     }
 
-    &--size-lg {
+    .c-modal.c-modal--size-lg {
         max-width: map_get($breakpoints-map, "lg");
     }
 

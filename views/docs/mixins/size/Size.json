@@ -1,0 +1,8 @@
+{
+    "description": {
+        "size": "x, y, unit"
+    },
+    "attributes": {
+        "size": "(number), (number), (string)"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "description": {
+        "ratio": "level, inset, result"
+    },
+    "attributes": {
+        "ratio": "(number), boolean, (CSS box-shadow property name string)"
+    }
+}
+

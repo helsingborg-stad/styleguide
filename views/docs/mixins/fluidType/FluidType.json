@@ -1,0 +1,8 @@
+{
+    "description": {
+        "fluid-type": "Min size, Max size, Coefficient"
+    },
+    "attributes": {
+        "fluid-type": "(number)(unit), (number)(unit), (number)(unit)"
+    }
+}

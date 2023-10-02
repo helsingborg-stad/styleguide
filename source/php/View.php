@@ -74,9 +74,10 @@ class View
         $blade->component("layout.doc", "doc");
         $blade->component("layout.utility_doc", "utility_doc");
         $blade->component("layout.script_doc", "script_doc");
+        $blade->component("layout.mixins_doc", "mixins_doc");
   
       //Doc templates
-        $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc');
+        $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc', 'layout.mixins_doc');
 
         //Documentation module
         $blade->composer($docTemplates, function ($view) use ($blade) {

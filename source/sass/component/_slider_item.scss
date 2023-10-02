@@ -79,7 +79,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     &__background--video__play__btn {
         position: absolute;
         right: map-get($spacers, '2');
-        bottom: map-get($spacers, '2');
+        top: map-get($spacers, '2');
         z-index: $level-4 + 1;
     }
 
