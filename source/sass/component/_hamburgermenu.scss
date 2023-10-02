@@ -8,6 +8,9 @@ $c-hamburger-menu-font: var(--c-hamburger-menu-font, $font-family-base) !default
     padding-top: $c-hamburger-menu-padding;
     padding-bottom: $c-hamburger-menu-padding;
     background-color: $c-hamburger-menu-background-color;
+    position: absolute;
+    width: 100%;
+    z-index: $level-5;
 
     &.c-hamburgermenu--secondary {
         --c-hamburger-menu-heading-color: #{$color-primary};
@@ -24,11 +27,22 @@ $c-hamburger-menu-font: var(--c-hamburger-menu-font, $font-family-base) !default
     &.c-hamburgermenu--font-heading {
         --c-hamburger-menu-font: #{$font-family-heading};
     }
+
+    &.c-hamburgermenu--cover {
+        min-height: 100vh;
+    }
     
     .c-hamburgermenu__link--title {
         font-size: $font-size-title;
         color: $c-hamburger-menu-heading-color;
         font-family: $c-hamburger-menu-font;
+    }
+
+    .c-hamburgermenu__description {
+        border-top: 2px solid $c-hamburger-menu-heading-color;
+        color: $c-hamburger-menu-subitem-color;
+        padding-top: calc($base * 1);
+        margin-top: 0;
     }
 
     .c-hamburgermenu__link {
