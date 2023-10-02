@@ -2,10 +2,10 @@
 
 @section('doc-content')
     @markdown
-        #Hamburger menu
+        #Mega menu
     @endmarkdown
 
 
-    @doc(['slug' => 'hamburgerMenu'])
+    @doc(['slug' => 'megaMenu'])
     @enddoc
 @stop

@@ -1,17 +1,17 @@
 @button([
-    'id' => 'hamburger-menu-trigger-open',
+    'id' => 'mega-menu-trigger-open',
     'color' => 'primary',
     'text' => 'Open hamburger menu',
     'classList' => [
-        'hamburger-menu-trigger',
+        'mega-menu-trigger',
     ],
     'attributeList' => [
-        'data-js-toggle-trigger' => 'hamburger-menu',
+        'data-js-toggle-trigger' => 'mega-menu',
     ]
 ])
 @endbutton
 
-@hamburgerMenu([
+@megaMenu([
     'menuItems' => [
         [
             'id' => 1,
@@ -29,4 +29,4 @@
         ]
     ],
 ])
-@endhamburgerMenu
+@endmegaMenu

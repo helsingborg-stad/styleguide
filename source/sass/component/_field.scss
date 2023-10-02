@@ -352,8 +352,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 }
 
-/* For the search-field in a hamburgermenu */
-.c-hamburgermenu .c-form {
+/* For the search-field in a megamenu */
+.c-megamenu .c-form {
     @include mq("xs") {
         .c-group {
             justify-content: center;
