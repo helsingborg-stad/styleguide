@@ -96,6 +96,10 @@
                 gap: 0 var(--grid-gap);
             }
 
+            .o-grid.o-grid--vertical {
+                gap: var(--grid-gap) 0;
+            }
+
             // Form column margins modifier
             .o-grid.o-grid--form,
             .o-grid.o-grid--half-gutter {
