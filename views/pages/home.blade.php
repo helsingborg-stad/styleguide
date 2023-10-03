@@ -56,7 +56,7 @@
 
 <article class="o-container">
     <div class="o-grid">
-        <div class="o-grid-6@md o-grid-3@lg">
+        <div class="o-grid-6@md o-grid-3@lg o-grid-3@xl">
             @card([
                 'heading' => 'Components',
                 'subHeading' => 'A web for everyone',
@@ -73,7 +73,7 @@
             ])
             @endcard
         </div>
-        <div class="o-grid-6@md o-grid-3@lg">
+        <div class="o-grid-6@md o-grid-3@lg o-grid-3@xl">
             @card([
                 'heading' => 'Atomic Design',
                 'subHeading' => 'Implemented standards',
@@ -90,7 +90,7 @@
             ])
             @endcard
         </div>
-        <div class="o-grid-6@md o-grid-3@lg">
+        <div class="o-grid-6@md o-grid-3@lg o-grid-3@xl">
             @card([
                 'heading' => 'Utilities',
                 'subHeading' => 'Behind the screen',
@@ -107,7 +107,7 @@
             ])
             @endcard
         </div> 
-        <div class="o-grid-6@md o-grid-3@lg">
+        <div class="o-grid-6@md o-grid-3@lg o-grid-3@xl">
             @card([
                 'heading' => 'Accessibility',
                 'subHeading' => 'And usability',

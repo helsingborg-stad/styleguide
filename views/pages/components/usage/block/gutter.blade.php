@@ -1,5 +1,5 @@
 <div class="o-grid o-grid--no-gutter">
-    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3 o-grid-3@xl">
         @block([
             'heading' => 'Purus Tellus',
             'meta' => 'Parturient Ultricies',
@@ -13,7 +13,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg o-grid-3@xl">
         @block([
             'heading' => 'Donec id elit non mi porta gravida at eget metus',
             'meta' => 'Nibh Sit',
@@ -26,7 +26,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg o-grid-3@xl">
         @block([
             'heading' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             'meta' => 'Commodo Fringilla',
@@ -39,7 +39,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg o-grid-3@xl">
         @block([
             'heading' => 'Maecenas sed diam eget risus varius blandit sit amet non magna',
             'meta' => 'Ullamcorper Euismod Pharetra',
@@ -52,7 +52,7 @@
         ])
         @endblock
     </div>
-    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg">
+    <div class="o-grid-12@xs o-grid-6@sm o-grid-4@md o-grid-3@lg o-grid-3@xl">
         @block([
             'heading' => 'Pharetra Etiam',
             'meta' => 'Amet',
