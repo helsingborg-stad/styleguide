@@ -32,7 +32,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
         border-top: 2px solid $c-mega-menu-heading-color;
         color: $c-mega-menu-subitem-color;
         padding-top: calc($base * 1);
-        margin-top: 0;
+        margin-top: calc($base * 0.5);
     }
 
     &.c-megamenu--cover {
