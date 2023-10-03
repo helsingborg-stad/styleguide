@@ -28,11 +28,15 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
         --c-mega-menu-font: #{$font-family-heading};
     }
 
-    .c-hamburgermenu__description {
+    .c-megamenu__description {
         border-top: 2px solid $c-mega-menu-heading-color;
         color: $c-mega-menu-subitem-color;
         padding-top: calc($base * 1);
         margin-top: 0;
+    }
+
+    &.c-megamenu--cover {
+        min-height: 100vh;
     }
     
     .c-megamenu__link--title {
