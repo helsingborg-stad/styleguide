@@ -46,6 +46,7 @@ export class Select {
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
+		this.selectElement.addEventListener('change', () => this.closeSingleSelectDropdown());
 		this.actionOverlayElement.addEventListener('keydown', (event) => this.openDropdownOnSpacebar(event));
 		this.clearButton?.addEventListener('click', () => this.setSingleSelectValue(null));
 		this.element.addEventListener('classListChange', () => this.updateDropdownAriaStateOnTopElementClassListChange());
@@ -63,6 +64,15 @@ export class Select {
 	updateDropdownAriaStateOnTopElementClassListChange(): void {
 		const isOpen = this.element.classList.contains('is-open');
 		this.dropDownElement.setAttribute('aria-hidden', Boolean(!isOpen).toString());
+	}
+
+	closeSingleSelectDropdown() : void {
+		if(!this.isMultiSelect()) {
+			const element = this.element.classList;
+			if(element.contains('is-open')) {
+				element.remove('is-open');
+			}
+		}
 	}
 
 	selectOptionOnElementClick(optionElement: HTMLElement) {
