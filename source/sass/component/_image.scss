@@ -1,30 +1,90 @@
 $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default;
 
+
 // ***************************************************************
-// *** Mapping for different sizes
+// *** Image
 // ***************************************************************
-$radius: (
-    (
-        'name': '',
-        'size': $border-radius-md,
-    ),
-    (
-        'name': &--rounded-xs,
-        'size': $border-radius-xs,
-    ),
-    (
-        'name': &--rounded-sm,
-        'size': $border-radius-sm,
-    ),
-    (
-        'name': &--rounded-md,
-        'size': $border-radius-md,
-    ),
-    (
-        'name': &--rounded-lg,
-        'size': $border-radius-lg,
-    )
-);
+
+.c-image {
+    .c-image__caption,
+    .c-image__photographer {
+        font-size: $font-size-caption;
+        line-height: $line-height-caption;
+        margin-top: map-get($spacers, '1');
+    }
+
+    .c-image__caption {
+        color: $color-darkest;
+    }
+
+    .c-image__photographer {
+        color: $color-dark;
+    }
+
+    .c-image__modal {
+        cursor: pointer;
+    }
+
+    .c-image__image {
+        border-radius: $c-image-border-radius;
+        max-width: 100%;
+    }
+
+    /* Modifiers */
+    &.c-image--custom-width {
+        width: auto;
+    }
+
+    &.c-image--radius-xs .c-image__image {
+        border-radius: $border-radius-xs;
+    }
+
+    &.c-image--radius-sm .c-image__image {
+        border-radius: $border-radius-sm;
+    }
+
+    &.c-image--radius-md .c-image__image {
+        border-radius: $border-radius-md;
+    }
+
+    &.c-image--radius-lg .c-image__image {
+        border-radius: $border-radius-lg;
+    }
+
+    &.c-image--radius-full .c-image__image {
+        border-radius: $border-radius-full;
+    }
+
+    .c-image--full-width .c-image__image {
+        object-fit: contain;
+        width: 100%;
+        display: block;
+    }
+
+    .c-modal--gallery .c-image__caption {
+        margin: 0 auto;
+        position: absolute;
+        bottom: -#{map-get($spacers, '8')};
+        color: $color-white;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+
+        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
+            bottom: -#{map-get($spacers, '8')};
+            word-break: break-word;
+        }
+    }
+
+    /* Inline images resized */
+    &.is-resized {
+        width: auto;
+        display: inline;
+        img {
+            width: auto;
+        }
+    }
+}
 
 // ***************************************************************
 // *** Placeholder
@@ -66,113 +126,6 @@ $radius: (
         @include mq(map_get($breakpoints-map, 'sm')) {
             margin-left: map-get($spacers, '1');
             margin-top: 0;
-        }
-    }
-}
-
-// ***************************************************************
-// *** Image
-// ***************************************************************
-
-.c-image {
-
-    .c-image--custom-width {
-        width: auto;
-    }
-
-    .c-image__image {
-        border-radius: $c-image-border-radius;
-        max-width: 100%;
-    }
-
-    .c-image__caption {
-        font-size: $font-size-caption;
-        color: $color-dark;
-        line-height: $line-height-caption;
-        margin-top: map-get($spacers, '1');
-    }
-
-    .c-image--full-width .c-image__image {
-        object-fit: contain;
-        width: 100%;
-        display: block;
-    }
-
-    .c-image__modal {
-        cursor: pointer;
-    }
-
-    .c-modal--gallery .c-image__caption {
-        margin: 0 auto;
-        position: absolute;
-        bottom: -#{map-get($spacers, '8')};
-        color: $color-white;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-
-        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-            bottom: -#{map-get($spacers, '8')};
-            word-break: break-word;
-        }
-    }
-
-    /* Inline images resized */
-    &.is-resized {
-        width: auto;
-        display: inline;
-        img {
-            width: auto;
-        }
-    }
-
-    // Rounded Images with different sizes
-    @each $map in $radius {
-        $radiusName: map-get($map, 'name');
-        $radiusSize: map-get($map, 'size');
-
-        &#{$radiusName}.c-image--rounded img {
-            border-radius: #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-left img {
-            border-radius: #{$radiusSize} 0 0 0;
-        }
-
-        &#{$radiusName}.c-image--rounded-top-right img {
-            border-radius: 0 #{$radiusSize} 0 0;
-        }
-
-        &#{$radiusName}.c-image--rounded-bottom-left img {
-            border-radius: 0 0 #{$radiusSize} 0;
-        }
-
-        &#{$radiusName}.c-image--rounded-bottom-right img {
-            border-radius: 0 0 0 #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-top-right img {
-            border-radius: #{$radiusSize} #{$radiusSize} 0 0;
-        }
-
-        &#{$radiusName}.c-image--rounded-bottom-left.c-image--rounded-bottom-right img {
-            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-left img {
-            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-left.c-image--rounded-bottom-right img {
-            border-radius: #{$radiusSize} 0 #{$radiusSize} 0;
-        }
-
-        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-right img {
-            border-radius: 0 0 #{$radiusSize} #{$radiusSize};
-        }
-
-        &#{$radiusName}.c-image--rounded-top-right.c-image--rounded-bottom-left img {
-            border-radius: #{$radiusSize} 0 0 #{$radiusSize};
         }
     }
 }
