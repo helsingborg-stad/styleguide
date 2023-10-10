@@ -7,7 +7,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 
 .c-image {
     .c-image__caption,
-    .c-image__photographer {
+    .c-image__byline {
         font-size: $font-size-caption;
         line-height: $line-height-caption;
         margin-top: map-get($spacers, '1');
@@ -17,7 +17,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         color: $color-darkest;
     }
 
-    .c-image__photographer {
+    .c-image__byline {
         color: $color-dark;
     }
 
