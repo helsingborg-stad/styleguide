@@ -2,6 +2,7 @@ $c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default
 $c-block-color: var(--c-block-color, $color-white) !default;
 $c-block-background-color: var(--c-block-background-color, $color-gray-light) !default;
 $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
+$c-block-image-background-color: var(--c-block-image-background-color, $color-secondary) !default;
 
 .c-block {
     position: relative;
@@ -99,6 +100,7 @@ $c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
     &--svg-background {
         background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
         background-repeat: no-repeat;
+        background-color: $c-block-image-background-color;
     }
 }
 
