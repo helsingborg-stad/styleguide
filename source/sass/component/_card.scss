@@ -10,6 +10,8 @@ $c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-o
 $c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
 $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
 
+$c-card-image-background-color: var(--c-card-image-background-color, $color-secondary) !default;
+
 .c-card {
 
     filter: $drop-shadow-2;
@@ -189,6 +191,8 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-d
     &--svg-background {
         .c-card__image-background {
             background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
+            background-repeat: no-repeat;
+            background-color: $c-card-image-background-color;
         }   
     }
 
