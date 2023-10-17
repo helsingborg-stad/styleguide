@@ -12,10 +12,7 @@
 		]
 	],
     "height"    => '500',
-    "src"       => 'https://google.com',
-    "policy"    => 'https://google.com/policy',
-    "host"      => 'google.com',
-    "name"      => 'Google',
+    "src"       => ['https://google.com'],
 ])
     Hey! this is the content blocked. Javascript will not run until acceptance is received.
 @endacceptance

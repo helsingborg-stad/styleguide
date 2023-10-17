@@ -14,10 +14,7 @@
 	],
     "modifier"  => 'video',
     "height"    => '500',
-    "src"       => 'https://www.youtube.com/watch?v=axiYo61XRRw',
-    "policy"    => 'https://helsingborg.se/policy',
-    "host"      => 'helsingborg.se',
-    "name"      => 'Helsingborg Stad',
+    "src"       => ['https://www.youtube.com/watch?v=axiYo61XRRw'],
     "classList" => ['u-ratio-16-9']
 ])
     Hey! this is the content blocked. Javascript will not run until acceptance is received.
