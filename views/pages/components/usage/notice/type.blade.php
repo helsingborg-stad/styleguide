@@ -2,7 +2,6 @@
     'type' => 'success',
     'message' => [
         'text' => 'Tellus Sem Lorem Malesuada Ipsum',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'check',
@@ -16,7 +15,6 @@
     'type' => 'info',
     'message' => [
         'text' => 'Donec id elit non mi porta gravida at eget metus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. <a href="#">A link to something.</a>',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'report',
@@ -30,7 +28,6 @@
     'type' => 'danger',
     'message' => [
         'text' => 'Sed posuere consectetur est at lobortis.',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'forum',
@@ -44,7 +41,6 @@
     'type' => 'warning',
     'message' => [
         'text' => 'Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis.',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'accessibility',

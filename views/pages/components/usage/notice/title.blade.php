@@ -1,9 +1,8 @@
 @notice([
     'type' => 'success',
-    'title' => 'Lorem ipsum',
     'message' => [
+        'title' => 'Lorem ipsum',
         'text' => 'Tellus Sem Lorem Malesuada Ipsum',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'check',
