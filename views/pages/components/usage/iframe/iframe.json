@@ -1,12 +1,12 @@
 {
     "iframe": {
-        "heading": "Iframe displaying helsingborg.se",
-        "subHeading": "",
-        "text": ""
+        "heading": "Iframe displaying w3schools.com",
+        "subHeading": "This is a unknown website. Which means it will use the unknownLabels object within the labels array.",
+        "text": "Within unknownLabels, {SUPPLIER_WEBSITE} can be added as a text string anywhere within the object and have it replaced automatically by the actual provider."
     },
     "video": {
         "heading": "Iframe displaying a video from youtube.com",
-        "subHeading": "This is not a recommended way of displaying a video.",
-        "text": ""
+        "subHeading": "This is a known website. Which means it will use the knownLabels object within the labels array.",
+        "text": "Within knownLabels, {SUPPLIER_WEBSITE} and {SUPPLIER_POLICY} can be added as a text string anywhere within the object and have it replaced automatically by the actual provider and policy."
     }
 }
