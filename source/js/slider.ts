@@ -41,7 +41,7 @@ export default class Slider {
 
         this.splide = new Splide(slider as HTMLElement, {
             type: this.sliderAttributes.sliderType,
-            start: this.sliderAttributes.start,
+            start: 0,
             autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
             perPage: this.sliderAttributes.perPage,
             perMove: this.sliderAttributes.perPage,
@@ -128,11 +128,10 @@ export default class Slider {
     getAttributes(): Options {
         let padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
         const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
-        const start = this.sliderElement.hasAttribute('data-slider-loop') ? 1 : 0;
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
         const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
 
-        return { gap: gap * 8, padding: padding * 8, start, perPage: slidesPerPage, sliderType: sliderType };
+        return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, sliderType: sliderType };
     }
 
 
