@@ -68,7 +68,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
             display: flex;
 
             img {
-                aspect-ratio: 16/9;
+                aspect-ratio: 1/1;
                 border-radius: $c-collection-item-image-border-radius;
                 height: 100%;
                 width: 100%;
