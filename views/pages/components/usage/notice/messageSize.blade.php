@@ -2,7 +2,6 @@
     'type' => 'success',
     'message' => [
         'text' => 'This message size is set to sm.',
-        'size' => 'sm'
     ],
     'icon' => [
         'name' => 'check',
