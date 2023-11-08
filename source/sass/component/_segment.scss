@@ -20,6 +20,10 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         }
     }
 
+    .c-segment__text {
+        position: relative;
+    }
+
     .c-segment__title {
         a {
             text-decoration: none;
