@@ -239,12 +239,12 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
 
     &--size-sm .c-card__image, &--size-sm .c-card__image-background {
-        flex-basis: 250px;
+        flex-basis: 200px;
         border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
     }
     
     &--size-sm .c-card__image + .c-card__body {
-        flex-basis: calc(100% - 250px);
+        flex-basis: calc(100% - 200px);
     }
     
     &--size-md .c-card__image {
