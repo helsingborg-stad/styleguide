@@ -7,7 +7,10 @@
         'text' => 'Left',
         'icon' => 'keyboard_arrow_left',
         'size' => 'md',
-        'reversePositions' => true
+        'reversePositions' => true,
+        'classList' => [
+            'js-dropdown-button'
+        ]
         
     ])
     @endbutton
@@ -21,7 +24,10 @@
     @button([
         'text' => 'Right',
         'icon' => 'keyboard_arrow_right',
-        'size' => 'md'
+        'size' => 'md',
+        'classList' => [
+            'js-dropdown-button'
+        ]
         
     ])
     @endbutton
@@ -36,7 +42,10 @@
     @button([
         'text' => 'Up',
         'icon' => 'keyboard_arrow_up',
-        'size' => 'md'
+        'size' => 'md',
+        'classList' => [
+            'js-dropdown-button'
+        ]
         
     ])
     @endbutton
@@ -50,8 +59,10 @@
     @button([
         'text' => 'Down',
         'icon' => 'keyboard_arrow_down',
-        'size' => 'md'
-        
+        'size' => 'md',
+        'classList' => [
+            'js-dropdown-button'
+        ]
     ])
     @endbutton
 @enddropdown

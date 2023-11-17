@@ -6,8 +6,10 @@
     @button([
         'text' => 'Click',
         'icon' => 'keyboard_arrow_down',
-        'size' => 'md'
-        
+        'size' => 'md',
+        'classList' => [
+            'js-dropdown-button'
+        ]
     ])
     @endbutton
 @enddropdown
