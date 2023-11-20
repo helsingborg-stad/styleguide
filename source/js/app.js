@@ -46,6 +46,7 @@ import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
 import { initializeCompressed } from './compressed';
 import {DeviceDetect} from './deviceDetect';
+import {initializeGoogleTranslate} from './googleTranslate';
 
 expandSection();
 setScrollbarCSS();
@@ -80,6 +81,7 @@ initializeMenus();
 initializeSlider();
 initializeCompressed();
 setupCopy();
+initializeGoogleTranslate();
 selectComponentObserverInstance.observe();
 
 const tables = document.querySelectorAll('.c-table');
