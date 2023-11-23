@@ -16,7 +16,9 @@
                 'id' => '303',
                 'placeholder' => 'Search',
                 'type' => 'text',
-                'classList' => [],
+                'classList' => [
+                    'u-display--grid'
+                ],
                 'textarea' => false,
                 'attributeList' => [
                     'js-filter-input' => '5da57cccd46c6'
@@ -26,31 +28,27 @@
         
             @paper(['padding' => 3])
                 <div class="d-icons__controlls">
-                    @buttonGroup(['borderColor' => 'default'])
-                        @button([
-                            'text' => 'Expand all',
-                            'icon' => 'unfold_more',
-                            'size' => 'lg',
-                            'attributeList' => ['icons_expand' => '']
-                        ])
-                        @endbutton
-
-                        @button([
-                            'text' => 'Minimize all',
-                            'size' => 'lg',
-                            'icon' => 'unfold_less',
-                            'attributeList' => ['icons_minimize' => '']
-                        ])
-                        @endbutton
-
-                        @button([
-                            'text' => 'Sort icons',
-                            'size' => 'lg',
-                            'icon' => 'sort_by_alpha',
-                            'attributeList' => ['js-sort-button' => '111-0']
-                        ])
-                        @endbutton
-                    @endbuttonGroup 
+                    @button([
+                        'text' => 'Expand all',
+                        'icon' => 'unfold_more',
+                        'size' => 'lg',
+                        'attributeList' => ['icons_expand' => '']
+                    ])
+                    @endbutton
+                    @button([
+                        'text' => 'Minimize all',
+                        'size' => 'lg',
+                        'icon' => 'unfold_less',
+                        'attributeList' => ['icons_minimize' => '']
+                    ])
+                    @endbutton
+                    @button([
+                        'text' => 'Sort icons',
+                        'size' => 'lg',
+                        'icon' => 'sort_by_alpha',
+                        'attributeList' => ['js-sort-button' => '111-0']
+                    ])
+                    @endbutton
                 </div>
 
 
