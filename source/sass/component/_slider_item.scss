@@ -20,6 +20,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     position: relative;
     width: 100%;
     max-width: $c-slider-max-width;
+    max-height: 80vh;
     border-radius: $c-slider-border-radius;
 
     .c-slider__item__container {
