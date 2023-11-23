@@ -240,7 +240,8 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
     &-dark .c-segment__title,
     &-dark .c-segment__text,
     &-dark .c-segment__meta,
-    &-dark .c-segment__date {
+    &-dark .c-segment__date,
+    &-dark .c-segment__tags {
         color: black;
         z-index: $level-2;
     }
