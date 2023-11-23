@@ -177,6 +177,10 @@ $c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !defaul
     // Posts as slider
     &.c-slider--post {
 
+        .c-slider__item {
+            max-height: unset;
+        }
+
         .c-slider__shadow {
             .c-slider__container {
                 filter: $drop-shadow-2;
