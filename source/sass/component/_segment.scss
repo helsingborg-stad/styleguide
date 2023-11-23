@@ -107,6 +107,12 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         }
     }
 
+    &.c-segment--slider {
+        &.c-segment--card {
+            min-height: unset;
+        }
+    }
+
     /**
     * Responsive
     */
