@@ -1,4 +1,0 @@
-@splitbutton([
-    'key' => 'value'
-])
-@endsplitbutton
