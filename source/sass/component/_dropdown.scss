@@ -9,6 +9,7 @@ $dropdown-active-color: $color-primary;
 
 .c-dropdown {
     position: relative;
+    cursor: pointer;
 }
 
 .c-dropdown__icon {
@@ -27,7 +28,7 @@ $dropdown-active-color: $color-primary;
     z-index: 1;
     width: 100%;
     background-color: $dropdown-background;
-    padding: var(--base, 8px) 0;
+    padding: var(--base, 8px) calc($base * 0.5);
     filter: $drop-shadow-4;
 }
 
