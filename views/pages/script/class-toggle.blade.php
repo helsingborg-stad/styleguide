@@ -45,28 +45,26 @@
             Toggle group
         @endtypography
 
-        @buttonGroup(['borderColor' => 'default', 'classList' => ['u-margin__bottom--3']])
-            @button([
-                'text' => 'Box One',
-                'color' => 'default',
-                'type' => 'basic',
-                'size' => 'md',
-                'icon' => 'code',
-                'toggle' => true,
-                'attributeList' => ['data-js-toggle-trigger' => "iddd", 'data-js-toggle-group' => "example2"]
-            ])
-            @endbutton
-            @button([
-                'text' => 'Box Two',
-                'color' => 'default',
-                'type' => 'basic',
-                'size' => 'md',
-                'icon' => 'code',
-                'toggle' => true,
-                'attributeList' => ['data-js-toggle-trigger' => "iddd2", 'data-js-toggle-group' => "example2"]
-            ])
-            @endbutton
-        @endbuttonGroup
+        @button([
+            'text' => 'Box One',
+            'color' => 'default',
+            'type' => 'basic',
+            'size' => 'md',
+            'icon' => 'code',
+            'toggle' => true,
+            'attributeList' => ['data-js-toggle-trigger' => "iddd", 'data-js-toggle-group' => "example2"]
+        ])
+        @endbutton
+        @button([
+            'text' => 'Box Two',
+            'color' => 'default',
+            'type' => 'basic',
+            'size' => 'md',
+            'icon' => 'code',
+            'toggle' => true,
+            'attributeList' => ['data-js-toggle-trigger' => "iddd2", 'data-js-toggle-group' => "example2"]
+        ])
+        @endbutton
 
         <div class="u-color__bg--default u-rounded">
             <div class="u-rounded u-padding--2" data-js-toggle-item="iddd" data-js-toggle-class="u-color__bg--secondary" data-js-toggle-group="example2">
