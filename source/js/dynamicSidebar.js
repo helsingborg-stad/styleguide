@@ -4,7 +4,7 @@ export default class DynamicSidebar {
 
         if(this.dynamicSidebars) {
             this.endpoints = {};
-            this.pageId = document.getElementsByTagName('body')[0].getAttribute('js-page-id');
+            this.pageId = document.getElementsByTagName('body')[0].getAttribute('data-js-page-id');
         }
     }
 
