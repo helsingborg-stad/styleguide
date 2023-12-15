@@ -1,7 +1,7 @@
 @iframe([
-  'src' => 'https://www.helsingborg.se',
-	'title' => 'Startsidan på helsingborg.se',
-	'width' => 800,
+  'src' => 'https://helsingborg-stad.github.io/ett-battre-helsingborg-web/',
+	'title' => 'Ett bättre Helsingborg Application',
+	'width' => '100%',
 	'height' => 600,
 	'labels' => [
 		'knownLabels' => [
@@ -17,3 +17,27 @@
 	],
 ])
 @endiframe
+
+@typography([
+	'variant' => "h3",
+	'element' => "h3",
+	'u-margin__bottom' => 0
+])
+	Automatic height detection
+@endtypography
+
+@code(['language' => 'js', 'content' => "You may enable the iframe component to automatically adapt the height to the iframe content by embedding the following script into the framed content."])
+<script>
+	if(window.location !== window.parent.location) {
+		document.querySelector("html, body").style.height = "auto";
+		const sendMessageToParent = () => {
+			window.parent.postMessage({
+				height: document.body.clientHeight
+			}, '*');
+		};sendMessageToParent();
+		new ResizeObserver(() => {
+			sendMessageToParent();
+		}).observe(document.body);
+	}
+</script>
+@endcode
