@@ -38,8 +38,8 @@ class Fields {
             }
 
             if (input.closest('.c-select--multiselect')) {
-                let filterSelect = input.closest('.c-select--multiselect');
-                filterSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
+                let multiSelect = input.closest('.c-select--multiselect');
+                multiSelect.querySelector('.c-select__options').addEventListener('click', (e) => {
                     this.form.dispatchEvent(formEmpty);
                 })
             }
