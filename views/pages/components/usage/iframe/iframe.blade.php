@@ -1,5 +1,5 @@
 @iframe([
-  'src' => 'https://helsingborg-stad.github.io/ett-battre-helsingborg-web/',
+  'src' => 'https://ettbattre.helsingborg.se/',
 	'title' => 'Ett bättre Helsingborg Application',
 	'width' => '100%',
 	'height' => 600,
