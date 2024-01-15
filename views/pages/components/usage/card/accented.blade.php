@@ -21,7 +21,7 @@
         </div>
         <div class="c-card__body">
           <!-- typography.blade.php -->
-          <p id="" class="c-typography c-typography__variant--body" data-uid="5f7c265caf970">
+          <p id="" class="c-typography c-typography__variant--p" data-uid="5f7c265caf970">
             Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
           </p>
         </div>
