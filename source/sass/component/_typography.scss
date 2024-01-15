@@ -33,7 +33,11 @@
     }
 
     &title {
+        font-family: $font-family-heading;
         font-size: $font-size-title;
+        font-weight: $font-weight-heading;
+        line-height: $line-height-heading;
+        letter-spacing: $letter-spacing-heading;
     }
 
     &subtitle {
@@ -41,7 +45,11 @@
     }
 
     &body {
-        font-size: $font-size-body;
+        font-size: $font-size-base;
+        font-family: $font-family-base;
+        line-height: $line-height-base;
+        font-weight: $font-weight-base;
+        letter-spacing: $letter-spacing-base;
     }
 
     &caption {
@@ -58,6 +66,7 @@
 
     &marketing {
         font-weight: $font-weight-bold;
+        font-family: $font-family-bold;
         font-size: $font-size-marketing;
         line-height: 124%;
     }

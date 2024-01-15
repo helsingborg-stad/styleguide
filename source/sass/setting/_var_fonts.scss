@@ -9,7 +9,6 @@ $font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console",
 
 $font-family-base: var(--font-family-base, $font-family-roboto) !default;
 $font-family-heading: var(--font-family-heading, $font-family-base) !default;
-$font-family-body: $font-family-roboto !default;
 $font-family-bold: var(--font-family-bold, $font-family-roboto) !default;
 $font-family-italic: var(--font-family-italic, $font-family-roboto) !default;
     
@@ -22,7 +21,6 @@ $font-size-headline: 2rem !default;
 $font-size-title: 1.375rem !default;
 $font-size-subtitle: 1.125rem !default;
 $font-size-subtitle-small: 0.875rem !default;
-$font-size-body: 1rem !default;
 $font-size-meta: 0.875rem !default;
 $font-size-brand: 2.25rem !default;
 

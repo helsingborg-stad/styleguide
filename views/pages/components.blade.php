@@ -70,7 +70,6 @@
             @endtypography
 
             @typography([
-                'variant' => "p",
                 'element' => "p",
                 'classList' => ['c-card__text']
             ])
@@ -101,7 +100,6 @@
             @endtypography
 
             @typography([
-                'variant' => "p",
                 'element' => "p",
                 'classList' => ['c-card__text']
             ])
@@ -145,7 +143,6 @@
             @endtypography
 
             @typography([
-                'variant' => "p",
                 'element' => "p",
                 'classList' => ['c-card__text']
             ])
