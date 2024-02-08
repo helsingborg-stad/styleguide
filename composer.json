@@ -33,7 +33,7 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "helsingborg-stad/blade-engine-wrapper": "1.0.0"
+        "helsingborg-stad/blade-engine-wrapper": "~2.0.1"
     },
     "scripts": {
         "post-install-cmd": [
