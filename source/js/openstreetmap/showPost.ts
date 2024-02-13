@@ -147,6 +147,7 @@ class ShowPost {
         }
 
         this.sidebar.querySelectorAll('[data-js-pagination-item]').forEach((item) => {
+            item.classList.add('c-openstreetmap__posts');
             item.classList.remove('is-active');
         });
         
