@@ -3,7 +3,7 @@
 {
 	"name": "PHP",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/php:0-7.4-bullseye",
+	"image": "mcr.microsoft.com/devcontainers/php:1-8.3-bullseye",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
@@ -17,10 +17,20 @@
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
 			"version": "16.19.0"
+		},
+		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+			"packages": "nano,bash-completion"
 		}
 	},
 
 	"customizations": {
+		"vscode": {
+			"extensions": [
+				"github.vscode-pull-request-github",
+				"GitHub.copilot",
+				"ritwickdey.LiveServer"
+			]
+		},
 		"codespaces": {
 			"repositories": {
 				"helsingborg-stad/component-library": {
@@ -32,7 +42,8 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
-		"install-apt-packages": "export YARNKEY=yarn-keyring.gpg && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmour -o /usr/share/keyrings/$YARNKEY && echo \"deb [signed-by=/usr/share/keyrings/$YARNKEY] https://dl.yarnpkg.com/debian stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list && sudo apt-get update && sudo apt-get install -y subversion nano bash-completion",
+		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
+		"apache": "sudo a2enmod rewrite headers && service apache2 start"
 	},
 
 	"waitFor": "postCreateCommand"

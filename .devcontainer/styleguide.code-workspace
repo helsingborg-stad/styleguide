@@ -2,7 +2,7 @@
     "folders": [
         {
             "path": "..",
-            "name": "styleguide",
+            "name": "styleguide"
         },
         {
             "path": "../source/library",
