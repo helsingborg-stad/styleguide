@@ -122,21 +122,26 @@ class ShowPost {
     private scrollToTop() {
         if (!this.sidebar) return;
         const rect = this.sidebar.getBoundingClientRect();
-        let offset = 0;
         const topPos = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (document.querySelector('.c-header--sticky')) {
-            const header = document.querySelector('.c-header--sticky');
-            if (!header) return;
-            const headerRect = header.getBoundingClientRect();
-            offset = headerRect.height ?? 100;
-        }
+        const offset = this.getStickyHeaderWithMostHeight();
 
         const target = rect.top + topPos - offset;
-
+        
         window.scrollTo({
             top: target,
         })
+    }
+
+    private getStickyHeaderWithMostHeight() {
+        let offset = 0;
+        [...document.querySelectorAll('.c-header--sticky')].forEach(header => {
+            const headerRect = header.getBoundingClientRect();
+            if (headerRect.height > offset) {
+                offset = headerRect.height;
+            }
+        });
+
+        return offset;
     }
 
     private handleBackButton() {
@@ -147,6 +152,7 @@ class ShowPost {
         }
 
         this.sidebar.querySelectorAll('[data-js-pagination-item]').forEach((item) => {
+            item.classList.add('c-openstreetmap__posts');
             item.classList.remove('is-active');
         });
         
