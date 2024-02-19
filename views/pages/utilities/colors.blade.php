@@ -139,6 +139,16 @@
             Primary Contrasting Text
             @endtypography
         </div>
+
+        <div class="o-grid-4@sm o-grid-3@md o-grid-2@lg o-grid-2@xl u-text-align--center">
+            @typography([
+                'element' => 'h6',
+                'variant' => 'h4',
+                'classList' => ['u-color__text--secondary-contrasting', 'u-color__bg--secondary']
+            ])
+            Secondary Contrasting Text
+            @endtypography
+        </div>
     </div>
 @endutility_doc
 
