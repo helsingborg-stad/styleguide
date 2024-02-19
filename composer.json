@@ -33,7 +33,7 @@
     ],
     "require": {
         "erusev/parsedown": "^1.7",
-        "php": "^8.3",
+        "php": "^8.0",
         "helsingborg-stad/blade": "^3.0"
     },
     "scripts": {
