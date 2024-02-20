@@ -3,6 +3,8 @@
 
 namespace HbgStyleGuide\Helper;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
+
 /**
  * Class Documentation
  * @package HbgStyleGuide\Helper
@@ -14,7 +16,7 @@ class Documentation
      * @return array
      * @throws \Exception
      */
-    public static function getUsageExamples($slug, $blade)
+    public static function getUsageExamples(string $slug, BladeServiceInterface $blade)
     {
         $dir = BASEPATH . 'views/pages/components/usage/' . $slug;
         $examples = array();
@@ -34,7 +36,7 @@ class Documentation
                         $includePath = ('pages.components.usage.' . $slug . '.' . $file);
                         
                         //Make view
-                        $html = $blade->make($includePath)->render();
+                        $html = $blade->makeView($includePath)->render();
 
                         //Get contents of file 
                         $content = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);

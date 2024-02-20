@@ -10,9 +10,16 @@
             "problemMatcher": []
         },
         {
-            "label": "Serve",
+            "label": "Watch",
             "type": "shell",
-            "command": "php -S 0.0.0.0:8080",
+            "command": "npm run watch",
+            "problemMatcher": []
+        },
+        {
+            "label": "Test:Watch",
+            "type": "shell",
+            "group": "test",
+            "command": "npm run test:watch",
             "problemMatcher": []
         },
     ]

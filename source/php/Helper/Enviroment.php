@@ -2,8 +2,6 @@
 
 namespace HbgStyleGuide\Helper;
 
-use \HelsingborgStad\GlobalBladeEngine as Blade; 
-
 class Enviroment
 {
     public static function componentLibraryIsInstalled()

@@ -30,7 +30,6 @@ export class SimulateClick {
         const targetElements = document.querySelectorAll<HTMLElement>(target);
   
         targetElements.forEach((targetElement) => {
-          console.log({targetElement})
           targetElement.click();
         });
       }
