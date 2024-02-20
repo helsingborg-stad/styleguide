@@ -1,5 +1,7 @@
 <?php
 
+use HelsingborgStad\GlobalBladeService\GlobalBladeService;
+
 class CLI
 {
 
@@ -28,10 +30,9 @@ class CLI
         $component = new $componentClass($data);
 
         $data = $component->getData();
-        $bladeEngine = $init->getEngine();
-        $bladeViewRenderer = \HelsingborgStad\RenderBladeView\BladeViewRenderer::create($bladeEngine);
+        $blade = GlobalBladeService::getInstance();
 
-        return $bladeViewRenderer->render($view, $data);
+        return $blade->makeView($view, $data)->render();
     }
 }
 
