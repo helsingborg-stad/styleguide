@@ -272,16 +272,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.0.6",
+            "version": "4.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba"
+                "reference": "9c3ed6441ae546e5f8b402d3ce127c8e586257dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
-                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/9c3ed6441ae546e5f8b402d3ce127c8e586257dd",
+                "reference": "9c3ed6441ae546e5f8b402d3ce127c8e586257dd",
                 "shasum": ""
             },
             "require": {
@@ -289,6 +289,7 @@
                 "php": "^8.0"
             },
             "require-dev": {
+                "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9.6"
             },
             "type": "wordpress-muplugin",
@@ -310,9 +311,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.6"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.12"
             },
-            "time": "2024-02-22T09:59:31+00:00"
+            "time": "2024-02-22T13:31:10+00:00"
         },
         {
             "name": "illuminate/bus",
