@@ -31,14 +31,14 @@
             "url":"https://wpackagist.org"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "HbgStyleGuide\\": "source/php/"
+        }
+    },
     "require": {
         "erusev/parsedown": "^1.7",
         "php": "^8.0",
-        "helsingborg-stad/blade": "^3.0"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "sh setup.sh"
-        ]
+        "helsingborg-stad/component-library": "^4.0"
     }
 }

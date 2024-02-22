@@ -5,7 +5,7 @@
             "name": "styleguide"
         },
         {
-            "path": "../source/library",
+            "path": "../vendor/helsingborg-stad/component-library",
             "name": "component-library"
         }
     ]

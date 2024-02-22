@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16745f9918c72115084f9132b0e189e4",
+    "content-hash": "52f7b4a301677f2c74caa9fed6109595",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -218,16 +218,16 @@
         },
         {
             "name": "helsingborg-stad/blade",
-            "version": "3.2.0",
+            "version": "3.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Blade.git",
-                "reference": "684d6990c94a3780c152a8013c742961160ec4ee"
+                "reference": "8bb259c5c839fba262b7724744c8438c66246265"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/684d6990c94a3780c152a8013c742961160ec4ee",
-                "reference": "684d6990c94a3780c152a8013c742961160ec4ee",
+                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/8bb259c5c839fba262b7724744c8438c66246265",
+                "reference": "8bb259c5c839fba262b7724744c8438c66246265",
                 "shasum": ""
             },
             "require": {
@@ -266,9 +266,53 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/blade/issues",
-                "source": "https://github.com/helsingborg-stad/Blade/tree/3.2.0"
+                "source": "https://github.com/helsingborg-stad/Blade/tree/3.4.3"
             },
-            "time": "2024-02-15T07:27:54+00:00"
+            "time": "2024-02-22T07:04:48+00:00"
+        },
+        {
+            "name": "helsingborg-stad/component-library",
+            "version": "4.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/component-library.git",
+                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
+                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
+                "shasum": ""
+            },
+            "require": {
+                "helsingborg-stad/blade": "^3.4.3",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "ComponentLibrary\\": "source/php/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Rosenborg",
+                    "email": "eric.rosenborg@hiq.se"
+                }
+            ],
+            "description": "A library of components for use in WordPress",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/component-library/issues",
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.6"
+            },
+            "time": "2024-02-22T09:59:31+00:00"
         },
         {
             "name": "illuminate/bus",

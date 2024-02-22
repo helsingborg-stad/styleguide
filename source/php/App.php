@@ -2,6 +2,8 @@
 
 namespace HbgStyleGuide;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
+
 /**
  * Class App
  * @package HbgStyleGuide
@@ -11,26 +13,27 @@ class App
 {
     protected $default = 'home'; //Home
     protected $page = null; // pageVar
-    private $blade; // Blade
+    private BladeServiceInterface $bladeService; // Blade
 
     /**
      * App constructor.
-     * @param $blade
+     * @param $bladeService
      */
-    public function __construct($blade)
+    public function __construct(BladeServiceInterface $bladeService)
     {
 
+        $this->bladeService = $bladeService;
         $url = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
         $this->page = ($url !== "/") ? $url : $this->default;
         
-        $this->loadPage($blade);
+        $this->loadPage();
     }
 
     /**
      * Loads a page and it's navigation
      * @return bool Returns true when the page is loaded
      */
-    public function loadPage($blade)
+    public function loadPage()
     {
         // Navigation
         $data['topNavigation']                  = Navigation::items('pages/', [], false);
@@ -40,7 +43,6 @@ class App
         $data['pageNow']                        = $this->page;
 
         //Component library
-        $data['componentLibraryIsInstalled']    = \HbgStyleGuide\Helper\Enviroment::componentLibraryIsInstalled();
         $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
         //Render page 
         $view = new \HbgStyleGuide\View();
@@ -48,7 +50,7 @@ class App
         return $view->show(
             $this->page,
             $data,
-            $blade
+            $this->bladeService
         );
     }
 }

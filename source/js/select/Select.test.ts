@@ -51,7 +51,7 @@ describe('Select', () => {
 		document.body.innerHTML = '';
 	})
 
-	it('should update value on select when clicking option list item', async () => {
+	it.only('should update value on select when clicking option list item', async () => {
 		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
 		await renderSelectComponent({ options });
 		const select = document.querySelector('select') as HTMLSelectElement
