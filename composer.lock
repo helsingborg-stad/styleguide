@@ -272,16 +272,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.0.6",
+            "version": "4.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba"
+                "reference": "2331cf2be8cd087b2d13911a68e9f026fe035fa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
-                "reference": "b4990f57e2470ba302eecfdacbe0cef20eb1a3ba",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/2331cf2be8cd087b2d13911a68e9f026fe035fa0",
+                "reference": "2331cf2be8cd087b2d13911a68e9f026fe035fa0",
                 "shasum": ""
             },
             "require": {
@@ -310,9 +310,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.6"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.11"
             },
-            "time": "2024-02-22T09:59:31+00:00"
+            "time": "2024-02-22T10:50:46+00:00"
         },
         {
             "name": "illuminate/bus",
