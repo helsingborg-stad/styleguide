@@ -36,10 +36,6 @@ $c-paper-border-color: var(--c-paper-border-color, $color-border-card) !default;
             color: $color-white;
         }
 
-        .c-buttongroup {
-            float:right;
-        }
-
         .c-button__text--primary[aria-pressed="true"],
         [aria-pressed="true"].c-button__outlined--primary {
             color: $color-white;
