@@ -48,7 +48,7 @@
     ])
     @endnavbar
 
-    @if(!$componentLibraryIsInstalled && $isLocalDomain) 
+    @if($isLocalDomain) 
         <div class="container">
             <div class="o-grid">
                 <div class="o-grid-12">

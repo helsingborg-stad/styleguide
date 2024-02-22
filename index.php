@@ -1,6 +1,9 @@
 <?php
 
 //Enable/disable all errors
+use ComponentLibrary\Init as ComponentLibraryInit;
+use HbgStyleGuide\App;
+
 if (isset($_GET['debug'])) {
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
@@ -10,6 +13,11 @@ if (isset($_GET['debug'])) {
 	ini_set('display_startup_errors', 0);
 	error_reporting(0);
 }
+
+define('BASEPATH', dirname(__FILE__) . '/');
+require_once BASEPATH . 'config.php';
+require_once __DIR__ . '/vendor/autoload.php';
+require BASEPATH . 'Public.php';
 
 if(isset($_GET['parentID'])){
 
@@ -98,7 +106,6 @@ if($endpoint == 'topnav' && isset($_GET['pageID'])){
 	die();
 }
 
-//Run application
-require_once 'Bootstrap.php';
-new \HbgStyleGuide\App($blade);
-
+$viewPaths = [BASEPATH . 'views'];
+$bladeService = (new ComponentLibraryInit($viewPaths))->getEngine();
+new App($bladeService);

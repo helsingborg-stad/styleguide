@@ -1,6 +1,8 @@
 <?php
 
-use HelsingborgStad\GlobalBladeService\GlobalBladeService;
+require_once __DIR__ . '/vendor/autoload.php';
+
+use ComponentLibrary\Init;
 
 class CLI
 {
@@ -23,19 +25,15 @@ class CLI
             throw new Error("Could not decode JSON data");
         }
 
-        $reflector = new \ReflectionClass($componentClass);
-        $classFilePath = $reflector->getFileName();
-
-        $init = new ComponentLibrary\Init([dirname($classFilePath)]);
         $component = new $componentClass($data);
+        $componentClassPath = (new ReflectionClass($componentClass))->getFileName();
+        $componentClassDir = dirname($componentClassPath);
 
         $data = $component->getData();
-        $blade = GlobalBladeService::getInstance();
-
-        return $blade->makeView($view, $data)->render();
+        $bladeService = (new Init([]))->getEngine();
+        return $bladeService->makeView($view, $data, [], $componentClassDir)->render();
     }
 }
 
-require_once 'Bootstrap.php';
 $cli = new CLI();
 $cli->executeCommand($argv);

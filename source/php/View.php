@@ -63,7 +63,7 @@ class View
         $blade->registerComponentDirective("layout.script_doc", "script_doc");
         $blade->registerComponentDirective("layout.mixins_doc", "mixins_doc");
   
-      //Doc templates
+        //Doc templates
         $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc', 'layout.mixins_doc');
 
         //Documentation module
@@ -71,14 +71,17 @@ class View
             $blade->registerComponent($template, function ($view) use ($blade) {
 
                 $viewData = $this->accessProtected($view, 'data');
+
+                // Get path to specific vendor package
+                $componentLibraryPackagePath = $this->getVendorPackagePath('helsingborg-stad/component-library');
     
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                     $path = (isset($viewData['viewDoc'])) ?
-                        "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
-                        "source/library/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
+                        BASEPATH . "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
+                        $componentLibraryPackagePath . "/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
     
                     //Locate config file
-                    $configFile = glob(BASEPATH . $path);
+                    $configFile = glob($path);
     
                     //Get first occurance of config
                     if (is_array($configFile) && !empty($configFile)) {
@@ -201,6 +204,14 @@ class View
         return $blade;
     }
 
+    private function getVendorPackagePath($package):string {
+        $path = getcwd() . '/vendor/' . $package;
+        if (!is_dir($path)) {
+            throw new \Exception("Package not found at " . $path);
+        }
+        return $path;
+    }
+
     /**
      * Fetch examples from the usage directory
      * @throws \Exception
@@ -224,7 +235,7 @@ class View
         $blade->registerComponent('layout.markdown', function ($view) {
             $viewData = $this->accessProtected($view, 'data');
 
-            $viewData['slot'] = isset($viewData['slot']) ? markdown($viewData['slot']) : '';
+            $viewData['slot'] = isset($viewData['slot']) ? \markdown($viewData['slot']) : '';
 
             $view->with($viewData);
         });
