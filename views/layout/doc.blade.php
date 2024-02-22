@@ -53,12 +53,14 @@
                             {{$example['description']['subHeading']}}
                         @endtypography
 
-                        @typography([
-                            "variant" => "caption",
-                            "element" => "p"
-                        ])
-                            {{$example['description']['text']}}
-                        @endtypography
+                        @if(isset($example['description']['description']) && !empty($example['description']['description']))
+                            @typography([
+                                "variant" => "body",
+                                "element" => "p"
+                            ])
+                                {{$example['description']['description']}}
+                            @endtypography
+                        @endif
                     </div>
 
                     <div class="u-padding--4 u-color__bg--lightest" style="border: 2px dashed var(--color-code-button,var(--color-default-darker,#3d3d3d)); border-bottom: none;">

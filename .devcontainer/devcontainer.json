@@ -26,10 +26,15 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"bmewburn.vscode-intelephense-client",
 				"github.vscode-pull-request-github",
 				"GitHub.copilot",
-				"ritwickdey.LiveServer"
-			]
+				"ritwickdey.LiveServer",
+				"eamodio.gitlens"
+			],
+			"settings": {
+				"intelephense.environment.phpVersion": "8.3.0"
+			}
 		},
 		"codespaces": {
 			"repositories": {
