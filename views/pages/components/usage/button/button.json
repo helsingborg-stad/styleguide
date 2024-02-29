@@ -1,69 +1,22 @@
 {
-    
-    "basic": {
-        "grid": "",
-        "heading": "Buttons of type basic",
-        "subHeading" : "",
-        "text": "The basic button has no background or border. The text color is determined by the color property. This button also lacks padding left and right."
+    "daisyUiFilled": {
+        "heading": "Filled DaisyUi",
+        "subHeading": ""
     },
-    "outlined": {
-        "grid": "",
-        "heading": "Buttons of type outlined",
-        "subHeading" : "",
-        "text": "Outlined buttons consist of a border colored by the color property. The content(icon/text) will also be colored by the color property."
+    "daisyUiOutlined": {
+        "heading": "Outlined DaisyUi",
+        "subHeading": ""
     },
-    "filled": {
-        "grid": "",
-        "heading": "Type filled",
-        "subHeading" : "",
-        "text": "Buttons with type filled and in three different colors."
+    "daisyUiSizes": {
+        "heading": "Sizing DaisyUi",
+        "subHeading": ""
     },
-    "textWithIcon": {
-        "grid": "",
-        "heading": "Buttons with both text and icon",
-        "subHeading" : "",
-        "text": "You can choose to have both text and an icon. You can also switch positions of the text and icon by setting reverse to true."
+    "daisyUiIcons": {
+        "heading": "Icons DaisyUi",
+        "subHeading": ""
     },
-    "icon": {
-        "grid": "",
-        "heading": "Button with icon only",
-        "subHeading" : "",
-        "text": "This is a button with only an icon. This is the only button that will be rendered as a square."
-    },
-    "size": {
-        "grid": "",
-        "heading": "Size",
-        "subHeading" : "",
-        "text": "Different sizes ranging from sm to lg"
-    },
-    "sizewithicon": {
-        "grid": "",
-        "heading": "Size with icons",
-        "subHeading" : "",
-        "text": "Different sizes ranging from sm to lg with icons"
-    },
-    "disabled": {
-        "grid": "",
-        "heading": "Disabled buttons",
-        "subHeading" : "",
-        "text": "A button with the data-attribute disabled set to true will be greyed out and cursor set to not-allowed."
-    },
-    "toggle": {
-        "grid": "",
-        "heading": "Togglebuttons",
-        "subHeading" : "",
-        "text": "When pressing a toggle-button the text color will go from black to primary to indicate it being toggled."
-    },
-    "togglewithinterchangable": {
-        "grid": "",
-        "heading": "Togglebuttons with interchangable labels and icons",
-        "subHeading" : "",
-        "text": "When pressing a toggle-button label and/or the icon will be changed to indicate the action."
-    },
-    "type": {
-        "grid": "",
-        "heading": "Type",
-        "subHeading" : "",
-        "text": "Use the type attribute to help define the action of the button."
+    "daisyUiShapes": {
+        "heading": "Shapes DaisyUi",
+        "subHeading": ""
     }
 }
