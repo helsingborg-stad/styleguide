@@ -96,7 +96,8 @@
         "hamburgers": "^1.1.3",
         "leaflet": "^1.9.3",
         "leaflet.markercluster": "^1.5.3",
-        "masonry-layout": "^4.2.2"
+        "masonry-layout": "^4.2.2",
+        "material-symbols": "^0.16.0"
     },
     "browser": {
         "child_process": false
