@@ -63,7 +63,6 @@
         "chalk": "^5.0.0",
         "clientside-require": "^4.7.2",
         "consola": "^2.15.3",
-        "copyfiles": "^2.4.1",
         "cors": "^2.8.5",
         "css-loader": "^6.6.0",
         "cssnano": "^5.0.17",
