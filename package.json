@@ -7,7 +7,7 @@
         "test": "jest",
         "test:watch": "jest --watchAll",
         "prebuild": "node build/build.js assets & node build/build.js assetsMaterial",
-        "build": "webpack --config webpack.config.js && mv ./node_modules/material-symbols/*.woff2 ./assets/dist/css",
+        "build": "webpack --config webpack.config.js",
         "watch": "webpack --config webpack.config.js --watch",
         "sass": "node build/build.js assetsMaterial & sass --watch --style compressed source/sass/main.scss assets/dist/css/styleguide-css.min.css",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
