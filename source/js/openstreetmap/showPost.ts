@@ -37,7 +37,6 @@ class ShowPost {
 
     private setListeners() {
         window.addEventListener('popstate', () => this.handleBackButton());
-        
         const paginationContainer = this.container.querySelector('[data-js-pagination-container]');
         if (!paginationContainer) return;
 
@@ -153,7 +152,10 @@ class ShowPost {
 
         this.sidebar.querySelectorAll('[data-js-pagination-item]').forEach((item) => {
             item.classList.add('c-openstreetmap__posts');
-            item.classList.remove('is-active');
+            if (item.classList.contains('is-active')) {
+                item.classList.remove('is-active');
+                item.scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
         });
         
         pushCoordinatesToBrowserHistory({lat: undefined, lng: undefined});
