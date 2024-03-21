@@ -2,7 +2,6 @@
     [
         'href' => '',
         'isOutlined' => false,
-        'background' => 'primary',
         'text' => 'Open Modal',
         'icon' => ['name' =>'favorite'],
         'size' => 'lg',

@@ -8,16 +8,14 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'flex',
-        'background' => 'default'
+        'text' => 'flex'
     ])
     @endbutton
 
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'flex',
-        'background' => 'default'
+        'text' => 'flex'
     ])
     @endbutton
 
@@ -33,16 +31,14 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'inline-flex',
-        'background' => 'default'
+        'text' => 'inline-flex'
     ])
     @endbutton
 
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'inline-flex',
-        'background' => 'default'
+        'text' => 'inline-flex'
     ])
     @endbutton
 

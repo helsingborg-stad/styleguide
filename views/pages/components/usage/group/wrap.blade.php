@@ -6,29 +6,25 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-1',
-        'background' => 'default'
+        'text' => 'wrap-1'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-2',
-        'background' => 'default'
+        'text' => 'wrap-2'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-3',
-        'background' => 'default'
+        'text' => 'wrap-3'
     ])
     @endbutton
         @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-4',
-        'background' => 'default'
+        'text' => 'wrap-4'
     ])
     @endbutton
 @endgroup
@@ -41,29 +37,25 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-reverse-1',
-        'background' => 'default'
+        'text' => 'wrap-reverse-1'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-reverse-2',
-        'background' => 'default'
+        'text' => 'wrap-reverse-2'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-reverse-3',
-        'background' => 'default'
+        'text' => 'wrap-reverse-3'
     ])
     @endbutton
         @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'wrap-reverse-4',
-        'background' => 'default'
+        'text' => 'wrap-reverse-4'
     ])
     @endbutton
 @endgroup
@@ -76,29 +68,25 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'nowrap-1',
-        'background' => 'default'
+        'text' => 'nowrap-1'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'nowrap-2',
-        'background' => 'default'
+        'text' => 'nowrap-2'
     ])
     @endbutton
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'nowrap-3',
-        'background' => 'default'
+        'text' => 'nowrap-3'
     ])
     @endbutton
         @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'nowrap-4',
-        'background' => 'default'
+        'text' => 'nowrap-4'
     ])
     @endbutton
 @endgroup

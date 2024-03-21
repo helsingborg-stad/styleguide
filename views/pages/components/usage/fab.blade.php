@@ -26,7 +26,6 @@
 ])
 
     @button([
-        'background' => 'primary',
         'text' => 'Primary bg',
         'color' => 'white'
     ])

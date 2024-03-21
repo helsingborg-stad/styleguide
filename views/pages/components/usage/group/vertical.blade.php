@@ -3,8 +3,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'Option One',
-        'background' => 'default',
+        'text' => 'Option One'
         'classList' => ['u-margin--0', 'u-width--50']
     ])
     @endbutton
@@ -12,8 +11,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'Option two',
-        'background' => 'default',
+        'text' => 'Option two'
         'classList' => ['u-margin--0', 'u-width--50']
     ])
     @endbutton
@@ -21,8 +19,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'option three',
-        'background' => 'default',
+        'text' => 'option three'
         'classList' => ['u-margin--0', 'u-width--50']
     ])
     @endbutton

@@ -5,8 +5,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'start',
-        'background' => 'default'
+        'text' => 'start'
     ])
     @endbutton
     <div style="height:200px; width:100%; background-color: #e5e5e5;">
@@ -20,8 +19,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'center',
-        'background' => 'default'
+        'text' => 'center'
     ])
     @endbutton
      <div style="height:200px; width:100%; background-color: #e5e5e5;">
@@ -37,8 +35,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'end',
-        'background' => 'default'
+        'text' => 'end'
     ])
     @endbutton
     <div style="height:200px; width:100%; background-color: #e5e5e5;">

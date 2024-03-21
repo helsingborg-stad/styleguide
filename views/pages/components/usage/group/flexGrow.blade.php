@@ -6,8 +6,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'flex-grow',
-        'background' => 'default'
+        'text' => 'flex-grow'
     ])
     @endbutton
 @endgroup
@@ -20,8 +19,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'no flex-grow',
-        'background' => 'default'
+        'text' => 'no flex-grow'
     ])
     @endbutton
 @endgroup
