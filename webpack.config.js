@@ -69,21 +69,6 @@ module.exports = {
             },
 
             /**
-             * Fonts - File loader
-             */
-            {
-                test: /\.(woff|woff2|ttf|otf|eot|svg)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'fonts',
-                        },
-                    },
-                ],
-            },
-
-            /**
              * Styles
              */
             {

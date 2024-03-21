@@ -45,8 +45,8 @@ import {setupCopy} from './copy';
 import { initializeCompressed } from './compressed';
 import {DeviceDetect} from './deviceDetect';
 import {initializeGoogleTranslate} from './googleTranslate';
-import {initializeComponentResize} from './resizeMediaQuery';
 import {initializeResizeMediaQuery} from './resizeMediaQuery';
+import {initializeMaterialSymbols} from './materialSymbols';
 
 expandSection();
 setScrollbarCSS();
@@ -81,6 +81,7 @@ initializeCompressed();
 setupCopy();
 initializeGoogleTranslate();
 initializeResizeMediaQuery();
+initializeMaterialSymbols();
 selectComponentObserverInstance.observe();
 
 const tables = document.querySelectorAll('.c-table');

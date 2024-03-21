@@ -63,7 +63,6 @@
         "chalk": "^5.0.0",
         "clientside-require": "^4.7.2",
         "consola": "^2.15.3",
-        "copyfiles": "^2.4.1",
         "cors": "^2.8.5",
         "css-loader": "^6.6.0",
         "cssnano": "^5.0.17",
@@ -96,7 +95,8 @@
         "hamburgers": "^1.1.3",
         "leaflet": "^1.9.3",
         "leaflet.markercluster": "^1.5.3",
-        "masonry-layout": "^4.2.2"
+        "masonry-layout": "^4.2.2",
+        "material-symbols": "^0.16.0"
     },
     "browser": {
         "child_process": false

@@ -1,7 +1,16 @@
 @charset "utf-8";
+$sizes: xs, sm, md, lg, xl, xxl;
+$colors: (
+    "color-black": $color-black,
+    "color-gray": $color-gray,
+    "color-default": $color-default,
+    "color-default-dark": $color-default-dark,
+    "color-white": $color-white,
+    "color-primary": $color-primary,
+    "color-secondary": $color-secondary
+);
 
 .c-icon {
-
     font-display: block;
 
     &.c-icon--svg {
@@ -22,58 +31,16 @@
         font-size: inherit;
     }
 
-    &.c-icon--size-xs {
-        font-size: map-get($icon-sizes, "xs");
-    }
+    @each $size in $sizes {
+        &.c-icon--size-#{$size} {
+            font-size: map-get($icon-sizes, $size);
+        }
+    }    
 
-    &.c-icon--size-sm {
-        font-size: map-get($icon-sizes, "sm");
-    }
-
-    &.c-icon--size-md {
-        font-size: map-get($icon-sizes, "md");
-    }
-
-    &.c-icon--size-lg {
-        font-size: map-get($icon-sizes, "lg");
-    }
-
-    &.c-icon--size-xl {
-        font-size: map-get($icon-sizes, "xl");
-    }
-
-    &.c-icon--size-xxl {
-        font-size: map-get($icon-sizes, "xxl");
-    }
-
-    /* Modifiers  - Colors */
-
-    &.c-icon--color-black {
-        color: $color-black;
-    }
-
-    &.c-icon--color-gray {
-        color: $color-gray;
-    }
-
-    &.c-icon--color-default {
-        color: $color-default;
-    }
-
-    &.c-icon--color-default-dark {
-        color: $color-default-dark;
-    }
-
-    &.c-icon--color-white {
-        color: $color-white;
-    }
-
-    &.c-icon--color-primary {
-        color: $color-primary;
-    }
-
-    &.c-icon--color-secondary {
-        color: $color-secondary;
+    @each $color, $value in $colors {
+        &.c-icon--#{$color} {
+            color: $value;
+        }
     }
 
     /* Nested elements */
