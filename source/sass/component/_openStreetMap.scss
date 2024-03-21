@@ -2,27 +2,14 @@
 $grid-gap: var(--grid-gap, 4) !default;
 
 .c-openstreetmap {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	background-color: $color-white;
-
-	/* Tooltip */
-	.c-openstreetmap__tooltip-image {
-		aspect-ratio: 16/9;
-		max-width: 100%;
-	}
-
-	a.c-openstreetmap__tooltip-link {
-		color: inherit;
-		text-decoration: none;
-		&:hover {
-			color: $color-link-hover;
-			text-decoration: underline;
+	/* Limits map size for mobile devices */
+	&.c-openstreetmap--sidebar {
+		.c-openstreetmap__map {
+			max-height: max(50vh, 400px);
 		}
 	}
 
-	/* Sidebar content */
+	/* Sidebar content (same for every size) */
 	.c-openstreetmap__sidebar {
 		position: static;
 		right: 0;
@@ -145,68 +132,35 @@ $grid-gap: var(--grid-gap, 4) !default;
 			}
 		}
 	}
-
-	/* Map */
-	.c-openstreetmap__map {
-		position: sticky;
-		top: 0;
-		flex: 1 0 100%;
-		min-width: calc($base * 6);
-	}
-
-	.c-openstreetmap__sidebar {
-		transition: .2s ease-in-out;
-		flex: 0 1 0%;
-		max-width: 0%;
-		display: none;
-	}
-
-	&.is-expanded {
-		.c-openstreetmap__map {
-			flex: 1 1 5%;
-		}
-
-		.c-openstreetmap__sidebar {
-			flex: 1 1 95%;
-			max-width: 90%;
-			display: block;
-		}
-	}
-
-	.c-openstreetmap__marker {
-		padding: $base;
-		border-radius: 50%;
-		margin-left: calc($base * -1.5);
-	}
-
-	.c-openstreetmap__inner-blocks {
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.c-openstreetmap__expand-icon {
-		position: absolute;
-		top: 50%;
-		right: 0;
-		transform: translateY(-50%);
-		color: $color-white;
-		background-color: $color-primary;
-		padding: calc($base * .5);
-		cursor: pointer;
-		border-radius: 50% 0px 0px 50%; 
-	}
-
-	&.c-openstreetmap--full-width {
-		width: calc(100vw - var(--scrollbar, 15px));
-		left: 50%;
-		right: 50%;
-		margin-left: -50vw;
-		margin-right: -50vw;
-		border-radius: 0;
-	}
-
+	/* Desktop settings */
 	&.c-openstreetmap--size-sm {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		background-color: $color-white;
 
+		&.c-openstreetmap--sidebar {
+			.c-openstreetmap__map {
+				max-height: unset !important;
+			}
+		}
+
+		/* Tooltip */
+		.c-openstreetmap__tooltip-image {
+			aspect-ratio: 16/9;
+			max-width: 100%;
+		}
+
+		a.c-openstreetmap__tooltip-link {
+			color: inherit;
+			text-decoration: none;
+			&:hover {
+				color: $color-link-hover;
+				text-decoration: underline;
+			}
+		}
+
+		/* Map/Sidebar */
 		.c-openstreetmap__map {
 			flex: 1 1 70%
 		}
@@ -215,6 +169,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 			flex: 1 0 30%;
 			max-width: 30%;
 			display: block;
+			transition: .2s ease-in-out;
 		}
 
 		&.is-expanded {
@@ -227,6 +182,38 @@ $grid-gap: var(--grid-gap, 4) !default;
 				max-width: 80%;
 				display: block;
 			}
+		}
+
+		.c-openstreetmap__marker {
+			padding: $base;
+			border-radius: 50%;
+			margin-left: calc($base * -1.5);
+		}
+
+		.c-openstreetmap__inner-blocks {
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+
+		.c-openstreetmap__expand-icon {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+			color: $color-white;
+			background-color: $color-primary;
+			padding: calc($base * .5);
+			cursor: pointer;
+			border-radius: 50% 0px 0px 50%; 
+		}
+
+		&.c-openstreetmap--full-width {
+			width: calc(100vw - var(--scrollbar, 15px));
+			left: 50%;
+			right: 50%;
+			margin-left: -50vw;
+			margin-right: -50vw;
+			border-radius: 0;
 		}
 	}
 
