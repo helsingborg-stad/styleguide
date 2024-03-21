@@ -5,15 +5,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'left',
-        'background' => 'default'
+        'text' => 'left'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'left',
-        'background' => 'default'
+        'text' => 'left'
     ])
     @endbutton
 
@@ -26,15 +24,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'center',
-        'background' => 'default'
+        'text' => 'center'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'center',
-        'background' => 'default'
+        'text' => 'center'
     ])
     @endbutton
 
@@ -47,15 +43,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'right',
-        'background' => 'default'
+        'text' => 'right'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'right',
-        'background' => 'default'
+        'text' => 'right'
     ])
     @endbutton
 
@@ -68,15 +62,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-between',
-        'background' => 'default'
+        'text' => 'space-between'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-between',
-        'background' => 'default'
+        'text' => 'space-between'
     ])
     @endbutton
 
@@ -89,15 +81,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-around',
-        'background' => 'default'
+        'text' => 'space-around'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-around',
-        'background' => 'default'
+        'text' => 'space-around'
     ])
     @endbutton
 
@@ -110,15 +100,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-evenly',
-        'background' => 'default'
+        'text' => 'space-evenly'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'space-evenly',
-        'background' => 'default'
+        'text' => 'space-evenly'
     ])
     @endbutton
 

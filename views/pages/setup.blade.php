@@ -146,7 +146,6 @@
                 'color' => 'secondary',
                 'size' => 'sm',
                 'text' => 'COPY',
-                'background' => 'default',
                 'classList' => ['c-button--copy-compiled-link']
             ])
             @endbutton
@@ -177,7 +176,6 @@
                 'href' => '',
                 'size' => 'lg',
                 'text' => 'Generate CSS',
-                'background' => 'default',
                 'classList' => ['u-float--right', 'c-button--generate-css']
             ])
             @endbutton

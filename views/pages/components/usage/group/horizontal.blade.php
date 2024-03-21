@@ -2,15 +2,13 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'Search',
-        'background' => 'default'
+        'text' => 'Search'
     ])
     @endbutton    
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'Search',
-        'background' => 'default'
+        'text' => 'Search'
     ])
     @endbutton
 

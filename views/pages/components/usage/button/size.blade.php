@@ -1,23 +1,20 @@
 @button([
 'color' => 'secondary',
 'size' => 'sm',
-'text' => 'Size sm',
-'background' => 'default'
+'text' => 'Size sm'
 ])
 @endbutton
 
 @button([
 'color' => 'secondary',
 'size' => 'md',
-'text' => 'Size md',
-'background' => 'default'
+'text' => 'Size md'
 ])
 @endbutton
 
 @button([
 'color' => 'secondary',
 'size' => 'lg',
-'text' => 'Size lg',
-'background' => 'default'
+'text' => 'Size lg'
 ])
 @endbutton

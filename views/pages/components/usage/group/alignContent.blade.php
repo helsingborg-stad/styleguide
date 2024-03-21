@@ -9,16 +9,14 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'start',
-        'background' => 'default'
+        'text' => 'start'
     ])
     @endbutton
 
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'start',
-        'background' => 'default'
+        'text' => 'start'
     ])
     @endbutton
 
@@ -35,16 +33,14 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'center',
-        'background' => 'default'
+        'text' => 'center'
     ])
     @endbutton
 
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'center',
-        'background' => 'default'
+        'text' => 'center'
     ])
     @endbutton
 
@@ -61,16 +57,14 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'end',
-        'background' => 'default'
+        'text' => 'end'
     ])
     @endbutton
 
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'end',
-        'background' => 'default'
+        'text' => 'end'
     ])
     @endbutton
 

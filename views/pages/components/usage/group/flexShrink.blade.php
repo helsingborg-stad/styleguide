@@ -5,8 +5,7 @@
     @button([
         'color' => 'primary',
         'size' => 'md',
-        'text' => 'flex shrink',
-        'background' => 'default'
+        'text' => 'flex shrink'
     ])
     @endbutton
 @endgroup
@@ -20,7 +19,6 @@
         'color' => 'primary',
         'size' => 'md',
         'text' => 'no flex-shrink',
-        'background' => 'default',
         'attributeList' => [
             'style' => 'width:300px;max-width:unset;'
         ]
