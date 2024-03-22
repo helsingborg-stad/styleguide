@@ -1,11 +1,32 @@
+$quote-background-color: var(--quote-background-color, $color-secondary) !default;
+$quote-color: var(--quote-color, $color-secondary-contrasting) !default;
+
 .c-blockquote,
 blockquote {
-  background: $color-blockquote-background;
-  border-left: map-get($spacers, "05") solid $color-blockquote-border;
-  margin: map-get($spacers, "2") 0;
-  padding: map-get($spacers, "4");
+    display: flex;
+    flex-direction: column;
+    background-color: $quote-background-color;
+    color: $quote-color;
+    margin: 0;
+    padding: calc($base * 5);
 
-  p {
-    display: inline;
-  }
+    &::before {
+        font-family: 'Material Symbols Outlined';
+        font-size: calc($base * 4);
+        content: '\e244';
+        margin-right: auto;
+        transform: rotate(180deg);
+    }
+
+    & > :last-child::after {
+        font-family: 'Material Symbols Outlined';
+        font-size: calc($base * 4);
+        content: '\e244';
+        margin-left: auto;
+        transform: rotate(180deg);
+    }
+
+    *:first-child {
+        margin-top: 0;
+    }
 }
