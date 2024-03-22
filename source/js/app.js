@@ -78,13 +78,15 @@ initializeSlider();
 initializeCompressed();
 setupCopy();
 initializeGoogleTranslate();
-initializeResizeMediaQuery();
 initializeMaterialSymbols();
 
 document.addEventListener('DOMContentLoaded', () => {
     const ButtonToggleContentInstance = new ButtonToggleContent();
     const selectComponentObserverInstance = new SelectComponentObserver();
     selectComponentObserverInstance.observe();
+
+    // Functions
+    initializeResizeMediaQuery();
 
     // Dynamic Sidebars
     const DynamicSidebarInstance = new DynamicSidebar();
