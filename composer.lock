@@ -272,16 +272,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.0.14",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "5e099a741ab1267db87a79544ea531206894ada6"
+                "reference": "ea76fa1e28da508a11503c51f65ec1a055fd7eb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/5e099a741ab1267db87a79544ea531206894ada6",
-                "reference": "5e099a741ab1267db87a79544ea531206894ada6",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/ea76fa1e28da508a11503c51f65ec1a055fd7eb6",
+                "reference": "ea76fa1e28da508a11503c51f65ec1a055fd7eb6",
                 "shasum": ""
             },
             "require": {
@@ -311,9 +311,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.0.14"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.6.0"
             },
-            "time": "2024-02-23T13:26:21+00:00"
+            "time": "2024-03-21T10:58:12+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -1400,16 +1400,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v6.4.3",
+            "version": "v6.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "637c51191b6b184184bbf98937702bcf554f7d04"
+                "reference": "bce6a5a78e94566641b2594d17e48b0da3184a8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/637c51191b6b184184bbf98937702bcf554f7d04",
-                "reference": "637c51191b6b184184bbf98937702bcf554f7d04",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/bce6a5a78e94566641b2594d17e48b0da3184a8e",
+                "reference": "bce6a5a78e94566641b2594d17e48b0da3184a8e",
                 "shasum": ""
             },
             "require": {
@@ -1475,7 +1475,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v6.4.3"
+                "source": "https://github.com/symfony/translation/tree/v6.4.4"
             },
             "funding": [
                 {
@@ -1491,7 +1491,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T13:11:52+00:00"
+            "time": "2024-02-20T13:16:58+00:00"
         },
         {
             "name": "symfony/translation-contracts",
