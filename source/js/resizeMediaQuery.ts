@@ -57,31 +57,29 @@ class ResizeMediaQuery {
 }
 
 export function initializeResizeMediaQuery() {
-    document.addEventListener('DOMContentLoaded', () => {
-        const elements = document.querySelectorAll('[data-observe-resizes]');
+    const elements = document.querySelectorAll('[data-observe-resizes]');
+
+    if (elements.length) {
+        elements.forEach((element) => {
+            new ResizeMediaQuery(element as HTMLElement);
+        }); 
+    }
     
-        if (elements.length) {
-            elements.forEach((element) => {
-                new ResizeMediaQuery(element as HTMLElement);
-            }); 
-        }
-      
-        const observer = new MutationObserver(mutationsList => {
-          mutationsList.forEach(mutation => {
-            const elements = mutation.addedNodes;
-            if (elements?.length) {
-              elements.forEach(element => {
-                        if (element?.nodeType === Node.ELEMENT_NODE && (element as HTMLElement).matches('[data-observe-resizes]')) {
-                            new ResizeMediaQuery(element as HTMLElement);
-                        }
-                    });
-                }
-            });
+    const observer = new MutationObserver(mutationsList => {
+        mutationsList.forEach(mutation => {
+        const elements = mutation.addedNodes;
+        if (elements?.length) {
+            elements.forEach(element => {
+                    if (element?.nodeType === Node.ELEMENT_NODE && (element as HTMLElement).matches('[data-observe-resizes]')) {
+                        new ResizeMediaQuery(element as HTMLElement);
+                    }
+                });
+            }
         });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
     });
 }
