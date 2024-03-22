@@ -54,7 +54,6 @@ IframeAcceptance();
 AnchorMenu();
 
 const DeviceDetectInstance = new DeviceDetect(); 
-const selectComponentObserverInstance = new SelectComponentObserver();
 const SimulateClickInstance = new SimulateClick();
 const StickyKeysInstance = new StickyKeys();
 const HeroInstance = new Hero();
@@ -70,7 +69,6 @@ const SidebarInstance = new Sidebar();
 const NavbarInstance = new Navbar();
 const KeepInViewPortInstance = new KeepInViewPort();
 const ResizeByChildrenInstance = new ResizeByChildren();
-const ButtonToggleContentInstance = new ButtonToggleContent();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializePagination();
@@ -82,7 +80,20 @@ setupCopy();
 initializeGoogleTranslate();
 initializeResizeMediaQuery();
 initializeMaterialSymbols();
-selectComponentObserverInstance.observe();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ButtonToggleContentInstance = new ButtonToggleContent();
+    const selectComponentObserverInstance = new SelectComponentObserver();
+    selectComponentObserverInstance.observe();
+
+    // Dynamic Sidebars
+    const DynamicSidebarInstance = new DynamicSidebar();
+    DynamicSidebarInstance.applySidebar();
+
+    // Utility functions
+    moveElements(moveElement);
+    initializeClickAways();
+});
 
 const tables = document.querySelectorAll('.c-table');
 if (tables.length > 0) {
@@ -114,10 +125,6 @@ NotificationDocInstance.addListener();
 NotificationInstance.setup();
 SidebarInstance.applySidebar();
 
-// Dynamic Sidebars
-const DynamicSidebarInstance = new DynamicSidebar();
-DynamicSidebarInstance.applySidebar();
-
 const filter = new Filter();
 
 // Initialize the modal instance
@@ -125,11 +132,6 @@ const initModal = () => {
     const modalInstance = new Modal();
     modalInstance.enableModals();
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    moveElements(moveElement);
-    initializeClickAways();
-});
 
 // Wait for the DOM to be fully loaded before initializing the modal
 document.addEventListener('DOMContentLoaded', (event) => {

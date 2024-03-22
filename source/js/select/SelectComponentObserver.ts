@@ -6,7 +6,7 @@ export class SelectComponentObserver {
 
 	constructor() {
 		const container = document.documentElement || document.body;
-		container.querySelectorAll(`[${this.selectComponentElementAttribute}]`).forEach((element) => {
+		[...container.querySelectorAll(`[${this.selectComponentElementAttribute}]`)].forEach((element) => {
 			new Select(element as HTMLElement);
 		})
 	}
