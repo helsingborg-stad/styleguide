@@ -72,7 +72,6 @@ const ResizeByChildrenInstance = new ResizeByChildren();
 const AriaPressedTogglerInstance = new AriaPressedToggler();
 const QuickLinksHeaderInstance = new QuickLinksHeader();
 initializePagination();
-initializeOpenStreetMaps();
 initializeMenus();
 initializeSlider();
 initializeCompressed();
@@ -87,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Functions
     initializeResizeMediaQuery();
+    initializeOpenStreetMaps();
 
     // Dynamic Sidebars
     const DynamicSidebarInstance = new DynamicSidebar();
