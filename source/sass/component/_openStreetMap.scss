@@ -162,6 +162,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 		/* Map/Sidebar */
 		.c-openstreetmap__map {
+			position: sticky;
+			top: 0;
 			flex: 1 1 70%
 		}
 
