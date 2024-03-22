@@ -10,22 +10,6 @@ blockquote {
     margin: 0;
     padding: calc($base * 5);
 
-    &::before {
-        font-family: 'Material Symbols Outlined';
-        font-size: calc($base * 4);
-        content: '\e244';
-        margin-right: auto;
-        transform: rotate(180deg);
-    }
-
-    & > :last-child::after {
-        font-family: 'Material Symbols Outlined';
-        font-size: calc($base * 4);
-        content: '\e244';
-        margin-left: auto;
-        transform: rotate(180deg);
-    }
-
     *:first-child {
         margin-top: 0;
     }
