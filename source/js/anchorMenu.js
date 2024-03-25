@@ -48,7 +48,7 @@ const debounce = (func, delay, sectionElements) => {
 
 const elementPositions = (sectionElements) => {
     const header = document.querySelector('#site-header');
-    if(header && header.classList.contains('c-header--sticky')) {
+    if (header && header.classList.contains('c-header--sticky')) {
         headerHeight = header.offsetHeight;
         scrollContainer.style.top = header.offsetHeight + 'px';
     }

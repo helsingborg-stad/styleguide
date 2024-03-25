@@ -344,7 +344,7 @@ export default class Pagination {
 
 export function initializePagination() {
     const paginations = [...document.querySelectorAll('[data-js-pagination-target]')];
-
+    
     paginations.forEach((pagination, index) => {
         new Pagination(pagination as HTMLElement, index + 1);
     });

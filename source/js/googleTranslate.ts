@@ -20,18 +20,16 @@ function runCondition(htmlElement: HTMLElement) {
 }
 
 export function initializeGoogleTranslate() {
-    document.addEventListener('DOMContentLoaded', () => {
-        const htmlElement = document.documentElement;
-        runCondition(htmlElement);
+    const htmlElement = document.documentElement;
+    runCondition(htmlElement);
 
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'class') {
-                    runCondition(htmlElement);   
-                }
-            });
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class') {
+                runCondition(htmlElement);   
+            }
         });
-          const config = { attributes: true, attributeFilter: ['class'] };
-          observer.observe(htmlElement, config);
     });
+        const config = { attributes: true, attributeFilter: ['class'] };
+        observer.observe(htmlElement, config);
 }

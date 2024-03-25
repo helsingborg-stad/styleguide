@@ -116,4 +116,17 @@ class Modal {
     }
 }
 
+export function initializeModal() {
+    const observer = new MutationObserver((mutationsList, observer) => {
+        const modalInstance = new Modal();
+        modalInstance.enableModals();
+    });
+
+    const config = { childList: true, subtree: true };
+    observer.observe(document.body, config);
+
+    const modalInstance = new Modal();
+    modalInstance.enableModals();
+}
+
 export default Modal;

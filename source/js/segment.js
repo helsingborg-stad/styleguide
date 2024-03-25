@@ -35,4 +35,12 @@ class Segment {
     }
 }
 
-export default Segment
+export function initializeSegments() {
+    const segments = document.querySelectorAll('.c-segment');
+
+    [...segments].forEach((segment) => {
+        new Segment(segment);
+    });
+}
+
+export default Segment;

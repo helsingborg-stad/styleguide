@@ -93,16 +93,16 @@ const setEvents = () => {
     });
 }
 
-/* Initiate and reveal already accepted */
-export default () => addEventListener('DOMContentLoaded', () => {
+// Initialize already accepted
+export function initializeIframeAcceptance() {
     if (acceptedSuppliers.length > 0 && hasSuppressedContent() ) {
-       
         [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
             if(contentWrapper.classList.contains('js-suppressed-content--none')) {
                 handleReveal(contentWrapper);
             }
         })
     }
+    
     hasSuppressedContent() && setEvents();
-});
+};
 
