@@ -3,8 +3,6 @@ $quote-color: var(--quote-color, $color-secondary-contrasting) !default;
 
 .c-blockquote,
 blockquote {
-    display: flex;
-    flex-direction: column;
     background-color: $quote-background-color;
     color: $quote-color;
     margin: 0;
