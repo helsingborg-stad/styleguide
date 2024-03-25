@@ -1,11 +1,14 @@
+$quote-background-color: var(--quote-background-color, $color-secondary) !default;
+$quote-color: var(--quote-color, $color-secondary-contrasting) !default;
+
 .c-blockquote,
 blockquote {
-  background: $color-blockquote-background;
-  border-left: map-get($spacers, "05") solid $color-blockquote-border;
-  margin: map-get($spacers, "2") 0;
-  padding: map-get($spacers, "4");
+    background-color: $quote-background-color;
+    color: $quote-color;
+    margin: 0;
+    padding: calc($base * 5);
 
-  p {
-    display: inline;
-  }
+    *:first-child {
+        margin-top: 0;
+    }
 }
