@@ -1,7 +1,7 @@
 /**
  * Represents a drawer toggle button that controls the opening and closing of a drawer.
  */
-class DrawerToggleButton {
+class DrawerAccessibility {
     button: HTMLElement;
     closeButton: HTMLElement;
     firstMenuItem: HTMLElement|null;
@@ -67,7 +67,7 @@ class DrawerToggleButton {
  * If a button has a 'data-js-toggle-trigger' attribute and there is a corresponding element with a 'data-js-toggle-item' attribute,
  * a new instance of the DrawerToggleButton class is created and associated with the button and the corresponding drawer element.
  */
-export function initializeDrawerToggleButtons() {
+export function initializeDrawerAccessibility() {
     const drawerToggleButtons = document.querySelectorAll('.c-drawer__toggle');
     drawerToggleButtons.forEach((button) => {
         if (
@@ -76,10 +76,10 @@ export function initializeDrawerToggleButtons() {
         ) {
             const drawer = document.querySelector(`[data-js-toggle-item="${button.getAttribute('data-js-toggle-trigger')}"]`);
 
-            new DrawerToggleButton((button as HTMLElement), (drawer as HTMLElement));
+            new DrawerAccessibility((button as HTMLElement), (drawer as HTMLElement));
         }
     });
 }
 
-export default DrawerToggleButton;
+export default DrawerAccessibility;
 

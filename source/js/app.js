@@ -47,7 +47,7 @@ import {DeviceDetect} from './deviceDetect';
 import {initializeGoogleTranslate} from './googleTranslate';
 import {initializeResizeMediaQuery} from './resizeMediaQuery';
 import {initializeMaterialSymbols} from './materialSymbols';
-import { initializeDrawerToggleButtons } from './drawerToggleButton';
+import { initializeDrawerAccessibility } from './drawerAccessibility';
 
 expandSection();
 setScrollbarCSS();
@@ -79,7 +79,6 @@ initializeCompressed();
 setupCopy();
 initializeGoogleTranslate();
 initializeMaterialSymbols();
-initializeDrawerToggleButtons();
 
 document.addEventListener('DOMContentLoaded', () => {
     const ButtonToggleContentInstance = new ButtonToggleContent();
@@ -89,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Functions
     initializeResizeMediaQuery();
     initializeOpenStreetMaps();
+    initializeDrawerAccessibility();
 
     // Dynamic Sidebars
     const DynamicSidebarInstance = new DynamicSidebar();
