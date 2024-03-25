@@ -47,6 +47,7 @@ import {DeviceDetect} from './deviceDetect';
 import {initializeGoogleTranslate} from './googleTranslate';
 import {initializeResizeMediaQuery} from './resizeMediaQuery';
 import {initializeMaterialSymbols} from './materialSymbols';
+import { initializeDrawerToggleButtons } from './drawerToggleButton';
 
 expandSection();
 setScrollbarCSS();
@@ -78,6 +79,7 @@ initializeCompressed();
 setupCopy();
 initializeGoogleTranslate();
 initializeMaterialSymbols();
+initializeDrawerToggleButtons();
 
 document.addEventListener('DOMContentLoaded', () => {
     const ButtonToggleContentInstance = new ButtonToggleContent();
