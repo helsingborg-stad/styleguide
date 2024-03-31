@@ -1,4 +1,4 @@
-export default class Table{
+class Table{
     constructor(table){
         this.table = table
         this.list = table.querySelectorAll('[js-table-filter-item]');
@@ -366,3 +366,13 @@ export default class Table{
         }
     }
 }
+
+export function initializeTable() {
+    const tables = document.querySelectorAll('.c-table');
+    
+    [...tables].forEach(table => {
+        new Table(table);
+    });
+}
+
+export default Table;
