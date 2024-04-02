@@ -6,6 +6,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	&.c-openstreetmap--sidebar {
 		.c-openstreetmap__map {
 			max-height: max(50vh, 400px);
+			position: relative;
 		}
 	}
 
@@ -133,7 +134,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		}
 	}
 	/* Desktop settings */
-	&.c-openstreetmap--size-sm {
+	&.c-openstreetmap--size-md {
 		position: relative;
 		display: flex;
 		flex-direction: row;
