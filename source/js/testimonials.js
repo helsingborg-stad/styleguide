@@ -1,4 +1,4 @@
-export default class TestimonialCarousel {
+class TestimonialCarousel {
     constructor (carousel) {
         this.CAROUSEL = carousel;
         this.ITEMS = carousel.querySelectorAll('.c-testimonial');
@@ -106,3 +106,12 @@ export default class TestimonialCarousel {
         return width >= 78; // 78em is the breakpoint for large screen
     }
 }
+
+export function initializeTestimonials() {
+    const testimonialCarousels = document.querySelectorAll('[js-testimonials--is-carousel]');
+    [...testimonialCarousels].forEach((testimonial) => {
+        new TestimonialCarousel(testimonial);
+    });
+}
+
+export default TestimonialCarousel;
