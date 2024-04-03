@@ -54,6 +54,10 @@ class OpenStreetMap {
         this.initializeFeatures(); 
         this.addKeyboardEventListeners();
 
+        setTimeout(() => {
+            this.map.invalidateSize();
+        }, 200);
+
         if (expand) {
             expand.addEventListener('click', () => {
                 setTimeout(() => {
