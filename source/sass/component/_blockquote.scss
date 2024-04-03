@@ -1,14 +1,39 @@
 $quote-background-color: var(--quote-background-color, $color-secondary) !default;
 $quote-color: var(--quote-color, $color-secondary-contrasting) !default;
+$quote-border-radius: var(--quote-border-radius, $border-radius-md) !default;
 
 .c-blockquote,
 blockquote {
     background-color: $quote-background-color;
     color: $quote-color;
     margin: 0;
-    padding: calc($base * 5);
+    padding: calc($base * 10) calc($base * 5) calc($base * 5) calc($base * 5);
+    border-radius: $quote-border-radius;
+    position: relative;
 
     *:first-child {
         margin-top: 0;
+    }
+
+    &::before {
+        font-family: 'Material Symbols Outlined';
+        font-size: calc($base * 4);
+        position: absolute;
+        content: '\e244';
+        margin-right: auto;
+        transform: rotate(180deg);
+    }
+    
+    &::after {
+        font-family: 'Material Symbols Outlined';
+        font-size: calc($base * 4);
+        content: '\e244';
+        right: calc($base * 5);
+        bottom: calc($base * 3.5);
+        transform: rotate(180deg);
+    }
+
+    & > :last-child {
+        margin-right: calc($base * 5);
     }
 }
