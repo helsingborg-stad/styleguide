@@ -15,19 +15,25 @@ blockquote {
         margin-top: 0;
     }
 
-    &::before {
+    &::before,
+    &::after {
         font-family: 'Material Symbols Outlined';
-        font-size: calc($base * 4);
-        position: absolute;
         content: '\e244';
-        margin-right: auto;
+        position: absolute;
+        font-size: calc($base * 4);
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+    }
+
+    &::before {
+        top: calc($base * 3.5);
         transform: rotate(180deg);
     }
     
     &::after {
-        font-family: 'Material Symbols Outlined';
-        font-size: calc($base * 4);
-        content: '\e244';
         right: calc($base * 5);
         bottom: calc($base * 3.5);
         transform: rotate(180deg);
