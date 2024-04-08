@@ -40,6 +40,7 @@ import {DeviceDetect} from './deviceDetect';
 import {initializeGoogleTranslate} from './googleTranslate';
 import {initializeResizeMediaQuery} from './resizeMediaQuery';
 import {initializeMaterialSymbols} from './materialSymbols';
+import { initializeDrawerAccessibility } from './drawerAccessibility';
 import {initializeTestimonials} from './testimonials';
 import {initializeSegments} from './segment';
 import {initializeTable} from './table';
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Functions
     initializeResizeMediaQuery();
     initializeOpenStreetMaps();
+    initializeDrawerAccessibility();
     initializeForms();
     initializePagination();
     initializeMaterialSymbols();
