@@ -46,6 +46,7 @@ import {initializeSegments} from './segment';
 import {initializeTable} from './table';
 import {initializeModal} from './modal';
 import {initializeIframeAcceptance} from './iframeAcceptance';
+import {getLoadedFonts} from "./helpers/getLoadedFonts";
 
 const DeviceDetectInstance = new DeviceDetect(); 
 const SortInstance = new Sort();
@@ -55,6 +56,8 @@ const TilesInstance = new Tiles();
 const NotificationDocInstance = new NotificationDoc();
 const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
+
+const loadedFonts = getLoadedFonts();
 
 document.addEventListener('DOMContentLoaded', () => {
     // Instances
@@ -93,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeDrawerAccessibility();
     initializeForms();
     initializePagination();
-    initializeMaterialSymbols();
+    initializeMaterialSymbols(loadedFonts);
     initializeMenus();
     initializeSlider();
     initializeCompressed();
