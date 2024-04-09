@@ -48,6 +48,7 @@ import {initializeModal} from './modal';
 import {initializeIframeAcceptance} from './iframeAcceptance';
 import {getLoadedFonts} from "./helpers/getLoadedFonts";
 
+// Instances
 const DeviceDetectInstance = new DeviceDetect(); 
 const SortInstance = new Sort();
 const SplitButtonInstance = new SplitButton();
@@ -57,6 +58,7 @@ const NotificationDocInstance = new NotificationDoc();
 const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
+// Functions
 const loadedFonts = getLoadedFonts();
 
 document.addEventListener('DOMContentLoaded', () => {
