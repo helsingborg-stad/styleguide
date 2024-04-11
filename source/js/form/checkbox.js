@@ -26,7 +26,7 @@ class Checkbox {
 
         let hasChecked = [];
         checkboxGroups.forEach(group => {
-            let input = group.querySelector('[js-required]');
+            let input = group.querySelector('[data-js-required]');
             let validation = input.getAttribute('checked') ? true : false;
 
             if (input.hasAttribute('js-no-validation')) {

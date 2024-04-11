@@ -10,7 +10,7 @@ class Conditions {
         let condtionalTargets = [];
         Array.from(groups).forEach(group => {
             condtionalTargets.push({element: group, json: JSON.parse(group.getAttribute('conditional-target'))});
-            this.handleRequired(group.querySelectorAll('[js-required]'), true);      
+            this.handleRequired(group.querySelectorAll('[data-js-required]'), true);      
         });
         
 
@@ -32,7 +32,7 @@ class Conditions {
                     this.handleRequired(arr.element.querySelectorAll('[js-no-validation]' , false));
                 } else {
                     arr.element.style.display = 'none';
-                    this.handleRequired(arr.element.querySelectorAll('[js-required]'), true)
+                    this.handleRequired(arr.element.querySelectorAll('[data-js-required]'), true)
                 }
             }
         });
@@ -46,7 +46,7 @@ class Conditions {
                 
             } else {
                 input.removeAttribute('js-no-validation');
-                if (input.hasAttribute('js-required')) {
+                if (input.hasAttribute('data-js-required')) {
                     input.setAttribute('required', '');
                 }
             }
