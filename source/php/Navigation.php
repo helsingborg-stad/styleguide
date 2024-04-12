@@ -87,7 +87,7 @@ class Navigation
                 }
             }
         }
-        echo '<pre>' . print_r( $response, true ) . '</pre>';die;
+        
         $response['icons'] = self::addMaterialSymbolsMenuItem(); 
 
         return $response;
