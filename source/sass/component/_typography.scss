@@ -44,6 +44,11 @@
         font-size: $font-size-subtitle;
     }
 
+    &bold {
+        font-weight: $font-weight-bold;
+        font-family: $font-family-bold;
+    }
+
     &body,
     &p {
         font-size: $font-size-base;
