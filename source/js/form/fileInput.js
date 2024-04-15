@@ -141,7 +141,8 @@ class FileInput {
     validateFileinputs(form, inputs) {
         let hasFile = [];
 
-        form.querySelectorAll('.c-fileinput.data-js-required').forEach(fileupload => {
+        form.querySelectorAll('.c-fileinput').forEach(fileupload => {
+            if (!fileupload.querySelector('input[required]')) return;
             let validation = fileupload.querySelectorAll('input[js-field-fileinput]').length > 0 ? true : false;
             if(!validation) { 
                 fileupload.querySelector('.c-fileinput__label').classList.add('u-color__text--danger');
