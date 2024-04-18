@@ -2,7 +2,8 @@
 .u-preloader {
   position: relative;
   filter: unset !important;
-  
+  cursor: default;
+
   &:after,
   &:before {
     content: ""; 
