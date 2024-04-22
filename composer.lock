@@ -218,16 +218,16 @@
         },
         {
             "name": "helsingborg-stad/blade",
-            "version": "3.4.3",
+            "version": "3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/Blade.git",
-                "reference": "8bb259c5c839fba262b7724744c8438c66246265"
+                "reference": "f5c112aa6b70421381641798612f03cf18488a0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/8bb259c5c839fba262b7724744c8438c66246265",
-                "reference": "8bb259c5c839fba262b7724744c8438c66246265",
+                "url": "https://api.github.com/repos/helsingborg-stad/Blade/zipball/f5c112aa6b70421381641798612f03cf18488a0a",
+                "reference": "f5c112aa6b70421381641798612f03cf18488a0a",
                 "shasum": ""
             },
             "require": {
@@ -266,22 +266,22 @@
             ],
             "support": {
                 "issues": "https://github.com/helsingborg-stad/blade/issues",
-                "source": "https://github.com/helsingborg-stad/Blade/tree/3.4.3"
+                "source": "https://github.com/helsingborg-stad/Blade/tree/3.4.4"
             },
-            "time": "2024-02-22T07:04:48+00:00"
+            "time": "2024-04-15T09:42:53+00:00"
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.6.0",
+            "version": "4.6.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "ea76fa1e28da508a11503c51f65ec1a055fd7eb6"
+                "reference": "765e51560b18176658677f1f4174b8d1ee3da59e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/ea76fa1e28da508a11503c51f65ec1a055fd7eb6",
-                "reference": "ea76fa1e28da508a11503c51f65ec1a055fd7eb6",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/765e51560b18176658677f1f4174b8d1ee3da59e",
+                "reference": "765e51560b18176658677f1f4174b8d1ee3da59e",
                 "shasum": ""
             },
             "require": {
@@ -311,9 +311,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.6.0"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.6.30"
             },
-            "time": "2024-03-21T10:58:12+00:00"
+            "time": "2024-04-22T14:30:36+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -1495,16 +1495,16 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.4.1",
+            "version": "v3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
-                "reference": "06450585bf65e978026bda220cdebca3f867fde7"
+                "reference": "43810bdb2ddb5400e5c5e778e27b210a0ca83b6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/06450585bf65e978026bda220cdebca3f867fde7",
-                "reference": "06450585bf65e978026bda220cdebca3f867fde7",
+                "url": "https://api.github.com/repos/symfony/translation-contracts/zipball/43810bdb2ddb5400e5c5e778e27b210a0ca83b6b",
+                "reference": "43810bdb2ddb5400e5c5e778e27b210a0ca83b6b",
                 "shasum": ""
             },
             "require": {
@@ -1553,7 +1553,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.4.1"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.4.2"
             },
             "funding": [
                 {
@@ -1569,7 +1569,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-26T14:02:43+00:00"
+            "time": "2024-01-23T14:51:35+00:00"
         },
         {
             "name": "voku/portable-ascii",
