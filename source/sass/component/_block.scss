@@ -69,22 +69,44 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         display: block; 
     }
 
-    @include mq('sm') {
-        &.c-block--ratio-1-1 {
-            aspect-ratio: 1 / 1;
+    &.c-block--ratio-1-1 {
+        @include ratio(1, 1, true); 
+        &:before {
+            width: 0;
+            @include mq('xs', 'sm') {
+                display: none;
+            }
         }
-        
-        &.c-block--ratio-4-3 {
-            aspect-ratio: 4 / 3;
+    }
+    
+    &.c-block--ratio-4-3 {
+        @include ratio(4, 3, true); 
+        &:before {
+            width: 0;
+            @include mq('xs', 'sm') {
+                display: none;
+            }
         }
-        
-        &.c-block--ratio-12-16 {
-            aspect-ratio: 12 / 16;
+    }
+    
+    &.c-block--ratio-12-16 {
+        @include ratio(12, 16, true); 
+        &:before {
+            width: 0;
+            @include mq('xs', 'sm') {
+                display: none;
+            }
         }
-        
-        &.c-block--ratio-16-9 {
-            aspect-ratio: 16 / 9;
-        }
+    }
+    
+    &.c-block--ratio-16-9 {
+        @include ratio(16, 9, true);
+        &:before {
+            width: 0;
+            @include mq('xs', 'sm') {
+                display: none;
+            }
+        } 
     }
 
     &--svg-background {
