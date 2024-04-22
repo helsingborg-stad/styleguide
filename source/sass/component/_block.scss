@@ -73,6 +73,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         @include ratio(1, 1, true); 
         &:before {
             width: 0;
+            @include mq('xs') {
+                display: none;
+            }
         }
     }
     
@@ -80,6 +83,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         @include ratio(4, 3, true); 
         &:before {
             width: 0;
+            @include mq('xs') {
+                display: none;
+            }
         }
     }
     
@@ -87,6 +93,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         @include ratio(12, 16, true); 
         &:before {
             width: 0;
+            @include mq('xs') {
+                display: none;
+            }
         }
     }
     
@@ -94,6 +103,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         @include ratio(16, 9, true);
         &:before {
             width: 0;
+            @include mq('xs') {
+                display: none;
+            }
         }
     }
 
