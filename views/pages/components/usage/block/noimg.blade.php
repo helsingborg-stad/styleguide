@@ -4,8 +4,7 @@
             'heading' => 'Nibh Dolor Bibendum Vehicula Amet',
             'ratio' => '12:16',
             'meta' => 'Ultricies',
-            'filled' => true,
-            'link' => '#',
+            'link' => '#'
         ])
         @endblock
     </div>
@@ -14,7 +13,6 @@
             'heading' => 'Nulla vitae elit libero, a pharetra augue',
             'ratio' => '12:16',
             'meta' => 'Malesuada Parturient Dolor',
-            'filled' => true
         ])
         @endblock
     </div>
@@ -23,7 +21,6 @@
             'heading' => 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus',
             'ratio' => '12:16',
             'meta' => ['Porta Ultricies', 'Malesuada Parturient Dolor', 'Ultricies'],
-            'filled' => true
         ])
         @endblock
     </div>
@@ -32,7 +29,6 @@
             'heading' => 'Maecenas faucibus mollis interdum',
             'ratio' => '12:16',
             'meta' => 'Nibh',
-            'filled' => true
         ])
         @endblock
     </div>
@@ -41,7 +37,6 @@
             'heading' => 'Curabitur blandit tempus porttitor',
             'ratio' => '12:16',
             'meta' => 'Ornare Malesuada',
-            'filled' => false
         ])
         @endblock
     </div>

@@ -3,7 +3,6 @@
         @block([
             'heading' => 'Purus Tellus',
             'meta' => 'Parturient Ultricies',
-            'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/id/88/680/510',
                 'alt' => 'ALT', 
@@ -17,7 +16,6 @@
         @block([
             'heading' => 'Donec id elit non mi porta gravida at eget metus',
             'meta' => 'Nibh Sit',
-            'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/id/87/680/510',
                 'alt' => 'ALT', 
@@ -30,7 +28,6 @@
         @block([
             'heading' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
             'meta' => 'Commodo Fringilla',
-            'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/id/32/680/510',
                 'alt' => 'ALT', 
@@ -43,7 +40,6 @@
         @block([
             'heading' => 'Maecenas sed diam eget risus varius blandit sit amet non magna',
             'meta' => 'Ullamcorper Euismod Pharetra',
-            'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/id/33/680/510',
                 'alt' => 'ALT', 
@@ -56,7 +52,6 @@
         @block([
             'heading' => 'Pharetra Etiam',
             'meta' => 'Amet',
-            'filled' => true,
             'image' => [
                 'src' => 'https://picsum.photos/id/34/680/510',
                 'alt' => 'ALT', 
