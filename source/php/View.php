@@ -19,35 +19,20 @@ class View
 
         try {
             $result = $blade->makeView( 'pages.' . $view, $data )->render();
-            $result = preg_replace('/(id|href)=""/', "", $result);
-
-            if(false && class_exists("tidy")) {
-
-                $tidy = new \tidy;
-                $tidy->parseString($result, array(
-                    'indent'         => true,
-                    'output-xhtml'   => true,
-                    'wrap'           => 5000,
-                    'show-body-only' => false
-                ), 'utf8');
-                
-                $tidy->cleanRepair();
-    
-                if(isset($tidy->value)) {
-                    echo $tidy->value;
-                }
-
-            } else {
-                echo $result; 
-            }
-
+            echo preg_replace('/(id|href)=""/', "", $result);
         } catch (\Throwable $e) {
-
-            error_log($e);
-
-            $data = array_merge( $data, array('errorMessage' => $e) );
-            echo $blade->makeView( 'pages.404', $data )->render();
+            if(!$this->viewExists($view)) {
+                $data = array_merge( $data, array('errorMessage' => $e) );
+                echo $blade->makeView( 'pages.404', $data )->render();
+                return;
+            }
+            $blade->errorHandler($e)->print();
         }
+    }
+
+    private function viewExists($view): bool
+    {
+        return file_exists(BASEPATH . 'views/pages/' . str_replace(".", "/", $view) . '.blade.php');
     }
 
     /**
