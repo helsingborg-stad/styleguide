@@ -36,6 +36,13 @@ class DrawerAccessibility {
         this.closeButton.addEventListener('click', () => {
             this.button.focus();
         });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeButton.click();
+                this.button.focus();
+            }
+        });
     }
 
     /**
