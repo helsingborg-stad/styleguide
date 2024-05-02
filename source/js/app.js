@@ -39,14 +39,12 @@ import {initializeCompressed} from './compressed';
 import {DeviceDetect} from './deviceDetect';
 import {initializeGoogleTranslate} from './googleTranslate';
 import {initializeResizeMediaQuery} from './resizeMediaQuery';
-import {initializeMaterialSymbols} from './materialSymbols';
 import {initializeDrawerAccessibility} from './drawerAccessibility';
 import {initializeTestimonials} from './testimonials';
 import {initializeSegments} from './segment';
 import {initializeTable} from './table';
 import {initializeModal} from './modal';
 import {initializeIframeAcceptance} from './iframeAcceptance';
-import {getLoadedFonts} from "./helpers/getLoadedFonts";
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -57,9 +55,6 @@ const TilesInstance = new Tiles();
 const NotificationDocInstance = new NotificationDoc();
 const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
-
-// Functions
-const loadedFonts = getLoadedFonts();
 
 document.addEventListener('DOMContentLoaded', () => {
     // Instances
@@ -98,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeDrawerAccessibility();
     initializeForms();
     initializePagination();
-    initializeMaterialSymbols(loadedFonts);
     initializeMenus();
     initializeSlider();
     initializeCompressed();
