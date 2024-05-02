@@ -2,16 +2,14 @@
  * Represents a drawer toggle button that controls the opening and closing of a drawer.
  */
 class DrawerAccessibility {
-    button: HTMLElement;
     closeButton: HTMLElement;
     firstMenuItem: HTMLElement|null;
     lastItem: HTMLElement;
 
-    constructor(button: HTMLElement, drawer: HTMLElement) {
-        this.button         = button;
+    constructor(private button: HTMLElement, private drawer: HTMLElement) {
         this.closeButton    = drawer.querySelector('.c-drawer__close') as HTMLElement;
-        this.firstMenuItem  = this.getFirstMenuItem(drawer);
-        this.lastItem       = this.getLastItem(drawer);
+        this.firstMenuItem  = this.getFirstMenuItem();
+        this.lastItem       = this.getLastItem();
 
         (this.lastItem && this.closeButton) && this.setupAccessibilityListeners();
     }
@@ -38,7 +36,7 @@ class DrawerAccessibility {
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
+            if (this.drawer.classList.contains('is-open') && e.key === 'Escape') {
                 this.closeButton.click();
                 this.button.focus();
             }
@@ -51,8 +49,8 @@ class DrawerAccessibility {
      * @param drawer - The drawer element.
      * @returns The first menu item element, or null if not found.
      */
-    private getFirstMenuItem(drawer: HTMLElement) {
-        return drawer.querySelector('.c-drawer__body a, .c-drawer__body button') as HTMLElement|null;
+    private getFirstMenuItem() {
+        return this.drawer.querySelector('.c-drawer__body a, .c-drawer__body button') as HTMLElement|null;
     }
 
     /**
@@ -61,8 +59,8 @@ class DrawerAccessibility {
      * @param drawer - The HTML element representing the drawer.
      * @returns The last item in the drawer.
      */
-    private getLastItem(drawer: HTMLElement) {
-        const drawerItems = ([...drawer.querySelectorAll('button, a, input')] as Array<HTMLElement>);
+    private getLastItem() {
+        const drawerItems = ([...this.drawer.querySelectorAll('button, a, input')] as Array<HTMLElement>);
         
         return drawerItems[drawerItems.length - 1];
     }
