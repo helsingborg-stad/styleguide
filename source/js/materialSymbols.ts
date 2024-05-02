@@ -1,7 +1,7 @@
 function setIconName(icon: HTMLElement) {
     const iconName = icon.getAttribute('material-symbol');
     if (iconName) {
-        icon.innerHTML = iconName;
+        icon.innerHTML += iconName;
     }
 }
 
