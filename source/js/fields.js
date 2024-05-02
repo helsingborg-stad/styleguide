@@ -151,6 +151,8 @@ class Fields {
                 if (this.getFieldWrapper(input).classList.contains('is-invalid') || this.getFieldWrapper(input).classList.contains('is-valid')) {
                     this.validateInput(input);
                 }
+
+                this.checkEmpty();
             })
         })
     }
@@ -159,7 +161,8 @@ class Fields {
         ['focusout', 'change'].forEach((e) => {
             [...this.inputs].forEach(input => {
                 input.addEventListener(e, () => {
-                    this.validateInput(input)
+                    this.validateInput(input);
+                    this.checkEmpty();
                 });
             });
         });
