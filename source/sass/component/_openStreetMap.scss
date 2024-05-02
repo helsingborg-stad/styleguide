@@ -10,6 +10,12 @@ $grid-gap: var(--grid-gap, 4) !default;
 		}
 	}
 
+	.c-openstreetmap__marker {
+		padding: $base;
+		border-radius: 50%;
+		margin-left: calc($base * -1.5);
+	}
+
 	/* Sidebar content (same for every size) */
 	.c-openstreetmap__sidebar {
 		position: static;
@@ -185,12 +191,6 @@ $grid-gap: var(--grid-gap, 4) !default;
 				max-width: 80%;
 				display: block;
 			}
-		}
-
-		.c-openstreetmap__marker {
-			padding: $base;
-			border-radius: 50%;
-			margin-left: calc($base * -1.5);
 		}
 
 		.c-openstreetmap__inner-blocks {
