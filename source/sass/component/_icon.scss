@@ -13,10 +13,22 @@ $colors: (
 .c-icon {
     font-display: block;
 
-    &.c-icon--svg {
+    &.c-icon--svg-link {
         width: 1em;
         object-fit: contain;
         aspect-ratio: 1;
+    }
+
+    &.c-icon--svg-path {
+        svg {
+            width: auto;
+
+            path {
+                stroke: $color-black;
+                fill: $color-black;
+                stroke-width: 1;
+            }
+        }
     }
 
     /* Set baseline to align icon to text */
@@ -34,12 +46,21 @@ $colors: (
     @each $size in $sizes {
         &.c-icon--size-#{$size} {
             font-size: map-get($icon-sizes, $size);
+            svg {
+                height: map-get($icon-sizes, $size);
+            }
         }
     }    
 
     @each $color, $value in $colors {
         &.c-icon--#{$color} {
             color: $value;
+            
+            svg path {
+                stroke: $value;
+                fill: $value;
+                stroke-width: 1;
+            }
         }
     }
 
