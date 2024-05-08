@@ -24,8 +24,8 @@ $colors: (
             width: auto;
 
             path {
-                stroke: $color-black;
-                fill: $color-black;
+                stroke: currentColor;
+                fill: currentColor;
                 stroke-width: 1;
             }
         }
