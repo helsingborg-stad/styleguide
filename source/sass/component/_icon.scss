@@ -12,7 +12,8 @@ $colors: (
 
 .c-icon {
     font-display: block;
-
+    line-height: 1;
+    
     &.c-icon--svg-link {
         width: 1em;
         object-fit: contain;
