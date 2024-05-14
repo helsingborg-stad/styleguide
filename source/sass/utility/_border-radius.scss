@@ -3,7 +3,7 @@ $sm: --radius-sm;
 $md: --radius-md;
 $lg: --radius-lg;
 
-$full: ("border-radius": "50%");
+$full: ("border-radius": "9999px");
 $border-radius-utilities:(
     (
         "name": "rounded",
@@ -11,7 +11,7 @@ $border-radius-utilities:(
             "border-radius": var(#{$md}, 8px)
         ),
         "modifiers": (
-            full: (border-radius: 50%),
+            full: (border-radius: 9999px),
             none: (border-radius: none)
         )
     ),
@@ -25,7 +25,7 @@ $border-radius-utilities:(
         4: ("border-radius": var(#{$sm}, 4px) 0 0 var(#{$sm}, 4px)),
         8: ("border-radius": var(#{$md}, 8px) 0 0 var(#{$md}, 8px)),
         16: ("border-radius": var(#{$lg}, 12px) 0 0 var(#{$lg}, 12px)),
-        full: ("border-radius": 50% 0 0 50%)
+        full: ("border-radius": 9999px 0 0 9999px)
     )
 ),
 (
@@ -38,7 +38,7 @@ $border-radius-utilities:(
     4: ("border-radius": 0 var(#{$sm}, 4px) var(#{$sm}, 4px) 0),
     8: ("border-radius": 0 var(#{$md}, 8px) var(#{$md}, 8px) 0),
     16: ("border-radius": 0 var(#{$lg}, 12px) var(#{$lg}, 12px) 0),
-    full: ("border-radius": 0 50% 50% 0)
+    full: ("border-radius": 0 9999px 9999px 0)
 )
 ),
 (
@@ -51,7 +51,7 @@ $border-radius-utilities:(
 4: ("border-radius": var(#{$sm}, 4px) var(#{$sm}, 4px) 0 0),
 8: ("border-radius": var(#{$md}, 8px) var(#{$md}, 8px) 0 0),
 16: ("border-radius": var(#{$lg}, 12px) var(#{$lg}, 12px) 0 0),
-full: ("border-radius": 50% 50% 0 0)
+full: ("border-radius": 9999px 9999px 0 0)
 )
 ),
 (
@@ -64,7 +64,7 @@ full: ("border-radius": 50% 50% 0 0)
 4: ("border-radius": 0 0 var(#{$sm}, 4px) var(#{$sm}, 4px)),
 8: ("border-radius": 0 0 var(#{$md}, 8px) var(#{$md}, 8px)),
 16: ("border-radius": 0 0 var(#{$lg}, 12px) var(#{$lg}, 12px)),
-full: ("border-radius": 0 0 50% 50%)
+full: ("border-radius": 0 0 9999px 9999px)
 )
 ),
 (
@@ -75,7 +75,7 @@ full: ("border-radius": 0 0 50% 50%)
 4: ("border-top-left-radius": var(#{$sm}, 4px)),
 8: ("border-top-left-radius": var(#{$md}, 8px)),
 16: ("border-top-left-radius": var(#{$lg}, 12px)),
-full: ("border-top-left-radius": 50%)
+full: ("border-top-left-radius": 9999px)
 )
 ),
 (
@@ -86,7 +86,7 @@ full: ("border-top-left-radius": 50%)
 4: ("border-top-right-radius": var(#{$sm}, 4px)),
 8: ("border-top-right-radius": var(#{$md}, 8px)),
 16: ("border-top-right-radius": var(#{$lg}, 12px)),
-full: ("border-top-right-radius": 50%)
+full: ("border-top-right-radius": 9999px)
 )
 ),
 (
@@ -97,7 +97,7 @@ full: ("border-top-right-radius": 50%)
 4: ("border-bottom-left-radius": var(#{$sm}, 4px)),
 8: ("border-bottom-left-radius": var(#{$md}, 8px)),
 16: ("border-bottom-left-radius": var(#{$lg}, 12px)),
-full: ("border-bottom-left-radius": 50%)
+full: ("border-bottom-left-radius": 9999px)
 )
 ),
 (
@@ -108,7 +108,7 @@ full: ("border-bottom-left-radius": 50%)
 4: ("border-bottom-right-radius": var(#{$sm}, 4px)),
 8: ("border-bottom-right-radius": var(#{$md}, 8px)),
 16: ("border-bottom-right-radius": var(#{$lg}, 12px)),
-full: ("border-bottom-right-radius": 50%)
+full: ("border-bottom-right-radius": 9999px)
 )
 )
 );
