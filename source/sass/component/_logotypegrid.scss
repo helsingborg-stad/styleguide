@@ -10,6 +10,9 @@
 
     .c-logotypegrid__logo {
         height: calc(#{$base} * 10); 
+    }
+
+    .c-logotypegrid__logo .c-logotype__image {
         object-fit: contain;
     }
 }
