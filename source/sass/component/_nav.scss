@@ -5,6 +5,7 @@ $c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active) !defa
 $c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0,0,0,.05)) !default;
 $c-nav-v-divider-color: var(--c-nav-v-divider-color) !default;
 $c-nav-v-font-size: var(--c-nav-v-font-size) !default;
+$c-nav-v-item-background: var(--c-nav-v-item-background, inherit) !default;
 
 //Settings horizontal
 $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
@@ -219,6 +220,8 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     .c-nav__item {
+      background-color: $c-nav-v-item-background;
+
       .c-nav__text,
       .c-nav__icon,
       .c-nav__toggle {
