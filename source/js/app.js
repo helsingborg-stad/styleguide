@@ -57,6 +57,9 @@ const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Needs to run early
+    initializePagination();
+
     // Instances
     const ButtonToggleContentInstance = new ButtonToggleContent();
     const SimulateClickInstance = new SimulateClick();
@@ -92,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeOpenStreetMaps();
     initializeDrawerAccessibility();
     initializeForms();
-    initializePagination();
     initializeMenus();
     initializeSlider();
     initializeCompressed();
