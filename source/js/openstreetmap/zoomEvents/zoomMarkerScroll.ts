@@ -1,6 +1,6 @@
-import { zoomToMarker } from './helpers/osmHelpers';
+import { zoomToMarker } from '../map/zoomToMarker';
 import { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
-import { MarkerElementObjects } from './interface/interface';
+import { MarkerElementObjects } from '../interface/interface';
 
 class ZoomMarkerSroll {
     map: LeafletMap;
@@ -24,7 +24,7 @@ class ZoomMarkerSroll {
     }
 
     private observerIntersection(filteredArray: MarkerElementObjects[]) {
-        let timeStamp: Date | null = null; // Adjusted the type to Date | null
+        let timeStamp: Date | null = null;
 
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {

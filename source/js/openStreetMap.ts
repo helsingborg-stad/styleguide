@@ -1,20 +1,21 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/showPost';
-import ZoomMarkerClick from './openstreetmap/zoomMarkerClick';
-import ZoomMarkerScroll from './openstreetmap/zoomMarkerScroll';
-import AddMarkers from './openstreetmap/addMarkers';
+import ZoomMarkerClick from './openstreetmap/zoomEvents/zoomMarkerClick';
+import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
+import AddMarkerToMap from './openstreetmap/createMarker/addMarkerToMap';
 import Sidebar from './openstreetmap/sidebar'; 
-import { getCoordinatesFromURLSearchParams, zoomToMarker } from './openstreetmap/helpers/osmHelpers';
+import { getCoordinatesFromURLSearchParams } from './openstreetmap/helpers/osmHelpers';
+import { zoomToMarker } from './openstreetmap/map/zoomToMarker';
 import { MarkerElementObjects } from './openstreetmap/interface/interface';
+import FetchEndpointPosts from './openstreetmap/api/fetchEndpointPosts';
+import AddEndpointPosts from './openstreetmap/addEndpointPosts';
 
 class OpenStreetMap {
-    container: HTMLElement;
     map: LeafletMap;
     markers: MarkerClusterGroup;
 
-    constructor(container: HTMLElement) {
-        this.container = container;
+    constructor(private container: HTMLElement) {
         const id = this.container.getAttribute('data-js-map-id') ?? "";
 
         this.map = L.map(`openstreetmap__map-${id}`, {
@@ -30,6 +31,11 @@ class OpenStreetMap {
     }
 
     init() {
+        // if (this.container.hasAttribute('data-js-map-posts-endpoint')) {
+            new AddEndpointPosts(this.container, this.map, this.markers);
+            new FetchEndpointPosts(this.container, this.container.getAttribute('data-js-map-posts-endpoint') as string);
+        // }
+
         this.observe();
         this.map.zoomControl.setPosition('bottomright');
 
@@ -69,7 +75,7 @@ class OpenStreetMap {
 
     initializeFeatures() {
         new Sidebar(this.container);
-        const AddMarkersInstance = new AddMarkers(this.map, this.markers as MarkerClusterGroup, this.container);
+        const AddMarkersInstance = new AddMarkerToMap(this.map, this.markers as MarkerClusterGroup, this.container);
         const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
         this.zoomToMarkerOnLoad();
         new ShowPost(this.map, this.markers as MarkerClusterGroup, this.container);

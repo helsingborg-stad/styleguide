@@ -18,6 +18,7 @@ class ShowPost {
         this.paginationInstance = false;
 
         const paginationTarget = this.container.querySelector('[data-js-pagination-target]') as HTMLElement;
+
         if (paginationTarget) {
             const instanceId = paginationTarget?.dataset.paginationInstance;
 
@@ -65,6 +66,7 @@ class ShowPost {
         const params = getCoordinatesFromURLSearchParams();
         if (!params || !this.sidebar) return;
         const posts = this.sidebar.querySelectorAll('.c-openstreetmap__collection__item');
+
         [...posts].forEach((collectionItem) => {
             const latLng = getMarkerDataFromElement(collectionItem as HTMLElement);
             const lat = latLng.lat;
@@ -107,7 +109,6 @@ class ShowPost {
             const lng = latLng.lng;
 
             pushCoordinatesToBrowserHistory({lat: lat, lng: lng});
-            this.scrollToTop();
         }
 
         if (backButton) {
@@ -116,31 +117,6 @@ class ShowPost {
                 moduleArea.classList.remove('u-display--none');
             }
         }
-    }
-  
-    private scrollToTop() {
-        if (!this.sidebar) return;
-        const rect = this.sidebar.getBoundingClientRect();
-        const topPos = window.pageYOffset || document.documentElement.scrollTop;
-        const offset = this.getStickyHeaderWithMostHeight();
-
-        const target = rect.top + topPos - offset;
-        
-        window.scrollTo({
-            top: target,
-        })
-    }
-
-    private getStickyHeaderWithMostHeight() {
-        let offset = 0;
-        [...document.querySelectorAll('.c-header--sticky')].forEach(header => {
-            const headerRect = header.getBoundingClientRect();
-            if (headerRect.height > offset) {
-                offset = headerRect.height;
-            }
-        });
-
-        return offset;
     }
 
     private handleBackButton() {

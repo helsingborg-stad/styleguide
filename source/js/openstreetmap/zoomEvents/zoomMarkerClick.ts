@@ -1,5 +1,5 @@
-import { zoomToMarker } from './helpers/osmHelpers';
-import { MarkerElementObjects } from './interface/interface';
+import { zoomToMarker } from '../map/zoomToMarker';
+import { MarkerElementObjects } from '../interface/interface';
 
 class ZoomMarkerClick {
     markerElementObjects: MarkerElementObjects[];
