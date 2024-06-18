@@ -16,7 +16,7 @@ class FetchEndpointPosts {
                     console.log(data.posts);
                     this.postsAddedEvent(data.posts);
                     page++;
-                    fetchNextPage();
+                    // fetchNextPage();
                 }
             })
         };
@@ -29,7 +29,7 @@ class FetchEndpointPosts {
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
-            }
+                }
 
             return response.json();
         })

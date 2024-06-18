@@ -27,9 +27,9 @@ class AddMarkerToMap {
     private addMarkersToMap() {
         const locations = allLocations(this.container) ?? [];
         locations.forEach((location: Location) => {
-            if (location?.lat && location?.lng) {
+            if (location.lat && location.lng) {
                 let customIcon: Icon | undefined = undefined;
-                if (location?.icon) {
+                if (location.icon) {
                     customIcon = location.icon;
                 } 
 
@@ -55,13 +55,13 @@ class AddMarkerToMap {
                     }
                     pushCoordinatesToBrowserHistory({ lat: location.lat, lng: location.lng });
                 });
-                this.markers?.addLayer(marker);
+                this.markers.addLayer(marker);
                 if (location.element) {
                     this.markerElementObjects.push({marker: marker, element: location.element});
                 }
             }
         });
-        this.markers?.addTo(this.map as LeafletMap);
+        this.markers.addTo(this.map);
     }
 
     public getMarkerElementObjects() {

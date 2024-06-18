@@ -10,7 +10,6 @@ class AddEndpointPosts {
             const customEvent = e as CustomEvent;
             console.log(customEvent.detail)
             if (customEvent.detail && customEvent.detail.length > 0) {
-                
             }
         });
     }

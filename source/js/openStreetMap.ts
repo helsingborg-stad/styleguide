@@ -1,5 +1,5 @@
+import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-import 'leaflet.markercluster';
 import ShowPost from './openstreetmap/sidebar/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomEvents/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
@@ -9,65 +9,55 @@ import Sidebar from './openstreetmap/sidebar/sidebarFeatures';
 import { MarkerElementObjects } from './openstreetmap/interface/interface';
 import FetchEndpointPosts from './openstreetmap/api/fetchEndpointPosts';
 import AddEndpointPosts from './openstreetmap/addEndpointPosts';
-import InitializeOsm from './openstreetmap/map/initializeMap';
 import SetMapTiles from './openstreetmap/map/setMapTiles';
 import { setView, invalidateSize } from './openstreetmap/map/mapHelpers';
 import AccessibilityFeatures from './openstreetmap/accessibility/accessibilityFeatures';
 
 class OpenStreetMap {
-    map: LeafletMap;
-    markers: MarkerClusterGroup;
-    // settings: {
-    //     endpoint: string;
-    //     startposition: string;
-    // }
-
-    constructor(private container: HTMLElement) {
-        // this.settings = this.getSettings();
-        const initializeMap = new InitializeOsm(this.container);
-        const [map, markers] = initializeMap.start();
-
-        this.map = map;
-        this.markers = markers;
-
-        if (this.map && this.markers) this.init();
+    settings: {
+        endpoint: string;
+        startposition: string;
     }
 
-    private init() {
-        // if (this.container.hasAttribute('data-js-map-posts-endpoint')) {
-            new AddEndpointPosts(this.container, this.map, this.markers);
-            new FetchEndpointPosts(this.container, this.container.getAttribute('data-js-map-posts-endpoint') as string);
-        // }
+    constructor(private container: HTMLElement) {
+        this.settings = this.getSettings();
+        const initializeMapInstance = new InitializeOsm(this.container);
+        const [map, markers] = initializeMapInstance.create();
 
+        if (map && markers) {
+            this.setupMap(map, markers);
+            this.setupFeatures(map, markers);
+        }
+    }
+
+    private setupMap(map: LeafletMap, markers: MarkerClusterGroup) {
+        new SetMapTiles(this.container, map);
+        setView(map, JSON.parse(this.settings.startposition));
+        map.zoomControl.setPosition('bottomright');
+        invalidateSize(map);
+    }
+
+    private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
         // this.observe();
-        this.map.zoomControl.setPosition('bottomright');
-
-        this.setMapView();
+        new Sidebar(this.container, map);
+        new AddEndpointPosts(this.container, map, markers);
+        new FetchEndpointPosts(this.container, this.settings.endpoint);
+        const AddMarkersInstance = new AddMarkerToMap(map, markers, this.container);
+        const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
+        new ShowPost(map, markers, this.container);
+        new ZoomMarkerParams(this.container, markers);
+        new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
+        new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
+        new AccessibilityFeatures(this.container, map, markers);
     }
 
     private getSettings() {
-    
+        return {
+            endpoint: this.container.getAttribute('data-js-map-posts-endpoint') ?? '',
+            startposition: this.container.getAttribute('data-js-map-start-position') ?? ''
+        };
     }
 
-
-    setMapView() {
-        setView(this.map, JSON.parse(this.container.getAttribute('data-js-map-start-position') ?? ''));
-        new SetMapTiles(this.container, this.map);
-        this.initializeFeatures(); 
-        new AccessibilityFeatures(this.container, this.map, this.markers);
-        invalidateSize(this.map);
-    }
-
-    initializeFeatures() {
-        new Sidebar(this.container, this.map);
-        const AddMarkersInstance = new AddMarkerToMap(this.map, this.markers, this.container);
-        const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
-        new ShowPost(this.map, this.markers, this.container);
-        new ZoomMarkerParams(this.container, this.markers);
-        new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
-        new ZoomMarkerScroll(this.map, this.markers, markerElementObjects as MarkerElementObjects[]);
-    }
-    
 //     observe() {
 //         const mapContainer = this.container.querySelector('.c-openstreetmap__map');
 //         const observer = new MutationObserver((mutations) => {
