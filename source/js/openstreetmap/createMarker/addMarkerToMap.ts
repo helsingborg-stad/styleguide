@@ -9,7 +9,7 @@ class AddMarkerToMap {
     markers: MarkerClusterGroup;
     container: HTMLElement;
     locations?: Location[];
-    markerElementObjects?: MarkerElementObjects[];
+    markerElementObjects: MarkerElementObjects[] = [];
     createMarker: CreateMarker;
     createTooltip: CreateTooltip;
 
@@ -18,7 +18,6 @@ class AddMarkerToMap {
         this.container = container;
         this.map = map;
         this.locations = JSON.parse(this.container.getAttribute('data-js-map-pin-data') || '[]');
-        this.markerElementObjects = [];
         this.createMarker = new CreateMarker(this.container);
         this.createTooltip = new CreateTooltip(this.container);
 
@@ -58,7 +57,7 @@ class AddMarkerToMap {
                 });
                 this.markers?.addLayer(marker);
                 if (location.element) {
-                    this.markerElementObjects?.push({marker: marker, element: location.element});
+                    this.markerElementObjects.push({marker: marker, element: location.element});
                 }
             }
         });

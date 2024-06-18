@@ -8,10 +8,12 @@ class FetchEndpointPosts {
         let page = 1;
         
         const fetchNextPage = () => {
-            let url = this.endpoint + `&page=${page}&postsPerPage=${this.postsPerPage}`;
+            // let url = this.endpoint + `&page=${page}&postsPerPage=${this.postsPerPage}`;
+            let url = this.endpoint + `&page=1&postsPerPage=${this.postsPerPage}`;
             this.fetchEndpointPosts((url))
             .then((data) => {
                 if (data && data.posts && data.posts.length > 0) {
+                    console.log(data.posts);
                     this.postsAddedEvent(data.posts);
                     page++;
                     fetchNextPage();
@@ -32,7 +34,7 @@ class FetchEndpointPosts {
             return response.json();
         })
         .then(data => {
-            return {posts: data.posts, foundPosts: data.foundPosts};
+            return { posts: data.posts, foundPosts: data.foundPosts };
         }).catch((error) => {
 
         });

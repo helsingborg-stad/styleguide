@@ -1,5 +1,5 @@
-import { pushCoordinatesToBrowserHistory } from '../helpers/osmHelpers';
 import L, { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
+import { pushCoordinatesToBrowserHistory } from '../helpers/osmHelpers';
 import { MarkerElementObjects, Location, Icon } from '../interface/interface';
 import CreateMarker from '../createMarker/createMarker';
 import CreateTooltip from '../createMarker/createTooltip';

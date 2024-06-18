@@ -1,15 +1,23 @@
-class ControlSidebar {
-    baseClass: string;
-    container: HTMLElement;
-    constructor(container: HTMLElement) {
-        this.baseClass = 'c-openstreetmap';
-        this.container = container;
-        this.container && this.init()
+import { invalidateSize } from "../map/mapHelpers";
+import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+
+class SidebarFeatures {
+    baseClass: string = 'c-openstreetmap';
+
+    constructor(private container: HTMLElement, private map: LeafletMap) {
+        if (this.container.querySelector(`.${this.baseClass}__sidebar`)) {
+            this.expandBasedOnClasses();
+            this.observeSizeClasses();
+            this.setupExpandClick();
+        }
     }
 
-    init() {
-        this.expandSidebar();
-        this.observeSizeClasses();
+    setupExpandClick() {
+        const expand = this.container.querySelector(`.${this.baseClass}__expand-icon`);
+
+        expand?.addEventListener('click', () => {
+            invalidateSize(this.map);
+        });
     }
 
     observeSizeClasses() {
@@ -27,7 +35,7 @@ class ControlSidebar {
                     const removedClasses = previousClasses?.filter(className => !currentClasses.includes(className));
 
                     if (removedClasses && removedClasses.includes(`${this.baseClass}--size-sm`)) {
-                        this.expandSidebar();
+                        this.expandBasedOnClasses();
                     }
                 }
             });
@@ -43,10 +51,10 @@ class ControlSidebar {
         observer.observe(this.container, config);
     }
 
-    expandSidebar() {
+    expandBasedOnClasses() {
         if (!this.container.classList.contains(`${this.baseClass}--size-sm`)) {
             this.container.classList.add('is-expanded');
         }
     }
 }
-export default ControlSidebar;
+export default SidebarFeatures;

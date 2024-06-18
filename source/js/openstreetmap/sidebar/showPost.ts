@@ -1,6 +1,6 @@
-import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from './helpers/osmHelpers';
-import Pagination from '../pagination';
 import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import { getMarkerDataFromElement, pushCoordinatesToBrowserHistory, getCoordinatesFromURLSearchParams } from '../helpers/osmHelpers';
+import Pagination from '../../pagination';
 
 
 class ShowPost {
