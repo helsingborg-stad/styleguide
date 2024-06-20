@@ -1,21 +1,4 @@
-export function allLocations(container: HTMLElement) {
-    let locations = JSON.parse(container.getAttribute('data-js-map-pin-data') || '[]') ?? [];
-    const sidebar = container?.querySelector('.c-openstreetmap__sidebar');
-
-    if (!sidebar) return locations;
-    
-    const placeElements = sidebar.querySelectorAll('[data-js-map-location]');
-    
-    placeElements.forEach(element => {
-        locations.push(getMarkerDataFromElement(element as HTMLElement));
-    });
-    
-    return locations;
-}
-
 export function getElementJSONLocation(el: HTMLElement) {
-    if (!el || !el.hasAttribute('data-js-map-location')) return false;
-
     const locationAttr = el.getAttribute('data-js-map-location');
     if (!locationAttr) return false;
 

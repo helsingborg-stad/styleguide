@@ -4,14 +4,15 @@ import ShowPost from './openstreetmap/sidebar/showPost';
 import ZoomMarkerClick from './openstreetmap/zoomEvents/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
 import ZoomMarkerParams from './openstreetmap/zoomEvents/zoomMarkerParams';
-import AddMarkerToMap from './openstreetmap/createMarker/addMarkerToMap';
+import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
 import Sidebar from './openstreetmap/sidebar/sidebarFeatures'; 
 import { MarkerElementObjects } from './openstreetmap/interface/interface';
 import FetchEndpointPosts from './openstreetmap/api/fetchEndpointPosts';
-import AddEndpointPosts from './openstreetmap/addEndpointPosts';
+import AddEndpointPosts from './openstreetmap/post/addEndpointPosts';
 import SetMapTiles from './openstreetmap/map/setMapTiles';
 import { setView, invalidateSize } from './openstreetmap/map/mapHelpers';
 import AccessibilityFeatures from './openstreetmap/accessibility/accessibilityFeatures';
+import PostAdded from './openstreetmap/post/postAdded';
 
 class OpenStreetMap {
     settings: {
@@ -40,14 +41,15 @@ class OpenStreetMap {
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
         // this.observe();
         new Sidebar(this.container, map);
+        const addMarkersFromLocationInstance = new AddMarkersFromLocation(map, markers, this.container);
+        new PostAdded(this.container, map, markers, addMarkersFromLocationInstance);
         new AddEndpointPosts(this.container, map, markers);
         new FetchEndpointPosts(this.container, this.settings.endpoint);
-        const AddMarkersInstance = new AddMarkerToMap(map, markers, this.container);
-        const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
+        // const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
         new ShowPost(map, markers, this.container);
-        new ZoomMarkerParams(this.container, markers);
-        new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
-        new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
+        // new ZoomMarkerParams(this.container, markers);
+        // new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
+        // new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
         new AccessibilityFeatures(this.container, map, markers);
     }
 

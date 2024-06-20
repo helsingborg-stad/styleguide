@@ -13,7 +13,7 @@ class FetchEndpointPosts {
             this.fetchEndpointPosts((url))
             .then((data) => {
                 if (data && data.length > 0) {
-                    this.postsAddedEvent(data);
+                    this.postsFetchedEvent(data);
                     page++;
                     fetchNextPage();
                 }
@@ -36,8 +36,8 @@ class FetchEndpointPosts {
         });
     }
 
-    private postsAddedEvent(posts: Array<any>) {
-        this.container.dispatchEvent(new CustomEvent('postsAdded', { detail: posts }));
+    private postsFetchedEvent(posts: Array<any>) {
+        this.container.dispatchEvent(new CustomEvent('postsFetched', { detail: posts }));
     }
 }
 
