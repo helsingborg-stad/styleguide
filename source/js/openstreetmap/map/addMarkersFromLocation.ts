@@ -1,23 +1,15 @@
 import L, { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
-import { pushCoordinatesToBrowserHistory } from '../helpers/osmHelpers';
 import { MarkerElementObjects, Location, Icon } from '../interface/interface';
 import CreateMarker from '../createMarker/createMarker';
 import CreateTooltip from '../createMarker/createTooltip';
+import { zoomToMarker } from './zoomToMarker';
 
 class AddMarkersFromLocations
 {
-    map: LeafletMap;
-    markers: MarkerClusterGroup;
-    container: HTMLElement;
-    markerElementObjects?: MarkerElementObjects[];
     createMarker: CreateMarker;
     createTooltip: CreateTooltip;
 
-    constructor(map: LeafletMap, markers: MarkerClusterGroup, container: HTMLElement) {
-        this.markers = markers;
-        this.container = container;
-        this.map = map;
-        this.markerElementObjects = [];
+    constructor(private map: LeafletMap, private markers: MarkerClusterGroup, private container: HTMLElement) {
         this.createMarker = new CreateMarker(this.container);
         this.createTooltip = new CreateTooltip(this.container);
     }
@@ -33,15 +25,13 @@ class AddMarkersFromLocations
                 let marker = L.marker([location.lat, location.lng], {
                     icon: this.createMarker.create(customIcon),
                 });
+
+                console.log(marker);
                 if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip.create(location.tooltip), { maxWidth: 300 });
+                    marker.bindPopup(this.createTooltip.create(location.tooltip, location.id ?? null), { maxWidth: 300 });
                 }
                 marker.on('click', (e) => {
-                    let latlng = e.latlng
-                        ? e.latlng
-                        : e.sourceTarget?._latlng
-                            ? e.sourceTarget?._latlng
-                            : false;
+                    let latlng = e.latlng || e.sourceTarget?._latlng || false;
                     let zoomLevel = this.map?.getZoom() ?? 16;
                     if (latlng) {
                         if (zoomLevel >= 16) {
@@ -50,12 +40,12 @@ class AddMarkersFromLocations
                             this.map?.setView(latlng, 16);
                         }
                     }
-                    pushCoordinatesToBrowserHistory({ lat: location.lat, lng: location.lng });
                 });
                 this.markers?.addLayer(marker);
-                if (location.element) {
-                    this.markerElementObjects?.push({marker: marker, element: location.element});
-                }
+
+                location.element?.addEventListener('click', () => {
+                    zoomToMarker(marker);
+                });
             }
         });
         this.markers?.addTo(this.map as LeafletMap);

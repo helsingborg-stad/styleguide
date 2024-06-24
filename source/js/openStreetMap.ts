@@ -1,7 +1,6 @@
 import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 // import ShowPost from './openstreetmap/sidebar/showPost';
-import ZoomMarkerClick from './openstreetmap/zoomEvents/zoomMarkerClick';
 import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
 import ZoomMarkerParams from './openstreetmap/zoomEvents/zoomMarkerParams';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
@@ -48,7 +47,6 @@ class OpenStreetMap {
         // const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
         // new ShowPost(map, markers, this.container);
         // new ZoomMarkerParams(this.container, markers);
-        // new ZoomMarkerClick(markerElementObjects as MarkerElementObjects[]);
         // new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
         new AccessibilityFeatures(this.container, map, markers);
     }
