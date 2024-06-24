@@ -17,7 +17,7 @@ class ZoomMarkerParams {
                 const marker = layer as Marker;
                 const latLng = marker.getLatLng();
                 if (latLng && latLng.lat.toString() == params.lat && latLng.lng.toString() == params.lng) {
-                    zoomToMarker(marker, this.container);
+                    zoomToMarker(marker);
                 }
             }
         });

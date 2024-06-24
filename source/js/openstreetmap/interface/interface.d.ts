@@ -42,6 +42,7 @@ interface Location {
     tooltip?: Tooltip;
     url?: String;
     icon?: Icon;
+    id?: String;
 }
 
 

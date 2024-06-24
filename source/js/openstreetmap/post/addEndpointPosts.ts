@@ -23,6 +23,7 @@ class AddEndpointPosts {
 
     private addPostsToDOM(elementString: string) {
         const post = document.createElement('div');
+        post.classList.add('c-openstreetmap__posts');
         post.innerHTML = elementString;
         (this.postsContainer as HTMLElement).appendChild(post);
         this.postAddedEvent(post);

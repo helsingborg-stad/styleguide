@@ -4,7 +4,7 @@ class CreateTooltip {
     constructor(private container: HTMLElement) {
     }
 
-    public create(tooltip: Tooltip) {
+    public create(tooltip: Tooltip, id: String|null = null) {
         let template = this.container?.querySelector('.c-openstreetmap__pin-tooltip');
         let clone = template?.cloneNode(true) as HTMLTemplateElement;
 
@@ -33,7 +33,7 @@ class CreateTooltip {
             .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt as string : '')
             .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src as string : '')
             .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt as string : '')
-            .replace('{TOOLTIP_LINK}', tooltip.url ? tooltip.url as string : '');
+            .replace('{TOOLTIP_MODAL_ID}', id ? id as string : '');
         return html;
     }
 }
