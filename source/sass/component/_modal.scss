@@ -249,10 +249,60 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 }
 
 .c-modal[open] {
-    animation: modalEntrance 300ms ease normal;
+
+    animation: modalSlideUp 300ms ease normal;
+
+    &.c-modal--slide-down {
+        animation: modalSlideDown 300ms ease normal;
+    }
+
+    &.c-modal--slide-left {
+        animation: modalSlideLeft 300ms ease normal;
+    }
+
+    &.c-modal--slide-right {
+        animation: modalSlideRight 300ms ease normal;
+    }
 }
 
-@keyframes modalEntrance {
+@keyframes modalSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(50vw);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes modalSlideRight {
+    from {
+        opacity: 0;
+        transform: translateX(-50vw);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes modalSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50vh);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalSlideUp {
     from {
         opacity: 0;
         transform: translateY(50vh);
