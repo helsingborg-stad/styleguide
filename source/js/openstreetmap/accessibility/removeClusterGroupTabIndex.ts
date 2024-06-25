@@ -11,7 +11,6 @@ export function removeClusterGroupTabIndex(container: HTMLElement) {
                                 addedNode.classList?.contains('marker-cluster'))
                         ) {
                             addedNode.setAttribute('tabindex', '-1');
-                            console.log(addedNode);
                         }
                     });
                 }
