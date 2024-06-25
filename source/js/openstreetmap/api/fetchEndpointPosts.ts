@@ -4,12 +4,10 @@ class FetchEndpointPosts {
     }
 
     private fetchPosts() {
-        console.log('fetching posts');
         let page = 1;
         
         const fetchNextPage = () => {
             let url = this.endpoint + `&page=${page}&postsPerPage=${this.postsPerPage}&html`;
-            console.log(url);
             this.fetchEndpointPosts((url))
             .then((data) => {
                 if (data && data.length > 0) {

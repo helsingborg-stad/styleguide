@@ -20,9 +20,9 @@ class CreateMarker {
             .replace('{ICON_BACKGROUND_COLOR}', color as string);
         let marker = L.divIcon({
             className: 'c-openstreetmap__icon',
-            html: html,
+            html: html, 
         });
-
+        
         return marker;
     }
 

@@ -158,13 +158,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 			max-width: 100%;
 		}
 
-		a.c-openstreetmap__tooltip-link {
-			color: inherit;
-			text-decoration: none;
-			&:hover {
-				color: $color-link-hover;
-				text-decoration: underline;
-			}
+		.c-openstreetmap__tooltip-title {
+			cursor: pointer;
 		}
 
 		/* Map/Sidebar */

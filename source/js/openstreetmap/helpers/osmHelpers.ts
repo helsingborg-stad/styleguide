@@ -9,7 +9,6 @@ export function getElementJSONLocation(el: HTMLElement) {
 
 export function getMarkerDataFromElement(el: HTMLElement) {
     const json = getElementJSONLocation(el);
-    console.log(json);
     if (json !== null && typeof json === 'object' && 'lat' in json && 'lng' in json) {
         const lat = json.lat;
         const lng = json.lng;

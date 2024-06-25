@@ -26,10 +26,10 @@ class AddMarkersFromLocations
                     icon: this.createMarker.create(customIcon),
                 });
 
-                console.log(marker);
                 if (location.tooltip) {
                     marker.bindPopup(this.createTooltip.create(location.tooltip, location.id ?? null), { maxWidth: 300 });
                 }
+
                 marker.on('click', (e) => {
                     let latlng = e.latlng || e.sourceTarget?._latlng || false;
                     let zoomLevel = this.map?.getZoom() ?? 16;

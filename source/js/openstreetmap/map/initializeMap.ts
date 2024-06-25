@@ -6,7 +6,7 @@ class InitializeOsm {
 
     public create(): [LeafletMap, MarkerClusterGroup] {
         const id = this.container.getAttribute('data-js-map-id') ?? "";
-
+        
         const map = L.map(`openstreetmap__map-${id}`, {
             scrollWheelZoom: false,
             keyboard: false,
