@@ -1,16 +1,18 @@
 import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
-import ZoomMarkerParams from './openstreetmap/zoomEvents/zoomMarkerParams';
+import ZoomParams from './openstreetmap/zoomEvents/zoomParams';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
 import Sidebar from './openstreetmap/sidebar/sidebarFeatures'; 
-import { MarkerElementObjects } from './openstreetmap/interface/interface';
 import FetchEndpointPosts from './openstreetmap/api/fetchEndpointPosts';
 import AddEndpointPosts from './openstreetmap/post/addEndpointPosts';
 import SetMapTiles from './openstreetmap/map/setMapTiles';
 import { setView, invalidateSize } from './openstreetmap/map/mapHelpers';
 import AccessibilityFeatures from './openstreetmap/accessibility/accessibilityFeatures';
 import PostAdded from './openstreetmap/post/postAdded';
+import ZoomClick from './openstreetmap/zoomEvents/zoomClick';
+import PostMarkerPairs from './openstreetmap/post/postMarkerPairs';
+import CreateMarker from './openstreetmap/createMarker/createMarker';
+import CreateTooltip from './openstreetmap/createMarker/createTooltip';
 
 class OpenStreetMap {
     settings: {
@@ -37,16 +39,24 @@ class OpenStreetMap {
     }
 
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
-        new AccessibilityFeatures(this.container, map, markers);
-        new Sidebar(this.container, map);
-        const addMarkersFromLocationInstance = new AddMarkersFromLocation(map, markers, this.container);
-        new PostAdded(this.container, map, markers, addMarkersFromLocationInstance);
-        new AddEndpointPosts(this.container, map, markers);
-        new FetchEndpointPosts(this.container, this.settings.endpoint);
-        // const markerElementObjects = AddMarkersInstance.getMarkerElementObjects();
-        // new ShowPost(map, markers, this.container);
-        // new ZoomMarkerParams(this.container, markers);
-        // new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
+        const createMarkerInstance = new CreateMarker(this.container);
+        const createTooltipInstance = new CreateTooltip(this.container);
+        const postMarkerPairsInstance = new PostMarkerPairs(this.container);
+        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers);
+        const sidebarInstance = new Sidebar(this.container, map);
+        const zoomParamsInstance = new ZoomParams(this.container);
+        const zoomClickInstance = new ZoomClick(this.container);
+        const addMarkersFromLocationInstance = new AddMarkersFromLocation(
+            this.container, 
+            map, 
+            markers, 
+            postMarkerPairsInstance,
+            createMarkerInstance,
+            createTooltipInstance
+        );
+        const postAddedInstance = new PostAdded(this.container, addMarkersFromLocationInstance);
+        const addEndpointPostsInstance = new AddEndpointPosts(this.container, map, markers);
+        const fetchEndpointPostsInstance = new FetchEndpointPosts(this.container, this.settings.endpoint);
     }
 
     private getSettings() {
