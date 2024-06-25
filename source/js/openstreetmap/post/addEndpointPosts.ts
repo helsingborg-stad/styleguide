@@ -26,10 +26,10 @@ class AddEndpointPosts {
         post.classList.add('c-openstreetmap__posts');
         post.innerHTML = elementString;
         (this.postsContainer as HTMLElement).appendChild(post);
-        this.postAddedEvent(post);
+        this.dispatchPostAddedEvent(post);
     }
 
-    private postAddedEvent(post: HTMLElement) {
+    private dispatchPostAddedEvent(post: HTMLElement) {
         this.container.dispatchEvent(new CustomEvent('postAdded', { detail: post }));
     }
 }

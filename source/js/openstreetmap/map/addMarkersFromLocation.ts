@@ -1,17 +1,20 @@
-import L, { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
-import { MarkerElementObjects, Location, Icon } from '../interface/interface';
+import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import { Location, Icon } from '../interface/interface';
 import CreateMarker from '../createMarker/createMarker';
 import CreateTooltip from '../createMarker/createTooltip';
 import { zoomToMarker } from './zoomToMarker';
+import PostMarkerPairs from '../post/postMarkerPairs';
 
 class AddMarkersFromLocations
 {
-    createMarker: CreateMarker;
-    createTooltip: CreateTooltip;
-
-    constructor(private map: LeafletMap, private markers: MarkerClusterGroup, private container: HTMLElement) {
-        this.createMarker = new CreateMarker(this.container);
-        this.createTooltip = new CreateTooltip(this.container);
+    constructor(
+        private container: HTMLElement, 
+        private map: LeafletMap, 
+        private markers: MarkerClusterGroup, 
+        private postMarkerPairs: PostMarkerPairs,
+        private createMarker: CreateMarker,
+        private createTooltip: CreateTooltip
+    ) {
     }
     
     public add(locations: Location[]) {
@@ -43,12 +46,19 @@ class AddMarkersFromLocations
                 });
                 this.markers?.addLayer(marker);
 
-                location.element?.addEventListener('click', () => {
-                    zoomToMarker(marker);
-                });
+                this.addMarkerPostPair(marker, location?.element, location?.id);
+                // location.element?.addEventListener('click', () => {
+                //     zoomToMarker(marker);
+                // });
             }
         });
         this.markers?.addTo(this.map as LeafletMap);
+    }
+
+    private addMarkerPostPair(marker: Marker|null, post: HTMLElement|undefined, id: string|undefined) {
+        if (marker && post) {
+            this.postMarkerPairs.set({post: post, marker: marker, id: id});
+        }
     }
 }
 

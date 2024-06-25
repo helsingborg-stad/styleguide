@@ -1,13 +1,12 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import AddMarkersFromLocations from '../map/addMarkersFromLocation';
+import ZoomMarkerParams from '../zoomEvents/zoomParams';
 import { getElementJSONLocation, getMarkerDataFromElement } from '../helpers/osmHelpers';
 
 class PostAdded {
     constructor(
         private container: HTMLElement, 
-        private map: LeafletMap, 
-        private markers: MarkerClusterGroup, 
-        private addMarkersFromLocationInstance: AddMarkersFromLocations
+        private addMarkersFromLocationInstance: AddMarkersFromLocations,
     ) {
         this.listenForPostAdded();
     }
