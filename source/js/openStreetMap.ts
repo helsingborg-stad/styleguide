@@ -1,6 +1,5 @@
 import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-// import ShowPost from './openstreetmap/sidebar/showPost';
 import ZoomMarkerScroll from './openstreetmap/zoomEvents/zoomMarkerScroll';
 import ZoomMarkerParams from './openstreetmap/zoomEvents/zoomMarkerParams';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
@@ -38,7 +37,7 @@ class OpenStreetMap {
     }
 
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
-        // this.observe();
+        new AccessibilityFeatures(this.container, map, markers);
         new Sidebar(this.container, map);
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(map, markers, this.container);
         new PostAdded(this.container, map, markers, addMarkersFromLocationInstance);
@@ -48,7 +47,6 @@ class OpenStreetMap {
         // new ShowPost(map, markers, this.container);
         // new ZoomMarkerParams(this.container, markers);
         // new ZoomMarkerScroll(map, markers, markerElementObjects as MarkerElementObjects[]);
-        new AccessibilityFeatures(this.container, map, markers);
     }
 
     private getSettings() {
@@ -57,27 +55,6 @@ class OpenStreetMap {
             startposition: this.container.getAttribute('data-js-map-start-position') ?? ''
         };
     }
-
-//     observe() {
-//         const mapContainer = this.container.querySelector('.c-openstreetmap__map');
-//         const observer = new MutationObserver((mutations) => {
-//             mutations.forEach((mutation) => {
-//                 if (mutation.type === 'childList') {
-//                     mutation.addedNodes.forEach((addedNode) => {
-//                         if (
-//                         addedNode instanceof HTMLElement &&
-//                         (addedNode.classList?.contains('c-openstreetmap__icon') || 
-//                         addedNode.classList?.contains('marker-cluster'))
-//                         ) {
-//                             addedNode.setAttribute('tabindex', '-1');
-//                         }
-//                     });
-//                 }
-//             });
-//         });
-//         if (!mapContainer) return;
-//         observer.observe(mapContainer, { childList: true, subtree: true });
-//     }
 }
 
 export function initializeOpenStreetMaps() {
