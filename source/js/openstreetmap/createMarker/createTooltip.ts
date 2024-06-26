@@ -1,4 +1,4 @@
-import { MarkerElementObjects, Location, Tooltip, Icon } from '../interface/interface';
+import { Tooltip } from '../interface/interface';
 
 class CreateTooltip {
     constructor(private container: HTMLElement) {
