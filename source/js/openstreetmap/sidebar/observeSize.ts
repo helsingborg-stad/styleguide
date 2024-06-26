@@ -1,23 +1,5 @@
-import { invalidateSize } from "../map/mapHelpers";
-import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-
-class SidebarFeatures {
-    baseClass: string = 'c-openstreetmap';
-
-    constructor(private container: HTMLElement, private map: LeafletMap) {
-        if (this.container.querySelector(`.${this.baseClass}__sidebar`)) {
-            this.expandBasedOnClasses();
-            this.observeSizeClasses();
-            this.setupExpandClick();
-        }
-    }
-
-    setupExpandClick() {
-        const expand = this.container.querySelector(`.${this.baseClass}__expand-icon`);
-
-        expand?.addEventListener('click', () => {
-            invalidateSize(this.map);
-        });
+class ObserveSize {
+    constructor(private container: HTMLElement, private baseClass: string) {
     }
 
     observeSizeClasses() {
@@ -57,4 +39,5 @@ class SidebarFeatures {
         }
     }
 }
-export default SidebarFeatures;
+
+export default ObserveSize;

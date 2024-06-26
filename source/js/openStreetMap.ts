@@ -2,7 +2,8 @@ import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import ZoomParams from './openstreetmap/zoomEvents/zoomParams';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
-import Sidebar from './openstreetmap/sidebar/sidebarFeatures'; 
+import ObserveSize from './openstreetmap/sidebar/observeSize';
+import ExpandOnClick from './openstreetmap/sidebar/expandOnClick';
 import FetchEndpointPosts from './openstreetmap/api/fetchEndpointPosts';
 import AddEndpointPosts from './openstreetmap/post/addEndpointPosts';
 import SetMapTiles from './openstreetmap/map/setMapTiles';
@@ -13,12 +14,15 @@ import ZoomClick from './openstreetmap/zoomEvents/zoomClick';
 import PostMarkerPairs from './openstreetmap/post/postMarkerPairs';
 import CreateMarker from './openstreetmap/createMarker/createMarker';
 import CreateTooltip from './openstreetmap/createMarker/createTooltip';
+import ShowIfNotEmpty from './openstreetmap/sidebar/showIfNotEmpty';
 
 class OpenStreetMap {
     settings: {
         endpoint: string;
         startposition: string;
     }
+
+    private baseClass: string = 'c-openstreetmap';
 
     constructor(private container: HTMLElement) {
         this.settings = this.getSettings();
@@ -41,9 +45,11 @@ class OpenStreetMap {
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
         const createMarkerInstance = new CreateMarker(this.container);
         const createTooltipInstance = new CreateTooltip(this.container);
+        const showIfNotEmptyInstance = new ShowIfNotEmpty(this.container, this.baseClass);
+        const observeSizeInstance = new ObserveSize(this.container, this.baseClass);
+        const expandOnClickInstance = new ExpandOnClick(this.container, map, this.baseClass);
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
         const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers);
-        const sidebarInstance = new Sidebar(this.container, map);
         const zoomParamsInstance = new ZoomParams(this.container);
         const zoomClickInstance = new ZoomClick(this.container);
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(
