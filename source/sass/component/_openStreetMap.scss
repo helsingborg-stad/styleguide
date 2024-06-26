@@ -23,6 +23,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		top: 0;
 		z-index: 1000;
 		background-color: $color-white;
+		box-shadow: calc($base * -1) 0px calc($base * 2.5) calc($base * -1.5) rgba(0,0,0,0.6);
 		
 		.c-openstreetmap__container {
 			overflow-x: hidden;
