@@ -4,15 +4,26 @@ class ShowIfNotEmpty {
 
         if (sidebar) {
             this.checkForInnerBlocks(sidebar as HTMLElement);
+            this.listenForEndpointPosts(sidebar as HTMLElement);
         }
     }
 
-    private checkForInnerBlocks(sidebar: HTMLElement) {
-        const innerBlocks = sidebar.querySelectorAll(`.${this.baseClass}__block`);
+    private checkForInnerBlocks(sidebar: HTMLElement): void {
+        const innerBlocks = sidebar.querySelector(`.${this.baseClass}__inner-blocks`);
 
-        if (innerBlocks.length > 0) {
-            this.container.classList.add('is-not-empty');
+        if (innerBlocks && !innerBlocks.querySelector('innerblocks')) {
+            this.removeDisplayNoneUtility(sidebar);
         }
+    }
+
+    private listenForEndpointPosts(sidebar: HTMLElement): void {
+        this.container.addEventListener('postAdded', () => {
+            this.removeDisplayNoneUtility(sidebar);
+        });
+    }
+
+    private removeDisplayNoneUtility(sidebar: HTMLElement): void {
+        sidebar.classList.remove('u-display--none');
     }
 }
 
