@@ -1,7 +1,6 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import AddMarkersFromLocations from '../map/addMarkersFromLocation';
-import ZoomMarkerParams from '../zoomEvents/zoomParams';
-import { getElementJSONLocation, getMarkerDataFromElement } from '../helpers/osmHelpers';
+import { getMarkerDataFromElement } from '../helpers/osmHelpers';
 
 class PostAdded {
     constructor(
@@ -15,6 +14,7 @@ class PostAdded {
         this.container.addEventListener('postAdded', (e: Event) => {
             const customEvent = e as CustomEvent;
             const locationElement = customEvent.detail.querySelector('[data-js-map-location]');
+            const postElement = customEvent.detail.querySelector('')
             if (locationElement) {
                 const markerData = getMarkerDataFromElement(locationElement);
                 this.addMarkersFromLocationInstance.add([markerData]);

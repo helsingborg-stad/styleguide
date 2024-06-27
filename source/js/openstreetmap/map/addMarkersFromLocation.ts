@@ -47,9 +47,6 @@ class AddMarkersFromLocations
                 this.markers?.addLayer(marker);
 
                 this.addMarkerPostPair(marker, location?.element, location?.id);
-                // location.element?.addEventListener('click', () => {
-                //     zoomToMarker(marker);
-                // });
             }
         });
         this.markers?.addTo(this.map as LeafletMap);

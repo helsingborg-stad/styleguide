@@ -15,6 +15,7 @@ import PostMarkerPairs from './openstreetmap/post/postMarkerPairs';
 import CreateMarker from './openstreetmap/createMarker/createMarker';
 import CreateTooltip from './openstreetmap/createMarker/createTooltip';
 import ShowIfNotEmpty from './openstreetmap/sidebar/showIfNotEmpty';
+import ShowPost from './openstreetmap/sidebar/showPost';
 
 class OpenStreetMap {
     settings: {
@@ -45,6 +46,7 @@ class OpenStreetMap {
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
         const createMarkerInstance = new CreateMarker(this.container);
         const createTooltipInstance = new CreateTooltip(this.container);
+        const showPostInstance = new ShowPost(this.container, this.baseClass);
         const showIfNotEmptyInstance = new ShowIfNotEmpty(this.container, this.baseClass);
         const observeSizeInstance = new ObserveSize(this.container, this.baseClass);
         const expandOnClickInstance = new ExpandOnClick(this.container, map, this.baseClass);
