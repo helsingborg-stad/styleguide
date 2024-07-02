@@ -15,16 +15,6 @@ class CreateTooltip {
             }
         }
 
-        if (!tooltip.url) {
-            let link = clone.content.querySelector('.c-openstreetmap__tooltip-link');
-            let title = clone.content.querySelector('.c-openstreetmap__tooltip-title');
-            const parent = link?.parentNode;
-
-            if (parent && title && link) {
-                parent.insertBefore(title, link);
-                link.remove();
-            }
-        }
         let html = clone.innerHTML;
         html = html
             .replace('{TOOLTIP_HEADING}', tooltip.title ? tooltip.title as string : '')
@@ -33,7 +23,8 @@ class CreateTooltip {
             .replace('{TOOLTIP_EXCERPT}', tooltip.excerpt ? tooltip.excerpt as string : '')
             .replace('{TOOLTIP_IMAGE_SRC}', tooltip.image?.src ? tooltip.image.src as string : '')
             .replace('{TOOLTIP_IMAGE_ALT}', tooltip.image?.alt ? tooltip.image.alt as string : '')
-            .replace('{TOOLTIP_MODAL_ID}', id ? id as string : '');
+            .replace('{TOOLTIP_ID}', id ? id as string : '');
+
         return html;
     }
 }
