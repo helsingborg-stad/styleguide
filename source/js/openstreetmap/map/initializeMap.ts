@@ -13,6 +13,8 @@ class InitializeOsm {
         });
 
         const markers = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            removeOutsideVisibleBounds: true,
             maxClusterRadius: 50,
         });
 
