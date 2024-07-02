@@ -284,20 +284,33 @@
             color: #fff;
         }
 
-        &--lg {
-            font-size: 14px;
+        &--lg,
+        &--lg::after, 
+        &--lg::before {
+            height: 2.5rem;
+            width: 2.5rem;
         }
 
-        &--md {
-            font-size: 10px;
+        &--md,
+        &--md::after,
+        &--md::before {
+            height: 2rem;
+            width: 2rem;
+        }
+    
+
+        &--sm,
+        &--sm::after,
+        &--sm::before {
+            height: 1.5rem;
+            width: 1.5rem;
         }
 
-        &--sm {
-            font-size: 6px;
-        }
-
-        &--xs {
-            font-size: 3px;
+        &--xs,
+        &--xs::after,
+        &--xs::before {
+            height: 1rem;
+            width: 1rem;
         }
     }
 
