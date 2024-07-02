@@ -1,6 +1,5 @@
 import InitializeOsm from './openstreetmap/map/initializeMap';
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-import ZoomParams from './openstreetmap/zoomEvents/zoomParams';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
 import ObserveSize from './openstreetmap/sidebar/observeSize';
 import ExpandOnClick from './openstreetmap/sidebar/expandOnClick';
@@ -9,13 +8,17 @@ import AddEndpointPosts from './openstreetmap/post/addEndpointPosts';
 import SetMapTiles from './openstreetmap/map/setMapTiles';
 import { setView, invalidateSize } from './openstreetmap/map/mapHelpers';
 import AccessibilityFeatures from './openstreetmap/accessibility/accessibilityFeatures';
+import ZoomMarker from './openstreetmap/map/zoomMarker';
 import PostAdded from './openstreetmap/post/postAdded';
-import ZoomClick from './openstreetmap/zoomEvents/zoomClick';
+// import ZoomParams from './openstreetmap/zoomEvents/zoomParams';
+// import ZoomClick from './openstreetmap/zoomEvents/zoomClick';
 import PostMarkerPairs from './openstreetmap/post/postMarkerPairs';
 import CreateMarker from './openstreetmap/createMarker/createMarker';
 import CreateTooltip from './openstreetmap/createMarker/createTooltip';
 import ShowIfNotEmpty from './openstreetmap/sidebar/showIfNotEmpty';
 import ShowPost from './openstreetmap/sidebar/showPost';
+import TooltipListener from './openstreetmap/sidebar/tooltipListener';
+import HandlePostsLoadingSpinner from './openstreetmap/sidebar/handlePostsLoadingSpinner';
 
 class OpenStreetMap {
     settings: {
@@ -44,16 +47,20 @@ class OpenStreetMap {
     }
 
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
+        const zoomMarker = new ZoomMarker(map, markers);
+        const handlePostsLoadingSpinnerInstance = new HandlePostsLoadingSpinner(this.container);
         const createMarkerInstance = new CreateMarker(this.container);
         const createTooltipInstance = new CreateTooltip(this.container);
-        const showPostInstance = new ShowPost(this.container, this.baseClass);
+        const expandOnClickInstance = new ExpandOnClick(this.container, map, this.baseClass);
+        const showPostInstance = new ShowPost(this.container, map, this.baseClass, zoomMarker);
         const showIfNotEmptyInstance = new ShowIfNotEmpty(this.container, this.baseClass);
         const observeSizeInstance = new ObserveSize(this.container, this.baseClass);
-        const expandOnClickInstance = new ExpandOnClick(this.container, map, this.baseClass);
+        const tooltipListenerInstance = new TooltipListener(this.container, map, markers);
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
-        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers);
-        const zoomParamsInstance = new ZoomParams(this.container);
-        const zoomClickInstance = new ZoomClick(this.container);
+        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarker, this.baseClass);
+
+        // const zoomParamsInstance = new ZoomParams(this.container);
+        // const zoomClickInstance = new ZoomClick(this.container);
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(
             this.container, 
             map, 
