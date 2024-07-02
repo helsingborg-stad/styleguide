@@ -1,18 +1,79 @@
+import { Map as LeafletMap } from 'leaflet';
 import { PostMarkerPair } from '../interface/interface';
+import ZoomMarker from '../map/zoomMarker';
+import { invalidateSize } from '../map/mapHelpers';
 
 
 class ShowPost {
-    constructor(private container: HTMLElement, private baseClass: string) {
+    constructor(private container: HTMLElement, private map: LeafletMap, private baseClass: string, private zoomMarker: ZoomMarker) {
         this.addMarkerPostPairAddedListener();
     }
 
-    private addMarkerPostPairAddedListener() {
+    private addMarkerPostPairAddedListener(): void {
         this.container.addEventListener('postMarkerPairAdded', (e: Event) => {
             const customEvent = e as CustomEvent;
             const postMarkerPair: PostMarkerPair = customEvent.detail;
-            console.log(postMarkerPair);
-            const parentElement = postMarkerPair.post;
+            this.setupPostClickListener(postMarkerPair);
+        });
+    }
 
+    private setupPostClickListener(postMarkerPair: PostMarkerPair): void {
+        const fullPostElement = postMarkerPair.post.parentElement?.querySelector(`.${this.baseClass}__post-full`);
+        const backButton = fullPostElement?.querySelector(`.${this.baseClass}__button-back`);
+
+        if (!fullPostElement || !backButton) return;
+
+
+        this.showPost(postMarkerPair, fullPostElement as HTMLElement, backButton as HTMLElement);
+        this.hidePostListener(postMarkerPair, fullPostElement as HTMLElement, backButton as HTMLElement);
+    }
+
+    private showPost(postMarkerPair: PostMarkerPair, fullPostElement: HTMLElement, backButton: HTMLElement): void {
+        postMarkerPair.post.addEventListener('click', () => {
+            this.closeAlreadyOpenPosts();
+            if (this.container.classList.contains('is-expanded')) {
+                this.container.classList.add('was-expanded');
+            } else {
+                this.container.classList.add('is-expanded');
+                this.container.classList.remove('was-expanded');
+
+                invalidateSize(this.map);
+            }
+
+            fullPostElement.classList.add('is-open');
+            fullPostElement.classList.remove('u-display--none');
+            fullPostElement.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('u-overflow--hidden');
+            this.zoomMarker.zoom(postMarkerPair.marker);
+            backButton.focus();
+        });
+    }
+
+    private hidePostListener(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
+        backButton.addEventListener('click', () => {
+            this.hidePost(postMarkerPair, fullPostElement, backButton);
+        });
+    }
+
+    private hidePost(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
+        if (!postMarkerPair || !this.container.classList.contains('was-expanded')) {
+            this.container.classList.remove('is-expanded');
+            invalidateSize(this.map);
+        }
+
+        fullPostElement.classList.add('u-display--none');
+        fullPostElement.classList.remove('is-open');
+        fullPostElement.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('u-overflow--hidden');
+        postMarkerPair?.post.focus();
+    }
+
+    private closeAlreadyOpenPosts(): void {
+        this.container.querySelectorAll(`.${this.baseClass}__post-full.is-open`).forEach((fullPostElement) => {
+            const backButton = fullPostElement.querySelector(`.${this.baseClass}__button-back`) as HTMLElement;
+            if (backButton) {
+                this.hidePost(null, fullPostElement as HTMLElement, backButton)
+            }
         });
     }
 }
