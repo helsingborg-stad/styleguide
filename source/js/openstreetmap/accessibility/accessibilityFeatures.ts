@@ -1,11 +1,14 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
-import { keyboard } from './keyboard';
+import { mapKeyboard } from './mapKeyboard';
 import { removeClusterGroupTabIndex } from './removeClusterGroupTabIndex';
+import ZoomMarker from '../map/zoomMarker';
+import { postKeyboard } from './postKeyboard';
 
 class AccessibilityFeatures {
-    constructor(private container: HTMLElement, private map: LeafletMap, private markers: MarkerClusterGroup) {
-        keyboard(this.container, this.map, this.markers);
-        removeClusterGroupTabIndex(this.container);
+    constructor(container: HTMLElement, map: LeafletMap, markers: MarkerClusterGroup, zoomMarker: ZoomMarker, baseClass: string) {
+        mapKeyboard(container, map, markers, zoomMarker);
+        postKeyboard(container, baseClass);
+        removeClusterGroupTabIndex(container);
 
     }
 }

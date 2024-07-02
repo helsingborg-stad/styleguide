@@ -1,10 +1,15 @@
 import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import { getMarkersFromLayers } from '../map/mapHelpers';
-import { zoomToMarker } from '../map/zoomToMarker';
+import ZoomMarker from '../map/zoomMarker';
 
-export function keyboard(container: HTMLElement, map: LeafletMap, markersInLayers: MarkerClusterGroup): void {
-    let markers = getMarkersFromLayers(markersInLayers);
-
+export function mapKeyboard(
+    container: HTMLElement, 
+    map: LeafletMap, 
+    markersInLayers: MarkerClusterGroup, 
+    zoomMarker: ZoomMarker
+): void {
+    
+    let markers = null;
     let currentMarker = 0;
     const attributions = container.querySelector('.leaflet-control-attribution');
 
@@ -20,7 +25,7 @@ export function keyboard(container: HTMLElement, map: LeafletMap, markersInLayer
                 markers = getMarkersFromLayers(markersInLayers);
                 event.preventDefault();
                 currentMarker = (currentMarker - 1 + markers.length) % markers.length;
-                zoomToMarker(markers[currentMarker]);
+                zoomMarker.zoom(markers[currentMarker]);
                 break;
 
             case 'ArrowUp':
@@ -28,7 +33,7 @@ export function keyboard(container: HTMLElement, map: LeafletMap, markersInLayer
                 markers = getMarkersFromLayers(markersInLayers);
                 event.preventDefault();
                 currentMarker = (currentMarker + 1) % markers.length;
-                zoomToMarker(markers[currentMarker]);
+                zoomMarker.zoom(markers[currentMarker]);
                 break;
 
             case '+':
