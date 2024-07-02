@@ -1,15 +1,5 @@
-class ControlSidebar {
-    baseClass: string;
-    container: HTMLElement;
-    constructor(container: HTMLElement) {
-        this.baseClass = 'c-openstreetmap';
-        this.container = container;
-        this.container && this.init()
-    }
-
-    init() {
-        this.expandSidebar();
-        this.observeSizeClasses();
+class ObserveSize {
+    constructor(private container: HTMLElement, private baseClass: string) {
     }
 
     observeSizeClasses() {
@@ -27,7 +17,7 @@ class ControlSidebar {
                     const removedClasses = previousClasses?.filter(className => !currentClasses.includes(className));
 
                     if (removedClasses && removedClasses.includes(`${this.baseClass}--size-sm`)) {
-                        this.expandSidebar();
+                        this.expandBasedOnClasses();
                     }
                 }
             });
@@ -43,10 +33,11 @@ class ControlSidebar {
         observer.observe(this.container, config);
     }
 
-    expandSidebar() {
+    expandBasedOnClasses() {
         if (!this.container.classList.contains(`${this.baseClass}--size-sm`)) {
             this.container.classList.add('is-expanded');
         }
     }
 }
-export default ControlSidebar;
+
+export default ObserveSize;
