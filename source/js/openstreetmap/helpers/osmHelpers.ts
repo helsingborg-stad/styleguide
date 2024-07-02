@@ -23,14 +23,3 @@ export function getMarkerDataFromElement(el: HTMLElement) {
     return {lat: undefined, lng: undefined};
 }
 
-export function getCoordinatesFromURLSearchParams(): { lat: string, lng: string } | false {
-    const queryParams = new URLSearchParams(window.location.search);
-    
-    if(queryParams.has('osmLat') && queryParams.has('osmLng')) {
-        return {lat: queryParams.get('osmLat') ?? '', lng: queryParams.get('osmLng') ?? ''}
-    }
-    
-    return false;
-}
-
-
