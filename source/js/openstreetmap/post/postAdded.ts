@@ -14,7 +14,7 @@ class PostAdded {
         this.container.addEventListener('postAdded', (e: Event) => {
             const customEvent = e as CustomEvent;
             const locationElement = customEvent.detail.querySelector('[data-js-map-location]');
-            const postElement = customEvent.detail.querySelector('')
+            
             if (locationElement) {
                 const markerData = getMarkerDataFromElement(locationElement);
                 this.addMarkersFromLocationInstance.add([markerData]);
