@@ -2,14 +2,13 @@ import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
 import { Location, Icon } from '../interface/interface';
 import CreateMarker from '../createMarker/createMarker';
 import CreateTooltip from '../createMarker/createTooltip';
-import { zoomToMarker } from './zoomToMarker';
 import PostMarkerPairs from '../post/postMarkerPairs';
 
 class AddMarkersFromLocations
 {
     constructor(
         private container: HTMLElement, 
-        private map: LeafletMap, 
+        private map: LeafletMap,
         private markers: MarkerClusterGroup, 
         private postMarkerPairs: PostMarkerPairs,
         private createMarker: CreateMarker,
@@ -30,7 +29,7 @@ class AddMarkersFromLocations
                 });
 
                 if (location.tooltip) {
-                    marker.bindPopup(this.createTooltip.create(location.tooltip, location.id ?? null), { maxWidth: 300 });
+                    marker.bindPopup(this.createTooltip.create(location.tooltip, location.id ?? null), { maxWidth: 200 });
                 }
 
                 marker.on('click', (e) => {
@@ -43,12 +42,13 @@ class AddMarkersFromLocations
                             this.map?.setView(latlng, 16);
                         }
                     }
-                });
-                this.markers?.addLayer(marker);
 
-                this.addMarkerPostPair(marker, location?.element, location?.id);
+                });
+                    this.markers?.addLayer(marker);
+                    this.addMarkerPostPair(marker, location?.element, location?.id);
             }
         });
+
         this.markers?.addTo(this.map as LeafletMap);
     }
 
