@@ -10,10 +10,13 @@ class SetMapTiles {
         const tiles = getTiles(this.container);
         L.tileLayer(tiles?.url ? tiles.url : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: tiles?.attribution
-                ? tiles.attribution
-                : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(this.map);
+
+        L.control.attribution({
+            position: 'topleft',
+        }).setPrefix(false).addAttribution(tiles?.attribution
+            ? tiles.attribution
+            : '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',).addTo(this.map);
     }
 }
 
