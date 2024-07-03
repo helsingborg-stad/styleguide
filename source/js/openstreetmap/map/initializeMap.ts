@@ -19,10 +19,6 @@ class InitializeOsm {
             maxClusterRadius: 50,
         });
 
-        L.control.attribution({
-            position: 'topleft'
-        }).addTo(map);
-
         return [map as LeafletMap, markers as MarkerClusterGroup];
     }
 }
