@@ -10,6 +10,7 @@ class InitializeOsm {
         const map = L.map(`openstreetmap__map-${id}`, {
             scrollWheelZoom: false,
             keyboard: false,
+            attributionControl: false,
         });
 
         const markers = L.markerClusterGroup({
@@ -17,6 +18,10 @@ class InitializeOsm {
             removeOutsideVisibleBounds: true,
             maxClusterRadius: 50,
         });
+
+        L.control.attribution({
+            position: 'topleft'
+        }).addTo(map);
 
         return [map as LeafletMap, markers as MarkerClusterGroup];
     }

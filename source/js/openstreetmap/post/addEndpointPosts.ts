@@ -15,6 +15,7 @@ class AddEndpointPosts {
             const customEvent = e as CustomEvent;
             if (customEvent.detail && customEvent.detail.length > 0) {
                 customEvent.detail.forEach((elementString: string) => {
+                    if (elementString.includes('data-js-map-location=""')) return;
                     this.addPostsToDOM(elementString);
                 });
             }
