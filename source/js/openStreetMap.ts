@@ -19,7 +19,6 @@ import ShowIfNotEmpty from './openstreetmap/sidebar/showIfNotEmpty';
 import ShowPost from './openstreetmap/sidebar/showPost';
 import TooltipListener from './openstreetmap/sidebar/tooltipListener';
 import HandlePostsLoadingSpinner from './openstreetmap/sidebar/handlePostsLoadingSpinner';
-import ResponsiveFeatures from './openstreetmap/responsive/responsiveFeatures';
 
 class OpenStreetMap {
     settings: {
@@ -59,7 +58,6 @@ class OpenStreetMap {
         const tooltipListenerInstance = new TooltipListener(this.container, map, markers);
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
         const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarker, this.baseClass);
-        const responsiveFeaturesInstance = new ResponsiveFeatures(this.container, this.baseClass);
 
         // const zoomParamsInstance = new ZoomParams(this.container);
         // const zoomClickInstance = new ZoomClick(this.container);
