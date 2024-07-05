@@ -31,17 +31,10 @@ class ShowPost {
     private showPost(postMarkerPair: PostMarkerPair, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         postMarkerPair.post.addEventListener('click', () => {
             this.closeAlreadyOpenPosts();
-            if (this.container.classList.contains('is-expanded')) {
-                this.container.classList.add('was-expanded');
-            } else {
-                this.container.classList.add('is-expanded');
-                this.container.classList.remove('was-expanded');
-
-                invalidateSize(this.map);
-            }
 
             fullPostElement.classList.add('is-open');
-            fullPostElement.classList.remove('u-display--none');
+            fullPostElement.classList.remove('is-closed');
+            this.container.classList.add('has-open-post');
             fullPostElement.setAttribute('aria-hidden', 'false');
             document.body.classList.add('u-overflow--hidden');
             this.zoomMarker.zoom(postMarkerPair.marker);
@@ -56,13 +49,11 @@ class ShowPost {
     }
 
     private hidePost(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
-        if (!postMarkerPair || !this.container.classList.contains('was-expanded')) {
-            this.container.classList.remove('is-expanded');
-            invalidateSize(this.map);
-        }
+        invalidateSize(this.map);
 
-        fullPostElement.classList.add('u-display--none');
         fullPostElement.classList.remove('is-open');
+        fullPostElement.classList.add('is-closed');
+        this.container.classList.remove('has-open-post');
         fullPostElement.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('u-overflow--hidden');
         postMarkerPair?.post.focus();
