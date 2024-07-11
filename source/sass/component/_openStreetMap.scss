@@ -121,6 +121,13 @@ $grid-gap: var(--grid-gap, 4) !default;
 		position: fixed;
 		width: 100%;
 	}
+
+	&.c-openstreetmap--size-md {
+		.c-openstreetmap__map {
+			position: sticky;
+			width: unset;
+		}
+	}
 }
 
 .c-openstreetmap.c-openstreetmap--full-width {
