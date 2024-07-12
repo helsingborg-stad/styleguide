@@ -32,6 +32,7 @@ class ShowPost {
         postMarkerPair.post.addEventListener('click', () => {
             this.closeAlreadyOpenPosts();
 
+            fullPostElement.classList.remove('u-display--none');
             fullPostElement.classList.add('is-open');
             fullPostElement.classList.remove('is-closed');
             this.container.classList.add('has-open-post');
@@ -53,6 +54,7 @@ class ShowPost {
 
         fullPostElement.classList.remove('is-open');
         fullPostElement.classList.add('is-closed');
+        fullPostElement.classList.add('u-display--none');
         this.container.classList.remove('has-open-post');
         fullPostElement.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('u-overflow--hidden');

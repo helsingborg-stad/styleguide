@@ -6,8 +6,6 @@ class ExpandOnClick {
         const expandButtonDesktop = this.container.querySelector(`.${this.baseClass}__expand-icon-desktop`);
         const expandButtonMobile = this.container.querySelector(`.${this.baseClass}__expand-icon-mobile`);
 
-        console.log(expandButtonDesktop, expandButtonMobile)
-
         if (expandButtonDesktop && expandButtonMobile) {
             this.setupExpandClick(expandButtonDesktop, expandButtonMobile);
         }

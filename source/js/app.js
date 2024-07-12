@@ -45,6 +45,7 @@ import {initializeSegments} from './segment';
 import {initializeTable} from './table';
 import {initializeModal} from './modal';
 import {initializeIframeAcceptance} from './iframeAcceptance';
+import {initializeSelectFilter} from './selectFilter';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCopy();
     setScrollbarCSS();
     AnchorMenu();
+    initializeSelectFilter();
 
     // Utility functions
     moveElements(moveElement);
