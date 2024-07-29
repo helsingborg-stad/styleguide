@@ -20,7 +20,6 @@ class HandlePostsLoadingSpinner {
             const noPostsContent = document.importNode(noPostsTemplate.content, true);
             const noPostsContainer = document.createElement('div');
             noPostsContainer.appendChild(noPostsContent);
-            console.log(noPostsContainer);
             noPostsTemplate.insertAdjacentElement('afterend', noPostsContainer);
         }
         
