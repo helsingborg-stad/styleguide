@@ -10,8 +10,6 @@ import { setView, invalidateSize } from './openstreetmap/map/mapHelpers';
 import AccessibilityFeatures from './openstreetmap/accessibility/accessibilityFeatures';
 import ZoomMarker from './openstreetmap/map/zoomMarker';
 import PostAdded from './openstreetmap/post/postAdded';
-// import ZoomParams from './openstreetmap/zoomEvents/zoomParams';
-// import ZoomClick from './openstreetmap/zoomEvents/zoomClick';
 import PostMarkerPairs from './openstreetmap/post/postMarkerPairs';
 import CreateMarker from './openstreetmap/createMarker/createMarker';
 import CreateTooltip from './openstreetmap/createMarker/createTooltip';
@@ -59,8 +57,6 @@ class OpenStreetMap {
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
         const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarker, this.baseClass);
 
-        // const zoomParamsInstance = new ZoomParams(this.container);
-        // const zoomClickInstance = new ZoomClick(this.container);
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(
             this.container, 
             map, 

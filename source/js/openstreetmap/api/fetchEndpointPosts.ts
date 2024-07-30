@@ -3,6 +3,7 @@ class FetchEndpointPosts {
         this.fetchPosts();
     }
 
+    // Fetch loop
     private fetchPosts() {
         let page = 1;
         
@@ -24,6 +25,7 @@ class FetchEndpointPosts {
         fetchNextPage();
     }
 
+    // Fetch
     private fetchEndpointPosts(url: string) {
         return fetch(url)
         .then(response => {
