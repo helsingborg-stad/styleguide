@@ -1,17 +1,15 @@
 
 class SelectSort {
     private sortedItemsCache: { [key: string]: Element[] } = {};
-    private isSorting: Boolean = false;
-
     private observer: MutationObserver;
 
     constructor(private selectSort: HTMLSelectElement, private sortContainer: HTMLElement) {
         this.observer = new MutationObserver(this.handleMutations.bind(this));
         this.observe();
-        this.attachSortEvent();
+        this.setSortListener();
     }
 
-    private attachSortEvent(): void {
+    private setSortListener(): void {
         this.selectSort.addEventListener('change', () => this.sort());
     }
 
@@ -50,10 +48,9 @@ class SelectSort {
 
     private sort() {
         this.disconnect();
-        
+
         const sortOrder = this.selectSort.value;
         const sortedItems = this.getSortedItems(sortOrder ?? '');
-        console.log(sortedItems);
         this.sortContainer.innerHTML = '';
         sortedItems.forEach((item) => {
             this.sortContainer.appendChild(item);
