@@ -11,9 +11,10 @@ interface Tiles {
     url: string;
 }
 
-interface MarkerElementObjects {
-    element: HTMLElement;
+interface PostMarkerPair {
+    post: HTMLElement;
     marker: Marker;
+    id?: string;
 }
 
 interface Icon {
@@ -42,6 +43,7 @@ interface Location {
     tooltip?: Tooltip;
     url?: String;
     icon?: Icon;
+    id?: string;
 }
 
 
