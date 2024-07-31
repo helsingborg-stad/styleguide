@@ -5,7 +5,7 @@ export function postKeyboard(container: HTMLElement, baseClass: string) {
     
     if (!sidebar) return;
 
-    container.addEventListener('keydown', (e: Event) => {
+    document.addEventListener('keydown', (e: Event) => {
         const keyboardEvent = e as KeyboardEvent;
         const openPost = (sidebar.querySelector(`.${baseClass}__post-full.is-open`) as HTMLElement);
         const backButton = (openPost?.querySelector(`.${baseClass}__button-back`) as HTMLElement);
@@ -18,7 +18,7 @@ export function postKeyboard(container: HTMLElement, baseClass: string) {
                 break;
             
             case 'Tab': 
-                if (openPost && openPost.hasAttribute('data-js-osm-full-post')) {
+            if (openPost && openPost.hasAttribute('data-js-osm-full-post')) {
                     const openPostId = openPost.getAttribute('data-js-osm-full-post');
                     if (!openPostId) break;
 
