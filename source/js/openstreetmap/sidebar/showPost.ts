@@ -54,7 +54,9 @@ class ShowPost {
 
         fullPostElement.classList.remove('is-open');
         fullPostElement.classList.add('is-closed');
-        fullPostElement.classList.add('u-display--none');
+        setTimeout(() => {
+            fullPostElement.classList.add('u-display--none');
+        }, 200);
         this.container.classList.remove('has-open-post');
         fullPostElement.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('u-overflow--hidden');
