@@ -1,5 +1,5 @@
 class FetchEndpointPosts {
-    constructor(private container: HTMLElement, private endpoint: string, private postsPerPage: number = 10) {
+    constructor(private container: HTMLElement, private endpoint: string, private postsPerPage: number = 20) {
         this.fetchPosts();
     }
 
