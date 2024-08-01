@@ -125,6 +125,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 }
 
 .c-openstreetmap.c-openstreetmap--sidebar.has-open-post {
+	z-index: $level-9;
+	
 	.c-openstreetmap__expand-icon-container {
 		position: fixed;
 		left: 50%;
