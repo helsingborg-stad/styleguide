@@ -8,6 +8,19 @@ $grid-gap: var(--grid-gap, 4) !default;
 		padding: $base;
 		border-radius: 50%;
 		margin-left: calc($base * -1.5);
+		animation: shrink .5s forwards;
+	}
+	
+	@keyframes shrink {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.4);
+		}
+		100% {
+			transform: scale(1);
+		}
 	}
 
 	.c-openstreetmap__tooltip-title {
