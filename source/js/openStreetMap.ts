@@ -45,17 +45,17 @@ class OpenStreetMap {
     }
 
     private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
-        const zoomMarker = new ZoomMarker(map, markers);
+        const zoomMarkerInstance = new ZoomMarker(map, markers);
         const handlePostsLoadingSpinnerInstance = new HandlePostsLoadingSpinner(this.container);
         const createMarkerInstance = new CreateMarker(this.container);
         const createTooltipInstance = new CreateTooltip(this.container);
         const expandOnClickInstance = new ExpandOnClick(this.container, map, this.baseClass);
-        const showPostInstance = new ShowPost(this.container, map, this.baseClass, zoomMarker);
+        const showPostInstance = new ShowPost(this.container, map, this.baseClass, zoomMarkerInstance);
         const showIfNotEmptyInstance = new ShowIfNotEmpty(this.container, this.baseClass);
         const observeSizeInstance = new ObserveSize(this.container, this.baseClass);
         const tooltipListenerInstance = new TooltipListener(this.container, map, markers);
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
-        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarker, this.baseClass);
+        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarkerInstance, this.baseClass)
 
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(
             this.container, 

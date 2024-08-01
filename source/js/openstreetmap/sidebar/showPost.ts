@@ -3,9 +3,13 @@ import { PostMarkerPair } from '../interface/interface';
 import ZoomMarker from '../map/zoomMarker';
 import { invalidateSize } from '../map/mapHelpers';
 
-
 class ShowPost {
-    constructor(private container: HTMLElement, private map: LeafletMap, private baseClass: string, private zoomMarker: ZoomMarker) {
+    constructor(
+        private container: HTMLElement, 
+        private map: LeafletMap, 
+        private baseClass: string, 
+        private zoomMarker: ZoomMarker
+    ) {
         this.addMarkerPostPairAddedListener();
     }
 
@@ -50,7 +54,6 @@ class ShowPost {
 
     private hidePost(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         invalidateSize(this.map);
-
         fullPostElement.classList.remove('is-open');
         fullPostElement.classList.add('is-closed');
         setTimeout(() => {
