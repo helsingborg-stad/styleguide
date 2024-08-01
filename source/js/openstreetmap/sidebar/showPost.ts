@@ -23,7 +23,6 @@ class ShowPost {
 
         if (!fullPostElement || !backButton) return;
 
-
         this.showPost(postMarkerPair, fullPostElement as HTMLElement, backButton as HTMLElement);
         this.hidePostListener(postMarkerPair, fullPostElement as HTMLElement, backButton as HTMLElement);
     }
@@ -31,7 +30,7 @@ class ShowPost {
     private showPost(postMarkerPair: PostMarkerPair, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         postMarkerPair.post.addEventListener('click', () => {
             this.closeAlreadyOpenPosts();
-
+            this.scrollToMap();
             fullPostElement.classList.remove('u-display--none');
             fullPostElement.classList.add('is-open');
             fullPostElement.classList.remove('is-closed');
@@ -70,6 +69,13 @@ class ShowPost {
                 this.hidePost(null, fullPostElement as HTMLElement, backButton)
             }
         });
+    }
+
+    private scrollToMap(): void {
+        const rect = this.container.getBoundingClientRect();
+        if (rect.top > 0) {
+            window.scrollBy(0, rect.top);
+        }
     }
 }
 
