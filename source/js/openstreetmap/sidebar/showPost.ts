@@ -33,6 +33,7 @@ class ShowPost {
 
     private showPost(postMarkerPair: PostMarkerPair, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         postMarkerPair.post.addEventListener('click', () => {
+            if (fullPostElement.classList.contains('is-open')) return;
             this.closeAlreadyOpenPosts();
             this.scrollToMap();
             fullPostElement.classList.remove('u-display--none');
