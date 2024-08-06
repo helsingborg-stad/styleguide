@@ -59,7 +59,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         &__floating {
             position: absolute;
             right: $base;
-            top: $base;
+            top: calc($base * 2.75);
             z-index: $level-3;
             cursor: pointer;
         }
