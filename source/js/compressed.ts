@@ -37,6 +37,7 @@ class Compressed {
     private clickListener() {
         this.element?.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             this.handleClick();
             
             if (!this.toggle) this.element?.remove();
@@ -64,9 +65,34 @@ class Compressed {
     }
 }
 
-export function initializeCompressed() {
-    [...document.querySelectorAll('[data-js-compressed]')].forEach(element => {
+function initializeElements(elements: Array<Element>) {
+    elements.forEach(element => {
         new Compressed(element as HTMLElement);
+    });
+}
+
+export function initializeCompressed() {
+    initializeElements([...document.querySelectorAll('[data-js-compressed]')]);
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (!(node instanceof HTMLElement)) {
+                    return;
+                }
+
+                if (node.hasAttribute('data-js-compressed')) {
+                    initializeElements([node]);
+                } else {
+                    initializeElements([...node.querySelectorAll('[data-js-compressed]')]);
+                }
+            });
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
     });
 }
 
