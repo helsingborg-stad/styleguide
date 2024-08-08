@@ -1,10 +1,11 @@
-@each $display-state in $display-states {
-    @include responsiveStyles(
-        (
-            ".u-display--#{$display-state}" : (display: #{$display-state} !important),
-        )
-    );
-}
+$display-utils: (
+    (
+        name: "display",
+        modifiers: $display-states
+    )
+);
+
+@include build-utilities($display-utils);
 
 .u-hide-empty:empty {
     display: none !important;

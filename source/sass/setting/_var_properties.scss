@@ -6,18 +6,18 @@ $overflows: (
     "visible"
 );
 
-//Display states
-$display-states:
-    "none",
-    "inline",
-    "inline-block",
-    "block",
-    "table",
-    "table-cell",
-    "table-row",
-    "flex",
-    "grid",
-    "inline-flex" !default;
+$display-states: (
+    none:           (display: none),
+    inline:         (display: inline),
+    inline-block:   (display: inline-block),
+    block:          (display: block),
+    table:          (display: table),
+    table-cell:     (display: table-cell),
+    table-row:      (display: table-row),
+    flex:           (display: flex),
+    grid:           (display: grid),
+    inline-flex:    (display: inline-flex)
+);
 
 //Visibility states
 $visibility-states: "visible", "hidden" !default;

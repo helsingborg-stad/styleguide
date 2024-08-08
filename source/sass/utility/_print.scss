@@ -1,10 +1,9 @@
 @media print {
 
-    @each $display-state in $display-states {
-        .u-print-display--#{$display-state} {
-            display: #{$display-state} !important;
+    @each $state, $properties in $display-states {
+        .u-print-display--#{$state} {
+            display: #{$state} !important;
         }
     }
 
 }
-
