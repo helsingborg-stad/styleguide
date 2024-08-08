@@ -1,30 +1,41 @@
-@mixin build-utilities($utility_specs, $responsive:true) {
+@mixin build-utilities($utility_specs, $responsive: true, $limitToBreakpoint: true) {
     @if type-of($utility_specs) == list {
         @each $utility in $utility_specs {
-            @include apply-utility($utility);
+            @include apply-utility($utility, $limitToBreakpoint);
         }
     } @else {
-        @include apply-utility($utility_specs);
+        @include apply-utility($utility_specs, $limitToBreakpoint);
     }
 }
 
-@mixin apply-utility($utility) {
+@mixin apply-utility($utility, $limitToBreakpoint: true) {
     $name: map-get($utility,  "name");
     $modifiers: map-get($utility,  "modifiers");
     $default: map-get($utility,  "default");
 
     @if $default {
         @include responsiveStyles(
-            (".u-#{$name}": appendImportant($default))
+            (".u-#{$name}": appendImportant($default)),
+            all,
+            $limitToBreakpoint
         );
     }
 
     @if $modifiers {
         @each $modifier in $modifiers {
+            .u-#{$name}--#{nth($modifier,1)} {
+                @each $property, $value in nth($modifier, 2) {
+                    #{$property}: #{$value} !important;
+                }
+            }
+        }
+        
+        @each $modifier in $modifiers {
             $style: nth($modifier, 2);
-
             @include responsiveStyles(
-                (".u-#{$name}--#{nth($modifier,1)}": appendImportant($style))
+                (".u-#{$name}--#{nth($modifier,1)}": appendImportant($style)),
+                all,
+                $limitToBreakpoint
             );
         }
     }

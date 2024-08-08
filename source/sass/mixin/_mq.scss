@@ -11,7 +11,7 @@
     $min-width: null;
     $max-width: null;
 
-    //Min-width
+    // Min-width
     @if ($from != null and $from != "print") {
         @if map-has-key($breakpoints-map, $from) {
             $min-width: em(map-get($breakpoints-map, $from));
@@ -20,7 +20,7 @@
         }
     }
 
-    //Max-width
+    // Max-width
     @if ($until != null and $until != "print") {
         @if map-has-key($breakpoints-map, $until) {
             $max-width: em(map-get($breakpoints-map, $until)) - em(1px);
@@ -60,7 +60,5 @@
         @media #{$queryString} {
             @content;
         }
-    } @else {
-        @content;
     }
 }
