@@ -74,14 +74,25 @@ $flex-utils: (
 
 @include build-utilities($flex-utils);
 
-// Special case, list becomes too long
-$order: 0;
-
-@while($order <= 12) {
-    @include responsiveStyles(
-        (
-            ".u-order--#{$order}": (order: $order )
+$order-utils: (
+    (
+        name: "order",
+        modifiers: (
+            0: (order: 0),
+            1: (order: 1),
+            2: (order: 2),
+            3: (order: 3),
+            4: (order: 4),
+            5: (order: 5),
+            6: (order: 6),
+            7: (order: 7),
+            8: (order: 8),
+            9: (order: 9),
+            10: (order: 10),
+            11: (order: 11),
+            12: (order: 12)
         )
-    );
-    $order: $order + 1;
-}
+    )
+);
+
+@include build-utilities($order-utils, true, false);
