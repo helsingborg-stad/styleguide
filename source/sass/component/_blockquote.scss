@@ -17,15 +17,15 @@ blockquote {
 
     &::before,
     &::after {
-        font-family: 'Material Symbols Outlined';
+        font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
         content: '\e244';
         position: absolute;
         font-size: calc($base * 4);
         font-variation-settings:
         'FILL' 1,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
+        'wght' var(--current-material-symbols-weight, 400),
+        'GRAD' var(--current-material-symbols-grade, 0),
+        'opsz' var(--current-material-symbols-optical-size, 48);
     }
 
     &::before {
