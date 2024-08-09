@@ -1,5 +1,7 @@
-.material-symbols-outlined {
-    font-family: 'Material Symbols Outlined';
+/* Support all types */
+.material-symbols, 
+.material-icons {
+    font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
     font-style: normal;
     font-size: calc($base * 3);
     letter-spacing: normal;
@@ -18,10 +20,10 @@
     'GRAD' 0,
     'opsz' 24;
 
-    &.material-symbols-outlined--filled {
+    &--filled {
         font-variation-settings:
         'FILL' 1,
-        'wght' 400,
+        'wght' var(--current-material-symbols-weight, 400),
         'GRAD' 0,
         'opsz' 24;
     }
@@ -30,20 +32,3 @@
         content: attr(material-symbol);
     }
 }
-
-/* Legacy icons */
-.material-icons {
-    font-family: 'Material Symbols Outlined';
-    font-weight: normal;
-    font-style: normal;
-    font-size: calc($base * 3);
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-  }
