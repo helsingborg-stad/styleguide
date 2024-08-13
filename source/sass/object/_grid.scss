@@ -1,5 +1,15 @@
 @use 'sass:math';
 
+$o-grid-gap: var(--o-grid-gap, 4);
+$o-grid-columns: 12 !default;
+$o-grid-breakpoints: map-keys($breakpoints-map) !default;
+
+$o-grid-gutters: (
+    xs : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
+    md : calc(#{$base} * #{$o-grid-gap} * 0.75),  //24
+    lg : calc(#{$base} * #{$o-grid-gap}), // 32
+) !default;
+
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
     .o-grid,
     .grid {
@@ -83,6 +93,37 @@
         }
     }
 
+    .o-grid,
+    .grid {
+        --grid-gap: calc(#{$base} * #{$o-grid-gap} * 0.5);
+        gap: var(--grid-gap);
+
+        &.o-grid--horizontal {
+            gap: 0 var(--grid-gap);
+        }
+
+        &.o-grid--vertical {
+            gap: var(--grid-gap) 0;
+        }
+
+        &.o-grid--form,
+        &.o-grid--half-gutter {
+            --grid-gap: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
+        }
+
+        .u-flex--gridgap {
+            gap: var(--grid-gap) !important;
+        }
+
+        .u-flex--gridgap-row {
+            row-gap: var(--grid-gap) !important;
+        }
+
+        .u-flex--gridgap-col {
+            column-gap: var(--grid-gap) !important;
+        }
+    }
+
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
         @include mq($breakpoint) {
@@ -108,15 +149,15 @@
 
             //Utility 
             .u-flex--gridgap {
-                gap: var(--grid-gap);
+                gap: var(--grid-gap) !important;
             }
 
             .u-flex--gridgap-row {
-                row-gap: var(--grid-gap);
+                row-gap: var(--grid-gap) !important;
             }
 
             .u-flex--gridgap-col {
-                column-gap: var(--grid-gap);
+                column-gap: var(--grid-gap) !important;
             }
         }
     }
@@ -208,19 +249,6 @@
         }
     }
 }
-
-
-
-
-$o-grid-gap: var(--o-grid-gap, 4);
-$o-grid-columns: 12 !default;
-$o-grid-breakpoints: map-keys($breakpoints-map) !default;
-
-$o-grid-gutters: (
-    xs : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
-    md : calc(#{$base} * #{$o-grid-gap} * 0.75),  //24
-    lg : calc(#{$base} * #{$o-grid-gap}), // 32
-) !default;
 
 @include generateGrid($o-grid-columns, $o-grid-breakpoints, $o-grid-gutters);
 
