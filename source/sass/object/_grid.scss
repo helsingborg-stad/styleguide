@@ -101,6 +101,27 @@ $o-grid-gutters: (
         &.o-grid--horizontal {
             gap: 0 var(--grid-gap);
         }
+
+        &.o-grid--vertical {
+            gap: var(--grid-gap) 0;
+        }
+
+        &.o-grid--form,
+        &.o-grid--half-gutter {
+            --grid-gap: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
+        }
+
+        .u-flex--gridgap {
+            gap: var(--grid-gap) !important;
+        }
+
+        .u-flex--gridgap-row {
+            row-gap: var(--grid-gap) !important;
+        }
+
+        .u-flex--gridgap-col {
+            column-gap: var(--grid-gap) !important;
+        }
     }
 
     //Gutter styles
@@ -128,15 +149,15 @@ $o-grid-gutters: (
 
             //Utility 
             .u-flex--gridgap {
-                gap: var(--grid-gap);
+                gap: var(--grid-gap) !important;
             }
 
             .u-flex--gridgap-row {
-                row-gap: var(--grid-gap);
+                row-gap: var(--grid-gap) !important;
             }
 
             .u-flex--gridgap-col {
-                column-gap: var(--grid-gap);
+                column-gap: var(--grid-gap) !important;
             }
         }
     }
