@@ -230,7 +230,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	.c-openstreetmap__post-full {
 		top: calc(var(--base, 8px) * 50);
 		height: calc(100% - (calc($base) * 50));
-		transition: top .4s ease-in-out;
+		transition: top .4s ease-in-out, height 0.6s ease-in-out;
 	}
 
 	&.c-openstreetmap--size-md {
