@@ -3,6 +3,7 @@ import { Location, Icon } from '../interface/interface';
 import CreateMarker from '../createMarker/createMarker';
 import CreateTooltip from '../createMarker/createTooltip';
 import PostMarkerPairs from '../post/postMarkerPairs';
+import { getMarkerDataFromElement } from '../helpers/osmHelpers';
 
 class AddMarkersFromLocations
 {
@@ -14,6 +15,7 @@ class AddMarkersFromLocations
         private createMarker: CreateMarker,
         private createTooltip: CreateTooltip
     ) {
+        this.add(getMarkerDataFromElement(this.container));
     }
     
     public add(locations: Location[]) {

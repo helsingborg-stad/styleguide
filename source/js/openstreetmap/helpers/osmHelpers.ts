@@ -1,25 +1,41 @@
+import { Location } from "../interface/interface";
+
 export function getElementJSONLocation(el: HTMLElement) {
-    const locationAttr = el.getAttribute('data-js-map-location');
+    const locationAttr = el.getAttribute('data-js-map-location') || el.getAttribute('data-js-map-pin-data');
     if (!locationAttr) return false;
+    
+    let locations = JSON.parse(locationAttr);
+    if (!Array.isArray(locations)) {
+        locations = [locations];
+    }
 
-    const location = JSON.parse(locationAttr);
-
-    return location;
+    return locations;
 }
 
-export function getMarkerDataFromElement(el: HTMLElement) {
-    const json = getElementJSONLocation(el);
-    if (json !== null && typeof json === 'object' && 'lat' in json && 'lng' in json) {
-        const lat = json.lat;
-        const lng = json.lng;
-        const tooltip = json.tooltip ?? false;
-        const url = json.url ?? false;
-        const icon = json.icon ?? false;
-        const id = json.id ?? "";
+export function getStaticDataFromContainer(el: HTMLElement) {
 
-        return {lat: lat, lng: lng, tooltip: tooltip, url: url, element: el, icon: icon, id: id};
-    }
+}
+
+export function getMarkerDataFromElement(el: HTMLElement): Location[] {
+    const json = getElementJSONLocation(el);
+    const defaultValue: Location[] = [{lat: undefined, lng: undefined}]
+
+    if (!json) { return defaultValue}
     
-    return {lat: undefined, lng: undefined};
+    let locationsArray: Location[] = [];
+    json.forEach((location: any)  => {
+        if (location !== null && typeof location === 'object' && 'lat' in location && 'lng' in location) {
+            const lat = location.lat;
+            const lng = location.lng;
+            const tooltip = location.tooltip ?? false;
+            const url = location.url ?? false;
+            const icon = location.icon ?? false;
+            const id = location.id ?? "";
+    
+            locationsArray.push({lat: lat, lng: lng, tooltip: tooltip, url: url, element: el, icon: icon, id: id});
+        }
+    });
+
+    return locationsArray.length > 0 ? locationsArray : defaultValue;
 }
 
