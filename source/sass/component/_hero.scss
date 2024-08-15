@@ -74,6 +74,12 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     .c-hero__image {
       @include ken-burns();
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .c-hero__image {
+        animation: none;
+      }
+    }
   }
 
   /** Modifiers - size **/ 
