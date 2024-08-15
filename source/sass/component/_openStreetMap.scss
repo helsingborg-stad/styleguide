@@ -244,6 +244,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		}
 	
 		.c-openstreetmap__posts .c-openstreetmap__post-full {
+			height: 100%;
 			width: 80%;
 			top: 0;
 		}
