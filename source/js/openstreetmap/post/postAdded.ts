@@ -17,7 +17,7 @@ class PostAdded {
             
             if (locationElement) {
                 const markerData = getMarkerDataFromElement(locationElement);
-                this.addMarkersFromLocationInstance.add([markerData]);
+                this.addMarkersFromLocationInstance.add(markerData);
             }
         });
     }
