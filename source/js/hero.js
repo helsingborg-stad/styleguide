@@ -13,7 +13,7 @@ class Hero {
         this.heroVideos.forEach(heroVideo => {
             const video = new VideoControls(heroVideo);
 
-            if (this.isReduced) {
+            if (this.isReduced && this.isReduced.matches) {
                 video.pauseVideo();
             }
         });
