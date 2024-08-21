@@ -38,6 +38,9 @@ class ShowPost {
             this.scrollToMap();
             fullPostElement.classList.remove('u-display--none');
             fullPostElement.classList.add('is-open');
+            setTimeout(() => {
+                fullPostElement.style.animationDuration = '0s';
+            }, 200);
             fullPostElement.classList.remove('is-closed');
             this.container.classList.add('has-open-post');
             fullPostElement.setAttribute('aria-hidden', 'false');
@@ -55,6 +58,7 @@ class ShowPost {
 
     private hidePost(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         invalidateSize(this.map);
+        fullPostElement.style.animationDuration = '0.2s';
         fullPostElement.classList.remove('is-open');
         fullPostElement.classList.add('is-closed');
         setTimeout(() => {
