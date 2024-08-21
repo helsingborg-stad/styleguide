@@ -38,6 +38,8 @@ class ShowPost {
             this.scrollToMap();
             fullPostElement.classList.remove('u-display--none');
             fullPostElement.classList.add('is-open');
+            // This makes removes the animation after it ran.
+            // Using animationend event listener would be better but can also cause a bug in this case.
             setTimeout(() => {
                 fullPostElement.style.animationDuration = '0s';
             }, 200);
@@ -58,6 +60,7 @@ class ShowPost {
 
     private hidePost(postMarkerPair: PostMarkerPair|null, fullPostElement: HTMLElement, backButton: HTMLElement): void {
         invalidateSize(this.map);
+        // Sets the animation duration back to the original value
         fullPostElement.style.animationDuration = '0.2s';
         fullPostElement.classList.remove('is-open');
         fullPostElement.classList.add('is-closed');
