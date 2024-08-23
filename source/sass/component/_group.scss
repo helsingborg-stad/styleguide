@@ -10,6 +10,11 @@ $grid-gap: var(--grid-gap, 4) !default;
         &.c-group--gap-#{$i} {
             gap: calc($base * $i);
         }
+
+        &.c-group--columns-#{$i} > * {
+            flex-basis: calc(100% / $i);
+            max-width: calc(100% / $i);
+        }
     }
 
     @each $key in $position {
