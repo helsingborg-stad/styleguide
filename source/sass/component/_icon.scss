@@ -47,8 +47,11 @@ $colors: (
     @each $size in $sizes {
         &.c-icon--size-#{$size} {
             font-size: map-get($icon-sizes, $size);
-            height: map-get($icon-sizes, $size);
-            width: map-get($icon-sizes, $size);
+            &::after {
+                height: map-get($icon-sizes, $size);
+                width: map-get($icon-sizes, $size);
+                display: inline-block;
+            }
             svg {
                 height: map-get($icon-sizes, $size);
             }
