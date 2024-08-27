@@ -1,8 +1,8 @@
-export interface FilterSelectComponents {
+export interface FilterSelects {
     [key: string]: {
-        select: HTMLElement;
+        selects: Array<HTMLElement>;
         selected: Array<string>;
-    };
+    }
 }
 
 export interface FilterableElementComponent {
