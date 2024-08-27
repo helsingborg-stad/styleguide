@@ -93,6 +93,10 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
     &.c-nav--depth-1 {
       gap: calc(#{$base} * 2);
+
+      &.c-nav--compressed {
+        gap: calc(#{$base} * 1);
+      }
     }
 
     .c-nav__item--depth-1 > .c-nav__item-wrapper {
@@ -154,6 +158,10 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
     .c-nav__link {
       padding: calc(#{$base} * 1) calc(#{$base} * 2);
+    }
+
+    &.c-nav--compressed .c-nav__link {
+      padding: calc(#{$base} * 0.5) 0;
     }
 
     //Bordered is suppored in vnav
