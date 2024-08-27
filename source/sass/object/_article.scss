@@ -17,7 +17,7 @@ $article-content-elements:
 
     h1:first-child,
     .c-group:first-child h1:first-child {
-        margin-top: -0.21rem; /* Mitigates excessive spacing due to line-height */ 
+        margin-top: calc($h1-font-size - ($h1-line-height * $h1-font-size));
     }
     
     h1:last-child {
