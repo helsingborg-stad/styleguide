@@ -1,10 +1,10 @@
 class Compressed {
-    element: HTMLElement | null;
-    parentElement: HTMLElement | null;
-    siblingElements: HTMLElement[] | [];
-    compressedAmount: number | null;
-    className: string | null;
-    toggle: boolean;
+    element: HTMLElement | null = null;
+    parentElement: HTMLElement | null = null;
+    siblingElements: HTMLElement[] | [] = [];
+    compressedAmount: number | null = null; 
+    className: string | null = null;
+    toggle: boolean = false;
 
     constructor(element: HTMLElement) {
         this.element = element;
@@ -40,13 +40,14 @@ class Compressed {
             e.stopPropagation();
             this.handleClick();
             
-            if (!this.toggle) this.element?.remove();
+            // if (!this.toggle) this.element?.remove();
         });
     }
 
     private handleClick() {
         if (this.element?.hasAttribute('is-compressed')) {
             this.element.removeAttribute('is-compressed');
+            console.log("has element attribute")
             this.toggleSiblingElements(false);
         } else {
             this.element?.setAttribute('is-compressed', '');
@@ -67,13 +68,19 @@ class Compressed {
 
 function initializeElements(elements: Array<Element>) {
     elements.forEach(element => {
+        // Only initialize if the element has not been initialized before.
+        if (element.hasAttribute('compressed-was-initialized')) {
+            return;
+        }
+        
+        element.setAttribute('compressed-was-initialized', '');
+        
         new Compressed(element as HTMLElement);
     });
 }
 
 export function initializeCompressed() {
     initializeElements([...document.querySelectorAll('[data-js-compressed]')]);
-
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
@@ -82,7 +89,7 @@ export function initializeCompressed() {
                 }
 
                 if (node.hasAttribute('data-js-compressed')) {
-                    initializeElements([node]);
+                    initializeElements([node]); 
                 } else {
                     initializeElements([...node.querySelectorAll('[data-js-compressed]')]);
                 }
