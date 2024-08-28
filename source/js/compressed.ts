@@ -40,7 +40,7 @@ class Compressed {
             e.stopPropagation();
             this.handleClick();
             
-            // if (!this.toggle) this.element?.remove();
+            if (!this.toggle) this.element?.remove();
         });
     }
 
