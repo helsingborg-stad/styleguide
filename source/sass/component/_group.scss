@@ -12,8 +12,8 @@ $grid-gap: var(--grid-gap, 4) !default;
         }
 
         &.c-group--columns-#{$i} > * {
-            flex-basis: calc(100% / $i);
-            max-width: calc(100% / $i);
+            flex-basis: calc((100% - $grid-gap) / $i);
+            max-width: calc((100% - $grid-gap) / $i);
         }
     }
 
