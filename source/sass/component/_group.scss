@@ -1,14 +1,15 @@
 $position: center, start, end, flex-start, flex-end, left, right, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
-$grid-gap: var(--grid-gap, 4) !default;
+$grid-gap: var(--grid-gap, calc($base * 4)) !default;
 
 .c-group {
     display: flex;
 
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
-            gap: calc($base * $i);
+            --grid-gap: calc(#{$i} * #{$base});
+            gap: $grid-gap;
         }
 
         &.c-group--columns-#{$i} > * {
@@ -111,22 +112,53 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 /* Fluid grid */
 .c-group.c-group--fluid-grid {
-    align-items: stretch;
-    flex-direction: row;
     flex-wrap: wrap;
-
-    &.c-group--size-sm {
-        & > * {
-            flex: 0 0 calc(50% - $grid-gap * .5);
-            max-width: calc(50% - $grid-gap * .5);
-        }
-
+    flex-direction: row;
+    & > * {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 
-    &.c-group--size-xl {
-        & > * {
-            flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
-            max-width: calc(33.33333% - $grid-gap * 0.66667);
+    &.c-group--fluid-grid-2 {
+        &.c-group--size-xl > * {
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
+            max-width: calc((100% - ($grid-gap * 2)) / 2);
+        }
+
+        &.c-group--size-lg > * {
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
+            max-width: calc((100% - ($grid-gap * 2)) / 2);
+        }
+    }
+
+    &.c-group--fluid-grid-3 {
+        &.c-group--size-md > * {
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
+            max-width: calc((100% - ($grid-gap * 2)) / 2);
+        }
+
+        &.c-group--size-lg > * {
+            flex: 0 0 calc((100% - ($grid-gap * 3)) / 3);
+            max-width: calc((100% - ($grid-gap * 3)) / 3);
+        }
+    }
+
+    &.c-group--fluid-grid-4 {
+        &.c-group--size-sm > * {
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
+            max-width: calc((100% - ($grid-gap * 2)) / 2);
+        }
+
+        &.c-group--size-md > * {
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
+            max-width: calc((100% - ($grid-gap * 2)) / 2);
+        }
+
+        &.c-group--size-lg > * {
+            flex: 0 0 calc((100% - ($grid-gap * 4)) / 4);
+            max-width: calc((100% - ($grid-gap * 4)) / 4);
+
         }
     }
 }
