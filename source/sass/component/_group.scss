@@ -158,7 +158,6 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
         &.c-group--size-lg > * {
             flex: 0 0 calc((100% - ($grid-gap * 4)) / 4);
             max-width: calc((100% - ($grid-gap * 4)) / 4);
-
         }
     }
 }
