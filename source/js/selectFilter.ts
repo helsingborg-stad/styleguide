@@ -1,9 +1,9 @@
-import { FilterSelectComponents, FilterableElementComponent } from "./selectFilterInterface";
+import { FilterableElementComponent, FilterSelects } from "./selectFilterInterface";
 
 class SelectFilter {
     selectContainerId: string;
     filterableElementComponents: Array<FilterableElementComponent> = [];
-    filterSelectComponents: FilterSelectComponents = {};
+    filterSelects: FilterSelects = {};
 
     constructor(private selectContainer: HTMLElement) {
         this.selectContainerId = selectContainer.getAttribute('data-js-filter-select-container') as string;
@@ -22,19 +22,25 @@ class SelectFilter {
         [...selectFilterElements].forEach((select) => {
             if (select.hasAttribute('data-js-filter-select')) {
                 const attr = select.getAttribute('data-js-filter-select') as string;
-                this.filterSelectComponents[attr] = {
-                    select: select,
-                    selected: []
-                };
+                if (!this.filterSelects[attr]) {
+                    this.filterSelects[attr] = {
+                        selects: [select],
+                        selected: []
+                    };
+                } else {
+                    this.filterSelects[attr].selects.push(select);
+                }
             }
         });
     }
 
     private listenForSelectChanges(): void {
-        Object.keys(this.filterSelectComponents).forEach((key) => {
-            this.filterSelectComponents[key].select.addEventListener('change', (e) => {
-                this.updateSelected(key);
-                this.filterFilterableElements();
+        Object.keys(this.filterSelects).forEach((key) => {
+            this.filterSelects[key].selects.forEach((select) => {
+                select.addEventListener('change', (e) => {
+                    this.updateSelected(key);
+                    this.filterFilterableElements();
+                });
             });
         });
     }
@@ -42,9 +48,9 @@ class SelectFilter {
     private filterFilterableElements(): void {
         this.filterableElementComponents.forEach((filterableElementComponent: FilterableElementComponent) => {
             let showElement = [true];
-            for (const key in this.filterSelectComponents) {
-               if (this.filterSelectComponents[key].selected.length > 0) {
-                    showElement.push(this.filterSelectComponents[key].selected.some((selected) => {
+            for (const key in this.filterSelects) {
+               if (this.filterSelects[key].selected.length > 0) {
+                    showElement.push(this.filterSelects[key].selected.some((selected) => {
                         return filterableElementComponent['filterProperties'][key].includes(selected);
                     }));
                } else {
@@ -65,13 +71,16 @@ class SelectFilter {
     }
 
     private updateSelected(key: string): void {
-        const selected = this.filterSelectComponents[key].select.querySelectorAll('option:checked');
-        let selectedValues: Array<string> = [];
-        [...selected].forEach((option: Element) => {
-            selectedValues.push((option as HTMLOptionElement).value);
+        let selected = [] as Array<string>;
+
+        this.filterSelects[key].selects.forEach((select) => {
+            const selectedOptions = select.querySelectorAll('option:checked');
+            [...selectedOptions].forEach((option: Element) => {
+                selected.push((option as HTMLOptionElement).value);
+            });
         });
 
-        this.filterSelectComponents[key].selected = selectedValues;
+        this.filterSelects[key].selected = selected;
     }
 
     private getSelectFilterElements(): NodeListOf<HTMLElement> {
@@ -89,7 +98,7 @@ class SelectFilter {
         filterableElementComponent['element'] = element;
         filterableElementComponent['filterProperties'] = {};
 
-        for (const key in this.filterSelectComponents) {
+        for (const key in this.filterSelects) {
             filterableElementComponent['filterProperties'][key] = [];
             if (element.getAttribute(key)) {
                 filterableElementComponent['filterProperties'][key] = (element.getAttribute(key) as string).split(',');
