@@ -28,6 +28,8 @@ $c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
     .c-tags__tag {
         font-size: $font-size-meta;
         text-decoration: none;
+        display: flex;
+        align-items: center;
 
         &.is-hidden {
             display: none;
