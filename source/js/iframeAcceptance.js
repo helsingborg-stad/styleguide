@@ -84,10 +84,10 @@ const handleEvents = (contentWrapper) => {
 
 /* Adds click events for all suppressed content */
 const setEvents = () => {
-    hasSuppressedContent() && [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
+    [...document.querySelectorAll('.js-suppressed-content')].forEach(contentWrapper => {
         contentWrapper.querySelector('.js-suppressed-content-description').style.display = "block";
         const buttonEl = contentWrapper.querySelector('[js-suppressed-content-accept]');
-        buttonEl.addEventListener('click', () => {
+        buttonEl?.addEventListener('click', () => {
             handleEvents(contentWrapper);
         });  
     });
