@@ -121,43 +121,33 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
     }
 
     &.c-group--fluid-grid-2 {
-        &.c-group--size-xl > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
-            max-width: calc((100% - ($grid-gap * 2)) / 2);
-        }
-
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
-            max-width: calc((100% - ($grid-gap * 2)) / 2);
+            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
+            max-width: calc((100% - ($grid-gap * 1)) / 2);
         }
     }
 
     &.c-group--fluid-grid-3 {
         &.c-group--size-md > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
-            max-width: calc((100% - ($grid-gap * 2)) / 2);
+            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
+            max-width: calc((100% - ($grid-gap * 1)) / 2);
         }
 
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 3)) / 3);
-            max-width: calc((100% - ($grid-gap * 3)) / 3);
+            flex: 0 0 calc((100% - ($grid-gap * 2)) / 3);
+            max-width: calc((100% - ($grid-gap * 2)) / 3);
         }
     }
 
     &.c-group--fluid-grid-4 {
         &.c-group--size-sm > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
-            max-width: calc((100% - ($grid-gap * 2)) / 2);
-        }
-
-        &.c-group--size-md > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 2);
-            max-width: calc((100% - ($grid-gap * 2)) / 2);
+            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
+            max-width: calc((100% - ($grid-gap * 1)) / 2);
         }
 
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 4)) / 4);
-            max-width: calc((100% - ($grid-gap * 4)) / 4);
+            flex: 0 0 calc((100% - ($grid-gap * 3)) / 4);
+            max-width: calc((100% - ($grid-gap * 3)) / 4);
         }
     }
 }
