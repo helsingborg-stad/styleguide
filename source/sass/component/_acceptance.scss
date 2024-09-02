@@ -12,6 +12,10 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
     background-color: $c-acceptance-background-color;
     position: relative;
 
+    &.c-acceptance--accepted {
+        background-color: transparent;
+    }
+
     .c-acceptance__modal {
         width: 100%;
         height: 100%;
