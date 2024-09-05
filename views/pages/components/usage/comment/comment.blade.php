@@ -81,6 +81,18 @@
 
 @comment([
     'author' => 'Peter Olsson',
+    'text' => 'This is a reply comment text, it was written two minutes ago.',
+    'icon' => 'face',
+    'author_image' => 'https://picsum.photos/id/342/70/70',
+    'date' => date("Y-m-d H:i:s", strtotime('-2 minutes')),
+    'is_reply' => true,
+    'dateLabels' => $labels['dateLabels'],
+    'dateLabelsPlural' => $labels['dateLabelsPlural']
+])
+@endcomment
+
+@comment([
+    'author' => 'Peter Olsson',
     'text' => 'This is a reply comment text, it was written five hours ago.',
     'icon' => 'face',
     'author_image' => 'https://picsum.photos/id/64/70/70',
