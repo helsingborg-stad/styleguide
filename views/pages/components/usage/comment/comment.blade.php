@@ -28,7 +28,7 @@
     'author_url' => '#',
     'text' => 'This is a comment text',
     'icon' => 'face',
-    'date' => '2019-12-01 17:25:43',
+    'date' => date("Y-m-d H:i:s", strtotime('-2 years -6 months -3days -5 hours -10 minutes -20 seconds')),
     'dateLabels' => $labels['dateLabels'],
     'dateLabelsPlural' => $labels['dateLabelsPlural']
 ])
@@ -60,7 +60,7 @@
     'text' => 'This is a reply comment text',
     'icon' => 'face',
     'author_image' => 'https://picsum.photos/id/338/70/70',
-    'date' => '2020-01-01 17:25:43',
+    'date' => date("Y-m-d H:i:s", strtotime('-1 year -1 month -5 days')),
     'is_reply' => true,
     'dateLabels' => $labels['dateLabels'],
     'dateLabelsPlural' => $labels['dateLabelsPlural']
@@ -93,7 +93,7 @@
 
 @comment([
     'author' => 'Peter Svensson',
-    'date' => '2020-01-09 17:25:43',
+    'date' => date("Y-m-d H:i:s", strtotime('-1 year')),
     'dateLabels' => $labels['dateLabels'],
     'dateLabelsPlural' => $labels['dateLabelsPlural']
 ])
