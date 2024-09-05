@@ -57,7 +57,19 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
 
     &__date {
         color: $color-comment-date;
-        font-weight: 600;
+        font-weight: 400;
+        display: flex;
+        line-height: 1.3;
+
+        * {
+            font-weight: 400;
+        }
+
+        &:before {
+            content: "•";
+            margin-right: map-get($spacers, "1half");
+            text-indent: -.2em;
+        }
     }
 
     &__bubble {
