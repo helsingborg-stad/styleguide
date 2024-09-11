@@ -3,7 +3,7 @@
         "size": "Sets width of element in percent"
     },
     "modifiers":{
-        "size": "25, 50, 75, 100, auto"
+        "size": "25, 50, 75, 100, auto, unset"
     },
     "format": "u-width--size",
     "responsive": true
