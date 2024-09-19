@@ -23,5 +23,10 @@
         "heading": "Full width image",
         "subHeading": "",
         "text": "Image in full width mode."
+    },
+    "cover": {
+        "heading": "Cover image",
+        "subHeading": "",
+        "text": "Image with cover mode, that covers the parent container."
     }
 }

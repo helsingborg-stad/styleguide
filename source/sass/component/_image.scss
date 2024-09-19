@@ -61,6 +61,15 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         display: block;
     }
 
+    &.c-image--cover {
+        @include cover();
+        .c-image__image {
+            object-fit: cover;
+            height: inherit;
+            width: inherit;
+        }
+    }
+
     .c-modal--gallery .c-image__caption {
         margin: 0 auto;
         position: absolute;
