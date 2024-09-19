@@ -55,7 +55,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         border-radius: $border-radius-full;
     }
 
-    .c-image--full-width .c-image__image {
+    &.c-image--full-width .c-image__image {
         object-fit: contain;
         width: 100%;
         display: block;

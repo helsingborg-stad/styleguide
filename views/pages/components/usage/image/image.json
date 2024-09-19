@@ -18,5 +18,10 @@
         "heading": "Missing plain image",
         "subHeading": "",
         "text": "Image not found but rendered as a placeholder."
+    },
+    "fullwidth": {
+        "heading": "Full width image",
+        "subHeading": "",
+        "text": "Image in full width mode."
     }
 }
