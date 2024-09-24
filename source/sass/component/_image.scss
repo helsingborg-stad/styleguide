@@ -101,6 +101,24 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 }
 
 // ***************************************************************
+// *** Container query
+// ***************************************************************
+@supports (container-type: inline-size) {
+    .c-image.c-image--container-query {
+        container-type: inline-size;
+        background-size: cover;
+    }
+    .c-image.c-image--container-query .c-image__image {
+        display: none;
+    }
+}
+@supports not (container-type: inline-size) {
+    .c-image.c-image--container-query .c-image__image:not(:last-of-type) {
+        display: none;
+    }
+}
+
+// ***************************************************************
 // *** Placeholder
 // ***************************************************************
 
