@@ -5,8 +5,7 @@
     'image'         => 'https://picsum.photos/1080/720?e',
     'background'    => 'primary',
     'textColor'     => 'light',
-    'textAlignment' => 'center',
-    'imageFocus'    => ['top' => '90', 'left' => '100']
+    'textAlignment' => 'center'
 ])
     @card([
         'heading' => 'Hey! Have you seen this?',
