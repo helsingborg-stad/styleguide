@@ -3,12 +3,10 @@ $c-segment-image-border-radius: var(--c-segment-image-border-radius, $border-rad
 $c-segment-card-color-background: var(--c-card-color-background, $color-background-card) !default;
 $c-segment-image-background-color: var(--c-segment-image-background-color, $color-secondary) !default;
 
-
 .c-segment {
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    background-size: cover;
 
     .c-segment__slot {
         order: 3;
@@ -50,8 +48,15 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         display: block;
         width: 100%;
         height: 100%;
-        background-size: cover;
         overflow: hidden;
+
+        .c-image__image {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
     }
 
     .c-segment__floating {
@@ -67,9 +72,13 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         min-height: 100%;
 
         .c-segment__image {
-            border-radius: $c-segment-image-border-radius;
             aspect-ratio: 16/9;
             height: unset;
+            border-radius: $c-segment-image-border-radius;
+
+            .c-image__image {
+                object-fit: cover;
+            }
         }
 
         .c-segment__content {
@@ -332,7 +341,6 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
 
     .c-segment__image {
         height: auto;
-        @include ratio(16, 9, true);
     }
 
     .c-segment__slot {

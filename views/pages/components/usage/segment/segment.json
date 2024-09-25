@@ -23,5 +23,10 @@
         "heading": "Stacked Split Section",
         "subHeading": "Stacking multiple split sections.",
         "text": "Demonstrates how a stacked array of sections look like."
+    },
+    "card": {
+        "heading": "Card Section",
+        "subHeading": "A flexible card that transforms to a section.",
+        "text": "This is a card that adapts to the width of the viewport."
     }
 }
