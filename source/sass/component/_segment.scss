@@ -71,6 +71,12 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         flex-direction: column;
         min-height: 100%;
 
+        .c-segment__image-container {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            display: block;
+        }
+
         .c-segment__image {
             aspect-ratio: 16/9;
             height: unset;

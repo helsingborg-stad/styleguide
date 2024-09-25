@@ -5,7 +5,7 @@
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
-            'containerAware'   => true
+            'containerAware'    => true
         ])
         @endsegment
     </div>
@@ -34,12 +34,14 @@
     </div>
     <div class="o-grid-4@md">
         @segment([
-            'title'             => 'Fusce Amet Parturient Etiam',
+            'title'             => 'Linked: Fusce Amet Parturient Etiam',
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
             'textColor'         => 'dark',
-            'textAlignment'     => 'center'
+            'textAlignment'     => 'center',
+            'link'              => 'https://helsingborg.se',
+            'containerAware'    => true
         ])
         @endsegment
     </div>
