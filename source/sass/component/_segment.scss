@@ -51,7 +51,6 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         overflow: hidden;
 
         .c-image__image {
-            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
