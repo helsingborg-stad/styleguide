@@ -72,7 +72,6 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         min-height: 100%;
 
         .c-segment__image-container {
-            aspect-ratio: 16 / 9;
             width: 100%;
             display: block;
         }
