@@ -28,6 +28,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     .c-image__image {
         border-radius: $c-image-border-radius;
         max-width: 100%;
+        margin: 0;
     }
 
     /* Modifiers */
