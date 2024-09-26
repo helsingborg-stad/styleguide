@@ -1,5 +1,6 @@
 $c-card-color-background: var(--c-card-color-background, $color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
+//$c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
+$c-card-border-radius: 20px;
 
 $c-card-border-width: var(--c-card-border-width, $border-width-card) !default;
 $c-card-border-color: var(--c-card-border-color, $color-border-card) !default;
@@ -28,7 +29,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         border-top-left-radius: $c-card-border-radius;
         border-top-right-radius: $c-card-border-radius;
 
-        .c-card__image-background {
+        .c-image__image {
             border-top-left-radius: $c-card-border-radius;
             border-top-right-radius: $c-card-border-radius;
         }
@@ -41,7 +42,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
 
     &--size-sm.c-card--size-xs {
         & > *:first-child {
-            .c-card__image-background {
+            .c-card__image {
                 border-top-right-radius: 0;
             }
         }
@@ -332,49 +333,14 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     
     &__image {
         background-color: $color-card-image-background;
-        
-        &--primary {
-            background-color: $color-primary;
-        }
-        
-        &--secondary {
-            background-color: $color-secondary;
-        }
-        
-        &--default {
-            background-color: $color-card-image-background;
-        }
-        
-        &-background {
+        position: relative;
+        aspect-ratio: 16/9;
+
+        img {
+            object-fit: cover;
             width: 100%;
-            @include ratio(16, 9, false);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            
-            &--padded {
-                width: auto;
-                background-size: contain;
-                background-position: center;
-                background-origin: content-box;
-                padding: map-get($spacers, '5');
-                min-height: 200px;
-            }
-        }
-        
-        & > .c-image > img {
-            box-sizing: border-box;
-            height: 200px;
-            border-radius: 0;
-            margin: 0 auto;
-        }
-        
-        & > figure > .c-image__image {
-            width: unset;
-        }
-        
-        &--padded > .c-image > img {
-            padding: 10%;
+            height: 100%;
+            border-radius: $c-card-border-radius $c-card-border-radius 0 0;
         }
     }
     
