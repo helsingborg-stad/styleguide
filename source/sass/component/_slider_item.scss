@@ -79,6 +79,8 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         max-height: 0px;
         max-width: 0px;
         padding: 0;
+        opacity: 0;
+        transition: opacity 100ms;
     }
 
     &__background--video__play__btn {
@@ -86,6 +88,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         right: map-get($spacers, '2');
         top: map-get($spacers, '2');
         z-index: $level-4 + 1;
+        opacity: 1;
     }
 
     // Modifiers
