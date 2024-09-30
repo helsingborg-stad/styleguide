@@ -43,6 +43,11 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
         max-width: 100%; // p has a max width we need to override
     }
 
+    .c-slider__item__image, 
+    .c-slider__item__image img {
+        border-radius: inherit;
+    }
+
     //Other
     .c-slider__item__background--video {
         position: absolute;
