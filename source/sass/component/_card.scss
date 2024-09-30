@@ -149,7 +149,8 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
             padding-right: 0; 
         }
 
-        .c-card__header {
+        .c-card__header,
+        .c-card__content-after {
             padding: 0
         }
 
@@ -297,7 +298,8 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
     
     &__header,
-    &__body {
+    &__body,
+    &__content-after {
         word-break: break-word;
         hyphens: auto;
         padding: map-get($spacers, '2');
