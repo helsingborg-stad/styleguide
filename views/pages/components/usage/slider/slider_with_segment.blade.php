@@ -19,7 +19,7 @@
                 'title' => "Card #$i",
                 'tags' => false,
                 'meta' => false,
-                'image' => "https://picsum.photos/seed/$i/267",
+                'image' => "https://picsum.photos/seed/$i/1400",
                 'buttons' => [['text' => 'Read More', 'href' => 'https://www.helsingborg.se']],
                 'content' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 'classList' => ['c-segment--slider', 'c-segment--size-sm'],

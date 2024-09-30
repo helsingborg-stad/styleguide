@@ -10,7 +10,6 @@
     
         @slider__item([
             'layout' => 'center',
-            'textColor' => 'black',
             'heroStyle' => false,
             'classList' => ['c-slider__item--post']
         ])
