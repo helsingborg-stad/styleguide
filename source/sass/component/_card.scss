@@ -58,6 +58,10 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         z-index: $level-3;
     }
 
+    .c-card__content-after {
+        height: 100%;
+    }
+
     &--focus-inset:focus {
         @include focus-inset($c-card-border-radius);
     }
