@@ -2,23 +2,10 @@
 @section('doc-content')
 
     @segment([
-        'template' => 'full',
-        'height' => 'md',
-        'parallax' => true,
-        'background_color' => '#E5E5E5',
-        'text_alignment' => 'left',
-        'cta_align' => 'center',
-        'color' => 'secondary',
-        'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'center'
-        ],
         'classList' => [
             'p-home__hero'
         ]
-
     ])
-
         @typography([
             'element' => 'h1',
             'variant' => 'h1',
@@ -36,18 +23,8 @@
 
     <div class="g-divider g-divider--sm"></div>
     @segment([
-        'template' => 'full',
-        'contain_content' => true,
-        'height' => 'sm',
-        'width' => 'lg',
-        'padding' => 0,
-        'text_alignment' => 'left',
-            'content_alignment' => [
-            'vertical' => 'center',
-            'horizontal' => 'center'
-        ],
-        'heading' => "Atomic design",
-        'body' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
+        'title' => "Atomic design",
+        'content' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
         The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
         'classList' => ['p-home__hero']
     ])

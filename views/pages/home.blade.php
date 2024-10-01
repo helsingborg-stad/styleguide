@@ -2,21 +2,10 @@
 @section('home-content')
 
 @segment([
-    'template' => 'full',
     'height' => 'sm',
-    'parallax' => true,
-    'background_color' => '#E5E5E5',
-    'text_alignment' => 'left',
-    'cta_align' => 'center',
-    'color' => 'secondary',
-    'content_alignment' => [
-        'vertical' => 'center',
-        'horizontal' => 'center'
-    ],
     'classList' => [
         'p-home__hero'
     ]
-
 ])
     @typography([
         'element' => 'h1',
@@ -127,5 +116,3 @@
     </div>
 </article>
 @stop
-
-
