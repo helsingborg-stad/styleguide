@@ -40,7 +40,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
 
     /* Sub objects */ 
-
     .c-card__header,
     .c-card__body,
     .c-card__content-after {
@@ -65,6 +64,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         padding-top: map-get($spacers, '3');
         padding-bottom: map-get($spacers, '3');
         gap: map-get($spacers, '05');
+        align-content: center;
 
         :first-child {
             margin-top: 0;
@@ -78,39 +78,8 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     .c-card__image {
         background-color: $color-card-image-background;
         border-radius: inherit;
-
         .c-image__image {
             border-radius: inherit;
-        }
-        
-        &.c-card--primary {
-            background-color: $color-primary;
-        }
-        
-        &.c-card--secondary {
-            background-color: $color-secondary;
-        }
-        
-        &.c-card--default {
-            background-color: $color-card-image-background;
-        }
-        
-        &.c-card-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            
-            &--padded {
-                width: auto;
-                background-size: contain;
-                background-position: center;
-                background-origin: content-box;
-                padding: map-get($spacers, '5');
-                min-height: 200px;
-            }
-        }
-        
-        &.c-card--padded .c-card__image {
-            margin: 10%;
         }
     }
     
@@ -154,15 +123,12 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         background-color: unset;
     }
     
-    
-
-
-    /* Image */
+    /* Image aspect ratio */
     .c-card__image-container {
         position: relative;
     }
 
-    /* Image aspect ratio */
+    
     &.c-card--ratio-1-1 {
         .c-card__image-container {
             aspect-ratio: 1 / 1;
@@ -229,12 +195,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         .c-card__header,
         .c-card__body {
             border-left: $base solid $color-primary;
-        }
-    }
-
-    &--meta-first {
-        .c-card__heading {
-            margin-top: calc($base*.5)px;
         }
     }
 
@@ -441,12 +401,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     &--size-lg .c-card__image-container + .c-card__body {
         flex-basis: calc(100% - 30%);
     }
-    
-    
-    
-  
-    
-    
 }
 
 /* Add hover effect */
@@ -505,28 +459,18 @@ a.c-card {
         &--size-sm,
         &--size-md,
         &--size-lg {
-            .c-card__image, .c-card__image-background {
-                order: 2;
+            .c-card__image-container {
+                order: 1;
                 border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
             }
             
             .c-card__body {
-                order: 1;
+                order: 3;
             }
 
             .c-card__footer {
                 flex: 0 0 100%;
                 order: 3;
-            }
-
-            &.c-card--image-first {
-                .c-card__image, .c-card__image-background {
-                    order:1;
-                    border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
-                }
-                .c-card__body {
-                    order: 2;
-                }
             }
         }
     }
