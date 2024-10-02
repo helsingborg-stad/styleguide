@@ -1,17 +1,18 @@
 <div class="o-grid">
     <div class="o-grid-4@md">
         @card([
+            'color' => 'primary',
             'heading' => 'Heading',
             'subHeading' => 'SubHeading', 
             'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
             'image' => [
-                'src' => 'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
+                'src' => '/assets/img/component.svg',
                 'alt' => 'ALT', 
                 'backgroundColor' => 'secondary',
-                'square' => true
+                'padded' => true
             ],
-            'date' => date('Y-m-d H:i:s'),
-            'dateBadge' => true
+            'meta' => "This is the meta (after title)",
+            'date' => date('Y-m-d H:i:s')
         ])
         @endcard
     </div>
@@ -27,6 +28,8 @@
                 'backgroundColor' => 'secondary',
                 'padded' => true
             ],
+            'meta' => "This is the meta (before title)",
+            'metaFirst' => true,
             'date' => date('Y-m-d H:i:s')
         ])
         @endcard

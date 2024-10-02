@@ -16,10 +16,6 @@
               SubHeading
             </h4><!-- typography.blade.php -->
           </div>
-            <div class="c-card__image c-card__image--secondary">
-              <div class="c-card__image-background" style=
-              "background-image:url('https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;w=1000&amp;q=80');"></div>
-            </div>
             <div class="c-card__body">
               <!-- typography.blade.php -->
               <p id="" class="c-typography c-typography__variant--p" data-uid="5f7c265caf970">
