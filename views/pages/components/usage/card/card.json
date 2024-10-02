@@ -1,6 +1,6 @@
 {
-  "order": {
-    "heading": "Image and heading order",
+  "metaBeforeTitle": {
+    "heading": "Meta first",
     "subHeading": "",
     "text": ""
   },
