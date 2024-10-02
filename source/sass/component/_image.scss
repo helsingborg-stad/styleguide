@@ -64,6 +64,10 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         display: block;
     }
 
+    &.c-image--type-svg .c-image__image {
+        object-fit: scale-down;
+    }
+
     &.c-image--cover {
         @include cover();
         .c-image__image {
