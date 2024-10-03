@@ -37,6 +37,9 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, $color-back
 
     .c-acceptance__content  {
         height: 100%;
+    }
+
+    .c-acceptance__content iframe {
         background-color: $c-acceptance-background-color;
     }
 
