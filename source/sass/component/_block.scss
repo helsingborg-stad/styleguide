@@ -20,6 +20,13 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
         flex-direction: row;
     }
 
+    .c-block__image {
+        border-radius: $c-block-border-radius;
+        .c-image__image {
+            border-radius: $c-block-border-radius;
+        }
+    }
+
     .c-block__body {
         padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 3) calc(#{$base} * 3);
         width: 100%;
