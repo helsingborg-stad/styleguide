@@ -22,5 +22,11 @@
         "heading": "Time Until",
         "subHeading" : "Returns time until a specified date",
         "text": "Returns time until a specified date"
+    },
+    "dateFormatInputs": {
+        "grid": "",
+        "heading": "Format a date, with multiple input formats.",
+        "subHeading" : "Returns formatted date",
+        "text": "Returns formatted date"
     }
 }
