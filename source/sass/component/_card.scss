@@ -126,6 +126,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     /* Image aspect ratio */
     .c-card__image-container {
         position: relative;
+        flex: 1;
     }
 
     
