@@ -112,7 +112,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 // ***************************************************************
 @supports (container-type: size) {
     .c-image.c-image--container-query {
-        container-type: inline-size;
+        container-type: size;
         background-size: cover;
     }
     .c-image.c-image--container-query .c-image__image {
