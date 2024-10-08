@@ -126,7 +126,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     /* Image aspect ratio */
     .c-card__image-container {
         position: relative;
-        flex: 1;
     }
 
     
@@ -381,6 +380,10 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     &--size-sm .c-card__image, &--size-sm .c-card__image-background {
         flex-basis: 200px;
         border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
+    }
+
+    &--size-sm .c-card__image-container {
+        flex-basis:200px;
     }
     
     &--size-sm .c-card__image-container + .c-card__body {

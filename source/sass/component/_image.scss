@@ -168,3 +168,13 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         }
     }
 }
+
+// ***************************************************************
+// *** SVG
+// ***************************************************************
+
+.c-image.c-image--type-svg {
+    .c-image__image {
+        object-fit: scale-down;
+    }
+}
