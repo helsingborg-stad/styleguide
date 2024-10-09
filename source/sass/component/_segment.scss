@@ -222,9 +222,16 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
             }
         }
     }
+
+    &.c-segment--no-image.c-segment--size-sm,
+    &.c-segment--no-image.c-segment--size-md {
+        &.c-segment--card {
+            .c-segment__content {
+                width: 100%;
+            }
+        }
+    }
 }
-
-
 
 /**
 * Modifiers
