@@ -363,6 +363,11 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
 }
 
 .c-segment.c-segment--split {
+
+    .c-segment__image {
+        aspect-ratio: 16 / 9;
+    }
+
     @include mq(map_get($breakpoints-map, "md")) {
 
         .c-segment__image,
