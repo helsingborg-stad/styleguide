@@ -19,6 +19,11 @@
         "subHeading": "Main content on the left",
         "text": "This layout gives you the ability to put the main content to the left"
     },
+    "featured":{
+        "heading": "Featured Section",
+        "subHeading": "Main content on the left",
+        "text": "This layout gives you the ability to put the main content to the left"
+    },
     "stacked":{
         "heading": "Stacked Split Section",
         "subHeading": "Stacking multiple split sections.",

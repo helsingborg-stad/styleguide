@@ -353,6 +353,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
 
     .c-segment__image {
         height: auto;
+        aspect-ratio: 16/9;
     }
 
     .c-segment__slot {
@@ -377,7 +378,6 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
     }
 
     @include mq(map_get($breakpoints-map, "md")) {
-
         .c-segment__image,
         .c-segment__content {
             max-width: 50%;
@@ -388,14 +388,20 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
 .c-segment.c-segment--featured {
 
     .c-segment__image {
-        background-repeat: no-repeat;
-        background-size: contain;
+        background-size: 0;
+    }
+
+    .c-segment__image .c-image__image {
+        object-fit: contain;
     }
 
     @include mq(map_get($breakpoints-map, "md")) {
+        .c-segment__image .c-image__image {
+            padding: 7% 3%;
+        }
+
         .c-segment__image {
             max-width: 70%;
-            background-size: 80%;
         }
 
         .c-segment__content {
