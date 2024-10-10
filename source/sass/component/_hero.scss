@@ -67,6 +67,10 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       width: 100%;
       height: 100%;
       position: absolute;
+
+      &.c-image--type-svg .c-image__image {
+        object-fit: cover; //Override the default object-fit: scale-down;
+      }
     }
   }
 
