@@ -152,7 +152,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     .c-icon {
         color: $color-image-placeholder-icon;
 
-        &.c-icon--svg {
+        &.c-icon--svg-link {
             width: max(5em, 20%);
             img {
                 filter: invert(1);
