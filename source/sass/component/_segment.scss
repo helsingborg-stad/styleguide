@@ -228,6 +228,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, $colo
         &.c-segment--card {
             .c-segment__content {
                 width: 100%;
+                min-height: initial;
             }
         }
     }
