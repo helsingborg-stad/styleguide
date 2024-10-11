@@ -1,10 +1,10 @@
 //Settings vertical
-$c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting) !default;
-$c-nav-v-background-active: var(--c-nav-v-background-active) !default;
-$c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active) !default;
-$c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0,0,0,.05)) !default;
-$c-nav-v-divider-color: var(--c-nav-v-divider-color) !default;
-$c-nav-v-font-size: var(--c-nav-v-font-size) !default;
+$c-nav-v-color-contrasting: var(--c-nav-v-secondary-color-contrasting, var(--c-nav-v-color-contrasting)) !default;
+$c-nav-v-background-active: var(--c-nav-v-secondary-background-active, var(--c-nav-v-background-active)) !default;
+$c-nav-v-color-contrasting-active:  var(--c-nav-v-secondary-color-contrasting-active, var(--c-nav-v-color-contrasting-active)) !default;
+$c-nav-v-background-expanded: var(--c-nav-v-secondary-background-expanded, var(--c-nav-v-background-expanded, rgba(0,0,0,.05))) !default;
+$c-nav-v-divider-color: var(--c-nav-v-secondary-divider-color, var(--c-nav-v-divider-color)) !default;
+$c-nav-v-font-size: var(--c-nav-v-secondary-font-size, var(--c-nav-v-font-size)) !default;
 
 //Settings horizontal
 $c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting) !default;
