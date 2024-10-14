@@ -38,5 +38,10 @@
         "heading": "Button",
         "subHeading": "",
         "text": "Renders a hero with a button."
+    },
+    "column": {
+        "heading": "Multi column hero",
+        "subHeading": "",
+        "text": "Renders a normal multi column area."
     }
 }

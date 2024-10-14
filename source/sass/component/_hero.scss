@@ -292,62 +292,62 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     &:before {
       display: none;
     }
+
+    .c-hero__image-container {
+      aspect-ratio: 16 / 9;
+      border-radius: $border-radius-md;
+    }
     
-    .c-hero__group-image {
-        img {
-          border-radius: $border-radius-md;
-          height: auto;
-          width: 100%;
-          max-width: 100%;
-          object-fit: cover;
+    .c-hero__group-image,
+    .c-image__image {
+      border-radius: inherit;
+    }
+    
+    .c-hero__background {
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      object-fit: cover;
+      position: absolute;
+      top:0;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .c-hero__content {
+      max-width:100%;
+      padding:0;
+      text-shadow: none;
+      border-radius: $border-radius-xs;
+      .c-hero__group {
+        flex: 0 0 100%;
+      }
+      .c-hero__group-content {
+          padding: 0;
+          height: 100%;
+      }
+    }
+
+    &.c-hero--overflow {
+      padding: 0;
+
+        .c-hero__background {
+          display:none;
         }
-      }
 
-      .c-hero__background {
-        height: 100%;
-        width: 100%;
-        z-index: -1;
-        object-fit: cover;
-        position: absolute;
-        top:0;
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-
-      .c-hero__content {
-        max-width:100%;
-        padding:0;
-        text-shadow: none;
-        border-radius: $border-radius-xs;
-        .c-hero__group {
-          flex: 0 0 100%;
+        .c-hero__group-image {
+          height: 100%;
+          img {
+            border-radius: unset;
+            height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+          }
         }
         .c-hero__group-content {
-            padding: 0;
-            height: 100%;
+          height: 100%;
         }
-      }
-
-      &.c-hero--overflow {
-        padding: 0;
-
-          .c-hero__background {
-            display:none;
-          }
-
-          .c-hero__group-image {
-            height: 100%;
-            img {
-              border-radius: unset;
-              height: 100%;
-              max-width: 100%;
-              object-fit: cover;
-            }
-          }
-          .c-hero__group-content {
-            height: 100%;
-          }
-      }
+    }
 
     @include mq(map_get($breakpoints-map, "md")) {
       .c-hero__content {
