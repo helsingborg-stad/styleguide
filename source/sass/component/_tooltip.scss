@@ -147,7 +147,6 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
         border-radius: $c-tooltip-border-radius;
         z-index: $level-9;
         width: max-content;
-        max-width: calc($base * 25);
         background-color: $c-tooltip-color;
         color: $c-tooltip-content-color;
         padding: calc($base * .5) calc($base);
