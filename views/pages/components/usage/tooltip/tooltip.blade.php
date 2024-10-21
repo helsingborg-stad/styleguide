@@ -30,3 +30,5 @@
 ])
     Left tooltip
 @endtooltip
+
+<a href="#" class="c-tooltip" data-tooltip="Tooltip text">A implementation of data-tooltip</a>
