@@ -229,8 +229,10 @@ class Fields {
                 }
             })
         }
-
-        !emptyForm ? submitButton.disabled = true : submitButton.disabled = false;
+        if (submitButton) {
+            !emptyForm ? submitButton.disabled = true : submitButton.disabled = false;
+        }
+        
         return emptyForm;
     }
 
