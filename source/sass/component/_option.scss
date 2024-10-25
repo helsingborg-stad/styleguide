@@ -31,6 +31,15 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
             cursor: pointer;
         }
 
+        .c-option__checkbox--hidden-box:checked:disabled+.c-option__checkbox--label,
+        &.is-disabled .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
+            .c-option__checkbox--label-box,
+            .c-option__radio--label-box {
+                background: $color-disabled;
+                border: 2px solid $color-disabled;
+            } 
+        }
+
         .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
 
             .c-option__checkbox--label-text {
