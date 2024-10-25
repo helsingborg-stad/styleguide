@@ -46,9 +46,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &.c-button.is-working {
+        .c-button__label-icon {
+            display: none;
+        }
+
         .c-button__loader {
             display: inline-block;
-            animation: rotation 1s linear infinite;
+            // animation: rotation 1s linear infinite;
 
             @keyframes rotation {
                 0% {
@@ -146,6 +150,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         font-size: $font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
+        .c-button__loader {
+            width: calc($base * 4);
+            height: calc($base * 4);
+            border-width: 4px;
+            margin-left: calc($base * -1.5);
+        }
+
         &.c-button--icon-only {
             width: calc(#{$base} * 8); 
             min-width: initial;
@@ -167,6 +178,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         padding: 0 calc(#{$base} * 4); 
         font-size: $font-size-btn-md; 
         border-radius: $c-button-border-radius; 
+
+        .c-button__loader {
+            margin-left: calc($base * -1);
+        }
 
         &.c-button--icon-only {
             width: calc(#{$base} * 6); 
@@ -190,6 +205,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         padding: 0 calc(#{$base} * 2); 
         font-size: $font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
+
+        .c-button__loader {
+            width: calc($base * 2);
+            height: calc($base * 2);
+            border-width: 2px;
+            margin-left: calc($base * -.5);
+        }
 
         &.c-button--icon-only {
             width: calc(#{$base}* 4.5); 
