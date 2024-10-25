@@ -36,7 +36,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
             .c-option__checkbox--label-box,
             .c-option__radio--label-box {
                 background: $color-disabled;
-                border: 2px solid $color-disabled;
+                border-color: $color-disabled;
             } 
         }
 
