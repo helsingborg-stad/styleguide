@@ -33,6 +33,33 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     user-select: none;
     position: relative;
     max-width: 100%;
+
+    .c-button__loader {
+        display: none;
+        width: calc($base * 3);
+        height: calc($base * 3);
+        border: 3px solid;
+        margin-bottom: 2px;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        box-sizing: border-box;
+    }
+
+    &.c-button.is-working {
+        .c-button__loader {
+            display: inline-block;
+            animation: rotation 1s linear infinite;
+
+            @keyframes rotation {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            } 
+        }
+    }
     
     &:after {
         content: '';
