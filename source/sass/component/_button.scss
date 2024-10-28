@@ -33,6 +33,37 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     user-select: none;
     position: relative;
     max-width: 100%;
+
+    .c-button__loader {
+        display: none;
+        width: calc($base * 3);
+        height: calc($base * 3);
+        border: 3px solid;
+        margin-bottom: 2px;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        box-sizing: border-box;
+    }
+
+    &.c-button.is-working {
+        .c-button__label-icon {
+            display: none;
+        }
+
+        .c-button__loader {
+            display: inline-block;
+            // animation: rotation 1s linear infinite;
+
+            @keyframes rotation {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            } 
+        }
+    }
     
     &:after {
         content: '';
@@ -119,6 +150,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         font-size: $font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
+        .c-button__loader {
+            width: calc($base * 4);
+            height: calc($base * 4);
+            border-width: 4px;
+            margin-left: calc($base * -1.5);
+        }
+
         &.c-button--icon-only {
             width: calc(#{$base} * 8); 
             min-width: initial;
@@ -140,6 +178,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         padding: 0 calc(#{$base} * 4); 
         font-size: $font-size-btn-md; 
         border-radius: $c-button-border-radius; 
+
+        .c-button__loader {
+            margin-left: calc($base * -1);
+        }
 
         &.c-button--icon-only {
             width: calc(#{$base} * 6); 
@@ -163,6 +205,13 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         padding: 0 calc(#{$base} * 2); 
         font-size: $font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
+
+        .c-button__loader {
+            width: calc($base * 2);
+            height: calc($base * 2);
+            border-width: 2px;
+            margin-left: calc($base * -.5);
+        }
 
         &.c-button--icon-only {
             width: calc(#{$base}* 4.5); 
