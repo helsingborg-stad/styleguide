@@ -3,6 +3,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
 
 // Basic laying down
 .c-newsitem {
+    display: block;
     // Areas (components)
     .c-newsitem__main {
         display: grid;
