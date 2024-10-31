@@ -1,0 +1,100 @@
+$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, $color-lighter) !default;
+$c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !default;
+
+// Basic laying down
+.c-newsitem {
+    display: block;
+    // Areas (components)
+    .c-newsitem__main {
+        display: grid;
+        gap: calc($base * 3);
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .c-newsitem__header {
+        display: flex;
+        justify-content: space-between;
+        padding: $base 0;
+        border-top: 1px solid $c-newsitem-header-border-color;
+        border-bottom: 1px solid $c-newsitem-header-border-color;
+    }
+
+    .c-newsitem__title {
+        margin: calc($base * 2) 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: calc($base * 3);
+    }
+
+    // Partials (individual items)
+    .c-newsitem__heading {
+        color: $c-newsitem-heading-color;
+        margin-top: 0;
+    }
+
+    .c-newsitem__header-left,
+    .c-newsitem__header-right {
+        display: flex;
+        align-items: center;
+        gap: $base;
+    }
+
+    .c-newsitem__date,
+    .c-newsitem__read-time {
+        display: flex;
+        align-items: center;
+        gap: calc($base * .5);
+        font-size: $font-size-meta;
+    }
+
+    .c-newsitem__date-icon,
+    .c-newsitem__read-time-icon {
+        // Needed for correct alignment
+        margin-bottom: 2px;
+    }
+
+    .c-newsitem__sub-heading {
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    .c-newsitem__image img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .c-newsitem__content {
+        margin-top: 0;
+    }
+}
+
+// Link
+a.c-newsitem {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        text-decoration: none;
+        color: inherit;
+
+        .c-newsitem__heading {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Standing
+.c-newsitem.c-newsitem--standing {
+    .c-newsitem__main {
+        grid-template-columns: 1fr;
+        gap: calc($base * 2);
+    }
+
+    .c-newsitem__main-right {
+        order: 1;
+    }
+
+    .c-newsitem__main-left {
+        order: 2;
+    }
+}
