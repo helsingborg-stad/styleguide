@@ -176,17 +176,21 @@ class Fields {
 
                 this.inputs.forEach(input => {
                     containsInvalid.push(this.validateInput(input, true));
+                    console.log('Input: ' + input + this.validateInput(input, true));
                 });
+                console.log('PolicyHandler: ' + policyHandler.validatePolicy());
+                console.log('CheckboxHandler: ' + checkboxHandler.validateCheckboxes(this.checkboxGroups));
+                console.log('FileinputHandler: ' + fileinputHandler.validateFileinputs(this.form));
 
                 containsInvalid.push(policyHandler.validatePolicy());
                 containsInvalid.push(checkboxHandler.validateCheckboxes(this.checkboxGroups));
                 containsInvalid.push(fileinputHandler.validateFileinputs(this.form));
-
                 if (containsInvalid.includes(false)) {
                     this.classToggle(this.form, 'is-invalid', 'is-valid');
+                    console.log('Contains invalid fields: ' + containsInvalid);
+                    console.log('Class: ' + this.form.classList.contains('is-invalid'));
 
                     checkboxHandler.validateCheckboxes(this.checkboxGroups);
-
 
                     [...this.form.querySelectorAll('.c-form__notice-failed')].forEach(element => {
                         element.setAttribute('aria-hidden', false);
@@ -243,8 +247,10 @@ class Fields {
             if (!checkboxHandler.validateCheckboxes(this.checkboxGroups) || !fileinputHandler.validateFileinputs(this.form)) {
                 e.preventDefault();
                 this.classToggle(this.form, 'is-invalid', 'is-valid');
+                console.log("INVALID");
             } else {
                 this.classToggle(this.form, 'is-valid', 'is-invalid');
+                console.log('Submit is not valid: ' + this.form.classList.contains('is-invalid'));
                 if (typeof formbuilder !== 'undefined') {
                     submitButton ? submitButton.innerHTML = formbuilder.sending : '';
                 }
