@@ -6,6 +6,7 @@ $o-grid-breakpoints: map-keys($breakpoints-map) !default;
 
 $o-grid-gutters: (
     xs : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
+    sm : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
     md : calc(#{$base} * #{$o-grid-gap} * 0.75),  //24
     lg : calc(#{$base} * #{$o-grid-gap}), // 32
 ) !default;
@@ -91,6 +92,20 @@ $o-grid-gutters: (
         > * {
             flex: 1;
         }
+    }
+
+    .o-grid + .o-grid,
+    .grid + .grid,
+    .o-grid + .grid,
+    .grid + .o-grid  {
+        margin-top: calc(#{$base} * #{$o-grid-gap} * 0.5);
+    }
+
+    .o-grid.o-grid--form + .o-grid.o-grid--form,
+    .grid.grid--form + .grid.grid--form,
+    .o-grid.o-grid--form + .grid.grid--form,
+    .grid.grid--form + .o-grid.o-grid--form  {
+        margin-top: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
     }
 
     .o-grid,
