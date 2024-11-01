@@ -4,6 +4,7 @@
     grid-template-rows: auto 1fr;
     grid-template-areas: "avatar signature" "whitespace dates";
     text-decoration: none;
+    column-gap: map-get($spacers, "2" );
 
     &--space-1 {
         margin-bottom: map-get($spacers, "3");
@@ -33,7 +34,6 @@
         grid-area: signature;
         display: flex;
         align-items: center;
-        padding-left: map-get($spacers, "2" );
     }
 
     &__title {
