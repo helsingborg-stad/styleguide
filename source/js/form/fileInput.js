@@ -143,12 +143,15 @@ class FileInput {
 
         form.querySelectorAll('.c-fileinput').forEach(fileupload => {
             if (!fileupload.querySelector('input[required]')) return;
-            let validation = fileupload.querySelectorAll('input[js-field-fileinput]').length > 0 ? true : false;
+
+            let validation = fileupload.querySelector('input[js-field-fileinput]') ? fileupload.querySelectorAll('input[js-field-fileinput]').length > 0 : fileupload.querySelector('.js-form-file-input').querySelectorAll('li').length > 0;
+
             if(!validation) { 
                 fileupload.querySelector('.c-fileinput__label').classList.add('u-color__text--danger');
             } else {
                 fileupload.querySelector('.c-fileinput__label').classList.remove('u-color__text--danger')
             }
+            
             hasFile.push(validation);
         });
 
