@@ -93,6 +93,20 @@ $o-grid-gutters: (
         }
     }
 
+    .o-grid + .o-grid,
+    .grid + .grid,
+    .o-grid + .grid,
+    .grid + .o-grid  {
+        margin-top: calc(#{$base} * #{$o-grid-gap} * 0.5);
+    }
+
+    .o-grid.o-grid--form + .o-grid.o-grid--form,
+    .grid.grid--form + .grid.grid--form,
+    .o-grid.o-grid--form + .grid.grid--form,
+    .grid.grid--form + .o-grid.o-grid--form  {
+        margin-top: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
+    }
+
     .o-grid,
     .grid {
         --grid-gap: calc(#{$base} * #{$o-grid-gap} * 0.5);
