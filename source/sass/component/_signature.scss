@@ -46,10 +46,6 @@
         grid-area: dates;
     }
 
-    &__dates.c-signature__dates--aligned {
-        padding-left: map-get($spacers, "2" );
-    }
-
     &__published,
     &__updated {
         color: $color-darker;
