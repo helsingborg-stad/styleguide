@@ -4,7 +4,7 @@ $c-notice-color-background: var(--notice-color-background, #d73740) !default;
 $c-notice-color-success-text: var(--c-notice-color-success-text, $color-success-contrasting) !default;
 $c-notice-color-success-background: var(--notice-color-success-background, $color-success) !default;
 
-$c-notice-color-danger-text: var(--notice-color-danger-text $color-danger-contrasting) !default;
+$c-notice-color-danger-text: var(--notice-color-danger-text, $color-danger-contrasting) !default;
 $c-notice-color-danger-background: var(--notice-color-danger-background, $color-danger) !default;
 
 $c-notice-color-info-text: var(--notice-color-info-text, $color-info-contrasting) !default;
