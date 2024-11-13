@@ -110,8 +110,39 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
     }
 }
 
-/* Fluid grid */
-.c-group.c-group--fluid-grid {
+/* Fluid grid using grid */
+.c-group.c-group.c-group--fluid-grid.c-group--display-grid {
+    grid-template-columns: 1fr;
+
+    &.c-group--fluid-grid-2 {
+        &.c-group--size-lg > * {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &.c-group--fluid-grid-3 {
+        &.c-group--size-md {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        &.c-group--size-lg {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+    
+    &.c-group--fluid-grid-4 {
+        &.c-group--size-sm {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        &.c-group--size-lg {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+}
+
+/* Fluid grid using flex */
+.c-group.c-group--fluid-grid:not(.c-group--display-grid) {
     flex-wrap: wrap;
     flex-direction: row;
     & > * {
