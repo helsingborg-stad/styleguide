@@ -206,19 +206,35 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     }
 }
 
-// Modifiers - compact
-.c-collection.c-collection--compact {
-    &.c-collection--bordered {
-        padding-top: calc($base / 2);
-        padding-bottom: calc($base / 2);
-    }
+// Defined to avoid code duplication.
+@mixin collection-compact-styles($breakpoint: null) {
+    $suffix: if($breakpoint, "-#{$breakpoint}", "");
 
-    .c-collection__content,
-    .c-collection__icon,
-    .c-collection__item > .c-collection__secondary {
-        padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
+    .c-collection.c-collection--compact#{$suffix} {
+        &.c-collection--bordered {
+            padding-top: calc($base / 2);
+            padding-bottom: calc($base / 2);
+        }
+
+        .c-collection__content,
+        .c-collection__icon,
+        .c-collection__item > .c-collection__secondary {
+            padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
+        }
     }
 }
+
+// Apply the base styles (no breakpoint)
+@include collection-compact-styles();
+
+// Loop through breakpoints and apply the styles with suffix
+@each $breakpoint in map-keys($breakpoints-map) {
+    @include mq($breakpoint) {
+        @include collection-compact-styles($breakpoint);
+    }
+}
+
+
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
