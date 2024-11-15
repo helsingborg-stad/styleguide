@@ -224,17 +224,15 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     }
 }
 
-// Apply the base styles (no breakpoint)
+// Applying the normal compact styles
 @include collection-compact-styles();
 
-// Loop through breakpoints and apply the styles with suffix
+// Applying the compact styles for each breakpoint
 @each $breakpoint in map-keys($breakpoints-map) {
     @include mq($breakpoint) {
         @include collection-compact-styles($breakpoint);
     }
 }
-
-
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
