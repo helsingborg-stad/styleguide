@@ -19,6 +19,11 @@
     "subHeading": "",
     "text": " The images can be set to cover 100% of the width or if you wish set padded to true to keep the image in the middle. You can also set a background color which can be seen in the example with padding."
   },
+  "datebadge": {
+    "heading": "Card with date badge",
+    "subHeading": "",
+    "text": " Cards with date badges can be used to show the date of the card."
+  },
   "buttons": {
     "heading": "Buttons",
     "subHeading": "",
