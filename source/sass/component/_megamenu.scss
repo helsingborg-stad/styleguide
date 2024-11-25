@@ -49,6 +49,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
         display: inline-flex;
         align-items: center;
         text-decoration: none;
+        gap: $base;
     }
 
     .c-megamenu__item--child {
