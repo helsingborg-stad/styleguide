@@ -47,6 +47,7 @@ import {initializeModal} from './modal';
 import {initializeIframeAcceptance} from './iframeAcceptance';
 import {initializeSelectFilter} from './selectFilter';
 import {initializeSelectSort} from './selectSort';
+import {initializeMegaMenus} from './megaMenu';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -112,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     AnchorMenu();
     initializeSelectFilter();
     initializeSelectSort();
+    initializeMegaMenus();
 
     // Utility functions
     moveElements(moveElement);
