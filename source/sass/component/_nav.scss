@@ -62,7 +62,9 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     &.c-nav__item--separator {
-      background-color: $color-primary-contrasting;
+      .c-nav__item-wrapper {
+        background-color: $color-primary-contrasting;
+      }
 
       .c-nav__link .c-nav__text{
         color: $color-primary;
@@ -255,7 +257,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
       }
 
       &.c-nav__item--separator {
-          .c-nav__text{
+          .c-nav__text {
             color: $color-primary;
         }
       }
