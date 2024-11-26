@@ -3,7 +3,7 @@ $drawer-width: calc(#{$base} * 40);
 
 // Background colors basic
 $drawer-basic-background-color: var(--c-drawer-basic-background-color, $color-primary) !default;
-$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, $color-primary) !default;
+$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, $color-white) !default;
 
 // Main area colors
 $drawer-primary-background-color: var(--c-drawer-primary-background-color, $color-primary) !default;
@@ -35,16 +35,16 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     --drawer-background: #{$drawer-secondary-background-color};
 }
 
+// Duotone drawer colors needing to target the main list items for better flexibility
 .c-drawer.c-drawer--duotone {
-    --drawer-background: #{$color-white};
     &,
     .site-nav-mobile__primary > .c-nav__item,
     .c-drawer__header {
+        --drawer-background: #{$color-white};
         --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
     }
 }
 
-// Duotone drawer colors needing to target the main list items for better flexibility
 .c-drawer.c-drawer--duotone.c-drawer--primary,
 .c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
@@ -52,21 +52,20 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--secondary,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-secondary > .c-nav__item,
+.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
     --drawer-background: #{$drawer-secondary-background-color};
 }
 
-.c-drawer.c-drawer--duotone-primary,
-.c-drawer.c-drawer--duotone-primary .site-nav-mobile__secondary > .c-nav__item {
+.c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
+.c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary > .c-nav__item {
     --drawer-duotone-background: #{$drawer-duotone-primary-background-color};
 }
 
-.c-drawer.c-drawer--duotone-secondary,
-.c-drawer.c-drawer--duotone-secondary .site-nav-mobile__secondary > .c-nav__item {
+.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
+.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary > .c-nav__item {
     --drawer-duotone-background: #{$drawer-duotone-secondary-background-color};
 }
-
 
 // Actual css
 .c-drawer {
