@@ -48,6 +48,7 @@ import {initializeIframeAcceptance} from './iframeAcceptance';
 import {initializeSelectFilter} from './selectFilter';
 import {initializeSelectSort} from './selectSort';
 import {initializeMegaMenus} from './megaMenu';
+import {initializeSizeObserver} from './sizeObserver';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -114,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSelectFilter();
     initializeSelectSort();
     initializeMegaMenus();
+    initializeSizeObserver();
 
     // Utility functions
     moveElements(moveElement);
