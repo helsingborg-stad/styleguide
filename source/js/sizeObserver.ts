@@ -20,7 +20,6 @@ class SizeObserver {
 
     private getHeightWidth(entry: ResizeObserverEntry) {
         if (this.includePadding && entry.borderBoxSize) {
-            console.log(entry)
             return {width: entry.borderBoxSize[0].inlineSize, height: entry.borderBoxSize[0].blockSize};
         }
 
