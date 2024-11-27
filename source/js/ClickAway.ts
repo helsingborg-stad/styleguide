@@ -20,7 +20,10 @@ export class ClickAway {
 export function initializeClickAways() {
     let clickAwayInstances: ClickAway[] = [];
     document.querySelectorAll('[data-js-click-away]').forEach((element) => {
-        const classesToRemove = element.getAttribute('data-js-click-away')?.split(',');
+        const classesToRemove =
+            element.getAttribute('data-js-click-away')?.
+            split(',').
+            map(className => className.trim());
 
         if (!classesToRemove || classesToRemove.length <= 0) return;
 
