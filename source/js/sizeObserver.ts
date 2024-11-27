@@ -44,7 +44,6 @@ class SizeObserver {
         const axis = element.getAttribute('data-js-sizeobserver-axis');
         const propertyName = element.getAttribute('data-js-sizeobserver');
         const includePadding = element.hasAttribute('data-js-sizeobserver-use-box-size');
-        console.log(includePadding)
 
         new SizeObserver(element as HTMLElement, propertyName, axis, includePadding);
     });
