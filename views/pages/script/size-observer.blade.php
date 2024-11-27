@@ -6,7 +6,7 @@
         When a dom object is clicked with simulate click attrubute the default action of the object will be prevented. A click event will then be sent to the target defined in the data attribute.
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "SizeObserver", "config" => "SizeObserver"]])
+    @script_doc(["viewDoc" => ["type" => "script", "root" => "sizeobserver", "config" => "sizeobserver"]])
         <style>
             .size-observer {
                 position: relative;
