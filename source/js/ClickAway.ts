@@ -1,64 +1,51 @@
 export class ClickAway {
-    static attributeName = 'data-js-click-away'
-    element: Element
-    classesToRemove: string[] = []
+    constructor(private element: Element, private classesToRemove: string[]) {}
 
-    constructor(element: Element) {
-        this.element = element
+    public handleClickAway(target: Element): void {
+        if (this.element.contains(target)) return;
+        
+        this.removeClasses();
     }
 
-    initialize() {
-        this.setClassesToRemove(this.element)
-        document.addEventListener('click', (event) => this.handleClick(event as PointerEvent))
-        document.addEventListener('keydown', (event) => this.handleKeydown(event))
-    }
-    
-    handleKeydown(event: KeyboardEvent): any {
-        if (event.key !== 'Escape') return
-        this.removeClasses(this.element, this.classesToRemove)
+    public removeClasses(): void {
+        this.classesToRemove.forEach(className => {
+            if (this.element.classList.contains(className)) {
+                this.element.classList.remove(className);
+            }
+        });
     }
 
-    handleClick(event: PointerEvent) {
-
-        const boundingRect = this.element.getBoundingClientRect()
-        if (!this.coordinatesAreOutsideBounds(boundingRect, event.clientX, event.clientY)) return
-        if (this.targetIsOnOrWithinElement(this.element, event.target as Element)) return
-
-        this.removeClasses(this.element, this.classesToRemove)
-    }
-
-    removeClasses(element: Element, classes: string[]) {
-        classes.forEach(className => {
-            element.classList.remove(className)
-        })
-    }
-
-    setClassesToRemove(element: Element) {
-        const classesString = element.getAttribute(ClickAway.attributeName)
-        if (classesString) {
-            this.classesToRemove = classesString.split(',').map(s => s.trim())
-        }
-    }
-
-    coordinatesAreOutsideBounds(bounds: { left: number, right: number, top: number, bottom: number }, x: number, y: number) {
-        if (x < bounds.left) return true;
-        if (x > bounds.right) return true;
-        if (y < bounds.top) return true;
-        if (y > bounds.bottom) return true;
-
-        return false;
-    }
-
-    targetIsOnOrWithinElement(element: Element, target: Element): boolean {
-        if (target === element) return true
-        return element.contains(target)
-    }
 }
 
 export function initializeClickAways() {
-    const elements = document.querySelectorAll(`[${ClickAway.attributeName}]`)
-    elements.forEach(element => {
-        const clickAway = new ClickAway(element)
-        clickAway.initialize()
-    })
+    let clickAwayInstances: ClickAway[] = [];
+    document.querySelectorAll('[data-js-click-away]').forEach((element) => {
+        const classesToRemove =
+            element.getAttribute('data-js-click-away')?.
+            split(',').
+            map(className => className.trim());
+
+        if (!classesToRemove || classesToRemove.length <= 0) return;
+
+        clickAwayInstances.push(new ClickAway(element, classesToRemove));
+    });
+
+    if (clickAwayInstances.length <= 0) return;
+
+    document.addEventListener('click', (e) => {
+        const target = e.target as Element;
+        if (!target) return;
+
+        clickAwayInstances.forEach(clickAwayInstance => {
+            clickAwayInstance.handleClickAway(target);
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            clickAwayInstances.forEach(clickAwayInstance => {
+                clickAwayInstance.removeClasses();
+            });
+        }
+    });
 }
