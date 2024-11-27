@@ -1,5 +1,9 @@
 export class ClickAway {
-    constructor(private element: Element, private classesToRemove: string[]) {}
+    constructor(
+        private element: Element, 
+        private classesToRemove: string[],
+        private removePressed: NodeListOf<Element>
+    ) {}
 
     public handleClickAway(target: Element): void {
         if (this.element.contains(target)) return;
@@ -12,6 +16,14 @@ export class ClickAway {
             if (this.element.classList.contains(className)) {
                 this.element.classList.remove(className);
             }
+        });
+
+        if (this.element.hasAttribute('aria-pressed')) {
+            this.element.setAttribute('aria-pressed', 'false');
+        }
+
+        this.removePressed.forEach(element => {
+            element.setAttribute('aria-pressed', 'false');
         });
     }
 
@@ -27,7 +39,9 @@ export function initializeClickAways() {
 
         if (!classesToRemove || classesToRemove.length <= 0) return;
 
-        clickAwayInstances.push(new ClickAway(element, classesToRemove));
+        const removePressed = element.querySelectorAll('[aria-pressed][data-js-click-away-remove-pressed]');
+
+        clickAwayInstances.push(new ClickAway(element, classesToRemove, removePressed));
     });
 
     if (clickAwayInstances.length <= 0) return;
