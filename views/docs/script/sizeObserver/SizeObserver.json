@@ -1,0 +1,15 @@
+{
+    "summary": [
+        ""
+    ],
+    "description": {
+        "data-js-sizeobserver": "Added to the element to watch. Does not need a value but a value will set the property name.",
+        "data-js-sizeobserver-use-box-size": "Add attribute if wanted, no need for a value.",
+        "data-js-sizeobserver-axis": "Which axis to observe. Can be x, y or both."
+    },
+    "attributes": {
+        "data-js-sizeobserver": "string",
+        "data-js-sizeobserver-use-box-size": "none (boolean)",
+        "data-js-sizeobserver-axis": "x, y, both (string)"
+    }
+}
