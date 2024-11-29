@@ -49,6 +49,7 @@ import {initializeSelectFilter} from './selectFilter';
 import {initializeSelectSort} from './selectSort';
 import {initializeMegaMenus} from './megaMenu';
 import {initializeSizeObserver} from './sizeObserver';
+import {initializeBrand} from './brand';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -116,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSelectSort();
     initializeMegaMenus();
     initializeSizeObserver();
+    initializeBrand();
 
     // Utility functions
     moveElements(moveElement);
