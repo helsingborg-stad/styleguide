@@ -5,25 +5,23 @@ $c-brand-font-size: var(--c-brand-font-size, $font-size-brand) !default;
 $c-brand-height: var(--c-brand-height) !default;
 
 .c-brand {
-  display: inline-flex;
-
-  .c-brand__logotype,
-  .c-brand__viewbox,
-  .c-brand__text-wrapper {
+  .c-brand__logotype {
     height: $c-brand-height;
-    display: inline-flex;
+  }
+
+  .c-brand__viewbox {
+    height: $c-brand-height;
   }
 
   .c-brand__container {
     height: $c-brand-height;
-    display: inline-flex;
+    display: flex;
     gap: map-get($spacers, "3");
     align-items: center;
-    flex-wrap: nowrap;
   }
 
   .c-brand__text {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
