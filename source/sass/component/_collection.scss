@@ -1,18 +1,10 @@
+$c-collection-padding-x: var(--c-collection-padding-x, calc(#{$base} * 2)) !default;
+$c-collection-padding-y: var(--c-collection-padding-y, calc(#{$base} * 2)) !default;
 
+$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{$base} * 2)) !default;
+$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, $base) !default;
 
-$collection-padding-x: calc(#{$base} * 2) !default;
-$collection-paddding-y: calc(#{$base} * 2) !default;
-$collection-paddding-y-compact: calc(#{$base} * 0.75) !default;
-
-$collection-compact-padding-x: $collection-padding-x !default;
-$collection-compact-padding-y: $base !default;
-
-$collection-border-color: var(--c-collection-border-color, $color-border-divider) !default;
-$collection-border: solid 1px $collection-border-color !default;
-
-$collection-hover-background: rgba(black, .05) !default;
-$collection-hover-color: rgba(black, .1) !default;
-$collection-hover-border: rgba(black, .1) !default;
+$c-collection-hover-background: rgba(black, .05) !default;
 
 $c-collection-border-radius: var(--c-collection-border-radius, $border-radius-md) !default;
 
@@ -22,6 +14,7 @@ $c-collection-border-color: var(--c-collection-border-color, $color-border-outli
 $c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
 $c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
 
+// collection__item
 $c-collection-item-border-width: var(--c-collection-item-border-width, $border-width-medium) !default;
 $c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
 
@@ -111,13 +104,13 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     }
 
     .c-collection__divider.c-collection__divider--inset {
-        margin-left: calc(#{$collection-padding-x} * 3.5);
+        margin-left: calc(#{$c-collection-padding-x} * 3.5);
     }
 
     // Content
     .c-collection__content {
         flex: 1 1 auto;
-        padding: $collection-paddding-y $collection-padding-x;
+        padding: $c-collection-padding-y $c-collection-padding-x;
 
         & > *:first-child {
             margin-top: 0;
@@ -141,7 +134,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
     // Secondary
     .c-collection__item > .c-collection__secondary {
-        padding: $collection-paddding-y $collection-padding-x;
+        padding: $c-collection-padding-y $c-collection-padding-x;
         display: flex;
     }
     .c-collection__content .c-collection__secondary {
@@ -151,7 +144,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
     // Icon
     .c-collection__icon {
-        padding: $collection-paddding-y $collection-padding-x;
+        padding: $c-collection-padding-y $c-collection-padding-x;
         display: flex;
     }
 
@@ -178,7 +171,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         &:hover {
             &, a {
                 color: #000000;
-                background-color: $collection-hover-background;
+                background-color: $c-collection-hover-background;
                 .c-collection__content,
                 .c-collection__icon {
                     transform: translateX(calc(#{$base} * 0.5)); 
@@ -191,7 +184,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     & .c-collection {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: $collection-padding-x;
+        padding-left: $c-collection-padding-x;
         border-top: none;
         border-right: none;
         border-bottom: none;
@@ -213,30 +206,31 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     }
 }
 
-// Modifiers - compact
-.c-collection.c-collection--compact {
-    .c-collection__content {
-        padding: $collection-paddding-y-compact $collection-compact-padding-x;
-    }
-    .c-collection__content.c-collection__content--icon {
-        .c-collection__secondary {
-            top: calc(#{$base} * 1.5);
+// Defined to avoid code duplication.
+@mixin collection-compact-styles($breakpoint: null) {
+    $suffix: if($breakpoint, "-#{$breakpoint}", "");
+
+    .c-collection.c-collection--compact#{$suffix} {
+        &.c-collection--bordered {
+            padding-top: calc($base / 2);
+            padding-bottom: calc($base / 2);
+        }
+
+        .c-collection__content,
+        .c-collection__icon,
+        .c-collection__item > .c-collection__secondary {
+            padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
         }
     }
+}
 
-    // Secondary
-    .c-collection__item > .c-collection__secondary {
-        padding: $collection-paddding-y-compact $collection-compact-padding-x;
-    }
-    .c-collection__content .c-collection__secondary {
-        float: right;
-    }
+// Applying the normal compact styles
+@include collection-compact-styles();
 
-
-    // Icon
-    .c-collection__icon {
-        padding: $collection-paddding-y $collection-padding-x;
-        display: flex;
+// Applying the compact styles for each breakpoint
+@each $breakpoint in map-keys($breakpoints-map) {
+    @include mq($breakpoint) {
+        @include collection-compact-styles($breakpoint);
     }
 }
 
@@ -296,7 +290,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         border-radius: 0;
         padding-top: 0;
         padding-left: unset;
-        border-left: solid $base $collection-border-color;
+        border-left: solid $base $c-collection-border-color;
         border-top: $c-collection-divider-border-width solid;
     }
 }
