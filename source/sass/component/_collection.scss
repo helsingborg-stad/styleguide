@@ -221,6 +221,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         .c-collection__item > .c-collection__secondary {
             padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
         }
+
+        .c-collection__icon + .c-collection__content {
+            padding-left: 0;
+        }
     }
 }
 
