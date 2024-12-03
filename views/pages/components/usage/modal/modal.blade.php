@@ -28,19 +28,24 @@
     ];
 @endphp
 
-@foreach ($modals as $key => $modal)
-    @button([
-        'href' => '',
-        'type' => 'filled',
-        'text' => 'Open ' . $key . ' modal',
-        'icon' => 'favorite',
-        'size' => 'md',
-        'color' => 'secondary',
-        'classList' => ['open-modal'],
-        'attributeList' => ['data-open' => 'modal-' . $key],
-    ])
-    @endbutton
+<div style="display: grid; gap: 16px; justify-content: start;  grid-template-columns: 1fr 1fr;">
+    @foreach ($modals as $key => $modal)
+        @button([
+            'href' => '',
+            'type' => 'filled',
+            'text' => 'Open ' . $key . ' modal',
+            'icon' => 'favorite',
+            'size' => 'md',
+            'color' => 'secondary',
+            'classList' => ['open-modal', 'u-margin__left--0'],
+            'attributeList' => ['data-open' => 'modal-' . $key],
+        ])
+        @endbutton
+    @endforeach
+</div>
 
+
+@foreach ($modals as $key => $modal)
     @modal(
         array_merge(
             [
