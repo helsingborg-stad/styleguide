@@ -8,7 +8,6 @@
             'background' => 'primary',
             'isIconButton' => true,
             'icon' => ['name' => 'close'],
-            'reverseIcon' => true,
             'size' => 'lg',
             'color' => 'secondary',
             'floating' => [

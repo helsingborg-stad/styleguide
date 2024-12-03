@@ -5,7 +5,6 @@
         'text' => 'Button',
         'icon' => ['name' => 'close'],
         'size' => 'lg',
-        'reverseIcon' => false,
         'floating' => ['animate' => true, 'hover' => true]
     ]
 )
