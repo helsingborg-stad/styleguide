@@ -58,9 +58,9 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
         margin-top: 0;
     }
 
-    .c-newsitem__image img {
-        height: 100%;
-        width: 100%;
+    .c-newsitem__image-container {
+        position: relative;
+        aspect-ratio: 16/9;
     }
 
     .c-newsitem__content {
