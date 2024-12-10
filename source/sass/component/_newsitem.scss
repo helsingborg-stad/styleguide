@@ -55,6 +55,10 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
         gap: $base;
     }
 
+    .c-newsitem__header-right {
+        margin-left: auto;
+    }
+
     .c-newsitem__date,
     .c-newsitem__read-time {
         display: flex;
