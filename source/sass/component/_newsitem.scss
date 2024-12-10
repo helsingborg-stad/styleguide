@@ -3,18 +3,23 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
 
 // Basic laying down
 .c-newsitem {
-    display: block;
+    display: grid;
+    gap: calc($base * 2);
+    grid-template-columns: repeat(12, 1fr);
     container-type: inline-size;
     container-name: newsitem;
 
     // Areas (components)
-    .c-newsitem__main {
-        display: grid;
-        gap: calc($base * 3);
-        grid-template-columns: 2fr 1fr;
+    .c-newsitem__main-left {
+        grid-column: span 8;
+    }
+    
+    .c-newsitem__main-right {
+        grid-column: span 4;
     }
 
     .c-newsitem__header {
+        grid-column: span 12;
         display: flex;
         justify-content: space-between;
         padding: $base 0;
@@ -23,10 +28,14 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     }
 
     .c-newsitem__title {
-        margin: calc($base * 2) 0;
+        grid-column: span 12;
         display: grid;
         grid-template-columns: 1fr auto;
         gap: calc($base * 3);
+    }
+
+    .c-newsitem__title-left.cover {
+        grid-column: span 2;
     }
 
     // Partials (individual items)
@@ -88,49 +97,61 @@ a.c-newsitem {
 
 // Standing
 .c-newsitem.c-newsitem--standing {
-    .c-newsitem__main {
-        grid-template-columns: 1fr;
-        gap: calc($base * 2);
+    .c-newsitem__header {
+        order: 1;
+    }
+    .c-newsitem__main-right {
+        order: 2;
+        grid-column: span 12;
     }
 
-    .c-newsitem__main-right {
-        order: 1;
+    .c-newsitem__title {
+        order: 3;
     }
 
     .c-newsitem__main-left {
-        order: 2;
+        order: 4;
+        grid-column: span 12;
     }
 }
 
 // Responsive
 .c-newsitem {
     @container newsitem (max-width: 650px) {
-        .c-newsitem__main {
-            grid-template-columns: 1fr;
-            gap: calc($base * 2);
-        }
-
-        .c-newsitem__main-right {
+        .c-newsitem__header {
             order: 1;
         }
-
-        .c-newsitem__main-left {
+        .c-newsitem__main-right {
             order: 2;
+            grid-column: span 12;
+        }
+    
+        .c-newsitem__title {
+            order: 3;
+        }
+    
+        .c-newsitem__main-left {
+            order: 4;
+            grid-column: span 12;
         }
     }
 
     @supports not (container-type: inline-size) {
-        .c-newsitem.c-newsitem__main {
-            grid-template-columns: 1fr;
-            gap: calc($base * 2);
-        }
-
-        .c-newsitem__main-right {
+        .c-newsitem__header {
             order: 1;
         }
-
-        .c-newsitem__main-left {
+        .c-newsitem__main-right {
             order: 2;
+            grid-column: span 12;
+        }
+    
+        .c-newsitem__title {
+            order: 3;
+        }
+    
+        .c-newsitem__main-left {
+            order: 4;
+            grid-column: span 12;
         }
     }
 }
