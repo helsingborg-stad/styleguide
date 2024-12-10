@@ -12,6 +12,10 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     // Areas (components)
     .c-newsitem__main-left {
         grid-column: span 8;
+
+        &.cover {
+            grid-column: span 12;
+        }
     }
     
     .c-newsitem__main-right {
