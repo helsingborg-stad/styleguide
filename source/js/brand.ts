@@ -13,7 +13,7 @@ class BrandViewBoxManager {
         this.updateViewBox();
     }
 
-    private updateViewBox(): void {
+    public updateViewBox(): void {
         const textStyles = window.getComputedStyle(this.textElement);
         const containerStyles = window.getComputedStyle(this.container);
         const textWidth = parseFloat(textStyles.getPropertyValue('width'));
@@ -27,15 +27,26 @@ class BrandViewBoxManager {
         // Calculate the total width of the SVG
         const totalWidth = !figureWidth ? Math.ceil(textWidth) : Math.ceil(figureWidth + textWidth + gap);
 
-        // Update the viewBox of the SVG
         this.svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
     }
 }
 
 export function initializeBrand(): void {
+    let instances: BrandViewBoxManager[] = [];
     document.querySelectorAll<HTMLElement>('.c-brand').forEach((brandElement) => {
         if (brandElement) {
-            new BrandViewBoxManager(brandElement);
+            instances.push(new BrandViewBoxManager(brandElement));
         }
+    });
+
+    let resizeTimeout: NodeJS.Timeout;
+
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            instances.forEach((instance) => {
+                instance.updateViewBox();
+            });
+        }, 300);
     });
 }
