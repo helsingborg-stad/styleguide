@@ -54,7 +54,7 @@ $font-sizes: (
 );
 
 @each $name, $value in $font-sizes {
-    .u-font-size-#{$name} {
+    .u-font-size--#{$name} {
         font-size: $value;
     }
 }
