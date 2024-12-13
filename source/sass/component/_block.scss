@@ -74,7 +74,8 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
     .c-block__meta,
     .c-block__date,
     .c-block__content,
-    .c-block__secondarymeta {
+    .c-block__secondarymeta,
+    .c-block__body {
         margin: 0; 
         color: $c-block-color; 
         display: block; 
