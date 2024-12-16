@@ -1,15 +1,10 @@
 class BrandViewBoxManager {
-    private svg: SVGElement;
-    private textElement: HTMLElement;
-    private figureElement: HTMLElement | null;
-    private container: HTMLElement;
-
-    constructor(private brand: HTMLElement) {
-        this.container = this.brand.querySelector<HTMLElement>('.c-brand__container')!;
-        this.svg = this.brand.querySelector<SVGElement>('.c-brand__viewbox')!;
-        this.textElement = this.brand.querySelector<HTMLElement>('.c-brand__text')!;
-        this.figureElement = this.brand.querySelector<HTMLElement>('.c-brand__logotype'); // Optional
-
+    constructor(
+        private svg: SVGElement, 
+        private container: HTMLElement, 
+        private textElement: HTMLElement, 
+        private figureElement: HTMLElement | null
+    ) {
         this.updateViewBox();
     }
 
@@ -35,7 +30,26 @@ class BrandViewBoxManager {
 export function initializeBrand(): void {
     document.querySelectorAll<HTMLElement>('.c-brand').forEach((brandElement) => {
         if (brandElement) {
-            new BrandViewBoxManager(brandElement);
+            const svg = brandElement.querySelector<SVGElement>('.c-brand__viewbox');
+            const container = brandElement.querySelector<HTMLElement>('.c-brand__container');
+            const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');
+            const figureElement = brandElement.querySelector<HTMLElement>('.c-brand__logotype');
+
+            if (!svg || !container || !textElement) {
+                return;
+            }
+
+            const img = figureElement?.querySelector('img');
+
+            const initViewBoxManager = () => {
+                new BrandViewBoxManager(svg, container, textElement, figureElement);
+            }
+
+            if (!img || img.complete) {
+                initViewBoxManager();
+            } else {
+                img.addEventListener('load', initViewBoxManager);
+            }
         }
     });
 }
