@@ -29,27 +29,25 @@ class BrandViewBoxManager {
 
 export function initializeBrand(): void {
     document.querySelectorAll<HTMLElement>('.c-brand').forEach((brandElement) => {
-        if (brandElement) {
-            const svg = brandElement.querySelector<SVGElement>('.c-brand__viewbox');
-            const container = brandElement.querySelector<HTMLElement>('.c-brand__container');
-            const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');
-            const figureElement = brandElement.querySelector<HTMLElement>('.c-brand__logotype');
+        const svg = brandElement.querySelector<SVGElement>('.c-brand__viewbox');
+        const container = brandElement.querySelector<HTMLElement>('.c-brand__container');
+        const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');
+        const figureElement = brandElement.querySelector<HTMLElement>('.c-brand__logotype');
 
-            if (!svg || !container || !textElement) {
-                return;
-            }
+        if (!svg || !container || !textElement) {
+            return;
+        }
 
-            const img = figureElement?.querySelector('img');
+        const img = figureElement?.querySelector('img');
 
-            const initViewBoxManager = () => {
-                new BrandViewBoxManager(svg, container, textElement, figureElement);
-            }
+        const initViewBoxManager = () => {
+            new BrandViewBoxManager(svg, container, textElement, figureElement);
+        }
 
-            if (!img || img.complete) {
-                initViewBoxManager();
-            } else {
-                img.addEventListener('load', initViewBoxManager);
-            }
+        if (!img || img.complete) {
+            initViewBoxManager();
+        } else {
+            img.addEventListener('load', initViewBoxManager);
         }
     });
 }
