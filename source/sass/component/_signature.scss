@@ -6,6 +6,12 @@
     text-decoration: none;
     column-gap: map-get($spacers, "2" );
 
+    &.c-signature--no-avatar {
+        .c-signature__author-box {
+            grid-column: span 2;
+        }
+    }
+
     &--space-1 {
         margin-bottom: map-get($spacers, "3");
     }
