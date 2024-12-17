@@ -63,7 +63,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
         }
     }
 
-    .c-megamenu__sublist.c-megamenu__sublist--child {
+    .c-megamenu__sublist.c-megamenu__sublist--flex {
         display: flex;
         flex-wrap: wrap;
         gap: 0 $base;
