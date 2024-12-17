@@ -74,11 +74,14 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
     .c-block__meta,
     .c-block__date,
     .c-block__content,
-    .c-block__secondarymeta,
-    .c-block__body {
-        margin: 0; 
+    .c-block__secondarymeta {
+        margin: 0;
         color: $c-block-color; 
         display: block; 
+    }
+
+    .c-block__body {
+        color: $c-block-color; 
     }
 
     &.c-block--ratio-1-1 {
