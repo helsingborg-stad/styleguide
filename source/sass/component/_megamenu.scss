@@ -62,6 +62,12 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
             color: $c-mega-menu-subitem-color;
         }
     }
+
+    .c-megamenu__sublist.c-megamenu__sublist--child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 $base;
+    }
 }
 
 
