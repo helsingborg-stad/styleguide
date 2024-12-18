@@ -52,7 +52,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     .c-newsitem__header-right {
         display: flex;
         align-items: center;
-        gap: $base;
+        gap: calc($base * 2);
     }
 
     .c-newsitem__header-right {
