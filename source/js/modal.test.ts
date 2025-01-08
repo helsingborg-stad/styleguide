@@ -37,8 +37,7 @@ const defaultModalData: IModalData = {
 }
 
 function initializeModalComponent() {
-    const modalInstance = new Modal()
-    modalInstance.enableModals()
+    new Modal()
 }
 
 async function renderModalComponent(partialModalData: Partial<IModalData>) {
