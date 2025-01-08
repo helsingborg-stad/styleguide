@@ -143,7 +143,7 @@ describe('modal', () => {
         expect(Gallery).toHaveBeenCalledTimes(1)
     })
 
-    it.only('close modal on backdrop click', async () => {
+    it('close modal on backdrop click', async () => {
         document.body.innerHTML = `<p>test</p>`
         await renderModalComponent({heading: 'Modal heading'})
         const modalElement = document.querySelector('.c-modal') as HTMLDialogElement
