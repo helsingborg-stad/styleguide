@@ -25,7 +25,7 @@ class CLI
             throw new Error("Could not decode JSON data");
         }
 
-        $component = new $componentClass($data);
+        $component = new $componentClass($data, new ComponentLibrary\Cache\StaticCache());
         $componentClassPath = (new ReflectionClass($componentClass))->getFileName();
         $componentClassDir = dirname($componentClassPath);
 
