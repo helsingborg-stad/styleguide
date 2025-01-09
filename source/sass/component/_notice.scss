@@ -22,30 +22,68 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     border-radius: $c-notice-border-radius;
     color: $color-notice-text-default;
     display: grid;
-    grid-template-columns: min-content 2fr;
-    grid-template-rows: min-content;
+    grid-template-areas: 
+        "icon title actions"
+        "icon message actions";
+    grid-template-columns: min-content 1fr auto;
+    grid-auto-rows: auto;
+    gap: 0 map-get($spacers, "2");
+    align-items: center;
 
     .c-notice__icon {
-        margin-right: map-get($spacers, "2");
-        margin-left: calc(#{map-get($spacers, "1")} * -1);
+        grid-area: icon;
         vertical-align: sub;
-        grid-area: 1/1/2/1;
         line-height: 1rem;
         opacity: .7;
     }
 
     .c-notice__title {
-        margin-top: 0;
-        grid-area: 1/2/1/2;
+        grid-area: title;
+        margin: 0;
         line-height: $body-line-height;
     }
 
     .c-notice__message {
-        grid-area: 1/2/1/2;
+        grid-area: message;
+        margin: 0;
     }
 
-    .c-notice__title + .c-notice__message {
-        grid-area: 2/2/2/2;
+    .c-notice__actions {
+        grid-area: actions;
+        display: flex;
+        gap: map-get($spacers, "2");
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .c-notice__action {
+        margin: calc(map-get($spacers, "2") * -.5) 0; 
+    }
+
+    .c-notice__action:last-child {
+        margin-right: calc(map-get($spacers, "2") * -.8);
+    }
+
+    .c-notice__dismiss {
+        margin: calc(map-get($spacers, "2") * -1) calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "2") * -1) 0;
+    }
+
+    .c-notice__action + .c-notice__dismiss::before {
+        content: "";
+        display: inline-block;
+        width: 1px;
+        height: 100%;
+        background: $color-notice-text-default;
+        padding-left: map-get($spacers, "1");
+    }
+
+    // Remove gaps when elements are missing
+    &:not(:has(.c-notice__title)) {
+        grid-template-areas: "icon message actions";
+    }
+
+    &:not(:has(.c-notice__message)) {
+        grid-template-areas: "icon title actions";
     }
 
     a,

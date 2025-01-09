@@ -10,6 +10,8 @@ $c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, $
 $c-button-secondary-color: var(--c-button-secondary-color, $color-secondary) !default;
 $c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, $color-secondary-contrasting) !default;
 
+$c-button-light-color: var(--c-button-light-color, $color-white) !default;
+
 $c-button-default-color: var(--c-button-default-color, $color-button-black) !default;
 
 $c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
@@ -276,6 +278,11 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &--default,
     &--deafult .c-button__label {
         color: $c-button-default-color;
+    }
+
+    &--light,
+    &--light .c-button__label {
+        color: $c-button-light-color;
     }
 }
 

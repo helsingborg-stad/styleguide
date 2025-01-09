@@ -4,7 +4,7 @@
         'text' => 'This message size is set to sm.',
     ],
     'action' => [
-        'text' => 'Undo',
+        'text' => 'Go to home',
         'url' => '#'
     ],
     'dismissable' => true,
