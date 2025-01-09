@@ -2,7 +2,7 @@
     @notice([
         'type' => $type,
         'message' => [
-            'text' => 'This message has an action button and may be dismissable.',
+            'text' => 'This message has an action button and may be dismissable ('.$type.').',
         ],
         'action' => [
             'text' => 'Go to home',
@@ -20,7 +20,7 @@
     @notice([
         'type' => $type,
         'message' => [
-            'text' => 'This message is simply dismissable.',
+            'text' => 'This message is simply dismissable ('.$type.').',
         ],
         'dismissable' => true,
         'icon' => [
@@ -34,7 +34,7 @@
     @notice([
         'type' => $type,
         'message' => [
-            'text' => 'This has a button to do a task but no dismiss action.',
+            'text' => 'This has a button to do a task but no dismiss action ('.$type.' - ' .$loop->iteration.').',
         ],
         'action' => [
             'text' => 'Undo',

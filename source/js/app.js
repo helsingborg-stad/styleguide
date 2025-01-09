@@ -50,6 +50,7 @@ import {initializeSelectSort} from './selectSort';
 import {initializeMegaMenus} from './megaMenu';
 import {initializeSizeObserver} from './sizeObserver';
 import {initializeBrand} from './brand';
+import {initializeDismissableNotices} from './dismissableNotices';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -118,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMegaMenus();
     initializeSizeObserver();
     initializeBrand();
+    initializeDismissableNotices();
 
     // Utility functions
     moveElements(moveElement);
