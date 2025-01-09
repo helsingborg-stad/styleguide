@@ -27,8 +27,11 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         "icon message actions";
     grid-template-columns: min-content 1fr auto;
     grid-auto-rows: auto;
-    gap: 0 map-get($spacers, "2");
     align-items: center;
+
+    > [class*='c-notice__'] + [class*='c-notice__']  {
+        margin-left: map-get($spacers, "2");
+    }
 
     .c-notice__icon {
         grid-area: icon;
@@ -49,32 +52,32 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     }
 
     .c-notice__actions {
+        
         grid-area: actions;
         display: flex;
-        gap: map-get($spacers, "2");
+        gap: calc(map-get($spacers, "1") * 1.5);
         align-items: center;
         justify-content: flex-end;
-    }
+        margin: calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) 0;
 
-    .c-notice__action {
-        margin: calc(map-get($spacers, "2") * -.5) 0; 
-    }
+        > * + * {
+            position: relative;
+            padding-left: calc(calc(map-get($spacers, "1") * 0.75) + 1px);
+            margin-left: calc(map-get($spacers, "1") * 0.75);
+        }
 
-    .c-notice__action:last-child {
-        margin-right: calc(map-get($spacers, "2") * -.8);
-    }
-
-    .c-notice__dismiss {
-        margin: calc(map-get($spacers, "2") * -1) calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "2") * -1) 0;
-    }
-
-    .c-notice__action + .c-notice__dismiss::before {
-        content: "";
-        display: inline-block;
-        width: 1px;
-        height: 100%;
-        background: $color-notice-text-default;
-        padding-left: map-get($spacers, "1");
+        > * + *::before {
+            border-left: 1px solid;
+            content: "";
+            display: block;
+            height: 1rem;
+            opacity: .3;
+            width: 1px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+        }
     }
 
     // Remove gaps when elements are missing
@@ -105,6 +108,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
             color: $c-notice-color-success-text;
             text-decoration: underline;
         }
+
+        .c-button {
+            color: $c-notice-color-success-text;
+        }
     }
 
     &--danger {
@@ -117,6 +124,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         a:visited {
             color: $c-notice-color-danger-text;
             text-decoration: underline;
+        }
+
+        .c-button {
+            color: $c-notice-color-danger-text;
         }
     }
 
@@ -131,6 +142,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
             color: $c-notice-color-info-text;
             text-decoration: underline;
         }
+
+        .c-button {
+            color: $c-notice-color-info-text;
+        }
     }
 
     &--warning {
@@ -143,6 +158,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         a:visited {
             color: $c-notice-color-warning-text;
             text-decoration: underline;
+        }
+
+        .c-button {
+            color: $c-notice-color-warning-text;
         }
     }
 
