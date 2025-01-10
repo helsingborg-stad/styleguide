@@ -23,7 +23,7 @@ class DismissableNotice {
    * Initializes the dismissable notice by setting up event listeners
    * and checking if the notice should be displayed.
    */
-  private init() {
+  private init(): void {
       if (this.timeout !== NoticeTimeout.Immediate && !this.shouldShowNotice()) {
           this.removeNotice();
           return;
@@ -35,7 +35,7 @@ class DismissableNotice {
   /**
    * Sets up the event listener for the dismiss button.
    */
-  private setupListeners() {
+  private setupListeners(): void {
       if (this.dismissTrigger) {
           this.dismissTrigger.addEventListener('click', () => this.dismiss(), { once: true });
       }
@@ -54,7 +54,7 @@ class DismissableNotice {
    * Dismisses the notice by storing its state in sessionStorage or localStorage
    * and removing it from the DOM.
    */
-  private dismiss() {
+  private dismiss(): void {
       if (this.timeout !== NoticeTimeout.Immediate && this.uid) {
           const storage = this.getStorage();
           storage.setItem(this.uid, 'dismissed');
@@ -65,7 +65,7 @@ class DismissableNotice {
   /**
    * Removes the notice from the DOM.
    */
-  private removeNotice() {
+  private removeNotice(): void {
       this.notice.remove();
   }
 
@@ -98,7 +98,7 @@ class DismissableNotice {
 /**
 * Initializes all dismissable notices on the page.
 */
-export function initializeDismissableNotices() {
+export function initializeDismissableNotices(): void {
   const notices = document.querySelectorAll<HTMLElement>('[data-dismissable-notice]');
   notices.forEach((notice) => {
       new DismissableNotice(notice);
