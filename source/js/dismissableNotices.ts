@@ -1,16 +1,27 @@
+enum NoticeTimeout {
+  Session = 'session',
+  Permanent = 'permanent',
+  Imidiate = 'imidiate',
+}
+
 class DismissableNotice {
   private notice: HTMLElement;
   private dismissTrigger: HTMLElement | null;
   private uid: string;
-  private timeout: string;
+  private timeout: NoticeTimeout;
 
   constructor(notice: HTMLElement) {
-    this.notice = notice;
-    this.dismissTrigger = this.notice.querySelector('[data-dismissable-notice-trigger="1"]');
-    this.uid = this.notice.getAttribute('data-dismissable-notice-uid') || '';
-    this.timeout = this.notice.getAttribute('data-dismissable-notice-timeout') || 'session';
+      this.notice = notice;
+      this.dismissTrigger = this.notice.querySelector('[data-dismissable-notice-trigger="1"]');
+      this.uid = this.notice.getAttribute('data-dismissable-notice-uid') || '';
+      this.timeout = this.getTimeoutValue();
 
-    this.init();
+      // If the notice has no UID and is not set to be dismissed immediately,
+      if (!this.uid && this.timeout !== NoticeTimeout.Imidiate) {
+          return;
+      }
+
+      this.init();
   }
 
   /**
@@ -18,21 +29,21 @@ class DismissableNotice {
    * and checking if the notice should be displayed.
    */
   private init() {
-    if (!this.shouldShowNotice()) {
-      this.notice.remove();
-      return;
-    }
+      if (this.timeout !== NoticeTimeout.Imidiate && !this.shouldShowNotice()) {
+          this.removeNotice();
+          return;
+      }
 
-    this.setupListeners();
+      this.setupListeners();
   }
 
   /**
    * Sets up the event listener for the dismiss button.
    */
   private setupListeners() {
-    if (this.dismissTrigger) {
-      this.dismissTrigger.addEventListener('click', () => this.dismiss());
-    }
+      if (this.dismissTrigger) {
+          this.dismissTrigger.addEventListener('click', () => this.dismiss());
+      }
   }
 
   /**
@@ -40,8 +51,8 @@ class DismissableNotice {
    * and the stored state in sessionStorage or localStorage.
    */
   private shouldShowNotice(): boolean {
-    const storage = this.getStorage();
-    return !storage.getItem(this.uid);
+      const storage = this.getStorage();
+      return this.timeout === NoticeTimeout.Imidiate || !storage.getItem(this.uid);
   }
 
   /**
@@ -49,9 +60,18 @@ class DismissableNotice {
    * and removing it from the DOM.
    */
   private dismiss() {
-    const storage = this.getStorage();
-    storage.setItem(this.uid, 'dismissed');
-    this.notice.remove();
+      if (this.timeout !== NoticeTimeout.Imidiate) {
+          const storage = this.getStorage();
+          storage.setItem(this.uid, 'dismissed');
+      }
+      this.removeNotice();
+  }
+
+  /**
+   * Removes the notice from the DOM.
+   */
+  private removeNotice() {
+      this.notice.parentElement?.removeChild(this.notice);
   }
 
   /**
@@ -59,24 +79,35 @@ class DismissableNotice {
    * based on the timeout value.
    */
   private getStorage(): Storage {
-    switch (this.timeout) {
-      case 'permanent':
-        return localStorage;
-      case 'session':
-      default:
-        return sessionStorage;
-    }
+      switch (this.timeout) {
+          case NoticeTimeout.Permanent:
+              return localStorage;
+          case NoticeTimeout.Session:
+          default:
+              return sessionStorage;
+      }
+  }
+
+  /**
+   * Retrieves and validates the timeout value from the data attribute.
+   */
+  private getTimeoutValue(): NoticeTimeout {
+      const timeout = this.notice.getAttribute('data-dismissable-notice-timeout') as NoticeTimeout;
+      if (Object.values(NoticeTimeout).includes(timeout)) {
+          return timeout;
+      }
+      return NoticeTimeout.Session;
   }
 }
 
 /**
- * Initializes all dismissable notices on the page.
- */
+* Initializes all dismissable notices on the page.
+*/
 export function initializeDismissableNotices() {
-  document.querySelectorAll<HTMLElement>('[data-dismissable-notice="1"]').forEach(notice => {
-    new DismissableNotice(notice);
+  const notices = document.querySelectorAll<HTMLElement>('[data-dismissable-notice="1"]');
+  notices.forEach((notice) => {
+      new DismissableNotice(notice);
   });
 }
 
-// Initialize dismissable notices on DOM content loaded
-document.addEventListener('DOMContentLoaded', () => initializeDismissableNotices());
+export default initializeDismissableNotices;
