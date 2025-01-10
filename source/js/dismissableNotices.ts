@@ -1,7 +1,7 @@
 enum NoticeTimeout {
   Session = 'session',
   Permanent = 'permanent',
-  Imidiate = 'imidiate',
+  Immediate = 'immediate',
 }
 
 class DismissableNotice {
@@ -11,15 +11,10 @@ class DismissableNotice {
   private timeout: NoticeTimeout;
 
   constructor(notice: HTMLElement) {
-      this.notice = notice;
-      this.dismissTrigger = this.notice.querySelector('[data-dismissable-notice-trigger="1"]');
-      this.uid = this.notice.getAttribute('data-dismissable-notice-uid') || '';
-      this.timeout = this.getTimeoutValue();
-
-      // If the notice has no UID and is not set to be dismissed immediately,
-      if (!this.uid && this.timeout !== NoticeTimeout.Imidiate) {
-          return;
-      }
+      this.notice         = notice;
+      this.dismissTrigger = this.notice.querySelector('[data-dismissable-notice-trigger]');
+      this.uid            = this.notice.getAttribute('data-dismissable-notice-uid') || '';
+      this.timeout        = this.uid ? this.getTimeoutValue() : NoticeTimeout.Immediate;
 
       this.init();
   }
@@ -29,7 +24,7 @@ class DismissableNotice {
    * and checking if the notice should be displayed.
    */
   private init() {
-      if (this.timeout !== NoticeTimeout.Imidiate && !this.shouldShowNotice()) {
+      if (this.timeout !== NoticeTimeout.Immediate && !this.shouldShowNotice()) {
           this.removeNotice();
           return;
       }
@@ -52,7 +47,7 @@ class DismissableNotice {
    */
   private shouldShowNotice(): boolean {
       const storage = this.getStorage();
-      return this.timeout === NoticeTimeout.Imidiate || !storage.getItem(this.uid);
+      return this.timeout === NoticeTimeout.Immediate || !storage.getItem(this.uid);
   }
 
   /**
@@ -60,7 +55,7 @@ class DismissableNotice {
    * and removing it from the DOM.
    */
   private dismiss() {
-      if (this.timeout !== NoticeTimeout.Imidiate) {
+      if (this.timeout !== NoticeTimeout.Immediate && this.uid) {
           const storage = this.getStorage();
           storage.setItem(this.uid, 'dismissed');
       }
@@ -71,7 +66,7 @@ class DismissableNotice {
    * Removes the notice from the DOM.
    */
   private removeNotice() {
-      this.notice.parentElement?.removeChild(this.notice);
+      this.notice.remove();
   }
 
   /**
@@ -104,7 +99,7 @@ class DismissableNotice {
 * Initializes all dismissable notices on the page.
 */
 export function initializeDismissableNotices() {
-  const notices = document.querySelectorAll<HTMLElement>('[data-dismissable-notice="1"]');
+  const notices = document.querySelectorAll<HTMLElement>('[data-dismissable-notice]');
   notices.forEach((notice) => {
       new DismissableNotice(notice);
   });
