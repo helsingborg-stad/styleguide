@@ -37,7 +37,7 @@ class DismissableNotice {
    */
   private setupListeners() {
       if (this.dismissTrigger) {
-          this.dismissTrigger.addEventListener('click', () => this.dismiss());
+          this.dismissTrigger.addEventListener('click', () => this.dismiss(), { once: true });
       }
   }
 
