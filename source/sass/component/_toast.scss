@@ -1,0 +1,78 @@
+$toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
+
+.c-toast {
+  position: fixed;
+  margin: calc(#{$base} * 2);
+  display: grid;
+  gap: calc(#{$base} * 1); // Space between toasts
+  z-index: $level-9;
+
+  &.c-toast--top-left {
+    top: 0;
+    left: 0;
+  }
+
+  &.c-toast--top-right {
+    top: 0;
+    right: 0;
+  }
+
+  &.c-toast--bottom-left {
+    left: 0;
+    bottom: 0;
+  }
+
+  &.c-toast--bottom-right {
+    right: 0;
+    bottom: 0;
+  }
+ 
+  .c-toast__item {  
+    opacity: 0;
+    transform: translateY(calc(#{$base} * 3));
+    animation: slide-in 0.3s ease-out forwards, fade-out 0.5s ease-in forwards;
+    animation-delay: 0s, $toastHideTimeoutBase; // Default delays
+  
+    &--dismissable {
+      animation: slide-in 0.3s ease-out forwards; // Only slide-in animation
+    }
+  
+    &--has-action {
+      animation-delay: 0s, calc(#{$toastHideTimeoutBase} * 2); // Double the fade-out delay
+    }
+  
+    @for $i from 2 through 10 {
+      &:nth-child(#{$i}) {
+        $delay: ($i - 1) * 0.3s; // Calculate staggered delay
+        animation-delay: $delay, calc(#{$toastHideTimeoutBase} + #{$delay}); // Fade-out with base timeout
+      }
+  
+      &--has-action:nth-child(#{$i}) {
+        $delay: ($i - 1) * 0.3s; // Calculate staggered delay
+        animation-delay: $delay, calc((#{$toastHideTimeoutBase} * 2) + #{$delay}); // Double base for has-action
+      }
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(calc(#{$base} * 3));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(calc(#{$base} * -3));
+    }
+  }
+}
