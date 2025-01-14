@@ -6,6 +6,8 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 // ***************************************************************
 
 .c-image {
+    line-height: 0;
+    
     .c-image__caption,
     .c-image__byline {
         font-size: $font-size-caption;
