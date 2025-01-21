@@ -25,6 +25,8 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     .c-newsitem__header {
         grid-column: span 12;
         display: flex;
+        row-gap: $base;
+        flex-wrap: wrap;
         justify-content: space-between;
         padding: $base 0;
         border-top: 1px solid $c-newsitem-header-border-color;
@@ -53,10 +55,6 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
         display: flex;
         align-items: center;
         gap: calc($base * 2);
-    }
-
-    .c-newsitem__header-right {
-        margin-left: auto;
     }
 
     .c-newsitem__date,
