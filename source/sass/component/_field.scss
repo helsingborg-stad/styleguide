@@ -161,6 +161,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
+    &.c-field--hidden {
+        .c-field__inner {
+            border: unset;
+        }
+    }
+
 
     textarea {
         min-height: $c-field-height;
