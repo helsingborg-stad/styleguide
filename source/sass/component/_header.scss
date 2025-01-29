@@ -92,18 +92,6 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
     // Logo
     &__logotype {
         height: $c-header-logotype-height;
-
-        @include mq('xs') {
-            height: clamp(calc(#{$base} * 3), calc($c-header-logotype-height * 0.65), $c-header-logotype-height);
-        }
-    
-        @include mq('md') {
-            height: clamp(calc(#{$base} * 3), calc($c-header-logotype-height * 0.75), $c-header-logotype-height);
-        }
-    
-        @include mq('lg') {
-            height: $c-header-logotype-height;
-        }
     }
 }
 
