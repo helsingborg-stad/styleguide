@@ -5,6 +5,7 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
   margin: calc(#{$base} * 2);
   display: grid;
   z-index: $level-9;
+  width: min(100vw, calc(#{$base} * 65));
 
   &.c-toast--top-left {
     top: 0;
