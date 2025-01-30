@@ -66,13 +66,17 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
   }
 
   @keyframes fade-out {
-    from {
+    0% {
       opacity: 1;
       transform: translateY(0);
     }
-    to {
+    99% {
       opacity: 0;
       transform: translateY(calc(#{$base} * -3));
+      display: block; // Ensure it's still visible until 99%
+    }
+    100% {
+      display: none; // Hide it completely
     }
   }
 }
