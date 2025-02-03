@@ -8,6 +8,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     grid-template-columns: repeat(12, 1fr);
     container-type: inline-size;
     container-name: newsitem;
+    grid-auto-rows: min-content;
 
     // Areas (components)
     .c-newsitem__main-left {
