@@ -3,7 +3,8 @@ class SizeObserver {
         private element: HTMLElement, 
         private propertyName: string|null, 
         private axis: string|null,
-        private includePadding: boolean
+        private includePadding: boolean,
+        private includeFullSize: boolean
     ) {
         this.axis = this.axis || 'both';
         this.propertyName = this.propertyName || 'size-observer';
@@ -19,6 +20,10 @@ class SizeObserver {
     }
 
     private getHeightWidth(entry: ResizeObserverEntry) {
+        if (this.includeFullSize && entry.target) {
+            return {width: entry.target.scrollWidth ?? 0, height: entry.target.scrollHeight ?? 0};
+        }
+
         if (this.includePadding && entry.borderBoxSize) {
             return {width: entry.borderBoxSize[0].inlineSize, height: entry.borderBoxSize[0].blockSize};
         }
@@ -44,7 +49,8 @@ class SizeObserver {
         const axis = element.getAttribute('data-js-sizeobserver-axis');
         const propertyName = element.getAttribute('data-js-sizeobserver');
         const includePadding = element.hasAttribute('data-js-sizeobserver-use-box-size');
+        const includeFullSize = element.hasAttribute('data-js-sizeobserver-element-full-size');
 
-        new SizeObserver(element as HTMLElement, propertyName, axis, includePadding);
+        new SizeObserver(element as HTMLElement, propertyName, axis, includePadding, includeFullSize);
     });
   }
