@@ -171,6 +171,31 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     @include stretch();
 }
 
+.c-notice.c-notice--action-below {
+    grid-template-areas: 
+        "icon title"
+        "icon message"
+        ". actions";
+
+    .c-notice__actions {
+        margin-top: var(--base, 8px);
+        justify-content: flex-start;
+    }
+
+    // Remove gaps when elements are missing
+    &:not(:has(.c-notice__title)) {
+        grid-template-areas: 
+            "icon message"
+            ". actions";
+    }
+
+    &:not(:has(.c-notice__message)) {
+        grid-template-areas: 
+            "icon title"
+            ". actions";
+    }
+}
+
 .c-notice + .c-notice {
     margin-top: calc(#{$base} * 2); 
 }
