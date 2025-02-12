@@ -6,32 +6,6 @@
     text-decoration: none;
     column-gap: map-get($spacers, "2" );
 
-    &.c-signature--no-avatar {
-        .c-signature__author-box {
-            grid-column: span 2;
-        }
-    }
-
-    &--space-1 {
-        margin-bottom: map-get($spacers, "3");
-    }
-
-    &--space-2 {
-        margin-bottom: map-get($spacers, "6");
-    }
-
-    .c-avatar--size-sm + &__content {
-        margin-left: $base;
-    }
-
-    .c-avatar--size-md + &__content {
-        margin-left: calc(#{$base} * 2);
-    }
-
-    .c-avatar--size-lg + &__content {
-        margin-left: calc(#{$base} * 3);
-    }
-
     &__avatar {
         grid-area: avatar;
     }
