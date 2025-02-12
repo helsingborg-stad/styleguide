@@ -5,7 +5,8 @@
     'height' => 'sm',
     'classList' => [
         'p-home__hero'
-    ]
+    ],
+    'hasPlaceholder' => false
 ])
     @typography([
         'element' => 'h1',
@@ -37,10 +38,6 @@
     ])        
         The style guide is intended for websites within Helsingborgs stad and others who use our platform. The guide provides examples, markup and themes for our standardized components. The Helsingborg Styleguide is a flexible and minimalistic component-based framework built in the BEM standard & designed around the Atomic Design principle.
     @endtypography
-
-    @slot('bottom')
-        You can easily get started by including our CSS and JavaScript from our GitHub CDN. For the advanced user who wants to customize our code, please refer to the source files in our styleguide at https://github.com/helsingborg-stad/styleguide.
-    @endslot
 @endsegment
 
 <article class="o-container">
@@ -49,7 +46,6 @@
             @card([
                 'heading' => 'Components',
                 'subHeading' => 'A web for everyone',
-                'imageFirst' => true,
                 'content' => 'The component library is a collection of robust views with built-in logic to handle common scenarios.',
                 'image' => [
                     'src' => '/assets/img/component.svg',
@@ -66,7 +62,6 @@
             @card([
                 'heading' => 'Atomic Design',
                 'subHeading' => 'Implemented standards',
-                'imageFirst' => true,
                 'content' => 'The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.',
                 'image' => [
                     'src' => '/assets/img/atom.svg',
@@ -83,7 +78,6 @@
             @card([
                 'heading' => 'Utilities',
                 'subHeading' => 'Behind the screen',
-                'imageFirst' => true,
                 'content' => 'Swiftly create new apperance of anything in the styleguide, or even create a new component. Each utility has their corresponding mixin.',
                 'image' => [
                     'src' => '/assets/img/utility.svg',
@@ -100,7 +94,6 @@
             @card([
                 'heading' => 'Accessibility',
                 'subHeading' => 'And usability',
-                'imageFirst' => true,
                 'content' => 'One of the main focus of this styleguide is usability. Read more of our guidelines here.',
                 'image' => [
                     'src' => '/assets/img/usability.svg',

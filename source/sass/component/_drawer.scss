@@ -1,10 +1,99 @@
-$drawer-background: white;
 $drawer-transition-ms: 300ms;
 $drawer-width: calc(#{$base} * 40);
 
+// Background colors basic
+$drawer-basic-background-color: var(--c-drawer-basic-background-color, $color-primary) !default;
+$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, $color-white) !default;
+
+// Main area colors
+$drawer-primary-background-color: var(--c-drawer-primary-background-color, $color-primary) !default;
+$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, $color-secondary) !default;
+
+// Duotone colors
+$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, $color-primary) !default;
+$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, $color-secondary) !default;
+
+
+/* Colors */
+.c-drawer {
+    &,
+    .site-nav-mobile__primary > .c-nav__item,
+    .c-drawer__header {
+        --drawer-background: #{$drawer-basic-background-color};
+    }
+}
+
+.c-drawer.c-drawer--primary,
+.c-drawer.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--primary .c-drawer__header {
+    --drawer-background: #{$drawer-primary-background-color};
+}
+
+.c-drawer.c-drawer--secondary,
+.c-drawer.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--secondary .c-drawer__header {
+    --drawer-background: #{$drawer-secondary-background-color};
+}
+
+// Duotone drawer colors needing to target the main list items for better flexibility
+.c-drawer.c-drawer--duotone {
+    &,
+    .site-nav-mobile__primary > .c-nav__item,
+    .c-drawer__header {
+        --drawer-background: #{$color-white};
+        --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
+    }
+}
+
+.c-drawer.c-drawer--duotone.c-drawer--primary,
+.c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
+    --drawer-background: #{$drawer-duotone-primary-background-color};
+}
+
+.c-drawer.c-drawer--duotone.c-drawer--secondary,
+.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
+    --drawer-background: #{$drawer-secondary-background-color};
+}
+
+.c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
+.c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary > .c-nav__item {
+    --drawer-duotone-background: #{$drawer-duotone-primary-background-color};
+}
+
+.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
+.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary > .c-nav__item {
+    --drawer-duotone-background: #{$drawer-duotone-secondary-background-color};
+}
+
+// Actual css
+.c-drawer {
+    background-color: var(--drawer-background);
+
+    .c-drawer__header,
+    .site-nav-mobile__primary > .c-nav__item {
+        background-color: var(--drawer-background);
+    }
+}
+
+.c-drawer.c-drawer--duotone {
+    background-color: var(--drawer-duotone-background);
+
+    .site-nav-mobile__secondary > .c-nav__item {
+        background-color: var(--drawer-duotone-background);
+    }
+
+    .c-drawer__header,
+    .site-nav-mobile__primary > .c-nav__item {
+        background-color: var(--drawer-background);
+    }
+}
+
+/* Colors END */
+
 // Drawer
 .c-drawer {
-    background-color: $drawer-background;
     position: fixed;
     left: 0;
     top: 0;
@@ -16,13 +105,21 @@ $drawer-width: calc(#{$base} * 40);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
     opacity: 0;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
+
+    // Hide scrollbar
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .c-drawer__header {
-    padding: calc(#{$base} * 1.5) calc(#{$base} * 3);
+    padding: calc(#{$base} * 1) calc(#{$base} * 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -41,18 +138,9 @@ $drawer-width: calc(#{$base} * 40);
     left: initial;
 }
 
-.c-drawer.c-drawer--primary {
-    background-color: $color-primary;
-}
-.c-drawer.c-drawer--secondary {
-    background-color: $color-secondary;
-}
-
 .c-drawer.c-drawer--duotone {
     .c-drawer__header,
     .site-nav-mobile__primary {
-        background-color: white;
-
         * {
             color: $color-black;
         }

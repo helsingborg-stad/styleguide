@@ -10,7 +10,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
     background-color: $c-mega-menu-background-color;
     position: absolute;
     width: 100%;
-    z-index: $level-5;
+    z-index: $level-8;
 
     &.c-megamenu--secondary {
         --c-mega-menu-heading-color: #{$color-primary};
@@ -49,6 +49,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
         display: inline-flex;
         align-items: center;
         text-decoration: none;
+        gap: $base;
     }
 
     .c-megamenu__item--child {
@@ -60,6 +61,12 @@ $c-mega-menu-font: var(--c-mega-menu-font, $font-family-base) !default;
             text-decoration: none;
             color: $c-mega-menu-subitem-color;
         }
+    }
+
+    .c-megamenu__sublist.c-megamenu__sublist--flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 $base;
     }
 }
 

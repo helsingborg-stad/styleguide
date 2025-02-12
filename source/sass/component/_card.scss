@@ -251,11 +251,29 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
 
     &.c-card--has-datebadge {
+        .c-card__datebadge {
+            margin: 0;
+            left: calc($base * 2);
+            top: calc($base * 2);
+        }
+
         &:not(.c-card--has-image) {
-            .c-card__datebadge {
-                margin: 0;
-                right: calc($base * 2);
-                top: calc($base * -2);
+
+            .c-card__heading-container,
+            .c-card__content {
+                padding-left: calc($base * 9.5);
+            }
+        }
+
+        &:not(.c-card--has-image):not(.c-card--size-xs) {
+
+            .c-card__heading-container,
+            .c-card__content {
+                padding: 0;
+            }
+
+            .c-card__heading-container {
+                padding-top: calc($base * 8.5);
             }
         }
     }

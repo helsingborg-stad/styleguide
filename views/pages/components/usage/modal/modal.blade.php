@@ -28,20 +28,24 @@
     ];
 @endphp
 
-@foreach ($modals as $key => $modal)
-    @button([
-        'href' => '',
-        'type' => 'filled',
-        'text' => 'Open ' . $key . ' modal',
-        'icon' => 'favorite',
-        'size' => 'md',
-        'color' => 'secondary',
-        'reverseIcon' => true,
-        'classList' => ['open-modal'],
-        'attributeList' => ['data-open' => 'modal-' . $key],
-    ])
-    @endbutton
+<div style="display: grid; gap: 16px; justify-content: start;  grid-template-columns: 1fr 1fr;">
+    @foreach ($modals as $key => $modal)
+        @button([
+            'href' => '',
+            'type' => 'filled',
+            'text' => 'Open ' . $key . ' modal',
+            'icon' => 'favorite',
+            'size' => 'md',
+            'color' => 'secondary',
+            'classList' => ['open-modal', 'u-margin__left--0'],
+            'attributeList' => ['data-open' => 'modal-' . $key],
+        ])
+        @endbutton
+    @endforeach
+</div>
 
+
+@foreach ($modals as $key => $modal)
     @modal(
         array_merge(
             [
@@ -55,10 +59,6 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mattis consectetur purus sit amet fermentum. Nullam
         quis risus eget urna mollis ornare vel eu leo. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
         nibh, ut fermentum massa justo sit amet risus.
-
-        @slot('top')
-            [Top slot]
-        @endslot
 
         @slot('bottom')
             [Bottom slot]

@@ -4,7 +4,8 @@
     @segment([
         'classList' => [
             'p-home__hero'
-        ]
+        ],
+        'hasPlaceholder' => false
     ])
         @typography([
             'element' => 'h1',
@@ -26,7 +27,8 @@
         'title' => "Atomic design",
         'content' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
         The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
-        'classList' => ['p-home__hero']
+        'classList' => ['p-home__hero'],
+        'hasPlaceholder' => false
     ])
     @endsegment
 

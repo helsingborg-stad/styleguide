@@ -4,7 +4,7 @@ $c-notice-color-background: var(--notice-color-background, #d73740) !default;
 $c-notice-color-success-text: var(--c-notice-color-success-text, $color-success-contrasting) !default;
 $c-notice-color-success-background: var(--notice-color-success-background, $color-success) !default;
 
-$c-notice-color-danger-text: var(--notice-color-danger-text $color-danger-contrasting) !default;
+$c-notice-color-danger-text: var(--notice-color-danger-text, $color-danger-contrasting) !default;
 $c-notice-color-danger-background: var(--notice-color-danger-background, $color-danger) !default;
 
 $c-notice-color-info-text: var(--notice-color-info-text, $color-info-contrasting) !default;
@@ -22,30 +22,71 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     border-radius: $c-notice-border-radius;
     color: $color-notice-text-default;
     display: grid;
-    grid-template-columns: min-content 2fr;
-    grid-template-rows: min-content;
+    grid-template-areas: 
+        "icon title actions"
+        "icon message actions";
+    grid-template-columns: min-content 1fr auto;
+    grid-auto-rows: auto;
+    align-items: center;
+
+    > [class*='c-notice__'] + [class*='c-notice__']  {
+        margin-left: map-get($spacers, "2");
+    }
 
     .c-notice__icon {
-        margin-right: map-get($spacers, "2");
-        margin-left: calc(#{map-get($spacers, "1")} * -1);
+        grid-area: icon;
         vertical-align: sub;
-        grid-area: 1/1/2/1;
         line-height: 1rem;
         opacity: .7;
     }
 
     .c-notice__title {
-        margin-top: 0;
-        grid-area: 1/2/1/2;
+        grid-area: title;
+        margin: 0;
         line-height: $body-line-height;
     }
 
     .c-notice__message {
-        grid-area: 1/2/1/2;
+        grid-area: message;
+        margin: 0;
     }
 
-    .c-notice__title + .c-notice__message {
-        grid-area: 2/2/2/2;
+    .c-notice__actions {
+        
+        grid-area: actions;
+        display: flex;
+        gap: calc(map-get($spacers, "1") * 1.5);
+        align-items: center;
+        justify-content: flex-end;
+        margin: calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) 0;
+
+        > * + * {
+            position: relative;
+            padding-left: calc(calc(map-get($spacers, "1") * 0.75) + 1px);
+            margin-left: calc(map-get($spacers, "1") * 0.75);
+        }
+
+        > * + *::before {
+            border-left: 1px solid;
+            content: "";
+            display: block;
+            height: 1rem;
+            opacity: .3;
+            width: 1px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+        }
+    }
+
+    // Remove gaps when elements are missing
+    &:not(:has(.c-notice__title)) {
+        grid-template-areas: "icon message actions";
+    }
+
+    &:not(:has(.c-notice__message)) {
+        grid-template-areas: "icon title actions";
     }
 
     a,
@@ -67,6 +108,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
             color: $c-notice-color-success-text;
             text-decoration: underline;
         }
+
+        .c-button {
+            color: $c-notice-color-success-text;
+        }
     }
 
     &--danger {
@@ -79,6 +124,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         a:visited {
             color: $c-notice-color-danger-text;
             text-decoration: underline;
+        }
+
+        .c-button {
+            color: $c-notice-color-danger-text;
         }
     }
 
@@ -93,6 +142,10 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
             color: $c-notice-color-info-text;
             text-decoration: underline;
         }
+
+        .c-button {
+            color: $c-notice-color-info-text;
+        }
     }
 
     &--warning {
@@ -106,12 +159,41 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
             color: $c-notice-color-warning-text;
             text-decoration: underline;
         }
+
+        .c-button {
+            color: $c-notice-color-warning-text;
+        }
     }
 
 }
 
 .c-notice.c-notice--stretch { /* Bleed outside container  left&right */ 
     @include stretch();
+}
+
+.c-notice.c-notice--action-below {
+    grid-template-areas: 
+        "icon title"
+        "icon message"
+        ". actions";
+
+    .c-notice__actions {
+        margin-top: var(--base, 8px);
+        justify-content: flex-start;
+    }
+
+    // Remove gaps when elements are missing
+    &:not(:has(.c-notice__title)) {
+        grid-template-areas: 
+            "icon message"
+            ". actions";
+    }
+
+    &:not(:has(.c-notice__message)) {
+        grid-template-areas: 
+            "icon title"
+            ". actions";
+    }
 }
 
 .c-notice + .c-notice {

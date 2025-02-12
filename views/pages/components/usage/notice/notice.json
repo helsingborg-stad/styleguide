@@ -14,9 +14,9 @@
         "subHeading": "",
         "text": "The title to show above the message"
     },
-    "messageSize": {
-        "heading": "Message size",
+    "actions": {
+        "heading": "Actions & dismiss",
         "subHeading": "",
-        "text": "The size of the message can be set to either sm, md or lg and will also affect the icon since our icon package is a font."
+        "text": "These can have an action, and be dismissable."
     }
 }

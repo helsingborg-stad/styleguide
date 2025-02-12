@@ -6,7 +6,6 @@
         'icon' => ['name' =>'favorite'],
         'size' => 'lg',
         'color' => 'secondary',
-        'reverseIcon' => true,
         'floating' => true,
         'attributeList' => ['data-open' => 'exampleModalId']
     ]

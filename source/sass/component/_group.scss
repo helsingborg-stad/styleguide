@@ -52,6 +52,13 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
     &.c-group--flex-shrink-none > * {
             flex-shrink: 0;
     }
+
+    &.c-group--size-md.c-group--single-column-sm,
+    &.c-group--size-sm.c-group--single-column-md,
+    &.c-group--size-lg.c-group--single-column-lg,
+    &.c-group--single-column {
+        grid-template-columns: 1fr;
+    }
 }
 
 .c-group--horizontal > *:not(:first-child) {
@@ -110,8 +117,39 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
     }
 }
 
-/* Fluid grid */
-.c-group.c-group--fluid-grid {
+/* Fluid grid using grid */
+.c-group.c-group--fluid-grid.c-group--display-grid {
+    grid-template-columns: 1fr;
+
+    &.c-group--fluid-grid-2 {
+        &.c-group--size-lg:not(.c-group--single-column-lg) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &.c-group--fluid-grid-3 {
+        &.c-group--size-md:not(.c-group--single-column-md) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        &.c-group--size-lg:not(.c-group--single-column-lg) {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+    
+    &.c-group--fluid-grid-4 {
+        &.c-group--size-sm:not(.c-group--single-column-sm) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        &.c-group--size-lg:not(.c-group--single-column-lg) {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+    }
+}
+
+/* Fluid grid using flex */
+.c-group.c-group--fluid-grid:not(.c-group--display-grid) {
     flex-wrap: wrap;
     flex-direction: row;
     & > * {
