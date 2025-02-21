@@ -29,6 +29,6 @@
     }
 
     &::after {
-        content: attr(material-symbol);
+        content: attr(data-material-symbol);
     }
 }
