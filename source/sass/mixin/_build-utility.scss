@@ -15,7 +15,7 @@
 
     @if $default {
         @include responsiveStyles(
-            (".u-#{$name}": appendImportant($default)),
+            (".u-#{$name}": $default),
             all,
             $limitToBreakpoint
         );
@@ -25,7 +25,7 @@
         @each $modifier in $modifiers {
             .u-#{$name}--#{nth($modifier,1)} {
                 @each $property, $value in nth($modifier, 2) {
-                    #{$property}: #{$value} !important;
+                    #{$property}: #{$value};
                 }
             }
         }
@@ -33,7 +33,7 @@
         @each $modifier in $modifiers {
             $style: nth($modifier, 2);
             @include responsiveStyles(
-                (".u-#{$name}--#{nth($modifier,1)}": appendImportant($style)),
+                (".u-#{$name}--#{nth($modifier,1)}": $style),
                 all,
                 $limitToBreakpoint
             );

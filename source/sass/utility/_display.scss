@@ -8,5 +8,5 @@ $display-utils: (
 @include build-utilities($display-utils);
 
 .u-hide-empty:empty {
-    display: none !important;
+    display: none;
 }
