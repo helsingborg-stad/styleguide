@@ -142,14 +142,18 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     cursor: pointer;
 
     &::after {
+        line-height: 1.4;
+        font-size: .95em;
+        filter: $drop-shadow-2;
         content: attr(data-tooltip);
         position: absolute;
         border-radius: $c-tooltip-border-radius;
         z-index: $level-9;
         width: max-content;
+        max-width: calc($base * 25);
         background-color: $c-tooltip-color;
         color: $c-tooltip-content-color;
-        padding: calc($base * .5) calc($base);
+        padding: calc($base * .75) calc($base * .5);
         bottom: calc(100% + calc($base * .5));
         left: 50%;
         transform: translateX(-50%) translateY($base);
@@ -157,11 +161,15 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
         visibility: hidden;
         pointer-events: none;
         transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-        white-space: nowrap;
+        transition: 
+            opacity 0.25s ease-out, 
+            transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         text-align: center;
+        backdrop-filter: blur(calc($base * .5));
     }
 
     &::before {
+        filter: $drop-shadow-2;
         content: " ";
         position: absolute;
         bottom: calc(100% + calc($base * -.5)); 
@@ -173,6 +181,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
         visibility: hidden;
         transition: opacity 0.2s ease-in-out;
         transform: translateX(-50%) translateY($base);
+        backdrop-filter: blur(calc($base * .5));
     }
 
     &:hover::after, 
