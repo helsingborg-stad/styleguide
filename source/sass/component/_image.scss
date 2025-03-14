@@ -116,12 +116,18 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     .c-image.c-image--container-query .c-image__image-wrapper {
         container-type: size;
         background-size: cover;
+        width: 100%;
+        height: 100%;
     }
     .c-image.c-image--container-query .c-image__image {
         display: none;
     }
 }
 @supports not (container-type: size) {
+    .c-image.c-image--container-query .c-image__image-wrapper {
+        width: 100%;
+        height: 100%;
+    }
     .c-image.c-image--container-query .c-image__image:not(:last-of-type) {
         display: none;
     }
