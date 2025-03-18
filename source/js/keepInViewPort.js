@@ -1,7 +1,7 @@
 export default class KeepInViewPort {
   constructor() {
-    this.VIEWPORTRESIZE = 'js-keep-in-viewport-after-resize';
-    this.VIEWPORT = 'js-keep-in-viewport';
+    this.VIEWPORTRESIZE = 'data-js-keep-in-viewport-after-resize';
+    this.VIEWPORT = 'data-js-keep-in-viewport';
 
     // Get containers.
     const ViewPortResizeContainer = document.querySelectorAll(`[${this.VIEWPORTRESIZE}]`);
