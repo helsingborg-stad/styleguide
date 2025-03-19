@@ -2,7 +2,7 @@
 
     @each $state, $properties in $display-states {
         .u-print-display--#{$state} {
-            display: #{$state} !important;
+            display: #{$state};
         }
     }
 

@@ -1,7 +1,7 @@
 /** Adds preload like apperance of any component */
 .u-preloader {
   position: relative;
-  filter: unset !important;
+  filter: unset;
   cursor: default;
 
   &:after,
