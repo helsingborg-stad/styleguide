@@ -2,7 +2,7 @@ import Splide, { Options } from '@splidejs/splide';
 import VideoControls from './helpers/video';
 
 const SLIDER_ITEM = 'c-slider__item';
-const AUTOSLIDE = 'js-slider__autoslide';
+const AUTOSLIDE = 'data-js-slider__autoslide';
 const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
 const IS_PAUSED = 'c-slider--is-paused';
 
