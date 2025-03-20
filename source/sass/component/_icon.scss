@@ -34,8 +34,8 @@ $colors: (
 
     /* Set baseline to align icon to text */
 
-    &:before {
-        vertical-align: -12.5%;
+    &:after {
+        vertical-align: 12.5%;
     }
 
     /* Modifiers  - Sizes */
