@@ -31,4 +31,6 @@
     Left tooltip
 @endtooltip
 
-<a href="#" class="c-tooltip" data-tooltip="Tooltip text">A implementation of data-tooltip</a>
+<a href="#" class="c-tooltip" data-tooltip="Tooltip text that is longer than before, this may very well overflow.">A implementation of data-tooltip (long).</a>
+
+<a href="#" class="c-tooltip" data-tooltip="Tooltip text.">A implementation of data-tooltip (short).</a>

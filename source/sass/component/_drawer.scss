@@ -159,11 +159,12 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
+    filter: $drop-shadow-5;
 }
 
 // Overlay
 .drawer-overlay {
-    background-color: black;
+    background-color: rgba(0, 0, 0, .2);
     position: fixed;
     top: 0;
     left: 0;
@@ -173,11 +174,12 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
     opacity: 0;
+    backdrop-filter: blur(1px);
 }
 
 // Overlay states
 .c-drawer.is-open + .drawer-overlay {
-    opacity: 0.2;
+    opacity: 1;
     transition: visibility 0s linear 0s, $drawer-transition-ms ease-out opacity;
     visibility: visible;
 }
