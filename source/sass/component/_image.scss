@@ -33,6 +33,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         margin: 0;
         width: inherit;
         height: inherit;
+        object-fit: cover;
     }
 
     /* Modifiers */
