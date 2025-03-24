@@ -13,6 +13,13 @@ $colors: (
 .c-icon {
     font-display: block;
     line-height: 1;
+
+    &.c-icon--placeholder {
+        visibility: hidden;
+        &:after {
+            content: "" !important; 
+        }
+    }
     
     &.c-icon--svg-link {
         width: 1em;
