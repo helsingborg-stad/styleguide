@@ -23,8 +23,10 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
             justify-content: $key;
         }
 
-        &.c-group--align-items-#{$key} {
-            align-items: $key;
+        @if $key != 'space-between' and $key != 'space-evenly' and $key != 'space-around' {
+            &.c-group--align-items-#{$key} {
+                align-items: $key;
+            }
         }
 
         &.c-group--align-content-#{$key} {
