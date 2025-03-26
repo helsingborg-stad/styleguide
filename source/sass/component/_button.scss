@@ -160,6 +160,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         &.c-button--icon-only {
             width: calc(#{$base} * 8); 
             min-width: initial;
+
+            .c-icon::after {
+                vertical-align: baseline;
+            }
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
