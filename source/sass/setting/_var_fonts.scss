@@ -3,14 +3,14 @@
 // ***************************************************************
 
 //  Font Family
-$font-family-roboto: "Roboto";
+$font-family-roboto: "Roboto", sans-serif;
 $font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New",
     "Courier", "Console";
 
-$font-family-base: var(--font-family-base, $font-family-roboto), sans-serif !default;
+$font-family-base: var(--font-family-base, $font-family-roboto) !default;
 $font-family-heading: var(--font-family-heading, $font-family-base) !default;
-$font-family-bold: var(--font-family-bold, $font-family-roboto), sans-serif !default;
-$font-family-italic: var(--font-family-italic, $font-family-roboto), sans-serif !default;
+$font-family-bold: var(--font-family-bold, $font-family-roboto) !default;
+$font-family-italic: var(--font-family-italic, $font-family-roboto) !default;
     
 //  Font size
 $font-size-base: var(--font-size-base, 1rem) !default;
