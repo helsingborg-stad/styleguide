@@ -173,7 +173,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &.c-button--md {
-        height: calc(#{$base} * 6); 
+        height: calc(#{$base} * 6.5); 
         min-width: calc(#{$base} * 9);
         padding: 0 calc(#{$base} * 4); 
         font-size: $font-size-btn-md; 
@@ -184,7 +184,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
 
         &.c-button--icon-only {
-            width: calc(#{$base} * 6); 
+            width: calc(#{$base} * 6.5); 
             min-width: initial;
         }
 
@@ -200,7 +200,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &.c-button--sm {
         letter-spacing: 0.1rem;
-        height: calc(#{$base} * 4.5);
+        height: calc(#{$base} * 5.5);
         min-width: calc(#{$base} * 6.75); 
         padding: 0 calc(#{$base} * 2); 
         font-size: $font-size-btn-sm; 
@@ -214,7 +214,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         }
 
         &.c-button--icon-only {
-            width: calc(#{$base}* 4.5); 
+            width: calc(#{$base}* 5.5); 
             min-width: initial;
         }
 
