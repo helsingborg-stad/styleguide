@@ -1,8 +1,9 @@
-@mixin slide($direction, $animationDirection: "normal") {
+@mixin slide($direction, $animationDirection: normal) {
     animation-duration: 0.7s;
     animation-name: $direction;
     animation-timing-function: ease-in-out;
     animation-direction: $animationDirection;
+    animation-direction: 
 }
 
 @keyframes left {
