@@ -16,15 +16,16 @@ $c-paper-border-color: var(--c-paper-border-color, $color-border-card) !default;
     }
 
     @each $number, $size in $spacers {
-
-        &--padding-#{$number} {
-            padding: map-get($spacers, $number);
+        @if $size != auto {
+            &--padding-#{$number} {
+                padding: map-get($spacers, $number);
+            }
         }
     }
 
     &--divider {
         border-top: 1px Solid $color-gray-light;
-        padding-top:map-get($spacers, "3");
+        padding-top: map-get($spacers, "3");
     }
 
     &--component-description-area {
