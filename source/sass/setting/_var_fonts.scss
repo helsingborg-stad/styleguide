@@ -80,6 +80,6 @@ $font-letterspacing-title: .0125rem;
 $font-letterspacing-subtitle: .0178571429rem;
 
 //  Text Transform
-$text-transform-base: var(--text-transform-base, 'none') !default;
-$text-transform-heading: var(--text-transform-heading, 'none') !default;
-$text-transform-button: var(--text-transform-button, 'none') !default;
+$text-transform-base: var(--text-transform-base, none) !default;
+$text-transform-heading: var(--text-transform-heading, none) !default;
+$text-transform-button: var(--text-transform-button, none) !default;
