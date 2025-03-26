@@ -179,7 +179,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     }
 
     &__prev {
-        left: -#{map-get($spacers, "8")};
+        left: calc(#{map-get($spacers, "8")} * -1);
     }
 
     &__next {
@@ -218,7 +218,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         }
 
         &__close {
-            top: -#{map-get($spacers, "6")};
+            top: calc(#{map-get($spacers, "6")} * -1);
             right: map-get($spacers, "1");
 
             i {
