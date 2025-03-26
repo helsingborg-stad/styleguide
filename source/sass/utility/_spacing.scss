@@ -7,8 +7,10 @@ $spacing-util: ();
         $mods: ();
 
         @each $size, $length in $spacers {
-            $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
-            $mods: map-merge($mods, $style);
+            @each $size, $length in $spacers {
+                $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
+                $mods: map-merge($mods, $style);
+            }
         }
 
         $util: (
