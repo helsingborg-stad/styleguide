@@ -71,7 +71,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     input:focus {
         outline: none;
-        outline-offset: none;
+        outline-offset: 0;
         box-shadow: none;
     }
 
