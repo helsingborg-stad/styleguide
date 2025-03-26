@@ -24,7 +24,7 @@ $colors: (
     &.c-icon--svg-link {
         width: 1em;
         object-fit: contain;
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
     }
 
     &.c-icon--svg-path {
