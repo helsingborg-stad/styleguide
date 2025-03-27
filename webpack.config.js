@@ -1,6 +1,5 @@
 const path = require('path');
 const glob = require('glob');
-const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScripts = require('webpack-remove-empty-scripts');
 

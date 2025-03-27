@@ -38,11 +38,6 @@
     "bugs": {
         "url": "https://github.com/helsingborg-stad/styleguide/issues"
     },
-    "browserslist": [
-        "last 3 version",
-        "> 1%",
-        "not dead"
-    ],
     "homepage": "https://github.com/helsingborg-stad/styleguide#readme",
     "devDependencies": {
         "@babel/cli": "^7.17.0",
