@@ -45,22 +45,6 @@
         transform: translate(0, -60%) scale(.75);
     }
 
-    ::-webkit-input-placeholder {
-        color: transparent;
-    }
-
-    :-moz-placeholder {
-        color: transparent;
-    }
-
-    ::-moz-placeholder {
-        color: transparent;
-    }
-
-    :-ms-input-placeholder {
-        color: transparent;
-    }
-
     textarea:after,
     textarea:after.valid:after {
         border-bottom: 2px solid $color-success;
