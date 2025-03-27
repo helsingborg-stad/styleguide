@@ -11,7 +11,17 @@
 
         @include mq($breakpoint, $next) {
             @each $selector, $style in $styles {
-                $class: #{$selector}#{$suffix};
+                
+                $base-class: $selector;
+                $pseudo: null;
+
+                // Detect pseudo-element and move it to the end
+                @if str-index($base-class, "::") {
+                    $pseudo: str-slice($base-class, str-index($base-class, "::"));
+                    $base-class: str-slice($base-class, 1, str-index($base-class, "::") - 1);
+                }
+
+                $class: "#{$base-class}#{$suffix}#{$pseudo}";
 
                 #{$class} {
                     @each $propety, $value in $style {

@@ -7,8 +7,12 @@ $spacing-util: ();
         $mods: ();
 
         @each $size, $length in $spacers {
-            $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
-            $mods: map-merge($mods, $style);
+            @each $size, $length in $spacers {
+                @if $length != auto or $prop == margin {
+                    $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
+                    $mods: map-merge($mods, $style);
+                }
+            }
         }
 
         $util: (
@@ -24,8 +28,10 @@ $spacing-util: ();
 
     //Builds all around
     @each $size, $length in $spacers {
-        $style: (#{$size}:(#{$prop}: #{$length}));
-        $mods: map-merge($mods, $style);
+        @if $length != auto or $prop == margin {
+            $style: (#{$size}:(#{$prop}: #{$length}));
+            $mods: map-merge($mods, $style);
+        }
     }
 
     $util: (
@@ -40,11 +46,13 @@ $spacing-util: ();
 
     //Builds on axis Y
     @each $size, $length in $spacers {
-        $style: (#{$size}:(
-            #{$prop}-top: #{$length},
-            #{$prop}-bottom: #{$length}
-        ));
-        $mods: map-merge($mods, $style);
+        @if $length != auto or $prop == margin {
+            $style: (#{$size}:(
+                #{$prop}-top: #{$length},
+                #{$prop}-bottom: #{$length}
+            ));
+            $mods: map-merge($mods, $style);
+        }
     }
 
     $util: (
@@ -60,11 +68,13 @@ $spacing-util: ();
 
     //Builds on axis X
     @each $size, $length in $spacers {
-        $style: (#{$size}:(
-            #{$prop}-left: #{$length},
-            #{$prop}-right: #{$length}
-        ));
-        $mods: map-merge($mods, $style);
+        @if $length != auto or $prop == margin {
+            $style: (#{$size}:(
+                #{$prop}-left: #{$length},
+                #{$prop}-right: #{$length}
+            ));
+            $mods: map-merge($mods, $style);
+        }
     }
 
     $util: (

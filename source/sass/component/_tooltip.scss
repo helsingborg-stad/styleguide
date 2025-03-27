@@ -195,7 +195,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
 
     &:hover::after,
     &:focus::after {
-        pointer-events: auto;
+        pointer-events: unset;
     }
 
     &:hover::before,
