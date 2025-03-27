@@ -1,0 +1,23 @@
+.c-iconsection {
+    display: grid;
+    grid-template-columns: [icon] auto [content] 1fr;
+
+    &__icon,
+    &__content {
+        padding: calc($base * 2);
+    }
+
+    &__icon {
+        grid-column: icon;
+        background-color: color-mix(in srgb, $c-paper-color-background 98%, black);
+        border-right: 1px solid color-mix(in srgb, $c-paper-color-background 93%, black);
+
+        & > * {
+            opacity: .5;
+        }
+    }
+
+    &__content {
+        grid-column: content;
+    }
+}
