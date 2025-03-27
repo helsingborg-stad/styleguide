@@ -39,7 +39,7 @@ $c-slider-item-container-max-width: calc(#{$base} * 118) !default;
     
     .c-slider__item__body {
         margin-top: 0;
-        word-wrap: break-word;
+        word-break: break-word;
         max-width: 100%; // p has a max width we need to override
     }
 
