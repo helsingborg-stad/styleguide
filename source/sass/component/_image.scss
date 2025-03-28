@@ -96,7 +96,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 
         @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
             bottom: calc(#{map-get($spacers, '8')} * -1);
-            word-break: break-word;
+            overflow-wrap: break-word;
         }
     }
 
@@ -119,9 +119,18 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
         background-size: cover;
         width: 100%;
         height: 100%;
+
+        &:after {
+            content: "";
+            @include cover();
+            backdrop-filter: blur(4px);
+            z-index: 0;
+        }
     }
     .c-image.c-image--container-query .c-image__image {
         display: none;
+        z-index: $level-1;
+        position: relative;
     }
 }
 @supports not (container-type: size) {
