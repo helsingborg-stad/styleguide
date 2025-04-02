@@ -74,6 +74,28 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
   .c-nav__toggle {
     margin-bottom: auto;
+
+    &__plus-minus-symbol {
+      height: 24px;
+      position: relative;
+      width: 24px;
+
+      span {
+        background: currentColor;
+        border-radius: 4px;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 200ms;
+        width: 100%;
+
+        &:nth-of-type(odd) {
+          transform: translateY(-50%) rotate(90deg);
+        }
+      }
+    }
   }
 
   .c-icon--expand-more {
@@ -88,6 +110,9 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
   .c-nav__item.is-open > .c-nav__item-wrapper .c-icon--expand-more {
     transform: rotate(180deg);
+  }
+  .c-nav__item.is-open > .c-nav__item-wrapper .c-nav__toggle__plus-minus-symbol span:nth-of-type(odd) {
+    transform: translateY(-50%) rotate(360deg);
   }
   /* End active state */ 
 

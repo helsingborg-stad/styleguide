@@ -182,3 +182,14 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     transition: visibility 0s linear 0s, $drawer-transition-ms ease-out opacity;
     visibility: visible;
 }
+
+// Indentation for menu sub levels
+.c-drawer--indent-sublevels {
+    .c-nav--drawer.c-nav--vertical {
+        @for $i from 1 through 5 {
+            li.has-children[data-depth='#{$i}'] > ul > li > .c-nav__item-wrapper {
+                padding-left: calc(var(--base, 8px) * (2 * $i));
+            }
+        }
+    }
+}
