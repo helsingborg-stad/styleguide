@@ -88,15 +88,15 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     .c-modal--gallery .c-image__caption {
         margin: 0 auto;
         position: absolute;
-        bottom: -#{map-get($spacers, '8')};
+        bottom: calc( #{map-get($spacers, '8')} * -1);
         color: $color-white;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
 
         @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-            bottom: -#{map-get($spacers, '8')};
-            word-break: break-word;
+            bottom: calc(#{map-get($spacers, '8')} * -1);
+            overflow-wrap: break-word;
         }
     }
 

@@ -1,0 +1,52 @@
+.c-iconsection {
+    display: flex;
+    flex-direction: column;
+
+    &.c-iconsection--gap-0 {
+        @include paper(2);
+
+        & > *:nth-child(n+2) {
+            border-top: 1px solid color-mix(in srgb, $c-paper-color-background 93%, black);
+        }
+
+        & > * {
+            filter: unset;
+            background-color: none;
+            border-radius: 0;
+            padding: 0;
+        }
+    }
+
+    @for $i from 0 through 12 {
+        &.c-iconsection--gap-#{$i} {
+            gap: calc($i * 0.5 * $base);
+        }
+    }
+}
+
+// Item
+.c-iconsection__item {
+    display: grid;
+    grid-template-columns: [icon] auto [content] 1fr;
+    
+    @include paper(2);
+
+    &__icon,
+    &__content {
+        padding: calc($base * 2);
+    }
+
+    &__icon {
+        grid-column: icon;
+        background-color: color-mix(in srgb, $c-paper-color-background 98%, black);
+        border-right: 1px solid color-mix(in srgb, $c-paper-color-background 93%, black);
+
+        & > * {
+            opacity: .5;
+        }
+    }
+
+    &__content {
+        grid-column: content;
+    }
+}

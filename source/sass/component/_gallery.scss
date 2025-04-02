@@ -1,27 +1,24 @@
 .c-gallery {
-
     .c-image {
         cursor:pointer;
     }
-    
     @include unlist();
-    
     display: grid;
     grid-template-columns: 1fr;
-
     padding: 0;
-    margin: -#{map-get($spacers, "1")};
+    margin: 0;
+    gap: calc(#{$base} * 3);
 
     &__item {
-        margin: #{map-get($spacers, "1")};
         padding: 0;
+        margin: 0;
     }
 
     &__link,
     &__link:visited,
     &__link:visited:hover {
         text-decoration: none;
-        color: $color-gray;
+        color: $color-light;
     }
 }
 
@@ -49,34 +46,17 @@
         transform: translateX(-50%);
         bottom: 0;
     }
-
 }
 
 @include mq(map_get($breakpoints-map, "sm")) {
-
     .c-gallery {
         grid-template-columns: 1fr 1fr;
-        column-count: 2; /* IE 11 Fix */
-    }
-}
-
-@include mq(map_get($breakpoints-map, "md")) {
-
-    .c-gallery {
-        margin: -#{map-get($spacers, "2")};
-
-        &__item {
-            margin: #{map-get($spacers, "2")};
-        }
     }
 }
 
 @include mq(map_get($breakpoints-map, "lg")) {
-
     .c-gallery {
         grid-template-columns: 1fr 1fr 1fr;
-        column-count: 3; /* IE 11 Fix */
-
         &__item {
             grid-template-columns: 1fr 1fr 1fr;
         }

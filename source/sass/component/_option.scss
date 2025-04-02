@@ -157,7 +157,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         appearance: none;
         height: 0;
         width: 0;
-        display: hidden;
+        visibility: hidden;
 
         &:focus-visible {
             outline: none;

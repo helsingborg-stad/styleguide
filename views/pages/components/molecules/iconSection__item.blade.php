@@ -2,9 +2,9 @@
 
 @section('doc-content')
     @markdown
-        #Hero
+        #IconSection__Item
     @endmarkdown
 
-    @doc(['slug' => 'hero'])
+    @doc(['slug' => 'iconSection__item'])
     @enddoc
 @stop

@@ -43,7 +43,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     .c-card__header,
     .c-card__body,
     .c-card__content-after {
-        word-break: break-word;
+        overflow-wrap: break-word;
         hyphens: auto;
         padding: map-get($spacers, '2');
     }
@@ -53,7 +53,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
     
     .c-card__footer {
-        word-break: break-word;
+        overflow-wrap: break-word;
         hyphens: auto;
         padding: map-get($spacers, '2');
         margin-top: auto;

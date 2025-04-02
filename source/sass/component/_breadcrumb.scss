@@ -9,7 +9,6 @@
     
     &__list {
         @include unlist();
-
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -20,15 +19,13 @@
         padding: 0 map-get($spacers, "1") 0 0;
         margin: 0;
         color: $color-breadcrumb-active;
-        display: none;
+        display: flex;
+        gap: map-get($spacers, "05");
 
-        /* Mobile adaption */
-        &:nth-last-child(2) {
-            display: block;
-        }
-
-        @include mq(map_get($breakpoints-map, "sm")) {
-            display: block;
+        @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+            &:not(:last-child) {
+               display: none;
+            }
         }
     }
 
@@ -41,8 +38,7 @@
 
     .c-icon {
         color: $color-breadcrumb-icon;
-        vertical-align: -15%; /* TODO: Fix */
-
+        align-self: center;
         @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
             transform: scaleX(-1);
         }

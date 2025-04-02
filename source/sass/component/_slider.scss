@@ -97,7 +97,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     }
 
     &__autoslide-toggle {
-        pointer-events: auto;
+        pointer-events: unset;
         position: relative;
         display: none;
         cursor: pointer;
@@ -169,9 +169,9 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     }
 
     /** Aspect ratio */
-    @each $modifier, $ratio in ("16-9": 16/9, "4-3": 4/3, "10-3": 10/3, "36-7": 36/7) {
+    @each $modifier, $ratio in ("16-9": "16/9", "4-3": "4/3", "10-3": "10/3", "36-7": "36/7") {
         &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
-            aspect-ratio: $ratio;
+            aspect-ratio: unquote($ratio);
         }
     } 
 

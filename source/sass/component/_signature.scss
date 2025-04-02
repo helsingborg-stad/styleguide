@@ -18,7 +18,7 @@
 
     &__title {
         color: $color-darker;
-        margin-top: -#{map-get($spacers, "1" )};
+        margin-top: calc(#{map-get($spacers, "1" )} * -1);
         display: block;
     }
 

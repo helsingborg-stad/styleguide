@@ -1,0 +1,12 @@
+{
+    "noGap": {
+        "heading": "Icon Section without gap",
+        "subHeading": "",
+        "text": ""
+    },
+    "gap": {
+        "heading": "Icon Section with gap",
+        "subHeading": "",
+        "text": ""
+    }
+}

@@ -111,7 +111,6 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     // Hide scrollbar
     overflow-y: auto;
     scrollbar-width: none;
-    -ms-overflow-style: none;
 
     &::-webkit-scrollbar {
         display: none;
