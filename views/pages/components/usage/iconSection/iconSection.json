@@ -1,7 +1,12 @@
 {
-    "iconSection": {
-        "heading": "Icon Section",
+    "noGap": {
+        "heading": "Icon Section without gap",
         "subHeading": "",
-        "text": "A section with an icon to the left of its content."
+        "text": ""
+    },
+    "gap": {
+        "heading": "Icon Section with gap",
+        "subHeading": "",
+        "text": ""
     }
 }
