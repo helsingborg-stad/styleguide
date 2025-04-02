@@ -98,10 +98,27 @@ class FileInput {
 
                             const list = fileNameContainer.querySelector('.js-form-file-input');
                             const template = fileNameContainer.querySelector('template');
-                            template.content.querySelector('.js-file-input-name').innerHTML = currentFile.name;
-                            template.content.querySelector('.js-file-input-size').innerHTML = ` (${fileSize})`;
-
+                   
+                           
+                            /** Clone template content */
                             const clone = template.content.cloneNode(true);
+
+                            /** Remove CDATA and Modify the clone */
+                            clone.childNodes.forEach(node => {
+                                if (node.nodeType === Node.CDATA_SECTION_NODE) {
+                                    // Convert CDATA content into real HTML
+                                    const parser = new DOMParser();
+                                    const parsed = parser.parseFromString(node.nodeValue, "text/html");
+
+                                    // Replace CDATA node with parsed content
+                                    node.replaceWith(...parsed.body.childNodes);
+                                }
+                            });
+
+                            // Modify the cloned template (not the original template.content)
+                            clone.querySelector('.js-file-input-name').innerHTML = currentFile.name;
+                            clone.querySelector('.js-file-input-size').innerHTML = ` (${fileSize})`;
+
                             list.appendChild(clone);
                             list.classList.remove('u-display--none');
 
