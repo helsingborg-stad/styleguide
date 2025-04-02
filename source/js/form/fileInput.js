@@ -97,7 +97,7 @@ class FileInput {
                             const fileSize = self.returnFileSize(currentFile.size);
 
                             const list = fileNameContainer.querySelector('.js-form-file-input');
-                            const template = list.querySelector('template');
+                            const template = fileNameContainer.querySelector('template');
                             template.content.querySelector('.js-file-input-name').innerHTML = currentFile.name;
                             template.content.querySelector('.js-file-input-size').innerHTML = ` (${fileSize})`;
 
