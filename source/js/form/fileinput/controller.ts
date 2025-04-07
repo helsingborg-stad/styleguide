@@ -69,6 +69,6 @@ export class FileInputUI {
       return `${(size / kb).toFixed(2)} KB`;
     }
 
-    return `${size} bytes`;
+    return `${size} B`;
   }
 }
