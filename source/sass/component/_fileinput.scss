@@ -58,6 +58,7 @@
         border-radius: 100px;
         filter: $drop-shadow-1;
         height: calc(#{$base} * 5.5);
+        animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
 
         .c-fileinput__item-remove {
             border-left: 1px solid $color-lighter;
@@ -101,9 +102,22 @@
     }
 
     /* Is empty */
-    &.c-fileinput--is-empty {
+    &.is-empty {
         .c-fileinput__file-list {
             display: none;
         }
     }
 }
+
+/* Amnimation */
+ @keyframes puff-in-center {
+    0% {
+      filter: $drop-shadow-1 blur(4px);
+      opacity: 0;
+    }
+    100% {
+      filter: $drop-shadow-1 blur(0px);
+      opacity: 1;
+    }
+  }
+  

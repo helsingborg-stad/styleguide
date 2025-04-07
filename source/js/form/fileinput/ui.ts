@@ -1,54 +1,89 @@
-export class FileInputController {
-  private input: HTMLInputElement;
-  private files: File[] = [];
-  private fileAddedCallbacks: ((file: File) => void)[] = [];
-  private fileRemovedCallbacks: ((file: File) => void)[] = [];
+import { FileInputController } from './controller';
+import { FileInputisEmpty } from './isEmpty';
 
-  constructor(input: HTMLInputElement) {
-    this.input = input;
-    this.bindEvents();
+export class FileInputUI {
+  private dropzone: HTMLElement;
+  private controller: FileInputController;
+
+  constructor(dropzone: HTMLElement, controller: FileInputController) {
+    this.dropzone = dropzone;
+    this.controller = controller;
+    this.initUI();
   }
 
-  private bindEvents() {
-    // Handle file selection
-    this.input.addEventListener('change', (event) => {
-      const newFiles = Array.from(this.input.files || []);
-      this.addFiles(newFiles);
+  private initUI() {
+    const button = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
+    const input = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
+
+    FileInputisEmpty(input, this.dropzone);
+
+    this.setupButton(button, input);
+    this.setupFileList();
+  }
+
+  private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
+    button.addEventListener('click', () => {
+      input.click();
     });
   }
 
-  private addFiles(files: File[]) {
-    files.forEach((file) => {
-      // Add file to the internal list and trigger callbacks
-      if (!this.files.includes(file)) {
-        this.files.push(file);
-        this.triggerFileAdded(file);
-      }
+  private setupFileList() {
+    const fileList = this.dropzone.querySelector('.c-fileinput__file-list') as HTMLElement;
+    const listitemTemplate = this.dropzone.querySelector('[data-js-file="listitem-template"]') as HTMLTemplateElement;
+
+    // Update UI when files are added
+    this.controller.onFileAdded((file) => {
+      const listItem = listitemTemplate.content.cloneNode(true) as HTMLElement;
+      const fileName = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
+      const fileSize = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
+      const removeButton = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
+
+      // Set the file name and size, instead of placeholder
+      fileName.textContent = this.formatName(file.name);
+      fileSize.textContent = this.formatFileSize(file.size);
+
+      // Bind the remove button
+      removeButton.addEventListener('click', () => {
+        this.controller.removeFileFromList(file);
+      });
+
+      // Append the item to the file list
+      fileList.appendChild(listItem);
+    });
+
+    // Update UI when files are removed
+    this.controller.onFileRemoved((file) => {
+      const fileItems = fileList.querySelectorAll('[data-js-file="listitem"]');
+      fileItems.forEach((item) => {
+        const nameElement = item.querySelector('[data-js-file="filename"]') as HTMLElement;
+        if (nameElement.textContent === file.name) {
+          item.remove();
+        }
+      });
     });
   }
 
-  private removeFile(file: File) {
-    this.files = this.files.filter((f) => f !== file);
-    this.triggerFileRemoved(file);
+  private formatName(file: string): string {
+    file = file.replace(/_/g, ' ').replace(/-/g, ' ');
+    file = file.replace(/\b\w/g, (l) => l.toUpperCase());
+    return file;
   }
 
-  private triggerFileAdded(file: File) {
-    this.fileAddedCallbacks.forEach((callback) => callback(file));
-  }
+  private formatFileSize(size: number): string {
+    const kb = 1024;
+    const mb = kb * 1024;
+    const gb = mb * 1024;
 
-  private triggerFileRemoved(file: File) {
-    this.fileRemovedCallbacks.forEach((callback) => callback(file));
-  }
+    if (size >= gb) {
+      return `${(size / gb).toFixed(2)} GB`;
+    }
+    if (size >= mb) {
+      return `${(size / mb).toFixed(2)} MB`;
+    }
+    if (size >= kb) {
+      return `${(size / kb).toFixed(2)} KB`;
+    }
 
-  public onFileAdded(callback: (file: File) => void) {
-    this.fileAddedCallbacks.push(callback);
-  }
-
-  public onFileRemoved(callback: (file: File) => void) {
-    this.fileRemovedCallbacks.push(callback);
-  }
-
-  public removeFileFromList(file: File) {
-    this.removeFile(file);
+    return `${size} B`;
   }
 }
