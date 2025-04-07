@@ -1,67 +1,11 @@
-$c-fileinput-label-color: var(--c-fileinput-label-color, $color-darker) !default;
-$c-fileinput-label-text-transform: var(--c-fileinput-label-text-transform, uppercase) !default;
-$c-fileinput-label-font-size: var(--c-fileinput-label-font-size, .75rem) !default;
-$c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
-
 .c-fileinput {
 
-    :focus-visible + label {
-        @include focus();
-    }
-
-    .c-fileinput__label {
-        color: $c-fileinput-label-color;
-        font-size: $c-fileinput-label-font-size;
-        font-weight: $c-fileinput-label-font-weight;
-        text-transform: $c-fileinput-label-text-transform;
-        margin-bottom: calc(#{$base}/2);
-        letter-spacing: 0.05rem;
-    }
-
-    .c-fileinput__input {
-        width: 0.1px;
-        height: 0.1px;
-        opacity: 0;
-        overflow: hidden;
-        position: absolute;
-        z-index: -1;
-    }
-
-    &__remove-file:hover {
-        color:$color-danger;
-        cursor:pointer;
-    }
-    
-    &__input[disabled] ~ .c-fileinput__button{
-        color: $color-disabled-text;
-        cursor:not-allowed;
-        * {
-            color: $color-disabled-text;
+    /* Is empty */
+    .c-fileinput--is-empty {
+        .c-fileinput__file-list {
+            display: none;
         }
     }
-
-    ul {
-        list-style: none;
-        margin:0px;
-        padding:0px;
-        margin-top: map-get($spacers, "3");
-
-        li {
-            color: $color-gray;
-        }
-    }
-
-    &.unlist {
-
-        ul {
-            @include unlist();
-        }
-
-    }
-
-}
-
-.c-fileinput.c-fileinput--area {
 
     /* Drop area */
     .c-fileinput__area {

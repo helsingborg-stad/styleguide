@@ -1,14 +1,4 @@
 {
-    "button-single": {
-        "heading": "Fileinput by button, single file",
-        "subHeading": "",
-        "text": ""
-    },
-    "button-multi": {
-        "heading": "Fileinput by button, multiple files",
-        "subHeading": "",
-        "text": ""
-    },
     "dropzone-single": {
         "heading": "Fileinput by drag and drop, single file",
         "subHeading": "",
