@@ -1,4 +1,4 @@
-@form()
+@form(['classList' => ['u-padding__y--4']])
     @fileinput([
         'multiple' => false,
         'label' => 'Choose files',
