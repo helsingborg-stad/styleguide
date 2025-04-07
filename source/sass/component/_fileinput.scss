@@ -63,11 +63,7 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
 
 .c-fileinput.c-fileinput--area {
 
-    .c-fileinput__file-list-inner {
-        display: grid;
-        gap: calc(#{$base} * 2);
-    }
-
+    /* Drop area */
     .c-fileinput__area {
         display: flex;
         flex-direction: column;
@@ -87,60 +83,70 @@ $c-fileinput-label-font-weight: var(--c-fileinput-font-weight, 700) !default;
         }
     }
 
+    /* List container */
     .c-fileinput__file-list {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        gap: calc(#{$base} * 2);
         margin-top: calc(#{$base} * 2);
         width: 100%;
-        padding: calc(#{$base} * 2);
+        padding: calc(#{$base} * 2);    
     }
 
+    /* Items uploaded */
     .c-fileinput__item {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
         padding: 0 calc(#{$base} * .5);
         background-color: $color-lightest;
         border-radius: $border-radius-lg;
         margin: 0;
         border-radius: 100px;
         filter: $drop-shadow-1;
+        height: calc(#{$base} * 5.5);
 
-        .c-fileinput__item-name {
-           max-width: calc(#{$base} * 20);
-           overflow: hidden;
-           text-overflow: ellipsis;
-           white-space: nowrap;
+        .c-fileinput__item-remove {
+            border-left: 1px solid $color-lighter;
+            margin-left: calc(#{$base} * 2);
+            border-radius: 0 100px 100px 0;
         }
 
-        .c-fileinput__item-size {
+        .c-fileinput__item-icon-wrapper {
+            aspect-ratio: 1 / 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .c-fileinput__item-text {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: #{$base};
+
+            .c-fileinput__item-name {
+            max-width: calc(#{$base} * 20);
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
-            font-size: .7em;
-
-            &::before {
-                content: "(";
             }
-            &::after {
-                content: ")";
+
+            .c-fileinput__item-size {
+                white-space: nowrap;
+                font-size: .7em;
+
+                &::before {
+                    content: "(";
+                }
+                &::after {
+                    content: ")";
+                }
             }
         }
     }
-
-    .c-fileinput__item-icon-wrapper {
-        aspect-ratio: 1 / 1;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .c-fileinput__item-remove {
-        border-left: 1px solid $color-lighter;
-        margin-left: calc(#{$base} * 2);
-        border-radius: 0 100px 100px 0;
-    }
-
 }
