@@ -17,6 +17,7 @@ class FileInput {
     fileInputs.forEach((input) => {
       const controller  = new FileInputController(input as HTMLInputElement);
       const dropzone    = input.closest('[data-js-file="dropzone"]') as HTMLElement;
+      
       if (dropzone) {
         new FileInputUI(dropzone, controller);
         new FileInputDropzone(dropzone, input as HTMLInputElement);
