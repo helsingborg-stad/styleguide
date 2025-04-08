@@ -5,13 +5,26 @@ export class FileInputUI {
   private dropzone: HTMLElement;
   private controller: FileInputController;
 
+  /**
+   * Constructor for the FileInputUI class.
+   * This class handles the UI interactions for the file input.
+   * 
+   * @param dropzone  HTMLElement
+   * @param controller  FileInputController
+   */
   constructor(dropzone: HTMLElement, controller: FileInputController) {
     this.dropzone = dropzone;
     this.controller = controller;
     this.initUI();
   }
 
-  private initUI() {
+  /**
+   * Initialize the UI components of the file input.
+   * This includes setting up the button, file list, and empty state.
+   * 
+   * @returns {void}
+   */
+  private initUI(): void {
     const button = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
     const input = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
@@ -21,28 +34,49 @@ export class FileInputUI {
     this.setupFileList();
   }
 
+  /**
+   * Setup the button to trigger the file input click event.
+   * 
+   * @param button  HTMLButtonElement
+   * @param input  HTMLInputElement File input element
+   */
   private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
     button.addEventListener('click', () => {
       input.click();
     });
   }
 
-  private setupFileList() {
-    const fileList = this.dropzone.querySelector('.c-fileinput__file-list') as HTMLElement;
-    const listitemTemplate = this.dropzone.querySelector('[data-js-file="listitem-template"]') as HTMLTemplateElement;
+  /**
+   * Setup the file list UI, synchronizing with the controller.
+   * This includes adding and removing files from the list.
+   * 
+   * @returns {void}
+   */
+  private setupFileList(): void {
+    const fileList          = this.dropzone.querySelector('[data-js-file="list"]') as HTMLElement;
+    const listitemTemplate  = this.dropzone.querySelector('[data-js-file="listitem-template"]') as HTMLTemplateElement;
 
-    // Update UI when files are added
+    /**
+     * Add a file to the list when it is added to the controller.
+     * This is triggered by the controller when a file is selected.
+     * 
+     * @param file  File
+     */
     this.controller.onFileAdded((file) => {
-      const listItem = listitemTemplate.content.cloneNode(true) as HTMLElement;
-      const fileName = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
-      const fileSize = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
-      const removeButton = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
+      const fragment      = listitemTemplate.content.cloneNode(true) as DocumentFragment;
+      const listItem      = fragment.firstElementChild as HTMLElement;
+      const fileName      = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
+      const fileSize      = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
+      const removeButton  = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
+
+      // Create a unique ID for the file
+      listItem.setAttribute('data-js-file-id', this.createFileId(file));
 
       // Set the file name and size, instead of placeholder
       fileName.textContent = this.formatName(file.name);
       fileSize.textContent = this.formatFileSize(file.size);
 
-      // Bind the remove button
+      // Bind on file remove action
       removeButton.addEventListener('click', () => {
         this.controller.removeFileFromList(file);
       });
@@ -51,17 +85,57 @@ export class FileInputUI {
       fileList.appendChild(listItem);
     });
 
-    // Update UI when files are removed
+    /**
+     * Remove a file from the list when it is removed from the controller.
+     * This is triggered by the controller when a file is removed.
+     *  
+     * @param file  File
+     */
     this.controller.onFileRemoved((file) => {
       const fileItems = fileList.querySelectorAll('[data-js-file="listitem"]');
       fileItems.forEach((item) => {
-        const nameElement = item.querySelector('[data-js-file="filename"]') as HTMLElement;
-        if (nameElement.textContent === file.name) {
+        if (item.getAttribute('data-js-file-id') === this.createFileId(file)) {
           item.remove();
         }
       });
     });
   }
+
+  /**
+   * Create a unique ID for the file based on its properties.
+   * This is used to identify files in the list.
+   * 
+   * @param file  File
+   * @returns string
+   */
+  private createFileId(file: File): string {
+    const fileSignature = `${file.name}-${file.size}-${file.type}-${file.lastModified}`;
+    return this.simpleHash(fileSignature);
+  }
+
+  /**
+   * Generate a simple hash from the input string.
+   * 
+   * @param input string
+   * @returns string
+   */
+  private simpleHash(input: string): string {
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+        const char = input.charCodeAt(i);
+        hash = (hash << 5) - hash + char; 
+        hash |= 0;
+    }
+    return hash.toString(16);
+  }
+
+  /**
+   * Format file name to a more readable format.
+   * This includes replacing underscores and dashes with spaces,
+   * and capitalizing the first letter of each word.
+   * @param file string
+   * @returns 
+   */
 
   private formatName(file: string): string {
     file = file.replace(/_/g, ' ').replace(/-/g, ' ');
@@ -69,6 +143,12 @@ export class FileInputUI {
     return file;
   }
 
+  /**
+   * Format file size to a human-readable format.
+   * This includes converting bytes to KB, MB, or GB as appropriate.
+   * @param size number
+   * @returns string
+   */
   private formatFileSize(size: number): string {
     const kb = 1024;
     const mb = kb * 1024;

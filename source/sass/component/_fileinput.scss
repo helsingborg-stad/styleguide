@@ -1,6 +1,6 @@
 .c-fileinput {
     /* Actual input (hide) */
-    .c-fileinput__input {
+    /*.c-fileinput__input {
         width: 1px;
         height: 1px;
         position: absolute;
@@ -11,7 +11,7 @@
         margin: 0;
         opacity: 0;
         z-index: -1;
-    }
+    }*/ 
 
     /* Drop area */
     .c-fileinput__area {

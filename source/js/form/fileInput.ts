@@ -19,6 +19,7 @@ class FileInput {
       const dropzone    = input.closest('[data-js-file="dropzone"]') as HTMLElement;
       if (dropzone) {
         new FileInputUI(dropzone, controller);
+        new FileInputDropzone(dropzone, input as HTMLInputElement);
       }
     });
   }

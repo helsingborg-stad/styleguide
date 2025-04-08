@@ -19,16 +19,32 @@ export class FileInputController {
 
   private addFiles(files: File[]) {
     files.forEach((file) => {
-      if (!this.files.includes(file)) {
+      if (!this.files.some((f) => this.isSameFile(f, file))) {
         this.files.push(file);
         this.triggerFileAdded(file);
       }
     });
+  
+    const dataTransfer = new DataTransfer();
+    this.files.forEach((f) => dataTransfer.items.add(f));
+    this.input.files = dataTransfer.files;
   }
 
   private removeFile(file: File) {
-    this.files = this.files.filter((f) => f !== file);
+    this.files = this.files.filter((f) => !this.isSameFile(f, file));
+    const dataTransfer = new DataTransfer();
+    this.files.forEach((f) => dataTransfer.items.add(f));
+    this.input.files = dataTransfer.files;
     this.triggerFileRemoved(file);
+  }
+  
+  private isSameFile(a: File, b: File): boolean {
+    return (
+      a.name === b.name &&
+      a.size === b.size &&
+      a.type === b.type &&
+      a.lastModified === b.lastModified
+    );
   }
 
   private triggerFileAdded(file: File) {
