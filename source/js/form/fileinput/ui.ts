@@ -25,11 +25,16 @@ export class FileInputUI {
    * @returns {void}
    */
   private initUI(): void {
-    const button = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
-    const input = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
+    const button  = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
+    const input   = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
-    FileInputisEmpty(input, this.dropzone);
+    //Handle if list should be displayed or not
+    FileInputisEmpty(
+      this.controller, 
+      this.dropzone
+    );
 
+    // Binds
     this.setupButton(button, input);
     this.setupFileList();
   }
@@ -83,6 +88,9 @@ export class FileInputUI {
 
       // Append the item to the file list
       fileList.appendChild(listItem);
+
+      // Toggle display of the file list
+      FileInputisEmpty(this.controller, this.dropzone);
     });
 
     /**
@@ -98,6 +106,9 @@ export class FileInputUI {
           item.remove();
         }
       });
+
+      // Toggle display of the file list
+      FileInputisEmpty(this.controller, this.dropzone);
     });
   }
 

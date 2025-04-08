@@ -9,6 +9,10 @@ export class FileInputController {
     this.bindEvents();
   }
 
+  public getFiles(): File[] {
+    return this.files;
+  }
+
   private bindEvents() {
     // Handle file selection
     this.input.addEventListener('change', (event) => {
