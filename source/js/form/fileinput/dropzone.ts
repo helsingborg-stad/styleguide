@@ -22,7 +22,7 @@ export class FileInputDropzone {
   }
 
   private setDragging(isDragging: boolean) {
-    this.dropzone.classList.toggle('--is-dragging', isDragging);
+    this.dropzone.classList.toggle('is-dragging', isDragging);
   }
 
   private handleDrop(event: DragEvent) {
