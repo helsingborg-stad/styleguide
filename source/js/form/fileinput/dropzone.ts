@@ -40,14 +40,44 @@ export class FileInputDropzone {
 
   private handleDrop(event: DragEvent) {
     if (!event.dataTransfer?.files.length) return;
-
-    const droppedFiles = event.dataTransfer.files;
-
+  
+    const droppedFiles = Array.from(event.dataTransfer.files);
+  
+    const validFiles = this.filterAcceptedFiles(droppedFiles);
+  
+    if (!validFiles.length) return;
+  
+    const finalFiles = this.limitFilesByMultiple(validFiles);
+  
     const dataTransfer = new DataTransfer();
-    Array.from(droppedFiles).forEach(file => dataTransfer.items.add(file));
+    finalFiles.forEach(file => dataTransfer.items.add(file));
     this.input.files = dataTransfer.files;
-
+  
     const eventChange = new Event('change', { bubbles: true });
     this.input.dispatchEvent(eventChange);
+  }
+
+  private filterAcceptedFiles(files: File[]): File[] {
+    const acceptAttr = this.input.accept;
+    if (!acceptAttr) return files;
+  
+    const acceptedTypes = acceptAttr
+      .split(',')
+      .map(type => type.trim().toLowerCase());
+  
+    return files.filter(file => {
+      const fileType = file.type.toLowerCase();
+      const fileExt = '.' + file.name.split('.').pop()?.toLowerCase();
+  
+      return acceptedTypes.some(accept => {
+        if (accept.startsWith('.')) return fileExt === accept;
+        if (accept.endsWith('/*')) return fileType.startsWith(accept.replace('/*', ''));
+        return fileType === accept;
+      });
+    });
+  }
+  
+  private limitFilesByMultiple(files: File[]): File[] {
+    return this.input.hasAttribute('multiple') ? files : files.slice(0, 1);
   }
 }

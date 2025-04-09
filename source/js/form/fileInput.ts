@@ -1,6 +1,7 @@
 import { FileInputController } from './fileinput/controller';
 import { FileInputUI } from './fileinput/ui';
 import { FileInputDropzone } from './fileinput/dropzone';
+import { HasMaxFiles } from './fileinput/hasMaxFiles';
 
 class FileInput {
   private form: HTMLElement | undefined;

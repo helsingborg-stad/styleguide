@@ -1,4 +1,5 @@
 import { FileInputController } from './controller';
+import { HasMaxFiles } from './hasMaxFiles';
 import { FileInputisEmpty } from './isEmpty';
 
 export class FileInputUI {
@@ -28,11 +29,9 @@ export class FileInputUI {
     const button  = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
     const input   = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
-    //Handle if list should be displayed or not
-    FileInputisEmpty(
-      this.controller, 
-      this.dropzone
-    );
+    //Handle empty/full states
+    FileInputisEmpty(this.controller, this.dropzone);
+    HasMaxFiles(this.controller,this.dropzone);
 
     // Binds
     this.setupButton(button, input);
@@ -89,8 +88,9 @@ export class FileInputUI {
       // Append the item to the file list
       fileList.appendChild(listItem);
 
-      // Toggle display of the file list
+      //Handle empty/full states
       FileInputisEmpty(this.controller, this.dropzone);
+      HasMaxFiles(this.controller,this.dropzone);
     });
 
     /**
@@ -107,8 +107,9 @@ export class FileInputUI {
         }
       });
 
-      // Toggle display of the file list
+      //Handle empty/full states
       FileInputisEmpty(this.controller, this.dropzone);
+      HasMaxFiles(this.controller,this.dropzone);
     });
   }
 
