@@ -140,10 +140,10 @@
             gap: #{$base};
 
             .c-fileinput__item-name {
-            max-width: calc(#{$base} * 20);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+                max-width: calc(#{$base} * 20);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .c-fileinput__item-size {
