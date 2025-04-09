@@ -1,6 +1,4 @@
 import { FileInputController } from './controller';
-import { HasMaxFiles } from './hasMaxFiles';
-import { FileInputisEmpty } from './isEmpty';
 
 export class FileInputUI {
   private dropzone: HTMLElement;
