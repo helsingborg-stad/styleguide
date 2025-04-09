@@ -4,7 +4,6 @@ import { FileInputDropzone } from './fileinput/dropzone';
 import { HasMaxFiles } from './fileinput/hasMaxFiles';
 import { FileCounter } from './fileinput/fileCounter';
 import { FileInputisEmpty } from './fileinput/isEmpty';
-import { LimitNumberOfFiles } from './fileinput/limitNumberOfFiles';
 
 class FileInput {
   private form: HTMLElement | undefined;
@@ -31,7 +30,6 @@ class FileInput {
         HasMaxFiles(controller, dropzone);
         FileCounter(controller, dropzone);
         FileInputisEmpty(controller, dropzone);
-        LimitNumberOfFiles(controller, dropzone);
       }
     });
   }
