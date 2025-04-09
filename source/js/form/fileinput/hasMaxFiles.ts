@@ -4,7 +4,6 @@ export function HasMaxFiles(
   controller: FileInputController,
   dropzone: HTMLElement
 ): void {
-  const input   = dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
   const buttons = dropzone.querySelectorAll<HTMLButtonElement>('[data-js-file="button"], [data-js-file="drop"]');
 
   const maxAttr = dropzone.getAttribute('data-js-file-max');
@@ -15,6 +14,12 @@ export function HasMaxFiles(
   const updateLimitState = () => {
     const fileCount = controller.getFiles().length;
     const isAtLimit = fileCount >= maxFiles || (!isMulti && fileCount > 0);
+
+    if(isAtLimit) {
+      dropzone.setAttribute('data-js-file-disabled', 'true');
+    } else {
+      dropzone.removeAttribute('data-js-file-disabled');
+    }
 
     dropzone.classList.toggle('is-full', isAtLimit);
     buttons.forEach(btn => {

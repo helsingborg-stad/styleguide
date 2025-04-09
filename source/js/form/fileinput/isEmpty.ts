@@ -9,13 +9,8 @@ export function FileInputisEmpty(
     dropzone.classList.toggle('is-empty', !hasFiles);
   };
 
-  controller.onFileRemoved(() => {
-    updateClass();
-  });
-  
-  controller.onFileRemoved(() => {
-    updateClass();
-  });
+  controller.onFileAdded(updateClass);
+  controller.onFileRemoved(updateClass);
 
   updateClass();
 }

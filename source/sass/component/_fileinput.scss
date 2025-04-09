@@ -1,4 +1,5 @@
 .c-fileinput {
+
     /* Actual input (hide) */
     .c-fileinput__input {
         width: 1px;
@@ -14,7 +15,7 @@
     }
 
     /* Is dragging animations */
-    &.is-dragging {
+    &.is-dragging:not(.is-full) {
         .js-file-input-drop {
             outline: 3px dashed $color-lighter;
             border-radius: $border-radius-lg;
@@ -26,6 +27,37 @@
 
         .js-file-input-button {
             display: none;
+        }
+    }
+
+    
+
+    &.is-dragging.is-full {
+        .js-file-input-drop {
+            display: none;
+        }
+
+        // Disable drop area visually
+        .c-fileinput__area {
+            &::after {
+                @include cover();
+                content: "\1F6AB"; /* Unicode for 🚫 */
+                font-size: 3rem; /* Adjust the size as needed */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center; /* Center the content horizontally */
+                line-height: 1; /* Adjust line height to remove any extra space */
+                filter: grayscale(100%) brightness(0) contrast(100%);
+                opacity: .2;
+                z-index: $level-2;
+            }
+            &::before {
+                content: "";
+                @include cover();
+                background: rgba(255, 255, 255, 0.5); /* Dim the background */
+                z-index: $level-1;
+            }
         }
     }
 
@@ -42,6 +74,7 @@
 
     /* Drop area */
     .c-fileinput__area {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -131,6 +164,36 @@
     &.is-empty {
         .c-fileinput__file-list {
             display: none;
+        }
+    }
+ 
+    /* File counter */ 
+    .c-fileinput__filecounter {
+        user-select: none;
+        position: absolute;
+        right: calc(#{$base} * 2);
+        bottom: calc(#{$base} * 1.5);
+        font-size: .7em;
+        opacity: .5;
+        transition: all 0.2s ease-in-out;
+
+        &::before {
+            content: attr(data-counter-current);
+        }
+        &::after {
+            content: attr(data-counter-max);
+        }
+
+        &.do-animate {
+            animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+    }
+
+    &.is-full {
+        .c-fileinput__filecounter {
+            opacity: 1;
+            color: $color-danger;
+            font-weight: bold;
         }
     }
 }

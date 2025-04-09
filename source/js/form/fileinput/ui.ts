@@ -29,10 +29,6 @@ export class FileInputUI {
     const button  = this.dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
     const input   = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
-    //Handle empty/full states
-    FileInputisEmpty(this.controller, this.dropzone);
-    HasMaxFiles(this.controller,this.dropzone);
-
     // Binds
     this.setupButton(button, input);
     this.setupFileList();
@@ -87,10 +83,6 @@ export class FileInputUI {
 
       // Append the item to the file list
       fileList.appendChild(listItem);
-
-      //Handle empty/full states
-      FileInputisEmpty(this.controller, this.dropzone);
-      HasMaxFiles(this.controller,this.dropzone);
     });
 
     /**
@@ -106,10 +98,6 @@ export class FileInputUI {
           item.remove();
         }
       });
-
-      //Handle empty/full states
-      FileInputisEmpty(this.controller, this.dropzone);
-      HasMaxFiles(this.controller,this.dropzone);
     });
   }
 
