@@ -1,4 +1,3 @@
-
 $c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
 $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
 $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
@@ -102,8 +101,24 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
         }
     }
 
-    @keyframes fadeIn {
+    &.c-accordion--spaced-sections {
+        display: flex;
+        flex-flow: row wrap;
+        gap: calc(var(--base, 8px) * 2);
+        padding: 0;
 
+        .c-accordion__section {
+            background-color: var(--c-card-color-background, #fff);
+            border-radius: var(
+                --c-card-border-radius,
+                var(--radius-lg, calc(var(--base, 8px) / 2))
+            );
+            border-top: 0;
+            width: 100%;
+        }
+    }
+
+    @keyframes fadeIn {
         from {
             opacity: 0;
         }
@@ -113,7 +128,6 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
         }
     }
 }
-
 
 /* Accordion with table columns */
 
@@ -145,7 +159,12 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     right: calc(#{$base} * 3);
 }
 
-/* Expand accordion when print page */ 
+// Card that has accordion with spaced sections should have no background color
+.c-card:has(.c-accordion--spaced-sections) {
+    background-color: transparent;
+}
+
+/* Expand accordion when print page */
 @media print {
     .c-accordion .c-accordion__content[aria-hidden="true"],
     .c-accordion .c-accordion__content[aria-hidden="false"] {
