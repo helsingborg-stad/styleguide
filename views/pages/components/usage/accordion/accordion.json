@@ -8,5 +8,10 @@
         "heading": "Using a slot",
         "subHeading": "Giving you more flexibility",
         "text": "The accordion will see if you're using the slot. In this example we're using the sub component accordion item to fill the accordion with items"
+    },
+    "spaced": {
+        "heading": "A accordion with spaced items",
+        "subHeading": "",
+        "text": "This accordion style adds spacing between the items.."
     }
 }
