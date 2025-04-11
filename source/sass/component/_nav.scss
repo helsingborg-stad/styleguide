@@ -192,6 +192,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     .c-nav__item.is-current > .c-button {
       background-color: $color-complementary-light;
     }
+
+    // Indentation for menu sub levels
+    &.c-nav--indent-sublevels {
+      @for $i from 1 through 5 {
+        li.has-children[data-depth='#{$i}'] > ul > li > .c-nav__item-wrapper {
+            padding-left: calc(var(--base, 8px) * (2 * $i));
+        }
+      }
+    }
   }
 
   /* Drawer */
