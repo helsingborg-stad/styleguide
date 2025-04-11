@@ -51,6 +51,7 @@ import {initializeMegaMenus} from './megaMenu';
 import {initializeSizeObserver} from './sizeObserver';
 import {initializeBrand} from './brand';
 import {initializeDismissableNotices} from './dismissableNotices';
+import {PreventContentJumpObserver} from './preventContentJumpObserver';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -83,6 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const DynamicSidebarInstance = new DynamicSidebar();
     const filter = new Filter();
     const MenuInstance = new Menu();
+    //const PreventContentJumpObserver = new PreventContentJumpObserver();
+
+    new PreventContentJumpObserver().observe();
 
     selectComponentObserverInstance.observe();
     ToggleClassesInstance.applyToggle();
