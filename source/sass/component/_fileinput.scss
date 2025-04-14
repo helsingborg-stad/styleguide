@@ -1,3 +1,9 @@
+$c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
+$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
+$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
+
+$c-field-background-color: var(--c-field-background-color, $color-form-fields) !default;
+
 .c-fileinput {
 
     /* Actual input (hide) */
@@ -80,9 +86,9 @@
         align-items: center;
         justify-content: center;
         padding: calc(#{$base} * 4);
-        border-radius: $border-radius-lg;
-        background-color: $color-lightest;
-        border: 1px solid $color-light;
+        border-radius: $c-field-border-radius;
+        background-color: $c-field-background-color;
+        border: $c-field-border-width solid $c-field-border-color;
         box-shadow: inset 0 0 50px 50px rgba(0,0,0,0.02);
         transition: all 0.2s ease-in-out;
 
@@ -192,7 +198,7 @@
     &.is-full {
         .c-fileinput__filecounter {
             opacity: 1;
-            color: $color-danger;
+            color: $color-success-dark;
             font-weight: bold;
         }
     }
