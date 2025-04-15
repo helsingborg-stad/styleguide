@@ -1,6 +1,6 @@
 $c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
 $c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
-$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
+$c-accordion-margin-calculator: var(--dynamic-header-margin, 0) !default;
 
 .c-accordion {
     padding-top: $base;
