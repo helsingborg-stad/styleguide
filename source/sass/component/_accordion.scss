@@ -82,22 +82,40 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
     .c-accordion__content {
         padding: calc(#{$base} * 2);
-
-        &[aria-hidden="true"] {
-            display: none;
+        overflow: hidden;
+        opacity: 0;
+        height: 0;
+        transition: height 0.3s ease, opacity 0.3s ease;
+        transition-behavior: allow-discrete;
+        starting-style: {
+            height: 0;
+            opacity: 0;
         }
-
+    
         &[aria-hidden="false"] {
-            display: block;
-            transition: ease .3s all;
-            animation-name: fadeIn;
-            animation-duration: .3s;
-            animation-fill-mode: both;
-            will-change: transform;
+            opacity: 1;
+            height: auto; // This will not animate by itself, so we’ll override with JS or a max-height trick if needed.
+            transition: height 0.3s ease, opacity 0.3s ease;
+            transition-behavior: allow-discrete;
+            starting-style: {
+                height: 0;
+                opacity: 0;
+            }
         }
-
-        *:first-child { 
-            margin-top: 0; 
+    
+        // Fallback for older browsers – show instantly
+        @supports not (transition-behavior: allow-discrete) {
+            &[aria-hidden="true"] {
+                display: none;
+            }
+    
+            &[aria-hidden="false"] {
+                display: block;
+            }
+        }
+    
+        *:first-child {
+            margin-top: 0;
         }
     }
 
