@@ -217,7 +217,9 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     .c-nav__item {
       .c-nav__text,
       .c-nav__icon,
-      .c-nav__toggle {
+      .c-nav__toggle,
+      .c-nav__button.c-button__basic .c-button__label,
+      .c-nav__button.c-button__outlined .c-button__label {
         color: $c-nav-h-color-contrasting;
       }
 
