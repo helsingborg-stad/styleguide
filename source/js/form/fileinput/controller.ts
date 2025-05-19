@@ -86,6 +86,7 @@ export class FileInputController {
 
   private triggerFileRemoved(file: File) {
     this.input.dispatchEvent(new Event('change'));
+    this.input.dispatchEvent(new Event('input'));
     this.fileRemovedCallbacks.forEach((callback) => callback(file));
   }
 
