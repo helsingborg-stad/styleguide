@@ -51,6 +51,7 @@ import {initializeMegaMenus} from './megaMenu';
 import {initializeSizeObserver} from './sizeObserver';
 import {initializeBrand} from './brand';
 import {initializeDismissableNotices} from './dismissableNotices';
+import FileInput from './form/fileInput';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DynamicSidebarInstance = new DynamicSidebar();
     const filter = new Filter();
     const MenuInstance = new Menu();
+    const fileInput = new FileInput();
 
     selectComponentObserverInstance.observe();
     ToggleClassesInstance.applyToggle();

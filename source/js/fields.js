@@ -1,4 +1,3 @@
-import FileInput from "./form/fileInput";
 import Checkbox from "./form/checkbox";
 import Collapse from "./form/collapse";
 import Policy from "./form/policy";
@@ -60,10 +59,9 @@ class Fields {
         const checkboxHandler = new Checkbox(this.checkboxGroups);
         const collapseHandler = new Collapse(this.form);
         const policyHandler = new Policy(this.form);
-        const fileinputHandler = new FileInput(this.form);
         const conditionsHandler = new Conditions(this.form);
 
-        return { checkboxHandler, policyHandler, fileinputHandler }
+        return { checkboxHandler, policyHandler }
     }
 
 
@@ -168,7 +166,7 @@ class Fields {
         });
     }
 
-    click({ checkboxHandler, policyHandler, fileinputHandler }) {
+    click({ checkboxHandler, policyHandler }) {
         const submitButton = this.form.querySelector('[type="submit"]');
         if (submitButton) {
             submitButton.addEventListener('click', (e) => {
@@ -180,7 +178,6 @@ class Fields {
 
                 containsInvalid.push(policyHandler.validatePolicy());
                 containsInvalid.push(checkboxHandler.validateCheckboxes(this.checkboxGroups));
-                containsInvalid.push(fileinputHandler.validateFileinputs(this.form));
                 if (containsInvalid.includes(false)) {
                     this.classToggle(this.form, 'is-invalid', 'is-valid');
 
@@ -234,11 +231,11 @@ class Fields {
         return emptyForm;
     }
 
-    submit({ checkboxHandler, policyHandler, fileinputHandler }) {
+    submit({ checkboxHandler, policyHandler }) {
         let submitButton = this.form.querySelector('[type="submit"]');
 
         this.form.addEventListener('submit', (e) => {
-            if (!checkboxHandler.validateCheckboxes(this.checkboxGroups) || !fileinputHandler.validateFileinputs(this.form)) {
+            if (!checkboxHandler.validateCheckboxes(this.checkboxGroups)) {
                 e.preventDefault();
                 this.classToggle(this.form, 'is-invalid', 'is-valid');
             } else {

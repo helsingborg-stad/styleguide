@@ -9,14 +9,11 @@ class FileInput {
   private form: HTMLElement | undefined;
 
   constructor(form: HTMLElement) {
-    if(form) {
-        this.form = form;
-        this.initFileInputs();
-    }
+      this.initFileInputs();
   }
 
   private initFileInputs() {
-    const fileInputs = this.form?.querySelectorAll('[data-js-file="input"]') || [];
+    const fileInputs = document.querySelectorAll('[data-js-file="input"]') || [];
     fileInputs.forEach((input) => {
       const controller  = new FileInputController(input as HTMLInputElement);
       const dropzone    = input.closest('[data-js-file="dropzone"]') as HTMLElement;
