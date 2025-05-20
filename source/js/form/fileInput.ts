@@ -6,9 +6,7 @@ import { FileCounter } from './fileinput/fileCounter';
 import { FileInputisEmpty } from './fileinput/isEmpty';
 
 class FileInput {
-  private form: HTMLElement | undefined;
-
-  constructor(form: HTMLElement) {
+  constructor() {
       this.initFileInputs();
   }
 
