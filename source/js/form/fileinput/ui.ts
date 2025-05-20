@@ -39,6 +39,10 @@ export class FileInputUI {
    * @param input  HTMLInputElement File input element
    */
   private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
+    button.addEventListener('focusout', () => {
+      input.dispatchEvent(new Event('blur'));
+    });
+
     button.addEventListener('click', () => {
       input.click();
     });
