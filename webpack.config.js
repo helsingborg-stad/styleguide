@@ -93,7 +93,11 @@ module.exports = {
                     },
                     {
                         loader: 'sass-loader',
-                        options: {},
+                        options: {
+                            sassOptions: {
+                                includePaths: ['node_modules']
+                            }
+                        },
                     },
                 ],
             },
