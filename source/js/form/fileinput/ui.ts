@@ -39,14 +39,23 @@ export class FileInputUI {
    * @param input  HTMLInputElement File input element
    */
   private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
+    let isOpeningFilePicker = false;
+
     button.addEventListener('focusout', () => {
+      if (isOpeningFilePicker) {
+        isOpeningFilePicker = false;
+        return;
+      }
+
       input.dispatchEvent(new Event('blur'));
     });
 
     button.addEventListener('click', () => {
+      isOpeningFilePicker = true;
+      button.focus();
       input.click();
     });
-  }
+}
 
   /**
    * Setup the file list UI, synchronizing with the controller.
