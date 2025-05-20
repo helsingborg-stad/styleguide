@@ -28,6 +28,7 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
   }
  
   .c-toast__item {  
+    width: fit-content;
     opacity: 0;
     transform: translateY(calc(#{$base} * 3));
     animation: slide-in 0.3s ease-out forwards, fade-out 0.5s ease-in forwards;
