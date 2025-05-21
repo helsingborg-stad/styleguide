@@ -154,10 +154,13 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
     .c-option__checkbox--hidden-box,
     .c-option__radio--hidden-box {
         position: absolute;
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        white-space: nowrap;
         appearance: none;
-        height: 0;
-        width: 0;
-        visibility: hidden;
+        overflow: hidden;
+        border: 0;
 
         &:focus-visible {
             outline: none;
