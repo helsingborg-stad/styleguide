@@ -11,8 +11,7 @@ class FileInput {
   }
 
   private initFileInputs() {
-    const fileInputs = document.querySelectorAll('[data-js-file="input"]') || [];
-    fileInputs.forEach((input) => {
+    document.querySelectorAll('[data-js-file="input"]').forEach((input) => {
       const controller  = new FileInputController(input as HTMLInputElement);
       const dropzone    = input.closest('[data-js-file="dropzone"]') as HTMLElement;
       
