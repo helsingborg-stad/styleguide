@@ -43,6 +43,7 @@ export class Select {
 
 	setupEventListeners() {
 		this.setupOptionsObserver();
+		this.selectElement.addEventListener('focusin', () => this.triggerDropdown());
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
@@ -120,6 +121,12 @@ export class Select {
 		});
 
 		classListChangeMutationObserver.observe(this.element, {attributes: true});
+	}
+
+	// This function is used to trigger the dropdown the label is clicked
+	private triggerDropdown() {
+		this.actionOverlayElement.click();
+		this.actionOverlayElement.focus();
 	}
 
 	disableMultiSelectOptionsWhenMaxSelectionsReached() {
