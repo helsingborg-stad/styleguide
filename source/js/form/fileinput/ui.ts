@@ -1,8 +1,6 @@
 import { FileInputController } from './controller';
 
 export class FileInputUI {
-  private dropzone: HTMLElement;
-  private controller: FileInputController;
 
   /**
    * Constructor for the FileInputUI class.
@@ -11,9 +9,11 @@ export class FileInputUI {
    * @param dropzone  HTMLElement
    * @param controller  FileInputController
    */
-  constructor(dropzone: HTMLElement, controller: FileInputController) {
-    this.dropzone = dropzone;
-    this.controller = controller;
+  constructor(
+    private dropzone: HTMLElement, 
+    private controller: FileInputController,
+    private input: HTMLInputElement
+  ) {
     this.initUI();
   }
 
@@ -28,6 +28,7 @@ export class FileInputUI {
     const input   = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
     // Binds
+    this.focusButtonWhenInputGetFocus(button);
     this.setupButton(button, input);
     this.setupFileList();
   }
@@ -56,6 +57,13 @@ export class FileInputUI {
       input.click();
     });
 }
+
+  private focusButtonWhenInputGetFocus(button: HTMLButtonElement): void {
+    this.input.addEventListener('focusin', (e) => {
+      button.focus();
+    });
+  }
+
 
   /**
    * Setup the file list UI, synchronizing with the controller.

@@ -17,7 +17,7 @@ class FileInput {
       
       if (dropzone) {
         //Main functionality
-        new FileInputUI(dropzone, controller);
+        new FileInputUI(dropzone, controller, input as HTMLInputElement);
         new FileInputDropzone(dropzone, input as HTMLInputElement);
 
         //Detached event listeners
