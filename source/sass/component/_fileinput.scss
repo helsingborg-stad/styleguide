@@ -3,6 +3,8 @@ $c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 
 $c-field-background-color: var(--c-field-background-color, $color-form-fields) !default;
+$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
+$c-field-danger-background-color: var(--c-field-danger-background-color, $color-form-fields-error) !default;
 
 .c-fileinput {
 
@@ -195,6 +197,14 @@ $c-field-background-color: var(--c-field-background-color, $color-form-fields) !
             opacity: 1;
             color: $color-success-dark;
             font-weight: bold;
+        }
+    }
+
+    /* Invalid */
+    &.is-invalid {
+        .c-fileinput__area {
+            border-color: $c-field-danger-color;
+            background-color: $c-field-danger-background-color;
         }
     }
 }
