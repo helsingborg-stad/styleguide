@@ -22,15 +22,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   &.c-nav--height-sm > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 6);
+    min-height: calc(#{$base} * 5.5);
   }
 
   &.c-nav--height-md > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 8);
+    min-height: calc(#{$base} * 6.5);
   }
 
   &.c-nav--height-lg > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 10);
+    min-height: calc(#{$base} * 8);
   }
 
   .c-nav__item-wrapper {
@@ -192,6 +192,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     .c-nav__item.is-current > .c-button {
       background-color: $color-complementary-light;
     }
+
+    // Indentation for menu sub levels
+    &.c-nav--indent-sublevels {
+      @for $i from 1 through 5 {
+        li.has-children[data-depth='#{$i}'] > ul > li > .c-nav__item-wrapper {
+            padding-left: calc(var(--base, 8px) * (2 * $i));
+        }
+      }
+    }
   }
 
   /* Drawer */
@@ -208,7 +217,9 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     .c-nav__item {
       .c-nav__text,
       .c-nav__icon,
-      .c-nav__toggle {
+      .c-nav__toggle,
+      .c-nav__button.c-button__basic .c-button__label,
+      .c-nav__button.c-button__outlined .c-button__label {
         color: $c-nav-h-color-contrasting;
       }
 

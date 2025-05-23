@@ -1,0 +1,21 @@
+$legend-color: var(--c-field-label-color, var(--color-darker, #565656)) !default;
+$legend-font-size: var(--c-field-label-font-size, 0.75rem) !default;
+$legend-font-weight: var(--c-field-label-font-size, 700) !default;
+$legend-text-transform: var(--c-field-label-text-transform, uppercase) !default;
+
+fieldset {
+    margin-inline: unset;
+    min-inline-size: unset;
+    border: unset;
+    padding-block: unset;
+    padding-inline: unset;
+
+    legend {
+        color: $legend-color;
+        font-size: $legend-font-size;
+        font-weight: $legend-font-weight;
+        text-transform: $legend-text-transform;
+        margin-bottom: calc(var(--base, 8px) / 2);
+        letter-spacing: 0.05rem;
+    }
+}

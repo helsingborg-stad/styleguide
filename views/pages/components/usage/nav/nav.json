@@ -9,6 +9,11 @@
         "subHeading": "",
         "text": ""
     },
+    "vertical-indented": {
+        "heading": "Vertical navigation (with border and indented)",
+        "subHeading": "",
+        "text": ""
+    },
     "horizontal": {
         "heading": "Horizontal navigation",
         "subHeading": "",

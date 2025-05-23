@@ -43,6 +43,8 @@ export class Select {
 
 	setupEventListeners() {
 		this.setupOptionsObserver();
+		this.selectElement.addEventListener('focusin', () => this.triggerDropdown());
+		this.element.addEventListener('focusout', (e) => this.triggerBlurEvent(e));
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
@@ -120,6 +122,20 @@ export class Select {
 		});
 
 		classListChangeMutationObserver.observe(this.element, {attributes: true});
+	}
+
+	// This function is used to trigger the dropdown the label is clicked
+	private triggerDropdown() {
+		this.actionOverlayElement.click();
+		this.actionOverlayElement.focus();
+  }
+	// This method is used to trigger the blur event on the select element when the focus is moved outside of it
+	private triggerBlurEvent(e: FocusEvent) {
+		const relatedTarget = e.relatedTarget as HTMLElement | null;
+
+		if (!relatedTarget || !this.element.contains(relatedTarget)) {
+			this.selectElement.dispatchEvent(new Event('blur'));
+		}
 	}
 
 	disableMultiSelectOptionsWhenMaxSelectionsReached() {

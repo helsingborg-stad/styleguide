@@ -12,7 +12,11 @@ $border-radius-utilities:(
         ),
         "modifiers": (
             full: (border-radius: 9999px),
-            none: (border-radius: 0)
+            none: (border-radius: 0),
+            2: ("border-radius": var(#{$xs}, 2px)),
+            4: ("border-radius": var(#{$sm}, 4px)),
+            8: ("border-radius": var(#{$md}, 8px)),
+            16: ("border-radius": var(#{$lg}, 12px))
         )
     ),
     (
