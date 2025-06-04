@@ -127,3 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
     moveElements(moveElement);
     initializeClickAways();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log(isSafari())
+    console.log(isLowDPI())
+    if (isSafari() && isLowDPI()) {
+        document.body.classList.add('safari-low-dpi');
+    }
+})
+
+function isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+}
+
+function isLowDPI() {
+    return window.devicePixelRatio < 2;
+}
