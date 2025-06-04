@@ -29,34 +29,34 @@ export class FileInputUI {
 
     // Binds
     this.focusButtonWhenInputGetFocus(button);
-    this.setupButton(button, input);
+    // this.setupButton(button, input);
     this.setupFileList();
   }
 
-  /**
-   * Setup the button to trigger the file input click event.
-   * 
-   * @param button  HTMLButtonElement
-   * @param input  HTMLInputElement File input element
-   */
-  private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
-    let isOpeningFilePicker = false;
+//   /**
+//    * Setup the button to trigger the file input click event.
+//    * 
+//    * @param button  HTMLButtonElement
+//    * @param input  HTMLInputElement File input element
+//    */
+//   private setupButton(button: HTMLButtonElement, input: HTMLInputElement) {
+//     let isOpeningFilePicker = false;
 
-    button.addEventListener('focusout', () => {
-      if (isOpeningFilePicker) {
-        isOpeningFilePicker = false;
-        return;
-      }
+//     button.addEventListener('focusout', () => {
+//       if (isOpeningFilePicker) {
+//         isOpeningFilePicker = false;
+//         return;
+//       }
 
-      input.dispatchEvent(new Event('blur'));
-    });
+//       input.dispatchEvent(new Event('blur'));
+//     });
 
-    button.addEventListener('click', () => {
-      isOpeningFilePicker = true;
-      button.focus();
-      input.click();
-    });
-}
+//     button.addEventListener('click', () => {
+//       isOpeningFilePicker = true;
+//       button.focus();
+//       input.click();
+//     });
+// }
 
   private focusButtonWhenInputGetFocus(button: HTMLButtonElement): void {
     this.input.addEventListener('focusin', (e) => {
@@ -87,6 +87,7 @@ export class FileInputUI {
       const fileName      = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
       const fileSize      = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
       const removeButton  = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
+      console.log(file);
 
       // Create a unique ID for the file
       listItem.setAttribute('data-js-file-id', this.createFileId(file));
