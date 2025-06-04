@@ -7,6 +7,10 @@ $c-acceptance-border-radius: var(--c-acceptance-border-radius, $border-radius-lg
 $c-acceptance-blur-amount: var(--c-acceptance-blur-amount, $base) !default;
 $c-acceptance-background-color: var(--c-acceptance-background-color, $color-background-card);
 
+.safari-low-dpi * {
+    font-weight: 400 !important;
+}
+
 .c-acceptance {
     border-radius: $c-acceptance-border-radius;
     background-color: $c-acceptance-background-color;
