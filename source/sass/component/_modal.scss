@@ -222,7 +222,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
             right: map-get($spacers, "1");
 
             i {
-                font-size: map-get($icon-sizes, "md");
+                font-size: calc($base * 3);
             }
         }
 
@@ -239,7 +239,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
             bottom: #{map-get($spacers, "6")};
 
             i {
-                font-size: map-get($icon-sizes, "md");
+                font-size: calc($base * 3);
             }
 
         }

@@ -225,6 +225,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         .c-collection__icon + .c-collection__content {
             padding-left: 0;
         }
+
+        .c-collection__icon {
+            --c-icon-size: calc(#{$base} * 2);
+        }
     }
 }
 

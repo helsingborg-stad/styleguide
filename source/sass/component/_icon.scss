@@ -1,5 +1,6 @@
 @charset "utf-8";
 $sizes: xs, sm, md, lg, xl, xxl;
+
 $colors: (
     "color-black": $color-black,
     "color-gray": $color-gray,
@@ -9,6 +10,13 @@ $colors: (
     "color-primary": $color-primary,
     "color-secondary": $color-secondary
 );
+
+:root {
+    @each $size in $sizes {
+        $index: index($sizes, $size);
+        --c-icon-size-#{$size}: calc(#{$base} * #{$index});
+    }
+}
 
 .c-icon {
     line-height: 1;
@@ -51,18 +59,20 @@ $colors: (
     }
 
     @each $size in $sizes {
+        $index: index($sizes, $size);
         &.c-icon--size-#{$size} {
-            font-size: map-get($icon-sizes, $size);
+            $iconSize: var(--c-icon-size, var(--c-icon-size-#{$size}));
+            font-size: $iconSize;
             &::after {
-                height: map-get($icon-sizes, $size);
-                width: map-get($icon-sizes, $size);
+                height: $iconSize;
+                width: $iconSize;
                 display: inline-block;
             }
             svg {
-                height: map-get($icon-sizes, $size);
+                height: $iconSize;
             }
         }
-    }    
+    }
 
     @each $color, $value in $colors {
         &.c-icon--#{$color} {
