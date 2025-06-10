@@ -42,16 +42,6 @@ $font-size-btn-md-line-height: calc(#{$base}*2);
 $font-size-btn-sm: 0.775rem;
 $font-size-btn-sm-line-height: calc(#{$base}*1.5);
 
-$icon-sizes:(
-    "inherit": inherit,
-    "xs": $base,
-    "sm": calc(#{$base}*2),
-    "md": calc(#{$base}*3),
-    "lg": calc(#{$base}*4),
-    "xl": calc(#{$base}*5),
-    "xxl": calc(#{$base}*6)
-);
-
 //  Font Weights
 $font-weight-normal: 400 !default;
 $font-weight-medium: 500 !default;

@@ -211,6 +211,9 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     $suffix: if($breakpoint, "-#{$breakpoint}", "");
 
     .c-collection.c-collection--compact#{$suffix} {
+        @for $i from 1 through 6 {
+            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), #{$font-size-base});
+        }
         &.c-collection--bordered {
             padding-top: calc($base / 2);
             padding-bottom: calc($base / 2);
@@ -224,6 +227,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
         .c-collection__icon + .c-collection__content {
             padding-left: 0;
+        }
+
+        .c-collection__icon {
+            --c-icon-size: calc(#{$base} * 2);
         }
     }
 }
