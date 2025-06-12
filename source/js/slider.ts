@@ -26,8 +26,8 @@ export default class Slider {
             const buttonContainer = document.querySelector('#' + slider.getAttribute('data-custom-buttons'));
 
             if (buttonContainer !== null) {
-                const prev = buttonContainer.querySelector('.splide__arrow--prev');
-                const next = buttonContainer.querySelector('.splide__arrow--next');
+                const prev = buttonContainer.querySelector('[data-js-slider-prev]');
+                const next = buttonContainer.querySelector('[data-js-slider-next]');
 
                 prev?.addEventListener('click', () => {
                     this.splide.go('<');
