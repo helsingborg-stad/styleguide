@@ -409,8 +409,17 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       position: relative;
     }
 
+    &.c-hero--media-first {
+      .c-hero__media {
+        order: 1;
+      }
+      .c-hero__text {
+        order: 2;
+      }
+    }
+
     &.c-hero--normal {
-      min-height: none;
+      min-height: unset;
       max-height: none;
       .c-hero__media {
         aspect-ratio: 1.5/1;
@@ -418,7 +427,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     }
 
     &.c-hero--small {
-      min-height: none;
+      min-height: unset;
       max-height: none;
       .c-hero__media {
         aspect-ratio: 2/1;
@@ -426,7 +435,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     }
 
     &.c-hero--large {
-      min-height: none;
+      min-height: unset;
       max-height: none;
       .c-hero__media {
         aspect-ratio: 1/1;
