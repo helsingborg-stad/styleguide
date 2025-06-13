@@ -41,19 +41,19 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         transform: translateX(-50%);
         z-index: 1;
 
-        .splide__arrow {
+        .c-slider__arrow {
             position: absolute;
             top: 50%;
             z-index: 1;
             width: calc(#{$base} * 4);
             height: calc(#{$base} * 4);
 
-             &.splide__arrow--prev {
+             &.c-slider__arrow--prev {
                 left: calc($base * -1.5);
                 transform: translateY(-50%);
             }
 
-            &.splide__arrow--next {
+            &.c-slider__arrow--next {
                 right: calc($base * -1.5);
                 transform: translateY(-50%);
             }
@@ -62,11 +62,11 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
                 width: calc(#{$base} * 6);
                 height: calc(#{$base} * 6);
 
-                &.splide__arrow--prev {
+                &.c-slider__arrow--prev {
                     left: calc(#{$base} * 2.5);
                 }
 
-                &.splide__arrow--next {
+                &.c-slider__arrow--next {
                     right: calc(#{$base} * 2.5);
                 }
             }

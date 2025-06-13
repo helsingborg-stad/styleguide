@@ -20,23 +20,13 @@ export default class Slider {
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
         const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
         this.sliderAttributes = this.getAttributes();
-        const hasCustomButtons = slider.hasAttribute('data-custom-buttons');
 
-        if (hasCustomButtons) {
-            const buttonContainer = document.querySelector('#' + slider.getAttribute('data-custom-buttons'));
+        const buttonContainer = document.querySelector(`#${slider.getAttribute('data-js-slider-buttons')}`);
 
-            if (buttonContainer !== null) {
-                const prev = buttonContainer.querySelector('.splide__arrow--prev');
-                const next = buttonContainer.querySelector('.splide__arrow--next');
-
-                prev?.addEventListener('click', () => {
-                    this.splide.go('<');
-                });
-
-                next?.addEventListener('click', () => {
-                    this.splide.go('>');
-                })
-            }
+        if (buttonContainer) {
+            this.setupClickNavigation(buttonContainer);
+        } else {
+            console.warn('No button container found for slider: ' + slider);
         }
 
         this.splide = new Splide(slider as HTMLElement, {
@@ -60,7 +50,7 @@ export default class Slider {
                 pagination: 'c-slider__steppers',
                 page: 'c-slider__dot',
             },
-            arrows: !hasCustomButtons,
+            arrows: false,
 
             i18n: {
                 prev: ariaLabels ? ariaLabels.prev : 'Previous slider item',
@@ -132,6 +122,16 @@ export default class Slider {
         const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
 
         return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, sliderType: sliderType };
+    }
+
+    private setupClickNavigation(buttonContainer: Element) {
+        buttonContainer.querySelector('[data-js-slider-prev]')?.addEventListener('click', () => {
+            this.splide.go('<');
+        });
+
+        buttonContainer.querySelector('[data-js-slider-next]')?.addEventListener('click', () => {
+            this.splide.go('>');
+        })
     }
 
 
