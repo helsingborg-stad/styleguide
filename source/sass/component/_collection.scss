@@ -74,6 +74,16 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
             .c-image {
                 margin: 0;
             }
+
+            .c-image.c-image--is-placeholder {
+                img {
+                    max-width: unset;
+                    min-width: unset;
+                }
+
+                width: calc($base * 15);
+                min-height: calc($base * 15);
+            }
         }
 
         &.c-collection__item--bordered {
