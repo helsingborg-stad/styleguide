@@ -108,7 +108,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
         padding: 0;
 
         .c-accordion__section {
-            background-color: var(--c-card-color-background, #fff);
+            background-color: $color-background-card;
             border-radius: var(
                 --c-card-border-radius,
                 var(--radius-lg, calc(var(--base, 8px) / 2))
