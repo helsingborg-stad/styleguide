@@ -1,3 +1,6 @@
+$c-table-background-color-odd: var(--c-table-background-color-odd, $color-light);
+$c-table-background-color-even: var(--c-table-background-color-even, $color-lightest);
+
 .c-table {
     position: relative;
 
@@ -103,26 +106,19 @@
         }
 
         .c-table__line:nth-child(odd) .c-table__column {
-            background-color: $color-default;
+            background-color: $c-table-background-color-odd;
         }
 
         .c-table__line:nth-child(even) .c-table__column {
-            background-color: $color-white;
+            background-color: $c-table-background-color-even;
         }
 
         .c-table__line:hover .c-table__column {
             background: $color-complementary;
         }
 
-        .c-table__line:last-of-type {
-            .c-table__column {
-                background-color: $color-white;
-                border-top: 2px solid $color-lighter;
-            }
-        }
-
         .c-table__column {
-            border-right: 1px solid $color-lighter;
+            border-right: 1px solid $c-table-background-color-even;
         }
 
         .c-table__column:last-of-type {
