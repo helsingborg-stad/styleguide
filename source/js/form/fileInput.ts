@@ -7,29 +7,34 @@ import { FileInputisEmpty } from './fileinput/isEmpty';
 import FileInputButtonHandler from './fileinput/UI/fileInputButtonHandler';
 
 class FileInput {
-  constructor() {
-      this.initFileInputs();
-  }
+    constructor() {
+        this.initFileInputs();
+    }
 
-  private initFileInputs() {
-    document.querySelectorAll('[data-js-file="input"]').forEach(input => {
-      const controller  = new FileInputController(input as HTMLInputElement);
-      const dropzone    = input.closest('[data-js-file="dropzone"]') as HTMLElement;
-      const button      = dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
-      
-      if (dropzone && button) {
-        //Main functionality
-        new FileInputButtonHandler(input as HTMLInputElement, button)
-        new FileInputUI(dropzone, controller, input as HTMLInputElement);
-        new FileInputDropzone(dropzone, input as HTMLInputElement);
+    private initFileInputs() {
+        document.querySelectorAll('[data-js-file="input"]').forEach(input => {
+            const controller = new FileInputController(input as HTMLInputElement);
+            const dropzone = input.closest('[data-js-file="dropzone"]') as HTMLElement;
+            const button = dropzone.querySelector('[data-js-file="button"]') as HTMLButtonElement;
 
-        //Detached event listeners
-        HasMaxFiles(controller, dropzone);
-        FileCounter(controller, dropzone);
-        FileInputisEmpty(controller, dropzone);
-      }
-    });
-  }
+            if (dropzone && button) {
+                //Main functionality
+                this.setupUI();
+                new FileInputButtonHandler(input as HTMLInputElement, button)
+                new FileInputUI(dropzone, controller, input as HTMLInputElement);
+                new FileInputDropzone(dropzone, input as HTMLInputElement);
+
+                //Detached event listeners
+                HasMaxFiles(controller, dropzone);
+                FileCounter(controller, dropzone);
+                FileInputisEmpty(controller, dropzone);
+            }
+        });
+    }
+
+    private setupUI() {
+
+    }
 }
 
 export default FileInput;

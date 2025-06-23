@@ -81,29 +81,29 @@ export class FileInputUI {
      * 
      * @param file  File
      */
-    this.controller.onFileAdded((file) => {
-      const fragment      = listitemTemplate.content.cloneNode(true) as DocumentFragment;
-      const listItem      = fragment.firstElementChild as HTMLElement;
-      const fileName      = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
-      const fileSize      = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
-      const removeButton  = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
-      console.log(file);
+    // this.controller.onFileAdded((file) => {
+    //   const fragment      = listitemTemplate.content.cloneNode(true) as DocumentFragment;
+    //   const listItem      = fragment.firstElementChild as HTMLElement;
+    //   const fileName      = listItem.querySelector('[data-js-file="filename"]') as HTMLElement;
+    //   const fileSize      = listItem.querySelector('[data-js-file="filesize"]') as HTMLElement;
+    //   const removeButton  = listItem.querySelector('[data-js-file="remove"]') as HTMLButtonElement;
+    //   console.log(file);
 
-      // Create a unique ID for the file
-      listItem.setAttribute('data-js-file-id', this.createFileId(file));
+    //   // Create a unique ID for the file
+    //   listItem.setAttribute('data-js-file-id', this.createFileId(file));
 
-      // Set the file name and size, instead of placeholder
-      fileName.textContent = this.formatName(file.name);
-      fileSize.textContent = this.formatFileSize(file.size);
+    //   // Set the file name and size, instead of placeholder
+    //   fileName.textContent = this.formatName(file.name);
+    //   fileSize.textContent = this.formatFileSize(file.size);
 
-      // Bind on file remove action
-      removeButton.addEventListener('click', () => {
-        this.controller.removeFileFromList(file);
-      });
+    //   // Bind on file remove action
+    //   removeButton.addEventListener('click', () => {
+    //     this.controller.removeFileFromList(file);
+    //   });
 
-      // Append the item to the file list
-      fileList.appendChild(listItem);
-    });
+    //   // Append the item to the file list
+    //   fileList.appendChild(listItem);
+    // });
 
     /**
      * Remove a file from the list when it is removed from the controller.
@@ -111,14 +111,14 @@ export class FileInputUI {
      *  
      * @param file  File
      */
-    this.controller.onFileRemoved((file) => {
-      const fileItems = fileList.querySelectorAll('[data-js-file="listitem"]');
-      fileItems.forEach((item) => {
-        if (item.getAttribute('data-js-file-id') === this.createFileId(file)) {
-          item.remove();
-        }
-      });
-    });
+    // this.controller.onFileRemoved((file) => {
+    //   const fileItems = fileList.querySelectorAll('[data-js-file="listitem"]');
+    //   fileItems.forEach((item) => {
+    //     if (item.getAttribute('data-js-file-id') === this.createFileId(file)) {
+    //       item.remove();
+    //     }
+    //   });
+    // });
   }
 
   /**
@@ -128,10 +128,10 @@ export class FileInputUI {
    * @param file  File
    * @returns string
    */
-  private createFileId(file: File): string {
-    const fileSignature = `${file.name}-${file.size}-${file.type}-${file.lastModified}`;
-    return this.simpleHash(fileSignature);
-  }
+  // private createFileId(file: File): string {
+  //   const fileSignature = `${file.name}-${file.size}-${file.type}-${file.lastModified}`;
+  //   return this.simpleHash(fileSignature);
+  // }
 
   /**
    * Generate a simple hash from the input string.
@@ -139,15 +139,15 @@ export class FileInputUI {
    * @param input string
    * @returns string
    */
-  private simpleHash(input: string): string {
-    let hash = 0;
-    for (let i = 0; i < input.length; i++) {
-        const char = input.charCodeAt(i);
-        hash = (hash << 5) - hash + char; 
-        hash |= 0;
-    }
-    return hash.toString(16);
-  }
+  // private simpleHash(input: string): string {
+  //   let hash = 0;
+  //   for (let i = 0; i < input.length; i++) {
+  //       const char = input.charCodeAt(i);
+  //       hash = (hash << 5) - hash + char; 
+  //       hash |= 0;
+  //   }
+  //   return hash.toString(16);
+  // }
 
   /**
    * Format file name to a more readable format.
@@ -156,24 +156,24 @@ export class FileInputUI {
    * @param file string
    * @returns 
    */
-  private formatName(file: string): string {
-    // Split file into name and extension
-    const lastDot = file.lastIndexOf('.');
-    const namePart = lastDot !== -1 ? file.substring(0, lastDot) : file;
-    const extension = lastDot !== -1 ? file.substring(lastDot) : '';
+  // private formatName(file: string): string {
+  //   // Split file into name and extension
+  //   const lastDot = file.lastIndexOf('.');
+  //   const namePart = lastDot !== -1 ? file.substring(0, lastDot) : file;
+  //   const extension = lastDot !== -1 ? file.substring(lastDot) : '';
   
-    // Replace underscores and dashes with spaces
-    const cleanName = namePart.replace(/[_-]/g, ' ');
+  //   // Replace underscores and dashes with spaces
+  //   const cleanName = namePart.replace(/[_-]/g, ' ');
   
-    // Normalize and capitalize each word
-    const titleCased = cleanName
-      .normalize('NFC') // Normalize combining characters
-      .replace(/\p{L}+/gu, (word) =>
-        word.charAt(0).toLocaleUpperCase() + word.slice(1)
-      );
+  //   // Normalize and capitalize each word
+  //   const titleCased = cleanName
+  //     .normalize('NFC') // Normalize combining characters
+  //     .replace(/\p{L}+/gu, (word) =>
+  //       word.charAt(0).toLocaleUpperCase() + word.slice(1)
+  //     );
   
-    return titleCased + extension;
-  }
+  //   return titleCased + extension;
+  // }
 
   /**
    * Format file size to a human-readable format.
@@ -181,21 +181,21 @@ export class FileInputUI {
    * @param size number
    * @returns string
    */
-  private formatFileSize(size: number): string {
-    const kb = 1024;
-    const mb = kb * 1024;
-    const gb = mb * 1024;
+  // private formatFileSize(size: number): string {
+  //   const kb = 1024;
+  //   const mb = kb * 1024;
+  //   const gb = mb * 1024;
 
-    if (size >= gb) {
-      return `${(size / gb).toFixed(2)} GB`;
-    }
-    if (size >= mb) {
-      return `${(size / mb).toFixed(2)} MB`;
-    }
-    if (size >= kb) {
-      return `${(size / kb).toFixed(2)} KB`;
-    }
+  //   if (size >= gb) {
+  //     return `${(size / gb).toFixed(2)} GB`;
+  //   }
+  //   if (size >= mb) {
+  //     return `${(size / mb).toFixed(2)} MB`;
+  //   }
+  //   if (size >= kb) {
+  //     return `${(size / kb).toFixed(2)} KB`;
+  //   }
 
-    return `${size} B`;
-  }
+  //   return `${size} B`;
+  // }
 }

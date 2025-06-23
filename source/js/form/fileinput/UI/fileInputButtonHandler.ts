@@ -28,6 +28,10 @@ class FileInputButtonHandler {
             this.button.focus();
             this.input.click();
         });
+
+        this.input.addEventListener('focusin', (e) => {
+            this.button.focus();
+        });
     }
 }
 
