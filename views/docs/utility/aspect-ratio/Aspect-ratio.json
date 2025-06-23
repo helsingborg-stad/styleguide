@@ -1,0 +1,10 @@
+{
+    "format": ".u-aspect-ratio--pair",
+    "description": {
+        "pair": "Adds an aspect ratio to an element."
+    },
+    "modifiers": {
+        "pair": "1-1, 16-9, 9-16, 4-3, 21-9"
+    },
+    "responsive": false
+}

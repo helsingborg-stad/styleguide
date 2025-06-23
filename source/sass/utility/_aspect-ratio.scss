@@ -1,0 +1,13 @@
+$aspect-ratios: (
+    "1-1": "1 / 1",
+    "16-9": "16 / 9",
+    "9-16": "9 / 16",
+    "4-3": "4 / 3",
+    "21-9": "21 / 9"
+);
+
+@each $name, $ratio in $aspect-ratios {
+    .u-aspect-ratio--#{$name} {
+        aspect-ratio: #{$ratio};
+    }
+}
