@@ -18,7 +18,6 @@ class FileList {
         private fileSizeFormatter: FileSizeFormatter,
         private fileIdCreator: FileIdCreator
     ) {
-        this.setupFileList();
     }
 
     /**
@@ -27,7 +26,7 @@ class FileList {
      * 
      * @returns {void}
      */
-    private setupFileList(): void {
+    public init(): void {
         this.controller.onFileAdded((file) => {
             this.handleAdded(file);
         });

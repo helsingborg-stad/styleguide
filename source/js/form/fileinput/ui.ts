@@ -28,9 +28,9 @@ export class FileInputUI {
     const input   = this.dropzone.querySelector('[data-js-file="input"]') as HTMLInputElement;
 
     // Binds
-    this.focusButtonWhenInputGetFocus(button);
+    // this.focusButtonWhenInputGetFocus(button);
     // this.setupButton(button, input);
-    this.setupFileList();
+    // this.setupFileList();
   }
 
 //   /**
@@ -58,11 +58,11 @@ export class FileInputUI {
 //     });
 // }
 
-  private focusButtonWhenInputGetFocus(button: HTMLButtonElement): void {
-    this.input.addEventListener('focusin', (e) => {
-      button.focus();
-    });
-  }
+  // private focusButtonWhenInputGetFocus(button: HTMLButtonElement): void {
+  //   this.input.addEventListener('focusin', (e) => {
+  //     button.focus();
+  //   });
+  // }
 
 
   /**

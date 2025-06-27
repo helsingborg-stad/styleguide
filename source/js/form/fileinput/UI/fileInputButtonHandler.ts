@@ -4,14 +4,10 @@ class FileInputButtonHandler {
         private button: HTMLButtonElement
     ) {}
 
-    public init() {
-        this.setupButton();
-    }
-
     /**
      * Setup the button to trigger the file input click event.
      */
-    private setupButton() {
+    public init() {
         let isOpeningFilePicker = false;
 
         this.button.addEventListener('focusout', () => {
@@ -25,6 +21,7 @@ class FileInputButtonHandler {
 
         this.button.addEventListener('click', () => {
             isOpeningFilePicker = true;
+            console.log(this.button);
             this.button.focus();
             this.input.click();
         });
