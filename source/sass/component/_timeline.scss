@@ -20,6 +20,24 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         width: 1px;
         background-color: black;
     }
+
+    &--sequential {
+        .c-timeline__event {
+            .c-timeline__marker {
+                border-radius: 50%;
+                height: calc(#{$base} * 3);
+                width: calc(#{$base} * 3);
+
+                @include mq(null, map_get($breakpoints-map, 'md')) {
+                    top: calc(var(--base, 8px) * 3);
+                }
+            }
+
+            &--active {
+                --c-timeline-marker-border-color: var(--color-primary, black);
+            }
+        }
+    }
 }
 
 /* Container around content */
