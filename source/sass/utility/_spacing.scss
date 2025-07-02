@@ -89,4 +89,20 @@ $spacing-util: ();
     $spacing-util: append($spacing-util, $util);
 }
 
+// Top utilities
+@each $side in (top, left, right, bottom) {
+  $mods: ();
+  @each $size, $length in $spacers {
+    $style: (#{$size}: (#{$side}: #{$length}));
+    $mods: map-merge($mods, $style);
+  }
+
+  $util: (
+    name: "#{$side}",
+    modifiers: $mods
+  );
+
+  $spacing-util: append($spacing-util, $util);
+}
+
 @include build-utilities($spacing-util);
