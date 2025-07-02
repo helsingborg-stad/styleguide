@@ -52,7 +52,10 @@ $colors: (
         vertical-align: 12.5%;
     }
 
-    /* Modifiers  - Sizes */
+    /* Modifiers */
+    &.c-icon--material {
+        display: inline-flex;;
+    }
 
     &.c-icon--size-inherit {
         font-size: inherit;
