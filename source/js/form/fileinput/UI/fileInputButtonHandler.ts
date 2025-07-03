@@ -21,7 +21,6 @@ class FileInputButtonHandler {
 
         this.button.addEventListener('click', () => {
             isOpeningFilePicker = true;
-            console.log(this.button);
             this.button.focus();
             this.input.click();
         });
