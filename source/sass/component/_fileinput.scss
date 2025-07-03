@@ -163,6 +163,10 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         }
     }
 
+    .c-fileinput__item--preview {
+
+    }
+
     /* Is empty */
     &.is-empty {
         .c-fileinput__file-list {
