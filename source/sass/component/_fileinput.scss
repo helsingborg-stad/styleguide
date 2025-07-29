@@ -110,17 +110,18 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
 
     /* Items uploaded */
     .c-fileinput__item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 calc(#{$base} * .5);
-        background-color: $color-lightest;
-        border-radius: $border-radius-lg;
-        margin: 0;
-        border-radius: 100px;
-        filter: $drop-shadow-1;
-        height: calc(#{$base} * 5.5);
-        animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        .c-fileinput__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 calc(#{$base} * .5);
+            background-color: $color-lightest;
+            border-radius: $border-radius-lg;
+            margin: 0;
+            filter: $drop-shadow-1;
+            height: calc(#{$base} * 5.5);
+            animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
 
         .c-fileinput__item-remove {
             border-left: 1px solid $color-lighter;
@@ -161,10 +162,6 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
                 }
             }
         }
-    }
-
-    .c-fileinput__item--preview {
-
     }
 
     /* Is empty */
@@ -209,6 +206,42 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         .c-fileinput__area {
             border-color: $c-field-danger-color;
             background-color: $c-field-danger-background-color;
+        }
+    }
+
+    &.c-fileinput--preview {
+        .c-fileinput__item {
+            position: relative;
+        }
+
+        .c-fileinput__item-icon-wrapper,
+        .c-fileinput__item-remove {
+            position: absolute;
+            top: calc(#{$base} * .5);
+        }
+
+        .c-fileinput__item-remove {
+            right: calc(#{$base} * .5);
+        }
+        
+        .c-fileinput__item-icon-wrapper {
+            left: calc(#{$base} * .5);
+        }
+
+        .c-fileinput__item-preview {
+            height: calc($base * 15);
+            aspect-ratio: 16 / 9;
+        }
+
+        .c-fileinput__item-icon-wrapper {
+            aspect-ratio: unset;
+            height: unset;
+        }
+
+        .c-fileinput__item-remove {
+            border-left: none;
+            margin-left: unset;
+            border-radius: unset;
         }
     }
 }

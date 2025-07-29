@@ -20,13 +20,17 @@ class FilePreviewListRenderer implements FilePreviewRenderer {
     ) {
     }
 
+    /**
+     * Adds a file to the preview list.
+     * @param {File} file - The file to be added.
+     */
     public add(file: File): void {
-        const fragment = this.listitemTemplate.content.cloneNode(true) as DocumentFragment;
-        const listItem = fragment.firstElementChild as HTMLElement;
-        const fileName = listItem.querySelector(this.fileNameTarget) as HTMLElement;
-        const fileSize = listItem.querySelector(this.fileSizeTarget) as HTMLElement;
-        const removeButton = listItem.querySelector(this.removeButtonTarget) as HTMLButtonElement;
-        console.log(file);
+        const [listItem, fileName, fileSize, removeButton] = this.getCloneTemplateElements();
+
+        if (!(listItem && fileName && fileSize && removeButton)) {
+            console.error("Failed to clone template elements for file preview list.");
+            return;
+        }
 
         listItem.setAttribute(this.fileIdAttribute, this.fileIdCreator.create(file));
 
@@ -40,6 +44,10 @@ class FilePreviewListRenderer implements FilePreviewRenderer {
         this.list.appendChild(listItem);
     }
 
+    /**
+     * Removes a file from the preview list.
+     * @param {File} file - The file to be removed.
+     */
     public remove(file: File): void {
         const items = this.list.querySelectorAll(this.listItemTarget);
         items.forEach((item) => {
@@ -47,6 +55,20 @@ class FilePreviewListRenderer implements FilePreviewRenderer {
                 item.remove();
             }
         });
+    }
+
+    /**
+     * Retrieves the cloned template elements for file preview.
+     * @returns {HTMLElement[]} An array containing the cloned list item, file name, file size, and remove button.
+     */
+    private getCloneTemplateElements(): [HTMLElement, HTMLElement, HTMLElement, HTMLButtonElement] {
+        const fragment = this.listitemTemplate.content.cloneNode(true) as DocumentFragment;
+        const listItem = fragment.firstElementChild as HTMLElement;
+        const fileName = listItem?.querySelector(this.fileNameTarget) as HTMLElement;
+        const fileSize = listItem?.querySelector(this.fileSizeTarget) as HTMLElement;
+        const removeButton = listItem?.querySelector(this.removeButtonTarget) as HTMLButtonElement;
+
+        return [listItem, fileName, fileSize, removeButton];
     }
 }
 
