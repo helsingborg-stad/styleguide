@@ -8,6 +8,7 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
     private fileSizeTarget: string = '[data-js-file="filesize"]';
     private removeButtonTarget: string = '[data-js-file="remove"]';
     private listItemTarget: string = '[data-js-file="listitem"]';
+    private filePreviewTarget: string = '[data-js-file="preview"]';
     private fileIdAttribute: string = 'data-js-file-id';
 
     constructor(
@@ -25,9 +26,9 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
      * @param {File} file - The file to be added.
      */
     public add(file: File): void {
-        const [listItem, fileName, fileSize, removeButton] = this.getCloneTemplateElements();
+        const [listItem, fileName, fileSize, removeButton, filePreview] = this.getCloneTemplateElements();
 
-        if (!(listItem && fileName && fileSize && removeButton)) {
+        if (!(listItem && fileName && fileSize && removeButton && filePreview)) {
             console.error("Failed to clone template elements for file preview list.");
             return;
         }
@@ -41,32 +42,62 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
             this.controller.removeFileFromList(file);
         });
 
+        const url = URL.createObjectURL(file);
+        console.log(fileType);
         if (fileType.startsWith('image/')) {
-            document.createElement('img').src = URL.createObjectURL(file);
-            
-
+            const image = document.createElement('img');
+            image.src = url;
+            filePreview.appendChild(image);
+        } else if (fileType.startsWith('video/')) {
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;
+            filePreview.appendChild(video);
+        } else if (fileType.startsWith('audio/')) {
+            const audio = document.createElement('audio');
+            audio.src = url;
+            audio.controls = true;
+            filePreview.appendChild(audio);
+        } else if (fileType === 'application/pdf') {
+            const pdfFrame = document.createElement('iframe');
+            pdfFrame.src = url;
+            pdfFrame.style.width = '100%';
+            pdfFrame.style.height = '100%';
+            filePreview.appendChild(pdfFrame);
+        }
+        else {
+            filePreview.classList.add('is-unsupported');
         }
 
         this.list.appendChild(listItem);
     }
 
-    remove(file: File): void {
-        // Implementation for removing the file preview card
-        // This will use the controller to find and remove the file from the list
+    /**
+     * Removes a file from the preview list.
+     * @param {File} file - The file to be removed.
+     */
+    public remove(file: File): void {
+        const items = this.list.querySelectorAll(this.listItemTarget);
+        items.forEach((item) => {
+            if (item.getAttribute(this.fileIdAttribute) === this.fileIdCreator.create(file)) {
+                item.remove();
+            }
+        });
     }
 
     /**
      * Retrieves the cloned template elements for file preview.
      * @returns {HTMLElement[]} An array containing the cloned list item, file name, file size, and remove button.
      */
-    private getCloneTemplateElements(): [HTMLElement, HTMLElement, HTMLElement, HTMLButtonElement] {
+    private getCloneTemplateElements(): [HTMLElement, HTMLElement, HTMLElement, HTMLButtonElement , HTMLElement] {
         const fragment = this.listitemTemplate.content.cloneNode(true) as DocumentFragment;
         const listItem = fragment.firstElementChild as HTMLElement;
         const fileName = listItem?.querySelector(this.fileNameTarget) as HTMLElement;
         const fileSize = listItem?.querySelector(this.fileSizeTarget) as HTMLElement;
         const removeButton = listItem?.querySelector(this.removeButtonTarget) as HTMLButtonElement;
+        const filePreview = listItem?.querySelector(this.filePreviewTarget) as HTMLElement;
 
-        return [listItem, fileName, fileSize, removeButton];
+        return [listItem, fileName, fileSize, removeButton, filePreview];
     }
 }
 
