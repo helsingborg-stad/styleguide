@@ -4,8 +4,9 @@ import FileNameFormatter from "../helper/fileNameFormatter";
 import FileSizeFormatter from "../helper/fileSizeFormatter";
 import FilePreviewCardRenderer from "./filePreviewCardRenderer";
 import FilePreviewListRenderer from "./filePreviewListRenderer";
+import PreviewCreator from "./previewCreator";
 
-type CommonRendererConstructor = ConstructorParameters<typeof FilePreviewCardRenderer>;
+type CommonRendererConstructor = ConstructorParameters<typeof FilePreviewListRenderer>;
 
 class FilePreviewFactory {
     public static createFilePreviewRenderer(
@@ -24,7 +25,7 @@ class FilePreviewFactory {
         ]
 
         if (!!fileInput.dataset.jsFilePreview) {
-            return new FilePreviewCardRenderer(...params);
+            return new FilePreviewCardRenderer(...params, new PreviewCreator());
         }
 
         return new FilePreviewListRenderer(...params);

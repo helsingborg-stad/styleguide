@@ -2,6 +2,7 @@ import { FileInputController } from "../../controller";
 import FileIdCreator from "../helper/fileIdCreator";
 import FileNameFormatter from "../helper/fileNameFormatter";
 import FileSizeFormatter from "../helper/fileSizeFormatter";
+import PreviewCreator from "./previewCreator";
 
 class FilePreviewCardRenderer implements FilePreviewRenderer {
     private fileNameTarget: string = '[data-js-file="filename"]';
@@ -17,7 +18,8 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
         private controller: FileInputController,
         private fileNameFormatter: FileNameFormatter,
         private fileSizeFormatter: FileSizeFormatter,
-        private fileIdCreator: FileIdCreator
+        private fileIdCreator: FileIdCreator,
+        private previewCreator: PreviewCreator
     ) {
     }
 
@@ -32,41 +34,16 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
             console.error("Failed to clone template elements for file preview list.");
             return;
         }
-        const fileType = file.type || 'unknown';
+
         listItem.setAttribute(this.fileIdAttribute, this.fileIdCreator.create(file));
+        this.setFileInfo(file, fileName, fileSize);
+        this.setupRemoveButton(file, removeButton);
+        const previewItem = this.previewCreator.createPreview(file);
 
-        fileName.textContent = this.fileNameFormatter.format(file.name);
-        fileSize.textContent = this.fileSizeFormatter.format(file.size);
-
-        removeButton.addEventListener('click', () => {
-            this.controller.removeFileFromList(file);
-        });
-
-        const url = URL.createObjectURL(file);
-        console.log(fileType);
-        if (fileType.startsWith('image/')) {
-            const image = document.createElement('img');
-            image.src = url;
-            filePreview.appendChild(image);
-        } else if (fileType.startsWith('video/')) {
-            const video = document.createElement('video');
-            video.src = url;
-            video.controls = true;
-            filePreview.appendChild(video);
-        } else if (fileType.startsWith('audio/')) {
-            const audio = document.createElement('audio');
-            audio.src = url;
-            audio.controls = true;
-            filePreview.appendChild(audio);
-        } else if (fileType === 'application/pdf') {
-            const pdfFrame = document.createElement('iframe');
-            pdfFrame.src = url;
-            pdfFrame.style.width = '100%';
-            pdfFrame.style.height = '100%';
-            filePreview.appendChild(pdfFrame);
-        }
-        else {
+        if (!previewItem) {
             filePreview.classList.add('is-unsupported');
+        } else {
+            filePreview.appendChild(previewItem);
         }
 
         this.list.appendChild(listItem);
@@ -83,6 +60,27 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
                 item.remove();
             }
         });
+    }
+
+    /**
+     * Sets up the remove button for the file preview.
+     * @param {File} file - The file associated with the remove button.
+     * @param {HTMLButtonElement} removeButton - The button element to set up.
+     */
+    private setupRemoveButton(file: File, removeButton: HTMLButtonElement): void {
+        removeButton.addEventListener('click', () => {
+            this.controller.removeFileFromList(file);
+        });
+    }
+
+    /**
+     * Sets the file name and size in the preview.
+     * @param {HTMLElement} fileName - The element to display the file name.
+     * @param {HTMLElement} fileSize - The element to display the file size.
+     */
+    private setFileInfo(file: File, fileName: HTMLElement, fileSize: HTMLElement): void {
+        fileName.textContent = this.fileNameFormatter.format(file.name);
+        fileSize.textContent = this.fileSizeFormatter.format(file.size);
     }
 
     /**

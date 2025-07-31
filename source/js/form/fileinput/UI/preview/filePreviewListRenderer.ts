@@ -34,14 +34,31 @@ class FilePreviewListRenderer implements FilePreviewRenderer {
 
         listItem.setAttribute(this.fileIdAttribute, this.fileIdCreator.create(file));
 
-        fileName.textContent = this.fileNameFormatter.format(file.name);
-        fileSize.textContent = this.fileSizeFormatter.format(file.size);
+        this.setFileInfo(file, fileName, fileSize);
+        this.setupRemoveButton(file, removeButton);
 
+        this.list.appendChild(listItem);
+    }
+
+    /**
+     * Sets up the remove button for the file preview.
+     * @param {File} file - The file associated with the remove button.
+     * @param {HTMLButtonElement} removeButton - The button element to set up.
+     */
+    private setupRemoveButton(file: File, removeButton: HTMLButtonElement): void {
         removeButton.addEventListener('click', () => {
             this.controller.removeFileFromList(file);
         });
+    }
 
-        this.list.appendChild(listItem);
+    /**
+     * Sets the file name and size in the preview.
+     * @param {HTMLElement} fileName - The element to display the file name.
+     * @param {HTMLElement} fileSize - The element to display the file size.
+     */
+    private setFileInfo(file: File, fileName: HTMLElement, fileSize: HTMLElement): void {
+        fileName.textContent = this.fileNameFormatter.format(file.name);
+        fileSize.textContent = this.fileSizeFormatter.format(file.size);
     }
 
     /**
