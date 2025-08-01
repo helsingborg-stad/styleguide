@@ -1,4 +1,4 @@
-export class FileInputDropzone {
+export class Dropzone {
   private dropzone: HTMLElement;
   private input: HTMLInputElement;
   private dragCounter = 0;

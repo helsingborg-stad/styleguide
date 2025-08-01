@@ -5,6 +5,7 @@ import { FileInputisEmpty } from './fileinput/isEmpty';
 import FileInputButtonHandler from './fileinput/UI/fileInputButtonHandler';
 import FileList from './fileinput/UI/fileList';
 import FilePreviewFactory from './fileinput/UI/preview/filePreviewFactory';
+import { Dropzone } from './fileinput/dropzone';
 
 class FileInput {
     constructor() {
@@ -29,6 +30,8 @@ class FileInput {
 
             new FileList(controller, FilePreviewFactory.createFilePreviewRenderer(controller, dropzone, listArea, template)).init();
             new FileInputButtonHandler(input, button).init();
+            new Dropzone(dropzone, input);
+
 
             /* Detached listeners */
             HasMaxFiles(controller, dropzone);
