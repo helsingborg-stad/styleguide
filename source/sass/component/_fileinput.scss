@@ -169,17 +169,24 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
             display: none;
         }
     }
+
+    .c-fileinput__accepted-files-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: calc(#{$base} * 2);
+        top: calc(#{$base} * 2);
+        bottom: calc(#{$base} * 1.5);
+        opacity: .5;
+        font-size: .7em;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+    }
  
     /* File counter */ 
     .c-fileinput__filecounter {
-        user-select: none;
-        position: absolute;
-        right: calc(#{$base} * 2);
-        bottom: calc(#{$base} * 1.5);
-        font-size: .7em;
-        opacity: .5;
-        transition: all 0.2s ease-in-out;
-
+        white-space: nowrap;
         &::before {
             content: attr(data-counter-current);
         }
