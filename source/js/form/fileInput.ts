@@ -4,6 +4,7 @@ import { FileInputDropzone } from './fileinput/dropzone';
 import { HasMaxFiles } from './fileinput/hasMaxFiles';
 import { FileCounter } from './fileinput/fileCounter';
 import { FileInputisEmpty } from './fileinput/isEmpty';
+import Notice from './fileinput/notice';
 
 class FileInput {
   constructor() {
@@ -17,8 +18,9 @@ class FileInput {
       
       if (dropzone) {
         //Main functionality
+        const noticeHandler = new Notice(dropzone);
         new FileInputUI(dropzone, controller, input as HTMLInputElement);
-        new FileInputDropzone(dropzone, input as HTMLInputElement);
+        new FileInputDropzone(dropzone, noticeHandler, input as HTMLInputElement);
 
         //Detached event listeners
         HasMaxFiles(controller, dropzone);
