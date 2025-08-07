@@ -3,7 +3,7 @@
     gap: calc(#{$base} * 6) calc(#{$base} * 14);
     flex-wrap: wrap;
 
-    .c-logotypegrid__link {
+    .c-logotypegrid__item {
         display: inline-block;
         margin: auto;
     }
