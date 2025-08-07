@@ -31,6 +31,9 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
             filter: $drop-shadow-2;
         }
     }
+    .c-slider__dot {
+        cursor: unset;
+    }
 
     .c-slider__arrows {
         width: 100%;

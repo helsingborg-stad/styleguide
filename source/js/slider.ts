@@ -68,6 +68,19 @@ export default class Slider {
             }
         });
 
+        this.splide.on('pagination:mounted', (data) => {
+            data.items.forEach((item, index) => {
+                const span = document.createElement('span');
+
+                span.className = item.button.className;
+                span.classList.add('c-slider__dot');
+                span.textContent = item.button.textContent;
+
+                item.button.replaceWith(span);
+                item.button = span as HTMLButtonElement;
+            });
+        });
+
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
 
