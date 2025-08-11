@@ -1,14 +1,17 @@
 @for $i from 1 through 10 {
 
-    .u-level-#{$i} {
+    .u-level-#{$i},
+    .u-level--#{$i} {
         z-index: ($i*1000) !important;
     }
 }
 
-.u-level-top {
+.u-level-top,
+.u-level--top {
     z-index: #{$level-top} !important;
 }
 
-.u-level-bottom {
+.u-level-bottom,
+.u-level--bottom {
     z-index: #{$level-bottom} !important;
 }

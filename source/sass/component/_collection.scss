@@ -20,7 +20,7 @@ $c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) 
 
 $c-collection-item-image-border-radius: var(--c-collection-card-border-radius, $border-radius-lg) !default;
 $c-collection-item-content-border-radius: var(--c-collection-card-border-radius, $border-radius-md) !default;
-$c-collection-item-background-color: var(--c-collection-card-background-color, $color-card-background) !default;
+$c-collection-item-background-color: var(--c-collection-card-background-color, $color-background-card) !default;
 
 // Reset
 .c-collection {
@@ -73,6 +73,16 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
             .c-image {
                 margin: 0;
+            }
+
+            .c-image.c-image--is-placeholder {
+                img {
+                    max-width: unset;
+                    min-width: unset;
+                }
+
+                width: calc($base * 15);
+                min-height: calc($base * 15);
             }
         }
 

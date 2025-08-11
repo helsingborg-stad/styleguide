@@ -296,6 +296,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
       border-radius: $border-radius-md;
+      contain: paint;
     }
     
     .c-hero__group-image,

@@ -30,6 +30,8 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
         font-size: calc(#{$base} * 10);
         line-height: 60px;
         margin-bottom: calc(#{$base} * 2);
+        margin-right: auto;
+        margin-left: auto;
     }
 
     .c-box__image.c-image--type-svg {
