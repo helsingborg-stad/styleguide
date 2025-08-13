@@ -177,6 +177,13 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         }
     }
 
+    &.file-size-error {
+        .c-fileinput__maximum-size {
+            color: $c-field-danger-color;
+            opacity: 1;
+        }
+    }
+
     .c-fileinput__accepted-files-wrapper {
         position: relative;
         display: flex;
@@ -191,7 +198,8 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
     }
 
     .c-fileinput__filecounter,
-    .c-fileinput__accepted-files {
+    .c-fileinput__accepted-files,
+    .c-fileinput__maximum-size {
         opacity: .5;
     }
  
