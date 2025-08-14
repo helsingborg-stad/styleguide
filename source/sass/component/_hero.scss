@@ -13,7 +13,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
   &:hover {
     .c-hero__controls {
-      display:block;
+      display: inline-flex;
     }
   }
 
@@ -45,7 +45,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       }
       
       .c-hero__animation-pause-button {
-        display: block;
+        display: inline-flex;
         color: $color-primary;
       }
 
@@ -55,7 +55,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
         }
 
         .c-hero__animation-play-button {
-          display: block;
+          display: inline-flex;
         }
       }
     }
