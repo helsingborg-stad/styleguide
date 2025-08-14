@@ -1,6 +1,6 @@
 import Notice from "./notice";
 
-export class FileInputDropzone {
+export class Dropzone {
     private dragCounter = 0;
     private invalidFilesClass = 'invalid-files';
 
