@@ -32,6 +32,10 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         }
     }
 
+    .c-slider__dot {
+        cursor: default;
+    }
+
     .c-slider__arrows {
         width: 100%;
         max-width: $c-slider-max-width;

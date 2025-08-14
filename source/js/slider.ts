@@ -68,9 +68,10 @@ export default class Slider {
             }
         });
 
+        this.changeNavigationButtonsToSpans();
+
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
-
         } else {
             this.sliderElement.querySelector('.c-slider__arrows')?.remove();
         }
@@ -122,6 +123,21 @@ export default class Slider {
         const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
 
         return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, sliderType: sliderType };
+    }
+
+    private changeNavigationButtonsToSpans() {
+        this.splide.on('pagination:mounted', (data) => {
+            data.items.forEach((item, index) => {
+                const span = document.createElement('span');
+
+                span.className = item.button.className;
+                span.classList.add('c-slider__dot');
+                span.textContent = item.button.textContent;
+
+                item.button.replaceWith(span);
+                item.button = span as HTMLButtonElement;
+            });
+        });
     }
 
     private setupClickNavigation(buttonContainer: Element) {
