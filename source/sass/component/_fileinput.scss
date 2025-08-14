@@ -171,6 +171,13 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         }
     }
 
+    &.invalid-files {
+        .c-fileinput__accepted-files {
+            color: $c-field-danger-color;
+            opacity: 1;
+        }
+    }
+
     .c-fileinput__accepted-files-wrapper {
         position: relative;
         display: flex;
@@ -178,6 +185,22 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         width: 100%;
         gap: calc(#{$base} * 2);
         top: calc(#{$base} * 2);
+        bottom: calc(#{$base} * 1.5);
+        font-size: .7em;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+    }
+
+    .c-fileinput__filecounter,
+    .c-fileinput__accepted-files {
+        opacity: .5;
+    }
+ 
+    /* File counter */ 
+    .c-fileinput__filecounter {
+        user-select: none;
+        position: absolute;
+        right: calc(#{$base} * 2);
         bottom: calc(#{$base} * 1.5);
         opacity: .5;
         font-size: .7em;
