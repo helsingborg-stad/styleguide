@@ -110,7 +110,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
 
     /* Items uploaded */
     .c-fileinput__item {
-        .c-fileinput__container {
+        .c-fileinput__item-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
