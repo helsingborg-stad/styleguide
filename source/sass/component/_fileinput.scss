@@ -302,6 +302,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, $color-
         }
 
         .c-fileinput__item-remove {
+            display: inline-flex;
             right: 0;
         }
         
