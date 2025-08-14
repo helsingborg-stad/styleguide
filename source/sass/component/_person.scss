@@ -1,0 +1,25 @@
+.c-person {
+    &--simple {
+        .c-person__contact .c-button {
+            min-width: 0;
+            height: auto;
+        }
+
+        .c-person__image {
+            aspect-ratio: 1 / 1;
+
+            img {
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+
+        .c-avatar {
+            aspect-ratio: 1 / 1;
+            border-radius: 0;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

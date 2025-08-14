@@ -187,6 +187,11 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         }
     }
 
+    /* Explicit link */
+    .c-card__explicit-link {
+        font-weight: 700;
+    }
+
     /* Apperance modifiers */
 
     &--outline {
