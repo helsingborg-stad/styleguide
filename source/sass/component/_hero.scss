@@ -387,6 +387,117 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     }
     }
   }
+
+  /* Call to action hero */
+  &.c-hero--callToActions {
+    color: var(--color-primary, black);
+
+    .c-hero__text {
+      padding: calc(#{$base} * 5) calc(#{$base} * 3);
+
+      & > .o-grid {
+        max-width: var(--container-width, 100%);
+        margin: auto;
+      }
+
+      p {
+        margin: -0.5em 0 calc(#{$base} * 6) 0;
+      }
+    }
+
+    .c-hero__media {
+      overflow: hidden;
+      position: relative;
+    }
+
+    &.c-hero--media-first {
+      .c-hero__media {
+        order: 1;
+      }
+      .c-hero__text {
+        order: 2;
+      }
+    }
+
+    &.c-hero--normal {
+      min-height: unset;
+      max-height: none;
+      .c-hero__media {
+        aspect-ratio: 1.5/1;
+      }
+    }
+
+    &.c-hero--small {
+      min-height: unset;
+      max-height: none;
+      .c-hero__media {
+        aspect-ratio: 2/1;
+      }
+    }
+
+    &.c-hero--large {
+      min-height: unset;
+      max-height: none;
+      .c-hero__media {
+        aspect-ratio: 1/1;
+      }
+    }
+
+    .c-hero__buttons {
+      display: flex;
+      flex-flow: column;
+      margin-top: calc(#{$base} * 3);
+      gap: calc(#{$base} * 2);
+
+      .c-button + .c-button {
+        margin-left: 0;
+      }
+    }
+
+    @include mq(map_get($breakpoints-map, "sm")) {
+      .c-hero__text {
+        padding: calc(#{$base} * 6) calc(#{$base} * 3);
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    @include mq(map_get($breakpoints-map, "md")) {
+      .c-hero__text {
+        padding: calc(#{$base} * 8) calc(#{$base} * 3);
+      }
+
+      .c-hero__buttons {
+        flex-flow: row;
+      }
+
+      &.c-hero--normal {
+        .c-hero__media {
+          aspect-ratio: 3/1;
+        }
+      }
+
+      &.c-hero--small {
+        .c-hero__media {
+          aspect-ratio: 4/1;
+        }
+      }
+
+      &.c-hero--large {
+        .c-hero__media {
+          aspect-ratio: 16/9;
+        }
+      }
+    }
+
+    @include mq(map_get($breakpoints-map, "lg")) {
+      .c-hero__text {
+        padding: calc(#{$base} * 10) calc(#{$base} * 3);
+      }
+    }
+  }
 }
 
 
