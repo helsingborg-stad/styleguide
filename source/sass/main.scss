@@ -17,11 +17,11 @@
 // ***************************************************************
 // *** Material Design Icons
 // ***************************************************************
-@use "material-symbols/outlined.scss";
+@import "material-symbols/outlined.scss";
 
 // ***************************************************************
 // *** Settings
 // ***************************************************************
-@use "styleguide";
-@use "docs";
-@use "pages";
+@import "styleguide";
+@import "docs";
+@import "pages";

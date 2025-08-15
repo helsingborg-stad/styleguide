@@ -22,7 +22,7 @@ $hamburger-layer-spacing       : 6px !default;
 // $hamburger-hover-filter       : opacity(50%);
 // $hamburger-active-hover-filter: $hamburger-hover-filter;
 
-@use "~hamburgers/_sass/hamburgers/hamburgers.scss";
+@import "~hamburgers/_sass/hamburgers/hamburgers.scss";
 
 .hamburger {
     display: flex;
