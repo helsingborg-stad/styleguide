@@ -2,10 +2,6 @@ const log = require('consola');
 const fs = require('fs');
 const https = require('https');
 
-require('@babel/register')({
-    presets: ['es2016'],
-});
-
 class Build {
     constructor(processArgs) {
         this.dist = 'assets/dist/';

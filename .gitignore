@@ -27,4 +27,9 @@ source/sass/imports/*
 .npmrc
 .dccache
 .vscode
+
 /coverage
+*.pem
+*.key
+*.crt
+franken/Caddyfile

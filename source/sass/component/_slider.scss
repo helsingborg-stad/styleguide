@@ -1,4 +1,4 @@
-@import "@splidejs/splide/dist/css/splide.min.css";
+@use "@splidejs/splide/dist/css/splide.min.css";
 
 $c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
@@ -288,4 +288,4 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
 }
 
 //Import is here as adding the import in main.scss does not work
-@import './slider_item';
+@use './slider_item';

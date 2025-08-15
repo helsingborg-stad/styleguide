@@ -3,74 +3,74 @@ module.exports.sassTemplate = `
         // ***************************************************************
         // *** Settings
         // ***************************************************************
-        @import "../../setting/variables";
+        @use "../../setting/variables";
         
         // ***************************************************************
         // *** Functions
         // ***************************************************************
-        @import "../../function/strip-unit";
-        @import "../../function/em";
-        @import "../../function/rem";
-        @import "../../function/px";
-        @import "../../function/breakpoint-suffix";
-        @import "../../function/next-breakpoint";
-        @import "../../function/get-color";
-        @import "../../function/remove-list-item";
-        @import "../../function/validate-breakpoint-list";
-        @import "../../function/mix-color-style-functions.scss";
-        @import "../../function/legacy-direction";
-        @import "../../function/is-direction";
-        @import "../../function/append-important";
-        @import "../../function/heading";
+        @use "../../function/strip-unit";
+        @use "../../function/em";
+        @use "../../function/rem";
+        @use "../../function/px";
+        @use "../../function/breakpoint-suffix";
+        @use "../../function/next-breakpoint";
+        @use "../../function/get-color";
+        @use "../../function/remove-list-item";
+        @use "../../function/validate-breakpoint-list";
+        @use "../../function/mix-color-style-functions.scss";
+        @use "../../function/legacy-direction";
+        @use "../../function/is-direction";
+        @use "../../function/append-important";
+        @use "../../function/heading";
         
         // ***************************************************************
         // *** Mixins
         // ***************************************************************
-        @import "../../mixin/mq";
-        @import "../../mixin/responsive-styles";
-        @import "../../mixin/psuedo";
-        @import "../../mixin/ratio";
-        @import "../../mixin/cover";
-        @import "../../mixin/center";
-        @import "../../mixin/size";
-        @import "../../mixin/shadow";
-        @import "../../mixin/button";
-        @import "../../mixin/list";
-        @import "../../mixin/paper";
-        @import "../../mixin/gradient";
-        @import "../../mixin/arrow";
-        @import "../../mixin/build-utility";
-        @import "../../mixin/animations/slide";
-        @import "../../mixin/animations/scale-up";
-        @import "../../mixin/animations/fade-in";
+        @use "../../mixin/mq";
+        @use "../../mixin/responsive-styles";
+        @use "../../mixin/psuedo";
+        @use "../../mixin/ratio";
+        @use "../../mixin/cover";
+        @use "../../mixin/center";
+        @use "../../mixin/size";
+        @use "../../mixin/shadow";
+        @use "../../mixin/button";
+        @use "../../mixin/list";
+        @use "../../mixin/paper";
+        @use "../../mixin/gradient";
+        @use "../../mixin/arrow";
+        @use "../../mixin/build-utility";
+        @use "../../mixin/animations/slide";
+        @use "../../mixin/animations/scale-up";
+        @use "../../mixin/animations/fade-in";
         
         // ***************************************************************
         // *** Generic
         // ***************************************************************
-        @import "../../generic/normalize";
-        @import "../../generic/container";
-        @import "../../generic/grid";
-        @import "../../generic/icons";
-        @import "../../generic/load-animation";
+        @use "../../generic/normalize";
+        @use "../../generic/container";
+        @use "../../generic/grid";
+        @use "../../generic/icons";
+        @use "../../generic/load-animation";
         
         // ***************************************************************
         // *** Elements
         // ***************************************************************
-        @import "../../element/html";
-        @import "../../element/body";
-        @import "../../element/headings";
-        @import "../../element/list";
-        @import "../../element/link";
-        @import "../../element/strong";
-        @import "../../element/table";
+        @use "../../element/html";
+        @use "../../element/body";
+        @use "../../element/headings";
+        @use "../../element/list";
+        @use "../../element/link";
+        @use "../../element/strong";
+        @use "../../element/table";
         
         // ***************************************************************
         // *** Objects
         // ***************************************************************
-        @import "../../object/article";
-        @import "../../object/hero";
-        @import "../../object/lead";
-        @import "../../object/ripple";
+        @use "../../object/article";
+        @use "../../object/hero";
+        @use "../../object/lead";
+        @use "../../object/ripple";
     
         
          // ***************************************************************
