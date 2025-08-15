@@ -64,7 +64,6 @@
         "rollup-plugin-copy": "^3.5.0",
         "sass": "^1.90.0",
         "stylelint": "^14.4.0",
-        "ts-jest": "^29.0.5",
         "typescript": "^5.9.2",
         "vite": "^7.1.2",
         "vite-plugin-simple-manifest": "^1.0.2"
