@@ -1,7 +1,5 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
-import postcssObjectFitImages from 'postcss-object-fit-images'
-
 const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m => m.default || m)
 
 // Entry points configuration matching the original webpack config
@@ -26,7 +24,6 @@ export default defineConfig(({ mode }) => {
             if (assetInfo.name?.endsWith('.css')) {
               return isProduction ? '[name].[hash].min.css' : '[name].min.css'
             }
-            // Handle fonts and other assets
             return 'assets/[name].[hash].[ext]'
           }
         }
@@ -43,13 +40,17 @@ export default defineConfig(({ mode }) => {
         scss: {
           api: 'modern-compiler',
           includePaths: ['node_modules', 'source'],
-          additionalData: `$node_modules: "${resolve(process.cwd(), 'node_modules')}";`
+          importers: [
+            {
+              findFileUrl(url) {
+                if (url.startsWith('~')) {
+                  return new URL(url.slice(1), new URL('../node_modules/', import.meta.url))
+                }
+                return null
+              }
+            }
+          ]
         }
-      },
-      postcss: {
-        plugins: [
-          postcssObjectFitImages
-        ]
       }
     },
     resolve: {
