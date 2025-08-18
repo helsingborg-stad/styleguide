@@ -9,7 +9,9 @@ $c-siteselector-background: var(--c-siteselector-background, var_colors.$color-p
 $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-primary-contrasting) !default;
 
 .c-siteselector {
-    --c-siteselector-height-computed: calc(var(--c-siteselector-height, #{var_default.$base} * 5.5) - var(--base, 8px));
+    --c-siteselector-height-base: calc(var(--base, 8px) * 5.5);
+    --c-siteselector-height-computed: calc(var(--c-siteselector-height, var(--c-siteselector-height-base)) - var(--base, 8px));
+    --c-siteselector-radius-computed: calc(var(--c-siteselector-radius, var(--c-siteselector-height-base)) + var(--base, 8px) * 0.5);
 
     &.c-siteselector--radius-xs {
         --c-siteselector-radius: #{var_border-radius.$border-radius-xs};
@@ -38,7 +40,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     }
 
     display: inline-flex;
-    border-radius: calc($c-siteselector-radius + #{var_default.$base} * .5);
+    border-radius: var(--c-siteselector-radius-computed);
     padding: calc(#{var_default.$base} * .5);
     background-color: #{$c-siteselector-background}; 
     height: calc(#{var_default.$base} * 5.5);
