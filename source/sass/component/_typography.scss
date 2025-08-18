@@ -1,3 +1,5 @@
+@use "../setting/var_fonts";
+
 .c-typography.c-typography__variant-- {
 
     &h1, &h2, &h3, &h4, &h5, &h6 {
@@ -29,54 +31,54 @@
     }
 
     &headline {
-        font-size: $font-size-headline;
+        font-size: var_fonts.$font-size-headline;
     }
 
     &title {
-        font-family: $font-family-heading;
-        font-size: $font-size-title;
-        font-weight: $font-weight-heading;
-        line-height: $line-height-heading;
-        letter-spacing: $letter-spacing-heading;
+        font-family: var_fonts.$font-family-heading;
+        font-size: var_fonts.$font-size-title;
+        font-weight: var_fonts.$font-weight-heading;
+        line-height: var_fonts.$line-height-heading;
+        letter-spacing: var_fonts.$letter-spacing-heading;
     }
 
     &subtitle {
-        font-size: $font-size-subtitle;
+        font-size: var_fonts.$font-size-subtitle;
     }
 
     &bold {
-        font-weight: $font-weight-bold;
-        font-family: $font-family-bold;
-        font-size: $font-size-base;
-        line-height: $line-height-base;
-        letter-spacing: $letter-spacing-base;
+        font-weight: var_fonts.$font-weight-bold;
+        font-family: var_fonts.$font-family-bold;
+        font-size: var_fonts.$font-size-base;
+        line-height: var_fonts.$line-height-base;
+        letter-spacing: var_fonts.$letter-spacing-base;
     }
 
     &body,
     &p {
-        font-size: $font-size-base;
-        font-family: $font-family-base;
-        line-height: $line-height-base;
-        font-weight: $font-weight-base;
-        letter-spacing: $letter-spacing-base;
+        font-size: var_fonts.$font-size-base;
+        font-family: var_fonts.$font-family-base;
+        line-height: var_fonts.$line-height-base;
+        font-weight: var_fonts.$font-weight-base;
+        letter-spacing: var_fonts.$letter-spacing-base;
     }
 
     &caption {
-        font-size: $font-size-caption;
+        font-size: var_fonts.$font-size-caption;
     }
 
     &byline {
-        font-size: $font-size-caption;
+        font-size: var_fonts.$font-size-caption;
     }
 
     &meta {
-        font-size: $font-size-meta;
+        font-size: var_fonts.$font-size-meta;
     }
 
     &marketing {
-        font-weight: $font-weight-bold;
-        font-family: $font-family-bold;
-        font-size: $font-size-marketing;
+        font-weight: var_fonts.$font-weight-bold;
+        font-family: var_fonts.$font-family-bold;
+        font-size: var_fonts.$font-size-marketing;
         line-height: 124%;
     }
 

@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $xs: --radius-xs;
 $sm: --radius-sm;
 $md: --radius-md;
@@ -117,4 +119,4 @@ full: ("border-bottom-right-radius": 9999px)
 )
 );
 
-@include build-utilities($border-radius-utilities);
+@include build-utility.build-utilities($border-radius-utilities);

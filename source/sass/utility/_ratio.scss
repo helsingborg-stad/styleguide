@@ -1,15 +1,17 @@
+@use "../mixin/ratio";
+
 .u-ratio-1-1 {
-    @include ratio(1,1);
+    @include ratio.ratio(1,1);
 }
 
 .u-ratio-16-9 {
-    @include ratio(16,9);
+    @include ratio.ratio(16,9);
 }
 
 .u-ratio-12-16 {
-    @include ratio(12,16);
+    @include ratio.ratio(12,16);
 }
 
 .u-ratio-4-3 {
-    @include ratio(4,3);
+    @include ratio.ratio(4,3);
 }

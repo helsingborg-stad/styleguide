@@ -1,26 +1,34 @@
-$c-collection-padding-x: var(--c-collection-padding-x, calc(#{$base} * 2)) !default;
-$c-collection-padding-y: var(--c-collection-padding-y, calc(#{$base} * 2)) !default;
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
 
-$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{$base} * 2)) !default;
-$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, $base) !default;
+$c-collection-padding-x: var(--c-collection-padding-x, calc(#{var_default.$base} * 2)) !default;
+$c-collection-padding-y: var(--c-collection-padding-y, calc(#{var_default.$base} * 2)) !default;
+
+$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{var_default.$base} * 2)) !default;
+$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var_default.$base) !default;
 
 $c-collection-hover-background: rgba(black, .05) !default;
 
-$c-collection-border-radius: var(--c-collection-border-radius, $border-radius-md) !default;
+$c-collection-border-radius: var(--c-collection-border-radius, var_border-radius.$border-radius-md) !default;
 
-$c-collection-border-width: var(--c-collection-border-width, $border-width-outline) !default;
-$c-collection-border-color: var(--c-collection-border-color, $color-border-outline) !default;
+$c-collection-border-width: var(--c-collection-border-width, var_properties.$border-width-outline) !default;
+$c-collection-border-color: var(--c-collection-border-color, var_colors.$color-border-outline) !default;
 
-$c-collection-divider-border-width: var(--c-collection-border-width, $border-width-divider) !default;
-$c-collection-divider-border-color: var(--c-collection-border-color, $color-border-divider) !default;
+$c-collection-divider-border-width: var(--c-collection-border-width, var_properties.$border-width-divider) !default;
+$c-collection-divider-border-color: var(--c-collection-border-color, var_colors.$color-border-divider) !default;
 
 // collection__item
-$c-collection-item-border-width: var(--c-collection-item-border-width, $border-width-medium) !default;
+$c-collection-item-border-width: var(--c-collection-item-border-width, var_properties.$border-width-medium) !default;
 $c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
 
-$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, $border-radius-lg) !default;
-$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, $border-radius-md) !default;
-$c-collection-item-background-color: var(--c-collection-card-background-color, $color-background-card) !default;
+$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-md) !default;
+$c-collection-item-background-color: var(--c-collection-card-background-color, var_colors.$color-background-card) !default;
 
 // Reset
 .c-collection {
@@ -40,8 +48,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     &.c-collection--bordered {
         border-radius: $c-collection-border-radius;
         border-color: $c-collection-border-color;
-        padding-top: $base;
-        padding-bottom: $base;
+        padding-top: var_default.$base;
+        padding-bottom: var_default.$base;
         border: $c-collection-border-width solid;
     }
 
@@ -51,9 +59,9 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
   
         &__floating {
             position: absolute;
-            right: calc($base * 2.75);
-            top: $base;
-            z-index: $level-3;
+            right: calc(var_default.$base * 2.75);
+            top: var_default.$base;
+            z-index: var_properties.$level-3;
             cursor: pointer;
         }
 
@@ -67,8 +75,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                 width: 100%;
                 object-fit: cover;
                 margin: 0;
-                max-width: calc($base * 15);
-                min-width: calc($base * 15);
+                max-width: calc(var_default.$base * 15);
+                min-width: calc(var_default.$base * 15);
             }
 
             .c-image {
@@ -81,13 +89,13 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                     min-width: unset;
                 }
 
-                width: calc($base * 15);
-                min-height: calc($base * 15);
+                width: calc(var_default.$base * 15);
+                min-height: calc(var_default.$base * 15);
             }
         }
 
         &.c-collection__item--bordered {
-            padding: calc($base * 3) 0;
+            padding: calc(var_default.$base * 3) 0;
             border-bottom: $c-collection-item-border-width solid $c-collection-item-border-color;
             border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
             margin-top: calc($c-collection-item-border-width * -1);
@@ -95,7 +103,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     }
 
     .c-collection__item.is-current {
-        background-color: $color-primary;
+        background-color: var_colors.$color-primary;
         color: white;
     }
 
@@ -104,8 +112,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         border: none;
         border-top: $c-collection-divider-border-width solid;
         border-color: $c-collection-divider-border-color;
-        margin-top: $base;
-        margin-bottom: $base;
+        margin-top: var_default.$base;
+        margin-bottom: var_default.$base;
     }
 
     // Fix single 1px messing up vertical rythm
@@ -132,12 +140,12 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
     
     // Content Modifier - Multiline
     .c-collection__content.c-collection__content--icon {
-        padding-right: calc(#{$base} * 5);
+        padding-right: calc(#{var_default.$base} * 5);
         position: relative;
         .c-collection__secondary {
             position: absolute;
-            top: calc(#{$base} * 1.5);
-            right: calc(#{$base} * 2);
+            top: calc(#{var_default.$base} * 1.5);
+            right: calc(#{var_default.$base} * 2);
             float: none;
         }
     }
@@ -184,7 +192,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
                 background-color: $c-collection-hover-background;
                 .c-collection__content,
                 .c-collection__icon {
-                    transform: translateX(calc(#{$base} * 0.5)); 
+                    transform: translateX(calc(#{var_default.$base} * 0.5)); 
                 }
             }
         }
@@ -222,11 +230,11 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 
     .c-collection.c-collection--compact#{$suffix} {
         @for $i from 1 through 6 {
-            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), #{$font-size-base});
+            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), #{var_fonts.$font-size-base});
         }
         &.c-collection--bordered {
-            padding-top: calc($base / 2);
-            padding-bottom: calc($base / 2);
+            padding-top: calc(var_default.$base / 2);
+            padding-bottom: calc(var_default.$base / 2);
         }
 
         .c-collection__content,
@@ -240,7 +248,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         }
 
         .c-collection__icon {
-            --c-icon-size: calc(#{$base} * 2);
+            --c-icon-size: calc(#{var_default.$base} * 2);
         }
     }
 }
@@ -249,8 +257,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
 @include collection-compact-styles();
 
 // Applying the compact styles for each breakpoint
-@each $breakpoint in map-keys($breakpoints-map) {
-    @include mq($breakpoint) {
+@each $breakpoint in map.keys(var_default.$breakpoints-map) {
+    @include mq.mq($breakpoint) {
         @include collection-compact-styles($breakpoint);
     }
 }
@@ -311,7 +319,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, $
         border-radius: 0;
         padding-top: 0;
         padding-left: unset;
-        border-left: solid $base $c-collection-border-color;
+        border-left: solid var_default.$base $c-collection-border-color;
         border-top: $c-collection-divider-border-width solid;
     }
 }

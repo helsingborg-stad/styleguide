@@ -1,13 +1,17 @@
+@use "sass:list";
+@use "sass:map";
+@use "../setting/var_default";
+
 @function next-breakpoint($breakpoint) {
-    @if map-has-key($breakpoints-map, $breakpoint) {
-        $last: length($breakpoints-map);
-        $current: index(map-keys($breakpoints-map), $breakpoint);
+    @if map.has-key(var_default.$breakpoints-map, $breakpoint) {
+        $last: list.length(var_default.$breakpoints-map);
+        $current: list.index(map.keys(var_default.$breakpoints-map), $breakpoint);
 
         @if ($current == $last) {
             @return null;
         }
 
-        @return nth(map-keys($breakpoints-map), $current + 1);
+        @return list.nth(map.keys(var_default.$breakpoints-map), $current + 1);
 
     } @else {
         @return null;

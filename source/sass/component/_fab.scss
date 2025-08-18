@@ -1,3 +1,10 @@
+@use "sass:map";
+@use "../mixin/shadow";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
 // ***************************************************************
 // *** Floating Action Button (Popout panel)
 // ***************************************************************
@@ -9,23 +16,23 @@ $yAxis: (top, bottom);
 //Standard styling
 .c-fab {
     position: fixed;
-    z-index: $level-6;
-    bottom: map-get($spacers, "2"); 
-    right: map-get($spacers, "2"); 
+    z-index: var_properties.$level-6;
+    bottom: map.get(var_default.$spacers, "2"); 
+    right: map.get(var_default.$spacers, "2"); 
     text-align: right;
-    z-index: $level-8;
+    z-index: var_properties.$level-8;
 }
 
 .c-fab .c-fab__panel {
     @extend .c-card; 
-    border-radius: $border-radius-md;
+    border-radius: var_border-radius.$border-radius-md;
     display: none;
-    margin-bottom: map-get($spacers, "2");
+    margin-bottom: map.get(var_default.$spacers, "2");
     min-width: 200px; 
     max-width: 250px;
     text-align: left;
-    background: $color-default; 
-    padding: map-get($spacers, "2");
+    background: var_colors.$color-default; 
+    padding: map.get(var_default.$spacers, "2");
 }
 
 .c-fab .c-fab__panel--open {
@@ -35,15 +42,15 @@ $yAxis: (top, bottom);
 
 .c-fab__panel .c-fab__heading {
     text-align: center;
-    margin-bottom: map-get($spacers, "2");
-    padding: map-get($spacers, "2");
+    margin-bottom: map.get(var_default.$spacers, "2");
+    padding: map.get(var_default.$spacers, "2");
     padding-top: 0;
     margin-top: 0;
 }
 
 .c-fab .c-fab__panel {
     .c-nav.c-nav--tiles .c-nav__link {
-        @include shadow(0.5);
+        @include shadow.shadow(0.5);
     }
 }
 
@@ -51,8 +58,8 @@ $yAxis: (top, bottom);
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
         .c-fab__#{$sideY}-#{$sideX} {
-            #{$sideX}: map-get($spacers, "2");
-            #{$sideY}: map-get($spacers, "2");
+            #{$sideX}: map.get(var_default.$spacers, "2");
+            #{$sideY}: map.get(var_default.$spacers, "2");
         }
     }
 }

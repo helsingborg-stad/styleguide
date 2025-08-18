@@ -5,8 +5,7 @@ const { manifestPlugin } = await import('vite-plugin-simple-manifest').then(m =>
 // Entry points configuration matching the original webpack config
 const entries = {
   'js/styleguide-js': './source/js/main.js',
-  'css/styleguide-css': './source/sass/main.scss',
-  'js/buildcss': './build/index.js',
+  'css/styleguide-css': './source/sass/main.scss'
 }
 
 export default defineConfig(({ mode }) => {

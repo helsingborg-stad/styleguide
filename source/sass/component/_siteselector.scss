@@ -1,46 +1,51 @@
-$c-siteselector-height: var(--c-siteselector-height, calc(#{$base} * 5.5));
+@use "../mixin/cover";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
+$c-siteselector-height: var(--c-siteselector-height, calc(#{var_default.$base} * 5.5));
 $c-siteselector-radius: var(--c-siteselector-radius, $c-siteselector-height) !default;
-$c-siteselector-background: var(--c-siteselector-background, $color-primary) !default;
-$c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrasting) !default;
+$c-siteselector-background: var(--c-siteselector-background, var_colors.$color-primary) !default;
+$c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-primary-contrasting) !default;
 
 .c-siteselector {
 
     &.c-siteselector--radius-xs {
-        --c-siteselector-radius: #{$border-radius-xs};
+        --c-siteselector-radius: #{var_border-radius.$border-radius-xs};
     }
 
     &.c-siteselector--radius-sm {
-        --c-siteselector-radius: #{$border-radius-sm};
+        --c-siteselector-radius: #{var_border-radius.$border-radius-sm};
     }
 
     &.c-siteselector--radius-md {
-        --c-siteselector-radius: #{$border-radius-md};
+        --c-siteselector-radius: #{var_border-radius.$border-radius-md};
     }
 
     &.c-siteselector--radius-lg {
-        --c-siteselector-radius: #{$border-radius-lg};
+        --c-siteselector-radius: #{var_border-radius.$border-radius-lg};
     }
 
     &.c-siteselector--primary {
-        --c-siteselector-background: #{$color-primary};
-        --c-siteselector-contrast: #{$color-primary-contrasting};
+        --c-siteselector-background: #{var_colors.$color-primary};
+        --c-siteselector-contrast: #{var_colors.$color-primary-contrasting};
     }
 
     &.c-siteselector--secondary {
-        --c-siteselector-background: #{$color-secondary};
-        --c-siteselector-contrast: #{$color-secondary-contrasting};
+        --c-siteselector-background: #{var_colors.$color-secondary};
+        --c-siteselector-contrast: #{var_colors.$color-secondary-contrasting};
     }
 
     display: inline-flex;
-    border-radius: calc($c-siteselector-radius + calc(#{$base} * .5));
-    padding: calc(#{$base} * .5);
+    border-radius: calc($c-siteselector-radius + calc(#{var_default.$base} * .5));
+    padding: calc(#{var_default.$base} * .5);
     background-color: #{$c-siteselector-background}; 
-    height: calc(#{$base} * 5.5);
+    height: calc(#{var_default.$base} * 5.5);
     
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper,
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper > * {
         min-height: unset;
-        height: calc(#{$c-siteselector-height} - #{$base});
+        height: calc(#{$c-siteselector-height} - #{var_default.$base});
     }
 
     .c-siteselector__items.c-nav--depth-1  {
@@ -52,7 +57,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
             height: unset;
             width: unset;
             padding: unset;
-            margin: 0 calc(#{$base} * .5);
+            margin: 0 calc(#{var_default.$base} * .5);
             color: $c-siteselector-contrast;
             .c-button__label {
                 color: $c-siteselector-contrast;
@@ -70,9 +75,9 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
     }
 
     .c-siteselector__item.c-nav__item--depth-1 {
-        padding: 0 calc(#{$base} * 1.5); 
+        padding: 0 calc(#{var_default.$base} * 1.5); 
         border-radius: #{$c-siteselector-radius};
-        height: calc(#{$c-siteselector-height} - #{$base});
+        height: calc(#{$c-siteselector-height} - #{var_default.$base});
         
         .c-nav__link {
             padding: 0;
@@ -92,7 +97,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
         content: ""; 
         background-color: $c-siteselector-contrast;
         position: absolute;
-        @include cover(); 
+        @include cover.cover(); 
         opacity: .2;
         border-radius: #{$c-siteselector-radius};
     }
@@ -102,7 +107,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, $color-primary-contrast
         right: 0;
 
         &:after {
-            right: calc(#{$base} * 0.75);
+            right: calc(#{var_default.$base} * 0.75);
             left: auto;
         }
     }

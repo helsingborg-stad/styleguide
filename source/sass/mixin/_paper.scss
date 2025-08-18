@@ -1,9 +1,16 @@
-$c-paper-color-background: var(--c-paper-color-background, $color-background-card) !default;
-$c-paper-border-radius: var(--c-paper-border-radius, $border-radius-lg) !default;
+@use "sass:list";
+@use "sass:map";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-paper-color-background: var(--c-paper-color-background, var_colors.$color-background-card) !default;
+$c-paper-border-radius: var(--c-paper-border-radius, var_border-radius.$border-radius-lg) !default;
 
 @mixin paper($level: 1, $padding: "0") {
-    filter: nth($drop-shadow-list, $level);
+    filter: list.nth(var_properties.$drop-shadow-list, $level);
     background-color: $c-paper-color-background;
     border-radius: $c-paper-border-radius;
-    padding: map-get($spacers, $padding);
+    padding: map.get(var_default.$spacers, $padding);
 }

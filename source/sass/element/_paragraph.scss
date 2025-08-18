@@ -1,7 +1,9 @@
+@use "../setting/var_default";
+
 p {
     margin: 0;
 }
 
 p {
-    margin-top: calc(#{$base} * 2);
+    margin-top: calc(#{var_default.$base} * 2);
 }

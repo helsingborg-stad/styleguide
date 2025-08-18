@@ -1,6 +1,8 @@
+@use "../setting/var_properties";
+
 @media print {
 
-    @each $state, $properties in $display-states {
+    @each $state, $properties in var_properties.$display-states {
         .u-print-display--#{$state} {
             display: #{$state} !important;
         }

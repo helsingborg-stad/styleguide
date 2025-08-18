@@ -1,20 +1,22 @@
+@use "../setting/var_default";
+
 $position: center, start, end, flex-start, flex-end, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
-$grid-gap: var(--grid-gap, calc($base * 4)) !default;
+$grid-gap: var(--grid-gap, calc(var_default.$base * 4)) !default;
 
 .c-group {
     display: flex;
 
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
-            --grid-gap: calc(#{$i} * #{$base});
+            --grid-gap: calc(#{$i} * #{var_default.$base});
             gap: $grid-gap;
         }
 
         &.c-group--columns-#{$i} > * {
-            flex-basis: calc((100% - $grid-gap) / $i);
-            max-width: calc((100% - $grid-gap) / $i);
+            flex-basis: calc(calc(100% - $grid-gap) / #{$i});
+            max-width: calc(calc(100% - $grid-gap) / #{$i});
         }
     }
 

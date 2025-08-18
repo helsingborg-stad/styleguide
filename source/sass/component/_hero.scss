@@ -1,9 +1,21 @@
-$c-hero-color-overlay: var(--c-hero-color-overlay, $color-alpha) !default;
-$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, $color-alpha-contrasting) !default;
-$c-hero-color-font-white: var(--c-hero-color-font-white, $color-white) !default;
-$c-hero-color-font-black: var(--c-hero-color-font-black, $color-black) !default;
-$c-hero-background-color: var(--c-hero-background-color, $color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radius-lg) !default;
+@use "sass:map";
+@use "../mixin/animations/ken-burns";
+@use "../mixin/cover";
+@use "../mixin/mq";
+@use "../mixin/ratio";
+@use "../mixin/stretch";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
+$c-hero-color-overlay: var(--c-hero-color-overlay, var_colors.$color-alpha) !default;
+$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.$color-alpha-contrasting) !default;
+$c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
+$c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
+$c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.$border-radius-lg) !default;
 
 
 .c-hero {
@@ -20,17 +32,17 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
    &__controls {
       display: none;
       position: absolute;
-      top: calc(#{$base} * 1.5);
-      right: calc(#{$base} * 1.5);
+      top: calc(#{var_default.$base} * 1.5);
+      right: calc(#{var_default.$base} * 1.5);
       cursor: pointer;
       z-index: 3000;
 
       &:before {
         content: "";
         display: block;
-        background: $color-white;
-        width: calc(#{$base} * 3);
-        height: calc(#{$base} * 3);
+        background: var_colors.$color-white;
+        width: calc(#{var_default.$base} * 3);
+        height: calc(#{var_default.$base} * 3);
         border-radius: 50%;
         position: absolute;
         z-index: -1;
@@ -41,12 +53,12 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
       .c-hero__animation-play-button {
         display: none;
-        color: $color-primary;
+        color: var_colors.$color-primary;
       }
       
       .c-hero__animation-pause-button {
         display: inline-flex;
-        color: $color-primary;
+        color: var_colors.$color-primary;
       }
 
       &.is-paused {
@@ -76,7 +88,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
   &.c-hero--animation-type-kenny {
     .c-hero__image {
-      @include ken-burns();
+      @include ken-burns.ken-burns();
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -88,24 +100,24 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
   /** Modifiers - size **/ 
   &.c-hero--small {
-    min-height: calc(#{$base} * 40);
+    min-height: calc(#{var_default.$base} * 40);
     &:before {
-      @include ratio(36, 7, false); 
+      @include ratio.ratio(36, 7, false); 
     }
   }
 
   &.c-hero--normal {
-    min-height: calc(#{$base} * 50);
+    min-height: calc(#{var_default.$base} * 50);
     &:before {
-      @include ratio(10, 3, false); 
+      @include ratio.ratio(10, 3, false); 
     }
   }
 
   &.c-hero--large {
-    min-height: calc(#{$base} * 60);
+    min-height: calc(#{var_default.$base} * 60);
     max-height: 70vh;
     &:before {
-      @include ratio(16, 9, false);
+      @include ratio.ratio(16, 9, false);
     }
   }
 
@@ -129,13 +141,13 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
   /** Modifiers - Full width */ 
   &.c-hero--stretch { /* Bleed outside container  left&right */ 
-    @include stretch();
+    @include stretch.stretch();
   }
 
   /** Sub elements */ 
   &.c-hero--overlay .c-hero__overlay {
-    @include cover();
-    z-index: $level-1;
+    @include cover.cover();
+    z-index: var_properties.$level-1;
     box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
   }
 
@@ -143,7 +155,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     align-self: flex-end;
   }
 
-  @include mq(map_get($breakpoints-map, "md")) {
+  @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
 
     .c-hero__container {
       align-self: flex-end;
@@ -177,9 +189,9 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
   }
 
   .c-hero__content {
-    padding: map-get($spacers, "6") 0;
-    max-width: calc( #{$base} * 87);
-    z-index: $level-2;
+    padding: map.get(var_default.$spacers, "6") 0;
+    max-width: calc( #{var_default.$base} * 87);
+    z-index: var_properties.$level-2;
     position: relative;
   }
   
@@ -190,7 +202,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
   &.c-hero--has-content-background-color {
     .c-hero__content {
       margin: calc(var(--base, 8px)*3) 0;
-      padding: map-get($spacers, "6");
+      padding: map.get(var_default.$spacers, "6");
     }
 
     &.c-hero--apply-rounded-corners .c-hero__content {
@@ -198,7 +210,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     }
 
     &.c-hero--apply-shadows .c-hero__content {
-      filter: $drop-shadow-2;
+      filter: var_properties.$drop-shadow-2;
     }
   }
 
@@ -245,19 +257,19 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
   }
 
   .c-hero__title {
-    font-size: calc(#{$font-size-hero} + calc(1vw));
+    font-size: calc(#{var_fonts.$font-size-hero} + calc(1vw));
     text-wrap: balance;
     animation-delay: 200ms;
   }
 
   .c-hero__byline {
-    font-size: calc(#{$font-size-hero-byline} + calc(.5vw));
+    font-size: calc(#{var_fonts.$font-size-hero-byline} + calc(.5vw));
     animation-delay: 400ms;
     display: inline-block;
   }
 
   .c-hero__body {
-    font-size: calc(#{$font-size-hero-body} + calc(.2vw));
+    font-size: calc(#{var_fonts.$font-size-hero-body} + calc(.2vw));
     animation-delay: 600ms;
   }
 
@@ -270,7 +282,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
   }
 
   .c-hero__video {
-    @include cover();
+    @include cover.cover();
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -287,7 +299,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
   /* TwoColumn hero */
   &.c-hero--twoColumn {
-    padding: calc($base*10) 0;
+    padding: calc(var_default.$base*10) 0;
     
     &:before {
       display: none;
@@ -295,7 +307,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
-      border-radius: $border-radius-md;
+      border-radius: var_border-radius.$border-radius-md;
       contain: paint;
     }
     
@@ -319,7 +331,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       max-width:100%;
       padding:0;
       text-shadow: none;
-      border-radius: $border-radius-xs;
+      border-radius: var_border-radius.$border-radius-xs;
       .c-hero__group {
         flex: 0 0 100%;
       }
@@ -350,7 +362,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
         }
     }
 
-    @include mq(map_get($breakpoints-map, "md")) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__content {
         .c-hero__group {
           flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
@@ -358,8 +370,8 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       }
       
       &.c-hero--overflow { 
-        padding-top: calc($base * 16);
-        max-height: calc($base * 90);
+        padding-top: calc(var_default.$base * 16);
+        max-height: calc(var_default.$base * 90);
         
         .c-hero__background {
           display: block;
@@ -369,19 +381,19 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
         &::after {
           content: "";
-          height: calc($base * 8);
+          height: calc(var_default.$base * 8);
           width: 100%;
           bottom:0;
           left:0;
           position: absolute;
-          background-color: $color-default;
-          z-index:$level-1;
+          background-color: var_colors.$color-default;
+          z-index:var_properties.$level-1;
         }
 
       .c-hero__content {
-          background-color: $color-white;
+          background-color: var_colors.$color-white;
         .c-hero__group-content {
-          padding: calc($base * 6);
+          padding: calc(var_default.$base * 6);
         } 
       }
     }
@@ -393,7 +405,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     color: var(--color-primary, black);
 
     .c-hero__text {
-      padding: calc(#{$base} * 5) calc(#{$base} * 3);
+      padding: calc(#{var_default.$base} * 5) calc(#{var_default.$base} * 3);
 
       & > .o-grid {
         max-width: var(--container-width, 100%);
@@ -401,7 +413,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       }
 
       p {
-        margin: -0.5em 0 calc(#{$base} * 6) 0;
+        margin: -0.5em 0 calc(#{var_default.$base} * 6) 0;
       }
     }
 
@@ -446,17 +458,17 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
     .c-hero__buttons {
       display: flex;
       flex-flow: column;
-      margin-top: calc(#{$base} * 3);
-      gap: calc(#{$base} * 2);
+      margin-top: calc(#{var_default.$base} * 3);
+      gap: calc(#{var_default.$base} * 2);
 
       .c-button + .c-button {
         margin-left: 0;
       }
     }
 
-    @include mq(map_get($breakpoints-map, "sm")) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
       .c-hero__text {
-        padding: calc(#{$base} * 6) calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3);
 
         p {
           margin: 0;
@@ -464,9 +476,9 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       }
     }
 
-    @include mq(map_get($breakpoints-map, "md")) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__text {
-        padding: calc(#{$base} * 8) calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 8) calc(#{var_default.$base} * 3);
       }
 
       .c-hero__buttons {
@@ -492,9 +504,9 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
       }
     }
 
-    @include mq(map_get($breakpoints-map, "lg")) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
       .c-hero__text {
-        padding: calc(#{$base} * 10) calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 10) calc(#{var_default.$base} * 3);
       }
     }
   }
@@ -503,7 +515,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, $border-radiu
 
 @keyframes hero-slide-in {
   0% {
-    transform: translateY(calc(#{$base} * 4));
+    transform: translateY(calc(#{var_default.$base} * 4));
     opacity: 0;
   }
   100% {

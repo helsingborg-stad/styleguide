@@ -1,17 +1,21 @@
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
 $drawer-transition-ms: 300ms;
-$drawer-width: calc(#{$base} * 40);
+$drawer-width: calc(#{var_default.$base} * 40);
 
 // Background colors basic
-$drawer-basic-background-color: var(--c-drawer-basic-background-color, $color-primary) !default;
-$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, $color-white) !default;
+$drawer-basic-background-color: var(--c-drawer-basic-background-color, var_colors.$color-primary) !default;
+$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, var_colors.$color-white) !default;
 
 // Main area colors
-$drawer-primary-background-color: var(--c-drawer-primary-background-color, $color-primary) !default;
-$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, $color-secondary) !default;
+$drawer-primary-background-color: var(--c-drawer-primary-background-color, var_colors.$color-primary) !default;
+$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, var_colors.$color-secondary) !default;
 
 // Duotone colors
-$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, $color-primary) !default;
-$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, $color-secondary) !default;
+$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, var_colors.$color-primary) !default;
+$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, var_colors.$color-secondary) !default;
 
 
 /* Colors */
@@ -40,7 +44,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     &,
     .site-nav-mobile__primary > .c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{$color-white};
+        --drawer-background: #{var_colors.$color-white};
         --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
     }
 }
@@ -100,7 +104,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     height: 100%;
     max-width: $drawer-width;
     width: 90%;
-    z-index: $level-9;
+    z-index: var_properties.$level-9;
     transform: translate(-100%);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
@@ -118,7 +122,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer__header {
-    padding: calc(#{$base} * 1) calc(#{$base} * 2);
+    padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -127,7 +131,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: calc(#{$base} * 4) calc(#{$base}  * 4) calc(#{$base} * 12) calc(#{$base} * 4);
+    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base}  * 4) calc(#{var_default.$base} * 12) calc(#{var_default.$base} * 4);
 }
 
 // Drawer Modifiers
@@ -141,13 +145,13 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     .c-drawer__header,
     .site-nav-mobile__primary {
         * {
-            color: $color-black;
+            color: var_colors.$color-black;
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
-            background-color: $color-black;
+            background-color: var_colors.$color-black;
         }
     }
 }
@@ -158,7 +162,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
-    filter: $drop-shadow-5;
+    filter: var_properties.$drop-shadow-5;
 }
 
 // Overlay
@@ -169,7 +173,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: ($level-9 - 1);
+    z-index: (var_properties.$level-9 - 1);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
     opacity: 0;

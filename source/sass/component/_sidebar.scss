@@ -1,9 +1,16 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
 $baseClass: ".c-sidebar";
 
 #{$baseClass} {
     display: flex;
     flex-direction: column;
-    background-color: $color-sidebar-background;
+    background-color: var_colors.$color-sidebar-background;
 
     &--fixed {
         width: 288px;
@@ -13,17 +20,17 @@ $baseClass: ".c-sidebar";
         left: 0;
         top: 0;
         bottom: 0;
-        z-index: $level-5;
+        z-index: var_properties.$level-5;
     }
 
     &__subcontainer--top {
-        padding: map-get($spacers, "6"); 
+        padding: map.get(var_default.$spacers, "6"); 
     }
 
     &__logo {
         min-height: 140px;
         max-height: 140px;
-        padding: map-get($spacers, "6") map-get($spacers, "5") map-get($spacers, "5");
+        padding: map.get(var_default.$spacers, "6") map.get(var_default.$spacers, "5") map.get(var_default.$spacers, "5");
         display: flex;
         justify-content: center;
         align-items: center;
@@ -39,9 +46,9 @@ $baseClass: ".c-sidebar";
         min-height: 44px;
         line-height: 44px;
         align-items: center;
-        font-size: $font-size-btn;
-        color: $color-sidebar-item-text;
-        padding: map-get($spacers, "2") map-get($spacers, "6");
+        font-size: var_fonts.$font-size-btn;
+        color: var_colors.$color-sidebar-item-text;
+        padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "6");
         cursor: pointer;
         opacity: 1;
 
@@ -51,7 +58,7 @@ $baseClass: ".c-sidebar";
         }
 
         &:hover {
-            color: $color-sidebar-item-text;
+            color: var_colors.$color-sidebar-item-text;
 
             .c-icon {
                 margin-left: 3px;
@@ -65,19 +72,19 @@ $baseClass: ".c-sidebar";
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: map-get($spacers, "1") map-get($spacers, "1");
+        padding: map.get(var_default.$spacers, "1") map.get(var_default.$spacers, "1");
     }
  
     &__link {
         position: relative;
         min-height: 44px;
-        line-height: map-get($spacers, "4");
-        padding: map-get($spacers, "1") 0;
-        font-family: $font-family-bold;
-        font-weight: $font-weight-bold;
+        line-height: map.get(var_default.$spacers, "4");
+        padding: map.get(var_default.$spacers, "1") 0;
+        font-family: var_fonts.$font-family-bold;
+        font-weight: var_fonts.$font-weight-bold;
         flex: 1;
         flex-grow: 1;
-        color: $color-sidebar-item-text;
+        color: var_colors.$color-sidebar-item-text;
 
         &:after {
             display: block;
@@ -86,7 +93,7 @@ $baseClass: ".c-sidebar";
             content: "";
             width: 24px;
             height: 2px;
-            background-color: $color-sidebar-active-accent;
+            background-color: var_colors.$color-sidebar-active-accent;
             transform: scaleX(0);
             transition: transform 250ms ease-in-out;
         }
@@ -94,10 +101,10 @@ $baseClass: ".c-sidebar";
         &:hover,
         &:active,
         &[item-active="1"] {
-            color: $color-black;
+            color: var_colors.$color-black;
 
             &:after {
-                color: $color-black;
+                color: var_colors.$color-black;
                 transform: scaleX(1);
             }
         }
@@ -105,7 +112,7 @@ $baseClass: ".c-sidebar";
 
     &__link:visited,
     &__link:hover:visited {
-        color: $color-sidebar-item-text;
+        color: var_colors.$color-sidebar-item-text;
         text-decoration-style: unset;
         text-decoration: none;
         text-transform: capitalize;
@@ -119,7 +126,7 @@ $baseClass: ".c-sidebar";
 
         &:hover {
             .bar {
-                background-color: $color-black;
+                background-color: var_colors.$color-black;
             }
         }
 
@@ -132,7 +139,7 @@ $baseClass: ".c-sidebar";
         .bar {
             width: 14px;
             height: 2px;
-            background-color: $color-sidebar-item-text;
+            background-color: var_colors.$color-sidebar-item-text;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -149,7 +156,7 @@ $baseClass: ".c-sidebar";
         width: 100%;
         max-height: 0;
         overflow: hidden;
-        padding-left: map-get($spacers, "1");
+        padding-left: map.get(var_default.$spacers, "1");
         transition: opacity 200ms ease-in-out;
         opacity: 0; 
 
@@ -173,11 +180,11 @@ $baseClass: ".c-sidebar";
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
 
     #{$baseClass} {
         position: fixed;
-        z-index: $level-8;
+        z-index: var_properties.$level-8;
     }
 
     #{$baseClass}__logo {
@@ -191,12 +198,12 @@ $baseClass: ".c-sidebar";
     }
 
     .c-sidebar__backdrop {
-        background-color: $color-base-disabled;
+        background-color: var_colors.$color-base-disabled;
         position: fixed;
         height: 100%;
         width: 100%;
         top: 0;
-        z-index: $level-8 - 1;
+        z-index: var_properties.$level-8 - 1;
         visibility: hidden;
         opacity: 0;
         transition: visibility 0s, opacity 0.5s linear;

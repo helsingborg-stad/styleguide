@@ -1,5 +1,8 @@
+@use "sass:list";
+@use "sass:math";
+@use "sass:meta";
 @function is-direction($value) {
-    $is-keyword: index(
+    $is-keyword: list.index(
         (
             to top,
             to top right,
@@ -16,7 +19,7 @@
         ),
         $value
     );
-    $is-angle: type-of($value) == "number" and index("deg" "grad" "turn" "rad", unit($value));
+    $is-angle: meta.type-of($value) == "number" and list.index("deg" "grad" "turn" "rad", math.unit($value));
 
     @return $is-keyword or $is-angle;
 }

@@ -1,21 +1,28 @@
+@use "sass:map";
+@use "../mixin/focus";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
 
-$c-option-label-color: var(--c-option-label-color, $color-darker) !default;
-$c-option-label-active-color: var(--c-option-label-active-color, $color-black) !default;
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, $font-size-btn-sm) !default;
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, $font-size-btn-sm-line-height) !default;
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, $font-size-btn-md) !default;
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, $font-size-btn-md-line-height) !default;
 
-$c-option-border-color: var(--c-option-border-color, var(--color-border-input, $color-light)) !default;
-$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
-$c-option-success-color: var(--c-option-success-color, var(--color-success, $color-success-dark)) !default;
+$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker) !default;
+$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black) !default;
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm) !default;
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height) !default;
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md) !default;
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height) !default;
+
+$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light)) !default;
+$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
+$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
 
 .c-option {
 
     &__checkbox {
 
         :focus-visible + label {
-            @include focus();
+            @include focus.focus();
         }
     
         width: 100%;
@@ -25,9 +32,9 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
             position: relative;
             height: 18px;
             width: 18px;
-            border: 2px solid $color-primary;
-            background-color: $color-white;
-            border-radius: $border-radius-xs;
+            border: 2px solid var_colors.$color-primary;
+            background-color: var_colors.$color-white;
+            border-radius: var_border-radius.$border-radius-xs;
             cursor: pointer;
         }
 
@@ -35,8 +42,8 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         &.is-disabled .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
             .c-option__checkbox--label-box,
             .c-option__radio--label-box {
-                background: $color-disabled;
-                border-color: $color-disabled;
+                background: var_colors.$color-disabled;
+                border-color: var_colors.$color-disabled;
             } 
         }
 
@@ -44,12 +51,12 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
 
             .c-option__checkbox--label-text {
                 font-style: normal;
-                font-weight: $font-weight-base;
+                font-weight: var_fonts.$font-weight-base;
                 color: $c-option-label-active-color;
             }
 
             .c-option__checkbox--label-box {
-                background: $color-primary;
+                background: var_colors.$color-primary;
 
                 &:after {
                     content: "";
@@ -59,7 +66,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
                     left: 4px;
                     width: 5px;
                     height: 11px;
-                    border: solid $color-white;
+                    border: solid var_colors.$color-white;
                     border-width: 0 2px 2px 0;
                     transform: rotate(45deg);
                 }
@@ -90,7 +97,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
     &__radio {
 
         :focus-visible + label {
-            @include focus();
+            @include focus.focus();
         }
 
         .c-option__radio--label-box {
@@ -98,9 +105,9 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
             position: relative;
             height: 20px;
             width: 20px;
-            border: 2px solid $color-primary;
-            background-color: $color-white;
-            border-radius: $border-radius-full;
+            border: 2px solid var_colors.$color-primary;
+            background-color: var_colors.$color-white;
+            border-radius: var_border-radius.$border-radius-full;
             cursor: pointer;
         }
 
@@ -124,8 +131,8 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
                     left: 3px;
                     width: 10px;
                     height: 10px;
-                    background-color: $color-primary;
-                    border-radius: $border-radius-full;
+                    background-color: var_colors.$color-primary;
+                    border-radius: var_border-radius.$border-radius-full;
                 }
             }
 
@@ -146,7 +153,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         padding: 0;
         width: 80%;
         max-width: 500px;
-        background-color: $color-white;
+        background-color: var_colors.$color-white;
         list-style: none;
         overflow: hidden;
     }
@@ -176,7 +183,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-items: flex-start;
-        margin-right: map-get($spacers, "05");
+        margin-right: map.get(var_default.$spacers, "05");
     }
 
     .c-option__checkbox--label-text,
@@ -185,19 +192,19 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, $col
         cursor: pointer;
         font-style: italic;
         flex: 1;
-        color: $color-darker;
-        padding: map-get($spacers, "05") 10px;
+        color: var_colors.$color-darker;
+        padding: map.get(var_default.$spacers, "05") 10px;
         font-size: $c-option-label-font-size-md;
         line-height: $c-option-label-font-size-md;
     }
 
     .c-option__input-invalid-message {
         width: 100%;
-        padding: map-get($spacers, "1");
+        padding: map.get(var_default.$spacers, "1");
         display: none;
         font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
+        color: var_colors.$color-white;
+        background-color: var_colors.$color-danger;
         border: none;
         border-radius: 0 0 5px 5px;
         box-sizing: border-box;

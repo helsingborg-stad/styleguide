@@ -1,10 +1,14 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_default";
+
 .container {
-    width: calc( 100% - #{map-get($spacers, "4")});
-    max-width: $container-width;
+    width: calc( 100% - #{map.get(var_default.$spacers, "4")});
+    max-width: var_default.$container-width;
     margin: 0 auto;
 
     &--wide {
-        max-width: $container-width-wide;
+        max-width: var_default.$container-width-wide;
     }
 
     &--full {
@@ -13,17 +17,17 @@
 
     &--home {
         min-height: calc(90vh - 140px);
-        padding-left: calc(#{$base} * 17);
-        padding-right: calc(#{$base} * 17);
+        padding-left: calc(#{var_default.$base} * 17);
+        padding-right: calc(#{var_default.$base} * 17);
     }
 
     &--doc {
         min-height: calc(90vh - 140px);
-        padding: map-get($spacers, "8");
+        padding: map.get(var_default.$spacers, "8");
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
 
     .container {
 

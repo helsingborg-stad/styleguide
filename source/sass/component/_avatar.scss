@@ -1,6 +1,12 @@
+@use "../mixin/center";
+@use "../mixin/cover";
+@use "../mixin/ratio";
+@use "../mixin/size";
+@use "../setting/var_colors";
+
 .c-avatar {
     border-radius: 50%;
-    background: $color-secondary;
+    background: var_colors.$color-secondary;
     line-height: 0;
     position: relative;
     contain: paint;
@@ -8,19 +14,19 @@
     /* Modifiers */
 
     &--size-sm {
-        @include size(40);
+        @include size.size(40);
     }
 
     &--size-md {
-        @include size(72);
+        @include size.size(72);
     }
 
     &--size-lg {
-        @include size(112);
+        @include size.size(112);
     }
 
     &--size-full {
-        @include ratio(1,1,false);
+        @include ratio.ratio(1,1,false);
 
         width: 100%;
         height: 100%;
@@ -30,7 +36,7 @@
 
     &__image,
     &__initials {
-        @include cover();
+        @include cover.cover();
         border-radius: inherit;
     }
 
@@ -49,10 +55,10 @@
 
     &__icon {
         border-radius: inherit;
-        @include cover();
+        @include cover.cover();
 
         .c-icon {
-            @include center();
+            @include center.center();
             color: #fff;
         }
     }

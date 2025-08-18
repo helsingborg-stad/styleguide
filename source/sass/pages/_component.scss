@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "../mixin/mq";
+
 .p-component {
 
     &__atomic {
@@ -32,7 +35,7 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get($breakpoints-map, "xs"), "md") {
 
     .p-component {
 

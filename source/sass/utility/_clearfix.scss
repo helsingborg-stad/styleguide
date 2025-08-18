@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $clearfix-utils:
     (name: "clearfix::after",
     default: (
@@ -7,4 +9,4 @@ $clearfix-utils:
     ),
 );
 
-@include build-utilities($clearfix-utils);
+@include build-utility.build-utilities($clearfix-utils);

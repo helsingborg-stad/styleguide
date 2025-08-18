@@ -1,24 +1,30 @@
+@use "sass:string";
+@use "../function/breakpoint-suffix";
+@use "../function/next-breakpoint";
+@use "../function/validate-breakpoint-list";
+@use "mq";
+
 @mixin responsiveStyles($styles, $breakpoints: all, $limitToBreakpoint: true) {
-    $breakpoints: validateBreakpointList($breakpoints, $limitToBreakpoint);
+    $breakpoints: validate-breakpoint-list.validateBreakpointList($breakpoints, $limitToBreakpoint);
 
     @each $breakpoint in $breakpoints {
-        $suffix: get-breakpoint-suffix($breakpoint, true);
+        $suffix: breakpoint-suffix.get-breakpoint-suffix($breakpoint, true);
         $next: null;
 
         @if $limitToBreakpoint == true {
-            $next: next-breakpoint($breakpoint);
+            $next: next-breakpoint.next-breakpoint($breakpoint);
         }
 
-        @include mq($breakpoint, $next) {
+        @include mq.mq($breakpoint, $next) {
             @each $selector, $style in $styles {
                 
                 $base-class: $selector;
                 $pseudo: null;
 
                 // Detect pseudo-element and move it to the end
-                @if str-index($base-class, "::") {
-                    $pseudo: str-slice($base-class, str-index($base-class, "::"));
-                    $base-class: str-slice($base-class, 1, str-index($base-class, "::") - 1);
+                @if string.index($base-class, "::") {
+                    $pseudo: string.slice($base-class, string.index($base-class, "::"));
+                    $base-class: string.slice($base-class, 1, string.index($base-class, "::") - 1);
                 }
 
                 $class: "#{$base-class}#{$suffix}#{$pseudo}";

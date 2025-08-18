@@ -1,3 +1,9 @@
+@use "sass:list";
+@use "sass:map";
+@use "../setting/var_default";
+@use "border";
+@use "../mixin/build-utility";
+
 $spacing-util: ();
 
 @each $prop in (margin, padding) {
@@ -6,11 +12,11 @@ $spacing-util: ();
 
         $mods: ();
 
-        @each $size, $length in $spacers {
-            @each $size, $length in $spacers {
+        @each $size, $length in var_default.$spacers {
+            @each $size, $length in var_default.$spacers {
                 @if $length != auto or $prop == margin {
                     $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
-                    $mods: map-merge($mods, $style);
+                    $mods: map.merge($mods, $style);
                 }
             }
         }
@@ -21,16 +27,16 @@ $spacing-util: ();
             modifiers: $mods
         );
 
-        $spacing-util: append($spacing-util, $util);
+        $spacing-util: list.append(border.$spacing-util, $util);
     }
 
     $mods: ();
 
     //Builds all around
-    @each $size, $length in $spacers {
+    @each $size, $length in var_default.$spacers {
         @if $length != auto or $prop == margin {
             $style: (#{$size}:(#{$prop}: #{$length}));
-            $mods: map-merge($mods, $style);
+            $mods: map.merge($mods, $style);
         }
     }
 
@@ -40,18 +46,18 @@ $spacing-util: ();
         modifiers: $mods
     );
 
-    $spacing-util: append($spacing-util, $util);
+    $spacing-util: list.append(border.$spacing-util, $util);
 
     $mods: ();
 
     //Builds on axis Y
-    @each $size, $length in $spacers {
+    @each $size, $length in var_default.$spacers {
         @if $length != auto or $prop == margin {
             $style: (#{$size}:(
                 #{$prop}-top: #{$length},
                 #{$prop}-bottom: #{$length}
             ));
-            $mods: map-merge($mods, $style);
+            $mods: map.merge($mods, $style);
         }
     }
 
@@ -64,16 +70,16 @@ $spacing-util: ();
         modifiers: $mods
     );
 
-    $spacing-util: append($spacing-util, $util);
+    $spacing-util: list.append($spacing-util, $util);
 
     //Builds on axis X
-    @each $size, $length in $spacers {
+    @each $size, $length in var_default.$spacers {
         @if $length != auto or $prop == margin {
             $style: (#{$size}:(
                 #{$prop}-left: #{$length},
                 #{$prop}-right: #{$length}
             ));
-            $mods: map-merge($mods, $style);
+            $mods: map.merge($mods, $style);
         }
     }
 
@@ -86,15 +92,15 @@ $spacing-util: ();
         modifiers: $mods
     );
 
-    $spacing-util: append($spacing-util, $util);
+    $spacing-util: list.append($spacing-util, $util);
 }
 
 // Top utilities
 @each $side in (top, left, right, bottom) {
   $mods: ();
-  @each $size, $length in $spacers {
+  @each $size, $length in var_default.$spacers {
     $style: (#{$size}: (#{$side}: #{$length}));
-    $mods: map-merge($mods, $style);
+    $mods: map.merge($mods, $style);
   }
 
   $util: (
@@ -102,7 +108,7 @@ $spacing-util: ();
     modifiers: $mods
   );
 
-  $spacing-util: append($spacing-util, $util);
+  $spacing-util: list.append(border.$spacing-util, $util);
 }
 
-@include build-utilities($spacing-util);
+@include build-utility.build-utilities(border.$spacing-util);

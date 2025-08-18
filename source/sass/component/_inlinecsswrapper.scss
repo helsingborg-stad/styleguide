@@ -1,3 +1,5 @@
+@use "../setting/var_default";
+
 .c-inlinecsswrapper {
-    padding: $base;
+    padding: var_default.$base;
 }

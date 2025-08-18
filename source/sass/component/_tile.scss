@@ -1,3 +1,7 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_default";
+
 .c-tile {
 
     &__container {
@@ -39,7 +43,7 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
 
     .c-tile {
 

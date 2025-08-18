@@ -1,12 +1,16 @@
-$c-datebadge-color-background: var(--c-datebadge-color-background, $color-lighter) !default;
-$c-datebadge-color: var(--c-datebadge-color, $color-black) !default;
-$c-datebadge-border-radius: var(--c-datebadge-border-radius, $border-radius-xs) !default;
-$c-datebadge-size: var(--c-datebadge-size, calc(#{$base} * 8)) !default;
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
+$c-datebadge-color-background: var(--c-datebadge-color-background, var_colors.$color-lighter) !default;
+$c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black) !default;
+$c-datebadge-border-radius: var(--c-datebadge-border-radius, var_border-radius.$border-radius-xs) !default;
+$c-datebadge-size: var(--c-datebadge-size, calc(#{var_default.$base} * 8)) !default;
 
 .c-datebadge {
     display: flex;
     flex-direction: column;
-    gap: #{$base};
+    gap: #{var_default.$base};
     
     .c-datebadge__time,
     .c-datebadge__daymonth {
@@ -29,10 +33,10 @@ $c-datebadge-size: var(--c-datebadge-size, calc(#{$base} * 8)) !default;
     }
 
     .c-datebadge__time {
-      padding: calc(#{$base} * 0.5) 0;
+      padding: calc(#{var_default.$base} * 0.5) 0;
       flex-direction: row;
       line-height: 1;
-      gap: calc(#{$base} * 0.5)
+      gap: calc(#{var_default.$base} * 0.5)
     }
     
     .c-datebadge__daymonth .c-datebadge__date,
