@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * CLI script to render components using the Component Library.
+ * Usage: php cli.php <componentClass> <view> <componentDataJSON>
+ * 
+ * This is used to do frontend testing of components in the Component Library.
+ * Implemented in JEST.
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use ComponentLibrary\Init;
