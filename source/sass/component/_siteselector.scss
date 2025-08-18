@@ -9,6 +9,7 @@ $c-siteselector-background: var(--c-siteselector-background, var_colors.$color-p
 $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-primary-contrasting) !default;
 
 .c-siteselector {
+    --c-siteselector-height-computed: calc(var(--c-siteselector-height, #{var_default.$base} * 5.5) - var(--base, 8px));
 
     &.c-siteselector--radius-xs {
         --c-siteselector-radius: #{var_border-radius.$border-radius-xs};
@@ -45,7 +46,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper,
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper > * {
         min-height: unset;
-        height: calc(#{$c-siteselector-height} - #{var_default.$base});
+        height: var(--c-siteselector-height-computed);
     }
 
     .c-siteselector__items.c-nav--depth-1  {
@@ -77,7 +78,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     .c-siteselector__item.c-nav__item--depth-1 {
         padding: 0 calc(#{var_default.$base} * 1.5); 
         border-radius: #{$c-siteselector-radius};
-        height: calc(#{$c-siteselector-height} - #{var_default.$base});
+        height: var(--c-siteselector-height-computed);
         
         .c-nav__link {
             padding: 0;

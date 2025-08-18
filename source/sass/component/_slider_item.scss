@@ -15,7 +15,7 @@
     background-size: cover;
     position: relative;
     width: 100%;
-    max-width: $c-slider-max-width;
+    max-width: var(--c-slider-max-width-computed);
     max-height: 80vh;
     border-radius: $c-slider-border-radius;
 

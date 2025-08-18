@@ -24,7 +24,7 @@ $c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
 
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
 $c-field-padding: var(--c-field-padding, map.get(var_default.$spacers, "2")) !default;
-$c-field-height: var(--c-field-height, calc(#{map.get(var_default.$spacers, "6")})) !default;
+$c-field-height: var(--c-field-height, #{map.get(var_default.$spacers, "6")}) !default;
 $c-field-font-size-sm: var(--c-field-font-size-sm, var_fonts.$font-size-btn-sm) !default;
 $c-field-font-size-md: var(--c-field-font-size-md, var_fonts.$font-size-btn-md) !default;
 $c-field-font-size-lg: var(--c-field-font-size-lg, var_fonts.$font-size-btn-lg) !default;
@@ -37,6 +37,8 @@ $c-field-suffix-color: var(--c-field-suffix-color, var_colors.$color-darker) !de
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]'; 
 
 .c-field {
+    --c-field-height-computed: calc(var(--c-field-height, var(--base, 8px) * 6) - var(--c-field-border-width, var(--border-width-input, 1px)) * 2);
+    
     flex: 1;
     .c-field__label,
     .c-field__helper {
@@ -264,7 +266,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     &.c-field--md {
         #{$fields} {
             padding: map.get(var_default.$spacers, "2"); 
-            height: calc($c-field-height - ($c-field-border-width * 2)); 
+            height: var(--c-field-height-computed); 
         }
 
         &.c-field--borderless {
@@ -275,7 +277,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         textarea {
             padding: map.get(var_default.$spacers, "2"); 
-            min-height: calc($c-field-height - ($c-field-border-width * 2)); 
+            min-height: var(--c-field-height-computed); 
         }
 
         .c-field__icon, .c-field__prefix {
