@@ -1,19 +1,21 @@
 @use "../setting/var_colors" as colors;
-@use "../setting/var_border-radius"; as border-radius;
+@use "../setting/var_border-radius" as border-radius;
 @use "../setting/var_fonts" as fonts;
+@use "../setting/var_default" as defaults;
+@use "../setting/var_properties" as properties;
 
 
 .d-code {
     border-radius:  0 0 border-radius.$border-radius-md border-radius.$border-radius-md;
     border-top: 8px solid colors.$color-darkest;
     transform: translateY(-8px);
-    z-index: $level-1 - 1;
+    z-index: properties.$level-1 - 1;
     margin: 0;
 
     .toolbar {
         top: unset !important;
-        right: calc(#{$base}*3) !important;
-        bottom: calc(#{$base}*3) !important;
+        right: calc(#{defaults.$base}*3) !important;
+        bottom: calc(#{defaults.$base}*3) !important;
 
         &-item {
             position: unset;
@@ -27,12 +29,12 @@
     overflow: hidden;
     border: none;
     position: relative;
-    z-index: $level-1;
+    z-index: properties.$level-1;
 
     .c-button,
     .c-button:hover {
         background-color: colors.$color-code-button;
-        filter: $drop-shadow-0;
+        filter: properties.$drop-shadow-0;
         border-radius: 0;
 
         .c-button__label .c-button__label-text,
@@ -66,7 +68,7 @@
     }
 
     tbody td {
-        color: $color-darkest;
+        color: colors.$color-darkest;
 
         &:first-of-type {
             color: colors.$color-secondary-dark;

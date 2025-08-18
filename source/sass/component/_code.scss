@@ -46,10 +46,10 @@
 
 div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>.toolbar span {
 
-    @extend .c-button;
-    @extend .c-button__filled;
-    @extend .c-button__filled--primary;
-    @extend .c-button--sm;
+    @extend .c-button !optional;
+    @extend .c-button__filled !optional;
+    @extend .c-button__filled--primary !optional;
+    @extend .c-button--sm !optional;
 
 }
 

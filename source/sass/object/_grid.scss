@@ -37,7 +37,7 @@ $o-grid-gutters: (
     .o-grid,
     .grid {
         > * {
-            @extend %column;
+            @extend %column !optional;
         }    
     }
 
@@ -220,7 +220,7 @@ $o-grid-gutters: (
         .grid-#{$breakpoint}-auto,
         .grid-#{$breakpoint}-fit,
         #{$columnClasses} {
-            @extend %column;
+            @extend %column !optional;
         }
 
         //Breakpoint specific

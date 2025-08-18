@@ -1,10 +1,12 @@
 @use "sass:map";
 @use "../mixin/mq";
+@use "../setting/var_colors" as colors;
+@use "../setting/var_default" as defaults;
 
 .p-component {
 
     &__atomic {
-        background-color: $color-white;
+        background-color: colors.$color-white;
         box-shadow:
             0px 6px 8px rgba(98, 98, 98, 0.18),
             0px 2px 2px rgba(98, 98, 98, 0.18),
@@ -24,7 +26,7 @@
         &__image {
             padding-top:5%;
             padding-bottom:5%;
-            background-color: $color-default;
+            background-color: colors.$color-default;
             width: 50%;
         }
 
@@ -35,7 +37,7 @@
     }
 }
 
-@include mq.mq(map.get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get(defaults.$breakpoints-map, "xs"), "md") {
 
     .p-component {
 

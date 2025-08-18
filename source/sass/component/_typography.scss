@@ -7,27 +7,27 @@
     }
 
     &h1 {
-        @extend .h1;
+        @extend .h1 !optional;
     }
     
     &h2 {
-        @extend .h2;
+        @extend .h2 !optional;
     }
     
     &h3 {
-        @extend .h3;
+        @extend .h3 !optional;
     }
     
     &h4 {
-        @extend .h4;
+        @extend .h4 !optional;
     }
 
     &h5 {
-        @extend .h5;
+        @extend .h5 !optional;
     }
 
     &h6 {
-        @extend .h6;
+        @extend .h6 !optional;
     }
 
     &headline {
