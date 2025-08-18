@@ -32,6 +32,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
 // Reset
 .c-collection {
+    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base, 8px) * 2) * 3.5);
+    
     padding: 0;
     margin: 0;
 
@@ -122,7 +124,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
 
     .c-collection__divider.c-collection__divider--inset {
-        margin-left: calc(#{$c-collection-padding-x} * 3.5);
+        margin-left: var(--c-collection-padding-x-inset);
     }
 
     // Content

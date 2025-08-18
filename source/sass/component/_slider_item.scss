@@ -11,6 +11,8 @@
 @use "../setting/component/_slider" as *;
 
 .c-slider__item {
+    --c-slider-item-font-size-heading-computed: calc(var(--c-slider-item-font-size-base, var(--base, 8px) * 2) * 2);
+    
     background-position: center;
     background-size: cover;
     position: relative;
@@ -128,13 +130,13 @@
                 @include mq.mq('sm') { 
                     @include fluid-type.fluid-type(
                         headings.$h2-font-size,
-                        $c-slider-item-font-size-heading,
+                        var(--c-slider-item-font-size-heading-computed),
                         6vw
                     );
                 }
 
                 @include mq.mq('lg') { 
-                    font-size: $c-slider-item-font-size-heading;
+                    font-size: var(--c-slider-item-font-size-heading-computed);
                 }
             }
 
