@@ -57,8 +57,5 @@ export async function renderComponent(componentClass:IComponentRenderer['compone
     const scriptFileName = 'cli.php'
     const rootDir = resolve(__dirname, '../../..') // go up 3 levels
     const scriptPath = resolve(rootDir, scriptFileName);
-
-    console.log(`Rendering component: ${scriptPath} ${componentClass} ${view} ${JSON.stringify(data)}`)
-
     return await new ComponentRenderer(scriptPath, componentClass, view, data).render()
 }
