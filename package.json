@@ -45,7 +45,6 @@
         "@types/jest": "^29.5.0",
         "@types/leaflet": "^1.9.3",
         "body-parser": "^1.19.1",
-        "chalk": "^5.0.0",
         "clientside-require": "^4.7.2",
         "consola": "^2.15.3",
         "cors": "^2.8.5",
@@ -68,10 +67,8 @@
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
         "@types/leaflet.markercluster": "^1.5.1",
-        "hamburgers": "^1.1.3",
         "leaflet": "^1.9.3",
         "leaflet.markercluster": "^1.5.3",
-        "masonry-layout": "^4.2.2",
         "material-symbols": "^0.16.0"
     },
     "browser": {

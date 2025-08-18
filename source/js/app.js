@@ -10,7 +10,6 @@ import SplitButton from './splitButton';
 import {initializeForms} from './fields';
 import {initializeSlider} from './slider';
 import EventCalendar from './calendar';
-import Tiles from './tile';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import Sidebar from './sidebar';
