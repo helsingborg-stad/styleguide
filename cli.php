@@ -11,6 +11,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use ComponentLibrary\Init;
+use ComponentLibrary\Helper\TagSanitizer;
 
 class CLI
 {
@@ -35,7 +36,8 @@ class CLI
 
         $component = new $componentClass(
             $data, 
-            new ComponentLibrary\Cache\StaticCache()
+            new ComponentLibrary\Cache\StaticCache(),
+            new TagSanitizer()
         );
         $componentClassPath = (new ReflectionClass($componentClass))->getFileName();
         $componentClassDir = dirname($componentClassPath);
