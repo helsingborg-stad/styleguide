@@ -57,7 +57,6 @@ const DeviceDetectInstance = new DeviceDetect();
 const SortInstance = new Sort();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
-const TilesInstance = new Tiles();
 const NotificationDocInstance = new NotificationDoc();
 const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
@@ -91,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     SortInstance.applySort();
     SplitButtonInstance.syncSplitButton();
     EventCalendarInstance.initiateCalendar();
-    TilesInstance.initTiles();
     NotificationDocInstance.addListener();
     SidebarInstance.applySidebar();
     DynamicSidebarInstance.applySidebar();
