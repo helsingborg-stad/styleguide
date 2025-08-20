@@ -1,15 +1,19 @@
+@use "../mixin/button";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-tabs {
 
     &__header {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid $color-gray-light;
+        border-bottom: 1px solid var_colors.$color-gray-light;
         overflow-x: auto;
-        height: calc(#{$base} * 7);
+        height: calc(#{var_default.$base} * 7);
     }
 
     &__button {
-        @include button-unstyled;
+        @include button.button-unstyled;
         min-width: 160px;
         cursor: pointer;
         text-decoration: none;
@@ -23,12 +27,12 @@
         }
 
         &[aria-expanded="true"] {
-            border-bottom: 3px solid $color-menu-active-indicator-horizontal;
+            border-bottom: 3px solid var_colors.$color-menu-active-indicator-horizontal;
         }
     }
 
     &__button-wrapper {
-        padding: $base calc(#{$base} * 2);
+        padding: var_default.$base calc(#{var_default.$base} * 2);
     }
 
     &__button:focus,
@@ -37,11 +41,11 @@
     }
 
     &__button:focus>&__button-wrapper {
-        outline: 1px dashed $color-gray;
+        outline: 1px dashed var_colors.$color-gray;
     }
 
     &__content {
-        padding: calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 3);
 
         &[aria-hidden="true"] {
             display: none;

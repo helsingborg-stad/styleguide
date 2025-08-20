@@ -1,3 +1,10 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
 .c-navbar {
     position: relative;
     display: grid;
@@ -9,22 +16,22 @@
         "content content content"
     ;
     width: 100%;
-    background-color: $color-white;
-    color: $color-black;
+    background-color: var_colors.$color-white;
+    color: var_colors.$color-black;
     
-    z-index: $level-6;
-    filter: $drop-shadow-1;
+    z-index: var_properties.$level-6;
+    filter: var_properties.$drop-shadow-1;
 
     &--border-top{
-        border-top: $base solid $color-nav-top-accent;
+        border-top: var_default.$base solid var_colors.$color-nav-top-accent;
     }
     &--border-bottom{
-        border-bottom: $base solid $color-nav-top-accent;
+        border-bottom: var_default.$base solid var_colors.$color-nav-top-accent;
     }
 
     &__logo {
         grid-area: logo;
-        padding: map-get($spacers, "5");
+        padding: map.get(var_default.$spacers, "5");
 
         .c-image {
             width: unset;
@@ -38,7 +45,7 @@
     }
 
     &__list {
-        padding: map-get($spacers, "5");
+        padding: map.get(var_default.$spacers, "5");
         padding-right: 0;
         grid-area: links;
     }
@@ -53,7 +60,7 @@
     }
 
     &__expand {
-        padding: map-get($spacers, "5");
+        padding: map.get(var_default.$spacers, "5");
         grid-area: toggleexpand;
     }
 
@@ -69,7 +76,7 @@
             content: "";
             width: 24px;
             height: 2px;
-            background-color: $color-nav-active-accent;
+            background-color: var_colors.$color-nav-active-accent;
             transform: scaleX(0);
             transition: transform 250ms ease-in-out;
         }
@@ -91,8 +98,8 @@
     grid-area: content;
     overflow: hidden;
     width: 100%;
-    background-color: $color-default;
-    z-index: $level-6 - 1;
+    background-color: var_colors.$color-default;
+    z-index: var_properties.$level-6 - 1;
 }
 
 .c-navbar__expanded_menu {
@@ -100,32 +107,32 @@
     .c-link,
     .c-link:active,
     .c-link:visited {
-        color: $color-darkest;
-        font-family: $font-family-bold;
-        font-weight: $font-weight-bold;
+        color: var_colors.$color-darkest;
+        font-family: var_fonts.$font-family-bold;
+        font-weight: var_fonts.$font-weight-bold;
     }
 
     .c-link:hover {
-        color: $color-black
+        color: var_colors.$color-black
     }
 
-    padding: map-get($spacers, "4") map-get($spacers, "11");
+    padding: map.get(var_default.$spacers, "4") map.get(var_default.$spacers, "11");
 }
 
 .c-navbar__expanded_main {
-    padding: map-get($spacers, "7") calc(#{$base} * 20);
-    border-bottom: 2px solid $color-primary;
+    padding: map.get(var_default.$spacers, "7") calc(#{var_default.$base} * 20);
+    border-bottom: 2px solid var_colors.$color-primary;
 
 }
 
 .c-navbar__expanded_grid {
 
     a {
-        color: $color-darker;
+        color: var_colors.$color-darker;
 
         &:active,
         &:hover {
-            color: $color-black;
+            color: var_colors.$color-black;
             cursor: pointer;
         }
     }
@@ -161,7 +168,7 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "xs"), "md") {
+@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
 
     .c-navbar {
         grid-template-columns: 1fr auto 1fr;
@@ -201,15 +208,15 @@
     }
 
     .c-navbar__expanded_main {
-        padding: map-get($spacers , "4")
+        padding: map.get(var_default.$spacers , "4")
     }
 
     .c-navbar__expanded_grid {
-        grid-row-gap: calc(#{$base} * 2) !important;
+        grid-row-gap: calc(#{var_default.$base} * 2) !important;
     }
 }
 
-@include mq(map_get($breakpoints-map, "md")) {
+@include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
 
     .c-navbar {
 
@@ -221,7 +228,7 @@
                 min-width: 44px;
                 min-height: 44px;
                 display: table;
-                margin: 0 map-get($spacers, "2");
+                margin: 0 map.get(var_default.$spacers, "2");
             }
         }
 

@@ -1,52 +1,57 @@
-$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !default;
+@use "../mixin/focus";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_default.$base}) !default;
 
 .c-header {
-    z-index: $level-6;
+    z-index: var_properties.$level-6;
     position: relative;
-    background-color: $color-header-background;
+    background-color: var_colors.$color-header-background;
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        scroll-margin-top: calc(#{$base} * 2);
+        scroll-margin-top: calc(#{var_default.$base} * 2);
     }
 
     &.c-header--sticky {
         position: sticky;
         top: 0;
-        z-index: $level-7;
+        z-index: var_properties.$level-7;
     }
 
     &.c-header--accented {
-        border-bottom: $color-primary solid $base;
+        border-bottom: var_colors.$color-primary solid var_default.$base;
     }
 
     &.c-header--primary {
-        background-color: $color-primary;
+        background-color: var_colors.$color-primary;
     }
 
     &.c-header--secondary {
-        background-color: $color-secondary;
+        background-color: var_colors.$color-secondary;
     }
 
     &.c-header--text-white > *,
     &.c-header--text-white .c-button__basic,
     &.c-header--text-white .c-nav .c-nav__link {
-        color: $color-white;
+        color: var_colors.$color-white;
     }
 
     &.c-header--text-black * ,
     &.c-header--text-black .c-nav .c-nav__link {
-        color: $color-black;
+        color: var_colors.$color-black;
     }
 
     &.c-header--text-primary * ,
     &.c-header--text-primary .c-nav .c-nav__link {
-        color: $color-primary;
+        color: var_colors.$color-primary;
     }
 
     &.c-header--text-secondary * ,
     &.c-header--text-secondary .c-nav .c-nav__link {
-        color: $color-secondary;
+        color: var_colors.$color-secondary;
     }
 
     &.c-header--casual {
@@ -98,10 +103,10 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{$base}) !
 @keyframes blink {
     0% {}
     25% {
-        @include focus();
+        @include focus.focus();
     }
     75% {
-        @include focus();
+        @include focus.focus();
     }
     100% {}
 }

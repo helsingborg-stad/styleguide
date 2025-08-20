@@ -1,21 +1,25 @@
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+
 table {
     border-spacing: 0px;
 }
 
 table td,
 table th {
-    padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
-    font-size: $font-size-caption;
+    padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
+    font-size: var_fonts.$font-size-caption;
     text-align: left;
     line-height: 24px;
 }
 
 table th {
-    font-weight: $font-weight-bold;
-    font-family: $font-family-bold;
+    font-weight: var_fonts.$font-weight-bold;
+    font-family: var_fonts.$font-family-bold;
 }
 
 table thead th {
-    color: $color-primary-contrasting;
-    background-color: $color-primary;
+    color: var_colors.$color-primary-contrasting;
+    background-color: var_colors.$color-primary;
 }

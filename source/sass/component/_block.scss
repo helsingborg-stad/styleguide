@@ -1,13 +1,21 @@
-$c-block-border-radius: var(--c-block-border-radius, $border-radius-lg) !default;
-$c-block-color: var(--c-block-color, $color-white) !default;
-$c-block-background-color: var(--c-block-background-color, $color-gray-light) !default;
-$c-block-color-overlay: var(--c-block-color-overlay, $color-alpha) !default;
-$c-block-image-background-color: var(--c-block-image-background-color, $color-secondary) !default;
+@use "../mixin/cover";
+@use "../mixin/mq";
+@use "../mixin/ratio";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-block-border-radius: var(--c-block-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-block-color: var(--c-block-color, var_colors.$color-white) !default;
+$c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light) !default;
+$c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha) !default;
+$c-block-image-background-color: var(--c-block-image-background-color, var_colors.$color-secondary) !default;
 
 .c-block {
     position: relative;
     border-radius: $c-block-border-radius;
-    filter: $drop-shadow-2;
+    filter: var_properties.$drop-shadow-2;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
@@ -16,7 +24,7 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
     background-color: $c-block-background-color;
     text-decoration: none;
 
-    @include mq('sm') {
+    @include mq.mq('sm') {
         flex-direction: row;
     }
 
@@ -28,14 +36,14 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
     }
 
     .c-block__body {
-        padding: calc(#{$base} * 6) calc(#{$base} * 3) calc(#{$base} * 3) calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3) calc(#{var_default.$base} * 3) calc(#{var_default.$base} * 3);
         width: 100%;
         z-index: 0;
         max-height: 100%;
         overflow: hidden;
         display: flex; 
         flex-direction: column;
-        gap: #{$base};
+        gap: #{var_default.$base};
         margin-top: auto;
         position: relative;
 
@@ -65,9 +73,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
 
     .c-block__floating {
         position: absolute;
-        right: $base;
-        top: $base;
-        z-index: $level-3;
+        right: var_default.$base;
+        top: var_default.$base;
+        z-index: var_properties.$level-3;
     }
 
     .c-block__heading, 
@@ -85,47 +93,47 @@ $c-block-image-background-color: var(--c-block-image-background-color, $color-se
     }
 
     &.c-block--ratio-1-1 {
-        @include ratio(1, 1, true); 
+        @include ratio.ratio(1, 1, true); 
         &:before {
             width: 0;
-            @include mq('xs', 'sm') {
+            @include mq.mq('xs', 'sm') {
                 display: none;
             }
         }
     }
     
     &.c-block--ratio-4-3 {
-        @include ratio(4, 3, true); 
+        @include ratio.ratio(4, 3, true); 
         &:before {
             width: 0;
-            @include mq('xs', 'sm') {
+            @include mq.mq('xs', 'sm') {
                 display: none;
             }
         }
     }
     
     &.c-block--ratio-12-16 {
-        @include ratio(12, 16, true); 
+        @include ratio.ratio(12, 16, true); 
         &:before {
             width: 0;
-            @include mq('xs', 'sm') {
+            @include mq.mq('xs', 'sm') {
                 display: none;
             }
         }
     }
     
     &.c-block--ratio-16-9 {
-        @include ratio(16, 9, true);
+        @include ratio.ratio(16, 9, true);
         &:before {
             width: 0;
-            @include mq('xs', 'sm') {
+            @include mq.mq('xs', 'sm') {
                 display: none;
             }
         } 
     }
 
     &--svg-background {
-        background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
+        background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
         background-repeat: no-repeat;
         background-color: $c-block-image-background-color;
     }
@@ -136,20 +144,20 @@ a.c-block {
     cursor: pointer;
 
     .c-block__image-background:before {
-        @include cover(); 
+        @include cover.cover(); 
         content: '';
         transition: opacity 200ms;
-        @include cover(); 
-        background: $color-lighter;
+        @include cover.cover(); 
+        background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: $level-1;
+        z-index: var_properties.$level-1;
     }
 
     &:hover {
-        filter: $drop-shadow-3;
-        background-color: $color-lightest;
+        filter: var_properties.$drop-shadow-3;
+        background-color: var_colors.$color-lightest;
         color: inherit;
-        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
 
         .c-block__heading {
             text-decoration: underline;

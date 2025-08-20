@@ -1,9 +1,15 @@
-$c-divider-title-border-color: var(--c-divider-title-border-color, $color-dark) !default;
-$c-divider-title-border-radius: var(--c-divider-title-border-radius, $border-radius-lg) !default;
-$c-divider-title-border-width: var(--c-divider-title-border-width, $border-width-card) !default;
-$c-divider-title-background: var(--c-divider-title-background, $color-background-card) !default;
+@use "sass:map";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
 
-$c-divider-color-text: var(--c-divider-color-text, $color-dark) !default;
+$c-divider-title-border-color: var(--c-divider-title-border-color, var_colors.$color-dark) !default;
+$c-divider-title-border-radius: var(--c-divider-title-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-divider-title-border-width: var(--c-divider-title-border-width, var_properties.$border-width-card) !default;
+$c-divider-title-background: var(--c-divider-title-background, var_colors.$color-background-card) !default;
+
+$c-divider-color-text: var(--c-divider-color-text, var_colors.$color-dark) !default;
 $c-divider-color-divider: var(--c-divider-color-divider, #707070) !default;
 $c-divider-thickness: var(--c-divider-thickness, 1px) !default;
 $c-divider-border-style: var(--c-divider-border-style, solid) !default;
@@ -24,7 +30,7 @@ $c-divider-border-style: var(--c-divider-border-style, solid) !default;
     }
 
     &__title {
-        padding: map-get($spacers, "1") map-get($spacers, "2");
+        padding: map.get(var_default.$spacers, "1") map.get(var_default.$spacers, "2");
     }
 
     &--has-frame .c-divider__title {

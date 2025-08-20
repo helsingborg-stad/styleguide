@@ -1,5 +1,12 @@
-$c-modal-border-radius: var(--c-modal-border-radius, $border-radius-md) !default;
-$c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.$border-radius-md) !default;
+$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
 
 .c-block[data-open] {
     cursor: pointer;
@@ -7,7 +14,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
 .c-modal {
     background-color: white;
-    gap: map-get($spacers, "2");
+    gap: map.get(var_default.$spacers, "2");
     flex-direction: column;
     width: 100%;
     cursor: default;
@@ -15,13 +22,13 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     display: none;
     border: none;
     border-radius: $c-modal-border-radius;
-    filter: $drop-shadow-3;
+    filter: var_properties.$drop-shadow-3;
     max-width: 800px;
     max-height: 90vh;
     position: fixed;
 
     .c-modal__close.c-button {
-        color: $color-black;
+        color: var_colors.$color-black;
     }
 
     .c-image {
@@ -58,14 +65,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         background-color: transparent;
 
         .c-button.c-modal__close {
-            color: $color-white;
+            color: var_colors.$color-white;
         }
     }
 
     &.search-modal {
         #modal-search-form {
-            margin-top: calc($base * 1);
-            margin-bottom: calc($base * 1);
+            margin-top: calc(var_default.$base * 1);
+            margin-bottom: calc(var_default.$base * 1);
         }
     }
 
@@ -85,27 +92,27 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
     }
 
     &--border-radius-sm {
-        border-radius: $border-radius-sm;
+        border-radius: var_border-radius.$border-radius-sm;
     }
 
     &--border-radius-md {
-        border-radius: $border-radius-md;
+        border-radius: var_border-radius.$border-radius-md;
     }
 
     &--border-radius-lg {
-        border-radius: $border-radius-lg;
+        border-radius: var_border-radius.$border-radius-lg;
     }
 
     .c-modal.c-modal--size-sm {
-        max-width: map_get($breakpoints-map, "sm");
+        max-width: map.get(var_default.$breakpoints-map, "sm");
     }
 
     .c-modal.c-modal--size-md {
-        max-width: map_get($breakpoints-map, "md");
+        max-width: map.get(var_default.$breakpoints-map, "md");
     }
 
     .c-modal.c-modal--size-lg {
-        max-width: map_get($breakpoints-map, "lg");
+        max-width: map.get(var_default.$breakpoints-map, "lg");
     }
 
     &--is-panel {
@@ -118,14 +125,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     @for $i from 1 through 4 {
         &--padding-#{$i} {
-            padding: map-get($spacers, #{$i}) 0;
+            padding: map.get(var_default.$spacers, #{$i}) 0;
 
             >* {
-                padding: 0 map-get($spacers, #{$i});
+                padding: 0 map.get(var_default.$spacers, #{$i});
             }
 
             .c-modal__footer {
-                padding-top: map-get($spacers, #{$i});
+                padding-top: map.get(var_default.$spacers, #{$i});
             }
         }
     }
@@ -137,7 +144,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         align-items: flex-start;
 
         .c-modal__heading {
-            margin-right: map-get($spacers, "2");
+            margin-right: map.get(var_default.$spacers, "2");
         }
     }
 
@@ -147,7 +154,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &__footer {
         flex-shrink: 0;
-        border-top: 1px solid $color-gray-light;
+        border-top: 1px solid var_colors.$color-gray-light;
     }
 
     .c-button:hover {
@@ -165,7 +172,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
     &__prev,
     &__next {
-        color: $color-white;
+        color: var_colors.$color-white;
     }
 
     &__prev,
@@ -175,36 +182,36 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
         /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor: pointer;
-        z-index: $level-top;
+        z-index: var_properties.$level-top;
     }
 
     &__prev {
-        left: calc(#{map-get($spacers, "8")} * -1);
+        left: calc(#{map.get(var_default.$spacers, "8")} * -1);
     }
 
     &__next {
-        right: #{map-get($spacers, "0")};
+        right: #{map.get(var_default.$spacers, "0")};
     }
 
-    @include mq(map_get($breakpoints-map, "xs"), "lg") {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "lg") {
 
         &__prev {
-            left: map-get($spacers, "0");
+            left: map.get(var_default.$spacers, "0");
         }
 
         &__next {
-            right: map-get($spacers, "0");
+            right: map.get(var_default.$spacers, "0");
         }
 
         &__prev,
         &__next {
             vertical-align: bottom;
-            bottom: #{map-get($spacers, "8")};
+            bottom: #{map.get(var_default.$spacers, "8")};
         }
 
     }
 
-    @include mq(map_get($breakpoints-map, "xs"), "sm") {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "sm") {
 
         &__close,
         &__prev,
@@ -212,34 +219,34 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, $color-alpha) !default;
 
             &:hover {
                 box-shadow: none;
-                filter: $drop-shadow-0;
+                filter: var_properties.$drop-shadow-0;
                 background: none;
             }
         }
 
         &__close {
-            top: calc(#{map-get($spacers, "6")} * -1);
-            right: map-get($spacers, "1");
+            top: calc(#{map.get(var_default.$spacers, "6")} * -1);
+            right: map.get(var_default.$spacers, "1");
 
             i {
-                font-size: calc($base * 3);
+                font-size: calc(var_default.$base * 3);
             }
         }
 
         &__prev {
-            left: map-get($spacers, "1");
+            left: map.get(var_default.$spacers, "1");
         }
 
         &__next {
-            right: map-get($spacers, "1");
+            right: map.get(var_default.$spacers, "1");
         }
 
         &__prev,
         &__next {
-            bottom: #{map-get($spacers, "6")};
+            bottom: #{map.get(var_default.$spacers, "6")};
 
             i {
-                font-size: calc($base * 3);
+                font-size: calc(var_default.$base * 3);
             }
 
         }

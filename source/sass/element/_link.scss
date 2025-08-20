@@ -1,5 +1,10 @@
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+
 a, .link {
-    color: $color-link;
+    color: var_colors.$color-link;
     text-decoration-style: solid;
     transition: 100ms color; 
 
@@ -8,7 +13,7 @@ a, .link {
     }
 
     &:hover {
-        color: $color-link-hover;
+        color: var_colors.$color-link-hover;
         text-decoration-style: solid;
     }
 
@@ -18,33 +23,33 @@ a, .link {
     }
 
     &:active {
-        color: $color-link-active;
+        color: var_colors.$color-link-active;
     }
 
     &:visited {
-        color: $color-link-visited;
+        color: var_colors.$color-link-visited;
 
         &:hover {
-            color: $color-link-visited-hover;
+            color: var_colors.$color-link-visited-hover;
         }
 
         &:active {
-            color: $color-link-active;
+            color: var_colors.$color-link-active;
         }
     }
 
     &.c-link--tag {
-        background-color: $color-gray-light;
-        padding: calc(#{$base}/2);
-        margin-right: calc(#{$base}/2);
-        border-radius: $border-radius-sm;
+        background-color: var_colors.$color-gray-light;
+        padding: calc(#{var_default.$base}/2);
+        margin-right: calc(#{var_default.$base}/2);
+        border-radius: var_border-radius.$border-radius-sm;
         text-decoration: none;
-        color: $color-base;
-        font-size: $font-size-meta;
+        color: var_colors.$color-base;
+        font-size: var_fonts.$font-size-meta;
 
         &:hover {
-            color: $color-white;
-            background-color: $color-gray;
+            color: var_colors.$color-white;
+            background-color: var_colors.$color-gray;
         }
     }
 }

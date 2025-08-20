@@ -1,3 +1,5 @@
+@use "var_colors";
+
 //Overflow
 $overflows: (
     "hidden",
@@ -65,7 +67,7 @@ $border-width-large:            var(--border-width-large, 4px) !default;
 $border-width-divider:          var(--border-width-divider, $border-width-thin) !default;       //  Collection, <hr> & other seperators of related content
 $border-width-highlight:        var(--border-width-highlight, $border-width-large) !default;    //  Active Tab, Active nav item etc
 $border-width-card:             var(--border-width-card, 0px) !default;                         //  Elevated card border (none by default)
-$border-width-outline:          var(--border-width-outline, $color-border-divider) !default;    //  Outlined card
+$border-width-outline:          var(--border-width-outline, var_colors.$color-border-divider) !default;    //  Outlined card
 $border-width-button:           var(--border-width-button, $border-width-medium) !default;      //  Outlined button
 $border-width-input:            var(--border-width-input, $border-width-thin) !default;         //  Input
 //---------------------------

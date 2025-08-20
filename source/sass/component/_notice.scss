@@ -1,26 +1,34 @@
+@use "sass:map";
+@use "../element/body";
+@use "../mixin/stretch";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
 $c-notice-color-text: var(--notice-color-text, #d73740) !default;
 $c-notice-color-background: var(--notice-color-background, #d73740) !default;
 
-$c-notice-color-success-text: var(--c-notice-color-success-text, $color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, $color-success) !default;
+$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
+$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
 
-$c-notice-color-danger-text: var(--notice-color-danger-text, $color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, $color-danger) !default;
+$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
+$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
 
-$c-notice-color-info-text: var(--notice-color-info-text, $color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, $color-info) !default;
+$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
+$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
 
-$c-notice-color-warning-text: var(--notice-color-warning-text, $color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, $color-warning) !default;
+$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
+$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
 
-$c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default;
+$c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-radius-sm) !default;
 
 .c-notice {
-    filter: $drop-shadow-5;
-    padding: map-get($spacers, "2") map-get($spacers, "3");
-    background-color: $color-base;
+    filter: var_properties.$drop-shadow-5;
+    padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
+    background-color: var_colors.$color-base;
     border-radius: $c-notice-border-radius;
-    color: $color-notice-text-default;
+    color: var_colors.$color-notice-text-default;
     display: grid;
     grid-template-areas: 
         "icon title actions"
@@ -30,7 +38,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     align-items: center;
 
     > [class*='c-notice__'] + [class*='c-notice__']  {
-        margin-left: map-get($spacers, "2");
+        margin-left: map.get(var_default.$spacers, "2");
     }
 
     .c-notice__icon {
@@ -43,7 +51,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     .c-notice__title {
         grid-area: title;
         margin: 0;
-        line-height: $body-line-height;
+        line-height: body.$body-line-height;
     }
 
     .c-notice__message {
@@ -55,15 +63,15 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
         
         grid-area: actions;
         display: flex;
-        gap: calc(map-get($spacers, "1") * 1.5);
+        gap: calc(map.get(var_default.$spacers, "1") * 1.5);
         align-items: center;
         justify-content: flex-end;
-        margin: calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) calc(map-get($spacers, "1") * -1) 0;
+        margin: calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) 0;
 
         > * + * {
             position: relative;
-            padding-left: calc(calc(map-get($spacers, "1") * 0.75) + 1px);
-            margin-left: calc(map-get($spacers, "1") * 0.75);
+            padding-left: calc(calc(map.get(var_default.$spacers, "1") * 0.75) + 1px);
+            margin-left: calc(map.get(var_default.$spacers, "1") * 0.75);
         }
 
         > * + *::before {
@@ -93,7 +101,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
     a:hover,
     a:active,
     a:visited {
-        color: $color-notice-text-default;
+        color: var_colors.$color-notice-text-default;
         text-decoration: underline;
     }
 
@@ -168,7 +176,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
 }
 
 .c-notice.c-notice--stretch { /* Bleed outside container  left&right */ 
-    @include stretch();
+    @include stretch.stretch();
 }
 
 .c-notice.c-notice--action-below {
@@ -197,7 +205,7 @@ $c-notice-border-radius: var(--notice-border-radius, $border-radius-sm) !default
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(#{$base} * 2); 
+    margin-top: calc(#{var_default.$base} * 2); 
 }
 
 @media print {

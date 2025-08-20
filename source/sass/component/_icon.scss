@@ -1,20 +1,24 @@
+@use "sass:list";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 @charset "utf-8";
 $sizes: xs, sm, md, lg, xl, xxl;
 
 $colors: (
-    "color-black": $color-black,
-    "color-gray": $color-gray,
-    "color-default": $color-default,
-    "color-default-dark": $color-default-dark,
-    "color-white": $color-white,
-    "color-primary": $color-primary,
-    "color-secondary": $color-secondary
+    "color-black": var_colors.$color-black,
+    "color-gray": var_colors.$color-gray,
+    "color-default": var_colors.$color-default,
+    "color-default-dark": var_colors.$color-default-dark,
+    "color-white": var_colors.$color-white,
+    "color-primary": var_colors.$color-primary,
+    "color-secondary": var_colors.$color-secondary
 );
 
 :root {
     @each $size in $sizes {
-        $index: index($sizes, $size);
-        --c-icon-size-#{$size}: calc(#{$base} * #{$index});
+        $index: list.index($sizes, $size);
+        --c-icon-size-#{$size}: calc(#{var_default.$base} * #{$index});
     }
 }
 
@@ -62,7 +66,7 @@ $colors: (
     }
 
     @each $size in $sizes {
-        $index: index($sizes, $size);
+        $index: list.index($sizes, $size);
         &.c-icon--size-#{$size} {
             $iconSize: var(--c-icon-size, var(--c-icon-size-#{$size}));
             font-size: $iconSize;

@@ -1,16 +1,20 @@
+@use "sass:list";
+@use "sass:meta";
+@use "remove-list-item";
+
 @function validateBreakpointList($breakpoints, $limitToBreakpoint: true) {
     $breakpoints: $breakpoints;
 
     @if ($breakpoints == all) {
         $breakpoints: 0, xs, sm, md, lg, xl;
-    } @else if type-of($breakpoints) != list {
+    } @else if meta.type-of($breakpoints) != list {
         $breakpoints: ($breakpoints);
     }
 
-    @if index($breakpoints, 0) != null
-        and index($breakpoints, 0) != null
+    @if list.index($breakpoints, 0) != null
+        and list.index($breakpoints, 0) != null
         and $limitToBreakpoint != true {
-        $breakpoints: removeListItem($breakpoints, xs);
+        $breakpoints: remove-list-item.removeListItem($breakpoints, xs);
     }
 
     @return $breakpoints;

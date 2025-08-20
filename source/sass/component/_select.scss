@@ -1,19 +1,28 @@
+@use "sass:map";
+@use "../mixin/focus";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+@use "field";
+
 $c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, $border-radius-sm) !default;
-$c-select-font-size-sm: var(--c-select-font-size-sm, $font-size-btn-sm) !default;
-$c-select-font-size-md: var(--c-select-font-size-md, $font-size-btn-md) !default;
-$c-select-font-size-lg: var(--c-select-font-size-lg, $font-size-btn-lg) !default;
-$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, $font-size-btn-sm-line-height) !default;
-$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, $font-size-btn-md-line-height) !default;
-$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
+$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
+$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
+$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
+$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
+$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
+$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
+$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
 
 $c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-field-border-color, $c-field-border-color) !default;
-$c-select-background-color: var(--c-field-background-color, $c-field-background-color) !default;
-$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
-$c-select-success-color: var(--c-select-success-color, var(--color-success, $color-success-dark)) !default;
-$c-select-selected-bg: var(--c-select-selected-bg, $color-primary) !default;
-$c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
+$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color) !default;
+$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color) !default;
+$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
+$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
+$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
+$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white) !default;
 
 .c-select__container {
     position: relative;
@@ -34,7 +43,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
     .c-select__action-overlay {
         cursor: pointer;
-        z-index: $level-4;
+        z-index: var_properties.$level-4;
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -42,12 +51,12 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         padding-right: 15%;
 
         &:focus {
-            @include focus();
+            @include focus.focus();
         }
     }
 
     &.is-empty .c-select__action-overlay {
-        color: $color-light;
+        color: var_colors.$color-light;
     }
 
     &.is-ios,
@@ -57,7 +66,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: $level-5;
+            z-index: var_properties.$level-5;
         }
     }
 
@@ -66,10 +75,10 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         right: 2em;
         top: 0;
         left: auto;
-        padding: map-get($spacers, "2");
-        z-index: $level-6;
+        padding: map.get(var_default.$spacers, "2");
+        z-index: var_properties.$level-6;
         height: 100%;
-        color: $color-primary;
+        color: var_colors.$color-primary;
         display: flex;
         align-items: center;
 
@@ -83,11 +92,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         right: 0;
         top: 0;
         left: auto;
-        padding: map-get($spacers, "2");
-        z-index: $level-2;
+        padding: map.get(var_default.$spacers, "2");
+        z-index: var_properties.$level-2;
         transition: none;
         height: 100%;
-        color: $color-primary;
+        color: var_colors.$color-primary;
         pointer-events: none;
         display: flex;
         align-items: center;
@@ -107,21 +116,21 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
     &.c-select--rounded {
         select {
-            border-radius: calc($base * 3);
+            border-radius: calc(var_default.$base * 3);
             border: none;
             font-weight: 700;
             &:focus + .c-select_focus-styler {
-                border-radius: calc($base * 3);
+                border-radius: calc(var_default.$base * 3);
             }
         }
 
         .c-field__label {
-            margin-left: calc($base * 2);
+            margin-left: calc(var_default.$base * 2);
         }
 
         &.c-select--rounded-border {
             select {
-                border: $c-field-border-width solid $c-field-border-color;
+                border: field.$c-field-border-width solid field.$c-field-border-color;
             }
         }
     }
@@ -129,11 +138,11 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     .c-select__dropdown .c-select__option[aria-disabled="true"] {
         
         .c-icon {
-            color: $color-disabled;
+            color: var_colors.$color-disabled;
         }
 
         .c-select__option-label {
-            color: $color-disabled-text;
+            color: var_colors.$color-disabled-text;
             font-style: italic;
         }
     }
@@ -142,7 +151,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     &.c-select--sm {
         .c-select__clear-button,
         .c-select__expand-button {
-            padding: 0 map-get($spacers, "1"); 
+            padding: 0 map.get(var_default.$spacers, "1"); 
         }
 
         .c-select__clear-button {
@@ -162,7 +171,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     &.c-select--md {
         .c-select__clear-button,
         .c-select__expand-button {
-            padding: 0 map-get($spacers, "2");
+            padding: 0 map.get(var_default.$spacers, "2");
         }
         
         .c-select__clear-button {
@@ -182,7 +191,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     &.c-select--lg {
         .c-select__clear-button,
         .c-select__expand-button {
-            padding: 0 calc(calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")})); 
+            padding: 0 calc(calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")})); 
         }
 
         .c-select__clear-button {
@@ -205,13 +214,13 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
 
     .c-select__select-invalid-message {
         width: 100%;
-        padding: map-get($spacers, "1") ;
+        padding: map.get(var_default.$spacers, "1") ;
         display: none;
         font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
+        color: var_colors.$color-white;
+        background-color: var_colors.$color-danger;
         border:none;
-        border-radius: 0 0 calc($c-select-border-radius * $base) calc($c-select-border-radius * $base);
+        border-radius: 0 0 calc($c-select-border-radius * var_default.$base) calc($c-select-border-radius * var_default.$base);
         box-sizing: border-box;
 
         &.error {
@@ -260,7 +269,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
     &.is-open {
 
         .c-select__dropdown {
-            z-index: $level-8;
+            z-index: var_properties.$level-8;
             display: block;
             border-top: none;
             border-top-left-radius: 0;
@@ -284,17 +293,17 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         position: absolute;
         top: 100%;
         width: 100%;
-        max-height: calc($base * 30);
+        max-height: calc(var_default.$base * 30);
         overflow-y: auto;
-        z-index: $level-3;
-        padding: #{$base} 0;
+        z-index: var_properties.$level-3;
+        padding: #{var_default.$base} 0;
         border: $c-select-border-width solid $c-select-border-color;
     }
 
     .c-select__option {
         display: flex;
-        gap: calc(#{$base} * 1.5); 
-        padding: calc(#{$base} * 1.5) calc(#{$base} * 2);
+        gap: calc(#{var_default.$base} * 1.5); 
+        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
         align-items: center;
         cursor: pointer;
         user-select: none;
@@ -337,7 +346,7 @@ $c-select-selected-color: var(--c-select-selected-color, $color-white) !default;
         &:hover {
             .c-select__option-label,
             .c-select__option-icon {
-                transform: translateX(calc(#{$base} * 0.5)); 
+                transform: translateX(calc(#{var_default.$base} * 0.5)); 
             }
         }
     }

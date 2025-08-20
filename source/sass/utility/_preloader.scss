@@ -1,3 +1,5 @@
+@use "../mixin/cover";
+
 /** Adds preload like apperance of any component */
 .u-preloader {
   position: relative;
@@ -7,7 +9,7 @@
   &:after,
   &:before {
     content: ""; 
-    @include cover(); 
+    @include cover.cover(); 
     
     border-radius: inherit;
     animation-duration: 1s;

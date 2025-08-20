@@ -1,11 +1,14 @@
+@use "sass:math";
+@use "strip-unit";
+
 @function px($value, $emBase: $mix-em-base, $remBase: $mix-rem-base) {
-    @if unit($value) == "em" {
-        @return strip-unit($value) / $emBase * 1em;
-    } @else if unit($value) == "rem" {
-        @return strip-unit($value) / $remBase * 1rem;
-    } @else if unit($value) == "px" {
+    @if math.unit($value) == "em" {
+        @return strip-unit.strip-unit($value) / $emBase * 1em;
+    } @else if math.unit($value) == "rem" {
+        @return strip-unit.strip-unit($value) / $remBase * 1rem;
+    } @else if math.unit($value) == "px" {
         @return $value;
-    } @else if unitless($value) {
+    } @else if math.is-unitless($value) {
         @if $value == 0 {
             @return 0;
         }

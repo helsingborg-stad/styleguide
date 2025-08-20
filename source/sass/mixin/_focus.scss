@@ -1,7 +1,11 @@
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
 @mixin focus {
-    outline: thick solid $color-focus-outline;
-    outline-offset: calc(#{$base} * 0.25);
-    box-shadow: 0 0 0 6px $color-white;
+    outline: thick solid var_colors.$color-focus-outline;
+    outline-offset: calc(#{var_default.$base} * 0.25);
+    box-shadow: 0 0 0 6px var_colors.$color-white;
 }
 
 @mixin focus-remove-default {
@@ -18,8 +22,8 @@
 
     &::after {
         border-radius: $border-radius;
-        box-shadow: inset 0 0 0 calc(#{$base} * 0.5) $color-focus-outline,
-        inset 0 0 0 calc(#{$base} * 0.75) $color-white;
+        box-shadow: inset 0 0 0 calc(#{var_default.$base} * 0.5) var_colors.$color-focus-outline,
+        inset 0 0 0 calc(#{var_default.$base} * 0.75) var_colors.$color-white;
         content: '';
         display: block;
         height: 100%;
@@ -28,6 +32,6 @@
         pointer-events: none;
         position: absolute;
         width: 100%;
-        z-index: $level-3;
+        z-index: var_properties.$level-3;
     }
 }

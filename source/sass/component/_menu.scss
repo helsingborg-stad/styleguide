@@ -1,9 +1,16 @@
+@use "sass:map";
+@use "../mixin/center";
+@use "../mixin/list";
+@use "../mixin/paper";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 /* General behaviour */
 
 .c-menu {
 
     &__list {
-        @include unlist();
+        @include list.unlist();
         padding: 0;
         margin: 0;
     }
@@ -46,42 +53,42 @@
     .c-menu__list {
         display: flex;
         flex-wrap: nowrap;
-        margin-right: calc(map-get($spacers, "2") * -1);
-        margin-left: calc(map-get($spacers, "2") * -1);
+        margin-right: calc(map.get(var_default.$spacers, "2") * -1);
+        margin-left: calc(map.get(var_default.$spacers, "2") * -1);
     }
 
     .c-menu__item .c-menu__link {
         display: block;
-        padding: map-get($spacers, "1") map-get($spacers, "2");
+        padding: map.get(var_default.$spacers, "1") map.get(var_default.$spacers, "2");
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{$base} * 0.5);
+        padding-left: calc(#{var_default.$base} * 0.5);
     }
 
     .c-menu__item .c-menu__link,
     .c-menu__item .c-menu__link:visited,
     .c-menu__item .c-menu__link:visited:hover {
-        color: $color-menu-text-horizontal;
+        color: var_colors.$color-menu-text-horizontal;
     }
 
     .c-menu__item  .c-menu__link:after {
         content: "";
-        @include centerX();
+        @include center.centerX();
 
-        bottom: $base;
-        border-bottom: 3px solid $color-menu-active-indicator-horizontal;
+        bottom: var_default.$base;
+        border-bottom: 3px solid var_colors.$color-menu-active-indicator-horizontal;
         width: 0%;
         transition: width 250ms;
     }
 
     .c-menu__item.c-menu--active .c-menu__link:after {
         transition-duration: 400ms;
-        width: calc(100% - #{map-get($spacers, "4")});
+        width: calc(100% - #{map.get(var_default.$spacers, "4")});
     }
 
     .c-menu__item .c-menu__link:hover:after {
-        width: calc(100% - #{map-get($spacers, "2")});
+        width: calc(100% - #{map.get(var_default.$spacers, "2")});
     }
 
 }
@@ -89,33 +96,33 @@
 /* Vertical menu */
 
 .c-menu.c-menu--vertical {
-    @include paper(2);
+    @include paper.paper(2);
 
     .c-menu__list .c-menu__list {
-        border-left: 4px solid $color-menu-active-indicator;
+        border-left: 4px solid var_colors.$color-menu-active-indicator;
     }
 
     .c-menu__item {
-        border-top: 1px solid $color-menu-separator;
+        border-top: 1px solid var_colors.$color-menu-separator;
     }
 
     .c-menu__link {
         display: block;
-        padding: calc(#{$base} * 1.5) calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 3);
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{$base} * 0.5);
+        padding-left: calc(#{var_default.$base} * 0.5);
     }
 
     .c-menu__item .c-menu__link,
     .c-menu__item .c-menu__link:visited,
     .c-menu__item .c-menu__link:visited:hover {
-        color: $color-menu-text;
+        color: var_colors.$color-menu-text;
     }
 
     .c-menu--active .c-menu__list {
-        background: $color-menu-active-background;
+        background: var_colors.$color-menu-active-background;
     }
 
 }

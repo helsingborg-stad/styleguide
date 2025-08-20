@@ -1,14 +1,21 @@
+@use "../setting/var_colors" as colors;
+@use "../setting/var_border-radius" as border-radius;
+@use "../setting/var_fonts" as fonts;
+@use "../setting/var_default" as defaults;
+@use "../setting/var_properties" as properties;
+
+
 .d-code {
-    border-radius:  0 0 $border-radius-md $border-radius-md;
-    border-top: 8px solid $color-darkest;
+    border-radius:  0 0 border-radius.$border-radius-md border-radius.$border-radius-md;
+    border-top: 8px solid colors.$color-darkest;
     transform: translateY(-8px);
-    z-index: $level-1 - 1;
+    z-index: properties.$level-1 - 1;
     margin: 0;
 
     .toolbar {
         top: unset !important;
-        right: calc(#{$base}*3) !important;
-        bottom: calc(#{$base}*3) !important;
+        right: calc(#{defaults.$base}*3) !important;
+        bottom: calc(#{defaults.$base}*3) !important;
 
         &-item {
             position: unset;
@@ -18,21 +25,21 @@
 
 .d-code__toggle {
     width: 100%;
-    background-color: $color-code-button;
+    background-color: colors.$color-code-button;
     overflow: hidden;
     border: none;
     position: relative;
-    z-index: $level-1;
+    z-index: properties.$level-1;
 
     .c-button,
     .c-button:hover {
-        background-color: $color-code-button;
-        filter: $drop-shadow-0;
+        background-color: colors.$color-code-button;
+        filter: properties.$drop-shadow-0;
         border-radius: 0;
 
         .c-button__label .c-button__label-text,
         .c-button__label .c-button__label-icon {
-            color: $color-white;
+            color: colors.$color-white;
         }
     }
 }
@@ -47,9 +54,9 @@
         border-bottom: 1px solid #e5e5e5;
 
         td {
-            font-weight: $font-weight-bold;
-            font-family: $font-family-bold;
-            color: $color-black;
+            font-weight: fonts.$font-weight-bold;
+            font-family: fonts.$font-family-bold;
+            color: colors.$color-black;
         }
     }
 
@@ -61,16 +68,16 @@
     }
 
     tbody td {
-        color: $color-darkest;
+        color: colors.$color-darkest;
 
         &:first-of-type {
-            color: $color-secondary-dark;
+            color: colors.$color-secondary-dark;
             font-family: monospace, monospace;
         }
-
+        
         &:nth-of-type(3) {
-            font-weight: $font-weight-bold;
-            font-family: $font-family-bold;
+            font-weight: fonts.$font-weight-bold;
+            font-family: fonts.$font-family-bold;
         }
     }
 }

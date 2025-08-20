@@ -1,10 +1,13 @@
-$body-font-size: $font-size-base;
-$body-font-weight: $font-weight-base;
-$body-font-family: $font-family-base;
-$body-line-height: $line-height-base;
+@use "../setting/var_colors";
+@use "../setting/var_fonts";
+
+$body-font-size: var_fonts.$font-size-base;
+$body-font-weight: var_fonts.$font-weight-base;
+$body-font-family: var_fonts.$font-family-base;
+$body-line-height: var_fonts.$line-height-base;
 
 body {
-    background-color: $color-background;
+    background-color: var_colors.$color-background;
     font-size: $body-font-size;
     font-family: $body-font-family;
     line-height: $body-line-height;

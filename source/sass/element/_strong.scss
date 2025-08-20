@@ -1,4 +1,6 @@
+@use "../setting/var_fonts";
+
 strong, b {
-    font-weight: $font-weight-bold;
-    font-family: $font-family-bold;
+    font-weight: var_fonts.$font-weight-bold;
+    font-family: var_fonts.$font-family-bold;
 }

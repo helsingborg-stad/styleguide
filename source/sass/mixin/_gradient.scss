@@ -1,5 +1,7 @@
+@use "../function/is-direction";
+
 @mixin gradient($direction, $color-stops...) {
-    @if is-direction($direction) == false {
+    @if is-direction.is-direction($direction) == false {
         $color-stops: $direction, $color-stops;
         $direction: 180deg;
     }

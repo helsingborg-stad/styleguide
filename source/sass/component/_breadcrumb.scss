@@ -1,6 +1,12 @@
+@use "sass:map";
+@use "../mixin/list";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-breadcrumb {
     display: flex;
-    gap: map-get($spacers, "1");
+    gap: map.get(var_default.$spacers, "1");
 
     &__prefix {
         font-weight: bold;
@@ -8,7 +14,7 @@
     }
     
     &__list {
-        @include unlist();
+        @include list.unlist();
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -16,13 +22,13 @@
     }
 
     &__item {
-        padding: 0 map-get($spacers, "1") 0 0;
+        padding: 0 map.get(var_default.$spacers, "1") 0 0;
         margin: 0;
-        color: $color-breadcrumb-active;
+        color: var_colors.$color-breadcrumb-active;
         display: flex;
-        gap: map-get($spacers, "05");
+        gap: map.get(var_default.$spacers, "05");
 
-        @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
             &:not(:last-child) {
                display: none;
             }
@@ -32,14 +38,14 @@
     &__link,
     &__link:visited,
     &__link:visited:hover {
-        color: $color-breadcrumb;
+        color: var_colors.$color-breadcrumb;
         text-decoration: none;
     }
 
     .c-icon {
-        color: $color-breadcrumb-icon;
+        color: var_colors.$color-breadcrumb-icon;
         align-self: center;
-        @include mq(map_get($breakpoints-map, "xs"), map_get($breakpoints-map, "sm")) {
+        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
             transform: scaleX(-1);
         }
     }

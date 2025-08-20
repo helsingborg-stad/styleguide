@@ -1,3 +1,5 @@
+@use "../mixin/list";
+
 .u-unlist {
-  @include unlist();
+  @include list.unlist();
 }

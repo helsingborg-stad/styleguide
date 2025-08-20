@@ -1,9 +1,12 @@
+@use "sass:math";
+@use "strip-unit";
+
 @function em($value, $base: 16) {
-    @if unit($value) == "px" {
-        @return calc(strip-unit($value) / $base) * 1em;
-    } @else if unit($value) == "em" {
+    @if math.unit($value) == "px" {
+        @return calc(strip-unit.strip-unit($value) / $base) * 1em;
+    } @else if math.unit($value) == "em" {
         @return $value;
-    } @else if unitless($value) {
+    } @else if math.is-unitless($value) {
         @if $value == 0 {
             @return 0;
         }

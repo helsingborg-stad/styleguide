@@ -1,6 +1,8 @@
+@use "../setting/var_default";
+
 .c-logotypegrid {
     display: flex;
-    gap: calc(#{$base} * 6) calc(#{$base} * 14);
+    gap: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 14);
     flex-wrap: wrap;
 
     .c-logotypegrid__item {
@@ -9,7 +11,7 @@
     }
 
     .c-logotypegrid__logo {
-        height: calc(#{$base} * 10); 
+        height: calc(#{var_default.$base} * 10); 
     }
 
     .c-logotypegrid__logo .c-logotype__image {

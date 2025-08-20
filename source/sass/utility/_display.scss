@@ -1,11 +1,14 @@
+@use "../setting/var_properties";
+@use "../mixin/build-utility";
+
 $display-utils: (
     (
         name: "display",
-        modifiers: $display-states
+        modifiers: var_properties.$display-states
     )
 );
 
-@include build-utilities($display-utils);
+@include build-utility.build-utilities($display-utils);
 
 .u-hide-empty:empty {
     display: none !important;

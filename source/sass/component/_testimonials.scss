@@ -1,29 +1,37 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+@use "card";
+
 .c-testimonials {
     // General
     .c-testimonial {
     display: grid;
     grid-template-rows: auto 1fr;
-    grid-template-columns: calc(#{$base} * 11) auto;
+    grid-template-columns: calc(#{var_default.$base} * 11) auto;
     grid-template-areas: "image header" "quote quote";
-    padding: map-get($spacers, "4");
+    padding: map.get(var_default.$spacers, "4");
 
         .c-testimonial__header {
             margin-left: calc(var(--base, 8px) * 4);
 
             & .c-divider {
                 margin: 0;
-                border-color: $color-complementary-light;
+                border-color: var_colors.$color-complementary-light;
             }
             .c-testimonial__author {
                 font-size: calc(var(--base, 8px) * 3);
-                color: $color-darkest;
+                color: var_colors.$color-darkest;
                 overflow-wrap: break-word;
                 margin-top: calc(var(--base, 8px) * 2);
             }
             .c-testimonial__title {
-                color: $color-primary-dark;
+                color: var_colors.$color-primary-dark;
                 max-width: 25ch;
-                margin-bottom: map-get($spacers, "1");
+                margin-bottom: map.get(var_default.$spacers, "1");
                 margin-top: calc(var(--base, 8px));
             }
         }
@@ -39,16 +47,16 @@
     .c-testimonial__quote {
         grid-area: quote;
         font-style: italic;
-        font-weight: $font-weight-italic;
-        font-family: $font-family-italic;
+        font-weight: var_fonts.$font-weight-italic;
+        font-family: var_fonts.$font-family-italic;
     }
 
     .c-testimonial__image {
-        width: calc(#{$base} * 11);
-        max-height: calc(#{$base} * 14);
-        border-radius: $c-card-border-radius;
+        width: calc(#{var_default.$base} * 11);
+        max-height: calc(#{var_default.$base} * 14);
+        border-radius: card.$c-card-border-radius;
         overflow: hidden;
-        filter: $drop-shadow-3;
+        filter: var_properties.$drop-shadow-3;
         grid-area: image;
         
         &.c-image .c-image__image {
@@ -62,7 +70,7 @@
     .c-testimonials__wrapper {
         display: grid;
         grid-template-columns: 100%;
-        row-gap: calc(#{$base} * 7);
+        row-gap: calc(#{var_default.$base} * 7);
     }
 
     // Slider style
@@ -101,30 +109,30 @@
         .c-slider__arrows {
             .splide__arrow {
                 &.splide__arrow--prev {
-                    left: calc(#{$base} * -2.5);
+                    left: calc(#{var_default.$base} * -2.5);
                 }
                 &.splide__arrow--next {
-                    right: calc(#{$base} * -2.5);
+                    right: calc(#{var_default.$base} * -2.5);
                 }
             }
         }
     }
 }
 
-@include mq(map_get($breakpoints-map, "md")) {
+@include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
     .c-testimonials {
         & .c-testimonials__wrapper {
             grid-template-columns: 1fr 1fr;
-            column-gap: calc(#{$base} * 7);
-            row-gap: calc(#{$base} * 6);
+            column-gap: calc(#{var_default.$base} * 7);
+            row-gap: calc(#{var_default.$base} * 6);
     
-            margin-left: map-get($spacers, "8");
-            margin-right: map-get($spacers, "8");
+            margin-left: map.get(var_default.$spacers, "8");
+            margin-right: map.get(var_default.$spacers, "8");
         }
 
         & .c-testimonials__slider {
-            padding-left: calc(#{$base} * 7);
-            padding-right: calc(#{$base} * 7);
+            padding-left: calc(#{var_default.$base} * 7);
+            padding-right: calc(#{var_default.$base} * 7);
         }
     }
 }

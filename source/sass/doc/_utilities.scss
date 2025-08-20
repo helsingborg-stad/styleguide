@@ -1,3 +1,5 @@
+@use "../setting/var_colors" as colors;
+
 .d-shadows {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -25,6 +27,6 @@
     }
 
     div {
-        background-color: $color-gray-light;
+        background-color: colors.$color-gray-light;
     }
 }

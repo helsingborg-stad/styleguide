@@ -1,10 +1,14 @@
+@use "sass:map";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-signature {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas: "avatar signature" "whitespace dates";
     text-decoration: none;
-    column-gap: map-get($spacers, "2" );
+    column-gap: map.get(var_default.$spacers, "2" );
 
     &__avatar {
         grid-area: avatar;
@@ -17,8 +21,8 @@
     }
 
     &__title {
-        color: $color-darker;
-        margin-top: calc(#{map-get($spacers, "1" )} * -1);
+        color: var_colors.$color-darker;
+        margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
         display: block;
     }
 
@@ -28,7 +32,7 @@
 
     &__published,
     &__updated {
-        color: $color-darker;
+        color: var_colors.$color-darker;
         display: block;
     }
 }

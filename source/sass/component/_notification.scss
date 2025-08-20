@@ -1,3 +1,7 @@
+@use "sass:map";
+@use "../mixin/animations/slide";
+@use "../setting/var_default" as defaults;
+@use "../setting/var_properties";
 
 
 .c-notification {
@@ -11,39 +15,37 @@
 }
 
 .c-notification__container {
+    z-index: var_properties.$level-10;
+    position: fixed;
+    display:flex;
+    flex-direction: column;
+    max-height: 100vh;
 
     &--bottom {
 
         &-left {
-            bottom: map-get($spacers, "2");
-            left: map-get($spacers, "2");
+            bottom: map.get(defaults.$spacers, "2");
+            left: map.get(defaults.$spacers, "2");
         }
 
         &-right {
-            bottom: map-get($spacers, "2");
-            right: map-get($spacers, "2");
+            bottom: map.get(defaults.$spacers, "2");
+            right: map.get(defaults.$spacers, "2");
         }
     }
 
     &--top {
 
         &-left {
-            top: map-get($spacers, "2");
-            left: map-get($spacers, "2");
+            top: map.get(defaults.$spacers, "2");
+            left: map.get(defaults.$spacers, "2");
         }
 
         &-right {
-            top: map-get($spacers, "2");
-            right: map-get($spacers, "2");
+            top: map.get(defaults.$spacers, "2");
+            right: map.get(defaults.$spacers, "2");
         }
     }
-
-    z-index: $level-10;
-    position: fixed;
-    display:flex;
-    flex-direction: column;
-
-    max-height: 100vh;
 }
 
 .c-notification__spawn {
@@ -51,32 +53,32 @@
     &--bottom {
 
         &-left {
-            bottom: map-get($spacers, "2");
-            @include slide(left);
+            bottom: map.get(defaults.$spacers, "2");
+            @include slide.slide(left);
         }
 
         &-right {
-            bottom: map-get($spacers, "2");
-            @include slide(right);
+            bottom: map.get(defaults.$spacers, "2");
+            @include slide.slide(right);
         }
     }
 
     &--top {
 
         &-left {
-            top: map-get($spacers, "2");
-            @include slide(left);
+            top: map.get(defaults.$spacers, "2");
+            @include slide.slide(left);
         }
 
         &-right {
-            top: map-get($spacers, "2");
-            @include slide(right);
+            top: map.get(defaults.$spacers, "2");
+            @include slide.slide(right);
         }
     }
 }
 
 .c-notification .c-notice {
-    filter: $drop-shadow-5;
+    filter: var_properties.$drop-shadow-5;
 }
 
 @keyframes fadeOut {

@@ -1,11 +1,14 @@
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
 $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
 
 .c-toast {
   position: fixed;
-  margin: calc(#{$base} * 2);
+  margin: calc(#{var_default.$base} * 2);
   display: grid;
-  z-index: $level-9;
-  width: min(100vw, calc(#{$base} * 65));
+  z-index: var_properties.$level-9;
+  width: min(100vw, calc(#{var_default.$base} * 65));
 
   &.c-toast--top-left {
     top: 0;
@@ -30,7 +33,7 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
   .c-toast__item {  
     width: fit-content;
     opacity: 0;
-    transform: translateY(calc(#{$base} * 3));
+    transform: translateY(calc(#{var_default.$base} * 3));
     animation: slide-in 0.3s ease-out forwards, fade-out 0.5s ease-in forwards;
     animation-delay: 0s, $toastHideTimeoutBase; // Default delays
   
@@ -58,7 +61,7 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
   @keyframes slide-in {
     from {
       opacity: 0;
-      transform: translateY(calc(#{$base} * 3));
+      transform: translateY(calc(#{var_default.$base} * 3));
     }
     to {
       opacity: 1;
@@ -73,7 +76,7 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
     }
     99% {
       opacity: 0;
-      transform: translateY(calc(#{$base} * -3));
+      transform: translateY(calc(#{var_default.$base} * -3));
       display: block; // Ensure it's still visible until 99%
     }
     100% {

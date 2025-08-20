@@ -1,20 +1,29 @@
-$c-card-color-background: var(--c-card-color-background, $color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, $border-radius-lg) !default;
+@use "sass:map";
+@use "../mixin/cover";
+@use "../mixin/focus";
+@use "../mixin/mq";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
 
-$c-card-border-width: var(--c-card-border-width, $border-width-card) !default;
-$c-card-border-color: var(--c-card-border-color, $color-border-card) !default;
+$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
+$c-card-border-radius: var(--c-card-border-radius, var_border-radius.$border-radius-lg) !default;
 
-$c-card-border-width-outline: var(--c-card-border-width-outline, $border-width-outline) !default;
-$c-card-border-color-outline: var(--c-card-border-color-outline, $color-border-outline) !default;
+$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
+$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;
 
-$c-card-border-width-divider: var(--c-card-border-width-divider, $border-width-divider) !default;
-$c-card-border-color-divider: var(--c-card-border-color-divider, $color-border-divider) !default;
+$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline) !default;
+$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline) !default;
 
-$c-card-image-background-color: var(--c-card-image-background-color, $color-secondary) !default;
+$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider) !default;
+$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider) !default;
+
+$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
 
 .c-card {
 
-    filter: $drop-shadow-2;
+    filter: var_properties.$drop-shadow-2;
     will-change: filter;
     display: flex;
     flex-direction: column;
@@ -45,25 +54,25 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     .c-card__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: map-get($spacers, '2');
+        padding: map.get(var_default.$spacers, '2');
     }
 
     .c-card__content:not(:first-child) {
-        margin-top: map-get($spacers, '1');
+        margin-top: map.get(var_default.$spacers, '1');
     }
     
     .c-card__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: map-get($spacers, '2');
+        padding: map.get(var_default.$spacers, '2');
         margin-top: auto;
     }
     
     .c-card__body {
         display: grid;
-        padding-top: map-get($spacers, '3');
-        padding-bottom: map-get($spacers, '3');
-        gap: map-get($spacers, '05');
+        padding-top: map.get(var_default.$spacers, '3');
+        padding-bottom: map.get(var_default.$spacers, '3');
+        gap: map.get(var_default.$spacers, '05');
         align-content: center;
 
         :first-child {
@@ -76,7 +85,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     }
     
     .c-card__image {
-        background-color: $color-card-image-background;
+        background-color: var_colors.$color-card-image-background;
         border-radius: inherit;
         .c-image__image {
             border-radius: inherit;
@@ -96,9 +105,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     
     &__date {
         display: flex;
-        gap: calc(#{$base} * 0.5);
+        gap: calc(#{var_default.$base} * 0.5);
         align-items: center;
-        margin-top: calc(#{$base} * 0.5);
+        margin-top: calc(#{var_default.$base} * 0.5);
     }
     
     &__dropdown {
@@ -107,11 +116,11 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         right: 0;
         
         &--white .c-button {
-            color: $color-white;
+            color: var_colors.$color-white;
         }
         
         &--black .c-button {
-            color: $color-black;
+            color: var_colors.$color-black;
         }
     }
     
@@ -164,9 +173,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     /* Floating items top right corner (on image) */
     .c-card__floating {
         position: absolute;
-        right: $base;
-        top: $base;
-        z-index: $level-3;
+        right: var_default.$base;
+        top: var_default.$base;
+        z-index: var_properties.$level-3;
     }
 
     .c-card__content-after {
@@ -175,7 +184,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
 
     /* Focus highlight */
     &--focus-inset:focus {
-        @include focus-inset($c-card-border-radius);
+        @include focus.focus-inset($c-card-border-radius);
     }
  
     /* Icons in headline */ 
@@ -201,29 +210,29 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     &--highlight {
         .c-card__header,
         .c-card__body {
-            border-left: $base solid $color-primary;
+            border-left: var_default.$base solid var_colors.$color-primary;
         }
     }
 
     &--accented {
         .c-card {
-            margin-bottom: $base;
+            margin-bottom: var_default.$base;
         }
         .c-card__header {
-            border-bottom: calc(#{$base} / 2) solid $color-primary;
-            background: $color-white;
+            border-bottom: calc(#{var_default.$base} / 2) solid var_colors.$color-primary;
+            background: var_colors.$color-white;
         }
         .c-typography {
-            color: $color-black;
+            color: var_colors.$color-black;
         }
     }
 
     &--panel {
         .c-card__header {
-            background: $color-primary;
-            color: $color-white;
+            background: var_colors.$color-primary;
+            color: var_colors.$color-white;
             * {
-                color: $color-white;
+                color: var_colors.$color-white;
             }
             
             i, h4 {
@@ -238,7 +247,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         
         &.c-card--flat {
             .c-card__header {
-                padding: map-get($spacers, '2');
+                padding: map.get(var_default.$spacers, '2');
             }
         }
     }
@@ -253,21 +262,21 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     /* Datebadge */ 
     .c-card__datebadge {
         position: absolute;
-        margin: calc($base * 2);
+        margin: calc(var_default.$base * 2);
     }
 
     &.c-card--has-datebadge {
         .c-card__datebadge {
             margin: 0;
-            left: calc($base * 2);
-            top: calc($base * 2);
+            left: calc(var_default.$base * 2);
+            top: calc(var_default.$base * 2);
         }
 
         &:not(.c-card--has-image) {
 
             .c-card__heading-container,
             .c-card__content {
-                padding-left: calc($base * 9.5);
+                padding-left: calc(var_default.$base * 9.5);
             }
         }
 
@@ -279,7 +288,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
             }
 
             .c-card__heading-container {
-                padding-top: calc($base * 8.5);
+                padding-top: calc(var_default.$base * 8.5);
             }
         }
     }
@@ -325,7 +334,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     
         &.c-card--size-sm {
             .c-card__body {
-                padding-left: map-get($spacers, '4' );
+                padding-left: map.get(var_default.$spacers, '4' );
             }
         }
 
@@ -339,7 +348,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
             padding: 0
         }
 
-        @include mq(map_get($breakpoints-map, "md")) {
+        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
             &.c-card--size-sm,
             &.c-card--size-md,
             &.c-card--size-lg {
@@ -348,7 +357,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
                     border-radius: $c-card-border-radius;
                 }
                 .c-card__body {
-                    padding: 0 map-get($spacers, '4');
+                    padding: 0 map.get(var_default.$spacers, '4');
                 }
             }
         }
@@ -359,7 +368,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
     /* TODO: CHANGE */ 
     &--svg-background {
         .c-card__image-background {
-            background-size: clamp(#{$base} * 3, 50%, #{$base} * 8);
+            background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
             background-repeat: no-repeat;
             background-color: $c-card-image-background-color;
         }   
@@ -373,7 +382,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, $color-seco
         flex-direction: row;
         
         .c-card__body {
-            padding: map-get($spacers, '4');
+            padding: map.get(var_default.$spacers, '4');
         }
         
         .c-card__footer {
@@ -439,20 +448,20 @@ a.c-card {
     
     .c-card__image:before {
         content: '';
-        @include cover();
+        @include cover.cover();
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
-        background: $color-lighter;
+        background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: $level-1;
+        z-index: var_properties.$level-1;
     }
     
     &:hover {
-        filter: $drop-shadow-3;
-        background-color: $color-lightest;
+        filter: var_properties.$drop-shadow-3;
+        background-color: var_colors.$color-lightest;
         color: inherit;
-        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
         transition: all 200ms ease-out;
         
         .c-card__heading {
@@ -465,7 +474,7 @@ a.c-card {
     }
     
     &:focus {
-        background-color: $color-code-background-focus;
+        background-color: var_colors.$color-code-background-focus;
 
         .c-card__image-container {
             &:before {
@@ -483,7 +492,7 @@ a.c-card {
     filter: none; 
 }
 
-@include mq(map_get($breakpoints-map, "md")) {
+@include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
     .c-card {
         &--size-sm,
         &--size-md,

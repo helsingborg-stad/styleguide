@@ -1,3 +1,5 @@
+@use "../setting/var_colors";
+
 @mixin shadow($level: 1, $inset: false, $result: "") {
 
     $level: $level*2;
@@ -9,8 +11,8 @@
         $shadow-size: $shadow-base * calc($level/$max-level) * $i; 
         $offset-size: $shadow-size * 0.6; 
 
-        $result: $result if($inset, #{"inset"}, #{""}) 0 $offset-size $shadow-size rgba($color-shadow-sharp, $shadow-opacity) #{","}
+        $result: $result if($inset, #{"inset"}, #{""}) 0 $offset-size $shadow-size rgba(var_colors.$color-shadow-sharp, $shadow-opacity) #{","}
     }
 
-    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (calc(($shadow-base * ($level + 1) * 0.6)/$max-level)) calc((($shadow-base * ($level + 1))/$max-level)) rgba($color-shadow-sharp, 0.06); 
+    box-shadow: #{$result} if($inset, #{"inset"}, #{""}) 0 (calc(($shadow-base * ($level + 1) * 0.6)/$max-level)) calc((($shadow-base * ($level + 1))/$max-level)) rgba(var_colors.$color-shadow-sharp, 0.06); 
 }

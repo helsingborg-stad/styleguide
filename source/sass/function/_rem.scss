@@ -1,9 +1,12 @@
+@use "sass:math";
+@use "strip-unit";
+
 @function rem($value, $base: $mix-rem-base) {
-    @if unit($value) == "px" {
-        @return strip-unit($value) / $base * 1rem;
-    } @else if unit($value) == "rem" {
+    @if math.unit($value) == "px" {
+        @return strip-unit.strip-unit($value) / $base * 1rem;
+    } @else if math.unit($value) == "rem" {
         @return $value;
-    } @else if unitless($value) {
+    } @else if math.is-unitless($value) {
         @if $value == 0 {
             @return 0;
         }

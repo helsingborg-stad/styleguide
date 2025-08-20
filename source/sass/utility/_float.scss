@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $float-utils: (
     (
         name: "float",
@@ -9,4 +11,4 @@ $float-utils: (
     )
 );
 
-@include build-utilities($float-utils);
+@include build-utility.build-utilities($float-utils);

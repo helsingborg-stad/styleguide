@@ -1,5 +1,3 @@
-import { bgMagentaBright } from "chalk";
-
 class Segment {
     constructor(segment) {
         this.SEGMENT = segment;
