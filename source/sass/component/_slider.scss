@@ -32,10 +32,6 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         }
     }
 
-    .c-slider__dot {
-        cursor: default;
-    }
-
     .c-slider__arrows {
         width: 100%;
         max-width: $c-slider-max-width;
@@ -265,7 +261,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     }
 
     .c-slider__dot {
-        cursor: pointer;
+        cursor: default;
         background: $color-gray;
         display: block;
         width: calc(#{$base} * 2);
@@ -273,7 +269,6 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         border: none;
 
         &.c-slider__dot.is-active {
-            cursor: default;
             background: $color-primary;
         }
     }
