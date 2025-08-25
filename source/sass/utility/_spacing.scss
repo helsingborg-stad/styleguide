@@ -27,7 +27,7 @@ $spacing-util: ();
             modifiers: $mods
         );
 
-        $spacing-util: list.append(border.$spacing-util, $util);
+        $spacing-util: list.append($spacing-util, $util);
     }
 
     $mods: ();
@@ -46,7 +46,7 @@ $spacing-util: ();
         modifiers: $mods
     );
 
-    $spacing-util: list.append(border.$spacing-util, $util);
+    $spacing-util: list.append($spacing-util, $util);
 
     $mods: ();
 
@@ -108,7 +108,7 @@ $spacing-util: ();
     modifiers: $mods
   );
 
-  $spacing-util: list.append(border.$spacing-util, $util);
+  $spacing-util: list.append($spacing-util, $util);
 }
 
-@include build-utility.build-utilities(border.$spacing-util);
+@include build-utility.build-utilities($spacing-util);
