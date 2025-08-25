@@ -75,7 +75,7 @@ $flex-utils: (
     )
 );
 
-@include build-utility.build-utilities(visibility.$flex-utils);
+@include build-utility.build-utilities($flex-utils);
 
 $order-utils: (
     (
