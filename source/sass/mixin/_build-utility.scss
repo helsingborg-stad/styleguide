@@ -30,6 +30,11 @@
     }
 
     @if $default {
+        .u-#{$clean-name}#{$pseudo} {
+            @each $property, $value in $default {
+                #{$property}: #{$value} !important;
+            }
+        }
         @include responsive-styles.responsiveStyles(
             (".u-#{$clean-name}#{$pseudo}": append-important.appendImportant($default)),
             all,
