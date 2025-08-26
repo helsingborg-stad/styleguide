@@ -38,10 +38,6 @@
         }
     }
 
-    .c-slider__dot {
-        cursor: default;
-    }
-
     .c-slider__arrows {
         width: 100%;
         max-width: var(--c-slider-max-width-computed);
@@ -271,15 +267,13 @@
     }
 
     .c-slider__dot {
-        cursor: pointer;
         background: var_colors.$color-gray;
-        display: block;
+        cursor: default;
         width: calc(#{var_default.$base} * 2);
         height: calc(#{var_default.$base} * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            cursor: default;
             background: var_colors.$color-primary;
         }
     }

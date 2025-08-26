@@ -102,6 +102,16 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
             border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
             margin-top: calc($c-collection-item-border-width * -1);
         }
+
+        &.c-collection__item--icon-last {
+            .c-collection__icon {
+                order: 5;
+            }
+
+            .c-collection__content {
+                padding-left: var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+            }
+        }
     }
 
     .c-collection__item.is-current {
