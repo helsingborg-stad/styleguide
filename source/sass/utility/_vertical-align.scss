@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $vertical-align-utils:(
     name: "align",
     modifiers: (
@@ -11,4 +13,4 @@ $vertical-align-utils:(
 
 );
 
-@include build-utilities($vertical-align-utils);
+@include build-utility.build-utilities($vertical-align-utils);

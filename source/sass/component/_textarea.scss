@@ -1,3 +1,8 @@
+@use "sass:map";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-textarea {
     position: relative;
     
@@ -5,34 +10,34 @@
         width: 100%;
         margin: 0;
         outline: 0;
-        min-height: calc(#{$base}*25);
+        min-height: calc(#{var_default.$base}*25);
         appearance: none;
-        padding: map-get($spacers, "2");
+        padding: map.get(var_default.$spacers, "2");
         font-size: 1rem;
-        background: $color-form-fields;
-        border: 1px solid $color-form-fields;
+        background: var_colors.$color-form-fields;
+        border: 1px solid var_colors.$color-form-fields;
         transition: color .1s ease;
-        background-size: calc(#{$base}*2);
-        border-radius: $border-radius-md;
+        background-size: calc(#{var_default.$base}*2);
+        border-radius: var_border-radius.$border-radius-md;
         line-height: 1.5;
 
         &:focus {
-            background-color: $color-form-fields-focus;
+            background-color: var_colors.$color-form-fields-focus;
             box-shadow: 0 0 0 0 rgba(34, 36, 38, .35) inset;
         }
     }
 
     textarea:focus {
-        border-bottom: 2px solid $color-in-action;
+        border-bottom: 2px solid var_colors.$color-in-action;
         transition: ease-in-out .3s;
     }
 
     label {
         font-size: 14px;
-        color: $color-form-fields-label;
+        color: var_colors.$color-form-fields-label;
         position: absolute;
-        top: calc(#{$base}*2);
-        left: calc(#{$base}*2);
+        top: calc(#{var_default.$base}*2);
+        left: calc(#{var_default.$base}*2);
         transform-origin: top left;
         transform: translate(0, 0) scale(1);
         transition: all .1s ease-in-out;
@@ -47,16 +52,16 @@
 
     textarea:after,
     textarea:after.valid:after {
-        border-bottom: 2px solid $color-success;
+        border-bottom: 2px solid var_colors.$color-success;
     }
 
     textarea.invalid {
-        border-bottom: 1px solid $color-primary-dimmed;
+        border-bottom: 1px solid var_colors.$color-primary-dimmed;
         transition: ease-in-out .3s;
     }
 
     textarea.valid {
-        border-bottom: 2px solid $color-success;
+        border-bottom: 2px solid var_colors.$color-success;
         transition: ease-in-out .3s;
     }
 
@@ -66,13 +71,13 @@
 
     .c-textarea-invalid-message {
         width: 100%;
-        padding: map-get($spacers, "1") ;
+        padding: map.get(var_default.$spacers, "1") ;
         display: none;
         font-size: 80%;
-        color: $color-white;
-        background-color: $color-danger;
+        color: var_colors.$color-white;
+        background-color: var_colors.$color-danger;
         border:none;
-        border-radius: 0 0 $border-radius-sm $border-radius-sm;
+        border-radius: 0 0 var_border-radius.$border-radius-sm var_border-radius.$border-radius-sm;
         box-sizing: border-box;
 
         &.error {

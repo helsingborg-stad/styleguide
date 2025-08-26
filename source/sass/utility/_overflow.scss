@@ -1,6 +1,10 @@
+@use "sass:map";
+@use "../setting/var_properties";
+@use "../mixin/build-utility";
+
 $modifiers: ();
-@each $modifier in $overflows {
-    $modifiers: map-merge($modifiers, ($modifier: ("overflow": #{$modifier})))
+@each $modifier in var_properties.$overflows {
+    $modifiers: map.merge($modifiers, ($modifier: ("overflow": #{$modifier})))
 }
 
 $overflow-utils:(
@@ -8,4 +12,4 @@ $overflow-utils:(
     "modifiers": $modifiers
 );
 
-@include build-utilities($overflow-utils)
+@include build-utility.build-utilities($overflow-utils)

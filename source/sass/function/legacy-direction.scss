@@ -1,10 +1,13 @@
+@use "sass:map";
+@use "is-direction";
+
 /// Convert a direction to legacy syntax
 /// @param {Keyword | Angle} $value - Value to convert
 /// @require {function} is-direction
 /// @require {function} convert-angle
 /// @throw Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.;
 @function legacy-direction($value) {
-    @if is-direction($value) == false {
+    @if is-direction.is-direction($value) == false {
         @error "Cannot convert #{$value}`",
             "to legacy syntax because it doesn't seem to be a direction.";
     }
@@ -24,8 +27,8 @@
         to top left     : bottom right
     );
 
-    @if map-has-key($conversion-map, $value) {
-        @return map-get($conversion-map, $value);
+    @if map.has-key($conversion-map, $value) {
+        @return map.get($conversion-map, $value);
     }
 
     @return 90deg - $value;

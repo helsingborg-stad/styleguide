@@ -1,4 +1,4 @@
-import {dirname} from 'node:path'
+import {dirname, resolve} from 'node:path'
 import util from 'node:util'
 import fs from 'node:fs'
 const exec = util.promisify(require('node:child_process').exec)
@@ -55,10 +55,7 @@ export class ComponentRenderer implements IComponentRenderer {
 
 export async function renderComponent(componentClass:IComponentRenderer['componentClass'], view:IComponentRenderer['view'], data:IComponentRenderer['data']):Promise<HTMLElement> {
     const scriptFileName = 'cli.php'
-    const currentDir = __dirname
-    const relativePath = '/../../../../'
-    const rootDir = dirname(`${currentDir}${relativePath}`);
-    const scriptPath =  `${rootDir}/${scriptFileName}`
-
+    const rootDir = resolve(__dirname, '../../..') // go up 3 levels
+    const scriptPath = resolve(rootDir, scriptFileName);
     return await new ComponentRenderer(scriptPath, componentClass, view, data).render()
 }

@@ -1,10 +1,15 @@
-$c-tags-pill-background: var(--c-tags-pill-background, $color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
+$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
+$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
 
 .c-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: #{$base};
+    gap: #{var_default.$base};
 
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
@@ -15,9 +20,9 @@ $c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
         .c-tags__tag {
             background-color: $c-tags-pill-background;
             color: $c-tags-pill-color;
-            padding: calc($base * 0.5) calc($base * 1.5);
-            border-radius: calc($base * 3);
-            filter: $detail-shadow-2;
+            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
+            border-radius: calc(var_default.$base * 3);
+            filter: var_properties.$detail-shadow-2;
 
             &:hover {
                 color: $c-tags-pill-color;
@@ -26,7 +31,7 @@ $c-tags-pill-color: var(--c-field-label-color, $color-darker) !default;
     }
 
     .c-tags__tag {
-        font-size: $font-size-meta;
+        font-size: var_fonts.$font-size-meta;
         text-decoration: none;
         display: flex;
         align-items: center;

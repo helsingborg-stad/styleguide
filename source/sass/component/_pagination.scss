@@ -1,10 +1,13 @@
+@use "../mixin/list";
+@use "../setting/var_default";
+
 .c-pagination,
 .c-pagination .c-pagination__list,
 .c-pagination .c-pagination__pages {
-    @include unlist(); 
+    @include list.unlist(); 
     display: flex;
     flex-direction: row;
-    gap: calc(#{$base} * 2);
+    gap: calc(#{var_default.$base} * 2);
     margin: 0;
     padding: 0;
     align-items: center;

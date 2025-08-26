@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $media-utils: (
     name: "media",
     modifiers: (
@@ -8,4 +10,4 @@ $media-utils: (
     )
 );
 
-@include build-utilities($media-utils);
+@include build-utility.build-utilities($media-utils);

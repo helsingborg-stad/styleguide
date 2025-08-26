@@ -1,6 +1,13 @@
-$c-tooltip-border-radius: var(--c-tooltip-border-radius, $border-radius-xs) !default;
-$c-tooltip-color: var(--c-tooltip-background-color, $color-alpha) !default;
-$c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrasting) !default;
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-tooltip-border-radius: var(--c-tooltip-border-radius, var_border-radius.$border-radius-xs) !default;
+$c-tooltip-color: var(--c-tooltip-background-color, var_colors.$color-alpha) !default;
+$c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha-contrasting) !default;
 
 .c-tooltip {
     display: flex;
@@ -28,12 +35,12 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     .c-tooltip__container {
         position: absolute;
         border-radius: $c-tooltip-border-radius;
-        z-index: $level-9;
+        z-index: var_properties.$level-9;
         width:max-content;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        max-width: calc($base * 25);
+        max-width: calc(var_default.$base * 25);
         background-color: $c-tooltip-color;
         display: none;
 
@@ -51,7 +58,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
 
         .c-tooltip__content {
             color: $c-tooltip-content-color;
-            padding: $base;
+            padding: var_default.$base;
             text-align:center;
         }
     }
@@ -118,9 +125,9 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
         }
     }
 
-    @include mq(map_get($breakpoints-map, "md")) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
         .c-tooltip__container {
-            max-width: calc($base * 30);
+            max-width: calc(var_default.$base * 30);
         }
     }
 
@@ -144,19 +151,19 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     &::after {
         line-height: 1.4;
         font-size: .95em;
-        filter: $drop-shadow-2;
+        filter: var_properties.$drop-shadow-2;
         content: attr(data-tooltip);
         position: absolute;
         border-radius: $c-tooltip-border-radius;
-        z-index: $level-9;
+        z-index: var_properties.$level-9;
         width: max-content;
-        max-width: calc($base * 25);
+        max-width: calc(var_default.$base * 25);
         background-color: $c-tooltip-color;
         color: $c-tooltip-content-color;
-        padding: calc($base * .75) calc($base * .5);
-        bottom: calc(100% + calc($base * .5));
+        padding: calc(var_default.$base * .75) calc(var_default.$base * .5);
+        bottom: calc(100% + calc(var_default.$base * .5));
         left: 50%;
-        transform: translateX(-50%) translateY($base);
+        transform: translateX(-50%) translateY(var_default.$base);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -165,23 +172,23 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
             opacity 0.25s ease-out, 
             transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         text-align: center;
-        backdrop-filter: blur(calc($base * .5));
+        backdrop-filter: blur(calc(var_default.$base * .5));
     }
 
     &::before {
-        filter: $drop-shadow-2;
+        filter: var_properties.$drop-shadow-2;
         content: " ";
         position: absolute;
-        bottom: calc(100% + calc($base * -.5)); 
+        bottom: calc(100% + calc(var_default.$base * -.5)); 
         left: 50%;
-        border-width: calc($base * .5);
+        border-width: calc(var_default.$base * .5);
         border-style: solid;
         border-color: $c-tooltip-color transparent transparent transparent;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease-in-out;
-        transform: translateX(-50%) translateY($base);
-        backdrop-filter: blur(calc($base * .5));
+        transform: translateX(-50%) translateY(var_default.$base);
+        backdrop-filter: blur(calc(var_default.$base * .5));
     }
 
     &:hover::after, 
@@ -190,7 +197,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, $color-alpha-contrastin
     &:focus::before {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(calc($base * .5));
+        transform: translateX(-50%) translateY(calc(var_default.$base * .5));
     }
 
     &:hover::after,

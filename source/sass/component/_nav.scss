@@ -1,3 +1,10 @@
+@use "../mixin/focus";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
 //Settings vertical
 $c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting) !default;
 $c-nav-v-background-active: var(--c-nav-v-background-active) !default;
@@ -22,15 +29,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   &.c-nav--height-sm > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 5.5);
+    min-height: calc(#{var_default.$base} * 5.5);
   }
 
   &.c-nav--height-md > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 6.5);
+    min-height: calc(#{var_default.$base} * 6.5);
   }
 
   &.c-nav--height-lg > .c-nav__item > .c-nav__item-wrapper {
-    min-height: calc(#{$base} * 8);
+    min-height: calc(#{var_default.$base} * 8);
   }
 
   .c-nav__item-wrapper {
@@ -51,23 +58,23 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     text-decoration: none;
     flex: 1; 
     align-items: center;
-    gap: #{$base};
+    gap: #{var_default.$base};
   }
 
   .c-nav__item {
     &.is-fetching.is-loading {
       .preloader, .preloader > * {
-        height: calc(20 * $base);
+        height: calc(20 * var_default.$base);
       }
     }
 
     &.c-nav__item--separator {
       .c-nav__item-wrapper {
-        background-color: $color-primary-contrasting;
+        background-color: var_colors.$color-primary-contrasting;
       }
 
       .c-nav__link .c-nav__text{
-        color: $color-primary;
+        color: var_colors.$color-primary;
       }
     }
   }
@@ -97,15 +104,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
     .c-nav.c-nav--vertical {
       .c-nav__item .c-nav__link:hover:after {
-        left: calc(#{$base} * 2);
+        left: calc(#{var_default.$base} * 2);
       }
     }
 
     &.c-nav--depth-1 {
-      gap: calc(#{$base} * 2);
+      gap: calc(#{var_default.$base} * 2);
 
       &.c-nav--compressed {
-        gap: calc(#{$base} * 1);
+        gap: calc(#{var_default.$base} * 1);
       }
     }
 
@@ -131,15 +138,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
     //Dropdown
     .c-nav.c-nav--depth-2 {
-      z-index: $level-5;
+      z-index: var_properties.$level-5;
       position: absolute;
       bottom: 0;
-      background: $color-white;
+      background: var_colors.$color-white;
       width: auto;
-      min-width: calc(#{$base} * 28);
-      background-color: $color-white;
-      border-radius: $border-radius-sm;
-      filter: $drop-shadow-1;
+      min-width: calc(#{var_default.$base} * 28);
+      background-color: var_colors.$color-white;
+      border-radius: var_border-radius.$border-radius-sm;
+      filter: var_properties.$drop-shadow-1;
       transform: translateY(100%);
       animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 
@@ -147,13 +154,13 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         position: absolute;
         background: inherit;
         content: "";
-        height: calc(#{$base} * 2.5);
-        left: calc(#{$base} * 2.5);
-        top: calc(#{$base} * -1);
+        height: calc(#{var_default.$base} * 2.5);
+        left: calc(#{var_default.$base} * 2.5);
+        top: calc(#{var_default.$base} * -1);
         transform: rotate(45deg);
-        width: calc(#{$base} * 2.5);
-        z-index: $level-5;
-        border-top-left-radius: max(calc(#{$base} * .5), $border-radius-sm);
+        width: calc(#{var_default.$base} * 2.5);
+        z-index: var_properties.$level-5;
+        border-top-left-radius: max(calc(#{var_default.$base} * .5), var_border-radius.$border-radius-sm);
       }
     }
   }
@@ -167,11 +174,11 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     .c-nav__link {
-      padding: calc(#{$base} * 1) calc(#{$base} * 2);
+      padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
     }
 
     &.c-nav--compressed .c-nav__link {
-      padding: calc(#{$base} * 0.5) 0;
+      padding: calc(#{var_default.$base} * 0.5) 0;
     }
 
     //Bordered is suppored in vnav
@@ -183,14 +190,14 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
     .c-nav__item.is-current > .c-nav__link,
     .c-nav__item.is-current > .c-nav__item-wrapper > .c-nav__link  {
-      color: $color-vnav-item-text-active; 
-      font-weight: $font-weight-bold;
-      font-family: $font-family-bold;
+      color: var_colors.$color-vnav-item-text-active; 
+      font-weight: var_fonts.$font-weight-bold;
+      font-family: var_fonts.$font-family-bold;
     }
 
     .c-nav__item.is-current > .c-nav__link,
     .c-nav__item.is-current > .c-button {
-      background-color: $color-complementary-light;
+      background-color: var_colors.$color-complementary-light;
     }
 
     // Indentation for menu sub levels
@@ -206,7 +213,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   /* Drawer */
   &.c-nav--drawer {
     .c-nav__link {
-      gap: calc($base * 3);
+      gap: calc(var_default.$base * 3);
     }
   }
 }
@@ -269,7 +276,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
       &.c-nav__item--separator {
           .c-nav__text {
-            color: $color-primary;
+            color: var_colors.$color-primary;
         }
       }
     }
@@ -315,10 +322,10 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   0% {
   }
   25% {
-    @include focus();
+    @include focus.focus();
   }
   75% {
-    @include focus();
+    @include focus.focus();
   }
   100% {
   }

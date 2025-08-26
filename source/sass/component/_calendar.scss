@@ -1,43 +1,46 @@
+@use "../setting/var_colors";
+@use "../setting/var_properties";
+
 /* stylelint-disable */
 
 .c-calendar {
 
     &--primary .cjslib-calendar {
-        color: $color-white;
-        background-color: $color-primary;
+        color: var_colors.$color-white;
+        background-color: var_colors.$color-primary;
     }
 
     &--primary .cjslib-day-indicator {
-        color: $color-primary;
+        color: var_colors.$color-primary;
     }
 
     &--secondary .cjslib-calendar {
-        color: $color-white;
-        background-color: $color-secondary;
+        color: var_colors.$color-white;
+        background-color: var_colors.$color-secondary;
 
         & cjslib-day-indicator {
-            color: $color-secondary;
+            color: var_colors.$color-secondary;
         }
     }
 
     &--secondary .cjslib-day-indicator {
-        color: $color-secondary;
+        color: var_colors.$color-secondary;
     }
 
     &--default .cjslib-calendar, cjslib-day-indicator {
-        color: $color-primary;
-        background-color: $color-default;
+        color: var_colors.$color-primary;
+        background-color: var_colors.$color-default;
     }
 
     &--default .cjslib-day-indicator {
-        color: $color-primary;
+        color: var_colors.$color-primary;
     }
 
     &__event-list {
-        background-color: $color-default;
-        color: $color-primary;
+        background-color: var_colors.$color-default;
+        color: var_colors.$color-primary;
         padding:2%;
-        filter: $drop-shadow-5;
+        filter: var_properties.$drop-shadow-5;
         z-index: 9999;
     }
 

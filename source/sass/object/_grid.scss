@@ -1,13 +1,20 @@
+@use "sass:list";
+@use "sass:map";
+@use "../function/breakpoint-suffix";
+@use "../mixin/mq";
+@use "../mixin/stretch";
+@use "../setting/var_default";
+
 @use 'sass:math';
 
 $o-grid-gap: var(--o-grid-gap, 4);
 $o-grid-columns: 12 !default;
-$o-grid-breakpoints: map-keys($breakpoints-map) !default;
+$o-grid-breakpoints: map.keys(var_default.$breakpoints-map) !default;
 
 $o-grid-gutters: (
-    xs : calc(#{$base} * #{$o-grid-gap} * 0.5), //16
-    md : calc(#{$base} * #{$o-grid-gap} * 0.75),  //24
-    lg : calc(#{$base} * #{$o-grid-gap}), // 32
+    xs : calc(#{var_default.$base} * #{$o-grid-gap} * 0.5), //16
+    md : calc(#{var_default.$base} * #{$o-grid-gap} * 0.75),  //24
+    lg : calc(#{var_default.$base} * #{$o-grid-gap}), // 32
 ) !default;
 
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
@@ -17,7 +24,7 @@ $o-grid-gutters: (
         flex-wrap: wrap;
 
         &.o-grid--stretch {
-            @include stretch();
+            @include stretch.stretch();
         }
 
         > %column {
@@ -30,13 +37,13 @@ $o-grid-gutters: (
     .o-grid,
     .grid {
         > * {
-            @extend %column;
+            @extend %column !optional;
         }    
     }
 
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
-        @include mq($breakpoint) {
+        @include mq.mq($breakpoint) {
             .o-grid + .o-grid,
             .grid + .grid,
             .o-grid + .grid,
@@ -59,8 +66,8 @@ $o-grid-gutters: (
         flex-wrap: nowrap;
     }
     @each $breakpoint in $breakpoints {
-        $suffix: get-breakpoint-suffix($breakpoint, null);
-        @include mq($breakpoint) {
+        $suffix: breakpoint-suffix.get-breakpoint-suffix($breakpoint, null);
+        @include mq.mq($breakpoint) {
             .o-grid.o-grid--nowrap#{$suffix},
             .grid.grid-#{$breakpoint}--nowrap {
                 flex-wrap: nowrap;
@@ -97,19 +104,19 @@ $o-grid-gutters: (
     .grid + .grid,
     .o-grid + .grid,
     .grid + .o-grid  {
-        margin-top: calc(#{$base} * #{$o-grid-gap} * 0.5);
+        margin-top: calc(#{var_default.$base} * #{$o-grid-gap} * 0.5);
     }
 
     .o-grid.o-grid--form + .o-grid.o-grid--form,
     .grid.grid--form + .grid.grid--form,
     .o-grid.o-grid--form + .grid.grid--form,
     .grid.grid--form + .o-grid.o-grid--form  {
-        margin-top: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
+        margin-top: #{calc(#{var_default.$base} * #{$o-grid-gap} * 0.25)}; 
     }
 
     .o-grid,
     .grid {
-        --grid-gap: calc(#{$base} * #{$o-grid-gap} * 0.5);
+        --grid-gap: calc(#{var_default.$base} * #{$o-grid-gap} * 0.5);
         gap: var(--grid-gap);
 
         &.o-grid--horizontal {
@@ -122,7 +129,7 @@ $o-grid-gutters: (
 
         &.o-grid--form,
         &.o-grid--half-gutter {
-            --grid-gap: #{calc(#{$base} * #{$o-grid-gap} * 0.25)}; 
+            --grid-gap: #{calc(#{var_default.$base} * #{$o-grid-gap} * 0.25)}; 
         }
 
         .u-flex--gridgap {
@@ -140,7 +147,7 @@ $o-grid-gutters: (
 
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
-        @include mq($breakpoint) {
+        @include mq.mq($breakpoint) {
             .o-grid,
             .grid {
                 --grid-gap: #{$gutter};
@@ -193,18 +200,18 @@ $o-grid-gutters: (
 
     //Include print breakpoint
     @if $includePrint == true {
-        $breakpoints: append($breakpoints, "print");
+        $breakpoints: list.append($breakpoints, "print");
     }
 
     //Generate Columns
     @each $breakpoint in $breakpoints {
-        $suffix: get-breakpoint-suffix($breakpoint, null);
+        $suffix: breakpoint-suffix.get-breakpoint-suffix($breakpoint, null);
         
         //Generate list of column classes
         $columnClasses: ();
         @for $i from 1 to $columns + 1 {
-            $columnClasses: append($columnClasses, ", .o-grid > .o-grid-#{$i}#{$suffix}");
-            $columnClasses: append($columnClasses, ", .grid > .grid-#{$breakpoint}-#{$i}");
+            $columnClasses: list.append($columnClasses, ", .o-grid > .o-grid-#{$i}#{$suffix}");
+            $columnClasses: list.append($columnClasses, ", .grid > .grid-#{$breakpoint}-#{$i}");
         }
 
         //Apply common column styles
@@ -213,11 +220,11 @@ $o-grid-gutters: (
         .grid-#{$breakpoint}-auto,
         .grid-#{$breakpoint}-fit,
         #{$columnClasses} {
-            @extend %column;
+            @extend %column !optional;
         }
 
         //Breakpoint specific
-        @include mq($breakpoint) {
+        @include mq.mq($breakpoint) {
 
             //Auto width column (eg .o-grid-auto@md)
             .o-grid-auto#{$suffix},

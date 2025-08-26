@@ -1,3 +1,6 @@
+@use "_visibility";
+@use "../mixin/build-utility";
+
 $flex-utils: (
     (
         name: "flex-direction",
@@ -23,7 +26,7 @@ $flex-utils: (
         name: "flex-wrap",
         default: (flex-wrap: wrap),
         modifiers: (
-            reverse: (flex-wrap:  wrap-reverse),
+            reverse: (flex-wrap: wrap-reverse),
             no-wrap: (flex-wrap: nowrap)
         )
     ),
@@ -72,7 +75,7 @@ $flex-utils: (
     )
 );
 
-@include build-utilities($flex-utils);
+@include build-utility.build-utilities($flex-utils);
 
 $order-utils: (
     (
@@ -95,4 +98,4 @@ $order-utils: (
     )
 );
 
-@include build-utilities($order-utils, true, false);
+@include build-utility.build-utilities($order-utils, true, false);

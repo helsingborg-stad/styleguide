@@ -1,10 +1,14 @@
-$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, $color-lighter) !default;
-$c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !default;
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+
+$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, var_colors.$color-lighter) !default;
+$c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-primary) !default;
 
 // Basic laying down
 .c-newsitem {
     display: grid;
-    gap: calc($base * 2);
+    gap: calc(var_default.$base * 2);
     grid-template-columns: repeat(12, 1fr);
     container-type: inline-size;
     container-name: newsitem;
@@ -26,10 +30,10 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     .c-newsitem__header {
         grid-column: span 12;
         display: flex;
-        row-gap: $base;
+        row-gap: var_default.$base;
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: $base 0;
+        padding: var_default.$base 0;
         border-top: 1px solid $c-newsitem-header-border-color;
         border-bottom: 1px solid $c-newsitem-header-border-color;
     }
@@ -38,7 +42,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
         grid-column: span 12;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: calc($base * 3);
+        gap: calc(var_default.$base * 3);
     }
 
     .c-newsitem__title-left.cover {
@@ -55,15 +59,15 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, $color-primary) !defa
     .c-newsitem__header-right {
         display: flex;
         align-items: center;
-        gap: calc($base * 2);
+        gap: calc(var_default.$base * 2);
     }
 
     .c-newsitem__date,
     .c-newsitem__read-time {
         display: flex;
         align-items: center;
-        gap: calc($base * .5);
-        font-size: $font-size-meta;
+        gap: calc(var_default.$base * .5);
+        font-size: var_fonts.$font-size-meta;
     }
 
     .c-newsitem__date-icon,

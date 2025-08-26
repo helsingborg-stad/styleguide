@@ -1,33 +1,37 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 // ***************************************************************
 // *** Steppers
 // ***************************************************************
 
 .c-steppers {
     &__dot {
-        background: $color-gray;
+        background: var_colors.$color-gray;
         display: inline-block;
-        width: calc(#{$base} * 1.5);
-        height: calc(#{$base} * 0.5);
+        width: calc(#{var_default.$base} * 1.5);
+        height: calc(#{var_default.$base} * 0.5);
+        margin: calc(#{var_default.$base} * 0.5);
 
         &:first-of-type {
-            border-top-left-radius: calc(#{$base} * 0.5);
-            border-bottom-left-radius: calc(#{$base} * 0.5);
+            border-top-left-radius: calc(#{var_default.$base} * 0.5);
+            border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
         }
 
         &:last-of-type {
-            border-top-right-radius: calc(#{$base} * 0.5);
-            border-bottom-right-radius: calc(#{$base} * 0.5);
+            border-top-right-radius: calc(#{var_default.$base} * 0.5);
+            border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
         }
 
-        @include mq(map_get($breakpoints-map, "xs"), "sm") {
-            width: calc(#{$base} * 0.5);
-            height: calc(#{$base} * 0.5);
+        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "sm") {
+            width: calc(#{var_default.$base} * 0.5);
+            height: calc(#{var_default.$base} * 0.5);
         }
-
-        margin: calc(#{$base} * 0.5);
     }
 
     &__dot-active {
-        background: $color-primary;
+        background: var_colors.$color-primary;
     }
 }

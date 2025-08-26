@@ -1,7 +1,11 @@
+@use "sass:map";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
 
 
-$c-brand-contrast-color: var(--c-brand-contrast-color, $color-primary) !default;
-$c-brand-font-size: var(--c-brand-font-size, $font-size-brand) !default;
+$c-brand-contrast-color: var(--c-brand-contrast-color, var_colors.$color-primary) !default;
+$c-brand-font-size: var(--c-brand-font-size, var_fonts.$font-size-brand) !default;
 $c-brand-height: var(--c-brand-height) !default;
 
 .c-brand {
@@ -16,7 +20,7 @@ $c-brand-height: var(--c-brand-height) !default;
   .c-brand__container {
     height: $c-brand-height;
     display: flex;
-    gap: map-get($spacers, "3");
+    gap: map.get(var_default.$spacers, "3");
     align-items: center;
   }
 

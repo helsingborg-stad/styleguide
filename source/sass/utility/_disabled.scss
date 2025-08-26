@@ -1,11 +1,14 @@
+@use "../setting/var_colors";
+@use "../mixin/build-utility";
+
 $disabled-utils: (
     name: "disabled",
     default: (
-        background-color: $color-disabled-bg,
-        color: $color-disabled-text,
-        border-color: $color-disabled-border,
+        background-color: var_colors.$color-disabled-bg,
+        color: var_colors.$color-disabled-text,
+        border-color: var_colors.$color-disabled-border,
         cursor: not-allowed
     )
 );
 
-@include build-utilities($disabled-utils);
+@include build-utility.build-utilities($disabled-utils);

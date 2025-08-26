@@ -1,17 +1,23 @@
+@use "sass:map";
+@use "../function/string-replace";
+@use "../setting/var_default";
+@use "visibility";
+@use "../mixin/build-utility";
+
 $width: ();
 $height: ();
 
-@each $modifier in $sizings {
-    $mod: (str-replace($modifier, "%"): ("width": $modifier));
-    $width: map-merge($width, $mod);
+@each $modifier in var_default.$sizings {
+    $mod: (string-replace.str-replace($modifier, "%"): ("width": $modifier));
+    $width: map.merge($width, $mod);
 }
 
-@each $modifier in $sizings {
-    $mod: (str-replace($modifier, "%"): ("height": $modifier));
-    $height: map-merge($height, $mod);
+@each $modifier in var_default.$sizings {
+    $mod: (string-replace.str-replace($modifier, "%"): ("height": $modifier));
+    $height: map.merge($height, $mod);
 }
 
-$flex-utils: (
+visibility.$flex-utils: (
     (
         name: "width",
         modifiers: $width
@@ -22,4 +28,4 @@ $flex-utils: (
     )
 );
 
-@include build-utilities($flex-utils);
+@include build-utility.build-utilities(visibility.$flex-utils);

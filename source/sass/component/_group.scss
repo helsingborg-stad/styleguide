@@ -1,20 +1,26 @@
+@use "../setting/var_default";
+
 $position: center, start, end, flex-start, flex-end, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
-$grid-gap: var(--grid-gap, calc($base * 4)) !default;
+$grid-gap: var(--grid-gap, calc(var_default.$base * 4)) !default;
 
 .c-group {
     display: flex;
 
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
-            --grid-gap: calc(#{$i} * #{$base});
+            --grid-gap: calc(#{$i} * #{var_default.$base});
             gap: $grid-gap;
         }
 
-        &.c-group--columns-#{$i} > * {
-            flex-basis: calc((100% - $grid-gap) / $i);
-            max-width: calc((100% - $grid-gap) / $i);
+        &.c-group--columns-#{$i} {
+            --c-group-column-width: calc((100% - var(--grid-gap, var(--base, 8px) * 4)) / #{$i});
+            
+            > * {
+                flex-basis: var(--c-group-column-width);
+                max-width: var(--c-group-column-width);
+            }
         }
     }
 
@@ -152,6 +158,10 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
 
 /* Fluid grid using flex */
 .c-group.c-group--fluid-grid:not(.c-group--display-grid) {
+    --c-group-fluid-2col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 1) / 2);
+    --c-group-fluid-3col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 2) / 3);
+    --c-group-fluid-4col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 3) / 4);
+    
     flex-wrap: wrap;
     flex-direction: row;
     & > * {
@@ -162,32 +172,32 @@ $grid-gap: var(--grid-gap, calc($base * 4)) !default;
 
     &.c-group--fluid-grid-2 {
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
-            max-width: calc((100% - ($grid-gap * 1)) / 2);
+            flex: 0 0 var(--c-group-fluid-2col);
+            max-width: var(--c-group-fluid-2col);
         }
     }
 
     &.c-group--fluid-grid-3 {
         &.c-group--size-md > * {
-            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
-            max-width: calc((100% - ($grid-gap * 1)) / 2);
+            flex: 0 0 var(--c-group-fluid-2col);
+            max-width: var(--c-group-fluid-2col);
         }
 
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 2)) / 3);
-            max-width: calc((100% - ($grid-gap * 2)) / 3);
+            flex: 0 0 var(--c-group-fluid-3col);
+            max-width: var(--c-group-fluid-3col);
         }
     }
 
     &.c-group--fluid-grid-4 {
         &.c-group--size-sm > * {
-            flex: 0 0 calc((100% - ($grid-gap * 1)) / 2);
-            max-width: calc((100% - ($grid-gap * 1)) / 2);
+            flex: 0 0 var(--c-group-fluid-2col);
+            max-width: var(--c-group-fluid-2col);
         }
 
         &.c-group--size-lg > * {
-            flex: 0 0 calc((100% - ($grid-gap * 3)) / 4);
-            max-width: calc((100% - ($grid-gap * 3)) / 4);
+            flex: 0 0 var(--c-group-fluid-4col);
+            max-width: var(--c-group-fluid-4col);
         }
     }
 }

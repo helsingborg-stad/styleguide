@@ -1,3 +1,5 @@
+@use "../setting/var_colors" as colors;
+
 .d-animation {
     $base: &;
     &__content {
@@ -19,7 +21,7 @@
     
         #{$base}__copied {
             transform: scale(0);
-            color: $color-primary;
+            color: colors.$color-primary;
             font-weight: bold;
             line-height: 70px;
         }
@@ -84,14 +86,14 @@
     margin: 0 auto;
 
     & .grid-md-2:hover{
-        background-color: $color-default-dimmed;
+        background-color: colors.$color-default-dimmed;
     }
 }
 .d-icons__category{
     padding:1%;
     margin-bottom:0;
     & h2{
-        color:$color-primary;
+        color:colors.$color-primary;
         display:inline-block
 
     }

@@ -1,11 +1,16 @@
+@use "sass:map";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-code {
-    border-radius: $border-radius-md;
+    border-radius: var_border-radius.$border-radius-md;
     margin: 16px 0;
     overflow: hidden;
 
     .code-toolbar {
         overflow: auto;
-        background-color: $color-lighter;
+        background-color: var_colors.$color-lighter;
     }
 
     &__pre {
@@ -15,36 +20,36 @@
     &__toggle {
 
         .c-button__toggle {
-            color: $color-lighter;
+            color: var_colors.$color-lighter;
 
             &[aria-pressed="true"] {
-                color: $color-default-dimmed;
+                color: var_colors.$color-default-dimmed;
 
             }
 
             &:hover {
-                color: $color-black;
+                color: var_colors.$color-black;
             }
         }
     }
 }
 
 .markup-preview {
-    padding: map-get($spacers, "3");
+    padding: map.get(var_default.$spacers, "3");
     border-bottom: 0;
     border-radius: 5px;
 }
 
 .markup-preview--align-x {
-    padding: map-get($spacers, "3") 0;
+    padding: map.get(var_default.$spacers, "3") 0;
 }
 
 div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>.toolbar span {
 
-    @extend .c-button;
-    @extend .c-button__filled;
-    @extend .c-button__filled--primary;
-    @extend .c-button--sm;
+    @extend .c-button !optional;
+    @extend .c-button__filled !optional;
+    @extend .c-button__filled--primary !optional;
+    @extend .c-button--sm !optional;
 
 }
 

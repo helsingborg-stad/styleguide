@@ -61,10 +61,7 @@
     @yield('bottom_hero')
 
     <!-- Styleguide - js -->
-    <script src="/assets/dist/js/styleguide-js.min.js"></script>
-
-    <!-- Build - js -->
-    <script src="/assets/dist/js/buildcss.min.js" defer="defer"></script>
+    <script src="/assets/dist/js/styleguide-js.min.js" type="module"></script>
 
     <!-- Highlight js -->
     <script src="/assets/prism/prism.js" defer="defer"></script>

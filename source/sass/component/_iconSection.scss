@@ -1,12 +1,15 @@
+@use "../mixin/paper";
+@use "../setting/var_default";
+
 .c-iconsection {
     display: flex;
     flex-direction: column;
 
     &.c-iconsection--gap-0 {
-        @include paper(2);
+        @include paper.paper(2);
 
         & > *:nth-child(n+2) {
-            border-top: 1px solid color-mix(in srgb, $c-paper-color-background 93%, black);
+            border-top: 1px solid color-mix(in srgb, paper.$c-paper-color-background 93%, black);
         }
 
         & > * {
@@ -19,7 +22,7 @@
 
     @for $i from 0 through 12 {
         &.c-iconsection--gap-#{$i} {
-            gap: calc($i * 0.5 * $base);
+            gap: calc($i * 0.5 * var_default.$base);
         }
     }
 }
@@ -29,17 +32,17 @@
     display: grid;
     grid-template-columns: [icon] auto [content] 1fr;
     
-    @include paper(2);
+    @include paper.paper(2);
 
     &__icon,
     &__content {
-        padding: calc($base * 2);
+        padding: calc(var_default.$base * 2);
     }
 
     &__icon {
         grid-column: icon;
-        background-color: color-mix(in srgb, $c-paper-color-background 98%, black);
-        border-right: 1px solid color-mix(in srgb, $c-paper-color-background 93%, black);
+        background-color: color-mix(in srgb, paper.$c-paper-color-background 98%, black);
+        border-right: 1px solid color-mix(in srgb, paper.$c-paper-color-background 93%, black);
 
         & > * {
             opacity: .5;

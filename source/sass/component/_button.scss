@@ -1,21 +1,29 @@
-$button-font-weight: var(--button-font-weight, $font-weight-button);
+@use "sass:map";
+@use "../mixin/cover";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
 
-$button-text-transform: var(--button-text-transform, $text-transform-button);
-$c-button-color: var(--c-button-color, $color-default) !default;
-$c-button-color-contrasting: var(--c-button-color-contrasting, $color-default-darker) !default;
+$button-font-weight: var(--button-font-weight, var_fonts.$font-weight-button);
 
-$c-button-primary-color: var(--c-button-primary-color, $color-primary) !default;
-$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, $color-primary-contrasting) !default;
+$button-text-transform: var(--button-text-transform, var_fonts.$text-transform-button);
+$c-button-color: var(--c-button-color, var_colors.$color-default) !default;
+$c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker) !default;
 
-$c-button-secondary-color: var(--c-button-secondary-color, $color-secondary) !default;
-$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, $color-secondary-contrasting) !default;
+$c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary) !default;
+$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting) !default;
 
-$c-button-default-color: var(--c-button-default-color, $color-button-black) !default;
+$c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary) !default;
+$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting) !default;
 
-$c-button-border-radius: var(--c-button-border-radius, $border-radius-md) !default;
-$c-button-border-radius-small: var(--c-button-border-radius-small, $border-radius-sm) !default;
+$c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
 
-$c-button-border-width: var(--c-button-border-width, $border-width-button) !default;
+$c-button-border-radius: var(--c-button-border-radius, var_border-radius.$border-radius-md) !default;
+$c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.$border-radius-sm) !default;
+
+$c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button) !default;
 
 
 // BUTTON
@@ -36,8 +44,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     .c-button__loader {
         display: none;
-        width: calc($base * 3);
-        height: calc($base * 3);
+        width: calc(var_default.$base * 3);
+        height: calc(var_default.$base * 3);
         border: 3px solid;
         margin-bottom: 2px;
         border-radius: 50%;
@@ -67,8 +75,8 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     
     &:after {
         content: '';
-        @include cover(); 
-        z-index: $level-1;
+        @include cover.cover(); 
+        z-index: var_properties.$level-1;
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out, 
@@ -80,12 +88,12 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     &:disabled {
         cursor: not-allowed;
         &:not(.c-button--no-disabled-color) {
-            border-color: $color-button-disabled-bg;
-            background-color: $color-button-disabled-bg;
-            color: $color-button-disabled-text;
+            border-color: var_colors.$color-button-disabled-bg;
+            background-color: var_colors.$color-button-disabled-bg;
+            color: var_colors.$color-button-disabled-text;
             
             * {
-                color: $color-button-disabled-text;
+                color: var_colors.$color-button-disabled-text;
             }
         }
 
@@ -106,10 +114,10 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: $level-2;
+        z-index: var_properties.$level-2;
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
-        gap: #{$base};
+        gap: #{var_default.$base};
         width: 100%;
         max-width: 100%;
         height: 100%;
@@ -121,7 +129,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         .c-button__label-icon {
             order: 2;
             position: relative;
-            z-index: $level-2;
+            z-index: var_properties.$level-2;
             display: flex;
     
             &--reverse {
@@ -144,92 +152,92 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
     }
 
     &.c-button--lg {
-        height: calc(#{$base} * 8); 
-        min-width: calc(#{$base} * 12);
-        padding: 0 calc(#{$base} * 5);
-        font-size: $font-size-btn-lg; 
+        height: calc(#{var_default.$base} * 8); 
+        min-width: calc(#{var_default.$base} * 12);
+        padding: 0 calc(#{var_default.$base} * 5);
+        font-size: var_fonts.$font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
-            width: calc($base * 4);
-            height: calc($base * 4);
+            width: calc(var_default.$base * 4);
+            height: calc(var_default.$base * 4);
             border-width: 4px;
-            margin-left: calc($base * -1.5);
+            margin-left: calc(var_default.$base * -1.5);
         }
 
         &.c-button--icon-only {
-            width: calc(#{$base} * 8); 
+            width: calc(#{var_default.$base} * 8); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{$base} * -1.5);
+            margin-right: calc(#{var_default.$base} * -1.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{$base} * -1.5);
+                margin-left: calc(#{var_default.$base} * -1.5);
             }
         }
     }
 
     &.c-button--md {
-        height: calc(#{$base} * 6.5); 
-        min-width: calc(#{$base} * 9);
-        padding: 0 calc(#{$base} * 4); 
-        font-size: $font-size-btn-md; 
+        height: calc(#{var_default.$base} * 6.5); 
+        min-width: calc(#{var_default.$base} * 9);
+        padding: 0 calc(#{var_default.$base} * 4); 
+        font-size: var_fonts.$font-size-btn-md; 
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
-            margin-left: calc($base * -1);
+            margin-left: calc(var_default.$base * -1);
         }
 
         &.c-button--icon-only {
-            width: calc(#{$base} * 6.5); 
+            width: calc(#{var_default.$base} * 6.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{$base} * -1);
+            margin-right: calc(#{var_default.$base} * -1);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{$base} * -1);
+                margin-left: calc(#{var_default.$base} * -1);
             }
         }
     }
 
     &.c-button--sm {
         letter-spacing: 0.1rem;
-        height: calc(#{$base} * 5.5);
-        min-width: calc(#{$base} * 6.75); 
-        padding: 0 calc(#{$base} * 2); 
-        font-size: $font-size-btn-sm; 
+        height: calc(#{var_default.$base} * 5.5);
+        min-width: calc(#{var_default.$base} * 6.75); 
+        padding: 0 calc(#{var_default.$base} * 2); 
+        font-size: var_fonts.$font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
 
         .c-button__loader {
-            width: calc($base * 2);
-            height: calc($base * 2);
+            width: calc(var_default.$base * 2);
+            height: calc(var_default.$base * 2);
             border-width: 2px;
-            margin-left: calc($base * -.5);
+            margin-left: calc(var_default.$base * -.5);
         }
 
         &.c-button--icon-only {
-            width: calc(#{$base}* 5.5); 
+            width: calc(#{var_default.$base}* 5.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{$base} * -.5);
+            margin-right: calc(#{var_default.$base} * -.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{$base} * -.5);
+                margin-left: calc(#{var_default.$base} * -.5);
             }
         }
     }
 
     &.c-button--pill {
-        border-radius: calc( #{$base} * 4); //No use of percent. 
+        border-radius: calc( #{var_default.$base} * 4); //No use of percent. 
     }
 
     &.c-button--sm.c-button--icon-only,
@@ -254,7 +262,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 .c-button__basic {
     border: none;
     box-shadow: none;
-    filter: $drop-shadow-0;
+    filter: var_properties.$drop-shadow-0;
     transition: transform 100ms ease-in-out;
 
     /* Allows disabled basic buttons */ 
@@ -287,7 +295,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 .c-button__filled {
     will-change: filter;
     transition: filter 200ms ease-in-out; 
-    filter: $drop-shadow-1;
+    filter: var_properties.$drop-shadow-1;
 
     &--primary {
         background-color: $c-button-primary-color;
@@ -313,7 +321,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
         color: $c-button-color-contrasting;
 
         &:hover:after {
-            background: $color-black !important;
+            background: var_colors.$color-black !important;
             opacity: .06 !important;
         }
 
@@ -334,20 +342,20 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     /* Hover state (hover) */
     &:hover {
-        filter: $drop-shadow-2;
+        filter: var_properties.$drop-shadow-2;
 
         &:after {
-            background: $color-white;
+            background: var_colors.$color-white;
             opacity: .24;
         }
     }
 
     /* Active state (pressed) */ 
     &:hover:active {
-        filter: $drop-shadow-1;
+        filter: var_properties.$drop-shadow-1;
 
         &:after {
-            background: $color-black;
+            background: var_colors.$color-black;
             opacity: .32;
         }
 
@@ -401,20 +409,20 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
     &--default,
     &--deafult {
-        border: $c-button-border-width solid $color-button-default-text;
-        color: $color-button-default-text;
+        border: $c-button-border-width solid var_colors.$color-button-default-text;
+        color: var_colors.$color-button-default-text;
 
         .c-button__label {
-            color: $color-button-default-text;
+            color: var_colors.$color-button-default-text;
         }
 
         &:hover:after {
-            background: $color-button-default-text;
+            background: var_colors.$color-button-default-text;
             opacity: .08;
         }
 
         &:active:after {
-            background: $color-button-default-text;
+            background: var_colors.$color-button-default-text;
             opacity: .24;
         }
     }
@@ -435,7 +443,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 
 
     &[aria-pressed='true']:after {
-        background: $color-white;
+        background: var_colors.$color-white;
         opacity: .3;
     }
 
@@ -537,7 +545,7 @@ $c-button-border-width: var(--c-button-border-width, $border-width-button) !defa
 }
 
 .c-button + .c-button {
-    margin-left: map-get($spacers, '1');
+    margin-left: map.get(var_default.$spacers, '1');
 }
 
 @media print {
