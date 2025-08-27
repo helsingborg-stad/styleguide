@@ -1,4 +1,5 @@
 import L, { Map as LeafletMap } from 'leaflet';
+import 'leaflet.markercluster';
 
 // Only patch if it doesn’t exist
 if (!(L as any).markerClusterGroup) {
@@ -41,9 +42,7 @@ if (!(L as any).markerClusterGroup) {
       return this;
     }
 
-    // Simple cluster stub: groups markers by proximity (optional)
     getClusters() {
-      // For simplicity, return all markers as one cluster
       return [this._markers];
     }
   };
@@ -59,14 +58,12 @@ class InitializeOsm {
     public create(): [LeafletMap, L.MarkerClusterGroup] {
         const id = this.container.getAttribute('data-js-map-id') ?? "";
 
-        // Use module-local L, not window.L
         const map = L.map(`openstreetmap__map-${id}`, {
             scrollWheelZoom: false,
             keyboard: false,
             attributionControl: false,
         });
 
-        // Use the factory function
         const markers = L.markerClusterGroup({
             showCoverageOnHover: false,
             removeOutsideVisibleBounds: true,
