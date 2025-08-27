@@ -72,6 +72,10 @@
         "material-symbols": "^0.34.1",
         "vite-config-factory": "^1.0.0"
     },
+    "peerDependencies": {
+        "leaflet": "^1.9.4",
+        "leaflet.markercluster": "^1.5.3"
+    },
     "browser": {
         "child_process": false
     },
