@@ -1,5 +1,5 @@
 import L, { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
-import { addMarkerClusterToLeaflet } from 'leaflet.markercluster';
+import { addMarkerClusterToLeaflet } from 'leaflet.markercluster.factory.init';
 class InitializeOsm {
     private leaflet: typeof L;
 
