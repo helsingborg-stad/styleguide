@@ -532,8 +532,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 .leaflet-bottom {
 	position: absolute;
 	z-index: 1000;
-	pointer-events: none;
 	}
+
 .leaflet-top {
 	top: 0;
 	}
