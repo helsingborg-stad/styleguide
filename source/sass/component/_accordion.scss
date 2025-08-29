@@ -1,10 +1,16 @@
-$c-accordion-border-width: var(--c-accordion-border-width, $border-width-divider) !default;
-$c-accordion-border-color: var(--c-accordion-border-color, $color-border-divider) !default;
+@use "../mixin/button";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
+
+$c-accordion-border-width: var(--c-accordion-border-width, var_properties.$border-width-divider) !default;
+$c-accordion-border-color: var(--c-accordion-border-color, var_colors.$color-border-divider) !default;
 $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
 .c-accordion {
-    padding-top: $base;
-    padding-bottom: $base;
+    padding-top: var_default.$base;
+    padding-bottom: var_default.$base;
 
     &.c-accordion--flat .c-accordion__button-wrapper {
         padding-left: 0;
@@ -20,19 +26,19 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     }
 
     .c-accordion__button {
-        @include button-unstyled;
+        @include button.button-unstyled;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
         color: inherit;
 
-        &> {
-            line-height: $line-height-heading;
+        & > * {
+            line-height: var_fonts.$line-height-heading;
         }
 
         &:hover,
         &:focus {
-            background-color: $color-gray-light;
+            background-color: var_colors.$color-gray-light;
             text-decoration: none;
         }
 
@@ -50,7 +56,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
     .c-accordion__button:focus > .c-accordion__button-wrapper {
         outline-offset: 1px;
-        outline: 1px dashed $color-gray;
+        outline: 1px dashed var_colors.$color-gray;
     }
 
     .c-accordion__section {
@@ -63,12 +69,12 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     }
 
     .c-accordion__button-wrapper {
-        padding: calc(#{$base} * 2);
+        padding: calc(#{var_default.$base} * 2);
         display: flex;
-        gap: calc(#{$base} * 2);
+        gap: calc(#{var_default.$base} * 2);
         align-items: center;
-        font-weight: $font-weight-bold;
-        font-family: $font-family-bold;
+        font-weight: var_fonts.$font-weight-bold;
+        font-family: var_fonts.$font-family-bold;
     }
 
     .c-accordion__icon {
@@ -81,7 +87,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     }
 
     .c-accordion__content {
-        padding: calc(#{$base} * 2);
+        padding: calc(#{var_default.$base} * 2);
 
         &[aria-hidden="true"] {
             display: none;
@@ -108,7 +114,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
         padding: 0;
 
         .c-accordion__section {
-            background-color: $color-background-card;
+            background-color: var_colors.$color-background-card;
             border-radius: var(
                 --c-card-border-radius,
                 var(--radius-lg, calc(var(--base, 8px) / 2))
@@ -133,7 +139,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
 .accordion-table__head {
     display: flex;
-    padding: #{$base} calc(#{$base} * 6) #{$base} calc(#{$base} * 3);
+    padding: #{var_default.$base} calc(#{var_default.$base} * 6) #{var_default.$base} calc(#{var_default.$base} * 3);
     background: #f5f5f5;
     font-size: .8rem;
 }
@@ -156,7 +162,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 .c-accordion-table .c-accordion__icon,
 .c-accordion-table .c-accordion__button[aria-expanded="true"] .c-accordion__icon {
     position: absolute;
-    right: calc(#{$base} * 3);
+    right: calc(#{var_default.$base} * 3);
 }
 
 // Card that has accordion with spaced sections should have no background color

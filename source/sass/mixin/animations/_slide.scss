@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "../../setting/var_default";
+
 @mixin slide($direction, $animationDirection: normal) {
     animation-duration: 0.7s;
     animation-name: $direction;
@@ -14,12 +17,12 @@
     }
 
     70% {
-        left: map-get($spacers, "4");
+        left: map.get(var_default.$spacers, "4");
         position:fixed;
     }
 
     100% {
-        left: map-get($spacers, "2");
+        left: map.get(var_default.$spacers, "2");
         position:fixed;
     }
 }
@@ -33,12 +36,12 @@
     }
 
     70% {
-        right: map-get($spacers, "4");
+        right: map.get(var_default.$spacers, "4");
         position:fixed;
     }
 
     100% {
-        right: map-get($spacers, "2");
+        right: map.get(var_default.$spacers, "2");
         position:fixed;
 
     }

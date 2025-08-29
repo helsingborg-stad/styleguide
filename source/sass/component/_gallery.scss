@@ -1,13 +1,20 @@
+@use "sass:map";
+@use "../mixin/focus";
+@use "../mixin/list";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
 .c-gallery {
     .c-image {
         cursor:pointer;
     }
-    @include unlist();
+    @include list.unlist();
     display: grid;
     grid-template-columns: 1fr;
     padding: 0;
     margin: 0;
-    gap: calc(#{$base} * 3);
+    gap: calc(#{var_default.$base} * 3);
 
     &__item {
         padding: 0;
@@ -18,12 +25,12 @@
     &__link:visited,
     &__link:visited:hover {
         text-decoration: none;
-        color: $color-light;
+        color: var_colors.$color-light;
     }
 }
 
 .c-modal--gallery .c-modal__content .c-image__caption {
-    color: $color-white;
+    color: var_colors.$color-white;
 }
 
 .c-modal--gallery {
@@ -31,13 +38,13 @@
     .c-modal__close,
     .c-modal__prev,
     .c-modal__next {
-        margin: #{map-get($spacers, "1")};
+        margin: #{map.get(var_default.$spacers, "1")};
     }
 
     .c-modal__prev:focus-visible,
     .c-modal__next:focus-visible,
     .c-modal__close:focus-visible {
-        @include focus();
+        @include focus.focus();
     }
 
     .c-steppers {
@@ -48,13 +55,13 @@
     }
 }
 
-@include mq(map_get($breakpoints-map, "sm")) {
+@include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
     .c-gallery {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@include mq(map_get($breakpoints-map, "lg")) {
+@include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
     .c-gallery {
         grid-template-columns: 1fr 1fr 1fr;
         &__item {

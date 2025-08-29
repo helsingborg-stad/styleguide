@@ -14,7 +14,7 @@
     //Column styling to all children
 
     .grid>* {
-        @extend %column;
+        @extend %column !optional;
     }
 
     //Gutter styles
@@ -54,7 +54,7 @@
         .grid-#{$breakpoint}-auto,
         .grid-#{$breakpoint}-fit-content,
         #{$columnClasses} {
-            @extend %column;
+            @extend %column !optional;
         }
 
         //Breakpoint specific
@@ -106,11 +106,11 @@
     //Prevent old classes from breaking
 
     .grid-fit-content {
-        @extend .grid-xs-fit-content;
+        @extend .grid-xs-fit-content !optional;
     }
 
     .grid-auto {
-        @extend .grid-xs-auto;
+        @extend .grid-xs-auto !optional;
     }
 }
 

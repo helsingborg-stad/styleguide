@@ -1,35 +1,44 @@
+@use "sass:map";
+@use "../mixin/mq";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+@use "../setting/var_properties";
 
-$c-field-label-color: var(--c-field-label-color, $color-darker) !default;
+
+$c-field-label-color: var(--c-field-label-color, var_colors.$color-darker) !default;
 $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
 $c-field-label-font-size: var(--c-field-label-font-size, 0.75rem) !default;
 $c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
 
 $c-field-description-font-size: var(--c-field-description-font-size, 0.75rem) !default;
-$c-field-description-color: var(--c-field-description-color, $color-darker) !default;
+$c-field-description-color: var(--c-field-description-color, var_colors.$color-darker) !default;
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, $color-light)) !default;
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, $color-form-fields-border-error)) !default;
-$c-field-success-color: var(--c-field-success-color, var(--color-success, $color-success-dark)) !default;
+$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light)) !default;
+$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
+$c-field-success-color: var(--c-field-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
 
-$c-field-background-color: var(--c-field-background-color, $color-form-fields) !default;
+$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
 
 $c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
 
 $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
-$c-field-padding: var(--c-field-padding, map-get($spacers, "2")) !default;
-$c-field-height: var(--c-field-height, calc(#{map-get($spacers, "6")})) !default;
-$c-field-font-size-sm: var(--c-field-font-size-sm, $font-size-btn-sm) !default;
-$c-field-font-size-md: var(--c-field-font-size-md, $font-size-btn-md) !default;
-$c-field-font-size-lg: var(--c-field-font-size-lg, $font-size-btn-lg) !default;
-$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, $font-size-btn-sm-line-height) !default;
-$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, $font-size-btn-md-line-height) !default;
-$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, $font-size-btn-lg-line-height) !default;
-$c-field-helper-font-size: var(--c-field-helper-font-size, $font-size-caption) !default;
-$c-field-suffix-color: var(--c-field-suffix-color, $color-darker) !default;
+$c-field-padding: var(--c-field-padding, map.get(var_default.$spacers, "2")) !default;
+$c-field-height: var(--c-field-height, #{map.get(var_default.$spacers, "6")}) !default;
+$c-field-font-size-sm: var(--c-field-font-size-sm, var_fonts.$font-size-btn-sm) !default;
+$c-field-font-size-md: var(--c-field-font-size-md, var_fonts.$font-size-btn-md) !default;
+$c-field-font-size-lg: var(--c-field-font-size-lg, var_fonts.$font-size-btn-lg) !default;
+$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
+$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
+$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
+$c-field-helper-font-size: var(--c-field-helper-font-size, var_fonts.$font-size-caption) !default;
+$c-field-suffix-color: var(--c-field-suffix-color, var_colors.$color-darker) !default;
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]'; 
 
 .c-field {
+    --c-field-height-computed: calc(var(--c-field-height, var(--base, 8px) * 6) - var(--c-field-border-width, var(--border-width-input, 1px)) * 2);
+    
     flex: 1;
     .c-field__label,
     .c-field__helper {
@@ -42,7 +51,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-size: $c-field-label-font-size;
         font-weight: $c-field-label-font-weight;
         text-transform: $c-field-label-text-transform;
-        margin-bottom: calc(#{$base}/2);
+        margin-bottom: calc(#{var_default.$base}/2);
         letter-spacing: 0.05rem;
     }
 
@@ -53,12 +62,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     .c-field__helper {
-        font-family: $font-family-base;
-        font-weight: $font-family-base;
+        font-family: var_fonts.$font-family-base;
+        font-weight: var_fonts.$font-family-base;
         font-size: $c-field-helper-font-size;
         color: #707070;
-        margin-top: calc(#{$base}/2);
-        margin-left: calc(#{$base}/4);
+        margin-top: calc(#{var_default.$base}/2);
+        margin-left: calc(#{var_default.$base}/4);
     }
 
     #{$fields}, textarea {
@@ -75,22 +84,22 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     input:focus + .c-field_focus-styler,
     textarea:focus + .c-field_focus-styler {
         display: block;
-        outline: thick solid $color-focus-outline;
+        outline: thick solid var_colors.$color-focus-outline;
         width: 100%;
         position: absolute;
         height: 100%;
         pointer-events: none;
-        border-radius: calc($base * $c-field-border-radius);
+        border-radius: calc(var_default.$base * $c-field-border-radius);
     }
 
     input#input_search-form__field + .c-field_focus-styler {
-        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
+        border-radius: calc(var_default.$base * $c-field-border-radius) 0 0 calc(var_default.$base * $c-field-border-radius);
     }
 
     input#input_header-search-form__field:focus + .c-field_focus-styler {
         width: 97%;
         pointer-events: none;
-        border-radius: calc($base * $c-field-border-radius) 0 0 calc($base * $c-field-border-radius);
+        border-radius: calc(var_default.$base * $c-field-border-radius) 0 0 calc(var_default.$base * $c-field-border-radius);
     }
     
     .c-field__inner {
@@ -101,15 +110,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         align-items: center;
         width: 100%;
         height: 100%;
-        min-width: calc(#{$base}*10);
+        min-width: calc(#{var_default.$base}*10);
         font-size: $c-field-font-size-md;
         line-height: $c-field-font-size-md-line-height; 
         border: $c-field-border-width solid $c-field-border-color;
         background: $c-field-background-color;
-        border-radius: calc($base * $c-field-border-radius);
+        border-radius: calc(var_default.$base * $c-field-border-radius);
         
         input {
-            border-radius: calc($base * $c-field-border-radius);
+            border-radius: calc(var_default.$base * $c-field-border-radius);
         }
 
         .c-field__icon, .c-field__prefix, .c-field__suffix {
@@ -135,8 +144,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         &.c-field__inner--textarea .c-field__success-icon {
             position: absolute;
             padding: 0;
-            right: map-get($spacers, "2");
-            bottom: map-get($spacers, "2");
+            right: map.get(var_default.$spacers, "2");
+            bottom: map.get(var_default.$spacers, "2");
         }
 
         &--search {
@@ -189,18 +198,18 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     /* Shadow */
     &.c-field--shadow {
         transition: filter 100ms ease-in-out;
-        filter: $drop-shadow-1;
+        filter: var_properties.$drop-shadow-1;
     }
 
     &.c-field--shadow:hover {
-        filter: $drop-shadow-2;
+        filter: var_properties.$drop-shadow-2;
     }
 
     /* Customizer modifiers */
     &.c-field--rounded {
         .c-field__inner,
         .c-field__inner input {
-            border-radius: calc($base * 3);
+            border-radius: calc(var_default.$base * 3);
             border: none;
 
             input::placeholder {
@@ -209,7 +218,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
         
         .c-field__label {
-            margin-left: calc($base * 2);
+            margin-left: calc(var_default.$base * 2);
         }
 
         &.c-field--rounded-border {
@@ -220,7 +229,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         input:focus + .c-field_focus-styler,
         textarea:focus + .c-field_focus-styler {
-            border-radius: calc($base * 3);
+            border-radius: calc(var_default.$base * 3);
         }
     }
 
@@ -230,34 +239,34 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: $c-field-font-size-sm-line-height; 
         
         #{$fields} {
-            padding: map-get($spacers, "1"); 
-            height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
+            padding: map.get(var_default.$spacers, "1"); 
+            height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
         }
 
         &.c-field--borderless {
             #{$fields} {
-                height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
+                height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
             }
         }
 
         textarea {
-            padding: map-get($spacers, "1"); 
-            min-height: calc((#{map-get($spacers, "4")} + #{map-get($spacers, "05")}));
+            padding: map.get(var_default.$spacers, "1"); 
+            min-height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
         }
 
         .c-field__icon, .c-field__prefix {
-            padding-left: map-get($spacers, "1");
+            padding-left: map.get(var_default.$spacers, "1");
         }
 
         .c-field__suffix {
-            padding-right: map-get($spacers, "1");
+            padding-right: map.get(var_default.$spacers, "1");
         }
     }
 
     &.c-field--md {
         #{$fields} {
-            padding: map-get($spacers, "2"); 
-            height: calc($c-field-height - ($c-field-border-width * 2)); 
+            padding: map.get(var_default.$spacers, "2"); 
+            height: var(--c-field-height-computed); 
         }
 
         &.c-field--borderless {
@@ -267,16 +276,16 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         textarea {
-            padding: map-get($spacers, "2"); 
-            min-height: calc($c-field-height - ($c-field-border-width * 2)); 
+            padding: map.get(var_default.$spacers, "2"); 
+            min-height: var(--c-field-height-computed); 
         }
 
         .c-field__icon, .c-field__prefix {
-            padding-left: map-get($spacers, "2");
+            padding-left: map.get(var_default.$spacers, "2");
         }
 
         .c-field__suffix {
-            padding-right: map-get($spacers, "2");
+            padding-right: map.get(var_default.$spacers, "2");
         }
     }
 
@@ -285,27 +294,27 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: $c-field-font-size-lg-line-height; 
 
         #{$fields} {
-            padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            height: #{map-get($spacers, "8")}
+            padding: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")}); 
+            height: #{map.get(var_default.$spacers, "8")}
         }
 
         &.c-field--borderless {
             #{$fields} {
-                height: #{map-get($spacers, "8")};
+                height: #{map.get(var_default.$spacers, "8")};
             }
         }
 
         textarea {
-            padding: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")}); 
-            min-height: #{map-get($spacers, "8")};
+            padding: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")}); 
+            min-height: #{map.get(var_default.$spacers, "8")};
         }
 
         .c-field__icon, .c-field__prefix {
-            padding-left: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
+            padding-left: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
         }
 
         .c-field__suffix {
-            padding-right: calc(#{map-get($spacers, "2")} + #{map-get($spacers, "05")});
+            padding-right: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
         }
     }
 
@@ -315,7 +324,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:focus,
             &:focus-within,
             &:active {
-                background: $color-form-fields-error;
+                background: var_colors.$color-form-fields-error;
                 border-color: $c-field-danger-color;
             }
             .c-field__error-icon {
@@ -333,10 +342,10 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         .c-field__error {
             display: block;
-            padding: map-get($spacers, "05") map-get($spacers, "2");
-            color: $color-white;
+            padding: map.get(var_default.$spacers, "05") map.get(var_default.$spacers, "2");
+            color: var_colors.$color-white;
             background-color: $c-field-danger-color;
-            border-radius: 0 0 calc($base * $c-field-border-radius) calc($base * $c-field-border-radius);
+            border-radius: 0 0 calc(var_default.$base * $c-field-border-radius) calc(var_default.$base * $c-field-border-radius);
         }
     }
     
@@ -360,7 +369,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
 /* For the search-field in a megamenu */
 .c-megamenu .c-form {
-    @include mq("xs") {
+    @include mq.mq("xs") {
         .c-group {
             justify-content: center;
         }
@@ -369,7 +378,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
-    @include mq("sm") {
+    @include mq.mq("sm") {
         .c-button {
             padding: 0 calc(var(--base, 8px) * 4);
         }

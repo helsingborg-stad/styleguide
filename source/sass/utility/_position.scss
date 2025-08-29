@@ -1,3 +1,6 @@
+@use "../setting/var_properties";
+@use "../mixin/build-utility";
+
 $position_utils: (
     (
         name: "position",
@@ -17,52 +20,52 @@ $position_utils: (
                 top: 0,
                 right: 0,
                 left: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             top-left: (
                 position: fixed,
                 top: 0,
                 left: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             top-right: (
                 position: fixed,
                 top: 0,
                 right: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             bottom: (
                 position: fixed,
                 bottom: 0,
                 right: 0,
                 left: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             bottom-left: (
                 position: fixed,
                 bottom: 0,
                 left: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             bottom-right: (
                 position: fixed,
                 bottom: 0,
                 right: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             left: (
                 position: fixed,
                 top: 0,
                 bottom: 0,
                 left: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             ),
             right: (
                 position: fixed,
                 top: 0,
                 bottom: 0,
                 right: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             )
         )
     ),
@@ -121,10 +124,10 @@ $position_utils: (
             top: (
                 position: sticky,
                 top: 0,
-                z-index: $level-10
+                z-index: var_properties.$level-10
             )
         )
     )
 );
 
-@include build-utilities($position_utils);
+@include build-utility.build-utilities($position_utils);

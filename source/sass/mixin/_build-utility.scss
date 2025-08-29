@@ -1,5 +1,12 @@
+@use "../mixin/responsive-styles";
+@use "../function/append-important";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:list";
+
 @mixin build-utilities($utility_specs, $responsive: true, $limitToBreakpoint: true) {
-    @if type-of($utility_specs) == list {
+    @if meta.type-of($utility_specs) == list {
         @each $utility in $utility_specs {
             @include apply-utility($utility, $limitToBreakpoint);
         }
@@ -9,22 +16,27 @@
 }
 
 @mixin apply-utility($utility, $limitToBreakpoint: true) {
-    $name: map-get($utility, "name");
-    $modifiers: map-get($utility, "modifiers");
-    $default: map-get($utility, "default");
+    $name: map.get($utility, "name");
+    $modifiers: map.get($utility, "modifiers");
+    $default: map.get($utility, "default");
 
     $pseudo: null;
     $clean-name: $name;
 
     // Detect if utility name contains a pseudo-element (::before or ::after)
-    @if str-index($name, "::") {
-        $pseudo: str-slice($name, str-index($name, "::"));
-        $clean-name: str-slice($name, 1, str-index($name, "::") - 1);
+    @if string.index($name, "::") {
+        $pseudo: string.slice($name, string.index($name, "::"));
+        $clean-name: string.slice($name, 1, string.index($name, "::") - 1);
     }
 
     @if $default {
-        @include responsiveStyles(
-            (".u-#{$clean-name}#{$pseudo}": appendImportant($default)),
+        .u-#{$clean-name}#{$pseudo} {
+            @each $property, $value in $default {
+                #{$property}: #{$value} !important;
+            }
+        }
+        @include responsive-styles.responsiveStyles(
+            (".u-#{$clean-name}#{$pseudo}": append-important.appendImportant($default)),
             all,
             $limitToBreakpoint
         );
@@ -32,17 +44,17 @@
 
     @if $modifiers {
         @each $modifier in $modifiers {
-            .u-#{$clean-name}--#{nth($modifier,1)}#{$pseudo} {
-                @each $property, $value in nth($modifier, 2) {
+            .u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo} {
+                @each $property, $value in list.nth($modifier, 2) {
                     #{$property}: #{$value} !important;
                 }
             }
         }
 
         @each $modifier in $modifiers {
-            $style: nth($modifier, 2);
-            @include responsiveStyles(
-                (".u-#{$clean-name}--#{nth($modifier,1)}#{$pseudo}": appendImportant($style)),
+            $style: list.nth($modifier, 2);
+            @include responsive-styles.responsiveStyles(
+                (".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": append-important.appendImportant($style)),
                 all,
                 $limitToBreakpoint
             );

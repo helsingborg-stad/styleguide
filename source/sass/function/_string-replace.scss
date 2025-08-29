@@ -1,9 +1,10 @@
+@use "sass:string";
 @function str-replace($string, $search, $replace: "") {
-    $index: str-index($string, $search);
+    $index: string.index($string, $search);
 
     @if $index {
-        $filtered: str-slice($string, 1, $index - 1);
-        $new_string: str-slice($string, $index + str-length($search));
+        $filtered: string.slice($string, 1, $index - 1);
+        $new_string: string.slice($string, $index + string.length($search));
         $unfiltered: str-replace($new_string, $search, $replace);
 
         @return #{$filtered} #{$replace} #{$unfiltered};

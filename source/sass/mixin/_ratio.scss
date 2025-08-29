@@ -1,9 +1,12 @@
+@use "sass:string";
+@use "psuedo";
+
 @mixin ratio($x,$y, $pseudo: false) {
-    $padding: unquote( calc($y / $x) * 100 + "%" );
+    $padding: string.unquote( calc($y / $x) * 100 + "%" );
     @if $pseudo {
 
         &:before {
-            @include pseudo($pos: relative);
+            @include psuedo.pseudo($pos: relative);
             width: 100%;
             padding-top: $padding;
         }

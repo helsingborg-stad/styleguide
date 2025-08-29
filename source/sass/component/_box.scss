@@ -1,7 +1,12 @@
-$c-box-border-radius: var(--c-box-border-radius, $border-radius-sm) !default;
-$c-box-color: var(--c-box-color, $color-primary-contrasting) !default;
-$c-box-background-color: var(--c-box-background-color, $color-primary) !default;
-$c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+
+$c-box-border-radius: var(--c-box-border-radius, var_border-radius.$border-radius-sm) !default;
+$c-box-color: var(--c-box-color, var_colors.$color-primary-contrasting) !default;
+$c-box-background-color: var(--c-box-background-color, var_colors.$color-primary) !default;
+$c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
 
 .c-box {
     border-radius: $c-box-border-radius;
@@ -14,10 +19,10 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
     container-name: testbox;
 
     .c-box__body {
-        padding: calc(#{$base} * 3);
+        padding: calc(#{var_default.$base} * 3);
         display: flex; 
         flex-direction: column;
-        gap: calc(#{$base} * 2);
+        gap: calc(#{var_default.$base} * 2);
         text-align: center;
         justify-content: center;
         align-items: center;
@@ -46,15 +51,15 @@ $c-box-shadow: var(--c-box-shadow, $drop-shadow-2) !default;
 
     .c-box__icon.c-icon {
         color: $c-box-color;
-        font-size: calc(#{$base} * 10);
+        font-size: calc(#{var_default.$base} * 10);
         line-height: 60px;
-        margin-bottom: calc(#{$base} * 2);
+        margin-bottom: calc(#{var_default.$base} * 2);
         margin-right: auto;
         margin-left: auto;
     }
 
     .c-box__image.c-image--type-svg {
-        width: clamp(calc(#{$base} * 6), 30%, calc(#{$base} * 20));
+        width: clamp(calc(#{var_default.$base} * 6), 30%, calc(#{var_default.$base} * 20));
     }
 
     .c-box__heading, 
@@ -93,9 +98,9 @@ a.c-box {
     }
 
     &:hover {
-        filter: $drop-shadow-3;
+        filter: var_properties.$drop-shadow-3;
         color: inherit;
-        transform: translateY(calc( 0px - #{$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
         filter: brightness(0.9);
 
         .c-box__heading {

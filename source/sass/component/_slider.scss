@@ -1,14 +1,20 @@
-@import "@splidejs/splide/dist/css/splide.min.css";
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "../mixin/mq";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_properties";
+@use "../setting/component/_slider" as *;
 
-$c-slider-inset: calc(#{$base} * var(--c-slider-padding, 7)) !default;
-$c-slider-gap: calc(#{$base} * var(--c-slider-gap, 2)) !default;
-$c-slider-border-radius: var(--c-slider-border-radius, $border-radius-lg) !default;
-$c-slider-max-width: calc(#{$container-width-wide} - #{$c-slider-inset}) !default;
-$c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !default; 
+/*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
 .c-slider {
+    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
+    
     position: relative;
-    border-radius: $border-radius-md;
+    border-radius: var_border-radius.$border-radius-md;
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -28,17 +34,13 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: $drop-shadow-2;
+            filter: var_properties.$drop-shadow-2;
         }
-    }
-
-    .c-slider__dot {
-        cursor: default;
     }
 
     .c-slider__arrows {
         width: 100%;
-        max-width: $c-slider-max-width;
+        max-width: var(--c-slider-max-width-computed);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -49,36 +51,36 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{$base} * 4);
-            height: calc(#{$base} * 4);
+            width: calc(#{var_default.$base} * 4);
+            height: calc(#{var_default.$base} * 4);
 
              &.c-slider__arrow--prev {
-                left: calc($base * -1.5);
+                left: calc(var_default.$base * -1.5);
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: calc($base * -1.5);
+                right: calc(var_default.$base * -1.5);
                 transform: translateY(-50%);
             }
 
-            @include mq(map_get($breakpoints-map, "md")) {
-                width: calc(#{$base} * 6);
-                height: calc(#{$base} * 6);
+            @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
+                width: calc(#{var_default.$base} * 6);
+                height: calc(#{var_default.$base} * 6);
 
                 &.c-slider__arrow--prev {
-                    left: calc(#{$base} * 2.5);
+                    left: calc(#{var_default.$base} * 2.5);
                 }
 
                 &.c-slider__arrow--next {
-                    right: calc(#{$base} * 2.5);
+                    right: calc(#{var_default.$base} * 2.5);
                 }
             }
         }
     }
 
     &__controls {
-        max-width: $c-slider-max-width;
+        max-width: var(--c-slider-max-width-computed);
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -89,7 +91,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         transform: translateX(-50%);
         pointer-events: none;
         
-        @include mq(map_get($breakpoints-map, "md")) {
+        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
             width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
         }
     }
@@ -105,14 +107,14 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         position: relative;
         display: none;
         cursor: pointer;
-        width: calc(#{$base} * 5);
-        height: calc(#{$base} * 5);
-        color: $color-primary;
+        width: calc(#{var_default.$base} * 5);
+        height: calc(#{var_default.$base} * 5);
+        color: var_colors.$color-primary;
         z-index: 1;
-        margin: calc(#{$base} * 1);
+        margin: calc(#{var_default.$base} * 1);
         
-        @include mq(map_get($breakpoints-map, 'md')) {
-            margin: calc(#{$base} * 3);
+        @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
+            margin: calc(#{var_default.$base} * 3);
         }
 
         .c-slider__autoslide-play {
@@ -123,8 +125,8 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
             content: "";
             display: block;
             background: #fff;
-            width: calc(#{$base} * 3);
-            height: calc(#{$base} * 3);
+            width: calc(#{var_default.$base} * 3);
+            height: calc(#{var_default.$base} * 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -151,10 +153,10 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     }
 
     &.c-slider--has-stepper {
-        margin-bottom: calc(#{$base} * 6);
+        margin-bottom: calc(#{var_default.$base} * 6);
 
         .c-slider__steppers {
-            margin-bottom: calc(calc(#{$base} * 3) * -1);
+            margin-bottom: calc(calc(#{var_default.$base} * 3) * -1);
             transform: translateY(-50%);
         }
     }
@@ -175,7 +177,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     /** Aspect ratio */
     @each $modifier, $ratio in ("16-9": "16/9", "4-3": "4/3", "10-3": "10/3", "36-7": "36/7") {
         &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
-            aspect-ratio: unquote($ratio);
+            aspect-ratio: string.unquote($ratio);
         }
     } 
 
@@ -192,7 +194,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: $drop-shadow-2;
+                filter: var_properties.$drop-shadow-2;
             }
         }
 
@@ -201,11 +203,11 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
-            left: calc($base * -1);
+            left: calc(var_default.$base * -1);
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--next {
-            right: calc($base * -1);
+            right: calc(var_default.$base * -1);
         }
 
         .c-slider__item {
@@ -242,7 +244,7 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     position: absolute;
     bottom: 0;
     display: flex;
-    gap: calc(#{$base} * 0.5);
+    gap: calc(#{var_default.$base} * 0.5);
     justify-content: center;
     width: 100%;
     list-style: none;
@@ -255,26 +257,24 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
     }
 
     li:first-of-type .c-slider__dot {
-        border-top-left-radius: calc(#{$base} * 0.5);
-        border-bottom-left-radius: calc(#{$base} * 0.5);
+        border-top-left-radius: calc(#{var_default.$base} * 0.5);
+        border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
     }
 
     li:last-of-type .c-slider__dot {
-        border-top-right-radius: calc(#{$base} * 0.5);
-        border-bottom-right-radius: calc(#{$base} * 0.5);
+        border-top-right-radius: calc(#{var_default.$base} * 0.5);
+        border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
     }
 
     .c-slider__dot {
-        cursor: pointer;
-        background: $color-gray;
-        display: block;
-        width: calc(#{$base} * 2);
-        height: calc(#{$base} * 0.5);
+        background: var_colors.$color-gray;
+        cursor: default;
+        width: calc(#{var_default.$base} * 2);
+        height: calc(#{var_default.$base} * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            cursor: default;
-            background: $color-primary;
+            background: var_colors.$color-primary;
         }
     }
 
@@ -288,4 +288,4 @@ $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, $color-black) !
 }
 
 //Import is here as adding the import in main.scss does not work
-@import './slider_item';
+@include meta.load-css('slider_item');

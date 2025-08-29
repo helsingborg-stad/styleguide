@@ -1,0 +1,6 @@
+https://styleguide.local.municipio.tech:443 {
+    root * /Users/seno1000/www/public/styleguide
+    php_fastcgi localhost:9000
+    file_server
+    tls /Users/seno1000/www/public/styleguide/franken/franken.crt /Users/seno1000/www/public/styleguide/franken/franken.key
+}

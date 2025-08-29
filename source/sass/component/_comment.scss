@@ -1,35 +1,41 @@
-$c-comment-border-radius: var(--c-comment-border-radius, $border-radius-lg) !default;
-$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-radius-sm) !default;
+@use "sass:map";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+
+$c-comment-border-radius: var(--c-comment-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_border-radius.$border-radius-sm) !default;
 
 .c-comment + .c-comment {
-    margin-top: map-get($spacers, "2");
+    margin-top: map.get(var_default.$spacers, "2");
 }
 
 .c-comment.c-comment--level-2 + .c-comment.c-comment--level-1 {
-    margin-top: map-get($spacers, "6");
+    margin-top: map.get(var_default.$spacers, "6");
 }
 
 .c-comment { 
     display: flex;
     flex-direction: row;
-    gap: map-get($spacers, "2");
+    gap: map.get(var_default.$spacers, "2");
 
     .c-comment__top {
         display: flex;
-        gap: map-get($spacers, "2");
-        margin-bottom: map-get($spacers, "05");
+        gap: map.get(var_default.$spacers, "2");
+        margin-bottom: map.get(var_default.$spacers, "05");
     }
 
     .c-comment__top .c-comment__author {
         font-size: .9rem;
-        font-weight: $font-weight-bold;
-        font-family: $font-family-bold;
-        color: $color-darker;
+        font-weight: var_fonts.$font-weight-bold;
+        font-family: var_fonts.$font-family-bold;
+        color: var_colors.$color-darker;
     }
 
     .c-avatar {
-        width: calc(#{$base} * 6);
-        height: calc(#{$base} * 6);
+        width: calc(#{var_default.$base} * 6);
+        height: calc(#{var_default.$base} * 6);
     }
 
     .c-comment__link {
@@ -46,17 +52,17 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
         }
 
         :hover {
-            color: $color-darkest;
+            color: var_colors.$color-darkest;
         }
     }
 
     .c-comment__actions {
         display: flex; 
-        gap: calc(#{$base} * 2);
+        gap: calc(#{var_default.$base} * 2);
     }
 
     &__date {
-        color: $color-comment-date;
+        color: var_colors.$color-comment-date;
         font-weight: 400;
         display: flex;
         line-height: 1.3;
@@ -67,7 +73,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
 
         &:before {
             content: "•";
-            margin-right: map-get($spacers, "1half");
+            margin-right: map.get(var_default.$spacers, "1half");
             text-indent: -.2em;
         }
     }
@@ -84,20 +90,20 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, $border-r
         width: 100%;
         border-radius: $c-comment-border-radius;
         border-top-left-radius: $c-comment-border-radius-corner;
-        padding: map-get($spacers, "1half") map-get($spacers, "2");
-        color: $color-black;
+        padding: map.get(var_default.$spacers, "1half") map.get(var_default.$spacers, "2");
+        color: var_colors.$color-black;
         margin: 0;
     }
 
     &__bubble--color-dark &__bubble--inner {
-        background-color: $color-comment-bubble-bg-dark;
+        background-color: var_colors.$color-comment-bubble-bg-dark;
     }
 
     &__bubble--color-light &__bubble--inner {
-        background-color: $color-comment-bubble-bg-light;
+        background-color: var_colors.$color-comment-bubble-bg-light;
     }
 
     &__is-reply {
-        margin-left: map-get($spacers, "8");
+        margin-left: map.get(var_default.$spacers, "8");
     }
 }

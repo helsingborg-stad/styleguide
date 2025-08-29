@@ -1,4 +1,13 @@
-$c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default;
+@use "sass:map";
+@use "../mixin/cover";
+@use "../mixin/mq";
+@use "../mixin/ratio";
+@use "../setting/var_border-radius";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+@use "../setting/var_fonts";
+
+$c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-radius-xs) !default;
 
 
 // ***************************************************************
@@ -11,17 +20,17 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     
     .c-image__caption,
     .c-image__byline {
-        font-size: $font-size-caption;
-        line-height: $line-height-caption;
-        margin-top: map-get($spacers, '1');
+        font-size: var_fonts.$font-size-caption;
+        line-height: var_fonts.$line-height-caption;
+        margin-top: map.get(var_default.$spacers, '1');
     }
 
     .c-image__caption {
-        color: $color-darkest;
+        color: var_colors.$color-darkest;
     }
 
     .c-image__byline {
-        color: $color-dark;
+        color: var_colors.$color-dark;
     }
 
     .c-image__modal {
@@ -43,23 +52,23 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     }
 
     &.c-image--radius-xs .c-image__image {
-        border-radius: $border-radius-xs;
+        border-radius: var_border-radius.$border-radius-xs;
     }
 
     &.c-image--radius-sm .c-image__image {
-        border-radius: $border-radius-sm;
+        border-radius: var_border-radius.$border-radius-sm;
     }
 
     &.c-image--radius-md .c-image__image {
-        border-radius: $border-radius-md;
+        border-radius: var_border-radius.$border-radius-md;
     }
 
     &.c-image--radius-lg .c-image__image {
-        border-radius: $border-radius-lg;
+        border-radius: var_border-radius.$border-radius-lg;
     }
 
     &.c-image--radius-full .c-image__image {
-        border-radius: $border-radius-full;
+        border-radius: var_border-radius.$border-radius-full;
     }
 
     &.c-image--full-width .c-image__image {
@@ -73,7 +82,7 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     }
 
     &.c-image--cover {
-        @include cover();
+        @include cover.cover();
         .c-image__image {
             position: absolute;
             top: 50%; 
@@ -89,14 +98,14 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     .c-modal--gallery .c-image__caption {
         margin: 0 auto;
         position: absolute;
-        bottom: calc( #{map-get($spacers, '8')} * -1);
-        color: $color-white;
+        bottom: calc( #{map.get(var_default.$spacers, '8')} * -1);
+        color: var_colors.$color-white;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
 
-        @include mq(map_get($breakpoints-map, 'xs'), 'sm') {
-            bottom: calc(#{map-get($spacers, '8')} * -1);
+        @include mq.mq(map.get(var_default.$breakpoints-map, 'xs'), 'sm') {
+            bottom: calc(#{map.get(var_default.$spacers, '8')} * -1);
             overflow-wrap: break-word;
         }
     }
@@ -140,27 +149,27 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
 // ***************************************************************
 
 .c-image--is-placeholder {
-    @include ratio(16, 9, true);
+    @include ratio.ratio(16, 9, true);
     position: relative;
     line-height: 0;
-    border: 1px solid $color-image-placeholder-border;
-    background-color: $color-image-placeholder-background;
+    border: 1px solid var_colors.$color-image-placeholder-border;
+    background-color: var_colors.$color-image-placeholder-background;
     user-select: none;
 }
 
 .c-image__placeholder {
-    @include cover();
+    @include cover.cover();
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    @include mq(map_get($breakpoints-map, 'sm')) {
+    @include mq.mq(map.get(var_default.$breakpoints-map, 'sm')) {
         flex-direction: row;
     }
 
     .c-icon {
-        color: $color-image-placeholder-icon;
+        color: var_colors.$color-image-placeholder-icon;
 
         &.c-icon--svg-link {
             width: clamp(1em, 25%, 3em);
@@ -172,16 +181,16 @@ $c-image-border-radius: var(--c-image-border-radius, $border-radius-xs) !default
     }
 
     .c-image__placeholder-text {
-        color: $color-image-placeholder-label;
-        font-weight: $font-weight-bold;
-        font-family: $font-family-bold;
+        color: var_colors.$color-image-placeholder-label;
+        font-weight: var_fonts.$font-weight-bold;
+        font-family: var_fonts.$font-family-bold;
     }
 
     .c-icon + .c-image__placeholder-text {
-        margin-top: map-get($spacers, '2');
+        margin-top: map.get(var_default.$spacers, '2');
 
-        @include mq(map_get($breakpoints-map, 'sm')) {
-            margin-left: map-get($spacers, '1');
+        @include mq.mq(map.get(var_default.$breakpoints-map, 'sm')) {
+            margin-left: map.get(var_default.$spacers, '1');
             margin-top: 0;
         }
     }

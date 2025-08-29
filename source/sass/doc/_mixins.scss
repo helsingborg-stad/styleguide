@@ -1,113 +1,130 @@
+@use "../mixin/arrow";
+@use "../mixin/button";
+@use "../mixin/center";
+@use "../mixin/cover";
+@use "../mixin/fluid-type";
+@use "../mixin/focus";
+@use "../mixin/gradient";
+@use "../mixin/list";
+@use "../mixin/mq";
+@use "../mixin/paper";
+@use "../mixin/psuedo";
+@use "../mixin/ratio";
+@use "../mixin/responsive-styles";
+@use "../mixin/shadow";
+@use "../mixin/size";
+@use "../mixin/stretch";
+
 /* Arrows */
 .mixins-example-arrow   {
-    @include arrow("up", 8px, #000);
+    @include arrow.arrow("up", 8px, #000);
 }
 
 /* Button */
 .mixins-example-button-mix {
-    @include button-mix(#000, #42c765, #ac42c7);
+    @include button.button-mix(#000, #42c765, #ac42c7);
 }
 
 .mixin-example-button-size {
-    @include button-size(8px, 12px, 16px, 4px);
+    @include button.button-size(8px, 12px, 16px, 4px);
 }
 
 .mixin-example-button-unstyled {
-    @include button-unstyled();
+    @include button.button-unstyled();
 }
 
 .mixin-example-center {
-    @include center();
+    @include center.center();
 }
 
 .mixin-example-center-x {
-    @include centerX();
+    @include center.centerX();
 }
 
 .mixin-example-center-y {
-    @include centerY();
+    @include center.centerY();
 }
 
 /* Cover */
 .mixin-example-cover {
-    @include cover();
+    @include cover.cover();
     background-color: grey;
 }
 
 /* Fluid-type */
 .mixin-example-fluid-type {
-    @include fluid-type(8px, 24px, 2vw);
+    @include fluid-type.fluid-type(8px, 24px, 2vw);
 }
 
 /* Focus */
 .mixin-example-focus {
-    @include focus();
+    @include focus.focus();
 }
 
 .mixin-example-focus-remove-default {
-    @include focus-remove-default();
+    @include focus.focus-remove-default();
 }
 
 .mixin-example-focus-inset {
-    @include focus-inset(4px, false);
+    @include focus.focus-inset(4px, false);
 }
 
 /* Gradient */
 .mixin-example-gradient {
-    @include gradient(30deg, #000, #fff);
+    @include gradient.gradient(30deg, #000, #fff);
     height: 50px;
     width: 100%;
 }
 
 /* List */
 .mixin-example-unlist {
-    @include unlist();
+    @include list.unlist();
 }
 
 /* Mq */
 .mixin-example-mq {
     background-color: green;
-    @include mq("lg") {
+    @include mq.mq("lg") {
         background-color: blue;
     }
 }
 
 /* Paper */
 .mixin-example-paper {
-    @include paper(2, "2");
+    @include paper.paper(2, "2");
 }
 
 /* Pseudo */
 .mixin-example-pseudo {
     &:before {
-        @include pseudo(block, static, "hi");
+        @include psuedo.pseudo(block, static, "hi");
     }
 }
 
 /* Ratio */
 .mixin-example-ratio {
-    @include ratio(16, 2);
+    @include ratio.ratio(16, 2);
 }
 
 /* Shadow */
 .mixin-example-shadow {
-    @include shadow(2, true);
+    @include shadow.shadow(2, true);
 }
 
 /* Size */
 .mixin-example-size {
-    @include size(3, 4, "em");
+    @include size.size(3, 4, "em");
 }
 
 /* Size */
 .mixin-example-stretch {
-    @include stretch();
+    @include stretch.stretch();
 }
 
 /* Responsive-styles */
 $exampleOrder: 1;
 @while($exampleOrder <= 2) {
-    @include responsiveStyles(
+    @include responsive-styles.responsiveStyles(
         (
             ".mixin-example-responsive-styles--#{$exampleOrder}": ( background-color: blue )
         ),

@@ -1,3 +1,5 @@
+@use "../mixin/build-utility";
+
 $flex-utils: (
     name: "visibility",
     modifiers: (
@@ -6,4 +8,4 @@ $flex-utils: (
     )
 );
 
-@include build-utilities($flex-utils);
+@include build-utility.build-utilities($flex-utils);
