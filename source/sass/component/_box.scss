@@ -15,6 +15,8 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
     align-items: center;
     justify-content: center;
     background-color: $c-box-background-color;
+    container-type: inline-size;
+    container-name: testbox;
 
     .c-box__body {
         padding: calc(#{var_default.$base} * 3);
@@ -23,11 +25,28 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
         gap: calc(#{var_default.$base} * 2);
         text-align: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
     }
 
     .c-box__image {
-        width: clamp(calc(#{var_default.$base} * 6), 50%, calc(#{var_default.$base} * 20));
-        margin: 0 auto calc(#{var_default.$base} * 2) auto;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: calc($base * 20);
+    }
+
+    @container testbox (max-width: 650px) {
+        .c-box__image {
+            max-width: calc($base * 15);
+        }
+    }
+
+    @container testbox (max-width: 450px) {
+        .c-box__image {
+            max-width: calc($base * 10);
+        }
     }
 
     .c-box__icon.c-icon {
