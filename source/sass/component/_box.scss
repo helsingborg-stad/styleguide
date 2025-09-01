@@ -34,18 +34,18 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
         display: flex;
         justify-content: center;
         width: 100%;
-        max-width: calc($base * 20);
+        max-width: calc(#{var_default.$base} * 20);
     }
 
     @container testbox (max-width: 650px) {
         .c-box__image {
-            max-width: calc($base * 15);
+            max-width: calc(#{var_default.$base} * 15);
         }
     }
 
     @container testbox (max-width: 450px) {
         .c-box__image {
-            max-width: calc($base * 10);
+            max-width: calc(#{var_default.$base} * 10);
         }
     }
 
