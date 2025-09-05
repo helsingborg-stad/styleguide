@@ -90,8 +90,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     .c-nav__item:not(.is-open)>.c-nav,
-    .c-nav__item:not(.is-open) .c-nav__toggle:before,
-    .c-nav__item:not(.is-open) .c-nav__extended-dropdown-container {
+    .c-nav__item:not(.is-open) .c-nav__toggle:before {
         display: none;
     }
 
@@ -104,7 +103,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         flex-direction: row;
 
         .c-nav__item {
-            position: static;
+            position: relative;
         }
 
         .c-nav.c-nav--vertical .c-nav__item .c-nav__link:hover:after {
@@ -239,43 +238,106 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 }
 
-.c-nav__extended-dropdown-container {
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    z-index: var_properties.$level-5;
-    background-color: blue;
-    justify-content: center;
-}
-
-.c-nav__extended-dropdown-content {
-    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base} * 2);
-    width: 80%;
-    display: flex;
-    gap: calc(#{var_default.$base} * 8);
-}
-
-ul.c-nav__extended-child-menu {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(4, max-content) 1fr;
-    gap: 0 1px;
-    background-color: white;
-
-    & > li {
-        background-color: blue;
-        padding-left: calc(#{var_default.$base} * 4);
-        padding-right: calc(#{var_default.$base} * 4);
+/* Extended Dropdown */
+.c-nav.c-nav--extended-dropdown {
+    .c-nav .c-nav__item:not(.is-open) > .c-nav {
+        display: grid;
+        overflow: hidden;
     }
 
-    & > li:last-child {
-        grid-row: span 5;
+    .c-nav__item {
+        position: static;
+    }
+
+    /* Removing animation */
+    .c-nav.c-nav--child {
+        animation: none;
+        position: relative;
+        filter: unset;
+        transform: unset;
+    }
+
+    /* Opening subitems animation */
+    .c-nav.c-nav__extended-child-menu .c-nav__item.is-open > .c-nav__child-container {
+        grid-template-rows: 1fr;
+    }
+
+    .c-nav.c-nav__extended-child-menu .c-nav__item > .c-nav__child-container {
+        display: grid;
+        grid-template-rows: 0fr;
+
+        & > * {
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        transition: grid-template-rows 0.3s ease-out;
+    }
+
+    /* Opening main items animation */
+    .c-nav__item.is-open .c-nav__extended-dropdown-container {
+        transform: scaleY(1);
+    }
+
+    /* Container */
+    .c-nav__extended-dropdown-container {
+        transform-origin: top;
+        transform: scaleY(0);
+        transition: transform 200ms ease-in-out;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        z-index: var_properties.$level-5;
+        background-color: $c-nav-v-background-expanded;
+        justify-content: center;
+    }
+
+    .c-nav__extended-dropdown-content-area {
+        position: relative;
+        padding: calc(#{var_default.$base} * 4) 0;
+        width: 100%;
+        display: flex;
+        gap: calc(#{var_default.$base} * 8);
+        overflow-x: hidden;
+    }
+
+    .c-nav__extended-content {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+    }
+
+    /* Setting parent title styles */
+    .c-nav__extended-content h2:first-child.c-nav__extended-dropdown-title {
+        white-space: nowrap;
+        margin-top: calc(#{var_default.$base} * .5);
+        color: $c-nav-v-color-contrasting-active;
+    }
+
+    /* Direct subitems (to main item) styles */
+    ul.c-nav__extended-child-menu {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(4, max-content) 1fr;
+        gap: 0 1px;
+        background-color: $c-nav-v-color-contrasting;
+
+        & > li {
+            background-color: $c-nav-v-background-expanded;
+            padding-left: calc(#{var_default.$base} * 4);
+            padding-right: calc(#{var_default.$base} * 4);
+        }
+
+        & > li > .c-nav__item-wrapper .c-nav__text {
+            font-weight: bold;
+        }
     }
 }
 
+/* Vertical Navigation */
 .c-nav.c-nav.c-nav--vertical {
     font-size: $c-nav-v-font-size;
 
