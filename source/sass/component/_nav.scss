@@ -90,6 +90,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     }
 
     .c-nav__item:not(.is-open)>.c-nav,
+    .c-nav__item:not(.is-open)>.c-nav__child-container,
     .c-nav__item:not(.is-open) .c-nav__toggle:before {
         display: none;
     }
@@ -240,6 +241,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
 /* Extended Dropdown */
 .c-nav.c-nav--extended-dropdown {
+    // Change preloader styles
+    .c-nav.preloader > li{
+        position: relative;
+    }
+
+    .c-nav__item.has-fetched > .c-nav__child-container .preloader {
+        display: none;
+    }
+
     .c-nav .c-nav__item:not(.is-open) > .c-nav {
         display: grid;
         overflow: hidden;
