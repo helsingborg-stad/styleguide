@@ -265,13 +265,12 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
     .c-nav.c-nav__extended-child-menu .c-nav__item > .c-nav__child-container {
         display: grid;
         grid-template-rows: 0fr;
+        transition: grid-template-rows 0.3s ease-out;
 
         & > * {
             overflow: hidden;
             min-height: 0;
         }
-
-        transition: grid-template-rows 0.3s ease-out;
     }
 
     /* Opening main items animation */
@@ -324,6 +323,15 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         grid-template-rows: repeat(4, max-content) 1fr;
         gap: 0 1px;
         background-color: $c-nav-v-color-contrasting;
+
+        ul.c-nav.c-nav--child {
+            background-color: rgba(0, 0, 0, 0.03);
+
+            &::after {
+                content: none;
+                display: none;
+            }
+        }
 
         & > li {
             background-color: $c-nav-v-background-expanded;
