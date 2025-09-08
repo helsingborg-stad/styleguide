@@ -93,10 +93,10 @@ export function initializeMenus() {
                     [...mutation.addedNodes].forEach((node) => {
                         if (
                             node.nodeType === Node.ELEMENT_NODE &&
-                            (node as HTMLElement).classList?.contains('c-nav') &&
-                            !(node as HTMLElement).classList?.contains('preloader')
+                            (node as HTMLElement).classList?.contains('c-nav__child-container') &&
+                            !(node as HTMLElement).querySelector('.c-nav.preloader')
                         ) {
-                           new Nav(node as HTMLElement);
+                            new Nav(node as HTMLElement);
                         }
                     });
                 }
