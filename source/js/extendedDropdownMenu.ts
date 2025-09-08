@@ -31,7 +31,6 @@ class ExtendedDropdownMenu {
         window.addEventListener('resize', () => {
             clearTimeout(this.resizeTimeout);
             this.resizeTimeout = window.setTimeout(() => {
-                console.log('Resizing extended dropdown menu');
                 this.setElementPositionsAndSizes();
             }, 200);
         });
@@ -52,7 +51,7 @@ class ExtendedDropdownMenu {
         const parentContainerSize = this.parentContainer.offsetWidth;
         const maxLeft = window.innerWidth - parentContainerSize + this.NAV_ITEM_PADDING - this.MIN_EDGE_PADDING;
         const calculatedLeftPosition = this.triggerElementPosition.left - titleElementSize - this.NAV_ITEM_PADDING;
-        console.log(parentContainerSize, window.innerWidth, maxLeft, calculatedLeftPosition);
+
         this.calculatedLeftPosition = calculatedLeftPosition > maxLeft ? maxLeft : (calculatedLeftPosition < this.MIN_EDGE_PADDING ? this.MIN_EDGE_PADDING : calculatedLeftPosition);
         this.cachedResults[this.triggerElementPosition.left] = this.calculatedLeftPosition;
 
@@ -71,10 +70,7 @@ class ExtendedDropdownMenu {
         
         const itemsInLastColumn = totalItems % this.MAX_ROWS_PER_COLUMN || this.MAX_ROWS_PER_COLUMN;
         const emptySlots = this.MAX_ROWS_PER_COLUMN - itemsInLastColumn;
-        
-        console.log(items.length)
-        console.log(items)
-        console.log(emptySlots)
+
         if (emptySlots > 0) {
             // Fill all the remaining rows in the last column
             lastItem.style.gridRow = `span ${emptySlots + 1}`;
