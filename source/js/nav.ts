@@ -7,11 +7,17 @@ class Nav {
             this.targetItemSelector,
             '> .c-nav__item-wrapper',
         ];
-        if (menu.classList.contains('c-nav--vertical')) {
+
+        // Allow to click main item if vertical or extended dropdown
+        if (
+            menu.classList.contains('c-nav--vertical') ||
+            menu.classList.contains('c-nav--extended-dropdown')
+        ) {
             selectorArray.push('.c-nav__toggle');
         }
 
         const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
+
         if (items.length > 0) {
             this.setListeners(items, menu);
         }
