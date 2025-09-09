@@ -3,7 +3,6 @@ class Nav {
 
     constructor(menu: HTMLElement) {
         this.targetItemSelector = '.c-nav__item.has-children.has-toggle';
-
         let selectorArray: string[] = [
             this.targetItemSelector,
             '> .c-nav__item-wrapper',
@@ -88,7 +87,7 @@ export function initializeMenus() {
                 if (
                     mutation.type === 'childList' &&
                     mutation.addedNodes.length > 0 &&
-                    (mutation.target as HTMLElement)?.classList?.contains('c-nav__item')
+                    ((mutation.target as HTMLElement)?.classList?.contains('c-nav__item') || (mutation.target as HTMLElement)?.classList?.contains('c-nav__extended-content'))
                 ) {
                     [...mutation.addedNodes].forEach((node) => {
                         if (

@@ -9,7 +9,6 @@ class ExtendedDropdownMenu {
 
     constructor(
         private parentContainer: HTMLElement,
-        private menuElement: HTMLElement,
         private titleElement: HTMLElement,
         private triggerElement: HTMLElement
     ) {}
@@ -39,10 +38,10 @@ class ExtendedDropdownMenu {
     /**
      * Sets the positions and sizes of the dropdown menu elements based on the trigger element's position.
      */
-    private setElementPositionsAndSizes() {
+    public setElementPositionsAndSizes(ignoreCache: boolean = false) {
         this.triggerElementPosition = this.triggerElement.getBoundingClientRect();
 
-        if (this.cachedResults[this.triggerElementPosition.left]) {
+        if (this.cachedResults[this.triggerElementPosition.left] && !ignoreCache) {
             this.parentContainer.style.left = `${this.cachedResults[this.triggerElementPosition.left]}px`;
             return;
         }
@@ -61,9 +60,9 @@ class ExtendedDropdownMenu {
     /**
      * Adjusts the grid row spans of the last item in the dropdown menu to ensure proper border alignment.
      */
-    private correctColumnBorders() {
+    public correctColumnBorders() {
         const items = this.parentContainer.querySelectorAll<HTMLElement>('[data-js-extended-dropdown-child-menu] > .c-nav__item');
-    
+
         if (!items.length) return;
         const totalItems = items.length;
         const lastItem = items[totalItems - 1];
@@ -78,22 +77,51 @@ class ExtendedDropdownMenu {
     }
 }
 
+/**
+ * Initializes all extended dropdown menus on the page.
+ */
 export function initializeExtendedDropdownMenu() {
     document.querySelectorAll('[data-js-extended-dropdown-content]').forEach(extendedDropdownMenu => {
         const openElement = extendedDropdownMenu.closest('.c-nav__item')?.querySelector('.c-nav__item-wrapper');
         const titleElement = extendedDropdownMenu.querySelector('[data-js-extended-dropdown-title]');
-        const menuElement = extendedDropdownMenu.querySelector('[data-js-extended-dropdown-child-menu]');
+        const asyncChildContainer = extendedDropdownMenu.querySelector('[data-js-async-children]');
 
-        if (!openElement || !menuElement || !titleElement) {
+        if (!openElement || !titleElement) {
             console.error('ExtendedDropdownMenu: Sibling element with class .c-nav__item-wrapper not found.');
             return;
         }
 
-        new ExtendedDropdownMenu(
+        const extendedDropdownMenuInstance = new ExtendedDropdownMenu(
             extendedDropdownMenu as HTMLElement,
-            menuElement as HTMLElement,
             titleElement as HTMLElement,
             openElement as HTMLElement
-        ).init();
+        );
+
+        extendedDropdownMenuInstance.init();
+
+        if (asyncChildContainer) {
+            addObserverForAsyncContent(asyncChildContainer as HTMLElement, extendedDropdownMenuInstance);
+        }
     });
+}
+
+function addObserverForAsyncContent(targetNode: HTMLElement, extendedDropdownMenuInstance: ExtendedDropdownMenu) {
+    if (!targetNode.parentElement) {
+        console.error('ExtendedDropdownMenu: asyncChildContainer has no parent element.');
+        return;
+    }
+
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            for (const removedNode of mutation.removedNodes) {
+                if (removedNode === targetNode) {
+                    extendedDropdownMenuInstance.correctColumnBorders();
+                    extendedDropdownMenuInstance.setElementPositionsAndSizes(true);
+                    observer.disconnect();
+                }
+            }
+        }
+    });
+
+    observer.observe(targetNode.parentElement, { childList: true, subtree: true });
 }

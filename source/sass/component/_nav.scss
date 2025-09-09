@@ -246,7 +246,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         position: relative;
     }
 
-    .c-nav__item.has-fetched > .c-nav__child-container .preloader {
+    .c-nav__item.has-fetched > .c-nav__child-container > .preloader {
         display: none;
     }
 
@@ -317,6 +317,23 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         display: flex;
         flex-direction: row;
         position: relative;
+
+        // Only affect the "main subitems"
+        & > .c-nav__child-container > ul > li {
+            padding-left: calc(#{var_default.$base} * 4);
+            padding-right: calc(#{var_default.$base} * 4);
+        }    
+        
+        // Only affect the "main subitems"
+        & > .c-nav__child-container > ul > li {
+            padding-left: calc(#{var_default.$base} * 4);
+            padding-right: calc(#{var_default.$base} * 4);
+        }
+
+        & > .c-nav__child-container > ul.preloader {
+            margin-left: calc(#{var_default.$base} * 4);
+            margin-right: calc(#{var_default.$base} * 4);
+        }
     }
 
     /* Setting parent title styles */
@@ -326,8 +343,19 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         color: $c-nav-v-color-contrasting-active;
     }
 
+    .c-nav.preloader > li {
+        width: calc(#{var_default.$base} * 32);
+    }
+
+    & > li 
+
     /* Direct subitems (to main item) styles */
     ul.c-nav__extended-child-menu {
+
+        & > li {
+
+        }
+
         display: grid;
         grid-auto-flow: column;
         grid-template-rows: repeat(4, max-content) 1fr;
@@ -344,9 +372,8 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         }
 
         & > li {
+            width: calc(#{var_default.$base} * 40);
             background-color: $c-nav-v-background-expanded;
-            padding-left: calc(#{var_default.$base} * 4);
-            padding-right: calc(#{var_default.$base} * 4);
         }
 
         & > li > .c-nav__item-wrapper .c-nav__text {
