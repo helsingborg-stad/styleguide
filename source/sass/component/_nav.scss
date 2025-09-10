@@ -211,11 +211,29 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
   }
 
   /* Drawer */
-  &.c-nav--drawer {
-    .c-nav__link {
-      gap: calc(var_default.$base * 3);
+    &.c-nav--drawer {
+        &.c-nav--bordered {
+            border-bottom: 1px solid #{$c-nav-v-divider-color};
+
+            .c-nav {
+                border-top: 1px solid #{$c-nav-v-divider-color};
+            }
+        }
+
+        &.c-nav--bordered.c-nav--bordered-top-level {
+            & .c-nav__item + .c-nav__item {
+                border-top: none;
+            }
+
+            & > .c-nav__item + .c-nav__item {
+                border-top: 1px solid #{$c-nav-v-divider-color};
+            }
+        }
+
+        .c-nav__link {
+            gap: calc(var_default.$base * 3);
+        }
     }
-  }
 }
 
   .c-nav.c-nav.c-nav--horizontal {
