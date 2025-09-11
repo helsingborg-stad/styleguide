@@ -47,6 +47,7 @@ import {initializeIframeAcceptance} from './iframeAcceptance';
 import {initializeSelectFilter} from './selectFilter';
 import {initializeSelectSort} from './selectSort';
 import {initializeMegaMenus} from './megaMenu';
+import {initializeExtendedDropdownMenu} from './extendedDropdownMenu';
 import {initializeSizeObserver} from './sizeObserver';
 import {initializeBrand} from './brand';
 import {initializeDismissableNotices} from './dismissableNotices';
@@ -116,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSelectFilter();
     initializeSelectSort();
     initializeMegaMenus();
+    initializeExtendedDropdownMenu();
     initializeSizeObserver();
     initializeBrand();
     initializeDismissableNotices();

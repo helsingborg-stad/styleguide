@@ -3,16 +3,21 @@ class Nav {
 
     constructor(menu: HTMLElement) {
         this.targetItemSelector = '.c-nav__item.has-children.has-toggle';
-
         let selectorArray: string[] = [
             this.targetItemSelector,
             '> .c-nav__item-wrapper',
         ];
-        if (menu.classList.contains('c-nav--vertical')) {
+
+        // Allow to click main item if vertical or extended dropdown
+        if (
+            menu.classList.contains('c-nav--vertical') ||
+            menu.classList.contains('c-nav--extended-dropdown')
+        ) {
             selectorArray.push('.c-nav__toggle');
         }
 
         const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
+
         if (items.length > 0) {
             this.setListeners(items, menu);
         }
@@ -88,15 +93,15 @@ export function initializeMenus() {
                 if (
                     mutation.type === 'childList' &&
                     mutation.addedNodes.length > 0 &&
-                    (mutation.target as HTMLElement)?.classList?.contains('c-nav__item')
+                    ((mutation.target as HTMLElement)?.classList?.contains('c-nav__item') || (mutation.target as HTMLElement)?.classList?.contains('c-nav__extended-content'))
                 ) {
                     [...mutation.addedNodes].forEach((node) => {
                         if (
                             node.nodeType === Node.ELEMENT_NODE &&
-                            (node as HTMLElement).classList?.contains('c-nav') &&
-                            !(node as HTMLElement).classList?.contains('preloader')
+                            (node as HTMLElement).classList?.contains('c-nav__child-container') &&
+                            !(node as HTMLElement).querySelector('.c-nav.preloader')
                         ) {
-                           new Nav(node as HTMLElement);
+                            new Nav(node as HTMLElement);
                         }
                     });
                 }
