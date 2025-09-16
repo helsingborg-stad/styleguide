@@ -25,6 +25,10 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         justify-content: space-between;
     }
 
+    .c-nav__item .c-nav__item-wrapper {
+        min-height: calc(#{var_default.$base} * 6.5);
+    }
+
     &.c-nav--height-sm>.c-nav__item>.c-nav__item-wrapper {
         min-height: calc(#{var_default.$base} * 5.5);
     }
