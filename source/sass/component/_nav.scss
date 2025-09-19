@@ -7,6 +7,7 @@
 
 $c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting) !default;
 $c-nav-v-background-active: var(--c-nav-v-background-active) !default;
+$c-nav-v-background-color: var(--c-nav-v-background-color, rgba(0, 0, 0, 0)) !default;
 $c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active) !default;
 $c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0, 0, 0, .05)) !default;
 $c-nav-v-divider-color: var(--c-nav-v-divider-color) !default;
@@ -324,7 +325,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         left: 0;
         width: 100%;
         z-index: var_properties.$level-5;
-        background-color: $c-nav-v-background-expanded;
+        background-color: $c-nav-v-background-color;
         justify-content: center;
     }
 
@@ -371,14 +372,9 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         width: calc(#{var_default.$base} * 32);
     }
 
-    & > li 
-
     /* Direct subitems (to main item) styles */
-    ul.c-nav__extended-child-menu {
+    & > li  ul.c-nav__extended-child-menu {
 
-        & > li {
-
-        }
 
         display: grid;
         grid-auto-flow: column;
@@ -387,7 +383,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         background-color: $c-nav-v-color-contrasting;
 
         ul.c-nav.c-nav--child {
-            background-color: rgba(0, 0, 0, 0.03);
+            background-color: $c-nav-v-background-expanded;
 
             &::after {
                 content: none;
@@ -397,7 +393,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
 
         & > li {
             width: calc(#{var_default.$base} * 40);
-            background-color: $c-nav-v-background-expanded;
+            background-color: $c-nav-v-background-color;
         }
 
         & > li > .c-nav__item-wrapper .c-nav__text {
