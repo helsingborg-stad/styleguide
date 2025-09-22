@@ -223,12 +223,18 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         }
 
         &.c-nav--bordered.c-nav--bordered-top-level {
+            border-bottom: none;
+
+            .c-nav {
+                border-top: none;
+            }
+
             & .c-nav__item + .c-nav__item {
                 border-top: none;
             }
 
-            & > .c-nav__item + .c-nav__item {
-                border-top: 1px solid #{$c-nav-v-divider-color};
+            & > .c-nav__item {
+                border-bottom: 1px solid #{$c-nav-v-divider-color};
             }
         }
 
