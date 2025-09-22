@@ -1,9 +1,9 @@
 @use "sass:map";
-@use "../element/body";
 @use "../mixin/stretch";
 @use "../setting/var_border-radius";
 @use "../setting/var_colors";
 @use "../setting/var_default";
+@use "../setting/var_fonts";
 @use "../setting/var_properties";
 
 $c-notice-color-text: var(--notice-color-text, #d73740) !default;
@@ -51,7 +51,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     .c-notice__title {
         grid-area: title;
         margin: 0;
-        line-height: body.$body-line-height;
+        line-height: var_fonts.$line-height-base;
     }
 
     .c-notice__message {

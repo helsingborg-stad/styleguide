@@ -6,20 +6,22 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$button-font-weight: var(--button-font-weight, var_fonts.$font-weight-button);
 
-$button-text-transform: var(--button-text-transform, var_fonts.$text-transform-button);
+// Font
+$c-button-font-weight: var(--c-button-font-weight, var_fonts.$font-weight-button);
+$c-button-text-transform: var(--c-button-text-transform, var_fonts.$text-transform-button);
+$c-button-font-family: var(--c-button-font-family, var_fonts.$font-family-button) !default;
+
+// Colors
 $c-button-color: var(--c-button-color, var_colors.$color-default) !default;
 $c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker) !default;
-
 $c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary) !default;
 $c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting) !default;
-
 $c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary) !default;
 $c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting) !default;
-
 $c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
 
+// Borders
 $c-button-border-radius: var(--c-button-border-radius, var_border-radius.$border-radius-md) !default;
 $c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.$border-radius-sm) !default;
 
@@ -34,8 +36,9 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     justify-content: center;
     text-decoration: none;
     cursor: pointer;
-    font-weight: $button-font-weight;
-    text-transform: $button-text-transform;
+    font-weight: $c-button-font-weight;
+    font-family: $c-button-font-family;
+    text-transform: $c-button-text-transform;
     background-color: transparent;
     border: none;
     user-select: none;
