@@ -34,7 +34,8 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
         min-height: calc(#{var_default.$base} * 5.5);
     }
 
-    &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper {
+    &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper,
+    &.c-nav--height-sm.c-nav--bordered> .c-nav__item>.c-nav__item-wrapper {
         min-height: calc(#{var_default.$base} * 6.5);
     }
 
