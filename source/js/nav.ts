@@ -9,11 +9,14 @@ class Nav {
         ];
 
         // Allow to click main item if vertical or extended dropdown
-        if (
-            menu.classList.contains('c-nav--vertical') ||
-            menu.classList.contains('c-nav--extended-dropdown')
-        ) {
+        if (menu.classList.contains('c-nav--vertical')) {
             selectorArray.push('.c-nav__toggle');
+        }
+
+        // Extended dropdown open by clicking main items or subitems on the arrow.
+        if (menu.classList.contains('c-nav--extended-dropdown')) {
+            selectorArray.unshift(':scope ul')
+            selectorArray.push('.c-nav__toggle, :scope > li > .c-nav__item-wrapper');
         }
 
         const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
