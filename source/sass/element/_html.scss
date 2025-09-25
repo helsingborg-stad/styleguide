@@ -1,5 +1,9 @@
 $html-font-size: 100%;
 
+:root {
+    container-type: inline-size;
+}
+
 html {
     font-size: $html-font-size;
 }
