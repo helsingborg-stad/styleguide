@@ -361,7 +361,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
         }
     }
 
-    .o-container, .c-collection, c-collection__item {
+    .o-container, .c-collection {
         display: unset;
         overflow: visible;
         page-break-before: avoid;
