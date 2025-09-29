@@ -104,7 +104,11 @@ export function initializeMenus() {
                             (node as HTMLElement).classList?.contains('c-nav__child-container') &&
                             !(node as HTMLElement).querySelector('.c-nav.preloader')
                         ) {
-                            new Nav(node as HTMLElement);
+                            const element = (node as HTMLElement).classList.contains('c-nav') ? node : (node as HTMLElement).querySelector('.c-nav');
+
+                            if (element) {
+                                new Nav(element as HTMLElement);
+                            }
                         }
                     });
                 }
