@@ -29,8 +29,14 @@
         gap: map.get(var_default.$spacers, "05");
 
         @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
-            &:not(:last-child) {
-               display: none;
+            &:not(:nth-last-child(2)) {
+                display: none;
+            }
+
+            &:nth-last-child(2) {
+                [data-material-symbol="home"]::after {
+                    content: "chevron_right";
+                }
             }
         }
     }
