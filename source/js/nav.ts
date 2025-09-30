@@ -16,7 +16,7 @@ class Nav {
         // Extended dropdown open by clicking main items or subitems on the arrow.
         if (menu.classList.contains('c-nav--extended-dropdown')) {
             selectorArray.unshift(':scope ul')
-            selectorArray.push('.c-nav__toggle, :scope > li > .c-nav__item-wrapper');
+            selectorArray.push('.c-nav__toggle, :scope > li.has-toggle > .c-nav__item-wrapper');
         }
 
         const items = [...menu.querySelectorAll(selectorArray.join(' '))] as HTMLElement[];
