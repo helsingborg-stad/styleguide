@@ -9,7 +9,9 @@ export default class VideoControls {
         const btn = this.PLAYER.querySelector('[js-video-control]');
         
         if(btn) {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 if (this.getVideoState() === 'playing' || !this.getVideoState()) {
                     this.pauseVideo();
                 } else {
