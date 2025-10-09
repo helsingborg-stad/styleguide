@@ -1,4 +1,4 @@
-import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import L, { Layer, Map as LeafletMap, Marker } from 'leaflet';
 import { getTiles } from '../helpers/tiles';
 
 class SetMapTiles {

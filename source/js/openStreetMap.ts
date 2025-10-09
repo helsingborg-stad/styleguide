@@ -1,5 +1,5 @@
 import InitializeOsm from './openstreetmap/map/initializeMap';
-import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import L, { Layer, Map as LeafletMap, Marker } from 'leaflet';
 import AddMarkersFromLocation from './openstreetmap/map/addMarkersFromLocation';
 import ObserveSize from './openstreetmap/sidebar/observeSize';
 import ExpandOnClick from './openstreetmap/sidebar/expandOnClick';
@@ -30,21 +30,20 @@ class OpenStreetMap {
         this.settings = this.getSettings();
         const initializeMapInstance = new InitializeOsm(this.container);
         const [map, markers] = initializeMapInstance.create();
-
         if (map && markers) {
-            this.setupMap(map, markers);
+            this.setupMap(map);
             this.setupFeatures(map, markers);
         }
     }
 
-    private setupMap(map: LeafletMap, markers: MarkerClusterGroup) {
+    private setupMap(map: LeafletMap) {
         new SetMapTiles(this.container, map);
         setView(map, JSON.parse(this.settings.startposition));
         map.zoomControl.setPosition('bottomright');
         invalidateSize(map);
     }
 
-    private setupFeatures(map: LeafletMap, markers: MarkerClusterGroup) {
+    private setupFeatures(map: LeafletMap, markers: Marker[]) {
         const zoomMarkerInstance = new ZoomMarker(map, markers);
         const handlePostsLoadingSpinnerInstance = new HandlePostsLoadingSpinner(this.container);
         const createMarkerInstance = new CreateMarker(this.container);
@@ -55,18 +54,18 @@ class OpenStreetMap {
         const observeSizeInstance = new ObserveSize(this.container, this.baseClass);
         const tooltipListenerInstance = new TooltipListener(this.container, map, markers);
         const postMarkerPairsInstance = new PostMarkerPairs(this.container);
-        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarkerInstance, this.baseClass)
+        const accessibilityFeaturesInstance = new AccessibilityFeatures(this.container, map, markers, zoomMarkerInstance, this.baseClass);
 
         const addMarkersFromLocationInstance = new AddMarkersFromLocation(
-            this.container, 
-            map, 
-            markers, 
+            this.container,
+            map,
+            markers,
             postMarkerPairsInstance,
             createMarkerInstance,
             createTooltipInstance
         );
         const postAddedInstance = new PostAdded(this.container, addMarkersFromLocationInstance);
-        const addEndpointPostsInstance = new AddEndpointPosts(this.container, map, markers);
+        const addEndpointPostsInstance = new AddEndpointPosts(this.container, map);
         const fetchEndpointPostsInstance = new FetchEndpointPosts(this.container, this.settings.endpoint);
     }
 

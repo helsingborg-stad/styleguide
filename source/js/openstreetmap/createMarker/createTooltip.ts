@@ -1,8 +1,7 @@
 import { Tooltip } from '../interface/interface';
 
 class CreateTooltip {
-    constructor(private container: HTMLElement) {
-    }
+    constructor(private container: HTMLElement) {}
 
     public create(tooltip: Tooltip, id: String|null = null) {
         let template = this.container?.querySelector('.c-openstreetmap__pin-tooltip');

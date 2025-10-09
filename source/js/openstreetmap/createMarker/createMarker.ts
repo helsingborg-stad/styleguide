@@ -1,4 +1,4 @@
-import L, { Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import L, { Map as LeafletMap, Marker } from 'leaflet';
 import { Icon } from '../interface/interface';
 
 class CreateMarker {

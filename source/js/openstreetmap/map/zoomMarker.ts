@@ -1,7 +1,7 @@
-import L, { Layer, Map as LeafletMap, Marker, MarkerClusterGroup } from 'leaflet';
+import L, { Layer, Map as LeafletMap, Marker } from 'leaflet';
 
 class ZoomMarker {
-    constructor(private map: LeafletMap, private markers: MarkerClusterGroup) {
+    constructor(private map: LeafletMap, private markers: Marker[]) {
     }
 
     public zoom(marker: Marker) {
