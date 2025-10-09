@@ -61,7 +61,7 @@
         "stylelint": "^14.4.0",
         "ts-jest": "^29.4.1",
         "typescript": "^5.9.2",
-        "vite": "^7.1.2",
+        "vite": "^7.1.9",
         "vite-plugin-simple-manifest": "^1.0.2"
     },
     "dependencies": {
