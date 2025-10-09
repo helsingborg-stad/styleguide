@@ -1,8 +1,8 @@
-import L, { Map as LeafletMap, MarkerClusterGroup } from 'leaflet';
+import L, { Map as LeafletMap } from 'leaflet';
 
 class AddEndpointPosts {
     postsContainer: HTMLElement|null = null;
-    constructor(private container: HTMLElement, map: LeafletMap, markers: MarkerClusterGroup) {
+    constructor(private container: HTMLElement, map: LeafletMap) {
         this.postsContainer = this.container.querySelector('[data-js-osm-endpoint-posts]');
 
         if (this.postsContainer) {
