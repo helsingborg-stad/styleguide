@@ -1,4 +1,5 @@
 import ClassToggle from "./classToggle";
+import { ClassToggleAttr } from "./enum";
 
 class ClassToggleInitializer {
     /**
@@ -20,11 +21,10 @@ class ClassToggleInitializer {
             mutations.forEach((mutation) => {
                 if (mutation.type === "childList") {
                     mutation.addedNodes.forEach((node) => {
-                        console.log('Added node:', node);
                         if (node instanceof HTMLElement) {
                             let triggers = [...this.findTriggers(node)];
-                            
-                            if (node.hasAttribute(ClassToggle.TRIGGER) || node.hasAttribute(ClassToggle.TRIGGER_DEPRECATED)) {
+
+                            if (node.hasAttribute(ClassToggleAttr.TRIGGER) || node.hasAttribute(ClassToggleAttr.TRIGGER_DEPRECATED)) {
                                 triggers.push(node);
                             }
 
@@ -49,7 +49,7 @@ class ClassToggleInitializer {
      * @returns A NodeList of all trigger elements found.
      */
     private findTriggers(element: HTMLElement): NodeListOf<HTMLElement> {
-        return element.querySelectorAll(`[${ClassToggle.TRIGGER}], [${ClassToggle.TRIGGER_DEPRECATED}]`);
+    return element.querySelectorAll(`[${ClassToggleAttr.TRIGGER}], [${ClassToggleAttr.TRIGGER_DEPRECATED}]`);
     }
 
     /**
@@ -57,9 +57,8 @@ class ClassToggleInitializer {
      * @param trigger The trigger element to initialize.
      */
     private initTrigger(trigger: HTMLElement) {
-        let triggerId = trigger.getAttribute(ClassToggle.TRIGGER) || trigger.getAttribute(ClassToggle.TRIGGER_DEPRECATED);
-
-        let groupId = trigger.getAttribute(ClassToggle.GROUP) || trigger.getAttribute(ClassToggle.GROUP_DEPRECATED);
+    let triggerId = trigger.getAttribute(ClassToggleAttr.TRIGGER) || trigger.getAttribute(ClassToggleAttr.TRIGGER_DEPRECATED);
+    let groupId = trigger.getAttribute(ClassToggleAttr.GROUP) || trigger.getAttribute(ClassToggleAttr.GROUP_DEPRECATED);
 
         if (triggerId) {
             new ClassToggle(trigger as HTMLElement, triggerId, groupId);

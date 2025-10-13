@@ -1,15 +1,6 @@
+import { ClassToggleAttr } from "./enum";
+
 class ClassToggle {
-    public static readonly TRIGGER: string = 'data-js-toggle-trigger';
-    public static readonly ITEM: string = 'data-js-toggle-item';
-    public static readonly CLASS: string = 'data-js-toggle-class';
-    public static readonly GROUP: string = 'data-js-toggle-group';
-
-    // Deprecated - to be removed in future versions
-    public static readonly TRIGGER_DEPRECATED: string = 'js-toggle-trigger';
-    public static readonly ITEM_DEPRECATED: string = 'js-toggle-item';
-    public static readonly CLASS_DEPRECATED: string = 'js-toggle-class';
-    public static readonly GROUP_DEPRECATED: string = 'js-toggle-group';
-
     private static groups: { [group: string]: { [id: string]: ClassToggle } } = {};
 
     /**
@@ -45,7 +36,7 @@ class ClassToggle {
      */
     private toggle() {
         this.getToggleItems().forEach((item) => {
-            item.classList.toggle(item.getAttribute(ClassToggle.CLASS) || item.getAttribute(ClassToggle.CLASS_DEPRECATED) || 'is-active');
+            item.classList.toggle(item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active');
         });
     }
 
@@ -54,7 +45,7 @@ class ClassToggle {
      * @returns A NodeList of all HTML elements associated with this toggle instance.
      */
     private getToggleItems(): NodeListOf<HTMLElement> {
-        return document.querySelectorAll(`[${ClassToggle.ITEM}="${this.id}"], [${ClassToggle.ITEM_DEPRECATED}="${this.id}"]`);
+        return document.querySelectorAll(`[${ClassToggleAttr.ITEM}="${this.id}"], [${ClassToggleAttr.ITEM_DEPRECATED}="${this.id}"]`);
     }
 
     private toggleGroupMembers() {
@@ -72,9 +63,8 @@ class ClassToggle {
      */
     public close() {
         this.trigger.setAttribute('aria-pressed', 'false');
-
         this.getToggleItems().forEach((item) => {
-            item.classList.remove(item.getAttribute(ClassToggle.CLASS) || item.getAttribute(ClassToggle.CLASS_DEPRECATED) || 'is-active');
+            item.classList.remove(item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active');
         });
     }
 }
