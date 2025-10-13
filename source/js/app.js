@@ -3,7 +3,7 @@ import expandSection from './expand-section';
 import setScrollbarCSS from './stretch';
 import Filter from './filter';
 import Sort from './sort';
-import ToggleClasses from './toggle';
+import ClassToggleInitializer from './classToggle/classToggleInitializer';
 import Menu from './menu';
 import Steppers from './steppers';
 import SplitButton from './splitButton';
@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const QuickLinksHeaderInstance = new QuickLinksHeader();
     const NavbarInstance = new Navbar();
     const selectComponentObserverInstance = new SelectComponentObserver();
-    const ToggleClassesInstance = new ToggleClasses();
     const NotificationInstance = new Notification();
     const DynamicSidebarInstance = new DynamicSidebar();
     const filter = new Filter();
@@ -86,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = new FileInput();
 
     selectComponentObserverInstance.observe();
-    ToggleClassesInstance.applyToggle();
+    (new ClassToggleInitializer()).init();
     NotificationInstance.setup();
     SortInstance.applySort();
     SplitButtonInstance.syncSplitButton();
