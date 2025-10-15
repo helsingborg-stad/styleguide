@@ -81,7 +81,7 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$b
 }
 
 .c-datebadge {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     font-family: $c-datebadge-font-family;
