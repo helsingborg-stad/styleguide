@@ -6,12 +6,11 @@ export class SelectComponentObserver {
 
 	constructor() {
 		const container = document.documentElement || document.body;
-		[...container.querySelectorAll(`[${this.selectComponentElementAttribute}]`)].forEach((element) => {
-			new Select(element as HTMLElement);
-		})
+
+		this.createInstance([...container.querySelectorAll(`[${this.selectComponentElementAttribute}]`)] as HTMLElement[]);
 	}
 
-	observe(): void {
+	public observe(): void {
 		const container = document.documentElement || document.body;
 		const observerOptions = {
 			childList: true,
@@ -22,8 +21,14 @@ export class SelectComponentObserver {
 			mutations.forEach((mutation) => {
 				if (mutation.type === "childList") {
 					mutation.addedNodes.forEach((node) => {
-						if (node instanceof HTMLElement && node.hasAttribute(`[${this.selectComponentElementAttribute}]`)) {
-							new Select(node);
+						if (node instanceof HTMLElement) {
+							let selects = [...node.querySelectorAll(`[${this.selectComponentElementAttribute}]`)];
+							
+							if (node.hasAttribute(this.selectComponentElementAttribute)) {
+								selects.push(node);
+							}
+
+							this.createInstance(selects as HTMLElement[]);
 						}
 					});
 				}
@@ -31,5 +36,11 @@ export class SelectComponentObserver {
 		});
 
 		observer.observe(container, observerOptions);
+	}
+
+	public createInstance(selects: HTMLElement[]): void {
+		selects.forEach((select) => {
+			new Select(select);
+		});
 	}
 }
