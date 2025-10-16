@@ -99,6 +99,7 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$b
         background-color: $c-datebadge-month-background;
         backdrop-filter: $c-datebadge-backdrop-filter;
         font-size: max(0.875rem, 56.25%);
+        text-transform: capitalize;
     }
 
     .c-datebadge__date {
