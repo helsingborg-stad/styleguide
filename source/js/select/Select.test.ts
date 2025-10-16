@@ -3,7 +3,6 @@ import { SelectElementSelector } from './Select';
 import UserEvent from '@testing-library/user-event';
 import { findByRole, getByRole, getByText } from "@testing-library/dom";
 import { SelectComponentObserver } from './SelectComponentObserver';
-import ToggleClasses from '../toggle';
 
 interface ISelectData {
 	label: string,
