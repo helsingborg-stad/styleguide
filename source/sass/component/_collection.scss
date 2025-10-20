@@ -261,6 +261,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
         .c-collection__icon {
             --c-icon-size: calc(#{var_default.$base} * 2);
+            padding-right: calc(#{var_default.$base} * .5);
+            align-self: center;
         }
     }
 }
