@@ -44,7 +44,7 @@ import './steppers.js'
 import './stickyKeys.js'
 import './table.js'
 import './testimonials.js'
-import './toggle.js'
+import './classToggle/classToggle.ts'
 import './tooltip.js'
 
 // Form components
