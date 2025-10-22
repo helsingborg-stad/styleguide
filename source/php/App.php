@@ -35,6 +35,8 @@ class App
      */
     public function loadPage()
     {
+        $data['assets']                         = Asset::getAll();
+
         // Navigation
         $data['topNavigation']                  = Navigation::items('pages/', [], false);
         $data['sideNavigation']                 = Navigation::items('pages/');
