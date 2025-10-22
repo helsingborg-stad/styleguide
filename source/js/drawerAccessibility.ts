@@ -7,6 +7,10 @@ class DrawerAccessibility {
     lastItem: HTMLElement;
 
     constructor(private button: HTMLElement, private drawer: HTMLElement) {
+
+        //Assume drawer is hidden initially
+        this.drawer.setAttribute('aria-hidden', 'true');
+
         this.closeButton    = drawer.querySelector('.c-drawer__close') as HTMLElement;
         this.firstMenuItem  = this.getFirstMenuItem();
         this.lastItem       = this.getLastItem();
@@ -20,10 +24,13 @@ class DrawerAccessibility {
      * Sets the focus back on the "open" button when the close button is clicked.
      */
     private setupAccessibilityListeners() {
+
+        //Focus on open
         this.button.addEventListener('click', () => {
             (this.firstMenuItem || this.closeButton).focus();
         });
 
+        //Close by tabbing
         this.lastItem.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
                 e.preventDefault();
@@ -31,14 +38,41 @@ class DrawerAccessibility {
             }
         });
 
+        //When the close button is clicked, focus
         this.closeButton.addEventListener('click', () => {
             this.button.focus();
         });
 
+        //Close by escape
         document.addEventListener('keydown', (e) => {
             if (this.drawer.classList.contains('is-open') && e.key === 'Escape') {
                 this.closeButton.click();
                 this.button.focus();
+            }
+        });
+
+        //When the drawer is being opened
+        this.drawer.addEventListener('transitionend', () => {
+            if (this.drawer.classList.contains('is-open')) {
+                this.drawer.removeAttribute('aria-hidden');
+                this.drawer.querySelectorAll('a').forEach((element) => {
+                    element.setAttribute('tabindex', '0');
+                });
+            }
+        });
+
+        //When the drawer is being closed
+        this.drawer.addEventListener('transitionend', () => {
+            if (!this.drawer.classList.contains('is-open')) {
+                this.drawer.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        //When items is being added to the drawer, add tabindex
+        this.drawer.addEventListener('DOMNodeInserted', (event) => {
+            const target = event.target as HTMLElement;
+            if (target.matches('a')) {
+                target.setAttribute('tabindex', '0');
             }
         });
     }

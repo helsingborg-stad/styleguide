@@ -10,11 +10,19 @@
 
     <link href="/assets/prism/prism.css" rel="stylesheet" />
 
-    <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
+    <!-- Styleguide - css -->
+    @if($assets['styles'])
+        @foreach($assets['styles'] as $style)
+            <link rel="stylesheet" href="/assets/dist/{{ $style }}" type="text/css" media="all">
+        @endforeach
+    @else 
+        <!-- No css found in manifest: Please build -->
+    @endif
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <noscript>
         <style>
@@ -61,7 +69,13 @@
     @yield('bottom_hero')
 
     <!-- Styleguide - js -->
-    <script src="/assets/dist/js/styleguide-js.min.js" type="module"></script>
+    @if($assets['scripts'])
+        @foreach($assets['scripts'] as $script)
+            <script src="/assets/dist/{{ $script }}" type="module"></script>
+        @endforeach
+    @else 
+        <!-- No js found in manifest: Please build -->
+    @endif
 
     <!-- Highlight js -->
     <script src="/assets/prism/prism.js" defer="defer"></script>
