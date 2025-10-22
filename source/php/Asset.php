@@ -25,7 +25,8 @@ class Asset
 
     private static function readManifest(): array
     {
-        $manifestPath = realpath(__DIR__ . '/../../dist/manifest.json');
+        $manifestPath = realpath( __DIR__ . '/../../assets/dist/manifest.json');
+
         if (!file_exists($manifestPath)) {
             return [];
         }

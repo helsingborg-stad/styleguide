@@ -13,7 +13,7 @@
     <!-- Styleguide - css -->
     @if($assets['styles'])
         @foreach($assets['styles'] as $style)
-            <link rel="stylesheet" href="/dist/{{ $style }}" type="text/css" media="all">
+            <link rel="stylesheet" href="/assets/dist/{{ $style }}" type="text/css" media="all">
         @endforeach
     @else 
         <!-- No css found in manifest: Please build -->

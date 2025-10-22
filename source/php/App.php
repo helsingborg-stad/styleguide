@@ -46,6 +46,7 @@ class App
 
         //Component library
         $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
+
         //Render page 
         $view = new \HbgStyleGuide\View();
 
