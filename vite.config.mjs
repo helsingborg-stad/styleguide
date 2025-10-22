@@ -6,6 +6,6 @@ const entries = {
 }
 
 export default createViteConfig(entries, {
-  outDir: 'assets/dist',
+  outDir: 'dist',
   manifestFile: 'manifest.json'
 })

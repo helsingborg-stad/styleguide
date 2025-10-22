@@ -10,15 +10,13 @@
 
     <link href="/assets/prism/prism.css" rel="stylesheet" />
 
-    <link rel="stylesheet" id="styleguide-css" type="text/css" href="/assets/dist/css/styleguide-css.min.css" type='text/css' media='all'>
-
     <!-- Styleguide - css -->
     @if($assets['styles'])
         @foreach($assets['styles'] as $style)
-            <link rel="stylesheet" href="/assets/dist/{{ $style }}" type="text/css" media="all">
+            <link rel="stylesheet" href="/dist/{{ $style }}" type="text/css" media="all">
         @endforeach
-    @else
-        <link rel="stylesheet" href="/assets/dist/css/styleguide-css.min.css" type="text/css" media="all">
+    @else 
+        <!-- No css found in manifest: Please build -->
     @endif
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,7 +74,7 @@
             <script src="/assets/dist/{{ $script }}" type="module"></script>
         @endforeach
     @else 
-        <script src="/assets/dist/js/styleguide-js.min.js" type="module"></script>
+        <!-- No js found in manifest: Please build -->
     @endif
 
     <!-- Highlight js -->
