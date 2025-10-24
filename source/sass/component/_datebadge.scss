@@ -43,7 +43,7 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$b
 }
 
 .c-datebadge.c-datebadge--translucent {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(140%) opacity(100%);
+    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 1.5)) brightness(200%) opacity(100%);
     --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
     --c-datebadge-month-background: rgba(255, 255, 255, 0.8);
     --c-datebadge-color: #{var_colors.$color-black};
