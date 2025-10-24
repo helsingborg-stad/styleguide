@@ -35,6 +35,8 @@ class App
      */
     public function loadPage()
     {
+        $data['assets']                         = Asset::getAll();
+
         // Navigation
         $data['topNavigation']                  = Navigation::items('pages/', [], false);
         $data['sideNavigation']                 = Navigation::items('pages/');
@@ -44,6 +46,7 @@ class App
 
         //Component library
         $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
+
         //Render page 
         $view = new \HbgStyleGuide\View();
 

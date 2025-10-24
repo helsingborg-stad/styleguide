@@ -70,6 +70,10 @@ export default class Slider {
 
         this.changeNavigationButtonsToSpans();
 
+        this.splide.on('mounted', () => {
+            this.lazyloadVideo();
+        });
+
         if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
             this.splide.mount();
         } else {
@@ -120,7 +124,7 @@ export default class Slider {
         let padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
         const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
-        const sliderType = this.sliderElement.hasAttribute('data-slider-loop') && !this.sliderElement.querySelector('video') ? 'loop' : 'slide';
+        const sliderType = this.sliderElement.hasAttribute('data-slider-loop') ? 'loop' : 'slide';
 
         return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, sliderType: sliderType };
     }
@@ -150,6 +154,31 @@ export default class Slider {
         })
     }
 
+    /**
+     * Lazyloads videos within the slider by setting their source attributes and loading them.
+     * 
+     * @returns void
+     */
+    private lazyloadVideo() {
+        const originalSlides = this.splide.Components.Slides.get(true);
+
+        if (!originalSlides || originalSlides.length === 0) {
+            return;
+        }
+
+        originalSlides.forEach(slideComponent => {
+            const videoAttribute = slideComponent.slide.getAttribute('data-js-slider-video');
+
+            if (!videoAttribute) {
+                return;
+            }
+
+            const video = slideComponent.slide.querySelector('video');
+            const source = video?.querySelector('source');
+            source?.setAttribute('src', videoAttribute);
+            video?.load();
+        });
+    }
 
     autoslideToggle() {
         const { Autoplay } = this.splide.Components;
