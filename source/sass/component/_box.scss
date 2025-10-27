@@ -80,11 +80,11 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
     }
 
     &.c-box--ratio-4-3 {
-        aspect-ratio: 3/4;
+        aspect-ratio: 4/3;
     }
 
     &.c-box--ratio-12-16 {
-        aspect-ratio: 16/12;
+        aspect-ratio: 12/16;
     }
 }
 
