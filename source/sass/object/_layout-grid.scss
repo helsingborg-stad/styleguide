@@ -3,6 +3,11 @@
 .o-layout-grid {
     display: grid;
 
+    &.o-layout-grid--cq {
+        container-type: inline-size;
+        container-name: layout-grid;
+    }
+
     @for $i from 0 through 24 {
         &--gap-#{$i} {
             gap: calc(#{$i} * #{var_default.$base} * .5);
@@ -65,6 +70,42 @@
                 }
 
                 &--order-#{$i}\@#{$breakpoint} {
+                    order: #{$i};
+                }
+            }
+        }
+    }
+
+    @each $container-breakpoint, $value in var_default.$container-breakpoints-map {
+        @container layout-grid (min-width: #{$value}) {
+            @for $i from 1 through 12 {
+                &--cols-#{$i}\@cq-#{$container-breakpoint} {
+                    grid-template-columns: repeat(#{$i}, 1fr);
+                }
+
+                &--col-span-#{$i}\@cq-#{$container-breakpoint} {
+                    grid-column: span #{$i};
+                }
+
+                &--row-span-#{$i}\@cq-#{$container-breakpoint} {
+                    grid-row: span #{$i};
+                }
+            }
+
+            @for $i from 0 through 24 {
+                &--gap-#{$i}\@cq-#{$container-breakpoint} {
+                    gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--row-gap-#{$i}\@cq-#{$container-breakpoint} {
+                    row-gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--column-gap-#{$i}\@cq-#{$container-breakpoint} {
+                    column-gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--order-#{$i}\@cq-#{$container-breakpoint} {
                     order: #{$i};
                 }
             }
