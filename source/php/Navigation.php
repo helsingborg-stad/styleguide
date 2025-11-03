@@ -87,8 +87,10 @@ class Navigation
                 }
             }
         }
-        
-        $response['icons'] = self::addMaterialSymbolsMenuItem(); 
+
+        if ($folder === "pages/" || $folder === "/") {
+            $response['icons'] = self::addMaterialSymbolsMenuItem();
+        }
 
         return $response;
     }
