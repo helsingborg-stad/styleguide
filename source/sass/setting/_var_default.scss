@@ -62,6 +62,14 @@ $breakpoints-map: (
     xl: 100em, // 1600px
 ) !default;
 
+$container-breakpoints-map: (
+    xs: 20em, // 320px
+    sm: 36em, // 576px
+    md: 48em, // 768px
+    lg: 62em, // 992px
+    xl: 75em, // 1200px
+) !default;
+
 //Width
 $container-width:           var(--container-width, calc(#{$base} * 156)) !default; //1280
 $container-width-content:   var(--container-width-content, calc(#{$base} * 87.5)) !default; //700
