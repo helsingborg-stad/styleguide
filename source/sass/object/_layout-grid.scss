@@ -1,0 +1,88 @@
+@use "../setting/var_default";
+
+.o-layout-grid {
+    display: grid;
+
+    @for $i from 0 through 24 {
+        &--gap-#{$i} {
+            gap: calc(#{$i} * #{var_default.$base} * .5);
+        }
+
+        &--row-gap-#{$i} {
+            row-gap: calc(#{$i} * #{var_default.$base} * .5);
+        }
+
+        &--column-gap-#{$i} {
+            column-gap: calc(#{$i} * #{var_default.$base} * .5);
+        }
+
+        &--order-#{$i} {
+            order: #{$i};
+        }
+    }
+    
+    @for $i from 1 through 12 {
+        &--cols-#{$i} {
+            grid-template-columns: repeat(#{$i}, 1fr);
+        }
+
+        &--col-span-#{$i} {
+            grid-column: span #{$i};
+        }
+
+        &--row-span-#{$i} {
+            grid-row: span #{$i};
+        }
+    }
+
+    @each $breakpoint, $value in var_default.$breakpoints-map {
+        @media (min-width: #{$value}) {
+            @for $i from 1 through 12 {
+                &--col-span-#{$i}\@#{$breakpoint} {
+                    grid-column: span #{$i};
+                }
+
+                &--row-span-#{$i}\@#{$breakpoint} {
+                    grid-row: span #{$i};
+                }
+            }
+
+            @for $i from 0 through 24 {
+                &--gap-#{$i}\@#{$breakpoint} {
+                    gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--row-gap-#{$i}\@#{$breakpoint} {
+                    row-gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--column-gap-#{$i}\@#{$breakpoint} {
+                    column-gap: calc(#{$i} * #{var_default.$base} * .5);
+                }
+
+                &--order-#{$i}\@#{$breakpoint} {
+                    order: #{$i};
+                }
+            }
+        }
+    }
+
+    // Rows
+    &--grid-auto-rows-auto { grid-auto-rows: auto; }
+    &--grid-auto-rows-min-content { grid-auto-rows: min-content; }
+    &--grid-auto-rows-max-content { grid-auto-rows: max-content; }
+    &--grid-auto-rows-equal { grid-auto-rows: 1fr; }
+
+    // Alignment helpers (for the inner items)
+    // Vertical alignment (along rows)
+    &--align-start   { align-self: start; }
+    &--align-center  { align-self: center; }
+    &--align-end     { align-self: end; }
+    &--align-stretch { align-self: stretch; }
+
+    // Horizontal alignment (along columns)
+    &--justify-start   { justify-self: start; }
+    &--justify-center  { justify-self: center; }
+    &--justify-end     { justify-self: end; }
+    &--justify-stretch { justify-self: stretch; }
+}
