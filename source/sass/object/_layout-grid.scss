@@ -38,6 +38,10 @@
     @each $breakpoint, $value in var_default.$breakpoints-map {
         @media (min-width: #{$value}) {
             @for $i from 1 through 12 {
+                &--cols-#{$i}\@#{$breakpoint} {
+                    grid-template-columns: repeat(#{$i}, 1fr);
+                }
+
                 &--col-span-#{$i}\@#{$breakpoint} {
                     grid-column: span #{$i};
                 }
