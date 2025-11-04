@@ -91,23 +91,23 @@
             "available": {
                 "o-layout-grid--justify-start": {
                     "description": "Align an item to the start horizontally (justify-self: start).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--justify-center": {
                     "description": "Align an item to the center horizontally (justify-self: center).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--justify-end": {
                     "description": "Align an item to the end horizontally (justify-self: end).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--justify-stretch": {
                     "description": "Stretch an item horizontally (justify-self: stretch).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 }
             }
         },
@@ -117,23 +117,23 @@
             "available": {
                 "o-layout-grid--align-start": {
                     "description": "Align an item to the start vertically (align-self: start).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--align-center": {
                     "description": "Align an item to the center vertically (align-self: center).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--align-end": {
                     "description": "Align an item to the end vertically (align-self: end).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--align-stretch": {
                     "description": "Stretch an item vertically (align-self: stretch).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 }
             }
         },
@@ -143,61 +143,25 @@
             "available": {
                 "o-layout-grid--grid-auto-rows-auto": {
                     "description": "Set grid-auto-rows to auto.",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--grid-auto-rows-min-content": {
                     "description": "Set grid-auto-rows to min-content.",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--grid-auto-rows-max-content": {
                     "description": "Set grid-auto-rows to max-content.",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 },
                 "o-layout-grid--grid-auto-rows-equal": {
                     "description": "Set grid-auto-rows to 1fr (equal height rows).",
-                    "responsive": false,
-                    "containerQuery": false
+                    "responsive": true,
+                    "containerQuery": true
                 }
             }
         }
-    },
-    "available": {
-        "o-layout-grid--cq": "Enable container query support (container-type: inline-size; container-name: layout-grid;)",
-        "o-layout-grid--gap-{n}": "Set the gap between grid items (0-24).",
-        "o-layout-grid--row-gap-{n}": "Set the row gap (0-24).",
-        "o-layout-grid--column-gap-{n}": "Set the column gap (0-24).",
-        "o-layout-grid--order-{n}": "Set the order of an item (0-24).",
-        "o-layout-grid--cols-{n}": "Set the number of columns (1-12).",
-        "o-layout-grid--col-span-{n}": "Make an item span n columns (1-12).",
-        "o-layout-grid--row-span-{n}": "Make an item span n rows (1-12).",
-        "o-layout-grid--cols-{n}@{breakpoint}": "Set the number of columns at a specific breakpoint (1-12).",
-        "o-layout-grid--col-span-{n}@{breakpoint}": "Make an item span n columns at a specific breakpoint (1-12).",
-        "o-layout-grid--row-span-{n}@{breakpoint}": "Make an item span n rows at a specific breakpoint (1-12).",
-        "o-layout-grid--gap-{n}@{breakpoint}": "Set the gap between grid items at a specific breakpoint (0-24).",
-        "o-layout-grid--row-gap-{n}@{breakpoint}": "Set the row gap at a specific breakpoint (0-24).",
-        "o-layout-grid--column-gap-{n}@{breakpoint}": "Set the column gap at a specific breakpoint (0-24).",
-        "o-layout-grid--order-{n}@{breakpoint}": "Set the order of an item at a specific breakpoint (0-24).",
-        "o-layout-grid--cols-{n}@cq-{container-breakpoint}": "Set the number of columns at a specific container query breakpoint (1-12).",
-        "o-layout-grid--col-span-{n}@cq-{container-breakpoint}": "Make an item span n columns at a specific container query breakpoint (1-12).",
-        "o-layout-grid--row-span-{n}@cq-{container-breakpoint}": "Make an item span n rows at a specific container query breakpoint (1-12).",
-        "o-layout-grid--gap-{n}@cq-{container-breakpoint}": "Set the gap between grid items at a specific container query breakpoint (0-24).",
-        "o-layout-grid--row-gap-{n}@cq-{container-breakpoint}": "Set the row gap at a specific container query breakpoint (0-24).",
-        "o-layout-grid--column-gap-{n}@cq-{container-breakpoint}": "Set the column gap at a specific container query breakpoint (0-24).",
-        "o-layout-grid--order-{n}@cq-{container-breakpoint}": "Set the order of an item at a specific container query breakpoint (0-24).",
-        "o-layout-grid--grid-auto-rows-auto": "Set grid-auto-rows to auto.",
-        "o-layout-grid--grid-auto-rows-min-content": "Set grid-auto-rows to min-content.",
-        "o-layout-grid--grid-auto-rows-max-content": "Set grid-auto-rows to max-content.",
-        "o-layout-grid--grid-auto-rows-equal": "Set grid-auto-rows to 1fr (equal height rows).",
-        "o-layout-grid--align-start": "Align an item to the start vertically (align-self: start).",
-        "o-layout-grid--align-center": "Align an item to the center vertically (align-self: center).",
-        "o-layout-grid--align-end": "Align an item to the end vertically (align-self: end).",
-        "o-layout-grid--align-stretch": "Stretch an item vertically (align-self: stretch).",
-        "o-layout-grid--justify-start": "Align an item to the start horizontally (justify-self: start).",
-        "o-layout-grid--justify-center": "Align an item to the center horizontally (justify-self: center).",
-        "o-layout-grid--justify-end": "Align an item to the end horizontally (justify-self: end).",
-        "o-layout-grid--justify-stretch": "Stretch an item horizontally (justify-self: stretch)."
     }
 }
