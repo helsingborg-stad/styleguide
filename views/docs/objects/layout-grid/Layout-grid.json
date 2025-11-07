@@ -1,0 +1,167 @@
+{
+    "title": "Layout Grid",
+    "summary": [
+        "The layout grid object (.o-layout-grid) provides a flexible CSS grid system with responsive and container query support."
+    ],
+    "description": {
+        "main": "Use .o-layout-grid to create grid layouts. Modifiers allow you to control columns, gaps, spans, and alignment responsively or with container queries."
+    },
+    "includesPath": "pages.objects.usage.layout-grid",
+    "examples": {
+        "containerQuery": {
+            "title": "Container Query Support",
+            "description": "Enable container query support by adding the .o-layout-grid--cq modifier to the grid container. This is needed to use container query based modifiers.",
+            "available": {
+                "o-layout-grid--cq": {
+                    "description": "Enables container query support (container-type: inline-size; container-name: layout-grid;).",
+                    "responsive": false,
+                    "containerQuery": false
+                }
+            }
+        },
+        "span": {
+            "title": "Column and Row Span",
+            "description": "Make grid items span multiple columns or rows using the span modifiers.",
+            "available": {
+                "o-layout-grid--col-span-{n}": {
+                    "description": "Make an item span n columns.",
+                    "allowedValues": "1-12",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--row-span-{n}": {
+                    "description": "Make an item span n rows.",
+                    "allowedValues": "1-12",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            } 
+        },
+        "columns": {
+            "title": "Number of Columns",
+            "description": "Set the number of columns in the layout grid.",
+            "available": {
+                "o-layout-grid--cols-{n}": {
+                    "description": "Set the number of columns.",
+                    "allowedValues": "1-12",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        },
+        "order": {
+            "title": "Order",
+            "description": "Control the order of grid items.",
+            "available": {
+                "o-layout-grid--order-{n}": {
+                    "description": "Set the order of an item.",
+                    "allowedValues": "0-24",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        },
+        "gap": {
+            "title": "Gap",
+            "description": "Available gap settings in the layout grid",
+            "available": {
+                "o-layout-grid--gap-{n}": {
+                    "description": "Set the gap between grid items.",
+                    "allowedValues": "0-24",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--row-gap-{n}": {
+                    "description": "Set the row gap.",
+                    "allowedValues": "0-24",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--column-gap-{n}": {
+                    "description": "Set the column gap.",
+                    "allowedValues": "0-24",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        },
+        "justify": {
+            "title": "Justify Placement",
+            "description": "Control horizontal alignment of grid items.",
+            "available": {
+                "o-layout-grid--justify-start": {
+                    "description": "Align an item to the start horizontally (justify-self: start).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--justify-center": {
+                    "description": "Align an item to the center horizontally (justify-self: center).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--justify-end": {
+                    "description": "Align an item to the end horizontally (justify-self: end).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--justify-stretch": {
+                    "description": "Stretch an item horizontally (justify-self: stretch).",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        },
+        "align": {
+            "title": "Align Placement",
+            "description": "Control vertical alignment of grid items.",
+            "available": {
+                "o-layout-grid--align-start": {
+                    "description": "Align an item to the start vertically (align-self: start).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--align-center": {
+                    "description": "Align an item to the center vertically (align-self: center).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--align-end": {
+                    "description": "Align an item to the end vertically (align-self: end).",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--align-stretch": {
+                    "description": "Stretch an item vertically (align-self: stretch).",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        },
+        "autoRows": {
+            "title": "Auto Rows",
+            "description": "Set the grid-auto-rows property for the layout grid.",
+            "available": {
+                "o-layout-grid--grid-auto-rows-auto": {
+                    "description": "Set grid-auto-rows to auto.",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--grid-auto-rows-min-content": {
+                    "description": "Set grid-auto-rows to min-content.",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--grid-auto-rows-max-content": {
+                    "description": "Set grid-auto-rows to max-content.",
+                    "responsive": true,
+                    "containerQuery": true
+                },
+                "o-layout-grid--grid-auto-rows-equal": {
+                    "description": "Set grid-auto-rows to 1fr (equal height rows).",
+                    "responsive": true,
+                    "containerQuery": true
+                }
+            }
+        }
+    }
+}

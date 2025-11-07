@@ -43,13 +43,14 @@ class View
     public function registerLayoutViewComposer(BladeServiceInterface $blade)
     {
         //Documentation module alias
-        $blade->registerComponentDirective("layout.doc", "doc");
-        $blade->registerComponentDirective("layout.utility_doc", "utility_doc");
-        $blade->registerComponentDirective("layout.script_doc", "script_doc");
-        $blade->registerComponentDirective("layout.mixins_doc", "mixins_doc");
+    $blade->registerComponentDirective("layout.doc", "doc");
+    $blade->registerComponentDirective("layout.utility_doc", "utility_doc");
+    $blade->registerComponentDirective("layout.script_doc", "script_doc");
+    $blade->registerComponentDirective("layout.mixins_doc", "mixins_doc");
+    $blade->registerComponentDirective("layout.objects_doc", "objects_doc");
   
-        //Doc templates
-        $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc', 'layout.mixins_doc');
+    //Doc templates
+    $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc', 'layout.mixins_doc', 'layout.objects_doc');
 
         //Documentation module
         foreach ($docTemplates as $template) {
@@ -64,7 +65,7 @@ class View
                     $path = (isset($viewData['viewDoc'])) ?
                         BASEPATH . "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
                         $componentLibraryPackagePath . "/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
-    
+
                     //Locate config file
                     $configFile = glob($path);
     
@@ -142,6 +143,12 @@ class View
                     } else {
                         $format = array();
                     }
+
+                    if (isset($configJson['includesPath'])) {
+                        $includesPath = $configJson['includesPath'];
+                    } else {
+                        $includesPath = "";
+                    }
     
                 } else {
                     $settings = array();
@@ -164,7 +171,7 @@ class View
                         'docContainerPadding' => 0,
                     ];
                 }
-    
+
                 $view->with([
                     'summary' => $summary,
                     'format' => $format,
@@ -177,8 +184,9 @@ class View
                     'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                     'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                     'paper' => $paper,
-                    'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : "",
-                    'modifiersExample' => $modifiersExample
+                    'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : ($configJson['examples'] ?? ""),
+                    'modifiersExample' => $modifiersExample,
+                    'includesPath' => $includesPath,
                 ]);
     
                 
