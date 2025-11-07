@@ -8,6 +8,7 @@
         container-name: layout-grid;
     }
 
+    /* Base modifiers */
     @for $i from 0 through 24 {
         &--gap-#{$i} {
             gap: calc(#{$i} * #{var_default.$base} * .5);
@@ -26,6 +27,7 @@
         }
     }
     
+    /* Columns & Span */
     @for $i from 1 through 12 {
         &--cols-#{$i} {
             grid-template-columns: repeat(#{$i}, 1fr);
@@ -40,8 +42,28 @@
         }
     }
 
+    /* Rows */
+    &--grid-auto-rows-auto { grid-auto-rows: auto; }
+    &--grid-auto-rows-min-content { grid-auto-rows: min-content; }
+    &--grid-auto-rows-max-content { grid-auto-rows: max-content; }
+    &--grid-auto-rows-equal { grid-auto-rows: 1fr; }
+
+    /* Alignment helpers (for the inner items) */
+    &--align-start   { align-self: start; }
+    &--align-center  { align-self: center; }
+    &--align-end     { align-self: end; }
+    &--align-stretch { align-self: stretch; }
+
+    /* Justify helpers (for the inner items) */
+    &--justify-start   { justify-self: start; }
+    &--justify-center  { justify-self: center; }
+    &--justify-end     { justify-self: end; }
+    &--justify-stretch { justify-self: stretch; }
+
+    /* Responsive Variants (Media Queries) */
     @each $breakpoint, $value in var_default.$breakpoints-map {
         @media (min-width: #{$value}) {
+            // Grid
             @for $i from 1 through 12 {
                 &--cols-#{$i}\@#{$breakpoint} {
                     grid-template-columns: repeat(#{$i}, 1fr);
@@ -73,11 +95,31 @@
                     order: #{$i};
                 }
             }
+
+            // Rows (responsive)
+            &--grid-auto-rows-auto\@#{$breakpoint} { grid-auto-rows: auto; }
+            &--grid-auto-rows-min-content\@#{$breakpoint} { grid-auto-rows: min-content; }
+            &--grid-auto-rows-max-content\@#{$breakpoint} { grid-auto-rows: max-content; }
+            &--grid-auto-rows-equal\@#{$breakpoint} { grid-auto-rows: 1fr; }
+
+            // Align (responsive)
+            &--align-start\@#{$breakpoint}   { align-self: start; }
+            &--align-center\@#{$breakpoint}  { align-self: center; }
+            &--align-end\@#{$breakpoint}     { align-self: end; }
+            &--align-stretch\@#{$breakpoint} { align-self: stretch; }
+
+            // Justify (responsive)
+            &--justify-start\@#{$breakpoint}   { justify-self: start; }
+            &--justify-center\@#{$breakpoint}  { justify-self: center; }
+            &--justify-end\@#{$breakpoint}     { justify-self: end; }
+            &--justify-stretch\@#{$breakpoint} { justify-self: stretch; }
         }
     }
 
+    /* Responsive Variants (Container Queries) */
     @each $container-breakpoint, $value in var_default.$container-breakpoints-map {
         @container layout-grid (min-width: #{$value}) {
+            // Grid
             @for $i from 1 through 12 {
                 &--cols-#{$i}\@cq-#{$container-breakpoint} {
                     grid-template-columns: repeat(#{$i}, 1fr);
@@ -109,25 +151,24 @@
                     order: #{$i};
                 }
             }
+
+            // Rows (responsive)
+            &--grid-auto-rows-auto\@cq-#{$container-breakpoint} { grid-auto-rows: auto; }
+            &--grid-auto-rows-min-content\@cq-#{$container-breakpoint} { grid-auto-rows: min-content; }
+            &--grid-auto-rows-max-content\@cq-#{$container-breakpoint} { grid-auto-rows: max-content; }
+            &--grid-auto-rows-equal\@cq-#{$container-breakpoint} { grid-auto-rows: 1fr; }
+
+            // Align (responsive)
+            &--align-start\@cq-#{$container-breakpoint}   { align-self: start; }
+            &--align-center\@cq-#{$container-breakpoint}  { align-self: center; }
+            &--align-end\@cq-#{$container-breakpoint}     { align-self: end; }
+            &--align-stretch\@cq-#{$container-breakpoint} { align-self: stretch; }
+
+            // Justify (responsive)
+            &--justify-start\@cq-#{$container-breakpoint}   { justify-self: start; }
+            &--justify-center\@cq-#{$container-breakpoint}  { justify-self: center; }
+            &--justify-end\@cq-#{$container-breakpoint}     { justify-self: end; }
+            &--justify-stretch\@cq-#{$container-breakpoint} { justify-self: stretch; }
         }
     }
-
-    // Rows
-    &--grid-auto-rows-auto { grid-auto-rows: auto; }
-    &--grid-auto-rows-min-content { grid-auto-rows: min-content; }
-    &--grid-auto-rows-max-content { grid-auto-rows: max-content; }
-    &--grid-auto-rows-equal { grid-auto-rows: 1fr; }
-
-    // Alignment helpers (for the inner items)
-    // Vertical alignment (along rows)
-    &--align-start   { align-self: start; }
-    &--align-center  { align-self: center; }
-    &--align-end     { align-self: end; }
-    &--align-stretch { align-self: stretch; }
-
-    // Horizontal alignment (along columns)
-    &--justify-start   { justify-self: start; }
-    &--justify-center  { justify-self: center; }
-    &--justify-end     { justify-self: end; }
-    &--justify-stretch { justify-self: stretch; }
 }
