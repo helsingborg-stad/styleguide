@@ -1,0 +1,10 @@
+// Exports breakpoints as CSS variables for use outside of Sass
+@use "_var_default.scss" as *;
+
+:root {
+  --breakpoint-xs: #{map-get($breakpoints-map, xs)};
+  --breakpoint-sm: #{map-get($breakpoints-map, sm)};
+  --breakpoint-md: #{map-get($breakpoints-map, md)};
+  --breakpoint-lg: #{map-get($breakpoints-map, lg)};
+  --breakpoint-xl: #{map-get($breakpoints-map, xl)};
+}
