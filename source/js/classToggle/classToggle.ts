@@ -36,7 +36,10 @@ class ClassToggle {
      */
     private toggle() {
         this.getToggleItems().forEach((item) => {
-            item.classList.toggle(item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active');
+            const classAttr = item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active';
+            classAttr.split(/\s+/).forEach(cls => {
+                if (cls) item.classList.toggle(cls);
+            });
         });
     }
 
@@ -64,7 +67,10 @@ class ClassToggle {
     public close() {
         this.trigger.setAttribute('aria-pressed', 'false');
         this.getToggleItems().forEach((item) => {
-            item.classList.remove(item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active');
+            const classAttr = item.getAttribute(ClassToggleAttr.CLASS) || item.getAttribute(ClassToggleAttr.CLASS_DEPRECATED) || 'is-active';
+            classAttr.split(/\s+/).forEach(cls => {
+                if (cls) item.classList.remove(cls);
+            });
         });
     }
 }
