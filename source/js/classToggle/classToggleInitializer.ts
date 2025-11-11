@@ -58,7 +58,7 @@ class ClassToggleInitializer {
      */
     private initTrigger(trigger: HTMLElement) {
     let triggerId = trigger.getAttribute(ClassToggleAttr.TRIGGER) || trigger.getAttribute(ClassToggleAttr.TRIGGER_DEPRECATED);
-    let groupId = trigger.getAttribute(ClassToggleAttr.GROUP) || trigger.getAttribute(ClassToggleAttr.GROUP_DEPRECATED);
+    let groupId   = trigger.getAttribute(ClassToggleAttr.GROUP)   || trigger.getAttribute(ClassToggleAttr.GROUP_DEPRECATED);
 
         if (triggerId) {
             new ClassToggle(trigger as HTMLElement, triggerId, groupId);
