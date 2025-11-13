@@ -40,6 +40,10 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         flex-direction: inherit;
         flex-wrap: wrap;
         flex-direction: inherit;
+
+        > * {
+            width: 100%;
+        }
     }
 
     .c-card__header {
