@@ -33,19 +33,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     transition: all 200ms ease-in;
     border: $c-card-border-width solid $c-card-border-color;
 
-    & > *:first-child  {
-        border-top-left-radius: $c-card-border-radius;
-        border-top-right-radius: $c-card-border-radius;
-
-        .c-card__image-background {
-            border-top-left-radius: $c-card-border-radius;
-            border-top-right-radius: $c-card-border-radius;
-        }
-    } 
-
-    & > *:last-child  {
-        border-bottom-left-radius: $c-card-border-radius;
-        border-bottom-right-radius: $c-card-border-radius;
+    .c-card__paint-container {
+        contain: paint;
+        border-radius: inherit;
     }
 
     /* Sub objects */ 
@@ -86,7 +76,8 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     
     .c-card__image {
         background-color: var_colors.$color-card-image-background;
-        border-radius: inherit;
+        border-radius: none;
+
         .c-image__image {
             border-radius: inherit;
         }
@@ -315,22 +306,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
             border: none;
             filter: none;
         }
-
-        & > *:first-child  {
-            border-radius: $c-card-border-radius;
-            will-change: filter;
-            
-            .c-card__image-background {
-                border-radius: $c-card-border-radius;
-            }
-
-        }
-        
-        &.c-card__video, &.c-card__map {
-            .c-card__header {
-                border-radius: $c-card-border-radius $c-card-border-radius 0 0;
-            }
-        }
     
         &.c-card--size-sm {
             .c-card__body {
@@ -354,7 +329,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
             &.c-card--size-lg {
                 .c-card__image, .c-card__image-background {
                     order: 2;
-                    border-radius: $c-card-border-radius;
                 }
                 .c-card__body {
                     padding: 0 map.get(var_default.$spacers, '4');
@@ -393,10 +367,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
             height: 100%;
         }
         
-        .c-card__image, .c-card__image-background {
-            border-radius: $c-card-border-radius $c-card-border-radius 0 0;
-        }
-        
     }
 
     &--size-sm.c-card--size-xs {
@@ -413,7 +383,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
 
     &--size-sm .c-card__image, &--size-sm .c-card__image-background {
         flex-basis: 200px;
-        border-radius: $c-card-border-radius 0 0 $c-card-border-radius;
     }
 
     &--size-sm .c-card__image-container {
@@ -499,7 +468,6 @@ a.c-card {
         &--size-lg {
             .c-card__image-container {
                 order: 1;
-                border-radius: 0 $c-card-border-radius $c-card-border-radius 0;
             }
             
             .c-card__body {
