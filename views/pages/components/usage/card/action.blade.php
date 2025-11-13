@@ -10,7 +10,7 @@
                 ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!'],
                 ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
             ],
-            'icon' => ['icon' => 'settings', 'backgroundColor' => '#eee', 'customColor' => '#000', 'size' => 'md'],
+            'icon' => ['icon' => 'settings', 'customColor' => '#000', 'size' => 'md'],
         ])
         @endcard
     </div>
