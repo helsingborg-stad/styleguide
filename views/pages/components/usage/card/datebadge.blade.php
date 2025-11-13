@@ -11,8 +11,7 @@
                 'square' => true
             ],
             'date' => date('Y-m-d H:i:s'),
-            'dateBadge' => true,
-            'containerAware' => true
+            'dateBadge' => true
         ])
         @endcard
     </div>
@@ -24,8 +23,7 @@
             'image' => null,
             'date' => date('Y-m-d H:i:s'),
             'dateBadge' => true,
-            'hasPlaceholder' => true,
-            'containerAware' => true
+            'hasPlaceholder' => true
         ])
         @endcard
     </div>
@@ -36,8 +34,7 @@
             'content' => 'lorem ipsum dolor sit amet, consectetur adipiscing elit',
             'image' => null,
             'date' => date('Y-m-d H:i:s'),
-            'dateBadge' => true,
-            'containerAware' => true
+            'dateBadge' => true
         ])
         @endcard
     </div>

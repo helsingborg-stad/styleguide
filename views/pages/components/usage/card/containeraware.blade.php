@@ -9,8 +9,6 @@
             ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!'],
             ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
         ],
-        'containerAware' => true
-
     ])
     @endcard
 </div>

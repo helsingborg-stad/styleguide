@@ -21,7 +21,6 @@
         'classList' => [
           'c-card--flat'
         ],
-        'containerAware' => true,
         'link' => "https://helsingborg.se"
     ])
     @endcard
