@@ -22,7 +22,7 @@ $c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$col
 $c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
 
 .c-card {
-
+    container-type: inline-size;
     filter: var_properties.$drop-shadow-2;
     will-change: filter;
     display: flex;
@@ -36,9 +36,16 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     .c-card__paint-container {
         contain: paint;
         border-radius: inherit;
+        display: inherit;
+        flex-direction: inherit;
+        flex-wrap: wrap;
+        flex-direction: inherit;
     }
 
-    /* Sub objects */ 
+    .c-card__header {
+        width: 100%;
+    }
+
     .c-card__header,
     .c-card__body,
     .c-card__content-after {
@@ -129,7 +136,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         width: 100%;
         contain: paint;
     }
-
     
     &.c-card--ratio-1-1 {
         .c-card__image-container {
@@ -270,21 +276,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
                 padding-left: calc(var_default.$base * 9.5);
             }
         }
-
-        &:not(.c-card--has-image):not(.c-card--size-xs) {
-
-            .c-card__heading-container,
-            .c-card__content {
-                padding: 0;
-            }
-
-            .c-card__heading-container {
-                padding-top: calc(var_default.$base * 8.5);
-            }
-        }
     }
-    
-    
     
     /* Flat card design */
     &.c-card--flat.c-card--none {
@@ -307,12 +299,6 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
             filter: none;
         }
     
-        &.c-card--size-sm {
-            .c-card__body {
-                padding-left: map.get(var_default.$spacers, '4' );
-            }
-        }
-
         .c-card__body {
             padding-left: 0;
             padding-right: 0; 
@@ -322,24 +308,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         .c-card__content-after {
             padding: 0
         }
-
-        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-            &.c-card--size-sm,
-            &.c-card--size-md,
-            &.c-card--size-lg {
-                .c-card__image, .c-card__image-background {
-                    order: 2;
-                }
-                .c-card__body {
-                    padding: 0 map.get(var_default.$spacers, '4');
-                }
-            }
-        }
     }
     //end flat card design
 
-
-    /* TODO: CHANGE */ 
     &--svg-background {
         .c-card__image-background {
             background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
@@ -348,65 +319,27 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         }   
     }
     
-    &--size-sm,
-    &--size-md,
-    &--size-lg {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        
-        .c-card__body {
-            padding: map.get(var_default.$spacers, '4');
-        }
-        
-        .c-card__footer {
-            flex: 1;
-        }
-        
-        .c-card__image-background {
-            height: 100%;
-        }
-        
-    }
-
-    &--size-sm.c-card--size-xs {
-        & > *:first-child {
+    .c-card__paint-container {
+        @container (min-width: 500px) {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            .c-card__body {
+                padding: map.get(var_default.$spacers, '4');
+            }
+            .c-card__footer {
+                flex: 1;
+            }
             .c-card__image-background {
-                border-top-right-radius: 0;
+                height: 100%;
+            }
+            .c-card__image-container {
+                flex-basis: 30%;
+            }
+            .c-card__image-container + .c-card__body {
+                flex-basis: calc(100% - 30%);
             }
         }
-        
-        & .c-card__image-container + .c-card__body {
-            border-bottom-left-radius: 0;
-        }
-    }
-
-    &--size-sm .c-card__image, &--size-sm .c-card__image-background {
-        flex-basis: 200px;
-    }
-
-    &--size-sm .c-card__image-container {
-        flex-basis: 200px;
-    }
-    
-    &--size-sm .c-card__image-container + .c-card__body {
-        flex-basis: calc(100% - 200px);
-    }
-    
-    &--size-md .c-card__image-container {
-        flex-basis: 300px;
-    }
-    
-    &--size-md .c-card__image-container + .c-card__body {
-        flex-basis: calc(100% - 300px);
-    }
-    
-    &--size-lg .c-card__image-container {
-        flex-basis: 30%;
-    }
-    
-    &--size-lg .c-card__image-container + .c-card__body {
-        flex-basis: calc(100% - 30%);
     }
 }
 
@@ -459,44 +392,4 @@ a.c-card {
 .o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"]:after {
     border-radius: unset;
     filter: none; 
-}
-
-@include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-    .c-card {
-        &--size-sm,
-        &--size-md,
-        &--size-lg {
-            .c-card__image-container {
-                order: 1;
-            }
-            
-            .c-card__body {
-                order: 3;
-            }
-
-            .c-card__footer {
-                flex: 0 0 100%;
-                order: 3;
-            }
-        }
-    }
-}
-       
-
-@media print {
-    .c-card__body {
-        padding: 10px 0 0;
-        margin: 0px;
-    }
-
-    .c-card--panel .c-card__header {
-        background: none;
-        border-bottom: 3px solid #ae0b05;
-        padding-left: 0px;
-    }
-
-    .c-card__footer,
-    .c-card__image-container {
-        display: none;
-    }
 }
