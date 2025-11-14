@@ -80,6 +80,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     &.c-segment--card {
         flex-direction: column;
         min-height: 100%;
+        flex-wrap: unset;
 
         .c-segment__image-container {
             width: 100%;
