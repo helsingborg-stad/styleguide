@@ -8,12 +8,12 @@
 
 .c-testimonials {
     // General
-    .c-testimonial {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: calc(#{var_default.$base} * 11) auto;
-    grid-template-areas: "image header" "quote quote";
-    padding: map.get(var_default.$spacers, "4");
+    .c-testimonial .c-card__paint-container {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: calc(#{var_default.$base} * 11) auto;
+        grid-template-areas: "image header" "quote quote";
+        padding: map.get(var_default.$spacers, "4");
 
         .c-testimonial__header {
             margin-left: calc(var(--base, 8px) * 4);
