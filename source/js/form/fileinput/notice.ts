@@ -7,7 +7,7 @@ class Notice {
 
     constructor(private field: HTMLElement) {
         this.noticeTemplate = this.field.querySelector('[data-js-file="notice-template"]') as HTMLTemplateElement;
-        this.errorMessage = this.field.dataset.jsUploadErrorMessage ?? 'Following files could not be uploaded';
+        this.errorMessage = this.noticeTemplate?.dataset.jsUploadErrorMessage ?? 'Following files could not be uploaded';
     }
 
     /**
