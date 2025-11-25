@@ -82,11 +82,6 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         min-height: 100%;
         flex-wrap: unset;
 
-        .c-segment__image-container {
-            width: 100%;
-            display: block;
-        }
-
         .c-segment__image {
             aspect-ratio: 16/9;
             height: unset;
