@@ -34,7 +34,7 @@ export default class Slider {
             start: 0,
             autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
             perPage: this.sliderAttributes.perPage,
-            perMove: this.sliderAttributes.perMove ?? this.sliderAttributes.perPage,
+            perMove: this.sliderAttributes.perMove,
             focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
             gap: this.sliderAttributes.gap,
             padding: this.sliderAttributes.padding,
@@ -104,7 +104,7 @@ export default class Slider {
 
                     if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
                         this.splide.options.perPage = this.sliderAttributes.perPage;
-                        this.splide.options.perMove = this.sliderAttributes.perMove ?? this.sliderAttributes.perPage;
+                        this.splide.options.perMove = this.sliderAttributes.perMove;
                         handleObserver();
                     }
                 }
