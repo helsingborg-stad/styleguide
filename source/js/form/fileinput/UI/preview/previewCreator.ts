@@ -2,7 +2,6 @@ class PreviewCreator {
     createPreview(file: File): HTMLElement|null {
         const fileType = file.type || 'unknown';
         const url = URL.createObjectURL(file);
-        console.log(fileType);
 
         if (fileType.startsWith('image/')) {
             return this.createImagePreview(url);
