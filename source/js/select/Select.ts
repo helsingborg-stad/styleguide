@@ -47,6 +47,7 @@ export class Select {
 		this.element.addEventListener('focusout', (e) => this.triggerBlurEvent(e));
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
+		this.selectElement.addEventListener('change', () => this.setIsEmptyState());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
 		this.selectElement.addEventListener('change', () => this.closeSingleSelectDropdown());
 		this.actionOverlayElement.addEventListener('keydown', (event) => this.openDropdownOnSpacebar(event));
@@ -249,7 +250,6 @@ export class Select {
 	setSingleSelectValue(newValue: string | null) {
 		this.selectElement.value = newValue || '';
 		this.dispatchSelectChangeEvent();
-		this.setIsEmptyState();
 	}
 
 	setIsEmptyState() {
