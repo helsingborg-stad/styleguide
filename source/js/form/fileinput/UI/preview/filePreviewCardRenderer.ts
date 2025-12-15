@@ -80,7 +80,7 @@ class FilePreviewCardRenderer implements FilePreviewRenderer {
      */
     private setFileInfo(file: File, fileName: HTMLElement, fileSize: HTMLElement): void {
         fileName.textContent = this.fileNameFormatter.format(file.name);
-        fileSize.textContent = this.fileSizeFormatter.format(file.size);
+        fileSize.textContent = this.fileSizeFormatter.format(file.size || (file as any).fakeSize || 0);
     }
 
     /**
