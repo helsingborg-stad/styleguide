@@ -56,7 +56,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     }
 
     &.is-empty .c-select__action-overlay {
-        color: var_colors.$color-light;
+        color: var_colors.$color-dark;
     }
 
     &.is-ios,
