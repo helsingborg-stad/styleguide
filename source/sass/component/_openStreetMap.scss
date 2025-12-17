@@ -141,7 +141,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		width: 100%;
 	}
 
-	&.c-openstreetmap--size-md {
+	@container (min-width: 768px) {
 		.c-openstreetmap__map {
 			position: sticky;
 			width: unset;
@@ -158,57 +158,28 @@ $grid-gap: var(--grid-gap, 4) !default;
 	border-radius: 0;
 }
 
-.c-openstreetmap.c-openstreetmap--size-md {
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	background-color: var_colors.$color-white;
-
-	.c-openstreetmap__expand-icon-mobile {
-		display: none;
+.c-openstreetmap {
+	@container (min-width: 768px) {
+	  .c-openstreetmap {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		background-color: var_colors.$color-white;
+		.c-openstreetmap__expand-icon-mobile { display: none; }
+		.c-openstreetmap__expand-icon-desktop { display: block; }
+		.c-openstreetmap__tooltip-image { aspect-ratio: 16/9; max-width: 100%; }
+		.c-openstreetmap__inner-blocks { overflow-x: hidden; overflow-y: auto; }
+		.c-openstreetmap__map { flex: 1 1 50%; }
+		.c-openstreetmap__sidebar { flex: 1 0 50%; max-width: 50%; }
+		.c-openstreetmap__post-full { width: 50%; }
+	  }
 	}
-
-	.c-openstreetmap__expand-icon-desktop {
-		display: block;
-	}
-
-	.c-openstreetmap__tooltip-image {
-		aspect-ratio: 16/9;
-		max-width: 100%;
-	}
-
-	.c-openstreetmap__inner-blocks {
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.c-openstreetmap__map {
-		flex: 1 1 50%
-	}
-
-	.c-openstreetmap__sidebar {
-		flex: 1 0 50%;
-		max-width: 50%;
-	}
-
-	.c-openstreetmap__post-full {
-		width: 50%;
-	}
-
-	&.c-openstreetmap--size-xl {
-		.c-openstreetmap__map {
-			flex: 1 1 60%
-		}
-
-		.c-openstreetmap__sidebar {
-			flex: 1 0 40%;
-			max-width: 40%;
-		}
-
-		.c-openstreetmap__post-full {
-			width: 40%;
-		}
-	
+	@container (min-width: 1200px) {
+	  .c-openstreetmap {
+		.c-openstreetmap__map { flex: 1 1 60%; }
+		.c-openstreetmap__sidebar { flex: 1 0 40%; max-width: 40%; }
+		.c-openstreetmap__post-full { width: 40%; }
+	  }
 	}
 }
 
@@ -237,21 +208,10 @@ $grid-gap: var(--grid-gap, 4) !default;
 		transition: top .4s ease-in-out, height 0.6s ease-in-out;
 	}
 
-	&.c-openstreetmap--size-md {
-		.c-openstreetmap__map {
-			flex: 1 0 20%;
-		}
-		
-		.c-openstreetmap__sidebar {
-			flex: 1 0 80%;
-			max-width: 80%;
-		}
-	
-		.c-openstreetmap__posts .c-openstreetmap__post-full {
-			height: 100%;
-			width: 80%;
-			top: 0;
-		}
+	@container (min-width: 768px) {
+		.c-openstreetmap__map { flex: 1 0 20%; }
+		.c-openstreetmap__sidebar { flex: 1 0 80%; max-width: 80%; }
+		.c-openstreetmap__posts .c-openstreetmap__post-full { height: 100%; width: 80%; top: 0; }
 	}
 }
 
@@ -265,10 +225,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 		box-shadow: 0px 2px 10px -3px rgba(0,0,0,0.75);
 	}
 
-	&.c-openstreetmap--size-md .c-openstreetmap__map {
-		box-shadow: unset;
-		max-height: unset;
-		top: 0;
+	@container (min-width: 768px) {
+		.c-openstreetmap__map { box-shadow: unset; max-height: unset; top: 0; }
 	}
 
 	.c-openstreetmap__sidebar {
@@ -302,18 +260,11 @@ $grid-gap: var(--grid-gap, 4) !default;
 		margin-top: -2px;
 	}
 
-	.c-openstreetmap__sidebar--size-lg {
-		.c-openstreetmap__posts {
-			flex: 0 0 calc(50% - $grid-gap * .5);
-			max-width: calc(50% - $grid-gap * .5);
-		}
+	@container (min-width: 960px) {
+		.c-openstreetmap__posts { flex: 0 0 calc(50% - $grid-gap * .5); max-width: calc(50% - $grid-gap * .5); }
 	}
-
-	.c-openstreetmap__sidebar--size-xl {
-		.c-openstreetmap__posts {
-			flex: 0 0 calc(33.33333% - $grid-gap * 0.66667);
-			max-width: calc(33.33333% - $grid-gap * 0.66667);
-		}
+	@container (min-width: 1200px) {
+		.c-openstreetmap__posts { flex: 0 0 calc(33.33333% - $grid-gap * 0.66667); max-width: calc(33.33333% - $grid-gap * 0.66667); }
 	}
 
 	.c-openstreetmap__collection__item {
