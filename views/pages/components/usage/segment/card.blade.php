@@ -46,13 +46,72 @@
     </div>
     <div class="o-grid-4@md">
         @segment([
-            'title'             => 'Linked: Fusce Amet Parturient Etiam (no image, placeholder disabled)',
+            'title'             => 'Linked, No image, Placeholder disabled',
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
             'textColor'         => 'dark',
             'textAlignment'     => 'center',
             'link'              => 'https://helsingborg.se',
             'hasPlaceholder'    => false
+        ])
+        @endsegment
+    </div>
+
+    <div class="o-grid-4@md">
+        @segment([
+            'title'             => 'Linked, No image, Placeholder enabled',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'textColor'         => 'dark',
+            'textAlignment'     => 'center',
+            'link'              => 'https://helsingborg.se',
+            'hasPlaceholder'    => true
+        ])
+        @endsegment
+    </div>
+
+    <div class="o-grid-4@md">
+        @segment([
+            'title'             => 'Linked, No image, Placeholder enabled, Single button',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'textColor'         => 'dark',
+            'textAlignment'     => 'center',
+            'link'              => 'https://helsingborg.se',
+            'hasPlaceholder'    => true,
+            'buttons'           => [
+                [
+                    'text'  => 'Read more',
+                    'href'   => 'https://helsingborg.se'
+                ]
+            ]
+        ])
+        @endsegment
+    </div>
+
+    <div class="o-grid-4@md">
+        @segment([
+            'title'             => 'Linked, No image, Placeholder enabled, Single button',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'textColor'         => 'dark',
+            'textAlignment'     => 'center',
+            'link'              => 'https://helsingborg.se',
+            'hasPlaceholder'    => true,
+            'buttons'           => [
+                [
+                    'color' => 'primary',
+                    'style' => 'filled',
+                    'text'  => 'Helsingborg.se',
+                    'href'   => 'https://helsingborg.se'
+                ],
+                [
+                    'color' => 'secondary',
+                    'style' => 'filled',
+                    'text'  => 'Get Municipio',
+                    'href'   => 'https://getmunicipio.com'
+                ]
+            ]
         ])
         @endsegment
     </div>
