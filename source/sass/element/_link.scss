@@ -52,4 +52,16 @@ a, .link {
             background-color: var_colors.$color-gray;
         }
     }
+
+    &.c-link--unstyled {
+        color: inherit;
+        text-decoration: inherit;
+
+        &:hover,
+        &:active,
+        &:visited {
+            color: inherit;
+            text-decoration: inherit;
+        }
+    }
 }
