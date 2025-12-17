@@ -9,6 +9,8 @@ import FileList from './fileinput/UI/fileList';
 import FilePreviewFactory from './fileinput/UI/preview/filePreviewFactory';
 import FileInputButtonHandler from './fileinput/UI/fileInputButtonHandler';
 
+import FilePlaceholderCreator from './fileinput/placeholder';
+
 class FileInput {
     constructor() {
         this.initFileInputs();
@@ -29,6 +31,11 @@ class FileInput {
             }
 
             const controller = new FileInputController(input as HTMLInputElement);
+
+            // Adds global preview function
+            const globalPlaceholderCreator = new FilePlaceholderCreator();
+            globalPlaceholderCreator.addWindowFunction();
+            globalPlaceholderCreator.registerController(controller, input as HTMLInputElement);
 
             if (dropzone) {
                 //Main functionality

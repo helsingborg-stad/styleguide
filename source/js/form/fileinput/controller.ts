@@ -17,30 +17,30 @@ export class FileInputController {
     this.input.addEventListener('change', () => {
       const dropzone = this.input.closest('[data-js-file="dropzone"]') as HTMLElement;
       if (!dropzone) return;
-  
+      
       // Extract config from dropzone attributes
       const getMaxFiles = (): number =>
         parseInt(dropzone.getAttribute('data-js-file-max') || '', 10) || Infinity;
-  
+      
       const isMulti = dropzone.getAttribute('data-js-file-is-multi') === '1';
       const maxFiles = getMaxFiles();
-  
+      
       const existingFiles = this.getFiles();
       const newFiles = Array.from(this.input.files || []);
-  
+      
       // Determine how many files can be added
       const getRemainingSlots = (): number =>
         isMulti ? maxFiles - existingFiles.length : (existingFiles.length === 0 ? 1 : 0);
-  
+      
       const remainingSlots = getRemainingSlots();
-  
+      
       if (remainingSlots <= 0) {
         return;
       }
-  
+      
       // Limit incoming files
       const acceptedFiles = newFiles.slice(0, remainingSlots);
-  
+
       // Create new FileList
       const dataTransfer = new DataTransfer();
       acceptedFiles.forEach(file => dataTransfer.items.add(file));
@@ -50,7 +50,7 @@ export class FileInputController {
     });
   };
 
-  private addFiles(files: File[]) {
+  public addFiles(files: File[]) {
     files.forEach((file) => {
       if (!this.files.some((f) => this.isSameFile(f, file))) {
         this.files.push(file);

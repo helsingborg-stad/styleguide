@@ -1,7 +1,7 @@
 class PreviewCreator {
     createPreview(file: File): HTMLElement|null {
         const fileType = file.type || 'unknown';
-        const url = URL.createObjectURL(file);
+        const url = (file as any).isPlaceholder ? (file as any).url : URL.createObjectURL(file);
 
         if (fileType.startsWith('image/')) {
             return this.createImagePreview(url);
@@ -11,9 +11,9 @@ class PreviewCreator {
             return this.createAudioPreview(url);
         } else if (fileType === 'application/pdf') {
             return this.createPdfPreview(url);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     private createImagePreview(url: string): HTMLElement {
