@@ -23,7 +23,7 @@ export class SelectComponentObserver {
 					mutation.addedNodes.forEach((node) => {
 						if (node instanceof HTMLElement) {
 							let selects = [...node.querySelectorAll(`[${this.selectComponentElementAttribute}]`)];
-							
+
 							if (node.hasAttribute(this.selectComponentElementAttribute)) {
 								selects.push(node);
 							}

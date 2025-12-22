@@ -18,7 +18,7 @@ export class Select {
 	private dropdownElement: HTMLElement;
 	private actionOverlayElement: HTMLElement;
 	private dropdownOptionElements: NodeListOf<HTMLElement>;
-	private clearButton: HTMLElement|null;
+	private clearButton: HTMLElement | null;
 	private dropDownElement: HTMLElement;
 	private expandLessIcon: HTMLElement;
 	private expandMoreIcon: HTMLElement;
@@ -43,7 +43,7 @@ export class Select {
 
 	setupEventListeners() {
 		this.setupOptionsObserver();
-		this.selectElement.addEventListener('focusin', () => this.triggerDropdown());
+		this.selectElement.addEventListener('focusin', (e) => this.triggerDropdown(e));
 		this.element.addEventListener('focusout', (e) => this.triggerBlurEvent(e));
 		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
@@ -58,21 +58,29 @@ export class Select {
 		this.runFunctionsRequiredForInitialization();
 	}
 
+	isIos(): boolean {
+		return this.element.classList.contains('is-ios');
+	}
+
+	isAndroid(): boolean {
+		return this.element.classList.contains('is-android');
+	}
+
 	updateExpandIconsAriaStateOnTopElementClassListChange(): void {
 		const isOpen = this.element.classList.contains('is-open');
 		this.expandMoreIcon.setAttribute('aria-hidden', Boolean(isOpen).toString());
 		this.expandLessIcon.setAttribute('aria-hidden', Boolean(!isOpen).toString());
 	}
-	
+
 	updateDropdownAriaStateOnTopElementClassListChange(): void {
 		const isOpen = this.element.classList.contains('is-open');
 		this.dropDownElement.setAttribute('aria-hidden', Boolean(!isOpen).toString());
 	}
 
-	closeSingleSelectDropdown() : void {
-		if(!this.isMultiSelect()) {
+	closeSingleSelectDropdown(): void {
+		if (!this.isMultiSelect()) {
 			const element = this.element.classList;
-			if(element.contains('is-open')) {
+			if (element.contains('is-open')) {
 				element.remove('is-open');
 			}
 		}
@@ -100,7 +108,7 @@ export class Select {
 	}
 
 	openDropdownOnSpacebar(event: KeyboardEvent): any {
-		if( event.key === ' ') {
+		if (event.key === ' ') {
 			event.preventDefault();
 			this.actionOverlayElement.click()
 		}
@@ -122,14 +130,20 @@ export class Select {
 			mutations.forEach((mutation) => mutation.attributeName === 'class' && mutation.target.dispatchEvent(new Event('classListChange')));
 		});
 
-		classListChangeMutationObserver.observe(this.element, {attributes: true});
+		classListChangeMutationObserver.observe(this.element, { attributes: true });
 	}
 
 	// This function is used to trigger the dropdown the label is clicked
-	private triggerDropdown() {
+	private triggerDropdown(e: FocusEvent) {
+
+		if (this.isIos() || this.isAndroid()) {
+			return;
+		}
+
 		this.actionOverlayElement.click();
 		this.actionOverlayElement.focus();
-  }
+
+	}
 	// This method is used to trigger the blur event on the select element when the focus is moved outside of it
 	private triggerBlurEvent(e: FocusEvent) {
 		const relatedTarget = e.relatedTarget as HTMLElement | null;
@@ -159,7 +173,7 @@ export class Select {
 	updatePlaceholderText() {
 		const optionElements = this.selectElement.querySelectorAll<HTMLOptionElement>('option:checked');
 		const placeholderText = Array.from(optionElements).map(option => option.textContent?.trim()).join(', ');
-		this.actionOverlayElement.textContent = Boolean(placeholderText) ? placeholderText : this.placeholderText; 
+		this.actionOverlayElement.textContent = Boolean(placeholderText) ? placeholderText : this.placeholderText;
 	}
 
 	updateSelectedItemsListeners(updatedVisualOptionsList: NodeListOf<Element> | false = false): void {
@@ -294,7 +308,7 @@ export class Select {
 			childList: true,
 			subtree: true,
 		};
-		
+
 		let options: HTMLOptionElement[] = [];
 		const optionsObserver = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
@@ -311,7 +325,7 @@ export class Select {
 			this.addNewOptionsToList(options);
 			options = [];
 		});
-	
+
 		optionsObserver.observe(this.selectElement, observerOptions);
 	}
 
@@ -322,12 +336,12 @@ export class Select {
 			if (!dropdownOptionElement || !optionTemplateClone) return;
 			dropdownOptionElement.dataset.jsDropdownOption = option.value;
 			dropdownOptionElement.classList.add('is-fetched');
-	
+
 			const optionLabelElement = optionTemplateClone.querySelector('.c-select__option-label');
 			if (optionLabelElement) {
 				optionLabelElement.textContent = option.textContent;
 			}
-	
+
 			this.dropdownElement.appendChild(optionTemplateClone);
 		});
 
@@ -359,7 +373,7 @@ export class Select {
 	getDropdownElement(): HTMLElement {
 		return this.element.querySelector(`[${SelectElementSelector.selectDropdownElementAttribute}]`) as HTMLElement;
 	}
-	
+
 	getActionOverlayElement(): HTMLElement {
 		return this.element.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLElement;
 	}
