@@ -1,5 +1,5 @@
 import { renderComponent } from '../helpers/ComponentRenderer';
-import { SelectElementSelector } from './Select';
+import { Select, SelectElementSelector } from './Select';
 import UserEvent from '@testing-library/user-event';
 import { findByRole, getByRole, getByText } from "@testing-library/dom";
 import { SelectComponentObserver } from './SelectComponentObserver';
@@ -11,7 +11,7 @@ interface ISelectData {
 	required: boolean,
 	options: { [key: string]: string },
 	errorMessage: string
-	preselected: string[]|false,
+	preselected: string[] | false,
 	multiple: boolean,
 	name: string,
 	hideLabel: boolean,
@@ -50,6 +50,48 @@ describe('Select', () => {
 		document.body.innerHTML = '';
 	})
 
+	it('triggers click on overlay when clicking select element', async () => {
+		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
+		await renderSelectComponent({ options });
+		const element = document.querySelector('[data-js-select-element]') as HTMLElement
+
+		const actionOverlay = document.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLDivElement
+		const clickSpy = jest.fn();
+		actionOverlay.addEventListener('click', clickSpy);
+
+		await UserEvent.click(element);
+
+		expect(clickSpy).toHaveBeenCalled();
+	});
+
+	it('does not trigger click on overlay when clicking select element on ios device', async () => {
+		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
+		const component = await renderSelectComponent({ options });
+		const element = document.querySelector('[data-js-select-element]') as HTMLElement
+		(document.querySelector('.c-select') as HTMLElement).classList.add('is-ios'); // Simulate iOS device
+		const actionOverlay = document.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLDivElement
+		const clickSpy = jest.fn();
+		actionOverlay.addEventListener('click', clickSpy);
+
+		await UserEvent.click(element);
+
+		expect(clickSpy).not.toHaveBeenCalled();
+	});
+
+	it('does not trigger click on overlay when clicking select element on android device', async () => {
+		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
+		const component = await renderSelectComponent({ options });
+		const element = document.querySelector('[data-js-select-element]') as HTMLElement
+		(document.querySelector('.c-select') as HTMLElement).classList.add('is-android'); // Simulate Android device
+		const actionOverlay = document.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLDivElement
+		const clickSpy = jest.fn();
+		actionOverlay.addEventListener('click', clickSpy);
+
+		await UserEvent.click(element);
+
+		expect(clickSpy).not.toHaveBeenCalled();
+	});
+
 	it('should update value on select when clicking option list item', async () => {
 		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
 		await renderSelectComponent({ options });
@@ -73,7 +115,7 @@ describe('Select', () => {
 
 		expect(select.selectedOptions).toHaveLength(2)
 	});
-	
+
 	it('should be able to deselect selected value in multiselect', async () => {
 		const options = { 'test-1': 'Test 1' };
 		await renderSelectComponent({ options, multiple: true, preselected: ['test-1'] });
@@ -85,7 +127,7 @@ describe('Select', () => {
 
 		expect(select.selectedOptions).toHaveLength(0)
 	});
-	
+
 	it('placeholder should be visible if set and not empty', async () => {
 		const options = { 'test-1': 'Test 1' };
 		const placeholderText = "Select something";
@@ -188,6 +230,6 @@ describe('Select', () => {
 			await UserEvent.type(document.activeElement as HTMLElement, ' ') // Select first option by clicking space on it.
 
 			expect(select.value).toBe('test-1');
-		})		
+		})
 	})
 });
