@@ -31,7 +31,6 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     }
 
     .c-table__footer {
-        position: absolute;
         width: 100%;
         padding: 0 calc(#{var_default.$base} * 2);
     }
@@ -142,19 +141,20 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Scroll indicator
      */
     .c-table__scroll-indicator-wrapper {
-        margin-top: calc(#{var_default.$base} * 2);
-        width:100%;
+        margin: calc(#{var_default.$base} * 2) 0;
+        width: 100%;
         background-color: var_colors.$color-lighter;
-        height: #{var_default.$base};
-        border-radius: var_border-radius.$border-radius-lg;
+        height: calc(#{var_default.$base} * 1.5);
+        border-radius: calc(var_border-radius.$border-radius-lg * 4);
     }
 
     .c-table__scroll-indicator {
         width: 50%;
         background-color: var_colors.$color-light;
         height: inherit;
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: inherit;
         cursor: grab;
+        max-width: 90%;
     }
 
     .c-table__scroll-indicator:active {
