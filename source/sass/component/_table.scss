@@ -150,7 +150,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
     .c-table__scroll-indicator {
         width: 50%;
-        background-color: var_colors.$color-light;
+        background-color: var_colors.$color-primary;
         height: inherit;
         border-radius: inherit;
         cursor: grab;
