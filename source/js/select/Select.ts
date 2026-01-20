@@ -77,17 +77,24 @@ export class Select {
 		const searchTerm = target.value.toLowerCase().trim();
 
 		const optionElements = this.dropdownElement.querySelectorAll<HTMLElement>(`[${SelectElementSelector.selectDropdownOptionElementAttribute}]`);
-
+		let allHidden = true;
 		optionElements.forEach((optionElement) => {
 			const optionLabelElement = optionElement.querySelector('.c-select__option-label');
 			const optionLabelText = optionLabelElement ? optionLabelElement.textContent?.toLowerCase() || '' : '';
 
 			if (optionLabelText.includes(searchTerm)) {
 				optionElement.style.display = '';
+				allHidden = false;
 			} else {
 				optionElement.style.display = 'none';
 			}
 		});
+
+		if (allHidden) {
+			this.element.classList.add('search-no-results');
+		} else {
+			this.element.classList.remove('search-no-results');
+		}
 	}
 
 	isIos(): boolean {

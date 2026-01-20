@@ -67,6 +67,17 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         display: block;
     }
 
+    .c-select__search-no-results {
+        color: var_colors.$color-dark;
+        display: none;
+        padding: calc(var(--base, 8px)*2) calc(var(--base, 8px)*1.75);
+        text-align: center;
+    }
+
+    &.search-no-results .c-select__search-no-results {
+        display: block;
+    }
+
     &.is-empty .c-select__action-overlay {
         color: var_colors.$color-dark;
     }
