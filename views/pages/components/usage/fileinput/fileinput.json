@@ -8,5 +8,10 @@
         "heading": "Fileinput by drag and drop, multiple files",
         "subHeading": "",
         "text": ""
+    },
+    "dropzone-filesMin": {
+        "heading": "Fileinput with minimum number of files",
+        "subHeading": "",
+        "text": ""
     }
 }
