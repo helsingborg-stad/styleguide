@@ -77,7 +77,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         gap: map.get(var_default.$spacers, '05');
         align-content: center;
 
-        :first-child {
+        > :first-child {
             margin-top: 0;
         }
     }
