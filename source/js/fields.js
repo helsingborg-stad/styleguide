@@ -106,14 +106,6 @@ class Fields {
             this.handleNotFilled(input);
             return false;
         }
-
-        if (input.checkValidity()) {
-            this.handleValid(input);
-            return true;
-        } else {
-            this.handleInvalid(input);
-            return false;
-        }
     }
 
     handleValid(input) {
