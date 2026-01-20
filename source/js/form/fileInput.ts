@@ -10,6 +10,7 @@ import FilePreviewFactory from './fileinput/UI/preview/filePreviewFactory';
 import FileInputButtonHandler from './fileinput/UI/fileInputButtonHandler';
 
 import FilePlaceholderCreator from './fileinput/placeholder';
+import { HasMinFiles } from './fileinput/hasMinFiles';
 
 class FileInput {
     constructor() {
@@ -54,6 +55,7 @@ class FileInput {
                 //Detached event listeners
                 MaxFileSize(controller, dropzone, noticeHandler);
                 HasMaxFiles(controller, dropzone);
+                HasMinFiles(controller, dropzone);
                 FileCounter(controller, dropzone);
                 FileInputisEmpty(controller, dropzone);
             }
