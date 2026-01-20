@@ -1,12 +1,17 @@
 {
-    "select":{
+    "select": {
         "heading": "Select",
         "subHeading": "Plenty of select",
         "text": "Yes"
     },
-    "multiple":{
+    "multiple": {
         "heading": "Multiple Select",
         "subHeading": "Plenty of select",
+        "text": "Yes"
+    },
+    "search": {
+        "heading": "Searchable Select",
+        "subHeading": "Expand to search",
         "text": "Yes"
     }
 }

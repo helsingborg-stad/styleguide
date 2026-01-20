@@ -55,6 +55,18 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
     }
 
+    .c-select__search-field {
+        animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        display: none;
+        background-color: #FFF;
+        padding: #{var_default.$base};
+        border: $c-select-border-width solid $c-select-border-color;
+    }
+
+    &.is-open .c-select__search-field {
+        display: block;
+    }
+
     &.is-empty .c-select__action-overlay {
         color: var_colors.$color-dark;
     }
@@ -86,7 +98,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             display: none;
         }
     }
-    
+
     .c-select__expand-button {
         position: absolute;
         right: 0;
@@ -119,7 +131,8 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             border-radius: calc(var_default.$base * 3);
             border: none;
             font-weight: 700;
-            &:focus + .c-select_focus-styler {
+
+            &:focus+.c-select_focus-styler {
                 border-radius: calc(var_default.$base * 3);
             }
         }
@@ -136,7 +149,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     }
 
     .c-select__dropdown .c-select__option[aria-disabled="true"] {
-        
+
         .c-icon {
             color: var_colors.$color-disabled;
         }
@@ -146,12 +159,13 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             font-style: italic;
         }
     }
-    
-    /* Size modifiers */ 
+
+    /* Size modifiers */
     &.c-select--sm {
+
         .c-select__clear-button,
         .c-select__expand-button {
-            padding: 0 map.get(var_default.$spacers, "1"); 
+            padding: 0 map.get(var_default.$spacers, "1");
         }
 
         .c-select__clear-button {
@@ -169,11 +183,12 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     }
 
     &.c-select--md {
+
         .c-select__clear-button,
         .c-select__expand-button {
             padding: 0 map.get(var_default.$spacers, "2");
         }
-        
+
         .c-select__clear-button {
             font-size: $c-select-font-size-md;
             line-height: $c-select-font-size-md-line-height;
@@ -189,9 +204,10 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     }
 
     &.c-select--lg {
+
         .c-select__clear-button,
         .c-select__expand-button {
-            padding: 0 calc(calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")})); 
+            padding: 0 calc(calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")}));
         }
 
         .c-select__clear-button {
@@ -214,12 +230,12 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__select-invalid-message {
         width: 100%;
-        padding: map.get(var_default.$spacers, "1") ;
+        padding: map.get(var_default.$spacers, "1");
         display: none;
         font-size: 80%;
         color: var_colors.$color-white;
         background-color: var_colors.$color-danger;
-        border:none;
+        border: none;
         border-radius: 0 0 calc($c-select-border-radius * var_default.$base) calc($c-select-border-radius * var_default.$base);
         box-sizing: border-box;
 
@@ -242,25 +258,29 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     /* States */
     &.is-invalid {
         .c-select {
+
             &,
             &:focus,
             &:active {
                 border-color: $c-select-danger-color;
             }
         }
+
         .c-field__helper {
             color: $c-select-danger-color;
         }
     }
-    
+
     &.is-valid {
         .c-select {
+
             &,
             &:focus,
             &:active {
                 border-color: $c-select-success-color;
             }
         }
+
         .c-field__helper {
             color: $c-select-success-color;
         }
@@ -280,6 +300,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             .c-select__expand-more-icon {
                 display: none;
             }
+
             .c-select__expand-less-icon {
                 display: flex;
             }
@@ -289,7 +310,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     .c-select__dropdown {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
-        background-color: #FFF; 
+        background-color: #FFF;
         position: absolute;
         top: 100%;
         width: 100%;
@@ -302,7 +323,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__option {
         display: flex;
-        gap: calc(#{var_default.$base} * 1.5); 
+        gap: calc(#{var_default.$base} * 1.5);
         padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
         align-items: center;
         cursor: pointer;
@@ -340,13 +361,16 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         .c-select__option-label {
             transition: transform 400ms;
         }
+
         .c-select__option-icon {
             transition: transform 300ms;
         }
+
         &:hover {
+
             .c-select__option-label,
             .c-select__option-icon {
-                transform: translateX(calc(#{var_default.$base} * 0.5)); 
+                transform: translateX(calc(#{var_default.$base} * 0.5));
             }
         }
     }
@@ -358,6 +382,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         transform-origin: top;
         opacity: 0;
     }
+
     100% {
         transform: rotateX(0deg);
         transform-origin: top;
@@ -370,6 +395,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         filter: blur(4px);
         opacity: 0;
     }
+
     100% {
         filter: blur(0px);
         opacity: 1;
@@ -380,6 +406,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     0% {
         transform: rotate(180deg);
     }
+
     100% {
         transform: rotate(0deg);
     }
@@ -389,6 +416,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     0% {
         transform: rotate(-180deg);
     }
+
     100% {
         transform: rotate(0deg);
     }

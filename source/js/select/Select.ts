@@ -10,6 +10,7 @@ export enum SelectElementSelector {
 	emptySelectCssClass = 'is-empty',
 	expandLessIconCssClass = 'c-icon--expand-less',
 	expandMoreIconCssClass = 'c-icon--expand-more',
+	searchFieldElementAttribute = 'data-js-select-search-input'
 }
 
 export class Select {
@@ -24,6 +25,7 @@ export class Select {
 	private expandMoreIcon: HTMLElement;
 	private optionTemplate: HTMLTemplateElement;
 	private placeholderText: string;
+	private searchFieldElement: HTMLInputElement | null = null;
 
 	constructor(element: HTMLElement) {
 		this.element = element
@@ -37,6 +39,7 @@ export class Select {
 		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
 		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || "";
 		this.optionTemplate = this.element.querySelector('template') as HTMLTemplateElement;
+		this.searchFieldElement = this.element.querySelector(`[${SelectElementSelector.searchFieldElementAttribute}]`);
 
 		this.setupEventListeners();
 	}
@@ -54,8 +57,37 @@ export class Select {
 		this.clearButton?.addEventListener('click', () => this.setSingleSelectValue(null));
 		this.element.addEventListener('classListChange', () => this.updateDropdownAriaStateOnTopElementClassListChange());
 		this.element.addEventListener('classListChange', () => this.updateExpandIconsAriaStateOnTopElementClassListChange());
+		this.actionOverlayElement.addEventListener('click', () => this.focusSearchInput());
+		this.searchFieldElement?.addEventListener('input', (e: InputEvent) => this.handleSearchInput(e));
 
 		this.runFunctionsRequiredForInitialization();
+	}
+
+	focusSearchInput() {
+		if (this.searchFieldElement) {
+			this.searchFieldElement.value = '';
+			setTimeout(() => {
+				this.searchFieldElement?.focus();
+			}, 100); // slight delay to ensure dropdown is open
+		}
+	}
+
+	handleSearchInput(e: InputEvent) {
+		const target = e.target as HTMLInputElement;
+		const searchTerm = target.value.toLowerCase().trim();
+
+		const optionElements = this.dropdownElement.querySelectorAll<HTMLElement>(`[${SelectElementSelector.selectDropdownOptionElementAttribute}]`);
+
+		optionElements.forEach((optionElement) => {
+			const optionLabelElement = optionElement.querySelector('.c-select__option-label');
+			const optionLabelText = optionLabelElement ? optionLabelElement.textContent?.toLowerCase() || '' : '';
+
+			if (optionLabelText.includes(searchTerm)) {
+				optionElement.style.display = '';
+			} else {
+				optionElement.style.display = 'none';
+			}
+		});
 	}
 
 	isIos(): boolean {
@@ -81,6 +113,9 @@ export class Select {
 		if (!this.isMultiSelect()) {
 			const element = this.element.classList;
 			if (element.contains('is-open')) {
+				if (this.searchFieldElement) {
+					this.searchFieldElement.value = '';
+				}
 				element.remove('is-open');
 			}
 		}
@@ -142,7 +177,6 @@ export class Select {
 
 		this.actionOverlayElement.click();
 		this.actionOverlayElement.focus();
-
 	}
 	// This method is used to trigger the blur event on the select element when the focus is moved outside of it
 	private triggerBlurEvent(e: FocusEvent) {
