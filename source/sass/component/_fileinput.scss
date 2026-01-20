@@ -11,6 +11,7 @@ $c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px
 $c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
 $c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
 $c-field-danger-background-color: var(--c-field-danger-background-color, var_colors.$color-form-fields-error) !default;
+$c-field-darker-color: var(--c-field-darker-color, var_colors.$color-darker) !default;
 
 .c-fileinput {
 
@@ -44,7 +45,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         }
     }
 
-    
+
 
     &.is-dragging.is-full {
         .js-file-input-drop {
@@ -55,21 +56,27 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         .c-fileinput__area {
             &::after {
                 @include cover.cover();
-                content: "\1F6AB"; /* Unicode for 🚫 */
-                font-size: 3rem; /* Adjust the size as needed */
+                content: "\1F6AB";
+                /* Unicode for 🚫 */
+                font-size: 3rem;
+                /* Adjust the size as needed */
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                text-align: center; /* Center the content horizontally */
-                line-height: 1; /* Adjust line height to remove any extra space */
+                text-align: center;
+                /* Center the content horizontally */
+                line-height: 1;
+                /* Adjust line height to remove any extra space */
                 filter: grayscale(100%) brightness(0) contrast(100%);
                 opacity: .2;
                 z-index: var_properties.$level-2;
             }
+
             &::before {
                 content: "";
                 @include cover.cover();
-                background: rgba(255, 255, 255, 0.5); /* Dim the background */
+                background: rgba(255, 255, 255, 0.5);
+                /* Dim the background */
                 z-index: var_properties.$level-1;
             }
         }
@@ -97,7 +104,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         border-radius: $c-field-border-radius;
         background-color: $c-field-background-color;
         border: $c-field-border-width solid $c-field-border-color;
-        box-shadow: inset 0 0 50px 50px rgba(0,0,0,0.02);
+        box-shadow: inset 0 0 50px 50px rgba(0, 0, 0, 0.02);
         transition: all 0.2s ease-in-out;
     }
 
@@ -111,7 +118,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         gap: calc(#{var_default.$base} * 2);
         margin-top: calc(#{var_default.$base} * 2);
         width: 100%;
-        padding: calc(#{var_default.$base} * 2);    
+        padding: calc(#{var_default.$base} * 2);
     }
 
     /* Items uploaded */
@@ -163,6 +170,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
                 &::before {
                     content: "(";
                 }
+
                 &::after {
                     content: ")";
                 }
@@ -209,25 +217,33 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     .c-fileinput__maximum-size {
         opacity: .5;
     }
- 
-    /* File counter */ 
-    .c-fileinput__filecounter {
-        user-select: none;
+
+    .c-fileinput__file-stats {
+        bottom: calc(#{var_default.$base} * 1.5);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         position: absolute;
         right: calc(#{var_default.$base} * 2);
-        bottom: calc(#{var_default.$base} * 1.5);
+    }
+
+    /* File counter */
+    .c-fileinput__filecounter {
+        user-select: none;
         opacity: .5;
-        font-size: .7em;
+        font-size: .9em;
         transition: all 0.2s ease-in-out;
         user-select: none;
     }
- 
-    /* File counter */ 
+
+    /* File counter */
     .c-fileinput__filecounter {
         white-space: nowrap;
+
         &::before {
             content: attr(data-counter-current);
         }
+
         &::after {
             content: attr(data-counter-max);
         }
@@ -235,6 +251,20 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         &.do-animate {
             animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
+    }
+
+    .c-fileinput__filemin {
+        color: $c-field-darker-color;
+        user-select: none;
+        font-size: .9em;
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+        white-space: nowrap;
+    }
+
+    &.has-min-files-not-met .c-fileinput__filemin {
+        color: $c-field-danger-color;
+        font-weight: bold;
     }
 
     &.is-full {
@@ -272,7 +302,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 
             .c-fileinput__attachment-icon {
                 display: block;
-                
+
                 &::after {
                     position: absolute;
                     top: 50%;
@@ -311,7 +341,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             display: inline-flex;
             right: 0;
         }
-        
+
         .c-fileinput__item-icon-wrapper {
             left: calc(#{var_default.$base} * .5);
         }
@@ -323,7 +353,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             filter: var_properties.$drop-shadow-2;
             overflow: hidden;
 
-            & > * {
+            &>* {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -344,14 +374,14 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 }
 
 /* Amnimation */
- @keyframes puff-in-center {
+@keyframes puff-in-center {
     0% {
-      filter: var_properties.$drop-shadow-1 blur(4px);
-      opacity: 0;
+        filter: var_properties.$drop-shadow-1 blur(4px);
+        opacity: 0;
     }
+
     100% {
-      filter: var_properties.$drop-shadow-1 blur(0px);
-      opacity: 1;
+        filter: var_properties.$drop-shadow-1 blur(0px);
+        opacity: 1;
     }
-  }
-  
+}

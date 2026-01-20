@@ -10,7 +10,7 @@ class Fields {
         this.form = form;
         this.inputs = form.querySelectorAll('input, textarea, select');
         this.checkboxGroups = form.querySelectorAll('.checkbox-group-required');
-        
+
         this.setupFormValidate(form);
     }
 
@@ -80,8 +80,8 @@ class Fields {
     validateInput(input, submitCheck = false) {
         let valueLength = input.value ? input.value.length : 0;
 
-        if (input.hasAttribute('js-no-validation') || 
-            input.type === 'checkbox' || 
+        if (input.hasAttribute('js-no-validation') ||
+            input.type === 'checkbox' ||
             input.type === 'radio'
         ) {
             return;
@@ -107,6 +107,13 @@ class Fields {
             return false;
         }
 
+        if (input.checkValidity()) {
+            this.handleValid(input);
+            return true;
+        } else {
+            this.handleInvalid(input);
+            return false;
+        }
     }
 
     handleValid(input) {
@@ -227,7 +234,7 @@ class Fields {
         if (submitButton) {
             !emptyForm ? submitButton.disabled = true : submitButton.disabled = false;
         }
-        
+
         return emptyForm;
     }
 
