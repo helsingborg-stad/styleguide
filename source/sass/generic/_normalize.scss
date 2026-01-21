@@ -33,7 +33,7 @@ body {
 * {
     box-sizing: border-box;
 
-    &:focus-visible {
+    &:focus-visible:not(input) {
         @include focus.focus();
     }
 }
