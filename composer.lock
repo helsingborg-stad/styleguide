@@ -271,23 +271,25 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.59.9",
+            "version": "4.65.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "96b16ff71c5559f499c302645fd8f4c149e7ae1d"
+                "reference": "03c44a9fa141743a626048b0af3fee1287ed0c31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/96b16ff71c5559f499c302645fd8f4c149e7ae1d",
-                "reference": "96b16ff71c5559f499c302645fd8f4c149e7ae1d",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/03c44a9fa141743a626048b0af3fee1287ed0c31",
+                "reference": "03c44a9fa141743a626048b0af3fee1287ed0c31",
                 "shasum": ""
             },
             "require": {
                 "helsingborg-stad/blade": "^3.5.0",
+                "helsingborg-stad/wpservice": "^2.0",
                 "php": "^8.0"
             },
             "require-dev": {
+                "carthage-software/mago": "^1.0.0-rc.3",
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9.6"
             },
@@ -310,9 +312,58 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.59.9"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.0"
             },
-            "time": "2025-08-18T11:51:10+00:00"
+            "time": "2026-01-20T16:03:43+00:00"
+        },
+        {
+            "name": "helsingborg-stad/wpservice",
+            "version": "2.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/wpservice.git",
+                "reference": "3ed37137b25defbc98e24904f8523ea2f86e3c24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/wpservice/zipball/3ed37137b25defbc98e24904f8523ea2f86e3c24",
+                "reference": "3ed37137b25defbc98e24904f8523ea2f86e3c24",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "helsingborg-stad/phpcs": "^0.3.5",
+                "johnpbloch/wordpress": "^6.6",
+                "php-stubs/generator": "*",
+                "php-stubs/wordpress-stubs": "^6.6",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WpService\\": "src/",
+                    "WpCronService\\": "src/WpCronService/",
+                    "WpService\\Generator\\": "generator/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thor Brink",
+                    "email": "thor.brink@helsingborg.se"
+                }
+            ],
+            "description": "Simplifies WordPress integration by providing a centralized WpService that exposes global WordPress functions in a streamlined manner. Simplify your development workflow and enhance WordPress integration with ease.",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/wpservice/issues",
+                "source": "https://github.com/helsingborg-stad/wpservice/tree/2.0.9"
+            },
+            "time": "2025-10-07T11:25:27+00:00"
         },
         {
             "name": "illuminate/bus",
@@ -1661,12 +1712,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
