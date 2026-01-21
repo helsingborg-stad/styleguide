@@ -53,14 +53,13 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__search-field {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-        display: none;
         background-color: #FFF;
-        padding: #{var_default.$base};
         border: $c-select-border-width solid $c-select-border-color;
-    }
-
-    &.is-open .c-select__search-field {
-        display: block;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        padding: #{var_default.$base};
+        padding-top: 0;
     }
 
     .c-select__search-no-results {
