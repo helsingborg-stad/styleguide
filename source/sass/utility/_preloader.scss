@@ -63,7 +63,9 @@
   .c-option,
   .c-link,
   .c-image,
-  .c-table__column-content {
+  .c-table__column-content,
+  .c-date {
+    display: block;
     contain: layout paint;
     filter: unset !important;
     cursor: default;
