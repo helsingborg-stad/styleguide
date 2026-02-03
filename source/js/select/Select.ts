@@ -58,7 +58,7 @@ export class Select {
 		this.element.addEventListener('classListChange', () => this.updateDropdownAriaStateOnTopElementClassListChange());
 		this.element.addEventListener('classListChange', () => this.updateExpandIconsAriaStateOnTopElementClassListChange());
 		this.actionOverlayElement.addEventListener('click', () => this.focusSearchInput());
-		this.searchFieldElement?.addEventListener('input', (e: InputEvent) => this.handleSearchInput(e));
+		this.searchFieldElement?.addEventListener('input', (e: Event) => this.handleSearchInput(e as InputEvent));
 
 		this.runFunctionsRequiredForInitialization();
 	}
