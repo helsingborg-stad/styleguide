@@ -75,7 +75,7 @@
       @include cover.cover();
       margin: 2px;
       contain: paint;
-      border-radius: calc(var_border-radius.$border-radius-xs, 4px);
+      border-radius: var_border-radius.$border-radius-xs;
       animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;
