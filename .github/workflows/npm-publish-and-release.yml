@@ -32,6 +32,9 @@ jobs:
     - name: NPM Version.
       run: npm version patch
 
+    - name: Pull latest master with rebase
+      run: git pull origin master --rebase
+
     - name: Push tag.
       uses: ad-m/github-push-action@master
       with:
