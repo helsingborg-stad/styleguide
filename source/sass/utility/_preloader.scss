@@ -44,3 +44,63 @@
     }
   }
 }
+
+/**
+ * Utility: Preloader (Inner Components)
+ *
+ * This variant of the preloader utility is designed to target only inner components.
+ * It is typically applied to elements containing meaningful content, such as:
+ *   - .c-typography
+ *   - .c-button
+ *   - .c-avatar
+ *   - .c-datebadge
+ *   - .c-field
+ *   - .c-option
+ *   - .c-select
+ *
+ * Usage of this utility ensures that loading states are visually represented
+ * within content-rich components, enhancing user experience during asynchronous operations.
+ */
+.u-preloader--inner {
+  .c-typography,
+  .c-button,
+  .c-avatar,
+  .c-field,
+  .c-option,
+  .c-select,
+  .c-icon,
+  .c-image:not(.c-segment__image),
+  .c-option,
+  .c-card__image-container {
+    position: relative;
+    filter: unset !important;
+    cursor: default;
+    background: unset;
+    color: transparent;
+
+    &:after,
+    &:before {
+      content: "";
+      @include cover.cover();
+      margin: 2px;
+      contain: paint;
+      border-radius: 4px;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      background: #f6f7f8;
+      background: linear-gradient( to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33% );
+      background-size: 800px 104px;
+    }
+
+    * {
+      visibility: hidden;
+    }
+  }
+
+  .c-datebadge {
+    display: none;
+  }
+}
