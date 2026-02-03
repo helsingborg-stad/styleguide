@@ -1,4 +1,42 @@
 {
-    "format": ".u-preloader",
-    "responsive": false
+    "title": "Preloader",
+    "summary": [
+        "The preloader utility (.u-preloader) adds a shimmer loading animation to components, providing visual feedback during asynchronous operations."
+    ],
+    "description": {
+        "main": "Apply .u-preloader to show a loading state on any element. The utility creates an animated shimmer effect and hides all child content until loading completes."
+    },
+    "examples": {
+        "basic": {
+            "title": "Basic Preloader",
+            "description": "Apply the basic preloader to any element to show a loading state with a shimmer animation. All child elements will be hidden during the loading state.",
+            "available": {
+                ".u-preloader": {
+                    "description": "Adds a shimmer loading animation to the entire element and hides all children.",
+                    "responsive": false
+                }
+            }
+        },
+        "inner": {
+            "title": "Inner Component Preloader",
+            "description": "Target only specific inner components for loading states. This variant is useful when you want to show loading states for specific content-rich components while keeping the container and other elements visible.",
+            "available": {
+                ".u-preloader--inner": {
+                    "description": "Applies loading states to inner components only: .c-typography, .c-button, .c-avatar, .c-datebadge, and .c-field. The container remains visible while only meaningful content shows the shimmer effect.",
+                    "responsive": false
+                }
+            }
+        },
+        "opacity": {
+            "title": "Opacity Modifiers",
+            "description": "Control the opacity of the preloader overlay to adjust its visual intensity.",
+            "available": {
+                ".u-preloader__opacity--{1-10}": {
+                    "description": "Sets the opacity of the preloader overlay (1 = 0.1, 10 = 1.0).",
+                    "allowedValues": "1-10",
+                    "responsive": false
+                }
+            }
+        }
+    }
 }
