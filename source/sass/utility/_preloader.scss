@@ -55,6 +55,8 @@
  *   - .c-avatar
  *   - .c-datebadge
  *   - .c-field
+ *   - .c-option
+ *   - .c-select
  *
  * Usage of this utility ensures that loading states are visually represented
  * within content-rich components, enhancing user experience during asynchronous operations.
@@ -63,18 +65,26 @@
   .c-typography,
   .c-button,
   .c-avatar,
-  .c-datebadge,
-  .c-field {
+  .c-field,
+  .c-option,
+  .c-select,
+  .c-icon,
+  .c-image:not(.c-segment__image),
+  .c-option,
+  .c-card__image-container {
     position: relative;
     filter: unset !important;
     cursor: default;
+    background: unset;
+    color: transparent;
 
     &:after,
     &:before {
       content: "";
       @include cover.cover();
-
-      border-radius: inherit;
+      margin: 2px;
+      contain: paint;
+      border-radius: 4px;
       animation-duration: 1s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;
@@ -88,5 +98,9 @@
     * {
       visibility: hidden;
     }
+  }
+
+  .c-datebadge {
+    display: none;
   }
 }

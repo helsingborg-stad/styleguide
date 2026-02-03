@@ -22,7 +22,7 @@
             "description": "Target only specific inner components for loading states. This variant is useful when you want to show loading states for specific content-rich components while keeping the container and other elements visible.",
             "available": {
                 ".u-preloader--inner": {
-                    "description": "Applies loading states to inner components only: .c-typography, .c-button, .c-avatar, .c-datebadge, and .c-field. The container remains visible while only meaningful content shows the shimmer effect.",
+                    "description": "Applies loading states to inner components only: .c-typography, .c-button, .c-avatar, .c-datebadge, .c-field, .c-option, and .c-select. The container remains visible while only meaningful content shows the shimmer effect.",
                     "responsive": false
                 }
             }
