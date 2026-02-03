@@ -25,7 +25,7 @@ The style guide is intended for websites within Helsingborgs stad / Municipio We
 ### Requirements
 
 - NodeJS >= 16
-- PHP >= 7.4
+- PHP >= 8
 - [Composer](https://getcomposer.org/)
 
 ## Installation
