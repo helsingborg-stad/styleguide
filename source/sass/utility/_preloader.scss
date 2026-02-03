@@ -60,10 +60,11 @@
   .c-option,
   .c-select,
   .c-icon,
-  .c-image:not(.c-segment__image),
   .c-option,
-  .c-card__image-container {
-    position: relative;
+  .c-link,
+  .c-image,
+  .c-table__column-content {
+    contain: layout paint;
     filter: unset !important;
     cursor: default;
     background: unset;
@@ -73,7 +74,6 @@
     &:before {
       content: "";
       @include cover.cover();
-      margin: 2px;
       contain: paint;
       border-radius: var_border-radius.$border-radius-xs;
       animation-duration: 2s;
@@ -87,12 +87,8 @@
     }
 
     * {
-      visibility: hidden;
+      opacity: 0;
     }
-  }
-
-  .c-datebadge {
-    display: none;
   }
 }
 
