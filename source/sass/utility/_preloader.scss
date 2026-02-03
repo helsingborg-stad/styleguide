@@ -10,28 +10,28 @@
   &:before {
     content: ""; 
     @include cover.cover(); 
-    
     border-radius: inherit;
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
     background: #f6f7f8;
-    background: linear-gradient( to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33% );
-    background-size: 800px 104px;
+    background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 200% 100%;
+    /* Ensures the shimmer covers all widths and animates smoothly */
   }
 
   * {
     visibility: hidden;
   }
   
-  @keyframes placeHolderShimmer{
-    0%{
-      background-position: -468px 0;
+  @keyframes placeHolderShimmer {
+    0% {
+      background-position: 200% 0;
     }
-    100%{
-      background-position: 468px 0;
+    100% {
+      background-position: -200% 0;
     }
   }
 
@@ -85,14 +85,14 @@
       margin: 2px;
       contain: paint;
       border-radius: 4px;
-      animation-duration: 1s;
+      animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
       background: #f6f7f8;
-      background: linear-gradient( to right, #eeeeee 8%,#dddddd 18%,#eeeeee 33% );
-      background-size: 800px 104px;
+      background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+      background-size: 200% 100%;
     }
 
     * {
