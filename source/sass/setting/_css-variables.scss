@@ -1,0 +1,381 @@
+// ***************************************************************
+// *** CSS Variables - Central :root declarations
+// ***************************************************************
+// This file defines all CSS variables with their hardcoded fallback values.
+// These replace the Sass variable wrapper pattern used previously.
+
+:root {
+  // ***************************************************************
+  // *** Base & Layout
+  // ***************************************************************
+  --base: 8px;
+  --base-number: 8;
+  --em-base: 1em;
+
+  // Container Widths
+  --container-width: calc(var(--base) * 156); // 1280px
+  --container-width-content: calc(var(--base) * 87.5); // 700px
+  --container-width-wide: calc(var(--base) * 200); // 1600px
+
+  // ***************************************************************
+  // *** Colors - Monotone
+  // ***************************************************************
+  --color-default: #f5f5f5;
+  --color-black: #000000;
+  --color-black-alpha: rgba(0, 0, 0, 0.55);
+  --color-black-alpha-x2: rgba(0, 0, 0, 0.1);
+  --color-darkest: #3d3d3d;
+  --color-darker: #565656;
+  --color-dark: #707070;
+  --color-light: #a3a3a3;
+  --color-lighter: #e5e5e5;
+  --color-lightest: #fcfcfc;
+  --color-white: #ffffff;
+
+  // ***************************************************************
+  // *** Colors - Primary
+  // ***************************************************************
+  --color-primary: #ae0b05;
+  --color-primary-dark: #770000;
+  --color-primary-light: #e84c31;
+  --color-primary-dimmed: var(--color-primary-dark);
+  --color-primary-alpha: color-mix(in srgb, var(--color-primary) 76%, transparent);
+  --color-primary-alpha-dimmed: color-mix(in srgb, #770000 76%, transparent);
+  --color-primary-dark-alpha: color-mix(in srgb, #770000 76%, transparent);
+  --color-primary-transparent: color-mix(in srgb, var(--color-primary) 90%, transparent);
+  --color-primary-alpha-half: color-mix(in srgb, #770000 50%, transparent);
+  --color-primary-contrasting: var(--color-white);
+
+  // ***************************************************************
+  // *** Colors - Secondary
+  // ***************************************************************
+  --color-secondary: #ec6701;
+  --color-secondary-dark: #b23700;
+  --color-secondary-light: #ff983e;
+  --color-secondary-dimmed: var(--color-secondary-dark);
+  --color-secondary-alpha: color-mix(in srgb, #ec6701 76%, transparent);
+  --color-secondary-alpha-dimmed: color-mix(in srgb, #b23700 24%, transparent);
+  --color-secondary-contrasting: var(--color-white);
+
+  // ***************************************************************
+  // *** Colors - Complementary
+  // ***************************************************************
+  --color-complementary: #dec2c2;
+  --color-complementary-light: #f0dbd9;
+  --color-complementary-lighter: #f5e4e3;
+  --color-complementary-lightest: #faeeec;
+
+  --color-default-dimmed: #eeeeee;
+  --color-default-dark: #dadada;
+  --color-default-darker: #3d3d3d;
+  --color-default-alpha: rgba(112, 112, 112, 0.08);
+
+  // ***************************************************************
+  // *** Colors - Disabled
+  // ***************************************************************
+  --color-disabled: var(--color-default);
+  --color-disabled-text: var(--color-dark);
+  --color-gray-detail: var(--color-light);
+  --color-disabled-bg: var(--color-lighter);
+  --color-disabled-border: var(--color-black);
+
+  --color-gray: var(--color-light); // Deprecated
+  --color-gray-light: var(--color-lighter); // Deprecated
+  --color-gray-lighter: var(--color-lightest); // Deprecated
+
+  // ***************************************************************
+  // *** Colors - State
+  // ***************************************************************
+  --color-success: #91d736;
+  --color-success-dark: #91d736;
+  --color-success-light: #91d736;
+  --color-success-contrasting: var(--color-black);
+  --color-success-text: var(--color-black);
+
+  --color-danger: #d73740;
+  --color-danger-dark: #d73740;
+  --color-danger-light: #d73740;
+  --color-danger-contrasting: var(--color-white);
+  --color-danger-text: var(--color-white);
+
+  --color-info: #3d3d3d;
+  --color-info-dark: #3d3d3d;
+  --color-info-light: #3d3d3d;
+  --color-info-contrasting: var(--color-white);
+  --color-info-text: var(--color-white);
+
+  --color-warning: #efbb21;
+  --color-warning-dark: #efbb21;
+  --color-warning-light: #efbb21;
+  --color-warning-contrasting: var(--color-black);
+  --color-warning-text: var(--color-black);
+
+  --color-in-action: #ffa900;
+
+  // ***************************************************************
+  // *** Colors - Text & Base
+  // ***************************************************************
+  --color-base: rgba(0, 0, 0, 0.96);
+  --color-base-secondary: rgba(0, 0, 0, 0.54);
+  --color-base-disabled: var(--color-light);
+
+  --color-base-invert: var(--color-white);
+  --color-base-invert-secondary: rgba(255, 255, 255, 0.75);
+  --color-base-invert-disabled: rgba(255, 255, 255, 0.5);
+
+  --color-heading: var(--color-base);
+  --color-body: var(--color-base);
+  --color-body-background: var(--color-default);
+
+  // ***************************************************************
+  // *** Colors - Links
+  // ***************************************************************
+  --color-link: var(--color-primary-dark);
+  --color-link-hover: var(--color-primary);
+  --color-link-active: var(--color-primary);
+  --color-link-visited: var(--color-black);
+  --color-link-visited-hover: var(--color-primary-dark);
+
+  // ***************************************************************
+  // *** Colors - UI Elements
+  // ***************************************************************
+  --color-shadow: rgba(0, 0, 0, 0.18);
+  --color-shadow-sharp: #000000;
+  --color-border: var(--color-lighter);
+  --color-code-background: #fdfcfb;
+  --color-code-background-focus: #ededed;
+  --color-cream: #fdfcfb;
+
+  // ***************************************************************
+  // *** Colors - Form Fields
+  // ***************************************************************
+  --color-form-fields: #f5f5f5;
+  --color-form-fields-error: #E1475114;
+  --color-form-fields-focus: #f5f5f5;
+  --color-form-fields-border: #dfdfdf;
+  --color-form-fields-border-focus: #005C86;
+  --color-form-fields-border-error: #E14751;
+  --color-form-fields-label: rgba(0, 0, 0, 0.6);
+  --color-form-fields-contrast: #ffffff;
+  --color-form-fields-border-contrast: #dfdfdf;
+  --color-form-fields-label-contrast: #000000;
+
+  // ***************************************************************
+  // *** Colors - Header
+  // ***************************************************************
+  --color-header-background: var(--color-white);
+  --color-header-background-level-1: var(--color-lighter);
+  --color-header-background-level-2: var(--color-white);
+  --color-header-background-level-3: var(--color-primary);
+
+  // ***************************************************************
+  // *** Colors - Menu
+  // ***************************************************************
+  --color-menu-background: var(--color-white);
+  --color-menu-separator: var(--color-lighter);
+  --color-menu-active-indicator: var(--color-lighter);
+  --color-menu-active-background: var(--color-lightest);
+  --color-menu-text: var(--color-black);
+  --color-menu-active-indicator-horizontal: var(--color-primary-dimmed);
+  --color-menu-text-horizontal: var(--color-black);
+
+  // ***************************************************************
+  // *** Colors - Navigation (Vertical)
+  // ***************************************************************
+  --color-vnav-background: var(--color-white);
+  --color-vnav-item-bg-active: var(--color-complementary-light);
+  --color-vnav-item-text: var(--color-black);
+  --color-vnav-item-text-active: var(--color-link);
+
+  // ***************************************************************
+  // *** Colors - Navigation (Horizontal) & Sidebar
+  // ***************************************************************
+  --color-nav-top-accent: var(--color-primary);
+  --color-nav-active-accent: var(--color-primary);
+  --color-nav-background: var(--color-white);
+  --color-nav-item-text: var(--color-black);
+
+  --color-sidebar-top-accent: var(--color-primary);
+  --color-sidebar-active-accent: var(--color-primary);
+  --color-sidebar-background: var(--color-white);
+  --color-sidebar-item-text: var(--color-black);
+
+  // ***************************************************************
+  // *** Colors - Components
+  // ***************************************************************
+  --color-image-placeholder-background: var(--color-default);
+  --color-image-placeholder-border: var(--color-lighter);
+  --color-image-placeholder-label: var(--color-darker);
+  --color-image-placeholder-icon: var(--color-darker);
+
+  --color-card-background-dark: var(--color-body-background);
+  --color-card-image-background: var(--color-lighter);
+
+  --color-notice-text-default: var(--color-white);
+
+  --color-breadcrumb-active: var(--color-darker);
+  --color-breadcrumb-icon: var(--color-black);
+  --color-breadcrumb: var(--color-black);
+
+  --color-paper-background: var(--color-white);
+
+  --color-table-background: var(--color-white);
+  --color-table-background-odd: var(--color-lightest);
+  --color-table-track-background: var(--color-white);
+  --color-table-track-control: var(--color-lightest);
+  --color-table-gradient: var(--color-white);
+  --color-table-heading: var(--color-light);
+  --color-table-body: var(--color-black);
+  --color-table-border: var(--color-lighter);
+  --table-heading-font-weight: bold;
+
+  --color-component-doc-background: #191c3c;
+  --color-component-doc-background-lighten: #2F324F;
+
+  --color-comment-bubble-bg-dark: #f5f5f5;
+  --color-comment-bubble-bg-light: var(--color-white);
+  --color-comment-date: var(--color-dark);
+
+  --color-footer-background: #efefef;
+
+  --color-code-sidebar: var(--color-default-darker);
+  --color-code-button: var(--color-default-darker);
+
+  --color-blockquote-background: var(--color-default-dimmed);
+  --color-blockquote-border: var(--color-primary);
+
+  --color-general-overlay: var(--color-primary-dark-alpha);
+
+  // ***************************************************************
+  // *** Colors - Buttons
+  // ***************************************************************
+  --color-button-primary-bg: var(--color-primary);
+  --color-button-primary-text: var(--color-white);
+
+  --color-button-secondary-bg: var(--color-secondary);
+  --color-button-secondary-text: var(--color-white);
+
+  --color-button-disabled-bg: var(--color-disabled);
+  --color-button-disabled-text: var(--color-disabled-text);
+
+  --color-button-default-bg: var(--color-default);
+  --color-button-default-text: var(--color-default-darker);
+
+  --color-button-black: var(--color-black);
+  --color-button-white: var(--color-white);
+
+  // ***************************************************************
+  // *** Colors - Alpha Variants
+  // ***************************************************************
+  --color-alpha: rgba(0, 0, 0, 0.55);
+  --color-alpha-contrasting: var(--color-white);
+  --color-alpha-light: rgba(255, 255, 255, 0.97);
+  --color-alpha-light-contrasting: var(--color-black);
+
+  // ***************************************************************
+  // *** Colors - Borders
+  // ***************************************************************
+  --color-border-divider: rgba(0, 0, 0, 0.1);
+  --color-border-card: var(--color-paper-background);
+  --color-border-outline: var(--color-border-divider);
+  --color-border-input: var(--color-border-divider);
+
+  // ***************************************************************
+  // *** Colors - Background
+  // ***************************************************************
+  --color-background: var(--color-default);
+  --color-background-card: var(--color-white);
+
+  // ***************************************************************
+  // *** Colors - Focus Accessibility
+  // ***************************************************************
+  --color-focus-outline: #4d90fe;
+
+  // ***************************************************************
+  // *** Font Families
+  // ***************************************************************
+  --font-family-base: "Roboto", sans-serif;
+  --font-family-heading: var(--font-family-base);
+  --font-family-bold: "Roboto", sans-serif;
+  --font-family-italic: "Roboto", sans-serif;
+  --font-family-button: var(--font-family-base);
+
+  // ***************************************************************
+  // *** Font Sizes
+  // ***************************************************************
+  --font-size-base: 1rem;
+  --font-size-lead: 1.125rem;
+  --font-size-caption: 0.875rem;
+
+  // ***************************************************************
+  // *** Font Weights
+  // ***************************************************************
+  --font-weight-bold: 700;
+  --font-weight-italic: 400;
+  --font-weight-base: 400;
+  --font-weight-heading: 500;
+  --font-weight-button: 500;
+  --font-weight-caption: 400;
+
+  // ***************************************************************
+  // *** Line Heights
+  // ***************************************************************
+  --line-height-base: 1.625;
+  --line-height-heading: 1.33;
+  --line-height-caption: var(--line-height-base);
+
+  // ***************************************************************
+  // *** Letter Spacing
+  // ***************************************************************
+  --letter-spacing-base: 0;
+  --letter-spacing-heading: 0;
+  --letter-spacing-button: 0;
+
+  // ***************************************************************
+  // *** Text Transform
+  // ***************************************************************
+  --text-transform-base: none;
+  --text-transform-heading: none;
+  --text-transform-button: none;
+
+  // ***************************************************************
+  // *** Border Radius
+  // ***************************************************************
+  --radius-xs: calc(var(--base) / 4);
+  --radius-sm: calc(var(--base) / 2);
+  --radius-md: calc(var(--base) / 2);
+  --radius-lg: calc(var(--base) / 2);
+
+  // ***************************************************************
+  // *** Drop Shadows
+  // ***************************************************************
+  --drop-shadow-amount: 0.7;
+  --drop-shadow-color: rgba(0, 0, 0, 0.1);
+  --drop-shadow-0: drop-shadow(0 0 0 #0000);
+  --drop-shadow-1: drop-shadow(0px calc(4px * var(--drop-shadow-amount)) calc(6px * var(--drop-shadow-amount)) var(--drop-shadow-color));
+  --drop-shadow-2: drop-shadow(0px calc(6px * var(--drop-shadow-amount)) calc(8px * var(--drop-shadow-amount)) var(--drop-shadow-color));
+  --drop-shadow-3: drop-shadow(0px calc(8px * var(--drop-shadow-amount)) calc(10px * var(--drop-shadow-amount)) var(--drop-shadow-color));
+  --drop-shadow-4: drop-shadow(0px calc(10px * var(--drop-shadow-amount)) calc(12px * var(--drop-shadow-amount)) var(--drop-shadow-color));
+  --drop-shadow-5: drop-shadow(0px calc(12px * var(--drop-shadow-amount)) calc(14px * var(--drop-shadow-amount)) var(--drop-shadow-color));
+
+  --detail-shadow-amount: 0.5;
+  --detail-shadow-0: drop-shadow(0 0 0 #0000);
+  --detail-shadow-1: drop-shadow(0px calc(2px * var(--detail-shadow-amount)) calc(4px * var(--detail-shadow-amount)) var(--drop-shadow-color));
+  --detail-shadow-2: drop-shadow(0px calc(4px * var(--detail-shadow-amount)) calc(4px * var(--detail-shadow-amount)) var(--drop-shadow-color));
+  --detail-shadow-3: drop-shadow(0px calc(6px * var(--detail-shadow-amount)) calc(4px * var(--detail-shadow-amount)) var(--drop-shadow-color));
+  --detail-shadow-4: drop-shadow(0px calc(8px * var(--detail-shadow-amount)) calc(4px * var(--detail-shadow-amount)) var(--drop-shadow-color));
+  --detail-shadow-5: drop-shadow(0px calc(8px * var(--detail-shadow-amount)) calc(4px * var(--detail-shadow-amount)) var(--drop-shadow-color));
+
+  // ***************************************************************
+  // *** Border Widths
+  // ***************************************************************
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-large: 4px;
+  --border-width-divider: var(--border-width-thin);
+  --border-width-highlight: var(--border-width-large);
+  --border-width-card: 0px;
+  --border-width-outline: var(--color-border-divider);
+  --border-width-button: var(--border-width-medium);
+  --border-width-input: var(--border-width-thin);
+}

@@ -1,42 +1,33 @@
 @use "sass:map";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-mega-menu-heading-color: var(--c-mega-menu-heading-color, var_colors.$color-primary) !default;
-$c-mega-menu-subitem-color: var(--c-mega-menu-subitem-color, var_colors.$color-primary) !default;
-$c-mega-menu-background-color: var(--c-mega-menu-background-color, var_colors.$color-primary-contrasting) !default;
-$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var_default.$base}) !default;
-$c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default;
 
 .c-megamenu {
-    padding-top: $c-mega-menu-padding;
-    padding-bottom: $c-mega-menu-padding;
-    background-color: $c-mega-menu-background-color;
+    padding-top: calc(var(--c-mega-menu-padding, 4) * var(--base, 8px));
+    padding-bottom: calc(var(--c-mega-menu-padding, 4) * var(--base, 8px));
+    background-color: var(--c-mega-menu-background-color, var(--color-primary-contrasting, #ffffff));
     position: absolute;
     width: 100%;
-    z-index: var_properties.$level-8;
+    z-index: 8000;
 
     &.c-megamenu--secondary {
-        --c-mega-menu-heading-color: #{var_colors.$color-primary};
-        --c-mega-menu-subitem-color: #{var_colors.$color-primary};
-        --c-mega-menu-background-color: #{var_colors.$color-secondary};
+        --c-mega-menu-heading-color: var(--color-primary, #ae0b05);
+        --c-mega-menu-subitem-color: var(--color-primary, #ae0b05);
+        --c-mega-menu-background-color: var(--color-secondary, #ec6701);
     }
 
     &.c-megamenu--primary {
-        --c-mega-menu-heading-color: #{var_colors.$color-primary};
-        --c-mega-menu-subitem-color: #{var_colors.$color-black};
-        --c-mega-menu-background-color: #{var_colors.$color-white};
+        --c-mega-menu-heading-color: var(--color-primary, #ae0b05);
+        --c-mega-menu-subitem-color: var(--color-black, #000000);
+        --c-mega-menu-background-color: var(--color-white, #ffffff);
     }
 
     &.c-megamenu--font-heading {
-        --c-mega-menu-font: #{var_fonts.$font-family-heading};
+        --c-mega-menu-font: var(--font-family-heading, "Roboto", sans-serif);
     }
 
     .c-megamenu__description {
-        border-top: 2px solid $c-mega-menu-heading-color;
-        color: $c-mega-menu-subitem-color;
+        border-top: 2px solid var(--c-mega-menu-heading-color, var(--color-primary, #ae0b05));
+        color: var(--c-mega-menu-subitem-color, var(--color-primary, #ae0b05));
         padding-top: calc(var_default.$base * 1);
         margin-top: calc(var_default.$base * 0.5);
     }
@@ -46,9 +37,9 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default
     }
     
     .c-megamenu__link--title {
-        font-size: var_fonts.$font-size-title;
-        color: $c-mega-menu-heading-color;
-        font-family: $c-mega-menu-font;
+        font-size: var(--font-size-title, 1.5rem);
+        color: var(--c-mega-menu-heading-color, var(--color-primary, #ae0b05));
+        font-family: var(--c-mega-menu-font, var(--font-family-base, "Roboto", sans-serif));
     }
 
     .c-megamenu__link {
@@ -62,10 +53,10 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default
         padding: map.get(var_default.$spacers, "05") 0;
         display: flex;
         align-items: center;
-        
+
         .c-megamenu__link {
             text-decoration: none;
-            color: $c-mega-menu-subitem-color;
+            color: var(--c-mega-menu-subitem-color, var(--color-primary, #ae0b05));
         }
     }
 

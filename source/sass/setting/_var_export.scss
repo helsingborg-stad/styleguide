@@ -1,6 +1,7 @@
-// Exports breakpoints as CSS variables for use outside of Sass
+// Exports CSS variables and breakpoints for use outside of Sass
 @use "sass:map";
 @use "_var_default.scss" as *;
+@use "_css-variables.scss";
 
 :root {
   --breakpoint-xs: #{map.get($breakpoints-map, xs)};

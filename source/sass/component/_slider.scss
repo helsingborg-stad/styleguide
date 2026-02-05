@@ -2,19 +2,16 @@
 @use "sass:meta";
 @use "sass:string";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
 @use "../setting/component/_slider" as *;
 
 /*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
 .c-slider {
-    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
-    
+    --c-slider-max-width-computed: calc(var(--container-width-wide, calc(var(--base, 8px) * 200)) - calc(var(--base, 8px) * var(--c-slider-padding, 7)));
+
     position: relative;
-    border-radius: var_border-radius.$border-radius-md;
+    border-radius: var(--radius-md, calc(var(--base, 8px) / 2));
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -34,7 +31,7 @@
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: var_properties.$drop-shadow-2;
+            filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
         }
     }
 
@@ -92,13 +89,13 @@
         pointer-events: none;
         
         @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-            width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+            width: calc(100% - calc(calc(var(--base, 8px) * var(--c-slider-padding, 7)) + calc(var(--base, 8px) * var(--c-slider-gap, 2))));
         }
     }
 
     &--hero {
         .c-slider__controls {
-            top: $c-slider-gap;
+            top: calc(var(--base, 8px) * var(--c-slider-gap, 2));
         }
     }
 
@@ -107,9 +104,9 @@
         position: relative;
         display: none;
         cursor: pointer;
-        width: calc(#{var_default.$base} * 5);
-        height: calc(#{var_default.$base} * 5);
-        color: var_colors.$color-primary;
+        width: calc(var(--base, 8px) * 5);
+        height: calc(var(--base, 8px) * 5);
+        color: var(--color-primary, #ae0b05);
         z-index: 1;
         margin: calc(#{var_default.$base} * 1);
         
@@ -189,12 +186,12 @@
         }
 
         .c-slider__item__container {
-            color: $c-slider-color-overlay-dark;
+            color: var(--c-slider-color-overlay-dark, var(--color-black, #000000));
         }
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: var_properties.$drop-shadow-2;
+                filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
             }
         }
 
@@ -267,14 +264,14 @@
     }
 
     .c-slider__dot {
-        background: var_colors.$color-gray;
+        background: var(--color-gray, #bfbfbf);
         cursor: default;
-        width: calc(#{var_default.$base} * 2);
-        height: calc(#{var_default.$base} * 0.5);
+        width: calc(var(--base, 8px) * 2);
+        height: calc(var(--base, 8px) * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            background: var_colors.$color-primary;
+            background: var(--color-primary, #ae0b05);
         }
     }
 

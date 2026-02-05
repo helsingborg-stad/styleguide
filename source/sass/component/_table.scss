@@ -1,13 +1,6 @@
 @use "sass:map";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-table-background-color-odd: var(--c-table-background-color-odd, var_colors.$color-light);
-$c-table-background-color-even: var(--c-table-background-color-even, var_colors.$color-lightest);
 
 .c-table {
     position: relative;
@@ -37,10 +30,10 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
     .c-table__caption {
         font-size: calc(#{var_default.$base} * 2);
-        font-weight: var_fonts.$font-weight-italic;
-        font-family: var_fonts.$font-family-italic;
+        font-weight: var(--font-weight-italic, 400);
+        font-family: var(--font-family-italic, "Roboto", sans-serif);
         font-style: italic;
-        color: var_colors.$color-dark;
+        color: var(--color-dark, #707070);
     }
 
     .c-table__title {
@@ -73,8 +66,8 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Table head
      */
     .c-table__head {
-        font-weight: var_colors.$table-heading-font-weight;
-        color: var_colors.$color-table-heading;
+        font-weight: var(--table-heading-font-weight, 700);
+        color: var(--color-table-heading, #3d3d3d);
 
         .c-table__column-content  {
             display: flex;
@@ -106,26 +99,26 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Table body
      */
     .c-table__body {
-        color: var_colors.$color-table-body;
+        color: var(--color-table-body, #565656);
 
         .c-table__line .c-table__column {
             transition: background-color 100ms ease;
         }
 
         .c-table__line:nth-child(odd) .c-table__column {
-            background-color: $c-table-background-color-odd;
+            background-color: var(--c-table-background-color-odd, var(--color-light, #a3a3a3));
         }
 
         .c-table__line:nth-child(even) .c-table__column {
-            background-color: $c-table-background-color-even;
+            background-color: var(--c-table-background-color-even, var(--color-lightest, #fafafa));
         }
 
         .c-table__line:hover .c-table__column {
-            background: var_colors.$color-complementary;
+            background: var(--color-complementary, #eef9fc);
         }
 
         .c-table__column {
-            border-right: 1px solid $c-table-background-color-even;
+            border-right: 1px solid var(--c-table-background-color-even, var(--color-lightest, #fafafa));
         }
 
         .c-table__column:last-of-type {
@@ -134,7 +127,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     }
 
     .c-table__column.c-table__column-0 {
-        z-index: var_properties.$level-1;
+        z-index: 1000;
     }
 
     /**
@@ -143,14 +136,14 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     .c-table__scroll-indicator-wrapper {
         margin: calc(#{var_default.$base} * 2) 0;
         width: 100%;
-        background-color: var_colors.$color-lighter;
+        background-color: var(--color-lighter, #e5e5e5);
         height: calc(#{var_default.$base} * 1.5);
-        border-radius: calc(var_border-radius.$border-radius-lg * 4);
+        border-radius: calc(var(--radius-lg, calc(var(--base, 8px) / 2)) * 4);
     }
 
     .c-table__scroll-indicator {
         width: 50%;
-        background-color: var_colors.$color-primary;
+        background-color: var(--color-primary, #ae0b05);
         height: inherit;
         border-radius: inherit;
         cursor: grab;
@@ -189,8 +182,8 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Modifier for summary line
      */
     &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
-        font-weight: var_fonts.$font-weight-bold;  
-        font-family: var_fonts.$font-family-bold;
+        font-weight: var(--font-weight-bold, 700);
+        font-family: var(--font-family-bold, "Roboto", sans-serif);
     }
 
     /**
@@ -271,7 +264,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     }
 
     .c-table__table {
-        border: 1px solid var_colors.$color-lighter;
+        border: 1px solid var(--color-lighter, #e5e5e5);
     }
 
     .c-table .c-table__header {

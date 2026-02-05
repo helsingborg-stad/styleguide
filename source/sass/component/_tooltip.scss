@@ -1,13 +1,6 @@
 @use "sass:map";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-tooltip-border-radius: var(--c-tooltip-border-radius, var_border-radius.$border-radius-xs) !default;
-$c-tooltip-color: var(--c-tooltip-background-color, var_colors.$color-alpha) !default;
-$c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha-contrasting) !default;
 
 .c-tooltip {
     display: flex;
@@ -34,14 +27,14 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
 
     .c-tooltip__container {
         position: absolute;
-        border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
+        border-radius: var(--c-tooltip-border-radius, var(--radius-xs, calc(var(--base, 8px) / 4)));
+        z-index: 9000;
         width:max-content;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
         max-width: calc(var_default.$base * 25);
-        background-color: $c-tooltip-color;
+        background-color: var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55)));
         display: none;
 
         .c-tooltip__arrow {
@@ -53,11 +46,11 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
             margin-left: -5px;
             border-width: 5px;
             border-style: solid;
-            border-color: transparent transparent $c-tooltip-color transparent;
+            border-color: transparent transparent var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55))) transparent;
         }
 
         .c-tooltip__content {
-            color: $c-tooltip-content-color;
+            color: var(--c-tooltip-content-color, var(--color-alpha-contrasting, var(--color-white, #ffffff)));
             padding: var_default.$base;
             text-align:center;
         }
@@ -90,7 +83,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
            
             .c-tooltip__arrow {
                 bottom:unset;
-                border-color: $c-tooltip-color transparent transparent transparent;
+                border-color: var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55))) transparent transparent transparent;
            }
         }
     }
@@ -104,7 +97,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
         .c-tooltip__arrow {
             left:0;
             top: 50%;
-            border-color: transparent $c-tooltip-color transparent transparent;
+            border-color: transparent var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55))) transparent transparent;
             transform: translateY(-50%) translateX(-50%);
             }
         }
@@ -119,7 +112,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
         .c-tooltip__arrow {
             left:100%;
             top: 50%;
-            border-color: transparent transparent transparent $c-tooltip-color;
+            border-color: transparent transparent transparent var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55)));
             transform: translateY(-50%) translateX(50%);
             }
         }
@@ -151,15 +144,15 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
     &::after {
         line-height: 1.4;
         font-size: .95em;
-        filter: var_properties.$drop-shadow-2;
+        filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
         content: attr(data-tooltip);
         position: absolute;
-        border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
+        border-radius: var(--c-tooltip-border-radius, var(--radius-xs, calc(var(--base, 8px) / 4)));
+        z-index: 9000;
         width: max-content;
         max-width: calc(var_default.$base * 25);
-        background-color: $c-tooltip-color;
-        color: $c-tooltip-content-color;
+        background-color: var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55)));
+        color: var(--c-tooltip-content-color, var(--color-alpha-contrasting, var(--color-white, #ffffff)));
         padding: calc(var_default.$base * .75) calc(var_default.$base * .5);
         bottom: calc(100% + calc(var_default.$base * .5));
         left: 50%;
@@ -176,14 +169,14 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
     }
 
     &::before {
-        filter: var_properties.$drop-shadow-2;
+        filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
         content: " ";
         position: absolute;
         bottom: calc(100% + calc(var_default.$base * -.5)); 
         left: 50%;
         border-width: calc(var_default.$base * .5);
         border-style: solid;
-        border-color: $c-tooltip-color transparent transparent transparent;
+        border-color: var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55))) transparent transparent transparent;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease-in-out;

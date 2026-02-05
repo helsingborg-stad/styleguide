@@ -1,20 +1,12 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-box-border-radius: var(--c-box-border-radius, var_border-radius.$border-radius-sm) !default;
-$c-box-color: var(--c-box-color, var_colors.$color-primary-contrasting) !default;
-$c-box-background-color: var(--c-box-background-color, var_colors.$color-primary) !default;
-$c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
 
 .c-box {
-    border-radius: $c-box-border-radius;
-    filter: $c-box-shadow;
+    border-radius: var(--c-box-border-radius, var(--radius-sm, calc(var(--base, 8px) / 2)));
+    filter: var(--c-box-shadow, var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1))));
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $c-box-background-color;
+    background-color: var(--c-box-background-color, var(--color-primary, #ae0b05));
     container-type: inline-size;
     container-name: testbox;
 
@@ -50,7 +42,7 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
     }
 
     .c-box__icon.c-icon {
-        color: $c-box-color;
+        color: var(--c-box-color, var(--color-primary-contrasting, var(--color-white, #ffffff)));
         font-size: calc(#{var_default.$base} * 10);
         line-height: 60px;
         margin-bottom: calc(#{var_default.$base} * 2);
@@ -67,7 +59,7 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
     .c-box__date,
     .c-box__content {
         margin: 0; 
-        color: $c-box-color; 
+        color: var(--c-box-color, var(--color-primary-contrasting, var(--color-white, #ffffff))); 
         display: block;
     }
 
@@ -98,7 +90,7 @@ a.c-box {
     }
 
     &:hover {
-        filter: var_properties.$drop-shadow-3;
+        filter: var(--drop-shadow-3, drop-shadow(0px 8px 10px rgba(0,0,0,.1)));
         color: inherit;
         transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
         filter: brightness(0.9);

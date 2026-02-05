@@ -2,36 +2,19 @@
 @use "../mixin/cover";
 @use "../mixin/focus";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, var_border-radius.$border-radius-lg) !default;
-
-$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
-$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;
-
-$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline) !default;
-$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline) !default;
-
-$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider) !default;
-$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider) !default;
-
-$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
 
 .c-card {
     container-type: inline-size;
-    filter: var_properties.$drop-shadow-2;
+    filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
     will-change: filter;
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: $c-card-color-background;
-    border-radius: $c-card-border-radius;
+    background-color: var(--c-card-color-background, var(--color-background-card, var(--color-white, #ffffff)));
+    border-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
     transition: all 200ms ease-in;
-    border: $c-card-border-width solid $c-card-border-color;
+    border: var(--c-card-border-width, var(--border-width-card, 0px)) solid var(--c-card-border-color, var(--color-border-card, var(--color-paper-background, var(--color-white, #ffffff))));
 
     .c-card__paint-container {
         contain: paint;
@@ -83,11 +66,11 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     }
     
     .c-card__footer {
-        border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
+        border-top: var(--c-card-border-width-divider, var(--border-width-divider, var(--border-width-thin, 1px))) solid var(--c-card-border-color-divider, var(--color-border-divider, rgba(0, 0, 0, 0.1)));
     }
     
     .c-card__image {
-        background-color: var_colors.$color-card-image-background;
+        background-color: var(--color-card-image-background, var(--color-lighter, #e5e5e5));
         border-radius: none;
 
         .c-image__image {
@@ -119,11 +102,11 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         right: 0;
         
         &--white .c-button {
-            color: var_colors.$color-white;
+            color: var(--color-white, #ffffff);
         }
         
         &--black .c-button {
-            color: var_colors.$color-black;
+            color: var(--color-black, #000000);
         }
     }
     
@@ -177,7 +160,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         position: absolute;
         right: var_default.$base;
         top: var_default.$base;
-        z-index: var_properties.$level-3;
+        z-index: 3000;
     }
 
     .c-card__content-after {
@@ -186,7 +169,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
 
     /* Focus highlight */
     &--focus-inset:focus {
-        @include focus.focus-inset($c-card-border-radius);
+        @include focus.focus-inset(var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2))));
     }
  
     /* Icons in headline */ 
@@ -212,7 +195,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     &--highlight {
         .c-card__header,
         .c-card__body {
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: var_default.$base solid var(--color-primary, #ae0b05);
         }
     }
 
@@ -221,20 +204,20 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
             margin-bottom: var_default.$base;
         }
         .c-card__header {
-            border-bottom: calc(#{var_default.$base} / 2) solid var_colors.$color-primary;
-            background: var_colors.$color-white;
+            border-bottom: calc(#{var_default.$base} / 2) solid var(--color-primary, #ae0b05);
+            background: var(--color-white, #ffffff);
         }
         .c-typography {
-            color: var_colors.$color-black;
+            color: var(--color-black, #000000);
         }
     }
 
     &--panel {
         .c-card__header {
-            background: var_colors.$color-primary;
-            color: var_colors.$color-white;
+            background: var(--color-primary, #ae0b05);
+            color: var(--color-white, #ffffff);
             * {
-                color: var_colors.$color-white;
+                color: var(--color-white, #ffffff);
             }
             
             i, h4 {
@@ -359,14 +342,14 @@ a.c-card {
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
-        background: var_colors.$color-lighter;
+        background: var(--color-lighter, #e5e5e5);
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: 1000;
     }
     
     &:hover {
-        filter: var_properties.$drop-shadow-3;
-        background-color: var_colors.$color-lightest;
+        filter: var(--drop-shadow-3, drop-shadow(0px 8px 10px rgba(0,0,0,.1)));
+        background-color: var(--color-lightest, #fcfcfc);
         color: inherit;
         transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
         transition: all 200ms ease-out;
@@ -381,7 +364,7 @@ a.c-card {
     }
     
     &:focus {
-        background-color: var_colors.$color-code-background-focus;
+        background-color: var(--color-code-background-focus, #ededed);
 
         .c-card__image-container {
             &:before {

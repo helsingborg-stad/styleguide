@@ -1,10 +1,4 @@
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
 
 .c-tags {
     display: flex;
@@ -18,20 +12,20 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !defaul
 
     &.c-tags--pill {
         .c-tags__tag {
-            background-color: $c-tags-pill-background;
-            color: $c-tags-pill-color;
+            background-color: var(--c-tags-pill-background, var(--color-background-card, var(--color-white, #ffffff)));
+            color: var(--c-field-label-color, var(--color-darker, #565656));
             padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
             border-radius: calc(var_default.$base * 3);
-            filter: var_properties.$detail-shadow-2;
+            filter: var(--detail-shadow-2, drop-shadow(0px 4px 4px rgba(0,0,0,.1)));
 
             &:hover {
-                color: $c-tags-pill-color;
+                color: var(--c-field-label-color, var(--color-darker, #565656));
             }
         }
     }
 
     .c-tags__tag {
-        font-size: var_fonts.$font-size-meta;
+        font-size: 0.875rem;
         text-decoration: none;
         display: flex;
         align-items: center;

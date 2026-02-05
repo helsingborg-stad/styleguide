@@ -1,14 +1,10 @@
 @use "../mixin/focus";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_default.$base}) !default;
 
 .c-header {
-    z-index: var_properties.$level-6;
+    z-index: 6000;
     position: relative;
-    background-color: var_colors.$color-header-background;
+    background-color: var(--color-header-background, var(--color-white, #ffffff));
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
@@ -18,40 +14,40 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
     &.c-header--sticky {
         position: sticky;
         top: 0;
-        z-index: var_properties.$level-7;
+        z-index: 7000;
     }
 
     &.c-header--accented {
-        border-bottom: var_colors.$color-primary solid var_default.$base;
+        border-bottom: var(--color-primary, #ae0b05) solid var_default.$base;
     }
 
     &.c-header--primary {
-        background-color: var_colors.$color-primary;
+        background-color: var(--color-primary, #ae0b05);
     }
 
     &.c-header--secondary {
-        background-color: var_colors.$color-secondary;
+        background-color: var(--color-secondary, #ec6701);
     }
 
     &.c-header--text-white > *,
     &.c-header--text-white .c-button__basic,
     &.c-header--text-white .c-nav .c-nav__link {
-        color: var_colors.$color-white;
+        color: var(--color-white, #ffffff);
     }
 
     &.c-header--text-black * ,
     &.c-header--text-black .c-nav .c-nav__link {
-        color: var_colors.$color-black;
+        color: var(--color-black, #000000);
     }
 
     &.c-header--text-primary * ,
     &.c-header--text-primary .c-nav .c-nav__link {
-        color: var_colors.$color-primary;
+        color: var(--color-primary, #ae0b05);
     }
 
     &.c-header--text-secondary * ,
     &.c-header--text-secondary .c-nav .c-nav__link {
-        color: var_colors.$color-secondary;
+        color: var(--color-secondary, #ec6701);
     }
 
     &.c-header--casual {
@@ -96,7 +92,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
 
     // Logo
     &__logotype {
-        height: $c-header-logotype-height;
+        height: calc(var(--c-header-logotype-height, 6) * var(--base, 8px));
     }
 }
 

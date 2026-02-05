@@ -1,11 +1,5 @@
 @use "sass:map";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-
-$c-comment-border-radius: var(--c-comment-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_border-radius.$border-radius-sm) !default;
 
 .c-comment + .c-comment {
     margin-top: map.get(var_default.$spacers, "2");
@@ -28,9 +22,9 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_borde
 
     .c-comment__top .c-comment__author {
         font-size: .9rem;
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
-        color: var_colors.$color-darker;
+        font-weight: var(--font-weight-bold, 700);
+        font-family: var(--font-family-bold, "Roboto", sans-serif);
+        color: var(--color-darker, #565656);
     }
 
     .c-avatar {
@@ -52,7 +46,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_borde
         }
 
         :hover {
-            color: var_colors.$color-darkest;
+            color: var(--color-darkest, #000000);
         }
     }
 
@@ -62,7 +56,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_borde
     }
 
     &__date {
-        color: var_colors.$color-comment-date;
+        color: var(--color-comment-date, var(--color-dark, #707070));
         font-weight: 400;
         display: flex;
         line-height: 1.3;
@@ -88,19 +82,19 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_borde
     &__bubble--color-dark &__bubble--inner,
     &__bubble--color-light &__bubble--inner {
         width: 100%;
-        border-radius: $c-comment-border-radius;
-        border-top-left-radius: $c-comment-border-radius-corner;
+        border-radius: var(--c-comment-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+        border-top-left-radius: var(--c-comment-border-radius-corner, var(--radius-sm, calc(var(--base, 8px) / 2)));
         padding: map.get(var_default.$spacers, "1half") map.get(var_default.$spacers, "2");
-        color: var_colors.$color-black;
+        color: var(--color-black, #000000);
         margin: 0;
     }
 
     &__bubble--color-dark &__bubble--inner {
-        background-color: var_colors.$color-comment-bubble-bg-dark;
+        background-color: var(--color-comment-bubble-bg-dark, var(--color-light, #a3a3a3));
     }
 
     &__bubble--color-light &__bubble--inner {
-        background-color: var_colors.$color-comment-bubble-bg-light;
+        background-color: var(--color-comment-bubble-bg-light, var(--color-lighter, #e5e5e5));
     }
 
     &__is-reply {

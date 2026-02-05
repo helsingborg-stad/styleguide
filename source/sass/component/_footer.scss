@@ -1,36 +1,21 @@
 @use "sass:map";
 @use "../element/headings";
 @use "../mixin/mq";
-@use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5) !default;
-$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-padding: calc(var(--c-footer-padding, 3) * #{var_default.$base}) !default;
-$c-footer-color-text: var(--c-footer-color-text, #000) !default;
-$c-footer-subfooter-height-logotype: calc(var(--c-footer-subfooter-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{var_default.$base}) !default;
-$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, var_colors.$color-white) !default;
-$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, var_colors.$color-black) !default;
-$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center) !default;
-$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row) !default;
-$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3) !default;
-$c-footer-header-border-size: var(--c-footer-header-border-size, 1px) !default;
-$c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.$color-alpha}) !default;
-
 .c-footer {
-    background-color: var_colors.$color-default;
-    color: $c-footer-color-text;
+    background-color: var(--color-default, #f5f5f5);
+    color: var(--c-footer-color-text, #000);
 
     a,
     a:hover,
     a:visited,
     a:active {
-        color: $c-footer-color-text;
+        color: var(--c-footer-color-text, #000);
     }
 
     &__main-wrapper {
-        padding: $c-footer-padding 0;
+        padding: calc(var(--c-footer-padding, 3) * var(--base, 8px)) 0;
     }
 
     &__body {
@@ -97,23 +82,23 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
     // Logo
     &__logotype {
-        height: $c-footer-height-logotype;
+        height: calc(var(--c-footer-height-logotype, 6) * var(--base, 8px));
 
         @include mq.mq('xs') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)));
         }
-    
+
         @include mq.mq('md') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)));
         }
-    
+
         @include mq.mq('lg') {
-            height: $c-footer-height-logotype;
+            height: calc(var(--c-footer-height-logotype, 6) * var(--base, 8px));
         }
     }
 
     &__header-wrapper {
-        margin-bottom: $c-footer-padding;
+        margin-bottom: calc(var(--c-footer-padding, 3) * var(--base, 8px));
     }
 
     &__prefooter-wrapper, &__widget-area {
@@ -125,38 +110,38 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
     &--header-border {
         .c-footer__header-wrapper {
-            border-bottom: $c-footer-header-border-size solid $c-footer-header-border-color;
-            padding-bottom: $c-footer-padding;
+            border-bottom: var(--c-footer-header-border-size, 1px) solid var(--c-footer-header-border-color, var(--color-alpha, rgba(0, 0, 0, 0.7)));
+            padding-bottom: calc(var(--c-footer-padding, 3) * var(--base, 8px));
         }
     }
 
     &__subfooter {
-        color: $c-footer-subfooter-color-text;
-        background: $c-footer-subfooter-color-background;
-        padding: $c-footer-subfooter-padding 0;
+        color: var(--c-footer-subfooter-color-text, var(--color-black, #000000));
+        background: var(--c-footer-subfooter-color-background, var(--color-white, #ffffff));
+        padding: calc(var(--c-footer-subfooter-padding, 3) * var(--base, 8px)) 0;
         font-size: .9rem;
 
         a,
         a:hover,
         a:visited,
         a:active {
-            color: $c-footer-subfooter-color-text;
+            color: var(--c-footer-subfooter-color-text, var(--color-black, #000000));
         }
 
         &__wrapper {
             display: flex;
             flex-wrap: wrap;
-            justify-content: $c-footer-subfooter-alignment;
-            align-items: $c-footer-subfooter-alignment;
-            flex-direction: $c-footer-subfooter-flex-direction;
+            justify-content: var(--c-footer-subfooter-alignment, center);
+            align-items: var(--c-footer-subfooter-alignment, center);
+            flex-direction: var(--c-footer-subfooter-flex-direction, row);
         }
 
         &__list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: $c-footer-subfooter-alignment;
-            align-items: $c-footer-subfooter-alignment;
-            flex-direction: $c-footer-subfooter-flex-direction;
+            justify-content: var(--c-footer-subfooter-alignment, center);
+            align-items: var(--c-footer-subfooter-alignment, center);
+            flex-direction: var(--c-footer-subfooter-flex-direction, row);
             margin: calc(-1 * map.get(var_default.$spacers, "1")) calc(-1 * map.get(var_default.$spacers, "5"));
             margin-left: 0;
             padding: 0;
@@ -172,7 +157,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: $c-footer-subfooter-color-separator;
+                    background: var(--c-footer-subfooter-color-separator, #A3A3A3);
                     display: none;
                     position: absolute;
                     width: 6px;
@@ -189,7 +174,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
         // Logo
         &__logotype {
-            height: $c-footer-subfooter-height-logotype;
+            height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px));
         }
     
         // Fix for separator dots showing on new lines
@@ -280,7 +265,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
             }
 
             &__logotype {
-                height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-subfooter-height-logotype * 0.75), $c-footer-subfooter-height-logotype);
+                height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px)));
             }
 
             &--horizontal {

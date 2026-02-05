@@ -3,7 +3,6 @@
 $position: center, start, end, flex-start, flex-end, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
-$grid-gap: var(--grid-gap, calc(var_default.$base * 4)) !default;
 
 .c-group {
     display: flex;
@@ -11,7 +10,7 @@ $grid-gap: var(--grid-gap, calc(var_default.$base * 4)) !default;
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
             --grid-gap: calc(#{$i} * #{var_default.$base});
-            gap: $grid-gap;
+            gap: var(--grid-gap, calc(var(--base, 8px) * 4));
         }
 
         &.c-group--columns-#{$i} {
