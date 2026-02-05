@@ -3,18 +3,5 @@
 // ***************************************************************
 // *** Radius sizes
 // ***************************************************************
-
-$border-radius-xs: var(--radius-xs, calc(#{var_default.$base}/4)) !default;
-$border-radius-sm: var(--radius-sm, calc(#{var_default.$base}/2)) !default;
-$border-radius-md: var(--radius-md, #{var_default.$base}/2) !default;
-$border-radius-lg: var(--radius-lg, calc(#{var_default.$base}/2)) !default;
-$border-radius-full: 50% !default;
-
-$radiuses: (
-    0,
-    $border-radius-xs,
-    $border-radius-sm,
-    $border-radius-md,
-    $border-radius-lg,
-    $border-radius-full
-);
+// All radius values are now CSS variables defined in _css-variables.scss
+// Components should use: var(--radius-sm, calc(var(--base, 8px) / 2))

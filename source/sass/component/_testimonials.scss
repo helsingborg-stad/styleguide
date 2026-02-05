@@ -54,7 +54,7 @@
     .c-testimonial__image {
         width: calc(#{var_default.$base} * 11);
         max-height: calc(#{var_default.$base} * 14);
-        border-radius: card.$c-card-border-radius;
+        border-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
         overflow: hidden;
         filter: var_properties.$drop-shadow-3;
         grid-area: image;

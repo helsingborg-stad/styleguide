@@ -189,7 +189,7 @@
     /* Apperance modifiers */
 
     &--outline {
-        border: $c-card-border-width solid;
+        border: var(--c-card-border-width, var(--border-width-card, 0px)) solid;
     }
 
     &--highlight {
@@ -303,7 +303,7 @@
         .c-card__image-background {
             background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
             background-repeat: no-repeat;
-            background-color: $c-card-image-background-color;
+            background-color: var(--c-card-image-background-color, var(--color-card-image-background, #e5e5e5));
         }   
     }
     

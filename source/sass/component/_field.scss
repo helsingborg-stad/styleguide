@@ -32,9 +32,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     .c-field__helper {
-        font-family: var_fonts.$font-family-base;
-        font-weight: var_fonts.$font-family-base;
-        font-size: $c-field-helper-font-size;
+        font-family: var(--font-family-base, "Roboto", sans-serif);
+        font-weight: var(--font-weight-base, 400);
+        font-size: var(--c-field-helper-font-size, var(--font-size-caption, 0.75rem));
         color: #707070;
         margin-top: calc(#{var_default.$base}/2);
         margin-left: calc(#{var_default.$base}/4);
@@ -61,7 +61,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         width: 100%;
         min-width: calc(#{var_default.$base}*10);
         font-size: var(--c-field-font-size-md, var(--font-size-btn-md, 1rem));
-        line-height: var(--c-field-font-size-md, var(--font-size-btn-md, 1rem))-line-height;
+        line-height: var(--c-field-font-size-md-line-height, var(--font-size-btn-md-line-height, 1.5));
         border: var(--c-field-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
         background: var(--c-field-background-color, var(--color-form-fields, #ffffff));
         border-radius: calc(var_default.$base * var(--c-field-border-radius, 0.25));
@@ -78,7 +78,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__icon,
         .c-field__prefix,
         .c-field__suffix {
-            color: $c-field-suffix-color;
+            color: var(--c-field-suffix-color, var(--color-darker, #565656));
         }
 
         .c-field__icon,
@@ -293,7 +293,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:focus,
             &:focus-within,
             &:active {
-                background: var_colors.$color-form-fields-error;
+                background: var(--color-form-fields-error, #fff1f0);
                 border-color: var(--c-field-danger-color, var(--color-danger, var(--color-form-fields-border-error, #e02e24)));
             }
 
@@ -314,7 +314,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .c-field__error {
             display: block;
             padding: map.get(var_default.$spacers, "05") map.get(var_default.$spacers, "2");
-            color: var_colors.$color-white;
+            color: var(--color-white, #ffffff);
             background-color: var(--c-field-danger-color, var(--color-danger, var(--color-form-fields-border-error, #e02e24)));
             border-radius: 0 0 calc(var_default.$base * var(--c-field-border-radius, 0.25)) calc(var_default.$base * var(--c-field-border-radius, 0.25));
         }
