@@ -33,7 +33,7 @@ $dropdown-active-color: var_colors.$color-primary;
     z-index: 1;
     width: 100%;
     background-color: $dropdown-background;
-    padding: var(--base, 8px) calc(var_default.$base * 0.5);
+    padding: var(--base, 8px) calc(var(--base) * 0.5);
     filter: var_properties.$drop-shadow-4;
 }
 

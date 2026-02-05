@@ -8,7 +8,7 @@
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        scroll-margin-top: calc(#{var_default.$base} * 2);
+        scroll-margin-top: calc(var(--base) * 2);
     }
 
     &.c-header--sticky {
@@ -18,7 +18,7 @@
     }
 
     &.c-header--accented {
-        border-bottom: var(--color-primary, #ae0b05) solid var_default.$base;
+        border-bottom: var(--color-primary, #ae0b05) solid var(--base);
     }
 
     &.c-header--primary {
