@@ -63,7 +63,8 @@
   .c-link,
   .c-image,
   .c-table__column-content,
-  .c-date {
+  .c-date,
+  .c-datebadge {
     contain: layout paint;
     filter: unset !important;
     cursor: default;
