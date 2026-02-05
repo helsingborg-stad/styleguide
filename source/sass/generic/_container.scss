@@ -17,8 +17,8 @@
 
     &--home {
         min-height: calc(90vh - 140px);
-        padding-left: calc(#{var_default.$base} * 17);
-        padding-right: calc(#{var_default.$base} * 17);
+        padding-left: calc(var(--base) * 17);
+        padding-right: calc(var(--base) * 17);
     }
 
     &--doc {

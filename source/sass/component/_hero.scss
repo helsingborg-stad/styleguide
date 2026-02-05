@@ -21,8 +21,8 @@
    &__controls {
       display: none;
       position: absolute;
-      top: calc(#{var_default.$base} * 1.5);
-      right: calc(#{var_default.$base} * 1.5);
+      top: calc(var(--base) * 1.5);
+      right: calc(var(--base) * 1.5);
       cursor: pointer;
       z-index: 3000;
 
@@ -30,8 +30,8 @@
         content: "";
         display: block;
         background: var(--color-white, #ffffff);
-        width: calc(#{var_default.$base} * 3);
-        height: calc(#{var_default.$base} * 3);
+        width: calc(var(--base) * 3);
+        height: calc(var(--base) * 3);
         border-radius: 50%;
         position: absolute;
         z-index: -1;
@@ -89,21 +89,21 @@
 
   /** Modifiers - size **/ 
   &.c-hero--small {
-    min-height: calc(#{var_default.$base} * 40);
+    min-height: calc(var(--base) * 40);
     &:before {
       @include ratio.ratio(36, 7, false); 
     }
   }
 
   &.c-hero--normal {
-    min-height: calc(#{var_default.$base} * 50);
+    min-height: calc(var(--base) * 50);
     &:before {
       @include ratio.ratio(10, 3, false); 
     }
   }
 
   &.c-hero--large {
-    min-height: calc(#{var_default.$base} * 60);
+    min-height: calc(var(--base) * 60);
     max-height: 70vh;
     &:before {
       @include ratio.ratio(16, 9, false);
@@ -179,7 +179,7 @@
 
   .c-hero__content {
     padding: map.get(var_default.$spacers, "6") 0;
-    max-width: calc( #{var_default.$base} * 87);
+    max-width: calc(var(--base) * 87);
     z-index: 2000;
     position: relative;
   }
@@ -288,7 +288,7 @@
 
   /* TwoColumn hero */
   &.c-hero--twoColumn {
-    padding: calc(var_default.$base*10) 0;
+    padding: calc(var(--base)*10) 0;
     
     &:before {
       display: none;
@@ -359,8 +359,8 @@
       }
       
       &.c-hero--overflow { 
-        padding-top: calc(var_default.$base * 16);
-        max-height: calc(var_default.$base * 90);
+        padding-top: calc(var(--base) * 16);
+        max-height: calc(var(--base) * 90);
         
         .c-hero__background {
           display: block;
@@ -370,7 +370,7 @@
 
         &::after {
           content: "";
-          height: calc(var_default.$base * 8);
+          height: calc(var(--base) * 8);
           width: 100%;
           bottom:0;
           left:0;
@@ -382,7 +382,7 @@
       .c-hero__content {
           background-color: var(--color-white, #ffffff);
         .c-hero__group-content {
-          padding: calc(var_default.$base * 6);
+          padding: calc(var(--base) * 6);
         } 
       }
     }
@@ -394,7 +394,7 @@
     color: var(--color-primary, black);
 
     .c-hero__text {
-      padding: calc(#{var_default.$base} * 5) calc(#{var_default.$base} * 3);
+      padding: calc(var(--base) * 5) calc(var(--base) * 3);
 
       & > .o-grid {
         max-width: var(--container-width, 100%);
@@ -402,7 +402,7 @@
       }
 
       p {
-        margin: -0.5em 0 calc(#{var_default.$base} * 6) 0;
+        margin: -0.5em 0 calc(var(--base) * 6) 0;
       }
     }
 
@@ -457,7 +457,7 @@
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 6) calc(var(--base) * 3);
 
         p {
           margin: 0;
@@ -467,7 +467,7 @@
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 8) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 8) calc(var(--base) * 3);
       }
 
       .c-hero__buttons {
@@ -495,7 +495,7 @@
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 10) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 10) calc(var(--base) * 3);
       }
     }
   }
@@ -504,7 +504,7 @@
 
 @keyframes hero-slide-in {
   0% {
-    transform: translateY(calc(#{var_default.$base} * 4));
+    transform: translateY(calc(var(--base) * 4));
     opacity: 0;
   }
   100% {

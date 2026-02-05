@@ -65,8 +65,8 @@
 
     &.search-modal {
         #modal-search-form {
-            margin-top: calc(var_default.$base * 1);
-            margin-bottom: calc(var_default.$base * 1);
+            margin-top: calc(var(--base) * 1);
+            margin-bottom: calc(var(--base) * 1);
         }
     }
 
@@ -223,7 +223,7 @@
             right: map.get(var_default.$spacers, "1");
 
             i {
-                font-size: calc(var_default.$base * 3);
+                font-size: calc(var(--base) * 3);
             }
         }
 
