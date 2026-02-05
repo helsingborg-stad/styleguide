@@ -25,16 +25,16 @@ $font-size-hero-byline: 1.25rem !default; //+ 1.5vw
 $font-size-hero-body: 1rem !default; //+ 1.5vw
 
 $font-size-btn: 1rem;
-$font-size-btn-line-height: calc(#{var_default.$base}*2);
+$font-size-btn-line-height: calc(var(--base)*2);
 
 $font-size-btn-lg: 1rem;
-$font-size-btn-lg-line-height: calc(#{var_default.$base}*2);
+$font-size-btn-lg-line-height: calc(var(--base)*2);
 
 $font-size-btn-md: 0.95rem;
-$font-size-btn-md-line-height: calc(#{var_default.$base}*2);
+$font-size-btn-md-line-height: calc(var(--base)*2);
 
 $font-size-btn-sm: 0.775rem;
-$font-size-btn-sm-line-height: calc(#{var_default.$base}*1.5);
+$font-size-btn-sm-line-height: calc(var(--base)*1.5);
 
 //  Font Weights (plain values without CSS var wrappers)
 $font-weight-normal: 400 !default;

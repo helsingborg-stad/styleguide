@@ -1,7 +1,7 @@
 @use "../setting/var_default";
 
 $drawer-transition-ms: 300ms;
-$drawer-width: calc(#{var_default.$base} * 40);
+$drawer-width: calc(var(--base) * 40);
 
 
 /* Colors */
@@ -108,7 +108,7 @@ $drawer-width: calc(#{var_default.$base} * 40);
 }
 
 .c-drawer__header {
-    padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
+    padding: calc(var(--base) * 1) calc(var(--base) * 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -117,7 +117,7 @@ $drawer-width: calc(#{var_default.$base} * 40);
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base}  * 4) calc(#{var_default.$base} * 12) calc(#{var_default.$base} * 4);
+    padding: calc(var(--base) * 4) calc(var(--base) * 4) calc(var(--base) * 12) calc(var(--base) * 4);
 }
 
 // Drawer Modifiers
