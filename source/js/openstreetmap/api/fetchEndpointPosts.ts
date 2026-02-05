@@ -12,7 +12,6 @@ class FetchEndpointPosts {
             this.fetchingPostsEvent();
             this.fetchEndpointPosts((url))
             .then((data) => {
-                console.log(url, data);
                 if (data && data.length > 0) {
                     this.postsFetchedEvent(data);
                     page++;
