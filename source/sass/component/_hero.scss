@@ -447,8 +447,8 @@
     .c-hero__buttons {
       display: flex;
       flex-flow: column;
-      margin-top: calc(#{var_default.$base} * 3);
-      gap: calc(#{var_default.$base} * 2);
+      margin-top: calc(var(--base) * 3);
+      gap: calc(var(--base) * 2);
 
       .c-button + .c-button {
         margin-left: 0;

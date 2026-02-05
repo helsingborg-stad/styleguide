@@ -4,7 +4,7 @@
 
 @mixin focus {
     outline: thick solid var_colors.$color-focus-outline;
-    outline-offset: calc(#{var_default.$base} * 0.25);
+    outline-offset: calc(var(--base) * 0.25);
     box-shadow: 0 0 0 6px var_colors.$color-white;
 }
 
@@ -22,8 +22,8 @@
 
     &::after {
         border-radius: $border-radius;
-        box-shadow: inset 0 0 0 calc(#{var_default.$base} * 0.5) var_colors.$color-focus-outline,
-        inset 0 0 0 calc(#{var_default.$base} * 0.75) var_colors.$color-white;
+        box-shadow: inset 0 0 0 calc(var(--base) * 0.5) var_colors.$color-focus-outline,
+        inset 0 0 0 calc(var(--base) * 0.75) var_colors.$color-white;
         content: '';
         display: block;
         height: 100%;

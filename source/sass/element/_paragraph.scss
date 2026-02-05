@@ -5,5 +5,5 @@ p {
 }
 
 p {
-    margin-top: calc(#{var_default.$base} * 2);
+    margin-top: calc(var(--base) * 2);
 }

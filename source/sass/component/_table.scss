@@ -11,7 +11,7 @@
     }
 
     .c-table__header {
-        padding: calc(#{var_default.$base} * 1.5);
+        padding: calc(var(--base) * 1.5);
     }
 
     .c-table__inner {
@@ -25,11 +25,11 @@
 
     .c-table__footer {
         width: 100%;
-        padding: 0 calc(#{var_default.$base} * 2);
+        padding: 0 calc(var(--base) * 2);
     }
 
     .c-table__caption {
-        font-size: calc(#{var_default.$base} * 2);
+        font-size: calc(var(--base) * 2);
         font-weight: var(--font-weight-italic, 400);
         font-family: var(--font-family-italic, "Roboto", sans-serif);
         font-style: italic;
@@ -42,7 +42,7 @@
 
     .c-table__fullscreen {
         position: absolute;
-        right: calc(#{var_default.$base} * 2);
+        right: calc(var(--base) * 2);
         cursor: pointer;
     }
 
@@ -57,9 +57,9 @@
 
     .c-table__column {
         position: relative;
-        padding: calc(#{var_default.$base} * 1.5);
+        padding: calc(var(--base) * 1.5);
         vertical-align: top;
-        min-width: calc(#{var_default.$base} * 13);
+        min-width: calc(var(--base) * 13);
     }
 
     /**
@@ -78,8 +78,8 @@
 
         .c-table__heading {
             display: inline-block;
-            padding-right: calc(#{var_default.$base} * 2);
-            max-width: calc(100% - calc(#{var_default.$base} * 2));
+            padding-right: calc(var(--base) * 2);
+            max-width: calc(100% - calc(var(--base) * 2));
             text-overflow: ellipsis;
             overflow: hidden; 
         }
@@ -134,10 +134,10 @@
      * Scroll indicator
      */
     .c-table__scroll-indicator-wrapper {
-        margin: calc(#{var_default.$base} * 2) 0;
+        margin: calc(var(--base) * 2) 0;
         width: 100%;
         background-color: var(--color-lighter, #e5e5e5);
-        height: calc(#{var_default.$base} * 1.5);
+        height: calc(var(--base) * 1.5);
         border-radius: calc(var(--radius-lg, calc(var(--base, 8px) / 2)) * 4);
     }
 
@@ -194,14 +194,14 @@
         &.is-collapsed {
            .c-table__column-0 {
 
-                min-width: calc(#{var_default.$base} * 10);
+                min-width: calc(var(--base) * 10);
 
                 @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: min(calc(#{var_default.$base} * 25), 25vw);
+                    max-width: min(calc(var(--base) * 25), 25vw);
                 }
 
                 @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: calc(#{var_default.$base} * 25);
+                    max-width: calc(var(--base) * 25);
                 }
 
                 .c-table__column-content {
@@ -222,7 +222,7 @@
             top: 0;
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                max-width: calc(#{var_default.$base} * 60);
+                max-width: calc(var(--base) * 60);
             }
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
@@ -256,8 +256,8 @@
  * Embedded in modal
  */
 .c-table__modal {
-    margin: calc(#{var_default.$base} * 2);
-    height: calc(100vh - calc(#{var_default.$base} * 4));
+    margin: calc(var(--base) * 2);
+    height: calc(100vh - calc(var(--base) * 4));
 
     .c-modal__header .c-modal__close .c-icon {
         color: var(--color-black, #000000);

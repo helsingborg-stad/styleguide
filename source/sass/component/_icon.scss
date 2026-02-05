@@ -17,7 +17,7 @@ $colors: (
 :root {
     @each $size in $sizes {
         $index: list.index($sizes, $size);
-        --c-icon-size-#{$size}: calc(#{var_default.$base} * #{$index});
+        --c-icon-size-#{$size}: calc(var(--base) * #{$index});
     }
 }
 

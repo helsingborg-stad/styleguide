@@ -9,7 +9,7 @@ $wrap: wrap, wrap-reverse, nowrap;
 
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
-            --grid-gap: calc(#{$i} * #{var_default.$base});
+            --grid-gap: calc(#{$i} * var(--base));
             gap: var(--grid-gap, calc(var(--base, 8px) * 4));
         }
 

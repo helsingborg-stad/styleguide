@@ -38,7 +38,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
     margin: 0;
-    margin-top: calc(#{var_default.$base} * 6);
+    margin-top: calc(var(--base) * 6);
     font-family: var_fonts.$font-family-heading;
     letter-spacing: var_fonts.$letter-spacing-heading;
     text-transform: var_fonts.$text-transform-heading;

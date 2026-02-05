@@ -11,10 +11,10 @@
     container-name: testbox;
 
     .c-box__body {
-        padding: calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 3);
         display: flex; 
         flex-direction: column;
-        gap: calc(#{var_default.$base} * 2);
+        gap: calc(var(--base) * 2);
         text-align: center;
         justify-content: center;
         align-items: center;
@@ -26,32 +26,32 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        max-width: calc(#{var_default.$base} * 20);
+        max-width: calc(var(--base) * 20);
     }
 
     @container testbox (max-width: 650px) {
         .c-box__image {
-            max-width: calc(#{var_default.$base} * 15);
+            max-width: calc(var(--base) * 15);
         }
     }
 
     @container testbox (max-width: 450px) {
         .c-box__image {
-            max-width: calc(#{var_default.$base} * 10);
+            max-width: calc(var(--base) * 10);
         }
     }
 
     .c-box__icon.c-icon {
         color: var(--c-box-color, var(--color-primary-contrasting, var(--color-white, #ffffff)));
-        font-size: calc(#{var_default.$base} * 10);
+        font-size: calc(var(--base) * 10);
         line-height: 60px;
-        margin-bottom: calc(#{var_default.$base} * 2);
+        margin-bottom: calc(var(--base) * 2);
         margin-right: auto;
         margin-left: auto;
     }
 
     .c-box__image.c-image--type-svg {
-        width: clamp(calc(#{var_default.$base} * 6), 30%, calc(#{var_default.$base} * 20));
+        width: clamp(calc(var(--base) * 6), 30%, calc(var(--base) * 20));
     }
 
     .c-box__heading, 
@@ -92,7 +92,7 @@ a.c-box {
     &:hover {
         filter: var(--drop-shadow-3, drop-shadow(0px 8px 10px rgba(0,0,0,.1)));
         color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        transform: translateY(calc( 0px - var(--base) * 0.25 ));
         filter: brightness(0.9);
 
         .c-box__heading {

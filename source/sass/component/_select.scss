@@ -36,7 +36,7 @@
         border-left: none;
         border-right: none;
         border-top: none;
-        padding: #{var_default.$base};
+        padding: var(--base);
         padding-top: 0;
     }
 
@@ -301,14 +301,14 @@
         max-height: calc(var_default.$base * 30);
         overflow-y: auto;
         z-index: var_properties.$level-3;
-        padding: #{var_default.$base} 0;
+        padding: var(--base) 0;
         border: $c-select-border-width solid $c-select-border-color;
     }
 
     .c-select__option {
         display: flex;
-        gap: calc(#{var_default.$base} * 1.5);
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
+        gap: calc(var(--base) * 1.5);
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
         align-items: center;
         cursor: pointer;
         user-select: none;
@@ -354,7 +354,7 @@
 
             .c-select__option-label,
             .c-select__option-icon {
-                transform: translateX(calc(#{var_default.$base} * 0.5));
+                transform: translateX(calc(var(--base) * 0.5));
             }
         }
     }

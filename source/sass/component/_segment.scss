@@ -352,7 +352,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     flex-direction: row;
 
     .c-segment__padder {
-        max-width: calc(#{var_default.$base} * 60);
+        max-width: calc(var(--base) * 60);
         margin: auto;
         padding-top: #{map.get(var_default.$spacers, "4")};
         padding-bottom: #{map.get(var_default.$spacers, "4")};

@@ -11,20 +11,20 @@
     }
 
     .c-nav__item .c-nav__item-wrapper {
-        min-height: calc(#{var_default.$base} * 6.5);
+        min-height: calc(var(--base) * 6.5);
     }
 
     &.c-nav--height-sm>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{var_default.$base} * 5.5);
+        min-height: calc(var(--base) * 5.5);
     }
 
     &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper,
     &.c-nav--height-sm.c-nav--bordered> .c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{var_default.$base} * 6.5);
+        min-height: calc(var(--base) * 6.5);
     }
 
     &.c-nav--height-lg>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{var_default.$base} * 8);
+        min-height: calc(var(--base) * 8);
     }
 
     .c-nav__item-wrapper {
@@ -46,7 +46,7 @@
         text-decoration: none;
         flex: 1;
         align-items: center;
-        gap: #{var_default.$base};
+        gap: var(--base);
     }
 
     .c-nav__item {
@@ -98,14 +98,14 @@
         }
 
         .c-nav.c-nav--vertical .c-nav__item .c-nav__link:hover:after {
-            left: calc(#{var_default.$base} * 2);
+            left: calc(var(--base) * 2);
         }
 
         &.c-nav--depth-1 {
-            gap: calc(#{var_default.$base} * 2);
+            gap: calc(var(--base) * 2);
 
             &.c-nav--compressed {
-                gap: calc(#{var_default.$base} * 1);
+                gap: calc(var(--base) * 1);
             }
         }
 
@@ -134,7 +134,7 @@
             position: absolute;
             bottom: 0;
             background: var(--color-white, #ffffff);
-            min-width: calc(#{var_default.$base} * 28);
+            min-width: calc(var(--base) * 28);
             border-radius: var(--radius-sm, calc(var(--base, 8px) / 2));
             filter: var(--drop-shadow-1, drop-shadow(0px 2px 4px rgba(0,0,0,.1)));
             transform: translateY(100%);
@@ -144,11 +144,11 @@
                 position: absolute;
                 background: inherit;
                 content: "";
-                height: calc(#{var_default.$base} * 2.5);
-                left: calc(#{var_default.$base} * 2.5);
-                top: calc(#{var_default.$base} * -1);
+                height: calc(var(--base) * 2.5);
+                left: calc(var(--base) * 2.5);
+                top: calc(var(--base) * -1);
                 transform: rotate(45deg);
-                width: calc(#{var_default.$base} * 2.5);
+                width: calc(var(--base) * 2.5);
                 z-index: 5000;
                 border-top-left-radius: max(calc(var(--base, 8px) * .5), var(--radius-sm, calc(var(--base, 8px) / 2)));
             }
@@ -164,11 +164,11 @@
         }
 
         .c-nav__link {
-            padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
+            padding: calc(var(--base) * 1) calc(var(--base) * 2);
         }
 
         &.c-nav--compressed .c-nav__link {
-            padding: calc(#{var_default.$base} * 0.5) 0;
+            padding: calc(var(--base) * 0.5) 0;
         }
 
         &.c-nav--bordered .c-nav__item+.c-nav__item {
@@ -322,10 +322,10 @@
 
     .c-nav__extended-dropdown-content-area {
         position: relative;
-        padding: calc(#{var_default.$base} * 4) 0;
+        padding: calc(var(--base) * 4) 0;
         width: 100%;
         display: flex;
-        gap: calc(#{var_default.$base} * 8);
+        gap: calc(var(--base) * 8);
         overflow-x: hidden;
     }
 
@@ -336,31 +336,31 @@
 
         // Only affect the "main subitems"
         & > .c-nav__child-container > ul > li {
-            padding-left: calc(#{var_default.$base} * 4);
-            padding-right: calc(#{var_default.$base} * 4);
+            padding-left: calc(var(--base) * 4);
+            padding-right: calc(var(--base) * 4);
         }    
         
         // Only affect the "main subitems"
         & > .c-nav__child-container > ul > li {
-            padding-left: calc(#{var_default.$base} * 4);
-            padding-right: calc(#{var_default.$base} * 4);
+            padding-left: calc(var(--base) * 4);
+            padding-right: calc(var(--base) * 4);
         }
 
         & > .c-nav__child-container > ul.preloader {
-            margin-left: calc(#{var_default.$base} * 4);
-            margin-right: calc(#{var_default.$base} * 4);
+            margin-left: calc(var(--base) * 4);
+            margin-right: calc(var(--base) * 4);
         }
     }
 
     /* Setting parent title styles */
     .c-nav__extended-content h2:first-child.c-nav__extended-dropdown-title {
         white-space: nowrap;
-        margin-top: calc(#{var_default.$base} * .5);
+        margin-top: calc(var(--base) * .5);
         color: var(--c-nav-v-color-contrasting-active);
     }
 
     .c-nav.preloader > li {
-        width: calc(#{var_default.$base} * 32);
+        width: calc(var(--base) * 32);
     }
 
     /* Direct subitems (to main item) styles */
@@ -383,7 +383,7 @@
         }
 
         & > li {
-            width: calc(#{var_default.$base} * 40);
+            width: calc(var(--base) * 40);
             background-color: var(--c-nav-v-background-color, rgba(0, 0, 0, 0));
         }
 

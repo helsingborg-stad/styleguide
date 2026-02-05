@@ -48,8 +48,8 @@
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{var_default.$base} * 4);
-            height: calc(#{var_default.$base} * 4);
+            width: calc(var(--base) * 4);
+            height: calc(var(--base) * 4);
 
              &.c-slider__arrow--prev {
                 left: calc(var_default.$base * -1.5);
@@ -62,15 +62,15 @@
             }
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                width: calc(#{var_default.$base} * 6);
-                height: calc(#{var_default.$base} * 6);
+                width: calc(var(--base) * 6);
+                height: calc(var(--base) * 6);
 
                 &.c-slider__arrow--prev {
-                    left: calc(#{var_default.$base} * 2.5);
+                    left: calc(var(--base) * 2.5);
                 }
 
                 &.c-slider__arrow--next {
-                    right: calc(#{var_default.$base} * 2.5);
+                    right: calc(var(--base) * 2.5);
                 }
             }
         }
@@ -108,10 +108,10 @@
         height: calc(var(--base, 8px) * 5);
         color: var(--color-primary, #ae0b05);
         z-index: 1;
-        margin: calc(#{var_default.$base} * 1);
+        margin: calc(var(--base) * 1);
         
         @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
-            margin: calc(#{var_default.$base} * 3);
+            margin: calc(var(--base) * 3);
         }
 
         .c-slider__autoslide-play {
@@ -122,8 +122,8 @@
             content: "";
             display: block;
             background: #fff;
-            width: calc(#{var_default.$base} * 3);
-            height: calc(#{var_default.$base} * 3);
+            width: calc(var(--base) * 3);
+            height: calc(var(--base) * 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -150,10 +150,10 @@
     }
 
     &.c-slider--has-stepper {
-        margin-bottom: calc(#{var_default.$base} * 6);
+        margin-bottom: calc(var(--base) * 6);
 
         .c-slider__steppers {
-            margin-bottom: calc(calc(#{var_default.$base} * 3) * -1);
+            margin-bottom: calc(calc(var(--base) * 3) * -1);
             transform: translateY(-50%);
         }
     }
@@ -241,7 +241,7 @@
     position: absolute;
     bottom: 0;
     display: flex;
-    gap: calc(#{var_default.$base} * 0.5);
+    gap: calc(var(--base) * 0.5);
     justify-content: center;
     width: 100%;
     list-style: none;
@@ -254,13 +254,13 @@
     }
 
     li:first-of-type .c-slider__dot {
-        border-top-left-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
+        border-top-left-radius: calc(var(--base) * 0.5);
+        border-bottom-left-radius: calc(var(--base) * 0.5);
     }
 
     li:last-of-type .c-slider__dot {
-        border-top-right-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
+        border-top-right-radius: calc(var(--base) * 0.5);
+        border-bottom-right-radius: calc(var(--base) * 0.5);
     }
 
     .c-slider__dot {

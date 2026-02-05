@@ -124,12 +124,12 @@
     
     // Content Modifier - Multiline
     .c-collection__content.c-collection__content--icon {
-        padding-right: calc(#{var_default.$base} * 5);
+        padding-right: calc(var(--base) * 5);
         position: relative;
         .c-collection__secondary {
             position: absolute;
-            top: calc(#{var_default.$base} * 1.5);
-            right: calc(#{var_default.$base} * 2);
+            top: calc(var(--base) * 1.5);
+            right: calc(var(--base) * 2);
             float: none;
         }
     }
@@ -176,7 +176,7 @@
                 background-color: rgba(0, 0, 0, .05);
                 .c-collection__content,
                 .c-collection__icon {
-                    transform: translateX(calc(#{var_default.$base} * 0.5));
+                    transform: translateX(calc(var(--base) * 0.5));
                 }
             }
         }
@@ -232,8 +232,8 @@
         }
 
         .c-collection__icon {
-            --c-icon-size: calc(#{var_default.$base} * 2);
-            padding-right: calc(#{var_default.$base} * .5);
+            --c-icon-size: calc(var(--base) * 2);
+            padding-right: calc(var(--base) * .5);
             align-self: center;
         }
     }

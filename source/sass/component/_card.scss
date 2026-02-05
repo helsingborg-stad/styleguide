@@ -91,9 +91,9 @@
     
     &__date {
         display: flex;
-        gap: calc(#{var_default.$base} * 0.5);
+        gap: calc(var(--base) * 0.5);
         align-items: center;
-        margin-top: calc(#{var_default.$base} * 0.5);
+        margin-top: calc(var(--base) * 0.5);
     }
     
     &__dropdown {
@@ -204,7 +204,7 @@
             margin-bottom: var_default.$base;
         }
         .c-card__header {
-            border-bottom: calc(#{var_default.$base} / 2) solid var(--color-primary, #ae0b05);
+            border-bottom: calc(var(--base) / 2) solid var(--color-primary, #ae0b05);
             background: var(--color-white, #ffffff);
         }
         .c-typography {
@@ -301,7 +301,7 @@
 
     &--svg-background {
         .c-card__image-background {
-            background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+            background-size: clamp(var(--base) * 3, 50%, var(--base) * 8);
             background-repeat: no-repeat;
             background-color: var(--c-card-image-background-color, var(--color-card-image-background, #e5e5e5));
         }   
@@ -351,7 +351,7 @@ a.c-card {
         filter: var(--drop-shadow-3, drop-shadow(0px 8px 10px rgba(0,0,0,.1)));
         background-color: var(--color-lightest, #fcfcfc);
         color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        transform: translateY(calc( 0px - var(--base) * 0.25 ));
         transition: all 200ms ease-out;
         
         .c-card__heading {

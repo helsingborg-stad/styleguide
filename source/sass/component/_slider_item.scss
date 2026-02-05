@@ -219,7 +219,7 @@
 
         .c-slider__item__cta {
             grid-area: 1 / 2 / 3 / 3;
-            margin: auto 0 auto calc(#{var_default.$base} * 2);
+            margin: auto 0 auto calc(var(--base) * 2);
             white-space: nowrap;
         }
     }
@@ -237,9 +237,9 @@
         padding: map.get(var_default.$spacers, '4');
         border-radius: var_border-radius.$border-radius-lg;
         margin: auto;
-        width: calc(100% - (#{var_default.$base} * 10));
+        width: calc(100% - (var(--base) * 10));
         max-width: $c-slider-item-container-max-width;
-        max-height: calc(100% - (#{var_default.$base} * 10));
+        max-height: calc(100% - (var(--base) * 10));
         align-self: center;
         overflow: auto;
         z-index: var_properties.$level-4;
@@ -249,12 +249,12 @@
 
     .c-slider__item__heading {
         @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
-            font-size: calc(#{var_default.$base} * 4);
+            font-size: calc(var(--base) * 4);
         }
     }
 
     .c-slider__item__cta {
-        margin-top: calc(#{var_default.$base} * 3);
+        margin-top: calc(var(--base) * 3);
     }
 }
 
@@ -266,7 +266,7 @@
 
 @keyframes hero-slider-slide-in {
     0% {
-      transform: translateY(calc(#{var_default.$base} * 4));
+      transform: translateY(calc(var(--base) * 4));
       opacity: 0;
     }
     100% {
