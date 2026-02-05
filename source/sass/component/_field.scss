@@ -21,7 +21,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-size: var(--c-field-label-font-size, 0.75rem);
         font-weight: var(--c-field-label-font-size, 700);
         text-transform: var(--c-field-label-text-transform, uppercase);
-        margin-bottom: calc(#{var_default.$base}/2);
+        margin-bottom: calc(var(--base)/2);
         letter-spacing: 0.05rem;
     }
 
@@ -36,8 +36,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-weight: var(--font-weight-base, 400);
         font-size: var(--c-field-helper-font-size, var(--font-size-caption, 0.75rem));
         color: #707070;
-        margin-top: calc(#{var_default.$base}/2);
-        margin-left: calc(#{var_default.$base}/4);
+        margin-top: calc(var(--base)/2);
+        margin-left: calc(var(--base)/4);
     }
 
     #{$fields},
@@ -59,12 +59,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(#{var_default.$base}*10);
+        min-width: calc(var(--base)*10);
         font-size: var(--c-field-font-size-md, var(--font-size-btn-md, 1rem));
         line-height: var(--c-field-font-size-md-line-height, var(--font-size-btn-md-line-height, 1.5));
         border: var(--c-field-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
         background: var(--c-field-background-color, var(--color-form-fields, #ffffff));
-        border-radius: calc(var_default.$base * var(--c-field-border-radius, 0.25));
+        border-radius: calc(var(--base) * var(--c-field-border-radius, 0.25));
 
         &:focus-within {
             @include focus.focus-remove-default();
@@ -72,7 +72,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         input {
-            border-radius: calc(var_default.$base * var(--c-field-border-radius, 0.25));
+            border-radius: calc(var(--base) * var(--c-field-border-radius, 0.25));
         }
 
         .c-field__icon,
@@ -171,7 +171,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         .c-field__inner,
         .c-field__inner input {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: calc(var(--base) * 3);
             border: none;
 
             input::placeholder {
@@ -180,7 +180,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         .c-field__label {
-            margin-left: calc(var_default.$base * 2);
+            margin-left: calc(var(--base) * 2);
         }
 
         &.c-field--rounded-border {
@@ -191,7 +191,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         input:focus+.c-field_focus-styler,
         textarea:focus+.c-field_focus-styler {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: calc(var(--base) * 3);
         }
     }
 
@@ -316,7 +316,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             padding: map.get(var_default.$spacers, "05") map.get(var_default.$spacers, "2");
             color: var(--color-white, #ffffff);
             background-color: var(--c-field-danger-color, var(--color-danger, var(--color-form-fields-border-error, #e02e24)));
-            border-radius: 0 0 calc(var_default.$base * var(--c-field-border-radius, 0.25)) calc(var_default.$base * var(--c-field-border-radius, 0.25));
+            border-radius: 0 0 calc(var(--base) * var(--c-field-border-radius, 0.25)) calc(var(--base) * var(--c-field-border-radius, 0.25));
         }
     }
 
