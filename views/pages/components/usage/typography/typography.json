@@ -10,5 +10,10 @@
         "subHeading": "",
         "text": "When the parameter element is set and the variant element is not, the result is a p element that looks like a <h1> element.",
         "grid": "grid-s-12 grid-sm-6 grid-md-6"
+    },
+    "all-levels": {
+        "heading": "All heading levels",
+        "subHeading": "",
+        "text": "The Typography component supports all HTML heading levels, as well as body text and other text styles. You can specify the variant to achieve the desired look."
     }
 }
