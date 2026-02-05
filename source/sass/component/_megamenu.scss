@@ -28,8 +28,8 @@
     .c-megamenu__description {
         border-top: 2px solid var(--c-mega-menu-heading-color, var(--color-primary, #ae0b05));
         color: var(--c-mega-menu-subitem-color, var(--color-primary, #ae0b05));
-        padding-top: calc(var_default.$base * 1);
-        margin-top: calc(var_default.$base * 0.5);
+        padding-top: calc(var(--base) * 1);
+        margin-top: calc(var(--base) * 0.5);
     }
 
     &.c-megamenu--cover {
@@ -46,7 +46,7 @@
         display: inline-flex;
         align-items: center;
         text-decoration: none;
-        gap: var_default.$base;
+        gap: var(--base);
     }
 
     .c-megamenu__item--child {
@@ -63,7 +63,7 @@
     .c-megamenu__sublist.c-megamenu__sublist--flex {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 var_default.$base;
+        gap: 0 var(--base);
     }
 }
 

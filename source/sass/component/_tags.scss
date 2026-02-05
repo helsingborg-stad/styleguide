@@ -3,7 +3,7 @@
 .c-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: #{var_default.$base};
+    gap: var(--base);
 
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
@@ -14,8 +14,8 @@
         .c-tags__tag {
             background-color: var(--c-tags-pill-background, var(--color-background-card, var(--color-white, #ffffff)));
             color: var(--c-field-label-color, var(--color-darker, #565656));
-            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
-            border-radius: calc(var_default.$base * 3);
+            padding: calc(var(--base) * 0.5) calc(var(--base) * 1.5);
+            border-radius: calc(var(--base) * 3);
             filter: var(--detail-shadow-2, drop-shadow(0px 4px 4px rgba(0,0,0,.1)));
 
             &:hover {
