@@ -127,7 +127,7 @@
     }
 
     .c-table__column.c-table__column-0 {
-        z-index: 1000;
+        z-index: var(--level-1);
     }
 
     /**

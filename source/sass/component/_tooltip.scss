@@ -28,7 +28,7 @@
     .c-tooltip__container {
         position: absolute;
         border-radius: var(--c-tooltip-border-radius, var(--radius-xs, calc(var(--base, 8px) / 4)));
-        z-index: 9000;
+        z-index: var(--level-9);
         width:max-content;
         top: 100%;
         left: 50%;
@@ -148,7 +148,7 @@
         content: attr(data-tooltip);
         position: absolute;
         border-radius: var(--c-tooltip-border-radius, var(--radius-xs, calc(var(--base, 8px) / 4)));
-        z-index: 9000;
+        z-index: var(--level-9);
         width: max-content;
         max-width: calc(var(--base) * 25);
         background-color: var(--c-tooltip-background-color, var(--color-alpha, rgba(0, 0, 0, 0.55)));

@@ -160,7 +160,7 @@
         position: absolute;
         right: var_default.$base;
         top: var_default.$base;
-        z-index: 3000;
+        z-index: var(--level-3);
     }
 
     .c-card__content-after {
@@ -344,7 +344,7 @@ a.c-card {
         width: 100%;
         background: var(--color-lighter, #e5e5e5);
         opacity: 0;
-        z-index: 1000;
+        z-index: var(--level-1);
     }
     
     &:hover {

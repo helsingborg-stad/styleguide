@@ -2,7 +2,7 @@
 @use "../setting/var_default";
 
 .c-header {
-    z-index: 6000;
+    z-index: var(--level-6);
     position: relative;
     background-color: var(--color-header-background, var(--color-white, #ffffff));
 
@@ -14,7 +14,7 @@
     &.c-header--sticky {
         position: sticky;
         top: 0;
-        z-index: 7000;
+        z-index: var(--level-7);
     }
 
     &.c-header--accented {

@@ -21,7 +21,7 @@
 
     .c-select__action-overlay {
         cursor: pointer;
-        z-index: 4000;
+        z-index: var(--level-4);
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -62,7 +62,7 @@
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: 5000;
+            z-index: var(--level-5);
         }
     }
 
@@ -72,7 +72,7 @@
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: 6000;
+        z-index: var(--level-6);
         height: 100%;
         color: var(--color-primary, #ae0b05);
         display: flex;
@@ -89,7 +89,7 @@
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: 2000;
+        z-index: var(--level-2);
         transition: none;
         height: 100%;
         color: var(--color-primary, #ae0b05);

@@ -90,7 +90,7 @@ $drawer-width: calc(var(--base) * 40);
     height: 100%;
     max-width: $drawer-width;
     width: 90%;
-    z-index: 9000;
+    z-index: var(--level-9);
     transform: translate(-100%);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;

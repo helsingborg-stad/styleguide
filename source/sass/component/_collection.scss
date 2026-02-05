@@ -35,7 +35,7 @@
             position: absolute;
             right: calc(var_default.$base * 2.75);
             top: var_default.$base;
-            z-index: 3000;
+            z-index: var(--level-3);
             cursor: pointer;
         }
 

@@ -130,7 +130,7 @@
         }
 
         .c-nav.c-nav--child {
-            z-index: 5000;
+            z-index: var(--level-5);
             position: absolute;
             bottom: 0;
             background: var(--color-white, #ffffff);
@@ -149,7 +149,7 @@
                 top: calc(var(--base) * -1);
                 transform: rotate(45deg);
                 width: calc(var(--base) * 2.5);
-                z-index: 5000;
+                z-index: var(--level-5);
                 border-top-left-radius: max(calc(var(--base, 8px) * .5), var(--radius-sm, calc(var(--base, 8px) / 2)));
             }
         }
@@ -315,7 +315,7 @@
         top: 100%;
         left: 0;
         width: 100%;
-        z-index: 5000;
+        z-index: var(--level-5);
         background-color: var(--c-nav-v-background-color, rgba(0, 0, 0, 0));
         justify-content: center;
     }

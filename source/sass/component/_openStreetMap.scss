@@ -344,7 +344,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		padding: .25rem;
 		border-radius: 50%;
 		cursor: pointer;
-		z-index: 3000;
+		z-index: var(--level-3);
 	}
 }
 
@@ -531,7 +531,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 .leaflet-top,
 .leaflet-bottom {
 	position: absolute;
-	z-index: 1000;
+	z-index: var(--level-1);
 	}
 
 .leaflet-top {

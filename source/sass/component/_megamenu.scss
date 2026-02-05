@@ -7,7 +7,7 @@
     background-color: var(--c-mega-menu-background-color, var(--color-primary-contrasting, #ffffff));
     position: absolute;
     width: 100%;
-    z-index: 8000;
+    z-index: var(--level-8);
 
     &.c-megamenu--secondary {
         --c-mega-menu-heading-color: var(--color-primary, #ae0b05);

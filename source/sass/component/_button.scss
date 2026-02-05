@@ -54,7 +54,7 @@
     &:after {
         content: '';
         @include cover.cover();
-        z-index: 1000;
+        z-index: var(--level-1);
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out, 
@@ -92,7 +92,7 @@
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: 2000;
+        z-index: var(--level-2);
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: var(--base);
@@ -107,7 +107,7 @@
         .c-button__label-icon {
             order: 2;
             position: relative;
-            z-index: 2000;
+            z-index: var(--level-2);
             display: flex;
     
             &--reverse {
