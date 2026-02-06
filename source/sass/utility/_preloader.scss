@@ -72,7 +72,7 @@
     color: transparent;
 
     &.u-preloader--exclude {
-      display: none !important;
+      visibility: hidden !important;
     }
 
     &:after,
