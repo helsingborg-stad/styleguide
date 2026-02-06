@@ -27,11 +27,54 @@
   /**********************************************************
   * RADIUS
   ***********************************************************/
-  --radius-xxs:  calc(#{var_default.$base}/8);
-  --radius-xs:   calc(#{var_default.$base}/4);
-  --radius-sm:   calc(#{var_default.$base}/2);
-  --radius-md:   calc(#{var_default.$base});
-  --radius-lg:   calc(#{var_default.$base}*2);
-  --radius-xl:   calc(#{var_default.$base}*4);
+  --radius-xxs:  calc(var(--base) / 8);
+  --radius-xs:   calc(var(--base) / 4);
+  --radius-sm:   calc(var(--base) / 2);
+  --radius-md:   calc(var(--base));
+  --radius-lg:   calc(var(--base) * 2);
+  --radius-xl:   calc(var(--base) * 4);
   --radius-full: 5000px;
+
+  /**********************************************************
+  * Colors
+  ***********************************************************/
+
+  /* Brand */
+  --color--primary: #000;
+  --color--primary-contrast: #fff;
+
+  --color--secondary: #000;
+  --color--secondary-contrast: #fff;
+
+  --color--accent: #000;
+  --color--accent-contrast: #fff;
+
+  /* Layout */
+  --color--background: #fff;
+  --color--background-contrast: #000;
+
+  --color--surface: #fff;
+  --color--surface-contrast: #000;
+
+  /* Typography */
+  --color--text: #000;
+  --color--muted: #000;
+
+  /* UI */
+  --color--border: #000;
+  --color--ring: #000;
+
+  /* State / feedback */
+  --color--success: #000;
+  --color--success-contrast: #fff;
+
+  --color--warning: #000;
+  --color--warning-contrast: #fff;
+
+  --color--error: #000;
+  --color--error-contrast: #fff;
+
+  --color--info: #000;
+  --color--info-contrast: #fff;
+
 }
