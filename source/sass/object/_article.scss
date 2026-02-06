@@ -1,5 +1,4 @@
 @use "../element/headings";
-@use "../setting/var_default";
 
 $article-content-headings:
 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -11,7 +10,7 @@ $article-content-elements:
 
 .c-article {
     #{$article-content-elements} {
-        margin-top: calc(#{var(--base)} * 2);
+        margin-top: calc(var(--base) * 2);
     }
 
     > *:first-child {
@@ -20,7 +19,7 @@ $article-content-elements:
 
     h1:first-child,
     .c-group:first-child h1:first-child {
-        margin-top: calc(headings.$h1-font-size - (headings.$h1-line-height * headings.$h1-font-size));
+        margin-top: calc(var(--h1-font-size, var(--font-size-headline)) * (1 - var(--h1-line-height, var(--line-height-heading))));
     }
     
     h1:last-child {
@@ -30,5 +29,5 @@ $article-content-elements:
 }
 
 .c-article.c-article--readable-width {
-    max-width: var(--container-width-content, calc(#{var(--base)} * 76));
+    max-width: var(--container-width-content, calc(var(--base) * 76));
 }
