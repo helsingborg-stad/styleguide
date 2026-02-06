@@ -5,7 +5,7 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.$border-radius-md) !default;
+$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.var(--radius-md)) !default;
 $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
 
 .c-block[data-open] {
@@ -92,15 +92,15 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &--border-radius-sm {
-        border-radius: var_border-radius.$border-radius-sm;
+        border-radius: var_border-radius.var(--radius-sm);
     }
 
     &--border-radius-md {
-        border-radius: var_border-radius.$border-radius-md;
+        border-radius: var_border-radius.var(--radius-md);
     }
 
     &--border-radius-lg {
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: var_border-radius.var(--radius-lg);
     }
 
     .c-modal.c-modal--size-sm {

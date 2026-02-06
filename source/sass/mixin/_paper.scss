@@ -6,7 +6,7 @@
 @use "../setting/var_properties";
 
 $c-paper-color-background: var(--c-paper-color-background, var_colors.$color-background-card) !default;
-$c-paper-border-radius: var(--c-paper-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-paper-border-radius: var(--c-paper-border-radius, var_border-radius.var(--radius-lg)) !default;
 
 @mixin paper($level: 1, $padding: "0") {
     filter: list.nth(var_properties.$drop-shadow-list, $level);

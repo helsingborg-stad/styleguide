@@ -4,8 +4,8 @@
 @use "../setting/var_default";
 @use "../setting/var_fonts";
 
-$c-comment-border-radius: var(--c-comment-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_border-radius.$border-radius-sm) !default;
+$c-comment-border-radius: var(--c-comment-border-radius, var_border-radius.var(--radius-lg)) !default;
+$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_border-radius.var(--radius-sm)) !default;
 
 .c-comment + .c-comment {
     margin-top: map.get(var_default.$spacers, "2");

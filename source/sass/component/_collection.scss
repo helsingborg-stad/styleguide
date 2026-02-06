@@ -14,7 +14,7 @@ $c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var_defau
 
 $c-collection-hover-background: rgba(black, .05) !default;
 
-$c-collection-border-radius: var(--c-collection-border-radius, var_border-radius.$border-radius-md) !default;
+$c-collection-border-radius: var(--c-collection-border-radius, var_border-radius.var(--radius-md)) !default;
 
 $c-collection-border-width: var(--c-collection-border-width, var_properties.$border-width-outline) !default;
 $c-collection-border-color: var(--c-collection-border-color, var_colors.$color-border-outline) !default;
@@ -26,8 +26,8 @@ $c-collection-divider-border-color: var(--c-collection-border-color, var_colors.
 $c-collection-item-border-width: var(--c-collection-item-border-width, var_properties.$border-width-medium) !default;
 $c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
 
-$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-md) !default;
+$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var_border-radius.var(--radius-lg)) !default;
+$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var_border-radius.var(--radius-md)) !default;
 $c-collection-item-background-color: var(--c-collection-card-background-color, var_colors.$color-background-card) !default;
 
 // Reset
@@ -63,7 +63,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
             position: absolute;
             right: calc(var_default.$base * 2.75);
             top: var_default.$base;
-            z-index: var_properties.$level-3;
+            z-index: var(--level-3);
             cursor: pointer;
         }
 

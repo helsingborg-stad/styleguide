@@ -6,7 +6,7 @@
 $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_default.$base}) !default;
 
 .c-header {
-    z-index: var_properties.$level-6;
+    z-index: var(--level-6);
     position: relative;
     background-color: var_colors.$color-header-background;
 
@@ -18,7 +18,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
     &.c-header--sticky {
         position: sticky;
         top: 0;
-        z-index: var_properties.$level-7;
+        z-index: var(--level-7);
     }
 
     &.c-header--accented {

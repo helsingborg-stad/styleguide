@@ -198,7 +198,7 @@
         padding: calc(var_default.$base * 3);
         border-bottom-left-radius: $c-slider-border-radius;
         border-bottom-right-radius: $c-slider-border-radius;
-        z-index: var_properties.$level-4;
+        z-index: var(--level-4);
         color: $c-slider-color-overlay-contrasting;
         background-color: $c-slider-color-overlay;
     }
@@ -235,14 +235,14 @@
 
     .c-slider__item__container {
         padding: map.get(var_default.$spacers, '4');
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: var_border-radius.var(--radius-lg);
         margin: auto;
         width: calc(100% - (#{var_default.$base} * 10));
         max-width: $c-slider-item-container-max-width;
         max-height: calc(100% - (#{var_default.$base} * 10));
         align-self: center;
         overflow: auto;
-        z-index: var_properties.$level-4;
+        z-index: var(--level-4);
         color: $c-slider-color-overlay-contrasting;
         background-color: $c-slider-color-overlay;
     }

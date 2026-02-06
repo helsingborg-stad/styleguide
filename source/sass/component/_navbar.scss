@@ -19,7 +19,7 @@
     background-color: var_colors.$color-white;
     color: var_colors.$color-black;
     
-    z-index: var_properties.$level-6;
+    z-index: var(--level-6);
     filter: var_properties.$drop-shadow-1;
 
     &--border-top{

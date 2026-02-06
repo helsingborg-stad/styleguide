@@ -68,7 +68,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             right: calc(#{var_default.$base} * -1);
             height: 0;
             width: 0;
-            z-index: var_properties.$level-1;
+            z-index: var(--level-1);
             border: 0 solid #{$c-timeline-card-background-color};
             border-width: #{var_default.$base} 0 #{var_default.$base} #{var_default.$base};
             border-color: transparent transparent transparent #{$c-timeline-card-background-color};

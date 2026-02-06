@@ -32,6 +32,6 @@
         pointer-events: none;
         position: absolute;
         width: 100%;
-        z-index: var_properties.$level-3;
+        z-index: var(--level-3);
     }
 }

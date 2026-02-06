@@ -1,0 +1,37 @@
+
+
+:root {
+
+  /**********************************************************
+  * BASE 
+  * This is the base of the full stylguide, it is used to 
+  * calculate other variables, such as radius, spacing, etc.
+  * It should not be changed directly, but can be overridden 
+  * locally by declaring the --base variable.
+  ***********************************************************/
+  --base: 8px;
+
+  /**********************************************************
+  * Z-INDEX LEVELS
+  ***********************************************************/
+  --level-1: 1000;
+  --level-2: 2000;
+  --level-3: 3000;
+  --level-4: 4000;
+  --level-5: 5000;
+  --level-6: 6000;
+  --level-7: 7000;
+  --level-8: 8000;
+  --level-9: 9000;
+
+  /**********************************************************
+  * RADIUS
+  ***********************************************************/
+  --radius-xxs:  calc(#{var_default.$base}/8);
+  --radius-xs:   calc(#{var_default.$base}/4);
+  --radius-sm:   calc(#{var_default.$base}/2);
+  --radius-md:   calc(#{var_default.$base});
+  --radius-lg:   calc(#{var_default.$base}*2);
+  --radius-xl:   calc(#{var_default.$base}*4);
+  --radius-full: 5000px;
+}

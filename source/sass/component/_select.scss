@@ -8,7 +8,7 @@
 @use "field";
 
 $c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
+$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.var(--radius-sm)) !default;
 $c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
 $c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
 $c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
@@ -43,7 +43,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__action-overlay {
         cursor: pointer;
-        z-index: var_properties.$level-4;
+        z-index: var(--level-4);
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -84,7 +84,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: var_properties.$level-5;
+            z-index: var(--level-5);
         }
     }
 
@@ -94,7 +94,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-6;
+        z-index: var(--level-6);
         height: 100%;
         color: var_colors.$color-primary;
         display: flex;
@@ -111,7 +111,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
         transition: none;
         height: 100%;
         color: var_colors.$color-primary;
@@ -295,7 +295,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     &.is-open {
 
         .c-select__dropdown {
-            z-index: var_properties.$level-8;
+            z-index: var(--level-8);
             display: block;
             border-top: none;
             border-top-left-radius: 0;
@@ -322,7 +322,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         width: 100%;
         max-height: calc(var_default.$base * 30);
         overflow-y: auto;
-        z-index: var_properties.$level-3;
+        z-index: var(--level-3);
         padding: #{var_default.$base} 0;
         border: $c-select-border-width solid $c-select-border-color;
     }

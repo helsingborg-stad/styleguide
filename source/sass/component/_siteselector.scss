@@ -14,19 +14,19 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     --c-siteselector-radius-computed: calc(var(--c-siteselector-radius, var(--c-siteselector-height-base)) + var(--base, 8px) * 0.5);
 
     &.c-siteselector--radius-xs {
-        --c-siteselector-radius: #{var_border-radius.$border-radius-xs};
+        --c-siteselector-radius: #{var_border-radius.var(--radius-xs)};
     }
 
     &.c-siteselector--radius-sm {
-        --c-siteselector-radius: #{var_border-radius.$border-radius-sm};
+        --c-siteselector-radius: #{var_border-radius.var(--radius-sm)};
     }
 
     &.c-siteselector--radius-md {
-        --c-siteselector-radius: #{var_border-radius.$border-radius-md};
+        --c-siteselector-radius: #{var_border-radius.var(--radius-md)};
     }
 
     &.c-siteselector--radius-lg {
-        --c-siteselector-radius: #{var_border-radius.$border-radius-lg};
+        --c-siteselector-radius: #{var_border-radius.var(--radius-lg)};
     }
 
     &.c-siteselector--primary {

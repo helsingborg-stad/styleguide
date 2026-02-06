@@ -6,7 +6,7 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-block-border-radius: var(--c-block-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-block-border-radius: var(--c-block-border-radius, var_border-radius.var(--radius-lg)) !default;
 $c-block-color: var(--c-block-color, var_colors.$color-white) !default;
 $c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light) !default;
 $c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha) !default;
@@ -75,7 +75,7 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
         position: absolute;
         right: var_default.$base;
         top: var_default.$base;
-        z-index: var_properties.$level-3;
+        z-index: var(--level-3);
     }
 
     .c-block__heading, 
@@ -150,7 +150,7 @@ a.c-block {
         @include cover.cover(); 
         background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: var(--level-1);
     }
 
     &:hover {

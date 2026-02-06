@@ -15,7 +15,7 @@ $c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.
 $c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
 $c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.var(--radius-lg)) !default;
 
 
 .c-hero {
@@ -147,7 +147,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
   /** Sub elements */ 
   &.c-hero--overlay .c-hero__overlay {
     @include cover.cover();
-    z-index: var_properties.$level-1;
+    z-index: var(--level-1);
     box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
   }
 
@@ -191,7 +191,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
   .c-hero__content {
     padding: map.get(var_default.$spacers, "6") 0;
     max-width: calc( #{var_default.$base} * 87);
-    z-index: var_properties.$level-2;
+    z-index: var(--level-2);
     position: relative;
   }
   
@@ -307,7 +307,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
-      border-radius: var_border-radius.$border-radius-md;
+      border-radius: var_border-radius.var(--radius-md);
       contain: paint;
     }
     
@@ -331,7 +331,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
       max-width:100%;
       padding:0;
       text-shadow: none;
-      border-radius: var_border-radius.$border-radius-xs;
+      border-radius: var_border-radius.var(--radius-xs);
       .c-hero__group {
         flex: 0 0 100%;
       }
@@ -387,7 +387,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
           left:0;
           position: absolute;
           background-color: var_colors.$color-default;
-          z-index:var_properties.$level-1;
+          z-index:var(--level-1);
         }
 
       .c-hero__content {

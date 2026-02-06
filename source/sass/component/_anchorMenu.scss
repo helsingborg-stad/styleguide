@@ -11,7 +11,7 @@
     padding: 0 calc(#{var_default.$base} * 3);
     width: 100%;
     position: sticky;
-    z-index: var_properties.$level-5;
+    z-index: var(--level-5);
 
     .c-anchormenu__container {
         display: flex;

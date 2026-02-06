@@ -22,8 +22,8 @@ $c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrastin
 $c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
 
 // Borders
-$c-button-border-radius: var(--c-button-border-radius, var_border-radius.$border-radius-md) !default;
-$c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.$border-radius-sm) !default;
+$c-button-border-radius: var(--c-button-border-radius, var_border-radius.var(--radius-md)) !default;
+$c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.var(--radius-sm)) !default;
 
 $c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button) !default;
 
@@ -79,7 +79,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     &:after {
         content: '';
         @include cover.cover(); 
-        z-index: var_properties.$level-1;
+        z-index: var(--level-1);
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out, 
@@ -117,7 +117,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: #{var_default.$base};
@@ -132,7 +132,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         .c-button__label-icon {
             order: 2;
             position: relative;
-            z-index: var_properties.$level-2;
+            z-index: var(--level-2);
             display: flex;
     
             &--reverse {

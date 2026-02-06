@@ -5,7 +5,7 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-tooltip-border-radius: var(--c-tooltip-border-radius, var_border-radius.$border-radius-xs) !default;
+$c-tooltip-border-radius: var(--c-tooltip-border-radius, var_border-radius.var(--radius-xs)) !default;
 $c-tooltip-color: var(--c-tooltip-background-color, var_colors.$color-alpha) !default;
 $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha-contrasting) !default;
 
@@ -35,7 +35,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
     .c-tooltip__container {
         position: absolute;
         border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
+        z-index: var(--level-9);
         width:max-content;
         top: 100%;
         left: 50%;
@@ -155,7 +155,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
         content: attr(data-tooltip);
         position: absolute;
         border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
+        z-index: var(--level-9);
         width: max-content;
         max-width: calc(var_default.$base * 25);
         background-color: $c-tooltip-color;

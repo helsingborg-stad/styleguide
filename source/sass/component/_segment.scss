@@ -10,7 +10,7 @@
 @use "../setting/var_properties";
 
 $c-segment-color-overlay: var(--c-segment-color-overlay, var_colors.$color-alpha) !default;
-$c-segment-image-border-radius: var(--c-segment-image-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-segment-image-border-radius: var(--c-segment-image-border-radius, var_border-radius.var(--radius-lg)) !default;
 $c-segment-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
 $c-segment-image-background-color: var(--c-segment-image-background-color, var_colors.$color-secondary) !default;
 
@@ -22,7 +22,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     .c-segment__slot {
         order: 3;
         justify-content: center;
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
 
         >.o-grid {
             justify-content: center;
@@ -73,7 +73,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         position: absolute;
         right: var_default.$base;
         top: var_default.$base;
-        z-index: var_properties.$level-3;
+        z-index: var(--level-3);
         cursor: pointer;
     }
 
@@ -262,7 +262,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     &-light .c-segment__title,
     &-light .c-segment__text {
         color: white;
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
     }
 
     &-dark .c-segment__title,
@@ -271,7 +271,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     &-dark .c-segment__date,
     &-dark .c-segment__tags {
         color: black;
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
     }
 }
 

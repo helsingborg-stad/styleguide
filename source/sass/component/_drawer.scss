@@ -104,7 +104,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     height: 100%;
     max-width: $drawer-width;
     width: 90%;
-    z-index: var_properties.$level-9;
+    z-index: var(--level-9);
     transform: translate(-100%);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;

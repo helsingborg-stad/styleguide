@@ -5,7 +5,7 @@
 @use "../setting/var_properties";
 
 $c-divider-title-border-color: var(--c-divider-title-border-color, var_colors.$color-dark) !default;
-$c-divider-title-border-radius: var(--c-divider-title-border-radius, var_border-radius.$border-radius-lg) !default;
+$c-divider-title-border-radius: var(--c-divider-title-border-radius, var_border-radius.var(--radius-lg)) !default;
 $c-divider-title-border-width: var(--c-divider-title-border-width, var_properties.$border-width-card) !default;
 $c-divider-title-background: var(--c-divider-title-background, var_colors.$color-background-card) !default;
 

@@ -16,7 +16,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default
     background-color: $c-mega-menu-background-color;
     position: absolute;
     width: 100%;
-    z-index: var_properties.$level-8;
+    z-index: var(--level-8);
 
     &.c-megamenu--secondary {
         --c-mega-menu-heading-color: #{var_colors.$color-primary};

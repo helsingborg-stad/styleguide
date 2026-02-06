@@ -8,7 +8,7 @@
 
 $c-slider-inset: calc(#{default.$base} * var(--c-slider-padding, 7)) !default;
 $c-slider-gap: calc(#{default.$base} * var(--c-slider-gap, 2)) !default;
-$c-slider-border-radius: var(--c-slider-border-radius, border_radius.$border-radius-lg) !default;
+$c-slider-border-radius: var(--c-slider-border-radius, border_radius.var(--radius-lg)) !default;
 $c-slider-max-width: var(--c-slider-max-width, calc(#{default.$container-width-wide} - #{$c-slider-inset})) !default;
 $c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, colors.$color-black) !default; 
 

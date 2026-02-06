@@ -39,12 +39,12 @@ $grid-gap: var(--grid-gap, 4) !default;
 		transition: top .3s ease-in-out;
 		top: calc(var_default.$base * 6);
 		position: sticky;
-		z-index: var_properties.$level-8;
+		z-index: var(--level-8);
 	}
 
 	.c-openstreetmap__expand-icon-desktop,
 	.c-openstreetmap__expand-icon-mobile {
-		z-index: var_properties.$level-8;
+		z-index: var(--level-8);
 		color: var_colors.$color-white;
 		background-color: var_colors.$color-primary;
 		padding: calc(var_default.$base * .5);
@@ -89,7 +89,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		right: 100%;
 		opacity: 0;
 		margin-left: auto;
-		z-index: var_properties.$level-6;
+		z-index: var(--level-6);
 		overflow-y: scroll;
 		background-color: var_colors.$color-white;
 		pointer-events: none;
@@ -129,7 +129,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 }
 
 .c-openstreetmap.c-openstreetmap--sidebar.has-open-post {
-	z-index: var_properties.$level-9;
+	z-index: var(--level-9);
 	
 	.c-openstreetmap__expand-icon-container {
 		position: fixed;
@@ -214,7 +214,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 .c-openstreetmap.c-openstreetmap--sidebar.is-expanded {
 	.c-openstreetmap__map {
-		z-index: var_properties.$level-7;
+		z-index: var(--level-7);
 		top: 0;
 		transition: top .3s ease-in-out;
 	}
@@ -257,7 +257,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 .c-openstreetmap.c-openstreetmap--sidebar {
 	.c-openstreetmap__map {
-		z-index: var_properties.$level-4;
+		z-index: var(--level-4);
 		top: calc(-0.7 * calc(var_default.$base * 50));
 		transition: .3s ease-in-out;
 		max-height: calc(var_default.$base * 50);
@@ -287,7 +287,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		height: 100%;
 		position: relative;
 		background-color: var_colors.$color-white;
-		z-index: var_properties.$level-5;
+		z-index: var(--level-5);
 	}
 
 	[data-js-osm-endpoint-posts] {
