@@ -25,7 +25,7 @@ $yAxis: (top, bottom);
 
 .c-fab .c-fab__panel {
     @extend .c-card !optional; 
-    border-radius: var_border-radius.var(--radius-md);
+    border-radius: var(--radius-md);
     display: none;
     margin-bottom: map.get(var_default.$spacers, "2");
     min-width: 200px; 

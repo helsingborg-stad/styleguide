@@ -34,7 +34,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             width: 18px;
             border: 2px solid var_colors.$color-primary;
             background-color: var_colors.$color-white;
-            border-radius: var_border-radius.var(--radius-xs);
+            border-radius: var(--radius-xs);
             cursor: pointer;
         }
 

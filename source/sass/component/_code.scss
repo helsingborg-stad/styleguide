@@ -4,7 +4,7 @@
 @use "../setting/var_default";
 
 .c-code {
-    border-radius: var_border-radius.var(--radius-md);
+    border-radius: var(--radius-md);
     margin: 16px 0;
     overflow: hidden;
 

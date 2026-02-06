@@ -14,7 +14,7 @@
     --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
     
     position: relative;
-    border-radius: var_border-radius.var(--radius-md);
+    border-radius: var(--radius-md);
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);

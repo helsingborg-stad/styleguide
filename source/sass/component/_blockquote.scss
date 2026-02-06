@@ -4,7 +4,7 @@
 
 $quote-background-color: var(--quote-background-color, var_colors.$color-secondary) !default;
 $quote-color: var(--quote-color, var_colors.$color-secondary-contrasting) !default;
-$quote-border-radius: var(--quote-border-radius, var_border-radius.var(--radius-md)) !default;
+$quote-border-radius: var(--quote-border-radius, var(--radius-md)) !default;
 
 .c-blockquote,
 blockquote {

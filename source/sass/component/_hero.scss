@@ -15,7 +15,7 @@ $c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.
 $c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
 $c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
 $c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.var(--radius-lg)) !default;
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-lg)) !default;
 
 
 .c-hero {
@@ -307,7 +307,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
-      border-radius: var_border-radius.var(--radius-md);
+      border-radius: var(--radius-md);
       contain: paint;
     }
     
@@ -331,7 +331,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
       max-width:100%;
       padding:0;
       text-shadow: none;
-      border-radius: var_border-radius.var(--radius-xs);
+      border-radius: var(--radius-xs);
       .c-hero__group {
         flex: 0 0 100%;
       }

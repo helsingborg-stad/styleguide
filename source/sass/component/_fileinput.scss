@@ -32,7 +32,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     &.is-dragging:not(.is-full) {
         .js-file-input-drop {
             outline: 3px dashed var_colors.$color-lighter;
-            border-radius: var_border-radius.var(--radius-lg);
+            border-radius: var(--radius-lg);
             outline-offset: calc(#{var_default.$base} * 1.5);
             width: calc(#{var_default.$base} * 40);
             max-width: calc(100% - calc(#{var_default.$base} * 2.5));
@@ -122,7 +122,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             justify-content: space-between;
             padding: 0 calc(#{var_default.$base} * .5);
             background-color: var_colors.$color-lightest;
-            border-radius: var_border-radius.var(--radius-lg);
+            border-radius: var(--radius-lg);
             margin: 0;
             filter: var_properties.$drop-shadow-1;
             height: calc(#{var_default.$base} * 5.5);
@@ -256,7 +256,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     &.c-fileinput--preview {
         .c-fileinput__item-remove-button {
             vertical-align: unset;
-            border-top-right-radius: var_border-radius.var(--radius-md);
+            border-top-right-radius: var(--radius-md);
         }
 
         .c-fileinput__attachment-icon {
@@ -319,7 +319,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         .c-fileinput__item-preview {
             width: calc(var_default.$base * 25);
             aspect-ratio: 16 / 9;
-            border-radius: var_border-radius.var(--radius-md);
+            border-radius: var(--radius-md);
             filter: var_properties.$drop-shadow-2;
             overflow: hidden;
 

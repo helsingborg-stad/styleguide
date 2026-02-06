@@ -11,8 +11,8 @@ $c-datebadge-font-family: var(--c-datebadge-font-family, var_fonts.$font-family-
 $c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black) !default;
 
 // Border
-$c-datebadge-border-radius: var(--c-datebadge-border-radius, var_border-radius.var(--radius-lg)) !default;
-$c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var_border-radius.var(--radius-md)) !default;
+$c-datebadge-border-radius: var(--c-datebadge-border-radius, var(--radius-lg)) !default;
+$c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var(--radius-md)) !default;
 
 // Background
 $c-datebadge-color-background: var(--c-datebadge-color-background, #{var_colors.$color-lighter}) !default;

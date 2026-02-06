@@ -42,7 +42,7 @@ a, .link {
         background-color: var_colors.$color-gray-light;
         padding: calc(#{var_default.$base}/2);
         margin-right: calc(#{var_default.$base}/2);
-        border-radius: var_border-radius.var(--radius-sm);
+        border-radius: var(--radius-sm);
         text-decoration: none;
         color: var_colors.$color-base;
         font-size: var_fonts.$font-size-meta;

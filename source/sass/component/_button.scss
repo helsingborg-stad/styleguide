@@ -22,8 +22,8 @@ $c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrastin
 $c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
 
 // Borders
-$c-button-border-radius: var(--c-button-border-radius, var_border-radius.var(--radius-md)) !default;
-$c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.var(--radius-sm)) !default;
+$c-button-border-radius: var(--c-button-border-radius, var(--radius-md)) !default;
+$c-button-border-radius-small: var(--c-button-border-radius-small, var(--radius-sm)) !default;
 
 $c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button) !default;
 

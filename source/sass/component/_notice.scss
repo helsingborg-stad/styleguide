@@ -21,7 +21,7 @@ $c-notice-color-info-background: var(--notice-color-info-background, var_colors.
 $c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
 $c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
 
-$c-notice-border-radius: var(--notice-border-radius, var_border-radius.var(--radius-sm)) !default;
+$c-notice-border-radius: var(--notice-border-radius, var(--radius-sm)) !default;
 
 .c-notice {
     filter: var_properties.$drop-shadow-5;

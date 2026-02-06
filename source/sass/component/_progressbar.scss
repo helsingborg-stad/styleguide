@@ -2,7 +2,7 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-progress-border-radius: var(--c-progress-border-radius, var_border-radius.var(--radius-md)) !default;
+$c-progress-border-radius: var(--c-progress-border-radius, var(--radius-md)) !default;
 $c-progress-background-color: var(--c-progress-background-color, var_colors.$color-lighter) !default;
 $c-progress-value-color: var(--c-progress-value-color, var_colors.$color-success) !default;
 $c-progress-height: calc(var(--c-progress-height, 1.5) * #{var_default.$base}) !default;

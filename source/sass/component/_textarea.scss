@@ -18,7 +18,7 @@
         border: 1px solid var_colors.$color-form-fields;
         transition: color .1s ease;
         background-size: calc(#{var_default.$base}*2);
-        border-radius: var_border-radius.var(--radius-md);
+        border-radius: var(--radius-md);
         line-height: 1.5;
 
         &:focus {
@@ -77,7 +77,7 @@
         color: var_colors.$color-white;
         background-color: var_colors.$color-danger;
         border:none;
-        border-radius: 0 0 var_border-radius.var(--radius-sm) var_border-radius.var(--radius-sm);
+        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
         box-sizing: border-box;
 
         &.error {

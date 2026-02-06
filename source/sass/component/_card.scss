@@ -8,7 +8,7 @@
 @use "../setting/var_properties";
 
 $c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, var_border-radius.var(--radius-lg)) !default;
+$c-card-border-radius: var(--c-card-border-radius, var(--radius-lg)) !default;
 
 $c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
 $c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;

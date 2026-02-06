@@ -76,7 +76,7 @@
       content: "";
       @include cover.cover();
       contain: paint;
-      border-radius: var_border-radius.var(--radius-xs);
+      border-radius: var(--radius-xs);
       animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;

@@ -151,7 +151,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
             bottom: 0;
             background: var_colors.$color-white;
             min-width: calc(#{var_default.$base} * 28);
-            border-radius: var_border-radius.var(--radius-sm);
+            border-radius: var(--radius-sm);
             filter: var_properties.$drop-shadow-1;
             transform: translateY(100%);
             animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -166,7 +166,7 @@ $c-nav-h-font-size: var(--c-nav-h-font-size) !default;
                 transform: rotate(45deg);
                 width: calc(#{var_default.$base} * 2.5);
                 z-index: var(--level-5);
-                border-top-left-radius: max(calc(#{var_default.$base} * .5), var_border-radius.var(--radius-sm));
+                border-top-left-radius: max(calc(#{var_default.$base} * .5), var(--radius-sm));
             }
         }
     }

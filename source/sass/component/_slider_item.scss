@@ -235,7 +235,7 @@
 
     .c-slider__item__container {
         padding: map.get(var_default.$spacers, '4');
-        border-radius: var_border-radius.var(--radius-lg);
+        border-radius: var(--radius-lg);
         margin: auto;
         width: calc(100% - (#{var_default.$base} * 10));
         max-width: $c-slider-item-container-max-width;

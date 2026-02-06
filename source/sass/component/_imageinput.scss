@@ -15,7 +15,7 @@
     background-position: center;
     background-color: var_colors.$color-form-fields;
     border: 1px solid var_colors.$color-form-fields;
-    border-radius: var_border-radius.var(--radius-md);
+    border-radius: var(--radius-md);
     transition: color .1s ease;
     cursor: pointer;
     overflow: hidden;

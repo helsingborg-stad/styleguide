@@ -8,7 +8,7 @@
 @use "field";
 
 $c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.var(--radius-sm)) !default;
+$c-select-border-radius-option: var(--c-select-border-radius-option, var(--radius-sm)) !default;
 $c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
 $c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
 $c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
