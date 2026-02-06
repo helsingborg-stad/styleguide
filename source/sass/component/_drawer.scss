@@ -3,19 +3,19 @@
 @use "../setting/var_properties";
 
 $drawer-transition-ms: 300ms;
-$drawer-width: calc(#{var_default.$base} * 40);
+$drawer-width: calc(#{var(--base)} * 40);
 
 // Background colors basic
-$drawer-basic-background-color: var(--c-drawer-basic-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, var_colors.$color-white) !default;
+$drawer-basic-background-color: var(--c-drawer-basic-background-color, var(--color--primary));
+$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, var(--color--white));
 
 // Main area colors
-$drawer-primary-background-color: var(--c-drawer-primary-background-color, var_colors.$color-primary) !default;
-$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, var_colors.$color-secondary) !default;
+$drawer-primary-background-color: var(--c-drawer-primary-background-color, var(--color--primary));
+$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, var(--color--secondary));
 
 // Duotone colors
-$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, var_colors.$color-secondary) !default;
+$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, var(--color--primary));
+$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, var(--color--secondary));
 
 
 /* Colors */
@@ -44,7 +44,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     &,
     .site-nav-mobile__primary > .c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{var_colors.$color-white};
+        --drawer-background: #{var(--color--white)};
         --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
     }
 }
@@ -104,7 +104,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     height: 100%;
     max-width: $drawer-width;
     width: 90%;
-    z-index: var_properties.$level-9;
+    z-index: var(--level-9);
     transform: translate(-100%);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
@@ -122,7 +122,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer__header {
-    padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
+    padding: calc(#{var(--base)} * 1) calc(#{var(--base)} * 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -131,7 +131,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base}  * 4) calc(#{var_default.$base} * 12) calc(#{var_default.$base} * 4);
+    padding: calc(#{var(--base)} * 4) calc(#{var(--base)}  * 4) calc(#{var(--base)} * 12) calc(#{var(--base)} * 4);
 }
 
 // Drawer Modifiers

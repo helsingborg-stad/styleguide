@@ -8,14 +8,14 @@
 @use 'sass:math';
 
 $o-grid-gap: var(--o-grid-gap, 4);
-$o-grid-columns: 12 !default;
-$o-grid-breakpoints: map.keys(var_default.$breakpoints-map) !default;
+$o-grid-columns: 12;
+$o-grid-breakpoints: map.keys(var_default.$breakpoints-map);
 
 $o-grid-gutters: (
-    xs : calc(#{var_default.$base} * #{$o-grid-gap} * 0.5), //16
-    md : calc(#{var_default.$base} * #{$o-grid-gap} * 0.75),  //24
-    lg : calc(#{var_default.$base} * #{$o-grid-gap}), // 32
-) !default;
+    xs : calc(#{var(--base)} * #{$o-grid-gap} * 0.5), //16
+    md : calc(#{var(--base)} * #{$o-grid-gap} * 0.75),  //24
+    lg : calc(#{var(--base)} * #{$o-grid-gap}), // 32
+);
 
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
     .o-grid,
@@ -104,19 +104,19 @@ $o-grid-gutters: (
     .grid + .grid,
     .o-grid + .grid,
     .grid + .o-grid  {
-        margin-top: calc(#{var_default.$base} * #{$o-grid-gap} * 0.5);
+        margin-top: calc(#{var(--base)} * #{$o-grid-gap} * 0.5);
     }
 
     .o-grid.o-grid--form + .o-grid.o-grid--form,
     .grid.grid--form + .grid.grid--form,
     .o-grid.o-grid--form + .grid.grid--form,
     .grid.grid--form + .o-grid.o-grid--form  {
-        margin-top: #{calc(#{var_default.$base} * #{$o-grid-gap} * 0.25)}; 
+        margin-top: #{calc(#{var(--base)} * #{$o-grid-gap} * 0.25)}; 
     }
 
     .o-grid,
     .grid {
-        --grid-gap: calc(#{var_default.$base} * #{$o-grid-gap} * 0.5);
+        --grid-gap: calc(#{var(--base)} * #{$o-grid-gap} * 0.5);
         gap: var(--grid-gap);
 
         &.o-grid--horizontal {
@@ -129,7 +129,7 @@ $o-grid-gutters: (
 
         &.o-grid--form,
         &.o-grid--half-gutter {
-            --grid-gap: #{calc(#{var_default.$base} * #{$o-grid-gap} * 0.25)}; 
+            --grid-gap: #{calc(#{var(--base)} * #{$o-grid-gap} * 0.25)}; 
         }
 
         .u-flex--gridgap {

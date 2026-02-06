@@ -6,22 +6,22 @@
 @use "../../setting/var_border-radius" as border_radius;
 @use "../../setting/var_fonts" as fonts;
 
-$c-slider-inset: calc(#{default.$base} * var(--c-slider-padding, 7)) !default;
-$c-slider-gap: calc(#{default.$base} * var(--c-slider-gap, 2)) !default;
-$c-slider-border-radius: var(--c-slider-border-radius, border_radius.$border-radius-lg) !default;
-$c-slider-max-width: var(--c-slider-max-width, calc(#{default.$container-width-wide} - #{$c-slider-inset})) !default;
-$c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, colors.$color-black) !default; 
+$c-slider-inset: calc(#{default.$base} * var(--c-slider-padding, 7));
+$c-slider-gap: calc(#{default.$base} * var(--c-slider-gap, 2));
+$c-slider-border-radius: var(--c-slider-border-radius, var(--radius-lg));
+$c-slider-max-width: var(--c-slider-max-width, calc(#{default.$container-width-wide} - #{$c-slider-inset}));
+$c-slider-color-overlay-dark: var(--c-slider-color-overlay-dark, colors.$color-black); 
 
-$c-slider-color-overlay: var(--c-slider-color-overlay, colors.$color-alpha) !default;
+$c-slider-color-overlay: var(--c-slider-color-overlay, colors.$color-alpha);
 $c-slider-color-overlay-contrasting: var(
     --c-slider-color-overlay-contrasting,
     colors.$color-alpha-contrasting
-) !default;
-$c-slider-item-font-family: var(--c-slider-item-font-family-base, fonts.$font-family-base) !default;
-$c-slider-item-font-weight: var(--c-slider-item-font-weight-base, inherit) !default;
-$c-slider-item-font-size-base: var(--c-slider-item-font-size-base, calc(#{default.$base} * 2)) !default;
+);
+$c-slider-item-font-family: var(--c-slider-item-font-family-base, fonts.$font-family-base);
+$c-slider-item-font-weight: var(--c-slider-item-font-weight-base, inherit);
+$c-slider-item-font-size-base: var(--c-slider-item-font-size-base, calc(#{default.$base} * 2));
 $c-slider-item-font-size-heading: 
-    var(--c-slider-item-font-size-heading, calc(#{$c-slider-item-font-size-base} * 2)) !default;
-$c-slider-item-font-family-heading: var(--c-slider-item-font-family-heading, inherit) !default;
-$c-slider-item-font-weight-heading: var(--c-slider-item-font-weight-heading, inherit) !default;
-$c-slider-item-container-max-width: calc(#{default.$base} * 118) !default;
+    var(--c-slider-item-font-size-heading, calc(#{$c-slider-item-font-size-base} * 2));
+$c-slider-item-font-family-heading: var(--c-slider-item-font-family-heading, inherit);
+$c-slider-item-font-weight-heading: var(--c-slider-item-font-weight-heading, inherit);
+$c-slider-item-container-max-width: calc(#{default.$base} * 118);

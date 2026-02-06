@@ -2,6 +2,6 @@
 
 
 hr {
-    margin-top: calc(#{var_default.$base} * 6);
+    margin-top: calc(#{var(--base)} * 6);
     margin-bottom: 0;
 }

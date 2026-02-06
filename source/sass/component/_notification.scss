@@ -78,7 +78,7 @@
 }
 
 .c-notification .c-notice {
-    filter: var_properties.$drop-shadow-5;
+    filter: var(--shadow-5);
 }
 
 @keyframes fadeOut {

@@ -3,13 +3,13 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
+$c-tags-pill-background: var(--c-tags-pill-background, var(--color--background-card));
+$c-tags-pill-color: var(--c-field-label-color, var(--color--darker));
 
 .c-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: #{var_default.$base};
+    gap: #{var(--base)};
 
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
@@ -20,9 +20,9 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !defaul
         .c-tags__tag {
             background-color: $c-tags-pill-background;
             color: $c-tags-pill-color;
-            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
-            border-radius: calc(var_default.$base * 3);
-            filter: var_properties.$detail-shadow-2;
+            padding: calc(var(--base) * 0.5) calc(var(--base) * 1.5);
+            border-radius: calc(var(--base) * 3);
+            filter: var(--shadow-detail-2);
 
             &:hover {
                 color: $c-tags-pill-color;
@@ -31,7 +31,7 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !defaul
     }
 
     .c-tags__tag {
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta);
         text-decoration: none;
         display: flex;
         align-items: center;

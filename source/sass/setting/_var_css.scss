@@ -1,0 +1,198 @@
+
+
+:root {
+
+  /**********************************************************
+  * BASE 
+  * This is the base of the full stylguide, it is used to 
+  * calculate other variables, such as radius, spacing, etc.
+  * It should not be changed directly, but can be overridden 
+  * locally by declaring the --base variable.
+  ***********************************************************/
+  --base: 8px;
+  --base-font-size: 16px;
+
+  /**********************************************************
+  * Z-INDEX LEVELS
+  ***********************************************************/
+  --level-1: 1000;
+  --level-2: 2000;
+  --level-3: 3000;
+  --level-4: 4000;
+  --level-5: 5000;
+  --level-6: 6000;
+  --level-7: 7000;
+  --level-8: 8000;
+  --level-9: 9000;
+
+  /**********************************************************
+  * RADIUS
+  ***********************************************************/
+  --radius-xxs:  calc(var(--base) / 8);
+  --radius-xs:   calc(var(--base) / 4);
+  --radius-sm:   calc(var(--base) / 2);
+  --radius-md:   calc(var(--base));
+  --radius-lg:   calc(var(--base) * 2);
+  --radius-xl:   calc(var(--base) * 4);
+  --radius-full: 5000px;
+
+  /**********************************************************
+  * SPACING
+  ***********************************************************/
+  --spacing-0: 0;
+  --spacing-xs: var(--base);
+  --spacing-sm: calc(var(--base) * 2);
+  --spacing-md: calc(var(--base) * 4);
+  --spacing-lg: calc(var(--base) * 6);
+  --spacing-xl: calc(var(--base) * 8);
+  --spacing-xxl: calc(var(--base) * 10);
+  --spacing-3xl: calc(var(--base) * 12);
+  --spacing-4xl: calc(var(--base) * 16);
+  --spacing-5xl: calc(var(--base) * 24);
+
+  /**********************************************************
+  * TYPOGRAPHY
+  * Base typography tokens for fonts, sizes, weights, and spacing.
+  *
+  * Customization:
+  *   :root {
+  *     --font-family-base: "Your Font", sans-serif;
+  *     --font-size-base: 18px;
+  *   }
+  ***********************************************************/
+
+  /* Font Families */
+  --font-family-base: "Roboto", sans-serif;
+  --font-family-heading: var(--font-family-base);
+  --font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New", "Courier", "Console";
+
+  /* Font Sizes - Calculated from base-font-size */
+  --font-size-base: var(--base-font-size);
+  --font-size-caption: calc(var(--base-font-size) * 0.875);
+  --font-size-lead: calc(var(--base-font-size) * 1.125);
+  --font-size-marketing: calc(var(--base-font-size) * 2.25);
+  --font-size-headline: calc(var(--base-font-size) * 2);
+  --font-size-title: calc(var(--base-font-size) * 1.375);
+  --font-size-subtitle: calc(var(--base-font-size) * 1.125);
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-heading: var(--font-weight-medium);
+
+  /* Line Heights */
+  --line-height-base: 1.625;
+  --line-height-heading: 1.33;
+
+  /* Letter Spacing */
+  --letter-spacing-base: 0;
+
+  /**********************************************************
+  * BORDERS
+  * Border width tokens for UI elements.
+  *
+  * Customization:
+  *   :root {
+  *     --border-width-button: 3px;
+  *   }
+  ***********************************************************/
+
+  /* Base Widths */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 4px;
+
+  /* Semantic Border Widths */
+  --border-width-divider: var(--border-width-thin);
+  --border-width-input: var(--border-width-thin);
+  --border-width-button: var(--border-width-medium);
+
+  /**********************************************************
+  * SHADOWS
+  * Shadow system with global multipliers for consistent elevation.
+  *
+  * Customization:
+  *   :root {
+  *     --shadow-amount: 1.0;
+  *     --shadow-color: rgba(0, 0, 0, 0.15);
+  *   }
+  ***********************************************************/
+
+  /* Shadow Configuration */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-amount: 0.7;
+  --shadow-detail-amount: 0.5;
+
+  /* Drop Shadows - For elevation */
+  --shadow-0: drop-shadow(0 0 0 transparent);
+  --shadow-1: drop-shadow(0px calc(4px * var(--shadow-amount)) calc(6px * var(--shadow-amount)) var(--shadow-color));
+  --shadow-2: drop-shadow(0px calc(6px * var(--shadow-amount)) calc(8px * var(--shadow-amount)) var(--shadow-color));
+  --shadow-3: drop-shadow(0px calc(8px * var(--shadow-amount)) calc(10px * var(--shadow-amount)) var(--shadow-color));
+  --shadow-4: drop-shadow(0px calc(10px * var(--shadow-amount)) calc(12px * var(--shadow-amount)) var(--shadow-color));
+  --shadow-5: drop-shadow(0px calc(12px * var(--shadow-amount)) calc(14px * var(--shadow-amount)) var(--shadow-color));
+
+  /* Detail Shadows - For subtle depth */
+  --shadow-detail-0: drop-shadow(0 0 0 transparent);
+  --shadow-detail-1: drop-shadow(0px calc(2px * var(--shadow-detail-amount)) calc(4px * var(--shadow-detail-amount)) var(--shadow-color));
+  --shadow-detail-2: drop-shadow(0px calc(4px * var(--shadow-detail-amount)) calc(4px * var(--shadow-detail-amount)) var(--shadow-color));
+  --shadow-detail-3: drop-shadow(0px calc(6px * var(--shadow-detail-amount)) calc(4px * var(--shadow-detail-amount)) var(--shadow-color));
+  --shadow-detail-4: drop-shadow(0px calc(8px * var(--shadow-detail-amount)) calc(4px * var(--shadow-detail-amount)) var(--shadow-color));
+  --shadow-detail-5: drop-shadow(0px calc(8px * var(--shadow-detail-amount)) calc(4px * var(--shadow-detail-amount)) var(--shadow-color));
+
+  /**********************************************************
+  * Colors
+  ***********************************************************/
+
+  /* Brand */
+  --color--primary: #2d2d2d;
+  --color--primary-contrast: #ffffff;
+
+  --color--secondary: #6e6e6e;
+  --color--secondary-contrast: #ffffff;
+
+  --color--accent: #bdbdbd;
+  --color--accent-contrast: #2d2d2d;
+
+  /* Layout */
+  --color--background: #f5f5f5;
+  --color--background-contrast: #2d2d2d;
+
+  --color--surface: #ffffff;
+  --color--surface-contrast: #2d2d2d;
+
+  /* Typography */
+  --color--text: #2d2d2d;
+  --color--muted: #6e6e6e;
+
+  /* UI */
+  --color--border: #e0e0e0;
+  --color--ring: #bdbdbd;
+
+  /* State / feedback */
+  --color--success: #4caf50;
+  --color--success-contrast: #ffffff;
+
+  --color--warning: #ffb300;
+  --color--warning-contrast: #2d2d2d;
+
+  --color--error: #e53935;
+  --color--error-contrast: #ffffff;
+
+  --color--info: #039be5;
+  --color--info-contrast: #ffffff;
+
+  /* Extended Monotone Palette */
+  --color--black: #000000;
+  --color--white: #ffffff;
+  --color--darker: #565656;
+  --color--dark: #707070;
+  --color--light: #e5e5e5;
+  --color--lighter: #f5f5f5;
+
+  /* Semantic UI Colors */
+  --color--disabled: var(--color--lighter);
+  --color--disabled-text: var(--color--dark);
+  --color--focus: #4d90fe;
+  --color--link: var(--color--primary);
+}

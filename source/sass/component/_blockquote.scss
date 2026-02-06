@@ -2,16 +2,16 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$quote-background-color: var(--quote-background-color, var_colors.$color-secondary) !default;
-$quote-color: var(--quote-color, var_colors.$color-secondary-contrasting) !default;
-$quote-border-radius: var(--quote-border-radius, var_border-radius.$border-radius-md) !default;
+$quote-background-color: var(--quote-background-color, var(--color--secondary));
+$quote-color: var(--quote-color, var(--color--secondary-contrasting));
+$quote-border-radius: var(--quote-border-radius, var(--radius-md));
 
 .c-blockquote,
 blockquote {
     background-color: $quote-background-color;
     color: $quote-color;
     margin: 0;
-    padding: calc(var_default.$base * 10) calc(var_default.$base * 5) calc(var_default.$base * 5) calc(var_default.$base * 5);
+    padding: calc(var(--base) * 10) calc(var(--base) * 5) calc(var(--base) * 5) calc(var(--base) * 5);
     border-radius: $quote-border-radius;
     position: relative;
 
@@ -24,7 +24,7 @@ blockquote {
         font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
         content: '\e244';
         position: absolute;
-        font-size: calc(var_default.$base * 4);
+        font-size: calc(var(--base) * 4);
         font-variation-settings:
         'FILL' 1,
         'wght' var(--current-material-symbols-weight, 400),
@@ -33,17 +33,17 @@ blockquote {
     }
 
     &::before {
-        top: calc(var_default.$base * 3.5);
+        top: calc(var(--base) * 3.5);
         transform: rotate(180deg);
     }
     
     &::after {
-        right: calc(var_default.$base * 5);
-        bottom: calc(var_default.$base * 3.5);
+        right: calc(var(--base) * 5);
+        bottom: calc(var(--base) * 3.5);
         transform: rotate(180deg);
     }
 
     & > :last-child {
-        margin-right: calc(var_default.$base * 5);
+        margin-right: calc(var(--base) * 5);
     }
 }

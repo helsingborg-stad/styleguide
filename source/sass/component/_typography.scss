@@ -32,54 +32,54 @@
     }
 
     &headline {
-        font-size: var_fonts.$font-size-headline;
+        font-size: var(--font-size-headline);
     }
 
     &title {
-        font-family: var_fonts.$font-family-heading;
-        font-size: var_fonts.$font-size-title;
-        font-weight: var_fonts.$font-weight-heading;
-        line-height: var_fonts.$line-height-heading;
+        font-family: var(--font-family-heading);
+        font-size: var(--font-size-title);
+        font-weight: var(--font-weight-heading);
+        line-height: var(--line-height-heading);
         letter-spacing: var_fonts.$letter-spacing-heading;
     }
 
     &subtitle {
-        font-size: var_fonts.$font-size-subtitle;
+        font-size: var(--font-size-subtitle);
     }
 
     &bold {
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
-        font-size: var_fonts.$font-size-base;
-        line-height: var_fonts.$line-height-base;
+        font-weight: var(--font-weight-bold);
+        font-family: var(--font-family-bold);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-base);
         letter-spacing: var_fonts.$letter-spacing-base;
     }
 
     &body,
     &p {
-        font-size: var_fonts.$font-size-base;
-        font-family: var_fonts.$font-family-base;
-        line-height: var_fonts.$line-height-base;
-        font-weight: var_fonts.$font-weight-base;
+        font-size: var(--font-size-base);
+        font-family: var(--font-family-base);
+        line-height: var(--line-height-base);
+        font-weight: var(--font-weight-base);
         letter-spacing: var_fonts.$letter-spacing-base;
     }
 
     &caption {
-        font-size: var_fonts.$font-size-caption;
+        font-size: var(--font-size-caption);
     }
 
     &byline {
-        font-size: var_fonts.$font-size-caption;
+        font-size: var(--font-size-caption);
     }
 
     &meta {
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta);
     }
 
     &marketing {
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
-        font-size: var_fonts.$font-size-marketing;
+        font-weight: var(--font-weight-bold);
+        font-family: var(--font-family-bold);
+        font-size: var(--font-size-marketing);
         line-height: 124%;
     }
 

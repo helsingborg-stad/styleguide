@@ -16,22 +16,22 @@ $yAxis: (top, bottom);
 //Standard styling
 .c-fab {
     position: fixed;
-    z-index: var_properties.$level-6;
+    z-index: var(--level-6);
     bottom: map.get(var_default.$spacers, "2"); 
     right: map.get(var_default.$spacers, "2"); 
     text-align: right;
-    z-index: var_properties.$level-8;
+    z-index: var(--level-8);
 }
 
 .c-fab .c-fab__panel {
     @extend .c-card !optional; 
-    border-radius: var_border-radius.$border-radius-md;
+    border-radius: var(--radius-md);
     display: none;
     margin-bottom: map.get(var_default.$spacers, "2");
     min-width: 200px; 
     max-width: 250px;
     text-align: left;
-    background: var_colors.$color-default; 
+    background: var(--color--default); 
     padding: map.get(var_default.$spacers, "2");
 }
 

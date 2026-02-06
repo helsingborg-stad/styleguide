@@ -1,6 +1,6 @@
 @use "../setting/var_border-radius";
 
-$c-iframe-border-radius: var(--c-iframe-border-radius, var_border-radius.$border-radius-xs) !default;
+$c-iframe-border-radius: var(--c-iframe-border-radius, var(--radius-xs));
 
 // ***************************************************************
 // *** Mapping for different sizes
@@ -8,23 +8,23 @@ $c-iframe-border-radius: var(--c-iframe-border-radius, var_border-radius.$border
 $radius: (
     (
         'name': '',
-        'size': var_border-radius.$border-radius-md,
+        'size': var(--radius-md),
     ),
     (
         'name': &--rounded-xs,
-        'size': var_border-radius.$border-radius-xs,
+        'size': var(--radius-xs),
     ),
     (
         'name': &--rounded-sm,
-        'size': var_border-radius.$border-radius-sm,
+        'size': var(--radius-sm),
     ),
     (
         'name': &--rounded-md,
-        'size': var_border-radius.$border-radius-md,
+        'size': var(--radius-md),
     ),
     (
         'name': &--rounded-lg,
-        'size': var_border-radius.$border-radius-lg,
+        'size': var(--radius-lg),
     )
 );
 

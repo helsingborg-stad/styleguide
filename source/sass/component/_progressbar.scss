@@ -2,11 +2,11 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-progress-border-radius: var(--c-progress-border-radius, var_border-radius.$border-radius-md) !default;
-$c-progress-background-color: var(--c-progress-background-color, var_colors.$color-lighter) !default;
-$c-progress-value-color: var(--c-progress-value-color, var_colors.$color-success) !default;
-$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var_default.$base}) !default;
-$c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var_colors.$color-dark) !default;
+$c-progress-border-radius: var(--c-progress-border-radius, var(--radius-md));
+$c-progress-background-color: var(--c-progress-background-color, var(--color--lighter));
+$c-progress-value-color: var(--c-progress-value-color, var(--color--success));
+$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var(--base)});
+$c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var(--color--dark));
 
 .c-progressbar {
     height:$c-progress-height;

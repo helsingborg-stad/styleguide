@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styleguide Component Test - PR #1135</title>
+    <link rel="stylesheet" href="/assets/dist/css/styleguide-css.Y3_rIWJl.css">
+    <style>
+        body { 
+            padding: 2rem; 
+            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .test-section { 
+            background: white; 
+            padding: 2rem; 
+            margin: 2rem 0; 
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #2d2d2d;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+        .component-group {
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <h1>Styleguide Component Visual Test - PR #1135</h1>
+    <p>This page tests all major components after CSS variables migration</p>
+
+    <div class="test-section">
+        <h2>Buttons</h2>
+        <div class="component-group">
+            <button class="c-button c-button--primary">Primary Button</button>
+            <button class="c-button c-button--secondary">Secondary Button</button>
+            <button class="c-button">Default Button</button>
+            <button class="c-button c-button--sm">Small Button</button>
+            <button class="c-button c-button--lg">Large Button</button>
+            <button class="c-button" disabled>Disabled</button>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Typography</h2>
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3>Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+        <p>This is a paragraph of text with <strong>bold text</strong> and <em>italic text</em>.</p>
+        <p class="lead">This is lead text which should be slightly larger.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Cards</h2>
+        <div class="component-group">
+            <div class="c-card" style="width: 300px;">
+                <div class="c-card__header">
+                    <h3>Card Title</h3>
+                </div>
+                <div class="c-card__body">
+                    <p>This is a card with header and body content.</p>
+                </div>
+            </div>
+            <div class="c-card" style="width: 300px;">
+                <div class="c-card__body">
+                    <h3>Simple Card</h3>
+                    <p>Card with just body content.</p>
+                </div>
+                <div class="c-card__footer">
+                    <button class="c-button c-button--sm">Action</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Form Elements</h2>
+        <div class="c-field">
+            <label class="c-field__label">Text Input</label>
+            <input type="text" class="c-field__input" placeholder="Enter text">
+        </div>
+        <div class="c-field">
+            <label class="c-field__label">Select</label>
+            <select class="c-select">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+        <div class="c-field">
+            <label class="c-field__label">Textarea</label>
+            <textarea class="c-textarea" rows="3"></textarea>
+        </div>
+        <div class="c-field">
+            <label>
+                <input type="checkbox" class="c-option"> Checkbox option
+            </label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Notices & Alerts</h2>
+        <div class="c-notice c-notice--success" style="margin: 1rem 0;">
+            <strong>Success:</strong> Operation completed successfully!
+        </div>
+        <div class="c-notice c-notice--warning" style="margin: 1rem 0;">
+            <strong>Warning:</strong> Please review this information.
+        </div>
+        <div class="c-notice c-notice--error" style="margin: 1rem 0;">
+            <strong>Error:</strong> Something went wrong.
+        </div>
+        <div class="c-notice c-notice--info" style="margin: 1rem 0;">
+            <strong>Info:</strong> Here's some helpful information.
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Navigation</h2>
+        <nav class="c-nav">
+            <ul class="c-nav__list">
+                <li class="c-nav__item c-nav__item--active"><a href="#">Home</a></li>
+                <li class="c-nav__item"><a href="#">About</a></li>
+                <li class="c-nav__item"><a href="#">Services</a></li>
+                <li class="c-nav__item"><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="test-section">
+        <h2>Table</h2>
+        <table class="c-table">
+            <thead>
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                    <th>Header 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Row 1, Cell 1</td>
+                    <td>Row 1, Cell 2</td>
+                    <td>Row 1, Cell 3</td>
+                </tr>
+                <tr>
+                    <td>Row 2, Cell 1</td>
+                    <td>Row 2, Cell 2</td>
+                    <td>Row 2, Cell 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>List</h2>
+        <ul class="c-list">
+            <li>List item one</li>
+            <li>List item two</li>
+            <li>List item three</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Accordion</h2>
+        <div class="c-accordion">
+            <div class="c-accordion__item">
+                <button class="c-accordion__header">Accordion Item 1</button>
+                <div class="c-accordion__content">
+                    <p>Content for accordion item 1</p>
+                </div>
+            </div>
+            <div class="c-accordion__item">
+                <button class="c-accordion__header">Accordion Item 2</button>
+                <div class="c-accordion__content">
+                    <p>Content for accordion item 2</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Blockquote</h2>
+        <blockquote class="c-blockquote">
+            <p>This is a blockquote with some quoted text that should be styled differently from regular paragraphs.</p>
+            <cite>— Citation Author</cite>
+        </blockquote>
+    </div>
+
+    <div class="test-section">
+        <h2>Tags</h2>
+        <div class="component-group">
+            <span class="c-tag">Tag 1</span>
+            <span class="c-tag">Tag 2</span>
+            <span class="c-tag c-tag--primary">Primary Tag</span>
+            <span class="c-tag c-tag--secondary">Secondary Tag</span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Breadcrumb</h2>
+        <nav class="c-breadcrumb">
+            <a href="#">Home</a>
+            <span class="c-breadcrumb__separator">/</span>
+            <a href="#">Category</a>
+            <span class="c-breadcrumb__separator">/</span>
+            <span>Current Page</span>
+        </nav>
+    </div>
+
+</body>
+</html>

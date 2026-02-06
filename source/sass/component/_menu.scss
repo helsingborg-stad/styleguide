@@ -5,6 +5,31 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
+/**********************************************************
+ * MENU COMPONENT CSS VARIABLES
+ * Component-level tokens for menu/dropdown styling.
+ **********************************************************/
+
+// Colors
+$c-menu-background-color: var(--c-menu-background-color, var(--color--surface));
+$c-menu-text-color: var(--c-menu-text-color, var(--color--text));
+$c-menu-link-color: var(--c-menu-link-color, var(--color--text));
+$c-menu-link-hover-bg: var(--c-menu-link-hover-bg, var(--color--light));
+$c-menu-link-active-bg: var(--c-menu-link-active-bg, var(--color--primary));
+$c-menu-link-active-color: var(--c-menu-link-active-color, var(--color--white));
+$c-menu-divider-color: var(--c-menu-divider-color, var(--color--border));
+
+// Sizing & Spacing
+$c-menu-padding: var(--c-menu-padding, var(--spacing-sm));
+$c-menu-item-padding: var(--c-menu-item-padding, var(--spacing-sm));
+$c-menu-border-radius: var(--c-menu-border-radius, var(--radius-md));
+
+// Typography
+$c-menu-font-size: var(--c-menu-font-size, var(--font-size-base));
+
+// Shadow
+$c-menu-shadow: var(--c-menu-shadow, var(--shadow-2));
+
 /* General behaviour */
 
 .c-menu {
@@ -63,7 +88,7 @@
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{var_default.$base} * 0.5);
+        padding-left: calc(#{var(--base)} * 0.5);
     }
 
     .c-menu__item .c-menu__link,
@@ -76,7 +101,7 @@
         content: "";
         @include center.centerX();
 
-        bottom: var_default.$base;
+        bottom: var(--base);
         border-bottom: 3px solid var_colors.$color-menu-active-indicator-horizontal;
         width: 0%;
         transition: width 250ms;
@@ -108,11 +133,11 @@
 
     .c-menu__link {
         display: block;
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 3);
+        padding: calc(#{var(--base)} * 1.5) calc(#{var(--base)} * 3);
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{var_default.$base} * 0.5);
+        padding-left: calc(#{var(--base)} * 0.5);
     }
 
     .c-menu__item .c-menu__link,

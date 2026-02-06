@@ -29,10 +29,10 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
             display: flex;
             flex-direction: column;
             visibility: visible;
-            margin-bottom: calc(var_default.$base * 10);
+            margin-bottom: calc(var(--base) * 10);
 
             &.has-button {
-                margin-bottom: calc(var_default.$base * 4);
+                margin-bottom: calc(var(--base) * 4);
             }
         }
     }
@@ -43,17 +43,17 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product--featured {
-    margin: calc(#{var_default.$base} * -2);
+    margin: calc(#{var(--base)} * -2);
 }
 
 .c-product__price {
     display: inline-block;
 
     &--primary {
-        color: var_colors.$color-primary;
+        color: var(--color--primary);
     }
     &--secondary {
-        color: var_colors.$color-secondary;
+        color: var(--color--secondary);
     }
     &--custom {
         color: $c-product-custom-color;
@@ -61,17 +61,17 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product__label {
-    padding-bottom: calc(#{var_default.$base} * 4);
+    padding-bottom: calc(#{var(--base)} * 4);
 }
 
 .c-product__frequency {
-    color: var_colors.$color-black;
+    color: var(--color--black);
 }
 
 .c-product__image-container {
     position: relative;
-    height: calc(#{var_default.$base} * 14);
-    margin-bottom: calc(#{var_default.$base} * 3);
+    height: calc(#{var(--base)} * 14);
+    margin-bottom: calc(#{var(--base)} * 3);
 }
 
 .c-product__image {
@@ -79,16 +79,16 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
     left: 50%;
     transform: translate(-50%, 25%);
     border-radius: 50%;
-    border: calc(#{var_default.$base} * 0.25) solid white;
-    height: calc(#{var_default.$base} * 14);
-    width: calc(#{var_default.$base} * 14);
+    border: calc(#{var(--base)} * 0.25) solid white;
+    height: calc(#{var(--base)} * 14);
+    width: calc(#{var(--base)} * 14);
     aspect-ratio: 1 / 1;
 
     &--primary {
-        background-color: var_colors.$color-primary;
+        background-color: var(--color--primary);
     }
     &--secondary {
-        background-color: var_colors.$color-secondary;
+        background-color: var(--color--secondary);
     }
     &--custom {
         background-color: $c-product-custom-color;
@@ -97,7 +97,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
 .c-product__heading {
     position: relative;
-    padding-bottom: calc(#{var_default.$base} * 2);
+    padding-bottom: calc(#{var(--base)} * 2);
 
     &::after {
         content: '';
@@ -109,13 +109,13 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     &--primary {
         &::after {
-            border: 1px solid var_colors.$color-primary;
+            border: 1px solid var(--color--primary);
         }
     }
 
     &--secondary {
         &::after {
-            border: 1px solid var_colors.$color-secondary;
+            border: 1px solid var(--color--secondary);
         }
     }
 
@@ -132,13 +132,13 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     &--primary {
         .c-listing__label::before, .c-listing__label::after {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
     }
 
     &--secondary {
         .c-listing__label::before, .c-listing__label::after {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
     }
     &--custom {
@@ -153,7 +153,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
         align-items: center;
         text-decoration: none;
         .c-icon:first-child {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
     }
 
@@ -162,12 +162,12 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
             transition: 100ms ease-in-out;
         }
         &:hover .c-icon:last-child {
-            padding-left: calc(var_default.$base * .5);
+            padding-left: calc(var(--base) * .5);
         }
     }
 
     .c-listing__label {
         display: block;
-        color: var_colors.$color-black;
+        color: var(--color--black);
     }
 }

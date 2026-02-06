@@ -114,11 +114,11 @@
     }
 }
 
-$grid-columns: 12 !default;
-$grid-breakpoints: map-keys($breakpoints-map) !default;
+$grid-columns: 12;
+$grid-breakpoints: map-keys($breakpoints-map);
 $grid-gutters: (
     xs : $base,
     sm : calc(#{$base} * 4)
-) !default;
+);
 
 @include generateGrid($grid-columns, $grid-breakpoints, $grid-gutters);

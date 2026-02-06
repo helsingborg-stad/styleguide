@@ -3,14 +3,26 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$dropdown-background: white;
-$dropdown-color: black;
+/* Component CSS Variables */
 
-$dropdown-hover-background: var_colors.$color-secondary;
-$dropdown-hover-color: var_colors.$color-primary;
+/* Dropdown Colors */
+$c-dropdown-background: var(--c-dropdown-background, var(--color--surface));
+$c-dropdown-text-color: var(--c-dropdown-text-color, var(--color--text));
+$c-dropdown-hover-background: var(--c-dropdown-hover-background, var(--color--secondary));
+$c-dropdown-hover-color: var(--c-dropdown-hover-color, var(--color--primary));
+$c-dropdown-active-background: var(--c-dropdown-active-background, var(--color--secondary));
+$c-dropdown-active-color: var(--c-dropdown-active-color, var(--color--primary));
 
-$dropdown-active-background: var_colors.$color-secondary-dark;
-$dropdown-active-color: var_colors.$color-primary;
+/* Dropdown Typography */
+$c-dropdown-font-size: var(--c-dropdown-font-size, var(--font-size-caption));
+$c-dropdown-line-height: var(--c-dropdown-line-height, var(--line-height-heading));
+
+/* Dropdown Shadows */
+$c-dropdown-shadow: var(--c-dropdown-shadow, var(--shadow-4));
+
+/* Dropdown Spacing */
+$c-dropdown-list-padding: var(--c-dropdown-list-padding, var(--spacing-xs));
+$c-dropdown-item-padding: var(--c-dropdown-item-padding, var(--spacing-sm));
 
 .c-dropdown {
     position: relative;
@@ -32,33 +44,33 @@ $dropdown-active-color: var_colors.$color-primary;
     top: 100%;
     z-index: 1;
     width: 100%;
-    background-color: $dropdown-background;
-    padding: var(--base, 8px) calc(var_default.$base * 0.5);
-    filter: var_properties.$drop-shadow-4;
+    background-color: $c-dropdown-background;
+    padding: $c-dropdown-list-padding;
+    filter: $c-dropdown-shadow;
 }
 
 .c-dropdown__item {
     display: flex;
-    font-size: 14px;
-    line-height: var_fonts.$line-height-heading;
+    font-size: $c-dropdown-font-size;
+    line-height: $c-dropdown-line-height;
 }
 
 .c-dropdown__item a {
     width: 100%;
-    padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
+    padding: $c-dropdown-item-padding;
     text-overflow: ellipsis;
     overflow: hidden;
     text-decoration: none;
-    color: $dropdown-color;
+    color: $c-dropdown-text-color;
 
     &:hover {
-        background-color: $dropdown-hover-background;
-        color: $dropdown-hover-color;
+        background-color: $c-dropdown-hover-background;
+        color: $c-dropdown-hover-color;
     }
 
     &:active {
-        background-color: $dropdown-active-background;
-        color: $dropdown-active-color;
+        background-color: $c-dropdown-active-background;
+        color: $c-dropdown-active-color;
     }
 }
 
