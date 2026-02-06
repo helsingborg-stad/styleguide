@@ -5,7 +5,7 @@
 $c-progress-border-radius: var(--c-progress-border-radius, var(--radius-md));
 $c-progress-background-color: var(--c-progress-background-color, var_colors.$color-lighter);
 $c-progress-value-color: var(--c-progress-value-color, var_colors.$color-success);
-$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var_default.$base});
+$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var(--base)});
 $c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var_colors.$color-dark);
 
 .c-progressbar {

@@ -108,9 +108,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     
     &__date {
         display: flex;
-        gap: calc(#{var_default.$base} * 0.5);
+        gap: calc(#{var(--base)} * 0.5);
         align-items: center;
-        margin-top: calc(#{var_default.$base} * 0.5);
+        margin-top: calc(#{var(--base)} * 0.5);
     }
     
     &__dropdown {
@@ -175,8 +175,8 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     /* Floating items top right corner (on image) */
     .c-card__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
+        right: var(--base);
+        top: var(--base);
         z-index: var(--level-3);
     }
 
@@ -212,16 +212,16 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     &--highlight {
         .c-card__header,
         .c-card__body {
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: var(--base) solid var_colors.$color-primary;
         }
     }
 
     &--accented {
         .c-card {
-            margin-bottom: var_default.$base;
+            margin-bottom: var(--base);
         }
         .c-card__header {
-            border-bottom: calc(#{var_default.$base} / 2) solid var_colors.$color-primary;
+            border-bottom: calc(#{var(--base)} / 2) solid var_colors.$color-primary;
             background: var_colors.$color-white;
         }
         .c-typography {
@@ -264,21 +264,21 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     /* Datebadge */ 
     .c-card__datebadge {
         position: absolute;
-        margin: calc(var_default.$base * 2);
+        margin: calc(var(--base) * 2);
     }
 
     &.c-card--has-datebadge {
         .c-card__datebadge {
             margin: 0;
-            left: calc(var_default.$base * 2);
-            top: calc(var_default.$base * 2);
+            left: calc(var(--base) * 2);
+            top: calc(var(--base) * 2);
         }
 
         &:not(.c-card--has-image) {
 
             .c-card__heading-container,
             .c-card__content {
-                padding-left: calc(var_default.$base * 9.5);
+                padding-left: calc(var(--base) * 9.5);
             }
         }
     }
@@ -318,7 +318,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
 
     &--svg-background {
         .c-card__image-background {
-            background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+            background-size: clamp(#{var(--base)} * 3, 50%, #{var(--base)} * 8);
             background-repeat: no-repeat;
             background-color: $c-card-image-background-color;
         }   
@@ -368,7 +368,7 @@ a.c-card {
         filter: var_properties.$drop-shadow-3;
         background-color: var_colors.$color-lightest;
         color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var(--base)} * 0.25 ));
         transition: all 200ms ease-out;
         
         .c-card__heading {

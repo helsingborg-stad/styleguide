@@ -32,8 +32,8 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         .c-timeline__event {
             .c-timeline__marker {
                 border-radius: 50%;
-                height: calc(#{var_default.$base} * 3);
-                width: calc(#{var_default.$base} * 3);
+                height: calc(#{var(--base)} * 3);
+                width: calc(#{var(--base)} * 3);
 
                 @include mq.mq(null, map.get(var_default.$breakpoints-map, 'md')) {
                     top: calc(var(--base, 8px) * 3);
@@ -54,7 +54,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
     @include list.unlist();
 
     .c-timeline__event__card {
-        width: calc(50% - calc(#{var_default.$base} * 5));
+        width: calc(50% - calc(#{var(--base)} * 5));
         background-color: #{$c-timeline-card-background-color};
         color: #{$c-timeline-card-text-color};
     }
@@ -65,12 +65,12 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: calc(#{var_default.$base} * -1);
+            right: calc(#{var(--base)} * -1);
             height: 0;
             width: 0;
             z-index: var(--level-1);
             border: 0 solid #{$c-timeline-card-background-color};
-            border-width: #{var_default.$base} 0 #{var_default.$base} #{var_default.$base};
+            border-width: #{var(--base)} 0 #{var(--base)} #{var(--base)};
             border-color: transparent transparent transparent #{$c-timeline-card-background-color};
         }
         
@@ -92,13 +92,13 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         position: absolute;
         transform: translate(50%, -50%);
         background-color: #{$c-timeline-marker-background-color};
-        border: calc(#{var_default.$base} * 0.5) solid #{$c-timeline-marker-border-color};
+        border: calc(#{var(--base)} * 0.5) solid #{$c-timeline-marker-border-color};
         border-radius: 50%;
         z-index: 1;
 
         @include mq.mq(map.get(var_default.$breakpoints-map, 'md'), null) {
-            width: calc(#{var_default.$base} * 3);
-            height: calc(#{var_default.$base} * 3);
+            width: calc(#{var(--base)} * 3);
+            height: calc(#{var(--base)} * 3);
             top: 50%;
             right: 50%;
         }
@@ -113,7 +113,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            left: calc(50% + calc(#{var_default.$base} * 3));
+            left: calc(50% + calc(#{var(--base)} * 3));
         }
 
         &:nth-child(even) {
@@ -121,7 +121,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                right: calc(50% + calc(#{var_default.$base} * 3));
+                right: calc(50% + calc(#{var(--base)} * 3));
                 left: initial;
             }
         }
@@ -129,11 +129,11 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
 
     &:nth-child(even) {
         .c-timeline__event__card {
-            left: calc(50% + calc(#{var_default.$base} * 5));
+            left: calc(50% + calc(#{var(--base)} * 5));
             &::before {
-                left: calc(#{var_default.$base} * -1);
+                left: calc(#{var(--base)} * -1);
                 border: 0 solid #{$c-timeline-card-background-color};
-                border-width: #{var_default.$base} #{var_default.$base} #{var_default.$base} 0;
+                border-width: #{var(--base)} #{var(--base)} #{var(--base)} 0;
                 border-color: transparent #{$c-timeline-card-background-color} transparent transparent;
             }
         }
@@ -142,22 +142,22 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
 
 @include mq.mq(null, map.get(var_default.$breakpoints-map, 'md')) {
     .c-timeline::after {
-        left: calc(#{var_default.$base} * 3);
+        left: calc(#{var(--base)} * 3);
         transform: translateX(50%);
     }
 
     .c-timeline__event {
-        padding-left: calc(#{var_default.$base} * 10);
+        padding-left: calc(#{var(--base)} * 10);
 
         .c-timeline__event__card {
             left: 0 !important;
             width: 100%;
 
             &::before {
-                top: calc(#{var_default.$base} * 4.5);
-                left: calc(#{var_default.$base} * -1);
+                top: calc(#{var(--base)} * 4.5);
+                left: calc(#{var(--base)} * -1);
                 border: 0 solid #{$c-timeline-card-background-color};
-                border-width: #{var_default.$base} #{var_default.$base} #{var_default.$base} 0;
+                border-width: #{var(--base)} #{var(--base)} #{var(--base)} 0;
                 border-color: transparent #{$c-timeline-card-background-color} transparent transparent;
             }
         }
@@ -171,10 +171,10 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         }
 
         .c-timeline__marker {
-            padding: calc(#{var_default.$base} * 0.5) calc(#{var_default.$base} * 0.75);
+            padding: calc(#{var(--base)} * 0.5) calc(#{var(--base)} * 0.75);
             border-radius: 3px;
-            left: calc(#{var_default.$base} * 3);
-            top: calc(#{var_default.$base} * 5);
+            left: calc(#{var(--base)} * 3);
+            top: calc(#{var(--base)} * 5);
             transform: translateX(-50%);
         }
     }

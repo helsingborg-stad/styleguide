@@ -71,8 +71,8 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 
     .c-segment__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
+        right: var(--base);
+        top: var(--base);
         z-index: var(--level-3);
         cursor: pointer;
     }
@@ -93,7 +93,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         }
 
         .c-segment__content {
-            margin: calc(var_default.$base * -4) calc(var_default.$base * 2) 0 calc(var_default.$base * 2);
+            margin: calc(var(--base) * -4) calc(var(--base) * 2) 0 calc(var(--base) * 2);
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -108,7 +108,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         }
 
         .c-segment__content-card {
-            padding: calc(var_default.$base * 3) calc(var_default.$base * 5);
+            padding: calc(var(--base) * 3) calc(var(--base) * 5);
             height: 100%;
         }
 
@@ -139,9 +139,9 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     &.c-segment--size-sm {
         &.c-segment--card {
             .c-segment__content {
-                width: min(60%, calc(var_default.$base * 60));
-                min-height: calc(var_default.$base * 40);
-                margin-top: calc(var_default.$base * -35);
+                width: min(60%, calc(var(--base) * 60));
+                min-height: calc(var(--base) * 40);
+                margin-top: calc(var(--base) * -35);
             }
 
             &.c-segment--no-image .c-segment__content {
@@ -173,7 +173,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 
             .c-segment__image {
                 position: absolute;
-                width: calc(100% - calc(var_default.$base * 30));
+                width: calc(100% - calc(var(--base) * 30));
                 padding: 0;
                 height: 100%;
                 right: 0;
@@ -184,14 +184,14 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             }
 
             .c-segment__content {
-                margin: calc(var_default.$base * 2) 0;
-                width: calc(#{var_default.$base} * 60);
+                margin: calc(var(--base) * 2) 0;
+                width: calc(#{var(--base)} * 60);
                 flex-grow: unset;
                 height: unset;
             }
 
             .c-segment__content-card {
-                padding: calc(var_default.$base * 5);
+                padding: calc(var(--base) * 5);
 
                 .c-segment__title {
                     font-size: headings.$h1-font-size;
@@ -199,7 +199,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             }
 
             .c-segment__floating {
-                top: calc(var_default.$base * 3);
+                top: calc(var(--base) * 3);
             }
 
             &.c-segment--reverse {
@@ -213,7 +213,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 
             &.c-segment--slider {
                 &.c-segment--size-md {
-                    min-height: calc(var_default.$base * 70);
+                    min-height: calc(var(--base) * 70);
                     align-items: center;
 
                     .c-segment__image {
@@ -222,7 +222,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 
                     &.c-segment--reverse {
                         .c-segment__content {
-                            margin-right: min(15%, calc(var_default.$base * 12));
+                            margin-right: min(15%, calc(var(--base) * 12));
                         }
                     }
                 }
@@ -251,7 +251,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 
 .c-segment.c-segment--svg-background {
     .c-segment__image {
-        background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+        background-size: clamp(#{var(--base)} * 3, 50%, #{var(--base)} * 8);
         background-repeat: no-repeat;
         background-color: $c-segment-image-background-color;
     }
@@ -321,7 +321,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             position: absolute;
             top: 0;
             left: 0;
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: var(--base) solid var_colors.$color-primary;
             height: 100%;
             z-index: 1;
         }
@@ -334,7 +334,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             position: absolute;
             top: 0;
             left: 50%;
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: var(--base) solid var_colors.$color-primary;
             height: 100%;
         }
 
@@ -352,7 +352,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     flex-direction: row;
 
     .c-segment__padder {
-        max-width: calc(#{var_default.$base} * 60);
+        max-width: calc(#{var(--base)} * 60);
         margin: auto;
         padding-top: #{map.get(var_default.$spacers, "4")};
         padding-bottom: #{map.get(var_default.$spacers, "4")};

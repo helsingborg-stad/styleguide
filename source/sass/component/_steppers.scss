@@ -11,23 +11,23 @@
     &__dot {
         background: var_colors.$color-gray;
         display: inline-block;
-        width: calc(#{var_default.$base} * 1.5);
-        height: calc(#{var_default.$base} * 0.5);
-        margin: calc(#{var_default.$base} * 0.5);
+        width: calc(#{var(--base)} * 1.5);
+        height: calc(#{var(--base)} * 0.5);
+        margin: calc(#{var(--base)} * 0.5);
 
         &:first-of-type {
-            border-top-left-radius: calc(#{var_default.$base} * 0.5);
-            border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
+            border-top-left-radius: calc(#{var(--base)} * 0.5);
+            border-bottom-left-radius: calc(#{var(--base)} * 0.5);
         }
 
         &:last-of-type {
-            border-top-right-radius: calc(#{var_default.$base} * 0.5);
-            border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
+            border-top-right-radius: calc(#{var(--base)} * 0.5);
+            border-bottom-right-radius: calc(#{var(--base)} * 0.5);
         }
 
         @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "sm") {
-            width: calc(#{var_default.$base} * 0.5);
-            height: calc(#{var_default.$base} * 0.5);
+            width: calc(#{var(--base)} * 0.5);
+            height: calc(#{var(--base)} * 0.5);
         }
     }
 

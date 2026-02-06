@@ -10,14 +10,14 @@
         width: 100%;
         margin: 0;
         outline: 0;
-        min-height: calc(#{var_default.$base}*25);
+        min-height: calc(#{var(--base)}*25);
         appearance: none;
         padding: map.get(var_default.$spacers, "2");
         font-size: 1rem;
         background: var_colors.$color-form-fields;
         border: 1px solid var_colors.$color-form-fields;
         transition: color .1s ease;
-        background-size: calc(#{var_default.$base}*2);
+        background-size: calc(#{var(--base)}*2);
         border-radius: var(--radius-md);
         line-height: 1.5;
 
@@ -36,8 +36,8 @@
         font-size: 14px;
         color: var_colors.$color-form-fields-label;
         position: absolute;
-        top: calc(#{var_default.$base}*2);
-        left: calc(#{var_default.$base}*2);
+        top: calc(#{var(--base)}*2);
+        left: calc(#{var(--base)}*2);
         transform-origin: top left;
         transform: translate(0, 0) scale(1);
         transition: all .1s ease-in-out;

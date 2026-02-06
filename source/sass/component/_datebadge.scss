@@ -20,9 +20,9 @@ $c-datebadge-month-background: var(--c-datebadge-month-background, #{var_colors.
 $c-datebadge-backdrop-filter: var(--c-datebadge-backdrop-filter, unset);
 
 // Padding
-$c-datebadge-padding: var(--c-datebadge-padding, calc(#{var_default.$base} * 0.5) calc(#{var_default.$base} * 0.5) 0 calc(#{var_default.$base} * 0.5));
-$c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var_default.$base} * .5) calc(#{var_default.$base} * 1.5));
-$c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$base} * .75));
+$c-datebadge-padding: var(--c-datebadge-padding, calc(#{var(--base)} * 0.5) calc(#{var(--base)} * 0.5) 0 calc(#{var(--base)} * 0.5));
+$c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var(--base)} * .5) calc(#{var(--base)} * 1.5));
+$c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var(--base)} * .75));
 
 .c-datebadge.c-datebadge--dark {
     --c-datebadge-color: #{var_colors.$color-white};
@@ -43,20 +43,20 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$b
 }
 
 .c-datebadge.c-datebadge--translucent {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 1.5)) brightness(200%) opacity(100%);
+    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 1.5)) brightness(200%) opacity(100%);
     --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
     --c-datebadge-month-background: rgba(255, 255, 255, 0.8);
     --c-datebadge-color: #{var_colors.$color-black};
 }
 
 .c-datebadge.c-datebadge--translucent.c-datebadge--primary {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(100%) opacity(100%);
+    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(100%) opacity(100%);
     --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 50%);
     --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 90%);
 }
 
 .c-datebadge.c-datebadge--translucent.c-datebadge--secondary {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(100%) opacity(100%);
+    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(100%) opacity(100%);
     --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 50%);
     --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 90%);
 }
@@ -65,19 +65,19 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$b
     --c-datebadge-color: #{var_colors.$color-white};
     --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
     --c-datebadge-month-background: rgba(255, 255, 255, 0.4);
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(60%) opacity(100%);
+    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(60%) opacity(100%);
 }
 
 .c-datebadge.c-datebadge--sm {
     --c-datebadge-font-size: #{var_fonts.$font-size-subtitle};
-    --c-datebadge-date-padding: calc(#{var_default.$base} * 0.5);
-    --c-datebadge-month-padding: calc(#{var_default.$base} * .5) #{var_default.$base};
+    --c-datebadge-date-padding: calc(#{var(--base)} * 0.5);
+    --c-datebadge-month-padding: calc(#{var(--base)} * .5) #{var(--base)};
 }
 
 .c-datebadge.c-datebadge--lg {
     --c-datebadge-font-size: #{var_fonts.$font-size-headline};
-    --c-datebadge-date-padding: calc(#{var_default.$base} * 1.25);
-    --c-datebadge-month-padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 1.75);
+    --c-datebadge-date-padding: calc(#{var(--base)} * 1.25);
+    --c-datebadge-month-padding: calc(#{var(--base)} * 1) calc(#{var(--base)} * 1.75);
 }
 
 .c-datebadge {

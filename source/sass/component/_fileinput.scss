@@ -33,9 +33,9 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         .js-file-input-drop {
             outline: 3px dashed var_colors.$color-lighter;
             border-radius: var(--radius-lg);
-            outline-offset: calc(#{var_default.$base} * 1.5);
-            width: calc(#{var_default.$base} * 40);
-            max-width: calc(100% - calc(#{var_default.$base} * 2.5));
+            outline-offset: calc(#{var(--base)} * 1.5);
+            width: calc(#{var(--base)} * 40);
+            max-width: calc(100% - calc(#{var(--base)} * 2.5));
             display: flex;
         }
 
@@ -93,7 +93,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: calc(#{var_default.$base} * 4);
+        padding: calc(#{var(--base)} * 4);
         border-radius: $c-field-border-radius;
         background-color: $c-field-background-color;
         border: $c-field-border-width solid $c-field-border-color;
@@ -108,10 +108,10 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: calc(#{var_default.$base} * 2);
-        margin-top: calc(#{var_default.$base} * 2);
+        gap: calc(#{var(--base)} * 2);
+        margin-top: calc(#{var(--base)} * 2);
         width: 100%;
-        padding: calc(#{var_default.$base} * 2);    
+        padding: calc(#{var(--base)} * 2);    
     }
 
     /* Items uploaded */
@@ -120,18 +120,18 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 calc(#{var_default.$base} * .5);
+            padding: 0 calc(#{var(--base)} * .5);
             background-color: var_colors.$color-lightest;
             border-radius: var(--radius-lg);
             margin: 0;
             filter: var_properties.$drop-shadow-1;
-            height: calc(#{var_default.$base} * 5.5);
+            height: calc(#{var(--base)} * 5.5);
             animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
         .c-fileinput__item-remove {
             border-left: 1px solid var_colors.$color-lighter;
-            margin-left: calc(#{var_default.$base} * 2);
+            margin-left: calc(#{var(--base)} * 2);
             border-radius: 0 100px 100px 0;
         }
 
@@ -147,10 +147,10 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
-            gap: #{var_default.$base};
+            gap: #{var(--base)};
 
             .c-fileinput__item-name {
-                max-width: calc(#{var_default.$base} * 20);
+                max-width: calc(#{var(--base)} * 20);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -196,9 +196,9 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         display: flex;
         justify-content: space-between;
         width: 100%;
-        gap: calc(#{var_default.$base} * 2);
-        top: calc(#{var_default.$base} * 2);
-        bottom: calc(#{var_default.$base} * 1.5);
+        gap: calc(#{var(--base)} * 2);
+        top: calc(#{var(--base)} * 2);
+        bottom: calc(#{var(--base)} * 1.5);
         font-size: .7em;
         transition: all 0.2s ease-in-out;
         user-select: none;
@@ -214,8 +214,8 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     .c-fileinput__filecounter {
         user-select: none;
         position: absolute;
-        right: calc(#{var_default.$base} * 2);
-        bottom: calc(#{var_default.$base} * 1.5);
+        right: calc(#{var(--base)} * 2);
+        bottom: calc(#{var(--base)} * 1.5);
         opacity: .5;
         font-size: .7em;
         transition: all 0.2s ease-in-out;
@@ -283,9 +283,9 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         }
 
         .c-fileinput__info-container {
-            max-width: calc(var_default.$base * 25);
+            max-width: calc(var(--base) * 25);
             display: flex;
-            gap: calc(#{var_default.$base} * .5);
+            gap: calc(#{var(--base)} * .5);
         }
 
         .c-fileinput__item-name {
@@ -313,11 +313,11 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         }
         
         .c-fileinput__item-icon-wrapper {
-            left: calc(#{var_default.$base} * .5);
+            left: calc(#{var(--base)} * .5);
         }
 
         .c-fileinput__item-preview {
-            width: calc(var_default.$base * 25);
+            width: calc(var(--base) * 25);
             aspect-ratio: 16 / 9;
             border-radius: var(--radius-md);
             filter: var_properties.$drop-shadow-2;

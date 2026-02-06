@@ -23,10 +23,10 @@
     filter: var_properties.$drop-shadow-1;
 
     &--border-top{
-        border-top: var_default.$base solid var_colors.$color-nav-top-accent;
+        border-top: var(--base) solid var_colors.$color-nav-top-accent;
     }
     &--border-bottom{
-        border-bottom: var_default.$base solid var_colors.$color-nav-top-accent;
+        border-bottom: var(--base) solid var_colors.$color-nav-top-accent;
     }
 
     &__logo {
@@ -120,7 +120,7 @@
 }
 
 .c-navbar__expanded_main {
-    padding: map.get(var_default.$spacers, "7") calc(#{var_default.$base} * 20);
+    padding: map.get(var_default.$spacers, "7") calc(#{var(--base)} * 20);
     border-bottom: 2px solid var_colors.$color-primary;
 
 }
@@ -212,7 +212,7 @@
     }
 
     .c-navbar__expanded_grid {
-        grid-row-gap: calc(#{var_default.$base} * 2) !important;
+        grid-row-gap: calc(#{var(--base)} * 2) !important;
     }
 }
 

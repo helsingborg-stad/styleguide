@@ -8,7 +8,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
 // Basic laying down
 .c-newsitem {
     display: grid;
-    gap: calc(var_default.$base * 2);
+    gap: calc(var(--base) * 2);
     grid-template-columns: repeat(12, 1fr);
     container-type: inline-size;
     container-name: newsitem;
@@ -30,10 +30,10 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
     .c-newsitem__header {
         grid-column: span 12;
         display: flex;
-        row-gap: var_default.$base;
+        row-gap: var(--base);
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: var_default.$base 0;
+        padding: var(--base) 0;
         border-top: 1px solid $c-newsitem-header-border-color;
         border-bottom: 1px solid $c-newsitem-header-border-color;
     }
@@ -42,7 +42,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
         grid-column: span 12;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: calc(var_default.$base * 3);
+        gap: calc(var(--base) * 3);
     }
 
     .c-newsitem__title-left.cover {
@@ -59,14 +59,14 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
     .c-newsitem__header-right {
         display: flex;
         align-items: center;
-        gap: calc(var_default.$base * 2);
+        gap: calc(var(--base) * 2);
     }
 
     .c-newsitem__date,
     .c-newsitem__read-time {
         display: flex;
         align-items: center;
-        gap: calc(var_default.$base * .5);
+        gap: calc(var(--base) * .5);
         font-size: var_fonts.$font-size-meta;
     }
 

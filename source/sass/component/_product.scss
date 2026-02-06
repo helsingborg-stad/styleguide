@@ -29,10 +29,10 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
             display: flex;
             flex-direction: column;
             visibility: visible;
-            margin-bottom: calc(var_default.$base * 10);
+            margin-bottom: calc(var(--base) * 10);
 
             &.has-button {
-                margin-bottom: calc(var_default.$base * 4);
+                margin-bottom: calc(var(--base) * 4);
             }
         }
     }
@@ -43,7 +43,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product--featured {
-    margin: calc(#{var_default.$base} * -2);
+    margin: calc(#{var(--base)} * -2);
 }
 
 .c-product__price {
@@ -61,7 +61,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product__label {
-    padding-bottom: calc(#{var_default.$base} * 4);
+    padding-bottom: calc(#{var(--base)} * 4);
 }
 
 .c-product__frequency {
@@ -70,8 +70,8 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
 .c-product__image-container {
     position: relative;
-    height: calc(#{var_default.$base} * 14);
-    margin-bottom: calc(#{var_default.$base} * 3);
+    height: calc(#{var(--base)} * 14);
+    margin-bottom: calc(#{var(--base)} * 3);
 }
 
 .c-product__image {
@@ -79,9 +79,9 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
     left: 50%;
     transform: translate(-50%, 25%);
     border-radius: 50%;
-    border: calc(#{var_default.$base} * 0.25) solid white;
-    height: calc(#{var_default.$base} * 14);
-    width: calc(#{var_default.$base} * 14);
+    border: calc(#{var(--base)} * 0.25) solid white;
+    height: calc(#{var(--base)} * 14);
+    width: calc(#{var(--base)} * 14);
     aspect-ratio: 1 / 1;
 
     &--primary {
@@ -97,7 +97,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
 .c-product__heading {
     position: relative;
-    padding-bottom: calc(#{var_default.$base} * 2);
+    padding-bottom: calc(#{var(--base)} * 2);
 
     &::after {
         content: '';
@@ -162,7 +162,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
             transition: 100ms ease-in-out;
         }
         &:hover .c-icon:last-child {
-            padding-left: calc(var_default.$base * .5);
+            padding-left: calc(var(--base) * .5);
         }
     }
 

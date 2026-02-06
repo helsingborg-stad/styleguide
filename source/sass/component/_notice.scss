@@ -205,7 +205,7 @@ $c-notice-border-radius: var(--notice-border-radius, var(--radius-sm));
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(#{var_default.$base} * 2); 
+    margin-top: calc(#{var(--base)} * 2); 
 }
 
 @media print {

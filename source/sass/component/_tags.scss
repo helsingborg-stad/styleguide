@@ -9,7 +9,7 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
 .c-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: #{var_default.$base};
+    gap: #{var(--base)};
 
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
@@ -20,8 +20,8 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
         .c-tags__tag {
             background-color: $c-tags-pill-background;
             color: $c-tags-pill-color;
-            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
-            border-radius: calc(var_default.$base * 3);
+            padding: calc(var(--base) * 0.5) calc(var(--base) * 1.5);
+            border-radius: calc(var(--base) * 3);
             filter: var_properties.$detail-shadow-2;
 
             &:hover {

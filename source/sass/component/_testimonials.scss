@@ -11,7 +11,7 @@
     .c-testimonial .c-card__paint-container {
         display: grid;
         grid-template-rows: auto 1fr;
-        grid-template-columns: calc(#{var_default.$base} * 11) auto;
+        grid-template-columns: calc(#{var(--base)} * 11) auto;
         grid-template-areas: "image header" "quote quote";
         padding: map.get(var_default.$spacers, "4");
 
@@ -52,8 +52,8 @@
     }
 
     .c-testimonial__image {
-        width: calc(#{var_default.$base} * 11);
-        max-height: calc(#{var_default.$base} * 14);
+        width: calc(#{var(--base)} * 11);
+        max-height: calc(#{var(--base)} * 14);
         border-radius: card.$c-card-border-radius;
         overflow: hidden;
         filter: var_properties.$drop-shadow-3;
@@ -70,7 +70,7 @@
     .c-testimonials__wrapper {
         display: grid;
         grid-template-columns: 100%;
-        row-gap: calc(#{var_default.$base} * 7);
+        row-gap: calc(#{var(--base)} * 7);
     }
 
     // Slider style
@@ -109,10 +109,10 @@
         .c-slider__arrows {
             .splide__arrow {
                 &.splide__arrow--prev {
-                    left: calc(#{var_default.$base} * -2.5);
+                    left: calc(#{var(--base)} * -2.5);
                 }
                 &.splide__arrow--next {
-                    right: calc(#{var_default.$base} * -2.5);
+                    right: calc(#{var(--base)} * -2.5);
                 }
             }
         }
@@ -123,16 +123,16 @@
     .c-testimonials {
         & .c-testimonials__wrapper {
             grid-template-columns: 1fr 1fr;
-            column-gap: calc(#{var_default.$base} * 7);
-            row-gap: calc(#{var_default.$base} * 6);
+            column-gap: calc(#{var(--base)} * 7);
+            row-gap: calc(#{var(--base)} * 6);
     
             margin-left: map.get(var_default.$spacers, "8");
             margin-right: map.get(var_default.$spacers, "8");
         }
 
         & .c-testimonials__slider {
-            padding-left: calc(#{var_default.$base} * 7);
-            padding-right: calc(#{var_default.$base} * 7);
+            padding-left: calc(#{var(--base)} * 7);
+            padding-right: calc(#{var(--base)} * 7);
         }
     }
 }

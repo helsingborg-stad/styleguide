@@ -47,8 +47,8 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
     .c-button__loader {
         display: none;
-        width: calc(var_default.$base * 3);
-        height: calc(var_default.$base * 3);
+        width: calc(var(--base) * 3);
+        height: calc(var(--base) * 3);
         border: 3px solid;
         margin-bottom: 2px;
         border-radius: 50%;
@@ -120,7 +120,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         z-index: var(--level-2);
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
-        gap: #{var_default.$base};
+        gap: #{var(--base)};
         width: 100%;
         max-width: 100%;
         height: 100%;
@@ -155,92 +155,92 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     }
 
     &.c-button--lg {
-        height: calc(#{var_default.$base} * 8); 
-        min-width: calc(#{var_default.$base} * 12);
-        padding: 0 calc(#{var_default.$base} * 5);
+        height: calc(#{var(--base)} * 8); 
+        min-width: calc(#{var(--base)} * 12);
+        padding: 0 calc(#{var(--base)} * 5);
         font-size: var_fonts.$font-size-btn-lg; 
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
-            width: calc(var_default.$base * 4);
-            height: calc(var_default.$base * 4);
+            width: calc(var(--base) * 4);
+            height: calc(var(--base) * 4);
             border-width: 4px;
-            margin-left: calc(var_default.$base * -1.5);
+            margin-left: calc(var(--base) * -1.5);
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base} * 8); 
+            width: calc(#{var(--base)} * 8); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -1.5);
+            margin-right: calc(#{var(--base)} * -1.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -1.5);
+                margin-left: calc(#{var(--base)} * -1.5);
             }
         }
     }
 
     &.c-button--md {
-        height: calc(#{var_default.$base} * 6.5); 
-        min-width: calc(#{var_default.$base} * 9);
-        padding: 0 calc(#{var_default.$base} * 4); 
+        height: calc(#{var(--base)} * 6.5); 
+        min-width: calc(#{var(--base)} * 9);
+        padding: 0 calc(#{var(--base)} * 4); 
         font-size: var_fonts.$font-size-btn-md; 
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
-            margin-left: calc(var_default.$base * -1);
+            margin-left: calc(var(--base) * -1);
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base} * 6.5); 
+            width: calc(#{var(--base)} * 6.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -1);
+            margin-right: calc(#{var(--base)} * -1);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -1);
+                margin-left: calc(#{var(--base)} * -1);
             }
         }
     }
 
     &.c-button--sm {
         letter-spacing: 0.1rem;
-        height: calc(#{var_default.$base} * 5.5);
-        min-width: calc(#{var_default.$base} * 6.75); 
-        padding: 0 calc(#{var_default.$base} * 2); 
+        height: calc(#{var(--base)} * 5.5);
+        min-width: calc(#{var(--base)} * 6.75); 
+        padding: 0 calc(#{var(--base)} * 2); 
         font-size: var_fonts.$font-size-btn-sm; 
         border-radius: $c-button-border-radius-small; 
 
         .c-button__loader {
-            width: calc(var_default.$base * 2);
-            height: calc(var_default.$base * 2);
+            width: calc(var(--base) * 2);
+            height: calc(var(--base) * 2);
             border-width: 2px;
-            margin-left: calc(var_default.$base * -.5);
+            margin-left: calc(var(--base) * -.5);
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base}* 5.5); 
+            width: calc(#{var(--base)}* 5.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -.5);
+            margin-right: calc(#{var(--base)} * -.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -.5);
+                margin-left: calc(#{var(--base)} * -.5);
             }
         }
     }
 
     &.c-button--pill {
-        border-radius: calc( #{var_default.$base} * 4); //No use of percent. 
+        border-radius: calc( #{var(--base)} * 4); //No use of percent. 
     }
 
     &.c-button--sm.c-button--icon-only,

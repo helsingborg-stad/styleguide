@@ -40,7 +40,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        max-width: calc(var_default.$base * 25);
+        max-width: calc(var(--base) * 25);
         background-color: $c-tooltip-color;
         display: none;
 
@@ -58,7 +58,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
 
         .c-tooltip__content {
             color: $c-tooltip-content-color;
-            padding: var_default.$base;
+            padding: var(--base);
             text-align:center;
         }
     }
@@ -127,7 +127,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
         .c-tooltip__container {
-            max-width: calc(var_default.$base * 30);
+            max-width: calc(var(--base) * 30);
         }
     }
 
@@ -157,13 +157,13 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
         border-radius: $c-tooltip-border-radius;
         z-index: var(--level-9);
         width: max-content;
-        max-width: calc(var_default.$base * 25);
+        max-width: calc(var(--base) * 25);
         background-color: $c-tooltip-color;
         color: $c-tooltip-content-color;
-        padding: calc(var_default.$base * .75) calc(var_default.$base * .5);
-        bottom: calc(100% + calc(var_default.$base * .5));
+        padding: calc(var(--base) * .75) calc(var(--base) * .5);
+        bottom: calc(100% + calc(var(--base) * .5));
         left: 50%;
-        transform: translateX(-50%) translateY(var_default.$base);
+        transform: translateX(-50%) translateY(var(--base));
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -172,23 +172,23 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
             opacity 0.25s ease-out, 
             transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         text-align: center;
-        backdrop-filter: blur(calc(var_default.$base * .5));
+        backdrop-filter: blur(calc(var(--base) * .5));
     }
 
     &::before {
         filter: var_properties.$drop-shadow-2;
         content: " ";
         position: absolute;
-        bottom: calc(100% + calc(var_default.$base * -.5)); 
+        bottom: calc(100% + calc(var(--base) * -.5)); 
         left: 50%;
-        border-width: calc(var_default.$base * .5);
+        border-width: calc(var(--base) * .5);
         border-style: solid;
         border-color: $c-tooltip-color transparent transparent transparent;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease-in-out;
-        transform: translateX(-50%) translateY(var_default.$base);
-        backdrop-filter: blur(calc(var_default.$base * .5));
+        transform: translateX(-50%) translateY(var(--base));
+        backdrop-filter: blur(calc(var(--base) * .5));
     }
 
     &:hover::after, 
@@ -197,7 +197,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha
     &:focus::before {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(calc(var_default.$base * .5));
+        transform: translateX(-50%) translateY(calc(var(--base) * .5));
     }
 
     &:hover::after,

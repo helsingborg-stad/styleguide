@@ -7,7 +7,7 @@
 $c-mega-menu-heading-color: var(--c-mega-menu-heading-color, var_colors.$color-primary);
 $c-mega-menu-subitem-color: var(--c-mega-menu-subitem-color, var_colors.$color-primary);
 $c-mega-menu-background-color: var(--c-mega-menu-background-color, var_colors.$color-primary-contrasting);
-$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var_default.$base});
+$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var(--base)});
 $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base);
 
 .c-megamenu {
@@ -37,8 +37,8 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base);
     .c-megamenu__description {
         border-top: 2px solid $c-mega-menu-heading-color;
         color: $c-mega-menu-subitem-color;
-        padding-top: calc(var_default.$base * 1);
-        margin-top: calc(var_default.$base * 0.5);
+        padding-top: calc(var(--base) * 1);
+        margin-top: calc(var(--base) * 0.5);
     }
 
     &.c-megamenu--cover {
@@ -55,7 +55,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base);
         display: inline-flex;
         align-items: center;
         text-decoration: none;
-        gap: var_default.$base;
+        gap: var(--base);
     }
 
     .c-megamenu__item--child {
@@ -72,7 +72,7 @@ $c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base);
     .c-megamenu__sublist.c-megamenu__sublist--flex {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 var_default.$base;
+        gap: 0 var(--base);
     }
 }
 

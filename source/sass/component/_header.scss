@@ -3,7 +3,7 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_default.$base});
+$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var(--base)});
 
 .c-header {
     z-index: var(--level-6);
@@ -12,7 +12,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        scroll-margin-top: calc(#{var_default.$base} * 2);
+        scroll-margin-top: calc(#{var(--base)} * 2);
     }
 
     &.c-header--sticky {
@@ -22,7 +22,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
     }
 
     &.c-header--accented {
-        border-bottom: var_colors.$color-primary solid var_default.$base;
+        border-bottom: var_colors.$color-primary solid var(--base);
     }
 
     &.c-header--primary {

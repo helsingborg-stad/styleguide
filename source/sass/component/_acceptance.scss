@@ -10,7 +10,7 @@ $c-acceptance-alpha-light-color: var(--c-acceptance-color-alpha-light, var_color
 $c-acceptance-alpha-light-color-contrasting: var(--c-acceptance-color-alpha-light-contrasting, var_colors.$color-alpha-light-contrasting);
 
 $c-acceptance-border-radius: var(--c-acceptance-border-radius, var(--radius-lg));
-$c-acceptance-blur-amount: var(--c-acceptance-blur-amount, var_default.$base);
+$c-acceptance-blur-amount: var(--c-acceptance-blur-amount, var(--base));
 $c-acceptance-background-color: var(--c-acceptance-background-color, var_colors.$color-background-card);
 
 .c-acceptance {
