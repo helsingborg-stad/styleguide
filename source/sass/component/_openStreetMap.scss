@@ -3,15 +3,15 @@
 @use "../setting/var_properties";
 
 /* Our code */
-$grid-gap: var(--grid-gap, 4) !default;
+$grid-gap: var(--grid-gap, 4);
 
 .c-openstreetmap {
 	position: relative;
 
 	.c-openstreetmap__marker {
-		padding: var_default.$base;
+		padding: var(--base);
 		border-radius: 50%;
-		margin-left: calc(var_default.$base * -1.5);
+		margin-left: calc(var(--base) * -1.5);
 		animation: markerAnimation .5s forwards;
 	}
 	
@@ -37,17 +37,17 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	.c-openstreetmap__expand-icon-container {
 		transition: top .3s ease-in-out;
-		top: calc(var_default.$base * 6);
+		top: calc(var(--base) * 6);
 		position: sticky;
-		z-index: var_properties.$level-8;
+		z-index: var(--level-8);
 	}
 
 	.c-openstreetmap__expand-icon-desktop,
 	.c-openstreetmap__expand-icon-mobile {
-		z-index: var_properties.$level-8;
-		color: var_colors.$color-white;
-		background-color: var_colors.$color-primary;
-		padding: calc(var_default.$base * .5);
+		z-index: var(--level-8);
+		color: var(--color--white);
+		background-color: var(--color--primary);
+		padding: calc(var(--base) * .5);
 		cursor: pointer;
 		border-radius: 50%;
 
@@ -58,7 +58,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	.c-openstreetmap__expand-icon-mobile {
 		position: absolute !important;
-		top: calc(var_default.$base * -2);
+		top: calc(var(--base) * -2);
 		left: 50%;
 		transform: translateX(-50%);
 
@@ -69,7 +69,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	.c-openstreetmap__expand-icon-desktop {
 		position: absolute;
-		transform: translate(-50%, calc(var_default.$base * -3));
+		transform: translate(-50%, calc(var(--base) * -3));
 		border-radius: 50%;
 		top: 50%;
 		right: 0;
@@ -89,9 +89,9 @@ $grid-gap: var(--grid-gap, 4) !default;
 		right: 100%;
 		opacity: 0;
 		margin-left: auto;
-		z-index: var_properties.$level-6;
+		z-index: var(--level-6);
 		overflow-y: scroll;
-		background-color: var_colors.$color-white;
+		background-color: var(--color--white);
 		pointer-events: none;
 
 		&.is-open {
@@ -129,7 +129,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 }
 
 .c-openstreetmap.c-openstreetmap--sidebar.has-open-post {
-	z-index: var_properties.$level-9;
+	z-index: var(--level-9);
 	
 	.c-openstreetmap__expand-icon-container {
 		position: fixed;
@@ -162,7 +162,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	position: relative;
 	display: flex;
 	flex-direction: row;
-	background-color: var_colors.$color-white;
+	background-color: var(--color--white);
 
 	.c-openstreetmap__expand-icon-mobile {
 		display: none;
@@ -214,7 +214,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 .c-openstreetmap.c-openstreetmap--sidebar.is-expanded {
 	.c-openstreetmap__map {
-		z-index: var_properties.$level-7;
+		z-index: var(--level-7);
 		top: 0;
 		transition: top .3s ease-in-out;
 	}
@@ -233,7 +233,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 	.c-openstreetmap__post-full {
 		top: calc(var(--base, 8px) * 50);
-		height: calc(100% - (calc(var_default.$base) * 50));
+		height: calc(100% - (calc(var(--base)) * 50));
 		transition: top .4s ease-in-out, height 0.6s ease-in-out;
 	}
 
@@ -257,10 +257,10 @@ $grid-gap: var(--grid-gap, 4) !default;
 
 .c-openstreetmap.c-openstreetmap--sidebar {
 	.c-openstreetmap__map {
-		z-index: var_properties.$level-4;
-		top: calc(-0.7 * calc(var_default.$base * 50));
+		z-index: var(--level-4);
+		top: calc(-0.7 * calc(var(--base) * 50));
 		transition: .3s ease-in-out;
-		max-height: calc(var_default.$base * 50);
+		max-height: calc(var(--base) * 50);
 		position: sticky;
 		box-shadow: 0px 2px 10px -3px rgba(0,0,0,0.75);
 	}
@@ -275,7 +275,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		position: relative;
 		right: 0;
 		top: 0;
-		box-shadow: calc(var_default.$base * -1) 0px calc(var_default.$base * 2.5) calc(var_default.$base * -1.5) rgba(0,0,0,0.6);
+		box-shadow: calc(var(--base) * -1) 0px calc(var(--base) * 2.5) calc(var(--base) * -1.5) rgba(0,0,0,0.6);
 		display: block;
 		transition: .2s ease-in-out;
 	}
@@ -286,8 +286,8 @@ $grid-gap: var(--grid-gap, 4) !default;
 		padding: 1rem;
 		height: 100%;
 		position: relative;
-		background-color: var_colors.$color-white;
-		z-index: var_properties.$level-5;
+		background-color: var(--color--white);
+		z-index: var(--level-5);
 	}
 
 	[data-js-osm-endpoint-posts] {
@@ -340,7 +340,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		position: absolute;
 		top: 1.5rem;
 		left: 1rem;
-		background-color: var_colors.$color-primary;
+		background-color: var(--color--primary);
 		padding: .25rem;
 		border-radius: 50%;
 		cursor: pointer;
@@ -357,7 +357,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	.leaflet-control-attribution {
 		background-color: rgba(255,255,255,0.4) !important;
 		&, & > * {
-			color: var_colors.$color-black !important;
+			color: var(--color--black) !important;
 		}
 	}
 

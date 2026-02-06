@@ -24,7 +24,7 @@
     &__item {
         padding: 0 map.get(var_default.$spacers, "1") 0 0;
         margin: 0;
-        color: var_colors.$color-breadcrumb-active;
+        color: var(--color--breadcrumb-active);
         display: flex;
         gap: map.get(var_default.$spacers, "05");
 
@@ -44,12 +44,12 @@
     &__link,
     &__link:visited,
     &__link:visited:hover {
-        color: var_colors.$color-breadcrumb;
+        color: var(--color--breadcrumb);
         text-decoration: none;
     }
 
     .c-icon {
-        color: var_colors.$color-breadcrumb-icon;
+        color: var(--color--breadcrumb-icon);
         align-self: center;
         @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
             transform: scaleX(-1);

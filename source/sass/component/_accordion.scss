@@ -4,13 +4,39 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-accordion-border-width: var(--c-accordion-border-width, var_properties.$border-width-divider) !default;
-$c-accordion-border-color: var(--c-accordion-border-color, var_colors.$color-border-divider) !default;
-$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
+/* Component CSS Variables */
+
+/* Accordion Typography */
+$c-accordion-line-height: var(--c-accordion-line-height, var(--line-height-heading));
+$c-accordion-font-weight-bold: var(--c-accordion-font-weight-bold, var(--font-weight-bold));
+$c-accordion-font-family-bold: var(--c-accordion-font-family-bold, var(--font-family-base));
+$c-accordion-table-font-size: var(--c-accordion-table-font-size, 0.8rem);
+
+/* Accordion Colors */
+$c-accordion-hover-background: var(--c-accordion-hover-background, var(--color--light));
+$c-accordion-focus-outline-color: var(--c-accordion-focus-outline-color, var(--color--ring));
+$c-accordion-spaced-background: var(--c-accordion-spaced-background, var(--color--surface));
+$c-accordion-table-head-background: var(--c-accordion-table-head-background, var(--color--lighter));
+
+/* Accordion Borders */
+$c-accordion-border-width: var(--c-accordion-border-width, var(--border-width-divider));
+$c-accordion-border-color: var(--c-accordion-border-color, var(--color--border));
+$c-accordion-border-radius: var(--c-accordion-border-radius, var(--radius-lg));
+
+/* Accordion Spacing */
+$c-accordion-padding: var(--c-accordion-padding, var(--spacing-xs));
+$c-accordion-wrapper-padding: var(--c-accordion-wrapper-padding, var(--spacing-sm));
+$c-accordion-wrapper-gap: var(--c-accordion-wrapper-gap, var(--spacing-sm));
+$c-accordion-content-padding: var(--c-accordion-content-padding, var(--spacing-sm));
+$c-accordion-spaced-gap: var(--c-accordion-spaced-gap, var(--spacing-sm));
+$c-accordion-icon-position: var(--c-accordion-icon-position, var(--spacing-md));
+
+/* Accordion Other */
+$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0);
 
 .c-accordion {
-    padding-top: var_default.$base;
-    padding-bottom: var_default.$base;
+    padding-top: $c-accordion-padding;
+    padding-bottom: $c-accordion-padding;
 
     &.c-accordion--flat .c-accordion__button-wrapper {
         padding-left: 0;
@@ -33,12 +59,12 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
         color: inherit;
 
         & > * {
-            line-height: var_fonts.$line-height-heading;
+            line-height: $c-accordion-line-height;
         }
 
         &:hover,
         &:focus {
-            background-color: var_colors.$color-gray-light;
+            background-color: $c-accordion-hover-background;
             text-decoration: none;
         }
 
@@ -56,7 +82,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
     .c-accordion__button:focus > .c-accordion__button-wrapper {
         outline-offset: 1px;
-        outline: 1px dashed var_colors.$color-gray;
+        outline: 1px dashed $c-accordion-focus-outline-color;
     }
 
     .c-accordion__section {
@@ -69,12 +95,12 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     }
 
     .c-accordion__button-wrapper {
-        padding: calc(#{var_default.$base} * 2);
+        padding: $c-accordion-wrapper-padding;
         display: flex;
-        gap: calc(#{var_default.$base} * 2);
+        gap: $c-accordion-wrapper-gap;
         align-items: center;
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
+        font-weight: $c-accordion-font-weight-bold;
+        font-family: $c-accordion-font-family-bold;
     }
 
     .c-accordion__icon {
@@ -87,7 +113,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     }
 
     .c-accordion__content {
-        padding: calc(#{var_default.$base} * 2);
+        padding: $c-accordion-content-padding;
 
         &[aria-hidden="true"] {
             display: none;
@@ -110,15 +136,12 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
     &.c-accordion--spaced-sections {
         display: flex;
         flex-flow: row wrap;
-        gap: calc(var(--base, 8px) * 2);
+        gap: $c-accordion-spaced-gap;
         padding: 0;
 
         .c-accordion__section {
-            background-color: var_colors.$color-background-card;
-            border-radius: var(
-                --c-card-border-radius,
-                var(--radius-lg, calc(var(--base, 8px) / 2))
-            );
+            background-color: $c-accordion-spaced-background;
+            border-radius: $c-accordion-border-radius;
             border-top: 0;
             width: 100%;
         }
@@ -139,9 +162,9 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 
 .accordion-table__head {
     display: flex;
-    padding: #{var_default.$base} calc(#{var_default.$base} * 6) #{var_default.$base} calc(#{var_default.$base} * 3);
-    background: #f5f5f5;
-    font-size: .8rem;
+    padding: #{var(--base)} calc(#{var(--base)} * 6) #{var(--base)} calc(#{var(--base)} * 3);
+    background: $c-accordion-table-head-background;
+    font-size: $c-accordion-table-font-size;
 }
 
 .accordion-table__head-column-icon,
@@ -162,7 +185,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
 .c-accordion-table .c-accordion__icon,
 .c-accordion-table .c-accordion__button[aria-expanded="true"] .c-accordion__icon {
     position: absolute;
-    right: calc(#{var_default.$base} * 3);
+    right: $c-accordion-icon-position;
 }
 
 // Card that has accordion with spaced sections should have no background color

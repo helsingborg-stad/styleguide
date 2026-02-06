@@ -6,41 +6,41 @@
 .c-calendar {
 
     &--primary .cjslib-calendar {
-        color: var_colors.$color-white;
-        background-color: var_colors.$color-primary;
+        color: var(--color--white);
+        background-color: var(--color--primary);
     }
 
     &--primary .cjslib-day-indicator {
-        color: var_colors.$color-primary;
+        color: var(--color--primary);
     }
 
     &--secondary .cjslib-calendar {
-        color: var_colors.$color-white;
-        background-color: var_colors.$color-secondary;
+        color: var(--color--white);
+        background-color: var(--color--secondary);
 
         & cjslib-day-indicator {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
     }
 
     &--secondary .cjslib-day-indicator {
-        color: var_colors.$color-secondary;
+        color: var(--color--secondary);
     }
 
     &--default .cjslib-calendar, cjslib-day-indicator {
-        color: var_colors.$color-primary;
-        background-color: var_colors.$color-default;
+        color: var(--color--primary);
+        background-color: var(--color--default);
     }
 
     &--default .cjslib-day-indicator {
-        color: var_colors.$color-primary;
+        color: var(--color--primary);
     }
 
     &__event-list {
-        background-color: var_colors.$color-default;
-        color: var_colors.$color-primary;
+        background-color: var(--color--default);
+        color: var(--color--primary);
         padding:2%;
-        filter: var_properties.$drop-shadow-5;
+        filter: var(--shadow-5);
         z-index: 9999;
     }
 

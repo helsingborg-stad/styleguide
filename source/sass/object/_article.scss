@@ -3,15 +3,15 @@
 
 $article-content-headings:
 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-'.h1', '.h2', '.h3', '.h4', '.h5', '.h6' !default;
+'.h1', '.h2', '.h3', '.h4', '.h5', '.h6';
 
 $article-content-elements:
-'p', 'ul', 'ol', 'blockquote', 'img', 'table', '> div' !default;
+'p', 'ul', 'ol', 'blockquote', 'img', 'table', '> div';
 
 
 .c-article {
     #{$article-content-elements} {
-        margin-top: calc(#{var_default.$base} * 2);
+        margin-top: calc(#{var(--base)} * 2);
     }
 
     > *:first-child {
@@ -30,5 +30,5 @@ $article-content-elements:
 }
 
 .c-article.c-article--readable-width {
-    max-width: var(--container-width-content, calc(#{var_default.$base} * 76));
+    max-width: var(--container-width-content, calc(#{var(--base)} * 76));
 }

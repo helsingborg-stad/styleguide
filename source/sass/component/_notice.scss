@@ -6,29 +6,29 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-notice-color-text: var(--notice-color-text, #d73740) !default;
-$c-notice-color-background: var(--notice-color-background, #d73740) !default;
+$c-notice-color-text: var(--notice-color-text, #d73740);
+$c-notice-color-background: var(--notice-color-background, #d73740);
 
-$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
+$c-notice-color-success-text: var(--c-notice-color-success-text, var(--color--success-contrasting));
+$c-notice-color-success-background: var(--notice-color-success-background, var(--color--success));
 
-$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
+$c-notice-color-danger-text: var(--notice-color-danger-text, var(--color--danger-contrasting));
+$c-notice-color-danger-background: var(--notice-color-danger-background, var(--color--danger));
 
-$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
+$c-notice-color-info-text: var(--notice-color-info-text, var(--color--info-contrasting));
+$c-notice-color-info-background: var(--notice-color-info-background, var(--color--info));
 
-$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
+$c-notice-color-warning-text: var(--notice-color-warning-text, var(--color--warning-contrasting));
+$c-notice-color-warning-background: var(--notice-color-warning-background, var(--color--warning));
 
-$c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-radius-sm) !default;
+$c-notice-border-radius: var(--notice-border-radius, var(--radius-sm));
 
 .c-notice {
-    filter: var_properties.$drop-shadow-5;
+    filter: var(--shadow-5);
     padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
-    background-color: var_colors.$color-base;
+    background-color: var(--color--base);
     border-radius: $c-notice-border-radius;
-    color: var_colors.$color-notice-text-default;
+    color: var(--color--notice-text-default);
     display: grid;
     grid-template-areas: 
         "icon title actions"
@@ -101,7 +101,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     a:hover,
     a:active,
     a:visited {
-        color: var_colors.$color-notice-text-default;
+        color: var(--color--notice-text-default);
         text-decoration: underline;
     }
 
@@ -205,7 +205,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(#{var_default.$base} * 2); 
+    margin-top: calc(#{var(--base)} * 2); 
 }
 
 @media print {

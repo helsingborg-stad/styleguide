@@ -6,14 +6,14 @@
     max-width: var_default.$container-width;
     margin: 0 auto;   
     
-    padding: 0 calc(#{var_default.$base} * 2);
+    padding: 0 calc(#{var(--base)} * 2);
 
     @include mq.mq('sm') {
-        padding: 0 calc(#{var_default.$base} * 3);
+        padding: 0 calc(#{var(--base)} * 3);
     }
     
     @include mq.mq('sm', 'md') {
-        max-width: calc(#{var_default.$base} * 90);
+        max-width: calc(#{var(--base)} * 90);
     }
     
 }

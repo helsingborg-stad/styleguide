@@ -22,7 +22,7 @@
 
     @for $i from 0 through 12 {
         &.c-iconsection--gap-#{$i} {
-            gap: calc($i * 0.5 * var_default.$base);
+            gap: calc($i * 0.5 * var(--base));
         }
     }
 }
@@ -36,7 +36,7 @@
 
     &__icon,
     &__content {
-        padding: calc(var_default.$base * 2);
+        padding: calc(var(--base) * 2);
     }
 
     &__icon {

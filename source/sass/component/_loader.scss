@@ -18,11 +18,11 @@
         transform: translateZ(0);
 
         &--color--primary {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
 
         &--color--secondary {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
 
         &--color--white {
@@ -174,11 +174,11 @@
         animation-delay: -0.16s;
 
         &--color--primary {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
 
         &--color--secondary {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
 
         &--color--white {
