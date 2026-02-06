@@ -92,7 +92,7 @@
 
     // Logo
     &__logotype {
-        height: calc(var(--c-header-logotype-height, 6) * var(--base, 8px));
+        height: calc(var(--c-header-logotype-height, 6) * var(--base));
     }
 }
 

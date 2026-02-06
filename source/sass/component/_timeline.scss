@@ -36,7 +36,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
                 width: calc(var(--base) * 3);
 
                 @include mq.mq(null, map.get(var_default.$breakpoints-map, 'md')) {
-                    top: calc(var(--base, 8px) * 3);
+                    top: calc(var(--base) * 3);
                 }
             }
 

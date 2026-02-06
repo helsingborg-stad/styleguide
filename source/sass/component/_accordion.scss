@@ -103,14 +103,14 @@
     &.c-accordion--spaced-sections {
         display: flex;
         flex-flow: row wrap;
-        gap: calc(var(--base, 8px) * 2);
+        gap: calc(var(--base) * 2);
         padding: 0;
 
         .c-accordion__section {
             background-color: var(--color-background-card, var(--color-white, #ffffff));
             border-radius: var(
                 --c-card-border-radius,
-                var(--radius-lg, calc(var(--base, 8px) / 2))
+                var(--radius-lg, calc(var(--base) / 2))
             );
             border-top: 0;
             width: 100%;

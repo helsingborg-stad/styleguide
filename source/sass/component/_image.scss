@@ -33,7 +33,7 @@
     }
 
     .c-image__image {
-        border-radius: var(--c-image-border-radius, var(--radius-xs, calc(var(--base, 8px) / 4)));
+        border-radius: var(--c-image-border-radius, var(--radius-xs, calc(var(--base) / 4)));
         max-width: 100%;
         margin: 0;
         width: inherit;
@@ -48,22 +48,22 @@
 
     &.c-image--radius-xs .c-image__image,
     &.c-image--radius-xs .c-image__image-wrapper {
-        border-radius: var(--radius-xs, calc(var(--base, 8px) / 4));
+        border-radius: var(--radius-xs, calc(var(--base) / 4));
     }
 
     &.c-image--radius-sm .c-image__image,
     &.c-image--radius-sm .c-image__image-wrapper {
-        border-radius: var(--radius-sm, calc(var(--base, 8px) / 2));
+        border-radius: var(--radius-sm, calc(var(--base) / 2));
     }
 
     &.c-image--radius-md .c-image__image,
     &.c-image--radius-md .c-image__image-wrapper {
-        border-radius: var(--radius-md, calc(var(--base, 8px) / 2));
+        border-radius: var(--radius-md, calc(var(--base) / 2));
     }
 
     &.c-image--radius-lg .c-image__image,
     &.c-image--radius-lg .c-image__image-wrapper {
-        border-radius: var(--radius-lg, calc(var(--base, 8px) / 2));
+        border-radius: var(--radius-lg, calc(var(--base) / 2));
     }
 
     &.c-image--radius-full .c-image__image,

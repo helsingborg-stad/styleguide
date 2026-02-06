@@ -4,4 +4,4 @@
 // *** Radius sizes
 // ***************************************************************
 // All radius values are now CSS variables defined in _css-variables.scss
-// Components should use: var(--radius-sm, calc(var(--base, 8px) / 2))
+// Components should use: var(--radius-sm, calc(var(--base) / 2))

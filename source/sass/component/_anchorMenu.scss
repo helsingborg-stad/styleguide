@@ -17,7 +17,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0 calc(var(--base) * 3);
-        max-width: calc(var(--base, 8px) * 150);
+        max-width: calc(var(--base) * 150);
         margin-left: auto;
         margin-right: auto;
         .c-anchormenu__item {

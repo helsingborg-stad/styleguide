@@ -135,7 +135,7 @@
             bottom: 0;
             background: var(--color-white, #ffffff);
             min-width: calc(var(--base) * 28);
-            border-radius: var(--radius-sm, calc(var(--base, 8px) / 2));
+            border-radius: var(--radius-sm, calc(var(--base) / 2));
             filter: var(--drop-shadow-1, drop-shadow(0px 2px 4px rgba(0,0,0,.1)));
             transform: translateY(100%);
             animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -150,7 +150,7 @@
                 transform: rotate(45deg);
                 width: calc(var(--base) * 2.5);
                 z-index: var(--level-5);
-                border-top-left-radius: max(calc(var(--base, 8px) * .5), var(--radius-sm, calc(var(--base, 8px) / 2)));
+                border-top-left-radius: max(calc(var(--base) * .5), var(--radius-sm, calc(var(--base) / 2)));
             }
         }
     }
@@ -190,7 +190,7 @@
         &.c-nav--indent-sublevels {
             @for $i from 1 through 5 {
                 li.has-children[data-depth='#{$i}']>.c-nav__child-container>ul>li>.c-nav__item-wrapper {
-                    padding-left: calc(var(--base, 8px) * (2 * $i));
+                    padding-left: calc(var(--base) * (2 * $i));
                 }
             }
         }

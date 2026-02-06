@@ -10,11 +10,11 @@ $wrap: wrap, wrap-reverse, nowrap;
     @for $i from 1 through 12 {
         &.c-group--gap-#{$i} {
             --grid-gap: calc(#{$i} * var(--base));
-            gap: var(--grid-gap, calc(var(--base, 8px) * 4));
+            gap: var(--grid-gap, calc(var(--base) * 4));
         }
 
         &.c-group--columns-#{$i} {
-            --c-group-column-width: calc((100% - var(--grid-gap, var(--base, 8px) * 4)) / #{$i});
+            --c-group-column-width: calc((100% - var(--grid-gap, var(--base) * 4)) / #{$i});
             
             > * {
                 flex-basis: var(--c-group-column-width);
@@ -157,9 +157,9 @@ $wrap: wrap, wrap-reverse, nowrap;
 
 /* Fluid grid using flex */
 .c-group.c-group--fluid-grid:not(.c-group--display-grid) {
-    --c-group-fluid-2col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 1) / 2);
-    --c-group-fluid-3col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 2) / 3);
-    --c-group-fluid-4col: calc((100% - var(--grid-gap, var(--base, 8px) * 4) * 3) / 4);
+    --c-group-fluid-2col: calc((100% - var(--grid-gap, var(--base) * 4) * 1) / 2);
+    --c-group-fluid-3col: calc((100% - var(--grid-gap, var(--base) * 4) * 2) / 3);
+    --c-group-fluid-4col: calc((100% - var(--grid-gap, var(--base) * 4) * 3) / 4);
     
     flex-wrap: wrap;
     flex-direction: row;

@@ -2,8 +2,8 @@
 @use "../setting/var_default";
 
 .c-megamenu {
-    padding-top: calc(var(--c-mega-menu-padding, 4) * var(--base, 8px));
-    padding-bottom: calc(var(--c-mega-menu-padding, 4) * var(--base, 8px));
+    padding-top: calc(var(--c-mega-menu-padding, 4) * var(--base));
+    padding-bottom: calc(var(--c-mega-menu-padding, 4) * var(--base));
     background-color: var(--c-mega-menu-background-color, var(--color-primary-contrasting, #ffffff));
     position: absolute;
     width: 100%;

@@ -3,4 +3,4 @@
 @use "../../mixin/mq";
 @use "../../setting/var_default" as default;
 
-$c-slider-item-container-max-width: calc(var(--base, 8px) * 118) !default;
+$c-slider-item-container-max-width: calc(var(--base) * 118) !default;

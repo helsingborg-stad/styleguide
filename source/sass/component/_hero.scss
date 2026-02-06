@@ -190,12 +190,12 @@
 
   &.c-hero--has-content-background-color {
     .c-hero__content {
-      margin: calc(var(--base, 8px)*3) 0;
+      margin: calc(var(--base)*3) 0;
       padding: map.get(var_default.$spacers, "6");
     }
 
     &.c-hero--apply-rounded-corners .c-hero__content {
-      border-radius: var(--c-hero-content-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+      border-radius: var(--c-hero-content-border-radius, var(--radius-lg, calc(var(--base) / 2)));
     }
 
     &.c-hero--apply-shadows .c-hero__content {
@@ -296,7 +296,7 @@
 
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
-      border-radius: var(--radius-md, calc(var(--base, 8px) / 2));
+      border-radius: var(--radius-md, calc(var(--base) / 2));
       contain: paint;
     }
     
@@ -320,7 +320,7 @@
       max-width:100%;
       padding:0;
       text-shadow: none;
-      border-radius: var(--radius-xs, calc(var(--base, 8px) / 4));
+      border-radius: var(--radius-xs, calc(var(--base) / 4));
       .c-hero__group {
         flex: 0 0 100%;
       }
@@ -354,7 +354,7 @@
     @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__content {
         .c-hero__group {
-          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
+          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base)) * 0.5);
         } 
       }
       

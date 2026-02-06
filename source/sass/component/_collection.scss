@@ -4,7 +4,7 @@
 
 // Reset
 .c-collection {
-    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base, 8px) * 2) * 3.5);
+    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base) * 2) * 3.5);
     
     padding: 0;
     margin: 0;
@@ -20,7 +20,7 @@
 
 .c-collection {
     &.c-collection--bordered {
-        border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base, 8px) / 2)));
+        border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2)));
         border-color: var(--c-collection-border-color, var(--color-border-outline, #dadada));
         padding-top: var_default.$base;
         padding-bottom: var_default.$base;
@@ -44,7 +44,7 @@
 
             img {
                 aspect-ratio: 1/1;
-                border-radius: var(--c-collection-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+                border-radius: var(--c-collection-card-border-radius, var(--radius-lg, calc(var(--base) / 2)));
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -81,7 +81,7 @@
             }
 
             .c-collection__content {
-                padding-left: var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+                padding-left: var(--c-collection-padding-x, calc(var(--base) * 2));
             }
         }
     }
@@ -112,7 +112,7 @@
     // Content
     .c-collection__content {
         flex: 1 1 auto;
-        padding: var(--c-collection-padding-y, calc(var(--base, 8px) * 2)) var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
 
         & > *:first-child {
             margin-top: 0;
@@ -136,7 +136,7 @@
 
     // Secondary
     .c-collection__item > .c-collection__secondary {
-        padding: var(--c-collection-padding-y, calc(var(--base, 8px) * 2)) var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
         display: flex;
     }
     .c-collection__content .c-collection__secondary {
@@ -146,7 +146,7 @@
 
     // Icon
     .c-collection__icon {
-        padding: var(--c-collection-padding-y, calc(var(--base, 8px) * 2)) var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
         display: flex;
     }
 
@@ -186,7 +186,7 @@
     & .c-collection {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+        padding-left: var(--c-collection-padding-x, calc(var(--base) * 2));
         border-top: none;
         border-right: none;
         border-bottom: none;
@@ -224,7 +224,7 @@
         .c-collection__content,
         .c-collection__icon,
         .c-collection__item > .c-collection__secondary {
-            padding: var(--c-collection-padding-y-compact, var(--base, 8px)) var(--c-collection-padding-x-compact, calc(var(--base, 8px) * 2));
+            padding: var(--c-collection-padding-y-compact, var(--base)) var(--c-collection-padding-x-compact, calc(var(--base) * 2));
         }
 
         .c-collection__icon + .c-collection__content {
@@ -251,11 +251,11 @@
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
-    border-radius: 0 0 var(--c-collection-border-radius, var(--radius-md, calc(var(--base, 8px) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base, 8px) / 2)));
+    border-radius: 0 0 var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2)));
 }
 
 .c-collection.c-collection--sharp-bot {
-    border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base, 8px) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base, 8px) / 2))) 0 0;
+    border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) 0 0;
 
 }
 .c-collection.c-collection--sharp {

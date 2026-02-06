@@ -15,7 +15,7 @@
     }
 
     &__main-wrapper {
-        padding: calc(var(--c-footer-padding, 3) * var(--base, 8px)) 0;
+        padding: calc(var(--c-footer-padding, 3) * var(--base)) 0;
     }
 
     &__body {
@@ -82,23 +82,23 @@
 
     // Logo
     &__logotype {
-        height: calc(var(--c-footer-height-logotype, 6) * var(--base, 8px));
+        height: calc(var(--c-footer-height-logotype, 6) * var(--base));
 
         @include mq.mq('xs') {
-            height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)));
+            height: clamp(calc(var(--base) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base)));
         }
 
         @include mq.mq('md') {
-            height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base, 8px)));
+            height: clamp(calc(var(--base) * 3), calc(calc(var(--c-footer-height-logotype, 6) * var(--base)) * 0.75), calc(var(--c-footer-height-logotype, 6) * var(--base)));
         }
 
         @include mq.mq('lg') {
-            height: calc(var(--c-footer-height-logotype, 6) * var(--base, 8px));
+            height: calc(var(--c-footer-height-logotype, 6) * var(--base));
         }
     }
 
     &__header-wrapper {
-        margin-bottom: calc(var(--c-footer-padding, 3) * var(--base, 8px));
+        margin-bottom: calc(var(--c-footer-padding, 3) * var(--base));
     }
 
     &__prefooter-wrapper, &__widget-area {
@@ -111,14 +111,14 @@
     &--header-border {
         .c-footer__header-wrapper {
             border-bottom: var(--c-footer-header-border-size, 1px) solid var(--c-footer-header-border-color, var(--color-alpha, rgba(0, 0, 0, 0.7)));
-            padding-bottom: calc(var(--c-footer-padding, 3) * var(--base, 8px));
+            padding-bottom: calc(var(--c-footer-padding, 3) * var(--base));
         }
     }
 
     &__subfooter {
         color: var(--c-footer-subfooter-color-text, var(--color-black, #000000));
         background: var(--c-footer-subfooter-color-background, var(--color-white, #ffffff));
-        padding: calc(var(--c-footer-subfooter-padding, 3) * var(--base, 8px)) 0;
+        padding: calc(var(--c-footer-subfooter-padding, 3) * var(--base)) 0;
         font-size: .9rem;
 
         a,
@@ -174,7 +174,7 @@
 
         // Logo
         &__logotype {
-            height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px));
+            height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base));
         }
     
         // Fix for separator dots showing on new lines
@@ -265,7 +265,7 @@
             }
 
             &__logotype {
-                height: clamp(calc(var(--base, 8px) * 3), calc(calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px)) * 0.75), calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base, 8px)));
+                height: clamp(calc(var(--base) * 3), calc(calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base)) * 0.75), calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base)));
             }
 
             &--horizontal {

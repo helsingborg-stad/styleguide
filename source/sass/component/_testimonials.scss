@@ -16,23 +16,23 @@
         padding: map.get(var_default.$spacers, "4");
 
         .c-testimonial__header {
-            margin-left: calc(var(--base, 8px) * 4);
+            margin-left: calc(var(--base) * 4);
 
             & .c-divider {
                 margin: 0;
                 border-color: var_colors.$color-complementary-light;
             }
             .c-testimonial__author {
-                font-size: calc(var(--base, 8px) * 3);
+                font-size: calc(var(--base) * 3);
                 color: var_colors.$color-darkest;
                 overflow-wrap: break-word;
-                margin-top: calc(var(--base, 8px) * 2);
+                margin-top: calc(var(--base) * 2);
             }
             .c-testimonial__title {
                 color: var_colors.$color-primary-dark;
                 max-width: 25ch;
                 margin-bottom: map.get(var_default.$spacers, "1");
-                margin-top: calc(var(--base, 8px));
+                margin-top: calc(var(--base));
             }
         }
         
@@ -54,7 +54,7 @@
     .c-testimonial__image {
         width: calc(var(--base) * 11);
         max-height: calc(var(--base) * 14);
-        border-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
+        border-radius: var(--c-card-border-radius, var(--radius-lg, calc(var(--base) / 2)));
         overflow: hidden;
         filter: var_properties.$drop-shadow-3;
         grid-area: image;

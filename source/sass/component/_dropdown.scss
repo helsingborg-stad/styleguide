@@ -33,7 +33,7 @@ $dropdown-active-color: var_colors.$color-primary;
     z-index: 1;
     width: 100%;
     background-color: $dropdown-background;
-    padding: var(--base, 8px) calc(var(--base) * 0.5);
+    padding: var(--base) calc(var(--base) * 0.5);
     filter: var_properties.$drop-shadow-4;
 }
 
@@ -45,7 +45,7 @@ $dropdown-active-color: var_colors.$color-primary;
 
 .c-dropdown__item a {
     width: 100%;
-    padding: calc(var(--base, 8px)) calc(var(--base, 8px) * 1.5);
+    padding: calc(var(--base)) calc(var(--base) * 1.5);
     text-overflow: ellipsis;
     overflow: hidden;
     text-decoration: none;

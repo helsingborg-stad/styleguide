@@ -144,13 +144,13 @@ a.c-block {
     cursor: pointer;
 
     .c-block__image-background:before {
-        @include cover.cover(); 
+        position: absolute;
+        inset: 0;
         content: '';
         transition: opacity 200ms;
-        @include cover.cover(); 
         background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: var(--level-1);
     }
 
     &:hover {

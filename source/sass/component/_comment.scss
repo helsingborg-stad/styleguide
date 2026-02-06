@@ -82,8 +82,8 @@
     &__bubble--color-dark &__bubble--inner,
     &__bubble--color-light &__bubble--inner {
         width: 100%;
-        border-radius: var(--c-comment-border-radius, var(--radius-lg, calc(var(--base, 8px) / 2)));
-        border-top-left-radius: var(--c-comment-border-radius-corner, var(--radius-sm, calc(var(--base, 8px) / 2)));
+        border-radius: var(--c-comment-border-radius, var(--radius-lg, calc(var(--base) / 2)));
+        border-top-left-radius: var(--c-comment-border-radius-corner, var(--radius-sm, calc(var(--base) / 2)));
         padding: map.get(var_default.$spacers, "1half") map.get(var_default.$spacers, "2");
         color: var(--color-black, #000000);
         margin: 0;

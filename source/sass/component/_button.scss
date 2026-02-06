@@ -53,7 +53,8 @@
     
     &:after {
         content: '';
-        @include cover.cover();
+        position: absolute;
+        inset: 0;
         z-index: var(--level-1);
         background-color: transparent;
         opacity: 0;
@@ -134,7 +135,7 @@
         min-width: calc(var(--base) * 12);
         padding: 0 calc(var(--base) * 5);
         font-size: var(--font-size-btn-lg, 1rem);
-        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base, 8px) / 2))); 
+        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base) / 2))); 
 
         .c-button__loader {
             width: calc(var_default.$base * 4);
@@ -163,7 +164,7 @@
         min-width: calc(var(--base) * 9);
         padding: 0 calc(var(--base) * 4);
         font-size: var(--font-size-btn-md, 0.875rem);
-        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base, 8px) / 2))); 
+        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base) / 2))); 
 
         .c-button__loader {
             margin-left: calc(var_default.$base * -1);
@@ -190,7 +191,7 @@
         min-width: calc(var(--base) * 6.75);
         padding: 0 calc(var(--base) * 2);
         font-size: var(--font-size-btn-sm, 0.75rem);
-        border-radius: var(--c-button-border-radius-small, var(--radius-sm, calc(var(--base, 8px) / 2))); 
+        border-radius: var(--c-button-border-radius-small, var(--radius-sm, calc(var(--base) / 2))); 
 
         .c-button__loader {
             width: calc(var_default.$base * 2);

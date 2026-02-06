@@ -54,7 +54,8 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         // Disable drop area visually
         .c-fileinput__area {
             &::after {
-                @include cover.cover();
+               position: absolute;
+                inset: 0;
                 content: "\1F6AB"; /* Unicode for 🚫 */
                 font-size: 3rem; /* Adjust the size as needed */
                 display: flex;

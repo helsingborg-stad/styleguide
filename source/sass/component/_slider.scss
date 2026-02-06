@@ -8,10 +8,10 @@
 /*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
 .c-slider {
-    --c-slider-max-width-computed: calc(var(--container-width-wide, calc(var(--base, 8px) * 200)) - calc(var(--base, 8px) * var(--c-slider-padding, 7)));
+    --c-slider-max-width-computed: calc(var(--container-width-wide, calc(var(--base) * 200)) - calc(var(--base) * var(--c-slider-padding, 7)));
 
     position: relative;
-    border-radius: var(--radius-md, calc(var(--base, 8px) / 2));
+    border-radius: var(--radius-md, calc(var(--base) / 2));
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -89,13 +89,13 @@
         pointer-events: none;
         
         @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-            width: calc(100% - calc(calc(var(--base, 8px) * var(--c-slider-padding, 7)) + calc(var(--base, 8px) * var(--c-slider-gap, 2))));
+            width: calc(100% - calc(calc(var(--base) * var(--c-slider-padding, 7)) + calc(var(--base) * var(--c-slider-gap, 2))));
         }
     }
 
     &--hero {
         .c-slider__controls {
-            top: calc(var(--base, 8px) * var(--c-slider-gap, 2));
+            top: calc(var(--base) * var(--c-slider-gap, 2));
         }
     }
 
@@ -104,8 +104,8 @@
         position: relative;
         display: none;
         cursor: pointer;
-        width: calc(var(--base, 8px) * 5);
-        height: calc(var(--base, 8px) * 5);
+        width: calc(var(--base) * 5);
+        height: calc(var(--base) * 5);
         color: var(--color-primary, #ae0b05);
         z-index: 1;
         margin: calc(var(--base) * 1);
@@ -266,8 +266,8 @@
     .c-slider__dot {
         background: var(--color-gray, #bfbfbf);
         cursor: default;
-        width: calc(var(--base, 8px) * 2);
-        height: calc(var(--base, 8px) * 0.5);
+        width: calc(var(--base) * 2);
+        height: calc(var(--base) * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {

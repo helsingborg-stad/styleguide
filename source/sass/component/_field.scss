@@ -6,7 +6,7 @@
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]';
 
 .c-field {
-    --c-field-height-computed: calc(var(--c-field-height, var(--base, 8px) * 6) - var(--c-field-border-width, var(--border-width-input, 1px)) * 2);
+    --c-field-height-computed: calc(var(--c-field-height, var(--base) * 6) - var(--c-field-border-width, var(--border-width-input, 1px)) * 2);
 
     flex: 1;
 
@@ -46,8 +46,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         flex: 1;
         border: 0;
         background: none;
-        height: var(--c-field-height, calc(var(--base, 8px) * 6));
-        padding: var(--c-field-padding, calc(var(--base, 8px) * 2));
+        height: var(--c-field-height, calc(var(--base) * 6));
+        padding: var(--c-field-padding, calc(var(--base) * 2));
         outline: 0;
         margin: 0;
     }
@@ -83,11 +83,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         .c-field__icon,
         .c-field__prefix {
-            padding-left: var(--c-field-padding, calc(var(--base, 8px) * 2));
+            padding-left: var(--c-field-padding, calc(var(--base) * 2));
         }
 
         .c-field__suffix {
-            padding-right: var(--c-field-padding, calc(var(--base, 8px) * 2));
+            padding-right: var(--c-field-padding, calc(var(--base) * 2));
         }
 
         .c-field__error-icon {
@@ -139,7 +139,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
 
     textarea {
-        min-height: var(--c-field-height, calc(var(--base, 8px) * 6));
+        min-height: var(--c-field-height, calc(var(--base) * 6));
         height: initial;
         max-width: 100%;
 
@@ -234,7 +234,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         &.c-field--borderless {
             #{$fields} {
-                height: var(--c-field-height, calc(var(--base, 8px) * 6));
+                height: var(--c-field-height, calc(var(--base) * 6));
             }
         }
 
@@ -348,13 +348,13 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         .c-button {
-            padding: 0 calc(var(--base, 8px) * 0.5);
+            padding: 0 calc(var(--base) * 0.5);
         }
     }
 
     @include mq.mq("sm") {
         .c-button {
-            padding: 0 calc(var(--base, 8px) * 4);
+            padding: 0 calc(var(--base) * 4);
         }
     }
 }

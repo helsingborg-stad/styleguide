@@ -11,7 +11,7 @@
 @use "../setting/component/_slider" as *;
 
 .c-slider__item {
-    --c-slider-item-font-size-heading-computed: calc(var(--c-slider-item-font-size-base, var(--base, 8px) * 2) * 2);
+    --c-slider-item-font-size-heading-computed: calc(var(--c-slider-item-font-size-base, var(--base) * 2) * 2);
     
     background-position: center;
     background-size: cover;
