@@ -6,16 +6,27 @@
 @use "../setting/var_fonts";
 
 
-$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker);
-$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black);
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm);
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height);
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md);
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height);
+/**********************************************************
+ * OPTION COMPONENT CSS VARIABLES
+ * Component-level tokens for checkbox/radio options.
+ **********************************************************/
 
-$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light));
-$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
-$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark));
+// Label Colors
+$c-option-label-color: var(--c-option-label-color, var(--color--darker));
+$c-option-label-active-color: var(--c-option-label-active-color, var(--color--black));
+
+// Font Sizes - Map to base semantic sizes
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var(--font-size-caption));
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, calc(var(--base) * 1.5));
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, var(--font-size-base));
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, calc(var(--base) * 2));
+
+// Border & State Colors
+$c-option-border-color: var(--c-option-border-color, var(--color--border));
+$c-option-danger-color: var(--c-option-danger-color, var(--color--error));
+$c-option-success-color: var(--c-option-success-color, var(--color--success));
+$c-option-check-color: var(--c-option-check-color, var(--color--primary));
+$c-option-bg-color: var(--c-option-bg-color, var(--color--white));
 
 .c-option {
 
@@ -32,8 +43,8 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             position: relative;
             height: 18px;
             width: 18px;
-            border: 2px solid var_colors.$color-primary;
-            background-color: var_colors.$color-white;
+            border: 2px solid $c-option-check-color;
+            background-color: $c-option-bg-color;
             border-radius: var(--radius-xs);
             cursor: pointer;
         }
