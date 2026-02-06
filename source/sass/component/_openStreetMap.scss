@@ -220,7 +220,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	}
 
 	.c-openstreetmap__expand-icon-container {
-		top: calc(var(--base, 8px) * 50);
+		top: calc(var(--base) * 50);
 	}
 
 	.c-openstreetmap__expand-icon-desktop::after {
@@ -232,7 +232,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 	}
 
 	.c-openstreetmap__post-full {
-		top: calc(var(--base, 8px) * 50);
+		top: calc(var(--base) * 50);
 		height: calc(100% - (calc(var_default.$base) * 50));
 		transition: top .4s ease-in-out, height 0.6s ease-in-out;
 	}
@@ -344,7 +344,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 		padding: .25rem;
 		border-radius: 50%;
 		cursor: pointer;
-		z-index: 3000;
+		z-index: var(--level-3);
 	}
 }
 
@@ -531,7 +531,7 @@ $grid-gap: var(--grid-gap, 4) !default;
 .leaflet-top,
 .leaflet-bottom {
 	position: absolute;
-	z-index: 1000;
+	z-index: var(--level-1);
 	}
 
 .leaflet-top {

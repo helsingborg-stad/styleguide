@@ -1,12 +1,6 @@
 @use "sass:map";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.$border-radius-md) !default;
-$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
 
 .c-block[data-open] {
     cursor: pointer;
@@ -21,14 +15,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     transition: all 0.3s ease-in-out;
     display: none;
     border: none;
-    border-radius: $c-modal-border-radius;
-    filter: var_properties.$drop-shadow-3;
+    border-radius: var(--c-modal-border-radius, var(--radius-md, calc(var(--base) / 2)));
+    filter: var(--drop-shadow-3, drop-shadow(0px 8px 10px rgba(0,0,0,.1)));
     max-width: 800px;
     max-height: 90vh;
     position: fixed;
 
     .c-modal__close.c-button {
-        color: var_colors.$color-black;
+        color: var(--color-black, #000000);
     }
 
     .c-image {
@@ -65,14 +59,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
         background-color: transparent;
 
         .c-button.c-modal__close {
-            color: var_colors.$color-white;
+            color: var(--color-white, #ffffff);
         }
     }
 
     &.search-modal {
         #modal-search-form {
-            margin-top: calc(var_default.$base * 1);
-            margin-bottom: calc(var_default.$base * 1);
+            margin-top: calc(var(--base) * 1);
+            margin-bottom: calc(var(--base) * 1);
         }
     }
 
@@ -83,7 +77,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &::backdrop {
-        background-color: $c-modal-backdrop-color;
+        background-color: var(--c-modal-backdrop-color, var(--color-alpha, rgba(0, 0, 0, 0.7)));
         backdrop-filter: blur(1px);
     }
 
@@ -92,15 +86,15 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &--border-radius-sm {
-        border-radius: var_border-radius.$border-radius-sm;
+        border-radius: var(--radius-sm, calc(var(--base) / 2));
     }
 
     &--border-radius-md {
-        border-radius: var_border-radius.$border-radius-md;
+        border-radius: var(--radius-md, calc(var(--base) / 2));
     }
 
     &--border-radius-lg {
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: var(--radius-lg, calc(var(--base) / 2));
     }
 
     .c-modal.c-modal--size-sm {
@@ -154,7 +148,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     &__footer {
         flex-shrink: 0;
-        border-top: 1px solid var_colors.$color-gray-light;
+        border-top: 1px solid var(--color-gray-light, #c7c7c7);
     }
 
     .c-button:hover {
@@ -172,7 +166,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     &__prev,
     &__next {
-        color: var_colors.$color-white;
+        color: var(--color-white, #ffffff);
     }
 
     &__prev,
@@ -182,7 +176,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
         /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor: pointer;
-        z-index: var_properties.$level-top;
+        z-index: 10000;
     }
 
     &__prev {
@@ -219,7 +213,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
             &:hover {
                 box-shadow: none;
-                filter: var_properties.$drop-shadow-0;
+                filter: var(--drop-shadow-0, none);
                 background: none;
             }
         }
@@ -229,7 +223,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
             right: map.get(var_default.$spacers, "1");
 
             i {
-                font-size: calc(var_default.$base * 3);
+                font-size: calc(var(--base) * 3);
             }
         }
 

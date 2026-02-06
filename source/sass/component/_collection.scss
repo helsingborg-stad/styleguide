@@ -1,38 +1,10 @@
 @use "sass:map";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-collection-padding-x: var(--c-collection-padding-x, calc(#{var_default.$base} * 2)) !default;
-$c-collection-padding-y: var(--c-collection-padding-y, calc(#{var_default.$base} * 2)) !default;
-
-$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{var_default.$base} * 2)) !default;
-$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var_default.$base) !default;
-
-$c-collection-hover-background: rgba(black, .05) !default;
-
-$c-collection-border-radius: var(--c-collection-border-radius, var_border-radius.$border-radius-md) !default;
-
-$c-collection-border-width: var(--c-collection-border-width, var_properties.$border-width-outline) !default;
-$c-collection-border-color: var(--c-collection-border-color, var_colors.$color-border-outline) !default;
-
-$c-collection-divider-border-width: var(--c-collection-border-width, var_properties.$border-width-divider) !default;
-$c-collection-divider-border-color: var(--c-collection-border-color, var_colors.$color-border-divider) !default;
-
-// collection__item
-$c-collection-item-border-width: var(--c-collection-item-border-width, var_properties.$border-width-medium) !default;
-$c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
-
-$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-md) !default;
-$c-collection-item-background-color: var(--c-collection-card-background-color, var_colors.$color-background-card) !default;
 
 // Reset
 .c-collection {
-    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base, 8px) * 2) * 3.5);
+    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base) * 2) * 3.5);
     
     padding: 0;
     margin: 0;
@@ -48,11 +20,11 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
 .c-collection {
     &.c-collection--bordered {
-        border-radius: $c-collection-border-radius;
-        border-color: $c-collection-border-color;
+        border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2)));
+        border-color: var(--c-collection-border-color, var(--color-border-outline, #dadada));
         padding-top: var_default.$base;
         padding-bottom: var_default.$base;
-        border: $c-collection-border-width solid;
+        border: var(--c-collection-border-width, var(--border-width-outline, 1px)) solid;
     }
 
     // Item
@@ -63,7 +35,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
             position: absolute;
             right: calc(var_default.$base * 2.75);
             top: var_default.$base;
-            z-index: var_properties.$level-3;
+            z-index: var(--level-3);
             cursor: pointer;
         }
 
@@ -72,7 +44,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
             img {
                 aspect-ratio: 1/1;
-                border-radius: $c-collection-item-image-border-radius;
+                border-radius: var(--c-collection-card-border-radius, var(--radius-lg, calc(var(--base) / 2)));
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
@@ -98,9 +70,9 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
         &.c-collection__item--bordered {
             padding: calc(var_default.$base * 3) 0;
-            border-bottom: $c-collection-item-border-width solid $c-collection-item-border-color;
-            border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
-            margin-top: calc($c-collection-item-border-width * -1);
+            border-bottom: var(--c-collection-item-border-width, var(--border-width-medium, 2px)) solid var(--c-collection-item-border-color, #DCDCDC);
+            border-top: var(--c-collection-item-border-width, var(--border-width-medium, 2px)) solid var(--c-collection-item-border-color, #DCDCDC);
+            margin-top: calc(var(--c-collection-item-border-width, var(--border-width-medium, 2px)) * -1);
         }
 
         &.c-collection__item--icon-last {
@@ -109,21 +81,21 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
             }
 
             .c-collection__content {
-                padding-left: var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+                padding-left: var(--c-collection-padding-x, calc(var(--base) * 2));
             }
         }
     }
 
     .c-collection__item.is-current {
-        background-color: var_colors.$color-primary;
+        background-color: var(--color-primary, #ae0b05);
         color: white;
     }
 
     // Divider
     .c-collection__divider {
         border: none;
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
+        border-top: var(--c-collection-border-width, var(--border-width-divider, 1px)) solid;
+        border-color: var(--c-collection-border-color, var(--color-border-divider, #dadada));
         margin-top: var_default.$base;
         margin-bottom: var_default.$base;
     }
@@ -140,7 +112,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     // Content
     .c-collection__content {
         flex: 1 1 auto;
-        padding: $c-collection-padding-y $c-collection-padding-x;
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
 
         & > *:first-child {
             margin-top: 0;
@@ -152,19 +124,19 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     
     // Content Modifier - Multiline
     .c-collection__content.c-collection__content--icon {
-        padding-right: calc(#{var_default.$base} * 5);
+        padding-right: calc(var(--base) * 5);
         position: relative;
         .c-collection__secondary {
             position: absolute;
-            top: calc(#{var_default.$base} * 1.5);
-            right: calc(#{var_default.$base} * 2);
+            top: calc(var(--base) * 1.5);
+            right: calc(var(--base) * 2);
             float: none;
         }
     }
 
     // Secondary
     .c-collection__item > .c-collection__secondary {
-        padding: $c-collection-padding-y $c-collection-padding-x;
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
         display: flex;
     }
     .c-collection__content .c-collection__secondary {
@@ -174,7 +146,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
     // Icon
     .c-collection__icon {
-        padding: $c-collection-padding-y $c-collection-padding-x;
+        padding: var(--c-collection-padding-y, calc(var(--base) * 2)) var(--c-collection-padding-x, calc(var(--base) * 2));
         display: flex;
     }
 
@@ -201,10 +173,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
         &:hover {
             &, a {
                 color: #000000;
-                background-color: $c-collection-hover-background;
+                background-color: rgba(0, 0, 0, .05);
                 .c-collection__content,
                 .c-collection__icon {
-                    transform: translateX(calc(#{var_default.$base} * 0.5)); 
+                    transform: translateX(calc(var(--base) * 0.5));
                 }
             }
         }
@@ -214,7 +186,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     & .c-collection {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: $c-collection-padding-x;
+        padding-left: var(--c-collection-padding-x, calc(var(--base) * 2));
         border-top: none;
         border-right: none;
         border-bottom: none;
@@ -227,10 +199,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 // Modifiers - Bordered
 .c-collection.c-collection--bordered {
     .c-collection__item {
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
+        border-top: var(--c-collection-border-width, var(--border-width-divider, 1px)) solid;
+        border-color: var(--c-collection-border-color, var(--color-border-divider, #dadada));
     }
-    
+
     .c-collection__item:first-child {
         border-top: none;
     }
@@ -242,7 +214,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
     .c-collection.c-collection--compact#{$suffix} {
         @for $i from 1 through 6 {
-            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), #{var_fonts.$font-size-base});
+            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), var(--font-size-base, 1rem));
         }
         &.c-collection--bordered {
             padding-top: calc(var_default.$base / 2);
@@ -252,7 +224,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
         .c-collection__content,
         .c-collection__icon,
         .c-collection__item > .c-collection__secondary {
-            padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
+            padding: var(--c-collection-padding-y-compact, var(--base)) var(--c-collection-padding-x-compact, calc(var(--base) * 2));
         }
 
         .c-collection__icon + .c-collection__content {
@@ -260,8 +232,8 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
         }
 
         .c-collection__icon {
-            --c-icon-size: calc(#{var_default.$base} * 2);
-            padding-right: calc(#{var_default.$base} * .5);
+            --c-icon-size: calc(var(--base) * 2);
+            padding-right: calc(var(--base) * .5);
             align-self: center;
         }
     }
@@ -279,11 +251,11 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
 //Modifiers - Sharp edges
 .c-collection.c-collection--sharp-top {
-    border-radius: 0 0 $c-collection-border-radius $c-collection-border-radius;   
+    border-radius: 0 0 var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2)));
 }
 
 .c-collection.c-collection--sharp-bot {
-    border-radius: $c-collection-border-radius $c-collection-border-radius 0 0;    
+    border-radius: var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) var(--c-collection-border-radius, var(--radius-md, calc(var(--base) / 2))) 0 0;
 
 }
 .c-collection.c-collection--sharp {
@@ -305,10 +277,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     padding-bottom: 0;
 
     .c-collection__item {
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
+        border-top: var(--c-collection-border-width, var(--border-width-divider, 1px)) solid;
+        border-color: var(--c-collection-border-color, var(--color-border-divider, #dadada));
     }
-    
+
     .c-collection__item:first-child {
         border-top: none;
     }
@@ -326,15 +298,15 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
 
     .c-collection__item > .c-collection__secondary {
-        border-left: $c-collection-divider-border-width solid;
+        border-left: var(--c-collection-border-width, var(--border-width-divider, 1px)) solid;
     }
 
     .c-collection {
         border-radius: 0;
         padding-top: 0;
         padding-left: unset;
-        border-left: solid var_default.$base $c-collection-border-color;
-        border-top: $c-collection-divider-border-width solid;
+        border-left: solid var_default.$base var(--c-collection-border-color, var(--color-border-outline, #dadada));
+        border-top: var(--c-collection-border-width, var(--border-width-divider, 1px)) solid;
     }
 }
 

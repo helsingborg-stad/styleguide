@@ -1,24 +1,23 @@
 @use "sass:list";
-@use "../setting/var_colors";
 @use "../setting/var_default";
 
 @charset "utf-8";
 $sizes: xs, sm, md, lg, xl, xxl;
 
 $colors: (
-    "color-black": var_colors.$color-black,
-    "color-gray": var_colors.$color-gray,
-    "color-default": var_colors.$color-default,
-    "color-default-dark": var_colors.$color-default-dark,
-    "color-white": var_colors.$color-white,
-    "color-primary": var_colors.$color-primary,
-    "color-secondary": var_colors.$color-secondary
+    "color-black": var(--color-black, #000000),
+    "color-gray": var(--color-light, #a3a3a3),
+    "color-default": var(--color-default, #f5f5f5),
+    "color-default-dark": var(--color-default-dark, #dadada),
+    "color-white": var(--color-white, #ffffff),
+    "color-primary": var(--color-primary, #ae0b05),
+    "color-secondary": var(--color-secondary, #ec6701)
 );
 
 :root {
     @each $size in $sizes {
         $index: list.index($sizes, $size);
-        --c-icon-size-#{$size}: calc(#{var_default.$base} * #{$index});
+        --c-icon-size-#{$size}: calc(var(--base) * #{$index});
     }
 }
 

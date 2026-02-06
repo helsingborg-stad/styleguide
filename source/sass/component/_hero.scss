@@ -4,18 +4,7 @@
 @use "../mixin/mq";
 @use "../mixin/ratio";
 @use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-hero-color-overlay: var(--c-hero-color-overlay, var_colors.$color-alpha) !default;
-$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.$color-alpha-contrasting) !default;
-$c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
-$c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
-$c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.$border-radius-lg) !default;
 
 
 .c-hero {
@@ -32,17 +21,17 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
    &__controls {
       display: none;
       position: absolute;
-      top: calc(#{var_default.$base} * 1.5);
-      right: calc(#{var_default.$base} * 1.5);
+      top: calc(var(--base) * 1.5);
+      right: calc(var(--base) * 1.5);
       cursor: pointer;
-      z-index: 3000;
+      z-index: var(--level-3);
 
       &:before {
         content: "";
         display: block;
-        background: var_colors.$color-white;
-        width: calc(#{var_default.$base} * 3);
-        height: calc(#{var_default.$base} * 3);
+        background: var(--color-white, #ffffff);
+        width: calc(var(--base) * 3);
+        height: calc(var(--base) * 3);
         border-radius: 50%;
         position: absolute;
         z-index: -1;
@@ -53,12 +42,12 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
       .c-hero__animation-play-button {
         display: none;
-        color: var_colors.$color-primary;
+        color: var(--color-primary, #ae0b05);
       }
-      
+
       .c-hero__animation-pause-button {
         display: inline-flex;
-        color: var_colors.$color-primary;
+        color: var(--color-primary, #ae0b05);
       }
 
       &.is-paused {
@@ -74,7 +63,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
   &.c-hero--image {
     .c-hero__image {
-      background-color: $c-hero-background-color;
+      background-color: var(--c-hero-background-color, var(--color-black, #000000));
       background-size: cover;
       width: 100%;
       height: 100%;
@@ -100,21 +89,21 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
   /** Modifiers - size **/ 
   &.c-hero--small {
-    min-height: calc(#{var_default.$base} * 40);
+    min-height: calc(var(--base) * 40);
     &:before {
       @include ratio.ratio(36, 7, false); 
     }
   }
 
   &.c-hero--normal {
-    min-height: calc(#{var_default.$base} * 50);
+    min-height: calc(var(--base) * 50);
     &:before {
       @include ratio.ratio(10, 3, false); 
     }
   }
 
   &.c-hero--large {
-    min-height: calc(#{var_default.$base} * 60);
+    min-height: calc(var(--base) * 60);
     max-height: 70vh;
     &:before {
       @include ratio.ratio(16, 9, false);
@@ -144,11 +133,11 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     @include stretch.stretch();
   }
 
-  /** Sub elements */ 
+  /** Sub elements */
   &.c-hero--overlay .c-hero__overlay {
     @include cover.cover();
-    z-index: var_properties.$level-1;
-    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
+    z-index: var(--level-1);
+    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2);
   }
 
   .c-hero__container {
@@ -190,8 +179,8 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
   .c-hero__content {
     padding: map.get(var_default.$spacers, "6") 0;
-    max-width: calc( #{var_default.$base} * 87);
-    z-index: var_properties.$level-2;
+    max-width: calc(var(--base) * 87);
+    z-index: var(--level-2);
     position: relative;
   }
   
@@ -201,16 +190,16 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
   &.c-hero--has-content-background-color {
     .c-hero__content {
-      margin: calc(var(--base, 8px)*3) 0;
+      margin: calc(var(--base)*3) 0;
       padding: map.get(var_default.$spacers, "6");
     }
 
     &.c-hero--apply-rounded-corners .c-hero__content {
-      border-radius: $c-hero-content-border-radius;
+      border-radius: var(--c-hero-content-border-radius, var(--radius-lg, calc(var(--base) / 2)));
     }
 
     &.c-hero--apply-shadows .c-hero__content {
-      filter: var_properties.$drop-shadow-2;
+      filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
     }
   }
 
@@ -230,16 +219,16 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     .c-hero__byline,
     .c-hero__meta,
     .c-hero__body {
-      color: $c-hero-color-font-contrasting;
+      color: var(--c-hero-color-font-contrasting, var(--color-alpha-contrasting, #ffffff));
     }
   }
-  
+
   &.c-hero--color-black {
     .c-hero__title,
     .c-hero__byline,
     .c-hero__meta,
     .c-hero__body {
-      color: $c-hero-color-font-black;
+      color: var(--c-hero-color-font-black, var(--color-black, #000000));
     }
   }
 
@@ -248,7 +237,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     .c-hero__byline,
     .c-hero__meta,
     .c-hero__body {
-      color: $c-hero-color-font-white;
+      color: var(--c-hero-color-font-white, var(--color-white, #ffffff));
     }
   }
 
@@ -257,19 +246,19 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
   }
 
   .c-hero__title {
-    font-size: calc(#{var_fonts.$font-size-hero} + calc(1vw));
+    font-size: calc(var(--font-size-hero, 2.5rem) + calc(1vw));
     text-wrap: balance;
     animation-delay: 200ms;
   }
 
   .c-hero__byline {
-    font-size: calc(#{var_fonts.$font-size-hero-byline} + calc(.5vw));
+    font-size: calc(var(--font-size-hero-byline, 1.5rem) + calc(.5vw));
     animation-delay: 400ms;
     display: inline-block;
   }
 
   .c-hero__body {
-    font-size: calc(#{var_fonts.$font-size-hero-body} + calc(.2vw));
+    font-size: calc(var(--font-size-hero-body, 1rem) + calc(.2vw));
     animation-delay: 600ms;
   }
 
@@ -278,7 +267,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
   }
 
   .c-hero__overlay {
-    background-color: $c-hero-color-overlay;
+    background-color: var(--c-hero-color-overlay, var(--color-alpha, rgba(0, 0, 0, 0.7)));
   }
 
   .c-hero__video {
@@ -299,7 +288,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
   /* TwoColumn hero */
   &.c-hero--twoColumn {
-    padding: calc(var_default.$base*10) 0;
+    padding: calc(var(--base)*10) 0;
     
     &:before {
       display: none;
@@ -307,7 +296,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
-      border-radius: var_border-radius.$border-radius-md;
+      border-radius: var(--radius-md, calc(var(--base) / 2));
       contain: paint;
     }
     
@@ -331,7 +320,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
       max-width:100%;
       padding:0;
       text-shadow: none;
-      border-radius: var_border-radius.$border-radius-xs;
+      border-radius: var(--radius-xs, calc(var(--base) / 4));
       .c-hero__group {
         flex: 0 0 100%;
       }
@@ -365,13 +354,13 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__content {
         .c-hero__group {
-          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
+          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base)) * 0.5);
         } 
       }
       
       &.c-hero--overflow { 
-        padding-top: calc(var_default.$base * 16);
-        max-height: calc(var_default.$base * 90);
+        padding-top: calc(var(--base) * 16);
+        max-height: calc(var(--base) * 90);
         
         .c-hero__background {
           display: block;
@@ -381,19 +370,19 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
         &::after {
           content: "";
-          height: calc(var_default.$base * 8);
+          height: calc(var(--base) * 8);
           width: 100%;
           bottom:0;
           left:0;
           position: absolute;
-          background-color: var_colors.$color-default;
-          z-index:var_properties.$level-1;
+          background-color: var(--color-default, #f5f5f5);
+          z-index: var(--level-1);
         }
 
       .c-hero__content {
-          background-color: var_colors.$color-white;
+          background-color: var(--color-white, #ffffff);
         .c-hero__group-content {
-          padding: calc(var_default.$base * 6);
+          padding: calc(var(--base) * 6);
         } 
       }
     }
@@ -405,7 +394,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     color: var(--color-primary, black);
 
     .c-hero__text {
-      padding: calc(#{var_default.$base} * 5) calc(#{var_default.$base} * 3);
+      padding: calc(var(--base) * 5) calc(var(--base) * 3);
 
       & > .o-grid {
         max-width: var(--container-width, 100%);
@@ -413,7 +402,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
       }
 
       p {
-        margin: -0.5em 0 calc(#{var_default.$base} * 6) 0;
+        margin: -0.5em 0 calc(var(--base) * 6) 0;
       }
     }
 
@@ -458,8 +447,8 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
     .c-hero__buttons {
       display: flex;
       flex-flow: column;
-      margin-top: calc(#{var_default.$base} * 3);
-      gap: calc(#{var_default.$base} * 2);
+      margin-top: calc(var(--base) * 3);
+      gap: calc(var(--base) * 2);
 
       .c-button + .c-button {
         margin-left: 0;
@@ -468,7 +457,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 6) calc(var(--base) * 3);
 
         p {
           margin: 0;
@@ -478,7 +467,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 8) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 8) calc(var(--base) * 3);
       }
 
       .c-hero__buttons {
@@ -506,7 +495,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
     @include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
       .c-hero__text {
-        padding: calc(#{var_default.$base} * 10) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 10) calc(var(--base) * 3);
       }
     }
   }
@@ -515,7 +504,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-ra
 
 @keyframes hero-slide-in {
   0% {
-    transform: translateY(calc(#{var_default.$base} * 4));
+    transform: translateY(calc(var(--base) * 4));
     opacity: 0;
   }
   100% {

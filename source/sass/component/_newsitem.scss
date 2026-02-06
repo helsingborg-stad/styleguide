@@ -1,9 +1,4 @@
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-
-$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, var_colors.$color-lighter) !default;
-$c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-primary) !default;
 
 // Basic laying down
 .c-newsitem {
@@ -34,8 +29,8 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
         flex-wrap: wrap;
         justify-content: space-between;
         padding: var_default.$base 0;
-        border-top: 1px solid $c-newsitem-header-border-color;
-        border-bottom: 1px solid $c-newsitem-header-border-color;
+        border-top: 1px solid var(--c-newsitem-header-border-color, var(--color-lighter, #e5e5e5));
+        border-bottom: 1px solid var(--c-newsitem-header-border-color, var(--color-lighter, #e5e5e5));
     }
 
     .c-newsitem__title {
@@ -51,7 +46,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
 
     // Partials (individual items)
     .c-newsitem__heading {
-        color: $c-newsitem-heading-color;
+        color: var(--c-newsitem-heading-color, var(--color-primary, #ae0b05));
         margin-top: 0;
     }
 
@@ -67,7 +62,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
         display: flex;
         align-items: center;
         gap: calc(var_default.$base * .5);
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta, 0.875rem);
     }
 
     .c-newsitem__date-icon,

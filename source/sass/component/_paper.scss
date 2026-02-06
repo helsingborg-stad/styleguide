@@ -1,15 +1,10 @@
 @use "sass:map";
 @use "../mixin/paper";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-paper-border-width: var(--c-paper-border-width, var_properties.$border-width-card) !default;
-$c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card) !default;
 
 .c-paper {
-    border: $c-paper-border-width solid;
-    border-color: $c-paper-border-color;
+    border: var(--c-paper-border-width, var(--border-width-card, 0px)) solid;
+    border-color: var(--c-paper-border-color, var(--color-border-card, var(--color-white, #ffffff)));
     
     position: relative;
     @include paper.paper(2);
@@ -17,7 +12,7 @@ $c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card
     &--transparent {
         background: transparent;
         box-shadow: none;
-        filter: var_properties.$drop-shadow-0;
+        filter: var(--drop-shadow-0, none);
         height:auto;
     }
 
@@ -30,27 +25,27 @@ $c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card
     }
 
     &--divider {
-        border-top: 1px Solid var_colors.$color-gray-light;
+        border-top: 1px Solid var(--color-gray-light, #c7c7c7);
         padding-top: map.get(var_default.$spacers, "3");
     }
 
     &--component-description-area {
-        background-color: var_colors.$color-component-doc-background;
+        background-color: var(--color-component-doc-background, #1a1a1a);
         display: inline-block;
         width:100%;
 
         p, h4, h5 {
-            color: var_colors.$color-white;
+            color: var(--color-white, #ffffff);
         }
 
         .c-button__text--primary[aria-pressed="true"],
         [aria-pressed="true"].c-button__outlined--primary {
-            color: var_colors.$color-white;
-            background-color: var_colors.$color-component-doc-background-lighten;
+            color: var(--color-white, #ffffff);
+            background-color: var(--color-component-doc-background-lighten, #2d2d2d);
         }
 
         .c-button__outlined--primary:hover, .c-button__text--primary:hover {
-            background-color: var_colors.$color-component-doc-background-lighten;
+            background-color: var(--color-component-doc-background-lighten, #2d2d2d);
         }
 
     }

@@ -1,5 +1,4 @@
 @use "../mixin/center";
-@use "../mixin/cover";
 @use "../mixin/ratio";
 @use "../mixin/size";
 @use "../setting/var_colors";
@@ -36,7 +35,8 @@
 
     &__image,
     &__initials {
-        @include cover.cover();
+        position: absolute;
+        inset: 0;
         border-radius: inherit;
     }
 
@@ -55,10 +55,12 @@
 
     &__icon {
         border-radius: inherit;
-        @include cover.cover();
+        position: absolute;
+        inset: 0;
 
         .c-icon {
-            @include center.center();
+            position: absolute;
+            inset: 0;
             color: #fff;
         }
     }

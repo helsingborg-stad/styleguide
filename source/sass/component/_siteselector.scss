@@ -3,15 +3,15 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-siteselector-height: var(--c-siteselector-height, calc(#{var_default.$base} * 5.5));
+$c-siteselector-height: var(--c-siteselector-height, calc(var(--base) * 5.5));
 $c-siteselector-radius: var(--c-siteselector-radius, $c-siteselector-height) !default;
 $c-siteselector-background: var(--c-siteselector-background, var_colors.$color-primary) !default;
 $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-primary-contrasting) !default;
 
 .c-siteselector {
-    --c-siteselector-height-base: calc(var(--base, 8px) * 5.5);
-    --c-siteselector-height-computed: calc(var(--c-siteselector-height, var(--c-siteselector-height-base)) - var(--base, 8px));
-    --c-siteselector-radius-computed: calc(var(--c-siteselector-radius, var(--c-siteselector-height-base)) + var(--base, 8px) * 0.5);
+    --c-siteselector-height-base: calc(var(--base) * 5.5);
+    --c-siteselector-height-computed: calc(var(--c-siteselector-height, var(--c-siteselector-height-base)) - var(--base));
+    --c-siteselector-radius-computed: calc(var(--c-siteselector-radius, var(--c-siteselector-height-base)) + var(--base) * 0.5);
 
     &.c-siteselector--radius-xs {
         --c-siteselector-radius: #{var_border-radius.$border-radius-xs};
@@ -41,9 +41,9 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
 
     display: inline-flex;
     border-radius: var(--c-siteselector-radius-computed);
-    padding: calc(#{var_default.$base} * .5);
+    padding: calc(var(--base) * .5);
     background-color: #{$c-siteselector-background}; 
-    height: calc(#{var_default.$base} * 5.5);
+    height: calc(var(--base) * 5.5);
     
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper,
     .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper > * {
@@ -60,7 +60,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
             height: unset;
             width: unset;
             padding: unset;
-            margin: 0 calc(#{var_default.$base} * .5);
+            margin: 0 calc(var(--base) * .5);
             color: $c-siteselector-contrast;
             .c-button__label {
                 color: $c-siteselector-contrast;
@@ -78,7 +78,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     }
 
     .c-siteselector__item.c-nav__item--depth-1 {
-        padding: 0 calc(#{var_default.$base} * 1.5); 
+        padding: 0 calc(var(--base) * 1.5); 
         border-radius: #{$c-siteselector-radius};
         height: var(--c-siteselector-height-computed);
         
@@ -110,7 +110,7 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
         right: 0;
 
         &:after {
-            right: calc(#{var_default.$base} * 0.75);
+            right: calc(var(--base) * 0.75);
             left: auto;
         }
     }

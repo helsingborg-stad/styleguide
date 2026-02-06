@@ -1,28 +1,6 @@
 @use "sass:map";
 @use "../mixin/focus";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-@use "field";
-
-$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
-$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
-
-$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color) !default;
-$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color) !default;
-$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
-$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
-$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white) !default;
 
 .c-select__container {
     position: relative;
@@ -43,7 +21,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__action-overlay {
         cursor: pointer;
-        z-index: var_properties.$level-4;
+        z-index: var(--level-4);
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -54,18 +32,18 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     .c-select__search-field {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         background-color: #FFF;
-        border: $c-select-border-width solid $c-select-border-color;
+        border: var(--c-select-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
         border-left: none;
         border-right: none;
         border-top: none;
-        padding: #{var_default.$base};
+        padding: var(--base);
         padding-top: 0;
     }
 
     .c-select__search-no-results {
-        color: var_colors.$color-dark;
+        color: var(--color-dark, #707070);
         display: none;
-        padding: calc(var(--base, 8px)*2) calc(var(--base, 8px)*1.75);
+        padding: calc(var(--base)*2) calc(var(--base)*1.75);
         text-align: center;
     }
 
@@ -74,7 +52,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     }
 
     &.is-empty .c-select__action-overlay {
-        color: var_colors.$color-dark;
+        color: var(--color-dark, #707070);
     }
 
     &.is-ios,
@@ -84,7 +62,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: var_properties.$level-5;
+            z-index: var(--level-5);
         }
     }
 
@@ -94,9 +72,9 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-6;
+        z-index: var(--level-6);
         height: 100%;
-        color: var_colors.$color-primary;
+        color: var(--color-primary, #ae0b05);
         display: flex;
         align-items: center;
 
@@ -111,10 +89,10 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
         transition: none;
         height: 100%;
-        color: var_colors.$color-primary;
+        color: var(--color-primary, #ae0b05);
         pointer-events: none;
         display: flex;
         align-items: center;
@@ -145,7 +123,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
         &.c-select--rounded-border {
             select {
-                border: field.$c-field-border-width solid field.$c-field-border-color;
+                border: var(--c-field-border-width, var(--border-width-input, 1px)) solid var(--c-field-border-color, var(--color-border-input, var(--color-light, #a3a3a3)));
             }
         }
     }
@@ -153,11 +131,11 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     .c-select__dropdown .c-select__option[aria-disabled="true"] {
 
         .c-icon {
-            color: var_colors.$color-disabled;
+            color: var(--color-disabled, var(--color-light, #a3a3a3));
         }
 
         .c-select__option-label {
-            color: var_colors.$color-disabled-text;
+            color: var(--color-disabled-text, var(--color-dark, #707070));
             font-style: italic;
         }
     }
@@ -171,8 +149,8 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__clear-button {
-            font-size: $c-select-font-size-sm;
-            line-height: $c-select-font-size-sm-line-height;
+            font-size: var(--c-select-font-size-sm, var(--font-size-btn-sm, 0.875rem));
+            line-height: var(--c-select-font-size-sm-line-height, var(--font-size-btn-sm-line-height, 1.2));
         }
 
         .c-select__clear-button .c-icon {
@@ -180,7 +158,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*0.75) calc(var(--base, 8px)*1.5);
+            padding: calc(var(--base)*0.75) calc(var(--base)*1.5);
         }
     }
 
@@ -192,8 +170,8 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__clear-button {
-            font-size: $c-select-font-size-md;
-            line-height: $c-select-font-size-md-line-height;
+            font-size: var(--c-select-font-size-md, var(--font-size-btn-md, 1rem));
+            line-height: var(--c-select-font-size-md-line-height, var(--font-size-btn-md-line-height, 1.5));
         }
 
         .c-select__clear-button .c-icon {
@@ -201,7 +179,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*1) calc(var(--base, 8px)*1.75);
+            padding: calc(var(--base)*1) calc(var(--base)*1.75);
         }
     }
 
@@ -213,8 +191,8 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__clear-button {
-            font-size: $c-select-font-size-lg;
-            line-height: $c-select-font-size-lg-line-height;
+            font-size: var(--c-select-font-size-lg, var(--font-size-btn-lg, 1.125rem));
+            line-height: var(--c-select-font-size-lg-line-height, var(--font-size-btn-lg-line-height, 1.5));
         }
 
         .c-select__clear-button .c-icon {
@@ -222,7 +200,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
 
         .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*1.5) calc(var(--base, 8px)*2.5);
+            padding: calc(var(--base)*1.5) calc(var(--base)*2.5);
         }
     }
 
@@ -235,10 +213,10 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         padding: map.get(var_default.$spacers, "1");
         display: none;
         font-size: 80%;
-        color: var_colors.$color-white;
-        background-color: var_colors.$color-danger;
+        color: var(--color-white, #ffffff);
+        background-color: var(--color-danger, #e02e24);
         border: none;
-        border-radius: 0 0 calc($c-select-border-radius * var_default.$base) calc($c-select-border-radius * var_default.$base);
+        border-radius: 0 0 calc(var(--c-field-border-radius, 0.25) * var(--base)) calc(var(--c-field-border-radius, 0.25) * var(--base));
         box-sizing: border-box;
 
         &.error {
@@ -323,14 +301,14 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         max-height: calc(var_default.$base * 30);
         overflow-y: auto;
         z-index: var_properties.$level-3;
-        padding: #{var_default.$base} 0;
+        padding: var(--base) 0;
         border: $c-select-border-width solid $c-select-border-color;
     }
 
     .c-select__option {
         display: flex;
-        gap: calc(#{var_default.$base} * 1.5);
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
+        gap: calc(var(--base) * 1.5);
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 2);
         align-items: center;
         cursor: pointer;
         user-select: none;
@@ -376,7 +354,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
             .c-select__option-label,
             .c-select__option-icon {
-                transform: translateX(calc(#{var_default.$base} * 0.5));
+                transform: translateX(calc(var(--base) * 0.5));
             }
         }
     }

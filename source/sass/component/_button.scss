@@ -1,31 +1,6 @@
 @use "sass:map";
 @use "../mixin/cover";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-
-// Font
-$c-button-font-weight: var(--c-button-font-weight, var_fonts.$font-weight-button);
-$c-button-text-transform: var(--c-button-text-transform, var_fonts.$text-transform-button);
-$c-button-font-family: var(--c-button-font-family, var_fonts.$font-family-button) !default;
-
-// Colors
-$c-button-color: var(--c-button-color, var_colors.$color-default) !default;
-$c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker) !default;
-$c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary) !default;
-$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting) !default;
-$c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary) !default;
-$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting) !default;
-$c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
-
-// Borders
-$c-button-border-radius: var(--c-button-border-radius, var_border-radius.$border-radius-md) !default;
-$c-button-border-radius-small: var(--c-button-border-radius-small, var_border-radius.$border-radius-sm) !default;
-
-$c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button) !default;
 
 
 // BUTTON
@@ -36,9 +11,9 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     justify-content: center;
     text-decoration: none;
     cursor: pointer;
-    font-weight: $c-button-font-weight;
-    font-family: $c-button-font-family;
-    text-transform: $c-button-text-transform;
+    font-weight: var(--c-button-font-weight, var(--font-weight-button, 500));
+    font-family: var(--c-button-font-family, var(--font-family-button, "Roboto", sans-serif));
+    text-transform: var(--c-button-text-transform, var(--text-transform-button, uppercase));
     background-color: transparent;
     border: none;
     user-select: none;
@@ -78,8 +53,9 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     
     &:after {
         content: '';
-        @include cover.cover(); 
-        z-index: var_properties.$level-1;
+        position: absolute;
+        inset: 0;
+        z-index: var(--level-1);
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out, 
@@ -91,12 +67,12 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     &:disabled {
         cursor: not-allowed;
         &:not(.c-button--no-disabled-color) {
-            border-color: var_colors.$color-button-disabled-bg;
-            background-color: var_colors.$color-button-disabled-bg;
-            color: var_colors.$color-button-disabled-text;
-            
+            border-color: var(--color-button-disabled-bg, #dadada);
+            background-color: var(--color-button-disabled-bg, #dadada);
+            color: var(--color-button-disabled-text, #c7c7c7);
+
             * {
-                color: var_colors.$color-button-disabled-text;
+                color: var(--color-button-disabled-text, #c7c7c7);
             }
         }
 
@@ -117,10 +93,10 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
-        gap: #{var_default.$base};
+        gap: var(--base);
         width: 100%;
         max-width: 100%;
         height: 100%;
@@ -132,7 +108,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         .c-button__label-icon {
             order: 2;
             position: relative;
-            z-index: var_properties.$level-2;
+            z-index: var(--level-2);
             display: flex;
     
             &--reverse {
@@ -155,11 +131,11 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     }
 
     &.c-button--lg {
-        height: calc(#{var_default.$base} * 8); 
-        min-width: calc(#{var_default.$base} * 12);
-        padding: 0 calc(#{var_default.$base} * 5);
-        font-size: var_fonts.$font-size-btn-lg; 
-        border-radius: $c-button-border-radius; 
+        height: calc(var(--base) * 8);
+        min-width: calc(var(--base) * 12);
+        padding: 0 calc(var(--base) * 5);
+        font-size: var(--font-size-btn-lg, 1rem);
+        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base) / 2))); 
 
         .c-button__loader {
             width: calc(var_default.$base * 4);
@@ -169,53 +145,53 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base} * 8); 
+            width: calc(var(--base) * 8); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -1.5);
+            margin-right: calc(var(--base) * -1.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -1.5);
+                margin-left: calc(var(--base) * -1.5);
             }
         }
     }
 
     &.c-button--md {
-        height: calc(#{var_default.$base} * 6.5); 
-        min-width: calc(#{var_default.$base} * 9);
-        padding: 0 calc(#{var_default.$base} * 4); 
-        font-size: var_fonts.$font-size-btn-md; 
-        border-radius: $c-button-border-radius; 
+        height: calc(var(--base) * 6.5);
+        min-width: calc(var(--base) * 9);
+        padding: 0 calc(var(--base) * 4);
+        font-size: var(--font-size-btn-md, 0.875rem);
+        border-radius: var(--c-button-border-radius, var(--radius-md, calc(var(--base) / 2))); 
 
         .c-button__loader {
             margin-left: calc(var_default.$base * -1);
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base} * 6.5); 
+            width: calc(var(--base) * 6.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -1);
+            margin-right: calc(var(--base) * -1);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -1);
+                margin-left: calc(var(--base) * -1);
             }
         }
     }
 
     &.c-button--sm {
         letter-spacing: 0.1rem;
-        height: calc(#{var_default.$base} * 5.5);
-        min-width: calc(#{var_default.$base} * 6.75); 
-        padding: 0 calc(#{var_default.$base} * 2); 
-        font-size: var_fonts.$font-size-btn-sm; 
-        border-radius: $c-button-border-radius-small; 
+        height: calc(var(--base) * 5.5);
+        min-width: calc(var(--base) * 6.75);
+        padding: 0 calc(var(--base) * 2);
+        font-size: var(--font-size-btn-sm, 0.75rem);
+        border-radius: var(--c-button-border-radius-small, var(--radius-sm, calc(var(--base) / 2))); 
 
         .c-button__loader {
             width: calc(var_default.$base * 2);
@@ -225,22 +201,22 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         }
 
         &.c-button--icon-only {
-            width: calc(#{var_default.$base}* 5.5); 
+            width: calc(var(--base)* 5.5); 
             min-width: initial;
         }
 
         &.c-button__outlined .c-button__label .c-button__label-icon,
         &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(#{var_default.$base} * -.5);
+            margin-right: calc(var(--base) * -.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(#{var_default.$base} * -.5);
+                margin-left: calc(var(--base) * -.5);
             }
         }
     }
 
     &.c-button--pill {
-        border-radius: calc( #{var_default.$base} * 4); //No use of percent. 
+        border-radius: calc( var(--base) * 4); //No use of percent. 
     }
 
     &.c-button--sm.c-button--icon-only,
@@ -265,7 +241,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 .c-button__basic {
     border: none;
     box-shadow: none;
-    filter: var_properties.$drop-shadow-0;
+    filter: var(--drop-shadow-0, none);
     transition: transform 100ms ease-in-out;
 
     /* Allows disabled basic buttons */ 
@@ -280,61 +256,61 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
     &--primary,
     &--primary .c-button__label {
-        color: $c-button-primary-color;
+        color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
     }
 
     &--secondary,
     &--secondary .c-button__label {
-        color: $c-button-secondary-color;
+        color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
     }
 
     &--default,
     &--deafult .c-button__label {
-        color: $c-button-default-color;
+        color: var(--c-button-default-color, var(--color-button-black, #000000));
     }
 }
 
 // Background and border
 .c-button__filled {
     will-change: filter;
-    transition: filter 200ms ease-in-out; 
-    filter: var_properties.$drop-shadow-1;
+    transition: filter 200ms ease-in-out;
+    filter: var(--drop-shadow-1, drop-shadow(0px 2px 4px rgba(0,0,0,.1)));
 
     &--primary {
-        background-color: $c-button-primary-color;
-        color:  $c-button-primary-color-contrasting;
+        background-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
+        color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, #ffffff));
 
         .c-button__label {
-            color:  $c-button-primary-color-contrasting;  
+            color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, #ffffff));
         }
     }
 
     &--secondary {
-        background-color: $c-button-secondary-color;
-        color: $c-button-secondary-color-contrasting;
-                
+        background-color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
+        color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, #ffffff));
+
         .c-button__label {
-            color: $c-button-secondary-color-contrasting;
+            color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, #ffffff));
         }
     }
 
     &--default,
     &--deafult {
-        background-color: $c-button-color;
-        color: $c-button-color-contrasting;
+        background-color: var(--c-button-color, var(--color-default, #f5f5f5));
+        color: var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
 
         &:hover:after {
-            background: var_colors.$color-black !important;
+            background: var(--color-black, #000000) !important;
             opacity: .06 !important;
         }
 
         &:hover:active:after {
             opacity: .12 !important;
         }
-  
+
         .c-button__label-text,
         .c-button__label-icon {
-            color: $c-button-color-contrasting;
+            color: var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
         }
     }
 
@@ -345,20 +321,20 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
     /* Hover state (hover) */
     &:hover {
-        filter: var_properties.$drop-shadow-2;
+        filter: var(--drop-shadow-2, drop-shadow(0px 6px 8px rgba(0,0,0,.1)));
 
         &:after {
-            background: var_colors.$color-white;
+            background: var(--color-white, #ffffff);
             opacity: .24;
         }
     }
 
-    /* Active state (pressed) */ 
+    /* Active state (pressed) */
     &:hover:active {
-        filter: var_properties.$drop-shadow-1;
+        filter: var(--drop-shadow-1, drop-shadow(0px 2px 4px rgba(0,0,0,.1)));
 
         &:after {
-            background: var_colors.$color-black;
+            background: var(--color-black, #000000);
             opacity: .32;
         }
 
@@ -371,61 +347,61 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 // No background, only border
 
 .c-button__outlined {
-    
+
     &--primary {
-        border: $c-button-border-width solid $c-button-primary-color;
-        color: $c-button-primary-color;
+        border: var(--c-button-border-width, var(--border-width-button, 2px)) solid var(--c-button-primary-color, var(--color-primary, #ae0b05));
+        color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
 
         .c-button__label {
-            color: $c-button-primary-color;
+            color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
         }
 
         &:hover:after {
-            background: $c-button-primary-color;
+            background: var(--c-button-primary-color, var(--color-primary, #ae0b05));
             opacity: .08;
         }
 
         &:active:after {
-            background: $c-button-primary-color;
+            background: var(--c-button-primary-color, var(--color-primary, #ae0b05));
             opacity: .24;
         }
     }
 
     &--secondary {
-        border: $c-button-border-width solid $c-button-secondary-color;
-        color: $c-button-secondary-color;
+        border: var(--c-button-border-width, var(--border-width-button, 2px)) solid var(--c-button-secondary-color, var(--color-secondary, #ec6701));
+        color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
 
         .c-button__label {
-            color: $c-button-secondary-color;
+            color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
         }
 
         &:hover:after {
-            background: $c-button-secondary-color;
+            background: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
             opacity: .08;
         }
 
         &:active:after {
-            background: $c-button-secondary-color;
+            background: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
             opacity: .24;
         }
     }
 
     &--default,
     &--deafult {
-        border: $c-button-border-width solid var_colors.$color-button-default-text;
-        color: var_colors.$color-button-default-text;
+        border: var(--c-button-border-width, var(--border-width-button, 2px)) solid var(--color-button-default-text, #565656);
+        color: var(--color-button-default-text, #565656);
 
         .c-button__label {
-            color: var_colors.$color-button-default-text;
+            color: var(--color-button-default-text, #565656);
         }
 
         &:hover:after {
-            background: var_colors.$color-button-default-text;
+            background: var(--color-button-default-text, #565656);
             opacity: .08;
         }
 
         &:active:after {
-            background: var_colors.$color-button-default-text;
+            background: var(--color-button-default-text, #565656);
             opacity: .24;
         }
     }
@@ -439,14 +415,14 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
 .c-button__toggle {
 
-    transition: color 100ms ease-in-out, 
-    background 100ms ease-in-out, 
-    outline 100ms ease-in-out, 
-    outline-offset 100ms ease-in-out; 
+    transition: color 100ms ease-in-out,
+    background 100ms ease-in-out,
+    outline 100ms ease-in-out,
+    outline-offset 100ms ease-in-out;
 
 
     &[aria-pressed='true']:after {
-        background: var_colors.$color-white;
+        background: var(--color-white, #ffffff);
         opacity: .3;
     }
 
@@ -461,12 +437,12 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         outline-offset: -2px;
     }
 
-    /* Basic active styles */ 
+    /* Basic active styles */
     &.c-button__basic:before {
         content: "";
-        border-bottom: 2px solid $c-button-color-contrasting;
+        border-bottom: 2px solid var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
         bottom: 4px;
-        position: absolute; 
+        position: absolute;
         width: 0;
         transition: width 100ms ease-in-out;
     } 
@@ -486,62 +462,62 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         }
     }
 
-    /* Filled color - active */ 
+    /* Filled color - active */
     &.c-button__filled--default[aria-pressed='true'] {
-        outline-color: $c-button-color-contrasting;
+        outline-color: var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
     }
-    
+
     &.c-button__filled--primary[aria-pressed='true'] {
-        outline-color: $c-button-primary-color-contrasting; 
+        outline-color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, #ffffff));
     }
 
     &.c-button__filled--secondary[aria-pressed='true'] {
-        outline-color: $c-button-secondary-color-contrasting; 
+        outline-color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, #ffffff));
     }
 
-    /* Basic color - active */ 
+    /* Basic color - active */
 
     &.c-button__basic--default[aria-pressed='true']:before  {
-        border-color: $c-button-color-contrasting;
+        border-color: var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
     }
 
     &.c-button__basic--primary[aria-pressed='true']:before {
-        border-color: $c-button-primary-color;
+        border-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
     }
 
     &.c-button__basic--secondary[aria-pressed='true']:before {
-        border-color: $c-button-secondary-color;
+        border-color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
     }
 
     /* Outlined color - active */
     &.c-button__outlined--default[aria-pressed='true'] {
-        
-        background-color: $c-button-color-contrasting; 
+
+        background-color: var(--c-button-color-contrasting, var(--color-default-darker, #b5b5b5));
 
         .c-button__label,
         .c-button__label-icon,
         .c-button__label-text {
-            color: $c-button-color;
+            color: var(--c-button-color, var(--color-default, #f5f5f5));
         }
     }
 
     &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: $c-button-primary-color; 
+        background-color: var(--c-button-primary-color, var(--color-primary, #ae0b05));
 
         .c-button__label,
         .c-button__label-icon,
         .c-button__label-text {
-            color: $c-button-primary-color-contrasting;
+            color: var(--c-button-primary-color-contrasting, var(--color-primary-contrasting, #ffffff));
         }
     }
 
     &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: $c-button-secondary-color; 
+        background-color: var(--c-button-secondary-color, var(--color-secondary, #ec6701));
 
         .c-button__label,
         .c-button__label-icon,
         .c-button__label-text {
-            color: $c-button-secondary-color-contrasting;
+            color: var(--c-button-secondary-color-contrasting, var(--color-secondary-contrasting, #ffffff));
         }
     }
     

@@ -1,27 +1,19 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-progress-border-radius: var(--c-progress-border-radius, var_border-radius.$border-radius-md) !default;
-$c-progress-background-color: var(--c-progress-background-color, var_colors.$color-lighter) !default;
-$c-progress-value-color: var(--c-progress-value-color, var_colors.$color-success) !default;
-$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var_default.$base}) !default;
-$c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var_colors.$color-dark) !default;
-
 .c-progressbar {
-    height:$c-progress-height;
+    height: calc(var(--c-progress-height, 1.5) * var(--base));
     width: 100%;
-    background-color: $c-progress-background-color;
-    border-radius: $c-progress-border-radius;
+    background-color: var(--c-progress-background-color, var(--color-lighter, #e5e5e5));
+    border-radius: var(--c-progress-border-radius, var(--radius-md, calc(var(--base) / 2)));
     .c-progressbar__value {
         height: 100%;
-        background-color: $c-progress-value-color;
+        background-color: var(--c-progress-value-color, var(--color-success, #91d736));
         border-radius: inherit;
     }
 
     &.c-progressbar--cancelled {
         .c-progressbar__value {
-            background-color: $c-progress-value-color-cancelled;
+            background-color: var(--c-progress-value-color-cancelled, var(--color-dark, #707070));
         }
     }
 }

@@ -1,34 +1,13 @@
 @use "sass:map";
 @use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-
-$c-notice-color-text: var(--notice-color-text, #d73740) !default;
-$c-notice-color-background: var(--notice-color-background, #d73740) !default;
-
-$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
-
-$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
-
-$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
-
-$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
-
-$c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-radius-sm) !default;
 
 .c-notice {
-    filter: var_properties.$drop-shadow-5;
+    filter: var(--drop-shadow-5, drop-shadow(0px 12px 14px rgba(0,0,0,.1)));
     padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
-    background-color: var_colors.$color-base;
-    border-radius: $c-notice-border-radius;
-    color: var_colors.$color-notice-text-default;
+    background-color: var(--color-base, #fafafa);
+    border-radius: var(--notice-border-radius, var(--radius-sm, calc(var(--base) / 2)));
+    color: var(--color-notice-text-default, #3d3d3d);
     display: grid;
     grid-template-areas: 
         "icon title actions"
@@ -51,7 +30,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     .c-notice__title {
         grid-area: title;
         margin: 0;
-        line-height: var_fonts.$line-height-base;
+        line-height: var(--line-height-base, 1.5);
     }
 
     .c-notice__message {
@@ -101,75 +80,75 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     a:hover,
     a:active,
     a:visited {
-        color: var_colors.$color-notice-text-default;
+        color: var(--color-notice-text-default, #3d3d3d);
         text-decoration: underline;
     }
 
     &--success {
-        background-color: $c-notice-color-success-background;
-        color: $c-notice-color-success-text;
+        background-color: var(--notice-color-success-background, var(--color-success, #91d736));
+        color: var(--c-notice-color-success-text, var(--color-success-contrasting, #ffffff));
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-success-text;
+            color: var(--c-notice-color-success-text, var(--color-success-contrasting, #ffffff));
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-success-text;
+            color: var(--c-notice-color-success-text, var(--color-success-contrasting, #ffffff));
         }
     }
 
     &--danger {
-        background-color: $c-notice-color-danger-background;
-        color: $c-notice-color-danger-text;
+        background-color: var(--notice-color-danger-background, var(--color-danger, #d73740));
+        color: var(--notice-color-danger-text, var(--color-danger-contrasting, #ffffff));
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-danger-text;
+            color: var(--notice-color-danger-text, var(--color-danger-contrasting, #ffffff));
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-danger-text;
+            color: var(--notice-color-danger-text, var(--color-danger-contrasting, #ffffff));
         }
     }
 
     &--info {
-        background-color: $c-notice-color-info-background;
-        color: $c-notice-color-info-text;
+        background-color: var(--notice-color-info-background, var(--color-info, #0074c5));
+        color: var(--notice-color-info-text, var(--color-info-contrasting, #ffffff));
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-info-text;
+            color: var(--notice-color-info-text, var(--color-info-contrasting, #ffffff));
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-info-text;
+            color: var(--notice-color-info-text, var(--color-info-contrasting, #ffffff));
         }
     }
 
     &--warning {
-        background-color: $c-notice-color-warning-background;
-        color: $c-notice-color-warning-text;
+        background-color: var(--notice-color-warning-background, var(--color-warning, #f0b731));
+        color: var(--notice-color-warning-text, var(--color-warning-contrasting, #000000));
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-warning-text;
+            color: var(--notice-color-warning-text, var(--color-warning-contrasting, #000000));
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-warning-text;
+            color: var(--notice-color-warning-text, var(--color-warning-contrasting, #000000));
         }
     }
 
@@ -186,7 +165,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
         ". actions";
 
     .c-notice__actions {
-        margin-top: var(--base, 8px);
+        margin-top: var(--base);
         justify-content: flex-start;
     }
 
@@ -205,7 +184,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(#{var_default.$base} * 2); 
+    margin-top: calc(var(--base) * 2); 
 }
 
 @media print {

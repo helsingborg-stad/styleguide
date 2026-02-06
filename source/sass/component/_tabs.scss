@@ -9,7 +9,7 @@
         align-items: center;
         border-bottom: 1px solid var_colors.$color-gray-light;
         overflow-x: auto;
-        height: calc(#{var_default.$base} * 7);
+        height: calc(var(--base) * 7);
     }
 
     &__button {
@@ -32,7 +32,7 @@
     }
 
     &__button-wrapper {
-        padding: var_default.$base calc(#{var_default.$base} * 2);
+        padding: var_default.$base calc(var(--base) * 2);
     }
 
     &__button:focus,
@@ -45,7 +45,7 @@
     }
 
     &__content {
-        padding: calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 3);
 
         &[aria-hidden="true"] {
             display: none;

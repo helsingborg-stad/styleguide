@@ -1,18 +1,5 @@
 @use "sass:map";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
-
-$c-divider-title-border-color: var(--c-divider-title-border-color, var_colors.$color-dark) !default;
-$c-divider-title-border-radius: var(--c-divider-title-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-divider-title-border-width: var(--c-divider-title-border-width, var_properties.$border-width-card) !default;
-$c-divider-title-background: var(--c-divider-title-background, var_colors.$color-background-card) !default;
-
-$c-divider-color-text: var(--c-divider-color-text, var_colors.$color-dark) !default;
-$c-divider-color-divider: var(--c-divider-color-divider, #707070) !default;
-$c-divider-thickness: var(--c-divider-thickness, 1px) !default;
-$c-divider-border-style: var(--c-divider-border-style, solid) !default;
 
 
 .c-divider{
@@ -24,7 +11,7 @@ $c-divider-border-style: var(--c-divider-border-style, solid) !default;
       
     &::before,
     &::after {
-        border-bottom: $c-divider-thickness $c-divider-border-style $c-divider-color-divider;
+        border-bottom: var(--c-divider-thickness, 1px) var(--c-divider-border-style, solid) var(--c-divider-color-divider, #707070);
         content: '';
         flex: 1;
     }
@@ -34,9 +21,9 @@ $c-divider-border-style: var(--c-divider-border-style, solid) !default;
     }
 
     &--has-frame .c-divider__title {
-        background: $c-divider-title-background;
-        border: $c-divider-title-border-width solid $c-divider-title-border-color;
-        border-radius: $c-divider-title-border-radius;
+        background: var(--c-divider-title-background, var(--color-background-card, var(--color-white, #ffffff)));
+        border: var(--c-divider-title-border-width, var(--border-width-card, 0px)) solid var(--c-divider-title-border-color, var(--color-dark, #707070));
+        border-radius: var(--c-divider-title-border-radius, var(--radius-lg, calc(var(--base) / 2)));
     }
 
     &.c-divider--align-left:not(.c-divider--has-frame) .c-divider__title {
@@ -49,7 +36,7 @@ $c-divider-border-style: var(--c-divider-border-style, solid) !default;
 
     &--custom-font{
         .c-divider__title {
-            color: $c-divider-color-text;
+            color: var(--c-divider-color-text, var(--color-dark, #707070));
         }
     }
 

@@ -1,21 +1,7 @@
-@use "../setting/var_colors";
 @use "../setting/var_default";
-@use "../setting/var_properties";
 
 $drawer-transition-ms: 300ms;
-$drawer-width: calc(#{var_default.$base} * 40);
-
-// Background colors basic
-$drawer-basic-background-color: var(--c-drawer-basic-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, var_colors.$color-white) !default;
-
-// Main area colors
-$drawer-primary-background-color: var(--c-drawer-primary-background-color, var_colors.$color-primary) !default;
-$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, var_colors.$color-secondary) !default;
-
-// Duotone colors
-$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, var_colors.$color-secondary) !default;
+$drawer-width: calc(var(--base) * 40);
 
 
 /* Colors */
@@ -23,20 +9,20 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     &,
     .site-nav-mobile__primary > .c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{$drawer-basic-background-color};
+        --drawer-background: var(--c-drawer-basic-background-color, var(--color-primary, #ae0b05));
     }
 }
 
 .c-drawer.c-drawer--primary,
 .c-drawer.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--primary .c-drawer__header {
-    --drawer-background: #{$drawer-primary-background-color};
+    --drawer-background: var(--c-drawer-primary-background-color, var(--color-primary, #ae0b05));
 }
 
 .c-drawer.c-drawer--secondary,
 .c-drawer.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--secondary .c-drawer__header {
-    --drawer-background: #{$drawer-secondary-background-color};
+    --drawer-background: var(--c-drawer-secondary-background-color, var(--color-secondary, #ec6701));
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
@@ -44,31 +30,31 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     &,
     .site-nav-mobile__primary > .c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{var_colors.$color-white};
-        --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
+        --drawer-background: var(--color-white, #ffffff);
+        --drawer-duotone-background: var(--c-drawer-duotone-basic-background-color, var(--color-white, #ffffff));
     }
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--primary,
 .c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
-    --drawer-background: #{$drawer-duotone-primary-background-color};
+    --drawer-background: var(--c-drawer-duotone-primary-background-color, var(--color-primary, #ae0b05));
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--secondary,
 .c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
-    --drawer-background: #{$drawer-secondary-background-color};
+    --drawer-background: var(--c-drawer-secondary-background-color, var(--color-secondary, #ec6701));
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary > .c-nav__item {
-    --drawer-duotone-background: #{$drawer-duotone-primary-background-color};
+    --drawer-duotone-background: var(--c-drawer-duotone-primary-background-color, var(--color-primary, #ae0b05));
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary > .c-nav__item {
-    --drawer-duotone-background: #{$drawer-duotone-secondary-background-color};
+    --drawer-duotone-background: var(--c-drawer-duotone-secondary-background-color, var(--color-secondary, #ec6701));
 }
 
 // Actual css
@@ -104,7 +90,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     height: 100%;
     max-width: $drawer-width;
     width: 90%;
-    z-index: var_properties.$level-9;
+    z-index: var(--level-9);
     transform: translate(-100%);
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
@@ -122,7 +108,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer__header {
-    padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
+    padding: calc(var(--base) * 1) calc(var(--base) * 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -131,7 +117,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base}  * 4) calc(#{var_default.$base} * 12) calc(#{var_default.$base} * 4);
+    padding: calc(var(--base) * 4) calc(var(--base) * 4) calc(var(--base) * 12) calc(var(--base) * 4);
 }
 
 // Drawer Modifiers
@@ -145,13 +131,13 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     .c-drawer__header,
     .site-nav-mobile__primary {
         * {
-            color: var_colors.$color-black;
+            color: var(--color-black, #000000);
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
-            background-color: var_colors.$color-black;
+            background-color: var(--color-black, #000000);
         }
     }
 }
@@ -162,7 +148,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
-    filter: var_properties.$drop-shadow-5;
+    filter: var(--drop-shadow-5, drop-shadow(0px 12px 14px rgba(0,0,0,.1)));
 }
 
 // Overlay
@@ -173,7 +159,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: (var_properties.$level-9 - 1);
+    z-index: 8999;
     transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
     visibility: hidden;
     opacity: 0;

@@ -63,7 +63,7 @@
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{var_default.$base} * 0.5);
+        padding-left: calc(var(--base) * 0.5);
     }
 
     .c-menu__item .c-menu__link,
@@ -76,7 +76,7 @@
         content: "";
         @include center.centerX();
 
-        bottom: var_default.$base;
+        bottom: var(--base);
         border-bottom: 3px solid var_colors.$color-menu-active-indicator-horizontal;
         width: 0%;
         transition: width 250ms;
@@ -108,11 +108,11 @@
 
     .c-menu__link {
         display: block;
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 3);
+        padding: calc(var(--base) * 1.5) calc(var(--base) * 3);
     }
 
     .c-menu__item  *+* {
-        padding-left: calc(#{var_default.$base} * 0.5);
+        padding-left: calc(var(--base) * 0.5);
     }
 
     .c-menu__item .c-menu__link,
