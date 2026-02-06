@@ -7,25 +7,53 @@
 @use "../setting/var_properties";
 
 
-// Font
-$c-button-font-weight: var(--c-button-font-weight, var_fonts.$font-weight-button);
-$c-button-text-transform: var(--c-button-text-transform, var_fonts.$text-transform-button);
-$c-button-font-family: var(--c-button-font-family, var_fonts.$font-family-button);
+/**********************************************************
+ * BUTTON COMPONENT CSS VARIABLES
+ * Component-level tokens that wrap base design tokens.
+ * Customize per-component without affecting global styles.
+ *
+ * Example customization:
+ *   :root {
+ *     --c-button-primary-color: #custom-color;
+ *     --c-button-font-size-sm: 0.75rem;
+ *   }
+ **********************************************************/
+
+// Typography
+$c-button-font-family: var(--c-button-font-family, var(--font-family-base));
+$c-button-font-weight: var(--c-button-font-weight, var(--font-weight-medium));
+$c-button-text-transform: var(--c-button-text-transform, none);
+$c-button-letter-spacing: var(--c-button-letter-spacing, var(--letter-spacing-base));
+
+// Button Font Sizes - Map to base semantic sizes
+$c-button-font-size-sm: var(--c-button-font-size-sm, var(--font-size-caption));
+$c-button-font-size-md: var(--c-button-font-size-md, var(--font-size-base));
+$c-button-font-size-lg: var(--c-button-font-size-lg, var(--font-size-lead));
 
 // Colors
-$c-button-color: var(--c-button-color, var_colors.$color-default);
-$c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker);
-$c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary);
-$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting);
-$c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary);
-$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting);
-$c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black);
+$c-button-color: var(--c-button-color, var(--color--surface));
+$c-button-color-contrasting: var(--c-button-color-contrasting, var(--color--text));
+$c-button-primary-color: var(--c-button-primary-color, var(--color--primary));
+$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var(--color--primary-contrast));
+$c-button-secondary-color: var(--c-button-secondary-color, var(--color--secondary));
+$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var(--color--secondary-contrast));
+$c-button-default-color: var(--c-button-default-color, var(--color--text));
+$c-button-disabled-bg: var(--c-button-disabled-bg, var(--color--disabled));
+$c-button-disabled-text: var(--c-button-disabled-text, var(--color--disabled-text));
 
-// Borders
+// Borders & Radius
 $c-button-border-radius: var(--c-button-border-radius, var(--radius-md));
 $c-button-border-radius-small: var(--c-button-border-radius-small, var(--radius-sm));
+$c-button-border-width: var(--c-button-border-width, var(--border-width-button));
 
-$c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button);
+// Spacing
+$c-button-padding-sm: var(--c-button-padding-sm, var(--spacing-sm));
+$c-button-padding-md: var(--c-button-padding-md, calc(var(--spacing-md) * 1));
+$c-button-padding-lg: var(--c-button-padding-lg, calc(var(--spacing-md) * 1.25));
+
+// Shadows
+$c-button-shadow: var(--c-button-shadow, var(--shadow-1));
+$c-button-shadow-hover: var(--c-button-shadow-hover, var(--shadow-2));
 
 
 // BUTTON
@@ -91,12 +119,12 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     &:disabled {
         cursor: not-allowed;
         &:not(.c-button--no-disabled-color) {
-            border-color: var_colors.$color-button-disabled-bg;
-            background-color: var_colors.$color-button-disabled-bg;
-            color: var_colors.$color-button-disabled-text;
-            
+            border-color: $c-button-disabled-bg;
+            background-color: $c-button-disabled-bg;
+            color: $c-button-disabled-text;
+
             * {
-                color: var_colors.$color-button-disabled-text;
+                color: $c-button-disabled-text;
             }
         }
 
@@ -155,10 +183,10 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     }
 
     &.c-button--lg {
-        height: calc(#{var(--base)} * 8); 
+        height: calc(#{var(--base)} * 8);
         min-width: calc(#{var(--base)} * 12);
         padding: 0 calc(#{var(--base)} * 5);
-        font-size: var_fonts.$font-size-btn-lg; 
+        font-size: $c-button-font-size-lg;
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
@@ -184,10 +212,10 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     }
 
     &.c-button--md {
-        height: calc(#{var(--base)} * 6.5); 
+        height: calc(#{var(--base)} * 6.5);
         min-width: calc(#{var(--base)} * 9);
-        padding: 0 calc(#{var(--base)} * 4); 
-        font-size: var_fonts.$font-size-btn-md; 
+        padding: 0 calc(#{var(--base)} * 4);
+        font-size: $c-button-font-size-md;
         border-radius: $c-button-border-radius; 
 
         .c-button__loader {
@@ -212,9 +240,9 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
     &.c-button--sm {
         letter-spacing: 0.1rem;
         height: calc(#{var(--base)} * 5.5);
-        min-width: calc(#{var(--base)} * 6.75); 
-        padding: 0 calc(#{var(--base)} * 2); 
-        font-size: var_fonts.$font-size-btn-sm; 
+        min-width: calc(#{var(--base)} * 6.75);
+        padding: 0 calc(#{var(--base)} * 2);
+        font-size: $c-button-font-size-sm;
         border-radius: $c-button-border-radius-small; 
 
         .c-button__loader {
@@ -265,7 +293,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 .c-button__basic {
     border: none;
     box-shadow: none;
-    filter: var_properties.$drop-shadow-0;
+    filter: var(--shadow-0);
     transition: transform 100ms ease-in-out;
 
     /* Allows disabled basic buttons */ 
@@ -297,8 +325,8 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 // Background and border
 .c-button__filled {
     will-change: filter;
-    transition: filter 200ms ease-in-out; 
-    filter: var_properties.$drop-shadow-1;
+    transition: filter 200ms ease-in-out;
+    filter: $c-button-shadow;
 
     &--primary {
         background-color: $c-button-primary-color;
@@ -345,7 +373,7 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
     /* Hover state (hover) */
     &:hover {
-        filter: var_properties.$drop-shadow-2;
+        filter: $c-button-shadow-hover;
 
         &:after {
             background: var_colors.$color-white;
@@ -353,9 +381,9 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
         }
     }
 
-    /* Active state (pressed) */ 
+    /* Active state (pressed) */
     &:hover:active {
-        filter: var_properties.$drop-shadow-1;
+        filter: $c-button-shadow;
 
         &:after {
             background: var_colors.$color-black;

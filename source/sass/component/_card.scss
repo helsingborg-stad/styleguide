@@ -7,23 +7,36 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card);
+/**********************************************************
+ * CARD COMPONENT CSS VARIABLES
+ * Component-level tokens for card styling.
+ **********************************************************/
+
+// Colors
+$c-card-color-background: var(--c-card-color-background, var(--color--surface));
+$c-card-image-background-color: var(--c-card-image-background-color, var(--color--secondary));
+$c-card-text-color: var(--c-card-text-color, var(--color--text));
+
+// Borders & Radius
 $c-card-border-radius: var(--c-card-border-radius, var(--radius-lg));
+$c-card-border-width: var(--c-card-border-width, 0px);
+$c-card-border-color: var(--c-card-border-color, var(--color--border));
+$c-card-border-width-outline: var(--c-card-border-width-outline, var(--border-width-thin));
+$c-card-border-color-outline: var(--c-card-border-color-outline, var(--color--border));
+$c-card-border-width-divider: var(--c-card-border-width-divider, var(--border-width-divider));
+$c-card-border-color-divider: var(--c-card-border-color-divider, var(--color--border));
 
-$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card);
-$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card);
+// Shadows
+$c-card-shadow: var(--c-card-shadow, var(--shadow-2));
+$c-card-shadow-hover: var(--c-card-shadow-hover, var(--shadow-3));
 
-$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline);
-$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline);
-
-$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider);
-$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider);
-
-$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary);
+// Spacing
+$c-card-padding: var(--c-card-padding, var(--spacing-md));
+$c-card-gap: var(--c-card-gap, var(--spacing-sm));
 
 .c-card {
     container-type: inline-size;
-    filter: var_properties.$drop-shadow-2;
+    filter: $c-card-shadow;
     will-change: filter;
     display: flex;
     flex-direction: column;

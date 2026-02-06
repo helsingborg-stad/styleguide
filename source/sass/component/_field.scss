@@ -7,33 +7,45 @@
 @use "../setting/var_properties";
 
 
-$c-field-label-color: var(--c-field-label-color, var_colors.$color-darker);
+/**********************************************************
+ * FIELD COMPONENT CSS VARIABLES
+ * Component-level tokens for form field styling.
+ **********************************************************/
+
+// Label
+$c-field-label-color: var(--c-field-label-color, var(--color--darker));
 $c-field-label-text-transform: var(--c-field-label-text-transform, uppercase);
-$c-field-label-font-size: var(--c-field-label-font-size, 0.75rem);
-$c-field-label-font-weight: var(--c-field-label-font-size, 700);
+$c-field-label-font-size: var(--c-field-label-font-size, calc(var(--font-size-caption) * 0.857));
+$c-field-label-font-weight: var(--c-field-label-font-weight, var(--font-weight-bold));
 
-$c-field-description-font-size: var(--c-field-description-font-size, 0.75rem);
-$c-field-description-color: var(--c-field-description-color, var_colors.$color-darker);
+// Description & Helper
+$c-field-description-font-size: var(--c-field-description-font-size, calc(var(--font-size-caption) * 0.857));
+$c-field-description-color: var(--c-field-description-color, var(--color--darker));
+$c-field-helper-font-size: var(--c-field-helper-font-size, var(--font-size-caption));
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light));
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
-$c-field-success-color: var(--c-field-success-color, var(--color-success, var_colors.$color-success-dark));
+// Colors
+$c-field-border-color: var(--c-field-border-color, var(--color--border));
+$c-field-danger-color: var(--c-field-danger-color, var(--color--error));
+$c-field-success-color: var(--c-field-success-color, var(--color--success));
+$c-field-background-color: var(--c-field-background-color, var(--color--surface));
+$c-field-suffix-color: var(--c-field-suffix-color, var(--color--darker));
+$c-field-focus-color: var(--c-field-focus-color, var(--color--focus));
+$c-field-disabled-bg: var(--c-field-disabled-bg, var(--color--disabled));
+$c-field-disabled-text: var(--c-field-disabled-text, var(--color--disabled-text));
 
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields);
+// Sizing
+$c-field-border-radius: var(--c-field-border-radius, var(--radius-sm));
+$c-field-border-width: var(--c-field-border-width, var(--border-width-input));
+$c-field-padding: var(--c-field-padding, var(--spacing-sm));
+$c-field-height: var(--c-field-height, var(--spacing-lg));
 
-$c-field-border-radius: var(--c-field-border-radius, 0.25);
-
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px));
-$c-field-padding: var(--c-field-padding, map.get(var_default.$spacers, "2"));
-$c-field-height: var(--c-field-height, #{map.get(var_default.$spacers, "6")});
-$c-field-font-size-sm: var(--c-field-font-size-sm, var_fonts.$font-size-btn-sm);
-$c-field-font-size-md: var(--c-field-font-size-md, var_fonts.$font-size-btn-md);
-$c-field-font-size-lg: var(--c-field-font-size-lg, var_fonts.$font-size-btn-lg);
-$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height);
-$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height);
-$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height);
-$c-field-helper-font-size: var(--c-field-helper-font-size, var_fonts.$font-size-caption);
-$c-field-suffix-color: var(--c-field-suffix-color, var_colors.$color-darker);
+// Font Sizes - Map to base semantic sizes
+$c-field-font-size-sm: var(--c-field-font-size-sm, var(--font-size-caption));
+$c-field-font-size-md: var(--c-field-font-size-md, var(--font-size-base));
+$c-field-font-size-lg: var(--c-field-font-size-lg, var(--font-size-lead));
+$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, calc(var(--base) * 1.5));
+$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, calc(var(--base) * 2));
+$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, calc(var(--base) * 2));
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]';
 
