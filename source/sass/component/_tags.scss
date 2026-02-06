@@ -3,8 +3,8 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
+$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card);
+$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
 
 .c-tags {
     display: flex;

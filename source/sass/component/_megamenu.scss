@@ -4,11 +4,11 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-mega-menu-heading-color: var(--c-mega-menu-heading-color, var_colors.$color-primary) !default;
-$c-mega-menu-subitem-color: var(--c-mega-menu-subitem-color, var_colors.$color-primary) !default;
-$c-mega-menu-background-color: var(--c-mega-menu-background-color, var_colors.$color-primary-contrasting) !default;
-$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var_default.$base}) !default;
-$c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default;
+$c-mega-menu-heading-color: var(--c-mega-menu-heading-color, var_colors.$color-primary);
+$c-mega-menu-subitem-color: var(--c-mega-menu-subitem-color, var_colors.$color-primary);
+$c-mega-menu-background-color: var(--c-mega-menu-background-color, var_colors.$color-primary-contrasting);
+$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var_default.$base});
+$c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base);
 
 .c-megamenu {
     padding-top: $c-mega-menu-padding;

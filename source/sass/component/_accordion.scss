@@ -4,9 +4,9 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-accordion-border-width: var(--c-accordion-border-width, var_properties.$border-width-divider) !default;
-$c-accordion-border-color: var(--c-accordion-border-color, var_colors.$color-border-divider) !default;
-$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0) !default;
+$c-accordion-border-width: var(--c-accordion-border-width, var_properties.$border-width-divider);
+$c-accordion-border-color: var(--c-accordion-border-color, var_colors.$color-border-divider);
+$c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0);
 
 .c-accordion {
     padding-top: var_default.$base;

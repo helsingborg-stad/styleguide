@@ -4,19 +4,19 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5) !default;
-$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-padding: calc(var(--c-footer-padding, 3) * #{var_default.$base}) !default;
-$c-footer-color-text: var(--c-footer-color-text, #000) !default;
-$c-footer-subfooter-height-logotype: calc(var(--c-footer-subfooter-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{var_default.$base}) !default;
-$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, var_colors.$color-white) !default;
-$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, var_colors.$color-black) !default;
-$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center) !default;
-$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row) !default;
-$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3) !default;
-$c-footer-header-border-size: var(--c-footer-header-border-size, 1px) !default;
-$c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.$color-alpha}) !default;
+$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5);
+$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{var_default.$base});
+$c-footer-padding: calc(var(--c-footer-padding, 3) * #{var_default.$base});
+$c-footer-color-text: var(--c-footer-color-text, #000);
+$c-footer-subfooter-height-logotype: calc(var(--c-footer-subfooter-height-logotype, 6) * #{var_default.$base});
+$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{var_default.$base});
+$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, var_colors.$color-white);
+$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, var_colors.$color-black);
+$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center);
+$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
+$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3);
+$c-footer-header-border-size: var(--c-footer-header-border-size, 1px);
+$c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.$color-alpha});
 
 .c-footer {
     background-color: var_colors.$color-default;

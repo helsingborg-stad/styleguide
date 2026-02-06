@@ -5,8 +5,8 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-modal-border-radius: var(--c-modal-border-radius, var(--radius-md)) !default;
-$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
+$c-modal-border-radius: var(--c-modal-border-radius, var(--radius-md));
+$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha);
 
 .c-block[data-open] {
     cursor: pointer;

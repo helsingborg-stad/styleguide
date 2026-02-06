@@ -7,22 +7,22 @@
 @use "../setting/var_properties";
 @use "field";
 
-$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var(--radius-sm)) !default;
-$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
+$c-select-border-radius: var(--c-field-border-radius, 0.25);
+$c-select-border-radius-option: var(--c-select-border-radius-option, var(--radius-sm));
+$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm);
+$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md);
+$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg);
+$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height);
+$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height);
+$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height);
 
-$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color) !default;
-$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color) !default;
-$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
-$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
-$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white) !default;
+$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px));
+$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color);
+$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color);
+$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
+$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark));
+$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary);
+$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white);
 
 .c-select__container {
     position: relative;

@@ -10,12 +10,12 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-hero-color-overlay: var(--c-hero-color-overlay, var_colors.$color-alpha) !default;
-$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.$color-alpha-contrasting) !default;
-$c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
-$c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
-$c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-lg)) !default;
+$c-hero-color-overlay: var(--c-hero-color-overlay, var_colors.$color-alpha);
+$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.$color-alpha-contrasting);
+$c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white);
+$c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black);
+$c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black);
+$c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-lg));
 
 
 .c-hero {

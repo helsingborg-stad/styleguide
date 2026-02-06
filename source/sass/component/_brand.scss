@@ -4,9 +4,9 @@
 @use "../setting/var_fonts";
 
 
-$c-brand-contrast-color: var(--c-brand-contrast-color, var_colors.$color-primary) !default;
-$c-brand-font-size: var(--c-brand-font-size, var_fonts.$font-size-brand) !default;
-$c-brand-height: var(--c-brand-height) !default;
+$c-brand-contrast-color: var(--c-brand-contrast-color, var_colors.$color-primary);
+$c-brand-font-size: var(--c-brand-font-size, var_fonts.$font-size-brand);
+$c-brand-height: var(--c-brand-height);
 
 .c-brand {
   .c-brand__logotype {

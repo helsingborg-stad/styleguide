@@ -3,7 +3,7 @@
 @use "../setting/var_properties";
 
 /* Our code */
-$grid-gap: var(--grid-gap, 4) !default;
+$grid-gap: var(--grid-gap, 4);
 
 .c-openstreetmap {
 	position: relative;

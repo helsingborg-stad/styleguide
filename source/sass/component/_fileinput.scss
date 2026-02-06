@@ -4,13 +4,13 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
+$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light));
+$c-field-border-radius: var(--c-field-border-radius, 0.25);
+$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px));
 
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-field-danger-background-color: var(--c-field-danger-background-color, var_colors.$color-form-fields-error) !default;
+$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields);
+$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
+$c-field-danger-background-color: var(--c-field-danger-background-color, var_colors.$color-form-fields-error);
 
 .c-fileinput {
 

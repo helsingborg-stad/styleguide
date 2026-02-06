@@ -7,7 +7,7 @@
 @use "../setting/var_default";
 @use "../setting/var_fonts";
 
-$c-image-border-radius: var(--c-image-border-radius, var(--radius-xs)) !default;
+$c-image-border-radius: var(--c-image-border-radius, var(--radius-xs));
 
 
 // ***************************************************************
@@ -73,7 +73,7 @@ $c-image-border-radius: var(--c-image-border-radius, var(--radius-xs)) !default;
 
     &.c-image--radius-full .c-image__image,
     &.c-image--radius-full .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-full;
+        border-radius: var(--radius-full);
     }
 
     &.c-image--full-width .c-image__image {

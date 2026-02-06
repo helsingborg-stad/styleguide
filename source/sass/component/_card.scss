@@ -7,19 +7,19 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, var(--radius-lg)) !default;
+$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card);
+$c-card-border-radius: var(--c-card-border-radius, var(--radius-lg));
 
-$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
-$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;
+$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card);
+$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card);
 
-$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline) !default;
-$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline) !default;
+$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline);
+$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline);
 
-$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider) !default;
-$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider) !default;
+$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider);
+$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider);
 
-$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
+$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary);
 
 .c-card {
     container-type: inline-size;

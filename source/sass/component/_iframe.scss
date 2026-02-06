@@ -1,6 +1,6 @@
 @use "../setting/var_border-radius";
 
-$c-iframe-border-radius: var(--c-iframe-border-radius, var(--radius-xs)) !default;
+$c-iframe-border-radius: var(--c-iframe-border-radius, var(--radius-xs));
 
 // ***************************************************************
 // *** Mapping for different sizes

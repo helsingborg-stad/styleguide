@@ -3,10 +3,10 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-box-border-radius: var(--c-box-border-radius, var(--radius-sm)) !default;
-$c-box-color: var(--c-box-color, var_colors.$color-primary-contrasting) !default;
-$c-box-background-color: var(--c-box-background-color, var_colors.$color-primary) !default;
-$c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
+$c-box-border-radius: var(--c-box-border-radius, var(--radius-sm));
+$c-box-color: var(--c-box-color, var_colors.$color-primary-contrasting);
+$c-box-background-color: var(--c-box-background-color, var_colors.$color-primary);
+$c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2);
 
 .c-box {
     border-radius: $c-box-border-radius;

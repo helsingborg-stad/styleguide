@@ -3,7 +3,7 @@
 $position: center, start, end, flex-start, flex-end, normal, space-between, space-around, space-evenly, stretch;
 $display: flex, inline-flex, grid;
 $wrap: wrap, wrap-reverse, nowrap;
-$grid-gap: var(--grid-gap, calc(var_default.$base * 4)) !default;
+$grid-gap: var(--grid-gap, calc(var_default.$base * 4));
 
 .c-group {
     display: flex;

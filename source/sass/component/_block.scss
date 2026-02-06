@@ -6,11 +6,11 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-block-border-radius: var(--c-block-border-radius, var(--radius-lg)) !default;
-$c-block-color: var(--c-block-color, var_colors.$color-white) !default;
-$c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light) !default;
-$c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha) !default;
-$c-block-image-background-color: var(--c-block-image-background-color, var_colors.$color-secondary) !default;
+$c-block-border-radius: var(--c-block-border-radius, var(--radius-lg));
+$c-block-color: var(--c-block-color, var_colors.$color-white);
+$c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light);
+$c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha);
+$c-block-image-background-color: var(--c-block-image-background-color, var_colors.$color-secondary);
 
 .c-block {
     position: relative;

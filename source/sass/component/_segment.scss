@@ -9,10 +9,10 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-segment-color-overlay: var(--c-segment-color-overlay, var_colors.$color-alpha) !default;
-$c-segment-image-border-radius: var(--c-segment-image-border-radius, var(--radius-lg)) !default;
-$c-segment-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-segment-image-background-color: var(--c-segment-image-background-color, var_colors.$color-secondary) !default;
+$c-segment-color-overlay: var(--c-segment-color-overlay, var_colors.$color-alpha);
+$c-segment-image-border-radius: var(--c-segment-image-border-radius, var(--radius-lg));
+$c-segment-card-color-background: var(--c-card-color-background, var_colors.$color-background-card);
+$c-segment-image-background-color: var(--c-segment-image-background-color, var_colors.$color-secondary);
 
 .c-segment {
     display: flex;

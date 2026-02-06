@@ -6,16 +6,16 @@
 @use "../setting/var_fonts";
 
 
-$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker) !default;
-$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black) !default;
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height) !default;
+$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker);
+$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black);
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm);
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height);
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md);
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height);
 
-$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
+$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light));
+$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
+$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark));
 
 .c-option {
 
@@ -107,7 +107,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             width: 20px;
             border: 2px solid var_colors.$color-primary;
             background-color: var_colors.$color-white;
-            border-radius: var_border-radius.$border-radius-full;
+            border-radius: var(--radius-full);
             cursor: pointer;
         }
 
@@ -132,7 +132,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
                     width: 10px;
                     height: 10px;
                     background-color: var_colors.$color-primary;
-                    border-radius: var_border-radius.$border-radius-full;
+                    border-radius: var(--radius-full);
                 }
             }
 

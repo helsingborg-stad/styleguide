@@ -10,22 +10,22 @@
 // Font
 $c-button-font-weight: var(--c-button-font-weight, var_fonts.$font-weight-button);
 $c-button-text-transform: var(--c-button-text-transform, var_fonts.$text-transform-button);
-$c-button-font-family: var(--c-button-font-family, var_fonts.$font-family-button) !default;
+$c-button-font-family: var(--c-button-font-family, var_fonts.$font-family-button);
 
 // Colors
-$c-button-color: var(--c-button-color, var_colors.$color-default) !default;
-$c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker) !default;
-$c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary) !default;
-$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting) !default;
-$c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary) !default;
-$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting) !default;
-$c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black) !default;
+$c-button-color: var(--c-button-color, var_colors.$color-default);
+$c-button-color-contrasting: var(--c-button-color-contrasting, var_colors.$color-default-darker);
+$c-button-primary-color: var(--c-button-primary-color, var_colors.$color-primary);
+$c-button-primary-color-contrasting: var(--c-button-primary-color-contrasting, var_colors.$color-primary-contrasting);
+$c-button-secondary-color: var(--c-button-secondary-color, var_colors.$color-secondary);
+$c-button-secondary-color-contrasting: var(--c-button-secondary-color-contrasting, var_colors.$color-secondary-contrasting);
+$c-button-default-color: var(--c-button-default-color, var_colors.$color-button-black);
 
 // Borders
-$c-button-border-radius: var(--c-button-border-radius, var(--radius-md)) !default;
-$c-button-border-radius-small: var(--c-button-border-radius-small, var(--radius-sm)) !default;
+$c-button-border-radius: var(--c-button-border-radius, var(--radius-md));
+$c-button-border-radius-small: var(--c-button-border-radius-small, var(--radius-sm));
 
-$c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button) !default;
+$c-button-border-width: var(--c-button-border-width, var_properties.$border-width-button);
 
 
 // BUTTON

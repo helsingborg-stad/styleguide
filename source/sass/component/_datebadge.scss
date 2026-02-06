@@ -4,25 +4,25 @@
 @use "../setting/var_fonts";
 
 // Font
-$c-datebadge-font-size: var(--c-datebadge-font-size, var_fonts.$font-size-title) !default;
-$c-datebadge-font-family: var(--c-datebadge-font-family, var_fonts.$font-family-heading) !default;
+$c-datebadge-font-size: var(--c-datebadge-font-size, var_fonts.$font-size-title);
+$c-datebadge-font-family: var(--c-datebadge-font-family, var_fonts.$font-family-heading);
 
 // Color
-$c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black) !default;
+$c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black);
 
 // Border
-$c-datebadge-border-radius: var(--c-datebadge-border-radius, var(--radius-lg)) !default;
-$c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var(--radius-md)) !default;
+$c-datebadge-border-radius: var(--c-datebadge-border-radius, var(--radius-lg));
+$c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var(--radius-md));
 
 // Background
-$c-datebadge-color-background: var(--c-datebadge-color-background, #{var_colors.$color-lighter}) !default;
-$c-datebadge-month-background: var(--c-datebadge-month-background, #{var_colors.$color-white}) !default;
-$c-datebadge-backdrop-filter: var(--c-datebadge-backdrop-filter, unset) !default;
+$c-datebadge-color-background: var(--c-datebadge-color-background, #{var_colors.$color-lighter});
+$c-datebadge-month-background: var(--c-datebadge-month-background, #{var_colors.$color-white});
+$c-datebadge-backdrop-filter: var(--c-datebadge-backdrop-filter, unset);
 
 // Padding
-$c-datebadge-padding: var(--c-datebadge-padding, calc(#{var_default.$base} * 0.5) calc(#{var_default.$base} * 0.5) 0 calc(#{var_default.$base} * 0.5)) !default;
-$c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var_default.$base} * .5) calc(#{var_default.$base} * 1.5)) !default;
-$c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$base} * .75)) !default;
+$c-datebadge-padding: var(--c-datebadge-padding, calc(#{var_default.$base} * 0.5) calc(#{var_default.$base} * 0.5) 0 calc(#{var_default.$base} * 0.5));
+$c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var_default.$base} * .5) calc(#{var_default.$base} * 1.5));
+$c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$base} * .75));
 
 .c-datebadge.c-datebadge--dark {
     --c-datebadge-color: #{var_colors.$color-white};

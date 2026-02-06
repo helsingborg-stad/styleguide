@@ -6,22 +6,22 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-notice-color-text: var(--notice-color-text, #d73740) !default;
-$c-notice-color-background: var(--notice-color-background, #d73740) !default;
+$c-notice-color-text: var(--notice-color-text, #d73740);
+$c-notice-color-background: var(--notice-color-background, #d73740);
 
-$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
+$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting);
+$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success);
 
-$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
+$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting);
+$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger);
 
-$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
+$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting);
+$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info);
 
-$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
+$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting);
+$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning);
 
-$c-notice-border-radius: var(--notice-border-radius, var(--radius-sm)) !default;
+$c-notice-border-radius: var(--notice-border-radius, var(--radius-sm));
 
 .c-notice {
     filter: var_properties.$drop-shadow-5;
