@@ -4,14 +4,14 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-acceptance-alpha-color: var(--c-acceptance-color-alpha, var_colors.$color-alpha);
-$c-acceptance-alpha-color-contransting: var(--c-acceptance-color-alpha, var_colors.$color-alpha-contrasting);
-$c-acceptance-alpha-light-color: var(--c-acceptance-color-alpha-light, var_colors.$color-alpha-light);
-$c-acceptance-alpha-light-color-contrasting: var(--c-acceptance-color-alpha-light-contrasting, var_colors.$color-alpha-light-contrasting);
+$c-acceptance-alpha-color: var(--c-acceptance-color-alpha, var(--color--alpha));
+$c-acceptance-alpha-color-contransting: var(--c-acceptance-color-alpha, var(--color--alpha-contrasting));
+$c-acceptance-alpha-light-color: var(--c-acceptance-color-alpha-light, var(--color--alpha-light));
+$c-acceptance-alpha-light-color-contrasting: var(--c-acceptance-color-alpha-light-contrasting, var(--color--alpha-light-contrasting));
 
 $c-acceptance-border-radius: var(--c-acceptance-border-radius, var(--radius-lg));
 $c-acceptance-blur-amount: var(--c-acceptance-blur-amount, var(--base));
-$c-acceptance-background-color: var(--c-acceptance-background-color, var_colors.$color-background-card);
+$c-acceptance-background-color: var(--c-acceptance-background-color, var(--color--background-card));
 
 .c-acceptance {
     border-radius: $c-acceptance-border-radius;
@@ -101,11 +101,11 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, var_colors.
             transform: translate(-50%, -50%);
             color: $c-acceptance-alpha-color-contransting;
             transition: filter 100ms linear;
-            filter: var_properties.$drop-shadow-5;
+            filter: var(--shadow-5);
 
             &:hover {
                 opacity: 1;
-                filter: var_properties.$drop-shadow-2;
+                filter: var(--shadow-2);
             }
         }
 

@@ -1,10 +1,15 @@
 @use "../setting/var_default";
 
+/* Component CSS Variables */
+
+/* Listing Spacing */
+$c-listing-item-gap: var(--c-listing-item-gap, calc(var(--base) * 0.5));
+
 .c-listing {
     .c-listing__item,
     .c-listing__link {
         display: flex;
-        gap: calc(var(--base) * .5);
+        gap: $c-listing-item-gap;
     }
 
     .c-listing__link {

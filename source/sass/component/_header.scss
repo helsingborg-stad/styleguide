@@ -8,7 +8,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var(--bas
 .c-header {
     z-index: var(--level-6);
     position: relative;
-    background-color: var_colors.$color-header-background;
+    background-color: var(--color--surface);
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
@@ -22,21 +22,21 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var(--bas
     }
 
     &.c-header--accented {
-        border-bottom: var_colors.$color-primary solid var(--base);
+        border-bottom: var(--color--primary) solid var(--base);
     }
 
     &.c-header--primary {
-        background-color: var_colors.$color-primary;
+        background-color: var(--color--primary);
     }
 
     &.c-header--secondary {
-        background-color: var_colors.$color-secondary;
+        background-color: var(--color--secondary);
     }
 
     &.c-header--text-white > *,
     &.c-header--text-white .c-button__basic,
     &.c-header--text-white .c-nav .c-nav__link {
-        color: var_colors.$color-white;
+        color: var(--color--white);
     }
 
     &.c-header--text-black * ,
@@ -46,12 +46,12 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var(--bas
 
     &.c-header--text-primary * ,
     &.c-header--text-primary .c-nav .c-nav__link {
-        color: var_colors.$color-primary;
+        color: var(--color--primary);
     }
 
     &.c-header--text-secondary * ,
     &.c-header--text-secondary .c-nav .c-nav__link {
-        color: var_colors.$color-secondary;
+        color: var(--color--secondary);
     }
 
     &.c-header--casual {

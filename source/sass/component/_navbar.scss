@@ -5,28 +5,49 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
+/**********************************************************
+ * NAVBAR COMPONENT CSS VARIABLES
+ * Component-level tokens for navbar/header styling.
+ **********************************************************/
+
+// Colors
+$c-navbar-background-color: var(--c-navbar-background-color, var(--color--white));
+$c-navbar-text-color: var(--c-navbar-text-color, var(--color--black));
+$c-navbar-accent-color: var(--c-navbar-accent-color, var(--color--primary));
+$c-navbar-link-color: var(--c-navbar-link-color, var(--color--text));
+$c-navbar-link-hover-color: var(--c-navbar-link-hover-color, var(--color--primary));
+
+// Sizing & Spacing
+$c-navbar-height: var(--c-navbar-height, 132px);
+$c-navbar-padding: var(--c-navbar-padding, var(--spacing-lg));
+$c-navbar-border-width: var(--c-navbar-border-width, var(--base));
+
+// Shadows & Z-index
+$c-navbar-shadow: var(--c-navbar-shadow, var(--shadow-1));
+$c-navbar-z-index: var(--c-navbar-z-index, var(--level-6));
+
 .c-navbar {
     position: relative;
     display: grid;
     align-items: center;
     grid-template-columns: max-content auto max-content;
-    grid-template-rows: 132px max-content;
+    grid-template-rows: $c-navbar-height max-content;
     grid-template-areas:
         "logo links toggleexpand"
         "content content content"
     ;
     width: 100%;
-    background-color: var_colors.$color-white;
-    color: var_colors.$color-black;
-    
-    z-index: var(--level-6);
-    filter: var_properties.$drop-shadow-1;
+    background-color: $c-navbar-background-color;
+    color: $c-navbar-text-color;
+
+    z-index: $c-navbar-z-index;
+    filter: $c-navbar-shadow;
 
     &--border-top{
-        border-top: var(--base) solid var_colors.$color-nav-top-accent;
+        border-top: $c-navbar-border-width solid $c-navbar-accent-color;
     }
     &--border-bottom{
-        border-bottom: var(--base) solid var_colors.$color-nav-top-accent;
+        border-bottom: $c-navbar-border-width solid $c-navbar-accent-color;
     }
 
     &__logo {

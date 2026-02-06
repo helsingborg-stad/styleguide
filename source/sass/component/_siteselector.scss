@@ -5,8 +5,8 @@
 
 $c-siteselector-height: var(--c-siteselector-height, calc(#{var(--base)} * 5.5));
 $c-siteselector-radius: var(--c-siteselector-radius, $c-siteselector-height);
-$c-siteselector-background: var(--c-siteselector-background, var_colors.$color-primary);
-$c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-primary-contrasting);
+$c-siteselector-background: var(--c-siteselector-background, var(--color--primary));
+$c-siteselector-contrast: var(--c-siteselector-contrast, var(--color--primary-contrasting));
 
 .c-siteselector {
     --c-siteselector-height-base: calc(var(--base, 8px) * 5.5);
@@ -30,13 +30,13 @@ $c-siteselector-contrast: var(--c-siteselector-contrast, var_colors.$color-prima
     }
 
     &.c-siteselector--primary {
-        --c-siteselector-background: #{var_colors.$color-primary};
-        --c-siteselector-contrast: #{var_colors.$color-primary-contrasting};
+        --c-siteselector-background: #{var(--color--primary)};
+        --c-siteselector-contrast: #{var(--color--primary-contrasting)};
     }
 
     &.c-siteselector--secondary {
-        --c-siteselector-background: #{var_colors.$color-secondary};
-        --c-siteselector-contrast: #{var_colors.$color-secondary-contrasting};
+        --c-siteselector-background: #{var(--color--secondary)};
+        --c-siteselector-contrast: #{var(--color--secondary-contrasting)};
     }
 
     display: inline-flex;

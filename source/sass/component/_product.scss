@@ -50,10 +50,10 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
     display: inline-block;
 
     &--primary {
-        color: var_colors.$color-primary;
+        color: var(--color--primary);
     }
     &--secondary {
-        color: var_colors.$color-secondary;
+        color: var(--color--secondary);
     }
     &--custom {
         color: $c-product-custom-color;
@@ -65,7 +65,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 }
 
 .c-product__frequency {
-    color: var_colors.$color-black;
+    color: var(--color--black);
 }
 
 .c-product__image-container {
@@ -85,10 +85,10 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
     aspect-ratio: 1 / 1;
 
     &--primary {
-        background-color: var_colors.$color-primary;
+        background-color: var(--color--primary);
     }
     &--secondary {
-        background-color: var_colors.$color-secondary;
+        background-color: var(--color--secondary);
     }
     &--custom {
         background-color: $c-product-custom-color;
@@ -109,13 +109,13 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     &--primary {
         &::after {
-            border: 1px solid var_colors.$color-primary;
+            border: 1px solid var(--color--primary);
         }
     }
 
     &--secondary {
         &::after {
-            border: 1px solid var_colors.$color-secondary;
+            border: 1px solid var(--color--secondary);
         }
     }
 
@@ -132,13 +132,13 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     &--primary {
         .c-listing__label::before, .c-listing__label::after {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
     }
 
     &--secondary {
         .c-listing__label::before, .c-listing__label::after {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
     }
     &--custom {
@@ -153,7 +153,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
         align-items: center;
         text-decoration: none;
         .c-icon:first-child {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
     }
 
@@ -168,6 +168,6 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     .c-listing__label {
         display: block;
-        color: var_colors.$color-black;
+        color: var(--color--black);
     }
 }

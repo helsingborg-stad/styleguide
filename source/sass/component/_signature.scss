@@ -21,7 +21,7 @@
     }
 
     &__title {
-        color: var_colors.$color-darker;
+        color: var(--color--darker);
         margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
         display: block;
     }
@@ -32,7 +32,7 @@
 
     &__published,
     &__updated {
-        color: var_colors.$color-darker;
+        color: var(--color--darker);
         display: block;
     }
 }

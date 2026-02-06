@@ -3,8 +3,8 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card);
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
+$c-tags-pill-background: var(--c-tags-pill-background, var(--color--background-card));
+$c-tags-pill-color: var(--c-field-label-color, var(--color--darker));
 
 .c-tags {
     display: flex;
@@ -22,7 +22,7 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
             color: $c-tags-pill-color;
             padding: calc(var(--base) * 0.5) calc(var(--base) * 1.5);
             border-radius: calc(var(--base) * 3);
-            filter: var_properties.$detail-shadow-2;
+            filter: var(--shadow-detail-2);
 
             &:hover {
                 color: $c-tags-pill-color;
@@ -31,7 +31,7 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker);
     }
 
     .c-tags__tag {
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta);
         text-decoration: none;
         display: flex;
         align-items: center;

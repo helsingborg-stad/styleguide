@@ -8,15 +8,15 @@ $c-datebadge-font-size: var(--c-datebadge-font-size, var_fonts.$font-size-title)
 $c-datebadge-font-family: var(--c-datebadge-font-family, var_fonts.$font-family-heading);
 
 // Color
-$c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black);
+$c-datebadge-color: var(--c-datebadge-color, var(--color--black));
 
 // Border
 $c-datebadge-border-radius: var(--c-datebadge-border-radius, var(--radius-lg));
 $c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var(--radius-md));
 
 // Background
-$c-datebadge-color-background: var(--c-datebadge-color-background, #{var_colors.$color-lighter});
-$c-datebadge-month-background: var(--c-datebadge-month-background, #{var_colors.$color-white});
+$c-datebadge-color-background: var(--c-datebadge-color-background, #{var(--color--lighter)});
+$c-datebadge-month-background: var(--c-datebadge-month-background, #{var(--color--white)});
 $c-datebadge-backdrop-filter: var(--c-datebadge-backdrop-filter, unset);
 
 // Padding
@@ -25,44 +25,44 @@ $c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var(--base)}
 $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var(--base)} * .75));
 
 .c-datebadge.c-datebadge--dark {
-    --c-datebadge-color: #{var_colors.$color-white};
-    --c-datebadge-color-background: #{var_colors.$color-dark};
-    --c-datebadge-month-background: #{var_colors.$color-darker};
+    --c-datebadge-color: #{var(--color--white)};
+    --c-datebadge-color-background: #{var(--color--dark)};
+    --c-datebadge-month-background: #{var(--color--darker)};
 }
 
 .c-datebadge.c-datebadge--primary {
-    --c-datebadge-color: #{var_colors.$color-primary-contrasting};
-    --c-datebadge-color-background: #{var_colors.$color-primary};
-    --c-datebadge-month-background: #{var_colors.$color-primary-light};
+    --c-datebadge-color: #{var(--color--primary-contrasting)};
+    --c-datebadge-color-background: #{var(--color--primary)};
+    --c-datebadge-month-background: #{var(--color--primary-light)};
 }
 
 .c-datebadge.c-datebadge--secondary {
-    --c-datebadge-color: #{var_colors.$color-secondary-contrasting};
-    --c-datebadge-color-background: #{var_colors.$color-secondary};
-    --c-datebadge-month-background: #{var_colors.$color-secondary-light};
+    --c-datebadge-color: #{var(--color--secondary-contrasting)};
+    --c-datebadge-color-background: #{var(--color--secondary)};
+    --c-datebadge-month-background: #{var(--color--secondary-light)};
 }
 
 .c-datebadge.c-datebadge--translucent {
     --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 1.5)) brightness(200%) opacity(100%);
     --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
     --c-datebadge-month-background: rgba(255, 255, 255, 0.8);
-    --c-datebadge-color: #{var_colors.$color-black};
+    --c-datebadge-color: #{var(--color--black)};
 }
 
 .c-datebadge.c-datebadge--translucent.c-datebadge--primary {
     --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(100%) opacity(100%);
-    --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 50%);
-    --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 90%);
+    --c-datebadge-color-background: color-mix(in srgb, #{var(--color--primary)}, transparent 50%);
+    --c-datebadge-month-background: color-mix(in srgb, #{var(--color--primary)}, transparent 90%);
 }
 
 .c-datebadge.c-datebadge--translucent.c-datebadge--secondary {
     --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(100%) opacity(100%);
-    --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 50%);
-    --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 90%);
+    --c-datebadge-color-background: color-mix(in srgb, #{var(--color--secondary)}, transparent 50%);
+    --c-datebadge-month-background: color-mix(in srgb, #{var(--color--secondary)}, transparent 90%);
 }
 
 .c-datebadge.c-datebadge--translucent.c-datebadge--dark {
-    --c-datebadge-color: #{var_colors.$color-white};
+    --c-datebadge-color: #{var(--color--white)};
     --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
     --c-datebadge-month-background: rgba(255, 255, 255, 0.4);
     --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var(--base)} * 2)) brightness(60%) opacity(100%);

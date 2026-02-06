@@ -31,7 +31,7 @@ $yAxis: (top, bottom);
     min-width: 200px; 
     max-width: 250px;
     text-align: left;
-    background: var_colors.$color-default; 
+    background: var(--color--default); 
     padding: map.get(var_default.$spacers, "2");
 }
 

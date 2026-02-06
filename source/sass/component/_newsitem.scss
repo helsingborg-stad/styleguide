@@ -2,8 +2,8 @@
 @use "../setting/var_default";
 @use "../setting/var_fonts";
 
-$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, var_colors.$color-lighter);
-$c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-primary);
+$c-newsitem-header-border-color: var(--c-newsitem-header-border-color, var(--color--lighter));
+$c-newsitem-heading-color: var(--c-newsitem-heading-color, var(--color--primary));
 
 // Basic laying down
 .c-newsitem {
@@ -67,7 +67,7 @@ $c-newsitem-heading-color: var(--c-newsitem-heading-color, var_colors.$color-pri
         display: flex;
         align-items: center;
         gap: calc(var(--base) * .5);
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta);
     }
 
     .c-newsitem__date-icon,

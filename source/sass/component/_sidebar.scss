@@ -5,31 +5,49 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
+/**********************************************************
+ * SIDEBAR COMPONENT CSS VARIABLES
+ * Component-level tokens for sidebar navigation.
+ **********************************************************/
+
+// Colors
+$c-sidebar-background-color: var(--c-sidebar-background-color, var(--color--surface));
+$c-sidebar-text-color: var(--c-sidebar-text-color, var(--color--text));
+
+// Sizing
+$c-sidebar-width: var(--c-sidebar-width, 288px);
+$c-sidebar-padding: var(--c-sidebar-padding, var(--spacing-lg));
+$c-sidebar-logo-height: var(--c-sidebar-logo-height, 140px);
+
+// Z-index
+$c-sidebar-z-index: var(--c-sidebar-z-index, var(--level-5));
+
 $baseClass: ".c-sidebar";
 
 #{$baseClass} {
     display: flex;
     flex-direction: column;
-    background-color: var_colors.$color-sidebar-background;
+    background-color: $c-sidebar-background-color;
+    color: $c-sidebar-text-color;
 
     &--fixed {
-        width: 288px;
+        width: $c-sidebar-width;
         height: 100%;
         overflow: auto;
         position: fixed;
         left: 0;
         top: 0;
         bottom: 0;
-        z-index: var(--level-5);
+        z-index: $c-sidebar-z-index;
     }
 
     &__subcontainer--top {
-        padding: map.get(var_default.$spacers, "6"); 
+        padding: $c-sidebar-padding;
     }
 
     &__logo {
-        min-height: 140px;
-        max-height: 140px;
+        min-height: $c-sidebar-logo-height;
+        max-height: $c-sidebar-logo-height;
         padding: map.get(var_default.$spacers, "6") map.get(var_default.$spacers, "5") map.get(var_default.$spacers, "5");
         display: flex;
         justify-content: center;

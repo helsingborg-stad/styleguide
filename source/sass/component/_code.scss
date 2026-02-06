@@ -10,7 +10,7 @@
 
     .code-toolbar {
         overflow: auto;
-        background-color: var_colors.$color-lighter;
+        background-color: var(--color--lighter);
     }
 
     &__pre {
@@ -20,15 +20,15 @@
     &__toggle {
 
         .c-button__toggle {
-            color: var_colors.$color-lighter;
+            color: var(--color--lighter);
 
             &[aria-pressed="true"] {
-                color: var_colors.$color-default-dimmed;
+                color: var(--color--default-dimmed);
 
             }
 
             &:hover {
-                color: var_colors.$color-black;
+                color: var(--color--black);
             }
         }
     }

@@ -4,8 +4,8 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-paper-border-width: var(--c-paper-border-width, var_properties.$border-width-card);
-$c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card);
+$c-paper-border-width: var(--c-paper-border-width, var(--border-width-card));
+$c-paper-border-color: var(--c-paper-border-color, var(--color--border-card));
 
 .c-paper {
     border: $c-paper-border-width solid;
@@ -17,7 +17,7 @@ $c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card
     &--transparent {
         background: transparent;
         box-shadow: none;
-        filter: var_properties.$drop-shadow-0;
+        filter: var(--shadow-0);
         height:auto;
     }
 
@@ -30,27 +30,27 @@ $c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card
     }
 
     &--divider {
-        border-top: 1px Solid var_colors.$color-gray-light;
+        border-top: 1px Solid var(--color--gray-light);
         padding-top: map.get(var_default.$spacers, "3");
     }
 
     &--component-description-area {
-        background-color: var_colors.$color-component-doc-background;
+        background-color: var(--color--component-doc-background);
         display: inline-block;
         width:100%;
 
         p, h4, h5 {
-            color: var_colors.$color-white;
+            color: var(--color--white);
         }
 
         .c-button__text--primary[aria-pressed="true"],
         [aria-pressed="true"].c-button__outlined--primary {
-            color: var_colors.$color-white;
-            background-color: var_colors.$color-component-doc-background-lighten;
+            color: var(--color--white);
+            background-color: var(--color--component-doc-background-lighten);
         }
 
         .c-button__outlined--primary:hover, .c-button__text--primary:hover {
-            background-color: var_colors.$color-component-doc-background-lighten;
+            background-color: var(--color--component-doc-background-lighten);
         }
 
     }

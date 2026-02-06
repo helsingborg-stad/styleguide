@@ -4,12 +4,12 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-divider-title-border-color: var(--c-divider-title-border-color, var_colors.$color-dark);
+$c-divider-title-border-color: var(--c-divider-title-border-color, var(--color--dark));
 $c-divider-title-border-radius: var(--c-divider-title-border-radius, var(--radius-lg));
-$c-divider-title-border-width: var(--c-divider-title-border-width, var_properties.$border-width-card);
-$c-divider-title-background: var(--c-divider-title-background, var_colors.$color-background-card);
+$c-divider-title-border-width: var(--c-divider-title-border-width, var(--border-width-card));
+$c-divider-title-background: var(--c-divider-title-background, var(--color--background-card));
 
-$c-divider-color-text: var(--c-divider-color-text, var_colors.$color-dark);
+$c-divider-color-text: var(--c-divider-color-text, var(--color--dark));
 $c-divider-color-divider: var(--c-divider-color-divider, #707070);
 $c-divider-thickness: var(--c-divider-thickness, 1px);
 $c-divider-border-style: var(--c-divider-border-style, solid);

@@ -45,8 +45,8 @@ $grid-gap: var(--grid-gap, 4);
 	.c-openstreetmap__expand-icon-desktop,
 	.c-openstreetmap__expand-icon-mobile {
 		z-index: var(--level-8);
-		color: var_colors.$color-white;
-		background-color: var_colors.$color-primary;
+		color: var(--color--white);
+		background-color: var(--color--primary);
 		padding: calc(var(--base) * .5);
 		cursor: pointer;
 		border-radius: 50%;
@@ -91,7 +91,7 @@ $grid-gap: var(--grid-gap, 4);
 		margin-left: auto;
 		z-index: var(--level-6);
 		overflow-y: scroll;
-		background-color: var_colors.$color-white;
+		background-color: var(--color--white);
 		pointer-events: none;
 
 		&.is-open {
@@ -162,7 +162,7 @@ $grid-gap: var(--grid-gap, 4);
 	position: relative;
 	display: flex;
 	flex-direction: row;
-	background-color: var_colors.$color-white;
+	background-color: var(--color--white);
 
 	.c-openstreetmap__expand-icon-mobile {
 		display: none;
@@ -286,7 +286,7 @@ $grid-gap: var(--grid-gap, 4);
 		padding: 1rem;
 		height: 100%;
 		position: relative;
-		background-color: var_colors.$color-white;
+		background-color: var(--color--white);
 		z-index: var(--level-5);
 	}
 
@@ -340,7 +340,7 @@ $grid-gap: var(--grid-gap, 4);
 		position: absolute;
 		top: 1.5rem;
 		left: 1rem;
-		background-color: var_colors.$color-primary;
+		background-color: var(--color--primary);
 		padding: .25rem;
 		border-radius: 50%;
 		cursor: pointer;
@@ -357,7 +357,7 @@ $grid-gap: var(--grid-gap, 4);
 	.leaflet-control-attribution {
 		background-color: rgba(255,255,255,0.4) !important;
 		&, & > * {
-			color: var_colors.$color-black !important;
+			color: var(--color--black) !important;
 		}
 	}
 

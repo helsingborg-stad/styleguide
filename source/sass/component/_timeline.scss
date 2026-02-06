@@ -166,7 +166,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
             text-align: center;
             position: relative;
             color: #fff;
-            font-size: var_fonts.$font-size-meta;
+            font-size: var(--font-size-meta);
             display: inline;
         }
 

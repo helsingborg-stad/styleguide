@@ -9,10 +9,10 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-segment-color-overlay: var(--c-segment-color-overlay, var_colors.$color-alpha);
+$c-segment-color-overlay: var(--c-segment-color-overlay, var(--color--alpha));
 $c-segment-image-border-radius: var(--c-segment-image-border-radius, var(--radius-lg));
-$c-segment-card-color-background: var(--c-card-color-background, var_colors.$color-background-card);
-$c-segment-image-background-color: var(--c-segment-image-background-color, var_colors.$color-secondary);
+$c-segment-card-color-background: var(--c-card-color-background, var(--color--background-card));
+$c-segment-image-background-color: var(--c-segment-image-background-color, var(--color--secondary));
 
 .c-segment {
     display: flex;
@@ -36,19 +36,19 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     .c-segment__title {
         a {
             text-decoration: none;
-            color: var_colors.$color-base;
+            color: var(--color--base);
 
             &:hover,
             &:focus,
             &:active {
                 text-decoration: underline;
-                color: var_colors.$color-link;
+                color: var(--color--link);
             }
         }
     }
 
     .c-segment__date {
-        font-size: var_fonts.$font-size-meta;
+        font-size: var(--font-size-meta);
     }
 
     .c-segment__buttons {
@@ -321,7 +321,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             position: absolute;
             top: 0;
             left: 0;
-            border-left: var(--base) solid var_colors.$color-primary;
+            border-left: var(--base) solid var(--color--primary);
             height: 100%;
             z-index: 1;
         }
@@ -334,7 +334,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             position: absolute;
             top: 0;
             left: 50%;
-            border-left: var(--base) solid var_colors.$color-primary;
+            border-left: var(--base) solid var(--color--primary);
             height: 100%;
         }
 

@@ -6,29 +6,33 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-collection-padding-x: var(--c-collection-padding-x, calc(#{var(--base)} * 2));
-$c-collection-padding-y: var(--c-collection-padding-y, calc(#{var(--base)} * 2));
+/* Component CSS Variables */
 
-$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{var(--base)} * 2));
-$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var(--base));
+/* Collection Spacing */
+$c-collection-padding-x: var(--c-collection-padding-x, var(--spacing-sm));
+$c-collection-padding-y: var(--c-collection-padding-y, var(--spacing-sm));
+$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, var(--spacing-sm));
+$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var(--spacing-xs));
 
-$c-collection-hover-background: rgba(black, .05);
+/* Collection Colors */
+$c-collection-hover-background: var(--c-collection-hover-background, var(--color--light));
+$c-collection-current-background: var(--c-collection-current-background, var(--color--primary));
+$c-collection-text-color: var(--c-collection-text-color, var(--color--text));
+$c-collection-date-background: var(--c-collection-date-background, var(--color--light));
 
+/* Collection Borders */
 $c-collection-border-radius: var(--c-collection-border-radius, var(--radius-md));
+$c-collection-border-width: var(--c-collection-border-width, var(--border-width-thin));
+$c-collection-border-color: var(--c-collection-border-color, var(--color--border));
+$c-collection-divider-border-width: var(--c-collection-divider-border-width, var(--border-width-divider));
+$c-collection-divider-border-color: var(--c-collection-divider-border-color, var(--color--border));
 
-$c-collection-border-width: var(--c-collection-border-width, var_properties.$border-width-outline);
-$c-collection-border-color: var(--c-collection-border-color, var_colors.$color-border-outline);
-
-$c-collection-divider-border-width: var(--c-collection-border-width, var_properties.$border-width-divider);
-$c-collection-divider-border-color: var(--c-collection-border-color, var_colors.$color-border-divider);
-
-// collection__item
-$c-collection-item-border-width: var(--c-collection-item-border-width, var_properties.$border-width-medium);
-$c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC);
-
-$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var(--radius-lg));
-$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var(--radius-md));
-$c-collection-item-background-color: var(--c-collection-card-background-color, var_colors.$color-background-card);
+/* Collection Item */
+$c-collection-item-border-width: var(--c-collection-item-border-width, var(--border-width-medium));
+$c-collection-item-border-color: var(--c-collection-item-border-color, var(--color--border));
+$c-collection-item-image-border-radius: var(--c-collection-item-image-border-radius, var(--radius-lg));
+$c-collection-item-content-border-radius: var(--c-collection-item-content-border-radius, var(--radius-md));
+$c-collection-item-background-color: var(--c-collection-item-background-color, var(--color--surface));
 
 // Reset
 .c-collection {
@@ -115,7 +119,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
 
     .c-collection__item.is-current {
-        background-color: var_colors.$color-primary;
+        background-color: $c-collection-current-background;
         color: white;
     }
 
@@ -187,7 +191,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     .c-collection__item--action {
 
         &, a {
-            color: #000000;
+            color: $c-collection-text-color;
             .c-collection__content,
             .c-collection__icon {
                 transition: transform 400ms;
@@ -197,10 +201,10 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
                 transition: transform 300ms;
             }
         }
-        
+
         &:hover {
             &, a {
-                color: #000000;
+                color: $c-collection-text-color;
                 background-color: $c-collection-hover-background;
                 .c-collection__content,
                 .c-collection__icon {
@@ -385,7 +389,7 @@ $event-date-size:  56px;
         justify-content: center;
         width: $event-date-size;
         height: $event-date-size;
-        background-color: rgba(black, 0.05);
+        background-color: $c-collection-date-background;
     };
 
     .c-collection__divider.c-collection__divider--inset {

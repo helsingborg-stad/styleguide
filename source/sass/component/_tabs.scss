@@ -2,24 +2,41 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
+/* Component CSS Variables */
+
+/* Tabs Colors */
+$c-tabs-border-color: var(--c-tabs-border-color, var(--color--border));
+$c-tabs-active-indicator-color: var(--c-tabs-active-indicator-color, var(--color--primary));
+$c-tabs-focus-outline-color: var(--c-tabs-focus-outline-color, var(--color--ring));
+
+/* Tabs Sizing */
+$c-tabs-header-height: var(--c-tabs-header-height, calc(var(--base) * 7));
+$c-tabs-button-min-width: var(--c-tabs-button-min-width, 160px);
+$c-tabs-border-width: var(--c-tabs-border-width, var(--border-width-medium));
+$c-tabs-active-border-width: var(--c-tabs-active-border-width, var(--border-width-medium));
+
+/* Tabs Spacing */
+$c-tabs-button-padding: var(--c-tabs-button-padding, var(--spacing-sm));
+$c-tabs-content-padding: var(--c-tabs-content-padding, var(--spacing-md));
+
 .c-tabs {
 
     &__header {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid var_colors.$color-gray-light;
+        border-bottom: $c-tabs-border-width solid $c-tabs-border-color;
         overflow-x: auto;
-        height: calc(#{var(--base)} * 7);
+        height: $c-tabs-header-height;
     }
 
     &__button {
         @include button.button-unstyled;
-        min-width: 160px;
+        min-width: $c-tabs-button-min-width;
         cursor: pointer;
         text-decoration: none;
         text-align: center;
         color: inherit;
-        border-bottom: 3px solid transparent;
+        border-bottom: $c-tabs-border-width solid transparent;
         height: 100%;
 
         &:hover {
@@ -27,12 +44,12 @@
         }
 
         &[aria-expanded="true"] {
-            border-bottom: 3px solid var_colors.$color-menu-active-indicator-horizontal;
+            border-bottom: $c-tabs-active-border-width solid $c-tabs-active-indicator-color;
         }
     }
 
     &__button-wrapper {
-        padding: var(--base) calc(#{var(--base)} * 2);
+        padding: $c-tabs-button-padding;
     }
 
     &__button:focus,
@@ -41,11 +58,11 @@
     }
 
     &__button:focus>&__button-wrapper {
-        outline: 1px dashed var_colors.$color-gray;
+        outline: 1px dashed $c-tabs-focus-outline-color;
     }
 
     &__content {
-        padding: calc(#{var(--base)} * 3);
+        padding: $c-tabs-content-padding;
 
         &[aria-hidden="true"] {
             display: none;

@@ -5,17 +5,30 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting);
-$c-nav-v-background-active: var(--c-nav-v-background-active);
-$c-nav-v-background-color: var(--c-nav-v-background-color, rgba(0, 0, 0, 0));
-$c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active);
+/**********************************************************
+ * NAV COMPONENT CSS VARIABLES
+ * Component-level tokens for navigation links.
+ **********************************************************/
+
+// Vertical Nav
+$c-nav-v-color-contrasting: var(--c-nav-v-color-contrasting, var(--color--text));
+$c-nav-v-background-color: var(--c-nav-v-background-color, transparent);
+$c-nav-v-background-active: var(--c-nav-v-background-active, var(--color--primary));
+$c-nav-v-color-contrasting-active: var(--c-nav-v-color-contrasting-active, var(--color--white));
 $c-nav-v-background-expanded: var(--c-nav-v-background-expanded, rgba(0, 0, 0, .05));
-$c-nav-v-divider-color: var(--c-nav-v-divider-color);
-$c-nav-v-font-size: var(--c-nav-v-font-size);
-$c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting);
-$c-nav-h-background-active: var(--c-nav-h-background-active);
-$c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active);
-$c-nav-h-font-size: var(--c-nav-h-font-size);
+$c-nav-v-divider-color: var(--c-nav-v-divider-color, var(--color--border));
+$c-nav-v-font-size: var(--c-nav-v-font-size, var(--font-size-base));
+
+// Horizontal Nav
+$c-nav-h-color-contrasting: var(--c-nav-h-color-contrasting, var(--color--text));
+$c-nav-h-background-active: var(--c-nav-h-background-active, var(--color--primary));
+$c-nav-h-color-contrasting-active: var(--c-nav-h-color-contrasting-active, var(--color--white));
+$c-nav-h-font-size: var(--c-nav-h-font-size, var(--font-size-base));
+
+// Sizing
+$c-nav-item-height-sm: var(--c-nav-item-height-sm, calc(var(--base) * 5.5));
+$c-nav-item-height-md: var(--c-nav-item-height-md, calc(var(--base) * 6.5));
+$c-nav-item-height-lg: var(--c-nav-item-height-lg, calc(var(--base) * 8));
 
 
 .c-nav {
@@ -27,16 +40,16 @@ $c-nav-h-font-size: var(--c-nav-h-font-size);
     }
 
     .c-nav__item .c-nav__item-wrapper {
-        min-height: calc(#{var(--base)} * 6.5);
+        min-height: $c-nav-item-height-md;
     }
 
     &.c-nav--height-sm>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{var(--base)} * 5.5);
+        min-height: $c-nav-item-height-sm;
     }
 
     &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper,
     &.c-nav--height-sm.c-nav--bordered> .c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{var(--base)} * 6.5);
+        min-height: $c-nav-item-height-md;
     }
 
     &.c-nav--height-lg>.c-nav__item>.c-nav__item-wrapper {

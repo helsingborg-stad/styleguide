@@ -10,11 +10,25 @@
 
 /*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
+/* Component CSS Variables */
+
+/* Slider Colors */
+$c-slider-autoslide-color: var(--c-slider-autoslide-color, var(--color--primary));
+$c-slider-autoslide-bg: var(--c-slider-autoslide-bg, var(--color--white));
+$c-slider-stepper-background: var(--c-slider-stepper-background, var(--color--ring));
+$c-slider-stepper-active-background: var(--c-slider-stepper-active-background, var(--color--primary));
+
+/* Slider Shadows */
+$c-slider-shadow: var(--c-slider-shadow, var(--shadow-2));
+
+/* Slider Borders */
+$c-slider-border-radius: var(--c-slider-border-radius, var(--radius-md));
+
 .c-slider {
     --c-slider-max-width-computed: calc(var(--container-width-wide, #{var(--base)} * 200) - calc(#{var(--base)} * var(--c-slider-padding, 7)));
-    
+
     position: relative;
-    border-radius: var(--radius-md);
+    border-radius: $c-slider-border-radius;
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -34,7 +48,7 @@
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: var_properties.$drop-shadow-2;
+            filter: $c-slider-shadow;
         }
     }
 
@@ -109,10 +123,10 @@
         cursor: pointer;
         width: calc(#{var(--base)} * 5);
         height: calc(#{var(--base)} * 5);
-        color: var_colors.$color-primary;
+        color: $c-slider-autoslide-color;
         z-index: 1;
         margin: calc(#{var(--base)} * 1);
-        
+
         @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
             margin: calc(#{var(--base)} * 3);
         }
@@ -124,7 +138,7 @@
         &:before {
             content: "";
             display: block;
-            background: #fff;
+            background: $c-slider-autoslide-bg;
             width: calc(#{var(--base)} * 3);
             height: calc(#{var(--base)} * 3);
             border-radius: 50%;
@@ -194,7 +208,7 @@
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: var_properties.$drop-shadow-2;
+                filter: $c-slider-shadow;
             }
         }
 
@@ -267,14 +281,14 @@
     }
 
     .c-slider__dot {
-        background: var_colors.$color-gray;
+        background: $c-slider-stepper-background;
         cursor: default;
         width: calc(#{var(--base)} * 2);
         height: calc(#{var(--base)} * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            background: var_colors.$color-primary;
+            background: $c-slider-stepper-active-background;
         }
     }
 

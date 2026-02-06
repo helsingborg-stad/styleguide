@@ -2,8 +2,8 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$quote-background-color: var(--quote-background-color, var_colors.$color-secondary);
-$quote-color: var(--quote-color, var_colors.$color-secondary-contrasting);
+$quote-background-color: var(--quote-background-color, var(--color--secondary));
+$quote-color: var(--quote-color, var(--color--secondary-contrasting));
 $quote-border-radius: var(--quote-border-radius, var(--radius-md));
 
 .c-blockquote,

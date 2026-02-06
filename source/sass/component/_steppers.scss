@@ -9,7 +9,7 @@
 
 .c-steppers {
     &__dot {
-        background: var_colors.$color-gray;
+        background: var(--color--gray);
         display: inline-block;
         width: calc(#{var(--base)} * 1.5);
         height: calc(#{var(--base)} * 0.5);
@@ -32,6 +32,6 @@
     }
 
     &__dot-active {
-        background: var_colors.$color-primary;
+        background: var(--color--primary);
     }
 }

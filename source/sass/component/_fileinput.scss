@@ -4,13 +4,36 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light));
-$c-field-border-radius: var(--c-field-border-radius, 0.25);
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px));
+/* Component CSS Variables */
 
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields);
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error));
-$c-field-danger-background-color: var(--c-field-danger-background-color, var_colors.$color-form-fields-error);
+/* File Input Colors */
+$c-fileinput-background-color: var(--c-fileinput-background-color, var(--color--surface));
+$c-fileinput-border-color: var(--c-fileinput-border-color, var(--color--border));
+$c-fileinput-drag-outline-color: var(--c-fileinput-drag-outline-color, var(--color--lighter));
+$c-fileinput-item-background: var(--c-fileinput-item-background, var(--color--white));
+$c-fileinput-item-border-color: var(--c-fileinput-item-border-color, var(--color--lighter));
+$c-fileinput-success-color: var(--c-fileinput-success-color, var(--color--success));
+$c-fileinput-danger-color: var(--c-fileinput-danger-color, var(--color--error));
+$c-fileinput-danger-background: var(--c-fileinput-danger-background, var(--color--lighter));
+
+/* File Input Borders & Radius */
+$c-fileinput-border-width: var(--c-fileinput-border-width, var(--border-width-input));
+$c-fileinput-border-radius: var(--c-fileinput-border-radius, var(--radius-sm));
+$c-fileinput-item-border-radius: var(--c-fileinput-item-border-radius, var(--radius-lg));
+$c-fileinput-preview-border-radius: var(--c-fileinput-preview-border-radius, var(--radius-md));
+
+/* File Input Shadows */
+$c-fileinput-item-shadow: var(--c-fileinput-item-shadow, var(--shadow-1));
+$c-fileinput-preview-shadow: var(--c-fileinput-preview-shadow, var(--shadow-2));
+
+/* File Input Spacing */
+$c-fileinput-area-padding: var(--c-fileinput-area-padding, var(--spacing-md));
+$c-fileinput-list-padding: var(--c-fileinput-list-padding, var(--spacing-sm));
+$c-fileinput-list-gap: var(--c-fileinput-list-gap, var(--spacing-sm));
+$c-fileinput-item-height: var(--c-fileinput-item-height, calc(var(--base) * 5.5));
+
+/* File Input Typography */
+$c-fileinput-meta-font-size: var(--c-fileinput-meta-font-size, 0.7em);
 
 .c-fileinput {
 
@@ -31,8 +54,8 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     /* Is dragging animations */
     &.is-dragging:not(.is-full) {
         .js-file-input-drop {
-            outline: 3px dashed var_colors.$color-lighter;
-            border-radius: var(--radius-lg);
+            outline: 3px dashed $c-fileinput-drag-outline-color;
+            border-radius: $c-fileinput-item-border-radius;
             outline-offset: calc(#{var(--base)} * 1.5);
             width: calc(#{var(--base)} * 40);
             max-width: calc(100% - calc(#{var(--base)} * 2.5));
@@ -93,10 +116,10 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: calc(#{var(--base)} * 4);
-        border-radius: $c-field-border-radius;
-        background-color: $c-field-background-color;
-        border: $c-field-border-width solid $c-field-border-color;
+        padding: $c-fileinput-area-padding;
+        border-radius: $c-fileinput-border-radius;
+        background-color: $c-fileinput-background-color;
+        border: $c-fileinput-border-width solid $c-fileinput-border-color;
         box-shadow: inset 0 0 50px 50px rgba(0,0,0,0.02);
         transition: all 0.2s ease-in-out;
     }
@@ -108,10 +131,10 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: calc(#{var(--base)} * 2);
-        margin-top: calc(#{var(--base)} * 2);
+        gap: $c-fileinput-list-gap;
+        margin-top: $c-fileinput-list-gap;
         width: 100%;
-        padding: calc(#{var(--base)} * 2);    
+        padding: $c-fileinput-list-padding;
     }
 
     /* Items uploaded */
@@ -121,16 +144,16 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             align-items: center;
             justify-content: space-between;
             padding: 0 calc(#{var(--base)} * .5);
-            background-color: var_colors.$color-lightest;
-            border-radius: var(--radius-lg);
+            background-color: $c-fileinput-item-background;
+            border-radius: $c-fileinput-item-border-radius;
             margin: 0;
-            filter: var_properties.$drop-shadow-1;
-            height: calc(#{var(--base)} * 5.5);
+            filter: $c-fileinput-item-shadow;
+            height: $c-fileinput-item-height;
             animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
         .c-fileinput__item-remove {
-            border-left: 1px solid var_colors.$color-lighter;
+            border-left: 1px solid $c-fileinput-item-border-color;
             margin-left: calc(#{var(--base)} * 2);
             border-radius: 0 100px 100px 0;
         }
@@ -158,7 +181,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 
             .c-fileinput__item-size {
                 white-space: nowrap;
-                font-size: .7em;
+                font-size: $c-fileinput-meta-font-size;
 
                 &::before {
                     content: "(";
@@ -179,14 +202,14 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 
     &.invalid-files {
         .c-fileinput__accepted-files {
-            color: $c-field-danger-color;
+            color: $c-fileinput-danger-color;
             opacity: 1;
         }
     }
 
     &.file-size-error {
         .c-fileinput__maximum-size {
-            color: $c-field-danger-color;
+            color: $c-fileinput-danger-color;
             opacity: 1;
         }
     }
@@ -199,7 +222,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         gap: calc(#{var(--base)} * 2);
         top: calc(#{var(--base)} * 2);
         bottom: calc(#{var(--base)} * 1.5);
-        font-size: .7em;
+        font-size: $c-fileinput-meta-font-size;
         transition: all 0.2s ease-in-out;
         user-select: none;
     }
@@ -209,15 +232,15 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     .c-fileinput__maximum-size {
         opacity: .5;
     }
- 
-    /* File counter */ 
+
+    /* File counter */
     .c-fileinput__filecounter {
         user-select: none;
         position: absolute;
         right: calc(#{var(--base)} * 2);
         bottom: calc(#{var(--base)} * 1.5);
         opacity: .5;
-        font-size: .7em;
+        font-size: $c-fileinput-meta-font-size;
         transition: all 0.2s ease-in-out;
         user-select: none;
     }
@@ -240,7 +263,7 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     &.is-full {
         .c-fileinput__filecounter {
             opacity: 1;
-            color: var_colors.$color-success-dark;
+            color: $c-fileinput-success-color;
             font-weight: bold;
         }
     }
@@ -248,15 +271,15 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     /* Invalid */
     &.is-invalid {
         .c-fileinput__area {
-            border-color: $c-field-danger-color;
-            background-color: $c-field-danger-background-color;
+            border-color: $c-fileinput-danger-color;
+            background-color: $c-fileinput-danger-background;
         }
     }
 
     &.c-fileinput--preview {
         .c-fileinput__item-remove-button {
             vertical-align: unset;
-            border-top-right-radius: var(--radius-md);
+            border-top-right-radius: $c-fileinput-preview-border-radius;
         }
 
         .c-fileinput__attachment-icon {
@@ -319,8 +342,8 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         .c-fileinput__item-preview {
             width: calc(var(--base) * 25);
             aspect-ratio: 16 / 9;
-            border-radius: var(--radius-md);
-            filter: var_properties.$drop-shadow-2;
+            border-radius: $c-fileinput-preview-border-radius;
+            filter: $c-fileinput-preview-shadow;
             overflow: hidden;
 
             & > * {
@@ -346,11 +369,11 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 /* Amnimation */
  @keyframes puff-in-center {
     0% {
-      filter: var_properties.$drop-shadow-1 blur(4px);
+      filter: $c-fileinput-item-shadow blur(4px);
       opacity: 0;
     }
     100% {
-      filter: var_properties.$drop-shadow-1 blur(0px);
+      filter: $c-fileinput-item-shadow blur(0px);
       opacity: 1;
     }
   }

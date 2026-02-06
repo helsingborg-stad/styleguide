@@ -25,12 +25,12 @@
     &__link:visited,
     &__link:visited:hover {
         text-decoration: none;
-        color: var_colors.$color-light;
+        color: var(--color--light);
     }
 }
 
 .c-modal--gallery .c-modal__content .c-image__caption {
-    color: var_colors.$color-white;
+    color: var(--color--white);
 }
 
 .c-modal--gallery {

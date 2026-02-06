@@ -114,7 +114,7 @@
         }
 
         &--overlay-dark::before {
-            background-color: var_colors.$color-alpha;
+            background-color: var(--color--alpha);
         }
 
         &--hero {
@@ -143,13 +143,13 @@
             .c-slider__item__body {
                 font-family: $c-slider-item-font-family;
                 font-weight: $c-slider-item-font-weight;
-                font-size: var_fonts.$font-size-base;
+                font-size: var(--font-size-base);
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 400ms;
 
                 @include mq.mq('sm') { 
                     @include fluid-type.fluid-type(
-                        var_fonts.$font-size-base,
+                        var(--font-size-base),
                         $c-slider-item-font-size-base,
                         3vw
                     );
@@ -227,7 +227,7 @@
 
 .c-slider__item--layout-center {
     display: flex;
-    color: var_colors.$color-secondary;
+    color: var(--color--secondary);
 
     .o-container {
         align-self: center;
