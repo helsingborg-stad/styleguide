@@ -120,7 +120,7 @@ $c-collection-item-background-color: var(--c-collection-item-background-color, v
 
     .c-collection__item.is-current {
         background-color: $c-collection-current-background;
-        color: white;
+        color: var(--color--white);
     }
 
     // Divider

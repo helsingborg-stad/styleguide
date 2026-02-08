@@ -34,7 +34,7 @@
 }
 
 .u-truncate-ignore-hover:hover {
-    background-color: #fff;
+    background-color: var(--color--white);
     width: auto;
     overflow: visible;
 }

@@ -9,7 +9,7 @@
 
     &__circular {
 
-        color: #000;
+        color: var(--color--black);
         margin: 0px auto;
         border-radius: 50%;
         position: relative;
@@ -26,7 +26,7 @@
         }
 
         &--color--white {
-            color: #fff;
+            color: var(--color--white);
         }
 
         &--xl {
@@ -165,7 +165,7 @@
     }
 
     &__linear {
-        color: #000;
+        color: var(--color--black);
         font-size: 10px;
         margin: 0px auto;
         position: relative;
@@ -182,7 +182,7 @@
         }
 
         &--color--white {
-            color: #fff;
+            color: var(--color--white);
         }
 
         &--lg,

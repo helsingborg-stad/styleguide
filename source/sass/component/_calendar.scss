@@ -146,7 +146,7 @@
 }
 
 .cjslib-days {
-    background-color: #f6f6f6;
+    background-color: var(--color--lighter);
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -346,7 +346,7 @@
 }
 
 .cjslib-rows {
-    background-color: #f6f6f6;
+    background-color: var(--color--lighter);
     width: 100%;
     flex: 1;
     display: flex;
@@ -382,7 +382,7 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    color: #757575;
+    color: var(--color--dark);
     pointer-events: none;
     display: none;
 }

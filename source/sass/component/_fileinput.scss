@@ -291,7 +291,7 @@ $c-fileinput-meta-font-size: var(--c-fileinput-meta-font-size, 0.7em);
         }
 
         .is-unsupported {
-            background-color: white;
+            background-color: var(--color--white);
 
             .c-fileinput__attachment-icon {
                 display: block;

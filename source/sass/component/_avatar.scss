@@ -59,7 +59,7 @@
 
         .c-icon {
             @include center.center();
-            color: #fff;
+            color: var(--color--white);
         }
     }
 }

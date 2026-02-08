@@ -13,7 +13,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var(--color--muted));
 }
 
 .c-modal {
-    background-color: white;
+    background-color: var(--color--white);
     gap: map.get(var_default.$spacers, "2");
     flex-direction: column;
     width: 100%;

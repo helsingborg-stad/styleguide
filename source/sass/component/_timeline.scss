@@ -25,7 +25,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         transform: translateX(-50%);
 
         width: 1px;
-        background-color: black;
+        background-color: var(--color--black);
     }
 
     &--sequential {
@@ -165,7 +165,7 @@ $c-timeline-marker-text-color: var(--c-timeline-marker-text-color, white);
         .c-timeline__date {
             text-align: center;
             position: relative;
-            color: #fff;
+            color: var(--color--white);
             font-size: var(--font-size-meta);
             display: inline;
         }

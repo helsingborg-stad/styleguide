@@ -296,7 +296,7 @@ $c-table-column-z-index: var(--c-table-column-z-index, var(--level-1));
     height: calc(100vh - calc(#{var(--base)} * 4));
 
     .c-modal__header .c-modal__close .c-icon {
-        color: var(--color-black, #000000);
+        color: var(--color--black);
     }
 
     .c-table__table {

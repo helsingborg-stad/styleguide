@@ -63,7 +63,7 @@ $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, cal
 
     .c-select__search-field {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-        background-color: #FFF;
+        background-color: var(--color--white);
         border: $c-select-border-width solid $c-select-border-color;
         border-left: none;
         border-right: none;
@@ -326,7 +326,7 @@ $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, cal
     .c-select__dropdown {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
-        background-color: #FFF;
+        background-color: var(--color--white);
         position: absolute;
         top: 100%;
         width: 100%;
@@ -347,7 +347,7 @@ $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, cal
         margin-top: 0;
 
         &:hover {
-            background-color: rgba(#000, .2);
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
         .c-select__option-icon {

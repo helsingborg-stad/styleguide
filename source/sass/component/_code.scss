@@ -132,7 +132,7 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
 
     animation: componentListFadeIn 1s linear;
     animation-fill-mode: both;
-    background-color: #f5f2f0;
+    background-color: var(--color--lighter);
     padding:15px;
 
     #compiledCSS {

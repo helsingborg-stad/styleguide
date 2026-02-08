@@ -17,7 +17,7 @@
     animation-iteration-count: infinite;
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
-    background: #f6f7f8;
+    background: var(--color--lighter);
     background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
     background-size: 200% 100%;
   }
@@ -82,7 +82,7 @@
       animation-iteration-count: infinite;
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
-      background: #f6f7f8;
+      background: var(--color--lighter);
       background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
       background-size: 200% 100%;
     }
@@ -115,7 +115,7 @@
       animation-iteration-count: infinite;
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
-      background: #f6f7f8;
+      background: var(--color--lighter);
       background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
       background-size: 200% 100%;
     }

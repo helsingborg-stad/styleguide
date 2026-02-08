@@ -6,8 +6,8 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-notice-color-text: var(--notice-color-text, #d73740);
-$c-notice-color-background: var(--notice-color-background, #d73740);
+$c-notice-color-text: var(--notice-color-text, var(--color--error));
+$c-notice-color-background: var(--notice-color-background, var(--color--error));
 
 $c-notice-color-success-text: var(--c-notice-color-success-text, var(--color--success-contrasting));
 $c-notice-color-success-background: var(--notice-color-success-background, var(--color--success));

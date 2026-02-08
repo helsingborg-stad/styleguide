@@ -63,21 +63,21 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, var(--color--
         }
 
         & a {
-            color: #707070;
+            color: var(--color--dark);
             text-decoration: none;
             display: inline-block;
         }
     }
 
     &__links div {
-        color: #707070;
+        color: var(--color--dark);
         text-decoration: none;
         display: inline-block;
     }
 
     &__link-divider {
         display: inline-block;
-        background-color:#565656;
+        background-color: var(--color--darker);
         border-radius: 50%;
         height: calc(#{var(--base)} / 2);
         width: calc(#{var(--base)} / 2);

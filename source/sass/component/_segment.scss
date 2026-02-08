@@ -261,7 +261,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var(-
 
     &-light .c-segment__title,
     &-light .c-segment__text {
-        color: white;
+        color: var(--color--white);
         z-index: var(--level-2);
     }
 
@@ -270,7 +270,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var(-
     &-dark .c-segment__meta,
     &-dark .c-segment__date,
     &-dark .c-segment__tags {
-        color: black;
+        color: var(--color--black);
         z-index: var(--level-2);
     }
 }

@@ -79,7 +79,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-family: var_fonts.$font-family-base;
         font-weight: var_fonts.$font-family-base;
         font-size: $c-field-helper-font-size;
-        color: #707070;
+        color: var(--color--dark);
         margin-top: calc(#{var(--base)}/2);
         margin-left: calc(#{var(--base)}/4);
     }

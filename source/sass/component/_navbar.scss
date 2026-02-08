@@ -89,7 +89,7 @@ $c-navbar-z-index: var(--c-navbar-z-index, var(--level-6));
 
         span {
             font-size: 18px;
-            color: #000000;
+            color: var(--color--black);
         }
 
         &:after {
