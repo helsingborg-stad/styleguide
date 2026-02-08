@@ -1,5 +1,3 @@
-@use "../setting/var_fonts";
-
 /* Text decoration */
 
 .u-no-decoration,
@@ -16,7 +14,7 @@
 
 .u-bold,
 .u-strong {
-    font-weight: var_fonts.$font-weight-bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .u-italic {
@@ -43,16 +41,16 @@
 
 /* Font size */
 $font-sizes: (
-    "base": var_fonts.$font-size-base,
-    "lead": var_fonts.$font-size-lead,
-    "caption": var_fonts.$font-size-caption,
-    "marketing": var_fonts.$font-size-marketing,
-    "headline": var_fonts.$font-size-headline,
-    "title": var_fonts.$font-size-title,
-    "subtitle": var_fonts.$font-size-subtitle,
-    "subtitle-small": var_fonts.$font-size-subtitle-small,
-    "meta": var_fonts.$font-size-meta,
-    "brand": var_fonts.$font-size-brand
+    "base": var(--font-size-base),
+    "lead": var(--font-size-lead),
+    "caption": var(--font-size-caption),
+    "marketing": var(--font-size-marketing),
+    "headline": var(--font-size-headline),
+    "title": var(--font-size-title),
+    "subtitle": var(--font-size-subtitle),
+    "subtitle-small": var(--font-size-caption),
+    "meta": var(--font-size-caption),
+    "brand": var(--font-size-marketing)
 );
 
 @each $name, $value in $font-sizes {

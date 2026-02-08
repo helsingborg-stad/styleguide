@@ -1,57 +1,55 @@
-@use "../setting/var_properties";
-
 // DEPRECATED: u-box-shadow--XX classes will be removed in future
 
 .u-drop-shadow-1,
 .u-box-shadow--1 {
-    filter: var_properties.$drop-shadow-1;
+    filter: var(--shadow-1);
 }
 .u-drop-shadow-2,
 .u-box-shadow--2 {
-    filter: var_properties.$drop-shadow-2;
+    filter: var(--shadow-2);
 }
 .u-drop-shadow-3,
 .u-box-shadow--3 {
-    filter: var_properties.$drop-shadow-3;
+    filter: var(--shadow-3);
 }
 .u-drop-shadow-4,
 .u-box-shadow--4 {
-    filter: var_properties.$drop-shadow-4;
+    filter: var(--shadow-4);
 }
 .u-drop-shadow-5,
 .u-box-shadow--5 {
-    filter: var_properties.$drop-shadow-5;
+    filter: var(--shadow-5);
 }
 
 .u-detail-shadow-1 {
-    filter: var_properties.$detail-shadow-1;
+    filter: var(--shadow-detail-1);
 }
 
 .u-detail-shadow-2 {
-    filter: var_properties.$detail-shadow-2;
+    filter: var(--shadow-detail-2);
 }
 
 .u-detail-shadow-3 {
-    filter: var_properties.$detail-shadow-3;
+    filter: var(--shadow-detail-3);
 }
 
 .u-detail-shadow-4 {
-    filter: var_properties.$detail-shadow-4;
+    filter: var(--shadow-detail-4);
 }
 
 .u-detail-shadow-5 {
-    filter: var_properties.$detail-shadow-5;
+    filter: var(--shadow-detail-5);
 }
 
 .u-detail-shadow-0 {
-    filter: var_properties.$detail-shadow-0;
+    filter: var(--shadow-detail-0);
 }
 
 .u-drop-shadow-0,
 .u-box-shadow--none,
 .u-box-shadow--0 {
-    box-shadow: none !important; 
-    filter: var_properties.$drop-shadow-0 !important;
+    box-shadow: none !important;
+    filter: var(--shadow-0) !important;
 }
 
 
