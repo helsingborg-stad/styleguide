@@ -7,22 +7,32 @@
 @use "../setting/var_properties";
 @use "field";
 
-$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
-$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
+/**********************************************************
+ * SELECT COMPONENT CSS VARIABLES
+ * Component-level tokens for select/dropdown styling.
+ **********************************************************/
 
-$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color) !default;
-$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color) !default;
-$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
-$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
-$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white) !default;
+// Border & Radius
+$c-select-border-radius: var(--c-select-border-radius, var(--radius-sm));
+$c-select-border-radius-option: var(--c-select-border-radius-option, var(--radius-sm));
+$c-select-border-width: var(--c-select-border-width, var(--border-width-input));
+$c-select-border-color: var(--c-select-border-color, var(--color--border));
+
+// Colors
+$c-select-background-color: var(--c-select-background-color, var(--color--surface));
+$c-select-danger-color: var(--c-select-danger-color, var(--color--error));
+$c-select-success-color: var(--c-select-success-color, var(--color--success));
+$c-select-selected-bg: var(--c-select-selected-bg, var(--color--primary));
+$c-select-selected-color: var(--c-select-selected-color, var(--color--white));
+$c-select-hover-bg: var(--c-select-hover-bg, var(--color--light));
+
+// Font Sizes - Map to base semantic sizes
+$c-select-font-size-sm: var(--c-select-font-size-sm, var(--font-size-caption));
+$c-select-font-size-md: var(--c-select-font-size-md, var(--font-size-base));
+$c-select-font-size-lg: var(--c-select-font-size-lg, var(--font-size-lead));
+$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, calc(var(--base) * 1.5));
+$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, calc(var(--base) * 2));
+$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, calc(var(--base) * 2));
 
 .c-select__container {
     position: relative;
@@ -43,7 +53,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__action-overlay {
         cursor: pointer;
-        z-index: var_properties.$level-4;
+        z-index: var(--level-4);
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -53,12 +63,12 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     .c-select__search-field {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-        background-color: #FFF;
+        background-color: var(--color--white);
         border: $c-select-border-width solid $c-select-border-color;
         border-left: none;
         border-right: none;
         border-top: none;
-        padding: #{var_default.$base};
+        padding: #{var(--base)};
         padding-top: 0;
     }
 
@@ -84,7 +94,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: var_properties.$level-5;
+            z-index: var(--level-5);
         }
     }
 
@@ -94,7 +104,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-6;
+        z-index: var(--level-6);
         height: 100%;
         color: var_colors.$color-primary;
         display: flex;
@@ -111,7 +121,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         top: 0;
         left: auto;
         padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-2;
+        z-index: var(--level-2);
         transition: none;
         height: 100%;
         color: var_colors.$color-primary;
@@ -134,13 +144,13 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     &.c-select--rounded {
         select {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: calc(var(--base) * 3);
             border: none;
             font-weight: 700;
         }
 
         .c-field__label {
-            margin-left: calc(var_default.$base * 2);
+            margin-left: calc(var(--base) * 2);
         }
 
         &.c-select--rounded-border {
@@ -238,7 +248,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         color: var_colors.$color-white;
         background-color: var_colors.$color-danger;
         border: none;
-        border-radius: 0 0 calc($c-select-border-radius * var_default.$base) calc($c-select-border-radius * var_default.$base);
+        border-radius: 0 0 calc($c-select-border-radius * var(--base)) calc($c-select-border-radius * var(--base));
         box-sizing: border-box;
 
         &.error {
@@ -295,7 +305,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     &.is-open {
 
         .c-select__dropdown {
-            z-index: var_properties.$level-8;
+            z-index: var(--level-8);
             display: block;
             border-top: none;
             border-top-left-radius: 0;
@@ -316,28 +326,28 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
     .c-select__dropdown {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
-        background-color: #FFF;
+        background-color: var(--color--white);
         position: absolute;
         top: 100%;
         width: 100%;
-        max-height: calc(var_default.$base * 30);
+        max-height: calc(var(--base) * 30);
         overflow-y: auto;
-        z-index: var_properties.$level-3;
-        padding: #{var_default.$base} 0;
+        z-index: var(--level-3);
+        padding: #{var(--base)} 0;
         border: $c-select-border-width solid $c-select-border-color;
     }
 
     .c-select__option {
         display: flex;
-        gap: calc(#{var_default.$base} * 1.5);
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
+        gap: calc(#{var(--base)} * 1.5);
+        padding: calc(#{var(--base)} * 1.5) calc(#{var(--base)} * 2);
         align-items: center;
         cursor: pointer;
         user-select: none;
         margin-top: 0;
 
         &:hover {
-            background-color: rgba(#000, .2);
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
         .c-select__option-icon {
@@ -376,7 +386,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
             .c-select__option-label,
             .c-select__option-icon {
-                transform: translateX(calc(#{var_default.$base} * 0.5));
+                transform: translateX(calc(#{var(--base)} * 0.5));
             }
         }
     }

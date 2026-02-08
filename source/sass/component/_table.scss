@@ -6,8 +6,37 @@
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-table-background-color-odd: var(--c-table-background-color-odd, var_colors.$color-light);
-$c-table-background-color-even: var(--c-table-background-color-even, var_colors.$color-lightest);
+/* Component CSS Variables */
+
+/* Table Typography */
+$c-table-font-family-italic: var(--c-table-font-family-italic, var(--font-family-base));
+$c-table-font-weight-italic: var(--c-table-font-weight-italic, var(--font-weight-normal));
+$c-table-font-family-bold: var(--c-table-font-family-bold, var(--font-family-base));
+$c-table-font-weight-bold: var(--c-table-font-weight-bold, var(--font-weight-bold));
+$c-table-font-weight-heading: var(--c-table-font-weight-heading, var(--font-weight-medium));
+$c-table-font-size-caption: var(--c-table-font-size-caption, var(--font-size-base));
+
+/* Table Colors */
+$c-table-caption-color: var(--c-table-caption-color, var(--color--dark));
+$c-table-heading-color: var(--c-table-heading-color, var(--color--text));
+$c-table-body-color: var(--c-table-body-color, var(--color--text));
+$c-table-background-color-odd: var(--c-table-background-color-odd, var(--color--light));
+$c-table-background-color-even: var(--c-table-background-color-even, var(--color--lighter));
+$c-table-hover-background: var(--c-table-hover-background, var(--color--accent));
+$c-table-border-color: var(--c-table-border-color, var(--color--lighter));
+
+/* Table Scroll Indicator Colors */
+$c-table-scroll-indicator-bg: var(--c-table-scroll-indicator-bg, var(--color--lighter));
+$c-table-scroll-indicator-bar: var(--c-table-scroll-indicator-bar, var(--color--primary));
+$c-table-scroll-indicator-radius: var(--c-table-scroll-indicator-radius, calc(var(--radius-lg) * 4));
+
+/* Table Spacing */
+$c-table-header-padding: var(--c-table-header-padding, var(--spacing-sm));
+$c-table-column-padding: var(--c-table-column-padding, var(--spacing-sm));
+$c-table-footer-padding: var(--c-table-footer-padding, var(--spacing-sm));
+
+/* Table Z-index */
+$c-table-column-z-index: var(--c-table-column-z-index, var(--level-1));
 
 .c-table {
     position: relative;
@@ -18,7 +47,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     }
 
     .c-table__header {
-        padding: calc(#{var_default.$base} * 1.5);
+        padding: $c-table-header-padding;
     }
 
     .c-table__inner {
@@ -32,15 +61,15 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
     .c-table__footer {
         width: 100%;
-        padding: 0 calc(#{var_default.$base} * 2);
+        padding: 0 $c-table-footer-padding;
     }
 
     .c-table__caption {
-        font-size: calc(#{var_default.$base} * 2);
-        font-weight: var_fonts.$font-weight-italic;
-        font-family: var_fonts.$font-family-italic;
+        font-size: $c-table-font-size-caption;
+        font-weight: $c-table-font-weight-italic;
+        font-family: $c-table-font-family-italic;
         font-style: italic;
-        color: var_colors.$color-dark;
+        color: $c-table-caption-color;
     }
 
     .c-table__title {
@@ -49,7 +78,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
     .c-table__fullscreen {
         position: absolute;
-        right: calc(#{var_default.$base} * 2);
+        right: calc(#{var(--base)} * 2);
         cursor: pointer;
     }
 
@@ -64,17 +93,17 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
     .c-table__column {
         position: relative;
-        padding: calc(#{var_default.$base} * 1.5);
+        padding: $c-table-column-padding;
         vertical-align: top;
-        min-width: calc(#{var_default.$base} * 13);
+        min-width: calc(#{var(--base)} * 13);
     }
 
     /**
      * Table head
      */
     .c-table__head {
-        font-weight: var_colors.$table-heading-font-weight;
-        color: var_colors.$color-table-heading;
+        font-weight: $c-table-font-weight-heading;
+        color: $c-table-heading-color;
 
         .c-table__column-content  {
             display: flex;
@@ -85,8 +114,8 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
 
         .c-table__heading {
             display: inline-block;
-            padding-right: calc(#{var_default.$base} * 2);
-            max-width: calc(100% - calc(#{var_default.$base} * 2));
+            padding-right: calc(#{var(--base)} * 2);
+            max-width: calc(100% - calc(#{var(--base)} * 2));
             text-overflow: ellipsis;
             overflow: hidden; 
         }
@@ -106,7 +135,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Table body
      */
     .c-table__body {
-        color: var_colors.$color-table-body;
+        color: $c-table-body-color;
 
         .c-table__line .c-table__column {
             transition: background-color 100ms ease;
@@ -121,11 +150,11 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
         }
 
         .c-table__line:hover .c-table__column {
-            background: var_colors.$color-complementary;
+            background: $c-table-hover-background;
         }
 
         .c-table__column {
-            border-right: 1px solid $c-table-background-color-even;
+            border-right: 1px solid $c-table-border-color;
         }
 
         .c-table__column:last-of-type {
@@ -134,23 +163,23 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     }
 
     .c-table__column.c-table__column-0 {
-        z-index: var_properties.$level-1;
+        z-index: $c-table-column-z-index;
     }
 
     /**
      * Scroll indicator
      */
     .c-table__scroll-indicator-wrapper {
-        margin: calc(#{var_default.$base} * 2) 0;
+        margin: calc(#{var(--base)} * 2) 0;
         width: 100%;
-        background-color: var_colors.$color-lighter;
-        height: calc(#{var_default.$base} * 1.5);
-        border-radius: calc(var_border-radius.$border-radius-lg * 4);
+        background-color: $c-table-scroll-indicator-bg;
+        height: calc(#{var(--base)} * 1.5);
+        border-radius: $c-table-scroll-indicator-radius;
     }
 
     .c-table__scroll-indicator {
         width: 50%;
-        background-color: var_colors.$color-primary;
+        background-color: $c-table-scroll-indicator-bar;
         height: inherit;
         border-radius: inherit;
         cursor: grab;
@@ -189,8 +218,8 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      * Modifier for summary line
      */
     &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
-        font-weight: var_fonts.$font-weight-bold;  
-        font-family: var_fonts.$font-family-bold;
+        font-weight: $c-table-font-weight-bold;
+        font-family: $c-table-font-family-bold;
     }
 
     /**
@@ -201,14 +230,14 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
         &.is-collapsed {
            .c-table__column-0 {
 
-                min-width: calc(#{var_default.$base} * 10);
+                min-width: calc(#{var(--base)} * 10);
 
                 @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: min(calc(#{var_default.$base} * 25), 25vw);
+                    max-width: min(calc(#{var(--base)} * 25), 25vw);
                 }
 
                 @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: calc(#{var_default.$base} * 25);
+                    max-width: calc(#{var(--base)} * 25);
                 }
 
                 .c-table__column-content {
@@ -229,7 +258,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
             top: 0;
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                max-width: calc(#{var_default.$base} * 60);
+                max-width: calc(#{var(--base)} * 60);
             }
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
@@ -263,15 +292,15 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
  * Embedded in modal
  */
 .c-table__modal {
-    margin: calc(#{var_default.$base} * 2);
-    height: calc(100vh - calc(#{var_default.$base} * 4));
+    margin: calc(#{var(--base)} * 2);
+    height: calc(100vh - calc(#{var(--base)} * 4));
 
     .c-modal__header .c-modal__close .c-icon {
-        color: var(--color-black, #000000);
+        color: var(--color--black);
     }
 
     .c-table__table {
-        border: 1px solid var_colors.$color-lighter;
+        border: 1px solid $c-table-border-color;
     }
 
     .c-table .c-table__header {

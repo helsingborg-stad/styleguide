@@ -11,15 +11,15 @@
     /* Base modifiers */
     @for $i from 0 through 24 {
         &--gap-#{$i} {
-            gap: calc(#{$i} * #{var_default.$base} * .5);
+            gap: calc(#{$i} * #{var(--base)} * .5);
         }
 
         &--row-gap-#{$i} {
-            row-gap: calc(#{$i} * #{var_default.$base} * .5);
+            row-gap: calc(#{$i} * #{var(--base)} * .5);
         }
 
         &--column-gap-#{$i} {
-            column-gap: calc(#{$i} * #{var_default.$base} * .5);
+            column-gap: calc(#{$i} * #{var(--base)} * .5);
         }
 
         &--order-#{$i} {
@@ -80,15 +80,15 @@
 
             @for $i from 0 through 24 {
                 &--gap-#{$i}\@#{$breakpoint} {
-                    gap: calc(#{$i} * #{var_default.$base} * .5);
+                    gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--row-gap-#{$i}\@#{$breakpoint} {
-                    row-gap: calc(#{$i} * #{var_default.$base} * .5);
+                    row-gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--column-gap-#{$i}\@#{$breakpoint} {
-                    column-gap: calc(#{$i} * #{var_default.$base} * .5);
+                    column-gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--order-#{$i}\@#{$breakpoint} {
@@ -136,15 +136,15 @@
 
             @for $i from 0 through 24 {
                 &--gap-#{$i}\@cq-#{$container-breakpoint} {
-                    gap: calc(#{$i} * #{var_default.$base} * .5);
+                    gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--row-gap-#{$i}\@cq-#{$container-breakpoint} {
-                    row-gap: calc(#{$i} * #{var_default.$base} * .5);
+                    row-gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--column-gap-#{$i}\@cq-#{$container-breakpoint} {
-                    column-gap: calc(#{$i} * #{var_default.$base} * .5);
+                    column-gap: calc(#{$i} * #{var(--base)} * .5);
                 }
 
                 &--order-#{$i}\@cq-#{$container-breakpoint} {

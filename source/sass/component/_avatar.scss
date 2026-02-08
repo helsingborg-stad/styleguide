@@ -6,7 +6,7 @@
 
 .c-avatar {
     border-radius: 50%;
-    background: var_colors.$color-secondary;
+    background: var(--color--secondary);
     line-height: 0;
     position: relative;
     contain: paint;
@@ -59,7 +59,7 @@
 
         .c-icon {
             @include center.center();
-            color: #fff;
+            color: var(--color--white);
         }
     }
 }

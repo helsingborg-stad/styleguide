@@ -7,7 +7,7 @@
 @use "../setting/var_default";
 @use "../setting/var_fonts";
 
-$c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-radius-xs) !default;
+$c-image-border-radius: var(--c-image-border-radius, var(--radius-xs));
 
 
 // ***************************************************************
@@ -20,17 +20,17 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
     
     .c-image__caption,
     .c-image__byline {
-        font-size: var_fonts.$font-size-caption;
-        line-height: var_fonts.$line-height-caption;
+        font-size: var(--font-size-caption);
+        line-height: var(--line-height-caption);
         margin-top: map.get(var_default.$spacers, '1');
     }
 
     .c-image__caption {
-        color: var_colors.$color-darkest;
+        color: var(--color--darkest);
     }
 
     .c-image__byline {
-        color: var_colors.$color-dark;
+        color: var(--color--dark);
     }
 
     .c-image__modal {
@@ -53,27 +53,27 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
 
     &.c-image--radius-xs .c-image__image,
     &.c-image--radius-xs .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-xs;
+        border-radius: var(--radius-xs);
     }
 
     &.c-image--radius-sm .c-image__image,
     &.c-image--radius-sm .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-sm;
+        border-radius: var(--radius-sm);
     }
 
     &.c-image--radius-md .c-image__image,
     &.c-image--radius-md .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-md;
+        border-radius: var(--radius-md);
     }
 
     &.c-image--radius-lg .c-image__image,
     &.c-image--radius-lg .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: var(--radius-lg);
     }
 
     &.c-image--radius-full .c-image__image,
     &.c-image--radius-full .c-image__image-wrapper {
-        border-radius: var_border-radius.$border-radius-full;
+        border-radius: var(--radius-full);
     }
 
     &.c-image--full-width .c-image__image {
@@ -104,7 +104,7 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
         margin: 0 auto;
         position: absolute;
         bottom: calc( #{map.get(var_default.$spacers, '8')} * -1);
-        color: var_colors.$color-white;
+        color: var(--color--white);
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
@@ -157,8 +157,8 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
     @include ratio.ratio(16, 9, true);
     position: relative;
     line-height: 0;
-    border: 1px solid var_colors.$color-image-placeholder-border;
-    background-color: var_colors.$color-image-placeholder-background;
+    border: 1px solid var(--color--image-placeholder-border);
+    background-color: var(--color--image-placeholder-background);
     user-select: none;
 }
 
@@ -174,7 +174,7 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
     }
 
     .c-icon {
-        color: var_colors.$color-image-placeholder-icon;
+        color: var(--color--image-placeholder-icon);
 
         &.c-icon--svg-link {
             width: clamp(1em, 25%, 3em);
@@ -186,9 +186,9 @@ $c-image-border-radius: var(--c-image-border-radius, var_border-radius.$border-r
     }
 
     .c-image__placeholder-text {
-        color: var_colors.$color-image-placeholder-label;
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
+        color: var(--color--image-placeholder-label);
+        font-weight: var(--font-weight-bold);
+        font-family: var(--font-family-bold);
     }
 
     .c-icon + .c-image__placeholder-text {

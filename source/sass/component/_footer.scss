@@ -4,22 +4,23 @@
 @use "../setting/var_colors";
 @use "../setting/var_default";
 
-$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5) !default;
-$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-padding: calc(var(--c-footer-padding, 3) * #{var_default.$base}) !default;
-$c-footer-color-text: var(--c-footer-color-text, #000) !default;
-$c-footer-subfooter-height-logotype: calc(var(--c-footer-subfooter-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{var_default.$base}) !default;
-$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, var_colors.$color-white) !default;
-$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, var_colors.$color-black) !default;
-$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center) !default;
-$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row) !default;
-$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3) !default;
-$c-footer-header-border-size: var(--c-footer-header-border-size, 1px) !default;
-$c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.$color-alpha}) !default;
+/* Component CSS Variables */
+$c-footer-background-color: var(--c-footer-background-color, var(--color--surface));
+$c-footer-color-text: var(--c-footer-color-text, var(--color--text));
+$c-footer-height-logotype: var(--c-footer-height-logotype, calc(var(--base) * 6));
+$c-footer-padding: var(--c-footer-padding, var(--spacing-md));
+$c-footer-subfooter-height-logotype: var(--c-footer-subfooter-height-logotype, calc(var(--base) * 6));
+$c-footer-subfooter-background: var(--c-footer-subfooter-background, var(--color--white));
+$c-footer-subfooter-text: var(--c-footer-subfooter-text, var(--color--black));
+$c-footer-subfooter-padding: var(--c-footer-subfooter-padding, var(--spacing-md));
+$c-footer-subfooter-separator: var(--c-footer-subfooter-separator, var(--color--ring));
+$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center);
+$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
+$c-footer-header-border-size: var(--c-footer-header-border-size, var(--border-width-thin));
+$c-footer-header-border-color: var(--c-footer-header-border-color, var(--color--border));
 
 .c-footer {
-    background-color: var_colors.$color-default;
+    background-color: $c-footer-background-color;
     color: $c-footer-color-text;
 
     a,
@@ -54,7 +55,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
     }
 
     &__links {
-        margin-bottom: calc(#{var_default.$base} * 3);
+        margin-bottom: calc(#{var(--base)} * 3);
 
         & h4 {
             font-weight: headings.$h4-font-weight;
@@ -62,33 +63,33 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
         }
 
         & a {
-            color: #707070;
+            color: var(--color--dark);
             text-decoration: none;
             display: inline-block;
         }
     }
 
     &__links div {
-        color: #707070;
+        color: var(--color--dark);
         text-decoration: none;
         display: inline-block;
     }
 
     &__link-divider {
         display: inline-block;
-        background-color:#565656;
+        background-color: var(--color--darker);
         border-radius: 50%;
-        height: calc(#{var_default.$base} / 2);
-        width: calc(#{var_default.$base} / 2);
-        margin-bottom: calc(#{var_default.$base} / 2);
-        margin-left: var_default.$base;
-        margin-right: var_default.$base;
+        height: calc(#{var(--base)} / 2);
+        width: calc(#{var(--base)} / 2);
+        margin-bottom: calc(#{var(--base)} / 2);
+        margin-left: var(--base);
+        margin-right: var(--base);
     }
     
     &__widget-area {
-        gap: calc(#{var_default.$base} * 2);
+        gap: calc(#{var(--base)} * 2);
         .footer-title {
-            margin-bottom: calc(#{var_default.$base} * 2);
+            margin-bottom: calc(#{var(--base)} * 2);
         }
         li {
             padding-left: 0;
@@ -100,11 +101,11 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
         height: $c-footer-height-logotype;
 
         @include mq.mq('xs') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(calc(#{var(--base)} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
         }
     
         @include mq.mq('md') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(calc(#{var(--base)} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
         }
     
         @include mq.mq('lg') {
@@ -119,7 +120,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
     &__prefooter-wrapper, &__widget-area {
         ul, p, figure {
             margin: 0;
-            margin-bottom: #{var_default.$base};
+            margin-bottom: #{var(--base)};
         }
     }
 
@@ -131,8 +132,8 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
     }
 
     &__subfooter {
-        color: $c-footer-subfooter-color-text;
-        background: $c-footer-subfooter-color-background;
+        color: $c-footer-subfooter-text;
+        background: $c-footer-subfooter-background;
         padding: $c-footer-subfooter-padding 0;
         font-size: .9rem;
 
@@ -140,7 +141,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
         a:hover,
         a:visited,
         a:active {
-            color: $c-footer-subfooter-color-text;
+            color: $c-footer-subfooter-text;
         }
 
         &__wrapper {
@@ -172,7 +173,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: $c-footer-subfooter-color-separator;
+                    background: $c-footer-subfooter-separator;
                     display: none;
                     position: absolute;
                     width: 6px;
@@ -280,7 +281,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
             }
 
             &__logotype {
-                height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-subfooter-height-logotype * 0.75), $c-footer-subfooter-height-logotype);
+                height: clamp(calc(#{var(--base)} * 3), calc($c-footer-subfooter-height-logotype * 0.75), $c-footer-subfooter-height-logotype);
             }
 
             &--horizontal {

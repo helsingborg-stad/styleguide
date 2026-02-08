@@ -9,7 +9,7 @@
 
     &__circular {
 
-        color: #000;
+        color: var(--color--black);
         margin: 0px auto;
         border-radius: 50%;
         position: relative;
@@ -18,15 +18,15 @@
         transform: translateZ(0);
 
         &--color--primary {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
 
         &--color--secondary {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
 
         &--color--white {
-            color: #fff;
+            color: var(--color--white);
         }
 
         &--xl {
@@ -165,7 +165,7 @@
     }
 
     &__linear {
-        color: #000;
+        color: var(--color--black);
         font-size: 10px;
         margin: 0px auto;
         position: relative;
@@ -174,15 +174,15 @@
         animation-delay: -0.16s;
 
         &--color--primary {
-            color: var_colors.$color-primary;
+            color: var(--color--primary);
         }
 
         &--color--secondary {
-            color: var_colors.$color-secondary;
+            color: var(--color--secondary);
         }
 
         &--color--white {
-            color: #fff;
+            color: var(--color--white);
         }
 
         &--lg,

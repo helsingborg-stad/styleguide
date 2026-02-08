@@ -1,5 +1,3 @@
-@use "../setting/var_properties";
-
 @for $i from 1 through 10 {
 
     .u-level-#{$i},
@@ -10,10 +8,10 @@
 
 .u-level-top,
 .u-level--top {
-    z-index: #{var_properties.$level-top} !important;
+    z-index: 99999 !important;
 }
 
 .u-level-bottom,
 .u-level--bottom {
-    z-index: #{var_properties.$level-bottom} !important;
+    z-index: 1 !important;
 }

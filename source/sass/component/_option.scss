@@ -6,16 +6,27 @@
 @use "../setting/var_fonts";
 
 
-$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker) !default;
-$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black) !default;
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height) !default;
+/**********************************************************
+ * OPTION COMPONENT CSS VARIABLES
+ * Component-level tokens for checkbox/radio options.
+ **********************************************************/
 
-$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
+// Label Colors
+$c-option-label-color: var(--c-option-label-color, var(--color--darker));
+$c-option-label-active-color: var(--c-option-label-active-color, var(--color--black));
+
+// Font Sizes - Map to base semantic sizes
+$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var(--font-size-caption));
+$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, calc(var(--base) * 1.5));
+$c-option-label-font-size-md: var(--c-option-label-font-size-md, var(--font-size-base));
+$c-option-label-line-height-md: var(--c-option-label-line-height-md, calc(var(--base) * 2));
+
+// Border & State Colors
+$c-option-border-color: var(--c-option-border-color, var(--color--border));
+$c-option-danger-color: var(--c-option-danger-color, var(--color--error));
+$c-option-success-color: var(--c-option-success-color, var(--color--success));
+$c-option-check-color: var(--c-option-check-color, var(--color--primary));
+$c-option-bg-color: var(--c-option-bg-color, var(--color--white));
 
 .c-option {
 
@@ -32,9 +43,9 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             position: relative;
             height: 18px;
             width: 18px;
-            border: 2px solid var_colors.$color-primary;
-            background-color: var_colors.$color-white;
-            border-radius: var_border-radius.$border-radius-xs;
+            border: 2px solid $c-option-check-color;
+            background-color: $c-option-bg-color;
+            border-radius: var(--radius-xs);
             cursor: pointer;
         }
 
@@ -107,7 +118,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             width: 20px;
             border: 2px solid var_colors.$color-primary;
             background-color: var_colors.$color-white;
-            border-radius: var_border-radius.$border-radius-full;
+            border-radius: var(--radius-full);
             cursor: pointer;
         }
 
@@ -132,7 +143,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
                     width: 10px;
                     height: 10px;
                     background-color: var_colors.$color-primary;
-                    border-radius: var_border-radius.$border-radius-full;
+                    border-radius: var(--radius-full);
                 }
             }
 

@@ -1,10 +1,22 @@
-@use "../setting/var_properties";
 @use "../mixin/build-utility";
+
+$display-states: (
+    none:           (display: none),
+    inline:         (display: inline),
+    inline-block:   (display: inline-block),
+    block:          (display: block),
+    table:          (display: table),
+    table-cell:     (display: table-cell),
+    table-row:      (display: table-row),
+    flex:           (display: flex),
+    grid:           (display: grid),
+    inline-flex:    (display: inline-flex)
+);
 
 $display-utils: (
     (
         name: "display",
-        modifiers: var_properties.$display-states
+        modifiers: $display-states
     )
 );
 

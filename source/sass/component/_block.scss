@@ -6,11 +6,11 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-block-border-radius: var(--c-block-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-block-color: var(--c-block-color, var_colors.$color-white) !default;
-$c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light) !default;
-$c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha) !default;
-$c-block-image-background-color: var(--c-block-image-background-color, var_colors.$color-secondary) !default;
+$c-block-border-radius: var(--c-block-border-radius, var(--radius-lg));
+$c-block-color: var(--c-block-color, var_colors.$color-white);
+$c-block-background-color: var(--c-block-background-color, var_colors.$color-gray-light);
+$c-block-color-overlay: var(--c-block-color-overlay, var_colors.$color-alpha);
+$c-block-image-background-color: var(--c-block-image-background-color, var_colors.$color-secondary);
 
 .c-block {
     position: relative;
@@ -36,14 +36,14 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
     }
 
     .c-block__body {
-        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3) calc(#{var_default.$base} * 3) calc(#{var_default.$base} * 3);
+        padding: calc(#{var(--base)} * 6) calc(#{var(--base)} * 3) calc(#{var(--base)} * 3) calc(#{var(--base)} * 3);
         width: 100%;
         z-index: 0;
         max-height: 100%;
         overflow: hidden;
         display: flex; 
         flex-direction: column;
-        gap: #{var_default.$base};
+        gap: #{var(--base)};
         margin-top: auto;
         position: relative;
 
@@ -73,9 +73,9 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
 
     .c-block__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
-        z-index: var_properties.$level-3;
+        right: var(--base);
+        top: var(--base);
+        z-index: var(--level-3);
     }
 
     .c-block__heading, 
@@ -133,7 +133,7 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
     }
 
     &--svg-background {
-        background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+        background-size: clamp(#{var(--base)} * 3, 50%, #{var(--base)} * 8);
         background-repeat: no-repeat;
         background-color: $c-block-image-background-color;
     }
@@ -150,14 +150,14 @@ a.c-block {
         @include cover.cover(); 
         background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: var(--level-1);
     }
 
     &:hover {
         filter: var_properties.$drop-shadow-3;
         background-color: var_colors.$color-lightest;
         color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var(--base)} * 0.25 ));
 
         .c-block__heading {
             text-decoration: underline;

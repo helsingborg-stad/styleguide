@@ -3,19 +3,19 @@
 
 ul, ol {
     margin: 0;
-    margin-top: calc(#{var_default.$base} * 2);
-    padding-left: calc(#{var_default.$base} * 3);
+    margin-top: calc(#{var(--base)} * 2);
+    padding-left: calc(#{var(--base)} * 3);
 
     li {
         position: relative;
     }
 
     li {
-        padding-left: calc(#{var_default.$base}/2);
+        padding-left: calc(#{var(--base)}/2);
     }
 
     li + li {
-        margin-top: var_default.$base;
+        margin-top: var(--base);
     }
 }
 

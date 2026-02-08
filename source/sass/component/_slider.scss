@@ -10,11 +10,25 @@
 
 /*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
+/* Component CSS Variables */
+
+/* Slider Colors */
+$c-slider-autoslide-color: var(--c-slider-autoslide-color, var(--color--primary));
+$c-slider-autoslide-bg: var(--c-slider-autoslide-bg, var(--color--white));
+$c-slider-stepper-background: var(--c-slider-stepper-background, var(--color--ring));
+$c-slider-stepper-active-background: var(--c-slider-stepper-active-background, var(--color--primary));
+
+/* Slider Shadows */
+$c-slider-shadow: var(--c-slider-shadow, var(--shadow-2));
+
+/* Slider Borders */
+$c-slider-border-radius: var(--c-slider-border-radius, var(--radius-md));
+
 .c-slider {
-    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
-    
+    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var(--base)} * 200) - calc(#{var(--base)} * var(--c-slider-padding, 7)));
+
     position: relative;
-    border-radius: var_border-radius.$border-radius-md;
+    border-radius: $c-slider-border-radius;
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -34,7 +48,7 @@
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: var_properties.$drop-shadow-2;
+            filter: $c-slider-shadow;
         }
     }
 
@@ -51,29 +65,29 @@
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{var_default.$base} * 4);
-            height: calc(#{var_default.$base} * 4);
+            width: calc(#{var(--base)} * 4);
+            height: calc(#{var(--base)} * 4);
 
              &.c-slider__arrow--prev {
-                left: calc(var_default.$base * -1.5);
+                left: calc(var(--base) * -1.5);
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: calc(var_default.$base * -1.5);
+                right: calc(var(--base) * -1.5);
                 transform: translateY(-50%);
             }
 
             @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                width: calc(#{var_default.$base} * 6);
-                height: calc(#{var_default.$base} * 6);
+                width: calc(#{var(--base)} * 6);
+                height: calc(#{var(--base)} * 6);
 
                 &.c-slider__arrow--prev {
-                    left: calc(#{var_default.$base} * 2.5);
+                    left: calc(#{var(--base)} * 2.5);
                 }
 
                 &.c-slider__arrow--next {
-                    right: calc(#{var_default.$base} * 2.5);
+                    right: calc(#{var(--base)} * 2.5);
                 }
             }
         }
@@ -107,14 +121,14 @@
         position: relative;
         display: none;
         cursor: pointer;
-        width: calc(#{var_default.$base} * 5);
-        height: calc(#{var_default.$base} * 5);
-        color: var_colors.$color-primary;
+        width: calc(#{var(--base)} * 5);
+        height: calc(#{var(--base)} * 5);
+        color: $c-slider-autoslide-color;
         z-index: 1;
-        margin: calc(#{var_default.$base} * 1);
-        
+        margin: calc(#{var(--base)} * 1);
+
         @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
-            margin: calc(#{var_default.$base} * 3);
+            margin: calc(#{var(--base)} * 3);
         }
 
         .c-slider__autoslide-play {
@@ -124,9 +138,9 @@
         &:before {
             content: "";
             display: block;
-            background: #fff;
-            width: calc(#{var_default.$base} * 3);
-            height: calc(#{var_default.$base} * 3);
+            background: $c-slider-autoslide-bg;
+            width: calc(#{var(--base)} * 3);
+            height: calc(#{var(--base)} * 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -153,10 +167,10 @@
     }
 
     &.c-slider--has-stepper {
-        margin-bottom: calc(#{var_default.$base} * 6);
+        margin-bottom: calc(#{var(--base)} * 6);
 
         .c-slider__steppers {
-            margin-bottom: calc(calc(#{var_default.$base} * 3) * -1);
+            margin-bottom: calc(calc(#{var(--base)} * 3) * -1);
             transform: translateY(-50%);
         }
     }
@@ -194,7 +208,7 @@
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: var_properties.$drop-shadow-2;
+                filter: $c-slider-shadow;
             }
         }
 
@@ -203,11 +217,11 @@
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
-            left: calc(var_default.$base * -1);
+            left: calc(var(--base) * -1);
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--next {
-            right: calc(var_default.$base * -1);
+            right: calc(var(--base) * -1);
         }
 
         .c-slider__item {
@@ -244,7 +258,7 @@
     position: absolute;
     bottom: 0;
     display: flex;
-    gap: calc(#{var_default.$base} * 0.5);
+    gap: calc(#{var(--base)} * 0.5);
     justify-content: center;
     width: 100%;
     list-style: none;
@@ -257,24 +271,24 @@
     }
 
     li:first-of-type .c-slider__dot {
-        border-top-left-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
+        border-top-left-radius: calc(#{var(--base)} * 0.5);
+        border-bottom-left-radius: calc(#{var(--base)} * 0.5);
     }
 
     li:last-of-type .c-slider__dot {
-        border-top-right-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
+        border-top-right-radius: calc(#{var(--base)} * 0.5);
+        border-bottom-right-radius: calc(#{var(--base)} * 0.5);
     }
 
     .c-slider__dot {
-        background: var_colors.$color-gray;
+        background: $c-slider-stepper-background;
         cursor: default;
-        width: calc(#{var_default.$base} * 2);
-        height: calc(#{var_default.$base} * 0.5);
+        width: calc(#{var(--base)} * 2);
+        height: calc(#{var(--base)} * 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            background: var_colors.$color-primary;
+            background: $c-slider-stepper-active-background;
         }
     }
 

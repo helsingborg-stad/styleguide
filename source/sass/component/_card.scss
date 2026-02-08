@@ -7,23 +7,36 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, var_border-radius.$border-radius-lg) !default;
+/**********************************************************
+ * CARD COMPONENT CSS VARIABLES
+ * Component-level tokens for card styling.
+ **********************************************************/
 
-$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
-$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;
+// Colors
+$c-card-color-background: var(--c-card-color-background, var(--color--surface));
+$c-card-image-background-color: var(--c-card-image-background-color, var(--color--secondary));
+$c-card-text-color: var(--c-card-text-color, var(--color--text));
 
-$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline) !default;
-$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline) !default;
+// Borders & Radius
+$c-card-border-radius: var(--c-card-border-radius, var(--radius-lg));
+$c-card-border-width: var(--c-card-border-width, 0px);
+$c-card-border-color: var(--c-card-border-color, var(--color--border));
+$c-card-border-width-outline: var(--c-card-border-width-outline, var(--border-width-thin));
+$c-card-border-color-outline: var(--c-card-border-color-outline, var(--color--border));
+$c-card-border-width-divider: var(--c-card-border-width-divider, var(--border-width-divider));
+$c-card-border-color-divider: var(--c-card-border-color-divider, var(--color--border));
 
-$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider) !default;
-$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider) !default;
+// Shadows
+$c-card-shadow: var(--c-card-shadow, var(--shadow-2));
+$c-card-shadow-hover: var(--c-card-shadow-hover, var(--shadow-3));
 
-$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
+// Spacing
+$c-card-padding: var(--c-card-padding, var(--spacing-md));
+$c-card-gap: var(--c-card-gap, var(--spacing-sm));
 
 .c-card {
     container-type: inline-size;
-    filter: var_properties.$drop-shadow-2;
+    filter: $c-card-shadow;
     will-change: filter;
     display: flex;
     flex-direction: column;
@@ -108,9 +121,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     
     &__date {
         display: flex;
-        gap: calc(#{var_default.$base} * 0.5);
+        gap: calc(#{var(--base)} * 0.5);
         align-items: center;
-        margin-top: calc(#{var_default.$base} * 0.5);
+        margin-top: calc(#{var(--base)} * 0.5);
     }
     
     &__dropdown {
@@ -175,9 +188,9 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     /* Floating items top right corner (on image) */
     .c-card__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
-        z-index: var_properties.$level-3;
+        right: var(--base);
+        top: var(--base);
+        z-index: var(--level-3);
     }
 
     .c-card__content-after {
@@ -212,16 +225,16 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     &--highlight {
         .c-card__header,
         .c-card__body {
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: var(--base) solid var_colors.$color-primary;
         }
     }
 
     &--accented {
         .c-card {
-            margin-bottom: var_default.$base;
+            margin-bottom: var(--base);
         }
         .c-card__header {
-            border-bottom: calc(#{var_default.$base} / 2) solid var_colors.$color-primary;
+            border-bottom: calc(#{var(--base)} / 2) solid var_colors.$color-primary;
             background: var_colors.$color-white;
         }
         .c-typography {
@@ -264,21 +277,21 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     /* Datebadge */ 
     .c-card__datebadge {
         position: absolute;
-        margin: calc(var_default.$base * 2);
+        margin: calc(var(--base) * 2);
     }
 
     &.c-card--has-datebadge {
         .c-card__datebadge {
             margin: 0;
-            left: calc(var_default.$base * 2);
-            top: calc(var_default.$base * 2);
+            left: calc(var(--base) * 2);
+            top: calc(var(--base) * 2);
         }
 
         &:not(.c-card--has-image) {
 
             .c-card__heading-container,
             .c-card__content {
-                padding-left: calc(var_default.$base * 9.5);
+                padding-left: calc(var(--base) * 9.5);
             }
         }
     }
@@ -318,7 +331,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
 
     &--svg-background {
         .c-card__image-background {
-            background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+            background-size: clamp(#{var(--base)} * 3, 50%, #{var(--base)} * 8);
             background-repeat: no-repeat;
             background-color: $c-card-image-background-color;
         }   
@@ -361,14 +374,14 @@ a.c-card {
         width: 100%;
         background: var_colors.$color-lighter;
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: var(--level-1);
     }
     
     &:hover {
         filter: var_properties.$drop-shadow-3;
         background-color: var_colors.$color-lightest;
         color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        transform: translateY(calc( 0px - #{var(--base)} * 0.25 ));
         transition: all 200ms ease-out;
         
         .c-card__heading {

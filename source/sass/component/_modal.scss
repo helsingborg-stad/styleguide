@@ -5,15 +5,15 @@
 @use "../setting/var_default";
 @use "../setting/var_properties";
 
-$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.$border-radius-md) !default;
-$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
+$c-modal-border-radius: var(--c-modal-border-radius, var(--radius-md));
+$c-modal-backdrop-color: var(--c-modal-backdrop-color, var(--color--muted));
 
 .c-block[data-open] {
     cursor: pointer;
 }
 
 .c-modal {
-    background-color: white;
+    background-color: var(--color--white);
     gap: map.get(var_default.$spacers, "2");
     flex-direction: column;
     width: 100%;
@@ -22,13 +22,13 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     display: none;
     border: none;
     border-radius: $c-modal-border-radius;
-    filter: var_properties.$drop-shadow-3;
+    filter: var(--shadow-3);
     max-width: 800px;
     max-height: 90vh;
     position: fixed;
 
     .c-modal__close.c-button {
-        color: var_colors.$color-black;
+        color: var(--color--black);
     }
 
     .c-image {
@@ -71,8 +71,8 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     &.search-modal {
         #modal-search-form {
-            margin-top: calc(var_default.$base * 1);
-            margin-bottom: calc(var_default.$base * 1);
+            margin-top: calc(var(--base) * 1);
+            margin-bottom: calc(var(--base) * 1);
         }
     }
 
@@ -92,15 +92,15 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &--border-radius-sm {
-        border-radius: var_border-radius.$border-radius-sm;
+        border-radius: var(--radius-sm);
     }
 
     &--border-radius-md {
-        border-radius: var_border-radius.$border-radius-md;
+        border-radius: var(--radius-md);
     }
 
     &--border-radius-lg {
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: var(--radius-lg);
     }
 
     .c-modal.c-modal--size-sm {
@@ -229,7 +229,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
             right: map.get(var_default.$spacers, "1");
 
             i {
-                font-size: calc(var_default.$base * 3);
+                font-size: calc(var(--base) * 3);
             }
         }
 
@@ -246,7 +246,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
             bottom: #{map.get(var_default.$spacers, "6")};
 
             i {
-                font-size: calc(var_default.$base * 3);
+                font-size: calc(var(--base) * 3);
             }
 
         }

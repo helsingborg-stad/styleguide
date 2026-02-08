@@ -7,33 +7,45 @@
 @use "../setting/var_properties";
 
 
-$c-field-label-color: var(--c-field-label-color, var_colors.$color-darker) !default;
-$c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
-$c-field-label-font-size: var(--c-field-label-font-size, 0.75rem) !default;
-$c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
+/**********************************************************
+ * FIELD COMPONENT CSS VARIABLES
+ * Component-level tokens for form field styling.
+ **********************************************************/
 
-$c-field-description-font-size: var(--c-field-description-font-size, 0.75rem) !default;
-$c-field-description-color: var(--c-field-description-color, var_colors.$color-darker) !default;
+// Label
+$c-field-label-color: var(--c-field-label-color, var(--color--darker));
+$c-field-label-text-transform: var(--c-field-label-text-transform, uppercase);
+$c-field-label-font-size: var(--c-field-label-font-size, calc(var(--font-size-caption) * 0.857));
+$c-field-label-font-weight: var(--c-field-label-font-weight, var(--font-weight-bold));
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-field-success-color: var(--c-field-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
+// Description & Helper
+$c-field-description-font-size: var(--c-field-description-font-size, calc(var(--font-size-caption) * 0.857));
+$c-field-description-color: var(--c-field-description-color, var(--color--darker));
+$c-field-helper-font-size: var(--c-field-helper-font-size, var(--font-size-caption));
 
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
+// Colors
+$c-field-border-color: var(--c-field-border-color, var(--color--border));
+$c-field-danger-color: var(--c-field-danger-color, var(--color--error));
+$c-field-success-color: var(--c-field-success-color, var(--color--success));
+$c-field-background-color: var(--c-field-background-color, var(--color--surface));
+$c-field-suffix-color: var(--c-field-suffix-color, var(--color--darker));
+$c-field-focus-color: var(--c-field-focus-color, var(--color--focus));
+$c-field-disabled-bg: var(--c-field-disabled-bg, var(--color--disabled));
+$c-field-disabled-text: var(--c-field-disabled-text, var(--color--disabled-text));
 
-$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
+// Sizing
+$c-field-border-radius: var(--c-field-border-radius, var(--radius-sm));
+$c-field-border-width: var(--c-field-border-width, var(--border-width-input));
+$c-field-padding: var(--c-field-padding, var(--spacing-sm));
+$c-field-height: var(--c-field-height, var(--spacing-lg));
 
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
-$c-field-padding: var(--c-field-padding, map.get(var_default.$spacers, "2")) !default;
-$c-field-height: var(--c-field-height, #{map.get(var_default.$spacers, "6")}) !default;
-$c-field-font-size-sm: var(--c-field-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-field-font-size-md: var(--c-field-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-field-font-size-lg: var(--c-field-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
-$c-field-helper-font-size: var(--c-field-helper-font-size, var_fonts.$font-size-caption) !default;
-$c-field-suffix-color: var(--c-field-suffix-color, var_colors.$color-darker) !default;
+// Font Sizes - Map to base semantic sizes
+$c-field-font-size-sm: var(--c-field-font-size-sm, var(--font-size-caption));
+$c-field-font-size-md: var(--c-field-font-size-md, var(--font-size-base));
+$c-field-font-size-lg: var(--c-field-font-size-lg, var(--font-size-lead));
+$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, calc(var(--base) * 1.5));
+$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, calc(var(--base) * 2));
+$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, calc(var(--base) * 2));
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]';
 
@@ -53,7 +65,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-size: $c-field-label-font-size;
         font-weight: $c-field-label-font-weight;
         text-transform: $c-field-label-text-transform;
-        margin-bottom: calc(#{var_default.$base}/2);
+        margin-bottom: calc(#{var(--base)}/2);
         letter-spacing: 0.05rem;
     }
 
@@ -67,9 +79,9 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         font-family: var_fonts.$font-family-base;
         font-weight: var_fonts.$font-family-base;
         font-size: $c-field-helper-font-size;
-        color: #707070;
-        margin-top: calc(#{var_default.$base}/2);
-        margin-left: calc(#{var_default.$base}/4);
+        color: var(--color--dark);
+        margin-top: calc(#{var(--base)}/2);
+        margin-left: calc(#{var(--base)}/4);
     }
 
     #{$fields},
@@ -91,12 +103,12 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(#{var_default.$base}*10);
+        min-width: calc(#{var(--base)}*10);
         font-size: $c-field-font-size-md;
         line-height: $c-field-font-size-md-line-height;
         border: $c-field-border-width solid $c-field-border-color;
         background: $c-field-background-color;
-        border-radius: calc(var_default.$base * $c-field-border-radius);
+        border-radius: calc(var(--base) * $c-field-border-radius);
 
         &:focus-within {
             @include focus.focus-remove-default();
@@ -104,7 +116,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         input {
-            border-radius: calc(var_default.$base * $c-field-border-radius);
+            border-radius: calc(var(--base) * $c-field-border-radius);
         }
 
         .c-field__icon,
@@ -203,7 +215,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         .c-field__inner,
         .c-field__inner input {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: calc(var(--base) * 3);
             border: none;
 
             input::placeholder {
@@ -212,7 +224,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         .c-field__label {
-            margin-left: calc(var_default.$base * 2);
+            margin-left: calc(var(--base) * 2);
         }
 
         &.c-field--rounded-border {
@@ -223,7 +235,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         input:focus+.c-field_focus-styler,
         textarea:focus+.c-field_focus-styler {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: calc(var(--base) * 3);
         }
     }
 
@@ -348,7 +360,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             padding: map.get(var_default.$spacers, "05") map.get(var_default.$spacers, "2");
             color: var_colors.$color-white;
             background-color: $c-field-danger-color;
-            border-radius: 0 0 calc(var_default.$base * $c-field-border-radius) calc(var_default.$base * $c-field-border-radius);
+            border-radius: 0 0 calc(var(--base) * $c-field-border-radius) calc(var(--base) * $c-field-border-radius);
         }
     }
 

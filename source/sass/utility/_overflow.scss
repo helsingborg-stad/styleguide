@@ -1,9 +1,10 @@
 @use "sass:map";
-@use "../setting/var_properties";
 @use "../mixin/build-utility";
 
+$overflows: (auto, hidden, visible, scroll);
+
 $modifiers: ();
-@each $modifier in var_properties.$overflows {
+@each $modifier in $overflows {
     $modifiers: map.merge($modifiers, ($modifier: ("overflow": #{$modifier})))
 }
 
