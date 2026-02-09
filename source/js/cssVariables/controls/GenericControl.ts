@@ -34,9 +34,13 @@ export class GenericControl {
     const wrapper = document.createElement('div');
     wrapper.className = 'settings-control__input-wrapper';
 
-    const currentValue = this.manager.getUserValue(this.variable.name) ||
-                        this.manager.getCurrentValue(this.variable.name) ||
-                        this.variable.defaultValue;
+    // Get user value if exists, otherwise get computed value (resolves calc/var)
+    const userValue = this.manager.getUserValue(this.variable.name);
+    const computedValue = this.manager.getCurrentValue(this.variable.name);
+    const defaultValue = this.variable.defaultValue;
+
+    // Use user value if set, otherwise use computed value
+    const currentValue = userValue || computedValue || defaultValue;
 
     // Text input
     const input = document.createElement('input');
@@ -60,7 +64,12 @@ export class GenericControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      input.value = this.variable.defaultValue;
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        input.value = computedValue || this.variable.defaultValue;
+      }, 10);
     });
 
     wrapper.appendChild(input);

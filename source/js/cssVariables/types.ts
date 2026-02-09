@@ -11,11 +11,12 @@
  */
 export enum CSSVariableType {
   Color = 'color',     // Hex colors, rgb(), rgba(), hsl(), hsla()
-  Size = 'size',       // px, rem, em, %, vh, vw
+  Size = 'size',       // px, rem, em, %, vh, vw (font-size, border-width)
   Number = 'number',   // Pure numbers, calc() expressions
   Font = 'font',       // Quoted strings (font families)
   Shadow = 'shadow',   // drop-shadow() functions
   Radius = 'radius',   // Border radius values (should use sliders)
+  Spacing = 'spacing', // Spacing values (should use sliders with 8px steps)
   Generic = 'generic', // Fallback for everything else
 }
 

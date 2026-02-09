@@ -1,9 +1,9 @@
 /**
- * Radius Control
+ * Spacing Control
  *
- * Input control for radius-type CSS variables (border-radius)
+ * Input control for spacing-type CSS variables (spacing scale)
  * Features:
- * - Range slider for visual adjustment (0-50px)
+ * - Range slider for visual adjustment (0-200px in 8px steps)
  * - Shows computed value (resolves calc() expressions)
  * - Text input for manual entry
  * - Reset button
@@ -12,7 +12,7 @@
 import type { CSSVariable } from '../types';
 import type { CSSVariableManager } from '../CSSVariableManager';
 
-export class RadiusControl {
+export class SpacingControl {
   private variable: CSSVariable;
   private manager: CSSVariableManager;
 
@@ -28,27 +28,29 @@ export class RadiusControl {
    */
   public render(): HTMLElement {
     const wrapper = document.createElement('div');
-    wrapper.className = 'settings-control__input-wrapper settings-control__input-wrapper--radius';
+    wrapper.className = 'settings-control__input-wrapper settings-control__input-wrapper--spacing';
 
-    // Get current value with fallback to default
-    const currentValue = this.manager.getUserValue(this.variable.name) ||
-                        this.manager.getCurrentValue(this.variable.name) ||
-                        this.variable.defaultValue;
+    // Get current value with fallback to default (resolves calc/var)
+    const userValue = this.manager.getUserValue(this.variable.name);
+    const computedValue = this.manager.getCurrentValue(this.variable.name);
+    const defaultValue = this.variable.defaultValue;
+
+    // Use user value if set, otherwise use computed value (which resolves calc())
+    const currentValue = userValue || computedValue || defaultValue;
     const numericValue = this.extractPixels(currentValue);
 
-    // Determine max value based on variable name
-    let maxValue = 50;
-    if (this.variable.name.includes('full')) {
-      maxValue = 500; // For --radius-full
-    }
+    // Spacing scale: 0-200px in 8px increments (--base is 8px)
+    const minValue = 0;
+    const maxValue = 200;
+    const step = 8;
 
     // Range slider
     const slider = document.createElement('input');
     slider.type = 'range';
     slider.className = 'settings-control__slider';
-    slider.min = '0';
+    slider.min = minValue.toString();
     slider.max = maxValue.toString();
-    slider.step = '1';
+    slider.step = step.toString();
     slider.value = numericValue.toString();
 
     // Display value (shows computed value)
@@ -61,7 +63,7 @@ export class RadiusControl {
     textInput.type = 'text';
     textInput.className = 'settings-control__input settings-control__input--text settings-control__input--small';
     textInput.value = `${numericValue}px`;
-    textInput.placeholder = 'e.g., 8px';
+    textInput.placeholder = 'e.g., 16px';
 
     // Reset button
     const resetBtn = document.createElement('button');
@@ -84,9 +86,11 @@ export class RadiusControl {
       const value = (e.target as HTMLInputElement).value.trim();
       const pixels = this.extractPixels(value);
 
-      if (pixels >= 0 && pixels <= maxValue) {
-        slider.value = pixels.toString();
-        valueDisplay.textContent = `${pixels}px`;
+      if (pixels >= minValue && pixels <= maxValue) {
+        // Snap to nearest 8px increment
+        const snappedPixels = Math.round(pixels / step) * step;
+        slider.value = snappedPixels.toString();
+        valueDisplay.textContent = `${snappedPixels}px`;
         this.manager.setValue(this.variable.name, value);
       }
     });
@@ -145,12 +149,7 @@ export class RadiusControl {
       return Math.round(parseFloat(numMatch[1]));
     }
 
-    // For --radius-full special case
-    if (value.includes('5000') || this.variable.name.includes('full')) {
-      return 500;
-    }
-
-    // Default
+    // Default to 0
     return 0;
   }
 }

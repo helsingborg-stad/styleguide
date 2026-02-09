@@ -32,6 +32,35 @@ function inferType(name, value) {
     return 'radius';
   }
 
+  // Spacing: specifically for --spacing-* variables (should use sliders with 8px steps)
+  if (/^--spacing-/.test(name)) {
+    return 'spacing';
+  }
+
+  // Size by name: font-size and border-width variables (even if value is var() or calc())
+  // This catches: --font-size-*, --border-width-*
+  if (/^--font-size-/.test(name) || /^--border-width-/.test(name)) {
+    return 'size';
+  }
+
+  // Font by name: font-family variables (even if value is var())
+  // This catches: --font-family-*
+  if (/^--font-family-/.test(name)) {
+    return 'font';
+  }
+
+  // Number by name: font-weight variables (even if value is var())
+  // This catches: --font-weight-*
+  if (/^--font-weight-/.test(name)) {
+    return 'number';
+  }
+
+  // Color by name: if variable name contains "color" (even if value is var())
+  // This catches: --color--*, --*-color, --*-color-*
+  if (/color/i.test(name)) {
+    return 'color';
+  }
+
   // Color: #hex, rgb(), rgba(), hsl(), hsla()
   if (/^#[0-9a-fA-F]{3,8}$/.test(value)) {
     return 'color';

@@ -274,6 +274,13 @@
   gap: var(--spacing-sm);
 }
 
+/* Spacing control wrapper (same as radius) */
+.settings-control__input-wrapper--spacing {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-sm);
+}
+
 /* Slider group (slider + value display) */
 .settings-control__slider-group {
   display: flex;

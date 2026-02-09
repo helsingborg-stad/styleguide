@@ -124,6 +124,12 @@ export class SettingsCenter {
     }
 
     categories.forEach(category => {
+      // Skip empty categories
+      const variables = this.manager.getVariablesByCategory(category);
+      if (variables.length === 0) {
+        return;
+      }
+
       const section = this.createCategorySection(category);
       content.appendChild(section);
     });

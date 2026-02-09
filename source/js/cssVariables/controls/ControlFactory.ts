@@ -14,6 +14,7 @@ import { NumberControl } from './NumberControl';
 import { FontControl } from './FontControl';
 import { ShadowControl } from './ShadowControl';
 import { RadiusControl } from './RadiusControl';
+import { SpacingControl } from './SpacingControl';
 import { GenericControl } from './GenericControl';
 
 export class ControlFactory {
@@ -68,6 +69,9 @@ export class ControlFactory {
         break;
       case CSSVariableType.Radius:
         control = new RadiusControl(variable, this.manager).render();
+        break;
+      case CSSVariableType.Spacing:
+        control = new SpacingControl(variable, this.manager).render();
         break;
       default:
         control = new GenericControl(variable, this.manager).render();

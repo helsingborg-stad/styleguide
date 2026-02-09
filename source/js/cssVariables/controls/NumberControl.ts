@@ -66,7 +66,12 @@ export class NumberControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      input.value = this.extractNumber(this.variable.defaultValue);
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        input.value = this.extractNumber(computedValue || this.variable.defaultValue);
+      }, 10);
     });
 
     wrapper.appendChild(input);

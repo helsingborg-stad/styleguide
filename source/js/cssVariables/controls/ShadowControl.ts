@@ -68,8 +68,13 @@ export class ShadowControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      input.value = this.variable.defaultValue;
-      input.classList.remove('settings-control__input--invalid');
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        input.value = computedValue || this.variable.defaultValue;
+        input.classList.remove('settings-control__input--invalid');
+      }, 10);
     });
 
     wrapper.appendChild(input);

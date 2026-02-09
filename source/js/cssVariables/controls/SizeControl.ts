@@ -30,15 +30,19 @@ export class SizeControl {
     const wrapper = document.createElement('div');
     wrapper.className = 'settings-control__input-wrapper';
 
-    const currentValue = this.manager.getUserValue(this.variable.name) ||
-                        this.manager.getCurrentValue(this.variable.name) ||
-                        this.variable.defaultValue;
+    // Get user value if exists, otherwise get computed value (resolves calc())
+    const userValue = this.manager.getUserValue(this.variable.name);
+    const computedValue = this.manager.getCurrentValue(this.variable.name);
+    const defaultValue = this.variable.defaultValue;
+
+    // Use user value if set, otherwise use computed value (which resolves calc())
+    const displayValue = userValue || computedValue || defaultValue;
 
     // Text input
     const input = document.createElement('input');
     input.type = 'text';
     input.className = 'settings-control__input settings-control__input--text';
-    input.value = currentValue;
+    input.value = displayValue;
     input.placeholder = 'e.g., 16px, 1rem, 50%';
 
     // Reset button
@@ -65,8 +69,13 @@ export class SizeControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      input.value = this.variable.defaultValue;
-      input.classList.remove('settings-control__input--invalid');
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        input.value = computedValue || this.variable.defaultValue;
+        input.classList.remove('settings-control__input--invalid');
+      }, 10);
     });
 
     wrapper.appendChild(input);

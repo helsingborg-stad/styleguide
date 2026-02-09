@@ -65,8 +65,13 @@ export class FontControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      const defaultValue = this.variable.defaultValue;
-      input.value = defaultValue.replace(/^["']|["']$/g, '');
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        const displayValue = computedValue || this.variable.defaultValue;
+        input.value = displayValue.replace(/^["']|["']$/g, '');
+      }, 10);
     });
 
     wrapper.appendChild(input);

@@ -74,12 +74,17 @@ export class ColorControl {
 
     resetBtn.addEventListener('click', () => {
       this.manager.resetValue(this.variable.name);
-      const defaultValue = this.variable.defaultValue;
-      textInput.value = defaultValue;
-      const normalized = this.normalizeColorValue(defaultValue);
-      if (normalized) {
-        colorInput.value = normalized;
-      }
+
+      // Wait a tick for DOM to update, then read computed value
+      setTimeout(() => {
+        const computedValue = this.manager.getCurrentValue(this.variable.name);
+        const displayValue = computedValue || this.variable.defaultValue;
+        textInput.value = displayValue;
+        const normalized = this.normalizeColorValue(displayValue);
+        if (normalized) {
+          colorInput.value = normalized;
+        }
+      }, 10);
     });
 
     wrapper.appendChild(colorInput);
