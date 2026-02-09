@@ -123,3 +123,6 @@ import './openstreetmap/sidebar/observeSize.ts'
 import './openstreetmap/sidebar/showIfNotEmpty.ts'
 import './openstreetmap/sidebar/showPost.ts'
 import './openstreetmap/sidebar/tooltipListener.ts'
+
+// CSS Variables Management System
+import './cssVariables/index.ts'

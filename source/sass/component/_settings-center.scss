@@ -1,0 +1,554 @@
+/**
+ * Settings Center Component
+ *
+ * Side panel UI for managing CSS variables at runtime.
+ * Features fixed positioning with slide-in animation.
+ */
+
+/* ==========================================================================
+   SETTINGS CENTER CONTAINER
+   ========================================================================== */
+
+.settings-center {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--level-9);
+  pointer-events: none;
+
+  &--open {
+    pointer-events: auto;
+
+    .settings-center__panel {
+      transform: translateX(0);
+    }
+
+    .settings-center__overlay {
+      opacity: 1;
+    }
+  }
+}
+
+/* ==========================================================================
+   OVERLAY
+   ========================================================================== */
+
+.settings-center__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   PANEL
+   ========================================================================== */
+
+.settings-center__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  max-width: 90vw;
+  background: var(--color--surface);
+  box-shadow: var(--shadow-4);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.settings-center__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: var(--border-width-divider) solid var(--color--border);
+  background: var(--color--background);
+  flex-shrink: 0;
+}
+
+.settings-center__title {
+  font-size: var(--font-size-title);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+  color: var(--color--text);
+}
+
+.settings-center__close {
+  background: none;
+  border: none;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  color: var(--color--muted);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    color: var(--color--text);
+    background: var(--color--light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color--focus);
+    outline-offset: 2px;
+  }
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
+
+/* ==========================================================================
+   CONTENT
+   ========================================================================== */
+
+.settings-center__content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-md);
+}
+
+.settings-center__empty {
+  text-align: center;
+  color: var(--color--muted);
+  padding: var(--spacing-xl) var(--spacing-md);
+  font-size: var(--font-size-lead);
+}
+
+/* ==========================================================================
+   CATEGORIES
+   ========================================================================== */
+
+.settings-center__category {
+  margin-bottom: var(--spacing-lg);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.settings-center__category-title {
+  font-size: var(--font-size-lead);
+  font-weight: var(--font-weight-medium);
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--color--text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: var(--spacing-xs);
+  border-bottom: var(--border-width-thin) solid var(--color--border);
+}
+
+.settings-center__category-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* ==========================================================================
+   CONTROLS
+   ========================================================================== */
+
+.settings-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.settings-control__label {
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color--text);
+  cursor: help;
+}
+
+.settings-control__input-wrapper {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+/* Input Styles */
+.settings-control__input {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width-input) solid var(--color--border);
+  border-radius: var(--radius-sm);
+  background: var(--color--background);
+  color: var(--color--text);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color--focus);
+    box-shadow: 0 0 0 3px rgba(77, 144, 254, 0.1);
+  }
+
+  &:disabled {
+    background: var(--color--disabled);
+    color: var(--color--disabled-text);
+    cursor: not-allowed;
+  }
+
+  &--invalid {
+    border-color: var(--color--error);
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(215, 55, 64, 0.1);
+    }
+  }
+}
+
+/* Text input */
+.settings-control__input--text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Color input */
+.settings-control__input--color {
+  width: 50px;
+  height: 40px;
+  padding: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: var(--radius-xs);
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: var(--radius-xs);
+  }
+}
+
+/* Number input */
+.settings-control__input--number {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+/* Shadow input (wider for complex values) */
+.settings-control__input--shadow {
+  font-size: var(--font-size-caption);
+  font-family: var(--font-family-code);
+}
+
+/* Small text input (for radius controls) */
+.settings-control__input--small {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+/* Radius control wrapper */
+.settings-control__input-wrapper--radius {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-sm);
+}
+
+/* Slider group (slider + value display) */
+.settings-control__slider-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Range slider */
+.settings-control__slider {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color--light);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    background: var(--color--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 4px rgba(77, 144, 254, 0.2);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: var(--color--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 4px rgba(77, 144, 254, 0.2);
+    }
+  }
+
+  &::-webkit-slider-track {
+    width: 100%;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color--light);
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color--light);
+  }
+
+  &:focus {
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba(77, 144, 254, 0.3);
+    }
+
+    &::-moz-range-thumb {
+      box-shadow: 0 0 0 4px rgba(77, 144, 254, 0.3);
+    }
+  }
+}
+
+/* Value display */
+.settings-control__value-display {
+  min-width: 50px;
+  text-align: right;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Reset button */
+.settings-control__reset {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width-thin) solid var(--color--border);
+  border-radius: var(--radius-sm);
+  background: var(--color--surface);
+  color: var(--color--muted);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &:hover {
+    color: var(--color--text);
+    border-color: var(--color--text);
+    background: var(--color--light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color--focus);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.settings-center__footer {
+  padding: var(--spacing-md);
+  border-top: var(--border-width-divider) solid var(--color--border);
+  background: var(--color--background);
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.settings-center__save,
+.settings-center__reset {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: var(--border-width-button) solid var(--color--border);
+  border-radius: var(--radius-md);
+  background: var(--color--surface);
+  color: var(--color--text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color--primary);
+    color: var(--color--primary-contrast);
+    border-color: var(--color--primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color--focus);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   TOGGLE BUTTON
+   ========================================================================== */
+
+.settings-center__toggle {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--color--primary);
+  color: var(--color--primary-contrast);
+  border: none;
+  box-shadow: var(--shadow-3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: var(--level-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-4);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--color--focus);
+    outline-offset: 3px;
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+
+.settings-center__toast {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color--text);
+  color: var(--color--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-3);
+  font-size: var(--font-size-base);
+  z-index: calc(var(--level-9) + 1);
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-width: 90vw;
+  text-align: center;
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  &--success {
+    background: var(--color--success);
+    color: var(--color--success-contrast);
+  }
+
+  &--error {
+    background: var(--color--error);
+    color: var(--color--error-contrast);
+  }
+
+  &--info {
+    background: var(--color--info);
+    color: var(--color--info-contrast);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .settings-center__panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .settings-center__toggle {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+
+  .settings-control__input-wrapper {
+    flex-wrap: wrap;
+  }
+
+  .settings-control__input--color {
+    width: 100%;
+    height: 50px;
+  }
+
+  .settings-control__input--number {
+    flex: 1;
+  }
+}
+
+/* ==========================================================================
+   DARK MODE (Future Enhancement)
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  // Automatically use dark theme colors if they are defined
+  // The CSS variables system handles this automatically
+}
