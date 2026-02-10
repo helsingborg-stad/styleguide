@@ -38,10 +38,11 @@ export class SelectControl {
     select.dataset.variable = this.variable.name;
 
     const options = this.variable.options || [currentValue];
+    const labels = this.variable.optionLabels;
     options.forEach(opt => {
       const option = document.createElement('option');
       option.value = opt;
-      option.textContent = opt;
+      option.textContent = labels?.[opt] ? `${opt} – ${labels[opt]}` : opt;
       if (opt === currentValue) {
         option.selected = true;
       }

@@ -1,0 +1,14 @@
+{
+  [
+    category: "Basic Settings",
+    gui: false,
+    properties: {
+      base : {
+        type: 'number',
+        default: 8,
+        unit: 'px',
+        description: 'Base measurement size for the application.'
+      },
+    }
+  ]
+}

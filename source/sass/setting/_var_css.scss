@@ -27,11 +27,11 @@
   * CORNER RADIUS AND SHAPE
   ***********************************************************/
   --radius:      calc(var(--base) / 2);
-  --radius-xs:   calc(--radius * 0.5);
-  --radius-sm:   calc(--radius);
-  --radius-md:   calc(var(--radius) * 1.5);
-  --radius-lg:   calc(var(--radius) * 2);
-  --radius-xl:   calc(var(--radius) * 4);
+  --radius-xs:   max(calc(var(--radius) * 0.5), 4px);
+  --radius-sm:   max(var(--radius), 8px);
+  --radius-md:   max(calc(var(--radius) * 1.5), 12px);
+  --radius-lg:   max(calc(var(--radius) * 2), 16px);
+  --radius-xl:   max(calc(var(--radius) * 4), 24px);
   --radius-full: 5000px;
 
   --corner-shape: 'squirkle'; /* Options: 'square', 'rounded', 'squirkle', 'circular' */
@@ -69,18 +69,7 @@
   --font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New", "Courier", "Console";
 
   /* Font Type Scale */
-  --font-size-scale-ratio: 1.25; 
-    /* 
-      Type Scale Reference:
-        1.067 – Minor Second
-        1.125 – Major Second
-        1.200 – Minor Third (default)
-        1.250 – Major Third
-        1.333 – Perfect Fourth
-        1.414 – Augmented Fourth
-        1.500 – Perfect Fifth
-        1.618 – Golden Ratio
-    */
+  --font-size-scale-ratio: 1.681; /* Options: '1.067|Minor Second', '1.125|Major Second', '1.200|Minor Third', '1.250|Major Third', '1.333|Perfect Fourth', '1.414|Augmented Fourth', '1.500|Perfect Fifth', '1.618|Golden Ratio' */
 
   // Derived from base font size and scale ratio
   --font-size-base: var(--base-font-size);
@@ -90,6 +79,14 @@
   --font-size-headline: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 2));
   --font-size-title: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 1.5));
   --font-size-subtitle: calc(var(--font-size-base) * var(--font-size-scale-ratio));
+
+  // Derived heading sizes (h1=headline → h6=base)
+  --font-size-h1: var(--font-size-headline);
+  --font-size-h2: var(--font-size-title);
+  --font-size-h3: var(--font-size-subtitle);
+  --font-size-h4: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.5));
+  --font-size-h5: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.25));
+  --font-size-h6: var(--font-size-base);
 
   /* Font Weights */
   --font-weight-normal: 400;

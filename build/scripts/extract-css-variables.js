@@ -27,8 +27,8 @@ const CONFIG = {
 function inferType(name, value) {
   value = value.trim();
 
-  // Select: for --corner-shape (dropdown with predefined options)
-  if (/^--corner-shape$/.test(name)) {
+  // Select: for --corner-shape and --font-size-scale-ratio (dropdown with predefined options)
+  if (/^--corner-shape$/.test(name) || /^--font-size-scale-ratio$/.test(name)) {
     return 'select';
   }
 
@@ -206,6 +206,12 @@ function extractVariables(content) {
         continue;
       }
 
+      // Skip derived font-size variables (--font-size-base, --font-size-caption, etc.)
+      // These are calculated from --font-size-scale-ratio and --base-font-size
+      if (/^--font-size-(?!scale-ratio)/.test(name)) {
+        continue;
+      }
+
       const type = inferType(name, value);
 
       const entry = {
@@ -216,12 +222,33 @@ function extractVariables(content) {
         description: formatName(name),
       };
 
-      // Parse inline /* Options: 'a', 'b', 'c' */ comment for select types
+      // Parse inline /* Options: 'a', 'b', 'value|label' */ comment for select types
       const optionsMatch = inlineComment.match(/\/\*\s*Options:\s*(.+?)\s*\*\//);
       if (optionsMatch) {
-        entry.options = optionsMatch[1]
+        const rawOptions = optionsMatch[1]
           .split(',')
           .map(o => o.trim().replace(/^['"]|['"]$/g, ''));
+
+        entry.options = [];
+        const labels = {};
+        let hasLabels = false;
+
+        rawOptions.forEach(raw => {
+          const pipeIndex = raw.indexOf('|');
+          if (pipeIndex !== -1) {
+            const value = raw.substring(0, pipeIndex);
+            const label = raw.substring(pipeIndex + 1);
+            entry.options.push(value);
+            labels[value] = label;
+            hasLabels = true;
+          } else {
+            entry.options.push(raw);
+          }
+        });
+
+        if (hasLabels) {
+          entry.optionLabels = labels;
+        }
       }
 
       variables.push(entry);

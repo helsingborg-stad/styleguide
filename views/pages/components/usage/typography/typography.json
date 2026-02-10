@@ -40,5 +40,11 @@
         "subHeading": "",
         "text": "Specialized text variants for specific use cases such as marketing and email content.",
         "grid": "grid-s-12"
+    },
+    "article": {
+        "heading": "Article Example",
+        "subHeading": "",
+        "text": "An example of how to use the various typography variants in a real article layout.",
+        "grid": "grid-s-12"
     }
 }

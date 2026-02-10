@@ -42,6 +42,9 @@ export interface CSSVariable {
 
   /** Available options for select-type variables */
   options?: string[];
+
+  /** Human-readable labels for options (keyed by option value) */
+  optionLabels?: Record<string, string>;
 }
 
 /**
