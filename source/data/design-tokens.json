@@ -14,9 +14,7 @@
           "type": "range",
           "default": "8px",
           "unit": "px",
-          "min": 2,
-          "max": 16,
-          "step": 1
+          "locked": true
         },
         {
           "variable": "--base-font-size",
@@ -25,9 +23,10 @@
           "type": "range",
           "default": "16px",
           "unit": "px",
-          "min": 12,
-          "max": 24,
-          "step": 1
+          "options": [
+            { "value": "16px", "label": "Standard" },
+            { "value": "18px", "label": "Large" }
+          ]
         }
       ]
     },
@@ -172,7 +171,7 @@
           "unit": "px",
           "min": 0,
           "max": 4,
-          "step": 0.5
+          "step": 1
         },
         {
           "variable": "--border-width-medium",
@@ -180,9 +179,9 @@
           "type": "range",
           "default": "2px",
           "unit": "px",
-          "min": 1,
+          "min": 0,
           "max": 6,
-          "step": 0.5
+          "step": 1
         },
         {
           "variable": "--border-width-thick",
@@ -190,8 +189,8 @@
           "type": "range",
           "default": "4px",
           "unit": "px",
-          "min": 2,
-          "max": 10,
+          "min": 0,
+          "max": 8,
           "step": 1
         }
       ]
@@ -221,6 +220,7 @@
           "variable": "--shadow-detail-amount",
           "label": "Detail Shadow Intensity",
           "description": "Multiplier for subtle depth shadows. 0 = none, 1 = default.",
+          "notes": "Used for low-elevation elements to add subtle depth without full drop shadow. This should be automatically decided, when container query is below a certain size.",
           "type": "range",
           "default": "0.5",
           "min": 0,
