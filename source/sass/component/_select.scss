@@ -249,6 +249,7 @@ $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, cal
         background-color: var_colors.$color-danger;
         border: none;
         border-radius: 0 0 calc($c-select-border-radius * var(--base)) calc($c-select-border-radius * var(--base));
+        corner-shape: var(--corner-shape);
         box-sizing: border-box;
 
         &.error {

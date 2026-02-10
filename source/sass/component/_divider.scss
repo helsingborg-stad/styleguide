@@ -37,6 +37,7 @@ $c-divider-border-style: var(--c-divider-border-style, solid);
         background: $c-divider-title-background;
         border: $c-divider-title-border-width solid $c-divider-title-border-color;
         border-radius: $c-divider-title-border-radius;
+        corner-shape: var(--corner-shape);
     }
 
     &.c-divider--align-left:not(.c-divider--has-frame) .c-divider__title {

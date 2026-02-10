@@ -34,6 +34,7 @@ $c-imageinput-border-radius: var(--c-imageinput-border-radius, var(--radius-md))
     background-color: $c-imageinput-background-color;
     border: $c-imageinput-border-width solid $c-imageinput-border-color;
     border-radius: $c-imageinput-border-radius;
+    corner-shape: var(--corner-shape);
     transition: color .1s ease;
     cursor: pointer;
     overflow: hidden;

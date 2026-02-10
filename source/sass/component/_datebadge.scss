@@ -91,12 +91,14 @@ $c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var(--base)} *
         color: $c-datebadge-color;
         backdrop-filter: $c-datebadge-backdrop-filter;
         border-radius: $c-datebadge-border-radius;
+        corner-shape: var(--corner-shape);
         padding: $c-datebadge-padding;
     }
 
     .c-datebadge__month {
         line-height: 1;
         border-radius: $c-datebadge-month-border-radius;
+        corner-shape: var(--corner-shape);
         padding: $c-datebadge-month-padding;
         background-color: $c-datebadge-month-background;
         backdrop-filter: $c-datebadge-backdrop-filter;

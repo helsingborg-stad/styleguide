@@ -165,6 +165,7 @@ $c-nav-item-height-lg: var(--c-nav-item-height-lg, calc(var(--base) * 8));
             background: var_colors.$color-white;
             min-width: calc(#{var(--base)} * 28);
             border-radius: var(--radius-sm);
+            corner-shape: var(--corner-shape);
             filter: var_properties.$drop-shadow-1;
             transform: translateY(100%);
             animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;

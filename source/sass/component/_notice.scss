@@ -28,6 +28,7 @@ $c-notice-border-radius: var(--notice-border-radius, var(--radius-sm));
     padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
     background-color: var(--color--base);
     border-radius: $c-notice-border-radius;
+    corner-shape: var(--corner-shape);
     color: var(--color--notice-text-default);
     display: grid;
     grid-template-areas: 

@@ -15,6 +15,7 @@ $c-acceptance-background-color: var(--c-acceptance-background-color, var(--color
 
 .c-acceptance {
     border-radius: $c-acceptance-border-radius;
+    corner-shape: var(--corner-shape);
     background-color: $c-acceptance-background-color;
     background-position: center;
     position: relative;

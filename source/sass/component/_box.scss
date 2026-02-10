@@ -10,6 +10,7 @@ $c-box-shadow: var(--c-box-shadow, var(--shadow-2));
 
 .c-box {
     border-radius: $c-box-border-radius;
+    corner-shape: var(--corner-shape);
     filter: $c-box-shadow;
     display: flex;
     align-items: center;

@@ -13,6 +13,7 @@ $c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var(-
     width: 100%;
     background-color: $c-progress-background-color;
     border-radius: $c-progress-border-radius;
+    corner-shape: var(--corner-shape);
     .c-progressbar__value {
         height: 100%;
         background-color: $c-progress-value-color;

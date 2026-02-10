@@ -109,6 +109,7 @@ export class SettingsCenter {
 
   /**
    * Render all categories with their controls
+   * Filters out derived radius variants (only shows --radius base)
    *
    * @private
    */
@@ -124,13 +125,18 @@ export class SettingsCenter {
     }
 
     categories.forEach(category => {
-      // Skip empty categories
-      const variables = this.manager.getVariablesByCategory(category);
+      let variables = this.manager.getVariablesByCategory(category);
+
+      // For corner radius, only show --radius and --corner-shape (skip derived variants)
+      if (category === 'CORNER RADIUS AND SHAPE') {
+        variables = variables.filter(v => v.name === '--radius' || v.name === '--corner-shape');
+      }
+
       if (variables.length === 0) {
         return;
       }
 
-      const section = this.createCategorySection(category);
+      const section = this.createCategorySection(category, variables);
       content.appendChild(section);
     });
   }
@@ -140,9 +146,10 @@ export class SettingsCenter {
    *
    * @private
    * @param category - Category name
+   * @param variables - Variables to render in this section
    * @returns HTMLElement for the category section
    */
-  private createCategorySection(category: string): HTMLElement {
+  private createCategorySection(category: string, variables: CSSVariable[]): HTMLElement {
     const section = document.createElement('div');
     section.className = 'settings-center__category';
 
@@ -153,15 +160,11 @@ export class SettingsCenter {
     const content = document.createElement('div');
     content.className = 'settings-center__category-content';
 
-    const variables = this.manager.getVariablesByCategory(category);
-
     variables.forEach(variable => {
       if (this.controlFactory) {
-        // Use ControlFactory to create appropriate control
         const control = this.controlFactory.createControl(variable);
         content.appendChild(control);
       } else {
-        // Fallback: Create simple text display
         const item = this.createFallbackControl(variable);
         content.appendChild(item);
       }

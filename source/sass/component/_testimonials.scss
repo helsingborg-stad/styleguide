@@ -55,6 +55,7 @@
         width: calc(#{var(--base)} * 11);
         max-height: calc(#{var(--base)} * 14);
         border-radius: card.$c-card-border-radius;
+        corner-shape: var(--corner-shape);
         overflow: hidden;
         filter: var(--shadow-3);
         grid-area: image;

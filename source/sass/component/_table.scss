@@ -175,6 +175,7 @@ $c-table-column-z-index: var(--c-table-column-z-index, var(--level-1));
         background-color: $c-table-scroll-indicator-bg;
         height: calc(#{var(--base)} * 1.5);
         border-radius: $c-table-scroll-indicator-radius;
+        corner-shape: var(--corner-shape);
     }
 
     .c-table__scroll-indicator {

@@ -187,7 +187,8 @@ $c-button-shadow-hover: var(--c-button-shadow-hover, var(--shadow-2));
         min-width: calc(#{var(--base)} * 12);
         padding: 0 calc(#{var(--base)} * 5);
         font-size: $c-button-font-size-lg;
-        border-radius: $c-button-border-radius; 
+        border-radius: $c-button-border-radius;
+        corner-shape: var(--corner-shape);
 
         .c-button__loader {
             width: calc(var(--base) * 4);
@@ -197,7 +198,7 @@ $c-button-shadow-hover: var(--c-button-shadow-hover, var(--shadow-2));
         }
 
         &.c-button--icon-only {
-            width: calc(#{var(--base)} * 8); 
+            width: calc(#{var(--base)} * 8);
             min-width: initial;
         }
 
@@ -216,14 +217,15 @@ $c-button-shadow-hover: var(--c-button-shadow-hover, var(--shadow-2));
         min-width: calc(#{var(--base)} * 9);
         padding: 0 calc(#{var(--base)} * 4);
         font-size: $c-button-font-size-md;
-        border-radius: $c-button-border-radius; 
+        border-radius: $c-button-border-radius;
+        corner-shape: var(--corner-shape);
 
         .c-button__loader {
             margin-left: calc(var(--base) * -1);
         }
 
         &.c-button--icon-only {
-            width: calc(#{var(--base)} * 6.5); 
+            width: calc(#{var(--base)} * 6.5);
             min-width: initial;
         }
 
@@ -243,7 +245,8 @@ $c-button-shadow-hover: var(--c-button-shadow-hover, var(--shadow-2));
         min-width: calc(#{var(--base)} * 6.75);
         padding: 0 calc(#{var(--base)} * 2);
         font-size: $c-button-font-size-sm;
-        border-radius: $c-button-border-radius-small; 
+        border-radius: $c-button-border-radius-small;
+        corner-shape: var(--corner-shape);
 
         .c-button__loader {
             width: calc(var(--base) * 2);

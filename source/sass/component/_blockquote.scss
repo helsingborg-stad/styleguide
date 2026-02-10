@@ -13,6 +13,7 @@ blockquote {
     margin: 0;
     padding: calc(var(--base) * 10) calc(var(--base) * 5) calc(var(--base) * 5) calc(var(--base) * 5);
     border-radius: $quote-border-radius;
+    corner-shape: var(--corner-shape);
     position: relative;
 
     *:first-child {

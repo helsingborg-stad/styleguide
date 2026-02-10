@@ -29,6 +29,7 @@ $c-slider-border-radius: var(--c-slider-border-radius, var(--radius-md));
 
     position: relative;
     border-radius: $c-slider-border-radius;
+    corner-shape: var(--corner-shape);
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);

@@ -27,8 +27,13 @@ const CONFIG = {
 function inferType(name, value) {
   value = value.trim();
 
-  // Radius: specifically for --radius-* variables (should use sliders)
-  if (/^--radius-/.test(name)) {
+  // Select: for --corner-shape (dropdown with predefined options)
+  if (/^--corner-shape$/.test(name)) {
+    return 'select';
+  }
+
+  // Radius: for --radius and --radius-* variables (should use sliders)
+  if (/^--radius($|-)/.test(name)) {
     return 'radius';
   }
 
@@ -181,11 +186,12 @@ function extractVariables(content) {
     }
 
     // Extract CSS variable declaration
-    // Pattern: --variable-name: value;
-    const varMatch = line.match(/^(--[a-z0-9-]+)\s*:\s*([^;]+);/i);
+    // Pattern: --variable-name: value; /* optional inline comment */
+    const varMatch = line.match(/^(--[a-z0-9-]+)\s*:\s*([^;]+);(.*)$/i);
     if (varMatch) {
       const name = varMatch[1];
       const value = varMatch[2].trim();
+      const inlineComment = varMatch[3] || '';
 
       // Skip derived shadow variables (--shadow-0 through --shadow-5, --shadow-detail-0 through --shadow-detail-5)
       // These are calculated from --shadow-amount and --shadow-detail-amount
@@ -202,13 +208,23 @@ function extractVariables(content) {
 
       const type = inferType(name, value);
 
-      variables.push({
+      const entry = {
         name,
         defaultValue: value,
         type,
         category: currentCategory,
         description: formatName(name),
-      });
+      };
+
+      // Parse inline /* Options: 'a', 'b', 'c' */ comment for select types
+      const optionsMatch = inlineComment.match(/\/\*\s*Options:\s*(.+?)\s*\*\//);
+      if (optionsMatch) {
+        entry.options = optionsMatch[1]
+          .split(',')
+          .map(o => o.trim().replace(/^['"]|['"]$/g, ''));
+      }
+
+      variables.push(entry);
     }
   }
 

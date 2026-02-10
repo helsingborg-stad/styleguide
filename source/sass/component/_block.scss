@@ -15,6 +15,7 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
 .c-block {
     position: relative;
     border-radius: $c-block-border-radius;
+    corner-shape: var(--corner-shape);
     filter: var_properties.$drop-shadow-2;
     display: flex;
     justify-content: flex-end;
@@ -30,8 +31,10 @@ $c-block-image-background-color: var(--c-block-image-background-color, var_color
 
     .c-block__image {
         border-radius: $c-block-border-radius;
+        corner-shape: var(--corner-shape);
         .c-image__image {
             border-radius: $c-block-border-radius;
+            corner-shape: var(--corner-shape);
         }
     }
 

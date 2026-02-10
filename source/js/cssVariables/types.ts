@@ -17,6 +17,7 @@ export enum CSSVariableType {
   Shadow = 'shadow',   // drop-shadow() functions
   Radius = 'radius',   // Border radius values (should use sliders)
   Spacing = 'spacing', // Spacing values (should use sliders with 8px steps)
+  Select = 'select',   // Predefined options (should use dropdown)
   Generic = 'generic', // Fallback for everything else
 }
 
@@ -38,6 +39,9 @@ export interface CSSVariable {
 
   /** Human-readable description/formatted name */
   description?: string;
+
+  /** Available options for select-type variables */
+  options?: string[];
 }
 
 /**

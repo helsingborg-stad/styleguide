@@ -41,10 +41,12 @@
     padding-right: $padding-horizontal;
     font-size: $font-size;
     border-radius: $border-radius;
+    corner-shape: var(--corner-shape);
     height: calc(#{$padding-vertical} * 3);
 
     &:after {
         border-radius: $border-radius;
+        corner-shape: var(--corner-shape);
     }
 }
 

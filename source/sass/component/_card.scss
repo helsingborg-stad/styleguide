@@ -43,6 +43,7 @@ $c-card-gap: var(--c-card-gap, var(--spacing-sm));
     position: relative;
     background-color: $c-card-color-background;
     border-radius: $c-card-border-radius;
+    corner-shape: var(--corner-shape);
     transition: all 200ms ease-in;
     border: $c-card-border-width solid $c-card-border-color;
 

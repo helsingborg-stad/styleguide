@@ -39,6 +39,7 @@ $c-image-border-radius: var(--c-image-border-radius, var(--radius-xs));
 
     .c-image__image {
         border-radius: $c-image-border-radius;
+        corner-shape: var(--corner-shape);
         max-width: 100%;
         margin: 0;
         width: inherit;
@@ -54,26 +55,31 @@ $c-image-border-radius: var(--c-image-border-radius, var(--radius-xs));
     &.c-image--radius-xs .c-image__image,
     &.c-image--radius-xs .c-image__image-wrapper {
         border-radius: var(--radius-xs);
+        corner-shape: var(--corner-shape);
     }
 
     &.c-image--radius-sm .c-image__image,
     &.c-image--radius-sm .c-image__image-wrapper {
         border-radius: var(--radius-sm);
+        corner-shape: var(--corner-shape);
     }
 
     &.c-image--radius-md .c-image__image,
     &.c-image--radius-md .c-image__image-wrapper {
         border-radius: var(--radius-md);
+        corner-shape: var(--corner-shape);
     }
 
     &.c-image--radius-lg .c-image__image,
     &.c-image--radius-lg .c-image__image-wrapper {
         border-radius: var(--radius-lg);
+        corner-shape: var(--corner-shape);
     }
 
     &.c-image--radius-full .c-image__image,
     &.c-image--radius-full .c-image__image-wrapper {
         border-radius: var(--radius-full);
+        corner-shape: var(--corner-shape);
     }
 
     &.c-image--full-width .c-image__image {

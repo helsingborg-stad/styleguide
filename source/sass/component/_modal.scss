@@ -22,6 +22,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var(--color--muted));
     display: none;
     border: none;
     border-radius: $c-modal-border-radius;
+    corner-shape: var(--corner-shape);
     filter: var(--shadow-3);
     max-width: 800px;
     max-height: 90vh;
@@ -93,14 +94,17 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var(--color--muted));
 
     &--border-radius-sm {
         border-radius: var(--radius-sm);
+        corner-shape: var(--corner-shape);
     }
 
     &--border-radius-md {
         border-radius: var(--radius-md);
+        corner-shape: var(--corner-shape);
     }
 
     &--border-radius-lg {
         border-radius: var(--radius-lg);
+        corner-shape: var(--corner-shape);
     }
 
     .c-modal.c-modal--size-sm {

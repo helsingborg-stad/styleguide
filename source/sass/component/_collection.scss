@@ -53,6 +53,7 @@ $c-collection-item-background-color: var(--c-collection-item-background-color, v
 .c-collection {
     &.c-collection--bordered {
         border-radius: $c-collection-border-radius;
+        corner-shape: var(--corner-shape);
         border-color: $c-collection-border-color;
         padding-top: var(--base);
         padding-bottom: var(--base);
@@ -77,6 +78,7 @@ $c-collection-item-background-color: var(--c-collection-item-background-color, v
             img {
                 aspect-ratio: 1/1;
                 border-radius: $c-collection-item-image-border-radius;
+                corner-shape: var(--corner-shape);
                 height: 100%;
                 width: 100%;
                 object-fit: cover;

@@ -40,6 +40,7 @@ $c-textarea-line-height: var(--c-textarea-line-height, 1.5);
         transition: color .1s ease;
         background-size: calc(#{var(--base)}*2);
         border-radius: $c-textarea-border-radius;
+        corner-shape: var(--corner-shape);
         line-height: $c-textarea-line-height;
         color: $c-textarea-text-color;
 
@@ -100,6 +101,7 @@ $c-textarea-line-height: var(--c-textarea-line-height, 1.5);
         background-color: var_colors.$color-danger;
         border:none;
         border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        corner-shape: var(--corner-shape);
         box-sizing: border-box;
 
         &.error {

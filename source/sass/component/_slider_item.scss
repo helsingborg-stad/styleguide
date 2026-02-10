@@ -20,6 +20,7 @@
     max-width: var(--c-slider-max-width-computed);
     max-height: 80vh;
     border-radius: $c-slider-border-radius;
+    corner-shape: var(--corner-shape);
 
     .c-slider__item__container {
         backface-visibility: hidden;
@@ -56,6 +57,7 @@
         left: 0;
         z-index: var_properties.$level-3 - 1;
         border-radius: $c-slider-border-radius;
+        corner-shape: var(--corner-shape);
 
         &:focus-visible {
             @include focus.focus-inset;
@@ -111,6 +113,7 @@
             height: 100%;
             width: 100%;
             border-radius: $c-slider-border-radius;
+            corner-shape: var(--corner-shape);
         }
 
         &--overlay-dark::before {
@@ -236,6 +239,7 @@
     .c-slider__item__container {
         padding: map.get(var_default.$spacers, '4');
         border-radius: var(--radius-lg);
+        corner-shape: var(--corner-shape);
         margin: auto;
         width: calc(100% - (#{var(--base)} * 10));
         max-width: $c-slider-item-container-max-width;

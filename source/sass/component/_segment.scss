@@ -86,6 +86,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var(-
             aspect-ratio: 16/9;
             height: unset;
             border-radius: $c-segment-image-border-radius;
+            corner-shape: var(--corner-shape);
 
             .c-image__image {
                 object-fit: cover;

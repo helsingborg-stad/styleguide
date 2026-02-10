@@ -207,6 +207,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-
 
     &.c-hero--apply-rounded-corners .c-hero__content {
       border-radius: $c-hero-content-border-radius;
+      corner-shape: var(--corner-shape);
     }
 
     &.c-hero--apply-shadows .c-hero__content {
@@ -308,6 +309,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-
     .c-hero__image-container {
       aspect-ratio: 16 / 9;
       border-radius: var(--radius-md);
+      corner-shape: var(--corner-shape);
       contain: paint;
     }
     
@@ -332,6 +334,7 @@ $c-hero-content-border-radius: var(--c-hero-content-border-radius, var(--radius-
       padding:0;
       text-shadow: none;
       border-radius: var(--radius-xs);
+      corner-shape: var(--corner-shape);
       .c-hero__group {
         flex: 0 0 100%;
       }

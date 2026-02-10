@@ -89,6 +89,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var(--rad
     &__bubble--color-light &__bubble--inner {
         width: 100%;
         border-radius: $c-comment-border-radius;
+        corner-shape: var(--corner-shape);
         border-top-left-radius: $c-comment-border-radius-corner;
         padding: map.get(var_default.$spacers, "1half") map.get(var_default.$spacers, "2");
         color: var(--color--black);

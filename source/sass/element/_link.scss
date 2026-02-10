@@ -43,6 +43,7 @@ a, .link {
         padding: calc(#{var(--base)}/2);
         margin-right: calc(#{var(--base)}/2);
         border-radius: var(--radius-sm);
+        corner-shape: var(--corner-shape);
         text-decoration: none;
         color: var_colors.$color-base;
         font-size: var_fonts.$font-size-meta;

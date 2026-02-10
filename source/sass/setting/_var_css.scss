@@ -1,5 +1,3 @@
-
-
 :root {
 
   /**********************************************************
@@ -26,20 +24,24 @@
   --level-9: 9000;
 
   /**********************************************************
-  * RADIUS
+  * CORNER RADIUS AND SHAPE
   ***********************************************************/
-  --radius-xxs:  calc(var(--base) / 8);
-  --radius-xs:   calc(var(--base) / 4);
-  --radius-sm:   calc(var(--base) / 2);
-  --radius-md:   calc(var(--base));
-  --radius-lg:   calc(var(--base) * 2);
-  --radius-xl:   calc(var(--base) * 4);
+  --radius:      calc(var(--base) / 2);
+  --radius-xs:   calc(--radius * 0.5);
+  --radius-sm:   calc(--radius);
+  --radius-md:   calc(var(--radius) * 1.5);
+  --radius-lg:   calc(var(--radius) * 2);
+  --radius-xl:   calc(var(--radius) * 4);
   --radius-full: 5000px;
+
+  --corner-shape: 'squirkle'; /* Options: 'square', 'rounded', 'squirkle', 'circular' */
 
   /**********************************************************
   * SPACING
   ***********************************************************/
   --spacing-0: 0;
+
+  //Derived from base spacing unit
   --spacing-xs: var(--base);
   --spacing-sm: calc(var(--base) * 2);
   --spacing-md: calc(var(--base) * 4);
@@ -66,14 +68,28 @@
   --font-family-heading: var(--font-family-base);
   --font-family-code: "Fira Sans", "Monaco", "Consolas", "Menlo", "Lucida Console", "Courier New", "Courier", "Console";
 
-  /* Font Sizes - Calculated from base-font-size */
+  /* Font Type Scale */
+  --font-size-scale-ratio: 1.25; 
+    /* 
+      Type Scale Reference:
+        1.067 – Minor Second
+        1.125 – Major Second
+        1.200 – Minor Third (default)
+        1.250 – Major Third
+        1.333 – Perfect Fourth
+        1.414 – Augmented Fourth
+        1.500 – Perfect Fifth
+        1.618 – Golden Ratio
+    */
+
+  // Derived from base font size and scale ratio
   --font-size-base: var(--base-font-size);
-  --font-size-caption: calc(var(--base-font-size) * 0.875);
-  --font-size-lead: calc(var(--base-font-size) * 1.125);
-  --font-size-marketing: calc(var(--base-font-size) * 2.25);
-  --font-size-headline: calc(var(--base-font-size) * 2);
-  --font-size-title: calc(var(--base-font-size) * 1.375);
-  --font-size-subtitle: calc(var(--base-font-size) * 1.125);
+  --font-size-caption: calc(var(--font-size-base) / var(--font-size-scale-ratio));
+  --font-size-lead: calc(var(--font-size-base) * var(--font-size-scale-ratio));
+  --font-size-marketing: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 3));
+  --font-size-headline: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 2));
+  --font-size-title: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 1.5));
+  --font-size-subtitle: calc(var(--font-size-base) * var(--font-size-scale-ratio));
 
   /* Font Weights */
   --font-weight-normal: 400;

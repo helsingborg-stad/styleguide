@@ -35,6 +35,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var(--color--alpha-cont
     .c-tooltip__container {
         position: absolute;
         border-radius: $c-tooltip-border-radius;
+        corner-shape: var(--corner-shape);
         z-index: var(--level-9);
         width:max-content;
         top: 100%;
@@ -155,6 +156,7 @@ $c-tooltip-content-color: var(--c-tooltip-content-color, var(--color--alpha-cont
         content: attr(data-tooltip);
         position: absolute;
         border-radius: $c-tooltip-border-radius;
+        corner-shape: var(--corner-shape);
         z-index: var(--level-9);
         width: max-content;
         max-width: calc(var(--base) * 25);

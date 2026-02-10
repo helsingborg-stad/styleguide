@@ -77,6 +77,7 @@
       @include cover.cover();
       contain: paint;
       border-radius: var(--radius-xs);
+      corner-shape: var(--corner-shape);
       animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;

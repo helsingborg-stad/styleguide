@@ -142,6 +142,7 @@ $c-accordion-margin-calculator: var(--c-accordion-scroll-margin, 0);
         .c-accordion__section {
             background-color: $c-accordion-spaced-background;
             border-radius: $c-accordion-border-radius;
+            corner-shape: var(--corner-shape);
             border-top: 0;
             width: 100%;
         }

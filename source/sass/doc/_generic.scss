@@ -7,6 +7,7 @@
 
 .d-code {
     border-radius:  0 0 var(--radius-md) var(--radius-md);
+    corner-shape: var(--corner-shape);
     border-top: 8px solid colors.$color-darkest;
     transform: translateY(-8px);
     z-index: properties.$level-1 - 1;
