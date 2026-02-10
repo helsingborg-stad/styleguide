@@ -285,43 +285,40 @@
           "label": "Background",
           "type": "color",
           "default": "#f5f5f5",
-          "contrast": "--color--background-contrast"
+          "contrast": ["--color--background-contrast", "--color--background--contrast-muted"]
         },
         {
           "variable": "--color--background-contrast",
           "label": "Background Contrast",
+          "description": "Used for text and icons on background with less contrast.",
           "type": "color",
           "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--background--contrast-muted",
+          "label": "Background Contrast Muted",
+          "description": "Used for text and icons on background with less contrast.",
+          "type": "color",
+          "default": "#6e6e6e"
         },
         {
           "variable": "--color--surface",
           "label": "Surface",
           "type": "color",
           "default": "#ffffff",
-          "contrast": "--color--surface-contrast"
+          "contrast": ["--color--surface-contrast", "--color--surface-contrast-muted"]
         },
         {
           "variable": "--color--surface-contrast",
           "label": "Surface Contrast",
-          "type": "color",
-          "default": "#2d2d2d"
-        }
-      ]
-    },
-    {
-      "id": "colors-text",
-      "label": "Text Colors",
-      "description": "Body text and muted text.",
-      "settings": [
-        {
-          "variable": "--color--text",
-          "label": "Text",
+          "description": "Used for text and icons on surface backgrounds with less contrast.",
           "type": "color",
           "default": "#2d2d2d"
         },
         {
-          "variable": "--color--muted",
-          "label": "Muted",
+          "variable": "--color--surface-contrast-muted",
+          "label": "Surface Contrast Muted",
+          "description": "Used for text and icons on surface backgrounds with less contrast.",
           "type": "color",
           "default": "#6e6e6e"
         }
