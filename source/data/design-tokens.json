@@ -1,0 +1,409 @@
+{
+  "name": "Design System",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "base",
+      "label": "Base",
+      "description": "Foundation values that drive spacing, radius, and typography scales.",
+      "settings": [
+        {
+          "variable": "--base",
+          "label": "Base Unit",
+          "description": "Master spacing unit. Drives radius and spacing scales.",
+          "type": "range",
+          "default": "8px",
+          "unit": "px",
+          "min": 2,
+          "max": 16,
+          "step": 1
+        },
+        {
+          "variable": "--base-font-size",
+          "label": "Base Font Size",
+          "description": "Root font size. All typographic sizes derive from this.",
+          "type": "range",
+          "default": "16px",
+          "unit": "px",
+          "min": 12,
+          "max": 24,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "shape",
+      "label": "Shape",
+      "description": "Corner radius strategy and shape style.",
+      "settings": [
+        {
+          "variable": "--corner-shape",
+          "label": "Corner Shape",
+          "type": "select",
+          "default": "squirkle",
+          "options": [
+            { "value": "square", "label": "Square" },
+            { "value": "rounded", "label": "Rounded" },
+            { "value": "squirkle", "label": "Squirkle" },
+            { "value": "circular", "label": "Circular" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "typography",
+      "label": "Typography",
+      "description": "Font families, type scale, weights, and line heights.",
+      "settings": [
+        {
+          "variable": "--font-family-base",
+          "label": "Body Font",
+          "type": "font",
+          "default": "\"Roboto\", sans-serif"
+        },
+        {
+          "variable": "--font-family-heading",
+          "label": "Heading Font",
+          "description": "Falls back to body font if not set.",
+          "type": "font",
+          "default": "var(--font-family-base)"
+        },
+        {
+          "variable": "--font-family-code",
+          "label": "Code Font",
+          "type": "font",
+          "default": "\"Fira Sans\", \"Monaco\", \"Consolas\", \"Menlo\", \"Lucida Console\", \"Courier New\", \"Courier\", \"Console\""
+        },
+        {
+          "variable": "--font-size-scale-ratio",
+          "label": "Type Scale",
+          "description": "Multiplier that generates all font sizes from the base.",
+          "type": "select",
+          "default": "1.250",
+          "options": [
+            { "value": "1.067", "label": "Minor Second" },
+            { "value": "1.125", "label": "Major Second" },
+            { "value": "1.200", "label": "Minor Third" },
+            { "value": "1.250", "label": "Major Third" },
+            { "value": "1.333", "label": "Perfect Fourth" },
+            { "value": "1.414", "label": "Augmented Fourth" },
+            { "value": "1.500", "label": "Perfect Fifth" },
+            { "value": "1.618", "label": "Golden Ratio" }
+          ]
+        },
+        {
+          "variable": "--font-weight-normal",
+          "label": "Normal Weight",
+          "type": "select",
+          "default": "400",
+          "options": [
+            { "value": "100", "label": "Thin" },
+            { "value": "200", "label": "Extra Light" },
+            { "value": "300", "label": "Light" },
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi Bold" }
+          ]
+        },
+        {
+          "variable": "--font-weight-medium",
+          "label": "Medium Weight",
+          "type": "select",
+          "default": "500",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi Bold" },
+            { "value": "700", "label": "Bold" }
+          ]
+        },
+        {
+          "variable": "--font-weight-bold",
+          "label": "Bold Weight",
+          "type": "select",
+          "default": "700",
+          "options": [
+            { "value": "600", "label": "Semi Bold" },
+            { "value": "700", "label": "Bold" },
+            { "value": "800", "label": "Extra Bold" },
+            { "value": "900", "label": "Black" }
+          ]
+        },
+        {
+          "variable": "--line-height-base",
+          "label": "Body Line Height",
+          "type": "range",
+          "default": "1.625",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.025
+        },
+        {
+          "variable": "--line-height-heading",
+          "label": "Heading Line Height",
+          "type": "range",
+          "default": "1.33",
+          "min": 1.0,
+          "max": 1.8,
+          "step": 0.01
+        },
+        {
+          "variable": "--letter-spacing-base",
+          "label": "Letter Spacing",
+          "type": "range",
+          "default": "0",
+          "unit": "em",
+          "min": -0.05,
+          "max": 0.2,
+          "step": 0.005
+        }
+      ]
+    },
+    {
+      "id": "borders",
+      "label": "Borders",
+      "description": "Border width tokens for UI elements.",
+      "settings": [
+        {
+          "variable": "--border-width-thin",
+          "label": "Thin",
+          "type": "range",
+          "default": "1px",
+          "unit": "px",
+          "min": 0,
+          "max": 4,
+          "step": 0.5
+        },
+        {
+          "variable": "--border-width-medium",
+          "label": "Medium",
+          "type": "range",
+          "default": "2px",
+          "unit": "px",
+          "min": 1,
+          "max": 6,
+          "step": 0.5
+        },
+        {
+          "variable": "--border-width-thick",
+          "label": "Thick",
+          "type": "range",
+          "default": "4px",
+          "unit": "px",
+          "min": 2,
+          "max": 10,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "shadows",
+      "label": "Shadows",
+      "description": "Global shadow multipliers and color.",
+      "settings": [
+        {
+          "variable": "--shadow-color",
+          "label": "Shadow Color",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "variable": "--shadow-amount",
+          "label": "Drop Shadow Intensity",
+          "description": "Multiplier for elevation shadows. 0 = none, 1 = default.",
+          "type": "range",
+          "default": "0.7",
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "variable": "--shadow-detail-amount",
+          "label": "Detail Shadow Intensity",
+          "description": "Multiplier for subtle depth shadows. 0 = none, 1 = default.",
+          "type": "range",
+          "default": "0.5",
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        }
+      ]
+    },
+    {
+      "id": "colors-brand",
+      "label": "Brand Colors",
+      "description": "Primary, secondary, and accent brand colors with contrast pairs.",
+      "settings": [
+        {
+          "variable": "--color--primary",
+          "label": "Primary",
+          "type": "color",
+          "default": "#2d2d2d",
+          "contrast": "--color--primary-contrast"
+        },
+        {
+          "variable": "--color--primary-contrast",
+          "label": "Primary Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--secondary",
+          "label": "Secondary",
+          "type": "color",
+          "default": "#6e6e6e",
+          "contrast": "--color--secondary-contrast"
+        },
+        {
+          "variable": "--color--secondary-contrast",
+          "label": "Secondary Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#bdbdbd",
+          "contrast": "--color--accent-contrast"
+        },
+        {
+          "variable": "--color--accent-contrast",
+          "label": "Accent Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        }
+      ]
+    },
+    {
+      "id": "colors-layout",
+      "label": "Layout Colors",
+      "description": "Background and surface colors.",
+      "settings": [
+        {
+          "variable": "--color--background",
+          "label": "Background",
+          "type": "color",
+          "default": "#f5f5f5",
+          "contrast": "--color--background-contrast"
+        },
+        {
+          "variable": "--color--background-contrast",
+          "label": "Background Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--surface",
+          "label": "Surface",
+          "type": "color",
+          "default": "#ffffff",
+          "contrast": "--color--surface-contrast"
+        },
+        {
+          "variable": "--color--surface-contrast",
+          "label": "Surface Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        }
+      ]
+    },
+    {
+      "id": "colors-text",
+      "label": "Text Colors",
+      "description": "Body text and muted text.",
+      "settings": [
+        {
+          "variable": "--color--text",
+          "label": "Text",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--muted",
+          "label": "Muted",
+          "type": "color",
+          "default": "#6e6e6e"
+        }
+      ]
+    },
+    {
+      "id": "colors-ui",
+      "label": "UI Colors",
+      "description": "Borders, focus, and interactive states.",
+      "settings": [
+        {
+          "variable": "--color--border",
+          "label": "Border",
+          "type": "color",
+          "default": "#e0e0e0"
+        },
+        {
+          "variable": "--color--focus",
+          "label": "Focus",
+          "type": "color",
+          "default": "#4d90fe"
+        }
+      ]
+    },
+    {
+      "id": "colors-state",
+      "label": "State Colors",
+      "description": "Feedback colors for success, warning, error, and info.",
+      "settings": [
+        {
+          "variable": "--color--success",
+          "label": "Success",
+          "type": "color",
+          "default": "#4caf50",
+          "contrast": "--color--success-contrast"
+        },
+        {
+          "variable": "--color--success-contrast",
+          "label": "Success Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--warning",
+          "label": "Warning",
+          "type": "color",
+          "default": "#ffb300",
+          "contrast": "--color--warning-contrast"
+        },
+        {
+          "variable": "--color--warning-contrast",
+          "label": "Warning Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--error",
+          "label": "Error",
+          "type": "color",
+          "default": "#e53935",
+          "contrast": "--color--error-contrast"
+        },
+        {
+          "variable": "--color--error-contrast",
+          "label": "Error Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--info",
+          "label": "Info",
+          "type": "color",
+          "default": "#039be5",
+          "contrast": "--color--info-contrast"
+        },
+        {
+          "variable": "--color--info-contrast",
+          "label": "Info Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}
