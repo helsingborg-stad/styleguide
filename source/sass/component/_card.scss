@@ -181,7 +181,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     }
 
     .c-card__content-after {
-        height: 100%;
+        margin-top: auto;
     }
 
     /* Focus highlight */
