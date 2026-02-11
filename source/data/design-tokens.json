@@ -347,6 +347,7 @@
       "id": "colors-alpha",
       "label": "Alpha Colors",
       "description": "Black, white, and gray with alpha steps from 10% to 100%.",
+      "present": "swatch",
       "settings": [
         {
           "variable": "--color--black-10",
