@@ -10,7 +10,7 @@
         {
           "variable": "--base",
           "label": "Base Unit",
-          "description": "Master spacing unit. Drives radius and spacing scales.",
+          "description": "Main unit that drives radius and spacing scales.",
           "type": "range",
           "default": "8px",
           "unit": "px",
