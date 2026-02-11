@@ -53,6 +53,11 @@
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
 .u-preloader--inner {
+  &.u-preloader--no-border,
+  .u-preloader--no-border {
+    border-color: transparent !important;
+  }
+
   .c-typography,
   .c-button,
   .c-avatar,
