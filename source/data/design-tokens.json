@@ -31,10 +31,20 @@
       ]
     },
     {
-      "id": "shape",
-      "label": "Shape",
-      "description": "Corner radius strategy and shape style.",
+      "id": "radius",
+      "label": "Radius",
+      "description": "Border radius and corner shape style.",
       "settings": [
+        {
+          "variable": "--border-radius",
+          "label": "Border Radius",
+          "type": "range",
+          "default": "8px",
+          "unit": "px",
+          "min": 0,
+          "max": 32,
+          "step": 1
+        },
         {
           "variable": "--corner-shape",
           "label": "Corner Shape",
