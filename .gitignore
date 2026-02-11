@@ -33,3 +33,4 @@ source/sass/imports/*
 *.key
 *.crt
 franken/Caddyfile
+.phpunit.result.cache

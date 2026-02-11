@@ -33,19 +33,68 @@ class ValidationResult
             return 'No violations found.';
         }
 
-        $prefix = $filePath ? basename($filePath) . ': ' : '';
-        $lines  = [];
+        $file = $filePath ? basename($filePath) : '';
+        $rows = [];
 
         foreach ($this->violations as $v) {
-            $lines[] = sprintf(
-                "%sLine %d: %s%s",
-                $prefix,
-                $v['line'],
-                $v['message'],
-                $v['content'] ? " → {$v['content']}" : ''
-            );
+            $rows[] = [
+                'file'    => $file,
+                'line'    => (string) $v['line'],
+                'message' => $v['message'],
+                'context' => $v['content'],
+            ];
         }
 
-        return implode("\n", $lines);
+        return self::formatTable(['File', 'Line', 'Message', 'Context'], $rows);
+    }
+
+    /** @param string[] $headers @param array<int, array<string, string>> $rows */
+    private static function formatTable(array $headers, array $rows): string
+    {
+        $keys = ['file', 'line', 'message', 'context'];
+
+        // Calculate column widths
+        $widths = [];
+        foreach ($keys as $i => $key) {
+            $widths[$key] = mb_strlen($headers[$i]);
+        }
+        foreach ($rows as $row) {
+            foreach ($keys as $key) {
+                $widths[$key] = max($widths[$key], mb_strlen($row[$key] ?? ''));
+            }
+        }
+
+        // Cap context column to avoid excessively wide output
+        $widths['context'] = min($widths['context'], 60);
+
+        // Build separator and header
+        $sep = '+';
+        foreach ($keys as $key) {
+            $sep .= str_repeat('-', $widths[$key] + 2) . '+';
+        }
+
+        $headerLine = '|';
+        foreach ($keys as $i => $key) {
+            $headerLine .= ' ' . str_pad($headers[$i], $widths[$key]) . ' |';
+        }
+
+        $lines = [$sep, $headerLine, $sep];
+
+        // Build rows
+        foreach ($rows as $row) {
+            $line = '|';
+            foreach ($keys as $key) {
+                $val = $row[$key] ?? '';
+                if (mb_strlen($val) > $widths[$key]) {
+                    $val = mb_substr($val, 0, $widths[$key] - 3) . '...';
+                }
+                $line .= ' ' . str_pad($val, $widths[$key]) . ' |';
+            }
+            $lines[] = $line;
+        }
+
+        $lines[] = $sep;
+
+        return "\n" . implode("\n", $lines);
     }
 }
