@@ -48,8 +48,12 @@ class DesignBuilder {
       <h1 class="db-header__title">Design Builder</h1>
       <p class="db-header__subtitle">${this.tokens.name} v${this.tokens.version}</p>
       <div class="db-header__actions">
-        <button type="button" class="db-btn db-btn--secondary" data-action="export">Export JSON</button>
-        <button type="button" class="db-btn db-btn--danger" data-action="reset">Reset All</button>
+        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="export">
+          <span class="c-button__label"><span class="c-button__label-text">Export JSON</span></span>
+        </button>
+        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--primary" data-action="reset">
+          <span class="c-button__label"><span class="c-button__label-text">Reset All</span></span>
+        </button>
       </div>
     `
     this.container.appendChild(header)
@@ -71,7 +75,7 @@ class DesignBuilder {
 
   private renderCategory(category: TokenCategory): HTMLElement {
     const section = document.createElement('section')
-    section.className = 'db-category'
+    section.className = 'db-category c-paper'
     section.dataset.categoryId = category.id
 
     // Category header (collapsible)
@@ -107,21 +111,28 @@ class DesignBuilder {
         if (contrastVars.has(setting.variable)) continue
 
         if (setting.contrast) {
-          // Render contrast pair(s)
+          // Collect all contrast settings for this base
           const refs = Array.isArray(setting.contrast) ? setting.contrast : [setting.contrast]
+          const contrasts: { setting: TokenSetting; value: string }[] = []
           for (const contrastVar of refs) {
             const contrastSetting = settingsMap.get(contrastVar)
             if (contrastSetting) {
-              const baseVal = this.overrides[setting.variable] || setting.default
-              const contrastVal = this.overrides[contrastVar] || contrastSetting.default
-              body.appendChild(createContrastPair(
-                setting, contrastSetting, baseVal, contrastVal,
-                (variable, value) => {
-                  const def = variable === setting.variable ? setting.default : contrastSetting.default
-                  this.handleChange(variable, value, def)
-                }
-              ))
+              contrasts.push({
+                setting: contrastSetting,
+                value: this.overrides[contrastVar] || contrastSetting.default,
+              })
             }
+          }
+          if (contrasts.length > 0) {
+            const baseVal = this.overrides[setting.variable] || setting.default
+            body.appendChild(createContrastPair(
+              setting, contrasts, baseVal,
+              (variable, value) => {
+                const allSettings = [setting, ...contrasts.map(c => c.setting)]
+                const def = allSettings.find(s => s.variable === variable)?.default || ''
+                this.handleChange(variable, value, def)
+              }
+            ))
           }
         } else {
           // Regular control

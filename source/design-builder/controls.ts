@@ -83,10 +83,10 @@ export function createControl(
   // Reset button (not for locked tokens)
   if (!setting.locked) {
     const resetBtn = document.createElement('button')
-    resetBtn.className = 'db-control__reset'
+    resetBtn.className = 'c-button c-button--sm c-button__outlined c-button__outlined--default db-control__reset'
     resetBtn.type = 'button'
     resetBtn.title = `Reset to ${setting.default}`
-    resetBtn.textContent = 'Reset'
+    resetBtn.innerHTML = '<span class="c-button__label"><span class="c-button__label-text">Reset</span></span>'
     resetBtn.addEventListener('click', () => {
       onChange(setting.variable, '')
       updateControlValue(row, setting.default, setting)
@@ -142,18 +142,23 @@ function buildColorControl(
 ): void {
   const isLocked = setting.locked === true
 
-  // Color swatch preview
-  const swatch = document.createElement('div')
-  swatch.className = 'db-control__swatch'
-  swatch.style.backgroundColor = currentValue
-  wrap.appendChild(swatch)
-
-  // Native color picker (hex only)
+  // Hidden native color picker
   const colorInput = document.createElement('input')
   colorInput.type = 'color'
+  colorInput.className = 'db-control__color-hidden'
   colorInput.value = toHex(currentValue)
   colorInput.disabled = isLocked
   wrap.appendChild(colorInput)
+
+  // Clickable swatch that opens the picker
+  const swatch = document.createElement('div')
+  swatch.className = 'db-control__swatch'
+  swatch.style.backgroundColor = currentValue
+  if (!isLocked) {
+    swatch.classList.add('db-control__swatch--clickable')
+    swatch.addEventListener('click', () => colorInput.click())
+  }
+  wrap.appendChild(swatch)
 
   // Text input for rgba/hex values
   const textInput = document.createElement('input')
@@ -280,48 +285,60 @@ function buildFontControl(
 // --- Contrast Pair ---
 
 /**
- * Creates a 3-column contrast pair row:
- * Col 1: Base color control
- * Col 2: Contrast color control
- * Col 3: Preview box showing the combination
+ * Creates a contrast pair group:
+ * Col 1: Base color control (spans all rows)
+ * Col 2: Contrast color controls + preview boxes (stacked)
  */
 export function createContrastPair(
   base: TokenSetting,
-  contrast: TokenSetting,
+  contrasts: { setting: TokenSetting; value: string }[],
   baseValue: string,
-  contrastValue: string,
   onChange: ChangeCallback
 ): HTMLElement {
   const row = document.createElement('div')
   row.className = 'db-pair'
 
+  const previews: HTMLElement[] = []
+
   // --- Col 1: Base ---
   const baseCol = document.createElement('div')
   baseCol.className = 'db-pair__col'
   baseCol.appendChild(buildPairColorCell(base, baseValue, onChange, (val) => {
-    preview.style.backgroundColor = val
+    for (const p of previews) p.style.backgroundColor = val
   }))
   row.appendChild(baseCol)
 
-  // --- Col 2: Contrast ---
-  const contrastCol = document.createElement('div')
-  contrastCol.className = 'db-pair__col'
-  contrastCol.appendChild(buildPairColorCell(contrast, contrastValue, onChange, (val) => {
-    preview.style.color = val
-  }))
-  row.appendChild(contrastCol)
+  // --- Col 2: Stacked contrasts + previews ---
+  const contrastsWrap = document.createElement('div')
+  contrastsWrap.className = 'db-pair__contrasts'
 
-  // --- Col 3: Preview ---
-  const previewCol = document.createElement('div')
-  previewCol.className = 'db-pair__preview-col'
-  const preview = document.createElement('div')
-  preview.className = 'db-pair__preview'
-  preview.style.backgroundColor = baseValue
-  preview.style.color = contrastValue
-  preview.innerHTML = '<span class="db-pair__preview-lg">Aa</span><span class="db-pair__preview-sm">The quick brown fox jumps over the lazy dog</span>'
-  previewCol.appendChild(preview)
-  row.appendChild(previewCol)
+  for (const { setting: contrastSetting, value: contrastValue } of contrasts) {
+    const contrastRow = document.createElement('div')
+    contrastRow.className = 'db-pair__contrast-row'
 
+    const contrastCol = document.createElement('div')
+    contrastCol.className = 'db-pair__col'
+
+    const previewCol = document.createElement('div')
+    previewCol.className = 'db-pair__preview-col'
+    const preview = document.createElement('div')
+    preview.className = 'db-pair__preview'
+    preview.style.backgroundColor = baseValue
+    preview.style.color = contrastValue
+    preview.innerHTML = '<span class="db-pair__preview-lg">Aa</span><span class="db-pair__preview-sm">The quick brown fox jumps over the lazy dog</span>'
+    previews.push(preview)
+    previewCol.appendChild(preview)
+
+    contrastCol.appendChild(buildPairColorCell(contrastSetting, contrastValue, onChange, (val) => {
+      preview.style.color = val
+    }))
+
+    contrastRow.appendChild(contrastCol)
+    contrastRow.appendChild(previewCol)
+    contrastsWrap.appendChild(contrastRow)
+  }
+
+  row.appendChild(contrastsWrap)
   return row
 }
 
@@ -352,17 +369,19 @@ function buildPairColorCell(
   const inputRow = document.createElement('div')
   inputRow.className = 'db-pair__inputs'
 
-  // Swatch
-  const swatch = document.createElement('div')
-  swatch.className = 'db-control__swatch'
-  swatch.style.backgroundColor = currentValue
-  inputRow.appendChild(swatch)
-
-  // Color picker
+  // Hidden native color picker
   const colorInput = document.createElement('input')
   colorInput.type = 'color'
+  colorInput.className = 'db-control__color-hidden'
   colorInput.value = toHex(currentValue)
   inputRow.appendChild(colorInput)
+
+  // Clickable swatch
+  const swatch = document.createElement('div')
+  swatch.className = 'db-control__swatch db-control__swatch--clickable'
+  swatch.style.backgroundColor = currentValue
+  swatch.addEventListener('click', () => colorInput.click())
+  inputRow.appendChild(swatch)
 
   // Text input
   const textInput = document.createElement('input')
@@ -390,10 +409,10 @@ function buildPairColorCell(
 
   // Reset
   const resetBtn = document.createElement('button')
-  resetBtn.className = 'db-control__reset'
+  resetBtn.className = 'c-button c-button--sm c-button__basic c-button__basic--default db-control__reset'
   resetBtn.type = 'button'
   resetBtn.title = `Reset to ${setting.default}`
-  resetBtn.textContent = 'Reset'
+  resetBtn.innerHTML = '<span class="c-button__label"><span class="c-button__label-text">Reset</span></span>'
   resetBtn.addEventListener('click', () => {
     onChange(setting.variable, '')
     colorInput.value = toHex(setting.default)
