@@ -344,6 +344,223 @@
       ]
     },
     {
+      "id": "colors-alpha",
+      "label": "Alpha Colors",
+      "description": "Black, white, and gray with alpha steps from 10% to 100%.",
+      "settings": [
+        {
+          "variable": "--color--black-10",
+          "label": "Black 10%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-20",
+          "label": "Black 20%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-30",
+          "label": "Black 30%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-40",
+          "label": "Black 40%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-50",
+          "label": "Black 50%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-60",
+          "label": "Black 60%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-70",
+          "label": "Black 70%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-80",
+          "label": "Black 80%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-90",
+          "label": "Black 90%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-100",
+          "label": "Black 100%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-10",
+          "label": "White 10%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-20",
+          "label": "White 20%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-30",
+          "label": "White 30%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-40",
+          "label": "White 40%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-50",
+          "label": "White 50%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-60",
+          "label": "White 60%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-70",
+          "label": "White 70%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-80",
+          "label": "White 80%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-90",
+          "label": "White 90%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-100",
+          "label": "White 100%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-10",
+          "label": "Gray 10%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-20",
+          "label": "Gray 20%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-30",
+          "label": "Gray 30%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-40",
+          "label": "Gray 40%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-50",
+          "label": "Gray 50%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-60",
+          "label": "Gray 60%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-70",
+          "label": "Gray 70%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-80",
+          "label": "Gray 80%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-90",
+          "label": "Gray 90%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-100",
+          "label": "Gray 100%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 1)",
+          "locked": true
+        }
+      ]
+    },
+    {
       "id": "colors-state",
       "label": "State Colors",
       "description": "Feedback colors for success, warning, error, and info.",
