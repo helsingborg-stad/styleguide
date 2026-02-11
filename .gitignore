@@ -34,3 +34,6 @@ source/sass/imports/*
 *.crt
 franken/Caddyfile
 .phpunit.result.cache
+
+# Generated from source/data/design-tokens.json
+source/sass/setting/_design-tokens.scss
