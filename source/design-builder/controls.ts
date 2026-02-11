@@ -94,15 +94,6 @@ export function createControl(
     row.appendChild(resetBtn)
   }
 
-  // Contrast indicator
-  if (setting.contrast) {
-    const contrastInfo = document.createElement('span')
-    contrastInfo.className = 'db-control__contrast'
-    const pairs = Array.isArray(setting.contrast) ? setting.contrast : [setting.contrast]
-    contrastInfo.textContent = `Contrast: ${pairs.join(', ')}`
-    row.appendChild(contrastInfo)
-  }
-
   return row
 }
 
@@ -284,6 +275,135 @@ function buildFontControl(
       onChange(setting.variable, input.value)
     })
   }
+}
+
+// --- Contrast Pair ---
+
+/**
+ * Creates a 3-column contrast pair row:
+ * Col 1: Base color control
+ * Col 2: Contrast color control
+ * Col 3: Preview box showing the combination
+ */
+export function createContrastPair(
+  base: TokenSetting,
+  contrast: TokenSetting,
+  baseValue: string,
+  contrastValue: string,
+  onChange: ChangeCallback
+): HTMLElement {
+  const row = document.createElement('div')
+  row.className = 'db-pair'
+
+  // --- Col 1: Base ---
+  const baseCol = document.createElement('div')
+  baseCol.className = 'db-pair__col'
+  baseCol.appendChild(buildPairColorCell(base, baseValue, onChange, (val) => {
+    preview.style.backgroundColor = val
+  }))
+  row.appendChild(baseCol)
+
+  // --- Col 2: Contrast ---
+  const contrastCol = document.createElement('div')
+  contrastCol.className = 'db-pair__col'
+  contrastCol.appendChild(buildPairColorCell(contrast, contrastValue, onChange, (val) => {
+    preview.style.color = val
+  }))
+  row.appendChild(contrastCol)
+
+  // --- Col 3: Preview ---
+  const previewCol = document.createElement('div')
+  previewCol.className = 'db-pair__preview-col'
+  const preview = document.createElement('div')
+  preview.className = 'db-pair__preview'
+  preview.style.backgroundColor = baseValue
+  preview.style.color = contrastValue
+  preview.innerHTML = '<span class="db-pair__preview-lg">Aa</span><span class="db-pair__preview-sm">The quick brown fox jumps over the lazy dog</span>'
+  previewCol.appendChild(preview)
+  row.appendChild(previewCol)
+
+  return row
+}
+
+/**
+ * Builds a single color cell within a contrast pair column.
+ * Compact: label, variable, swatch+picker+text, reset.
+ */
+function buildPairColorCell(
+  setting: TokenSetting,
+  currentValue: string,
+  onChange: ChangeCallback,
+  onPreviewUpdate: (val: string) => void
+): HTMLElement {
+  const cell = document.createElement('div')
+  cell.className = 'db-pair__cell'
+  cell.dataset.variable = setting.variable
+
+  const label = document.createElement('label')
+  label.className = 'db-pair__label'
+  label.textContent = setting.label
+  cell.appendChild(label)
+
+  const varName = document.createElement('code')
+  varName.className = 'db-pair__variable'
+  varName.textContent = setting.variable
+  cell.appendChild(varName)
+
+  const inputRow = document.createElement('div')
+  inputRow.className = 'db-pair__inputs'
+
+  // Swatch
+  const swatch = document.createElement('div')
+  swatch.className = 'db-control__swatch'
+  swatch.style.backgroundColor = currentValue
+  inputRow.appendChild(swatch)
+
+  // Color picker
+  const colorInput = document.createElement('input')
+  colorInput.type = 'color'
+  colorInput.value = toHex(currentValue)
+  inputRow.appendChild(colorInput)
+
+  // Text input
+  const textInput = document.createElement('input')
+  textInput.type = 'text'
+  textInput.className = 'db-control__text'
+  textInput.value = currentValue
+  textInput.placeholder = setting.default
+  inputRow.appendChild(textInput)
+
+  colorInput.addEventListener('input', () => {
+    textInput.value = colorInput.value
+    swatch.style.backgroundColor = colorInput.value
+    onPreviewUpdate(colorInput.value)
+    onChange(setting.variable, colorInput.value)
+  })
+
+  textInput.addEventListener('change', () => {
+    swatch.style.backgroundColor = textInput.value
+    colorInput.value = toHex(textInput.value)
+    onPreviewUpdate(textInput.value)
+    onChange(setting.variable, textInput.value)
+  })
+
+  cell.appendChild(inputRow)
+
+  // Reset
+  const resetBtn = document.createElement('button')
+  resetBtn.className = 'db-control__reset'
+  resetBtn.type = 'button'
+  resetBtn.title = `Reset to ${setting.default}`
+  resetBtn.textContent = 'Reset'
+  resetBtn.addEventListener('click', () => {
+    onChange(setting.variable, '')
+    colorInput.value = toHex(setting.default)
+    textInput.value = setting.default
+    swatch.style.backgroundColor = setting.default
+    onPreviewUpdate(setting.default)
+  })
+  cell.appendChild(resetBtn)
+
+  return cell
 }
 
 // --- Swatch Band ---

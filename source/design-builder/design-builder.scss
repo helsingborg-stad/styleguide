@@ -268,6 +268,104 @@
   font-style: italic;
 }
 
+// --- Contrast Pair ---
+
+.db-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr 160px;
+  gap: 1rem;
+  align-items: start;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.db-pair__col {
+  min-width: 0;
+}
+
+.db-pair__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.db-pair__label {
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.db-pair__variable {
+  font-size: 0.6875rem;
+  color: #999;
+  font-family: monospace;
+}
+
+.db-pair__inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+
+  input[type="color"] {
+    width: 36px;
+    height: 36px;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .db-control__text {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.db-pair__preview-col {
+  display: flex;
+  align-items: stretch;
+}
+
+.db-pair__preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  min-height: 80px;
+  text-align: center;
+}
+
+.db-pair__preview-lg {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.db-pair__preview-sm {
+  font-size: 0.625rem;
+  line-height: 1.3;
+  max-width: 120px;
+}
+
+@media (max-width: 640px) {
+  .db-pair {
+    grid-template-columns: 1fr 1fr;
+
+    .db-pair__preview-col {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
 // --- Swatch Band ---
 
 .db-swatch-band {

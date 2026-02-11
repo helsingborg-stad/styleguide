@@ -7,7 +7,7 @@
  */
 
 import { LocalStorageAdapter, type StorageAdapter } from './storage'
-import { createControl, createSwatchBand, type TokenSetting } from './controls'
+import { createControl, createContrastPair, createSwatchBand, type TokenSetting } from './controls'
 
 interface TokenCategory {
   id: string
@@ -91,12 +91,46 @@ class DesignBuilder {
     if (category.present === 'swatch') {
       body.appendChild(createSwatchBand(category.settings))
     } else {
+      // Build lookup and track which settings are contrast targets
+      const settingsMap = new Map<string, TokenSetting>()
+      const contrastVars = new Set<string>()
+      for (const s of category.settings) {
+        settingsMap.set(s.variable, s)
+        if (s.contrast) {
+          const refs = Array.isArray(s.contrast) ? s.contrast : [s.contrast]
+          refs.forEach(v => contrastVars.add(v))
+        }
+      }
+
       for (const setting of category.settings) {
-        const currentValue = this.overrides[setting.variable] || setting.default
-        const control = createControl(setting, currentValue, (variable, value) => {
-          this.handleChange(variable, value, setting.default)
-        })
-        body.appendChild(control)
+        // Skip tokens already rendered as part of a contrast pair
+        if (contrastVars.has(setting.variable)) continue
+
+        if (setting.contrast) {
+          // Render contrast pair(s)
+          const refs = Array.isArray(setting.contrast) ? setting.contrast : [setting.contrast]
+          for (const contrastVar of refs) {
+            const contrastSetting = settingsMap.get(contrastVar)
+            if (contrastSetting) {
+              const baseVal = this.overrides[setting.variable] || setting.default
+              const contrastVal = this.overrides[contrastVar] || contrastSetting.default
+              body.appendChild(createContrastPair(
+                setting, contrastSetting, baseVal, contrastVal,
+                (variable, value) => {
+                  const def = variable === setting.variable ? setting.default : contrastSetting.default
+                  this.handleChange(variable, value, def)
+                }
+              ))
+            }
+          }
+        } else {
+          // Regular control
+          const currentValue = this.overrides[setting.variable] || setting.default
+          const control = createControl(setting, currentValue, (variable, value) => {
+            this.handleChange(variable, value, setting.default)
+          })
+          body.appendChild(control)
+        }
       }
     }
 
