@@ -32,3 +32,33 @@ Design tokens are the single source of truth for storing design-related values s
 - Do not mix tokens from different categories unless explicitly allowed.
 - Refer to the design system documentation for approved token pairings.
 - Run tests in order to valiudate that sass is adhering to ruleset. 
+
+## Design tokens sass generation
+
+The file `source/sass/setting/_design-tokens.scss` is **auto-generated** from `source/data/design-tokens.json` and must never be edited manually. Any manual changes will be overwritten on the next build.
+
+### How it works
+
+A Node.js compiler (`build-design-tokens.mjs`) reads the JSON and outputs a `:root` block with all tokens as CSS custom properties, organized by category.
+
+### Running the compiler
+
+```bash
+# Standalone
+npm run tokens
+
+# Runs automatically before build
+npm run build
+```
+
+### Workflow
+
+1. Edit `source/data/design-tokens.json`
+2. Run `npm run tokens` (or `npm run build`)
+3. The generated `_design-tokens.scss` is gitignored — it is always rebuilt from the JSON source
+
+### Generated file location
+
+`source/sass/setting/_design-tokens.scss`
+
+This file is listed in `.gitignore` and should not be committed.
