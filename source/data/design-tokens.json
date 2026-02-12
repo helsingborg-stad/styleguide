@@ -39,22 +39,24 @@
           "variable": "--border-radius",
           "label": "Border Radius",
           "type": "range",
-          "default": "8px",
-          "unit": "px",
+          "default": 1,
+          "unit": "",
           "min": 0,
-          "max": 32,
-          "step": 1
+          "max": 5,
+          "step": 0.25
         },
         {
           "variable": "--corner-shape",
           "label": "Corner Shape",
           "type": "select",
-          "default": "squirkle",
+          "default": "squircle",
           "options": [
             { "value": "square", "label": "Square" },
             { "value": "rounded", "label": "Rounded" },
-            { "value": "squirkle", "label": "Squirkle" },
-            { "value": "circular", "label": "Circular" }
+            { "value": "squircle", "label": "Squircle" },
+            { "value": "circular", "label": "Circular" },
+            { "value": "bevel", "label": "Bevel" },
+            { "value": "scoop", "label": "Scoop" }
           ]
         }
       ]
@@ -195,11 +197,11 @@
           "variable": "--space",
           "label": "Size",
           "type": "range",
-          "default": "1",
+          "default": 1,
           "unit": "",
           "min": 0,
-          "max": 4,
-          "step": 1
+          "max": 3,
+          "step": 0.25
         }
       ]
     },
@@ -601,15 +603,15 @@
           "default": "#2d2d2d"
         },
         {
-          "variable": "--color--error",
-          "label": "Error",
+          "variable": "--color--danger",
+          "label": "Danger",
           "type": "color",
           "default": "#e53935",
-          "contrast": "--color--error-contrast"
+          "contrast": "--color--danger-contrast"
         },
         {
-          "variable": "--color--error-contrast",
-          "label": "Error Contrast",
+          "variable": "--color--danger-contrast",
+          "label": "Danger Contrast",
           "type": "color",
           "default": "#ffffff"
         },

@@ -1,34 +1,29 @@
-@use "sass:map";
 @use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
 
-$c-notice-color-text: var(--notice-color-text, #d73740) !default;
-$c-notice-color-background: var(--notice-color-background, #d73740) !default;
-
-$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
-
-$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
-
-$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
-
-$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
-
-$c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-radius-sm) !default;
-
+/* Valuemap for design tokens: */
 .c-notice {
-    filter: var_properties.$drop-shadow-5;
-    padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
-    background-color: var_colors.$color-base;
-    border-radius: $c-notice-border-radius;
-    color: var_colors.$color-notice-text-default;
+    --c-notice--border-radius: var(--border-radius);
+    --c-notice--corner-shape: var(--corner-shape);
+    --c-notice--space: var(--space);
+    --c-notice--shadow: var(--shadow);
+    --c-notice--line-height: var(--line-height);
+    --c-notice--color--success: var(--color--success);
+    --c-notice--color--success-contrast: var(--color--success-contrast);
+    --c-notice--color--danger: var(--color--danger);
+    --c-notice--color--danger-contrast: var(--color--danger-contrast);
+    --c-notice--color--warning: var(--color--warning);
+    --c-notice--color--warning-contrast: var(--color--warning-contrast);
+    --c-notice--color--info: var(--color--info);
+    --c-notice--color--info-contrast: var(--color--info-contrast);
+}
+
+/* Component */
+.c-notice {
+    filter: var(--c-notice--shadow);
+    contain: layout;
+    padding: calc(var(--c-notice--space) * var(--base) * 2) calc(var(--c-notice--space) * var(--base) * 3);
+    border-radius: calc(var(--c-notice--border-radius) * var(--base) * 1);
+    corner-shape: var(--c-notice--corner-shape);
     display: grid;
     grid-template-areas: 
         "icon title actions"
@@ -38,7 +33,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     align-items: center;
 
     > [class*='c-notice__'] + [class*='c-notice__']  {
-        margin-left: map.get(var_default.$spacers, "2");
+        margin-left: calc(var(--c-notice--space) * var(--base) * 2);
     }
 
     .c-notice__icon {
@@ -51,7 +46,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     .c-notice__title {
         grid-area: title;
         margin: 0;
-        line-height: var_fonts.$line-height-base;
+        line-height: var(--c-notice--line-height);
     }
 
     .c-notice__message {
@@ -63,15 +58,14 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
         
         grid-area: actions;
         display: flex;
-        gap: calc(map.get(var_default.$spacers, "1") * 1.5);
+        gap: calc(var(--c-notice--space) * 1.5);
         align-items: center;
         justify-content: flex-end;
-        margin: calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) 0;
-
+        margin: calc(var(--c-notice--space) * -1) calc(var(--c-notice--space) * -1) calc(var(--c-notice--space) * -1) 0;
         > * + * {
             position: relative;
-            padding-left: calc(calc(map.get(var_default.$spacers, "1") * 0.75) + 1px);
-            margin-left: calc(map.get(var_default.$spacers, "1") * 0.75);
+            padding-left: calc(calc(var(--c-notice--space) * 0.75) + 1px);
+            margin-left: calc(var(--c-notice--space) * 0.75);
         }
 
         > * + *::before {
@@ -101,75 +95,75 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
     a:hover,
     a:active,
     a:visited {
-        color: var_colors.$color-notice-text-default;
+        color: inherit;
         text-decoration: underline;
     }
 
     &--success {
-        background-color: $c-notice-color-success-background;
-        color: $c-notice-color-success-text;
+        background-color: var(--c-notice--color--success);
+        color: var(--c-notice--color--success-contrast);
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-success-text;
+            color: var(--c-notice--color--success-contrast);
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-success-text;
+            color: var(--c-notice--color--success-contrast);
         }
     }
 
     &--danger {
-        background-color: $c-notice-color-danger-background;
-        color: $c-notice-color-danger-text;
+        background-color: var(--c-notice--color--danger);
+        color: var(--c-notice--color--danger-contrast);
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-danger-text;
+            color: var(--c-notice--color--danger-contrast);
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-danger-text;
+            color: var(--c-notice--color--danger-contrast);
         }
     }
 
     &--info {
-        background-color: $c-notice-color-info-background;
-        color: $c-notice-color-info-text;
+        background-color: var(--c-notice--color--info);
+        color: var(--c-notice--color--info-contrast);
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-info-text;
+            color: var(--c-notice--color--info-contrast);
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-info-text;
+            color: var(--c-notice--color--info-contrast);
         }
     }
 
     &--warning {
-        background-color: $c-notice-color-warning-background;
-        color: $c-notice-color-warning-text;
+        background-color: var(--c-notice--color--warning);
+        color: var(--c-notice--color--warning-contrast);
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: $c-notice-color-warning-text;
+            color: var(--c-notice--color--warning-contrast);
             text-decoration: underline;
         }
 
         .c-button {
-            color: $c-notice-color-warning-text;
+            color: var(--c-notice--color--warning-contrast);
         }
     }
 
@@ -205,7 +199,7 @@ $c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-r
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(#{var_default.$base} * 2); 
+    margin-top: calc(var(--base) * 2); 
 }
 
 @media print {
