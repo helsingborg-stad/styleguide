@@ -81,7 +81,8 @@
           "variable": "--font-family-code",
           "label": "Code Font",
           "type": "font",
-          "default": "\"Fira Sans\", \"Monaco\", \"Consolas\", \"Menlo\", \"Lucida Console\", \"Courier New\", \"Courier\", \"Console\""
+          "default": "\"Fira Sans\", \"Monaco\", \"Consolas\", \"Menlo\", \"Lucida Console\", \"Courier New\", \"Courier\", \"Console\"",
+          "locked": true
         },
         {
           "variable": "--font-size-scale-ratio",
@@ -174,33 +175,30 @@
       "description": "Border width tokens for UI elements.",
       "settings": [
         {
-          "variable": "--border-width-thin",
-          "label": "Thin",
+          "variable": "--border-width",
+          "label": "Size",
           "type": "range",
-          "default": "1px",
-          "unit": "px",
+          "default": "1",
+          "unit": "",
           "min": 0,
           "max": 4,
           "step": 1
-        },
+        }
+      ]
+    },
+    {
+      "id": "space",
+      "label": "Spacing",
+      "description": "Spacing tokens for UI elements.",
+      "settings": [
         {
-          "variable": "--border-width-medium",
-          "label": "Medium",
+          "variable": "--space",
+          "label": "Size",
           "type": "range",
-          "default": "2px",
-          "unit": "px",
+          "default": "1",
+          "unit": "",
           "min": 0,
-          "max": 6,
-          "step": 1
-        },
-        {
-          "variable": "--border-width-thick",
-          "label": "Thick",
-          "type": "range",
-          "default": "4px",
-          "unit": "px",
-          "min": 0,
-          "max": 8,
+          "max": 4,
           "step": 1
         }
       ]
