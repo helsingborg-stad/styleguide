@@ -1,0 +1,453 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "Design token configuration for component customization UI",
+  "components": {
+    "c-button": {
+      "name": "Button",
+      "description": "Button component with multiple variants and states",
+      "tokens": {
+        "--c-button--base": {
+          "label": "Base Unit",
+          "description": "Base unit multiplier for spacing and sizing",
+          "type": "number",
+          "control": "slider",
+          "value": 8,
+          "unit": "px",
+          "min": 4,
+          "max": 16,
+          "step": 1,
+          "category": "layout"
+        },
+        "--c-button--font-weight": {
+          "label": "Font Weight",
+          "description": "Weight of the button text",
+          "type": "number",
+          "control": "select",
+          "value": 500,
+          "options": [
+            { "label": "Thin (100)", "value": 100 },
+            { "label": "Extra Light (200)", "value": 200 },
+            { "label": "Light (300)", "value": 300 },
+            { "label": "Regular (400)", "value": 400 },
+            { "label": "Medium (500)", "value": 500 },
+            { "label": "Semi Bold (600)", "value": 600 },
+            { "label": "Bold (700)", "value": 700 },
+            { "label": "Extra Bold (800)", "value": 800 },
+            { "label": "Black (900)", "value": 900 }
+          ],
+          "category": "typography"
+        },
+        "--c-button--text-transform": {
+          "label": "Text Transform",
+          "description": "Text transformation style",
+          "type": "string",
+          "control": "select",
+          "value": "uppercase",
+          "options": [
+            { "label": "None", "value": "none" },
+            { "label": "Uppercase", "value": "uppercase" },
+            { "label": "Lowercase", "value": "lowercase" },
+            { "label": "Capitalize", "value": "capitalize" }
+          ],
+          "category": "typography"
+        },
+        "--c-button--font-family": {
+          "label": "Font Family",
+          "description": "Font family for button text",
+          "type": "string",
+          "control": "text",
+          "value": "system-ui, -apple-system, sans-serif",
+          "category": "typography"
+        },
+        "--c-button--font-size-lg": {
+          "label": "Font Size (Large)",
+          "description": "Font size for large buttons",
+          "type": "number",
+          "control": "slider",
+          "value": 16,
+          "unit": "px",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "category": "typography"
+        },
+        "--c-button--font-size-md": {
+          "label": "Font Size (Medium)",
+          "description": "Font size for medium buttons",
+          "type": "number",
+          "control": "slider",
+          "value": 14,
+          "unit": "px",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "category": "typography"
+        },
+        "--c-button--font-size-sm": {
+          "label": "Font Size (Small)",
+          "description": "Font size for small buttons",
+          "type": "number",
+          "control": "slider",
+          "value": 12,
+          "unit": "px",
+          "min": 8,
+          "max": 16,
+          "step": 1,
+          "category": "typography"
+        },
+        "--c-button--color-default": {
+          "label": "Default Color",
+          "description": "Background color for default buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#e0e0e0",
+          "category": "colors"
+        },
+        "--c-button--color-default-darker": {
+          "label": "Default Contrast Color",
+          "description": "Text color for default buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#212121",
+          "category": "colors"
+        },
+        "--c-button--color-primary": {
+          "label": "Primary Color",
+          "description": "Background color for primary buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#1976d2",
+          "category": "colors"
+        },
+        "--c-button--color-primary-contrast": {
+          "label": "Primary Contrast Color",
+          "description": "Text color for primary buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        },
+        "--c-button--color-secondary": {
+          "label": "Secondary Color",
+          "description": "Background color for secondary buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#dc004e",
+          "category": "colors"
+        },
+        "--c-button--color-secondary-contrasting": {
+          "label": "Secondary Contrast Color",
+          "description": "Text color for secondary buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        },
+        "--c-button--color-button-black": {
+          "label": "Black",
+          "description": "Black color for buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#000000",
+          "category": "colors"
+        },
+        "--c-button--color-button-default-text": {
+          "label": "Default Text Color",
+          "description": "Default text color for outlined buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#212121",
+          "category": "colors"
+        },
+        "--c-button--color-button-disabled-bg": {
+          "label": "Disabled Background",
+          "description": "Background color for disabled buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#e0e0e0",
+          "category": "colors"
+        },
+        "--c-button--color-button-disabled-text": {
+          "label": "Disabled Text Color",
+          "description": "Text color for disabled buttons",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#9e9e9e",
+          "category": "colors"
+        },
+        "--c-button--color-black": {
+          "label": "Black (Overlay)",
+          "description": "Black color for overlays and effects",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#000000",
+          "category": "colors"
+        },
+        "--c-button--color-white": {
+          "label": "White (Overlay)",
+          "description": "White color for overlays and effects",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        },
+        "--c-button--border-radius": {
+          "label": "Border Radius",
+          "description": "Border radius multiplier",
+          "type": "number",
+          "control": "slider",
+          "value": 1,
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "category": "borders"
+        },
+        "--c-button--corner-shape": {
+          "label": "Corner Shape",
+          "description": "Shape of button corners",
+          "type": "string",
+          "control": "select",
+          "value": "round",
+          "options": [
+            { "label": "Round", "value": "round" },
+            { "label": "Squircle", "value": "squircle" }
+          ],
+          "category": "borders"
+        },
+        "--c-button--border-width": {
+          "label": "Border Width",
+          "description": "Width of button borders",
+          "type": "number",
+          "control": "slider",
+          "value": 1,
+          "min": 0,
+          "max": 5,
+          "step": 0.5,
+          "category": "borders"
+        },
+        "--c-button--shadow": {
+          "label": "Shadow",
+          "description": "Drop shadow effect level",
+          "type": "shadow",
+          "control": "select",
+          "value": "drop-shadow-1",
+          "options": [
+            { "label": "None", "value": "none" },
+            { "label": "Level 0", "value": "drop-shadow-0" },
+            { "label": "Level 1", "value": "drop-shadow-1" },
+            { "label": "Level 2", "value": "drop-shadow-2" },
+            { "label": "Level 3", "value": "drop-shadow-3" }
+          ],
+          "category": "effects"
+        },
+        "--c-button--level-1": {
+          "label": "Z-Index Level 1",
+          "description": "Z-index for primary layer",
+          "type": "number",
+          "control": "number",
+          "value": 1,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "category": "layout"
+        },
+        "--c-button--level-2": {
+          "label": "Z-Index Level 2",
+          "description": "Z-index for secondary layer",
+          "type": "number",
+          "control": "number",
+          "value": 2,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "category": "layout"
+        },
+        "--c-button--space": {
+          "label": "Spacing",
+          "description": "Spacing multiplier for margins and gaps",
+          "type": "number",
+          "control": "slider",
+          "value": 1,
+          "min": 0,
+          "max": 5,
+          "step": 0.25,
+          "category": "layout"
+        }
+      },
+      "categories": [
+        { "id": "typography", "label": "Typography", "icon": "text" },
+        { "id": "colors", "label": "Colors", "icon": "palette" },
+        { "id": "borders", "label": "Borders & Corners", "icon": "border" },
+        { "id": "effects", "label": "Effects", "icon": "magic" },
+        { "id": "layout", "label": "Layout & Spacing", "icon": "layout" }
+      ]
+    },
+    "c-notice": {
+      "name": "Notice",
+      "description": "Notice/alert component with multiple severity levels",
+      "tokens": {
+        "--c-notice--border-radius": {
+          "label": "Border Radius",
+          "description": "Border radius multiplier",
+          "type": "number",
+          "control": "slider",
+          "value": 1,
+          "min": 0,
+          "max": 10,
+          "step": 0.5,
+          "category": "borders"
+        },
+        "--c-notice--corner-shape": {
+          "label": "Corner Shape",
+          "description": "Shape of notice corners",
+          "type": "string",
+          "control": "select",
+          "value": "round",
+          "options": [
+            { "label": "Round", "value": "round" },
+            { "label": "Squircle", "value": "squircle" }
+          ],
+          "category": "borders"
+        },
+        "--c-notice--space": {
+          "label": "Spacing",
+          "description": "Spacing multiplier for internal padding and gaps",
+          "type": "number",
+          "control": "slider",
+          "value": 1,
+          "min": 0,
+          "max": 5,
+          "step": 0.25,
+          "category": "layout"
+        },
+        "--c-notice--shadow": {
+          "label": "Shadow",
+          "description": "Drop shadow effect level",
+          "type": "shadow",
+          "control": "select",
+          "value": "drop-shadow-1",
+          "options": [
+            { "label": "None", "value": "none" },
+            { "label": "Level 0", "value": "drop-shadow-0" },
+            { "label": "Level 1", "value": "drop-shadow-1" },
+            { "label": "Level 2", "value": "drop-shadow-2" },
+            { "label": "Level 3", "value": "drop-shadow-3" }
+          ],
+          "category": "effects"
+        },
+        "--c-notice--line-height": {
+          "label": "Line Height",
+          "description": "Line height for notice text",
+          "type": "number",
+          "control": "slider",
+          "value": 1.5,
+          "min": 1,
+          "max": 2.5,
+          "step": 0.1,
+          "category": "typography"
+        },
+        "--c-notice--color--success": {
+          "label": "Success Background",
+          "description": "Background color for success notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#4caf50",
+          "category": "colors"
+        },
+        "--c-notice--color--success-contrast": {
+          "label": "Success Text",
+          "description": "Text color for success notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        },
+        "--c-notice--color--danger": {
+          "label": "Danger Background",
+          "description": "Background color for danger/error notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#f44336",
+          "category": "colors"
+        },
+        "--c-notice--color--danger-contrast": {
+          "label": "Danger Text",
+          "description": "Text color for danger/error notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        },
+        "--c-notice--color--warning": {
+          "label": "Warning Background",
+          "description": "Background color for warning notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ff9800",
+          "category": "colors"
+        },
+        "--c-notice--color--warning-contrast": {
+          "label": "Warning Text",
+          "description": "Text color for warning notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#000000",
+          "category": "colors"
+        },
+        "--c-notice--color--info": {
+          "label": "Info Background",
+          "description": "Background color for info notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#2196f3",
+          "category": "colors"
+        },
+        "--c-notice--color--info-contrast": {
+          "label": "Info Text",
+          "description": "Text color for info notices",
+          "type": "color",
+          "control": "color-picker",
+          "value": "#ffffff",
+          "category": "colors"
+        }
+      },
+      "categories": [
+        { "id": "typography", "label": "Typography", "icon": "text" },
+        { "id": "colors", "label": "Colors", "icon": "palette" },
+        { "id": "borders", "label": "Borders & Corners", "icon": "border" },
+        { "id": "effects", "label": "Effects", "icon": "magic" },
+        { "id": "layout", "label": "Layout & Spacing", "icon": "layout" }
+      ]
+    }
+  },
+  "controlTypes": {
+    "slider": {
+      "description": "Numeric slider with min/max range",
+      "properties": ["min", "max", "step", "unit"]
+    },
+    "number": {
+      "description": "Numeric input field",
+      "properties": ["min", "max", "step", "unit"]
+    },
+    "color-picker": {
+      "description": "Color picker with hex/rgb/hsl support",
+      "properties": ["value"]
+    },
+    "select": {
+      "description": "Dropdown select menu",
+      "properties": ["options"]
+    },
+    "text": {
+      "description": "Text input field",
+      "properties": ["value", "placeholder"]
+    }
+  },
+  "metadata": {
+    "generatedFrom": "sass/component/*.scss valuemap sections",
+    "usage": "This JSON can be used to dynamically generate UI controls for component customization",
+    "implementation": {
+      "example": "Read this JSON, iterate through components and tokens, generate appropriate controls based on 'control' type, apply changes by setting CSS custom properties on the component root element"
+    }
+  }
+}

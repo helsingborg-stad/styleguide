@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Design Tokens Playground</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        .playground {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            height: 100vh;
+            gap: 0;
+        }
+
+        .preview-area {
+            background: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .preview-area h1 {
+            color: #333;
+            margin: 0 0 2rem 0;
+        }
+
+        .controls-area {
+            background: #fff;
+            border-left: 1px solid #e0e0e0;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .component-selector {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .component-selector label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .component-selector select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .category {
+            margin-bottom: 2rem;
+        }
+
+        .category h3 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .control {
+            margin-bottom: 1.5rem;
+        }
+
+        .control label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .control-description {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .control input[type="range"] {
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .control input[type="color"] {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .control select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .value-display {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: #666;
+            float: right;
+        }
+
+        /* Button styles from your component */
+        .c-button {
+            display: inline-flex;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: var(--c-button--font-weight, 500);
+            font-family: var(--c-button--font-family, system-ui, -apple-system, sans-serif);
+            text-transform: var(--c-button--text-transform, uppercase);
+            background-color: transparent;
+            border: none;
+            user-select: none;
+            position: relative;
+            max-width: 100%;
+        }
+
+        .c-button--md {
+            height: calc(var(--c-button--base, 8px) * 6.5);
+            min-width: calc(var(--c-button--base, 8px) * 9);
+            padding: 0 calc(var(--c-button--base, 8px) * 4);
+            font-size: var(--c-button--font-size-md, 14px);
+            border-radius: calc(var(--c-button--border-radius, 1) * var(--c-button--base, 8px) * 1);
+        }
+
+        .c-button__filled--primary {
+            background-color: var(--c-button--color-primary, #1976d2);
+            color: var(--c-button--color-primary-contrast, #ffffff);
+        }
+
+        .c-button__filled--secondary {
+            background-color: var(--c-button--color-secondary, #dc004e);
+            color: var(--c-button--color-secondary-contrasting, #ffffff);
+        }
+
+        .c-button__outlined--primary {
+            border: calc(var(--c-button--border-width, 1) * var(--c-button--base, 8px) * 1) solid var(--c-button--color-primary, #1976d2);
+            color: var(--c-button--color-primary, #1976d2);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .reset-button {
+            position: sticky;
+            top: 0;
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .reset-button:hover {
+            background: #f4511e;
+        }
+    </style>
+</head>
+<body>
+    <div class="playground">
+        <div class="preview-area">
+            <h1>Component Preview</h1>
+            <div id="preview-container">
+                <div class="button-group">
+                    <button class="c-button c-button--md c-button__filled c-button__filled--primary">
+                        Primary Filled
+                    </button>
+                    <button class="c-button c-button--md c-button__filled c-button__filled--secondary">
+                        Secondary Filled
+                    </button>
+                    <button class="c-button c-button--md c-button__outlined c-button__outlined--primary">
+                        Primary Outlined
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-area">
+            <div class="component-selector">
+                <label for="component-select">Component</label>
+                <select id="component-select">
+                    <option value="c-button">Button</option>
+                    <option value="c-notice">Notice</option>
+                </select>
+            </div>
+
+            <button class="reset-button" id="reset-button">Reset to Defaults</button>
+
+            <div id="controls-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // This would normally be imported from your JSON file
+        const designTokens = {
+            "components": {
+                "c-button": {
+                    "name": "Button",
+                    "tokens": {
+                        "--c-button--base": {
+                            "label": "Base Unit",
+                            "description": "Base unit multiplier for spacing and sizing",
+                            "type": "number",
+                            "control": "slider",
+                            "value": 8,
+                            "unit": "px",
+                            "min": 4,
+                            "max": 16,
+                            "step": 1,
+                            "category": "layout"
+                        },
+                        "--c-button--font-weight": {
+                            "label": "Font Weight",
+                            "type": "number",
+                            "control": "select",
+                            "value": 500,
+                            "options": [
+                                { "label": "Regular (400)", "value": 400 },
+                                { "label": "Medium (500)", "value": 500 },
+                                { "label": "Semi Bold (600)", "value": 600 },
+                                { "label": "Bold (700)", "value": 700 }
+                            ],
+                            "category": "typography"
+                        },
+                        "--c-button--text-transform": {
+                            "label": "Text Transform",
+                            "type": "string",
+                            "control": "select",
+                            "value": "uppercase",
+                            "options": [
+                                { "label": "None", "value": "none" },
+                                { "label": "Uppercase", "value": "uppercase" },
+                                { "label": "Lowercase", "value": "lowercase" }
+                            ],
+                            "category": "typography"
+                        },
+                        "--c-button--border-radius": {
+                            "label": "Border Radius",
+                            "type": "number",
+                            "control": "slider",
+                            "value": 1,
+                            "min": 0,
+                            "max": 10,
+                            "step": 0.5,
+                            "category": "borders"
+                        },
+                        "--c-button--color-primary": {
+                            "label": "Primary Color",
+                            "type": "color",
+                            "control": "color-picker",
+                            "value": "#1976d2",
+                            "category": "colors"
+                        },
+                        "--c-button--color-primary-contrast": {
+                            "label": "Primary Contrast",
+                            "type": "color",
+                            "control": "color-picker",
+                            "value": "#ffffff",
+                            "category": "colors"
+                        },
+                        "--c-button--color-secondary": {
+                            "label": "Secondary Color",
+                            "type": "color",
+                            "control": "color-picker",
+                            "value": "#dc004e",
+                            "category": "colors"
+                        }
+                    },
+                    "categories": [
+                        { "id": "typography", "label": "Typography" },
+                        { "id": "colors", "label": "Colors" },
+                        { "id": "borders", "label": "Borders & Corners" },
+                        { "id": "layout", "label": "Layout & Spacing" }
+                    ]
+                }
+            }
+        };
+
+        class ComponentPlayground {
+            constructor() {
+                this.previewContainer = document.getElementById('preview-container');
+                this.controlsContainer = document.getElementById('controls-container');
+                this.componentSelect = document.getElementById('component-select');
+                this.resetButton = document.getElementById('reset-button');
+
+                this.currentComponent = 'c-button';
+                this.init();
+            }
+
+            init() {
+                this.componentSelect.addEventListener('change', (e) => {
+                    this.currentComponent = e.target.value;
+                    this.renderControls();
+                });
+
+                this.resetButton.addEventListener('click', () => this.resetToDefaults());
+
+                this.renderControls();
+            }
+
+            renderControls() {
+                this.controlsContainer.innerHTML = '';
+                const component = designTokens.components[this.currentComponent];
+
+                component.categories.forEach(category => {
+                    const categorySection = this.createCategorySection(category, component.tokens);
+                    this.controlsContainer.appendChild(categorySection);
+                });
+            }
+
+            createCategorySection(category, tokens) {
+                const section = document.createElement('div');
+                section.className = 'category';
+
+                const heading = document.createElement('h3');
+                heading.textContent = category.label;
+                section.appendChild(heading);
+
+                Object.entries(tokens)
+                    .filter(([_, token]) => token.category === category.id)
+                    .forEach(([cssVar, token]) => {
+                        const control = this.createControl(cssVar, token);
+                        section.appendChild(control);
+                    });
+
+                return section;
+            }
+
+            createControl(cssVar, token) {
+                const controlDiv = document.createElement('div');
+                controlDiv.className = 'control';
+
+                const label = document.createElement('label');
+                label.textContent = token.label;
+
+                if (token.control === 'slider') {
+                    const valueDisplay = document.createElement('span');
+                    valueDisplay.className = 'value-display';
+                    valueDisplay.textContent = `${token.value}${token.unit || ''}`;
+                    label.appendChild(valueDisplay);
+
+                    const slider = document.createElement('input');
+                    slider.type = 'range';
+                    slider.min = token.min;
+                    slider.max = token.max;
+                    slider.step = token.step;
+                    slider.value = token.value;
+
+                    slider.addEventListener('input', (e) => {
+                        const value = e.target.value;
+                        valueDisplay.textContent = `${value}${token.unit || ''}`;
+                        this.updateToken(cssVar, value, token);
+                    });
+
+                    controlDiv.appendChild(label);
+                    controlDiv.appendChild(slider);
+                }
+                else if (token.control === 'color-picker') {
+                    const colorInput = document.createElement('input');
+                    colorInput.type = 'color';
+                    colorInput.value = token.value;
+
+                    colorInput.addEventListener('change', (e) => {
+                        this.updateToken(cssVar, e.target.value, token);
+                    });
+
+                    controlDiv.appendChild(label);
+                    controlDiv.appendChild(colorInput);
+                }
+                else if (token.control === 'select') {
+                    const select = document.createElement('select');
+
+                    token.options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt.value;
+                        option.textContent = opt.label;
+                        option.selected = opt.value == token.value;
+                        select.appendChild(option);
+                    });
+
+                    select.addEventListener('change', (e) => {
+                        this.updateToken(cssVar, e.target.value, token);
+                    });
+
+                    controlDiv.appendChild(label);
+                    controlDiv.appendChild(select);
+                }
+
+                if (token.description) {
+                    const desc = document.createElement('div');
+                    desc.className = 'control-description';
+                    desc.textContent = token.description;
+                    controlDiv.appendChild(desc);
+                }
+
+                return controlDiv;
+            }
+
+            updateToken(cssVar, value, token) {
+                const finalValue = token.unit ? `${value}${token.unit}` : value;
+                this.previewContainer.style.setProperty(cssVar, finalValue);
+            }
+
+            resetToDefaults() {
+                const component = designTokens.components[this.currentComponent];
+
+                Object.entries(component.tokens).forEach(([cssVar, token]) => {
+                    const finalValue = token.unit ? `${token.value}${token.unit}` : token.value;
+                    this.previewContainer.style.setProperty(cssVar, finalValue);
+                });
+
+                this.renderControls();
+            }
+        }
+
+        // Initialize playground
+        new ComponentPlayground();
+    </script>
+</body>
+</html>
