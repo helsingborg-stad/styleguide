@@ -15,7 +15,6 @@ export class IsCheckedToggler {
 
   private applyOnClickEvent(element: HTMLOptionElement): void {
     element.addEventListener('mouseup', () => {
-      console.log("remove"); 
       this.toggleIsChecked(element);
     });
   }
