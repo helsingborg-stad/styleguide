@@ -20,7 +20,7 @@
           "variable": "--base-font-size",
           "label": "Base Font Size",
           "description": "Root font size. All typographic sizes derive from this.",
-          "type": "range",
+          "type": "select",
           "default": "16px",
           "unit": "px",
           "options": [
