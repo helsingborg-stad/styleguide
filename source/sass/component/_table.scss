@@ -145,7 +145,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
         width: 100%;
         background-color: var_colors.$color-lighter;
         height: calc(#{var_default.$base} * 1.5);
-        border-radius: calc(var_border-radius.$border-radius-lg * 4);
+        border-radius: 3000px;
     }
 
     .c-table__scroll-indicator {
