@@ -1,11 +1,11 @@
 @use "../mixin/stretch";
 @use "../mixin/tokens";
 
-/* Component name */ 
+/* Component name */
 $_: "c-notice";
 
 /* Design tokens */
-@include tokens.create-tokens($_, (
+@include tokens.create($_, (
     "border-radius",
     "space",
     "shadow",
@@ -19,10 +19,10 @@ $_: "c-notice";
 /* Component */
 .#{$_} {
     contain: layout;
-    filter: tokens.use($_, "shadow");
+    filter: tokens.get($_, "shadow");
     padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
     border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.use($_, "corner-shape");
+    corner-shape: tokens.get($_, "corner-shape"); /* Automatic, when border-radius is created */
     display: grid;
     grid-template-areas:
         "icon title actions"
@@ -45,7 +45,7 @@ $_: "c-notice";
     .#{$_}__title {
         grid-area: title;
         margin: 0;
-        line-height: tokens.use($_, "line-height");
+        line-height: tokens.get($_, "line-height");
     }
 
     .#{$_}__message {
@@ -101,7 +101,7 @@ $_: "c-notice";
     @include tokens.color-variants($_, ("success", "danger", "info", "warning"));
 }
 
-.c-notice.c-notice--stretch { /* Bleed outside container  left&right */
+.c-notice.c-notice--stretch {
     @include stretch.stretch();
 }
 
@@ -131,7 +131,7 @@ $_: "c-notice";
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(var(--base) * 2);
+    margin-top: tokens.use($_, "space", 2);
 }
 
 @media print {
