@@ -67,6 +67,7 @@
 @use "mixin/animations/fade-in" as fadeInAnimationMixin;
 @use "mixin/stretch" as stretchMixin;
 @use "mixin/focus" as focusMixin;
+@use "mixin/tokens" as tokensMixin;
 @use "mixin/animations/ken-burns" as kenBurnsAnimationMixin;
 
 // ***************************************************************

@@ -1,59 +1,27 @@
 @use "../mixin/stretch";
+@use "../mixin/tokens";
 
-/* Valuemap for design tokens: */
-.c-notice {
-
-
-    /* 
-        Create tokens for all properties with the "c-notice" prefix, and fallback to global tokens if not set 
-        Note: When the 'border-radius' token will always create a corner-shape token as well, 
-        based on the global corner-shape token. This is because border-radius and corner-shape are 
-        often used together, and it simplifies the API for users of the notice component.
-
-        All tokens with the keyword "color" will also generate a contrast token, which is derived from the color token.
-        For example, "color--success" will generate "color--success-contrast". This is because color tokens are often used for backgrounds, and a corresponding contrast token is needed for text and other elements that need to be visible on top of the background color. By automatically generating contrast tokens, it ensures that there is always a suitable contrast color available for any color token that is created.
-        
-        The generated tokens will have the prefix "c-notice", so for example "border-radius" will generate "--c-notice--border-radius". This namespacing helps to avoid conflicts with other components and makes it clear that these tokens are specific to the notice component.
-
-        Generated tokens will be prefixed with "c-notice" and will fallback to global tokens if not set. For example, if "--c-notice--border-radius" is not set, it will fallback to the global "--border-radius" token. This allows for flexibility in customizing the notice component while still maintaining a consistent design language across the entire design system.
-    
-    */
-    
-    @createTokens(
-        prefix: "c-notice",
-        tokens: (
-            'border-radius', 
-            'space', 
-            'shadow', 
-            'line-height',
-            'color--success',
-            'color--success-contrast',
-            'color--danger',
-            'color--danger-contrast',
-            'color--warning',
-            'color--warning-contrast',
-            'color--info',
-            'color--info-contrast'
-        )
-    )
-
-    Example: --c-notice--border-radius: var(--border-radius);
-
-}
+/* Design tokens */
+@include tokens.create-tokens("c-notice", (
+    "border-radius",
+    "space",
+    "shadow",
+    "line-height",
+    "color--success",
+    "color--danger",
+    "color--warning",
+    "color--info"
+));
 
 /* Component */
 .c-notice {
-    border-radius: @useToken('c-notice', 'border-radius', function($token) {
-        @return calc(var(--c-notice--border-radius) * var(--base) * 1);
-    });
-
     filter: var(--c-notice--shadow);
     contain: layout;
     padding: calc(var(--c-notice--space) * var(--base) * 2) calc(var(--c-notice--space) * var(--base) * 3);
     border-radius: calc(var(--c-notice--border-radius) * var(--base) * 1);
     corner-shape: var(--c-notice--corner-shape);
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         "icon title actions"
         "icon message actions";
     grid-template-columns: min-content 1fr auto;
@@ -83,7 +51,6 @@
     }
 
     .c-notice__actions {
-        
         grid-area: actions;
         display: flex;
         gap: calc(var(--c-notice--space) * 1.5);
@@ -127,82 +94,15 @@
         text-decoration: underline;
     }
 
-    &--success {
-        background-color: var(--c-notice--color--success);
-        color: var(--c-notice--color--success-contrast);
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: var(--c-notice--color--success-contrast);
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: var(--c-notice--color--success-contrast);
-        }
-    }
-
-    &--danger {
-        background-color: var(--c-notice--color--danger);
-        color: var(--c-notice--color--danger-contrast);
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: var(--c-notice--color--danger-contrast);
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: var(--c-notice--color--danger-contrast);
-        }
-    }
-
-    &--info {
-        background-color: var(--c-notice--color--info);
-        color: var(--c-notice--color--info-contrast);
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: var(--c-notice--color--info-contrast);
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: var(--c-notice--color--info-contrast);
-        }
-    }
-
-    &--warning {
-        background-color: var(--c-notice--color--warning);
-        color: var(--c-notice--color--warning-contrast);
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: var(--c-notice--color--warning-contrast);
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: var(--c-notice--color--warning-contrast);
-        }
-    }
-
+    @include tokens.color-variants("c-notice", ("success", "danger", "info", "warning"));
 }
 
-.c-notice.c-notice--stretch { /* Bleed outside container  left&right */ 
+.c-notice.c-notice--stretch { /* Bleed outside container  left&right */
     @include stretch.stretch();
 }
 
 .c-notice.c-notice--action-below {
-    grid-template-areas: 
+    grid-template-areas:
         "icon title"
         "icon message"
         ". actions";
@@ -214,20 +114,20 @@
 
     // Remove gaps when elements are missing
     &:not(:has(.c-notice__title)) {
-        grid-template-areas: 
+        grid-template-areas:
             "icon message"
             ". actions";
     }
 
     &:not(:has(.c-notice__message)) {
-        grid-template-areas: 
+        grid-template-areas:
             "icon title"
             ". actions";
     }
 }
 
 .c-notice + .c-notice {
-    margin-top: calc(var(--base) * 2); 
+    margin-top: calc(var(--base) * 2);
 }
 
 @media print {

@@ -1,0 +1,66 @@
+@use "sass:string";
+
+/// Generates component-scoped CSS custom properties that fall back to global tokens.
+///
+/// Each token in $tokens produces: --#{$prefix}--#{$token}: var(--#{$token});
+///
+/// Auto-derivation rules:
+///   - "border-radius" also generates --#{$prefix}--corner-shape: var(--corner-shape)
+///   - "color--*" tokens (not ending in "-contrast") also generate a -contrast companion
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as the selector (.c-notice)
+/// @param {List} $tokens - Token names to register
+/// @param {Map} $extras [()]  - Extra custom properties with literal values
+@mixin create-tokens($prefix, $tokens, $extras: ()) {
+    .#{$prefix} {
+        @each $token in $tokens {
+            --#{$prefix}--#{$token}: var(--#{$token});
+
+            @if $token == "border-radius" {
+                --#{$prefix}--corner-shape: var(--corner-shape);
+            }
+
+            @if string.index($token, "color") == 1
+                and string.slice($token, -9) != "-contrast" {
+                --#{$prefix}--#{$token}-contrast: var(--#{$token}-contrast);
+            }
+        }
+
+        @each $name, $value in $extras {
+            --#{$prefix}--#{$name}: #{$value};
+        }
+    }
+}
+
+/// Generates a color variant that sets background, text, link, and button colors.
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-notice")
+/// @param {String} $variant - Variant name (e.g., "success")
+@mixin color-variant($prefix, $variant) {
+    background-color: var(--#{$prefix}--color--#{$variant});
+    color: var(--#{$prefix}--color--#{$variant}-contrast);
+
+    a,
+    a:hover,
+    a:active,
+    a:visited {
+        color: var(--#{$prefix}--color--#{$variant}-contrast);
+        text-decoration: underline;
+    }
+
+    .c-button {
+        color: var(--#{$prefix}--color--#{$variant}-contrast);
+    }
+}
+
+/// Generates multiple color variant modifiers using BEM &--{variant} syntax.
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-notice")
+/// @param {List} $variants - Variant names (e.g., ("success", "danger", "info", "warning"))
+@mixin color-variants($prefix, $variants) {
+    @each $variant in $variants {
+        &--#{$variant} {
+            @include color-variant($prefix, $variant);
+        }
+    }
+}
