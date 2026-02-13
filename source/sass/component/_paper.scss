@@ -12,15 +12,15 @@
     /* Derived tokens */
     --c-paper--padding: calc(var(--c-paper--space) * var(--base) * var(--c-paper--padding-multiplier, 0));
 }
-
+ 
 .c-paper {
-    border: var(--c-paper--border-width) solid var(--c-paper--border-color);
     contain: layout;
-    filter: var(--c-paper--shadow);
     background-color: var(--c-paper--color-surface);
-    border-radius: calc(var(--c-paper--border-radius) * var(--base) * 1);
     color: var(--c-paper--color-surface-contrast);
+    border: var(--c-paper--border-width) solid var(--c-paper--border-color);
+    border-radius: calc(var(--c-paper--border-radius) * var(--base) * 1);
     corner-shape: var(--c-paper--corner-shape);
+    filter: var(--c-paper--shadow);
     padding: var(--c-paper--padding);
 
     &--padding-0 {

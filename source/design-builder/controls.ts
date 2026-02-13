@@ -83,10 +83,10 @@ export function createControl(
   // Reset button (not for locked tokens)
   if (!setting.locked) {
     const resetBtn = document.createElement('button')
-    resetBtn.className = 'c-button c-button--sm c-button__outlined c-button__outlined--default db-control__reset'
+    resetBtn.className = 'db-control__reset'
     resetBtn.type = 'button'
     resetBtn.title = `Reset to ${setting.default}`
-    resetBtn.innerHTML = '<span class="c-button__label"><span class="c-button__label-text">Reset</span></span>'
+    resetBtn.textContent = 'Reset'
     resetBtn.addEventListener('click', () => {
       onChange(setting.variable, '')
       updateControlValue(row, setting.default, setting)
@@ -409,10 +409,10 @@ function buildPairColorCell(
 
   // Reset
   const resetBtn = document.createElement('button')
-  resetBtn.className = 'c-button c-button--sm c-button__basic c-button__basic--default db-control__reset'
+  resetBtn.className = 'db-control__reset'
   resetBtn.type = 'button'
   resetBtn.title = `Reset to ${setting.default}`
-  resetBtn.innerHTML = '<span class="c-button__label"><span class="c-button__label-text">Reset</span></span>'
+  resetBtn.textContent = 'Reset'
   resetBtn.addEventListener('click', () => {
     onChange(setting.variable, '')
     colorInput.value = toHex(setting.default)
