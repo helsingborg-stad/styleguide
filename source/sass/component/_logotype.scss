@@ -1,8 +1,14 @@
 .c-logotype {
+    --c-logotype--border-radius: var(--border-radius);
+    --c-logotype--color-hover: var(--color--gray-10);
+} 
+
+.c-logotype {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
+    position: relative;
 
     img {
         height: inherit;
@@ -19,4 +25,11 @@
             text-align: right;
         }
     }
+}
+
+a:hover > .c-logotype:after {
+    content: "";
+    inset: calc(var(--space) * var(--base) * -2);
+    background-color: var(--c-logotype--color-hover);
+    border-radius: calc(var(--c-logotype--border-radius) * var(--base) * 1);
 }
