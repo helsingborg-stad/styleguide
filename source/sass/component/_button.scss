@@ -370,16 +370,15 @@
     }
 }
 
-// No background, only border
-
 .c-button__outlined {
+    border: clamp(
+            1px,
+            calc(var(--c-button-border-width) * var(--c-button-base) * 1),
+            calc(var(--base) / 2)
+        ) solid;
 
     &--primary {
-        border: min(
-            calc(var(--base) / 2), 
-            calc(var(--c-button-border-width) * var(--c-button-base) * 1)
-        ) solid var(--c-button-color-primary);
-        
+        border-color: var(--c-button-color-primary);
         color: var(--c-button-color-primary);
 
         .c-button__label {
@@ -398,7 +397,7 @@
     }
 
     &--secondary {
-        border: calc(var(--c-button-border-width) * var(--c-button-base) * 1) solid var(--c-button-color-secondary);
+        border-color: var(--c-button-color-secondary);
         color: var(--c-button-color-secondary);
 
         .c-button__label {
