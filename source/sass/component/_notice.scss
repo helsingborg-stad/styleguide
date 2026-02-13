@@ -2,23 +2,51 @@
 
 /* Valuemap for design tokens: */
 .c-notice {
-    --c-notice--border-radius: var(--border-radius);
-    --c-notice--corner-shape: var(--corner-shape);
-    --c-notice--space: var(--space);
-    --c-notice--shadow: var(--shadow);
-    --c-notice--line-height: var(--line-height);
-    --c-notice--color--success: var(--color--success);
-    --c-notice--color--success-contrast: var(--color--success-contrast);
-    --c-notice--color--danger: var(--color--danger);
-    --c-notice--color--danger-contrast: var(--color--danger-contrast);
-    --c-notice--color--warning: var(--color--warning);
-    --c-notice--color--warning-contrast: var(--color--warning-contrast);
-    --c-notice--color--info: var(--color--info);
-    --c-notice--color--info-contrast: var(--color--info-contrast);
+
+
+    /* 
+        Create tokens for all properties with the "c-notice" prefix, and fallback to global tokens if not set 
+        Note: When the 'border-radius' token will always create a corner-shape token as well, 
+        based on the global corner-shape token. This is because border-radius and corner-shape are 
+        often used together, and it simplifies the API for users of the notice component.
+
+        All tokens with the keyword "color" will also generate a contrast token, which is derived from the color token.
+        For example, "color--success" will generate "color--success-contrast". This is because color tokens are often used for backgrounds, and a corresponding contrast token is needed for text and other elements that need to be visible on top of the background color. By automatically generating contrast tokens, it ensures that there is always a suitable contrast color available for any color token that is created.
+        
+        The generated tokens will have the prefix "c-notice", so for example "border-radius" will generate "--c-notice--border-radius". This namespacing helps to avoid conflicts with other components and makes it clear that these tokens are specific to the notice component.
+
+        Generated tokens will be prefixed with "c-notice" and will fallback to global tokens if not set. For example, if "--c-notice--border-radius" is not set, it will fallback to the global "--border-radius" token. This allows for flexibility in customizing the notice component while still maintaining a consistent design language across the entire design system.
+    
+    */
+    
+    @createTokens(
+        prefix: "c-notice",
+        tokens: (
+            'border-radius', 
+            'space', 
+            'shadow', 
+            'line-height',
+            'color--success',
+            'color--success-contrast',
+            'color--danger',
+            'color--danger-contrast',
+            'color--warning',
+            'color--warning-contrast',
+            'color--info',
+            'color--info-contrast'
+        )
+    )
+
+    Example: --c-notice--border-radius: var(--border-radius);
+
 }
 
 /* Component */
 .c-notice {
+    border-radius: @useToken('c-notice', 'border-radius', function($token) {
+        @return calc(var(--c-notice--border-radius) * var(--base) * 1);
+    });
+
     filter: var(--c-notice--shadow);
     contain: layout;
     padding: calc(var(--c-notice--space) * var(--base) * 2) calc(var(--c-notice--space) * var(--base) * 3);
