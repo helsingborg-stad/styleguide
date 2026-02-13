@@ -4,7 +4,6 @@
 .c-button {
     --c-button-base: var(--base);
     --c-button-font-weight: var(--font-weight-medium);
-    --c-button-text-transform: uppercase;
     --c-button-font-family: var(--font-family-base);
     --c-button-font-size-lg: calc(var(--base-font-size) * 1.125);
     --c-button-font-size-md: var(--base-font-size);
@@ -39,7 +38,6 @@
     cursor: pointer;
     font-weight: var(--c-button-font-weight);
     font-family: var(--c-button-font-family);
-    text-transform: var(--c-button-text-transform);
     background-color: transparent;
     border: none;
     user-select: none;
@@ -158,7 +156,7 @@
         min-width: calc(var(--c-button-base) * 12);
         padding: 0 calc(var(--c-button-base) * 5);
         font-size: var(--c-button-font-size-lg);
-        border-radius: calc(var(--c-button-border-radius) * var(--c-button-base) * 1);
+        border-radius: min(calc(var(--c-button-base) * 6.5 / 4), calc(var(--c-button-border-radius) * var(--c-button-base) * 1));
         corner-shape: var(--c-button--corner-shape);
 
         .c-button__loader {
@@ -216,7 +214,7 @@
         min-width: calc(var(--c-button-base) * 6.75);
         padding: 0 calc(var(--c-button-base) * 2);
         font-size: var(--c-button-font-size-sm);
-        border-radius: calc(var(--c-button-border-radius) * var(--c-button-base) * 0.75);
+        border-radius: min(calc(var(--c-button-base) * 6.5 / 4), calc(var(--c-button-border-radius) * var(--c-button-base) * 1));
         corner-shape: var(--c-button--corner-shape);
 
         .c-button__loader {
