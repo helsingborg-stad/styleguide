@@ -11,7 +11,7 @@
 /*@import "@splidejs/splide/dist/css/splide.min.css";*/
 
 .c-slider {
-    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
+    --c-slider-max-width-computed: min(calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7))), 100%);
     
     position: relative;
     border-radius: var_border-radius.$border-radius-md;
