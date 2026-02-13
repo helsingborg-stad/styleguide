@@ -217,6 +217,59 @@ class DesignBuilder {
   }
 }
 
+// --- Draggable Divider ---
+
+const SPLIT_STORAGE_KEY = 'design-builder-split'
+const MIN_SPLIT = 20
+const MAX_SPLIT = 80
+
+function initDivider(): void {
+  const layout = document.querySelector<HTMLElement>('.db-layout')
+  const divider = document.querySelector<HTMLElement>('[data-db-divider]')
+  if (!layout || !divider) return
+
+  // Restore saved ratio
+  const saved = localStorage.getItem(SPLIT_STORAGE_KEY)
+  if (saved) {
+    const ratio = parseFloat(saved)
+    if (ratio >= MIN_SPLIT && ratio <= MAX_SPLIT) {
+      layout.style.setProperty('--db-split', `${ratio}%`)
+    }
+  }
+
+  const onPointerMove = (e: PointerEvent) => {
+    const rect = layout.getBoundingClientRect()
+    let ratio = ((e.clientX - rect.left) / rect.width) * 100
+    ratio = Math.max(MIN_SPLIT, Math.min(MAX_SPLIT, ratio))
+    layout.style.setProperty('--db-split', `${ratio}%`)
+  }
+
+  const onPointerUp = (e: PointerEvent) => {
+    divider.classList.remove('is-dragging')
+    document.body.style.userSelect = ''
+    document.body.style.cursor = ''
+    divider.releasePointerCapture(e.pointerId)
+    divider.removeEventListener('pointermove', onPointerMove)
+    divider.removeEventListener('pointerup', onPointerUp)
+
+    // Persist
+    const current = layout.style.getPropertyValue('--db-split')
+    if (current) {
+      localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString())
+    }
+  }
+
+  divider.addEventListener('pointerdown', (e: PointerEvent) => {
+    e.preventDefault()
+    divider.classList.add('is-dragging')
+    document.body.style.userSelect = 'none'
+    document.body.style.cursor = 'col-resize'
+    divider.setPointerCapture(e.pointerId)
+    divider.addEventListener('pointermove', onPointerMove)
+    divider.addEventListener('pointerup', onPointerUp)
+  })
+}
+
 // --- Init ---
 
 function init(): void {
@@ -239,6 +292,8 @@ function init(): void {
 
   const storage = new LocalStorageAdapter()
   new DesignBuilder(container, tokens, storage)
+
+  initDivider()
 }
 
 if (document.readyState === 'loading') {

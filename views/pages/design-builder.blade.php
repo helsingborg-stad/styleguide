@@ -13,6 +13,9 @@
         </noscript>
     </div>
 
+    {{-- Draggable divider --}}
+    <div class="db-divider" data-db-divider></div>
+
     {{-- Right: Live preview --}}
     <div class="db-preview">
         <div class="db-preview__inner">
