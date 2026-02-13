@@ -30,5 +30,5 @@ $article-content-elements:
 }
 
 .c-article.c-article--readable-width {
-    max-width: var(--container-width-content, calc(#{var_default.$base} * 76));
+    max-width: min(var(--container-width-content, calc(#{var_default.$base} * 76)), 100%);
 }
