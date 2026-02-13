@@ -17,8 +17,8 @@
 .c-notice {
     filter: var(--c-notice--shadow);
     contain: layout;
-    padding: calc(var(--c-notice--space) * var(--base) * 2) calc(var(--c-notice--space) * var(--base) * 3);
-    border-radius: calc(var(--c-notice--border-radius) * var(--base) * 1);
+    padding: tokens.use("c-notice", "space", 2) tokens.use("c-notice", "space", 3);
+    border-radius: tokens.use("c-notice", "border-radius");
     corner-shape: var(--c-notice--corner-shape);
     display: grid;
     grid-template-areas:
@@ -29,7 +29,7 @@
     align-items: center;
 
     > [class*='c-notice__'] + [class*='c-notice__']  {
-        margin-left: calc(var(--c-notice--space) * var(--base) * 2);
+        margin-left: tokens.use("c-notice", "space", 2);
     }
 
     .c-notice__icon {

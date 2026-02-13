@@ -32,6 +32,17 @@
     }
 }
 
+/// Returns calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
+/// Shorthand for the common pattern of scaling a token by --base and a multiplier.
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-notice")
+/// @param {String} $token - Token name (e.g., "space")
+/// @param {Number} $multiplier [1] - Additional multiplier
+/// @return {String} - calc() expression resolving to a pixel value
+@function use($prefix, $token, $multiplier: 1) {
+    @return calc(var(--#{$prefix}--#{$token}) * var(--base) * #{$multiplier});
+}
+
 /// Generates a color variant that sets background, text, link, and button colors.
 ///
 /// @param {String} $prefix - Component prefix (e.g., "c-notice")
