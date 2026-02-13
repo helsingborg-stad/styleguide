@@ -1,58 +1,39 @@
-/* Valuemap for design tokens: */
-.c-paper {
-    --c-paper--color-surface: var(--color--surface);
-    --c-paper--color-surface-contrast: var(--color--surface-contrast);
-    --c-paper--border-radius: var(--border-radius);
-    --c-paper--corner-shape: var(--corner-shape);
-    --c-paper--space: var(--space);
-    --c-paper--shadow: var(--shadow);
-    --c-paper--border-width: var(--border-width);
-    --c-paper--border-color: var(--color--surface-contrast-muted);
+@use "../mixin/tokens";
 
-    /* Derived tokens */
-    --c-paper--padding: calc(var(--c-paper--space) * var(--base) * var(--c-paper--padding-multiplier, 0));
-}
- 
-.c-paper {
+/* Component name */
+$_: "c-paper";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "space",
+    "shadow",
+    "border-width",
+    "color--surface"
+), (
+    "border-color": "var(--color--surface-contrast-muted)",
+    "padding": "calc(var(--#{$_}--space) * var(--base) * var(--#{$_}--padding-multiplier, 0))"
+));
+
+/* Component */
+.#{$_} {
     contain: layout;
-    background-color: var(--c-paper--color-surface);
-    color: var(--c-paper--color-surface-contrast);
-    border: var(--c-paper--border-width) solid var(--c-paper--border-color);
-    border-radius: calc(var(--c-paper--border-radius) * var(--base) * 1);
-    corner-shape: var(--c-paper--corner-shape);
-    filter: var(--c-paper--shadow);
-    padding: var(--c-paper--padding);
+    background-color: tokens.get($_, "color--surface");
+    color: tokens.get($_, "color--surface-contrast");
+    border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    filter: tokens.get($_, "shadow");
+    padding: tokens.get($_, "padding");
 
-    &--padding-0 {
-        --c-paper--padding-multiplier: 0;
-    }
-    &--padding-1 {
-        --c-paper--padding-multiplier: 1;
-    }
-    &--padding-2 {
-        --c-paper--padding-multiplier: 2;
-    }
-    &--padding-3 {
-        --c-paper--padding-multiplier: 3;
-    }
-    &--padding-4 {
-        --c-paper--padding-multiplier: 4;
-    }
-    &--padding-5 {
-        --c-paper--padding-multiplier: 5;
-    }
-    &--padding-6 {
-        --c-paper--padding-multiplier: 6;
-    }
-    &--padding-7 {
-        --c-paper--padding-multiplier: 7;
-    }
-    &--padding-8 {
-        --c-paper--padding-multiplier: 8;
+    @for $i from 0 through 8 {
+        &--padding-#{$i} {
+            --#{$_}--padding-multiplier: #{$i};
+        }
     }
 
     &--divider {
-        border-top: var(--c-paper--border-width) solid var(--c-paper--border-color);
-        padding-top: calc(var(--c-paper--space) * var(--base) * 3);
+        border-top: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+        padding-top: tokens.use($_, "space", 3);
     }
 }

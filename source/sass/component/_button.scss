@@ -1,34 +1,36 @@
 @use "../mixin/cover";
+@use "../mixin/tokens";
 
-// Reduced and corrected design tokens for button, using only --c- vars from _design-tokens.scss:
-.c-button {
-    --c-button-base: var(--base);
-    --c-button-font-weight: var(--font-weight-medium);
-    --c-button-font-family: var(--font-family-base);
-    --c-button-font-size-lg: calc(var(--base-font-size) * 1.125);
-    --c-button-font-size-md: var(--base-font-size);
-    --c-button-font-size-sm: calc(var(--base-font-size) * 0.875);
-    --c-button-color-primary: var(--color--primary);
-    --c-button-color-primary-contrast: var(--color--primary-contrast);
-    --c-button-color-secondary: var(--color--secondary);
-    --c-button-color-secondary-contrast: var(--color--secondary-contrast);
-    --c-button-color-default: var(--color--surface);
-    --c-button-color-default-contrast: var(--color--surface-contrast);
-    --c-button-color-black: var(--color--black-100);
-    --c-button-color-white: var(--color--white-100);
-    --c-button-color-disabled-bg: var(--color--gray-20);
-    --c-button-color-disabled-text: var(--color--gray-60);
-    --c-button-border-radius: var(--border-radius);
-    --c-button-border-width: var(--border-width);
-    --c-button-corner-shape: var(--corner-shape);
-    --c-button-shadow: 0 2px 4px var(--shadow-color);
-    --c-button-space: var(--space);
-    --c-button-level-1: 1;
-    --c-button-level-2: 2;
-}
+/* Component name */
+$_: "c-button";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "border-width",
+    "space",
+    "color--primary",
+    "color--secondary"
+), (
+    "base": "var(--base)",
+    "font-weight": "var(--font-weight-medium)",
+    "font-family": "var(--font-family-base)",
+    "font-size-lg": "calc(var(--base-font-size) * 1.125)",
+    "font-size-md": "var(--base-font-size)",
+    "font-size-sm": "calc(var(--base-font-size) * 0.875)",
+    "color-default": "var(--color--surface)",
+    "color-default-contrast": "var(--color--surface-contrast)",
+    "color-black": "var(--color--black-100)",
+    "color-white": "var(--color--white-100)",
+    "color-disabled-bg": "var(--color--gray-20)",
+    "color-disabled-text": "var(--color--gray-60)",
+    "shadow": "0 2px 4px var(--shadow-color)",
+    "level-1": "1",
+    "level-2": "2"
+));
 
 /* Component */
-.c-button {
+.#{$_} {
     contain: layout;
     display: inline-flex;
     vertical-align: middle;
@@ -36,18 +38,18 @@
     justify-content: center;
     text-decoration: none;
     cursor: pointer;
-    font-weight: var(--c-button-font-weight);
-    font-family: var(--c-button-font-family);
+    font-weight: tokens.get($_, "font-weight");
+    font-family: tokens.get($_, "font-family");
     background-color: transparent;
     border: none;
     user-select: none;
     position: relative;
     max-width: 100%;
 
-    .c-button__loader {
+    .#{$_}__loader {
         display: none;
-        width: calc(var(--c-button-base) * 3);
-        height: calc(var(--c-button-base) * 3);
+        width: calc(#{tokens.get($_, "base")} * 3);
+        height: calc(#{tokens.get($_, "base")} * 3);
         border: 3px solid;
         margin-bottom: 2px;
         border-radius: 50%;
@@ -55,22 +57,17 @@
         box-sizing: border-box;
     }
 
-    &.c-button.is-working {
-        .c-button__label-icon {
+    &.#{$_}.is-working {
+        .#{$_}__label-icon {
             display: none;
         }
 
-        .c-button__loader {
+        .#{$_}__loader {
             display: inline-block;
-            // animation: rotation 1s linear infinite;
 
             @keyframes rotation {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
             }
         }
     }
@@ -78,32 +75,32 @@
     &:after {
         content: '';
         @include cover.cover();
-        z-index: var(--c-button-level-1);
+        z-index: tokens.get($_, "level-1");
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out,
                     transform 150ms ease-in-out,
                     background-color 100ms ease-in-out;
         border-radius: inherit;
+        corner-shape: inherit;
     }
 
     &:disabled {
         cursor: not-allowed;
-        &:not(.c-button--no-disabled-color) {
-            border-color: var(--c-button-color-disabled-bg);
-            background-color: var(--c-button-color-disabled-bg);
-            color: var(--c-button-color-disabled-text);
+        &:not(.#{$_}--no-disabled-color) {
+            border-color: tokens.get($_, "color-disabled-bg");
+            background-color: tokens.get($_, "color-disabled-bg");
+            color: tokens.get($_, "color-disabled-text");
 
             * {
-                color: var(--c-button-color-disabled-text);
+                color: tokens.get($_, "color-disabled-text");
             }
         }
-
     }
 
     &__full-width {
         width: 100%;
-        .c-button__label-icon {
+        .#{$_}__label-icon {
             flex: 1;
             .c-icon {
                 margin-left: auto;
@@ -111,15 +108,15 @@
         }
     }
 
-    .c-button__label {
+    .#{$_}__label {
         display: flex;
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: var(--c-button-level-2);
+        z-index: tokens.get($_, "level-2");
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
-        gap: var(--c-button-base);
+        gap: tokens.get($_, "base");
         width: 100%;
         max-width: 100%;
         height: 100%;
@@ -128,8 +125,8 @@
             align-self: center;
         }
 
-        .c-button__label-icon {
-            z-index: var(--c-button-level-2);
+        .#{$_}__label-icon {
+            z-index: tokens.get($_, "level-2");
             display: flex;
 
             &--reverse {
@@ -137,7 +134,7 @@
             }
         }
 
-        .c-button__label-text {
+        .#{$_}__label-text {
             order: 1;
             display: inline-block;
             align-items: center;
@@ -151,106 +148,106 @@
         }
     }
 
-    &.c-button--lg {
-        height: calc(var(--c-button-base) * 8);
-        min-width: calc(var(--c-button-base) * 12);
-        padding: 0 calc(var(--c-button-base) * 5);
-        font-size: var(--c-button-font-size-lg);
-        border-radius: min(calc(var(--c-button-base) * 6.5 / 4), calc(var(--c-button-border-radius) * var(--c-button-base) * 1));
-        corner-shape: var(--c-button--corner-shape);
+    &.#{$_}--lg {
+        height: calc(#{tokens.get($_, "base")} * 8);
+        min-width: calc(#{tokens.get($_, "base")} * 12);
+        padding: 0 calc(#{tokens.get($_, "base")} * 5);
+        font-size: tokens.get($_, "font-size-lg");
+        border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
+        corner-shape: tokens.get($_, "corner-shape");
 
-        .c-button__loader {
-            width: calc(var(--c-button-base) * 4);
-            height: calc(var(--c-button-base) * 4);
+        .#{$_}__loader {
+            width: calc(#{tokens.get($_, "base")} * 4);
+            height: calc(#{tokens.get($_, "base")} * 4);
             border-width: 4px;
-            margin-left: calc(var(--c-button-base) * -1.5);
+            margin-left: calc(#{tokens.get($_, "base")} * -1.5);
         }
 
-        &.c-button--icon-only {
-            width: calc(var(--c-button-base) * 8);
+        &.#{$_}--icon-only {
+            width: calc(#{tokens.get($_, "base")} * 8);
             min-width: initial;
         }
 
-        &.c-button__outlined .c-button__label .c-button__label-icon,
-        &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(var(--c-button-base) * -1.5);
+        &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
+        &.#{$_}__filled .#{$_}__label .#{$_}__label-icon {
+            margin-right: calc(#{tokens.get($_, "base")} * -1.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(var(--c-button-base) * -1.5);
+                margin-left: calc(#{tokens.get($_, "base")} * -1.5);
             }
         }
     }
 
-    &.c-button--md {
-        height: calc(var(--c-button-base) * 6.5);
-        min-width: calc(var(--c-button-base) * 9);
-        padding: 0 calc(var(--c-button-base) * 4);
-        font-size: var(--c-button-font-size-md);
-        border-radius: min(calc(var(--c-button-base) * 6.5 / 4), calc(var(--c-button-border-radius) * var(--c-button-base) * 1));
-        corner-shape: var(--c-button--corner-shape);
+    &.#{$_}--md {
+        height: calc(#{tokens.get($_, "base")} * 6.5);
+        min-width: calc(#{tokens.get($_, "base")} * 9);
+        padding: 0 calc(#{tokens.get($_, "base")} * 4);
+        font-size: tokens.get($_, "font-size-md");
+        border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
+        corner-shape: tokens.get($_, "corner-shape");
 
-        .c-button__loader {
-            margin-left: calc(var(--c-button-base) * -1);
+        .#{$_}__loader {
+            margin-left: calc(#{tokens.get($_, "base")} * -1);
         }
 
-        &.c-button--icon-only {
-            width: calc(var(--c-button-base) * 6.5);
+        &.#{$_}--icon-only {
+            width: calc(#{tokens.get($_, "base")} * 6.5);
             min-width: initial;
         }
 
-        &.c-button__outlined .c-button__label .c-button__label-icon,
-        &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(var(--c-button-base) * -1);
+        &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
+        &.#{$_}__filled .#{$_}__label .#{$_}__label-icon {
+            margin-right: calc(#{tokens.get($_, "base")} * -1);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(var(--c-button-base) * -1);
+                margin-left: calc(#{tokens.get($_, "base")} * -1);
             }
         }
     }
 
-    &.c-button--sm {
+    &.#{$_}--sm {
         letter-spacing: 0.1rem;
-        height: calc(var(--c-button-base) * 5.5);
-        min-width: calc(var(--c-button-base) * 6.75);
-        padding: 0 calc(var(--c-button-base) * 2);
-        font-size: var(--c-button-font-size-sm);
-        border-radius: min(calc(var(--c-button-base) * 6.5 / 4), calc(var(--c-button-border-radius) * var(--c-button-base) * 1));
-        corner-shape: var(--c-button--corner-shape);
+        height: calc(#{tokens.get($_, "base")} * 5.5);
+        min-width: calc(#{tokens.get($_, "base")} * 6.75);
+        padding: 0 calc(#{tokens.get($_, "base")} * 2);
+        font-size: tokens.get($_, "font-size-sm");
+        border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
+        corner-shape: tokens.get($_, "corner-shape");
 
-        .c-button__loader {
-            width: calc(var(--c-button-base) * 2);
-            height: calc(var(--c-button-base) * 2);
+        .#{$_}__loader {
+            width: calc(#{tokens.get($_, "base")} * 2);
+            height: calc(#{tokens.get($_, "base")} * 2);
             border-width: 2px;
-            margin-left: calc(var(--c-button-base) * -.5);
+            margin-left: calc(#{tokens.get($_, "base")} * -.5);
         }
 
-        &.c-button--icon-only {
-            width: calc(var(--c-button-base) * 5.5);
+        &.#{$_}--icon-only {
+            width: calc(#{tokens.get($_, "base")} * 5.5);
             min-width: initial;
         }
 
-        &.c-button__outlined .c-button__label .c-button__label-icon,
-        &.c-button__filled .c-button__label .c-button__label-icon {
-            margin-right: calc(var(--c-button-base) * -.5);
+        &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
+        &.#{$_}__filled .#{$_}__label .#{$_}__label-icon {
+            margin-right: calc(#{tokens.get($_, "base")} * -.5);
             &--reverse {
                 margin-right: 0;
-                margin-left: calc(var(--c-button-base) * -.5);
+                margin-left: calc(#{tokens.get($_, "base")} * -.5);
             }
         }
     }
 
-    &.c-button--pill {
-        border-radius: calc(var(--c-button-base) * 4); //No use of percent.
+    &.#{$_}--pill {
+        border-radius: calc(#{tokens.get($_, "base")} * 4);
     }
 
-    &.c-button--sm.c-button--icon-only,
-    &.c-button--md.c-button--icon-only,
-    &.c-button--lg.c-button--icon-only {
+    &.#{$_}--sm.#{$_}--icon-only,
+    &.#{$_}--md.#{$_}--icon-only,
+    &.#{$_}--lg.#{$_}--icon-only {
         padding-left: 0;
-        padding-right: 0; 
+        padding-right: 0;
         justify-content: center;
 
-        .c-button__label span.c-button__label-icon {
+        .#{$_}__label span.#{$_}__label-icon {
             margin-right: 0;
             margin-left: 0;
         }
@@ -262,13 +259,12 @@
 }
 
 // Only text
-.c-button__basic {
+.#{$_}__basic {
     border: none;
     box-shadow: none;
-    filter: var(--c-button-shadow);
+    filter: tokens.get($_, "shadow");
     transition: transform 100ms ease-in-out;
 
-    /* Allows disabled basic buttons */
     &:not(:disabled) {
         padding-left: 0;
         padding-right: 0;
@@ -279,52 +275,52 @@
     }
 
     &--primary,
-    &--primary .c-button__label {
-        color: var(--c-button-color-primary);
+    &--primary .#{$_}__label {
+        color: tokens.get($_, "color--primary");
     }
 
     &--secondary,
-    &--secondary .c-button__label {
-        color: var(--c-button-color-secondary);
+    &--secondary .#{$_}__label {
+        color: tokens.get($_, "color--secondary");
     }
 
     &--default,
-    &--deafult .c-button__label {
-        color: var(--c-button-color-black);
+    &--deafult .#{$_}__label {
+        color: tokens.get($_, "color-black");
     }
 }
 
 // Background and border
-.c-button__filled {
+.#{$_}__filled {
     will-change: filter;
     transition: filter 200ms ease-in-out;
-    filter: var(--c-button-shadow);
+    filter: tokens.get($_, "shadow");
 
     &--primary {
-        background-color: var(--c-button-color-primary);
-        color: var(--c-button-color-primary-contrast);
+        background-color: tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary-contrast");
 
-        .c-button__label {
-            color: var(--c-button-color-primary-contrast);
+        .#{$_}__label {
+            color: tokens.get($_, "color--primary-contrast");
         }
     }
 
     &--secondary {
-        background-color: var(--c-button-color-secondary);
-        color: var(--c-button-color-secondary-contrast);
+        background-color: tokens.get($_, "color--secondary");
+        color: tokens.get($_, "color--secondary-contrast");
 
-        .c-button__label {
-            color: var(--c-button-color-secondary-contrast);
+        .#{$_}__label {
+            color: tokens.get($_, "color--secondary-contrast");
         }
     }
 
     &--default,
     &--deafult {
-        background-color: var(--c-button-color-default);
-        color: var(--c-button-color-default-contrast);
+        background-color: tokens.get($_, "color-default");
+        color: tokens.get($_, "color-default-contrast");
 
         &:hover:after {
-            background: var(--c-button-color-black) !important;
+            background: tokens.get($_, "color-black") !important;
             opacity: .06 !important;
         }
 
@@ -332,223 +328,209 @@
             opacity: .12 !important;
         }
 
-        .c-button__label-text,
-        .c-button__label-icon {
-            color: var(--c-button-color-default-contrast);
+        .#{$_}__label-text,
+        .#{$_}__label-icon {
+            color: tokens.get($_, "color-default-contrast");
         }
     }
 
-    /* Default state */
     &:after {
         background-color: transparent;
     }
 
-    /* Hover state (hover) */
     &:hover {
-        filter: var(--c-button-shadow);
+        filter: tokens.get($_, "shadow");
 
         &:after {
-            background: var(--c-button-color-white);
+            background: tokens.get($_, "color-white");
             opacity: .24;
         }
     }
 
-    /* Active state (pressed) */
     &:hover:active {
-        filter: var(--c-button-shadow);
+        filter: tokens.get($_, "shadow");
 
         &:after {
-            background: var(--c-button-color-black);
+            background: tokens.get($_, "color-black");
             opacity: .32;
         }
 
-        .c-button__label {
+        .#{$_}__label {
             opacity: .8;
         }
     }
 }
 
-.c-button__outlined {
+.#{$_}__outlined {
     border: clamp(
             1px,
-            calc(var(--c-button-border-width) * var(--c-button-base) * 1),
+            #{tokens.use($_, "border-width")},
             calc(var(--base) / 2)
         ) solid;
 
     &--primary {
-        border-color: var(--c-button-color-primary);
-        color: var(--c-button-color-primary);
+        border-color: tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary");
 
-        .c-button__label {
-            color: var(--c-button-color-primary);
+        .#{$_}__label {
+            color: tokens.get($_, "color--primary");
         }
 
         &:hover:after {
-            background: var(--c-button-color-primary);
+            background: tokens.get($_, "color--primary");
             opacity: .08;
         }
 
         &:active:after {
-            background: var(--c-button-color-primary);
+            background: tokens.get($_, "color--primary");
             opacity: .24;
         }
     }
 
     &--secondary {
-        border-color: var(--c-button-color-secondary);
-        color: var(--c-button-color-secondary);
+        border-color: tokens.get($_, "color--secondary");
+        color: tokens.get($_, "color--secondary");
 
-        .c-button__label {
-            color: var(--c-button-color-secondary);
+        .#{$_}__label {
+            color: tokens.get($_, "color--secondary");
         }
 
         &:hover:after {
-            background: var(--c-button-color-secondary);
+            background: tokens.get($_, "color--secondary");
             opacity: .08;
         }
 
         &:active:after {
-            background: var(--c-button-color-secondary);
+            background: tokens.get($_, "color--secondary");
             opacity: .24;
         }
     }
 
     &--default,
     &--deafult {
-        border-color: var(--c-button-color-black);
-        color: var(--c-button-color-black);
-        .c-button__label {
-            color: var(--c-button-color-black);
+        border-color: tokens.get($_, "color-black");
+        color: tokens.get($_, "color-black");
+        .#{$_}__label {
+            color: tokens.get($_, "color-black");
         }
         &:hover:after,
         &:active:after {
-            background: var(--c-button-color-black);
+            background: tokens.get($_, "color-black");
         }
     }
 
     &:hover:focus {
-        .c-button__label {
+        .#{$_}__label {
             opacity: .8;
         }
     }
 }
 
-.c-button__toggle {
-
+.#{$_}__toggle {
     transition: color 100ms ease-in-out,
     background 100ms ease-in-out,
     outline 100ms ease-in-out,
     outline-offset 100ms ease-in-out;
 
-
     &[aria-pressed='true']:after {
-        background: var(--c-button-color-white);
+        background: tokens.get($_, "color-white");
         opacity: .3;
     }
 
-    &.c-button__filled {
+    &.#{$_}__filled {
         outline-offset: 4px;
         outline: 0 solid rgba(0,0,0,0.5);
     }
 
-    /* Filled active styles */
-    &.c-button__filled[aria-pressed='true'] {
-        outline: 2px solid var(--c-button-color-white);
+    &.#{$_}__filled[aria-pressed='true'] {
+        outline: 2px solid tokens.get($_, "color-white");
         outline-offset: -2px;
     }
 
-    /* Basic active styles */
-    &.c-button__basic:before {
+    &.#{$_}__basic:before {
         content: "";
-        border-bottom: 2px solid var(--c-button-color-default-darker);
+        border-bottom: 2px solid var(--#{$_}--color-default-darker);
         bottom: 4px;
         position: absolute;
         width: 0;
         transition: width 100ms ease-in-out;
     }
 
-    &.c-button__basic[aria-pressed='true']:before {
+    &.#{$_}__basic[aria-pressed='true']:before {
         width: 100%;
     }
 
-    &.c-button__basic[aria-pressed='true']:after {
+    &.#{$_}__basic[aria-pressed='true']:after {
         display: none;
     }
 
-    /* Outlined active styles */
-    &.c-button__outlined {
+    &.#{$_}__outlined {
         &[aria-pressed='true']:after {
             display: none;
         }
     }
 
-    /* Filled color - active */
-    &.c-button__filled--default[aria-pressed='true'] {
-        outline-color: var(--c-button-color-default-darker);
+    &.#{$_}__filled--default[aria-pressed='true'] {
+        outline-color: var(--#{$_}--color-default-darker);
     }
 
-    &.c-button__filled--primary[aria-pressed='true'] {
-        outline-color: var(--c-button-color-primary-contrasting);
+    &.#{$_}__filled--primary[aria-pressed='true'] {
+        outline-color: var(--#{$_}--color-primary-contrasting);
     }
 
-    &.c-button__filled--secondary[aria-pressed='true'] {
-        outline-color: var(--c-button-color-secondary-contrasting);
+    &.#{$_}__filled--secondary[aria-pressed='true'] {
+        outline-color: var(--#{$_}--color-secondary-contrasting);
     }
 
-    /* Basic color - active */
-
-    &.c-button__basic--default[aria-pressed='true']:before  {
-        border-color: var(--c-button-color-default-darker);
+    &.#{$_}__basic--default[aria-pressed='true']:before  {
+        border-color: var(--#{$_}--color-default-darker);
     }
 
-    &.c-button__basic--primary[aria-pressed='true']:before {
-        border-color: var(--c-button-color-primary);
+    &.#{$_}__basic--primary[aria-pressed='true']:before {
+        border-color: tokens.get($_, "color--primary");
     }
 
-    &.c-button__basic--secondary[aria-pressed='true']:before {
-        border-color: var(--c-button-color-secondary);
+    &.#{$_}__basic--secondary[aria-pressed='true']:before {
+        border-color: tokens.get($_, "color--secondary");
     }
 
-    /* Outlined color - active */
-    &.c-button__outlined--default[aria-pressed='true'] {
+    &.#{$_}__outlined--default[aria-pressed='true'] {
+        background-color: tokens.get($_, "color-default-contrast");
 
-        background-color: var(--c-button-color-default-contrast);
-
-        .c-button__label,
-        .c-button__label-icon,
-        .c-button__label-text {
-            color: var(--c-button-color-default);
+        .#{$_}__label,
+        .#{$_}__label-icon,
+        .#{$_}__label-text {
+            color: tokens.get($_, "color-default");
         }
     }
 
-    &.c-button__outlined--primary[aria-pressed='true'] {
-        background-color: var(--c-button-color-primary);
+    &.#{$_}__outlined--primary[aria-pressed='true'] {
+        background-color: tokens.get($_, "color--primary");
 
-        .c-button__label,
-        .c-button__label-icon,
-        .c-button__label-text {
-            color: var(--c-button-color-primary-contrast);
+        .#{$_}__label,
+        .#{$_}__label-icon,
+        .#{$_}__label-text {
+            color: tokens.get($_, "color--primary-contrast");
         }
     }
 
-    &.c-button__outlined--secondary[aria-pressed='true'] {
-        background-color: var(--c-button-color-secondary);
+    &.#{$_}__outlined--secondary[aria-pressed='true'] {
+        background-color: tokens.get($_, "color--secondary");
 
-        .c-button__label,
-        .c-button__label-icon,
-        .c-button__label-text {
-            color: var(--c-button-color-secondary-contrast);
+        .#{$_}__label,
+        .#{$_}__label-icon,
+        .#{$_}__label-text {
+            color: tokens.get($_, "color--secondary-contrast");
         }
     }
-
 }
 
-.c-button + .c-button {
-    margin-left: calc(var(--c-button-space) * var(--c-button-base) * 1);
+.#{$_} + .#{$_} {
+    margin-left: tokens.use($_, "space");
 }
 
 @media print {
-    .c-button {
+    .#{$_} {
         display: none;
     }
 }
