@@ -1,8 +1,11 @@
 @use "../mixin/stretch";
 @use "../mixin/tokens";
 
+/* Component name */ 
+$_: "c-notice";
+
 /* Design tokens */
-@include tokens.create-tokens("c-notice", (
+@include tokens.create-tokens($_, (
     "border-radius",
     "space",
     "shadow",
@@ -14,12 +17,12 @@
 ));
 
 /* Component */
-.c-notice {
-    filter: var(--c-notice--shadow);
+.#{$_} {
     contain: layout;
-    padding: tokens.use("c-notice", "space", 2) tokens.use("c-notice", "space", 3);
-    border-radius: tokens.use("c-notice", "border-radius");
-    corner-shape: var(--c-notice--corner-shape);
+    filter: tokens.use($_, "shadow");
+    padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.use($_, "corner-shape");
     display: grid;
     grid-template-areas:
         "icon title actions"
@@ -28,39 +31,40 @@
     grid-auto-rows: auto;
     align-items: center;
 
-    > [class*='c-notice__'] + [class*='c-notice__']  {
-        margin-left: tokens.use("c-notice", "space", 2);
+    > [class*='#{$_}__'] + [class*='#{$_}__']  {
+        margin-left: tokens.use($_, "space", 2);
     }
 
-    .c-notice__icon {
+    .#{$_}__icon {
         grid-area: icon;
         vertical-align: sub;
         line-height: 1rem;
         opacity: .7;
     }
 
-    .c-notice__title {
+    .#{$_}__title {
         grid-area: title;
         margin: 0;
-        line-height: var(--c-notice--line-height);
+        line-height: tokens.use($_, "line-height");
     }
 
-    .c-notice__message {
+    .#{$_}__message {
         grid-area: message;
         margin: 0;
     }
 
-    .c-notice__actions {
+    .#{$_}__actions {
         grid-area: actions;
         display: flex;
-        gap: calc(var(--c-notice--space) * 1.5);
+        gap: tokens.use($_, "space", 1.5);
         align-items: center;
         justify-content: flex-end;
-        margin: calc(var(--c-notice--space) * -1) calc(var(--c-notice--space) * -1) calc(var(--c-notice--space) * -1) 0;
+        margin: tokens.use($_, "space", -1) tokens.use($_, "space", -1) tokens.use($_, "space", -1) 0;
+
         > * + * {
             position: relative;
-            padding-left: calc(calc(var(--c-notice--space) * 0.75) + 1px);
-            margin-left: calc(var(--c-notice--space) * 0.75);
+            padding-left: calc(#{tokens.use($_, "space", 0.75)} + 1px);
+            margin-left: tokens.use($_, "space", 0.75);
         }
 
         > * + *::before {
@@ -94,7 +98,7 @@
         text-decoration: underline;
     }
 
-    @include tokens.color-variants("c-notice", ("success", "danger", "info", "warning"));
+    @include tokens.color-variants($_, ("success", "danger", "info", "warning"));
 }
 
 .c-notice.c-notice--stretch { /* Bleed outside container  left&right */

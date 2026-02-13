@@ -2,13 +2,11 @@
 
 /// Generates component-scoped CSS custom properties that fall back to global tokens.
 ///
-/// Each token in $tokens produces: --#{$prefix}--#{$token}: var(--#{$token});
-///
 /// Auto-derivation rules:
-///   - "border-radius" also generates --#{$prefix}--corner-shape: var(--corner-shape)
+///   - "border-radius" also generates --{prefix}--corner-shape
 ///   - "color--*" tokens (not ending in "-contrast") also generate a -contrast companion
 ///
-/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as the selector (.c-notice)
+/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as the selector
 /// @param {List} $tokens - Token names to register
 /// @param {Map} $extras [()]  - Extra custom properties with literal values
 @mixin create-tokens($prefix, $tokens, $extras: ()) {
@@ -33,7 +31,6 @@
 }
 
 /// Returns calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
-/// Shorthand for the common pattern of scaling a token by --base and a multiplier.
 ///
 /// @param {String} $prefix - Component prefix (e.g., "c-notice")
 /// @param {String} $token - Token name (e.g., "space")
