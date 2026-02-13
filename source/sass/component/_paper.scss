@@ -1,82 +1,58 @@
-@use "sass:map";
-@use "../mixin/paper";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+/* Valuemap for design tokens: */
+.c-paper {
+    --c-paper--color-surface: var(--color--surface);
+    --c-paper--color-surface-contrast: var(--color--surface-contrast);
+    --c-paper--border-radius: var(--border-radius);
+    --c-paper--corner-shape: var(--corner-shape);
+    --c-paper--space: var(--space);
+    --c-paper--shadow: var(--shadow);
+    --c-paper--border-width: var(--border-width);
+    --c-paper--border-color: var(--color--surface-contrast-muted);
 
-$c-paper-border-width: var(--c-paper-border-width, var_properties.$border-width-card) !default;
-$c-paper-border-color: var(--c-paper-border-color, var_colors.$color-border-card) !default;
+    /* Derived tokens */
+    --c-paper--padding: calc(var(--c-paper--space) * var(--base) * var(--c-paper--padding-multiplier, 0));
+}
 
 .c-paper {
-    border: $c-paper-border-width solid;
-    border-color: $c-paper-border-color;
-    
-    position: relative;
-    @include paper.paper(2);
+    border: var(--c-paper--border-width) solid var(--c-paper--border-color);
+    contain: layout;
+    filter: var(--c-paper--shadow);
+    background-color: var(--c-paper--color-surface);
+    border-radius: calc(var(--c-paper--border-radius) * var(--base) * 1);
+    color: var(--c-paper--color-surface-contrast);
+    corner-shape: var(--c-paper--corner-shape);
+    padding: var(--c-paper--padding);
 
-    &--transparent {
-        background: transparent;
-        box-shadow: none;
-        filter: var_properties.$drop-shadow-0;
-        height:auto;
+    &--padding-0 {
+        --c-paper--padding-multiplier: 0;
     }
-
-    @each $number, $size in var_default.$spacers {
-        @if $size != auto {
-            &--padding-#{$number} {
-                padding: map.get(var_default.$spacers, $number);
-            }
-        }
+    &--padding-1 {
+        --c-paper--padding-multiplier: 1;
+    }
+    &--padding-2 {
+        --c-paper--padding-multiplier: 2;
+    }
+    &--padding-3 {
+        --c-paper--padding-multiplier: 3;
+    }
+    &--padding-4 {
+        --c-paper--padding-multiplier: 4;
+    }
+    &--padding-5 {
+        --c-paper--padding-multiplier: 5;
+    }
+    &--padding-6 {
+        --c-paper--padding-multiplier: 6;
+    }
+    &--padding-7 {
+        --c-paper--padding-multiplier: 7;
+    }
+    &--padding-8 {
+        --c-paper--padding-multiplier: 8;
     }
 
     &--divider {
-        border-top: 1px Solid var_colors.$color-gray-light;
-        padding-top: map.get(var_default.$spacers, "3");
+        border-top: var(--c-paper--border-width) solid var(--c-paper--border-color);
+        padding-top: calc(var(--c-paper--space) * var(--base) * 3);
     }
-
-    &--component-description-area {
-        background-color: var_colors.$color-component-doc-background;
-        display: inline-block;
-        width:100%;
-
-        p, h4, h5 {
-            color: var_colors.$color-white;
-        }
-
-        .c-button__text--primary[aria-pressed="true"],
-        [aria-pressed="true"].c-button__outlined--primary {
-            color: var_colors.$color-white;
-            background-color: var_colors.$color-component-doc-background-lighten;
-        }
-
-        .c-button__outlined--primary:hover, .c-button__text--primary:hover {
-            background-color: var_colors.$color-component-doc-background-lighten;
-        }
-
-    }
-
-    &--component-description-area-full {
-        padding: 24px;
-    }
-
-    &--component-code-area-grid {
-        margin-top: -8px;
-        padding: 0 24px;
-    }
-
-    &--component-code-area-full {
-        margin-top:-10px;
-    }
-
-    .c-code__output {
-        padding-top:10px;
-    }
-
-    // Flat card design
-    &.c-paper--flat {
-        background: none;
-        border: none;
-        filter: none;
-    }
-    //end flat card design
 }

@@ -75,7 +75,7 @@ class DesignBuilder {
 
   private renderCategory(category: TokenCategory): HTMLElement {
     const section = document.createElement('section')
-    section.className = 'db-category c-paper'
+    section.className = 'db-category'
     section.dataset.categoryId = category.id
 
     // Category header (collapsible)
