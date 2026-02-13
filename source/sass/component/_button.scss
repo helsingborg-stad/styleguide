@@ -417,7 +417,7 @@
 
     &--default,
     &--deafult {
-        border: calc(var(--c-button-border-width) * var(--c-button-base) * 1) solid var(--c-button-color-black);
+        border-color: var(--c-button-color-black);
         color: var(--c-button-color-black);
         .c-button__label {
             color: var(--c-button-color-black);
