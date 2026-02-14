@@ -22,9 +22,7 @@ $_: "c-card";
     "level-1": "1000",
     "level-3": "3000",
     "image-bg": "var(--color-complementary-1, #e5e5e5)",
-    "image-bg-svg": "var(--color--secondary)",
-    "color-white": "var(--color--white-100)",
-    "color-black": "var(--color--black-100)"
+    "image-bg-svg": "var(--color--secondary)"
 ));
 
 /* Component */
@@ -122,14 +120,7 @@ $_: "c-card";
         position: absolute;
         top: 0;
         right: 0;
-
-        &--white .c-button {
-            color: tokens.get($_, "color-white");
-        }
-
-        &--black .c-button {
-            color: tokens.get($_, "color-black");
-        }
+        color: tokens.get($_, "color-surface-contrast");
     }
 
     &__dropdown .c-button:hover,
@@ -196,10 +187,10 @@ $_: "c-card";
         }
         .#{$_}__header {
             border-bottom: calc(#{tokens.get($_, "base")} / 2) solid tokens.get($_, "color--primary");
-            background: tokens.get($_, "color-white");
+            background: tokens.get($_, "color-surface-contrast");
         }
         .c-typography {
-            color: tokens.get($_, "color-black");
+            color: tokens.get($_, "color-surface-contrast");
         }
     }
 
@@ -207,6 +198,7 @@ $_: "c-card";
         .#{$_}__header {
             background: tokens.get($_, "color--primary");
             color: tokens.get($_, "color--primary-contrast");
+           
             * {
                 color: tokens.get($_, "color--primary-contrast");
             }
@@ -317,6 +309,7 @@ $_: "c-card";
 /* Hover effect for linked cards */
 a.#{$_} {
     text-decoration: none;
+    color: tokens.get($_, "color--surface-contrast");
 
     .#{$_}__image:before {
         content: '';
@@ -334,6 +327,8 @@ a.#{$_} {
         background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 10%, #{tokens.get($_, "color--surface")});
         transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
+        color: tokens.get($_, "color--surface-contrast");
+
 
         .#{$_}__heading {
             text-decoration: underline;
