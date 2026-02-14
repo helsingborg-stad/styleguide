@@ -27,6 +27,7 @@ $_: "c-card";
 
 /* Component */
 .#{$_} {
+    contain: layout;
     container-type: inline-size;
     filter: tokens.get($_, "shadow");
     will-change: filter;
