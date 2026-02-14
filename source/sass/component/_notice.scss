@@ -112,7 +112,7 @@ $_: "c-notice";
 }
 
 .#{$_} + .#{$_} {
-    margin-top: tokens.use($_, "outer-space", 4);
+    margin-top: tokens.use($_, "outer-space", 2);
 }
 
 @media print {
