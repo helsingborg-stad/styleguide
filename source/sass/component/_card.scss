@@ -1,45 +1,53 @@
-@use "sass:map";
 @use "../mixin/cover";
 @use "../mixin/focus";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-card-border-radius: var(--c-card-border-radius, var_border-radius.$border-radius-lg) !default;
+/* Component name */
+$_: "c-card";
 
-$c-card-border-width: var(--c-card-border-width, var_properties.$border-width-card) !default;
-$c-card-border-color: var(--c-card-border-color, var_colors.$color-border-card) !default;
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "space",
+    "color--surface",
+    "color--primary"
+), (
+    "base": "var(--base)",
+    "border-width": "var(--border-width-card, 0px)",
+    "border-color": "var(--color-border-card, var(--color--surface))",
+    "border-width-divider": "var(--border-width-divider, 1px)",
+    "border-color-divider": "var(--color-border-divider, rgba(0,0,0,.1))",
+    "shadow": "var(--drop-shadow-2)",
+    "shadow-hover": "var(--drop-shadow-3)",
+    "level-1": "1000",
+    "level-3": "3000",
+    "image-bg": "var(--color-complementary-1, #e5e5e5)",
+    "image-bg-svg": "var(--color--secondary)",
+    "color-white": "var(--color--white-100)",
+    "color-black": "var(--color--black-100)"
+));
 
-$c-card-border-width-outline: var(--c-card-border-width-outline, var_properties.$border-width-outline) !default;
-$c-card-border-color-outline: var(--c-card-border-color-outline, var_colors.$color-border-outline) !default;
-
-$c-card-border-width-divider: var(--c-card-border-width-divider, var_properties.$border-width-divider) !default;
-$c-card-border-color-divider: var(--c-card-border-color-divider, var_colors.$color-border-divider) !default;
-
-$c-card-image-background-color: var(--c-card-image-background-color, var_colors.$color-secondary) !default;
-
-.c-card {
+/* Component */
+.#{$_} {
     container-type: inline-size;
-    filter: var_properties.$drop-shadow-2;
+    filter: tokens.get($_, "shadow");
     will-change: filter;
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: $c-card-color-background;
-    border-radius: $c-card-border-radius;
+    background-color: tokens.get($_, "color--surface");
+    color: tokens.get($_, "color--surface-contrast");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
     transition: all 200ms ease-in;
-    border: $c-card-border-width solid $c-card-border-color;
+    border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
 
-    .c-card__paint-container {
+    .#{$_}__paint-container {
         contain: paint;
         border-radius: inherit;
         display: inherit;
         flex-direction: inherit;
         flex-wrap: wrap;
-        flex-direction: inherit;
         height: inherit;
 
         > * {
@@ -47,149 +55,116 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         }
     }
 
-    .c-card__header {
+    .#{$_}__header {
         width: 100%;
     }
 
-    .c-card__header,
-    .c-card__body,
-    .c-card__content-after {
+    .#{$_}__header,
+    .#{$_}__body,
+    .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: map.get(var_default.$spacers, '2');
+        padding: tokens.use($_, "space", 2);
     }
 
-    .c-card__content:not(:first-child) {
-        margin-top: map.get(var_default.$spacers, '1');
+    .#{$_}__content:not(:first-child) {
+        margin-top: tokens.use($_, "space");
     }
-    
-    .c-card__footer {
+
+    .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: map.get(var_default.$spacers, '2');
+        padding: tokens.use($_, "space", 2);
         margin-top: auto;
+        border-top: tokens.get($_, "border-width-divider") solid tokens.get($_, "border-color-divider");
     }
-    
-    .c-card__body {
+
+    .#{$_}__body {
         display: grid;
-        padding-top: map.get(var_default.$spacers, '3');
-        padding-bottom: map.get(var_default.$spacers, '3');
-        gap: map.get(var_default.$spacers, '05');
+        padding-top: tokens.use($_, "space", 3);
+        padding-bottom: tokens.use($_, "space", 3);
+        gap: tokens.use($_, "space", 0.5);
         align-content: center;
 
         > :first-child {
             margin-top: 0;
         }
     }
-    
-    .c-card__footer {
-        border-top: $c-card-border-width-divider solid $c-card-border-color-divider;
-    }
-    
-    .c-card__image {
-        background-color: var_colors.$color-card-image-background;
-        border-radius: none;
+
+    .#{$_}__image {
+        background-color: tokens.get($_, "image-bg");
+        border-radius: 0;
 
         .c-image__image {
             border-radius: inherit;
         }
     }
-    
+
     &__title {
         &-expand-button {
             float: right;
-            
+
             &[aria-pressed='true'] {
                 transform: rotate(180deg);
                 transition-timing-function: ease-in-out;
             }
         }
     }
-    
+
     &__date {
         display: flex;
-        gap: calc(#{var_default.$base} * 0.5);
+        gap: tokens.use($_, "space", 0.5);
         align-items: center;
-        margin-top: calc(#{var_default.$base} * 0.5);
+        margin-top: tokens.use($_, "space", 0.5);
     }
-    
+
     &__dropdown {
         position: absolute;
         top: 0;
         right: 0;
-        
+
         &--white .c-button {
-            color: var_colors.$color-white;
+            color: tokens.get($_, "color-white");
         }
-        
+
         &--black .c-button {
-            color: var_colors.$color-black;
+            color: tokens.get($_, "color-black");
         }
     }
-    
-    &__dropdown .c-button:hover {
-        background-color: unset;
-    }
-    
+
+    &__dropdown .c-button:hover,
     &__dropdown .c-button:focus {
         background-color: unset;
     }
-    
+
     /* Image aspect ratio */
-    .c-card__image-container {
+    .#{$_}__image-container {
         position: relative;
         width: 100%;
         contain: paint;
     }
-    
-    &.c-card--ratio-1-1 {
-        .c-card__image-container {
-            aspect-ratio: 1 / 1;
-        }
-    }
-    
-    &.c-card--ratio-16-9 {
-        .c-card__image-container {
-            aspect-ratio: 16 / 9;
-        }
-    }
-    
-    &.c-card--ratio-4-3 {
-        .c-card__image-container {
-            aspect-ratio: 4 / 3;
-        }
-    }
-    
-    &.c-card--ratio-10-3 {
-        .c-card__image-container {
-            aspect-ratio: 10 / 3;
-        }
-    }
-    
-    &.c-card--ratio-36-7 {
-        .c-card__image-container {
-            aspect-ratio: 36 / 7;
-        }
-    }
 
-    /* Floating items top right corner (on image) */
-    .c-card__floating {
+    &.#{$_}--ratio-1-1 .#{$_}__image-container { aspect-ratio: 1 / 1; }
+    &.#{$_}--ratio-16-9 .#{$_}__image-container { aspect-ratio: 16 / 9; }
+    &.#{$_}--ratio-4-3 .#{$_}__image-container { aspect-ratio: 4 / 3; }
+    &.#{$_}--ratio-10-3 .#{$_}__image-container { aspect-ratio: 10 / 3; }
+    &.#{$_}--ratio-36-7 .#{$_}__image-container { aspect-ratio: 36 / 7; }
+
+    .#{$_}__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
-        z-index: var_properties.$level-3;
+        right: tokens.get($_, "base");
+        top: tokens.get($_, "base");
+        z-index: tokens.get($_, "level-3");
     }
 
-    .c-card__content-after {
+    .#{$_}__content-after {
         margin-top: auto;
     }
 
-    /* Focus highlight */
     &--focus-inset:focus {
-        @include focus.focus-inset($c-card-border-radius);
+        @include focus.focus-inset(tokens.use($_, "border-radius"));
     }
- 
-    /* Icons in headline */ 
+
     &__header .c-icon {
         vertical-align: top;
 
@@ -198,203 +173,190 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
         }
     }
 
-    /* Explicit link */
-    .c-card__explicit-link {
+    .#{$_}__explicit-link {
         font-weight: 700;
     }
 
-    /* Apperance modifiers */
+    /* Appearance modifiers */
 
     &--outline {
-        border: $c-card-border-width solid;
+        border: tokens.get($_, "border-width") solid;
     }
 
     &--highlight {
-        .c-card__header,
-        .c-card__body {
-            border-left: var_default.$base solid var_colors.$color-primary;
+        .#{$_}__header,
+        .#{$_}__body {
+            border-left: tokens.get($_, "base") solid tokens.get($_, "color--primary");
         }
     }
 
     &--accented {
-        .c-card {
-            margin-bottom: var_default.$base;
+        .#{$_} {
+            margin-bottom: tokens.get($_, "base");
         }
-        .c-card__header {
-            border-bottom: calc(#{var_default.$base} / 2) solid var_colors.$color-primary;
-            background: var_colors.$color-white;
+        .#{$_}__header {
+            border-bottom: calc(#{tokens.get($_, "base")} / 2) solid tokens.get($_, "color--primary");
+            background: tokens.get($_, "color-white");
         }
         .c-typography {
-            color: var_colors.$color-black;
+            color: tokens.get($_, "color-black");
         }
     }
 
     &--panel {
-        .c-card__header {
-            background: var_colors.$color-primary;
-            color: var_colors.$color-white;
+        .#{$_}__header {
+            background: tokens.get($_, "color--primary");
+            color: tokens.get($_, "color--primary-contrast");
             * {
-                color: var_colors.$color-white;
+                color: tokens.get($_, "color--primary-contrast");
             }
-            
+
             i, h4 {
                 display: inline-block;
                 vertical-align: middle;
             }
-            
+
             h4 {
-                margin-top: 0px;
+                margin-top: 0;
             }
         }
-        
-        &.c-card--flat {
-            .c-card__header {
-                padding: map.get(var_default.$spacers, '2');
-            }
+
+        &.#{$_}--flat .#{$_}__header {
+            padding: tokens.use($_, "space", 2);
         }
     }
 
     &--collapse {
         visibility: hidden;
-        max-height: 0px;
-        height: 0px;
-        padding: 0px;
+        max-height: 0;
+        height: 0;
+        padding: 0;
     }
 
-    /* Datebadge */ 
-    .c-card__datebadge {
+    .#{$_}__datebadge {
         position: absolute;
-        margin: calc(var_default.$base * 2);
+        margin: tokens.use($_, "space", 2);
     }
 
-    &.c-card--has-datebadge {
-        .c-card__datebadge {
+    &.#{$_}--has-datebadge {
+        .#{$_}__datebadge {
             margin: 0;
-            left: calc(var_default.$base * 2);
-            top: calc(var_default.$base * 2);
+            left: tokens.use($_, "space", 2);
+            top: tokens.use($_, "space", 2);
         }
 
-        &:not(.c-card--has-image) {
-
-            .c-card__heading-container,
-            .c-card__content {
-                padding-left: calc(var_default.$base * 9.5);
+        &:not(.#{$_}--has-image) {
+            .#{$_}__heading-container,
+            .#{$_}__content {
+                padding-left: tokens.use($_, "space", 9.5);
             }
         }
     }
-    
-    /* Flat card design */
-    &.c-card--flat.c-card--none {
-        .c-card__header {
-            padding-left: 0;
-            padding-right: 0;
-        }
+
+    &.#{$_}--flat.#{$_}--none .#{$_}__header {
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    &.c-card--flat {
+    &.#{$_}--flat {
         background: none;
         border: none;
         filter: none;
 
         &:active,
-        &:visited, 
+        &:visited,
         &:hover {
             background: none;
             border: none;
             filter: none;
         }
-    
-        .c-card__body {
+
+        .#{$_}__body {
             padding-left: 0;
-            padding-right: 0; 
+            padding-right: 0;
         }
 
-        .c-card__header,
-        .c-card__content-after {
-            padding: 0
+        .#{$_}__header,
+        .#{$_}__content-after {
+            padding: 0;
         }
     }
-    //end flat card design
 
     &--svg-background {
-        .c-card__image-background {
-            background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+        .#{$_}__image-background {
+            background-size: clamp(#{tokens.get($_, "base")} * 3, 50%, #{tokens.get($_, "base")} * 8);
             background-repeat: no-repeat;
-            background-color: $c-card-image-background-color;
-        }   
+            background-color: tokens.get($_, "image-bg-svg");
+        }
     }
-    
-    .c-card__paint-container {
+
+    .#{$_}__paint-container {
         @container (min-width: 500px) {
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
-            .c-card__body {
-                padding: map.get(var_default.$spacers, '4');
+            .#{$_}__body {
+                padding: tokens.use($_, "space", 4);
             }
-            .c-card__footer {
+            .#{$_}__footer {
                 flex: 1;
             }
-            .c-card__image-background {
+            .#{$_}__image-background {
                 height: 100%;
             }
-            .c-card__image-container {
+            .#{$_}__image-container {
                 flex-basis: 30%;
             }
-            .c-card__image-container + .c-card__body {
+            .#{$_}__image-container + .#{$_}__body {
                 flex-basis: calc(100% - 30%);
             }
         }
     }
 }
 
-/* Add hover effect */
-a.c-card {
+/* Hover effect for linked cards */
+a.#{$_} {
     text-decoration: none;
-    color: inherit;
-    
-    .c-card__image:before {
+
+    .#{$_}__image:before {
         content: '';
         @include cover.cover();
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
-        background: var_colors.$color-lighter;
+        background: tokens.get($_, "color--surface-contrast");
         opacity: 0;
-        z-index: var_properties.$level-1;
+        z-index: tokens.get($_, "level-1");
     }
-    
+
     &:hover {
-        filter: var_properties.$drop-shadow-3;
-        background-color: var_colors.$color-lightest;
-        color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
+        filter: tokens.get($_, "shadow-hover");
+        background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 10%, #{tokens.get($_, "color--surface")});
+        transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
-        
-        .c-card__heading {
+
+        .#{$_}__heading {
             text-decoration: underline;
         }
-        
-        .c-card__image:before {
+
+        .#{$_}__image:before {
             opacity: 0.08;
         }
     }
-    
-    &:focus {
-        background-color: var_colors.$color-code-background-focus;
 
-        .c-card__image-container {
-            &:before {
-                opacity: 0.2;
-            }
+    &:focus {
+        background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 6%, #{tokens.get($_, "color--surface")});
+
+        .#{$_}__image-container:before {
+            opacity: 0.2;
         }
     }
-}           
+}
 
-/* Adaptions for in grid without gutter */
-.o-grid--no-gutter > [class*="o-grid-"] .c-card,
-.o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"], 
-.o-grid--no-gutter > [class*="o-grid-"] .c-card [class*="c-card"]:after {
+/* Grid without gutter */
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_},
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"],
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
     border-radius: unset;
-    filter: none; 
+    filter: none;
 }
