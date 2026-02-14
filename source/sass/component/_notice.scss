@@ -8,6 +8,7 @@ $_: "c-notice";
 @include tokens.create($_, (
     "border-radius",
     "space",
+    "outer-space",
     "shadow",
     "line-height",
     "color--success",
@@ -111,7 +112,7 @@ $_: "c-notice";
 }
 
 .#{$_} + .#{$_} {
-    margin-top: tokens.use($_, "space", 4);
+    margin-top: tokens.use($_, "outer-space", 4);
 }
 
 @media print {

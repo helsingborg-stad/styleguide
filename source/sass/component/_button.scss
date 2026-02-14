@@ -9,6 +9,7 @@ $_: "c-button";
     "border-radius",
     "border-width",
     "space",
+    "outer-space",
     "color--primary",
     "color--secondary"
 ), (
@@ -526,7 +527,7 @@ $_: "c-button";
 }
 
 .#{$_} + .#{$_} {
-    margin-left: tokens.use($_, "space");
+    margin-left: tokens.use($_, "outer-space");
 }
 
 @media print {

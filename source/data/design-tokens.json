@@ -202,6 +202,17 @@
           "min": 0,
           "max": 3,
           "step": 0.25
+        },
+        {
+          "variable": "--outer-space",
+          "label": "Outer Space",
+          "description": "Spacing between component instances. Use --space for spacing inside components.",
+          "type": "range",
+          "default": 1,
+          "unit": "",
+          "min": 0,
+          "max": 3,
+          "step": 0.25
         }
       ]
     },
