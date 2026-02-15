@@ -14,13 +14,26 @@
         @each $token in $tokens {
             --#{$prefix}--#{$token}: var(--#{$token});
 
+            // Auto-derivation rule: add corner-shape if border-radius is used
             @if $token == "border-radius" {
                 --#{$prefix}--corner-shape: var(--corner-shape);
             }
 
+            // Auto-derivation rule: for shadow token, use color and amount to construct instead of direct passthrough
+            @if $token == "shadow" {
+                --#{$prefix}--shadow-color: var(--shadow-color);
+                --#{$prefix}--shadow-amount: var(--shadow-amount);
+            }
+
+            // Auto-derivation rule: for color tokens, add a contrast and a border-color companion
             @if string.index($token, "color") == 1
                 and string.slice($token, -9) != "-contrast" {
                 --#{$prefix}--#{$token}-contrast: var(--#{$token}-contrast);
+                --#{$prefix}--#{$token}-border: color-mix(
+                    in srgb,
+                    var(--#{$prefix}--#{$token}-contrast) 10%, 
+                    var(--#{$prefix}--#{$token})
+                );
             }
         }
 
@@ -36,6 +49,13 @@
 /// @param {String} $token - Token name
 /// @param {Number} $multiplier [1] - Scale multiplier
 @function use($prefix, $token, $multiplier: 1) {
+
+    //If token is shadow, construct the drop-shadow value using the color and amount tokens
+    @if $token == "shadow" {
+        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$prefix}--shadow-amount)) calc(var(--#{$prefix}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$prefix}--shadow-color));
+    }
+
+    // Default behavior: return scaled token value, pixel from int
     @return calc(var(--#{$prefix}--#{$token}) * var(--base) * #{$multiplier});
 }
 
@@ -47,10 +67,11 @@
     @return var(--#{$prefix}--#{$token});
 }
 
-/// Generates a color variant (background + contrast propagation).
+/// Generates a color variant (background + contrast + border-color propagation).
 @mixin color-variant($prefix, $variant) {
     background-color: var(--#{$prefix}--color--#{$variant});
     color: var(--#{$prefix}--color--#{$variant}-contrast);
+    border-color: var(--#{$prefix}--color--#{$variant}-border);
 
     a,
     a:hover,

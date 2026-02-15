@@ -11,7 +11,8 @@ $_: "c-button";
     "space",
     "outer-space",
     "color--primary",
-    "color--secondary"
+    "color--secondary",
+    "shadow",
 ), (
     "base": "var(--base)",
     "font-weight": "var(--font-weight-medium)",
@@ -25,7 +26,7 @@ $_: "c-button";
     "color-white": "var(--color--white-100)",
     "color-disabled-bg": "var(--color--gray-20)",
     "color-disabled-text": "var(--color--gray-60)",
-    "shadow": "0 2px 4px var(--shadow-color)",
+    "shadow": tokens.use($_, "shadow", 1),
     "level-1": "1",
     "level-2": "2"
 ));
@@ -46,6 +47,7 @@ $_: "c-button";
     user-select: none;
     position: relative;
     max-width: 100%;
+    filter: tokens.get($_, "shadow");
 
     .#{$_}__loader {
         display: none;

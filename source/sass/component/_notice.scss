@@ -7,23 +7,31 @@ $_: "c-notice";
 /* Design tokens */
 @include tokens.create($_, (
     "border-radius",
+    "border-width",
     "space",
     "outer-space",
-    "shadow",
+    "shadow", // This will trigger auto-derivation of shadow-color and shadow-amount tokens, no shadow token value is added directly since it's constructed in the use function
     "line-height",
     "color--success",
     "color--danger",
     "color--warning",
     "color--info"
-));
+),
+(
+    "shadow": tokens.use($_, "shadow", 1),
+    "border": tokens.use($_, "border-width", 1) solid,
+)
+);
 
 /* Component */
 .#{$_} {
     contain: layout;
     filter: tokens.get($_, "shadow");
+    border: tokens.get($_, "border");
     padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
+
     display: grid;
     grid-template-areas:
         "icon title actions"
@@ -74,7 +82,7 @@ $_: "c-notice";
         grid-template-areas: "icon title actions";
     }
 
-    a {
+    a, a:hover, a:active, a:visited {
         color: inherit;
         text-decoration: underline;
     }
