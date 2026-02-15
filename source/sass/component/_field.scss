@@ -10,24 +10,25 @@ $_: "c-field";
     "border-radius",
     "space",
     "color--danger",
-    "color--success"
+    "color--success",
+    "color--surface"
 ), (
     "base": "var(--base)",
     "border-width": "var(--border-width-input, 1px)",
-    "border-color": "var(--color-border-input, rgba(0,0,0,.1))",
-    "background-color": "var(--color-form-fields, #f5f5f5)",
-    "background-color-error": "var(--color-form-fields-error, #E1475114)",
-    "label-color": "var(--color-darker, #565656)",
+    "border-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 10%, transparent)",
+    "background-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 4%, var(--c-field--color--surface))",
+    "background-color-error": "color-mix(in srgb, var(--c-field--color--danger) 6%, var(--c-field--color--surface))",
+    "label-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
     "label-text-transform": "uppercase",
     "label-font-size": "0.75rem",
     "label-font-weight": "700",
     "label-letter-spacing": "0.05rem",
     "description-font-size": "0.75rem",
-    "description-color": "var(--color-darker, #565656)",
+    "description-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
     "helper-font-size": "var(--font-size-caption, 0.875rem)",
-    "helper-color": "#707070",
+    "helper-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 70%, transparent)",
     "helper-font-family": "var(--font-family-base)",
-    "suffix-color": "var(--color-darker, #565656)",
+    "suffix-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
     "font-size-sm": "0.775rem",
     "font-size-md": "0.95rem",
     "font-size-lg": "1rem",
@@ -101,6 +102,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: tokens.get($_, "font-size-md-line-height");
         border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
         background: tokens.get($_, "background-color");
+        color: tokens.get($_, "color--surface-contrast");
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
 
