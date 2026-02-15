@@ -123,6 +123,38 @@
                 </div>
             </div>
 
+
+            <div class="db-preview__section">
+                <div class="o-container">
+                    @typography(['element' => 'h3', 'variant' => 'h3'])
+                        Field on base layer
+                    @endtypography
+                    @field([
+                        'label' => 'Full Name',
+                        'name' => 'name',
+                        'type' => 'text',
+                        'placeholder' => 'Enter your name'
+                    ])
+                    @endfield
+                    @field([
+                        'label' => 'Email',
+                        'name' => 'email',
+                        'type' => 'text',
+                        'placeholder' => 'your@email.com'
+                    ])
+                    @endfield
+                    @field([
+                        'label' => 'Message',
+                        'name' => 'message',
+                        'multiline' => 3,
+                        'placeholder' => 'How can we help?'
+                    ])
+                    @endfield
+                    @button(['text' => 'Send Message', 'style' => 'filled', 'color' => 'primary'])
+                    @endbutton
+                </div>
+            </div>
+
             {{-- Typography --}}
             <div class="db-preview__section">
                 <div class="o-container">
