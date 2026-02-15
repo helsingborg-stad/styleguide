@@ -7,23 +7,18 @@ $_: "c-card";
 
 /* Design tokens */
 @include tokens.create($_, (
+    "border-width",
     "border-radius",
     "space",
     "color--surface",
     "color--primary",
     "shadow",
 ), (
-    "base": "var(--base)",
-    "border-width": "var(--border-width-card, 0px)",
-    "border-color": "var(--color-border-card, var(--color--surface))",
-    "border-width-divider": "var(--border-width-divider, 1px)",
-    "border-color-divider": "var(--color-border-divider, rgba(0,0,0,.1))",
     "shadow": tokens.use($_, "shadow", 1),
     "shadow-hover": tokens.use($_, "shadow", 1.5),
-    "level-1": "1000",
-    "level-3": "3000",
     "image-bg": "var(--color-complementary-1, #e5e5e5)",
-    "image-bg-svg": "var(--color--secondary)"
+    "image-bg-svg": "var(--color--secondary)",
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
 ));
 
 /* Component */
@@ -40,7 +35,7 @@ $_: "c-card";
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     transition: all 200ms ease-in;
-    border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+    border: tokens.get($_, "border");
 
     .#{$_}__paint-container {
         contain: paint;
@@ -76,7 +71,7 @@ $_: "c-card";
         hyphens: auto;
         padding: tokens.use($_, "space", 2);
         margin-top: auto;
-        border-top: tokens.get($_, "border-width-divider") solid tokens.get($_, "border-color-divider");
+        border-top: tokens.get($_, "border-width-divider") solid tokens.get($_, "color--surface-border");
     }
 
     .#{$_}__body {
@@ -326,7 +321,7 @@ a.#{$_} {
 
     &:hover {
         filter: tokens.get($_, "shadow-hover");
-        background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 10%, #{tokens.get($_, "color--surface")});
+        background-color: tokens.get($_, "color--surface-border");
         transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
         color: tokens.get($_, "color--surface-contrast");
