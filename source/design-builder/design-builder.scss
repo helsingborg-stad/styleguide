@@ -122,6 +122,109 @@
   gap: 0.5rem;
 }
 
+// --- Preset Bar ---
+
+.db-presets {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.db-presets__list {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  flex: 1;
+  min-height: 32px;
+}
+
+.db-presets__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.625rem;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  line-height: 1.4;
+  color: #555;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+
+  &:hover {
+    background: #eee;
+    border-color: #bbb;
+  }
+}
+
+.db-presets__chip--active {
+  background: #e3f2fd;
+  border-color: #90caf9;
+  color: #1565c0;
+  font-weight: 500;
+
+  &:hover {
+    background: #bbdefb;
+  }
+}
+
+.db-presets__chip-label {
+  pointer-events: none;
+}
+
+.db-presets__chip-delete {
+  font-size: 0.875rem;
+  line-height: 1;
+  color: #999;
+  margin-left: 0.125rem;
+  padding: 0 0.125rem;
+  border-radius: 50%;
+  transition: color 0.15s, background-color 0.15s;
+
+  &:hover {
+    color: #d32f2f;
+    background: rgba(211, 47, 47, 0.08);
+  }
+}
+
+.db-presets__save {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  line-height: 1.4;
+  color: #555;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+
+  .material-symbols-outlined {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background: #f5f5f5;
+    border-color: #999;
+  }
+
+  &:active {
+    background: #eee;
+  }
+}
+
 // --- Category ---
 
 .db-category {

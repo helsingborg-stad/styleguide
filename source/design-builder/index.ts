@@ -6,7 +6,7 @@
  * and manages live preview + storage.
  */
 
-import { LocalStorageAdapter, type StorageAdapter } from './storage'
+import { LocalStorageAdapter, PresetManager, type StorageAdapter } from './storage'
 import { createControl, createContrastPair, createSwatchBand, type TokenSetting } from './controls'
 
 interface TokenCategory {
@@ -29,11 +29,14 @@ class DesignBuilder {
   private tokens: TokenData
   private overrides: Record<string, string>
   private saveTimeout: ReturnType<typeof setTimeout> | null = null
+  private presetManager: PresetManager
+  private presetBar: HTMLElement | null = null
 
   constructor(container: HTMLElement, tokens: TokenData, storage: StorageAdapter) {
     this.container = container
     this.tokens = tokens
     this.storage = storage
+    this.presetManager = new PresetManager()
     this.overrides = storage.load()
 
     this.render()
@@ -61,6 +64,10 @@ class DesignBuilder {
     // Bind header actions
     header.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson())
     header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll())
+
+    // Preset bar
+    this.presetBar = this.renderPresetBar()
+    this.container.appendChild(this.presetBar)
 
     // Categories
     const categoriesWrap = document.createElement('div')
@@ -172,6 +179,10 @@ class DesignBuilder {
 
     // Debounced save
     this.debounceSave()
+
+    // Manual edit deactivates preset
+    this.presetManager.clearActive()
+    this.refreshPresetBar()
   }
 
   private debounceSave(): void {
@@ -199,6 +210,7 @@ class DesignBuilder {
 
     this.overrides = {}
     this.storage.clear()
+    this.presetManager.clearActive()
 
     // Re-render
     this.container.innerHTML = ''
@@ -214,6 +226,111 @@ class DesignBuilder {
     a.download = 'design-tokens-overrides.json'
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  // --- Preset Management ---
+
+  private renderPresetBar(): HTMLElement {
+    const bar = document.createElement('div')
+    bar.className = 'db-presets'
+
+    const list = document.createElement('div')
+    list.className = 'db-presets__list'
+
+    const activeName = this.presetManager.getActive()
+    const names = this.presetManager.names()
+
+    for (const name of names) {
+      list.appendChild(this.createPresetChip(name, name === activeName))
+    }
+
+    bar.appendChild(list)
+
+    const saveBtn = document.createElement('button')
+    saveBtn.type = 'button'
+    saveBtn.className = 'db-presets__save'
+    saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span> Save'
+    saveBtn.addEventListener('click', () => this.savePreset())
+    bar.appendChild(saveBtn)
+
+    return bar
+  }
+
+  private createPresetChip(name: string, isActive: boolean): HTMLElement {
+    const chip = document.createElement('button')
+    chip.type = 'button'
+    chip.className = 'db-presets__chip'
+    if (isActive) chip.classList.add('db-presets__chip--active')
+
+    const label = document.createElement('span')
+    label.className = 'db-presets__chip-label'
+    label.textContent = name
+    chip.appendChild(label)
+
+    const del = document.createElement('span')
+    del.className = 'db-presets__chip-delete'
+    del.textContent = '\u00d7'
+    del.title = `Delete "${name}"`
+    del.addEventListener('click', (e) => {
+      e.stopPropagation()
+      this.deletePreset(name)
+    })
+    chip.appendChild(del)
+
+    chip.addEventListener('click', () => this.loadPreset(name))
+
+    return chip
+  }
+
+  private savePreset(): void {
+    const name = prompt('Preset name:')
+    if (!name || !name.trim()) return
+
+    const trimmed = name.trim()
+    const existing = this.presetManager.names()
+    if (existing.includes(trimmed)) {
+      if (!confirm(`A preset named "${trimmed}" already exists. Overwrite it?`)) {
+        return
+      }
+    }
+
+    this.presetManager.save(trimmed, this.overrides)
+    this.presetManager.setActive(trimmed)
+    this.refreshPresetBar()
+  }
+
+  private loadPreset(name: string): void {
+    const all = this.presetManager.loadAll()
+    const presetOverrides = all[name]
+    if (!presetOverrides) return
+
+    // Remove current overrides from :root
+    for (const prop of Object.keys(this.overrides)) {
+      document.documentElement.style.removeProperty(prop)
+    }
+
+    // Replace overrides and apply
+    this.overrides = { ...presetOverrides }
+    this.applyAll()
+    this.storage.save(this.overrides)
+    this.presetManager.setActive(name)
+
+    // Re-render controls with new values
+    this.container.innerHTML = ''
+    this.render()
+  }
+
+  private deletePreset(name: string): void {
+    if (!confirm(`Delete preset "${name}"?`)) return
+    this.presetManager.delete(name)
+    this.refreshPresetBar()
+  }
+
+  private refreshPresetBar(): void {
+    if (!this.presetBar) return
+    const newBar = this.renderPresetBar()
+    this.presetBar.replaceWith(newBar)
+    this.presetBar = newBar
   }
 }
 
