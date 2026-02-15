@@ -21,7 +21,7 @@ $c-product-custom-color: var(--c-product-custom-color, #83A293);
 
     .c-button__filled--custom, .c-card__image--custom {
         background-color: $c-product-custom-color;
-        color: button.$c-button-primary-color-contrasting;
+        color: #fff; /* TODO: Use token */
     }
 
     .c-product__footer {

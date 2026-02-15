@@ -1,75 +1,81 @@
-@use "sass:map";
 @use "../mixin/mq";
 @use "../mixin/focus";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
+/* Component name */
+$_: "c-field";
 
-$c-field-label-color: var(--c-field-label-color, var_colors.$color-darker) !default;
-$c-field-label-text-transform: var(--c-field-label-text-transform, uppercase) !default;
-$c-field-label-font-size: var(--c-field-label-font-size, 0.75rem) !default;
-$c-field-label-font-weight: var(--c-field-label-font-size, 700) !default;
-
-$c-field-description-font-size: var(--c-field-description-font-size, 0.75rem) !default;
-$c-field-description-color: var(--c-field-description-color, var_colors.$color-darker) !default;
-
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-field-success-color: var(--c-field-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
-
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
-
-$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
-
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
-$c-field-padding: var(--c-field-padding, map.get(var_default.$spacers, "2")) !default;
-$c-field-height: var(--c-field-height, #{map.get(var_default.$spacers, "6")}) !default;
-$c-field-font-size-sm: var(--c-field-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-field-font-size-md: var(--c-field-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-field-font-size-lg: var(--c-field-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-field-font-size-sm-line-height: var(--c-field-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-field-font-size-md-line-height: var(--c-field-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-field-font-size-lg-line-height: var(--c-field-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
-$c-field-helper-font-size: var(--c-field-helper-font-size, var_fonts.$font-size-caption) !default;
-$c-field-suffix-color: var(--c-field-suffix-color, var_colors.$color-darker) !default;
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "space",
+    "color--danger",
+    "color--success",
+    "color--surface"
+), (
+    "base": "var(--base)",
+    "border-width": "var(--border-width-input, 1px)",
+    "border-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 10%, transparent)",
+    "background-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 4%, var(--c-field--color--surface))",
+    "background-color-error": "color-mix(in srgb, var(--c-field--color--danger) 6%, var(--c-field--color--surface))",
+    "label-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
+    "label-text-transform": "uppercase",
+    "label-font-size": "0.75rem",
+    "label-font-weight": "700",
+    "label-letter-spacing": "0.05rem",
+    "description-font-size": "0.75rem",
+    "description-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
+    "helper-font-size": "var(--font-size-caption, 0.875rem)",
+    "helper-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 70%, transparent)",
+    "helper-font-family": "var(--font-family-base)",
+    "suffix-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
+    "font-size-sm": "0.775rem",
+    "font-size-md": "0.95rem",
+    "font-size-lg": "1rem",
+    "font-size-sm-line-height": "calc(var(--base) * 1.5)",
+    "font-size-md-line-height": "calc(var(--base) * 2)",
+    "font-size-lg-line-height": "calc(var(--base) * 2)",
+    "height": "calc(var(--base) * 6)",
+    "shadow-1": "var(--drop-shadow-1)",
+    "shadow-2": "var(--drop-shadow-2)"
+));
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]';
 
-.c-field {
-    --c-field-height-computed: calc(var(--c-field-height, var(--base, 8px) * 6) - var(--c-field-border-width, var(--border-width-input, 1px)) * 2);
+/* Component */
+.#{$_} {
+    --#{$_}--height-computed: calc(#{tokens.get($_, "height")} - #{tokens.get($_, "border-width")} * 2);
 
     flex: 1;
 
-    .c-field__label,
-    .c-field__helper {
+    .#{$_}__label,
+    .#{$_}__helper {
         display: block;
         width: 100%;
     }
 
-    .c-field__label {
-        color: $c-field-label-color;
-        font-size: $c-field-label-font-size;
-        font-weight: $c-field-label-font-weight;
-        text-transform: $c-field-label-text-transform;
-        margin-bottom: calc(#{var_default.$base}/2);
-        letter-spacing: 0.05rem;
+    .#{$_}__label {
+        color: tokens.get($_, "label-color");
+        font-size: tokens.get($_, "label-font-size");
+        font-weight: tokens.get($_, "label-font-weight");
+        text-transform: tokens.get($_, "label-text-transform");
+        margin-bottom: tokens.use($_, "space", 0.5);
+        letter-spacing: tokens.get($_, "label-letter-spacing");
     }
 
-    .c-field__description {
-        font-size: $c-field-description-font-size;
-        color: $c-field-description-color;
+    .#{$_}__description {
+        font-size: tokens.get($_, "description-font-size");
+        color: tokens.get($_, "description-color");
         margin-top: 0;
     }
 
-    .c-field__helper {
-        font-family: var_fonts.$font-family-base;
-        font-weight: var_fonts.$font-family-base;
-        font-size: $c-field-helper-font-size;
-        color: #707070;
-        margin-top: calc(#{var_default.$base}/2);
-        margin-left: calc(#{var_default.$base}/4);
+    .#{$_}__helper {
+        font-family: tokens.get($_, "helper-font-family");
+        font-weight: tokens.get($_, "helper-font-family");
+        font-size: tokens.get($_, "helper-font-size");
+        color: tokens.get($_, "helper-color");
+        margin-top: tokens.use($_, "space", 0.5);
+        margin-left: tokens.use($_, "space", 0.25);
     }
 
     #{$fields},
@@ -78,25 +84,27 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         flex: 1;
         border: 0;
         background: none;
-        height: $c-field-height;
-        padding: $c-field-padding;
+        height: tokens.get($_, "height");
+        padding: tokens.use($_, "space", 2);
         outline: 0;
         margin: 0;
     }
 
-    .c-field__inner {
+    .#{$_}__inner {
         position: relative;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(#{var_default.$base}*10);
-        font-size: $c-field-font-size-md;
-        line-height: $c-field-font-size-md-line-height;
-        border: $c-field-border-width solid $c-field-border-color;
-        background: $c-field-background-color;
-        border-radius: calc(var_default.$base * $c-field-border-radius);
+        min-width: calc(#{tokens.get($_, "base")} * 10);
+        font-size: tokens.get($_, "font-size-md");
+        line-height: tokens.get($_, "font-size-md-line-height");
+        border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+        background: tokens.get($_, "background-color");
+        color: tokens.get($_, "color--surface-contrast");
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
 
         &:focus-within {
             @include focus.focus-remove-default();
@@ -104,40 +112,41 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
 
         input {
-            border-radius: calc(var_default.$base * $c-field-border-radius);
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
         }
 
-        .c-field__icon,
-        .c-field__prefix,
-        .c-field__suffix {
-            color: $c-field-suffix-color;
+        .#{$_}__icon,
+        .#{$_}__prefix,
+        .#{$_}__suffix {
+            color: tokens.get($_, "suffix-color");
         }
 
-        .c-field__icon,
-        .c-field__prefix {
-            padding-left: $c-field-padding;
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2);
         }
 
-        .c-field__suffix {
-            padding-right: $c-field-padding;
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2);
         }
 
-        .c-field__error-icon {
-            color: $c-field-danger-color;
+        .#{$_}__error-icon {
+            color: tokens.get($_, "color--danger");
             display: none;
         }
 
-        .c-field__success-icon {
-            color: $c-field-success-color;
+        .#{$_}__success-icon {
+            color: tokens.get($_, "color--success");
             display: none;
         }
 
-        &.c-field__inner--textarea .c-field__error-icon,
-        &.c-field__inner--textarea .c-field__success-icon {
+        &.#{$_}__inner--textarea .#{$_}__error-icon,
+        &.#{$_}__inner--textarea .#{$_}__success-icon {
             position: absolute;
             padding: 0;
-            right: map.get(var_default.$spacers, "2");
-            bottom: map.get(var_default.$spacers, "2");
+            right: tokens.use($_, "space", 2);
+            bottom: tokens.use($_, "space", 2);
         }
 
         &--search {
@@ -163,15 +172,15 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         }
     }
 
-    &.c-field--hidden {
-        .c-field__inner {
+    &.#{$_}--hidden {
+        .#{$_}__inner {
             border: unset;
         }
     }
 
 
     textarea {
-        min-height: $c-field-height;
+        min-height: tokens.get($_, "height");
         height: initial;
         max-width: 100%;
 
@@ -181,29 +190,29 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     /* Borderless */
-    &.c-field--borderless {
-        .c-field__inner {
+    &.#{$_}--borderless {
+        .#{$_}__inner {
             border-width: 0;
             border-color: transparent;
         }
     }
 
     /* Shadow */
-    &.c-field--shadow {
+    &.#{$_}--shadow {
         transition: filter 100ms ease-in-out;
-        filter: var_properties.$drop-shadow-1;
+        filter: tokens.get($_, "shadow-1");
     }
 
-    &.c-field--shadow:hover {
-        filter: var_properties.$drop-shadow-2;
+    &.#{$_}--shadow:hover {
+        filter: tokens.get($_, "shadow-2");
     }
 
     /* Customizer modifiers */
-    &.c-field--rounded {
+    &.#{$_}--rounded {
 
-        .c-field__inner,
-        .c-field__inner input {
-            border-radius: calc(var_default.$base * 3);
+        .#{$_}__inner,
+        .#{$_}__inner input {
+            border-radius: calc(#{tokens.get($_, "base")} * 3);
             border: none;
 
             input::placeholder {
@@ -211,113 +220,113 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             }
         }
 
-        .c-field__label {
-            margin-left: calc(var_default.$base * 2);
+        .#{$_}__label {
+            margin-left: calc(#{tokens.get($_, "base")} * 2);
         }
 
-        &.c-field--rounded-border {
-            .c-field__inner {
-                border: $c-field-border-width solid $c-field-border-color;
+        &.#{$_}--rounded-border {
+            .#{$_}__inner {
+                border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
             }
         }
 
-        input:focus+.c-field_focus-styler,
-        textarea:focus+.c-field_focus-styler {
-            border-radius: calc(var_default.$base * 3);
+        input:focus+.#{$_}_focus-styler,
+        textarea:focus+.#{$_}_focus-styler {
+            border-radius: calc(#{tokens.get($_, "base")} * 3);
         }
     }
 
     /* Size modifiers */
-    &.c-field--sm {
-        font-size: $c-field-font-size-sm;
-        line-height: $c-field-font-size-sm-line-height;
+    &.#{$_}--sm {
+        font-size: tokens.get($_, "font-size-sm");
+        line-height: tokens.get($_, "font-size-sm-line-height");
 
         #{$fields} {
-            padding: map.get(var_default.$spacers, "1");
-            height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
+            padding: tokens.use($_, "space");
+            height: calc(#{tokens.get($_, "base")} * 4.5);
         }
 
-        &.c-field--borderless {
+        &.#{$_}--borderless {
             #{$fields} {
-                height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
+                height: calc(#{tokens.get($_, "base")} * 4.5);
             }
         }
 
         textarea {
-            padding: map.get(var_default.$spacers, "1");
-            min-height: calc((#{map.get(var_default.$spacers, "4")} + #{map.get(var_default.$spacers, "05")}));
+            padding: tokens.use($_, "space");
+            min-height: calc(#{tokens.get($_, "base")} * 4.5);
         }
 
-        .c-field__icon,
-        .c-field__prefix {
-            padding-left: map.get(var_default.$spacers, "1");
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space");
         }
 
-        .c-field__suffix {
-            padding-right: map.get(var_default.$spacers, "1");
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space");
         }
     }
 
-    &.c-field--md {
+    &.#{$_}--md {
         #{$fields} {
-            padding: map.get(var_default.$spacers, "2");
-            height: var(--c-field-height-computed);
+            padding: tokens.use($_, "space", 2);
+            height: var(--#{$_}--height-computed);
         }
 
-        &.c-field--borderless {
+        &.#{$_}--borderless {
             #{$fields} {
-                height: $c-field-height;
+                height: tokens.get($_, "height");
             }
         }
 
         textarea {
-            padding: map.get(var_default.$spacers, "2");
-            min-height: var(--c-field-height-computed);
+            padding: tokens.use($_, "space", 2);
+            min-height: var(--#{$_}--height-computed);
         }
 
-        .c-field__icon,
-        .c-field__prefix {
-            padding-left: map.get(var_default.$spacers, "2");
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2);
         }
 
-        .c-field__suffix {
-            padding-right: map.get(var_default.$spacers, "2");
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2);
         }
     }
 
-    &.c-field--lg {
-        font-size: $c-field-font-size-lg;
-        line-height: $c-field-font-size-lg-line-height;
+    &.#{$_}--lg {
+        font-size: tokens.get($_, "font-size-lg");
+        line-height: tokens.get($_, "font-size-lg-line-height");
 
         #{$fields} {
-            padding: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
-            height: #{map.get(var_default.$spacers, "8")}
+            padding: tokens.use($_, "space", 2.5);
+            height: calc(#{tokens.get($_, "base")} * 8);
         }
 
-        &.c-field--borderless {
+        &.#{$_}--borderless {
             #{$fields} {
-                height: #{map.get(var_default.$spacers, "8")};
+                height: calc(#{tokens.get($_, "base")} * 8);
             }
         }
 
         textarea {
-            padding: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
-            min-height: #{map.get(var_default.$spacers, "8")};
+            padding: tokens.use($_, "space", 2.5);
+            min-height: calc(#{tokens.get($_, "base")} * 8);
         }
 
-        .c-field__icon,
-        .c-field__prefix {
-            padding-left: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2.5);
         }
 
-        .c-field__suffix {
-            padding-right: calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")});
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2.5);
         }
     }
 
     &.is-invalid {
 
-        .c-field__inner,
+        .#{$_}__inner,
         select,
         option {
 
@@ -325,49 +334,50 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:focus,
             &:focus-within,
             &:active {
-                background: var_colors.$color-form-fields-error;
-                border-color: $c-field-danger-color;
+                background: tokens.get($_, "background-color-error");
+                border-color: tokens.get($_, "color--danger");
             }
 
-            .c-field__error-icon {
+            .#{$_}__error-icon {
                 display: block;
             }
         }
 
-        .c-field__helper {
-            color: $c-field-danger-color;
+        .#{$_}__helper {
+            color: tokens.get($_, "color--danger");
         }
 
-        .c-field__inner {
+        .#{$_}__inner {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
 
-        .c-field__error {
+        .#{$_}__error {
             display: block;
-            padding: map.get(var_default.$spacers, "05") map.get(var_default.$spacers, "2");
-            color: var_colors.$color-white;
-            background-color: $c-field-danger-color;
-            border-radius: 0 0 calc(var_default.$base * $c-field-border-radius) calc(var_default.$base * $c-field-border-radius);
+            padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 2);
+            color: tokens.get($_, "color--danger-contrast");
+            background-color: tokens.get($_, "color--danger");
+            border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
+            corner-shape: tokens.get($_, "corner-shape");
         }
     }
 
     &.is-valid {
-        .c-field__inner {
+        .#{$_}__inner {
 
             &,
             &:focus,
             &:active {
-                border-color: $c-field-success-color;
+                border-color: tokens.get($_, "color--success");
             }
 
-            .c-field__success-icon {
+            .#{$_}__success-icon {
                 display: block;
             }
         }
     }
 
-    .c-field__error {
+    .#{$_}__error {
         display: none;
     }
 }

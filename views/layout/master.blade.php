@@ -40,17 +40,28 @@
 </head>
 <body class="no-js">
 
-    @navbar([
-        'logo' => '/assets/img/logotype.svg',
-        'logoPosition' => 'left',
-        'linksPosition' => 'right',
-        'topAccent' => 'primary',
-        'activeAccent' => 'primary',
-        'items' => $topNavigation,
-        'sidebar'   => ['trigger' => "js-mobile-sidebar"],
-        'classList' => ['c-navbar--border-top']
+    @header([
+        'id' => 'site-header',
+        'classList' => ['c-header', 'u-display--flex', 'u-align-items--center', 'u-padding--4']
     ])
-    @endnavbar
+        @link(['id' => 'header-logotype', 'href' => '/', 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
+            @logotype([
+                'src'=> "/assets/img/logotype.svg",
+                'alt' => "Go to homepage",
+                'classList' => ['c-nav__logo', 'c-header__logotype'],
+                'context' => ['site.header.logo', 'site.header.casual.logo']
+            ])
+            @endlogotype
+        @endlink
+
+        @nav([
+            'items' => $topNavigation,
+            'classList' => ['u-margin__left--auto'],
+            'direction' => 'horizontal',
+            'attributeList' => ['style' => 'width: auto;']
+        ])
+        @endnav
+    @endheader
 
     @if($isLocalDomain) 
         <div class="container">

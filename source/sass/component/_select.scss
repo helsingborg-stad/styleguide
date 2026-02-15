@@ -5,8 +5,6 @@
 @use "../setting/var_default";
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
-@use "field";
-
 $c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
 $c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
 $c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
@@ -17,8 +15,8 @@ $c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var
 $c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
 
 $c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-field-border-color, field.$c-field-border-color) !default;
-$c-select-background-color: var(--c-field-background-color, field.$c-field-background-color) !default;
+$c-select-border-color: var(--c-select-border-color, var(--c-field--border-color)) !default;
+$c-select-background-color: var(--c-select-background-color, var(--c-field--background-color)) !default;
 $c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
 $c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
 $c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
@@ -145,7 +143,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
         &.c-select--rounded-border {
             select {
-                border: field.$c-field-border-width solid field.$c-field-border-color;
+                border: var(--c-field--border-width) solid var(--c-field--border-color);
             }
         }
     }

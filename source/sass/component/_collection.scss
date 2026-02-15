@@ -238,7 +238,7 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 
 // Defined to avoid code duplication.
 @mixin collection-compact-styles($breakpoint: null) {
-    $suffix: if($breakpoint, "-#{$breakpoint}", "");
+    $suffix: if(sass($breakpoint): "-#{$breakpoint}"; else: "");
 
     .c-collection.c-collection--compact#{$suffix} {
         @for $i from 1 through 6 {

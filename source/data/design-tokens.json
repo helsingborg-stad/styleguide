@@ -1,0 +1,645 @@
+{
+  "name": "Design System",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "base",
+      "label": "Base",
+      "description": "Foundation values that drive spacing, radius, and typography scales.",
+      "settings": [
+        {
+          "variable": "--base",
+          "label": "Base Unit",
+          "description": "Main unit that drives radius and spacing scales.",
+          "type": "range",
+          "default": "8px",
+          "unit": "px",
+          "locked": true
+        },
+        {
+          "variable": "--base-font-size",
+          "label": "Base Font Size",
+          "description": "Root font size. All typographic sizes derive from this.",
+          "type": "select",
+          "default": "16px",
+          "unit": "px",
+          "options": [
+            { "value": "16px", "label": "Standard" },
+            { "value": "18px", "label": "Large" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radius",
+      "label": "Radius",
+      "description": "Border radius and corner shape style.",
+      "settings": [
+        {
+          "variable": "--border-radius",
+          "label": "Border Radius",
+          "type": "range",
+          "default": 1,
+          "unit": "",
+          "min": 0,
+          "max": 5,
+          "step": 0.25
+        },
+        {
+          "variable": "--corner-shape",
+          "label": "Corner Shape",
+          "type": "select",
+          "default": "squircle",
+          "options": [
+            { "value": "square", "label": "Square" },
+            { "value": "rounded", "label": "Rounded" },
+            { "value": "squircle", "label": "Squircle" },
+            { "value": "circular", "label": "Circular" },
+            { "value": "bevel", "label": "Bevel" },
+            { "value": "scoop", "label": "Scoop" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "typography",
+      "label": "Typography",
+      "description": "Font families, type scale, weights, and line heights.",
+      "settings": [
+        {
+          "variable": "--font-family-base",
+          "label": "Body Font",
+          "type": "font",
+          "default": "\"Roboto\", sans-serif"
+        },
+        {
+          "variable": "--font-family-heading",
+          "label": "Heading Font",
+          "description": "Falls back to body font if not set.",
+          "type": "font",
+          "default": "var(--font-family-base)"
+        },
+        {
+          "variable": "--font-family-code",
+          "label": "Code Font",
+          "type": "font",
+          "default": "\"Fira Sans\", \"Monaco\", \"Consolas\", \"Menlo\", \"Lucida Console\", \"Courier New\", \"Courier\", \"Console\"",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-scale-ratio",
+          "label": "Type Scale",
+          "description": "Multiplier that generates all font sizes from the base.",
+          "type": "select",
+          "default": "1.250",
+          "options": [
+            { "value": "1.067", "label": "Minor Second" },
+            { "value": "1.125", "label": "Major Second" },
+            { "value": "1.200", "label": "Minor Third" },
+            { "value": "1.250", "label": "Major Third" },
+            { "value": "1.333", "label": "Perfect Fourth" },
+            { "value": "1.414", "label": "Augmented Fourth" },
+            { "value": "1.500", "label": "Perfect Fifth" },
+            { "value": "1.618", "label": "Golden Ratio" }
+          ]
+        },
+        {
+          "variable": "--font-weight-normal",
+          "label": "Normal Weight",
+          "type": "select",
+          "default": "400",
+          "options": [
+            { "value": "100", "label": "Thin" },
+            { "value": "200", "label": "Extra Light" },
+            { "value": "300", "label": "Light" },
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi Bold" }
+          ]
+        },
+        {
+          "variable": "--font-weight-medium",
+          "label": "Medium Weight",
+          "type": "select",
+          "default": "500",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi Bold" },
+            { "value": "700", "label": "Bold" }
+          ]
+        },
+        {
+          "variable": "--font-weight-bold",
+          "label": "Bold Weight",
+          "type": "select",
+          "default": "700",
+          "options": [
+            { "value": "600", "label": "Semi Bold" },
+            { "value": "700", "label": "Bold" },
+            { "value": "800", "label": "Extra Bold" },
+            { "value": "900", "label": "Black" }
+          ]
+        },
+        {
+          "variable": "--line-height-base",
+          "label": "Body Line Height",
+          "type": "range",
+          "default": "1.625",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.025
+        },
+        {
+          "variable": "--line-height-heading",
+          "label": "Heading Line Height",
+          "type": "range",
+          "default": "1.33",
+          "min": 1.0,
+          "max": 1.8,
+          "step": 0.01
+        },
+        {
+          "variable": "--letter-spacing-base",
+          "label": "Letter Spacing",
+          "type": "range",
+          "default": "0",
+          "unit": "em",
+          "min": -0.05,
+          "max": 0.2,
+          "step": 0.005
+        }
+      ]
+    },
+    {
+      "id": "borders",
+      "label": "Borders",
+      "description": "Border width tokens for UI elements.",
+      "settings": [
+        {
+          "variable": "--border-width",
+          "label": "Size",
+          "type": "range",
+          "default": "0.125",
+          "unit": "",
+          "min": 0,
+          "max": 4,
+          "step": 0.125
+        }
+      ]
+    },
+    {
+      "id": "space",
+      "label": "Spacing",
+      "description": "Spacing tokens for UI elements.",
+      "settings": [
+        {
+          "variable": "--space",
+          "label": "Size",
+          "type": "range",
+          "default": 1,
+          "unit": "",
+          "min": 0,
+          "max": 3,
+          "step": 0.25
+        },
+        {
+          "variable": "--outer-space",
+          "label": "Outer Space",
+          "description": "Spacing between component instances. Use --space for spacing inside components.",
+          "type": "range",
+          "default": 1,
+          "unit": "",
+          "min": 0,
+          "max": 3,
+          "step": 0.25
+        }
+      ]
+    },
+    {
+      "id": "shadows",
+      "label": "Shadows",
+      "description": "Global shadow multipliers and color.",
+      "settings": [
+        {
+          "variable": "--shadow-color",
+          "label": "Shadow Color",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.1)"
+        },
+        {
+          "variable": "--shadow-amount",
+          "label": "Drop Shadow Intensity",
+          "description": "Multiplier for elevation shadows. 0 = none, 1 = default.",
+          "type": "range",
+          "default": "0.7",
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        },
+        {
+          "variable": "--shadow-detail-amount",
+          "label": "Detail Shadow Intensity",
+          "description": "Multiplier for subtle depth shadows. 0 = none, 1 = default.",
+          "notes": "Used for low-elevation elements to add subtle depth without full drop shadow. This should be automatically decided, when container query is below a certain size.",
+          "type": "range",
+          "default": "0.5",
+          "min": 0,
+          "max": 2,
+          "step": 0.1
+        }
+      ]
+    },
+    {
+      "id": "colors-brand",
+      "label": "Brand Colors",
+      "description": "Primary, secondary, and accent brand colors with contrast pairs.",
+      "settings": [
+        {
+          "variable": "--color--primary",
+          "label": "Primary",
+          "type": "color",
+          "default": "#2d2d2d",
+          "contrast": "--color--primary-contrast"
+        },
+        {
+          "variable": "--color--primary-contrast",
+          "label": "Primary Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--secondary",
+          "label": "Secondary",
+          "type": "color",
+          "default": "#6e6e6e",
+          "contrast": "--color--secondary-contrast"
+        },
+        {
+          "variable": "--color--secondary-contrast",
+          "label": "Secondary Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--accent",
+          "label": "Accent",
+          "type": "color",
+          "default": "#bdbdbd",
+          "contrast": "--color--accent-contrast"
+        },
+        {
+          "variable": "--color--accent-contrast",
+          "label": "Accent Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        }
+      ]
+    },
+    {
+      "id": "colors-layout",
+      "label": "Layout Colors",
+      "description": "Background and surface colors.",
+      "settings": [
+        {
+          "variable": "--color--background",
+          "label": "Background",
+          "type": "color",
+          "default": "#f5f5f5",
+          "contrast": ["--color--background-contrast", "--color--background--contrast-muted"]
+        },
+        {
+          "variable": "--color--background-contrast",
+          "label": "Background Contrast",
+          "description": "Used for text and icons on background with less contrast.",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--background--contrast-muted",
+          "label": "Background Contrast Muted",
+          "description": "Used for text and icons on background with less contrast.",
+          "type": "color",
+          "default": "#6e6e6e"
+        },
+        {
+          "variable": "--color--surface",
+          "label": "Surface",
+          "type": "color",
+          "default": "#ffffff",
+          "contrast": ["--color--surface-contrast", "--color--surface-contrast-muted"]
+        },
+        {
+          "variable": "--color--surface-contrast",
+          "label": "Surface Contrast",
+          "description": "Used for text and icons on surface backgrounds with less contrast.",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--surface-contrast-muted",
+          "label": "Surface Contrast Muted",
+          "description": "Used for text and icons on surface backgrounds with less contrast.",
+          "type": "color",
+          "default": "#6e6e6e"
+        }
+      ]
+    },
+    {
+      "id": "colors-ui",
+      "label": "UI Colors",
+      "description": "Borders, focus, and interactive states.",
+      "settings": [
+        {
+          "variable": "--color--border",
+          "label": "Border",
+          "type": "color",
+          "default": "#e0e0e0"
+        },
+        {
+          "variable": "--color--focus",
+          "label": "Focus",
+          "type": "color",
+          "default": "#4d90fe"
+        }
+      ]
+    },
+    {
+      "id": "colors-alpha",
+      "label": "Alpha Colors",
+      "description": "Black, white, and gray with alpha steps from 10% to 100%.",
+      "present": "swatch",
+      "settings": [
+        {
+          "variable": "--color--black-10",
+          "label": "Black 10%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-20",
+          "label": "Black 20%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-30",
+          "label": "Black 30%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-40",
+          "label": "Black 40%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-50",
+          "label": "Black 50%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-60",
+          "label": "Black 60%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-70",
+          "label": "Black 70%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-80",
+          "label": "Black 80%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-90",
+          "label": "Black 90%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--black-100",
+          "label": "Black 100%",
+          "type": "color",
+          "default": "rgba(0, 0, 0, 1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-10",
+          "label": "White 10%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-20",
+          "label": "White 20%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-30",
+          "label": "White 30%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-40",
+          "label": "White 40%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-50",
+          "label": "White 50%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-60",
+          "label": "White 60%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-70",
+          "label": "White 70%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-80",
+          "label": "White 80%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-90",
+          "label": "White 90%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--white-100",
+          "label": "White 100%",
+          "type": "color",
+          "default": "rgba(255, 255, 255, 1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-10",
+          "label": "Gray 10%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.1)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-20",
+          "label": "Gray 20%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.2)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-30",
+          "label": "Gray 30%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.3)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-40",
+          "label": "Gray 40%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.4)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-50",
+          "label": "Gray 50%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.5)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-60",
+          "label": "Gray 60%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.6)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-70",
+          "label": "Gray 70%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.7)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-80",
+          "label": "Gray 80%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.8)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-90",
+          "label": "Gray 90%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 0.9)",
+          "locked": true
+        },
+        {
+          "variable": "--color--gray-100",
+          "label": "Gray 100%",
+          "type": "color",
+          "default": "rgba(110, 110, 110, 1)",
+          "locked": true
+        }
+      ]
+    },
+    {
+      "id": "colors-state",
+      "label": "State Colors",
+      "description": "Feedback colors for success, warning, error, and info.",
+      "settings": [
+        {
+          "variable": "--color--success",
+          "label": "Success",
+          "type": "color",
+          "default": "#4caf50",
+          "contrast": "--color--success-contrast"
+        },
+        {
+          "variable": "--color--success-contrast",
+          "label": "Success Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--warning",
+          "label": "Warning",
+          "type": "color",
+          "default": "#ffb300",
+          "contrast": "--color--warning-contrast"
+        },
+        {
+          "variable": "--color--warning-contrast",
+          "label": "Warning Contrast",
+          "type": "color",
+          "default": "#2d2d2d"
+        },
+        {
+          "variable": "--color--danger",
+          "label": "Danger",
+          "type": "color",
+          "default": "#e53935",
+          "contrast": "--color--danger-contrast"
+        },
+        {
+          "variable": "--color--danger-contrast",
+          "label": "Danger Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "variable": "--color--info",
+          "label": "Info",
+          "type": "color",
+          "default": "#039be5",
+          "contrast": "--color--info-contrast"
+        },
+        {
+          "variable": "--color--info-contrast",
+          "label": "Info Contrast",
+          "type": "color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ]
+}

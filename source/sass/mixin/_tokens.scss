@@ -1,0 +1,75 @@
+@use "sass:string";
+
+/// Creates component tokens that fall back to global tokens.
+///
+/// Auto-derivation:
+///   - "border-radius" → corner-shape
+///   - "color--*" → contrast companion
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as selector
+/// @param {List} $tokens - Token names to register
+/// @param {Map} $extras [()]  - Extra custom properties with literal values
+@mixin create($prefix, $tokens, $extras: ()) {
+    .#{$prefix} {
+        @each $token in $tokens {
+            --#{$prefix}--#{$token}: var(--#{$token});
+
+            @if $token == "border-radius" {
+                --#{$prefix}--corner-shape: var(--corner-shape);
+            }
+
+            @if string.index($token, "color") == 1
+                and string.slice($token, -9) != "-contrast" {
+                --#{$prefix}--#{$token}-contrast: var(--#{$token}-contrast);
+            }
+        }
+
+        @each $name, $value in $extras {
+            --#{$prefix}--#{$name}: #{$value};
+        }
+    }
+}
+
+/// Returns a scaled token value: calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+/// @param {Number} $multiplier [1] - Scale multiplier
+@function use($prefix, $token, $multiplier: 1) {
+    @return calc(var(--#{$prefix}--#{$token}) * var(--base) * #{$multiplier});
+}
+
+/// Returns a raw token reference: var(--{prefix}--{token}).
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+@function get($prefix, $token) {
+    @return var(--#{$prefix}--#{$token});
+}
+
+/// Generates a color variant (background + contrast propagation).
+@mixin color-variant($prefix, $variant) {
+    background-color: var(--#{$prefix}--color--#{$variant});
+    color: var(--#{$prefix}--color--#{$variant}-contrast);
+
+    a,
+    a:hover,
+    a:active,
+    a:visited {
+        color: var(--#{$prefix}--color--#{$variant}-contrast);
+        text-decoration: underline;
+    }
+
+    .c-button {
+        color: var(--#{$prefix}--color--#{$variant}-contrast);
+    }
+}
+
+/// Generates multiple color variant modifiers using BEM &--{variant} syntax.
+@mixin color-variants($prefix, $variants) {
+    @each $variant in $variants {
+        &--#{$variant} {
+            @include color-variant($prefix, $variant);
+        }
+    }
+}

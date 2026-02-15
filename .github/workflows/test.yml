@@ -28,5 +28,8 @@ jobs:
     - name: Install npm packages
       run: npm ci
 
-    - name: Run tests
+    - name: Run tests (Jest)
       run: npm test
+
+    - name: Run Tests (PHPUnit)
+      run: composer test

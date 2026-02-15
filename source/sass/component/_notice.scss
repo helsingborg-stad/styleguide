@@ -1,215 +1,122 @@
-@use "sass:map";
 @use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-notice-color-text: var(--notice-color-text, #d73740) !default;
-$c-notice-color-background: var(--notice-color-background, #d73740) !default;
+/* Component name */
+$_: "c-notice";
 
-$c-notice-color-success-text: var(--c-notice-color-success-text, var_colors.$color-success-contrasting) !default;
-$c-notice-color-success-background: var(--notice-color-success-background, var_colors.$color-success) !default;
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "space",
+    "outer-space",
+    "shadow",
+    "line-height",
+    "color--success",
+    "color--danger",
+    "color--warning",
+    "color--info"
+));
 
-$c-notice-color-danger-text: var(--notice-color-danger-text, var_colors.$color-danger-contrasting) !default;
-$c-notice-color-danger-background: var(--notice-color-danger-background, var_colors.$color-danger) !default;
-
-$c-notice-color-info-text: var(--notice-color-info-text, var_colors.$color-info-contrasting) !default;
-$c-notice-color-info-background: var(--notice-color-info-background, var_colors.$color-info) !default;
-
-$c-notice-color-warning-text: var(--notice-color-warning-text, var_colors.$color-warning-contrasting) !default;
-$c-notice-color-warning-background: var(--notice-color-warning-background, var_colors.$color-warning) !default;
-
-$c-notice-border-radius: var(--notice-border-radius, var_border-radius.$border-radius-sm) !default;
-
-.c-notice {
-    filter: var_properties.$drop-shadow-5;
-    padding: map.get(var_default.$spacers, "2") map.get(var_default.$spacers, "3");
-    background-color: var_colors.$color-base;
-    border-radius: $c-notice-border-radius;
-    color: var_colors.$color-notice-text-default;
+/* Component */
+.#{$_} {
+    contain: layout;
+    filter: tokens.get($_, "shadow");
+    padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
     display: grid;
-    grid-template-areas: 
+    grid-template-areas:
         "icon title actions"
         "icon message actions";
     grid-template-columns: min-content 1fr auto;
-    grid-auto-rows: auto;
     align-items: center;
 
-    > [class*='c-notice__'] + [class*='c-notice__']  {
-        margin-left: map.get(var_default.$spacers, "2");
-    }
-
-    .c-notice__icon {
+    .#{$_}__icon {
         grid-area: icon;
-        vertical-align: sub;
         line-height: 1rem;
         opacity: .7;
+        color: tokens.get($_, "color--info-contrast");
     }
 
-    .c-notice__title {
+    .#{$_}__title {
         grid-area: title;
         margin: 0;
-        line-height: var_fonts.$line-height-base;
+        line-height: tokens.get($_, "line-height");
     }
 
-    .c-notice__message {
+    .#{$_}__message {
         grid-area: message;
         margin: 0;
     }
 
-    .c-notice__actions {
-        
+    .#{$_}__actions {
         grid-area: actions;
         display: flex;
-        gap: calc(map.get(var_default.$spacers, "1") * 1.5);
+        gap: tokens.use($_, "space", 1.5);
         align-items: center;
         justify-content: flex-end;
-        margin: calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) calc(map.get(var_default.$spacers, "1") * -1) 0;
+        margin: tokens.use($_, "space", -1) tokens.use($_, "space", -1) tokens.use($_, "space", -1) 0;
 
         > * + * {
-            position: relative;
-            padding-left: calc(calc(map.get(var_default.$spacers, "1") * 0.75) + 1px);
-            margin-left: calc(map.get(var_default.$spacers, "1") * 0.75);
-        }
-
-        > * + *::before {
+            padding-left: tokens.use($_, "space", 0.75);
             border-left: 1px solid;
-            content: "";
-            display: block;
-            height: 1rem;
-            opacity: .3;
-            width: 1px;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
+            border-left-color: inherit;
+            opacity: 1;
+            border-left-color: color-mix(in srgb, currentColor 30%, transparent);
         }
     }
 
-    // Remove gaps when elements are missing
-    &:not(:has(.c-notice__title)) {
+    &:not(:has(.#{$_}__title)) {
         grid-template-areas: "icon message actions";
     }
 
-    &:not(:has(.c-notice__message)) {
+    &:not(:has(.#{$_}__message)) {
         grid-template-areas: "icon title actions";
     }
 
-    a,
-    a:hover,
-    a:active,
-    a:visited {
-        color: var_colors.$color-notice-text-default;
+    a {
+        color: inherit;
         text-decoration: underline;
     }
 
-    &--success {
-        background-color: $c-notice-color-success-background;
-        color: $c-notice-color-success-text;
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: $c-notice-color-success-text;
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: $c-notice-color-success-text;
-        }
-    }
-
-    &--danger {
-        background-color: $c-notice-color-danger-background;
-        color: $c-notice-color-danger-text;
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: $c-notice-color-danger-text;
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: $c-notice-color-danger-text;
-        }
-    }
-
-    &--info {
-        background-color: $c-notice-color-info-background;
-        color: $c-notice-color-info-text;
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: $c-notice-color-info-text;
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: $c-notice-color-info-text;
-        }
-    }
-
-    &--warning {
-        background-color: $c-notice-color-warning-background;
-        color: $c-notice-color-warning-text;
-
-        a,
-        a:hover,
-        a:active,
-        a:visited {
-            color: $c-notice-color-warning-text;
-            text-decoration: underline;
-        }
-
-        .c-button {
-            color: $c-notice-color-warning-text;
-        }
-    }
-
+    @include tokens.color-variants($_, ("success", "danger", "info", "warning"));
 }
 
-.c-notice.c-notice--stretch { /* Bleed outside container  left&right */ 
+.#{$_}.#{$_}--stretch {
     @include stretch.stretch();
 }
 
-.c-notice.c-notice--action-below {
-    grid-template-areas: 
+.#{$_}.#{$_}--action-below {
+    grid-template-areas:
         "icon title"
         "icon message"
         ". actions";
+    grid-template-columns: min-content 1fr;
 
-    .c-notice__actions {
-        margin-top: var(--base, 8px);
+    .#{$_}__actions {
+        margin-top: tokens.use($_, "space");
         justify-content: flex-start;
     }
 
-    // Remove gaps when elements are missing
-    &:not(:has(.c-notice__title)) {
-        grid-template-areas: 
+    &:not(:has(.#{$_}__title)) {
+        grid-template-areas:
             "icon message"
             ". actions";
     }
 
-    &:not(:has(.c-notice__message)) {
-        grid-template-areas: 
+    &:not(:has(.#{$_}__message)) {
+        grid-template-areas:
             "icon title"
             ". actions";
     }
 }
 
-.c-notice + .c-notice {
-    margin-top: calc(#{var_default.$base} * 2); 
+.#{$_} + .#{$_} {
+    margin-top: tokens.use($_, "outer-space", 2);
 }
 
 @media print {
-    .c-notice {
+    .#{$_} {
         display: none;
     }
 }

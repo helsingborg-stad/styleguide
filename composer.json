@@ -33,12 +33,20 @@
     ],
     "autoload": {
         "psr-4": {
-            "HbgStyleGuide\\": "source/php/"
+            "HbgStyleGuide\\": "source/php/",
+            "HbgStyleGuide\\Validators\\": "source/validators/"
         }
     },
     "require": {
         "erusev/parsedown": "^1.7",
         "php": "^8.0",
         "helsingborg-stad/component-library": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test:filter": "vendor/bin/phpunit --filter"
     }
 }

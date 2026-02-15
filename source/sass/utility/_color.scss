@@ -5,35 +5,42 @@ $color-utils: (
     (
         name: "color__text",
         modifiers: (
-            white:                 (color: var_colors.$color-white),
-            black:                 (color: var_colors.$color-black),
-            primary:               (color: var_colors.$color-primary),
-            secondary:             (color: var_colors.$color-secondary),
-            success:               (color: var_colors.$color-success),
-            danger:                (color: var_colors.$color-danger),
-            info:                  (color: var_colors.$color-info),
-            warning:               (color: var_colors.$color-warning),
-            default:               (color: var_colors.$color-default),
+            /* Design tokens */
+            white:                 (color: var(--color--white-100)),
+            black:                 (color: var(--color--black-100)),
+            primary:               (color: var(--color--primary)),
+            primary-contrasting:   (color: var(--color--primary-contrast)),
+            secondary:             (color: var(--color--secondary)),
+            secondary-contrasting: (color: var(--color--secondary-contrast)),
+            success:               (color: var(--color--success)),
+            danger:                (color: var(--color--danger)),
+            info:                  (color: var(--color--info)),
+            warning:               (color: var(--color--warning)),
+            default:               (color: var(--color--background)),
+
+            /* Legacy — no design token equivalent */
             darkest:               (color: var_colors.$color-darkest),
             darker:                (color: var_colors.$color-darker),
             dark:                  (color: var_colors.$color-dark),
             light:                 (color: var_colors.$color-light),
             lighter:               (color: var_colors.$color-lighter),
             lightest:              (color: var_colors.$color-lightest),
-            primary-contrasting:   (color: var_colors.$color-primary-contrasting),
-            secondary-contrasting: (color: var_colors.$color-secondary-contrasting)
         )
     ),
     (
         name: "color__bg",
         modifiers: (
-            default:                (background-color: var_colors.$color-default),
-            primary:                (background-color: var_colors.$color-primary),
-            secondary:              (background-color: var_colors.$color-secondary),
-            success:                (background-color: var_colors.$color-success),
-            danger:                 (background-color: var_colors.$color-danger),
-            info:                   (background-color: var_colors.$color-info),
-            warning:                (background-color: var_colors.$color-warning),
+            /* Design tokens */
+            primary:                (background-color: var(--color--primary)),
+            secondary:              (background-color: var(--color--secondary)),
+            success:                (background-color: var(--color--success)),
+            danger:                 (background-color: var(--color--danger)),
+            info:                   (background-color: var(--color--info)),
+            warning:                (background-color: var(--color--warning)),
+            default:                (background-color: var(--color--background)),
+            transparent:            (background-color: transparent),
+
+            /* Legacy — no design token equivalent */
             darkest:                (background-color: var_colors.$color-darkest),
             darker:                 (background-color: var_colors.$color-darker),
             dark:                   (background-color: var_colors.$color-dark),
@@ -44,7 +51,6 @@ $color-utils: (
             complementary-light:    (background-color: var_colors.$color-complementary-light),
             complementary-lighter:  (background-color: var_colors.$color-complementary-lighter),
             complementary-lightest: (background-color: var_colors.$color-complementary-lightest),
-            transparent:            (background-color: transparent),
         )
     )
 );

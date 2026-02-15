@@ -1,5 +1,8 @@
 // Main JavaScript entry point - imports all JS/TS files from the styleguide
 
+// Design token overrides (from localStorage)
+import './designTokenApply.ts'
+
 // Core functionality
 import './app.js'
 import './index.js'
