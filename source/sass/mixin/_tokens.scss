@@ -25,7 +25,7 @@
 ///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
 /// @param {Map} $extras [()]  - Extra custom properties with literal values
-@mixin create($prefix, $tokens, $extras: ()) {
+/// @param {Map} $inner [()]  - Inner custom properties with literal values
     $p: _clean-prefix($prefix);
 
     // Wildcard prefix → attribute selector; otherwise plain class selector
