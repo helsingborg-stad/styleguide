@@ -42,7 +42,13 @@
 
     @header([
         'id' => 'site-header',
-        'classList' => ['c-header', 'u-display--flex', 'u-align-items--center', 'u-padding--4']
+        'classList' => [
+            'c-header', 
+            'u-display--flex', 
+            'u-align-items--center', 
+            'u-padding--4',
+            'u-border__bottom--1',
+        ]
     ])
         @link(['id' => 'header-logotype', 'href' => '/', 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
             @logotype([
