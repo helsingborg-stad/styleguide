@@ -56,13 +56,13 @@ $spacing-util: (
     $mods: ();
 
     @each $width_name, $width in $border-widths {
-        $style: (#{$width_name}:(border-#{$side}: #{tokens.use($_, "border-width", $width_name)} solid #{tokens.get($_, "color--surface--border")}));
+        $style: (#{$width_name}:(border-#{$side}: #{tokens.use($_, "border-width", $width_name)} solid #{tokens.get($_, "color--surface-border")}));
         $mods: map.merge($mods, $style);
     }
 
     $util: (
         name: "border__#{$side}",
-        default: (border-#{$side}: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface--border")}),
+        default: (border-#{$side}: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")}),
         modifiers: $mods
     );
 
