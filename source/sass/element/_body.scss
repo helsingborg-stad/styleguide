@@ -1,10 +1,19 @@
-@use "../setting/var_colors";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
 
-body {
-    background-color: var_colors.$color-background;
-    font-size: var_fonts.$font-size-base;
-    font-family: var_fonts.$font-family-base;
-    line-height: var_fonts.$line-height-base;
-    font-weight: var_fonts.$font-weight-base;
+/* Object name */
+$_: "o-body";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "color--background",
+));
+
+/* Object */
+.#{$_}, body {
+    background-color: tokens.get($_, "color--background");
+    color: tokens.get($_, "color--background-contrast");
+    font-size: var(--base-font-size);
+    font-family: var(--font-family-base);
+    line-height: var(--line-height-base);
+    font-weight: var(--font-weight-normal);
 }
