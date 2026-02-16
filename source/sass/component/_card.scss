@@ -1,4 +1,3 @@
-@use "../mixin/cover";
 @use "../mixin/focus";
 @use "../mixin/tokens";
 
@@ -16,8 +15,8 @@ $_: "c-card";
 ), (
     "shadow": tokens.use($_, "shadow", 1),
     "shadow-hover": tokens.use($_, "shadow", 1.5),
-    "image-bg": "var(--color-complementary-1, #e5e5e5)",
-    "image-bg-svg": "var(--color--secondary)",
+    "image-bg": tokens.get($_, "color--surface-border"),
+    "image-bg-svg": tokens.get($_, "color--secondary"),
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
 ));
 
@@ -72,7 +71,7 @@ $_: "c-card";
         hyphens: auto;
         padding: tokens.use($_, "space", 2);
         margin-top: auto;
-        border-top: tokens.get($_, "border-width-divider") solid tokens.get($_, "color--surface-border");
+        border-top: tokens.get($_, "border");
     }
 
     .#{$_}__body {
@@ -210,10 +209,6 @@ $_: "c-card";
                 margin-top: 0;
             }
         }
-
-        &.#{$_}--flat .#{$_}__header {
-            padding: tokens.use($_, "space", 2);
-        }
     }
 
     &--collapse {
@@ -240,35 +235,6 @@ $_: "c-card";
             .#{$_}__content {
                 padding-left: tokens.use($_, "space", 9.5);
             }
-        }
-    }
-
-    &.#{$_}--flat.#{$_}--none .#{$_}__header {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    &.#{$_}--flat {
-        background: none;
-        border: none;
-        filter: none;
-
-        &:active,
-        &:visited,
-        &:hover {
-            background: none;
-            border: none;
-            filter: none;
-        }
-
-        .#{$_}__body {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .#{$_}__header,
-        .#{$_}__content-after {
-            padding: 0;
         }
     }
 
@@ -311,13 +277,14 @@ a.#{$_} {
 
     .#{$_}__image:before {
         content: '';
-        @include cover.cover();
+        inset: 0;
+        position: absolute;
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
         background: tokens.get($_, "color--surface-contrast");
         opacity: 0;
-        z-index: tokens.get($_, "level-1");
+        z-index: var(--level-1);
     }
 
     &:hover {
@@ -326,7 +293,6 @@ a.#{$_} {
         transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
         color: tokens.get($_, "color--surface-contrast");
-
 
         .#{$_}__heading {
             text-decoration: underline;
