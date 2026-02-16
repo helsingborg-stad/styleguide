@@ -22,122 +22,52 @@
         @endtypography
     @endsegment
 
-    <div class="g-divider g-divider--sm"></div>
-    @segment([
-        'title' => "Atomic design",
-        'content' => "We based our component structure on the Atmoic Design System. This allows us to build components with a deliberate goal.
-        The Atomic Design System give structure to the components by organising them in three different levels: Atoms, Molecules and Organisms.",
-        'classList' => ['p-home__hero'],
-        'hasPlaceholder' => false
-    ])
-    @endsegment
-
-    <div class="p-component__atomic">
-        <div class="p-component__atomic__image">
-            @image([
-                'src'=> '/assets/img/atom.svg',
-                'alt' => 'atom'
+    <div class="o-grid o-grid--gutters">
+        <div class="o-grid-12 o-grid-4@md">
+            @card([
+                'image' => '/assets/img/atom.svg',
+                'hasPlaceholder' => true,
+                'buttons' => [
+                    [
+                        'type' => 'outlined',
+                        'text' => 'Go to atoms',
+                        'color' => 'primary',
+                        'href' => '/components/atoms'
+                    ]
+                ]
             ])
-            @endimage
+            @endcard
         </div>
-        <div class="p-component__atomic__body">
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2'
+        <div class="o-grid-12 o-grid-4@md">
+            @card([
+                'image' => '/assets/img/molecule.svg',
+                'hasPlaceholder' => true,
+                'buttons' => [
+                    [
+                        'type' => 'outlined',
+                        'text' => 'Go to molecules',
+                        'color' => 'primary',
+                        'href' => '/components/molecules'
+                    ]
+                ]
             ])
-            Atoms
-            @endtypography
-
-            @typography([
-                'element' => "p",
-                'classList' => ['c-card__text']
-            ])
-            Atoms are the fundamental building blocks. They are rarely used just by them self but
-            mostly used to build more advanced components.
-            @endtypography
-
-            <p>
-                @button([
-                    'type' => 'outlined',
-                    'text' => 'Go to atoms',
-                    'color' => 'primary',
-                    'href' => '/components/atoms'
-                ])
-                @endbutton
-            </p>
-
+            @endcard
         </div>
-    </div>
-
-    <div class="p-component__atomic">
-        <div class="p-component__atomic__body">
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2'
+        <div class="o-grid-12 o-grid-4@md">
+            @card([
+                'image' => '/assets/img/organisms.svg',
+                'hasPlaceholder' => true,
+                'buttons' => [
+                    [
+                        'type' => 'outlined',
+                        'text' => 'Go to organisms',
+                        'color' => 'primary',
+                        'href' => '/components/organisms'
+                    ]
+                ]
             ])
-            Molecules
-            @endtypography
-
-            @typography([
-                'element' => "p",
-                'classList' => ['c-card__text']
-            ])
-            Molecules are the next level in the Atomic Design System. These are components that bring funtionality and interactive elements to your pages.
-            @endtypography
-
-            <p>
-                @button([
-                    'type' => 'outlined',
-                    'text' => 'Go to molecules',
-                    'color' => 'primary',
-                    'href' => '/components/molecules'
-                ])
-                @endbutton
-            </p>
-
-        </div>
-        <div class="p-component__atomic__image">
-            @image([
-                'src'=> '/assets/img/molecule.svg',
-                'alt' => 'atom'
-            ])
-            @endimage
+            @endcard
         </div>
     </div>
 
-    <div class="p-component__atomic">
-        <div class="p-component__atomic__image">
-            @image([
-                'src'=> '/assets/img/organisms.svg',
-                'alt' => 'atom'
-            ])
-            @endimage
-        </div>
-        <div class="p-component__atomic__body">
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2'
-            ])
-            Organisms
-            @endtypography
-
-            @typography([
-                'element' => "p",
-                'classList' => ['c-card__text']
-            ])
-            Organisms are groups of molecules joined together to form a relatively complex, distinct section of an interface.
-            @endtypography
-
-            <p>
-                @button([
-                    'type' => 'outlined',
-                    'text' => 'Go to organisms',
-                    'color' => 'primary',
-                    'href' => '/components/organisms'
-                ])
-                @endbutton
-            </p>
-
-        </div>
-    </div>
 @stop
