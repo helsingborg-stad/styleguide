@@ -1,44 +1,47 @@
-@use "sass:map";
-@use "../element/headings";
 @use "../mixin/mq";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-$c-footer-grid-gap-widgets: calc(var(--base, 8px) * var(--o-grid-gap, 4) * 0.5) !default;
-$c-footer-height-logotype: calc(var(--c-footer-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-padding: calc(var(--c-footer-padding, 3) * #{var_default.$base}) !default;
-$c-footer-color-text: var(--c-footer-color-text, #000) !default;
-$c-footer-subfooter-height-logotype: calc(var(--c-footer-subfooter-height-logotype, 6) * #{var_default.$base}) !default;
-$c-footer-subfooter-padding: calc(var(--c-footer-subfooter-padding, 3) * #{var_default.$base}) !default;
-$c-footer-subfooter-color-background: var(--c-footer-subfooter-color-background, var_colors.$color-white) !default;
-$c-footer-subfooter-color-text: var(--c-footer-subfooter-color-text, var_colors.$color-black) !default;
-$c-footer-subfooter-alignment: var(--c-footer-subfooter-alignment, center) !default;
-$c-footer-subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row) !default;
-$c-footer-subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3) !default;
-$c-footer-header-border-size: var(--c-footer-header-border-size, 1px) !default;
-$c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.$color-alpha}) !default;
+/* Component name */
+$_: "c-footer";
 
-.c-footer {
-    background-color: var_colors.$color-default;
-    color: $c-footer-color-text;
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "border-width",
+    "color--surface",
+), (
+    "logotype-height": "calc(var(--c-footer-height-logotype, 6) * var(--base))",
+    "header-border-color": "var(--c-footer-header-border-color, rgba(0, 0, 0, 0.55))",
+    "subfooter-logotype-height": "calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base))",
+    "subfooter-color-background": "var(--c-footer-subfooter-color-background, var(--color--white-100, #fff))",
+    "subfooter-color-text": "var(--c-footer-subfooter-color-text, var(--color--black-100, #000))",
+    "subfooter-alignment": "var(--c-footer-subfooter-alignment, center)",
+    "subfooter-flex-direction": "var(--c-footer-subfooter-flex-direction, row)",
+    "subfooter-color-separator": "var(--c-footer-subfooter-color-separator, #A3A3A3)",
+));
+
+/* Component */
+.#{$_} {
+    background-color: tokens.get($_, "color--surface");
+    color: tokens.get($_, "color--surface-contrast");
 
     a,
     a:hover,
     a:visited,
     a:active {
-        color: $c-footer-color-text;
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     &__main-wrapper {
-        padding: $c-footer-padding 0;
+        padding: tokens.use($_, "space", 3) 0;
     }
 
     &__body {
         width: 100%;
-        max-width: var_default.$container-width;
+        max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
-        padding: map.get(var_default.$spacers, "5") 0;
+        padding: tokens.use($_, "space", 5) 0;
         display: flex;
         flex-wrap: nowrap;
     }
@@ -54,11 +57,11 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
     }
 
     &__links {
-        margin-bottom: calc(#{var_default.$base} * 3);
+        margin-bottom: tokens.use($_, "space", 3);
 
         & h4 {
-            font-weight: headings.$h4-font-weight;
-            font-size:18px;
+            font-weight: var(--h4-font-weight);
+            font-size: 18px;
         }
 
         & a {
@@ -76,19 +79,19 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
     &__link-divider {
         display: inline-block;
-        background-color:#565656;
+        background-color: #565656;
         border-radius: 50%;
-        height: calc(#{var_default.$base} / 2);
-        width: calc(#{var_default.$base} / 2);
-        margin-bottom: calc(#{var_default.$base} / 2);
-        margin-left: var_default.$base;
-        margin-right: var_default.$base;
+        height: tokens.use($_, "space", 0.5);
+        width: tokens.use($_, "space", 0.5);
+        margin-bottom: tokens.use($_, "space", 0.5);
+        margin-left: tokens.use($_, "space");
+        margin-right: tokens.use($_, "space");
     }
-    
+
     &__widget-area {
-        gap: calc(#{var_default.$base} * 2);
+        gap: tokens.use($_, "space", 2);
         .footer-title {
-            margin-bottom: calc(#{var_default.$base} * 2);
+            margin-bottom: tokens.use($_, "space", 2);
         }
         li {
             padding-left: 0;
@@ -97,67 +100,67 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
     // Logo
     &__logotype {
-        height: $c-footer-height-logotype;
+        height: tokens.get($_, "logotype-height");
 
         @include mq.mq('xs') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(#{tokens.use($_, "space", 3)}, calc(#{tokens.get($_, "logotype-height")} * 0.75), #{tokens.get($_, "logotype-height")});
         }
-    
+
         @include mq.mq('md') {
-            height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-height-logotype * 0.75), $c-footer-height-logotype);
+            height: clamp(#{tokens.use($_, "space", 3)}, calc(#{tokens.get($_, "logotype-height")} * 0.75), #{tokens.get($_, "logotype-height")});
         }
-    
+
         @include mq.mq('lg') {
-            height: $c-footer-height-logotype;
+            height: tokens.get($_, "logotype-height");
         }
     }
 
     &__header-wrapper {
-        margin-bottom: $c-footer-padding;
+        margin-bottom: tokens.use($_, "space", 3);
     }
 
     &__prefooter-wrapper, &__widget-area {
         ul, p, figure {
             margin: 0;
-            margin-bottom: #{var_default.$base};
+            margin-bottom: tokens.use($_, "space");
         }
     }
 
     &--header-border {
-        .c-footer__header-wrapper {
-            border-bottom: $c-footer-header-border-size solid $c-footer-header-border-color;
-            padding-bottom: $c-footer-padding;
+        .#{$_}__header-wrapper {
+            border-bottom: tokens.use($_, "border-width") solid tokens.get($_, "header-border-color");
+            padding-bottom: tokens.use($_, "space", 3);
         }
     }
 
     &__subfooter {
-        color: $c-footer-subfooter-color-text;
-        background: $c-footer-subfooter-color-background;
-        padding: $c-footer-subfooter-padding 0;
+        color: tokens.get($_, "subfooter-color-text");
+        background: tokens.get($_, "subfooter-color-background");
+        padding: tokens.use($_, "space", 3) 0;
         font-size: .9rem;
 
         a,
         a:hover,
         a:visited,
         a:active {
-            color: $c-footer-subfooter-color-text;
+            color: tokens.get($_, "subfooter-color-text");
         }
 
         &__wrapper {
             display: flex;
             flex-wrap: wrap;
-            justify-content: $c-footer-subfooter-alignment;
-            align-items: $c-footer-subfooter-alignment;
-            flex-direction: $c-footer-subfooter-flex-direction;
+            justify-content: tokens.get($_, "subfooter-alignment");
+            align-items: tokens.get($_, "subfooter-alignment");
+            flex-direction: tokens.get($_, "subfooter-flex-direction");
         }
 
         &__list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: $c-footer-subfooter-alignment;
-            align-items: $c-footer-subfooter-alignment;
-            flex-direction: $c-footer-subfooter-flex-direction;
-            margin: calc(-1 * map.get(var_default.$spacers, "1")) calc(-1 * map.get(var_default.$spacers, "5"));
+            justify-content: tokens.get($_, "subfooter-alignment");
+            align-items: tokens.get($_, "subfooter-alignment");
+            flex-direction: tokens.get($_, "subfooter-flex-direction");
+            margin: tokens.use($_, "space", -1) tokens.use($_, "space", -5);
             margin-left: 0;
             padding: 0;
             list-style: none;
@@ -166,13 +169,13 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
             li {
                 position: relative;
                 margin: 0;
-                padding: map.get(var_default.$spacers, "1") map.get(var_default.$spacers, "5");
+                padding: tokens.use($_, "space") tokens.use($_, "space", 5);
                 padding-left: 0;
                 line-height: 1;
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: $c-footer-subfooter-color-separator;
+                    background: tokens.get($_, "subfooter-color-separator");
                     display: none;
                     position: absolute;
                     width: 6px;
@@ -189,16 +192,16 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
         // Logo
         &__logotype {
-            height: $c-footer-subfooter-height-logotype;
+            height: tokens.get($_, "subfooter-logotype-height");
         }
-    
+
         // Fix for separator dots showing on new lines
         &--align-flex-end {
-            .c-footer__subfooter__list {
-                margin: calc(-1 * map.get(var_default.$spacers, "1")) calc(-1 * map.get(var_default.$spacers, "5"));
+            .#{$_}__subfooter__list {
+                margin: tokens.use($_, "space", -1) tokens.use($_, "space", -5);
                 margin-right: 0;
                 li {
-                    padding: map.get(var_default.$spacers, "1") map.get(var_default.$spacers, "5");
+                    padding: tokens.use($_, "space") tokens.use($_, "space", 5);
                     padding-right: 0;
                     &:before {
                         display: none;
@@ -213,47 +216,47 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
         }
 
         &--horizontal {
-            .c-footer__subfooter__wrapper {
+            .#{$_}__subfooter__wrapper {
                 align-items: center;
             }
-            .c-footer__subfooter__logotype-wrapper {
-                margin-right: map.get(var_default.$spacers, "7");
+            .#{$_}__subfooter__logotype-wrapper {
+                margin-right: tokens.use($_, "space", 7);
                 margin-bottom: 0;
             }
         }
 
         &--vertical {
-            .c-footer__subfooter__list {
+            .#{$_}__subfooter__list {
                 li:not(:first-child):before, li:not(:last-child):before {
                     display: none;
                 }
             }
-            .c-footer__subfooter__logotype-wrapper {
-                margin-bottom: map.get(var_default.$spacers, "3");
+            .#{$_}__subfooter__logotype-wrapper {
+                margin-bottom: tokens.use($_, "space", 3);
                 margin-right: 0;
             }
         }
     }
-    
+
     //Todo: whole subfooter list implementation can/should be refactored and simplified
-    .c-footer__subfooter__wrapper {
+    .#{$_}__subfooter__wrapper {
         overflow: hidden; //Quick fix until refactor
     }
 }
 
-@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
+@include mq.mq("xs", "md") {
 
-    .c-footer {
+    .#{$_} {
 
         &__body {
-            padding: map.get(var_default.$spacers, "5") map.get(var_default.$spacers, "4");
+            padding: tokens.use($_, "space", 5) tokens.use($_, "space", 4);
             display: block;
             text-align: center;
         }
 
         &__home-link {
             display: block;
-            margin-bottom: map.get(var_default.$spacers, "5");
+            margin-bottom: tokens.use($_, "space", 5);
         }
 
         &__link-divider {
@@ -262,7 +265,7 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
 
         &__links a {
             display: block;
-            margin-bottom: map.get(var_default.$spacers, "2");
+            margin-bottom: tokens.use($_, "space", 2);
         }
 
         &__subfooter {
@@ -275,17 +278,17 @@ $c-footer-header-border-color: var(--c-footer-header-border-color, #{var_colors.
                 }
             }
 
-            &--align-flex-end .c-footer__subfooter__list li:not(:last-child):before {
+            &--align-flex-end .#{$_}__subfooter__list li:not(:last-child):before {
                 display: none;
             }
 
             &__logotype {
-                height: clamp(calc(#{var_default.$base} * 3), calc($c-footer-subfooter-height-logotype * 0.75), $c-footer-subfooter-height-logotype);
+                height: clamp(#{tokens.use($_, "space", 3)}, calc(#{tokens.get($_, "subfooter-logotype-height")} * 0.75), #{tokens.get($_, "subfooter-logotype-height")});
             }
 
             &--horizontal {
-                .c-footer__subfooter__logotype-wrapper {
-                    margin-bottom: map.get(var_default.$spacers, "3");
+                .#{$_}__subfooter__logotype-wrapper {
+                    margin-bottom: tokens.use($_, "space", 3);
                     margin-right: 0;
                 }
             }

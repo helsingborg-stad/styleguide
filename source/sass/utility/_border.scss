@@ -9,6 +9,7 @@ $_: "u-border-*";
 /* Design tokens */
 @include tokens.create($_, (
     "border-width",
+    "color--surface",
     "color--primary",
     "color--secondary",
     "color--success",
@@ -21,8 +22,8 @@ $_: "u-border-*";
 
 $border-widths: (
     0: 0,
-    1: var(--border-width-thin),
-    2: var(--border-width-medium)
+    1: tokens.use($_, "border-width", 1),
+    2: tokens.use($_, "border-width", 2)
 );
 
 $sides: (top, left, right, bottom);
@@ -32,7 +33,7 @@ $spacing-util: (
         name: "border",
         default: (border: #{tokens.get($_, "border")}), 
         modifiers: (
-            0: (border: 0 solid #{tokens.get($_, "color--border")}),
+            0: (border-width: 0 solid #{tokens.get($_, "color--border")}),
             1: (border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--border")}),
             2: (border: #{tokens.use($_, "border-width", 2)} solid #{tokens.get($_, "color--border")})
         )
@@ -55,13 +56,13 @@ $spacing-util: (
     $mods: ();
 
     @each $width_name, $width in $border-widths {
-        $style: (#{$width_name}:(border-#{$side}: #{$width} solid var(--color--border)));
+        $style: (#{$width_name}:(border-#{$side}: #{tokens.use($_, "border-width", $width_name)} solid #{tokens.get($_, "color--surface--border")}));
         $mods: map.merge($mods, $style);
     }
 
     $util: (
         name: "border__#{$side}",
-        default: (border-#{$side}: var(--border-width-thin) solid var(--color--border)),
+        default: (border-#{$side}: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface--border")}),
         modifiers: $mods
     );
 

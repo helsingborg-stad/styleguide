@@ -40,13 +40,24 @@
 </head>
 <body class="no-js o-body">
 
+    <style>
+        .c-header__logotype {
+            background-color: var(--color--primary);
+        }
+        .c-header__logotype .c-logotype__image {
+            filter: brightness(0) invert(1);
+            mix-blend-mode: screen;
+            padding: calc(var(--space) * var(--base)); 
+            border-radius: calc(var(--radius) * 2);
+        }
+    </style>
+
     @header([
         'id' => 'site-header',
         'classList' => [
             'c-header', 
             'u-display--flex', 
             'u-align-items--center', 
-            'u-padding--4',
             'u-border__bottom--1',
         ]
     ])
