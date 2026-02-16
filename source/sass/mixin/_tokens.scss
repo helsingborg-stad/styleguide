@@ -1,3 +1,4 @@
+@use "sass:list";
 @use "sass:string";
 
 /// Strips a trailing "-*" wildcard from a prefix.
@@ -25,7 +26,9 @@
 ///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
 /// @param {Map} $extras [()]  - Extra custom properties with literal values
-/// @param {Map} $inner [()]  - Inner custom properties with literal values
+/// @param {Map} $inner [()]  - Token remapping for child components
+///   (key = token to override, value = token to source from)
+@mixin create($prefix, $tokens, $extras: (), $inner: ()) {
     $p: _clean-prefix($prefix);
 
     // Wildcard prefix → attribute selector; otherwise plain class selector
@@ -63,6 +66,20 @@
 
         @each $name, $value in $extras {
             --#{$p}--#{$name}: #{$value};
+        }
+    }
+
+    @if list.length($inner) > 0 {
+        #{$selector} > * {
+            @each $target, $source in $inner {
+                --#{$target}: var(--#{$source});
+
+                // Auto-derivation: for color tokens, also remap the contrast companion
+                @if string.index($target, "color") == 1
+                    and string.slice($target, -9) != "-contrast" {
+                    --#{$target}-contrast: var(--#{$source}-contrast);
+                }
+            }
         }
     }
 }
