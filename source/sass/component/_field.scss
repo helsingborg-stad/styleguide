@@ -8,14 +8,15 @@ $_: "c-field";
 /* Design tokens */
 @include tokens.create($_, (
     "border-radius",
+    "border-width",
     "space",
+    "shadow",
     "color--danger",
     "color--success",
     "color--surface"
 ), (
     "base": "var(--base)",
-    "border-width": "var(--border-width-input, 1px)",
-    "border-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 10%, transparent)",
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
     "background-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 4%, var(--c-field--color--surface))",
     "background-color-error": "color-mix(in srgb, var(--c-field--color--danger) 6%, var(--c-field--color--surface))",
     "label-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
@@ -24,11 +25,9 @@ $_: "c-field";
     "label-font-weight": "700",
     "label-letter-spacing": "0.05rem",
     "description-font-size": "0.75rem",
-    "description-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
     "helper-font-size": "var(--font-size-caption, 0.875rem)",
     "helper-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 70%, transparent)",
     "helper-font-family": "var(--font-family-base)",
-    "suffix-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
     "font-size-sm": "0.775rem",
     "font-size-md": "0.95rem",
     "font-size-lg": "1rem",
@@ -36,8 +35,8 @@ $_: "c-field";
     "font-size-md-line-height": "calc(var(--base) * 2)",
     "font-size-lg-line-height": "calc(var(--base) * 2)",
     "height": "calc(var(--base) * 6)",
-    "shadow-1": "var(--drop-shadow-1)",
-    "shadow-2": "var(--drop-shadow-2)"
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-hover": tokens.use($_, "shadow", 1.5)
 ));
 
 $fields: 'input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]';
@@ -65,7 +64,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     .#{$_}__description {
         font-size: tokens.get($_, "description-font-size");
-        color: tokens.get($_, "description-color");
+        color: tokens.get($_, "label-color");
         margin-top: 0;
     }
 
@@ -100,7 +99,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         min-width: calc(#{tokens.get($_, "base")} * 10);
         font-size: tokens.get($_, "font-size-md");
         line-height: tokens.get($_, "font-size-md-line-height");
-        border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+        border: tokens.get($_, "border");
         background: tokens.get($_, "background-color");
         color: tokens.get($_, "color--surface-contrast");
         border-radius: tokens.use($_, "border-radius");
@@ -119,7 +118,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         .#{$_}__icon,
         .#{$_}__prefix,
         .#{$_}__suffix {
-            color: tokens.get($_, "suffix-color");
+            color: tokens.get($_, "label-color");
         }
 
         .#{$_}__icon,
@@ -200,11 +199,11 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     /* Shadow */
     &.#{$_}--shadow {
         transition: filter 100ms ease-in-out;
-        filter: tokens.get($_, "shadow-1");
+        filter: tokens.get($_, "shadow");
     }
 
     &.#{$_}--shadow:hover {
-        filter: tokens.get($_, "shadow-2");
+        filter: tokens.get($_, "shadow-hover");
     }
 
     /* Customizer modifiers */
@@ -226,7 +225,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
         &.#{$_}--rounded-border {
             .#{$_}__inner {
-                border: tokens.get($_, "border-width") solid tokens.get($_, "border-color");
+                border: tokens.get($_, "border");
             }
         }
 
