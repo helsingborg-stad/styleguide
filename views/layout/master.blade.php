@@ -38,7 +38,7 @@
     </style>
 
 </head>
-<body class="no-js">
+<body class="no-js o-body">
 
     @header([
         'id' => 'site-header',
