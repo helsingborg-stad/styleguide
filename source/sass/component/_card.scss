@@ -44,6 +44,7 @@ $_: "c-card";
         flex-direction: inherit;
         flex-wrap: wrap;
         height: inherit;
+        corner-shape: inherit;
 
         > * {
             width: 100%;
@@ -91,7 +92,7 @@ $_: "c-card";
         border-radius: 0;
 
         .c-image__image {
-            border-radius: inherit;
+            border-radius: 0;
         }
     }
 
