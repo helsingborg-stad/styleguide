@@ -52,34 +52,7 @@
         }
     </style>
 
-    @header([
-        'id' => 'site-header',
-        'classList' => [
-            'c-header', 
-            'u-display--flex', 
-            'u-align-items--center', 
-            'u-border__bottom--1',
-        ]
-    ])
-        @link(['id' => 'header-logotype', 'href' => '/', 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
-            @logotype([
-                'src'=> "/assets/img/logotype.svg",
-                'alt' => "Go to homepage",
-                'classList' => ['c-nav__logo', 'c-header__logotype'],
-                'context' => ['site.header.logo', 'site.header.casual.logo']
-            ])
-            @endlogotype
-        @endlink
-
-        @nav([
-            'items' => $topNavigation,
-            'classList' => ['u-margin__left--auto'],
-            'direction' => 'horizontal',
-            'attributeList' => ['style' => 'width: auto;']
-        ])
-        @endnav
-    @endheader
-
+    
     @if($isLocalDomain) 
         <div class="container">
             <div class="o-grid">

@@ -4,11 +4,17 @@
 
 .l-docs {
     display: grid;
-    grid-template-columns: 288px calc( 100% - 288px);
-    grid-template-rows: auto;
+    grid-template-columns: 288px calc(100% - 288px);
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
+        "sidebar  header"
         "sidebar content"
+        "sidebar  footer"
     ;
+
+    &--header {
+        grid-area: header;
+    }
 
     &--sidebar {
         grid-area: sidebar;
@@ -17,10 +23,13 @@
     &--content {
         grid-area: content;
     }
+
+    &--footer {
+        grid-area: footer;
+    }
 }
 
 @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
-
     .l-docs {
         display: block;
     }
