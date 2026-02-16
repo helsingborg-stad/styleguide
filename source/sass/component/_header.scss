@@ -1,60 +1,71 @@
 @use "../mixin/focus";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_default.$base}) !default;
+/* Component name */
+$_: "c-header";
 
-.c-header {
-    z-index: var_properties.$level-6;
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "color--surface",
+    "color--primary",
+    "color--secondary",
+), (
+    "base": "var(--base)",
+    "logotype-height": "calc(var(--c-header-logotype-height, 6) * var(--base))",
+));
+
+/* Component */
+.#{$_} {
+    z-index: 6000;
     position: relative;
-    background-color: var_colors.$color-header-background;
+    background-color: tokens.get($_, "color--surface");
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        scroll-margin-top: calc(#{var_default.$base} * 2);
+        scroll-margin-top: tokens.use($_, "space", 2);
     }
 
-    &.c-header--sticky {
+    &.#{$_}--sticky {
         position: sticky;
         top: 0;
-        z-index: var_properties.$level-7;
+        z-index: 7000;
     }
 
-    &.c-header--accented {
-        border-bottom: var_colors.$color-primary solid var_default.$base;
+    &.#{$_}--accented {
+        border-bottom: tokens.get($_, "base") solid tokens.get($_, "color--primary");
     }
 
-    &.c-header--primary {
-        background-color: var_colors.$color-primary;
+    &.#{$_}--primary {
+        background-color: tokens.get($_, "color--primary");
     }
 
-    &.c-header--secondary {
-        background-color: var_colors.$color-secondary;
+    &.#{$_}--secondary {
+        background-color: tokens.get($_, "color--secondary");
     }
 
-    &.c-header--text-white > *,
-    &.c-header--text-white .c-button__basic,
-    &.c-header--text-white .c-nav .c-nav__link {
-        color: var_colors.$color-white;
+    &.#{$_}--text-white > *,
+    &.#{$_}--text-white .c-button__basic,
+    &.#{$_}--text-white .c-nav .c-nav__link {
+        color: var(--color--white-100);
     }
 
-    &.c-header--text-black * ,
-    &.c-header--text-black .c-nav .c-nav__link {
-        color: var_colors.$color-black;
+    &.#{$_}--text-black *,
+    &.#{$_}--text-black .c-nav .c-nav__link {
+        color: var(--color--black-100);
     }
 
-    &.c-header--text-primary * ,
-    &.c-header--text-primary .c-nav .c-nav__link {
-        color: var_colors.$color-primary;
+    &.#{$_}--text-primary *,
+    &.#{$_}--text-primary .c-nav .c-nav__link {
+        color: tokens.get($_, "color--primary");
     }
 
-    &.c-header--text-secondary * ,
-    &.c-header--text-secondary .c-nav .c-nav__link {
-        color: var_colors.$color-secondary;
+    &.#{$_}--text-secondary *,
+    &.#{$_}--text-secondary .c-nav .c-nav__link {
+        color: tokens.get($_, "color--secondary");
     }
 
-    &.c-header--casual {
+    &.#{$_}--casual {
         #main-menu {
             display: flex;
             flex-grow: 1;
@@ -77,10 +88,10 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
         }
     }
 
-    &.c-header--business {
+    &.#{$_}--business {
         .c-nav--business-left {
             justify-content: flex-start;
-            
+
             .c-nav__item--search {
                 margin-left: auto;
             }
@@ -96,7 +107,7 @@ $c-header-logotype-height: calc(var(--c-header-logotype-height, 6) * #{var_defau
 
     // Logo
     &__logotype {
-        height: $c-header-logotype-height;
+        height: tokens.get($_, "logotype-height");
     }
 }
 
