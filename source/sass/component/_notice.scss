@@ -10,7 +10,7 @@ $_: "c-notice";
     "border-width",
     "space",
     "outer-space",
-    "shadow", // This will trigger auto-derivation of shadow-color and shadow-amount tokens, no shadow token value is added directly since it's constructed in the use function
+    "shadow",
     "line-height",
     "color--success",
     "color--danger",

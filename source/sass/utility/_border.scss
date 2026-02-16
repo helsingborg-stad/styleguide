@@ -1,48 +1,52 @@
 @use "sass:list";
 @use "sass:map";
 @use "../component/icon";
-@use "../setting/var_colors";
 @use "../mixin/build-utility";
+@use "../mixin/tokens";
 
-$colors: (
-    primary: var_colors.$color-primary,
-    secondary: var_colors.$color-secondary,
-    success: var_colors.$color-success,
-    danger: var_colors.$color-danger,
-    info: var_colors.$color-info,
-    warning: var_colors.$color-warning,
-);
+$_: "u-border-*";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "border-width",
+    "color--primary",
+    "color--secondary",
+    "color--success",
+    "color--danger",
+    "color--info",
+    "color--warning",
+), (
+    "border": tokens.use($_, "border-width", 1) solid #{tokens.get($_, "color--border")},
+));
 
 $border-widths: (
     0: 0,
-    1: 1px,
-    2: 2px
+    1: var(--border-width-thin),
+    2: var(--border-width-medium)
 );
-
-$border-width-default: 1px;
 
 $sides: (top, left, right, bottom);
 
 $spacing-util: (
     (
         name: "border",
-        default: (border: #{$border-width-default} solid #{var_colors.$color_primary}),
+        default: (border: #{tokens.get($_, "border")}), 
         modifiers: (
-            0: (border:  #{map.get($border_widths, 0)} solid #{var_colors.$color_primary}),
-            1: (border:  #{map.get($border_widths, 1)} solid #{var_colors.$color_primary}),
-            2: (border:  #{map.get($border_widths, 2)} solid #{var_colors.$color_primary})
+            0: (border: 0 solid #{tokens.get($_, "color--border")}),
+            1: (border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--border")}),
+            2: (border: #{tokens.use($_, "border-width", 2)} solid #{tokens.get($_, "color--border")})
         )
     ),
     (
         name: "border__color",
-        default: (border-color: #{var_colors.$color_primary}),
+        default: (border-color: #{tokens.get($_, "color--border")}),
         modifiers: (
-            primary: (border-color:  #{var_colors.$color_primary}),
-            secondary: (border-color: #{var_colors.$color_secondary}),
-            success: (border-color:  #{var_colors.$color_success}),
-            danger: (border-color:  #{var_colors.$color_danger}),
-            info: (border-color:  #{var_colors.$color_info}),
-            warning: (border-color:  #{var_colors.$color_warning})
+            primary:   (border-color: #{tokens.get($_, "color--primary")}),
+            secondary: (border-color: #{tokens.get($_, "color--secondary")}),
+            success:   (border-color: #{tokens.get($_, "color--success")}),
+            danger:    (border-color: #{tokens.get($_, "color--danger")}),
+            info:      (border-color: #{tokens.get($_, "color--info")}),
+            warning:   (border-color: #{tokens.get($_, "color--warning")})
         )
     )
 );
@@ -51,13 +55,13 @@ $spacing-util: (
     $mods: ();
 
     @each $width_name, $width in $border-widths {
-        $style: (#{$width_name}:(border-#{$side}: #{$width} solid #{var_colors.$color-primary}));
+        $style: (#{$width_name}:(border-#{$side}: #{$width} solid var(--color--border)));
         $mods: map.merge($mods, $style);
     }
 
     $util: (
         name: "border__#{$side}",
-        default: (border-#{$side}: 1px solid #{var_colors.$color-primary}),
+        default: (border-#{$side}: var(--border-width-thin) solid var(--color--border)),
         modifiers: $mods
     );
 

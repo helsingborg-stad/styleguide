@@ -1,44 +1,68 @@
 @use "sass:string";
 
+/// Strips a trailing "-*" wildcard from a prefix.
+/// "u-border-*" → "u-border", "c-notice" → "c-notice"
+@function _clean-prefix($prefix) {
+    @if string.slice($prefix, -2) == "-*" {
+        @return string.slice($prefix, 1, -3);
+    }
+    @return $prefix;
+}
+
+/// Returns true when the prefix ends with "-*".
+@function _is-wildcard($prefix) {
+    @return string.slice($prefix, -2) == "-*";
+}
+
 /// Creates component tokens that fall back to global tokens.
 ///
 /// Auto-derivation:
 ///   - "border-radius" → corner-shape
 ///   - "color--*" → contrast companion
 ///
-/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as selector
+/// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as selector.
+///   A trailing "-*" wildcard (e.g., "u-border-*") emits an attribute selector
+///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
 /// @param {Map} $extras [()]  - Extra custom properties with literal values
 @mixin create($prefix, $tokens, $extras: ()) {
-    .#{$prefix} {
+    $p: _clean-prefix($prefix);
+
+    // Wildcard prefix → attribute selector; otherwise plain class selector
+    $selector: ".#{$p}";
+    @if _is-wildcard($prefix) {
+        $selector: '[class*="#{$p}"]';
+    }
+
+    #{$selector} {
         @each $token in $tokens {
-            --#{$prefix}--#{$token}: var(--#{$token});
+            --#{$p}--#{$token}: var(--#{$token});
 
             // Auto-derivation rule: add corner-shape if border-radius is used
             @if $token == "border-radius" {
-                --#{$prefix}--corner-shape: var(--corner-shape);
+                --#{$p}--corner-shape: var(--corner-shape);
             }
 
             // Auto-derivation rule: for shadow token, use color and amount to construct instead of direct passthrough
             @if $token == "shadow" {
-                --#{$prefix}--shadow-color: var(--shadow-color);
-                --#{$prefix}--shadow-amount: var(--shadow-amount);
+                --#{$p}--shadow-color: var(--shadow-color);
+                --#{$p}--shadow-amount: var(--shadow-amount);
             }
 
             // Auto-derivation rule: for color tokens, add a contrast and a border-color companion
             @if string.index($token, "color") == 1
                 and string.slice($token, -9) != "-contrast" {
-                --#{$prefix}--#{$token}-contrast: var(--#{$token}-contrast);
-                --#{$prefix}--#{$token}-border: color-mix(
+                --#{$p}--#{$token}-contrast: var(--#{$token}-contrast);
+                --#{$p}--#{$token}-border: color-mix(
                     in srgb,
-                    var(--#{$prefix}--#{$token}-contrast) 10%, 
-                    var(--#{$prefix}--#{$token})
+                    var(--#{$p}--#{$token}-contrast) 10%,
+                    var(--#{$p}--#{$token})
                 );
             }
         }
 
         @each $name, $value in $extras {
-            --#{$prefix}--#{$name}: #{$value};
+            --#{$p}--#{$name}: #{$value};
         }
     }
 }
@@ -49,14 +73,15 @@
 /// @param {String} $token - Token name
 /// @param {Number} $multiplier [1] - Scale multiplier
 @function use($prefix, $token, $multiplier: 1) {
+    $p: _clean-prefix($prefix);
 
     //If token is shadow, construct the drop-shadow value using the color and amount tokens
     @if $token == "shadow" {
-        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$prefix}--shadow-amount)) calc(var(--#{$prefix}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$prefix}--shadow-color));
+        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$p}--shadow-amount)) calc(var(--#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$p}--shadow-color));
     }
 
     // Default behavior: return scaled token value, pixel from int
-    @return calc(var(--#{$prefix}--#{$token}) * var(--base) * #{$multiplier});
+    @return calc(var(--#{$p}--#{$token}) * var(--base) * #{$multiplier});
 }
 
 /// Returns a raw token reference: var(--{prefix}--{token}).
@@ -64,25 +89,28 @@
 /// @param {String} $prefix - Component prefix
 /// @param {String} $token - Token name
 @function get($prefix, $token) {
-    @return var(--#{$prefix}--#{$token});
+    $p: _clean-prefix($prefix);
+    @return var(--#{$p}--#{$token});
 }
 
 /// Generates a color variant (background + contrast + border-color propagation).
 @mixin color-variant($prefix, $variant) {
-    background-color: var(--#{$prefix}--color--#{$variant});
-    color: var(--#{$prefix}--color--#{$variant}-contrast);
-    border-color: var(--#{$prefix}--color--#{$variant}-border);
+    $p: _clean-prefix($prefix);
+
+    background-color: var(--#{$p}--color--#{$variant});
+    color: var(--#{$p}--color--#{$variant}-contrast);
+    border-color: var(--#{$p}--color--#{$variant}-border);
 
     a,
     a:hover,
     a:active,
     a:visited {
-        color: var(--#{$prefix}--color--#{$variant}-contrast);
+        color: var(--#{$p}--color--#{$variant}-contrast);
         text-decoration: underline;
     }
 
     .c-button {
-        color: var(--#{$prefix}--color--#{$variant}-contrast);
+        color: var(--#{$p}--color--#{$variant}-contrast);
     }
 }
 
