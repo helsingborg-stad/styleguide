@@ -11,6 +11,7 @@
   display: grid;
   grid-template-columns: var(--db-split, 50%) 0px 1fr;
   min-height: calc(100vh - 64px);
+  grid-area: content;
 }
 
 .design-builder {

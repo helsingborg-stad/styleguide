@@ -115,7 +115,9 @@
 
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
-            <div class="d-params u-overflow--auto u-margin__top--10">
+
+            @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
+            <div class="d-params u-overflow--auto">
                 <h3>Blade component parameters</h3>
                 <table>
                     <thead>
@@ -194,8 +196,11 @@
             <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
         @endif
     @endif
+
+    @endpaper
     
     @if(isset($modifiers) && !empty($modifiers))
+        @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
             <div class="d-params u-overflow--auto u-margin__top--10">
                 <h3>Modifiers</h3>
                 <p>Modifiers can be appended to the base class and should, when needed, be added to the classList.</p>
@@ -220,6 +225,6 @@
 
                 </table>
             </div>
+        @endpaper
     @endif
-
 </section>
