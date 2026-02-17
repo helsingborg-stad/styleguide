@@ -1,27 +1,34 @@
 @use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-listing {
-    .c-listing__item,
-    .c-listing__link {
+/* Component name */
+$_: "c-listing";
+
+@include tokens.create($_, ("base"));
+
+.#{$_} {
+
+    .#{$_}__item,
+    .#{$_}__link {
         display: flex;
-        gap: calc(var_default.$base * .5);
+        gap: tokens.use($_, "base", 0.5);
     }
 
-    .c-listing__link {
+    .#{$_}__link {
         text-decoration: none;
 
-        .c-listing__label {
+        .#{$_}_label {
             text-decoration: underline;
         }
     }
 
     @for $i from 0 to 11 {
-        &.c-listing--padding-#{$i} {
-            .c-listing__item {
-                padding-bottom: calc(var_default.$base * ($i/2));
+        &.#{$_}--padding-#{$i} {
+            .#{$_}__item {
+                padding-bottom: tokens.use($_, "base", $i/2);
             }
 
-            .c-listing__item:last-child {
+            .#{$_}__item:last-child {
                 padding-bottom: 0;
             }
         }
