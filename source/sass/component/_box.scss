@@ -1,28 +1,40 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-box-border-radius: var(--c-box-border-radius, var_border-radius.$border-radius-sm) !default;
-$c-box-color: var(--c-box-color, var_colors.$color-primary-contrasting) !default;
-$c-box-background-color: var(--c-box-background-color, var_colors.$color-primary) !default;
-$c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
+/* Component name */
+$_: "c-box";
 
-.c-box {
-    border-radius: $c-box-border-radius;
-    filter: $c-box-shadow;
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "shadow",
+    "space",
+    "color--primary",
+),
+(
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-hover": tokens.use($_, "shadow", 1.5),
+));
+
+/* Component */
+.#{$_} {
+    contain: layout;
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    filter: tokens.get($_, "shadow");
+    background-color: tokens.get($_, "color--primary");
+    color: tokens.get($_, "color--primary-contrast");
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $c-box-background-color;
     container-type: inline-size;
-    container-name: testbox;
+    container-name: box;
+    transition: all 200ms ease-in;
 
-    .c-box__body {
-        padding: calc(#{var_default.$base} * 3);
-        display: flex; 
+    .#{$_}__body {
+        padding: tokens.use($_, "space", 3);
+        display: flex;
         flex-direction: column;
-        gap: calc(#{var_default.$base} * 2);
+        gap: tokens.use($_, "space", 2);
         text-align: center;
         justify-content: center;
         align-items: center;
@@ -30,88 +42,74 @@ $c-box-shadow: var(--c-box-shadow, var_properties.$drop-shadow-2) !default;
         height: 100%;
     }
 
-    .c-box__image {
+    .#{$_}__image {
         display: flex;
         justify-content: center;
         width: 100%;
-        max-width: calc(#{var_default.$base} * 20);
+        max-width: tokens.use($_, "space", 20);
     }
 
-    @container testbox (max-width: 650px) {
-        .c-box__image {
-            max-width: calc(#{var_default.$base} * 15);
+    @container box (max-width: 650px) {
+        .#{$_}__image {
+            max-width: tokens.use($_, "space", 15);
         }
     }
 
-    @container testbox (max-width: 450px) {
-        .c-box__image {
-            max-width: calc(#{var_default.$base} * 10);
+    @container box (max-width: 450px) {
+        .#{$_}__image {
+            max-width: tokens.use($_, "space", 10);
         }
     }
 
-    .c-box__icon.c-icon {
-        color: $c-box-color;
-        font-size: calc(#{var_default.$base} * 10);
+    .#{$_}__icon.c-icon {
+        font-size: tokens.use($_, "space", 10);
         line-height: 60px;
-        margin-bottom: calc(#{var_default.$base} * 2);
-        margin-right: auto;
-        margin-left: auto;
+        margin-bottom: tokens.use($_, "space", 2);
+        margin-inline: auto;
     }
 
-    .c-box__image.c-image--type-svg {
-        width: clamp(calc(#{var_default.$base} * 6), 30%, calc(#{var_default.$base} * 20));
+    .#{$_}__image.c-image--type-svg {
+        width: clamp(tokens.use($_, "space", 6), 30%, tokens.use($_, "space", 20));
     }
 
-    .c-box__heading, 
-    .c-box__meta,
-    .c-box__date,
-    .c-box__content {
-        margin: 0; 
-        color: $c-box-color; 
-        display: block;
+    .#{$_}__heading,
+    .#{$_}__meta,
+    .#{$_}__date,
+    .#{$_}__content {
+        margin: 0;
     }
 
-    .c-box__content {
+    .#{$_}__content {
         text-align: left;
     }
 
-    &.c-box--ratio-1-1 {
-        aspect-ratio: 1/1;
-    }
-
-    &.c-box--ratio-4-3 {
-        aspect-ratio: 4/3;
-    }
-
-    &.c-box--ratio-12-16 {
-        aspect-ratio: 12/16;
-    }
+    &--ratio-1-1 { aspect-ratio: 1/1; }
+    &--ratio-4-3 { aspect-ratio: 4/3; }
+    &--ratio-12-16 { aspect-ratio: 12/16; }
 }
 
-a.c-box {
+a.#{$_} {
     text-decoration: none;
-    color: inherit;
+    color: tokens.get($_, "color--primary-contrast");
     transition: all 200ms ease-out;
 
-    .c-box__image {
+    .#{$_}__image {
         position: relative;
     }
 
     &:hover {
-        filter: var_properties.$drop-shadow-3;
-        color: inherit;
-        transform: translateY(calc( 0px - #{var_default.$base} * 0.25 ));
-        filter: brightness(0.9);
+        transform: translateY(tokens.use($_, "space", -0.25));
+        filter: brightness(0.9) tokens.get($_, "shadow-hover");
 
-        .c-box__heading {
+        .#{$_}__heading {
             text-decoration: underline;
         }
     }
 }
 
-.o-grid--no-gutter > [class*="o-grid-"] .c-box,
-.o-grid--no-gutter > [class*="o-grid-"] .c-box [class*="c-box"], 
-.o-grid--no-gutter > [class*="o-grid-"] .c-box [class*="c-box"]:after {
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_},
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"],
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
     border-radius: unset;
-    filter: none; 
+    filter: none;
 }
