@@ -1,7 +1,17 @@
 {
     "newsitem": {
         "heading": "Newsitem",
-        "subHeading": "",
+        "subHeading": "A standard newsitem component consists of a heading, content, and optionally an image and date.",
         "text": "A plain newsitem component."
+    },
+    "standing": {
+        "heading": "Standing",
+        "subHeading": "A single newsitem can be set to standing, which gives it a more prominent style and layout.",
+        "text": "The standing variant of the newsitem component."
+    },
+    "stack": {
+        "heading": "Stack",
+        "subHeading": "Multiple newsitems can be stacked together to create a newsfeed.",
+        "text": "The stack variant of the newsitem component."
     }
 }

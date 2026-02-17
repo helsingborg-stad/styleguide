@@ -7,7 +7,11 @@ $_: "c-newsitem";
 @include tokens.create($_, (
     "space",
     "color--primary",
+    "color--surface",
     "color--border",
+    "border-width",
+),(
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
 ));
 
 /* Stacked layout (standing variant + responsive) */
@@ -43,8 +47,8 @@ $_: "c-newsitem";
         flex-wrap: wrap;
         justify-content: space-between;
         padding: tokens.use($_, "space") 0;
-        border-top: 1px solid tokens.get($_, "color--border");
-        border-bottom: 1px solid tokens.get($_, "color--border");
+        border-top: tokens.get($_, "border");
+        border-bottom: tokens.get($_, "border");
     }
 
     .#{$_}__title {
@@ -127,4 +131,8 @@ a.#{$_} {
     @supports not (container-type: inline-size) {
         @include _stacked;
     }
+}
+
+.#{$_} + .#{$_} {
+    margin-top: tokens.use($_, "space", 6);
 }
