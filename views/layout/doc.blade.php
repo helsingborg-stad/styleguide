@@ -181,16 +181,6 @@
                         <td>-</td>
                         <td>Array containing keys and values rendered as attributes</td>
                     </tr>
-
-                    <!-- Container awareness -->
-                    <tr>
-                        <td>containerAware</td>
-                        <td>false</td>
-                        <td>boolean</td>
-                        <td>true/false</td>
-                        <td>Makes the component container aware. Appends modifiers --size--xs/sm/md/lg to the component.</td>
-                    </tr>
-
                 </table>
             </div>
             <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
