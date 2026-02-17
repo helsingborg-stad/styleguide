@@ -280,12 +280,12 @@ $_: "c-button";
 
     &--primary,
     &--primary .#{$_}__label {
-        color: tokens.get($_, "color--primary");
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
     }
 
     &--secondary,
     &--secondary .#{$_}__label {
-        color: tokens.get($_, "color--secondary");
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
     }
 
     &--default,
@@ -374,10 +374,10 @@ $_: "c-button";
 
     &--primary {
         border-color: tokens.get($_, "color--primary");
-        color: tokens.get($_, "color--primary");
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
 
         .#{$_}__label {
-            color: tokens.get($_, "color--primary");
+            color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
         }
 
         &:hover:after {
@@ -393,10 +393,10 @@ $_: "c-button";
 
     &--secondary {
         border-color: tokens.get($_, "color--secondary");
-        color: tokens.get($_, "color--secondary");
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
 
         .#{$_}__label {
-            color: tokens.get($_, "color--secondary");
+            color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
         }
 
         &:hover:after {
