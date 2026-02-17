@@ -18,23 +18,6 @@ $_: "c-field";
     "base": "var(--base)",
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
     "background-color": tokens.get($_, "color--surface"),
-    "background-color-error": tokens.get($_, "color--danger"),
-    "color--danger-contrast": tokens.get($_, "color--danger-contrast"),
-    "label-color": tokens.get($_, "color--surface-contrast"),
-    "label-text-transform": "uppercase",
-    "label-font-size": "0.75rem",
-    "label-font-weight": "700",
-    "label-letter-spacing": "0.05rem",
-    "description-font-size": "0.75rem",
-    "helper-font-size": "var(--font-size-caption, 0.875rem)",
-    "helper-color": tokens.get($_, "color--surface-contrast"),
-    "helper-font-family": "var(--font-family-base)",
-    "font-size-sm": "0.775rem",
-    "font-size-md": "0.95rem",
-    "font-size-lg": "1rem",
-    "font-size-sm-line-height": "calc(var(--base) * 1.5)",
-    "font-size-md-line-height": "calc(var(--base) * 2)",
-    "font-size-lg-line-height": "calc(var(--base) * 2)",
     "height": "calc(var(--base) * 6)",
     "shadow": tokens.use($_, "shadow", 1),
     "shadow-hover": tokens.use($_, "shadow", 1.5)
@@ -55,25 +38,24 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     .#{$_}__label {
-        color: tokens.get($_, "label-color");
-        font-size: tokens.get($_, "label-font-size");
-        font-weight: tokens.get($_, "label-font-weight");
-        text-transform: tokens.get($_, "label-text-transform");
+        color: tokens.get($_, "color--surface-contrast");
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
         margin-bottom: tokens.use($_, "space", 0.5);
-        letter-spacing: tokens.get($_, "label-letter-spacing");
+        letter-spacing: 0.05rem;
     }
 
     .#{$_}__description {
-        font-size: tokens.get($_, "description-font-size");
-        color: tokens.get($_, "label-color");
+        font-size: 0.75rem;
+        color: tokens.get($_, "color--surface-contrast");
         margin-top: 0;
     }
 
     .#{$_}__helper {
-        font-family: tokens.get($_, "helper-font-family");
-        font-weight: tokens.get($_, "helper-font-family");
-        font-size: tokens.get($_, "helper-font-size");
-        color: tokens.get($_, "helper-color");
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-caption, 0.875rem);
+        color: tokens.get($_, "color--surface-contrast");
         margin-top: tokens.use($_, "space", 0.5);
         margin-left: tokens.use($_, "space", 0.25);
     }
@@ -99,8 +81,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         align-items: center;
         width: 100%;
         min-width: calc(#{tokens.get($_, "base")} * 10);
-        font-size: tokens.get($_, "font-size-md");
-        line-height: tokens.get($_, "font-size-md-line-height");
+        font-size: 0.95rem;
+        line-height: calc(var(--base) * 2);
         border: tokens.get($_, "border");
         background: tokens.get($_, "background-color");
         color: tokens.get($_, "color--surface-contrast");
@@ -115,12 +97,17 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         input {
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.get($_, "corner-shape");
+
+            &::-webkit-calendar-picker-indicator {
+                filter: brightness(0);
+                opacity: 0.8;
+            }
         }
 
         .#{$_}__icon,
         .#{$_}__prefix,
         .#{$_}__suffix {
-            color: tokens.get($_, "label-color");
+            color: tokens.get($_, "color--surface-contrast");
         }
 
         .#{$_}__icon,
@@ -239,8 +226,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
 
     /* Size modifiers */
     &.#{$_}--sm {
-        font-size: tokens.get($_, "font-size-sm");
-        line-height: tokens.get($_, "font-size-sm-line-height");
+        font-size: 0.775rem;
+        line-height: calc(var(--base) * 1.5);
 
         #{$fields} {
             padding: tokens.use($_, "space");
@@ -296,8 +283,8 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     &.#{$_}--lg {
-        font-size: tokens.get($_, "font-size-lg");
-        line-height: tokens.get($_, "font-size-lg-line-height");
+        font-size: 1rem;
+        line-height: calc(var(--base) * 2);
 
         #{$fields} {
             padding: tokens.use($_, "space", 2.5);
