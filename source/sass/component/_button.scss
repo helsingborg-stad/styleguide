@@ -26,9 +26,7 @@ $_: "c-button";
     "color-white": "var(--color--white-100)",
     "color-disabled-bg": "var(--color--gray-20)",
     "color-disabled-text": "var(--color--gray-60)",
-    "shadow": tokens.use($_, "shadow", 1),
-    "level-1": "1",
-    "level-2": "2"
+    "shadow": tokens.use($_, "shadow", 1)
 ));
 
 /* Component */
@@ -77,8 +75,9 @@ $_: "c-button";
 
     &:after {
         content: '';
-        @include cover.cover();
-        z-index: tokens.get($_, "level-1");
+        position: absolute;
+        inset: 0;
+        z-index: 1000;
         background-color: transparent;
         opacity: 0;
         transition: opacity 100ms ease-in-out,
@@ -116,7 +115,7 @@ $_: "c-button";
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: tokens.get($_, "level-2");
+        z-index: 2000;
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: tokens.get($_, "base");
@@ -129,7 +128,7 @@ $_: "c-button";
         }
 
         .#{$_}__label-icon {
-            z-index: tokens.get($_, "level-2");
+            z-index: 2000;
             display: flex;
 
             &--reverse {
@@ -289,7 +288,7 @@ $_: "c-button";
 
     &--default,
     &--deafult .#{$_}__label {
-        color: tokens.get($_, "color-black");
+        color: tokens.get($_, "color-surface-contrast");
     }
 }
 
