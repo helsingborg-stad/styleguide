@@ -25,7 +25,7 @@
 
         @nav([
             'items' => $topNavigation,
-            'classList' => ['u-margin__left--auto'],
+            'classList' => ['u-margin__left--auto', 'u-margin__right--4'],
             'direction' => 'horizontal',
             'attributeList' => ['style' => 'width: auto;']
         ])
