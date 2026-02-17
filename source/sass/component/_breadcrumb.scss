@@ -1,18 +1,26 @@
-@use "sass:map";
 @use "../mixin/list";
 @use "../mixin/mq";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-breadcrumb {
+/* Component name */
+$_: "c-breadcrumb";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "color--background--contrast-muted",
+));
+
+/* Component */
+.#{$_} {
     display: flex;
-    gap: map.get(var_default.$spacers, "1");
-
+    gap: tokens.use($_, "space");
+    
     &__prefix {
         font-weight: bold;
         white-space: nowrap;
     }
-    
+
     &__list {
         @include list.unlist();
         display: flex;
@@ -22,13 +30,13 @@
     }
 
     &__item {
-        padding: 0 map.get(var_default.$spacers, "1") 0 0;
+        padding-right: tokens.use($_, "space");
         margin: 0;
-        color: var_colors.$color-breadcrumb-active;
         display: flex;
-        gap: map.get(var_default.$spacers, "05");
+        gap: tokens.use($_, "space");
+        color: tokens.get($_, "color--background--contrast-muted");
 
-        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
+        @include mq.mq($until: "sm") {
             &:not(:nth-last-child(2)) {
                 display: none;
             }
@@ -42,16 +50,20 @@
     }
 
     &__link,
-    &__link:visited,
-    &__link:visited:hover {
-        color: var_colors.$color-breadcrumb;
+    &__link:visited {
         text-decoration: none;
+        color: tokens.get($_, "color--background--contrast-muted");
+    }
+
+    &__link:hover {
+        color: tokens.get($_, "color--background--contrast-muted");
+        text-decoration: underline;
     }
 
     .c-icon {
-        color: var_colors.$color-breadcrumb-icon;
         align-self: center;
-        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "sm")) {
+        color: tokens.get($_, "color--background--contrast-muted");
+        @include mq.mq($until: "sm") {
             transform: scaleX(-1);
         }
     }
