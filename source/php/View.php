@@ -68,12 +68,14 @@ class View
 
                     //Locate config file
                     $configFile = glob($path);
-    
+
                     //Get first occurance of config
                     if (is_array($configFile) && !empty($configFile)) {
                         $configFile = array_pop($configFile);
                     } else {
-                        throw new \Exception("No config file found in " . $configFile);
+                        throw new \Exception(
+                            isset($viewData['slug']) ? "No configuration file found for component with slug '" . $viewData['slug'] . "' at " . $path : "No configuration file found at " . $path
+                        );
                     }
     
                     //Read config
