@@ -10,17 +10,5 @@
         "heading": "Datebadge",
         "subHeading" : "",
         "text": "Display a datebadge in it's simpliest form, small variant."
-    },
-    "time": {
-        "grid": "",
-        "heading": "Datebadge with time",
-        "subHeading" : "",
-        "text": "Display a datebadge with time included."
-    },
-    "timesmall": {
-        "grid": "",
-        "heading": "Datebadge with time, small variant",
-        "subHeading" : "",
-        "text": "Display a datebadge with time included."
     }
 }
