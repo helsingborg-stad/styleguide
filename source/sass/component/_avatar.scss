@@ -1,69 +1,65 @@
-@use "../mixin/center";
-@use "../mixin/cover";
-@use "../mixin/ratio";
-@use "../mixin/size";
-@use "../setting/var_colors";
+@use "../mixin/tokens";
 
-.c-avatar {
+/* Component name */
+$_: "c-avatar";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "base",
+    "color--secondary",
+    "corner-shape",
+));
+
+/* Component */
+.#{$_} {
     border-radius: 50%;
-    background: var_colors.$color-secondary;
+    background: tokens.get($_, "color--secondary");
     line-height: 0;
     position: relative;
-    contain: paint;
-
-    /* Modifiers */
+    contain: layout paint;
+    corner-shape: tokens.get($_, "corner-shape");
 
     &--size-sm {
-        @include size.size(40);
+        width: tokens.use($_, "base", 5);
+        height: tokens.use($_, "base", 5);
     }
 
     &--size-md {
-        @include size.size(72);
+        width: tokens.use($_, "base", 9);
+        height: tokens.use($_, "base", 9);
     }
 
     &--size-lg {
-        @include size.size(112);
+        width: tokens.use($_, "base", 14);
+        height: tokens.use($_, "base", 14);
     }
 
     &--size-full {
-        @include ratio.ratio(1,1,false);
-
         width: 100%;
-        height: 100%;
+        aspect-ratio: 1;
     }
-
-    /* Nested elements */
 
     &__image,
-    &__initials {
-        @include cover.cover();
+    &__initials *,
+    &__icon {
+        color: tokens.get($_, "color--secondary-contrast");
+        fill: tokens.get($_, "color--secondary-contrast");
+        position: absolute;
+        inset: 0;
         border-radius: inherit;
-    }
-
-    &__initials {
-        height: 100%;
-        width: 100%;
-    }
-
-    &__image {
-        width: 100%;
     }
 
     &__image img.c-image__image {
         border-radius: inherit;
+        width: 100%;
     }
 
     &__icon {
-        border-radius: inherit;
-        @include cover.cover();
-
-        .c-icon {
-            @include center.center();
-            color: #fff;
-        }
+        display: grid;
+        place-items: center;
     }
-}
 
-.c-avatar--image {
-    background: none;
+    &--image {
+        background: none;
+    }
 }

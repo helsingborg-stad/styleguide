@@ -97,6 +97,11 @@
         @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$p}--shadow-amount)) calc(var(--#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$p}--shadow-color));
     }
 
+    // If base is used as a token, return it directly without multiply with base to avoid circular reference
+    @if $token == "base" {
+        @return calc(var(--#{$p}--base) * #{$multiplier});
+    }
+
     // Default behavior: return scaled token value, pixel from int
     @return calc(var(--#{$p}--#{$token}) * var(--base) * #{$multiplier});
 }
