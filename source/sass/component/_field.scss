@@ -17,16 +17,17 @@ $_: "c-field";
 ), (
     "base": "var(--base)",
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    "background-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 4%, var(--c-field--color--surface))",
-    "background-color-error": "color-mix(in srgb, var(--c-field--color--danger) 6%, var(--c-field--color--surface))",
-    "label-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 80%, transparent)",
+    "background-color": tokens.get($_, "color--surface"),
+    "background-color-error": tokens.get($_, "color--danger"),
+    "color--danger-contrast": tokens.get($_, "color--danger-contrast"),
+    "label-color": tokens.get($_, "color--surface-contrast"),
     "label-text-transform": "uppercase",
     "label-font-size": "0.75rem",
     "label-font-weight": "700",
     "label-letter-spacing": "0.05rem",
     "description-font-size": "0.75rem",
     "helper-font-size": "var(--font-size-caption, 0.875rem)",
-    "helper-color": "color-mix(in srgb, var(--c-field--color--surface-contrast) 70%, transparent)",
+    "helper-color": tokens.get($_, "color--surface-contrast"),
     "helper-font-family": "var(--font-family-base)",
     "font-size-sm": "0.775rem",
     "font-size-md": "0.95rem",
@@ -87,6 +88,7 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
         padding: tokens.use($_, "space", 2);
         outline: 0;
         margin: 0;
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     .#{$_}__inner {
@@ -333,7 +335,6 @@ $fields: 'input, input[type="color"], input[type="text"], input[type="search"], 
             &:focus,
             &:focus-within,
             &:active {
-                background: tokens.get($_, "background-color-error");
                 border-color: tokens.get($_, "color--danger");
             }
 

@@ -63,14 +63,32 @@
             <div class="db-preview__section">
                 <div class="o-container">
                     <div class="db-preview__section--buttons">
-                        @button(['text' => 'Primary', 'style' => 'filled', 'color' => 'primary'])
-                        @endbutton
-                        @button(['text' => 'Secondary', 'style' => 'filled', 'color' => 'secondary'])
-                        @endbutton
-                        @button(['text' => 'Outlined', 'style' => 'outlined', 'color' => 'primary'])
-                        @endbutton
-                        @button(['text' => 'Default', 'style' => 'basic', 'color' => 'default'])
-                        @endbutton
+                        @foreach(['sm', 'md', 'lg'] as $size)
+                            
+                            @typography(['element' => 'h3', 'variant' => 'h3'])
+                                Button size: {{ $size }}
+                            @endtypography
+                            <div class="u-width--100">
+                                @button(['text' => 'Primary', 'style' => 'filled', 'color' => 'primary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Secondary', 'style' => 'filled', 'color' => 'secondary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Default', 'style' => 'filled', 'color' => 'default', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Primary', 'style' => 'outlined', 'color' => 'primary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Secondary', 'style' => 'outlined', 'color' => 'secondary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Default', 'style' => 'outlined', 'color' => 'default', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Primary', 'style' => 'basic', 'color' => 'primary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Secondary', 'style' => 'basic', 'color' => 'secondary', 'size' => $size])
+                                @endbutton
+                                @button(['text' => 'Default', 'style' => 'basic', 'color' => 'default', 'size' => $size])
+                                @endbutton
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -114,7 +132,8 @@
                                         'label' => 'Email',
                                         'name' => 'email',
                                         'type' => 'text',
-                                        'placeholder' => 'your@email.com'
+                                        'placeholder' => 'your@email.com',
+                                        'isValid' => false,
                                     ])
                                     @endfield
                                 </div>
@@ -161,7 +180,8 @@
                                 'label' => 'Email',
                                 'name' => 'email',
                                 'type' => 'text',
-                                'placeholder' => 'your@email.com'
+                                'placeholder' => 'your@email.com',
+                                'classList' => ['is-invalid']
                             ])
                             @endfield
                         </div>

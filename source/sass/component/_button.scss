@@ -20,8 +20,10 @@ $_: "c-button";
     "font-size-lg": "calc(var(--base-font-size) * 1.125)",
     "font-size-md": "var(--base-font-size)",
     "font-size-sm": "calc(var(--base-font-size) * 0.875)",
+
     "color-default": "var(--color--surface)",
     "color-default-contrast": "var(--color--surface-contrast)",
+
     "color-black": "var(--color--black-100)",
     "color-white": "var(--color--white-100)",
     "color-disabled-bg": "var(--color--gray-20)",
@@ -318,8 +320,8 @@ $_: "c-button";
 
     &--default,
     &--deafult {
-        background-color: tokens.get($_, "color-default");
-        color: tokens.get($_, "color-default-contrast");
+        background-color: tokens.get($_, "color-surface");
+        color: tokens.get($_, "color-surface-contrast");
 
         &:hover:after {
             background: tokens.get($_, "color-black") !important;
@@ -332,7 +334,7 @@ $_: "c-button";
 
         .#{$_}__label-text,
         .#{$_}__label-icon {
-            color: tokens.get($_, "color-default-contrast");
+            color: tokens.get($_, "color-surface-contrast");
         }
     }
 
@@ -410,10 +412,10 @@ $_: "c-button";
 
     &--default,
     &--deafult {
-        border-color: tokens.get($_, "color-black");
-        color: tokens.get($_, "color-black");
+        border-color: tokens.get($_, "color-surface-contrast");
+        color: tokens.get($_, "color-surface-contrast");
         .#{$_}__label {
-            color: tokens.get($_, "color-black");
+            color: tokens.get($_, "color-surface-contrast");
         }
         &:hover:after,
         &:active:after {
