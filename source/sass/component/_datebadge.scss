@@ -1,111 +1,109 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
 
-// Font
-$c-datebadge-font-size: var(--c-datebadge-font-size, var_fonts.$font-size-title) !default;
-$c-datebadge-font-family: var(--c-datebadge-font-family, var_fonts.$font-family-heading) !default;
+/* Component name */
+$_: "c-datebadge";
 
-// Color
-$c-datebadge-color: var(--c-datebadge-color, var_colors.$color-black) !default;
+/* Design tokens */
+@include tokens.create($_, (
+    "border-radius",
+    "border-width",
+    "space",
+    "color--primary",
+    "color--secondary",
+    "color--surface",
+), (
+    "border": tokens.use($_, "border-width") solid,
+));
 
-// Border
-$c-datebadge-border-radius: var(--c-datebadge-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-datebadge-month-border-radius: var(--c-datebadge-month-border-radius, var_border-radius.$border-radius-md) !default;
-
-// Background
-$c-datebadge-color-background: var(--c-datebadge-color-background, #{var_colors.$color-lighter}) !default;
-$c-datebadge-month-background: var(--c-datebadge-month-background, #{var_colors.$color-white}) !default;
-$c-datebadge-backdrop-filter: var(--c-datebadge-backdrop-filter, unset) !default;
-
-// Padding
-$c-datebadge-padding: var(--c-datebadge-padding, calc(#{var_default.$base} * 0.5) calc(#{var_default.$base} * 0.5) 0 calc(#{var_default.$base} * 0.5)) !default;
-$c-datebadge-month-padding: var(--c-datebadge-month-padding, calc(#{var_default.$base} * .5) calc(#{var_default.$base} * 1.5)) !default;
-$c-datebadge-date-padding: var(--c-datebadge-date-padding, calc(#{var_default.$base} * .75)) !default;
-
-.c-datebadge.c-datebadge--dark {
-    --c-datebadge-color: #{var_colors.$color-white};
-    --c-datebadge-color-background: #{var_colors.$color-dark};
-    --c-datebadge-month-background: #{var_colors.$color-darker};
-}
-
-.c-datebadge.c-datebadge--primary {
-    --c-datebadge-color: #{var_colors.$color-primary-contrasting};
-    --c-datebadge-color-background: #{var_colors.$color-primary};
-    --c-datebadge-month-background: #{var_colors.$color-primary-light};
-}
-
-.c-datebadge.c-datebadge--secondary {
-    --c-datebadge-color: #{var_colors.$color-secondary-contrasting};
-    --c-datebadge-color-background: #{var_colors.$color-secondary};
-    --c-datebadge-month-background: #{var_colors.$color-secondary-light};
-}
-
-.c-datebadge.c-datebadge--translucent {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 1.5)) brightness(200%) opacity(100%);
-    --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
-    --c-datebadge-month-background: rgba(255, 255, 255, 0.8);
-    --c-datebadge-color: #{var_colors.$color-black};
-}
-
-.c-datebadge.c-datebadge--translucent.c-datebadge--primary {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(100%) opacity(100%);
-    --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 50%);
-    --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-primary}, transparent 90%);
-}
-
-.c-datebadge.c-datebadge--translucent.c-datebadge--secondary {
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(100%) opacity(100%);
-    --c-datebadge-color-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 50%);
-    --c-datebadge-month-background: color-mix(in srgb, #{var_colors.$color-secondary}, transparent 90%);
-}
-
-.c-datebadge.c-datebadge--translucent.c-datebadge--dark {
-    --c-datebadge-color: #{var_colors.$color-white};
-    --c-datebadge-color-background: rgba(255, 255, 255, 0.2);
-    --c-datebadge-month-background: rgba(255, 255, 255, 0.4);
-    --c-datebadge-backdrop-filter: saturate(300%) blur(calc(#{var_default.$base} * 2)) brightness(60%) opacity(100%);
-}
-
-.c-datebadge.c-datebadge--sm {
-    --c-datebadge-font-size: #{var_fonts.$font-size-subtitle};
-    --c-datebadge-date-padding: calc(#{var_default.$base} * 0.5);
-    --c-datebadge-month-padding: calc(#{var_default.$base} * .5) #{var_default.$base};
-}
-
-.c-datebadge.c-datebadge--lg {
-    --c-datebadge-font-size: #{var_fonts.$font-size-headline};
-    --c-datebadge-date-padding: calc(#{var_default.$base} * 1.25);
-    --c-datebadge-month-padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 1.75);
-}
-
-.c-datebadge {
-    .c-datebadge__container {
+/* Component */
+.#{$_} {
+    .#{$_}__container,
+    .#{$_}__daymonth {
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        font-family: $c-datebadge-font-family;
-        font-size: $c-datebadge-font-size;
-        background-color: $c-datebadge-color-background;
-        color: $c-datebadge-color;
-        backdrop-filter: $c-datebadge-backdrop-filter;
-        border-radius: $c-datebadge-border-radius;
-        padding: $c-datebadge-padding;
+        font-family: var(--font-family-heading, inherit);
+        font-size: var(--#{$_}--font-size, 1.375rem);
+        background-color: var(--#{$_}--bg, #{tokens.get($_, "color--surface")});
+        color: var(--#{$_}--fg, #{tokens.get($_, "color--surface-contrast")});
+        border: tokens.get($_, "border");
+        border-color: var(--#{$_}--border-clr, tokens.get($_, "color--surface-border"));
+        backdrop-filter: var(--#{$_}--backdrop, unset);
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 0.5) 0;
     }
 
-    .c-datebadge__month {
+    .#{$_}__month {
+        corner-shape: tokens.get($_, "corner-shape");
         line-height: 1;
-        border-radius: $c-datebadge-month-border-radius;
-        padding: $c-datebadge-month-padding;
-        background-color: $c-datebadge-month-background;
-        backdrop-filter: $c-datebadge-backdrop-filter;
+        border-radius: tokens.use($_, "border-radius", 0.5);
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 1.5);
+        background-color: var(--#{$_}--month-bg, #{tokens.get($_, "color--surface-border")});
+        backdrop-filter: var(--#{$_}--backdrop, unset);
         font-size: max(0.875rem, 56.25%);
         text-transform: capitalize;
     }
 
-    .c-datebadge__date {
-        padding: $c-datebadge-date-padding;
+    .#{$_}__date {
+        padding: tokens.use($_, "space", 0.75);
         line-height: 1;
     }
+}
+
+/* Color variants */
+.#{$_}--primary {
+    --#{$_}--bg: #{tokens.get($_, "color--primary")};
+    --#{$_}--fg: #{tokens.get($_, "color--primary-contrast")};
+    --#{$_}--border-clr: #{tokens.get($_, "color--primary-border")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--primary-contrast")} 15%, #{tokens.get($_, "color--primary")});
+}
+
+.#{$_}--secondary {
+    --#{$_}--bg: #{tokens.get($_, "color--secondary")};
+    --#{$_}--fg: #{tokens.get($_, "color--secondary-contrast")};
+    --#{$_}--border-clr: #{tokens.get($_, "color--secondary-border")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--secondary-contrast")} 15%, #{tokens.get($_, "color--secondary")});
+}
+
+/* Translucent variants */
+.#{$_}--translucent {
+    --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--surface")} 50%, transparent);
+    --#{$_}--fg: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--surface")} 10%, transparent) ;
+    --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--surface-border")} 50%, transparent);
+    --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 1.5)) brightness(200%);
+
+    &.#{$_}--primary {
+        --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--primary")} 50%, transparent);
+        --#{$_}--fg: #{tokens.get($_, "color--primary-contrast")};
+        --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--primary")} 10%, transparent);
+        --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 2)) brightness(100%);
+        --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--primary-border")} 50%, transparent);
+    }
+
+    &.#{$_}--secondary {
+        --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--secondary")} 50%, transparent);
+        --#{$_}--fg: #{tokens.get($_, "color--secondary-contrast")};
+        --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--secondary")} 10%, transparent);
+        --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 2)) brightness(100%);
+        --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--secondary-border")} 50%, transparent);
+    }
+}
+
+/* Size variants */
+.#{$_}.#{$_}--sm {
+    --#{$_}--font-size: 1.125rem;
+    .#{$_}__container,
+    .#{$_}__daymonth {
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 0.5) 0;
+    }
+    .#{$_}__date { padding: tokens.use($_, "space", 0.5); }
+    .#{$_}__month { padding: tokens.use($_, "space", 0.5) tokens.use($_, "space"); }
+}
+
+.#{$_}.#{$_}--lg {
+    --#{$_}--font-size: 2rem;
+    .#{$_}__date { padding: tokens.use($_, "space", 1.25); }
+    .#{$_}__month { padding: tokens.use($_, "space") tokens.use($_, "space", 1.75); }
 }

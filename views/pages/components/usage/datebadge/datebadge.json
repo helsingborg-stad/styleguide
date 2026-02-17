@@ -7,8 +7,20 @@
     },
     "small": {
         "grid": "",
-        "heading": "Datebadge",
+        "heading": "Datebadge - Small",
         "subHeading" : "",
         "text": "Display a datebadge in it's simpliest form, small variant."
+    },
+    "large": {
+        "grid": "",
+        "heading": "Datebadge - Large",
+        "subHeading" : "",
+        "text": "Display a datebadge in it's simpliest form, large variant."
+    },
+    "translucent": {
+        "grid": "",
+        "heading": "Datebadge - Translucent",
+        "subHeading" : "",
+        "text": "Display a datebadge in it's simpliest form, translucent variant."
     }
 }
