@@ -18,20 +18,6 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-    contain: paint layout;
-
-    &.#{$_}--flat .#{$_}__button-wrapper {
-        padding-left: 0;
-        padding-right: 0;
-
-        .#{$_}__button {
-            &:hover,
-            &:focus {
-                background-color: transparent;
-                text-decoration: underline;
-            }
-        }
-    }
 
     .#{$_}__button {
         @include button.button-unstyled;
@@ -67,6 +53,8 @@ $_: "c-accordion";
         scroll-margin-top: var(--c-accordion--scroll-margin, 0);
         border-color: tokens.get($_, "color--surface-border");
         contain: paint;
+        border-radius: inherit;
+        overflow: hidden;
     }
 
     .#{$_}__section + .#{$_}__section {
