@@ -54,15 +54,27 @@ class DesignBuilder {
         <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="export">
           <span class="c-button__label"><span class="c-button__label-text">Export JSON</span></span>
         </button>
+        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="import">
+          <span class="c-button__label"><span class="c-button__label-text">Import JSON</span></span>
+        </button>
         <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--primary" data-action="reset">
           <span class="c-button__label"><span class="c-button__label-text">Reset All</span></span>
         </button>
+        <input type="file" accept=".json,application/json" data-action="import-file" hidden>
       </div>
     `
     this.container.appendChild(header)
 
     // Bind header actions
+    const importInput = header.querySelector<HTMLInputElement>('[data-action="import-file"]')
     header.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson())
+    header.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click())
+    importInput?.addEventListener('change', () => {
+      const file = importInput.files?.[0]
+      if (!file) return
+      void this.importJson(file)
+      importInput.value = ''
+    })
     header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll())
 
     // Preset bar
@@ -226,6 +238,63 @@ class DesignBuilder {
     a.download = 'design-tokens-overrides.json'
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  private async importJson(file: File): Promise<void> {
+    let fileContent: string
+    try {
+      fileContent = await file.text()
+    } catch {
+      alert('Error: Could not read the selected JSON file.')
+      return
+    }
+
+    let parsed: unknown
+    try {
+      parsed = JSON.parse(fileContent)
+    } catch {
+      alert('Error: Invalid JSON file.')
+      return
+    }
+
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      alert('Error: Imported JSON must be an object of CSS variable/value pairs.')
+      return
+    }
+
+    const tokenVariables = new Set<string>()
+    for (const category of this.tokens.categories) {
+      for (const setting of category.settings) {
+        tokenVariables.add(setting.variable)
+      }
+    }
+
+    const importedOverrides: Record<string, string> = {}
+    const parsedOverrides = parsed as Record<string, unknown>
+    const entries = Object.entries(parsedOverrides)
+
+    for (const [variable, value] of entries) {
+      if (!tokenVariables.has(variable)) continue
+      if (typeof value !== 'string' || !value.trim()) continue
+      importedOverrides[variable] = value
+    }
+
+    if (entries.length > 0 && Object.keys(importedOverrides).length === 0) {
+      alert('Error: No recognized design token overrides were found in the selected file.')
+      return
+    }
+
+    for (const prop of Object.keys(this.overrides)) {
+      document.documentElement.style.removeProperty(prop)
+    }
+
+    this.overrides = importedOverrides
+    this.applyAll()
+    this.storage.save(this.overrides)
+    this.presetManager.clearActive()
+
+    this.container.innerHTML = ''
+    this.render()
   }
 
   // --- Preset Management ---
