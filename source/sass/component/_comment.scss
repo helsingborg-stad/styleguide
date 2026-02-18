@@ -1,79 +1,85 @@
-@use "sass:map";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
 
-$c-comment-border-radius: var(--c-comment-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_border-radius.$border-radius-sm) !default;
+/* Component name */
+$_: "c-comment";
 
-.c-comment + .c-comment {
-    margin-top: map.get(var_default.$spacers, "2");
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "outer-space",
+    "border-radius",
+    "color--background",
+    "color--background-contrast",
+    "color--surface",
+));
+
+/* Component */
+.#{$_} + .#{$_} {
+    margin-top: tokens.use($_, "outer-space", 3);
 }
 
-.c-comment.c-comment--level-2 + .c-comment.c-comment--level-1 {
-    margin-top: map.get(var_default.$spacers, "6");
-}
-
-.c-comment { 
+.#{$_} {
+    contain: layout;
     display: flex;
     flex-direction: row;
-    gap: map.get(var_default.$spacers, "2");
+    gap: tokens.use($_, "space", 2);
 
-    .c-comment__top {
+    .#{$_}__top {
         display: flex;
-        gap: map.get(var_default.$spacers, "2");
-        margin-bottom: map.get(var_default.$spacers, "05");
+        gap: tokens.use($_, "space", 2);
+        margin-bottom: tokens.use($_, "space", 0.5);
     }
 
-    .c-comment__top .c-comment__author {
+    .#{$_}__top .#{$_}__author {
         font-size: .9rem;
-        font-weight: var_fonts.$font-weight-bold;
-        font-family: var_fonts.$font-family-bold;
-        color: var_colors.$color-darker;
+        color: tokens.get($_, "color--contrast");
     }
 
     .c-avatar {
-        width: calc(#{var_default.$base} * 6);
-        height: calc(#{var_default.$base} * 6);
+        width: tokens.use($_, "space", 6);
+        height: tokens.use($_, "space", 6);
     }
 
-    .c-comment__link {
-        color: inherit;
+    .#{$_}__link {
+        color: tokens.get($_, "color--contrast");
         text-decoration: none;
         text-decoration-style: unset;
 
-        &:hover,
         &:visited,
         &:active {
-            color: inherit;
+            color: tokens.get($_, "color--contrast");
             text-decoration: none;
             text-decoration-style: unset;
         }
 
-        :hover {
-            color: var_colors.$color-darkest;
+        &:hover {
+            color: tokens.get($_, "color--contrast");
+            text-decoration: underline;
         }
     }
 
-    .c-comment__actions {
-        display: flex; 
-        gap: calc(#{var_default.$base} * 2);
+    &__bubble--inner {
+        width: 100%;
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
+        border-top-left-radius: tokens.use($_, "border-radius", 0.5);
+        padding: tokens.use($_, "space", 1.5) tokens.use($_, "space", 2);
+        margin: 0;
+        background-color: tokens.get($_, "color--surface");
+        color: tokens.get($_, "color--surface-contrast");
+    }
+
+    .#{$_}__actions {
+        display: flex;
+        gap: tokens.use($_, "space", 2);
     }
 
     &__date {
-        color: var_colors.$color-comment-date;
-        font-weight: 400;
+        color: tokens.get($_, "color--background-contrast-muted");
         display: flex;
-        line-height: 1.3;
-
-        * {
-            font-weight: 400;
-        }
-
         &:before {
             content: "•";
-            margin-right: map.get(var_default.$spacers, "1half");
+            margin-right: tokens.use($_, "space", 1.5);
             text-indent: -.2em;
         }
     }
@@ -85,25 +91,7 @@ $c-comment-border-radius-corner: var(--c-comment-border-radius-corner, var_borde
         position: relative;
     }
 
-    &__bubble--color-dark &__bubble--inner,
-    &__bubble--color-light &__bubble--inner {
-        width: 100%;
-        border-radius: $c-comment-border-radius;
-        border-top-left-radius: $c-comment-border-radius-corner;
-        padding: map.get(var_default.$spacers, "1half") map.get(var_default.$spacers, "2");
-        color: var_colors.$color-black;
-        margin: 0;
-    }
-
-    &__bubble--color-dark &__bubble--inner {
-        background-color: var_colors.$color-comment-bubble-bg-dark;
-    }
-
-    &__bubble--color-light &__bubble--inner {
-        background-color: var_colors.$color-comment-bubble-bg-light;
-    }
-
     &__is-reply {
-        margin-left: map.get(var_default.$spacers, "8");
+        margin-left: tokens.use($_, "space", 8);
     }
 }

@@ -8,7 +8,7 @@ $_: "c-breadcrumb";
 /* Design tokens */
 @include tokens.create($_, (
     "space",
-    "color--background--contrast-muted",
+    "color--background-contrast-muted",
 ));
 
 /* Component */
@@ -34,7 +34,7 @@ $_: "c-breadcrumb";
         margin: 0;
         display: flex;
         gap: tokens.use($_, "space");
-        color: tokens.get($_, "color--background--contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
 
         @include mq.mq($until: "sm") {
             &:not(:nth-last-child(2)) {
@@ -52,17 +52,17 @@ $_: "c-breadcrumb";
     &__link,
     &__link:visited {
         text-decoration: none;
-        color: tokens.get($_, "color--background--contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
     }
 
     &__link:hover {
-        color: tokens.get($_, "color--background--contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
         text-decoration: underline;
     }
 
     .c-icon {
         align-self: center;
-        color: tokens.get($_, "color--background--contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
         @include mq.mq($until: "sm") {
             transform: scaleX(-1);
         }

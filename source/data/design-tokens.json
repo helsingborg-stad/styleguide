@@ -293,7 +293,7 @@
           "label": "Background",
           "type": "color",
           "default": "#f5f5f5",
-          "contrast": ["--color--background-contrast", "--color--background--contrast-muted"]
+          "contrast": ["--color--background-contrast", "--color--background-contrast-muted"]
         },
         {
           "variable": "--color--background-contrast",
@@ -303,7 +303,7 @@
           "default": "#2d2d2d"
         },
         {
-          "variable": "--color--background--contrast-muted",
+          "variable": "--color--background-contrast-muted",
           "label": "Background Contrast Muted",
           "description": "Used for text and icons on background with less contrast.",
           "type": "color",
