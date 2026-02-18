@@ -1,10 +1,17 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
 
-a, .link {
-    color: var_colors.$color-link;
+/* Component name */
+$_: "c-link";
+
+@include tokens.create($_,
+    (
+        "color--background",
+        "color--background--contrast-muted"
+    )
+);
+
+a, .#{$_} {
+    color: tokens.get($_, "color--background-contrast");
     text-decoration-style: solid;
     transition: 100ms color; 
 
@@ -13,7 +20,6 @@ a, .link {
     }
 
     &:hover {
-        color: var_colors.$color-link-hover;
         text-decoration-style: solid;
     }
 
@@ -22,46 +28,15 @@ a, .link {
         text-decoration-style: dotted;
     }
 
-    &:active {
-        color: var_colors.$color-link-active;
+    &:active,
+    &:hover {
+        color: tokens.get($_, "color--background-contrast");
     }
 
-    &:visited {
-        color: var_colors.$color-link-visited;
+    &:visited,
+    &:visited:hover,
+    &:visited:active {
+        color: tokens.get($_, "color--background--contrast-muted");
 
-        &:hover {
-            color: var_colors.$color-link-visited-hover;
-        }
-
-        &:active {
-            color: var_colors.$color-link-active;
-        }
-    }
-
-    &.c-link--tag {
-        background-color: var_colors.$color-gray-light;
-        padding: calc(#{var_default.$base}/2);
-        margin-right: calc(#{var_default.$base}/2);
-        border-radius: var_border-radius.$border-radius-sm;
-        text-decoration: none;
-        color: var_colors.$color-base;
-        font-size: var_fonts.$font-size-meta;
-
-        &:hover {
-            color: var_colors.$color-white;
-            background-color: var_colors.$color-gray;
-        }
-    }
-
-    &.c-link--unstyled {
-        color: inherit;
-        text-decoration: inherit;
-
-        &:hover,
-        &:active,
-        &:visited {
-            color: inherit;
-            text-decoration: inherit;
-        }
     }
 }
