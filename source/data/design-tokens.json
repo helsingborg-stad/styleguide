@@ -341,12 +341,6 @@
       "description": "Borders, focus, and interactive states.",
       "settings": [
         {
-          "variable": "--color--border",
-          "label": "Border",
-          "type": "color",
-          "default": "#e0e0e0"
-        },
-        {
           "variable": "--color--focus",
           "label": "Focus",
           "type": "color",

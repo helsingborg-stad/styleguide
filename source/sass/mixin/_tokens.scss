@@ -62,6 +62,11 @@
                     var(--#{$p}--#{$token}-contrast) 10%,
                     var(--#{$p}--#{$token})
                 );
+                --#{$p}--#{$token}-alt: color-mix(
+                    in srgb,
+                    var(--#{$p}--#{$token}-contrast-muted) 4%,
+                    var(--#{$p}--#{$token})
+                );
             }
         }
 
