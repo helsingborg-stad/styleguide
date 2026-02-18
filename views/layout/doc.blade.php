@@ -117,72 +117,38 @@
         @if(isset($displayParams) && !empty($displayParams))
 
             @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
-            <div class="d-params u-overflow--auto">
-                <h3>Blade component parameters</h3>
-                <table>
-                    <thead>
-                        <td>Key</td>
-                        <td>Default value</td>
-                        <td>Type</td>
-                        <td>Available values</td>
-                        <td>Description</td>
-                    </thead>
-                    @foreach($settings as $key => $item)
-                        <tr>
-                            <td>{{$key}}</td>
+            @php
+                $paramRows = [];
+                foreach($settings as $key => $item) {
+                    if(is_array($item) || is_object($item)) {
+                        $defaultVal = json_encode($item);
+                    } elseif(is_bool($item)) {
+                        $defaultVal = $item ? 'true' : 'false';
+                    } else {
+                        $defaultVal = (string) $item;
+                    }
+                    $paramRows[] = [
+                        'columns' => [
+                            $key,
+                            $defaultVal,
+                            gettype($item),
+                            isset($available[$key]) ? $available[$key] : '-',
+                            isset($description[$key]) ? $description[$key] : '-',
+                        ]
+                    ];
+                }
+                $paramRows[] = ['columns' => ['id', '', 'string', '-', 'The DOM id of the component.']];
+                $paramRows[] = ['columns' => ['classList', '[]', 'array', '-', 'Array containing wrapping classes array']];
+                $paramRows[] = ['columns' => ['attributeList', '[]', 'array', '-', 'Array containing keys and values rendered as attributes']];
+            @endphp
 
-                            @if(is_array($item)||is_object($item))
-                                <td>{{json_encode($item)}}</td>
-                            @elseif(is_bool($item))
-                                <td>{{$item ? 'true' : 'false'}}</td>
-                            @else
-                                <td>{{$item}}</td>
-                            @endif
-
-                            <td>{{gettype($item)}}</td>
-
-                            @if(isset($available[$key]))
-                                <td>{{$available[$key]}}</td>
-                            @else
-                                <td>-</td>
-                            @endif
-
-                            @if(isset($description[$key]))
-                                <td>{{$description[$key]}}</td>
-                            @else
-                                <td>-</td>
-                            @endif
-                        </tr>
-                    @endforeach
-
-                    <!-- Class list -->
-                    <tr>
-                        <td>id</td>
-                        <td></td>
-                        <td>string</td>
-                        <td>-</td>
-                        <td>The DOM id of the component.</td>
-                    </tr>
-
-                    <!-- Class list -->
-                    <tr>
-                        <td>classList</td>
-                        <td>[]</td>
-                        <td>array</td>
-                        <td>-</td>
-                        <td>Array containing wrapping classes array</td>
-                    </tr>
-
-                    <!-- Attribute list -->
-                    <tr>
-                        <td>attributeList</td>
-                        <td>[]</td>
-                        <td>array</td>
-                        <td>-</td>
-                        <td>Array containing keys and values rendered as attributes</td>
-                    </tr>
-                </table>
-            </div>
+            @table([
+                'title'        => 'Blade component parameters',
+                'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
+                'list'         => $paramRows,
+                'includePaper' => false,
+            ])
+            @endtable
             <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
         @endif
     @endif
@@ -191,30 +157,27 @@
     
     @if(isset($modifiers) && !empty($modifiers))
         @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
-            <div class="d-params u-overflow--auto u-margin__top--10">
-                <h3>Modifiers</h3>
-                <p>Modifiers can be appended to the base class and should, when needed, be added to the classList.</p>
-                
-                @if(isset($modifiersExample))
-                    <p>Example usage: <p>
-                    @code(['heading' => 'Example', 'language' => 'php', 'content' => ""]) {{$modifiersExample}} @endcode
-                @endif
-                
-                <p id="modifiers-table-label">Available modifiers for the {{$slug}} component.</p>
-                <table aria-labelledby="modifiers-table-label">
-                    <thead>
-                        <th>Modifier</th>
-                        <th>Description</th>
-                    </thead>
-                    @foreach($modifiers as $key => $item)
-                        <tr>
-                            <td>{{$key}}</td>
-                            <td>{{$item}}</td>
-                        </tr>
-                    @endforeach
+            <p>Modifiers can be appended to the base class and should, when needed, be added to the classList.</p>
 
-                </table>
-            </div>
+            @if(isset($modifiersExample))
+                <p>Example usage:</p>
+                @code(['heading' => 'Example', 'language' => 'php', 'content' => ""]) {{$modifiersExample}} @endcode
+            @endif
+
+            @php
+                $modifierRows = [];
+                foreach($modifiers as $key => $item) {
+                    $modifierRows[] = ['columns' => [$key, $item]];
+                }
+            @endphp
+
+            @table([
+                'title'        => 'Modifiers',
+                'headings'     => ['Modifier', 'Description'],
+                'list'         => $modifierRows,
+                'includePaper' => false,
+            ])
+            @endtable
         @endpaper
     @endif
 </section>

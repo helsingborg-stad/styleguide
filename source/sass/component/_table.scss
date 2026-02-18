@@ -1,27 +1,34 @@
-@use "sass:map";
 @use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-table-background-color-odd: var(--c-table-background-color-odd, var_colors.$color-light);
-$c-table-background-color-even: var(--c-table-background-color-even, var_colors.$color-lightest);
+/* Component name */
+$_: "c-table";
 
-.c-table {
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "border-radius",
+    "border-width",
+    "color--surface",
+),
+(
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+));
+
+/* Component */
+.#{$_} {
     position: relative;
 
-    .c-table__column-content {
+    .#{$_}__column-content {
         width: 100%;
         display: inline-block;
     }
 
-    .c-table__header {
-        padding: calc(#{var_default.$base} * 1.5);
+    .#{$_}__header {
+        padding: tokens.use($_, "space", 1.5);
     }
 
-    .c-table__inner {
+    .#{$_}__inner {
         display: block;
         overflow-x: auto;
         position: relative;
@@ -30,134 +37,127 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
         scrollbar-width: none;
     }
 
-    .c-table__footer {
+    .#{$_}__footer {
         width: 100%;
-        padding: 0 calc(#{var_default.$base} * 2);
+        padding: 0 tokens.use($_, "space", 2);
     }
 
-    .c-table__caption {
-        font-size: calc(#{var_default.$base} * 2);
-        font-weight: var_fonts.$font-weight-italic;
-        font-family: var_fonts.$font-family-italic;
+    .#{$_}__caption {
+        font-size: tokens.use($_, "space", 2);
+        font-weight: var(--font-weight-italic, 400);
+        font-family: var(--font-family-italic, var(--font-family-base));
         font-style: italic;
-        color: var_colors.$color-dark;
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 
-    .c-table__title {
+    .#{$_}__title {
         display: inline-block;
     }
 
-    .c-table__fullscreen {
+    .#{$_}__fullscreen {
         position: absolute;
-        right: calc(#{var_default.$base} * 2);
+        right: tokens.use($_, "space", 2);
         cursor: pointer;
     }
 
     /**
      * Generic table
      */
-
-    .c-table__table {
+    .#{$_}__table {
         min-width: 100%;
         vertical-align: top;
     }
 
-    .c-table__column {
+    .#{$_}__column {
         position: relative;
-        padding: calc(#{var_default.$base} * 1.5);
+        padding: tokens.use($_, "space", 1.5);
         vertical-align: top;
-        min-width: calc(#{var_default.$base} * 13);
+        min-width: tokens.use($_, "space", 13);
     }
 
     /**
      * Table head
      */
-    .c-table__head {
-        font-weight: var_colors.$table-heading-font-weight;
-        color: var_colors.$color-table-heading;
+    .#{$_}__head {
+        font-weight: var(--font-weight-bold, bold);
+        color: tokens.get($_, "color--surface-contrast-muted");
 
-        .c-table__column-content  {
+        .#{$_}__column-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             width: 100%;
         }
 
-        .c-table__heading {
+        .#{$_}__heading {
             display: inline-block;
-            padding-right: calc(#{var_default.$base} * 2);
-            max-width: calc(100% - calc(#{var_default.$base} * 2));
+            padding-right: tokens.use($_, "space", 2);
+            max-width: calc(100% - #{tokens.use($_, "space", 2)});
             text-overflow: ellipsis;
-            overflow: hidden; 
+            overflow: hidden;
         }
     }
-
-    /**
-     * Flat styling
-     */
-.c-card--flat {
-    .c-table .c-table__header {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
 
     /**
      * Table body
      */
-    .c-table__body {
-        color: var_colors.$color-table-body;
+    .#{$_}__body {
+        color: tokens.get($_, "color--surface-contrast");
 
-        .c-table__line .c-table__column {
+        .#{$_}__line .#{$_}__column {
             transition: background-color 100ms ease;
         }
 
-        .c-table__line:nth-child(odd) .c-table__column {
-            background-color: $c-table-background-color-odd;
+        .#{$_}__line:nth-child(odd) .#{$_}__column {
+            background-color: tokens.get($_, "color--surface");
+
+            &:hover {
+                background: tokens.get($_, "color--surface-alt");
+            }
         }
 
-        .c-table__line:nth-child(even) .c-table__column {
-            background-color: $c-table-background-color-even;
+        .#{$_}__line:nth-child(even) .#{$_}__column {
+            background-color: tokens.get($_, "color--surface-alt");
+
+            &:hover {
+                background: tokens.get($_, "color--surface");
+            }
         }
 
-        .c-table__line:hover .c-table__column {
-            background: var_colors.$color-complementary;
+        .#{$_}__column {
+            border-right: tokens.get($_, "border");
         }
 
-        .c-table__column {
-            border-right: 1px solid $c-table-background-color-even;
-        }
-
-        .c-table__column:last-of-type {
+        .#{$_}__column:last-of-type {
             border-right: none;
         }
     }
 
-    .c-table__column.c-table__column-0 {
-        z-index: var_properties.$level-1;
+    .#{$_}__column.#{$_}__column-0 {
+        z-index: 1000;
     }
 
     /**
      * Scroll indicator
      */
-    .c-table__scroll-indicator-wrapper {
-        margin: calc(#{var_default.$base} * 2) 0;
+    .#{$_}__scroll-indicator-wrapper {
+        margin: tokens.use($_, "space", 2) 0;
         width: 100%;
-        background-color: var_colors.$color-lighter;
-        height: calc(#{var_default.$base} * 1.5);
+        background-color: tokens.get($_, "color--surface-border");
+        height: tokens.use($_, "space", 1.5);
         border-radius: 3000px;
     }
 
-    .c-table__scroll-indicator {
+    .#{$_}__scroll-indicator {
         width: 50%;
-        background-color: var_colors.$color-primary;
+        background-color: tokens.get($_, "color--primary");
         height: inherit;
         border-radius: inherit;
         cursor: grab;
         max-width: 90%;
     }
 
-    .c-table__scroll-indicator:active {
+    .#{$_}__scroll-indicator:active {
         cursor: grabbing;
     }
 
@@ -166,6 +166,7 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
      */
     &[js-sort-container] th {
         cursor: pointer;
+
         .c-icon {
             vertical-align: bottom;
             cursor: pointer;
@@ -175,68 +176,65 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
     /**
      * Actions
      */
-
-    .c-table__collapse-button {
+    .#{$_}__collapse-button {
         cursor: pointer;
         transition: transform 200ms;
     }
 
-    .c-table__sort-button {
+    .#{$_}__sort-button {
         cursor: pointer;
     }
 
     /**
-     * Modifier for summary line
+     * Modifier: summary line
      */
-    &.c-table--summary .c-table__line:last-of-type .c-table__column-content {
-        font-weight: var_fonts.$font-weight-bold;  
-        font-family: var_fonts.$font-family-bold;
+    &.#{$_}--summary .#{$_}__line:last-of-type .#{$_}__column-content {
+        font-weight: var(--font-weight-bold, 700);
+        font-family: var(--font-family-bold, var(--font-family-base));
     }
 
     /**
-     * Modifier for multdimension scroll
+     * Modifier: multidimensional scroll
      */
-    &.c-table--multidimensional {
-
+    &.#{$_}--multidimensional {
         &.is-collapsed {
-           .c-table__column-0 {
+            .#{$_}__column-0 {
+                min-width: tokens.use($_, "space", 10);
 
-                min-width: calc(#{var_default.$base} * 10);
-
-                @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: min(calc(#{var_default.$base} * 25), 25vw);
+                @include mq.mq("xs", "md") {
+                    max-width: min(#{tokens.use($_, "space", 25)}, 25vw);
                 }
 
-                @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                    max-width: calc(#{var_default.$base} * 25);
+                @include mq.mq("md") {
+                    max-width: tokens.use($_, "space", 25);
                 }
 
-                .c-table__column-content {
+                .#{$_}__column-content {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: nowrap;
                 }
             }
-    
-            .c-table__collapse-button {
+
+            .#{$_}__collapse-button {
                 transform: rotate(180deg);
             }
         }
 
-        .c-table__column-0 {
+        .#{$_}__column-0 {
             position: sticky;
             left: 0;
             top: 0;
 
-            @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                max-width: calc(#{var_default.$base} * 60);
+            @include mq.mq("md") {
+                max-width: tokens.use($_, "space", 60);
             }
 
-            @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
+            @include mq.mq("xs", "md") {
                 min-width: 20vw;
             }
-    
-            &:after{
+
+            &:after {
                 box-shadow: 20px 0 20px -20px rgba(0, 0, 0, 0.3) inset;
                 content: " ";
                 height: 100%;
@@ -248,35 +246,43 @@ $c-table-background-color-even: var(--c-table-background-color-even, var_colors.
         }
     }
 
-    &.c-table--title-none {
-        .c-table__header {
+    &.#{$_}--title-none {
+        .#{$_}__header {
             text-align: right;
         }
+
         .c-icon {
             position: inherit;
         }
     }
 }
 
+/**
+ * Flat styling
+ */
+.c-card--flat .#{$_} .#{$_}__header {
+    padding-left: 0;
+    padding-right: 0;
+}
 
 /**
  * Embedded in modal
  */
-.c-table__modal {
-    margin: calc(#{var_default.$base} * 2);
-    height: calc(100vh - calc(#{var_default.$base} * 4));
+.#{$_}__modal {
+    margin: tokens.use($_, "space", 2);
+    height: calc(100vh - #{tokens.use($_, "space", 4)});
 
     .c-modal__header .c-modal__close .c-icon {
         color: var(--color-black, #000000);
     }
 
-    .c-table__table {
-        border: 1px solid var_colors.$color-lighter;
+    .#{$_}__table {
+        border: tokens.get($_, "border");
     }
 
-    .c-table .c-table__header {
+    .#{$_} .#{$_}__header {
         padding-left: 0;
         padding-right: 0;
         padding-top: 0;
     }
- }
+}
