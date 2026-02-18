@@ -3,13 +3,24 @@
         "heading": "Size",
         "subHeading": "",
         "grid": "",
-        "text":  ""
+        "text": ""
     },
-    
     "style": {
         "heading": "Style",
         "subHeading": "",
         "grid": "",
-        "text":  ""
+        "text": ""
+    },
+    "title": {
+        "heading": "Title",
+        "subHeading": "",
+        "grid": "",
+        "text": ""
+    },
+    "title-with-frame": {
+        "heading": "Title with Frame",
+        "subHeading": "",
+        "grid": "",
+        "text": ""
     }
 }
