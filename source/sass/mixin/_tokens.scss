@@ -49,6 +49,7 @@
             // Auto-derivation rule: for shadow token, use color and amount to construct instead of direct passthrough
             @if $token == "shadow" {
                 --#{$p}--shadow-color: var(--shadow-color);
+                --#{$p}--shadow-color-opacity: var(--shadow-color-opacity);
                 --#{$p}--shadow-amount: var(--shadow-amount);
             }
 
@@ -120,7 +121,7 @@
 
     //If token is shadow, construct the drop-shadow value using the color and amount tokens
     @if $token == "shadow" {
-        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$p}--shadow-amount)) calc(var(--#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$p}--shadow-color));
+        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$p}--shadow-amount)) calc(var(--#{$p}--shadow-amount) * var(--base) * #{$multiplier}) color-mix(in srgb, var(--#{$p}--shadow-color) calc(var(--#{$p}--shadow-color-opacity) * 100%), transparent));
     }
 
     // If base is used as a token, return it directly without multiply with base to avoid circular reference

@@ -105,8 +105,13 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
     case 'color': {
       const colorInput = row.querySelector<HTMLInputElement>('input[type="color"]')
       const textInput = row.querySelector<HTMLInputElement>('input[type="text"]')
-      if (colorInput) colorInput.value = toHex(value)
-      if (textInput) textInput.value = value
+      if (colorInput) {
+        colorInput.value = toHex(value)
+      } 
+
+      if (textInput) {
+        textInput.value = value
+      } 
       const swatch = row.querySelector<HTMLElement>('.db-control__swatch')
       if (swatch) swatch.style.backgroundColor = value
       break
