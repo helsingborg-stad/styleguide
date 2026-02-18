@@ -18,7 +18,6 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-
     .#{$_}__button {
         @include button.button-unstyled;
         cursor: pointer;
@@ -37,6 +36,7 @@ $_: "c-accordion";
         }
 
         &[aria-expanded="true"] {
+            background-color: tokens.get($_, "color--surface-alt");
             .#{$_}__icon {
                 transform: rotate(180deg);
                 transition: ease .3s transform;
@@ -53,8 +53,6 @@ $_: "c-accordion";
         scroll-margin-top: var(--c-accordion--scroll-margin, 0);
         border-color: tokens.get($_, "color--surface-border");
         contain: paint;
-        border-radius: inherit;
-        overflow: hidden;
     }
 
     .#{$_}__section + .#{$_}__section {
