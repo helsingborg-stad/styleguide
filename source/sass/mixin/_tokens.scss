@@ -56,7 +56,12 @@
             @if string.index($token, "color") == 1
                 and string.slice($token, -9) != "-contrast" {
                 --#{$p}--#{$token}-contrast: var(--#{$token}-contrast);
-                --#{$p}--#{$token}-contrast-muted: var(--#{$token}-contrast-muted);
+
+                // Only surface and background have a global -contrast-muted token
+                @if string.index($token, "surface") != null or string.index($token, "background") != null {
+                    --#{$p}--#{$token}-contrast-muted: var(--#{$token}-contrast-muted);
+                }
+
                 --#{$p}--#{$token}-border: color-mix(
                     in srgb,
                     var(--#{$p}--#{$token}-contrast) 10%,
@@ -64,7 +69,7 @@
                 );
                 --#{$p}--#{$token}-alt: color-mix(
                     in srgb,
-                    var(--#{$p}--#{$token}-contrast-muted) 4%,
+                    var(--#{$p}--#{$token}-contrast-muted, var(--#{$p}--#{$token}-contrast)) 4%,
                     var(--#{$p}--#{$token})
                 );
             }
@@ -81,9 +86,24 @@
                 --#{$target}: var(--#{$source});
 
                 // Auto-derivation: for color tokens, also remap the contrast companion
-                @if string.index($target, "color") == 1
-                    and string.slice($target, -9) != "-contrast" {
+                @if string.index($target, "color") == 1 and string.slice($target, -9) != "-contrast" {
                     --#{$target}-contrast: var(--#{$source}-contrast);
+
+                    // Only surface and background have a global -contrast-muted token
+                    @if string.index($source, "surface") != null or string.index($source, "background") != null {
+                        --#{$target}-contrast-muted: var(--#{$source}-contrast-muted);
+                    }
+
+                    --#{$target}-border: color-mix(
+                        in srgb,
+                        var(--#{$source}-contrast) 10%,
+                        var(--#{$source})
+                    );
+                    --#{$target}-alt: color-mix(
+                        in srgb,
+                        var(--#{$source}-contrast-muted, var(--#{$source}-contrast)) 4%,
+                        var(--#{$source})
+                    );
                 }
             }
         }
