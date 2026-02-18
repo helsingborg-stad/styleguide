@@ -13,7 +13,7 @@
         "build:dev": "node build-design-tokens.mjs && vite build --mode development",
         "watch": "npm run tokens && npm run watch:parallel",
         "watch:parallel": "npm run watch:tokens & npm run watch:build",
-        "watch:tokens": "chokidar \"source/**/*\" -c \"npm run tokens\"",
+        "watch:tokens": "chokidar \"source/data/design-tokens.json\" -c \"npm run tokens\"",
         "watch:build": "vite build --watch --mode development",
         "lint": "stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log && eslint -c .eslintrc.js source/js",
         "lint-autofix": "stylelint \"./source/sass\" --fix && eslint -c .eslintrc.js source/js --fix",

@@ -29,12 +29,13 @@
 
 // Item
 .c-iconsection__item {
+    contain: paint layout;
     display: grid;
     grid-template-columns: [icon] auto [content] 1fr;
     
     @include paper.paper(2);
 
-    &__icon,
+    &__icon, 
     &__content {
         padding: calc(var_default.$base * 2);
     }
