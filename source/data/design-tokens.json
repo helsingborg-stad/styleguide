@@ -270,19 +270,6 @@
           "label": "Secondary Contrast",
           "type": "color",
           "default": "#ffffff"
-        },
-        {
-          "variable": "--color--accent",
-          "label": "Accent",
-          "type": "color",
-          "default": "#bdbdbd",
-          "contrast": "--color--accent-contrast"
-        },
-        {
-          "variable": "--color--accent-contrast",
-          "label": "Accent Contrast",
-          "type": "color",
-          "default": "#2d2d2d"
         }
       ]
     },
