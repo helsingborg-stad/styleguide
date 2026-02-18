@@ -1,5 +1,10 @@
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-inlinecsswrapper {
-    padding: var_default.$base;
+/* Component name */
+$_: "c-inlinecsswrapper";
+
+@include tokens.create($_,("space"));
+
+.#{$_} {
+    padding: tokens.use($_, "space", 1);
 }
