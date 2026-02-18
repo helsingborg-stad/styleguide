@@ -2,7 +2,7 @@
     "accordion":{
         "heading": "Accordion",
         "subHeading": "",
-        "text": "The accordion can be used to display larger lists of content on one page."
+        "text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
     },
     "slot": {
         "heading": "Using a slot",
