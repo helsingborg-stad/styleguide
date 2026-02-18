@@ -4,17 +4,5 @@
         "heading": "Size",
         "subHeading": "",
         "text": ""
-    },
-    "color": {
-        "grid": "grid-s-4 grid-sm-4 grid-md-4",
-        "heading": "Color",
-        "subHeading": "",
-        "text": ""
-    },
-    "name": {
-        "grid": "grid-s-4 grid-sm-4 grid-md-4",
-        "heading": "Name",
-        "subHeading": "",
-        "text": ""
     }
 }

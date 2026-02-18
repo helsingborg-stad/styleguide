@@ -1,44 +1,44 @@
-@use "sass:list";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-@charset "utf-8";
+/* Component name */
+$_: "c-icon";
 $sizes: xs, sm, md, lg, xl, xxl;
 
-$colors: (
-    "color-black": var_colors.$color-black,
-    "color-gray": var_colors.$color-gray,
-    "color-default": var_colors.$color-default,
-    "color-default-dark": var_colors.$color-default-dark,
-    "color-white": var_colors.$color-white,
-    "color-primary": var_colors.$color-primary,
-    "color-secondary": var_colors.$color-secondary
-);
+/* Design tokens */
+@include tokens.create($_, 
+(
+    "base", 
+    "color--background"
+),
+(
+    "size-xs": tokens.use($_, "base", 1),
+    "size-sm": tokens.use($_, "base", 2),
+    "size-md": tokens.use($_, "base", 3),
+    "size-lg": tokens.use($_, "base", 4),
+    "size-xl": tokens.use($_, "base", 5),
+    "size-xxl": tokens.use($_, "base", 6),
+    "color": tokens.get($_, "color--background-contrast"
+)));
 
-:root {
-    @each $size in $sizes {
-        $index: list.index($sizes, $size);
-        --c-icon-size-#{$size}: calc(#{var_default.$base} * #{$index});
-    }
-}
-
-.c-icon {
+.#{$_} {
+    color: tokens.get($_, "color");
     line-height: 1;
 
-    &.c-icon--placeholder {
+    &.#{$_}--placeholder {
         visibility: hidden;
+
         &:after {
-            content: "" !important; 
+            content: "" !important;
         }
     }
-    
-    &.c-icon--svg-link {
+
+    &.#{$_}--svg-link {
         width: 1em;
         object-fit: contain;
         aspect-ratio: 1/1;
     }
 
-    &.c-icon--svg-path {
+    &.#{$_}--svg-path {
         svg {
             width: auto;
 
@@ -57,60 +57,49 @@ $colors: (
     }
 
     /* Modifiers */
-    &.c-icon--material {
-        display: inline-flex;;
+    &.#{$_}--material {
+        display: inline-flex;
     }
 
-    &.c-icon--size-inherit {
+    &.#{$_}--size-inherit {
         font-size: inherit;
     }
 
     @each $size in $sizes {
-        $index: list.index($sizes, $size);
-        &.c-icon--size-#{$size} {
-            $iconSize: var(--c-icon-size, var(--c-icon-size-#{$size}));
-            font-size: $iconSize;
-            &::after {
-                height: $iconSize;
-                width: $iconSize;
-                display: inline-block;
-            }
-            svg {
-                height: $iconSize;
-            }
-        }
-    }
+        &.#{$_}--size-#{$size} {
+            $icon-size: var(--c-icon-size, #{tokens.get($_, "size-#{$size}")});
+ font-size: $icon-size;
 
-    @each $color, $value in $colors {
-        &.c-icon--#{$color} {
-            color: $value;
-            
-            svg path {
-                stroke: $value;
-                fill: $value;
-                stroke-width: 1;
+                    &::after {
+                    height: $icon-size;
+                    width: $icon-size;
+                    display: inline-block;
+                }
+
+                svg {
+                    height: $icon-size;
+                }
             }
         }
+
+        /* Nested elements */
+
+        .#{$_}__label {
+            font-size: 1rem;
+            font-style: normal;
+            color: inherit;
+        }
+
+        &.#{$_}--fluid-label .#{$_}__label {
+            font-size: 1rem;
+        }
+
     }
 
-    /* Nested elements */
+    @media print {
 
-    .c-icon__label {
-        font-size: 1rem;
-        font-style: normal;
-        color: inherit;
+        .#{$_} {
+            display: none;
+        }
+
     }
-
-    &.c-icon--fluid-label .c-icon__label {
-        font-size: 1rem;
-    }
-
-}
-
-@media print {
-
-    .c-icon {
-        display: none;
-    }
-
-}
