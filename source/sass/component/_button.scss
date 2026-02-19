@@ -7,40 +7,38 @@ $_: "c-button";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), (
-    "font-weight": tokens.get($_, "font-weight-medium"),
-    "font-family": tokens.get($_, "font-family-base"),
-    "font-size-lg": tokens.get($_, "font-size-lg"),
-    "font-size-md": tokens.get($_, "font-size-md"),
-    "font-size-sm": tokens.get($_, "font-size-sm"),
-
-    "color-default": tokens.get($_, "color--surface"),
+    "font-weight":            tokens.get($_, "font-weight-medium"),
+    "font-family":            tokens.get($_, "font-family-base"),
+    "font-size-lg":           tokens.get($_, "font-size-lg"),
+    "font-size-md":           tokens.get($_, "font-size-md"),
+    "font-size-sm":           tokens.get($_, "font-size-sm"),
+    "color-default":          tokens.get($_, "color--surface"),
     "color-default-contrast": tokens.get($_, "color--surface-contrast"),
-
-    "shadow": tokens.use($_, "shadow", 1)
+    "shadow":                 tokens.use($_, "shadow", 1)
 ));
 
 /**
  * Variant color schemes
- * --_color, --_contrast, --_hover, --_active are consumed by
- * __filled, __outlined, and __toggle.
+ * Sets --_color, --_contrast, --_hover, --_active per variant,
+ * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
     "primary": (
-        "bg": tokens.get($_, "color--primary"),
-        "fg": tokens.get($_, "color--primary-contrast"),
-        "hover": tokens.get($_, "color--primary-border"),
+        "bg":     tokens.get($_, "color--primary"),
+        "fg":     tokens.get($_, "color--primary-contrast"),
+        "hover":  tokens.get($_, "color--primary-border"),
         "active": tokens.get($_, "color--primary-alt")
     ),
     "secondary": (
-        "bg": tokens.get($_, "color--secondary"),
-        "fg": tokens.get($_, "color--secondary-contrast"),
-        "hover": tokens.get($_, "color--secondary-border"),
+        "bg":     tokens.get($_, "color--secondary"),
+        "fg":     tokens.get($_, "color--secondary-contrast"),
+        "hover":  tokens.get($_, "color--secondary-border"),
         "active": tokens.get($_, "color--secondary-alt")
     ),
     "default": (
-        "bg": tokens.get($_, "color--surface"),
-        "fg": tokens.get($_, "color--surface-contrast"),
-        "hover": tokens.get($_, "color--surface-border"),
+        "bg":     tokens.get($_, "color--surface"),
+        "fg":     tokens.get($_, "color--surface-contrast"),
+        "hover":  tokens.get($_, "color--surface-border"),
         "active": tokens.get($_, "color--surface-alt")
     )
 );
@@ -49,19 +47,33 @@ $button-variants: (
     .#{$_}__filled--#{$name},
     .#{$_}__outlined--#{$name},
     .#{$_}__basic--#{$name} {
-        --_color: #{map.get($variant, "bg")};
+        --_color:    #{map.get($variant, "bg")};
         --_contrast: #{map.get($variant, "fg")};
-        --_hover: #{map.get($variant, "hover")};
-        --_active: #{map.get($variant, "active")};
+        --_hover:    #{map.get($variant, "hover")};
+        --_active:   #{map.get($variant, "active")};
     }
 }
 
 @keyframes c-button-rotation {
-    0% { transform: rotate(0deg); }
+    0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* Component */
+/**
+ * Size definitions
+ * --_h:      height multiplier
+ * --_w:      min-width multiplier
+ * --_p:      horizontal padding multiplier
+ * --_offset: icon negative margin / loader offset
+ * --_loader: loader size multiplier (md uses the base default)
+ */
+$button-sizes: (
+    "lg": ("height": 8,   "min-width": 12,   "padding-x": 5, "offset": -1.5, "loader": 4,    "font-size": tokens.get($_, "font-size-lg")),
+    "md": ("height": 6.5, "min-width": 9,    "padding-x": 4, "offset": -1,   "loader": null, "font-size": tokens.get($_, "font-size-md")),
+    "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5,  "loader": 2,    "font-size": tokens.get($_, "font-size-sm"), "letter-spacing": 0.1rem)
+);
+
+/* Component base */
 .#{$_} {
     contain: layout;
     display: inline-flex;
@@ -77,22 +89,24 @@ $button-variants: (
     user-select: none;
     position: relative;
     max-width: 100%;
-    transition: background-color 100ms ease-in-out, 
-                border-color 100ms ease-in-out, 
+    transition: background-color 100ms ease-in-out,
+                border-color 100ms ease-in-out,
                 color 100ms ease-in-out;
-    
+
+    /* Loading spinner (hidden by default) */
     .#{$_}__loader {
         display: none;
         width: calc(#{tokens.get($_, "base")} * 3);
         height: calc(#{tokens.get($_, "base")} * 3);
         border: 3px solid;
-        margin-bottom: 2px;
-        border-radius: 50%;
         border-bottom-color: transparent;
+        border-radius: 50%;
         box-sizing: border-box;
+        margin-bottom: 2px;
     }
 
-    &.#{$_}.is-working {
+    /* Working state: hides icon, shows spinner */
+    &.is-working {
         .#{$_}__label-icon { display: none; }
 
         .#{$_}__loader {
@@ -101,17 +115,18 @@ $button-variants: (
         }
     }
 
+    /* Disabled state */
     &:disabled {
         cursor: not-allowed;
         &:not(.#{$_}--no-disabled-color) {
             border-color: tokens.get($_, "color-disabled-bg");
             background-color: tokens.get($_, "color-disabled-bg");
             color: tokens.get($_, "color-disabled-text");
-
             * { color: tokens.get($_, "color-disabled-text"); }
         }
     }
 
+    /* Full width */
     &__full-width {
         width: 100%;
         .#{$_}__label-icon {
@@ -120,12 +135,13 @@ $button-variants: (
         }
     }
 
+    /* Label: lays out icon + text horizontally */
     .#{$_}__label {
         display: flex;
         flex-direction: row;
         justify-content: center;
         position: relative;
-        z-index: 2000;
+        z-index: 1;
         transition: opacity 100ms, color 100ms;
         text-decoration: none;
         gap: tokens.get($_, "base");
@@ -138,110 +154,92 @@ $button-variants: (
             color: inherit;
         }
 
+        /* Icon: default order 0 (flex default), so it comes before text */
         .#{$_}__label-icon {
-            z-index: 2000;
             display: flex;
-            &--reverse { order: 1; }
+            &--reverse { order: 2; } // push icon after text when reversed
         }
 
+        /* Text: order 1, so icon (order 0) naturally precedes it */
         .#{$_}__label-text {
             order: 1;
             display: inline-block;
-            align-items: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            &--reverse { order: 2; }
         }
     }
 
-    /**
-     * Sizes
-     * --_h: height multiplier
-     * --_w: min-width multiplier
-     * --_p: horizontal padding multiplier
-     * --_offset: icon negative margin (= loader margin-left)
-     * --_loader: loader size multiplier (md uses default)
-     */
-    $button-sizes: (
-        "lg": ("height": 8, "min-width": 12, "padding-x": 5, "offset": -1.5, "loader": 4, "font-size": tokens.get($_, "font-size-lg"), "letter-spacing": null),
-        "md": ("height": 6.5, "min-width": 9, "padding-x": 4, "offset": -1, "loader": null, "font-size": tokens.get($_, "font-size-md"), "letter-spacing": null),
-        "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5, "loader": 2, "font-size": tokens.get($_, "font-size-sm"), "letter-spacing": 0.1rem)
-    );
-
+    /* Sizes */
     @each $name, $size in $button-sizes {
         &.#{$_}--#{$name} {
-            --_h: #{map.get($size, "height")};
-            --_w: #{map.get($size, "min-width")};
-            --_p: #{map.get($size, "padding-x")};
+            --_h:      #{map.get($size, "height")};
+            --_w:      #{map.get($size, "min-width")};
+            --_p:      #{map.get($size, "padding-x")};
             --_offset: #{map.get($size, "offset")};
-            --_fs: #{map.get($size, "font-size")};
+            --_fs:     #{map.get($size, "font-size")};
 
             @if map.get($size, "loader") != null {
                 --_loader: #{map.get($size, "loader")};
             }
-
             @if map.get($size, "letter-spacing") != null {
                 letter-spacing: #{map.get($size, "letter-spacing")};
             }
-        }
-    }
 
-    &.#{$_}--lg,
-    &.#{$_}--md,
-    &.#{$_}--sm {
-        height: calc(#{tokens.get($_, "base")} * var(--_h));
-        min-width: calc(#{tokens.get($_, "base")} * var(--_w));
-        padding: 0 calc(#{tokens.get($_, "base")} * var(--_p));
-        font-size: var(--_fs);
-        border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
-        corner-shape: tokens.get($_, "corner-shape");
+            height:        calc(#{tokens.get($_, "base")} * var(--_h));
+            min-width:     calc(#{tokens.get($_, "base")} * var(--_w));
+            padding:       0 calc(#{tokens.get($_, "base")} * var(--_p));
+            font-size:     var(--_fs);
+            border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
+            corner-shape:  tokens.get($_, "corner-shape");
 
-        .#{$_}__loader {
-            margin-left: calc(#{tokens.get($_, "base")} * var(--_offset));
-        }
-
-        &.#{$_}--icon-only {
-            width: calc(#{tokens.get($_, "base")} * var(--_h));
-            min-width: initial;
-            padding-left: 0;
-            padding-right: 0;
-            justify-content: center;
-
-            .#{$_}__label span.#{$_}__label-icon {
-                margin-right: 0;
-                margin-left: 0;
-            }
-
-            .c-icon::after { vertical-align: baseline; }
-        }
-
-        &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
-        &.#{$_}__filled .#{$_}__label .#{$_}__label-icon {
-            margin-right: calc(#{tokens.get($_, "base")} * var(--_offset));
-
-            &--reverse {
-                margin-right: 0;
+            /* Loader sizing (sm/lg override the default size) */
+            .#{$_}__loader {
                 margin-left: calc(#{tokens.get($_, "base")} * var(--_offset));
+
+                @if map.get($size, "loader") != null {
+                    width:        calc(#{tokens.get($_, "base")} * var(--_loader));
+                    height:       calc(#{tokens.get($_, "base")} * var(--_loader));
+                    border-width: calc(var(--_loader) * 1px);
+                }
+            }
+
+            /* Icon-only: square button, no padding */
+            &.#{$_}--icon-only {
+                width:     calc(#{tokens.get($_, "base")} * var(--_h));
+                min-width: initial;
+                padding-left: 0;
+                padding-right: 0;
+                justify-content: center;
+
+                .#{$_}__label span.#{$_}__label-icon {
+                    margin-right: 0;
+                    margin-left:  0;
+                }
+
+                .c-icon::after { vertical-align: baseline; }
+            }
+
+            /* Icon gap for filled & outlined (basic uses padding: 0 instead) */
+            &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
+            &.#{$_}__filled   .#{$_}__label .#{$_}__label-icon {
+                margin-right: calc(#{tokens.get($_, "base")} * var(--_offset));
+
+                &--reverse {
+                    margin-right: 0;
+                    margin-left:  calc(#{tokens.get($_, "base")} * var(--_offset));
+                }
             }
         }
     }
 
-    &.#{$_}--lg,
-    &.#{$_}--sm {
-        .#{$_}__loader {
-            width: calc(#{tokens.get($_, "base")} * var(--_loader));
-            height: calc(#{tokens.get($_, "base")} * var(--_loader));
-            border-width: calc(var(--_loader) * 1px);
-        }
-    }
-
+    /* Pill shape */
     &.#{$_}--pill {
         border-radius: calc(#{tokens.get($_, "base")} * 4);
     }
 }
 
-// Only text
+/* Basic: text only, no background or border */
 .#{$_}__basic {
     border: none;
     box-shadow: none;
@@ -250,18 +248,17 @@ $button-variants: (
     &:not(:disabled) {
         padding-left: 0;
         padding-right: 0;
-
         &:hover { opacity: .8; }
     }
 
     &--primary {
-        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary")); 
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
     }
     &--secondary {
-        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary")); 
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
     }
     &--default {
-        color: tokens.get($_, "color--surface-contrast"); 
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     &--default:not(:disabled):hover {
@@ -270,35 +267,35 @@ $button-variants: (
     }
 }
 
-// Solid background
+/* Filled: solid colored background */
 .#{$_}__filled {
     will-change: filter;
-    transition: filter 200ms ease-in-out;
     filter: tokens.get($_, "shadow");
+    transition: filter 200ms ease-in-out;
     background-color: var(--_color);
     color: var(--_contrast);
 
     &:hover { background-color: var(--_hover); }
-
     &:active {
         background-color: var(--_active);
         .#{$_}__label { opacity: .8; }
     }
 }
 
-// Border only
+/* Outlined: border only, no background fill */
 .#{$_}__outlined {
     border: clamp(
-            1px,
-            #{tokens.use($_, "border-width")},
-            calc(var(--base) / 2)
-        ) solid var(--_color);
+        1px,
+        #{tokens.use($_, "border-width")},
+        calc(var(--base) / 2)
+    ) solid var(--_color);
     color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
 
-    &:hover { background-color: var(--_hover); }
+    &:hover  { background-color: var(--_hover); }
     &:active { background-color: var(--_active); }
 
-    // Kept for backwards compatibility (includes historical typo)
+    // Default uses full contrast (no color-mix).
+    // Includes legacy "deafult" typo for backwards compatibility.
     &--default,
     &--deafult {
         border-color: var(--_contrast);
@@ -306,7 +303,7 @@ $button-variants: (
     }
 }
 
-// Toggle (pressed state)
+/* Toggle: pressed / unpressed visual state */
 .#{$_}__toggle {
     transition: color 100ms ease-in-out,
                 background 100ms ease-in-out,
@@ -321,28 +318,28 @@ $button-variants: (
     &.#{$_}__basic {
         &:before {
             content: "";
-            border-bottom: 2px solid currentColor;
-            bottom: 4px;
             position: absolute;
+            bottom: 4px;
             width: 0;
+            border-bottom: 2px solid currentColor;
             transition: width 100ms ease-in-out;
         }
 
-        &[aria-pressed='true']:before {
-            width: 100%;
-            border-color: var(--_color);
+        &[aria-pressed='true'] {
+            &:before {
+                width: 100%;
+                border-color: var(--_color);
+            }
+            &:after { display: none; }
         }
-
-        &[aria-pressed='true']:after { display: none; }
     }
 
     &.#{$_}__outlined {
         &[aria-pressed='true'] {
             background-color: var(--_color);
             color: var(--_contrast);
+            &:after { display: none; }
         }
-
-        &[aria-pressed='true']:after { display: none; }
     }
 
     &.#{$_}__outlined--default[aria-pressed='true'] {
