@@ -5,16 +5,9 @@
 $_: "c-accordion";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "shadow",
-    "border-width",
-    "border-radius",
-    "color--surface",
-),
-(
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-));
+@include tokens.create($_, getComponentTokens($_),
+    ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    ));
 
 /* Component */
 .#{$_} {
@@ -37,6 +30,7 @@ $_: "c-accordion";
 
         &[aria-expanded="true"] {
             background-color: tokens.get($_, "color--surface-alt");
+
             .#{$_}__icon {
                 transform: rotate(180deg);
                 transition: ease .3s transform;
@@ -44,7 +38,7 @@ $_: "c-accordion";
         }
     }
 
-    .#{$_}__button:focus > .#{$_}__button-wrapper {
+    .#{$_}__button:focus>.#{$_}__button-wrapper {
         outline-offset: 1px;
         outline: 1px dashed tokens.get($_, "color--surface-border");
     }
@@ -55,7 +49,7 @@ $_: "c-accordion";
         contain: paint;
     }
 
-    .#{$_}__section + .#{$_}__section {
+    .#{$_}__section+.#{$_}__section {
         border-top: tokens.get($_, "border");
     }
 
@@ -166,6 +160,7 @@ $_: "c-accordion";
 
 /* Expand accordion when print page */
 @media print {
+
     .c-accordion .c-accordion__content[aria-hidden="true"],
     .c-accordion .c-accordion__content[aria-hidden="false"] {
         display: block;
