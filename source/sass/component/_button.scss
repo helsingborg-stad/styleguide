@@ -291,8 +291,8 @@ $button-sizes: (
     ) solid var(--_color);
     color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
 
-    &:hover  { background-color: var(--_hover); }
-    &:active { background-color: var(--_active); }
+    &:hover  { background-color: var(--_hover);  color: var(--_contrast); }
+    &:active { background-color: var(--_active); color: var(--_contrast); }
 
     // Default uses full contrast (no color-mix).
     // Includes legacy "deafult" typo for backwards compatibility.
