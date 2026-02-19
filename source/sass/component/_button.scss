@@ -6,7 +6,7 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.create($_,  getComponentTokens($_), (
+@include tokens.create($_, getComponentTokens($_), (
     "font-weight": tokens.get($_, "font-weight-medium"),
     "font-family": tokens.get($_, "font-family-base"),
     "font-size-lg": tokens.get($_, "font-size-lg"),
