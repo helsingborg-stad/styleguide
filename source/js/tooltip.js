@@ -5,19 +5,19 @@ class Tooltip {
 
     setListener() {
         const tooltips = document.querySelectorAll('.c-tooltip');
-        if(tooltips.length > 0) {
+        if (tooltips.length > 0) {
             tooltips.forEach(tooltip => {
                 const container = tooltip.querySelector('.c-tooltip__container');
                 const tooltipLabel = tooltip.querySelector('.c-tooltip__wrapper');
-    
+
                 ['mouseleave', 'focusout'].forEach(key => {
-                    tooltipLabel.addEventListener(key, () => {
+                    tooltipLabel?.addEventListener(key, () => {
                         this.handleLeave(tooltip, container);
                     })
                 });
-    
+
                 ['mouseenter', 'focusin'].forEach(key => {
-                    tooltipLabel.addEventListener(key, () => {
+                    tooltipLabel?.addEventListener(key, () => {
                         this.handleHover(tooltip, container, tooltipLabel);
                     })
                 });
