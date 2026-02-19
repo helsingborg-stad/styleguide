@@ -43,7 +43,8 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": {
 		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"apache": "sudo a2enmod rewrite headers && service apache2 start"
+		"apache": "sudo a2enmod rewrite headers && service apache2 start",
+		"playwright":  "npm install && npx playwright install --with-deps"
 	},
 	"waitFor": "postCreateCommand"
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
