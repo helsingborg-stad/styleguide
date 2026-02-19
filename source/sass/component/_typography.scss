@@ -61,6 +61,7 @@ h3, .h3, .#{$_}__variant--h3,
 h4, .h4, .#{$_}__variant--h4,
 h5, .h5, .#{$_}__variant--h5 {
     overflow-wrap: break-word;
+    margin: 0;
 
     & + :is(
         h1, .h1, .#{$_}__variant--h1,
