@@ -1,210 +1,223 @@
-@use "sass:map";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-tooltip-border-radius: var(--c-tooltip-border-radius, var_border-radius.$border-radius-xs) !default;
-$c-tooltip-color: var(--c-tooltip-background-color, var_colors.$color-alpha) !default;
-$c-tooltip-content-color: var(--c-tooltip-content-color, var_colors.$color-alpha-contrasting) !default;
+// Component namespace
+$_: "c-tooltip";
 
-.c-tooltip {
+// Size of the directional arrow triangle
+$_arrow-size: 6px;
+
+// Register design tokens consumed by this component.
+// "tooltip-color" and "tooltip-content-color" are derived aliases;
+// "inner-border-width" is clamped so it stays between 2 px and 4 px.
+@include tokens.create($_, (
+    "base",
+    "border-radius",
+    "border-width",
+    "corner-shape",
+    "color--primary",
+    "shadow",
+),(
+    "tooltip-color": tokens.get($_, "color--primary"),
+    "tooltip-content-color": tokens.get($_, "color--primary-contrast"),
+    "inner-border-width": "clamp(2px, #{tokens.use($_, "border-width", 1)}, 4px)",
+));
+
+// ---------------------------------------------------------------------------
+// Component API — class-based tooltip (.c-tooltip)
+// Relies on JS toggling .is-hidden / .is-visible on the root element.
+// ---------------------------------------------------------------------------
+.#{$_} {
     display: flex;
 
-    .c-tooltip__wrapper {
-        position: relative;
+    // Wrapper keeps the trigger and floating container in the same stacking context
+    .#{$_}__wrapper {
         display: inline-flex;
+        position: relative;
     }
 
-    &.is-hidden {
-        .c-tooltip__container {
-            display: none;
-        }
-    }
-
-    &.is-visible {
-        .c-tooltip__container {
-            opacity:1;
-            display: block;
-            animation-name: opacityAnimation;
-            animation-duration: .2s;
-        }
-    }
-
-    .c-tooltip__container {
-        position: absolute;
-        border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
-        width:max-content;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: calc(var_default.$base * 25);
-        background-color: $c-tooltip-color;
+    // Explicitly hidden state — overrides any default display
+    &.is-hidden .#{$_}__container {
         display: none;
-
-        .c-tooltip__arrow {
-            content: " ";
-            display: flex;
-            position: absolute;
-            bottom: 100%; 
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent $c-tooltip-color transparent;
-        }
-
-        .c-tooltip__content {
-            color: $c-tooltip-content-color;
-            padding: var_default.$base;
-            text-align:center;
-        }
     }
 
-        &.c-tooltip--overflow-right {
-            .c-tooltip__container {
-                left:98%;
-                transform: translateX(-98%);
-                .c-tooltip__arrow {
-                    left: 92%;
-                }
-            }
-        }
-
-        &.c-tooltip--overflow-left {
-            .c-tooltip__container {
-                left:2%;
-                transform: translateX(2%);
-                .c-tooltip__arrow {
-                    left: 4%;
-                }
-            }
-        }
-
-    &.c-tooltip--top {
-        .c-tooltip__container {
-            top: 0;
-            transform: translateY(-100%) translateX(-50%);
-           
-            .c-tooltip__arrow {
-                bottom:unset;
-                border-color: $c-tooltip-color transparent transparent transparent;
-           }
-        }
+    // Visible state fades the container in via opacityAnimation
+    &.is-visible .#{$_}__container {
+        animation-duration: .2s;
+        animation-name: opacityAnimation;
+        display: block;
+        opacity: 1;
     }
 
-     &.c-tooltip--right {
-        .c-tooltip__container {
-            left: 100%;
-            top: 50%;
-            transform: translateY(-50%);
-            
-        .c-tooltip__arrow {
-            left:0;
-            top: 50%;
-            border-color: transparent $c-tooltip-color transparent transparent;
-            transform: translateY(-50%) translateX(-50%);
-            }
-        }
+    // Floating tooltip bubble — positioned below the trigger by default
+    .#{$_}__container {
+        background-color: tokens.get($_, "tooltip-color");
+        border-radius: tokens.use($_, "border-radius", 1);
+        corner-shape: tokens.get($_, "corner-shape");
+        display: none;
+        filter: tokens.use($_, "shadow", 1);
+        left: 50%;
+        max-width: tokens.use($_, "base", 25);
+        position: absolute;
+        top: 100%;
+        transform: translateX(-50%);
+        width: max-content;
+        z-index: 1;
     }
 
-      &.c-tooltip--left {
-        .c-tooltip__container {
-            left: 0%;
-            top: 50%;
-            transform: translateY(-50%) translateX(-100%);
-            
-        .c-tooltip__arrow {
-            left:100%;
-            top: 50%;
-            border-color: transparent transparent transparent $c-tooltip-color;
-            transform: translateY(-50%) translateX(50%);
-            }
-        }
+    // CSS triangle arrow pointing upward toward the trigger (default: bottom placement)
+    .#{$_}__container .#{$_}__arrow {
+        border-color: transparent transparent tokens.get($_, "tooltip-color") transparent;
+        border-style: solid;
+        border-width: $_arrow-size;
+        bottom: 100%;
+        content: " ";
+        display: flex;
+        left: 50%;
+        margin-left: -$_arrow-size;
+        position: absolute;
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-        .c-tooltip__container {
-            max-width: calc(var_default.$base * 30);
-        }
+    .#{$_}__container .#{$_}__content {
+        color: tokens.get($_, "tooltip-content-color");
+        padding: tokens.use($_, "base", 1);
+        text-align: center;
+    }
+
+    /* Position modifiers — shift the bubble and re-align the arrow when the
+       tooltip would overflow the viewport or a scroll container */
+    &.#{$_}--overflow-right .#{$_}__container {
+        left: 98%;
+        transform: translateX(-98%);
+    }
+
+    &.#{$_}--overflow-right .#{$_}__container .#{$_}__arrow {
+        left: 92%;
+    }
+
+    &.#{$_}--overflow-left .#{$_}__container {
+        left: 2%;
+        transform: translateX(2%);
+    }
+
+    &.#{$_}--overflow-left .#{$_}__container .#{$_}__arrow {
+        left: 4%;
+    }
+
+    // Tooltip appears above the trigger; arrow flips to point downward
+    &.#{$_}--top .#{$_}__container {
+        top: 0;
+        transform: translateY(-100%) translateX(-50%);
+    }
+
+    &.#{$_}--top .#{$_}__container .#{$_}__arrow {
+        border-color: tokens.get($_, "tooltip-color") transparent transparent transparent;
+        bottom: unset;
+    }
+
+    // Tooltip appears to the right of the trigger; arrow points left
+    &.#{$_}--right .#{$_}__container {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &.#{$_}--right .#{$_}__container .#{$_}__arrow {
+        border-color: transparent tokens.get($_, "tooltip-color") transparent transparent;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
+    // Tooltip appears to the left of the trigger; arrow points right
+    &.#{$_}--left .#{$_}__container {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%) translateX(-100%);
+    }
+
+    &.#{$_}--left .#{$_}__container .#{$_}__arrow {
+        border-color: transparent transparent transparent tokens.get($_, "tooltip-color");
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%) translateX(50%);
     }
 
     @media print {
-        .c-tooltip__container {
+        .#{$_}__container {
             display: none;
         }
     }
-
-    @keyframes opacityAnimation { 
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
 }
 
+// Fade-in used by .is-visible
+@keyframes opacityAnimation {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+// ---------------------------------------------------------------------------
+// Attribute API — zero-JS tooltip via data-tooltip="…"
+// The tooltip text is rendered through the ::after pseudo-element;
+// the ::before pseudo-element renders the directional arrow (points down
+// toward the trigger by default, i.e. the bubble appears above).
+// ---------------------------------------------------------------------------
 [data-tooltip] {
-    position: relative;
-    display: inline-block;
+    contain: layout;
     cursor: pointer;
+    display: inline-block;
 
     &::after {
-        line-height: 1.4;
-        font-size: .95em;
-        filter: var_properties.$drop-shadow-2;
+        background-color: tokens.get($_, "tooltip-color");
+        border-radius: tokens.use($_, "border-radius", 1);
+        border: tokens.get($_, "inner-border-width") solid tokens.get($_, "tooltip-color");
+        bottom: calc(100% + $_arrow-size);
+        color: tokens.get($_, "tooltip-content-color");
         content: attr(data-tooltip);
-        position: absolute;
-        border-radius: $c-tooltip-border-radius;
-        z-index: var_properties.$level-9;
-        width: max-content;
-        max-width: calc(var_default.$base * 25);
-        background-color: $c-tooltip-color;
-        color: $c-tooltip-content-color;
-        padding: calc(var_default.$base * .75) calc(var_default.$base * .5);
-        bottom: calc(100% + calc(var_default.$base * .5));
+        corner-shape: tokens.get($_, "corner-shape");
+        filter: tokens.use($_, "shadow", 1);
         left: 50%;
-        transform: translateX(-50%) translateY(var_default.$base);
+        max-width: tokens.use($_, "base", 25);
         opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-        transition: 
-            opacity 0.25s ease-out, 
-            transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: tokens.use($_, "base", 1);
+        position: absolute;
         text-align: center;
-        backdrop-filter: blur(calc(var_default.$base * .5));
+        transform: translateX(-50%);
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+        visibility: hidden;
+        width: max-content;
+        z-index: 1;
     }
 
     &::before {
-        filter: var_properties.$drop-shadow-2;
-        content: " ";
-        position: absolute;
-        bottom: calc(100% + calc(var_default.$base * -.5)); 
-        left: 50%;
-        border-width: calc(var_default.$base * .5);
+        border-color: tokens.get($_, "tooltip-color") transparent transparent transparent;
         border-style: solid;
-        border-color: $c-tooltip-color transparent transparent transparent;
+        border-width: $_arrow-size;
+        bottom: calc(100% - $_arrow-size);
+        content: " ";
+        left: 50%;
+        margin-left: -$_arrow-size;
         opacity: 0;
+        position: absolute;
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
         visibility: hidden;
-        transition: opacity 0.2s ease-in-out;
-        transform: translateX(-50%) translateY(var_default.$base);
-        backdrop-filter: blur(calc(var_default.$base * .5));
     }
-
-    &:hover::after, 
-    &:focus::after, 
-    &:hover::before, 
+    
+    // Reveal both pseudo-elements on hover or keyboard focus
+    &:hover::after,
+    &:focus::after,
+    &:hover::before,
     &:focus::before {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(calc(var_default.$base * .5));
     }
 
+    // Bubble is interactive so nested links/buttons remain reachable
     &:hover::after,
     &:focus::after {
         pointer-events: unset;
     }
-
+    
+    // Arrow is purely decorative — keep it out of pointer hit-testing
     &:hover::before,
     &:focus::before {
         pointer-events: none;
