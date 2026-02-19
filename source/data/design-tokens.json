@@ -12,7 +12,7 @@
           "label": "Base Unit",
           "description": "Main unit that drives radius and spacing scales.",
           "type": "range",
-          "default": "8px",
+          "default": "calc(1rem/2)",
           "unit": "px",
           "locked": true
         },
@@ -21,8 +21,8 @@
           "label": "Base Font Size",
           "description": "Root font size. All typographic sizes derive from this.",
           "type": "select",
-          "default": "16px",
-          "unit": "px",
+          "default": "1rem",
+          "unit": "rem",
           "options": [
             { "value": "16px", "label": "Standard" },
             { "value": "18px", "label": "Large" }

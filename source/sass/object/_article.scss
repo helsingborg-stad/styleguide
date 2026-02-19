@@ -1,4 +1,3 @@
-@use "../element/headings";
 @use "../setting/var_default";
 
 $article-content-headings:
@@ -20,7 +19,7 @@ $article-content-elements:
 
     h1:first-child,
     .c-group:first-child h1:first-child {
-        margin-top: calc(headings.$h1-font-size - (headings.$h1-line-height * headings.$h1-font-size));
+        // margin-top: calc(headings.$h1-font-size - (headings.$h1-line-height * headings.$h1-font-size)); TODO: replace with computed value once we have it working
     }
     
     h1:last-child {

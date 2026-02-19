@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "../element/headings";
 @use "../mixin/cover";
 @use "../mixin/mq";
 @use "../mixin/stretch";
@@ -194,7 +193,7 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
                 padding: calc(var_default.$base * 5);
 
                 .c-segment__title {
-                    font-size: headings.$h1-font-size;
+                    // font-size: headings.$h1-font-size; TODO: replace with computed value once we have it working
                 }
             }
 

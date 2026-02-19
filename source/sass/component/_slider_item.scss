@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "../element/headings";
 @use "../mixin/fluid-type";
 @use "../mixin/focus";
 @use "../mixin/mq";
@@ -123,17 +122,17 @@
             .c-slider__item__heading {
                 font-family: $c-slider-item-font-family-heading;
                 font-weight: $c-slider-item-font-weight-heading;
-                font-size: headings.$h2-font-size;
+                // font-size: headings.$h2-font-size; TODO: replace with computed value once we have it working
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 200ms;
 
-                @include mq.mq('sm') { 
-                    @include fluid-type.fluid-type(
-                        headings.$h2-font-size,
-                        var(--c-slider-item-font-size-heading-computed),
-                        6vw
-                    );
-                }
+                // @include mq.mq('sm') { 
+                //     @include fluid-type.fluid-type(
+                //         headings.$h2-font-size, TODO: replace with computed value once we have it working
+                //         var(--c-slider-item-font-size-heading-computed),
+                //         6vw
+                //     );
+                // }
 
                 @include mq.mq('lg') { 
                     font-size: var(--c-slider-item-font-size-heading-computed);
