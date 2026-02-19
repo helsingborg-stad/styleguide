@@ -10,6 +10,7 @@ $_: "c-table";
     "border-radius",
     "border-width",
     "color--surface",
+    "color--primary",
 ),
 (
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
@@ -26,6 +27,7 @@ $_: "c-table";
 
     .#{$_}__header {
         padding: tokens.use($_, "space", 1.5);
+        border-bottom: tokens.get($_, "border");
     }
 
     .#{$_}__inner {
@@ -40,6 +42,7 @@ $_: "c-table";
     .#{$_}__footer {
         width: 100%;
         padding: 0 tokens.use($_, "space", 2);
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 
     .#{$_}__caption {
@@ -81,6 +84,11 @@ $_: "c-table";
     .#{$_}__head {
         font-weight: var(--font-weight-bold, bold);
         color: tokens.get($_, "color--surface-contrast-muted");
+        background-color: tokens.get($_, "color--surface-alt");
+        
+        .c-table__column {
+            border-bottom: tokens.get($_, "border");
+        }
 
         .#{$_}__column-content {
             display: flex;
@@ -95,6 +103,7 @@ $_: "c-table";
             max-width: calc(100% - #{tokens.use($_, "space", 2)});
             text-overflow: ellipsis;
             overflow: hidden;
+            white-space: nowrap;
         }
     }
 
@@ -110,26 +119,22 @@ $_: "c-table";
 
         .#{$_}__line:nth-child(odd) .#{$_}__column {
             background-color: tokens.get($_, "color--surface");
+        }
 
-            &:hover {
-                background: tokens.get($_, "color--surface-alt");
-            }
+        .#{$_}__line:nth-child(odd):hover .#{$_}__column {
+            background-color: tokens.get($_, "color--surface-border");
         }
 
         .#{$_}__line:nth-child(even) .#{$_}__column {
             background-color: tokens.get($_, "color--surface-alt");
-
-            &:hover {
-                background: tokens.get($_, "color--surface");
-            }
         }
 
-        .#{$_}__column {
-            border-right: tokens.get($_, "border");
+        .#{$_}__line:nth-child(even):hover .#{$_}__column {
+            background-color: tokens.get($_, "color--surface-border");
         }
 
-        .#{$_}__column:last-of-type {
-            border-right: none;
+        .#{$_}__column + .#{$_}__column {
+            border-left: tokens.get($_, "border");
         }
     }
 
@@ -183,6 +188,7 @@ $_: "c-table";
 
     .#{$_}__sort-button {
         cursor: pointer;
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 
     /**
@@ -235,7 +241,7 @@ $_: "c-table";
             }
 
             &:after {
-                box-shadow: 20px 0 20px -20px rgba(0, 0, 0, 0.3) inset;
+                box-shadow: tokens.get($_, "shadow");
                 content: " ";
                 height: 100%;
                 position: absolute;
@@ -255,14 +261,6 @@ $_: "c-table";
             position: inherit;
         }
     }
-}
-
-/**
- * Flat styling
- */
-.c-card--flat .#{$_} .#{$_}__header {
-    padding-left: 0;
-    padding-right: 0;
 }
 
 /**

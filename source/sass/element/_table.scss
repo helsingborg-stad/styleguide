@@ -1,6 +1,17 @@
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
+
+/* Namespace */
+$_: "e-table";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "border-width",
+    "color--primary",
+),
+(
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+));
 
 table {
     border-spacing: 0px;
@@ -8,18 +19,18 @@ table {
 
 table td,
 table th {
-    padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
-    font-size: var_fonts.$font-size-caption;
+    padding: calc(tokens.use($_, "space", 1.5)) calc(tokens.use($_, "space", 2));
+    font-size: tokens.use($_, "space", 2);
     text-align: left;
-    line-height: 24px;
+    line-height: tokens.use($_, "space", 3);
 }
 
 table th {
-    font-weight: var_fonts.$font-weight-bold;
-    font-family: var_fonts.$font-family-bold;
+    font-weight: tokens.get($_, "font-weight-bold");
+    font-family: tokens.get($_, "font-family-bold");
 }
 
 table thead th {
-    color: var_colors.$color-primary-contrasting;
-    background-color: var_colors.$color-primary;
+    color: tokens.get($_, "color--primary-contrast");
+    background-color: tokens.get($_, "color--primary-alt");
 }
