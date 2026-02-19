@@ -12,7 +12,7 @@
           "label": "Base Unit",
           "description": "Main unit that drives radius and spacing scales.",
           "type": "range",
-          "default": "8px",
+          "default": "calc(1rem/2)",
           "unit": "px",
           "locked": true
         },
@@ -21,8 +21,8 @@
           "label": "Base Font Size",
           "description": "Root font size. All typographic sizes derive from this.",
           "type": "select",
-          "default": "16px",
-          "unit": "px",
+          "default": "1rem",
+          "unit": "rem",
           "options": [
             { "value": "16px", "label": "Standard" },
             { "value": "18px", "label": "Large" }
@@ -97,10 +97,7 @@
             { "value": "1.125", "label": "Major Second" },
             { "value": "1.200", "label": "Minor Third" },
             { "value": "1.250", "label": "Major Third" },
-            { "value": "1.333", "label": "Perfect Fourth" },
-            { "value": "1.414", "label": "Augmented Fourth" },
-            { "value": "1.500", "label": "Perfect Fifth" },
-            { "value": "1.618", "label": "Golden Ratio" }
+            { "value": "1.333", "label": "Perfect Fourth" }
           ]
         },
         {
