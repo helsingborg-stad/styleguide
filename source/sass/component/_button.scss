@@ -235,7 +235,18 @@ $button-sizes: (
     &:not(:disabled) {
         padding-left: 0;
         padding-right: 0;
-        &:hover { opacity: .8; }
+
+        &:hover .c-button__label:after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: tokens.use($_, "space", 1.5);
+            width: 100%;
+            height: 3px;
+            background-color: tokens.get($_, "color--surface-contrast-muted");
+            transform: translateX(-50%);
+            border-radius: 6px;
+        }
     }
 
     &--primary {
@@ -262,9 +273,10 @@ $button-sizes: (
     background-color: var(--_color);
     color: var(--_contrast);
 
-    &:hover { background-color: var(--_hover); }
+    &:hover  { background-color: var(--_hover);  color: var(--_contrast); }
     &:active {
         background-color: var(--_active);
+        color: var(--_contrast);
         .#{$_}__label { opacity: .8; }
     }
 }
@@ -336,6 +348,13 @@ $button-sizes: (
 
 .#{$_} + .#{$_} {
     margin-left: tokens.use($_, "outer-space");
+}
+
+a.#{$_}:active,
+a.#{$_}:hover,
+a.#{$_}:focus,
+a.#{$_}:visited {
+    text-decoration: none;
 }
 
 @media print {
