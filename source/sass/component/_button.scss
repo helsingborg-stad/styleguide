@@ -240,7 +240,7 @@ $button-sizes: (
             content: "";
             position: absolute;
             left: 50%;
-            bottom: tokens.use($_, "space", 1.5);
+            bottom: tokens.use($_, "space", 1.25);
             width: 100%;
             height: 3px;
             background-color: tokens.get($_, "color--surface-contrast-muted");
@@ -290,8 +290,17 @@ $button-sizes: (
     ) solid var(--_color);
     color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
 
-    &:hover  { background-color: var(--_hover);  color: var(--_contrast); }
-    &:active { background-color: var(--_active); color: var(--_contrast); }
+    // Light tint on hover: mix a small amount of the button color into the surface.
+    // Text color stays as-is (dark colored text reads fine on a light tinted bg).
+    &:hover  { background-color: color-mix(in srgb, var(--_color) 15%, #{tokens.get($_, "color--surface")}); }
+    &:active { background-color: color-mix(in srgb, var(--_color) 30%, #{tokens.get($_, "color--surface")}); }
+
+    // Default: --_color = surface (white), so the tint above produces no visible change.
+    // Fall back to --_hover (surface-border = light gray) and --_active for a clear effect.
+    &--default:hover,
+    &--deafult:hover   { background-color: var(--_hover); }
+    &--default:active,
+    &--deafult:active  { background-color: var(--_active); }
 
     // Default uses full contrast (no color-mix).
     // Includes legacy "deafult" typo for backwards compatibility.
