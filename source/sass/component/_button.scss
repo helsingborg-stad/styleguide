@@ -34,45 +34,41 @@ $_: "c-button";
  * --_color, --_contrast, --_hover, --_active are consumed by
  * __filled, __outlined, and __toggle.
  */
-$variants: (
+$button-variants: (
     "primary": (
-        "color": tokens.get($_, "color--primary"),
-        "contrast": tokens.get($_, "color--primary-contrast"),
+        "bg": tokens.get($_, "color--primary"),
+        "fg": tokens.get($_, "color--primary-contrast"),
         "hover": tokens.get($_, "color--primary-border"),
         "active": tokens.get($_, "color--primary-alt")
     ),
     "secondary": (
-        "color": tokens.get($_, "color--secondary"),
-        "contrast": tokens.get($_, "color--secondary-contrast"),
+        "bg": tokens.get($_, "color--secondary"),
+        "fg": tokens.get($_, "color--secondary-contrast"),
         "hover": tokens.get($_, "color--secondary-border"),
         "active": tokens.get($_, "color--secondary-alt")
+    ),
+    "default": (
+        "bg": tokens.get($_, "color--surface"),
+        "fg": tokens.get($_, "color--surface-contrast"),
+        "hover": tokens.get($_, "color--surface-border"),
+        "active": tokens.get($_, "color--surface-alt")
     )
 );
 
-@each $name, $v in $variants {
+@each $name, $variant in $button-variants {
     .#{$_}__filled--#{$name},
     .#{$_}__outlined--#{$name},
     .#{$_}__basic--#{$name} {
-        --_color: #{map.get($v, "color")};
-        --_contrast: #{map.get($v, "contrast")};
-        --_hover: #{map.get($v, "hover")};
-        --_active: #{map.get($v, "active")};
+        --_color: #{map.get($variant, "bg")};
+        --_contrast: #{map.get($variant, "fg")};
+        --_hover: #{map.get($variant, "hover")};
+        --_active: #{map.get($variant, "active")};
     }
 }
 
-.#{$_}__filled--default,
-.#{$_}__filled--deafult,
-.#{$_}__outlined--default,
-.#{$_}__outlined--deafult {
-    --_color: #{tokens.get($_, "color--surface")};
-    --_contrast: #{tokens.get($_, "color--surface-contrast")};
-    --_hover: #{tokens.get($_, "color--surface-alt")};
-    --_active: #{tokens.get($_, "color--surface-border")};
-}
-
-.#{$_}__basic--default,
-.#{$_}__basic--deafult {
-    --_color: #{tokens.get($_, "color--surface-contrast")};
+@keyframes c-button-rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Component */
@@ -91,8 +87,10 @@ $variants: (
     user-select: none;
     position: relative;
     max-width: 100%;
-    filter: tokens.get($_, "shadow");
-
+    transition: background-color 100ms ease-in-out, 
+                border-color 100ms ease-in-out, 
+                color 100ms ease-in-out;
+    
     .#{$_}__loader {
         display: none;
         width: calc(#{tokens.get($_, "base")} * 3);
@@ -109,11 +107,7 @@ $variants: (
 
         .#{$_}__loader {
             display: inline-block;
-
-            @keyframes rotation {
-                0%   { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
+            animation: c-button-rotation 1s linear infinite;
         }
     }
 
@@ -151,6 +145,7 @@ $variants: (
 
         * {
             align-self: center;
+            color: inherit;
         }
 
         .#{$_}__label-icon {
@@ -172,30 +167,32 @@ $variants: (
 
     /**
      * Sizes
-     * --_h: height multiplier  --_w: min-width multiplier  --_p: padding multiplier
+     * --_h: height multiplier
+     * --_w: min-width multiplier
+     * --_p: horizontal padding multiplier
      * --_offset: icon negative margin (= loader margin-left)
-     * --_loader: loader size multiplier (lg/sm only, md uses base default of 3)
+     * --_loader: loader size multiplier (md uses default)
      */
-    $sizes: (
-        "lg": ("h": 8, "w": 12, "p": 5, "offset": -1.5, "loader": 4, "fs": tokens.get($_, "font-size-lg"), "ls": null),
-        "md": ("h": 6.5, "w": 9, "p": 4, "offset": -1, "loader": null, "fs": tokens.get($_, "font-size-md"), "ls": null),
-        "sm": ("h": 5.5, "w": 6.75, "p": 2, "offset": -.5, "loader": 2, "fs": tokens.get($_, "font-size-sm"), "ls": 0.1rem)
+    $button-sizes: (
+        "lg": ("height": 8, "min-width": 12, "padding-x": 5, "offset": -1.5, "loader": 4, "font-size": tokens.get($_, "font-size-lg"), "letter-spacing": null),
+        "md": ("height": 6.5, "min-width": 9, "padding-x": 4, "offset": -1, "loader": null, "font-size": tokens.get($_, "font-size-md"), "letter-spacing": null),
+        "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5, "loader": 2, "font-size": tokens.get($_, "font-size-sm"), "letter-spacing": 0.1rem)
     );
 
-    @each $name, $s in $sizes {
+    @each $name, $size in $button-sizes {
         &.#{$_}--#{$name} {
-            --_h: #{map.get($s, "h")};
-            --_w: #{map.get($s, "w")};
-            --_p: #{map.get($s, "p")};
-            --_offset: #{map.get($s, "offset")};
-            --_fs: #{map.get($s, "fs")};
+            --_h: #{map.get($size, "height")};
+            --_w: #{map.get($size, "min-width")};
+            --_p: #{map.get($size, "padding-x")};
+            --_offset: #{map.get($size, "offset")};
+            --_fs: #{map.get($size, "font-size")};
 
-            @if map.get($s, "loader") != null {
-                --_loader: #{map.get($s, "loader")};
+            @if map.get($size, "loader") != null {
+                --_loader: #{map.get($size, "loader")};
             }
 
-            @if map.get($s, "ls") != null {
-                letter-spacing: #{map.get($s, "ls")};
+            @if map.get($size, "letter-spacing") != null {
+                letter-spacing: #{map.get($size, "letter-spacing")};
             }
         }
     }
@@ -258,7 +255,6 @@ $variants: (
 .#{$_}__basic {
     border: none;
     box-shadow: none;
-    filter: tokens.get($_, "shadow");
     transition: transform 100ms ease-in-out;
 
     &:not(:disabled) {
@@ -268,9 +264,15 @@ $variants: (
         &:hover { opacity: .8; }
     }
 
-    &--primary { color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary")); }
-    &--secondary { color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary")); }
-    &--default { color: tokens.get($_, "color--surface-contrast"); }
+    &--primary {
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary")); 
+    }
+    &--secondary {
+        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary")); 
+    }
+    &--default {
+        color: tokens.get($_, "color--surface-contrast"); 
+    }
 
     &--default:not(:disabled):hover {
         opacity: 1;
@@ -303,16 +305,15 @@ $variants: (
         ) solid var(--_color);
     color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
 
+    &:hover { background-color: var(--_hover); }
+    &:active { background-color: var(--_active); }
+
+    // Kept for backwards compatibility (includes historical typo)
     &--default,
     &--deafult {
         border-color: var(--_contrast);
         color: var(--_contrast);
     }
-
-    &:hover { background-color: var(--_hover); }
-    &:active { background-color: var(--_active); }
-
-    &:hover:focus .#{$_}__label { opacity: .8; }
 }
 
 // Toggle (pressed state)
@@ -325,12 +326,6 @@ $variants: (
     &.#{$_}__filled {
         outline-offset: 4px;
         outline: 0 solid rgba(0,0,0,0.5);
-
-        &[aria-pressed='true'] {
-            outline: 2px solid var(--_contrast);
-            outline-offset: -2px;
-            background-color: var(--_active);
-        }
     }
 
     &.#{$_}__basic {
