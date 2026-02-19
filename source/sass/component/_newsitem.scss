@@ -6,7 +6,6 @@ $_: "c-newsitem";
 /* Design tokens */
 @include tokens.create($_, (
     "space",
-    "color--primary",
     "color--surface",
     "color--border",
     "border-width",
@@ -63,7 +62,7 @@ $_: "c-newsitem";
     }
 
     .#{$_}__heading {
-        color: tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--surface-contrast");
         margin-top: 0;
     }
 

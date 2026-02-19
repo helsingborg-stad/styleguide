@@ -70,13 +70,10 @@ $_: "c-table";
      */
     .#{$_}__table {
         min-width: 100%;
-        vertical-align: top;
     }
 
     .#{$_}__column {
         position: relative;
-        padding: tokens.use($_, "space", 1.5);
-        vertical-align: top;
         min-width: tokens.use($_, "space", 13);
     }
 
@@ -84,14 +81,6 @@ $_: "c-table";
      * Table head
      */
     .#{$_}__head {
-        font-weight: var(--font-weight-bold, bold);
-        color: tokens.get($_, "color--surface-contrast-muted");
-        background-color: tokens.get($_, "color--surface-alt");
-        
-        .c-table__column {
-            border-bottom: tokens.get($_, "border");
-        }
-
         .#{$_}__column-content {
             display: flex;
             justify-content: space-between;
@@ -114,30 +103,6 @@ $_: "c-table";
      */
     .#{$_}__body {
         color: tokens.get($_, "color--surface-contrast");
-
-        .#{$_}__line .#{$_}__column {
-            transition: background-color 100ms ease;
-        }
-
-        .#{$_}__line:nth-child(odd) .#{$_}__column {
-            background-color: tokens.get($_, "color--surface");
-        }
-
-        .#{$_}__line:nth-child(odd):hover .#{$_}__column {
-            background-color: tokens.get($_, "color--surface-border");
-        }
-
-        .#{$_}__line:nth-child(even) .#{$_}__column {
-            background-color: tokens.get($_, "color--surface-alt");
-        }
-
-        .#{$_}__line:nth-child(even):hover .#{$_}__column {
-            background-color: tokens.get($_, "color--surface-border");
-        }
-
-        .#{$_}__column + .#{$_}__column {
-            border-left: tokens.get($_, "border");
-        }
     }
 
     .#{$_}__column.#{$_}__column-0 {
@@ -262,6 +227,69 @@ $_: "c-table";
             position: inherit;
         }
     }
+}
+
+/**
+ * Shared: .c-table and plain <table>
+ */
+.#{$_}__table,
+table:not(.#{$_} *) {
+    border-spacing: 0px;
+    width: 100%;
+    vertical-align: top;
+}
+
+.#{$_}__column,
+table:not(.#{$_} *) td,
+table:not(.#{$_} *) th {
+    padding: tokens.use($_, "space", 1.5) tokens.use($_, "space", 2);
+    font-size: tokens.use($_, "space", 2);
+    text-align: left;
+    line-height: tokens.use($_, "space", 3);
+    vertical-align: top;
+}
+
+.#{$_}__head,
+table:not(.#{$_} *) thead {
+    font-weight: var(--font-weight-bold, bold);
+    font-family: var(--font-family-bold, var(--font-family-base));
+    color: tokens.get($_, "color--surface-contrast-muted");
+    background-color: tokens.get($_, "color--surface-alt");
+}
+
+.#{$_}__head .#{$_}__column,
+table:not(.#{$_} *) thead th {
+    border-bottom: tokens.get($_, "border");
+}
+
+.#{$_}__body .#{$_}__line .#{$_}__column,
+table:not(.#{$_} *) tbody tr td {
+    transition: background-color 100ms ease;
+}
+
+.#{$_}__body .#{$_}__line:nth-child(odd) .#{$_}__column,
+table:not(.#{$_} *) tbody tr:nth-child(odd) td {
+    background-color: tokens.get($_, "color--surface");
+}
+
+.#{$_}__body .#{$_}__line:nth-child(odd):hover .#{$_}__column,
+table:not(.#{$_} *) tbody tr:nth-child(odd):hover td {
+    background-color: tokens.get($_, "color--surface-border");
+}
+
+.#{$_}__body .#{$_}__line:nth-child(even) .#{$_}__column,
+table:not(.#{$_} *) tbody tr:nth-child(even) td {
+    background-color: tokens.get($_, "color--surface-alt");
+}
+
+.#{$_}__body .#{$_}__line:nth-child(even):hover .#{$_}__column,
+table:not(.#{$_} *) tbody tr:nth-child(even):hover td {
+    background-color: tokens.get($_, "color--surface-border");
+}
+
+.#{$_}__body .#{$_}__column + .#{$_}__column,
+table:not(.#{$_} *) tbody td + td {
+    border-left: tokens.get($_, "border");
 }
 
 /**
