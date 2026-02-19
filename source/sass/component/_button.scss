@@ -195,8 +195,6 @@ $button-sizes: (
 
             /* Loader sizing (sm/lg override the default size) */
             .#{$_}__loader {
-                margin-left: calc(#{tokens.get($_, "base")} * var(--_offset));
-
                 @if map.get($size, "loader") != null {
                     width:        calc(#{tokens.get($_, "base")} * var(--_loader));
                     height:       calc(#{tokens.get($_, "base")} * var(--_loader));
@@ -218,17 +216,6 @@ $button-sizes: (
                 }
 
                 .c-icon::after { vertical-align: baseline; }
-            }
-
-            /* Icon gap for filled & outlined (basic uses padding: 0 instead) */
-            &.#{$_}__outlined .#{$_}__label .#{$_}__label-icon,
-            &.#{$_}__filled   .#{$_}__label .#{$_}__label-icon {
-                margin-right: calc(#{tokens.get($_, "base")} * var(--_offset));
-
-                &--reverse {
-                    margin-right: 0;
-                    margin-left:  calc(#{tokens.get($_, "base")} * var(--_offset));
-                }
             }
         }
     }
