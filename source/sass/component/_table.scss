@@ -41,12 +41,14 @@ $_: "c-table";
 
     .#{$_}__footer {
         width: 100%;
-        padding: 0 tokens.use($_, "space", 2);
-        color: tokens.get($_, "color--surface-contrast-muted");
+        padding: tokens.use($_, "space", 1.5);
+        border-top: tokens.get($_, "border");
+        display: grid;
+        gap: tokens.use($_, "space", 2);
     }
 
     .#{$_}__caption {
-        font-size: tokens.use($_, "space", 2);
+        margin: 0;
         font-weight: var(--font-weight-italic, 400);
         font-family: var(--font-family-italic, var(--font-family-base));
         font-style: italic;
@@ -146,7 +148,6 @@ $_: "c-table";
      * Scroll indicator
      */
     .#{$_}__scroll-indicator-wrapper {
-        margin: tokens.use($_, "space", 2) 0;
         width: 100%;
         background-color: tokens.get($_, "color--surface-border");
         height: tokens.use($_, "space", 1.5);
