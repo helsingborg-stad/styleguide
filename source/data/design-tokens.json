@@ -1,4 +1,5 @@
 {
+  "$schema": "../design-tokens-schema.json",
   "name": "Design System",
   "version": "1.0.0",
   "categories": [

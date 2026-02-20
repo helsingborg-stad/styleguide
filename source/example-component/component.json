@@ -8,13 +8,6 @@
     "expand"
   ],
   "tokens": [
-    "border",
-    "border-radius",
-    "border-width",
-    "color--primary",
-    "color--surface",
-    "color--surface-contrast-muted",
-    "shadow",
-    "space"
+    "base"
   ]
 }

@@ -39,10 +39,10 @@
             }
         },
         "tokens": {
-            "description": "This is an array of tokens that the component uses. This is used to determine which tokens to include in the CSS output for the component. The tokens must be defined in the tokens.json file.",
+            "description": "This is an array of tokens that the component uses. Token names correspond to CSS custom property names from design-tokens.json with the leading '--' stripped. Use 'shadow' as a group token to include all shadow-* variables.",
             "type": "array",
             "items": {
-                "type": "string"
+                "$ref": "./design-tokens-schema.json#/$defs/validToken"
             }
         }
     },

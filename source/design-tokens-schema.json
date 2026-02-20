@@ -1,0 +1,161 @@
+{
+    "title": "JSON schema for Helsingborg Styleguide Design Tokens",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "categories": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/category"
+            }
+        }
+    },
+    "required": ["name", "version", "categories"],
+    "additionalProperties": false,
+    "$defs": {
+        "validToken": {
+            "description": "A valid design token name. Corresponds to a CSS custom property in design-tokens.json with the leading '--' stripped. 'shadow' is a group token that includes all shadow-* variables.",
+            "type": "string",
+            "enum": [
+                "base",
+                "base-font-size",
+                "border-radius",
+                "border-width",
+                "corner-shape",
+                "font-family-base",
+                "font-family-heading",
+                "font-family-code",
+                "font-size-scale-ratio",
+                "font-weight-normal",
+                "font-weight-medium",
+                "font-weight-bold",
+                "line-height-base",
+                "line-height-heading",
+                "letter-spacing-base",
+                "space",
+                "outer-space",
+                "shadow",
+                "shadow-color",
+                "shadow-color-opacity",
+                "shadow-amount",
+                "color--primary",
+                "color--primary-contrast",
+                "color--secondary",
+                "color--secondary-contrast",
+                "color--background",
+                "color--background-contrast",
+                "color--background-contrast-muted",
+                "color--surface",
+                "color--surface-contrast",
+                "color--surface-contrast-muted",
+                "color--focus",
+                "color--alpha",
+                "color--alpha-contrast",
+                "color--success",
+                "color--success-contrast",
+                "color--warning",
+                "color--warning-contrast",
+                "color--danger",
+                "color--danger-contrast",
+                "color--info",
+                "color--info-contrast"
+            ]
+        },
+        "category": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "settings": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/setting"
+                    }
+                }
+            },
+            "required": ["id", "label", "settings"],
+            "additionalProperties": false
+        },
+        "setting": {
+            "type": "object",
+            "properties": {
+                "variable": {
+                    "description": "CSS custom property name. Must start with '--' followed by a lowercase letter.",
+                    "type": "string",
+                    "pattern": "^--[a-z][a-z0-9-]*$"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": ["range", "select", "color", "rgba", "font"]
+                },
+                "default": {},
+                "unit": {
+                    "type": "string"
+                },
+                "locked": {
+                    "type": "boolean"
+                },
+                "min": {
+                    "type": "number"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "step": {
+                    "type": "number"
+                },
+                "options": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/option"
+                    }
+                },
+                "contrast": {
+                    "description": "One or more companion CSS variable names for contrast colors.",
+                    "oneOf": [
+                        { "type": "string" },
+                        { "type": "array", "items": { "type": "string" } }
+                    ]
+                }
+            },
+            "required": ["variable", "label", "type", "default"],
+            "additionalProperties": false
+        },
+        "option": {
+            "type": "object",
+            "properties": {
+                "value": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": ["value", "label"],
+            "additionalProperties": false
+        }
+    }
+}
