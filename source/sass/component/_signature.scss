@@ -1,6 +1,14 @@
 @use "sass:map";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
+
+/* Component name */
+$_: "c-signature";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "space",
+    "color--darker",
+));
 
 .c-signature {
     display: grid;
@@ -8,7 +16,7 @@
     grid-template-rows: auto 1fr;
     grid-template-areas: "avatar signature" "whitespace dates";
     text-decoration: none;
-    column-gap: map.get(var_default.$spacers, "2" );
+    column-gap: tokens.use($_, "space", 2);
 
     &__avatar {
         grid-area: avatar;
@@ -21,8 +29,8 @@
     }
 
     &__title {
-        color: var_colors.$color-darker;
-        margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
+        color: tokens.get($_, "color--darker");
+        margin-top: calc(#{tokens.use($_, "space", 1)} * -1);
         display: block;
     }
 
@@ -32,7 +40,7 @@
 
     &__published,
     &__updated {
-        color: var_colors.$color-darker;
+        color: tokens.get($_, "color--darker");
         display: block;
     }
 }

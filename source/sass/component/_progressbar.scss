@@ -1,12 +1,22 @@
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-$c-progress-border-radius: var(--c-progress-border-radius, var_border-radius.$border-radius-md) !default;
-$c-progress-background-color: var(--c-progress-background-color, var_colors.$color-lighter) !default;
-$c-progress-value-color: var(--c-progress-value-color, var_colors.$color-success) !default;
-$c-progress-height: calc(var(--c-progress-height, 1.5) * #{var_default.$base}) !default;
-$c-progress-value-color-cancelled: var(--c-progress-value-color-cancelled, var_colors.$color-dark) !default;
+/* Component name */
+$_: "c-progressbar";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "base",
+    "border-radius",
+    "color--lighter",
+    "color--success",
+    "color--dark",
+));
+
+$c-progress-border-radius: tokens.use($_, "border-radius") !default;
+$c-progress-background-color: tokens.get($_, "color--lighter") !default;
+$c-progress-value-color: tokens.get($_, "color--success") !default;
+$c-progress-height: calc(#{tokens.get($_, "base")} * 1.5) !default;
+$c-progress-value-color-cancelled: tokens.get($_, "color--dark") !default;
 
 .c-progressbar {
     height:$c-progress-height;
