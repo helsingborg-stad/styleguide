@@ -157,7 +157,12 @@ $button-sizes: (
         /* Icon: default order 0 (flex default), so it comes before text */
         .#{$_}__label-icon {
             display: flex;
-            &--reverse { order: 2; } // push icon after text when reversed
+            margin-left: calc(#{tokens.get($_, "base")} * var(--_offset, 0));
+            &--reverse {
+                order: 2; // push icon after text when reversed
+                margin-left: 0;
+                margin-right: calc(#{tokens.get($_, "base")} * var(--_offset, 0));
+            }
         }
 
         /* Text: order 1, so icon (order 0) naturally precedes it */
@@ -235,18 +240,6 @@ $button-sizes: (
     &:not(:disabled) {
         padding-left: 0;
         padding-right: 0;
-
-        &:hover .c-button__label:after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: tokens.use($_, "space", 1.25);
-            width: 100%;
-            height: 3px;
-            background-color: tokens.get($_, "color--surface-contrast-muted");
-            transform: translateX(-50%);
-            border-radius: 6px;
-        }
     }
 
     &--primary {
@@ -327,10 +320,18 @@ $button-sizes: (
         &:before {
             content: "";
             position: absolute;
-            bottom: 4px;
-            width: 0;
-            border-bottom: 2px solid currentColor;
-            transition: width 100ms ease-in-out;
+            left: 50%;
+            bottom: tokens.use($_, "space", 1);
+            width: 0%;
+            height: 3px;
+            background-color: tokens.get($_, "color--surface-contrast-muted");
+            transform: translateX(-50%);
+            border-radius: 6px;
+            transition: all 200ms ease-in-out;
+        }
+
+        &:hover:before {
+            width: 120%;
         }
 
         &[aria-pressed='true'] {
