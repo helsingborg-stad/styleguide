@@ -4,30 +4,21 @@
 $_: "c-paper";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "space",
-    "shadow",
-    "border-width",
-    "color--surface",
-), (
-    "border":   tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    "padding":  "calc(#{tokens.use($_, "space")} * var(--#{$_}--padding-multiplier, 0))",
-    "shadow":   tokens.use($_, "shadow", 1)
-), (
-    "color--surface": "color--background",
-));
+@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+        "padding": "calc(#{tokens.use($_, " space")} * var(--#{$_}--padding-multiplier, 0))",
+        "shadow": tokens.use($_, "shadow", 1)), ("color--surface": "color--background",
+    ));
 
 /* Component */
 .#{$_} {
-    contain:          layout;
+    contain: layout;
     background-color: tokens.get($_, "color--surface");
-    color:            tokens.get($_, "color--surface-contrast");
-    border:           tokens.get($_, "border");
-    border-radius:    tokens.use($_, "border-radius");
-    corner-shape:     tokens.get($_, "corner-shape");
-    padding:          tokens.get($_, "padding");
-    filter:           tokens.get($_, "shadow");
+    color: tokens.get($_, "color--surface-contrast");
+    border: tokens.get($_, "border");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    padding: tokens.get($_, "padding");
+    filter: tokens.get($_, "shadow");
 
     @for $i from 0 through 8 {
         &--padding-#{$i} {
@@ -36,7 +27,7 @@ $_: "c-paper";
     }
 
     &--divider {
-        border-top:  tokens.get($_, "border");
+        border-top: tokens.get($_, "border");
         padding-top: tokens.use($_, "space", 3);
     }
 }

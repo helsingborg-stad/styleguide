@@ -9,18 +9,10 @@ $_arrow-size: 6px;
 // Register design tokens consumed by this component.
 // "tooltip-color" and "tooltip-content-color" are derived aliases;
 // "inner-border-width" is clamped so it stays between 2 px and 4 px.
-@include tokens.create($_, (
-    "base",
-    "border-radius",
-    "border-width",
-    "corner-shape",
-    "color--primary",
-    "shadow",
-),(
-    "tooltip-color": tokens.get($_, "color--primary"),
-    "tooltip-content-color": tokens.get($_, "color--primary-contrast"),
-    "inner-border-width": "clamp(2px, #{tokens.use($_, "border-width", 1)}, 4px)",
-));
+@include tokens.create($_, getComponentTokens($_), ("tooltip-color": tokens.get($_, "color--primary"),
+        "tooltip-content-color": tokens.get($_, "color--primary-contrast"),
+        "inner-border-width": "clamp(2px, #{tokens.use($_, " border-width", 1)}, 4px)",
+    ));
 
 // ---------------------------------------------------------------------------
 // Component API — class-based tooltip (.c-tooltip)
@@ -151,8 +143,13 @@ $_arrow-size: 6px;
 
 // Fade-in used by .is-visible
 @keyframes opacityAnimation {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -201,7 +198,7 @@ $_arrow-size: 6px;
         transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
         visibility: hidden;
     }
-    
+
     // Reveal both pseudo-elements on hover or keyboard focus
     &:hover::after,
     &:focus::after,
@@ -216,7 +213,7 @@ $_arrow-size: 6px;
     &:focus::after {
         pointer-events: unset;
     }
-    
+
     // Arrow is purely decorative — keep it out of pointer hit-testing
     &:hover::before,
     &:focus::before {

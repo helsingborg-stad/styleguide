@@ -5,16 +5,9 @@
 $_: "c-table";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "border-radius",
-    "border-width",
-    "color--surface",
-    "color--primary",
-),
-(
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-));
+@include tokens.create($_, getComponentTokens($_),
+    ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    ));
 
 /* Component */
 .#{$_} {
@@ -287,8 +280,8 @@ table:not(.#{$_} *) tbody tr:nth-child(even):hover td {
     background-color: tokens.get($_, "color--surface-border");
 }
 
-.#{$_}__body .#{$_}__column + .#{$_}__column,
-table:not(.#{$_} *) tbody td + td {
+.#{$_}__body .#{$_}__column+.#{$_}__column,
+table:not(.#{$_} *) tbody td+td {
     border-left: tokens.get($_, "border");
 }
 

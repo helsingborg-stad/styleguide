@@ -5,14 +5,9 @@
 $_: "c-sidebar";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "color--surface",
-    "color--primary",
-), (
-    "base": "var(--base)",
-    "width": "calc(var(--base) * 36)",
-));
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "width": "calc(var(--base) * 36)",
+    ));
 
 /* Component */
 .#{$_} {
@@ -182,7 +177,8 @@ $_: "c-sidebar";
         }
     }
 
-    a, a:visited {
+    a,
+    a:visited {
         text-decoration-style: unset;
         text-decoration: none;
     }
@@ -217,7 +213,7 @@ $_: "c-sidebar";
         transition: visibility 0s, opacity 0.5s linear;
     }
 
-    .#{$_}:not(.#{$_}--collapsed) + .#{$_}__backdrop {
+    .#{$_}:not(.#{$_}--collapsed)+.#{$_}__backdrop {
         visibility: visible;
         opacity: 1;
     }

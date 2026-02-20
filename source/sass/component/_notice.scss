@@ -5,23 +5,10 @@
 $_: "c-notice";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "border-width",
-    "space",
-    "outer-space",
-    "shadow",
-    "line-height",
-    "color--success",
-    "color--danger",
-    "color--warning",
-    "color--info"
-),
-(
-    "shadow": tokens.use($_, "shadow", 1),
-    "border": tokens.use($_, "border-width", 1) solid,
-)
-);
+@include tokens.create($_, getComponentTokens($_),
+    ("shadow": tokens.use($_, "shadow", 1),
+        "border": tokens.use($_, "border-width", 1) solid,
+    ));
 
 /* Component */
 .#{$_} {
@@ -65,7 +52,7 @@ $_: "c-notice";
         justify-content: flex-end;
         margin: tokens.use($_, "space", -1) tokens.use($_, "space", -1) tokens.use($_, "space", -1) 0;
 
-        > * + * {
+        >*+* {
             padding-left: tokens.use($_, "space", 0.75);
             border-left: 1px solid;
             border-left-color: inherit;
@@ -82,7 +69,10 @@ $_: "c-notice";
         grid-template-areas: "icon title actions";
     }
 
-    a, a:hover, a:active, a:visited {
+    a,
+    a:hover,
+    a:active,
+    a:visited {
         color: inherit;
         text-decoration: underline;
     }
@@ -119,7 +109,7 @@ $_: "c-notice";
     }
 }
 
-.#{$_} + .#{$_} {
+.#{$_}+.#{$_} {
     margin-top: tokens.use($_, "outer-space", 2);
 }
 
