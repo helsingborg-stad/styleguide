@@ -5,7 +5,7 @@ $_: "c-paper";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-        "padding": "calc(#{tokens.use($_, " space")} * var(--#{$_}--padding-multiplier, 0))",
+        "padding": "calc(#{tokens.use($_, "space")} * var(--#{$_}--padding-multiplier, 0))",
         "shadow": tokens.use($_, "shadow", 1)), ("color--surface": "color--background",
     ));
 
