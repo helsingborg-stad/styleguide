@@ -4,21 +4,28 @@
 $_: "c-newsitem";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "color--surface",
-    "color--border",
-    "border-width",
-),(
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-));
+@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    ));
 
 /* Stacked layout (standing variant + responsive) */
 @mixin _stacked {
-    .#{$_}__header { order: 1; }
-    .#{$_}__main-right { order: 2; grid-column: span 12; }
-    .#{$_}__title { order: 3; }
-    .#{$_}__main-left { order: 4; grid-column: span 12; }
+    .#{$_}__header {
+        order: 1;
+    }
+
+    .#{$_}__main-right {
+        order: 2;
+        grid-column: span 12;
+    }
+
+    .#{$_}__title {
+        order: 3;
+    }
+
+    .#{$_}__main-left {
+        order: 4;
+        grid-column: span 12;
+    }
 }
 
 /* Component */
@@ -32,7 +39,10 @@ $_: "c-newsitem";
 
     .#{$_}__main-left {
         grid-column: span 8;
-        &.cover { grid-column: span 12; }
+
+        &.cover {
+            grid-column: span 12;
+        }
     }
 
     .#{$_}__main-right {
@@ -132,6 +142,6 @@ a.#{$_} {
     }
 }
 
-.#{$_} + .#{$_} {
+.#{$_}+.#{$_} {
     margin-top: tokens.use($_, "space", 6);
 }

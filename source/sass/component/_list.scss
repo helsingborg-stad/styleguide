@@ -3,7 +3,7 @@
 /* Component name */
 $_: "c-listing";
 
-@include tokens.create($_, ("space"));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
 

@@ -6,18 +6,11 @@
 $_: "c-nav";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "space",
-    "shadow",
-    "color--surface",
-    "color--primary",
-), (
-    "base": "var(--base)",
-    "font-size": "var(--base-font-size)",
-    "background-expanded": "rgba(0, 0, 0, .05)",
-    "shadow": tokens.use($_, "shadow", 1),
-));
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "font-size": "var(--base-font-size)",
+        "background-expanded": "rgba(0, 0, 0, .05)",
+        "shadow": tokens.use($_, "shadow", 1),
+    ));
 
 
 .c-nav {
@@ -37,7 +30,7 @@ $_: "c-nav";
     }
 
     &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper,
-    &.c-nav--height-sm.c-nav--bordered> .c-nav__item>.c-nav__item-wrapper {
+    &.c-nav--height-sm.c-nav--bordered>.c-nav__item>.c-nav__item-wrapper {
         min-height: calc(#{tokens.get($_, "base")} * 6.5);
     }
 
@@ -231,11 +224,11 @@ $_: "c-nav";
                 border-top: none;
             }
 
-            & .c-nav__item + .c-nav__item {
+            & .c-nav__item+.c-nav__item {
                 border-top: none;
             }
 
-            & > .c-nav__item {
+            &>.c-nav__item {
                 border-bottom: 1px solid #{tokens.get($_, "color--surface-border")};
             }
         }
@@ -259,9 +252,9 @@ $_: "c-nav";
             color: tokens.get($_, "color--surface-contrast");
         }
 
-        &.is-active > .c-nav__item-wrapper,
-        &.is-current > .c-nav__item-wrapper,
-        & > .c-nav__item-wrapper:hover {
+        &.is-active>.c-nav__item-wrapper,
+        &.is-current>.c-nav__item-wrapper,
+        &>.c-nav__item-wrapper:hover {
             background-color: tokens.get($_, "color--primary");
 
             .c-nav__text,
@@ -275,16 +268,17 @@ $_: "c-nav";
 
 /* Extended Dropdown */
 .c-nav.c-nav--extended-dropdown {
+
     // Change preloader styles
-    .c-nav.preloader > li{
+    .c-nav.preloader>li {
         position: relative;
     }
 
-    .c-nav__item.has-fetched > .c-nav__child-container > .preloader {
+    .c-nav__item.has-fetched>.c-nav__child-container>.preloader {
         display: none;
     }
 
-    .c-nav .c-nav__item:not(.is-open) > .c-nav {
+    .c-nav .c-nav__item:not(.is-open)>.c-nav {
         display: grid;
         overflow: hidden;
     }
@@ -302,16 +296,16 @@ $_: "c-nav";
     }
 
     /* Opening subitems animation */
-    .c-nav.c-nav__extended-child-menu .c-nav__item.is-open > .c-nav__child-container {
+    .c-nav.c-nav__extended-child-menu .c-nav__item.is-open>.c-nav__child-container {
         grid-template-rows: 1fr;
     }
 
-    .c-nav.c-nav__extended-child-menu .c-nav__item > .c-nav__child-container {
+    .c-nav.c-nav__extended-child-menu .c-nav__item>.c-nav__child-container {
         display: grid;
         grid-template-rows: 0fr;
         transition: grid-template-rows 0.3s ease-out;
 
-        & > * {
+        &>* {
             overflow: hidden;
             min-height: 0;
         }
@@ -353,18 +347,18 @@ $_: "c-nav";
         position: relative;
 
         // Only affect the "main subitems"
-        & > .c-nav__child-container > ul > li {
+        &>.c-nav__child-container>ul>li {
             padding-left: calc(#{tokens.get($_, "base")} * 4);
             padding-right: calc(#{tokens.get($_, "base")} * 4);
         }
 
         // Only affect the "main subitems"
-        & > .c-nav__child-container > ul > li {
+        &>.c-nav__child-container>ul>li {
             padding-left: calc(#{tokens.get($_, "base")} * 4);
             padding-right: calc(#{tokens.get($_, "base")} * 4);
         }
 
-        & > .c-nav__child-container > ul.preloader {
+        &>.c-nav__child-container>ul.preloader {
             margin-left: calc(#{tokens.get($_, "base")} * 4);
             margin-right: calc(#{tokens.get($_, "base")} * 4);
         }
@@ -377,12 +371,12 @@ $_: "c-nav";
         color: tokens.get($_, "color--primary-contrast");
     }
 
-    .c-nav.preloader > li {
+    .c-nav.preloader>li {
         width: calc(#{tokens.get($_, "base")} * 32);
     }
 
     /* Direct subitems (to main item) styles */
-    & > li  ul.c-nav__extended-child-menu {
+    &>li ul.c-nav__extended-child-menu {
 
 
         display: grid;
@@ -400,12 +394,12 @@ $_: "c-nav";
             }
         }
 
-        & > li {
+        &>li {
             width: calc(#{tokens.get($_, "base")} * 40);
             background-color: tokens.get($_, "color--surface");
         }
 
-        & > li > .c-nav__item-wrapper .c-nav__text {
+        &>li>.c-nav__item-wrapper .c-nav__text {
             font-weight: bold;
         }
     }
@@ -420,6 +414,7 @@ $_: "c-nav";
     }
 
     .c-nav__item {
+
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle {
@@ -431,8 +426,8 @@ $_: "c-nav";
         }
     }
 
-    .c-nav__item > .c-nav__item-wrapper:hover,
-    .c-nav__item.is-active > .c-nav__item-wrapper {
+    .c-nav__item>.c-nav__item-wrapper:hover,
+    .c-nav__item.is-active>.c-nav__item-wrapper {
         background-color: tokens.get($_, "color--primary");
 
         .c-nav__text,

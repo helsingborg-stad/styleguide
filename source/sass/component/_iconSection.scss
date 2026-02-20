@@ -4,18 +4,10 @@
 $_: "c-iconsection";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "shadow",
-    "border-radius",
-    "space",
-    "outer-space",
-    "border-width",
-    "color--surface"
-),
-(
-    "shadow": tokens.use($_, "shadow", 2),
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-));
+@include tokens.create($_, getComponentTokens($_),
+    ("shadow": tokens.use($_, "shadow", 2),
+        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    ));
 
 /* Component */
 .#{$_} {
@@ -45,7 +37,7 @@ $_: "c-iconsection";
             border-right: tokens.get($_, "border");
             color: tokens.get($_, "color--surface-contrast-muted");
 
-            & > * {
+            &>* {
                 opacity: .5;
             }
         }
@@ -68,7 +60,7 @@ $_: "c-iconsection";
             padding: 0;
         }
 
-        .#{$_}__item + .#{$_}__item {
+        .#{$_}__item+.#{$_}__item {
             border-top: none;
         }
 
