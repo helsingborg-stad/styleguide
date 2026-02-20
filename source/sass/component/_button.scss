@@ -228,6 +228,7 @@ $button-sizes: (
     /* Pill shape */
     &.#{$_}--pill {
         border-radius: calc(#{tokens.get($_, "base")} * 4);
+        corner-shape: unset;
     }
 }
 

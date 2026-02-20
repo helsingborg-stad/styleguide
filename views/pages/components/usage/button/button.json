@@ -65,5 +65,11 @@
         "heading": "Type",
         "subHeading" : "",
         "text": "Use the type attribute to help define the action of the button."
+    },
+    "pill": {
+        "grid": "",
+        "heading": "Pill-shaped buttons",
+        "subHeading" : "",
+        "text": "By setting the pill attribute to true, the button will have a border-radius of 9999px, making it pill-shaped."
     }
 }
