@@ -1,0 +1,11 @@
+{
+    "tokens": [
+        "border-radius",
+        "border-width",
+        "space",
+        "shadow",
+        "color--danger",
+        "color--success",
+        "color--surface"
+    ]
+}

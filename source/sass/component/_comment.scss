@@ -4,14 +4,7 @@
 $_: "c-comment";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "outer-space",
-    "border-radius",
-    "color--background",
-    "color--background-contrast",
-    "color--surface",
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} + .#{$_} {

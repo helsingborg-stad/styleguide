@@ -5,14 +5,7 @@
 $_: "c-card";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-width",
-    "border-radius",
-    "space",
-    "color--surface",
-    "color--primary",
-    "shadow",
-), (
+@include tokens.create($_, getComponentTokens($_), (
     "shadow": tokens.use($_, "shadow", 1),
     "shadow-hover": tokens.use($_, "shadow", 1.5),
     "image-bg": tokens.get($_, "color--surface-border"),

@@ -4,11 +4,7 @@
 $_: "c-avatar";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "base",
-    "color--secondary",
-    "corner-shape",
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {

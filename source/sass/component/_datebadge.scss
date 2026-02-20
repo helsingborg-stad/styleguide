@@ -4,14 +4,7 @@
 $_: "c-datebadge";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "border-width",
-    "space",
-    "color--primary",
-    "color--secondary",
-    "color--surface",
-), (
+@include tokens.create($_, getComponentTokens($_), (
     "border": tokens.use($_, "border-width") solid,
 ));
 

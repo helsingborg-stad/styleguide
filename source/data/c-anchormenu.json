@@ -1,0 +1,10 @@
+{
+    "tokens": [
+        "base",
+        "space",
+        "color--primary",
+        "color--surface",
+        "color--border",
+        "border-width"
+    ]
+}

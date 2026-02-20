@@ -4,14 +4,7 @@
 $_: "c-anchormenu";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "base",
-    "space",
-    "color--primary",
-    "color--surface",
-    "color--border",
-    "border-width",
-),
+@include tokens.create($_, getComponentTokens($_),
 (
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
 ));

@@ -6,15 +6,7 @@
 $_: "c-field";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "border-width",
-    "space",
-    "shadow",
-    "color--danger",
-    "color--success",
-    "color--surface"
-), (
+@include tokens.create($_, getComponentTokens($_), (
     "base": "var(--base)",
     "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
     "background-color": tokens.get($_, "color--surface"),
