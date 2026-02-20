@@ -245,17 +245,39 @@ $button-sizes: (
 
     &--primary {
         color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
+        &:before {
+            background-color: tokens.get($_, "color--primary");
+        }
     }
     &--secondary {
         color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
+
+        &:before {
+            background-color: tokens.get($_, "color--secondary");
+        }
     }
     &--default {
         color: tokens.get($_, "color--surface-contrast");
+
+        &:before {
+            background-color: tokens.get($_, "color--surface-contrast-muted");
+        }
     }
 
-    &--default:not(:disabled):hover {
-        opacity: 1;
-        color: tokens.get($_, "color--surface-contrast-muted");
+    &:not(:disabled):before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: tokens.use($_, "space", 1);
+        width: 0%;
+        height: 3px;
+        transform: translateX(-50%);
+        border-radius: 6px;
+        transition: all 200ms ease-in-out;
+    }
+
+    &:not(:disabled):hover:before {
+        width: calc(100% - #{tokens.use($_, "base", 2)});
     }
 }
 
@@ -315,6 +337,12 @@ $button-sizes: (
     &.#{$_}__filled {
         outline-offset: 4px;
         outline: 0 solid rgba(0,0,0,0.5);
+
+        &[aria-pressed='true'] {
+            outline-width: 4px;
+            outline-color: var(--_color);
+            background-color: var(--_active);
+        }
     }
 
     &.#{$_}__basic {
@@ -332,12 +360,12 @@ $button-sizes: (
         }
 
         &:hover:before {
-            width: 120%;
+            width: 60%;
         }
 
         &[aria-pressed='true'] {
             &:before {
-                width: 100%;
+                width: 80%;
                 border-color: var(--_color);
             }
             &:after { display: none; }
