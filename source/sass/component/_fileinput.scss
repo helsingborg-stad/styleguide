@@ -1,21 +1,21 @@
 @use "../mixin/cover";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-field-border-color: var(--c-field-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-field-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-field-border-width: var(--c-field-border-width, var(--border-width-input, 1px)) !default;
+/* Component name */
+$_: "c-fileinput";
 
-$c-field-background-color: var(--c-field-background-color, var_colors.$color-form-fields) !default;
-$c-field-danger-color: var(--c-field-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-field-danger-background-color: var(--c-field-danger-background-color, var_colors.$color-form-fields-error) !default;
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), (
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-preview": tokens.use($_, "shadow", 2),
+));
 
-.c-fileinput {
+/* Component */
+.#{$_} {
 
     /* Actual input (hide) */
-    .c-fileinput__input {
+    .#{$_}__input {
         width: 1px;
         height: 1px;
         position: absolute;
@@ -28,14 +28,15 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         z-index: -1;
     }
 
-    /* Is dragging animations */
+    /* Is dragging */
     &.is-dragging:not(.is-full) {
         .js-file-input-drop {
-            outline: 3px dashed var_colors.$color-lighter;
-            border-radius: var_border-radius.$border-radius-lg;
-            outline-offset: calc(#{var_default.$base} * 1.5);
-            width: calc(#{var_default.$base} * 40);
-            max-width: calc(100% - calc(#{var_default.$base} * 2.5));
+            outline: 3px dashed tokens.get($_, "color--surface-border");
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.use($_, "corner-shape");
+            outline-offset: tokens.use($_, "space", 1.5);
+            width: tokens.use($_, "space", 40);
+            max-width: calc(100% - #{tokens.use($_, "space", 2.5)});
             display: flex;
         }
 
@@ -44,33 +45,34 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
         }
     }
 
-    
-
     &.is-dragging.is-full {
         .js-file-input-drop {
             display: none;
         }
 
-        // Disable drop area visually
-        .c-fileinput__area {
+        /* Disable drop area visually */
+        .#{$_}__area {
             &::after {
-                @include cover.cover();
-                content: "\1F6AB"; /* Unicode for 🚫 */
-                font-size: 3rem; /* Adjust the size as needed */
+                position: absolute;
+                inset: 0;
+                content: "\1F6AB";
+                font-size: 3rem;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                text-align: center; /* Center the content horizontally */
-                line-height: 1; /* Adjust line height to remove any extra space */
+                text-align: center;
+                line-height: 1;
                 filter: grayscale(100%) brightness(0) contrast(100%);
                 opacity: .2;
-                z-index: var_properties.$level-2;
+                z-index: 2000;
             }
             &::before {
                 content: "";
-                @include cover.cover();
-                background: rgba(255, 255, 255, 0.5); /* Dim the background */
-                z-index: var_properties.$level-1;
+                position: absolute;
+                inset: 0;
+                background: color-mix(in srgb, tokens.get($_, "color--surface-alt"), transparent 80%);
+                z-index: 1000;
+                backdrop-filter: blur(4px);
             }
         }
     }
@@ -87,55 +89,55 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     }
 
     /* Drop area */
-    .c-fileinput__area {
+    .#{$_}__area {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: calc(#{var_default.$base} * 4);
-        border-radius: $c-field-border-radius;
-        background-color: $c-field-background-color;
-        border: $c-field-border-width solid $c-field-border-color;
+        padding: tokens.use($_, "space", 4);
+        border-radius: tokens.use($_, "border-radius");
+        background-color: tokens.get($_, "color--surface");
+        border: tokens.get($_, "border");
         box-shadow: inset 0 0 50px 50px rgba(0,0,0,0.02);
         transition: all 0.2s ease-in-out;
     }
 
     /* List container */
-    .c-fileinput__file-list {
+    .#{$_}__file-list {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: calc(#{var_default.$base} * 2);
-        margin-top: calc(#{var_default.$base} * 2);
+        gap: tokens.use($_, "space", 2);
+        margin-top: tokens.use($_, "space", 2);
         width: 100%;
-        padding: calc(#{var_default.$base} * 2);    
+        padding: tokens.use($_, "space", 2);
     }
 
     /* Items uploaded */
-    .c-fileinput__item {
-        .c-fileinput__item-container {
+    .#{$_}__item {
+        .#{$_}__item-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 calc(#{var_default.$base} * .5);
-            background-color: var_colors.$color-lightest;
-            border-radius: var_border-radius.$border-radius-lg;
+            padding: 0 tokens.use($_, "space", .5);
+            background-color: tokens.get($_, "color--surface");
+            border-radius: tokens.use($_, "border-radius");
             margin: 0;
-            filter: var_properties.$drop-shadow-1;
-            height: calc(#{var_default.$base} * 5.5);
+            filter: tokens.get($_, "shadow");
+            height: tokens.use($_, "space", 5.5);
             animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
-        .c-fileinput__item-remove {
-            border-left: 1px solid var_colors.$color-lighter;
-            margin-left: calc(#{var_default.$base} * 2);
+        .#{$_}__item-remove {
+            border-left: 1px solid tokens.get($_, "color--surface-border");
+            margin-left: tokens.use($_, "space", 2);
             border-radius: 0 100px 100px 0;
         }
 
-        .c-fileinput__item-icon-wrapper {
+        .#{$_}__item-icon-wrapper {
             aspect-ratio: 1 / 1;
             height: 100%;
             display: flex;
@@ -143,20 +145,20 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             justify-content: center;
         }
 
-        .c-fileinput__item-text {
+        .#{$_}__item-text {
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
-            gap: #{var_default.$base};
+            gap: tokens.use($_, "space", 1);
 
-            .c-fileinput__item-name {
-                max-width: calc(#{var_default.$base} * 20);
+            .#{$_}__item-name {
+                max-width: tokens.use($_, "space", 20);
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
 
-            .c-fileinput__item-size {
+            .#{$_}__item-size {
                 white-space: nowrap;
                 font-size: .7em;
 
@@ -172,59 +174,55 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
 
     /* Is empty */
     &.is-empty {
-        .c-fileinput__file-list {
+        .#{$_}__file-list {
             display: none;
         }
     }
 
     &.invalid-files {
-        .c-fileinput__accepted-files {
-            color: $c-field-danger-color;
+        .#{$_}__accepted-files {
+            color: tokens.get($_, "color--danger");
             opacity: 1;
         }
     }
 
     &.file-size-error {
-        .c-fileinput__maximum-size {
-            color: $c-field-danger-color;
+        .#{$_}__maximum-size {
+            color: tokens.get($_, "color--danger");
             opacity: 1;
         }
     }
 
-    .c-fileinput__accepted-files-wrapper {
+    .#{$_}__accepted-files-wrapper {
         position: relative;
         display: flex;
         justify-content: space-between;
         width: 100%;
-        gap: calc(#{var_default.$base} * 2);
-        top: calc(#{var_default.$base} * 2);
-        bottom: calc(#{var_default.$base} * 1.5);
+        gap: tokens.use($_, "space", 2);
+        top: tokens.use($_, "space", 2);
+        bottom: tokens.use($_, "space", 1.5);
         font-size: .7em;
         transition: all 0.2s ease-in-out;
         user-select: none;
     }
 
-    .c-fileinput__filecounter,
-    .c-fileinput__accepted-files,
-    .c-fileinput__maximum-size {
+    .#{$_}__filecounter,
+    .#{$_}__accepted-files,
+    .#{$_}__maximum-size {
         opacity: .5;
     }
- 
-    /* File counter */ 
-    .c-fileinput__filecounter {
+
+    /* File counter */
+    .#{$_}__filecounter {
         user-select: none;
         position: absolute;
-        right: calc(#{var_default.$base} * 2);
-        bottom: calc(#{var_default.$base} * 1.5);
+        right: tokens.use($_, "space", 2);
+        bottom: tokens.use($_, "space", 1.5);
         opacity: .5;
         font-size: .7em;
         transition: all 0.2s ease-in-out;
-        user-select: none;
-    }
- 
-    /* File counter */ 
-    .c-fileinput__filecounter {
         white-space: nowrap;
+
         &::before {
             content: attr(data-counter-current);
         }
@@ -238,41 +236,41 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     }
 
     &.is-full {
-        .c-fileinput__filecounter {
+        .#{$_}__filecounter {
             opacity: 1;
-            color: var_colors.$color-success-dark;
+            color: tokens.get($_, "color--success");
             font-weight: bold;
         }
     }
 
     /* Invalid */
     &.is-invalid {
-        .c-fileinput__area {
-            border-color: $c-field-danger-color;
-            background-color: $c-field-danger-background-color;
+        .#{$_}__area {
+            border-color: tokens.get($_, "color--danger");
+            background-color: tokens.get($_, "color--danger-alt");
         }
     }
 
-    &.c-fileinput--preview {
-        .c-fileinput__item-remove-button {
+    &.#{$_}--preview {
+        .#{$_}__item-remove-button {
             vertical-align: unset;
-            border-top-right-radius: var_border-radius.$border-radius-md;
+            border-top-right-radius: tokens.use($_, "border-radius");
         }
 
-        .c-fileinput__attachment-icon {
+        .#{$_}__attachment-icon {
             display: none;
         }
 
-        .c-fileinput__item {
+        .#{$_}__item {
             position: relative;
         }
 
         .is-unsupported {
             background-color: white;
 
-            .c-fileinput__attachment-icon {
+            .#{$_}__attachment-icon {
                 display: block;
-                
+
                 &::after {
                     position: absolute;
                     top: 50%;
@@ -282,13 +280,13 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             }
         }
 
-        .c-fileinput__info-container {
-            max-width: calc(var_default.$base * 25);
+        .#{$_}__info-container {
+            max-width: tokens.use($_, "space", 25);
             display: flex;
-            gap: calc(#{var_default.$base} * .5);
+            gap: tokens.use($_, "space", .5);
         }
 
-        .c-fileinput__item-name {
+        .#{$_}__item-name {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -296,31 +294,30 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             min-width: 0;
         }
 
-        .c-fileinput__item-size {
+        .#{$_}__item-size {
             white-space: nowrap;
         }
 
-
-        .c-fileinput__item-icon-wrapper,
-        .c-fileinput__item-remove {
+        .#{$_}__item-icon-wrapper,
+        .#{$_}__item-remove {
             position: absolute;
             top: 0;
         }
 
-        .c-fileinput__item-remove {
+        .#{$_}__item-remove {
             display: inline-flex;
             right: 0;
         }
-        
-        .c-fileinput__item-icon-wrapper {
-            left: calc(#{var_default.$base} * .5);
+
+        .#{$_}__item-icon-wrapper {
+            left: tokens.use($_, "space", .5);
         }
 
-        .c-fileinput__item-preview {
-            width: calc(var_default.$base * 25);
+        .#{$_}__item-preview {
+            width: tokens.use($_, "space", 25);
             aspect-ratio: 16 / 9;
-            border-radius: var_border-radius.$border-radius-md;
-            filter: var_properties.$drop-shadow-2;
+            border-radius: tokens.use($_, "border-radius");
+            filter: tokens.get($_, "shadow-preview");
             overflow: hidden;
 
             & > * {
@@ -330,12 +327,12 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
             }
         }
 
-        .c-fileinput__item-icon-wrapper {
+        .#{$_}__item-icon-wrapper {
             aspect-ratio: unset;
             height: unset;
         }
 
-        .c-fileinput__item-remove {
+        .#{$_}__item-remove {
             border-left: none;
             margin-left: unset;
             border-radius: unset;
@@ -343,15 +340,14 @@ $c-field-danger-background-color: var(--c-field-danger-background-color, var_col
     }
 }
 
-/* Amnimation */
- @keyframes puff-in-center {
+/* Animation */
+@keyframes puff-in-center {
     0% {
-      filter: var_properties.$drop-shadow-1 blur(4px);
-      opacity: 0;
+        filter: tokens.get($_, "shadow") blur(4px);
+        opacity: 0;
     }
     100% {
-      filter: var_properties.$drop-shadow-1 blur(0px);
-      opacity: 1;
+        filter: tokens.get($_, "shadow") blur(0px);
+        opacity: 1;
     }
-  }
-  
+}
