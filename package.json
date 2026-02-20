@@ -17,8 +17,8 @@
         "watch:build": "vite build --watch --mode development",
         "format": "npx biome format ./source",
         "format:write": "npx biome format ./source --write",
-        "lint": "npx biome lint ./source",
-        "lint:write": "npx biome lint ./source --write"
+        "lint": "npx biome lint \"./source\" & npx stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log",
+        "lint:write": "npx biome lint ./source --write & npx stylelint \"./source/sass/**/*.scss\" --output-file stylelint.log --fix"
     },
     "repository": {
         "type": "git",
@@ -50,6 +50,7 @@
         "@testing-library/user-event": "^14.4.3",
         "@types/jest": "^29.5.14",
         "@types/leaflet": "^1.9.3",
+        "chokidar-cli": "^3.0.0",
         "consola": "^2.15.3",
         "postcss": "^8.5.6",
         "postcss-object-fit-images": "^1.1.2",
@@ -61,7 +62,8 @@
         "vite": "^7.3.1",
         "vite-plugin-simple-manifest": "^1.0.3",
         "@biomejs/biome": "2.4.3",
-        "sass": "^1.97.3"
+        "sass": "^1.97.3",
+        "stylelint": "^17.3.0"
     },
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
