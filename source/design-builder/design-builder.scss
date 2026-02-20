@@ -398,6 +398,16 @@
   }
 }
 
+.db-control__alpha {
+  flex: 1;
+  min-width: 80px;
+  max-width: 120px;
+}
+
+.db-control__alpha-display {
+  min-width: 40px;
+}
+
 .db-control__font-preview {
   font-size: 0.875rem;
   color: #555;

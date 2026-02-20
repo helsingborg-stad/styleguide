@@ -24,8 +24,14 @@
           "default": "1rem",
           "unit": "rem",
           "options": [
-            { "value": "16px", "label": "Standard" },
-            { "value": "18px", "label": "Large" }
+            {
+              "value": "16px",
+              "label": "Standard"
+            },
+            {
+              "value": "18px",
+              "label": "Large"
+            }
           ]
         }
       ]
@@ -51,12 +57,30 @@
           "type": "select",
           "default": "squircle",
           "options": [
-            { "value": "square", "label": "Square" },
-            { "value": "rounded", "label": "Rounded" },
-            { "value": "squircle", "label": "Squircle" },
-            { "value": "circular", "label": "Circular" },
-            { "value": "bevel", "label": "Bevel" },
-            { "value": "scoop", "label": "Scoop" }
+            {
+              "value": "square",
+              "label": "Square"
+            },
+            {
+              "value": "rounded",
+              "label": "Rounded"
+            },
+            {
+              "value": "squircle",
+              "label": "Squircle"
+            },
+            {
+              "value": "circular",
+              "label": "Circular"
+            },
+            {
+              "value": "bevel",
+              "label": "Bevel"
+            },
+            {
+              "value": "scoop",
+              "label": "Scoop"
+            }
           ]
         }
       ]
@@ -93,11 +117,26 @@
           "type": "select",
           "default": "1.250",
           "options": [
-            { "value": "1.067", "label": "Minor Second" },
-            { "value": "1.125", "label": "Major Second" },
-            { "value": "1.200", "label": "Minor Third" },
-            { "value": "1.250", "label": "Major Third" },
-            { "value": "1.333", "label": "Perfect Fourth" }
+            {
+              "value": "1.067",
+              "label": "Minor Second"
+            },
+            {
+              "value": "1.125",
+              "label": "Major Second"
+            },
+            {
+              "value": "1.200",
+              "label": "Minor Third"
+            },
+            {
+              "value": "1.250",
+              "label": "Major Third"
+            },
+            {
+              "value": "1.333",
+              "label": "Perfect Fourth"
+            }
           ]
         },
         {
@@ -106,12 +145,30 @@
           "type": "select",
           "default": "400",
           "options": [
-            { "value": "100", "label": "Thin" },
-            { "value": "200", "label": "Extra Light" },
-            { "value": "300", "label": "Light" },
-            { "value": "400", "label": "Regular" },
-            { "value": "500", "label": "Medium" },
-            { "value": "600", "label": "Semi Bold" }
+            {
+              "value": "100",
+              "label": "Thin"
+            },
+            {
+              "value": "200",
+              "label": "Extra Light"
+            },
+            {
+              "value": "300",
+              "label": "Light"
+            },
+            {
+              "value": "400",
+              "label": "Regular"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            }
           ]
         },
         {
@@ -120,10 +177,22 @@
           "type": "select",
           "default": "500",
           "options": [
-            { "value": "400", "label": "Regular" },
-            { "value": "500", "label": "Medium" },
-            { "value": "600", "label": "Semi Bold" },
-            { "value": "700", "label": "Bold" }
+            {
+              "value": "400",
+              "label": "Regular"
+            },
+            {
+              "value": "500",
+              "label": "Medium"
+            },
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            }
           ]
         },
         {
@@ -132,10 +201,22 @@
           "type": "select",
           "default": "700",
           "options": [
-            { "value": "600", "label": "Semi Bold" },
-            { "value": "700", "label": "Bold" },
-            { "value": "800", "label": "Extra Bold" },
-            { "value": "900", "label": "Black" }
+            {
+              "value": "600",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "700",
+              "label": "Bold"
+            },
+            {
+              "value": "800",
+              "label": "Extra Bold"
+            },
+            {
+              "value": "900",
+              "label": "Black"
+            }
           ]
         },
         {
@@ -290,7 +371,10 @@
           "label": "Background",
           "type": "color",
           "default": "#f5f5f5",
-          "contrast": ["--color--background-contrast", "--color--background-contrast-muted"]
+          "contrast": [
+            "--color--background-contrast",
+            "--color--background-contrast-muted"
+          ]
         },
         {
           "variable": "--color--background-contrast",
@@ -311,7 +395,10 @@
           "label": "Surface",
           "type": "color",
           "default": "#ffffff",
-          "contrast": ["--color--surface-contrast", "--color--surface-contrast-muted"]
+          "contrast": [
+            "--color--surface-contrast",
+            "--color--surface-contrast-muted"
+          ]
         },
         {
           "variable": "--color--surface-contrast",
@@ -339,224 +426,20 @@
           "label": "Focus",
           "type": "color",
           "default": "#4d90fe"
-        }
-      ]
-    },
-    {
-      "id": "colors-alpha",
-      "label": "Alpha Colors",
-      "description": "Black, white, and gray with alpha steps from 10% to 100%.",
-      "present": "swatch",
-      "settings": [
-        {
-          "variable": "--color--black-10",
-          "label": "Black 10%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.1)",
-          "locked": true
         },
         {
-          "variable": "--color--black-20",
-          "label": "Black 20%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.2)",
-          "locked": true
+          "variable": "--color--alpha",
+          "label": "Alpha Color",
+          "description": "Used for overlays. Includes opacity — set both color and alpha together.",
+          "type": "rgba",
+          "default": "rgba(0, 0, 0, 0.1)"
         },
         {
-          "variable": "--color--black-30",
-          "label": "Black 30%",
+          "variable": "--color--alpha-contrast",
+          "label": "Alpha Contrast",
+          "description": "Used for text and icons on alpha overlays.",
           "type": "color",
-          "default": "rgba(0, 0, 0, 0.3)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-40",
-          "label": "Black 40%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.4)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-50",
-          "label": "Black 50%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.5)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-60",
-          "label": "Black 60%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.6)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-70",
-          "label": "Black 70%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.7)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-80",
-          "label": "Black 80%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.8)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-90",
-          "label": "Black 90%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 0.9)",
-          "locked": true
-        },
-        {
-          "variable": "--color--black-100",
-          "label": "Black 100%",
-          "type": "color",
-          "default": "rgba(0, 0, 0, 1)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-10",
-          "label": "White 10%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.1)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-20",
-          "label": "White 20%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.2)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-30",
-          "label": "White 30%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.3)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-40",
-          "label": "White 40%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.4)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-50",
-          "label": "White 50%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.5)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-60",
-          "label": "White 60%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.6)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-70",
-          "label": "White 70%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.7)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-80",
-          "label": "White 80%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.8)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-90",
-          "label": "White 90%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 0.9)",
-          "locked": true
-        },
-        {
-          "variable": "--color--white-100",
-          "label": "White 100%",
-          "type": "color",
-          "default": "rgba(255, 255, 255, 1)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-10",
-          "label": "Gray 10%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.1)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-20",
-          "label": "Gray 20%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.2)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-30",
-          "label": "Gray 30%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.3)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-40",
-          "label": "Gray 40%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.4)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-50",
-          "label": "Gray 50%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.5)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-60",
-          "label": "Gray 60%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.6)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-70",
-          "label": "Gray 70%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.7)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-80",
-          "label": "Gray 80%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.8)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-90",
-          "label": "Gray 90%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 0.9)",
-          "locked": true
-        },
-        {
-          "variable": "--color--gray-100",
-          "label": "Gray 100%",
-          "type": "color",
-          "default": "rgba(110, 110, 110, 1)",
-          "locked": true
+          "default": "#ffffff"
         }
       ]
     },
