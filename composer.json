@@ -20,15 +20,15 @@
             "email": "johan.silvergrund@hiq.se"
         }
     ],
-    "minimum-stability" : "stable",
+    "minimum-stability": "stable",
     "repositories": [
         {
-            "type":"composer",
-            "url":"https://packagist.org"
+            "type": "composer",
+            "url": "https://packagist.org"
         },
         {
-            "type":"composer",
-            "url":"https://wpackagist.org"
+            "type": "composer",
+            "url": "https://wpackagist.org"
         }
     ],
     "autoload": {
@@ -38,15 +38,24 @@
         }
     },
     "require": {
+        "php": "^8.2",
         "erusev/parsedown": "^1.7",
-        "php": "^8.0",
         "helsingborg-stad/component-library": "^4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6",
+        "carthage-software/mago": "^1.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "carthage-software/mago": true
+        }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test:filter": "vendor/bin/phpunit --filter"
+        "test:filter": "vendor/bin/phpunit --filter",
+        "lint": "vendor/bin/mago lint",
+        "fix": "vendor/bin/mago lint --format-after-fix --fix",
+        "format": "vendor/bin/mago fmt"
     }
 }

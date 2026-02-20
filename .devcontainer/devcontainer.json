@@ -7,9 +7,7 @@
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		8080
-	],
+	"forwardPorts": [8080],
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
@@ -22,11 +20,16 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"bmewburn.vscode-intelephense-client",
 				"github.vscode-pull-request-github",
 				"GitHub.copilot",
 				"ritwickdey.LiveServer",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"biomejs.biome",
+				"ms-azuretools.vscode-docker",
+				"xdebug.php-debug",
+				"bmewburn.vscode-intelephense-client",
+				"devsense.composer-php-vscode",
+				"jkillian.custom-local-formatters"
 			],
 			"settings": {
 				"intelephense.environment.phpVersion": "8.3.0"
@@ -44,7 +47,7 @@
 	"postCreateCommand": {
 		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 		"apache": "sudo a2enmod rewrite headers && service apache2 start",
-		"playwright":  "npm install && npx playwright install --with-deps"
+		"playwright": "npm install && npx playwright install --with-deps"
 	},
 	"waitFor": "postCreateCommand"
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
