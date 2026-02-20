@@ -1,4 +1,6 @@
 {
+  "$schema": "../component-schema.json",
+  "apiVersion": 1,
   "name": "Example",
   "description": "Buttons allow users to take actions, and make choices, with a single",
   "slug": "example",

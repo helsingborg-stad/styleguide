@@ -1,0 +1,55 @@
+{
+    "title": "JSON schema for Helsingborg Styleguide Components",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "apiVersion": {
+            "description": "The version of the component API this component uses.",
+            "type": "integer",
+            "const": 1
+        },
+        "name": {
+            "description": "This is the display title for your component.",
+            "type": "string"
+        },
+        "slug": {
+            "description": "The name of the component. The name may only contain lowercase letters, numbers, and dashes, and must begin with a letter. The name must be unique across all registered components.",
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "description": {
+            "description": "This is a short description for your component.",
+            "type": "string"
+        },
+        "tags": {
+            "description": "This is an array of tags that can be used to categorize the component.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "layout",
+                    "form",
+                    "navigation",
+                    "feedback",
+                    "data-display",
+                    "expand"
+                ]
+            }
+        },
+        "tokens": {
+            "description": "This is an array of tokens that the component uses. This is used to determine which tokens to include in the CSS output for the component. The tokens must be defined in the tokens.json file.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "apiVersion",
+        "name",
+        "slug"
+    ],
+    "additionalProperties": false
+}
