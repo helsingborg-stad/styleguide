@@ -1,4 +1,10 @@
 {
+  "name": "Example",
+  "description": "Buttons allow users to take actions, and make choices, with a single",
+  "slug": "example",
+  "tags": [
+    "expand"
+  ],
   "tokens": [
     "border",
     "border-radius",
@@ -8,5 +14,5 @@
     "color--surface-contrast-muted",
     "shadow",
     "space"
-  ],
+  ]
 }
