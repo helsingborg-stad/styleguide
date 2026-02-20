@@ -5,15 +5,9 @@
 $_: "c-header";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "color--surface",
-    "color--primary",
-    "color--secondary",
-), (
-    "base": "var(--base)",
-    "logotype-height": "calc(var(--c-header-logotype-height, 6) * var(--base))",
-));
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "logotype-height": "calc(var(--c-header-logotype-height, 6) * var(--base))",
+    ));
 
 /* Component */
 .#{$_} {
@@ -44,7 +38,7 @@ $_: "c-header";
         background-color: tokens.get($_, "color--secondary");
     }
 
-    &.#{$_}--text-white > *,
+    &.#{$_}--text-white>*,
     &.#{$_}--text-white .c-button__basic,
     &.#{$_}--text-white .c-nav .c-nav__link {
         color: var(--color--white-100);
@@ -73,6 +67,7 @@ $_: "c-header";
 
             .c-nav--casual-left {
                 justify-content: flex-start;
+
                 .c-nav__item--search {
                     margin-left: auto;
                 }
@@ -96,6 +91,7 @@ $_: "c-header";
                 margin-left: auto;
             }
         }
+
         .c-nav--business-right {
             justify-content: flex-end;
         }
@@ -113,11 +109,14 @@ $_: "c-header";
 
 @keyframes blink {
     0% {}
+
     25% {
         @include focus.focus();
     }
+
     75% {
         @include focus.focus();
     }
+
     100% {}
 }

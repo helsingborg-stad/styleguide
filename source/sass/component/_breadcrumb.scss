@@ -6,10 +6,7 @@
 $_: "c-breadcrumb";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "color--background-contrast-muted",
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {

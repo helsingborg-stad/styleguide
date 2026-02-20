@@ -5,20 +5,15 @@ $_: "c-icon";
 $sizes: xs, sm, md, lg, xl, xxl;
 
 /* Design tokens */
-@include tokens.create($_, 
-(
-    "base", 
-    "color--background"
-),
-(
-    "size-xs": tokens.use($_, "base", 1),
-    "size-sm": tokens.use($_, "base", 2),
-    "size-md": tokens.use($_, "base", 3),
-    "size-lg": tokens.use($_, "base", 4),
-    "size-xl": tokens.use($_, "base", 5),
-    "size-xxl": tokens.use($_, "base", 6),
-    "color": tokens.get($_, "color--background-contrast"
-)));
+@include tokens.create($_, getComponentTokens($_),
+    ("size-xs": tokens.use($_, "base", 1),
+        "size-sm": tokens.use($_, "base", 2),
+        "size-md": tokens.use($_, "base", 3),
+        "size-lg": tokens.use($_, "base", 4),
+        "size-xl": tokens.use($_, "base", 5),
+        "size-xxl": tokens.use($_, "base", 6),
+        "color": tokens.get($_, "color--background-contrast"
+        )));
 
 .#{$_} {
     color: tokens.get($_, "color");

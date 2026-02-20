@@ -3,14 +3,7 @@
 /* Component name */
 $_: "c-divider";
 
-@include tokens.create($_,
-    ("color--surface",
-        "border-width",
-        "border-radius",
-        "space",
-        "corner-shape"
-    ),
-);
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
     margin: 0 auto;

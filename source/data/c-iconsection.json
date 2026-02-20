@@ -1,9 +1,10 @@
 {
     "tokens": [
-        "space",
         "shadow",
-        "border-width",
         "border-radius",
+        "space",
+        "outer-space",
+        "border-width",
         "color--surface"
     ]
 }

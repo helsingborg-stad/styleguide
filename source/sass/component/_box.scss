@@ -4,12 +4,7 @@
 $_: "c-box";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "shadow",
-    "space",
-    "color--primary",
-),
+@include tokens.create($_, getComponentTokens($_),
 (
     "shadow": tokens.use($_, "shadow", 1),
     "shadow-hover": tokens.use($_, "shadow", 1.5),

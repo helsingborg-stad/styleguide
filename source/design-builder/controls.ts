@@ -9,7 +9,7 @@ export interface TokenSetting {
   variable: string
   label: string
   description?: string
-  type: 'color' | 'range' | 'select' | 'font'
+  type: 'color' | 'rgba' | 'range' | 'select' | 'font'
   default: string
   unit?: string
   min?: number
@@ -67,6 +67,9 @@ export function createControl(
     case 'color':
       buildColorControl(controlWrap, setting, currentValue, onChange)
       break
+    case 'rgba':
+      buildRgbaControl(controlWrap, setting, currentValue, onChange)
+      break
     case 'range':
       buildRangeControl(controlWrap, setting, currentValue, onChange)
       break
@@ -107,12 +110,26 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
       const textInput = row.querySelector<HTMLInputElement>('input[type="text"]')
       if (colorInput) {
         colorInput.value = toHex(value)
-      } 
+      }
 
       if (textInput) {
         textInput.value = value
-      } 
+      }
       const swatch = row.querySelector<HTMLElement>('.db-control__swatch')
+      if (swatch) swatch.style.backgroundColor = value
+      break
+    }
+    case 'rgba': {
+      const colorInput = row.querySelector<HTMLInputElement>('input[type="color"]')
+      const alphaInput = row.querySelector<HTMLInputElement>('.db-control__alpha')
+      const alphaDisplay = row.querySelector<HTMLElement>('.db-control__alpha-display')
+      const textInput = row.querySelector<HTMLInputElement>('input[type="text"]')
+      const swatch = row.querySelector<HTMLElement>('.db-control__swatch')
+      const p = parseRgba(value)
+      if (colorInput) colorInput.value = toHex(`rgb(${p.r}, ${p.g}, ${p.b})`)
+      if (alphaInput) alphaInput.value = String(p.a)
+      if (alphaDisplay) alphaDisplay.textContent = String(p.a)
+      if (textInput) textInput.value = value
       if (swatch) swatch.style.backgroundColor = value
       break
     }
@@ -185,6 +202,86 @@ function buildColorControl(
       swatch.style.backgroundColor = textInput.value
       colorInput.value = toHex(textInput.value)
       onChange(setting.variable, textInput.value)
+    })
+  }
+}
+
+// --- RGBA Color ---
+
+function buildRgbaControl(
+  wrap: HTMLElement,
+  setting: TokenSetting,
+  currentValue: string,
+  onChange: ChangeCallback
+): void {
+  const isLocked = setting.locked === true
+  const parsed = parseRgba(currentValue)
+
+  // Hidden native color picker
+  const colorInput = document.createElement('input')
+  colorInput.type = 'color'
+  colorInput.className = 'db-control__color-hidden'
+  colorInput.value = toHex(`rgb(${parsed.r}, ${parsed.g}, ${parsed.b})`)
+  colorInput.disabled = isLocked
+  wrap.appendChild(colorInput)
+
+  // Clickable swatch
+  const swatch = document.createElement('div')
+  swatch.className = 'db-control__swatch'
+  swatch.style.backgroundColor = currentValue
+  if (!isLocked) {
+    swatch.classList.add('db-control__swatch--clickable')
+    swatch.addEventListener('click', () => colorInput.click())
+  }
+  wrap.appendChild(swatch)
+
+  // Alpha slider
+  const alphaInput = document.createElement('input')
+  alphaInput.type = 'range'
+  alphaInput.className = 'db-control__alpha'
+  alphaInput.min = '0'
+  alphaInput.max = '1'
+  alphaInput.step = '0.01'
+  alphaInput.value = String(parsed.a)
+  alphaInput.disabled = isLocked
+  wrap.appendChild(alphaInput)
+
+  const alphaDisplay = document.createElement('span')
+  alphaDisplay.className = 'db-control__value-display db-control__alpha-display'
+  alphaDisplay.textContent = String(parsed.a)
+  wrap.appendChild(alphaDisplay)
+
+  // Text input for the full rgba value
+  const textInput = document.createElement('input')
+  textInput.type = 'text'
+  textInput.className = 'db-control__text'
+  textInput.value = currentValue
+  textInput.disabled = isLocked
+  textInput.placeholder = setting.default
+  wrap.appendChild(textInput)
+
+  if (!isLocked) {
+    const syncFromInputs = () => {
+      const { r, g, b } = hexToRgb(colorInput.value)
+      const a = parseFloat(alphaInput.value)
+      const rgba = toRgbaString(r, g, b, a)
+      textInput.value = rgba
+      swatch.style.backgroundColor = rgba
+      alphaDisplay.textContent = String(a)
+      onChange(setting.variable, rgba)
+    }
+
+    colorInput.addEventListener('input', syncFromInputs)
+    alphaInput.addEventListener('input', syncFromInputs)
+
+    textInput.addEventListener('change', () => {
+      const p = parseRgba(textInput.value)
+      const rgba = toRgbaString(p.r, p.g, p.b, p.a)
+      swatch.style.backgroundColor = rgba
+      colorInput.value = toHex(`rgb(${p.r}, ${p.g}, ${p.b})`)
+      alphaInput.value = String(p.a)
+      alphaDisplay.textContent = String(p.a)
+      onChange(setting.variable, rgba)
     })
   }
 }
@@ -490,6 +587,49 @@ export function createSwatchBand(settings: TokenSetting[]): HTMLElement {
 }
 
 // --- Helpers ---
+
+/**
+ * Decompose a hex color string into RGB components.
+ */
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  return {
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
+  }
+}
+
+/**
+ * Parse an rgba() or rgb() or hex color string into components.
+ * Falls back to opaque black on failure.
+ */
+function parseRgba(value: string): { r: number; g: number; b: number; a: number } {
+  const m = value.match(/rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\s*\)/)
+  if (m) {
+    return {
+      r: parseInt(m[1]),
+      g: parseInt(m[2]),
+      b: parseInt(m[3]),
+      a: m[4] !== undefined ? parseFloat(m[4]) : 1,
+    }
+  }
+  if (/^#[0-9a-f]{6}$/i.test(value)) {
+    return {
+      r: parseInt(value.slice(1, 3), 16),
+      g: parseInt(value.slice(3, 5), 16),
+      b: parseInt(value.slice(5, 7), 16),
+      a: 1,
+    }
+  }
+  return { r: 0, g: 0, b: 0, a: 1 }
+}
+
+/**
+ * Produce a CSS rgba() string from components.
+ */
+function toRgbaString(r: number, g: number, b: number, a: number): string {
+  return `rgba(${r}, ${g}, ${b}, ${a})`
+}
 
 /**
  * Best-effort conversion to hex for the native color picker.

@@ -4,11 +4,7 @@
 $_: "c-blockquote";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-radius",
-    "space",
-    "color",
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {

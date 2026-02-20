@@ -5,11 +5,7 @@
 $_: "c-footer";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "border-width",
-    "color--surface",
-), (
+@include tokens.create($_, getComponentTokens($_), (
     "logotype-height": "calc(var(--c-footer-height-logotype, 6) * var(--base))",
     "header-border-color": "var(--c-footer-header-border-color, rgba(0, 0, 0, 0.55))",
     "subfooter-logotype-height": "calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base))",

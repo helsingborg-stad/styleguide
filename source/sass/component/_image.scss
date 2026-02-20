@@ -7,13 +7,7 @@
 $_: "c-image";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "space",
-    "border-radius",
-    "color--background",
-    "color--surface",
-    "border-width",
-), (
+@include tokens.create($_, getComponentTokens($_), (
     "base": "var(--base)",
     "font-size-caption": "var(--font-size-caption, 0.875rem)",
     "line-height-caption": "var(--line-height-caption, var(--line-height-base))",
