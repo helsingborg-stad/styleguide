@@ -1,84 +1,64 @@
-@use "sass:map";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-collection-padding-x: var(--c-collection-padding-x, calc(#{var_default.$base} * 2)) !default;
-$c-collection-padding-y: var(--c-collection-padding-y, calc(#{var_default.$base} * 2)) !default;
+$_: 'c-collection';
 
-$c-collection-padding-x-compact: var(--c-collection-padding-x-compact, calc(#{var_default.$base} * 2)) !default;
-$c-collection-padding-y-compact: var(--c-collection-padding-y-compact, var_default.$base) !default;
-
-$c-collection-hover-background: rgba(black, .05) !default;
-
-$c-collection-border-radius: var(--c-collection-border-radius, var_border-radius.$border-radius-md) !default;
-
-$c-collection-border-width: var(--c-collection-border-width, var_properties.$border-width-outline) !default;
-$c-collection-border-color: var(--c-collection-border-color, var_colors.$color-border-outline) !default;
-
-$c-collection-divider-border-width: var(--c-collection-border-width, var_properties.$border-width-divider) !default;
-$c-collection-divider-border-color: var(--c-collection-border-color, var_colors.$color-border-divider) !default;
-
-// collection__item
-$c-collection-item-border-width: var(--c-collection-item-border-width, var_properties.$border-width-medium) !default;
-$c-collection-item-border-color: var(--c-collection-item-border-color, #DCDCDC) !default;
-
-$c-collection-item-image-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-collection-item-content-border-radius: var(--c-collection-card-border-radius, var_border-radius.$border-radius-md) !default;
-$c-collection-item-background-color: var(--c-collection-card-background-color, var_colors.$color-background-card) !default;
+@include tokens.create($_, getComponentTokens($_), (
+    "padding-x-compact": tokens.use($_, "space", 2),
+    "padding-y-compact": tokens.use($_, "space", 1),
+    "padding-x": tokens.use($_, "space", 2),
+    "padding-y": tokens.use($_, "space", 2),
+    "padding-x-inset": calc( tokens.get($_, "padding-x") * 3.5)
+));
 
 // Reset
-.c-collection {
-    --c-collection-padding-x-inset: calc(var(--c-collection-padding-x, var(--base, 8px) * 2) * 3.5);
-    
+.#{$_} {    
     padding: 0;
     margin: 0;
-
 
     p {
         margin: 0;
     }
-    a.c-collection__item--action {
+
+    a.#{$_}__item--action {
         text-decoration: none;
     }
 }
 
-.c-collection {
-    &.c-collection--bordered {
-        border-radius: $c-collection-border-radius;
-        border-color: $c-collection-border-color;
-        padding-top: var_default.$base;
-        padding-bottom: var_default.$base;
-        border: $c-collection-border-width solid;
+.#{$_} {
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+
+    &.#{$_}--bordered {
+        border: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--background-border");
+        padding-bottom: tokens.use($_, "space");
+        padding-top: tokens.use($_, "space");
     }
 
     // Item
-    .c-collection__item {
+    .#{$_}__item {
         display: flex;
   
         &__floating {
             position: absolute;
-            right: calc(var_default.$base * 2.75);
-            top: var_default.$base;
-            z-index: var_properties.$level-3;
+            right: tokens.use($_, "space", 2.75);
+            top: tokens.use($_, "space");
+            z-index: 3;
             cursor: pointer;
         }
 
-        .c-collection__item__before {
+        .#{$_}__item__before {
             display: flex;
 
             img {
                 aspect-ratio: 1/1;
-                border-radius: $c-collection-item-image-border-radius;
+                border-radius: tokens.get($_, "border-radius");
+                corner-shape: tokens.get($_, "corner-shape");
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
                 margin: 0;
-                max-width: calc(var_default.$base * 15);
-                min-width: calc(var_default.$base * 15);
+                max-width: tokens.use($_, "base", 15);
+                min-width: tokens.use($_, "base", 15);
             }
 
             .c-image {
@@ -91,56 +71,56 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
                     min-width: unset;
                 }
 
-                width: calc(var_default.$base * 15);
-                min-height: calc(var_default.$base * 15);
+                width: tokens.use($_, "base", 15);
+                min-height: tokens.use($_, "base", 15);
             }
         }
 
-        &.c-collection__item--bordered {
-            padding: calc(var_default.$base * 3) 0;
-            border-bottom: $c-collection-item-border-width solid $c-collection-item-border-color;
-            border-top: $c-collection-item-border-width solid $c-collection-item-border-color;
-            margin-top: calc($c-collection-item-border-width * -1);
+        &.#{$_}__item--bordered {
+            padding: tokens.use($_, "space", 3) 0;
+            border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--background-border");
+            border-top: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--background-border");
+            margin-top: tokens.use($_, "border-width", -1);
         }
 
-        &.c-collection__item--icon-last {
-            .c-collection__icon {
+        &.#{$_}__item--icon-last {
+            .#{$_}__icon {
                 order: 5;
             }
 
-            .c-collection__content {
-                padding-left: var(--c-collection-padding-x, calc(var(--base, 8px) * 2));
+            .#{$_}__content {
+                padding-left: tokens.get($_, "padding-x");
             }
         }
     }
 
-    .c-collection__item.is-current {
-        background-color: var_colors.$color-primary;
-        color: white;
+    .#{$_}__item.is-current {
+        background-color: tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary-contrast");
     }
 
     // Divider
-    .c-collection__divider {
+    .#{$_}__divider {
         border: none;
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
-        margin-top: var_default.$base;
-        margin-bottom: var_default.$base;
+        border-top: tokens.use($_, "border-width", 1) solid;
+        border-color: tokens.get($_, "color--background-border");
+        margin-top: tokens.use($_, "space");
+        margin-bottom: tokens.use($_, "space");
     }
 
     // Fix single 1px messing up vertical rythm
-    .c-collection__divider + * {
+    .#{$_}__divider + * {
         margin-top: -1px;
     }
 
-    .c-collection__divider.c-collection__divider--inset {
-        margin-left: var(--c-collection-padding-x-inset);
+    .#{$_}__divider.#{$_}__divider--inset {
+        margin-left: tokens.get($_, "padding-x-inset");
     }
 
     // Content
-    .c-collection__content {
+    .#{$_}__content {
         flex: 1 1 auto;
-        padding: $c-collection-padding-y $c-collection-padding-x;
+        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
 
         & > *:first-child {
             margin-top: 0;
@@ -151,70 +131,70 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
     
     // Content Modifier - Multiline
-    .c-collection__content.c-collection__content--icon {
-        padding-right: calc(#{var_default.$base} * 5);
+    .#{$_}__content.#{$_}__content--icon {
+        padding-right: tokens.use($_, "space", 5);
         position: relative;
-        .c-collection__secondary {
+        .#{$_}__secondary {
             position: absolute;
-            top: calc(#{var_default.$base} * 1.5);
-            right: calc(#{var_default.$base} * 2);
+            top: tokens.use($_, "space", 1.5);
+            right: tokens.use($_, "space", 2);
             float: none;
         }
     }
 
     // Secondary
-    .c-collection__item > .c-collection__secondary {
-        padding: $c-collection-padding-y $c-collection-padding-x;
+    .#{$_}__item > .#{$_}__secondary {
+        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
         display: flex;
     }
-    .c-collection__content .c-collection__secondary {
+    .#{$_}__content .#{$_}__secondary {
         float: right;
     }
 
 
     // Icon
-    .c-collection__icon {
-        padding: $c-collection-padding-y $c-collection-padding-x;
+    .#{$_}__icon {
+        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
         display: flex;
     }
 
-    .c-collection__icon + .c-collection__content {
+    .#{$_}__icon + .#{$_}__content {
         padding-left: 0;
     }
     
     // Links, Buttons etc
-    .c-collection__action,
-    .c-collection__item--action {
+    .#{$_}__action,
+    .#{$_}__item--action {
 
         &, a {
-            color: #000000;
-            .c-collection__content,
-            .c-collection__icon {
+            color: tokens.get($_, "color--surface-contrast");
+            .#{$_}__content,
+            .#{$_}__icon {
                 transition: transform 400ms;
             }
 
-            .c-collection__icon {
+            .#{$_}__icon {
                 transition: transform 300ms;
             }
         }
         
         &:hover {
             &, a {
-                color: #000000;
-                background-color: $c-collection-hover-background;
-                .c-collection__content,
-                .c-collection__icon {
-                    transform: translateX(calc(#{var_default.$base} * 0.5)); 
+                color: tokens.get($_, "color--surface-contrast");
+                background-color: tokens.get($_, "color--surface-border");
+                .#{$_}__content,
+                .#{$_}__icon {
+                    transform: translateX(tokens.use($_, "space", 0.5)); 
                 }
             }
         }
     }
 
     // Nested
-    & .c-collection {
+    & .#{$_} {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: $c-collection-padding-x;
+        padding-left: tokens.get($_, "padding-x");
         border-top: none;
         border-right: none;
         border-bottom: none;
@@ -223,75 +203,38 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
 }
 
+.#{$_}.#{$_}--compact .#{$_}__content {
+    padding: tokens.get($_, "padding-y-compact") tokens.get($_, "padding-x-compact");
+}
 
 // Modifiers - Bordered
-.c-collection.c-collection--bordered {
-    .c-collection__item {
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
+.#{$_}.#{$_}--bordered {
+    padding-bottom: 0;
+    .#{$_}__item {
+        border-top: tokens.use($_, "border-width", 1) solid;
+        border-color: tokens.get($_, "color--background-border");
     }
     
-    .c-collection__item:first-child {
+    .#{$_}__item:first-child {
         border-top: none;
     }
 }
 
-// Defined to avoid code duplication.
-@mixin collection-compact-styles($breakpoint: null) {
-    $suffix: if(sass($breakpoint): "-#{$breakpoint}"; else: "");
-
-    .c-collection.c-collection--compact#{$suffix} {
-        @for $i from 1 through 6 {
-            --h#{$i}-font-size: min(var(--h#{i}-font-size, 1rem), #{var_fonts.$font-size-base});
-        }
-        &.c-collection--bordered {
-            padding-top: calc(var_default.$base / 2);
-            padding-bottom: calc(var_default.$base / 2);
-        }
-
-        .c-collection__content,
-        .c-collection__icon,
-        .c-collection__item > .c-collection__secondary {
-            padding: $c-collection-padding-y-compact $c-collection-padding-x-compact;
-        }
-
-        .c-collection__icon + .c-collection__content {
-            padding-left: 0;
-        }
-
-        .c-collection__icon {
-            --c-icon-size: calc(#{var_default.$base} * 2);
-            padding-right: calc(#{var_default.$base} * .5);
-            align-self: center;
-        }
-    }
-}
-
-// Applying the normal compact styles
-@include collection-compact-styles();
-
-// Applying the compact styles for each breakpoint
-@each $breakpoint in map.keys(var_default.$breakpoints-map) {
-    @include mq.mq($breakpoint) {
-        @include collection-compact-styles($breakpoint);
-    }
-}
-
 //Modifiers - Sharp edges
-.c-collection.c-collection--sharp-top {
-    border-radius: 0 0 $c-collection-border-radius $c-collection-border-radius;   
+.#{$_}.#{$_}--sharp-top {
+    border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};  
 }
 
-.c-collection.c-collection--sharp-bot {
-    border-radius: $c-collection-border-radius $c-collection-border-radius 0 0;    
+.#{$_}.#{$_}--sharp-bot {
+    border-radius: #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")} 0 0;    
 
 }
-.c-collection.c-collection--sharp {
+.#{$_}.#{$_}--sharp {
     border-radius: 0;
 }
 
 // Modifiers - unbox
-.c-collection.c-collection--unbox {
+.#{$_}.#{$_}--unbox {
     border: none;
     border-radius: 0;
     padding-top: 0;
@@ -299,71 +242,71 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
 }
 
 // Modifiers - Nav
-.c-collection.c-collection--nav {
+.#{$_}.#{$_}--nav {
     border-radius: 0;
     padding-top: 0;
     padding-bottom: 0;
 
-    .c-collection__item {
-        border-top: $c-collection-divider-border-width solid;
-        border-color: $c-collection-divider-border-color;
+    .#{$_}__item {
+        border-top: tokens.use($_, "border-width", 1) solid;
+        border-color: tokens.get($_, "color--background-border");
     }
     
-    .c-collection__item:first-child {
+    .#{$_}__item:first-child {
         border-top: none;
     }
 
-    .c-collection__item .c-collection__secondary {
+    .#{$_}__item .#{$_}__secondary {
         display: flex;
         align-items: center;
     }
-    .c-collection__item.is-open > .c-collection__secondary i {
+    .#{$_}__item.is-open > .#{$_}__secondary i {
         transform: rotate(180deg);
     }
 
-    .c-collection__item.is-open + .c-collection {
+    .#{$_}__item.is-open + .#{$_} {
         display: block;
     }
 
-    .c-collection__item > .c-collection__secondary {
-        border-left: $c-collection-divider-border-width solid;
+    .#{$_}__item > .#{$_}__secondary {
+        border-left: tokens.use($_, "border-width", 1) solid;
     }
 
-    .c-collection {
+    .#{$_} {
         border-radius: 0;
         padding-top: 0;
         padding-left: unset;
-        border-left: solid var_default.$base $c-collection-border-color;
-        border-top: $c-collection-divider-border-width solid;
+        border-left: solid tokens.use($_, "base") tokens.get($_, "color--surface-border");
+        border-top: tokens.use($_, "border-width", 1) solid;
     }
 }
 
 .c-card {
-    .c-collection {
+    .#{$_} {
         border: none;
     }
 }
 
 @media print {
 
-    .c-collection {
+    .#{$_} {
 
-        .c-collection__icon {
+        .#{$_}__icon {
             display: none;
         }
 
-        .c-collection__action:hover,
-        .c-collection__action:hover a,
-        a.c-collection__item.c-collection__item--action:hover,
-        a.c-collection__item.c-collection__item--action:hover a,
-        button.c-collection__item.c-collection__item--action:hover,
-        button.c-collection__item.c-collection__item--action:hover a {
+        .#{$_}__action:hover,
+        .#{$_}__action:hover a,
+        a.#{$_}__item.#{$_}__item--action:hover,
+        a.#{$_}__item.#{$_}__item--action:hover a,
+        button.#{$_}__item.#{$_}__item--action:hover,
+        button.#{$_}__item.#{$_}__item--action:hover a {
             background: transparent;
             transition: none;
         }
     }
 
-    .o-container, .c-collection {
+    .o-container, .#{$_} {
         display: unset;
         overflow: visible;
         page-break-before: avoid;
@@ -373,66 +316,3 @@ $c-collection-item-background-color: var(--c-collection-card-background-color, v
     }
 
 }
-
-
-$event-date-size:  56px;
-
-.c-collection.c-collection--event {
-    .c-collection__date {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: $event-date-size;
-        height: $event-date-size;
-        background-color: rgba(black, 0.05);
-    };
-
-    .c-collection__divider.c-collection__divider--inset {
-        margin-left: 96px;
-    }
-
-    .c-collection__date {
-        font-weight: 500;
-
-    }
-    .c-collection__day {
-        font-size: 20px;
-        line-height: 1;
-        margin-bottom: 6px;
-    }
-
-    .c-collection__day.c-collection__day--today,
-    .c-collection__day.c-collection__day--range {
-        font-size: 18px;
-    }
-
-    .c-collection__month {
-        line-height: 1;
-        font-size: 14px;
-        text-transform: uppercase;
-    }
-
-    .c-collection__icon,
-    .c-collection__secondary,
-    .c-collection__content {
-        align-self: flex-start;
-    }
-
-    .c-collection__content {
-        h1, h2, h3, h4 {
-            & + p {
-                margin-top: 8px;
-            }
-        }
-
-        p + p {
-            margin-top: 4px;
-        }
-    }
-
-    .c-collection__secondary  {
-        text-align: right;
-    }
-}
-

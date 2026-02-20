@@ -3,6 +3,7 @@
     <div class="o-grid-4">
       @collection(
           [
+              'bordered' => true,
               $modifier => true,
               'list' => [
                   ['title' => 'Collection modifier', 'content' => 'This utilizes the "' . $modifier . '" and will therefore display differently.'],
