@@ -1,525 +1,478 @@
-@use "sass:map";
+@use "../mixin/tokens";
 @use "../mixin/animations/ken-burns";
-@use "../mixin/cover";
-@use "../mixin/mq";
-@use "../mixin/ratio";
-@use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
 
-$c-hero-color-overlay: var(--c-hero-color-overlay, var_colors.$color-alpha) !default;
-$c-hero-color-font-contrasting: var(--c-hero-color-font-contrasting, var_colors.$color-alpha-contrasting) !default;
-$c-hero-color-font-white: var(--c-hero-color-font-white, var_colors.$color-white) !default;
-$c-hero-color-font-black: var(--c-hero-color-font-black, var_colors.$color-black) !default;
-$c-hero-background-color: var(--c-hero-background-color, var_colors.$color-black) !default;
-$c-hero-content-border-radius: var(--c-hero-content-border-radius, var_border-radius.$border-radius-lg) !default;
+$containerWidthSm: 362px;
+$containerWidthMd: 744px;
+$containerWidthLg: 1024px;
 
+$_: "c-hero";
 
-.c-hero {
-  display: flex; 
-  position: relative;
-  overflow: hidden;
+@include tokens.create($_, getComponentTokens($_),
+    ("shadow": tokens.use($_, "shadow", 2),
+        "color-overlay": tokens.get($_, "color--alpha"),
+        "color-font-contrasting": tokens.get($_, "color--alpha-contrast"),
+        "background-color": tokens.get($_, "color--alpha"),
+        "content-border-radius": tokens.use($_, "border-radius"),
+        "control-color": tokens.get($_, "color--primary"),
+        "control-background-color": tokens.get($_, "color--primary-contrast"),
+        "font-size-title": calc(tokens.get($_, "font-size-600") + 1vw),
+        "font-size-byline": calc(tokens.get($_, "font-size-300") + 0.5vw),
+        "font-size-body": calc(tokens.get($_, "font-size-100") + 0.2vw),
+    ));
 
-  &:hover {
-    .c-hero__controls {
-      display: inline-flex;
+.#{$_} {
+    display: flex;
+    contain: layout;
+    overflow: hidden;
+    container-name: hero;
+    container-type: inline-size;
+
+    &:hover {
+        .#{$_}__controls {
+            display: inline-flex;
+        }
     }
-  }
 
-   &__controls {
-      display: none;
-      position: absolute;
-      top: calc(#{var_default.$base} * 1.5);
-      right: calc(#{var_default.$base} * 1.5);
-      cursor: pointer;
-      z-index: 3000;
-
-      &:before {
-        content: "";
-        display: block;
-        background: var_colors.$color-white;
-        width: calc(#{var_default.$base} * 3);
-        height: calc(#{var_default.$base} * 3);
-        border-radius: 50%;
-        position: absolute;
-        z-index: -1;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .c-hero__animation-play-button {
+    .#{$_}__controls {
         display: none;
-        color: var_colors.$color-primary;
-      }
-      
-      .c-hero__animation-pause-button {
-        display: inline-flex;
-        color: var_colors.$color-primary;
-      }
+        position: absolute;
+        top: tokens.use($_, "base", 1.5);
+        right: tokens.use($_, "base", 1.5);
+        cursor: pointer;
+        z-index: 3;
 
-      &.is-paused {
-        .c-hero__animation-pause-button {
-          display: none;
+        &:before {
+            content: "";
+            display: block;
+            background: tokens.get($_, "control-background-color");
+            width: tokens.use($_, "base", 3);
+            height: tokens.use($_, "base", 3);
+            border-radius: 50%;
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .c-hero__animation-play-button {
-          display: inline-flex;
-        }
-      }
-    }
-
-  &.c-hero--image {
-    .c-hero__image {
-      background-color: $c-hero-background-color;
-      background-size: cover;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-
-      .c-image.c-image--type-svg .c-image__image {
-        object-fit: cover; //Override the default object-fit: scale-down;
-      }
-    }
-  }
-
-  &.c-hero--animation-type-kenny {
-    .c-hero__image {
-      @include ken-burns.ken-burns();
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .c-hero__image {
-        animation: none;
-      }
-    }
-  }
-
-  /** Modifiers - size **/ 
-  &.c-hero--small {
-    min-height: calc(#{var_default.$base} * 40);
-    &:before {
-      @include ratio.ratio(36, 7, false); 
-    }
-  }
-
-  &.c-hero--normal {
-    min-height: calc(#{var_default.$base} * 50);
-    &:before {
-      @include ratio.ratio(10, 3, false); 
-    }
-  }
-
-  &.c-hero--large {
-    min-height: calc(#{var_default.$base} * 60);
-    max-height: 70vh;
-    &:before {
-      @include ratio.ratio(16, 9, false);
-    }
-  }
-
-  &.c-hero--small:before,
-  &.c-hero--normal:before,
-  &.c-hero--large:before {
-    float: left;
-    content: "";
-    width: 1px;
-    margin-left: -1px;
-    height: 0;
-  }
-
-  &.c-hero--small:before,
-  &.c-hero--normal:before,
-  &.c-hero--large:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  /** Modifiers - Full width */ 
-  &.c-hero--stretch { /* Bleed outside container  left&right */ 
-    @include stretch.stretch();
-  }
-
-  /** Sub elements */ 
-  &.c-hero--overlay .c-hero__overlay {
-    @include cover.cover();
-    z-index: var_properties.$level-1;
-    box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2); 
-  }
-
-  .c-hero__container {
-    align-self: flex-end;
-  }
-
-  @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-
-    .c-hero__container {
-      align-self: flex-end;
-      display: flex;
-    }
-
-    &.c-hero--content-horizontal__center .c-hero__container {
-      justify-content: center;
-    }
-
-    &.c-hero--content-horizontal__right .c-hero__container {
-      justify-content: flex-end;
-    }
-    
-    &.c-hero--content-vertical__top .c-hero__container {
-      align-self: flex-start;
-    }
-
-    &.c-hero--content-vertical__center .c-hero__container {
-      align-self: center;
-    }
-
-    &.c-hero--text-align__center .c-hero__container {
-      text-align: center;
-    }
-
-    &.c-hero--text-align__right .c-hero__container {
-      text-align: right;
-    }
-
-  }
-
-  .c-hero__content {
-    padding: map.get(var_default.$spacers, "6") 0;
-    max-width: calc( #{var_default.$base} * 87);
-    z-index: var_properties.$level-2;
-    position: relative;
-  }
-  
-  &.c-hero--overlay .c-hero__content {
-    text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
-  }
-
-  &.c-hero--has-content-background-color {
-    .c-hero__content {
-      margin: calc(var(--base, 8px)*3) 0;
-      padding: map.get(var_default.$spacers, "6");
-    }
-
-    &.c-hero--apply-rounded-corners .c-hero__content {
-      border-radius: $c-hero-content-border-radius;
-    }
-
-    &.c-hero--apply-shadows .c-hero__content {
-      filter: var_properties.$drop-shadow-2;
-    }
-  }
-
-  .c-hero__content--link {
-    text-decoration: none;
-  }
-
-  .c-hero__title,
-    .c-hero__byline,
-    .c-hero__meta,
-    .c-hero__body {
-      animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
-  }
-
-  &.c-hero--overlay {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__meta,
-    .c-hero__body {
-      color: $c-hero-color-font-contrasting;
-    }
-  }
-  
-  &.c-hero--color-black {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__meta,
-    .c-hero__body {
-      color: $c-hero-color-font-black;
-    }
-  }
-
-  &.c-hero--color-white {
-    .c-hero__title,
-    .c-hero__byline,
-    .c-hero__meta,
-    .c-hero__body {
-      color: $c-hero-color-font-white;
-    }
-  }
-
-  .c-hero__meta {
-    animation-delay: 200ms;
-  }
-
-  .c-hero__title {
-    font-size: calc(#{var_fonts.$font-size-hero} + calc(1vw));
-    text-wrap: balance;
-    animation-delay: 200ms;
-  }
-
-  .c-hero__byline {
-    font-size: calc(#{var_fonts.$font-size-hero-byline} + calc(.5vw));
-    animation-delay: 400ms;
-    display: inline-block;
-  }
-
-  .c-hero__body {
-    font-size: calc(#{var_fonts.$font-size-hero-body} + calc(.2vw));
-    animation-delay: 600ms;
-  }
-
-  .c-hero__title + .c-hero__body {
-    animation-delay: 400ms;
-  }
-
-  .c-hero__overlay {
-    background-color: $c-hero-color-overlay;
-  }
-
-  .c-hero__video {
-    @include cover.cover();
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Meta */
-  &.c-hero--meta {
-    .c-hero__content .c-hero__title {    
-        margin-top: 0;
-    }
-  }
-
-
-
-  /* TwoColumn hero */
-  &.c-hero--twoColumn {
-    padding: calc(var_default.$base*10) 0;
-    
-    &:before {
-      display: none;
-    }
-
-    .c-hero__image-container {
-      aspect-ratio: 16 / 9;
-      border-radius: var_border-radius.$border-radius-md;
-      contain: paint;
-    }
-    
-    .c-hero__group-image,
-    .c-image__image {
-      border-radius: inherit;
-    }
-    
-    .c-hero__background {
-      height: 100%;
-      width: 100%;
-      z-index: -1;
-      object-fit: cover;
-      position: absolute;
-      top:0;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-
-    .c-hero__content {
-      max-width:100%;
-      padding:0;
-      text-shadow: none;
-      border-radius: var_border-radius.$border-radius-xs;
-      .c-hero__group {
-        flex: 0 0 100%;
-      }
-      .c-hero__group-content {
-          padding: 0;
-          height: 100%;
-      }
-    }
-
-    &.c-hero--overflow {
-      padding: 0;
-
-        .c-hero__background {
-          display:none;
+        .#{$_}__animation-play-button {
+            display: none;
+            color: tokens.get($_, "control-color");
         }
 
-        .c-hero__group-image {
-          height: 100%;
-          img {
-            border-radius: unset;
+        .#{$_}__animation-pause-button {
+            display: inline-flex;
+            color: tokens.get($_, "control-color");
+        }
+
+        &.is-paused {
+            .#{$_}__animation-pause-button {
+                display: none;
+            }
+
+            .#{$_}__animation-play-button {
+                display: inline-flex;
+            }
+        }
+    }
+
+    &.#{$_}--image {
+        .#{$_}__image {
+            background-color: tokens.get($_, "background-color");
+            background-size: cover;
+            width: 100%;
             height: 100%;
+            position: absolute;
+
+            .c-image.c-image--type-svg .c-image__image {
+                object-fit: cover; //Override the default object-fit: scale-down;
+            }
+        }
+    }
+
+    &.#{$_}--animation-type-kenny {
+        .#{$_}__image {
+            @include ken-burns.ken-burns();
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .#{$_}__image {
+                animation: none;
+            }
+        }
+    }
+
+    /** Modifiers - size **/
+    &.#{$_}--small {
+        min-height: tokens.use($_, "base", 40);
+
+        &::before {
+            aspect-ratio: 36 / 7;
+            display: block;
             max-width: 100%;
+        }
+    }
+
+    &.#{$_}--normal {
+        min-height: tokens.use($_, "base", 50);
+
+        &::before {
+            aspect-ratio: 10 / 3;
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+    &.#{$_}--large {
+        max-height: 70vh;
+        min-height: tokens.use($_, "base", 60);
+
+        &::before {
+            aspect-ratio: 16 / 9;
+            display: block;
+            max-width: 100%;
+        }
+    }
+
+
+    &.#{$_}--small:before,
+    &.#{$_}--normal:before,
+    &.#{$_}--large:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    &.#{$_}--stretch {
+        /* Bleed outside container  left&right */
+        border-radius: 0;
+        left: 50%;
+        position: relative;
+        transform: translateX(-50%);
+        width: calc(100vw - var(--scrollbar, 15px));
+    }
+
+    /** Sub elements */
+    &.#{$_}--overlay .#{$_}__overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2);
+    }
+
+    .#{$_}__container {
+        align-self: flex-end;
+    }
+
+    @container hero (min-width: #{$containerWidthMd}) {
+
+        .#{$_}__container {
+            display: flex;
+        }
+
+        &.#{$_}--content-horizontal__center .#{$_}__container {
+            justify-content: center;
+        }
+
+        &.#{$_}--content-horizontal__right .#{$_}__container {
+            justify-content: flex-end;
+        }
+
+        &.#{$_}--content-vertical__top .#{$_}__container {
+            align-self: flex-start;
+        }
+
+        &.#{$_}--content-vertical__center .#{$_}__container {
+            align-self: center;
+        }
+
+        &.#{$_}--text-align__center .#{$_}__container {
+            text-align: center;
+        }
+
+        &.#{$_}--text-align__right .#{$_}__container {
+            text-align: right;
+        }
+    }
+
+    .#{$_}__content {
+        padding: tokens.use($_, "space", 6) 0;
+        max-width: tokens.use($_, "base", 87);
+        z-index: 2;
+        position: relative;
+    }
+
+    &.#{$_}--overlay .#{$_}__content {
+        text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
+    }
+
+    &.#{$_}--has-content-background-color {
+        .#{$_}__content {
+            margin: tokens.use($_, "base", 3) 0;
+            padding: tokens.use($_, "space", 6);
+        }
+
+        &.#{$_}--apply-rounded-corners .#{$_}__content {
+            border-radius: tokens.get($_, "content-border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
+        }
+
+        &.#{$_}--apply-shadows .#{$_}__content {
+            filter: tokens.get($_, "shadow");
+        }
+    }
+
+    .#{$_}__content--link {
+        text-decoration: none;
+    }
+
+    .#{$_}__title,
+    .#{$_}__byline,
+    .#{$_}__meta,
+    .#{$_}__body {
+        animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+    }
+
+    &.#{$_}--overlay {
+
+        .#{$_}__title,
+        .#{$_}__byline,
+        .#{$_}__meta,
+        .#{$_}__body {
+            color: tokens.get($_, "color-font-contrasting");
+        }
+    }
+
+    .#{$_}__meta {
+        animation-delay: 200ms;
+    }
+
+    .#{$_}__title {
+        font-size: tokens.get($_, "font-size-title");
+        text-wrap: balance;
+        animation-delay: 200ms;
+    }
+
+    .#{$_}__byline {
+        font-size: tokens.get($_, "font-size-byline");
+        animation-delay: 400ms;
+        display: inline-block;
+    }
+
+    .#{$_}__body {
+        font-size: tokens.get($_, "font-size-body");
+        animation-delay: 600ms;
+    }
+
+    .#{$_}__title+.#{$_}__body {
+        animation-delay: 400ms;
+    }
+
+    .#{$_}__overlay {
+        background-color: tokens.get($_, "color-overlay");
+    }
+
+    .#{$_}__video {
+        position: absolute;
+        inset: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Meta */
+    &.#{$_}--meta {
+        .#{$_}__content .#{$_}__title {
+            margin-top: 0;
+        }
+    }
+
+    /* TwoColumn hero */
+    &.#{$_}--twoColumn {
+        padding: tokens.use($_, "base", 10) 0;
+
+        &:before {
+            display: none;
+        }
+
+        .#{$_}__image-container {
+            aspect-ratio: 16 / 9;
+            border-radius: tokens.get($_, "content-border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
+            contain: paint;
+        }
+
+        .#{$_}__group-image,
+        .c-image__image {
+            border-radius: inherit;
+        }
+
+        .#{$_}__background {
+            height: 100%;
+            width: 100%;
+            z-index: -1;
             object-fit: cover;
-          }
-        }
-        .c-hero__group-content {
-          height: 100%;
-        }
-    }
-
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-      .c-hero__content {
-        .c-hero__group {
-          flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
-        } 
-      }
-      
-      &.c-hero--overflow { 
-        padding-top: calc(var_default.$base * 16);
-        max-height: calc(var_default.$base * 90);
-        
-        .c-hero__background {
-          display: block;
-          top:0;
-          filter: blur(30px);
+            position: absolute;
+            top: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
-        &::after {
-          content: "";
-          height: calc(var_default.$base * 8);
-          width: 100%;
-          bottom:0;
-          left:0;
-          position: absolute;
-          background-color: var_colors.$color-default;
-          z-index:var_properties.$level-1;
+        .#{$_}__content {
+            max-width: 100%;
+            padding: 0;
+            text-shadow: none;
+            border-radius: tokens.get($_, "content-border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
+
+            .#{$_}__group {
+                flex: 0 0 100%;
+            }
+
+            .#{$_}__group-content {
+                padding: 0;
+                height: 100%;
+            }
+        }
+    }
+
+    @container hero (min-width: #{$containerWidthMd}) {
+        &.#{$_}--twoColumn {
+            opacity: .5;
         }
 
-      .c-hero__content {
-          background-color: var_colors.$color-white;
-        .c-hero__group-content {
-          padding: calc(var_default.$base * 6);
-        } 
-      }
-    }
-    }
-  }
-
-  /* Call to action hero */
-  &.c-hero--callToActions {
-    color: var(--color-primary, black);
-
-    .c-hero__text {
-      padding: calc(#{var_default.$base} * 5) calc(#{var_default.$base} * 3);
-
-      & > .o-grid {
-        max-width: var(--container-width, 100%);
-        margin: auto;
-      }
-
-      p {
-        margin: -0.5em 0 calc(#{var_default.$base} * 6) 0;
-      }
-    }
-
-    .c-hero__media {
-      overflow: hidden;
-      position: relative;
-    }
-
-    &.c-hero--media-first {
-      .c-hero__media {
-        order: 1;
-      }
-      .c-hero__text {
-        order: 2;
-      }
-    }
-
-    &.c-hero--normal {
-      min-height: unset;
-      max-height: none;
-      .c-hero__media {
-        aspect-ratio: 1.5/1;
-      }
-    }
-
-    &.c-hero--small {
-      min-height: unset;
-      max-height: none;
-      .c-hero__media {
-        aspect-ratio: 2/1;
-      }
-    }
-
-    &.c-hero--large {
-      min-height: unset;
-      max-height: none;
-      .c-hero__media {
-        aspect-ratio: 1/1;
-      }
-    }
-
-    .c-hero__buttons {
-      display: flex;
-      flex-flow: column;
-      margin-top: calc(#{var_default.$base} * 3);
-      gap: calc(#{var_default.$base} * 2);
-
-      .c-button + .c-button {
-        margin-left: 0;
-      }
-    }
-
-    @include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
-      .c-hero__text {
-        padding: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 3);
-
-        p {
-          margin: 0;
+        &.#{$_}--twoColumn .#{$_}__content .#{$_}__group {
+            flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
         }
-      }
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-      .c-hero__text {
-        padding: calc(#{var_default.$base} * 8) calc(#{var_default.$base} * 3);
-      }
 
-      .c-hero__buttons {
-        flex-flow: row;
-      }
+    /* Call to action hero */
+    &.#{$_}--callToActions {
+        color: tokens.get($_, "color--primary");
 
-      &.c-hero--normal {
-        .c-hero__media {
-          aspect-ratio: 3/1;
+        .#{$_}__text {
+            padding: tokens.use($_, "base", 5) tokens.use($_, "base", 3);
+
+            &>.o-grid {
+                max-width: var(--container-width, 100%);
+                margin: auto;
+            }
+
+            p {
+                margin: -0.5em 0 tokens.use($_, "base", 6) 0;
+            }
         }
-      }
 
-      &.c-hero--small {
-        .c-hero__media {
-          aspect-ratio: 4/1;
+        .#{$_}__media {
+            overflow: hidden;
+            position: relative;
         }
-      }
 
-      &.c-hero--large {
-        .c-hero__media {
-          aspect-ratio: 16/9;
+        &.#{$_}--media-first {
+            .#{$_}__media {
+                order: 1;
+            }
+
+            .#{$_}__text {
+                order: 2;
+            }
         }
-      }
+
+        &.#{$_}--normal {
+            min-height: unset;
+            max-height: none;
+
+            .#{$_}__media {
+                aspect-ratio: 1.5/1;
+            }
+        }
+
+        &.#{$_}--small {
+            min-height: unset;
+            max-height: none;
+
+            .#{$_}__media {
+                aspect-ratio: 2/1;
+            }
+        }
+
+        &.#{$_}--large {
+            min-height: unset;
+            max-height: none;
+
+            .#{$_}__media {
+                aspect-ratio: 1/1;
+            }
+        }
+
+        .#{$_}__buttons {
+            display: flex;
+            flex-flow: column;
+            margin-top: tokens.use($_, "base", 3);
+            gap: tokens.use($_, "base", 2);
+
+            .c-button+.c-button {
+                margin-left: 0;
+            }
+        }
+
+        @container hero (min-width: #{$containerWidthSm}) {
+            .#{$_}__text {
+                padding: tokens.use($_, "base", 6) tokens.use($_, "base", 3);
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+
+        @container hero (min-width: #{$containerWidthMd}) {
+            .#{$_}__text {
+                padding: tokens.use($_, "base", 8) tokens.use($_, "base", 3);
+            }
+
+            .#{$_}__buttons {
+                flex-flow: row;
+            }
+
+            &.#{$_}--normal {
+                .#{$_}__media {
+                    aspect-ratio: 3/1;
+                }
+            }
+
+            &.#{$_}--small {
+                .#{$_}__media {
+                    aspect-ratio: 4/1;
+                }
+            }
+
+            &.#{$_}--large {
+                .#{$_}__media {
+                    aspect-ratio: 16/9;
+                }
+            }
+        }
+
+        @container hero (min-width: #{$containerWidthLg}) {
+            .#{$_}__text {
+                padding: tokens.use($_, "base", 10) tokens.use($_, "base", 3);
+            }
+        }
     }
-
-    @include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
-      .c-hero__text {
-        padding: calc(#{var_default.$base} * 10) calc(#{var_default.$base} * 3);
-      }
-    }
-  }
 }
 
 
+
 @keyframes hero-slide-in {
-  0% {
-    transform: translateY(calc(#{var_default.$base} * 4));
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(tokens.use($_, "base", 4));
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

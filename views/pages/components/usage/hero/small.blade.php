@@ -1,4 +1,5 @@
 @hero([
+    "video" => true,
     "image" => "https://picsum.photos/id/1026/1500/1000",
     "size" => "small",
     "overlay" => "neutral",
