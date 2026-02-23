@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import sass from 'sass';
 import { createViteConfig } from 'vite-config-factory';
 
@@ -32,22 +32,22 @@ const customSassFunctions = {
 		),
 };
 
-export default (() => {
+export default ({ command, mode }) => {
 	const config = createViteConfig(entries, {
 		outDir: 'assets/dist',
 		manifestFile: 'manifest.json',
-	})({ mode: 'production' });
-
-	return () => {
-		return {
-			...config,
-			css: {
-				preprocessorOptions: {
-					scss: {
-						functions: customSassFunctions,
-					},
+	})({ command, mode });
+	return {
+		...config,
+		css: {
+			...config.css,
+			preprocessorOptions: {
+				...config.css.preprocessorOptions,
+				scss: {
+					...config.css.preprocessorOptions?.scss,
+					functions: customSassFunctions,
 				},
 			},
-		};
+		},
 	};
-})();
+};
