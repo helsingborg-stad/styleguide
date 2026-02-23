@@ -1,0 +1,12 @@
+{
+    "tokens": [
+        "base",
+        "color--alpha",
+        "color--surface",
+        "color--surface-border",
+        "corner-shape",
+        "border-radius",
+        "space",
+        "shadow"
+    ]
+}
