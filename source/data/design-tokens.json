@@ -251,6 +251,85 @@
       ]
     },
     {
+      "id": "font-sizes",
+      "label": "Font Sizes",
+      "description": "Computed font size scale derived from base font size and type scale ratio.",
+      "settings": [
+        {
+          "variable": "--font-size-80",
+          "label": "Font Size 80",
+          "description": "Two steps below base in the type scale.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-90",
+          "label": "Font Size 90",
+          "description": "One step below base in the type scale.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-100",
+          "label": "Font Size 100",
+          "description": "Base font size.",
+          "type": "range",
+          "default": "var(--base-font-size)",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-200",
+          "label": "Font Size 200",
+          "description": "One step above base in the type scale. Equivalent to h6/subtitle.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-300",
+          "label": "Font Size 300",
+          "description": "Two steps above base in the type scale. Equivalent to h5.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 2))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-400",
+          "label": "Font Size 400",
+          "description": "Three steps above base in the type scale. Equivalent to h4.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 3))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-500",
+          "label": "Font Size 500",
+          "description": "Four steps above base in the type scale. Equivalent to h3.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 4))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-600",
+          "label": "Font Size 600",
+          "description": "Five steps above base in the type scale. Equivalent to h2.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 5))",
+          "locked": true
+        },
+        {
+          "variable": "--font-size-700",
+          "label": "Font Size 700",
+          "description": "Six steps above base in the type scale. Equivalent to h1.",
+          "type": "range",
+          "default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 6))",
+          "locked": true
+        }
+      ]
+    },
+    {
       "id": "borders",
       "label": "Borders",
       "description": "Border width tokens for UI elements.",
