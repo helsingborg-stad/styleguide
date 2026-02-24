@@ -28,5 +28,23 @@
         "heading": "Signature Component - Without a name",
         "subHeading" : "",
         "text" : "Do not give credit, just some dates."
+    },
+    "with-avatar": {
+        "grid": "",
+        "heading": "Signature Component - With Avatar",
+        "subHeading" : "",
+        "text" : "Displays the author with a real avatar image instead of the generated placeholder."
+    },
+    "no-avatar": {
+        "grid": "",
+        "heading": "Signature Component - No Avatar",
+        "subHeading" : "",
+        "text" : "Renders the author name and role without any avatar by disabling the placeholder."
+    },
+    "published-only": {
+        "grid": "",
+        "heading": "Signature Component - Published Date Only",
+        "subHeading" : "",
+        "text" : "Shows a single published date alongside the author, without an updated date."
     }
 }

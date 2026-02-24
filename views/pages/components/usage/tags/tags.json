@@ -1,0 +1,32 @@
+{
+    "basic": {
+        "heading": "Basic tags",
+        "subHeading": "",
+        "text": "Plain tags rendered as spans, prefixed with the default # character."
+    },
+    "withLinks": {
+        "heading": "Tags with links",
+        "subHeading": "",
+        "text": "When each tag item includes an href, the tag is rendered as a clickable anchor element."
+    },
+    "pill": {
+        "heading": "Pill-shaped tags",
+        "subHeading": "",
+        "text": "Applying tagsStyle 'pill' gives each tag a rounded, pill-shaped appearance with a card background and shadow."
+    },
+    "compress": {
+        "heading": "Compressed tags",
+        "subHeading": "",
+        "text": "Setting compress to a number shows only the first N tags and hides the rest behind an expandable indicator."
+    },
+    "format": {
+        "heading": "Formatted tags",
+        "subHeading": "",
+        "text": "With format enabled, tag labels are lowercased and word-spacing is reduced for a compact typographic style."
+    },
+    "withMarker": {
+        "heading": "Tags with colour markers",
+        "subHeading": "",
+        "text": "Enabling tagsMarker replaces the # prefix with a small filled circle icon coloured by each tag's color value."
+    }
+}

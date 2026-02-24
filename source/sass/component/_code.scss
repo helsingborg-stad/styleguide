@@ -1,50 +1,56 @@
-@use "sass:map";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-code {
-    border-radius: var_border-radius.$border-radius-md;
-    margin: 16px 0;
+$_: "c-code";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+    border-radius: tokens.use($_, "border-radius", 1.5);
+    corner-shape: tokens.get($_, "corner-shape");
+    margin: tokens.use($_, "space", 2) 0;
     overflow: hidden;
 
     .code-toolbar {
         overflow: auto;
-        background-color: var_colors.$color-lighter;
+        background-color: #e5e5e5;
     }
 
     &__pre {
+        font-family: tokens.get($_, "font-family-code");
         margin: 0;
     }
 
     &__toggle {
 
         .c-button__toggle {
-            color: var_colors.$color-lighter;
+            color: #e5e5e5;
 
             &[aria-pressed="true"] {
-                color: var_colors.$color-default-dimmed;
+                color: #eee;
 
             }
 
             &:hover {
-                color: var_colors.$color-black;
+                color: #000;
             }
         }
     }
 }
 
 .markup-preview {
-    padding: map.get(var_default.$spacers, "3");
+    padding: tokens.use($_, "space", 3);
     border-bottom: 0;
-    border-radius: 5px;
+    border-radius: tokens.get($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
 }
 
 .markup-preview--align-x {
-    padding: map.get(var_default.$spacers, "3") 0;
+    padding: tokens.use($_, "space", 3) 0;
 }
 
-div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>.toolbar span {
+div.code-toolbar>.toolbar a,
+div.code-toolbar>.toolbar button,
+div.code-toolbar>.toolbar span {
 
     @extend .c-button !optional;
     @extend .c-button__filled !optional;
@@ -60,23 +66,23 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
 }
 
 .selected-components-loader {
-    position:absolute;
-    top:3px;
+    position: absolute;
+    top: 3px;
 }
 
 .selected-components {
 
-    width:90%;
+    width: 90%;
 
     .component-list {
         text-transform: uppercase;
         cursor: not-allowed;
-        margin-right:10px;
-        margin-bottom:10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
         padding: 3px 8px;
         animation: componentListFadeIn 1s linear;
         animation-fill-mode: both;
-        background:none;
+        background: none;
     }
 
     .component-list .c-icon {
@@ -93,6 +99,7 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     }
 
 }
+
 @keyframes componentListFadeIn {
 
     0% {
@@ -133,12 +140,12 @@ div.code-toolbar>.toolbar a, div.code-toolbar>.toolbar button, div.code-toolbar>
     animation: componentListFadeIn 1s linear;
     animation-fill-mode: both;
     background-color: #f5f2f0;
-    padding:15px;
+    padding: 15px;
 
     #compiledCSS {
         display: block;
         word-break: break-all;
-        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        font-family: tokens.get($_, "font-family-code");
         font-size: 1rem;
     }
 }
