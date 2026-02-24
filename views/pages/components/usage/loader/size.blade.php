@@ -1,17 +1,10 @@
-
-<div class="grid">
-    <div class="grid-ms-4 grid-md-4 grid-lg-4">
-        @loader(['size' => 'sm'])
-        @endloader
+@foreach(['linear', 'circular'] as $shape)
+    <div class="grid">
+        @foreach(['sm', 'md', 'lg'] as $size)
+            <div class="grid-ms-4 grid-md-4 grid-lg-4 u-aspect-ratio--1-1">
+                @loader(['shape' => $shape, 'size' => $size])
+                @endloader
+            </div>
+        @endforeach
     </div>
-
-    <div class="grid-ms-4 grid-md-4 grid-lg-4">
-        @loader(['size' => 'md'])
-        @endloader
-    </div>
-
-    <div class="grid-ms-4 grid-md-4 grid-lg-4">
-        @loader(['size' => 'lg'])
-        @endloader
-    </div>
-</div>
+@endforeach
