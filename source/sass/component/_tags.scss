@@ -1,15 +1,24 @@
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 @use "../setting/var_fonts";
 @use "../setting/var_properties";
 
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
+/* Component name */
+$_: "c-tags";
+
+/* Design tokens */
+@include tokens.create($_, (
+    "base",
+    "color--surface",
+    "color--darker",
+));
+
+$c-tags-pill-background: tokens.get($_, "color--surface") !default;
+$c-tags-pill-color: tokens.get($_, "color--darker") !default;
 
 .c-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: #{var_default.$base};
+    gap: tokens.get($_, "base");
 
     &--format .c-tags__tag {
         word-spacing: -0.5ex;
@@ -20,8 +29,8 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !defaul
         .c-tags__tag {
             background-color: $c-tags-pill-background;
             color: $c-tags-pill-color;
-            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
-            border-radius: calc(var_default.$base * 3);
+            padding: calc(#{tokens.get($_, "base")} * 0.5) calc(#{tokens.get($_, "base")} * 1.5);
+            border-radius: calc(#{tokens.get($_, "base")} * 3);
             filter: var_properties.$detail-shadow-2;
 
             &:hover {
