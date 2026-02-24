@@ -1,37 +1,32 @@
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-tags-pill-background: var(--c-tags-pill-background, var_colors.$color-background-card) !default;
-$c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !default;
+$_: "c-tags";
 
-.c-tags {
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
     display: flex;
     flex-wrap: wrap;
-    gap: #{var_default.$base};
+    gap: tokens.use($_, "base", 1);
 
-    &--format .c-tags__tag {
+    &--format .#{$_}__tag {
         word-spacing: -0.5ex;
         text-transform: lowercase;
     }
 
-    &.c-tags--pill {
-        .c-tags__tag {
-            background-color: $c-tags-pill-background;
-            color: $c-tags-pill-color;
-            padding: calc(var_default.$base * 0.5) calc(var_default.$base * 1.5);
-            border-radius: calc(var_default.$base * 3);
-            filter: var_properties.$detail-shadow-2;
-
-            &:hover {
-                color: $c-tags-pill-color;
-            }
+    &.#{$_}--pill {
+        .#{$_}__tag {
+            background-color: tokens.get($_, "color--surface");
+            color: tokens.get($_, "color--surface-contrast");
+            padding: tokens.use($_, "base", 0.5) tokens.use($_, "base", 1.5);
+            border-radius: tokens.use($_, "base", 3);
+            corner-shape: tokens.get($_, "corner-shape");
+            filter: tokens.use($_, "shadow");
         }
     }
 
-    .c-tags__tag {
-        font-size: var_fonts.$font-size-meta;
+    .#{$_}__tag {
+        font-size: 0.875rem;
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -40,12 +35,14 @@ $c-tags-pill-color: var(--c-field-label-color, var_colors.$color-darker) !defaul
             display: none;
         }
 
-        &:hover, &:visited, &:active {
+        &:hover,
+        &:visited,
+        &:active {
             color: inherit;
         }
     }
 
-    a.c-tags__tag:hover {
+    a.#{$_}__tag:hover {
         text-decoration: underline;
     }
 }
