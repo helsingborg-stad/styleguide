@@ -1,13 +1,11 @@
 @use "../mixin/focus";
 @use "../mixin/tokens";
-@use "../setting/var_properties";
 
 /* Component name */
 $_: "c-nav";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "font-size": "var(--base-font-size)",
+@include tokens.create($_, getComponentTokens($_), ("font-size": "var(--base-font-size)",
         "background-expanded": "rgba(0, 0, 0, .05)",
         "shadow": tokens.use($_, "shadow", 1),
     ));
@@ -141,7 +139,7 @@ $_: "c-nav";
         }
 
         .c-nav.c-nav--child {
-            z-index: var_properties.$level-5;
+            z-index: 5000;
             position: absolute;
             bottom: 0;
             background: tokens.get($_, "color--surface");
@@ -160,7 +158,7 @@ $_: "c-nav";
                 top: calc(#{tokens.get($_, "base")} * -1);
                 transform: rotate(45deg);
                 width: calc(#{tokens.get($_, "base")} * 2.5);
-                z-index: var_properties.$level-5;
+                z-index: 5000;
                 border-top-left-radius: max(calc(#{tokens.get($_, "base")} * .5), #{tokens.use($_, "border-radius")});
             }
         }
@@ -327,7 +325,7 @@ $_: "c-nav";
         top: 100%;
         left: 0;
         width: 100%;
-        z-index: var_properties.$level-5;
+        z-index: 5000;
         background-color: tokens.get($_, "color--surface");
         justify-content: center;
     }

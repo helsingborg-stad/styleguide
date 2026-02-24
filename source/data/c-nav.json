@@ -1,7 +1,7 @@
 {
     "tokens": [
+        "base",
         "border-radius",
-        "space",
         "shadow",
         "color--surface",
         "color--primary"
