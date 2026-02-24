@@ -1,38 +1,30 @@
-@use "sass:map";
-@use "../setting/var_colors";
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-signature {
+$_: "c-signature";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "avatar signature" "whitespace dates";
+    grid-template-columns: max-content max-content;
     text-decoration: none;
-    column-gap: map.get(var_default.$spacers, "2" );
-
-    &__avatar {
-        grid-area: avatar;
-    }
+    column-gap: tokens.use($_, "space", 2);
 
     &__author-box {
-        grid-area: signature;
         display: flex;
-        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 
     &__title {
-        color: var_colors.$color-darker;
-        margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
+        color: tokens.get($_, "color--surface-contrast-muted");
+        margin-top: calc(tokens.use($_, "space", 1) * -1);
         display: block;
-    }
-
-    &__dates {
-        grid-area: dates;
     }
 
     &__published,
     &__updated {
-        color: var_colors.$color-darker;
+        color: tokens.get($_, "color--surface-contrast-muted");
         display: block;
     }
 }
