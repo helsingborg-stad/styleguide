@@ -1,11 +1,13 @@
-@use "sass:map";
+@use "../mixin/tokens";
 @use "../mixin/focus";
 @use "../mixin/list";
 @use "../mixin/mq";
-@use "../setting/var_colors";
-@use "../setting/var_default";
 
-.c-gallery {
+$_: "c-gallery";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
     .c-image {
         cursor:pointer;
     }
@@ -14,7 +16,7 @@
     grid-template-columns: 1fr;
     padding: 0;
     margin: 0;
-    gap: calc(#{var_default.$base} * 3);
+    gap: tokens.use($_, "base", 3);
 
     &__item {
         padding: 0;
@@ -25,12 +27,14 @@
     &__link:visited,
     &__link:visited:hover {
         text-decoration: none;
-        color: var_colors.$color-light;
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 }
 
 .c-modal--gallery .c-modal__content .c-image__caption {
-    color: var_colors.$color-white;
+    color: tokens.get($_, "color--primary-contrast");
+    background-color: tokens.get($_, "color--primary");
+    padding: tokens.use($_, "base", 1) tokens.use($_, "base", 2);
 }
 
 .c-modal--gallery {
@@ -38,7 +42,9 @@
     .c-modal__close,
     .c-modal__prev,
     .c-modal__next {
-        margin: #{map.get(var_default.$spacers, "1")};
+        margin: tokens.use($_, "base", 1);
+        background-color: tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary-contrast");
     }
 
     .c-modal__prev:focus-visible,
@@ -55,14 +61,14 @@
     }
 }
 
-@include mq.mq(map.get(var_default.$breakpoints-map, "sm")) {
-    .c-gallery {
+@include mq.mq("sm") {
+    .#{$_} {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@include mq.mq(map.get(var_default.$breakpoints-map, "lg")) {
-    .c-gallery {
+@include mq.mq("lg") {
+    .#{$_} {
         grid-template-columns: 1fr 1fr 1fr;
         &__item {
             grid-template-columns: 1fr 1fr 1fr;

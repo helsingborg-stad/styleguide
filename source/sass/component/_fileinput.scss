@@ -1,5 +1,6 @@
 @use "../mixin/cover";
 @use "../mixin/tokens";
+@use "../generic/animations";
 
 /* Component name */
 $_: "c-fileinput";
@@ -84,8 +85,13 @@ $_: "c-fileinput";
     }
 
     .js-file-input-button,
-    .js-file-input-drop {
+    .js-file-input-drop,
+    .#{$_}__item {
         animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    }
+
+    .#{$_}__item.is-removing {
+        pointer-events: none;
     }
 
     /* Drop area */
@@ -97,9 +103,9 @@ $_: "c-fileinput";
         justify-content: center;
         padding: tokens.use($_, "space", 4);
         border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.use($_, "corner-shape");
         background-color: tokens.get($_, "color--surface");
         border: tokens.get($_, "border");
-        box-shadow: inset 0 0 50px 50px rgba(0,0,0,0.02);
         transition: all 0.2s ease-in-out;
     }
 
@@ -128,7 +134,6 @@ $_: "c-fileinput";
             margin: 0;
             filter: tokens.get($_, "shadow");
             height: tokens.use($_, "space", 5.5);
-            animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
         .#{$_}__item-remove {
@@ -346,13 +351,13 @@ $_: "c-fileinput";
 }
 
 /* Animation */
-@keyframes puff-in-center {
+@keyframes puff-out-center {
     0% {
-        filter: tokens.get($_, "shadow") blur(4px);
-        opacity: 0;
-    }
-    100% {
         filter: tokens.get($_, "shadow") blur(0px);
         opacity: 1;
+    }
+    100% {
+        filter: tokens.get($_, "shadow") blur(4px);
+        opacity: 0;
     }
 }

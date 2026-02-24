@@ -1,5 +1,6 @@
 @use "../mixin/stretch";
 @use "../mixin/tokens";
+@use "../generic/animations";
 
 /* Component name */
 $_: "c-notice";
@@ -117,4 +118,8 @@ $_: "c-notice";
     .#{$_} {
         display: none;
     }
+}
+
+.c-notice {
+    animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
 }
