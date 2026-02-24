@@ -55,6 +55,22 @@ $_: "c-modal";
             line-height: 0;
             padding: 0;
         }
+
+        .#{$_}__prev,
+        .#{$_}__next {
+            color: tokens.get($_, "color--surface-contrast");
+        }
+    
+        .#{$_}__caption {
+            padding: tokens.use($_, "base", 1);
+            background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
+            color: tokens.get($_, "color--surface-contrast");
+        }
+
+        &::backdrop {
+            background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
+            backdrop-filter: blur(tokens.use($_, "base", 1));
+        }
     }
 
     &.#{$_}--transparent {

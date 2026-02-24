@@ -31,12 +31,6 @@ $_: "c-gallery";
     }
 }
 
-.c-modal--gallery .c-modal__content .c-image__caption {
-    color: tokens.get($_, "color--primary-contrast");
-    background-color: tokens.get($_, "color--primary");
-    padding: tokens.use($_, "base", 1) tokens.use($_, "base", 2);
-}
-
 .c-modal--gallery {
 
     .c-modal__close,
