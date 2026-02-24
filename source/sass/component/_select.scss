@@ -1,35 +1,22 @@
-@use "sass:map";
 @use "../mixin/focus";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-$c-select-border-radius: var(--c-field-border-radius, 0.25) !default;
-$c-select-border-radius-option: var(--c-select-border-radius-option, var_border-radius.$border-radius-sm) !default;
-$c-select-font-size-sm: var(--c-select-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-select-font-size-md: var(--c-select-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-select-font-size-lg: var(--c-select-font-size-lg, var_fonts.$font-size-btn-lg) !default;
-$c-select-font-size-sm-line-height: var(--c-select-font-size-sm-line-height, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-select-font-size-md-line-height: var(--c-select-font-size-md-line-height, var_fonts.$font-size-btn-md-line-height) !default;
-$c-select-font-size-lg-line-height: var(--c-select-font-size-lg-line-height, var_fonts.$font-size-btn-lg-line-height) !default;
+@use "../mixin/tokens";
 
-$c-select-border-width: var(--c-select-border-width, var(--border-width-input, 1px)) !default;
-$c-select-border-color: var(--c-select-border-color, var(--c-field--border-color)) !default;
-$c-select-background-color: var(--c-select-background-color, var(--c-field--background-color)) !default;
-$c-select-danger-color: var(--c-select-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-select-success-color: var(--c-select-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
-$c-select-selected-bg: var(--c-select-selected-bg, var_colors.$color-primary) !default;
-$c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white) !default;
+$_: "c-select";
 
-.c-select__container {
+@include tokens.create($_, getComponentTokens($_),
+    ("font-size-btn-sm": tokens.get($_, "font-size-80"),
+        "font-size-btn-md": tokens.get($_, "font-size-90"),
+        "font-size-btn-lg": tokens.get($_, "font-size-100"),
+    ));
+
+.#{$_}__container {
     position: relative;
 }
 
-.c-select {
+.#{$_} {
     position: relative;
 
-    .c-select__select-element {
+    .#{$_}__select-element {
         bottom: 0;
         height: 1px;
         left: 0;
@@ -39,9 +26,9 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         width: 1px;
     }
 
-    .c-select__action-overlay {
+    .#{$_}__action-overlay {
         cursor: pointer;
-        z-index: var_properties.$level-4;
+        z-index: 4000;
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -49,30 +36,30 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         padding-right: 15%;
     }
 
-    .c-select__search-field {
+    .#{$_}__search-field {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-        background-color: #FFF;
-        border: $c-select-border-width solid $c-select-border-color;
+        background-color: tokens.get($_, "color--surface");
+        border: var(--border-width-input, 1px) solid tokens.get($_, "color--surface-border");
         border-left: none;
         border-right: none;
         border-top: none;
-        padding: #{var_default.$base};
+        padding: tokens.use($_, "base", 1);
         padding-top: 0;
     }
 
-    .c-select__search-no-results {
-        color: var_colors.$color-dark;
+    .#{$_}__search-no-results {
+        color: tokens.get($_, "color--surface-contrast-muted");
         display: none;
-        padding: calc(var(--base, 8px)*2) calc(var(--base, 8px)*1.75);
+        padding: tokens.use($_, "base", 2) tokens.use($_, "base", 1.75);
         text-align: center;
     }
 
-    &.search-no-results .c-select__search-no-results {
+    &.search-no-results .#{$_}__search-no-results {
         display: block;
     }
 
-    &.is-empty .c-select__action-overlay {
-        color: var_colors.$color-dark;
+    &.is-empty .#{$_}__action-overlay {
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 
     &.is-ios,
@@ -82,19 +69,19 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: var_properties.$level-5;
+            z-index: 5000;
         }
     }
 
-    .c-select__clear-button {
+    .#{$_}__clear-button {
         position: absolute;
         right: 2em;
         top: 0;
         left: auto;
-        padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-6;
+        padding: tokens.use($_, "base", 2);
+        z-index: 6000;
         height: 100%;
-        color: var_colors.$color-primary;
+        color: tokens.get($_, "color--primary");
         display: flex;
         align-items: center;
 
@@ -103,124 +90,124 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
     }
 
-    .c-select__expand-button {
+    .#{$_}__expand-button {
         position: absolute;
         right: 0;
         top: 0;
         left: auto;
-        padding: map.get(var_default.$spacers, "2");
-        z-index: var_properties.$level-2;
+        padding: tokens.use($_, "base", 2);
+        z-index: 2000;
         transition: none;
         height: 100%;
-        color: var_colors.$color-primary;
+        color: tokens.get($_, "color--primary");
         pointer-events: none;
         display: flex;
         align-items: center;
 
-        .c-select__expand-more-icon {
+        .#{$_}__expand-more-icon {
             animation: c-select-expand-rotate 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
-        .c-select__expand-less-icon {
+        .#{$_}__expand-less-icon {
             animation: c-select-expand-rotate-inverted 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
-        .c-select__expand-less-icon {
+        .#{$_}__expand-less-icon {
             display: none;
         }
     }
 
-    &.c-select--rounded {
+    &.#{$_}--rounded {
         select {
-            border-radius: calc(var_default.$base * 3);
+            border-radius: tokens.use($_, "base", 3);
             border: none;
             font-weight: 700;
         }
 
         .c-field__label {
-            margin-left: calc(var_default.$base * 2);
+            margin-left: tokens.use($_, "base", 2);
         }
 
-        &.c-select--rounded-border {
+        &.#{$_}--rounded-border {
             select {
                 border: var(--c-field--border-width) solid var(--c-field--border-color);
             }
         }
     }
 
-    .c-select__dropdown .c-select__option[aria-disabled="true"] {
+    .#{$_}__dropdown .#{$_}__option[aria-disabled="true"] {
 
         .c-icon {
-            color: var_colors.$color-disabled;
+            color: tokens.get($_, "color--surface-border");
         }
 
-        .c-select__option-label {
-            color: var_colors.$color-disabled-text;
+        .#{$_}__option-label {
+            color: tokens.get($_, "color--surface-contrast-muted");
             font-style: italic;
         }
     }
 
     /* Size modifiers */
-    &.c-select--sm {
+    &.#{$_}--sm {
 
-        .c-select__clear-button,
-        .c-select__expand-button {
-            padding: 0 map.get(var_default.$spacers, "1");
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.use($_, "base", 1);
         }
 
-        .c-select__clear-button {
-            font-size: $c-select-font-size-sm;
-            line-height: $c-select-font-size-sm-line-height;
+        .#{$_}__clear-button {
+            font-size: tokens.get($_, "font-size-btn-sm");
+            line-height: tokens.use($_, "base", 1.5);
         }
 
-        .c-select__clear-button .c-icon {
+        .#{$_}__clear-button .c-icon {
             font-size: 1.5em
         }
 
-        .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*0.75) calc(var(--base, 8px)*1.5);
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.use($_, "base", 0.75) tokens.use($_, "base", 1.5);
         }
     }
 
-    &.c-select--md {
+    &.#{$_}--md {
 
-        .c-select__clear-button,
-        .c-select__expand-button {
-            padding: 0 map.get(var_default.$spacers, "2");
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.use($_, "base", 2);
         }
 
-        .c-select__clear-button {
-            font-size: $c-select-font-size-md;
-            line-height: $c-select-font-size-md-line-height;
+        .#{$_}__clear-button {
+            font-size: tokens.get($_, "font-size-btn-md");
+            line-height: tokens.use($_, "base", 2);
         }
 
-        .c-select__clear-button .c-icon {
+        .#{$_}__clear-button .c-icon {
             font-size: 1.5em
         }
 
-        .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*1) calc(var(--base, 8px)*1.75);
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.use($_, "base", 1) tokens.use($_, "base", 1.75);
         }
     }
 
-    &.c-select--lg {
+    &.#{$_}--lg {
 
-        .c-select__clear-button,
-        .c-select__expand-button {
-            padding: 0 calc(calc(#{map.get(var_default.$spacers, "2")} + #{map.get(var_default.$spacers, "05")}));
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.use($_, "base", 2.5);
         }
 
-        .c-select__clear-button {
-            font-size: $c-select-font-size-lg;
-            line-height: $c-select-font-size-lg-line-height;
+        .#{$_}__clear-button {
+            font-size: tokens.get($_, "font-size-btn-lg");
+            line-height: tokens.use($_, "base", 2);
         }
 
-        .c-select__clear-button .c-icon {
+        .#{$_}__clear-button .c-icon {
             font-size: 1.5em
         }
 
-        .c-select__dropdown .c-select__option {
-            padding: calc(var(--base, 8px)*1.5) calc(var(--base, 8px)*2.5);
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.use($_, "base", 1.5) tokens.use($_, "base", 2.5);
         }
     }
 
@@ -228,15 +215,15 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         padding: 0.3rem;
     }
 
-    .c-select__select-invalid-message {
+    .#{$_}__select-invalid-message {
         width: 100%;
-        padding: map.get(var_default.$spacers, "1");
+        padding: tokens.use($_, "base", 1);
         display: none;
         font-size: 80%;
-        color: var_colors.$color-white;
-        background-color: var_colors.$color-danger;
+        color: tokens.get($_, "color--danger-contrast");
+        background-color: tokens.get($_, "color--danger");
         border: none;
-        border-radius: 0 0 calc($c-select-border-radius * var_default.$base) calc($c-select-border-radius * var_default.$base);
+        border-radius: 0 0 tokens.use($_, "border-radius", 0.25) tokens.use($_, "border-radius", 0.25);
         box-sizing: border-box;
 
         &.error {
@@ -250,7 +237,7 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
     }
 
-    .c-select__field-container {
+    .#{$_}__field-container {
         position: relative;
         line-height: 0;
 
@@ -261,74 +248,74 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
 
     /* States */
     &.is-invalid {
-        .c-select {
+        .#{$_} {
 
             &,
             &:focus,
             &:active {
-                border-color: $c-select-danger-color;
+                border-color: tokens.get($_, "color--danger");
             }
         }
 
         .c-field__helper {
-            color: $c-select-danger-color;
+            color: tokens.get($_, "color--danger");
         }
     }
 
     &.is-valid {
-        .c-select {
+        .#{$_} {
 
             &,
             &:focus,
             &:active {
-                border-color: $c-select-success-color;
+                border-color: tokens.get($_, "color--success");
             }
         }
 
         .c-field__helper {
-            color: $c-select-success-color;
+            color: tokens.get($_, "color--success");
         }
     }
 
     &.is-open {
 
-        .c-select__dropdown {
-            z-index: var_properties.$level-8;
+        .#{$_}__dropdown {
+            z-index: 8000;
             display: block;
             border-top: none;
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
 
-        .c-select__expand-button {
-            .c-select__expand-more-icon {
+        .#{$_}__expand-button {
+            .#{$_}__expand-more-icon {
                 display: none;
             }
 
-            .c-select__expand-less-icon {
+            .#{$_}__expand-less-icon {
                 display: flex;
             }
         }
     }
 
-    .c-select__dropdown {
+    .#{$_}__dropdown {
         animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
         display: none;
-        background-color: #FFF;
+        background-color: tokens.get($_, "color--surface");
         position: absolute;
         top: 100%;
         width: 100%;
-        max-height: calc(var_default.$base * 30);
+        max-height: tokens.use($_, "base", 30);
         overflow-y: auto;
-        z-index: var_properties.$level-3;
-        padding: #{var_default.$base} 0;
-        border: $c-select-border-width solid $c-select-border-color;
+        z-index: 3000;
+        padding: tokens.use($_, "base", 1) 0;
+        border: var(--border-width-input, 1px) solid tokens.get($_, "color--surface-border");
     }
 
-    .c-select__option {
+    .#{$_}__option {
         display: flex;
-        gap: calc(#{var_default.$base} * 1.5);
-        padding: calc(#{var_default.$base} * 1.5) calc(#{var_default.$base} * 2);
+        gap: tokens.use($_, "base", 1.5);
+        padding: tokens.use($_, "base", 1.5) tokens.use($_, "base", 2);
         align-items: center;
         cursor: pointer;
         user-select: none;
@@ -338,20 +325,20 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
             background-color: rgba(#000, .2);
         }
 
-        .c-select__option-icon {
+        .#{$_}__option-icon {
             animation: c-select-option-puff 100ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
-        .c-select__checked-icon {
+        .#{$_}__checked-icon {
             display: none;
         }
 
         &.is-selected {
-            .c-select__unchecked-icon {
+            .#{$_}__unchecked-icon {
                 display: none;
             }
 
-            .c-select__checked-icon {
+            .#{$_}__checked-icon {
                 display: block;
             }
         }
@@ -361,20 +348,20 @@ $c-select-selected-color: var(--c-select-selected-color, var_colors.$color-white
         }
     }
 
-    .c-select__option {
-        .c-select__option-label {
+    .#{$_}__option {
+        .#{$_}__option-label {
             transition: transform 400ms;
         }
 
-        .c-select__option-icon {
+        .#{$_}__option-icon {
             transition: transform 300ms;
         }
 
         &:hover {
 
-            .c-select__option-label,
-            .c-select__option-icon {
-                transform: translateX(calc(#{var_default.$base} * 0.5));
+            .#{$_}__option-label,
+            .#{$_}__option-icon {
+                transform: translateX(tokens.use($_, "base", 0.5));
             }
         }
     }
