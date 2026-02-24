@@ -1,9 +1,10 @@
-.c-logotype {
-    --c-logotype--border-radius: var(--border-radius);
-    --c-logotype--color-hover: var(--color--gray-10);
-} 
+@use "../mixin/tokens";
 
-.c-logotype {
+$_: "c-logotype";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
@@ -14,22 +15,24 @@
         height: inherit;
     }
 
-    &.c-logotype {
-        &--align-left {
-            text-align: left;
-        }
-        &--align-center {
-            text-align: center;
-        }
-        &--align-right {
-            text-align: right;
-        }
+    &.#{$_}--align-left {
+        text-align: left;
+    }
+
+    &.#{$_}--align-center {
+        text-align: center;
+    }
+
+    &.#{$_}--align-right {
+        text-align: right;
     }
 }
 
-a:hover > .c-logotype:after {
+a:hover>.#{$_}::after {
     content: "";
-    inset: calc(var(--space) * var(--base) * -2);
-    background-color: var(--c-logotype--color-hover);
-    border-radius: calc(var(--c-logotype--border-radius) * var(--base) * 1);
+    position: absolute;
+    inset: 0;
+    inset: tokens.use($_, "space", -2);
+    background-color: tokens.get($_, "color--alpha");
+    border-radius: tokens.get($_, "border-radius");
 }
