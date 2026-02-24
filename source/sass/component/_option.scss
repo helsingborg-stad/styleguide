@@ -1,62 +1,53 @@
-@use "sass:map";
 @use "../mixin/focus";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
 
+$_: "c-option";
 
-$c-option-label-color: var(--c-option-label-color, var_colors.$color-darker) !default;
-$c-option-label-active-color: var(--c-option-label-active-color, var_colors.$color-black) !default;
-$c-option-label-font-size-sm: var(--c-option-label-font-size-sm, var_fonts.$font-size-btn-sm) !default;
-$c-option-label-line-height-sm: var(--c-option-label-line-height-sm, var_fonts.$font-size-btn-sm-line-height) !default;
-$c-option-label-font-size-md: var(--c-option-label-font-size-md, var_fonts.$font-size-btn-md) !default;
-$c-option-label-line-height-md: var(--c-option-label-line-height-md, var_fonts.$font-size-btn-md-line-height) !default;
+@include tokens.create($_, getComponentTokens($_), ("font-size-btn-sm": "0.775rem",
+        "font-size-btn-md": tokens.get($_, "font-size-100"),
+        "color--disabled": tokens.get($_, "color--surface-muted")));
 
-$c-option-border-color: var(--c-option-border-color, var(--color-border-input, var_colors.$color-light)) !default;
-$c-option-danger-color: var(--c-option-danger-color, var(--color-danger, var_colors.$color-form-fields-border-error)) !default;
-$c-option-success-color: var(--c-option-success-color, var(--color-success, var_colors.$color-success-dark)) !default;
+.#{$_} {
 
-.c-option {
+    &.#{$_}__checkbox {
 
-    &__checkbox {
-
-        :focus-visible + label {
+        :focus-visible+label {
             @include focus.focus();
         }
-    
+
         width: 100%;
 
-        .c-option__checkbox--label-box {
+        .#{$_}__checkbox--label-box {
             align-self: center;
             position: relative;
             height: 18px;
             width: 18px;
-            border: 2px solid var_colors.$color-primary;
-            background-color: var_colors.$color-white;
-            border-radius: var_border-radius.$border-radius-xs;
+            border: 2px solid tokens.get($_, "color--primary");
+            background-color: tokens.get($_, "color--surface");
+            border-radius: tokens.use($_, "border-radius", 0.25);
             cursor: pointer;
         }
 
-        .c-option__checkbox--hidden-box:checked:disabled+.c-option__checkbox--label,
-        &.is-disabled .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
-            .c-option__checkbox--label-box,
-            .c-option__radio--label-box {
-                background: var_colors.$color-disabled;
-                border-color: var_colors.$color-disabled;
-            } 
+        .#{$_}__checkbox--hidden-box:checked:disabled+.#{$_}__checkbox--label,
+        &.is-disabled .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
+
+            .#{$_}__checkbox--label-box,
+            .#{$_}__radio--label-box {
+                background: tokens.get($_, "color--disabled");
+                border-color: tokens.get($_, "color--disabled");
+            }
         }
 
-        .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
+        .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
 
-            .c-option__checkbox--label-text {
+            .#{$_}__checkbox--label-text {
                 font-style: normal;
-                font-weight: var_fonts.$font-weight-base;
-                color: $c-option-label-active-color;
+                font-weight: var(--font-weight-normal, 400);
+                color: tokens.get($_, "color--surface-contrast");
             }
 
-            .c-option__checkbox--label-box {
-                background: var_colors.$color-primary;
+            .#{$_}__checkbox--label-box {
+                background: tokens.get($_, "color--primary");
 
                 &:after {
                     content: "";
@@ -66,7 +57,7 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
                     left: 4px;
                     width: 5px;
                     height: 11px;
-                    border: solid var_colors.$color-white;
+                    border: solid tokens.get($_, "color--surface");
                     border-width: 0 2px 2px 0;
                     transform: rotate(45deg);
                 }
@@ -74,17 +65,19 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
 
         }
 
-        &.c-option--sm {
-            .c-option__checkbox--label-text {
-                font-size: $c-option-label-font-size-sm;
-                line-height: $c-option-label-font-size-sm;
+        &.#{$_}--sm {
+            .#{$_}__checkbox--label-text {
+                font-size: tokens.get($_, "font-size-btn-sm");
+                line-height: tokens.get($_, "font-size-btn-sm");
             }
-            .c-option__checkbox--label-box {
+
+            .#{$_}__checkbox--label-box {
                 width: 16px;
                 height: 16px;
             }
-            .c-option__checkbox--hidden-box:checked+.c-option__checkbox--label {
-                .c-option__checkbox--label-box:after {
+
+            .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
+                .#{$_}__checkbox--label-box:after {
                     top: -1px;
                     width: 3px;
                     height: 9px;
@@ -96,31 +89,31 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
 
     &__radio {
 
-        :focus-visible + label {
+        :focus-visible+label {
             @include focus.focus();
         }
 
-        .c-option__radio--label-box {
+        .#{$_}__radio--label-box {
             align-self: center;
             position: relative;
             height: 20px;
             width: 20px;
-            border: 2px solid var_colors.$color-primary;
-            background-color: var_colors.$color-white;
-            border-radius: var_border-radius.$border-radius-full;
+            border: 2px solid tokens.get($_, "color--primary");
+            background-color: tokens.get($_, "color--surface");
+            border-radius: 50%;
             cursor: pointer;
         }
 
 
-        .c-option__radio--hidden-box:checked+.c-option__radio--label {
+        .#{$_}__radio--hidden-box:checked+.#{$_}__radio--label {
 
-            .c-option__radio--label-text {
+            .#{$_}__radio--label-text {
                 font-style: normal;
-                font-weight: 500;
-                color: $c-option-label-active-color;
+                font-weight: var(--font-weight-medium, 500);
+                color: tokens.get($_, "color--surface-contrast");
             }
 
-            .c-option__radio--label-box {
+            .#{$_}__radio--label-box {
 
                 &:after {
                     animation: pop-in 150ms;
@@ -131,12 +124,12 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
                     left: 3px;
                     width: 10px;
                     height: 10px;
-                    background-color: var_colors.$color-primary;
-                    border-radius: var_border-radius.$border-radius-full;
+                    background-color: tokens.get($_, "color--primary");
+                    border-radius: 50%;
                 }
             }
 
-            .c-option__radio--label-text {
+            .#{$_}__radio--label-text {
 
                 &:after {
                     width: 85%;
@@ -145,21 +138,21 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
         }
     }
 
-    .c-option__checkbox,
-    .c-option__radio {
+    .#{$_}__checkbox,
+    .#{$_}__radio {
         display: flex;
         flex-direction: column;
         margin: 0;
         padding: 0;
         width: 80%;
         max-width: 500px;
-        background-color: var_colors.$color-white;
+        background-color: tokens.get($_, "color--surface");
         list-style: none;
         overflow: hidden;
     }
 
-    .c-option__checkbox--hidden-box,
-    .c-option__radio--hidden-box {
+    .#{$_}__checkbox--hidden-box,
+    .#{$_}__radio--hidden-box {
         position: absolute;
         height: 1px;
         width: 1px;
@@ -175,36 +168,36 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
         }
     }
 
-    .c-option__checkbox--label,
-    .c-option__radio--label {
+    .#{$_}__checkbox--label,
+    .#{$_}__radio--label {
         margin: 0;
         display: inline-flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-items: flex-start;
-        margin-right: map.get(var_default.$spacers, "05");
+        margin-right: tokens.use($_, "base", 0.5);
     }
 
-    .c-option__checkbox--label-text,
-    .c-option__radio--label-text {
+    .#{$_}__checkbox--label-text,
+    .#{$_}__radio--label-text {
         position: relative;
         cursor: pointer;
         font-style: italic;
         flex: 1;
-        color: var_colors.$color-darker;
-        padding: map.get(var_default.$spacers, "05") 10px;
-        font-size: $c-option-label-font-size-md;
-        line-height: $c-option-label-font-size-md;
+        color: tokens.get($_, "color--surface-contrast");
+        padding: tokens.use($_, "base", 0.5) 10px;
+        font-size: tokens.get($_, "font-size-btn-md");
+        line-height: tokens.get($_, "font-size-btn-md");
     }
 
-    .c-option__input-invalid-message {
+    .#{$_}__input-invalid-message {
         width: 100%;
-        padding: map.get(var_default.$spacers, "1");
+        padding: tokens.use($_, "base", 1);
         display: none;
         font-size: 80%;
-        color: var_colors.$color-white;
-        background-color: var_colors.$color-danger;
+        color: tokens.get($_, "color--danger-contrast");
+        background-color: tokens.get($_, "color--danger");
         border: none;
         border-radius: 0 0 5px 5px;
         box-sizing: border-box;
@@ -219,29 +212,34 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
             top: 3px;
         }
     }
+
     &.is-invalid {
-        .c-option__checkbox--label-box {
+        .#{$_}__checkbox--label-box {
+
             &,
             &:focus,
             &:active {
-                border-color: $c-option-danger-color;
+                border-color: tokens.get($_, "color--danger");
             }
         }
-        .c-option__checkbox--label-text {
-            color: $c-option-danger-color;
+
+        .#{$_}__checkbox--label-text {
+            color: tokens.get($_, "color--danger");
         }
     }
-    
+
     &.is-valid {
-        .c-option__checkbox--label-box {
+        .#{$_}__checkbox--label-box {
+
             &,
             &:focus,
             &:active {
-                border-color: $c-option-success-color;
+                border-color: tokens.get($_, "color--success");
             }
         }
-        .c-option__checkbox--label-text {
-            color: $c-option-success-color;
+
+        .#{$_}__checkbox--label-text {
+            color: tokens.get($_, "color--success");
         }
     }
 }
