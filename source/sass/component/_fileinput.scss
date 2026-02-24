@@ -160,7 +160,7 @@ $_: "c-fileinput";
 
             .#{$_}__item-size {
                 white-space: nowrap;
-                font-size: .7em;
+                font-size: tokens.get($_, "font-size-90");
 
                 &::before {
                     content: "(";
@@ -201,7 +201,7 @@ $_: "c-fileinput";
         gap: tokens.use($_, "space", 2);
         top: tokens.use($_, "space", 2);
         bottom: tokens.use($_, "space", 1.5);
-        font-size: .7em;
+        font-size: tokens.get($_, "font-size-80");
         transition: all 0.2s ease-in-out;
         user-select: none;
     }
@@ -209,17 +209,12 @@ $_: "c-fileinput";
     .#{$_}__filecounter,
     .#{$_}__accepted-files,
     .#{$_}__maximum-size {
-        opacity: .5;
+        color: tokens.get($_, "color--surface-contrast-muted");
     }
 
     /* File counter */
     .#{$_}__filecounter {
         user-select: none;
-        position: absolute;
-        right: tokens.use($_, "space", 2);
-        bottom: tokens.use($_, "space", 1.5);
-        opacity: .5;
-        font-size: .7em;
         transition: all 0.2s ease-in-out;
         white-space: nowrap;
 
@@ -246,15 +241,20 @@ $_: "c-fileinput";
     /* Invalid */
     &.is-invalid {
         .#{$_}__area {
-            border-color: tokens.get($_, "color--danger");
-            background-color: tokens.get($_, "color--danger-alt");
+            border-color: tokens.get($_, "color--danger-border");
+            background-color: tokens.get($_, "color--danger");
+            color: tokens.get($_, "color--danger-contrast");
         }
     }
 
     &.#{$_}--preview {
+        contain: paint;
         .#{$_}__item-remove-button {
             vertical-align: unset;
-            border-top-right-radius: tokens.use($_, "border-radius");
+            top: tokens.use($_, "space", .5);
+            right: tokens.use($_, "space", .5);
+            border-radius: 100px;
+            aspect-ratio: 1;
         }
 
         .#{$_}__attachment-icon {
@@ -266,7 +266,7 @@ $_: "c-fileinput";
         }
 
         .is-unsupported {
-            background-color: white;
+            background-color: tokens.get($_, "color--surface");
 
             .#{$_}__attachment-icon {
                 display: block;
@@ -292,10 +292,12 @@ $_: "c-fileinput";
             text-overflow: ellipsis;
             flex: 1 1 auto;
             min-width: 0;
+            font-size: tokens.get($_, "font-size-90");
         }
 
         .#{$_}__item-size {
             white-space: nowrap;
+            font-size: tokens.get($_, "font-size-90");
         }
 
         .#{$_}__item-icon-wrapper,
@@ -317,8 +319,10 @@ $_: "c-fileinput";
             width: tokens.use($_, "space", 25);
             aspect-ratio: 16 / 9;
             border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.use($_, "corner-shape");
             filter: tokens.get($_, "shadow-preview");
             overflow: hidden;
+            background-color: tokens.get($_, "color--surface");
 
             & > * {
                 width: 100%;

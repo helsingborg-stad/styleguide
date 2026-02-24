@@ -6,6 +6,8 @@
         "shadow",
         "color--surface",
         "color--danger",
-        "color--success"
+        "color--success",
+        "font-size-90",
+        "font-size-80"
     ]
 }
