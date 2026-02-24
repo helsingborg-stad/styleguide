@@ -27,12 +27,3 @@ $_: "c-logotype";
         text-align: right;
     }
 }
-
-a:hover>.#{$_}::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    inset: tokens.use($_, "space", -2);
-    background-color: tokens.get($_, "color--alpha");
-    border-radius: tokens.get($_, "border-radius");
-}
