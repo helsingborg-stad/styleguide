@@ -1,21 +1,17 @@
 {
-  "compilerOptions": {
-      "allowJs": true,
-      "checkJs": false,
-      "target": "es6",
-      "module": "commonjs",
-      "useDefineForClassFields": true,
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "strict": true,
-      "skipLibCheck": true,
-      "lib": [
-        "ES2021",
-        "DOM",
-        "DOM.Iterable",
-      ]
-  },
-  "include": [
-    "source/js/**/*",
-  ]
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": false,
+		"module": "ESNext",
+		"target": "ES2022",
+		"moduleResolution": "Bundler",
+		"useDefineForClassFields": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"lib": ["DOM", "ES2023", "DOM.Iterable"],
+		"outDir": "assets/dist"
+	},
+	"include": ["source/js/**/*", "global.d.ts"]
 }
