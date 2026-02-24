@@ -2,6 +2,31 @@
     "base": {
         "heading": "Basic Text Area",
         "subHeading": "",
-        "text": ""
+        "text": "Demonstrates the standard textarea with valid and invalid states using the field component with multiline enabled."
+    },
+    "helper-text": {
+        "heading": "Textarea with Helper Text",
+        "subHeading": "",
+        "text": "Shows a textarea with helper text displayed below the field to guide the user on what to enter."
+    },
+    "with-value": {
+        "heading": "Textarea with Pre-filled Value",
+        "subHeading": "",
+        "text": "Renders a textarea pre-populated with an existing value, useful for editing scenarios."
+    },
+    "invalid-message": {
+        "heading": "Textarea with Validation Error Message",
+        "subHeading": "",
+        "text": "Displays a textarea in the invalid state with a descriptive validation error message rendered below the field."
+    },
+    "disabled": {
+        "heading": "Disabled Textarea",
+        "subHeading": "",
+        "text": "Renders a textarea in a disabled state, preventing user interaction while displaying existing content."
+    },
+    "hide-label": {
+        "heading": "Textarea with Hidden Label",
+        "subHeading": "",
+        "text": "Demonstrates a textarea with a visually hidden label that remains accessible to screen readers, using the placeholder as the visible cue."
     }
 }
