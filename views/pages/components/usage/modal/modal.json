@@ -3,5 +3,10 @@
         "heading": "Modal",
         "subHeading": "",
         "text": ""
+    },
+    "navigation": {
+        "heading": "Modal with navigation",
+        "subHeading": "",
+        "text": "Click any thumbnail to open the gallery modal. Previous and next arrows cycle through images, and stepper dots track the current position."
     }
 }

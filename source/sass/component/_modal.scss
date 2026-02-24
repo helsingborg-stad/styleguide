@@ -1,34 +1,30 @@
-@use "sass:map";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-modal-border-radius: var(--c-modal-border-radius, var_border-radius.$border-radius-md) !default;
-$c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) !default;
+$_: "c-modal";
+
+@include tokens.create($_, getComponentTokens($_));
 
 .c-block[data-open] {
     cursor: pointer;
 }
 
-.c-modal {
-    background-color: white;
-    gap: map.get(var_default.$spacers, "2");
+.#{$_} {
+    background-color: tokens.get($_, "color--surface");
+    gap: tokens.use($_, "base", 2);
     flex-direction: column;
     width: 100%;
     cursor: default;
     transition: all 0.3s ease-in-out;
     display: none;
     border: none;
-    border-radius: $c-modal-border-radius;
-    filter: var_properties.$drop-shadow-3;
+    border-radius: tokens.use($_, "border-radius");
+    filter: tokens.use($_, "shadow", 3);
     max-width: 800px;
     max-height: 90vh;
     position: fixed;
 
-    .c-modal__close.c-button {
-        color: var_colors.$color-black;
+    .#{$_}__close.c-button {
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     .c-image {
@@ -42,7 +38,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
         }
     }
 
-    &.c-modal--gallery {
+    &.#{$_}--gallery {
         max-height: unset;
 
         .c-image__image {
@@ -50,29 +46,29 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
             object-fit: contain;
         }
 
-        .c-modal__header,
-        .c-modal__footer {
+        .#{$_}__header,
+        .#{$_}__footer {
             padding: 0;
         }
 
-        .c-modal__content {
+        .#{$_}__content {
             line-height: 0;
             padding: 0;
         }
     }
 
-    &.c-modal--transparent {
+    &.#{$_}--transparent {
         background-color: transparent;
 
-        .c-button.c-modal__close {
-            color: var_colors.$color-white;
+        .c-button.#{$_}__close {
+            color: tokens.get($_, "color--alpha-contrast");
         }
     }
 
     &.search-modal {
         #modal-search-form {
-            margin-top: calc(var_default.$base * 1);
-            margin-bottom: calc(var_default.$base * 1);
+            margin-top: tokens.use($_, "base", 1);
+            margin-bottom: tokens.use($_, "base", 1);
         }
     }
 
@@ -83,7 +79,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &::backdrop {
-        background-color: $c-modal-backdrop-color;
+        background-color: tokens.get($_, "color--alpha");
         backdrop-filter: blur(1px);
     }
 
@@ -92,27 +88,27 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
     }
 
     &--border-radius-sm {
-        border-radius: var_border-radius.$border-radius-sm;
+        border-radius: tokens.use($_, "border-radius");
     }
 
     &--border-radius-md {
-        border-radius: var_border-radius.$border-radius-md;
+        border-radius: tokens.use($_, "border-radius");
     }
 
     &--border-radius-lg {
-        border-radius: var_border-radius.$border-radius-lg;
+        border-radius: tokens.use($_, "border-radius");
     }
 
-    .c-modal.c-modal--size-sm {
-        max-width: map.get(var_default.$breakpoints-map, "sm");
+    .#{$_}.#{$_}--size-sm {
+        max-width: 32.5em;
     }
 
-    .c-modal.c-modal--size-md {
-        max-width: map.get(var_default.$breakpoints-map, "md");
+    .#{$_}.#{$_}--size-md {
+        max-width: 56em;
     }
 
-    .c-modal.c-modal--size-lg {
-        max-width: map.get(var_default.$breakpoints-map, "lg");
+    .#{$_}.#{$_}--size-lg {
+        max-width: 78em;
     }
 
     &--is-panel {
@@ -125,14 +121,14 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     @for $i from 1 through 4 {
         &--padding-#{$i} {
-            padding: map.get(var_default.$spacers, #{$i}) 0;
+            padding: tokens.use($_, "base", $i) 0;
 
             >* {
-                padding: 0 map.get(var_default.$spacers, #{$i});
+                padding: 0 tokens.use($_, "base", $i);
             }
 
-            .c-modal__footer {
-                padding-top: map.get(var_default.$spacers, #{$i});
+            .#{$_}__footer {
+                padding-top: tokens.use($_, "base", $i);
             }
         }
     }
@@ -143,8 +139,8 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
         justify-content: space-between;
         align-items: flex-start;
 
-        .c-modal__heading {
-            margin-right: map.get(var_default.$spacers, "2");
+        .#{$_}__heading {
+            margin-right: tokens.use($_, "base", 2);
         }
     }
 
@@ -154,16 +150,16 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     &__footer {
         flex-shrink: 0;
-        border-top: 1px solid var_colors.$color-gray-light;
+        border-top: 1px solid tokens.get($_, "color--surface-border");
     }
 
     .c-button:hover {
         box-shadow: none;
     }
 
-    .c-modal__close.c-button.c-button--lg,
-    .c-modal__close.c-button.c-button--md,
-    .c-modal__close.c-button.c-button--sm {
+    .#{$_}__close.c-button.c-button--lg,
+    .#{$_}__close.c-button.c-button--md,
+    .#{$_}__close.c-button.c-button--sm {
         cursor: pointer;
         height: auto;
         width: auto;
@@ -172,7 +168,7 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
 
     &__prev,
     &__next {
-        color: var_colors.$color-white;
+        color: tokens.get($_, "color--alpha-contrast");
     }
 
     &__prev,
@@ -182,92 +178,31 @@ $c-modal-backdrop-color: var(--c-modal-backdrop-color, var_colors.$color-alpha) 
         /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor: pointer;
-        z-index: var_properties.$level-top;
+        z-index: 99999;
     }
 
     &__prev {
-        left: calc(#{map.get(var_default.$spacers, "8")} * -1);
+        left: 0;
     }
 
     &__next {
-        right: #{map.get(var_default.$spacers, "0")};
+        right: 0;
     }
-
-    @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "lg") {
-
-        &__prev {
-            left: map.get(var_default.$spacers, "0");
-        }
-
-        &__next {
-            right: map.get(var_default.$spacers, "0");
-        }
-
-        &__prev,
-        &__next {
-            vertical-align: bottom;
-            bottom: #{map.get(var_default.$spacers, "8")};
-        }
-
-    }
-
-    @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "sm") {
-
-        &__close,
-        &__prev,
-        &__next {
-
-            &:hover {
-                box-shadow: none;
-                filter: var_properties.$drop-shadow-0;
-                background: none;
-            }
-        }
-
-        &__close {
-            top: calc(#{map.get(var_default.$spacers, "6")} * -1);
-            right: map.get(var_default.$spacers, "1");
-
-            i {
-                font-size: calc(var_default.$base * 3);
-            }
-        }
-
-        &__prev {
-            left: map.get(var_default.$spacers, "1");
-        }
-
-        &__next {
-            right: map.get(var_default.$spacers, "1");
-        }
-
-        &__prev,
-        &__next {
-            bottom: #{map.get(var_default.$spacers, "6")};
-
-            i {
-                font-size: calc(var_default.$base * 3);
-            }
-
-        }
-
-    }
-
 }
 
-.c-modal[open] {
+.#{$_}[open] {
 
     animation: modalSlideUp 300ms ease normal;
 
-    &.c-modal--slide-down {
+    &.#{$_}--slide-down {
         animation: modalSlideDown 300ms ease normal;
     }
 
-    &.c-modal--slide-left {
+    &.#{$_}--slide-left {
         animation: modalSlideLeft 300ms ease normal;
     }
 
-    &.c-modal--slide-right {
+    &.#{$_}--slide-right {
         animation: modalSlideRight 300ms ease normal;
     }
 }
