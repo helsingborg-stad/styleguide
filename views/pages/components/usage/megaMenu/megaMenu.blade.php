@@ -6,15 +6,15 @@
         'mega-menu-trigger',
     ],
     'attributeList' => [
-        'data-js-toggle-trigger' => 'mega-menu',
+        'data-js-mega-menu-trigger' => 'mega-menu',
     ]
 ])
 @endbutton
 
 @megaMenu([
+    'id' => 'mega-menu',
     'menuItems' => [
         [
-            'id' => 1,
             'label' => 'Styleguide',
             'children' => [
                 [
