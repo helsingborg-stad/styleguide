@@ -1,14 +1,17 @@
-.c-form {
-  .c-form__notice-success,
-  .c-form__notice-failed {
+$_: "c-form";
+
+.#{$_} {
+
+  .#{$_}__notice-success,
+  .#{$_}__notice-failed {
     display: none;
   }
 
-  &.is-valid .c-form__notice-success {
+  &.is-valid .#{$_}__notice-success {
     display: block;
   }
 
-  &.is-invalid .c-form__notice-failed {
+  &.is-invalid .#{$_}__notice-failed {
     display: block;
   }
 }

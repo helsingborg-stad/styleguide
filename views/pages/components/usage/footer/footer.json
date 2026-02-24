@@ -2,6 +2,22 @@
     "footer": {
         "grid": "",
         "heading": "Footer",
-        "subHeading": ""
+        "subHeading": "",
+        "text": "Renders a footer in default mode with a logotype and grouped navigation links."
+    },
+    "slot-only": {
+        "heading": "Footer with slot content",
+        "subHeading": "",
+        "text": "Renders the footer in slot-only mode, where arbitrary content is placed inside the component tags instead of using the built-in links structure."
+    },
+    "with-subfooter": {
+        "heading": "Footer with subfooter",
+        "subHeading": "",
+        "text": "Renders the footer with a subfooter bar containing a list of contact items, demonstrating the subfooter section with horizontal layout."
+    },
+    "with-prefooter": {
+        "heading": "Footer with prefooter and postfooter",
+        "subHeading": "",
+        "text": "Renders the footer in slot-only mode with prefooter content placed above and postfooter content placed below the main slot area."
     }
 }
