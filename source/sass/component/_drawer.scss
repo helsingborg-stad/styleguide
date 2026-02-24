@@ -1,74 +1,65 @@
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$drawer-transition-ms: 300ms;
-$drawer-width: calc(#{var_default.$base} * 40);
+$_: "c-drawer";
 
-// Background colors basic
-$drawer-basic-background-color: var(--c-drawer-basic-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-basic-background-color: var(--c-drawer-duotone-basic-background-color, var_colors.$color-white) !default;
-
-// Main area colors
-$drawer-primary-background-color: var(--c-drawer-primary-background-color, var_colors.$color-primary) !default;
-$drawer-secondary-background-color: var(--c-drawer-secondary-background-color, var_colors.$color-secondary) !default;
-
-// Duotone colors
-$drawer-duotone-primary-background-color: var(--c-drawer-duotone-primary-background-color, var_colors.$color-primary) !default;
-$drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-background-color, var_colors.$color-secondary) !default;
-
+@include tokens.create($_, getComponentTokens($_),
+    ("shadow": tokens.use($_, "shadow", 5),
+        "drawer-transition-ms": 300ms,
+    ));
 
 /* Colors */
 .c-drawer {
+
     &,
-    .site-nav-mobile__primary > .c-nav__item,
+    .site-nav-mobile__primary>.c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{$drawer-basic-background-color};
+        --drawer-background: #{tokens.get($_, "color--primary")};
     }
 }
 
 .c-drawer.c-drawer--primary,
-.c-drawer.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
 .c-drawer.c-drawer--primary .c-drawer__header {
-    --drawer-background: #{$drawer-primary-background-color};
+    --drawer-background: #{tokens.get($_, "color--primary")};
 }
 
 .c-drawer.c-drawer--secondary,
-.c-drawer.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
 .c-drawer.c-drawer--secondary .c-drawer__header {
-    --drawer-background: #{$drawer-secondary-background-color};
+    --drawer-background: #{tokens.get($_, "color--secondary")};
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
 .c-drawer.c-drawer--duotone {
+
     &,
-    .site-nav-mobile__primary > .c-nav__item,
+    .site-nav-mobile__primary>.c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{var_colors.$color-white};
-        --drawer-duotone-background: #{$drawer-duotone-basic-background-color};
+        --drawer-background: #{tokens.get($_, "color--surface")};
+        --drawer-duotone-background: #{tokens.get($_, "color--surface")};
     }
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--primary,
-.c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
-    --drawer-background: #{$drawer-duotone-primary-background-color};
+    --drawer-background: #{tokens.get($_, "color--primary")};
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--secondary,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary > .c-nav__item,
+.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
 .c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
-    --drawer-background: #{$drawer-secondary-background-color};
+    --drawer-background: #{tokens.get($_, "color--secondary")};
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
-.c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary > .c-nav__item {
-    --drawer-duotone-background: #{$drawer-duotone-primary-background-color};
+.c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary>.c-nav__item {
+    --drawer-duotone-background: #{tokens.get($_, "color--primary")};
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
-.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary > .c-nav__item {
-    --drawer-duotone-background: #{$drawer-duotone-secondary-background-color};
+.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary>.c-nav__item {
+    --drawer-duotone-background: #{tokens.get($_, "color--secondary")};
 }
 
 // Actual css
@@ -76,7 +67,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     background-color: var(--drawer-background);
 
     .c-drawer__header,
-    .site-nav-mobile__primary > .c-nav__item {
+    .site-nav-mobile__primary>.c-nav__item {
         background-color: var(--drawer-background);
     }
 }
@@ -84,12 +75,12 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 .c-drawer.c-drawer--duotone {
     background-color: var(--drawer-duotone-background);
 
-    .site-nav-mobile__secondary > .c-nav__item {
+    .site-nav-mobile__secondary>.c-nav__item {
         background-color: var(--drawer-duotone-background);
     }
 
     .c-drawer__header,
-    .site-nav-mobile__primary > .c-nav__item {
+    .site-nav-mobile__primary>.c-nav__item {
         background-color: var(--drawer-background);
     }
 }
@@ -102,11 +93,13 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
     left: 0;
     top: 0;
     height: 100%;
-    max-width: $drawer-width;
+    max-width: tokens.use($_, "base", 40);
     width: 90%;
-    z-index: var_properties.$level-9;
+    z-index: 9000;
     transform: translate(-100%);
-    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in transform, $drawer-transition-ms ease-in opacity;
+    transition: visibility 0s linear #{tokens.get($_, "drawer-transition-ms")},
+    #{tokens.get($_, "drawer-transition-ms")} ease-in transform,
+    #{tokens.get($_, "drawer-transition-ms")} ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -122,7 +115,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer__header {
-    padding: calc(#{var_default.$base} * 1) calc(#{var_default.$base} * 2);
+    padding: tokens.use($_, "base", 1) tokens.use($_, "base", 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -131,7 +124,7 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: calc(#{var_default.$base} * 4) calc(#{var_default.$base}  * 4) calc(#{var_default.$base} * 12) calc(#{var_default.$base} * 4);
+    padding: tokens.use($_, "base", 4) tokens.use($_, "base", 4) tokens.use($_, "base", 12) tokens.use($_, "base", 4);
 }
 
 // Drawer Modifiers
@@ -142,47 +135,56 @@ $drawer-duotone-secondary-background-color: var(--c-drawer-duotone-secondary-bac
 }
 
 .c-drawer.c-drawer--duotone {
+
     .c-drawer__header,
     .site-nav-mobile__primary {
         * {
-            color: var_colors.$color-black;
+            color: tokens.get($_, "color--surface-contrast");
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
         .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
-            background-color: var_colors.$color-black;
+            background-color: tokens.get($_, "color--surface-contrast");
         }
     }
 }
 
 // Drawer States
 .c-drawer.is-open {
-    transition: visibility 0s linear 0s, $drawer-transition-ms ease-out transform, $drawer-transition-ms ease-out opacity;
+    transition: visibility 0s linear 0s,
+    #{tokens.get($_, "drawer-transition-ms")} ease-out transform,
+    #{tokens.get($_, "drawer-transition-ms")} ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
-    filter: var_properties.$drop-shadow-5;
+    filter: tokens.get($_, "shadow");
 }
 
+$_overlay: "drawer-overlay";
+@include tokens.create($_overlay, ("color--alpha"
+    ), ("drawer-transition-ms": 300ms,
+    ));
+
 // Overlay
-.drawer-overlay {
-    background-color: rgba(0, 0, 0, .2);
+.#{$_overlay} {
+    background-color: tokens.get($_overlay, "color--alpha");
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: (var_properties.$level-9 - 1);
-    transition: visibility 0s linear $drawer-transition-ms, $drawer-transition-ms ease-in opacity;
+    z-index: 8999;
+    transition: visibility 0s linear tokens.get($_overlay, "drawer-transition-ms"), tokens.get($_overlay, "drawer-transition-ms") ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
 }
 
 // Overlay states
-.c-drawer.is-open + .drawer-overlay {
+.c-drawer.is-open+.drawer-overlay {
     opacity: 1;
-    transition: visibility 0s linear 0s, $drawer-transition-ms ease-out opacity;
+    transition: visibility 0s linear 0s,
+    #{tokens.get($_, "drawer-transition-ms")} ease-out opacity;
     visibility: visible;
 }
