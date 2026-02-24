@@ -4,30 +4,20 @@
 
 .c-signature {
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "avatar signature" "whitespace dates";
+    grid-template-columns: max-content max-content;
     text-decoration: none;
-    column-gap: map.get(var_default.$spacers, "2" );
-
-    &__avatar {
-        grid-area: avatar;
-    }
+    column-gap: map.get(var_default.$spacers, "2");
 
     &__author-box {
-        grid-area: signature;
         display: flex;
-        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 
     &__title {
         color: var_colors.$color-darker;
         margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
         display: block;
-    }
-
-    &__dates {
-        grid-area: dates;
     }
 
     &__published,
