@@ -1,20 +1,24 @@
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.c-logotypegrid {
+$_: "c-logotypegrid";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
     display: flex;
-    gap: calc(#{var_default.$base} * 6) calc(#{var_default.$base} * 14);
+    gap: tokens.use($_, "base", 6) tokens.use($_, "base", 14);
     flex-wrap: wrap;
 
-    .c-logotypegrid__item {
+    .#{$_}__item {
         display: inline-block;
         margin: auto;
     }
 
-    .c-logotypegrid__logo {
-        height: calc(#{var_default.$base} * 10); 
+    .#{$_}__logo {
+        height: tokens.use($_, "base", 10);
     }
 
-    .c-logotypegrid__logo .c-logotype__image {
+    .#{$_}__logo .c-logotype__image {
         object-fit: contain;
     }
 }
