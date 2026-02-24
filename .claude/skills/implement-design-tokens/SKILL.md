@@ -144,9 +144,15 @@ Rules:
 - Do not add tokens for values that aren't configurable global tokens (e.g. `z-index: 2`, `50%`, literal pixel values specific to this component).
 - If the component was already partially migrated (already has `tokens.create`), focus changes on removing remaining legacy `@use` imports and cleaning up the extras map rather than rewriting the whole file.
 
-## Step 6 — Take an after screenshot and compare
+## Step 6 — Build and take an after screenshot, then compare
 
-After saving the file, capture a new screenshot and compare:
+After saving the file, run the build so the SCSS changes are compiled before screenshotting:
+
+```sh
+npm run build
+```
+
+Then capture a new screenshot and compare:
 
 ```sh
 node screenshot.js {PreviewUrl} /tmp/{ComponentScssName}-after.png
