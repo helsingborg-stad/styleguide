@@ -92,15 +92,3 @@ $_: "c-gallery";
         color: tokens.get($_, "color--surface-contrast-muted");
     }
 }
-
-@include mq.mq("sm") {
-    .#{$_} {
-        --c-gallery-column-min: 14rem;
-    }
-}
-
-@include mq.mq("lg") {
-    .#{$_} {
-        --c-gallery-column-min: 18rem;
-    }
-}

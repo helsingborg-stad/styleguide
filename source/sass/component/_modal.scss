@@ -2,97 +2,40 @@
 
 $_: "c-modal";
 
-@include tokens.create($_, getComponentTokens($_), ('color--alpha-solid': rgb(from tokens.get($_, "color--alpha") r g b / 1)));
+@include tokens.create($_, getComponentTokens($_), ('padding': tokens.use($_, "space", 4)));
 
 .c-block[data-open] {
     cursor: pointer;
 }
 
 .#{$_} {
-    --c-modal-gap: #{tokens.use($_, "base", 2)};
-    --c-modal-padding-inline: #{tokens.use($_, "base", 2)};
-    --c-modal-padding-block: #{tokens.use($_, "base", 2)};
-
     background-color: tokens.get($_, "color--surface");
-    color: tokens.get($_, "color--alpha-contrast");
-    border: none;
+    color: tokens.get($_, "color--surface-contrast");
+    border: tokens.use($_, "border", 1);
     border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.use($_, "corner-shape");
     filter: tokens.use($_, "shadow", 3);
+
     position: fixed;
     margin: auto;
     inset: 0;
     cursor: default;
     transition: opacity 0.2s ease, transform 0.2s ease;
     overflow: hidden;
+    padding: var(tokens.get($_, 'padding'), tokens.use($_, "space", 2));
 
     &[open] {
         display: grid;
         grid-template-rows: auto minmax(0, 1fr) auto;
-        gap: var(--c-modal-gap);
+        gap: calc(#{tokens.get($_, "padding")} * .5);
     }
 
-    &:not(.#{$_}--gallery) {
+    &:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 50rem;
         --c-modal-max-height: 90vh;
         width: min(92vw, var(--c-modal-max-width));
         max-width: var(--c-modal-max-width);
         max-height: var(--c-modal-max-height);
-    }
-
-    .#{$_}__close.c-button {
-        color: tokens.get($_, "color--alpha-contrast");
-    }
-
-    .c-image {
-        width: 100%;
-        height: auto;
-
-        .c-image__image {
-
-            width: 100%;
-            height: auto;
-        }
-    }
-
-    &.#{$_}--gallery {
-        --c-modal-padding-inline: 0;
-        --c-modal-padding-block: 0;
-        width: 100vw;
-        max-width: none;
-        max-height: none;
-        border-radius: 0;
-
-        .c-image__image {
-            max-height: 80vh;
-            object-fit: contain;
-            margin: 0 auto;
-        }
-
-        .#{$_}__header,
-        .#{$_}__footer {
-            padding-inline: tokens.use($_, "base", 1);
-        }
-
-        .#{$_}__content {
-            line-height: 0;
-            padding: 0;
-        }
-
-        .#{$_}__prev,
-        .#{$_}__next {
-            color: tokens.get($_, "color--alpha-contrast");
-        }
-
-        .#{$_}__caption {
-            padding: tokens.use($_, "base", 1);
-            background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
-            color: tokens.get($_, "color--alpha-contrast");
-        }
-
-        &::backdrop {
-            background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
-            backdrop-filter: blur(tokens.use($_, "base", 1));
-        }
     }
 
     &.#{$_}--transparent {
@@ -111,6 +54,16 @@ $_: "c-modal";
         }
     }
 
+    .#{$_}__next,
+    .#{$_}__prev {
+        display: none;
+    }
+
+    /* TODO: Remove when steppers component is removed */
+    .c-steppers {
+        display: none;
+    }
+
     input:focus {
         outline: none;
         outline-offset: 0;
@@ -124,18 +77,6 @@ $_: "c-modal";
 
     &--visible {
         display: grid;
-    }
-
-    &--border-radius-sm {
-        border-radius: tokens.use($_, "border-radius");
-    }
-
-    &--border-radius-md {
-        border-radius: tokens.use($_, "border-radius");
-    }
-
-    &--border-radius-lg {
-        border-radius: tokens.use($_, "border-radius");
     }
 
     .#{$_}.#{$_}--size-sm {
@@ -159,10 +100,9 @@ $_: "c-modal";
         inset: 0;
     }
 
-    @for $i from 1 through 4 {
+    @for $i from 0 through 4 {
         &--padding-#{$i} {
-            --c-modal-padding-block: #{tokens.use($_, "base", $i)};
-            --c-modal-padding-inline: #{tokens.use($_, "base", $i)};
+            --c-modal-padding: calc(#{tokens.use($_, "space", $i)} * 2);
         }
     }
 
@@ -171,60 +111,34 @@ $_: "c-modal";
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-        gap: tokens.use($_, "base", 1);
-        padding: var(--c-modal-padding-block) var(--c-modal-padding-inline) 0;
-
-        .#{$_}__heading {
-            margin: 0;
-            margin-right: tokens.use($_, "base", 2);
-        }
+        gap: tokens.use($_, "space", 1);
     }
 
     &__content {
-        padding: 0 var(--c-modal-padding-inline);
         overflow-y: auto;
         line-height: 1.5;
     }
 
     &__footer {
+        padding-top: tokens.get($_, "padding");
         flex-shrink: 0;
-        border-top: 1px solid tokens.get($_, "color--surface-border");
-        padding: tokens.use($_, "base", 1) var(--c-modal-padding-inline) var(--c-modal-padding-block);
+        position: relative;
+
+        &::before {
+            content: "";
+            display: block;
+            background-color: tokens.get($_, "color--surface-border");
+            height: tokens.use($_, "border-width", 1);
+            width: calc(100% + 2 * tokens.get($_, "padding"));
+            margin: 0 calc(-1 * tokens.get($_, "padding"));
+            position: absolute;
+            top: 0;
+        }
     }
 
-    .c-button:hover {
-        box-shadow: none;
-    }
-
-    .#{$_}__close.c-button.c-button--lg,
-    .#{$_}__close.c-button.c-button--md,
-    .#{$_}__close.c-button.c-button--sm {
-        cursor: pointer;
-        height: auto;
-        width: auto;
-        margin-left: auto;
-    }
-
-    &__prev,
-    &__next {
-        color: tokens.get($_, "color--alpha-contrast");
-    }
-
-    &__prev,
-    &__next {
-        position: absolute;
-        top: calc(50% - 10px);
-        vertical-align: middle;
-        cursor: pointer;
-        z-index: 2;
-    }
-
-    &__prev {
-        left: 0;
-    }
-
-    &__next {
-        right: 0;
+    &::backdrop {
+        background-color: tokens.get($_, "color--alpha");
+        backdrop-filter: blur(tokens.use($_, "base", 1));
     }
 }
 

@@ -1,12 +1,17 @@
 @use "../mixin/tokens";
 @use "../mixin/focus";
+@use "../mixin/mq";
 
 $_: "c-modal--gallery";
 
-@include tokens.create($_, getComponentTokens("c-gallery--modal"));
+@include tokens.create($_, getComponentTokens("c-gallery--modal"), ('color--alpha-solid': rgb(from tokens.get($_, "color--alpha") r g b / 1)));
 
-.#{$_} {
+.c-modal.#{$_} {
   height: 100vh;
+
+  &::backdrop {
+    background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
+  }
 
   .c-modal__header {
     inset: 0 0 auto;
@@ -62,10 +67,12 @@ $_: "c-modal--gallery";
   .c-modal__prev,
   .c-modal__next {
     position: absolute;
-    top: 50%;
+    top: auto;
+    bottom: tokens.use($_, "base", 2);
     color: tokens.get($_, "color--alpha-contrast");
     z-index: 3;
-    transform: translateY(-50%);
+    transform: none;
+    display: flex;
   }
 
   .c-modal__prev {
@@ -74,6 +81,16 @@ $_: "c-modal--gallery";
 
   .c-modal__next {
     right: 0;
+  }
+
+  @include mq.mq("md") {
+
+    .c-modal__prev,
+    .c-modal__next {
+      top: 50%;
+      bottom: auto;
+      transform: translateY(-50%);
+    }
   }
 
   .c-modal__prev:focus-visible,
@@ -104,5 +121,39 @@ $_: "c-modal--gallery";
     margin-right: auto;
     z-index: 4;
     position: relative;
+  }
+}
+
+.c-modal.#{$_} {
+  width: 100vw;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+
+  .c-image__image {
+    max-height: 80vh;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+  .#{$_}__header,
+  .#{$_}__footer {
+    padding-inline: tokens.use($_, "base", 1);
+  }
+
+  .#{$_}__content {
+    line-height: 0;
+    padding: 0;
+  }
+
+  .#{$_}__prev,
+  .#{$_}__next {
+    color: tokens.get($_, "color--alpha-contrast");
+  }
+
+  .#{$_}__caption {
+    padding: tokens.use($_, "base", 1);
+    background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
+    color: tokens.get($_, "color--alpha-contrast");
   }
 }
