@@ -2,8 +2,8 @@
     "tokens": [
         "base",
         "space",
+        "shadow",
         "color--surface",
-        "color--primary",
         "color--alpha",
         "border-radius"
     ]

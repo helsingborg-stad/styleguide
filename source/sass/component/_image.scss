@@ -5,6 +5,7 @@
 
 /* Component name */
 $_: "c-image";
+$_modal: "c-modal--gallery";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), (
@@ -104,7 +105,7 @@ $_: "c-image";
         }
     }
 
-    .c-modal--gallery .#{$_}__caption {
+    .#{$_modal} .#{$_}__caption {
         margin: 0 auto;
         position: absolute;
         bottom: calc(#{tokens.use($_, "space", 8)} * -1);

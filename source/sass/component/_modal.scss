@@ -9,22 +9,38 @@ $_: "c-modal";
 }
 
 .#{$_} {
+    --c-modal-gap: #{tokens.use($_, "base", 2)};
+    --c-modal-padding-inline: #{tokens.use($_, "base", 2)};
+    --c-modal-padding-block: #{tokens.use($_, "base", 2)};
+
     background-color: tokens.get($_, "color--surface");
-    gap: tokens.use($_, "base", 2);
-    flex-direction: column;
-    width: 100%;
-    cursor: default;
-    transition: all 0.3s ease-in-out;
-    display: none;
+    color: tokens.get($_, "color--alpha-contrast");
     border: none;
     border-radius: tokens.use($_, "border-radius");
     filter: tokens.use($_, "shadow", 3);
-    max-width: 800px;
-    max-height: 90vh;
     position: fixed;
+    margin: auto;
+    inset: 0;
+    cursor: default;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+
+    &[open] {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: var(--c-modal-gap);
+    }
+
+    &:not(.#{$_}--gallery) {
+        --c-modal-max-width: 50rem;
+        --c-modal-max-height: 90vh;
+        width: min(92vw, var(--c-modal-max-width));
+        max-width: var(--c-modal-max-width);
+        max-height: var(--c-modal-max-height);
+    }
 
     .#{$_}__close.c-button {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color--alpha-contrast");
     }
 
     .c-image {
@@ -39,16 +55,22 @@ $_: "c-modal";
     }
 
     &.#{$_}--gallery {
-        max-height: unset;
+        --c-modal-padding-inline: 0;
+        --c-modal-padding-block: 0;
+        width: 100vw;
+        max-width: none;
+        max-height: none;
+        border-radius: 0;
 
         .c-image__image {
             max-height: 80vh;
             object-fit: contain;
+            margin: 0 auto;
         }
 
         .#{$_}__header,
         .#{$_}__footer {
-            padding: 0;
+            padding-inline: tokens.use($_, "base", 1);
         }
 
         .#{$_}__content {
@@ -58,13 +80,13 @@ $_: "c-modal";
 
         .#{$_}__prev,
         .#{$_}__next {
-            color: tokens.get($_, "color--surface-contrast");
+            color: tokens.get($_, "color--alpha-contrast");
         }
     
         .#{$_}__caption {
             padding: tokens.use($_, "base", 1);
             background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
-            color: tokens.get($_, "color--surface-contrast");
+            color: tokens.get($_, "color--alpha-contrast");
         }
 
         &::backdrop {
@@ -75,6 +97,7 @@ $_: "c-modal";
 
     &.#{$_}--transparent {
         background-color: transparent;
+        filter: none;
 
         .c-button.#{$_}__close {
             color: tokens.get($_, "color--alpha-contrast");
@@ -96,11 +119,11 @@ $_: "c-modal";
 
     &::backdrop {
         background-color: tokens.get($_, "color--alpha");
-        backdrop-filter: blur(1px);
+        backdrop-filter: blur(2px);
     }
 
     &--visible {
-        display: flex;
+        display: grid;
     }
 
     &--border-radius-sm {
@@ -133,19 +156,13 @@ $_: "c-modal";
         width: 100%;
         height: 100vh;
         border-radius: 0;
+        inset: 0;
     }
 
     @for $i from 1 through 4 {
         &--padding-#{$i} {
-            padding: tokens.use($_, "base", $i) 0;
-
-            >* {
-                padding: 0 tokens.use($_, "base", $i);
-            }
-
-            .#{$_}__footer {
-                padding-top: tokens.use($_, "base", $i);
-            }
+            --c-modal-padding-block: #{tokens.use($_, "base", $i)};
+            --c-modal-padding-inline: #{tokens.use($_, "base", $i)};
         }
     }
 
@@ -154,19 +171,25 @@ $_: "c-modal";
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
+        gap: tokens.use($_, "base", 1);
+        padding: var(--c-modal-padding-block) var(--c-modal-padding-inline) 0;
 
         .#{$_}__heading {
+            margin: 0;
             margin-right: tokens.use($_, "base", 2);
         }
     }
 
     &__content {
+        padding: 0 var(--c-modal-padding-inline);
         overflow-y: auto;
+        line-height: 1.5;
     }
 
     &__footer {
         flex-shrink: 0;
         border-top: 1px solid tokens.get($_, "color--surface-border");
+        padding: tokens.use($_, "base", 1) var(--c-modal-padding-inline) var(--c-modal-padding-block);
     }
 
     .c-button:hover {
@@ -191,10 +214,9 @@ $_: "c-modal";
     &__next {
         position: absolute;
         top: calc(50% - 10px);
-        /* 50% - 3/4 of icon height */
         vertical-align: middle;
         cursor: pointer;
-        z-index: 99999;
+        z-index: 2;
     }
 
     &__prev {

@@ -124,6 +124,7 @@
 @use "component/table" as tableComponent;
 @use "component/accordion" as accordionComponent;
 @use "component/gallery" as galleryComponent;
+@use "component/gallery--modal" as galleryModalComponent;
 @use "component/image" as imageComponent;
 @use "component/imageinput" as imageInputComponent;
 @use "component/loader" as loaderComponent;

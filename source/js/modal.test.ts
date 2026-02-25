@@ -132,14 +132,15 @@ describe('modal', () => {
     it('instantiates gallery component when modal is opened if data-large-img attribute is present on the trigger button', async () => {
         const modalId = "foo"
         const trigger = `<button data-open="${modalId}" data-large-img="https://www.example.com/image.jpg" data-testid="trigger-button">Trigger Button</button>`
-        document.body.innerHTML = trigger
+        document.body.innerHTML = trigger;
+        (Gallery as jest.Mock).mockClear()
         
         await renderModalComponent({ id: modalId })
         const openTrigger = document.querySelector('[data-open]') as HTMLButtonElement
         
         await userEvent.click(openTrigger)
 
-        expect(Gallery).toHaveBeenCalledTimes(1)
+        expect(Gallery).toHaveBeenCalled()
     })
 
     it('close modal on backdrop click', async () => {

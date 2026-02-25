@@ -1,23 +1,25 @@
 /**
  * Component Gallery
  */
-import Steppers from "./steppers";
 import Image from "./image";
 
 class Gallery {
 
-    constructor() {
-
+    /**
+     * @param {string|null} modalId
+     */
+    constructor(modalId = null) {
         this.imageDataSet = [];
-        this.imageData = {};
+        this.imageData = null;
         this.modalImg = '';
-        this.modalId = null;
+        this.modalId = modalId;
         this.container = null;
-        this.isVisible = "c-modal__bg--is-visible";
-        this.StepperInstance = {};
+        this.isEnabled = false;
 
-        this.Image = new Image;
-        this.StepperInstance = new Steppers;
+        this.Image = new Image();
+
+        this.handleContainerClickBound = (event) => this.handleContainerClick(event);
+        this.handleKeyboardNavigationBound = (event) => this.handleKeyboardNavigation(event);
     }
 
     /**
@@ -26,76 +28,88 @@ class Gallery {
      * @param modalImage
      */
     initImage(modalId, modalImage) {
-
-        const self = this;
         this.modalId = modalId;
         this.modalImg = modalImage;
+        this.enableGallery(modalId);
 
-        if (this.imageDataSet.length === 0) {
-            for (let img of document.querySelectorAll(`[data-open="${modalId}"][data-large-img]`)) {
-                this.imageDataSet.push({
-                    image: img.getAttribute('data-large-img'),
-                    imageStep: img.getAttribute('data-stepping'),
-                    imageCaption: img.getAttribute('data-caption')
+        if (!this.container) {
+            return;
+        }
+
+        this.imageDataSet = this.collectImageDataSet(this.modalId);
+        this.imageData = this.getImageDataByUrl(this.modalImg) || this.imageDataSet[0] || null;
+
+        if (!this.imageData) {
+            return;
+        }
+
+        this.createImg(this.container, this.imageData);
+    }
+
+    /**
+     * Collect all image metadata connected to a specific modal id.
+     * @param {string} modalId
+     * @returns {Array<{image: string, imageStep: string, imageCaption: string}>}
+     */
+    collectImageDataSet(modalId) {
+        const imageDataSet = [];
+        const imageTriggers = document.querySelectorAll(`[data-open="${modalId}"][data-large-img]`);
+
+        for (const trigger of imageTriggers) {
+            const image = trigger.getAttribute('data-large-img');
+            const imageStep = trigger.getAttribute('data-stepping') || String(imageDataSet.length);
+            const imageCaption = trigger.getAttribute('data-caption') || '';
+
+            if (image) {
+                imageDataSet.push({
+                    image,
+                    imageStep,
+                    imageCaption
                 });
             }
         }
-        
-        for (let img of document.querySelectorAll("[data-large-img]")) {
-            if (img.getAttribute('data-large-img') === this.modalImg) {
-                this.imageData.image = img.getAttribute('data-large-img');
-                this.imageData.imageStep = img.getAttribute('data-stepping');
-                this.imageData.imageCaption = img.getAttribute('data-caption');
+
+        return imageDataSet;
+    }
+
+    /**
+     * Get image metadata by full image url.
+     * @param {string} imageUrl
+     * @returns {{image: string, imageStep: string, imageCaption: string}|null}
+     */
+    getImageDataByUrl(imageUrl) {
+        for (const imageData of this.imageDataSet) {
+            if (imageData.image === imageUrl) {
+                return imageData;
             }
         }
 
-        this.container = document.getElementById(this.modalId);
-        this.container.querySelector('.c-image').innerHTML = '';
-        self.createImg(this.container, this.imageData);
-
+        return null;
     }
 
     /**
      * Enable Gallery
      * Next, Previous image by click or keys
      */
-    enableGallery() {
-
-        const self = this;
-
-        const nextTrigger = document.querySelectorAll("[data-next]");
-        const prevTrigger = document.querySelectorAll("[data-prev]");
-
-        // Next Image
-        for (const nxt of nextTrigger) {
-            nxt.addEventListener("click", function () {
-                self.imageData = self.cycleImage('next');
-            });
+    enableGallery(modalId = this.modalId) {
+        if (modalId) {
+            this.modalId = modalId;
         }
 
-        // Previous image
-        for (const prev of prevTrigger) {
-            prev.addEventListener("click", function () {
-                self.imageData = self.cycleImage('prev');
-            });
+        if (!this.modalId) {
+            return;
         }
 
-        // Pressing Right key to skip to next
-        for (const nxt of nextTrigger) {
-            document.addEventListener("keyup", e => {
-                if (e.key === "ArrowRight" && document.querySelector(`.${self.isVisible}`)) {
-                    self.imageData = self.cycleImage('next');
-                }
-            });
+        this.container = document.getElementById(this.modalId);
+
+        if (!this.container) {
+            return;
         }
 
-        // Pressing Left key to skip to previous
-        for (const nxt of nextTrigger) {
-            document.addEventListener("keyup", e => {
-                if (e.key === "ArrowLeft" && document.querySelector(`.${self.isVisible}`)) {
-                    self.imageData = self.cycleImage('prev');
-                }
-            });
+        if (!this.isEnabled) {
+            this.container.addEventListener('click', this.handleContainerClickBound);
+            document.addEventListener('keyup', this.handleKeyboardNavigationBound);
+            this.isEnabled = true;
         }
     }
 
@@ -105,19 +119,19 @@ class Gallery {
      * @returns {*}
      */
     cycleImage(nav = 'prev') {
-        const self = this;
+        if (!this.container || !this.imageData || this.imageDataSet.length === 0) {
+            return null;
+        }
 
-        let currentIndex = parseInt(this.imageData.imageStep);
-        let nextIndex = (nav === 'next') ?
-            (currentIndex + 1) % this.imageDataSet.length :
-            (currentIndex - 1) % this.imageDataSet.length;
+        const currentIndex = this.getCurrentImageIndex();
+        const nextIndex = nav === 'next'
+            ? (currentIndex + 1) % this.imageDataSet.length
+            : (currentIndex - 1 + this.imageDataSet.length) % this.imageDataSet.length;
 
-        nextIndex = (nextIndex < 0) ? this.imageDataSet.length - 1 : nextIndex;
-        (currentIndex > this.imageDataSet.length) ?
-            this.createImg(this.container, this.imageDataSet[0]) :
-            this.createImg(this.container, this.imageDataSet[nextIndex]);
+        const nextImageData = this.imageDataSet[nextIndex];
+        this.createImg(this.container, nextImageData);
 
-        return this.imageDataSet[nextIndex];
+        return nextImageData;
     }
 
     /**
@@ -126,21 +140,17 @@ class Gallery {
      * @param imgSrc
      */
     createImg(containerId, imgSrc) {
-
-        const container = containerId.querySelector('.c-image');
-        const containerModalContent = containerId.querySelector('.c-image');
+        const container = containerId?.querySelector('.c-image');
+        const containerModalContent = container;
         this.imageData = imgSrc;
 
-        if (!('remove' in Element.prototype)) {
-            Element.prototype.remove = function() {
-                if (this.parentNode) {
-                    this.parentNode.removeChild(this);
-                }
-            };
+        if (!container || !containerModalContent || !imgSrc) {
+            return;
         }
 
-        if (container.querySelectorAll('img').length === 0) {
+        const imageElement = container.querySelector('.c-image__image');
 
+        if (!imageElement) {
             container.innerHTML = '';
             container.classList.remove('c-image--is-placeholder');
 
@@ -153,17 +163,14 @@ class Gallery {
                 },
                 'classList': ['c-image__image']
             });
-
-            this.imageCaption(containerModalContent, imgSrc);
-            this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length, true);
-
         } else {
-            container.querySelector('.c-image__image').src = imgSrc.image;
-            container.querySelector('.c-image__image').setAttribute('data-step', imgSrc.imageStep);
-
-            this.imageCaption(containerModalContent, imgSrc);
-            this.StepperInstance.enableStepper('dots', this.container, this.imageDataSet.length, false);
+            imageElement.src = imgSrc.image;
+            imageElement.setAttribute('data-step', imgSrc.imageStep);
+            imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
         }
+
+        this.imageCaption(containerModalContent, imgSrc);
+        this.updateImageCounter(this.container);
     }
 
     /**
@@ -172,13 +179,126 @@ class Gallery {
      * @param imgSrc
      */
     imageCaption(containerModalContent, imgSrc) {
-        if (containerModalContent.querySelector('.c-image__caption') !== null) {
-            containerModalContent.querySelector('.c-image__caption').remove();
+        const existingCaption = containerModalContent.querySelector('.c-image__caption');
+        if (existingCaption !== null) {
+            existingCaption.remove();
         }
+
         if (imgSrc.imageCaption) {
             containerModalContent.insertAdjacentHTML("beforeend",
                 '<figcaption class="c-image__caption">' + imgSrc.imageCaption + '</figcaption>');
-            }
+        }
+    }
+
+    /**
+     * Update gallery counter (current / total).
+     * @param {HTMLElement} container
+     */
+    updateImageCounter(container) {
+        if (!container) {
+            return;
+        }
+
+        const counterContainer = this.getOrCreateCounterContainer(container);
+        if (!counterContainer || !this.imageDataSet.length) {
+            return;
+        }
+
+        const currentIndex = this.getCurrentImageIndex() + 1;
+        const totalImages = this.imageDataSet.length;
+
+        counterContainer.setAttribute('aria-live', 'polite');
+        counterContainer.textContent = `${currentIndex}/${totalImages}`;
+    }
+
+    /**
+     * Find existing counter container or create one in modal content.
+     * @param {HTMLElement} container
+     * @returns {HTMLElement|null}
+     */
+    getOrCreateCounterContainer(container) {
+        const existingCounterContainer = container.querySelector('.c-modal__counter');
+        if (existingCounterContainer) {
+            return existingCounterContainer;
+        }
+
+        const modalContent = container.querySelector('.c-modal__content');
+        if (!modalContent) {
+            return null;
+        }
+
+        const counterContainer = document.createElement('div');
+        counterContainer.className = 'c-modal__counter';
+        modalContent.appendChild(counterContainer);
+
+        return counterContainer;
+    }
+
+    /**
+     * Resolve currently active image index.
+     * @returns {number}
+     */
+    getCurrentImageIndex() {
+        if (!this.imageData) {
+            return 0;
+        }
+
+        const imageStep = parseInt(this.imageData.imageStep, 10);
+        if (Number.isInteger(imageStep) && imageStep >= 0 && imageStep < this.imageDataSet.length) {
+            return imageStep;
+        }
+
+        const imageIndex = this.imageDataSet.findIndex((imageData) => imageData.image === this.imageData.image);
+        return imageIndex >= 0 ? imageIndex : 0;
+    }
+
+    /**
+     * Handle local gallery controls.
+     * @param {MouseEvent} event
+     */
+    handleContainerClick(event) {
+        const trigger = event.target instanceof Element
+            ? event.target.closest('[data-next], [data-prev]')
+            : null;
+
+        if (!trigger) {
+            return;
+        }
+
+        if (trigger.hasAttribute('data-next')) {
+            this.imageData = this.cycleImage('next');
+            return;
+        }
+
+        if (trigger.hasAttribute('data-prev')) {
+            this.imageData = this.cycleImage('prev');
+        }
+    }
+
+    /**
+     * Handle keyboard based gallery navigation.
+     * @param {KeyboardEvent} event
+     */
+    handleKeyboardNavigation(event) {
+        if (!this.container || !this.isModalOpen()) {
+            return;
+        }
+
+        if (event.key === 'ArrowRight') {
+            this.imageData = this.cycleImage('next');
+        }
+
+        if (event.key === 'ArrowLeft') {
+            this.imageData = this.cycleImage('prev');
+        }
+    }
+
+    /**
+     * Check whether current modal is open.
+     * @returns {boolean}
+     */
+    isModalOpen() {
+        return Boolean(this.container && this.container.hasAttribute('open'));
     }
 
 }

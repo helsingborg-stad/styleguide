@@ -4,58 +4,36 @@ class Modal {
     modalId: string | null;
     openTrigger: NodeListOf<Element>;
     closeTrigger: NodeListOf<Element>;
-    dialogs: NodeListOf<Element>;
-    galleryInstance: Gallery | null;
+    dialogs: NodeListOf<HTMLDialogElement>;
+    galleryInstances: Map<string, Gallery>;
+
+    private readonly handleDocumentClickBound: (event: Event) => void;
+    private readonly handleReindexBound: () => void;
 
     constructor() {
         this.modalId = null;
         this.openTrigger = document.querySelectorAll('[data-open]');
         this.closeTrigger = document.querySelectorAll('[data-close]');
-        this.dialogs = document.querySelectorAll('.c-modal');
-        this.galleryInstance = null;
+        this.dialogs = document.querySelectorAll<HTMLDialogElement>('.c-modal');
+        this.galleryInstances = new Map<string, Gallery>();
 
-        // Enable modals on initialization
+        this.handleDocumentClickBound = (event: Event) => this.handleDocumentClick(event);
+        this.handleReindexBound = () => this.reindexTriggers();
+
         this.enableModals();
-
-        // Listen for reindexing events
-        document.addEventListener('reindexModals', () => this.reindexTriggers());
     }
 
     /**
      * Enable Modal
      */
     enableModals() {
-        const self = this;
+        document.removeEventListener('click', this.handleDocumentClickBound);
+        document.addEventListener('click', this.handleDocumentClickBound);
 
-        // Attach click handlers to open triggers
-        for (const trigger of this.openTrigger) {
-            trigger.addEventListener('click', function () {
-                self.modalId = trigger.getAttribute('data-open');
-                self.openModal(self.modalId ?? '', trigger.getAttribute('data-large-img') || null);
-            });
-        }
+        document.removeEventListener('reindexModals', this.handleReindexBound);
+        document.addEventListener('reindexModals', this.handleReindexBound);
 
-        // Attach click handlers to close triggers
-        for (const trigger of this.closeTrigger) {
-            trigger.addEventListener('click', function (e) {
-                e.stopPropagation();
-                const modal = trigger.closest('dialog');
-                if (modal) {
-                    (modal as HTMLDialogElement).close();
-                }
-                self.galleryInstance = null;
-            });
-        }
-
-        // Attach event listeners to dialog elements
-        for (const dialog of this.dialogs) {
-            dialog.addEventListener('close', function () {
-                dialog.classList.remove('c-modal--visible');
-                self.unlockScroll();
-            });
-
-            dialog.addEventListener('click', (e) => this.handleClickOutside(e));
-        }
+        this.attachDialogEvents();
 
         document.dispatchEvent(new CustomEvent('enableStyleguideModals'));
     }
@@ -64,25 +42,27 @@ class Modal {
      * Programmatically open a modal
      */
     openModal(modalId: string, largeImgUrl: string | null = null) {
-        const modal = document.getElementById(modalId);
+        const modal = document.getElementById(modalId) as HTMLDialogElement | null;
 
         if (!modal) {
             console.warn(`Modal with ID "${modalId}" not found.`);
             return;
         }
 
+        this.modalId = modalId;
+
         if (!modal.hasAttribute('open')) {
             modal.classList.add('c-modal--visible');
 
-            if (modal.nodeName === 'DIALOG') {
-                (modal as HTMLDialogElement).showModal();
+            if (typeof modal.showModal === 'function') {
+                modal.showModal();
             }
         }
 
         if (largeImgUrl) {
-            this.galleryInstance = new Gallery();
-            this.galleryInstance.enableGallery();
-            this.galleryInstance.initImage(modalId, largeImgUrl);
+            const galleryInstance = this.getGalleryInstance(modalId);
+            galleryInstance.enableGallery(modalId);
+            galleryInstance.initImage(modalId, largeImgUrl);
         }
 
         this.lockScroll();
@@ -92,16 +72,15 @@ class Modal {
      * Handle clicks outside the modal
      */
     handleClickOutside(e: Event) {
-        const dialogElement = e.target as Element | null;
-        const clientX = (e as MouseEvent).clientX ?? null;
-        const clientY = (e as MouseEvent).clientY ?? null;
+        const dialogElement = e.currentTarget as HTMLDialogElement | null;
+        const mouseEvent = e as MouseEvent;
 
-        if (!dialogElement || !clientX || !clientY) return;
+        if (!dialogElement) {
+            return;
+        }
 
-        if (this.clickIsOutsideElement(dialogElement, clientX, clientY)) {
-            if (dialogElement.nodeName === 'DIALOG') {
-                (dialogElement as HTMLDialogElement).close();
-            }
+        if (this.clickIsOutsideElement(dialogElement, mouseEvent.clientX, mouseEvent.clientY)) {
+            dialogElement.close();
         }
     }
 
@@ -132,7 +111,11 @@ class Modal {
      */
     unlockScroll() {
         const overflowHidden = 'u-overflow--hidden';
-        document.body.classList.remove(overflowHidden);
+        const hasOpenDialogs = Array.from(this.dialogs).some((dialog) => dialog.hasAttribute('open'));
+
+        if (!hasOpenDialogs) {
+            document.body.classList.remove(overflowHidden);
+        }
     }
 
     /**
@@ -141,10 +124,65 @@ class Modal {
     reindexTriggers() {
         this.openTrigger = document.querySelectorAll('[data-open]');
         this.closeTrigger = document.querySelectorAll('[data-close]');
-        this.dialogs = document.querySelectorAll('.c-modal');
+        this.dialogs = document.querySelectorAll<HTMLDialogElement>('.c-modal');
 
-        // Re-enable modals with updated triggers
-        this.enableModals();
+        this.attachDialogEvents();
+
+        for (const id of this.galleryInstances.keys()) {
+            if (!document.getElementById(id)) {
+                this.galleryInstances.delete(id);
+            }
+        }
+    }
+
+    private attachDialogEvents() {
+        for (const dialog of this.dialogs) {
+            if (dialog.dataset.modalBound === 'true') {
+                continue;
+            }
+
+            dialog.addEventListener('close', () => {
+                dialog.classList.remove('c-modal--visible');
+                this.unlockScroll();
+            });
+
+            dialog.addEventListener('click', (event: Event) => this.handleClickOutside(event));
+            dialog.dataset.modalBound = 'true';
+        }
+    }
+
+    private handleDocumentClick(event: Event) {
+        const trigger = (event.target as Element | null)?.closest('[data-open], [data-close]') as HTMLElement | null;
+
+        if (!trigger) {
+            return;
+        }
+
+        const openModalId = trigger.getAttribute('data-open');
+        if (openModalId) {
+            this.openModal(openModalId, trigger.getAttribute('data-large-img'));
+            return;
+        }
+
+        const closeTrigger = trigger.getAttribute('data-close');
+        if (closeTrigger !== null) {
+            const closestDialog = trigger.closest('dialog') as HTMLDialogElement | null;
+            if (closestDialog?.hasAttribute('open')) {
+                event.stopPropagation();
+                closestDialog.close();
+            }
+        }
+    }
+
+    private getGalleryInstance(modalId: string): Gallery {
+        const existingGalleryInstance = this.galleryInstances.get(modalId);
+        if (existingGalleryInstance) {
+            return existingGalleryInstance;
+        }
+
+        const galleryInstance = new Gallery(modalId);
+        this.galleryInstances.set(modalId, galleryInstance);
+        return galleryInstance;
     }
 }
 
