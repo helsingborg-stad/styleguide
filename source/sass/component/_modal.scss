@@ -143,57 +143,7 @@ $_: "c-modal";
 }
 
 .#{$_}[open] {
-
     animation: modalSlideUp 300ms ease normal;
-
-    &.#{$_}--slide-down {
-        animation: modalSlideDown 300ms ease normal;
-    }
-
-    &.#{$_}--slide-left {
-        animation: modalSlideLeft 300ms ease normal;
-    }
-
-    &.#{$_}--slide-right {
-        animation: modalSlideRight 300ms ease normal;
-    }
-}
-
-@keyframes modalSlideLeft {
-    from {
-        opacity: 0;
-        transform: translateX(50vw);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes modalSlideRight {
-    from {
-        opacity: 0;
-        transform: translateX(-50vw);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-
-@keyframes modalSlideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-50vh);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 @keyframes modalSlideUp {
