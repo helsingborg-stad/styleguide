@@ -22,7 +22,7 @@ $_: "c-modal";
     cursor: default;
     transition: opacity 0.2s ease, transform 0.2s ease;
     overflow: hidden;
-    padding: var(tokens.get($_, 'padding'), tokens.use($_, "space", 2));
+    padding: var(--c-modal-padding, #{tokens.get($_, "padding")});
 
     &[open] {
         display: grid;
@@ -79,15 +79,15 @@ $_: "c-modal";
         display: grid;
     }
 
-    .#{$_}.#{$_}--size-sm {
+    &.#{$_}--size-sm {
         max-width: 32.5em;
     }
 
-    .#{$_}.#{$_}--size-md {
+    &.#{$_}--size-md {
         max-width: 56em;
     }
 
-    .#{$_}.#{$_}--size-lg {
+    &.#{$_}--size-lg {
         max-width: 78em;
     }
 
