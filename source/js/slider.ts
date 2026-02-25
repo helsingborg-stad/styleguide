@@ -18,7 +18,7 @@ export default class Slider {
         this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
         const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
+        const ariaLabels = slider.hasAttribute('data-aria-labels') && slider.getAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
         this.sliderAttributes = this.getAttributes();
 
         const buttonContainer = document.querySelector(`#${slider.getAttribute('data-js-slider-buttons')}`);
