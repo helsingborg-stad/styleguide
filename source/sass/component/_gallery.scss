@@ -5,14 +5,12 @@
 $_: "c-gallery";
 
 // Create tokens for gallery list
-@include tokens.create($_, getComponentTokens($_),(
-    'gap': tokens.use($_, "space", 4),
-    'column-min': tokens.use($_, "base", 32)
-));
+@include tokens.create($_, getComponentTokens($_), ('gap': tokens.use($_, "space", 4),
+        'column-min': tokens.use($_, "base", 32)));
 
 .#{$_} {
     contain: paint;
-    
+
     .c-image {
         cursor: pointer;
     }
@@ -35,28 +33,27 @@ $_: "c-gallery";
             height: auto;
             display: block;
             transition: transform 0.25s ease;
-            .c-image__image-wrapper {
-                border-radius: tokens.use($_, "border-radius");
-                corner-shape: tokens.use($_, "corner-shape");
-            }
+            filter: tokens.use($_, "shadow", 1);
         }
 
-        &:hover,
-        &:focus-within {
+        .c-image__image-wrapper {
+            position: relative;
             cursor: pointer;
-            .c-image__image-wrapper {
-                position: relative;
-                
-            }
-            .c-image__image-wrapper::before {
+            contain: paint;
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
+
+            &::before {
                 content: "";
                 position: absolute;
                 inset: 0;
-                backdrop-filter: blur(4px);
+                backdrop-filter: blur(tokens.use($_, "base", 1));
                 background-color: tokens.use($_, "color--alpha");
+                transition: opacity 0.2s ease;
+                opacity: 0;
             }
 
-            .c-image__image-wrapper::after {
+            &::after {
                 content: "";
                 position: absolute;
                 inset: 0;
@@ -64,8 +61,22 @@ $_: "c-gallery";
                 width: tokens.use($_, "base", 10);
                 aspect-ratio: 1 / 1;
                 pointer-events: none;
-                animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-                background-color: var(--c-gallery-icon-color, #{tokens.get($_, "color--alpha-contrast")});
+                transition: opacity 0.2s ease;
+                opacity: 0;
+            }
+
+        }
+
+        &:hover,
+        &:focus-within {
+
+            .c-image__image-wrapper::before,
+            .c-image__image-wrapper::after {
+                opacity: 1;
+            }
+
+            .c-image__image-wrapper::after {
+                background-color: #{tokens.get($_, "color--alpha-contrast")};
                 mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJNNTc0LjI1LTQwNS45OVE2MTMtNDQ0Ljk3IDYxMy01MDAuMjRxMC01NS4yNi0zOC45OS05NC4wMVE1MzUuMDMtNjMzIDQ3OS43Ni02MzNxLTU1LjI2IDAtOTQuMDEgMzguOTlRMzQ3LTU1NS4wMyAzNDctNDk5Ljc2cTAgNTUuMjYgMzguOTkgOTQuMDFRNDI0Ljk3LTM2NyA0ODAuMjQtMzY3cTU1LjI2IDAgOTQuMDEtMzguOTlabS0xNzAtMTguMjZRMzczLTQ1NS41IDM3My01MDB0MzEuMjUtNzUuNzVRNDM1LjUtNjA3IDQ4MC02MDd0NzUuNzUgMzEuMjVRNTg3LTU0NC41IDU4Ny01MDB0LTMxLjI1IDc1Ljc1UTUyNC41LTM5MyA0ODAtMzkzdC03NS43NS0zMS4yNVpNMjU1LjUtMzIyLjVRMTU0LTM4OSAxMDEuNS01MDAgMTU0LTYxMSAyNTUuMzYtNjc3LjUgMzU2LjcxLTc0NCA0NzkuODYtNzQ0IDYwMy03NDQgNzA0LjUtNjc3LjUgODA2LTYxMSA4NTguNS01MDAgODA2LTM4OSA3MDQuNjQtMzIyLjUgNjAzLjI5LTI1NiA0ODAuMTQtMjU2IDM1Ny0yNTYgMjU1LjUtMzIyLjVaTTQ4MC01MDBabTIwNiAxNTkuNXE5NC01OSAxNDMuNS0xNTkuNVE3ODAtNjAwLjUgNjg2LTY1OS41dC0yMDYtNTlxLTExMiAwLTIwNiA1OVQxMzAuNS01MDBRMTgwLTM5OS41IDI3NC0zNDAuNXQyMDYgNTlxMTEyIDAgMjA2LTU5WiIvPjwvc3ZnPg==");
                 mask-repeat: no-repeat;
                 mask-position: center;

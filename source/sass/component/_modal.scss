@@ -2,7 +2,7 @@
 
 $_: "c-modal";
 
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($_, getComponentTokens($_), ('color--alpha-solid': rgb(from tokens.get($_, "color--alpha") r g b / 1)));
 
 .c-block[data-open] {
     cursor: pointer;
@@ -82,7 +82,7 @@ $_: "c-modal";
         .#{$_}__next {
             color: tokens.get($_, "color--alpha-contrast");
         }
-    
+
         .#{$_}__caption {
             padding: tokens.use($_, "base", 1);
             background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
@@ -90,7 +90,7 @@ $_: "c-modal";
         }
 
         &::backdrop {
-            background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
+            background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
             backdrop-filter: blur(tokens.use($_, "base", 1));
         }
     }

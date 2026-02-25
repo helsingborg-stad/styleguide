@@ -15,6 +15,8 @@ class Gallery {
         this.modalId = modalId;
         this.container = null;
         this.isEnabled = false;
+        this.imageTransitionTimeoutId = null;
+        this.imageTransitionAnimationFrameId = null;
 
         this.Image = new Image();
 
@@ -161,16 +163,73 @@ class Gallery {
                     'data-step': imgSrc.imageStep,
                     'data-caption': imgSrc.imageCaption
                 },
-                'classList': ['c-image__image']
+                'classList': ['c-image__image', 'c-image__image--is-visible']
             });
         } else {
-            imageElement.src = imgSrc.image;
-            imageElement.setAttribute('data-step', imgSrc.imageStep);
-            imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
+            this.transitionImage(imageElement, imgSrc, () => {
+                this.imageCaption(containerModalContent, imgSrc);
+                this.updateImageCounter(this.container);
+            });
+
+            return;
         }
 
         this.imageCaption(containerModalContent, imgSrc);
         this.updateImageCounter(this.container);
+    }
+
+    /**
+     * Animate image replacement with fade-out and fade-in.
+     * @param {HTMLImageElement} imageElement
+     * @param {{image: string, imageStep: string, imageCaption: string}} imgSrc
+     * @param {Function|null} onImageChanged
+     */
+    transitionImage(imageElement, imgSrc, onImageChanged = null) {
+        if (!(imageElement instanceof HTMLImageElement)) {
+            return;
+        }
+
+        if (this.imageTransitionTimeoutId) {
+            window.clearTimeout(this.imageTransitionTimeoutId);
+            this.imageTransitionTimeoutId = null;
+        }
+
+        if (this.imageTransitionAnimationFrameId) {
+            window.cancelAnimationFrame(this.imageTransitionAnimationFrameId);
+            this.imageTransitionAnimationFrameId = null;
+        }
+
+        const transitionDuration = this.getImageTransitionDuration();
+
+        imageElement.classList.add('c-image__image--is-transitioning');
+        imageElement.classList.remove('c-image__image--is-visible');
+
+        this.imageTransitionTimeoutId = window.setTimeout(() => {
+            imageElement.src = imgSrc.image;
+            imageElement.setAttribute('data-step', imgSrc.imageStep);
+            imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
+
+            if (typeof onImageChanged === 'function') {
+                onImageChanged();
+            }
+
+            this.imageTransitionAnimationFrameId = window.requestAnimationFrame(() => {
+                imageElement.classList.add('c-image__image--is-visible');
+            });
+
+            this.imageTransitionTimeoutId = window.setTimeout(() => {
+                imageElement.classList.remove('c-image__image--is-transitioning');
+                this.imageTransitionTimeoutId = null;
+            }, transitionDuration);
+        }, transitionDuration);
+    }
+
+    /**
+     * Image transition duration in milliseconds.
+     * @returns {number}
+     */
+    getImageTransitionDuration() {
+        return 180;
     }
 
     /**
