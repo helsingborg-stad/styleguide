@@ -1,60 +1,55 @@
-@use "sass:map";
-@use "../mixin/cover";
-@use "../mixin/mq";
-@use "../mixin/stretch";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-segment-color-overlay: var(--c-segment-color-overlay, var_colors.$color-alpha) !default;
-$c-segment-image-border-radius: var(--c-segment-image-border-radius, var_border-radius.$border-radius-lg) !default;
-$c-segment-card-color-background: var(--c-card-color-background, var_colors.$color-background-card) !default;
-$c-segment-image-background-color: var(--c-segment-image-background-color, var_colors.$color-secondary) !default;
+$_: "c-segment";
+$_breakpoint-md: 896px;
 
-.c-segment {
+@include tokens.create($_, getComponentTokens($_),
+    ("image-border-radius": tokens.use($_, "border-radius")));
+
+.#{$_} {
     display: flex;
     flex-wrap: wrap;
     position: relative;
+    container-name: segment;
+    container-type: inline-size;
 
-    .c-segment__slot {
+    .#{$_}__slot {
         order: 3;
         justify-content: center;
-        z-index: var_properties.$level-2;
+        z-index: 2000;
 
         >.o-grid {
             justify-content: center;
         }
     }
 
-    .c-segment__text {
+    .#{$_}__text {
         position: relative;
     }
 
-    .c-segment__title {
+    .#{$_}__title {
         a {
             text-decoration: none;
-            color: var_colors.$color-base;
+            color: tokens.get($_, "color--surface-contrast");
 
             &:hover,
             &:focus,
             &:active {
                 text-decoration: underline;
-                color: var_colors.$color-link;
+                color: tokens.get($_, "color--primary");
             }
         }
     }
 
-    .c-segment__date {
-        font-size: var_fonts.$font-size-meta;
+    .#{$_}__date {
+        font-size: 0.875rem;
     }
 
-    .c-segment__buttons {
-        margin-top: #{map.get(var_default.$spacers, "4")};
+    .#{$_}__buttons {
+        margin-top: tokens.use($_, "base", 4);
     }
 
-    .c-segment__image {
+    .#{$_}__image {
         display: block;
         width: 100%;
         height: 100%;
@@ -68,66 +63,67 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         }
     }
 
-    .c-segment__floating {
+    .#{$_}__floating {
         position: absolute;
-        right: var_default.$base;
-        top: var_default.$base;
-        z-index: var_properties.$level-3;
+        right: tokens.use($_, "base", 1);
+        top: tokens.use($_, "base", 1);
+        z-index: 3000;
         cursor: pointer;
     }
 
-    &.c-segment--card {
+    &.#{$_}--card {
         flex-direction: column;
         min-height: 100%;
         flex-wrap: unset;
 
-        .c-segment__image {
+        .#{$_}__image {
             aspect-ratio: 16/9;
             height: unset;
-            border-radius: $c-segment-image-border-radius;
+            border-radius: tokens.get($_, "image-border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
 
             .c-image__image {
                 object-fit: cover;
             }
         }
 
-        .c-segment__content {
-            margin: calc(var_default.$base * -4) calc(var_default.$base * 2) 0 calc(var_default.$base * 2);
+        .#{$_}__content {
+            margin: calc(#{tokens.use($_, "base", 4)} * -1) tokens.use($_, "base", 2) 0 tokens.use($_, "base", 2);
             flex-grow: 1;
             display: flex;
             flex-direction: column;
 
-            .c-segment__content-card {
+            .#{$_}__content-card {
                 flex-grow: 1;
             }
         }
 
-        &.c-segment--no-image .c-segment__content {
+        &.#{$_}--no-image .#{$_}__content {
             margin-top: 0;
         }
 
-        .c-segment__content-card {
-            padding: calc(var_default.$base * 3) calc(var_default.$base * 5);
+        .#{$_}__content-card {
+            padding: tokens.use($_, "base", 3) tokens.use($_, "base", 5);
             height: 100%;
         }
 
-        &.c-segment--height-full-screen {
+        &.#{$_}--height-full-screen {
             flex-direction: row;
             align-items: center;
 
-            .c-segment__image {
+            .#{$_}__image {
                 height: 100%;
                 position: absolute;
             }
         }
 
-        .c-segment__content-card.c-card.c-card--flat {
-            background-color: $c-segment-card-color-background;
+        .#{$_}__content-card.c-card.c-card--flat {
+            background-color: tokens.get($_, "color--surface");
         }
     }
 
-    &.c-segment--slider {
-        &.c-segment--card {
+    &.#{$_}--slider {
+        &.#{$_}--card {
             min-height: unset;
         }
     }
@@ -135,93 +131,93 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
     /**
     * Responsive
     */
-    &.c-segment--size-sm {
-        &.c-segment--card {
-            .c-segment__content {
-                width: min(60%, calc(var_default.$base * 60));
-                min-height: calc(var_default.$base * 40);
-                margin-top: calc(var_default.$base * -35);
+    &.#{$_}--size-sm {
+        &.#{$_}--card {
+            .#{$_}__content {
+                width: min(60%, tokens.use($_, "base", 60));
+                min-height: tokens.use($_, "base", 40);
+                margin-top: calc(#{tokens.use($_, "base", 35)} * -1);
             }
 
-            &.c-segment--no-image .c-segment__content {
+            &.#{$_}--no-image .#{$_}__content {
                 margin-top: 0;
             }
 
-            &.c-segment--height-full-screen {
-                .c-segment__content {
+            &.#{$_}--height-full-screen {
+                .#{$_}__content {
                     margin-top: auto;
                     margin-bottom: auto;
                 }
             }
 
-            &.c-segment--reverse {
-                .c-segment__content {
+            &.#{$_}--reverse {
+                .#{$_}__content {
                     margin-left: auto;
                 }
             }
 
-            .c-segment__image {
+            .#{$_}__image {
                 aspect-ratio: 3/2;
             }
         }
     }
 
-    &.c-segment--size-md {
-        &.c-segment--card {
+    &.#{$_}--size-md {
+        &.#{$_}--card {
             flex-direction: row;
 
-            .c-segment__image {
+            .#{$_}__image {
                 position: absolute;
-                width: calc(100% - calc(var_default.$base * 30));
+                width: calc(100% - #{tokens.use($_, "base", 30)});
                 padding: 0;
                 height: 100%;
                 right: 0;
 
-                .c-segment__image {
+                .#{$_}__image {
                     width: 100%;
                 }
             }
 
-            .c-segment__content {
-                margin: calc(var_default.$base * 2) 0;
-                width: calc(#{var_default.$base} * 60);
+            .#{$_}__content {
+                margin: tokens.use($_, "base", 2) 0;
+                width: tokens.use($_, "base", 60);
                 flex-grow: unset;
                 height: unset;
             }
 
-            .c-segment__content-card {
-                padding: calc(var_default.$base * 5);
+            .#{$_}__content-card {
+                padding: tokens.use($_, "base", 5);
 
-                .c-segment__title {
-                    // font-size: headings.$h1-font-size; TODO: replace with computed value once we have it working
+                .#{$_}__title {
+                    font-size: tokens.get($_, "font-size-600");
                 }
             }
 
-            .c-segment__floating {
-                top: calc(var_default.$base * 3);
+            .#{$_}__floating {
+                top: tokens.use($_, "base", 3);
             }
 
-            &.c-segment--reverse {
+            &.#{$_}--reverse {
                 flex-direction: row-reverse;
 
-                .c-segment__image {
+                .#{$_}__image {
                     left: 0;
                     right: unset;
                 }
             }
 
-            &.c-segment--slider {
-                &.c-segment--size-md {
-                    min-height: calc(var_default.$base * 70);
+            &.#{$_}--slider {
+                &.#{$_}--size-md {
+                    min-height: tokens.use($_, "base", 70);
                     align-items: center;
 
-                    .c-segment__image {
+                    .#{$_}__image {
                         width: 100%;
                     }
 
-                    &.c-segment--reverse {
-                        .c-segment__content {
-                            margin-right: min(15%, calc(var_default.$base * 12));
+                    &.#{$_}--reverse {
+                        .#{$_}__content {
+                            margin-right: min(15%, tokens.use($_, "base", 12));
                         }
                     }
                 }
@@ -229,10 +225,10 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
         }
     }
 
-    &.c-segment--no-image.c-segment--size-sm,
-    &.c-segment--no-image.c-segment--size-md {
-        &.c-segment--card {
-            .c-segment__content {
+    &.#{$_}--no-image.#{$_}--size-sm,
+    &.#{$_}--no-image.#{$_}--size-md {
+        &.#{$_}--card {
+            .#{$_}__content {
                 width: 100%;
                 min-height: initial;
             }
@@ -243,75 +239,77 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 /**
 * Modifiers
 */
-.c-segment.c-segment--stretch {
+.#{$_}.#{$_}--stretch {
     /* Bleed outside container  left&right */
-    @include stretch.stretch();
+    border-radius: 0;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    width: calc(100vw - var(--scrollbar, 15px));
 }
 
-.c-segment.c-segment--svg-background {
-    .c-segment__image {
-        background-size: clamp(#{var_default.$base} * 3, 50%, #{var_default.$base} * 8);
+.#{$_}.#{$_}--svg-background {
+    .#{$_}__image {
+        background-size: clamp(tokens.use($_, "base", 3), 50%, tokens.use($_, "base", 8));
         background-repeat: no-repeat;
-        background-color: $c-segment-image-background-color;
+        background-color: tokens.get($_, "color--secondary");
     }
 }
 
-.c-segment.c-segment--text {
+.#{$_}.#{$_}--text {
 
-    &-light .c-segment__title,
-    &-light .c-segment__text {
+    &-light .#{$_}__title,
+    &-light .#{$_}__text {
         color: white;
-        z-index: var_properties.$level-2;
+        z-index: 2000;
     }
 
-    &-dark .c-segment__title,
-    &-dark .c-segment__text,
-    &-dark .c-segment__meta,
-    &-dark .c-segment__date,
-    &-dark .c-segment__tags {
+    &-dark .#{$_}__title,
+    &-dark .#{$_}__text,
+    &-dark .#{$_}__meta,
+    &-dark .#{$_}__date,
+    &-dark .#{$_}__tags {
         color: black;
-        z-index: var_properties.$level-2;
+        z-index: 2000;
     }
 }
 
-.c-segment.c-segment--text {
-    &-large .c-segment__content {
-        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
+.#{$_}.#{$_}--text {
+    &-large .#{$_}__content {
+        @container segment (min-width: #{$_breakpoint-md}) {
             font-size: 1.2em;
         }
     }
 }
 
-.c-segment.c-segment--height {
+.#{$_}.#{$_}--height {
     &-full-screen {
         min-height: 100vh;
 
-        .c-segment__content {
+        .#{$_}__content {
             margin-top: auto;
             margin-bottom: auto;
         }
     }
 }
 
-.c-segment.c-segment--overlay {
-    &-dark .c-segment__image {
-        filter: brightness(.5);
-        opacity: .85;
-        /* tint to bg */
-    }
-
-    &-light .c-segment__image {
-        filter: brightness(.78);
-        opacity: .85;
-        /* tint to bg */
-    }
+.#{$_}.#{$_}--has-overlay .#{$_}__image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: tokens.get($_, "color--alpha");
 }
 
-.c-segment.c-segment--highlight {
+.#{$_}.#{$_}--has-overlay .#{$_}__title,
+.#{$_}.#{$_}--has-overlay .#{$_}__text {
+    color: tokens.get($_, "color--alpha-contrast");
+}
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), map.get(var_default.$breakpoints-map, "md")) {
+.#{$_}.#{$_}--highlight {
 
-        .c-segment__image {
+    @container segment (max-width: #{$_breakpoint-md - 1px}) {
+
+        .#{$_}__image {
             z-index: 2;
         }
 
@@ -320,24 +318,24 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
             position: absolute;
             top: 0;
             left: 0;
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: tokens.use($_, "base", 1) solid tokens.get($_, "color--primary");
             height: 100%;
             z-index: 1;
         }
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
+    @container segment (min-width: #{$_breakpoint-md}) {
 
         &:after {
             content: '';
             position: absolute;
             top: 0;
             left: 50%;
-            border-left: var_default.$base solid var_colors.$color-primary;
+            border-left: tokens.use($_, "base", 1) solid tokens.get($_, "color--primary");
             height: 100%;
         }
 
-        &.c-segment--reverse:after {
+        &.#{$_}--reverse:after {
             left: 0;
         }
     }
@@ -346,91 +344,91 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 /**
 * Layout split, featured
 */
-.c-segment.c-segment--split,
-.c-segment.c-segment--featured {
+.#{$_}.#{$_}--split,
+.#{$_}.#{$_}--featured {
     flex-direction: row;
 
-    .c-segment__padder {
-        max-width: calc(#{var_default.$base} * 60);
+    .#{$_}__padder {
+        max-width: tokens.use($_, "base", 60);
         margin: auto;
-        padding-top: #{map.get(var_default.$spacers, "4")};
-        padding-bottom: #{map.get(var_default.$spacers, "4")};
+        padding-top: tokens.use($_, "base", 4);
+        padding-bottom: tokens.use($_, "base", 4);
     }
 
-    .c-segment__image {
+    .#{$_}__image {
         height: auto;
         aspect-ratio: 16/9;
     }
 
-    .c-segment__slot {
-        margin-top: #{map.get(var_default.$spacers, "4")};
+    .#{$_}__slot {
+        margin-top: tokens.use($_, "base", 4);
 
-        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-            margin-top: #{map.get(var_default.$spacers, "6")};
+        @container segment (min-width: #{$_breakpoint-md}) {
+            margin-top: tokens.use($_, "base", 6);
         }
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-        &.c-segment--reverse {
-            flex-direction: row-reverse;
-        }
+    &.#{$_}--reverse {
+        flex-direction: row-reverse;
     }
 }
 
-.c-segment.c-segment--split {
+.#{$_}.#{$_}--split {
+    align-items: center;
 
-    .c-segment__image {
+    .#{$_}__image {
         aspect-ratio: 16 / 9;
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-        .c-segment__image,
-        .c-segment__content {
+    @container segment (min-width: #{$_breakpoint-md}) {
+
+        .#{$_}__image,
+        .#{$_}__content {
             max-width: 50%;
         }
     }
 }
 
-.c-segment.c-segment--featured {
+.#{$_}.#{$_}--featured {
 
-    .c-segment__image {
+    .#{$_}__image {
         background-size: 0;
     }
 
-    .c-segment__image .c-image__image {
+    .#{$_}__image .c-image__image {
         object-fit: contain;
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-        .c-segment__image .c-image__image {
+    @container segment (min-width: #{$_breakpoint-md}) {
+        .#{$_}__image .c-image__image {
             padding: 7% 3%;
         }
 
-        .c-segment__image {
+        .#{$_}__image {
             max-width: 70%;
         }
 
-        .c-segment__content {
+        .#{$_}__content {
             max-width: 30%;
         }
     }
 }
 
-.c-segment.c-segment--split.c-segment--alignment,
-.c-segment.c-segment--featured.c-segment--alignment {
+.#{$_}.#{$_}--split.#{$_}--alignment,
+.#{$_}.#{$_}--featured.#{$_}--alignment {
 
-    &-top .c-segment__content,
-    &-top .c-segment__slot {
+    &-top .#{$_}__content,
+    &-top .#{$_}__slot {
         align-self: start;
     }
 
-    &-center .c-segment__content,
-    &-center .c-segment__slot {
+    &-center .#{$_}__content,
+    &-center .#{$_}__slot {
         align-self: center;
     }
 
-    &-bottom .c-segment__content,
-    &-bottom .c-segment__slot {
+    &-bottom .#{$_}__content,
+    &-bottom .#{$_}__slot {
         align-self: end;
     }
 }
@@ -438,45 +436,39 @@ $c-segment-image-background-color: var(--c-segment-image-background-color, var_c
 /**
 * Layout full width
 */
-.c-segment.c-segment--full-width {
+.#{$_}.#{$_}--full-width {
     flex-direction: column;
-    gap: #{map.get(var_default.$spacers, "8")};
-    padding: map.get(var_default.$spacers, "8") 0;
+    gap: tokens.use($_, "base", 8);
+    padding: tokens.use($_, "base", 8) 0;
 
-    &.c-segment--has-overlay .c-segment__image::before {
-        content: "";
-        @include cover.cover();
-        box-shadow: inset 0 0 20vh rgb(0 0 0 / 20%);
-        background-color: $c-segment-color-overlay;
+    .#{$_}__image {
+        position: absolute;
+        inset: 0;
     }
 
-    .c-segment__image {
-        @include cover.cover();
+    &.#{$_}--gap-xs {
+        gap: tokens.use($_, "base", 2);
     }
 
-    &.c-segment--gap-xs {
-        gap: #{map.get(var_default.$spacers, "2")};
+    &.#{$_}--gap-sm {
+        gap: tokens.use($_, "base", 4);
     }
 
-    &.c-segment--gap-sm {
-        gap: #{map.get(var_default.$spacers, "4")};
-    }
-
-    &.c-segment--gap-md {
-        gap: #{map.get(var_default.$spacers, "6")};
+    &.#{$_}--gap-md {
+        gap: tokens.use($_, "base", 6);
     }
 }
 
-.c-segment.c-segment--full-width.c-segment--alignment {
-    &-left .c-segment__content {
+.#{$_}.#{$_}--full-width.#{$_}--alignment {
+    &-left .#{$_}__content {
         text-align: left;
     }
 
-    &-center .c-segment__content {
+    &-center .#{$_}__content {
         text-align: center;
     }
 
-    &-right .c-segment__content {
+    &-right .#{$_}__content {
         text-align: right;
     }
 }

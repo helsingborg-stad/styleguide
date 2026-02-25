@@ -1,41 +1,44 @@
-@use "sass:map";
-@use "../mixin/mq";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-@use "card";
+@use "../mixin/tokens";
 
-.c-testimonials {
+$_: "c-testimonials";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+    container-name: testimonials;
+    container-type: inline-size;
+
     // General
     .c-testimonial .c-card__paint-container {
         display: grid;
         grid-template-rows: auto 1fr;
-        grid-template-columns: calc(#{var_default.$base} * 11) auto;
+        grid-template-columns: tokens.use($_, "base", 11) auto;
         grid-template-areas: "image header" "quote quote";
-        padding: map.get(var_default.$spacers, "4");
+        padding: tokens.use($_, "base", 4);
 
         .c-testimonial__header {
-            margin-left: calc(var(--base, 8px) * 4);
+            margin-left: tokens.use($_, "base", 4);
 
             & .c-divider {
                 margin: 0;
-                border-color: var_colors.$color-complementary-light;
+                border-color: tokens.get($_, "color--surface-border");
             }
+
             .c-testimonial__author {
-                font-size: calc(var(--base, 8px) * 3);
-                color: var_colors.$color-darkest;
+                font-size: tokens.use($_, "base", 3);
+                color: tokens.get($_, "color--surface-contrast");
                 overflow-wrap: break-word;
-                margin-top: calc(var(--base, 8px) * 2);
+                margin-top: tokens.use($_, "base", 2);
             }
+
             .c-testimonial__title {
-                color: var_colors.$color-primary-dark;
+                color: tokens.get($_, "color--primary");
                 max-width: 25ch;
-                margin-bottom: map.get(var_default.$spacers, "1");
-                margin-top: calc(var(--base, 8px));
+                margin-bottom: tokens.use($_, "base", 1);
+                margin-top: tokens.use($_, "base", 1);
             }
         }
-        
+
         // Flat card
         &.c-card--flat {
             .c-testimonial__image {
@@ -43,22 +46,21 @@
             }
         }
     }
-    
+
     .c-testimonial__quote {
         grid-area: quote;
         font-style: italic;
-        font-weight: var_fonts.$font-weight-italic;
-        font-family: var_fonts.$font-family-italic;
     }
 
     .c-testimonial__image {
-        width: calc(#{var_default.$base} * 11);
-        max-height: calc(#{var_default.$base} * 14);
-        //border-radius: card.$c-card-border-radius; TODO: Utilize generic token.
+        width: tokens.use($_, "base", 11);
+        max-height: tokens.use($_, "base", 14);
+        border-radius: tokens.use($_, "border-radius", 1);
+        corner-shape: tokens.get($_, "corner-shape");
         overflow: hidden;
-        filter: var_properties.$drop-shadow-3;
+        filter: tokens.use($_, "shadow", 1);
         grid-area: image;
-        
+
         &.c-image .c-image__image {
             object-fit: cover;
             width: 100%;
@@ -70,14 +72,14 @@
     .c-testimonials__wrapper {
         display: grid;
         grid-template-columns: 100%;
-        row-gap: calc(#{var_default.$base} * 7);
+        row-gap: tokens.use($_, "base", 7);
     }
 
     // Slider style
     .c-testimonials__slider {
         .c-slider {
             max-height: unset;
-            
+
             .c-slider__item {
                 display: flex;
                 justify-content: center;
@@ -96,7 +98,7 @@
                     }
                 }
             }
-            
+
             .c-slider__container .c-slider__inner {
                 position: static;
             }
@@ -109,30 +111,29 @@
         .c-slider__arrows {
             .splide__arrow {
                 &.splide__arrow--prev {
-                    left: calc(#{var_default.$base} * -2.5);
+                    left: tokens.use($_, "base", -2.5);
                 }
+
                 &.splide__arrow--next {
-                    right: calc(#{var_default.$base} * -2.5);
+                    right: tokens.use($_, "base", -2.5);
                 }
             }
         }
     }
 }
 
-@include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-    .c-testimonials {
-        & .c-testimonials__wrapper {
-            grid-template-columns: 1fr 1fr;
-            column-gap: calc(#{var_default.$base} * 7);
-            row-gap: calc(#{var_default.$base} * 6);
-    
-            margin-left: map.get(var_default.$spacers, "8");
-            margin-right: map.get(var_default.$spacers, "8");
-        }
+@container testimonials (min-width: 1200px) {
+    .#{$_} .#{$_}__wrapper {
+        grid-template-columns: 1fr 1fr;
+        column-gap: tokens.use($_, "base", 7);
+        row-gap: tokens.use($_, "base", 6);
 
-        & .c-testimonials__slider {
-            padding-left: calc(#{var_default.$base} * 7);
-            padding-right: calc(#{var_default.$base} * 7);
-        }
+        margin-left: tokens.use($_, "base", 8);
+        margin-right: tokens.use($_, "base", 8);
+    }
+
+    .#{$_} .#{$_}__slider {
+        padding-left: tokens.use($_, "base", 7);
+        padding-right: tokens.use($_, "base", 7);
     }
 }

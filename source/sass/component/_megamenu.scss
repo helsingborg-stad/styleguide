@@ -1,79 +1,78 @@
-@use "sass:map";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
-$c-mega-menu-heading-color: var(--c-mega-menu-heading-color, var_colors.$color-primary) !default;
-$c-mega-menu-subitem-color: var(--c-mega-menu-subitem-color, var_colors.$color-primary) !default;
-$c-mega-menu-background-color: var(--c-mega-menu-background-color, var_colors.$color-primary-contrasting) !default;
-$c-mega-menu-padding: calc(var(--c-mega-menu-padding, 4) * #{var_default.$base}) !default;
-$c-mega-menu-font: var(--c-mega-menu-font, var_fonts.$font-family-base) !default;
+$_: "c-megamenu";
 
-.c-megamenu {
-    padding-top: $c-mega-menu-padding;
-    padding-bottom: $c-mega-menu-padding;
-    background-color: $c-mega-menu-background-color;
+@include tokens.create($_, getComponentTokens($_), ("font-size-title": tokens.get($_, "font-size-300"),
+    ));
+
+.#{$_} {
+    padding-top: tokens.use($_, "base", 4);
+    padding-bottom: tokens.use($_, "base", 4);
+    background-color: tokens.get($_, "color--surface");
     position: absolute;
     width: 100%;
-    z-index: var_properties.$level-8;
+    z-index: 8000;
 
-    &.c-megamenu--secondary {
-        --c-mega-menu-heading-color: #{var_colors.$color-primary};
-        --c-mega-menu-subitem-color: #{var_colors.$color-primary};
-        --c-mega-menu-background-color: #{var_colors.$color-secondary};
-    }
+    &.#{$_}--secondary {
+        background-color: tokens.get($_, "color--secondary");
 
-    &.c-megamenu--primary {
-        --c-mega-menu-heading-color: #{var_colors.$color-primary};
-        --c-mega-menu-subitem-color: #{var_colors.$color-black};
-        --c-mega-menu-background-color: #{var_colors.$color-white};
-    }
-
-    &.c-megamenu--font-heading {
-        --c-mega-menu-font: #{var_fonts.$font-family-heading};
-    }
-
-    .c-megamenu__description {
-        border-top: 2px solid $c-mega-menu-heading-color;
-        color: $c-mega-menu-subitem-color;
-        padding-top: calc(var_default.$base * 1);
-        margin-top: calc(var_default.$base * 0.5);
-    }
-
-    &.c-megamenu--cover {
-        min-height: 100vh;
-    }
-    
-    .c-megamenu__link--title {
-        font-size: var_fonts.$font-size-title;
-        color: $c-mega-menu-heading-color;
-        font-family: $c-mega-menu-font;
-    }
-
-    .c-megamenu__link {
-        display: inline-flex;
-        align-items: center;
-        text-decoration: none;
-        gap: var_default.$base;
-    }
-
-    .c-megamenu__item--child {
-        padding: map.get(var_default.$spacers, "05") 0;
-        display: flex;
-        align-items: center;
-        
-        .c-megamenu__link {
-            text-decoration: none;
-            color: $c-mega-menu-subitem-color;
+        .#{$_}__link--title,
+        .#{$_}__item--child .#{$_}__link {
+            color: tokens.get($_, "color--secondary-contrast");
         }
     }
 
-    .c-megamenu__sublist.c-megamenu__sublist--flex {
+    &.#{$_}--primary {
+        background-color: tokens.get($_, "color--primary");
+
+        .#{$_}__link--title,
+        .#{$_}__item--child .#{$_}__link {
+            color: tokens.get($_, "color--primary-contrast");
+        }
+    }
+
+    &.#{$_}--font-heading {
+        font-family: tokens.get($_, "font-family-heading");
+    }
+
+    .#{$_}__description {
+        border-top: 2px solid tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary");
+        padding-top: tokens.use($_, "base", 1);
+        margin-top: tokens.use($_, "base", 0.5);
+    }
+
+    &.#{$_}--cover {
+        min-height: 100vh;
+    }
+
+    .#{$_}__link--title {
+        font-size: tokens.get($_, "font-size-title");
+        color: tokens.get($_, "color--primary");
+        font-family: tokens.get($_, "font-family-base");
+    }
+
+    .#{$_}__link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        gap: tokens.use($_, "base", 1);
+    }
+
+    .#{$_}__item--child {
+        padding: tokens.use($_, "base", 0.5) 0;
+        display: flex;
+        align-items: center;
+
+        .#{$_}__link {
+            text-decoration: none;
+            color: tokens.get($_, "color--primary");
+        }
+    }
+
+    .#{$_}__sublist.#{$_}__sublist--flex {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 var_default.$base;
+        gap: 0 tokens.use($_, "base", 1);
     }
 }
-
-
