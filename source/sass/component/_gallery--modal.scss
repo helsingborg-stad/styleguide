@@ -8,6 +8,10 @@ $_: "c-modal--gallery";
 
 .c-modal.#{$_} {
   height: 100vh;
+  width: 100vw;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
 
   &::backdrop {
     background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
@@ -54,6 +58,12 @@ $_: "c-modal--gallery";
       &:not(.c-image__image--is-visible) {
         opacity: 0;
       }
+    }
+
+    .c-image__image {
+      max-height: 80vh;
+      object-fit: contain;
+      margin: 0 auto;
     }
   }
 
@@ -103,7 +113,7 @@ $_: "c-modal--gallery";
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: tokens.use($_, "base", -4);
+    top: tokens.use($_, "base", -6);
     display: inline-flex;
     z-index: 4;
     min-width: 5rem;
@@ -121,19 +131,6 @@ $_: "c-modal--gallery";
     margin-right: auto;
     z-index: 4;
     position: relative;
-  }
-}
-
-.c-modal.#{$_} {
-  width: 100vw;
-  max-width: none;
-  max-height: none;
-  border-radius: 0;
-
-  .c-image__image {
-    max-height: 80vh;
-    object-fit: contain;
-    margin: 0 auto;
   }
 
   .#{$_}__header,
@@ -153,7 +150,6 @@ $_: "c-modal--gallery";
 
   .#{$_}__caption {
     padding: tokens.use($_, "base", 1);
-    background-color: color-mix(in srgb, tokens.get($_, "color--alpha") 10%, tokens.get($_, "color--surface-contrast") 90%);
     color: tokens.get($_, "color--alpha-contrast");
   }
 }
