@@ -61,7 +61,22 @@
         nibh, ut fermentum massa justo sit amet risus.
 
         @slot('bottom')
-            [Bottom slot]
+            @button([
+                'href' => '#',
+                'type' => 'filled',
+                'text' => 'Action',
+                'size' => 'md',
+                'color' => 'primary',
+            ])
+            @endbutton
+            @button([
+                'href' => '#',
+                'type' => 'filled',
+                'text' => 'Secondary action',
+                'size' => 'md',
+                'color' => 'secondary',
+            ])
+            @endbutton
         @endslot
     @endmodal
 @endforeach
