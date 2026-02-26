@@ -5,10 +5,9 @@ $container-width-md: 640px;
 $_: "c-slider";
 
 .#{$_}__item {
-
     background-position: center;
     background-size: cover;
-    contain: paint;
+    contain: layout paint;
     width: 100%;
     max-height: 80vh;
     border-radius: tokens.use($_, "border-radius");

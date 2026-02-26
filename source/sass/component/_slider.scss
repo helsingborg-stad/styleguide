@@ -6,19 +6,16 @@
 $_: "c-slider";
 $container-width-md: 640px;
 
-@include tokens.create($_, getComponentTokens($_), 
-    (
-        "gap": tokens.use($_, "base", 2),
+@include tokens.create($_, getComponentTokens($_),
+    ("gap": tokens.use($_, "base", 2),
         "inset": tokens.use($_, "base", 7),
         "font-family-heading": tokens.get($_, "font-family-heading"),
-        "font-size-heading": clamp(2rem, 10cqw, 3rem),
+        "font-size-heading": clamp(1.5rem, 5cqw, 2.5rem),
         "font-family": tokens.get($_, "font-family-base"),
         "font-size": tokens.get($_, "font-size-100"),
         "item-container-max-width": tokens.use($_, "base", 118),
         "color--overlay": rgba(from tokens.get($_, "color--alpha") r g b / 0.8), // Ensures text is background is dark enough for text to be readable.
-        "color--overlay-contrast": tokens.get($_, "color--alpha-contrast")
-    )
-);
+        "color--overlay-contrast": tokens.get($_, "color--alpha-contrast")));
 
 .c-slider {
 
