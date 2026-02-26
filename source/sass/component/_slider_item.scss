@@ -1,26 +1,22 @@
-@use "sass:map";
-@use "../mixin/fluid-type";
 @use "../mixin/focus";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_fonts";
-@use "../setting/var_properties";
-@use "../setting/component/_slider" as *;
+@use "../mixin/tokens";
 
-.c-slider__item {
-    --c-slider-item-font-size-heading-computed: calc(var(--c-slider-item-font-size-base, var(--base, 8px) * 2) * 2);
-    
+$container-width-md: 640px;
+$_: "c-slider";
+
+.#{$_}__item {
+
     background-position: center;
     background-size: cover;
-    position: relative;
+    contain: paint;
     width: 100%;
-    max-width: var(--c-slider-max-width-computed);
     max-height: 80vh;
-    border-radius: $c-slider-border-radius;
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    container-name: slider-item;
+    container-type: inline-size;
 
-    .c-slider__item__container {
+    .#{$_}__item__container {
         backface-visibility: hidden;
     }
 
@@ -31,37 +27,38 @@
     }
 
     &:focus-visible {
-        @include focus.focus-inset($c-slider-border-radius, true);
+        @include focus.focus-inset(tokens.use($_, "border-radius"), true);
     }
-    
-    .c-slider__item__body {
+
+    .#{$_}__item__body {
         margin-top: 0;
         overflow-wrap: break-word;
         max-width: 100%; // p has a max width we need to override
     }
 
-    .c-slider__item__image, 
-    .c-slider__item__image img {
+    .#{$_}__item__image,
+    .#{$_}__item__image img {
         border-radius: inherit;
     }
 
     //Other
-    .c-slider__item__background--video {
+    .#{$_}__item__background--video {
         position: absolute;
         width: 100%;
         height: 100%;
         object-fit: cover;
         top: 0;
         left: 0;
-        z-index: var_properties.$level-3 - 1;
-        border-radius: $c-slider-border-radius;
+        z-index: 3;
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
 
         &:focus-visible {
             @include focus.focus-inset;
         }
     }
 
-    .c-slider__item__link {
+    .#{$_}__item__link {
         min-height: 100%;
         width: 100%;
         display: flex;
@@ -82,21 +79,22 @@
 
     &__background--video__play__btn {
         position: absolute;
-        right: map.get(var_default.$spacers, '2');
-        top: map.get(var_default.$spacers, '2');
-        z-index: var_properties.$level-4 + 1;
+        right: tokens.use($_, "space", 2);
+        top: tokens.use($_, "space", 2);
+        z-index: 5;
         opacity: 1;
     }
 
     // Modifiers
-    &.c-slider__item {
-        margin-right: $c-slider-gap;
-        &.c-slider__item--layout-center {
-            &.c-slider__item--text-align-center {
+    &.#{$_}__item {
+        margin-right: tokens.get($_, "gap");
+
+        &.#{$_}__item--layout-center {
+            &.#{$_}__item--text-align-center {
                 text-align: center;
             }
-    
-            &.c-slider__item--text-align-right {
+
+            &.#{$_}__item--text-align-right {
                 text-align: right;
             }
         }
@@ -109,54 +107,28 @@
             left: 0;
             height: 100%;
             width: 100%;
-            border-radius: $c-slider-border-radius;
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
         }
 
         &--overlay-dark::before {
-            background-color: var_colors.$color-alpha;
+            background-color: tokens.get($_, "color--overlay");
         }
 
         &--hero {
-            margin: $c-slider-gap $c-slider-gap $c-slider-gap 0;
 
-            .c-slider__item__heading {
-                font-family: $c-slider-item-font-family-heading;
-                font-weight: $c-slider-item-font-weight-heading;
-                // font-size: headings.$h2-font-size; TODO: replace with computed value once we have it working
+            .#{$_}__item__heading {
+                font-family: tokens.get($_, "font-family-heading");
+                font-size: tokens.get($_, "font-size-heading");
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 200ms;
-
-                // @include mq.mq('sm') { 
-                //     @include fluid-type.fluid-type(
-                //         headings.$h2-font-size, TODO: replace with computed value once we have it working
-                //         var(--c-slider-item-font-size-heading-computed),
-                //         6vw
-                //     );
-                // }
-
-                @include mq.mq('lg') { 
-                    font-size: var(--c-slider-item-font-size-heading-computed);
-                }
             }
 
-            .c-slider__item__body {
-                font-family: $c-slider-item-font-family;
-                font-weight: $c-slider-item-font-weight;
-                font-size: var_fonts.$font-size-base;
+            .#{$_}__item__body {
+                font-family: tokens.get($_, "font-family");
+                font-size: tokens.get($_, "font-size");
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 400ms;
-
-                @include mq.mq('sm') { 
-                    @include fluid-type.fluid-type(
-                        var_fonts.$font-size-base,
-                        $c-slider-item-font-size-base,
-                        3vw
-                    );
-                }
-
-                @include mq.mq('lg') { 
-                    font-size: $c-slider-item-font-size-base;
-                }
             }
         }
 
@@ -166,12 +138,12 @@
         }
 
         &--post {
-            width: 100%;     
+            width: 100%;
             // For now c-slider__item--post margin is not customizeable
             // margin-right: $c-slider-gap; 
             margin: 0;
 
-            .c-slider__item__container {
+            .#{$_}__item__container {
                 position: relative;
                 min-height: 100%;
                 padding: 0;
@@ -183,93 +155,97 @@
 ////////////////////////////////
 // Layouts
 ////////////////////////////////
-.c-slider__item--layout-bottom {
+.#{$_}__item--layout-bottom {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 0;
 
-    .c-slider__item__link {
+    .#{$_}__item__link {
         justify-content: flex-end;
     }
 
-    .c-slider__item__container {
-        padding: calc(var_default.$base * 3);
-        border-bottom-left-radius: $c-slider-border-radius;
-        border-bottom-right-radius: $c-slider-border-radius;
-        z-index: var_properties.$level-4;
-        color: $c-slider-color-overlay-contrasting;
-        background-color: $c-slider-color-overlay;
+    .#{$_}__item__container {
+        padding: tokens.use($_, "space", 3);
+        border-bottom-left-radius: tokens.use($_, "border-radius");
+        border-bottom-right-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
+        z-index: 4;
+        color: tokens.get($_, "color--overlay-contrast");
+        background-color: tokens.get($_, "color--overlay");
     }
 
-    @include mq.mq(map.get(var_default.$breakpoints-map, 'sm')) {
-        .c-slider__item__container {
+    @container slider-item (min-width: #{$container-width-md}) {
+        .#{$_}__item__container {
             display: grid;
             grid-template-columns: 2fr min-content;
             grid-template-rows: min-content;
         }
-        .c-slider__item__heading {
+
+        .#{$_}__item__heading {
             grid-area: 1 / 1 / 2 / 2;
         }
 
-        .c-slider__item__body {
+        .#{$_}__item__body {
             grid-area: 2 / 1 / 3 / 2;
         }
 
-        .c-slider__item__cta {
+        .#{$_}__item__cta {
             grid-area: 1 / 2 / 3 / 3;
-            margin: auto 0 auto calc(#{var_default.$base} * 2);
+            margin: auto 0 auto tokens.use($_, "space", 2);
             white-space: nowrap;
         }
     }
 }
 
-.c-slider__item--layout-center {
+.#{$_}__item--layout-center {
     display: flex;
-    color: var_colors.$color-secondary;
 
     .o-container {
         align-self: center;
     }
 
-    .c-slider__item__container {
-        padding: map.get(var_default.$spacers, '4');
-        border-radius: var_border-radius.$border-radius-lg;
+    .#{$_}__item__container {
+        padding: tokens.use($_, "space", 4);
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
         margin: auto;
-        width: calc(100% - (#{var_default.$base} * 10));
-        max-width: $c-slider-item-container-max-width;
-        max-height: calc(100% - (#{var_default.$base} * 10));
+        width: calc(100% - tokens.use($_, "base", 10));
+        max-width: tokens.get($_, "item-container-max-width");
+        max-height: calc(100% - tokens.use($_, "base", 10));
         align-self: center;
         overflow: auto;
-        z-index: var_properties.$level-4;
-        color: $c-slider-color-overlay-contrasting;
-        background-color: $c-slider-color-overlay;
+        z-index: 4;
+        color: tokens.get($_, "color--overlay-contrast");
+        background-color: tokens.get($_, "color--overlay");
+        width: 100%;
     }
 
-    .c-slider__item__heading {
-        @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
-            font-size: calc(#{var_default.$base} * 4);
+    .#{$_}__item__heading {
+        @container slider-item (min-width: #{$container-width-md}) {
+            font-size: tokens.use($_, "base", 4);
         }
     }
 
-    .c-slider__item__cta {
-        margin-top: calc(#{var_default.$base} * 3);
+    .#{$_}__item__cta {
+        margin-top: tokens.use($_, "space", 2);
     }
 }
 
 .c-testimonials {
-    .c-slider__item__container {
+    .#{$_}__item__container {
         display: grid;
     }
 }
 
 @keyframes hero-slider-slide-in {
     0% {
-      transform: translateY(calc(#{var_default.$base} * 4));
-      opacity: 0;
+        transform: translateY(tokens.use($_, "base", 4));
+        opacity: 0;
     }
+
     100% {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
 }

@@ -1,20 +1,31 @@
-@use "sass:map";
 @use "sass:meta";
 @use "sass:string";
-@use "../mixin/mq";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
-@use "../setting/component/_slider" as *;
+@use "../mixin/tokens";
+@use "./_segment" as segment;
 
-/*@import "@splidejs/splide/dist/css/splide.min.css";*/
+$_: "c-slider";
+$container-width-md: 640px;
+
+@include tokens.create($_, getComponentTokens($_), 
+    (
+        "gap": tokens.use($_, "base", 2),
+        "inset": tokens.use($_, "base", 7),
+        "font-family-heading": tokens.get($_, "font-family-heading"),
+        "font-size-heading": clamp(2rem, 10cqw, 3rem),
+        "font-family": tokens.get($_, "font-family-base"),
+        "font-size": tokens.get($_, "font-size-100"),
+        "item-container-max-width": tokens.use($_, "base", 118),
+        "color--overlay": rgba(from tokens.get($_, "color--alpha") r g b / 0.8), // Ensures text is background is dark enough for text to be readable.
+        "color--overlay-contrast": tokens.get($_, "color--alpha-contrast")
+    )
+);
 
 .c-slider {
-    --c-slider-max-width-computed: calc(var(--container-width-wide, #{var_default.$base} * 200) - calc(#{var_default.$base} * var(--c-slider-padding, 7)));
-    
+
     position: relative;
-    border-radius: var_border-radius.$border-radius-md;
+    border-radius: tokens.use($_, "border-radius", 1);
+    container-name: slider;
+    container-type: inline-size;
 
     .c-slider__container {
         padding-top: Min(100%, 80vh);
@@ -26,7 +37,8 @@
             display: flex;
             height: 100%;
 
-            .c-segment {
+            .#{segment.$c}.#{segment.$c}--card {
+                --c-segment--min-height-card: 560px;
                 width: 100%;
             }
         }
@@ -34,13 +46,12 @@
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: var_properties.$drop-shadow-2;
+            filter: tokens.use($_, "shadow", 1);
         }
     }
 
     .c-slider__arrows {
         width: 100%;
-        max-width: var(--c-slider-max-width-computed);
         position: absolute;
         top: 50%;
         left: 50%;
@@ -51,36 +62,35 @@
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{var_default.$base} * 4);
-            height: calc(#{var_default.$base} * 4);
+            width: tokens.use($_, "base", 4);
+            height: tokens.use($_, "base", 4);
 
-             &.c-slider__arrow--prev {
-                left: calc(var_default.$base * -1.5);
+            &.c-slider__arrow--prev {
+                left: tokens.use($_, "base", -1.5);
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: calc(var_default.$base * -1.5);
+                right: tokens.use($_, "base", -1.5);
                 transform: translateY(-50%);
             }
 
-            @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-                width: calc(#{var_default.$base} * 6);
-                height: calc(#{var_default.$base} * 6);
+            @container slider (min-width: #{$container-width-md}) {
+                width: tokens.use($_, "base", 6);
+                height: tokens.use($_, "base", 6);
 
                 &.c-slider__arrow--prev {
-                    left: calc(#{var_default.$base} * 2.5);
+                    left: tokens.use($_, "base", 2.5);
                 }
 
                 &.c-slider__arrow--next {
-                    right: calc(#{var_default.$base} * 2.5);
+                    right: tokens.use($_, "base", 2.5);
                 }
             }
         }
     }
 
     &__controls {
-        max-width: var(--c-slider-max-width-computed);
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -90,15 +100,15 @@
         left: 50%;
         transform: translateX(-50%);
         pointer-events: none;
-        
-        @include mq.mq(map.get(var_default.$breakpoints-map, "md")) {
-            width: calc(100% - calc(#{$c-slider-inset} + #{$c-slider-gap}));
+
+        @container slider (min-width: #{$container-width-md}) {
+            width: calc(100% - calc(tokens.get($_, "inset") + tokens.get($_, "gap")));
         }
     }
 
     &--hero {
         .c-slider__controls {
-            top: $c-slider-gap;
+            top: tokens.get($_, "gap");
         }
     }
 
@@ -107,14 +117,14 @@
         position: relative;
         display: none;
         cursor: pointer;
-        width: calc(#{var_default.$base} * 5);
-        height: calc(#{var_default.$base} * 5);
-        color: var_colors.$color-primary;
+        width: tokens.use($_, "base", 5);
+        height: tokens.use($_, "base", 5);
+        color: tokens.get($_, "color--primary");
         z-index: 1;
-        margin: calc(#{var_default.$base} * 1);
-        
-        @include mq.mq(map.get(var_default.$breakpoints-map, 'md')) {
-            margin: calc(#{var_default.$base} * 3);
+        margin: tokens.use($_, "base", 1);
+
+        @container slider (min-width: #{$container-width-md}) {
+            margin: tokens.use($_, "base", 3);
         }
 
         .c-slider__autoslide-play {
@@ -125,8 +135,8 @@
             content: "";
             display: block;
             background: #fff;
-            width: calc(#{var_default.$base} * 3);
-            height: calc(#{var_default.$base} * 3);
+            width: tokens.use($_, "base", 3);
+            height: tokens.use($_, "base", 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -147,16 +157,17 @@
         .c-slider__autoslide-play {
             display: block;
         }
+
         .c-slider__autoslide-pause {
             display: none;
         }
     }
 
     &.c-slider--has-stepper {
-        margin-bottom: calc(#{var_default.$base} * 6);
+        margin-bottom: tokens.use($_, "base", 6);
 
         .c-slider__steppers {
-            margin-bottom: calc(calc(#{var_default.$base} * 3) * -1);
+            margin-bottom: tokens.use($_, "base", -3);
             transform: translateY(-50%);
         }
     }
@@ -179,7 +190,7 @@
         &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
             aspect-ratio: string.unquote($ratio);
         }
-    } 
+    }
 
     // Posts as slider
     &.c-slider--post {
@@ -189,12 +200,12 @@
         }
 
         .c-slider__item__container {
-            color: $c-slider-color-overlay-dark;
+            color: tokens.get($_, "color--overlay");
         }
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: var_properties.$drop-shadow-2;
+                filter: tokens.use($_, "shadow", 1);
             }
         }
 
@@ -203,11 +214,11 @@
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
-            left: calc(var_default.$base * -1);
+            left: tokens.use($_, "base", -1);
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--next {
-            right: calc(var_default.$base * -1);
+            right: tokens.use($_, "base", -1);
         }
 
         .c-slider__item {
@@ -219,10 +230,10 @@
                 background-color: transparent;
             }
         }
-    
+
         .c-slider__container {
             padding-top: 0;
-            
+
             .c-slider__inner {
                 position: static;
             }
@@ -238,13 +249,13 @@
         }
     }
 }
-    
+
 // Stepper
 .c-slider__steppers {
     position: absolute;
     bottom: 0;
     display: flex;
-    gap: calc(#{var_default.$base} * 0.5);
+    gap: tokens.use($_, "base", 0.5);
     justify-content: center;
     width: 100%;
     list-style: none;
@@ -257,24 +268,24 @@
     }
 
     li:first-of-type .c-slider__dot {
-        border-top-left-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-left-radius: calc(#{var_default.$base} * 0.5);
+        border-top-left-radius: tokens.use($_, "base", 0.5);
+        border-bottom-left-radius: tokens.use($_, "base", 0.5);
     }
 
     li:last-of-type .c-slider__dot {
-        border-top-right-radius: calc(#{var_default.$base} * 0.5);
-        border-bottom-right-radius: calc(#{var_default.$base} * 0.5);
+        border-top-right-radius: tokens.use($_, "base", 0.5);
+        border-bottom-right-radius: tokens.use($_, "base", 0.5);
     }
 
     .c-slider__dot {
-        background: var_colors.$color-gray;
+        background: var(--color-light, #a3a3a3);
         cursor: default;
-        width: calc(#{var_default.$base} * 2);
-        height: calc(#{var_default.$base} * 0.5);
+        width: tokens.use($_, "base", 2);
+        height: tokens.use($_, "base", 0.5);
         border: none;
 
         &.c-slider__dot.is-active {
-            background: var_colors.$color-primary;
+            background: tokens.get($_, "color--primary");
         }
     }
 
@@ -287,5 +298,5 @@
     }
 }
 
-//Import is here as adding the import in main.scss does not work
 @include meta.load-css('slider_item');
+@include meta.load-css('@splidejs/splide/dist/css/splide.min.css');

@@ -1,7 +1,7 @@
 @slider([
     'showStepper' => true,
     'autoSlide' => false,
-    'arrowButtons' => array("color" => "secondary", "style" => "outlined")
+    'arrowButtons' => array("color" => "secondary", "style" => "filled")
 ])
     @slider__item([
         'image' => 'https://picsum.photos/1080/720',

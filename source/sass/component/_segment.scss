@@ -1,19 +1,20 @@
 @use "../mixin/tokens";
 
-$_: "c-segment";
+$c: "c-segment";
 $_breakpoint-md: 896px;
 
-@include tokens.create($_, getComponentTokens($_),
-    ("image-border-radius": tokens.use($_, "border-radius")));
+@include tokens.create($c, getComponentTokens($c),
+    ("image-border-radius": tokens.use($c, "border-radius"),
+        "min-height-card": 100%, ));
 
-.#{$_} {
+.#{$c} {
     display: flex;
     flex-wrap: wrap;
     position: relative;
     container-name: segment;
     container-type: inline-size;
 
-    .#{$_}__slot {
+    .#{$c}__slot {
         order: 3;
         justify-content: center;
         z-index: 2000;
@@ -23,33 +24,33 @@ $_breakpoint-md: 896px;
         }
     }
 
-    .#{$_}__text {
+    .#{$c}__text {
         position: relative;
     }
 
-    .#{$_}__title {
+    .#{$c}__title {
         a {
             text-decoration: none;
-            color: tokens.get($_, "color--surface-contrast");
+            color: tokens.get($c, "color--surface-contrast");
 
             &:hover,
             &:focus,
             &:active {
                 text-decoration: underline;
-                color: tokens.get($_, "color--primary");
+                color: tokens.get($c, "color--primary");
             }
         }
     }
 
-    .#{$_}__date {
+    .#{$c}__date {
         font-size: 0.875rem;
     }
 
-    .#{$_}__buttons {
-        margin-top: tokens.use($_, "base", 4);
+    .#{$c}__buttons {
+        margin-top: tokens.use($c, "base", 4);
     }
 
-    .#{$_}__image {
+    .#{$c}__image {
         display: block;
         width: 100%;
         height: 100%;
@@ -63,172 +64,149 @@ $_breakpoint-md: 896px;
         }
     }
 
-    .#{$_}__floating {
+    .#{$c}__floating {
         position: absolute;
-        right: tokens.use($_, "base", 1);
-        top: tokens.use($_, "base", 1);
+        right: tokens.use($c, "base", 1);
+        top: tokens.use($c, "base", 1);
         z-index: 3000;
         cursor: pointer;
     }
 
-    &.#{$_}--card {
+    &.#{$c}--card {
         flex-direction: column;
-        min-height: 100%;
+        min-height: tokens.get($c, "min-height-card");
         flex-wrap: unset;
 
-        .#{$_}__image {
+        .#{$c}__image {
             aspect-ratio: 16/9;
             height: unset;
-            border-radius: tokens.get($_, "image-border-radius");
-            corner-shape: tokens.get($_, "corner-shape");
+            border-radius: tokens.get($c, "image-border-radius");
+            corner-shape: tokens.get($c, "corner-shape");
 
             .c-image__image {
                 object-fit: cover;
             }
         }
 
-        .#{$_}__content {
-            margin: calc(#{tokens.use($_, "base", 4)} * -1) tokens.use($_, "base", 2) 0 tokens.use($_, "base", 2);
+        .#{$c}__content {
+            margin: calc(#{tokens.use($c, "base", 4)} * -1) tokens.use($c, "base", 2) 0 tokens.use($c, "base", 2);
             flex-grow: 1;
             display: flex;
             flex-direction: column;
 
-            .#{$_}__content-card {
+            .#{$c}__content-card {
                 flex-grow: 1;
             }
         }
 
-        &.#{$_}--no-image .#{$_}__content {
+        &.#{$c}--no-image .#{$c}__content {
             margin-top: 0;
         }
 
-        .#{$_}__content-card {
-            padding: tokens.use($_, "base", 3) tokens.use($_, "base", 5);
+        .#{$c}__content-card {
+            padding: tokens.use($c, "base", 3) tokens.use($c, "base", 5);
             height: 100%;
         }
 
-        &.#{$_}--height-full-screen {
+        &.#{$c}--height-full-screen {
             flex-direction: row;
             align-items: center;
 
-            .#{$_}__image {
+            .#{$c}__image {
                 height: 100%;
                 position: absolute;
             }
         }
 
-        .#{$_}__content-card.c-card.c-card--flat {
-            background-color: tokens.get($_, "color--surface");
-        }
-    }
-
-    &.#{$_}--slider {
-        &.#{$_}--card {
-            min-height: unset;
+        .#{$c}__content-card.c-card.c-card--flat {
+            background-color: tokens.get($c, "color--surface");
         }
     }
 
     /**
     * Responsive
     */
-    &.#{$_}--size-sm {
-        &.#{$_}--card {
-            .#{$_}__content {
-                width: min(60%, tokens.use($_, "base", 60));
-                min-height: tokens.use($_, "base", 40);
-                margin-top: calc(#{tokens.use($_, "base", 35)} * -1);
+    &.#{$c}--size-sm {
+        &.#{$c}--card {
+            .#{$c}__content {
+                width: min(60%, tokens.use($c, "base", 60));
+                min-height: tokens.use($c, "base", 40);
+                margin-top: calc(#{tokens.use($c, "base", 35)} * -1);
             }
 
-            &.#{$_}--no-image .#{$_}__content {
+            &.#{$c}--no-image .#{$c}__content {
                 margin-top: 0;
             }
 
-            &.#{$_}--height-full-screen {
-                .#{$_}__content {
+            &.#{$c}--height-full-screen {
+                .#{$c}__content {
                     margin-top: auto;
                     margin-bottom: auto;
                 }
             }
 
-            &.#{$_}--reverse {
-                .#{$_}__content {
+            &.#{$c}--reverse {
+                .#{$c}__content {
                     margin-left: auto;
                 }
             }
 
-            .#{$_}__image {
+            .#{$c}__image {
                 aspect-ratio: 3/2;
             }
         }
     }
 
-    &.#{$_}--size-md {
-        &.#{$_}--card {
+    &.#{$c}--size-md {
+        &.#{$c}--card {
             flex-direction: row;
 
-            .#{$_}__image {
+            .#{$c}__image {
                 position: absolute;
-                width: calc(100% - #{tokens.use($_, "base", 30)});
+                width: calc(100% - #{tokens.use($c, "base", 30)});
                 padding: 0;
                 height: 100%;
                 right: 0;
 
-                .#{$_}__image {
+                .#{$c}__image {
                     width: 100%;
                 }
             }
 
-            .#{$_}__content {
-                margin: tokens.use($_, "base", 2) 0;
-                width: tokens.use($_, "base", 60);
+            .#{$c}__content {
+                margin: tokens.use($c, "base", 2) 0;
+                width: tokens.use($c, "base", 60);
                 flex-grow: unset;
                 height: unset;
             }
 
-            .#{$_}__content-card {
-                padding: tokens.use($_, "base", 5);
+            .#{$c}__content-card {
+                padding: tokens.use($c, "base", 5);
 
-                .#{$_}__title {
-                    font-size: tokens.get($_, "font-size-600");
+                .#{$c}__title {
+                    font-size: tokens.get($c, "font-size-600");
                 }
             }
 
-            .#{$_}__floating {
-                top: tokens.use($_, "base", 3);
+            .#{$c}__floating {
+                top: tokens.use($c, "base", 3);
             }
 
-            &.#{$_}--reverse {
+            &.#{$c}--reverse {
                 flex-direction: row-reverse;
 
-                .#{$_}__image {
+                .#{$c}__image {
                     left: 0;
                     right: unset;
-                }
-            }
-
-            &.#{$_}--slider {
-                &.#{$_}--size-md {
-                    min-height: tokens.use($_, "base", 70);
-                    align-items: center;
-
-                    .#{$_}__image {
-                        width: 100%;
-                    }
-
-                    &.#{$_}--reverse {
-                        .#{$_}__content {
-                            margin-right: min(15%, tokens.use($_, "base", 12));
-                        }
-                    }
                 }
             }
         }
     }
 
-    &.#{$_}--no-image.#{$_}--size-sm,
-    &.#{$_}--no-image.#{$_}--size-md {
-        &.#{$_}--card {
-            .#{$_}__content {
+    &.#{$c}--no-image.#{$c}--size-sm,
+    &.#{$c}--no-image.#{$c}--size-md {
+        &.#{$c}--card {
+            .#{$c}__content {
                 width: 100%;
                 min-height: initial;
             }
@@ -239,7 +217,7 @@ $_breakpoint-md: 896px;
 /**
 * Modifiers
 */
-.#{$_}.#{$_}--stretch {
+.#{$c}.#{$c}--stretch {
     /* Bleed outside container  left&right */
     border-radius: 0;
     left: 50%;
@@ -248,68 +226,68 @@ $_breakpoint-md: 896px;
     width: calc(100vw - var(--scrollbar, 15px));
 }
 
-.#{$_}.#{$_}--svg-background {
-    .#{$_}__image {
-        background-size: clamp(tokens.use($_, "base", 3), 50%, tokens.use($_, "base", 8));
+.#{$c}.#{$c}--svg-background {
+    .#{$c}__image {
+        background-size: clamp(tokens.use($c, "base", 3), 50%, tokens.use($c, "base", 8));
         background-repeat: no-repeat;
-        background-color: tokens.get($_, "color--secondary");
+        background-color: tokens.get($c, "color--secondary");
     }
 }
 
-.#{$_}.#{$_}--text {
+.#{$c}.#{$c}--text {
 
-    &-light .#{$_}__title,
-    &-light .#{$_}__text {
+    &-light .#{$c}__title,
+    &-light .#{$c}__text {
         color: white;
         z-index: 2000;
     }
 
-    &-dark .#{$_}__title,
-    &-dark .#{$_}__text,
-    &-dark .#{$_}__meta,
-    &-dark .#{$_}__date,
-    &-dark .#{$_}__tags {
+    &-dark .#{$c}__title,
+    &-dark .#{$c}__text,
+    &-dark .#{$c}__meta,
+    &-dark .#{$c}__date,
+    &-dark .#{$c}__tags {
         color: black;
         z-index: 2000;
     }
 }
 
-.#{$_}.#{$_}--text {
-    &-large .#{$_}__content {
+.#{$c}.#{$c}--text {
+    &-large .#{$c}__content {
         @container segment (min-width: #{$_breakpoint-md}) {
             font-size: 1.2em;
         }
     }
 }
 
-.#{$_}.#{$_}--height {
+.#{$c}.#{$c}--height {
     &-full-screen {
         min-height: 100vh;
 
-        .#{$_}__content {
+        .#{$c}__content {
             margin-top: auto;
             margin-bottom: auto;
         }
     }
 }
 
-.#{$_}.#{$_}--has-overlay .#{$_}__image::before {
+.#{$c}.#{$c}--has-overlay .#{$c}__image::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: tokens.get($_, "color--alpha");
+    background-color: tokens.get($c, "color--alpha");
 }
 
-.#{$_}.#{$_}--has-overlay .#{$_}__title,
-.#{$_}.#{$_}--has-overlay .#{$_}__text {
-    color: tokens.get($_, "color--alpha-contrast");
+.#{$c}.#{$c}--has-overlay .#{$c}__title,
+.#{$c}.#{$c}--has-overlay .#{$c}__text {
+    color: tokens.get($c, "color--alpha-contrast");
 }
 
-.#{$_}.#{$_}--highlight {
+.#{$c}.#{$c}--highlight {
 
     @container segment (max-width: #{$_breakpoint-md - 1px}) {
 
-        .#{$_}__image {
+        .#{$c}__image {
             z-index: 2;
         }
 
@@ -318,7 +296,7 @@ $_breakpoint-md: 896px;
             position: absolute;
             top: 0;
             left: 0;
-            border-left: tokens.use($_, "base", 1) solid tokens.get($_, "color--primary");
+            border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
             height: 100%;
             z-index: 1;
         }
@@ -331,11 +309,11 @@ $_breakpoint-md: 896px;
             position: absolute;
             top: 0;
             left: 50%;
-            border-left: tokens.use($_, "base", 1) solid tokens.get($_, "color--primary");
+            border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
             height: 100%;
         }
 
-        &.#{$_}--reverse:after {
+        &.#{$c}--reverse:after {
             left: 0;
         }
     }
@@ -344,91 +322,91 @@ $_breakpoint-md: 896px;
 /**
 * Layout split, featured
 */
-.#{$_}.#{$_}--split,
-.#{$_}.#{$_}--featured {
+.#{$c}.#{$c}--split,
+.#{$c}.#{$c}--featured {
     flex-direction: row;
 
-    .#{$_}__padder {
-        max-width: tokens.use($_, "base", 60);
+    .#{$c}__padder {
+        max-width: tokens.use($c, "base", 60);
         margin: auto;
-        padding-top: tokens.use($_, "base", 4);
-        padding-bottom: tokens.use($_, "base", 4);
+        padding-top: tokens.use($c, "base", 4);
+        padding-bottom: tokens.use($c, "base", 4);
     }
 
-    .#{$_}__image {
+    .#{$c}__image {
         height: auto;
         aspect-ratio: 16/9;
     }
 
-    .#{$_}__slot {
-        margin-top: tokens.use($_, "base", 4);
+    .#{$c}__slot {
+        margin-top: tokens.use($c, "base", 4);
 
         @container segment (min-width: #{$_breakpoint-md}) {
-            margin-top: tokens.use($_, "base", 6);
+            margin-top: tokens.use($c, "base", 6);
         }
     }
 
-    &.#{$_}--reverse {
+    &.#{$c}--reverse {
         flex-direction: row-reverse;
     }
 }
 
-.#{$_}.#{$_}--split {
+.#{$c}.#{$c}--split {
     align-items: center;
 
-    .#{$_}__image {
+    .#{$c}__image {
         aspect-ratio: 16 / 9;
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
 
-        .#{$_}__image,
-        .#{$_}__content {
+        .#{$c}__image,
+        .#{$c}__content {
             max-width: 50%;
         }
     }
 }
 
-.#{$_}.#{$_}--featured {
+.#{$c}.#{$c}--featured {
 
-    .#{$_}__image {
+    .#{$c}__image {
         background-size: 0;
     }
 
-    .#{$_}__image .c-image__image {
+    .#{$c}__image .c-image__image {
         object-fit: contain;
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
-        .#{$_}__image .c-image__image {
+        .#{$c}__image .c-image__image {
             padding: 7% 3%;
         }
 
-        .#{$_}__image {
+        .#{$c}__image {
             max-width: 70%;
         }
 
-        .#{$_}__content {
+        .#{$c}__content {
             max-width: 30%;
         }
     }
 }
 
-.#{$_}.#{$_}--split.#{$_}--alignment,
-.#{$_}.#{$_}--featured.#{$_}--alignment {
+.#{$c}.#{$c}--split.#{$c}--alignment,
+.#{$c}.#{$c}--featured.#{$c}--alignment {
 
-    &-top .#{$_}__content,
-    &-top .#{$_}__slot {
+    &-top .#{$c}__content,
+    &-top .#{$c}__slot {
         align-self: start;
     }
 
-    &-center .#{$_}__content,
-    &-center .#{$_}__slot {
+    &-center .#{$c}__content,
+    &-center .#{$c}__slot {
         align-self: center;
     }
 
-    &-bottom .#{$_}__content,
-    &-bottom .#{$_}__slot {
+    &-bottom .#{$c}__content,
+    &-bottom .#{$c}__slot {
         align-self: end;
     }
 }
@@ -436,39 +414,39 @@ $_breakpoint-md: 896px;
 /**
 * Layout full width
 */
-.#{$_}.#{$_}--full-width {
+.#{$c}.#{$c}--full-width {
     flex-direction: column;
-    gap: tokens.use($_, "base", 8);
-    padding: tokens.use($_, "base", 8) 0;
+    gap: tokens.use($c, "base", 8);
+    padding: tokens.use($c, "base", 8) 0;
 
-    .#{$_}__image {
+    .#{$c}__image {
         position: absolute;
         inset: 0;
     }
 
-    &.#{$_}--gap-xs {
-        gap: tokens.use($_, "base", 2);
+    &.#{$c}--gap-xs {
+        gap: tokens.use($c, "base", 2);
     }
 
-    &.#{$_}--gap-sm {
-        gap: tokens.use($_, "base", 4);
+    &.#{$c}--gap-sm {
+        gap: tokens.use($c, "base", 4);
     }
 
-    &.#{$_}--gap-md {
-        gap: tokens.use($_, "base", 6);
+    &.#{$c}--gap-md {
+        gap: tokens.use($c, "base", 6);
     }
 }
 
-.#{$_}.#{$_}--full-width.#{$_}--alignment {
-    &-left .#{$_}__content {
+.#{$c}.#{$c}--full-width.#{$c}--alignment {
+    &-left .#{$c}__content {
         text-align: left;
     }
 
-    &-center .#{$_}__content {
+    &-center .#{$c}__content {
         text-align: center;
     }
 
-    &-right .#{$_}__content {
+    &-right .#{$c}__content {
         text-align: right;
     }
 }
