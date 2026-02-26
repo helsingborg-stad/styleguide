@@ -23,7 +23,7 @@
         'panel' => [
             'isPanel' => true,
             'animation' => 'slide-up',
-            'padding' => 0,
+            'padding' => 2,
         ],
     ];
 @endphp
