@@ -41,7 +41,9 @@ class NoSassVariablesTest extends TestCase
             $this->markTestSkipped('No component SCSS files found in: ' . self::getComponentPath());
         }
 
-        $validator = new NoSassVariablesValidator();
+        $validator = new NoSassVariablesValidator([
+            '$_',
+        ]);
         $result    = $validator->validate($filePath);
 
         $this->assertTrue(
@@ -49,6 +51,30 @@ class NoSassVariablesTest extends TestCase
             sprintf(
                 "Sass variables found in %s:\n%s",
                 basename($filePath),
+                $result->format($filePath)
+            )
+        );
+    }
+
+    public function testAllowsComponentNameVariableInTokenCalls(): void
+    {
+        $filePath = tempnam(sys_get_temp_dir(), 'sass_');
+        $this->assertNotFalse($filePath);
+
+        $content = 'font-family: tokens.get($_, "h6-font-family");' . PHP_EOL;
+        file_put_contents($filePath, $content);
+
+        $validator = new NoSassVariablesValidator([
+            '$_',
+        ]);
+        $result = $validator->validate($filePath);
+
+        @unlink($filePath);
+
+        $this->assertTrue(
+            $result->isValid(),
+            sprintf(
+                "Expected \$_ to be allowed in tokens.get call:\n%s",
                 $result->format($filePath)
             )
         );
