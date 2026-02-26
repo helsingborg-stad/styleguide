@@ -45,6 +45,32 @@ The style guide is intended for websites within Helsingborgs stad / Municipio We
   npm run watch
   ```
 
+## Deployment
+
+The GitHub workflow `.github/workflows/build-and-deploy.yml` supports deployments to different stages using GitHub Environments.
+
+### Configure deploy stages
+
+1. In GitHub, go to **Settings → Environments** for this repository.
+2. Create environments for the stages you want to deploy to (for example `stage` and `production`).
+3. Add environment **Secrets** for deploy values:
+  - `BACKUP_PATH`
+  - `DEPLOY_PATH`
+  - `DEPLOY_HOST`
+  - `DEPLOY_USER`
+  - `DEPLOY_KEY`
+  - `DEPLOY_PORT`
+4. Set environment-specific secret values (`stage` and `production`) so each environment can use separate SSH host/user/port and deploy paths.
+
+### Run deployments
+
+- **Automatic deploys by branch:**
+  - push to `stage` deploys to `stage`
+  - push to `master` deploys to `production`
+- **Stage or production (manual):** run the workflow **Build and deploy styleguide** from the Actions tab and select `deploy_stage` (`stage` or `production`).
+
+Deploy stage controls which GitHub Environment secrets are used (`stage` branch -> `stage`, `master` branch -> `production`, or selected `deploy_stage` for manual runs), so stage and production can use separate SSH configs and deploy paths.
+
 ## Design Tokens System
 
 This project uses design tokens as the single source of truth for visual values (spacing, radius, typography, color, shadow). The token system is built to keep component styles consistent while still allowing controlled overrides in consuming implementations.

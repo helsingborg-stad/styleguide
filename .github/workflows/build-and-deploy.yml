@@ -4,9 +4,21 @@ on:
   push:
     branches:
     - "master"
+    - "stage"
+  workflow_dispatch:
+    inputs:
+      deploy_stage:
+        description: "Deployment stage/environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - stage
+          - production
 
 jobs:
   build:
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_stage || (github.ref_name == 'stage' && 'stage' || 'production') }}
 
     runs-on: ubuntu-latest
 
