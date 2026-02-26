@@ -52,14 +52,21 @@ $_: "c-modal--gallery";
       max-width: 100%;
       filter: tokens.use($_, "shadow", 3);
       opacity: 1;
-      transition: opacity 180ms ease;
+      visibility: visible;
+      transition: opacity 180ms ease, visibility 0s linear 180ms;
 
       &.c-image__image--is-transitioning {
         will-change: opacity;
       }
 
+      &.c-image__image--is-visible {
+        visibility: visible;
+        transition-delay: 0s, 0s;
+      }
+
       &:not(.c-image__image--is-visible) {
         opacity: 0;
+        visibility: hidden;
       }
     }
 

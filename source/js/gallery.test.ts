@@ -131,4 +131,82 @@ describe('Gallery', () => {
         })
     })
 
+    describe('transitionImage', () => {
+
+        it('keeps latest image when previous preload resolves late', () => {
+            // Arrange
+            jest.useFakeTimers()
+
+            const originalWindowImage = window.Image
+            const originalRequestAnimationFrame = window.requestAnimationFrame
+            const preloadInstances: Array<{ triggerLoad: () => void }> = []
+
+            class MockWindowImage {
+                loadListener: null | (() => void)
+                errorListener: null | (() => void)
+
+                constructor() {
+                    this.loadListener = null
+                    this.errorListener = null
+                }
+
+                addEventListener(eventName: string, callback: () => void) {
+                    if (eventName === 'load') {
+                        this.loadListener = callback
+                    }
+
+                    if (eventName === 'error') {
+                        this.errorListener = callback
+                    }
+                }
+
+                set src(_value: string) {
+                    preloadInstances.push({
+                        triggerLoad: () => {
+                            if (this.loadListener) {
+                                this.loadListener()
+                            }
+                        }
+                    })
+                }
+            }
+
+            window.Image = MockWindowImage as unknown as typeof window.Image
+            window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+                callback(0)
+                return 1
+            }) as typeof window.requestAnimationFrame
+
+            const gallery = new Gallery
+            jest.spyOn(gallery, 'getImageTransitionDuration').mockReturnValue(0)
+
+            const imageElement = document.createElement('img')
+            imageElement.className = 'c-image__image c-image__image--is-visible'
+            imageElement.setAttribute('src', 'imageZero')
+
+            const firstImage = { image: 'imageOne', imageStep: '0', imageCaption: '' }
+            const secondImage = { image: 'imageTwo', imageStep: '1', imageCaption: '' }
+
+            // Act
+            gallery.transitionImage(imageElement, firstImage)
+            jest.runOnlyPendingTimers()
+
+            gallery.transitionImage(imageElement, secondImage)
+            jest.runOnlyPendingTimers()
+
+            preloadInstances[1].triggerLoad()
+            preloadInstances[0].triggerLoad()
+
+            // Assert
+            expect(imageElement.getAttribute('src')).toContain('imageTwo')
+            expect(imageElement.getAttribute('data-step')).toEqual('1')
+            expect(imageElement.classList.contains('c-image__image--is-visible')).toEqual(true)
+
+            // Cleanup
+            window.Image = originalWindowImage
+            window.requestAnimationFrame = originalRequestAnimationFrame
+            jest.useRealTimers()
+        })
+    })
+
 })

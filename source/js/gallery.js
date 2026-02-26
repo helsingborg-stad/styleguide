@@ -17,6 +17,7 @@ class Gallery {
         this.isEnabled = false;
         this.imageTransitionTimeoutId = null;
         this.imageTransitionAnimationFrameId = null;
+        this.imageTransitionId = 0;
 
         this.Image = new Image();
 
@@ -189,6 +190,9 @@ class Gallery {
             return;
         }
 
+        this.imageTransitionId += 1;
+        const currentTransitionId = this.imageTransitionId;
+
         if (this.imageTransitionTimeoutId) {
             window.clearTimeout(this.imageTransitionTimeoutId);
             this.imageTransitionTimeoutId = null;
@@ -205,22 +209,62 @@ class Gallery {
         imageElement.classList.remove('c-image__image--is-visible');
 
         this.imageTransitionTimeoutId = window.setTimeout(() => {
-            imageElement.src = imgSrc.image;
-            imageElement.setAttribute('data-step', imgSrc.imageStep);
-            imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
-
-            if (typeof onImageChanged === 'function') {
-                onImageChanged();
+            if (currentTransitionId !== this.imageTransitionId) {
+                return;
             }
 
-            this.imageTransitionAnimationFrameId = window.requestAnimationFrame(() => {
-                imageElement.classList.add('c-image__image--is-visible');
-            });
+            const preloadImage = new window.Image();
 
-            this.imageTransitionTimeoutId = window.setTimeout(() => {
-                imageElement.classList.remove('c-image__image--is-transitioning');
-                this.imageTransitionTimeoutId = null;
-            }, transitionDuration);
+            const applyImage = () => {
+                if (currentTransitionId !== this.imageTransitionId) {
+                    return;
+                }
+
+                imageElement.src = imgSrc.image;
+                imageElement.setAttribute('data-step', imgSrc.imageStep);
+                imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
+
+                if (typeof onImageChanged === 'function') {
+                    onImageChanged();
+                }
+
+                const revealImage = () => {
+                    this.imageTransitionAnimationFrameId = window.requestAnimationFrame(() => {
+                        if (currentTransitionId !== this.imageTransitionId) {
+                            return;
+                        }
+
+                        imageElement.classList.add('c-image__image--is-visible');
+                    });
+
+                    this.imageTransitionTimeoutId = window.setTimeout(() => {
+                        if (currentTransitionId !== this.imageTransitionId) {
+                            return;
+                        }
+
+                        imageElement.classList.remove('c-image__image--is-transitioning');
+                        this.imageTransitionTimeoutId = null;
+                    }, transitionDuration);
+                };
+
+                if (typeof imageElement.decode === 'function') {
+                    imageElement.decode().catch(() => undefined).finally(() => {
+                        if (currentTransitionId !== this.imageTransitionId) {
+                            return;
+                        }
+
+                        revealImage();
+                    });
+
+                    return;
+                }
+
+                revealImage();
+            };
+
+            preloadImage.addEventListener('load', applyImage, {once: true});
+            preloadImage.addEventListener('error', applyImage, {once: true});
+            preloadImage.src = imgSrc.image;
         }, transitionDuration);
     }
 
