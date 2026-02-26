@@ -1,65 +1,64 @@
-@use "sass:map";
-@use "../mixin/shadow";
-@use "../setting/var_border-radius";
-@use "../setting/var_colors";
-@use "../setting/var_default";
-@use "../setting/var_properties";
+@use "../mixin/tokens";
 
 // ***************************************************************
 // *** Floating Action Button (Popout panel)
 // ***************************************************************
+
+$_: "c-fab";
+
+@include tokens.create($_, getComponentTokens($_));
 
 //Values for the loop
 $xAxis: (left, right);
 $yAxis: (top, bottom);
 
 //Standard styling
-.c-fab {
+.#{$_} {
     position: fixed;
-    z-index: var_properties.$level-6;
-    bottom: map.get(var_default.$spacers, "2"); 
-    right: map.get(var_default.$spacers, "2"); 
+    z-index: 6000;
+    bottom: tokens.use($_, "base", 2);
+    right: tokens.use($_, "base", 2);
     text-align: right;
-    z-index: var_properties.$level-8;
+    z-index: 8000;
 }
 
-.c-fab .c-fab__panel {
-    @extend .c-card !optional; 
-    border-radius: var_border-radius.$border-radius-md;
+.#{$_} .#{$_}__panel {
+    @extend .c-card !optional;
+    border-radius: tokens.get($_, "border-radius");
     display: none;
-    margin-bottom: map.get(var_default.$spacers, "2");
-    min-width: 200px; 
+    margin-bottom: tokens.use($_, "base", 2);
+    min-width: 200px;
     max-width: 250px;
     text-align: left;
-    background: var_colors.$color-default; 
-    padding: map.get(var_default.$spacers, "2");
+    background: tokens.get($_, "color--background");
+    padding: tokens.use($_, "base", 2);
 }
 
-.c-fab .c-fab__panel--open {
+.#{$_} .#{$_}__panel--open {
     display: block;
     animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.c-fab__panel .c-fab__heading {
+.#{$_}__panel .#{$_}__heading {
     text-align: center;
-    margin-bottom: map.get(var_default.$spacers, "2");
-    padding: map.get(var_default.$spacers, "2");
+    margin-bottom: tokens.use($_, "base", 2);
+    padding: tokens.use($_, "base", 2);
     padding-top: 0;
     margin-top: 0;
 }
 
-.c-fab .c-fab__panel {
+.#{$_} .#{$_}__panel {
     .c-nav.c-nav--tiles .c-nav__link {
-        @include shadow.shadow(0.5);
+        filter: tokens.use($_, "shadow", 0.5);
     }
 }
 
 //Loop to generate the different positions and spacings
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
-        .c-fab__#{$sideY}-#{$sideX} {
-            #{$sideX}: map.get(var_default.$spacers, "2");
-            #{$sideY}: map.get(var_default.$spacers, "2");
+        .#{$_}__#{$sideY}-#{$sideX} {
+            #{$sideX}: tokens.use($_, "base", 2);
+            #{$sideY}: tokens.use($_, "base", 2);
         }
     }
 }
