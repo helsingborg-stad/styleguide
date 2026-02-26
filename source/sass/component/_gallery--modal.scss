@@ -12,6 +12,7 @@ $_: "c-modal--gallery";
   max-width: none;
   max-height: none;
   border-radius: 0;
+  padding: 0;
 
   &::backdrop {
     background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
@@ -20,16 +21,17 @@ $_: "c-modal--gallery";
   .c-modal__header {
     inset: 0 0 auto;
     z-index: 4;
-    padding: tokens.use($_, "base", 0.75) tokens.use($_, "base", 2) 0;
+    padding: tokens.use($_, "space", 0.75) tokens.use($_, "space", 2) 0;
     pointer-events: none;
   }
 
   .c-modal__content {
     position: relative;
     isolation: isolate;
-    padding-inline: tokens.use($_, "base", 2);
+    padding-inline: tokens.use($_, "space", 2);
     max-width: none;
     overflow-y: unset;
+    display: flex;
 
     .c-image,
     .c-image .c-image__image {
@@ -38,6 +40,7 @@ $_: "c-modal--gallery";
     }
 
     .c-image {
+      margin: auto;
       width: fit-content;
       max-width: min(75rem, calc(100vw - (tokens.use($_, "base", 2) * 2)));
       margin-inline: auto;
