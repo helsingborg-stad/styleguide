@@ -178,6 +178,28 @@
         @include('layout.footer')
     </div>
 
+    @fab([
+        'position' => 'bottom-right',
+        'heading' => 'Theme presets',
+        'button' => [
+            'icon' => 'format_paint',
+            'size' => 'md',
+            'color' => 'secondary',
+            'shape' => 'pill',
+            'classList' => ['u-margin--0'],
+            'ariaLabel' => 'Open theme preset picker'
+        ],
+        'attributeList' => [
+            'data-theme-presets-fab' => 'true'
+        ]
+    ])
+        <div class="d-theme-presets__list" data-theme-presets-list>
+            @typography(['element' => 'p', 'variant' => 'body'])
+                Loading themes...
+            @endtypography
+        </div>
+    @endfab
+
     <!-- Styleguide - js -->
     @if($assets['scripts'])
         @foreach($assets['scripts'] as $script)
