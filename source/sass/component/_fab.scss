@@ -6,7 +6,7 @@
 
 $_: "c-fab";
 
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border")));
 
 //Values for the loop
 $xAxis: (
@@ -30,35 +30,28 @@ $yAxis: (
 }
 
 .#{$_} .#{$_}__panel {
-    border-radius: tokens.get($_, "border-radius");
+    border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
+    filter: tokens.use($_, "shadow", 3);
+    border: tokens.get($_, "border");
     filter: tokens.use($_, "shadow", 3);
     background: tokens.get($_, "color--surface");
     display: none;
     margin-bottom: tokens.use($_, "space", 2);
-    min-width: tokens.use($_, "space", 18);
-    max-width: tokens.use($_, "space", 25);
+    min-width: tokens.use($_, "space", 30);
+    max-width: tokens.use($_, "space", 45);
     text-align: left;
     padding: tokens.use($_, "space", 2);
+    gap: tokens.use($_, "space", 2);
 }
 
 .#{$_} .#{$_}__panel--open {
-    display: block;
+    display: grid;
     animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .#{$_}__panel .#{$_}__heading {
-    text-align: center;
-    margin-bottom: tokens.use($_, "space", 2);
-    padding: tokens.use($_, "space", 2);
-    padding-top: 0;
-    margin-top: 0;
-}
-
-.#{$_} .#{$_}__panel {
-    .c-nav.c-nav--tiles .c-nav__link {
-        filter: tokens.use($_, "shadow", 0.5);
-    }
+    margin: 0;
 }
 
 //Loop to generate the different positions and spacings
