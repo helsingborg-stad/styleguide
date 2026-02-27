@@ -28,15 +28,13 @@
                     @endtypography
                 @endif
 
-                @include($example['component'])
-
                 <div class="d-code__toggle c-code__toggle">
                     @button([
                         'text' => 'HTML',
                         'color' => 'default',
-                        'type' => 'basic',
-                        'size' => 'md',
-                        'icon' => 'code',
+                        'style' => 'basic',
+                        'size' => 'sm',
+                        'classList' => ['u-margin--0'],
                         'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
                     ])
@@ -44,14 +42,16 @@
                     @button([
                         'text' => 'Blade',
                         'color' => 'default',
-                        'type' => 'basic',
-                        'size' => 'md',
-                        'icon' => 'code',
+                        'style' => 'basic',
+                        'size' => 'sm',
+                        'classList' => ['u-margin--0'],
                         'toggle' => true,
                         'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
                     ])
                     @endbutton
                 </div>
+
+                @include($example['component'])
 
                 @code(['language' => 'html', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                     {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}

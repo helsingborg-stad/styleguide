@@ -29,22 +29,15 @@
 
 .d-code__toggle {
     width: 100%;
-    background-color: colors.$color-code-button;
-    overflow: hidden;
-    border: none;
-    position: relative;
-    z-index: properties.$level-1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: calc(#{defaults.$base} * 1);
+    margin: 0 0 calc(#{defaults.$base} * 2) 0;
 
     .c-button,
     .c-button:hover {
-        background-color: colors.$color-code-button;
         filter: properties.$drop-shadow-0;
-        border-radius: 0;
-
-        .c-button__label .c-button__label-text,
-        .c-button__label .c-button__label-icon {
-            color: colors.$color-white;
-        }
     }
 }
 
