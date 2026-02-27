@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Segment",
+"slug": "segment",
+"tokens": ["base","border-radius","color--primary","color--secondary","color--surface","font-size-600","color--alpha","corner-shape"]
+}

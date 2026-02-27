@@ -1,0 +1,245 @@
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/tokens";
+
+$_: "c-option";
+
+@include tokens.create($_, getComponentTokens($_), ("font-size-btn-sm": "0.775rem",
+        "font-size-btn-md": tokens.get($_, "font-size-100"),
+        "color--disabled": tokens.get($_, "color--surface-muted")));
+
+.#{$_} {
+
+    &.#{$_}__checkbox {
+
+        :focus-visible+label {
+            @include focus.focus();
+        }
+
+        width: 100%;
+
+        .#{$_}__checkbox--label-box {
+            align-self: center;
+            position: relative;
+            height: 18px;
+            width: 18px;
+            border: 2px solid tokens.get($_, "color--primary");
+            background-color: tokens.get($_, "color--surface");
+            border-radius: tokens.use($_, "border-radius", 0.25);
+            cursor: pointer;
+        }
+
+        .#{$_}__checkbox--hidden-box:checked:disabled+.#{$_}__checkbox--label,
+        &.is-disabled .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
+
+            .#{$_}__checkbox--label-box,
+            .#{$_}__radio--label-box {
+                background: tokens.get($_, "color--disabled");
+                border-color: tokens.get($_, "color--disabled");
+            }
+        }
+
+        .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
+
+            .#{$_}__checkbox--label-text {
+                font-style: normal;
+                font-weight: var(--font-weight-normal, 400);
+                color: tokens.get($_, "color--surface-contrast");
+            }
+
+            .#{$_}__checkbox--label-box {
+                background: tokens.get($_, "color--primary");
+
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: -2px;
+                    left: 4px;
+                    width: 5px;
+                    height: 11px;
+                    border: solid tokens.get($_, "color--surface");
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
+            }
+
+        }
+
+        &.#{$_}--sm {
+            .#{$_}__checkbox--label-text {
+                font-size: tokens.get($_, "font-size-btn-sm");
+                line-height: tokens.get($_, "font-size-btn-sm");
+            }
+
+            .#{$_}__checkbox--label-box {
+                width: 16px;
+                height: 16px;
+            }
+
+            .#{$_}__checkbox--hidden-box:checked+.#{$_}__checkbox--label {
+                .#{$_}__checkbox--label-box:after {
+                    top: -1px;
+                    width: 3px;
+                    height: 9px;
+                }
+            }
+        }
+
+    }
+
+    &__radio {
+
+        :focus-visible+label {
+            @include focus.focus();
+        }
+
+        .#{$_}__radio--label-box {
+            align-self: center;
+            position: relative;
+            height: 20px;
+            width: 20px;
+            border: 2px solid tokens.get($_, "color--primary");
+            background-color: tokens.get($_, "color--surface");
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+
+        .#{$_}__radio--hidden-box:checked+.#{$_}__radio--label {
+
+            .#{$_}__radio--label-text {
+                font-style: normal;
+                font-weight: var(--font-weight-medium, 500);
+                color: tokens.get($_, "color--surface-contrast");
+            }
+
+            .#{$_}__radio--label-box {
+
+                &:after {
+                    animation: pop-in 150ms;
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 3px;
+                    left: 3px;
+                    width: 10px;
+                    height: 10px;
+                    background-color: tokens.get($_, "color--primary");
+                    border-radius: 50%;
+                }
+            }
+
+            .#{$_}__radio--label-text {
+
+                &:after {
+                    width: 85%;
+                }
+            }
+        }
+    }
+
+    .#{$_}__checkbox,
+    .#{$_}__radio {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        width: 80%;
+        max-width: 500px;
+        background-color: tokens.get($_, "color--surface");
+        list-style: none;
+        overflow: hidden;
+    }
+
+    .#{$_}__checkbox--hidden-box,
+    .#{$_}__radio--hidden-box {
+        position: absolute;
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        white-space: nowrap;
+        appearance: none;
+        overflow: hidden;
+        border: 0;
+
+        &:focus-visible {
+            outline: none;
+            z-index: -1;
+        }
+    }
+
+    .#{$_}__checkbox--label,
+    .#{$_}__radio--label {
+        margin: 0;
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-right: tokens.use($_, "base", 0.5);
+    }
+
+    .#{$_}__checkbox--label-text,
+    .#{$_}__radio--label-text {
+        position: relative;
+        cursor: pointer;
+        font-style: italic;
+        flex: 1;
+        color: tokens.get($_, "color--surface-contrast");
+        padding: tokens.use($_, "base", 0.5) 10px;
+        font-size: tokens.get($_, "font-size-btn-md");
+        line-height: tokens.get($_, "font-size-btn-md");
+    }
+
+    .#{$_}__input-invalid-message {
+        width: 100%;
+        padding: tokens.use($_, "base", 1);
+        display: none;
+        font-size: 80%;
+        color: tokens.get($_, "color--danger-contrast");
+        background-color: tokens.get($_, "color--danger");
+        border: none;
+        border-radius: 0 0 5px 5px;
+        box-sizing: border-box;
+
+        &.error {
+            display: block;
+            transition: ease-in-out .3s;
+        }
+
+        .c-icon {
+            position: relative;
+            top: 3px;
+        }
+    }
+
+    &.is-invalid {
+        .#{$_}__checkbox--label-box {
+
+            &,
+            &:focus,
+            &:active {
+                border-color: tokens.get($_, "color--danger");
+            }
+        }
+
+        .#{$_}__checkbox--label-text {
+            color: tokens.get($_, "color--danger");
+        }
+    }
+
+    &.is-valid {
+        .#{$_}__checkbox--label-box {
+
+            &,
+            &:focus,
+            &:active {
+                border-color: tokens.get($_, "color--success");
+            }
+        }
+
+        .#{$_}__checkbox--label-text {
+            color: tokens.get($_, "color--success");
+        }
+    }
+}

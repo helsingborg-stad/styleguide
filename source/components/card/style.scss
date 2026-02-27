@@ -1,0 +1,314 @@
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-card";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), (
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-hover": tokens.use($_, "shadow", 1.5),
+    "image-bg": tokens.get($_, "color--surface-border"),
+    "image-bg-svg": tokens.get($_, "color--secondary"),
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+));
+
+/* Component */
+.#{$_} {
+    contain: layout;
+    container-type: inline-size;
+    filter: tokens.get($_, "shadow");
+    will-change: filter;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: tokens.get($_, "color--surface");
+    color: tokens.get($_, "color--surface-contrast");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    transition: all 200ms ease-in;
+    border: tokens.get($_, "border");
+
+    .#{$_}__paint-container {
+        contain: paint;
+        border-radius: inherit;
+        display: inherit;
+        flex-direction: inherit;
+        flex-wrap: wrap;
+        height: inherit;
+        corner-shape: inherit;
+
+        > * {
+            width: 100%;
+        }
+    }
+
+    .#{$_}__header {
+        width: 100%;
+    }
+
+    .#{$_}__header,
+    .#{$_}__body,
+    .#{$_}__content-after {
+        overflow-wrap: break-word;
+        hyphens: auto;
+        padding: tokens.use($_, "space", 2);
+    }
+
+    .#{$_}__content:not(:first-child) {
+        margin-top: tokens.use($_, "space");
+    }
+
+    .#{$_}__footer {
+        overflow-wrap: break-word;
+        hyphens: auto;
+        padding: tokens.use($_, "space", 2);
+        margin-top: auto;
+        border-top: tokens.get($_, "border");
+    }
+
+    .#{$_}__body {
+        display: grid;
+        padding-top: tokens.use($_, "space", 3);
+        padding-bottom: tokens.use($_, "space", 3);
+        gap: tokens.use($_, "space", 0.5);
+        align-content: center;
+
+        > :first-child {
+            margin-top: 0;
+        }
+    }
+
+    .#{$_}__image {
+        background-color: tokens.get($_, "image-bg");
+        border-radius: 0;
+
+        .c-image__image {
+            border-radius: 0;
+        }
+    }
+
+    &__title {
+        &-expand-button {
+            float: right;
+
+            &[aria-pressed="true"] {
+                transform: rotate(180deg);
+                transition-timing-function: ease-in-out;
+            }
+        }
+    }
+
+    &__date {
+        display: flex;
+        gap: tokens.use($_, "space", 0.5);
+        align-items: center;
+        margin-top: tokens.use($_, "space", 0.5);
+    }
+
+    &__dropdown {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: tokens.get($_, "color-surface-contrast");
+    }
+
+    &__dropdown .c-button:hover,
+    &__dropdown .c-button:focus {
+        background-color: unset;
+    }
+
+    /* Image aspect ratio */
+    .#{$_}__image-container {
+        position: relative;
+        width: 100%;
+        contain: paint;
+    }
+
+    &.#{$_}--ratio-1-1 .#{$_}__image-container { aspect-ratio: 1 / 1; }
+    &.#{$_}--ratio-16-9 .#{$_}__image-container { aspect-ratio: 16 / 9; }
+    &.#{$_}--ratio-4-3 .#{$_}__image-container { aspect-ratio: 4 / 3; }
+    &.#{$_}--ratio-10-3 .#{$_}__image-container { aspect-ratio: 10 / 3; }
+    &.#{$_}--ratio-36-7 .#{$_}__image-container { aspect-ratio: 36 / 7; }
+
+    .#{$_}__floating {
+        position: absolute;
+        right: tokens.get($_, "base");
+        top: tokens.get($_, "base");
+        z-index: tokens.get($_, "level-3");
+    }
+
+    .#{$_}__content-after {
+        margin-top: auto;
+    }
+
+    &--focus-inset:focus {
+        @include focus.focus-inset(tokens.use($_, "border-radius"));
+    }
+
+    &__header .c-icon {
+        vertical-align: top;
+
+        & ~ :is(h1, h2, h3, h4, h5, h6) {
+            display: inline;
+        }
+    }
+
+    .#{$_}__explicit-link {
+        font-weight: 700;
+    }
+
+    /* Appearance modifiers */
+
+    &--outline {
+        border: tokens.get($_, "border-width") solid;
+    }
+
+    &--highlight {
+        .#{$_}__header,
+        .#{$_}__body {
+            border-left: tokens.get($_, "base") solid tokens.get($_, "color--primary");
+        }
+    }
+
+    &--accented {
+        .#{$_} {
+            margin-bottom: tokens.get($_, "base");
+        }
+        .#{$_}__header {
+            border-bottom: calc(#{tokens.get($_, "base")} / 2) solid tokens.get($_, "color--primary");
+            background: tokens.get($_, "color-surface-contrast");
+        }
+        .c-typography {
+            color: tokens.get($_, "color-surface-contrast");
+        }
+    }
+
+    &--panel {
+        .#{$_}__header {
+            background: tokens.get($_, "color--primary");
+            color: tokens.get($_, "color--primary-contrast");
+           
+            * {
+                color: tokens.get($_, "color--primary-contrast");
+            }
+
+            i, h4 {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            h4 {
+                margin-top: 0;
+            }
+        }
+    }
+
+    &--collapse {
+        visibility: hidden;
+        max-height: 0;
+        height: 0;
+        padding: 0;
+    }
+
+    .#{$_}__datebadge {
+        position: absolute;
+        margin: tokens.use($_, "space", 2);
+    }
+
+    &.#{$_}--has-datebadge {
+        .#{$_}__datebadge {
+            margin: 0;
+            left: tokens.use($_, "space", 2);
+            top: tokens.use($_, "space", 2);
+        }
+
+        &:not(.#{$_}--has-image) {
+            .#{$_}__heading-container,
+            .#{$_}__content {
+                padding-left: tokens.use($_, "space", 9.5);
+            }
+        }
+    }
+
+    &--svg-background {
+        .#{$_}__image-background {
+            background-size: clamp(#{tokens.get($_, "base")} * 3, 50%, #{tokens.get($_, "base")} * 8);
+            background-repeat: no-repeat;
+            background-color: tokens.get($_, "image-bg-svg");
+        }
+    }
+
+    .#{$_}__paint-container {
+        @container (min-width: 500px) {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            .#{$_}__body {
+                padding: tokens.use($_, "space", 4);
+            }
+            .#{$_}__footer {
+                flex: 1;
+            }
+            .#{$_}__image-background {
+                height: 100%;
+            }
+            .#{$_}__image-container {
+                flex-basis: 30%;
+            }
+            .#{$_}__image-container + .#{$_}__body {
+                flex-basis: calc(100% - 30%);
+            }
+        }
+    }
+}
+
+/* Hover effect for linked cards */
+a.#{$_} {
+    text-decoration: none;
+    color: tokens.get($_, "color--surface-contrast");
+
+    .#{$_}__image:before {
+        content: "";
+        inset: 0;
+        position: absolute;
+        transition: opacity 200ms;
+        height: 100%;
+        width: 100%;
+        background: tokens.get($_, "color--surface-contrast");
+        opacity: 0;
+        z-index: var(--level-1);
+    }
+
+    &:hover {
+        filter: tokens.get($_, "shadow-hover");
+        background-color: tokens.get($_, "color--surface-border");
+        transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
+        transition: all 200ms ease-out;
+        color: tokens.get($_, "color--surface-contrast");
+
+        .#{$_}__heading {
+            text-decoration: underline;
+        }
+
+        .#{$_}__image:before {
+            opacity: 0.08;
+        }
+    }
+
+    &:focus {
+        background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 6%, #{tokens.get($_, "color--surface")});
+
+        .#{$_}__image-container:before {
+            opacity: 0.2;
+        }
+    }
+}
+
+/* Grid without gutter */
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_},
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"],
+.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
+    border-radius: unset;
+    filter: none;
+}

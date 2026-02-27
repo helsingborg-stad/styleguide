@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Accordion",
+"slug": "accordion",
+"tokens": ["space","shadow","border-width","border-radius","color--surface"]
+}

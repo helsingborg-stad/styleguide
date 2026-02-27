@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "News Item",
+"slug": "newsitem",
+"tokens": ["space","color--surface","color--border","border-width"]
+}

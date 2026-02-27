@@ -1,0 +1,8 @@
+{
+    "comment": {
+        "grid": "",
+        "heading": "Comment Thread Example",
+        "subHeading" : "Comment is a standalone component",
+        "text": "The comment can be used as a top level comment and as a reply."
+    }
+}

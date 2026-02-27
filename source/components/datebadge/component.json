@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Date Badge",
+"slug": "datebadge",
+"tokens": ["border-radius","border-width","space","color--primary","color--secondary","color--surface"]
+}

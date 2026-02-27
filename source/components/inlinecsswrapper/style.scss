@@ -1,0 +1,10 @@
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-inlinecsswrapper";
+
+@include tokens.create($_,getComponentTokens($_));
+
+.#{$_} {
+    padding: tokens.use($_, "space", 1);
+}

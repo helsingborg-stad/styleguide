@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Field",
+"slug": "field",
+"tokens": ["border-radius","border-width","space","shadow","color--danger","color--success","color--surface"]
+}

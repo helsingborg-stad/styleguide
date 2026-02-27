@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Comment",
+"slug": "comment",
+"tokens": ["space","outer-space","border-radius","color--background","color--background-contrast","color--surface"]
+}

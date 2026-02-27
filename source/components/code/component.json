@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Code",
+"slug": "code",
+"tokens": ["border-radius","corner-shape","font-family-code","space"]
+}

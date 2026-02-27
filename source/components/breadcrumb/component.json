@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Breadcrumb",
+"slug": "breadcrumb",
+"tokens": ["space","color--background-contrast-muted"]
+}

@@ -1,0 +1,29 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-logotype";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    position: relative;
+
+    img {
+        height: inherit;
+    }
+
+    &.#{$_}--align-left {
+        text-align: left;
+    }
+
+    &.#{$_}--align-center {
+        text-align: center;
+    }
+
+    &.#{$_}--align-right {
+        text-align: right;
+    }
+}
