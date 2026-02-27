@@ -43,13 +43,6 @@
 			"settings": {
 				"intelephense.environment.phpVersion": "8.3.0"
 			}
-		},
-		"codespaces": {
-			"repositories": {
-				"helsingborg-stad/component-library": {
-					"contents": "write"
-				}
-			}
 		}
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
