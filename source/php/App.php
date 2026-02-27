@@ -2,58 +2,60 @@
 
 namespace HbgStyleGuide;
 
+use HbgStyleGuide\Controllers\ApiController;
+use HbgStyleGuide\Controllers\PageController;
+use HbgStyleGuide\Data\JsonDataLoader;
+use HbgStyleGuide\Data\NavigationApiDataProvider;
+use HbgStyleGuide\Data\NavigationDataParser;
+use HbgStyleGuide\Http\Request;
+use HbgStyleGuide\Http\Response;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
- * Class App
- * @package HbgStyleGuide
- * test test test test
+ * Application bootstrap and runtime orchestration.
  */
 class App
 {
-    protected $default = 'home'; //Home
-    protected $page = null; // pageVar
-    private BladeServiceInterface $bladeService; // Blade
+    /**
+     * @var Router
+     */
+    private Router $router;
 
     /**
-     * App constructor.
-     * @param $bladeService
+     * @param BladeServiceInterface $bladeService Blade renderer.
      */
     public function __construct(BladeServiceInterface $bladeService)
     {
+        $request = Request::fromGlobals();
+        $response = new Response();
 
-        $this->bladeService = $bladeService;
-        $url = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
-        $this->page = ($url !== "/") ? $url : $this->default;
-        
-        $this->loadPage();
+        $jsonDataLoader = new JsonDataLoader(BASEPATH);
+        $navigationDataParser = new NavigationDataParser();
+        $navigation = new Navigation($request, $jsonDataLoader, $navigationDataParser, VIEWS_PATH);
+        $view = new View();
+
+        $pageController = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+        );
+
+        $apiController = new ApiController(
+            $request,
+            $response,
+            new NavigationApiDataProvider($jsonDataLoader),
+        );
+
+        $this->router = new Router($request, $pageController, $apiController);
     }
 
     /**
-     * Loads a page and it's navigation
-     * @return bool Returns true when the page is loaded
+     * Runs the application request lifecycle.
      */
-    public function loadPage()
+    public function run(): void
     {
-        $data['assets']                         = Asset::getAll();
-
-        // Navigation
-        $data['topNavigation']                  = Navigation::items('pages/', [], false);
-        $data['sideNavigation']                 = Navigation::items('pages/');
-
-        //Current page 
-        $data['pageNow']                        = $this->page;
-
-        //Component library
-        $data['isLocalDomain']                  = \HbgStyleGuide\Helper\Enviroment::isLocalDomain();
-
-        //Render page 
-        $view = new \HbgStyleGuide\View();
-
-        return $view->show(
-            $this->page,
-            $data,
-            $this->bladeService
-        );
+        $this->router->dispatch();
     }
 }

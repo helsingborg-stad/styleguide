@@ -1,0 +1,90 @@
+<?php
+
+namespace HbgStyleGuide\Http;
+
+/**
+ * Immutable HTTP request wrapper.
+ */
+class Request
+{
+    /**
+     * @param string $requestUri Current request URI.
+     * @param array<string, mixed> $queryParams Query parameters.
+     */
+    public function __construct(
+        private string $requestUri,
+        private array $queryParams,
+    ) {}
+
+    /**
+     * Creates a request object from PHP globals.
+     *
+     * @return self
+     */
+    public static function fromGlobals(): self
+    {
+        return new self(
+            $_SERVER['REQUEST_URI'] ?? '/',
+            $_GET ?? [],
+        );
+    }
+
+    /**
+     * Returns current request path.
+     *
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return parse_url($this->requestUri, PHP_URL_PATH) ?: '/';
+    }
+
+    /**
+     * Returns first URI segment.
+     *
+     * @return string
+     */
+    public function getEndpoint(): string
+    {
+        $segments = explode('/', trim($this->getPath(), '/'));
+        return strtolower($segments[0] ?? '');
+    }
+
+    /**
+     * Gets query value by key.
+     *
+     * @param string $key Query key.
+     *
+     * @return string|null
+     */
+    public function getQuery(string $key): ?string
+    {
+        $value = $this->queryParams[$key] ?? null;
+        return is_scalar($value) ? (string) $value : null;
+    }
+
+    /**
+     * Checks if query key exists.
+     *
+     * @param string $key Query key.
+     *
+     * @return bool
+     */
+    public function hasQuery(string $key): bool
+    {
+        return array_key_exists($key, $this->queryParams);
+    }
+
+    /**
+     * Resolves the page path used for blade view rendering.
+     *
+     * @param string $defaultPage Default page name.
+     *
+     * @return string
+     */
+    public function resolvePage(string $defaultPage = 'home'): string
+    {
+        $path = trim($this->getPath(), '/');
+        return $path === '' ? $defaultPage : $path;
+    }
+}

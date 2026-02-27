@@ -2,26 +2,52 @@
 
 namespace HbgStyleGuide;
 
+use HbgStyleGuide\Contracts\JsonDataLoaderInterface;
+use HbgStyleGuide\Contracts\NavigationDataParserInterface;
+use HbgStyleGuide\Data\JsonDataLoader;
+use HbgStyleGuide\Data\NavigationDataParser;
+use HbgStyleGuide\Http\Request;
+
 class Navigation
 {
-    private static $unlisted = array(
-        '.',
-        '..',
-        '.DS_Store',
-        'layout',
-        '404.blade.php',
-        'home.blade.php',
-        'usage',
-        'about'
-    );
+    /**
+     * @var self|null
+     */
+    private static ?self $defaultInstance = null;
 
-    private static $icons = array(
-        'mixins' => 'local_bar',
-        'script' => 'code',
-        'icons' => 'brush',
-        'component' => 'extension',
-        'utilities' => 'build'
-    ); 
+    /**
+     * @param Request $request Request context.
+     * @param JsonDataLoaderInterface $jsonDataLoader JSON loader.
+     * @param NavigationDataParserInterface $navigationDataParser Navigation parser.
+     * @param string $viewsPath Base path to view files.
+     */
+    public function __construct(
+        private Request $request,
+        private JsonDataLoaderInterface $jsonDataLoader,
+        private NavigationDataParserInterface $navigationDataParser,
+        private string $viewsPath,
+    ) {}
+
+    /**
+     * Creates default navigation service used by static helper calls.
+     *
+     * @return self
+     */
+    private static function default(): self
+    {
+        if (self::$defaultInstance instanceof self) {
+            return self::$defaultInstance;
+        }
+
+        self::$defaultInstance = new self(
+            Request::fromGlobals(),
+            new JsonDataLoader(BASEPATH),
+            new NavigationDataParser(),
+            VIEWS_PATH,
+        );
+
+        return self::$defaultInstance;
+    }
 
     /**
      * Creates a navigation array
@@ -29,96 +55,106 @@ class Navigation
      * @param  boolean $displayErrors Weather to output errors or not
      * @return boolean
      */
-    public static function items($folder = "/", $response = array(), $includeChildren = true)
+    public function buildItems($folder = '/', $response = array(), $includeChildren = true)
     {
+        $config = $this->jsonDataLoader->load('assets/data/navigation-config.json');
+        $unlisted = is_array($config['unlisted'] ?? null) ? $config['unlisted'] : [];
+        $icons = is_array($config['icons'] ?? null) ? $config['icons'] : [];
+        $externalMenuItems = is_array($config['externalMenuItems'] ?? null) ? $config['externalMenuItems'] : [];
 
-        $dirContents = scandir(VIEWS_PATH . $folder);
+        $dirContents = scandir($this->viewsPath . $folder);
 
-        if(is_array($dirContents) && !empty($dirContents)) {
-            foreach($dirContents as $item) {
-                if(!in_array($item, self::$unlisted)) {
-
-                    //Remove blade suffix 
-                    $item = self::sanitizeFileName($item); 
+        if (is_array($dirContents) && !empty($dirContents)) {
+            foreach ($dirContents as $item) {
+                if (!in_array($item, $unlisted)) {
+                    //Remove blade suffix
+                    $item = $this->sanitizeFileName($item);
 
                     //Create array
-                    if(!isset($response[$item]) ||!is_array($response[$item])) {
-                        $response[$item] = []; 
+                    if (!isset($response[$item]) || !is_array($response[$item])) {
+                        $response[$item] = [];
                     }
 
                     //Add current level item
-                    if(array_key_exists($item, $response)) {
-                        $response[$item]['label'] = self::readableFilename($item);
-                        $response[$item]['href'] = str_replace("///", "/", 
-                            "//" . self::getPageDomain() . str_replace("pages", "/", $folder) . '/' . $item
-                        );
+                    if (array_key_exists($item, $response)) {
+                        $response[$item]['label'] = $this->readableFilename($item);
+                        $response[$item]['href'] = str_replace('///', '/', '//' . $this->getPageDomain() . str_replace('pages', '/', $folder) . '/' . $item);
 
                         //Set icon
-                        if(isset(self::$icons[$item])) {
-                            $response[$item]['icon'] = self::$icons[$item]; 
+                        if (isset($icons[$item])) {
+                            $response[$item]['icon'] = $icons[$item];
                         }
 
                         //Add ancestor item
-                        if(self::isAncestorItem($item)) {
-                            $response[$item]['ancestor'] = true; 
+                        if ($this->isAncestorItem($item)) {
+                            $response[$item]['ancestor'] = true;
                         }
 
                         //Add current item
-                        if(self::isActiveItem($item)) {
-                            $response[$item]['active'] = true; 
+                        if ($this->isActiveItem($item)) {
+                            $response[$item]['active'] = true;
                         }
 
                         //No async on this site
-                        $response[$item]['async'] = false; 
-                        
+                        $response[$item]['async'] = false;
                     }
 
                     //Check if is dir (and traverse it)
-                    if($includeChildren) {
-                        if(is_dir(VIEWS_PATH . $folder . '/' . $item)) {
-                            if(array_key_exists($item, $response)) {
-                                $response[$item]['children'] = self::items($folder . '/' . $item); 
+                    if ($includeChildren) {
+                        if (is_dir($this->viewsPath . $folder . '/' . $item)) {
+                            if (array_key_exists($item, $response)) {
+                                $response[$item]['children'] = $this->buildItems($folder . '/' . $item);
                             }
-                        }else{
-                            $response[$item]['children'] = false;                    
+                        } else {
+                            $response[$item]['children'] = false;
                         }
                     }
-                
                 }
             }
         }
 
-        if ($folder === "pages/" || $folder === "/") {
-            $response['icons'] = self::addMaterialSymbolsMenuItem();
+        if ($folder === 'pages/' || $folder === '/') {
+            foreach ($externalMenuItems as $key => $menuItem) {
+                if (!is_string($key) || !is_array($menuItem)) {
+                    continue;
+                }
+
+                $response[$key] = $menuItem;
+            }
         }
 
         return $response;
     }
 
-    private static function addMaterialSymbolsMenuItem() {
-        return [
-            'label' => 'Icons',
-            'href' => 'https://fonts.google.com/icons',
-            'attributeList' => [
-                'target' => '_blank'
-            ]
-        ];
+    public static function itemsStatic($folder = '/', $response = array(), $includeChildren = true)
+    {
+        return self::default()->buildItems($folder, $response, $includeChildren);
     }
 
-    public static function sanitizeFileName($name) {
-        return str_replace(".blade.php", "", $name); 
+    public static function items($folder = '/', $response = array(), $includeChildren = true)
+    {
+        return self::default()->buildItems($folder, $response, $includeChildren);
     }
 
-    public static function readableFilename($name) {
-        return str_replace("-", " ",
-                ucfirst(
-                    self::sanitizeFileName($name)
-                )
-            );
+    public function sanitizeFileName($name)
+    {
+        return str_replace('.blade.php', '', $name);
     }
 
-    public static function isActiveItem($item, $showFullRoute = false) {
-        $pathArray = self::getPathArray();
+    public function readableFilename($name)
+    {
+        return str_replace(
+            '-',
+            ' ',
+            ucfirst(
+                $this->sanitizeFileName($name),
+            ),
+        );
+    }
+
+    public function isActiveItem($item, $showFullRoute = false)
+    {
+        $pathArray = $this->getPathArray();
 
         if (!$showFullRoute) {
             if (end($pathArray) === $item) {
@@ -131,158 +167,54 @@ class Navigation
             if ($pathItem === $item)
                 return true;
         }
-        return false; 
+        return false;
     }
 
-    public static function isAncestorItem($item, $showFullRoute = false) {
-        $pathArray = self::getPathArray();
+    public function isAncestorItem($item, $showFullRoute = false)
+    {
+        $pathArray = $this->getPathArray();
 
-        if(in_array($item, $pathArray) && $item != end($pathArray)) {
+        if (in_array($item, $pathArray) && $item != end($pathArray)) {
             return true;
-        } 
+        }
 
         return false;
     }
 
-    public static function getPathArray() {
-        return array_filter(explode('/', parse_url(self::getPageUrl(), PHP_URL_PATH)));
+    public function getPathArray()
+    {
+        return array_filter(explode('/', parse_url($this->getPageUrl(), PHP_URL_PATH)));
     }
 
-    public static function getPageDomain() {
+    public function getPageDomain()
+    {
         return isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : $_SERVER['HTTP_HOST'];
     }
 
-    public static function getPageUrl() {
-        return $_SERVER['REQUEST_URI']; 
+    public function getPageUrl()
+    {
+        return $this->request->getPath();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function getMockedTopLevel()
     {
-        $response = [
-            [
-                'href' => '#',
-                'label' => 'Arbete',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Bo, bygga och miljö',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Förskola och utbildning',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Kommun och politik',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Omsorg och stöd',
-                'children' => true,
-                'ID' => 1
-            ]
+        $data = self::default()->jsonDataLoader->load('assets/data/navigation-mocks.json');
+        $topLevel = $data['topLevel'] ?? [];
 
-        ];
-
-        return $response;
+        return is_array($topLevel) ? self::default()->navigationDataParser->parse($topLevel) : [];
     }
 
+    /**
+     * @return array<mixed>
+     */
     public static function getMockedMultilevel()
     {
-        $response = [
-            [
-                'href' => '#',
-                'label' => 'Arbete',
-                'children' => [
-                    [
-                        'href' => '#',
-                        'label' => 'Arbete - Child 1 with a long name',
-                        'children' => [
-                            [
-                                'href' => '#',
-                                'label' => 'Arbete - Granchild 1',
-                                'children' => true,
-                                'ID' => 1
-                            ],
-                            [
-                                'href' => '#',
-                                'label' => 'Arbete - Granchild 2',
-                                'children' => true,
-                                'ID' => 1
-                            ]
-                        ],
-                        'ID' => 1
-                    ],
-                    [
-                        'href' => '#',
-                        'label' => 'Arbete - Child 2',
-                        'children' => false,
-                        'ID' => 1
-                    ]
-                ],
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Bo, bygga och miljö',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Förskola och utbildning',
-                'children' => true,
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Kommun och politik',
-                'children' => [
-                    [
-                        'href' => '#',
-                        'label' => 'About',
-                        'children' => false,
-                        'ID' => 1
-                    ],
-                    [
-                        'href' => '#',
-                        'label' => 'Contact',
-                        'children' => false,
-                        'ID' => 1
-                    ],
-                    [
-                        'href' => '#',
-                        'label' => 'Links',
-                        'children' => false,
-                        'ID' => 1
-                    ],
-                    [
-                        'href' => '#',
-                        'label' => 'More info',
-                        'children' => false,
-                        'ID' => 1
-                    ]
-                ],
-                'ID' => 1
-            ],
-            [
-                'href' => '#',
-                'label' => 'Omsorg och stöd',
-                'children' => true,
-                'ID' => 1,
-                'style' => 'button'
-            ]
+        $data = self::default()->jsonDataLoader->load('assets/data/navigation-mocks.json');
+        $multiLevel = $data['multiLevel'] ?? [];
 
-        ];
-
-        return $response;
+        return is_array($multiLevel) ? self::default()->navigationDataParser->parse($multiLevel) : [];
     }
 }

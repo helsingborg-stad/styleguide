@@ -7,9 +7,9 @@
     grid-template-columns: 288px calc(100% - 288px);
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-        "sidebar  header"
+        "sidebar header"
         "sidebar content"
-        "sidebar  footer"
+        "sidebar footer"
     ;
 
     &--header {

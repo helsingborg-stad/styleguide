@@ -1,0 +1,37 @@
+{
+	"pages": {
+		"1": {
+			"title": "About",
+			"href": "#1",
+			"items": [
+				{ "label": "Item", "href": "#", "id": 12 },
+				{ "label": "Item 2", "href": "#", "id": 133 },
+				{ "label": "Item 3", "href": "#", "id": 134 }
+			]
+		},
+		"2": {
+			"title": "Stuff",
+			"href": "#2",
+			"items": [
+				{
+					"label": "Thing",
+					"href": "#",
+					"id": 13,
+					"preview": "This is a preview..."
+				}
+			]
+		},
+		"3": {
+			"title": "More",
+			"href": "#3",
+			"items": [
+				{
+					"label": "Stuff",
+					"href": "#",
+					"id": 14,
+					"preview": "This is a preview..."
+				}
+			]
+		}
+	}
+}
