@@ -1,7 +1,25 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Option",
-"slug": "option",
-"tokens": ["base","border-radius","color--primary","color--surface","color--danger","color--success","font-size-100"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Option",
+  "slug": "option",
+  "tokens": [
+    "base",
+    "border-radius",
+    "color--primary",
+    "color--surface",
+    "color--danger",
+    "color--success",
+    "font-size-100"
+  ],
+  "description": "The Option component provides a reusable pattern for option in the interface.",
+  "tags": [
+    "option",
+    "component"
+  ],
+  "similarComponents": [
+    "collection",
+    "pagination",
+    "icon"
+  ]
 }

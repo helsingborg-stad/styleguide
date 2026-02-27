@@ -1,6 +1,0 @@
-@steppers(
-    [
-        'type' => 'dots'
-    ]
-
-@endsteppers

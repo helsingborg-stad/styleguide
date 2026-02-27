@@ -5,7 +5,7 @@
 <article>
 
     @markdown
-        #Javascript
+        #Script
         The styleguide contains a simplistic javascript framework for simple tasks like toggling classes, filtering list and applying usability tweaks. 
 
         All javascript functions is decpoupled from components (javascript function has no target component). They should be written in a disconnected way from the component scope. 

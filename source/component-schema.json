@@ -28,15 +28,20 @@
             "type": "array",
             "items": {
                 "type": "string",
-                "enum": [
-                    "layout",
-                    "form",
-                    "navigation",
-                    "feedback",
-                    "data-display",
-                    "expand"
-                ]
+                "pattern": "^[a-z0-9-]+$"
             }
+        },
+        "similarComponents": {
+            "description": "An array of component slugs that are similar to this component.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*$"
+            }
+        },
+        "icon": {
+            "description": "Optional icon identifier for this component.",
+            "type": "string"
         },
         "tokens": {
             "description": "This is an array of tokens that the component uses. Token names correspond to CSS custom property names from design-tokens.json with the leading '--' stripped. Use 'shadow' as a group token to include all shadow-* variables.",

@@ -1,75 +1,67 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
-@if($examples)
-        <div class="grid">
-        @foreach($examples as $key => $example)
+    @if($examples)
+        @foreach($examples as $example)
+            @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
+                @typography([
+                    'variant' => 'h3',
+                    'element' => 'h3'
+                ])
+                    @if($example['description']['heading'])
+                        {{$example['description']['heading']}}
+                    @endif
+                @endtypography
 
-        
-                        @typography([
-                            'variant' => "h3",
-                            'element' => "h3"
-                        ])
-                            @if($example['description']['heading'])
-                                {{$example['description']['heading']}}
-                            @endif
-                        @endtypography
+                @typography([
+                    'variant' => 'h4',
+                    'element' => 'h4',
+                    'classList' => []
+                ])
+                    {{$example['description']['subHeading']}}
+                @endtypography
 
-                        @typography([
-                            'variant' => "h4",
-                            'element' => "h4",
-                            'classList' => []
-                        ])
-                            {{$example['description']['subHeading']}}
-                        @endtypography
+                @if(isset($example['description']['description']) && !empty($example['description']['description']))
+                    @typography([
+                        'variant' => 'body',
+                        'element' => 'p'
+                    ])
+                        {{$example['description']['description']}}
+                    @endtypography
+                @endif
 
-                        @if(isset($example['description']['description']) && !empty($example['description']['description']))
-                            @typography([
-                                "variant" => "body",
-                                "element" => "p"
-                            ])
-                                {{$example['description']['description']}}
-                            @endtypography
-                        @endif
-                    </div>
+                @include($example['component'])
 
-                    
-                    @include($example['component'])
+                <div class="d-code__toggle c-code__toggle">
+                    @button([
+                        'text' => 'HTML',
+                        'color' => 'default',
+                        'type' => 'basic',
+                        'size' => 'md',
+                        'icon' => 'code',
+                        'toggle' => true,
+                        'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
+                    ])
+                    @endbutton
+                    @button([
+                        'text' => 'Blade',
+                        'color' => 'default',
+                        'type' => 'basic',
+                        'size' => 'md',
+                        'icon' => 'code',
+                        'toggle' => true,
+                        'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
+                    ])
+                    @endbutton
+                </div>
 
+                @code(['language' => 'html', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
+                @endcode
 
-                    <div class="d-code__toggle c-code__toggle">
-                        @button([
-                            'text' => 'HTML',
-                            'color' => 'default',
-                            'type' => 'basic',
-                            'size' => 'md',
-                            'icon' => 'code',
-                            'toggle' => true,
-                            'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
-                        ])
-                        @endbutton
-                        @button([
-                            'text' => 'Blade',
-                            'color' => 'default',
-                            'type' => 'basic',
-                            'size' => 'md',
-                            'icon' => 'code',
-                            'toggle' => true,
-                            'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
-                        ])
-                        @endbutton
-                    </div>
-
-                    @code(['language' => 'html', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
-                    @endcode
-                
-                    @code(['language' => 'php', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                        {{$example['blade']['code']}}
-                    @endcode
-         
-
-            </div>
+                @code(['language' => 'php', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                    {{$example['blade']['code']}}
+                @endcode
+            @endpaper
         @endforeach
-        </div>
 
     @else
         @paper(['padding' => 3])

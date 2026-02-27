@@ -120,12 +120,9 @@ class Request
             return implode('/', $segments);
         }
 
-        $componentLevels = ['atoms', 'molecules', 'organisms'];
-        foreach ($componentLevels as $componentLevel) {
-            $candidate = BASEPATH . 'views/pages/components/' . $componentLevel . '/' . $componentSlug . '.blade.php';
-            if (is_file($candidate)) {
-                return 'components/' . $componentLevel . '/' . $componentSlug;
-            }
+        $componentPath = BASEPATH . 'source/components/' . $componentSlug . '/component.json';
+        if (is_file($componentPath)) {
+            return 'component';
         }
 
         return implode('/', $segments);

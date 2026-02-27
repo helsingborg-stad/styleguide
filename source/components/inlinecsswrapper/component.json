@@ -1,7 +1,22 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Inline CSS Wrapper",
-"slug": "inlinecsswrapper",
-"tokens": ["space"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Inline CSS Wrapper",
+  "slug": "inlinecsswrapper",
+  "tokens": [
+    "space"
+  ],
+  "description": "The Inline CSS Wrapper component provides a reusable pattern for inlinecsswrapper in the interface.",
+  "tags": [
+    "inlinecsswrapper",
+    "inline",
+    "css",
+    "wrapper",
+    "component"
+  ],
+  "similarComponents": [
+    "paper",
+    "drawer",
+    "header"
+  ]
 }

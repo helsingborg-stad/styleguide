@@ -22,6 +22,6 @@ class ObjectsSection implements SidebarSectionInterface
      */
     public function getLabel(): string
     {
-        return 'Objects';
+        return 'Object';
     }
 }

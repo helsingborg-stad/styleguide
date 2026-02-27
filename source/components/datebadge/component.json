@@ -1,7 +1,26 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Date Badge",
-"slug": "datebadge",
-"tokens": ["border-radius","border-width","space","color--primary","color--secondary","color--surface"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Date Badge",
+  "slug": "datebadge",
+  "tokens": [
+    "border-radius",
+    "border-width",
+    "space",
+    "color--primary",
+    "color--secondary",
+    "color--surface"
+  ],
+  "description": "The Date Badge component provides a reusable pattern for datebadge in the interface.",
+  "tags": [
+    "datebadge",
+    "date",
+    "badge",
+    "component"
+  ],
+  "similarComponents": [
+    "header",
+    "sidebar",
+    "textarea"
+  ]
 }

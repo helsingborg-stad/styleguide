@@ -22,6 +22,6 @@ class ComponentsSection implements SidebarSectionInterface
      */
     public function getLabel(): string
     {
-        return 'Components';
+        return 'Component';
     }
 }

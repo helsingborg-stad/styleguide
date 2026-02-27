@@ -42,18 +42,26 @@ class Documentation
 
         foreach (array_keys($examplesConfig) as $exampleKey) {
             $filePath = $exampleKey . '.blade.php';
-            $includePath = 'pages.components.usage.' . $slug . '.' . $exampleKey;
             $usageBladePath = $usageDir . '/' . $filePath;
             $sourceBladePath = $sourceExamplesDir . '/' . $filePath;
 
-            if (!file_exists($usageBladePath)) {
+            $includePath = null;
+            $contentSourcePath = null;
+
+            if (file_exists($usageBladePath)) {
+                $includePath = 'pages.components.usage.' . $slug . '.' . $exampleKey;
+                $contentSourcePath = $usageBladePath;
+            } elseif (file_exists($sourceBladePath)) {
+                $includePath = 'source.components.' . $slug . '.examples.' . $exampleKey;
+                $contentSourcePath = $sourceBladePath;
+            }
+
+            if ($includePath === null || $contentSourcePath === null) {
                 continue;
             }
 
             $html = $blade->makeView($includePath)->render();
-            $content = file_exists($sourceBladePath)
-                ? file_get_contents($sourceBladePath, FILE_USE_INCLUDE_PATH)
-                : file_get_contents($usageBladePath, FILE_USE_INCLUDE_PATH);
+            $content = file_get_contents($contentSourcePath, FILE_USE_INCLUDE_PATH);
 
             $description = is_array($examplesConfig[$exampleKey] ?? null) ? $examplesConfig[$exampleKey] : [];
 

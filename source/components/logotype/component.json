@@ -1,7 +1,21 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Logotype",
-"slug": "logotype",
-"tokens": ["border-radius","color--alpha","space"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Logotype",
+  "slug": "logotype",
+  "tokens": [
+    "border-radius",
+    "color--alpha",
+    "space"
+  ],
+  "description": "The Logotype component provides a reusable pattern for logotype in the interface.",
+  "tags": [
+    "logotype",
+    "component"
+  ],
+  "similarComponents": [
+    "logotypegrid",
+    "footer",
+    "blockquote"
+  ]
 }

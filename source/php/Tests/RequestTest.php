@@ -16,11 +16,9 @@ class RequestTest extends TestCase
     {
         $this->tempBasePath = sys_get_temp_dir() . '/styleguide-request-' . uniqid('', true) . '/';
 
-        mkdir($this->tempBasePath . 'views/pages/components/atoms', 0777, true);
-        mkdir($this->tempBasePath . 'views/pages/components/molecules', 0777, true);
-        mkdir($this->tempBasePath . 'views/pages/components/organisms', 0777, true);
+        mkdir($this->tempBasePath . 'source/components/button', 0777, true);
 
-        file_put_contents($this->tempBasePath . 'views/pages/components/molecules/button.blade.php', '');
+        file_put_contents($this->tempBasePath . 'source/components/button/component.json', '{"name":"Button","slug":"button"}');
 
         if (!defined('BASEPATH')) {
             define('BASEPATH', $this->tempBasePath);
@@ -29,13 +27,10 @@ class RequestTest extends TestCase
 
     protected function tearDown(): void
     {
-        @unlink($this->tempBasePath . 'views/pages/components/molecules/button.blade.php');
-        @rmdir($this->tempBasePath . 'views/pages/components/atoms');
-        @rmdir($this->tempBasePath . 'views/pages/components/molecules');
-        @rmdir($this->tempBasePath . 'views/pages/components/organisms');
-        @rmdir($this->tempBasePath . 'views/pages/components');
-        @rmdir($this->tempBasePath . 'views/pages');
-        @rmdir($this->tempBasePath . 'views');
+        @unlink($this->tempBasePath . 'source/components/button/component.json');
+        @rmdir($this->tempBasePath . 'source/components/button');
+        @rmdir($this->tempBasePath . 'source/components');
+        @rmdir($this->tempBasePath . 'source');
         @rmdir($this->tempBasePath);
     }
 
@@ -45,7 +40,7 @@ class RequestTest extends TestCase
 
         $result = $request->resolvePage();
 
-        $this->assertSame('components/molecules/button', $result);
+        $this->assertSame('component', $result);
     }
 
     public function testResolvePageKeepsLegacyAtomicComponentPath(): void

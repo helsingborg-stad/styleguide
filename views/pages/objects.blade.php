@@ -4,11 +4,11 @@
 
 <article>
 
-    @markdown
-        #Objects
-        Objects are global classes that can be used everywhere, without any component syntax. Objects intended to be implemented with plain HTML. 
+	@markdown
+		#Objects
+		Main overview page for objects.
 
-    @endmarkdown
+	@endmarkdown
 
 </article>
 @stop

@@ -115,7 +115,7 @@ class NavigationSidebarSectionsTest extends TestCase
         $result = $navigation->buildSidebarNavigation();
 
         $this->assertSame(['components', 'objects', 'script', 'utilities'], array_keys($result));
-        $this->assertSame('//localhost/components/molecules/alpha', $result['components']['children']['alpha']['href']);
-        $this->assertSame('//localhost/components/organisms/beta', $result['components']['children']['beta']['href']);
+        $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);
+        $this->assertSame('//localhost/components/beta', $result['components']['children']['beta']['href']);
     }
 }

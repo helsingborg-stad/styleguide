@@ -1,7 +1,25 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Field",
-"slug": "field",
-"tokens": ["border-radius","border-width","space","shadow","color--danger","color--success","color--surface"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Field",
+  "slug": "field",
+  "tokens": [
+    "border-radius",
+    "border-width",
+    "space",
+    "shadow",
+    "color--danger",
+    "color--success",
+    "color--surface"
+  ],
+  "description": "The Field component provides a reusable pattern for field in the interface.",
+  "tags": [
+    "field",
+    "component"
+  ],
+  "similarComponents": [
+    "fileinput",
+    "image",
+    "footer"
+  ]
 }

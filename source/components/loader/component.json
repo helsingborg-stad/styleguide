@@ -1,7 +1,22 @@
 {
-"$schema": "../../component-schema.json",
-"apiVersion": 1,
-"name": "Loader",
-"slug": "loader",
-"tokens": ["base","color--primary","color--secondary","color--surface"]
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Loader",
+  "slug": "loader",
+  "tokens": [
+    "base",
+    "color--primary",
+    "color--secondary",
+    "color--surface"
+  ],
+  "description": "The Loader component provides a reusable pattern for loader in the interface.",
+  "tags": [
+    "loader",
+    "component"
+  ],
+  "similarComponents": [
+    "header",
+    "slider",
+    "code"
+  ]
 }
