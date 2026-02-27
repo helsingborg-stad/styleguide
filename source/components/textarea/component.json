@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Textarea",
+"slug": "textarea",
+"tokens": ["base","border-radius","color--background","color--danger","color--success"]
+}

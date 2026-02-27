@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Footer",
+"slug": "footer",
+"tokens": ["space","border-width","color--surface"]
+}

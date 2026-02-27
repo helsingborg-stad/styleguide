@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Gallery",
+"slug": "gallery",
+"tokens": ["base","space","color--alpha","border-radius"]
+}

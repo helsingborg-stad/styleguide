@@ -1,0 +1,38 @@
+{
+    "slider_item": {
+        "grid": "",
+        "heading": "Using the slider item component",
+        "subHeading" : "By using the slider item component you can create a slider with ease",
+        "text": ""
+    },
+    "single_slide": {
+        "grid": "",
+        "heading": "Single slide",
+        "subHeading" : "",
+        "text": ""
+    },
+    "repeat_slide": {
+        "grid": "",
+        "heading": "Repeat slide",
+        "subHeading" : "",
+        "text": ""
+    },
+    "button_styling": {
+        "grid": "",
+        "heading": "Button styling",
+        "subHeading": "Styling the buttons",
+        "text": ""
+    },
+    "slider_with_cards": {
+        "grid": "",
+        "heading": "Slider with Cards",
+        "subHeading" : "",
+        "text": ""
+    },
+    "slider_with_segment": {
+        "grid": "",
+        "heading": "Slider with Segment",
+        "subHeading": "",
+        "text": ""
+    }
+}

@@ -1,0 +1,363 @@
+@use "../../sass/mixin/cover";
+@use "../../sass/mixin/tokens";
+@use "../../sass/generic/animations";
+
+/* Component name */
+$_: "c-fileinput";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), (
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-preview": tokens.use($_, "shadow", 2),
+));
+
+/* Component */
+.#{$_} {
+
+    /* Actual input (hide) */
+    .#{$_}__input {
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+        padding: 0;
+        margin: 0;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    /* Is dragging */
+    &.is-dragging:not(.is-full) {
+        .js-file-input-drop {
+            outline: 3px dashed tokens.get($_, "color--surface-border");
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.use($_, "corner-shape");
+            outline-offset: tokens.use($_, "space", 1.5);
+            width: tokens.use($_, "space", 40);
+            max-width: calc(100% - #{tokens.use($_, "space", 2.5)});
+            display: flex;
+        }
+
+        .js-file-input-button {
+            display: none;
+        }
+    }
+
+    &.is-dragging.is-full {
+        .js-file-input-drop {
+            display: none;
+        }
+
+        /* Disable drop area visually */
+        .#{$_}__area {
+            &::after {
+                position: absolute;
+                inset: 0;
+                content: "\1F6AB";
+                font-size: 3rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                line-height: 1;
+                filter: grayscale(100%) brightness(0) contrast(100%);
+                opacity: .2;
+                z-index: 2000;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: color-mix(in srgb, tokens.get($_, "color--surface-alt"), transparent 80%);
+                z-index: 1000;
+                backdrop-filter: blur(4px);
+            }
+        }
+    }
+
+    &:not(.is-dragging) {
+        .js-file-input-drop {
+            display: none;
+        }
+    }
+
+    .js-file-input-button,
+    .js-file-input-drop,
+    .#{$_}__item {
+        animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    }
+
+    .#{$_}__item.is-removing {
+        pointer-events: none;
+    }
+
+    /* Drop area */
+    .#{$_}__area {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: tokens.use($_, "space", 4);
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.use($_, "corner-shape");
+        background-color: tokens.get($_, "color--surface");
+        border: tokens.get($_, "border");
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* List container */
+    .#{$_}__file-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: tokens.use($_, "space", 2);
+        margin-top: tokens.use($_, "space", 2);
+        width: 100%;
+        padding: tokens.use($_, "space", 2);
+    }
+
+    /* Items uploaded */
+    .#{$_}__item {
+        .#{$_}__item-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 tokens.use($_, "space", .5);
+            background-color: tokens.get($_, "color--surface");
+            border-radius: tokens.use($_, "border-radius");
+            margin: 0;
+            filter: tokens.get($_, "shadow");
+            height: tokens.use($_, "space", 5.5);
+        }
+
+        .#{$_}__item-remove {
+            border-left: 1px solid tokens.get($_, "color--surface-border");
+            margin-left: tokens.use($_, "space", 2);
+            border-radius: 0 100px 100px 0;
+        }
+
+        .#{$_}__item-icon-wrapper {
+            aspect-ratio: 1 / 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .#{$_}__item-text {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: tokens.use($_, "space", 1);
+
+            .#{$_}__item-name {
+                max-width: tokens.use($_, "space", 20);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .#{$_}__item-size {
+                white-space: nowrap;
+                font-size: tokens.get($_, "font-size-90");
+
+                &::before {
+                    content: "(";
+                }
+                &::after {
+                    content: ")";
+                }
+            }
+        }
+    }
+
+    /* Is empty */
+    &.is-empty {
+        .#{$_}__file-list {
+            display: none;
+        }
+    }
+
+    &.invalid-files {
+        .#{$_}__accepted-files {
+            color: tokens.get($_, "color--danger");
+            opacity: 1;
+        }
+    }
+
+    &.file-size-error {
+        .#{$_}__maximum-size {
+            color: tokens.get($_, "color--danger");
+            opacity: 1;
+        }
+    }
+
+    .#{$_}__accepted-files-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: tokens.use($_, "space", 2);
+        top: tokens.use($_, "space", 2);
+        bottom: tokens.use($_, "space", 1.5);
+        font-size: tokens.get($_, "font-size-80");
+        transition: all 0.2s ease-in-out;
+        user-select: none;
+    }
+
+    .#{$_}__filecounter,
+    .#{$_}__accepted-files,
+    .#{$_}__maximum-size {
+        color: tokens.get($_, "color--surface-contrast-muted");
+    }
+
+    /* File counter */
+    .#{$_}__filecounter {
+        user-select: none;
+        transition: all 0.2s ease-in-out;
+        white-space: nowrap;
+
+        &::before {
+            content: attr(data-counter-current);
+        }
+        &::after {
+            content: attr(data-counter-max);
+        }
+
+        &.do-animate {
+            animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+    }
+
+    &.is-full {
+        .#{$_}__filecounter {
+            opacity: 1;
+            color: tokens.get($_, "color--success");
+            font-weight: bold;
+        }
+    }
+
+    /* Invalid */
+    &.is-invalid {
+        .#{$_}__area {
+            border-color: tokens.get($_, "color--danger-border");
+            background-color: tokens.get($_, "color--danger");
+            color: tokens.get($_, "color--danger-contrast");
+        }
+    }
+
+    &.#{$_}--preview {
+
+        .#{$_}__item-remove-button {
+            vertical-align: unset;
+            top: tokens.use($_, "space", .5);
+            right: tokens.use($_, "space", .5);
+            border-radius: 100px;
+            aspect-ratio: 1;
+        }
+
+        .#{$_}__attachment-icon {
+            display: none;
+        }
+
+        .#{$_}__item {
+            position: relative;
+        }
+
+        .is-unsupported {
+            background-color: tokens.get($_, "color--surface");
+
+            .#{$_}__attachment-icon {
+                display: block;
+
+                &::after {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+
+        .#{$_}__info-container {
+            max-width: tokens.use($_, "space", 25);
+            display: flex;
+            gap: tokens.use($_, "space", .5);
+        }
+
+        .#{$_}__item-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1 1 auto;
+            min-width: 0;
+            font-size: tokens.get($_, "font-size-90");
+        }
+
+        .#{$_}__item-size {
+            white-space: nowrap;
+            font-size: tokens.get($_, "font-size-90");
+        }
+
+        .#{$_}__item-icon-wrapper,
+        .#{$_}__item-remove {
+            position: absolute;
+            top: 0;
+        }
+
+        .#{$_}__item-remove {
+            display: inline-flex;
+            right: 0;
+        }
+
+        .#{$_}__item-icon-wrapper {
+            left: tokens.use($_, "space", .5);
+        }
+
+        .#{$_}__item-preview {
+            width: tokens.use($_, "space", 25);
+            aspect-ratio: 16 / 9;
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.use($_, "corner-shape");
+            filter: tokens.get($_, "shadow-preview");
+            overflow: hidden;
+            background-color: tokens.get($_, "color--surface");
+            border: tokens.get($_, "border");
+
+            & > * {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .#{$_}__item-icon-wrapper {
+            aspect-ratio: unset;
+            height: unset;
+        }
+
+        .#{$_}__item-remove {
+            border-left: none;
+            margin-left: unset;
+            border-radius: unset;
+        }
+    }
+}
+
+/* Animation */
+@keyframes puff-out-center {
+    0% {
+        filter: tokens.get($_, "shadow") blur(0px);
+        opacity: 1;
+    }
+    100% {
+        filter: tokens.get($_, "shadow") blur(4px);
+        opacity: 0;
+    }
+}

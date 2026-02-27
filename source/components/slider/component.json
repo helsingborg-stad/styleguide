@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Slider",
+"slug": "slider",
+"tokens": ["base","border-radius","shadow","color--primary","color--alpha","space"]
+}

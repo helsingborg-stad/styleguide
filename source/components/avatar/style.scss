@@ -1,0 +1,61 @@
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-avatar";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_));
+
+/* Component */
+.#{$_} {
+    border-radius: 50%;
+    background: tokens.get($_, "color--secondary");
+    line-height: 0;
+    position: relative;
+    contain: layout paint;
+    corner-shape: tokens.get($_, "corner-shape");
+
+    &--size-sm {
+        width: tokens.use($_, "base", 5);
+        height: tokens.use($_, "base", 5);
+    }
+
+    &--size-md {
+        width: tokens.use($_, "base", 9);
+        height: tokens.use($_, "base", 9);
+    }
+
+    &--size-lg {
+        width: tokens.use($_, "base", 14);
+        height: tokens.use($_, "base", 14);
+    }
+
+    &--size-full {
+        width: 100%;
+        aspect-ratio: 1;
+    }
+
+    &__image,
+    &__initials *,
+    &__icon {
+        color: tokens.get($_, "color--secondary-contrast");
+        fill: tokens.get($_, "color--secondary-contrast");
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+    }
+
+    &__image img.c-image__image {
+        border-radius: inherit;
+        width: 100%;
+    }
+
+    &__icon {
+        display: grid;
+        place-items: center;
+    }
+
+    &--image {
+        background: none;
+    }
+}

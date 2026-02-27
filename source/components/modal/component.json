@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Modal",
+"slug": "modal",
+"tokens": ["base","space","border-width","border-color","border-radius","shadow","color--surface","color--alpha"]
+}

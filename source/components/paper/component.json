@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Paper",
+"slug": "paper",
+"tokens": ["border-radius","space","shadow","border-width","color--surface"]
+}

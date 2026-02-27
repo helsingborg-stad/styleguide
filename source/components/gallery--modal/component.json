@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Gallery Modal",
+"slug": "gallery--modal",
+"tokens": ["base","space","shadow","color--surface","color--alpha","border-radius"]
+}

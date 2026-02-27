@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Toast",
+"slug": "toast",
+"tokens": ["base"]
+}

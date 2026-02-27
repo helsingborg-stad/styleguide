@@ -1,0 +1,20 @@
+{
+    "image": {
+        "heading": "Image",
+        "subHeading": "",
+        "text": "",
+        "grid": "grid-s-12 grid-sm-4 grid-md-4"
+    },
+    "name": {
+        "heading": "Name",
+        "subHeading": "",
+        "text": "",
+        "grid": "grid-s-12 grid-sm-4 grid-md-4"
+    },
+    "icon": {
+        "heading": "Icon",
+        "subHeading": "",
+        "text": "",
+        "grid": "grid-s-12 grid-sm-4 grid-md-4"
+    }
+}

@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Logotype Grid",
+"slug": "logotypegrid",
+"tokens": ["base"]
+}

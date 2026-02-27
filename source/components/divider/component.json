@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Divider",
+"slug": "divider",
+"tokens": ["color--surface","border-width","border-radius","space","corner-shape"]
+}

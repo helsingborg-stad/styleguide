@@ -1,0 +1,22 @@
+{
+    "simpleCollection": {
+        "heading": "Plain text collection",
+        "subHeading": "",
+        "text": "Just a plain and simple collection. The first item is linked in each list. First collection utilizes the slot, and the second utlizes the array list input method."
+    },
+    "multilineCollection": {
+        "heading": "Multiline text collection",
+        "subHeading": "",
+        "text": "Sometimes you just want more in life than single rows."
+    },
+    "fullCollection": {
+        "heading": "Collection with secondary ",
+        "subHeading": "",
+        "text": "This is a collection utilizing actions / secondary area."
+    },
+    "modifiersCollection": {
+        "heading": "Collection with modifiers ",
+        "subHeading": "",
+        "text": "Thie is a collections with all modifiers."
+    }
+} 

@@ -1,0 +1,381 @@
+@use "../../sass/mixin/mq";
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-field";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), (
+    "base": "var(--base)",
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    "background-color": tokens.get($_, "color--surface"),
+    "height": "calc(var(--base) * 6)",
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-hover": tokens.use($_, "shadow", 1.5)
+));
+
+$fields: "input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]";
+
+/* Component */
+.#{$_} {
+    --#{$_}--height-computed: calc(#{tokens.get($_, "height")} - #{tokens.get($_, "border-width")} * 2);
+
+    flex: 1;
+
+    .#{$_}__label,
+    .#{$_}__helper {
+        display: block;
+        width: 100%;
+    }
+
+    .#{$_}__label {
+        color: tokens.get($_, "color--surface-contrast");
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: tokens.use($_, "space", 0.5);
+        letter-spacing: 0.05rem;
+    }
+
+    .#{$_}__description {
+        font-size: 0.75rem;
+        color: tokens.get($_, "color--surface-contrast");
+        margin-top: 0;
+    }
+
+    .#{$_}__helper {
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-caption, 0.875rem);
+        color: tokens.get($_, "color--surface-contrast");
+        margin-top: tokens.use($_, "space", 0.5);
+        margin-left: tokens.use($_, "space", 0.25);
+    }
+
+    #{$fields},
+    textarea {
+        appearance: none;
+        flex: 1;
+        border: 0;
+        background: none;
+        height: tokens.get($_, "height");
+        padding: tokens.use($_, "space", 2);
+        outline: 0;
+        margin: 0;
+        color: tokens.get($_, "color--surface-contrast");
+    }
+
+    .#{$_}__inner {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        width: 100%;
+        min-width: calc(#{tokens.get($_, "base")} * 10);
+        font-size: 0.95rem;
+        line-height: calc(var(--base) * 2);
+        border: tokens.get($_, "border");
+        background: tokens.get($_, "background-color");
+        color: tokens.get($_, "color--surface-contrast");
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
+
+        &:focus-within {
+            @include focus.focus-remove-default();
+            @include focus.focus();
+        }
+
+        input {
+            border-radius: tokens.use($_, "border-radius");
+            corner-shape: tokens.get($_, "corner-shape");
+
+            &::-webkit-calendar-picker-indicator {
+                filter: brightness(0);
+                opacity: 0.8;
+            }
+        }
+
+        .#{$_}__icon,
+        .#{$_}__prefix,
+        .#{$_}__suffix {
+            color: tokens.get($_, "color--surface-contrast");
+        }
+
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2);
+        }
+
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2);
+        }
+
+        .#{$_}__error-icon {
+            color: tokens.get($_, "color--danger");
+            display: none;
+        }
+
+        .#{$_}__success-icon {
+            color: tokens.get($_, "color--success");
+            display: none;
+        }
+
+        &.#{$_}__inner--textarea .#{$_}__error-icon,
+        &.#{$_}__inner--textarea .#{$_}__success-icon {
+            position: absolute;
+            padding: 0;
+            right: tokens.use($_, "space", 2);
+            bottom: tokens.use($_, "space", 2);
+        }
+
+        &--search {
+
+            #input_search-form__field,
+            #input_search-form--field,
+            #input_header-search-form__field,
+            #input_hero-search-form__field,
+            #input_mobile-search-form__field {
+                box-shadow: none;
+            }
+        }
+
+        &--number,
+        &--email,
+        &--text,
+        &--url,
+        &--time,
+        &--date {
+            input:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    &.#{$_}--hidden {
+        .#{$_}__inner {
+            border: unset;
+        }
+    }
+
+
+    textarea {
+        min-height: tokens.get($_, "height");
+        height: initial;
+        max-width: 100%;
+
+        &:focus-visible {
+            box-shadow: none;
+        }
+    }
+
+    /* Borderless */
+    &.#{$_}--borderless {
+        .#{$_}__inner {
+            border-width: 0;
+            border-color: transparent;
+        }
+    }
+
+    /* Shadow */
+    &.#{$_}--shadow {
+        transition: filter 100ms ease-in-out;
+        filter: tokens.get($_, "shadow");
+    }
+
+    &.#{$_}--shadow:hover {
+        filter: tokens.get($_, "shadow-hover");
+    }
+
+    /* Customizer modifiers */
+    &.#{$_}--rounded {
+
+        .#{$_}__inner,
+        .#{$_}__inner input {
+            border-radius: calc(#{tokens.get($_, "base")} * 3);
+            border: none;
+
+            input::placeholder {
+                font-weight: 700;
+            }
+        }
+
+        .#{$_}__label {
+            margin-left: calc(#{tokens.get($_, "base")} * 2);
+        }
+
+        &.#{$_}--rounded-border {
+            .#{$_}__inner {
+                border: tokens.get($_, "border");
+            }
+        }
+
+        input:focus+.#{$_}_focus-styler,
+        textarea:focus+.#{$_}_focus-styler {
+            border-radius: calc(#{tokens.get($_, "base")} * 3);
+        }
+    }
+
+    /* Size modifiers */
+    &.#{$_}--sm {
+        font-size: 0.775rem;
+        line-height: calc(var(--base) * 1.5);
+
+        #{$fields} {
+            padding: tokens.use($_, "space");
+            height: calc(#{tokens.get($_, "base")} * 4.5);
+        }
+
+        &.#{$_}--borderless {
+            #{$fields} {
+                height: calc(#{tokens.get($_, "base")} * 4.5);
+            }
+        }
+
+        textarea {
+            padding: tokens.use($_, "space");
+            min-height: calc(#{tokens.get($_, "base")} * 4.5);
+        }
+
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space");
+        }
+
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space");
+        }
+    }
+
+    &.#{$_}--md {
+        #{$fields} {
+            padding: tokens.use($_, "space", 2);
+            height: var(--#{$_}--height-computed);
+        }
+
+        &.#{$_}--borderless {
+            #{$fields} {
+                height: tokens.get($_, "height");
+            }
+        }
+
+        textarea {
+            padding: tokens.use($_, "space", 2);
+            min-height: var(--#{$_}--height-computed);
+        }
+
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2);
+        }
+
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2);
+        }
+    }
+
+    &.#{$_}--lg {
+        font-size: 1rem;
+        line-height: calc(var(--base) * 2);
+
+        #{$fields} {
+            padding: tokens.use($_, "space", 2.5);
+            height: calc(#{tokens.get($_, "base")} * 8);
+        }
+
+        &.#{$_}--borderless {
+            #{$fields} {
+                height: calc(#{tokens.get($_, "base")} * 8);
+            }
+        }
+
+        textarea {
+            padding: tokens.use($_, "space", 2.5);
+            min-height: calc(#{tokens.get($_, "base")} * 8);
+        }
+
+        .#{$_}__icon,
+        .#{$_}__prefix {
+            padding-left: tokens.use($_, "space", 2.5);
+        }
+
+        .#{$_}__suffix {
+            padding-right: tokens.use($_, "space", 2.5);
+        }
+    }
+
+    &.is-invalid {
+
+        .#{$_}__inner,
+        select,
+        option {
+
+            &,
+            &:focus,
+            &:focus-within,
+            &:active {
+                border-color: tokens.get($_, "color--danger");
+            }
+
+            .#{$_}__error-icon {
+                display: block;
+            }
+        }
+
+        .#{$_}__helper {
+            color: tokens.get($_, "color--danger");
+        }
+
+        .#{$_}__inner {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .#{$_}__error {
+            display: block;
+            padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 2);
+            color: tokens.get($_, "color--danger-contrast");
+            background-color: tokens.get($_, "color--danger");
+            border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
+            corner-shape: tokens.get($_, "corner-shape");
+        }
+    }
+
+    &.is-valid {
+        .#{$_}__inner {
+
+            &,
+            &:focus,
+            &:active {
+                border-color: tokens.get($_, "color--success");
+            }
+
+            .#{$_}__success-icon {
+                display: block;
+            }
+        }
+    }
+
+    .#{$_}__error {
+        display: none;
+    }
+}
+
+/* For the search-field in a megamenu */
+.c-megamenu .c-form {
+    @include mq.mq("xs") {
+        .c-group {
+            justify-content: center;
+        }
+
+        .c-button {
+            padding: 0 calc(var(--base, 8px) * 0.5);
+        }
+    }
+
+    @include mq.mq("sm") {
+        .c-button {
+            padding: 0 calc(var(--base, 8px) * 4);
+        }
+    }
+}

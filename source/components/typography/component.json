@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Typography",
+"slug": "typography",
+"tokens": ["font-family-base","font-family-heading","font-weight-normal","font-weight-medium","font-weight-bold","line-height-base","line-height-heading","letter-spacing-base","base-font-size","space","font-size-scale-ratio"]
+}

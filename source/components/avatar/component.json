@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Avatar",
+"slug": "avatar",
+"tokens": ["base","color--secondary","corner-shape"]
+}

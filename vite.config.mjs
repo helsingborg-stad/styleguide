@@ -10,7 +10,25 @@ const entries = {
 };
 
 const getComponentConfig = (name) => {
-	const configPath = `./source/data/${name}.json`;
+	// Strip "c-" prefix if present for component lookup
+	const componentName = name.startsWith('c-') ? name.substring(2) : name;
+	
+	// Handle special case mappings
+	let mappedName = componentName;
+	if (componentName === 'modal--gallery') {
+		mappedName = 'gallery--modal';
+	}
+	
+	// Try new component structure first
+	const newConfigPath = `./source/components/${mappedName}/component.json`;
+	// Fallback to old structure for compatibility
+	const oldConfigPath = `./source/data/c-${componentName}.json`;
+	
+	let configPath = newConfigPath;
+	
+	if (!fs.existsSync(newConfigPath) && fs.existsSync(oldConfigPath)) {
+		configPath = oldConfigPath;
+	}
 
 	if (!fs.existsSync(configPath)) {
 		console.warn(`Config file for component "${name}" not found at ${configPath}`);

@@ -4,18 +4,22 @@
  * Reads source/data/design-tokens.json and generates
  * source/sass/setting/_design-tokens.scss
  *
+ * Also processes component tokens from source/components/{name}/component.json
+ *
  * Usage:
  *   node build-design-tokens.mjs
  */
 
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
+import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const INPUT  = resolve(__dirname, 'source/data/design-tokens.json');
 const OUTPUT = resolve(__dirname, 'source/sass/setting/_design-tokens.scss');
+const COMPONENT_DIR = resolve(__dirname, 'source/components');
+const COMPONENT_OUTPUT = resolve(__dirname, 'component-design-tokens.json');
 
 function buildScss(data) {
     const lines = [];
@@ -85,3 +89,27 @@ writeFileSync(OUTPUT, scss, 'utf-8');
 const tokenCount = data.categories.reduce((sum, c) => sum + c.settings.length, 0);
 console.log(`Generated ${OUTPUT}`);
 console.log(`  ${data.categories.length} categories, ${tokenCount} tokens`);
+
+// Process component design tokens
+if (existsSync(COMPONENT_DIR)) {
+    const componentTokens = {};
+    const componentDirs = readdirSync(COMPONENT_DIR, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name);
+    
+    for (const componentName of componentDirs) {
+        const tokenFile = join(COMPONENT_DIR, componentName, `component.json`);
+        if (existsSync(tokenFile)) {
+            try {
+                const tokenData = JSON.parse(readFileSync(tokenFile, 'utf-8'));
+                componentTokens[componentName] = tokenData;
+            } catch (error) {
+                console.warn(`Warning: Failed to parse ${tokenFile}: ${error.message}`);
+            }
+        }
+    }
+    
+    writeFileSync(COMPONENT_OUTPUT, JSON.stringify(componentTokens, null, 2), 'utf-8');
+    console.log(`Generated ${COMPONENT_OUTPUT}`);
+    console.log(`  ${Object.keys(componentTokens).length} components processed`);
+}

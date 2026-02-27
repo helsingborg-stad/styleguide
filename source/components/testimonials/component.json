@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Testimonials",
+"slug": "testimonials",
+"tokens": ["base","shadow","color--surface","color--primary","border-radius","corner-shape"]
+}

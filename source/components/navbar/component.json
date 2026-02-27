@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Navbar",
+"slug": "navbar",
+"tokens": ["base","shadow","color--surface","color--primary","color--background","font-family-base"]
+}
