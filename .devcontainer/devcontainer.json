@@ -3,7 +3,10 @@
 {
 	"name": "PHP",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/php:1-8.3-bullseye",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -11,7 +14,7 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
-			"version": "24"
+			"version": "lts"
 		},
 		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
 			"packages": "nano,bash-completion"
@@ -44,12 +47,8 @@
 		}
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": {
-		"debian-fix": "curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --yes --dearmor -o /usr/share/keyrings/yarnkey.gpg && echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main\" | sudo tee /etc/apt/sources.list.d/yarn.list > /dev/null",
-		"symlink-to-www": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
-		"apache": "sudo a2enmod rewrite headers && service apache2 start",
-		"playwright": "npm install && npx playwright install --with-deps"
-	},
+	"postCreateCommand": "./.devcontainer/post-create.sh",
+	"postStartCommand": "./.devcontainer/post-start.sh",
 	"waitFor": "postCreateCommand"
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
