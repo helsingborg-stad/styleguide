@@ -5,7 +5,7 @@ namespace HbgStyleGuide\Sidebar\Sections;
 use HbgStyleGuide\Contracts\SidebarSectionInterface;
 
 /**
- * Sidebar section for script pages.
+ * Script sidebar section.
  */
 class ScriptSection implements SidebarSectionInterface
 {

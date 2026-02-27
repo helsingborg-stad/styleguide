@@ -5,7 +5,7 @@ namespace HbgStyleGuide\Sidebar\Sections;
 use HbgStyleGuide\Contracts\SidebarSectionInterface;
 
 /**
- * Sidebar section for objects pages.
+ * Objects sidebar section.
  */
 class ObjectsSection implements SidebarSectionInterface
 {

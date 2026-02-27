@@ -85,6 +85,49 @@ class Request
     public function resolvePage(string $defaultPage = 'home'): string
     {
         $path = trim($this->getPath(), '/');
-        return $path === '' ? $defaultPage : $path;
+        if ($path === '') {
+            return $defaultPage;
+        }
+
+        $segments = array_values(array_filter(explode('/', $path), static fn (string $segment): bool => $segment !== ''));
+
+        if (($segments[0] ?? '') === 'components') {
+            return $this->resolveComponentPagePath($segments);
+        }
+
+        return $path;
+    }
+
+    /**
+     * Resolves a component view path without exposing atomic levels in URLs.
+     *
+     * @param array<int, string> $segments Request path segments.
+     *
+     * @return string
+     */
+    private function resolveComponentPagePath(array $segments): string
+    {
+        if (count($segments) !== 2) {
+            return implode('/', $segments);
+        }
+
+        $componentSlug = $segments[1];
+        if (in_array($componentSlug, ['atoms', 'molecules', 'organisms', 'usage'], true)) {
+            return implode('/', $segments);
+        }
+
+        if (!defined('BASEPATH')) {
+            return implode('/', $segments);
+        }
+
+        $componentLevels = ['atoms', 'molecules', 'organisms'];
+        foreach ($componentLevels as $componentLevel) {
+            $candidate = BASEPATH . 'views/pages/components/' . $componentLevel . '/' . $componentSlug . '.blade.php';
+            if (is_file($candidate)) {
+                return 'components/' . $componentLevel . '/' . $componentSlug;
+            }
+        }
+
+        return implode('/', $segments);
     }
 }

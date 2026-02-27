@@ -5,7 +5,7 @@ namespace HbgStyleGuide\Sidebar\Sections;
 use HbgStyleGuide\Contracts\SidebarSectionInterface;
 
 /**
- * Sidebar section for utility pages.
+ * Utilities sidebar section.
  */
 class UtilitiesSection implements SidebarSectionInterface
 {

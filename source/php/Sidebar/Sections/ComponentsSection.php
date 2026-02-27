@@ -5,7 +5,7 @@ namespace HbgStyleGuide\Sidebar\Sections;
 use HbgStyleGuide\Contracts\SidebarSectionInterface;
 
 /**
- * Sidebar section for components pages.
+ * Components sidebar section.
  */
 class ComponentsSection implements SidebarSectionInterface
 {

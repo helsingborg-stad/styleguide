@@ -3,19 +3,19 @@
 namespace HbgStyleGuide\Contracts;
 
 /**
- * Contract for a sidebar navigation section.
+ * Contract for a sidebar section entry.
  */
 interface SidebarSectionInterface
 {
     /**
-     * Returns section key used in navigation map.
+     * Returns sidebar section key.
      *
      * @return string
      */
     public function getKey(): string;
 
     /**
-     * Returns section label.
+     * Returns sidebar section label.
      *
      * @return string
      */

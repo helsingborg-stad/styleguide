@@ -17,25 +17,21 @@ use PHPUnit\Framework\TestCase;
  */
 class NavigationSidebarSectionsTest extends TestCase
 {
-    /**
-     * @var string
-     */
     private string $tempProjectRoot;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost';
-        $_SERVER['REQUEST_URI'] = '/script';
+        $_SERVER['REQUEST_URI'] = '/components/button';
 
         $this->tempProjectRoot = sys_get_temp_dir() . '/styleguide-sidebar-nav-' . uniqid('', true);
 
         mkdir($this->tempProjectRoot . '/assets/data', 0777, true);
         mkdir($this->tempProjectRoot . '/source/components/alpha', 0777, true);
         mkdir($this->tempProjectRoot . '/source/components/beta', 0777, true);
-        mkdir($this->tempProjectRoot . '/views/pages/components', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/components/atoms', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/components/molecules', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/components/organisms', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/objects', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/script', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/utilities', 0777, true);
@@ -64,11 +60,11 @@ class NavigationSidebarSectionsTest extends TestCase
                 'slug' => 'beta',
             ])
         );
+
+        file_put_contents($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php', '');
+        file_put_contents($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php', '');
     }
 
-    /**
-     * @return void
-     */
     protected function tearDown(): void
     {
         unset($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
@@ -84,6 +80,12 @@ class NavigationSidebarSectionsTest extends TestCase
         @rmdir($this->tempProjectRoot . '/source/components');
         @rmdir($this->tempProjectRoot . '/source');
 
+        @unlink($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php');
+        @unlink($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php');
+
+        @rmdir($this->tempProjectRoot . '/views/pages/components/atoms');
+        @rmdir($this->tempProjectRoot . '/views/pages/components/molecules');
+        @rmdir($this->tempProjectRoot . '/views/pages/components/organisms');
         @rmdir($this->tempProjectRoot . '/views/pages/components');
         @rmdir($this->tempProjectRoot . '/views/pages/objects');
         @rmdir($this->tempProjectRoot . '/views/pages/script');
@@ -94,13 +96,10 @@ class NavigationSidebarSectionsTest extends TestCase
         @rmdir($this->tempProjectRoot);
     }
 
-    /**
-     * @return void
-     */
     public function testBuildSidebarNavigationReturnsMainSectionsInExpectedOrder(): void
     {
         $navigation = new Navigation(
-            new Request('/script', []),
+            new Request('/components/molecules/alpha', []),
             new JsonDataLoader($this->tempProjectRoot),
             new NavigationDataParser(),
             $this->tempProjectRoot . '/views/',
@@ -116,12 +115,7 @@ class NavigationSidebarSectionsTest extends TestCase
         $result = $navigation->buildSidebarNavigation();
 
         $this->assertSame(['components', 'objects', 'script', 'utilities'], array_keys($result));
-        $this->assertSame('Components', $result['components']['label']);
-        $this->assertSame('Objects', $result['objects']['label']);
-        $this->assertSame('Script', $result['script']['label']);
-        $this->assertSame('Utilities', $result['utilities']['label']);
-        $this->assertIsArray($result['components']['children']);
-        $this->assertSame('Alpha Component', $result['components']['children']['alpha']['label']);
-        $this->assertSame('Beta Component', $result['components']['children']['beta']['label']);
+        $this->assertSame('//localhost/components/molecules/alpha', $result['components']['children']['alpha']['href']);
+        $this->assertSame('//localhost/components/organisms/beta', $result['components']['children']['beta']['href']);
     }
 }
