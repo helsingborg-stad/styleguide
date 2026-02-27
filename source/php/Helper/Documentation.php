@@ -18,43 +18,60 @@ class Documentation
      */
     public static function getUsageExamples(string $slug, BladeServiceInterface $blade)
     {
-        $dir = BASEPATH . 'views/pages/components/usage/' . $slug;
-        $examples = array();
+        $usageDir = BASEPATH . 'views/pages/components/usage/' . $slug;
+        $sourceExamplesDir = BASEPATH . 'source/components/' . $slug . '/examples';
+        $examples = [];
 
-        if(file_exists($dir))
-        {
-            if(file_exists($dir . '/' . $slug . '.json')) {
-                $json = Documentation::getJson($dir, $slug);
-
-                foreach(array_keys($json) as $file)
-                {
-                    $filePath = $file . '.blade.php';
-
-                    if(file_exists($dir . '/' . $filePath)) {
-
-                        //Get doc path
-                        $includePath = ('pages.components.usage.' . $slug . '.' . $file);
-                        
-                        //Make view
-                        $html = $blade->makeView($includePath)->render();
-
-                        //Get contents of file 
-                        $content = file_get_contents($dir . '/' . $filePath, FILE_USE_INCLUDE_PATH);
-                        
-                        //Push as example
-                        array_push($examples, array(
-                            "component" => $includePath,
-                            "blade" => ['id' => uniqid('', true), 'code' => $content],
-                            "html" => ['id' => uniqid('', true), 'code' => $html],
-                            "description" => $json[$file]
-                        ));
-                    } else {
-                        trigger_error("Couldn't find blade file " . $dir . '/' . $filePath, E_USER_NOTICE);
-                    }
-                }
+        $examplesConfig = [];
+        $sourceExamplesConfigPath = $sourceExamplesDir . '/examples.json';
+        if (file_exists($sourceExamplesConfigPath)) {
+            $sourceConfigContent = file_get_contents($sourceExamplesConfigPath);
+            $sourceConfig = json_decode((string) $sourceConfigContent, true);
+            if (is_array($sourceConfig)) {
+                $examplesConfig = $sourceConfig;
             }
+        }
+
+        if (empty($examplesConfig) && file_exists($usageDir . '/' . $slug . '.json')) {
+            $examplesConfig = Documentation::getJson($usageDir, $slug);
+        }
+
+        if (empty($examplesConfig) || !is_array($examplesConfig)) {
             return $examples;
         }
+
+        foreach (array_keys($examplesConfig) as $exampleKey) {
+            $filePath = $exampleKey . '.blade.php';
+            $includePath = 'pages.components.usage.' . $slug . '.' . $exampleKey;
+            $usageBladePath = $usageDir . '/' . $filePath;
+            $sourceBladePath = $sourceExamplesDir . '/' . $filePath;
+
+            if (!file_exists($usageBladePath)) {
+                continue;
+            }
+
+            $html = $blade->makeView($includePath)->render();
+            $content = file_exists($sourceBladePath)
+                ? file_get_contents($sourceBladePath, FILE_USE_INCLUDE_PATH)
+                : file_get_contents($usageBladePath, FILE_USE_INCLUDE_PATH);
+
+            $description = is_array($examplesConfig[$exampleKey] ?? null) ? $examplesConfig[$exampleKey] : [];
+
+            $normalizedDescription = [
+                'heading' => $description['heading'] ?? '',
+                'subHeading' => $description['subHeading'] ?? '',
+                'description' => $description['description'] ?? ($description['text'] ?? ''),
+            ];
+
+            $examples[] = [
+                'component' => $includePath,
+                'blade' => ['id' => uniqid('', true), 'code' => $content],
+                'html' => ['id' => uniqid('', true), 'code' => $html],
+                'description' => $normalizedDescription,
+            ];
+        }
+
+        return $examples;
     }
 
 

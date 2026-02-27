@@ -33,6 +33,8 @@ class NavigationSidebarSectionsTest extends TestCase
         $this->tempProjectRoot = sys_get_temp_dir() . '/styleguide-sidebar-nav-' . uniqid('', true);
 
         mkdir($this->tempProjectRoot . '/assets/data', 0777, true);
+        mkdir($this->tempProjectRoot . '/source/components/alpha', 0777, true);
+        mkdir($this->tempProjectRoot . '/source/components/beta', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/objects', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/script', 0777, true);
@@ -44,6 +46,22 @@ class NavigationSidebarSectionsTest extends TestCase
                 'unlisted' => ['.', '..', '.DS_Store', 'layout', '404.blade.php', 'home.blade.php', 'usage', 'about'],
                 'icons' => [],
                 'externalMenuItems' => [],
+            ])
+        );
+
+        file_put_contents(
+            $this->tempProjectRoot . '/source/components/alpha/component.json',
+            json_encode([
+                'name' => 'Alpha Component',
+                'slug' => 'alpha',
+            ])
+        );
+
+        file_put_contents(
+            $this->tempProjectRoot . '/source/components/beta/component.json',
+            json_encode([
+                'name' => 'Beta Component',
+                'slug' => 'beta',
             ])
         );
     }
@@ -58,6 +76,13 @@ class NavigationSidebarSectionsTest extends TestCase
         @unlink($this->tempProjectRoot . '/assets/data/navigation-config.json');
         @rmdir($this->tempProjectRoot . '/assets/data');
         @rmdir($this->tempProjectRoot . '/assets');
+
+        @unlink($this->tempProjectRoot . '/source/components/alpha/component.json');
+        @unlink($this->tempProjectRoot . '/source/components/beta/component.json');
+        @rmdir($this->tempProjectRoot . '/source/components/alpha');
+        @rmdir($this->tempProjectRoot . '/source/components/beta');
+        @rmdir($this->tempProjectRoot . '/source/components');
+        @rmdir($this->tempProjectRoot . '/source');
 
         @rmdir($this->tempProjectRoot . '/views/pages/components');
         @rmdir($this->tempProjectRoot . '/views/pages/objects');
@@ -85,6 +110,7 @@ class NavigationSidebarSectionsTest extends TestCase
                 new ScriptSection(),
                 new UtilitiesSection(),
             ],
+            $this->tempProjectRoot . '/source/components',
         );
 
         $result = $navigation->buildSidebarNavigation();
@@ -94,5 +120,8 @@ class NavigationSidebarSectionsTest extends TestCase
         $this->assertSame('Objects', $result['objects']['label']);
         $this->assertSame('Script', $result['script']['label']);
         $this->assertSame('Utilities', $result['utilities']['label']);
+        $this->assertIsArray($result['components']['children']);
+        $this->assertSame('Alpha Component', $result['components']['children']['alpha']['label']);
+        $this->assertSame('Beta Component', $result['components']['children']['beta']['label']);
     }
 }

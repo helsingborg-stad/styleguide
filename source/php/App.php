@@ -46,6 +46,7 @@ class App
                 new ScriptSection(),
                 new UtilitiesSection(),
             ],
+            BASEPATH . 'source/components',
         );
         $view = new View();
 

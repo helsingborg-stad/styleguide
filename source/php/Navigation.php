@@ -32,6 +32,7 @@ class Navigation
         private NavigationDataParserInterface $navigationDataParser,
         private string $viewsPath,
         private array $sidebarSections = [],
+        private string $componentsPath = '',
     ) {}
 
     /**
@@ -51,6 +52,7 @@ class Navigation
             new NavigationDataParser(),
             VIEWS_PATH,
             self::defaultSidebarSections(),
+            BASEPATH . 'source/components',
         );
 
         return self::$defaultInstance;
@@ -105,12 +107,62 @@ class Navigation
                 ];
             }
 
+            if ($key === 'components') {
+                $sidebarItem['children'] = $this->buildComponentsMenuItems();
+            }
+
             $sidebarItem['label'] = $section->getLabel();
 
             $sidebarNavigation[$key] = $sidebarItem;
         }
 
         return $sidebarNavigation;
+    }
+
+    /**
+     * Builds component menu children from source components component.json files.
+     *
+     * @return array<mixed>
+     */
+    private function buildComponentsMenuItems(): array
+    {
+        $basePath = $this->componentsPath !== ''
+            ? rtrim($this->componentsPath, '/')
+            : rtrim(BASEPATH . 'source/components', '/');
+
+        $componentConfigPaths = glob($basePath . '/*/component.json') ?: [];
+        $items = [];
+
+        foreach ($componentConfigPaths as $componentConfigPath) {
+            $configContent = file_get_contents($componentConfigPath);
+            if ($configContent === false) {
+                continue;
+            }
+
+            $config = json_decode($configContent, true);
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $name = isset($config['name']) ? (string) $config['name'] : '';
+
+            if ($slug === '' || $name === '') {
+                continue;
+            }
+
+            $items[$slug] = [
+                'label' => $name,
+                'href' => '//' . $this->getPageDomain() . '/components/' . $slug,
+                'children' => false,
+                'async' => false,
+                'active' => $this->isActiveItem($slug, true),
+            ];
+        }
+
+        uasort($items, fn (array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+
+        return $items;
     }
 
     /**
