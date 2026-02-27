@@ -1,3 +1,4 @@
+<div style="height: 400px; position: relative;">
 @fab([
     'position' => 'bottom-right',
     'heading' => "Vestibulum id ligula porta felis euismod semper",
@@ -20,3 +21,4 @@
     @endnav
 
 @endfab
+</div>
