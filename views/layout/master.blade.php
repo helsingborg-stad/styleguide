@@ -48,8 +48,12 @@
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: contain;
+            transition: background-color 0.3s ease;
         }
 
+        .c-header__logotype:hover {
+            background-color: var(--color--surface-contrast-muted);
+        }
         .c-header__logotype img {
             visibility: hidden;
         }
@@ -124,6 +128,18 @@
             <div class="u-display--flex u-align-items--center">
                 @nav([
                     'items' => [
+                        [
+                            'href' => '/design-builder',
+                            'label' => 'Design Lab',
+                            'style' => 'button',
+                            'buttonStyle' => 'basic',
+                            'buttonColor' => 'default',
+                            'icon' => ['icon' => 'format_paint'],
+                            'classList' => ['u-margin__right--2'],
+                            'attributeList' => [
+                                'title' => 'Design Lab'
+                            ]
+                        ],
                         [
                             'href' => 'https://getmunicipio.com',
                             'label' => 'Website',
