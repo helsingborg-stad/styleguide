@@ -10,7 +10,13 @@
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8080],
+	"forwardPorts": [80],
+	"portsAttributes": {
+		"80": {
+			"label": "Styleguide",
+			"onAutoForward": "notify"
+		}
+	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
