@@ -42,19 +42,16 @@
 
     <!-- Force this logotype to be white, as the header background is dark. -->
     <style>
-        .c-header__logotype .c-logotype__image {
-            background-color: var(--color-surface-contrast-muted);
+        .c-header__logotype  {
+            background-color: var(--color--surface-contrast);
             mask-image: url("/assets/img/logotype.svg");
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: contain;
-            /* Safari support */
-            -webkit-mask-image: url("/assets/img/logotype.svg");
-            -webkit-mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            -webkit-mask-size: contain;
-            width: 120px;   /* required */
-            height: 40px;   /* required */
+        }
+
+        .c-header__logotype img {
+            visibility: hidden;
         }
     </style>
     
