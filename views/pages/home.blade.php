@@ -2,11 +2,10 @@
 
 @section('doc-hero')
     @include('layout.partials.doc-hero', [
-        'title' => 'Helsingborg Styleguide',
-        'subtitle' => 'A classic documentation space for designers and developers building on the Helsingborg platform.',
+        'title' => 'Municipio Design System',
+        'subtitle' => 'A comprehensive design system for building consistent, accessible and efficient digital experiences across all multiple platforms.',
         'metaTags' => [
-            ['label' => 'Version 2.0'],
-            ['label' => 'Atomic design']
+            ['label' => 'Version 3.0']
         ],
         'primaryCta' => ['label' => 'Browse components', 'href' => '/components'],
         'secondaryCta' => ['label' => 'View setup guide', 'href' => '/setup'],

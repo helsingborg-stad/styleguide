@@ -3,39 +3,7 @@
         <div class="grid">
         @foreach($examples as $key => $example)
 
-            @if(isset($example['description']['grid']) && !empty($example['description']['grid']))
-                @php
-                      $componentDesc = [
-                        '--component-description-area'
-                      ];
-
-                      $codeArea = [
-                        'c-paper--component-code-area-grid'
-                      ];
-                @endphp
-            @else
-                @php
-                    $componentDesc = [
-                        'c-paper--component-description-area',
-                        'c-paper--component-description-area-full'
-                    ];
-
-                    $codeArea = [
-                        'c-paper--component-code-area-full'
-                    ];
-
-                    $example['description']['grid'] = 'grid-md-12';
-                @endphp
-            @endif
-
-            <div class="{{$example['description']['grid']}}">
-
-                @paper([
-                    'padding' => $paper['containerPadding'],
-                    'transparent' => $paper['transparencyContainer']
-                ])
-
-                    <div class="u-margin__bottom--4">
+        
                         @typography([
                             'variant' => "h3",
                             'element' => "h3"
@@ -63,9 +31,9 @@
                         @endif
                     </div>
 
-                    <div class="u-padding--4" style="border: 2px dashed var(--color-code-button,var(--color-default-darker,#3d3d3d)); border-bottom: none;">
-                        @include($example['component'])
-                    </div>
+                    
+                    @include($example['component'])
+
 
                     <div class="d-code__toggle c-code__toggle">
                         @button([
@@ -97,7 +65,7 @@
                     @code(['language' => 'php', 'content' => "", 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
                         {{$example['blade']['code']}}
                     @endcode
-                @endpaper
+         
 
             </div>
         @endforeach

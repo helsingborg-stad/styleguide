@@ -32,43 +32,41 @@
                 {{ $subtitle }}
             @endtypography
 
-            <div class="o-grid o-grid--half-gutter u-margin__top--3">
-                <div class="o-grid-12 o-grid-6@sm">
-                    @button([
-                        'text' => $primaryCta['label'],
-                        'style' => 'filled',
-                        'color' => 'primary',
-                        'size' => 'md',
-                        'attributeList' => ['onclick' => "window.location='{$primaryCta['href']}'"]
-                    ])
-                    @endbutton
-                </div>
-                <div class="o-grid-12 o-grid-6@sm">
-                    @button([
-                        'text' => $secondaryCta['label'],
-                        'style' => 'outlined',
-                        'color' => 'default',
-                        'size' => 'md',
-                        'attributeList' => ['onclick' => "window.location='{$secondaryCta['href']}'"]
-                    ])
-                    @endbutton
-                </div>
+            <div class="u-margin__top--3">
+                @button([
+                    'text' => $primaryCta['label'],
+                    'style' => 'filled',
+                    'color' => 'primary',
+                    'size' => 'md',
+                    'attributeList' => ['onclick' => "window.location='{$primaryCta['href']}'"]
+                ])
+                @endbutton
+                @button([
+                    'text' => $secondaryCta['label'],
+                    'style' => 'outlined',
+                    'color' => 'default',
+                    'size' => 'md',
+                    'attributeList' => ['onclick' => "window.location='{$secondaryCta['href']}'"]
+                ])
+                @endbutton
             </div>
 
-            <div class="u-margin__top--3">
-                @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--1']])
-                    Jump straight to frequently used areas:
-                @endtypography
-                <div class="o-grid o-grid--half-gutter">
-                    @foreach($shortcuts as $shortcut)
-                        <div class="o-grid-12 o-grid-6@sm">
-                            @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-padding--2', 'u-border__all--1', 'u-border__radius--md']])
-                                {{ $shortcut['label'] }}
-                            @endlink
-                        </div>
-                    @endforeach
+            @if(!empty($shortcuts))
+                <div class="u-margin__top--3">
+                    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--1']])
+                        Jump straight to frequently used areas:
+                    @endtypography
+                    <div class="o-grid o-grid--half-gutter">
+                        @foreach($shortcuts as $shortcut)
+                            <div class="o-grid-12 o-grid-6@sm">
+                                @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-border__radius--md']])
+                                    {{ $shortcut['label'] }}
+                                @endlink
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <div class="o-grid-12 o-grid-5@lg">

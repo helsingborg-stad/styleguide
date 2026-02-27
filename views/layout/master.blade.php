@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Helsingborg Styleguide - Version 2.0</title>
+    <title>Municipio Styleguide - V.3</title>
     <meta name="description" content="">
 
     <link href="/assets/prism/prism.css" rel="stylesheet" />
@@ -82,7 +82,7 @@
                 'u-justify-content--space-between',
                 'u-border__bottom--1',
                 'u-padding__x--4',
-                'u-padding__y--2'
+                'u-padding__y--1',
             ]
         ])
             <div class="u-display--flex u-align-items--center">
@@ -111,11 +111,14 @@
                 @form(['action' => '/components', 'method' => 'get', 'classList' => ['u-width--100']])
                     @field([
                         'label' => 'Search documentation',
+                        'hideLabel' => true,
                         'name' => 'q',
                         'type' => 'search',
                         'placeholder' => 'Search components, utilities and scripts',
                         'classList' => ['u-margin--0'],
-                        'attributeList' => ['autocomplete' => 'off']
+                        'attributeList' => ['autocomplete' => 'off'],
+                        'size' => 'sm',
+                        'icon' => ['icon' => 'search']
                     ])
                     @endfield
                 @endform

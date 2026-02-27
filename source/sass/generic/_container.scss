@@ -3,7 +3,7 @@
 @use "../setting/var_default";
 
 .container {
-    width: calc( 100% - #{map.get(var_default.$spacers, "4")});
+    width: calc(100% - #{map.get(var_default.$spacers, "4")});
     max-width: var_default.$container-width;
     margin: 0 auto;
 
@@ -23,7 +23,7 @@
 
     &--doc {
         min-height: calc(90vh - 140px);
-        padding: map.get(var_default.$spacers, "8");
+        padding: map.get(var_default.$spacers, "4");
     }
 }
 
