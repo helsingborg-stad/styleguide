@@ -115,8 +115,6 @@
 
     @if(isset($settings) && isset($slug) && !empty($slug))
         @if(isset($displayParams) && !empty($displayParams))
-
-            @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
             @php
                 $paramRows = [];
                 foreach($settings as $key => $item) {
@@ -142,20 +140,18 @@
                 $paramRows[] = ['columns' => ['attributeList', '[]', 'array', '-', 'Array containing keys and values rendered as attributes']];
             @endphp
 
+            <div class="u-margin__top--10">
+                @table([
+                    'title'        => 'Parameters',
+                    'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
+                    'list'         => $paramRows,
+                    'includePaper' => false,
+                ])
+                @endtable
+                <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
+            </div>
         @endif
     @endif
-
-    @endpaper
-
-
-                @table([
-                'title'        => 'Parameters',
-                'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
-                'list'         => $paramRows,
-                'includePaper' => false,
-            ])
-            @endtable
-            <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
     
 
     
