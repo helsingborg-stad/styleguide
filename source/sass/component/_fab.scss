@@ -30,7 +30,6 @@ $yAxis: (
 }
 
 .#{$_} .#{$_}__panel {
-    @extend .c-card !optional;
     border-radius: tokens.get($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     filter: tokens.use($_, "shadow", 3);
