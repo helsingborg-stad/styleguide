@@ -116,7 +116,6 @@
                     'includePaper' => false,
                 ])
                 @endtable
-                <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
             </div>
         @endif
     @endif

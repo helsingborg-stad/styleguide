@@ -4,9 +4,13 @@
 @use "../setting/var_default" as defaults;
 @use "../setting/var_properties" as properties;
 
+.l-docs--header {
+    place-self: start;
+    width: 100%;
+}
 
 .d-code {
-    border-radius:  0 0 border-radius.$border-radius-md border-radius.$border-radius-md;
+    border-radius: 0 0 border-radius.$border-radius-md border-radius.$border-radius-md;
     border-top: 8px solid colors.$color-darkest;
     transform: translateY(-8px);
     z-index: properties.$level-1 - 1;
@@ -47,7 +51,7 @@
 .d-params {
 
     table {
-        border-collapse:collapse
+        border-collapse: collapse
     }
 
     thead {
@@ -74,7 +78,7 @@
             color: colors.$color-secondary-dark;
             font-family: monospace, monospace;
         }
-        
+
         &:nth-of-type(3) {
             font-weight: fonts.$font-weight-bold;
             font-family: fonts.$font-family-bold;
