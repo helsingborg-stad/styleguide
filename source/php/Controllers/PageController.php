@@ -40,7 +40,7 @@ class PageController extends BaseController implements ControllerInterface
         $data = [
             'assets' => Asset::getAll(),
             'topNavigation' => $this->navigation->buildItems('pages/', [], false),
-            'sideNavigation' => $this->navigation->buildItems('pages/'),
+            'sideNavigation' => $this->navigation->buildSidebarNavigation(),
             'pageNow' => $page,
         ];
 

@@ -9,6 +9,10 @@ use HbgStyleGuide\Data\NavigationApiDataProvider;
 use HbgStyleGuide\Data\NavigationDataParser;
 use HbgStyleGuide\Http\Request;
 use HbgStyleGuide\Http\Response;
+use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
+use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
+use HbgStyleGuide\Sidebar\Sections\ScriptSection;
+use HbgStyleGuide\Sidebar\Sections\UtilitiesSection;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
@@ -31,7 +35,18 @@ class App
 
         $jsonDataLoader = new JsonDataLoader(BASEPATH);
         $navigationDataParser = new NavigationDataParser();
-        $navigation = new Navigation($request, $jsonDataLoader, $navigationDataParser, VIEWS_PATH);
+        $navigation = new Navigation(
+            $request,
+            $jsonDataLoader,
+            $navigationDataParser,
+            VIEWS_PATH,
+            [
+                new ComponentsSection(),
+                new ObjectsSection(),
+                new ScriptSection(),
+                new UtilitiesSection(),
+            ],
+        );
         $view = new View();
 
         $pageController = new PageController(

@@ -4,9 +4,14 @@ namespace HbgStyleGuide;
 
 use HbgStyleGuide\Contracts\JsonDataLoaderInterface;
 use HbgStyleGuide\Contracts\NavigationDataParserInterface;
+use HbgStyleGuide\Contracts\SidebarSectionInterface;
 use HbgStyleGuide\Data\JsonDataLoader;
 use HbgStyleGuide\Data\NavigationDataParser;
 use HbgStyleGuide\Http\Request;
+use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
+use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
+use HbgStyleGuide\Sidebar\Sections\ScriptSection;
+use HbgStyleGuide\Sidebar\Sections\UtilitiesSection;
 
 class Navigation
 {
@@ -26,6 +31,7 @@ class Navigation
         private JsonDataLoaderInterface $jsonDataLoader,
         private NavigationDataParserInterface $navigationDataParser,
         private string $viewsPath,
+        private array $sidebarSections = [],
     ) {}
 
     /**
@@ -44,9 +50,67 @@ class Navigation
             new JsonDataLoader(BASEPATH),
             new NavigationDataParser(),
             VIEWS_PATH,
+            self::defaultSidebarSections(),
         );
 
         return self::$defaultInstance;
+    }
+
+    /**
+     * Returns default sidebar section definitions.
+     *
+     * @return array<SidebarSectionInterface>
+     */
+    public static function defaultSidebarSections(): array
+    {
+        return [
+            new ComponentsSection(),
+            new ObjectsSection(),
+            new ScriptSection(),
+            new UtilitiesSection(),
+        ];
+    }
+
+    /**
+     * Builds main sidebar navigation with required sections.
+     *
+     * @return array<mixed>
+     */
+    public function buildSidebarNavigation(): array
+    {
+        $allPages = $this->buildItems('pages/');
+        $sections = !empty($this->sidebarSections)
+            ? $this->sidebarSections
+            : self::defaultSidebarSections();
+
+        $sidebarNavigation = [];
+
+        foreach ($sections as $section) {
+            if (!$section instanceof SidebarSectionInterface) {
+                continue;
+            }
+
+            $key = $section->getKey();
+            $sidebarItem = $allPages[$key] ?? [
+                'href' => '//' . $this->getPageDomain() . '/' . $key,
+                'children' => false,
+                'async' => false,
+            ];
+
+            if (!is_array($sidebarItem)) {
+                $sidebarItem = [
+                    'href' => '//' . $this->getPageDomain() . '/' . $key,
+                    'children' => false,
+                    'async' => false,
+                ];
+            }
+
+            $sidebarItem['label'] = $section->getLabel();
+
+            $sidebarNavigation[$key] = $sidebarItem;
+        }
+
+        return $sidebarNavigation;
     }
 
     /**
