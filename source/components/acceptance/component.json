@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Acceptance",
+"slug": "acceptance",
+"tokens": ["base","color--alpha","color--surface","corner-shape","border-radius","space","shadow"]
+}

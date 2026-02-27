@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "File Input",
+"slug": "fileinput",
+"tokens": ["border-radius","border-width","space","shadow","color--surface","color--danger","color--success","font-size-90","font-size-80"]
+}

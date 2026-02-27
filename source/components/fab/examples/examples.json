@@ -1,0 +1,9 @@
+{
+    
+    "fab":{
+        "heading": "FAB",
+        "subHeading": "",
+        "text": "Note: We've removed the placement of the buttons to prevent issues with documentation. Remove the values from the classList to get the intended layout."
+    }
+    
+}

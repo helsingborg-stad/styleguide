@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Anchor Menu",
+"slug": "anchormenu",
+"tokens": ["base","space","color--primary","color--surface","color--border","border-width"]
+}

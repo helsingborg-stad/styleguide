@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Inline CSS Wrapper",
+"slug": "inlinecsswrapper",
+"tokens": ["space"]
+}

@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Collection",
+"slug": "collection",
+"tokens": ["border-radius","border-width","space","base","color--surface","color--primary","color--background","corner-shape"]
+}

@@ -1,0 +1,78 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-megamenu";
+
+@include tokens.create($_, getComponentTokens($_), ("font-size-title": tokens.get($_, "font-size-300"),
+    ));
+
+.#{$_} {
+    padding-top: tokens.use($_, "base", 4);
+    padding-bottom: tokens.use($_, "base", 4);
+    background-color: tokens.get($_, "color--surface");
+    position: absolute;
+    width: 100%;
+    z-index: 8000;
+
+    &.#{$_}--secondary {
+        background-color: tokens.get($_, "color--secondary");
+
+        .#{$_}__link--title,
+        .#{$_}__item--child .#{$_}__link {
+            color: tokens.get($_, "color--secondary-contrast");
+        }
+    }
+
+    &.#{$_}--primary {
+        background-color: tokens.get($_, "color--primary");
+
+        .#{$_}__link--title,
+        .#{$_}__item--child .#{$_}__link {
+            color: tokens.get($_, "color--primary-contrast");
+        }
+    }
+
+    &.#{$_}--font-heading {
+        font-family: tokens.get($_, "font-family-heading");
+    }
+
+    .#{$_}__description {
+        border-top: 2px solid tokens.get($_, "color--primary");
+        color: tokens.get($_, "color--primary");
+        padding-top: tokens.use($_, "base", 1);
+        margin-top: tokens.use($_, "base", 0.5);
+    }
+
+    &.#{$_}--cover {
+        min-height: 100vh;
+    }
+
+    .#{$_}__link--title {
+        font-size: tokens.get($_, "font-size-title");
+        color: tokens.get($_, "color--primary");
+        font-family: tokens.get($_, "font-family-base");
+    }
+
+    .#{$_}__link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        gap: tokens.use($_, "base", 1);
+    }
+
+    .#{$_}__item--child {
+        padding: tokens.use($_, "base", 0.5) 0;
+        display: flex;
+        align-items: center;
+
+        .#{$_}__link {
+            text-decoration: none;
+            color: tokens.get($_, "color--primary");
+        }
+    }
+
+    .#{$_}__sublist.#{$_}__sublist--flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 tokens.use($_, "base", 1);
+    }
+}

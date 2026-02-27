@@ -1,24 +1,22 @@
 @use "sass:list";
 @use "sass:map";
-@use "../component/icon";
+@use "../../components/icon/style";
 @use "../mixin/build-utility";
 @use "../mixin/tokens";
 
 $_: "u-border-*";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "border-width",
-    "color--surface",
-    "color--primary",
-    "color--secondary",
-    "color--success",
-    "color--danger",
-    "color--info",
-    "color--warning",
-), (
-    "border": tokens.use($_, "border-width", 1) solid #{tokens.get($_, "color--border")},
-));
+@include tokens.create($_, ("border-width",
+        "color--surface",
+        "color--primary",
+        "color--secondary",
+        "color--success",
+        "color--danger",
+        "color--info",
+        "color--warning",
+    ), ("border": tokens.use($_, "border-width", 1) solid #{tokens.get($_, "color--border")},
+    ));
 
 $border-widths: (
     0: 0,
@@ -26,47 +24,47 @@ $border-widths: (
     2: tokens.use($_, "border-width", 2)
 );
 
-$sides: (top, left, right, bottom);
+$sides: (
+    top,
+    left,
+    right,
+    bottom
+);
 
 $spacing-util: (
-    (
-        name: "border",
-        default: (border: #{tokens.get($_, "border")}), 
-        modifiers: (
-            0: (border-width: 0 solid #{tokens.get($_, "color--border")}),
+    (name: "border",
+        default: (border: #{tokens.get($_, "border")}),
+        modifiers: (0: (border-width: 0 solid #{tokens.get($_, "color--border")}),
             1: (border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--border")}),
-            2: (border: #{tokens.use($_, "border-width", 2)} solid #{tokens.get($_, "color--border")})
-        )
-    ),
-    (
-        name: "border__color",
+            2: (border: #{tokens.use($_, "border-width", 2)} solid #{tokens.get($_, "color--border")}))),
+    (name: "border__color",
         default: (border-color: #{tokens.get($_, "color--border")}),
-        modifiers: (
-            primary:   (border-color: #{tokens.get($_, "color--primary")}),
+        modifiers: (primary: (border-color: #{tokens.get($_, "color--primary")}),
             secondary: (border-color: #{tokens.get($_, "color--secondary")}),
-            success:   (border-color: #{tokens.get($_, "color--success")}),
-            danger:    (border-color: #{tokens.get($_, "color--danger")}),
-            info:      (border-color: #{tokens.get($_, "color--info")}),
-            warning:   (border-color: #{tokens.get($_, "color--warning")})
-        )
-    )
+            success: (border-color: #{tokens.get($_, "color--success")}),
+            danger: (border-color: #{tokens.get($_, "color--danger")}),
+            info: (border-color: #{tokens.get($_, "color--info")}),
+            warning: (border-color: #{tokens.get($_, "color--warning")})))
 );
 
 @each $side in $sides {
-    $mods: ();
-
-    @each $width_name, $width in $border-widths {
-        $style: (#{$width_name}:(border-#{$side}: #{tokens.use($_, "border-width", $width_name)} solid #{tokens.get($_, "color--surface-border")}));
-        $mods: map.merge($mods, $style);
-    }
-
-    $util: (
-        name: "border__#{$side}",
-        default: (border-#{$side}: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")}),
-        modifiers: $mods
+    $mods: (
     );
 
-    $spacing-util: list.append($spacing-util, $util);
+@each $width_name, $width in $border-widths {
+    $style: (
+        #{$width_name}:(border-#{$side}: #{tokens.use($_, "border-width", $width_name)} solid #{tokens.get($_, "color--surface-border")})
+    );
+$mods: map.merge($mods, $style);
+}
+
+$util: (
+    name: "border__#{$side}",
+    default: (border-#{$side}: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")}),
+    modifiers: $mods
+);
+
+$spacing-util: list.append($spacing-util, $util);
 }
 
 @include build-utility.build-utilities($spacing-util);

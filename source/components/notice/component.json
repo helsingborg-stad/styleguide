@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Notice",
+"slug": "notice",
+"tokens": ["border-radius","border-width","space","outer-space","shadow","line-height","color--success","color--danger","color--warning","color--info"]
+}

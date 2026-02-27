@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Tags",
+"slug": "tags",
+"tokens": ["base","color--surface","shadow","corner-shape"]
+}

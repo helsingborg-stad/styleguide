@@ -1,0 +1,122 @@
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-header";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "logotype-height": "calc(var(--c-header-logotype-height, 6) * var(--base))",
+    ));
+
+/* Component */
+.#{$_} {
+    z-index: 6000;
+    position: relative;
+    background-color: tokens.get($_, "color--surface");
+
+    #main-menu:target {
+        animation: blink 0.65s ease-in-out 3 both;
+        scroll-margin-top: tokens.use($_, "space", 2);
+    }
+
+    &.#{$_}--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 7000;
+    }
+
+    &.#{$_}--accented {
+        border-bottom: tokens.get($_, "base") solid tokens.get($_, "color--primary");
+    }
+
+    &.#{$_}--primary {
+        background-color: tokens.get($_, "color--primary");
+    }
+
+    &.#{$_}--secondary {
+        background-color: tokens.get($_, "color--secondary");
+    }
+
+    &.#{$_}--text-white>*,
+    &.#{$_}--text-white .c-button__basic,
+    &.#{$_}--text-white .c-nav .c-nav__link {
+        color: var(--color--white-100);
+    }
+
+    &.#{$_}--text-black *,
+    &.#{$_}--text-black .c-nav .c-nav__link {
+        color: var(--color--black-100);
+    }
+
+    &.#{$_}--text-primary *,
+    &.#{$_}--text-primary .c-nav .c-nav__link {
+        color: tokens.get($_, "color--primary");
+    }
+
+    &.#{$_}--text-secondary *,
+    &.#{$_}--text-secondary .c-nav .c-nav__link {
+        color: tokens.get($_, "color--secondary");
+    }
+
+    &.#{$_}--casual {
+        #main-menu {
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            .c-nav--casual-left {
+                justify-content: flex-start;
+
+                .c-nav__item--search {
+                    margin-left: auto;
+                }
+            }
+
+            .c-nav--casual-right {
+                justify-content: flex-end;
+            }
+
+            .c-nav--casual-center {
+                justify-content: center;
+            }
+        }
+    }
+
+    &.#{$_}--business {
+        .c-nav--business-left {
+            justify-content: flex-start;
+
+            .c-nav__item--search {
+                margin-left: auto;
+            }
+        }
+
+        .c-nav--business-right {
+            justify-content: flex-end;
+        }
+
+        .c-nav--business-gap {
+            justify-content: space-between;
+        }
+    }
+
+    // Logo
+    &__logotype {
+        height: tokens.get($_, "logotype-height");
+    }
+}
+
+@keyframes blink {
+    0% {}
+
+    25% {
+        @include focus.focus();
+    }
+
+    75% {
+        @include focus.focus();
+    }
+
+    100% {}
+}

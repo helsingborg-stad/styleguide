@@ -1,0 +1,524 @@
+{
+  "c-acceptance": {
+    "tokens": [
+      "base",
+      "color--alpha",
+      "color--surface",
+      "color--surface-border",
+      "corner-shape",
+      "border-radius",
+      "space",
+      "shadow"
+    ]
+  },
+  "c-accordion": {
+    "tokens": [
+      "space",
+      "shadow",
+      "border-width",
+      "border-radius",
+      "color--surface"
+    ]
+  },
+  "c-anchormenu": {
+    "tokens": [
+      "base",
+      "space",
+      "color--primary",
+      "color--surface",
+      "color--border",
+      "border-width"
+    ]
+  },
+  "c-avatar": {
+    "tokens": [
+      "base",
+      "color--secondary",
+      "corner-shape"
+    ]
+  },
+  "c-block": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "shadow",
+      "corner-shape",
+      "color--alpha",
+      "color--secondary"
+    ]
+  },
+  "c-blockquote": {
+    "tokens": [
+      "border-radius",
+      "space",
+      "color"
+    ]
+  },
+  "c-box": {
+    "tokens": [
+      "border-radius",
+      "shadow",
+      "space",
+      "color--primary"
+    ]
+  },
+  "c-brand": {
+    "tokens": [
+      "color--primary",
+      "space",
+      "base",
+      "base-font-size"
+    ]
+  },
+  "c-breadcrumb": {
+    "tokens": [
+      "space",
+      "color--background-contrast-muted"
+    ]
+  },
+  "c-button": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "border-width",
+      "space",
+      "outer-space",
+      "color--primary",
+      "color--secondary",
+      "color--surface",
+      "shadow"
+    ]
+  },
+  "c-card": {
+    "tokens": [
+      "border-width",
+      "border-radius",
+      "space",
+      "color--surface",
+      "color--primary",
+      "shadow"
+    ]
+  },
+  "c-code": {
+    "tokens": [
+      "border-radius",
+      "corner-shape",
+      "font-family-code",
+      "space"
+    ]
+  },
+  "c-collection": {
+    "tokens": [
+      "border-radius",
+      "border-width",
+      "space",
+      "base",
+      "color--surface",
+      "color--primary",
+      "color--background",
+      "corner-shape"
+    ]
+  },
+  "c-comment": {
+    "tokens": [
+      "space",
+      "outer-space",
+      "border-radius",
+      "color--background",
+      "color--background-contrast",
+      "color--surface"
+    ]
+  },
+  "c-datebadge": {
+    "tokens": [
+      "border-radius",
+      "border-width",
+      "space",
+      "color--primary",
+      "color--secondary",
+      "color--surface"
+    ]
+  },
+  "c-divider": {
+    "tokens": [
+      "color--surface",
+      "border-width",
+      "border-radius",
+      "space",
+      "corner-shape"
+    ]
+  },
+  "c-drawer": {
+    "tokens": [
+      "base",
+      "color--primary",
+      "color--secondary",
+      "color--surface",
+      "shadow"
+    ]
+  },
+  "c-fab": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "shadow",
+      "color--background",
+      "color--surface",
+      "space"
+    ]
+  },
+  "c-field": {
+    "tokens": [
+      "border-radius",
+      "border-width",
+      "space",
+      "shadow",
+      "color--danger",
+      "color--success",
+      "color--surface"
+    ]
+  },
+  "c-fileinput": {
+    "tokens": [
+      "border-radius",
+      "border-width",
+      "space",
+      "shadow",
+      "color--surface",
+      "color--danger",
+      "color--success",
+      "font-size-90",
+      "font-size-80"
+    ]
+  },
+  "c-footer": {
+    "tokens": [
+      "space",
+      "border-width",
+      "color--surface"
+    ]
+  },
+  "c-gallery--modal": {
+    "tokens": [
+      "base",
+      "space",
+      "shadow",
+      "color--surface",
+      "color--alpha",
+      "border-radius"
+    ]
+  },
+  "c-gallery": {
+    "tokens": [
+      "base",
+      "space",
+      "color--alpha",
+      "border-radius"
+    ]
+  },
+  "c-group": {
+    "tokens": [
+      "base",
+      "space"
+    ]
+  },
+  "c-header": {
+    "tokens": [
+      "space",
+      "color--surface",
+      "color--primary",
+      "color--secondary"
+    ]
+  },
+  "c-hero": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--primary",
+      "corner-shape",
+      "font-size-100",
+      "font-size-300",
+      "font-size-600",
+      "shadow",
+      "space",
+      "color--alpha"
+    ]
+  },
+  "c-icon": {
+    "tokens": [
+      "base",
+      "color--background"
+    ]
+  },
+  "c-iconsection": {
+    "tokens": [
+      "shadow",
+      "border-radius",
+      "space",
+      "outer-space",
+      "border-width",
+      "color--surface"
+    ]
+  },
+  "c-image": {
+    "tokens": [
+      "space",
+      "border-radius",
+      "color--background",
+      "color--surface",
+      "border-width"
+    ]
+  },
+  "c-inlinecsswrapper": {
+    "tokens": [
+      "space"
+    ]
+  },
+  "c-listing": {
+    "tokens": [
+      "space"
+    ]
+  },
+  "c-loader": {
+    "tokens": [
+      "base",
+      "color--primary",
+      "color--secondary",
+      "color--surface"
+    ]
+  },
+  "c-logotype": {
+    "tokens": [
+      "border-radius",
+      "color--alpha",
+      "space"
+    ]
+  },
+  "c-logotypegrid": {
+    "tokens": [
+      "base"
+    ]
+  },
+  "c-megamenu": {
+    "tokens": [
+      "base",
+      "color--primary",
+      "color--secondary",
+      "color--surface",
+      "font-family-base",
+      "font-family-heading",
+      "font-size-300"
+    ]
+  },
+  "c-modal": {
+    "tokens": [
+      "base",
+      "space",
+      "border-width",
+      "border-color",
+      "border-radius",
+      "shadow",
+      "color--surface",
+      "color--alpha"
+    ]
+  },
+  "c-nav": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "shadow",
+      "color--surface",
+      "color--primary"
+    ]
+  },
+  "c-navbar": {
+    "tokens": [
+      "base",
+      "shadow",
+      "color--surface",
+      "color--primary",
+      "color--background",
+      "font-family-base"
+    ]
+  },
+  "c-newsitem": {
+    "tokens": [
+      "space",
+      "color--surface",
+      "color--border",
+      "border-width"
+    ]
+  },
+  "c-notice": {
+    "tokens": [
+      "border-radius",
+      "border-width",
+      "space",
+      "outer-space",
+      "shadow",
+      "line-height",
+      "color--success",
+      "color--danger",
+      "color--warning",
+      "color--info"
+    ]
+  },
+  "c-option": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--primary",
+      "color--surface",
+      "color--danger",
+      "color--success",
+      "font-size-100"
+    ]
+  },
+  "c-pagination": {
+    "tokens": [
+      "base",
+      "space"
+    ]
+  },
+  "c-paper": {
+    "tokens": [
+      "border-radius",
+      "space",
+      "shadow",
+      "border-width",
+      "color--surface"
+    ]
+  },
+  "c-progressbar": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--surface",
+      "color--success",
+      "color--background",
+      "color--background-muted"
+    ]
+  },
+  "c-segment": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--primary",
+      "color--secondary",
+      "color--surface",
+      "font-size-600",
+      "color--alpha",
+      "corner-shape"
+    ]
+  },
+  "c-select": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--primary",
+      "color--surface",
+      "color--danger",
+      "color--success",
+      "color--alpha",
+      "font-size-100",
+      "font-size-90",
+      "font-size-80"
+    ]
+  },
+  "c-sidebar": {
+    "tokens": [
+      "space",
+      "color--surface",
+      "color--primary"
+    ]
+  },
+  "c-signature": {
+    "tokens": [
+      "space",
+      "color--surface"
+    ]
+  },
+  "c-slider": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "shadow",
+      "color--primary",
+      "color--alpha",
+      "space"
+    ]
+  },
+  "c-table": {
+    "tokens": [
+      "space",
+      "border-radius",
+      "border-width",
+      "color--surface",
+      "color--primary"
+    ]
+  },
+  "c-tabs": {
+    "tokens": [
+      "base",
+      "color--surface",
+      "color--primary"
+    ]
+  },
+  "c-tags": {
+    "tokens": [
+      "base",
+      "color--surface",
+      "shadow",
+      "corner-shape"
+    ]
+  },
+  "c-testimonials": {
+    "tokens": [
+      "base",
+      "shadow",
+      "color--surface",
+      "color--primary",
+      "border-radius",
+      "corner-shape"
+    ]
+  },
+  "c-textarea": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--background",
+      "color--danger",
+      "color--success"
+    ]
+  },
+  "c-toast": {
+    "tokens": [
+      "base"
+    ]
+  },
+  "c-tooltip": {
+    "tokens": [
+      "base",
+      "border-radius",
+      "border-width",
+      "corner-shape",
+      "color--primary",
+      "shadow"
+    ]
+  },
+  "c-typography": {
+    "tokens": [
+      "font-family-base",
+      "font-family-heading",
+      "font-weight-normal",
+      "font-weight-medium",
+      "font-weight-bold",
+      "line-height-base",
+      "line-height-heading",
+      "letter-spacing-base",
+      "base-font-size",
+      "space",
+      "font-size-scale-ratio"
+    ]
+  }
+}

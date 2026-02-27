@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Brand",
+"slug": "brand",
+"tokens": ["color--primary","space","base","base-font-size"]
+}

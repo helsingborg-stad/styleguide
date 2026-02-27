@@ -1,0 +1,7 @@
+{
+"$schema": "../../component-schema.json",
+"apiVersion": 1,
+"name": "Progressbar",
+"slug": "progressbar",
+"tokens": ["base","border-radius","color--surface","color--success","color--background","color--background-muted"]
+}

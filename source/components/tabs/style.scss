@@ -1,0 +1,77 @@
+@use "../../sass/mixin/tokens";
+@use "../../sass/mixin/button";
+
+$_: "c-tabs";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+
+    &__header {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid tokens.get($_, "color--surface-border");
+        overflow-x: auto;
+        height: tokens.use($_, "base", 7);
+    }
+
+    &__button {
+        @include button.button-unstyled;
+        min-width: 160px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        color: inherit;
+        border-bottom: 3px solid transparent;
+        height: 100%;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        &[aria-expanded="true"] {
+            border-bottom: 3px solid tokens.get($_, "color--primary");
+        }
+    }
+
+    &__button-wrapper {
+        padding: tokens.use($_, "base", 1) tokens.use($_, "base", 2);
+    }
+
+    &__button:focus,
+    &__button-wrapper:focus {
+        outline: none;
+    }
+
+    &__button:focus>&__button-wrapper {
+        outline: 1px dashed tokens.get($_, "color--surface-contrast-muted");
+    }
+
+    &__content {
+        padding: tokens.use($_, "base", 3);
+
+        &[aria-hidden="true"] {
+            display: none;
+        }
+
+        &[aria-hidden="false"] {
+            display: block;
+            transition: ease .3s opacity;
+            animation-name: fadeIn;
+            animation-duration: .3s;
+            animation-fill-mode: both;
+            will-change: transform;
+        }
+    }
+
+    @keyframes fadeIn {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}

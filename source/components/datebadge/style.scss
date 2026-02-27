@@ -1,0 +1,102 @@
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-datebadge";
+
+/* Design tokens */
+@include tokens.create($_, getComponentTokens($_), (
+    "border": tokens.use($_, "border-width") solid,
+));
+
+/* Component */
+.#{$_} {
+    .#{$_}__container,
+    .#{$_}__daymonth {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: var(--font-family-heading, inherit);
+        font-size: var(--#{$_}--font-size, 1.375rem);
+        background-color: var(--#{$_}--bg, #{tokens.get($_, "color--surface")});
+        color: var(--#{$_}--fg, #{tokens.get($_, "color--surface-contrast")});
+        border: tokens.get($_, "border");
+        border-color: var(--#{$_}--border-clr, tokens.get($_, "color--surface-border"));
+        backdrop-filter: var(--#{$_}--backdrop, unset);
+        border-radius: tokens.use($_, "border-radius");
+        corner-shape: tokens.get($_, "corner-shape");
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 0.5) 0;
+    }
+
+    .#{$_}__month {
+        corner-shape: tokens.get($_, "corner-shape");
+        line-height: 1;
+        border-radius: tokens.use($_, "border-radius", 0.5);
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 1.5);
+        background-color: var(--#{$_}--month-bg, #{tokens.get($_, "color--surface-border")});
+        backdrop-filter: var(--#{$_}--backdrop, unset);
+        font-size: max(0.875rem, 56.25%);
+        text-transform: capitalize;
+    }
+
+    .#{$_}__date {
+        padding: tokens.use($_, "space", 0.75);
+        line-height: 1;
+    }
+}
+
+/* Color variants */
+.#{$_}--primary {
+    --#{$_}--bg: #{tokens.get($_, "color--primary")};
+    --#{$_}--fg: #{tokens.get($_, "color--primary-contrast")};
+    --#{$_}--border-clr: #{tokens.get($_, "color--primary-border")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--primary-contrast")} 15%, #{tokens.get($_, "color--primary")});
+}
+
+.#{$_}--secondary {
+    --#{$_}--bg: #{tokens.get($_, "color--secondary")};
+    --#{$_}--fg: #{tokens.get($_, "color--secondary-contrast")};
+    --#{$_}--border-clr: #{tokens.get($_, "color--secondary-border")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--secondary-contrast")} 15%, #{tokens.get($_, "color--secondary")});
+}
+
+/* Translucent variants */
+.#{$_}--translucent {
+    --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--surface")} 50%, transparent);
+    --#{$_}--fg: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--surface")} 10%, transparent) ;
+    --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--surface-border")} 50%, transparent);
+    --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 1.5)) brightness(200%);
+
+    &.#{$_}--primary {
+        --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--primary")} 50%, transparent);
+        --#{$_}--fg: #{tokens.get($_, "color--primary-contrast")};
+        --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--primary")} 10%, transparent);
+        --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 2)) brightness(100%);
+        --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--primary-border")} 50%, transparent);
+    }
+
+    &.#{$_}--secondary {
+        --#{$_}--bg: color-mix(in srgb, #{tokens.get($_, "color--secondary")} 50%, transparent);
+        --#{$_}--fg: #{tokens.get($_, "color--secondary-contrast")};
+        --#{$_}--month-bg: color-mix(in srgb, #{tokens.get($_, "color--secondary")} 10%, transparent);
+        --#{$_}--backdrop: saturate(300%) blur(calc(var(--base, 8px) * 2)) brightness(100%);
+        --#{$_}--border-clr: color-mix(in srgb, #{tokens.get($_, "color--secondary-border")} 50%, transparent);
+    }
+}
+
+/* Size variants */
+.#{$_}.#{$_}--sm {
+    --#{$_}--font-size: 1.125rem;
+    .#{$_}__container,
+    .#{$_}__daymonth {
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 0.5) 0;
+    }
+    .#{$_}__date { padding: tokens.use($_, "space", 0.5); }
+    .#{$_}__month { padding: tokens.use($_, "space", 0.5) tokens.use($_, "space"); }
+}
+
+.#{$_}.#{$_}--lg {
+    --#{$_}--font-size: 2rem;
+    .#{$_}__date { padding: tokens.use($_, "space", 1.25); }
+    .#{$_}__month { padding: tokens.use($_, "space") tokens.use($_, "space", 1.75); }
+}
