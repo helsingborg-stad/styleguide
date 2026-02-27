@@ -45,6 +45,29 @@ The style guide is intended for websites within Helsingborgs stad / Municipio We
   npm run watch
   ```
 
+### Storybook (Blade-rendered components)
+
+Storybook is configured as a frontend shell while components continue to be rendered by Blade.
+
+Run:
+
+```sh
+npm run storybook
+```
+
+This starts:
+
+- Storybook UI on `http://localhost:6006`
+- PHP server for Blade rendering on `http://127.0.0.1:8000`
+
+In Storybook, open `Blade/Components` and select a component route from controls.
+
+Optional: point Storybook to another Blade server using:
+
+```sh
+STORYBOOK_BLADE_BASE_URL=http://your-host:port npm run storybook:ui
+```
+
 ## Deployment
 
 The GitHub workflow `.github/workflows/build-and-deploy.yml` supports deployments to different stages using GitHub Environments.

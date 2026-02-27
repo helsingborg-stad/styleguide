@@ -40,18 +40,23 @@
 </head>
 <body class="no-js o-body">
 
+    <!-- Force this logotype to be white, as the header background is dark. -->
     <style>
-        .c-header__logotype {
-            background-color: var(--color--primary);
-        }
         .c-header__logotype .c-logotype__image {
-            filter: brightness(0) invert(1);
-            mix-blend-mode: screen;
-            padding: calc(var(--space) * var(--base)); 
-            border-radius: calc(var(--radius) * 2);
+            background-color: var(--color-surface-contrast-muted);
+            mask-image: url("/assets/img/logotype.svg");
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            /* Safari support */
+            -webkit-mask-image: url("/assets/img/logotype.svg");
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            -webkit-mask-size: contain;
+            width: 120px;   /* required */
+            height: 40px;   /* required */
         }
     </style>
-
     
     @if($isLocalDomain) 
         <div class="container">
@@ -71,42 +76,96 @@
             'id' => 'site-header',
             'classList' => [
                 'l-docs--header',
-                'c-header', 
-                'u-display--flex', 
-                'u-align-items--center', 
+                'c-header',
+                'u-display--flex',
+                'u-align-items--center',
+                'u-justify-content--space-between',
                 'u-border__bottom--1',
+                'u-padding__x--4',
+                'u-padding__y--2'
             ]
         ])
-            @link(['id' => 'header-logotype', 'href' => '/', 'classList' => ['u-margin__right--auto', 'u-display--flex', 'u-no-decoration']])
-                @logotype([
-                    'src'=> "/assets/img/logotype.svg",
-                    'alt' => "Go to homepage",
-                    'classList' => ['c-nav__logo', 'c-header__logotype'],
-                    'context' => ['site.header.logo', 'site.header.casual.logo']
+            <div class="u-display--flex u-align-items--center">
+                @nav([
+                    'items' => [[
+                        'href' => '#',
+                        'label' => 'Menu',
+                        'style' => 'button',
+                        'buttonStyle' => 'basic',
+                        'buttonColor' => 'default',
+                        'icon' => ['icon' => 'menu'],
+                        'classList' => ['u-margin__right--3'],
+                        'attributeList' => [
+                            'js-toggle-trigger' => 'js-mobile-sidebar',
+                            'js-toggle-class' => 'c-sidebar--collapsed'
+                        ]
+                    ]],
+                    'direction' => 'horizontal',
+                    'allowStyle' => true,
+                    'classList' => ['u-margin--0']
                 ])
-                @endlogotype
-            @endlink
+                @endnav
+            </div>
 
-            @nav([
-                'items' => $topNavigation,
-                'classList' => ['u-margin__left--auto', 'u-margin__right--4'],
-                'direction' => 'horizontal',
-                'attributeList' => ['style' => 'width: auto;']
-            ])
-            @endnav
+            <div class="u-display--flex u-align-items--center u-width--100 u-margin__x--3">
+                @form(['action' => '/components', 'method' => 'get', 'classList' => ['u-width--100']])
+                    @field([
+                        'label' => 'Search documentation',
+                        'name' => 'q',
+                        'type' => 'search',
+                        'placeholder' => 'Search components, utilities and scripts',
+                        'classList' => ['u-margin--0'],
+                        'attributeList' => ['autocomplete' => 'off']
+                    ])
+                    @endfield
+                @endform
+            </div>
+
+            <div class="u-display--flex u-align-items--center">
+                @nav([
+                    'items' => [
+                        [
+                            'href' => 'https://getmunicipio.com',
+                            'label' => 'Website',
+                            'style' => 'button',
+                            'buttonStyle' => 'basic',
+                            'buttonColor' => 'default',
+                            'icon' => ['icon' => 'public'],
+                            'classList' => ['u-margin__right--2'],
+                            'attributeList' => [
+                                'target' => '_blank',
+                                'title' => 'Visit getmunicipio.com'
+                            ]
+                        ],
+                        [
+                            'href' => 'https://github.com/helsingborg-stad/styleguide',
+                            'label' => 'GitHub',
+                            'style' => 'button',
+                            'buttonStyle' => 'basic',
+                            'buttonColor' => 'default',
+                            'icon' => ['icon' => 'code'],
+                            'attributeList' => [
+                                'target' => '_blank',
+                                'title' => 'Open repository on GitHub'
+                            ]
+                        ]
+                    ],
+                    'direction' => 'horizontal',
+                    'allowStyle' => true,
+                    'classList' => ['u-margin--0']
+                ])
+                @endnav
+            </div>
         @endheader
 
 
-        @sidebar([
+        @include('layout.partials.doc-nav', [
             'items' => $sideNavigation,
-            'classList' => ['l-docs--sidebar', 'c-sidebar--fixed'],
             'attributeList' => [
-                'js-toggle-item'    => 'js-mobile-sidebar',
-                'js-toggle-class'   => 'c-sidebar--collapsed'
-            ],
+                'js-toggle-item' => 'js-mobile-sidebar',
+                'js-toggle-class' => 'c-sidebar--collapsed'
+            ]
         ])
-
-        @endsidebar
     
         @yield('content')
 

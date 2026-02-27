@@ -142,18 +142,22 @@
                 $paramRows[] = ['columns' => ['attributeList', '[]', 'array', '-', 'Array containing keys and values rendered as attributes']];
             @endphp
 
-            @table([
-                'title'        => 'Blade component parameters',
+        @endif
+    @endif
+
+    @endpaper
+
+
+                @table([
+                'title'        => 'Parameters',
                 'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
                 'list'         => $paramRows,
                 'includePaper' => false,
             ])
             @endtable
             <small><strong>Settings location:</strong> {{$settingsLocation}}</small>
-        @endif
-    @endif
+    
 
-    @endpaper
     
     @if(isset($modifiers) && !empty($modifiers))
         @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
