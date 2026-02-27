@@ -42,7 +42,6 @@ class PageController extends BaseController implements ControllerInterface
             'topNavigation' => $this->navigation->buildItems('pages/', [], false),
             'sideNavigation' => $this->navigation->buildItems('pages/'),
             'pageNow' => $page,
-            'isLocalDomain' => \HbgStyleGuide\Helper\Enviroment::isLocalDomain(),
         ];
 
         $this->view->show($page, $data, $this->bladeService);
