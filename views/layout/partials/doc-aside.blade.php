@@ -8,21 +8,6 @@
     ];
 @endphp
 
-@paper(['padding' => 4, 'classList' => ['u-margin__bottom--4']])
-    @typography(['element' => 'h4', 'variant' => 'h4'])
-        Quick links
-    @endtypography
-    <ul class="u-margin__top--2 u-padding--0">
-        @foreach($links as $link)
-            <li class="u-margin__bottom--1">
-                @link(['href' => $link['href'], 'classList' => ['u-display--block', 'u-padding__y--1']])
-                    {{ $link['label'] }}
-                @endlink
-            </li>
-        @endforeach
-    </ul>
-@endpaper
-
 @paper(['padding' => 4])
     @typography(['element' => 'h4', 'variant' => 'h4'])
         Need help?

@@ -4,17 +4,6 @@
     <div class="container--doc l-docs--content">
             @hasSection('doc-hero')
                 @yield('doc-hero')
-            @else
-                @include('layout.partials.doc-hero', [
-                    'title' => 'Documentation',
-                    'subtitle' => 'Explore the component library, utilities, scripts and examples in a focused docs layout.',
-                    'shortcuts' => [
-                        ['label' => 'Components', 'href' => '/components'],
-                        ['label' => 'Utilities', 'href' => '/utilities'],
-                        ['label' => 'Scripts', 'href' => '/script'],
-                        ['label' => 'Setup', 'href' => '/setup'],
-                    ],
-                ])
             @endif
 
             <div class="o-grid o-grid--large u-margin__top--2">

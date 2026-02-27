@@ -1,4 +1,0 @@
-@sidebar([
-    'items' => $sideNavigation
-])
-@endsidebar
