@@ -20,5 +20,6 @@
     "blockquote",
     "box",
     "table"
-  ]
+  ],
+  "icon": "view_agenda"
 }

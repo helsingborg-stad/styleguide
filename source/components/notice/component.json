@@ -24,5 +24,6 @@
     "footer",
     "option",
     "tooltip"
-  ]
+  ],
+  "icon": "notification_important"
 }

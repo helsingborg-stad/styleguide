@@ -22,5 +22,6 @@
     "megamenu",
     "select",
     "comment"
-  ]
+  ],
+  "icon": "splitscreen"
 }

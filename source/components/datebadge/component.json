@@ -22,5 +22,6 @@
     "header",
     "sidebar",
     "textarea"
-  ]
+  ],
+  "icon": "calendar_today"
 }

@@ -1,7 +1,19 @@
 @extends('layout.containers.doc')
 
 @section('doc-content')
-    @typography(['element' => 'h1', 'variant' => 'h1'])
+    @typography([
+        'element' => 'h1',
+        'variant' => 'h1',
+        'classList' => ['u-display--flex', 'u-align-items--center', 'u-gap-2', 'u-margin__bottom--2']
+    ])
+        @icon([
+            'icon' => $componentIcon ?? 'widgets',
+            'attributeList' => [
+                'style' => 'line-height: 1;'
+            ],
+        ])
+        @endicon
+
         {{ $headline ?? 'Component' }}
     @endtypography
 
@@ -9,24 +21,9 @@
         @typography(['element' => 'p', 'variant' => 'body'])
             {{ $description }}
         @endtypography
-    @endif
 
-    @if(isset($similarComponentItems) && is_array($similarComponentItems) && !empty($similarComponentItems))
-        @typography(['element' => 'h2', 'variant' => 'h3'])
-            Similar components
-        @endtypography
-
-        <ul class="unlist">
-            @foreach($similarComponentItems as $similarComponentItem)
-                <li class="u-margin__bottom--1">
-                    @link([
-                        'href' => $similarComponentItem['href'],
-                        'text' => $similarComponentItem['name'],
-                    ])
-                    @endlink
-                </li>
-            @endforeach
-        </ul>
+        @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
+        @enddivider
     @endif
 
     @if(isset($slug) && !empty($slug))

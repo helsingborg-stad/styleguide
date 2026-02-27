@@ -70,6 +70,7 @@ class PageController extends BaseController implements ControllerInterface
         }
 
         $headline = ucfirst($slug);
+        $componentIcon = 'widgets';
         $description = '';
         $similarComponents = [];
         $componentConfigPath = BASEPATH . 'source/components/' . $slug . '/component.json';
@@ -85,6 +86,10 @@ class PageController extends BaseController implements ControllerInterface
                     $description = $config['description'];
                 }
 
+                if (isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '') {
+                    $componentIcon = $config['icon'];
+                }
+
                 if (isset($config['similarComponents']) && is_array($config['similarComponents'])) {
                     $similarComponents = array_values(array_filter($config['similarComponents'], static fn ($item): bool => is_string($item) && $item !== ''));
                 }
@@ -94,25 +99,34 @@ class PageController extends BaseController implements ControllerInterface
         $similarComponentItems = [];
         foreach ($similarComponents as $similarSlug) {
             $similarName = ucfirst($similarSlug);
+            $similarIcon = 'widgets';
             $similarComponentConfigPath = BASEPATH . 'source/components/' . $similarSlug . '/component.json';
 
             if (is_file($similarComponentConfigPath)) {
                 $similarConfigContent = file_get_contents($similarComponentConfigPath);
                 $similarConfig = is_string($similarConfigContent) ? json_decode($similarConfigContent, true) : null;
-                if (is_array($similarConfig) && isset($similarConfig['name']) && is_string($similarConfig['name']) && $similarConfig['name'] !== '') {
-                    $similarName = $similarConfig['name'];
+                if (is_array($similarConfig)) {
+                    if (isset($similarConfig['name']) && is_string($similarConfig['name']) && $similarConfig['name'] !== '') {
+                        $similarName = $similarConfig['name'];
+                    }
+
+                    if (isset($similarConfig['icon']) && is_string($similarConfig['icon']) && $similarConfig['icon'] !== '') {
+                        $similarIcon = $similarConfig['icon'];
+                    }
                 }
             }
 
             $similarComponentItems[] = [
                 'slug' => $similarSlug,
                 'name' => $similarName,
+                'icon' => $similarIcon,
                 'href' => '/components/' . $similarSlug,
             ];
         }
 
         $data['slug'] = $slug;
         $data['headline'] = $headline;
+        $data['componentIcon'] = $componentIcon;
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
         $data['pageNow'] = 'components/' . $slug;

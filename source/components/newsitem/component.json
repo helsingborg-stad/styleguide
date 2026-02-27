@@ -20,5 +20,6 @@
     "signature",
     "sidebar",
     "inlinecsswrapper"
-  ]
+  ],
+  "icon": "article"
 }

@@ -19,5 +19,6 @@
     "option",
     "anchormenu",
     "collection"
-  ]
+  ],
+  "icon": "expand_more"
 }

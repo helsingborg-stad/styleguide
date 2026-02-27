@@ -17,5 +17,6 @@
     "navbar",
     "nav",
     "textarea"
-  ]
+  ],
+  "icon": "account_circle"
 }

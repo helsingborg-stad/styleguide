@@ -19,5 +19,6 @@
     "drawer",
     "header",
     "loader"
-  ]
+  ],
+  "icon": "description"
 }

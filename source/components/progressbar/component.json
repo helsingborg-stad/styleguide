@@ -20,5 +20,6 @@
     "typography",
     "sidebar",
     "inlinecsswrapper"
-  ]
+  ],
+  "icon": "stacked_bar_chart"
 }

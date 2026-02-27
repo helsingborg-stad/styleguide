@@ -22,5 +22,6 @@
     "gallery--modal",
     "testimonials",
     "code"
-  ]
+  ],
+  "icon": "open_in_new"
 }

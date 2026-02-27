@@ -25,5 +25,6 @@
     "progressbar",
     "logotypegrid",
     "group"
-  ]
+  ],
+  "icon": "text_fields"
 }

@@ -21,5 +21,6 @@
     "fileinput",
     "image",
     "footer"
-  ]
+  ],
+  "icon": "edit_note"
 }

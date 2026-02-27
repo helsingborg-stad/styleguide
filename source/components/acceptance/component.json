@@ -21,5 +21,6 @@
     "textarea",
     "accordion",
     "datebadge"
-  ]
+  ],
+  "icon": "verified_user"
 }

@@ -15,5 +15,6 @@
     "iconsection",
     "collection",
     "pagination"
-  ]
+  ],
+  "icon": "view_list"
 }

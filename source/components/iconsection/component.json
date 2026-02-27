@@ -22,5 +22,6 @@
     "collection",
     "option",
     "pagination"
-  ]
+  ],
+  "icon": "grid_view"
 }

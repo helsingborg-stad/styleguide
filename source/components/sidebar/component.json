@@ -17,5 +17,6 @@
     "slider",
     "divider",
     "datebadge"
-  ]
+  ],
+  "icon": "view_sidebar"
 }

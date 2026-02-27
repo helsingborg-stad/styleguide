@@ -18,3 +18,10 @@ lg
 
 @divider(['size' => 'lg'])
 @enddivider
+
+</br>
+
+full
+
+@divider(['size' => 'full'])
+@enddivider

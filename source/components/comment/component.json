@@ -20,5 +20,6 @@
     "anchormenu",
     "segment",
     "code"
-  ]
+  ],
+  "icon": "comment"
 }

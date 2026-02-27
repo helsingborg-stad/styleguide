@@ -20,5 +20,6 @@
     "sidebar",
     "loader",
     "divider"
-  ]
+  ],
+  "icon": "tune"
 }

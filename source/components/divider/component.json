@@ -19,5 +19,6 @@
     "slider",
     "sidebar",
     "drawer"
-  ]
+  ],
+  "icon": "horizontal_rule"
 }

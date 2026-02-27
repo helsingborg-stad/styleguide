@@ -20,5 +20,6 @@
     "tabs",
     "table",
     "navbar"
-  ]
+  ],
+  "icon": "add_circle"
 }

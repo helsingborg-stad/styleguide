@@ -15,5 +15,6 @@
     "tabs",
     "tags",
     "tooltip"
-  ]
+  ],
+  "icon": "notifications"
 }

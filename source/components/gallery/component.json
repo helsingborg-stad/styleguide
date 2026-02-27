@@ -18,5 +18,6 @@
     "gallery--modal",
     "paper",
     "table"
-  ]
+  ],
+  "icon": "photo_library"
 }

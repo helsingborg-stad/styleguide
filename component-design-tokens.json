@@ -12,7 +12,18 @@
       "border-radius",
       "space",
       "shadow"
-    ]
+    ],
+    "description": "The Acceptance component provides a reusable pattern for acceptance in the interface.",
+    "tags": [
+      "acceptance",
+      "component"
+    ],
+    "similarComponents": [
+      "textarea",
+      "accordion",
+      "datebadge"
+    ],
+    "icon": "verified_user"
   },
   "accordion": {
     "$schema": "../../component-schema.json",
@@ -25,7 +36,18 @@
       "border-width",
       "border-radius",
       "color--surface"
-    ]
+    ],
+    "description": "The Accordion component provides a reusable pattern for accordion in the interface.",
+    "tags": [
+      "accordion",
+      "component"
+    ],
+    "similarComponents": [
+      "option",
+      "anchormenu",
+      "collection"
+    ],
+    "icon": "expand_more"
   },
   "anchormenu": {
     "$schema": "../../component-schema.json",
@@ -39,7 +61,20 @@
       "color--surface",
       "color--border",
       "border-width"
-    ]
+    ],
+    "description": "The Anchor Menu component provides a reusable pattern for anchormenu in the interface.",
+    "tags": [
+      "anchormenu",
+      "anchor",
+      "menu",
+      "component"
+    ],
+    "similarComponents": [
+      "comment",
+      "megamenu",
+      "accordion"
+    ],
+    "icon": "anchor"
   },
   "avatar": {
     "$schema": "../../component-schema.json",
@@ -50,7 +85,18 @@
       "base",
       "color--secondary",
       "corner-shape"
-    ]
+    ],
+    "description": "The Avatar component provides a reusable pattern for avatar in the interface.",
+    "tags": [
+      "avatar",
+      "component"
+    ],
+    "similarComponents": [
+      "navbar",
+      "nav",
+      "textarea"
+    ],
+    "icon": "account_circle"
   },
   "block": {
     "$schema": "../../component-schema.json",
@@ -64,7 +110,18 @@
       "corner-shape",
       "color--alpha",
       "color--secondary"
-    ]
+    ],
+    "description": "The Block component provides a reusable pattern for block in the interface.",
+    "tags": [
+      "block",
+      "component"
+    ],
+    "similarComponents": [
+      "blockquote",
+      "box",
+      "table"
+    ],
+    "icon": "view_agenda"
   },
   "blockquote": {
     "$schema": "../../component-schema.json",
@@ -75,7 +132,18 @@
       "border-radius",
       "space",
       "color"
-    ]
+    ],
+    "description": "The Blockquote component provides a reusable pattern for blockquote in the interface.",
+    "tags": [
+      "blockquote",
+      "component"
+    ],
+    "similarComponents": [
+      "block",
+      "logotype",
+      "footer"
+    ],
+    "icon": "format_quote"
   },
   "box": {
     "$schema": "../../component-schema.json",
@@ -87,7 +155,18 @@
       "shadow",
       "space",
       "color--primary"
-    ]
+    ],
+    "description": "The Box component provides a reusable pattern for box in the interface.",
+    "tags": [
+      "box",
+      "component"
+    ],
+    "similarComponents": [
+      "block",
+      "button",
+      "fab"
+    ],
+    "icon": "crop_square"
   },
   "brand": {
     "$schema": "../../component-schema.json",
@@ -99,7 +178,18 @@
       "space",
       "base",
       "base-font-size"
-    ]
+    ],
+    "description": "The Brand component provides a reusable pattern for brand in the interface.",
+    "tags": [
+      "brand",
+      "component"
+    ],
+    "similarComponents": [
+      "breadcrumb",
+      "card",
+      "datebadge"
+    ],
+    "icon": "branding_watermark"
   },
   "breadcrumb": {
     "$schema": "../../component-schema.json",
@@ -109,7 +199,18 @@
     "tokens": [
       "space",
       "color--background-contrast-muted"
-    ]
+    ],
+    "description": "The Breadcrumb component provides a reusable pattern for breadcrumb in the interface.",
+    "tags": [
+      "breadcrumb",
+      "component"
+    ],
+    "similarComponents": [
+      "brand",
+      "header",
+      "progressbar"
+    ],
+    "icon": "breakfast_dining"
   },
   "button": {
     "$schema": "../../component-schema.json",
@@ -126,7 +227,18 @@
       "color--secondary",
       "color--surface",
       "shadow"
-    ]
+    ],
+    "description": "The Button component provides a reusable pattern for button in the interface.",
+    "tags": [
+      "button",
+      "component"
+    ],
+    "similarComponents": [
+      "option",
+      "box",
+      "testimonials"
+    ],
+    "icon": "smart_button"
   },
   "card": {
     "$schema": "../../component-schema.json",
@@ -140,7 +252,18 @@
       "color--surface",
       "color--primary",
       "shadow"
-    ]
+    ],
+    "description": "The Card component provides a reusable pattern for card in the interface.",
+    "tags": [
+      "card",
+      "component"
+    ],
+    "similarComponents": [
+      "code",
+      "accordion",
+      "brand"
+    ],
+    "icon": "credit_card"
   },
   "code": {
     "$schema": "../../component-schema.json",
@@ -152,7 +275,18 @@
       "corner-shape",
       "font-family-code",
       "space"
-    ]
+    ],
+    "description": "The Code component provides a reusable pattern for code in the interface.",
+    "tags": [
+      "code",
+      "component"
+    ],
+    "similarComponents": [
+      "loader",
+      "comment",
+      "card"
+    ],
+    "icon": "code"
   },
   "collection": {
     "$schema": "../../component-schema.json",
@@ -168,7 +302,18 @@
       "color--primary",
       "color--background",
       "corner-shape"
-    ]
+    ],
+    "description": "The Collection component provides a reusable pattern for collection in the interface.",
+    "tags": [
+      "collection",
+      "component"
+    ],
+    "similarComponents": [
+      "iconsection",
+      "option",
+      "accordion"
+    ],
+    "icon": "collections_bookmark"
   },
   "comment": {
     "$schema": "../../component-schema.json",
@@ -182,7 +327,18 @@
       "color--background",
       "color--background-contrast",
       "color--surface"
-    ]
+    ],
+    "description": "The Comment component provides a reusable pattern for comment in the interface.",
+    "tags": [
+      "comment",
+      "component"
+    ],
+    "similarComponents": [
+      "anchormenu",
+      "segment",
+      "code"
+    ],
+    "icon": "comment"
   },
   "datebadge": {
     "$schema": "../../component-schema.json",
@@ -196,7 +352,20 @@
       "color--primary",
       "color--secondary",
       "color--surface"
-    ]
+    ],
+    "description": "The Date Badge component provides a reusable pattern for datebadge in the interface.",
+    "tags": [
+      "datebadge",
+      "date",
+      "badge",
+      "component"
+    ],
+    "similarComponents": [
+      "header",
+      "sidebar",
+      "textarea"
+    ],
+    "icon": "calendar_today"
   },
   "divider": {
     "$schema": "../../component-schema.json",
@@ -209,7 +378,18 @@
       "border-radius",
       "space",
       "corner-shape"
-    ]
+    ],
+    "description": "The Divider component provides a reusable pattern for divider in the interface.",
+    "tags": [
+      "divider",
+      "component"
+    ],
+    "similarComponents": [
+      "slider",
+      "sidebar",
+      "drawer"
+    ],
+    "icon": "horizontal_rule"
   },
   "drawer": {
     "$schema": "../../component-schema.json",
@@ -222,7 +402,18 @@
       "color--secondary",
       "color--surface",
       "shadow"
-    ]
+    ],
+    "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
+    "tags": [
+      "drawer",
+      "component"
+    ],
+    "similarComponents": [
+      "paper",
+      "header",
+      "loader"
+    ],
+    "icon": "menu_open"
   },
   "fab": {
     "$schema": "../../component-schema.json",
@@ -236,7 +427,18 @@
       "color--background",
       "color--surface",
       "space"
-    ]
+    ],
+    "description": "The Fab component provides a reusable pattern for fab in the interface.",
+    "tags": [
+      "fab",
+      "component"
+    ],
+    "similarComponents": [
+      "tabs",
+      "table",
+      "navbar"
+    ],
+    "icon": "add_circle"
   },
   "field": {
     "$schema": "../../component-schema.json",
@@ -251,7 +453,18 @@
       "color--danger",
       "color--success",
       "color--surface"
-    ]
+    ],
+    "description": "The Field component provides a reusable pattern for field in the interface.",
+    "tags": [
+      "field",
+      "component"
+    ],
+    "similarComponents": [
+      "fileinput",
+      "image",
+      "footer"
+    ],
+    "icon": "edit_note"
   },
   "fileinput": {
     "$schema": "../../component-schema.json",
@@ -268,7 +481,20 @@
       "color--success",
       "font-size-90",
       "font-size-80"
-    ]
+    ],
+    "description": "The File Input component provides a reusable pattern for fileinput in the interface.",
+    "tags": [
+      "fileinput",
+      "file",
+      "input",
+      "component"
+    ],
+    "similarComponents": [
+      "field",
+      "collection",
+      "iconsection"
+    ],
+    "icon": "upload_file"
   },
   "footer": {
     "$schema": "../../component-schema.json",
@@ -279,7 +505,18 @@
       "space",
       "border-width",
       "color--surface"
-    ]
+    ],
+    "description": "The Footer component provides a reusable pattern for footer in the interface.",
+    "tags": [
+      "footer",
+      "component"
+    ],
+    "similarComponents": [
+      "logotype",
+      "logotypegrid",
+      "blockquote"
+    ],
+    "icon": "vertical_align_bottom"
   },
   "gallery": {
     "$schema": "../../component-schema.json",
@@ -291,7 +528,18 @@
       "space",
       "color--alpha",
       "border-radius"
-    ]
+    ],
+    "description": "The Gallery component provides a reusable pattern for gallery in the interface.",
+    "tags": [
+      "gallery",
+      "component"
+    ],
+    "similarComponents": [
+      "gallery--modal",
+      "paper",
+      "table"
+    ],
+    "icon": "photo_library"
   },
   "gallery--modal": {
     "$schema": "../../component-schema.json",
@@ -305,7 +553,19 @@
       "color--surface",
       "color--alpha",
       "border-radius"
-    ]
+    ],
+    "description": "The Gallery Modal component provides a reusable pattern for gallery modal in the interface.",
+    "tags": [
+      "gallery",
+      "modal",
+      "component"
+    ],
+    "similarComponents": [
+      "gallery",
+      "modal",
+      "card"
+    ],
+    "icon": "photo_size_select_large"
   },
   "group": {
     "$schema": "../../component-schema.json",
@@ -315,7 +575,18 @@
     "tokens": [
       "base",
       "space"
-    ]
+    ],
+    "description": "The Group component provides a reusable pattern for group in the interface.",
+    "tags": [
+      "group",
+      "component"
+    ],
+    "similarComponents": [
+      "logotype",
+      "hero",
+      "typography"
+    ],
+    "icon": "group_work"
   },
   "header": {
     "$schema": "../../component-schema.json",
@@ -327,7 +598,18 @@
       "color--surface",
       "color--primary",
       "color--secondary"
-    ]
+    ],
+    "description": "The Header component provides a reusable pattern for header in the interface.",
+    "tags": [
+      "header",
+      "component"
+    ],
+    "similarComponents": [
+      "loader",
+      "hero",
+      "paper"
+    ],
+    "icon": "web"
   },
   "hero": {
     "$schema": "../../component-schema.json",
@@ -345,7 +627,18 @@
       "shadow",
       "space",
       "color--alpha"
-    ]
+    ],
+    "description": "The Hero component provides a reusable pattern for hero in the interface.",
+    "tags": [
+      "hero",
+      "component"
+    ],
+    "similarComponents": [
+      "header",
+      "group",
+      "paper"
+    ],
+    "icon": "star"
   },
   "icon": {
     "$schema": "../../component-schema.json",
@@ -355,7 +648,18 @@
     "tokens": [
       "base",
       "color--background"
-    ]
+    ],
+    "description": "The Icon component provides a reusable pattern for icon in the interface.",
+    "tags": [
+      "icon",
+      "component"
+    ],
+    "similarComponents": [
+      "option",
+      "comment",
+      "iconsection"
+    ],
+    "icon": "emoji_symbols"
   },
   "iconsection": {
     "$schema": "../../component-schema.json",
@@ -369,7 +673,20 @@
       "outer-space",
       "border-width",
       "color--surface"
-    ]
+    ],
+    "description": "The Icon Section component provides a reusable pattern for iconsection in the interface.",
+    "tags": [
+      "iconsection",
+      "icon",
+      "section",
+      "component"
+    ],
+    "similarComponents": [
+      "collection",
+      "option",
+      "pagination"
+    ],
+    "icon": "grid_view"
   },
   "image": {
     "$schema": "../../component-schema.json",
@@ -382,7 +699,18 @@
       "color--background",
       "color--surface",
       "border-width"
-    ]
+    ],
+    "description": "The Image component provides a reusable pattern for image in the interface.",
+    "tags": [
+      "image",
+      "component"
+    ],
+    "similarComponents": [
+      "megamenu",
+      "tags",
+      "datebadge"
+    ],
+    "icon": "image"
   },
   "inlinecsswrapper": {
     "$schema": "../../component-schema.json",
@@ -391,7 +719,21 @@
     "slug": "inlinecsswrapper",
     "tokens": [
       "space"
-    ]
+    ],
+    "description": "The Inline CSS Wrapper component provides a reusable pattern for inlinecsswrapper in the interface.",
+    "tags": [
+      "inlinecsswrapper",
+      "inline",
+      "css",
+      "wrapper",
+      "component"
+    ],
+    "similarComponents": [
+      "paper",
+      "drawer",
+      "header"
+    ],
+    "icon": "css"
   },
   "listing": {
     "$schema": "../../component-schema.json",
@@ -400,7 +742,18 @@
     "slug": "listing",
     "tokens": [
       "space"
-    ]
+    ],
+    "description": "The Listing component provides a reusable pattern for listing in the interface.",
+    "tags": [
+      "listing",
+      "component"
+    ],
+    "similarComponents": [
+      "iconsection",
+      "collection",
+      "pagination"
+    ],
+    "icon": "view_list"
   },
   "loader": {
     "$schema": "../../component-schema.json",
@@ -412,7 +765,18 @@
       "color--primary",
       "color--secondary",
       "color--surface"
-    ]
+    ],
+    "description": "The Loader component provides a reusable pattern for loader in the interface.",
+    "tags": [
+      "loader",
+      "component"
+    ],
+    "similarComponents": [
+      "header",
+      "slider",
+      "code"
+    ],
+    "icon": "progress_activity"
   },
   "logotype": {
     "$schema": "../../component-schema.json",
@@ -423,7 +787,18 @@
       "border-radius",
       "color--alpha",
       "space"
-    ]
+    ],
+    "description": "The Logotype component provides a reusable pattern for logotype in the interface.",
+    "tags": [
+      "logotype",
+      "component"
+    ],
+    "similarComponents": [
+      "logotypegrid",
+      "footer",
+      "blockquote"
+    ],
+    "icon": "copyright"
   },
   "logotypegrid": {
     "$schema": "../../component-schema.json",
@@ -432,7 +807,20 @@
     "slug": "logotypegrid",
     "tokens": [
       "base"
-    ]
+    ],
+    "description": "The Logotype Grid component provides a reusable pattern for logotypegrid in the interface.",
+    "tags": [
+      "logotypegrid",
+      "logotype",
+      "grid",
+      "component"
+    ],
+    "similarComponents": [
+      "logotype",
+      "footer",
+      "blockquote"
+    ],
+    "icon": "apps"
   },
   "megamenu": {
     "$schema": "../../component-schema.json",
@@ -447,7 +835,18 @@
       "font-family-base",
       "font-family-heading",
       "font-size-300"
-    ]
+    ],
+    "description": "The Megamenu component provides a reusable pattern for megamenu in the interface.",
+    "tags": [
+      "megamenu",
+      "component"
+    ],
+    "similarComponents": [
+      "segment",
+      "anchormenu",
+      "comment"
+    ],
+    "icon": "dashboard"
   },
   "modal": {
     "$schema": "../../component-schema.json",
@@ -463,7 +862,18 @@
       "shadow",
       "color--surface",
       "color--alpha"
-    ]
+    ],
+    "description": "The Modal component provides a reusable pattern for modal in the interface.",
+    "tags": [
+      "modal",
+      "component"
+    ],
+    "similarComponents": [
+      "gallery--modal",
+      "testimonials",
+      "code"
+    ],
+    "icon": "open_in_new"
   },
   "nav": {
     "$schema": "../../component-schema.json",
@@ -476,7 +886,18 @@
       "shadow",
       "color--surface",
       "color--primary"
-    ]
+    ],
+    "description": "The Nav component provides a reusable pattern for nav in the interface.",
+    "tags": [
+      "nav",
+      "component"
+    ],
+    "similarComponents": [
+      "navbar",
+      "avatar",
+      "fab"
+    ],
+    "icon": "navigation"
   },
   "navbar": {
     "$schema": "../../component-schema.json",
@@ -490,7 +911,18 @@
       "color--primary",
       "color--background",
       "font-family-base"
-    ]
+    ],
+    "description": "The Navbar component provides a reusable pattern for navbar in the interface.",
+    "tags": [
+      "navbar",
+      "component"
+    ],
+    "similarComponents": [
+      "avatar",
+      "nav",
+      "sidebar"
+    ],
+    "icon": "menu"
   },
   "newsitem": {
     "$schema": "../../component-schema.json",
@@ -502,7 +934,20 @@
       "color--surface",
       "color--border",
       "border-width"
-    ]
+    ],
+    "description": "The News Item component provides a reusable pattern for newsitem in the interface.",
+    "tags": [
+      "newsitem",
+      "news",
+      "item",
+      "component"
+    ],
+    "similarComponents": [
+      "signature",
+      "sidebar",
+      "inlinecsswrapper"
+    ],
+    "icon": "article"
   },
   "notice": {
     "$schema": "../../component-schema.json",
@@ -520,7 +965,18 @@
       "color--danger",
       "color--warning",
       "color--info"
-    ]
+    ],
+    "description": "The Notice component provides a reusable pattern for notice in the interface.",
+    "tags": [
+      "notice",
+      "component"
+    ],
+    "similarComponents": [
+      "footer",
+      "option",
+      "tooltip"
+    ],
+    "icon": "notification_important"
   },
   "option": {
     "$schema": "../../component-schema.json",
@@ -535,7 +991,18 @@
       "color--danger",
       "color--success",
       "font-size-100"
-    ]
+    ],
+    "description": "The Option component provides a reusable pattern for option in the interface.",
+    "tags": [
+      "option",
+      "component"
+    ],
+    "similarComponents": [
+      "collection",
+      "pagination",
+      "icon"
+    ],
+    "icon": "tune"
   },
   "pagination": {
     "$schema": "../../component-schema.json",
@@ -545,7 +1012,18 @@
     "tokens": [
       "base",
       "space"
-    ]
+    ],
+    "description": "The Pagination component provides a reusable pattern for pagination in the interface.",
+    "tags": [
+      "pagination",
+      "component"
+    ],
+    "similarComponents": [
+      "option",
+      "iconsection",
+      "icon"
+    ],
+    "icon": "last_page"
   },
   "paper": {
     "$schema": "../../component-schema.json",
@@ -558,7 +1036,18 @@
       "shadow",
       "border-width",
       "color--surface"
-    ]
+    ],
+    "description": "The Paper component provides a reusable pattern for paper in the interface.",
+    "tags": [
+      "paper",
+      "component"
+    ],
+    "similarComponents": [
+      "drawer",
+      "header",
+      "loader"
+    ],
+    "icon": "description"
   },
   "progressbar": {
     "$schema": "../../component-schema.json",
@@ -572,7 +1061,18 @@
       "color--success",
       "color--background",
       "color--background-muted"
-    ]
+    ],
+    "description": "The Progressbar component provides a reusable pattern for progressbar in the interface.",
+    "tags": [
+      "progressbar",
+      "component"
+    ],
+    "similarComponents": [
+      "typography",
+      "sidebar",
+      "inlinecsswrapper"
+    ],
+    "icon": "stacked_bar_chart"
   },
   "segment": {
     "$schema": "../../component-schema.json",
@@ -588,7 +1088,18 @@
       "font-size-600",
       "color--alpha",
       "corner-shape"
-    ]
+    ],
+    "description": "The Segment component provides a reusable pattern for segment in the interface.",
+    "tags": [
+      "segment",
+      "component"
+    ],
+    "similarComponents": [
+      "megamenu",
+      "select",
+      "comment"
+    ],
+    "icon": "splitscreen"
   },
   "select": {
     "$schema": "../../component-schema.json",
@@ -606,7 +1117,18 @@
       "font-size-100",
       "font-size-90",
       "font-size-80"
-    ]
+    ],
+    "description": "The Select component provides a reusable pattern for select in the interface.",
+    "tags": [
+      "select",
+      "component"
+    ],
+    "similarComponents": [
+      "segment",
+      "collection",
+      "iconsection"
+    ],
+    "icon": "arrow_drop_down_circle"
   },
   "sidebar": {
     "$schema": "../../component-schema.json",
@@ -617,7 +1139,18 @@
       "space",
       "color--surface",
       "color--primary"
-    ]
+    ],
+    "description": "The Sidebar component provides a reusable pattern for sidebar in the interface.",
+    "tags": [
+      "sidebar",
+      "component"
+    ],
+    "similarComponents": [
+      "slider",
+      "divider",
+      "datebadge"
+    ],
+    "icon": "view_sidebar"
   },
   "signature": {
     "$schema": "../../component-schema.json",
@@ -627,7 +1160,18 @@
     "tokens": [
       "space",
       "color--surface"
-    ]
+    ],
+    "description": "The Signature component provides a reusable pattern for signature in the interface.",
+    "tags": [
+      "signature",
+      "component"
+    ],
+    "similarComponents": [
+      "segment",
+      "sidebar",
+      "newsitem"
+    ],
+    "icon": "draw"
   },
   "slider": {
     "$schema": "../../component-schema.json",
@@ -641,7 +1185,18 @@
       "color--primary",
       "color--alpha",
       "space"
-    ]
+    ],
+    "description": "The Slider component provides a reusable pattern for slider in the interface.",
+    "tags": [
+      "slider",
+      "component"
+    ],
+    "similarComponents": [
+      "sidebar",
+      "loader",
+      "divider"
+    ],
+    "icon": "tune"
   },
   "table": {
     "$schema": "../../component-schema.json",
@@ -654,7 +1209,18 @@
       "border-width",
       "color--surface",
       "color--primary"
-    ]
+    ],
+    "description": "The Table component provides a reusable pattern for table in the interface.",
+    "tags": [
+      "table",
+      "component"
+    ],
+    "similarComponents": [
+      "tabs",
+      "fab",
+      "gallery"
+    ],
+    "icon": "table_chart"
   },
   "tabs": {
     "$schema": "../../component-schema.json",
@@ -665,7 +1231,18 @@
       "base",
       "color--surface",
       "color--primary"
-    ]
+    ],
+    "description": "The Tabs component provides a reusable pattern for tabs in the interface.",
+    "tags": [
+      "tabs",
+      "component"
+    ],
+    "similarComponents": [
+      "tags",
+      "table",
+      "toast"
+    ],
+    "icon": "tab"
   },
   "tags": {
     "$schema": "../../component-schema.json",
@@ -677,7 +1254,18 @@
       "color--surface",
       "shadow",
       "corner-shape"
-    ]
+    ],
+    "description": "The Tags component provides a reusable pattern for tags in the interface.",
+    "tags": [
+      "tags",
+      "component"
+    ],
+    "similarComponents": [
+      "tabs",
+      "toast",
+      "datebadge"
+    ],
+    "icon": "sell"
   },
   "testimonials": {
     "$schema": "../../component-schema.json",
@@ -691,7 +1279,18 @@
       "color--primary",
       "border-radius",
       "corner-shape"
-    ]
+    ],
+    "description": "The Testimonials component provides a reusable pattern for testimonials in the interface.",
+    "tags": [
+      "testimonials",
+      "component"
+    ],
+    "similarComponents": [
+      "modal",
+      "collection",
+      "button"
+    ],
+    "icon": "rate_review"
   },
   "textarea": {
     "$schema": "../../component-schema.json",
@@ -704,7 +1303,18 @@
       "color--background",
       "color--danger",
       "color--success"
-    ]
+    ],
+    "description": "The Textarea component provides a reusable pattern for textarea in the interface.",
+    "tags": [
+      "textarea",
+      "component"
+    ],
+    "similarComponents": [
+      "datebadge",
+      "table",
+      "acceptance"
+    ],
+    "icon": "notes"
   },
   "toast": {
     "$schema": "../../component-schema.json",
@@ -713,7 +1323,18 @@
     "slug": "toast",
     "tokens": [
       "base"
-    ]
+    ],
+    "description": "The Toast component provides a reusable pattern for toast in the interface.",
+    "tags": [
+      "toast",
+      "component"
+    ],
+    "similarComponents": [
+      "tabs",
+      "tags",
+      "tooltip"
+    ],
+    "icon": "notifications"
   },
   "tooltip": {
     "$schema": "../../component-schema.json",
@@ -727,7 +1348,18 @@
       "corner-shape",
       "color--primary",
       "shadow"
-    ]
+    ],
+    "description": "The Tooltip component provides a reusable pattern for tooltip in the interface.",
+    "tags": [
+      "tooltip",
+      "component"
+    ],
+    "similarComponents": [
+      "toast",
+      "collection",
+      "footer"
+    ],
+    "icon": "help"
   },
   "typography": {
     "$schema": "../../component-schema.json",
@@ -746,6 +1378,17 @@
       "base-font-size",
       "space",
       "font-size-scale-ratio"
-    ]
+    ],
+    "description": "The Typography component provides a reusable pattern for typography in the interface.",
+    "tags": [
+      "typography",
+      "component"
+    ],
+    "similarComponents": [
+      "progressbar",
+      "logotypegrid",
+      "group"
+    ],
+    "icon": "text_fields"
   }
 }

@@ -25,5 +25,6 @@
     "field",
     "collection",
     "iconsection"
-  ]
+  ],
+  "icon": "upload_file"
 }
