@@ -15,6 +15,7 @@ $_: "c-code";
     pre[class*="language-"],
     code[class*="language-"] {
         font-family: tokens.get($_, "font-family-code");
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     .code-toolbar {
