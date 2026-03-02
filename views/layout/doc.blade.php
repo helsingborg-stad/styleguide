@@ -25,42 +25,28 @@
             </article>
 
 
-            @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
-            
+            @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+                @php
+                    $tabs = [
+                        [
+                            'title' => 'Example',
+                            'content' => $example['html']['code'],
+                        ],
+                        [
+                            'title' => 'HTML',
+                            'content' => '<pre><code class="language-html">' . e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])) . '</code></pre>',
+                        ],
+                        [
+                            'title' => 'Blade',
+                            'content' => '<pre><code class="language-php">' . e($example['blade']['code']) . '</code></pre>',
+                        ],
+                    ];
+                @endphp
 
-                @include($example['component'])
-
-                <!-- Code blocks -->
-                @code(['language' => 'html', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
-                @endcode
-                @code(['language' => 'php', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                    {{$example['blade']['code']}}
-                @endcode
-
-                <!-- Toggle buttons -->
-                <div class="d-code__toggle c-code__toggle">
-                    @button([
-                        'text' => 'HTML',
-                        'color' => 'default',
-                        'style' => 'basic',
-                        'size' => 'sm',
-                        'classList' => ['u-margin--0'],
-                        'toggle' => true,
-                        'attributeList' => ['js-toggle-trigger' => $example['html']['id'], 'js-toggle-group' => $loop->index]
-                    ])
-                    @endbutton
-                    @button([
-                        'text' => 'Blade',
-                        'color' => 'default',
-                        'style' => 'basic',
-                        'size' => 'sm',
-                        'classList' => ['u-margin--0'],
-                        'toggle' => true,
-                        'attributeList' => ['js-toggle-trigger' => $example['blade']['id'], 'js-toggle-group' => $loop->index]
-                    ])
-                    @endbutton
-                </div>
+                @tabs([
+                    'tabs' => $tabs,
+                ])
+                @endtabs
 
             @endpaper
         @endforeach

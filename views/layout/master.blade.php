@@ -72,31 +72,10 @@
                 'u-border__bottom--1',
                 'u-padding__x--4',
                 'u-padding__y--1',
+                'u-gap--2',
             ]
         ])
-            <div class="u-display--flex u-align-items--center">
-                @nav([
-                    'items' => [[
-                        'href' => '#',
-                        'label' => 'Menu',
-                        'style' => 'button',
-                        'buttonStyle' => 'basic',
-                        'buttonColor' => 'default',
-                        'icon' => ['icon' => 'menu'],
-                        'classList' => ['u-margin__right--3'],
-                        'attributeList' => [
-                            'js-toggle-trigger' => 'js-mobile-sidebar',
-                            'js-toggle-class' => 'c-sidebar--collapsed'
-                        ]
-                    ]],
-                    'direction' => 'horizontal',
-                    'allowStyle' => true,
-                    'classList' => ['u-margin--0']
-                ])
-                @endnav
-            </div>
-
-            <div class="u-display--flex u-align-items--center u-width--100 u-margin__x--3">
+            <div class="u-display--flex u-align-items--center u-width--100">
                 @form(['action' => '/', 'method' => 'get', 'classList' => ['u-width--100']])
                     @field([
                         'label' => 'Search documentation',
