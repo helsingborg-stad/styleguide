@@ -427,6 +427,20 @@
           "default": "#ffffff"
         },
         {
+          "variable": "--color--primary-border",
+          "label": "Primary Border",
+          "description": "Manual companion token for primary border and hover states.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--primary-contrast) 10%, var(--color--primary))"
+        },
+        {
+          "variable": "--color--primary-alt",
+          "label": "Primary Alt",
+          "description": "Manual companion token for subtle primary surfaces.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--primary-contrast) 4%, var(--color--primary))"
+        },
+        {
           "variable": "--color--secondary",
           "label": "Secondary",
           "type": "color",
@@ -438,6 +452,20 @@
           "label": "Secondary Contrast",
           "type": "color",
           "default": "#ffffff"
+        },
+        {
+          "variable": "--color--secondary-border",
+          "label": "Secondary Border",
+          "description": "Manual companion token for secondary border and hover states.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--secondary-contrast) 10%, var(--color--secondary))"
+        },
+        {
+          "variable": "--color--secondary-alt",
+          "label": "Secondary Alt",
+          "description": "Manual companion token for subtle secondary surfaces.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--secondary-contrast) 4%, var(--color--secondary))"
         }
       ]
     },
@@ -471,6 +499,13 @@
           "default": "#6e6e6e"
         },
         {
+          "variable": "--color--background-border",
+          "label": "Background Border",
+          "description": "Manual companion token for borders on background surfaces.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--background-contrast) 10%, var(--color--background))"
+        },
+        {
           "variable": "--color--surface",
           "label": "Surface",
           "type": "color",
@@ -493,6 +528,20 @@
           "description": "Used for text and icons on surface backgrounds with less contrast.",
           "type": "color",
           "default": "#6e6e6e"
+        },
+        {
+          "variable": "--color--surface-border",
+          "label": "Surface Border",
+          "description": "Manual companion token for borders on surface elements.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--surface-contrast) 10%, var(--color--surface))"
+        },
+        {
+          "variable": "--color--surface-alt",
+          "label": "Surface Alt",
+          "description": "Manual companion token for subtle surface backgrounds.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--surface-contrast-muted) 4%, var(--color--surface))"
         }
       ]
     },
@@ -520,6 +569,13 @@
           "description": "Used for text and icons on alpha overlays.",
           "type": "color",
           "default": "#ffffff"
+        },
+        {
+          "variable": "--color--alpha-border",
+          "label": "Alpha Border",
+          "description": "Manual companion token for alpha overlay border states.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--alpha-contrast) 10%, var(--color--alpha))"
         }
       ]
     },
@@ -566,6 +622,13 @@
           "label": "Danger Contrast",
           "type": "color",
           "default": "#ffffff"
+        },
+        {
+          "variable": "--color--danger-border",
+          "label": "Danger Border",
+          "description": "Manual companion token for danger border and emphasis states.",
+          "type": "color",
+          "default": "color-mix(in srgb, var(--color--danger-contrast) 10%, var(--color--danger))"
         },
         {
           "variable": "--color--info",

@@ -8,7 +8,11 @@
     "color--primary",
     "color--secondary",
     "color--surface",
-    "shadow"
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-contrast",
+    "color--alpha"
   ],
   "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
   "tags": [

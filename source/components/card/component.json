@@ -9,7 +9,15 @@
     "space",
     "color--surface",
     "color--primary",
-    "shadow"
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-border",
+    "color--secondary",
+    "color--surface-contrast",
+    "corner-shape",
+    "base",
+    "color--primary-contrast"
   ],
   "description": "The Card component provides a reusable pattern for card in the interface.",
   "tags": [

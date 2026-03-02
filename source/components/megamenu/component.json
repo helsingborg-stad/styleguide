@@ -10,7 +10,9 @@
     "color--surface",
     "font-family-base",
     "font-family-heading",
-    "font-size-300"
+    "font-size-300",
+    "color--secondary-contrast",
+    "color--primary-contrast"
   ],
   "description": "The Megamenu component provides a reusable pattern for megamenu in the interface.",
   "tags": [

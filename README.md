@@ -223,10 +223,10 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 
 - **Scoped customization**: The same component can have different appearances by overriding `--c-<component>--*` per instance.
 - **Global theming**: Change `:root` token values to update all components consistently.
-- **Auto-derived companion values** in `tokens.create(...)`:
-  - `border-radius` also maps `corner-shape`.
-  - `color--*` automatically gets `-contrast`, `-border`, and `-alt` companions.
-  - `shadow` maps to grouped shadow internals (`shadow-color`, `shadow-color-opacity`, `shadow-amount`).
+- **Explicit token mapping only** in `tokens.create(...)`:
+  - Every consumed token must be listed in the component token manifest.
+  - Companion tokens such as `-border` and `-alt` must be declared in global tokens and referenced explicitly.
+  - Shadow internals (`shadow-color`, `shadow-color-opacity`, `shadow-amount`) must be listed directly.
 - **Extras/remapping support**:
   - `tokens.create($prefix, $tokens, $extras, $inner)` supports computed extras and child-token remapping when needed.
 
@@ -241,8 +241,8 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - **`tokens.use(...)` assumes scale-based numeric usage**:
   - It returns `calc(var(--c-...--token) * var(--base) * multiplier)` (except special cases like `base` and `shadow`).
   - For raw values or non-scale tokens, use `tokens.get(...)`.
-- **Auto-derivation rules are opinionated**:
-  - Color and shadow companions are generated automatically; custom behavior outside these rules should use `$extras` or explicit properties.
+- **No implicit companion generation**:
+  - Token behavior is declarative; add companion tokens explicitly in token JSON and component manifests.
 
 ### Recommended Workflow
 

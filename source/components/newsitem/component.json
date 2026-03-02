@@ -5,9 +5,9 @@
   "slug": "newsitem",
   "tokens": [
     "space",
-    "color--surface",
-    "color--border",
-    "border-width"
+    "border-width",
+    "color--surface-border",
+    "color--surface-contrast"
   ],
   "description": "The News Item component provides a reusable pattern for newsitem in the interface.",
   "tags": [

@@ -7,10 +7,18 @@
     "border-radius",
     "border-width",
     "space",
-    "shadow",
     "color--danger",
     "color--success",
-    "color--surface"
+    "color--surface",
+    "color--surface-border",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-contrast",
+    "base",
+    "corner-shape",
+    "color--primary",
+    "color--danger-contrast"
   ],
   "description": "The Field component provides a reusable pattern for field in the interface.",
   "tags": [

@@ -6,9 +6,14 @@
   "tokens": [
     "border-radius",
     "space",
-    "shadow",
     "border-width",
-    "color--surface"
+    "color--surface",
+    "color--surface-border",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-contrast",
+    "corner-shape"
   ],
   "description": "The Paper component provides a reusable pattern for paper in the interface.",
   "tags": [

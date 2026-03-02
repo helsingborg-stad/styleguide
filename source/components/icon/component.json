@@ -5,7 +5,7 @@
   "slug": "icon",
   "tokens": [
     "base",
-    "color--background"
+    "color--background-contrast"
   ],
   "description": "The Icon component provides a reusable pattern for icon in the interface.",
   "tags": [

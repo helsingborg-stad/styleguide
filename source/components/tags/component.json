@@ -6,8 +6,11 @@
   "tokens": [
     "base",
     "color--surface",
-    "shadow",
-    "corner-shape"
+    "corner-shape",
+    "color--surface-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount"
   ],
   "description": "The Tags component provides a reusable pattern for tags in the interface.",
   "tags": [

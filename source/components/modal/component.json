@@ -7,11 +7,16 @@
     "base",
     "space",
     "border-width",
-    "border-color",
     "border-radius",
-    "shadow",
     "color--surface",
-    "color--alpha"
+    "color--alpha",
+    "color--surface-contrast",
+    "corner-shape",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--alpha-contrast",
+    "color--surface-border"
   ],
   "description": "The Modal component provides a reusable pattern for modal in the interface.",
   "tags": [

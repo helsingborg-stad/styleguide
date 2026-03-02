@@ -8,7 +8,9 @@
     "corner-shape",
     "font-family-code",
     "space",
-    "color--surface"
+    "color--surface-border",
+    "color--surface-alt",
+    "color--surface-contrast-muted"
   ],
   "description": "The Code component provides a reusable pattern for code in the interface.",
   "tags": [

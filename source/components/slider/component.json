@@ -6,10 +6,15 @@
   "tokens": [
     "base",
     "border-radius",
-    "shadow",
     "color--primary",
     "color--alpha",
-    "space"
+    "font-family-heading",
+    "font-family-base",
+    "font-size-100",
+    "color--alpha-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount"
   ],
   "description": "The Slider component provides a reusable pattern for slider in the interface.",
   "tags": [

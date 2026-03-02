@@ -6,10 +6,10 @@
   "tokens": [
     "base",
     "border-radius",
-    "color--surface",
     "color--success",
-    "color--background",
-    "color--background-muted"
+    "color--background-border",
+    "corner-shape",
+    "color--background-contrast-muted"
   ],
   "description": "The Progressbar component provides a reusable pattern for progressbar in the interface.",
   "tags": [

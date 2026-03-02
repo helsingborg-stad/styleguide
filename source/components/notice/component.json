@@ -8,12 +8,11 @@
     "border-width",
     "space",
     "outer-space",
-    "shadow",
-    "line-height",
-    "color--success",
-    "color--danger",
-    "color--warning",
-    "color--info"
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "corner-shape",
+    "color--info-contrast"
   ],
   "description": "The Notice component provides a reusable pattern for notice in the interface.",
   "tags": [

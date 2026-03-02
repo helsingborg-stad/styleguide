@@ -6,7 +6,8 @@
   "tokens": [
     "space",
     "border-width",
-    "color--surface"
+    "color--surface",
+    "color--surface-contrast"
   ],
   "description": "The Footer component provides a reusable pattern for footer in the interface.",
   "tags": [

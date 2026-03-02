@@ -5,11 +5,14 @@
   "slug": "testimonials",
   "tokens": [
     "base",
-    "shadow",
-    "color--surface",
     "color--primary",
     "border-radius",
-    "corner-shape"
+    "corner-shape",
+    "color--surface-border",
+    "color--surface-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount"
   ],
   "description": "The Testimonials component provides a reusable pattern for testimonials in the interface.",
   "tags": [

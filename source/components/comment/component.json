@@ -7,9 +7,10 @@
     "space",
     "outer-space",
     "border-radius",
-    "color--background",
-    "color--background-contrast",
-    "color--surface"
+    "color--surface",
+    "corner-shape",
+    "color--surface-contrast",
+    "color--background-contrast-muted"
   ],
   "description": "The Comment component provides a reusable pattern for comment in the interface.",
   "tags": [

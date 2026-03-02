@@ -86,19 +86,15 @@ class PageController extends BaseController implements ControllerInterface
             $componentOverviewItems[] = [
                 'slug' => $slug,
                 'name' => $name,
-                'description' => isset($config['description']) && is_string($config['description'])
-                    ? $config['description']
-                    : '',
-                'icon' => isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== ''
-                    ? $config['icon']
-                    : 'widgets',
+                'description' => isset($config['description']) && is_string($config['description']) ? $config['description'] : '',
+                'icon' => isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '' ? $config['icon'] : 'widgets',
                 'href' => '/components/' . $slug,
             ];
         }
 
         usort(
             $componentOverviewItems,
-            static fn (array $left, array $right): int => strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? '')),
+            static fn(array $left, array $right): int => strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? '')),
         );
 
         $data['componentOverviewItems'] = $componentOverviewItems;
@@ -117,7 +113,7 @@ class PageController extends BaseController implements ControllerInterface
         }
 
         $path = trim($this->request->getPath(), '/');
-        $segments = array_values(array_filter(explode('/', $path), static fn (string $segment): bool => $segment !== ''));
+        $segments = array_values(array_filter(explode('/', $path), static fn(string $segment): bool => $segment !== ''));
 
         $slug = $segments[1] ?? '';
         if ($slug === '') {
@@ -146,7 +142,7 @@ class PageController extends BaseController implements ControllerInterface
                 }
 
                 if (isset($config['similarComponents']) && is_array($config['similarComponents'])) {
-                    $similarComponents = array_values(array_filter($config['similarComponents'], static fn ($item): bool => is_string($item) && $item !== ''));
+                    $similarComponents = array_values(array_filter($config['similarComponents'], static fn($item): bool => is_string($item) && $item !== ''));
                 }
             }
         }

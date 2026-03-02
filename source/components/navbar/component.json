@@ -5,11 +5,15 @@
   "slug": "navbar",
   "tokens": [
     "base",
-    "shadow",
     "color--surface",
     "color--primary",
     "color--background",
-    "font-family-base"
+    "font-family-base",
+    "color--surface-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-contrast-muted"
   ],
   "description": "The Navbar component provides a reusable pattern for navbar in the interface.",
   "tags": [

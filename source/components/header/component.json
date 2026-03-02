@@ -7,7 +7,8 @@
     "space",
     "color--surface",
     "color--primary",
-    "color--secondary"
+    "color--secondary",
+    "base"
   ],
   "description": "The Header component provides a reusable pattern for header in the interface.",
   "tags": [

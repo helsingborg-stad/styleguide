@@ -7,12 +7,20 @@
     "border-radius",
     "border-width",
     "space",
-    "shadow",
     "color--surface",
     "color--danger",
     "color--success",
     "font-size-90",
-    "font-size-80"
+    "font-size-80",
+    "color--surface-border",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "corner-shape",
+    "color--surface-alt",
+    "color--surface-contrast-muted",
+    "color--danger-border",
+    "color--danger-contrast"
   ],
   "description": "The File Input component provides a reusable pattern for fileinput in the interface.",
   "tags": [

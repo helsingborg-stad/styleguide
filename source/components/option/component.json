@@ -10,7 +10,9 @@
     "color--surface",
     "color--danger",
     "color--success",
-    "font-size-100"
+    "font-size-100",
+    "color--surface-contrast",
+    "color--danger-contrast"
   ],
   "description": "The Option component provides a reusable pattern for option in the interface.",
   "tags": [

@@ -6,10 +6,14 @@
   "tokens": [
     "base",
     "border-radius",
-    "shadow",
     "corner-shape",
     "color--alpha",
-    "color--secondary"
+    "color--secondary",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--alpha-contrast",
+    "color--alpha-border"
   ],
   "description": "The Block component provides a reusable pattern for block in the interface.",
   "tags": [

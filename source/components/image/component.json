@@ -8,7 +8,11 @@
     "border-radius",
     "color--background",
     "color--surface",
-    "border-width"
+    "border-width",
+    "color--surface-border",
+    "color--surface-contrast",
+    "corner-shape",
+    "font-weight-bold"
   ],
   "description": "The Image component provides a reusable pattern for image in the interface.",
   "tags": [

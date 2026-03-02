@@ -6,10 +6,12 @@
   "tokens": [
     "base",
     "border-radius",
-    "border-width",
     "corner-shape",
     "color--primary",
-    "shadow"
+    "color--primary-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount"
   ],
   "description": "The Tooltip component provides a reusable pattern for tooltip in the interface.",
   "tags": [

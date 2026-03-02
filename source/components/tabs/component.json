@@ -5,8 +5,9 @@
   "slug": "tabs",
   "tokens": [
     "base",
-    "color--surface",
-    "color--primary"
+    "color--primary",
+    "color--surface-border",
+    "color--surface-contrast-muted"
   ],
   "description": "The Tabs component provides a reusable pattern for tabs in the interface.",
   "tags": [

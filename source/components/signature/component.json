@@ -5,7 +5,7 @@
   "slug": "signature",
   "tokens": [
     "space",
-    "color--surface"
+    "color--surface-contrast-muted"
   ],
   "description": "The Signature component provides a reusable pattern for signature in the interface.",
   "tags": [

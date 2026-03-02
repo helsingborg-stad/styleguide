@@ -44,7 +44,7 @@
             "type": "string"
         },
         "tokens": {
-            "description": "This is an array of tokens that the component uses. Token names correspond to CSS custom property names from design-tokens.json with the leading '--' stripped. Use 'shadow' as a group token to include all shadow-* variables.",
+            "description": "This is an array of tokens that the component uses. Token names correspond to CSS custom property names from design-tokens.json with the leading '--' stripped.",
             "type": "array",
             "items": {
                 "$ref": "./design-tokens-schema.json#/$defs/validToken"

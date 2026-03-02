@@ -7,7 +7,13 @@
     "base",
     "space",
     "color--alpha",
-    "border-radius"
+    "border-radius",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "corner-shape",
+    "color--alpha-contrast",
+    "color--surface-contrast-muted"
   ],
   "description": "The Gallery component provides a reusable pattern for gallery in the interface.",
   "tags": [

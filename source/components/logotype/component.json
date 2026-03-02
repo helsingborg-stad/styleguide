@@ -3,11 +3,7 @@
   "apiVersion": 1,
   "name": "Logotype",
   "slug": "logotype",
-  "tokens": [
-    "border-radius",
-    "color--alpha",
-    "space"
-  ],
+  "tokens": [],
   "description": "The Logotype component provides a reusable pattern for logotype in the interface.",
   "tags": [
     "logotype",

@@ -10,10 +10,12 @@
     "color--surface",
     "color--danger",
     "color--success",
-    "color--alpha",
     "font-size-100",
     "font-size-90",
-    "font-size-80"
+    "font-size-80",
+    "color--surface-border",
+    "color--surface-contrast-muted",
+    "color--danger-contrast"
   ],
   "description": "The Select component provides a reusable pattern for select in the interface.",
   "tags": [

@@ -5,10 +5,16 @@
   "slug": "table",
   "tokens": [
     "space",
-    "border-radius",
     "border-width",
     "color--surface",
-    "color--primary"
+    "color--primary",
+    "color--surface-border",
+    "color--surface-contrast-muted",
+    "color--surface-contrast",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-alt"
   ],
   "description": "The Table component provides a reusable pattern for table in the interface.",
   "tags": [

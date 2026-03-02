@@ -5,9 +5,13 @@
   "slug": "box",
   "tokens": [
     "border-radius",
-    "shadow",
     "space",
-    "color--primary"
+    "color--primary",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "corner-shape",
+    "color--primary-contrast"
   ],
   "description": "The Box component provides a reusable pattern for box in the interface.",
   "tags": [

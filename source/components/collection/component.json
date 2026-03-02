@@ -8,10 +8,12 @@
     "border-width",
     "space",
     "base",
-    "color--surface",
     "color--primary",
-    "color--background",
-    "corner-shape"
+    "corner-shape",
+    "color--background-border",
+    "color--primary-contrast",
+    "color--surface-contrast",
+    "color--surface-border"
   ],
   "description": "The Collection component provides a reusable pattern for collection in the interface.",
   "tags": [

@@ -42,7 +42,7 @@ class NavigationSidebarSectionsTest extends TestCase
                 'unlisted' => ['.', '..', '.DS_Store', 'layout', '404.blade.php', 'home.blade.php', 'usage', 'about'],
                 'icons' => [],
                 'externalMenuItems' => [],
-            ])
+            ]),
         );
 
         file_put_contents(
@@ -50,7 +50,7 @@ class NavigationSidebarSectionsTest extends TestCase
             json_encode([
                 'name' => 'Alpha Component',
                 'slug' => 'alpha',
-            ])
+            ]),
         );
 
         file_put_contents(
@@ -58,7 +58,7 @@ class NavigationSidebarSectionsTest extends TestCase
             json_encode([
                 'name' => 'Beta Component',
                 'slug' => 'beta',
-            ])
+            ]),
         );
 
         file_put_contents($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php', '');

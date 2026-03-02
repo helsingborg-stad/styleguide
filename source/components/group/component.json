@@ -4,8 +4,7 @@
   "name": "Group",
   "slug": "group",
   "tokens": [
-    "base",
-    "space"
+    "base"
   ],
   "description": "The Group component provides a reusable pattern for group in the interface.",
   "tags": [

@@ -24,8 +24,7 @@ class Navigation
         private string $viewsPath,
         private array $sidebarSections = [],
         private string $componentsPath = '',
-    ) {
-    }
+    ) {}
 
     private static function default(): self
     {
@@ -58,9 +57,7 @@ class Navigation
     public function buildSidebarNavigation(): array
     {
         $allPages = $this->buildItems('pages/');
-        $sections = !empty($this->sidebarSections)
-            ? $this->sidebarSections
-            : self::defaultSidebarSections();
+        $sections = !empty($this->sidebarSections) ? $this->sidebarSections : self::defaultSidebarSections();
 
         $sidebarNavigation = [];
 
@@ -97,9 +94,7 @@ class Navigation
 
     private function buildComponentsMenuItems(): array
     {
-        $basePath = $this->componentsPath !== ''
-            ? rtrim($this->componentsPath, '/')
-            : rtrim(BASEPATH . 'source/components', '/');
+        $basePath = $this->componentsPath !== '' ? rtrim($this->componentsPath, '/') : rtrim(BASEPATH . 'source/components', '/');
 
         $componentConfigPaths = glob($basePath . '/*/component.json') ?: [];
         $items = [];
@@ -132,7 +127,7 @@ class Navigation
             ];
         }
 
-        uasort($items, fn (array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+        uasort($items, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
 
         return $items;
     }
@@ -294,9 +289,7 @@ class Navigation
         $data = self::default()->jsonDataLoader->load('assets/data/navigation-mocks.json');
         $topLevel = $data['topLevel'] ?? [];
 
-        return is_array($topLevel)
-            ? self::default()->navigationDataParser->parse($topLevel)
-            : [];
+        return is_array($topLevel) ? self::default()->navigationDataParser->parse($topLevel) : [];
     }
 
     public static function getMockedMultilevel()
@@ -304,8 +297,6 @@ class Navigation
         $data = self::default()->jsonDataLoader->load('assets/data/navigation-mocks.json');
         $multiLevel = $data['multiLevel'] ?? [];
 
-        return is_array($multiLevel)
-            ? self::default()->navigationDataParser->parse($multiLevel)
-            : [];
+        return is_array($multiLevel) ? self::default()->navigationDataParser->parse($multiLevel) : [];
     }
 }

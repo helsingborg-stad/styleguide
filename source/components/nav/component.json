@@ -6,9 +6,14 @@
   "tokens": [
     "base",
     "border-radius",
-    "shadow",
     "color--surface",
-    "color--primary"
+    "color--primary",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--primary-contrast",
+    "color--surface-border",
+    "color--surface-contrast"
   ],
   "description": "The Nav component provides a reusable pattern for nav in the interface.",
   "tags": [

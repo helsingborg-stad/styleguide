@@ -103,13 +103,13 @@ If the file does not exist, create it:
 }
 ```
 
-Only include tokens actually referenced in the SCSS. Common token names: `base`, `space`, `border-radius`, `color--primary`, `color--surface`, `color--alpha`, `shadow`, `font-size-100` … `font-size-700`.
+Only include tokens actually referenced in the SCSS. Common token names: `base`, `space`, `border-radius`, `color--primary`, `color--surface`, `color--alpha`, `shadow-color`, `shadow-color-opacity`, `shadow-amount`, `font-size-100` … `font-size-700`.
 
 **Important token rules:**
 - `base` — include if `tokens.use($_, "base", N)` or `tokens.get($_, "base")` is used anywhere. Do NOT also put `"base": "var(--base)"` in the extras map — that's redundant once `base` is in the JSON.
 - `space` — only include if `tokens.use($_, "space", N)` is actually used in the SCSS. Remove it if present but unused.
-- `shadow` — include if `tokens.get($_, "shadow")` or `tokens.use($_, "shadow", N)` is used. When the shadow token is in the JSON, its sub-tokens (`--shadow-color`, `--shadow-amount`, etc.) are auto-derived and available for use in `tokens.use($_, "shadow", N)` inside the extras map.
-- Color companion tokens (`color--primary-contrast`, `color--surface-border`, etc.) are **auto-derived** by `tokens.create` from their parent color token. Do NOT list them in the JSON — just list `color--primary` or `color--surface` and the contrast/border variants come for free.
+- For shadow usage (`tokens.use($_, "shadow", N)`), include `shadow-color`, `shadow-color-opacity`, and `shadow-amount` explicitly in the JSON.
+- Color companion tokens (`color--primary-contrast`, `color--surface-border`, etc.) are explicit. List every companion token you consume in SCSS.
 
 **Cleanup tip:** If the JSON already exists, cross-check every entry against the SCSS. Remove any token from the JSON that is never referenced in the SCSS via `tokens.get` or `tokens.use`.
 

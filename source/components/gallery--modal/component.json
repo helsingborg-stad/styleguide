@@ -6,10 +6,13 @@
   "tokens": [
     "base",
     "space",
-    "shadow",
-    "color--surface",
     "color--alpha",
-    "border-radius"
+    "border-radius",
+    "corner-shape",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--alpha-contrast"
   ],
   "description": "The Gallery Modal component provides a reusable pattern for gallery modal in the interface.",
   "tags": [

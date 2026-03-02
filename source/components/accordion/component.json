@@ -5,10 +5,16 @@
   "slug": "accordion",
   "tokens": [
     "space",
-    "shadow",
     "border-width",
     "border-radius",
-    "color--surface"
+    "color--surface",
+    "color--surface-border",
+    "color--surface-contrast",
+    "color--surface-alt",
+    "corner-shape",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount"
   ],
   "description": "The Accordion component provides a reusable pattern for accordion in the interface.",
   "tags": [

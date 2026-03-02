@@ -10,7 +10,12 @@
     "corner-shape",
     "border-radius",
     "space",
-    "shadow"
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--surface-border",
+    "color--surface-alt",
+    "color--alpha-contrast"
   ],
   "description": "The Acceptance component provides a reusable pattern for acceptance in the interface.",
   "tags": [

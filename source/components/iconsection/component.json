@@ -4,7 +4,9 @@
   "name": "Icon Section",
   "slug": "iconsection",
   "tokens": [
-    "shadow",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
     "border-radius",
     "space",
     "outer-space",

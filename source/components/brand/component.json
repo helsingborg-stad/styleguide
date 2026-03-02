@@ -6,8 +6,7 @@
   "tokens": [
     "color--primary",
     "space",
-    "base",
-    "base-font-size"
+    "base"
   ],
   "description": "The Brand component provides a reusable pattern for brand in the interface.",
   "tags": [

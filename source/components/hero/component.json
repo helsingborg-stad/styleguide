@@ -11,9 +11,13 @@
     "font-size-100",
     "font-size-300",
     "font-size-600",
-    "shadow",
     "space",
-    "color--alpha"
+    "color--alpha",
+    "shadow-color",
+    "shadow-color-opacity",
+    "shadow-amount",
+    "color--alpha-contrast",
+    "color--primary-contrast"
   ],
   "description": "The Hero component provides a reusable pattern for hero in the interface.",
   "tags": [

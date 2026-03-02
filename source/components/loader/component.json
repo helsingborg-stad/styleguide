@@ -7,7 +7,7 @@
     "base",
     "color--primary",
     "color--secondary",
-    "color--surface"
+    "color--surface-contrast"
   ],
   "description": "The Loader component provides a reusable pattern for loader in the interface.",
   "tags": [

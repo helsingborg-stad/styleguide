@@ -11,7 +11,12 @@
       "corner-shape",
       "border-radius",
       "space",
-      "shadow"
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-border",
+      "color--surface-alt",
+      "color--alpha-contrast"
     ],
     "description": "The Acceptance component provides a reusable pattern for acceptance in the interface.",
     "tags": [
@@ -32,10 +37,16 @@
     "slug": "accordion",
     "tokens": [
       "space",
-      "shadow",
       "border-width",
       "border-radius",
-      "color--surface"
+      "color--surface",
+      "color--surface-border",
+      "color--surface-contrast",
+      "color--surface-alt",
+      "corner-shape",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Accordion component provides a reusable pattern for accordion in the interface.",
     "tags": [
@@ -84,7 +95,8 @@
     "tokens": [
       "base",
       "color--secondary",
-      "corner-shape"
+      "corner-shape",
+      "color--secondary-contrast"
     ],
     "description": "The Avatar component provides a reusable pattern for avatar in the interface.",
     "tags": [
@@ -106,10 +118,14 @@
     "tokens": [
       "base",
       "border-radius",
-      "shadow",
       "corner-shape",
       "color--alpha",
-      "color--secondary"
+      "color--secondary",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--alpha-contrast",
+      "color--alpha-border"
     ],
     "description": "The Block component provides a reusable pattern for block in the interface.",
     "tags": [
@@ -131,7 +147,7 @@
     "tokens": [
       "border-radius",
       "space",
-      "color"
+      "corner-shape"
     ],
     "description": "The Blockquote component provides a reusable pattern for blockquote in the interface.",
     "tags": [
@@ -152,9 +168,13 @@
     "slug": "box",
     "tokens": [
       "border-radius",
-      "shadow",
       "space",
-      "color--primary"
+      "color--primary",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "corner-shape",
+      "color--primary-contrast"
     ],
     "description": "The Box component provides a reusable pattern for box in the interface.",
     "tags": [
@@ -176,8 +196,7 @@
     "tokens": [
       "color--primary",
       "space",
-      "base",
-      "base-font-size"
+      "base"
     ],
     "description": "The Brand component provides a reusable pattern for brand in the interface.",
     "tags": [
@@ -226,7 +245,22 @@
       "color--primary",
       "color--secondary",
       "color--surface",
-      "shadow"
+      "font-weight-medium",
+      "font-family-base",
+      "color--surface-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--primary-contrast",
+      "color--primary-border",
+      "color--primary-alt",
+      "color--secondary-contrast",
+      "color--secondary-border",
+      "color--secondary-alt",
+      "color--surface-border",
+      "color--surface-alt",
+      "corner-shape",
+      "color--surface-contrast-muted"
     ],
     "description": "The Button component provides a reusable pattern for button in the interface.",
     "tags": [
@@ -251,7 +285,15 @@
       "space",
       "color--surface",
       "color--primary",
-      "shadow"
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-border",
+      "color--secondary",
+      "color--surface-contrast",
+      "corner-shape",
+      "base",
+      "color--primary-contrast"
     ],
     "description": "The Card component provides a reusable pattern for card in the interface.",
     "tags": [
@@ -275,7 +317,9 @@
       "corner-shape",
       "font-family-code",
       "space",
-      "color--surface"
+      "color--surface-border",
+      "color--surface-alt",
+      "color--surface-contrast-muted"
     ],
     "description": "The Code component provides a reusable pattern for code in the interface.",
     "tags": [
@@ -299,10 +343,12 @@
       "border-width",
       "space",
       "base",
-      "color--surface",
       "color--primary",
-      "color--background",
-      "corner-shape"
+      "corner-shape",
+      "color--background-border",
+      "color--primary-contrast",
+      "color--surface-contrast",
+      "color--surface-border"
     ],
     "description": "The Collection component provides a reusable pattern for collection in the interface.",
     "tags": [
@@ -325,9 +371,10 @@
       "space",
       "outer-space",
       "border-radius",
-      "color--background",
-      "color--background-contrast",
-      "color--surface"
+      "color--surface",
+      "corner-shape",
+      "color--surface-contrast",
+      "color--background-contrast-muted"
     ],
     "description": "The Comment component provides a reusable pattern for comment in the interface.",
     "tags": [
@@ -352,7 +399,14 @@
       "space",
       "color--primary",
       "color--secondary",
-      "color--surface"
+      "color--surface",
+      "color--surface-contrast",
+      "color--surface-border",
+      "corner-shape",
+      "color--primary-contrast",
+      "color--primary-border",
+      "color--secondary-contrast",
+      "color--secondary-border"
     ],
     "description": "The Date Badge component provides a reusable pattern for datebadge in the interface.",
     "tags": [
@@ -402,7 +456,11 @@
       "color--primary",
       "color--secondary",
       "color--surface",
-      "shadow"
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-contrast",
+      "color--alpha"
     ],
     "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
     "tags": [
@@ -422,12 +480,15 @@
     "name": "Fab",
     "slug": "fab",
     "tokens": [
-      "base",
       "border-radius",
-      "shadow",
-      "color--background",
       "color--surface",
-      "space"
+      "space",
+      "border-width",
+      "color--surface-border",
+      "corner-shape",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Fab component provides a reusable pattern for fab in the interface.",
     "tags": [
@@ -450,10 +511,18 @@
       "border-radius",
       "border-width",
       "space",
-      "shadow",
       "color--danger",
       "color--success",
-      "color--surface"
+      "color--surface",
+      "color--surface-border",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-contrast",
+      "base",
+      "corner-shape",
+      "color--primary",
+      "color--danger-contrast"
     ],
     "description": "The Field component provides a reusable pattern for field in the interface.",
     "tags": [
@@ -476,12 +545,20 @@
       "border-radius",
       "border-width",
       "space",
-      "shadow",
       "color--surface",
       "color--danger",
       "color--success",
       "font-size-90",
-      "font-size-80"
+      "font-size-80",
+      "color--surface-border",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "corner-shape",
+      "color--surface-alt",
+      "color--surface-contrast-muted",
+      "color--danger-border",
+      "color--danger-contrast"
     ],
     "description": "The File Input component provides a reusable pattern for fileinput in the interface.",
     "tags": [
@@ -505,7 +582,8 @@
     "tokens": [
       "space",
       "border-width",
-      "color--surface"
+      "color--surface",
+      "color--surface-contrast"
     ],
     "description": "The Footer component provides a reusable pattern for footer in the interface.",
     "tags": [
@@ -528,7 +606,13 @@
       "base",
       "space",
       "color--alpha",
-      "border-radius"
+      "border-radius",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "corner-shape",
+      "color--alpha-contrast",
+      "color--surface-contrast-muted"
     ],
     "description": "The Gallery component provides a reusable pattern for gallery in the interface.",
     "tags": [
@@ -550,10 +634,13 @@
     "tokens": [
       "base",
       "space",
-      "shadow",
-      "color--surface",
       "color--alpha",
-      "border-radius"
+      "border-radius",
+      "corner-shape",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--alpha-contrast"
     ],
     "description": "The Gallery Modal component provides a reusable pattern for gallery modal in the interface.",
     "tags": [
@@ -574,8 +661,7 @@
     "name": "Group",
     "slug": "group",
     "tokens": [
-      "base",
-      "space"
+      "base"
     ],
     "description": "The Group component provides a reusable pattern for group in the interface.",
     "tags": [
@@ -598,7 +684,8 @@
       "space",
       "color--surface",
       "color--primary",
-      "color--secondary"
+      "color--secondary",
+      "base"
     ],
     "description": "The Header component provides a reusable pattern for header in the interface.",
     "tags": [
@@ -625,9 +712,13 @@
       "font-size-100",
       "font-size-300",
       "font-size-600",
-      "shadow",
       "space",
-      "color--alpha"
+      "color--alpha",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--alpha-contrast",
+      "color--primary-contrast"
     ],
     "description": "The Hero component provides a reusable pattern for hero in the interface.",
     "tags": [
@@ -648,7 +739,7 @@
     "slug": "icon",
     "tokens": [
       "base",
-      "color--background"
+      "color--background-contrast"
     ],
     "description": "The Icon component provides a reusable pattern for icon in the interface.",
     "tags": [
@@ -668,7 +759,9 @@
     "name": "Icon Section",
     "slug": "iconsection",
     "tokens": [
-      "shadow",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
       "border-radius",
       "space",
       "outer-space",
@@ -699,7 +792,11 @@
       "border-radius",
       "color--background",
       "color--surface",
-      "border-width"
+      "border-width",
+      "color--surface-border",
+      "color--surface-contrast",
+      "corner-shape",
+      "font-weight-bold"
     ],
     "description": "The Image component provides a reusable pattern for image in the interface.",
     "tags": [
@@ -765,7 +862,7 @@
       "base",
       "color--primary",
       "color--secondary",
-      "color--surface"
+      "color--surface-contrast"
     ],
     "description": "The Loader component provides a reusable pattern for loader in the interface.",
     "tags": [
@@ -784,11 +881,7 @@
     "apiVersion": 1,
     "name": "Logotype",
     "slug": "logotype",
-    "tokens": [
-      "border-radius",
-      "color--alpha",
-      "space"
-    ],
+    "tokens": [],
     "description": "The Logotype component provides a reusable pattern for logotype in the interface.",
     "tags": [
       "logotype",
@@ -835,7 +928,9 @@
       "color--surface",
       "font-family-base",
       "font-family-heading",
-      "font-size-300"
+      "font-size-300",
+      "color--secondary-contrast",
+      "color--primary-contrast"
     ],
     "description": "The Megamenu component provides a reusable pattern for megamenu in the interface.",
     "tags": [
@@ -858,11 +953,16 @@
       "base",
       "space",
       "border-width",
-      "border-color",
       "border-radius",
-      "shadow",
       "color--surface",
-      "color--alpha"
+      "color--alpha",
+      "color--surface-contrast",
+      "corner-shape",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--alpha-contrast",
+      "color--surface-border"
     ],
     "description": "The Modal component provides a reusable pattern for modal in the interface.",
     "tags": [
@@ -884,9 +984,14 @@
     "tokens": [
       "base",
       "border-radius",
-      "shadow",
       "color--surface",
-      "color--primary"
+      "color--primary",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--primary-contrast",
+      "color--surface-border",
+      "color--surface-contrast"
     ],
     "description": "The Nav component provides a reusable pattern for nav in the interface.",
     "tags": [
@@ -907,11 +1012,15 @@
     "slug": "navbar",
     "tokens": [
       "base",
-      "shadow",
       "color--surface",
       "color--primary",
       "color--background",
-      "font-family-base"
+      "font-family-base",
+      "color--surface-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-contrast-muted"
     ],
     "description": "The Navbar component provides a reusable pattern for navbar in the interface.",
     "tags": [
@@ -932,9 +1041,9 @@
     "slug": "newsitem",
     "tokens": [
       "space",
-      "color--surface",
-      "color--border",
-      "border-width"
+      "border-width",
+      "color--surface-border",
+      "color--surface-contrast"
     ],
     "description": "The News Item component provides a reusable pattern for newsitem in the interface.",
     "tags": [
@@ -960,12 +1069,11 @@
       "border-width",
       "space",
       "outer-space",
-      "shadow",
-      "line-height",
-      "color--success",
-      "color--danger",
-      "color--warning",
-      "color--info"
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "corner-shape",
+      "color--info-contrast"
     ],
     "description": "The Notice component provides a reusable pattern for notice in the interface.",
     "tags": [
@@ -991,7 +1099,9 @@
       "color--surface",
       "color--danger",
       "color--success",
-      "font-size-100"
+      "font-size-100",
+      "color--surface-contrast",
+      "color--danger-contrast"
     ],
     "description": "The Option component provides a reusable pattern for option in the interface.",
     "tags": [
@@ -1034,9 +1144,14 @@
     "tokens": [
       "border-radius",
       "space",
-      "shadow",
       "border-width",
-      "color--surface"
+      "color--surface",
+      "color--surface-border",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-contrast",
+      "corner-shape"
     ],
     "description": "The Paper component provides a reusable pattern for paper in the interface.",
     "tags": [
@@ -1058,10 +1173,10 @@
     "tokens": [
       "base",
       "border-radius",
-      "color--surface",
       "color--success",
-      "color--background",
-      "color--background-muted"
+      "color--background-border",
+      "corner-shape",
+      "color--background-contrast-muted"
     ],
     "description": "The Progressbar component provides a reusable pattern for progressbar in the interface.",
     "tags": [
@@ -1088,7 +1203,9 @@
       "color--surface",
       "font-size-600",
       "color--alpha",
-      "corner-shape"
+      "corner-shape",
+      "color--surface-contrast",
+      "color--alpha-contrast"
     ],
     "description": "The Segment component provides a reusable pattern for segment in the interface.",
     "tags": [
@@ -1114,10 +1231,12 @@
       "color--surface",
       "color--danger",
       "color--success",
-      "color--alpha",
       "font-size-100",
       "font-size-90",
-      "font-size-80"
+      "font-size-80",
+      "color--surface-border",
+      "color--surface-contrast-muted",
+      "color--danger-contrast"
     ],
     "description": "The Select component provides a reusable pattern for select in the interface.",
     "tags": [
@@ -1139,7 +1258,9 @@
     "tokens": [
       "space",
       "color--surface",
-      "color--primary"
+      "color--primary",
+      "color--surface-border",
+      "color--surface-contrast"
     ],
     "description": "The Sidebar component provides a reusable pattern for sidebar in the interface.",
     "tags": [
@@ -1160,7 +1281,7 @@
     "slug": "signature",
     "tokens": [
       "space",
-      "color--surface"
+      "color--surface-contrast-muted"
     ],
     "description": "The Signature component provides a reusable pattern for signature in the interface.",
     "tags": [
@@ -1182,10 +1303,15 @@
     "tokens": [
       "base",
       "border-radius",
-      "shadow",
       "color--primary",
       "color--alpha",
-      "space"
+      "font-family-heading",
+      "font-family-base",
+      "font-size-100",
+      "color--alpha-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Slider component provides a reusable pattern for slider in the interface.",
     "tags": [
@@ -1206,10 +1332,16 @@
     "slug": "table",
     "tokens": [
       "space",
-      "border-radius",
       "border-width",
       "color--surface",
-      "color--primary"
+      "color--primary",
+      "color--surface-border",
+      "color--surface-contrast-muted",
+      "color--surface-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount",
+      "color--surface-alt"
     ],
     "description": "The Table component provides a reusable pattern for table in the interface.",
     "tags": [
@@ -1230,8 +1362,9 @@
     "slug": "tabs",
     "tokens": [
       "base",
-      "color--surface",
-      "color--primary"
+      "color--primary",
+      "color--surface-border",
+      "color--surface-contrast-muted"
     ],
     "description": "The Tabs component provides a reusable pattern for tabs in the interface.",
     "tags": [
@@ -1253,8 +1386,11 @@
     "tokens": [
       "base",
       "color--surface",
-      "shadow",
-      "corner-shape"
+      "corner-shape",
+      "color--surface-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Tags component provides a reusable pattern for tags in the interface.",
     "tags": [
@@ -1275,11 +1411,14 @@
     "slug": "testimonials",
     "tokens": [
       "base",
-      "shadow",
-      "color--surface",
       "color--primary",
       "border-radius",
-      "corner-shape"
+      "corner-shape",
+      "color--surface-border",
+      "color--surface-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Testimonials component provides a reusable pattern for testimonials in the interface.",
     "tags": [
@@ -1345,10 +1484,12 @@
     "tokens": [
       "base",
       "border-radius",
-      "border-width",
       "corner-shape",
       "color--primary",
-      "shadow"
+      "color--primary-contrast",
+      "shadow-color",
+      "shadow-color-opacity",
+      "shadow-amount"
     ],
     "description": "The Tooltip component provides a reusable pattern for tooltip in the interface.",
     "tags": [

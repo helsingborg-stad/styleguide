@@ -6,7 +6,7 @@
   "tokens": [
     "border-radius",
     "space",
-    "color"
+    "corner-shape"
   ],
   "description": "The Blockquote component provides a reusable pattern for blockquote in the interface.",
   "tags": [
