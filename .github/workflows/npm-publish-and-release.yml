@@ -17,10 +17,10 @@ on:
 
 jobs:
   publish:
-    name: 
+    name: Publish and release
     runs-on: ubuntu-latest
     env:
-      IS_PRODUCTION: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      IS_PRODUCTION: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || (github.event_name == 'workflow_dispatch' && inputs.release_type == 'production' && github.ref == 'refs/heads/master') }}
       IS_DEV: ${{ github.event_name == 'workflow_dispatch' && inputs.release_type == 'dev' }}
       BRANCH_NAME: ${{ github.ref_name }}
     steps:
@@ -54,7 +54,7 @@ jobs:
 
     - name: NPM Version (Production)
       if: env.IS_PRODUCTION == 'true'
-      run: npm version patch
+      run: npm version patch --no-git-tag-version
 
     - name: NPM Version (Dev)
       if: env.IS_DEV == 'true'
@@ -67,7 +67,7 @@ jobs:
 
     - name: Pull latest branch with rebase
       if: env.IS_PRODUCTION == 'true'
-      run: git pull origin master --rebase
+      run: git pull origin master --rebase --autostash
 
     - name: Create and push tag (Production)
       if: env.IS_PRODUCTION == 'true'
