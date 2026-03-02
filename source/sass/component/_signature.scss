@@ -1,0 +1,28 @@
+@use "sass:map";
+@use "../setting/var_colors";
+@use "../setting/var_default";
+
+.c-signature {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    text-decoration: none;
+    column-gap: map.get(var_default.$spacers, "2");
+
+    &__author-box {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    &__title {
+        color: var_colors.$color-darker;
+        margin-top: calc(#{map.get(var_default.$spacers, "1" )} * -1);
+        display: block;
+    }
+
+    &__published,
+    &__updated {
+        color: var_colors.$color-darker;
+        display: block;
+    }
+}

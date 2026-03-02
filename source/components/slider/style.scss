@@ -18,7 +18,6 @@ $container-width-md: 640px;
         "color--overlay-contrast": tokens.get($_, "color--alpha-contrast")));
 
 .c-slider {
-
     position: relative;
     border-radius: tokens.use($_, "border-radius", 1);
     container-name: slider;
