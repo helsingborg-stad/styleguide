@@ -24,7 +24,9 @@
             @nav([
                 'items' => $items,
                 'direction' => 'vertical',
-                'classList' => ['u-display--block']
+                'classList' => ['u-display--block'],
+                'includeToggle' => true,
+                'indentSubLevels' => true,
             ])
             @endnav
         </div>

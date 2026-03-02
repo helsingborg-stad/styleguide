@@ -23,21 +23,10 @@
 
     &--doc {
         min-height: calc(90vh - 140px);
-        padding: map.get(var_default.$spacers, "4");
-    }
-}
+        padding: map.get(var_default.$spacers, "6");
 
-@include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
-
-    .container {
-
-        &--home {
-            padding: 20px;
-        }
-
-        &--doc {
-            margin-left: 0;
-            padding: 20px
+        @include mq.mq(map.get(var_default.$breakpoints-map, "xs"), "md") {
+            padding: map.get(var_default.$spacers, "2");
         }
     }
 }
