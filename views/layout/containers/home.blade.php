@@ -1,8 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <div class="l-docs--content">
-        <div class="o-container u-padding__y--6">
+    <div class="container--doc l-docs--content">
             @hasSection('doc-hero')
                 @yield('doc-hero')
             @else
@@ -30,6 +29,5 @@
                     @include('layout.partials.doc-aside', ['pageNow' => $pageNow ?? null])
                 </div>
             </div>
-        </div>
     </div>
 @stop
