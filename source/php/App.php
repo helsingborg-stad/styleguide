@@ -50,6 +50,9 @@ class App
             ],
             BASEPATH . 'source/components',
         );
+        $search = new Search(
+            new ComponentsDataSource(BASEPATH . 'source/components'),
+        );
         $view = new View();
 
         $pageController = new PageController(
@@ -58,15 +61,14 @@ class App
             $bladeService,
             $view,
             $navigation,
+            $search,
         );
 
         $apiController = new ApiController(
             $request,
             $response,
             new NavigationApiDataProvider($jsonDataLoader),
-            new Search(
-                new ComponentsDataSource(BASEPATH . 'source/components'),
-            ),
+            $search,
         );
 
         $this->router = new Router($request, $pageController, $apiController);

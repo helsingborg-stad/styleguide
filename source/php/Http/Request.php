@@ -84,6 +84,10 @@ class Request
      */
     public function resolvePage(string $defaultPage = 'home'): string
     {
+        if ($this->hasQuery('s')) {
+            return 'search';
+        }
+
         $path = trim($this->getPath(), '/');
         if ($path === '') {
             return $defaultPage;

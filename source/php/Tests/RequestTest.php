@@ -51,4 +51,13 @@ class RequestTest extends TestCase
 
         $this->assertSame('components/atoms/icon', $result);
     }
+
+    public function testResolvePageReturnsSearchWhenSearchQueryExists(): void
+    {
+        $request = new Request('/', ['s' => 'button']);
+
+        $result = $request->resolvePage();
+
+        $this->assertSame('search', $result);
+    }
 }

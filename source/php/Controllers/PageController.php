@@ -5,6 +5,7 @@ namespace HbgStyleGuide\Controllers;
 use HbgStyleGuide\Asset;
 use HbgStyleGuide\Contracts\ControllerInterface;
 use HbgStyleGuide\Navigation;
+use HbgStyleGuide\Search\Search;
 use HbgStyleGuide\View;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
@@ -17,6 +18,7 @@ class PageController extends BaseController implements ControllerInterface
      * @param \HelsingborgStad\BladeService\BladeServiceInterface $bladeService Blade service.
      * @param View $view View renderer.
      * @param Navigation $navigation Navigation service.
+     * @param Search $search Search service.
      */
     public function __construct(
         \HbgStyleGuide\Http\Request $request,
@@ -24,6 +26,7 @@ class PageController extends BaseController implements ControllerInterface
         private BladeServiceInterface $bladeService,
         private View $view,
         private Navigation $navigation,
+        private Search $search,
     ) {
         parent::__construct($request, $response);
     }
@@ -45,6 +48,7 @@ class PageController extends BaseController implements ControllerInterface
         ];
 
         $this->appendComponentPageData($data, $page);
+        $this->appendSearchPageData($data, $page);
 
         $this->view->show($page, $data, $this->bladeService);
     }
@@ -130,5 +134,32 @@ class PageController extends BaseController implements ControllerInterface
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
         $data['pageNow'] = 'components/' . $slug;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $page
+     *
+     * @return void
+     */
+    private function appendSearchPageData(array &$data, string $page): void
+    {
+        if ($page !== 'search') {
+            return;
+        }
+
+        $query = trim((string) ($this->request->getQuery('s') ?? ''));
+        $searchResponse = $this->search->search($query, 30);
+
+        $componentResults = $searchResponse['results']['components'] ?? [];
+        if (!is_array($componentResults)) {
+            $componentResults = [];
+        }
+
+        $data['searchQuery'] = $query;
+        $data['searchResults'] = $searchResponse['results'] ?? [];
+        $data['componentSearchResults'] = $componentResults;
+        $data['searchTotal'] = count($componentResults);
+        $data['pageNow'] = 'search';
     }
 }
