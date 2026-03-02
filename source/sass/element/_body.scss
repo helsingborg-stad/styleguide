@@ -4,12 +4,13 @@
 $_: "o-body";
 
 /* Design tokens */
-@include tokens.create($_, (
-    "color--background",
-));
+@include tokens.create($_, ("color--background",
+        "color--background-contrast",
+    ));
 
 /* Object */
-.#{$_}, body {
+.#{$_},
+body {
     background-color: tokens.get($_, "color--background");
     color: tokens.get($_, "color--background-contrast");
     font-size: var(--base-font-size);
