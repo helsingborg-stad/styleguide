@@ -10,7 +10,7 @@
  *   node build-design-tokens.mjs
  */
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, renameSync } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -20,6 +20,24 @@ const INPUT  = resolve(__dirname, 'source/data/design-tokens.json');
 const OUTPUT = resolve(__dirname, 'source/sass/setting/_design-tokens.scss');
 const COMPONENT_DIR = resolve(__dirname, 'source/components');
 const COMPONENT_OUTPUT = resolve(__dirname, 'component-design-tokens.json');
+
+function writeFileAtomic(path, content) {
+    const tempPath = `${path}.tmp`;
+    writeFileSync(tempPath, content, 'utf-8');
+    renameSync(tempPath, path);
+}
+
+function validateTokenData(data) {
+    if (!data || !Array.isArray(data.categories)) {
+        throw new Error('Invalid token source: "categories" must be an array.');
+    }
+
+    for (const category of data.categories) {
+        if (!Array.isArray(category.settings)) {
+            throw new Error(`Invalid token source: category "${category?.id || 'unknown'}" is missing a valid "settings" array.`);
+        }
+    }
+}
 
 function buildScss(data) {
     const lines = [];
@@ -82,9 +100,10 @@ function formatValue(setting) {
 // Main
 const json = readFileSync(INPUT, 'utf-8');
 const data = JSON.parse(json);
+validateTokenData(data);
 const scss = buildScss(data);
 
-writeFileSync(OUTPUT, scss, 'utf-8');
+writeFileAtomic(OUTPUT, scss);
 
 const tokenCount = data.categories.reduce((sum, c) => sum + c.settings.length, 0);
 console.log(`Generated ${OUTPUT}`);
@@ -109,7 +128,7 @@ if (existsSync(COMPONENT_DIR)) {
         }
     }
     
-    writeFileSync(COMPONENT_OUTPUT, JSON.stringify(componentTokens, null, 2), 'utf-8');
+    writeFileAtomic(COMPONENT_OUTPUT, JSON.stringify(componentTokens, null, 2));
     console.log(`Generated ${COMPONENT_OUTPUT}`);
     console.log(`  ${Object.keys(componentTokens).length} components processed`);
 }

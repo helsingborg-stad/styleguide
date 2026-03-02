@@ -70,7 +70,7 @@
                 'u-align-items--center',
                 'u-justify-content--space-between',
                 'u-border__bottom--1',
-                'u-padding__x--4',
+                'u-padding__x--6',
                 'u-padding__y--1',
                 'u-gap-4',
             ]

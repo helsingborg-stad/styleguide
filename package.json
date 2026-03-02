@@ -17,7 +17,7 @@
         "build:dev": "node build-design-tokens.mjs && vite build --mode development",
         "watch": "npm run tokens && npm run watch:parallel",
         "watch:parallel": "npm run watch:tokens & npm run watch:build",
-        "watch:tokens": "chokidar \"source/data/design-tokens.json\" -c \"npm run tokens\"",
+        "watch:tokens": "chokidar \"source/data/design-tokens.json\" \"source/components/**/component.json\" --debounce 200 -c \"npm run tokens\"",
         "watch:build": "vite build --watch --mode development",
         "format": "npx biome format ./source",
         "format:write": "npx biome format ./source --write",
