@@ -48,9 +48,60 @@ class PageController extends BaseController implements ControllerInterface
         ];
 
         $this->appendComponentPageData($data, $page);
+        $this->appendComponentsOverviewPageData($data, $page);
         $this->appendSearchPageData($data, $page);
 
         $this->view->show($page, $data, $this->bladeService);
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $page
+     *
+     * @return void
+     */
+    private function appendComponentsOverviewPageData(array &$data, string $page): void
+    {
+        if ($page !== 'components') {
+            return;
+        }
+
+        $componentConfigPaths = glob(BASEPATH . 'source/components/*/component.json') ?: [];
+        $componentOverviewItems = [];
+
+        foreach ($componentConfigPaths as $componentConfigPath) {
+            $configContent = file_get_contents($componentConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $name = isset($config['name']) ? (string) $config['name'] : '';
+
+            if ($slug === '' || $name === '') {
+                continue;
+            }
+
+            $componentOverviewItems[] = [
+                'slug' => $slug,
+                'name' => $name,
+                'description' => isset($config['description']) && is_string($config['description'])
+                    ? $config['description']
+                    : '',
+                'icon' => isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== ''
+                    ? $config['icon']
+                    : 'widgets',
+                'href' => '/components/' . $slug,
+            ];
+        }
+
+        usort(
+            $componentOverviewItems,
+            static fn (array $left, array $right): int => strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? '')),
+        );
+
+        $data['componentOverviewItems'] = $componentOverviewItems;
     }
 
     /**

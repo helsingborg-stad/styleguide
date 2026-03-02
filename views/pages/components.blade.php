@@ -24,6 +24,28 @@
 		Components
 	@endtypography
 	@typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-		Main overview page for components.
+		Browse all available components.
 	@endtypography
+
+	@if (!empty($componentOverviewItems ?? []))
+		<div class="o-grid">
+			@foreach (($componentOverviewItems ?? []) as $componentOverviewItem)
+				<div class="o-grid-12@xs o-grid-6@sm o-grid-4@md">
+					@box([
+						'heading' => $componentOverviewItem['name'] ?? '',
+						'content' => $componentOverviewItem['description'] ?? '',
+						'link' => $componentOverviewItem['href'] ?? '#',
+						'icon' => $componentOverviewItem['icon'] ?? 'widgets',
+					])
+					@endbox
+				</div>
+			@endforeach
+		</div>
+	@else
+		@notice([
+			'type' => 'warning',
+			'message' => ['text' => 'No components are available right now.']
+		])
+		@endnotice
+	@endif
 @stop
