@@ -70,6 +70,20 @@ $_: "c-drawer";
     .site-nav-mobile__primary>.c-nav__item {
         background-color: var(--drawer-background);
     }
+
+    .c-field {
+        --c-field--color--surface: var(--drawer-background);
+        --c-field--background-color: var(--drawer-background);
+        --c-field--color--surface-contrast: var(--c-drawer--color--surface-contrast);
+        --c-field--color--primary: var(--c-drawer--color--surface-contrast);
+        --c-field--color--surface-border: var(--c-drawer--color--surface-contrast);
+
+        input::placeholder,
+        textarea::placeholder {
+            color: color-mix(in srgb, var(--c-drawer--color--surface-contrast) 70%, transparent);
+            opacity: 1;
+        }
+    }
 }
 
 .c-drawer.c-drawer--duotone {

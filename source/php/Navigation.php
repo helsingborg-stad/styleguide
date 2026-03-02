@@ -85,6 +85,10 @@ class Navigation
                 $sidebarItem['children'] = $this->buildComponentsMenuItems();
             }
 
+            if ($key === 'script') {
+                $sidebarItem['children'] = $this->buildScriptMenuItems();
+            }
+
             $sidebarItem['label'] = $section->getLabel();
             $sidebarNavigation[$key] = $sidebarItem;
         }
@@ -124,6 +128,66 @@ class Navigation
                 'children' => false,
                 'async' => false,
                 'active' => $this->isActiveItem($slug, true),
+            ];
+        }
+
+        uasort($items, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function buildScriptMenuItems(): array
+    {
+        $basePath = rtrim($this->viewsPath, '/') . '/pages/script';
+        $categories = glob($basePath . '/*', GLOB_ONLYDIR) ?: [];
+        $items = [];
+
+        $categoryLabels = [
+            'interaction' => 'Interaction',
+            'data' => 'Data & state',
+            'layout' => 'Layout & observer',
+            'animation' => 'Animation',
+        ];
+
+        foreach ($categories as $categoryPath) {
+            $categorySlug = basename($categoryPath);
+            if ($categorySlug === '') {
+                continue;
+            }
+
+            $documentationPaths = glob($categoryPath . '/*.blade.php') ?: [];
+            $children = [];
+
+            foreach ($documentationPaths as $documentationPath) {
+                $slug = basename($documentationPath, '.blade.php');
+                if ($slug === '' || $slug === 'index') {
+                    continue;
+                }
+
+                $children[$slug] = [
+                    'label' => $this->readableFilename($slug),
+                    'href' => '//' . $this->getPageDomain() . '/script/' . $categorySlug . '/' . $slug,
+                    'children' => false,
+                    'async' => false,
+                    'active' => $this->isActiveItem($slug, true),
+                ];
+            }
+
+            if (empty($children)) {
+                continue;
+            }
+
+            uasort($children, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+
+            $items[$categorySlug] = [
+                'label' => $categoryLabels[$categorySlug] ?? $this->readableFilename($categorySlug),
+                'href' => '//' . $this->getPageDomain() . '/script/' . $categorySlug,
+                'children' => $children,
+                'async' => false,
+                'active' => $this->isActiveItem($categorySlug, true),
             ];
         }
 

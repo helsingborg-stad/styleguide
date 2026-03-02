@@ -22,6 +22,6 @@ class ScriptSection implements SidebarSectionInterface
      */
     public function getLabel(): string
     {
-        return 'Script';
+        return 'Scripts';
     }
 }

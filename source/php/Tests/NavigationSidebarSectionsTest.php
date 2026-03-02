@@ -34,6 +34,8 @@ class NavigationSidebarSectionsTest extends TestCase
         mkdir($this->tempProjectRoot . '/views/pages/components/organisms', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/objects', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/script', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/script/interaction', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/script/data', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/utilities', 0777, true);
 
         file_put_contents(
@@ -63,6 +65,8 @@ class NavigationSidebarSectionsTest extends TestCase
 
         file_put_contents($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php', '');
         file_put_contents($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php', '');
+        file_put_contents($this->tempProjectRoot . '/views/pages/script/interaction/class-toggle.blade.php', '');
+        file_put_contents($this->tempProjectRoot . '/views/pages/script/data/sort.blade.php', '');
     }
 
     protected function tearDown(): void
@@ -82,12 +86,16 @@ class NavigationSidebarSectionsTest extends TestCase
 
         @unlink($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php');
         @unlink($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php');
+        @unlink($this->tempProjectRoot . '/views/pages/script/interaction/class-toggle.blade.php');
+        @unlink($this->tempProjectRoot . '/views/pages/script/data/sort.blade.php');
 
         @rmdir($this->tempProjectRoot . '/views/pages/components/atoms');
         @rmdir($this->tempProjectRoot . '/views/pages/components/molecules');
         @rmdir($this->tempProjectRoot . '/views/pages/components/organisms');
         @rmdir($this->tempProjectRoot . '/views/pages/components');
         @rmdir($this->tempProjectRoot . '/views/pages/objects');
+        @rmdir($this->tempProjectRoot . '/views/pages/script/interaction');
+        @rmdir($this->tempProjectRoot . '/views/pages/script/data');
         @rmdir($this->tempProjectRoot . '/views/pages/script');
         @rmdir($this->tempProjectRoot . '/views/pages/utilities');
         @rmdir($this->tempProjectRoot . '/views/pages');
@@ -117,5 +125,7 @@ class NavigationSidebarSectionsTest extends TestCase
         $this->assertSame(['components', 'objects', 'script', 'utilities'], array_keys($result));
         $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);
         $this->assertSame('//localhost/components/beta', $result['components']['children']['beta']['href']);
+        $this->assertSame('//localhost/script/interaction/class-toggle', $result['script']['children']['interaction']['children']['class-toggle']['href']);
+        $this->assertSame('//localhost/script/data/sort', $result['script']['children']['data']['children']['sort']['href']);
     }
 }

@@ -185,7 +185,7 @@
                 ]
             ])
                 @slot('search')
-                    @form(['action' => '/', 'method' => 'get'])
+                    @form(['action' => '/', 'method' => 'get', 'classList' => ['u-width--100']])
                         @field([
                             'label' => 'Search documentation',
                             'hideLabel' => true,
@@ -207,19 +207,19 @@
 
                 @slot('menu')
                     @nav([
-                        'items' => $topNavigationItems,
+                        'items' => $sideNavigation,
                         'direction' => 'vertical',
-                        'allowStyle' => true,
-                        'classList' => ['u-margin__bottom--2']
+                        'classList' => ['u-display--block', 'site-nav-mobile__primary'],
+                        'includeToggle' => true,
+                        'indentSubLevels' => true,
                     ])
                     @endnav
 
                     @nav([
-                        'items' => $sideNavigation,
+                        'items' => $topNavigationItems,
                         'direction' => 'vertical',
-                        'classList' => ['u-display--block'],
-                        'includeToggle' => true,
-                        'indentSubLevels' => true,
+                        'allowStyle' => false,
+                        'classList' => ['u-margin__top--2', 'site-nav-mobile__secondary']
                     ])
                     @endnav
                 @endslot
