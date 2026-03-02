@@ -6,9 +6,116 @@ type DatalistItem = {
   name?: unknown
   title?: unknown
   slug?: unknown
+  href?: unknown
+  url?: unknown
+}
+
+type SearchResultLink = {
+  label: string
+  url: string
+}
+
+export function extractSearchResultLinks(payload: unknown, limit = 10): SearchResultLink[] {
+  const links: SearchResultLink[] = []
+  const uniqueLinkKeys = new Set<string>()
+
+  const addLink = (labelCandidate: unknown, urlCandidate: unknown): void => {
+    if (links.length >= limit) {
+      return
+    }
+
+    if (typeof urlCandidate !== 'string') {
+      return
+    }
+
+    const normalizedUrl = urlCandidate.trim()
+    if (normalizedUrl === '') {
+      return
+    }
+
+    const normalizedLabel = typeof labelCandidate === 'string'
+      ? labelCandidate.trim()
+      : String(labelCandidate ?? '').trim()
+
+    const label = normalizedLabel !== '' ? normalizedLabel : normalizedUrl
+    const linkKey = `${label}::${normalizedUrl}`
+
+    if (uniqueLinkKeys.has(linkKey)) {
+      return
+    }
+
+    uniqueLinkKeys.add(linkKey)
+    links.push({ label, url: normalizedUrl })
+  }
+
+  const tryExtractLink = (candidate: Record<string, unknown>): boolean => {
+    const urlCandidate = candidate.url ?? candidate.href
+
+    if (urlCandidate == null) {
+      return false
+    }
+
+    const labelCandidate = candidate.label ?? candidate.name ?? candidate.title ?? candidate.value ?? candidate.slug ?? urlCandidate
+    addLink(labelCandidate, urlCandidate)
+
+    return true
+  }
+
+  const traverse = (candidate: unknown): void => {
+    if (links.length >= limit || candidate == null) {
+      return
+    }
+
+    if (Array.isArray(candidate)) {
+      for (const child of candidate) {
+        traverse(child)
+        if (links.length >= limit) {
+          return
+        }
+      }
+
+      return
+    }
+
+    if (typeof candidate !== 'object') {
+      return
+    }
+
+    const objectCandidate = candidate as Record<string, unknown>
+
+    if ('results' in objectCandidate && objectCandidate.results && typeof objectCandidate.results === 'object') {
+      traverse(objectCandidate.results)
+      return
+    }
+
+    if ('data' in objectCandidate && objectCandidate.data && typeof objectCandidate.data === 'object') {
+      traverse(objectCandidate.data)
+      return
+    }
+
+    if (tryExtractLink(objectCandidate)) {
+      return
+    }
+
+    for (const child of Object.values(objectCandidate)) {
+      traverse(child)
+      if (links.length >= limit) {
+        return
+      }
+    }
+  }
+
+  traverse(payload)
+
+  return links.slice(0, limit)
 }
 
 export function extractDatalistValues(payload: unknown, limit = 10): string[] {
+  const extractedLinks = extractSearchResultLinks(payload, limit)
+  if (extractedLinks.length > 0) {
+    return extractedLinks.map((link) => link.label)
+  }
+
   const values: string[] = []
   const uniqueValues = new Set<string>()
 
@@ -116,6 +223,13 @@ class DatalistAutocomplete {
 
     const datalistId = this.resolveDatalistId(input)
     const datalistElement = this.ensureDatalistElement(input, datalistId)
+    const searchResultsElement = this.ensureSearchResultsElement(input)
+    const fieldInnerElement = input.closest('.c-field__inner')
+
+    if (fieldInnerElement instanceof HTMLElement) {
+      fieldInnerElement.classList.add('c-field__inner--datalist')
+    }
+
     const minLength = Number.parseInt(input.dataset.datalistMinLength ?? '2', 10)
     const debounceMs = Number.parseInt(input.dataset.datalistDebounce ?? '180', 10)
     const maxItems = Number.parseInt(input.dataset.datalistMaxItems ?? '8', 10)
@@ -128,6 +242,7 @@ class DatalistAutocomplete {
 
       if (query.length < minLength) {
         this.renderOptions(datalistElement, [])
+        this.renderSearchResults(searchResultsElement, [])
         return
       }
 
@@ -145,14 +260,21 @@ class DatalistAutocomplete {
 
         if (!response.ok) {
           this.renderOptions(datalistElement, [])
+          this.renderSearchResults(searchResultsElement, [])
           return
         }
 
         const payload = (await response.json()) as DatalistItem[] | Record<string, unknown>
-        const values = extractDatalistValues(payload, maxItems)
+        const links = extractSearchResultLinks(payload, maxItems)
+        const values = links.length > 0
+          ? links.map((link) => link.label)
+          : extractDatalistValues(payload, maxItems)
+
+        this.renderSearchResults(searchResultsElement, links)
         this.renderOptions(datalistElement, values)
       } catch {
         this.renderOptions(datalistElement, [])
+        this.renderSearchResults(searchResultsElement, [])
       }
     }
 
@@ -167,6 +289,18 @@ class DatalistAutocomplete {
     })
 
     input.dataset.datalistBound = 'true'
+
+    input.addEventListener('blur', () => {
+      window.setTimeout(() => {
+        searchResultsElement.hidden = true
+      }, 160)
+    })
+
+    input.addEventListener('focus', () => {
+      if (searchResultsElement.childElementCount > 0) {
+        searchResultsElement.hidden = false
+      }
+    })
   }
 
   private resolveDatalistId(input: HTMLInputElement): string {
@@ -199,6 +333,28 @@ class DatalistAutocomplete {
     return datalistElement
   }
 
+  private ensureSearchResultsElement(input: HTMLInputElement): HTMLElement {
+    const fieldElement = input.closest('.c-field')
+    const hostElement = fieldElement instanceof HTMLElement
+      ? fieldElement
+      : (input.parentElement ?? document.body)
+
+    if (fieldElement instanceof HTMLElement) {
+      fieldElement.classList.add('c-field--search-results-enabled')
+    }
+
+    let resultsElement = hostElement.querySelector<HTMLElement>('.c-field__search-results')
+
+    if (!resultsElement) {
+      resultsElement = document.createElement('div')
+      resultsElement.className = 'c-field__search-results'
+      resultsElement.hidden = true
+      hostElement.appendChild(resultsElement)
+    }
+
+    return resultsElement
+  }
+
   private buildRequestUrl(input: HTMLInputElement, endpoint: string, query: string): string {
     if (endpoint.includes('{query}')) {
       return endpoint.replace('{query}', encodeURIComponent(query))
@@ -228,6 +384,34 @@ class DatalistAutocomplete {
       option.value = value
       datalistElement.appendChild(option)
     }
+  }
+
+  private renderSearchResults(resultsElement: HTMLElement, links: SearchResultLink[]): void {
+    resultsElement.innerHTML = ''
+
+    if (links.length === 0) {
+      resultsElement.hidden = true
+      return
+    }
+
+    const listElement = document.createElement('ul')
+    listElement.className = 'c-field__search-results-list'
+
+    for (const link of links) {
+      const itemElement = document.createElement('li')
+      itemElement.className = 'c-field__search-results-item'
+
+      const anchorElement = document.createElement('a')
+      anchorElement.className = 'c-field__search-results-link'
+      anchorElement.href = link.url
+      anchorElement.textContent = link.label
+
+      itemElement.appendChild(anchorElement)
+      listElement.appendChild(itemElement)
+    }
+
+    resultsElement.appendChild(listElement)
+    resultsElement.hidden = false
   }
 
   private observeDomChanges(): void {
