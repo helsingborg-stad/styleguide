@@ -60,6 +60,7 @@ import './sort.js'
 import './splitButton.js'
 import './steppers.js'
 import './stickyKeys.js'
+import './datalistAutocomplete.ts'
 import './classToggle/classToggle.ts'
 
 // Helpers (excluding ComponentRenderer.ts which is for server-side testing)
