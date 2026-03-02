@@ -72,7 +72,7 @@
                 'u-border__bottom--1',
                 'u-padding__x--4',
                 'u-padding__y--1',
-                'u-gap--2',
+                'u-gap-4',
             ]
         ])
             <div class="u-display--flex u-align-items--center u-width--100">

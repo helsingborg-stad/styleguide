@@ -27,18 +27,46 @@
 
             @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
                 @php
+                    $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
+                    $bladeSourceCode = e($example['blade']['code']);
+
+                    ob_start();
+                @endphp
+                @include($example['component'])
+                @php
+                    $exampleTabContent = ob_get_clean();
+                    ob_start();
+                @endphp
+
+                @code(['language' => 'html', 'content' => ''])
+                    __HTML_CODE_PLACEHOLDER__
+                @endcode
+                @php
+                    $htmlCodeTabContent = str_replace('__HTML_CODE_PLACEHOLDER__', $htmlSourceCode, ob_get_clean());
+
+                    ob_start();
+                @endphp
+
+                @code(['language' => 'php', 'content' => ''])
+                    __BLADE_CODE_PLACEHOLDER__
+                @endcode
+                @php
+                    $bladeCodeTabContent = str_replace('__BLADE_CODE_PLACEHOLDER__', $bladeSourceCode, ob_get_clean());
+                @endphp
+
+                @php
                     $tabs = [
                         [
                             'title' => 'Example',
-                            'content' => $example['html']['code'],
+                            'content' => $exampleTabContent,
                         ],
                         [
                             'title' => 'HTML',
-                            'content' => '<pre><code class="language-html">' . e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])) . '</code></pre>',
+                            'content' => $htmlCodeTabContent,
                         ],
                         [
                             'title' => 'Blade',
-                            'content' => '<pre><code class="language-php">' . e($example['blade']['code']) . '</code></pre>',
+                            'content' => $bladeCodeTabContent,
                         ],
                     ];
                 @endphp
