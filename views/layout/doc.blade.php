@@ -1,7 +1,9 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
     @if($examples)
         @foreach($examples as $example)
-            @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
+            
+            <article class="article u-margin__bottom--2 u-margin__top--10">
+
                 @typography([
                     'variant' => 'h3',
                     'element' => 'h3'
@@ -9,14 +11,6 @@
                     @if($example['description']['heading'])
                         {{$example['description']['heading']}}
                     @endif
-                @endtypography
-
-                @typography([
-                    'variant' => 'h4',
-                    'element' => 'h4',
-                    'classList' => []
-                ])
-                    {{$example['description']['subHeading']}}
                 @endtypography
 
                 @if(isset($example['description']['description']) && !empty($example['description']['description']))
@@ -28,6 +22,23 @@
                     @endtypography
                 @endif
 
+            </article>
+
+
+            @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
+            
+
+                @include($example['component'])
+
+                <!-- Code blocks -->
+                @code(['language' => 'html', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
+                @endcode
+                @code(['language' => 'php', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
+                    {{$example['blade']['code']}}
+                @endcode
+
+                <!-- Toggle buttons -->
                 <div class="d-code__toggle c-code__toggle">
                     @button([
                         'text' => 'HTML',
@@ -51,15 +62,6 @@
                     @endbutton
                 </div>
 
-                @include($example['component'])
-
-                @code(['language' => 'html', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['html']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                    {{ \HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code'])}}
-                @endcode
-
-                @code(['language' => 'php', 'content' => '', 'classList' => ['d-code', 'u-display--none'], 'attributeList' => ['js-toggle-item' => $example['blade']['id'], 'js-toggle-class' => 'u-display--block', 'js-toggle-group' => $loop->index]])
-                    {{$example['blade']['code']}}
-                @endcode
             @endpaper
         @endforeach
 

@@ -10,10 +10,6 @@
 }
 
 .d-code {
-    border-radius: 0 0 border-radius.$border-radius-md border-radius.$border-radius-md;
-    border-top: 8px solid colors.$color-darkest;
-    transform: translateY(-8px);
-    z-index: properties.$level-1 - 1;
     margin: 0;
 
     .toolbar {
@@ -33,12 +29,9 @@
     justify-content: flex-end;
     align-items: center;
     gap: calc(#{defaults.$base} * 1);
-    margin: 0 0 calc(#{defaults.$base} * 2) 0;
-
-    .c-button,
-    .c-button:hover {
-        filter: properties.$drop-shadow-0;
-    }
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .d-params {
