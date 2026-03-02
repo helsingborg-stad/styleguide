@@ -129,9 +129,18 @@ $button-sizes: (
     /* Full width */
     &__full-width {
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .#{$_}__label {
+            justify-content: center;
+            width: 100%;
+        }
+
         .#{$_}__label-icon {
-            flex: 1;
-            .c-icon { margin-left: auto; }
+            flex: none;
+            .c-icon { margin-left: 0; margin-right: 0; }
         }
     }
 
