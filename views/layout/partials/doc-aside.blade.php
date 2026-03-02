@@ -16,7 +16,7 @@
 
         <div class="o-grid o-grid--small o-grid--gutters u-margin__top--2">
             @foreach($similarComponentItems as $similarComponentItem)
-                <div class="o-grid-6">
+                <div class="o-grid-4@sm o-grid-3@md">
                     @button([
                         'text' => $similarComponentItem['name'],
                         'href' => $similarComponentItem['href'],

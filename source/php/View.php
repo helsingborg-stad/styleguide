@@ -2,6 +2,7 @@
 
 namespace HbgStyleGuide;
 
+use HbgStyleGuide\Helper\ComponentCssParameters;
 use \HbgStyleGuide\Helper\Documentation as DocHelper;
 use \HbgStyleGuide\Helper\ModifierExample;
 use HelsingborgStad\BladeService\BladeServiceInterface;
@@ -187,6 +188,7 @@ class View
                     'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                     'paper' => $paper,
                     'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : ($configJson['examples'] ?? ""),
+                    'cssParameters' => isset($viewData['slug']) ? ComponentCssParameters::getForComponent($viewData['slug']) : [],
                     'modifiersExample' => $modifiersExample,
                     'includesPath' => $includesPath,
                 ]);
@@ -211,9 +213,9 @@ class View
      * Fetch examples from the usage directory
      * @throws \Exception
      */
-    public static function fetchExamples($slug)
+    public static function fetchExamples(string $slug, BladeServiceInterface $blade): array
     {
-        $examples = DocHelper::getUsageExamples($slug);
+        return DocHelper::getUsageExamples($slug, $blade);
 
     }
 

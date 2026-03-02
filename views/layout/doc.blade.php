@@ -104,9 +104,36 @@
 
             <div class="u-margin__top--10">
                 @table([
-                    'title'        => 'Parameters',
+                    'title'        => 'Parameters (Blade)',
                     'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
                     'list'         => $paramRows,
+                    'includePaper' => false,
+                ])
+                @endtable
+            </div>
+        @endif
+
+        @if(isset($cssParameters) && !empty($cssParameters))
+            @php
+                $cssParamRows = [];
+                foreach($cssParameters as $item) {
+                    $cssParamRows[] = [
+                        'columns' => [
+                            $item['key'] ?? '-',
+                            $item['defaultValue'] ?? '',
+                            $item['type'] ?? '-',
+                            $item['availableValues'] ?? '-',
+                            $item['description'] ?? '-',
+                        ]
+                    ];
+                }
+            @endphp
+
+            <div class="u-margin__top--10">
+                @table([
+                    'title'        => 'Parameters (CSS)',
+                    'headings'     => ['Key', 'Default value', 'Type', 'Available values', 'Description'],
+                    'list'         => $cssParamRows,
                     'includePaper' => false,
                 ])
                 @endtable
