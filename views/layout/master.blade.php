@@ -97,11 +97,11 @@
             </div>
 
             <div class="u-display--flex u-align-items--center u-width--100 u-margin__x--3">
-                @form(['action' => '/components', 'method' => 'get', 'classList' => ['u-width--100']])
+                @form(['action' => '/', 'method' => 'get', 'classList' => ['u-width--100']])
                     @field([
                         'label' => 'Search documentation',
                         'hideLabel' => true,
-                        'name' => 'q',
+                        'name' => 's',
                         'type' => 'search',
                         'placeholder' => 'Search components, utilities and scripts',
                         'classList' => ['u-margin--0'],
