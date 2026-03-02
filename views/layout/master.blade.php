@@ -61,9 +61,52 @@
     
     <div class="l-docs">
 
+        @php
+            $topNavigationItems = [
+                [
+                    'href' => '/design-builder',
+                    'label' => 'Design Lab',
+                    'style' => 'button',
+                    'buttonStyle' => 'basic',
+                    'buttonColor' => 'default',
+                    'icon' => ['icon' => 'format_paint'],
+                    'classList' => ['u-margin__right--2'],
+                    'attributeList' => [
+                        'title' => 'Design Lab'
+                    ]
+                ],
+                [
+                    'href' => 'https://getmunicipio.com',
+                    'label' => 'Website',
+                    'style' => 'button',
+                    'buttonStyle' => 'basic',
+                    'buttonColor' => 'default',
+                    'icon' => ['icon' => 'public'],
+                    'classList' => ['u-margin__right--2'],
+                    'attributeList' => [
+                        'target' => '_blank',
+                        'title' => 'Visit getmunicipio.com'
+                    ]
+                ],
+                [
+                    'href' => 'https://github.com/helsingborg-stad/styleguide',
+                    'label' => 'GitHub',
+                    'style' => 'button',
+                    'buttonStyle' => 'basic',
+                    'buttonColor' => 'default',
+                    'icon' => ['icon' => 'code'],
+                    'attributeList' => [
+                        'target' => '_blank',
+                        'title' => 'Open repository on GitHub'
+                    ]
+                ]
+            ];
+        @endphp
+
         @header([
             'id' => 'site-header',
             'classList' => [
+                'l-docs-desktop-header',
                 'l-docs--header',
                 'c-header',
                 'u-display--flex',
@@ -98,51 +141,89 @@
 
             <div class="u-display--flex u-align-items--center">
                 @nav([
-                    'items' => [
-                        [
-                            'href' => '/design-builder',
-                            'label' => 'Design Lab',
-                            'style' => 'button',
-                            'buttonStyle' => 'basic',
-                            'buttonColor' => 'default',
-                            'icon' => ['icon' => 'format_paint'],
-                            'classList' => ['u-margin__right--2'],
-                            'attributeList' => [
-                                'title' => 'Design Lab'
-                            ]
-                        ],
-                        [
-                            'href' => 'https://getmunicipio.com',
-                            'label' => 'Website',
-                            'style' => 'button',
-                            'buttonStyle' => 'basic',
-                            'buttonColor' => 'default',
-                            'icon' => ['icon' => 'public'],
-                            'classList' => ['u-margin__right--2'],
-                            'attributeList' => [
-                                'target' => '_blank',
-                                'title' => 'Visit getmunicipio.com'
-                            ]
-                        ],
-                        [
-                            'href' => 'https://github.com/helsingborg-stad/styleguide',
-                            'label' => 'GitHub',
-                            'style' => 'button',
-                            'buttonStyle' => 'basic',
-                            'buttonColor' => 'default',
-                            'icon' => ['icon' => 'code'],
-                            'attributeList' => [
-                                'target' => '_blank',
-                                'title' => 'Open repository on GitHub'
-                            ]
-                        ]
-                    ],
+                    'items' => $topNavigationItems,
                     'direction' => 'horizontal',
                     'allowStyle' => true,
                     'classList' => ['u-margin--0']
                 ])
                 @endnav
             </div>
+        @endheader
+
+        @header([
+            'id' => 'mobile-site-header',
+            'classList' => [
+                'l-docs-mobile-header',
+                'c-header',
+                'u-align-items--center',
+                'u-justify-content--space-between',
+                'u-border__bottom--1',
+                'u-padding__x--3',
+                'u-padding__y--1'
+            ]
+        ])
+            @link(['href' => '/', 'classList' => ['u-display-block']])
+                @logotype([
+                    'src' => '/assets/img/logotype.svg',
+                    'alt' => 'Go to homepage',
+                    'classList' => ['c-header__logotype']
+                ])
+                @endlogotype
+            @endlink
+
+            @drawer([
+                'label' => 'Close',
+                'attributeList' => [
+                    'data-move-to' => 'body'
+                ],
+                'toggleButtonData' => [
+                    'text' => 'Menu',
+                    'icon' => 'menu',
+                    'style' => 'basic',
+                    'color' => 'primary',
+                    'size' => 'md'
+                ]
+            ])
+                @slot('search')
+                    @form(['action' => '/', 'method' => 'get'])
+                        @field([
+                            'label' => 'Search documentation',
+                            'hideLabel' => true,
+                            'name' => 's',
+                            'type' => 'search',
+                            'placeholder' => 'Search components, utilities and scripts',
+                            'classList' => ['u-margin--0'],
+                            'attributeList' => [
+                                'autocomplete' => 'off',
+                                'data-datalist' => '/search',
+                                'data-datalist-query-param' => 'q'
+                            ],
+                            'size' => 'sm',
+                            'icon' => ['icon' => 'search']
+                        ])
+                        @endfield
+                    @endform
+                @endslot
+
+                @slot('menu')
+                    @nav([
+                        'items' => $topNavigationItems,
+                        'direction' => 'vertical',
+                        'allowStyle' => true,
+                        'classList' => ['u-margin__bottom--2']
+                    ])
+                    @endnav
+
+                    @nav([
+                        'items' => $sideNavigation,
+                        'direction' => 'vertical',
+                        'classList' => ['u-display--block'],
+                        'includeToggle' => true,
+                        'indentSubLevels' => true,
+                    ])
+                    @endnav
+                @endslot
+            @enddrawer
         @endheader
 
 
@@ -160,6 +241,23 @@
 
         @include('layout.footer')
     </div>
+
+    <style>
+        .l-docs-mobile-header {
+            display: none;
+        }
+
+        @media (max-width: 56em) {
+            .l-docs-desktop-header,
+            .l-docs--sidebar {
+                display: none !important;
+            }
+
+            .l-docs-mobile-header {
+                display: flex !important;
+            }
+        }
+    </style>
 
     @fab([
         'position' => 'bottom-right',
