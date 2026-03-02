@@ -4,11 +4,25 @@ on:
   push:
     branches:
     - "master"
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Type of release'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+        - dev
+        - production
 
 jobs:
   publish:
     name: 
     runs-on: ubuntu-latest
+    env:
+      IS_PRODUCTION: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+      IS_DEV: ${{ github.event_name == 'workflow_dispatch' && inputs.release_type == 'dev' }}
+      BRANCH_NAME: ${{ github.ref_name }}
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -29,25 +43,60 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: NPM Version.
+    - name: Prepare branch name for dev versioning
+      if: env.IS_DEV == 'true'
+      id: branch-prep
+      run: |
+        # Sanitize branch name for npm version (replace non-alphanumeric with dash)
+        SANITIZED_BRANCH=$(echo "${{ env.BRANCH_NAME }}" | sed 's/[^a-zA-Z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-\|-$//g')
+        echo "sanitized_branch=${SANITIZED_BRANCH}" >> $GITHUB_OUTPUT
+        echo "Branch name sanitized: ${{ env.BRANCH_NAME }} -> ${SANITIZED_BRANCH}"
+
+    - name: NPM Version (Production)
+      if: env.IS_PRODUCTION == 'true'
       run: npm version patch
 
-    - name: Pull latest master with rebase
+    - name: NPM Version (Dev)
+      if: env.IS_DEV == 'true'
+      run: |
+        # Get current version and create dev version with branch name
+        CURRENT_VERSION=$(node -p "require('./package.json').version")
+        DEV_VERSION="${CURRENT_VERSION}-${{ steps.branch-prep.outputs.sanitized_branch }}.$(date +%s)"
+        npm version $DEV_VERSION --no-git-tag-version
+        echo "Created dev version: $DEV_VERSION"
+
+    - name: Pull latest branch with rebase
+      if: env.IS_PRODUCTION == 'true'
       run: git pull origin master --rebase
 
-    - name: Push tag.
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.HBG_GH_TOKEN }}
-        tags: true
+    - name: Create and push tag (Production)
+      if: env.IS_PRODUCTION == 'true'
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        git add package.json package-lock.json
+        git commit -m "Version bump to v${VERSION}"
+        git tag "v${VERSION}"
+        git push origin master --tags
+
+    - name: Create tag for dev version (no push)
+      if: env.IS_DEV == 'true'
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        git tag "v${VERSION}"
+        echo "Created tag v${VERSION} for dev version"
 
     - name: Inject access token in .npmrc
       run: | 
         echo "@helsingborg-stad:registry=https://npm.pkg.github.com/helsingborg-stad" >> ~/.npmrc
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.HBG_GH_TOKEN }}" >> ~/.npmrc
 
-    - name: NPM Publish.
+    - name: NPM Publish (Production)
+      if: env.IS_PRODUCTION == 'true'
       run: npm publish
+
+    - name: NPM Publish (Dev with prerelease tag)
+      if: env.IS_DEV == 'true'
+      run: npm publish --tag dev
 
     - name: get-npm-version
       id: package-version
@@ -64,11 +113,24 @@ jobs:
       with:
         filename: 'full-release.zip'
 
-    - name: Create release
+    - name: Create release (Production)
+      if: env.IS_PRODUCTION == 'true'
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        automatic_release_tag: "${{ steps.package-version.outputs.current-version }}"
+        automatic_release_tag: "v${{ steps.package-version.outputs.current-version }}"
         repo_token: "${{ secrets.HBG_GH_TOKEN }}"
         prerelease: false
+        title: "Release v${{ steps.package-version.outputs.current-version }}"
+        files: |
+          full-release.zip
+
+    - name: Create release (Dev)
+      if: env.IS_DEV == 'true'
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        automatic_release_tag: "v${{ steps.package-version.outputs.current-version }}"
+        repo_token: "${{ secrets.HBG_GH_TOKEN }}"
+        prerelease: true
+        title: "Dev Release v${{ steps.package-version.outputs.current-version }} from ${{ env.BRANCH_NAME }}"
         files: |
           full-release.zip
