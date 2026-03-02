@@ -274,7 +274,8 @@
       "border-radius",
       "corner-shape",
       "font-family-code",
-      "space"
+      "space",
+      "color--surface"
     ],
     "description": "The Code component provides a reusable pattern for code in the interface.",
     "tags": [

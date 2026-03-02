@@ -9,16 +9,38 @@ $_: "c-code";
     border: tokens.get($_, "border");
     border-radius: tokens.use($_, "border-radius", 1.5);
     corner-shape: tokens.get($_, "corner-shape");
-    margin: tokens.use($_, "space", 2) 0;
     overflow: hidden;
+    position: relative;
+
+    pre[class*="language-"],
+    code[class*="language-"] {
+        font-family: tokens.get($_, "font-family-code");
+    }
 
     .code-toolbar {
         overflow: auto;
         background-color: tokens.get($_, "color--surface-alt");
+
+        >pre[class*="language-"] {
+            margin: 0;
+            padding: tokens.use($_, "space", 3);
+            background: transparent;
+            border: 0;
+        }
+
+        >.toolbar {
+            top: tokens.use($_, "space", 1);
+            right: tokens.use($_, "space", 1);
+
+        }
     }
 
     &__pre {
         font-family: tokens.get($_, "font-family-code");
         margin: 0;
+    }
+
+    &__output {
+        display: block;
     }
 }
