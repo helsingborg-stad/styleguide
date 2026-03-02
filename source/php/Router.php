@@ -46,6 +46,9 @@ class Router
     {
         $endpoint = $this->request->getEndpoint();
 
-        return $endpoint === 'topnav' || $this->apiController->isTopNavRequest() || $this->apiController->isSidebarChildrenRequest();
+        return $endpoint === 'topnav'
+            || $endpoint === 'search'
+            || $this->apiController->isTopNavRequest()
+            || $this->apiController->isSidebarChildrenRequest();
     }
 }

@@ -9,6 +9,8 @@ use HbgStyleGuide\Data\NavigationApiDataProvider;
 use HbgStyleGuide\Data\NavigationDataParser;
 use HbgStyleGuide\Http\Request;
 use HbgStyleGuide\Http\Response;
+use HbgStyleGuide\Search\DataSources\ComponentsDataSource;
+use HbgStyleGuide\Search\Search;
 use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
 use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
 use HbgStyleGuide\Sidebar\Sections\ScriptSection;
@@ -62,6 +64,9 @@ class App
             $request,
             $response,
             new NavigationApiDataProvider($jsonDataLoader),
+            new Search(
+                new ComponentsDataSource(BASEPATH . 'source/components'),
+            ),
         );
 
         $this->router = new Router($request, $pageController, $apiController);
