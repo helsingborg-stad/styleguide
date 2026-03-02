@@ -35,6 +35,6 @@ franken/Caddyfile
 .phpunit.result.cache
 
 # Generated from source/data/design-tokens.json
-source/sass/setting/_design-tokens.scss
+# source/sass/setting/_design-tokens.scss
 *.cache
 /.tmp

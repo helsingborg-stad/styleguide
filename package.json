@@ -31,6 +31,7 @@
 	"files": [
 		"source/js/*",
 		"source/sass/*",
+		"source/components/*",
 		"build/*",
 		"assets/*",
 		"vite.config.mjs",
