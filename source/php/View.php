@@ -65,7 +65,7 @@ class View
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                     $path = (isset($viewData['viewDoc'])) ?
                         BASEPATH . "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
-                        $componentLibraryPackagePath . "/source/php/Component/" . ucfirst($viewData['slug']) . "/*.json";
+                        $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
 
                     //Locate config file
                     $configFile = glob($path);
@@ -207,6 +207,43 @@ class View
             throw new \Exception("Package not found at " . $path);
         }
         return $path;
+    }
+
+    /**
+     * Resolve component configuration glob path from slug.
+     *
+     * Supports matching slugs against camel/Pascal-cased vendor component
+     * directory names, for example iconsection -> IconSection.
+     *
+     * @param string $componentLibraryPackagePath Component library package path.
+     * @param string $slug Component slug from URL/config.
+     *
+     * @return string
+     */
+    private function resolveComponentConfigPath(string $componentLibraryPackagePath, string $slug): string
+    {
+        $componentBasePath = rtrim($componentLibraryPackagePath, '/') . '/source/php/Component';
+        $normalizedSlug = $this->normalizeComponentIdentifier($slug);
+
+        foreach (glob($componentBasePath . '/*', GLOB_ONLYDIR) ?: [] as $componentDirectory) {
+            if ($this->normalizeComponentIdentifier(basename($componentDirectory)) === $normalizedSlug) {
+                return $componentDirectory . '/*.json';
+            }
+        }
+
+        return $componentBasePath . '/' . ucfirst($slug) . '/*.json';
+    }
+
+    /**
+     * Normalize component identifiers for case-insensitive matching.
+     *
+     * @param string $identifier Component identifier.
+     *
+     * @return string
+     */
+    private function normalizeComponentIdentifier(string $identifier): string
+    {
+        return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $identifier));
     }
 
     /**
