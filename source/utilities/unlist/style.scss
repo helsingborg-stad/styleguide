@@ -1,5 +1,0 @@
-@use "../mixin/list";
-
-.u-unlist {
-  @include list.unlist();
-}
