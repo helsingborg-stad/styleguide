@@ -46,9 +46,26 @@ $_: "c-block";
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        gap: tokens.use($_, "base", 1);
+        align-items: flex-start;
+        gap: tokens.use($_, "base", 2);
         margin-top: auto;
         position: relative;
+
+        >* {
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                content: "";
+                inset: tokens.use($_, "base", -.5) tokens.use($_, "base", -1);
+                background-color: tokens.get($_, "color-overlay");
+                z-index: -1;
+                backdrop-filter: blur(4px);
+                border-radius: min(tokens.use($_, "border-radius"), tokens.use($_, "base", 0.5));
+                corner-shape: tokens.get($_, "corner-shape");
+            }
+        }
 
         &::after {
             content: "";
