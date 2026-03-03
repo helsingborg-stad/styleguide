@@ -5,10 +5,9 @@ $_: "c-box";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_),
-(
-    "shadow": tokens.use($_, "shadow", 1),
-    "shadow-hover": tokens.use($_, "shadow", 1.5),
-));
+    ("shadow": tokens.use($_, "shadow", 1),
+        "shadow-hover": tokens.use($_, "shadow", 1.5),
+    ));
 
 /* Component */
 .#{$_} {
@@ -27,12 +26,11 @@ $_: "c-box";
 
     .#{$_}__body {
         padding: tokens.use($_, "space", 3);
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        align-content: center;
+        justify-items: center;
         gap: tokens.use($_, "space", 2);
         text-align: center;
-        justify-content: center;
-        align-items: center;
         width: 100%;
         height: 100%;
     }
@@ -54,13 +52,26 @@ $_: "c-box";
         .#{$_}__image {
             max-width: tokens.use($_, "space", 10);
         }
+
+
+    }
+
+    @container box (max-width: 225px) {
+
+        .#{$_}__content,
+        .#{$_}__date,
+        .#{$_}__meta {
+            display: none;
+        }
+
+        .#{$_}__icon+.#{$_}__heading {
+            display: none;
+        }
     }
 
     .#{$_}__icon.c-icon {
         font-size: tokens.use($_, "space", 10);
         line-height: 60px;
-        margin-bottom: tokens.use($_, "space", 2);
-        margin-inline: auto;
     }
 
     .#{$_}__image.c-image--type-svg {
@@ -78,9 +89,17 @@ $_: "c-box";
         text-align: left;
     }
 
-    &--ratio-1-1 { aspect-ratio: 1/1; }
-    &--ratio-4-3 { aspect-ratio: 4/3; }
-    &--ratio-12-16 { aspect-ratio: 12/16; }
+    &--ratio-1-1 {
+        aspect-ratio: 1/1;
+    }
+
+    &--ratio-4-3 {
+        aspect-ratio: 4/3;
+    }
+
+    &--ratio-12-16 {
+        aspect-ratio: 12/16;
+    }
 }
 
 a.#{$_} {
@@ -102,9 +121,9 @@ a.#{$_} {
     }
 }
 
-.o-grid--no-gutter > [class*="o-grid-"] .#{$_},
-.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"],
-.o-grid--no-gutter > [class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
+.o-grid--no-gutter>[class*="o-grid-"] .#{$_},
+.o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"],
+.o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
     border-radius: unset;
     filter: none;
 }
