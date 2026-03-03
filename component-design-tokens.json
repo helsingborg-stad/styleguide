@@ -28,6 +28,8 @@
       "accordion",
       "datebadge"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "verified_user"
   },
   "accordion": {
@@ -58,6 +60,8 @@
       "anchormenu",
       "collection"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "expand_more"
   },
   "anchormenu": {
@@ -85,6 +89,8 @@
       "megamenu",
       "accordion"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "anchor"
   },
   "avatar": {
@@ -108,6 +114,8 @@
       "nav",
       "textarea"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "account_circle"
   },
   "block": {
@@ -137,6 +145,8 @@
       "box",
       "table"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "view_agenda"
   },
   "blockquote": {
@@ -159,6 +169,8 @@
       "logotype",
       "footer"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "format_quote"
   },
   "box": {
@@ -186,6 +198,8 @@
       "button",
       "fab"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "crop_square"
   },
   "brand": {
@@ -208,6 +222,8 @@
       "card",
       "datebadge"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "branding_watermark"
   },
   "breadcrumb": {
@@ -229,6 +245,8 @@
       "header",
       "progressbar"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "breakfast_dining"
   },
   "button": {
@@ -272,6 +290,8 @@
       "box",
       "testimonials"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "smart_button"
   },
   "card": {
@@ -305,6 +325,8 @@
       "accordion",
       "brand"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "credit_card"
   },
   "code": {
@@ -331,6 +353,8 @@
       "comment",
       "card"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "code"
   },
   "collection": {
@@ -360,6 +384,8 @@
       "option",
       "accordion"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "collections_bookmark"
   },
   "comment": {
@@ -386,6 +412,8 @@
       "segment",
       "code"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "comment"
   },
   "datebadge": {
@@ -420,6 +448,8 @@
       "sidebar",
       "textarea"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "calendar_today"
   },
   "divider": {
@@ -444,6 +474,8 @@
       "sidebar",
       "drawer"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "horizontal_rule"
   },
   "drawer": {
@@ -472,6 +504,8 @@
       "header",
       "loader"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "menu_open"
   },
   "fab": {
@@ -500,6 +534,8 @@
       "table",
       "navbar"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "add_circle"
   },
   "field": {
@@ -534,6 +570,8 @@
       "image",
       "footer"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "edit_note"
   },
   "fileinput": {
@@ -572,6 +610,8 @@
       "collection",
       "iconsection"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "upload_file"
   },
   "footer": {
@@ -595,6 +635,8 @@
       "logotypegrid",
       "blockquote"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "vertical_align_bottom"
   },
   "gallery": {
@@ -624,6 +666,8 @@
       "paper",
       "table"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "photo_library"
   },
   "gallery--modal": {
@@ -653,6 +697,8 @@
       "modal",
       "card"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "photo_size_select_large"
   },
   "group": {
@@ -673,6 +719,8 @@
       "hero",
       "typography"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "group_work"
   },
   "header": {
@@ -697,6 +745,8 @@
       "hero",
       "paper"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "web"
   },
   "hero": {
@@ -730,6 +780,8 @@
       "group",
       "paper"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "star"
   },
   "icon": {
@@ -751,6 +803,8 @@
       "comment",
       "iconsection"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "emoji_symbols"
   },
   "iconsection": {
@@ -780,6 +834,8 @@
       "option",
       "pagination"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "grid_view"
   },
   "image": {
@@ -808,6 +864,8 @@
       "tags",
       "datebadge"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "image"
   },
   "inlinecsswrapper": {
@@ -831,6 +889,8 @@
       "drawer",
       "header"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "css"
   },
   "listing": {
@@ -851,6 +911,8 @@
       "collection",
       "pagination"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "view_list"
   },
   "loader": {
@@ -874,6 +936,8 @@
       "slider",
       "code"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "progress_activity"
   },
   "logotype": {
@@ -892,6 +956,8 @@
       "footer",
       "blockquote"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "copyright"
   },
   "logotypegrid": {
@@ -914,6 +980,8 @@
       "footer",
       "blockquote"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "apps"
   },
   "megamenu": {
@@ -942,6 +1010,8 @@
       "anchormenu",
       "comment"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "dashboard"
   },
   "modal": {
@@ -974,6 +1044,8 @@
       "testimonials",
       "code"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "open_in_new"
   },
   "nav": {
@@ -1003,6 +1075,8 @@
       "avatar",
       "fab"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "navigation"
   },
   "navbar": {
@@ -1032,6 +1106,8 @@
       "nav",
       "sidebar"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "menu"
   },
   "newsitem": {
@@ -1057,6 +1133,8 @@
       "sidebar",
       "inlinecsswrapper"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "article"
   },
   "notice": {
@@ -1096,6 +1174,8 @@
       "option",
       "tooltip"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "notification_important"
   },
   "option": {
@@ -1124,6 +1204,8 @@
       "pagination",
       "icon"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "tune"
   },
   "pagination": {
@@ -1145,6 +1227,8 @@
       "iconsection",
       "icon"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "last_page"
   },
   "paper": {
@@ -1174,6 +1258,8 @@
       "header",
       "loader"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "description"
   },
   "progressbar": {
@@ -1199,6 +1285,8 @@
       "sidebar",
       "inlinecsswrapper"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "stacked_bar_chart"
   },
   "segment": {
@@ -1228,6 +1316,8 @@
       "select",
       "comment"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "splitscreen"
   },
   "select": {
@@ -1259,6 +1349,8 @@
       "collection",
       "iconsection"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "arrow_drop_down_circle"
   },
   "sidebar": {
@@ -1283,6 +1375,8 @@
       "divider",
       "datebadge"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "view_sidebar"
   },
   "signature": {
@@ -1304,6 +1398,8 @@
       "sidebar",
       "newsitem"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "draw"
   },
   "slider": {
@@ -1334,6 +1430,8 @@
       "loader",
       "divider"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "tune"
   },
   "table": {
@@ -1364,6 +1462,8 @@
       "fab",
       "gallery"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "table_chart"
   },
   "tabs": {
@@ -1387,6 +1487,8 @@
       "table",
       "toast"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "tab"
   },
   "tags": {
@@ -1413,6 +1515,8 @@
       "toast",
       "datebadge"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "sell"
   },
   "testimonials": {
@@ -1441,6 +1545,8 @@
       "collection",
       "button"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "rate_review"
   },
   "textarea": {
@@ -1465,6 +1571,8 @@
       "table",
       "acceptance"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "notes"
   },
   "toast": {
@@ -1485,6 +1593,8 @@
       "tags",
       "tooltip"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "notifications"
   },
   "tooltip": {
@@ -1512,6 +1622,8 @@
       "collection",
       "footer"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "help"
   },
   "typography": {
@@ -1542,6 +1654,8 @@
       "logotypegrid",
       "group"
     ],
+    "requires": [],
+    "requiredBy": [],
     "icon": "text_fields"
   }
 }
