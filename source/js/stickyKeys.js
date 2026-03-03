@@ -34,11 +34,22 @@
     }
 
     subscribeInput(targetElements) {
+        const ignoredKeys = [
+            'Backspace',
+            'ArrowLeft',
+            'ArrowRight',
+            'ArrowUp',
+            'ArrowDown',
+            'Tab',
+            'Home',
+            'End'
+        ];
+
         let arr = [];            
         targetElements.forEach(input => {
             input.addEventListener('keydown', (event) => {
                 if (
-                    event.code !== 'Backspace' &&
+                    !ignoredKeys.includes(event.code) &&
                     !event.shiftKey &&
                     !event.ctrlKey &&
                     !event.altKey &&
