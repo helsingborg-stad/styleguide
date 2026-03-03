@@ -63,8 +63,9 @@ class View
                 $componentLibraryPackagePath = $this->getVendorPackagePath('helsingborg-stad/component-library');
     
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
+                    $viewDoc = (isset($viewData['viewDoc']) && is_array($viewData['viewDoc'])) ? $viewData['viewDoc'] : [];
                     $path = (isset($viewData['viewDoc'])) ?
-                        BASEPATH . "views/docs/" . $viewData['viewDoc']['type'] . "/" . $viewData['viewDoc']['root'] . "/" . ucfirst($viewData['viewDoc']['config']) . ".json" :
+                        $this->resolveDocumentationConfigPath($viewDoc) :
                         $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
 
                     //Locate config file
@@ -232,6 +233,29 @@ class View
         }
 
         return $componentBasePath . '/' . ucfirst($slug) . '/*.json';
+    }
+
+    /**
+     * Resolve documentation JSON config path from view doc metadata.
+     *
+    * Utility docs are loaded from source/utilities/(utility)/docs to keep docs colocated
+     * with each utility. Other doc types continue to load from views/docs.
+     *
+     * @param array<string, string> $viewDoc View doc metadata.
+     *
+     * @return string
+     */
+    private function resolveDocumentationConfigPath(array $viewDoc): string
+    {
+        $type = strtolower((string) ($viewDoc['type'] ?? ''));
+        $config = ucfirst((string) ($viewDoc['config'] ?? ''));
+
+        if ($type === 'utility') {
+            return BASEPATH . 'source/utilities/*/docs/' . $config . '.json';
+        }
+
+        $root = (string) ($viewDoc['root'] ?? '');
+        return BASEPATH . 'views/docs/' . $type . '/' . $root . '/' . $config . '.json';
     }
 
     /**
