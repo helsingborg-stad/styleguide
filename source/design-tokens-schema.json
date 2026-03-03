@@ -69,13 +69,16 @@
                 "color--alpha-border",
                 "color--success",
                 "color--success-contrast",
+                "color--success-border",
                 "color--warning",
                 "color--warning-contrast",
+                "color--warning-border",
                 "color--danger",
                 "color--danger-contrast",
                 "color--danger-border",
                 "color--info",
-                "color--info-contrast"
+                "color--info-contrast",
+                "color--info-border"
             ]
         },
         "category": {

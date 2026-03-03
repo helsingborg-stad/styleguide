@@ -32,6 +32,7 @@ $_: "c-notice";
         line-height: 1rem;
         opacity: .7;
         color: tokens.get($_, "color--info-contrast");
+        margin-right: tokens.use($_, "space", 2);
     }
 
     .#{$_}__title {
