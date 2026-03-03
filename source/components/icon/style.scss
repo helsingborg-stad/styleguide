@@ -11,12 +11,10 @@ $sizes: xs, sm, md, lg, xl, xxl;
         "size-md": tokens.use($_, "base", 3),
         "size-lg": tokens.use($_, "base", 4),
         "size-xl": tokens.use($_, "base", 5),
-        "size-xxl": tokens.use($_, "base", 6),
-        "color": tokens.get($_, "color--background-contrast"
-        )));
+        "size-xxl": tokens.use($_, "base", 6)));
 
 .#{$_} {
-    color: tokens.get($_, "color");
+    color: inherit;
     line-height: 1;
 
     &.#{$_}--placeholder {
