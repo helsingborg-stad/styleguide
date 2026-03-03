@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "../function/string-replace";
 @use "../setting/var_default";
-@use "visibility";
+@use "../visibility/style" as visibility;
 @use "../mixin/build-utility";
 
 $width: ();

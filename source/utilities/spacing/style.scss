@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "sass:map";
 @use "../setting/var_default";
-@use "border";
+@use "../border/style" as border;
 @use "../mixin/build-utility";
 
 $spacing-util: ();
