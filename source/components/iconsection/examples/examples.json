@@ -1,0 +1,12 @@
+{
+  "basic": {
+    "heading": "Basic icon section",
+    "subHeading": "",
+    "text": "A simple icon section with three items and supporting content."
+  },
+  "withGap": {
+    "heading": "Icon section with spacing",
+    "subHeading": "",
+    "text": "Use the gap setting to control spacing between icon section items."
+  }
+}
