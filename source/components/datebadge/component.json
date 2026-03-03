@@ -30,5 +30,7 @@
     "sidebar",
     "textarea"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "calendar_today"
 }

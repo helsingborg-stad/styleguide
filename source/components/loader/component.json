@@ -19,5 +19,7 @@
     "slider",
     "code"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "progress_activity"
 }

@@ -34,5 +34,7 @@
     "collection",
     "iconsection"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "upload_file"
 }

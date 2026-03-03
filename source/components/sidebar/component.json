@@ -20,5 +20,7 @@
     "divider",
     "datebadge"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "view_sidebar"
 }

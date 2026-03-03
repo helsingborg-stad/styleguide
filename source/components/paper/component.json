@@ -25,5 +25,7 @@
     "header",
     "loader"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "description"
 }

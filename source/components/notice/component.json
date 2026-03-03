@@ -24,7 +24,6 @@
     "color--success",
     "color--success-contrast",
     "color--success-border"
-    
   ],
   "description": "The Notice component provides a reusable pattern for notice in the interface.",
   "tags": [
@@ -36,5 +35,7 @@
     "option",
     "tooltip"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "notification_important"
 }

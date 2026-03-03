@@ -16,5 +16,7 @@
     "collection",
     "pagination"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "view_list"
 }

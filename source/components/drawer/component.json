@@ -24,5 +24,7 @@
     "header",
     "loader"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "menu_open"
 }

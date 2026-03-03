@@ -25,5 +25,7 @@
     "option",
     "accordion"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "collections_bookmark"
 }

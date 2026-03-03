@@ -24,5 +24,7 @@
     "collection",
     "button"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "rate_review"
 }

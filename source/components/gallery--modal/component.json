@@ -25,5 +25,7 @@
     "modal",
     "card"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "photo_size_select_large"
 }

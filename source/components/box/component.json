@@ -23,5 +23,7 @@
     "button",
     "fab"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "crop_square"
 }

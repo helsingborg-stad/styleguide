@@ -27,5 +27,7 @@
     "collection",
     "iconsection"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "arrow_drop_down_circle"
 }

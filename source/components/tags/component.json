@@ -22,5 +22,7 @@
     "toast",
     "datebadge"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "sell"
 }

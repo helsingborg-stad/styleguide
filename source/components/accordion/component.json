@@ -26,5 +26,7 @@
     "anchormenu",
     "collection"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "expand_more"
 }

@@ -24,5 +24,7 @@
     "pagination",
     "icon"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "tune"
 }

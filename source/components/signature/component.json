@@ -17,5 +17,7 @@
     "sidebar",
     "newsitem"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "draw"
 }

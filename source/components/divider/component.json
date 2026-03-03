@@ -20,5 +20,7 @@
     "sidebar",
     "drawer"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "horizontal_rule"
 }

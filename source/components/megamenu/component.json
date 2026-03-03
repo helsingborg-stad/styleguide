@@ -24,5 +24,7 @@
     "anchormenu",
     "comment"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "dashboard"
 }

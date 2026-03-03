@@ -27,5 +27,7 @@
     "accordion",
     "datebadge"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "verified_user"
 }

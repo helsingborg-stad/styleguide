@@ -16,5 +16,7 @@
     "tags",
     "tooltip"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "notifications"
 }

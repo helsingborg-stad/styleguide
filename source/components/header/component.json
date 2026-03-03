@@ -20,5 +20,7 @@
     "hero",
     "paper"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "web"
 }

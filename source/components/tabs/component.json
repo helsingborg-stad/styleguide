@@ -19,5 +19,7 @@
     "table",
     "toast"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "tab"
 }

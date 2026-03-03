@@ -25,5 +25,7 @@
     "paper",
     "table"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "photo_library"
 }

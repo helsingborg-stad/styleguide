@@ -24,5 +24,7 @@
     "table",
     "navbar"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "add_circle"
 }

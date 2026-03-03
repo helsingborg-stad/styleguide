@@ -19,5 +19,7 @@
     "logotypegrid",
     "blockquote"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "vertical_align_bottom"
 }

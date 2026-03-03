@@ -18,5 +18,7 @@
     "footer",
     "blockquote"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "apps"
 }

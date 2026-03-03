@@ -19,5 +19,7 @@
     "nav",
     "textarea"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "account_circle"
 }

@@ -18,5 +18,7 @@
     "card",
     "datebadge"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "branding_watermark"
 }

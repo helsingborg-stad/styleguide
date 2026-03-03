@@ -22,5 +22,7 @@
     "comment",
     "card"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "code"
 }

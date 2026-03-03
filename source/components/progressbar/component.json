@@ -21,5 +21,7 @@
     "sidebar",
     "inlinecsswrapper"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "stacked_bar_chart"
 }

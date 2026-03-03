@@ -26,5 +26,7 @@
     "fab",
     "gallery"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "table_chart"
 }

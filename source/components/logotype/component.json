@@ -14,5 +14,7 @@
     "footer",
     "blockquote"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "copyright"
 }

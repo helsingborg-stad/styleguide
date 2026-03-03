@@ -25,5 +25,7 @@
     "box",
     "table"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "view_agenda"
 }

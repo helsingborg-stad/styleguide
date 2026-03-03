@@ -25,5 +25,7 @@
     "nav",
     "sidebar"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "menu"
 }

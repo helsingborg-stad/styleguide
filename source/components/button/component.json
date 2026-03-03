@@ -39,5 +39,7 @@
     "box",
     "testimonials"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "smart_button"
 }

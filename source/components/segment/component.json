@@ -25,5 +25,7 @@
     "select",
     "comment"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "splitscreen"
 }

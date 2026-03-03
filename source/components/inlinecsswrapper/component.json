@@ -19,5 +19,7 @@
     "drawer",
     "header"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "css"
 }

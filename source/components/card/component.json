@@ -29,5 +29,7 @@
     "accordion",
     "brand"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "credit_card"
 }

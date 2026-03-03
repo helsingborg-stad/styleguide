@@ -25,5 +25,7 @@
     "option",
     "pagination"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "grid_view"
 }

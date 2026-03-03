@@ -23,5 +23,7 @@
     "megamenu",
     "accordion"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "anchor"
 }

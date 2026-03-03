@@ -26,5 +26,7 @@
     "logotypegrid",
     "group"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "text_fields"
 }

@@ -23,5 +23,7 @@
     "collection",
     "footer"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "help"
 }

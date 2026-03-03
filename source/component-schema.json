@@ -49,6 +49,22 @@
             "items": {
                 "$ref": "./design-tokens-schema.json#/$defs/validToken"
             }
+        },
+        "requires": {
+            "description": "An array of component slugs that this component depends on.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*$"
+            }
+        },
+        "requiredBy": {
+            "description": "An array of component slugs that depend on this component.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*$"
+            }
         }
     },
     "required": [

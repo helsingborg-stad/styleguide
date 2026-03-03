@@ -18,5 +18,7 @@
     "logotype",
     "footer"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "format_quote"
 }

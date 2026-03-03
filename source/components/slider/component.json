@@ -26,5 +26,7 @@
     "loader",
     "divider"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "tune"
 }

@@ -25,5 +25,7 @@
     "avatar",
     "fab"
   ],
+  "requires": [],
+  "requiredBy": [],
   "icon": "navigation"
 }
