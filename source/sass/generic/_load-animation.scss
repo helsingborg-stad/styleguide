@@ -1,5 +1,0 @@
-@use "../mixin/animations/fade-in";
-
-.a-fade {
-    @include fade-in.fade-in(1s);
-}
