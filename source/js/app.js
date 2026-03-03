@@ -32,7 +32,6 @@ import {initializeClickAways} from './ClickAway';
 import {AriaPressedToggler} from './AriaPressedToggler';
 import {SimulateClick} from './SimulateClick';
 import {SelectComponentObserver} from './select/SelectComponentObserver'; 
-import {initializeOpenStreetMaps} from './openStreetMap';
 import {setupCopy} from './copy';
 import {initializeCompressed} from './compressed';
 import {DeviceDetect} from './deviceDetect';
@@ -97,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Functions
     initializeResizeMediaQuery();
-    initializeOpenStreetMaps();
     initializeDrawerAccessibility();
     initializeForms();
     initializeMenus();
