@@ -818,6 +818,7 @@
       "shadow-color-opacity",
       "shadow-amount",
       "border-radius",
+      "corner-shape",
       "border-width",
       "color--surface",
       "color--surface-alt",
