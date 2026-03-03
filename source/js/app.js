@@ -52,6 +52,7 @@ import {initializeSizeObserver} from './sizeObserver';
 import {initializeBrand} from './brand';
 import {initializeDismissableNotices} from './dismissableNotices';
 import FileInput from './form/fileInput';
+import {initializeMaps} from './map/map';
 
 // Instances
 const DeviceDetectInstance = new DeviceDetect(); 
@@ -63,6 +64,7 @@ const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
 document.addEventListener('DOMContentLoaded', () => {
+    initializeMaps();
     // Needs to run early
     initializePagination();
 
