@@ -4,28 +4,30 @@
 @use "../visibility/style" as visibility;
 @use "../mixin/build-utility";
 
-$width: ();
-$height: ();
+$width: (
+);
+$height: (
+);
 
 @each $modifier in var_default.$sizings {
-    $mod: (string-replace.str-replace($modifier, "%"): ("width": $modifier));
-    $width: map.merge($width, $mod);
+    $mod: (
+        string-replace.str-replace($modifier, "%"): ("width": $modifier)
+    );
+$width: map.merge($width, $mod);
 }
 
 @each $modifier in var_default.$sizings {
-    $mod: (string-replace.str-replace($modifier, "%"): ("height": $modifier));
-    $height: map.merge($height, $mod);
+    $mod: (
+        string-replace.str-replace($modifier, "%"): ("height": $modifier)
+    );
+$height: map.merge($height, $mod);
 }
 
 visibility.$flex-utils: (
-    (
-        name: "width",
-        modifiers: $width
-    ),
-    (
-        name: "height",
-        modifiers: $height
-    )
+    (name: "width",
+        modifiers: $width ),
+    (name: "height",
+        modifiers: $height )
 );
 
 @include build-utility.build-utilities(visibility.$flex-utils);

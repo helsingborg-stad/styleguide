@@ -4,111 +4,120 @@
 @use "../border/style" as border;
 @use "../mixin/build-utility";
 
-$spacing-util: ();
+$spacing-util: (
+);
 
 @each $prop in (margin, padding) {
+
     //Builds sides
     @each $side in (top, left, right, bottom) {
 
-        $mods: ();
-
-        @each $size, $length in var_default.$spacers {
-            @each $size, $length in var_default.$spacers {
-                @if $length != auto or $prop == margin {
-                    $style: (#{$size}:(#{$prop}-#{$side}: #{$length}));
-                    $mods: map.merge($mods, $style);
-                }
-            }
-        }
-
-        $util: (
-            name: "#{$prop}__#{$side}",
-            default: (#{$prop}-#{$side}: 8px),
-            modifiers: $mods
+        $mods: (
         );
 
-        $spacing-util: list.append($spacing-util, $util);
-    }
-
-    $mods: ();
-
-    //Builds all around
     @each $size, $length in var_default.$spacers {
-        @if $length != auto or $prop == margin {
-            $style: (#{$size}:(#{$prop}: #{$length}));
+        @each $size, $length in var_default.$spacers {
+            @if $length !=auto or $prop ==margin {
+                $style: (
+                    #{$size}:(#{$prop}-#{$side}: #{$length})
+                );
             $mods: map.merge($mods, $style);
         }
     }
+}
 
-    $util: (
-        name: "#{$prop}",
-        default: (#{$prop}: 8px),
-        modifiers: $mods
-    );
+$util: (
+    name: "#{$prop}__#{$side}",
+    default: (#{$prop}-#{$side}: 8px),
+    modifiers: $mods
+);
 
-    $spacing-util: list.append($spacing-util, $util);
+$spacing-util: list.append($spacing-util, $util);
+}
 
-    $mods: ();
+$mods: (
+);
 
-    //Builds on axis Y
-    @each $size, $length in var_default.$spacers {
-        @if $length != auto or $prop == margin {
-            $style: (#{$size}:(
-                #{$prop}-top: #{$length},
-                #{$prop}-bottom: #{$length}
-            ));
-            $mods: map.merge($mods, $style);
-        }
-    }
+//Builds all around
+@each $size, $length in var_default.$spacers {
+    @if $length !=auto or $prop ==margin {
+        $style: (
+            #{$size}:(#{$prop}: #{$length})
+        );
+    $mods: map.merge($mods, $style);
+}
+}
 
-    $util: (
-        name: "#{$prop}__y",
-        default: (
-            #{$prop}-top: 8px,
-            #{$prop}-bottom: 8px
-        ),
-        modifiers: $mods
-    );
+$util: (
+    name: "#{$prop}",
+    default: (#{$prop}: 8px),
+    modifiers: $mods
+);
 
-    $spacing-util: list.append($spacing-util, $util);
+$spacing-util: list.append($spacing-util, $util);
 
-    //Builds on axis X
-    @each $size, $length in var_default.$spacers {
-        @if $length != auto or $prop == margin {
-            $style: (#{$size}:(
-                #{$prop}-left: #{$length},
-                #{$prop}-right: #{$length}
-            ));
-            $mods: map.merge($mods, $style);
-        }
-    }
+$mods: (
+);
 
-    $util: (
-        name: "#{$prop}__x",
-        default: (
-            #{$prop}-left: 8px,
-            #{$prop}-right: 8px
-        ),
-        modifiers: $mods
-    );
+//Builds on axis Y
+@each $size, $length in var_default.$spacers {
+    @if $length !=auto or $prop ==margin {
+        $style: (
+            #{$size}:(#{$prop}-top: #{$length},
+                #{$prop}-bottom: #{$length})
+        );
+    $mods: map.merge($mods, $style);
+}
+}
 
-    $spacing-util: list.append($spacing-util, $util);
+$util: (
+    name: "#{$prop}__y",
+    default: (#{$prop}-top: 8px,
+        #{$prop}-bottom: 8px),
+    modifiers: $mods
+);
+
+$spacing-util: list.append($spacing-util, $util);
+
+//Builds on axis X
+@each $size, $length in var_default.$spacers {
+    @if $length !=auto or $prop ==margin {
+        $style: (
+            #{$size}:(#{$prop}-left: #{$length},
+                #{$prop}-right: #{$length})
+        );
+    $mods: map.merge($mods, $style);
+}
+}
+
+$util: (
+    name: "#{$prop}__x",
+    default: (#{$prop}-left: 8px,
+        #{$prop}-right: 8px),
+    modifiers: $mods
+);
+
+$spacing-util: list.append($spacing-util, $util);
 }
 
 // Top utilities
 @each $side in (top, left, right, bottom) {
-  $mods: ();
-  @each $size, $length in var_default.$spacers {
-    $style: (#{$size}: (#{$side}: #{$length}));
-    $mods: map.merge($mods, $style);
-  }
+    $mods: (
+    );
 
-  $util: (
+@each $size, $length in var_default.$spacers {
+    $style: (
+        #{$size}: (#{$side}: #{$length})
+    );
+$mods: map.merge($mods, $style);
+}
+
+$util: (
     name: "#{$side}",
     modifiers: $mods
-  );
+);
 
-  $spacing-util: list.append($spacing-util, $util);
+$spacing-util: list.append($spacing-util, $util);
 }
 
 @include build-utility.build-utilities($spacing-util);

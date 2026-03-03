@@ -2,86 +2,57 @@
 @use "../mixin/build-utility";
 
 $flex-utils: (
-    (
-        name: "flex-direction",
-        modifiers: (
-            row: (flex-direction: row),
+    (name: "flex-direction",
+        modifiers: (row: (flex-direction: row),
             row--reverse: (flex-direction: row-reverse),
             column: (flex-direction: column),
             column--reverse: (flex-direction: column-reverse),
-        )
-    ),
-    (
-        name: "justify-content",
-        modifiers: (
-            start: (justify-content: flex-start),
+        )),
+    (name: "justify-content",
+        modifiers: (start: (justify-content: flex-start),
             end: (justify-content: flex-end),
             center: (justify-content: center),
             space-between: (justify-content: space-between),
             space-around: (justify-content: space-around),
             space-evenly: (justify-content: space-evenly),
-        )
-    ),
-    (
-        name: "flex-wrap",
+        )),
+    (name: "flex-wrap",
         default: (flex-wrap: wrap),
-        modifiers: (
-            reverse: (flex-wrap: wrap-reverse),
-            no-wrap: (flex-wrap: nowrap)
-        )
-    ),
-    (
-        name: "flex-grow",
-        modifiers: (
-            0: (flex-grow: 0),
-            1: (flex-grow: 1)
-        )
-    ),
-    (
-        name: "flex-shrink",
-        modifiers: (
-            0: (flex-shrink: 0),
-            1: (flex-shrink: 1)
-        )
-    ),
-    (
-        name: "align-items",
-        modifiers: (
-            start: (align-items: flex-start),
+        modifiers: (reverse: (flex-wrap: wrap-reverse),
+            no-wrap: (flex-wrap: nowrap))),
+    (name: "flex-grow",
+        modifiers: (0: (flex-grow: 0),
+            1: (flex-grow: 1))),
+    (name: "flex-shrink",
+        modifiers: (0: (flex-shrink: 0),
+            1: (flex-shrink: 1))),
+    (name: "align-items",
+        modifiers: (start: (align-items: flex-start),
             end: (align-items: flex-end),
             center: (align-items: center),
             stretch: (align-items: stretch),
             baseline: (align-items: baseline),
-        )
-    ),
-    (
-        name: "align-self",
-        modifiers: (
-            start: (align-self: flex-start),
+        )),
+    (name: "align-self",
+        modifiers: (start: (align-self: flex-start),
             end: (align-self: flex-end),
             center: (align-self: center),
             stretch: (align-self: stretch),
-        )
-    ),
-    (
-        name: "align-content",
-        modifiers: (
-            start: (align-content: flex-start),
+        )),
+    (name: "align-content",
+        modifiers: (start: (align-content: flex-start),
             end: (align-content: flex-end),
             center: (align-content: center),
             stretch: (align-content: stretch),
             around: (align-content: space-around),
-        )
-    )
+        ))
 );
 
 @include build-utility.build-utilities($flex-utils);
 
 $order-utils: (
-    (
-        name: "order",
-        modifiers: (
-            0: (order: 0),
+    (name: "order",
+        modifiers: (0: (order: 0),
             1: (order: 1),
             2: (order: 2),
             3: (order: 3),
@@ -93,9 +64,7 @@ $order-utils: (
             9: (order: 9),
             10: (order: 10),
             11: (order: 11),
-            12: (order: 12)
-        )
-    )
+            12: (order: 12)))
 );
 
 @include build-utility.build-utilities($order-utils, true, false);

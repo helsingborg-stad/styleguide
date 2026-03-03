@@ -1,21 +1,38 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
 
-    @if(isset($summary))
-        @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
-            @typography([
-                'variant' => 'h3',
-                'element' => 'h3'
-            ])
-                Summary
-            @endtypography
+    @php
+        static $utilityDocBreadcrumbRendered = false;
+    @endphp
+    @if(!$utilityDocBreadcrumbRendered)
+        @php
+            $breadcrumbLabel = isset($viewDoc['root'])
+                ? ucwords(str_replace(['-', '_'], ' ', (string) $viewDoc['root']))
+                : 'Utility';
+            $utilityDocBreadcrumbRendered = true;
+        @endphp
+        @breadcrumb([
+            'classList' => ['u-margin__bottom--3'],
+            'list' => [
+                ['href' => '/', 'label' => 'Home'],
+                ['href' => '/utilities', 'label' => 'Utilities'],
+                ['label' => $breadcrumbLabel],
+            ]
+        ])
+        @endbreadcrumb
+    @endif
 
+    @if(isset($summary))
+        <article class="article u-margin__bottom--2 u-margin__top--10">
             @typography([
                 'variant' => 'body',
                 'element' => 'p'
             ])
                 {!! $summary !!}
             @endtypography
-        @endpaper
+        </article>
+
+        @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
+        @enddivider
     @endif
 
     @if (strlen($slot) > 0)
@@ -55,7 +72,7 @@
     @endif
 
     @if(isset($settings))
-        @paper(['padding' => 3, 'classList' => ['u-margin__top--10']])
+        <div class="u-margin__top--10">
             @typography([
                 'variant' => 'h3',
                 'element' => 'h3'
@@ -90,6 +107,6 @@
                 'includePaper' => false,
             ])
             @endtable
-        @endpaper
+        </div>
     @endif
 </section>
