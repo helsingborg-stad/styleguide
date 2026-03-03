@@ -10,7 +10,7 @@ $_: "c-tabs";
     &__header {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid tokens.get($_, "color--surface-border");
+        border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
         overflow-x: auto;
         height: tokens.use($_, "base", 7);
     }

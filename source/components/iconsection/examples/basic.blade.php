@@ -4,8 +4,17 @@
             'icon' => 'home'
         ]
     ])
-        <h4>Housing</h4>
-        <p>Find services and information related to housing and homes.</p>
+        @typography([
+            'variant' => 'h4'
+        ])
+            Housing
+        @endtypography
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            Find services and information related to housing and homes.
+        @endtypography
     @endiconSection__item
 
     @iconSection__item([
@@ -13,8 +22,17 @@
             'icon' => 'school'
         ]
     ])
-        <h4>Education</h4>
-        <p>Explore schools, programs, and support for students.</p>
+        @typography([
+            'variant' => 'h4'
+        ])
+            Education
+        @endtypography
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            Explore schools, programs, and support for students.
+        @endtypography
     @endiconSection__item
 
     @iconSection__item([
@@ -22,7 +40,16 @@
             'icon' => 'directions_bus'
         ]
     ])
-        <h4>Transport</h4>
-        <p>Get updates and details about local public transport.</p>
+        @typography([
+            'variant' => 'h4'
+        ])
+            Transport
+        @endtypography
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            Get updates and details about local public transport.
+        @endtypography
     @endiconSection__item
 @endiconSection

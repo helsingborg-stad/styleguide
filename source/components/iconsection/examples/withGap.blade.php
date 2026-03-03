@@ -6,8 +6,17 @@
             'icon' => 'event'
         ]
     ])
-        <h4>Events</h4>
-        <p>Discover upcoming events and activities in the city.</p>
+        @typography([
+            'variant' => 'h4'
+        ])
+            Events
+        @endtypography
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            Discover upcoming events and activities in the city.
+        @endtypography
     @endiconSection__item
 
     @iconSection__item([
@@ -15,7 +24,16 @@
             'icon' => 'support_agent'
         ]
     ])
-        <h4>Support</h4>
-        <p>Contact support and get help with common questions.</p>
+        @typography([
+            'variant' => 'h4'
+        ])
+            Support
+        @endtypography
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            Contact support and get help with common questions.
+        @endtypography
     @endiconSection__item
 @endiconSection

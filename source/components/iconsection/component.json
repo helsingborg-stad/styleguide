@@ -4,14 +4,15 @@
   "name": "Icon Section",
   "slug": "iconsection",
   "tokens": [
+    "base",
     "shadow-color",
     "shadow-color-opacity",
     "shadow-amount",
     "border-radius",
-    "space",
-    "outer-space",
     "border-width",
-    "color--surface"
+    "color--surface",
+    "color--surface-alt",
+    "color--surface-border"
   ],
   "description": "The Icon Section component provides a reusable pattern for iconsection in the interface.",
   "tags": [

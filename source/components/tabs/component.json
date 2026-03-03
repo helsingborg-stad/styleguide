@@ -5,6 +5,7 @@
   "slug": "tabs",
   "tokens": [
     "base",
+    "border-width",
     "color--primary",
     "color--surface-border",
     "color--surface-contrast-muted"

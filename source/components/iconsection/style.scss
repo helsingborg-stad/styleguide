@@ -1,0 +1,82 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-iconsection";
+
+@include tokens.create($_, getComponentTokens($_),
+  ("shadow": tokens.use($_, "shadow", 2)));
+
+.#{$_} {
+  display: flex;
+  flex-direction: column;
+
+  &.#{$_}--gap-0 {
+    filter: tokens.get($_, "shadow");
+    background-color: tokens.get($_, "color--surface");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    contain: paint;
+
+    &>*:nth-child(n+2) {
+      border-top: none;
+    }
+
+    &>* {
+      filter: unset;
+      background-color: unset;
+      padding: 0;
+    }
+
+    &>:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    &>:first-child:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    &>:last-child:not(:first-child) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  @for $i from 0 through 12 {
+    &.#{$_}--gap-#{$i} {
+      gap: tokens.use($_, "base", $i * 0.5);
+    }
+  }
+}
+
+// Item
+.#{$_}__item {
+  display: grid;
+  grid-template-columns: [icon] auto [content] 1fr;
+  border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+
+  overflow: hidden;
+  filter: tokens.get($_, "shadow");
+  background-color: tokens.get($_, "color--surface");
+  border-radius: tokens.use($_, "border-radius");
+  corner-shape: tokens.get($_, "corner-shape");
+
+  &__icon,
+  &__content {
+    padding: tokens.use($_, "base", 2);
+  }
+
+  &__icon {
+    grid-column: icon;
+    background-color: tokens.get($_, "color--surface-alt");
+    border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    color: tokens.get($_, "color--surface-contrast");
+
+    &>* {
+      opacity: .5;
+    }
+  }
+
+  &__content {
+    grid-column: content;
+  }
+}
