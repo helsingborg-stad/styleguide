@@ -175,7 +175,7 @@
                 <code id="{{ $exampleId }}-current">Not applied</code>
             </div>
 
-            <div class="u-margin__top--3">
+            <div class="u-clearfix u-padding--3" style="overflow: hidden; margin: calc(var(--base) * -3); min-height: 100px; position: relative; contain: layout paint;">
                 <div id="{{ $exampleId }}-target" class="{{ $basePreviewClasses }}" style="transition: all 0.3s ease;">Utility preview element</div>
             </div>
 
