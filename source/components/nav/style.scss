@@ -250,17 +250,6 @@ $_: "c-nav";
             color: tokens.get($_, "color--surface-contrast");
         }
 
-        &.is-active>.c-nav__item-wrapper,
-        &.is-current>.c-nav__item-wrapper,
-        &>.c-nav__item-wrapper:hover {
-            background-color: tokens.get($_, "color--primary");
-
-            .c-nav__text,
-            .c-nav__icon,
-            .c-nav__toggle {
-                color: tokens.get($_, "color--primary-contrast");
-            }
-        }
     }
 }
 
