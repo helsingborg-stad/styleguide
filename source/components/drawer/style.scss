@@ -13,7 +13,7 @@ $_: "c-drawer";
     &,
     .site-nav-mobile__primary>.c-nav__item,
     .c-drawer__header {
-        --drawer-background: #{tokens.get($_, "color--primary")};
+        --drawer-background: #{tokens.get($_, "color--surface")};
     }
 }
 
