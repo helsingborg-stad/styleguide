@@ -16,5 +16,6 @@
             "responsive": true,
             "format": ".u-rounded__side--radius"
         }
-    }
+    },
+    "icon": "rounded_corner"
 }

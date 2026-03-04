@@ -19,6 +19,10 @@
 			"type": "string",
 			"pattern": "^[a-z][a-z0-9-]*$"
 		},
+		"icon": {
+			"description": "Material icon identifier used in utility listings.",
+			"type": "string"
+		},
 		"entries": {
 			"description": "A dictionary of utility documentation entries keyed by config identifier.",
 			"type": "object",
@@ -35,6 +39,7 @@
 		"apiVersion",
 		"name",
 		"slug",
+		"icon",
 		"entries"
 	],
 	"additionalProperties": false,

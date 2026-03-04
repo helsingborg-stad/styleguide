@@ -14,5 +14,6 @@
             },
             "responsive": true
         }
-    }
+    },
+    "icon": "view_compact"
 }

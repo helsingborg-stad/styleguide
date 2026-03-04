@@ -26,5 +26,6 @@
             },
             "responsive": true
         }
-    }
+    },
+    "icon": "border_style"
 }

@@ -102,5 +102,6 @@
             "format": "u-order--item-order",
             "responsive": true
         }
-    }
+    },
+    "icon": "view_column"
 }

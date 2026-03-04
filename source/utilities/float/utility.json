@@ -14,5 +14,6 @@
             "responsive": true,
             "format": ".u-float--direction"
         }
-    }
+    },
+    "icon": "swap_vert"
 }

@@ -56,5 +56,6 @@
             },
             "responsive": true
         }
-    }
+    },
+    "icon": "my_location"
 }

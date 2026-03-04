@@ -46,6 +46,7 @@ class ViewTest extends TestCase
                 'apiVersion' => 1,
                 'name' => 'Color',
                 'slug' => 'color',
+                'icon' => 'palette',
                 'entries' => [
                     'common' => [
                         'description' => [
@@ -67,6 +68,7 @@ class ViewTest extends TestCase
                 'apiVersion' => 1,
                 'name' => 'Shadow',
                 'slug' => 'shadow',
+                'icon' => 'layers',
                 'entries' => [
                     'common' => [
                         'description' => [
@@ -83,6 +85,7 @@ class ViewTest extends TestCase
                 'apiVersion' => 1,
                 'name' => 'Accessability',
                 'slug' => 'accessibility',
+                'icon' => 'accessibility_new',
                 'entries' => [
                     'screen-readers' => [
                         'description' => [

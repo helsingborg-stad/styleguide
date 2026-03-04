@@ -14,5 +14,6 @@
             },
             "responsive": false
         }
-    }
+    },
+    "icon": "block"
 }

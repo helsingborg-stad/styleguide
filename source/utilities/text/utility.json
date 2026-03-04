@@ -13,5 +13,6 @@
                 "default": ""
             }
         }
-    }
+    },
+    "icon": "text_fields"
 }

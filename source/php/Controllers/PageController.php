@@ -49,6 +49,7 @@ class PageController extends BaseController implements ControllerInterface
 
         $this->appendComponentPageData($data, $page);
         $this->appendComponentsOverviewPageData($data, $page);
+        $this->appendUtilitiesOverviewPageData($data, $page);
         $this->appendSearchPageData($data, $page);
 
         $this->view->show($page, $data, $this->bladeService);
@@ -181,6 +182,89 @@ class PageController extends BaseController implements ControllerInterface
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
         $data['pageNow'] = 'components/' . $slug;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $page
+     *
+     * @return void
+     */
+    private function appendUtilitiesOverviewPageData(array &$data, string $page): void
+    {
+        if ($page !== 'utilities') {
+            return;
+        }
+
+        $utilityConfigPaths = glob(BASEPATH . 'source/utilities/*/utility.json') ?: [];
+        $utilitiesOverviewItems = [];
+
+        foreach ($utilityConfigPaths as $utilityConfigPath) {
+            $configContent = file_get_contents($utilityConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $name = isset($config['name']) ? (string) $config['name'] : '';
+
+            if ($slug === '' || $name === '') {
+                continue;
+            }
+
+            $utilitiesOverviewItems[] = [
+                'slug' => $slug,
+                'name' => $name,
+                'description' => $this->resolveUtilityOverviewDescription($config),
+                'href' => '/utilities/' . $slug,
+                'icon' => isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '' ? $config['icon'] : 'tune',
+            ];
+        }
+
+        usort(
+            $utilitiesOverviewItems,
+            static fn(array $left, array $right): int => strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? '')),
+        );
+
+        $data['utilitiesOverviewItems'] = $utilitiesOverviewItems;
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return string
+     */
+    private function resolveUtilityOverviewDescription(array $config): string
+    {
+        $entries = $config['entries'] ?? null;
+        if (!is_array($entries)) {
+            return '';
+        }
+
+        foreach ($entries as $entry) {
+            if (!is_array($entry)) {
+                continue;
+            }
+
+            $summary = $entry['summary'] ?? null;
+            if (is_array($summary) && !empty($summary) && is_string($summary[0])) {
+                return $summary[0];
+            }
+
+            $description = $entry['description'] ?? null;
+            if (!is_array($description) || empty($description)) {
+                continue;
+            }
+
+            foreach ($description as $value) {
+                if (is_string($value) && $value !== '') {
+                    return $value;
+                }
+            }
+        }
+
+        return '';
     }
 
     /**
