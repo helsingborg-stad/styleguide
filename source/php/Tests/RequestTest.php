@@ -29,6 +29,10 @@ class RequestTest extends TestCase
 
     protected function tearDown(): void
     {
+        if (defined('BASEPATH') && rtrim((string) BASEPATH, '/') === rtrim($this->tempBasePath, '/')) {
+            return;
+        }
+
         @unlink($this->tempBasePath . 'source/components/button/component.json');
         @unlink($this->tempBasePath . 'source/utilities/spacing/utility.json');
         @rmdir($this->tempBasePath . 'source/components/button');
