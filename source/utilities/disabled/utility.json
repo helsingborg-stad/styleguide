@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Disabled",
+    "slug": "disabled",
+    "entries": {
+        "disabled": {
+            "format": "u-disabled",
+            "modifiers": {
+                "Default": ""
+            },
+            "description": {
+                "Default": "Sets disabled style on element."
+            },
+            "responsive": false
+        }
+    }
+}

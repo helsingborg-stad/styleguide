@@ -242,8 +242,8 @@ class View
     /**
      * Resolve documentation JSON config path from view doc metadata.
      *
-    * Utility docs are loaded from source/utilities/(utility)/docs to keep docs colocated
-     * with each utility. Other doc types continue to load from views/docs.
+    * Utility docs are loaded from source/utilities/(utility)/utility.json.
+     * Other doc types continue to load from views/docs.
      *
      * @param array<string, string> $viewDoc View doc metadata.
      *
@@ -282,7 +282,7 @@ class View
         $root = $this->normalizeUtilityIdentifier((string) ($viewDoc['root'] ?? ''));
         $paths = is_array($utilityConfigPaths)
             ? $utilityConfigPaths
-            : (glob(BASEPATH . 'source/utilities/*/docs/utility.json') ?: []);
+            : (glob(BASEPATH . 'source/utilities/*/utility.json') ?: []);
 
         $prioritizedPaths = $this->prioritizeUtilityConfigPaths($paths, $root);
 
@@ -312,7 +312,7 @@ class View
         $otherPaths = [];
 
         foreach ($paths as $path) {
-            $folder = basename(dirname(dirname($path)));
+            $folder = basename(dirname($path));
             if ($this->utilityFolderMatchesRoot($folder, $root)) {
                 $matchingPaths[] = $path;
                 continue;

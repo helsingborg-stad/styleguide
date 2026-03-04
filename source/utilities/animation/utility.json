@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Animation",
+    "slug": "animation",
+    "entries": {
+        "animation": {
+            "format": ".u-animation--state",
+            "description": {
+                "state": "Pauses an animation."
+            },
+            "modifiers": {
+                "state": "pause"
+            },
+            "responsive": false
+        }
+    }
+}

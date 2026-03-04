@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Responsive Media",
+    "slug": "responsive-media",
+    "entries": {
+        "responsive-media": {
+            "format": "u-media--behavior",
+            "modifiers": {
+                "behavior": "responsive"
+            },
+            "description": {
+                "behavior": "How media should adapt to the layout"
+            },
+            "responsive": true
+        }
+    }
+}

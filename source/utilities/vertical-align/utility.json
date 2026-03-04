@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Vertical Align",
+    "slug": "vertical-align",
+    "entries": {
+        "vertical-align": {
+            "format": "u-align--alignment",
+            "modifiers": {
+                "alignment": "baseline, top, middle, bottom, text-top, text-bottom"
+            },
+            "description": {
+                "alignment": "Sets vertical alignment of an inline or table-cell box"
+            },
+            "responsive": false
+        }
+    }
+}

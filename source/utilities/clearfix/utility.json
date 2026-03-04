@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Clearfix",
+    "slug": "clearfix",
+    "entries": {
+        "clearfix": {
+            "format": "u-clearfix",
+            "description": {
+                "u-clearfix": "Prevents breaking form use of float"
+            },
+            "modifiers": {
+                "u-clearfix": ""
+            },
+            "responsive": false
+        }
+    }
+}

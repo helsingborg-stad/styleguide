@@ -1,0 +1,30 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Accessability",
+    "slug": "accessibility",
+    "entries": {
+        "accessability": {
+            "format": ".u-sr__only--focus",
+            "description": {
+                "focus": "Removes an elements visuals but is still accessible for screen readers."
+            },
+            "modifiers": {
+                "focus": "focusable"
+            },
+            "responsive": false
+        },
+        "screen-readers": {
+            "format": "u-sr__only--focusable",
+            "modifiers": {
+                "Default": "",
+                "focusable": "focusable"
+            },
+            "description": {
+                "Default": "Hides element while keeping it accessible to screen readers",
+                "focusable": "Shows element when focused on"
+            },
+            "responsive": false
+        }
+    }
+}

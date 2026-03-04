@@ -1,0 +1,18 @@
+{
+    "$schema": "../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Visibility",
+    "slug": "visibility",
+    "entries": {
+        "visibility": {
+            "format": "u-visibility--state",
+            "modifiers": {
+                "state": "visible, hidden"
+            },
+            "description": {
+                "state": "Sets visibility on element."
+            },
+            "responsive": true
+        }
+    }
+}

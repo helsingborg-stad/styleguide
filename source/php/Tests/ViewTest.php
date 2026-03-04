@@ -36,12 +36,12 @@ class ViewTest extends TestCase
         mkdir($this->tempComponentLibraryPath . '/source/php/Component/AnchorMenu', 0777, true);
 
         $this->tempUtilitiesPath = $this->tempComponentLibraryPath . '/source/utilities';
-        mkdir($this->tempUtilitiesPath . '/color/docs', 0777, true);
-        mkdir($this->tempUtilitiesPath . '/shadow/docs', 0777, true);
-        mkdir($this->tempUtilitiesPath . '/accessability/docs', 0777, true);
+        mkdir($this->tempUtilitiesPath . '/color', 0777, true);
+        mkdir($this->tempUtilitiesPath . '/shadow', 0777, true);
+        mkdir($this->tempUtilitiesPath . '/accessability', 0777, true);
 
         file_put_contents(
-            $this->tempUtilitiesPath . '/color/docs/utility.json',
+            $this->tempUtilitiesPath . '/color/utility.json',
             json_encode([
                 'apiVersion' => 1,
                 'name' => 'Color',
@@ -62,7 +62,7 @@ class ViewTest extends TestCase
         );
 
         file_put_contents(
-            $this->tempUtilitiesPath . '/shadow/docs/utility.json',
+            $this->tempUtilitiesPath . '/shadow/utility.json',
             json_encode([
                 'apiVersion' => 1,
                 'name' => 'Shadow',
@@ -78,7 +78,7 @@ class ViewTest extends TestCase
         );
 
         file_put_contents(
-            $this->tempUtilitiesPath . '/accessability/docs/utility.json',
+            $this->tempUtilitiesPath . '/accessability/utility.json',
             json_encode([
                 'apiVersion' => 1,
                 'name' => 'Accessability',
@@ -106,12 +106,9 @@ class ViewTest extends TestCase
         @rmdir($this->tempComponentLibraryPath . '/source/php/Component');
         @rmdir($this->tempComponentLibraryPath . '/source/php');
 
-        @unlink($this->tempUtilitiesPath . '/color/docs/utility.json');
-        @unlink($this->tempUtilitiesPath . '/shadow/docs/utility.json');
-        @unlink($this->tempUtilitiesPath . '/accessability/docs/utility.json');
-        @rmdir($this->tempUtilitiesPath . '/color/docs');
-        @rmdir($this->tempUtilitiesPath . '/shadow/docs');
-        @rmdir($this->tempUtilitiesPath . '/accessability/docs');
+        @unlink($this->tempUtilitiesPath . '/color/utility.json');
+        @unlink($this->tempUtilitiesPath . '/shadow/utility.json');
+        @unlink($this->tempUtilitiesPath . '/accessability/utility.json');
         @rmdir($this->tempUtilitiesPath . '/color');
         @rmdir($this->tempUtilitiesPath . '/shadow');
         @rmdir($this->tempUtilitiesPath . '/accessability');
@@ -179,8 +176,8 @@ class ViewTest extends TestCase
         $method->setAccessible(true);
 
         $utilityPaths = [
-            $this->tempUtilitiesPath . '/shadow/docs/utility.json',
-            $this->tempUtilitiesPath . '/color/docs/utility.json',
+            $this->tempUtilitiesPath . '/shadow/utility.json',
+            $this->tempUtilitiesPath . '/color/utility.json',
         ];
 
         $resolved = $method->invoke(
@@ -189,7 +186,7 @@ class ViewTest extends TestCase
             $utilityPaths,
         );
 
-        $this->assertSame($this->tempUtilitiesPath . '/color/docs/utility.json', $resolved[0]);
+        $this->assertSame($this->tempUtilitiesPath . '/color/utility.json', $resolved[0]);
         $this->assertSame('Color entry', $resolved[1]['description']['value'] ?? '');
     }
 
@@ -207,7 +204,7 @@ class ViewTest extends TestCase
         $method->setAccessible(true);
 
         $utilityPaths = [
-            $this->tempUtilitiesPath . '/accessability/docs/utility.json',
+            $this->tempUtilitiesPath . '/accessability/utility.json',
         ];
 
         $resolved = $method->invoke(
@@ -216,7 +213,7 @@ class ViewTest extends TestCase
             $utilityPaths,
         );
 
-        $this->assertSame($this->tempUtilitiesPath . '/accessability/docs/utility.json', $resolved[0]);
+        $this->assertSame($this->tempUtilitiesPath . '/accessability/utility.json', $resolved[0]);
         $this->assertSame('Screen readers entry', $resolved[1]['description']['value'] ?? '');
     }
 }
