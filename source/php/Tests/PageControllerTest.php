@@ -237,29 +237,37 @@ class PageControllerTest extends TestCase
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-' . uniqid('', true) . '/';
 
-        mkdir($tempBasePath . 'source/utilities/spacing', 0777, true);
+        mkdir($tempBasePath . 'source/utilities/utility-alpha', 0777, true);
+        mkdir($tempBasePath . 'source/utilities/utility-alpha/examples', 0777, true);
 
         file_put_contents(
-            $tempBasePath . 'source/utilities/spacing/utility.json',
+            $tempBasePath . 'source/utilities/utility-alpha/utility.json',
             json_encode([
                 'apiVersion' => 1,
-                'name' => 'Spacing',
-                'slug' => 'spacing',
+                'name' => 'Utility Alpha',
+                'slug' => 'utility-alpha',
                 'icon' => 'space_bar',
                 'entries' => [
-                    'spacing' => [
-                        'summary' => ['Spacing summary'],
+                    'alpha' => [
+                        'summary' => ['Alpha summary'],
                         'description' => [
-                            'prop' => 'Selects padding or margin',
+                            'prop' => 'Alpha description',
                         ],
                     ],
                 ],
             ]),
         );
 
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/examples/examples.json',
+            json_encode([
+                'alpha' => ['alpha-demo'],
+            ]),
+        );
+
         define('BASEPATH', $tempBasePath);
 
-        $request = new Request('/utilities/spacing', []);
+        $request = new Request('/utilities/utility-alpha', []);
         $response = new Response();
 
         $bladeService = $this->createMock(BladeServiceInterface::class);
@@ -281,12 +289,13 @@ class PageControllerTest extends TestCase
             ->with(
                 'utility',
                 $this->callback(function (array $data): bool {
-                    return ($data['slug'] ?? '') === 'spacing'
-                        && ($data['headline'] ?? '') === 'Spacing'
+                    return ($data['slug'] ?? '') === 'utility-alpha'
+                        && ($data['headline'] ?? '') === 'Utility Alpha'
                         && ($data['componentIcon'] ?? '') === 'space_bar'
-                        && ($data['description'] ?? '') === 'Spacing summary'
-                        && ($data['utilityEntryKeys'][0] ?? '') === 'spacing'
-                        && ($data['pageNow'] ?? '') === 'utilities/spacing';
+                        && ($data['description'] ?? '') === 'Alpha summary'
+                        && ($data['utilityEntryKeys'][0] ?? '') === 'alpha'
+                        && ($data['utilityExamplesByEntry']['alpha'][0] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
+                        && ($data['pageNow'] ?? '') === 'utilities/utility-alpha';
                 }),
                 $bladeService,
             );
@@ -302,8 +311,10 @@ class PageControllerTest extends TestCase
 
         $controller->handle();
 
-        @unlink($tempBasePath . 'source/utilities/spacing/utility.json');
-        @rmdir($tempBasePath . 'source/utilities/spacing');
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/examples/examples.json');
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha/examples');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha');
         @rmdir($tempBasePath . 'source/utilities');
         @rmdir($tempBasePath . 'source');
         @rmdir($tempBasePath);

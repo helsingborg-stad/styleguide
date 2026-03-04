@@ -1,38 +1,77 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
+   
+    <article class="article u-margin__bottom--2">
+        @php
+            $utilityLabel = isset($viewDoc['config'])
+                ? ucwords(str_replace(['-', '_'], ' ', (string) $viewDoc['config']))
+                : 'Utility';
+
+            $descriptionText = null;
+            if (isset($summary) && is_string($summary) && trim($summary) !== '') {
+                $descriptionText = $summary;
+            } elseif (isset($description) && is_array($description)) {
+                foreach ($description as $descriptionValue) {
+                    if (is_string($descriptionValue) && trim($descriptionValue) !== '') {
+                        $descriptionText = $descriptionValue;
+                        break;
+                    }
+                }
+            }
+
+            if (!is_string($descriptionText) || trim($descriptionText) === '') {
+                $descriptionText = $utilityLabel . ' utility examples.';
+            }
+        @endphp
+
+        @typography([
+            'variant' => 'body',
+            'element' => 'p'
+        ])
+            {!! $descriptionText !!}
+        @endtypography
+
+    </article>
 
     @php
-        static $utilityDocBreadcrumbRendered = false;
+        $classesTabContent = null;
     @endphp
-    @if(!$utilityDocBreadcrumbRendered)
+
+    @if(isset($settings))
         @php
-            $breadcrumbLabel = isset($viewDoc['root'])
-                ? ucwords(str_replace(['-', '_'], ' ', (string) $viewDoc['root']))
-                : 'Utility';
-            $utilityDocBreadcrumbRendered = true;
+            $classRows = [];
+            foreach($settings as $key => $item) {
+                $classRows[] = [
+                    'columns' => [
+                        $key,
+                        isset($description[$key]) ? $description[$key] : '-',
+                        isset($item) ? $item : '-',
+                    ]
+                ];
+            }
+
+            ob_start();
         @endphp
-        @breadcrumb([
-            'classList' => ['u-margin__bottom--3'],
-            'list' => [
-                ['href' => '/', 'label' => 'Home'],
-                ['href' => '/utilities', 'label' => 'Utilities'],
-                ['label' => $breadcrumbLabel],
-            ]
-        ])
-        @endbreadcrumb
-    @endif
 
-    @if(isset($summary))
-        <article class="article u-margin__bottom--2 u-margin__top--10">
-            @typography([
-                'variant' => 'body',
-                'element' => 'p'
+        <div>
+            @if ($format)
+                <p>Format: <code>{{ $format }}</code></p>
+            @endif
+
+            @if ($responsive && $format)
+                <p>This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
+            @endif
+
+            @table([
+                'headings' => ['Modifiers', 'Description', 'Values'],
+                'list' => $classRows,
+                'includePaper' => false,
             ])
-                {!! $summary !!}
-            @endtypography
-        </article>
+            @endtable
+        </div>
 
-        @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
-        @enddivider
+        @php
+            $classesTabContent = ob_get_clean();
+        @endphp
     @endif
 
     @if (strlen($slot) > 0)
@@ -62,6 +101,13 @@
                         'content' => $htmlCodeTabContent,
                     ],
                 ];
+
+                if (is_string($classesTabContent) && $classesTabContent !== '') {
+                    $tabs[] = [
+                        'title' => 'Classes',
+                        'content' => $classesTabContent,
+                    ];
+                }
             @endphp
 
             @tabs([
@@ -69,44 +115,17 @@
             ])
             @endtabs
         @endpaper
-    @endif
-
-    @if(isset($settings))
-        <div class="u-margin__top--10">
-            @typography([
-                'variant' => 'h3',
-                'element' => 'h3'
+    @elseif(is_string($classesTabContent) && $classesTabContent !== '')
+        @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+            @tabs([
+                'tabs' => [
+                    [
+                        'title' => 'Classes',
+                        'content' => $classesTabContent,
+                    ],
+                ],
             ])
-                Classes
-            @endtypography
-
-            @if ($format)
-                <p>Format: <code>{{ $format }}</code></p>
-            @endif
-
-            @if ($responsive && $format)
-                <p>This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
-            @endif
-
-            @php
-                $classRows = [];
-                foreach($settings as $key => $item) {
-                    $classRows[] = [
-                        'columns' => [
-                            $key,
-                            isset($description[$key]) ? $description[$key] : '-',
-                            isset($item) ? $item : '-',
-                        ]
-                    ];
-                }
-            @endphp
-
-            @table([
-                'headings' => ['Modifiers', 'Description', 'Values'],
-                'list' => $classRows,
-                'includePaper' => false,
-            ])
-            @endtable
-        </div>
+            @endtabs
+        @endpaper
     @endif
 </section>

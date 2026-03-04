@@ -1,0 +1,10 @@
+{
+    "borders": [
+        "borders-main",
+        "borders-sides",
+        "borders-more"
+    ],
+    "borders-colors": [
+        "borders-colors"
+    ]
+}

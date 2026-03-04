@@ -53,6 +53,9 @@
                     'config' => $utilityEntryKey
                 ]
             ])
+                @foreach(($utilityExamplesByEntry[$utilityEntryKey] ?? []) as $utilityExampleView)
+                    @include($utilityExampleView)
+                @endforeach
             @endutility_doc
         @endforeach
     @else

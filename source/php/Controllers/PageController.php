@@ -220,6 +220,7 @@ class PageController extends BaseController implements ControllerInterface
             }
 
             $entries = isset($config['entries']) && is_array($config['entries']) ? $config['entries'] : [];
+            $utilityDirectoryPath = dirname($utilityConfigPath);
 
             $data['slug'] = $slug;
             $data['headline'] = isset($config['name']) && is_string($config['name']) && $config['name'] !== ''
@@ -230,6 +231,7 @@ class PageController extends BaseController implements ControllerInterface
                 : 'tune';
             $data['description'] = $this->resolveUtilityOverviewDescription($config);
             $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
+            $data['utilityExamplesByEntry'] = $this->resolveUtilityExamplesByEntry($utilityDirectoryPath);
             $data['pageNow'] = 'utilities/' . $requestedSlug;
 
             return;
@@ -380,6 +382,54 @@ class PageController extends BaseController implements ControllerInterface
         }
 
         return '';
+    }
+
+    /**
+     * @param string $utilityDirectoryPath
+     *
+     * @return array<string, array<int, string>>
+     */
+    private function resolveUtilityExamplesByEntry(string $utilityDirectoryPath): array
+    {
+        $examplesConfigPath = rtrim($utilityDirectoryPath, '/') . '/examples/examples.json';
+        if (!is_file($examplesConfigPath)) {
+            return [];
+        }
+
+        $content = file_get_contents($examplesConfigPath);
+        $decoded = is_string($content) ? json_decode($content, true) : null;
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        $utilityFolder = basename($utilityDirectoryPath);
+        $viewPrefix = 'source.utilities.' . $utilityFolder . '.examples.';
+        $result = [];
+
+        foreach ($decoded as $entryKey => $exampleKeys) {
+            if (!is_string($entryKey) || $entryKey === '') {
+                continue;
+            }
+
+            if (is_string($exampleKeys) && $exampleKeys !== '') {
+                $exampleKeys = [$exampleKeys];
+            }
+
+            if (!is_array($exampleKeys)) {
+                continue;
+            }
+
+            $result[$entryKey] = [];
+            foreach ($exampleKeys as $exampleKey) {
+                if (!is_string($exampleKey) || $exampleKey === '') {
+                    continue;
+                }
+
+                $result[$entryKey][] = $viewPrefix . $exampleKey;
+            }
+        }
+
+        return $result;
     }
 
     /**
