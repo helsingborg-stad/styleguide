@@ -235,24 +235,6 @@ $_breakpoint-md: 896px;
 }
 
 .#{$c}.#{$c}--text {
-
-    &-light .#{$c}__title,
-    &-light .#{$c}__text {
-        color: white;
-        z-index: 2000;
-    }
-
-    &-dark .#{$c}__title,
-    &-dark .#{$c}__text,
-    &-dark .#{$c}__meta,
-    &-dark .#{$c}__date,
-    &-dark .#{$c}__tags {
-        color: black;
-        z-index: 2000;
-    }
-}
-
-.#{$c}.#{$c}--text {
     &-large .#{$c}__content {
         @container segment (min-width: #{$_breakpoint-md}) {
             font-size: 1.2em;
