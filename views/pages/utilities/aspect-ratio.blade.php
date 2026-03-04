@@ -3,9 +3,9 @@
 @section('doc-content')
 <article>
 
-    @markdown
-        #Aspect Ratio
-    @endmarkdown
+    @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--1']])
+        Aspect ratio utility    @endtypography
+
     @utility_doc(['viewDoc' => ['type' => 'utility', 'root' => 'aspect-ratio', 'config' => 'aspect-ratio']])
         @typography([])
            The aspect ratio utility class allows you to maintain a consistent width-to-height ratio for elements, such as images or videos. Use <strong>u-aspect-ratio</strong> to apply a default aspect ratio, or use modifiers like <strong>u-aspect-ratio--16-9</strong> or <strong>u-aspect-ratio--4-3</strong> for specific ratios.

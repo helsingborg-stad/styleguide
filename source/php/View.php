@@ -64,30 +64,34 @@ class View
     
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                     $viewDoc = (isset($viewData['viewDoc']) && is_array($viewData['viewDoc'])) ? $viewData['viewDoc'] : [];
-                    $path = (isset($viewData['viewDoc'])) ?
-                        $this->resolveDocumentationConfigPath($viewDoc) :
-                        $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
-
-                    //Locate config file
-                    $configFile = glob($path);
-
-                    //Get first occurance of config
-                    if (is_array($configFile) && !empty($configFile)) {
-                        $configFile = array_pop($configFile);
+                    if (isset($viewData['viewDoc']) && strtolower((string) ($viewDoc['type'] ?? '')) === 'utility') {
+                        [$configFile, $configJson] = $this->resolveUtilityDocumentationConfiguration($viewDoc);
                     } else {
-                        throw new \Exception(
-                            isset($viewData['slug']) ? "No configuration file found for component with slug '" . $viewData['slug'] . "' at " . $path : "No configuration file found at " . $path
-                        );
-                    }
-    
-                    //Read config
-                    if (!$configJson = file_get_contents($configFile)) {
-                        throw new \Exception("Configuration file unreadable at " . $configFile);
-                    }
-    
-                    //Check if valid json
-                    if (!$configJson = json_decode($configJson, true)) {
-                        throw new \Exception("Invalid formatting of configuration file in " . $configFile);
+                        $path = (isset($viewData['viewDoc'])) ?
+                            $this->resolveDocumentationConfigPath($viewDoc) :
+                            $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
+
+                        //Locate config file
+                        $configFile = glob($path);
+
+                        //Get first occurance of config
+                        if (is_array($configFile) && !empty($configFile)) {
+                            $configFile = array_pop($configFile);
+                        } else {
+                            throw new \Exception(
+                                isset($viewData['slug']) ? "No configuration file found for component with slug '" . $viewData['slug'] . "' at " . $path : "No configuration file found at " . $path
+                            );
+                        }
+
+                        //Read config
+                        if (!$configJson = file_get_contents($configFile)) {
+                            throw new \Exception("Configuration file unreadable at " . $configFile);
+                        }
+
+                        //Check if valid json
+                        if (!$configJson = json_decode($configJson, true)) {
+                            throw new \Exception("Invalid formatting of configuration file in " . $configFile);
+                        }
                     }
     
                     //Check if has default object
@@ -256,6 +260,129 @@ class View
 
         $root = (string) ($viewDoc['root'] ?? '');
         return BASEPATH . 'views/docs/' . $type . '/' . $root . '/' . $config . '.json';
+    }
+
+    /**
+     * Resolve a utility documentation entry from utility.json files.
+     *
+     * @param array<string, string> $viewDoc View doc metadata.
+     * @param array<int, string>|null $utilityConfigPaths Optional utility config paths for testing.
+     *
+     * @return array{0: string, 1: array<string, mixed>}
+     *
+     * @throws \Exception
+     */
+    private function resolveUtilityDocumentationConfiguration(array $viewDoc, ?array $utilityConfigPaths = null): array
+    {
+        $configKey = $this->normalizeUtilityIdentifier((string) ($viewDoc['config'] ?? ''));
+        if ($configKey === '') {
+            throw new \Exception('Missing utility documentation config key.');
+        }
+
+        $root = $this->normalizeUtilityIdentifier((string) ($viewDoc['root'] ?? ''));
+        $paths = is_array($utilityConfigPaths)
+            ? $utilityConfigPaths
+            : (glob(BASEPATH . 'source/utilities/*/docs/utility.json') ?: []);
+
+        $prioritizedPaths = $this->prioritizeUtilityConfigPaths($paths, $root);
+
+        foreach ($prioritizedPaths as $path) {
+            $configEntry = $this->readUtilityConfigEntry($path, $configKey);
+            if (is_array($configEntry)) {
+                return [$path, $configEntry];
+            }
+        }
+
+        throw new \Exception("No utility configuration entry found for key '" . $configKey . "'.");
+    }
+
+    /**
+     * @param array<int, string> $paths
+     * @param string $root
+     *
+     * @return array<int, string>
+     */
+    private function prioritizeUtilityConfigPaths(array $paths, string $root): array
+    {
+        if ($root === '') {
+            return $paths;
+        }
+
+        $matchingPaths = [];
+        $otherPaths = [];
+
+        foreach ($paths as $path) {
+            $folder = basename(dirname(dirname($path)));
+            if ($this->utilityFolderMatchesRoot($folder, $root)) {
+                $matchingPaths[] = $path;
+                continue;
+            }
+
+            $otherPaths[] = $path;
+        }
+
+        return array_merge($matchingPaths, $otherPaths);
+    }
+
+    /**
+     * @param string $folder
+     * @param string $root
+     *
+     * @return bool
+     */
+    private function utilityFolderMatchesRoot(string $folder, string $root): bool
+    {
+        $normalizedFolder = $this->normalizeUtilityIdentifier($folder);
+        $singularFolder = rtrim($normalizedFolder, 's');
+        $singularRoot = rtrim($root, 's');
+
+        return $normalizedFolder === $root || $singularFolder === $singularRoot;
+    }
+
+    /**
+     * @param string $path
+     * @param string $configKey
+     *
+     * @return array<string, mixed>|null
+     */
+    private function readUtilityConfigEntry(string $path, string $configKey): ?array
+    {
+        $content = file_get_contents($path);
+        if ($content === false) {
+            return null;
+        }
+
+        $decoded = json_decode($content, true);
+        if (!is_array($decoded)) {
+            return null;
+        }
+
+        $entries = $decoded['entries'] ?? null;
+        if (!is_array($entries)) {
+            return null;
+        }
+
+        foreach ($entries as $entryKey => $entryValue) {
+            if (!is_string($entryKey) || !is_array($entryValue)) {
+                continue;
+            }
+
+            if ($this->normalizeUtilityIdentifier($entryKey) === $configKey) {
+                return $entryValue;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return string
+     */
+    private function normalizeUtilityIdentifier(string $identifier): string
+    {
+        return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $identifier));
     }
 
     /**

@@ -1,0 +1,17 @@
+{
+    "$schema": "../../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Text",
+    "slug": "text",
+    "entries": {
+        "text": {
+            "responsive": false,
+            "description": {
+                "default": "Styles text"
+            },
+            "modifiers": {
+                "default": ""
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "../../../utility-schema.json",
+    "apiVersion": 1,
+    "name": "Border Radius",
+    "slug": "border-radius",
+    "entries": {
+        "radius": {
+            "description": {
+                "side": "The sides to add radius to",
+                "radius": "The amount of radius"
+            },
+            "modifiers": {
+                "side": "left, right, top, bottom, top__left, bottom__left, top__right, bottom__right, none, full ",
+                "radius": "0, 2, 4, 8, 16, full"
+            },
+            "responsive": true,
+            "format": ".u-rounded__side--radius"
+        }
+    }
+}

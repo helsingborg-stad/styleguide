@@ -260,7 +260,7 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - `source/sass/setting/_design-tokens.scss` (generated root CSS vars)
 - `source/sass/mixin/_tokens.scss` (token API for components)
 - `source/data/c-*.json` (component token whitelists)
-- `source/design-tokens-schema.json` and `source/component-schema.json` (validation/contracts)
+- `source/design-tokens-schema.json`, `source/component-schema.json`, and `source/utility-schema.json` (validation/contracts)
 
 ## Testing
 
