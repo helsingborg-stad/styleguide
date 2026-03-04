@@ -12,38 +12,36 @@ $_detail: "u-detail-shadow-*";
         "shadow-5"
     ));
 
-@include tokens.create($_detail, ("shadow-detail-0",
-        "shadow-detail-1",
-        "shadow-detail-2",
-        "shadow-detail-3",
-        "shadow-detail-4",
-        "shadow-detail-5"
-    ));
+// NOTE: Only use u-shadow--{N}. The rest will be removed.
 
-// DEPRECATED: u-box-shadow--XX classes will be removed in future
 
 .u-drop-shadow-1,
-.u-box-shadow--1 {
+.u-box-shadow--1,
+.u-shadow--1 {
     filter: tokens.get($_drop, "shadow-1");
 }
 
 .u-drop-shadow-2,
-.u-box-shadow--2 {
+.u-box-shadow--2,
+.u-shadow--2 {
     filter: tokens.get($_drop, "shadow-2");
 }
 
 .u-drop-shadow-3,
-.u-box-shadow--3 {
+.u-box-shadow--3,
+.u-shadow--3 {
     filter: tokens.get($_drop, "shadow-3");
 }
 
 .u-drop-shadow-4,
-.u-box-shadow--4 {
+.u-box-shadow--4,
+.u-shadow--4 {
     filter: tokens.get($_drop, "shadow-4");
 }
 
 .u-drop-shadow-5,
-.u-box-shadow--5 {
+.u-box-shadow--5,
+.u-shadow--5 {
     filter: tokens.get($_drop, "shadow-5");
 }
 
@@ -73,7 +71,9 @@ $_detail: "u-detail-shadow-*";
 
 .u-drop-shadow-0,
 .u-box-shadow--none,
-.u-box-shadow--0 {
+.u-box-shadow--0,
+.u-shadow--0,
+.u-shadow--none {
     box-shadow: none !important;
     filter: tokens.get($_drop, "shadow-0") !important;
 }

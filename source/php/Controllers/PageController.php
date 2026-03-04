@@ -411,7 +411,7 @@ class PageController extends BaseController implements ControllerInterface
     /**
      * @param string $utilityDirectoryPath
      *
-     * @return array<string, array<int, string>>
+     * @return array<string, array<int, string|array{view: string, css: array<int, string>}>>
      */
     private function resolveUtilityExamplesByEntry(string $utilityDirectoryPath): array
     {
@@ -444,16 +444,98 @@ class PageController extends BaseController implements ControllerInterface
             }
 
             $result[$entryKey] = [];
-            foreach ($exampleKeys as $exampleKey) {
-                if (!is_string($exampleKey) || $exampleKey === '') {
+            foreach ($exampleKeys as $exampleDefinition) {
+                $resolvedExample = $this->resolveUtilityExampleDefinition(
+                    $exampleDefinition,
+                    $utilityFolder,
+                    $viewPrefix,
+                );
+
+                if ($resolvedExample === null) {
                     continue;
                 }
 
-                $result[$entryKey][] = $viewPrefix . $exampleKey;
+                if (empty($resolvedExample['css'])) {
+                    $result[$entryKey][] = $resolvedExample['view'];
+                    continue;
+                }
+
+                $result[$entryKey][] = $resolvedExample;
             }
         }
 
         return $result;
+    }
+
+    /**
+     * @param mixed $exampleDefinition
+     * @param string $utilityFolder
+     * @param string $viewPrefix
+     *
+     * @return array{view: string, css: array<int, string>}|null
+     */
+    private function resolveUtilityExampleDefinition(mixed $exampleDefinition, string $utilityFolder, string $viewPrefix): ?array
+    {
+        $exampleKey = null;
+        $cssDefinitions = [];
+
+        if (is_string($exampleDefinition) && $exampleDefinition !== '') {
+            $exampleKey = $exampleDefinition;
+        } elseif (is_array($exampleDefinition)) {
+            $candidateExampleKey = $exampleDefinition['view'] ?? null;
+            if (!is_string($candidateExampleKey) || trim($candidateExampleKey) === '') {
+                return null;
+            }
+
+            $exampleKey = trim($candidateExampleKey);
+            $cssDefinitions = $exampleDefinition['css'] ?? [];
+        }
+
+        if (!is_string($exampleKey) || $exampleKey === '') {
+            return null;
+        }
+
+        return [
+            'view' => $viewPrefix . $exampleKey,
+            'css' => $this->resolveUtilityExampleCssUrls($cssDefinitions, $utilityFolder),
+        ];
+    }
+
+    /**
+     * @param mixed $cssDefinitions
+     * @param string $utilityFolder
+     *
+     * @return array<int, string>
+     */
+    private function resolveUtilityExampleCssUrls(mixed $cssDefinitions, string $utilityFolder): array
+    {
+        if (is_string($cssDefinitions) && $cssDefinitions !== '') {
+            $cssDefinitions = [$cssDefinitions];
+        }
+
+        if (!is_array($cssDefinitions)) {
+            return [];
+        }
+
+        $resolvedUrls = [];
+        foreach ($cssDefinitions as $cssDefinition) {
+            if (!is_string($cssDefinition) || trim($cssDefinition) === '') {
+                continue;
+            }
+
+            $normalizedCssDefinition = trim($cssDefinition);
+            $isExternalUrl = str_starts_with($normalizedCssDefinition, 'http://')
+                || str_starts_with($normalizedCssDefinition, 'https://');
+
+            if ($isExternalUrl || str_starts_with($normalizedCssDefinition, '/')) {
+                $resolvedUrls[] = $normalizedCssDefinition;
+                continue;
+            }
+
+            $resolvedUrls[] = '/source/utilities/' . $utilityFolder . '/examples/' . ltrim($normalizedCssDefinition, '/');
+        }
+
+        return array_values(array_unique($resolvedUrls));
     }
 
     /**

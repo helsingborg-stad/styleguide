@@ -1,5 +1,8 @@
 {
     "box-shadow": [
-        "box-shadow-levels"
+        {
+            "view": "box-shadow-levels",
+            "css": "box-shadow-levels.css"
+        }
     ]
 }

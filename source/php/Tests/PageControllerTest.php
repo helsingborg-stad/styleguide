@@ -289,12 +289,14 @@ class PageControllerTest extends TestCase
             ->with(
                 'utility',
                 $this->callback(function (array $data): bool {
+                    $legacyExample = $data['utilityExamplesByEntry']['alpha'][0] ?? '';
+
                     return ($data['slug'] ?? '') === 'utility-alpha'
                         && ($data['headline'] ?? '') === 'Utility Alpha'
                         && ($data['componentIcon'] ?? '') === 'space_bar'
                         && ($data['description'] ?? '') === 'Alpha summary'
                         && ($data['utilityEntryKeys'][0] ?? '') === 'alpha'
-                        && ($data['utilityExamplesByEntry']['alpha'][0] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
+                        && $legacyExample === 'source.utilities.utility-alpha.examples.alpha-demo'
                         && ($data['pageNow'] ?? '') === 'utilities/utility-alpha';
                 }),
                 $bladeService,
@@ -470,6 +472,108 @@ class PageControllerTest extends TestCase
         $controller->handle();
 
         @unlink($tempBasePath . 'source/utilities/utility-alpha/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha');
+        @rmdir($tempBasePath . 'source/utilities');
+        @rmdir($tempBasePath . 'source');
+        @rmdir($tempBasePath);
+    }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testHandleAddsUtilityExampleCssUrlsWhenConfigured(): void
+    {
+        $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-css-' . uniqid('', true) . '/';
+
+        mkdir($tempBasePath . 'source/utilities/utility-alpha/examples', 0777, true);
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/utility.json',
+            json_encode([
+                'apiVersion' => 1,
+                'name' => 'Utility Alpha',
+                'slug' => 'utility-alpha',
+                'icon' => 'space_bar',
+                'entries' => [
+                    'alpha' => [
+                        'summary' => ['Alpha summary'],
+                    ],
+                ],
+            ]),
+        );
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/examples/examples.json',
+            json_encode([
+                'alpha' => [
+                    [
+                        'view' => 'alpha-demo',
+                        'css' => [
+                            'alpha-demo.css',
+                            '/assets/examples/alpha-override.css',
+                        ],
+                    ],
+                ],
+            ]),
+        );
+
+        define('BASEPATH', $tempBasePath);
+
+        $request = new Request('/utilities/utility-alpha', []);
+        $response = new Response();
+
+        $bladeService = $this->createMock(BladeServiceInterface::class);
+
+        $navigation = $this->createMock(Navigation::class);
+        $navigation->expects($this->once())
+            ->method('buildItems')
+            ->with('pages/', [], false)
+            ->willReturn([]);
+        $navigation->expects($this->once())
+            ->method('buildSidebarNavigation')
+            ->willReturn([]);
+
+        $search = $this->createMock(Search::class);
+
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('show')
+            ->with(
+                'utility',
+                $this->callback(function (array $data): bool {
+                    $example = $data['utilityExamplesByEntry']['alpha'][0] ?? null;
+                    if (!is_array($example)) {
+                        return false;
+                    }
+
+                    $cssUrls = $example['css'] ?? null;
+                    if (!is_array($cssUrls)) {
+                        return false;
+                    }
+
+                    return ($example['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
+                        && in_array('/source/utilities/utility-alpha/examples/alpha-demo.css', $cssUrls, true)
+                        && in_array('/assets/examples/alpha-override.css', $cssUrls, true);
+                }),
+                $bladeService,
+            );
+
+        $controller = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $controller->handle();
+
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/examples/examples.json');
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha/examples');
         @rmdir($tempBasePath . 'source/utilities/utility-alpha');
         @rmdir($tempBasePath . 'source/utilities');
         @rmdir($tempBasePath . 'source');

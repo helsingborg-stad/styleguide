@@ -54,7 +54,27 @@
                 ]
             ])
                 @foreach(($utilityExamplesByEntry[$utilityEntryKey] ?? []) as $utilityExampleView)
-                    @include($utilityExampleView)
+                    @php
+                        $utilityExampleViewName = is_array($utilityExampleView)
+                            ? (string) ($utilityExampleView['view'] ?? '')
+                            : (string) $utilityExampleView;
+
+                        $utilityExampleCssUrls = is_array($utilityExampleView)
+                            && isset($utilityExampleView['css'])
+                            && is_array($utilityExampleView['css'])
+                            ? $utilityExampleView['css']
+                            : [];
+                    @endphp
+
+                    @foreach($utilityExampleCssUrls as $utilityExampleCssUrl)
+                        @if(is_string($utilityExampleCssUrl) && trim($utilityExampleCssUrl) !== '')
+                            <link rel="stylesheet" href="{{ $utilityExampleCssUrl }}">
+                        @endif
+                    @endforeach
+
+                    @if($utilityExampleViewName !== '')
+                        @include($utilityExampleViewName)
+                    @endif
                 @endforeach
             @endutility_doc
         @endforeach
