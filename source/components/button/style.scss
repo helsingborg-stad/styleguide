@@ -120,13 +120,7 @@ $button-sizes: (
         cursor: not-allowed;
 
         &:not(.#{$_}--no-disabled-color) {
-            border-color: tokens.get($_, "color-disabled-bg");
-            background-color: tokens.get($_, "color-disabled-bg");
-            color: tokens.get($_, "color-disabled-text");
-
-            * {
-                color: tokens.get($_, "color-disabled-text");
-            }
+            opacity: 0.8;
         }
     }
 
