@@ -10,6 +10,11 @@
 			"type": "integer",
 			"const": 1
 		},
+		"state": {
+			"description": "The development state of the utility.",
+			"type": "string",
+			"enum": ["alpha", "beta", "stable", "deprecated"]
+		},
 		"name": {
 			"description": "Display title of the utility group.",
 			"type": "string"
@@ -35,13 +40,7 @@
 			"additionalProperties": false
 		}
 	},
-	"required": [
-		"apiVersion",
-		"name",
-		"slug",
-		"icon",
-		"entries"
-	],
+	"required": ["apiVersion", "name", "slug", "icon", "entries"],
 	"additionalProperties": false,
 	"$defs": {
 		"utilityEntry": {
@@ -75,16 +74,10 @@
 					"type": "boolean"
 				},
 				"examples": {
-					"type": [
-						"array",
-						"object",
-						"string"
-					]
+					"type": ["array", "object", "string"]
 				}
 			},
-			"required": [
-				"description"
-			],
+			"required": ["description"],
 			"additionalProperties": false
 		}
 	}

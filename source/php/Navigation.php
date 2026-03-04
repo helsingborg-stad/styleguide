@@ -24,6 +24,7 @@ class Navigation
         private string $viewsPath,
         private array $sidebarSections = [],
         private string $componentsPath = '',
+        private string $utilitiesPath = '',
     ) {}
 
     private static function default(): self
@@ -39,6 +40,7 @@ class Navigation
             VIEWS_PATH,
             self::defaultSidebarSections(),
             BASEPATH . 'source/components',
+            BASEPATH . 'source/utilities',
         );
 
         return self::$defaultInstance;
@@ -89,6 +91,10 @@ class Navigation
                 $sidebarItem['children'] = $this->buildScriptMenuItems();
             }
 
+            if ($key === 'utilities') {
+                $sidebarItem['children'] = $this->buildUtilitiesMenuItems();
+            }
+
             $sidebarItem['label'] = $section->getLabel();
             $sidebarNavigation[$key] = $sidebarItem;
         }
@@ -120,10 +126,55 @@ class Navigation
                 continue;
             }
 
+            $state = isset($config['state']) && is_string($config['state']) ? $config['state'] : null;
+
             $hrefPath = '/components/' . $slug;
 
             $items[$slug] = [
-                'label' => $label,
+                'label' => $this->appendStateToLabel($label, $state),
+                'href' => '//' . $this->getPageDomain() . $hrefPath,
+                'children' => false,
+                'async' => false,
+                'active' => $this->isActiveItem($slug, true),
+            ];
+        }
+
+        uasort($items, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function buildUtilitiesMenuItems(): array
+    {
+        $basePath = $this->utilitiesPath !== '' ? rtrim($this->utilitiesPath, '/') : rtrim(BASEPATH . 'source/utilities', '/');
+        $utilityConfigPaths = glob($basePath . '/*/utility.json') ?: [];
+        $items = [];
+
+        foreach ($utilityConfigPaths as $utilityConfigPath) {
+            $configContent = file_get_contents($utilityConfigPath);
+            if ($configContent === false) {
+                continue;
+            }
+
+            $config = json_decode($configContent, true);
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $label = isset($config['name']) ? (string) $config['name'] : '';
+            if ($slug === '' || $label === '') {
+                continue;
+            }
+
+            $state = isset($config['state']) && is_string($config['state']) ? $config['state'] : null;
+            $hrefPath = '/utilities/' . $slug;
+
+            $items[$slug] = [
+                'label' => $this->appendStateToLabel($label, $state),
                 'href' => '//' . $this->getPageDomain() . $hrefPath,
                 'children' => false,
                 'async' => false,
@@ -218,6 +269,22 @@ class Navigation
     private function normalizeIdentifier(string $value): string
     {
         return strtolower((string) preg_replace('/[^a-zA-Z0-9]/', '', $value));
+    }
+
+    /**
+     * @param string $label
+     * @param string|null $state
+     *
+     * @return string
+     */
+    private function appendStateToLabel(string $label, ?string $state): string
+    {
+        $normalizedState = strtolower(trim((string) $state));
+        if ($normalizedState === '' || $normalizedState === 'stable') {
+            return $label;
+        }
+
+        return sprintf('%s (%s)', $label, ucfirst($normalizedState));
     }
 
     public function buildItems($folder = '/', $response = [], $includeChildren = true)

@@ -35,6 +35,10 @@
     @php
         $classesTabContent = null;
         $standardizedExampleContent = null;
+        $customPreviewMarkup = null;
+        if (isset($slot) && trim((string) $slot) !== '') {
+            $customPreviewMarkup = (string) $slot;
+        }
     @endphp
 
     @if(isset($settings))
@@ -175,15 +179,24 @@
                 <code id="{{ $exampleId }}-current">Not applied</code>
             </div>
 
-            <div class="u-clearfix u-padding--3" style="overflow: hidden; margin: calc(var(--base) * -3); min-height: 100px; position: relative; contain: layout paint;">
-                <div id="{{ $exampleId }}-target" class="{{ $basePreviewClasses }}" style="transition: all 0.3s ease;">Utility preview element</div>
-            </div>
+            @if (is_string($customPreviewMarkup) && trim($customPreviewMarkup) !== '')
+                <div class="u-margin__top--3" id="{{ $exampleId }}-custom-preview">
+                    {!! $customPreviewMarkup !!}
+                </div>
+            @else
+                <div class="u-clearfix u-padding--3" style="overflow: hidden; margin: calc(var(--base) * -3); min-height: 100px; position: relative; contain: layout paint;">
+                    <div id="{{ $exampleId }}-target" class="{{ $basePreviewClasses }}" style="transition: all 0.3s ease;">Utility preview element</div>
+                </div>
+            @endif
 
             <script>
                 (function () {
                     var selectWrapperElement = document.getElementById('{{ $exampleId }}-select-wrapper');
                     var selectElement = selectWrapperElement ? selectWrapperElement.querySelector('select') : null;
-                    var targetElement = document.getElementById('{{ $exampleId }}-target');
+                    var customPreviewElement = document.getElementById('{{ $exampleId }}-custom-preview');
+                    var targetElement = customPreviewElement
+                        ? (customPreviewElement.querySelector('[data-utility-preview-target]') || customPreviewElement)
+                        : document.getElementById('{{ $exampleId }}-target');
                     var currentClassElement = document.getElementById('{{ $exampleId }}-current');
                     if (!selectElement || !targetElement || !currentClassElement) {
                         return;
@@ -199,8 +212,9 @@
 
                     var updateContentWithSelectedClass = function updateContentWithSelectedClass() {
                         var selectedClass = String(selectElement.value || '').trim();
-                        console.log('Selected class:', selectedClass);
-                        targetElement.textContent = selectedClass === '' ? 'Not applied' : selectedClass;
+                        if (!customPreviewElement) {
+                            targetElement.textContent = selectedClass === '' ? 'Not applied' : selectedClass;
+                        }
                     }; 
 
                     selectElement.addEventListener('change', updateContentWithSelectedClass);
@@ -215,12 +229,10 @@
         }
     @endphp
 
-    @if (is_string($standardizedExampleContent) && $standardizedExampleContent !== '' || strlen($slot) > 0)
+    @if (is_string($standardizedExampleContent) && $standardizedExampleContent !== '' || is_string($customPreviewMarkup) && $customPreviewMarkup !== '')
         @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
             @php
-                $exampleTabContent = (is_string($standardizedExampleContent) && $standardizedExampleContent !== '')
-                    ? $standardizedExampleContent
-                    : $slot;
+                $exampleTabContent = (string) $standardizedExampleContent;
             @endphp
 
             @php

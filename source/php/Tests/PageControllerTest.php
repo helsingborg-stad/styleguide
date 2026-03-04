@@ -399,4 +399,80 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath . 'source');
         @rmdir($tempBasePath);
     }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testHandleAppendsStateToUtilityHeadlineWhenNotStable(): void
+    {
+        $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-state-' . uniqid('', true) . '/';
+
+        mkdir($tempBasePath . 'source/utilities/utility-alpha', 0777, true);
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/utility.json',
+            json_encode([
+                'apiVersion' => 1,
+                'name' => 'Utility Alpha',
+                'slug' => 'utility-alpha',
+                'icon' => 'space_bar',
+                'state' => 'beta',
+                'entries' => [
+                    'alpha' => [
+                        'description' => [
+                            'prop' => 'Alpha description',
+                        ],
+                    ],
+                ],
+            ]),
+        );
+
+        define('BASEPATH', $tempBasePath);
+
+        $request = new Request('/utilities/utility-alpha', []);
+        $response = new Response();
+
+        $bladeService = $this->createMock(BladeServiceInterface::class);
+
+        $navigation = $this->createMock(Navigation::class);
+        $navigation->expects($this->once())
+            ->method('buildItems')
+            ->with('pages/', [], false)
+            ->willReturn([]);
+        $navigation->expects($this->once())
+            ->method('buildSidebarNavigation')
+            ->willReturn([]);
+
+        $search = $this->createMock(Search::class);
+
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('show')
+            ->with(
+                'utility',
+                $this->callback(function (array $data): bool {
+                    return ($data['headline'] ?? '') === 'Utility Alpha (Beta)';
+                }),
+                $bladeService,
+            );
+
+        $controller = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $controller->handle();
+
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha');
+        @rmdir($tempBasePath . 'source/utilities');
+        @rmdir($tempBasePath . 'source');
+        @rmdir($tempBasePath);
+    }
 }

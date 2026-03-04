@@ -125,6 +125,7 @@ class PageController extends BaseController implements ControllerInterface
         $headline = ucfirst($slug);
         $componentIcon = 'widgets';
         $description = '';
+        $state = null;
         $similarComponents = [];
         $componentConfigPath = BASEPATH . 'source/components/' . $slug . '/component.json';
         if (is_file($componentConfigPath)) {
@@ -141,6 +142,10 @@ class PageController extends BaseController implements ControllerInterface
 
                 if (isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '') {
                     $componentIcon = $config['icon'];
+                }
+
+                if (isset($config['state']) && is_string($config['state']) && trim($config['state']) !== '') {
+                    $state = trim($config['state']);
                 }
 
                 if (isset($config['similarComponents']) && is_array($config['similarComponents'])) {
@@ -178,7 +183,7 @@ class PageController extends BaseController implements ControllerInterface
         }
 
         $data['slug'] = $slug;
-        $data['headline'] = $headline;
+        $data['headline'] = $this->appendStateToLabel($headline, $state);
         $data['componentIcon'] = $componentIcon;
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
@@ -221,11 +226,14 @@ class PageController extends BaseController implements ControllerInterface
 
             $entries = isset($config['entries']) && is_array($config['entries']) ? $config['entries'] : [];
             $utilityDirectoryPath = dirname($utilityConfigPath);
+            $state = isset($config['state']) && is_string($config['state']) && trim($config['state']) !== ''
+                ? trim($config['state'])
+                : null;
 
             $data['slug'] = $slug;
-            $data['headline'] = isset($config['name']) && is_string($config['name']) && $config['name'] !== ''
+            $data['headline'] = $this->appendStateToLabel(isset($config['name']) && is_string($config['name']) && $config['name'] !== ''
                 ? $config['name']
-                : ucfirst($slug);
+                : ucfirst($slug), $state);
             $data['componentIcon'] = isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== ''
                 ? $config['icon']
                 : 'tune';
@@ -299,6 +307,22 @@ class PageController extends BaseController implements ControllerInterface
     private function normalizeIdentifier(string $value): string
     {
         return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $value));
+    }
+
+    /**
+     * @param string $label
+     * @param string|null $state
+     *
+     * @return string
+     */
+    private function appendStateToLabel(string $label, ?string $state): string
+    {
+        $normalizedState = strtolower(trim((string) $state));
+        if ($normalizedState === '' || $normalizedState === 'stable') {
+            return $label;
+        }
+
+        return sprintf('%s (%s)', $label, ucfirst($normalizedState));
     }
 
     /**
