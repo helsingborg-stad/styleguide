@@ -308,4 +308,84 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath . 'source');
         @rmdir($tempBasePath);
     }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testHandleAddsUtilityPageDataFromLegacyUtilityAliasUrl(): void
+    {
+        $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-alias-' . uniqid('', true) . '/';
+
+        mkdir($tempBasePath . 'source/utilities/border-radius', 0777, true);
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/border-radius/utility.json',
+            json_encode([
+                'apiVersion' => 1,
+                'name' => 'Border Radius',
+                'slug' => 'border-radius',
+                'icon' => 'rounded_corner',
+                'entries' => [
+                    'radius' => [
+                        'summary' => ['Radius summary'],
+                        'description' => [
+                            'radius' => 'Radius utility description',
+                        ],
+                    ],
+                ],
+            ]),
+        );
+
+        define('BASEPATH', $tempBasePath);
+
+        $request = new Request('/utilities/radius', []);
+        $response = new Response();
+
+        $bladeService = $this->createMock(BladeServiceInterface::class);
+
+        $navigation = $this->createMock(Navigation::class);
+        $navigation->expects($this->once())
+            ->method('buildItems')
+            ->with('pages/', [], false)
+            ->willReturn([]);
+        $navigation->expects($this->once())
+            ->method('buildSidebarNavigation')
+            ->willReturn([]);
+
+        $search = $this->createMock(Search::class);
+
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('show')
+            ->with(
+                'utility',
+                $this->callback(function (array $data): bool {
+                    return ($data['slug'] ?? '') === 'border-radius'
+                        && ($data['headline'] ?? '') === 'Border Radius'
+                        && ($data['componentIcon'] ?? '') === 'rounded_corner'
+                        && ($data['utilityEntryKeys'][0] ?? '') === 'radius'
+                        && ($data['pageNow'] ?? '') === 'utilities/radius';
+                }),
+                $bladeService,
+            );
+
+        $controller = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $controller->handle();
+
+        @unlink($tempBasePath . 'source/utilities/border-radius/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/border-radius');
+        @rmdir($tempBasePath . 'source/utilities');
+        @rmdir($tempBasePath . 'source');
+        @rmdir($tempBasePath);
+    }
 }

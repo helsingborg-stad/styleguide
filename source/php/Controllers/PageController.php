@@ -215,7 +215,7 @@ class PageController extends BaseController implements ControllerInterface
             }
 
             $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
-            if ($slug === '' || $slug !== $requestedSlug) {
+            if ($slug === '' || !$this->utilityConfigMatchesRequestedSlug($config, $utilityConfigPath, $requestedSlug)) {
                 continue;
             }
 
@@ -230,10 +230,73 @@ class PageController extends BaseController implements ControllerInterface
                 : 'tune';
             $data['description'] = $this->resolveUtilityOverviewDescription($config);
             $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
-            $data['pageNow'] = 'utilities/' . $slug;
+            $data['pageNow'] = 'utilities/' . $requestedSlug;
 
             return;
         }
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     * @param string $utilityConfigPath
+     * @param string $requestedSlug
+     *
+     * @return bool
+     */
+    private function utilityConfigMatchesRequestedSlug(array $config, string $utilityConfigPath, string $requestedSlug): bool
+    {
+        $requested = $this->normalizeIdentifier($requestedSlug);
+        if ($requested === '') {
+            return false;
+        }
+
+        $candidates = [];
+
+        $slug = isset($config['slug']) ? (string) $config['slug'] : '';
+        if ($slug !== '') {
+            $candidates[] = $slug;
+        }
+
+        $folderName = basename(dirname($utilityConfigPath));
+        if ($folderName !== '') {
+            $candidates[] = $folderName;
+        }
+
+        $entries = $config['entries'] ?? null;
+        if (is_array($entries)) {
+            foreach (array_keys($entries) as $entryKey) {
+                if (is_string($entryKey) && $entryKey !== '') {
+                    $candidates[] = $entryKey;
+                }
+            }
+        }
+
+        foreach ($candidates as $candidate) {
+            $normalizedCandidate = $this->normalizeIdentifier($candidate);
+            if ($normalizedCandidate === '') {
+                continue;
+            }
+
+            if ($requested === $normalizedCandidate) {
+                return true;
+            }
+
+            if (rtrim($requested, 's') === rtrim($normalizedCandidate, 's')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    private function normalizeIdentifier(string $value): string
+    {
+        return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $value));
     }
 
     /**
