@@ -17,7 +17,7 @@
         'classList' => ['u-display--flex', 'u-align-items--center', 'u-gap-2', 'u-margin__bottom--2']
     ])
         @icon([
-            'icon' => $componentIcon ?? 'widgets',
+            'icon' => $componentIcon ?? 'tune',
             'attributeList' => [
                 'style' => 'line-height: 1;'
             ],
@@ -36,8 +36,30 @@
         @enddivider
     @endif
 
-    @if(isset($slug) && !empty($slug))
-        @doc(['slug' => $slug])
-        @enddoc
+    @if(!empty($utilityEntryKeys ?? []) && !empty($slug ?? ''))
+        @foreach(($utilityEntryKeys ?? []) as $utilityEntryKey)
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2',
+                'classList' => ['u-margin__top--6', 'u-margin__bottom--2']
+            ])
+                {{ ucwords(str_replace(['-', '_'], ' ', (string) $utilityEntryKey)) }}
+            @endtypography
+
+            @utility_doc([
+                'viewDoc' => [
+                    'type' => 'utility',
+                    'root' => $slug,
+                    'config' => $utilityEntryKey
+                ]
+            ])
+            @endutility_doc
+        @endforeach
+    @else
+        @notice([
+            'type' => 'warning',
+            'message' => ['text' => 'No utility documentation is available right now.']
+        ])
+        @endnotice
     @endif
 @stop

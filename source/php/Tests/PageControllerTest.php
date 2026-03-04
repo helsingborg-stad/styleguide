@@ -227,4 +227,85 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath . 'source');
         @rmdir($tempBasePath);
     }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testHandleAddsUtilityPageDataFromUtilityJson(): void
+    {
+        $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-' . uniqid('', true) . '/';
+
+        mkdir($tempBasePath . 'source/utilities/spacing', 0777, true);
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/spacing/utility.json',
+            json_encode([
+                'apiVersion' => 1,
+                'name' => 'Spacing',
+                'slug' => 'spacing',
+                'icon' => 'space_bar',
+                'entries' => [
+                    'spacing' => [
+                        'summary' => ['Spacing summary'],
+                        'description' => [
+                            'prop' => 'Selects padding or margin',
+                        ],
+                    ],
+                ],
+            ]),
+        );
+
+        define('BASEPATH', $tempBasePath);
+
+        $request = new Request('/utilities/spacing', []);
+        $response = new Response();
+
+        $bladeService = $this->createMock(BladeServiceInterface::class);
+
+        $navigation = $this->createMock(Navigation::class);
+        $navigation->expects($this->once())
+            ->method('buildItems')
+            ->with('pages/', [], false)
+            ->willReturn([]);
+        $navigation->expects($this->once())
+            ->method('buildSidebarNavigation')
+            ->willReturn([]);
+
+        $search = $this->createMock(Search::class);
+
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('show')
+            ->with(
+                'utility',
+                $this->callback(function (array $data): bool {
+                    return ($data['slug'] ?? '') === 'spacing'
+                        && ($data['headline'] ?? '') === 'Spacing'
+                        && ($data['componentIcon'] ?? '') === 'space_bar'
+                        && ($data['description'] ?? '') === 'Spacing summary'
+                        && ($data['utilityEntryKeys'][0] ?? '') === 'spacing'
+                        && ($data['pageNow'] ?? '') === 'utilities/spacing';
+                }),
+                $bladeService,
+            );
+
+        $controller = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $controller->handle();
+
+        @unlink($tempBasePath . 'source/utilities/spacing/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/spacing');
+        @rmdir($tempBasePath . 'source/utilities');
+        @rmdir($tempBasePath . 'source');
+        @rmdir($tempBasePath);
+    }
 }

@@ -48,6 +48,7 @@ class PageController extends BaseController implements ControllerInterface
         ];
 
         $this->appendComponentPageData($data, $page);
+        $this->appendUtilityPageData($data, $page);
         $this->appendComponentsOverviewPageData($data, $page);
         $this->appendUtilitiesOverviewPageData($data, $page);
         $this->appendSearchPageData($data, $page);
@@ -182,6 +183,57 @@ class PageController extends BaseController implements ControllerInterface
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
         $data['pageNow'] = 'components/' . $slug;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     * @param string $page
+     *
+     * @return void
+     */
+    private function appendUtilityPageData(array &$data, string $page): void
+    {
+        if ($page !== 'utility') {
+            return;
+        }
+
+        $path = trim($this->request->getPath(), '/');
+        $segments = array_values(array_filter(explode('/', $path), static fn(string $segment): bool => $segment !== ''));
+        $requestedSlug = strtolower((string) ($segments[1] ?? ''));
+
+        if ($requestedSlug === '') {
+            return;
+        }
+
+        $utilityConfigPaths = glob(BASEPATH . 'source/utilities/*/utility.json') ?: [];
+
+        foreach ($utilityConfigPaths as $utilityConfigPath) {
+            $configContent = file_get_contents($utilityConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            if ($slug === '' || $slug !== $requestedSlug) {
+                continue;
+            }
+
+            $entries = isset($config['entries']) && is_array($config['entries']) ? $config['entries'] : [];
+
+            $data['slug'] = $slug;
+            $data['headline'] = isset($config['name']) && is_string($config['name']) && $config['name'] !== ''
+                ? $config['name']
+                : ucfirst($slug);
+            $data['componentIcon'] = isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== ''
+                ? $config['icon']
+                : 'tune';
+            $data['description'] = $this->resolveUtilityOverviewDescription($config);
+            $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
+            $data['pageNow'] = 'utilities/' . $slug;
+
+            return;
+        }
     }
 
     /**

@@ -99,6 +99,10 @@ class Request
             return $this->resolveComponentPagePath($segments);
         }
 
+        if (($segments[0] ?? '') === 'utilities') {
+            return $this->resolveUtilityPagePath($segments);
+        }
+
         return $path;
     }
 
@@ -127,6 +131,42 @@ class Request
         $componentPath = BASEPATH . 'source/components/' . $componentSlug . '/component.json';
         if (is_file($componentPath)) {
             return 'component';
+        }
+
+        return implode('/', $segments);
+    }
+
+    /**
+     * Resolves a utility view path based on utility metadata.
+     *
+     * @param array<int, string> $segments Request path segments.
+     *
+     * @return string
+     */
+    private function resolveUtilityPagePath(array $segments): string
+    {
+        if (count($segments) !== 2) {
+            return implode('/', $segments);
+        }
+
+        if (!defined('BASEPATH')) {
+            return implode('/', $segments);
+        }
+
+        $requestedSlug = strtolower((string) ($segments[1] ?? ''));
+        $utilityConfigPaths = glob(BASEPATH . 'source/utilities/*/utility.json') ?: [];
+
+        foreach ($utilityConfigPaths as $utilityConfigPath) {
+            $configContent = file_get_contents($utilityConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            if ($slug !== '' && $slug === $requestedSlug) {
+                return 'utility';
+            }
         }
 
         return implode('/', $segments);
