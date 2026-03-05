@@ -1,52 +1,42 @@
 {
     "select": {
         "heading": "Select",
-        "subHeading": "Plenty of select",
         "text": "A single-select dropdown rendered at all three available sizes (sm, md, lg) with the label hidden."
     },
     "multiple": {
         "heading": "Multiple Select",
-        "subHeading": "Plenty of select",
         "text": "A multi-select dropdown rendered at all three sizes, with two items preselected and the field marked as required."
     },
     "search": {
         "heading": "Searchable Select",
-        "subHeading": "Expand to search",
         "text": "Both a searchable multi-select and a searchable single-select using a large option list; search is explicitly enabled via the search parameter."
     },
     "description": {
         "heading": "Select with Description",
-        "subHeading": "",
         "text": "A select field with an additional description line rendered below the label to provide extra context or instructions."
     },
     "helper-text": {
         "heading": "Select with Helper Text",
-        "subHeading": "",
         "text": "A select field with a small helper text rendered below the component using the helperText parameter."
     },
     "error-message": {
         "heading": "Select with Error Message",
-        "subHeading": "",
         "text": "A select field in an invalid state, showing how the errorMessage parameter attaches a validation message to the component."
     },
     "preselected": {
         "heading": "Preselected Option",
-        "subHeading": "",
         "text": "A single-select dropdown with one option preselected on load using the preselected parameter with a scalar key."
     },
     "required": {
         "heading": "Required Select",
-        "subHeading": "",
         "text": "A required single-select field that displays a required asterisk next to the label and removes the clear button."
     },
     "max-selections": {
         "heading": "Multiple Select with Max Selections",
-        "subHeading": "",
         "text": "A multi-select dropdown limited to two simultaneous selections using the maxSelections parameter."
     },
     "rounded": {
         "heading": "Rounded Select",
-        "subHeading": "",
         "text": "A select field styled with the c-select--rounded modifier class, producing a pill-shaped button appearance often used for filters."
     }
 }

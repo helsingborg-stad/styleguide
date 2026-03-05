@@ -59,7 +59,6 @@ source/components/{slug}/examples/
 where `{slug}` comes from the `"slug"` field in the component JSON (usually the lowercase component name).
 
 Read:
-- The examples config **`examples.json`** — to see how existing examples are registered (heading, subHeading, description fields).
 - **All existing `.blade.php` files** in that directory — to understand the argument style, formatting conventions, and what is already covered.
 
 ## Step 3 — Gap analysis: identify ALL missing examples
@@ -121,7 +120,6 @@ Edit `source/components/{slug}/examples/examples.json` to add an entry for each 
 ```json
 "{exampleName}": {
     "heading": "...",
-    "subHeading": "",
   "description": "..."
 }
 ```

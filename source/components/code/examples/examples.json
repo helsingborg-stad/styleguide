@@ -2,22 +2,18 @@
     "code": {
         "grid": "",
         "heading": "Code block example",
-        "subHeading" : "",
         "text": "The code component can be used to display a block of code with syntax highlighting. In this example the language parameter is defined as php."
     },
     "with-description": {
         "heading": "Code block with description",
-        "subHeading": "",
         "text": "The content parameter adds a descriptive paragraph above the code block, giving context about what the code does."
     },
     "html": {
         "heading": "HTML code block",
-        "subHeading": "",
         "text": "Setting escape to true HTML-encodes the slot content before output, allowing HTML markup to be displayed as literal code rather than rendered by the browser."
     },
     "css": {
         "heading": "CSS code block",
-        "subHeading": "",
         "text": "The language parameter accepts any Prism.js language identifier, such as css, to apply the correct syntax highlighting."
     }
 }

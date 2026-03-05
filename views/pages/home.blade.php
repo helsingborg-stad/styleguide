@@ -30,7 +30,6 @@
         <div class="o-grid-12 o-grid-6@md o-grid-3@xl">
             @card([
                 'heading' => 'Components',
-                'subHeading' => 'A web for everyone',
                 'content' => 'A robust library with built-in logic for common scenarios. Browse atoms, molecules and organisms.',
                 'image' => [
                     'src' => '/assets/img/component.svg',
@@ -46,7 +45,6 @@
         <div class="o-grid-12 o-grid-6@md o-grid-3@xl">
             @card([
                 'heading' => 'Atomic design',
-                'subHeading' => 'Implemented standards',
                 'content' => 'Explore how atoms, molecules and organisms form the backbone of the system.',
                 'image' => [
                     'src' => '/assets/img/atom.svg',
@@ -62,7 +60,6 @@
         <div class="o-grid-12 o-grid-6@md o-grid-3@xl">
             @card([
                 'heading' => 'Utilities',
-                'subHeading' => 'Behind the screen',
                 'content' => 'Utility mixins to tailor spacing, color and layout without leaving the design system.',
                 'image' => [
                     'src' => '/assets/img/utility.svg',
@@ -78,7 +75,6 @@
         <div class="o-grid-12 o-grid-6@md o-grid-3@xl">
             @card([
                 'heading' => 'Accessibility',
-                'subHeading' => 'Usability first',
                 'content' => 'Guidelines and patterns that keep the experience inclusive across devices.',
                 'image' => [
                     'src' => '/assets/img/usability.svg',

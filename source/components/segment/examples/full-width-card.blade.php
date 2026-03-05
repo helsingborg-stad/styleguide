@@ -13,7 +13,6 @@
         <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
-                'subHeading' => 'SubHeading', 
                 'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
                 'image' => [
                     'src' => 'https://picsum.photos/400/300?a',
@@ -27,7 +26,6 @@
         <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
-                'subHeading' => 'SubHeading', 
                 'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
                 'image' => [
                     'src' => 'https://picsum.photos/400/300?b',
@@ -41,7 +39,6 @@
         <div class="o-grid-4@lg o-grid-4@xl">
             @card([
                 'heading' => 'Heading',
-                'subHeading' => 'SubHeading', 
                 'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
                 'image' => [
                     'src' => 'https://picsum.photos/400/300?c',

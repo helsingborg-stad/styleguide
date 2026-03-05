@@ -1,32 +1,26 @@
 {
     "logotype": {
         "heading": "Logotype",
-        "subHeading": "",
         "text": ""
     },
     "withCaption": {
         "heading": "Logotype with caption",
-        "subHeading": "",
         "text": "Renders a logotype image with a caption label displayed below it."
     },
     "placeholder": {
         "heading": "Logotype placeholder",
-        "subHeading": "",
         "text": "Renders the placeholder state when no image source is provided, displaying the placeholder text."
     },
     "withoutRipple": {
         "heading": "Logotype without ripple",
-        "subHeading": "",
         "text": "Renders a logotype image with the ripple effect disabled."
     },
     "aligned": {
         "heading": "Logotype aligned",
-        "subHeading": "",
         "text": "Renders a logotype with center alignment applied via the classList modifier class."
     },
     "linked": {
         "heading": "Logotype in a link",
-        "subHeading": "",
         "text": "Renders a logotype wrapped in an anchor tag, activating the hover highlight effect."
     }
 }

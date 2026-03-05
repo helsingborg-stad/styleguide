@@ -58,7 +58,6 @@ class Documentation
 
             $normalizedDescription = [
                 'heading' => $description['heading'] ?? '',
-                'subHeading' => $description['subHeading'] ?? '',
                 'description' => $description['description'] ?? ($description['text'] ?? ''),
             ];
 

@@ -3,7 +3,6 @@
         @card([
             'color' => 'primary',
             'heading' => 'Heading',
-            'subHeading' => 'SubHeading', 
             'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
             'image' => [
                 'src' => '/assets/img/component.svg',
@@ -20,7 +19,6 @@
         @card([
             'color' => 'primary',
             'heading' => '123 AVC Heading',
-            'subHeading' => 'SubHeading', 
             'content' => 'Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.',
             'image' => [
                 'src' => '/assets/img/component.svg',

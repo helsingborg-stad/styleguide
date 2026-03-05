@@ -1,22 +1,18 @@
 {
     "type": {
         "heading": "Type",
-        "subHeading": "",
         "text": "The type parameter is meant to be seen as sort of severity indicator. It's value either success, info, warning or danger."
     },
     "icon": {
         "heading": "Icon",
-        "subHeading": "",
         "text": "The icon parameter is an array that can configured just as the icon component. It could also be left out completely."
     },
     "title": {
         "heading": "Title",
-        "subHeading": "",
         "text": "The title to show above the message"
     },
     "actions": {
         "heading": "Actions & dismiss",
-        "subHeading": "",
         "text": "These can have an action, and be dismissable."
     }
 }

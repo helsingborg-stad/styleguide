@@ -1,32 +1,26 @@
 {
     "plain": {
         "heading": "Plain image",
-        "subHeading": "",
         "text": "Just a plain image"
     },
     "modal": {
         "heading": "Image in modal",
-        "subHeading": "",
         "text": "This image can be opened in a modal by clicking it."
     },
     "rounded": {
         "heading": "Rounded corners",
-        "subHeading": "",
         "text": "An image with border radius for rounded corners"
     },
     "missing": {
         "heading": "Missing plain image",
-        "subHeading": "",
         "text": "Image not found but rendered as a placeholder."
     },
     "fullwidth": {
         "heading": "Full width image",
-        "subHeading": "",
         "text": "Image in full width mode."
     },
     "cover": {
         "heading": "Cover image",
-        "subHeading": "",
         "text": "Image with cover mode, that covers the parent container."
     }
 }

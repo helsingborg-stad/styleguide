@@ -1,37 +1,30 @@
 {
     "pagination": {
         "heading": "Pagination",
-        "subHeading": "",
         "text": "Basic pagination with 15 pages, demonstrating overflow ellipsis indicators when the list exceeds five visible items."
     },
     "js": {
         "heading": "Using JS",
-        "subHeading": "Easier pagination",
         "text": "With just a few added attributes you can have pagination made for you, including keepDOM, pagesToShow, and randomizeOrder options."
     },
     "small-list": {
         "heading": "Small list",
-        "subHeading": "",
         "text": "Pagination with four pages and a static active page — no overflow or ellipsis indicators are shown when the total fits within the visible window."
     },
     "button-size-md": {
         "heading": "Button size: medium",
-        "subHeading": "",
         "text": "Pagination rendered with medium-sized buttons using buttonSize 'md', producing wider page-number buttons than the default small size."
     },
     "button-size-lg": {
         "heading": "Button size: large",
-        "subHeading": "",
         "text": "Pagination rendered with large-sized buttons using buttonSize 'lg', producing the widest page-number buttons in the available size scale."
     },
     "button-style-outlined": {
         "heading": "Button style: outlined",
-        "subHeading": "",
         "text": "Pagination using outlined button style, giving page buttons a bordered appearance instead of the default filled background."
     },
     "button-style-basic": {
         "heading": "Button style: basic",
-        "subHeading": "",
         "text": "Pagination using basic button style, rendering page buttons without fill or border for a minimal, text-only appearance."
     }
 }

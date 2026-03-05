@@ -1,17 +1,14 @@
 {
     "tabs": {
         "heading": "Tabs",
-        "subHeading": "",
         "text": "A basic tabs component with three panels. The first tab is open by default; clicking another tab reveals its content."
     },
     "html-content": {
         "heading": "Tabs with HTML content",
-        "subHeading": "",
         "text": "Tab content supports raw HTML markup, allowing rich content such as headings, lists, and links inside each panel."
     },
     "many-tabs": {
         "heading": "Many tabs",
-        "subHeading": "",
         "text": "When the number of tabs exceeds the available container width, the tab header scrolls horizontally to reveal hidden tabs."
     }
 }
