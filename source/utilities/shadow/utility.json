@@ -5,12 +5,12 @@
     "slug": "shadow",
     "entries": {
         "box-shadow": {
-            "format": "u-box-shadow--level",
+            "format": "u-shadow--{number}",
             "modifiers": {
                 "level": "1, 2, 3, 4, 5"
             },
             "description": {
-                "level": "sets the blur of the shadow"
+                "level": "Applies a box-shadow to the element based on the specified level. Higher levels correspond to more pronounced shadows."
             },
             "responsive": false
         }
