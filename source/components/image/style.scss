@@ -8,14 +8,13 @@ $_: "c-image";
 $_modal: "c-modal--gallery";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), (
-    "base": "var(--base)",
-    "font-size-caption": "var(--font-size-caption, 0.875rem)",
-    "line-height-caption": "var(--line-height-caption, var(--line-height-base))",
-    "font-weight-bold": "var(--font-weight-bold)",
-    "font-family-bold": "var(--font-family-base)",
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-));
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "font-size-caption": "var(--font-size-caption, 0.875rem)",
+        "line-height-caption": "var(--line-height-caption, var(--line-height-base))",
+        "font-weight-bold": "var(--font-weight-bold)",
+        "font-family-bold": "var(--font-family-base)",
+        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    ));
 
 /* Component */
 .#{$_} {
@@ -41,8 +40,12 @@ $_modal: "c-modal--gallery";
         cursor: pointer;
     }
 
+    .#{$_}__image-wrapper {
+        border-radius: tokens.use($_, "border-radius", 1);
+    }
+
     .#{$_}__image {
-        border-radius: tokens.use($_, "border-radius", 0.25);
+        border-radius: tokens.use($_, "border-radius", 1);
         max-width: 100%;
         margin: 0;
         width: inherit;
@@ -93,6 +96,7 @@ $_modal: "c-modal--gallery";
     &--cover {
         inset: 0;
         position: absolute;
+
         .#{$_}__image {
             position: absolute;
             top: 50%;
@@ -124,6 +128,7 @@ $_modal: "c-modal--gallery";
     &.is-resized {
         width: auto;
         display: inline;
+
         img {
             width: auto;
         }
@@ -140,15 +145,18 @@ $_modal: "c-modal--gallery";
         width: 100%;
         height: 100%;
     }
+
     .#{$_}.#{$_}--container-query .#{$_}__image {
         display: none;
     }
 }
+
 @supports not (container-type: size) {
     .#{$_}.#{$_}--container-query .#{$_}__image-wrapper {
         width: 100%;
         height: 100%;
     }
+
     .#{$_}.#{$_}--container-query .#{$_}__image:not(:last-of-type) {
         display: none;
     }
@@ -186,6 +194,7 @@ $_modal: "c-modal--gallery";
 
         &.c-icon--svg-link {
             width: clamp(1em, 25%, 3em);
+
             img {
                 filter: invert(1);
                 opacity: .7;
@@ -199,7 +208,7 @@ $_modal: "c-modal--gallery";
         font-family: tokens.get($_, "font-family-bold");
     }
 
-    .c-icon + .#{$_}__placeholder-text {
+    .c-icon+.#{$_}__placeholder-text {
         margin-top: tokens.use($_, "space", 2);
 
         @include mq.mq("sm") {
