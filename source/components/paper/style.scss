@@ -4,16 +4,25 @@
 $_: "c-paper";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-        "padding": "calc(#{tokens.use($_, "space")} * var(--#{$_}--padding-multiplier, 0))",
-        "shadow": tokens.use($_, "shadow", 1)), ("color--surface": "color--background",
-    ));
+@include tokens.create($_, getComponentTokens($_), 
+    (
+        "border-color": tokens.get($_, "color--surface-border"),
+        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "border-color"),
+        "padding": calc(#{tokens.use($_, "space")} * var(--#{$_}--padding-multiplier, 0)),
+        "shadow": tokens.use($_, "shadow", 1),
+        "background-color": tokens.get($_, "color--surface"),
+        "color": tokens.get($_, "color--surface-contrast"),
+    ), 
+    (
+        "color--surface": "color--background",
+    )
+);
 
 /* Component */
 .#{$_} {
     contain: layout;
-    background-color: tokens.get($_, "color--surface");
-    color: tokens.get($_, "color--surface-contrast");
+    background-color: tokens.get($_, "background-color");
+    color: tokens.get($_, "color");
     border: tokens.get($_, "border");
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
