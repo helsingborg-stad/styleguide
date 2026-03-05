@@ -55,6 +55,7 @@ $_: "c-drawer";
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary>.c-nav__item {
     --drawer-duotone-background: #{tokens.get($_, "color--primary")};
+    --drawer-duotone-color: #{tokens.get($_, "color--primary-contrast")};
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
@@ -89,12 +90,14 @@ $_: "c-drawer";
 .c-drawer.c-drawer--duotone {
     background-color: var(--drawer-duotone-background);
 
-    .site-nav-mobile__secondary>.c-nav__item {
-        background-color: var(--drawer-duotone-background);
+    .c-nav.site-nav-mobile__secondary {
+        --c-nav--item-background-color: var(--drawer-duotone-background);
+        --c-nav--item-background-color-hover: var(--drawer-duotone-color);
+        --c-nav--item-color: var(--drawer-duotone-color);
+        --c-nav--item-color-hover: var(--drawer-duotone-background);
     }
 
-    .c-drawer__header,
-    .site-nav-mobile__primary>.c-nav__item {
+    .c-drawer__header {
         background-color: var(--drawer-background);
     }
 }

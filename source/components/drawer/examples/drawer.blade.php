@@ -1,5 +1,6 @@
 @drawer([
     'label' => 'Close',
+    'classList' => ['c-drawer--duotone', 'c-drawer--duotone-primary'],
     'attributeList' => [
         'data-move-to' => 'body',
     ],
@@ -58,6 +59,18 @@
                 'c-nav--drawer',           
                 'c-nav--dark',
                 'site-nav-mobile__primary'],
+            'childItemsUrl' => '/', 
+            'direction' => 'vertical',
+        ])
+        @endnav 
+        @nav([
+            'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
+            'classList' => [
+                's-nav-drawer-secondary',
+                'u-position--relative', 
+                'c-nav--drawer',           
+                'c-nav--dark',
+                'site-nav-mobile__secondary'],
             'childItemsUrl' => '/', 
             'direction' => 'vertical',
         ])
