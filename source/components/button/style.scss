@@ -8,9 +8,9 @@ $_: "c-button";
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), ("font-weight": tokens.get($_, "font-weight-medium"),
         "font-family": tokens.get($_, "font-family-base"),
-        "font-size-lg": tokens.get($_, "font-size-lg"),
-        "font-size-md": tokens.get($_, "font-size-md"),
-        "font-size-sm": tokens.get($_, "font-size-sm"),
+        "font-size-lg": tokens.get($_, "font-size-200"),
+        "font-size-md": tokens.get($_, "font-size-100"),
+        "font-size-sm": tokens.get($_, "font-size-90"),
         "color-default": tokens.get($_, "color--surface"),
         "color-default-contrast": tokens.get($_, "color--surface-contrast"),
         "shadow": tokens.use($_, "shadow", 1)));
