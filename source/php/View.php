@@ -398,7 +398,7 @@ class View
     }
 
     /**
-     * Fetch examples from the usage directory
+     * Fetch examples from the component examples directory.
      * @throws \Exception
      */
     public static function fetchExamples(string $slug, BladeServiceInterface $blade): array

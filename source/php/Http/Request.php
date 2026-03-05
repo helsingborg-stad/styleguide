@@ -120,7 +120,7 @@ class Request
         }
 
         $componentSlug = $segments[1];
-        if (in_array($componentSlug, ['atoms', 'molecules', 'organisms', 'usage'], true)) {
+        if (in_array($componentSlug, ['atoms', 'molecules', 'organisms'], true)) {
             return implode('/', $segments);
         }
 

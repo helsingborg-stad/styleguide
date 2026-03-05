@@ -43,7 +43,7 @@ class NavigationSidebarSectionsTest extends TestCase
         file_put_contents(
             $this->tempProjectRoot . '/assets/data/navigation-config.json',
             json_encode([
-                'unlisted' => ['.', '..', '.DS_Store', 'layout', '404.blade.php', 'home.blade.php', 'usage', 'about'],
+                'unlisted' => ['.', '..', '.DS_Store', 'layout', '404.blade.php', 'home.blade.php', 'about'],
                 'icons' => [],
                 'externalMenuItems' => [],
             ]),

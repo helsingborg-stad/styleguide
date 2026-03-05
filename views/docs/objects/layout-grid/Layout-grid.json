@@ -6,7 +6,6 @@
     "description": {
         "main": "Use .o-layout-grid to create grid layouts. Modifiers allow you to control columns, gaps, spans, and alignment responsively or with container queries."
     },
-    "includesPath": "pages.objects.usage.layout-grid",
     "examples": {
         "containerQuery": {
             "title": "Container Query Support",

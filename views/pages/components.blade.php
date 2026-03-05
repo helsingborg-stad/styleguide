@@ -9,7 +9,7 @@
 			['label' => 'Reusable Blade components']
 		],
 		'primaryCta' => ['label' => 'Browse components', 'href' => '/components/button'],
-		'secondaryCta' => ['label' => 'View examples', 'href' => '/components/usage/button'],
+		'secondaryCta' => ['label' => 'View examples', 'href' => '/components/button'],
 		'shortcuts' => [
 			['label' => 'Button', 'href' => '/components/button'],
 			['label' => 'Card', 'href' => '/components/card'],

@@ -18,7 +18,6 @@ class Documentation
      */
     public static function getUsageExamples(string $slug, BladeServiceInterface $blade)
     {
-        $usageDir = BASEPATH . 'views/pages/components/usage/' . $slug;
         $sourceExamplesDir = BASEPATH . 'source/components/' . $slug . '/examples';
         $examples = [];
 
@@ -32,26 +31,18 @@ class Documentation
             }
         }
 
-        if (empty($examplesConfig) && file_exists($usageDir . '/' . $slug . '.json')) {
-            $examplesConfig = Documentation::getJson($usageDir, $slug);
-        }
-
         if (empty($examplesConfig) || !is_array($examplesConfig)) {
             return $examples;
         }
 
         foreach (array_keys($examplesConfig) as $exampleKey) {
             $filePath = $exampleKey . '.blade.php';
-            $usageBladePath = $usageDir . '/' . $filePath;
             $sourceBladePath = $sourceExamplesDir . '/' . $filePath;
 
             $includePath = null;
             $contentSourcePath = null;
 
-            if (file_exists($usageBladePath)) {
-                $includePath = 'pages.components.usage.' . $slug . '.' . $exampleKey;
-                $contentSourcePath = $usageBladePath;
-            } elseif (file_exists($sourceBladePath)) {
+            if (file_exists($sourceBladePath)) {
                 $includePath = 'source.components.' . $slug . '.examples.' . $exampleKey;
                 $contentSourcePath = $sourceBladePath;
             }

@@ -49,17 +49,17 @@ The full modifier class name is constructed as `{baseClass}--{modifier}` (e.g. `
 
 Also look for **context-dependent rules** such as `a > .c-{slug}` or `.some-parent .c-{slug}`. These indicate the component has a distinct visual state when placed inside a specific HTML element. Demonstrate these by wrapping the `@{slug}([...]) @end{slug}` call in the relevant HTML in the blade file — the component itself may have no corresponding parameter.
 
-## Step 2 — Study existing usage examples
+## Step 2 — Study existing examples
 
-The usage examples live at:
+The component examples live at:
 ```
-views/pages/components/usage/{slug}/
+source/components/{slug}/examples/
 ```
 
 where `{slug}` comes from the `"slug"` field in the component JSON (usually the lowercase component name).
 
 Read:
-- The usage **`{slug}.json`** — to see how existing examples are registered (heading, subHeading, text fields). Note entries where `text` is empty — backfill them when editing the file (Step 5).
+- The examples config **`examples.json`** — to see how existing examples are registered (heading, subHeading, description fields).
 - **All existing `.blade.php` files** in that directory — to understand the argument style, formatting conventions, and what is already covered.
 
 ## Step 3 — Gap analysis: identify ALL missing examples
@@ -103,7 +103,7 @@ Before writing each example, reason through:
 
 For each gap identified in Step 3, write the file to:
 ```
-views/pages/components/usage/{slug}/{exampleName}.blade.php
+source/components/{slug}/examples/{exampleName}.blade.php
 ```
 
 Follow the exact formatting of existing examples:
@@ -114,20 +114,20 @@ Follow the exact formatting of existing examples:
 
 Create all files before moving on to registration.
 
-## Step 6 — Register all new examples in the usage JSON
+## Step 6 — Register all new examples in the examples config
 
-Edit `views/pages/components/usage/{slug}/{slug}.json` to add an entry for each new example:
+Edit `source/components/{slug}/examples/examples.json` to add an entry for each new example:
 
 ```json
 "{exampleName}": {
     "heading": "...",
     "subHeading": "",
-    "text": "..."
+  "description": "..."
 }
 ```
 
 - `heading`: A short, human-readable label for the example (e.g. `"Hero with call to actions"`).
-- `text`: One sentence describing what the example renders and what it demonstrates. **Never leave `text` empty.** Also backfill any other entries that have an empty `text` field while editing the file.
+- `description`: One sentence describing what the example renders and what it demonstrates.
 - Match the tone and style of existing entries exactly.
 
 Add all new entries in a single edit pass.
