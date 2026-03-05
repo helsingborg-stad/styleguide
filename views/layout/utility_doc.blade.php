@@ -1,37 +1,4 @@
 <section id="docblock-{{rand(0,99999)}}" class="example">
-   
-    <article class="article u-margin__bottom--2">
-        @php
-            $utilityLabel = isset($viewDoc['config'])
-                ? ucwords(str_replace(['-', '_'], ' ', (string) $viewDoc['config']))
-                : 'Utility';
-
-            $descriptionText = null;
-            if (isset($summary) && is_string($summary) && trim($summary) !== '') {
-                $descriptionText = $summary;
-            } elseif (isset($description) && is_array($description)) {
-                foreach ($description as $descriptionValue) {
-                    if (is_string($descriptionValue) && trim($descriptionValue) !== '') {
-                        $descriptionText = $descriptionValue;
-                        break;
-                    }
-                }
-            }
-
-            if (!is_string($descriptionText) || trim($descriptionText) === '') {
-                $descriptionText = $utilityLabel . ' utility examples.';
-            }
-        @endphp
-
-        @typography([
-            'variant' => 'body',
-            'element' => 'p'
-        ])
-            {!! $descriptionText !!}
-        @endtypography
-
-    </article>
-
     @php
         $classesTabContent = null;
         $standardizedExampleContent = null;
@@ -59,18 +26,17 @@
 
         <div>
             @if ($format)
-                <p>Format: <code>{{ $format }}</code></p>
+                <p class="u-margin__bottom--2">Format: <code>{{ $format }}</code></p>
             @endif
 
             @if ($responsive && $format)
-                <p>This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
+                <p class="u-margin__bottom--2">This utlitiy is responsive and can be used like <code>class="{{ $format }}@md"</code></p>
             @endif
 
             @table([
                 'headings' => ['Modifiers', 'Description', 'Values'],
                 'list' => $classRows,
-                'includePaper' => false,
-                'classList' => []
+                'includePaper' => false
             ])
             @endtable
         </div>
@@ -82,9 +48,9 @@
 
     @php
         $utilityClassOptions = [];
-        $hasCustomPreview = is_string($customPreviewMarkup) && trim($customPreviewMarkup) !== '';
-        $baseFormat = isset($format) && is_string($format) ? trim($format) : '';
-        $baseFormat = ltrim($baseFormat, '.');
+        $hasCustomPreview    = is_string($customPreviewMarkup) && trim($customPreviewMarkup) !== '';
+        $baseFormat          = isset($format) && is_string($format) ? trim($format) : '';
+        $baseFormat          = ltrim($baseFormat, '.');
 
         if ($baseFormat !== '' && isset($settings) && is_array($settings) && !empty($settings)) {
             $modifierKeys = [];
@@ -254,7 +220,7 @@
             @tabs([
                 'tabs' => [
                     [
-                        'title' => 'Classes',
+                        'title' => 'Documentation',
                         'content' => $classesTabContent,
                     ],
                 ],

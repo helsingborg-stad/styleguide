@@ -38,14 +38,6 @@
 
     @if(!empty($utilityEntryKeys ?? []) && !empty($slug ?? ''))
         @foreach(($utilityEntryKeys ?? []) as $utilityEntryKey)
-            @typography([
-                'element' => 'h2',
-                'variant' => 'h2',
-                'classList' => ['u-margin__top--6', 'u-margin__bottom--2']
-            ])
-                {{ ucwords(str_replace(['-', '_'], ' ', (string) $utilityEntryKey)) }}
-            @endtypography
-
             @utility_doc([
                 'viewDoc' => [
                     'type' => 'utility',
@@ -66,6 +58,7 @@
                             : [];
                     @endphp
 
+                    <!-- Load specific example css -->
                     @foreach($utilityExampleCssUrls as $utilityExampleCssUrl)
                         @if(is_string($utilityExampleCssUrl) && trim($utilityExampleCssUrl) !== '')
                             <link rel="stylesheet" href="{{ $utilityExampleCssUrl }}">
