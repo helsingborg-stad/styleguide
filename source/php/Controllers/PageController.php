@@ -239,7 +239,7 @@ class PageController extends BaseController implements ControllerInterface
                 : 'tune';
             $data['description'] = $this->resolveUtilityOverviewDescription($config);
             $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
-            $data['utilityExamplesByEntry'] = $this->resolveUtilityExamplesByEntry($utilityDirectoryPath);
+            $data['utilityExamplesByEntry'] = $this->resolveUtilityExamplesByEntry($utilityDirectoryPath, $data['utilityEntryKeys']);
             $data['pageNow'] = 'utilities/' . $requestedSlug;
 
             return;
@@ -410,10 +410,11 @@ class PageController extends BaseController implements ControllerInterface
 
     /**
      * @param string $utilityDirectoryPath
+     * @param array<int, string> $utilityEntryKeys
      *
-     * @return array<string, array<int, string|array{view: string, css: array<int, string>}>>
+     * @return array<string, array<int, string|array{view: string, css: array<int, string>, title?: string, description?: string}>>
      */
-    private function resolveUtilityExamplesByEntry(string $utilityDirectoryPath): array
+    private function resolveUtilityExamplesByEntry(string $utilityDirectoryPath, array $utilityEntryKeys): array
     {
         $examplesConfigPath = rtrim($utilityDirectoryPath, '/') . '/examples/examples.json';
         if (!is_file($examplesConfigPath)) {
@@ -429,6 +430,47 @@ class PageController extends BaseController implements ControllerInterface
         $utilityFolder = basename($utilityDirectoryPath);
         $viewPrefix = 'source.utilities.' . $utilityFolder . '.examples.';
         $result = [];
+
+        if (array_is_list($decoded)) {
+            foreach ($decoded as $index => $exampleDefinition) {
+                $entryKey = null;
+
+                if (is_array($exampleDefinition) && isset($exampleDefinition['entry']) && is_string($exampleDefinition['entry']) && trim($exampleDefinition['entry']) !== '') {
+                    $entryKey = trim($exampleDefinition['entry']);
+                } elseif (isset($utilityEntryKeys[$index]) && is_string($utilityEntryKeys[$index]) && $utilityEntryKeys[$index] !== '') {
+                    $entryKey = $utilityEntryKeys[$index];
+                }
+
+                if (!is_string($entryKey) || $entryKey === '') {
+                    continue;
+                }
+
+                $resolvedExample = $this->resolveUtilityExampleDefinition(
+                    $exampleDefinition,
+                    $utilityFolder,
+                    $viewPrefix,
+                );
+
+                if ($resolvedExample === null) {
+                    continue;
+                }
+
+                if (!isset($result[$entryKey]) || !is_array($result[$entryKey])) {
+                    $result[$entryKey] = [];
+                }
+
+                $hasMetadata = isset($resolvedExample['title']) || isset($resolvedExample['description']);
+
+                if (empty($resolvedExample['css']) && !$hasMetadata) {
+                    $result[$entryKey][] = $resolvedExample['view'];
+                    continue;
+                }
+
+                $result[$entryKey][] = $resolvedExample;
+            }
+
+            return $result;
+        }
 
         foreach ($decoded as $entryKey => $exampleKeys) {
             if (!is_string($entryKey) || $entryKey === '') {
@@ -455,7 +497,9 @@ class PageController extends BaseController implements ControllerInterface
                     continue;
                 }
 
-                if (empty($resolvedExample['css'])) {
+                $hasMetadata = isset($resolvedExample['title']) || isset($resolvedExample['description']);
+
+                if (empty($resolvedExample['css']) && !$hasMetadata) {
                     $result[$entryKey][] = $resolvedExample['view'];
                     continue;
                 }
@@ -472,12 +516,14 @@ class PageController extends BaseController implements ControllerInterface
      * @param string $utilityFolder
      * @param string $viewPrefix
      *
-     * @return array{view: string, css: array<int, string>}|null
+      * @return array{view: string, css: array<int, string>, title?: string, description?: string}|null
      */
     private function resolveUtilityExampleDefinition(mixed $exampleDefinition, string $utilityFolder, string $viewPrefix): ?array
     {
         $exampleKey = null;
         $cssDefinitions = [];
+          $title = null;
+          $description = null;
 
         if (is_string($exampleDefinition) && $exampleDefinition !== '') {
             $exampleKey = $exampleDefinition;
@@ -489,16 +535,36 @@ class PageController extends BaseController implements ControllerInterface
 
             $exampleKey = trim($candidateExampleKey);
             $cssDefinitions = $exampleDefinition['css'] ?? [];
+
+            $candidateTitle = $exampleDefinition['title'] ?? null;
+            if (is_string($candidateTitle) && trim($candidateTitle) !== '') {
+                $title = trim($candidateTitle);
+            }
+
+            $candidateDescription = $exampleDefinition['description'] ?? null;
+            if (is_string($candidateDescription) && trim($candidateDescription) !== '') {
+                $description = trim($candidateDescription);
+            }
         }
 
         if (!is_string($exampleKey) || $exampleKey === '') {
             return null;
         }
 
-        return [
+        $resolvedExample = [
             'view' => $viewPrefix . $exampleKey,
             'css' => $this->resolveUtilityExampleCssUrls($cssDefinitions, $utilityFolder),
         ];
+
+        if (is_string($title) && $title !== '') {
+            $resolvedExample['title'] = $title;
+        }
+
+        if (is_string($description) && $description !== '') {
+            $resolvedExample['description'] = $description;
+        }
+
+        return $resolvedExample;
     }
 
     /**

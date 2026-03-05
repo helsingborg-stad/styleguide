@@ -51,12 +51,44 @@
                             ? (string) ($utilityExampleView['view'] ?? '')
                             : (string) $utilityExampleView;
 
+                        $utilityExampleTitle = is_array($utilityExampleView)
+                            && isset($utilityExampleView['title'])
+                            && is_string($utilityExampleView['title'])
+                            ? trim($utilityExampleView['title'])
+                            : '';
+
+                        $utilityExampleDescription = is_array($utilityExampleView)
+                            && isset($utilityExampleView['description'])
+                            && is_string($utilityExampleView['description'])
+                            ? trim($utilityExampleView['description'])
+                            : '';
+
                         $utilityExampleCssUrls = is_array($utilityExampleView)
                             && isset($utilityExampleView['css'])
                             && is_array($utilityExampleView['css'])
                             ? $utilityExampleView['css']
                             : [];
                     @endphp
+
+                    @if($utilityExampleTitle !== '')
+                        @typography([
+                            'element' => 'h3',
+                            'variant' => 'h4',
+                            'classList' => ['u-margin__bottom--1']
+                        ])
+                            {{ $utilityExampleTitle }}
+                        @endtypography
+                    @endif
+
+                    @if($utilityExampleDescription !== '')
+                        @typography([
+                            'element' => 'p',
+                            'variant' => 'body',
+                            'classList' => ['u-margin__bottom--2']
+                        ])
+                            {{ $utilityExampleDescription }}
+                        @endtypography
+                    @endif
 
                     <!-- Load specific example css -->
                     @foreach($utilityExampleCssUrls as $utilityExampleCssUrl)

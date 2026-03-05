@@ -579,4 +579,118 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath . 'source');
         @rmdir($tempBasePath);
     }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testHandleMapsListStyleUtilityExamplesWithSectionMetadata(): void
+    {
+        $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-list-examples-' . uniqid('', true) . '/';
+
+        mkdir($tempBasePath . 'source/utilities/utility-alpha/examples', 0777, true);
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/utility.json',
+            json_encode([
+                'apiVersion' => 1,
+                'name' => 'Utility Alpha',
+                'slug' => 'utility-alpha',
+                'icon' => 'space_bar',
+                'entries' => [
+                    'alpha' => [
+                        'summary' => ['Alpha summary'],
+                    ],
+                    'beta' => [
+                        'summary' => ['Beta summary'],
+                    ],
+                ],
+            ]),
+        );
+
+        file_put_contents(
+            $tempBasePath . 'source/utilities/utility-alpha/examples/examples.json',
+            json_encode([
+                [
+                    'title' => 'Accessibility',
+                    'description' => 'Primary utility section',
+                    'view' => 'alpha-demo',
+                ],
+                [
+                    'entry' => 'beta',
+                    'title' => 'Screen Readers',
+                    'description' => 'Secondary utility section',
+                    'view' => 'beta-demo',
+                    'css' => 'beta-demo.css',
+                ],
+            ]),
+        );
+
+        define('BASEPATH', $tempBasePath);
+
+        $request = new Request('/utilities/utility-alpha', []);
+        $response = new Response();
+
+        $bladeService = $this->createMock(BladeServiceInterface::class);
+
+        $navigation = $this->createMock(Navigation::class);
+        $navigation->expects($this->once())
+            ->method('buildItems')
+            ->with('pages/', [], false)
+            ->willReturn([]);
+        $navigation->expects($this->once())
+            ->method('buildSidebarNavigation')
+            ->willReturn([]);
+
+        $search = $this->createMock(Search::class);
+
+        $view = $this->createMock(View::class);
+        $view->expects($this->once())
+            ->method('show')
+            ->with(
+                'utility',
+                $this->callback(function (array $data): bool {
+                    $alphaExample = $data['utilityExamplesByEntry']['alpha'][0] ?? null;
+                    $betaExample = $data['utilityExamplesByEntry']['beta'][0] ?? null;
+
+                    if (!is_array($alphaExample) || !is_array($betaExample)) {
+                        return false;
+                    }
+
+                    $betaCssUrls = $betaExample['css'] ?? null;
+                    if (!is_array($betaCssUrls)) {
+                        return false;
+                    }
+
+                    return ($alphaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
+                        && ($alphaExample['title'] ?? '') === 'Accessibility'
+                        && ($alphaExample['description'] ?? '') === 'Primary utility section'
+                        && ($betaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.beta-demo'
+                        && ($betaExample['title'] ?? '') === 'Screen Readers'
+                        && ($betaExample['description'] ?? '') === 'Secondary utility section'
+                        && in_array('/source/utilities/utility-alpha/examples/beta-demo.css', $betaCssUrls, true);
+                }),
+                $bladeService,
+            );
+
+        $controller = new PageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $controller->handle();
+
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/examples/examples.json');
+        @unlink($tempBasePath . 'source/utilities/utility-alpha/utility.json');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha/examples');
+        @rmdir($tempBasePath . 'source/utilities/utility-alpha');
+        @rmdir($tempBasePath . 'source/utilities');
+        @rmdir($tempBasePath . 'source');
+        @rmdir($tempBasePath);
+    }
 }

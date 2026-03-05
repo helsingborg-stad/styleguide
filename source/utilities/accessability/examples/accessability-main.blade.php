@@ -1,9 +1,5 @@
 @typography([])
-    Applying the accessability utility class makes the element non-visible on the display but accessible for the screen reader.
-@endtypography
-
-@typography([])
-    Try me in a screen reader (.u-sr__only).
+    Try me in a screen reader (.u-sr__only). Hidden element -> 
     @link([
         'classList' => ['u-sr__only'],
         'href' => '#'
@@ -13,7 +9,7 @@
 @endtypography
 
 @typography([])
-    Try me in a screen reader (.u-sr__only--focusable).
+    Try me in a screen reader (.u-sr__only--focusable). Hidden element ->
     @link([
         'classList' => ['u-sr__only--focusable'],
         'href' => '#'
