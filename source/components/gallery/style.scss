@@ -51,6 +51,7 @@ $_: "c-gallery";
                 background-color: tokens.use($_, "color--alpha");
                 transition: opacity 0.2s ease;
                 opacity: 0;
+                z-index: 1;
             }
 
             &::after {
@@ -63,6 +64,7 @@ $_: "c-gallery";
                 pointer-events: none;
                 transition: opacity 0.2s ease;
                 opacity: 0;
+                z-index: 2;
             }
 
         }
