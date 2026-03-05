@@ -30,28 +30,15 @@
                     $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
                     $bladeSourceCode = e($example['blade']['code']);
 
-                    ob_start();
-                @endphp
-                @include($example['component'])
-                @php
-                    $exampleTabContent = ob_get_clean();
-                    ob_start();
-                @endphp
+                    $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                        return $__env->make($viewPath, $viewData)->render();
+                    };
 
-                @code(['language' => 'html', 'content' => ''])
-                    __HTML_CODE_PLACEHOLDER__
-                @endcode
-                @php
-                    $htmlCodeTabContent = str_replace('__HTML_CODE_PLACEHOLDER__', $htmlSourceCode, ob_get_clean());
-
-                    ob_start();
-                @endphp
-
-                @code(['language' => 'php', 'content' => ''])
-                    __BLADE_CODE_PLACEHOLDER__
-                @endcode
-                @php
-                    $bladeCodeTabContent = str_replace('__BLADE_CODE_PLACEHOLDER__', $bladeSourceCode, ob_get_clean());
+                    $exampleTabContent = $__env->make($example['component'], get_defined_vars())->render();
+                    $htmlCodeTemplate = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
+                    $htmlCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
+                    $bladeCodeTemplate = $renderView('layout.partials.doc.tab-code', ['language' => 'php']);
+                    $bladeCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $bladeSourceCode, $bladeCodeTemplate);
                 @endphp
 
                 @php
