@@ -95,6 +95,10 @@ $_: "c-drawer";
         --c-nav--item-background-color-hover: var(--drawer-duotone-color);
         --c-nav--item-color: var(--drawer-duotone-color);
         --c-nav--item-color-hover: var(--drawer-duotone-background);
+
+        .c-link {
+            --c-link--color--background-contrast: var(--drawer-duotone-color);
+        }
     }
 
     .c-drawer__header {

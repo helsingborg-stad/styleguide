@@ -10,8 +10,8 @@ $_: "c-nav";
         "shadow": tokens.use($_, "shadow", 1),
         "item-background-color": tokens.get($_, "color--surface"),
         "item-color": tokens.get($_, "color--surface-contrast"),
-        "item-background-color-hover": tokens.get($_, "color--primary"),
-        "item-color-hover": tokens.get($_, "color--primary-contrast"),
+        "item-background-color-hover": transparent,
+        "item-color-hover": tokens.get($_, "color--surface-contrast"),
         "item-border-color": tokens.get($_, "color--surface-border"),
     ));
 
