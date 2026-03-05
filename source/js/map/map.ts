@@ -9,7 +9,7 @@ export function initializeMaps() {
         const lng = mapContainer.getAttribute('data-js-map-lng');
         const zoom = mapContainer.getAttribute('data-js-map-zoom');
         const markers = mapContainer.getAttribute('data-js-map-markers');
-
+        console.log("Try trigger npm build")
         if (!id || !provider || !lat || !lng) {
             console.warn('Map element is missing required attributes: data-js-map and data-js-map-provider');
             return;
