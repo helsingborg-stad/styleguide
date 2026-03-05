@@ -72,15 +72,20 @@
 @use "mixin/animations/ken-burns" as kenBurnsAnimationMixin;
 
 // ***************************************************************
+// *** Layers
+// ***************************************************************
+@layer generic, elements, objects, components, icons, utilities;
+
+// ***************************************************************
 // *** Generic
 // ***************************************************************
-@use "generic/normalize" as normalizeGeneric;
-@use "generic/container" as containerGeneric;
-@use "generic/layouts" as layoutsGeneric;
-@use "generic/load-animation" as loadAnimationGeneric;
-@use "generic/divider" as dividerGeneric;
-
-@layer elements, objects, components, icons, utilities;
+@layer generic {
+  @include meta.load-css("generic/normalize");
+  @include meta.load-css("generic/container");
+  @include meta.load-css("generic/layouts");
+  @include meta.load-css("generic/load-animation");
+  @include meta.load-css("generic/divider");
+}
 
 // ***************************************************************
 // *** Elements
@@ -167,13 +172,6 @@
   @include meta.load-css("../components/tooltip/style");
   @include meta.load-css("../components/typography/style");
   @include meta.load-css("../components/iconsection/style");
-}
-
-// ***************************************************************
-// *** Icons
-// ***************************************************************
-@layer icons {
-  @include meta.load-css("icon/material-symbols");
 }
 
 // ***************************************************************

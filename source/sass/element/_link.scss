@@ -4,16 +4,16 @@
 $_: "c-link";
 
 @include tokens.create($_,
-    (
-        "color--background",
+    ("color--background",
+        "color--background-contrast",
         "color--background--contrast-muted"
-    )
-);
+    ));
 
-a, .#{$_} {
+a,
+.#{$_} {
     color: tokens.get($_, "color--background-contrast");
     text-decoration-style: solid;
-    transition: 100ms color; 
+    transition: 100ms color;
 
     i {
         text-decoration: none;
@@ -23,7 +23,8 @@ a, .#{$_} {
         text-decoration-style: solid;
     }
 
-    &:active, &:focus {
+    &:active,
+    &:focus {
         text-decoration: underline;
         text-decoration-style: dotted;
     }
