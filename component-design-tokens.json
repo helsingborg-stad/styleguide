@@ -486,6 +486,7 @@
     "tokens": [
       "base",
       "color--primary",
+      "color--primary-contrast",
       "color--secondary",
       "color--surface",
       "shadow-color",
