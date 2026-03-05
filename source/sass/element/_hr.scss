@@ -1,7 +1,0 @@
-@use "../setting/var_default";
-
-
-hr {
-    margin-top: calc(#{var_default.$base} * 6);
-    margin-bottom: 0;
-}
