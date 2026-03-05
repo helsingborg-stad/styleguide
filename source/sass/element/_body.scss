@@ -9,8 +9,7 @@ $_: "o-body";
     ));
 
 /* Object */
-.#{$_},
-body {
+.#{$_} {
     background-color: tokens.get($_, "color--background");
     color: tokens.get($_, "color--background-contrast");
     font-size: var(--base-font-size);
