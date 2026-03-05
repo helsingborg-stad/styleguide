@@ -28,6 +28,7 @@
 // ***************************************************************
 // *** Functions
 // ***************************************************************
+@use "sass:meta";
 @use "function/strip-unit" as stripUnit;
 @use "function/em" as emFunction;
 @use "function/rem" as remFunction;
@@ -169,30 +170,32 @@
 // ***************************************************************
 // *** Utilities
 // ***************************************************************
-@use "../utilities/shadow/style" as shadowUtility;
-@use "../utilities/z-index/style" as zIndexUtility;
-@use "../utilities/border-radius/style" as borderRadiusUtility;
-@use "../utilities/display/style" as displayUtility;
-@use "../utilities/ratio/style" as ratioUtility;
-@use "../utilities/disabled/style" as disabledUtility;
-@use "../utilities/visibility/style" as visibilityUtility;
-@use "../utilities/flex/style" as flexUtility;
-@use "../utilities/color/style" as colorUtility;
-@use "../utilities/accessability/style" as accessabilityUtility;
-@use "../utilities/responsive-media/style" as responsiveMediaUtility;
-@use "../utilities/clearfix/style" as clearfixUtility;
-@use "../utilities/border/style" as borderUtility;
-@use "../utilities/overflow/style" as overflowUtility;
-@use "../utilities/sizing/style" as sizingUtility;
-@use "../utilities/spacing/style" as spacingUtility;
-@use "../utilities/float/style" as floatUtility;
-@use "../utilities/vertical-align/style" as verticalAlignUtility;
-@use "../utilities/position/style" as positionUtility;
-@use "../utilities/text-align/style" as textAlignUtility;
-@use "../utilities/print/style" as printUtility;
-@use "../utilities/text/style" as textUtility;
-@use "../utilities/preloader/style" as preloaderUtility;
-@use "../utilities/animation/style" as animationUtility;
-@use "../utilities/unlist/style" as unlistUtility;
-@use "../utilities/gap/style" as gapUtility;
-@use "../utilities/aspect-ratio/style" as aspectRatioUtility;
+@layer utilities {
+  @include meta.load-css("../utilities/shadow/style");
+  @include meta.load-css("../utilities/z-index/style");
+  @include meta.load-css("../utilities/border-radius/style");
+  @include meta.load-css("../utilities/display/style");
+  @include meta.load-css("../utilities/ratio/style");
+  @include meta.load-css("../utilities/disabled/style");
+  @include meta.load-css("../utilities/visibility/style");
+  @include meta.load-css("../utilities/flex/style");
+  @include meta.load-css("../utilities/color/style");
+  @include meta.load-css("../utilities/accessability/style");
+  @include meta.load-css("../utilities/responsive-media/style");
+  @include meta.load-css("../utilities/clearfix/style");
+  @include meta.load-css("../utilities/border/style");
+  @include meta.load-css("../utilities/overflow/style");
+  @include meta.load-css("../utilities/sizing/style");
+  @include meta.load-css("../utilities/spacing/style");
+  @include meta.load-css("../utilities/float/style");
+  @include meta.load-css("../utilities/vertical-align/style");
+  @include meta.load-css("../utilities/position/style");
+  @include meta.load-css("../utilities/text-align/style");
+  @include meta.load-css("../utilities/print/style");
+  @include meta.load-css("../utilities/text/style");
+  @include meta.load-css("../utilities/preloader/style");
+  @include meta.load-css("../utilities/animation/style");
+  @include meta.load-css("../utilities/unlist/style");
+  @include meta.load-css("../utilities/gap/style");
+  @include meta.load-css("../utilities/aspect-ratio/style");
+}
