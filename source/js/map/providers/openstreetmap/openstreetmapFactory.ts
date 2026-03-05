@@ -41,19 +41,14 @@ class OpenstreetmapFactory {
             return false;
         }
 
-        const startPosition = this.decodeAndVerifyStartPosition(args.startPosition);
-
-        if (!startPosition) {
-            return false;
-        }
-
         const zoom = this.getZoom(args.zoom);
         const style = this.getStyle(args.style);
         const markers = this.decodeAndVerifyMarkers(args.markers);
 
         const verifiedArgs: OpenstreetmapArgs = {
             id,
-            startPosition,
+            lat: Number(args.lat),
+            lng: Number(args.lng),
             zoom,
             style,
             markers: markers
@@ -118,25 +113,6 @@ class OpenstreetmapFactory {
      */
     private getZoom(zoom: string | null): number {
         return isNaN(Number(zoom)) ? 16 : Number(zoom);
-    }
-
-    /**
-     * Parses a JSON-encoded start position string and validates that both lat
-     * and lng are present numeric values.
-     *
-     * @param startPosition - JSON string expected to contain lat and lng properties.
-     * @returns A LatLngObject when valid, or false if either coordinate is missing or NaN.
-     */
-    private decodeAndVerifyStartPosition(startPosition: string): LatLngObject | false {
-        const decoded = JSON.parse(startPosition);
-        const lat = isNaN(decoded.lat) ? null : decoded.lat;
-        const lng = isNaN(decoded.lng) ? null : decoded.lng;
-
-        if (lat === null || lng === null) {
-            return false;
-        }
-
-        return { lat, lng };
     }
 
     /**

@@ -21,7 +21,7 @@ class Openstreetmap {
     private createMap() {
         this.map = new CreateMap({
             id: this.openstreetmapArgs.id,
-            center: this.openstreetmapArgs.startPosition,
+            center: { lat: this.openstreetmapArgs.lat, lng: this.openstreetmapArgs.lng },
             zoom: this.openstreetmapArgs.zoom,
         }).create();
 

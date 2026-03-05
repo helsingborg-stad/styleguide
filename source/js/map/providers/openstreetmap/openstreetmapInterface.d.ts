@@ -2,7 +2,8 @@ import { LatLngObject, MapStyle, MarkerOptions, TooltipOptions } from "@helsingb
 
 type OpenstreetmapArgs = {
     id: string,
-    startPosition: LatLngObject,
+    lat: number,
+    lng: number,
     zoom: number
     style: MapStyle,
     markers: array<MarkerOptions>

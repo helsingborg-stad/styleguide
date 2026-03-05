@@ -5,11 +5,12 @@ export function initializeMaps() {
         const id = mapContainer.getAttribute('data-js-map');
         const provider = mapContainer.getAttribute('data-js-map-provider');
         const mapStyle = mapContainer.getAttribute('data-js-map-style');
-        const startPosition = mapContainer.getAttribute('data-js-map-start-position');
+        const lat = mapContainer.getAttribute('data-js-map-lat');
+        const lng = mapContainer.getAttribute('data-js-map-lng');
         const zoom = mapContainer.getAttribute('data-js-map-zoom');
         const markers = mapContainer.getAttribute('data-js-map-markers');
 
-        if (!id || !provider || !startPosition) {
+        if (!id || !provider || !lat || !lng) {
             console.warn('Map element is missing required attributes: data-js-map and data-js-map-provider');
             return;
         }
@@ -17,7 +18,8 @@ export function initializeMaps() {
         const args: MapArgs = {
             container: mapContainer as HTMLElement,
             id: id,
-            startPosition: startPosition,
+            lat: lat,
+            lng: lng,
             style: mapStyle,
             zoom: zoom,
             markers: markers
