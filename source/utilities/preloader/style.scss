@@ -1,8 +1,10 @@
 @use "../mixin/tokens";
 
 $_: "u-preloader";
+$_inner: "u-preloader--inner";
 
 @include tokens.create($_, ("color--surface", "color--surface-border", "border-radius"), ("color": tokens.get($_, "color--surface"), "color-shimmer": tokens.get($_, "color--surface-border"), "shimmer": linear-gradient(90deg, tokens.get($_, "color") 8%, tokens.get($_, "color-shimmer") 18%, tokens.get($_, "color") 33%)));
+@include tokens.create($_inner, ("color--surface", "color--surface-border", "border-radius"), ("color": tokens.get($_inner, "color--surface"), "color-shimmer": tokens.get($_inner, "color--surface-border"), "shimmer": linear-gradient(90deg, tokens.get($_inner, "color") 8%, tokens.get($_inner, "color-shimmer") 18%, tokens.get($_inner, "color") 33%)));
 
 /** Adds preload like apperance of any component */
 .#{$_} {
@@ -57,7 +59,16 @@ $_: "u-preloader";
  * Usage of this utility ensures that loading states are visually represented
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
-.#{$_}--inner {
+.#{$_inner} {
+  &.#{$_}--exclude {
+    .c-datebadge {
+      visibility: hidden !important;
+    }
+  }
+
+  .#{$_}--exclude {
+    visibility: hidden !important;
+  }
 
   .c-typography,
   .c-button,
@@ -81,14 +92,14 @@ $_: "u-preloader";
     &:before {
       content: "";
       contain: paint;
-      border-radius: tokens.use($_, "border-radius");
+      border-radius: tokens.use($_inner, "border-radius");
       animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
       background: #f6f7f8;
-      background: tokens.get($_, "shimmer");
+      background: tokens.get($_inner, "shimmer");
       background-size: 200% 100%;
       inset: 0;
       position: absolute;
@@ -122,7 +133,7 @@ $_: "u-preloader";
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
       background: #f6f7f8;
-      background: tokens.get($_, "shimmer");
+      background: tokens.get($_inner, "shimmer");
       background-size: 200% 100%;
       inset: 0;
       position: absolute;
