@@ -36,4 +36,116 @@
             @endpaper
         @endif
     @endforeach
+
+@elseif($entryFormat && !empty($entryMods))
+    @php
+        $previewSelects = [];
+        foreach ($entryMods as $modKey => $modValues) {
+            $options = array_values(array_filter(array_map('trim', explode(',', $modValues))));
+            if (!empty($options)) {
+                $previewSelects[$modKey] = $options;
+            }
+        }
+    @endphp
+
+    @if(!empty($previewSelects))
+        @typography(['variant' => 'h3', 'element' => 'h3', 'classList' => ['u-margin__top--4', 'u-margin__bottom--2']])
+            Preview
+        @endtypography
+
+        @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
+            <div
+                data-modifier-preview
+                data-format="{{ e($entryFormat) }}"
+                class="u-display--flex u-flex-direction--column u-gap-4"
+            >
+                <div class="u-display--flex u-gap-4 u-flex-wrap--wrap u-align-items--flex-end">
+                    @foreach($previewSelects as $modKey => $options)
+                        <div class="c-field">
+                            <label class="c-field__label" for="mod-{{ e($entryFormat) }}-{{ $modKey }}">
+                                {{ $modKey }}
+                            </label>
+                            <div class="c-select__field-container">
+                                <select
+                                    id="mod-{{ e($entryFormat) }}-{{ $modKey }}"
+                                    class="c-select__select-element"
+                                    data-modifier-key="{{ $modKey }}"
+                                >
+                                    @foreach($options as $option)
+                                        <option value="{{ $option }}">{{ $option }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div
+                    data-preview-element
+                    data-base-class="u-padding--4"
+                    class="u-padding--4"
+                    style="outline: 2px dashed currentColor; outline-offset: 4px; min-height: 5rem;"
+                >
+                    Preview
+                </div>
+
+                @code(['language' => 'css', 'content' => ''])
+                    <span data-applied-class></span>
+                @endcode
+            </div>
+        @endpaper
+
+        @once
+        <script>
+        (function () {
+            function composeClass(format, values) {
+                var cls = format.replace(/^\./, '');
+                Object.keys(values).forEach(function (key) {
+                    cls = cls.split(key).join(values[key]);
+                });
+                return cls;
+            }
+
+            function initPreview(el) {
+                var selects = Array.from(el.querySelectorAll('select[data-modifier-key]'));
+                var preview = el.querySelector('[data-preview-element]');
+                var output  = el.querySelector('[data-applied-class]');
+                var format  = el.dataset.format || '';
+                var baseClass = preview ? (preview.dataset.baseClass || '') : '';
+
+                function update() {
+                    var values = {};
+                    selects.forEach(function (s) {
+                        values[s.dataset.modifierKey] = s.value;
+                    });
+                    var cls = composeClass(format, values);
+                    if (preview) {
+                        preview.className = (baseClass + (cls ? ' ' + cls : '')).trim();
+                        preview.setAttribute('style', 'outline: 2px dashed currentColor; outline-offset: 4px; min-height: 5rem;');
+                    }
+                    if (output) {
+                        output.textContent = cls ? '.' + cls : '';
+                    }
+                }
+
+                selects.forEach(function (s) {
+                    s.addEventListener('change', update);
+                });
+
+                update();
+            }
+
+            function init() {
+                document.querySelectorAll('[data-modifier-preview]').forEach(initPreview);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        }());
+        </script>
+        @endonce
+    @endif
 @endif
