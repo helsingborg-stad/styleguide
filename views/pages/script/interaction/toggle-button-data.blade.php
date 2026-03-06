@@ -5,7 +5,7 @@
         #Toggle Button Data
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "toggleButtonData", "config" => "toggleButtonData"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "toggleButtonData", "config" => "toggleButtonData"]])
         @button([
             'text' => 'Click Me!',
             'color' => 'default',
@@ -19,5 +19,5 @@
             ]
         ])
         @endbutton
-    @endscript_doc
+    @enddoc
 @stop

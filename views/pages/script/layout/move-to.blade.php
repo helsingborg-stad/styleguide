@@ -7,7 +7,7 @@
     @endmarkdown
     
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "moveto", "config" => "moveto"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "moveto", "config" => "moveto"]])
 
         @markdown
             By defining data attribute `data-move-to` on an element and assigning a value being a selector to another element, the element will be moved to the position of the other element and be added as a child to this element.
@@ -21,5 +21,5 @@
             ```
         @endmarkdown
 
-    @endscript_doc
+    @enddoc
 @stop

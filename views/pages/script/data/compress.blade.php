@@ -5,7 +5,7 @@
         #Compress
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "compress", "config" => "Compress"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "compress", "config" => "Compress"]])
 
         <h2>Uses the display method.</h2>
         <div>
@@ -61,5 +61,5 @@
         <span data-js-compressed="3" data-js-compressed-toggle>...Toggle</span>
     </div>
         
-    @endscript_doc
+    @enddoc
 @stop

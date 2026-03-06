@@ -5,7 +5,7 @@
         #Animations
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "animate", "config" => "animate"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "animate", "config" => "animate"]])
 
         @typography([
             'element' => 'p'
@@ -86,5 +86,5 @@
         We have chosen anime.js to create advanced animations swiftly. Like all javascript animation librarys it's always as performant that you would want. Therefore this library should be utilized where css-animations can't create the same effect.
     @endtypography
 
-    @endscript_doc
+    @enddoc
 @stop

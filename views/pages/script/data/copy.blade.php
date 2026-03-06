@@ -5,7 +5,7 @@
         #Copy Attribute
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "copy", "config" => "copy"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "copy", "config" => "copy"]])
 
         <div data-js-copy-item="example" data-js-copy-data="The copied attribute">Copy an attribute here</div>
         @button([
@@ -32,5 +32,5 @@
     <div class="u-margin__top--4">
     <input type="text" placeholder="Paste copied content here" class="u-width--100">
     </div>
-    @endscript_doc
+    @enddoc
 @stop

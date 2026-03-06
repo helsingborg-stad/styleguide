@@ -5,7 +5,7 @@
         #Toggle
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "toggle", "config" => "toggle"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "toggle", "config" => "toggle"]])
 
         @typography([
             'element' => 'h4',
@@ -74,5 +74,5 @@
             </div>
         </div>
         
-    @endscript_doc
+    @enddoc
 @stop

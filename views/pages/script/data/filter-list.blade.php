@@ -6,7 +6,7 @@
         Hide elements based on match with data attributes.
     @endmarkdown
 
-    @script_doc(['viewDoc' => ['type' => 'script', 'root' => 'filter', 'config' => 'filter']])
+    @doc(['viewDoc' => ['type' => 'script', 'root' => 'filter', 'config' => 'filter']])
         <div js-filter-container="5da57cccd46c6">
             
             @field([
@@ -54,6 +54,6 @@
                 </div>
             </div>
         </div>
-    @endscript_doc
+    @enddoc
 
 @stop

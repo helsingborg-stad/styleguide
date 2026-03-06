@@ -5,7 +5,7 @@
         #Click Away
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "clickAway", "config" => "ClickAway"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "clickAway", "config" => "ClickAway"]])
 
         <h2
             data-js-click-away="u-color__text--info"
@@ -13,5 +13,5 @@
             Click outside this element to change the color of this text into green.
         </h2>
         
-    @endscript_doc
+    @enddoc
 @stop

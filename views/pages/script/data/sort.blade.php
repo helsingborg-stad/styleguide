@@ -5,7 +5,7 @@
         #Sort
     @endmarkdown
 
-    @script_doc(["viewDoc" => ["type" => "script", "root" => "sort", "config" => "sort"]])
+    @doc(["viewDoc" => ["type" => "script", "root" => "sort", "config" => "sort"]])
         <div js-sort-container js-sort-order="asc">
             @button([
                 'text' => 'Sort',
@@ -63,5 +63,5 @@
                 </div>
             </div>
         </div>
-    @endscript_doc
+    @enddoc
 @stop

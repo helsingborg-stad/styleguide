@@ -3,7 +3,11 @@
 namespace HbgStyleGuide;
 
 use HbgStyleGuide\Controllers\ApiController;
+use HbgStyleGuide\Controllers\ComponentPageController;
+use HbgStyleGuide\Controllers\ObjectPageController;
 use HbgStyleGuide\Controllers\PageController;
+use HbgStyleGuide\Controllers\ScriptPageController;
+use HbgStyleGuide\Controllers\UtilityPageController;
 use HbgStyleGuide\Data\JsonDataLoader;
 use HbgStyleGuide\Data\NavigationApiDataProvider;
 use HbgStyleGuide\Data\NavigationDataParser;
@@ -64,6 +68,42 @@ class App
             $search,
         );
 
+        $componentPageController = new ComponentPageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $objectPageController = new ObjectPageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $scriptPageController = new ScriptPageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $utilityPageController = new UtilityPageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
         $apiController = new ApiController(
             $request,
             $response,
@@ -71,7 +111,15 @@ class App
             $search,
         );
 
-        $this->router = new Router($request, $pageController, $apiController);
+        $this->router = new Router(
+            $request,
+            $pageController,
+            $componentPageController,
+            $objectPageController,
+            $scriptPageController,
+            $utilityPageController,
+            $apiController,
+        );
     }
 
     /**

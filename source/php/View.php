@@ -43,15 +43,17 @@ class View
      */
     public function registerLayoutViewComposer(BladeServiceInterface $blade)
     {
-        //Documentation module alias
-    $blade->registerComponentDirective("layout.doc", "doc");
-    $blade->registerComponentDirective("layout.utility_doc", "utility_doc");
-    $blade->registerComponentDirective("layout.script_doc", "script_doc");
-    $blade->registerComponentDirective("layout.mixins_doc", "mixins_doc");
-    $blade->registerComponentDirective("layout.objects_doc", "objects_doc");
-  
-    //Doc templates
-    $docTemplates = array('layout.doc', 'layout.utility_doc', 'layout.script_doc', 'layout.mixins_doc', 'layout.objects_doc');
+        $blade->registerComponentDirective("layout.doc", "doc");
+
+        //Doc template
+        $docTemplates = array(
+            'layout.doc',
+            'template.component',
+            'template.utility',
+            'template.script',
+            'template.object',
+            'template.mixin',
+        );
 
         //Documentation module
         foreach ($docTemplates as $template) {
@@ -180,7 +182,9 @@ class View
                     ];
                 }
 
-                $view->with([
+                $view->with($x = [
+                    'title' => isset($viewData['title']) ? $viewData['title'] : (isset($configJson['name']) ? $configJson['name'] : 'abc'),
+                    'description' => 'hello',
                     'summary' => $summary,
                     'format' => $format,
                     'responsive' => $responsive,

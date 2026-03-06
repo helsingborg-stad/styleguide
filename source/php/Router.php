@@ -3,7 +3,11 @@
 namespace HbgStyleGuide;
 
 use HbgStyleGuide\Controllers\ApiController;
+use HbgStyleGuide\Controllers\ComponentPageController;
+use HbgStyleGuide\Controllers\ObjectPageController;
 use HbgStyleGuide\Controllers\PageController;
+use HbgStyleGuide\Controllers\ScriptPageController;
+use HbgStyleGuide\Controllers\UtilityPageController;
 use HbgStyleGuide\Http\Request;
 
 /**
@@ -14,11 +18,19 @@ class Router
     /**
      * @param Request $request Current request.
      * @param PageController $pageController Page renderer.
+     * @param ComponentPageController $componentPageController Component page renderer.
+     * @param ObjectPageController $objectPageController Object page renderer.
+     * @param ScriptPageController $scriptPageController Script page renderer.
+     * @param UtilityPageController $utilityPageController Utility page renderer.
      * @param ApiController $apiController API endpoint handler.
      */
     public function __construct(
         private Request $request,
         private PageController $pageController,
+        private ComponentPageController $componentPageController,
+        private ObjectPageController $objectPageController,
+        private ScriptPageController $scriptPageController,
+        private UtilityPageController $utilityPageController,
         private ApiController $apiController,
     ) {}
 
@@ -31,6 +43,29 @@ class Router
     {
         if ($this->shouldHandleApiRequest()) {
             $this->apiController->handle();
+            return;
+        }
+
+        $page = $this->request->resolvePage();
+        $endpoint = $this->request->getEndpoint();
+
+        if ($page === 'component') {
+            $this->componentPageController->handle();
+            return;
+        }
+
+        if ($page === 'utility') {
+            $this->utilityPageController->handle();
+            return;
+        }
+
+        if ($endpoint === 'objects') {
+            $this->objectPageController->handle();
+            return;
+        }
+
+        if ($endpoint === 'script') {
+            $this->scriptPageController->handle();
             return;
         }
 

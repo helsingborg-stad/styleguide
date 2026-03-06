@@ -23,10 +23,10 @@ class PageController extends BaseController implements ControllerInterface
     public function __construct(
         \HbgStyleGuide\Http\Request $request,
         \HbgStyleGuide\Http\Response $response,
-        private BladeServiceInterface $bladeService,
-        private View $view,
-        private Navigation $navigation,
-        private Search $search,
+        protected BladeServiceInterface $bladeService,
+        protected View $view,
+        protected Navigation $navigation,
+        protected Search $search,
     ) {
         parent::__construct($request, $response);
     }
@@ -39,13 +39,31 @@ class PageController extends BaseController implements ControllerInterface
     public function handle(): void
     {
         $page = $this->request->resolvePage();
+        $this->renderPage($page, $this->viewData());
+    }
 
-        $data = [
-            'assets' => Asset::getAll(),
-            'topNavigation' => $this->navigation->buildItems('pages/', [], false),
-            'sideNavigation' => $this->navigation->buildSidebarNavigation(),
-            'pageNow' => $page,
-        ];
+    /**
+     * Returns data sent to the resolved view.
+     *
+     * @return array<string, mixed>
+     */
+    public function viewData(): array
+    {
+        $page = $this->request->resolvePage();
+
+        return $this->buildViewDataForPage($page);
+    }
+
+    /**
+     * Builds base view data and augments it for a specific page.
+     *
+     * @param string $page
+     *
+     * @return array<string, mixed>
+     */
+    protected function buildViewDataForPage(string $page): array
+    {
+        $data = $this->buildBaseViewData($page);
 
         $this->appendComponentPageData($data, $page);
         $this->appendUtilityPageData($data, $page);
@@ -53,6 +71,32 @@ class PageController extends BaseController implements ControllerInterface
         $this->appendUtilitiesOverviewPageData($data, $page);
         $this->appendSearchPageData($data, $page);
 
+        return $data;
+    }
+
+    /**
+     * @param string $page
+     *
+     * @return array<string, mixed>
+     */
+    protected function buildBaseViewData(string $page): array
+    {
+        return [
+            'assets' => Asset::getAll(),
+            'topNavigation' => $this->navigation->buildItems('pages/', [], false),
+            'sideNavigation' => $this->navigation->buildSidebarNavigation(),
+            'pageNow' => $page,
+        ];
+    }
+
+    /**
+     * @param string $page
+     * @param array<string, mixed> $data
+     *
+     * @return void
+     */
+    protected function renderPage(string $page, array $data): void
+    {
         $this->view->show($page, $data, $this->bladeService);
     }
 
@@ -108,7 +152,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return void
      */
-    private function appendComponentPageData(array &$data, string $page): void
+    protected function appendComponentPageData(array &$data, string $page): void
     {
         if ($page !== 'component') {
             return;
@@ -196,7 +240,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return void
      */
-    private function appendUtilityPageData(array &$data, string $page): void
+    protected function appendUtilityPageData(array &$data, string $page): void
     {
         if ($page !== 'utility') {
             return;
@@ -253,7 +297,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return bool
      */
-    private function utilityConfigMatchesRequestedSlug(array $config, string $utilityConfigPath, string $requestedSlug): bool
+    protected function utilityConfigMatchesRequestedSlug(array $config, string $utilityConfigPath, string $requestedSlug): bool
     {
         $requested = $this->normalizeIdentifier($requestedSlug);
         if ($requested === '') {
@@ -304,7 +348,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return string
      */
-    private function normalizeIdentifier(string $value): string
+    protected function normalizeIdentifier(string $value): string
     {
         return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $value));
     }
@@ -315,7 +359,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return string
      */
-    private function appendStateToLabel(string $label, ?string $state): string
+    protected function appendStateToLabel(string $label, ?string $state): string
     {
         $normalizedState = strtolower(trim((string) $state));
         if ($normalizedState === '' || $normalizedState === 'stable') {
@@ -376,7 +420,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return string
      */
-    private function resolveUtilityOverviewDescription(array $config): string
+    protected function resolveUtilityOverviewDescription(array $config): string
     {
         $entries = $config['entries'] ?? null;
         if (!is_array($entries)) {
@@ -414,7 +458,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return array<string, array<int, string|array{view: string, css: array<int, string>, title?: string, description?: string}>>
      */
-    private function resolveUtilityExamplesByEntry(string $utilityDirectoryPath, array $utilityEntryKeys): array
+    protected function resolveUtilityExamplesByEntry(string $utilityDirectoryPath, array $utilityEntryKeys): array
     {
         $examplesConfigPath = rtrim($utilityDirectoryPath, '/') . '/examples/examples.json';
         if (!is_file($examplesConfigPath)) {
@@ -518,7 +562,7 @@ class PageController extends BaseController implements ControllerInterface
      *
       * @return array{view: string, css: array<int, string>, title?: string, description?: string}|null
      */
-    private function resolveUtilityExampleDefinition(mixed $exampleDefinition, string $utilityFolder, string $viewPrefix): ?array
+    protected function resolveUtilityExampleDefinition(mixed $exampleDefinition, string $utilityFolder, string $viewPrefix): ?array
     {
         $exampleKey = null;
         $cssDefinitions = [];
@@ -573,7 +617,7 @@ class PageController extends BaseController implements ControllerInterface
      *
      * @return array<int, string>
      */
-    private function resolveUtilityExampleCssUrls(mixed $cssDefinitions, string $utilityFolder): array
+    protected function resolveUtilityExampleCssUrls(mixed $cssDefinitions, string $utilityFolder): array
     {
         if (is_string($cssDefinitions) && $cssDefinitions !== '') {
             $cssDefinitions = [$cssDefinitions];
