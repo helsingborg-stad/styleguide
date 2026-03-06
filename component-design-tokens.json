@@ -736,8 +736,14 @@
     "tokens": [
       "space",
       "color--surface",
+      "color--surface-contrast",
+      "color--surface-border",
       "color--primary",
+      "color--primary-contrast",
+      "color--primary-border",
       "color--secondary",
+      "color--secondary-contrast",
+      "color--secondary-border",
       "base"
     ],
     "description": "The Header component provides a reusable pattern for header in the interface.",
