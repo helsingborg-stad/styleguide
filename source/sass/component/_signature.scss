@@ -4,7 +4,7 @@
 
 .c-signature {
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: minmax(0, max-content) minmax(0, max-content);
     text-decoration: none;
     column-gap: map.get(var_default.$spacers, "2");
 
