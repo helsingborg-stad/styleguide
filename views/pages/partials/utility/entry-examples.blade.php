@@ -61,22 +61,13 @@
             >
                 <div class="u-display--flex u-gap-4 u-flex-wrap--wrap u-align-items--flex-end">
                     @foreach($previewSelects as $modKey => $options)
-                        <div class="c-field">
-                            <label class="c-field__label" for="mod-{{ e($entryFormat) }}-{{ $modKey }}">
-                                {{ $modKey }}
-                            </label>
-                            <div class="c-select__field-container">
-                                <select
-                                    id="mod-{{ e($entryFormat) }}-{{ $modKey }}"
-                                    class="c-select__select-element"
-                                    data-modifier-key="{{ $modKey }}"
-                                >
-                                    @foreach($options as $option)
-                                        <option value="{{ $option }}">{{ $option }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        @select([
+                            'label' => $modKey,
+                            'id' => 'mod-' . e($entryFormat) . '-' . $modKey,
+                            'options' => array_combine($options, $options),
+                            'selectAttributeList' => ['data-modifier-key' => $modKey],
+                        ])
+                        @endselect
                     @endforeach
                 </div>
 
