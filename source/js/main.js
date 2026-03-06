@@ -63,6 +63,9 @@ import './stickyKeys.js'
 import './datalistAutocomplete.ts'
 import './classToggle/classToggle.ts'
 
+// Styleguide-only documentation features
+import './doc/modifierPreview.ts'
+
 // Helpers (excluding ComponentRenderer.ts which is for server-side testing)
 import './helpers/moveElement.ts'
 import './helpers/moveElements.ts'

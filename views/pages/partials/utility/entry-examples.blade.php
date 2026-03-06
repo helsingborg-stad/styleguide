@@ -95,57 +95,5 @@
             </div>
         @endpaper
 
-        @once
-        <script>
-        (function () {
-            function composeClass(format, values) {
-                var cls = format.replace(/^\./, '');
-                Object.keys(values).forEach(function (key) {
-                    cls = cls.split(key).join(values[key]);
-                });
-                return cls;
-            }
-
-            function initPreview(el) {
-                var selects = Array.from(el.querySelectorAll('select[data-modifier-key]'));
-                var preview = el.querySelector('[data-preview-element]');
-                var output  = el.querySelector('[data-applied-class]');
-                var format  = el.dataset.format || '';
-                var baseClass = preview ? (preview.dataset.baseClass || '') : '';
-
-                function update() {
-                    var values = {};
-                    selects.forEach(function (s) {
-                        values[s.dataset.modifierKey] = s.value;
-                    });
-                    var cls = composeClass(format, values);
-                    if (preview) {
-                        preview.className = (baseClass + (cls ? ' ' + cls : '')).trim();
-                        preview.setAttribute('style', 'outline: 2px dashed currentColor; outline-offset: 4px; min-height: 5rem;');
-                    }
-                    if (output) {
-                        output.textContent = cls ? '.' + cls : '';
-                    }
-                }
-
-                selects.forEach(function (s) {
-                    s.addEventListener('change', update);
-                });
-
-                update();
-            }
-
-            function init() {
-                document.querySelectorAll('[data-modifier-preview]').forEach(initPreview);
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
-        }());
-        </script>
-        @endonce
     @endif
 @endif
