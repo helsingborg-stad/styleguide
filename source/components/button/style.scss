@@ -162,7 +162,7 @@ $button-sizes: (
 
         * {
             align-self: center;
-            color: inherit;
+            color: var(--_contrast);
         }
 
         /* Icon: default order 0 (flex default), so it comes before text */
