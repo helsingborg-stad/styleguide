@@ -15,8 +15,27 @@
     @endtypography
 
     @if($entryFormat)
-        @code(['language' => 'css', 'content' => $entryFormat])
+        @php
+            // Prepare modifier options for code output
+            $modifierOptions = [];
+            foreach ($entryMods as $modKey => $modValues) {
+                $options = array_values(array_filter(array_map('trim', explode(',', $modValues))));
+                foreach ($options as $option) {
+                    $modifierOptions[] = $option;
+                }
+            }
+        @endphp
+        @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
+        @code(['language' => 'css', 'content' => ''])
+/* Base class */
+{{ e($entryFormat) }} {}
+
+/* Modifiers */
+@foreach($modifierOptions as $option)
+{{ e($entryFormat) }}--{{ e($option) }} {}
+@endforeach
         @endcode
+        @endpaper
     @endif
 
     @if(!empty($modifierRows))

@@ -80,9 +80,6 @@
                     Preview
                 </div>
 
-                @code(['language' => 'css', 'content' => ''])
-                    <span data-applied-class></span>
-                @endcode
             </div>
         @endpaper
 
