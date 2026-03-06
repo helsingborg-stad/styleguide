@@ -36,14 +36,6 @@
         @enddivider
     @endif
 
-    @if(!empty($utilityEntryKeys ?? []) && !empty($slug ?? ''))
-        @foreach(($utilityEntryKeys ?? []) as $utilityEntryKey)
-        @endforeach
-    @else
-        @notice([
-            'type' => 'warning',
-            'message' => ['text' => 'No utility documentation is available right now.']
-        ])
-        @endnotice
-    @endif
+    {{-- Utility: Entries --}}
+    @include('pages.partials.utility.entries')
 @stop

@@ -12,7 +12,13 @@
             "description": {
                 "level": "Applies a box-shadow to the element based on the specified level. Higher levels correspond to more pronounced shadows."
             },
-            "responsive": false
+            "responsive": false,
+            "examples": [
+                {
+                    "view": "box-shadow-levels",
+                    "css": "box-shadow-levels.css"
+                }
+            ]
         }
     },
     "icon": "layers"

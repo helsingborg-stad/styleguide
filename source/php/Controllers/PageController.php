@@ -283,7 +283,8 @@ class PageController extends BaseController implements ControllerInterface
                 : 'tune';
             $data['description'] = $this->resolveUtilityOverviewDescription($config);
             $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
-            $data['utilityExamplesByEntry'] = $this->resolveUtilityExamplesByEntry($utilityDirectoryPath, $data['utilityEntryKeys']);
+            $data['utilityEntries'] = $entries;
+            $data['utilityExamplesByEntry'] = $this->buildExamplesByEntryFromConfig($entries, basename($utilityDirectoryPath));
             $data['pageNow'] = 'utilities/' . $requestedSlug;
 
             return;
@@ -453,102 +454,49 @@ class PageController extends BaseController implements ControllerInterface
     }
 
     /**
-     * @param string $utilityDirectoryPath
-     * @param array<int, string> $utilityEntryKeys
+     * Build utility examples keyed by entry from each entry's "examples" field in utility.json.
+     *
+     * @param array<string, mixed> $entries     Parsed entries from utility.json.
+     * @param string               $utilityFolder Utility folder name (e.g. "border").
      *
      * @return array<string, array<int, string|array{view: string, css: array<int, string>, title?: string, description?: string}>>
      */
-    protected function resolveUtilityExamplesByEntry(string $utilityDirectoryPath, array $utilityEntryKeys): array
+    protected function buildExamplesByEntryFromConfig(array $entries, string $utilityFolder): array
     {
-        $examplesConfigPath = rtrim($utilityDirectoryPath, '/') . '/examples/examples.json';
-        if (!is_file($examplesConfigPath)) {
-            return [];
-        }
-
-        $content = file_get_contents($examplesConfigPath);
-        $decoded = is_string($content) ? json_decode($content, true) : null;
-        if (!is_array($decoded)) {
-            return [];
-        }
-
-        $utilityFolder = basename($utilityDirectoryPath);
         $viewPrefix = 'source.utilities.' . $utilityFolder . '.examples.';
-        $result = [];
+        $result     = [];
 
-        if (array_is_list($decoded)) {
-            foreach ($decoded as $index => $exampleDefinition) {
-                $entryKey = null;
-
-                if (is_array($exampleDefinition) && isset($exampleDefinition['entry']) && is_string($exampleDefinition['entry']) && trim($exampleDefinition['entry']) !== '') {
-                    $entryKey = trim($exampleDefinition['entry']);
-                } elseif (isset($utilityEntryKeys[$index]) && is_string($utilityEntryKeys[$index]) && $utilityEntryKeys[$index] !== '') {
-                    $entryKey = $utilityEntryKeys[$index];
-                }
-
-                if (!is_string($entryKey) || $entryKey === '') {
-                    continue;
-                }
-
-                $resolvedExample = $this->resolveUtilityExampleDefinition(
-                    $exampleDefinition,
-                    $utilityFolder,
-                    $viewPrefix,
-                );
-
-                if ($resolvedExample === null) {
-                    continue;
-                }
-
-                if (!isset($result[$entryKey]) || !is_array($result[$entryKey])) {
-                    $result[$entryKey] = [];
-                }
-
-                $hasMetadata = isset($resolvedExample['title']) || isset($resolvedExample['description']);
-
-                if (empty($resolvedExample['css']) && !$hasMetadata) {
-                    $result[$entryKey][] = $resolvedExample['view'];
-                    continue;
-                }
-
-                $result[$entryKey][] = $resolvedExample;
-            }
-
-            return $result;
-        }
-
-        foreach ($decoded as $entryKey => $exampleKeys) {
-            if (!is_string($entryKey) || $entryKey === '') {
+        foreach ($entries as $entryKey => $entry) {
+            if (!is_string($entryKey) || $entryKey === '' || !is_array($entry)) {
                 continue;
             }
 
-            if (is_string($exampleKeys) && $exampleKeys !== '') {
-                $exampleKeys = [$exampleKeys];
+            $examplesData = $entry['examples'] ?? null;
+            if ($examplesData === null) {
+                continue;
             }
 
-            if (!is_array($exampleKeys)) {
+            if (is_string($examplesData) && $examplesData !== '') {
+                $examplesData = [$examplesData];
+            }
+
+            if (!is_array($examplesData)) {
                 continue;
             }
 
             $result[$entryKey] = [];
-            foreach ($exampleKeys as $exampleDefinition) {
-                $resolvedExample = $this->resolveUtilityExampleDefinition(
-                    $exampleDefinition,
-                    $utilityFolder,
-                    $viewPrefix,
-                );
-
-                if ($resolvedExample === null) {
+            foreach ($examplesData as $exampleDefinition) {
+                $resolved = $this->resolveUtilityExampleDefinition($exampleDefinition, $utilityFolder, $viewPrefix);
+                if ($resolved === null) {
                     continue;
                 }
 
-                $hasMetadata = isset($resolvedExample['title']) || isset($resolvedExample['description']);
-
-                if (empty($resolvedExample['css']) && !$hasMetadata) {
-                    $result[$entryKey][] = $resolvedExample['view'];
-                    continue;
+                $hasMetadata = isset($resolved['title']) || isset($resolved['description']);
+                if (empty($resolved['css']) && !$hasMetadata) {
+                    $result[$entryKey][] = $resolved['view'];
+                } else {
+                    $result[$entryKey][] = $resolved;
                 }
-
-                $result[$entryKey][] = $resolvedExample;
             }
         }
 

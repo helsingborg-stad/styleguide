@@ -12,10 +12,11 @@
             "description": {
                 "name": "Sets the color of elements borders"
             },
-            "responsive": false
+            "responsive": false,
+            "examples": ["borders-colors"]
         },
         "borders": {
-            "format": "u-border__side--width",
+            "format": "u-border__{side}--{width}",
             "modifiers": {
                 "side": "top, left, right, bottom",
                 "width": "0, 1, 2"
@@ -24,19 +25,21 @@
                 "side": "Specify specific side",
                 "width": "Sets the width of elements borders"
             },
-            "responsive": true
+            "responsive": true,
+            "examples": ["borders-main"]
         },
         "borders-sides": {
-            "format": "u-border__side--width",
+            "format": "u-border__{side}--{width}",
             "modifiers": {
-                "side": "top. left, right, bottom",
+                "side": "top, left, right, bottom",
                 "width": "0, 1, 2"
             },
             "description": {
                 "side": "Specify specific side",
                 "width": "Sets the width of elements borders"
             },
-            "responsive": true
+            "responsive": true,
+            "examples": ["borders-sides"]
         },
         "borders-more": {
             "format": "u-border__style--name",
@@ -45,7 +48,8 @@
             },
             "description": {
                 "name": "Sets the style of elements borders"
-            }
+            },
+            "examples": ["borders-more"]
         }
     },
     "icon": "border_style"

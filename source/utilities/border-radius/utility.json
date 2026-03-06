@@ -14,7 +14,8 @@
                 "radius": "0, 2, 4, 8, 16, full"
             },
             "responsive": true,
-            "format": ".u-rounded__side--radius"
+            "format": ".u-rounded__side--radius",
+            "examples": ["radius-main", "radius-sides", "radius-corners", "radius-chat"]
         }
     },
     "icon": "rounded_corner"

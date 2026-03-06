@@ -7,7 +7,7 @@
 	"state": "stable",
 	"entries": {
 		"accessability": {
-			"title": "Screen Reader Utility on Focusable Elements",
+			"title": "Screen Reader Only",
 			"content": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
 			"format": ".u-sr__only--focus",
 			"description": {
@@ -16,7 +16,14 @@
 			"modifiers": {
 				"focus": "focusable"
 			},
-			"responsive": false
+			"responsive": false,
+			"examples": [
+				{
+					"title": "Simple Screen Reader Only Utility",
+					"description": "Applying the accessibility utility class makes the element non-visible on the display but accessible for the screen reader.",
+					"view": "accessability-main"
+				}
+			]
 		},
 		"screen-readers": {
 			"title": "Screen Reader Utility on Focusable Elements",
@@ -30,7 +37,14 @@
 				"Default": "Hides element while keeping it accessible to screen readers",
 				"focusable": "Shows element when focused on"
 			},
-			"responsive": false
+			"responsive": false,
+			"examples": [
+				{
+					"title": "Screen Reader Utility on Focusable Elements",
+					"description": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
+					"view": "screen-readers-buttons"
+				}
+			]
 		}
 	},
 	"icon": "accessibility_new"

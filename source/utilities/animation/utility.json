@@ -12,7 +12,14 @@
             "modifiers": {
                 "state": "pause"
             },
-            "responsive": false
+            "responsive": false,
+            "examples": [
+                {
+                    "title": "Pause animation",
+                    "description": "Applying the animation utility class pauses the animation on the element.",
+                    "view": "animation-pause"
+                }
+            ]
         }
     },
     "icon": "animation"

@@ -12,7 +12,8 @@
             "modifiers": {
                 "default": ""
             },
-            "responsive": false
+            "responsive": false,
+            "examples": ["unlist"]
         }
     },
     "icon": "format_list_bulleted"

@@ -12,7 +12,8 @@
             "modifiers": {
                 "color": "default, primary, secondary, success, info, warning, danger, darkest, darker, dark, light, lighter, lightest, complementary, complementary-light, complementary-lighter, complementary-lightest"
             },
-            "responsive": false
+            "responsive": false,
+            "examples": ["colors-bg"]
         },
         "colors__text": {
             "format": ".u-color__text--color",
@@ -22,7 +23,8 @@
             "modifiers": {
                 "color": "default, primary, secondary, success, info, warning, danger, darkest, darker, dark, light, lighter, lightest, primary-contrasting, secondary-contrasting"
             },
-            "responsive": false
+            "responsive": false,
+            "examples": ["colors-text"]
         }
     },
     "icon": "palette"
