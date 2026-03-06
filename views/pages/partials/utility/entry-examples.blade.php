@@ -75,7 +75,10 @@
                     data-preview-element
                     data-base-class="u-padding--4"
                     class="u-padding--4"
-                    style="outline: 2px dashed currentColor; outline-offset: 4px; min-height: 5rem;"
+                    style="outline: 2px dashed currentColor; 
+                    outline-offset: 4px; 
+                    min-height: 5rem; 
+                    margin: 6px;"
                 >
                     Preview
                 </div>

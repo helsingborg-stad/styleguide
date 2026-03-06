@@ -1,16 +1,17 @@
 @use "../mixin/responsive-styles";
-@use "../function/append-important";
 @use "sass:map";
 @use "sass:meta";
 @use "sass:string";
 @use "sass:list";
 
 @mixin build-utilities($utility_specs, $responsive: true, $limitToBreakpoint: true) {
-    @if meta.type-of($utility_specs) == list {
+    @if meta.type-of($utility_specs)==list {
         @each $utility in $utility_specs {
             @include apply-utility($utility, $limitToBreakpoint);
         }
-    } @else {
+    }
+
+    @else {
         @include apply-utility($utility_specs, $limitToBreakpoint);
     }
 }
@@ -32,32 +33,29 @@
     @if $default {
         .u-#{$clean-name}#{$pseudo} {
             @each $property, $value in $default {
-                #{$property}: #{$value} !important;
+                #{$property}: #{$value};
             }
         }
-        @include responsive-styles.responsiveStyles(
-            (".u-#{$clean-name}#{$pseudo}": append-important.appendImportant($default)),
+
+        @include responsive-styles.responsiveStyles((".u-#{$clean-name}#{$pseudo}": $default),
             all,
-            $limitToBreakpoint
-        );
+            $limitToBreakpoint );
     }
 
     @if $modifiers {
         @each $modifier in $modifiers {
             .u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo} {
                 @each $property, $value in list.nth($modifier, 2) {
-                    #{$property}: #{$value} !important;
+                    #{$property}: #{$value};
                 }
             }
         }
 
         @each $modifier in $modifiers {
             $style: list.nth($modifier, 2);
-            @include responsive-styles.responsiveStyles(
-                (".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": append-important.appendImportant($style)),
+            @include responsive-styles.responsiveStyles((".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": $style),
                 all,
-                $limitToBreakpoint
-            );
+                $limitToBreakpoint );
         }
     }
 }
