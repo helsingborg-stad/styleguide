@@ -1,0 +1,20 @@
+{
+	"basic": {
+		"heading": "Basic"
+	},
+	"primary": {
+		"heading": "Primary color"
+	},
+	"secondary": {
+		"heading": "Secondary color"
+	},
+	"accented": {
+		"heading": "Accented"
+	},
+	"primary-accented": {
+		"heading": "Primary color accented"
+	},
+	"secondary-accented": {
+		"heading": "Secondary color accented"
+	}
+}

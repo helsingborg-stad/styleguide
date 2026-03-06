@@ -5,15 +5,19 @@
 $_: "c-header";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "logotype-height": "calc(var(--c-header-logotype-height, 6) * var(--base))",
+@include tokens.create($_, getComponentTokens($_), ("base": var(--base),
+        "logotype-height": calc(var(--c-header-logotype-height, 6) * var(--base)),
+        "background-color": tokens.get($_, "color--surface"),
+        "color": tokens.get($_, "color--surface-contrast"),
+        "border-color": tokens.get($_, "color--primary"),
     ));
 
 /* Component */
 .#{$_} {
     z-index: 6000;
     position: relative;
-    background-color: tokens.get($_, "color--surface");
+    background-color: tokens.get($_, "background-color");
+    color: tokens.get($_, "color");
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
@@ -26,16 +30,32 @@ $_: "c-header";
         z-index: 7000;
     }
 
-    &.#{$_}--accented {
-        border-bottom: tokens.get($_, "base") solid tokens.get($_, "color--primary");
-    }
-
     &.#{$_}--primary {
-        background-color: tokens.get($_, "color--primary");
+        --c-header--background-color: #{tokens.get($_, "color--primary")};
+        --c-header--color: #{tokens.get($_, "color--primary-contrast")};
+        --c-header--border-color: #{tokens.get($_, "color--primary-border")};
     }
 
     &.#{$_}--secondary {
-        background-color: tokens.get($_, "color--secondary");
+        --c-header--background-color: #{tokens.get($_, "color--secondary")};
+        --c-header--color: #{tokens.get($_, "color--secondary-contrast")};
+        --c-header--border-color: #{tokens.get($_, "color--secondary-border")};
+    }
+
+    .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+        --c-nav--item-color: var(--c-header--color);
+    }
+
+    .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+        --c-link--color--background-contrast: var(--c-header--color);
+    }
+
+    .c-button:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+        --c-button--color--surface-contrast: var(--c-header--color);
+    }
+
+    &.#{$_}--accented {
+        border-bottom: tokens.get($_, "base") solid tokens.get($_, "border-color");
     }
 
     &.#{$_}--text-white>*,
