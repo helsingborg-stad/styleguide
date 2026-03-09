@@ -63,7 +63,7 @@
         @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
         @code(['language' => 'css', 'content' => ''])
 /* Format */
-{{ e($entryFormat) }}
+{{ e($entryFormat) }} 
 
 /* Examples */
 @foreach($modifierOptions as $option)
@@ -81,8 +81,7 @@
         @table([
             'headings'     => ['Modifier', 'Values', 'Description'],
             'list'         => $modifierRows,
-            'includePaper' => false,
-            'classList'    => ['u-margin__top--2'],
+            'includePaper' => false
         ])
         @endtable
     @endif

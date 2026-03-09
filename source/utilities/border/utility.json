@@ -48,8 +48,7 @@
 			},
 			"description": {
 				"name": "Sets the style of elements borders"
-			},
-			"examples": ["borders-more"]
+			}
 		}
 	},
 	"icon": "border_style"
