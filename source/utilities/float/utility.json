@@ -12,7 +12,7 @@
                 "direction": "left, right, none"
             },
             "responsive": true,
-            "format": ".u-float--direction"
+            "format": ".u-float--{direction}"
         }
     },
     "icon": "swap_vert"

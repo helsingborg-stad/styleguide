@@ -12,7 +12,7 @@
                 "overflow": "hidden, auto, visible, scroll"
             },
             "responsive": true,
-            "format": "u-overflow--overflow",
+            "format": "u-overflow--{overflow}",
             "examples": ["overflow-modes"]
         }
     },

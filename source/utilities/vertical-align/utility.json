@@ -5,7 +5,7 @@
     "slug": "vertical-align",
     "entries": {
         "vertical-align": {
-            "format": "u-align--alignment",
+            "format": "u-align--{alignment}",
             "modifiers": {
                 "alignment": "baseline, top, middle, bottom, text-top, text-bottom"
             },

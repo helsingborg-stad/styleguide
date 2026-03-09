@@ -5,7 +5,7 @@
     "slug": "z-index",
     "entries": {
         "z-index": {
-            "format": "u-level-value",
+            "format": "u-level--{value}",
             "modifiers": {
                 "value": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, top, bottom"
             },

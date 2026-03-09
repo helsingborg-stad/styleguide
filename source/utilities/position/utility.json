@@ -5,7 +5,7 @@
     "slug": "position",
     "entries": {
         "absolute": {
-            "format": "u-absolute--side",
+            "format": "u-absolute--{side}",
             "summary": [
                 "Position an element absolute to a side of the ancestor stacking context."
             ],
@@ -18,7 +18,7 @@
             "responsive": true
         },
         "fixed": {
-            "format": "u-fixed--side",
+            "format": "u-fixed--{side}",
             "summary": [
                 "Position an element fixed to a side of the view."
             ],
@@ -31,7 +31,7 @@
             "responsive": true
         },
         "position": {
-            "format": "u-position--type",
+            "format": "u-position--{type}",
             "summary": [
                 "Sets the position of an element."
             ],
@@ -44,7 +44,7 @@
             "responsive": true
         },
         "sticky": {
-            "format": "u-sticky--side",
+            "format": "u-sticky--{side}",
             "summary": [
                 "Positions element on the side of the view but only after user has scrolled past the element."
             ],

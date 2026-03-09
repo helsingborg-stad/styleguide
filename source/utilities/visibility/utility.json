@@ -5,7 +5,7 @@
     "slug": "visibility",
     "entries": {
         "visibility": {
-            "format": "u-visibility--state",
+            "format": "u-visibility--{state}",
             "modifiers": {
                 "state": "visible, hidden"
             },

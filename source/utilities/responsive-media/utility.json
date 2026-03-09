@@ -5,7 +5,7 @@
     "slug": "responsive-media",
     "entries": {
         "responsive-media": {
-            "format": "u-media--behavior",
+            "format": "u-media--{behavior}",
             "modifiers": {
                 "behavior": "responsive"
             },

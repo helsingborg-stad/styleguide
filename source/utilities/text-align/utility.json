@@ -5,7 +5,7 @@
     "slug": "text-align",
     "entries": {
         "text-align": {
-            "format": ".u-text-align--alignment",
+            "format": ".u-text-align--{alignment}",
             "description": {
                 "alignment": "Decides which placement the text will have."
             },
