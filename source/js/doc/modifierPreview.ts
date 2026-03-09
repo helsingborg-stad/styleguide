@@ -11,7 +11,7 @@ class ModifierPreview {
     private composeClass(values: Record<string, string>): string {
         let cls = this.format.replace(/^\./, '');
         for (const [key, value] of Object.entries(values)) {
-            cls = cls.split(key).join(value);
+            cls = cls.split(`{${key}}`).join(value);
         }
         return cls;
     }
