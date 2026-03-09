@@ -10,7 +10,7 @@ $_: "c-header";
         "background-color": tokens.get($_, "color--surface"),
         "color": tokens.get($_, "color--surface-contrast"),
         "border-color": tokens.get($_, "color--primary"),
-    ));
+    ), ("color--surface": "color--background", ));
 
 /* Component */
 .#{$_} {
