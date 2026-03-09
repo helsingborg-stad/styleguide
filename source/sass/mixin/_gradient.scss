@@ -1,9 +1,0 @@
-@use "../function/is-direction";
-
-@mixin gradient($direction, $color-stops...) {
-    @if is-direction.is-direction($direction) == false {
-        $color-stops: $direction, $color-stops;
-        $direction: 180deg;
-    }
-    background: linear-gradient($direction, $color-stops);
-}
