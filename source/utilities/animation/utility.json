@@ -5,7 +5,7 @@
 	"slug": "animation",
 	"entries": {
 		"animation": {
-			"format": ".u-animation",
+			"format": ".u-animation--{state}",
 			"description": {
 				"state": "Pauses an animation."
 			},

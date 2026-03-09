@@ -5,7 +5,7 @@
 	"slug": "aspect-ratio",
 	"entries": {
 		"aspect-ratio": {
-			"format": ".u-aspect-ratio",
+			"format": ".u-aspect-ratio--{pair}",
 			"description": {
 				"pair": "Adds an aspect ratio to an element."
 			},

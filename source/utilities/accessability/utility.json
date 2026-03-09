@@ -7,11 +7,11 @@
 	"state": "stable",
 	"entries": {
 		"accessability": {
-			"title": "Screen Reader Only",
+			"title": "Screen Reader",
 			"content": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
-			"format": ".u-sr__only",
+			"format": ".u-sr__only--{focus}",
 			"description": {
-				"focus": "Removes an elements visuals but is still accessible for screen readers."
+				"focus": "Removes an elements visuals but is still accessible for screen readers. When using --focus modifier, the element will become visible when focused, allowing keyboard users to interact with it."
 			},
 			"modifiers": {
 				"focus": "focusable"
@@ -22,27 +22,6 @@
 					"title": "Simple Screen Reader Only Utility",
 					"description": "Applying the accessibility utility class makes the element non-visible on the display but accessible for the screen reader.",
 					"view": "accessability-main"
-				}
-			]
-		},
-		"screen-readers": {
-			"title": "Screen Reader Utility on Focusable Elements",
-			"content": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
-			"format": "u-sr__only--focusable",
-			"modifiers": {
-				"Default": "",
-				"focusable": "focusable"
-			},
-			"description": {
-				"Default": "Hides element while keeping it accessible to screen readers",
-				"focusable": "Shows element when focused on"
-			},
-			"responsive": false,
-			"examples": [
-				{
-					"title": "Screen Reader Utility on Focusable Elements",
-					"description": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
-					"view": "screen-readers-buttons"
 				}
 			]
 		}
