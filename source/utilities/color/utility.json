@@ -5,7 +5,7 @@
     "slug": "color",
     "entries": {
         "colors__bg": {
-            "format": ".u-color__bg",
+            "format": ".u-color__bg--{color}",
             "description": {
                 "color": "Applies given color"
             },
@@ -16,7 +16,7 @@
             "examples": ["colors-bg"]
         },
         "colors__text": {
-            "format": ".u-color__text",
+            "format": ".u-color__text--{color}",
             "description": {
                 "color": "Applies given color"
             },

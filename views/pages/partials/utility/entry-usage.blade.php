@@ -16,23 +16,62 @@
 
     @if($entryFormat)
         @php
-            // Prepare modifier options for code output
-            $modifierOptions = [];
-            foreach ($entryMods as $modKey => $modValues) {
-                $options = array_values(array_filter(array_map('trim', explode(',', $modValues))));
-                foreach ($options as $option) {
-                    $modifierOptions[] = $option;
+            // Detect {key} placeholders in format
+            preg_match_all('/\{(\w+)\}/', $entryFormat, $placeholderMatches);
+            $placeholderKeys = $placeholderMatches[1];
+
+            if (!empty($placeholderKeys)) {
+                // Build value arrays for each placeholder key
+                $valueArrays = [];
+                foreach ($placeholderKeys as $key) {
+                    $valueArrays[] = isset($entryMods[$key])
+                        ? array_values(array_filter(array_map('trim', explode(',', $entryMods[$key]))))
+                        : [];
                 }
+                // Cartesian product of all value arrays
+                $combinations = [[]];
+                foreach ($valueArrays as $values) {
+                    $newCombinations = [];
+                    foreach ($combinations as $combo) {
+                        foreach ($values as $value) {
+                            $newCombinations[] = array_merge($combo, [$value]);
+                        }
+                    }
+                    $combinations = $newCombinations;
+                }
+                // Substitute placeholders to produce full class names
+                $modifierOptions = [];
+                foreach ($combinations as $combo) {
+                    $class = $entryFormat;
+                    foreach ($placeholderKeys as $i => $key) {
+                        $class = str_replace('{' . $key . '}', $combo[$i], $class);
+                    }
+                    $modifierOptions[] = $class;
+                }
+                $hasPlaceholders = true;
+            } else {
+                // Fallback: append modifier values to format with --
+                $modifierOptions = [];
+                foreach ($entryMods as $modValues) {
+                    foreach (array_values(array_filter(array_map('trim', explode(',', $modValues)))) as $option) {
+                        $modifierOptions[] = $option;
+                    }
+                }
+                $hasPlaceholders = false;
             }
         @endphp
         @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
         @code(['language' => 'css', 'content' => ''])
-/* Base class */
-{{ e($entryFormat) }} {}
+/* Format */
+{{ e($entryFormat) }}
 
-/* Modifiers */
+/* Examples */
 @foreach($modifierOptions as $option)
+@if($hasPlaceholders)
+{{ e($option) }} {}
+@else
 {{ e($entryFormat) }}--{{ e($option) }} {}
+@endif
 @endforeach
         @endcode
         @endpaper

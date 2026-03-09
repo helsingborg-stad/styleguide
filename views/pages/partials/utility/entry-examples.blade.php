@@ -31,8 +31,23 @@
                 <link rel="stylesheet" href="{{ $cssUrl }}">
             @endforeach
 
-            @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
-                @include($exampleView)
+            @php
+                $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                    return $__env->make($viewPath, $viewData)->render();
+                };
+
+                $exampleTabContent  = $__env->make($exampleView, get_defined_vars())->render();
+                $htmlSourceCode     = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($exampleTabContent));
+                $htmlCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
+                $htmlCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
+            @endphp
+
+            @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+                @tabs(['tabs' => [
+                    ['title' => 'Example', 'content' => $exampleTabContent],
+                    ['title' => 'HTML',    'content' => $htmlCodeTabContent],
+                ]])
+                @endtabs
             @endpaper
         @endif
     @endforeach
@@ -53,37 +68,36 @@
             Preview
         @endtypography
 
-        @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
-            <div
-                data-modifier-preview
-                data-format="{{ e($entryFormat) }}"
-                class="u-display--flex u-flex-direction--column u-gap-4"
-            >
-                <div class="u-display--flex u-gap-4 u-flex-wrap--wrap u-align-items--flex-end">
-                    @foreach($previewSelects as $modKey => $options)
-                        @select([
-                            'label' => $modKey,
-                            'id' => 'mod-' . e($entryFormat) . '-' . $modKey,
-                            'options' => array_combine($options, $options),
-                            'selectAttributeList' => ['data-modifier-key' => $modKey],
-                        ])
-                        @endselect
-                    @endforeach
-                </div>
+        @php
+            $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                return $__env->make($viewPath, $viewData)->render();
+            };
 
-                <div
-                    data-preview-element
-                    data-base-class="u-padding--4"
-                    class="u-padding--4"
-                    style="outline: 2px dashed currentColor; 
-                    outline-offset: 4px; 
-                    min-height: 5rem; 
-                    margin: 6px;"
-                >
-                    Preview
-                </div>
+            $previewTabContent = $__env->make('pages.partials.utility.entry-examples-preview', get_defined_vars())->render();
 
-            </div>
+            $cssFormat = e($entryFormat);
+            $modifierOptions = [];
+            foreach ($entryMods as $modValues) {
+                foreach (array_values(array_filter(array_map('trim', explode(',', $modValues)))) as $option) {
+                    $modifierOptions[] = $option;
+                }
+            }
+
+            $cssLines = "/* Base class */\n{$cssFormat} {}\n\n/* Modifiers */\n";
+            foreach ($modifierOptions as $option) {
+                $cssLines .= "{$cssFormat}--" . e($option) . " {}\n";
+            }
+
+            $cssCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'css']);
+            $cssCodeTabContent = str_replace('__CODE_PLACEHOLDER__', e($cssLines), $cssCodeTemplate);
+        @endphp
+
+        @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+            @tabs(['tabs' => [
+                ['title' => 'Preview', 'content' => $previewTabContent],
+                ['title' => 'CSS',     'content' => $cssCodeTabContent],
+            ]])
+            @endtabs
         @endpaper
 
     @endif

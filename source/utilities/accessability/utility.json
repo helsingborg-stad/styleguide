@@ -9,7 +9,7 @@
 		"accessability": {
 			"title": "Screen Reader Only",
 			"content": "Using screen reader class is possible on all elements. When used on focusable elements, the element will become visible when focused, allowing keyboard users to interact with it.",
-			"format": ".u-sr__only--focus",
+			"format": ".u-sr__only",
 			"description": {
 				"focus": "Removes an elements visuals but is still accessible for screen readers."
 			},
