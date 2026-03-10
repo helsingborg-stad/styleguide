@@ -7,20 +7,40 @@
 		"colors__bg": {
 			"format": ".u-color__bg--{color}",
 			"description": {
-				"color": "Applies given color"
+				"color": "Applies given color as background"
 			},
 			"modifiers": {
-				"color": "default, primary, secondary, success, info, warning, danger, dark, lightest, complementary-lighter, complementary-lightest"
+				"color": "primary, primary-contrast, secondary, secondary-contrast, success, success-contrast, danger, danger-contrast, info, warning, warning-contrast, transparent, surface, surface-contrast"
 			},
 			"responsive": false
 		},
 		"colors__text": {
 			"format": ".u-color__text--{color}",
 			"description": {
-				"color": "Applies given color"
+				"color": "Applies given color as text color"
 			},
 			"modifiers": {
-				"color": "default, primary, secondary, success, info, warning, danger, darkest, darker, dark, light, lighter, lightest, primary-contrasting, secondary-contrasting"
+				"color": "primary, primary-contrast, secondary, secondary-contrast, success, success-contrast, danger, danger-contrast, info, warning, warning-contrast, transparent, surface, surface-contrast, surface-border"
+			},
+			"responsive": false
+		},
+		"colors__border": {
+			"format": ".u-color__border--{color}",
+			"description": {
+				"color": "Applies given border color"
+			},
+			"modifiers": {
+				"color": "primary, secondary, success, danger, info, warning, surface"
+			},
+			"responsive": false
+		},
+		"colors": {
+			"format": ".u-color--{color}",
+			"description": {
+				"color": "Applies synchronized text, background and border color"
+			},
+			"modifiers": {
+				"color": "primary, secondary, success, danger, info, warning, surface"
 			},
 			"responsive": false
 		}

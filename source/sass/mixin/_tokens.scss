@@ -4,16 +4,16 @@
 /// Strips a trailing "-*" wildcard from a prefix.
 /// "u-border-*" → "u-border", "c-notice" → "c-notice"
 @function _clean-prefix($prefix) {
-    @if string.slice($prefix, -2)=="-*" {
-        @return string.slice($prefix, 1, -3);
+    @if string.slice($prefix, -1)=="*" {
+        @return string.slice($prefix, 1, -2);
     }
 
     @return $prefix;
 }
 
-/// Returns true when the prefix ends with "-*".
+/// Returns true when the prefix ends with "*".
 @function _is-wildcard($prefix) {
-    @return string.slice($prefix, -2)=="-*";
+    @return string.slice($prefix, -1)=="*";
 }
 
 /// Creates component tokens that fall back to global tokens.
