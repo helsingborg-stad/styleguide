@@ -5,16 +5,16 @@
 	"slug": "border-radius",
 	"entries": {
 		"radius": {
-			"description": {
-				"side": "The sides to add radius to",
-				"radius": "The amount of radius"
-			},
 			"modifiers": {
-				"side": "left, right, top, bottom, top__left, bottom__left, top__right, bottom__right, none, full ",
-				"radius": "0, 2, 4, 8, 16, full"
+				"default": "",
+				"full": "full"
+			},
+			"description": {
+				"default": "The .u-rounded utility applies a standard border radius to an element, creating rounded corners.",
+				"full": "The .u-rounded--full modifier applies a fully rounded border radius to an element, creating a pill-shaped or circular appearance depending on the element's dimensions. This do not apply corner-shape token to allow for a complete rounding effect regardless of the design system's defined corner shapes."
 			},
 			"responsive": true,
-			"format": ".u-rounded__{side}--{radius}"
+			"format": ".u-rounded--{full}"
 		}
 	},
 	"icon": "rounded_corner"

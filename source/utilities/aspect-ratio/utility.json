@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Aspect Ratio",
 	"slug": "aspect-ratio",
+	"state": "stable",
 	"entries": {
 		"aspect-ratio": {
 			"format": ".u-aspect-ratio--{pair}",
