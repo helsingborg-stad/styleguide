@@ -24,6 +24,8 @@ GitHub code search requires authentication. Try the methods below in order until
 gh search code "{ClassName}" --owner helsingborg-stad --limit 200 --json repository,path,url
 ```
 
+Ignore all matches found in: https://github.com/helsingborg-stad/styleguide 
+
 ### Method B — curl with GITHUB_TOKEN
 
 ```sh
@@ -32,6 +34,8 @@ curl -s \
   -H "Accept: application/vnd.github+json" \
   "https://api.github.com/search/code?q={ClassName}+org:helsingborg-stad&per_page=100&page=1"
 ```
+
+Ignore all matches found in: https://github.com/helsingborg-stad/styleguide 
 
 If `total_count` exceeds 100, repeat with `page=2`, `page=3`, … until all results are collected.
 
