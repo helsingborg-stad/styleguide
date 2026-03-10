@@ -35,7 +35,8 @@
         $selector: '[class*="#{$p}"]';
     }
 
-    #{$selector} {
+    // #{$selector} {
+    :root {
         @each $token in $tokens {
             --#{$p}--#{$token}: var(--#{$token});
         }
