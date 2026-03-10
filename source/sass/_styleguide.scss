@@ -19,62 +19,65 @@
  *
  * * * * * * * * * */
 
-// ***************************************************************
-// *** Settings
-// ***************************************************************
-@use "setting/variables";
-@use "setting/var_export";
-
-// ***************************************************************
-// *** Functions
-// ***************************************************************
 @use "sass:meta";
-@use "function/strip-unit" as stripUnit;
-@use "function/em" as emFunction;
-@use "function/rem" as remFunction;
-@use "function/px" as pxFunction;
-@use "function/breakpoint-suffix" as breakpointSuffixFunction;
-@use "function/next-breakpoint" as nextBreakpointFunction;
-@use "function/get-color" as getColorFunction;
-@use "function/remove-list-item" as removeListItemFunction;
-@use "function/validate-breakpoint-list" as validateBreakpointListFunction;
-@use "function/mix-color-style-functions" as mixColorStyleFunctions;
-@use "function/legacy-direction" as legacyDirectionFunction;
-@use "function/is-direction" as isDirectionFunction;
-@use "function/append-important" as appendImportantFunction;
-@use "function/heading" as headingFunction;
-@use "function/string-replace" as stringReplaceFunction;
-
-// ***************************************************************
-// *** Mixins
-// ***************************************************************
-@use "mixin/mq" as mqMixin;
-@use "mixin/responsive-styles" as responsiveStylesMixin;
-@use "mixin/psuedo" as psuedoMixin;
-@use "mixin/ratio" as ratioMixin;
-@use "mixin/cover" as coverMixin;
-@use "mixin/center" as centerMixin;
-@use "mixin/size" as sizeMixin;
-@use "mixin/shadow" as shadowMixin;
-@use "mixin/button" as buttonMixin;
-@use "mixin/list" as listMixin;
-@use "mixin/paper" as paperMixin;
-@use "mixin/gradient" as gradientMixin;
-@use "mixin/arrow" as arrowMixin;
-@use "mixin/fluid-type" as fluidTypeMixin;
-@use "mixin/build-utility" as buildUtilityMixin;
-@use "mixin/animations/slide" as slideAnimationMixin;
-@use "mixin/animations/scale-up" as scaleUpAnimationMixin;
-@use "mixin/animations/fade-in" as fadeInAnimationMixin;
-@use "mixin/stretch" as stretchMixin;
-@use "mixin/focus" as focusMixin;
-@use "mixin/tokens" as tokensMixin;
-@use "mixin/animations/ken-burns" as kenBurnsAnimationMixin;
 
 // ***************************************************************
 // *** Layers
 // ***************************************************************
 @layer generic, elements, objects, components, icons, utilities, theme;
+
+// ***************************************************************
+// *** Settings
+// ***************************************************************
+@layer generic {
+  @include meta.load-css("setting/variables");
+  @include meta.load-css("setting/var_export");
+}
+
+// ***************************************************************
+// *** Functions
+// ***************************************************************
+@include meta.load-css("function/strip-unit");
+@include meta.load-css("function/em");
+@include meta.load-css("function/rem");
+@include meta.load-css("function/px");
+@include meta.load-css("function/breakpoint-suffix");
+@include meta.load-css("function/next-breakpoint");
+@include meta.load-css("function/get-color");
+@include meta.load-css("function/remove-list-item");
+@include meta.load-css("function/validate-breakpoint-list");
+@include meta.load-css("function/mix-color-style-functions");
+@include meta.load-css("function/legacy-direction");
+@include meta.load-css("function/is-direction");
+@include meta.load-css("function/append-important");
+@include meta.load-css("function/heading");
+@include meta.load-css("function/string-replace");
+
+// ***************************************************************
+// *** Mixins
+// ***************************************************************
+@include meta.load-css("mixin/mq");
+@include meta.load-css("mixin/responsive-styles");
+@include meta.load-css("mixin/psuedo");
+@include meta.load-css("mixin/ratio");
+@include meta.load-css("mixin/cover");
+@include meta.load-css("mixin/center");
+@include meta.load-css("mixin/size");
+@include meta.load-css("mixin/shadow");
+@include meta.load-css("mixin/button");
+@include meta.load-css("mixin/list");
+@include meta.load-css("mixin/paper");
+@include meta.load-css("mixin/gradient");
+@include meta.load-css("mixin/arrow");
+@include meta.load-css("mixin/fluid-type");
+@include meta.load-css("mixin/build-utility");
+@include meta.load-css("mixin/animations/slide");
+@include meta.load-css("mixin/animations/scale-up");
+@include meta.load-css("mixin/animations/fade-in");
+@include meta.load-css("mixin/stretch");
+@include meta.load-css("mixin/focus");
+@include meta.load-css("mixin/tokens");
+@include meta.load-css("mixin/animations/ken-burns");
 
 // ***************************************************************
 // *** Generic

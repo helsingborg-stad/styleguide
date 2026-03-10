@@ -4,19 +4,16 @@
 $_: "c-paper";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), 
-    (
-        "border-color": tokens.get($_, "color--surface-border"),
+@include tokens.create($_, getComponentTokens($_),
+    ("border-color": tokens.get($_, "color--surface-border"),
         "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "border-color"),
-        "padding": calc(#{tokens.use($_, "space")} * var(--#{$_}--padding-multiplier, 0)),
+        "padding": 0,
         "shadow": tokens.use($_, "shadow", 1),
         "background-color": tokens.get($_, "color--surface"),
         "color": tokens.get($_, "color--surface-contrast"),
-    ), 
-    (
-        "color--surface": "color--background",
-    )
-);
+    ),
+    ("color--surface": "color--background",
+    ));
 
 /* Component */
 .#{$_} {
@@ -29,9 +26,15 @@ $_: "c-paper";
     padding: tokens.get($_, "padding");
     filter: tokens.get($_, "shadow");
 
+    /* switch to surface color tokens for nested components */
+    --c-field--background-color: var(--color--background);
+    --c-field--color--surface-contrast: var(--color--background-contrast);
+    --c-card--color--surface: var(--color--background);
+    --c-card--color--surface-contrast: var(--color--background-contrast);
+
     @for $i from 0 through 8 {
         &--padding-#{$i} {
-            --#{$_}--padding-multiplier: #{$i};
+            padding: calc(#{tokens.use($_, "space")} * #{$i});
         }
     }
 
