@@ -54,6 +54,31 @@
 
 @elseif($entryFormat && !empty($entryMods))
     @php
+        $hasDefaultModifier = array_key_exists('default', $entryMods)
+            && trim((string) $entryMods['default']) === '';
+
+        $composeClassName = static function (string $format, array $placeholderKeys, array $values): string {
+            $className = $format;
+
+            foreach ($placeholderKeys as $index => $key) {
+                $value = (string) ($values[$index] ?? '');
+                $token = '{' . $key . '}';
+
+                if ($value === '') {
+                    $pattern = '/(?:--|__|-|_)?' . preg_quote($token, '/') . '/';
+                    $className = preg_replace($pattern, '', $className) ?? $className;
+                    continue;
+                }
+
+                $className = str_replace($token, $value, $className);
+            }
+
+            $className = preg_replace('/(?:--|__|-|_)?\{[a-zA-Z0-9_]+\}/', '', $className) ?? $className;
+            $className = preg_replace('/(--|__|-|_)+$/', '', $className) ?? $className;
+
+            return $className;
+        };
+
         $previewSelects = [];
         foreach ($entryMods as $modKey => $modValues) {
             $options = array_values(array_filter(array_map('trim', explode(',', $modValues))));
@@ -76,16 +101,69 @@
             $previewTabContent = $__env->make('pages.partials.utility.entry-examples-preview', get_defined_vars())->render();
 
             $cssFormat = e($entryFormat);
-            $modifierOptions = [];
-            foreach ($entryMods as $modValues) {
-                foreach (array_values(array_filter(array_map('trim', explode(',', $modValues)))) as $option) {
-                    $modifierOptions[] = $option;
+            preg_match_all('/\{(\w+)\}/', $entryFormat, $placeholderMatches);
+            $placeholderKeys = $placeholderMatches[1];
+
+            $modifierClasses = [];
+            if (!empty($placeholderKeys)) {
+                $valueArrays = [];
+                foreach ($placeholderKeys as $key) {
+                    $valueArrays[] = isset($entryMods[$key])
+                        ? array_values(array_map('trim', explode(',', $entryMods[$key])))
+                        : [];
+                }
+
+                $combinations = [[]];
+                foreach ($valueArrays as $values) {
+                    $newCombinations = [];
+                    foreach ($combinations as $combo) {
+                        foreach ($values as $value) {
+                            $newCombinations[] = array_merge($combo, [$value]);
+                        }
+                    }
+                    $combinations = $newCombinations;
+                }
+
+                foreach ($combinations as $combo) {
+                    $modifierClasses[] = $composeClassName($entryFormat, $placeholderKeys, $combo);
+                }
+
+                if ($hasDefaultModifier) {
+                    $defaultValues = array_fill(0, count($placeholderKeys), '');
+                    $modifierClasses[] = $composeClassName($entryFormat, $placeholderKeys, $defaultValues);
+                }
+            } else {
+                foreach ($entryMods as $modValues) {
+                    foreach (array_values(array_map('trim', explode(',', $modValues))) as $option) {
+                        if ($option === '') {
+                            $modifierClasses[] = rtrim($entryFormat, '-_');
+                            continue;
+                        }
+
+                        $modifierClasses[] = rtrim($entryFormat, '-_') . '--' . $option;
+                    }
+                }
+
+                if ($hasDefaultModifier) {
+                    $modifierClasses[] = rtrim($entryFormat, '-_');
                 }
             }
 
-            $cssLines = "/* Base class */\n{$cssFormat} {}\n\n/* Modifiers */\n";
-            foreach ($modifierOptions as $option) {
-                $cssLines .= "{$cssFormat}--" . e($option) . " {}\n";
+            $modifierClasses = array_values(array_unique(array_filter($modifierClasses, static fn(string $class): bool => $class !== '')));
+            if ($hasDefaultModifier) {
+                $defaultClass = !empty($placeholderKeys)
+                    ? $composeClassName($entryFormat, $placeholderKeys, array_fill(0, count($placeholderKeys), ''))
+                    : rtrim($entryFormat, '-_');
+
+                if ($defaultClass !== '') {
+                    $modifierClasses = array_values(array_filter($modifierClasses, static fn(string $class): bool => $class !== $defaultClass));
+                    array_unshift($modifierClasses, $defaultClass);
+                }
+            }
+
+            $cssLines = "/* Format */\n{$cssFormat} {}\n\n/* Examples & modifiers */\n";
+            foreach ($modifierClasses as $class) {
+                $cssLines .= e($class) . " {}\n";
             }
 
             $cssCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'css']);
