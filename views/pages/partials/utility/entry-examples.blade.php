@@ -100,7 +100,6 @@
 
             $previewTabContent = $__env->make('pages.partials.utility.entry-examples-preview', get_defined_vars())->render();
 
-            $cssFormat = e($entryFormat);
             preg_match_all('/\{(\w+)\}/', $entryFormat, $placeholderMatches);
             $placeholderKeys = $placeholderMatches[1];
 
@@ -161,9 +160,19 @@
                 }
             }
 
-            $cssLines = "/* Format */\n{$cssFormat} {}\n\n/* Examples & modifiers */\n";
+            $toCssSelector = static function (string $className): string {
+                $className = trim($className);
+
+                if ($className === '' || str_starts_with($className, '.')) {
+                    return $className;
+                }
+
+                return '.' . $className;
+            };
+
+            $cssLines = "/* Format */\n" . e($toCssSelector($entryFormat)) . " {}\n\n/* Examples & modifiers */\n";
             foreach ($modifierClasses as $class) {
-                $cssLines .= e($class) . " {}\n";
+                $cssLines .= e($toCssSelector($class)) . " {}\n";
             }
 
             $cssCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'css']);

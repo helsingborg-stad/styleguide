@@ -19,6 +19,16 @@
             $hasDefaultModifier = array_key_exists('default', $entryMods)
                 && trim((string) $entryMods['default']) === '';
 
+            $toCssSelector = static function (string $className): string {
+                $className = trim($className);
+
+                if ($className === '' || str_starts_with($className, '.')) {
+                    return $className;
+                }
+
+                return '.' . $className;
+            };
+
             $composeClassName = static function (string $format, array $placeholderKeys, array $values): string {
                 $className = $format;
 
@@ -118,15 +128,11 @@
         @paper(['padding' => 3, 'classList' => ['u-margin__bottom--4']])
         @code(['language' => 'css', 'content' => ''])
 /* Format */
-{{ e($entryFormat) }} 
+{{ e($toCssSelector($entryFormat)) }} {}
 
 /* Examples & modifiers */
 @foreach($modifierOptions as $option)
-@if($hasPlaceholders)
-{{ e($option) }} {}
-@else
-{{ e($option) }} {}
-@endif
+{{ e($toCssSelector($option)) }} {}
 @endforeach
         @endcode
         @endpaper
