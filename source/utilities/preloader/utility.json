@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Preloader",
 	"slug": "preloader",
+	"state": "stable",
 	"entries": {
 		"inner": {
 			"format": ".u-preloader--{modifier}",
