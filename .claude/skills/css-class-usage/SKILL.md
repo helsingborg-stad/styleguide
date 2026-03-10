@@ -7,8 +7,8 @@ argument-hint: <ClassName>
 ## Goal
 
 Search for usages of a CSS class name (or prefix) across all repositories in the `helsingborg-stad` GitHub organisation and return:
-1. A plain list of every matching file
-2. A summary reference table grouped by repository
+1. A list of every unique class name found (e.g. `u-color__bg`, `u-color__bg--primary`, …)
+2. A reference table grouped by class name, showing each file it appears in
 
 ## Arguments
 
@@ -46,30 +46,50 @@ If neither `gh` nor `GITHUB_TOKEN` is available, stop and tell the user:
 
 > Authentication required. Set `GITHUB_TOKEN` in your environment or install the `gh` CLI and run `gh auth login`.
 
-## Step 2 — Output: plain list
+## Step 2 — Fetch file contents and extract class names
 
-Print a plain-text list of every matching file, one per line:
+For each file returned in Step 1, fetch its raw content via the GitHub API:
+
+```sh
+gh api repos/helsingborg-stad/{repo}/contents/{path} --jq '.content' | base64 -d
+```
+
+From the content, extract every CSS class that matches the search term using this regex pattern:
 
 ```
-{repo}/{filepath}
-{repo}/{filepath}
+{ClassName}(--[\w-]+)?
+```
+
+This captures both:
+- The base class itself (e.g. `u-color__bg`)
+- All modifier variants (e.g. `u-color__bg--primary`, `u-color__bg--complementary-lighter`)
+
+Collect all matches across all files, deduplicated per file.
+
+## Step 3 — Output: unique class list
+
+Print a sorted, deduplicated plain-text list of every class name found across all files:
+
+```
+u-color__bg
+u-color__bg--complementary
+u-color__bg--complementary-lighter
+u-color__bg--danger
 …
 ```
 
-## Step 3 — Output: reference table
+## Step 4 — Output: reference table
 
-After the plain list, print a Markdown reference table grouped by repository:
+Print a Markdown reference table sorted by class name, then by repository, then by file path:
 
-| Repository | File | Link |
-|---|---|---|
-| repo-name | path/to/file.php | [view](https://github.com/helsingborg-stad/repo-name/blob/main/path/to/file.php) |
+| Class | Repository | File | Link |
+|---|---|---|---|
+| `u-color__bg--primary` | repo-name | path/to/file.php | [view](https://github.com/helsingborg-stad/repo-name/blob/main/path/to/file.php) |
 
-Sort rows alphabetically by repository, then by file path within each repository.
-
-## Step 4 — Summary line
+## Step 5 — Summary line
 
 End with a single summary line:
 
 ```
-Total: {N} files across {M} repositories
+Total: {N} unique class names across {M} repositories ({F} files)
 ```
