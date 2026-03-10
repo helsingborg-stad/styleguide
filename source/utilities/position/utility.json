@@ -14,7 +14,7 @@
 			"description": {
 				"type": "Sets element's position type to absolute, fixed, relative, or sticky."
 			},
-			"responsive": true
+			"responsive": false
 		},
 		"side": {
 			"format": "u-{side}--{size}",
@@ -27,7 +27,7 @@
 				"side": "Sets element positioned to a specified side",
 				"size": "Sets the offset distance from the specified side, with 0 being flush against the edge and 1-4 applying incremental spacing values from the design system."
 			},
-			"responsive": true,
+			"responsive": false,
 			"examples": ["side"]
 		}
 	},
