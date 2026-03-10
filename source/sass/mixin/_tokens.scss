@@ -16,6 +16,16 @@
     @return string.slice($prefix, -1)=="*";
 }
 
+/// Normalizes global token names to current naming conventions.
+/// Keeps existing names unchanged except for legacy color-* aliases.
+@function _normalize-global-token($token) {
+    @if string.index($token, "color-")==1 and string.index($token, "color--") !=1 {
+        @return "color--#{string.slice($token, 7)}";
+    }
+
+    @return $token;
+}
+
 /// Creates component tokens that fall back to global tokens.
 ///
 /// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as selector.
@@ -38,7 +48,7 @@
     // #{$selector} {
     :root {
         @each $token in $tokens {
-            --#{$p}--#{$token}: var(--#{$token});
+            --#{$p}--#{$token}: var(--#{_normalize-global-token($token)});
         }
 
         @each $name, $value in $extras {
