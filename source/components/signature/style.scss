@@ -16,14 +16,18 @@ $_: "c-signature";
         flex-direction: column;
     }
 
+    &__author {
+        line-height: 1;
+    }
+
     &__title {
-        color: tokens.get($_, "color--surface-contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
         display: block;
     }
 
     &__published,
     &__updated {
-        color: tokens.get($_, "color--surface-contrast-muted");
+        color: tokens.get($_, "color--background-contrast-muted");
         display: block;
     }
 }
