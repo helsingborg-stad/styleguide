@@ -1,6 +1,5 @@
 @use "../mixin/arrow";
 @use "../mixin/button";
-@use "../mixin/center";
 @use "../mixin/cover";
 @use "../mixin/fluid-type";
 @use "../mixin/focus";
@@ -16,7 +15,7 @@
 @use "../mixin/stretch";
 
 /* Arrows */
-.mixins-example-arrow   {
+.mixins-example-arrow {
     @include arrow.arrow("up", 8px, #000);
 }
 
@@ -31,18 +30,6 @@
 
 .mixin-example-button-unstyled {
     @include button.button-unstyled();
-}
-
-.mixin-example-center {
-    @include center.center();
-}
-
-.mixin-example-center-x {
-    @include center.centerX();
-}
-
-.mixin-example-center-y {
-    @include center.centerY();
 }
 
 /* Cover */
@@ -84,6 +71,7 @@
 /* Mq */
 .mixin-example-mq {
     background-color: green;
+
     @include mq.mq("lg") {
         background-color: blue;
     }
@@ -123,11 +111,9 @@
 
 /* Responsive-styles */
 $exampleOrder: 1;
-@while($exampleOrder <= 2) {
-    @include responsive-styles.responsiveStyles(
-        (
-            ".mixin-example-responsive-styles--#{$exampleOrder}": ( background-color: blue )
-        ),
+
+@while($exampleOrder <=2) {
+    @include responsive-styles.responsiveStyles((".mixin-example-responsive-styles--#{$exampleOrder}": (background-color: blue)),
     );
     $exampleOrder: $exampleOrder + 1;
 }
