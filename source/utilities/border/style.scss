@@ -1,6 +1,6 @@
 @use "../mixin/tokens";
 
-$_: "u-border-*";
+$_: "u-border*";
 
 /* Design tokens */
 @include tokens.create($_, ("border-width",
@@ -13,21 +13,35 @@ $_: "u-border-*";
         "color--warning-border",
     ));
 
-.u-border {
-    border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+/**************************************
+* Base Border Utility
+**************************************/
+
+[class^="u-border"] {
+    border-width: tokens.use($_, "border-width", 1);
+    border-color: currentColor;
+    border-style: solid;
 }
 
+/**************************************
+* Border Width
+**************************************/
+
 .u-border--0 {
-    border: 0;
+    border-width: 0;
 }
 
 .u-border--1 {
-    border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    border-width: tokens.use($_, "border-width", 1);
 }
 
 .u-border--2 {
-    border: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--surface-border");
+    border-width: tokens.use($_, "border-width", 2);
 }
+
+/**************************************
+* Border Color
+**************************************/
 
 .u-border__color {
     border-color: tokens.get($_, "color--surface-border");
@@ -57,66 +71,126 @@ $_: "u-border-*";
     border-color: tokens.get($_, "color--warning-border");
 }
 
-.u-border__top {
-    border-top: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+/**************************************
+* Border Sides Resetter
+**************************************/
+.u-border__top,
+.u-border__right,
+.u-border__bottom,
+.u-border__left {
+    border-width: 0;
 }
+
+/**************************************
+* Border Top
+**************************************/
 
 .u-border__top--0 {
-    border-top: 0;
+    border-top-width: 0;
 }
 
-.u-border__top--1 {
-    border-top: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+.u-border__top--1,
+.u-border__top {
+    border-width: 0;
+    border-top-width: tokens.use($_, "border-width", 1);
 }
 
 .u-border__top--2 {
-    border-top: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--surface-border");
+    border-width: 0;
+    border-top-width: tokens.use($_, "border-width", 2);
 }
 
+/**************************************
+* Border Right
+**************************************/
+
+*>.u-border__right--0 {
+    border-right-width: 0;
+}
+
+*>.u-border__right--1,
 .u-border__right {
-    border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    border-right-width: tokens.use($_, "border-width", 1);
 }
 
-.u-border__right--0 {
-    border-right: 0;
+*>.u-border__right--2 {
+    border-right-width: tokens.use($_, "border-width", 2);
 }
 
-.u-border__right--1 {
-    border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+
+/**************************************
+* Border Bottom
+**************************************/
+
+*>.u-border__bottom--0 {
+    border-bottom-width: 0;
 }
 
-.u-border__right--2 {
-    border-right: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--surface-border");
-}
-
+*>.u-border__bottom--1,
 .u-border__bottom {
-    border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    border-bottom-width: tokens.use($_, "border-width", 1);
 }
 
-.u-border__bottom--0 {
-    border-bottom: 0;
+*>.u-border__bottom--2 {
+    border-bottom-width: tokens.use($_, "border-width", 2);
 }
 
-.u-border__bottom--1 {
-    border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+/**************************************
+* Border Left
+**************************************/
+
+*>.u-border__left--0 {
+    border-left-width: 0;
 }
 
-.u-border__bottom--2 {
-    border-bottom: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--surface-border");
-}
-
+*>.u-border__left--1,
 .u-border__left {
-    border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    border-left-width: tokens.use($_, "border-width", 1);
 }
 
-.u-border__left--0 {
-    border-left: 0;
+*>.u-border__left--2 {
+    border-left-width: tokens.use($_, "border-width", 2);
 }
 
-.u-border__left--1 {
-    border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+/**************************************
+* Border Styles
+**************************************/
+.u-border__style--solid {
+    border-style: solid;
 }
 
-.u-border__left--2 {
-    border-left: tokens.use($_, "border-width", 2) solid tokens.get($_, "color--surface-border");
+.u-border__style--dashed {
+    border-style: dashed;
+}
+
+.u-border__style--dotted {
+    border-style: dotted;
+}
+
+.u-border__style--double {
+    border-style: double;
+}
+
+.u-border__style--groove {
+    border-style: groove;
+}
+
+.u-border__style--ridge {
+    border-style: ridge;
+}
+
+.u-border__style--inset {
+    border-style: inset;
+}
+
+.u-border__style--outset {
+    border-style: outset;
+}
+
+.u-border__style--none {
+    border-style: none;
+}
+
+.u-border__style--hidden {
+    border-style: hidden;
 }

@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Border Radius",
 	"slug": "border-radius",
+	"state": "stable",
 	"entries": {
 		"radius": {
 			"modifiers": {

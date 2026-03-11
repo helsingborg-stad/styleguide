@@ -5,11 +5,16 @@ $_: "u-rounded*";
 
 @include tokens.create($_, ("border-radius", "corner-shape"));
 
-[class*="u-rounded"]:not(.u-rounded--full) {
+[class*="u-rounded"]:not(.u-rounded--full):not(.u-rounded--0):not(.u-rounded--none) {
     corner-shape: tokens.get($_, "corner-shape");
     border-radius: tokens.use($_, "border-radius", 1);
 }
 
 .u-rounded--full {
     border-radius: 9999px;
+}
+
+.u-rounded--0,
+.u-rounded--none {
+    border-radius: 0;
 }
