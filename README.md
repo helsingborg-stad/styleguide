@@ -226,7 +226,7 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - **Explicit token mapping only** in `tokens.create(...)`:
   - Every consumed token must be listed in the component token manifest.
   - Companion tokens such as `-border` and `-alt` must be declared in global tokens and referenced explicitly.
-  - Shadow internals (`shadow-color`, `shadow-color-opacity`, `shadow-amount`) must be listed directly.
+  - Shadow internals (`shadow-color`, `shadow-amount`) must be listed directly.
 - **Extras/remapping support**:
   - `tokens.create($prefix, $tokens, $extras, $inner)` supports computed extras and child-token remapping when needed.
 

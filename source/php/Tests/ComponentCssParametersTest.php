@@ -25,10 +25,10 @@ class ComponentCssParametersTest extends TestCase
                 [
                     'name' => 'Alpha',
                     'slug' => 'alpha',
-                    'tokens' => ['base', 'shadow-color', 'shadow-color-opacity', 'shadow-amount', 'color--primary'],
+                    'tokens' => ['base', 'shadow-color', 'shadow-amount', 'color--primary'],
                 ],
-                JSON_PRETTY_PRINT
-            )
+                JSON_PRETTY_PRINT,
+            ),
         );
 
         file_put_contents(
@@ -62,12 +62,6 @@ class ComponentCssParametersTest extends TestCase
                                     'default' => '#000000',
                                 ],
                                 [
-                                    'variable' => '--shadow-color-opacity',
-                                    'label' => 'Shadow Opacity',
-                                    'type' => 'range',
-                                    'default' => 0.25,
-                                ],
-                                [
                                     'variable' => '--shadow-amount',
                                     'label' => 'Shadow Amount',
                                     'type' => 'range',
@@ -99,8 +93,8 @@ class ComponentCssParametersTest extends TestCase
                         ],
                     ],
                 ],
-                JSON_PRETTY_PRINT
-            )
+                JSON_PRETTY_PRINT,
+            ),
         );
     }
 
@@ -126,7 +120,6 @@ class ComponentCssParametersTest extends TestCase
         $this->assertSame('Main unit.', $rows[0]['description']);
 
         $this->assertSame('--c-alpha--shadow-color', $rows[1]['key']);
-        $this->assertSame('--c-alpha--shadow-color-opacity', $rows[2]['key']);
         $this->assertSame('--c-alpha--shadow-amount', $rows[3]['key']);
         $this->assertSame('--c-alpha--color--primary', $rows[4]['key']);
 
