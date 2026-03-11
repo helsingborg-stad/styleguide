@@ -1379,7 +1379,7 @@
     "slug": "signature",
     "tokens": [
       "space",
-      "color--surface-contrast-muted"
+      "color--background-contrast-muted"
     ],
     "description": "The Signature component provides a reusable pattern for signature in the interface.",
     "tags": [

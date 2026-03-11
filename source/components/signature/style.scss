@@ -18,7 +18,6 @@ $_: "c-signature";
 
     &__title {
         color: tokens.get($_, "color--surface-contrast-muted");
-        margin-top: calc(tokens.use($_, "space", 1) * -1);
         display: block;
     }
 
