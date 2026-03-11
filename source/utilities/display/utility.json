@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Display",
 	"slug": "display",
+	"state": "stable",
 	"entries": {
 		"display": {
 			"format": "u-display--{state}",

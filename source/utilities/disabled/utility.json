@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Disabled",
 	"slug": "disabled",
+	"state": "stable",
 	"entries": {
 		"disabled": {
 			"format": "u-disabled",

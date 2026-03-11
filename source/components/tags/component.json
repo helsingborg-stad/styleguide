@@ -1,28 +1,13 @@
 {
-  "$schema": "../../component-schema.json",
-  "apiVersion": 1,
-  "name": "Tags",
-  "slug": "tags",
-  "tokens": [
-    "base",
-    "color--surface",
-    "corner-shape",
-    "color--surface-contrast",
-    "shadow-color",
-    "shadow-color-opacity",
-    "shadow-amount"
-  ],
-  "description": "The Tags component provides a reusable pattern for tags in the interface.",
-  "tags": [
-    "tags",
-    "component"
-  ],
-  "similarComponents": [
-    "tabs",
-    "toast",
-    "datebadge"
-  ],
-  "requires": [],
-  "requiredBy": [],
-  "icon": "sell"
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Tags",
+	"slug": "tags",
+	"tokens": ["base", "color--surface", "corner-shape", "color--surface-contrast", "shadow-color", "shadow-amount"],
+	"description": "The Tags component provides a reusable pattern for tags in the interface.",
+	"tags": ["tags", "component"],
+	"similarComponents": ["tabs", "toast", "datebadge"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "sell"
 }

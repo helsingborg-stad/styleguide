@@ -10,7 +10,6 @@
 		"color--secondary",
 		"color--surface",
 		"shadow-color",
-		"shadow-color-opacity",
 		"shadow-amount",
 		"color--surface-contrast",
 		"color--alpha"

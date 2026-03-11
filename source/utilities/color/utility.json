@@ -3,6 +3,7 @@
 	"apiVersion": 1,
 	"name": "Color",
 	"slug": "color",
+	"state": "stable",
 	"entries": {
 		"colors__bg": {
 			"format": ".u-color__bg--{color}",

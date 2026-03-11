@@ -12,7 +12,6 @@ $_: "u-shadow-*";
 /* Design tokens */
 @include tokens.create($_, ("shadow",
         "shadow-color",
-        "shadow-color-opacity",
         "shadow-amount",
     ));
 

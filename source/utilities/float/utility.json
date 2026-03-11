@@ -1,19 +1,20 @@
 {
-    "$schema": "../../utility-schema.json",
-    "apiVersion": 1,
-    "name": "Float",
-    "slug": "float",
-    "entries": {
-        "float": {
-            "description": {
-                "direction": "The direction in which to float"
-            },
-            "modifiers": {
-                "direction": "left, right, none"
-            },
-            "responsive": true,
-            "format": ".u-float--{direction}"
-        }
-    },
-    "icon": "swap_vert"
+	"$schema": "../../utility-schema.json",
+	"apiVersion": 1,
+	"name": "Float",
+	"slug": "float",
+	"state": "stable",
+	"entries": {
+		"float": {
+			"description": {
+				"direction": "The direction in which to float"
+			},
+			"modifiers": {
+				"direction": "left, right, none"
+			},
+			"responsive": true,
+			"format": ".u-float--{direction}"
+		}
+	},
+	"icon": "swap_vert"
 }

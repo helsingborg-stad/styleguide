@@ -12,7 +12,6 @@
       "border-radius",
       "space",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-border",
       "color--surface-alt",
@@ -47,7 +46,6 @@
       "color--surface-alt",
       "corner-shape",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Accordion component provides a reusable pattern for accordion in the interface.",
@@ -183,7 +181,6 @@
       "space",
       "color--primary",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "corner-shape",
       "color--primary-contrast"
@@ -267,7 +264,6 @@
       "font-family-base",
       "color--surface-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--primary-contrast",
       "color--primary-border",
@@ -309,7 +305,6 @@
       "color--surface",
       "color--primary",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-border",
       "color--secondary",
@@ -493,7 +488,6 @@
       "color--secondary",
       "color--surface",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-contrast",
       "color--alpha"
@@ -525,7 +519,6 @@
       "color--surface-border",
       "corner-shape",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Fab component provides a reusable pattern for fab in the interface.",
@@ -556,7 +549,6 @@
       "color--surface",
       "color--surface-border",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-contrast",
       "base",
@@ -594,7 +586,6 @@
       "font-size-80",
       "color--surface-border",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "corner-shape",
       "color--surface-alt",
@@ -654,7 +645,6 @@
       "color--alpha",
       "border-radius",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "corner-shape",
       "color--alpha-contrast",
@@ -686,7 +676,6 @@
       "border-radius",
       "corner-shape",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--alpha-contrast"
     ],
@@ -776,7 +765,6 @@
       "space",
       "color--alpha",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--alpha-contrast",
       "color--primary-contrast"
@@ -825,7 +813,6 @@
     "tokens": [
       "base",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "border-radius",
       "corner-shape",
@@ -1041,7 +1028,6 @@
       "color--surface-contrast",
       "corner-shape",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--alpha-contrast",
       "color--surface-border"
@@ -1071,7 +1057,6 @@
       "color--surface",
       "color--primary",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--primary-contrast",
       "color--surface-border",
@@ -1104,7 +1089,6 @@
       "font-family-base",
       "color--surface-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-contrast-muted"
     ],
@@ -1160,7 +1144,6 @@
       "space",
       "outer-space",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "corner-shape",
       "color--info",
@@ -1255,7 +1238,6 @@
       "color--surface",
       "color--surface-border",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-contrast",
       "corner-shape"
@@ -1429,7 +1411,6 @@
       "font-size-100",
       "color--alpha-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Slider component provides a reusable pattern for slider in the interface.",
@@ -1460,7 +1441,6 @@
       "color--surface-contrast-muted",
       "color--surface-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount",
       "color--surface-alt"
     ],
@@ -1515,7 +1495,6 @@
       "corner-shape",
       "color--surface-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Tags component provides a reusable pattern for tags in the interface.",
@@ -1545,7 +1524,6 @@
       "color--surface-border",
       "color--surface-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Testimonials component provides a reusable pattern for testimonials in the interface.",
@@ -1622,7 +1600,6 @@
       "color--primary",
       "color--primary-contrast",
       "shadow-color",
-      "shadow-color-opacity",
       "shadow-amount"
     ],
     "description": "The Tooltip component provides a reusable pattern for tooltip in the interface.",

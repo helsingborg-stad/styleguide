@@ -1,32 +1,24 @@
 {
-  "$schema": "../../component-schema.json",
-  "apiVersion": 1,
-  "name": "Accordion",
-  "slug": "accordion",
-  "tokens": [
-    "space",
-    "border-width",
-    "border-radius",
-    "color--surface",
-    "color--surface-border",
-    "color--surface-contrast",
-    "color--surface-alt",
-    "corner-shape",
-    "shadow-color",
-    "shadow-color-opacity",
-    "shadow-amount"
-  ],
-  "description": "The Accordion component provides a reusable pattern for accordion in the interface.",
-  "tags": [
-    "accordion",
-    "component"
-  ],
-  "similarComponents": [
-    "option",
-    "anchormenu",
-    "collection"
-  ],
-  "requires": [],
-  "requiredBy": [],
-  "icon": "expand_more"
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Accordion",
+	"slug": "accordion",
+	"tokens": [
+		"space",
+		"border-width",
+		"border-radius",
+		"color--surface",
+		"color--surface-border",
+		"color--surface-contrast",
+		"color--surface-alt",
+		"corner-shape",
+		"shadow-color",
+		"shadow-amount"
+	],
+	"description": "The Accordion component provides a reusable pattern for accordion in the interface.",
+	"tags": ["accordion", "component"],
+	"similarComponents": ["option", "anchormenu", "collection"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "expand_more"
 }

@@ -30,7 +30,6 @@
   "--border-width": "0.2",
   "--space": "1.35",
   "--outer-space": "2.5",
-  "--shadow-color": "#1d2c40",
-  "--shadow-color-opacity": "0.12",
+  "--shadow-color": "rgba(29, 44, 64, 0.12)",
   "--shadow-amount": "0.7"
 }

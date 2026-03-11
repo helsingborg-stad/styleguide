@@ -16,7 +16,6 @@
 		"font-family-base",
 		"color--surface-contrast",
 		"shadow-color",
-		"shadow-color-opacity",
 		"shadow-amount",
 		"color--primary-contrast",
 		"color--primary-border",

@@ -1,31 +1,23 @@
 {
-  "$schema": "../../component-schema.json",
-  "apiVersion": 1,
-  "name": "Paper",
-  "slug": "paper",
-  "tokens": [
-    "border-radius",
-    "space",
-    "border-width",
-    "color--surface",
-    "color--surface-border",
-    "shadow-color",
-    "shadow-color-opacity",
-    "shadow-amount",
-    "color--surface-contrast",
-    "corner-shape"
-  ],
-  "description": "The Paper component provides a reusable pattern for paper in the interface.",
-  "tags": [
-    "paper",
-    "component"
-  ],
-  "similarComponents": [
-    "drawer",
-    "header",
-    "loader"
-  ],
-  "requires": [],
-  "requiredBy": [],
-  "icon": "description"
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Paper",
+	"slug": "paper",
+	"tokens": [
+		"border-radius",
+		"space",
+		"border-width",
+		"color--surface",
+		"color--surface-border",
+		"shadow-color",
+		"shadow-amount",
+		"color--surface-contrast",
+		"corner-shape"
+	],
+	"description": "The Paper component provides a reusable pattern for paper in the interface.",
+	"tags": ["paper", "component"],
+	"similarComponents": ["drawer", "header", "loader"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "description"
 }
