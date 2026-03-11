@@ -310,7 +310,8 @@
       "color--surface-contrast",
       "corner-shape",
       "base",
-      "color--primary-contrast"
+      "color--primary-contrast",
+      "font-size-300"
     ],
     "description": "The Card component provides a reusable pattern for card in the interface.",
     "tags": [

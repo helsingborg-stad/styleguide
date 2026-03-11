@@ -1,5 +1,10 @@
 @use "../../sass/mixin/tokens";
 
+@property --inherit-font-size {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-typography";
 
@@ -74,7 +79,7 @@ h5,
 h1,
 .h1,
 .#{$_}__variant--h1 {
-    font-size: tokens.get($_, "h1-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h1-font-size"));
     font-weight: tokens.get($_, "h1-font-weight");
     line-height: tokens.get($_, "h1-line-height");
     font-family: tokens.get($_, "h1-font-family");
@@ -83,7 +88,7 @@ h1,
 h2,
 .h2,
 .#{$_}__variant--h2 {
-    font-size: tokens.get($_, "h2-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h2-font-size"));
     font-weight: tokens.get($_, "h2-font-weight");
     line-height: tokens.get($_, "h2-line-height");
     font-family: tokens.get($_, "h2-font-family");
@@ -92,7 +97,7 @@ h2,
 h3,
 .h3,
 .#{$_}__variant--h3 {
-    font-size: tokens.get($_, "h3-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h3-font-size"));
     font-weight: tokens.get($_, "h3-font-weight");
     line-height: tokens.get($_, "h3-line-height");
     font-family: tokens.get($_, "h3-font-family");
@@ -101,7 +106,7 @@ h3,
 h4,
 .h4,
 .#{$_}__variant--h4 {
-    font-size: tokens.get($_, "h4-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h4-font-size"));
     font-weight: tokens.get($_, "h4-font-weight");
     line-height: tokens.get($_, "h4-line-height");
     font-family: tokens.get($_, "h4-font-family");
@@ -110,7 +115,7 @@ h4,
 h5,
 .h5,
 .#{$_}__variant--h5 {
-    font-size: tokens.get($_, "h5-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h5-font-size"));
     font-weight: tokens.get($_, "h5-font-weight");
     line-height: tokens.get($_, "h5-line-height");
     font-family: tokens.get($_, "h5-font-family");
@@ -119,31 +124,31 @@ h5,
 h6,
 .h6,
 .#{$_}__variant--h6 {
-    font-size: tokens.get($_, "h6-font-size");
+    font-size: var(--inherit-font-size, tokens.get($_, "h6-font-size"));
     font-weight: tokens.get($_, "h6-font-weight");
     line-height: tokens.get($_, "h6-line-height");
     font-family: tokens.get($_, "h6-font-family");
 }
 
 .#{$_}__variant--headline {
-    font-size: tokens.get($_, "font-size-headline");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-headline"));
 }
 
 .#{$_}__variant--title {
     font-family: tokens.get($_, "font-family-heading");
-    font-size: tokens.get($_, "font-size-title");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-title"));
     font-weight: tokens.get($_, "font-weight-medium");
     letter-spacing: tokens.get($_, "letter-spacing-base");
     line-height: tokens.get($_, "line-height-heading");
 }
 
 .#{$_}__variant--subtitle {
-    font-size: tokens.get($_, "font-size-subtitle");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-subtitle"));
 }
 
 .#{$_}__variant--bold {
     font-family: tokens.get($_, "font-family-base");
-    font-size: tokens.get($_, "font-size-base");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
     font-weight: tokens.get($_, "font-weight-bold");
     letter-spacing: tokens.get($_, "letter-spacing-base");
     line-height: tokens.get($_, "line-height-base");
@@ -152,7 +157,7 @@ h6,
 .#{$_}__variant--body,
 .#{$_}__variant--p {
     font-family: tokens.get($_, "font-family-base");
-    font-size: tokens.get($_, "font-size-base");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
     font-weight: tokens.get($_, "font-weight-normal");
     letter-spacing: tokens.get($_, "letter-spacing-base");
     line-height: tokens.get($_, "line-height-base");
@@ -160,16 +165,16 @@ h6,
 
 .#{$_}__variant--caption,
 .#{$_}__variant--byline {
-    font-size: tokens.get($_, "font-size-caption");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-caption"));
 }
 
 .#{$_}__variant--meta {
-    font-size: tokens.get($_, "font-size-meta");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-meta"));
 }
 
 .#{$_}__variant--marketing {
     font-family: tokens.get($_, "font-family-base");
-    font-size: tokens.get($_, "font-size-marketing");
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-marketing"));
     font-weight: tokens.get($_, "font-weight-bold");
     line-height: 124%;
 }
