@@ -28,6 +28,10 @@ $_: "c-block";
     background-color: tokens.get($_, "color-background");
     text-decoration: none;
 
+    .#{$_}__heading {
+        --inherit-font-size: var(--font-size-400);
+    }
+
     .#{$_}__image {
         border-radius: tokens.get($_, "radius");
         corner-shape: tokens.get($_, "corner-shape");
