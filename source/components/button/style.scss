@@ -38,10 +38,16 @@ $button-variants: (
 @each $name, $variant in $button-variants {
 
     .#{$_}__filled--#{$name},
-    .#{$_}__outlined--#{$name},
     .#{$_}__basic--#{$name} {
         --_color: #{map.get($variant, "bg")};
         --_contrast: #{map.get($variant, "fg")};
+        --_hover: #{map.get($variant, "hover")};
+        --_active: #{map.get($variant, "active")};
+    }
+
+    .#{$_}__outlined--#{$name} {
+        --_color: #{map.get($variant, "bg")};
+        --_contrast: #{map.get($variant, "bg")};
         --_hover: #{map.get($variant, "hover")};
         --_active: #{map.get($variant, "active")};
     }
