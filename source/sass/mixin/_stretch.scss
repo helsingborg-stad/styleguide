@@ -1,7 +1,0 @@
-@mixin stretch {
-    position: relative;
-    width: calc(100vw - var(--scrollbar, 15px));
-    left: 50%;
-    border-radius: 0;
-    transform: translateX(-50%);
-}
