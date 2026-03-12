@@ -10,6 +10,10 @@ $_: "c-drawer";
 /* Colors */
 .c-drawer {
 
+    /* switch to surface color tokens for nested components */
+    --c-field--background-color: var(--color--background);
+    --c-field--color--surface-contrast: var(--color--background-contrast);
+
     &,
     .site-nav-mobile__primary>.c-nav__item,
     .c-drawer__header {
