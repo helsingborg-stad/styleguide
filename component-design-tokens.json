@@ -403,7 +403,8 @@
       "color--surface",
       "corner-shape",
       "color--surface-contrast",
-      "color--background-contrast-muted"
+      "color--background-contrast-muted",
+      "font-size-90"
     ],
     "description": "The Comment component provides a reusable pattern for comment in the interface.",
     "tags": [

@@ -7,7 +7,7 @@ $_: "c-comment";
 @include tokens.create($_, getComponentTokens($_));
 
 /* Component */
-.#{$_} + .#{$_} {
+.#{$_}+.#{$_} {
     margin-top: tokens.use($_, "outer-space", 3);
 }
 
@@ -24,7 +24,8 @@ $_: "c-comment";
     }
 
     .#{$_}__top .#{$_}__author {
-        font-size: .9rem;
+        margin: 0;
+        font-size: tokens.get($_, "font-size-90");
         color: tokens.get($_, "color--contrast");
     }
 
@@ -70,6 +71,7 @@ $_: "c-comment";
     &__date {
         color: tokens.get($_, "color--background-contrast-muted");
         display: flex;
+
         &:before {
             content: "•";
             margin-right: tokens.use($_, "space", 1.5);
