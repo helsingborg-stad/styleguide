@@ -24,6 +24,10 @@ $_: "c-box";
     container-name: box;
     transition: all 200ms ease-in;
 
+    .#{$_}__heading {
+        --inherit-font-size: var(--font-size-400);
+    }
+
     .#{$_}__body {
         padding: tokens.use($_, "space", 3);
         display: grid;

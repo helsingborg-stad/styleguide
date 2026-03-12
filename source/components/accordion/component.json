@@ -13,7 +13,8 @@
 		"color--surface-alt",
 		"corner-shape",
 		"shadow-color",
-		"shadow-amount"
+		"shadow-amount",
+		"font-size-200"
 	],
 	"description": "The Accordion component provides a reusable pattern for accordion in the interface.",
 	"tags": ["accordion", "component"],
