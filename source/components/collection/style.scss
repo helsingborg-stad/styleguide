@@ -2,16 +2,14 @@
 
 $_: "c-collection";
 
-@include tokens.create($_, getComponentTokens($_), (
-    "padding-x-compact": tokens.use($_, "space", 2),
-    "padding-y-compact": tokens.use($_, "space", 1),
-    "padding-x": tokens.use($_, "space", 2),
-    "padding-y": tokens.use($_, "space", 2),
-    "padding-x-inset": calc( tokens.get($_, "padding-x") * 3.5)
-));
+@include tokens.create($_, getComponentTokens($_), ("padding-x-compact": tokens.use($_, "space", 2),
+        "padding-y-compact": tokens.use($_, "space", 1),
+        "padding-x": tokens.use($_, "space", 2),
+        "padding-y": tokens.use($_, "space", 2),
+        "padding-x-inset": calc(tokens.get($_, "padding-x") * 3.5)));
 
 // Reset
-.#{$_} {    
+.#{$_} {
     padding: 0;
     margin: 0;
 
@@ -37,13 +35,25 @@ $_: "c-collection";
     // Item
     .#{$_}__item {
         display: flex;
-  
+
         &__floating {
             position: absolute;
             right: tokens.use($_, "space", 2.75);
             top: tokens.use($_, "space");
             z-index: 3;
             cursor: pointer;
+        }
+
+        .#{$_}__content {
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                --inherit-font-size: #{tokens.get($_, "font-size-300")};
+            }
         }
 
         .#{$_}__item__before {
@@ -109,7 +119,7 @@ $_: "c-collection";
     }
 
     // Fix single 1px messing up vertical rythm
-    .#{$_}__divider + * {
+    .#{$_}__divider+* {
         margin-top: -1px;
     }
 
@@ -122,18 +132,20 @@ $_: "c-collection";
         flex: 1 1 auto;
         padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
 
-        & > *:first-child {
+        &>*:first-child {
             margin-top: 0;
         }
-        & > *:last-child {
+
+        &>*:last-child {
             margin-bottom: 0;
         }
     }
-    
+
     // Content Modifier - Multiline
     .#{$_}__content.#{$_}__content--icon {
         padding-right: tokens.use($_, "space", 5);
         position: relative;
+
         .#{$_}__secondary {
             position: absolute;
             top: tokens.use($_, "space", 1.5);
@@ -143,10 +155,11 @@ $_: "c-collection";
     }
 
     // Secondary
-    .#{$_}__item > .#{$_}__secondary {
+    .#{$_}__item>.#{$_}__secondary {
         padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
         display: flex;
     }
+
     .#{$_}__content .#{$_}__secondary {
         float: right;
     }
@@ -158,16 +171,18 @@ $_: "c-collection";
         display: flex;
     }
 
-    .#{$_}__icon + .#{$_}__content {
+    .#{$_}__icon+.#{$_}__content {
         padding-left: 0;
     }
-    
+
     // Links, Buttons etc
     .#{$_}__action,
     .#{$_}__item--action {
 
-        &, a {
+        &,
+        a {
             color: tokens.get($_, "color--surface-contrast");
+
             .#{$_}__content,
             .#{$_}__icon {
                 transition: transform 400ms;
@@ -177,14 +192,17 @@ $_: "c-collection";
                 transition: transform 300ms;
             }
         }
-        
+
         &:hover {
-            &, a {
+
+            &,
+            a {
                 color: tokens.get($_, "color--surface-contrast");
                 background-color: tokens.get($_, "color--surface-border");
+
                 .#{$_}__content,
                 .#{$_}__icon {
-                    transform: translateX(tokens.use($_, "space", 0.5)); 
+                    transform: translateX(tokens.use($_, "space", 0.5));
                 }
             }
         }
@@ -210,11 +228,12 @@ $_: "c-collection";
 // Modifiers - Bordered
 .#{$_}.#{$_}--bordered {
     padding-bottom: 0;
+
     .#{$_}__item {
         border-top: tokens.use($_, "border-width", 1) solid;
         border-color: tokens.get($_, "color--background-border");
     }
-    
+
     .#{$_}__item:first-child {
         border-top: none;
     }
@@ -222,13 +241,14 @@ $_: "c-collection";
 
 //Modifiers - Sharp edges
 .#{$_}.#{$_}--sharp-top {
-    border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};  
+    border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
 }
 
 .#{$_}.#{$_}--sharp-bot {
-    border-radius: #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")} 0 0;    
+    border-radius: #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")} 0 0;
 
 }
+
 .#{$_}.#{$_}--sharp {
     border-radius: 0;
 }
@@ -251,7 +271,7 @@ $_: "c-collection";
         border-top: tokens.use($_, "border-width", 1) solid;
         border-color: tokens.get($_, "color--background-border");
     }
-    
+
     .#{$_}__item:first-child {
         border-top: none;
     }
@@ -260,15 +280,16 @@ $_: "c-collection";
         display: flex;
         align-items: center;
     }
-    .#{$_}__item.is-open > .#{$_}__secondary i {
+
+    .#{$_}__item.is-open>.#{$_}__secondary i {
         transform: rotate(180deg);
     }
 
-    .#{$_}__item.is-open + .#{$_} {
+    .#{$_}__item.is-open+.#{$_} {
         display: block;
     }
 
-    .#{$_}__item > .#{$_}__secondary {
+    .#{$_}__item>.#{$_}__secondary {
         border-left: tokens.use($_, "border-width", 1) solid;
     }
 
@@ -306,7 +327,8 @@ $_: "c-collection";
         }
     }
 
-    .o-container, .#{$_} {
+    .o-container,
+    .#{$_} {
         display: unset;
         overflow: visible;
         page-break-before: avoid;

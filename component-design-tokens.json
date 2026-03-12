@@ -374,7 +374,8 @@
       "color--background-border",
       "color--primary-contrast",
       "color--surface-contrast",
-      "color--surface-border"
+      "color--surface-border",
+      "font-size-300"
     ],
     "description": "The Collection component provides a reusable pattern for collection in the interface.",
     "tags": [

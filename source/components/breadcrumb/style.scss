@@ -12,7 +12,7 @@ $_: "c-breadcrumb";
 .#{$_} {
     display: flex;
     gap: tokens.use($_, "space");
-    
+
     &__prefix {
         font-weight: bold;
         white-space: nowrap;
@@ -60,6 +60,7 @@ $_: "c-breadcrumb";
     .c-icon {
         align-self: center;
         color: tokens.get($_, "color--background-contrast-muted");
+
         @include mq.mq($until: "sm") {
             transform: scaleX(-1);
         }
