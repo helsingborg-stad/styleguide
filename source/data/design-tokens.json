@@ -375,6 +375,14 @@
 					"type": "range",
 					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 6))",
 					"locked": true
+				},
+				{
+					"variable": "--font-size-800",
+					"label": "Font Size 800",
+					"description": "Seven steps above base in the type scale. Larger than h1.",
+					"type": "range",
+					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 7))",
+					"locked": true
 				}
 			]
 		},

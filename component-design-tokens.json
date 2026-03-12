@@ -1645,7 +1645,17 @@
       "letter-spacing-base",
       "base-font-size",
       "space",
-      "font-size-scale-ratio"
+      "font-size-scale-ratio",
+      "font-size-80",
+      "font-size-90",
+      "font-size-100",
+      "font-size-200",
+      "font-size-300",
+      "font-size-400",
+      "font-size-500",
+      "font-size-600",
+      "font-size-700",
+      "font-size-800"
     ],
     "description": "The Typography component provides a reusable pattern for typography in the interface.",
     "tags": [
