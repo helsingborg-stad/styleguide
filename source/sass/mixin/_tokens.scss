@@ -71,20 +71,26 @@
 /// @param {String} $token - Token name
 /// @param {Number} $multiplier [1] - Scale multiplier
 @function use($prefix, $token, $multiplier: 1) {
+
     $p: _clean-prefix($prefix);
+
+    @if($p !="") {
+        $p: "--#{$p}";
+    }
+
 
     //If token is shadow, construct the drop-shadow value using the color and amount tokens
     @if $token =="shadow" {
-        @return drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$p}--shadow-amount)) calc(var(--#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(--#{$p}--shadow-color));
+        @return drop-shadow(0 calc((var(--base) * 0.5) * var(#{$p}--shadow-amount)) calc(var(#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(#{$p}--shadow-color));
     }
 
     // If base is used as a token, return it directly without multiply with base to avoid circular reference
     @if $token =="base" {
-        @return calc(var(--#{$p}--base) * #{$multiplier});
+        @return calc(var(#{$p}--base) * #{$multiplier});
     }
 
     // Default behavior: return scaled token value, pixel from int
-    @return calc(var(--#{$p}--#{$token}) * var(--base) * #{$multiplier});
+    @return calc(var(#{$p}--#{$token}) * var(--base) * #{$multiplier});
 }
 
 /// Returns a raw token reference: var(--{prefix}--{token}).
@@ -93,32 +99,42 @@
 /// @param {String} $token - Token name
 @function get($prefix, $token) {
     $p: _clean-prefix($prefix);
-    @return var(--#{$p}--#{$token});
+
+    @if($p !="") {
+        $p: "--#{$p}";
+    }
+
+    @return var(#{$p}--#{$token});
 }
 
 /// Generates a color variant (background + contrast + border-color propagation).
 @mixin color-variant($prefix, $variant) {
     $p: _clean-prefix($prefix);
 
-    background-color: var(--#{$p}--color--#{$variant});
-    color: var(--#{$p}--color--#{$variant}-contrast);
-    border-color: var(--#{$p}--color--#{$variant}-border);
+    @if($p !="") {
+        $p: "--#{$p}";
+    }
+
+    background-color: var(#{$p}--color--#{$variant});
+    color: var(#{$p}--color--#{$variant}-contrast);
+    border-color: var(#{$p}--color--#{$variant}-border);
 
     a,
     a:hover,
     a:active,
     a:visited {
-        color: var(--#{$p}--color--#{$variant}-contrast);
+        color: var(#{$p}--color--#{$variant}-contrast);
         text-decoration: underline;
     }
 
     .c-button {
-        color: var(--#{$p}--color--#{$variant}-contrast);
+        color: var(#{$p}--color--#{$variant}-contrast);
     }
 }
 
 /// Generates multiple color variant modifiers using BEM &--{variant} syntax.
 @mixin color-variants($prefix, $variants) {
+
     @each $variant in $variants {
         &--#{$variant} {
             @include color-variant($prefix, $variant);
