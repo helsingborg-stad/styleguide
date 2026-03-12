@@ -15,7 +15,8 @@
       "shadow-amount",
       "color--surface-border",
       "color--surface-alt",
-      "color--alpha-contrast"
+      "color--alpha-contrast",
+      "font-size-400"
     ],
     "description": "The Acceptance component provides a reusable pattern for acceptance in the interface.",
     "tags": [
