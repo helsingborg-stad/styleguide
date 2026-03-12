@@ -9,8 +9,11 @@
  *   { "className": "c-button", "tokens": ["color", "background-color"] }
  *
  * Token overrides are injected as CSS custom properties on the component class
- * via a <style id="ce-overrides"> tag using a doubled selector for higher specificity:
- *   .c-button.c-button { --c-button--color: red; }
+ * via @layer components-override inside a <style id="components-override"> tag:
+ *   @layer components-override { .c-button { --c-button--color: red; } }
+ *
+ * The layer is declared after @layer components, so it wins in the cascade
+ * without relying on specificity hacks.
  *
  * All elements sharing the same className are affected simultaneously.
  * Overrides are persisted to localStorage under "design-component-overrides".
@@ -39,23 +42,35 @@ class ComponentEditor {
 
 	private buildStyleElement(): HTMLStyleElement {
 		const style = document.createElement('style');
-		style.id = 'ce-overrides';
+		style.id = 'components-override';
 		document.head.appendChild(style);
 		return style;
 	}
 
-	private applyTypeOverrides(type: string, overrides: Record<string, string>): void {
+	private getOrCreateLayer(): CSSLayerBlockRule {
 		const sheet = this.styleEl.sheet!;
-		for (let i = sheet.cssRules.length - 1; i >= 0; i--) {
-			if ((sheet.cssRules[i] as CSSStyleRule).selectorText === `.${type}.${type}`) {
-				sheet.deleteRule(i);
+		for (let i = 0; i < sheet.cssRules.length; i++) {
+			const rule = sheet.cssRules[i];
+			if (rule instanceof CSSLayerBlockRule && rule.name === 'components-override') {
+				return rule as CSSLayerBlockRule;
+			}
+		}
+		sheet.insertRule('@layer components-override {}', sheet.cssRules.length);
+		return sheet.cssRules[sheet.cssRules.length - 1] as CSSLayerBlockRule;
+	}
+
+	private applyTypeOverrides(className: string, overrides: Record<string, string>): void {
+		const layer = this.getOrCreateLayer();
+		for (let i = layer.cssRules.length - 1; i >= 0; i--) {
+			if ((layer.cssRules[i] as CSSStyleRule).selectorText === `.${className}`) {
+				layer.deleteRule(i);
 			}
 		}
 		if (Object.keys(overrides).length > 0) {
 			const props = Object.entries(overrides)
 				.map(([k, v]) => `${k}: ${v}`)
 				.join('; ');
-			sheet.insertRule(`.${type}.${type} { ${props} }`, sheet.cssRules.length);
+			layer.insertRule(`.${className} { ${props} }`, layer.cssRules.length);
 		}
 	}
 
@@ -301,7 +316,9 @@ class ComponentEditor {
 					for (const [className, overrides] of Object.entries(data)) {
 						this.applyTypeOverrides(className, overrides);
 					}
-				} catch { /* ignore invalid JSON */ }
+				} catch {
+					/* ignore invalid JSON */
+				}
 			};
 			reader.readAsText(file);
 		});
