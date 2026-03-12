@@ -44,6 +44,7 @@ $_: "c-header";
 
     .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
         --c-nav--item-color: var(--c-header--color);
+        --c-nav--color--primary-contrast: var(--c-header--color);
     }
 
     .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
@@ -56,17 +57,6 @@ $_: "c-header";
 
     &.#{$_}--accented {
         border-bottom: tokens.get($_, "base") solid tokens.get($_, "border-color");
-    }
-
-    &.#{$_}--text-white>*,
-    &.#{$_}--text-white .c-button__basic,
-    &.#{$_}--text-white .c-nav .c-nav__link {
-        color: var(--color--white-100);
-    }
-
-    &.#{$_}--text-black *,
-    &.#{$_}--text-black .c-nav .c-nav__link {
-        color: var(--color--black-100);
     }
 
     &.#{$_}--text-primary *,
