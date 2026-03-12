@@ -2,20 +2,18 @@
 @use "../setting/var_default";
 
 .o-container {
-    width: 100%;
-    max-width: var_default.$container-width;
-    margin: 0 auto;   
-    
-    padding: 0 calc(#{var_default.$base} * 2);
+    width: min(100%, var(--container-width));
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
 
     @include mq.mq('sm') {
         padding: 0 calc(#{var_default.$base} * 3);
     }
-    
+
     @include mq.mq('sm', 'md') {
         max-width: calc(#{var_default.$base} * 90);
     }
-    
+
 }
 
 .o-container.o-container--remove-spacing {
@@ -23,12 +21,8 @@
     margin: 0 auto;
 }
 
-.o-container.o-container--content {
-    max-width: var_default.$container-width-content;
-}
-
 .o-container.o-container--wide {
-    max-width: var_default.$container-width-wide;
+    width: min(100%, var(--container-width-wide));
 }
 
 .o-container.o-container--fullwidth {
