@@ -1,7 +1,6 @@
 @group([
-    'classList' => ['u-margin__bottom--3'],
+    'classList' => ['u-margin__bottom--3', 'u-width--100'],
     'flexGrow' => true
-
 ])  
     @button([
         'color' => 'primary',
