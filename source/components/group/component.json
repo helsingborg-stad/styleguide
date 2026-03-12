@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Group",
 	"slug": "group",
-	"tokens": ["base", "border-radius", "corner-shape"],
+	"tokens": ["base", "border-radius", "corner-shape", "shadow-amount", "shadow-color", "space"],
 	"description": "The Group component provides a reusable pattern for group in the interface.",
 	"tags": ["group", "component"],
 	"similarComponents": ["logotype", "hero", "typography"],

@@ -710,7 +710,10 @@
     "tokens": [
       "base",
       "border-radius",
-      "corner-shape"
+      "corner-shape",
+      "shadow-amount",
+      "shadow-color",
+      "space"
     ],
     "description": "The Group component provides a reusable pattern for group in the interface.",
     "tags": [

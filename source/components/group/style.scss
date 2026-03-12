@@ -15,10 +15,13 @@ $_: "c-group";
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
 
+    & &--shadow {
+        filter: tokens.use($_, "shadow");
+    }
+
     >* {
         border-radius: 0 !important;
         margin: 0 !important;
-        height: 100%;
     }
 
     @for $i from 1 through 12 {
