@@ -858,7 +858,8 @@
       "color--surface-border",
       "color--surface-contrast",
       "corner-shape",
-      "font-weight-bold"
+      "font-weight-bold",
+      "font-size-90"
     ],
     "description": "The Image component provides a reusable pattern for image in the interface.",
     "tags": [

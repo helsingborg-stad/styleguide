@@ -9,7 +9,7 @@ $_modal: "c-modal--gallery";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "font-size-caption": "var(--font-size-caption, 0.875rem)",
+        "font-size-caption": "var(--font-size-caption, #{tokens.get($_, 'font-size-90')})",
         "line-height-caption": "var(--line-height-caption, var(--line-height-base))",
         "font-weight-bold": "var(--font-weight-bold)",
         "font-family-bold": "var(--font-family-base)",
@@ -23,6 +23,7 @@ $_modal: "c-modal--gallery";
 
     .#{$_}__caption,
     .#{$_}__byline {
+        display: inline-block;
         font-size: tokens.get($_, "font-size-caption");
         line-height: tokens.get($_, "line-height-caption");
         margin-top: tokens.use($_, "space");
