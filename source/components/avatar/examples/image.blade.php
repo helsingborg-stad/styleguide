@@ -5,7 +5,7 @@
         
         'attributeList' => [
             'data-component' => json_encode([
-            'type' => 'avatar',
+            'className' => 'c-avatar',
             'tokens' => [
                 'base',
                 'color--secondary',
