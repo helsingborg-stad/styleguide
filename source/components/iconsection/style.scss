@@ -60,6 +60,20 @@ $_: "c-iconsection";
   border-radius: tokens.use($_, "border-radius");
   corner-shape: tokens.get($_, "corner-shape");
 
+  &__content {
+
+    .c-typography__variant--h1,
+    .c-typography__variant--h2,
+    .c-typography__variant--h3,
+    .c-typography__variant--h4,
+    .c-typography__variant--h5,
+    .c-typography__variant--h6 {
+      &:first-child {
+        --inherit-font-size: #{tokens.get($_, "font-size-300")};
+      }
+    }
+  }
+
   &__icon,
   &__content {
     padding: tokens.use($_, "base", 2);

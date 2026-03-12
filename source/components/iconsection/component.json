@@ -12,7 +12,8 @@
 		"border-width",
 		"color--surface",
 		"color--surface-alt",
-		"color--surface-border"
+		"color--surface-border",
+		"font-size-300"
 	],
 	"description": "The Icon Section component provides a reusable pattern for iconsection in the interface.",
 	"tags": ["iconsection", "icon", "section", "component"],
