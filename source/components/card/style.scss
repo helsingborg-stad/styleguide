@@ -33,6 +33,8 @@ $_: "c-card";
     --c-field--color--surface-contrast: var(--color--background-contrast);
     --c-paper--color--surface: var(--color--background);
     --c-paper--color--surface-contrast: var(--color--background-contrast);
+    --c-comment--color--surface: var(--color--background);
+    --c-comment--color--surface-contrast: var(--color--background-contrast);
 
     .#{$_}__paint-container {
         contain: paint;
