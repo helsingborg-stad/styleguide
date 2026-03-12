@@ -525,7 +525,8 @@
       "color--surface-border",
       "corner-shape",
       "shadow-color",
-      "shadow-amount"
+      "shadow-amount",
+      "font-size-400"
     ],
     "description": "The Fab component provides a reusable pattern for fab in the interface.",
     "tags": [
