@@ -20,6 +20,7 @@
     $name: map.get($utility, "name");
     $modifiers: map.get($utility, "modifiers");
     $default: map.get($utility, "default");
+    $responsive-styles: ();
 
     $pseudo: null;
     $clean-name: $name;
@@ -37,9 +38,7 @@
             }
         }
 
-        @include responsive-styles.responsiveStyles((".u-#{$clean-name}#{$pseudo}": $default),
-            all,
-            $limitToBreakpoint );
+        $responsive-styles: map.merge($responsive-styles, (".u-#{$clean-name}#{$pseudo}": $default));
     }
 
     @if $modifiers {
@@ -53,9 +52,14 @@
 
         @each $modifier in $modifiers {
             $style: list.nth($modifier, 2);
-            @include responsive-styles.responsiveStyles((".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": $style),
-                all,
-                $limitToBreakpoint );
+            $responsive-styles: map.merge(
+                $responsive-styles,
+                (".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": $style)
+            );
         }
+    }
+
+    @if list.length($responsive-styles) > 0 {
+        @include responsive-styles.responsiveStyles($responsive-styles, all, $limitToBreakpoint);
     }
 }
