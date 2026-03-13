@@ -1,6 +1,7 @@
 {
 	"$schema": "../../utility-schema.json",
 	"apiVersion": 1,
+	"state": "stable",
 	"name": "Spacing",
 	"slug": "spacing",
 	"entries": {

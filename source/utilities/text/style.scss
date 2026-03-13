@@ -1,4 +1,18 @@
-@use "../setting/var_fonts";
+@use "../mixin/tokens";
+
+$_: "u-text*";
+
+@include tokens.create($_,
+    ("font-weight-bold",
+        "font-size-90",
+        "font-size-100",
+        "font-size-200",
+        "font-size-400",
+        "font-size-500",
+        "font-size-600",
+        "font-size-700",
+        "font-size-800"
+    ));
 
 /* Text decoration */
 
@@ -16,7 +30,7 @@
 
 .u-bold,
 .u-strong {
-    font-weight: var_fonts.$font-weight-bold;
+    font-weight: tokens.get($_, "font-weight-bold");
 }
 
 .u-italic {
@@ -36,23 +50,22 @@
 }
 
 .u-truncate-ignore-hover:hover {
-    background-color: #fff;
     width: auto;
     overflow: visible;
 }
 
 /* Font size */
 $font-sizes: (
-    "base": var_fonts.$font-size-base,
-    "lead": var_fonts.$font-size-lead,
-    "caption": var_fonts.$font-size-caption,
-    "marketing": var_fonts.$font-size-marketing,
-    "headline": var_fonts.$font-size-headline,
-    "title": var_fonts.$font-size-title,
-    "subtitle": var_fonts.$font-size-subtitle,
-    "subtitle-small": var_fonts.$font-size-subtitle-small,
-    "meta": var_fonts.$font-size-meta,
-    "brand": var_fonts.$font-size-brand
+    "base": tokens.get($_, "font-size-100"),
+    "lead": tokens.get($_, "font-size-200"),
+    "caption": tokens.get($_, "font-size-90"),
+    "marketing": tokens.get($_, "font-size-800"),
+    "headline": tokens.get($_, "font-size-600"),
+    "title": tokens.get($_, "font-size-500"),
+    "subtitle": tokens.get($_, "font-size-400"),
+    "subtitle-small": tokens.get($_, "font-size-200"),
+    "meta": tokens.get($_, "font-size-90"),
+    "brand": tokens.get($_, "font-size-700"),
 );
 
 @each $name, $value in $font-sizes {
@@ -64,19 +77,19 @@ $font-sizes: (
 /* Text size */
 
 .u-text-small {
-    font-size: 80%;
+    font-size: tokens.get($_, "font-size-90");
 }
 
 .u-text-normal {
-    font-size: 100%;
+    font-size: tokens.get($_, "font-size-100");
 }
 
 .u-text-large {
-    font-size: 110%;
+    font-size: tokens.get($_, "font-size-400");
 }
 
 .u-text-xlarge {
-    font-size: 120%;
+    font-size: tokens.get($_, "font-size-500");
 }
 
 /* Apperance */
