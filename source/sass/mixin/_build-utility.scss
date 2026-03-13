@@ -20,46 +20,43 @@
     $name: map.get($utility, "name");
     $modifiers: map.get($utility, "modifiers");
     $default: map.get($utility, "default");
-    $responsive-styles: ();
+    $base-styles: (
+    );
+$responsive-styles: (
+);
 
-    $pseudo: null;
-    $clean-name: $name;
+$pseudo: null;
+$clean-name: $name;
 
-    // Detect if utility name contains a pseudo-element (::before or ::after)
-    @if string.index($name, "::") {
-        $pseudo: string.slice($name, string.index($name, "::"));
-        $clean-name: string.slice($name, 1, string.index($name, "::") - 1);
+// Detect if utility name contains a pseudo-element (::before or ::after)
+@if string.index($name, "::") {
+    $pseudo: string.slice($name, string.index($name, "::"));
+    $clean-name: string.slice($name, 1, string.index($name, "::") - 1);
+}
+
+@if $default {
+    $base-styles: map.merge($base-styles, (".u-#{$clean-name}#{$pseudo}": $default));
+    $responsive-styles: map.merge($responsive-styles, (".u-#{$clean-name}#{$pseudo}": $default));
+}
+
+@if $modifiers {
+    @each $modifier in $modifiers {
+        $base-styles: map.merge($base-styles,
+                (".u-#{$clean-name}--#{" " + list.nth($modifier,1)}#{$pseudo}": list.nth($modifier, 2)));
     }
 
-    @if $default {
-        .u-#{$clean-name}#{$pseudo} {
-            @each $property, $value in $default {
-                #{$property}: #{$value};
-            }
-        }
-
-        $responsive-styles: map.merge($responsive-styles, (".u-#{$clean-name}#{$pseudo}": $default));
+    @each $modifier in $modifiers {
+        $style: list.nth($modifier, 2);
+        $responsive-styles: map.merge($responsive-styles,
+                (".u-#{$clean-name}--#{" " + list.nth($modifier,1)}#{$pseudo}": $style));
     }
+}
 
-    @if $modifiers {
-        @each $modifier in $modifiers {
-            .u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo} {
-                @each $property, $value in list.nth($modifier, 2) {
-                    #{$property}: #{$value};
-                }
-            }
-        }
+@if list.length($base-styles)>0 {
+    @include responsive-styles.groupedStyles($base-styles);
+}
 
-        @each $modifier in $modifiers {
-            $style: list.nth($modifier, 2);
-            $responsive-styles: map.merge(
-                $responsive-styles,
-                (".u-#{$clean-name}--#{"" + list.nth($modifier,1)}#{$pseudo}": $style)
-            );
-        }
-    }
-
-    @if list.length($responsive-styles) > 0 {
-        @include responsive-styles.responsiveStyles($responsive-styles, all, $limitToBreakpoint);
-    }
+@if list.length($responsive-styles)>0 {
+    @include responsive-styles.responsiveStyles($responsive-styles, all, $limitToBreakpoint);
+}
 }
