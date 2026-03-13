@@ -52,7 +52,7 @@ $_: "c-collection";
             h4,
             h5,
             h6 {
-                --inherit-font-size: #{tokens.get($_, "font-size-300")};
+                --inherit-font-size: #{tokens.get($_, "font-size-100")};
             }
         }
 

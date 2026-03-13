@@ -117,8 +117,6 @@ $_: "c-slider";
         &--hero {
 
             .#{$_}__item__heading {
-                font-family: tokens.get($_, "font-family-heading");
-                font-size: tokens.get($_, "font-size-heading");
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 200ms;
             }
@@ -174,6 +172,10 @@ $_: "c-slider";
         background-color: tokens.get($_, "color--overlay");
     }
 
+    .#{$_}__item__heading {
+        --inherit-font-size: var(--font-size-300);
+    }
+
     @container slider-item (min-width: #{$container-width-md}) {
         .#{$_}__item__container {
             display: grid;
@@ -218,12 +220,6 @@ $_: "c-slider";
         color: tokens.get($_, "color--overlay-contrast");
         background-color: tokens.get($_, "color--overlay");
         width: 100%;
-    }
-
-    .#{$_}__item__heading {
-        @container slider-item (min-width: #{$container-width-md}) {
-            font-size: tokens.use($_, "base", 4);
-        }
     }
 
     .#{$_}__item__cta {

@@ -10,7 +10,7 @@ $container-width-md: 640px;
     ("gap": tokens.use($_, "base", 2),
         "inset": tokens.use($_, "base", 7),
         "font-family-heading": tokens.get($_, "font-family-heading"),
-        "font-size-heading": clamp(1.5rem, 5cqw, 2.5rem),
+        "font-size-heading": tokens.get("", "font-size-400"),
         "font-family": tokens.get($_, "font-family-base"),
         "font-size": tokens.get($_, "font-size-100"),
         "item-container-max-width": tokens.use($_, "base", 118),

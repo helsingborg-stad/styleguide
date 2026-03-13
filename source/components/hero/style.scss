@@ -15,7 +15,7 @@ $_: "c-hero";
         "content-border-radius": tokens.use($_, "border-radius"),
         "control-color": tokens.get($_, "color--primary"),
         "control-background-color": tokens.get($_, "color--primary-contrast"),
-        "font-size-title": calc(tokens.get($_, "font-size-600") + 1vw),
+        "font-size-title": calc(tokens.get($_, "font-size-500") + 1vw),
         "font-size-byline": calc(tokens.get($_, "font-size-300") + 0.5vw),
         "font-size-body": calc(tokens.get($_, "font-size-100") + 0.2vw),
     ));
@@ -26,6 +26,7 @@ $_: "c-hero";
     overflow: hidden;
     container-name: hero;
     container-type: inline-size;
+    width: 100%;
 
     &:hover {
         .#{$_}__controls {
@@ -102,14 +103,20 @@ $_: "c-hero";
         }
     }
 
+    &::before {
+        float: left;
+        content: "";
+        width: 1px;
+        margin-left: -1px;
+        height: 0;
+    }
+
     /** Modifiers - size **/
     &.#{$_}--small {
         min-height: tokens.use($_, "base", 40);
 
         &::before {
-            aspect-ratio: 36 / 7;
-            display: block;
-            max-width: 100%;
+            padding-top: 20%;
         }
     }
 
@@ -117,9 +124,7 @@ $_: "c-hero";
         min-height: tokens.use($_, "base", 50);
 
         &::before {
-            aspect-ratio: 10 / 3;
-            display: block;
-            max-width: 100%;
+            padding-top: 30%;
         }
     }
 
@@ -128,19 +133,8 @@ $_: "c-hero";
         min-height: tokens.use($_, "base", 60);
 
         &::before {
-            aspect-ratio: 16 / 9;
-            display: block;
-            max-width: 100%;
+            padding-top: 56.25%;
         }
-    }
-
-
-    &.#{$_}--small:before,
-    &.#{$_}--normal:before,
-    &.#{$_}--large:after {
-        content: "";
-        display: table;
-        clear: both;
     }
 
     &.#{$_}--stretch {
