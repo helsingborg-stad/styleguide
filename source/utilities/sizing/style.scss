@@ -1,33 +1,38 @@
 @use "sass:map";
 @use "../function/string-replace";
-@use "../setting/var_default";
-@use "../visibility/style" as visibility;
 @use "../mixin/build-utility";
+
+$sizings: (
+    "25%",
+    "50%",
+    "75%",
+    "100%",
+    "auto",
+    "unset"
+);
 
 $width: (
 );
 $height: (
 );
 
-@each $modifier in var_default.$sizings {
+@each $modifier in $sizings {
     $mod: (
         string-replace.str-replace($modifier, "%"): ("width": $modifier)
     );
 $width: map.merge($width, $mod);
 }
 
-@each $modifier in var_default.$sizings {
+@each $modifier in $sizings {
     $mod: (
         string-replace.str-replace($modifier, "%"): ("height": $modifier)
     );
 $height: map.merge($height, $mod);
 }
 
-visibility.$flex-utils: (
+@include build-utility.build-utilities((
     (name: "width",
         modifiers: $width ),
     (name: "height",
         modifiers: $height )
-);
-
-@include build-utility.build-utilities(visibility.$flex-utils);
+));
