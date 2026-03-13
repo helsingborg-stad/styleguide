@@ -1,6 +1,6 @@
 @use "../setting/var_properties";
-@use "../mixin/build-utility";
-@use "../mixin/tokens";
+@use "../../sass/mixin/build-utility";
+@use "../../sass/mixin/tokens";
 
 $_top: "u-top-*";
 $_right: "u-right-*";

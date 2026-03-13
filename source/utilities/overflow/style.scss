@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "../setting/var_properties";
-@use "../mixin/build-utility";
+@use "../../sass/mixin/build-utility";
 
 $modifiers: ();
 @each $modifier in var_properties.$overflows {

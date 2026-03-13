@@ -1,5 +1,5 @@
 @use "../visibility/style" as visibility;
-@use "../mixin/build-utility";
+@use "../../sass/mixin/build-utility";
 
 $flex-utils: (
     (name: "flex-direction",

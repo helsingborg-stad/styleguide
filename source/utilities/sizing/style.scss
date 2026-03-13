@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "../function/string-replace";
-@use "../mixin/build-utility";
+@use "../../sass/mixin/build-utility";
 
 $sizings: (
     "25%",

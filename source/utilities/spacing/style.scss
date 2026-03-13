@@ -1,7 +1,7 @@
 @use "sass:list";
 @use "sass:map";
-@use "../mixin/tokens";
-@use "../mixin/build-utility";
+@use "../../sass/mixin/tokens";
+@use "../../sass/mixin/build-utility";
 
 $_: "u-spacing*";
 

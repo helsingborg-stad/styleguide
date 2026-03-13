@@ -1,4 +1,4 @@
-@use "../mixin/ratio";
+@use "../../sass/mixin/ratio";
 
 .u-ratio-1-1 {
     @include ratio.ratio(1,1);

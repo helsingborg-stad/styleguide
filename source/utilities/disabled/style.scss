@@ -1,5 +1,5 @@
 @use "../setting/var_colors";
-@use "../mixin/build-utility";
+@use "../../sass/mixin/build-utility";
 
 $disabled-utils: (
     name: "disabled",
