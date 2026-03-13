@@ -5,12 +5,14 @@
 	"slug": "slider",
 	"tokens": [
 		"base",
+		"space",
 		"border-radius",
 		"color--primary",
 		"color--alpha",
 		"font-family-heading",
 		"font-family-base",
 		"font-size-100",
+		"font-size-300",
 		"color--alpha-contrast",
 		"shadow-color",
 		"shadow-amount"

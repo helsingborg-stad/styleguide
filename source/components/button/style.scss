@@ -336,7 +336,7 @@ $button-sizes: (
 
 /* Outlined: border only, no background fill */
 .#{$_}__outlined {
-    border: clamp(1px,
+    border: clamp(2px,
         #{tokens.use($_, "border-width")},
         calc(var(--base) / 2)) solid var(--_color);
     color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
