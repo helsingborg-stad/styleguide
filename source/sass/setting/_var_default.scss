@@ -4,12 +4,6 @@
 //  Base sizing unit
 
 $base: var(--base, 8px) !default;
-$number-base: var(--base-number, 8) !default;
-$em-base: var(--em-base, 1em) !default;
-
-//Header
-$header-logotype-height: calc(#{$base}*5) !default;
-$header-logotype-max-width: calc(#{$base}*38) !default;
 
 //  Spacer
 $spacers: (
@@ -43,16 +37,6 @@ $spacers: (
     "auto": "auto"
 ) !default;
 
-//  Sizings
-$sizings: (
-    "25%",
-    "50%",
-    "75%",
-    "100%",
-    "auto",
-    "unset"
-) !default;
-
 //  Breakpoints
 $breakpoints-map: (
     xs: 0,
@@ -72,5 +56,4 @@ $container-breakpoints-map: (
 
 //Width
 $container-width:           var(--container-width, calc(#{$base} * 156)) !default; //1280
-$container-width-content:   var(--container-width-content, calc(#{$base} * 87.5)) !default; //700
 $container-width-wide:      var(--container-width-wide, calc(#{$base} * 200)) !default; //1600
