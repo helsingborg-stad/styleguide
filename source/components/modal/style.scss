@@ -40,6 +40,14 @@ $_: "c-modal";
         max-height: var(--c-modal-max-height);
     }
 
+    .#{$_}__heading {
+        --inherit-font-size: var(--font-size-500);
+    }
+
+    .#{$_}__close {
+        height: 100%;
+    }
+
     &.#{$_}--transparent {
         background-color: transparent;
         filter: none;

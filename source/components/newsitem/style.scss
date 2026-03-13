@@ -74,6 +74,7 @@ $_: "c-newsitem";
     .#{$_}__heading {
         color: tokens.get($_, "color--surface-contrast");
         margin-top: 0;
+        --inherit-font-size: #{tokens.get($_, "font-size-400")};
     }
 
     .#{$_}__header-left,

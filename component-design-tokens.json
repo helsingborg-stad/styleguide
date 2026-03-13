@@ -1044,7 +1044,8 @@
       "shadow-color",
       "shadow-amount",
       "color--alpha-contrast",
-      "color--surface-border"
+      "color--surface-border",
+      "font-size-500"
     ],
     "description": "The Modal component provides a reusable pattern for modal in the interface.",
     "tags": [
@@ -1129,7 +1130,8 @@
       "space",
       "border-width",
       "color--surface-border",
-      "color--surface-contrast"
+      "color--surface-contrast",
+      "font-size-400"
     ],
     "description": "The News Item component provides a reusable pattern for newsitem in the interface.",
     "tags": [
@@ -1171,7 +1173,8 @@
       "color--warning-border",
       "color--success",
       "color--success-contrast",
-      "color--success-border"
+      "color--success-border",
+      "font-size-300"
     ],
     "description": "The Notice component provides a reusable pattern for notice in the interface.",
     "tags": [

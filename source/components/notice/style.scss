@@ -39,6 +39,8 @@ $_: "c-notice";
         grid-area: title;
         margin: 0;
         line-height: tokens.get($_, "line-height");
+
+        --inherit-font-size: #{tokens.get($_, "font-size-300")};
     }
 
     .#{$_}__message {
