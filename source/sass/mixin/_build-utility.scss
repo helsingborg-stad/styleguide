@@ -5,23 +5,24 @@
 @use "sass:list";
 
 @mixin build-utilities($utility_specs, $responsive: true, $limitToBreakpoint: true) {
-    @if meta.type-of($utility_specs)==list {
-        @each $utility in $utility_specs {
-            @include apply-utility($utility, $limitToBreakpoint);
-        }
+  @if meta.type-of($utility_specs)==list {
+    @each $utility in $utility_specs {
+      @include apply-utility($utility, $limitToBreakpoint);
     }
+  }
 
-    @else {
-        @include apply-utility($utility_specs, $limitToBreakpoint);
-    }
+  @else {
+    @include apply-utility($utility_specs, $limitToBreakpoint);
+  }
 }
 
 @mixin apply-utility($utility, $limitToBreakpoint: true) {
-    $name: map.get($utility, "name");
-    $modifiers: map.get($utility, "modifiers");
-    $default: map.get($utility, "default");
-    $base-styles: (
-    );
+  $name: map.get($utility, "name");
+  $aliases: map.get($utility, "aliases");
+  $modifiers: map.get($utility, "modifiers");
+  $default: map.get($utility, "default");
+  $base-styles: (
+  );
 $responsive-styles: (
 );
 
@@ -30,33 +31,53 @@ $clean-name: $name;
 
 // Detect if utility name contains a pseudo-element (::before or ::after)
 @if string.index($name, "::") {
-    $pseudo: string.slice($name, string.index($name, "::"));
-    $clean-name: string.slice($name, 1, string.index($name, "::") - 1);
+  $pseudo: string.slice($name, string.index($name, "::"));
+  $clean-name: string.slice($name, 1, string.index($name, "::") - 1);
 }
 
 @if $default {
-    $base-styles: map.merge($base-styles, (".u-#{$clean-name}#{$pseudo}": $default));
-    $responsive-styles: map.merge($responsive-styles, (".u-#{$clean-name}#{$pseudo}": $default));
+  $default-selectors: (
+    ".u-#{$clean-name}#{$pseudo}"
+  );
+
+@if $aliases {
+  @each $alias in $aliases {
+    $default-selectors: list.append($default-selectors, ".u-#{$alias}#{$pseudo}", comma);
+  }
+}
+
+@each $selector in $default-selectors {
+  $base-styles: map.merge($base-styles, (#{$selector}: $default));
+  $responsive-styles: map.merge($responsive-styles, (#{$selector}: $default));
+}
 }
 
 @if $modifiers {
-    @each $modifier in $modifiers {
-        $base-styles: map.merge($base-styles,
-                (".u-#{$clean-name}--#{" " + list.nth($modifier,1)}#{$pseudo}": list.nth($modifier, 2)));
-    }
+  @each $modifier in $modifiers {
+    $modifier-key: list.nth($modifier, 1);
+    $modifier-style: list.nth($modifier, 2);
+    $modifier-selectors: (
+      ".u-#{$clean-name}--#{$modifier-key}#{$pseudo}"
+    );
 
-    @each $modifier in $modifiers {
-        $style: list.nth($modifier, 2);
-        $responsive-styles: map.merge($responsive-styles,
-                (".u-#{$clean-name}--#{" " + list.nth($modifier,1)}#{$pseudo}": $style));
+  @if $aliases {
+    @each $alias in $aliases {
+      $modifier-selectors: list.append($modifier-selectors, ".u-#{$alias}--#{$modifier-key}#{$pseudo}", comma);
     }
+  }
+
+  @each $selector in $modifier-selectors {
+    $base-styles: map.merge($base-styles, (#{$selector}: $modifier-style));
+    $responsive-styles: map.merge($responsive-styles, (#{$selector}: $modifier-style));
+  }
+}
 }
 
 @if list.length($base-styles)>0 {
-    @include responsive-styles.groupedStyles($base-styles);
+  @include responsive-styles.groupedStyles($base-styles);
 }
 
 @if list.length($responsive-styles)>0 {
-    @include responsive-styles.responsiveStyles($responsive-styles, all, $limitToBreakpoint);
+  @include responsive-styles.responsiveStyles($responsive-styles, all, $limitToBreakpoint);
 }
 }

@@ -8,21 +8,21 @@ $_: "u-spacing*";
 @include tokens.create($_, ("space"));
 
 $spacers: (
-    "0": 0,
-    "05": tokens.use($_, "space", 0.5),
-    "1": tokens.use($_, "space", 1),
-    "2": tokens.use($_, "space", 2),
-    "3": tokens.use($_, "space", 3),
-    "4": tokens.use($_, "space", 4),
-    "5": tokens.use($_, "space", 5),
-    "6": tokens.use($_, "space", 6),
-    "7": tokens.use($_, "space", 7),
-    "8": tokens.use($_, "space", 8),
-    "9": tokens.use($_, "space", 9),
-    "10": tokens.use($_, "space", 10),
-    "11": tokens.use($_, "space", 11),
-    "12": tokens.use($_, "space", 12),
-    "auto": "auto",
+  "0": 0,
+  "05": tokens.use($_, "space", 0.5),
+  "1": tokens.use($_, "space", 1),
+  "2": tokens.use($_, "space", 2),
+  "3": tokens.use($_, "space", 3),
+  "4": tokens.use($_, "space", 4),
+  "5": tokens.use($_, "space", 5),
+  "6": tokens.use($_, "space", 6),
+  "7": tokens.use($_, "space", 7),
+  "8": tokens.use($_, "space", 8),
+  "9": tokens.use($_, "space", 9),
+  "10": tokens.use($_, "space", 10),
+  "11": tokens.use($_, "space", 11),
+  "12": tokens.use($_, "space", 12),
+  "auto": "auto",
 );
 
 $spacing-util: (
@@ -30,112 +30,81 @@ $spacing-util: (
 
 @each $prop in (margin, padding) {
 
-    //Builds sides
-    @each $side in (top, left, right, bottom) {
-
-        $mods: (
-        );
-
-    @each $size, $length in $spacers {
-        @each $size, $length in $spacers {
-            @if $length !=auto or $prop ==margin {
-                $style: (
-                    #{$size}:(#{$prop}-#{$side}: #{$length})
-                );
-            $mods: map.merge($mods, $style);
-        }
-    }
-}
-
-$util: (
-    name: "#{$prop}__#{$side}",
-    default: (#{$prop}-#{$side}: tokens.use($_, "space", 1)),
-    modifiers: $mods
-);
-
-$spacing-util: list.append($spacing-util, $util);
-}
-
-$mods: (
-);
-
-//Builds all around
-@each $size, $length in $spacers {
-    @if $length !=auto or $prop ==margin {
-        $style: (
-            #{$size}:(#{$prop}: #{$length})
-        );
-    $mods: map.merge($mods, $style);
-}
-}
-
-$util: (
-    name: "#{$prop}",
-    default: (#{$prop}: tokens.use($_, "space", 1)),
-    modifiers: $mods
-);
-
-$spacing-util: list.append($spacing-util, $util);
-
-$mods: (
-);
-
-//Builds on axis Y
-@each $size, $length in $spacers {
-    @if $length !=auto or $prop ==margin {
-        $style: (
-            #{$size}:(#{$prop}-top: #{$length},
-                #{$prop}-bottom: #{$length})
-        );
-    $mods: map.merge($mods, $style);
-}
-}
-
-$util: (
-    name: "#{$prop}__y",
-    default: (#{$prop}-top: tokens.use($_, "space", 1),
-        #{$prop}-bottom: tokens.use($_, "space", 1)),
-    modifiers: $mods
-);
-
-$spacing-util: list.append($spacing-util, $util);
-
-//Builds on axis X
-@each $size, $length in $spacers {
-    @if $length !=auto or $prop ==margin {
-        $style: (
-            #{$size}:(#{$prop}-left: #{$length},
-                #{$prop}-right: #{$length})
-        );
-    $mods: map.merge($mods, $style);
-}
-}
-
-$util: (
-    name: "#{$prop}__x",
-    default: (#{$prop}-left: tokens.use($_, "space", 1),
-        #{$prop}-right: tokens.use($_, "space", 1)),
-    modifiers: $mods
-);
-
-$spacing-util: list.append($spacing-util, $util);
-}
-
-// Top utilities
-@each $side in (top, left, right, bottom) {
+  // Builds side-specific utilities and maps axis aliases to side outputs
+  @each $side in (top, left, right, bottom) {
     $mods: (
     );
+  $aliases: (
+  );
+
+@if $side ==top or $side ==bottom {
+  $aliases: (
+    "#{$prop}__y"
+  );
+}
+
+@if $side ==left or $side ==right {
+  $aliases: (
+    "#{$prop}__x"
+  );
+}
 
 @each $size, $length in $spacers {
+  @if $length !=auto or $prop ==margin {
     $style: (
-        #{$size}: (#{$side}: #{$length})
+      #{$size}:(#{$prop}-#{$side}: #{$length})
     );
+  $mods: map.merge($mods, $style);
+}
+}
+
+$util: (
+  name: "#{$prop}__#{$side}",
+  aliases: $aliases,
+  default: map.get($mods, "1"),
+  modifiers: $mods
+);
+
+$spacing-util: list.append($spacing-util, $util);
+}
+
+// Builds all-around utilities
+$mods: (
+);
+
+@each $size, $length in $spacers {
+  @if $length !=auto or $prop ==margin {
+    $style: (
+      #{$size}:(#{$prop}: #{$length})
+    );
+  $mods: map.merge($mods, $style);
+}
+}
+
+$util: (
+  name: "#{$prop}",
+  default: map.get($mods, "1"),
+  modifiers: $mods
+);
+
+$spacing-util: list.append($spacing-util, $util);
+}
+
+// Top/left/right/bottom utilities
+@each $side in (top, left, right, bottom) {
+  $mods: (
+  );
+
+@each $size, $length in $spacers {
+  $style: (
+    #{$size}: (#{$side}: #{$length})
+  );
 $mods: map.merge($mods, $style);
 }
 
 $util: (
-    name: "#{$side}",
-    modifiers: $mods
+  name: "#{$side}",
+  modifiers: $mods
 );
 
 $spacing-util: list.append($spacing-util, $util);
