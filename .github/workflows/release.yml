@@ -52,6 +52,18 @@ jobs:
         run: |
           git rm -r --cached .
 
+      - name: Overwrite .gitignore for release branch
+        run: |
+          cat > .gitignore <<'EOF'
+          /*
+          !/assets/dist
+          !/component-design-tokens.json
+          !/composer.json
+          !/composer.lock
+          !/LICENSE
+          !/README.md
+          EOF
+
       # --- Release Branch Commit ---
       - name: Commit and push release branch
         run: |
