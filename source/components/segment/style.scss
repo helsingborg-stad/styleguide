@@ -2,6 +2,8 @@
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
+$_observe-breakpoint-sm: 576px;
+$_observe-breakpoint-md: 768px;
 
 @include tokens.create($c, getComponentTokens($c),
     ("image-border-radius": tokens.use($c, "border-radius"),
@@ -123,94 +125,98 @@ $_breakpoint-md: 896px;
         }
     }
 
-    /**
-    * Responsive
-    */
-    &.#{$c}--size-sm {
-        &.#{$c}--card {
-            .#{$c}__content {
-                width: min(60%, tokens.use($c, "base", 60));
-                min-height: tokens.use($c, "base", 40);
-                margin-top: calc(#{tokens.use($c, "base", 35)} * -1);
-            }
+}
 
-            &.#{$c}--no-image .#{$c}__content {
-                margin-top: 0;
-            }
+/**
+* Responsive
+*/
+@container segment (min-width: #{$_observe-breakpoint-sm}) {
 
-            &.#{$c}--height-full-screen {
-                .#{$c}__content {
-                    margin-top: auto;
-                    margin-bottom: auto;
-                }
-            }
-
-            &.#{$c}--reverse {
-                .#{$c}__content {
-                    margin-left: auto;
-                }
-            }
-
-            .#{$c}__image {
-                aspect-ratio: 3/2;
-            }
-        }
+    // Match utility intent: u-font-size--title on compact container-aware segments.
+    .#{$c} .#{$c}__title {
+        --inherit-font-size: #{tokens.get($c, "font-size-400")};
     }
 
-    &.#{$c}--size-md {
-        &.#{$c}--card {
-            flex-direction: row;
-
-            .#{$c}__image {
-                position: absolute;
-                width: calc(100% - #{tokens.use($c, "base", 30)});
-                padding: 0;
-                height: 100%;
-                right: 0;
-
-                .#{$c}__image {
-                    width: 100%;
-                }
-            }
-
-            .#{$c}__content {
-                margin: tokens.use($c, "base", 2) 0;
-                width: tokens.use($c, "base", 60);
-                flex-grow: unset;
-                height: unset;
-            }
-
-            .#{$c}__content-card {
-                padding: tokens.use($c, "base", 5);
-
-                .#{$c}__title {
-                    font-size: tokens.get($c, "font-size-600");
-                }
-            }
-
-            .#{$c}__floating {
-                top: tokens.use($c, "base", 3);
-            }
-
-            &.#{$c}--reverse {
-                flex-direction: row-reverse;
-
-                .#{$c}__image {
-                    left: 0;
-                    right: unset;
-                }
-            }
-        }
+    .#{$c}--card .#{$c}__content {
+        width: min(60%, tokens.use($c, "base", 60));
+        min-height: tokens.use($c, "base", 40);
+        margin-top: calc(#{tokens.use($c, "base", 35)} * -1);
     }
 
-    &.#{$c}--no-image.#{$c}--size-sm,
-    &.#{$c}--no-image.#{$c}--size-md {
-        &.#{$c}--card {
-            .#{$c}__content {
-                width: 100%;
-                min-height: initial;
-            }
-        }
+    .#{$c}--card.#{$c}--no-image .#{$c}__content {
+        margin-top: 0;
+        width: 100%;
+        min-height: initial;
+    }
+
+    .#{$c}--card.#{$c}--height-full-screen .#{$c}__content {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .#{$c}--card.#{$c}--reverse .#{$c}__content {
+        margin-left: auto;
+    }
+
+    .#{$c}--card .#{$c}__image {
+        aspect-ratio: 3/2;
+    }
+}
+
+@container segment (min-width: #{$_observe-breakpoint-md}) {
+
+    // Match utility intent: u-font-size--headline for medium container-aware segments.
+    .#{$c} .#{$c}__title {
+        --inherit-font-size: #{tokens.get($c, "font-size-500")};
+    }
+
+    .#{$c}--card {
+        flex-direction: row;
+    }
+
+    .#{$c}--card .#{$c}__image {
+        position: absolute;
+        width: calc(100% - #{tokens.use($c, "base", 30)});
+        padding: 0;
+        height: 100%;
+        right: 0;
+    }
+
+    .#{$c}--card .#{$c}__image .#{$c}__image {
+        width: 100%;
+    }
+
+    .#{$c}--card .#{$c}__content {
+        margin: tokens.use($c, "base", 2) 0;
+        width: tokens.use($c, "base", 60);
+        flex-grow: unset;
+        height: unset;
+    }
+
+    .#{$c}--card .#{$c}__content-card {
+        padding: tokens.use($c, "base", 5);
+    }
+
+    .#{$c}--card .#{$c}__content-card .#{$c}__title {
+        --inherit-font-size: #{tokens.get($c, "font-size-600")};
+    }
+
+    .#{$c}--card .#{$c}__floating {
+        top: tokens.use($c, "base", 3);
+    }
+
+    .#{$c}--card.#{$c}--reverse {
+        flex-direction: row-reverse;
+    }
+
+    .#{$c}--card.#{$c}--reverse .#{$c}__image {
+        left: 0;
+        right: unset;
+    }
+
+    .#{$c}--card.#{$c}--no-image .#{$c}__content {
+        width: 100%;
+        min-height: initial;
     }
 }
 

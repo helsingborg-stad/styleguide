@@ -1312,6 +1312,8 @@
       "color--secondary",
       "color--surface",
       "font-size-600",
+      "font-size-500",
+      "font-size-400",
       "color--alpha",
       "corner-shape",
       "color--surface-contrast",
