@@ -17,10 +17,12 @@ $_: "u-border*";
 * Base Border Utility
 **************************************/
 
-[class^="u-border"],
-[class*=" u-border"] {
+.u-border,
+.u-border--0,
+.u-border--1,
+.u-border--2 {
     border-width: tokens.use($_, "border-width", 1);
-    border-color: currentColor;
+    border-color: tokens.get($_, "color--surface-border");
     border-style: solid;
 }
 
@@ -82,6 +84,15 @@ $_: "u-border*";
     border-width: 0;
 }
 
+[class*="u-border__top"],
+[class*="u-border__right"],
+[class*="u-border__bottom"],
+[class*="u-border__left"] {
+    border-width: 0;
+    border-color: tokens.get($_, "color--surface-border");
+    border-style: solid;
+}
+
 /**************************************
 * Border Top
 **************************************/
@@ -92,12 +103,10 @@ $_: "u-border*";
 
 .u-border__top--1,
 .u-border__top {
-    border-width: 0;
     border-top-width: tokens.use($_, "border-width", 1);
 }
 
 .u-border__top--2 {
-    border-width: 0;
     border-top-width: tokens.use($_, "border-width", 2);
 }
 
@@ -105,16 +114,16 @@ $_: "u-border*";
 * Border Right
 **************************************/
 
-*>.u-border__right--0 {
+.u-border__right--0 {
     border-right-width: 0;
 }
 
-*>.u-border__right--1,
+.u-border__right--1,
 .u-border__right {
     border-right-width: tokens.use($_, "border-width", 1);
 }
 
-*>.u-border__right--2 {
+.u-border__right--2 {
     border-right-width: tokens.use($_, "border-width", 2);
 }
 
@@ -123,16 +132,16 @@ $_: "u-border*";
 * Border Bottom
 **************************************/
 
-*>.u-border__bottom--0 {
+.u-border__bottom--0 {
     border-bottom-width: 0;
 }
 
-*>.u-border__bottom--1,
+.u-border__bottom--1,
 .u-border__bottom {
     border-bottom-width: tokens.use($_, "border-width", 1);
 }
 
-*>.u-border__bottom--2 {
+.u-border__bottom--2 {
     border-bottom-width: tokens.use($_, "border-width", 2);
 }
 
@@ -140,16 +149,16 @@ $_: "u-border*";
 * Border Left
 **************************************/
 
-*>.u-border__left--0 {
+.u-border__left--0 {
     border-left-width: 0;
 }
 
-*>.u-border__left--1,
+.u-border__left--1,
 .u-border__left {
     border-left-width: tokens.use($_, "border-width", 1);
 }
 
-*>.u-border__left--2 {
+.u-border__left--2 {
     border-left-width: tokens.use($_, "border-width", 2);
 }
 
