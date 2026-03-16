@@ -45,7 +45,7 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__date {
-        font-size: 0.875rem;
+        font-size: tokens.get("", "font-size-90");
     }
 
     .#{$c}__buttons {
@@ -137,11 +137,6 @@ $_observe-breakpoint-md: 768px;
 */
 @container segment (min-width: #{$_observe-breakpoint-sm}) {
 
-    // Match utility intent: u-font-size--title on compact container-aware segments.
-    .#{$c} .#{$c}__title {
-        --inherit-font-size: #{tokens.get($c, "font-size-400")};
-    }
-
     .#{$c}--card .#{$c}__content {
         width: min(60%, tokens.use($c, "base", 60));
         min-height: tokens.use($c, "base", 40);
@@ -165,6 +160,14 @@ $_observe-breakpoint-md: 768px;
 
     .#{$c}--card .#{$c}__image {
         aspect-ratio: 3/2;
+    }
+}
+
+@container segment (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
+
+    // Match utility intent: u-font-size--title on compact container-aware segments.
+    .#{$c} .#{$c}__title {
+        --inherit-font-size: #{tokens.get($c, "font-size-400")};
     }
 }
 
@@ -253,7 +256,7 @@ $_observe-breakpoint-md: 768px;
 .#{$c}.#{$c}--text {
     &-large .#{$c}__content {
         @container segment (min-width: #{$_breakpoint-md}) {
-            font-size: 1.2em;
+            font-size: tokens.get("", "font-size-200");
         }
     }
 }
