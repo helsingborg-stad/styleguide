@@ -74,6 +74,13 @@ $_: "u-border*";
     border-color: tokens.get($_, "color--warning-border");
 }
 
+[class*="u-border__top"],
+[class*="u-border__right"],
+[class*="u-border__bottom"],
+[class*="u-border__left"] {
+    border-color: tokens.get($_, "color--surface-border");
+}
+
 /**************************************
 * Border Sides Resetter
 **************************************/
@@ -89,7 +96,6 @@ $_: "u-border*";
 [class*="u-border__bottom"],
 [class*="u-border__left"] {
     border-width: 0;
-    border-color: tokens.get($_, "color--surface-border");
     border-style: solid;
 }
 
