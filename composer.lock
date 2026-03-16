@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06cbc036a69d796ff610a2e841636daa",
+    "content-hash": "bc19a49dea69707dfa9a6e3384b43fb3",
     "packages": [
         {
             "name": "brick/math",
@@ -337,16 +337,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "4.65.8",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "cee7859cf0549f7a20372d9ef79f2ce64e356683"
+                "reference": "7fd048d9836dc7741d783cfb5c8abfefab6a0090"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/cee7859cf0549f7a20372d9ef79f2ce64e356683",
-                "reference": "cee7859cf0549f7a20372d9ef79f2ce64e356683",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/7fd048d9836dc7741d783cfb5c8abfefab6a0090",
+                "reference": "7fd048d9836dc7741d783cfb5c8abfefab6a0090",
                 "shasum": ""
             },
             "require": {
@@ -378,9 +378,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/4.65.8"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.2.0"
             },
-            "time": "2026-02-24T11:31:49+00:00"
+            "time": "2026-03-16T08:48:26+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3796,12 +3796,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

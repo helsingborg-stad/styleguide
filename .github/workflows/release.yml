@@ -52,31 +52,6 @@ jobs:
         run: |
           git rm -r --cached .
 
-      - name: Overwrite .gitignore for release branch
-        run: |
-          cat > .gitignore <<'EOF'
-          /*
-          !/assets
-          !/docs
-          !/source/components
-          !/source/php
-          !/source/themes
-          !/source/component-schema.json
-          !/source/design-tokens-schema.json
-          !/views
-          !/.htaccess
-          !/component-design-tokens.json
-          !/composer.json
-          !/composer.lock
-          !/config.php
-          !/favicon.ico
-          !/index.php
-          !/index.php
-          !/LICENSE
-          !/Public.php
-          !/README.md
-          EOF
-
       # --- Release Branch Commit ---
       - name: Commit and push release branch
         run: |
