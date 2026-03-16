@@ -101,6 +101,40 @@ export function createControl(
 }
 
 /**
+ * Creates a compact read-only control row for locked settings.
+ * Intended for optional display when uneditable fields are shown.
+ */
+export function createReadOnlyControl(setting: TokenSetting, currentValue: string): HTMLElement {
+  const row = document.createElement('div')
+  row.className = 'db-control db-control--readonly db-control--locked'
+  row.dataset.variable = setting.variable
+
+  const label = document.createElement('label')
+  label.className = 'db-control__label'
+  label.textContent = setting.label
+  row.appendChild(label)
+
+  const valueWrap = document.createElement('div')
+  valueWrap.className = 'db-control__readonly-value'
+
+  if (setting.type === 'color' || setting.type === 'rgba') {
+    const swatch = document.createElement('div')
+    swatch.className = 'db-control__swatch'
+    swatch.style.backgroundColor = currentValue
+    valueWrap.appendChild(swatch)
+  }
+
+  const valueText = document.createElement('span')
+  valueText.className = 'db-control__value-display db-control__value-display--readonly'
+  valueText.textContent = currentValue
+  valueWrap.appendChild(valueText)
+
+  row.appendChild(valueWrap)
+
+  return row
+}
+
+/**
  * Updates the control's displayed value without triggering change events.
  */
 function updateControlValue(row: HTMLElement, value: string, setting: TokenSetting): void {
@@ -137,7 +171,7 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
       const rangeInput = row.querySelector<HTMLInputElement>('input[type="range"]')
       const display = row.querySelector<HTMLElement>('.db-control__value-display')
       const numVal = parseFloat(value)
-      if (rangeInput && !isNaN(numVal)) rangeInput.value = String(numVal)
+      if (rangeInput && !Number.isNaN(numVal)) rangeInput.value = String(numVal)
       if (display) display.textContent = value
       break
     }
@@ -304,7 +338,7 @@ function buildRangeControl(
   if (setting.min !== undefined) rangeInput.min = String(setting.min)
   if (setting.max !== undefined) rangeInput.max = String(setting.max)
   if (setting.step !== undefined) rangeInput.step = String(setting.step)
-  rangeInput.value = isNaN(numVal) ? '0' : String(numVal)
+  rangeInput.value = Number.isNaN(numVal) ? '0' : String(numVal)
   wrap.appendChild(rangeInput)
 
   const display = document.createElement('span')

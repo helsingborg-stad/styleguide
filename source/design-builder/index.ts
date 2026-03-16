@@ -6,76 +6,81 @@
  * and manages live preview + storage.
  */
 
-import { LocalStorageAdapter, PresetManager, type StorageAdapter } from './storage'
-import { createControl, createContrastPair, createSwatchBand, type TokenSetting } from './controls'
+import { createContrastPair, createControl, createReadOnlyControl, createSwatchBand, type TokenSetting } from './controls';
+import { LocalStorageAdapter, PresetManager, type StorageAdapter } from './storage';
 
 interface TokenCategory {
-  id: string
-  label: string
-  description?: string
-  present?: 'swatch'
-  settings: TokenSetting[]
+	id: string;
+	label: string;
+	description?: string;
+	present?: 'swatch';
+	settings: TokenSetting[];
 }
 
 interface TokenData {
-  name: string
-  version: string
-  categories: TokenCategory[]
+	name: string;
+	version: string;
+	categories: TokenCategory[];
 }
 
 class DesignBuilder {
-  private container: HTMLElement
-  private storage: StorageAdapter
-  private tokens: TokenData
-  private overrides: Record<string, string>
-  private saveTimeout: ReturnType<typeof setTimeout> | null = null
-  private presetManager: PresetManager
-  private presetBar: HTMLElement | null = null
+	private container: HTMLElement;
+	private storage: StorageAdapter;
+	private tokens: TokenData;
+	private overrides: Record<string, string>;
+	private saveTimeout: ReturnType<typeof setTimeout> | null = null;
+	private presetManager: PresetManager;
+	private presetBar: HTMLElement | null = null;
+	private showLockedFields = false;
 
-  constructor(container: HTMLElement, tokens: TokenData, storage: StorageAdapter) {
-    this.container = container
-    this.tokens = tokens
-    this.storage = storage
-    this.presetManager = new PresetManager()
-    this.overrides = storage.load()
-    this.removeLockedOverrides()
+	constructor(container: HTMLElement, tokens: TokenData, storage: StorageAdapter) {
+		this.container = container;
+		this.tokens = tokens;
+		this.storage = storage;
+		this.presetManager = new PresetManager();
+		this.overrides = storage.load();
+		this.removeLockedOverrides();
 
-    this.render()
-    this.applyAll()
-  }
+		this.render();
+		this.applyAll();
+	}
 
-  private removeLockedOverrides(): void {
-    const lockedVariables = new Set<string>()
+	private removeLockedOverrides(): void {
+		const lockedVariables = new Set<string>();
 
-    for (const category of this.tokens.categories) {
-      for (const setting of category.settings) {
-        if (setting.locked) {
-          lockedVariables.add(setting.variable)
-        }
-      }
-    }
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				if (setting.locked) {
+					lockedVariables.add(setting.variable);
+				}
+			}
+		}
 
-    let changed = false
-    for (const variable of lockedVariables) {
-      if (variable in this.overrides) {
-        delete this.overrides[variable]
-        changed = true
-      }
-    }
+		let changed = false;
+		for (const variable of lockedVariables) {
+			if (variable in this.overrides) {
+				delete this.overrides[variable];
+				changed = true;
+			}
+		}
 
-    if (changed) {
-      this.storage.save(this.overrides)
-    }
-  }
+		if (changed) {
+			this.storage.save(this.overrides);
+		}
+	}
 
-  private render(): void {
-    // Header
-    const header = document.createElement('div')
-    header.className = 'db-header'
-    header.innerHTML = `
+	private render(): void {
+		// Header
+		const header = document.createElement('div');
+		header.className = 'db-header';
+		header.innerHTML = `
       <h1 class="db-header__title">Design Builder</h1>
       <p class="db-header__subtitle">${this.tokens.name} v${this.tokens.version}</p>
       <div class="db-header__actions">
+				<label class="db-header__toggle-row" title="Show non-editable fields">
+					<input type="checkbox" data-action="toggle-locked" ${this.showLockedFields ? 'checked' : ''}>
+					<span>Show uneditable</span>
+				</label>
         <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="export">
           <span class="c-button__label"><span class="c-button__label-text">Export JSON</span></span>
         </button>
@@ -87,433 +92,456 @@ class DesignBuilder {
         </button>
         <input type="file" accept=".json,application/json" data-action="import-file" hidden>
       </div>
-    `
-    this.container.appendChild(header)
+    `;
+		this.container.appendChild(header);
 
-    // Bind header actions
-    const importInput = header.querySelector<HTMLInputElement>('[data-action="import-file"]')
-    header.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson())
-    header.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click())
-    importInput?.addEventListener('change', () => {
-      const file = importInput.files?.[0]
-      if (!file) return
-      void this.importJson(file)
-      importInput.value = ''
-    })
-    header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll())
+		// Bind header actions
+		const importInput = header.querySelector<HTMLInputElement>('[data-action="import-file"]');
+		const toggleLockedInput = header.querySelector<HTMLInputElement>('[data-action="toggle-locked"]');
+		toggleLockedInput?.addEventListener('change', () => {
+			this.showLockedFields = toggleLockedInput.checked;
+			this.container.innerHTML = '';
+			this.render();
+		});
+		header.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson());
+		header.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click());
+		importInput?.addEventListener('change', () => {
+			const file = importInput.files?.[0];
+			if (!file) return;
+			void this.importJson(file);
+			importInput.value = '';
+		});
+		header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll());
 
-    // Preset bar
-    this.presetBar = this.renderPresetBar()
-    this.container.appendChild(this.presetBar)
+		// Preset bar
+		this.presetBar = this.renderPresetBar();
+		this.container.appendChild(this.presetBar);
 
-    // Categories
-    const categoriesWrap = document.createElement('div')
-    categoriesWrap.className = 'db-categories'
+		// Categories
+		const categoriesWrap = document.createElement('div');
+		categoriesWrap.className = 'db-categories';
 
-    for (const category of this.tokens.categories) {
-      categoriesWrap.appendChild(this.renderCategory(category))
-    }
+		for (const category of this.tokens.categories) {
+			categoriesWrap.appendChild(this.renderCategory(category));
+		}
 
-    this.container.appendChild(categoriesWrap)
-  }
+		this.container.appendChild(categoriesWrap);
+	}
 
-  private renderCategory(category: TokenCategory): HTMLElement {
-    const section = document.createElement('section')
-    section.className = 'db-category'
-    section.dataset.categoryId = category.id
+	private renderCategory(category: TokenCategory): HTMLElement {
+		const section = document.createElement('section');
+		section.className = 'db-category';
+		section.dataset.categoryId = category.id;
 
-    // Category header (collapsible)
-    const header = document.createElement('div')
-    header.className = 'db-category__header'
-    header.innerHTML = `
+		// Category header (collapsible)
+		const header = document.createElement('div');
+		header.className = 'db-category__header';
+		header.innerHTML = `
       <h2 class="db-category__title">${category.label}</h2>
       ${category.description ? `<p class="db-category__description">${category.description}</p>` : ''}
       <span class="db-category__toggle material-symbols-outlined">expand_more</span>
-    `
-    section.appendChild(header)
+    `;
+		section.appendChild(header);
 
-    // Category body
-    const body = document.createElement('div')
-    body.className = 'db-category__body'
+		// Category body
+		const body = document.createElement('div');
+		body.className = 'db-category__body';
 
-    if (category.present === 'swatch') {
-      body.appendChild(createSwatchBand(category.settings))
-    } else {
-      // Build lookup and track which settings are contrast targets
-      const settingsMap = new Map<string, TokenSetting>()
-      const contrastVars = new Set<string>()
-      for (const s of category.settings) {
-        settingsMap.set(s.variable, s)
-        if (s.contrast) {
-          const refs = Array.isArray(s.contrast) ? s.contrast : [s.contrast]
-          refs.forEach(v => contrastVars.add(v))
-        }
-      }
+		if (category.present === 'swatch') {
+			body.appendChild(createSwatchBand(category.settings));
+		} else {
+			// Build lookup and track which settings are contrast targets
+			const settingsMap = new Map<string, TokenSetting>();
+			for (const setting of category.settings) {
+				settingsMap.set(setting.variable, setting);
+			}
 
-      for (const setting of category.settings) {
-        // Skip tokens already rendered as part of a contrast pair
-        if (contrastVars.has(setting.variable)) continue
+			const contrastVars = new Set<string>();
+			for (const s of category.settings) {
+				if (s.contrast) {
+					const refs = Array.isArray(s.contrast) ? s.contrast : [s.contrast];
+					for (const variable of refs) {
+						const contrastSetting = settingsMap.get(variable);
+						if (contrastSetting && !contrastSetting.locked) {
+							contrastVars.add(variable);
+						}
+					}
+				}
+			}
 
-        if (setting.contrast) {
-          // Collect all contrast settings for this base
-          const refs = Array.isArray(setting.contrast) ? setting.contrast : [setting.contrast]
-          const contrasts: { setting: TokenSetting; value: string }[] = []
-          for (const contrastVar of refs) {
-            const contrastSetting = settingsMap.get(contrastVar)
-            if (contrastSetting) {
-              contrasts.push({
-                setting: contrastSetting,
-                value: this.overrides[contrastVar] || contrastSetting.default,
-              })
-            }
-          }
-          if (contrasts.length > 0) {
-            const baseVal = this.overrides[setting.variable] || setting.default
-            body.appendChild(createContrastPair(
-              setting, contrasts, baseVal,
-              (variable, value) => {
-                const allSettings = [setting, ...contrasts.map(c => c.setting)]
-                const def = allSettings.find(s => s.variable === variable)?.default || ''
-                this.handleChange(variable, value, def)
-              }
-            ))
-          }
-        } else {
-          // Regular control
-          const currentValue = this.overrides[setting.variable] || setting.default
-          const control = createControl(setting, currentValue, (variable, value) => {
-            this.handleChange(variable, value, setting.default)
-          })
-          body.appendChild(control)
-        }
-      }
-    }
+			for (const setting of category.settings) {
+				if (setting.locked) {
+					if (!this.showLockedFields) {
+						continue;
+					}
 
-    section.appendChild(body)
+					const currentValue = this.overrides[setting.variable] || setting.default;
+					body.appendChild(createReadOnlyControl(setting, currentValue));
+					continue;
+				}
 
-    // Toggle collapse
-    header.addEventListener('click', () => {
-      section.classList.toggle('db-category--collapsed')
-    })
+				// Skip tokens already rendered as part of a contrast pair
+				if (contrastVars.has(setting.variable)) continue;
 
-    return section
-  }
+				if (setting.contrast) {
+					// Collect all contrast settings for this base
+					const refs = Array.isArray(setting.contrast) ? setting.contrast : [setting.contrast];
+					const contrasts: { setting: TokenSetting; value: string }[] = [];
+					for (const contrastVar of refs) {
+						const contrastSetting = settingsMap.get(contrastVar);
+						if (contrastSetting && !contrastSetting.locked) {
+							contrasts.push({
+								setting: contrastSetting,
+								value: this.overrides[contrastVar] || contrastSetting.default,
+							});
+						}
+					}
+					if (contrasts.length > 0) {
+						const baseVal = this.overrides[setting.variable] || setting.default;
+						body.appendChild(
+							createContrastPair(setting, contrasts, baseVal, (variable, value) => {
+								const allSettings = [setting, ...contrasts.map((c) => c.setting)];
+								const def = allSettings.find((s) => s.variable === variable)?.default || '';
+								this.handleChange(variable, value, def);
+							}),
+						);
+					}
+				} else {
+					// Regular control
+					const currentValue = this.overrides[setting.variable] || setting.default;
+					const control = createControl(setting, currentValue, (variable, value) => {
+						this.handleChange(variable, value, setting.default);
+					});
+					body.appendChild(control);
+				}
+			}
+		}
 
-  private handleChange(variable: string, value: string, defaultValue: string): void {
-    // If value matches default or is empty, remove the override
-    if (!value || value === defaultValue) {
-      delete this.overrides[variable]
-    } else {
-      this.overrides[variable] = value
-    }
+		section.appendChild(body);
 
-    // Apply to :root immediately
-    if (value && value !== defaultValue) {
-      document.documentElement.style.setProperty(variable, value)
-    } else {
-      document.documentElement.style.removeProperty(variable)
-    }
+		// Toggle collapse
+		header.addEventListener('click', () => {
+			section.classList.toggle('db-category--collapsed');
+		});
 
-    // Debounced save
-    this.debounceSave()
+		return section;
+	}
 
-    // Manual edit deactivates preset
-    this.presetManager.clearActive()
-    this.refreshPresetBar()
-  }
+	private handleChange(variable: string, value: string, defaultValue: string): void {
+		// If value matches default or is empty, remove the override
+		if (!value || value === defaultValue) {
+			delete this.overrides[variable];
+		} else {
+			this.overrides[variable] = value;
+		}
 
-  private debounceSave(): void {
-    if (this.saveTimeout) clearTimeout(this.saveTimeout)
-    this.saveTimeout = setTimeout(() => {
-      this.storage.save(this.overrides)
-    }, 300)
-  }
+		// Apply to :root immediately
+		if (value && value !== defaultValue) {
+			document.documentElement.style.setProperty(variable, value);
+		} else {
+			document.documentElement.style.removeProperty(variable);
+		}
 
-  private applyAll(): void {
-    for (const [prop, value] of Object.entries(this.overrides)) {
-      document.documentElement.style.setProperty(prop, value)
-    }
-  }
+		// Debounced save
+		this.debounceSave();
 
-  private resetAll(): void {
-    if (!confirm('Reset all tokens to their default values? This clears all customizations.')) {
-      return
-    }
+		// Manual edit deactivates preset
+		this.presetManager.clearActive();
+		this.refreshPresetBar();
+	}
 
-    // Remove all overrides from :root
-    for (const prop of Object.keys(this.overrides)) {
-      document.documentElement.style.removeProperty(prop)
-    }
+	private debounceSave(): void {
+		if (this.saveTimeout) clearTimeout(this.saveTimeout);
+		this.saveTimeout = setTimeout(() => {
+			this.storage.save(this.overrides);
+		}, 300);
+	}
 
-    this.overrides = {}
-    this.storage.clear()
-    this.presetManager.clearActive()
+	private applyAll(): void {
+		for (const [prop, value] of Object.entries(this.overrides)) {
+			document.documentElement.style.setProperty(prop, value);
+		}
+	}
 
-    // Re-render
-    this.container.innerHTML = ''
-    this.render()
-  }
+	private resetAll(): void {
+		if (!confirm('Reset all tokens to their default values? This clears all customizations.')) {
+			return;
+		}
 
-  private exportJson(): void {
-    const data = JSON.stringify(this.overrides, null, 2)
-    const blob = new Blob([data], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'design-tokens-overrides.json'
-    a.click()
-    URL.revokeObjectURL(url)
-  }
+		// Remove all overrides from :root
+		for (const prop of Object.keys(this.overrides)) {
+			document.documentElement.style.removeProperty(prop);
+		}
 
-  private async importJson(file: File): Promise<void> {
-    let fileContent: string
-    try {
-      fileContent = await file.text()
-    } catch {
-      alert('Error: Could not read the selected JSON file.')
-      return
-    }
+		this.overrides = {};
+		this.storage.clear();
+		this.presetManager.clearActive();
 
-    let parsed: unknown
-    try {
-      parsed = JSON.parse(fileContent)
-    } catch {
-      alert('Error: Invalid JSON file.')
-      return
-    }
+		// Re-render
+		this.container.innerHTML = '';
+		this.render();
+	}
 
-    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-      alert('Error: Imported JSON must be an object of CSS variable/value pairs.')
-      return
-    }
+	private exportJson(): void {
+		const data = JSON.stringify(this.overrides, null, 2);
+		const blob = new Blob([data], { type: 'application/json' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'design-tokens-overrides.json';
+		a.click();
+		URL.revokeObjectURL(url);
+	}
 
-    const tokenVariables = new Set<string>()
-    const lockedVariables = new Set<string>()
-    for (const category of this.tokens.categories) {
-      for (const setting of category.settings) {
-        tokenVariables.add(setting.variable)
-        if (setting.locked) {
-          lockedVariables.add(setting.variable)
-        }
-      }
-    }
+	private async importJson(file: File): Promise<void> {
+		let fileContent: string;
+		try {
+			fileContent = await file.text();
+		} catch {
+			alert('Error: Could not read the selected JSON file.');
+			return;
+		}
 
-    const importedOverrides: Record<string, string> = {}
-    const parsedOverrides = parsed as Record<string, unknown>
-    const entries = Object.entries(parsedOverrides)
+		let parsed: unknown;
+		try {
+			parsed = JSON.parse(fileContent);
+		} catch {
+			alert('Error: Invalid JSON file.');
+			return;
+		}
 
-    for (const [variable, value] of entries) {
-      if (!tokenVariables.has(variable)) continue
-      if (lockedVariables.has(variable)) continue
-      if (typeof value !== 'string' || !value.trim()) continue
-      importedOverrides[variable] = value
-    }
+		if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+			alert('Error: Imported JSON must be an object of CSS variable/value pairs.');
+			return;
+		}
 
-    if (entries.length > 0 && Object.keys(importedOverrides).length === 0) {
-      alert('Error: No recognized design token overrides were found in the selected file.')
-      return
-    }
+		const tokenVariables = new Set<string>();
+		const lockedVariables = new Set<string>();
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				tokenVariables.add(setting.variable);
+				if (setting.locked) {
+					lockedVariables.add(setting.variable);
+				}
+			}
+		}
 
-    for (const prop of Object.keys(this.overrides)) {
-      document.documentElement.style.removeProperty(prop)
-    }
+		const importedOverrides: Record<string, string> = {};
+		const parsedOverrides = parsed as Record<string, unknown>;
+		const entries = Object.entries(parsedOverrides);
 
-    this.overrides = importedOverrides
-    this.applyAll()
-    this.storage.save(this.overrides)
-    this.presetManager.clearActive()
+		for (const [variable, value] of entries) {
+			if (!tokenVariables.has(variable)) continue;
+			if (lockedVariables.has(variable)) continue;
+			if (typeof value !== 'string' || !value.trim()) continue;
+			importedOverrides[variable] = value;
+		}
 
-    this.container.innerHTML = ''
-    this.render()
-  }
+		if (entries.length > 0 && Object.keys(importedOverrides).length === 0) {
+			alert('Error: No recognized design token overrides were found in the selected file.');
+			return;
+		}
 
-  // --- Preset Management ---
+		for (const prop of Object.keys(this.overrides)) {
+			document.documentElement.style.removeProperty(prop);
+		}
 
-  private renderPresetBar(): HTMLElement {
-    const bar = document.createElement('div')
-    bar.className = 'db-presets'
+		this.overrides = importedOverrides;
+		this.applyAll();
+		this.storage.save(this.overrides);
+		this.presetManager.clearActive();
 
-    const list = document.createElement('div')
-    list.className = 'db-presets__list'
+		this.container.innerHTML = '';
+		this.render();
+	}
 
-    const activeName = this.presetManager.getActive()
-    const names = this.presetManager.names()
+	// --- Preset Management ---
 
-    for (const name of names) {
-      list.appendChild(this.createPresetChip(name, name === activeName))
-    }
+	private renderPresetBar(): HTMLElement {
+		const bar = document.createElement('div');
+		bar.className = 'db-presets';
 
-    bar.appendChild(list)
+		const list = document.createElement('div');
+		list.className = 'db-presets__list';
 
-    const saveBtn = document.createElement('button')
-    saveBtn.type = 'button'
-    saveBtn.className = 'db-presets__save'
-    saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span> Save'
-    saveBtn.addEventListener('click', () => this.savePreset())
-    bar.appendChild(saveBtn)
+		const activeName = this.presetManager.getActive();
+		const names = this.presetManager.names();
 
-    return bar
-  }
+		for (const name of names) {
+			list.appendChild(this.createPresetChip(name, name === activeName));
+		}
 
-  private createPresetChip(name: string, isActive: boolean): HTMLElement {
-    const chip = document.createElement('button')
-    chip.type = 'button'
-    chip.className = 'db-presets__chip'
-    if (isActive) chip.classList.add('db-presets__chip--active')
+		bar.appendChild(list);
 
-    const label = document.createElement('span')
-    label.className = 'db-presets__chip-label'
-    label.textContent = name
-    chip.appendChild(label)
+		const saveBtn = document.createElement('button');
+		saveBtn.type = 'button';
+		saveBtn.className = 'db-presets__save';
+		saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span> Save';
+		saveBtn.addEventListener('click', () => this.savePreset());
+		bar.appendChild(saveBtn);
 
-    const del = document.createElement('span')
-    del.className = 'db-presets__chip-delete'
-    del.textContent = '\u00d7'
-    del.title = `Delete "${name}"`
-    del.addEventListener('click', (e) => {
-      e.stopPropagation()
-      this.deletePreset(name)
-    })
-    chip.appendChild(del)
+		return bar;
+	}
 
-    chip.addEventListener('click', () => this.loadPreset(name))
+	private createPresetChip(name: string, isActive: boolean): HTMLElement {
+		const chip = document.createElement('button');
+		chip.type = 'button';
+		chip.className = 'db-presets__chip';
+		if (isActive) chip.classList.add('db-presets__chip--active');
 
-    return chip
-  }
+		const label = document.createElement('span');
+		label.className = 'db-presets__chip-label';
+		label.textContent = name;
+		chip.appendChild(label);
 
-  private savePreset(): void {
-    const name = prompt('Preset name:')
-    if (!name || !name.trim()) return
+		const del = document.createElement('span');
+		del.className = 'db-presets__chip-delete';
+		del.textContent = '\u00d7';
+		del.title = `Delete "${name}"`;
+		del.addEventListener('click', (e) => {
+			e.stopPropagation();
+			this.deletePreset(name);
+		});
+		chip.appendChild(del);
 
-    const trimmed = name.trim()
-    const existing = this.presetManager.names()
-    if (existing.includes(trimmed)) {
-      if (!confirm(`A preset named "${trimmed}" already exists. Overwrite it?`)) {
-        return
-      }
-    }
+		chip.addEventListener('click', () => this.loadPreset(name));
 
-    this.presetManager.save(trimmed, this.overrides)
-    this.presetManager.setActive(trimmed)
-    this.refreshPresetBar()
-  }
+		return chip;
+	}
 
-  private loadPreset(name: string): void {
-    const all = this.presetManager.loadAll()
-    const presetOverrides = all[name]
-    if (!presetOverrides) return
+	private savePreset(): void {
+		const name = prompt('Preset name:');
+		if (!name || !name.trim()) return;
 
-    // Remove current overrides from :root
-    for (const prop of Object.keys(this.overrides)) {
-      document.documentElement.style.removeProperty(prop)
-    }
+		const trimmed = name.trim();
+		const existing = this.presetManager.names();
+		if (existing.includes(trimmed)) {
+			if (!confirm(`A preset named "${trimmed}" already exists. Overwrite it?`)) {
+				return;
+			}
+		}
 
-    // Replace overrides and apply
-    this.overrides = { ...presetOverrides }
-    this.applyAll()
-    this.storage.save(this.overrides)
-    this.presetManager.setActive(name)
+		this.presetManager.save(trimmed, this.overrides);
+		this.presetManager.setActive(trimmed);
+		this.refreshPresetBar();
+	}
 
-    // Re-render controls with new values
-    this.container.innerHTML = ''
-    this.render()
-  }
+	private loadPreset(name: string): void {
+		const all = this.presetManager.loadAll();
+		const presetOverrides = all[name];
+		if (!presetOverrides) return;
 
-  private deletePreset(name: string): void {
-    if (!confirm(`Delete preset "${name}"?`)) return
-    this.presetManager.delete(name)
-    this.refreshPresetBar()
-  }
+		// Remove current overrides from :root
+		for (const prop of Object.keys(this.overrides)) {
+			document.documentElement.style.removeProperty(prop);
+		}
 
-  private refreshPresetBar(): void {
-    if (!this.presetBar) return
-    const newBar = this.renderPresetBar()
-    this.presetBar.replaceWith(newBar)
-    this.presetBar = newBar
-  }
+		// Replace overrides and apply
+		this.overrides = { ...presetOverrides };
+		this.applyAll();
+		this.storage.save(this.overrides);
+		this.presetManager.setActive(name);
+
+		// Re-render controls with new values
+		this.container.innerHTML = '';
+		this.render();
+	}
+
+	private deletePreset(name: string): void {
+		if (!confirm(`Delete preset "${name}"?`)) return;
+		this.presetManager.delete(name);
+		this.refreshPresetBar();
+	}
+
+	private refreshPresetBar(): void {
+		if (!this.presetBar) return;
+		const newBar = this.renderPresetBar();
+		this.presetBar.replaceWith(newBar);
+		this.presetBar = newBar;
+	}
 }
 
 // --- Draggable Divider ---
 
-const SPLIT_STORAGE_KEY = 'design-builder-split'
-const MIN_SPLIT = 20
-const MAX_SPLIT = 80
+const SPLIT_STORAGE_KEY = 'design-builder-split';
+const MIN_SPLIT = 20;
+const MAX_SPLIT = 80;
 
 function initDivider(): void {
-  const layout = document.querySelector<HTMLElement>('.db-layout')
-  const divider = document.querySelector<HTMLElement>('[data-db-divider]')
-  if (!layout || !divider) return
+	const layout = document.querySelector<HTMLElement>('.db-layout');
+	const divider = document.querySelector<HTMLElement>('[data-db-divider]');
+	if (!layout || !divider) return;
 
-  // Restore saved ratio
-  const saved = localStorage.getItem(SPLIT_STORAGE_KEY)
-  if (saved) {
-    const ratio = parseFloat(saved)
-    if (ratio >= MIN_SPLIT && ratio <= MAX_SPLIT) {
-      layout.style.setProperty('--db-split', `${ratio}%`)
-    }
-  }
+	// Restore saved ratio
+	const saved = localStorage.getItem(SPLIT_STORAGE_KEY);
+	if (saved) {
+		const ratio = parseFloat(saved);
+		if (ratio >= MIN_SPLIT && ratio <= MAX_SPLIT) {
+			layout.style.setProperty('--db-split', `${ratio}%`);
+		}
+	}
 
-  const onPointerMove = (e: PointerEvent) => {
-    const rect = layout.getBoundingClientRect()
-    let ratio = ((e.clientX - rect.left) / rect.width) * 100
-    ratio = Math.max(MIN_SPLIT, Math.min(MAX_SPLIT, ratio))
-    layout.style.setProperty('--db-split', `${ratio}%`)
-  }
+	const onPointerMove = (e: PointerEvent) => {
+		const rect = layout.getBoundingClientRect();
+		let ratio = ((e.clientX - rect.left) / rect.width) * 100;
+		ratio = Math.max(MIN_SPLIT, Math.min(MAX_SPLIT, ratio));
+		layout.style.setProperty('--db-split', `${ratio}%`);
+	};
 
-  const onPointerUp = (e: PointerEvent) => {
-    divider.classList.remove('is-dragging')
-    document.body.style.userSelect = ''
-    document.body.style.cursor = ''
-    divider.releasePointerCapture(e.pointerId)
-    divider.removeEventListener('pointermove', onPointerMove)
-    divider.removeEventListener('pointerup', onPointerUp)
+	const onPointerUp = (e: PointerEvent) => {
+		divider.classList.remove('is-dragging');
+		document.body.style.userSelect = '';
+		document.body.style.cursor = '';
+		divider.releasePointerCapture(e.pointerId);
+		divider.removeEventListener('pointermove', onPointerMove);
+		divider.removeEventListener('pointerup', onPointerUp);
 
-    // Persist
-    const current = layout.style.getPropertyValue('--db-split')
-    if (current) {
-      localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString())
-    }
-  }
+		// Persist
+		const current = layout.style.getPropertyValue('--db-split');
+		if (current) {
+			localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString());
+		}
+	};
 
-  divider.addEventListener('pointerdown', (e: PointerEvent) => {
-    e.preventDefault()
-    divider.classList.add('is-dragging')
-    document.body.style.userSelect = 'none'
-    document.body.style.cursor = 'col-resize'
-    divider.setPointerCapture(e.pointerId)
-    divider.addEventListener('pointermove', onPointerMove)
-    divider.addEventListener('pointerup', onPointerUp)
-  })
+	divider.addEventListener('pointerdown', (e: PointerEvent) => {
+		e.preventDefault();
+		divider.classList.add('is-dragging');
+		document.body.style.userSelect = 'none';
+		document.body.style.cursor = 'col-resize';
+		divider.setPointerCapture(e.pointerId);
+		divider.addEventListener('pointermove', onPointerMove);
+		divider.addEventListener('pointerup', onPointerUp);
+	});
 }
 
 // --- Init ---
 
 function init(): void {
-  const container = document.querySelector<HTMLElement>('[data-design-builder]')
-  if (!container) return
+	const container = document.querySelector<HTMLElement>('[data-design-builder]');
+	if (!container) return;
 
-  const tokensAttr = container.getAttribute('data-tokens')
-  if (!tokensAttr) {
-    container.textContent = 'Error: No token data found.'
-    return
-  }
+	const tokensAttr = container.getAttribute('data-tokens');
+	if (!tokensAttr) {
+		container.textContent = 'Error: No token data found.';
+		return;
+	}
 
-  let tokens: TokenData
-  try {
-    tokens = JSON.parse(tokensAttr)
-  } catch {
-    container.textContent = 'Error: Invalid token data.'
-    return
-  }
+	let tokens: TokenData;
+	try {
+		tokens = JSON.parse(tokensAttr);
+	} catch {
+		container.textContent = 'Error: Invalid token data.';
+		return;
+	}
 
-  const storage = new LocalStorageAdapter()
-  new DesignBuilder(container, tokens, storage)
+	const storage = new LocalStorageAdapter();
+	new DesignBuilder(container, tokens, storage);
 
-  initDivider()
+	initDivider();
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init)
+	document.addEventListener('DOMContentLoaded', init);
 } else {
-  init()
+	init();
 }
