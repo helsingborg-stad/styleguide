@@ -91,7 +91,6 @@ $_observe-breakpoint-md: 768px;
         }
 
         .#{$c}__content {
-            margin: calc(#{tokens.use($c, "base", 4)} * -1) tokens.use($c, "base", 2) 0 tokens.use($c, "base", 2);
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -125,6 +124,12 @@ $_observe-breakpoint-md: 768px;
         }
     }
 
+}
+
+@container segment (max-width: #{$_observe-breakpoint-md - 1px}) {
+    .#{$c}--card .#{$c}__content {
+        margin: calc(#{tokens.use($c, "base", 4)} * -1) tokens.use($c, "base", 2) 0 tokens.use($c, "base", 2);
+    }
 }
 
 /**
