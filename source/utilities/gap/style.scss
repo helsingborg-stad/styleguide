@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "../../sass/mixin/tokens";
 @use "../../sass/mixin/build-utility";
+@use "../../sass/mixin/responsive-styles";
 
 $_: "u-gap*";
 
@@ -18,13 +19,23 @@ $spacers: (
     "8": tokens.use($_, "space", 8),
 );
 
-$mods: ();
+$mods: (
+);
 
 @each $size, $length in $spacers {
     $mods: map.merge($mods, (#{$size}: (gap: #{$length})));
 }
 
-@include build-utility.build-utilities(((
-    name: "gap",
-    modifiers: $mods
-)));
+@include build-utility.build-utilities(((name: "gap",
+            modifiers: $mods)));
+
+// Temporary compatibility layer for legacy class names: .u-gap-4
+$legacy-mods: (
+);
+
+@each $size, $length in $spacers {
+    $legacy-mods: map.merge($legacy-mods, (".u-gap-#{$size}": (gap: #{$length})));
+}
+
+@include responsive-styles.groupedStyles($legacy-mods);
+@include responsive-styles.responsiveStyles($legacy-mods, all, true);

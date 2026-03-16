@@ -117,7 +117,7 @@
                 'u-border__bottom--1',
                 'u-padding__x--6',
                 'u-padding__y--1',
-                'u-gap-4',
+                'u-gap--4',
             ]
         ])
             <div class="u-display--flex u-align-items--center u-width--100">

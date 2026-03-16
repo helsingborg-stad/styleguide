@@ -14,7 +14,7 @@
     @typography([
         'element' => 'h1',
         'variant' => 'h1',
-        'classList' => ['u-display--flex', 'u-align-items--center', 'u-gap-2', 'u-margin__bottom--2']
+        'classList' => ['u-display--flex', 'u-align-items--center', 'u-gap--2', 'u-margin__bottom--2']
     ])
         @icon([
             'icon' => $componentIcon ?? 'widgets',

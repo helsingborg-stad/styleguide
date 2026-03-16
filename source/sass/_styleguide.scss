@@ -194,6 +194,7 @@
   @include meta.load-css("../utilities/border/style");
   @include meta.load-css("../utilities/overflow/style");
   @include meta.load-css("../utilities/sizing/style");
+  /* 100kb */
   @include meta.load-css("../utilities/spacing/style");
   @include meta.load-css("../utilities/float/style");
   @include meta.load-css("../utilities/vertical-align/style");

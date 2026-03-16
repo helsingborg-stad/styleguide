@@ -1,9 +1,9 @@
 <div
     data-modifier-preview
     data-format="{{ e($entryFormat) }}"
-    class="u-display--flex u-flex-direction--column u-gap-4 u-padding--3"
+    class="u-display--flex u-flex-direction--column u-gap--4 u-padding--3"
 >
-    <div class="u-display--flex u-gap-4 u-flex-wrap--wrap u-align-items--flex-end">
+    <div class="u-display--flex u-gap--4 u-flex-wrap--wrap u-align-items--flex-end">
         @foreach($previewSelects as $modKey => $options)
             @select([
                 'label' => $modKey,
