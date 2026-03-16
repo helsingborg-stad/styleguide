@@ -70,6 +70,8 @@
     // Border width tokens for UI elements.
     // ========================================================================
     --border-width: 0.125;
+    --color--border-mix-amount: 10%;
+    --color--alt-mix-amount: 4%;
 
     // ========================================================================
     // Spacing
@@ -91,12 +93,12 @@
     // ========================================================================
     --color--primary: #2d2d2d;
     --color--primary-contrast: #ffffff;
-    --color--primary-border: color-mix(in srgb, var(--color--primary-contrast) 10%, var(--color--primary));
-    --color--primary-alt: color-mix(in srgb, var(--color--primary-contrast) 4%, var(--color--primary));
+    --color--primary-border: color-mix(in srgb, var(--color--primary-contrast) var(--color--border-mix-amount), var(--color--primary));
+    --color--primary-alt: color-mix(in srgb, var(--color--primary-contrast) var(--color--alt-mix-amount), var(--color--primary));
     --color--secondary: #6e6e6e;
     --color--secondary-contrast: #ffffff;
-    --color--secondary-border: color-mix(in srgb, var(--color--secondary-contrast) 10%, var(--color--secondary));
-    --color--secondary-alt: color-mix(in srgb, var(--color--secondary-contrast) 4%, var(--color--secondary));
+    --color--secondary-border: color-mix(in srgb, var(--color--secondary-contrast) var(--color--border-mix-amount), var(--color--secondary));
+    --color--secondary-alt: color-mix(in srgb, var(--color--secondary-contrast) var(--color--alt-mix-amount), var(--color--secondary));
 
     // ========================================================================
     // Layout Colors
@@ -105,12 +107,12 @@
     --color--background: #f5f5f5;
     --color--background-contrast: #2d2d2d;
     --color--background-contrast-muted: #6e6e6e;
-    --color--background-border: color-mix(in srgb, var(--color--background-contrast) 10%, var(--color--background));
+    --color--background-border: color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background));
     --color--surface: #ffffff;
     --color--surface-contrast: #2d2d2d;
     --color--surface-contrast-muted: #6e6e6e;
-    --color--surface-border: color-mix(in srgb, var(--color--surface-contrast) 10%, var(--color--surface));
-    --color--surface-alt: color-mix(in srgb, var(--color--surface-contrast-muted) 4%, var(--color--surface));
+    --color--surface-border: color-mix(in srgb, var(--color--surface-contrast) var(--color--border-mix-amount), var(--color--surface));
+    --color--surface-alt: color-mix(in srgb, var(--color--surface-contrast-muted) var(--color--alt-mix-amount), var(--color--surface));
 
     // ========================================================================
     // UI Colors
@@ -119,7 +121,7 @@
     --color--focus: #4d90fe;
     --color--alpha: rgba(0, 0, 0, 0.1);
     --color--alpha-contrast: #ffffff;
-    --color--alpha-border: color-mix(in srgb, var(--color--alpha-contrast) 10%, var(--color--alpha));
+    --color--alpha-border: color-mix(in srgb, var(--color--alpha-contrast) var(--color--border-mix-amount), var(--color--alpha));
 
     // ========================================================================
     // State Colors
@@ -127,11 +129,14 @@
     // ========================================================================
     --color--success: #4caf50;
     --color--success-contrast: #ffffff;
+    --color--success-border: color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success));
     --color--warning: #ffb300;
     --color--warning-contrast: #2d2d2d;
+    --color--warning-border: color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning));
     --color--danger: #e53935;
     --color--danger-contrast: #ffffff;
-    --color--danger-border: color-mix(in srgb, var(--color--danger-contrast) 10%, var(--color--danger));
+    --color--danger-border: color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger));
     --color--info: #039be5;
     --color--info-contrast: #ffffff;
+    --color--info-border: color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info));
 }

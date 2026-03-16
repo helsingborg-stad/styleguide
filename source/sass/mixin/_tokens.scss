@@ -117,7 +117,7 @@
 
     background-color: var(#{$p}--color--#{$variant});
     color: var(#{$p}--color--#{$variant}-contrast);
-    border-color: var(#{$p}--color--#{$variant}-border);
+    border-color: var(#{$p}--color--#{$variant}-border, var(--color--#{$variant}-border));
 
     a,
     a:hover,

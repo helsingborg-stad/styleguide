@@ -38,9 +38,34 @@ class DesignBuilder {
     this.storage = storage
     this.presetManager = new PresetManager()
     this.overrides = storage.load()
+    this.removeLockedOverrides()
 
     this.render()
     this.applyAll()
+  }
+
+  private removeLockedOverrides(): void {
+    const lockedVariables = new Set<string>()
+
+    for (const category of this.tokens.categories) {
+      for (const setting of category.settings) {
+        if (setting.locked) {
+          lockedVariables.add(setting.variable)
+        }
+      }
+    }
+
+    let changed = false
+    for (const variable of lockedVariables) {
+      if (variable in this.overrides) {
+        delete this.overrides[variable]
+        changed = true
+      }
+    }
+
+    if (changed) {
+      this.storage.save(this.overrides)
+    }
   }
 
   private render(): void {
@@ -263,9 +288,13 @@ class DesignBuilder {
     }
 
     const tokenVariables = new Set<string>()
+    const lockedVariables = new Set<string>()
     for (const category of this.tokens.categories) {
       for (const setting of category.settings) {
         tokenVariables.add(setting.variable)
+        if (setting.locked) {
+          lockedVariables.add(setting.variable)
+        }
       }
     }
 
@@ -275,6 +304,7 @@ class DesignBuilder {
 
     for (const [variable, value] of entries) {
       if (!tokenVariables.has(variable)) continue
+      if (lockedVariables.has(variable)) continue
       if (typeof value !== 'string' || !value.trim()) continue
       importedOverrides[variable] = value
     }

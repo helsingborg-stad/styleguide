@@ -400,6 +400,28 @@
 					"min": 0,
 					"max": 4,
 					"step": 0.125
+				},
+				{
+					"variable": "--color--border-mix-amount",
+					"label": "Border Mix Amount",
+					"description": "Controls contrast intensity used when generating companion border colors.",
+					"type": "range",
+					"default": "10%",
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%"
+				},
+				{
+					"variable": "--color--alt-mix-amount",
+					"label": "Alt Mix Amount",
+					"description": "Controls contrast intensity used when generating companion alt colors.",
+					"type": "range",
+					"default": "4%",
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%"
 				}
 			]
 		},
@@ -478,14 +500,16 @@
 					"label": "Primary Border",
 					"description": "Manual companion token for primary border and hover states.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--primary-contrast) 10%, var(--color--primary))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--primary-contrast) var(--color--border-mix-amount), var(--color--primary))"
 				},
 				{
 					"variable": "--color--primary-alt",
 					"label": "Primary Alt",
 					"description": "Manual companion token for subtle primary surfaces.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--primary-contrast) 4%, var(--color--primary))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--primary-contrast) var(--color--alt-mix-amount), var(--color--primary))"
 				},
 				{
 					"variable": "--color--secondary",
@@ -505,14 +529,16 @@
 					"label": "Secondary Border",
 					"description": "Manual companion token for secondary border and hover states.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--secondary-contrast) 10%, var(--color--secondary))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--secondary-contrast) var(--color--border-mix-amount), var(--color--secondary))"
 				},
 				{
 					"variable": "--color--secondary-alt",
 					"label": "Secondary Alt",
 					"description": "Manual companion token for subtle secondary surfaces.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--secondary-contrast) 4%, var(--color--secondary))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--secondary-contrast) var(--color--alt-mix-amount), var(--color--secondary))"
 				}
 			]
 		},
@@ -547,7 +573,8 @@
 					"label": "Background Border",
 					"description": "Manual companion token for borders on background surfaces.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--background-contrast) 10%, var(--color--background))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background))"
 				},
 				{
 					"variable": "--color--surface",
@@ -575,14 +602,16 @@
 					"label": "Surface Border",
 					"description": "Manual companion token for borders on surface elements.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--surface-contrast) 10%, var(--color--surface))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--surface-contrast) var(--color--border-mix-amount), var(--color--surface))"
 				},
 				{
 					"variable": "--color--surface-alt",
 					"label": "Surface Alt",
 					"description": "Manual companion token for subtle surface backgrounds.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--surface-contrast-muted) 4%, var(--color--surface))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--surface-contrast-muted) var(--color--alt-mix-amount), var(--color--surface))"
 				}
 			]
 		},
@@ -616,7 +645,8 @@
 					"label": "Alpha Border",
 					"description": "Manual companion token for alpha overlay border states.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--alpha-contrast) 10%, var(--color--alpha))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--alpha-contrast) var(--color--border-mix-amount), var(--color--alpha))"
 				}
 			]
 		},
@@ -639,6 +669,14 @@
 					"default": "#ffffff"
 				},
 				{
+					"variable": "--color--success-border",
+					"label": "Success Border",
+					"description": "Auto-generated companion token for success border and emphasis states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))"
+				},
+				{
 					"variable": "--color--warning",
 					"label": "Warning",
 					"type": "color",
@@ -650,6 +688,14 @@
 					"label": "Warning Contrast",
 					"type": "color",
 					"default": "#2d2d2d"
+				},
+				{
+					"variable": "--color--warning-border",
+					"label": "Warning Border",
+					"description": "Auto-generated companion token for warning border and emphasis states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))"
 				},
 				{
 					"variable": "--color--danger",
@@ -669,7 +715,8 @@
 					"label": "Danger Border",
 					"description": "Manual companion token for danger border and emphasis states.",
 					"type": "color",
-					"default": "color-mix(in srgb, var(--color--danger-contrast) 10%, var(--color--danger))"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))"
 				},
 				{
 					"variable": "--color--info",
@@ -683,6 +730,14 @@
 					"label": "Info Contrast",
 					"type": "color",
 					"default": "#ffffff"
+				},
+				{
+					"variable": "--color--info-border",
+					"label": "Info Border",
+					"description": "Auto-generated companion token for info border and emphasis states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))"
 				}
 			]
 		}

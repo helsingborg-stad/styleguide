@@ -54,6 +54,8 @@
 				"outer-space",
 				"shadow-color",
 				"shadow-amount",
+				"color--border-mix-amount",
+				"color--alt-mix-amount",
 				"color--primary",
 				"color--primary-contrast",
 				"color--primary-border",
