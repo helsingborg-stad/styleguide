@@ -14,7 +14,7 @@ $_: "c-sidebar";
     display: flex;
     flex-direction: column;
     background-color: tokens.get($_, "color--surface");
-    border-right: 1px solid tokens.get($_, "color--surface-border");
+    border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
 
     &--fixed {
         width: tokens.get($_, "width");

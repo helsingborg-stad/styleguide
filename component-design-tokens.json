@@ -1371,6 +1371,7 @@
     "slug": "sidebar",
     "tokens": [
       "space",
+      "border-width",
       "color--surface",
       "color--primary",
       "color--surface-border",

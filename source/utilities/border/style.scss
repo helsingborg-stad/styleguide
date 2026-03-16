@@ -17,7 +17,8 @@ $_: "u-border*";
 * Base Border Utility
 **************************************/
 
-[class^="u-border"] {
+[class^="u-border"],
+[class*=" u-border"] {
     border-width: tokens.use($_, "border-width", 1);
     border-color: currentColor;
     border-style: solid;
