@@ -17,7 +17,7 @@ $_: "c-typography";
         "font-size-marketing": tokens.get($_, "font-size-800"),
 
         "h1-font-size": tokens.get($_, "font-size-700"),
-        "h1-font-weight": tokens.get($_, "font-weight-bold"),
+        "h1-font-weight": tokens.get($_, "font-weight-heading"),
         "h1-line-height": tokens.get($_, "line-height-heading"),
         "h1-font-family": tokens.get($_, "font-family-heading"),
 
