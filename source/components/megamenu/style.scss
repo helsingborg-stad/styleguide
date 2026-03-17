@@ -36,8 +36,8 @@ $_: "c-megamenu";
     }
 
     .#{$_}__description {
-        border-top: 2px solid tokens.get($_, "color--primary");
-        color: tokens.get($_, "color--primary");
+        border-top: 2px solid tokens.get($_, "color--primary-contrast");
+        color: tokens.get($_, "color--primary-contrast");
         padding-top: tokens.use($_, "base", 1);
         margin-top: tokens.use($_, "base", 0.5);
     }
