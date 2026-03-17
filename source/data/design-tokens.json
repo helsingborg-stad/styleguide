@@ -419,7 +419,7 @@
 					"type": "range",
 					"default": "4%",
 					"min": 0,
-					"max": 100,
+					"max": 20,
 					"step": 1,
 					"unit": "%"
 				}

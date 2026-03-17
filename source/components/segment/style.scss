@@ -289,35 +289,32 @@ $_observe-breakpoint-md: 768px;
 
 .#{$c}.#{$c}--highlight {
 
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
+        height: 100%;
+    }
+
     @container segment (max-width: #{$_breakpoint-md - 1px}) {
 
         .#{$c}__image {
             z-index: 2;
         }
 
-        &:after {
-            content: "";
-            position: absolute;
-            top: 0;
+        &::after {
             left: 0;
-            border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
-            height: 100%;
-            z-index: 1;
         }
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
 
-        &:after {
-            content: "";
-            position: absolute;
-            top: 0;
+        &::after {
             left: 50%;
-            border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
-            height: 100%;
         }
 
-        &.#{$c}--reverse:after {
+        &.#{$c}--reverse::after {
             left: 0;
         }
     }

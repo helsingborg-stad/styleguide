@@ -4,7 +4,6 @@
     'layout'             => 'featured',
     'image'              => 'https://picsum.photos/id/60/1080/720',
     'textColor'          => 'dark',
-    'icon'               => ['icon' => 'place', 'size' => 'lg'],
-    'iconBackgroundColor' => '#e8f4fd',
+    'icon'               => ['icon' => 'place', 'size' => 'lg']
 ])
 @endsegment
