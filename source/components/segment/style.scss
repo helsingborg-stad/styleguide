@@ -379,8 +379,9 @@ $_observe-breakpoint-md: 768px;
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
-        .#{$c}__image .c-image__image {
-            padding: 7% 3%;
+        .#{$c}__image {
+            padding: 0 3%;
+            margin: 7% 0%;
         }
 
         .#{$c}__image {
