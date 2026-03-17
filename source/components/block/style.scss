@@ -9,7 +9,9 @@ $_: "c-block";
         "radius": tokens.use($_, "border-radius", 1),
         "color-text": tokens.get($_, "color--alpha-contrast"),
         "color-background": tokens.get($_, "color--alpha"),
-        "color-overlay": tokens.get($_, "color--alpha"),
+        "color-overlay": rgb(from tokens.get($_, "color--alpha") r g b / 1),
+        "color-overlay-middle": rgba(from tokens.get($_, "color--alpha") r g b / .5),
+        "color-overlay-end": rgba(from tokens.get($_, "color--alpha") r g b / 0),
         "color-secondary": tokens.get($_, "color--secondary"),
         "color-hover-background": tokens.get($_, "color--alpha-border"),
         "color-hover-overlay": tokens.get($_, "color--alpha-border"),
@@ -43,7 +45,8 @@ $_: "c-block";
     }
 
     .#{$_}__body {
-        padding: tokens.use($_, "base", 6) tokens.use($_, "base", 3) tokens.use($_, "base", 3) tokens.use($_, "base", 3);
+        background: linear-gradient(0deg, tokens.get($_, "color-overlay") 0%, tokens.get($_, "color-overlay-middle") 80%, tokens.get($_, "color-overlay-end") 100%);
+        padding: tokens.use($_, "base", 8) tokens.use($_, "base", 3) tokens.use($_, "base", 3) tokens.use($_, "base", 3);
         width: 100%;
         z-index: 0;
         max-height: 100%;
@@ -54,40 +57,6 @@ $_: "c-block";
         gap: tokens.use($_, "base", 2);
         margin-top: auto;
         position: relative;
-
-        >* {
-            position: relative;
-
-            &::before {
-                content: "";
-                position: absolute;
-                content: "";
-                inset: tokens.use($_, "base", -.5) tokens.use($_, "base", -1);
-                background-color: tokens.get($_, "color-overlay");
-                z-index: -1;
-                backdrop-filter: blur(4px);
-                border-radius: min(tokens.use($_, "border-radius"), tokens.use($_, "base", 0.5));
-                corner-shape: tokens.get($_, "corner-shape");
-            }
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: tokens.get($_, "color-overlay");
-            background: linear-gradient(180deg,
-                    transparent 0,
-                    transparent 14%,
-                    tokens.get($_, "color-overlay") 61%,
-                    tokens.get($_, "color-overlay"));
-            z-index: -1;
-            border-bottom-left-radius: tokens.get($_, "radius");
-            border-bottom-right-radius: tokens.get($_, "radius");
-        }
 
         .#{$_}__meta {
             display: flex;
