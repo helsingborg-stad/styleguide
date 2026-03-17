@@ -63,7 +63,7 @@ h5,
 .h5,
 .#{$_}__variant--h5 {
     overflow-wrap: break-word;
-    margin: 1em 0 0.25em 0;
+    margin: var(--inherit-margin-top, 1em) 0 var(--inherit-margin-bottom, 0.25em) 0;
 
     &+ :is(h1, .h1, .#{$_}__variant--h1,
         h2, .h2, .#{$_}__variant--h2,
