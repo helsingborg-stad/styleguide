@@ -1307,6 +1307,7 @@
     "slug": "segment",
     "tokens": [
       "base",
+      "space",
       "border-radius",
       "color--primary",
       "color--secondary",

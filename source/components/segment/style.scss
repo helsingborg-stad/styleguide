@@ -3,6 +3,7 @@
 @use "./layout/featured";
 @use "./layout/fullwidth";
 @use "./layout/split";
+@use "./title";
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
@@ -78,28 +79,6 @@ $_observe-breakpoint-md: 768px;
         cursor: pointer;
     }
 
-}
-
-/**
-* Responsive
-* Content Box Size -> Title Size
-*/
-@container segment (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
-
-    // Match utility intent: u-font-size--title on compact container-aware segments.
-    .#{$c} .#{$c}__title,
-    .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-        --inherit-font-size: #{tokens.get($c, "font-size-200")};
-    }
-}
-
-@container segment (min-width: #{$_observe-breakpoint-md}) {
-
-    // Match utility intent: u-font-size--headline for medium container-aware segments.
-    .#{$c} .#{$c}__title,
-    .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-        --inherit-font-size: #{tokens.get($c, "font-size-500")};
-    }
 }
 
 /**

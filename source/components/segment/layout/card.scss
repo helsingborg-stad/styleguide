@@ -131,11 +131,6 @@ $_observe-breakpoint-md: 768px;
     padding: tokens.use($c, "base", 5);
   }
 
-  .#{$c}--card .#{$c}__content-card .#{$c}__title,
-  .#{$c}--card .#{$c}__content-card .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-    --inherit-font-size: #{tokens.get($c, "font-size-600")};
-  }
-
   .#{$c}--card .#{$c}__floating {
     top: tokens.use($c, "base", 3);
   }
