@@ -26,7 +26,7 @@ $_: "c-group";
 
     @for $i from 1 through 12 {
         &.#{$_}--gap-#{$i} {
-            --grid-gap: tokens.use($_, "base", $i);
+            --grid-gap: #{tokens.use($_, "base", $i)};
             gap: tokens.get($_, "grid-gap");
         }
 
