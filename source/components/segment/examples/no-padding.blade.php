@@ -6,5 +6,6 @@
     'textColor'     => 'dark',
     'paddingTop'    => false,
     'paddingBottom' => false,
+    'textAlignment' => 'center',
 ])
 @endsegment

@@ -1,4 +1,8 @@
 @use "../../sass/mixin/tokens";
+@use "./layout/card";
+@use "./layout/featured";
+@use "./layout/fullwidth";
+@use "./layout/split";
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
@@ -74,101 +78,18 @@ $_observe-breakpoint-md: 768px;
         cursor: pointer;
     }
 
-    &.#{$c}--card {
-        flex-direction: column;
-        min-height: tokens.get($c, "min-height-card");
-        flex-wrap: unset;
-
-        .#{$c}__image {
-            aspect-ratio: 16/9;
-            height: unset;
-            border-radius: tokens.get($c, "image-border-radius");
-            corner-shape: tokens.get($c, "corner-shape");
-
-            .c-image__image {
-                object-fit: cover;
-            }
-        }
-
-        .#{$c}__content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-
-            .#{$c}__content-card {
-                flex-grow: 1;
-            }
-        }
-
-        &.#{$c}--no-image .#{$c}__content {
-            margin-top: 0;
-        }
-
-        .#{$c}__content-card {
-            padding: tokens.use($c, "base", 3) tokens.use($c, "base", 5);
-            height: 100%;
-        }
-
-        &.#{$c}--height-full-screen {
-            flex-direction: row;
-            align-items: center;
-
-            .#{$c}__image {
-                height: 100%;
-                position: absolute;
-            }
-        }
-
-        .#{$c}__content-card.c-card.c-card--flat {
-            background-color: tokens.get($c, "color--surface");
-        }
-    }
-
-}
-
-@container segment (max-width: #{$_observe-breakpoint-md - 1px}) {
-    .#{$c}--card .#{$c}__content {
-        margin: calc(#{tokens.use($c, "base", 4)} * -1) tokens.use($c, "base", 2) 0 tokens.use($c, "base", 2);
-    }
 }
 
 /**
 * Responsive
+* Content Box Size -> Title Size
 */
-@container segment (min-width: #{$_observe-breakpoint-sm}) {
-
-    .#{$c}--card .#{$c}__content {
-        width: min(60%, tokens.use($c, "base", 60));
-        min-height: tokens.use($c, "base", 40);
-        margin-top: calc(#{tokens.use($c, "base", 35)} * -1);
-    }
-
-    .#{$c}--card.#{$c}--no-image .#{$c}__content {
-        margin-top: 0;
-        width: 100%;
-        min-height: initial;
-    }
-
-    .#{$c}--card.#{$c}--height-full-screen .#{$c}__content {
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
-    .#{$c}--card.#{$c}--reverse .#{$c}__content {
-        margin-left: auto;
-    }
-
-    .#{$c}--card .#{$c}__image {
-        aspect-ratio: 3/2;
-    }
-}
-
 @container segment (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
 
     // Match utility intent: u-font-size--title on compact container-aware segments.
     .#{$c} .#{$c}__title,
     .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-        --inherit-font-size: #{tokens.get($c, "font-size-400")};
+        --inherit-font-size: #{tokens.get($c, "font-size-200")};
     }
 }
 
@@ -178,61 +99,6 @@ $_observe-breakpoint-md: 768px;
     .#{$c} .#{$c}__title,
     .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
         --inherit-font-size: #{tokens.get($c, "font-size-500")};
-    }
-
-    .#{$c}--card {
-        flex-direction: row;
-    }
-
-    .#{$c}--card .#{$c}__image-container,
-    .#{$c}--card>.#{$c}__image {
-        display: block;
-        position: absolute;
-        width: calc(100% - #{tokens.use($c, "base", 30)});
-        padding: 0;
-        height: 100%;
-        right: 0;
-    }
-
-    .#{$c}--card .#{$c}__image-container .#{$c}__image,
-    .#{$c}--card>.#{$c}__image {
-        width: 100%;
-        height: 100%;
-    }
-
-    .#{$c}--card .#{$c}__content {
-        margin: tokens.use($c, "base", 2) 0;
-        width: tokens.use($c, "base", 60);
-        flex-grow: unset;
-        height: unset;
-    }
-
-    .#{$c}--card .#{$c}__content-card {
-        padding: tokens.use($c, "base", 5);
-    }
-
-    .#{$c}--card .#{$c}__content-card .#{$c}__title,
-    .#{$c}--card .#{$c}__content-card .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-        --inherit-font-size: #{tokens.get($c, "font-size-600")};
-    }
-
-    .#{$c}--card .#{$c}__floating {
-        top: tokens.use($c, "base", 3);
-    }
-
-    .#{$c}--card.#{$c}--reverse {
-        flex-direction: row-reverse;
-    }
-
-    .#{$c}--card.#{$c}--reverse .#{$c}__image-container,
-    .#{$c}--card.#{$c}--reverse>.#{$c}__image {
-        left: 0;
-        right: unset;
-    }
-
-    .#{$c}--card.#{$c}--no-image .#{$c}__content {
-        width: 100%;
-        min-height: initial;
     }
 }
 
@@ -317,138 +183,5 @@ $_observe-breakpoint-md: 768px;
         &.#{$c}--reverse::after {
             left: 0;
         }
-    }
-}
-
-/**
-* Layout split, featured
-*/
-.#{$c}.#{$c}--split,
-.#{$c}.#{$c}--featured {
-    flex-direction: row;
-
-    .#{$c}__padder {
-        max-width: tokens.use($c, "base", 60);
-        margin: auto;
-        padding-top: tokens.use($c, "base", 4);
-        padding-bottom: tokens.use($c, "base", 4);
-    }
-
-    .#{$c}__image {
-        height: auto;
-        aspect-ratio: 16/9;
-    }
-
-    .#{$c}__slot {
-        margin-top: tokens.use($c, "base", 4);
-
-        @container segment (min-width: #{$_breakpoint-md}) {
-            margin-top: tokens.use($c, "base", 6);
-        }
-    }
-
-    &.#{$c}--reverse {
-        flex-direction: row-reverse;
-    }
-}
-
-.#{$c}.#{$c}--split {
-    align-items: center;
-
-    .#{$c}__image {
-        aspect-ratio: 16 / 9;
-    }
-
-    @container segment (min-width: #{$_breakpoint-md}) {
-
-        .#{$c}__image,
-        .#{$c}__content {
-            max-width: 50%;
-        }
-    }
-}
-
-.#{$c}.#{$c}--featured {
-
-    .#{$c}__image {
-        background-size: 0;
-    }
-
-    .#{$c}__image .c-image__image {
-        object-fit: contain;
-    }
-
-    @container segment (min-width: #{$_breakpoint-md}) {
-        .#{$c}__image {
-            padding: 0 3%;
-            margin: 7% 0%;
-        }
-
-        .#{$c}__image {
-            max-width: 70%;
-        }
-
-        .#{$c}__content {
-            max-width: 30%;
-        }
-    }
-}
-
-.#{$c}.#{$c}--split.#{$c}--alignment,
-.#{$c}.#{$c}--featured.#{$c}--alignment {
-
-    &-top .#{$c}__content,
-    &-top .#{$c}__slot {
-        align-self: start;
-    }
-
-    &-center .#{$c}__content,
-    &-center .#{$c}__slot {
-        align-self: center;
-    }
-
-    &-bottom .#{$c}__content,
-    &-bottom .#{$c}__slot {
-        align-self: end;
-    }
-}
-
-/**
-* Layout full width
-*/
-.#{$c}.#{$c}--full-width {
-    flex-direction: column;
-    gap: tokens.use($c, "base", 8);
-    padding: tokens.use($c, "base", 8) 0;
-
-    .#{$c}__image {
-        position: absolute;
-        inset: 0;
-    }
-
-    &.#{$c}--gap-xs {
-        gap: tokens.use($c, "base", 2);
-    }
-
-    &.#{$c}--gap-sm {
-        gap: tokens.use($c, "base", 4);
-    }
-
-    &.#{$c}--gap-md {
-        gap: tokens.use($c, "base", 6);
-    }
-}
-
-.#{$c}.#{$c}--full-width.#{$c}--alignment {
-    &-left .#{$c}__content {
-        text-align: left;
-    }
-
-    &-center .#{$c}__content {
-        text-align: center;
-    }
-
-    &-right .#{$c}__content {
-        text-align: right;
     }
 }

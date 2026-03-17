@@ -1,0 +1,59 @@
+@use "../../../sass/mixin/tokens";
+
+$c: "c-segment";
+$_breakpoint-md: 896px;
+
+.#{$c}.#{$c}--split {
+  flex-direction: row;
+  align-items: center;
+
+  .#{$c}__padder {
+    max-width: tokens.use($c, "base", 60);
+    margin: auto;
+    padding-top: tokens.use($c, "base", 4);
+    padding-bottom: tokens.use($c, "base", 4);
+  }
+
+  .#{$c}__image {
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+
+  .#{$c}__slot {
+    margin-top: tokens.use($c, "base", 4);
+
+    @container segment (min-width: #{$_breakpoint-md}) {
+      margin-top: tokens.use($c, "base", 6);
+    }
+  }
+
+  &.#{$c}--reverse {
+    flex-direction: row-reverse;
+  }
+
+  @container segment (min-width: #{$_breakpoint-md}) {
+
+    .#{$c}__image,
+    .#{$c}__content {
+      max-width: 50%;
+    }
+  }
+}
+
+.#{$c}.#{$c}--split.#{$c}--alignment {
+
+  &-top .#{$c}__content,
+  &-top .#{$c}__slot {
+    align-self: start;
+  }
+
+  &-center .#{$c}__content,
+  &-center .#{$c}__slot {
+    align-self: center;
+  }
+
+  &-bottom .#{$c}__content,
+  &-bottom .#{$c}__slot {
+    align-self: end;
+  }
+}

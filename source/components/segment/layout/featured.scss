@@ -1,0 +1,67 @@
+@use "../../../sass/mixin/tokens";
+
+$c: "c-segment";
+$_breakpoint-md: 896px;
+
+.#{$c}.#{$c}--featured {
+  flex-direction: row;
+
+  .#{$c}__padder {
+    max-width: tokens.use($c, "base", 60);
+    margin: auto;
+    padding-top: tokens.use($c, "base", 4);
+    padding-bottom: tokens.use($c, "base", 4);
+  }
+
+  .#{$c}__image {
+    height: auto;
+    aspect-ratio: 16/9;
+    background-size: 0;
+  }
+
+  .#{$c}__image .c-image__image {
+    object-fit: contain;
+  }
+
+  .#{$c}__slot {
+    margin-top: tokens.use($c, "base", 4);
+
+    @container segment (min-width: #{$_breakpoint-md}) {
+      margin-top: tokens.use($c, "base", 6);
+    }
+  }
+
+  &.#{$c}--reverse {
+    flex-direction: row-reverse;
+  }
+
+  @container segment (min-width: #{$_breakpoint-md}) {
+    .#{$c}__image {
+      padding: 0 3%;
+      margin: 7% 0%;
+      max-width: 70%;
+    }
+
+    .#{$c}__content {
+      max-width: 30%;
+    }
+  }
+}
+
+.#{$c}.#{$c}--featured.#{$c}--alignment {
+
+  &-top .#{$c}__content,
+  &-top .#{$c}__slot {
+    align-self: start;
+  }
+
+  &-center .#{$c}__content,
+  &-center .#{$c}__slot {
+    align-self: center;
+  }
+
+  &-bottom .#{$c}__content,
+  &-bottom .#{$c}__slot {
+    align-self: end;
+  }
+}

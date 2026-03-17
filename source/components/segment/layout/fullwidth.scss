@@ -1,0 +1,40 @@
+@use "../../../sass/mixin/tokens";
+
+$c: "c-segment";
+
+.#{$c}.#{$c}--full-width {
+  flex-direction: column;
+  gap: tokens.use($c, "space", 8);
+  padding: tokens.use($c, "space", 8) 0;
+
+  .#{$c}__image {
+    position: absolute;
+    inset: 0;
+  }
+
+  &.#{$c}--gap-xs {
+    gap: tokens.use($c, "space", 2);
+  }
+
+  &.#{$c}--gap-sm {
+    gap: tokens.use($c, "space", 4);
+  }
+
+  &.#{$c}--gap-md {
+    gap: tokens.use($c, "space", 6);
+  }
+}
+
+.#{$c}.#{$c}--full-width.#{$c}--alignment {
+  &-left .#{$c}__content {
+    text-align: left;
+  }
+
+  &-center .#{$c}__content {
+    text-align: center;
+  }
+
+  &-right .#{$c}__content {
+    text-align: right;
+  }
+}
