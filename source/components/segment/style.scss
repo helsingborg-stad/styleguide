@@ -3,7 +3,7 @@
 @use "./layout/featured";
 @use "./layout/fullwidth";
 @use "./layout/split";
-@use "./title";
+@use "./text";
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
@@ -36,6 +36,11 @@ $_observe-breakpoint-md: 768px;
         container-type: inline-size;
     }
 
+    .#{$c}__meta {
+        font-size: tokens.get($c, "font-size-90");
+        display: block;
+    }
+
     .#{$c}__text {
         position: relative;
     }
@@ -55,8 +60,8 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__date {
-        font-size: tokens.get("", "font-size-90");
-        display: inline-block;
+        font-size: tokens.get($c, "font-size-90");
+        display: block;
     }
 
     .#{$c}__buttons {

@@ -183,3 +183,7 @@ h6,
     word-break: break-all;
     hyphens: auto;
 }
+
+.#{$_}__variant--div {
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
+}

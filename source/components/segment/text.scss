@@ -12,11 +12,19 @@ $_observe-breakpoint-xl: 1680px;
   --inherit-font-size: #{tokens.get($c, "font-size-300")};
 }
 
+.#{$c} .#{$c}__text {
+  --inherit-font-size: #{tokens.get($c, "font-size-100")};
+}
+
 @container segment-content (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
 
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-400")};
+  }
+
+  .#{$c} .#{$c}__text {
+    --inherit-font-size: #{tokens.get($c, "font-size-100")};
   }
 }
 
@@ -26,6 +34,10 @@ $_observe-breakpoint-xl: 1680px;
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-500")};
   }
+
+  .#{$c} .#{$c}__text {
+    --inherit-font-size: #{tokens.get($c, "font-size-100")};
+  }
 }
 
 @container segment-content (min-width: #{$_observe-breakpoint-md-lg}) and (max-width: #{$_observe-breakpoint-lg - 1px}) {
@@ -33,6 +45,10 @@ $_observe-breakpoint-xl: 1680px;
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-600")};
+  }
+
+  .#{$c} .#{$c}__text {
+    --inherit-font-size: #{tokens.get($c, "font-size-200")};
   }
 }
 
@@ -42,6 +58,10 @@ $_observe-breakpoint-xl: 1680px;
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-700")};
   }
+
+  .#{$c} .#{$c}__text {
+    --inherit-font-size: #{tokens.get($c, "font-size-200")};
+  }
 }
 
 @container segment-content (min-width: #{$_observe-breakpoint-xl}) {
@@ -49,5 +69,9 @@ $_observe-breakpoint-xl: 1680px;
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-800")};
+  }
+
+  .#{$c} .#{$c}__text {
+    --inherit-font-size: #{tokens.get($c, "font-size-200")};
   }
 }

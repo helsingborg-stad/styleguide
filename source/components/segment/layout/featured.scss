@@ -37,12 +37,13 @@ $_breakpoint-md: 896px;
 
   @container segment (min-width: #{$_breakpoint-md}) {
     .#{$c}__image {
-      padding: 0 3%;
-      margin: 7% 0%;
+      padding: 0 tokens.use($c, "space", 3);
+      margin: tokens.use($c, "space", 7) 0;
       max-width: 70%;
     }
 
     .#{$c}__content {
+      margin: tokens.use($c, "space", 3) 0;
       max-width: 30%;
     }
   }

@@ -411,17 +411,6 @@
 					"max": 100,
 					"step": 1,
 					"unit": "%"
-				},
-				{
-					"variable": "--color--alt-mix-amount",
-					"label": "Alt Mix Amount",
-					"description": "Controls contrast intensity used when generating companion alt colors.",
-					"type": "range",
-					"default": "4%",
-					"min": 0,
-					"max": 20,
-					"step": 1,
-					"unit": "%"
 				}
 			]
 		},
@@ -547,6 +536,17 @@
 			"label": "Layout Colors",
 			"description": "Background and surface colors.",
 			"settings": [
+				{
+					"variable": "--color--alt-mix-amount",
+					"label": "Alt Mix Amount",
+					"description": "Controls contrast intensity used when generating companion alt colors.",
+					"type": "range",
+					"default": "4%",
+					"min": 0,
+					"max": 20,
+					"step": 1,
+					"unit": "%"
+				},
 				{
 					"variable": "--color--background",
 					"label": "Background",
