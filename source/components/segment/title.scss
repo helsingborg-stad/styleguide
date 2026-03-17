@@ -3,19 +3,51 @@
 $c: "c-segment";
 $_observe-breakpoint-sm: 576px;
 $_observe-breakpoint-md: 768px;
+$_observe-breakpoint-md-lg: 896px;
+$_observe-breakpoint-lg: 1024px;
+$_observe-breakpoint-xl: 1680px;
 
-@container segment (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
+.#{$c} .#{$c}__title,
+.#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
+  --inherit-font-size: #{tokens.get($c, "font-size-300")};
+}
+
+@container segment-content (min-width: #{$_observe-breakpoint-sm}) and (max-width: #{$_observe-breakpoint-md - 1px}) {
 
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-    --inherit-font-size: #{tokens.get($c, "font-size-200")};
+    --inherit-font-size: #{tokens.get($c, "font-size-400")};
   }
 }
 
-@container segment (min-width: #{$_observe-breakpoint-md}) {
+@container segment-content (min-width: #{$_observe-breakpoint-md}) and (max-width: #{$_observe-breakpoint-md-lg - 1px}) {
 
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
     --inherit-font-size: #{tokens.get($c, "font-size-500")};
+  }
+}
+
+@container segment-content (min-width: #{$_observe-breakpoint-md-lg}) and (max-width: #{$_observe-breakpoint-lg - 1px}) {
+
+  .#{$c} .#{$c}__title,
+  .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
+    --inherit-font-size: #{tokens.get($c, "font-size-600")};
+  }
+}
+
+@container segment-content (min-width: #{$_observe-breakpoint-lg}) and (max-width: #{$_observe-breakpoint-xl - 1px}) {
+
+  .#{$c} .#{$c}__title,
+  .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
+    --inherit-font-size: #{tokens.get($c, "font-size-700")};
+  }
+}
+
+@container segment-content (min-width: #{$_observe-breakpoint-xl}) {
+
+  .#{$c} .#{$c}__title,
+  .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
+    --inherit-font-size: #{tokens.get($c, "font-size-800")};
   }
 }
