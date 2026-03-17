@@ -146,6 +146,8 @@ $_: "c-accordion";
 .c-accordion__button .c-accordion__button-column,
 .c-accordion__button .c-accordion__button-wrapper {
     --inherit-font-size: var(--font-size-200);
+    --inherit-margin-top: 0;
+    --inherit-margin-bottom: 0;
 }
 
 .c-accordion-table .c-accordion__button {
