@@ -25,19 +25,19 @@ $button-variants: (
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--primary-contrast")),
         "hover": tokens.get($_, "color--primary-border"),
         "active": tokens.get($_, "color--primary-alt"),
-        "underline": tokens.get($_, "color--primary"),
+        "underline": var(--inherit-color-contrast, tokens.get($_, "color--primary")),
         "stroke": tokens.get($_, "color--primary")),
     "secondary": ("bg": var(--inherit-color-background, tokens.get($_, "color--secondary")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--secondary-contrast")),
         "hover": tokens.get($_, "color--secondary-border"),
         "active": tokens.get($_, "color--secondary-alt"),
-        "underline": tokens.get($_, "color--secondary"),
+        "underline": var(--inherit-color-contrast, tokens.get($_, "color--secondary")),
         "stroke": tokens.get($_, "color--secondary")),
     "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast")),
         "hover": tokens.get($_, "color--surface-border"),
         "active": tokens.get($_, "color--surface-alt"),
-        "underline": tokens.get($_, "color--surface-contrast-muted"),
+        "underline": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast-muted")),
         "stroke": tokens.get($_, "color--surface-contrast"))
 );
 
@@ -382,7 +382,7 @@ $button-sizes: (
             bottom: tokens.use($_, "space", 1);
             width: 0%;
             height: 3px;
-            background-color: tokens.get($_, "color--surface-contrast-muted");
+            background-color: var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast-muted"));
             transform: translateX(-50%);
             border-radius: 6px;
             transition: all 200ms ease-in-out;
