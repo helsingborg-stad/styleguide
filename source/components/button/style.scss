@@ -24,32 +24,40 @@ $button-variants: (
     "primary": ("bg": tokens.get($_, "color--primary"),
         "fg": tokens.get($_, "color--primary-contrast"),
         "hover": tokens.get($_, "color--primary-border"),
-        "active": tokens.get($_, "color--primary-alt")),
+        "active": tokens.get($_, "color--primary-alt"),
+        "underline": tokens.get($_, "color--primary"),
+        "stroke": tokens.get($_, "color--primary")),
     "secondary": ("bg": tokens.get($_, "color--secondary"),
         "fg": tokens.get($_, "color--secondary-contrast"),
         "hover": tokens.get($_, "color--secondary-border"),
-        "active": tokens.get($_, "color--secondary-alt")),
+        "active": tokens.get($_, "color--secondary-alt"),
+        "underline": tokens.get($_, "color--secondary"),
+        "stroke": tokens.get($_, "color--secondary")),
     "default": ("bg": tokens.get($_, "color--surface"),
         "fg": tokens.get($_, "color--surface-contrast"),
         "hover": tokens.get($_, "color--surface-border"),
-        "active": tokens.get($_, "color--surface-alt"))
+        "active": tokens.get($_, "color--surface-alt"),
+        "underline": tokens.get($_, "color--surface-contrast-muted"),
+        "stroke": tokens.get($_, "color--surface-contrast"))
 );
 
 @each $name, $variant in $button-variants {
 
     .#{$_}__filled--#{$name},
-    .#{$_}__basic--#{$name} {
+    .#{$_}__basic--#{$name},
+    .#{$_}__outlined--#{$name} {
         --_color: #{map.get($variant, "bg")};
         --_contrast: #{map.get($variant, "fg")};
         --_hover: #{map.get($variant, "hover")};
         --_active: #{map.get($variant, "active")};
     }
 
+    .#{$_}__basic--#{$name}:before {
+        background-color: #{map.get($variant, "underline")};
+    }
+
     .#{$_}__outlined--#{$name} {
-        --_color: #{map.get($variant, "bg")};
-        --_contrast: #{map.get($variant, "bg")};
-        --_hover: #{map.get($variant, "hover")};
-        --_active: #{map.get($variant, "active")};
+        --_text: #{map.get($variant, "stroke")};
     }
 }
 
@@ -168,7 +176,7 @@ $button-sizes: (
 
         * {
             align-self: center;
-            color: var(--_contrast);
+            color: var(--_text, var(--_contrast));
         }
 
         /* Icon: default order 0 (flex default), so it comes before text */
@@ -270,30 +278,6 @@ $button-sizes: (
         padding-right: 0;
     }
 
-    &--primary {
-        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--primary"));
-
-        &:before {
-            background-color: tokens.get($_, "color--primary");
-        }
-    }
-
-    &--secondary {
-        color: color-mix(in srgb, tokens.get($_, "color-default-contrast") 50%, tokens.get($_, "color--secondary"));
-
-        &:before {
-            background-color: tokens.get($_, "color--secondary");
-        }
-    }
-
-    &--default {
-        color: tokens.get($_, "color--surface-contrast");
-
-        &:before {
-            background-color: tokens.get($_, "color--surface-contrast-muted");
-        }
-    }
-
     &:not(:disabled):before {
         content: "";
         position: absolute;
@@ -363,12 +347,11 @@ $button-sizes: (
         background-color: var(--_active);
     }
 
-    // Default uses full contrast (no color-mix).
+    // Default: --_color is surface (white), so border must follow --_contrast instead.
     // Includes legacy "deafult" typo for backwards compatibility.
     &--default,
     &--deafult {
         border-color: var(--_contrast);
-        color: var(--_contrast);
     }
 }
 
@@ -423,7 +406,7 @@ $button-sizes: (
     &.#{$_}__outlined {
         &[aria-pressed="true"] {
             background-color: var(--_color);
-            color: var(--_contrast);
+            --_text: var(--_contrast);
 
             &:after {
                 display: none;
