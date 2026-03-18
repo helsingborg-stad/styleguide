@@ -21,20 +21,20 @@ $_: "c-button";
  * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
-    "primary": ("bg": tokens.get($_, "color--primary"),
-        "fg": tokens.get($_, "color--primary-contrast"),
+    "primary": ("bg": var(--inerit-color-background, tokens.get($_, "color--primary")),
+        "fg": var(--inherit-color-contrast, tokens.get($_, "color--primary-contrast")),
         "hover": tokens.get($_, "color--primary-border"),
         "active": tokens.get($_, "color--primary-alt"),
         "underline": tokens.get($_, "color--primary"),
         "stroke": tokens.get($_, "color--primary")),
-    "secondary": ("bg": tokens.get($_, "color--secondary"),
-        "fg": tokens.get($_, "color--secondary-contrast"),
+    "secondary": ("bg": var(--inherit-color-background, tokens.get($_, "color--secondary")),
+        "fg": var(--inherit-color-contrast, tokens.get($_, "color--secondary-contrast")),
         "hover": tokens.get($_, "color--secondary-border"),
         "active": tokens.get($_, "color--secondary-alt"),
         "underline": tokens.get($_, "color--secondary"),
         "stroke": tokens.get($_, "color--secondary")),
-    "default": ("bg": tokens.get($_, "color--surface"),
-        "fg": tokens.get($_, "color--surface-contrast"),
+    "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface")),
+        "fg": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast")),
         "hover": tokens.get($_, "color--surface-border"),
         "active": tokens.get($_, "color--surface-alt"),
         "underline": tokens.get($_, "color--surface-contrast-muted"),
@@ -58,7 +58,7 @@ $button-variants: (
 
     .#{$_}__basic--#{$name},
     .#{$_}__outlined--#{$name} {
-        --_text: #{map.get($variant, "stroke")};
+        --_text: var(--inherit-color-contrast, #{map.get($variant, "stroke")});
     }
 }
 

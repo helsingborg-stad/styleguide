@@ -6,7 +6,7 @@ $_: "c-header";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_), ("base": var(--base),
-        "logotype-height": calc(var(--c-header-logotype-height, 6) * var(--base)),
+        "logotype-height": calc(6 * var(--base)),
         "background-color": tokens.get($_, "color--surface"),
         "color": tokens.get($_, "color--surface-contrast"),
         "border-color": tokens.get($_, "color--primary"),
@@ -52,7 +52,7 @@ $_: "c-header";
     }
 
     .c-button:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
-        --c-button--color--surface-contrast: var(--c-header--color);
+        --inherit-color-contrast: var(--c-header--color);
     }
 
     &.#{$_}--accented {
