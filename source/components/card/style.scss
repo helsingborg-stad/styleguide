@@ -36,6 +36,11 @@ $_: "c-card";
     --c-comment--color--surface: var(--color--background);
     --c-comment--color--surface-contrast: var(--color--background-contrast);
 
+    .c-button__filled--default {
+        --inherit-color-background: var(--color--background);
+        --inherit-color-contrast: var(--color--background-contrast);
+    }
+
     .#{$_}__paint-container {
         contain: paint;
         border-radius: inherit;

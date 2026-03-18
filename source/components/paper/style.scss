@@ -34,6 +34,11 @@ $_: "c-paper";
     --c-comment--color--surface: var(--color--background);
     --c-comment--color--surface-contrast: var(--color--background-contrast);
 
+    .c-button__filled--default {
+        --inherit-color-background: var(--color--background);
+        --inherit-color-contrast: var(--color--background-contrast);
+    }
+
     @for $i from 0 through 8 {
         &--padding-#{$i} {
             padding: calc(#{tokens.use($_, "space")} * #{$i});

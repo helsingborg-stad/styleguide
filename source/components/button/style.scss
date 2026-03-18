@@ -2,6 +2,17 @@
 @use "../../sass/mixin/cover";
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-button";
 
