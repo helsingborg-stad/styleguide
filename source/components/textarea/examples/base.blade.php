@@ -5,9 +5,12 @@
 ])
     <div class="grid">
         <div class="grid-md-12">
-            @markdown
-                ##Textarea
-            @endmarkdown
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Textarea
+            @endtypography
 
             @field([
                 'type' => 'text',
@@ -22,9 +25,12 @@
         </div>
 
         <div class="grid-md-12">
-            @markdown
-                ##Textarea - Invalid
-            @endmarkdown
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Textarea - Invalid
+            @endtypography
 
             @field([
                 'type' => 'text',
@@ -42,9 +48,12 @@
         </div>
 
         <div class="grid-md-12">
-            @markdown
-                ##Textarea - Valid
-            @endmarkdown
+            @typography([
+                'element' => 'h2',
+                'variant' => 'h2'
+            ])
+                Textarea - Valid
+            @endtypography
 
             @field([
                 'type' => 'text',
