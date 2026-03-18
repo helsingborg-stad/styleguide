@@ -219,4 +219,141 @@ class ViewTest extends TestCase
         $this->assertSame($this->tempUtilitiesPath . '/accessability/utility.json', $resolved[0]);
         $this->assertSame('Screen readers entry', $resolved[1]['description']['value'] ?? '');
     }
+
+    /**
+     * Ensure metadata-style examples are ignored for doc rendering.
+     *
+     * @return void
+     */
+    public function testResolveDocumentationExamplesIgnoresNonRenderableMetadataExamples(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('resolveDocumentationExamples');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke(
+            $view,
+            ['viewDoc' => ['type' => 'objects']],
+            [
+                'examples' => [
+                    'containerQuery' => [
+                        'title' => 'Container Query Support',
+                        'description' => 'metadata-only example',
+                    ],
+                ],
+            ],
+            $this->createMock(\HelsingborgStad\BladeService\BladeServiceInterface::class),
+        );
+
+        $this->assertSame([], $resolved);
+    }
+
+    /**
+     * Ensure renderable example schema from config is preserved.
+     *
+     * @return void
+     */
+    public function testResolveDocumentationExamplesKeepsRenderableExamples(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('resolveDocumentationExamples');
+        $method->setAccessible(true);
+
+        $expectedExample = [
+            'description' => [
+                'heading' => 'Example heading',
+            ],
+            'component' => 'source.components.button.examples.primary',
+            'html' => [
+                'code' => '<button>Test</button>',
+            ],
+            'blade' => [
+                'code' => '@button(["text" => "Test"])',
+            ],
+        ];
+
+        $resolved = $method->invoke(
+            $view,
+            ['viewDoc' => ['type' => 'objects']],
+            [
+                'examples' => [
+                    $expectedExample,
+                ],
+            ],
+            $this->createMock(\HelsingborgStad\BladeService\BladeServiceInterface::class),
+        );
+
+        $this->assertSame([$expectedExample], $resolved);
+    }
+
+    /**
+     * Ensure metadata section examples are extracted for object docs.
+     *
+     * @return void
+     */
+    public function testResolveDocumentationExampleMetadataSectionsMapsMetadataExamples(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('resolveDocumentationExampleMetadataSections');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke(
+            $view,
+            ['viewDoc' => ['type' => 'objects']],
+            [
+                'examples' => [
+                    'containerQuery' => [
+                        'title' => 'Container Query Support',
+                        'description' => 'Enable CQ support',
+                        'available' => [
+                            'o-layout-grid--cq' => [
+                                'description' => 'Enables container queries',
+                                'responsive' => false,
+                                'containerQuery' => false,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        );
+
+        $this->assertCount(1, $resolved);
+        $this->assertSame('Container Query Support', $resolved[0]['title'] ?? '');
+        $this->assertSame('Enable CQ support', $resolved[0]['description'] ?? '');
+        $this->assertArrayHasKey('o-layout-grid--cq', $resolved[0]['available'] ?? []);
+    }
+
+    /**
+     * Ensure component pages do not map metadata section examples.
+     *
+     * @return void
+     */
+    public function testResolveDocumentationExampleMetadataSectionsReturnsEmptyForComponentSlug(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('resolveDocumentationExampleMetadataSections');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke(
+            $view,
+            ['slug' => 'button'],
+            [
+                'examples' => [
+                    'any' => [
+                        'title' => 'Should not be returned for components',
+                    ],
+                ],
+            ],
+        );
+
+        $this->assertSame([], $resolved);
+    }
 }

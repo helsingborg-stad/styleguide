@@ -196,7 +196,8 @@ class View
                     'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
                     'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
                     'paper' => $paper,
-                    'examples' => isset($viewData['slug']) ? DocHelper::getUsageExamples($viewData['slug'], $blade) : ($configJson['examples'] ?? ""),
+                    'examples' => $this->resolveDocumentationExamples($viewData, $configJson, $blade),
+                    'exampleMetadataSections' => $this->resolveDocumentationExampleMetadataSections($viewData, $configJson),
                     'cssParameters' => isset($viewData['slug']) ? ComponentCssParameters::getForComponent($viewData['slug']) : [],
                     'modifiersExample' => $modifiersExample,
                     'includesPath' => $includesPath,
@@ -408,7 +409,107 @@ class View
     public static function fetchExamples(string $slug, BladeServiceInterface $blade): array
     {
         return DocHelper::getUsageExamples($slug, $blade);
+    }
 
+
+    /**
+     * Resolves renderable examples for documentation views.
+     *
+     * Component pages use generated usage examples from source files.
+     * Other doc pages may contain metadata-style examples in config files,
+     * which are not renderable in the doc example tabs and must be ignored.
+     *
+     * @param array<string, mixed> $viewData
+    * @param mixed $configJson
+     * @param BladeServiceInterface $blade
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function resolveDocumentationExamples(array $viewData, mixed $configJson, BladeServiceInterface $blade): array
+    {
+        if (isset($viewData['slug']) && is_string($viewData['slug']) && $viewData['slug'] !== '') {
+            return DocHelper::getUsageExamples($viewData['slug'], $blade);
+        }
+
+        if (!is_array($configJson)) {
+            return [];
+        }
+
+        $examples = $configJson['examples'] ?? [];
+        if (!is_array($examples)) {
+            return [];
+        }
+
+        $renderableExamples = [];
+
+        foreach ($examples as $example) {
+            if (!is_array($example)) {
+                continue;
+            }
+
+            $hasRenderableSchema = isset($example['description'], $example['component'], $example['html'], $example['blade'])
+                && is_array($example['description'])
+                && is_array($example['html'])
+                && is_array($example['blade'])
+                && is_string($example['component']);
+
+            if ($hasRenderableSchema) {
+                $renderableExamples[] = $example;
+            }
+        }
+
+        return $renderableExamples;
+    }
+
+    /**
+     * Resolves metadata-style example sections for documentation views.
+     *
+     * These sections are used by object/script docs where examples define
+     * grouped modifier documentation instead of renderable example tabs.
+     *
+     * @param array<string, mixed> $viewData
+     * @param mixed $configJson
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private function resolveDocumentationExampleMetadataSections(array $viewData, mixed $configJson): array
+    {
+        if (isset($viewData['slug']) && is_string($viewData['slug']) && $viewData['slug'] !== '') {
+            return [];
+        }
+
+        if (!is_array($configJson)) {
+            return [];
+        }
+
+        $examples = $configJson['examples'] ?? null;
+        if (!is_array($examples)) {
+            return [];
+        }
+
+        $sections = [];
+
+        foreach ($examples as $section) {
+            if (!is_array($section)) {
+                continue;
+            }
+
+            $title = isset($section['title']) && is_string($section['title']) ? $section['title'] : '';
+            $description = isset($section['description']) && is_string($section['description']) ? $section['description'] : '';
+            $available = isset($section['available']) && is_array($section['available']) ? $section['available'] : [];
+
+            if ($title === '' && $description === '' && $available === []) {
+                continue;
+            }
+
+            $sections[] = [
+                'title' => $title,
+                'description' => $description,
+                'available' => $available,
+            ];
+        }
+
+        return $sections;
     }
 
     /**
