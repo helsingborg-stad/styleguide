@@ -46,6 +46,8 @@ $_: "c-block";
 
     .#{$_}__body {
         background: linear-gradient(0deg, tokens.get($_, "color-overlay") 0%, tokens.get($_, "color-overlay-middle") 80%, tokens.get($_, "color-overlay-end") 100%);
+        border-radius: inherit;
+        corner-shape: inherit;
         padding: tokens.use($_, "base", 8) tokens.use($_, "base", 3) tokens.use($_, "base", 3) tokens.use($_, "base", 3);
         width: 100%;
         z-index: 0;
