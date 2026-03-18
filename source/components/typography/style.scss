@@ -15,6 +15,7 @@ $_: "c-typography";
         "font-size-title": tokens.get($_, "font-size-500"),
         "font-size-headline": tokens.get($_, "font-size-600"),
         "font-size-marketing": tokens.get($_, "font-size-800"),
+        "font-size-lead": tokens.get($_, "font-size-200"),
 
         "h1-font-size": tokens.get($_, "font-size-700"),
         "h1-font-weight": tokens.get($_, "font-weight-heading"),
@@ -170,6 +171,10 @@ h6,
 
 .#{$_}__variant--meta {
     font-size: var(--inherit-font-size, tokens.get($_, "font-size-meta"));
+}
+
+.#{$_}__variant--lead {
+    font-size: var(--inherit-font-size, tokens.get($_, "font-size-lead"));
 }
 
 .#{$_}__variant--marketing {

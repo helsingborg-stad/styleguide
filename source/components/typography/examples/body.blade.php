@@ -1,13 +1,16 @@
 {{-- Document body text variants (body, p, bold) --}}
-@php
-$variants = ['body', 'p', 'bold'];
-@endphp
+@typography(["variant" => "body"])
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, a efficitur ligula. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+@endtypography
 
-@foreach($variants as $variant)
-    @typography([
-        "element" => $variant === 'p' ? 'p' : 'div',
-        "variant" => $variant,
-    ])
-        Variant: {{ $variant }}
-    @endtypography
-@endforeach
+@typography(["variant" => "p"])
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, a efficitur ligula. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+@endtypography
+
+@typography([ "variant" => "bold", ])
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, a efficitur ligula. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+@endtypography
+
+@typography([ "variant" => "lead", ])
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit auctor dui, a efficitur ligula. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+@endtypography
