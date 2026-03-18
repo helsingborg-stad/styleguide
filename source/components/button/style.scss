@@ -33,7 +33,7 @@ $button-variants: (
         "active": tokens.get($_, "color--secondary-alt"),
         "underline": var(--inherit-color-contrast, tokens.get($_, "color--secondary")),
         "stroke": tokens.get($_, "color--secondary")),
-    "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface")),
+    "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface-alt")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast")),
         "hover": tokens.get($_, "color--surface-border"),
         "active": tokens.get($_, "color--surface-alt"),
