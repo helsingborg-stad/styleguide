@@ -5,7 +5,12 @@ const SLIDER_ITEM = 'c-slider__item';
 const AUTOSLIDE = 'data-js-slider__autoslide';
 const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
 const IS_PAUSED = 'c-slider--is-paused';
+export const SLIDER_READY_EVENT = 'slider:ready';
 
+type SliderReadyEventDetail = {
+    sliderElement: Element;
+    splide: Splide;
+};
 
 export default class Slider {
     sliderElement: Element;
@@ -80,6 +85,8 @@ export default class Slider {
             this.sliderElement.querySelector('.c-slider__arrows')?.remove();
         }
 
+        this.dispatchSliderReadyEvent();
+
         if (this.sliderElement.classList.contains(IS_PAUSED)) {
             this.splide.Components.Autoplay.pause();
         }
@@ -90,6 +97,18 @@ export default class Slider {
 
         slider.hasAttribute('data-observe-resizes') && this.observe(slider);
         this.addVideoControls();
+    }
+
+    private dispatchSliderReadyEvent() {
+        const event: CustomEvent<SliderReadyEventDetail> = new CustomEvent(SLIDER_READY_EVENT, {
+            bubbles: true,
+            detail: {
+                sliderElement: this.sliderElement,
+                splide: this.splide,
+            }
+        });
+
+        document.dispatchEvent(event);
     }
 
     observe(slider: Element) {
@@ -132,7 +151,7 @@ export default class Slider {
 
     private changeNavigationButtonsToSpans() {
         this.splide.on('pagination:mounted', (data) => {
-            data.items.forEach((item, index) => {
+            data.items.forEach((item) => {
                 const span = document.createElement('span');
 
                 span.className = item.button.className;
@@ -206,7 +225,7 @@ export default class Slider {
     addVideoControls() {
         this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
             if (slide.querySelectorAll('video').length > 0) {
-                const player = new VideoControls(slide);
+                new VideoControls(slide);
             }
         });
     }
@@ -216,7 +235,7 @@ export function initializeSlider() {
     const sliders = document.querySelectorAll('.c-slider');
     if (sliders) {
         sliders.forEach((slider) => {
-            const SliderInstance = new Slider(slider);
+            new Slider(slider);
         });
     }
 }
