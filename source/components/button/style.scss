@@ -56,6 +56,7 @@ $button-variants: (
         background-color: #{map.get($variant, "underline")};
     }
 
+    .#{$_}__basic--#{$name},
     .#{$_}__outlined--#{$name} {
         --_text: #{map.get($variant, "stroke")};
     }
