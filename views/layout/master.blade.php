@@ -182,7 +182,7 @@
                     'text' => 'Menu',
                     'icon' => 'menu',
                     'style' => 'basic',
-                    'color' => 'primary',
+                    'color' => 'default',
                     'size' => 'md'
                 ]
             ])
