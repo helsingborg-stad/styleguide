@@ -220,6 +220,10 @@ $_: "c-hero";
         text-decoration: none;
     }
 
+    .#{$_}__title {
+        --inherit-margin-top: 0;
+    }
+
     .#{$_}__title,
     .#{$_}__byline,
     .#{$_}__meta,
