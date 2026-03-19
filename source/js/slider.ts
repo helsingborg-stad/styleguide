@@ -144,7 +144,7 @@ export default class Slider {
         const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
         const slidesPerMove = parseInt(this.sliderElement.getAttribute('data-slides-per-move') || '1', 10);
-        const sliderType = this.sliderElement.hasAttribute('data-slider-loop') ? 'loop' : 'slide';
+        const sliderType = this.sliderElement.getAttribute('data-slider-type') || 'slide';
 
         return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, perMove: slidesPerMove, sliderType: sliderType };
     }
