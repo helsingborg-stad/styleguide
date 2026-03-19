@@ -114,6 +114,7 @@
   @include meta.load-css("object/container");
   @include meta.load-css("object/grid");
   @include meta.load-css("object/layout-grid");
+  @include meta.load-css("object/minimal-slider");
 }
 
 // ***************************************************************
