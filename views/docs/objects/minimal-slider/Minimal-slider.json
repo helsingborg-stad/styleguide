@@ -2,7 +2,7 @@
 	"title": "Minimal Slider",
 	"summary": ["A lightweight slider pattern that uses native scroll snapping and a tiny enhancement script."],
 	"description": {
-		"main": "Use the minimal slider object for touch-first, keyboard-friendly horizontal galleries. The example exposes animation and slides-per-view controls so behavior can be tuned without heavy dependencies."
+		"main": "Use the minimal slider object for touch-first, keyboard-friendly horizontal galleries. The example keeps structure and controls minimal while including a subtle fade animation tied to scroll progress."
 	},
 	"attributes": {
 		"class": "Base class and element classes for viewport, track, slide, controls and toolbar."
@@ -14,14 +14,14 @@
 		"interactive": {
 			"description": {
 				"heading": "Interactive minimal slider",
-				"description": "Screen reader support, keyboard navigation, touch scrolling, and a polished fade-based peek animation."
+				"description": "Screen reader support, keyboard navigation, touch scrolling, stable snapping, and a lightweight fade transition."
 			},
 			"component": "docs.objects.minimal-slider.examples.interactive",
 			"html": {
 				"code": "<section class=\"o-minimal-slider\" data-minimal-slider><div class=\"o-minimal-slider__toolbar\">...</div><ul class=\"o-minimal-slider__track\">...</ul><div class=\"o-minimal-slider__controls\">...</div></section>"
 			},
 			"blade": {
-				"code": "<section class=\"o-minimal-slider\" data-minimal-slider data-animation=\"fade\">\n    <div class=\"o-minimal-slider__toolbar\">...</div>\n    <ul class=\"o-minimal-slider__track\" role=\"list\">...</ul>\n    <div class=\"o-minimal-slider__controls\">...</div>\n</section>"
+				"code": "<section class=\"o-minimal-slider\" data-minimal-slider>\n    <div class=\"o-minimal-slider__toolbar\">...</div>\n    <ul class=\"o-minimal-slider__track\" role=\"list\">...</ul>\n    <div class=\"o-minimal-slider__controls\">...</div>\n</section>"
 			}
 		}
 	}

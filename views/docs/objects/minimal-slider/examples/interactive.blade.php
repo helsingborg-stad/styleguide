@@ -1,4 +1,4 @@
-<section class="o-minimal-slider" data-minimal-slider data-animation="fade" style="--slides-per-view: 1;">
+<section class="o-minimal-slider" data-minimal-slider style="--slides-per-view: 1;">
     <div class="o-minimal-slider__toolbar" aria-label="Slider options">
         <div class="o-minimal-slider__field">
             <label class="o-minimal-slider__label" for="minimal-slider-per-view">Slides per view</label>
