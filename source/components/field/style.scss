@@ -200,6 +200,41 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 box-shadow: none;
             }
         }
+
+        &--color {
+            padding: 0;
+            border-radius: 500px;
+            corner-shape: unset;
+            padding: 0;
+            height: inherit;
+            width: unset;
+
+            >input[type="color"] {
+                padding: 0;
+                flex: 0 0 auto;
+                width: tokens.get($_, "height");
+                height: tokens.get($_, "height");
+                cursor: pointer;
+
+                height: inherit;
+                aspect-ratio: 1 / 1;
+
+                &::-webkit-color-swatch-wrapper {
+                    padding: 0;
+                    border-radius: 50%;
+                }
+
+                &::-webkit-color-swatch {
+                    border: none;
+                    border-radius: 50%;
+                }
+
+                &::-moz-color-swatch {
+                    border: none;
+                    border-radius: 50%;
+                }
+            }
+        }
     }
 
     &.#{$_}--hidden {
