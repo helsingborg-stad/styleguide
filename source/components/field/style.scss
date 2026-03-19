@@ -1,9 +1,9 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
-@use "./type-temporal" as type-temporal;
-@use "./type-search" as type-search;
-@use "./type-color" as type-color;
+@use "./types/type-temporal" as type-temporal;
+@use "./types/type-search" as type-search;
+@use "./types/type-color" as type-color;
 
 /* Inheritance properties */
 @property --inherit-color-contrast {

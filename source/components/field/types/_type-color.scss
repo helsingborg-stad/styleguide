@@ -1,4 +1,4 @@
-@use "../../sass/mixin/tokens";
+@use "../../../sass/mixin/tokens";
 
 /// Styles specific to color input type.
 /// Renders the input as a circular color swatch inheriting surface tokens.
@@ -9,14 +9,13 @@
     padding: 0;
     border-radius: 500px;
     corner-shape: unset;
-    height: inherit;
-    width: unset;
+    height: var(--c-field--height);
+    width: var(--c-field--height);
+    min-width: 0;
 
     >input[type="color"] {
       flex: 0 0 auto;
-      padding: 0;
       cursor: pointer;
-      height: inherit;
       aspect-ratio: 1 / 1;
 
       &::-webkit-color-swatch-wrapper {
@@ -34,5 +33,17 @@
         border-radius: 50%;
       }
     }
+  }
+
+  @at-root .#{$component} .#{$component}__inner.#{$component}__inner--color>input[type="color"] {
+    padding: 0;
+    width: 100%;
+  }
+
+  // Constrain the .c-field wrapper itself to a square so it never grows wider than its height.
+  @at-root .#{$component}.#{$component}--color {
+    flex: 0 0 auto;
+    width: tokens.get($component, "height");
+    corner-shape: unset;
   }
 }
