@@ -115,9 +115,31 @@
     const animationSelect = slider.querySelector('[data-slider-animation]');
     const status = slider.querySelector('[data-slider-status]');
     const slides = Array.from(track.querySelectorAll('.o-minimal-slider__slide'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let currentIndex = 0;
     let isTicking = false;
+
+    const getMaxStartIndex = () => {
+        return Math.max(0, slides.length - getStep());
+    };
+
+    const clampToStartIndex = (index) => {
+        return Math.max(0, Math.min(index, getMaxStartIndex()));
+    };
+
+    const getMaxScrollLeft = () => {
+        return Math.max(0, track.scrollWidth - track.clientWidth);
+    };
+
+    const getSlideTargetLeft = (index) => {
+        const slide = slides[index];
+        if (!slide) {
+            return 0;
+        }
+
+        return Math.min(slide.offsetLeft, getMaxScrollLeft());
+    };
 
     const getStep = () => {
         const perView = Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--slides-per-view'), 10) || 1);
@@ -125,17 +147,24 @@
     };
 
     const scrollToIndex = (index) => {
-        const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
-        const targetSlide = slides[boundedIndex];
-
-        if (!targetSlide) {
-            return;
-        }
+        const boundedIndex = clampToStartIndex(index);
+        const targetLeft = getSlideTargetLeft(boundedIndex);
 
         track.scrollTo({
-            left: targetSlide.offsetLeft,
-            behavior: 'smooth'
+            left: targetLeft,
+            behavior: prefersReducedMotion ? 'auto' : 'smooth'
         });
+    };
+
+    const getNearestIndex = () => {
+        const maxStartIndex = getMaxStartIndex();
+        const startIndices = Array.from({ length: maxStartIndex + 1 }, (_, index) => index);
+
+        return startIndices.reduce((bestIndex, slideIndex) => {
+            const bestDistance = Math.abs(getSlideTargetLeft(bestIndex) - track.scrollLeft);
+            const currentDistance = Math.abs(getSlideTargetLeft(slideIndex) - track.scrollLeft);
+            return currentDistance < bestDistance ? slideIndex : bestIndex;
+        }, 0);
     };
 
     const getSlideStepPx = () => {
@@ -164,7 +193,7 @@
     };
 
     const setCurrentSlide = (index) => {
-        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+        currentIndex = clampToStartIndex(index);
         const visibleCount = getStep();
         const visibleEndIndex = Math.min(slides.length - 1, currentIndex + visibleCount - 1);
 
@@ -191,11 +220,7 @@
     };
 
     const updateIndexFromScroll = () => {
-        const nearest = slides.reduce((bestIndex, slide, slideIndex) => {
-            const bestDistance = Math.abs(slides[bestIndex].offsetLeft - track.scrollLeft);
-            const currentDistance = Math.abs(slide.offsetLeft - track.scrollLeft);
-            return currentDistance < bestDistance ? slideIndex : bestIndex;
-        }, 0);
+        const nearest = getNearestIndex();
 
         setCurrentSlide(nearest);
     };
@@ -212,8 +237,10 @@
         perViewSelect.addEventListener('change', (event) => {
             const selectedValue = parseInt(event.target.value, 10);
             slider.style.setProperty('--slides-per-view', String(Math.max(1, Math.min(selectedValue, 3))));
+            currentIndex = clampToStartIndex(currentIndex);
             scrollToIndex(currentIndex);
             updateIndexFromScroll();
+            updateSlideMotionFromScroll();
         });
     }
 
@@ -258,6 +285,7 @@
         });
     }, { passive: true });
 
+    track.scrollLeft = getSlideTargetLeft(0);
     setCurrentSlide(0);
     updateSlideMotionFromScroll();
 })();
