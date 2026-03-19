@@ -8,11 +8,11 @@
     'overlay'   => 'dark',
     'buttons'   => [
         [
-            'href' => 'https://helsingborg.se',
+            'href' => 'https://getmunicipio.com',
             'text' => 'Read more',
         ],
         [
-            'href' => 'https://helsingborg.se',
+            'href' => 'https://getmunicipio.com',
             'text' => 'Learn more',
         ],
     ],

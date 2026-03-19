@@ -2,7 +2,7 @@
     'text' => 'Primary outlined',
     'style' => 'outlined',
     'color' => 'primary',
-    'href' => 'https://helsingborg.se'
+    'href' => 'https://getmunicipio.com'
 ])
 @endbutton
 

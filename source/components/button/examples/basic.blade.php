@@ -2,7 +2,7 @@
     'text' => 'Primary (href)',
     'color' => 'primary',
     'style' => 'basic',
-    'href' => 'https://helsingborg.se',
+    'href' => 'https://getmunicipio.com',
     'icon' => 'home',
     'reversePositions' => 'true'
 ]) 

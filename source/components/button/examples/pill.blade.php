@@ -4,7 +4,7 @@
         'text' => 'Primary (href)',
         'color' => 'primary',
         'style' => $style,
-        'href' => 'https://helsingborg.se',
+        'href' => 'https://getmunicipio.com',
         'shape' => 'pill',
         'classList' => [
             'u-margin--0'
@@ -38,7 +38,7 @@
     @button([
         'color' => 'primary',
         'style' => $style,
-        'href' => 'https://helsingborg.se',
+        'href' => 'https://getmunicipio.com',
         'icon' => 'home',
         'reversePositions' => 'true',
         'shape' => 'pill',

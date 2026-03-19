@@ -2,17 +2,17 @@
     [
         'logo' => '/assets/img/logotype.svg',
         'alt' => 'Alt text',
-        'url' => 'https://helsingborg.se'
+        'url' => 'https://getmunicipio.com'
     ],
     [
         'logo' => '/assets/img/logotype.svg',
         'alt' => 'Alt text',
-        'url' => 'https://helsingborg.se'
+        'url' => 'https://getmunicipio.com'
     ],
     [
         'logo' => '/assets/img/logotype.svg',
         'alt' => 'Alt text',
-        'url' => 'https://helsingborg.se'
+        'url' => 'https://getmunicipio.com'
     ],
     [
         'logo' => '/assets/img/logotype.svg',

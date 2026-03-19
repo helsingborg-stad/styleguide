@@ -6,7 +6,7 @@
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
             'containerAware'    => true,
-            'link'              => 'https://helsingborg.se',
+            'link'              => 'https://getmunicipio.com',
         ])
         @endsegment
     </div>
@@ -17,7 +17,7 @@
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
             'containerAware'    => true,
-            'link'              => 'https://helsingborg.se',
+            'link'              => 'https://getmunicipio.com',
             'reverseColumns'  => true
         ])
         @endsegment
@@ -50,7 +50,7 @@
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
             'containerAware'    => true,
-            'link'              => 'https://helsingborg.se',
+            'link'              => 'https://getmunicipio.com',
             'hasPlaceholder'    => false
         ])
         @endsegment
@@ -84,7 +84,7 @@
             'layout'            => 'card',
             'textColor'         => 'dark',
             'textAlignment'     => 'center',
-            'link'              => 'https://helsingborg.se',
+            'link'              => 'https://getmunicipio.com',
             'hasPlaceholder'    => false
         ])
         @endsegment

@@ -7,7 +7,7 @@
         'classList' => [
           'c-card--flat'
         ],
-        'link' => "https://helsingborg.se"
+        'link' => "https://getmunicipio.com"
     ])
     @endcard
   </div>
@@ -19,7 +19,7 @@
         'classList' => [
           'c-card--flat'
         ],
-        'link' => "https://helsingborg.se"
+        'link' => "https://getmunicipio.com"
     ])
     @endcard
   </div>

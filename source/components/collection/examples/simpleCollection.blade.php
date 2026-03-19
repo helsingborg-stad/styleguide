@@ -22,7 +22,7 @@
       @collection(
           [
               'list' => [
-                  ['content' => 'Linked item', 'link' => "https://helsingborg.se"],
+                  ['content' => 'Linked item', 'link' => "https://getmunicipio.com"],
                   'Unlinked item',
                   ['content' => 'Unlinked item', 'link' => false],
               ], 

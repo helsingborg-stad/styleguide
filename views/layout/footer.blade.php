@@ -18,7 +18,7 @@
         'Links' => [
             'Github (Styleguide)' => ['target' => '_blank', 'href' => 'https://github.com/helsingborg-stad/styleguide'],
             'Github (Component Library)' => ['target' => '_blank', 'href' => 'https://github.com/helsingborg-stad/blade-component-library'],
-            'Helsingborg.se' => ['target' => '_blank', 'href' => 'https://helsingborg.se'],
+            'Helsingborg.se' => ['target' => '_blank', 'href' => 'https://getmunicipio.com'],
         ]
 
     ]

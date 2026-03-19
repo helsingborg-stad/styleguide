@@ -7,7 +7,7 @@
               $modifier => true,
               'list' => [
                   ['title' => 'Collection modifier', 'content' => 'This utilizes the "' . $modifier . '" and will therefore display differently.'],
-                  ['content' => 'Linked item', 'link' => "https://helsingborg.se"],
+                  ['content' => 'Linked item', 'link' => "https://getmunicipio.com"],
                   'Unlinked item',
                   ['content' => 'Unlinked item', 'link' => false],
               ], 
