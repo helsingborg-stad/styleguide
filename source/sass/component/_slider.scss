@@ -41,7 +41,7 @@
 
     .c-slider__arrows {
         width: 100%;
-        max-width: var(--c-slider-max-width-computed);
+        max-width: min(var(--c-slider-max-width-computed), calc(100vw - (var(--base, 8px) * 5)));
         position: absolute;
         top: 50%;
         left: 50%;
