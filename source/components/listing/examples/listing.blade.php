@@ -9,7 +9,7 @@
             'childrenElementType' => "ul",
             'children' => [
                 [
-                    'href' => 'http://styleguide.helsingborg.se/',
+                    'href' => 'http://styleguide.getmunicipio.com/',
                     'label' => 'I am sub label',
                 ],
                 [

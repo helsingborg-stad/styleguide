@@ -47,7 +47,7 @@
             'icon' => 'star',
             'link' => 'http://link.link'
           ],
-          'link' => 'http://helsingborg.se'
+          'link' => 'http://getmunicipio.com'
         ])
           @typography(['element' => 'h4'])
             This is a multiline

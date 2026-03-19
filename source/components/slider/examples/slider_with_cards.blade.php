@@ -15,7 +15,7 @@
         ])
 
             @card([
-                'link' => 'https://www.helsingborg.se',
+                'link' => 'https://www.getmunicipio.com',
                 'image' => ['src' => "https://picsum.photos/seed/$i/267", 'alt' => 'ALT'],
                 'heading' => "Card #$i",
                 'content' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

@@ -11,7 +11,7 @@
         'heroStyle' => true,
         'cta' => [
             'title' => 'Read more',
-            'href' => 'https://www.helsingborg.se',
+            'href' => 'https://www.getmunicipio.com',
         ]
     ])
     @endslider__item
@@ -24,7 +24,7 @@
         'image' => 'https://picsum.photos/1080/720',
         'cta' => [
             'title' => 'Read more',
-            'href' => 'https://www.helsingborg.se',
+            'href' => 'https://www.getmunicipio.com',
         ]
     ])
     @endslider__item

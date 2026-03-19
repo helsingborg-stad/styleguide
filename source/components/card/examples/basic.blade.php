@@ -4,7 +4,7 @@
             'name' => 'Snowflake'
         ],
         'image' => 'https://picsum.photos/id/1077/300/200',
-        'href' => 'http://styleguide.helsingborg.se/card',
+        'href' => 'http://styleguide.getmunicipio.com/card',
         'title' => [
             'text' => 'Maybe you also need to add some cool icon-buttons',
             'position' => 'top'
@@ -38,7 +38,7 @@
         ],
         'buttons' => [
             [
-                'href' => 'http://helsingborg.se',
+                'href' => 'http://getmunicipio.com',
                 'text' => 'Action button 1',
                 'attributeList' => ['js-toggle-trigger'],
                 'color' => 'primary'
