@@ -3,7 +3,7 @@
 @section('doc-content')
     @markdown
         #Simulate click
-        When a dom object is clicked with simulate click attrubute the default action of the object will be prevented. A click event will then be sent to the target defined in the data attribute.
+        When a dom object is clicked with simulate click attribute the default action of the object will be prevented. A click event will then be sent to the target defined in the data attribute.
     @endmarkdown
 
     @doc(["viewDoc" => ["type" => "script", "root" => "SimulateClick", "config" => "SimulateClick"]])
@@ -15,7 +15,7 @@
             'icon' => 'code',
             'toggle' => true,
             'attributeList' => [
-                'data-simulate-click' => ".c-navbar__logo > a",
+                'data-simulate-click' => "#main-logo-link",
             ]
         ])
         @endbutton

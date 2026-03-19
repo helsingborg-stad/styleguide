@@ -164,8 +164,9 @@
                 'u-padding__y--1'
             ]
         ])
-            @link(['href' => '/', 'classList' => ['u-display-block']])
+            @link(['id' => 'main-logo-link', 'href' => '/', 'classList' => ['u-display-block']])
                 @logotype([
+                    'id' => 'main-logo',
                     'src' => '/assets/img/logotype.svg',
                     'alt' => 'Go to homepage',
                     'classList' => ['c-header__logotype']
