@@ -3,21 +3,18 @@
         @typography(['element' => 'h4', 'variant' => 'h4'])
             Similar components
         @endtypography
-
-        <div class="o-grid o-grid--small o-grid--gutters u-margin__top--2">
+        <div class="similar-components-flex u-display--flex u-flex-wrap u-gap--2 u-margin__top--2">
             @foreach($similarComponentItems as $similarComponentItem)
-                <div class="o-grid-4@sm o-grid-3@md">
-                    @button([
-                        'text' => $similarComponentItem['name'],
-                        'href' => $similarComponentItem['href'],
-                        'icon' => $similarComponentItem['icon'] ?? 'widgets',
-                        'type' => 'outlined',
-                        'color' => 'default',
-                        'size' => 'sm',
-                        'fullWidth' => true,
-                    ])
-                    @endbutton
-                </div>
+                @button([
+                    'text' => $similarComponentItem['name'],
+                    'href' => $similarComponentItem['href'],
+                    'icon' => $similarComponentItem['icon'] ?? 'widgets',
+                    'type' => 'outlined',
+                    'color' => 'default',
+                    'size' => 'sm',
+                    'classList' => ['u-margin--0', 'similar-components-btn']
+                ])
+                @endbutton
             @endforeach
         </div>
     @endpaper

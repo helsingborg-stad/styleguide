@@ -26,6 +26,10 @@ $_: "c-paper";
     padding: tokens.get($_, "padding");
     filter: tokens.get($_, "shadow");
 
+    > :first-child {
+        --inherit-margin-top: 0;
+    }
+
     /* switch to surface color tokens for nested components */
     --c-field--background-color: var(--color--background);
     --c-field--color--surface-contrast: var(--color--background-contrast);

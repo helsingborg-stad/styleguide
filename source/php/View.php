@@ -2,10 +2,10 @@
 
 namespace MunicipioStyleGuide;
 
-use MunicipioStyleGuide\Helper\ComponentCssParameters;
 use \MunicipioStyleGuide\Helper\Documentation as DocHelper;
 use \MunicipioStyleGuide\Helper\ModifierExample;
 use HelsingborgStad\BladeService\BladeServiceInterface;
+use MunicipioStyleGuide\Helper\ComponentCssParameters;
 
 class View
 {
@@ -19,12 +19,12 @@ class View
         $this->registerMarkdownViewComposer($blade);
 
         try {
-            $result = $blade->makeView( 'pages.' . $view, $data )->render();
-            echo preg_replace('/(id|href)=""/', "", $result);
+            $result = $blade->makeView('pages.' . $view, $data)->render();
+            echo preg_replace('/(id|href)=""/', '', $result);
         } catch (\Throwable $e) {
-            if(!$this->viewExists($view)) {
-                $data = array_merge( $data, array('errorMessage' => $e) );
-                echo $blade->makeView( 'pages.404', $data )->render();
+            if (!$this->viewExists($view)) {
+                $data = array_merge($data, array('errorMessage' => $e));
+                echo $blade->makeView('pages.404', $data)->render();
                 return;
             }
             $blade->errorHandler($e)->print();
@@ -33,7 +33,7 @@ class View
 
     private function viewExists($view): bool
     {
-        return file_exists(BASEPATH . 'views/pages/' . str_replace(".", "/", $view) . '.blade.php');
+        return file_exists(BASEPATH . 'views/pages/' . str_replace('.', '/', $view) . '.blade.php');
     }
 
     /**
@@ -43,7 +43,7 @@ class View
      */
     public function registerLayoutViewComposer(BladeServiceInterface $blade)
     {
-        $blade->registerComponentDirective("layout.doc", "doc");
+        $blade->registerComponentDirective('layout.doc', 'doc');
 
         //Doc template
         $docTemplates = array(
@@ -58,20 +58,17 @@ class View
         //Documentation module
         foreach ($docTemplates as $template) {
             $blade->registerComponent($template, function ($view) use ($blade) {
-
                 $viewData = (array) $this->accessProtected($view, 'data');
-                $viewDoc = (isset($viewData['viewDoc']) && is_array($viewData['viewDoc'])) ? $viewData['viewDoc'] : [];
+                $viewDoc = isset($viewData['viewDoc']) && is_array($viewData['viewDoc']) ? $viewData['viewDoc'] : [];
 
                 // Get path to specific vendor package
                 $componentLibraryPackagePath = $this->getVendorPackagePath('helsingborg-stad/component-library');
-    
+
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
                     if (isset($viewData['viewDoc']) && strtolower((string) ($viewDoc['type'] ?? '')) === 'utility') {
                         [$configFile, $configJson] = $this->resolveUtilityDocumentationConfiguration($viewDoc);
                     } else {
-                        $path = (isset($viewData['viewDoc'])) ?
-                            $this->resolveDocumentationConfigPath($viewDoc) :
-                            $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
+                        $path = isset($viewData['viewDoc']) ? $this->resolveDocumentationConfigPath($viewDoc) : $this->resolveComponentConfigPath($componentLibraryPackagePath, (string) $viewData['slug']);
 
                         //Locate config file
                         $configFile = glob($path);
@@ -81,21 +78,21 @@ class View
                             $configFile = array_pop($configFile);
                         } else {
                             throw new \Exception(
-                                isset($viewData['slug']) ? "No configuration file found for component with slug '" . $viewData['slug'] . "' at " . $path : "No configuration file found at " . $path
+                                isset($viewData['slug']) ? "No configuration file found for component with slug '" . $viewData['slug'] . "' at " . $path : 'No configuration file found at ' . $path,
                             );
                         }
 
                         //Read config
-                        if (!$configJson = file_get_contents($configFile)) {
-                            throw new \Exception("Configuration file unreadable at " . $configFile);
+                        if (!($configJson = file_get_contents($configFile))) {
+                            throw new \Exception('Configuration file unreadable at ' . $configFile);
                         }
 
                         //Check if valid json
-                        if (!$configJson = json_decode($configJson, true)) {
-                            throw new \Exception("Invalid formatting of configuration file in " . $configFile);
+                        if (!($configJson = json_decode($configJson, true))) {
+                            throw new \Exception('Invalid formatting of configuration file in ' . $configFile);
                         }
                     }
-    
+
                     //Check if has default object
                     if (isset($configJson['default'])) {
                         $settings = $configJson['default'];
@@ -106,48 +103,48 @@ class View
                     } else {
                         $settings = array();
                     }
-    
+
                     //Check if has available object
                     if (isset($configJson['available'])) {
                         $available = $configJson['available'];
                     } else {
                         $available = array();
                     }
-    
+
                     //Check if has description object
                     if (isset($configJson['description'])) {
                         $description = $configJson['description'];
                     } else {
                         $description = array();
                     }
-                    
+
                     // Check if has modifiers object.
                     if (isset($configJson['modifiers'])) {
                         $modifiers = $configJson['modifiers'];
                     } else {
                         $modifiers = array();
                     }
-    
+
                     // Attempt to set up example usage of modifiers.
                     if (isset($viewData['slug']) && !empty($modifiers)) {
-                        $firstModifier = array_keys((array)$modifiers)[0];
+                        $firstModifier = array_keys((array) $modifiers)[0];
                         $modifiersExample = ModifierExample::get($viewData['slug'], $firstModifier);
                     } else {
                         $modifiersExample = null;
                     }
-    
+
                     if (isset($configJson['responsive'])) {
                         $responsive = $configJson['responsive'];
                     } else {
                         $responsive = array();
                     }
-    
+
                     if (isset($configJson['summary'])) {
                         $summary = implode(' ', $configJson['summary']);
                     } else {
                         $summary = null;
                     }
-    
+
                     if (isset($configJson['format'])) {
                         $format = $configJson['format'];
                     } else {
@@ -157,15 +154,14 @@ class View
                     if (isset($configJson['includesPath'])) {
                         $includesPath = $configJson['includesPath'];
                     } else {
-                        $includesPath = "";
+                        $includesPath = '';
                     }
-    
                 } else {
                     $settings = array();
                     $description = array();
                     $configFile = false;
                 }
-    
+
                 if (isset($viewData['slug']) && $viewData['slug'] === 'card') {
                     $paper = [
                         'transparencyContainer' => true,
@@ -182,42 +178,42 @@ class View
                     ];
                 }
 
-                $view->with($x = [
-                    'title' => isset($viewData['title']) ? $viewData['title'] : (isset($configJson['name']) ? $configJson['name'] : 'abc'),
-                    'description' => 'hello',
-                    'summary' => $summary,
-                    'format' => $format,
-                    'responsive' => $responsive,
-                    'description' => $description,
-                    'modifiers' => $modifiers,
-                    'available' => $available,
-                    'settings' => $settings,
-                    'settingsLocation' => $configFile,
-                    'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
-                    'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
-                    'paper' => $paper,
-                    'examples' => $this->resolveDocumentationExamples($viewData, $configJson, $blade),
-                    'exampleMetadataSections' => $this->resolveDocumentationExampleMetadataSections($viewData, $configJson),
-                    'cssParameters' => isset($viewData['slug']) ? ComponentCssParameters::getForComponent($viewData['slug']) : [],
-                    'modifiersExample' => $modifiersExample,
-                    'includesPath' => $includesPath,
-                    'isScriptDocumentation' => $this->isScriptDocumentationView($viewData),
-                    'isObjectDocumentation' => $this->isObjectDocumentationView($viewData),
-                    'showParametersTable' => $this->shouldShowParametersTable($viewData),
-                ]);
-    
-                
-    
-            });   
+                $view->with(
+                    $x = [
+                        'title' => isset($viewData['title']) ? $viewData['title'] : (isset($configJson['name']) ? $configJson['name'] : 'abc'),
+                        'description' => 'hello',
+                        'summary' => $summary,
+                        'format' => $format,
+                        'responsive' => $responsive,
+                        'description' => $description,
+                        'modifiers' => $modifiers,
+                        'available' => $available,
+                        'settings' => $settings,
+                        'settingsLocation' => $configFile,
+                        'componentSlug' => isset($viewData['slug']) ? $viewData['slug'] : false,
+                        'displayParams' => isset($viewData['displayParams']) ? $viewData['displayParams'] : true,
+                        'paper' => $paper,
+                        'examples' => $this->resolveDocumentationExamples($viewData, $configJson, $blade),
+                        'exampleMetadataSections' => $this->resolveDocumentationExampleMetadataSections($viewData, $configJson),
+                        'cssParameters' => isset($viewData['slug']) ? ComponentCssParameters::getForComponent($viewData['slug']) : [],
+                        'modifiersExample' => $modifiersExample,
+                        'includesPath' => $includesPath,
+                        'isScriptDocumentation' => $this->isScriptDocumentationView($viewData),
+                        'isObjectDocumentation' => $this->isObjectDocumentationView($viewData),
+                        'showParametersTable' => $this->shouldShowParametersTable($viewData),
+                    ],
+                );
+            });
         }
 
         return $blade;
     }
 
-    private function getVendorPackagePath($package):string {
+    private function getVendorPackagePath($package): string
+    {
         $path = getcwd() . '/vendor/' . $package;
         if (!is_dir($path)) {
-            throw new \Exception("Package not found at " . $path);
+            throw new \Exception('Package not found at ' . $path);
         }
         return $path;
     }
@@ -250,7 +246,7 @@ class View
     /**
      * Resolve documentation JSON config path from view doc metadata.
      *
-    * Utility docs are loaded from source/utilities/(utility)/utility.json.
+     * Utility docs are loaded from source/utilities/(utility)/utility.json.
      * Other doc types continue to load from views/docs.
      *
      * @param array<string, string> $viewDoc View doc metadata.
@@ -288,9 +284,7 @@ class View
         }
 
         $root = $this->normalizeUtilityIdentifier((string) ($viewDoc['root'] ?? ''));
-        $paths = is_array($utilityConfigPaths)
-            ? $utilityConfigPaths
-            : (glob(BASEPATH . 'source/utilities/*/utility.json') ?: []);
+        $paths = is_array($utilityConfigPaths) ? $utilityConfigPaths : (glob(BASEPATH . 'source/utilities/*/utility.json') ?: []);
 
         $prioritizedPaths = $this->prioritizeUtilityConfigPaths($paths, $root);
 
@@ -468,7 +462,6 @@ class View
         return DocHelper::getUsageExamples($slug, $blade);
     }
 
-
     /**
      * Resolves renderable examples for documentation views.
      *
@@ -477,7 +470,7 @@ class View
      * which are not renderable in the doc example tabs and must be ignored.
      *
      * @param array<string, mixed> $viewData
-    * @param mixed $configJson
+     * @param mixed $configJson
      * @param BladeServiceInterface $blade
      *
      * @return array<int, array<string, mixed>>
@@ -504,11 +497,7 @@ class View
                 continue;
             }
 
-            $hasRenderableSchema = isset($example['description'], $example['component'], $example['html'], $example['blade'])
-                && is_array($example['description'])
-                && is_array($example['html'])
-                && is_array($example['blade'])
-                && is_string($example['component']);
+            $hasRenderableSchema = isset($example['description'], $example['component'], $example['html'], $example['blade']) && is_array($example['description']) && is_array($example['html']) && is_array($example['blade']) && is_string($example['component']);
 
             if ($hasRenderableSchema) {
                 $renderableExamples[] = $example;

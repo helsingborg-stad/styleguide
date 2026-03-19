@@ -11,6 +11,10 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
+    border-radius: inherit;
+    corner-shape: inherit;
+    contain: paint;
+
     .#{$_}__button {
         @include button.button-unstyled;
         cursor: pointer;
