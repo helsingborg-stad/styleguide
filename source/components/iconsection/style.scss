@@ -70,6 +70,7 @@ $_: "c-iconsection";
     .c-typography__variant--h6 {
       &:first-child {
         --inherit-font-size: #{tokens.get($_, "font-size-300")};
+        --inherit-margin-top: 0;
       }
     }
   }
