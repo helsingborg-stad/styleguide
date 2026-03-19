@@ -1,0 +1,26 @@
+/// Styles specific to search input type.
+/// Hides the native clear/cancel button and suppresses box-shadow on known search fields.
+///
+/// @param {String} $component - The BEM component name (e.g. "c-field")
+@mixin apply($component) {
+  input {
+    &[type="search"]::-webkit-search-cancel-button {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 0;
+      height: 0;
+      margin: 0;
+    }
+  }
+
+  &--search {
+
+    #input_search-form__field,
+    #input_search-form--field,
+    #input_header-search-form__field,
+    #input_hero-search-form__field,
+    #input_mobile-search-form__field {
+      box-shadow: none;
+    }
+  }
+}

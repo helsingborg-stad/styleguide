@@ -1,6 +1,9 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
+@use "./type-temporal" as type-temporal;
+@use "./type-search" as type-search;
+@use "./type-color" as type-color;
 
 /* Inheritance properties */
 @property --inherit-color-contrast {
@@ -102,23 +105,6 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.get($_, "corner-shape");
 
-            &::-webkit-calendar-picker-indicator {
-                opacity: 0;
-                width: 0;
-                height: 0;
-                padding: 0;
-                margin: 0;
-                pointer-events: none;
-            }
-
-            &[type="search"]::-webkit-search-cancel-button {
-                appearance: none;
-                -webkit-appearance: none;
-                width: 0;
-                height: 0;
-                margin: 0;
-            }
-
             &[list] {
                 cursor: text;
                 padding-right: calc(#{tokens.get($_, "base")} * 7);
@@ -133,23 +119,15 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             }
         }
 
+        @include type-temporal.apply($_);
+        @include type-search.apply($_);
+
 
 
         .#{$_}__icon,
         .#{$_}__prefix,
         .#{$_}__suffix {
             color: tokens.get($_, "color");
-        }
-
-        // Make the icon clickable for temporal inputs (date, time, etc.)
-        &:has(input[type="date"]),
-        &:has(input[type="time"]),
-        &:has(input[type="datetime-local"]),
-        &:has(input[type="month"]),
-        &:has(input[type="week"]) {
-            .#{$_}__icon {
-                cursor: pointer;
-            }
         }
 
         .#{$_}__icon,
@@ -179,17 +157,6 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             bottom: tokens.use($_, "space", 2);
         }
 
-        &--search {
-
-            #input_search-form__field,
-            #input_search-form--field,
-            #input_header-search-form__field,
-            #input_hero-search-form__field,
-            #input_mobile-search-form__field {
-                box-shadow: none;
-            }
-        }
-
         &--number,
         &--email,
         &--text,
@@ -201,40 +168,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             }
         }
 
-        &--color {
-            padding: 0;
-            border-radius: 500px;
-            corner-shape: unset;
-            padding: 0;
-            height: inherit;
-            width: unset;
-
-            >input[type="color"] {
-                padding: 0;
-                flex: 0 0 auto;
-                width: tokens.get($_, "height");
-                height: tokens.get($_, "height");
-                cursor: pointer;
-
-                height: inherit;
-                aspect-ratio: 1 / 1;
-
-                &::-webkit-color-swatch-wrapper {
-                    padding: 0;
-                    border-radius: 50%;
-                }
-
-                &::-webkit-color-swatch {
-                    border: none;
-                    border-radius: 50%;
-                }
-
-                &::-moz-color-swatch {
-                    border: none;
-                    border-radius: 50%;
-                }
-            }
-        }
+        @include type-color.apply($_);
     }
 
     &.#{$_}--hidden {

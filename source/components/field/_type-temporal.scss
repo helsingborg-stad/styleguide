@@ -1,0 +1,28 @@
+@use "../../sass/mixin/tokens";
+
+/// Styles specific to temporal input types: date, time, datetime-local, month, week.
+/// Hides the native calendar picker indicator and makes the field icon clickable.
+///
+/// @param {String} $component - The BEM component name (e.g. "c-field")
+@mixin apply($component) {
+  input {
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      padding: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+  }
+
+  &:has(input[type="date"]),
+  &:has(input[type="time"]),
+  &:has(input[type="datetime-local"]),
+  &:has(input[type="month"]),
+  &:has(input[type="week"]) {
+    .#{$component}__icon {
+      cursor: pointer;
+    }
+  }
+}

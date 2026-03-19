@@ -1,0 +1,38 @@
+@use "../../sass/mixin/tokens";
+
+/// Styles specific to color input type.
+/// Renders the input as a circular color swatch inheriting surface tokens.
+///
+/// @param {String} $component - The BEM component name (e.g. "c-field")
+@mixin apply($component) {
+  &--color {
+    padding: 0;
+    border-radius: 500px;
+    corner-shape: unset;
+    height: inherit;
+    width: unset;
+
+    >input[type="color"] {
+      flex: 0 0 auto;
+      padding: 0;
+      cursor: pointer;
+      height: inherit;
+      aspect-ratio: 1 / 1;
+
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+        border-radius: 50%;
+      }
+
+      &::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+      }
+
+      &::-moz-color-swatch {
+        border: none;
+        border-radius: 50%;
+      }
+    }
+  }
+}
