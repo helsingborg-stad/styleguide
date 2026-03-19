@@ -7,10 +7,6 @@
 ])
     <div class="grid">
         <div class="grid-md-6">
-            @markdown
-                ##Input field - E-mail
-            @endmarkdown
-
             @field([
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
@@ -24,10 +20,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-            ##Input field - Date Picker
-            @endmarkdown
-
             @field([
                 'type' => 'date',
                 'name' => 'text',
@@ -38,16 +30,13 @@
                 'datepicker' => [
                     'minDate'               => "6/29/1997",
                     'maxDate'               => "tomorrow",
-                ]
+                ],
+                'icon' => ['icon' => 'date_range']
             ])
             @endfield
         </div>
 
         <div class="grid-md-6">
-            @markdown
-            ##Input field - Number
-            @endmarkdown
-
             @field([
                 'type' => 'number',
                 'name' => 'number',
@@ -59,10 +48,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-            ##Input field - Password
-            @endmarkdown
-
             @field([
                 'type' => 'password',
                 'name' => 'password',
@@ -77,10 +62,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-            ##Input field - Search (with icon)
-            @endmarkdown
-
             @field([
                 'type' => 'search',
                 'name' => 'search',
@@ -92,10 +73,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-            ##Input field - Text
-            @endmarkdown
-
             @field([
                 'type' => 'text',
                 'name' => 'text',
@@ -105,10 +82,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-                ##Input field - Validated: invalid
-            @endmarkdown
-
             @field([
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
@@ -125,10 +98,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-                ##Input field - Validated: valid
-            @endmarkdown
-
             @field([
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
@@ -145,10 +114,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-                ##Input field - Hidden label
-            @endmarkdown
-
             @field([
                 'type' => 'email',
                 'placeholder' => 'email@email.com',
@@ -163,10 +128,6 @@
         </div>
 
         <div class="grid-md-6">
-            @markdown
-                ##Input field - Custom validation (email)
-            @endmarkdown
-
             @field([
                 'type' => 'text',
                 'placeholder' => 'email@email.com',
@@ -174,7 +135,7 @@
                 'autocomplete' => 'email',
                 'validationRegexp' => '^[^@]+@[^@]+\.[^@]+$',
                 'invalidMessage' => 'Please enter a valid email',
-                'label' => "Add your email",
+                'label' => "Add your email (custom regexp validation)",
                 'required' => true,
                 'hideLabel' => true,
             ])
@@ -183,10 +144,6 @@
 
 
         <div class="grid-md-6">
-            @markdown
-                ##Input field - Custom validation (email) & Shadow active
-            @endmarkdown
-
             @field([
                 'type' => 'text',
                 'placeholder' => 'email@email.com',
