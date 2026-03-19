@@ -62,6 +62,11 @@ $yAxis: (
             #{$sideX}: tokens.use($_, "space", 2);
             #{$sideY}: tokens.use($_, "space", 2);
         }
+
+        // Stack adjacent FABs sharing the same corner — button height (~space 6.5) + gap (~space 1) + edge margin (space 2)
+        .#{$_}.#{$_}__#{$sideY}-#{$sideX}+.#{$_}.#{$_}__#{$sideY}-#{$sideX} {
+            #{$sideY}: tokens.use($_, "space", 10);
+        }
     }
 }
 
