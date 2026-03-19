@@ -6,7 +6,52 @@
     "description": {
         "main": "Use .o-layout-grid to create grid layouts. Modifiers allow you to control columns, gaps, spans, and alignment responsively or with container queries."
     },
+    "attributes": {
+        "class": "Base layout-grid class with optional grid and item modifiers."
+    },
+    "available": {
+        "class": "o-layout-grid | o-layout-grid--cols-{n} | o-layout-grid--gap-{n} | o-layout-grid--col-span-{n} | o-layout-grid--row-span-{n} | o-layout-grid--justify-{placement} | o-layout-grid--align-{placement} | o-layout-grid--cq"
+    },
     "examples": {
+        "basic": {
+            "description": {
+                "heading": "Basic layout grid",
+                "description": "Simple three-column grid with a consistent gap."
+            },
+            "component": "docs.objects.layout-grid.examples.basic",
+            "html": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cols-3 o-layout-grid--gap-4\"><div>Item 1</div><div>Item 2</div><div>Item 3</div></div>"
+            },
+            "blade": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cols-3 o-layout-grid--gap-4\">\n    <div>Item 1</div>\n    <div>Item 2</div>\n    <div>Item 3</div>\n</div>"
+            }
+        },
+        "spanAndAlignment": {
+            "description": {
+                "heading": "Span and alignment",
+                "description": "Column spanning and item placement using alignment and justify modifiers."
+            },
+            "component": "docs.objects.layout-grid.examples.span-alignment",
+            "html": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cols-4 o-layout-grid--gap-3\"><div class=\"o-layout-grid--col-span-2\">Col span 2</div><div class=\"o-layout-grid--justify-end\">Justify end</div><div class=\"o-layout-grid--align-end\">Align end</div><div class=\"o-layout-grid--col-span-4\">Full row item</div></div>"
+            },
+            "blade": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cols-4 o-layout-grid--gap-3\">\n    <div class=\"o-layout-grid--col-span-2\">Col span 2</div>\n    <div class=\"o-layout-grid--justify-end\">Justify end</div>\n    <div class=\"o-layout-grid--align-end\">Align end</div>\n    <div class=\"o-layout-grid--col-span-4\">Full row item</div>\n</div>"
+            }
+        },
+        "containerQueryExample": {
+            "description": {
+                "heading": "Container query example",
+                "description": "Container query breakpoints activated with the cq modifier."
+            },
+            "component": "docs.objects.layout-grid.examples.container-query",
+            "html": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cq o-layout-grid--cols-1 o-layout-grid--cols-2@md o-layout-grid--gap-2 o-layout-grid--gap-4@md\"><div>Card A</div><div>Card B</div><div>Card C</div><div>Card D</div></div>"
+            },
+            "blade": {
+                "code": "<div class=\"o-layout-grid o-layout-grid--cq o-layout-grid--cols-1 o-layout-grid--cols-2@md o-layout-grid--gap-2 o-layout-grid--gap-4@md\">\n    <div>Card A</div>\n    <div>Card B</div>\n    <div>Card C</div>\n    <div>Card D</div>\n</div>"
+            }
+        },
         "containerQuery": {
             "title": "Container Query Support",
             "description": "Enable container query support by adding the .o-layout-grid--cq modifier to the grid container. This is needed to use container query based modifiers.",

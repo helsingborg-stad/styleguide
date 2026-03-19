@@ -28,7 +28,7 @@
             @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
                 @php
                     $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
-                    $bladeSourceCode = e($example['blade']['code']);
+                    $bladeSourceCode = isset($example['blade']['code']) ? e($example['blade']['code']) : '';
 
                     $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
                         return $__env->make($viewPath, $viewData)->render();
@@ -51,11 +51,14 @@
                             'title' => 'HTML',
                             'content' => $htmlCodeTabContent,
                         ],
-                        [
+                    ];
+
+                    if (!(isset($isObjectDocumentation) && $isObjectDocumentation) && $bladeSourceCode !== '') {
+                        $tabs[] = [
                             'title' => 'Blade',
                             'content' => $bladeCodeTabContent,
-                        ],
-                    ];
+                        ];
+                    }
                 @endphp
 
                 @tabs([

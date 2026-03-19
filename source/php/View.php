@@ -202,6 +202,7 @@ class View
                     'modifiersExample' => $modifiersExample,
                     'includesPath' => $includesPath,
                     'isScriptDocumentation' => $this->isScriptDocumentationView($viewData),
+                    'isObjectDocumentation' => $this->isObjectDocumentationView($viewData),
                     'showParametersTable' => $this->shouldShowParametersTable($viewData),
                 ]);
     
@@ -421,6 +422,22 @@ class View
     }
 
     /**
+     * Determine if current doc render target is an object documentation page.
+     *
+     * @param array<string, mixed> $viewData
+     *
+     * @return bool
+     */
+    private function isObjectDocumentationView(array $viewData): bool
+    {
+        if (!isset($viewData['viewDoc']) || !is_array($viewData['viewDoc'])) {
+            return false;
+        }
+
+        return strtolower((string) ($viewData['viewDoc']['type'] ?? '')) === 'objects';
+    }
+
+    /**
      * Determine whether parameter tables should be rendered in docs.
      *
      * Components and script docs should expose parameter tables.
@@ -435,7 +452,11 @@ class View
             return true;
         }
 
-        return $this->isScriptDocumentationView($viewData);
+        if ($this->isScriptDocumentationView($viewData)) {
+            return true;
+        }
+
+        return $this->isObjectDocumentationView($viewData);
     }
 
     /**

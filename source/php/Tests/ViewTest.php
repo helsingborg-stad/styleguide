@@ -430,11 +430,11 @@ class ViewTest extends TestCase
     }
 
     /**
-     * Ensure parameter table visibility is disabled for docs without component or script metadata.
+     * Ensure parameter table visibility is enabled for object docs.
      *
      * @return void
      */
-    public function testShouldShowParametersTableReturnsFalseForNonScriptMetadataWithoutSlug(): void
+    public function testShouldShowParametersTableReturnsTrueForObjectDocumentation(): void
     {
         $view = new View();
 
@@ -444,6 +444,6 @@ class ViewTest extends TestCase
 
         $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'objects']]);
 
-        $this->assertFalse($resolved);
+        $this->assertTrue($resolved);
     }
 }
