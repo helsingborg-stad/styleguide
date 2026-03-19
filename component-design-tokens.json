@@ -1273,6 +1273,21 @@
     "requiredBy": [],
     "icon": "description"
   },
+  "person": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Person",
+    "slug": "person",
+    "tokens": [],
+    "description": "The Person component provides a reusable pattern for displaying person information in the interface.",
+    "tags": [],
+    "similarComponents": [
+      "signature"
+    ],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "contact_mail"
+  },
   "progressbar": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
