@@ -6,7 +6,40 @@
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
             'containerAware'    => true,
-            'link'              => 'https://helsingborg.se'
+            'link'              => 'https://helsingborg.se',
+        ])
+        @endsegment
+    </div>
+    <div class="o-grid-12">
+        @segment([
+            'title'             => 'Fusce Amet Parturient Etiam',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'image'             => 'https://picsum.photos/id/342/2896/1944',
+            'containerAware'    => true,
+            'link'              => 'https://helsingborg.se',
+            'reverseColumns'  => true
+        ])
+        @endsegment
+    </div>
+    <div class="o-grid-12">
+        @segment([
+            'title'             => 'Fusce Amet Parturient Etiam',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'image'             => 'https://picsum.photos/id/342/2896/1944',
+            'containerAware'    => true,
+        ])
+        @endsegment
+    </div>
+    <div class="o-grid-12">
+        @segment([
+            'title'             => 'Fusce Amet Parturient Etiam',
+            'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
+            'layout'            => 'card',
+            'image'             => 'https://picsum.photos/id/342/2896/1944',
+            'containerAware'    => true,
+            'reverseColumns'  => true
         ])
         @endsegment
     </div>
