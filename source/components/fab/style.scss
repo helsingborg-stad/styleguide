@@ -43,11 +43,18 @@ $yAxis: (
     text-align: left;
     padding: tokens.use($_, "space", 2);
     gap: tokens.use($_, "space", 2);
+    position: relative;
+    z-index: 1;
 }
 
 .#{$_} .#{$_}__panel--open {
     display: grid;
     animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+// Ensure an expanded FAB panel always layers above adjacent stacked FABs.
+.#{$_}:has(.#{$_}__panel--open) {
+    z-index: 8100;
 }
 
 .#{$_}__panel .#{$_}__heading {
