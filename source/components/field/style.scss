@@ -2,23 +2,35 @@
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-field";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), (
-    "base": "var(--base)",
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    "background-color": tokens.get($_, "color--surface"),
-    "height": "calc(var(--base) * 6)",
-    "shadow": tokens.use($_, "shadow", 1),
-    "shadow-hover": tokens.use($_, "shadow", 1.5)
-));
+@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
+        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+        "background-color": tokens.get($_, "color--surface"),
+        "color": tokens.get($_, "color--surface-contrast"),
+        "height": "calc(var(--base) * 6)",
+        "shadow": tokens.use($_, "shadow", 1),
+        "shadow-hover": tokens.use($_, "shadow", 1.5)));
 
-$fields: "input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]";
+$fields: "input, input[type=" color"], input[type=" text"], input[type=" search"], input[type=" tel"], input[type=" time"], input[type=" date"], input[type=" datetime-local"], input[type=" url"], input[type=" week"], input[type=" month"], input[type=" number"], input[type=" password"], input[type=" email"], [data-js-select-action-overlay]";
 
 /* Component */
 .#{$_} {
+    --#{$_}--background-color: var(--inherit-color-background, #{tokens.get($_, "color--surface")});
+    --#{$_}--color: var(--inherit-color-contrast, #{tokens.get($_, "color--surface-contrast")});
     --#{$_}--height-computed: calc(#{tokens.get($_, "height")} - #{tokens.get($_, "border-width")} * 2);
 
     flex: 1;
@@ -30,7 +42,7 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
     }
 
     .#{$_}__label {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color");
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -40,14 +52,14 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
 
     .#{$_}__description {
         font-size: 0.75rem;
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color");
         margin-top: 0;
     }
 
     .#{$_}__helper {
         font-family: var(--font-family-base);
         font-size: var(--font-size-caption, 0.875rem);
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color");
         margin-top: tokens.use($_, "space", 0.5);
         margin-left: tokens.use($_, "space", 0.25);
     }
@@ -62,7 +74,7 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
         padding: tokens.use($_, "space", 2);
         outline: 0;
         margin: 0;
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color");
     }
 
     .#{$_}__inner {
@@ -77,7 +89,7 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
         line-height: calc(var(--base) * 2);
         border: tokens.get($_, "border");
         background: tokens.get($_, "background-color");
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.get($_, "color");
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
 
@@ -91,8 +103,16 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
             corner-shape: tokens.get($_, "corner-shape");
 
             &::-webkit-calendar-picker-indicator {
-                filter: brightness(0);
-                opacity: 0.8;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            &[type="date"],
+            &[type="time"],
+            &[type="datetime-local"],
+            &[type="month"],
+            &[type="week"] {
+                padding-right: calc(#{tokens.get($_, "base")} * 5);
             }
 
             &[type="search"]::-webkit-search-cancel-button {
@@ -117,349 +137,382 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
             }
         }
 
-        &.#{$_}__inner--datalist,
-        &:has(input[list]) {
-            &::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                width: calc(#{tokens.get($_, "base")} * 5);
-                border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
-                background-image: linear-gradient(
-                    to bottom,
-                    color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, tokens.get($_, "background-color")),
-                    color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, tokens.get($_, "background-color"))
-                );
-                border-top-right-radius: tokens.use($_, "border-radius");
-                border-bottom-right-radius: tokens.use($_, "border-radius");
-                pointer-events: none;
-            }
+        // Material Symbols icons for temporal input types
+        $temporal-icons: (
+            "date": "\\e935",
+            // calendar_today
+            "time": "\\e8b5",
+            // schedule
+            "datetime-local": "\\e878",
+            // event
+            "month": "\\e935",
+            // calendar_today
+            "week": "\\e916",
+            // date_range
+        );
 
-            &::after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                right: calc(#{tokens.get($_, "base")} * 2);
-                width: 0.55em;
-                height: 0.55em;
-                border-right: 2px solid tokens.get($_, "color--primary");
-                border-bottom: 2px solid tokens.get($_, "color--primary");
-                transform: translateY(-65%) rotate(45deg);
-                opacity: 1;
-                pointer-events: none;
-            }
-        }
-
-        .#{$_}__icon,
-        .#{$_}__prefix,
-        .#{$_}__suffix {
-            color: tokens.get($_, "color--surface-contrast");
-        }
-
-        .#{$_}__icon,
-        .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2);
-        }
-
-        .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2);
-        }
-
-        .#{$_}__error-icon {
-            color: tokens.get($_, "color--danger");
-            display: none;
-        }
-
-        .#{$_}__success-icon {
-            color: tokens.get($_, "color--success");
-            display: none;
-        }
-
-        &.#{$_}__inner--textarea .#{$_}__error-icon,
-        &.#{$_}__inner--textarea .#{$_}__success-icon {
+    @each $type, $icon in $temporal-icons {
+        &:has(input[type="#{$type}"]):not(:has(input[list]))::after {
+            font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp";
+            content: "#{$icon}";
             position: absolute;
-            padding: 0;
             right: tokens.use($_, "space", 2);
-            bottom: tokens.use($_, "space", 2);
-        }
-
-        &--search {
-
-            #input_search-form__field,
-            #input_search-form--field,
-            #input_header-search-form__field,
-            #input_hero-search-form__field,
-            #input_mobile-search-form__field {
-                box-shadow: none;
-            }
-        }
-
-        &--number,
-        &--email,
-        &--text,
-        &--url,
-        &--time,
-        &--date {
-            input:focus {
-                box-shadow: none;
-            }
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: tokens.get($_, "color");
+            font-style: normal;
+            font-size: calc(#{tokens.get($_, "base")} * 2.5);
+            font-variation-settings:
+                'FILL' 0,
+                'wght' var(--current-material-symbols-weight, 400),
+                'GRAD' var(--current-material-symbols-grade, 0),
+                'opsz' var(--current-material-symbols-optical-size, 24);
+            opacity: 0.7;
         }
     }
 
-    &.#{$_}--hidden {
-        .#{$_}__inner {
-            border: unset;
+    &.#{$_}__inner--datalist,
+    &:has(input[list]) {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: calc(#{tokens.get($_, "base")} * 5);
+            border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+            background-image: linear-gradient(to bottom,
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, tokens.get($_, "background-color")),
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, tokens.get($_, "background-color")));
+            border-top-right-radius: tokens.use($_, "border-radius");
+            border-bottom-right-radius: tokens.use($_, "border-radius");
+            pointer-events: none;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: calc(#{tokens.get($_, "base")} * 2);
+            width: 0.55em;
+            height: 0.55em;
+            border-right: 2px solid tokens.get($_, "color--primary");
+            border-bottom: 2px solid tokens.get($_, "color--primary");
+            transform: translateY(-65%) rotate(45deg);
+            opacity: 1;
+            pointer-events: none;
         }
     }
 
+    .#{$_}__icon,
+    .#{$_}__prefix,
+    .#{$_}__suffix {
+        color: tokens.get($_, "color");
+    }
 
-    textarea {
-        min-height: tokens.get($_, "height");
-        height: initial;
-        max-width: 100%;
+    .#{$_}__icon,
+    .#{$_}__prefix {
+        padding-left: tokens.use($_, "space", 2);
+    }
 
-        &:focus-visible {
+    .#{$_}__suffix {
+        padding-right: tokens.use($_, "space", 2);
+    }
+
+    .#{$_}__error-icon {
+        color: tokens.get($_, "color--danger");
+        display: none;
+    }
+
+    .#{$_}__success-icon {
+        color: tokens.get($_, "color--success");
+        display: none;
+    }
+
+    &.#{$_}__inner--textarea .#{$_}__error-icon,
+    &.#{$_}__inner--textarea .#{$_}__success-icon {
+        position: absolute;
+        padding: 0;
+        right: tokens.use($_, "space", 2);
+        bottom: tokens.use($_, "space", 2);
+    }
+
+    &--search {
+
+        #input_search-form__field,
+        #input_search-form--field,
+        #input_header-search-form__field,
+        #input_hero-search-form__field,
+        #input_mobile-search-form__field {
             box-shadow: none;
         }
     }
 
-    /* Borderless */
-    &.#{$_}--borderless {
+    &--number,
+    &--email,
+    &--text,
+    &--url,
+    &--time,
+    &--date {
+        input:focus {
+            box-shadow: none;
+        }
+    }
+}
+
+&.#{$_}--hidden {
+    .#{$_}__inner {
+        border: unset;
+    }
+}
+
+
+textarea {
+    min-height: tokens.get($_, "height");
+    height: initial;
+    max-width: 100%;
+
+    &:focus-visible {
+        box-shadow: none;
+    }
+}
+
+/* Borderless */
+&.#{$_}--borderless {
+    .#{$_}__inner {
+        border-width: 0;
+        border-color: transparent;
+    }
+}
+
+/* Shadow */
+&.#{$_}--shadow {
+    transition: filter 100ms ease-in-out;
+    filter: tokens.get($_, "shadow");
+}
+
+&.#{$_}--shadow:hover {
+    filter: tokens.get($_, "shadow-hover");
+}
+
+/* Customizer modifiers */
+&.#{$_}--rounded {
+
+    .#{$_}__inner,
+    .#{$_}__inner input {
+        border-radius: calc(#{tokens.get($_, "base")} * 3);
+        border: none;
+
+        input::placeholder {
+            font-weight: 700;
+        }
+    }
+
+    .#{$_}__label {
+        margin-left: calc(#{tokens.get($_, "base")} * 2);
+    }
+
+    &.#{$_}--rounded-border {
         .#{$_}__inner {
-            border-width: 0;
-            border-color: transparent;
+            border: tokens.get($_, "border");
         }
     }
 
-    /* Shadow */
-    &.#{$_}--shadow {
-        transition: filter 100ms ease-in-out;
-        filter: tokens.get($_, "shadow");
+    input:focus+.#{$_}_focus-styler,
+    textarea:focus+.#{$_}_focus-styler {
+        border-radius: calc(#{tokens.get($_, "base")} * 3);
+    }
+}
+
+/* Size modifiers */
+&.#{$_}--sm {
+    font-size: 0.775rem;
+    line-height: calc(var(--base) * 1.5);
+
+    #{$fields} {
+        padding: tokens.use($_, "space");
+        height: calc(#{tokens.get($_, "base")} * 4.5);
     }
 
-    &.#{$_}--shadow:hover {
-        filter: tokens.get($_, "shadow-hover");
-    }
-
-    /* Customizer modifiers */
-    &.#{$_}--rounded {
-
-        .#{$_}__inner,
-        .#{$_}__inner input {
-            border-radius: calc(#{tokens.get($_, "base")} * 3);
-            border: none;
-
-            input::placeholder {
-                font-weight: 700;
-            }
-        }
-
-        .#{$_}__label {
-            margin-left: calc(#{tokens.get($_, "base")} * 2);
-        }
-
-        &.#{$_}--rounded-border {
-            .#{$_}__inner {
-                border: tokens.get($_, "border");
-            }
-        }
-
-        input:focus+.#{$_}_focus-styler,
-        textarea:focus+.#{$_}_focus-styler {
-            border-radius: calc(#{tokens.get($_, "base")} * 3);
-        }
-    }
-
-    /* Size modifiers */
-    &.#{$_}--sm {
-        font-size: 0.775rem;
-        line-height: calc(var(--base) * 1.5);
-
+    &.#{$_}--borderless {
         #{$fields} {
-            padding: tokens.use($_, "space");
             height: calc(#{tokens.get($_, "base")} * 4.5);
         }
+    }
 
-        &.#{$_}--borderless {
-            #{$fields} {
-                height: calc(#{tokens.get($_, "base")} * 4.5);
-            }
-        }
+    textarea {
+        padding: tokens.use($_, "space");
+        min-height: calc(#{tokens.get($_, "base")} * 4.5);
+    }
 
-        textarea {
-            padding: tokens.use($_, "space");
-            min-height: calc(#{tokens.get($_, "base")} * 4.5);
-        }
+    .#{$_}__icon,
+    .#{$_}__prefix {
+        padding-left: tokens.use($_, "space");
+    }
 
-        .#{$_}__icon,
-        .#{$_}__prefix {
-            padding-left: tokens.use($_, "space");
-        }
+    .#{$_}__suffix {
+        padding-right: tokens.use($_, "space");
+    }
+}
 
-        .#{$_}__suffix {
-            padding-right: tokens.use($_, "space");
+&.#{$_}--md {
+    #{$fields} {
+        padding: tokens.use($_, "space", 2);
+        height: var(--#{$_}--height-computed);
+    }
+
+    &.#{$_}--borderless {
+        #{$fields} {
+            height: tokens.get($_, "height");
         }
     }
 
-    &.#{$_}--md {
-        #{$fields} {
-            padding: tokens.use($_, "space", 2);
-            height: var(--#{$_}--height-computed);
-        }
-
-        &.#{$_}--borderless {
-            #{$fields} {
-                height: tokens.get($_, "height");
-            }
-        }
-
-        textarea {
-            padding: tokens.use($_, "space", 2);
-            min-height: var(--#{$_}--height-computed);
-        }
-
-        .#{$_}__icon,
-        .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2);
-        }
-
-        .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2);
-        }
+    textarea {
+        padding: tokens.use($_, "space", 2);
+        min-height: var(--#{$_}--height-computed);
     }
 
-    &.#{$_}--lg {
-        font-size: 1rem;
-        line-height: calc(var(--base) * 2);
+    .#{$_}__icon,
+    .#{$_}__prefix {
+        padding-left: tokens.use($_, "space", 2);
+    }
 
+    .#{$_}__suffix {
+        padding-right: tokens.use($_, "space", 2);
+    }
+}
+
+&.#{$_}--lg {
+    font-size: 1rem;
+    line-height: calc(var(--base) * 2);
+
+    #{$fields} {
+        padding: tokens.use($_, "space", 2.5);
+        height: calc(#{tokens.get($_, "base")} * 8);
+    }
+
+    &.#{$_}--borderless {
         #{$fields} {
-            padding: tokens.use($_, "space", 2.5);
             height: calc(#{tokens.get($_, "base")} * 8);
         }
-
-        &.#{$_}--borderless {
-            #{$fields} {
-                height: calc(#{tokens.get($_, "base")} * 8);
-            }
-        }
-
-        textarea {
-            padding: tokens.use($_, "space", 2.5);
-            min-height: calc(#{tokens.get($_, "base")} * 8);
-        }
-
-        .#{$_}__icon,
-        .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2.5);
-        }
-
-        .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2.5);
-        }
     }
 
-    &.is-invalid {
+    textarea {
+        padding: tokens.use($_, "space", 2.5);
+        min-height: calc(#{tokens.get($_, "base")} * 8);
+    }
 
-        .#{$_}__inner,
-        select,
-        option {
+    .#{$_}__icon,
+    .#{$_}__prefix {
+        padding-left: tokens.use($_, "space", 2.5);
+    }
 
-            &,
-            &:focus,
-            &:focus-within,
-            &:active {
-                border-color: tokens.get($_, "color--danger");
-            }
+    .#{$_}__suffix {
+        padding-right: tokens.use($_, "space", 2.5);
+    }
+}
 
-            .#{$_}__error-icon {
-                display: block;
-            }
+&.is-invalid {
+
+    .#{$_}__inner,
+    select,
+    option {
+
+        &,
+        &:focus,
+        &:focus-within,
+        &:active {
+            border-color: tokens.get($_, "color--danger");
         }
 
-        .#{$_}__helper {
-            color: tokens.get($_, "color--danger");
-        }
-
-        .#{$_}__inner {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .#{$_}__error {
+        .#{$_}__error-icon {
             display: block;
-            padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 2);
-            color: tokens.get($_, "color--danger-contrast");
-            background-color: tokens.get($_, "color--danger");
-            border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
-            corner-shape: tokens.get($_, "corner-shape");
         }
     }
 
-    &.is-valid {
-        .#{$_}__inner {
+    .#{$_}__helper {
+        color: tokens.get($_, "color--danger");
+    }
 
-            &,
-            &:focus,
-            &:active {
-                border-color: tokens.get($_, "color--success");
-            }
-
-            .#{$_}__success-icon {
-                display: block;
-            }
-        }
+    .#{$_}__inner {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     .#{$_}__error {
-        display: none;
-    }
-
-    &.#{$_}--search-results-enabled {
-        position: relative;
-    }
-
-    .#{$_}__search-results {
-        position: absolute;
-        top: calc(100% + #{tokens.use($_, "space", 0.5)});
-        left: 0;
-        right: 0;
-        z-index: 4500;
-        background-color: tokens.get($_, "background-color");
-        border: tokens.get($_, "border");
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
-        box-shadow: tokens.get($_, "shadow");
-        max-height: calc(#{tokens.get($_, "base")} * 28);
-        overflow-y: auto;
-    }
-
-    .#{$_}__search-results-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .#{$_}__search-results-item {
-        border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
-
-        &:last-child {
-            border-bottom: 0;
-        }
-    }
-
-    .#{$_}__search-results-link {
         display: block;
-        text-decoration: none;
-        color: tokens.get($_, "color--surface-contrast");
-        padding: tokens.use($_, "space", 1.25) tokens.use($_, "space", 2);
+        padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 2);
+        color: tokens.get($_, "color--danger-contrast");
+        background-color: tokens.get($_, "color--danger");
+        border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
+        corner-shape: tokens.get($_, "corner-shape");
+    }
+}
 
-        &:hover,
-        &:focus-visible {
-            background-color: color-mix(in srgb, tokens.get($_, "color--surface-border") 12%, tokens.get($_, "background-color"));
+&.is-valid {
+    .#{$_}__inner {
+
+        &,
+        &:focus,
+        &:active {
+            border-color: tokens.get($_, "color--success");
+        }
+
+        .#{$_}__success-icon {
+            display: block;
         }
     }
+}
+
+.#{$_}__error {
+    display: none;
+}
+
+&.#{$_}--search-results-enabled {
+    position: relative;
+}
+
+.#{$_}__search-results {
+    position: absolute;
+    top: calc(100% + #{tokens.use($_, "space", 0.5)});
+    left: 0;
+    right: 0;
+    z-index: 4500;
+    background-color: tokens.get($_, "background-color");
+    border: tokens.get($_, "border");
+    border-radius: tokens.use($_, "border-radius");
+    corner-shape: tokens.get($_, "corner-shape");
+    box-shadow: tokens.get($_, "shadow");
+    max-height: calc(#{tokens.get($_, "base")} * 28);
+    overflow-y: auto;
+}
+
+.#{$_}__search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.#{$_}__search-results-item {
+    border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.#{$_}__search-results-link {
+    display: block;
+    text-decoration: none;
+    color: tokens.get($_, "color--surface-contrast");
+    padding: tokens.use($_, "space", 1.25) tokens.use($_, "space", 2);
+
+    &:hover,
+    &:focus-visible {
+        background-color: color-mix(in srgb, tokens.get($_, "color--surface-border") 12%, tokens.get($_, "background-color"));
+    }
+}
 }
 
 /* For the search-field in a megamenu */

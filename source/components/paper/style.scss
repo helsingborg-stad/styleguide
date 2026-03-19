@@ -31,13 +31,9 @@ $_: "c-paper";
     }
 
     /* switch to surface color tokens for nested components */
-    --c-field--background-color: var(--color--background);
-    --c-field--color--surface-contrast: var(--color--background-contrast);
-    --c-card--color--surface: var(--color--background);
-    --c-card--color--surface-contrast: var(--color--background-contrast);
-    --c-comment--color--surface: var(--color--background);
-    --c-comment--color--surface-contrast: var(--color--background-contrast);
-
+    .c-field,
+    .c-card,
+    .c-comment,
     .c-button__filled--default {
         --inherit-color-background: var(--color--background);
         --inherit-color-contrast: var(--color--background-contrast);

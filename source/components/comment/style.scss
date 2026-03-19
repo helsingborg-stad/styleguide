@@ -1,5 +1,16 @@
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-comment";
 
@@ -59,8 +70,8 @@ $_: "c-comment";
         border-top-left-radius: tokens.use($_, "border-radius", 0.5);
         padding: tokens.use($_, "space", 1.5) tokens.use($_, "space", 2);
         margin: 0;
-        background-color: tokens.get($_, "color--surface");
-        color: tokens.get($_, "color--surface-contrast");
+        background-color: var(--inherit-color-background, tokens.get($_, "color--surface"));
+        color: var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast"));
     }
 
     .#{$_}__actions {

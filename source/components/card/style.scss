@@ -1,6 +1,17 @@
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-card";
 
@@ -21,21 +32,17 @@ $_: "c-card";
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: tokens.get($_, "color--surface");
-    color: tokens.get($_, "color--surface-contrast");
+    background-color: var(--inherit-color-background, tokens.get($_, "color--surface"));
+    color: var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast"));
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     transition: all 200ms ease-in;
     border: tokens.get($_, "border");
 
     /* switch to surface color tokens for nested components */
-    --c-field--background-color: var(--color--background);
-    --c-field--color--surface-contrast: var(--color--background-contrast);
-    --c-paper--color--surface: var(--color--background);
-    --c-paper--color--surface-contrast: var(--color--background-contrast);
-    --c-comment--color--surface: var(--color--background);
-    --c-comment--color--surface-contrast: var(--color--background-contrast);
-
+    .c-field,
+    .c-paper,
+    .c-comment,
     .c-button__filled--default {
         --inherit-color-background: var(--color--background);
         --inherit-color-contrast: var(--color--background-contrast);
