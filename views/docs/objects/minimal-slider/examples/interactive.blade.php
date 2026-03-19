@@ -1,12 +1,23 @@
 <section class="o-minimal-slider" data-minimal-slider style="--slides-per-view: 1;">
     <div class="o-minimal-slider__toolbar" aria-label="Slider options">
         <div class="o-minimal-slider__field">
-            <label class="o-minimal-slider__label" for="minimal-slider-per-view">Slides per view</label>
-            <select class="o-minimal-slider__select" id="minimal-slider-per-view" data-slider-per-view>
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
+            @select([
+                'label' => 'Slides per view',
+                'preselected' => '1',
+                'options' => [
+                    '1' => '1',
+                    '2' => '2',
+                    '3' => '3',
+                ],
+                'classList' => ['o-minimal-slider__select'],
+                'attributeList' => [
+                    'data-slider-per-view-wrapper' => '',
+                ],
+                'selectAttributeList' => [
+                    'data-slider-per-view' => '',
+                ]
+            ])
+            @endselect
         </div>
 
     </div>
@@ -86,9 +97,36 @@
     </div>
 
     <div class="o-minimal-slider__controls">
-        <button class="o-minimal-slider__button" type="button" data-slider-prev aria-controls="minimal-slider-track">Previous</button>
-        <button class="o-minimal-slider__button" type="button" data-slider-next aria-controls="minimal-slider-track">Next</button>
-        <p class="o-minimal-slider__meta" data-slider-status aria-live="polite">Slide 1 of 6</p>
+        @button([
+            'style' => 'filled',
+            'color' => 'secondary',
+            'shape' => 'pill',
+            'classList' => ['o-minimal-slider__button'],
+            'icon' => 'chevron_backward',
+            'attributeList' => [
+                'type' => 'button',
+                'data-slider-prev' => '',
+                'aria-controls' => 'minimal-slider-track'
+            ]
+        ])
+        @endbutton
+
+        @button([
+            'icon' => 'chevron_forward',
+            'style' => 'filled',
+            'color' => 'secondary',
+            'classList' => ['o-minimal-slider__button'],
+            'shape' => 'pill',
+            'attributeList' => [
+                'type' => 'button',
+                'data-slider-next' => '',
+                'aria-controls' => 'minimal-slider-track'
+            ]
+        ])
+        @endbutton
+
+        <!-- Status element for screen readers -->
+        <p class="o-minimal-slider__meta u-sr__only" data-slider-status aria-live="polite">Slide 1 of 6</p>
     </div>
 </section>
 
@@ -102,7 +140,7 @@
     const track = slider.querySelector('[data-slider-track]');
     const prevButton = slider.querySelector('[data-slider-prev]');
     const nextButton = slider.querySelector('[data-slider-next]');
-    const perViewSelect = slider.querySelector('[data-slider-per-view]');
+    const perViewSelect = slider.querySelector('[data-slider-per-view]') || slider.querySelector('[data-slider-per-view-wrapper] [data-js-select-element]');
     const status = slider.querySelector('[data-slider-status]');
     const slides = Array.from(track.querySelectorAll('.o-minimal-slider__slide'));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
