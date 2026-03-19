@@ -2,17 +2,34 @@
 
 namespace HbgStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\CssVariablesReferencesDesignTokensValidator;
+use HbgStyleGuide\Validators\Sass\InheritVariablesDeclaredValidator;
 use PHPUnit\Framework\TestCase;
 
-class CssVariablesReferencesDesignTokensTest extends TestCase
+/**
+ * Verifies that every --inherit-* CSS custom property used in component SCSS
+ * files is registered via @property with inherits: false.
+ *
+ * The --inherit-* convention marks runtime hook variables that must not
+ * propagate through the cascade. Registering them with inherits: false
+ * makes that contract explicit and browser-enforced.
+ */
+class InheritVariablesDeclaredTest extends TestCase
 {
+    /**
+     * Returns the path to the component directory to scan.
+     *
+     * @return string
+     */
     private static function getComponentPath(): string
     {
         return getenv('VALIDATOR_COMPONENT_PATH') ?: dirname(__DIR__, 2) . '/sass/component';
     }
 
     /**
+     * Collects all component SCSS files to test, preferring the new
+     * source/components/{name}/style.scss structure but falling back to the
+     * legacy source/sass/component/*.scss layout.
+     *
      * @return string[]
      */
     private static function getComponentFiles(): array
@@ -33,17 +50,11 @@ class CssVariablesReferencesDesignTokensTest extends TestCase
         return $componentStyleFiles === false ? [] : $componentStyleFiles;
     }
 
-    private static function getTokensJsonPath(): string
-    {
-        return getenv('VALIDATOR_TOKENS_PATH') ?: dirname(__DIR__, 2) . '/data/design-tokens.json';
-    }
-
-    private static function getVarCssPath(): string
-    {
-        return getenv('VALIDATOR_VAR_CSS_PATH') ?: dirname(__DIR__, 2) . '/sass/setting/_var_css.scss';
-    }
-
-    /** @return array<string, array{string}> */
+    /**
+     * Provides one test case per SCSS file.
+     *
+     * @return array<string, array{string}>
+     */
     public static function componentFilesProvider(): array
     {
         $files = self::getComponentFiles();
@@ -54,7 +65,7 @@ class CssVariablesReferencesDesignTokensTest extends TestCase
 
         $cases = [];
         foreach ($files as $file) {
-            $name = basename($file, '.scss');
+            $name = basename(dirname($file));
             $cases[$name] = [$file];
         }
 
@@ -62,26 +73,29 @@ class CssVariablesReferencesDesignTokensTest extends TestCase
     }
 
     /**
+     * Asserts that every --inherit-* variable in the file is declared as
+     * an @property block with inherits: false.
+     *
      * @dataProvider componentFilesProvider
+     *
+     * @param string $filePath Absolute path to the component SCSS file.
+     *
+     * @return void
      */
-    public function testCssVariableReferencesExistInDesignTokens(string $filePath): void
+    public function testInheritVariablesAreDeclaredWithInheritsOff(string $filePath): void
     {
         if ($filePath === '/dev/null') {
             $this->markTestSkipped('No component SCSS files found in: ' . self::getComponentPath());
         }
 
-        $validator = new CssVariablesReferencesDesignTokensValidator(
-            self::getTokensJsonPath(),
-            self::getVarCssPath(),
-        );
-
+        $validator = new InheritVariablesDeclaredValidator();
         $result = $validator->validate($filePath);
 
         $this->assertTrue(
             $result->isValid(),
             sprintf(
-                "Unknown CSS variable references in %s:\n%s",
-                basename($filePath),
+                "Undeclared or incorrectly declared --inherit-* variables in %s:\n%s",
+                basename(dirname($filePath)),
                 $result->format($filePath),
             ),
         );

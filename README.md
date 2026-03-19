@@ -264,6 +264,45 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 
 ## Testing
 
+### Contribution Rule-Set (Do and Don't)
+
+The rules below are aligned with the validator tests in `source/validators/Tests` and should be followed for all component and style changes.
+
+#### Do
+
+- **Do use design tokens as the source of truth** in component styles.
+- **Do declare component token usage** in `source/data/c-<component>.json`.
+- **Do namespace component CSS custom properties** so they remain component-scoped.
+- **Do declare each `--inherit-*` variable with `@property` and `inherits: false`** when used.
+- **Do keep JavaScript tests adjacent to the file under test** (`*.test.ts` / `*.test.js`).
+- **Do run validator and unit tests before opening a PR**.
+
+#### Don't
+
+- **Don't use Sass variables in component SCSS**, except the allowed component name variable `$_` in token helper calls.
+- **Don't mix token/Sass variable patterns in utility files** that should rely on CSS custom properties.
+- **Don't use un-namespaced CSS custom properties** in component SCSS.
+- **Don't reference CSS variables that are not declared in design tokens / generated variable sources**.
+- **Don't edit generated token output directly** (for example `source/sass/setting/_design-tokens.scss`), as it will be overwritten.
+
+#### Test-Backed Rules (Source of Truth)
+
+- `source/validators/Tests/NoSassVariablesTest.php`
+- `source/validators/Tests/TokenMixingTest.php`
+- `source/validators/Tests/CssVariablesNamespacedTest.php`
+- `source/validators/Tests/CssVariablesReferencesDesignTokensTest.php`
+- `source/validators/Tests/InheritVariablesDeclaredTest.php`
+
+#### Quick Verification Before PR
+
+```sh
+# PHP validator tests (SCSS/token contracts)
+./vendor/bin/phpunit source/validators/Tests
+
+# JavaScript unit tests
+npm test
+```
+
 Jest is used as testing framework for JavaScript in the StyleGuide.
 
 Test files should be added adjacent to the file that is the subject fo testing. Naming convention for test files is to use the same name as the file that is subject for testing and be appended with ".test.js" or "test.ts". The ".ts" file ending enables some IDE's, like VS Code, to add intellisense for Jest.

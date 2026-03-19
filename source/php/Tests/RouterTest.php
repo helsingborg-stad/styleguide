@@ -110,23 +110,27 @@ class RouterTest extends TestCase
      */
     public function testDispatchUsesComponentAndUtilityControllersForDetailPages(): void
     {
-        $tempBasePath = sys_get_temp_dir() . '/styleguide-router-' . uniqid('', true) . '/';
-        mkdir($tempBasePath . 'source/components/button', 0777, true);
-        mkdir($tempBasePath . 'source/utilities/spacing', 0777, true);
+        $componentSlug = 'button-' . uniqid('', false);
+        $utilitySlug = 'spacing-' . uniqid('', false);
+
+        $createdBasePath = !defined('BASEPATH');
+        $tempBasePath = $createdBasePath ? sys_get_temp_dir() . '/styleguide-router-' . uniqid('', true) . '/' : rtrim((string) BASEPATH, '/') . '/';
+        mkdir($tempBasePath . 'source/components/' . $componentSlug, 0777, true);
+        mkdir($tempBasePath . 'source/utilities/' . $utilitySlug, 0777, true);
 
         file_put_contents(
-            $tempBasePath . 'source/components/button/component.json',
-            json_encode(['name' => 'Button', 'slug' => 'button']),
+            $tempBasePath . 'source/components/' . $componentSlug . '/component.json',
+            json_encode(['name' => 'Button', 'slug' => $componentSlug]),
         );
 
         file_put_contents(
-            $tempBasePath . 'source/utilities/spacing/utility.json',
+            $tempBasePath . 'source/utilities/' . $utilitySlug . '/utility.json',
             json_encode([
                 'apiVersion' => 1,
                 'name' => 'Spacing',
-                'slug' => 'spacing',
+                'slug' => $utilitySlug,
                 'entries' => [
-                    'spacing' => [
+                    $utilitySlug => [
                         'description' => [
                             'padding' => 'Spacing utility',
                         ],
@@ -135,10 +139,12 @@ class RouterTest extends TestCase
             ]),
         );
 
-        define('BASEPATH', $tempBasePath);
+        if ($createdBasePath) {
+            define('BASEPATH', $tempBasePath);
+        }
 
-        $componentRequest = new Request('/components/button', []);
-        $utilityRequest = new Request('/utilities/spacing', []);
+        $componentRequest = new Request('/components/' . $componentSlug, []);
+        $utilityRequest = new Request('/utilities/' . $utilitySlug, []);
 
         $pageController = $this->createMock(PageController::class);
         $componentPageController = $this->createMock(ComponentPageController::class);
@@ -176,14 +182,17 @@ class RouterTest extends TestCase
         $componentRouter->dispatch();
         $utilityRouter->dispatch();
 
-        @unlink($tempBasePath . 'source/components/button/component.json');
-        @unlink($tempBasePath . 'source/utilities/spacing/utility.json');
-        @rmdir($tempBasePath . 'source/components/button');
-        @rmdir($tempBasePath . 'source/utilities/spacing');
-        @rmdir($tempBasePath . 'source/components');
-        @rmdir($tempBasePath . 'source/utilities');
-        @rmdir($tempBasePath . 'source');
-        @rmdir($tempBasePath);
+        @unlink($tempBasePath . 'source/components/' . $componentSlug . '/component.json');
+        @unlink($tempBasePath . 'source/utilities/' . $utilitySlug . '/utility.json');
+        @rmdir($tempBasePath . 'source/components/' . $componentSlug);
+        @rmdir($tempBasePath . 'source/utilities/' . $utilitySlug);
+
+        if ($createdBasePath) {
+            @rmdir($tempBasePath . 'source/components');
+            @rmdir($tempBasePath . 'source/utilities');
+            @rmdir($tempBasePath . 'source');
+            @rmdir($tempBasePath);
+        }
     }
 
     /**

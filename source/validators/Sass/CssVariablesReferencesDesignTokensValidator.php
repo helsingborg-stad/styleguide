@@ -2,9 +2,9 @@
 
 namespace HbgStyleGuide\Validators\Sass;
 
-use HbgStyleGuide\Validators\ValidatorInterface;
-use HbgStyleGuide\Validators\ValidationResult;
 use HbgStyleGuide\Validators\DesignTokensParser;
+use HbgStyleGuide\Validators\ValidationResult;
+use HbgStyleGuide\Validators\ValidatorInterface;
 
 class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
 {
@@ -15,7 +15,7 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
     public function __construct(string $tokensJsonPath, string $varCssPath)
     {
         $this->tokensJsonPath = $tokensJsonPath;
-        $this->varCssPath     = $varCssPath;
+        $this->varCssPath = $varCssPath;
     }
 
     public function validate(string $filePath): ValidationResult
@@ -28,7 +28,7 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
         }
 
         $allowed = $this->getAllowedVariables();
-        $lines   = file($filePath, FILE_IGNORE_NEW_LINES);
+        $lines = file($filePath, FILE_IGNORE_NEW_LINES);
         if ($lines === false) {
             $result->addViolation(0, "Could not read file: {$filePath}");
             return $result;
@@ -38,7 +38,7 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
 
         foreach ($lines as $index => $line) {
             $lineNumber = $index + 1;
-            $stripped   = $this->stripComments($line, $inBlockComment);
+            $stripped = $this->stripComments($line, $inBlockComment);
 
             if (trim($stripped) === '') {
                 continue;
@@ -52,11 +52,16 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
                         continue;
                     }
 
+                    // Inherited utility variables are runtime hooks, not design token keys.
+                    if (str_starts_with($varName, '--inherit-')) {
+                        continue;
+                    }
+
                     if (!in_array($varName, $allowed, true)) {
                         $result->addViolation(
                             $lineNumber,
                             "CSS variable reference '{$varName}' not found in design tokens",
-                            $line
+                            $line,
                         );
                     }
                 }
@@ -73,7 +78,7 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
             $parser = new DesignTokensParser();
             $this->allowedVariables = $parser->getAllowedVariables(
                 $this->tokensJsonPath,
-                $this->varCssPath
+                $this->varCssPath,
             );
         }
 
@@ -83,8 +88,8 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
     private function stripComments(string $line, bool &$inBlockComment): string
     {
         $result = '';
-        $len    = strlen($line);
-        $i      = 0;
+        $len = strlen($line);
+        $i = 0;
 
         while ($i < $len) {
             if ($inBlockComment) {
@@ -97,18 +102,18 @@ class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
                 continue;
             }
 
-            if ($i + 1 < $len && $line[$i] === '/' && $line[$i + 1] === '/') {
+            if (($i + 1) < $len && $line[$i] === '/' && $line[$i + 1] === '/') {
                 return $result;
             }
 
-            if ($i + 1 < $len && $line[$i] === '/' && $line[$i + 1] === '*') {
+            if (($i + 1) < $len && $line[$i] === '/' && $line[$i + 1] === '*') {
                 $inBlockComment = true;
                 $i += 2;
                 continue;
             }
 
             if ($line[$i] === '"' || $line[$i] === "'") {
-                $quote  = $line[$i];
+                $quote = $line[$i];
                 $endStr = strpos($line, $quote, $i + 1);
                 if ($endStr !== false) {
                     $i = $endStr + 1;

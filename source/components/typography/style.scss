@@ -6,6 +6,16 @@
     inherits: false;
 }
 
+@property --inherit-margin-top {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-margin-bottom {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-typography";
 

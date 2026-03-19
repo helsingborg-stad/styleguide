@@ -270,21 +270,31 @@ class PageController extends BaseController implements ControllerInterface
 
             $entries = isset($config['entries']) && is_array($config['entries']) ? $config['entries'] : [];
             $utilityDirectoryPath = dirname($utilityConfigPath);
-            $state = isset($config['state']) && is_string($config['state']) && trim($config['state']) !== ''
-                ? trim($config['state'])
-                : null;
+            $state = isset($config['state']) && is_string($config['state']) && trim($config['state']) !== '' ? trim($config['state']) : null;
 
             $data['slug'] = $slug;
-            $data['headline'] = $this->appendStateToLabel(isset($config['name']) && is_string($config['name']) && $config['name'] !== ''
-                ? $config['name']
-                : ucfirst($slug), $state);
-            $data['componentIcon'] = isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== ''
-                ? $config['icon']
-                : 'tune';
+            $data['headline'] = $this->appendStateToLabel(isset($config['name']) && is_string($config['name']) && $config['name'] !== '' ? $config['name'] : ucfirst($slug), $state);
+            $data['componentIcon'] = isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '' ? $config['icon'] : 'tune';
             $data['description'] = $this->resolveUtilityOverviewDescription($config);
-            $data['utilityEntryKeys'] = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
+            $utilityEntryKeys = array_values(array_filter(array_keys($entries), static fn($key): bool => is_string($key) && $key !== ''));
+            $examplesByEntry = $this->buildExamplesByEntryFromConfig($entries, basename($utilityDirectoryPath));
+            $examplesFromFile = $this->buildExamplesByEntryFromExamplesFile(
+                $utilityDirectoryPath . '/examples/examples.json',
+                $entries,
+                basename($utilityDirectoryPath),
+            );
+
+            foreach ($examplesFromFile as $entryKey => $entryExamples) {
+                if (!isset($examplesByEntry[$entryKey])) {
+                    $examplesByEntry[$entryKey] = [];
+                }
+
+                $examplesByEntry[$entryKey] = array_values(array_merge($examplesByEntry[$entryKey], $entryExamples));
+            }
+
+            $data['utilityEntryKeys'] = $utilityEntryKeys;
             $data['utilityEntries'] = $entries;
-            $data['utilityExamplesByEntry'] = $this->buildExamplesByEntryFromConfig($entries, basename($utilityDirectoryPath));
+            $data['utilityExamplesByEntry'] = $examplesByEntry;
             $data['pageNow'] = 'utilities/' . $requestedSlug;
 
             return;
@@ -464,7 +474,7 @@ class PageController extends BaseController implements ControllerInterface
     protected function buildExamplesByEntryFromConfig(array $entries, string $utilityFolder): array
     {
         $viewPrefix = 'source.utilities.' . $utilityFolder . '.examples.';
-        $result     = [];
+        $result = [];
 
         foreach ($entries as $entryKey => $entry) {
             if (!is_string($entryKey) || $entryKey === '' || !is_array($entry)) {
@@ -508,14 +518,14 @@ class PageController extends BaseController implements ControllerInterface
      * @param string $utilityFolder
      * @param string $viewPrefix
      *
-      * @return array{view: string, css: array<int, string>, title?: string, description?: string}|null
+     * @return array{view: string, css: array<int, string>, title?: string, description?: string}|null
      */
     protected function resolveUtilityExampleDefinition(mixed $exampleDefinition, string $utilityFolder, string $viewPrefix): ?array
     {
         $exampleKey = null;
         $cssDefinitions = [];
-          $title = null;
-          $description = null;
+        $title = null;
+        $description = null;
 
         if (is_string($exampleDefinition) && $exampleDefinition !== '') {
             $exampleKey = $exampleDefinition;
@@ -582,8 +592,7 @@ class PageController extends BaseController implements ControllerInterface
             }
 
             $normalizedCssDefinition = trim($cssDefinition);
-            $isExternalUrl = str_starts_with($normalizedCssDefinition, 'http://')
-                || str_starts_with($normalizedCssDefinition, 'https://');
+            $isExternalUrl = str_starts_with($normalizedCssDefinition, 'http://') || str_starts_with($normalizedCssDefinition, 'https://');
 
             if ($isExternalUrl || str_starts_with($normalizedCssDefinition, '/')) {
                 $resolvedUrls[] = $normalizedCssDefinition;
@@ -594,6 +603,104 @@ class PageController extends BaseController implements ControllerInterface
         }
 
         return array_values(array_unique($resolvedUrls));
+    }
+
+    /**
+     * Build utility examples keyed by entry from legacy examples/examples.json.
+     *
+     * Supported formats:
+     * 1) Object keyed by entry, e.g. {"alpha": ["demo-view"]}
+     * 2) List of items, each item optionally setting "entry", "title", "description", and "css"
+     *
+     * @param string $examplesPath
+     * @param array<string, mixed> $entries
+     * @param string $utilityFolder
+     *
+     * @return array<string, array<int, string|array{view: string, css: array<int, string>, title?: string, description?: string}>>
+     */
+    protected function buildExamplesByEntryFromExamplesFile(string $examplesPath, array $entries, string $utilityFolder): array
+    {
+        if (!is_file($examplesPath)) {
+            return [];
+        }
+
+        $examplesContent = file_get_contents($examplesPath);
+        if (!is_string($examplesContent)) {
+            return [];
+        }
+
+        $decodedExamples = json_decode($examplesContent, true);
+        if (!is_array($decodedExamples)) {
+            return [];
+        }
+
+        $defaultEntryKey = '';
+        foreach (array_keys($entries) as $entryKey) {
+            if (is_string($entryKey) && $entryKey !== '') {
+                $defaultEntryKey = $entryKey;
+                break;
+            }
+        }
+
+        if ($defaultEntryKey === '') {
+            return [];
+        }
+
+        $viewPrefix = 'source.utilities.' . $utilityFolder . '.examples.';
+        $result = [];
+
+        $isList = array_is_list($decodedExamples);
+
+        if (!$isList) {
+            foreach ($decodedExamples as $entryKey => $definitions) {
+                if (!is_string($entryKey) || $entryKey === '') {
+                    continue;
+                }
+
+                $definitionList = is_array($definitions) ? $definitions : [$definitions];
+
+                foreach ($definitionList as $definition) {
+                    $resolved = $this->resolveUtilityExampleDefinition($definition, $utilityFolder, $viewPrefix);
+                    if ($resolved === null) {
+                        continue;
+                    }
+
+                    $hasMetadata = isset($resolved['title']) || isset($resolved['description']);
+                    if (empty($resolved['css']) && !$hasMetadata) {
+                        $result[$entryKey][] = $resolved['view'];
+                    } else {
+                        $result[$entryKey][] = $resolved;
+                    }
+                }
+            }
+
+            return $result;
+        }
+
+        foreach ($decodedExamples as $exampleDefinition) {
+            $entryKey = $defaultEntryKey;
+
+            if (is_array($exampleDefinition)) {
+                $candidateEntry = $exampleDefinition['entry'] ?? null;
+                if (is_string($candidateEntry) && $candidateEntry !== '') {
+                    $entryKey = $candidateEntry;
+                }
+            }
+
+            $resolved = $this->resolveUtilityExampleDefinition($exampleDefinition, $utilityFolder, $viewPrefix);
+            if ($resolved === null) {
+                continue;
+            }
+
+            $hasMetadata = isset($resolved['title']) || isset($resolved['description']);
+            if (empty($resolved['css']) && !$hasMetadata) {
+                $result[$entryKey][] = $resolved['view'];
+            } else {
+                $result[$entryKey][] = $resolved;
+            }
+        }
+
+        return $result;
     }
 
     /**
