@@ -11,11 +11,6 @@
     @include mq.mq('sm') {
         padding: 0 calc(#{var_default.$base} * 3);
     }
-    
-    @include mq.mq('sm', 'md') {
-        max-width: calc(#{var_default.$base} * 90);
-    }
-    
 }
 
 .o-container.o-container--remove-spacing {
