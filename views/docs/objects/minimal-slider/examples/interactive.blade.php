@@ -147,6 +147,8 @@
 
     let currentIndex = 0;
     let isTicking = false;
+    let isScrolling = false;
+    let scrollEndTimeout = null;
 
     const getMaxStartIndex = () => {
         return Math.max(0, slides.length - getStep());
@@ -195,26 +197,37 @@
         }, 0);
     };
 
-    const getSlideStepPx = () => {
-        if (slides.length < 2) {
-            return track.clientWidth || 1;
+    const warmupSlideRendering = () => {
+        slides.forEach((slide) => {
+            slide.getBoundingClientRect();
+        });
+    };
+
+    const setScrollingState = (value) => {
+        if (isScrolling === value) {
+            return;
         }
 
-        return Math.max(1, slides[1].offsetLeft - slides[0].offsetLeft);
+        isScrolling = value;
+        slider.classList.toggle('o-minimal-slider--is-scrolling', value);
     };
 
     const updateSlideMotionFromScroll = () => {
-        const visibleCount = getStep();
-        const slideStepPx = getSlideStepPx();
-        const slotOffsets = Array.from({ length: visibleCount }, (_, slotIndex) => track.scrollLeft + (slotIndex * slideStepPx));
+        const viewportLeft = track.scrollLeft;
+        const viewportRight = viewportLeft + track.clientWidth;
+        const completeThreshold = 0.98;
+        const inactiveThreshold = 0.02;
 
         slides.forEach((slide) => {
-            const slideOffset = slide.offsetLeft;
-            const nearestDistance = slotOffsets.reduce((bestDistance, slotOffset) => {
-                return Math.min(bestDistance, Math.abs(slideOffset - slotOffset));
-            }, Number.POSITIVE_INFINITY);
+            const slideLeft = slide.offsetLeft;
+            const slideWidth = Math.max(1, slide.offsetWidth);
+            const slideRight = slideLeft + slideWidth;
+            const overlap = Math.max(0, Math.min(slideRight, viewportRight) - Math.max(slideLeft, viewportLeft));
+            const rawProgress = Math.max(0, Math.min(1, overlap / slideWidth));
+            const progress = isScrolling
+                ? rawProgress
+                : (rawProgress >= completeThreshold ? 1 : (rawProgress <= inactiveThreshold ? 0 : rawProgress));
 
-            const progress = Math.max(0, Math.min(1, 1 - (nearestDistance / slideStepPx)));
             slide.style.setProperty('--slide-progress', progress.toFixed(3));
             slide.style.setProperty('--slide-inactive', (1 - progress).toFixed(3));
         });
@@ -295,6 +308,18 @@
     });
 
     track.addEventListener('scroll', () => {
+        setScrollingState(true);
+
+        if (scrollEndTimeout !== null) {
+            window.clearTimeout(scrollEndTimeout);
+        }
+
+        scrollEndTimeout = window.setTimeout(() => {
+            setScrollingState(false);
+            updateSlideMotionFromScroll();
+            updateIndexFromScroll();
+        }, 80);
+
         if (isTicking) {
             return;
         }
@@ -309,6 +334,8 @@
 
     track.scrollLeft = getSlideTargetLeft(0);
     setCurrentSlide(0);
+    setScrollingState(false);
+    warmupSlideRendering();
     updateSlideMotionFromScroll();
 })();
 </script>
