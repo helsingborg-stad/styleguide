@@ -67,16 +67,47 @@
         @endforeach
 
     @else
-        @paper(['padding' => 3])
+        @if(isset($isScriptDocumentation) && $isScriptDocumentation)
+            @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+                @php
+                    $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                        return $__env->make($viewPath, $viewData)->render();
+                    };
 
-            <div class="markup-preview">
-                {!! $slot !!}
-            </div>
+                    $exampleTabContent = '<div class="markup-preview">' . (string) $slot . '</div>';
+                    $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml((string) $slot));
+                    $htmlCodeTemplate = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
+                    $htmlCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
 
-        @endpaper
+                    $tabs = [
+                        [
+                            'title' => 'Example',
+                            'content' => $exampleTabContent,
+                        ],
+                        [
+                            'title' => 'HTML',
+                            'content' => $htmlCodeTabContent,
+                        ],
+                    ];
+                @endphp
+
+                @tabs([
+                    'tabs' => $tabs,
+                ])
+                @endtabs
+            @endpaper
+        @else
+            @paper(['padding' => 3])
+
+                <div class="markup-preview">
+                    {!! $slot !!}
+                </div>
+
+            @endpaper
+        @endif
     @endif
 
-    @if(isset($settings) && isset($slug) && !empty($slug))
+    @if(isset($settings) && (isset($showParametersTable) && $showParametersTable))
         @if(isset($displayParams) && !empty($displayParams))
             @php
                 $paramRows = [];

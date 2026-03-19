@@ -59,13 +59,13 @@ class View
         foreach ($docTemplates as $template) {
             $blade->registerComponent($template, function ($view) use ($blade) {
 
-                $viewData = $this->accessProtected($view, 'data');
+                $viewData = (array) $this->accessProtected($view, 'data');
+                $viewDoc = (isset($viewData['viewDoc']) && is_array($viewData['viewDoc'])) ? $viewData['viewDoc'] : [];
 
                 // Get path to specific vendor package
                 $componentLibraryPackagePath = $this->getVendorPackagePath('helsingborg-stad/component-library');
     
                 if (isset($viewData['slug']) || isset($viewData['viewDoc'])) {
-                    $viewDoc = (isset($viewData['viewDoc']) && is_array($viewData['viewDoc'])) ? $viewData['viewDoc'] : [];
                     if (isset($viewData['viewDoc']) && strtolower((string) ($viewDoc['type'] ?? '')) === 'utility') {
                         [$configFile, $configJson] = $this->resolveUtilityDocumentationConfiguration($viewDoc);
                     } else {
@@ -201,6 +201,8 @@ class View
                     'cssParameters' => isset($viewData['slug']) ? ComponentCssParameters::getForComponent($viewData['slug']) : [],
                     'modifiersExample' => $modifiersExample,
                     'includesPath' => $includesPath,
+                    'isScriptDocumentation' => $this->isScriptDocumentationView($viewData),
+                    'showParametersTable' => $this->shouldShowParametersTable($viewData),
                 ]);
     
                 
@@ -400,6 +402,40 @@ class View
     private function normalizeComponentIdentifier(string $identifier): string
     {
         return strtolower((string) preg_replace('/[^a-z0-9]/i', '', $identifier));
+    }
+
+    /**
+     * Determine if current doc render target is a script documentation page.
+     *
+     * @param array<string, mixed> $viewData
+     *
+     * @return bool
+     */
+    private function isScriptDocumentationView(array $viewData): bool
+    {
+        if (!isset($viewData['viewDoc']) || !is_array($viewData['viewDoc'])) {
+            return false;
+        }
+
+        return strtolower((string) ($viewData['viewDoc']['type'] ?? '')) === 'script';
+    }
+
+    /**
+     * Determine whether parameter tables should be rendered in docs.
+     *
+     * Components and script docs should expose parameter tables.
+     *
+     * @param array<string, mixed> $viewData
+     *
+     * @return bool
+     */
+    private function shouldShowParametersTable(array $viewData): bool
+    {
+        if (isset($viewData['slug']) && is_string($viewData['slug']) && trim($viewData['slug']) !== '') {
+            return true;
+        }
+
+        return $this->isScriptDocumentationView($viewData);
     }
 
     /**

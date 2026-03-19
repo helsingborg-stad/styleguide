@@ -356,4 +356,94 @@ class ViewTest extends TestCase
 
         $this->assertSame([], $resolved);
     }
+
+    /**
+     * Ensure script docs are detected from viewDoc metadata.
+     *
+     * @return void
+     */
+    public function testIsScriptDocumentationViewReturnsTrueForScriptType(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('isScriptDocumentationView');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'script']]);
+
+        $this->assertTrue($resolved);
+    }
+
+    /**
+     * Ensure script docs are not detected for non-script metadata.
+     *
+     * @return void
+     */
+    public function testIsScriptDocumentationViewReturnsFalseForNonScriptType(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('isScriptDocumentationView');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'objects']]);
+
+        $this->assertFalse($resolved);
+    }
+
+    /**
+     * Ensure parameter table visibility is enabled for script docs.
+     *
+     * @return void
+     */
+    public function testShouldShowParametersTableReturnsTrueForScriptDocumentation(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('shouldShowParametersTable');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'script']]);
+
+        $this->assertTrue($resolved);
+    }
+
+    /**
+     * Ensure parameter table visibility is enabled for component docs.
+     *
+     * @return void
+     */
+    public function testShouldShowParametersTableReturnsTrueForComponentSlug(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('shouldShowParametersTable');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['slug' => 'button']);
+
+        $this->assertTrue($resolved);
+    }
+
+    /**
+     * Ensure parameter table visibility is disabled for docs without component or script metadata.
+     *
+     * @return void
+     */
+    public function testShouldShowParametersTableReturnsFalseForNonScriptMetadataWithoutSlug(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('shouldShowParametersTable');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'objects']]);
+
+        $this->assertFalse($resolved);
+    }
 }
