@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Tests;
+namespace MunicipioStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\InheritVariablesDeclaredValidator;
+use MunicipioStyleGuide\Validators\Sass\InheritVariablesDeclaredValidator;
 use PHPUnit\Framework\TestCase;
 
 /**

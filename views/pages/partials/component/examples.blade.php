@@ -18,7 +18,7 @@
 
           @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
               @php
-                  $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
+                  $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
                   $bladeSourceCode = e($example['blade']['code']);
 
                   $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {

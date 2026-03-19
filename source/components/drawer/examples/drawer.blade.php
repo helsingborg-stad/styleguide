@@ -53,7 +53,7 @@
 
     @slot('menu')
         @nav([
-            'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
+            'items' => \MunicipioStyleGuide\Navigation::getMockedTopLevel(),
             'classList' => [
                 'u-position--relative', 
                 'c-nav--drawer',           
@@ -64,7 +64,7 @@
         ])
         @endnav 
         @nav([
-            'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
+            'items' => \MunicipioStyleGuide\Navigation::getMockedTopLevel(),
             'classList' => [
                 's-nav-drawer-secondary',
                 'u-position--relative', 

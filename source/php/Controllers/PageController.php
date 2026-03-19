@@ -1,12 +1,12 @@
 <?php
 
-namespace HbgStyleGuide\Controllers;
+namespace MunicipioStyleGuide\Controllers;
 
-use HbgStyleGuide\Asset;
-use HbgStyleGuide\Contracts\ControllerInterface;
-use HbgStyleGuide\Navigation;
-use HbgStyleGuide\Search\Search;
-use HbgStyleGuide\View;
+use MunicipioStyleGuide\Asset;
+use MunicipioStyleGuide\Contracts\ControllerInterface;
+use MunicipioStyleGuide\Navigation;
+use MunicipioStyleGuide\Search\Search;
+use MunicipioStyleGuide\View;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
@@ -21,8 +21,8 @@ class PageController extends BaseController implements ControllerInterface
      * @param Search $search Search service.
      */
     public function __construct(
-        \HbgStyleGuide\Http\Request $request,
-        \HbgStyleGuide\Http\Response $response,
+        \MunicipioStyleGuide\Http\Request $request,
+        \MunicipioStyleGuide\Http\Response $response,
         protected BladeServiceInterface $bladeService,
         protected View $view,
         protected Navigation $navigation,

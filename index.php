@@ -2,7 +2,7 @@
 
 //Enable/disable all errors
 use ComponentLibrary\Init as ComponentLibraryInit;
-use HbgStyleGuide\App;
+use MunicipioStyleGuide\App;
 
 if (isset($_GET['debug'])) {
     ini_set('display_errors', 1);

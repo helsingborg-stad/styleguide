@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Validators;
+namespace MunicipioStyleGuide\Validators;
 
 class ComponentNameResolver
 {

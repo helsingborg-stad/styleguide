@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Vendor;
+namespace MunicipioStyleGuide\Vendor;
 
 /**
  * A PSR-4 compatible class loader.

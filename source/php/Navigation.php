@@ -1,17 +1,17 @@
 <?php
 
-namespace HbgStyleGuide;
+namespace MunicipioStyleGuide;
 
-use HbgStyleGuide\Contracts\JsonDataLoaderInterface;
-use HbgStyleGuide\Contracts\NavigationDataParserInterface;
-use HbgStyleGuide\Contracts\SidebarSectionInterface;
-use HbgStyleGuide\Data\JsonDataLoader;
-use HbgStyleGuide\Data\NavigationDataParser;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
-use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
-use HbgStyleGuide\Sidebar\Sections\ScriptSection;
-use HbgStyleGuide\Sidebar\Sections\UtilitiesSection;
+use MunicipioStyleGuide\Contracts\JsonDataLoaderInterface;
+use MunicipioStyleGuide\Contracts\NavigationDataParserInterface;
+use MunicipioStyleGuide\Contracts\SidebarSectionInterface;
+use MunicipioStyleGuide\Data\JsonDataLoader;
+use MunicipioStyleGuide\Data\NavigationDataParser;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
+use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
 
 class Navigation
 {

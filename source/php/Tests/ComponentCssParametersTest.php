@@ -1,12 +1,12 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Helper\ComponentCssParameters;
+use MunicipioStyleGuide\Helper\ComponentCssParameters;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Helper\ComponentCssParameters
+ * @covers \MunicipioStyleGuide\Helper\ComponentCssParameters
  */
 class ComponentCssParametersTest extends TestCase
 {

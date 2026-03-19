@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Helper;
+namespace MunicipioStyleGuide\Helper;
 
 class ParseString
 {

@@ -1,19 +1,19 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Controllers\ApiController;
-use HbgStyleGuide\Controllers\ComponentPageController;
-use HbgStyleGuide\Controllers\ObjectPageController;
-use HbgStyleGuide\Controllers\PageController;
-use HbgStyleGuide\Controllers\ScriptPageController;
-use HbgStyleGuide\Controllers\UtilityPageController;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Router;
+use MunicipioStyleGuide\Controllers\ApiController;
+use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ObjectPageController;
+use MunicipioStyleGuide\Controllers\PageController;
+use MunicipioStyleGuide\Controllers\ScriptPageController;
+use MunicipioStyleGuide\Controllers\UtilityPageController;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Router;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Router
+ * @covers \MunicipioStyleGuide\Router
  */
 class RouterTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide;
+namespace MunicipioStyleGuide;
 
 class Asset
 {

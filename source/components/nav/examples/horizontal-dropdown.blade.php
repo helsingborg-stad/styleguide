@@ -1,5 +1,5 @@
 @nav([
-    'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
+    'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
     'classList' => ['u-position--relative'],
     'childItemsUrl' => '/',
     'direction' => 'horizontal',
@@ -12,7 +12,7 @@
 <div style="height: 100px;"></div><!-- Padder -->
 
 @nav([
-    'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
+    'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
     'classList' => ['u-position--relative'],
     'childItemsUrl' => '/',
     'direction' => 'horizontal',
@@ -25,7 +25,7 @@
 <div style="height: 100px;"></div><!-- Padder -->
 
 @nav([
-    'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
+    'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
     'classList' => ['u-position--relative'],
     'childItemsUrl' => '/',
     'direction' => 'horizontal',

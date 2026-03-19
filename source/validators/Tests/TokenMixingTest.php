@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Tests;
+namespace MunicipioStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\TokenMixingValidator;
+use MunicipioStyleGuide\Validators\Sass\TokenMixingValidator;
 use PHPUnit\Framework\TestCase;
 
 class TokenMixingTest extends TestCase

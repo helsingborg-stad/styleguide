@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Search;
+namespace MunicipioStyleGuide\Search;
 
 /**
  * Contract for a searchable data source.

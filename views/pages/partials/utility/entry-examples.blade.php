@@ -37,7 +37,7 @@
                 };
 
                 $exampleTabContent  = $__env->make($exampleView, get_defined_vars())->render();
-                $htmlSourceCode     = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($exampleTabContent));
+                $htmlSourceCode     = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($exampleTabContent));
                 $htmlCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
                 $htmlCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
             @endphp

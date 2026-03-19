@@ -1,13 +1,13 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Data\JsonDataLoader;
-use HbgStyleGuide\Data\NavigationApiDataProvider;
+use MunicipioStyleGuide\Data\JsonDataLoader;
+use MunicipioStyleGuide\Data\NavigationApiDataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Data\NavigationApiDataProvider
+ * @covers \MunicipioStyleGuide\Data\NavigationApiDataProvider
  */
 class NavigationApiDataProviderTest extends TestCase
 {

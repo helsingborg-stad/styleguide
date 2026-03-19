@@ -1,12 +1,12 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Search\DataSources\ComponentsDataSource;
+use MunicipioStyleGuide\Search\DataSources\ComponentsDataSource;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Search\DataSources\ComponentsDataSource
+ * @covers \MunicipioStyleGuide\Search\DataSources\ComponentsDataSource
  */
 class ComponentsDataSourceTest extends TestCase
 {

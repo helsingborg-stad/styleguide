@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Contracts;
+namespace MunicipioStyleGuide\Contracts;
 
 /**
  * Contract for parsing structured navigation data.

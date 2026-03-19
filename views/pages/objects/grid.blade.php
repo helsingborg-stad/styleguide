@@ -23,7 +23,7 @@
       </div>
 
       @code(['language' => 'html', 'content' => "", 'classList' => ['d-code']])
-        {{\HbgStyleGuide\Helper\ParseString::tidyHtml('
+        {{\MunicipioStyleGuide\Helper\ParseString::tidyHtml('
           <div class="o-grid">
               <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">Column</div>
               <div class="o-grid-12@sm o-grid-6@md o-grid-4@lg o-grid-4@xl">Column</div>

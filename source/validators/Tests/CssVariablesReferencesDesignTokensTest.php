@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Tests;
+namespace MunicipioStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\CssVariablesReferencesDesignTokensValidator;
+use MunicipioStyleGuide\Validators\Sass\CssVariablesReferencesDesignTokensValidator;
 use PHPUnit\Framework\TestCase;
 
 class CssVariablesReferencesDesignTokensTest extends TestCase

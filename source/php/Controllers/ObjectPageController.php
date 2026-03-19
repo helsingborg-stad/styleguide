@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Controllers;
+namespace MunicipioStyleGuide\Controllers;
 
 /**
  * Controller for object documentation pages.

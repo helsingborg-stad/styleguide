@@ -1,10 +1,10 @@
 <?php
 
-namespace HbgStyleGuide\Controllers;
+namespace MunicipioStyleGuide\Controllers;
 
-use HbgStyleGuide\Contracts\ControllerInterface;
-use HbgStyleGuide\Data\NavigationApiDataProvider;
-use HbgStyleGuide\Search\Search;
+use MunicipioStyleGuide\Contracts\ControllerInterface;
+use MunicipioStyleGuide\Data\NavigationApiDataProvider;
+use MunicipioStyleGuide\Search\Search;
 
 /**
  * Controller for API responses used by navigation widgets.
@@ -16,8 +16,8 @@ class ApiController extends BaseController implements ControllerInterface
      * @param Search $search Search service.
      */
     public function __construct(
-        \HbgStyleGuide\Http\Request $request,
-        \HbgStyleGuide\Http\Response $response,
+        \MunicipioStyleGuide\Http\Request $request,
+        \MunicipioStyleGuide\Http\Response $response,
         private NavigationApiDataProvider $navigationApiDataProvider,
         private Search $search,
     ) {

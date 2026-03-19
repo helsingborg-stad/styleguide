@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Tests;
+namespace MunicipioStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\NoSassVariablesValidator;
+use MunicipioStyleGuide\Validators\Sass\NoSassVariablesValidator;
 use PHPUnit\Framework\TestCase;
 
 class NoSassVariablesTest extends TestCase

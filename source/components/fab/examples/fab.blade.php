@@ -12,7 +12,7 @@
 ])
 
     @nav([
-        'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
+        'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
         'direction' => 'vertical',
         'includeToggle' => false,
         'classList' => ['c-nav--tiles']

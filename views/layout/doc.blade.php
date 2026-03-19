@@ -27,7 +27,7 @@
 
             @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
                 @php
-                    $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
+                    $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
                     $bladeSourceCode = e($example['blade']['code']);
 
                     $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
@@ -75,7 +75,7 @@
                     };
 
                     $exampleTabContent = '<div class="markup-preview">' . (string) $slot . '</div>';
-                    $htmlSourceCode = e(\HbgStyleGuide\Helper\ParseString::tidyHtml((string) $slot));
+                    $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml((string) $slot));
                     $htmlCodeTemplate = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
                     $htmlCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
 

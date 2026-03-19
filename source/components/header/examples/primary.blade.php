@@ -6,7 +6,7 @@
     ]
 ])
     @nav([
-        'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
+        'items' => \MunicipioStyleGuide\Navigation::getMockedTopLevel(),
         'direction' => 'horizontal',
     ])
     @endnav

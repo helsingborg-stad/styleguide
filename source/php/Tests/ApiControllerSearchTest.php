@@ -1,18 +1,18 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Controllers\ApiController;
-use HbgStyleGuide\Data\JsonDataLoader;
-use HbgStyleGuide\Data\NavigationApiDataProvider;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Http\Response;
-use HbgStyleGuide\Search\DataSource;
-use HbgStyleGuide\Search\Search;
+use MunicipioStyleGuide\Controllers\ApiController;
+use MunicipioStyleGuide\Data\JsonDataLoader;
+use MunicipioStyleGuide\Data\NavigationApiDataProvider;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Http\Response;
+use MunicipioStyleGuide\Search\DataSource;
+use MunicipioStyleGuide\Search\Search;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Controllers\ApiController
+ * @covers \MunicipioStyleGuide\Controllers\ApiController
  */
 class ApiControllerSearchTest extends TestCase
 {

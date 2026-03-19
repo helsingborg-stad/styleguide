@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Helper;
+namespace MunicipioStyleGuide\Helper;
 
 /**
  * Resolves CSS parameter declarations for component documentation.

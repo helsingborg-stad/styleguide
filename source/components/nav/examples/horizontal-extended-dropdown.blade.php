@@ -1,5 +1,5 @@
 @nav([
-    'items' => \HbgStyleGuide\Navigation::getMockedMultilevel(),
+    'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
     'classList' => ['u-position--relative'],
     'direction' => 'horizontal',
     'includeToggle' => true,

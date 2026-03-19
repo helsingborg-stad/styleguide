@@ -1,24 +1,24 @@
 <?php
 
-namespace HbgStyleGuide;
+namespace MunicipioStyleGuide;
 
-use HbgStyleGuide\Controllers\ApiController;
-use HbgStyleGuide\Controllers\ComponentPageController;
-use HbgStyleGuide\Controllers\ObjectPageController;
-use HbgStyleGuide\Controllers\PageController;
-use HbgStyleGuide\Controllers\ScriptPageController;
-use HbgStyleGuide\Controllers\UtilityPageController;
-use HbgStyleGuide\Data\JsonDataLoader;
-use HbgStyleGuide\Data\NavigationApiDataProvider;
-use HbgStyleGuide\Data\NavigationDataParser;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Http\Response;
-use HbgStyleGuide\Search\DataSources\ComponentsDataSource;
-use HbgStyleGuide\Search\Search;
-use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
-use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
-use HbgStyleGuide\Sidebar\Sections\ScriptSection;
-use HbgStyleGuide\Sidebar\Sections\UtilitiesSection;
+use MunicipioStyleGuide\Controllers\ApiController;
+use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ObjectPageController;
+use MunicipioStyleGuide\Controllers\PageController;
+use MunicipioStyleGuide\Controllers\ScriptPageController;
+use MunicipioStyleGuide\Controllers\UtilityPageController;
+use MunicipioStyleGuide\Data\JsonDataLoader;
+use MunicipioStyleGuide\Data\NavigationApiDataProvider;
+use MunicipioStyleGuide\Data\NavigationDataParser;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Http\Response;
+use MunicipioStyleGuide\Search\DataSources\ComponentsDataSource;
+use MunicipioStyleGuide\Search\Search;
+use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
+use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**

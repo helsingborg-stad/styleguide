@@ -1,9 +1,9 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Sass;
+namespace MunicipioStyleGuide\Validators\Sass;
 
-use HbgStyleGuide\Validators\ValidationResult;
-use HbgStyleGuide\Validators\ValidatorInterface;
+use MunicipioStyleGuide\Validators\ValidationResult;
+use MunicipioStyleGuide\Validators\ValidatorInterface;
 
 /**
  * Validates that every --inherit-* CSS custom property used in a SCSS file

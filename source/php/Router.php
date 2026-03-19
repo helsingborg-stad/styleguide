@@ -1,14 +1,14 @@
 <?php
 
-namespace HbgStyleGuide;
+namespace MunicipioStyleGuide;
 
-use HbgStyleGuide\Controllers\ApiController;
-use HbgStyleGuide\Controllers\ComponentPageController;
-use HbgStyleGuide\Controllers\ObjectPageController;
-use HbgStyleGuide\Controllers\PageController;
-use HbgStyleGuide\Controllers\ScriptPageController;
-use HbgStyleGuide\Controllers\UtilityPageController;
-use HbgStyleGuide\Http\Request;
+use MunicipioStyleGuide\Controllers\ApiController;
+use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ObjectPageController;
+use MunicipioStyleGuide\Controllers\PageController;
+use MunicipioStyleGuide\Controllers\ScriptPageController;
+use MunicipioStyleGuide\Controllers\UtilityPageController;
+use MunicipioStyleGuide\Http\Request;
 
 /**
  * Routes incoming request to a page or API controller.

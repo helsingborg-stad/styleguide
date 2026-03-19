@@ -1,10 +1,10 @@
 <?php
 
-namespace HbgStyleGuide;
+namespace MunicipioStyleGuide;
 
-use HbgStyleGuide\Helper\ComponentCssParameters;
-use \HbgStyleGuide\Helper\Documentation as DocHelper;
-use \HbgStyleGuide\Helper\ModifierExample;
+use MunicipioStyleGuide\Helper\ComponentCssParameters;
+use \MunicipioStyleGuide\Helper\Documentation as DocHelper;
+use \MunicipioStyleGuide\Helper\ModifierExample;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 class View

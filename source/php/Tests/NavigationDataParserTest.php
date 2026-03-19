@@ -1,12 +1,12 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Data\NavigationDataParser;
+use MunicipioStyleGuide\Data\NavigationDataParser;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Data\NavigationDataParser
+ * @covers \MunicipioStyleGuide\Data\NavigationDataParser
  */
 class NavigationDataParserTest extends TestCase
 {

@@ -23,7 +23,7 @@
       </div>
 
       @code(['language' => 'html', 'content' => "", 'classList' => ['d-code']])
-        {{\HbgStyleGuide\Helper\ParseString::tidyHtml('
+        {{\MunicipioStyleGuide\Helper\ParseString::tidyHtml('
           <div class="o-container"></div>
           <div class="o-container o-container--wide"></div>
           <div class="o-container o-container--fullwidth"></div>

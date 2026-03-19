@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Search\DataSources;
+namespace MunicipioStyleGuide\Search\DataSources;
 
-use HbgStyleGuide\Search\DataSource;
+use MunicipioStyleGuide\Search\DataSource;
 
 /**
  * Search data source for styleguide components.

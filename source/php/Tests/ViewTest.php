@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\View;
+use MunicipioStyleGuide\View;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\View
+ * @covers \MunicipioStyleGuide\View
  */
 class ViewTest extends TestCase
 {

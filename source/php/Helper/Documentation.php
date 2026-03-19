@@ -1,13 +1,13 @@
 <?php
 
 
-namespace HbgStyleGuide\Helper;
+namespace MunicipioStyleGuide\Helper;
 
 use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
  * Class Documentation
- * @package HbgStyleGuide\Helper
+ * @package MunicipioStyleGuide\Helper
  */
 class Documentation
 {

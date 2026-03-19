@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Data;
+namespace MunicipioStyleGuide\Data;
 
-use HbgStyleGuide\Contracts\NavigationDataParserInterface;
+use MunicipioStyleGuide\Contracts\NavigationDataParserInterface;
 
 /**
  * Parses structured navigation input into component-ready arrays.

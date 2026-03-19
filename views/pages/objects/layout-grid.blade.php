@@ -18,7 +18,7 @@
       @endtypography
 
       @code(['language' => 'html', 'content' => '', 'classList' => ['d-code']])
-        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml('
+        {{ \MunicipioStyleGuide\Helper\ParseString::tidyHtml('
           <div class="o-layout-grid o-layout-grid--cols-3 o-layout-grid--gap-4">
             <div class="u-background--primary u-color__text--inverted u-padding--3">Item 1</div>
             <div class="u-background--secondary u-color__text--inverted u-padding--3">Item 2</div>
@@ -40,7 +40,7 @@
       @endtypography
 
       @code(['language' => 'html', 'content' => '', 'classList' => ['d-code']])
-        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml('
+        {{ \MunicipioStyleGuide\Helper\ParseString::tidyHtml('
           <div class="o-layout-grid o-layout-grid--cols-4 o-layout-grid--gap-3">
             <div class="o-layout-grid--col-span-2 u-background--complementary u-color__text--inverted u-padding--3">Col span 2</div>
             <div class="o-layout-grid--justify-end u-background--warning u-padding--3">Justify end</div>
@@ -64,7 +64,7 @@
       @endtypography
 
       @code(['language' => 'html', 'content' => '', 'classList' => ['d-code']])
-        {{ \HbgStyleGuide\Helper\ParseString::tidyHtml('
+        {{ \MunicipioStyleGuide\Helper\ParseString::tidyHtml('
           <div class="o-layout-grid o-layout-grid--cq o-layout-grid--cols-1 o-layout-grid--cols-2@md o-layout-grid--gap-2 o-layout-grid--gap-4@md">
             <div class="u-background--primary u-color__text--inverted u-padding--3">Card A</div>
             <div class="u-background--secondary u-color__text--inverted u-padding--3">Card B</div>

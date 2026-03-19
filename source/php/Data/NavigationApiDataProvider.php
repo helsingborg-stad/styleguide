@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Data;
+namespace MunicipioStyleGuide\Data;
 
-use HbgStyleGuide\Contracts\JsonDataLoaderInterface;
+use MunicipioStyleGuide\Contracts\JsonDataLoaderInterface;
 
 /**
  * Provides JSON-backed payloads for navigation API endpoints.

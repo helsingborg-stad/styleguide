@@ -1,9 +1,9 @@
 <?php
 
-namespace HbgStyleGuide\Controllers;
+namespace MunicipioStyleGuide\Controllers;
 
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Http\Response;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Http\Response;
 
 /**
  * Base controller with shared HTTP context.

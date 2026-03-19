@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Search;
+namespace MunicipioStyleGuide\Search;
 
 /**
  * Aggregates results from multiple search data sources.

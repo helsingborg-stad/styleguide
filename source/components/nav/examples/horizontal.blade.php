@@ -1,5 +1,5 @@
 @nav([
-    'items' => \HbgStyleGuide\Navigation::getMockedTopLevel(),
+    'items' => \MunicipioStyleGuide\Navigation::getMockedTopLevel(),
     'classList' => ['u-position--relative'],
     'childItemsUrl' => '/', //Currently unsupported in horizontal mode
     'direction' => 'horizontal',

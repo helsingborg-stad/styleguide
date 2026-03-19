@@ -1,11 +1,11 @@
 <?php
 
 
-namespace HbgStyleGuide\Helper;
+namespace MunicipioStyleGuide\Helper;
 
 /**
  * Class ModifierExample
- * @package HbgStyleGuide\Helper
+ * @package MunicipioStyleGuide\Helper
  */
 class ModifierExample
 {

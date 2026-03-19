@@ -1,18 +1,18 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Controllers\PageController;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Http\Response;
-use HbgStyleGuide\Navigation;
-use HbgStyleGuide\Search\Search;
-use HbgStyleGuide\View;
+use MunicipioStyleGuide\Controllers\PageController;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Http\Response;
+use MunicipioStyleGuide\Navigation;
+use MunicipioStyleGuide\Search\Search;
+use MunicipioStyleGuide\View;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Controllers\PageController
+ * @covers \MunicipioStyleGuide\Controllers\PageController
  */
 class PageControllerTest extends TestCase
 {

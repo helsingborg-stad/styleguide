@@ -1,19 +1,19 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Data\JsonDataLoader;
-use HbgStyleGuide\Data\NavigationDataParser;
-use HbgStyleGuide\Http\Request;
-use HbgStyleGuide\Navigation;
-use HbgStyleGuide\Sidebar\Sections\ComponentsSection;
-use HbgStyleGuide\Sidebar\Sections\ObjectsSection;
-use HbgStyleGuide\Sidebar\Sections\ScriptSection;
-use HbgStyleGuide\Sidebar\Sections\UtilitiesSection;
+use MunicipioStyleGuide\Data\JsonDataLoader;
+use MunicipioStyleGuide\Data\NavigationDataParser;
+use MunicipioStyleGuide\Http\Request;
+use MunicipioStyleGuide\Navigation;
+use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
+use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Navigation
+ * @covers \MunicipioStyleGuide\Navigation
  */
 class NavigationSidebarSectionsTest extends TestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Http\Request;
+use MunicipioStyleGuide\Http\Request;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Http\Request
+ * @covers \MunicipioStyleGuide\Http\Request
  */
 class RequestTest extends TestCase
 {

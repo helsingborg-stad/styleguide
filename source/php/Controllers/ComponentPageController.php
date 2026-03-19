@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Controllers;
+namespace MunicipioStyleGuide\Controllers;
 
 /**
  * Controller for component detail pages.
@@ -28,8 +28,8 @@ class ComponentPageController extends PageController
         $this->appendComponentPageData($data, 'component');
 
         if (isset($data['slug'])) {
-            $data['examples']      = \HbgStyleGuide\Helper\Documentation::getUsageExamples($data['slug'], $this->bladeService);
-            $data['cssParameters'] = \HbgStyleGuide\Helper\ComponentCssParameters::getForComponent($data['slug']);
+            $data['examples']      = \MunicipioStyleGuide\Helper\Documentation::getUsageExamples($data['slug'], $this->bladeService);
+            $data['cssParameters'] = \MunicipioStyleGuide\Helper\ComponentCssParameters::getForComponent($data['slug']);
             $data['api']           = $this->loadVendorComponentApi($data['slug']);
         }
 

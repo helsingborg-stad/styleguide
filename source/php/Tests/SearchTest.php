@@ -1,13 +1,13 @@
 <?php
 
-namespace HbgStyleGuide\Tests;
+namespace MunicipioStyleGuide\Tests;
 
-use HbgStyleGuide\Search\DataSource;
-use HbgStyleGuide\Search\Search;
+use MunicipioStyleGuide\Search\DataSource;
+use MunicipioStyleGuide\Search\Search;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \HbgStyleGuide\Search\Search
+ * @covers \MunicipioStyleGuide\Search\Search
  */
 class SearchTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Sass;
+namespace MunicipioStyleGuide\Validators\Sass;
 
-use HbgStyleGuide\Validators\DesignTokensParser;
-use HbgStyleGuide\Validators\ValidationResult;
-use HbgStyleGuide\Validators\ValidatorInterface;
+use MunicipioStyleGuide\Validators\DesignTokensParser;
+use MunicipioStyleGuide\Validators\ValidationResult;
+use MunicipioStyleGuide\Validators\ValidatorInterface;
 
 class CssVariablesReferencesDesignTokensValidator implements ValidatorInterface
 {

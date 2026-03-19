@@ -1,9 +1,9 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Sass;
+namespace MunicipioStyleGuide\Validators\Sass;
 
-use HbgStyleGuide\Validators\ValidatorInterface;
-use HbgStyleGuide\Validators\ValidationResult;
+use MunicipioStyleGuide\Validators\ValidatorInterface;
+use MunicipioStyleGuide\Validators\ValidationResult;
 
 class NoSassVariablesValidator implements ValidatorInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Validators\Tests;
+namespace MunicipioStyleGuide\Validators\Tests;
 
-use HbgStyleGuide\Validators\Sass\CssVariablesNamespacedValidator;
+use MunicipioStyleGuide\Validators\Sass\CssVariablesNamespacedValidator;
 use PHPUnit\Framework\TestCase;
 
 class CssVariablesNamespacedTest extends TestCase

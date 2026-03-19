@@ -1,6 +1,6 @@
 <?php
 
-namespace HbgStyleGuide\Http;
+namespace MunicipioStyleGuide\Http;
 
 /**
  * HTTP response writer.

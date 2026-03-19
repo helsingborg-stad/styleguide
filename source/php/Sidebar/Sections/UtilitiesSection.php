@@ -1,8 +1,8 @@
 <?php
 
-namespace HbgStyleGuide\Sidebar\Sections;
+namespace MunicipioStyleGuide\Sidebar\Sections;
 
-use HbgStyleGuide\Contracts\SidebarSectionInterface;
+use MunicipioStyleGuide\Contracts\SidebarSectionInterface;
 
 /**
  * Utilities sidebar section.
