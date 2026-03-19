@@ -21,6 +21,12 @@ $_: "c-table";
     .#{$_}__header {
         padding: tokens.use($_, "space", 1.5);
         border-bottom: tokens.get($_, "border");
+
+    }
+
+    .#{$_}__title {
+        --inherit-margin-top: 0;
+        --inherit-margin-bottom: 0;
     }
 
     .#{$_}__inner {
