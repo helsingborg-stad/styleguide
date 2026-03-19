@@ -14,40 +14,14 @@
 		"interactive": {
 			"description": {
 				"heading": "Interactive minimal slider",
-				"description": "Screen reader support, keyboard navigation, touch scrolling, and selectable animation styles."
+				"description": "Screen reader support, keyboard navigation, touch scrolling, and a polished fade-based peek animation."
 			},
 			"component": "docs.objects.minimal-slider.examples.interactive",
 			"html": {
 				"code": "<section class=\"o-minimal-slider\" data-minimal-slider><div class=\"o-minimal-slider__toolbar\">...</div><ul class=\"o-minimal-slider__track\">...</ul><div class=\"o-minimal-slider__controls\">...</div></section>"
 			},
 			"blade": {
-				"code": "<section class=\"o-minimal-slider\" data-minimal-slider data-animation=\"slide\">\n    <div class=\"o-minimal-slider__toolbar\">...</div>\n    <ul class=\"o-minimal-slider__track\" role=\"list\">...</ul>\n    <div class=\"o-minimal-slider__controls\">...</div>\n</section>"
-			}
-		},
-		"animationVariants": {
-			"title": "Animation Variants",
-			"description": "Set data-animation on .o-minimal-slider to switch visual behavior while preserving native scroll interaction.",
-			"available": {
-				"data-animation=\"slide\"": {
-					"description": "Subtle directional motion for off-screen slides.",
-					"responsive": false,
-					"containerQuery": false
-				},
-				"data-animation=\"fade\"": {
-					"description": "Opacity-focused transitions for calm movement.",
-					"responsive": false,
-					"containerQuery": false
-				},
-				"data-animation=\"scale\"": {
-					"description": "Scale-down effect on inactive slides.",
-					"responsive": false,
-					"containerQuery": false
-				},
-				"data-animation=\"lift\"": {
-					"description": "Active slide lifts with a stronger shadow.",
-					"responsive": false,
-					"containerQuery": false
-				}
+				"code": "<section class=\"o-minimal-slider\" data-minimal-slider data-animation=\"fade\">\n    <div class=\"o-minimal-slider__toolbar\">...</div>\n    <ul class=\"o-minimal-slider__track\" role=\"list\">...</ul>\n    <div class=\"o-minimal-slider__controls\">...</div>\n</section>"
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 @use "../setting/var_default";
 
 .o-minimal-slider {
-  --slider-gap: calc(#{var_default.$base} * 1.5);
+  --slider-gap: calc(#{var_default.$base} * 4);
   --slides-per-view: 1;
   --slide-radius: 12px;
   --slide-shadow: 0 12px 30px rgba(20, 26, 40, 0.08);
@@ -42,6 +42,7 @@
 
   &__viewport {
     position: relative;
+    overflow: hidden;
   }
 
   &__track {
@@ -76,6 +77,8 @@
     background: linear-gradient(160deg, #ffffff 0%, #f4f8ff 100%);
     box-shadow: var(--slide-shadow);
     overflow: hidden;
+    contain: paint;
+    backface-visibility: hidden;
     transform-origin: 50% 50%;
     will-change: transform, opacity, filter, box-shadow;
     opacity: calc(0.35 + (var(--slide-progress) * 0.65));
@@ -89,6 +92,10 @@
     &[aria-hidden="false"] {
       box-shadow: var(--slide-shadow-active);
     }
+
+    transform: none;
+    opacity: calc(0.2 + (var(--slide-progress) * 0.8));
+    filter: blur(calc(var(--slide-inactive) * 1px)) saturate(calc(68% + (var(--slide-progress) * 32%)));
   }
 
   &__controls {
@@ -132,40 +139,6 @@
   &__meta {
     font-size: 0.9rem;
     color: #334155;
-  }
-
-  &[data-animation="slide"] {
-    .o-minimal-slider__slide {
-      transform:
-        translateX(calc(var(--slide-inactive) * 20px)) scale(calc(1 - (var(--slide-inactive) * 0.035))) rotate(calc(var(--slide-inactive) * 0.2deg));
-    }
-  }
-
-  &[data-animation="fade"] {
-    .o-minimal-slider__slide {
-      transform: none;
-      opacity: calc(0.2 + (var(--slide-progress) * 0.8));
-      filter:
-        blur(calc(var(--slide-inactive) * 1px)) saturate(calc(68% + (var(--slide-progress) * 32%)));
-    }
-  }
-
-  &[data-animation="scale"] {
-    .o-minimal-slider__slide {
-      transform:
-        translateY(calc(var(--slide-inactive) * 10px)) scale(calc(1 - (var(--slide-inactive) * 0.1)));
-    }
-  }
-
-  &[data-animation="lift"] {
-    .o-minimal-slider__slide {
-      transform:
-        translateY(calc(8px - (var(--slide-progress) * 18px))) scale(calc(0.97 + (var(--slide-progress) * 0.04)));
-    }
-
-    .o-minimal-slider__slide[aria-hidden="false"] {
-      box-shadow: 0 24px 54px rgba(20, 26, 40, 0.2);
-    }
   }
 }
 

@@ -1,4 +1,4 @@
-<section class="o-minimal-slider" data-minimal-slider data-animation="slide" style="--slides-per-view: 1;">
+<section class="o-minimal-slider" data-minimal-slider data-animation="fade" style="--slides-per-view: 1;">
     <div class="o-minimal-slider__toolbar" aria-label="Slider options">
         <div class="o-minimal-slider__field">
             <label class="o-minimal-slider__label" for="minimal-slider-per-view">Slides per view</label>
@@ -9,15 +9,6 @@
             </select>
         </div>
 
-        <div class="o-minimal-slider__field">
-            <label class="o-minimal-slider__label" for="minimal-slider-animation">Animation</label>
-            <select class="o-minimal-slider__select" id="minimal-slider-animation" data-slider-animation>
-                <option value="slide" selected>Slide</option>
-                <option value="fade">Fade</option>
-                <option value="scale">Scale</option>
-                <option value="lift">Lift</option>
-            </select>
-        </div>
     </div>
 
     <div class="o-minimal-slider__viewport">
@@ -112,7 +103,6 @@
     const prevButton = slider.querySelector('[data-slider-prev]');
     const nextButton = slider.querySelector('[data-slider-next]');
     const perViewSelect = slider.querySelector('[data-slider-per-view]');
-    const animationSelect = slider.querySelector('[data-slider-animation]');
     const status = slider.querySelector('[data-slider-status]');
     const slides = Array.from(track.querySelectorAll('.o-minimal-slider__slide'));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -241,12 +231,6 @@
             scrollToIndex(currentIndex);
             updateIndexFromScroll();
             updateSlideMotionFromScroll();
-        });
-    }
-
-    if (animationSelect) {
-        animationSelect.addEventListener('change', (event) => {
-            slider.setAttribute('data-animation', event.target.value);
         });
     }
 
