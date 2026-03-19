@@ -1,0 +1,135 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-person";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+    background-color: tokens.get($_, "color--surface");
+    background-position: center;
+    border-radius: tokens.use($_, "border-radius");
+    contain: layout;
+    corner-shape: tokens.get($_, "corner-shape");
+
+    &.#{$_}--accepted {
+        background-color: transparent;
+    }
+
+    .#{$_}__modal {
+        border-radius: inherit;
+        corner-shape: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: tokens.use($_, "space", 2);
+        width: 100%;
+    }
+
+    .#{$_}__modal-description {
+        display: none;
+        margin: auto;
+        max-width: 100%;
+
+        .c-button+.c-button {
+            margin-left: 0;
+        }
+    }
+
+    .#{$_}__content {
+        height: 100%;
+    }
+
+    .#{$_}__content iframe {
+        background-color: tokens.get($_, "color--surface");
+    }
+
+    .#{$_}__modal-title {
+        --inherit-font-size: var(--font-size-400);
+    }
+
+    /* Map */
+    &.#{$_}--map {
+        .#{$_}__modal {
+            contain: paint;
+        }
+
+        .#{$_}__modal-description {
+            z-index: 3;
+        }
+
+        .#{$_}__modal:before {
+            background-color: tokens.get($_, "color--surface-border");
+            background-position: center;
+            background-size: cover;
+            content: "";
+            inset: 0;
+            mask-image: tokens.get($_, "map-image");
+            mask-position: center;
+            mask-repeat: no-repeat;
+            mask-size: cover;
+            position: absolute;
+            z-index: 2;
+        }
+
+        .#{$_}__modal:after {
+            background-color: tokens.get($_, "color--surface-alt");
+            content: "";
+            inset: 0;
+            position: absolute;
+            z-index: 1;
+        }
+    }
+
+    /* Video */
+    &.#{$_}--video {
+        background-color: unset;
+        position: relative;
+        aspect-ratio: 16/9;
+        height: unset !important;
+
+        iframe {
+            height: 100%;
+            width: 100%;
+        }
+
+        .#{$_}__modal {
+            background-color: tokens.get($_, "color--alpha");
+            color: tokens.get($_, "color--alpha-contrast");
+            inset: 0;
+            position: absolute;
+        }
+
+        .#{$_}__modal-icon-play {
+            color: tokens.get($_, "color--alpha-contrast");
+            cursor: pointer;
+            filter: tokens.get($_, "shadow");
+            font-size: clamp(tokens.use($_, "base", 8), 10vw, tokens.use($_, "base", 10));
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: filter 100ms linear;
+
+            &:hover {
+                filter: tokens.get($_, "shadow-hover");
+            }
+        }
+
+        .#{$_}__modal-info {
+            cursor: pointer;
+            position: absolute;
+            top: tokens.use($_, "base", 1);
+            right: tokens.use($_, "base", 2);
+            color: tokens.get($_, "color--alpha-contrast");
+        }
+    }
+}
+
+/* Since video module uses padding for ratio */
+.c-card__video {
+    .embed {
+        .#{$_}.#{$_}--video {
+            position: static;
+        }
+    }
+}
