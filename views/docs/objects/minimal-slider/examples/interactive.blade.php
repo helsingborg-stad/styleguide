@@ -144,11 +144,14 @@
     const status = slider.querySelector('[data-slider-status]');
     const slides = Array.from(track.querySelectorAll('.o-minimal-slider__slide'));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const minSlideWidth = 300;
+    const peekFraction = 0.18;
 
     let currentIndex = 0;
     let isTicking = false;
-    let isScrolling = false;
-    let scrollEndTimeout = null;
+    let resizeObserver = null;
+    let requestedPerView = Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--slides-per-view'), 10) || 1);
+    let currentPeekProgress = 0;
 
     const getMaxStartIndex = () => {
         return Math.max(0, slides.length - getStep());
@@ -172,8 +175,43 @@
     };
 
     const getStep = () => {
-        const perView = Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--slides-per-view'), 10) || 1);
+        const perView = Math.max(1, parseInt(getComputedStyle(slider).getPropertyValue('--slides-per-view-effective'), 10) || 1);
         return Math.max(1, perView);
+    };
+
+    const getSliderGapPx = () => {
+        return Math.max(0, parseFloat(getComputedStyle(slider).getPropertyValue('--slider-gap')) || 0);
+    };
+
+    const getAutoAdjustedView = () => {
+        const gapPx = getSliderGapPx();
+        const trackWidth = Math.max(1, track.clientWidth);
+        const maxWholeSlides = Math.max(1, Math.floor((trackWidth + gapPx) / (minSlideWidth + gapPx)));
+        const effectivePerView = Math.max(1, Math.min(requestedPerView, maxWholeSlides));
+        const wasReduced = effectivePerView < requestedPerView;
+        const visibleSlides = wasReduced
+            ? Math.min(requestedPerView, effectivePerView + peekFraction)
+            : effectivePerView;
+
+        return {
+            effectivePerView,
+            visibleSlides
+        };
+    };
+
+    const applyAutoAdjustedView = () => {
+        const previousStep = getStep();
+        const { effectivePerView, visibleSlides } = getAutoAdjustedView();
+        const peekProgress = Math.max(0, visibleSlides - effectivePerView);
+
+        slider.style.setProperty('--slides-per-view-effective', String(effectivePerView));
+        slider.style.setProperty('--slides-visible', String(visibleSlides.toFixed(3)));
+        currentPeekProgress = peekProgress;
+
+        if (previousStep !== effectivePerView) {
+            currentIndex = clampToStartIndex(currentIndex);
+            track.scrollLeft = getSlideTargetLeft(currentIndex);
+        }
     };
 
     const scrollToIndex = (index) => {
@@ -197,39 +235,25 @@
         }, 0);
     };
 
-    const warmupSlideRendering = () => {
-        slides.forEach((slide) => {
-            slide.getBoundingClientRect();
-        });
-    };
-
-    const setScrollingState = (value) => {
-        if (isScrolling === value) {
-            return;
-        }
-
-        isScrolling = value;
-        slider.classList.toggle('o-minimal-slider--is-scrolling', value);
-    };
-
     const updateSlideMotionFromScroll = () => {
         const viewportLeft = track.scrollLeft;
         const viewportRight = viewportLeft + track.clientWidth;
-        const completeThreshold = 0.98;
-        const inactiveThreshold = 0.02;
+        const effectivePerView = getStep();
+        const settledStartIndex = getNearestIndex();
+        const peekSlideIndex = settledStartIndex + effectivePerView;
 
-        slides.forEach((slide) => {
+        slides.forEach((slide, slideIndex) => {
             const slideLeft = slide.offsetLeft;
             const slideWidth = Math.max(1, slide.offsetWidth);
             const slideRight = slideLeft + slideWidth;
             const overlap = Math.max(0, Math.min(slideRight, viewportRight) - Math.max(slideLeft, viewportLeft));
-            const rawProgress = Math.max(0, Math.min(1, overlap / slideWidth));
-            const progress = isScrolling
-                ? rawProgress
-                : (rawProgress >= completeThreshold ? 1 : (rawProgress <= inactiveThreshold ? 0 : rawProgress));
+            let progress = Math.max(0, Math.min(1, overlap / slideWidth));
+
+            if (currentPeekProgress > 0 && slideIndex === peekSlideIndex) {
+                progress = Math.max(progress, currentPeekProgress);
+            }
 
             slide.style.setProperty('--slide-progress', progress.toFixed(3));
-            slide.style.setProperty('--slide-inactive', (1 - progress).toFixed(3));
         });
     };
 
@@ -277,11 +301,28 @@
     if (perViewSelect) {
         perViewSelect.addEventListener('change', (event) => {
             const selectedValue = parseInt(event.target.value, 10);
-            slider.style.setProperty('--slides-per-view', String(Math.max(1, Math.min(selectedValue, 3))));
+            requestedPerView = Math.max(1, Math.min(selectedValue, 3));
+            slider.style.setProperty('--slides-per-view', String(requestedPerView));
+            applyAutoAdjustedView();
             currentIndex = clampToStartIndex(currentIndex);
             scrollToIndex(currentIndex);
             updateIndexFromScroll();
             updateSlideMotionFromScroll();
+        });
+    }
+
+    if (window.ResizeObserver) {
+        resizeObserver = new window.ResizeObserver(() => {
+            applyAutoAdjustedView();
+            updateSlideMotionFromScroll();
+            updateIndexFromScroll();
+        });
+        resizeObserver.observe(track);
+    } else {
+        window.addEventListener('resize', () => {
+            applyAutoAdjustedView();
+            updateSlideMotionFromScroll();
+            updateIndexFromScroll();
         });
     }
 
@@ -308,18 +349,6 @@
     });
 
     track.addEventListener('scroll', () => {
-        setScrollingState(true);
-
-        if (scrollEndTimeout !== null) {
-            window.clearTimeout(scrollEndTimeout);
-        }
-
-        scrollEndTimeout = window.setTimeout(() => {
-            setScrollingState(false);
-            updateSlideMotionFromScroll();
-            updateIndexFromScroll();
-        }, 80);
-
         if (isTicking) {
             return;
         }
@@ -332,10 +361,9 @@
         });
     }, { passive: true });
 
+    applyAutoAdjustedView();
     track.scrollLeft = getSlideTargetLeft(0);
     setCurrentSlide(0);
-    setScrollingState(false);
-    warmupSlideRendering();
     updateSlideMotionFromScroll();
 })();
 </script>
