@@ -105,7 +105,7 @@
 					"variable": "--corner-shape",
 					"label": "Corner Shape",
 					"type": "select",
-					"default": "squircle",
+					"default": "rounded",
 					"options": [
 						{
 							"value": "square",
