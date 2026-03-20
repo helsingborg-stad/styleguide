@@ -21,6 +21,7 @@ The Styleguide now uses a structured token flow:
 2. Token Sass is generated from JSON into `source/sass/setting/_design-tokens.scss`.
 3. Components declare which tokens they are allowed to consume via component manifests.
 4. Component styles map and consume tokens through the token mixin pattern.
+5. Components are informed about their context through dedicated `--inherit` variables.
 
 This gives us:
 
@@ -28,6 +29,7 @@ This gives us:
 - predictable component-level token APIs
 - better runtime theming through CSS custom properties
 - schema validation for token usage
+- components that adapt to their surroundings, reducing the risk of hard-to-read fields or buttons etc.
 
 ## What developers need to do
 
