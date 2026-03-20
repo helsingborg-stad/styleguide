@@ -1,18 +1,17 @@
-@use "../setting/var_default";
+@use "../mixin/tokens";
 
-.o-minimal-slider {
-  --slider-gap: calc(#{var_default.$base});
-  --slides-per-view: 1;
-  --slides-per-view-effective: var(--slides-per-view);
-  --slides-visible: var(--slides-per-view-effective);
+$_: "o-minimal-slider";
 
+@include tokens.create($_, ("space"));
+
+.#{$_} {
   display: grid;
-  gap: var(--slider-gap);
+  gap: #{tokens.use($_, "space", 4)};
 
   &__toolbar {
     display: flex;
     flex-wrap: wrap;
-    gap: calc(var(--slider-gap) * 0.5);
+    gap: calc(#{tokens.use($_, "space", 4)} * 0.5);
     align-items: end;
   }
 
@@ -33,8 +32,8 @@
   &__track {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% - (var(--slides-visible) - 1) * var(--slider-gap)) / var(--slides-visible));
-    gap: var(--slider-gap);
+    grid-auto-columns: calc((100% - (var(--slides-visible, 1) - 1) * #{tokens.get($_, "space")} * var(--base) * 4) / var(--slides-visible, 1));
+    gap: #{tokens.use($_, "space", 4)};
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 0;
@@ -54,14 +53,13 @@
   }
 
   &__slide {
-    --slide-progress: 1;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
     contain: paint;
     will-change: opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
-    opacity: var(--slide-progress);
+    opacity: var(--slide-progress, 1);
     transition: opacity 100ms linear;
     padding: 0;
     margin: 0;
@@ -77,19 +75,29 @@
   &__controls {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: #{tokens.use($_, "space", 2)};
     align-items: center;
   }
 }
 
+
 @media (max-width: 900px) {
-  .o-minimal-slider {
-    --slider-gap: calc(#{var_default.$base});
+  .#{$_} {
+    gap: #{tokens.use($_, "space", 2)};
+
+    &__toolbar {
+      gap: calc(#{tokens.use($_, "space", 2)} * 0.5);
+    }
+
+    &__track {
+      grid-auto-columns: calc((100% - (var(--slides-visible, 1) - 1) * #{tokens.get($_, "space")} * var(--base) * 2) / var(--slides-visible, 1));
+      gap: #{tokens.use($_, "space", 2)};
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .o-minimal-slider {
+  .#{$_} {
     &__track {
       scroll-behavior: auto;
     }
