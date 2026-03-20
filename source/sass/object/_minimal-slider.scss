@@ -1,14 +1,24 @@
 @use "../mixin/tokens";
 
+@property --inherit-color-background {
+  syntax: "*";
+  inherits: false;
+}
+
 $_: "o-minimal-slider";
 
-@include tokens.create($_, ("space", "outer-space"), ("slides-visible": 1));
+@include tokens.create($_, ("base", "space", "outer-space", "color--surface"), ("slides-visible": 1));
 
 .#{$_} {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "toolbar"
+    "viewport";
   gap: #{tokens.use($_, "space", 4)};
 
   &__toolbar {
+    grid-area: toolbar;
     display: flex;
     flex-wrap: wrap;
     gap: calc(#{tokens.use($_, "space", 4)} * 0.5);
@@ -26,7 +36,34 @@ $_: "o-minimal-slider";
   }
 
   &__viewport {
+    grid-area: viewport;
+    position: relative;
     overflow: hidden;
+    margin: 0 calc(#{tokens.use($_, "base", 4)} * -1);
+    padding: 0 #{tokens.use($_, "base", 4)};
+
+    /* Gradient fade on both sides to indicate scrollability */
+    /*
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: #{tokens.use($_, "base", 4)};
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, var(--inherit-color-background, #{tokens.get($_, "color--surface")}), transparent);
+    }
+
+    &::after {
+      right: 0;
+      background: linear-gradient(to left, var(--inherit-color-background, #{tokens.get($_, "color--surface")}), transparent);
+    }*/
   }
 
   &__track {
@@ -42,7 +79,7 @@ $_: "o-minimal-slider";
     margin: 0;
     list-style: none;
     touch-action: pan-x;
-    overscroll-behavior-x: contain;
+    overscroll-behavior-x: none;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -55,7 +92,6 @@ $_: "o-minimal-slider";
   &__slide {
     scroll-snap-align: start;
     scroll-snap-stop: normal;
-    contain: paint;
     will-change: opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -74,9 +110,29 @@ $_: "o-minimal-slider";
 
   &__controls {
     display: flex;
-    flex-wrap: wrap;
-    gap: #{tokens.use($_, "space", 2)};
-    align-items: center;
+    justify-content: space-between;
+    grid-area: viewport;
+    position: relative;
+    z-index: 4;
+    pointer-events: none;
+    min-height: 100%;
+    margin: 0 calc(#{tokens.use($_, "base", 4)} * -1);
+  }
+
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+    margin: 0;
+
+    &:first-of-type {
+      left: #{tokens.use($_, "base", 1)};
+    }
+
+    &:last-of-type {
+      right: #{tokens.use($_, "base", 1)};
+    }
   }
 }
 
@@ -92,6 +148,16 @@ $_: "o-minimal-slider";
     &__track {
       grid-auto-columns: calc((100% - (var(--slides-visible, #{tokens.get($_, "slides-visible")}) - 1) * #{tokens.get($_, "space")} * var(--base) * 2) / var(--slides-visible, #{tokens.get($_, "slides-visible")}));
       gap: #{tokens.use($_, "space", 2)};
+    }
+
+    &__button {
+      &:first-of-type {
+        left: 0;
+      }
+
+      &:last-of-type {
+        right: 0;
+      }
     }
   }
 }
