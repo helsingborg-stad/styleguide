@@ -74,7 +74,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         border: 0;
         background: none;
         height: tokens.get($_, "height");
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.use($_, "base", 2);
         outline: 0;
         margin: 0;
         color: tokens.get($_, "color");

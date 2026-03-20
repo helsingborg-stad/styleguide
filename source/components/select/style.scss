@@ -74,6 +74,8 @@ $_: "c-select";
     }
 
     .#{$_}__clear-button {
+        --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-md")} * 1.325);
+        --_clear-icon-offset: calc(var(--_clear-icon-size) * 0.063);
         position: absolute;
         right: 2em;
         top: 0;
@@ -96,8 +98,8 @@ $_: "c-select";
         }
 
         .c-icon {
-            font-size: 1.325em;
-            transform: translateY(calc(var(--c-select--base) * 0.3));
+            font-size: var(--_clear-icon-size);
+            transform: translateY(var(--_clear-icon-offset));
         }
 
         &[aria-hidden="true"] {
@@ -172,6 +174,10 @@ $_: "c-select";
             line-height: tokens.use($_, "base", 1.5);
         }
 
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-sm")} * 1.325);
+        }
+
         .#{$_}__dropdown .#{$_}__option {
             padding: tokens.use($_, "base", 0.75) tokens.use($_, "base", 1.5);
         }
@@ -186,6 +192,10 @@ $_: "c-select";
             line-height: tokens.use($_, "base", 2);
         }
 
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-md")} * 1.325);
+        }
+
         .#{$_}__dropdown .#{$_}__option {
             padding: tokens.use($_, "base", 1) tokens.use($_, "base", 1.75);
         }
@@ -198,6 +208,10 @@ $_: "c-select";
             padding: 0 tokens.use($_, "base", 2.5);
             font-size: tokens.get($_, "font-size-btn-lg");
             line-height: tokens.use($_, "base", 2);
+        }
+
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-lg")} * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {

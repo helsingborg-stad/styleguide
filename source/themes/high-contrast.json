@@ -1,10 +1,10 @@
 {
 	"--color--background": "#000000",
 	"--color--background-contrast": "#ffffff",
-	"--color--background-contrast-muted": "#f0f0f0",
+	"--color--background-contrast-muted": "#ffffff",
 	"--color--surface": "#000000",
 	"--color--surface-contrast": "#ffffff",
-	"--color--surface-contrast-muted": "#f0f0f0",
+	"--color--surface-contrast-muted": "#ffffff",
 	"--color--primary": "#ffd400",
 	"--color--secondary": "#00d9ff",
 	"--color--primary-contrast": "#000000",
@@ -27,9 +27,10 @@
 	"--letter-spacing-base": "0.012em",
 	"--border-radius": "0",
 	"--corner-shape": "square",
-	"--border-width": "0.125",
+	"--border-width": "0.25",
 	"--space": "1.4",
 	"--outer-space": "2.6",
 	"--shadow-color": "rgba(0, 0, 0, 0)",
-	"--shadow-amount": "0"
+	"--shadow-amount": "0",
+	"--color--border-mix-amount": "100%"
 }
