@@ -82,8 +82,23 @@ $_: "c-select";
         z-index: 6000;
         height: 100%;
         color: tokens.get($_, "color--primary");
+        --inherit-color-contrast: #{tokens.get($_, "color--primary")};
         display: flex;
         align-items: center;
+
+        .c-button__label {
+            height: 100%;
+            align-items: center;
+        }
+
+        .c-button__label-icon {
+            margin-left: 0;
+        }
+
+        .c-icon {
+            font-size: 1.325em;
+            transform: translateY(calc(var(--c-select--base) * 0.3));
+        }
 
         &[aria-hidden="true"] {
             display: none;
@@ -153,15 +168,8 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 1);
-        }
-
-        .#{$_}__clear-button {
             font-size: tokens.get($_, "font-size-btn-sm");
             line-height: tokens.use($_, "base", 1.5);
-        }
-
-        .#{$_}__clear-button .c-icon {
-            font-size: 1.5em
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -174,15 +182,8 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 2);
-        }
-
-        .#{$_}__clear-button {
             font-size: tokens.get($_, "font-size-btn-md");
             line-height: tokens.use($_, "base", 2);
-        }
-
-        .#{$_}__clear-button .c-icon {
-            font-size: 1.5em
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -195,15 +196,8 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 2.5);
-        }
-
-        .#{$_}__clear-button {
             font-size: tokens.get($_, "font-size-btn-lg");
             line-height: tokens.use($_, "base", 2);
-        }
-
-        .#{$_}__clear-button .c-icon {
-            font-size: 1.5em
         }
 
         .#{$_}__dropdown .#{$_}__option {
