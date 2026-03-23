@@ -90,9 +90,23 @@ $fields: "input, input[type="color"], input[type="text"], input[type="search"], 
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.get($_, "corner-shape");
 
-            &::-webkit-calendar-picker-indicator {
-                filter: brightness(0);
-                opacity: 0.8;
+            &[type="date"],
+            &[type="time"],
+            &[type="datetime-local"],
+            &[type="month"],
+            &[type="week"] {
+                background-image: none;
+
+                &::-webkit-calendar-picker-indicator {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                    margin: 0;
+                    padding: 0;
+                    pointer-events: none;
+                    appearance: none;
+                    -webkit-appearance: none;
+                }
             }
 
             &[type="search"]::-webkit-search-cancel-button {
