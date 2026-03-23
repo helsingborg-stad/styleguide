@@ -474,7 +474,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         &:hover,
         &:focus-visible {
-            background-color: color-mix(in srgb, tokens.get($_, "color--surface-border") 12%, tokens.get($_, "background-color"));
+            background-color: tokens.get($_, "background-color-alt");
         }
     }
 }

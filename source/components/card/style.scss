@@ -40,7 +40,6 @@ $_: "c-card";
     border: tokens.get($_, "border");
 
     /* switch to surface color tokens for nested components */
-    .c-field,
     .c-paper,
     .c-comment,
     .c-button__filled--default {
