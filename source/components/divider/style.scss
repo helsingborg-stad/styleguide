@@ -20,6 +20,8 @@ $_: "c-divider";
     }
 
     &__title {
+        margin-top: 0;
+        margin-bottom: 0;
         padding: tokens.use($_, "space", 1) tokens.use($_, "space", 2);
     }
 
