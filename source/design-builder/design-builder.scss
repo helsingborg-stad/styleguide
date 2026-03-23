@@ -513,10 +513,10 @@
 // --- Contrast Pair ---
 
 .db-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: stretch;
   padding: 0.75rem 0;
   border-bottom: 1px solid color-mix(in srgb, var(--color--surface-contrast) 6%, var(--color--surface));
 
@@ -604,10 +604,6 @@
 }
 
 @media (max-width: 640px) {
-  .db-pair {
-    grid-template-columns: 1fr;
-  }
-
   .db-pair__contrast-row {
     grid-template-columns: 1fr;
   }
