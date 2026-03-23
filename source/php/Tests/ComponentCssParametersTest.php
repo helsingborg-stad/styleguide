@@ -25,7 +25,7 @@ class ComponentCssParametersTest extends TestCase
                 [
                     'name' => 'Alpha',
                     'slug' => 'alpha',
-                    'tokens' => ['base', 'shadow-color', 'shadow-amount', 'color--primary'],
+                    'tokens' => ['base', 'shadow-color', 'shadow-color-opacity', 'shadow-amount', 'color--primary'],
                 ],
                 JSON_PRETTY_PRINT,
             ),
@@ -60,6 +60,12 @@ class ComponentCssParametersTest extends TestCase
                                     'label' => 'Shadow Color',
                                     'type' => 'color',
                                     'default' => '#000000',
+                                ],
+                                [
+                                    'variable' => '--shadow-color-opacity',
+                                    'label' => 'Shadow Opacity',
+                                    'type' => 'range',
+                                    'default' => 0.25,
                                 ],
                                 [
                                     'variable' => '--shadow-amount',
@@ -113,17 +119,18 @@ class ComponentCssParametersTest extends TestCase
     {
         $rows = ComponentCssParameters::getForComponent('alpha', $this->tempBasePath);
 
-        $this->assertCount(4, $rows);
+        $this->assertCount(5, $rows);
 
         $this->assertSame('--c-alpha--base', $rows[0]['key']);
         $this->assertSame('var(--base)', $rows[0]['defaultValue']);
         $this->assertSame('Main unit.', $rows[0]['description']);
 
         $this->assertSame('--c-alpha--shadow-color', $rows[1]['key']);
-        $this->assertSame('--c-alpha--shadow-amount', $rows[2]['key']);
-        $this->assertSame('--c-alpha--color--primary', $rows[3]['key']);
+        $this->assertSame('--c-alpha--shadow-color-opacity', $rows[2]['key']);
+        $this->assertSame('--c-alpha--shadow-amount', $rows[3]['key']);
+        $this->assertSame('--c-alpha--color--primary', $rows[4]['key']);
 
-        $this->assertSame('#0055ff, #0f766e', $rows[3]['availableValues']);
+        $this->assertSame('#0055ff, #0f766e', $rows[4]['availableValues']);
     }
 
     public function testGetForComponentReturnsEmptyArrayWhenFilesAreMissing(): void

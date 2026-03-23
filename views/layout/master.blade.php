@@ -130,10 +130,10 @@
                         'placeholder' => 'Search components, utilities and scripts',
                         'classList' => ['u-margin--0'],
                         'attributeList' => [
-                            'autocomplete' => 'off',
                             'data-datalist' => '/search',
                             'data-datalist-query-param' => 'q'
                         ],
+                        'autocomplete' => 'off',
                         'size' => 'sm',
                         'icon' => ['icon' => 'search']
                     ])

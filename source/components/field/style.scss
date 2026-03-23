@@ -1,39 +1,24 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
-@use "./types/type-temporal" as type-temporal;
-@use "./types/type-search" as type-search;
-@use "./types/type-color" as type-color;
-
-/* Inheritance properties */
-@property --inherit-color-contrast {
-    syntax: "*";
-    inherits: false;
-}
-
-@property --inherit-color-background {
-    syntax: "*";
-    inherits: false;
-}
 
 /* Component name */
 $_: "c-field";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-        "background-color": tokens.get($_, "color--surface"),
-        "color": tokens.get($_, "color--surface-contrast"),
-        "height": "calc(var(--base) * 6)",
-        "shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 1.5)));
+@include tokens.create($_, getComponentTokens($_), (
+    "base": "var(--base)",
+    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
+    "background-color": tokens.get($_, "color--surface"),
+    "height": "calc(var(--base) * 6)",
+    "shadow": tokens.use($_, "shadow", 1),
+    "shadow-hover": tokens.use($_, "shadow", 1.5)
+));
 
-$fields: "input, input[type=" color"], input[type=" text"], input[type=" search"], input[type=" tel"], input[type=" time"], input[type=" date"], input[type=" datetime-local"], input[type=" url"], input[type=" week"], input[type=" month"], input[type=" number"], input[type=" password"], input[type=" email"], [data-js-select-action-overlay]";
+$fields: "input, input[type="color"], input[type="text"], input[type="search"], input[type="tel"], input[type="time"], input[type="date"], input[type="datetime-local"], input[type="url"], input[type="week"], input[type="month"], input[type="number"], input[type="password"], input[type="email"], [data-js-select-action-overlay]";
 
 /* Component */
 .#{$_} {
-    --#{$_}--background-color: var(--inherit-color-background, #{tokens.get($_, "color--surface")});
-    --#{$_}--color: var(--inherit-color-contrast, #{tokens.get($_, "color--surface-contrast")});
     --#{$_}--height-computed: calc(#{tokens.get($_, "height")} - #{tokens.get($_, "border-width")} * 2);
 
     flex: 1;
@@ -45,7 +30,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     .#{$_}__label {
-        color: tokens.get($_, "color");
+        color: tokens.get($_, "color--surface-contrast");
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -55,14 +40,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
     .#{$_}__description {
         font-size: 0.75rem;
-        color: tokens.get($_, "color");
+        color: tokens.get($_, "color--surface-contrast");
         margin-top: 0;
     }
 
     .#{$_}__helper {
         font-family: var(--font-family-base);
         font-size: var(--font-size-caption, 0.875rem);
-        color: tokens.get($_, "color");
+        color: tokens.get($_, "color--surface-contrast");
         margin-top: tokens.use($_, "space", 0.5);
         margin-left: tokens.use($_, "space", 0.25);
     }
@@ -74,10 +59,10 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         border: 0;
         background: none;
         height: tokens.get($_, "height");
-        padding: tokens.use($_, "base", 2);
+        padding: tokens.use($_, "space", 2);
         outline: 0;
         margin: 0;
-        color: tokens.get($_, "color");
+        color: tokens.get($_, "color--surface-contrast");
     }
 
     .#{$_}__inner {
@@ -92,7 +77,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         line-height: calc(var(--base) * 2);
         border: tokens.get($_, "border");
         background: tokens.get($_, "background-color");
-        color: tokens.get($_, "color");
+        color: tokens.get($_, "color--surface-contrast");
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
 
@@ -104,6 +89,19 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         input {
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.get($_, "corner-shape");
+
+            &::-webkit-calendar-picker-indicator {
+                filter: brightness(0);
+                opacity: 0.8;
+            }
+
+            &[type="search"]::-webkit-search-cancel-button {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 0;
+                height: 0;
+                margin: 0;
+            }
 
             &[list] {
                 cursor: text;
@@ -119,15 +117,45 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             }
         }
 
-        @include type-temporal.apply($_);
-        @include type-search.apply($_);
+        &.#{$_}__inner--datalist,
+        &:has(input[list]) {
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: calc(#{tokens.get($_, "base")} * 5);
+                border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+                background-image: linear-gradient(
+                    to bottom,
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, tokens.get($_, "background-color")),
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, tokens.get($_, "background-color"))
+                );
+                border-top-right-radius: tokens.use($_, "border-radius");
+                border-bottom-right-radius: tokens.use($_, "border-radius");
+                pointer-events: none;
+            }
 
-
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: calc(#{tokens.get($_, "base")} * 2);
+                width: 0.55em;
+                height: 0.55em;
+                border-right: 2px solid tokens.get($_, "color--primary");
+                border-bottom: 2px solid tokens.get($_, "color--primary");
+                transform: translateY(-65%) rotate(45deg);
+                opacity: 1;
+                pointer-events: none;
+            }
+        }
 
         .#{$_}__icon,
         .#{$_}__prefix,
         .#{$_}__suffix {
-            color: tokens.get($_, "color");
+            color: tokens.get($_, "color--surface-contrast");
         }
 
         .#{$_}__icon,
@@ -157,6 +185,17 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             bottom: tokens.use($_, "space", 2);
         }
 
+        &--search {
+
+            #input_search-form__field,
+            #input_search-form--field,
+            #input_header-search-form__field,
+            #input_hero-search-form__field,
+            #input_mobile-search-form__field {
+                box-shadow: none;
+            }
+        }
+
         &--number,
         &--email,
         &--text,
@@ -167,8 +206,6 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 box-shadow: none;
             }
         }
-
-        @include type-color.apply($_);
     }
 
     &.#{$_}--hidden {

@@ -74,16 +74,16 @@ class ComponentCssParameters
         return array_values(
             array_filter(
                 $componentConfig['tokens'],
-                static fn (mixed $token): bool => is_string($token) && $token !== ''
-            )
+                static fn(mixed $token): bool => is_string($token) && $token !== '',
+            ),
         );
     }
 
     /**
      * Resolve design-token settings into display-ready CSS parameter declarations.
      *
-    * @param string $slug Component slug.
-    * @param array<int, string> $componentTokens Tokens declared in component.json.
+     * @param string $slug Component slug.
+     * @param array<int, string> $componentTokens Tokens declared in component.json.
      * @param array<string, mixed> $designTokensConfig Parsed design token config.
      *
      * @return array<int, array<string, string>>
@@ -144,7 +144,7 @@ class ComponentCssParameters
                 $seenVariables,
                 self::toLocalizedVariable($componentPrefix, $token),
                 'var(--' . $token . ')',
-                $settingsByToken[$token] ?? null
+                $settingsByToken[$token] ?? null,
             );
         }
 
@@ -172,7 +172,7 @@ class ComponentCssParameters
             'key' => $localizedVariable,
             'defaultValue' => $defaultValue,
             'type' => is_array($setting) && isset($setting['type']) && is_string($setting['type']) ? $setting['type'] : '-',
-            'availableValues' => self::formatAvailableValues(is_array($setting) ? ($setting['options'] ?? null) : null),
+            'availableValues' => self::formatAvailableValues(is_array($setting) ? $setting['options'] ?? null : null),
             'description' => self::formatDescription($setting ?? []),
         ];
 
@@ -239,5 +239,4 @@ class ComponentCssParameters
 
         return $values === [] ? '-' : implode(', ', $values);
     }
-
 }
