@@ -6,7 +6,13 @@
  * and manages live preview + storage.
  */
 
-import { createContrastPair, createControl, createReadOnlyControl, createSwatchBand, type TokenSetting } from './controls';
+import {
+	createContrastPair,
+	createControl,
+	createReadOnlyControl,
+	createSwatchBand,
+	type TokenSetting,
+} from './controls';
 import { LocalStorageAdapter, PresetManager, type StorageAdapter } from './storage';
 
 interface TokenCategory {
@@ -81,15 +87,10 @@ class DesignBuilder {
 					<input type="checkbox" data-action="toggle-locked" ${this.showLockedFields ? 'checked' : ''}>
 					<span>Show uneditable</span>
 				</label>
-        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="export">
-          <span class="c-button__label"><span class="c-button__label-text">Export JSON</span></span>
-        </button>
-        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--default" data-action="import">
-          <span class="c-button__label"><span class="c-button__label-text">Import JSON</span></span>
-        </button>
-        <button type="button" class="c-button c-button--sm c-button__outlined c-button__outlined--primary" data-action="reset">
-          <span class="c-button__label"><span class="c-button__label-text">Reset All</span></span>
-        </button>
+        <button type="button" class="db-btn" data-action="export">Export JSON</button>
+        <button type="button" class="db-btn" data-action="import">Import JSON</button>
+        <button type="button" class="db-btn db-btn--danger" data-action="reset">Reset All</button>
+        <button type="button" class="db-btn db-btn--primary" data-action="save-preset">Save preset</button>
         <input type="file" accept=".json,application/json" data-action="import-file" hidden>
       </div>
     `;
@@ -112,6 +113,7 @@ class DesignBuilder {
 			importInput.value = '';
 		});
 		header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll());
+		header.querySelector('[data-action="save-preset"]')?.addEventListener('click', () => this.savePreset());
 
 		// Preset bar
 		this.presetBar = this.renderPresetBar();
@@ -361,24 +363,24 @@ class DesignBuilder {
 		const bar = document.createElement('div');
 		bar.className = 'db-presets';
 
+		const names = this.presetManager.names();
+
+		if (names.length === 0) {
+			bar.hidden = true;
+			bar.classList.add('u-display--none');
+			return bar;
+		}
+
 		const list = document.createElement('div');
 		list.className = 'db-presets__list';
 
 		const activeName = this.presetManager.getActive();
-		const names = this.presetManager.names();
 
 		for (const name of names) {
 			list.appendChild(this.createPresetChip(name, name === activeName));
 		}
 
 		bar.appendChild(list);
-
-		const saveBtn = document.createElement('button');
-		saveBtn.type = 'button';
-		saveBtn.className = 'db-presets__save';
-		saveBtn.innerHTML = '<span class="material-symbols-outlined">save</span> Save';
-		saveBtn.addEventListener('click', () => this.savePreset());
-		bar.appendChild(saveBtn);
 
 		return bar;
 	}
