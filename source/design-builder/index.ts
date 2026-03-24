@@ -468,14 +468,8 @@ class DesignBuilder {
 const SPLIT_STORAGE_KEY = 'design-builder-split';
 const MIN_SPLIT = 20;
 const MAX_SPLIT = 80;
-const SPLIT_STORAGE_KEY = 'design-builder-split';
-const MIN_SPLIT = 20;
-const MAX_SPLIT = 80;
 
 function initDivider(): void {
-	const layout = document.querySelector<HTMLElement>('.db-layout');
-	const divider = document.querySelector<HTMLElement>('[data-db-divider]');
-	if (!layout || !divider) return;
 	const layout = document.querySelector<HTMLElement>('.db-layout');
 	const divider = document.querySelector<HTMLElement>('[data-db-divider]');
 	if (!layout || !divider) return;
@@ -503,13 +497,6 @@ function initDivider(): void {
 		divider.releasePointerCapture(e.pointerId);
 		divider.removeEventListener('pointermove', onPointerMove);
 		divider.removeEventListener('pointerup', onPointerUp);
-	const onPointerUp = (e: PointerEvent) => {
-		divider.classList.remove('is-dragging');
-		document.body.style.userSelect = '';
-		document.body.style.cursor = '';
-		divider.releasePointerCapture(e.pointerId);
-		divider.removeEventListener('pointermove', onPointerMove);
-		divider.removeEventListener('pointerup', onPointerUp);
 
 		// Persist
 		const current = layout.style.getPropertyValue('--db-split');
@@ -517,22 +504,7 @@ function initDivider(): void {
 			localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString());
 		}
 	};
-		// Persist
-		const current = layout.style.getPropertyValue('--db-split');
-		if (current) {
-			localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString());
-		}
-	};
 
-	divider.addEventListener('pointerdown', (e: PointerEvent) => {
-		e.preventDefault();
-		divider.classList.add('is-dragging');
-		document.body.style.userSelect = 'none';
-		document.body.style.cursor = 'col-resize';
-		divider.setPointerCapture(e.pointerId);
-		divider.addEventListener('pointermove', onPointerMove);
-		divider.addEventListener('pointerup', onPointerUp);
-	});
 	divider.addEventListener('pointerdown', (e: PointerEvent) => {
 		e.preventDefault();
 		divider.classList.add('is-dragging');
@@ -549,27 +521,13 @@ function initDivider(): void {
 function init(): void {
 	const container = document.querySelector<HTMLElement>('[data-design-builder]');
 	if (!container) return;
-	const container = document.querySelector<HTMLElement>('[data-design-builder]');
-	if (!container) return;
 
 	const tokensAttr = container.getAttribute('data-tokens');
 	if (!tokensAttr) {
 		container.textContent = 'Error: No token data found.';
 		return;
 	}
-	const tokensAttr = container.getAttribute('data-tokens');
-	if (!tokensAttr) {
-		container.textContent = 'Error: No token data found.';
-		return;
-	}
 
-	let tokens: TokenData;
-	try {
-		tokens = JSON.parse(tokensAttr);
-	} catch {
-		container.textContent = 'Error: Invalid token data.';
-		return;
-	}
 	let tokens: TokenData;
 	try {
 		tokens = JSON.parse(tokensAttr);
@@ -586,8 +544,6 @@ function init(): void {
 
 if (document.readyState === 'loading') {
 	document.addEventListener('DOMContentLoaded', init);
-	document.addEventListener('DOMContentLoaded', init);
 } else {
-	init();
 	init();
 }
