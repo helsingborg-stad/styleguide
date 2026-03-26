@@ -47,6 +47,11 @@ $_: "c-card";
         --inherit-color-contrast: var(--color--background-contrast);
     }
 
+    .#{$_}__image {
+        --c-image--color-background: #{tokens.get($_, "image-bg")};
+        --c-image--border-radius: 0;
+    }
+
     .#{$_}__paint-container {
         contain: paint;
         border-radius: inherit;
@@ -99,15 +104,6 @@ $_: "c-card";
 
         > :first-child {
             margin-top: 0;
-        }
-    }
-
-    .#{$_}__image {
-        background-color: tokens.get($_, "image-bg");
-        border-radius: 0;
-
-        .c-image__image {
-            border-radius: 0;
         }
     }
 
