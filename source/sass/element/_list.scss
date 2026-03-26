@@ -21,7 +21,7 @@ ul, ol {
 
 ul {
     li::marker {
-        color: var_colors.$color-primary;
+        color: inherit;
     }
 }
 
