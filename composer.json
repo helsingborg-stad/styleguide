@@ -1,63 +1,65 @@
 {
-    "name": "helsingborg-stad/styleguide",
-    "license": "MIT",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Sebastian Thulin",
-            "email": "sebastian.thulin@helsingborg.se"
-        },
-        {
-            "name": "Nikolas Ramstedt",
-            "email": "nikolas.ramstedt@helsingborg.se"
-        },
-        {
-            "name": "Jonatan Hanson",
-            "email": "jonatan.hanson@helsingborg.se"
-        },
-        {
-            "name": "Johan Silvergrund",
-            "email": "johan.silvergrund@hiq.se"
-        }
-    ],
-    "minimum-stability": "stable",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packagist.org"
-        },
-        {
-            "type": "composer",
-            "url": "https://wpackagist.org"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "MunicipioStyleGuide\\": "source/php/",
-            "MunicipioStyleGuide\\Validators\\": "source/validators/"
-        }
-    },
-    "require": {
-        "php": "^8.2",
-        "erusev/parsedown": "^1.7",
-        "helsingborg-stad/component-library": "^5.2",
-        "ramsey/uuid": "^4.9"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.6",
-        "carthage-software/mago": "^1.8"
-    },
-    "config": {
-        "allow-plugins": {
-            "carthage-software/mago": true
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test:filter": "vendor/bin/phpunit --filter",
-        "lint": "vendor/bin/mago lint",
-        "fix": "vendor/bin/mago lint --format-after-fix --fix",
-        "format": "vendor/bin/mago fmt",
-        "serve": "php -S 127.0.0.1:0 router.php"
-    }
+	"name": "helsingborg-stad/styleguide",
+	"license": "MIT",
+	"type": "library",
+	"authors": [
+		{
+			"name": "Sebastian Thulin",
+			"email": "sebastian.thulin@helsingborg.se"
+		},
+		{
+			"name": "Nikolas Ramstedt",
+			"email": "nikolas.ramstedt@helsingborg.se"
+		},
+		{
+			"name": "Jonatan Hanson",
+			"email": "jonatan.hanson@helsingborg.se"
+		},
+		{
+			"name": "Johan Silvergrund",
+			"email": "johan.silvergrund@hiq.se"
+		}
+	],
+	"minimum-stability": "stable",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://packagist.org"
+		},
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"MunicipioStyleGuide\\": "source/php/",
+			"MunicipioStyleGuide\\Validators\\": "source/validators/"
+		}
+	},
+	"require": {
+		"php": "^8.2",
+		"erusev/parsedown": "^1.7",
+		"helsingborg-stad/component-library": "^5.2",
+		"ramsey/uuid": "^4.9"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.6",
+		"carthage-software/mago": "^1.8"
+	},
+	"config": {
+		"allow-plugins": {
+			"carthage-software/mago": true
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/phpunit",
+		"test:filter": "vendor/bin/phpunit --filter",
+		"lint": "vendor/bin/mago lint",
+		"fix": "vendor/bin/mago lint --format-after-fix --fix",
+		"format": "vendor/bin/mago fmt",
+		"serve": "php -S 127.0.0.1:0 router.php",
+		"cache": "php cli.php cache",
+		"cache:clear:blade": "php cli.php cache --clear --blade blade"
+	}
 }
