@@ -190,6 +190,10 @@ class ComponentCustomizationTool {
 		const nodes = document.querySelectorAll<HTMLElement>('[data-component]');
 
 		for (const node of nodes) {
+			if (node.closest<HTMLElement>('[data-customizable="false"]')) {
+				continue;
+			}
+
 			const componentName = normalizeComponentName(node.dataset.component || '');
 			if (!componentName) continue;
 			if (NON_CUSTOMIZABLE_COMPONENTS.has(componentName)) continue;
@@ -618,15 +622,33 @@ class ComponentCustomizationTool {
 		this.storage.save(this.overrides);
 	}
 
+	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {
+		const localScopeKey = this.getScopeKeyForElement(element);
+		if (localScopeKey === GENERAL_SCOPE_KEY || localScopeKey === GLOBAL_SCOPE_KEY) {
+			return false;
+		}
+
+		const localValue = this.overrides[localScopeKey]?.[componentName]?.[variable];
+		return typeof localValue === 'string' && localValue.trim() !== '';
+	}
+
 	private applyVariable(componentName: string, scopeKey: string, variable: string, value: string): void {
-		const elements = this.getElementsForContext(componentName, scopeKey);
+		let elements = this.getElementsForContext(componentName, scopeKey);
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			elements = elements.filter((element) => !this.hasLocalScopeOverrideForElement(componentName, variable, element));
+		}
+
 		for (const element of elements) {
 			element.style.setProperty(variable, value);
 		}
 	}
 
 	private removeVariable(componentName: string, scopeKey: string, variable: string): void {
-		const elements = this.getElementsForContext(componentName, scopeKey);
+		let elements = this.getElementsForContext(componentName, scopeKey);
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			elements = elements.filter((element) => !this.hasLocalScopeOverrideForElement(componentName, variable, element));
+		}
+
 		for (const element of elements) {
 			element.style.removeProperty(variable);
 		}

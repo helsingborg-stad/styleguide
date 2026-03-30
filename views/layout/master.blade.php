@@ -269,7 +269,6 @@
     @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']) && isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
         @fab([
             'position' => 'bottom-right',
-            'heading' => 'Customize components',
             'button' => [
                 'icon' => 'tune',
                 'size' => 'md',
@@ -279,12 +278,10 @@
                 'ariaLabel' => 'Open component customization'
             ],
             'attributeList' => [
-                'data-customize-init-fab' => 'true'
+                'data-customize-init-fab' => 'true',
+                'data-customizable' => 'false'
             ]
         ])
-            @typography(['element' => 'p', 'variant' => 'body'])
-                Customize components
-            @endtypography
         @endfab
     @endif
 
@@ -300,7 +297,8 @@
             'ariaLabel' => 'Open theme preset picker'
         ],
         'attributeList' => [
-            'data-theme-presets-fab' => 'true'
+            'data-theme-presets-fab' => 'true',
+            'data-customizable' => 'false'
         ]
     ])
         <div class="d-theme-presets__list" data-theme-presets-list>

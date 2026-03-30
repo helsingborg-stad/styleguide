@@ -89,6 +89,11 @@ Payloads are produced by:
 Targets are discovered by:
 - [data-component]
 
+Targets are skipped when they are inside:
+- [data-customizable="false"]
+
+This excludes the marked component and all nested [data-component] descendants.
+
 Examples:
 - data-component="button"
 - data-component="typography"
