@@ -1,0 +1,13 @@
+{
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Scope",
+	"slug": "scope",
+	"tokens": ["base"],
+	"description": "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface.",
+	"tags": ["scope", "limit", "reduce", "wrap", "wrapper"],
+	"similarComponents": ["container", "section"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "arrow_and_edge"
+}

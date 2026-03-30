@@ -1,0 +1,11 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-toast";
+
+$toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+  contain: paint;
+}
