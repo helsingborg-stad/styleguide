@@ -54,6 +54,16 @@ $_: "c-header";
         --inherit-color-contrast: var(--c-header--color);
     }
 
+    .c-button.c-button__filled:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+        --inherit-color-background: var(--c-header--color);
+        --inherit-color-contrast: var(--c-header--background-color);
+    }
+
+    .c-button.c-button__outlined:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+        --inherit-color-contrast: var(--c-header--color);
+        --inherit-color-border: var(--c-header--color);
+    }
+
     &.#{$_}--accented {
         border-bottom: tokens.get($_, "base") solid tokens.get($_, "border-color");
     }
