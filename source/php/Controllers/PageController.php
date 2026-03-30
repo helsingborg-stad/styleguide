@@ -2,12 +2,13 @@
 
 namespace MunicipioStyleGuide\Controllers;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Asset;
 use MunicipioStyleGuide\Contracts\ControllerInterface;
+use MunicipioStyleGuide\Customize\CustomizeAssets;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
-use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
  * Controller for page rendering.
@@ -83,6 +84,7 @@ class PageController extends BaseController implements ControllerInterface
     {
         return [
             'assets' => Asset::getAll(),
+            'customizeAssets' => CustomizeAssets::get(),
             'topNavigation' => $this->navigation->buildItems('pages/', [], false),
             'sideNavigation' => $this->navigation->buildSidebarNavigation(),
             'pageNow' => $page,

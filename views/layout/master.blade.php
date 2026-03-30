@@ -19,6 +19,10 @@
         <!-- No css found in manifest: Please build -->
     @endif
 
+    @if(isset($customizeAssets['style']) && !empty($customizeAssets['style']))
+        <link rel="stylesheet" href="{{ $customizeAssets['style'] }}" type="text/css" media="all">
+    @endif
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,500&display=swap" rel="stylesheet">
@@ -284,6 +288,12 @@
         </div>
     @endfab
 
+    @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']))
+        <script>
+            window.styleguideCustomizeData = {!! $customizeAssets['data'] !!};
+        </script>
+    @endif
+
     <!-- Styleguide - js -->
     @if($assets['scripts'])
         @foreach($assets['scripts'] as $script)
@@ -291,6 +301,10 @@
         @endforeach
     @else 
         <!-- No js found in manifest: Please build -->
+    @endif
+
+    @if(isset($customizeAssets['script']) && !empty($customizeAssets['script']))
+        <script src="{{ $customizeAssets['script'] }}" type="module"></script>
     @endif
 
     <!-- Highlight js -->
