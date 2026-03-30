@@ -11,13 +11,14 @@ class CustomizeAssets
 {
     private const MANIFEST_PATH = 'assets/dist/manifest.json';
     private const CUSTOMIZE_DATA_PATH = 'component-design-tokens.json';
+    private const TOKEN_LIBRARY_DATA_PATH = 'source/data/design-tokens.json';
     private const CUSTOMIZE_SCRIPT_KEY = 'js/design-builder.js';
     private const CUSTOMIZE_STYLE_KEY = 'css/design-builder.css';
 
     /**
      * Builds customize asset and payload data for view rendering.
      *
-     * @return array{script: ?string, style: ?string, data: ?string}
+     * @return array{script: ?string, style: ?string, data: ?string, tokenLibrary: ?string}
      */
     public static function get(): array
     {
@@ -27,6 +28,7 @@ class CustomizeAssets
             'script' => self::resolveAssetPath($manifest, self::CUSTOMIZE_SCRIPT_KEY),
             'style' => self::resolveAssetPath($manifest, self::CUSTOMIZE_STYLE_KEY),
             'data' => self::readCustomizeData(),
+            'tokenLibrary' => self::readTokenLibraryData(),
         ];
     }
 
@@ -70,7 +72,25 @@ class CustomizeAssets
      */
     private static function readCustomizeData(): ?string
     {
-        $dataPath = self::resolveBasePath() . self::CUSTOMIZE_DATA_PATH;
+        return self::readJsonPayload(self::CUSTOMIZE_DATA_PATH);
+    }
+
+    /**
+     * @return string|null
+     */
+    private static function readTokenLibraryData(): ?string
+    {
+        return self::readJsonPayload(self::TOKEN_LIBRARY_DATA_PATH);
+    }
+
+    /**
+     * @param string $relativePath
+     *
+     * @return string|null
+     */
+    private static function readJsonPayload(string $relativePath): ?string
+    {
+        $dataPath = self::resolveBasePath() . $relativePath;
 
         if (!is_file($dataPath) || !is_readable($dataPath)) {
             return null;

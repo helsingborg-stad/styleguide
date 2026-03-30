@@ -337,16 +337,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.3.1",
+            "version": "5.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "4f50d653b916dce8b972de7abff200d45e5a5400"
+                "reference": "3c891a471d8f7e6ed894f7f0e89e1ce3db1751cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/4f50d653b916dce8b972de7abff200d45e5a5400",
-                "reference": "4f50d653b916dce8b972de7abff200d45e5a5400",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/3c891a471d8f7e6ed894f7f0e89e1ce3db1751cd",
+                "reference": "3c891a471d8f7e6ed894f7f0e89e1ce3db1751cd",
                 "shasum": ""
             },
             "require": {
@@ -378,9 +378,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.3.1"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.6.1"
             },
-            "time": "2026-03-26T13:28:18+00:00"
+            "time": "2026-03-27T15:47:41+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -1936,16 +1936,16 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.15.3",
+            "version": "1.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "fe9ed0b20fd1ad40083348c8f8e408cee10a9cb0"
+                "reference": "bf44827df56a0321075c1a6d17ecc1efbb67b45d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/fe9ed0b20fd1ad40083348c8f8e408cee10a9cb0",
-                "reference": "fe9ed0b20fd1ad40083348c8f8e408cee10a9cb0",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/bf44827df56a0321075c1a6d17ecc1efbb67b45d",
+                "reference": "bf44827df56a0321075c1a6d17ecc1efbb67b45d",
                 "shasum": ""
             },
             "require": {
@@ -1980,7 +1980,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.15.3"
+                "source": "https://github.com/carthage-software/mago/tree/1.16.0"
             },
             "funding": [
                 {
@@ -1988,7 +1988,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-20T19:19:36+00:00"
+            "time": "2026-03-26T20:46:03+00:00"
         },
         {
             "name": "doctrine/instantiator",

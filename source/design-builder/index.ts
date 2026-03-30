@@ -29,6 +29,471 @@ interface TokenData {
 	categories: TokenCategory[];
 }
 
+interface ComponentTokenDefinition {
+	name?: string;
+	slug?: string;
+	tokens?: string[];
+}
+
+type ComponentTokenData = Record<string, ComponentTokenDefinition>;
+type ComponentOverrides = Record<string, Record<string, string>>;
+
+declare global {
+	interface Window {
+		styleguideCustomizeData?: unknown;
+		styleguideDesignTokenLibrary?: unknown;
+	}
+}
+
+const COMPONENT_STORAGE_KEY = 'design-tokens-component-overrides';
+
+class ComponentStorageAdapter {
+	private key: string;
+
+	constructor(key: string = COMPONENT_STORAGE_KEY) {
+		this.key = key;
+	}
+
+	public load(): ComponentOverrides {
+		try {
+			const raw = localStorage.getItem(this.key);
+			if (!raw) return {};
+			const parsed = JSON.parse(raw);
+			if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+				return {};
+			}
+
+			const result: ComponentOverrides = {};
+			for (const [componentName, values] of Object.entries(parsed)) {
+				if (!values || typeof values !== 'object' || Array.isArray(values)) continue;
+
+				const componentOverrides: Record<string, string> = {};
+				for (const [variable, value] of Object.entries(values)) {
+					if (typeof value === 'string' && value.trim() !== '') {
+						componentOverrides[variable] = value;
+					}
+				}
+
+				if (Object.keys(componentOverrides).length > 0) {
+					result[componentName] = componentOverrides;
+				}
+			}
+
+			return result;
+		} catch {
+			return {};
+		}
+	}
+
+	public save(overrides: ComponentOverrides): void {
+		const cleaned: ComponentOverrides = {};
+
+		for (const [componentName, values] of Object.entries(overrides)) {
+			const filtered: Record<string, string> = {};
+
+			for (const [variable, value] of Object.entries(values)) {
+				if (typeof value === 'string' && value.trim() !== '') {
+					filtered[variable] = value;
+				}
+			}
+
+			if (Object.keys(filtered).length > 0) {
+				cleaned[componentName] = filtered;
+			}
+		}
+
+		if (Object.keys(cleaned).length === 0) {
+			localStorage.removeItem(this.key);
+			return;
+		}
+
+		localStorage.setItem(this.key, JSON.stringify(cleaned));
+	}
+}
+
+class ComponentCustomizationTool {
+	private componentData: ComponentTokenData;
+	private tokenLibrary: TokenData;
+	private storage: ComponentStorageAdapter;
+	private overrides: ComponentOverrides;
+	private elementsByComponent = new Map<string, HTMLElement[]>();
+	private editableComponents = new Set<string>();
+	private activeComponent: string | null = null;
+	private root: HTMLElement | null = null;
+	private controlsContainer: HTMLElement | null = null;
+	private componentSelect: HTMLSelectElement | null = null;
+
+	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData) {
+		this.componentData = componentData;
+		this.tokenLibrary = tokenLibrary;
+		this.storage = new ComponentStorageAdapter();
+		this.overrides = this.storage.load();
+
+		this.collectComponentElements();
+		this.collectEditableComponents();
+		this.pruneUnknownOverrides();
+		this.applySavedOverrides();
+		this.setupEditableTargets();
+		this.render();
+		this.bindComponentSelection();
+	}
+
+	private collectComponentElements(): void {
+		const nodes = document.querySelectorAll<HTMLElement>('[data-component]');
+
+		for (const node of nodes) {
+			const componentName = normalizeComponentName(node.dataset.component || '');
+			if (!componentName) continue;
+
+			const existing = this.elementsByComponent.get(componentName) || [];
+			existing.push(node);
+			this.elementsByComponent.set(componentName, existing);
+		}
+
+		this.activeComponent = this.elementsByComponent.keys().next().value || null;
+	}
+
+	private pruneUnknownOverrides(): void {
+		let hasChanges = false;
+
+		for (const componentName of Object.keys(this.overrides)) {
+			if (!this.elementsByComponent.has(componentName) || !this.editableComponents.has(componentName)) {
+				delete this.overrides[componentName];
+				hasChanges = true;
+			}
+		}
+
+		if (hasChanges) {
+			this.storage.save(this.overrides);
+		}
+	}
+
+	private applySavedOverrides(): void {
+		for (const [componentName, componentOverrides] of Object.entries(this.overrides)) {
+			for (const [variable, value] of Object.entries(componentOverrides)) {
+				this.applyVariable(componentName, variable, value);
+			}
+		}
+	}
+
+	private collectEditableComponents(): void {
+		for (const componentName of this.elementsByComponent.keys()) {
+			if (this.buildCategoriesForComponent(componentName).length > 0) {
+				this.editableComponents.add(componentName);
+			}
+		}
+
+		if (this.activeComponent && !this.editableComponents.has(this.activeComponent)) {
+			const firstEditable = this.editableComponents.values().next().value;
+			this.activeComponent = typeof firstEditable === 'string' ? firstEditable : null;
+		}
+	}
+
+	private setupEditableTargets(): void {
+		for (const [componentName, elements] of this.elementsByComponent.entries()) {
+			const isEditable = this.editableComponents.has(componentName);
+			for (const element of elements) {
+				if (!isEditable) continue;
+
+				element.classList.add('db-component-target');
+				element.dataset.customizeTooltip = `Customize ${this.getComponentLabel(componentName)}`;
+
+				const links = element.querySelectorAll<HTMLAnchorElement>('a[href]');
+				for (const link of links) {
+					link.addEventListener('click', (event) => {
+						event.preventDefault();
+					});
+				}
+			}
+		}
+	}
+
+	private bindComponentSelection(): void {
+		for (const [componentName, elements] of this.elementsByComponent.entries()) {
+			if (!this.editableComponents.has(componentName)) continue;
+
+			for (const element of elements) {
+				element.addEventListener('click', () => {
+					if (!this.root) return;
+
+					this.activeComponent = componentName;
+					if (this.componentSelect) {
+						this.componentSelect.value = componentName;
+					}
+					this.renderControls();
+					this.root.classList.add('db-component-tool--open');
+				});
+			}
+		}
+	}
+
+	private render(): void {
+		if (this.editableComponents.size === 0) return;
+
+		const root = document.createElement('aside');
+		root.className = 'db-component-tool';
+		root.innerHTML = `
+			<button type="button" class="db-component-tool__toggle" data-action="toggle-panel">Customize component</button>
+			<div class="db-component-tool__panel">
+				<div class="db-component-tool__header">
+					<strong>Component customization</strong>
+					<button type="button" class="db-component-tool__close" data-action="close-panel" aria-label="Close component customization">×</button>
+				</div>
+				<div class="db-component-tool__select-row">
+					<label for="db-component-select">Component</label>
+					<select id="db-component-select" data-action="select-component"></select>
+				</div>
+				<div class="db-component-tool__actions">
+					<button type="button" class="db-btn" data-action="reset-component">Reset selected</button>
+					<button type="button" class="db-btn db-btn--danger" data-action="reset-all-components">Reset all</button>
+				</div>
+				<div class="db-component-tool__controls" data-component-controls></div>
+			</div>
+		`;
+
+		document.body.appendChild(root);
+		this.root = root;
+		this.controlsContainer = root.querySelector<HTMLElement>('[data-component-controls]');
+		this.componentSelect = root.querySelector<HTMLSelectElement>('[data-action="select-component"]');
+
+		const toggleButton = root.querySelector<HTMLElement>('[data-action="toggle-panel"]');
+		const closeButton = root.querySelector<HTMLElement>('[data-action="close-panel"]');
+		toggleButton?.addEventListener('click', () => root.classList.toggle('db-component-tool--open'));
+		closeButton?.addEventListener('click', () => root.classList.remove('db-component-tool--open'));
+
+		if (this.componentSelect) {
+			this.componentSelect.innerHTML = '';
+
+			for (const componentName of this.getSortedComponentNames()) {
+				const option = document.createElement('option');
+				option.value = componentName;
+				option.textContent = this.getComponentLabel(componentName);
+				this.componentSelect.appendChild(option);
+			}
+
+			if (this.activeComponent && this.getSortedComponentNames().includes(this.activeComponent)) {
+				this.componentSelect.value = this.activeComponent;
+			}
+
+			this.componentSelect.addEventListener('change', () => {
+				this.activeComponent = this.componentSelect?.value || null;
+				this.renderControls();
+			});
+		}
+
+		root.querySelector('[data-action="reset-component"]')?.addEventListener('click', () => {
+			if (!this.activeComponent) return;
+			this.resetComponent(this.activeComponent);
+		});
+
+		root.querySelector('[data-action="reset-all-components"]')?.addEventListener('click', () => {
+			this.resetAllComponents();
+		});
+
+		this.renderControls();
+	}
+
+	private getSortedComponentNames(): string[] {
+		return Array.from(this.editableComponents).sort((a, b) => a.localeCompare(b));
+	}
+
+	private getComponentLabel(componentName: string): string {
+		const definition = this.componentData[componentName];
+		if (definition && typeof definition.name === 'string' && definition.name.trim() !== '') {
+			return definition.name;
+		}
+
+		return componentName;
+	}
+
+	private renderControls(): void {
+		if (!this.controlsContainer) return;
+		this.controlsContainer.innerHTML = '';
+
+		if (!this.activeComponent) {
+			this.controlsContainer.textContent = 'No component selected.';
+			return;
+		}
+
+		const categories = this.buildCategoriesForComponent(this.activeComponent);
+		if (categories.length === 0) {
+			this.controlsContainer.textContent = 'No token customization options were found for this component.';
+			return;
+		}
+
+		for (const category of categories) {
+			const section = document.createElement('section');
+			section.className = 'db-category';
+
+			const header = document.createElement('div');
+			header.className = 'db-category__header';
+			header.innerHTML = `<h2 class="db-category__title">${category.label}</h2>`;
+			section.appendChild(header);
+
+			const body = document.createElement('div');
+			body.className = 'db-category__body';
+
+			for (const setting of category.settings) {
+				const currentValue = this.overrides[this.activeComponent]?.[setting.variable] || setting.default;
+				const control = createControl(setting, currentValue, (variable, value) => {
+					this.handleChange(this.activeComponent as string, variable, value, setting.default);
+				});
+				body.appendChild(control);
+			}
+
+			section.appendChild(body);
+			this.controlsContainer.appendChild(section);
+		}
+	}
+
+	private buildCategoriesForComponent(componentName: string): TokenCategory[] {
+		const definition = this.componentData[componentName];
+		const tokens = Array.isArray(definition?.tokens) ? definition.tokens : [];
+		if (tokens.length === 0) return [];
+
+		const availableTokenNames = new Set(tokens.map((token) => token.trim()).filter(Boolean));
+
+		const categories: TokenCategory[] = [];
+		for (const category of this.tokenLibrary.categories) {
+			const matchedSettings = category.settings
+				.filter((setting) => availableTokenNames.has(setting.variable.replace(/^--/, '')))
+				.map((setting) => {
+					const tokenName = setting.variable.replace(/^--/, '');
+					return {
+						...setting,
+						variable: `--c-${componentName}--${tokenName}`,
+					};
+				});
+
+			if (matchedSettings.length === 0) continue;
+
+			categories.push({
+				id: category.id,
+				label: category.label,
+				description: category.description,
+				present: category.present,
+				settings: matchedSettings,
+			});
+		}
+
+		return categories;
+	}
+
+	private handleChange(componentName: string, variable: string, value: string, defaultValue: string): void {
+		if (!this.overrides[componentName]) {
+			this.overrides[componentName] = {};
+		}
+
+		if (!value || value === defaultValue) {
+			delete this.overrides[componentName][variable];
+			this.removeVariable(componentName, variable);
+		} else {
+			this.overrides[componentName][variable] = value;
+			this.applyVariable(componentName, variable, value);
+		}
+
+		if (Object.keys(this.overrides[componentName]).length === 0) {
+			delete this.overrides[componentName];
+		}
+
+		this.storage.save(this.overrides);
+	}
+
+	private applyVariable(componentName: string, variable: string, value: string): void {
+		const elements = this.elementsByComponent.get(componentName) || [];
+		for (const element of elements) {
+			element.style.setProperty(variable, value);
+		}
+	}
+
+	private removeVariable(componentName: string, variable: string): void {
+		const elements = this.elementsByComponent.get(componentName) || [];
+		for (const element of elements) {
+			element.style.removeProperty(variable);
+		}
+	}
+
+	private resetComponent(componentName: string): void {
+		if (!confirm(`Reset all overrides for ${this.getComponentLabel(componentName)}?`)) {
+			return;
+		}
+
+		const variables = Object.keys(this.overrides[componentName] || {});
+		for (const variable of variables) {
+			this.removeVariable(componentName, variable);
+		}
+
+		delete this.overrides[componentName];
+		this.storage.save(this.overrides);
+		this.renderControls();
+	}
+
+	private resetAllComponents(): void {
+		if (!confirm('Reset all component customizations on this page?')) {
+			return;
+		}
+
+		for (const [componentName, componentOverrides] of Object.entries(this.overrides)) {
+			for (const variable of Object.keys(componentOverrides)) {
+				this.removeVariable(componentName, variable);
+			}
+		}
+
+		this.overrides = {};
+		this.storage.save(this.overrides);
+		this.renderControls();
+	}
+}
+
+function normalizeComponentName(value: string): string {
+	return value.trim().toLowerCase().replace(/^c-/, '');
+}
+
+function parseComponentTokenData(raw: unknown): ComponentTokenData {
+	if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
+		return {};
+	}
+
+	const parsed: ComponentTokenData = {};
+	for (const [key, value] of Object.entries(raw)) {
+		const normalizedKey = normalizeComponentName(key);
+		if (!normalizedKey) continue;
+
+		if (!value || typeof value !== 'object' || Array.isArray(value)) {
+			continue;
+		}
+
+		const definition = value as Record<string, unknown>;
+		parsed[normalizedKey] = {
+			name: typeof definition.name === 'string' ? definition.name : undefined,
+			slug: typeof definition.slug === 'string' ? normalizeComponentName(definition.slug) : normalizedKey,
+			tokens: Array.isArray(definition.tokens)
+				? definition.tokens.filter((token): token is string => typeof token === 'string')
+				: [],
+		};
+	}
+
+	return parsed;
+}
+
+function isTokenData(value: unknown): value is TokenData {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
+		return false;
+	}
+
+	const maybeData = value as { categories?: unknown };
+	return Array.isArray(maybeData.categories);
+}
+
+async function loadTokenLibrary(): Promise<TokenData | null> {
+	const embeddedLibrary = window.styleguideDesignTokenLibrary;
+	if (isTokenData(embeddedLibrary)) {
+		return embeddedLibrary;
+	}
+
+	return null;
+}
+
 class DesignBuilder {
 	private container: HTMLElement;
 	private storage: StorageAdapter;
@@ -518,32 +983,47 @@ function initDivider(): void {
 
 // --- Init ---
 
-function init(): void {
+async function init(): Promise<void> {
 	const container = document.querySelector<HTMLElement>('[data-design-builder]');
-	if (!container) return;
+	if (container) {
+		const tokensAttr = container.getAttribute('data-tokens');
+		if (!tokensAttr) {
+			container.textContent = 'Error: No token data found.';
+			return;
+		}
 
-	const tokensAttr = container.getAttribute('data-tokens');
-	if (!tokensAttr) {
-		container.textContent = 'Error: No token data found.';
+		let tokens: TokenData;
+		try {
+			tokens = JSON.parse(tokensAttr);
+		} catch {
+			container.textContent = 'Error: Invalid token data.';
+			return;
+		}
+
+		const storage = new LocalStorageAdapter();
+		new DesignBuilder(container, tokens, storage);
+
+		initDivider();
 		return;
 	}
 
-	let tokens: TokenData;
-	try {
-		tokens = JSON.parse(tokensAttr);
-	} catch {
-		container.textContent = 'Error: Invalid token data.';
+	const customizeData = parseComponentTokenData(window.styleguideCustomizeData);
+	if (Object.keys(customizeData).length === 0) {
 		return;
 	}
 
-	const storage = new LocalStorageAdapter();
-	new DesignBuilder(container, tokens, storage);
+	const tokenLibrary = await loadTokenLibrary();
+	if (!tokenLibrary) {
+		return;
+	}
 
-	initDivider();
+	new ComponentCustomizationTool(customizeData, tokenLibrary);
 }
 
 if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', init);
+	document.addEventListener('DOMContentLoaded', () => {
+		void init();
+	});
 } else {
-	init();
+	void init();
 }

@@ -294,6 +294,12 @@
         </script>
     @endif
 
+    @if(isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
+        <script>
+            window.styleguideDesignTokenLibrary = {!! $customizeAssets['tokenLibrary'] !!};
+        </script>
+    @endif
+
     <!-- Styleguide - js -->
     @if($assets['scripts'])
         @foreach($assets['scripts'] as $script)
