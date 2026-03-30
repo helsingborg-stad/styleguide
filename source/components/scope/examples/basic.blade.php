@@ -1,4 +1,4 @@
-@scope(['name' => 'a-unique-scope-id'])
+@scope(['name' => 'a-unique-scope-id', 'classList' => ['u-margin__bottom--2']])
     @button([
         'text' => 'Scope 1 - Button 1',
         'color' => 'primary',
@@ -18,7 +18,7 @@
     @endbutton
 @endscope
 
-@scope(['name' => 'a-unique-scope-id-2'])
+@scope(['name' => 'a-unique-scope-id-2', 'classList' => ['u-margin__bottom--2']])
     @button([
         'text' => 'Scope 2 - Button 1',
         'color' => 'primary',

@@ -266,6 +266,28 @@
         }
     </style>
 
+    @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']) && isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
+        @fab([
+            'position' => 'bottom-right',
+            'heading' => 'Customize components',
+            'button' => [
+                'icon' => 'tune',
+                'size' => 'md',
+                'color' => 'primary',
+                'shape' => 'pill',
+                'classList' => ['u-margin--0'],
+                'ariaLabel' => 'Open component customization'
+            ],
+            'attributeList' => [
+                'data-customize-init-fab' => 'true'
+            ]
+        ])
+            @typography(['element' => 'p', 'variant' => 'body'])
+                Customize components
+            @endtypography
+        @endfab
+    @endif
+
     @fab([
         'position' => 'bottom-right',
         'heading' => 'Theme presets',
@@ -291,6 +313,7 @@
     @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']))
         <script>
             window.styleguideCustomizeData = {!! $customizeAssets['data'] !!};
+            window.styleguideCustomizeInitMode = 'manual';
         </script>
     @endif
 
