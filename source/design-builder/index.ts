@@ -122,6 +122,7 @@ class ComponentCustomizationTool {
 	private root: HTMLElement | null = null;
 	private controlsContainer: HTMLElement | null = null;
 	private componentSelect: HTMLSelectElement | null = null;
+	private activeTargetElement: HTMLElement | null = null;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData) {
 		this.componentData = componentData;
@@ -213,10 +214,14 @@ class ComponentCustomizationTool {
 			if (!this.editableComponents.has(componentName)) continue;
 
 			for (const element of elements) {
-				element.addEventListener('click', () => {
+				element.addEventListener('click', (event: MouseEvent) => {
+					event.preventDefault();
+					event.stopPropagation();
+
 					if (!this.root) return;
 
 					this.activeComponent = componentName;
+					this.setActiveTarget(componentName, element);
 					if (this.componentSelect) {
 						this.componentSelect.value = componentName;
 					}
@@ -277,6 +282,9 @@ class ComponentCustomizationTool {
 
 			this.componentSelect.addEventListener('change', () => {
 				this.activeComponent = this.componentSelect?.value || null;
+				if (this.activeComponent) {
+					this.setActiveTarget(this.activeComponent);
+				}
 				this.renderControls();
 			});
 		}
@@ -291,6 +299,25 @@ class ComponentCustomizationTool {
 		});
 
 		this.renderControls();
+		if (this.activeComponent) {
+			this.setActiveTarget(this.activeComponent);
+		}
+	}
+
+	private setActiveTarget(componentName: string, preferredElement?: HTMLElement): void {
+		if (this.activeTargetElement) {
+			this.activeTargetElement.classList.remove('db-component-target--active');
+		}
+
+		const candidates = this.elementsByComponent.get(componentName) || [];
+		const target = preferredElement || candidates[0] || null;
+		if (!target) {
+			this.activeTargetElement = null;
+			return;
+		}
+
+		target.classList.add('db-component-target--active');
+		this.activeTargetElement = target;
 	}
 
 	private getSortedComponentNames(): string[] {

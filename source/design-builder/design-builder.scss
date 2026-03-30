@@ -876,3 +876,7 @@
     transform: translateY(0);
   }
 }
+
+.db-component-target--active {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color--primary, #1f6feb) 65%, transparent);
+}
