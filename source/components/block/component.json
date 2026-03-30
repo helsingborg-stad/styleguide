@@ -9,8 +9,6 @@
 		"corner-shape",
 		"color--alpha",
 		"color--secondary",
-		"shadow-color",
-		"shadow-amount",
 		"color--alpha-contrast",
 		"color--alpha-border",
 		"font-size-400"

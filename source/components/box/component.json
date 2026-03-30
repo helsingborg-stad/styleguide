@@ -3,16 +3,7 @@
 	"apiVersion": 1,
 	"name": "Box",
 	"slug": "box",
-	"tokens": [
-		"border-radius",
-		"space",
-		"color--primary",
-		"shadow-color",
-		"shadow-amount",
-		"corner-shape",
-		"color--primary-contrast",
-		"font-size-400"
-	],
+	"tokens": ["border-radius", "space", "color--primary", "corner-shape", "color--primary-contrast", "font-size-400"],
 	"description": "The Box component provides a reusable pattern for box in the interface.",
 	"tags": ["box", "component"],
 	"similarComponents": ["block", "button", "fab"],

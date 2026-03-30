@@ -46,7 +46,7 @@ $_: "c-acceptance";
     }
 
     .#{$_}__modal-title {
-        --inherit-font-size: var(--font-size-400);
+        --inherit-font-size: tokens.get($_, "font-size-400");
     }
 
     /* Map */

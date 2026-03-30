@@ -12,5 +12,8 @@
         <testsuite name="validators">
             <directory suffix="Test.php">source/validators/Tests</directory>
         </testsuite>
+        <testsuite name="components">
+            <directory suffix="Test.php">source/components/Tests</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

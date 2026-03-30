@@ -31,7 +31,7 @@ $_: "c-block";
     text-decoration: none;
 
     .#{$_}__heading {
-        --inherit-font-size: var(--font-size-400);
+        --inherit-font-size: tokens.get($_, "font-size-400");
     }
 
     .#{$_}__image {
