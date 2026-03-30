@@ -36,7 +36,9 @@ interface ComponentTokenDefinition {
 }
 
 type ComponentTokenData = Record<string, ComponentTokenDefinition>;
-type ComponentOverrides = Record<string, Record<string, string>>;
+type ComponentVariableOverrides = Record<string, string>;
+type ComponentOverrides = Record<string, ComponentVariableOverrides>;
+type ScopedComponentOverrides = Record<string, ComponentOverrides>;
 
 declare global {
 	interface Window {
@@ -46,6 +48,7 @@ declare global {
 }
 
 const COMPONENT_STORAGE_KEY = 'design-tokens-component-overrides';
+const GLOBAL_SCOPE_KEY = '__global__';
 
 class ComponentStorageAdapter {
 	private key: string;
@@ -54,7 +57,7 @@ class ComponentStorageAdapter {
 		this.key = key;
 	}
 
-	public load(): ComponentOverrides {
+	public load(): ScopedComponentOverrides {
 		try {
 			const raw = localStorage.getItem(this.key);
 			if (!raw) return {};
@@ -63,33 +66,72 @@ class ComponentStorageAdapter {
 				return {};
 			}
 
-			const result: ComponentOverrides = {};
-			for (const [componentName, values] of Object.entries(parsed)) {
-				if (!values || typeof values !== 'object' || Array.isArray(values)) continue;
-
-				const componentOverrides: Record<string, string> = {};
-				for (const [variable, value] of Object.entries(values)) {
-					if (typeof value === 'string' && value.trim() !== '') {
-						componentOverrides[variable] = value;
-					}
+			if (this.isLegacyComponentOverrides(parsed as Record<string, unknown>)) {
+				const legacy = this.normalizeComponentOverrides(parsed as Record<string, unknown>);
+				if (Object.keys(legacy).length === 0) {
+					return {};
 				}
 
-				if (Object.keys(componentOverrides).length > 0) {
-					result[componentName] = componentOverrides;
-				}
+				return {
+					[GLOBAL_SCOPE_KEY]: legacy,
+				};
 			}
 
-			return result;
+			return this.normalizeScopedOverrides(parsed as Record<string, unknown>);
 		} catch {
 			return {};
 		}
 	}
 
-	public save(overrides: ComponentOverrides): void {
+	public save(overrides: ScopedComponentOverrides): void {
+		const cleaned = this.normalizeScopedOverrides(overrides as Record<string, unknown>);
+
+		if (Object.keys(cleaned).length === 0) {
+			localStorage.removeItem(this.key);
+			return;
+		}
+
+		localStorage.setItem(this.key, JSON.stringify(cleaned));
+	}
+
+	private isLegacyComponentOverrides(input: Record<string, unknown>): boolean {
+		const values = Object.values(input);
+		if (values.length === 0) {
+			return false;
+		}
+
+		return values.every((value) => {
+			if (!value || typeof value !== 'object' || Array.isArray(value)) {
+				return false;
+			}
+
+			const variableValues = Object.values(value as Record<string, unknown>);
+			return variableValues.every((entry) => typeof entry === 'string');
+		});
+	}
+
+	private normalizeScopedOverrides(input: Record<string, unknown>): ScopedComponentOverrides {
+		const result: ScopedComponentOverrides = {};
+
+		for (const [scopeKey, scopeValue] of Object.entries(input)) {
+			if (!scopeValue || typeof scopeValue !== 'object' || Array.isArray(scopeValue)) continue;
+
+			const componentOverrides = this.normalizeComponentOverrides(scopeValue as Record<string, unknown>);
+			if (Object.keys(componentOverrides).length > 0) {
+				result[scopeKey] = componentOverrides;
+			}
+		}
+
+		return result;
+	}
+
+	private normalizeComponentOverrides(input: Record<string, unknown>): ComponentOverrides {
 		const cleaned: ComponentOverrides = {};
 
-		for (const [componentName, values] of Object.entries(overrides)) {
-			const filtered: Record<string, string> = {};
+		for (const [componentName, values] of Object.entries(input)) {
+			if (!values || typeof values !== 'object' || Array.isArray(values)) continue;
+
+			const filtered: ComponentVariableOverrides = {};
 
 			for (const [variable, value] of Object.entries(values)) {
 				if (typeof value === 'string' && value.trim() !== '') {
@@ -102,12 +144,7 @@ class ComponentStorageAdapter {
 			}
 		}
 
-		if (Object.keys(cleaned).length === 0) {
-			localStorage.removeItem(this.key);
-			return;
-		}
-
-		localStorage.setItem(this.key, JSON.stringify(cleaned));
+		return cleaned;
 	}
 }
 
@@ -115,10 +152,11 @@ class ComponentCustomizationTool {
 	private componentData: ComponentTokenData;
 	private tokenLibrary: TokenData;
 	private storage: ComponentStorageAdapter;
-	private overrides: ComponentOverrides;
+	private overrides: ScopedComponentOverrides;
 	private elementsByComponent = new Map<string, HTMLElement[]>();
 	private editableComponents = new Set<string>();
 	private activeComponent: string | null = null;
+	private activeScopeKey: string = GLOBAL_SCOPE_KEY;
 	private root: HTMLElement | null = null;
 	private controlsContainer: HTMLElement | null = null;
 	private componentSelect: HTMLSelectElement | null = null;
@@ -157,9 +195,20 @@ class ComponentCustomizationTool {
 	private pruneUnknownOverrides(): void {
 		let hasChanges = false;
 
-		for (const componentName of Object.keys(this.overrides)) {
-			if (!this.elementsByComponent.has(componentName) || !this.editableComponents.has(componentName)) {
-				delete this.overrides[componentName];
+		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
+			for (const componentName of Object.keys(scopeOverrides)) {
+				const isMissingComponent =
+					!this.elementsByComponent.has(componentName) || !this.editableComponents.has(componentName);
+				const hasContextTarget = this.getElementsForContext(componentName, scopeKey).length > 0;
+
+				if (isMissingComponent || !hasContextTarget) {
+					delete this.overrides[scopeKey][componentName];
+					hasChanges = true;
+				}
+			}
+
+			if (Object.keys(this.overrides[scopeKey]).length === 0) {
+				delete this.overrides[scopeKey];
 				hasChanges = true;
 			}
 		}
@@ -170,9 +219,11 @@ class ComponentCustomizationTool {
 	}
 
 	private applySavedOverrides(): void {
-		for (const [componentName, componentOverrides] of Object.entries(this.overrides)) {
-			for (const [variable, value] of Object.entries(componentOverrides)) {
-				this.applyVariable(componentName, variable, value);
+		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
+			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
+				for (const [variable, value] of Object.entries(componentOverrides)) {
+					this.applyVariable(componentName, scopeKey, variable, value);
+				}
 			}
 		}
 	}
@@ -197,7 +248,10 @@ class ComponentCustomizationTool {
 				if (!isEditable) continue;
 
 				element.classList.add('db-component-target');
-				element.dataset.customizeTooltip = `Customize ${this.getComponentLabel(componentName)}`;
+				const scopeLabel = this.getScopeLabel(this.getScopeKeyForElement(element));
+				element.dataset.customizeTooltip = scopeLabel
+					? `Customize ${this.getComponentLabel(componentName)} (${scopeLabel})`
+					: `Customize ${this.getComponentLabel(componentName)}`;
 
 				const links = element.querySelectorAll<HTMLAnchorElement>('a[href]');
 				for (const link of links) {
@@ -221,7 +275,8 @@ class ComponentCustomizationTool {
 					if (!this.root) return;
 
 					this.activeComponent = componentName;
-					this.setActiveTarget(componentName, element);
+					this.activeScopeKey = this.getScopeKeyForElement(element);
+					this.setActiveTarget(componentName, this.activeScopeKey, element);
 					if (this.componentSelect) {
 						this.componentSelect.value = componentName;
 					}
@@ -283,7 +338,7 @@ class ComponentCustomizationTool {
 			this.componentSelect.addEventListener('change', () => {
 				this.activeComponent = this.componentSelect?.value || null;
 				if (this.activeComponent) {
-					this.setActiveTarget(this.activeComponent);
+					this.setActiveTarget(this.activeComponent, this.activeScopeKey);
 				}
 				this.renderControls();
 			});
@@ -300,24 +355,48 @@ class ComponentCustomizationTool {
 
 		this.renderControls();
 		if (this.activeComponent) {
-			this.setActiveTarget(this.activeComponent);
+			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
 		}
 	}
 
-	private setActiveTarget(componentName: string, preferredElement?: HTMLElement): void {
+	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
 		if (this.activeTargetElement) {
 			this.activeTargetElement.classList.remove('db-component-target--active');
 		}
 
-		const candidates = this.elementsByComponent.get(componentName) || [];
-		const target = preferredElement || candidates[0] || null;
+		const candidates = this.getElementsForContext(componentName, scopeKey);
+		const fallbackCandidates = this.elementsByComponent.get(componentName) || [];
+		const target = preferredElement || candidates[0] || fallbackCandidates[0] || null;
 		if (!target) {
 			this.activeTargetElement = null;
 			return;
 		}
 
+		this.activeScopeKey = this.getScopeKeyForElement(target);
 		target.classList.add('db-component-target--active');
 		this.activeTargetElement = target;
+	}
+
+	private getScopeKeyForElement(element: HTMLElement): string {
+		const scope = element.closest<HTMLElement>('[data-scope]')?.dataset.scope?.trim();
+		if (!scope) {
+			return GLOBAL_SCOPE_KEY;
+		}
+
+		return `scope:${scope}`;
+	}
+
+	private getScopeLabel(scopeKey: string): string {
+		if (scopeKey === GLOBAL_SCOPE_KEY) {
+			return '';
+		}
+
+		return scopeKey.replace(/^scope:/, '');
+	}
+
+	private getElementsForContext(componentName: string, scopeKey: string): HTMLElement[] {
+		const elements = this.elementsByComponent.get(componentName) || [];
+		return elements.filter((element) => this.getScopeKeyForElement(element) === scopeKey);
 	}
 
 	private getSortedComponentNames(): string[] {
@@ -361,9 +440,10 @@ class ComponentCustomizationTool {
 			body.className = 'db-category__body';
 
 			for (const setting of category.settings) {
-				const currentValue = this.overrides[this.activeComponent]?.[setting.variable] || setting.default;
+				const currentValue =
+					this.overrides[this.activeScopeKey]?.[this.activeComponent]?.[setting.variable] || setting.default;
 				const control = createControl(setting, currentValue, (variable, value) => {
-					this.handleChange(this.activeComponent as string, variable, value, setting.default);
+					this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default);
 				});
 				body.appendChild(control);
 			}
@@ -406,51 +486,72 @@ class ComponentCustomizationTool {
 		return categories;
 	}
 
-	private handleChange(componentName: string, variable: string, value: string, defaultValue: string): void {
-		if (!this.overrides[componentName]) {
-			this.overrides[componentName] = {};
+	private handleChange(
+		componentName: string,
+		scopeKey: string,
+		variable: string,
+		value: string,
+		defaultValue: string,
+	): void {
+		if (!this.overrides[scopeKey]) {
+			this.overrides[scopeKey] = {};
+		}
+
+		if (!this.overrides[scopeKey][componentName]) {
+			this.overrides[scopeKey][componentName] = {};
 		}
 
 		if (!value || value === defaultValue) {
-			delete this.overrides[componentName][variable];
-			this.removeVariable(componentName, variable);
+			delete this.overrides[scopeKey][componentName][variable];
+			this.removeVariable(componentName, scopeKey, variable);
 		} else {
-			this.overrides[componentName][variable] = value;
-			this.applyVariable(componentName, variable, value);
+			this.overrides[scopeKey][componentName][variable] = value;
+			this.applyVariable(componentName, scopeKey, variable, value);
 		}
 
-		if (Object.keys(this.overrides[componentName]).length === 0) {
-			delete this.overrides[componentName];
+		if (Object.keys(this.overrides[scopeKey][componentName]).length === 0) {
+			delete this.overrides[scopeKey][componentName];
+		}
+
+		if (Object.keys(this.overrides[scopeKey]).length === 0) {
+			delete this.overrides[scopeKey];
 		}
 
 		this.storage.save(this.overrides);
 	}
 
-	private applyVariable(componentName: string, variable: string, value: string): void {
-		const elements = this.elementsByComponent.get(componentName) || [];
+	private applyVariable(componentName: string, scopeKey: string, variable: string, value: string): void {
+		const elements = this.getElementsForContext(componentName, scopeKey);
 		for (const element of elements) {
 			element.style.setProperty(variable, value);
 		}
 	}
 
-	private removeVariable(componentName: string, variable: string): void {
-		const elements = this.elementsByComponent.get(componentName) || [];
+	private removeVariable(componentName: string, scopeKey: string, variable: string): void {
+		const elements = this.getElementsForContext(componentName, scopeKey);
 		for (const element of elements) {
 			element.style.removeProperty(variable);
 		}
 	}
 
 	private resetComponent(componentName: string): void {
-		if (!confirm(`Reset all overrides for ${this.getComponentLabel(componentName)}?`)) {
+		const scopeLabel = this.getScopeLabel(this.activeScopeKey);
+		const labelSuffix = scopeLabel ? ` in scope "${scopeLabel}"` : '';
+		if (!confirm(`Reset all overrides for ${this.getComponentLabel(componentName)}${labelSuffix}?`)) {
 			return;
 		}
 
-		const variables = Object.keys(this.overrides[componentName] || {});
+		const variables = Object.keys(this.overrides[this.activeScopeKey]?.[componentName] || {});
 		for (const variable of variables) {
-			this.removeVariable(componentName, variable);
+			this.removeVariable(componentName, this.activeScopeKey, variable);
 		}
 
-		delete this.overrides[componentName];
+		if (this.overrides[this.activeScopeKey]) {
+			delete this.overrides[this.activeScopeKey][componentName];
+			if (Object.keys(this.overrides[this.activeScopeKey]).length === 0) {
+				delete this.overrides[this.activeScopeKey];
+			}
+		}
 		this.storage.save(this.overrides);
 		this.renderControls();
 	}
@@ -460,9 +561,11 @@ class ComponentCustomizationTool {
 			return;
 		}
 
-		for (const [componentName, componentOverrides] of Object.entries(this.overrides)) {
-			for (const variable of Object.keys(componentOverrides)) {
-				this.removeVariable(componentName, variable);
+		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
+			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
+				for (const variable of Object.keys(componentOverrides)) {
+					this.removeVariable(componentName, scopeKey, variable);
+				}
 			}
 		}
 
