@@ -9,16 +9,16 @@ $_arrow-size: 6px;
 // Register design tokens consumed by this component.
 // "tooltip-color" and "tooltip-content-color" are derived aliases;
 // "inner-border-width" is clamped so it stays between 2 px and 4 px.
-@include tokens.create($_, getComponentTokens($_), ("tooltip-color": tokens.get($_, "color--primary"),
-        "tooltip-content-color": tokens.get($_, "color--primary-contrast"),
-        "inner-border-width": "clamp(2px, #{tokens.use($_, " border-width", 1)}, 4px)",
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 // ---------------------------------------------------------------------------
 // Component API — class-based tooltip (.c-tooltip)
 // Relies on JS toggling .is-hidden / .is-visible on the root element.
 // ---------------------------------------------------------------------------
 .#{$_} {
+    --#{$_}--tooltip-color: #{tokens.get($_, "color--primary")};
+    --#{$_}--tooltip-content-color: #{tokens.get($_, "color--primary-contrast")};
+    --#{$_}--inner-border-width: clamp(2px, #{tokens.use($_, "border-width", 1)}, 4px);
     display: flex;
 
     // Wrapper keeps the trigger and floating container in the same stacking context
@@ -42,7 +42,7 @@ $_arrow-size: 6px;
 
     // Floating tooltip bubble — positioned below the trigger by default
     .#{$_}__container {
-        background-color: tokens.get($_, "tooltip-color");
+        background-color: var(--#{$_}--tooltip-color);
         border-radius: tokens.use($_, "border-radius", 1);
         corner-shape: tokens.get($_, "corner-shape");
         display: none;
@@ -58,7 +58,7 @@ $_arrow-size: 6px;
 
     // CSS triangle arrow pointing upward toward the trigger (default: bottom placement)
     .#{$_}__container .#{$_}__arrow {
-        border-color: transparent transparent tokens.get($_, "tooltip-color") transparent;
+        border-color: transparent transparent var(--#{$_}--tooltip-color) transparent;
         border-style: solid;
         border-width: $_arrow-size;
         bottom: 100%;
@@ -70,7 +70,7 @@ $_arrow-size: 6px;
     }
 
     .#{$_}__container .#{$_}__content {
-        color: tokens.get($_, "tooltip-content-color");
+        color: var(--#{$_}--tooltip-content-color);
         padding: tokens.use($_, "base", 1);
         text-align: center;
     }
@@ -102,7 +102,7 @@ $_arrow-size: 6px;
     }
 
     &.#{$_}--top .#{$_}__container .#{$_}__arrow {
-        border-color: tokens.get($_, "tooltip-color") transparent transparent transparent;
+        border-color: var(--#{$_}--tooltip-color) transparent transparent transparent;
         bottom: unset;
     }
 
@@ -114,7 +114,7 @@ $_arrow-size: 6px;
     }
 
     &.#{$_}--right .#{$_}__container .#{$_}__arrow {
-        border-color: transparent tokens.get($_, "tooltip-color") transparent transparent;
+        border-color: transparent var(--#{$_}--tooltip-color) transparent transparent;
         left: 0;
         top: 50%;
         transform: translateY(-50%) translateX(-50%);
@@ -128,7 +128,7 @@ $_arrow-size: 6px;
     }
 
     &.#{$_}--left .#{$_}__container .#{$_}__arrow {
-        border-color: transparent transparent transparent tokens.get($_, "tooltip-color");
+        border-color: transparent transparent transparent var(--#{$_}--tooltip-color);
         left: 100%;
         top: 50%;
         transform: translateY(-50%) translateX(50%);
@@ -164,11 +164,11 @@ $_arrow-size: 6px;
     display: inline-block;
 
     &::after {
-        background-color: tokens.get($_, "tooltip-color");
+        background-color: var(--#{$_}--tooltip-color);
         border-radius: tokens.use($_, "border-radius", 1);
-        border: tokens.get($_, "inner-border-width") solid tokens.get($_, "tooltip-color");
+        border: var(--#{$_}--inner-border-width) solid var(--#{$_}--tooltip-color);
         bottom: calc(100% + $_arrow-size);
-        color: tokens.get($_, "tooltip-content-color");
+        color: var(--#{$_}--tooltip-content-color);
         content: attr(data-tooltip);
         corner-shape: tokens.get($_, "corner-shape");
         filter: tokens.use($_, "shadow", 1);
@@ -186,7 +186,7 @@ $_arrow-size: 6px;
     }
 
     &::before {
-        border-color: tokens.get($_, "tooltip-color") transparent transparent transparent;
+        border-color: var(--#{$_}--tooltip-color) transparent transparent transparent;
         border-style: solid;
         border-width: $_arrow-size;
         bottom: calc(100% - $_arrow-size);

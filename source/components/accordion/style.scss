@@ -5,12 +5,11 @@
 $_: "c-accordion";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_),
-    ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
     border-radius: inherit;
     corner-shape: inherit;
     contain: paint;
@@ -54,7 +53,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__section+.#{$_}__section {
-        border-top: tokens.get($_, "border");
+        border-top: var(--#{$_}--border);
     }
 
     .#{$_}__button-wrapper {
@@ -107,12 +106,12 @@ $_: "c-accordion";
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.get($_, "corner-shape");
             filter: tokens.use($_, "shadow");
-            border: tokens.get($_, "border");
+            border: var(--#{$_}--border);
             width: 100%;
         }
 
         .#{$_}__content {
-            border-top: tokens.get($_, "border");
+            border-top: var(--#{$_}--border);
         }
     }
 

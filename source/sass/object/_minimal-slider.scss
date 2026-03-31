@@ -7,9 +7,10 @@
 
 $_: "o-minimal-slider";
 
-@include tokens.create($_, ("base", "space", "outer-space", "color--surface"), ("slides-visible": 1));
+@include tokens.create($_, ("base", "space", "outer-space", "color--surface"));
 
 .#{$_} {
+  --#{$_}--slides-visible: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
@@ -69,7 +70,7 @@ $_: "o-minimal-slider";
   &__track {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% - (var(--slides-visible, #{tokens.get($_, "slides-visible")}) - 1) * #{tokens.get($_, "space")} * var(--base) * 4) / var(--slides-visible, #{tokens.get($_, "slides-visible")}));
+    grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.get($_, "space")} * var(--base) * 4) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
     gap: #{tokens.use($_, "space", 4)};
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -146,7 +147,7 @@ $_: "o-minimal-slider";
     }
 
     &__track {
-      grid-auto-columns: calc((100% - (var(--slides-visible, #{tokens.get($_, "slides-visible")}) - 1) * #{tokens.get($_, "space")} * var(--base) * 2) / var(--slides-visible, #{tokens.get($_, "slides-visible")}));
+      grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.get($_, "space")} * var(--base) * 2) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
       gap: #{tokens.use($_, "space", 2)};
     }
 

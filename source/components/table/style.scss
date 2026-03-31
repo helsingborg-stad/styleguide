@@ -5,12 +5,11 @@
 $_: "c-table";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_),
-    ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     position: relative;
 
     .#{$_}__column-content {
@@ -20,7 +19,7 @@ $_: "c-table";
 
     .#{$_}__header {
         padding: tokens.use($_, "space", 1.5);
-        border-bottom: tokens.get($_, "border");
+        border-bottom: var(--#{$_}--border);
 
     }
 
@@ -41,7 +40,7 @@ $_: "c-table";
     .#{$_}__footer {
         width: 100%;
         padding: tokens.use($_, "space", 1.5);
-        border-top: tokens.get($_, "border");
+        border-top: var(--#{$_}--border);
         display: grid;
         gap: tokens.use($_, "space", 2);
     }
@@ -258,7 +257,7 @@ table:not(.#{$_} *) thead {
 
 .#{$_}__head .#{$_}__column,
 table:not(.#{$_} *) thead th {
-    border-bottom: tokens.get($_, "border");
+    border-bottom: var(--#{$_}--border);
 }
 
 .#{$_}__body .#{$_}__line .#{$_}__column,
@@ -288,7 +287,7 @@ table:not(.#{$_} *) tbody tr:nth-child(even):hover td {
 
 .#{$_}__body .#{$_}__column+.#{$_}__column,
 table:not(.#{$_} *) tbody td+td {
-    border-left: tokens.get($_, "border");
+    border-left: var(--#{$_}--border);
 }
 
 /**
@@ -303,7 +302,7 @@ table:not(.#{$_} *) tbody td+td {
     }
 
     .#{$_}__table {
-        border: tokens.get($_, "border");
+        border: var(--#{$_}--border);
     }
 
     .#{$_} .#{$_}__header {

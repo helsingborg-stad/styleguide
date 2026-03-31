@@ -2,15 +2,15 @@
 
 $_: "c-iconsection";
 
-@include tokens.create($_, getComponentTokens($_),
-  ("shadow": tokens.use($_, "shadow", 2)));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+  --#{$_}--shadow: #{tokens.use($_, "shadow", 2)};
   display: flex;
   flex-direction: column;
 
   &.#{$_}--gap-0 {
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
     background-color: tokens.get($_, "color--surface");
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
@@ -55,7 +55,7 @@ $_: "c-iconsection";
   border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
 
   overflow: hidden;
-  filter: tokens.get($_, "shadow");
+  filter: var(--#{$_}--shadow);
   background-color: tokens.get($_, "color--surface");
   border-radius: tokens.use($_, "border-radius");
   corner-shape: tokens.get($_, "corner-shape");

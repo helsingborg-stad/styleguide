@@ -2,14 +2,15 @@
 
 $_: "c-collection";
 
-@include tokens.create($_, getComponentTokens($_), ("padding-x-compact": tokens.use($_, "space", 2),
-        "padding-y-compact": tokens.use($_, "space", 1),
-        "padding-x": tokens.use($_, "space", 2),
-        "padding-y": tokens.use($_, "space", 2),
-        "padding-x-inset": calc(tokens.get($_, "padding-x") * 3.5)));
+@include tokens.create($_, getComponentTokens($_));
 
 // Reset
 .#{$_} {
+    --#{$_}--padding-x-compact: #{tokens.use($_, "space", 2)};
+    --#{$_}--padding-y-compact: #{tokens.use($_, "space", 1)};
+    --#{$_}--padding-x: #{tokens.use($_, "space", 2)};
+    --#{$_}--padding-y: #{tokens.use($_, "space", 2)};
+    --#{$_}--padding-x-inset: calc(var(--#{$_}--padding-x) * 3.5);
     padding: 0;
     margin: 0;
 
@@ -99,7 +100,7 @@ $_: "c-collection";
             }
 
             .#{$_}__content {
-                padding-left: tokens.get($_, "padding-x");
+                padding-left: var(--#{$_}--padding-x);
             }
         }
     }
@@ -124,13 +125,13 @@ $_: "c-collection";
     }
 
     .#{$_}__divider.#{$_}__divider--inset {
-        margin-left: tokens.get($_, "padding-x-inset");
+        margin-left: var(--#{$_}--padding-x-inset);
     }
 
     // Content
     .#{$_}__content {
         flex: 1 1 auto;
-        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
+        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
 
         &>*:first-child {
             margin-top: 0;
@@ -156,7 +157,7 @@ $_: "c-collection";
 
     // Secondary
     .#{$_}__item>.#{$_}__secondary {
-        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
+        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
         display: flex;
     }
 
@@ -167,7 +168,7 @@ $_: "c-collection";
 
     // Icon
     .#{$_}__icon {
-        padding: tokens.get($_, "padding-y") tokens.get($_, "padding-x");
+        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
         display: flex;
     }
 
@@ -212,7 +213,7 @@ $_: "c-collection";
     & .#{$_} {
         padding-top: 0;
         padding-bottom: 0;
-        padding-left: tokens.get($_, "padding-x");
+        padding-left: var(--#{$_}--padding-x);
         border-top: none;
         border-right: none;
         border-bottom: none;
@@ -222,7 +223,7 @@ $_: "c-collection";
 }
 
 .#{$_}.#{$_}--compact .#{$_}__content {
-    padding: tokens.get($_, "padding-y-compact") tokens.get($_, "padding-x-compact");
+    padding: var(--#{$_}--padding-y-compact) var(--#{$_}--padding-x-compact);
 }
 
 // Modifiers - Bordered

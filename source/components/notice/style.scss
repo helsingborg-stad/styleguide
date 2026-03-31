@@ -6,16 +6,15 @@
 $_: "c-notice";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_),
-    ("shadow": tokens.use($_, "shadow", 1),
-        "border": tokens.use($_, "border-width", 1) solid,
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid;
     contain: layout;
-    filter: tokens.get($_, "shadow");
-    border: tokens.get($_, "border");
+    filter: var(--#{$_}--shadow);
+    border: var(--#{$_}--border);
     padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");

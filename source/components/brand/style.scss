@@ -8,26 +8,25 @@
 $_: "c-brand";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), (
-    "height": tokens.use($_, "base", 12),
-    "gap": tokens.use($_, "space", 3),
-    "contrast-color": tokens.get($_, "color--primary"),
-    "font-size": tokens.use($_, "base", 4)
-));
+@include tokens.create($_, getComponentTokens($_));
 
 .c-brand {
+    --#{$_}--height: #{tokens.use($_, "base", 12)};
+    --#{$_}--gap: #{tokens.use($_, "space", 3)};
+    --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
+    --#{$_}--font-size: #{tokens.use($_, "base", 4)};
   .c-brand__logotype {
-    height: tokens.get($_, "height");
+    height: var(--#{$_}--height);
   }
 
   .c-brand__viewbox {
-    height: tokens.get($_, "height");
+    height: var(--#{$_}--height);
   }
 
   .c-brand__container {
-    height: tokens.get($_, "height");
+    height: var(--#{$_}--height);
     display: flex;
-    gap: tokens.get($_, "gap");
+    gap: var(--#{$_}--gap);
     align-items: center;
   }
 
@@ -36,8 +35,8 @@ $_: "c-brand";
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
-    font-size: tokens.get($_, "font-size");
-    color: tokens.get($_, "contrast-color");
+    font-size: var(--#{$_}--font-size);
+    color: var(--#{$_}--contrast-color);
     line-height: 1.2;
     justify-content: center;
   }

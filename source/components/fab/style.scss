@@ -6,7 +6,7 @@
 
 $_: "c-fab";
 
-@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border")));
+@include tokens.create($_, getComponentTokens($_));
 
 //Values for the loop
 $xAxis: (
@@ -20,6 +20,7 @@ $yAxis: (
 
 //Standard styling
 .#{$_} {
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     contain: layout;
     position: fixed;
     z-index: 6000;
@@ -33,7 +34,7 @@ $yAxis: (
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     filter: tokens.use($_, "shadow", 3);
-    border: tokens.get($_, "border");
+    border: var(--#{$_}--border);
     filter: tokens.use($_, "shadow", 3);
     background: tokens.get($_, "color--surface");
     display: none;

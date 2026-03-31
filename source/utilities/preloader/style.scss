@@ -3,11 +3,14 @@
 $_: "u-preloader";
 $_inner: "u-preloader--inner";
 
-@include tokens.create($_, ("color--surface", "color--surface-border", "border-radius"), ("color": tokens.get($_, "color--surface"), "color-shimmer": tokens.get($_, "color--surface-border"), "shimmer": linear-gradient(90deg, tokens.get($_, "color") 8%, tokens.get($_, "color-shimmer") 18%, tokens.get($_, "color") 33%)));
-@include tokens.create($_inner, ("color--surface", "color--surface-border", "border-radius"), ("color": tokens.get($_inner, "color--surface"), "color-shimmer": tokens.get($_inner, "color--surface-border"), "shimmer": linear-gradient(90deg, tokens.get($_inner, "color") 8%, tokens.get($_inner, "color-shimmer") 18%, tokens.get($_inner, "color") 33%)));
+@include tokens.create($_, ("color--surface", "color--surface-border", "border-radius"));
+@include tokens.create($_inner, ("color--surface", "color--surface-border", "border-radius"));
 
 /** Adds preload like apperance of any component */
 .#{$_} {
+  --#{$_}--color: #{tokens.get($_, "color--surface")};
+  --#{$_}--color-shimmer: #{tokens.get($_, "color--surface-border")};
+  --#{$_}--shimmer: linear-gradient(90deg, var(--#{$_}--color) 8%, var(--#{$_}--color-shimmer) 18%, var(--#{$_}--color) 33%);
   position: relative;
   filter: unset !important;
   cursor: default;
@@ -22,7 +25,7 @@ $_inner: "u-preloader--inner";
     animation-name: placeHolderShimmer;
     animation-timing-function: linear;
     background: #f6f7f8;
-    background: tokens.get($_, "shimmer");
+    background: var(--#{$_}--shimmer);
     background-size: 200% 100%;
     inset: 0;
     position: absolute;
@@ -60,6 +63,9 @@ $_inner: "u-preloader--inner";
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
 .#{$_inner} {
+  --#{$_inner}--color: #{tokens.get($_inner, "color--surface")};
+  --#{$_inner}--color-shimmer: #{tokens.get($_inner, "color--surface-border")};
+  --#{$_inner}--shimmer: linear-gradient(90deg, var(--#{$_inner}--color) 8%, var(--#{$_inner}--color-shimmer) 18%, var(--#{$_inner}--color) 33%);
   &.#{$_}--exclude {
     .c-datebadge {
       visibility: hidden !important;
@@ -99,7 +105,7 @@ $_inner: "u-preloader--inner";
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
       background: #f6f7f8;
-      background: tokens.get($_inner, "shimmer");
+      background: var(--#{$_inner}--shimmer);
       background-size: 200% 100%;
       inset: 0;
       position: absolute;
@@ -133,7 +139,7 @@ $_inner: "u-preloader--inner";
       animation-name: placeHolderShimmer;
       animation-timing-function: linear;
       background: #f6f7f8;
-      background: tokens.get($_inner, "shimmer");
+      background: var(--#{$_inner}--shimmer);
       background-size: 200% 100%;
       inset: 0;
       position: absolute;

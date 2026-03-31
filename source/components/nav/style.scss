@@ -5,18 +5,18 @@
 $_: "c-nav";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("font-size": "var(--base-font-size)",
-        "background-expanded": "rgba(0, 0, 0, .05)",
-        "shadow": tokens.use($_, "shadow", 1),
-        "item-background-color": tokens.get($_, "color--surface"),
-        "item-color": tokens.get($_, "color--surface-contrast"),
-        "item-background-color-hover": transparent,
-        "item-color-hover": tokens.get($_, "color--surface-contrast"),
-        "item-border-color": tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 
 .c-nav {
+    --#{$_}--font-size: var(--base-font-size);
+    --#{$_}--background-expanded: rgba(0, 0, 0, .05);
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--item-background-color: #{tokens.get($_, "color--surface")};
+    --#{$_}--item-color: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--item-background-color-hover: transparent;
+    --#{$_}--item-color-hover: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--item-border-color: #{tokens.get($_, "color--surface-border")};
     display: flex;
     width: 100%;
 
@@ -147,10 +147,10 @@ $_: "c-nav";
             z-index: 5000;
             position: absolute;
             bottom: 0;
-            background: tokens.get($_, "item-background-color");
+            background: var(--#{$_}--item-background-color);
             min-width: calc(#{tokens.get($_, "base")} * 28);
             border-radius: tokens.use($_, "border-radius");
-            filter: tokens.get($_, "shadow");
+            filter: var(--#{$_}--shadow);
             transform: translateY(100%);
             animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 
@@ -186,19 +186,19 @@ $_: "c-nav";
         }
 
         &.c-nav--bordered .c-nav__item+.c-nav__item {
-            border-top: 1px solid #{tokens.get($_, "item-border-color")};
+            border-top: 1px solid #{var(--#{$_}--item-border-color)};
         }
 
         .c-nav__item.is-current>.c-nav__link,
         .c-nav__item.is-current>.c-nav__item-wrapper>.c-nav__link {
-            color: tokens.get($_, "item-color");
+            color: var(--#{$_}--item-color);
             font-weight: var(--font-weight-bold, 700);
             font-family: var(--font-family-bold);
         }
 
         .c-nav__item.is-current>.c-nav__link,
         .c-nav__item.is-current>.c-button {
-            background-color: tokens.get($_, "item-background-color");
+            background-color: var(--#{$_}--item-background-color);
         }
 
         &.c-nav--indent-sublevels {
@@ -213,10 +213,10 @@ $_: "c-nav";
     // Drawer
     &.c-nav--drawer {
         &.c-nav--bordered {
-            border-bottom: 1px solid #{tokens.get($_, "item-border-color")};
+            border-bottom: 1px solid #{var(--#{$_}--item-border-color)};
 
             .c-nav {
-                border-top: 1px solid #{tokens.get($_, "item-border-color")};
+                border-top: 1px solid #{var(--#{$_}--item-border-color)};
             }
         }
 
@@ -232,7 +232,7 @@ $_: "c-nav";
             }
 
             &>.c-nav__item {
-                border-bottom: 1px solid #{tokens.get($_, "item-border-color")};
+                border-bottom: 1px solid #{var(--#{$_}--item-border-color)};
             }
         }
 
@@ -243,7 +243,7 @@ $_: "c-nav";
 }
 
 .c-nav.c-nav.c-nav--horizontal {
-    font-size: tokens.get($_, "font-size");
+    font-size: var(--#{$_}--font-size);
 
     .c-nav__item {
 
@@ -252,7 +252,7 @@ $_: "c-nav";
         .c-nav__toggle,
         .c-nav__button.c-button__basic .c-button__label,
         .c-nav__button.c-button__outlined .c-button__label {
-            color: tokens.get($_, "item-color");
+            color: var(--#{$_}--item-color);
         }
 
     }
@@ -320,7 +320,7 @@ $_: "c-nav";
         left: 0;
         width: 100%;
         z-index: 5000;
-        background-color: tokens.get($_, "item-background-color");
+        background-color: var(--#{$_}--item-background-color);
         justify-content: center;
     }
 
@@ -378,7 +378,7 @@ $_: "c-nav";
         background-color: tokens.get($_, "color--surface-contrast");
 
         ul.c-nav.c-nav--child {
-            background-color: tokens.get($_, "background-expanded");
+            background-color: var(--#{$_}--background-expanded);
 
             &::after {
                 content: none;
@@ -388,7 +388,7 @@ $_: "c-nav";
 
         &>li {
             width: calc(#{tokens.get($_, "base")} * 40);
-            background-color: tokens.get($_, "item-background-color");
+            background-color: var(--#{$_}--item-background-color);
         }
 
         &>li>.c-nav__item-wrapper .c-nav__text {
@@ -399,10 +399,10 @@ $_: "c-nav";
 
 /* Vertical Navigation */
 .c-nav.c-nav.c-nav--vertical {
-    font-size: tokens.get($_, "font-size");
+    font-size: var(--#{$_}--font-size);
 
     .c-nav.c-nav--vertical {
-        background-color: tokens.get($_, "background-expanded");
+        background-color: var(--#{$_}--background-expanded);
     }
 
     .c-nav__item {
@@ -410,7 +410,7 @@ $_: "c-nav";
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle {
-            color: tokens.get($_, "item-color");
+            color: var(--#{$_}--item-color);
         }
 
         &.c-nav__item--separator .c-nav__text {
@@ -420,12 +420,12 @@ $_: "c-nav";
 
     .c-nav__item>.c-nav__item-wrapper:hover,
     .c-nav__item.is-active>.c-nav__item-wrapper {
-        background-color: tokens.get($_, "item-background-color-hover");
+        background-color: var(--#{$_}--item-background-color-hover);
 
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle {
-            color: tokens.get($_, "item-color-hover");
+            color: var(--#{$_}--item-color-hover);
         }
     }
 }

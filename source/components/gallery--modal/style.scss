@@ -4,9 +4,10 @@
 
 $_: "c-modal--gallery";
 
-@include tokens.create($_, getComponentTokens($_), ("color--alpha-solid": rgb(from tokens.get($_, "color--alpha") r g b / 1)));
+@include tokens.create($_, getComponentTokens($_));
 
 .c-modal.#{$_} {
+  --#{$_}--color--alpha-solid: rgb(from #{tokens.get($_, "color--alpha")} r g b / 1);
   height: 100vh;
   width: 100vw;
   max-width: none;
@@ -15,7 +16,7 @@ $_: "c-modal--gallery";
   padding: 0;
 
   &::backdrop {
-    background-color: color-mix(in srgb, tokens.get($_, "color--alpha-solid") 90%, transparent 10%);
+    background-color: color-mix(in srgb, var(--#{$_}--color--alpha-solid) 90%, transparent 10%);
   }
 
   .c-modal__header {

@@ -3,17 +3,16 @@
 
 $_: "c-select";
 
-@include tokens.create($_, getComponentTokens($_),
-    ("font-size-btn-sm": tokens.get($_, "font-size-80"),
-        "font-size-btn-md": tokens.get($_, "font-size-90"),
-        "font-size-btn-lg": tokens.get($_, "font-size-100"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_}__container {
     position: relative;
 }
 
 .#{$_} {
+    --#{$_}--font-size-btn-sm: #{tokens.get($_, "font-size-80")};
+    --#{$_}--font-size-btn-md: #{tokens.get($_, "font-size-90")};
+    --#{$_}--font-size-btn-lg: #{tokens.get($_, "font-size-100")};
     position: relative;
 
     .#{$_}__select-element {
@@ -74,7 +73,7 @@ $_: "c-select";
     }
 
     .#{$_}__clear-button {
-        --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-md")} * 1.325);
+        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)} * 1.325);
         --_clear-icon-offset: calc(var(--_clear-icon-size) * 0.063);
         position: absolute;
         right: 2em;
@@ -170,12 +169,12 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 1);
-            font-size: tokens.get($_, "font-size-btn-sm");
+            font-size: var(--#{$_}--font-size-btn-sm);
             line-height: tokens.use($_, "base", 1.5);
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-sm")} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-sm)} * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -188,12 +187,12 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 2);
-            font-size: tokens.get($_, "font-size-btn-md");
+            font-size: var(--#{$_}--font-size-btn-md);
             line-height: tokens.use($_, "base", 2);
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-md")} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)} * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -206,12 +205,12 @@ $_: "c-select";
         .#{$_}__clear-button,
         .#{$_}__expand-button {
             padding: 0 tokens.use($_, "base", 2.5);
-            font-size: tokens.get($_, "font-size-btn-lg");
+            font-size: var(--#{$_}--font-size-btn-lg);
             line-height: tokens.use($_, "base", 2);
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{tokens.get($_, "font-size-btn-lg")} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-lg)} * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {

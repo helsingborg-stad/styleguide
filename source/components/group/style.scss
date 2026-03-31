@@ -4,12 +4,13 @@ $position: center, start, end, flex-start, flex-end, normal, space-between, spac
 
 $_: "c-group";
 
-@include tokens.create($_, getComponentTokens($_), ("grid-gap": tokens.use($_, "base", 4),
-        "fluid-2col": calc(100% - #{tokens.get("grid-gap", 1)} / 2),
-        "fluid-3col": calc(100% - #{tokens.get("grid-gap", 2)} / 3),
-        "fluid-4col": calc(100% - #{tokens.get("grid-gap", 3)} / 4)));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--grid-gap: #{tokens.use($_, "base", 4)};
+    --#{$_}--fluid-2col: calc(100% - #{tokens.get("grid-gap", 1)} / 2);
+    --#{$_}--fluid-3col: calc(100% - #{tokens.get("grid-gap", 2)} / 3);
+    --#{$_}--fluid-4col: calc(100% - #{tokens.get("grid-gap", 3)} / 4);
     display: inline-flex;
     contain: paint;
     border-radius: tokens.use($_, "border-radius");
@@ -27,7 +28,7 @@ $_: "c-group";
     @for $i from 1 through 12 {
         &.#{$_}--gap-#{$i} {
             --grid-gap: #{tokens.use($_, "base", $i)};
-            gap: tokens.get($_, "grid-gap");
+            gap: var(--#{$_}--grid-gap);
         }
 
         &.#{$_}--columns-#{$i} {
@@ -149,32 +150,32 @@ $_: "c-group";
 
     &.#{$_}--fluid-grid-2 {
         &.#{$_}--size-lg>* {
-            flex: 0 0 tokens.get($_, "fluid-2col");
-            max-width: tokens.get($_, "fluid-2col");
+            flex: 0 0 var(--#{$_}--fluid-2col);
+            max-width: var(--#{$_}--fluid-2col);
         }
     }
 
     &.#{$_}--fluid-grid-3 {
         &.#{$_}--size-md>* {
-            flex: 0 0 tokens.get($_, "fluid-2col");
-            max-width: tokens.get($_, "fluid-2col");
+            flex: 0 0 var(--#{$_}--fluid-2col);
+            max-width: var(--#{$_}--fluid-2col);
         }
 
         &.#{$_}--size-lg>* {
-            flex: 0 0 tokens.get($_, "fluid-3col");
-            max-width: tokens.get($_, "fluid-3col");
+            flex: 0 0 var(--#{$_}--fluid-3col);
+            max-width: var(--#{$_}--fluid-3col);
         }
     }
 
     &.#{$_}--fluid-grid-4 {
         &.#{$_}--size-sm>* {
-            flex: 0 0 tokens.get($_, "fluid-2col");
-            max-width: tokens.get($_, "fluid-2col");
+            flex: 0 0 var(--#{$_}--fluid-2col);
+            max-width: var(--#{$_}--fluid-2col);
         }
 
         &.#{$_}--size-lg>* {
-            flex: 0 0 tokens.get($_, "fluid-4col");
-            max-width: tokens.get($_, "fluid-4col");
+            flex: 0 0 var(--#{$_}--fluid-4col);
+            max-width: var(--#{$_}--fluid-4col);
         }
     }
 }

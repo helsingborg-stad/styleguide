@@ -6,15 +6,15 @@ $_: "c-icon";
 $sizes: xs, sm, md, lg, xl, xxl;
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_),
-    ("size-xs": tokens.use($_, "base", 1),
-        "size-sm": tokens.use($_, "base", 2),
-        "size-md": tokens.use($_, "base", 3),
-        "size-lg": tokens.use($_, "base", 4),
-        "size-xl": tokens.use($_, "base", 5),
-        "size-xxl": tokens.use($_, "base", 6)));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--size-xs: #{tokens.use($_, "base", 1)};
+    --#{$_}--size-sm: #{tokens.use($_, "base", 2)};
+    --#{$_}--size-md: #{tokens.use($_, "base", 3)};
+    --#{$_}--size-lg: #{tokens.use($_, "base", 4)};
+    --#{$_}--size-xl: #{tokens.use($_, "base", 5)};
+    --#{$_}--size-xxl: #{tokens.use($_, "base", 6)};
     color: inherit;
     line-height: 1;
 
@@ -61,7 +61,7 @@ $sizes: xs, sm, md, lg, xl, xxl;
 
     @each $size in $sizes {
         &.#{$_}--size-#{$size} {
-            $icon-size: var(--c-icon-size, #{tokens.get($_, "size-#{$size}")});
+            $icon-size: var(--c-icon-size, var(--#{$_}--size-#{$size}));
  font-size: $icon-size;
 
                     &::after {

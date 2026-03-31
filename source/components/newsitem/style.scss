@@ -4,8 +4,7 @@
 $_: "c-newsitem";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Stacked layout (standing variant + responsive) */
 @mixin _stacked {
@@ -30,6 +29,7 @@ $_: "c-newsitem";
 
 /* Component */
 .#{$_} {
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     display: grid;
     gap: tokens.use($_, "space", 2);
     grid-template-columns: repeat(12, 1fr);
@@ -56,8 +56,8 @@ $_: "c-newsitem";
         flex-wrap: wrap;
         justify-content: space-between;
         padding: tokens.use($_, "space") 0;
-        border-top: tokens.get($_, "border");
-        border-bottom: tokens.get($_, "border");
+        border-top: var(--#{$_}--border);
+        border-bottom: var(--#{$_}--border);
     }
 
     .#{$_}__title {

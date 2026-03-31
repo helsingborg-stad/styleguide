@@ -4,17 +4,16 @@
 $_: "c-box";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_),
-    ("shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 1.5),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
     contain: layout;
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
     background-color: tokens.get($_, "color--primary");
     color: tokens.get($_, "color--primary-contrast");
     display: flex;
@@ -117,7 +116,7 @@ a.#{$_} {
 
     &:hover {
         transform: translateY(tokens.use($_, "space", -0.25));
-        filter: brightness(0.9) tokens.get($_, "shadow-hover");
+        filter: brightness(0.9) var(--#{$_}--shadow-hover);
 
         .#{$_}__heading {
             text-decoration: underline;

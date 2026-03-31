@@ -3,31 +3,30 @@
 
 $_: "c-block";
 
-@include tokens.create($_, getComponentTokens($_),
-    ("shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 2),
-        "radius": tokens.use($_, "border-radius", 1),
-        "color-text": tokens.get($_, "color--alpha-contrast"),
-        "color-background": tokens.get($_, "color--alpha"),
-        "color-overlay": rgb(from tokens.get($_, "color--alpha") r g b / 1),
-        "color-overlay-middle": rgba(from tokens.get($_, "color--alpha") r g b / .5),
-        "color-overlay-end": rgba(from tokens.get($_, "color--alpha") r g b / 0),
-        "color-secondary": tokens.get($_, "color--secondary"),
-        "color-hover-background": tokens.get($_, "color--alpha-border"),
-        "color-hover-overlay": tokens.get($_, "color--alpha-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--shadow: tokens.use($_, "shadow", 1);
+    --#{$_}--shadow-hover: tokens.use($_, "shadow", 2);
+    --#{$_}--radius: tokens.use($_, "border-radius", 1);
+    --#{$_}--color-text: tokens.get($_, "color--alpha-contrast");
+    --#{$_}--color-background: tokens.get($_, "color--alpha");
+    --#{$_}--color-overlay: rgb(from tokens.get($_, "color--alpha") r g b / 1);
+    --#{$_}--color-overlay-middle: rgba(from tokens.get($_, "color--alpha") r g b / .5);
+    --#{$_}--color-overlay-end: rgba(from tokens.get($_, "color--alpha") r g b / 0);
+    --#{$_}--color-secondary: tokens.get($_, "color--secondary");
+    --#{$_}--color-hover-background: tokens.get($_, "color--alpha-border");
+    --#{$_}--color-hover-overlay: tokens.get($_, "color--alpha-border");
     position: relative;
-    border-radius: tokens.get($_, "radius");
+    border-radius: var(--#{$_}--radius);
     corner-shape: tokens.get($_, "corner-shape");
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
     background-position: center;
     background-size: cover;
-    background-color: tokens.get($_, "color-background");
+    background-color: var(--#{$_}--color-background);
     text-decoration: none;
 
     .#{$_}__heading {
@@ -35,17 +34,17 @@ $_: "c-block";
     }
 
     .#{$_}__image {
-        border-radius: tokens.get($_, "radius");
+        border-radius: var(--#{$_}--radius);
         corner-shape: tokens.get($_, "corner-shape");
 
         .c-image__image {
-            border-radius: tokens.get($_, "radius");
+            border-radius: var(--#{$_}--radius);
             corner-shape: tokens.get($_, "corner-shape");
         }
     }
 
     .#{$_}__body {
-        background: linear-gradient(0deg, tokens.get($_, "color-overlay") 0%, tokens.get($_, "color-overlay-middle") 80%, tokens.get($_, "color-overlay-end") 100%);
+        background: linear-gradient(0deg, var(--#{$_}--color-overlay) 0%, var(--#{$_}--color-overlay-middle) 80%, var(--#{$_}--color-overlay-end) 100%);
         border-radius: inherit;
         corner-shape: inherit;
         padding: tokens.use($_, "base", 8) tokens.use($_, "base", 3) tokens.use($_, "base", 3) tokens.use($_, "base", 3);
@@ -78,12 +77,12 @@ $_: "c-block";
     .#{$_}__content,
     .#{$_}__secondarymeta {
         margin: 0;
-        color: tokens.get($_, "color-text");
+        color: var(--#{$_}--color-text);
         display: block;
     }
 
     .#{$_}__body {
-        color: tokens.get($_, "color-text");
+        color: var(--#{$_}--color-text);
     }
 
     &.#{$_}--ratio-1-1 {
@@ -121,7 +120,7 @@ $_: "c-block";
     &--svg-background {
         background-size: clamp(tokens.use($_, "base", 3), 50%, tokens.use($_, "base", 8));
         background-repeat: no-repeat;
-        background-color: tokens.get($_, "color-secondary");
+        background-color: var(--#{$_}--color-secondary);
     }
 }
 
@@ -134,14 +133,14 @@ a.#{$_} {
         inset: 0;
         content: "";
         transition: opacity 200ms;
-        background: tokens.get($_, "color-hover-overlay");
+        background: var(--#{$_}--color-hover-overlay);
         opacity: 0;
         z-index: 1000;
     }
 
     &:hover {
-        filter: tokens.get($_, "shadow-hover");
-        background-color: tokens.get($_, "color-hover-background");
+        filter: var(--#{$_}--shadow-hover);
+        background-color: var(--#{$_}--color-hover-background);
         color: inherit;
         transform: translateY(calc(0px - tokens.use($_, "base", 0.25)));
 

@@ -17,14 +17,7 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("font-weight": tokens.get($_, "font-weight-medium"),
-        "font-family": tokens.get($_, "font-family-base"),
-        "font-size-lg": tokens.get($_, "font-size-200"),
-        "font-size-md": tokens.get($_, "font-size-100"),
-        "font-size-sm": tokens.get($_, "font-size-90"),
-        "color-default": tokens.get($_, "color--surface"),
-        "color-default-contrast": tokens.get($_, "color--surface-contrast"),
-        "shadow": tokens.use($_, "shadow", 1)));
+@include tokens.create($_, getComponentTokens($_));
 
 /**
  * Variant color schemes
@@ -92,13 +85,21 @@ $button-variants: (
  * --_loader: loader size multiplier (md uses the base default)
  */
 $button-sizes: (
-    "lg": ("height": 8, "min-width": 12, "padding-x": 5, "offset": -1.5, "loader": 4, "font-size": tokens.get($_, "font-size-lg")),
-    "md": ("height": 6.5, "min-width": 9, "padding-x": 4, "offset": -1, "loader": null, "font-size": tokens.get($_, "font-size-md")),
-    "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5, "loader": 2, "font-size": tokens.get($_, "font-size-sm"), "letter-spacing": 0.1rem)
+    "lg": ("height": 8, "min-width": 12, "padding-x": 5, "offset": -1.5, "loader": 4, "font-size": var(--#{$_}--font-size-lg)),
+    "md": ("height": 6.5, "min-width": 9, "padding-x": 4, "offset": -1, "loader": null, "font-size": var(--#{$_}--font-size-md)),
+    "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5, "loader": 2, "font-size": var(--#{$_}--font-size-sm), "letter-spacing": 0.1rem)
 );
 
 /* Component base */
 .#{$_} {
+    --#{$_}--font-weight: #{tokens.get($_, "font-weight-medium")};
+    --#{$_}--font-family: #{tokens.get($_, "font-family-base")};
+    --#{$_}--font-size-lg: #{tokens.get($_, "font-size-200")};
+    --#{$_}--font-size-md: #{tokens.get($_, "font-size-100")};
+    --#{$_}--font-size-sm: #{tokens.get($_, "font-size-90")};
+    --#{$_}--color-default: #{tokens.get($_, "color--surface")};
+    --#{$_}--color-default-contrast: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
     contain: layout;
     display: inline-flex;
     vertical-align: middle;
@@ -106,8 +107,8 @@ $button-sizes: (
     justify-content: center;
     text-decoration: none;
     cursor: pointer;
-    font-weight: tokens.get($_, "font-weight");
-    font-family: tokens.get($_, "font-family");
+    font-weight: var(--#{$_}--font-weight);
+    font-family: var(--#{$_}--font-family);
     background-color: transparent;
     border: none;
     user-select: none;
@@ -312,7 +313,7 @@ $button-sizes: (
 /* Filled: solid colored background */
 .#{$_}__filled {
     will-change: filter;
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
     transition: filter 200ms ease-in-out;
     background-color: var(--_color);
     color: var(--_contrast);
@@ -337,7 +338,7 @@ $button-sizes: (
     border: clamp(2px,
         #{tokens.use($_, "border-width")},
         calc(var(--base) / 2)) solid var(--_color);
-    color: color-mix(in srgb, #{tokens.get($_, "color-default-contrast")} 50%, var(--_color));
+    color: color-mix(in srgb, var(--#{$_}--color-default-contrast) 50%, var(--_color));
 
     // Light tint on hover: mix a small amount of the button color into the surface.
     // Text color stays as-is (dark colored text reads fine on a light tinted bg).

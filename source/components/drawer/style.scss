@@ -2,13 +2,12 @@
 
 $_: "c-drawer";
 
-@include tokens.create($_, getComponentTokens($_),
-    ("shadow": tokens.use($_, "shadow", 5),
-        "drawer-transition-ms": 300ms,
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Colors */
 .c-drawer {
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 5)};
+    --#{$_}--drawer-transition-ms: 300ms;
 
     /* switch to surface color tokens for nested components */
     --c-field--background-color: var(--color--background);
@@ -122,9 +121,9 @@ $_: "c-drawer";
     width: 90%;
     z-index: 9000;
     transform: translate(-100%);
-    transition: visibility 0s linear #{tokens.get($_, "drawer-transition-ms")},
-    #{tokens.get($_, "drawer-transition-ms")} ease-in transform,
-    #{tokens.get($_, "drawer-transition-ms")} ease-in opacity;
+    transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
+    var(--#{$_}--drawer-transition-ms) ease-in transform,
+    var(--#{$_}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -178,21 +177,21 @@ $_: "c-drawer";
 // Drawer States
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
-    #{tokens.get($_, "drawer-transition-ms")} ease-out transform,
-    #{tokens.get($_, "drawer-transition-ms")} ease-out opacity;
+    var(--#{$_}--drawer-transition-ms) ease-out transform,
+    var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
 }
 
 $_overlay: "drawer-overlay";
 @include tokens.create($_overlay, ("color--alpha"
-    ), ("drawer-transition-ms": 300ms,
     ));
 
 // Overlay
 .#{$_overlay} {
+    --#{$_overlay}--drawer-transition-ms: 300ms;
     background-color: tokens.get($_overlay, "color--alpha");
     position: fixed;
     top: 0;
@@ -200,7 +199,7 @@ $_overlay: "drawer-overlay";
     width: 100%;
     height: 100%;
     z-index: 8999;
-    transition: visibility 0s linear tokens.get($_overlay, "drawer-transition-ms"), tokens.get($_overlay, "drawer-transition-ms") ease-in opacity;
+    transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms), var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
@@ -210,6 +209,6 @@ $_overlay: "drawer-overlay";
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,
-    #{tokens.get($_, "drawer-transition-ms")} ease-out opacity;
+    var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
 }
