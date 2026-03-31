@@ -4,22 +4,59 @@ Complete documentation for the Design Builder runtime and component-level custom
 
 ## Overview
 
-The Design Builder runtime has two execution modes in the same entry file:
+The Design Builder has two execution modes:
 
 1. Full page mode (route: /design-builder)
 2. Component page mode (global docs pages with customize assets loaded)
 
-Entry file:
-- source/design-builder/index.ts
+### File structure
 
-Styles:
-- source/design-builder/design-builder.scss
+```
+source/design-builder/
+  core/                              # Portable — no styleguide dependencies
+    types.ts                         # Shared interfaces and type aliases
+    color-utils.ts                   # Pure color conversion helpers
+    storage.ts                       # StorageAdapter interface, LocalStorageAdapter, PresetManager
+    token-override-manager.ts        # CSS custom property override state management
+    component-discovery.ts           # DOM component element discovery and scope resolution
+    component-token-mapper.ts        # Maps component tokens to library categories
+    component-override-manager.ts    # Scoped component-level override storage
+    components/                      # Web components for individual controls
+      db-control.ts                  # Base control row wrapper
+      db-color-control.ts            # Color picker control
+      db-rgba-control.ts             # RGBA color + alpha control
+      db-range-control.ts            # Range slider control
+      db-select-control.ts           # Dropdown select control
+      db-font-control.ts             # Font family text input + preview
+      db-contrast-pair.ts            # Color contrast pair with preview
+      db-swatch-band.ts              # Read-only color swatch strip
+      db-preset-bar.ts               # Preset chip list
+    index.ts                         # Barrel export for core module
+  design-builder.ts                  # Full-page mode orchestrator
+  component-customization-tool.ts    # Component-mode orchestrator
+  category-renderer.ts               # Token category section renderer
+  controls.ts                        # Factory functions delegating to web components
+  design-builder.scss                # All styles
+  index.ts                           # Entry point (mode detection + init)
+```
 
-Control rendering helpers:
-- source/design-builder/controls.ts
+### Portable core
 
-Global token/preset storage helpers (full page mode):
-- source/design-builder/storage.ts
+The `core/` directory is self-contained with zero imports from outside `core/`.
+It can be imported by any host application to build custom design token editors.
+
+Import from `core/index.ts`:
+```ts
+import { TokenOverrideManager, ComponentDiscovery, DbControl } from './core';
+```
+
+### Data contracts
+
+- `styleguideDesignTokenLibrary` (window global) — TokenData with categories and settings
+- `styleguideCustomizeData` (window global) — per-component token definitions
+- `[data-component]` attributes — marks customizable elements in the DOM
+- `[data-scope]` attributes — defines scope boundaries for component overrides
+- `StorageAdapter` interface — implement for custom storage backends
 
 ## Mode 1: Full page Design Builder
 
