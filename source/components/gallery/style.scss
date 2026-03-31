@@ -5,10 +5,11 @@
 $_: "c-gallery";
 
 // Create tokens for gallery list
-@include tokens.create($_, getComponentTokens($_), ("gap": tokens.use($_, "space", 4),
-        "column-min": tokens.use($_, "base", 32)));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--gap: #{tokens.use($_, "space", 4)};
+    --#{$_}--column-min: #{tokens.use($_, "base", 32)};
     contain: paint;
 
     .c-image {
@@ -18,10 +19,10 @@ $_: "c-gallery";
     @include list.unlist();
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(tokens.get($_, "column-min"), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--#{$_}--column-min), 1fr));
     padding: 0;
     margin: 0;
-    gap: tokens.get($_, "gap");
+    gap: var(--#{$_}--gap);
 
     &__item {
         padding: 0;
