@@ -9,7 +9,6 @@ class UnusedTokensTest extends TestCase
     private const SHADOW_TOKEN = 'shadow';
     private const SHADOW_REQUIRED_TOKENS = ['shadow-amount', 'shadow-color'];
     private const TOKEN_EXCEPTIONS = self::SHADOW_REQUIRED_TOKENS;
-    private const COMPONENT_EXCEPTIONS = ['anchormenu', 'listing', 'slider-item', 'textarea', 'Tests'];
 
     /**
      * @testdox component utilizes all tokens declared in component.json
@@ -23,22 +22,14 @@ class UnusedTokensTest extends TestCase
         self::assertShadowDependenciesAreDeclared($tokens, $styleFileContents, $component);
         $unusedTokens = self::findUnusedTokens($tokens, $styleFileContents, self::TOKEN_EXCEPTIONS);
 
-        $this->assertEmpty(
-            $unusedTokens,
-            sprintf(
-                "Component '%s' has declared but unused tokens in %s:%s- %s",
-                $component,
-                $styleFile,
-                PHP_EOL,
-                implode(PHP_EOL . '- ', $unusedTokens),
-            ),
-        );
+        $errorMessage = sprintf("Component '%s' has declared but unused tokens in %s:%s- %s", $component, $styleFile, PHP_EOL, implode(PHP_EOL . '- ', $unusedTokens));
+        $this->assertEmpty($unusedTokens, $errorMessage);
     }
 
     private static function assertShadowDependenciesAreDeclared(
         array $tokens,
         string $styleFileContents,
-        string $component
+        string $component,
     ): void {
         if (!self::styleFileUsesToken($styleFileContents, self::SHADOW_TOKEN)) {
             return;
@@ -96,9 +87,9 @@ class UnusedTokensTest extends TestCase
     public static function componentFilesProvider(): \Generator
     {
         $componentsDir = __DIR__ . '/../';
-        $components = array_filter(scandir($componentsDir), function ($item) use ($componentsDir) {
-            return is_dir($componentsDir . $item)
-                && !in_array($item, ['.', '..', ...self::COMPONENT_EXCEPTIONS], true);
+        $componentExceptions = ['Tests']; // Exclude test directory itself
+        $components = array_filter(scandir($componentsDir), function ($item) use ($componentsDir, $componentExceptions) {
+            return is_dir($componentsDir . $item) && !in_array($item, ['.', '..', ...$componentExceptions], true);
         });
 
         foreach ($components as $component) {
