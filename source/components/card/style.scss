@@ -16,18 +16,18 @@
 $_: "c-card";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 1.5),
-        "image-bg": tokens.get($_, "color--surface-border"),
-        "image-bg-svg": tokens.get($_, "color--secondary"),
-        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
+    --#{$_}--image-bg: #{tokens.get($_, "color--surface-border")};
+    --#{$_}--image-bg-svg: #{tokens.get($_, "color--secondary")};
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     contain: layout;
     container-type: inline-size;
-    filter: tokens.get($_, "shadow");
+    filter: var(--#{$_}--shadow);
     will-change: filter;
     display: flex;
     flex-direction: column;
@@ -37,7 +37,7 @@ $_: "c-card";
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     transition: all 200ms ease-in;
-    border: tokens.get($_, "border");
+    border: var(--#{$_}--border);
 
     /* switch to surface color tokens for nested components */
     .c-paper,
@@ -48,7 +48,7 @@ $_: "c-card";
     }
 
     .#{$_}__image {
-        --c-image--color-background: #{tokens.get($_, "image-bg")};
+        --c-image--color-background: var(--#{$_}--image-bg);
         --c-image--border-radius: 0;
     }
 
@@ -92,7 +92,7 @@ $_: "c-card";
         hyphens: auto;
         padding: tokens.use($_, "space", 2);
         margin-top: auto;
-        border-top: tokens.get($_, "border");
+        border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
@@ -274,7 +274,7 @@ $_: "c-card";
         .#{$_}__image-background {
             background-size: clamp(#{tokens.get($_, "base")} * 3, 50%, #{tokens.get($_, "base")} * 8);
             background-repeat: no-repeat;
-            background-color: tokens.get($_, "image-bg-svg");
+            background-color: var(--#{$_}--image-bg-svg);
         }
     }
 
@@ -325,7 +325,7 @@ a.#{$_} {
     }
 
     &:hover {
-        filter: tokens.get($_, "shadow-hover");
+        filter: var(--#{$_}--shadow-hover);
         background-color: tokens.get($_, "color--surface-border");
         transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
