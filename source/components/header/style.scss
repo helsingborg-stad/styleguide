@@ -5,18 +5,18 @@
 $_: "c-header";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": var(--base),
-        "logotype-height": calc(6 * var(--base)),
-        "background-color": tokens.get($_, "color--surface"),
-        "color": tokens.get($_, "color--surface-contrast"),
-        "border-color": tokens.get($_, "color--primary"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--base: var(--base);
+    --#{$_}--logotype-height: calc(6 * var(--base));
+    --#{$_}--background-color: #{tokens.get($_, "color--surface")};
+    --#{$_}--color: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--border-color: #{tokens.get($_, "color--primary")};
     position: relative;
-    background-color: tokens.get($_, "background-color");
-    color: tokens.get($_, "color");
+    background-color: var(--#{$_}--background-color);
+    color: var(--#{$_}--color);
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
@@ -65,7 +65,7 @@ $_: "c-header";
     }
 
     &.#{$_}--accented {
-        border-bottom: tokens.get($_, "base") solid tokens.get($_, "border-color");
+        border-bottom: var(--#{$_}--base) solid var(--#{$_}--border-color);
     }
 
     &.#{$_}--text-primary *,
@@ -122,7 +122,7 @@ $_: "c-header";
 
     // Logo
     &__logotype {
-        height: tokens.get($_, "logotype-height");
+        height: var(--#{$_}--logotype-height);
     }
 }
 
