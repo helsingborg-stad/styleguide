@@ -9,6 +9,8 @@
 		"space",
 		"color--surface",
 		"color--primary",
+		"shadow-color",
+		"shadow-amount",
 		"color--surface-border",
 		"color--secondary",
 		"color--surface-contrast",

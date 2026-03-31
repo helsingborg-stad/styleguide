@@ -15,9 +15,17 @@ class UnusedTokensTest extends TestCase
         $tokens = static::extractTokensFromTokenFile($tokenFile);
         $styleFileContents = file_get_contents($styleFile);
         $missingTokens = [];
+        $tokenExceptions = [
+            'shadow-color',
+            'shadow-amount',
+        ];
 
         // Check if tokens are used in the component style file
         foreach ($tokens as $token) {
+            if (in_array($token, $tokenExceptions)) {
+                continue;
+            }
+
             // Match tokens.use/get(<anything>, '<token>'[, <optional args>])
             $pattern = '/tokens\.(use|get)\s*\([^,]+,\s*[\'\"]' . preg_quote($token, '/') . '[\'\"](?:\s*,[^)]*)?\s*\)/m';
             preg_match_all($pattern, $styleFileContents, $matches);
@@ -51,25 +59,14 @@ class UnusedTokensTest extends TestCase
     public static function componentFilesProvider(): \Generator
     {
         $componentsDir = __DIR__ . '/../';
-        $components = [
-            'acceptance',
-            'accordion',
-            // 'anchormenu',
-            'avatar',
-            'block',
-            'blockquote',
-            'box',
-            'brand',
-            'breadcrumb',
-            'button',
-            'card',
-            'code',
-            'collection',
-            'comment',
-            'datebadge',
-            'typography',
-            'select',
+        $exceptions = [
+            'anchormenu',
+            'notice',
+            'Tests',
         ];
+        $components = array_filter(scandir($componentsDir), function ($item) use ($componentsDir, $exceptions) {
+            return is_dir($componentsDir . $item) && !in_array($item, ['.', '..', ...$exceptions]);
+        });
 
         foreach ($components as $component) {
             $tokenFile = $componentsDir . $component . '/component.json';

@@ -10,6 +10,8 @@
 		"corner-shape",
 		"border-radius",
 		"space",
+		"shadow-color",
+		"shadow-amount",
 		"color--surface-border",
 		"color--surface-alt",
 		"color--alpha-contrast",
