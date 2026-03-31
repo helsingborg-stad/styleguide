@@ -2,10 +2,10 @@
 
 $_: "c-megamenu";
 
-@include tokens.create($_, getComponentTokens($_), ("font-size-title": tokens.get($_, "font-size-300"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--font-size-title: #{tokens.get($_, "font-size-300")};
     padding-top: tokens.use($_, "base", 4);
     padding-bottom: tokens.use($_, "base", 4);
     background-color: tokens.get($_, "color--surface");
@@ -47,7 +47,7 @@ $_: "c-megamenu";
     }
 
     .#{$_}__link--title {
-        font-size: tokens.get($_, "font-size-title");
+        font-size: var(--#{$_}--font-size-title);
         color: tokens.get($_, "color--primary");
         font-family: tokens.get($_, "font-family-base");
     }
