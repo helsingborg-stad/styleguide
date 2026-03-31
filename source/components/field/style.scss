@@ -18,11 +18,10 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
 /* Component */
 .#{$_} {
-    --#{$_}--base: var(--base);
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.get($_, "color--surface-alt")};
     --#{$_}--contrast-color: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--height: calc(var(--base) * 6);
+    --#{$_}--height: tokens.use($_, "base", 6);
     --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
     --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
     --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.get($_, "border-width")} * 2);
@@ -78,7 +77,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(var(--#{$_}--base) * 10);
+        min-width: calc(tokens.use($_, "base", 10));
         font-size: 0.95rem;
         line-height: calc(var(--base) * 2);
         border: var(--#{$_}--border);
@@ -125,7 +124,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
             &[list] {
                 cursor: text;
-                padding-right: calc(var(--#{$_}--base) * 7);
+                padding-right: tokens.use($_, "base", 7);
 
                 &::-webkit-calendar-picker-indicator {
                     opacity: 0;
@@ -145,11 +144,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 top: 0;
                 right: 0;
                 height: 100%;
-                width: calc(var(--#{$_}--base) * 5);
+                width: calc(tokens.use($_, "base", 5));
                 border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
                 background-image: linear-gradient(to bottom,
-                        color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
-                        color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
+                    color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
                 border-top-right-radius: tokens.use($_, "border-radius");
                 border-bottom-right-radius: tokens.use($_, "border-radius");
                 pointer-events: none;
@@ -159,7 +158,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 content: "";
                 position: absolute;
                 top: 50%;
-                right: calc(var(--#{$_}--base) * 2);
+                right: calc(tokens.use($_, "base", 2));
                 width: 0.55em;
                 height: 0.55em;
                 border-right: 2px solid tokens.get($_, "color--primary");
@@ -266,7 +265,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         .#{$_}__inner,
         .#{$_}__inner input {
-            border-radius: calc(var(--#{$_}--base) * 3);
+            border-radius: calc(tokens.use($_, "base", 3));
             border: none;
 
             input::placeholder {
@@ -275,7 +274,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         .#{$_}__label {
-            margin-left: calc(var(--#{$_}--base) * 2);
+            margin-left: calc(tokens.use($_, "base", 2));
         }
 
         &.#{$_}--rounded-border {
@@ -286,29 +285,29 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         input:focus+.#{$_}_focus-styler,
         textarea:focus+.#{$_}_focus-styler {
-            border-radius: calc(var(--#{$_}--base) * 3);
+            border-radius: calc(tokens.use($_, "base", 3));
         }
     }
 
     /* Size modifiers */
     &.#{$_}--sm {
         font-size: 0.775rem;
-        line-height: calc(var(--base) * 1.5);
+        line-height: calc(tokens.use($_, "base", 1.5));
 
         #{$fields} {
             padding: tokens.use($_, "space");
-            height: calc(var(--#{$_}--base) * 4.5);
+            height: calc(tokens.use($_, "base", 4.5));
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(var(--#{$_}--base) * 4.5);
+                height: calc(tokens.use($_, "base", 4.5));
             }
         }
 
         textarea {
             padding: tokens.use($_, "space");
-            min-height: calc(var(--#{$_}--base) * 4.5);
+            min-height: calc(tokens.use($_, "base", 4.5));
         }
 
         .#{$_}__icon,
@@ -354,18 +353,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         #{$fields} {
             padding: tokens.use($_, "space", 2.5);
-            height: calc(var(--#{$_}--base) * 8);
+            height: calc(tokens.use($_, "base", 8));
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(var(--#{$_}--base) * 8);
+                height: calc(tokens.use($_, "base", 8));
             }
         }
 
         textarea {
             padding: tokens.use($_, "space", 2.5);
-            min-height: calc(var(--#{$_}--base) * 8);
+            min-height: calc(tokens.use($_, "base", 8));
         }
 
         .#{$_}__icon,
@@ -449,7 +448,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
         box-shadow: var(--#{$_}--shadow);
-        max-height: calc(var(--#{$_}--base) * 28);
+        max-height: calc(tokens.use($_, "base", 28));
         overflow-y: auto;
     }
 

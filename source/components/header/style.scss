@@ -9,8 +9,7 @@ $_: "c-header";
 
 /* Component */
 .#{$_} {
-    --#{$_}--base: var(--base);
-    --#{$_}--logotype-height: calc(6 * var(--base));
+    --#{$_}--logotype-height: tokens.use($_, "base", 6);
     --#{$_}--background-color: #{tokens.get($_, "color--surface")};
     --#{$_}--color: #{tokens.get($_, "color--surface-contrast")};
     --#{$_}--border-color: #{tokens.get($_, "color--primary")};
@@ -65,7 +64,7 @@ $_: "c-header";
     }
 
     &.#{$_}--accented {
-        border-bottom: var(--#{$_}--base) solid var(--#{$_}--border-color);
+        border-bottom: tokens.use($_, "base", 1) solid var(--#{$_}--border-color);
     }
 
     &.#{$_}--text-primary *,
