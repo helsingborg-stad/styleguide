@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Person",
 	"slug": "person",
-	"tokens": [],
+	"tokens": ["shadow-amount", "shadow-color"],
 	"description": "The Person component provides a reusable pattern for displaying person information in the interface.",
 	"tags": [],
 	"similarComponents": ["signature"],

@@ -1,5 +1,6 @@
 #!/bin/php
 <?php
+
 // Only allow run from cli.
 if (php_sapi_name() !== 'cli') {
     exit(0);
@@ -9,7 +10,7 @@ if (php_sapi_name() !== 'cli') {
 $buildCommands = [
     'npm ci --no-progress --no-audit',
     'npm run build',
-    'composer install --prefer-dist --no-progress'
+    'composer install --prefer-dist --no-progress',
 ];
 
 // Files and directories not suitable for prod to be removed.
@@ -34,6 +35,7 @@ $removables = [
     'postcss.config.js',
     'setup.sh',
     'webpack.config.js',
+    'source/components/Tests',
 ];
 
 $dirName = basename(dirname(__FILE__));
@@ -69,14 +71,14 @@ function executeCommand($command)
 {
     $proc = popen("$command 2>&1 ; echo Exit status : $?", 'r');
 
-    $liveOutput     = '';
+    $liveOutput = '';
     $completeOutput = '';
 
     while (!feof($proc)) {
-        $liveOutput     = fread($proc, 4096);
+        $liveOutput = fread($proc, 4096);
         $completeOutput = $completeOutput . $liveOutput;
         print $liveOutput;
-        @ flush();
+        @flush();
     }
 
     pclose($proc);

@@ -59,7 +59,7 @@ $yAxis: (
 
 .#{$_}__panel .#{$_}__heading {
     margin: 0;
-    --inherit-font-size: var(--font-size-400);
+    --inherit-font-size: tokens.get($_, "font-size-400");
 }
 
 //Loop to generate the different positions and spacings

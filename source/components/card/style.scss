@@ -68,7 +68,7 @@ $_: "c-card";
 
     /** Tell child components to inherit font-size from card for better typography scaling */
     .#{$_}__heading {
-        --inherit-font-size: var(--font-size-300);
+        --inherit-font-size: tokens.get($_, "font-size-300");
     }
 
     .#{$_}__header {

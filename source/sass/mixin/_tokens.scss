@@ -106,38 +106,3 @@
 
     @return var(#{$p}--#{$token});
 }
-
-/// Generates a color variant (background + contrast + border-color propagation).
-@mixin color-variant($prefix, $variant) {
-    $p: _clean-prefix($prefix);
-
-    @if($p !="") {
-        $p: "--#{$p}";
-    }
-
-    background-color: var(#{$p}--color--#{$variant});
-    color: var(#{$p}--color--#{$variant}-contrast);
-    border-color: var(#{$p}--color--#{$variant}-border, var(--color--#{$variant}-border));
-
-    a,
-    a:hover,
-    a:active,
-    a:visited {
-        color: var(#{$p}--color--#{$variant}-contrast);
-        text-decoration: underline;
-    }
-
-    .c-button {
-        color: var(#{$p}--color--#{$variant}-contrast);
-    }
-}
-
-/// Generates multiple color variant modifiers using BEM &--{variant} syntax.
-@mixin color-variants($prefix, $variants) {
-
-    @each $variant in $variants {
-        &--#{$variant} {
-            @include color-variant($prefix, $variant);
-        }
-    }
-}
