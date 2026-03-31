@@ -10,8 +10,6 @@ $_: "c-paper";
         "padding": 0,
         "background-color": tokens.get($_, "color--surface"),
         "color": tokens.get($_, "color--surface-contrast"),
-    ),
-    ("color--surface": "color--background",
     ));
 
 /* Component */

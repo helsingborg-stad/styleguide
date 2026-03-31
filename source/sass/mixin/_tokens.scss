@@ -33,9 +33,7 @@
 ///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
 /// @param {Map} $extras [()]  - Extra custom properties with literal values
-/// @param {Map} $inner [()]  - Token remapping for child components
-///   (key = token to override, value = token to source from)
-@mixin create($prefix, $tokens, $extras: (), $inner: ()) {
+@mixin create($prefix, $tokens, $extras: ()) {
     $p: _clean-prefix($prefix);
 
     // Wildcard prefix → attribute selector; otherwise plain class selector
@@ -53,14 +51,6 @@
 
         @each $name, $value in $extras {
             --#{$p}--#{$name}: #{$value};
-        }
-    }
-
-    @if list.length($inner)>0 {
-        #{$selector}>* {
-            @each $target, $source in $inner {
-                --#{$target}: var(--#{$source});
-            }
         }
     }
 }
