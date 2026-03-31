@@ -2,15 +2,15 @@
 
 $_: "c-modal";
 
-@include tokens.create($_, getComponentTokens($_), ("padding": tokens.use($_, "space", 4),
-        "vertical-padding-multiplier": .75,
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 .c-block[data-open] {
     cursor: pointer;
 }
 
 .#{$_} {
+    --#{$_}--padding: #{tokens.use($_, "space", 4)};
+    --#{$_}--vertical-padding-multiplier: .75;
     background-color: tokens.get($_, "color--surface");
     color: tokens.get($_, "color--surface-contrast");
     border: tokens.use($_, "border", 1);
@@ -24,12 +24,12 @@ $_: "c-modal";
     cursor: default;
     transition: opacity 0.2s ease, transform 0.2s ease;
     overflow: hidden;
-    padding: calc(var(--c-modal-padding, #{tokens.get($_, "padding")}) * var(--c-modal--vertical-padding-multiplier, 1)) var(--c-modal-padding, #{tokens.get($_, "padding")});
+    padding: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1)) var(--c-modal-padding, var(--#{$_}--padding));
 
     &[open] {
         display: grid;
         grid-template-rows: auto minmax(0, 1fr) auto;
-        gap: calc(var(--c-modal-padding, #{tokens.get($_, "padding")}) * var(--c-modal--vertical-padding-multiplier, 1));
+        gap: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1));
     }
 
     &:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
@@ -130,7 +130,7 @@ $_: "c-modal";
     }
 
     &__footer {
-        padding-top: calc(var(--c-modal-padding, #{tokens.get($_, "padding")}) * var(--c-modal--vertical-padding-multiplier, 1));
+        padding-top: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1));
         flex-shrink: 0;
         position: relative;
 
@@ -139,8 +139,8 @@ $_: "c-modal";
             display: block;
             background-color: tokens.get($_, "color--surface-border");
             height: tokens.use($_, "border-width", 1);
-            width: calc(100% + 2 * tokens.get($_, "padding") * 2);
-            margin: 0 calc(-1 * tokens.get($_, "padding") * 2);
+            width: calc(100% + 2 * var(--#{$_}--padding) * 2);
+            margin: 0 calc(-1 * var(--#{$_}--padding) * 2);
             position: absolute;
             top: 0;
         }
