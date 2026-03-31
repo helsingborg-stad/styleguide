@@ -337,16 +337,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.7.0",
+            "version": "5.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "d4725c0d9e7ab23530222b54a53e523dc9ba8c96"
+                "reference": "15a1c706494ca1c27fe9663946cbf6279df7dcd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/d4725c0d9e7ab23530222b54a53e523dc9ba8c96",
-                "reference": "d4725c0d9e7ab23530222b54a53e523dc9ba8c96",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/15a1c706494ca1c27fe9663946cbf6279df7dcd4",
+                "reference": "15a1c706494ca1c27fe9663946cbf6279df7dcd4",
                 "shasum": ""
             },
             "require": {
@@ -378,9 +378,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.0"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.7.1"
             },
-            "time": "2026-03-30T10:39:37+00:00"
+            "time": "2026-03-30T11:07:02+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",

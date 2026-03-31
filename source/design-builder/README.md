@@ -65,6 +65,19 @@ Component mode starts when:
 2. window.styleguideCustomizeData exists, and
 3. window.styleguideDesignTokenLibrary exists and is valid
 
+Init mode is controlled by:
+- window.styleguideCustomizeInitMode = "onload" | "manual"
+
+Behavior:
+- onload: component customizer initializes automatically
+- manual: waits for click on [data-customize-init-fab]
+
+Styleguide default:
+- manual mode via views/layout/master.blade.php
+
+Theme / WP customizer usage:
+- set window.styleguideCustomizeInitMode = "onload" before loading design-builder script
+
 Payloads are injected in:
 - views/layout/master.blade.php
 
@@ -75,6 +88,11 @@ Payloads are produced by:
 
 Targets are discovered by:
 - [data-component]
+
+Targets are skipped when they are inside:
+- [data-customizable="false"]
+
+This excludes the marked component and all nested [data-component] descendants.
 
 Examples:
 - data-component="button"
@@ -302,13 +320,13 @@ If selection still feels wrong, verify nested markup and where data-component is
 
 ## Current limitations
 
-- Scope picker UI is not present; scope is inferred from selected target.
-- Component dropdown is component-first, scope retained from active target when possible.
+- Scope selector has a single General (all scopes) option plus detected named scopes per component context.
+- Component dropdown is component-first, with scope options based on where that component exists on the page.
 - Component-level mode focuses on direct editable targets marked with data-component.
+- Wrapper components used for scoping (scope/divider alias) are excluded from component customization.
 
 ## Suggested future improvements
 
-- Add explicit scope selector in panel
 - Add breadcrumb for selected target path (component + scope)
 - Add per-scope export/import
 - Add optional keyboard navigation for target picking

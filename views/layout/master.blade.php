@@ -266,6 +266,25 @@
         }
     </style>
 
+    @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']) && isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
+        @fab([
+            'position' => 'bottom-right',
+            'button' => [
+                'icon' => 'tune',
+                'size' => 'md',
+                'color' => 'primary',
+                'shape' => 'pill',
+                'classList' => ['u-margin--0'],
+                'ariaLabel' => 'Open component customization'
+            ],
+            'attributeList' => [
+                'data-customize-init-fab' => 'true',
+                'data-customizable' => 'false'
+            ]
+        ])
+        @endfab
+    @endif
+
     @fab([
         'position' => 'bottom-right',
         'heading' => 'Theme presets',
@@ -278,7 +297,8 @@
             'ariaLabel' => 'Open theme preset picker'
         ],
         'attributeList' => [
-            'data-theme-presets-fab' => 'true'
+            'data-theme-presets-fab' => 'true',
+            'data-customizable' => 'false'
         ]
     ])
         <div class="d-theme-presets__list" data-theme-presets-list>
@@ -291,6 +311,7 @@
     @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']))
         <script>
             window.styleguideCustomizeData = {!! $customizeAssets['data'] !!};
+            window.styleguideCustomizeInitMode = 'manual';
         </script>
     @endif
 

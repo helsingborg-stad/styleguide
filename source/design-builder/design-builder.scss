@@ -713,27 +713,8 @@
   pointer-events: none;
 }
 
-.db-component-tool__toggle {
-  pointer-events: auto;
-  margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.8125rem;
-  font-family: inherit;
-  line-height: 1.4;
-  color: var(--color--surface-contrast, #2d2d2d);
-  background: var(--color--surface, #fff);
-  border: 1px solid var(--color--surface-border, #ccc);
-  border-radius: 999px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
-  cursor: pointer;
-}
-
 .db-component-tool__panel {
   pointer-events: auto;
-  margin-top: 0.75rem;
   max-height: min(70vh, 760px);
   overflow: auto;
   border: 1px solid var(--color--surface-border, #ccc);
@@ -866,9 +847,9 @@
     transform: translateY(-3px);
     transition: opacity 0.15s ease, transform 0.15s ease;
     max-width: calc(100% - 1rem);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
   }
 
   &:hover::after {

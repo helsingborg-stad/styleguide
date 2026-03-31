@@ -44,11 +44,19 @@ declare global {
 	interface Window {
 		styleguideCustomizeData?: unknown;
 		styleguideDesignTokenLibrary?: unknown;
+		styleguideCustomizeInitMode?: unknown;
 	}
 }
 
 const COMPONENT_STORAGE_KEY = 'design-tokens-component-overrides';
 const GLOBAL_SCOPE_KEY = '__global__';
+const GENERAL_SCOPE_KEY = '__general__';
+const NON_CUSTOMIZABLE_COMPONENTS = new Set(['scope', 'fab']);
+const CUSTOMIZE_INIT_MODE_ONLOAD = 'onload';
+const CUSTOMIZE_INIT_MODE_MANUAL = 'manual';
+const CUSTOMIZE_MANUAL_TRIGGER_SELECTOR = '[data-customize-init-fab]';
+
+type CustomizeInitMode = typeof CUSTOMIZE_INIT_MODE_ONLOAD | typeof CUSTOMIZE_INIT_MODE_MANUAL;
 
 class ComponentStorageAdapter {
 	private key: string;
@@ -156,10 +164,11 @@ class ComponentCustomizationTool {
 	private elementsByComponent = new Map<string, HTMLElement[]>();
 	private editableComponents = new Set<string>();
 	private activeComponent: string | null = null;
-	private activeScopeKey: string = GLOBAL_SCOPE_KEY;
+	private activeScopeKey: string = GENERAL_SCOPE_KEY;
 	private root: HTMLElement | null = null;
 	private controlsContainer: HTMLElement | null = null;
 	private componentSelect: HTMLSelectElement | null = null;
+	private scopeSelect: HTMLSelectElement | null = null;
 	private activeTargetElement: HTMLElement | null = null;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData) {
@@ -181,8 +190,13 @@ class ComponentCustomizationTool {
 		const nodes = document.querySelectorAll<HTMLElement>('[data-component]');
 
 		for (const node of nodes) {
+			if (node.closest<HTMLElement>('[data-customizable="false"]')) {
+				continue;
+			}
+
 			const componentName = normalizeComponentName(node.dataset.component || '');
 			if (!componentName) continue;
+			if (NON_CUSTOMIZABLE_COMPONENTS.has(componentName)) continue;
 
 			const existing = this.elementsByComponent.get(componentName) || [];
 			existing.push(node);
@@ -219,7 +233,14 @@ class ComponentCustomizationTool {
 	}
 
 	private applySavedOverrides(): void {
-		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
+		const orderedScopeKeys = Object.keys(this.overrides).sort((a, b) => {
+			if (a === GENERAL_SCOPE_KEY) return -1;
+			if (b === GENERAL_SCOPE_KEY) return 1;
+			return a.localeCompare(b);
+		});
+
+		for (const scopeKey of orderedScopeKeys) {
+			const scopeOverrides = this.overrides[scopeKey] || {};
 			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
 				for (const [variable, value] of Object.entries(componentOverrides)) {
 					this.applyVariable(componentName, scopeKey, variable, value);
@@ -276,6 +297,7 @@ class ComponentCustomizationTool {
 
 					this.activeComponent = componentName;
 					this.activeScopeKey = this.getScopeKeyForElement(element);
+					this.refreshScopeSelect();
 					this.setActiveTarget(componentName, this.activeScopeKey, element);
 					if (this.componentSelect) {
 						this.componentSelect.value = componentName;
@@ -293,7 +315,6 @@ class ComponentCustomizationTool {
 		const root = document.createElement('aside');
 		root.className = 'db-component-tool';
 		root.innerHTML = `
-			<button type="button" class="db-component-tool__toggle" data-action="toggle-panel">Customize component</button>
 			<div class="db-component-tool__panel">
 				<div class="db-component-tool__header">
 					<strong>Component customization</strong>
@@ -302,6 +323,10 @@ class ComponentCustomizationTool {
 				<div class="db-component-tool__select-row">
 					<label for="db-component-select">Component</label>
 					<select id="db-component-select" data-action="select-component"></select>
+				</div>
+				<div class="db-component-tool__select-row">
+					<label for="db-scope-select">Scope</label>
+					<select id="db-scope-select" data-action="select-scope"></select>
 				</div>
 				<div class="db-component-tool__actions">
 					<button type="button" class="db-btn" data-action="reset-component">Reset selected</button>
@@ -315,10 +340,9 @@ class ComponentCustomizationTool {
 		this.root = root;
 		this.controlsContainer = root.querySelector<HTMLElement>('[data-component-controls]');
 		this.componentSelect = root.querySelector<HTMLSelectElement>('[data-action="select-component"]');
+		this.scopeSelect = root.querySelector<HTMLSelectElement>('[data-action="select-scope"]');
 
-		const toggleButton = root.querySelector<HTMLElement>('[data-action="toggle-panel"]');
 		const closeButton = root.querySelector<HTMLElement>('[data-action="close-panel"]');
-		toggleButton?.addEventListener('click', () => root.classList.toggle('db-component-tool--open'));
 		closeButton?.addEventListener('click', () => root.classList.remove('db-component-tool--open'));
 
 		if (this.componentSelect) {
@@ -335,8 +359,21 @@ class ComponentCustomizationTool {
 				this.componentSelect.value = this.activeComponent;
 			}
 
+			this.refreshScopeSelect();
+
 			this.componentSelect.addEventListener('change', () => {
 				this.activeComponent = this.componentSelect?.value || null;
+				if (this.activeComponent) {
+					this.refreshScopeSelect();
+					this.setActiveTarget(this.activeComponent, this.activeScopeKey);
+				}
+				this.renderControls();
+			});
+		}
+
+		if (this.scopeSelect) {
+			this.scopeSelect.addEventListener('change', () => {
+				this.activeScopeKey = this.scopeSelect?.value || GENERAL_SCOPE_KEY;
 				if (this.activeComponent) {
 					this.setActiveTarget(this.activeComponent, this.activeScopeKey);
 				}
@@ -365,16 +402,28 @@ class ComponentCustomizationTool {
 		}
 
 		const candidates = this.getElementsForContext(componentName, scopeKey);
+		const preferredMatch =
+			preferredElement && (scopeKey === GENERAL_SCOPE_KEY || this.getScopeKeyForElement(preferredElement) === scopeKey)
+				? preferredElement
+				: null;
 		const fallbackCandidates = this.elementsByComponent.get(componentName) || [];
-		const target = preferredElement || candidates[0] || fallbackCandidates[0] || null;
+		const target = preferredMatch || candidates[0] || fallbackCandidates[0] || null;
+
+		this.activeScopeKey = scopeKey;
 		if (!target) {
 			this.activeTargetElement = null;
+			if (this.scopeSelect) {
+				this.scopeSelect.value = this.activeScopeKey;
+			}
 			return;
 		}
 
-		this.activeScopeKey = this.getScopeKeyForElement(target);
 		target.classList.add('db-component-target--active');
 		this.activeTargetElement = target;
+
+		if (this.scopeSelect) {
+			this.scopeSelect.value = this.activeScopeKey;
+		}
 	}
 
 	private getScopeKeyForElement(element: HTMLElement): string {
@@ -391,12 +440,65 @@ class ComponentCustomizationTool {
 			return '';
 		}
 
-		return scopeKey.replace(/^scope:/, '');
+		return `Scope: ${scopeKey.replace(/^scope:/, '')}`;
 	}
 
 	private getElementsForContext(componentName: string, scopeKey: string): HTMLElement[] {
 		const elements = this.elementsByComponent.get(componentName) || [];
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			return elements;
+		}
+
 		return elements.filter((element) => this.getScopeKeyForElement(element) === scopeKey);
+	}
+
+	private refreshScopeSelect(): void {
+		if (!this.scopeSelect || !this.activeComponent) {
+			return;
+		}
+
+		const availableScopeKeys = this.getAvailableScopeKeys(this.activeComponent);
+		if (!availableScopeKeys.includes(this.activeScopeKey)) {
+			this.activeScopeKey = GENERAL_SCOPE_KEY;
+		}
+
+		this.scopeSelect.innerHTML = '';
+
+		for (const scopeKey of availableScopeKeys) {
+			const option = document.createElement('option');
+			option.value = scopeKey;
+			option.textContent = this.getScopeOptionLabel(scopeKey);
+			this.scopeSelect.appendChild(option);
+		}
+
+		this.scopeSelect.value = this.activeScopeKey;
+	}
+
+	private getAvailableScopeKeys(componentName: string): string[] {
+		const availableScopes = new Set<string>([GENERAL_SCOPE_KEY]);
+		const elements = this.elementsByComponent.get(componentName) || [];
+
+		for (const element of elements) {
+			availableScopes.add(this.getScopeKeyForElement(element));
+		}
+
+		const specificScopes = Array.from(availableScopes)
+			.filter((scopeKey) => scopeKey !== GENERAL_SCOPE_KEY && scopeKey !== GLOBAL_SCOPE_KEY)
+			.sort((a, b) => a.localeCompare(b));
+
+		return [GENERAL_SCOPE_KEY, ...specificScopes];
+	}
+
+	private getScopeOptionLabel(scopeKey: string): string {
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			return 'Scope: General (all scopes)';
+		}
+
+		if (scopeKey === GLOBAL_SCOPE_KEY) {
+			return 'Scope: General';
+		}
+
+		return `Scope: ${scopeKey.replace(/^scope:/, '')}`;
 	}
 
 	private getSortedComponentNames(): string[] {
@@ -520,15 +622,33 @@ class ComponentCustomizationTool {
 		this.storage.save(this.overrides);
 	}
 
+	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {
+		const localScopeKey = this.getScopeKeyForElement(element);
+		if (localScopeKey === GENERAL_SCOPE_KEY || localScopeKey === GLOBAL_SCOPE_KEY) {
+			return false;
+		}
+
+		const localValue = this.overrides[localScopeKey]?.[componentName]?.[variable];
+		return typeof localValue === 'string' && localValue.trim() !== '';
+	}
+
 	private applyVariable(componentName: string, scopeKey: string, variable: string, value: string): void {
-		const elements = this.getElementsForContext(componentName, scopeKey);
+		let elements = this.getElementsForContext(componentName, scopeKey);
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			elements = elements.filter((element) => !this.hasLocalScopeOverrideForElement(componentName, variable, element));
+		}
+
 		for (const element of elements) {
 			element.style.setProperty(variable, value);
 		}
 	}
 
 	private removeVariable(componentName: string, scopeKey: string, variable: string): void {
-		const elements = this.getElementsForContext(componentName, scopeKey);
+		let elements = this.getElementsForContext(componentName, scopeKey);
+		if (scopeKey === GENERAL_SCOPE_KEY) {
+			elements = elements.filter((element) => !this.hasLocalScopeOverrideForElement(componentName, variable, element));
+		}
+
 		for (const element of elements) {
 			element.style.removeProperty(variable);
 		}
@@ -622,6 +742,19 @@ async function loadTokenLibrary(): Promise<TokenData | null> {
 	}
 
 	return null;
+}
+
+function resolveCustomizeInitMode(): CustomizeInitMode {
+	const rawMode =
+		typeof window.styleguideCustomizeInitMode === 'string'
+			? window.styleguideCustomizeInitMode.toLowerCase().trim()
+			: '';
+
+	if (rawMode === CUSTOMIZE_INIT_MODE_MANUAL) {
+		return CUSTOMIZE_INIT_MODE_MANUAL;
+	}
+
+	return CUSTOMIZE_INIT_MODE_ONLOAD;
 }
 
 class DesignBuilder {
@@ -1113,27 +1246,37 @@ function initDivider(): void {
 
 // --- Init ---
 
-async function init(): Promise<void> {
+let hasInitializedComponentCustomization = false;
+
+function initializeDesignBuilderContainer(): boolean {
 	const container = document.querySelector<HTMLElement>('[data-design-builder]');
-	if (container) {
-		const tokensAttr = container.getAttribute('data-tokens');
-		if (!tokensAttr) {
-			container.textContent = 'Error: No token data found.';
-			return;
-		}
+	if (!container) {
+		return false;
+	}
 
-		let tokens: TokenData;
-		try {
-			tokens = JSON.parse(tokensAttr);
-		} catch {
-			container.textContent = 'Error: Invalid token data.';
-			return;
-		}
+	const tokensAttr = container.getAttribute('data-tokens');
+	if (!tokensAttr) {
+		container.textContent = 'Error: No token data found.';
+		return true;
+	}
 
-		const storage = new LocalStorageAdapter();
-		new DesignBuilder(container, tokens, storage);
+	let tokens: TokenData;
+	try {
+		tokens = JSON.parse(tokensAttr);
+	} catch {
+		container.textContent = 'Error: Invalid token data.';
+		return true;
+	}
 
-		initDivider();
+	const storage = new LocalStorageAdapter();
+	new DesignBuilder(container, tokens, storage);
+	initDivider();
+
+	return true;
+}
+
+async function initializeComponentCustomizationTool(): Promise<void> {
+	if (hasInitializedComponentCustomization) {
 		return;
 	}
 
@@ -1148,6 +1291,44 @@ async function init(): Promise<void> {
 	}
 
 	new ComponentCustomizationTool(customizeData, tokenLibrary);
+	hasInitializedComponentCustomization = true;
+}
+
+function openComponentCustomizationPanel(): void {
+	const panelRoot = document.querySelector<HTMLElement>('.db-component-tool');
+	if (!panelRoot) {
+		return;
+	}
+
+	panelRoot.classList.add('db-component-tool--open');
+}
+
+function bindManualCustomizationInitTrigger(): void {
+	const triggers = document.querySelectorAll<HTMLElement>(CUSTOMIZE_MANUAL_TRIGGER_SELECTOR);
+	if (triggers.length === 0) {
+		void initializeComponentCustomizationTool();
+		return;
+	}
+
+	for (const trigger of triggers) {
+		trigger.addEventListener('click', async () => {
+			await initializeComponentCustomizationTool();
+			openComponentCustomizationPanel();
+		});
+	}
+}
+
+async function init(): Promise<void> {
+	if (initializeDesignBuilderContainer()) {
+		return;
+	}
+
+	if (resolveCustomizeInitMode() === CUSTOMIZE_INIT_MODE_MANUAL) {
+		bindManualCustomizationInitTrigger();
+		return;
+	}
+
+	await initializeComponentCustomizationTool();
 }
 
 if (document.readyState === 'loading') {

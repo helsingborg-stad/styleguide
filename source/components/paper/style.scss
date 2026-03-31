@@ -8,7 +8,6 @@ $_: "c-paper";
     ("border-color": tokens.get($_, "color--surface-border"),
         "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "border-color"),
         "padding": 0,
-        "shadow": tokens.use($_, "shadow", 1),
         "background-color": tokens.get($_, "color--surface"),
         "color": tokens.get($_, "color--surface-contrast"),
     ),
@@ -24,7 +23,7 @@ $_: "c-paper";
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     padding: tokens.get($_, "padding");
-    filter: tokens.get($_, "shadow");
+    filter: tokens.use($_, "shadow", 1);
 
     > :first-child {
         --inherit-margin-top: 0;
