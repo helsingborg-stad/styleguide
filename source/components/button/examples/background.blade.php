@@ -12,6 +12,6 @@
 @endbutton
 
 @button([
-    'text' => 'Default bg'
+    'text' => 'Default bg',
 ])
 @endbutton

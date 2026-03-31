@@ -7,6 +7,8 @@ const entries = {
 	'css/styleguide-css': './source/sass/main.scss',
 	'js/design-builder': './source/design-builder/index.ts',
 	'css/design-builder': './source/design-builder/design-builder.scss',
+	'js/component-editor': './source/design-builder/component-editor.ts',
+	'css/component-editor': './source/design-builder/component-editor.scss',
 };
 
 const getComponentConfig = (name) => {
