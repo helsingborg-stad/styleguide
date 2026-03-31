@@ -7,20 +7,19 @@ $containerWidthLg: 1024px;
 
 $_: "c-hero";
 
-@include tokens.create($_, getComponentTokens($_),
-    ("shadow": tokens.use($_, "shadow", 2),
-        "color-overlay": tokens.get($_, "color--alpha"),
-        "color-font-contrasting": tokens.get($_, "color--alpha-contrast"),
-        "background-color": tokens.get($_, "color--alpha"),
-        "content-border-radius": tokens.use($_, "border-radius"),
-        "control-color": tokens.get($_, "color--primary"),
-        "control-background-color": tokens.get($_, "color--primary-contrast"),
-        "font-size-title": calc(tokens.get($_, "font-size-500") + 1vw),
-        "font-size-byline": calc(tokens.get($_, "font-size-300") + 0.5vw),
-        "font-size-body": calc(tokens.get($_, "font-size-100") + 0.2vw),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 2)};
+    --#{$_}--color-overlay: #{tokens.get($_, "color--alpha")};
+    --#{$_}--color-font-contrasting: #{tokens.get($_, "color--alpha-contrast")};
+    --#{$_}--background-color: #{tokens.get($_, "color--alpha")};
+    --#{$_}--content-border-radius: #{tokens.use($_, "border-radius")};
+    --#{$_}--control-color: #{tokens.get($_, "color--primary")};
+    --#{$_}--control-background-color: #{tokens.get($_, "color--primary-contrast")};
+    --#{$_}--font-size-title: calc(#{tokens.get($_, "font-size-500")} + 1vw);
+    --#{$_}--font-size-byline: calc(#{tokens.get($_, "font-size-300")} + 0.5vw);
+    --#{$_}--font-size-body: calc(#{tokens.get($_, "font-size-100")} + 0.2vw);
     display: flex;
     contain: layout;
     overflow: hidden;
@@ -45,7 +44,7 @@ $_: "c-hero";
         &:before {
             content: "";
             display: block;
-            background: tokens.get($_, "control-background-color");
+            background: var(--#{$_}--control-background-color);
             width: tokens.use($_, "base", 3);
             height: tokens.use($_, "base", 3);
             border-radius: 50%;
@@ -58,12 +57,12 @@ $_: "c-hero";
 
         .#{$_}__animation-play-button {
             display: none;
-            color: tokens.get($_, "control-color");
+            color: var(--#{$_}--control-color);
         }
 
         .#{$_}__animation-pause-button {
             display: inline-flex;
-            color: tokens.get($_, "control-color");
+            color: var(--#{$_}--control-color);
         }
 
         &.is-paused {
@@ -79,7 +78,7 @@ $_: "c-hero";
 
     &.#{$_}--image {
         .#{$_}__image {
-            background-color: tokens.get($_, "background-color");
+            background-color: var(--#{$_}--background-color);
             background-size: cover;
             width: 100%;
             height: 100%;
@@ -207,12 +206,12 @@ $_: "c-hero";
         }
 
         &.#{$_}--apply-rounded-corners .#{$_}__content {
-            border-radius: tokens.get($_, "content-border-radius");
+            border-radius: var(--#{$_}--content-border-radius);
             corner-shape: tokens.get($_, "corner-shape");
         }
 
         &.#{$_}--apply-shadows .#{$_}__content {
-            filter: tokens.get($_, "shadow");
+            filter: var(--#{$_}--shadow);
         }
     }
 
@@ -237,7 +236,7 @@ $_: "c-hero";
         .#{$_}__byline,
         .#{$_}__meta,
         .#{$_}__body {
-            color: tokens.get($_, "color-font-contrasting");
+            color: var(--#{$_}--color-font-contrasting);
         }
     }
 
@@ -246,19 +245,19 @@ $_: "c-hero";
     }
 
     .#{$_}__title {
-        font-size: tokens.get($_, "font-size-title");
+        font-size: var(--#{$_}--font-size-title);
         text-wrap: balance;
         animation-delay: 200ms;
     }
 
     .#{$_}__byline {
-        font-size: tokens.get($_, "font-size-byline");
+        font-size: var(--#{$_}--font-size-byline);
         animation-delay: 400ms;
         display: inline-block;
     }
 
     .#{$_}__body {
-        font-size: tokens.get($_, "font-size-body");
+        font-size: var(--#{$_}--font-size-body);
         animation-delay: 600ms;
     }
 
@@ -267,7 +266,7 @@ $_: "c-hero";
     }
 
     .#{$_}__overlay {
-        background-color: tokens.get($_, "color-overlay");
+        background-color: var(--#{$_}--color-overlay);
     }
 
     .#{$_}__video {
@@ -295,7 +294,7 @@ $_: "c-hero";
 
         .#{$_}__image-container {
             aspect-ratio: 16 / 9;
-            border-radius: tokens.get($_, "content-border-radius");
+            border-radius: var(--#{$_}--content-border-radius);
             corner-shape: tokens.get($_, "corner-shape");
             contain: paint;
         }
@@ -320,7 +319,7 @@ $_: "c-hero";
             max-width: 100%;
             padding: 0;
             text-shadow: none;
-            border-radius: tokens.get($_, "content-border-radius");
+            border-radius: var(--#{$_}--content-border-radius);
             corner-shape: tokens.get($_, "corner-shape");
 
             .#{$_}__group {
