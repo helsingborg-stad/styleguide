@@ -3,11 +3,12 @@
 
 $_: "c-option";
 
-@include tokens.create($_, getComponentTokens($_), ("font-size-btn-sm": "0.775rem",
-        "font-size-btn-md": tokens.get($_, "font-size-100"),
-        "color--disabled": tokens.get($_, "color--surface-muted")));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--font-size-btn-sm: 0.775rem;
+    --#{$_}--font-size-btn-md: #{tokens.get($_, "font-size-100")};
+    --#{$_}--color--disabled: #{tokens.get($_, "color--surface-muted")};
 
     &.#{$_}__checkbox {
 
@@ -33,8 +34,8 @@ $_: "c-option";
 
             .#{$_}__checkbox--label-box,
             .#{$_}__radio--label-box {
-                background: tokens.get($_, "color--disabled");
-                border-color: tokens.get($_, "color--disabled");
+                background: var(--#{$_}--color--disabled);
+                border-color: var(--#{$_}--color--disabled);
             }
         }
 
@@ -67,8 +68,8 @@ $_: "c-option";
 
         &.#{$_}--sm {
             .#{$_}__checkbox--label-text {
-                font-size: tokens.get($_, "font-size-btn-sm");
-                line-height: tokens.get($_, "font-size-btn-sm");
+                font-size: var(--#{$_}--font-size-btn-sm);
+                line-height: var(--#{$_}--font-size-btn-sm);
             }
 
             .#{$_}__checkbox--label-box {
@@ -187,8 +188,8 @@ $_: "c-option";
         flex: 1;
         color: tokens.get($_, "color--surface-contrast");
         padding: tokens.use($_, "base", 0.5) 10px;
-        font-size: tokens.get($_, "font-size-btn-md");
-        line-height: tokens.get($_, "font-size-btn-md");
+        font-size: var(--#{$_}--font-size-btn-md);
+        line-height: var(--#{$_}--font-size-btn-md);
     }
 
     .#{$_}__input-invalid-message {
