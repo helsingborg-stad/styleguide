@@ -6,14 +6,13 @@
 $_: "c-fileinput";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), (
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    "shadow": tokens.use($_, "shadow", 1),
-    "shadow-preview": tokens.use($_, "shadow", 2),
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-preview: #{tokens.use($_, "shadow", 2)};
 
     /* Actual input (hide) */
     .#{$_}__input {
@@ -105,7 +104,7 @@ $_: "c-fileinput";
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.use($_, "corner-shape");
         background-color: tokens.get($_, "color--surface");
-        border: tokens.get($_, "border");
+        border: var(--#{$_}--border);
         transition: all 0.2s ease-in-out;
     }
 
@@ -132,7 +131,7 @@ $_: "c-fileinput";
             background-color: tokens.get($_, "color--surface");
             border-radius: tokens.use($_, "border-radius");
             margin: 0;
-            filter: tokens.get($_, "shadow");
+            filter: var(--#{$_}--shadow);
             height: tokens.use($_, "space", 5.5);
         }
 
@@ -325,10 +324,10 @@ $_: "c-fileinput";
             aspect-ratio: 16 / 9;
             border-radius: tokens.use($_, "border-radius");
             corner-shape: tokens.use($_, "corner-shape");
-            filter: tokens.get($_, "shadow-preview");
+            filter: var(--#{$_}--shadow-preview);
             overflow: hidden;
             background-color: tokens.get($_, "color--surface");
-            border: tokens.get($_, "border");
+            border: var(--#{$_}--border);
 
             & > * {
                 width: 100%;
@@ -353,11 +352,11 @@ $_: "c-fileinput";
 /* Animation */
 @keyframes puff-out-center {
     0% {
-        filter: tokens.get($_, "shadow") blur(0px);
+        filter: var(--#{$_}--shadow) blur(0px);
         opacity: 1;
     }
     100% {
-        filter: tokens.get($_, "shadow") blur(4px);
+        filter: var(--#{$_}--shadow) blur(4px);
         opacity: 0;
     }
 }
