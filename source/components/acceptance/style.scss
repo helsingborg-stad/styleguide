@@ -2,11 +2,13 @@
 
 $_: "c-acceptance";
 
-@include tokens.create($_, getComponentTokens($_), ("shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 1.5),
-        "map-image": url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJtNjAwLTEyMC0yNDAtODQtMTg2IDcycS0yMCA4LTM3LTQuNVQxMjAtMTcwdi01NjBxMC0xMyA3LjUtMjN0MjAuNS0xNWwyMTItNzIgMjQwIDg0IDE4Ni03MnEyMC04IDM3IDQuNXQxNyAzMy41djU2MHEwIDEzLTcuNSAyM1Q4MTItMTkybC0yMTIgNzJabS00MC05OHYtNDY4bC0xNjAtNTZ2NDY4bDE2MCA1NlptODAgMCAxMjAtNDB2LTQ3NGwtMTIwIDQ2djQ2OFptLTQ0MC0xMCAxMjAtNDZ2LTQ2OGwtMTIwIDQwdjQ3NFptNDQwLTQ1OHY0NjgtNDY4Wm0tMzIwLTU2djQ2OC00NjhaIi8+PC9zdmc+")));
+@include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    --#{$_}--shadow: tokens.use($_, "shadow", 1);
+    --#{$_}--shadow-hover: tokens.use($_, "shadow", 1.5);
+    --#{$_}--map-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJtNjAwLTEyMC0yNDAtODQtMTg2IDcycS0yMCA4LTM3LTQuNVQxMjAtMTcwdi01NjBxMC0xMyA3LjUtMjN0MjAuNS0xNWwyMTItNzIgMjQwIDg0IDE4Ni03MnEyMC04IDM3IDQuNXQxNyAzMy41djU2MHEwIDEzLTcuNSAyM1Q4MTItMTkybC0yMTIgNzJabS00MC05OHYtNDY4bC0xNjAtNTZ2NDY4bDE2MCA1NlptODAgMCAxMjAtNDB2LTQ3NGwtMTIwIDQ2djQ2OFptLTQ0MC0xMCAxMjAtNDZ2LTQ2OGwtMTIwIDQwdjQ3NFptNDQwLTQ1OHY0NjgtNDY4Wm0tMzIwLTU2djQ2OC00NjhaIi8+PC9zdmc+");
+
     background-color: tokens.get($_, "color--surface");
     background-position: center;
     border-radius: tokens.use($_, "border-radius");
@@ -65,7 +67,7 @@ $_: "c-acceptance";
             background-size: contain;
             content: "";
             inset: 0;
-            mask-image: tokens.get($_, "map-image");
+            mask-image: var(--#{$_}--map-image);
             mask-position: center;
             mask-repeat: no-repeat;
             mask-size: contain;
@@ -105,7 +107,7 @@ $_: "c-acceptance";
         .#{$_}__modal-icon-play {
             color: tokens.get($_, "color--alpha-contrast");
             cursor: pointer;
-            filter: tokens.get($_, "shadow");
+            filter: var(--#{$_}--shadow);
             font-size: clamp(tokens.use($_, "base", 8), 10vw, tokens.use($_, "base", 10));
             left: 50%;
             position: absolute;
@@ -114,7 +116,7 @@ $_: "c-acceptance";
             transition: filter 100ms linear;
 
             &:hover {
-                filter: tokens.get($_, "shadow-hover");
+                filter: var(--#{$_}--shadow-hover);
                 color: tokens.get($_, "color--alpha-contrast-alt");
             }
 

@@ -32,8 +32,7 @@
 ///   A trailing "-*" wildcard (e.g., "u-border-*") emits an attribute selector
 ///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
-/// @param {Map} $extras [()]  - Extra custom properties with literal values
-@mixin create($prefix, $tokens, $extras: ()) {
+@mixin create($prefix, $tokens) {
     $p: _clean-prefix($prefix);
 
     // Wildcard prefix → attribute selector; otherwise plain class selector
@@ -47,10 +46,6 @@
     :root {
         @each $token in $tokens {
             --#{$p}--#{$token}: var(--#{_normalize-global-token($token)});
-        }
-
-        @each $name, $value in $extras {
-            --#{$p}--#{$name}: #{$value};
         }
     }
 }
