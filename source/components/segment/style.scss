@@ -10,11 +10,11 @@ $_breakpoint-md: 896px;
 $_observe-breakpoint-sm: 576px;
 $_observe-breakpoint-md: 768px;
 
-@include tokens.create($c, getComponentTokens($c),
-    ("image-border-radius": tokens.use($c, "border-radius"),
-        "min-height-card": 100%, ));
+@include tokens.create($c, getComponentTokens($c));
 
 .#{$c} {
+    --#{$c}--image-border-radius: #{tokens.use($c, "border-radius")};
+    --#{$c}--min-height-card: 100%;
     display: flex;
     flex-wrap: wrap;
     position: relative;
