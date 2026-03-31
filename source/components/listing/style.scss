@@ -1,0 +1,14 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-listing";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+
+    @for $i from 1 through 10 {
+        &.#{$_}--padding-#{$i} .#{$_}__sub {
+            padding-left: tokens.use($_, "space", $i);
+        }
+    }
+}

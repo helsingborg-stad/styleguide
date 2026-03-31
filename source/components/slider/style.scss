@@ -253,5 +253,5 @@ $container-width-md: 640px;
     }
 }
 
-@include meta.load-css("../slider-item/style");
+@include meta.load-css("./slider-item");
 @include meta.load-css("@splidejs/splide/dist/css/splide.min.css");
