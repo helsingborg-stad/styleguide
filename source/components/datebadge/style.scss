@@ -4,12 +4,11 @@
 $_: "c-datebadge";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), (
-    "border": tokens.use($_, "border-width") solid,
-));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--border: #{tokens.use($_, "border-width")} solid;
     .#{$_}__container,
     .#{$_}__daymonth {
         display: inline-flex;
@@ -19,7 +18,7 @@ $_: "c-datebadge";
         font-size: var(--#{$_}--font-size, 1.375rem);
         background-color: var(--#{$_}--bg, #{tokens.get($_, "color--surface")});
         color: var(--#{$_}--fg, #{tokens.get($_, "color--surface-contrast")});
-        border: tokens.get($_, "border");
+        border: var(--#{$_}--border);
         border-color: var(--#{$_}--border-clr, tokens.get($_, "color--surface-border"));
         backdrop-filter: var(--#{$_}--backdrop, unset);
         border-radius: tokens.use($_, "border-radius");
