@@ -553,7 +553,6 @@
       "space",
       "color--danger",
       "color--success",
-      "color--surface",
       "color--surface-alt",
       "color--surface-border",
       "shadow-color",
@@ -713,8 +712,7 @@
       "border-radius",
       "corner-shape",
       "shadow-amount",
-      "shadow-color",
-      "space"
+      "shadow-color"
     ],
     "description": "The Group component provides a reusable pattern for group in the interface.",
     "tags": [
@@ -739,7 +737,6 @@
       "space",
       "color--surface",
       "color--surface-contrast",
-      "color--surface-border",
       "color--primary",
       "color--primary-contrast",
       "color--primary-border",
@@ -1279,7 +1276,10 @@
     "apiVersion": 1,
     "name": "Person",
     "slug": "person",
-    "tokens": [],
+    "tokens": [
+      "shadow-amount",
+      "shadow-color"
+    ],
     "description": "The Person component provides a reusable pattern for displaying person information in the interface.",
     "tags": [],
     "similarComponents": [
@@ -1321,9 +1321,7 @@
     "apiVersion": 1,
     "name": "Scope",
     "slug": "scope",
-    "tokens": [
-      "base"
-    ],
+    "tokens": [],
     "description": "The Scope component groups inner content styles and limits the scope of styles to prevent them from affecting other parts of the interface.",
     "tags": [
       "scope",
@@ -1347,21 +1345,12 @@
     "slug": "segment",
     "tokens": [
       "base",
-      "space",
       "border-radius",
       "color--primary",
       "color--secondary",
-      "color--surface",
       "font-size-90",
       "font-size-200",
-      "font-size-300",
-      "font-size-600",
-      "font-size-500",
-      "font-size-400",
-      "font-size-700",
-      "font-size-800",
       "color--alpha",
-      "corner-shape",
       "color--surface-contrast",
       "color--alpha-contrast"
     ],
@@ -1470,14 +1459,12 @@
     "slug": "slider",
     "tokens": [
       "base",
-      "space",
       "border-radius",
       "color--primary",
       "color--alpha",
       "font-family-heading",
       "font-family-base",
       "font-size-100",
-      "font-size-300",
       "color--alpha-contrast",
       "shadow-color",
       "shadow-amount"
@@ -1702,9 +1689,7 @@
       "base-font-size",
       "space",
       "font-size-scale-ratio",
-      "font-size-80",
       "font-size-90",
-      "font-size-100",
       "font-size-200",
       "font-size-300",
       "font-size-400",
