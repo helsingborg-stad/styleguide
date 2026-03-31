@@ -8,24 +8,24 @@ $_: "c-image";
 $_modal: "c-modal--gallery";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "font-size-caption": "var(--font-size-caption, #{tokens.get($_, 'font-size-90')})",
-        "line-height-caption": "var(--line-height-caption, var(--line-height-base))",
-        "font-weight-bold": "var(--font-weight-bold)",
-        "font-family-bold": "var(--font-family-base)",
-        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--base: var(--base);
+    --#{$_}--font-size-caption: var(--font-size-caption, #{tokens.get($_, 'font-size-90')});
+    --#{$_}--line-height-caption: var(--line-height-caption, var(--line-height-base));
+    --#{$_}--font-weight-bold: var(--font-weight-bold);
+    --#{$_}--font-family-bold: var(--font-family-base);
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     line-height: 0;
     position: relative;
 
     .#{$_}__caption,
     .#{$_}__byline {
         display: inline-block;
-        font-size: tokens.get($_, "font-size-caption");
-        line-height: tokens.get($_, "line-height-caption");
+        font-size: var(--#{$_}--font-size-caption);
+        line-height: var(--#{$_}--line-height-caption);
         margin-top: tokens.use($_, "space");
     }
 
@@ -171,7 +171,7 @@ $_modal: "c-modal--gallery";
     @include ratio.ratio(16, 9, true);
     position: relative;
     line-height: 0;
-    border: tokens.get($_, "border");
+    border: var(--#{$_}--border);
     background-color: tokens.get($_, "color--background");
     user-select: none;
     border-radius: tokens.use($_, "border-radius");
@@ -205,8 +205,8 @@ $_modal: "c-modal--gallery";
 
     .#{$_}__placeholder-text {
         color: tokens.get($_, "color--muted");
-        font-weight: tokens.get($_, "font-weight-bold");
-        font-family: tokens.get($_, "font-family-bold");
+        font-weight: var(--#{$_}--font-weight-bold);
+        font-family: var(--#{$_}--font-family-bold);
     }
 
     .c-icon+.#{$_}__placeholder-text {
