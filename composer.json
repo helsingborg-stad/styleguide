@@ -53,7 +53,7 @@
 		}
 	},
 	"scripts": {
-		"test": "vendor/bin/phpunit",
+		"test": "vendor/bin/phpunit --testdox",
 		"test:filter": "vendor/bin/phpunit --filter",
 		"lint": "vendor/bin/mago lint",
 		"fix": "vendor/bin/mago lint --format-after-fix --fix",
