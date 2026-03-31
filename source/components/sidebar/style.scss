@@ -5,19 +5,19 @@
 $_: "c-sidebar";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "width": "calc(var(--base) * 36)",
-    ));
+@include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
+    --#{$_}--base: var(--base);
+    --#{$_}--width: calc(var(--base) * 36);
     display: flex;
     flex-direction: column;
     background-color: tokens.get($_, "color--surface");
     border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
 
     &--fixed {
-        width: tokens.get($_, "width");
+        width: var(--#{$_}--width);
         height: 100%;
         overflow: auto;
         position: fixed;
@@ -198,7 +198,7 @@ $_: "c-sidebar";
     }
 
     .#{$_}--collapsed {
-        left: calc(0px - #{tokens.get($_, "width")});
+        left: calc(0px - #{var(--#{$_}--width)});
     }
 
     .#{$_}__backdrop {
