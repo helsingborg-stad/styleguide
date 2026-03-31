@@ -6,18 +6,18 @@
 $_: "c-slider";
 $container-width-md: 640px;
 
-@include tokens.create($_, getComponentTokens($_),
-    ("gap": tokens.use($_, "base", 2),
-        "inset": tokens.use($_, "base", 7),
-        "font-family-heading": tokens.get($_, "font-family-heading"),
-        "font-size-heading": tokens.get("", "font-size-400"),
-        "font-family": tokens.get($_, "font-family-base"),
-        "font-size": tokens.get($_, "font-size-100"),
-        "item-container-max-width": tokens.use($_, "base", 118),
-        "color--overlay": rgba(from tokens.get($_, "color--alpha") r g b / 0.8), // Ensures text is background is dark enough for text to be readable.
-        "color--overlay-contrast": tokens.get($_, "color--alpha-contrast")));
+@include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
+    --#{$_}--gap: #{tokens.use($_, "base", 2)};
+    --#{$_}--inset: #{tokens.use($_, "base", 7)};
+    --#{$_}--font-family-heading: #{tokens.get($_, "font-family-heading")};
+    --#{$_}--font-size-heading: #{tokens.get("", "font-size-400")};
+    --#{$_}--font-family: #{tokens.get($_, "font-family-base")};
+    --#{$_}--font-size: #{tokens.get($_, "font-size-100")};
+    --#{$_}--item-container-max-width: #{tokens.use($_, "base", 118)};
+    --#{$_}--color--overlay: rgba(from #{tokens.get($_, "color--alpha")} r g b / 0.8); // Ensures text is background is dark enough for text to be readable.
+    --#{$_}--color--overlay-contrast: #{tokens.get($_, "color--alpha-contrast")};
     position: relative;
     border-radius: tokens.use($_, "border-radius", 1);
     container-name: slider;
@@ -98,13 +98,13 @@ $container-width-md: 640px;
         pointer-events: none;
 
         @container slider (min-width: #{$container-width-md}) {
-            width: calc(100% - calc(tokens.get($_, "inset") + tokens.get($_, "gap")));
+            width: calc(100% - calc(var(--#{$_}--inset) + var(--#{$_}--gap)));
         }
     }
 
     &--hero {
         .c-slider__controls {
-            top: tokens.get($_, "gap");
+            top: var(--#{$_}--gap);
         }
     }
 
@@ -196,7 +196,7 @@ $container-width-md: 640px;
         }
 
         .c-slider__item__container {
-            color: tokens.get($_, "color--overlay");
+            color: var(--#{$_}--color--overlay);
         }
 
         .c-slider__shadow {
