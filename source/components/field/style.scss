@@ -12,19 +12,20 @@
 $_: "c-field";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), ("base": "var(--base)",
-        "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-        "background-color": tokens.get($_, "color--surface-alt"),
-        "contrast-color": tokens.get($_, "color--surface-contrast"),
-        "height": "calc(var(--base) * 6)",
-        "shadow": tokens.use($_, "shadow", 1),
-        "shadow-hover": tokens.use($_, "shadow", 1.5)));
+@include tokens.create($_, getComponentTokens($_));
 
 $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"], input[type=" tel"], input[type=" time"], input[type=" date"], input[type=" datetime-local"], input[type=" url"], input[type=" week"], input[type=" month"], input[type=" number"], input[type=" password"], input[type=" email"], [data-js-select-action-overlay]";
 
 /* Component */
 .#{$_} {
-    --#{$_}--height-computed: calc(#{tokens.get($_, "height")} - #{tokens.get($_, "border-width")} * 2);
+    --#{$_}--base: var(--base);
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--background-color: #{tokens.get($_, "color--surface-alt")};
+    --#{$_}--contrast-color: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--height: calc(var(--base) * 6);
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
+    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.get($_, "border-width")} * 2);
 
     flex: 1;
 
@@ -35,7 +36,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     .#{$_}__label {
-        color: tokens.get($_, "contrast-color");
+        color: var(--#{$_}--contrast-color);
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -45,14 +46,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
     .#{$_}__description {
         font-size: 0.75rem;
-        color: tokens.get($_, "contrast-color");
+        color: var(--#{$_}--contrast-color);
         margin-top: 0;
     }
 
     .#{$_}__helper {
         font-family: var(--font-family-base);
         font-size: var(--font-size-caption, 0.875rem);
-        color: tokens.get($_, "contrast-color");
+        color: var(--#{$_}--contrast-color);
         margin-top: tokens.use($_, "space", 0.5);
         margin-left: tokens.use($_, "space", 0.25);
     }
@@ -63,11 +64,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         flex: 1;
         border: 0;
         background: none;
-        height: tokens.get($_, "height");
+        height: var(--#{$_}--height);
         padding: tokens.use($_, "space", 2);
         outline: 0;
         margin: 0;
-        color: tokens.get($_, "contrast-color");
+        color: var(--#{$_}--contrast-color);
     }
 
     .#{$_}__inner {
@@ -77,12 +78,12 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(#{tokens.get($_, "base")} * 10);
+        min-width: calc(var(--#{$_}--base) * 10);
         font-size: 0.95rem;
         line-height: calc(var(--base) * 2);
-        border: tokens.get($_, "border");
-        background: var(--inherit-color-background, tokens.get($_, "background-color"));
-        color: tokens.get($_, "contrast-color");
+        border: var(--#{$_}--border);
+        background: var(--inherit-color-background, var(--#{$_}--background-color));
+        color: var(--#{$_}--contrast-color);
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
 
@@ -124,7 +125,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
             &[list] {
                 cursor: text;
-                padding-right: calc(#{tokens.get($_, "base")} * 7);
+                padding-right: calc(var(--#{$_}--base) * 7);
 
                 &::-webkit-calendar-picker-indicator {
                     opacity: 0;
@@ -144,11 +145,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 top: 0;
                 right: 0;
                 height: 100%;
-                width: calc(#{tokens.get($_, "base")} * 5);
+                width: calc(var(--#{$_}--base) * 5);
                 border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
                 background-image: linear-gradient(to bottom,
-                        color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, tokens.get($_, "background-color")),
-                        color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, tokens.get($_, "background-color")));
+                        color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
+                        color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
                 border-top-right-radius: tokens.use($_, "border-radius");
                 border-bottom-right-radius: tokens.use($_, "border-radius");
                 pointer-events: none;
@@ -158,7 +159,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 content: "";
                 position: absolute;
                 top: 50%;
-                right: calc(#{tokens.get($_, "base")} * 2);
+                right: calc(var(--#{$_}--base) * 2);
                 width: 0.55em;
                 height: 0.55em;
                 border-right: 2px solid tokens.get($_, "color--primary");
@@ -172,7 +173,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         .#{$_}__icon,
         .#{$_}__prefix,
         .#{$_}__suffix {
-            color: tokens.get($_, "contrast-color");
+            color: var(--#{$_}--contrast-color);
         }
 
         .#{$_}__icon,
@@ -233,7 +234,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
 
     textarea {
-        min-height: tokens.get($_, "height");
+        min-height: var(--#{$_}--height);
         height: initial;
         max-width: 100%;
 
@@ -253,11 +254,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     /* Shadow */
     &.#{$_}--shadow {
         transition: filter 100ms ease-in-out;
-        filter: tokens.get($_, "shadow");
+        filter: var(--#{$_}--shadow);
     }
 
     &.#{$_}--shadow:hover {
-        filter: tokens.get($_, "shadow-hover");
+        filter: var(--#{$_}--shadow-hover);
     }
 
     /* Customizer modifiers */
@@ -265,7 +266,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         .#{$_}__inner,
         .#{$_}__inner input {
-            border-radius: calc(#{tokens.get($_, "base")} * 3);
+            border-radius: calc(var(--#{$_}--base) * 3);
             border: none;
 
             input::placeholder {
@@ -274,18 +275,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         .#{$_}__label {
-            margin-left: calc(#{tokens.get($_, "base")} * 2);
+            margin-left: calc(var(--#{$_}--base) * 2);
         }
 
         &.#{$_}--rounded-border {
             .#{$_}__inner {
-                border: tokens.get($_, "border");
+                border: var(--#{$_}--border);
             }
         }
 
         input:focus+.#{$_}_focus-styler,
         textarea:focus+.#{$_}_focus-styler {
-            border-radius: calc(#{tokens.get($_, "base")} * 3);
+            border-radius: calc(var(--#{$_}--base) * 3);
         }
     }
 
@@ -296,18 +297,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         #{$fields} {
             padding: tokens.use($_, "space");
-            height: calc(#{tokens.get($_, "base")} * 4.5);
+            height: calc(var(--#{$_}--base) * 4.5);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(#{tokens.get($_, "base")} * 4.5);
+                height: calc(var(--#{$_}--base) * 4.5);
             }
         }
 
         textarea {
             padding: tokens.use($_, "space");
-            min-height: calc(#{tokens.get($_, "base")} * 4.5);
+            min-height: calc(var(--#{$_}--base) * 4.5);
         }
 
         .#{$_}__icon,
@@ -328,7 +329,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: tokens.get($_, "height");
+                height: var(--#{$_}--height);
             }
         }
 
@@ -353,18 +354,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         #{$fields} {
             padding: tokens.use($_, "space", 2.5);
-            height: calc(#{tokens.get($_, "base")} * 8);
+            height: calc(var(--#{$_}--base) * 8);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(#{tokens.get($_, "base")} * 8);
+                height: calc(var(--#{$_}--base) * 8);
             }
         }
 
         textarea {
             padding: tokens.use($_, "space", 2.5);
-            min-height: calc(#{tokens.get($_, "base")} * 8);
+            min-height: calc(var(--#{$_}--base) * 8);
         }
 
         .#{$_}__icon,
@@ -443,12 +444,12 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         left: 0;
         right: 0;
         z-index: 4500;
-        background-color: var(--inherit-color-background, tokens.get($_, "background-color"));
-        border: tokens.get($_, "border");
+        background-color: var(--inherit-color-background, var(--#{$_}--background-color));
+        border: var(--#{$_}--border);
         border-radius: tokens.use($_, "border-radius");
         corner-shape: tokens.get($_, "corner-shape");
-        box-shadow: tokens.get($_, "shadow");
-        max-height: calc(#{tokens.get($_, "base")} * 28);
+        box-shadow: var(--#{$_}--shadow);
+        max-height: calc(var(--#{$_}--base) * 28);
         overflow-y: auto;
     }
 
@@ -469,7 +470,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     .#{$_}__search-results-link {
         display: block;
         text-decoration: none;
-        color: tokens.get($_, "contrast-color");
+        color: var(--#{$_}--contrast-color);
         padding: tokens.use($_, "space", 1.25) tokens.use($_, "space", 2);
 
         &:hover,
