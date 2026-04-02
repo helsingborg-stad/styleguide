@@ -67,6 +67,7 @@ describe('SelectControl', () => {
 	});
 
 	it('handles invalid options JSON gracefully', () => {
+		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {}); // Suppress console error output for this test
 		const selectControl = document.createElement('select-control');
 		selectControl.setAttribute('options', 'invalid json');
 		document.body.appendChild(selectControl);
@@ -75,5 +76,6 @@ describe('SelectControl', () => {
 
 		expect(select).toBeTruthy();
 		expect(select.options.length).toBe(0);
+		consoleErrorSpy.mockRestore(); // Restore original console.error behavior
 	});
 });
