@@ -74,7 +74,9 @@ class DbContrastPair extends HTMLElement {
 			<div class="db-contrast-pair__cell" data-variable=${setting.variable}>
 				<label class="db-contrast-pair__label">${setting.label}</label>
 				<code class="db-contrast-pair__variable">${setting.variable}</code>
-				<color-control value=${value} ?locked=${setting.locked === true} placeholder=${setting.default} @change=${(event: Event) => {
+				<color-control value=${value} ?locked=${setting.locked === true} placeholder=${setting.default} @change=${(
+					event: Event,
+				) => {
 					const customEvent = event as CustomEvent<{ value?: string }>;
 					const nextValue = customEvent?.detail?.value;
 					if (typeof nextValue === 'string') {

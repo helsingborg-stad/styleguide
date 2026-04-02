@@ -11,13 +11,13 @@ import './controls/FontControl';
 import { initializeDesignBuilderRootRuntime } from './app/initializeDesignBuilderRootRuntime';
 
 function init(): void {
-initializeDesignBuilderRootRuntime();
+	initializeDesignBuilderRootRuntime();
 }
 
 if (document.readyState === 'loading') {
-document.addEventListener('DOMContentLoaded', () => {
-void init();
-});
+	document.addEventListener('DOMContentLoaded', () => {
+		void init();
+	});
 } else {
-void init();
+	void init();
 }

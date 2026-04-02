@@ -236,10 +236,6 @@
     </div>
 </div>
 
-{{-- Builder-specific assets (excluded from global Asset loading) --}}
-@if(isset($assets['manifest']['css/design-builder.css']))
-    <link rel="stylesheet" href="/assets/dist/{{ $assets['manifest']['css/design-builder.css'] }}">
-@endif
 @if(isset($assets['manifest']['js/design-builder.js']))
     <script src="/assets/dist/{{ $assets['manifest']['js/design-builder.js'] }}" type="module"></script>
 @endif

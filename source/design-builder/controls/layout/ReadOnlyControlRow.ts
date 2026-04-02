@@ -29,9 +29,11 @@ class DbReadOnlyControlRow extends HTMLElement {
 			<div class="db-control-row" data-variable=${setting.variable}>
 				<label class="db-control-row__label">${setting.label}</label>
 				<div class="db-control-row__readonly-value">
-					${setting.type === 'color' || setting.type === 'rgba'
-						? html`<div class="db-control-row__swatch" style=${`background-color: ${this._value}`}></div>`
-						: ''}
+					${
+						setting.type === 'color' || setting.type === 'rgba'
+							? html`<div class="db-control-row__swatch" style=${`background-color: ${this._value}`}></div>`
+							: ''
+					}
 					<span class="db-control__value-display db-control__value-display--readonly">${this._value}</span>
 				</div>
 			</div>

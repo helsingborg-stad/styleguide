@@ -25,7 +25,7 @@ Entry file:
 - source/design-builder/index.ts
 
 Styles:
-- source/design-builder/design-builder.scss
+- source/design-builder/design-builder.css
 
 Control rendering entry:
 - source/design-builder/controls.ts
@@ -273,8 +273,9 @@ References:
 
 ## Styling notes
 
-Component-level tool and target styles live in:
-- source/design-builder/design-builder.scss
+Component-level styles are split into:
+- source/design-builder/design-builder.css (shadow-root/internal UI styles)
+- source/design-builder/design-builder-external.css (intentional global target highlighting)
 
 Relevant class groups:
 
@@ -294,6 +295,7 @@ Build generates:
 
 - assets/dist/js/design-builder.js
 - assets/dist/css/design-builder.css
+- assets/dist/css/design-builder-external.css
 
 ## Adding or extending functionality
 

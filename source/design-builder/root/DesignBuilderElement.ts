@@ -1,18 +1,20 @@
 import { parseDesignBuilderRootConfiguration } from './config';
 import {
-DESIGN_BUILDER_MODE_FULL_PAGE,
-type DesignBuilderMode,
-type DesignBuilderModeAdapter,
-type DesignBuilderRootElement,
+	DESIGN_BUILDER_MODE_FULL_PAGE,
+	type DesignBuilderMode,
+	type DesignBuilderModeAdapter,
+	type DesignBuilderRootElement,
 } from './types';
 
 const ROOT_ELEMENT_TAG_NAME = 'design-builder';
+const SHADOW_STYLE_ASSET = '/assets/dist/css/design-builder.css';
+const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderElement extends HTMLElement implements DesignBuilderRootElement {
 	public static observedAttributes = ['mode', 'config', 'token-data', 'token-library', 'component-data'];
 
-private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
-private static hasRegistered = false;
+	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
+	private static hasRegistered = false;
 
 	private currentMode: DesignBuilderMode | null = null;
 	private currentConfig: Record<string, unknown> | null = null;
@@ -20,6 +22,15 @@ private static hasRegistered = false;
 	private currentTokenLibraryData: unknown;
 	private currentComponentData: unknown;
 	private hasInitialized = false;
+	private styleReady: Promise<void> | null = null;
+
+	public getRenderContainer(): ShadowRoot {
+		if (!this.shadowRoot) {
+			this.attachShadow({ mode: 'open' });
+		}
+
+		return this.shadowRoot as ShadowRoot;
+	}
 
 	public get mode(): DesignBuilderMode {
 		return this.currentMode ?? DESIGN_BUILDER_MODE_FULL_PAGE;
@@ -35,7 +46,7 @@ private static hasRegistered = false;
 
 	public set config(value: Record<string, unknown>) {
 		this.currentConfig = value;
-}
+	}
 
 	public get tokenLibraryData(): unknown {
 		return this.currentTokenLibraryData;
@@ -53,31 +64,34 @@ private static hasRegistered = false;
 		this.currentTokenData = value;
 	}
 
-public get componentData(): unknown {
-return this.currentComponentData;
-}
+	public get componentData(): unknown {
+		return this.currentComponentData;
+	}
 
-public set componentData(value: unknown) {
-this.currentComponentData = value;
-}
+	public set componentData(value: unknown) {
+		this.currentComponentData = value;
+	}
 
-public connectedCallback(): void {
-if (this.hasInitialized) {
-return;
-}
+	public connectedCallback(): void {
+		if (this.hasInitialized) {
+			return;
+		}
 
-this.hasInitialized = true;
-void this.initializeWithAdapter();
-}
+		this.hasInitialized = true;
+		void this.initializeWithAdapter();
+	}
 
-public attributeChangedCallback(): void {
-if (this.hasInitialized) {
-return;
-}
-}
+	public attributeChangedCallback(): void {
+		if (this.hasInitialized) {
+			return;
+		}
+	}
 
-private async initializeWithAdapter(): Promise<void> {
-const parsedConfiguration = parseDesignBuilderRootConfiguration({
+	private async initializeWithAdapter(): Promise<void> {
+		const renderContainer = this.getRenderContainer();
+		await this.ensureShadowStyles();
+
+		const parsedConfiguration = parseDesignBuilderRootConfiguration({
 			hostElement: this,
 			propertyMode: this.currentMode,
 			propertyConfig: this.currentConfig,
@@ -92,38 +106,83 @@ const parsedConfiguration = parseDesignBuilderRootConfiguration({
 		this.currentTokenLibraryData = parsedConfiguration.tokenLibraryData;
 		this.currentComponentData = parsedConfiguration.componentData;
 
-const modeAdapter = DesignBuilderElement.modeAdapters.get(parsedConfiguration.mode);
-if (!modeAdapter) {
-this.dispatchEvent(
-new CustomEvent('design-builder:error', {
-detail: {
-message: `No mode adapter is registered for mode "${parsedConfiguration.mode}".`,
-},
-bubbles: true,
-composed: true,
-}),
-);
-return;
-}
+		const modeAdapter = DesignBuilderElement.modeAdapters.get(parsedConfiguration.mode);
+		if (!modeAdapter) {
+			this.dispatchEvent(
+				new CustomEvent('design-builder:error', {
+					detail: {
+						message: `No mode adapter is registered for mode "${parsedConfiguration.mode}".`,
+					},
+					bubbles: true,
+					composed: true,
+				}),
+			);
+			return;
+		}
 
-await modeAdapter({
-hostElement: this,
-configuration: parsedConfiguration,
-});
+		await modeAdapter({
+			hostElement: this,
+			configuration: parsedConfiguration,
+			renderContainer,
+		});
 
-this.dispatchEvent(
-new CustomEvent('design-builder:initialized', {
-detail: {
-mode: parsedConfiguration.mode,
-},
-bubbles: true,
-composed: true,
-}),
-);
-}
+		this.dispatchEvent(
+			new CustomEvent('design-builder:initialized', {
+				detail: {
+					mode: parsedConfiguration.mode,
+				},
+				bubbles: true,
+				composed: true,
+			}),
+		);
+	}
 
 	public static registerModeAdapter(mode: DesignBuilderMode, adapter: DesignBuilderModeAdapter): void {
 		DesignBuilderElement.modeAdapters.set(mode, adapter);
+	}
+
+	private async ensureShadowStyles(): Promise<void> {
+		const shadowRoot = this.shadowRoot;
+		if (!shadowRoot) {
+			return;
+		}
+
+		if (shadowRoot.querySelector(`#${SHADOW_STYLE_ID}`)) {
+			return;
+		}
+
+		if (this.styleReady) {
+			await this.styleReady;
+			return;
+		}
+
+		this.styleReady = (async () => {
+			const style = document.createElement('style');
+			style.id = SHADOW_STYLE_ID;
+			style.textContent = '';
+			shadowRoot.prepend(style);
+
+			try {
+				const response = await fetch(SHADOW_STYLE_ASSET, { credentials: 'same-origin' });
+				if (!response.ok) {
+					throw new Error(`Failed to load design-builder styles (${response.status}).`);
+				}
+				style.textContent = await response.text();
+			} catch (error) {
+				this.dispatchEvent(
+					new CustomEvent('design-builder:error', {
+						detail: {
+							message:
+								error instanceof Error ? error.message : 'Failed to load encapsulated design-builder stylesheet.',
+						},
+						bubbles: true,
+						composed: true,
+					}),
+				);
+			}
+		})();
+
+		await this.styleReady;
 	}
 
 	public static define(): void {
@@ -138,9 +197,9 @@ composed: true,
 }
 
 export function registerDesignBuilderElement(): void {
-DesignBuilderElement.define();
+	DesignBuilderElement.define();
 }
 
 export function registerDesignBuilderModeAdapter(mode: DesignBuilderMode, adapter: DesignBuilderModeAdapter): void {
-DesignBuilderElement.registerModeAdapter(mode, adapter);
+	DesignBuilderElement.registerModeAdapter(mode, adapter);
 }

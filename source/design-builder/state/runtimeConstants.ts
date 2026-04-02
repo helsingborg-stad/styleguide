@@ -6,9 +6,7 @@ export const CUSTOMIZE_INIT_MODE_ONLOAD = 'onload';
 export const CUSTOMIZE_INIT_MODE_MANUAL = 'manual';
 export const CUSTOMIZE_MANUAL_TRIGGER_SELECTOR = '[data-customize-init-fab]';
 
-export type CustomizeInitMode =
-| typeof CUSTOMIZE_INIT_MODE_ONLOAD
-| typeof CUSTOMIZE_INIT_MODE_MANUAL;
+export type CustomizeInitMode = typeof CUSTOMIZE_INIT_MODE_ONLOAD | typeof CUSTOMIZE_INIT_MODE_MANUAL;
 
 export const SPLIT_STORAGE_KEY = 'design-builder-split';
 export const MIN_SPLIT = 20;
