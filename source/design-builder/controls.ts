@@ -1,630 +1,82 @@
 /**
- * Control Renderers for Design Token Types
- *
- * Factory that creates the appropriate HTML input element(s) for each
- * token type: color, range, select, font.
+ * Control render adapters for design-builder settings.
  */
 
-import { html, render } from 'lit-html';
-import type { ColorControlProps } from './controls/ColorControl';
-import type { FontControlProps } from './controls/FontControl';
-import type { RangeControlProps } from './controls/RangeControl';
-import type { RgbaControlProps } from './controls/RgbaControl';
-import type { SelectControlProps } from './controls/SelectControl';
+import './controls/layout/ControlRow';
+import './controls/layout/ContrastPair';
+import './controls/layout/ReadOnlyControlRow';
+import './controls/layout/SwatchBand';
+import type { ContrastSettingValue } from './controls/layout/ContrastPair';
+import type { ChangeCallback, TokenSetting } from './controls/types';
 
-export interface TokenSetting {
-	variable: string;
-	label: string;
-	description?: string;
-	type: 'color' | 'rgba' | 'range' | 'select' | 'font';
-	default: string;
-	unit?: string;
-	min?: number;
-	max?: number;
-	step?: number;
-	options?: Array<{ value: string; label: string }>;
-	locked?: boolean;
-	contrast?: string | string[];
-	notes?: string;
-}
+export type { ChangeCallback, TokenSetting } from './controls/types';
 
-export type ChangeCallback = (variable: string, value: string) => void;
+type ControlRowElement = HTMLElement & {
+	setting: TokenSetting;
+	value: string;
+};
 
-/**
- * Extract value from custom control change events.
- * Native bubbling events (e.g. select/input change) do not carry detail.
- */
-function getControlChangeValue(event: Event): string | undefined {
-	if (!(event instanceof CustomEvent)) {
-		return undefined;
-	}
+type ReadOnlyControlRowElement = HTMLElement & {
+	setting: TokenSetting;
+	value: string;
+};
 
-	const detail = event.detail;
-	if (!detail || typeof detail !== 'object' || !('value' in detail)) {
-		return undefined;
-	}
+type ContrastPairElement = HTMLElement & {
+	base: TokenSetting;
+	baseValue: string;
+	contrasts: ContrastSettingValue[];
+};
 
-	const value = (detail as { value?: unknown }).value;
-	return value === undefined || value === null ? undefined : String(value);
-}
+type SwatchBandElement = HTMLElement & {
+	settings: TokenSetting[];
+};
 
-/**
- * Creates a control row for a single token setting.
- * Returns the root element for the control.
- */
 export function createControl(setting: TokenSetting, currentValue: string, onChange: ChangeCallback): HTMLElement {
-	const row = document.createElement('div');
-	row.className = 'db-control';
-	if (setting.locked) {
-		row.classList.add('db-control--locked');
-	}
-	row.dataset.variable = setting.variable;
+	const row = document.createElement('db-control-row') as ControlRowElement;
+	row.setting = setting;
+	row.value = currentValue;
+	row.addEventListener('control-change', (event) => {
+		const detail = (event as CustomEvent<{ variable: string; value: string }>).detail;
+		if (!detail) {
+			return;
+		}
 
-	// Label
-	const label = document.createElement('label');
-	label.className = 'db-control__label';
-	label.textContent = setting.label;
-	row.appendChild(label);
-
-	// Description
-	if (setting.description) {
-		const desc = document.createElement('span');
-		desc.className = 'db-control__description';
-		desc.textContent = setting.description;
-		row.appendChild(desc);
-	}
-
-	// Variable name display
-	const varName = document.createElement('code');
-	varName.className = 'db-control__variable';
-	varName.textContent = setting.variable;
-	row.appendChild(varName);
-
-	// Control element
-	const controlWrap = document.createElement('div');
-	controlWrap.className = 'db-control__input';
-
-	switch (setting.type) {
-		case 'color':
-			buildColorControl(controlWrap, setting, currentValue, onChange);
-			break;
-		case 'rgba':
-			buildRgbaControl(controlWrap, setting, currentValue, onChange);
-			break;
-		case 'range':
-			buildRangeControl(controlWrap, setting, currentValue, onChange);
-			break;
-		case 'select':
-			buildSelectControl(controlWrap, setting, currentValue, onChange);
-			break;
-		case 'font':
-			buildFontControl(controlWrap, setting, currentValue, onChange);
-			break;
-	}
-
-	row.appendChild(controlWrap);
-
-	// Reset button (not for locked tokens)
-	if (!setting.locked) {
-		const resetBtn = document.createElement('button');
-		resetBtn.className = 'db-control__reset';
-		resetBtn.type = 'button';
-		resetBtn.title = `Reset to ${setting.default}`;
-		resetBtn.textContent = 'Reset';
-		resetBtn.addEventListener('click', () => {
-			onChange(setting.variable, '');
-			updateControlValue(row, setting.default, setting);
-		});
-		row.appendChild(resetBtn);
-	}
-
+		onChange(detail.variable, detail.value);
+	});
 	return row;
 }
 
-/**
- * Creates a compact read-only control row for locked settings.
- * Intended for optional display when uneditable fields are shown.
- */
 export function createReadOnlyControl(setting: TokenSetting, currentValue: string): HTMLElement {
-	const row = document.createElement('div');
-	row.className = 'db-control db-control--readonly db-control--locked';
-	row.dataset.variable = setting.variable;
-
-	const label = document.createElement('label');
-	label.className = 'db-control__label';
-	label.textContent = setting.label;
-	row.appendChild(label);
-
-	const valueWrap = document.createElement('div');
-	valueWrap.className = 'db-control__readonly-value';
-
-	if (setting.type === 'color' || setting.type === 'rgba') {
-		const swatch = document.createElement('div');
-		swatch.className = 'db-control__swatch';
-		swatch.style.backgroundColor = currentValue;
-		valueWrap.appendChild(swatch);
-	}
-
-	const valueText = document.createElement('span');
-	valueText.className = 'db-control__value-display db-control__value-display--readonly';
-	valueText.textContent = currentValue;
-	valueWrap.appendChild(valueText);
-
-	row.appendChild(valueWrap);
-
+	const row = document.createElement('db-readonly-control-row') as ReadOnlyControlRowElement;
+	row.setting = setting;
+	row.value = currentValue;
 	return row;
 }
 
-/**
- * Updates the control's displayed value without triggering change events.
- */
-function updateControlValue(row: HTMLElement, value: string, setting: TokenSetting): void {
-	switch (setting.type) {
-		case 'color': {
-			const colorControl = row.querySelector<HTMLElement>('color-control');
-			if (colorControl) {
-				colorControl.setAttribute('value', value);
-			}
-			break;
-		}
-		case 'rgba': {
-			const rgbaControl = row.querySelector<HTMLElement>('rgba-control');
-			if (rgbaControl) {
-				rgbaControl.setAttribute('value', value);
-			}
-			break;
-		}
-		case 'range': {
-			const numVal = parseFloat(value);
-			const rangeControl = row.querySelector<HTMLElement>('range-control');
-			if (rangeControl && !Number.isNaN(numVal)) {
-				rangeControl.setAttribute('value', String(numVal));
-			}
-			break;
-		}
-		case 'select': {
-			const selectControl = row.querySelector<HTMLElement>('select-control');
-			if (selectControl) {
-				selectControl.setAttribute('value', value);
-			}
-			break;
-		}
-		case 'font': {
-			const fontControl = row.querySelector<HTMLElement>('font-control');
-			if (fontControl) {
-				fontControl.setAttribute('value', value);
-			}
-			break;
-		}
-	}
-}
-
-// --- Color ---
-
-function buildColorControl(
-	wrap: HTMLElement,
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-): void {
-	const colorTemplate = (props: ColorControlProps) => html`
-		<color-control
-			value="${props.value}"
-			?locked=${props.locked}
-			placeholder=${props.placeholder}
-			@change=${{
-				handleEvent: (e: Event) => {
-					const value = getControlChangeValue(e);
-					if (value === undefined) {
-						return;
-					}
-
-					props.value = value;
-					render(colorTemplate(props), wrap);
-					onChange(setting.variable, value);
-				},
-			}}
-		/>
-	`;
-
-	const data: ColorControlProps = {
-		value: currentValue,
-		locked: setting.locked === true,
-		placeholder: setting.default,
-	};
-
-	render(colorTemplate(data), wrap);
-}
-
-// --- RGBA Color ---
-
-function buildRgbaControl(
-	wrap: HTMLElement,
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-): void {
-	const rgbaTemplate = (props: RgbaControlProps) => html`
-		<rgba-control
-			value="${props.value}"
-			?locked=${props.locked}
-			placeholder=${props.placeholder}
-			@change=${{
-				handleEvent: (e: Event) => {
-					const value = getControlChangeValue(e);
-					if (value === undefined) {
-						return;
-					}
-
-					props.value = value;
-					render(rgbaTemplate(props), wrap);
-					onChange(setting.variable, value);
-				},
-			}}
-		/>
-	`;
-
-	const data: RgbaControlProps = {
-		value: currentValue,
-		locked: setting.locked === true,
-		placeholder: setting.default,
-	};
-
-	render(rgbaTemplate(data), wrap);
-}
-
-// --- Range ---
-
-function buildRangeControl(
-	wrap: HTMLElement,
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-): void {
-	const rangeTemplate = (props: RangeControlProps) => html`
-		<range-control
-			value="${props.value}"
-			?locked=${props.locked}
-			min=${props.min}
-			max=${props.max}
-			step=${props.step}
-			unit=${props.unit}
-			@change=${{
-				handleEvent: (e: Event) => {
-					const value = getControlChangeValue(e);
-					if (value === undefined) {
-						return;
-					}
-
-					props.value = value;
-					render(rangeTemplate(props), wrap);
-					onChange(setting.variable, value);
-				},
-			}}
-		/>
-	`;
-
-	const data: RangeControlProps = {
-		value: Number.isNaN(parseFloat(currentValue)) ? '0' : String(parseFloat(currentValue)),
-		locked: setting.locked === true,
-		min: setting.min !== undefined ? String(setting.min) : undefined,
-		max: setting.max !== undefined ? String(setting.max) : undefined,
-		step: setting.step !== undefined ? String(setting.step) : undefined,
-		unit: setting.unit,
-	};
-
-	render(rangeTemplate(data), wrap);
-}
-
-// --- Select ---
-
-function buildSelectControl(
-	wrap: HTMLElement,
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-): void {
-	const selectTemplate = (props: SelectControlProps) => html`
-		<select-control
-			value="${props.value}"
-			?locked=${props.locked}
-			options=${props.options}
-			@change=${{
-				handleEvent: (e: Event) => {
-					const value = getControlChangeValue(e);
-					if (value === undefined) {
-						return;
-					}
-
-					props.value = value;
-					render(selectTemplate(props), wrap);
-					onChange(setting.variable, value);
-				},
-			}}
-		/>
-	`;
-
-	const options = Object.fromEntries((setting.options || []).map((option) => [option.value, option.label]));
-
-	const data: SelectControlProps = {
-		value: currentValue,
-		locked: setting.locked === true,
-		options: JSON.stringify(options),
-	};
-
-	render(selectTemplate(data), wrap);
-}
-
-// --- Font ---
-
-function buildFontControl(
-	wrap: HTMLElement,
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-): void {
-	const fontTemplate = (props: FontControlProps) => html`
-		<font-control
-			value="${props.value}"
-			?locked=${props.locked}
-			placeholder=${props.placeholder}
-			@change=${{
-				handleEvent: (e: Event) => {
-					const value = getControlChangeValue(e);
-					if (value === undefined) {
-						return;
-					}
-
-					props.value = value;
-					render(fontTemplate(props), wrap);
-					onChange(setting.variable, value);
-				},
-			}}
-		/>
-	`;
-
-	const data: FontControlProps = {
-		value: currentValue,
-		locked: setting.locked === true,
-		placeholder: setting.default,
-	};
-
-	render(fontTemplate(data), wrap);
-}
-
-// --- Contrast Pair ---
-
-/**
- * Creates a contrast pair group:
- * Col 1: Base color control (spans all rows)
- * Col 2: Contrast color controls + preview boxes (stacked)
- */
 export function createContrastPair(
 	base: TokenSetting,
 	contrasts: { setting: TokenSetting; value: string }[],
 	baseValue: string,
 	onChange: ChangeCallback,
 ): HTMLElement {
-	const row = document.createElement('div');
-	row.className = 'db-pair';
-
-	const previews: HTMLElement[] = [];
-
-	// --- Col 1: Base ---
-	const baseCol = document.createElement('div');
-	baseCol.className = 'db-pair__col';
-	baseCol.appendChild(
-		buildPairColorCell(base, baseValue, onChange, (val) => {
-			for (const p of previews) p.style.backgroundColor = val;
-		}),
-	);
-	row.appendChild(baseCol);
-
-	// --- Col 2: Stacked contrasts + previews ---
-	const contrastsWrap = document.createElement('div');
-	contrastsWrap.className = 'db-pair__contrasts';
-
-	for (const { setting: contrastSetting, value: contrastValue } of contrasts) {
-		const contrastRow = document.createElement('div');
-		contrastRow.className = 'db-pair__contrast-row';
-
-		const contrastCol = document.createElement('div');
-		contrastCol.className = 'db-pair__col';
-
-		const previewCol = document.createElement('div');
-		previewCol.className = 'db-pair__preview-col';
-		const preview = document.createElement('div');
-		preview.className = 'db-pair__preview';
-		preview.style.backgroundColor = baseValue;
-		preview.style.color = contrastValue;
-		preview.innerHTML =
-			'<span class="db-pair__preview-lg">Aa</span><span class="db-pair__preview-sm">The quick brown fox jumps over the lazy dog</span>';
-		previews.push(preview);
-		previewCol.appendChild(preview);
-
-		contrastCol.appendChild(
-			buildPairColorCell(contrastSetting, contrastValue, onChange, (val) => {
-				preview.style.color = val;
-			}),
-		);
-
-		contrastRow.appendChild(contrastCol);
-		contrastRow.appendChild(previewCol);
-		contrastsWrap.appendChild(contrastRow);
-	}
-
-	row.appendChild(contrastsWrap);
-	return row;
-}
-
-/**
- * Builds a single color cell within a contrast pair column.
- * Compact: label, variable, swatch+picker+text, reset.
- */
-function buildPairColorCell(
-	setting: TokenSetting,
-	currentValue: string,
-	onChange: ChangeCallback,
-	onPreviewUpdate: (val: string) => void,
-): HTMLElement {
-	const cell = document.createElement('div');
-	cell.className = 'db-pair__cell';
-	cell.dataset.variable = setting.variable;
-
-	const label = document.createElement('label');
-	label.className = 'db-pair__label';
-	label.textContent = setting.label;
-	cell.appendChild(label);
-
-	const varName = document.createElement('code');
-	varName.className = 'db-pair__variable';
-	varName.textContent = setting.variable;
-	cell.appendChild(varName);
-
-	const inputRow = document.createElement('div');
-	inputRow.className = 'db-pair__inputs';
-
-	// Hidden native color picker
-	const colorInput = document.createElement('input');
-	colorInput.type = 'color';
-	colorInput.className = 'db-control__color-hidden';
-	colorInput.value = toHex(currentValue);
-	inputRow.appendChild(colorInput);
-
-	// Clickable swatch
-	const swatch = document.createElement('div');
-	swatch.className = 'db-control__swatch db-control__swatch--clickable';
-	swatch.style.backgroundColor = currentValue;
-	swatch.addEventListener('click', () => colorInput.click());
-	inputRow.appendChild(swatch);
-
-	// Text input
-	const textInput = document.createElement('input');
-	textInput.type = 'text';
-	textInput.className = 'db-control__text';
-	textInput.value = currentValue;
-	textInput.placeholder = setting.default;
-	inputRow.appendChild(textInput);
-
-	colorInput.addEventListener('input', () => {
-		textInput.value = colorInput.value;
-		swatch.style.backgroundColor = colorInput.value;
-		onPreviewUpdate(colorInput.value);
-		onChange(setting.variable, colorInput.value);
-	});
-
-	textInput.addEventListener('change', () => {
-		swatch.style.backgroundColor = textInput.value;
-		colorInput.value = toHex(textInput.value);
-		onPreviewUpdate(textInput.value);
-		onChange(setting.variable, textInput.value);
-	});
-
-	cell.appendChild(inputRow);
-
-	// Reset
-	const resetBtn = document.createElement('button');
-	resetBtn.className = 'db-control__reset';
-	resetBtn.type = 'button';
-	resetBtn.title = `Reset to ${setting.default}`;
-	resetBtn.textContent = 'Reset';
-	resetBtn.addEventListener('click', () => {
-		onChange(setting.variable, '');
-		colorInput.value = toHex(setting.default);
-		textInput.value = setting.default;
-		swatch.style.backgroundColor = setting.default;
-		onPreviewUpdate(setting.default);
-	});
-	cell.appendChild(resetBtn);
-
-	return cell;
-}
-
-// --- Swatch Band ---
-
-/**
- * Creates a compact swatch band for a group of color tokens.
- * Groups settings by common variable prefix and renders each group
- * as a horizontal strip of color swatches.
- */
-export function createSwatchBand(settings: TokenSetting[]): HTMLElement {
-	const container = document.createElement('div');
-	container.className = 'db-swatch-band';
-
-	// Group by prefix: --color--black-*, --color--white-*, --color--gray-*
-	const groups = new Map<string, TokenSetting[]>();
-	for (const setting of settings) {
-		// Extract group name: "--color--black-10" → "Black"
-		const match = setting.variable.match(/^--color--(\w+)-\d+$/);
-		const groupKey = match ? match[1] : 'other';
-		if (!groups.has(groupKey)) groups.set(groupKey, []);
-		groups.get(groupKey)!.push(setting);
-	}
-
-	for (const [groupKey, groupSettings] of groups) {
-		const row = document.createElement('div');
-		row.className = 'db-swatch-band__row';
-
-		// Variable name pattern: --color--black-[%]
-		const varLabel = document.createElement('code');
-		varLabel.className = 'db-swatch-band__var';
-		varLabel.textContent = `--color--${groupKey}-[%]`;
-		row.appendChild(varLabel);
-
-		const strip = document.createElement('div');
-		strip.className = 'db-swatch-band__strip';
-
-		for (const setting of groupSettings) {
-			const swatch = document.createElement('div');
-			swatch.className = 'db-swatch-band__swatch';
-			swatch.style.backgroundColor = setting.default;
-
-			// Extract percentage for tooltip: "--color--black-40" → "40%"
-			const pctMatch = setting.variable.match(/-(\d+)$/);
-			const pct = pctMatch ? `${pctMatch[1]}` : '';
-			swatch.title = `${setting.variable}\n${setting.default}`;
-
-			const pctLabel = document.createElement('span');
-			pctLabel.className = 'db-swatch-band__pct';
-			pctLabel.textContent = pct;
-
-			swatch.appendChild(pctLabel);
-			strip.appendChild(swatch);
+	const pair = document.createElement('db-contrast-pair') as ContrastPairElement;
+	pair.base = base;
+	pair.baseValue = baseValue;
+	pair.contrasts = contrasts;
+	pair.addEventListener('contrast-change', (event) => {
+		const detail = (event as CustomEvent<{ variable: string; value: string }>).detail;
+		if (!detail) {
+			return;
 		}
 
-		row.appendChild(strip);
-		container.appendChild(row);
-	}
+		onChange(detail.variable, detail.value);
+	});
 
-	return container;
+	return pair;
 }
 
-// --- Helpers ---
-
-/**
- * Best-effort conversion to hex for the native color picker.
- * Falls back to #000000 for rgba/complex values.
- */
-function toHex(color: string): string {
-	if (/^#[0-9a-f]{6}$/i.test(color)) return color;
-	if (/^#[0-9a-f]{3}$/i.test(color)) {
-		return `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
-	}
-
-	// Try parsing via a temporary element
-	const temp = document.createElement('div');
-	temp.style.color = color;
-	document.body.appendChild(temp);
-	const computed = getComputedStyle(temp).color;
-	document.body.removeChild(temp);
-
-	const match = computed.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-	if (match) {
-		const r = parseInt(match[1], 10).toString(16).padStart(2, '0');
-		const g = parseInt(match[2], 10).toString(16).padStart(2, '0');
-		const b = parseInt(match[3], 10).toString(16).padStart(2, '0');
-		return `#${r}${g}${b}`;
-	}
-
-	return '#000000';
+export function createSwatchBand(settings: TokenSetting[]): HTMLElement {
+	const band = document.createElement('db-swatch-band') as SwatchBandElement;
+	band.settings = settings;
+	return band;
 }

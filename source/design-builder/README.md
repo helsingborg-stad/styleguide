@@ -15,8 +15,13 @@ Entry file:
 Styles:
 - source/design-builder/design-builder.scss
 
-Control rendering helpers:
+Control rendering entry:
 - source/design-builder/controls.ts
+
+Control rendering modules:
+- source/design-builder/controls/layout/*
+- source/design-builder/controls/shared/*
+- source/design-builder/controls/types.ts
 
 Global token/preset storage helpers (full page mode):
 - source/design-builder/storage.ts
@@ -269,7 +274,9 @@ Build generates:
 
 ### Add new token control behavior
 
-- Update control model and renderers in source/design-builder/controls.ts
+- Add or update layout components in source/design-builder/controls/layout/
+- Add or update shared helpers in source/design-builder/controls/shared/
+- Keep source/design-builder/controls.ts as thin composition/adapter entry
 - Ensure source/data/design-tokens.json has correct type/options metadata
 
 ### Add new customizable component

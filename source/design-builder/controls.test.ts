@@ -3,7 +3,7 @@ import './controls/SelectControl';
 import './controls/ColorControl';
 import './controls/RgbaControl';
 import './controls/FontControl';
-import { createControl, type TokenSetting } from './controls';
+import { createContrastPair, createControl, createReadOnlyControl, createSwatchBand, type TokenSetting } from './controls';
 
 describe('controls change handling', () => {
 	afterEach(() => {
@@ -137,5 +137,86 @@ describe('controls change handling', () => {
 
 		expect(onChange).toHaveBeenCalledTimes(1);
 		expect(onChange).toHaveBeenCalledWith('--font-family-body', 'Georgia, serif');
+	});
+
+	it('renders read-only control row with locked and readonly host attributes', () => {
+		const setting: TokenSetting = {
+			variable: '--color-fixed',
+			label: 'Fixed color',
+			type: 'color',
+			default: '#112233',
+			locked: true,
+		};
+
+		const row = createReadOnlyControl(setting, '#112233');
+		document.body.appendChild(row);
+
+		expect(row.hasAttribute('readonly')).toBe(true);
+		expect(row.hasAttribute('locked')).toBe(true);
+		expect(row.querySelector('.db-control-row__label')?.textContent).toBe('Fixed color');
+		expect(row.querySelector('.db-control__value-display--readonly')?.textContent).toBe('#112233');
+	});
+
+	it('updates contrast preview and bubbles contrast-change via callback', () => {
+		const base: TokenSetting = {
+			variable: '--color-primary',
+			label: 'Primary',
+			type: 'color',
+			default: '#000000',
+		};
+		const contrastSetting: TokenSetting = {
+			variable: '--color-on-primary',
+			label: 'On Primary',
+			type: 'color',
+			default: '#ffffff',
+		};
+
+		const onChange = jest.fn();
+		const pair = createContrastPair(base, [{ setting: contrastSetting, value: '#ffffff' }], '#000000', onChange);
+		document.body.appendChild(pair);
+
+		const controls = pair.querySelectorAll('color-control');
+		expect(controls.length).toBe(2);
+
+		controls[0].dispatchEvent(
+			new CustomEvent('change', {
+				detail: { value: '#123456' },
+				bubbles: true,
+				composed: true,
+			}),
+		);
+
+		const preview = pair.querySelector('.db-contrast-pair__preview') as HTMLElement;
+		expect(preview.style.backgroundColor).toBe('rgb(18, 52, 86)');
+		expect(onChange).toHaveBeenCalledWith('--color-primary', '#123456');
+	});
+
+	it('groups swatch band rows by color prefix', () => {
+		const band = createSwatchBand([
+			{
+				variable: '--color--black-10',
+				label: 'Black 10',
+				type: 'color',
+				default: '#111111',
+			},
+			{
+				variable: '--color--black-20',
+				label: 'Black 20',
+				type: 'color',
+				default: '#222222',
+			},
+			{
+				variable: '--color--white-10',
+				label: 'White 10',
+				type: 'color',
+				default: '#f8f8f8',
+			},
+		]);
+		document.body.appendChild(band);
+
+		const rows = band.querySelectorAll('.db-swatch-band__row');
+		expect(rows.length).toBe(2);
+		expect(rows[0].querySelector('.db-swatch-band__var')?.textContent).toContain('--color--black-[%]');
+		expect(rows[1].querySelector('.db-swatch-band__var')?.textContent).toContain('--color--white-[%]');
 	});
 });
