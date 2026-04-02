@@ -7,6 +7,7 @@
  */
 
 import './controls/RangeControl';
+import './controls/SelectControl';
 
 import {
 	createContrastPair,

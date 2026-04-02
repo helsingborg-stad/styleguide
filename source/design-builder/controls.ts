@@ -7,6 +7,7 @@
 
 import { html, render } from 'lit-html';
 import type { RangeControlProps } from './controls/RangeControl';
+import type { SelectControlProps } from './controls/SelectControl';
 
 export interface TokenSetting {
 	variable: string;
@@ -25,6 +26,24 @@ export interface TokenSetting {
 }
 
 export type ChangeCallback = (variable: string, value: string) => void;
+
+/**
+ * Extract value from custom control change events.
+ * Native bubbling events (e.g. select/input change) do not carry detail.
+ */
+function getControlChangeValue(event: Event): string | undefined {
+	if (!(event instanceof CustomEvent)) {
+		return undefined;
+	}
+
+	const detail = event.detail;
+	if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+		return undefined;
+	}
+
+	const value = (detail as { value?: unknown }).value;
+	return value === undefined || value === null ? undefined : String(value);
+}
 
 /**
  * Creates a control row for a single token setting.
@@ -175,8 +194,10 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
 			break;
 		}
 		case 'select': {
-			const select = row.querySelector<HTMLSelectElement>('select');
-			if (select) select.value = value;
+			const selectControl = row.querySelector<HTMLElement>('select-control');
+			if (selectControl) {
+				selectControl.setAttribute('value', value);
+			}
 			break;
 		}
 		case 'font': {
@@ -336,10 +357,15 @@ function buildRangeControl(
 			step=${props.step}
 			unit=${props.unit}
 			@change=${{
-				handleEvent: (e: CustomEvent) => {
-					props.value = String(e.detail.value);
+				handleEvent: (e: Event) => {
+					const value = getControlChangeValue(e);
+					if (value === undefined) {
+						return;
+					}
+
+					props.value = value;
 					render(rangeTemplate(props), wrap);
-					onChange(setting.variable, e.detail.value);
+					onChange(setting.variable, value);
 				},
 			}}
 		/>
@@ -365,26 +391,35 @@ function buildSelectControl(
 	currentValue: string,
 	onChange: ChangeCallback,
 ): void {
-	const isLocked = setting.locked === true;
+	const selectTemplate = (props: SelectControlProps) => html`
+		<select-control
+			value="${props.value}"
+			?locked=${props.locked}
+			options=${props.options}
+			@change=${{
+				handleEvent: (e: Event) => {
+					const value = getControlChangeValue(e);
+					if (value === undefined) {
+						return;
+					}
 
-	const select = document.createElement('select');
-	select.disabled = isLocked;
+					props.value = value;
+					render(selectTemplate(props), wrap);
+					onChange(setting.variable, value);
+				},
+			}}
+		/>
+	`;
 
-	for (const opt of setting.options || []) {
-		const option = document.createElement('option');
-		option.value = opt.value;
-		option.textContent = opt.label;
-		if (opt.value === currentValue) option.selected = true;
-		select.appendChild(option);
-	}
+	const options = Object.fromEntries((setting.options || []).map((option) => [option.value, option.label]));
 
-	wrap.appendChild(select);
+	const data: SelectControlProps = {
+		value: currentValue,
+		locked: setting.locked === true,
+		options: JSON.stringify(options),
+	};
 
-	if (!isLocked) {
-		select.addEventListener('change', () => {
-			onChange(setting.variable, select.value);
-		});
-	}
+	render(selectTemplate(data), wrap);
 }
 
 // --- Font ---

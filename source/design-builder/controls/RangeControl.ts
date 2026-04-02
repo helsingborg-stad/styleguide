@@ -35,7 +35,7 @@ class RangeControl extends HTMLElement {
 
 		const markup = () =>
 			html`
-				<input type="range" min=${min} max=${max} step=${step} .value=${live(value)} ?disabled=${isDisabled} @input=${this._onInput}/>
+				<input type="range" min=${min} max=${max} step=${step} .value=${live(value)} ?disabled=${isDisabled} @input=${(e: Event) => this._onInput(e)}/>
                 <output>${value} ${unit}</output>
             `;
 
