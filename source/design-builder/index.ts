@@ -8,6 +8,9 @@
 
 import './controls/RangeControl';
 import './controls/SelectControl';
+import './controls/ColorControl';
+import './controls/RgbaControl';
+import './controls/FontControl';
 
 import {
 	createContrastPair,

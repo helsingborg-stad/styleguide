@@ -6,7 +6,10 @@
  */
 
 import { html, render } from 'lit-html';
+import type { ColorControlProps } from './controls/ColorControl';
+import type { FontControlProps } from './controls/FontControl';
 import type { RangeControlProps } from './controls/RangeControl';
+import type { RgbaControlProps } from './controls/RgbaControl';
 import type { SelectControlProps } from './controls/SelectControl';
 
 export interface TokenSetting {
@@ -158,31 +161,17 @@ export function createReadOnlyControl(setting: TokenSetting, currentValue: strin
 function updateControlValue(row: HTMLElement, value: string, setting: TokenSetting): void {
 	switch (setting.type) {
 		case 'color': {
-			const colorInput = row.querySelector<HTMLInputElement>('input[type="color"]');
-			const textInput = row.querySelector<HTMLInputElement>('input[type="text"]');
-			if (colorInput) {
-				colorInput.value = toHex(value);
+			const colorControl = row.querySelector<HTMLElement>('color-control');
+			if (colorControl) {
+				colorControl.setAttribute('value', value);
 			}
-
-			if (textInput) {
-				textInput.value = value;
-			}
-			const swatch = row.querySelector<HTMLElement>('.db-control__swatch');
-			if (swatch) swatch.style.backgroundColor = value;
 			break;
 		}
 		case 'rgba': {
-			const colorInput = row.querySelector<HTMLInputElement>('input[type="color"]');
-			const alphaInput = row.querySelector<HTMLInputElement>('.db-control__alpha');
-			const alphaDisplay = row.querySelector<HTMLElement>('.db-control__alpha-display');
-			const textInput = row.querySelector<HTMLInputElement>('input[type="text"]');
-			const swatch = row.querySelector<HTMLElement>('.db-control__swatch');
-			const p = parseRgba(value);
-			if (colorInput) colorInput.value = toHex(`rgb(${p.r}, ${p.g}, ${p.b})`);
-			if (alphaInput) alphaInput.value = String(p.a);
-			if (alphaDisplay) alphaDisplay.textContent = String(p.a);
-			if (textInput) textInput.value = value;
-			if (swatch) swatch.style.backgroundColor = value;
+			const rgbaControl = row.querySelector<HTMLElement>('rgba-control');
+			if (rgbaControl) {
+				rgbaControl.setAttribute('value', value);
+			}
 			break;
 		}
 		case 'range': {
@@ -201,8 +190,10 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
 			break;
 		}
 		case 'font': {
-			const input = row.querySelector<HTMLInputElement>('input[type="text"]');
-			if (input) input.value = value;
+			const fontControl = row.querySelector<HTMLElement>('font-control');
+			if (fontControl) {
+				fontControl.setAttribute('value', value);
+			}
 			break;
 		}
 	}
@@ -216,48 +207,33 @@ function buildColorControl(
 	currentValue: string,
 	onChange: ChangeCallback,
 ): void {
-	const isLocked = setting.locked === true;
+	const colorTemplate = (props: ColorControlProps) => html`
+		<color-control
+			value="${props.value}"
+			?locked=${props.locked}
+			placeholder=${props.placeholder}
+			@change=${{
+				handleEvent: (e: Event) => {
+					const value = getControlChangeValue(e);
+					if (value === undefined) {
+						return;
+					}
 
-	// Hidden native color picker
-	const colorInput = document.createElement('input');
-	colorInput.type = 'color';
-	colorInput.className = 'db-control__color-hidden';
-	colorInput.value = toHex(currentValue);
-	colorInput.disabled = isLocked;
-	wrap.appendChild(colorInput);
+					props.value = value;
+					render(colorTemplate(props), wrap);
+					onChange(setting.variable, value);
+				},
+			}}
+		/>
+	`;
 
-	// Clickable swatch that opens the picker
-	const swatch = document.createElement('div');
-	swatch.className = 'db-control__swatch';
-	swatch.style.backgroundColor = currentValue;
-	if (!isLocked) {
-		swatch.classList.add('db-control__swatch--clickable');
-		swatch.addEventListener('click', () => colorInput.click());
-	}
-	wrap.appendChild(swatch);
+	const data: ColorControlProps = {
+		value: currentValue,
+		locked: setting.locked === true,
+		placeholder: setting.default,
+	};
 
-	// Text input for rgba/hex values
-	const textInput = document.createElement('input');
-	textInput.type = 'text';
-	textInput.className = 'db-control__text';
-	textInput.value = currentValue;
-	textInput.disabled = isLocked;
-	textInput.placeholder = setting.default;
-	wrap.appendChild(textInput);
-
-	if (!isLocked) {
-		colorInput.addEventListener('input', () => {
-			textInput.value = colorInput.value;
-			swatch.style.backgroundColor = colorInput.value;
-			onChange(setting.variable, colorInput.value);
-		});
-
-		textInput.addEventListener('change', () => {
-			swatch.style.backgroundColor = textInput.value;
-			colorInput.value = toHex(textInput.value);
-			onChange(setting.variable, textInput.value);
-		});
-	}
+	render(colorTemplate(data), wrap);
 }
 
 // --- RGBA Color ---
@@ -268,76 +244,33 @@ function buildRgbaControl(
 	currentValue: string,
 	onChange: ChangeCallback,
 ): void {
-	const isLocked = setting.locked === true;
-	const parsed = parseRgba(currentValue);
+	const rgbaTemplate = (props: RgbaControlProps) => html`
+		<rgba-control
+			value="${props.value}"
+			?locked=${props.locked}
+			placeholder=${props.placeholder}
+			@change=${{
+				handleEvent: (e: Event) => {
+					const value = getControlChangeValue(e);
+					if (value === undefined) {
+						return;
+					}
 
-	// Hidden native color picker
-	const colorInput = document.createElement('input');
-	colorInput.type = 'color';
-	colorInput.className = 'db-control__color-hidden';
-	colorInput.value = toHex(`rgb(${parsed.r}, ${parsed.g}, ${parsed.b})`);
-	colorInput.disabled = isLocked;
-	wrap.appendChild(colorInput);
+					props.value = value;
+					render(rgbaTemplate(props), wrap);
+					onChange(setting.variable, value);
+				},
+			}}
+		/>
+	`;
 
-	// Clickable swatch
-	const swatch = document.createElement('div');
-	swatch.className = 'db-control__swatch';
-	swatch.style.backgroundColor = currentValue;
-	if (!isLocked) {
-		swatch.classList.add('db-control__swatch--clickable');
-		swatch.addEventListener('click', () => colorInput.click());
-	}
-	wrap.appendChild(swatch);
+	const data: RgbaControlProps = {
+		value: currentValue,
+		locked: setting.locked === true,
+		placeholder: setting.default,
+	};
 
-	// Alpha slider
-	const alphaInput = document.createElement('input');
-	alphaInput.type = 'range';
-	alphaInput.className = 'db-control__alpha';
-	alphaInput.min = '0';
-	alphaInput.max = '1';
-	alphaInput.step = '0.01';
-	alphaInput.value = String(parsed.a);
-	alphaInput.disabled = isLocked;
-	wrap.appendChild(alphaInput);
-
-	const alphaDisplay = document.createElement('span');
-	alphaDisplay.className = 'db-control__value-display db-control__alpha-display';
-	alphaDisplay.textContent = String(parsed.a);
-	wrap.appendChild(alphaDisplay);
-
-	// Text input for the full rgba value
-	const textInput = document.createElement('input');
-	textInput.type = 'text';
-	textInput.className = 'db-control__text';
-	textInput.value = currentValue;
-	textInput.disabled = isLocked;
-	textInput.placeholder = setting.default;
-	wrap.appendChild(textInput);
-
-	if (!isLocked) {
-		const syncFromInputs = () => {
-			const { r, g, b } = hexToRgb(colorInput.value);
-			const a = parseFloat(alphaInput.value);
-			const rgba = toRgbaString(r, g, b, a);
-			textInput.value = rgba;
-			swatch.style.backgroundColor = rgba;
-			alphaDisplay.textContent = String(a);
-			onChange(setting.variable, rgba);
-		};
-
-		colorInput.addEventListener('input', syncFromInputs);
-		alphaInput.addEventListener('input', syncFromInputs);
-
-		textInput.addEventListener('change', () => {
-			const p = parseRgba(textInput.value);
-			const rgba = toRgbaString(p.r, p.g, p.b, p.a);
-			swatch.style.backgroundColor = rgba;
-			colorInput.value = toHex(`rgb(${p.r}, ${p.g}, ${p.b})`);
-			alphaInput.value = String(p.a);
-			alphaDisplay.textContent = String(p.a);
-			onChange(setting.variable, rgba);
-		});
-	}
+	render(rgbaTemplate(data), wrap);
 }
 
 // --- Range ---
@@ -430,29 +363,33 @@ function buildFontControl(
 	currentValue: string,
 	onChange: ChangeCallback,
 ): void {
-	const isLocked = setting.locked === true;
+	const fontTemplate = (props: FontControlProps) => html`
+		<font-control
+			value="${props.value}"
+			?locked=${props.locked}
+			placeholder=${props.placeholder}
+			@change=${{
+				handleEvent: (e: Event) => {
+					const value = getControlChangeValue(e);
+					if (value === undefined) {
+						return;
+					}
 
-	const input = document.createElement('input');
-	input.type = 'text';
-	input.className = 'db-control__text db-control__text--font';
-	input.value = currentValue;
-	input.disabled = isLocked;
-	input.placeholder = setting.default;
-	wrap.appendChild(input);
+					props.value = value;
+					render(fontTemplate(props), wrap);
+					onChange(setting.variable, value);
+				},
+			}}
+		/>
+	`;
 
-	// Font preview
-	const preview = document.createElement('span');
-	preview.className = 'db-control__font-preview';
-	preview.textContent = 'The quick brown fox';
-	preview.style.fontFamily = currentValue;
-	wrap.appendChild(preview);
+	const data: FontControlProps = {
+		value: currentValue,
+		locked: setting.locked === true,
+		placeholder: setting.default,
+	};
 
-	if (!isLocked) {
-		input.addEventListener('change', () => {
-			preview.style.fontFamily = input.value;
-			onChange(setting.variable, input.value);
-		});
-	}
+	render(fontTemplate(data), wrap);
 }
 
 // --- Contrast Pair ---
@@ -665,56 +602,13 @@ export function createSwatchBand(settings: TokenSetting[]): HTMLElement {
 // --- Helpers ---
 
 /**
- * Decompose a hex color string into RGB components.
- */
-function hexToRgb(hex: string): { r: number; g: number; b: number } {
-	return {
-		r: parseInt(hex.slice(1, 3), 16),
-		g: parseInt(hex.slice(3, 5), 16),
-		b: parseInt(hex.slice(5, 7), 16),
-	};
-}
-
-/**
- * Parse an rgba() or rgb() or hex color string into components.
- * Falls back to opaque black on failure.
- */
-function parseRgba(value: string): { r: number; g: number; b: number; a: number } {
-	const m = value.match(/rgba?\(\s*(\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\s*\)/);
-	if (m) {
-		return {
-			r: parseInt(m[1]),
-			g: parseInt(m[2]),
-			b: parseInt(m[3]),
-			a: m[4] !== undefined ? parseFloat(m[4]) : 1,
-		};
-	}
-	if (/^#[0-9a-f]{6}$/i.test(value)) {
-		return {
-			r: parseInt(value.slice(1, 3), 16),
-			g: parseInt(value.slice(3, 5), 16),
-			b: parseInt(value.slice(5, 7), 16),
-			a: 1,
-		};
-	}
-	return { r: 0, g: 0, b: 0, a: 1 };
-}
-
-/**
- * Produce a CSS rgba() string from components.
- */
-function toRgbaString(r: number, g: number, b: number, a: number): string {
-	return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
-
-/**
  * Best-effort conversion to hex for the native color picker.
  * Falls back to #000000 for rgba/complex values.
  */
 function toHex(color: string): string {
 	if (/^#[0-9a-f]{6}$/i.test(color)) return color;
 	if (/^#[0-9a-f]{3}$/i.test(color)) {
-		return '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3];
+		return `#${color[1]}${color[1]}${color[2]}${color[2]}${color[3]}${color[3]}`;
 	}
 
 	// Try parsing via a temporary element
@@ -726,9 +620,9 @@ function toHex(color: string): string {
 
 	const match = computed.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
 	if (match) {
-		const r = parseInt(match[1]).toString(16).padStart(2, '0');
-		const g = parseInt(match[2]).toString(16).padStart(2, '0');
-		const b = parseInt(match[3]).toString(16).padStart(2, '0');
+		const r = parseInt(match[1], 10).toString(16).padStart(2, '0');
+		const g = parseInt(match[2], 10).toString(16).padStart(2, '0');
+		const b = parseInt(match[3], 10).toString(16).padStart(2, '0');
 		return `#${r}${g}${b}`;
 	}
 
