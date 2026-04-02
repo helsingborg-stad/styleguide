@@ -282,6 +282,12 @@
                 'data-customizable' => 'false'
             ]
         ])
+            <design-builder
+                mode="component-customizer"
+                data-customizable="false"
+                hidden
+                aria-hidden="true"
+            ></design-builder>
         @endfab
     @endif
 

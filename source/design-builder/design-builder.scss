@@ -719,11 +719,8 @@ db-contrast-pair .db-contrast-pair {
 // --- Component-Level Customizer ---
 
 .db-component-tool {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 999;
-  width: min(420px, calc(100vw - 2rem));
+  width: 100%;
+  max-width: 420px;
   pointer-events: none;
 }
 
@@ -823,15 +820,6 @@ db-contrast-pair .db-contrast-pair {
   .db-control-row__reset {
     justify-self: start;
     margin-top: 0.25rem;
-  }
-}
-
-@media (max-width: 720px) {
-  .db-component-tool {
-    left: 0.75rem;
-    right: 0.75rem;
-    width: auto;
-    bottom: 0.75rem;
   }
 }
 

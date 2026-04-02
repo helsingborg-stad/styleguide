@@ -4,6 +4,18 @@ Complete documentation for the Design Builder runtime and component-level custom
 
 ## Overview
 
+The runtime is now bootstrapped through a root web component:
+- `<design-builder>`
+
+Root element contract:
+- `mode`: `full-page` or `component-customizer`
+- `token-data`: JSON payload used in `full-page` mode
+- `token-library`: JSON payload used in `component-customizer` mode
+- `component-data`: JSON payload used in `component-customizer` mode
+- `config`: JSON object for mode-specific options
+  - `initMode`: `onload` or `manual` for `component-customizer`
+  - `customizerContainerSelector`: optional CSS selector for host-provided customizer mount container
+
 The Design Builder runtime has two execution modes in the same entry file:
 
 1. Full page mode (route: /design-builder)
@@ -31,10 +43,11 @@ Global token/preset storage helpers (full page mode):
 ### Activation
 
 Full page mode starts when the DOM contains:
-- [data-design-builder]
+- `<design-builder mode="full-page" token-data="...json...">`
 
-The container must also include:
-- data-tokens="...json..."
+Legacy compatibility is preserved for older markup:
+- `[data-design-builder]`
+- `data-tokens="...json..."`
 
 Template source:
 - views/pages/design-builder.blade.php
@@ -64,11 +77,18 @@ From source/design-builder/storage.ts and source/design-builder/index.ts:
 
 ### Activation
 
-Component mode starts when:
+Component mode starts when either:
 
-1. No [data-design-builder] container is found, and
-2. window.styleguideCustomizeData exists, and
-3. window.styleguideDesignTokenLibrary exists and is valid
+1. A `<design-builder mode="component-customizer">` root exists, or
+2. No full-page design builder root is found, and
+3. window.styleguideCustomizeData exists, and
+4. window.styleguideDesignTokenLibrary exists and is valid
+
+If only payload globals are present, runtime auto-creates a hidden `<design-builder>` root and hydrates it from:
+- window.styleguideCustomizeData
+- window.styleguideDesignTokenLibrary
+
+Legacy full-page container detection (`[data-design-builder]`) still works and prevents component-mode auto bootstrap.
 
 Init mode is controlled by:
 - window.styleguideCustomizeInitMode = "onload" | "manual"
@@ -115,6 +135,11 @@ A component is editable when:
 
 Rendered as:
 - .db-component-tool
+
+Placement is host-controlled:
+- Runtime mounts `.db-component-tool` in a host-provided container (or nearest root host parent by default).
+- Floating/docked behavior must be implemented by host wrapper styles/layout.
+- Internal customizer styles remain placement-neutral.
 
 Features:
 - Open/close panel

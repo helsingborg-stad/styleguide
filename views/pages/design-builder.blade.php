@@ -7,11 +7,17 @@
 
 <div class="db-layout">
     {{-- Left: Token controls --}}
-    <div class="design-builder" data-design-builder data-tokens='@json($tokens)'>
+    <design-builder
+        class="design-builder"
+        mode="full-page"
+        token-data='@json($tokens)'
+        data-design-builder
+        data-tokens='@json($tokens)'
+    >
         <noscript>
             <p>The Design Builder requires JavaScript to function.</p>
         </noscript>
-    </div>
+    </design-builder>
 
     {{-- Draggable divider --}}
     <div class="db-divider" data-db-divider></div>
