@@ -6,6 +6,8 @@
  * and manages live preview + storage.
  */
 
+import './controls/RangeControl';
+
 import {
 	createContrastPair,
 	createControl,

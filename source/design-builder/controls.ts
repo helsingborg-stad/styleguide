@@ -5,6 +5,9 @@
  * token type: color, range, select, font.
  */
 
+import { html, render } from 'lit-html';
+import type { RangeControlProps } from './controls/RangeControl';
+
 export interface TokenSetting {
 	variable: string;
 	label: string;
@@ -164,11 +167,11 @@ function updateControlValue(row: HTMLElement, value: string, setting: TokenSetti
 			break;
 		}
 		case 'range': {
-			const rangeInput = row.querySelector<HTMLInputElement>('input[type="range"]');
-			const display = row.querySelector<HTMLElement>('.db-control__value-display');
 			const numVal = parseFloat(value);
-			if (rangeInput && !Number.isNaN(numVal)) rangeInput.value = String(numVal);
-			if (display) display.textContent = value;
+			const rangeControl = row.querySelector<HTMLElement>('range-control');
+			if (rangeControl && !Number.isNaN(numVal)) {
+				rangeControl.setAttribute('value', String(numVal));
+			}
 			break;
 		}
 		case 'select': {
@@ -324,31 +327,34 @@ function buildRangeControl(
 	currentValue: string,
 	onChange: ChangeCallback,
 ): void {
-	const isLocked = setting.locked === true;
-	const numVal = parseFloat(currentValue);
-	const unit = setting.unit || '';
+	const rangeTemplate = (props: RangeControlProps) => html`
+		<range-control
+			value="${props.value}"
+			?locked=${props.locked}
+			min=${props.min}
+			max=${props.max}
+			step=${props.step}
+			unit=${props.unit}
+			@change=${{
+				handleEvent: (e: CustomEvent) => {
+					props.value = String(e.detail.value);
+					render(rangeTemplate(props), wrap);
+					onChange(setting.variable, e.detail.value);
+				},
+			}}
+		/>
+	`;
 
-	const rangeInput = document.createElement('input');
-	rangeInput.type = 'range';
-	rangeInput.disabled = isLocked;
-	if (setting.min !== undefined) rangeInput.min = String(setting.min);
-	if (setting.max !== undefined) rangeInput.max = String(setting.max);
-	if (setting.step !== undefined) rangeInput.step = String(setting.step);
-	rangeInput.value = Number.isNaN(numVal) ? '0' : String(numVal);
-	wrap.appendChild(rangeInput);
+	const data: RangeControlProps = {
+		value: Number.isNaN(parseFloat(currentValue)) ? '0' : String(parseFloat(currentValue)),
+		locked: setting.locked === true,
+		min: setting.min !== undefined ? String(setting.min) : undefined,
+		max: setting.max !== undefined ? String(setting.max) : undefined,
+		step: setting.step !== undefined ? String(setting.step) : undefined,
+		unit: setting.unit,
+	};
 
-	const display = document.createElement('span');
-	display.className = 'db-control__value-display';
-	display.textContent = currentValue;
-	wrap.appendChild(display);
-
-	if (!isLocked) {
-		rangeInput.addEventListener('input', () => {
-			const val = unit ? `${rangeInput.value}${unit}` : rangeInput.value;
-			display.textContent = val;
-			onChange(setting.variable, val);
-		});
-	}
+	render(rangeTemplate(data), wrap);
 }
 
 // --- Select ---

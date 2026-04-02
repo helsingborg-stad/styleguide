@@ -9,6 +9,24 @@
  * intentionally hardcoded to prevent content jumps during editing.
  */
 
+range-control {
+  display: flex;
+  gap: 2rem;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
+
+  output {
+    font-family: monospace;
+    font-size: 0.8125rem;
+    text-align: right;
+    width: 4rem;
+  }
+}
+
 // --- Layout ---
 
 .db-layout {
