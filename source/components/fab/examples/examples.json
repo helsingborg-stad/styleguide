@@ -6,5 +6,21 @@
 	"multi": {
 		"heading": "Multi FAB",
 		"text": "Multiple FABs can be used together, but they should be used with caution to avoid overwhelming the user. When using multiple FABs, it's important to ensure that each button has a clear and distinct purpose, and that they are visually differentiated from each other. Additionally, it's important to consider the placement of the buttons to ensure that they are easily accessible and do not interfere with other elements on the screen."
+	},
+	"width-sm": {
+		"heading": "FAB width small",
+		"text": "Demonstrates the c-fab--width-sm modifier, which decreases the panel width by reducing the size multiplier."
+	},
+	"width-lg": {
+		"heading": "FAB width large",
+		"text": "Demonstrates the c-fab--width-lg modifier, which increases the panel width by increasing the size multiplier."
+	},
+	"width-xl": {
+		"heading": "FAB width x-large",
+		"text": "Demonstrates the c-fab--width-xl modifier, which significantly increases the panel width by increasing the size multiplier."
+	},
+	"height-overflow": {
+		"heading": "FAB with overflowing content",
+		"text": "Demonstrates long panel content that exceeds the viewport height, so the panel scrolls within its max-height."
 	}
 }
