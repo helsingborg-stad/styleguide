@@ -11,8 +11,8 @@ describe('RgbaControl', () => {
 		document.body.appendChild(control);
 
 		const textInput = control.querySelector('input[type="text"]') as HTMLInputElement;
-		const alphaInput = control.querySelector('input.db-control__alpha') as HTMLInputElement;
-		const alphaDisplay = control.querySelector('.db-control__alpha-display') as HTMLElement;
+		const alphaInput = control.querySelector('input.db-control-alpha') as HTMLInputElement;
+		const alphaDisplay = control.querySelector('.db-control-alpha-display') as HTMLElement;
 
 		expect(textInput.value).toBe('rgba(10, 20, 30, 0.4)');
 		expect(alphaInput.value).toBe('0.4');
@@ -27,7 +27,7 @@ describe('RgbaControl', () => {
 		const changeHandler = jest.fn();
 		control.addEventListener('change', changeHandler);
 
-		const alphaInput = control.querySelector('input.db-control__alpha') as HTMLInputElement;
+		const alphaInput = control.querySelector('input.db-control-alpha') as HTMLInputElement;
 		alphaInput.value = '0.8';
 		alphaInput.dispatchEvent(new Event('input'));
 

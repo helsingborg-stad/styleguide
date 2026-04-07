@@ -1,39 +1,66 @@
 import { createControl } from '../../controls';
-import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../state/runtimeConstants';
+import { createModeSwitcher } from '../../dom/createModeSwitcher';
+import type { DesignBuilderModeSwitch } from '../../root/types';
+import { ComponentStorageAdapter } from '../../services/ComponentStorageAdapter';
+import { applyPersistedTokenOverrides, clearPersistedTokenOverrides } from '../../services/applyPersistedOverrides';
+import { normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../../services/overrideState';
+import { SharedPresetManager } from '../../services/SharedPresetManager';
+import { LocalStorageAdapter } from '../../storage';
+import {
+	COMPONENT_STORAGE_KEY,
+	GENERAL_SCOPE_KEY,
+	GLOBAL_SCOPE_KEY,
+	NON_CUSTOMIZABLE_COMPONENTS,
+} from '../../state/runtimeConstants';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../types/runtime';
 import { normalizeComponentName } from '../../utils/componentTokens';
-import { ComponentStorageAdapter } from '../../services/ComponentStorageAdapter';
+
+export interface ComponentCustomizationRuntimeOptions {
+	modeSwitch?: DesignBuilderModeSwitch;
+}
 
 export class ComponentCustomizationRuntime {
 	private componentData: ComponentTokenData;
 	private tokenLibrary: TokenData;
 	private storage: ComponentStorageAdapter;
 	private overrides: ScopedComponentOverrides;
+	private presetManager: SharedPresetManager;
 	private elementsByComponent = new Map<string, HTMLElement[]>();
 	private editableComponents = new Set<string>();
 	private activeComponent: string | null = null;
 	private activeScopeKey: string = GENERAL_SCOPE_KEY;
-	private mountElement: HTMLElement;
+	private mountElement: HTMLElement | ShadowRoot;
 	private root: HTMLElement | null = null;
 	private controlsContainer: HTMLElement | null = null;
 	private componentSelect: HTMLSelectElement | null = null;
 	private scopeSelect: HTMLSelectElement | null = null;
+	private toggleTargetSelectionButton: HTMLButtonElement | null = null;
+	private toggleTargetSelectionLabel: HTMLElement | null = null;
 	private activeTargetElement: HTMLElement | null = null;
+	private cleanupCallbacks: Array<() => void> = [];
+	private modeSwitch?: DesignBuilderModeSwitch;
+	private presetBar: HTMLElement | null = null;
+	private isTargetSelectionEnabled = false;
 
-	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement) {
+	constructor(
+		componentData: ComponentTokenData,
+		tokenLibrary: TokenData,
+		mountElement: HTMLElement | ShadowRoot,
+		options: ComponentCustomizationRuntimeOptions = {},
+	) {
 		this.componentData = componentData;
 		this.tokenLibrary = tokenLibrary;
 		this.mountElement = mountElement;
 		this.storage = new ComponentStorageAdapter();
 		this.overrides = this.storage.load();
+		this.presetManager = new SharedPresetManager();
+		this.modeSwitch = options.modeSwitch;
 
 		this.collectComponentElements();
 		this.collectEditableComponents();
 		this.pruneUnknownOverrides();
 		this.applySavedOverrides();
-		this.setupEditableTargets();
 		this.render();
-		this.bindComponentSelection();
 	}
 
 	private collectComponentElements(): void {
@@ -112,7 +139,7 @@ export class ComponentCustomizationRuntime {
 		}
 	}
 
-	private setupEditableTargets(): void {
+	private enableTargetSelection(): void {
 		for (const [componentName, elements] of this.elementsByComponent.entries()) {
 			const isEditable = this.editableComponents.has(componentName);
 			for (const element of elements) {
@@ -126,20 +153,22 @@ export class ComponentCustomizationRuntime {
 
 				const links = element.querySelectorAll<HTMLAnchorElement>('a[href]');
 				for (const link of links) {
-					link.addEventListener('click', (event) => {
+					const handleLinkClick = (event: MouseEvent) => {
 						event.preventDefault();
+					};
+					link.addEventListener('click', handleLinkClick);
+					this.cleanupCallbacks.push(() => {
+						link.removeEventListener('click', handleLinkClick);
 					});
 				}
 			}
 		}
-	}
 
-	private bindComponentSelection(): void {
 		for (const [componentName, elements] of this.elementsByComponent.entries()) {
 			if (!this.editableComponents.has(componentName)) continue;
 
 			for (const element of elements) {
-				element.addEventListener('click', (event: MouseEvent) => {
+				const handleElementClick = (event: MouseEvent) => {
 					event.preventDefault();
 					event.stopPropagation();
 
@@ -153,47 +182,137 @@ export class ComponentCustomizationRuntime {
 						this.componentSelect.value = componentName;
 					}
 					this.renderControls();
-					this.root.classList.add('db-component-tool--open');
+					this.root.hidden = false;
+					this.setTargetSelectionEnabled(false);
+				};
+
+				element.addEventListener('click', handleElementClick);
+				this.cleanupCallbacks.push(() => {
+					element.removeEventListener('click', handleElementClick);
 				});
 			}
 		}
 	}
 
+	private disableTargetSelection(): void {
+		for (const cleanup of this.cleanupCallbacks.splice(0).reverse()) {
+			cleanup();
+		}
+
+		for (const elements of this.elementsByComponent.values()) {
+			for (const element of elements) {
+				element.classList.remove('db-component-target');
+				delete element.dataset.customizeTooltip;
+			}
+		}
+	}
+
+	private setTargetSelectionEnabled(enabled: boolean): void {
+		if (this.isTargetSelectionEnabled === enabled) {
+			this.updateTargetSelectionButton();
+			return;
+		}
+
+		this.isTargetSelectionEnabled = enabled;
+
+		if (enabled) {
+			this.enableTargetSelection();
+		} else {
+			this.disableTargetSelection();
+		}
+
+		this.updateTargetSelectionButton();
+	}
+
+	private updateTargetSelectionButton(): void {
+		if (!this.toggleTargetSelectionButton || !this.toggleTargetSelectionLabel) {
+			return;
+		}
+
+		this.toggleTargetSelectionLabel.textContent = this.isTargetSelectionEnabled ? 'Stop picking' : 'Pick on page';
+		this.toggleTargetSelectionButton.setAttribute('aria-pressed', this.isTargetSelectionEnabled ? 'true' : 'false');
+		this.toggleTargetSelectionButton.setAttribute(
+			'title',
+			this.isTargetSelectionEnabled ? 'Stop picking a component from the page' : 'Pick a component from the page',
+		);
+		this.toggleTargetSelectionButton.classList.toggle('db-btn-primary', this.isTargetSelectionEnabled);
+	}
+
 	private render(): void {
 		if (this.editableComponents.size === 0) return;
 
-		const root = document.createElement('aside');
-		root.className = 'db-component-tool';
+		const root = document.createElement('div');
+		root.className = 'db-builder db-builder-customizer';
+		root.hidden = true;
 		root.innerHTML = `
-<div class="db-component-tool__panel">
-<div class="db-component-tool__header">
-<strong>Component customization</strong>
-<button type="button" class="db-component-tool__close" data-action="close-panel" aria-label="Close component customization">×</button>
-</div>
-<div class="db-component-tool__select-row">
-<label for="db-component-select">Component</label>
-<select id="db-component-select" data-action="select-component"></select>
-</div>
-<div class="db-component-tool__select-row">
-<label for="db-scope-select">Scope</label>
-<select id="db-scope-select" data-action="select-scope"></select>
-</div>
-<div class="db-component-tool__actions">
-<button type="button" class="db-btn" data-action="reset-component">Reset selected</button>
-<button type="button" class="db-btn db-btn--danger" data-action="reset-all-components">Reset all</button>
-</div>
-<div class="db-component-tool__controls" data-component-controls></div>
-</div>
-`;
+			<div class="db-header">
+				<h1 class="db-header-title">Design Builder</h1>
+				<p class="db-header-subtitle">${this.tokenLibrary.name} v${this.tokenLibrary.version}</p>
+				<div class="db-header-actions" data-header-actions>
+					<button type="button" class="db-btn" data-action="toggle-target-selection" aria-pressed="false">
+						<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M4 3h7v2H6v5H4V3Zm10 0h6v7h-2V5h-4V3ZM4 14h2v4h5v2H4v-6Zm14 0h2v6h-7v-2h5v-4Zm-6-3 6-6v4h4l-6 6V11h-4Z" />
+						</svg>
+						<span data-role="toggle-target-selection-label">Pick on page</span>
+					</button>
+					<button type="button" class="db-btn" data-action="export">Export JSON</button>
+					<button type="button" class="db-btn" data-action="import">Import JSON</button>
+					<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components">Reset all</button>
+					<button type="button" class="db-btn db-btn-primary" data-action="save-preset">Save preset</button>
+					<input type="file" accept=".json,application/json" data-action="import-file" hidden>
+				</div>
+			</div>
+			<div data-preset-bar></div>
+			<div class="db-presets">
+				<div class="db-builder-context-grid">
+					<label class="db-builder-context-row" for="db-component-select">Component
+						<select id="db-component-select" class="db-control-text" data-action="select-component"></select>
+					</label>
+					<label class="db-builder-context-row" for="db-scope-select">Scope
+						<select id="db-scope-select" class="db-control-text" data-action="select-scope"></select>
+					</label>
+				</div>
+				<div class="db-header-actions">
+					<button type="button" class="db-btn" data-action="reset-component">Reset selected</button>
+				</div>
+			</div>
+			<div class="db-categories" data-component-controls></div>
+		`;
 
 		this.mountElement.appendChild(root);
 		this.root = root;
 		this.controlsContainer = root.querySelector<HTMLElement>('[data-component-controls]');
 		this.componentSelect = root.querySelector<HTMLSelectElement>('[data-action="select-component"]');
 		this.scopeSelect = root.querySelector<HTMLSelectElement>('[data-action="select-scope"]');
+		this.toggleTargetSelectionButton = root.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
+		this.toggleTargetSelectionLabel = root.querySelector<HTMLElement>('[data-role="toggle-target-selection-label"]');
+		this.presetBar = this.renderPresetBar();
+		root.querySelector<HTMLElement>('[data-preset-bar]')?.replaceWith(this.presetBar);
+		const headerActions = root.querySelector<HTMLElement>('[data-header-actions]');
+		const modeSwitcher = this.modeSwitch ? createModeSwitcher(this.modeSwitch) : null;
+		if (headerActions && modeSwitcher) {
+			headerActions.prepend(modeSwitcher);
+		}
 
 		const closeButton = root.querySelector<HTMLElement>('[data-action="close-panel"]');
-		closeButton?.addEventListener('click', () => root.classList.remove('db-component-tool--open'));
+		closeButton?.addEventListener('click', () => {
+			root.hidden = true;
+		});
+
+		const importInput = root.querySelector<HTMLInputElement>('[data-action="import-file"]');
+		root.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson());
+		root.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click());
+		importInput?.addEventListener('change', () => {
+			const file = importInput.files?.[0];
+			if (!file) return;
+			void this.importJson(file);
+			importInput.value = '';
+		});
+		root.querySelector('[data-action="save-preset"]')?.addEventListener('click', () => this.savePreset());
+		this.toggleTargetSelectionButton?.addEventListener('click', () => {
+			this.setTargetSelectionEnabled(!this.isTargetSelectionEnabled);
+		});
+		this.updateTargetSelectionButton();
 
 		if (this.componentSelect) {
 			this.componentSelect.innerHTML = '';
@@ -241,14 +360,11 @@ export class ComponentCustomizationRuntime {
 		});
 
 		this.renderControls();
-		if (this.activeComponent) {
-			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
-		}
 	}
 
 	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
 		if (this.activeTargetElement) {
-			this.activeTargetElement.classList.remove('db-component-target--active');
+			this.activeTargetElement.classList.remove('db-component-target-active');
 		}
 
 		const candidates = this.getElementsForContext(componentName, scopeKey);
@@ -268,7 +384,7 @@ export class ComponentCustomizationRuntime {
 			return;
 		}
 
-		target.classList.add('db-component-target--active');
+		target.classList.add('db-component-target-active');
 		this.activeTargetElement = target;
 
 		if (this.scopeSelect) {
@@ -364,6 +480,174 @@ export class ComponentCustomizationRuntime {
 		return componentName;
 	}
 
+	private renderPresetBar(): HTMLElement {
+		const bar = document.createElement('div');
+		bar.className = 'db-presets';
+
+		const names = this.presetManager.names();
+		if (names.length === 0) {
+			bar.hidden = true;
+			bar.classList.add('u-display--none');
+			return bar;
+		}
+
+		const list = document.createElement('div');
+		list.className = 'db-presets-list';
+		const activeName = this.presetManager.getActive();
+
+		for (const name of names) {
+			list.appendChild(this.createPresetChip(name, name === activeName));
+		}
+
+		bar.appendChild(list);
+		return bar;
+	}
+
+	private createPresetChip(name: string, isActive: boolean): HTMLElement {
+		const chip = document.createElement('button');
+		chip.type = 'button';
+		chip.className = 'db-presets-chip';
+		if (isActive) {
+			chip.classList.add('db-presets-chip-active');
+		}
+
+		const label = document.createElement('span');
+		label.className = 'db-presets-chip-label';
+		label.textContent = name;
+		chip.appendChild(label);
+
+		const del = document.createElement('span');
+		del.className = 'db-presets-chip-delete';
+		del.textContent = '\u00d7';
+		del.title = `Delete "${name}"`;
+		del.addEventListener('click', (event) => {
+			event.stopPropagation();
+			this.deletePreset(name);
+		});
+		chip.appendChild(del);
+
+		chip.addEventListener('click', () => this.loadPreset(name));
+		return chip;
+	}
+
+	private savePreset(): void {
+		const name = prompt('Preset name:');
+		if (!name || !name.trim()) return;
+
+		const trimmed = name.trim();
+		const existing = this.presetManager.names();
+		if (existing.includes(trimmed)) {
+			if (!confirm(`A preset named "${trimmed}" already exists. Overwrite it?`)) {
+				return;
+			}
+		}
+
+		this.presetManager.save(trimmed, this.getCurrentPresetState());
+		this.presetManager.setActive(trimmed);
+		this.refreshPresetBar();
+	}
+
+	private loadPreset(name: string): void {
+		const all = this.presetManager.loadAll();
+		const presetOverrides = all[name];
+		if (!presetOverrides) return;
+
+		const tokenStorage = new LocalStorageAdapter();
+		clearPersistedTokenOverrides(tokenStorage.load());
+		applyPersistedTokenOverrides(presetOverrides.token);
+		tokenStorage.save(presetOverrides.token);
+
+		this.clearAppliedOverrides();
+		this.overrides = this.storage.normalize(presetOverrides.component);
+		this.applySavedOverrides();
+		this.storage.save(this.overrides);
+		this.presetManager.setActive(name);
+		this.refreshPresetBar();
+		this.renderControls();
+	}
+
+	private deletePreset(name: string): void {
+		if (!confirm(`Delete preset "${name}"?`)) return;
+		this.presetManager.delete(name);
+		this.refreshPresetBar();
+	}
+
+	private refreshPresetBar(): void {
+		if (!this.presetBar) {
+			return;
+		}
+
+		const newBar = this.renderPresetBar();
+		this.presetBar.replaceWith(newBar);
+		this.presetBar = newBar;
+	}
+
+	private getCurrentPresetState(): DesignBuilderOverrideState {
+		return {
+			token: new LocalStorageAdapter().load(),
+			component: this.storage.normalize(this.overrides),
+		};
+	}
+
+	private exportJson(): void {
+		let state = normalizeDesignBuilderOverrideState({});
+		try {
+			const raw = localStorage.getItem(COMPONENT_STORAGE_KEY);
+			state = raw ? normalizeDesignBuilderOverrideState(JSON.parse(raw)) : state;
+		} catch {
+			state = normalizeDesignBuilderOverrideState({});
+		}
+
+		state.component = this.storage.normalize(this.overrides);
+		const data = JSON.stringify(state, null, 2);
+		const blob = new Blob([data], { type: 'application/json' });
+		const url = URL.createObjectURL(blob);
+		const anchor = document.createElement('a');
+		anchor.href = url;
+		anchor.download = 'design-builder-overrides.json';
+		anchor.click();
+		URL.revokeObjectURL(url);
+	}
+
+	private async importJson(file: File): Promise<void> {
+		let fileContent: string;
+		try {
+			fileContent = await file.text();
+		} catch {
+			alert('Error: Could not read the selected JSON file.');
+			return;
+		}
+
+		let parsed: unknown;
+		try {
+			parsed = JSON.parse(fileContent);
+		} catch {
+			alert('Error: Invalid JSON file.');
+			return;
+		}
+
+		const importedState = normalizeDesignBuilderOverrideState(parsed);
+		const importedOverrides = importedState.component;
+		if (Object.keys(importedOverrides).length === 0) {
+			alert('Error: No recognized component overrides were found in the selected file.');
+			return;
+		}
+
+		const tokenStorage = new LocalStorageAdapter();
+		const currentTokenOverrides = tokenStorage.load();
+		clearPersistedTokenOverrides(currentTokenOverrides);
+		applyPersistedTokenOverrides(importedState.token);
+		tokenStorage.save(importedState.token);
+
+		this.clearAppliedOverrides();
+		this.overrides = importedOverrides;
+		this.applySavedOverrides();
+		this.storage.save(this.overrides);
+		this.presetManager.clearActive();
+		this.refreshPresetBar();
+		this.renderControls();
+	}
+
 	private renderControls(): void {
 		if (!this.controlsContainer) return;
 		this.controlsContainer.innerHTML = '';
@@ -384,12 +668,12 @@ export class ComponentCustomizationRuntime {
 			section.className = 'db-category';
 
 			const header = document.createElement('div');
-			header.className = 'db-category__header';
-			header.innerHTML = `<h2 class="db-category__title">${category.label}</h2>`;
+			header.className = 'db-category-header';
+			header.innerHTML = `<h2 class="db-category-title">${category.label}</h2>`;
 			section.appendChild(header);
 
 			const body = document.createElement('div');
-			body.className = 'db-category__body';
+			body.className = 'db-category-body';
 
 			for (const setting of category.settings) {
 				const currentValue =
@@ -470,6 +754,8 @@ export class ComponentCustomizationRuntime {
 		}
 
 		this.storage.save(this.overrides);
+		this.presetManager.clearActive();
+		this.refreshPresetBar();
 	}
 
 	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {
@@ -504,6 +790,16 @@ export class ComponentCustomizationRuntime {
 		}
 	}
 
+	private clearAppliedOverrides(): void {
+		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
+			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
+				for (const variable of Object.keys(componentOverrides)) {
+					this.removeVariable(componentName, scopeKey, variable);
+				}
+			}
+		}
+	}
+
 	private resetComponent(componentName: string): void {
 		const scopeLabel = this.getScopeLabel(this.activeScopeKey);
 		const labelSuffix = scopeLabel ? ` in scope "${scopeLabel}"` : '';
@@ -523,6 +819,8 @@ export class ComponentCustomizationRuntime {
 			}
 		}
 		this.storage.save(this.overrides);
+		this.presetManager.clearActive();
+		this.refreshPresetBar();
 		this.renderControls();
 	}
 
@@ -531,16 +829,38 @@ export class ComponentCustomizationRuntime {
 			return;
 		}
 
-		for (const [scopeKey, scopeOverrides] of Object.entries(this.overrides)) {
-			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
-				for (const variable of Object.keys(componentOverrides)) {
-					this.removeVariable(componentName, scopeKey, variable);
-				}
+		this.clearAppliedOverrides();
+		this.overrides = {};
+		this.storage.save(this.overrides);
+		this.presetManager.clearActive();
+		this.refreshPresetBar();
+		this.renderControls();
+	}
+
+	public dispose(): void {
+		if (this.activeTargetElement) {
+			this.activeTargetElement.classList.remove('db-component-target-active');
+			this.activeTargetElement = null;
+		}
+
+		for (const cleanup of this.cleanupCallbacks.splice(0).reverse()) {
+			cleanup();
+		}
+
+		for (const elements of this.elementsByComponent.values()) {
+			for (const element of elements) {
+				element.classList.remove('db-component-target', 'db-component-target-active');
+				delete element.dataset.customizeTooltip;
 			}
 		}
 
-		this.overrides = {};
-		this.storage.save(this.overrides);
-		this.renderControls();
+		this.root?.remove();
+		this.root = null;
+		this.controlsContainer = null;
+		this.componentSelect = null;
+		this.scopeSelect = null;
+		this.toggleTargetSelectionButton = null;
+		this.toggleTargetSelectionLabel = null;
+		this.presetBar = null;
 	}
 }

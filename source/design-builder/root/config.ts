@@ -8,7 +8,6 @@ import {
 
 interface ParseRootConfigurationInput {
 	hostElement: DesignBuilderRootElement;
-	propertyMode: DesignBuilderMode | null;
 	propertyConfig: Record<string, unknown> | null;
 	propertyTokenData: unknown;
 	propertyTokenLibraryData: unknown;
@@ -61,12 +60,29 @@ function resolveMode(raw: unknown): DesignBuilderMode | null {
 	return null;
 }
 
+function hasPayload(value: unknown): boolean {
+	return value !== undefined && value !== null;
+}
+
+function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, componentData: unknown): DesignBuilderMode[] {
+	const availableModes: DesignBuilderMode[] = [];
+
+	if (hasPayload(tokenData) || hasPayload(tokenLibraryData)) {
+		availableModes.push(DESIGN_BUILDER_MODE_FULL_PAGE);
+	}
+
+	if (hasPayload(tokenLibraryData) && hasPayload(componentData)) {
+		availableModes.push(DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER);
+	}
+
+	return availableModes;
+}
+
 export function parseDesignBuilderRootConfiguration(
 	input: ParseRootConfigurationInput,
 ): DesignBuilderRootConfiguration {
 	const {
 		hostElement,
-		propertyMode,
 		propertyConfig,
 		propertyTokenData,
 		propertyTokenLibraryData,
@@ -76,7 +92,6 @@ export function parseDesignBuilderRootConfiguration(
 	const configFromAttribute = parseJsonObject(hostElement.getAttribute('config'));
 	const modeFromConfig = resolveMode(configFromAttribute.mode);
 	const modeFromAttribute = resolveMode(hostElement.getAttribute('mode'));
-	const resolvedMode = propertyMode ?? modeFromAttribute ?? modeFromConfig ?? DESIGN_BUILDER_MODE_FULL_PAGE;
 
 	const config = {
 		...configFromAttribute,
@@ -85,11 +100,25 @@ export function parseDesignBuilderRootConfiguration(
 
 	const tokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
 	const tokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
-
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
+	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
+
+	const resolvedMode =
+		modeFromAttribute ??
+		modeFromConfig ??
+		(hasPayload(tokenData)
+			? DESIGN_BUILDER_MODE_FULL_PAGE
+			: hasPayload(componentData) && hasPayload(tokenLibraryData)
+				? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER
+				: availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE);
+
+	if (!availableModes.includes(resolvedMode)) {
+		availableModes.unshift(resolvedMode);
+	}
 
 	return {
 		mode: resolvedMode,
+		availableModes,
 		config,
 		tokenData,
 		tokenLibraryData,

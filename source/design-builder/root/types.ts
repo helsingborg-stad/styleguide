@@ -5,19 +5,33 @@ export type DesignBuilderMode = typeof DESIGN_BUILDER_MODE_FULL_PAGE | typeof DE
 
 export interface DesignBuilderRootConfiguration {
 	mode: DesignBuilderMode;
+	availableModes: DesignBuilderMode[];
 	config: Record<string, unknown>;
 	tokenData: unknown;
 	tokenLibraryData: unknown;
 	componentData: unknown;
 }
 
+export interface DesignBuilderModeSwitch {
+	activeMode: DesignBuilderMode;
+	availableModes: DesignBuilderMode[];
+	onSwitch: (mode: DesignBuilderMode) => void;
+}
+
 export interface DesignBuilderModeAdapterContext {
 	hostElement: DesignBuilderRootElement;
 	configuration: DesignBuilderRootConfiguration;
 	renderContainer: ShadowRoot;
+	modeSwitch: DesignBuilderModeSwitch;
 }
 
-export type DesignBuilderModeAdapter = (context: DesignBuilderModeAdapterContext) => void | Promise<void>;
+export interface DesignBuilderModeAdapterResult {
+	dispose?: () => void | Promise<void>;
+}
+
+export type DesignBuilderModeAdapter = (
+	context: DesignBuilderModeAdapterContext,
+) => DesignBuilderModeAdapterResult | void | Promise<DesignBuilderModeAdapterResult | void>;
 
 export interface DesignBuilderRootElement extends HTMLElement {
 	mode: DesignBuilderMode;
@@ -26,4 +40,5 @@ export interface DesignBuilderRootElement extends HTMLElement {
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	getRenderContainer(): ShadowRoot;
+	switchMode(mode: DesignBuilderMode): void;
 }

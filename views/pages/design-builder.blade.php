@@ -3,16 +3,17 @@
 @section('content')
 @php
     $tokens = json_decode(file_get_contents(BASEPATH . 'source/data/design-tokens.json'), true);
+    $customizeComponentData = json_decode($customizeAssets['data'] ?? 'null', true);
+    $customizeTokenLibrary = json_decode($customizeAssets['tokenLibrary'] ?? 'null', true);
 @endphp
 
 <div class="db-layout">
     {{-- Left: Token controls --}}
     <design-builder
         class="design-builder"
-        mode="full-page"
         token-data='@json($tokens)'
-        data-design-builder
-        data-tokens='@json($tokens)'
+        token-library='@json($customizeTokenLibrary)'
+        component-data='@json($customizeComponentData)'
     >
         <noscript>
             <p>The Design Builder requires JavaScript to function.</p>

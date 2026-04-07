@@ -1,8 +1,4 @@
-import {
-	DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER,
-	DESIGN_BUILDER_MODE_FULL_PAGE,
-	type DesignBuilderRootElement,
-} from '../root/types';
+import type { DesignBuilderRootElement } from '../root/types';
 import { resolveCustomizeInitMode } from '../services/customizeInitMode';
 
 function serializePayload(value: unknown): string | null {
@@ -34,40 +30,8 @@ function parseObjectAttribute(value: string | null): Record<string, unknown> {
 	}
 }
 
-function isFullPageCandidate(rootElement: HTMLElement): boolean {
-	const mode = rootElement.getAttribute('mode')?.trim().toLowerCase();
-	return (
-		mode === DESIGN_BUILDER_MODE_FULL_PAGE ||
-		rootElement.hasAttribute('token-data') ||
-		rootElement.hasAttribute('data-tokens') ||
-		rootElement.hasAttribute('data-design-builder')
-	);
-}
-
-function isComponentCandidate(rootElement: HTMLElement): boolean {
-	const mode = rootElement.getAttribute('mode')?.trim().toLowerCase();
-	return (
-		mode === DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER ||
-		rootElement.hasAttribute('component-data') ||
-		rootElement.hasAttribute('token-library')
-	);
-}
-
-export function getExistingRootElement(): DesignBuilderRootElement | null {
-	const rootElements = Array.from(document.querySelectorAll<DesignBuilderRootElement>('design-builder'));
-	if (rootElements.length === 0) {
-		return null;
-	}
-
-	if (rootElements.length === 1) {
-		return rootElements[0];
-	}
-
-	return (
-		rootElements.find((rootElement) => isFullPageCandidate(rootElement)) ??
-		rootElements.find((rootElement) => isComponentCandidate(rootElement)) ??
-		rootElements[0]
-	);
+export function getExistingRootElements(): DesignBuilderRootElement[] {
+	return Array.from(document.querySelectorAll<DesignBuilderRootElement>('design-builder'));
 }
 
 function mergeCustomizeConfig(rootElement: DesignBuilderRootElement): void {
@@ -126,15 +90,6 @@ function normalizeLegacyRootAttributes(rootElement: DesignBuilderRootElement): v
 		}
 	}
 
-	const modeAttribute = rootElement.getAttribute('mode')?.trim().toLowerCase() ?? '';
-	if (modeAttribute === '') {
-		if (isFullPageCandidate(rootElement)) {
-			rootElement.setAttribute('mode', DESIGN_BUILDER_MODE_FULL_PAGE);
-		} else if (isComponentCandidate(rootElement)) {
-			rootElement.setAttribute('mode', DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER);
-		}
-	}
-
 	hydrateComponentPayload(rootElement);
 }
 
@@ -150,7 +105,6 @@ export function createRootElementFromLegacyContainer(container: HTMLElement): De
 		rootElement.setAttribute('token-data', legacyTokenData);
 	}
 
-	rootElement.setAttribute('mode', DESIGN_BUILDER_MODE_FULL_PAGE);
 	rootElement.innerHTML = container.innerHTML;
 	container.replaceWith(rootElement);
 
@@ -169,7 +123,6 @@ function createComponentRootElementFromPayload(): DesignBuilderRootElement | nul
 	}
 
 	const componentRootElement = document.createElement('design-builder') as DesignBuilderRootElement;
-	componentRootElement.setAttribute('mode', DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER);
 	componentRootElement.setAttribute('component-data', serializedComponentData);
 	componentRootElement.setAttribute('token-library', serializedTokenLibrary);
 	componentRootElement.setAttribute('config', JSON.stringify({ initMode: resolveCustomizeInitMode() }));
@@ -181,17 +134,22 @@ function createComponentRootElementFromPayload(): DesignBuilderRootElement | nul
 	return componentRootElement;
 }
 
-export function resolveRootElementToInitialize(): DesignBuilderRootElement | null {
-	const existingRootElement = getExistingRootElement();
-	if (existingRootElement) {
-		normalizeLegacyRootAttributes(existingRootElement);
-		return existingRootElement;
+export function resolveRootElementsToInitialize(): DesignBuilderRootElement[] {
+	const existingRootElements = getExistingRootElements();
+	if (existingRootElements.length > 0) {
+		for (const existingRootElement of existingRootElements) {
+			normalizeLegacyRootAttributes(existingRootElement);
+		}
+		return existingRootElements;
 	}
 
-	const legacyContainer = document.querySelector<HTMLElement>('[data-design-builder]');
-	if (legacyContainer) {
-		return createRootElementFromLegacyContainer(legacyContainer);
+	const legacyContainers = Array.from(document.querySelectorAll<HTMLElement>('[data-design-builder]')).filter(
+		(container) => container.tagName.toLowerCase() !== 'design-builder',
+	);
+	if (legacyContainers.length > 0) {
+		return legacyContainers.map((legacyContainer) => createRootElementFromLegacyContainer(legacyContainer));
 	}
 
-	return createComponentRootElementFromPayload();
+	const payloadRoot = createComponentRootElementFromPayload();
+	return payloadRoot ? [payloadRoot] : [];
 }

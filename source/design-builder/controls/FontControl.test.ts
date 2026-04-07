@@ -5,16 +5,14 @@ describe('FontControl', () => {
 		document.body.innerHTML = '';
 	});
 
-	it('renders input and preview with provided value', () => {
+	it('renders input with provided value', () => {
 		const control = document.createElement('font-control');
 		control.setAttribute('value', 'Georgia, serif');
 		document.body.appendChild(control);
 
 		const input = control.querySelector('input[type="text"]') as HTMLInputElement;
-		const preview = control.querySelector('.db-control__font-preview') as HTMLElement;
 
 		expect(input.value).toBe('Georgia, serif');
-		expect(preview.style.fontFamily).toContain('Georgia');
 	});
 
 	it('dispatches change event on text input change', () => {

@@ -32,26 +32,14 @@ class RgbaControl extends HTMLElement {
 			html`
 				<input
 					type="color"
-					class="db-control__color-hidden"
+					class="db-control-color-input"
 					.value=${live(colorValue)}
 					?disabled=${isDisabled}
 					@input=${() => this.syncFromColorAndAlpha()}
 				/>
-				<div
-					class="db-control__swatch ${isDisabled ? '' : 'db-control__swatch--clickable'}"
-					style="background-color: ${value}"
-					@click=${() => {
-						if (isDisabled) {
-							return;
-						}
-
-						const colorInput = this.querySelector<HTMLInputElement>('input[type="color"]');
-						colorInput?.click();
-					}}
-				></div>
 				<input
 					type="range"
-					class="db-control__alpha"
+					class="db-control-alpha"
 					min="0"
 					max="1"
 					step="0.01"
@@ -59,10 +47,10 @@ class RgbaControl extends HTMLElement {
 					?disabled=${isDisabled}
 					@input=${() => this.syncFromColorAndAlpha()}
 				/>
-				<span class="db-control__value-display db-control__alpha-display">${alphaValue}</span>
+				<span class="db-control-value-display db-control-alpha-display">${alphaValue}</span>
 				<input
 					type="text"
-					class="db-control__text"
+					class="db-control-text"
 					.value=${live(value)}
 					?disabled=${isDisabled}
 					placeholder=${placeholder}
@@ -75,7 +63,7 @@ class RgbaControl extends HTMLElement {
 
 	private syncFromColorAndAlpha() {
 		const colorInput = this.querySelector<HTMLInputElement>('input[type="color"]');
-		const alphaInput = this.querySelector<HTMLInputElement>('.db-control__alpha');
+		const alphaInput = this.querySelector<HTMLInputElement>('.db-control-alpha');
 		if (!colorInput || !alphaInput) {
 			return;
 		}

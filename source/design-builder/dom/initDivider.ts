@@ -4,6 +4,9 @@ export function initDivider(): void {
 	const layout = document.querySelector<HTMLElement>('.db-layout');
 	const divider = document.querySelector<HTMLElement>('[data-db-divider]');
 	if (!layout || !divider) return;
+	if (divider.dataset.dbDividerInitialized === 'true') return;
+
+	divider.dataset.dbDividerInitialized = 'true';
 
 	const saved = localStorage.getItem(SPLIT_STORAGE_KEY);
 	if (saved) {

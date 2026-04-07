@@ -1,15 +1,18 @@
 import { loadTokenLibrary, isTokenData } from '../../services/tokenData';
 import { parseComponentTokenData } from '../../utils/componentTokens';
 import type { DesignBuilderRootInitConfig } from '../../types/runtime';
+import type { DesignBuilderModeSwitch } from '../../root/types';
 import { ComponentCustomizationRuntime } from './ComponentCustomizationRuntime';
 
-let hasInitializedComponentCustomization = false;
-let customizationPanelMountElement: HTMLElement | null = null;
-let componentCustomizationInitializationPromise: Promise<void> | null = null;
+const COMPONENT_CUSTOMIZER_STYLE_ID = 'design-builder-component-customizer-style';
+const COMPONENT_CUSTOMIZER_STYLE_ASSET = '/assets/dist/css/design-builder.css';
+
+let componentCustomizationStyleReady: Promise<void> | null = null;
 
 export interface ComponentCustomizationInitializationOptions {
-	mountElement?: HTMLElement;
+	mountElement?: HTMLElement | ShadowRoot;
 	openOnInitialize?: boolean;
+	modeSwitch?: DesignBuilderModeSwitch;
 }
 
 export async function initializeComponentCustomizationTool(
@@ -17,48 +20,29 @@ export async function initializeComponentCustomizationTool(
 	tokenLibraryPayload: unknown,
 	rootConfig?: DesignBuilderRootInitConfig,
 	options: ComponentCustomizationInitializationOptions = {},
-): Promise<void> {
-	if (componentCustomizationInitializationPromise) {
-		await componentCustomizationInitializationPromise;
-		if (options.openOnInitialize) {
-			openComponentCustomizationPanel(options.mountElement ?? customizationPanelMountElement ?? undefined);
-		}
-		return;
+): Promise<ComponentCustomizationRuntime | null> {
+	const mountElement = options.mountElement ?? resolveMountElement(rootConfig);
+	await ensureComponentCustomizerStyles(mountElement);
+
+	const customizeData = parseComponentTokenData(componentTokenData);
+	if (Object.keys(customizeData).length === 0) {
+		return null;
 	}
 
-	if (hasInitializedComponentCustomization) {
-		if (options.openOnInitialize) {
-			openComponentCustomizationPanel(options.mountElement ?? customizationPanelMountElement ?? undefined);
-		}
-		return;
+	const tokenLibrary = isTokenData(tokenLibraryPayload) ? tokenLibraryPayload : await loadTokenLibrary();
+	if (!tokenLibrary) {
+		return null;
 	}
 
-	componentCustomizationInitializationPromise = (async () => {
-		const customizeData = parseComponentTokenData(componentTokenData);
-		if (Object.keys(customizeData).length === 0) {
-			return;
-		}
+	const runtime = new ComponentCustomizationRuntime(customizeData, tokenLibrary, mountElement, {
+		modeSwitch: options.modeSwitch,
+	});
 
-		const tokenLibrary = isTokenData(tokenLibraryPayload) ? tokenLibraryPayload : await loadTokenLibrary();
-		if (!tokenLibrary) {
-			return;
-		}
-
-		const mountElement = options.mountElement ?? resolveMountElement(rootConfig);
-		new ComponentCustomizationRuntime(customizeData, tokenLibrary, mountElement);
-		customizationPanelMountElement = mountElement;
-		hasInitializedComponentCustomization = true;
-
-		if (options.openOnInitialize) {
-			openComponentCustomizationPanel(mountElement);
-		}
-	})();
-
-	try {
-		await componentCustomizationInitializationPromise;
-	} finally {
-		componentCustomizationInitializationPromise = null;
+	if (options.openOnInitialize) {
+		openComponentCustomizationPanel(mountElement);
 	}
+
+	return runtime;
 }
 
 function resolveMountElement(rootConfig?: DesignBuilderRootInitConfig): HTMLElement {
@@ -75,10 +59,37 @@ function resolveMountElement(rootConfig?: DesignBuilderRootInitConfig): HTMLElem
 }
 
 export function openComponentCustomizationPanel(mountElement?: ParentNode): void {
-	const panelRoot = (mountElement ?? document).querySelector<HTMLElement>('.db-component-tool');
+	const panelRoot = (mountElement ?? document).querySelector<HTMLElement>('.db-builder-customizer');
 	if (!panelRoot) {
 		return;
 	}
 
-	panelRoot.classList.add('db-component-tool--open');
+	panelRoot.hidden = false;
+}
+
+async function ensureComponentCustomizerStyles(mountElement: HTMLElement | ShadowRoot): Promise<void> {
+	if (mountElement instanceof ShadowRoot) {
+		return;
+	}
+
+	if (document.getElementById(COMPONENT_CUSTOMIZER_STYLE_ID)) {
+		return;
+	}
+
+	if (componentCustomizationStyleReady) {
+		await componentCustomizationStyleReady;
+		return;
+	}
+
+	componentCustomizationStyleReady = new Promise<void>((resolve) => {
+		const link = document.createElement('link');
+		link.id = COMPONENT_CUSTOMIZER_STYLE_ID;
+		link.rel = 'stylesheet';
+		link.href = COMPONENT_CUSTOMIZER_STYLE_ASSET;
+		link.addEventListener('load', () => resolve(), { once: true });
+		link.addEventListener('error', () => resolve(), { once: true });
+		document.head.appendChild(link);
+	});
+
+	await componentCustomizationStyleReady;
 }

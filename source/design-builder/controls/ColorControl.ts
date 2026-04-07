@@ -29,26 +29,14 @@ class ColorControl extends HTMLElement {
 			html`
 				<input
 					type="color"
-					class="db-control__color-hidden"
+					class="db-control-color-input"
 					.value=${live(toHex(value))}
 					?disabled=${isDisabled}
 					@input=${(event: Event) => this.onColorInput(event)}
 				/>
-				<div
-					class="db-control__swatch ${isDisabled ? '' : 'db-control__swatch--clickable'}"
-					style="background-color: ${value}"
-					@click=${() => {
-						if (isDisabled) {
-							return;
-						}
-
-						const colorInput = this.querySelector<HTMLInputElement>('input[type="color"]');
-						colorInput?.click();
-					}}
-				></div>
 				<input
 					type="text"
-					class="db-control__text"
+					class="db-control-text"
 					.value=${live(value)}
 					?disabled=${isDisabled}
 					placeholder=${placeholder}

@@ -13,12 +13,10 @@ describe('ColorControl', () => {
 
 		const colorInput = control.querySelector('input[type="color"]') as HTMLInputElement;
 		const textInput = control.querySelector('input[type="text"]') as HTMLInputElement;
-		const swatch = control.querySelector('.db-control__swatch') as HTMLElement;
 
 		expect(colorInput.value).toBe('#112233');
 		expect(textInput.value).toBe('#112233');
 		expect(textInput.placeholder).toBe('#000000');
-		expect(swatch.style.backgroundColor).toBe('rgb(17, 34, 51)');
 	});
 
 	it('dispatches change event with value from color input', () => {

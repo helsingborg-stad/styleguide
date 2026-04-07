@@ -1,5 +1,4 @@
 jest.mock('../../controls', () => ({
-	createContrastPair: () => document.createElement('div'),
 	createControl: () => document.createElement('div'),
 	createReadOnlyControl: () => document.createElement('div'),
 	createSwatchBand: () => document.createElement('div'),
@@ -22,7 +21,13 @@ class FakeStorage {
 			localStorage.removeItem(STORAGE_KEY);
 			return;
 		}
-		localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+		localStorage.setItem(
+			STORAGE_KEY,
+			JSON.stringify({
+				token: this.data,
+				component: {},
+			}),
+		);
 	}
 
 	clear(): void {
@@ -82,8 +87,8 @@ describe('FullPageDesignBuilderRuntime preset compatibility', () => {
 		const storage = new FakeStorage();
 		new FullPageDesignBuilderRuntime(container, tokenData, storage);
 
-		const presetButton = Array.from(container.querySelectorAll<HTMLButtonElement>('.db-presets__chip')).find(
-			(button) => button.querySelector('.db-presets__chip-label')?.textContent === 'myPreset',
+		const presetButton = Array.from(container.querySelectorAll<HTMLButtonElement>('.db-presets-chip')).find(
+			(button) => button.querySelector('.db-presets-chip-label')?.textContent === 'myPreset',
 		);
 
 		expect(presetButton).toBeTruthy();
@@ -94,7 +99,10 @@ describe('FullPageDesignBuilderRuntime preset compatibility', () => {
 
 		const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 		expect(saved).toEqual({
-			'--color-free': '#123456',
+			token: {
+				'--color-free': '#123456',
+			},
+			component: {},
 		});
 
 		container.remove();

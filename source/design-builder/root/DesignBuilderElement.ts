@@ -1,4 +1,10 @@
 import { parseDesignBuilderRootConfiguration } from './config';
+import { ComponentStorageAdapter } from '../services/ComponentStorageAdapter';
+import {
+	applyPersistedComponentOverrides,
+	applyPersistedTokenOverrides,
+} from '../services/applyPersistedOverrides';
+import { LocalStorageAdapter } from '../storage';
 import {
 	DESIGN_BUILDER_MODE_FULL_PAGE,
 	type DesignBuilderMode,
@@ -23,6 +29,9 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 	private currentComponentData: unknown;
 	private hasInitialized = false;
 	private styleReady: Promise<void> | null = null;
+	private renderPromise: Promise<void> | null = null;
+	private hasPendingRender = false;
+	private activeDisposer: (() => void | Promise<void>) | null = null;
 
 	public getRenderContainer(): ShadowRoot {
 		if (!this.shadowRoot) {
@@ -38,6 +47,14 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	public set mode(value: DesignBuilderMode) {
 		this.currentMode = value;
+		if (this.getAttribute('mode') !== value) {
+			this.setAttribute('mode', value);
+			return;
+		}
+
+		if (this.hasInitialized) {
+			void this.scheduleRender();
+		}
 	}
 
 	public get config(): Record<string, unknown> {
@@ -46,6 +63,9 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	public set config(value: Record<string, unknown>) {
 		this.currentConfig = value;
+		if (this.hasInitialized) {
+			void this.scheduleRender();
+		}
 	}
 
 	public get tokenLibraryData(): unknown {
@@ -54,6 +74,9 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	public set tokenLibraryData(value: unknown) {
 		this.currentTokenLibraryData = value;
+		if (this.hasInitialized) {
+			void this.scheduleRender();
+		}
 	}
 
 	public get tokenData(): unknown {
@@ -62,6 +85,9 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	public set tokenData(value: unknown) {
 		this.currentTokenData = value;
+		if (this.hasInitialized) {
+			void this.scheduleRender();
+		}
 	}
 
 	public get componentData(): unknown {
@@ -70,30 +96,75 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	public set componentData(value: unknown) {
 		this.currentComponentData = value;
+		if (this.hasInitialized) {
+			void this.scheduleRender();
+		}
 	}
 
 	public connectedCallback(): void {
-		if (this.hasInitialized) {
+		if (!this.hasInitialized) {
+			this.hasInitialized = true;
+		}
+
+		void this.scheduleRender();
+	}
+
+	public disconnectedCallback(): void {
+		void this.disposeActiveAdapter();
+	}
+
+	public attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+		if (oldValue === newValue) {
 			return;
 		}
 
-		this.hasInitialized = true;
-		void this.initializeWithAdapter();
+		if (name === 'mode') {
+			this.currentMode = newValue ? (newValue as DesignBuilderMode) : null;
+		}
+
+		if (!this.hasInitialized) {
+			return;
+		}
+
+		void this.scheduleRender();
 	}
 
-	public attributeChangedCallback(): void {
-		if (this.hasInitialized) {
+	public switchMode(value: DesignBuilderMode): void {
+		if (this.mode === value) {
 			return;
+		}
+
+		this.mode = value;
+	}
+
+	private async scheduleRender(): Promise<void> {
+		if (this.renderPromise) {
+			this.hasPendingRender = true;
+			await this.renderPromise;
+			return;
+		}
+
+		this.renderPromise = this.renderWithAdapter();
+
+		try {
+			await this.renderPromise;
+		} finally {
+			this.renderPromise = null;
+			if (this.hasPendingRender) {
+				this.hasPendingRender = false;
+				void this.scheduleRender();
+			}
 		}
 	}
 
-	private async initializeWithAdapter(): Promise<void> {
+	private async renderWithAdapter(): Promise<void> {
 		const renderContainer = this.getRenderContainer();
 		await this.ensureShadowStyles();
+		await this.disposeActiveAdapter();
+		this.resetRenderContainer(renderContainer);
 
 		const parsedConfiguration = parseDesignBuilderRootConfiguration({
 			hostElement: this,
-			propertyMode: this.currentMode,
 			propertyConfig: this.currentConfig,
 			propertyTokenData: this.currentTokenData,
 			propertyTokenLibraryData: this.currentTokenLibraryData,
@@ -105,6 +176,8 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 		this.currentTokenData = parsedConfiguration.tokenData;
 		this.currentTokenLibraryData = parsedConfiguration.tokenLibraryData;
 		this.currentComponentData = parsedConfiguration.componentData;
+		applyPersistedTokenOverrides(new LocalStorageAdapter().load());
+		applyPersistedComponentOverrides(new ComponentStorageAdapter().load());
 
 		const modeAdapter = DesignBuilderElement.modeAdapters.get(parsedConfiguration.mode);
 		if (!modeAdapter) {
@@ -120,21 +193,46 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 			return;
 		}
 
-		await modeAdapter({
+		const modeAdapterResult = await modeAdapter({
 			hostElement: this,
 			configuration: parsedConfiguration,
 			renderContainer,
+			modeSwitch: {
+				activeMode: parsedConfiguration.mode,
+				availableModes: parsedConfiguration.availableModes,
+				onSwitch: (mode) => {
+					this.switchMode(mode);
+				},
+			},
 		});
+
+		this.activeDisposer = modeAdapterResult?.dispose ?? null;
 
 		this.dispatchEvent(
 			new CustomEvent('design-builder:initialized', {
 				detail: {
 					mode: parsedConfiguration.mode,
+					availableModes: parsedConfiguration.availableModes,
 				},
 				bubbles: true,
 				composed: true,
 			}),
 		);
+	}
+
+	private resetRenderContainer(renderContainer: ShadowRoot): void {
+		const shadowStyle = renderContainer.querySelector(`#${SHADOW_STYLE_ID}`);
+		renderContainer.replaceChildren(...(shadowStyle ? [shadowStyle] : []));
+	}
+
+	private async disposeActiveAdapter(): Promise<void> {
+		if (!this.activeDisposer) {
+			return;
+		}
+
+		const disposer = this.activeDisposer;
+		this.activeDisposer = null;
+		await disposer();
 	}
 
 	public static registerModeAdapter(mode: DesignBuilderMode, adapter: DesignBuilderModeAdapter): void {

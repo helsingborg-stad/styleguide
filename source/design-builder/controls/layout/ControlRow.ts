@@ -124,13 +124,13 @@ class DbControlRow extends HTMLElement {
 
 		const markup = html`
 			<div class="db-control-row" data-variable=${setting.variable}>
-				<label class="db-control-row__label">${setting.label}</label>
-				${setting.description ? html`<span class="db-control-row__description">${setting.description}</span>` : ''}
-				<code class="db-control-row__variable">${setting.variable}</code>
-				<div class="db-control-row__input">${this.renderInput(setting)}</div>
+				<label class="db-control-row-label">${setting.label}</label>
+				${setting.description ? html`<span class="db-control-row-description">${setting.description}</span>` : ''}
+				<code class="db-control-row-variable">${setting.variable}</code>
+				<div class="db-control-row-input">${this.renderInput(setting)}</div>
 				${
 					!setting.locked
-						? html`<button class="db-control-row__reset" type="button" title=${`Reset to ${setting.default}`} @click=${() => this.onReset()}>
+						? html`<button class="db-control-row-reset" type="button" title=${`Reset to ${setting.default}`} @click=${() => this.onReset()}>
 							Reset
 					  </button>`
 						: ''

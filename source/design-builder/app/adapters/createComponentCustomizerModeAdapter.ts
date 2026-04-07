@@ -1,5 +1,6 @@
 import type {
 	DesignBuilderModeAdapter,
+	DesignBuilderModeSwitch,
 	DesignBuilderRootConfiguration,
 	DesignBuilderRootElement,
 } from '../../root/types';
@@ -21,7 +22,8 @@ function resolveInitMode(configuration: DesignBuilderRootConfiguration): string 
 function resolveMountElement(
 	hostElement: DesignBuilderRootElement,
 	configuration: DesignBuilderRootConfiguration,
-): HTMLElement {
+	renderContainer: ShadowRoot,
+): HTMLElement | ShadowRoot {
 	const mountSelectorFromConfig =
 		typeof configuration.config.customizerContainerSelector === 'string'
 			? configuration.config.customizerContainerSelector.trim()
@@ -33,47 +35,80 @@ function resolveMountElement(
 		}
 	}
 
-	return hostElement.parentElement ?? hostElement;
+	if (hostElement.hidden || hostElement.hasAttribute('hidden')) {
+		return hostElement.parentElement ?? hostElement;
+	}
+
+	return renderContainer;
 }
 
 function resolveInitializationOptions(
 	hostElement: DesignBuilderRootElement,
 	configuration: DesignBuilderRootConfiguration,
+	renderContainer: ShadowRoot,
 	openOnInitialize: boolean,
+	modeSwitch: DesignBuilderModeSwitch,
 ): ComponentCustomizationInitializationOptions {
 	return {
-		mountElement: resolveMountElement(hostElement, configuration),
+		mountElement: resolveMountElement(hostElement, configuration, renderContainer),
 		openOnInitialize,
+		modeSwitch,
 	};
 }
 
 export function createComponentCustomizerModeAdapter(): DesignBuilderModeAdapter {
-	return async ({ hostElement, configuration }) => {
+	return async ({ hostElement, configuration, renderContainer, modeSwitch }) => {
+		let runtimeCleanup: (() => void) | null = null;
+		let unbindManualTrigger = () => {};
+
 		const initializeWithoutOpeningPanel = async () => {
-			await initializeComponentCustomizationTool(
+			runtimeCleanup?.();
+			runtimeCleanup = null;
+
+			const runtime = await initializeComponentCustomizationTool(
 				configuration.componentData,
 				configuration.tokenLibraryData,
 				configuration.config,
-				resolveInitializationOptions(hostElement, configuration, false),
+				resolveInitializationOptions(hostElement, configuration, renderContainer, false, modeSwitch),
 			);
+
+			runtimeCleanup = runtime ? () => runtime.dispose() : null;
 		};
 
 		const initializeAndOpenPanel = async () => {
-			await initializeComponentCustomizationTool(
+			runtimeCleanup?.();
+			runtimeCleanup = null;
+
+			const runtime = await initializeComponentCustomizationTool(
 				configuration.componentData,
 				configuration.tokenLibraryData,
 				configuration.config,
-				resolveInitializationOptions(hostElement, configuration, true),
+				resolveInitializationOptions(hostElement, configuration, renderContainer, true, modeSwitch),
 			);
+
+			runtimeCleanup = runtime ? () => runtime.dispose() : null;
 		};
 
 		if (resolveInitMode(configuration) === CUSTOMIZE_INIT_MODE_MANUAL) {
 			// Ensure saved overrides are applied on page load even in manual mode.
 			await initializeWithoutOpeningPanel();
-			bindManualCustomizationInitTrigger(initializeAndOpenPanel);
-			return;
+			unbindManualTrigger = bindManualCustomizationInitTrigger(initializeAndOpenPanel);
+			return {
+				dispose: () => {
+					unbindManualTrigger();
+					runtimeCleanup?.();
+					runtimeCleanup = null;
+				},
+			};
 		}
 
 		await initializeWithoutOpeningPanel();
+		return {
+			dispose: () => {
+				unbindManualTrigger();
+				runtimeCleanup?.();
+				runtimeCleanup = null;
+			},
+		};
 	};
 }

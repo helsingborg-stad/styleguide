@@ -8,7 +8,7 @@ The runtime is now bootstrapped through a root web component:
 - `<design-builder>`
 
 Root element contract:
-- `mode`: `full-page` or `component-customizer`
+- `mode`: optional legacy/manual override for `full-page` or `component-customizer`
 - `token-data`: JSON payload used in `full-page` mode
 - `token-library`: JSON payload used in `component-customizer` mode
 - `component-data`: JSON payload used in `component-customizer` mode
@@ -43,6 +43,9 @@ Global token/preset storage helpers (full page mode):
 ### Activation
 
 Full page mode starts when the DOM contains:
+- `<design-builder token-data="...json...">`
+
+Optional legacy/manual override:
 - `<design-builder mode="full-page" token-data="...json...">`
 
 Legacy compatibility is preserved for older markup:
@@ -64,13 +67,13 @@ Template source:
   - optional display of locked fields
   - draggable split between controls and preview
 
-### Storage keys (full page mode)
+### Storage keys
 
-From source/design-builder/storage.ts and source/design-builder/index.ts:
+From source/design-builder/storage.ts, source/design-builder/state/runtimeConstants.ts and source/design-builder/index.ts:
 
-- design-tokens-overrides
-- design-tokens-presets
-- design-tokens-active-preset
+- design-builder-overrides
+- design-builder-presets
+- design-builder-active-preset
 - design-builder-split
 
 ## Mode 2: Component-level customization
@@ -79,7 +82,7 @@ From source/design-builder/storage.ts and source/design-builder/index.ts:
 
 Component mode starts when either:
 
-1. A `<design-builder mode="component-customizer">` root exists, or
+1. A `<design-builder>` root with component payloads exists, or
 2. No full-page design builder root is found, and
 3. window.styleguideCustomizeData exists, and
 4. window.styleguideDesignTokenLibrary exists and is valid
@@ -95,7 +98,9 @@ Init mode is controlled by:
 
 Behavior:
 - onload: component customizer initializes automatically
-- manual: waits for click on [data-customize-init-fab]
+- manual: waits for click on `[data-customize-init-fab]`
+
+When both full-page and component-customizer payloads are available, Design Builder renders an internal mode switcher so the active experience can be changed from inside the component.
 
 Styleguide default:
 - manual mode via views/layout/master.blade.php
@@ -134,16 +139,19 @@ A component is editable when:
 ### Floating customizer panel
 
 Rendered as:
-- .db-component-tool
+- `.db-builder.db-builder-customizer`
 
-Placement is host-controlled:
-- Runtime mounts `.db-component-tool` in a host-provided container (or nearest root host parent by default).
-- Floating/docked behavior must be implemented by host wrapper styles/layout.
-- Internal customizer styles remain placement-neutral.
+Placement is root-controlled by default:
+- When an explicit `<design-builder>` root is present, the customizer UI renders inside that root so mode switching can happen within the component.
+- A host-provided `customizerContainerSelector` can still override the mount target.
+- Hidden auto-created roots continue to fall back to an external host container.
 
 Features:
 - Open/close panel
 - Select editable component
+- Manually activate page-picking to choose a component by clicking it on the page
+- Save/load/delete shared presets that include both token and component overrides
+- Import/export component override JSON
 - Reset selected component (current scope only)
 - Reset all components (all scopes)
 - Render controls for mapped token categories
@@ -152,13 +160,13 @@ Features:
 
 Editable targets get:
 
-- Hover affordance
+- Hover affordance when page-picking is manually activated
 - Active selection highlight
-- Tooltip text
+- Tooltip text while page-picking is active
   - "Customize [Component Name]"
   - If scoped: "Customize [Component Name] ([scope])"
 - Link click prevention inside editable targets
-  - Prevents accidental navigation while customizing
+  - Prevents accidental navigation while page-picking is active
 
 ## Scopes
 
@@ -193,34 +201,37 @@ Example:
 
 Changes in one scope do not affect the other.
 
-## Storage model (component-level mode)
+## Storage model
+
+Both modes now share the same override document and read/write different slices of it.
+On startup, the runtime reapplies both slices so token and component overrides are active regardless of which mode is currently open.
 
 Storage key:
-- design-tokens-component-overrides
+- design-builder-overrides
 
 Current shape:
 
 {
-  "__global__": {
-    "button": {
-      "--c-button--color--primary": "#0055aa"
-    }
+  "token": {
+    "--color--primary": "#0055aa"
   },
-  "scope:content-card": {
-    "typography": {
-      "--c-typography--font-size-200": "1.125rem"
+  "component": {
+    "__general__": {
+      "button": {
+        "--c-button--color--primary": "#0055aa"
+      }
+    },
+    "scope:content-card": {
+      "typography": {
+        "--c-typography--font-size-200": "1.125rem"
+      }
     }
   }
 }
 
 ### Legacy migration
 
-Legacy unscoped saved data is still accepted.
-If old shape is detected (component -> variables), runtime migrates it in-memory to:
-
-- __global__ -> component -> variables
-
-and continues with scoped model.
+Legacy flat token overrides and legacy component-only saved data are still accepted and migrated into the shared override document in-memory.
 
 ## Data contracts
 
@@ -279,9 +290,9 @@ Component-level styles are split into:
 
 Relevant class groups:
 
-- .db-component-tool*
-- .db-component-target
-- .db-component-target--active
+- `.db-builder*`
+- `.db-component-target`
+- `.db-component-target-active`
 
 ## Development workflow
 

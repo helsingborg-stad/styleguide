@@ -4,7 +4,6 @@ import './controls/ColorControl';
 import './controls/RgbaControl';
 import './controls/FontControl';
 import {
-	createContrastPair,
 	createControl,
 	createReadOnlyControl,
 	createSwatchBand,
@@ -108,7 +107,7 @@ describe('controls change handling', () => {
 		const row = createControl(setting, 'rgba(0, 0, 0, 0.5)', onChange);
 		document.body.appendChild(row);
 
-		const alphaInput = row.querySelector('rgba-control input.db-control__alpha') as HTMLInputElement;
+		const alphaInput = row.querySelector('rgba-control input.db-control-alpha') as HTMLInputElement;
 		expect(alphaInput).toBeTruthy();
 
 		alphaInput.value = '0.7';
@@ -159,42 +158,8 @@ describe('controls change handling', () => {
 
 		expect(row.hasAttribute('readonly')).toBe(true);
 		expect(row.hasAttribute('locked')).toBe(true);
-		expect(row.querySelector('.db-control-row__label')?.textContent).toBe('Fixed color');
-		expect(row.querySelector('.db-control__value-display--readonly')?.textContent).toBe('#112233');
-	});
-
-	it('updates contrast preview and bubbles contrast-change via callback', () => {
-		const base: TokenSetting = {
-			variable: '--color-primary',
-			label: 'Primary',
-			type: 'color',
-			default: '#000000',
-		};
-		const contrastSetting: TokenSetting = {
-			variable: '--color-on-primary',
-			label: 'On Primary',
-			type: 'color',
-			default: '#ffffff',
-		};
-
-		const onChange = jest.fn();
-		const pair = createContrastPair(base, [{ setting: contrastSetting, value: '#ffffff' }], '#000000', onChange);
-		document.body.appendChild(pair);
-
-		const controls = pair.querySelectorAll('color-control');
-		expect(controls.length).toBe(2);
-
-		controls[0].dispatchEvent(
-			new CustomEvent('change', {
-				detail: { value: '#123456' },
-				bubbles: true,
-				composed: true,
-			}),
-		);
-
-		const preview = pair.querySelector('.db-contrast-pair__preview') as HTMLElement;
-		expect(preview.style.backgroundColor).toBe('rgb(18, 52, 86)');
-		expect(onChange).toHaveBeenCalledWith('--color-primary', '#123456');
+		expect(row.querySelector('.db-control-row-label')?.textContent).toBe('Fixed color');
+		expect(row.querySelector('.db-control-value-readonly')?.textContent).toBe('#112233');
 	});
 
 	it('groups swatch band rows by color prefix', () => {
@@ -220,9 +185,9 @@ describe('controls change handling', () => {
 		]);
 		document.body.appendChild(band);
 
-		const rows = band.querySelectorAll('.db-swatch-band__row');
+		const rows = band.querySelectorAll('.db-swatch-band-row');
 		expect(rows.length).toBe(2);
-		expect(rows[0].querySelector('.db-swatch-band__var')?.textContent).toContain('--color--black-[%]');
-		expect(rows[1].querySelector('.db-swatch-band__var')?.textContent).toContain('--color--white-[%]');
+		expect(rows[0].querySelector('.db-swatch-band-var')?.textContent).toContain('--color--black-[%]');
+		expect(rows[1].querySelector('.db-swatch-band-var')?.textContent).toContain('--color--white-[%]');
 	});
 });

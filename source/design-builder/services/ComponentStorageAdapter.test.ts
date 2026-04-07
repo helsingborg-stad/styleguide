@@ -1,5 +1,5 @@
 import { ComponentStorageAdapter } from './ComponentStorageAdapter';
-import { COMPONENT_STORAGE_KEY, GENERAL_SCOPE_KEY } from '../state/runtimeConstants';
+import { COMPONENT_STORAGE_KEY, GENERAL_SCOPE_KEY, LEGACY_COMPONENT_STORAGE_KEY } from '../state/runtimeConstants';
 
 describe('ComponentStorageAdapter compatibility', () => {
 	beforeEach(() => {
@@ -13,7 +13,7 @@ describe('ComponentStorageAdapter compatibility', () => {
 			},
 		};
 
-		localStorage.setItem(COMPONENT_STORAGE_KEY, JSON.stringify(legacyOverrides));
+		localStorage.setItem(LEGACY_COMPONENT_STORAGE_KEY, JSON.stringify(legacyOverrides));
 		const adapter = new ComponentStorageAdapter();
 
 		expect(adapter.load()).toEqual({
@@ -35,7 +35,7 @@ describe('ComponentStorageAdapter compatibility', () => {
 			},
 		};
 
-		localStorage.setItem(COMPONENT_STORAGE_KEY, JSON.stringify(scopedOverrides));
+		localStorage.setItem(LEGACY_COMPONENT_STORAGE_KEY, JSON.stringify(scopedOverrides));
 		const adapter = new ComponentStorageAdapter();
 
 		expect(adapter.load()).toEqual({
@@ -47,6 +47,34 @@ describe('ComponentStorageAdapter compatibility', () => {
 			scope: {
 				button: {
 					'--c-button--color-bg': '#222',
+				},
+			},
+		});
+	});
+
+	it('reads component overrides from the shared merged storage shape', () => {
+		localStorage.setItem(
+			COMPONENT_STORAGE_KEY,
+			JSON.stringify({
+				token: {
+					'--color-primary': '#123456',
+				},
+				component: {
+					[GENERAL_SCOPE_KEY]: {
+						button: {
+							'--c-button--color-bg': '#abc',
+						},
+					},
+				},
+			}),
+		);
+
+		const adapter = new ComponentStorageAdapter();
+
+		expect(adapter.load()).toEqual({
+			[GENERAL_SCOPE_KEY]: {
+				button: {
+					'--c-button--color-bg': '#abc',
 				},
 			},
 		});

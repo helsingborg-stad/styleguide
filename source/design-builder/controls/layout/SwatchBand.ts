@@ -33,15 +33,15 @@ class DbSwatchBand extends HTMLElement {
 			<div class="db-swatch-band">
 				${this.groupedSettings().map(
 					({ groupKey, settings }) => html`
-						<div class="db-swatch-band__row">
-							<code class="db-swatch-band__var">${`--color--${groupKey}-[%]`}</code>
-							<div class="db-swatch-band__strip">
+						<div class="db-swatch-band-row">
+							<code class="db-swatch-band-var">${`--color--${groupKey}-[%]`}</code>
+							<div class="db-swatch-band-strip">
 								${settings.map((setting) => {
 									const pctMatch = setting.variable.match(/-(\d+)$/);
 									const pct = pctMatch ? `${pctMatch[1]}` : '';
 									return html`
-										<div class="db-swatch-band__swatch" style=${`background-color: ${setting.default}`} title=${`${setting.variable}\n${setting.default}`}>
-											<span class="db-swatch-band__pct">${pct}</span>
+										<div class="db-swatch-band-swatch" style=${`background-color: ${setting.default}`} title=${`${setting.variable}\n${setting.default}`}>
+											<span class="db-swatch-band-pct">${pct}</span>
 										</div>
 									`;
 								})}

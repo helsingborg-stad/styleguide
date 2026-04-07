@@ -29,13 +29,12 @@ class FontControl extends HTMLElement {
 			html`
 				<input
 					type="text"
-					class="db-control__text db-control__text--font"
+					class="db-control-text db-control-text-font"
 					.value=${live(value)}
 					?disabled=${isDisabled}
 					placeholder=${placeholder}
 					@change=${(event: Event) => this.onInputChange(event)}
 				/>
-				<span class="db-control__font-preview" style="font-family: ${value}">The quick brown fox</span>
 			`;
 
 		render(markup(), this);

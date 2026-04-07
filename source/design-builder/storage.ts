@@ -5,7 +5,17 @@
  * Future: JsonExportAdapter for file download/upload.
  */
 
-export const STORAGE_KEY = 'design-tokens-overrides';
+import {
+	createEmptyOverrideState,
+	hasOverrideStateData,
+	normalizeDesignBuilderOverrideState,
+	normalizeTokenOverrides,
+	type DesignBuilderOverrideState,
+} from './services/overrideState';
+import { LEGACY_COMPONENT_STORAGE_KEY } from './state/runtimeConstants';
+
+export const STORAGE_KEY = 'design-builder-overrides';
+export const LEGACY_TOKEN_STORAGE_KEY = 'design-tokens-overrides';
 export const PRESETS_KEY = 'design-tokens-presets';
 export const ACTIVE_PRESET_KEY = 'design-tokens-active-preset';
 
@@ -25,32 +35,78 @@ export class LocalStorageAdapter implements StorageAdapter {
 	load(): Record<string, string> {
 		try {
 			const raw = localStorage.getItem(this.key);
-			return raw ? JSON.parse(raw) : {};
+			if (raw) {
+				return normalizeDesignBuilderOverrideState(JSON.parse(raw)).token;
+			}
+
+			const legacyRaw = localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY);
+			if (!legacyRaw) {
+				return {};
+			}
+
+			return normalizeDesignBuilderOverrideState(JSON.parse(legacyRaw)).token;
 		} catch {
 			return {};
 		}
 	}
 
 	save(overrides: Record<string, string>): void {
-		const filtered: Record<string, string> = {};
-		for (const [k, v] of Object.entries(overrides)) {
-			if (v !== undefined && v !== null && v !== '') {
-				filtered[k] = v;
-			}
-		}
-		if (Object.keys(filtered).length === 0) {
-			localStorage.removeItem(this.key);
-		} else {
-			localStorage.setItem(this.key, JSON.stringify(filtered));
-		}
+		const filtered = normalizeDesignBuilderOverrideState({ token: overrides }).token;
+		const nextState = this.loadState();
+		nextState.token = filtered;
+		this.saveState(nextState);
 	}
 
 	clear(): void {
-		localStorage.removeItem(this.key);
+		const nextState = this.loadState();
+		nextState.token = {};
+		this.saveState(nextState);
+	}
+
+	private loadState(): DesignBuilderOverrideState {
+		const fallbackState = createEmptyOverrideState();
+
+		try {
+			const raw = localStorage.getItem(this.key);
+			if (raw) {
+				return normalizeDesignBuilderOverrideState(JSON.parse(raw));
+			}
+		} catch {
+			// Fall through to legacy migration below.
+		}
+
+		try {
+			const legacyRaw = localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY);
+			if (legacyRaw) {
+				fallbackState.token = normalizeTokenOverrides(JSON.parse(legacyRaw));
+			}
+		} catch {
+			// Ignore legacy token parse errors.
+		}
+
+		try {
+			const legacyComponentRaw = localStorage.getItem(LEGACY_COMPONENT_STORAGE_KEY);
+			if (legacyComponentRaw) {
+				fallbackState.component = normalizeDesignBuilderOverrideState(JSON.parse(legacyComponentRaw)).component;
+			}
+		} catch {
+			// Ignore legacy component parse errors.
+		}
+
+		return fallbackState;
+	}
+
+	private saveState(state: DesignBuilderOverrideState): void {
+		if (!hasOverrideStateData(state)) {
+			localStorage.removeItem(this.key);
+			return;
+		}
+
+		localStorage.setItem(this.key, JSON.stringify(state));
 	}
 }
 
-export class PresetManager {
+export class PresetManager<PresetValue extends object = Record<string, string>> {
 	private presetsKey: string;
 	private activeKey: string;
 
@@ -59,16 +115,16 @@ export class PresetManager {
 		this.activeKey = activeKey;
 	}
 
-	loadAll(): Record<string, Record<string, string>> {
+	loadAll(): Record<string, PresetValue> {
 		try {
 			const raw = localStorage.getItem(this.presetsKey);
-			return raw ? JSON.parse(raw) : {};
+			return raw ? (JSON.parse(raw) as Record<string, PresetValue>) : {};
 		} catch {
 			return {};
 		}
 	}
 
-	save(name: string, overrides: Record<string, string>): void {
+	save(name: string, overrides: PresetValue): void {
 		const all = this.loadAll();
 		all[name] = { ...overrides };
 		localStorage.setItem(this.presetsKey, JSON.stringify(all));
