@@ -22,6 +22,7 @@ $yAxis: (
 .#{$_} {
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     --#{$_}--size-multiplier: 1;
+    --#{$_}--stack-offset: 0px;
     contain: layout;
     position: fixed;
     z-index: 6000;
@@ -61,7 +62,7 @@ $yAxis: (
     gap: tokens.use($_, "space", 2);
     position: relative;
     z-index: 1;
-    max-height: calc(100dvh - tokens.use($_, "space", 18));
+    max-height: calc(100dvh - tokens.use($_, "space", 18) - var(--#{$_}--stack-offset));
     overflow: auto;
 }
 
@@ -85,12 +86,12 @@ $yAxis: (
     @each $sideY in $yAxis {
         .#{$_}__#{$sideY}-#{$sideX} {
             #{$sideX}: tokens.use($_, "space", 2);
-            #{$sideY}: tokens.use($_, "space", 2);
+            #{$sideY}: calc(tokens.use($_, "space", 2) + var(--#{$_}--stack-offset));
         }
 
         // Stack adjacent FABs sharing the same corner — button height (~space 6.5) + gap (~space 1) + edge margin (space 2)
         .#{$_}.#{$_}__#{$sideY}-#{$sideX}+.#{$_}.#{$_}__#{$sideY}-#{$sideX} {
-            #{$sideY}: tokens.use($_, "space", 10);
+            --#{$_}--stack-offset: #{tokens.use($_, "space", 8)};
         }
     }
 }
