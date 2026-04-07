@@ -39,6 +39,10 @@ $yAxis: (
     --#{$_}--size-multiplier: 1.25;
 }
 
+.#{$_}.#{$_}--width-xl {
+    --#{$_}--size-multiplier: 1.5;
+}
+
 .#{$_} .#{$_}__panel {
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
