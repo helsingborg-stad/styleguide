@@ -21,6 +21,7 @@ $yAxis: (
 //Standard styling
 .#{$_} {
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--size-multiplier: 1;
     contain: layout;
     position: fixed;
     z-index: 6000;
@@ -28,6 +29,14 @@ $yAxis: (
     right: tokens.use($_, "space", 2);
     text-align: right;
     z-index: 8000;
+}
+
+.#{$_}.#{$_}--width-sm {
+    --#{$_}--size-multiplier: 0.75;
+}
+
+.#{$_}.#{$_}--width-lg {
+    --#{$_}--size-multiplier: 1.25;
 }
 
 .#{$_} .#{$_}__panel {
@@ -39,13 +48,17 @@ $yAxis: (
     background: tokens.get($_, "color--surface");
     display: none;
     margin-bottom: tokens.use($_, "space", 2);
-    min-width: tokens.use($_, "space", 30);
-    max-width: tokens.use($_, "space", 45);
+    min-width: min(calc(tokens.use($_, "space", 30) * var(--#{$_}--size-multiplier)),
+        calc(100vw - (tokens.use($_, "space", 4) * 2)));
+    max-width: min(calc(tokens.use($_, "space", 45) * var(--#{$_}--size-multiplier)),
+        calc(100vw - (tokens.use($_, "space", 4) * 2)));
     text-align: left;
     padding: tokens.use($_, "space", 2);
     gap: tokens.use($_, "space", 2);
     position: relative;
     z-index: 1;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 .#{$_} .#{$_}__panel--open {
