@@ -3,12 +3,7 @@ import './controls/SelectControl';
 import './controls/ColorControl';
 import './controls/RgbaControl';
 import './controls/FontControl';
-import {
-	createControl,
-	createReadOnlyControl,
-	createSwatchBand,
-	type TokenSetting,
-} from './controls';
+import { createControl, createReadOnlyControl, createSwatchBand, type TokenSetting } from './controls';
 
 describe('controls change handling', () => {
 	afterEach(() => {

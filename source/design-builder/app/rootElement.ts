@@ -1,7 +1,11 @@
 import type { DesignBuilderRootElement } from '../root/types';
 import { ComponentStorageAdapter } from '../services/ComponentStorageAdapter';
 import { resolveCustomizeInitMode } from '../services/customizeInitMode';
-import { hasOverrideStateData, normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../services/overrideState';
+import {
+	hasOverrideStateData,
+	normalizeDesignBuilderOverrideState,
+	type DesignBuilderOverrideState,
+} from '../services/overrideState';
 import { LocalStorageAdapter } from '../storage';
 
 function serializePayload(value: unknown): string | null {

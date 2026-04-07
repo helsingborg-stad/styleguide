@@ -1,5 +1,9 @@
 import { parseDesignBuilderRootConfiguration } from './config';
-import { createEmptyOverrideState, normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../services/overrideState';
+import {
+	createEmptyOverrideState,
+	normalizeDesignBuilderOverrideState,
+	type DesignBuilderOverrideState,
+} from '../services/overrideState';
 import {
 	DESIGN_BUILDER_MODE_FULL_PAGE,
 	type DesignBuilderMode,
@@ -12,7 +16,14 @@ const SHADOW_STYLE_ASSET = '/assets/dist/css/design-builder.css';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderElement extends HTMLElement implements DesignBuilderRootElement {
-	public static observedAttributes = ['mode', 'config', 'token-data', 'token-library', 'component-data', 'override-state'];
+	public static observedAttributes = [
+		'mode',
+		'config',
+		'token-data',
+		'token-library',
+		'component-data',
+		'override-state',
+	];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
 	private static hasRegistered = false;

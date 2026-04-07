@@ -66,7 +66,11 @@ function hasPayload(value: unknown): boolean {
 	return value !== undefined && value !== null;
 }
 
-function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, componentData: unknown): DesignBuilderMode[] {
+function resolveAvailableModes(
+	tokenData: unknown,
+	tokenLibraryData: unknown,
+	componentData: unknown,
+): DesignBuilderMode[] {
 	const availableModes: DesignBuilderMode[] = [];
 
 	if (hasPayload(tokenData) || hasPayload(tokenLibraryData)) {
@@ -116,7 +120,7 @@ export function parseDesignBuilderRootConfiguration(
 			? DESIGN_BUILDER_MODE_FULL_PAGE
 			: hasPayload(componentData) && hasPayload(tokenLibraryData)
 				? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER
-				: availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE);
+				: (availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE));
 
 	if (!availableModes.includes(resolvedMode)) {
 		availableModes.unshift(resolvedMode);

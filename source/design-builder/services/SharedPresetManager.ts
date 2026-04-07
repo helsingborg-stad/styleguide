@@ -1,7 +1,4 @@
-import {
-	COMPONENT_ACTIVE_PRESET_KEY,
-	COMPONENT_PRESETS_KEY,
-} from '../state/runtimeConstants';
+import { COMPONENT_ACTIVE_PRESET_KEY, COMPONENT_PRESETS_KEY } from '../state/runtimeConstants';
 import { ACTIVE_PRESET_KEY, PRESETS_KEY } from '../storage';
 import { normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from './overrideState';
 

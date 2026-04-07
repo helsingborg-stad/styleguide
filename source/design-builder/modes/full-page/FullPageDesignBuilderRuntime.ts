@@ -23,7 +23,12 @@ export class FullPageDesignBuilderRuntime {
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 
-	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch) {
+	constructor(
+		container: HTMLElement,
+		tokens: TokenData,
+		hostElement: DesignBuilderRootElement,
+		modeSwitch?: DesignBuilderModeSwitch,
+	) {
 		this.container = container;
 		this.hostElement = hostElement;
 		this.tokens = tokens;
@@ -127,9 +132,7 @@ export class FullPageDesignBuilderRuntime {
 			<section class="db-category" data-category-id=${category.id}>
 				<div class="db-category-header" @click=${this.toggleCategoryCollapsed}>
 					<h2 class="db-category-title">${category.label}</h2>
-					${category.description
-						? html`<p class="db-category-description">${category.description}</p>`
-						: nothing}
+					${category.description ? html`<p class="db-category-description">${category.description}</p>` : nothing}
 					<span class="db-category-toggle" aria-hidden="true"></span>
 				</div>
 				<div class="db-category-body">
@@ -292,13 +295,15 @@ export class FullPageDesignBuilderRuntime {
 		renderTemplate(
 			html`
 				<div class=${names.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${names.length === 0}>
-					${names.length > 0
-						? html`
+					${
+						names.length > 0
+							? html`
 								<div class="db-presets-list">
 									${names.map((name) => this.renderPresetChipTemplate(name, name === activeName))}
 								</div>
 							`
-						: nothing}
+							: nothing
+					}
 				</div>
 			`,
 			this.presetBarHost,
@@ -431,7 +436,9 @@ export class FullPageDesignBuilderRuntime {
 	};
 
 	private readonly toggleCategoryCollapsed = (event: Event): void => {
-		(event.currentTarget as HTMLElement).closest<HTMLElement>('.db-category')?.classList.toggle('db-category-collapsed');
+		(event.currentTarget as HTMLElement)
+			.closest<HTMLElement>('.db-category')
+			?.classList.toggle('db-category-collapsed');
 	};
 
 	private readonly handleDeletePresetClick = (event: Event, name: string): void => {

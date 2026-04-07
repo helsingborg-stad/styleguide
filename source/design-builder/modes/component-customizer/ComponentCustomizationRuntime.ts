@@ -457,13 +457,15 @@ export class ComponentCustomizationRuntime {
 		renderTemplate(
 			html`
 				<div class=${names.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${names.length === 0}>
-					${names.length > 0
-						? html`
+					${
+						names.length > 0
+							? html`
 								<div class="db-presets-list">
 									${names.map((name) => this.renderPresetChipTemplate(name, name === activeName))}
 								</div>
 							`
-						: nothing}
+							: nothing
+					}
 				</div>
 			`,
 			this.presetBarHost,
