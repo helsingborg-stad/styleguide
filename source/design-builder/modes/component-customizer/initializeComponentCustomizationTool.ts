@@ -1,7 +1,7 @@
 import { loadTokenLibrary, isTokenData } from '../../services/tokenData';
 import { parseComponentTokenData } from '../../utils/componentTokens';
 import type { DesignBuilderRootInitConfig } from '../../types/runtime';
-import type { DesignBuilderModeSwitch } from '../../root/types';
+import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../root/types';
 import { ComponentCustomizationRuntime } from './ComponentCustomizationRuntime';
 
 const COMPONENT_CUSTOMIZER_STYLE_ID = 'design-builder-component-customizer-style';
@@ -13,6 +13,7 @@ export interface ComponentCustomizationInitializationOptions {
 	mountElement?: HTMLElement | ShadowRoot;
 	openOnInitialize?: boolean;
 	modeSwitch?: DesignBuilderModeSwitch;
+	hostElement?: DesignBuilderRootElement;
 }
 
 export async function initializeComponentCustomizationTool(
@@ -36,6 +37,7 @@ export async function initializeComponentCustomizationTool(
 
 	const runtime = new ComponentCustomizationRuntime(customizeData, tokenLibrary, mountElement, {
 		modeSwitch: options.modeSwitch,
+		hostElement: options.hostElement,
 	});
 
 	if (options.openOnInitialize) {
@@ -58,7 +60,7 @@ function resolveMountElement(rootConfig?: DesignBuilderRootInitConfig): HTMLElem
 	return document.body;
 }
 
-export function openComponentCustomizationPanel(mountElement?: ParentNode): void {
+function openComponentCustomizationPanel(mountElement?: ParentNode): void {
 	const panelRoot = (mountElement ?? document).querySelector<HTMLElement>('.db-builder-customizer');
 	if (!panelRoot) {
 		return;

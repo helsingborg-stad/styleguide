@@ -1,5 +1,4 @@
-import { LocalStorageAdapter } from '../../storage';
-import type { DesignBuilderModeSwitch } from '../../root/types';
+import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../root/types';
 import { resolveTokenData } from '../../services/tokenData';
 import { initDivider } from '../../dom/initDivider';
 import { FullPageDesignBuilderRuntime } from './FullPageDesignBuilderRuntime';
@@ -9,6 +8,7 @@ const FULL_PAGE_RUNTIME_MOUNT_ID = 'design-builder-full-page-runtime';
 export function initializeFullPageDesignBuilder(
 	tokenData: unknown,
 	renderContainer: ShadowRoot,
+	hostElement: DesignBuilderRootElement,
 	modeSwitch?: DesignBuilderModeSwitch,
 ): FullPageDesignBuilderRuntime | null {
 	const mountElement = ensureFullPageRuntimeMount(renderContainer);
@@ -18,8 +18,7 @@ export function initializeFullPageDesignBuilder(
 		return null;
 	}
 
-	const storage = new LocalStorageAdapter();
-	const runtime = new FullPageDesignBuilderRuntime(mountElement, tokens, storage, modeSwitch);
+	const runtime = new FullPageDesignBuilderRuntime(mountElement, tokens, hostElement, modeSwitch);
 	initDivider();
 	return runtime;
 }

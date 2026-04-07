@@ -1,30 +1,24 @@
 import { createControl } from '../../controls';
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createModeSwitcher } from '../../dom/createModeSwitcher';
-import type { DesignBuilderModeSwitch } from '../../root/types';
-import { ComponentStorageAdapter } from '../../services/ComponentStorageAdapter';
+import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../root/types';
 import { applyPersistedTokenOverrides, clearPersistedTokenOverrides } from '../../services/applyPersistedOverrides';
 import { normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../../services/overrideState';
 import { SharedPresetManager } from '../../services/SharedPresetManager';
-import { LocalStorageAdapter } from '../../storage';
-import {
-	COMPONENT_STORAGE_KEY,
-	GENERAL_SCOPE_KEY,
-	GLOBAL_SCOPE_KEY,
-	NON_CUSTOMIZABLE_COMPONENTS,
-} from '../../state/runtimeConstants';
+import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../state/runtimeConstants';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../types/runtime';
 import { normalizeComponentName } from '../../utils/componentTokens';
 
 export interface ComponentCustomizationRuntimeOptions {
 	modeSwitch?: DesignBuilderModeSwitch;
+	hostElement?: DesignBuilderRootElement;
 }
 
 export class ComponentCustomizationRuntime {
 	private componentData: ComponentTokenData;
 	private tokenLibrary: TokenData;
-	private storage: ComponentStorageAdapter;
 	private overrides: ScopedComponentOverrides;
+	private hostElement: DesignBuilderRootElement | null;
 	private presetManager: SharedPresetManager;
 	private elementsByComponent = new Map<string, HTMLElement[]>();
 	private editableComponents = new Set<string>();
@@ -52,8 +46,8 @@ export class ComponentCustomizationRuntime {
 		this.componentData = componentData;
 		this.tokenLibrary = tokenLibrary;
 		this.mountElement = mountElement;
-		this.storage = new ComponentStorageAdapter();
-		this.overrides = this.storage.load();
+		this.hostElement = options.hostElement ?? null;
+		this.overrides = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState).component;
 		this.presetManager = new SharedPresetManager();
 		this.modeSwitch = options.modeSwitch;
 
@@ -61,6 +55,7 @@ export class ComponentCustomizationRuntime {
 		this.collectEditableComponents();
 		this.pruneUnknownOverrides();
 		this.applySavedOverrides();
+		this.syncOverrideState();
 		this.render();
 	}
 
@@ -106,7 +101,7 @@ export class ComponentCustomizationRuntime {
 		}
 
 		if (hasChanges) {
-			this.storage.save(this.overrides);
+			this.syncOverrideState();
 		}
 	}
 
@@ -287,6 +282,7 @@ export class ComponentCustomizationRuntime {
 					</button>
 					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
 					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
+					<button type="button" class="db-btn db-btn-primary" data-action="save" @click=${this.handleSaveClick}>Save</button>
 					<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" @click=${this.handleResetAllClick}>
 						Reset all
 					</button>
@@ -515,15 +511,13 @@ export class ComponentCustomizationRuntime {
 		const presetOverrides = all[name];
 		if (!presetOverrides) return;
 
-		const tokenStorage = new LocalStorageAdapter();
-		clearPersistedTokenOverrides(tokenStorage.load());
+		clearPersistedTokenOverrides(this.hostElement?.overrideState.token ?? {});
 		applyPersistedTokenOverrides(presetOverrides.token);
-		tokenStorage.save(presetOverrides.token);
 
 		this.clearAppliedOverrides();
-		this.overrides = this.storage.normalize(presetOverrides.component);
+		this.overrides = normalizeDesignBuilderOverrideState({ component: presetOverrides.component }).component;
 		this.applySavedOverrides();
-		this.storage.save(this.overrides);
+		this.syncOverrideState(presetOverrides.token);
 		this.presetManager.setActive(name);
 		this.refreshPresetBar();
 		this.renderControls();
@@ -541,21 +535,16 @@ export class ComponentCustomizationRuntime {
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
 		return {
-			token: new LocalStorageAdapter().load(),
-			component: this.storage.normalize(this.overrides),
+			token: this.hostElement?.overrideState.token ?? {},
+			component: normalizeDesignBuilderOverrideState({ component: this.overrides }).component,
 		};
 	}
 
 	private exportJson(): void {
-		let state = normalizeDesignBuilderOverrideState({});
-		try {
-			const raw = localStorage.getItem(COMPONENT_STORAGE_KEY);
-			state = raw ? normalizeDesignBuilderOverrideState(JSON.parse(raw)) : state;
-		} catch {
-			state = normalizeDesignBuilderOverrideState({});
-		}
-
-		state.component = this.storage.normalize(this.overrides);
+		const state = normalizeDesignBuilderOverrideState({
+			token: this.hostElement?.overrideState.token ?? {},
+			component: this.overrides,
+		});
 		const data = JSON.stringify(state, null, 2);
 		const blob = new Blob([data], { type: 'application/json' });
 		const url = URL.createObjectURL(blob);
@@ -590,16 +579,14 @@ export class ComponentCustomizationRuntime {
 			return;
 		}
 
-		const tokenStorage = new LocalStorageAdapter();
-		const currentTokenOverrides = tokenStorage.load();
+		const currentTokenOverrides = this.hostElement?.overrideState.token ?? {};
 		clearPersistedTokenOverrides(currentTokenOverrides);
 		applyPersistedTokenOverrides(importedState.token);
-		tokenStorage.save(importedState.token);
 
 		this.clearAppliedOverrides();
 		this.overrides = importedOverrides;
 		this.applySavedOverrides();
-		this.storage.save(this.overrides);
+		this.syncOverrideState(importedState.token);
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
@@ -730,7 +717,7 @@ export class ComponentCustomizationRuntime {
 			delete this.overrides[scopeKey];
 		}
 
-		this.storage.save(this.overrides);
+		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 	}
@@ -795,7 +782,7 @@ export class ComponentCustomizationRuntime {
 				delete this.overrides[this.activeScopeKey];
 			}
 		}
-		this.storage.save(this.overrides);
+		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
@@ -808,7 +795,7 @@ export class ComponentCustomizationRuntime {
 
 		this.clearAppliedOverrides();
 		this.overrides = {};
-		this.storage.save(this.overrides);
+		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
@@ -839,6 +826,17 @@ export class ComponentCustomizationRuntime {
 		this.toggleTargetSelectionButton = null;
 		this.toggleTargetSelectionLabel = null;
 		this.presetBarHost = null;
+	}
+
+	private syncOverrideState(tokenOverrides: Record<string, string> | null = null): void {
+		if (!this.hostElement) {
+			return;
+		}
+
+		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: tokenOverrides ?? this.hostElement.overrideState.token,
+			component: this.overrides,
+		});
 	}
 
 	private readonly handleToggleTargetSelectionClick = (): void => {
@@ -895,6 +893,19 @@ export class ComponentCustomizationRuntime {
 
 	private readonly handleResetAllClick = (): void => {
 		this.resetAllComponents();
+	};
+
+	private readonly handleSaveClick = (): void => {
+		this.hostElement?.dispatchEvent(
+			new CustomEvent('design-builder:save', {
+				detail: {
+					mode: 'component-customizer',
+					state: this.hostElement.overrideState,
+				},
+				bubbles: true,
+				composed: true,
+			}),
+		);
 	};
 
 	private readonly handleDeletePresetClick = (event: Event, name: string): void => {

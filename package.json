@@ -102,7 +102,7 @@
             "**/*.test.(js|ts)"
         ],
         "transformIgnorePatterns": [
-            "node_modules/(?!(.*\\.mjs$))"
+            "node_modules/(?!(@lit|lit|lit-element|lit-html)/|.*\\.mjs$)"
         ]
     },
     "browser": {

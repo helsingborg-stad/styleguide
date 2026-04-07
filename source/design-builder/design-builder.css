@@ -24,8 +24,6 @@
 	--db-primary-soft: #e8eeff;
 	--db-danger: #d22f3d;
 	--db-danger-soft: #ffeef0;
-	--db-success: #0f7b43;
-
 	/* High-contrast theme variables (used by prefers-contrast / forced-colors) */
 	--db-hc-bg: #0b0f19;
 	--db-hc-surface: #111827;
@@ -78,7 +76,6 @@
 		--db-primary-soft: #1b2b52;
 		--db-danger: #ff7e8a;
 		--db-danger-soft: #3e1d26;
-		--db-success: #57d39b;
 		color-scheme: dark;
 	}
 }
@@ -99,7 +96,6 @@
 		--db-primary-soft: var(--db-hc-primary-soft);
 		--db-danger: var(--db-hc-danger);
 		--db-danger-soft: var(--db-hc-danger-soft);
-		--db-success: var(--db-hc-success);
 		--db-shadow: none;
 	}
 }
@@ -134,7 +130,6 @@
 		--db-primary-soft: var(--db-hc-primary-soft);
 		--db-danger: var(--db-hc-danger);
 		--db-danger-soft: var(--db-hc-danger-soft);
-		--db-success: var(--db-hc-success);
 		--db-shadow: none;
 	}
 }
@@ -754,15 +749,6 @@ db-swatch-band .db-swatch-band-pct {
 	display: block;
 }
 
-.db-builder-close {
-	width: 2rem;
-	height: 2rem;
-	padding: 0;
-	font-size: 1.25rem;
-	line-height: 1;
-	justify-content: center;
-}
-
 .db-builder-context-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -827,8 +813,7 @@ db-swatch-band .db-swatch-band-pct {
 @media (forced-colors: active) {
 	.db-btn,
 	.db-presets-chip,
-	.db-control-row-reset,
-	.db-builder-close {
+	.db-control-row-reset {
 		forced-color-adjust: auto;
 	}
 }

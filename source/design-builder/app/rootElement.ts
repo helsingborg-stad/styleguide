@@ -1,5 +1,8 @@
 import type { DesignBuilderRootElement } from '../root/types';
+import { ComponentStorageAdapter } from '../services/ComponentStorageAdapter';
 import { resolveCustomizeInitMode } from '../services/customizeInitMode';
+import { hasOverrideStateData, normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../services/overrideState';
+import { LocalStorageAdapter } from '../storage';
 
 function serializePayload(value: unknown): string | null {
 	if (value === undefined) {
@@ -30,8 +33,50 @@ function parseObjectAttribute(value: string | null): Record<string, unknown> {
 	}
 }
 
-export function getExistingRootElements(): DesignBuilderRootElement[] {
+function getExistingRootElements(): DesignBuilderRootElement[] {
 	return Array.from(document.querySelectorAll<DesignBuilderRootElement>('design-builder'));
+}
+
+function serializeOverrideState(state: DesignBuilderOverrideState): string | null {
+	try {
+		return JSON.stringify(normalizeDesignBuilderOverrideState(state));
+	} catch {
+		return null;
+	}
+}
+
+function hydratePersistedOverrideState(rootElement: DesignBuilderRootElement): void {
+	if (rootElement.hasAttribute('override-state')) {
+		return;
+	}
+
+	const overrideState = normalizeDesignBuilderOverrideState({
+		token: new LocalStorageAdapter().load(),
+		component: new ComponentStorageAdapter().load(),
+	});
+
+	if (!hasOverrideStateData(overrideState)) {
+		return;
+	}
+
+	const serialized = serializeOverrideState(overrideState);
+	if (serialized) {
+		rootElement.setAttribute('override-state', serialized);
+	}
+}
+
+function bindStyleguideSaveAdapter(rootElement: DesignBuilderRootElement): void {
+	if (rootElement.dataset.designBuilderSaveAdapterBound === 'true') {
+		return;
+	}
+
+	rootElement.dataset.designBuilderSaveAdapterBound = 'true';
+	rootElement.addEventListener('design-builder:save', (event) => {
+		const detail = (event as CustomEvent<{ state?: unknown }>).detail;
+		const state = normalizeDesignBuilderOverrideState(detail?.state);
+		new LocalStorageAdapter().save(state.token);
+		new ComponentStorageAdapter().save(state.component);
+	});
 }
 
 function mergeCustomizeConfig(rootElement: DesignBuilderRootElement): void {
@@ -91,9 +136,11 @@ function normalizeLegacyRootAttributes(rootElement: DesignBuilderRootElement): v
 	}
 
 	hydrateComponentPayload(rootElement);
+	hydratePersistedOverrideState(rootElement);
+	bindStyleguideSaveAdapter(rootElement);
 }
 
-export function createRootElementFromLegacyContainer(container: HTMLElement): DesignBuilderRootElement {
+function createRootElementFromLegacyContainer(container: HTMLElement): DesignBuilderRootElement {
 	const rootElement = document.createElement('design-builder') as DesignBuilderRootElement;
 
 	for (const { name, value } of Array.from(container.attributes)) {

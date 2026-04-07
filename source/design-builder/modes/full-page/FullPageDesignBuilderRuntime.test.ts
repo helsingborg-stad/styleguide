@@ -5,36 +5,8 @@ jest.mock('../../controls', () => ({
 }));
 
 import { FullPageDesignBuilderRuntime } from './FullPageDesignBuilderRuntime';
+import { normalizeDesignBuilderOverrideState } from '../../services/overrideState';
 import type { TokenData } from '../../types/runtime';
-import { STORAGE_KEY } from '../../storage';
-
-class FakeStorage {
-	public data: Record<string, string> = {};
-
-	load(): Record<string, string> {
-		return { ...this.data };
-	}
-
-	save(overrides: Record<string, string>): void {
-		this.data = { ...overrides };
-		if (Object.keys(this.data).length === 0) {
-			localStorage.removeItem(STORAGE_KEY);
-			return;
-		}
-		localStorage.setItem(
-			STORAGE_KEY,
-			JSON.stringify({
-				token: this.data,
-				component: {},
-			}),
-		);
-	}
-
-	clear(): void {
-		this.data = {};
-		localStorage.removeItem(STORAGE_KEY);
-	}
-}
 
 describe('FullPageDesignBuilderRuntime preset compatibility', () => {
 	const tokenData: TokenData = {
@@ -84,8 +56,12 @@ describe('FullPageDesignBuilderRuntime preset compatibility', () => {
 				},
 			}),
 		);
-		const storage = new FakeStorage();
-		new FullPageDesignBuilderRuntime(container, tokenData, storage);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+		new FullPageDesignBuilderRuntime(container, tokenData, hostElement as any);
 
 		const presetButton = Array.from(container.querySelectorAll<HTMLButtonElement>('.db-presets-chip')).find(
 			(button) => button.querySelector('.db-presets-chip-label')?.textContent === 'myPreset',
@@ -97,14 +73,14 @@ describe('FullPageDesignBuilderRuntime preset compatibility', () => {
 		expect(document.documentElement.style.getPropertyValue('--color-free')).toBe('#123456');
 		expect(document.documentElement.style.getPropertyValue('--color-locked')).toBe('');
 
-		const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-		expect(saved).toEqual({
+		expect(hostElement.overrideState).toEqual({
 			token: {
 				'--color-free': '#123456',
 			},
 			component: {},
 		});
 
+		hostElement.remove();
 		container.remove();
 	});
 });

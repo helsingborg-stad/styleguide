@@ -53,6 +53,7 @@ function resolveInitializationOptions(
 		mountElement: resolveMountElement(hostElement, configuration, renderContainer),
 		openOnInitialize,
 		modeSwitch,
+		hostElement,
 	};
 }
 

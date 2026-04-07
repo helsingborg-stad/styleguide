@@ -1,3 +1,5 @@
+import type { DesignBuilderOverrideState } from '../services/overrideState';
+
 export const DESIGN_BUILDER_MODE_FULL_PAGE = 'full-page';
 export const DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER = 'component-customizer';
 
@@ -10,6 +12,7 @@ export interface DesignBuilderRootConfiguration {
 	tokenData: unknown;
 	tokenLibraryData: unknown;
 	componentData: unknown;
+	overrideState: DesignBuilderOverrideState;
 }
 
 export interface DesignBuilderModeSwitch {
@@ -39,6 +42,7 @@ export interface DesignBuilderRootElement extends HTMLElement {
 	tokenData: unknown;
 	tokenLibraryData: unknown;
 	componentData: unknown;
+	overrideState: DesignBuilderOverrideState;
 	getRenderContainer(): ShadowRoot;
 	switchMode(mode: DesignBuilderMode): void;
 }

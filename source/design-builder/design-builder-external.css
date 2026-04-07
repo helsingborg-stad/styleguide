@@ -46,20 +46,6 @@
 	background: var(--color--background, #f5f5f5);
 }
 
-.db-preview-inner {
-	padding: 0;
-}
-
-.db-preview-section {
-	margin-bottom: 2rem;
-}
-
-.db-preview-section-buttons {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-}
-
 @media (max-width: 960px) {
 	.db-layout {
 		grid-template-columns: 1fr;

@@ -5,6 +5,7 @@ import {
 	type DesignBuilderRootConfiguration,
 	type DesignBuilderRootElement,
 } from './types';
+import { normalizeDesignBuilderOverrideState } from '../services/overrideState';
 
 interface ParseRootConfigurationInput {
 	hostElement: DesignBuilderRootElement;
@@ -12,6 +13,7 @@ interface ParseRootConfigurationInput {
 	propertyTokenData: unknown;
 	propertyTokenLibraryData: unknown;
 	propertyComponentData: unknown;
+	propertyOverrideState?: unknown;
 }
 
 function parseJsonObject(value: string | null): Record<string, unknown> {
@@ -87,6 +89,7 @@ export function parseDesignBuilderRootConfiguration(
 		propertyTokenData,
 		propertyTokenLibraryData,
 		propertyComponentData,
+		propertyOverrideState,
 	} = input;
 
 	const configFromAttribute = parseJsonObject(hostElement.getAttribute('config'));
@@ -101,6 +104,9 @@ export function parseDesignBuilderRootConfiguration(
 	const tokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
 	const tokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
+	const overrideState = normalizeDesignBuilderOverrideState(
+		propertyOverrideState ?? parseJsonUnknown(hostElement.getAttribute('override-state')),
+	);
 	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
 
 	const resolvedMode =
@@ -123,5 +129,6 @@ export function parseDesignBuilderRootConfiguration(
 		tokenData,
 		tokenLibraryData,
 		componentData,
+		overrideState,
 	};
 }

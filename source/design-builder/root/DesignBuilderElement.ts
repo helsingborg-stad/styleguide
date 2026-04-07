@@ -1,10 +1,5 @@
 import { parseDesignBuilderRootConfiguration } from './config';
-import { ComponentStorageAdapter } from '../services/ComponentStorageAdapter';
-import {
-	applyPersistedComponentOverrides,
-	applyPersistedTokenOverrides,
-} from '../services/applyPersistedOverrides';
-import { LocalStorageAdapter } from '../storage';
+import { createEmptyOverrideState, normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../services/overrideState';
 import {
 	DESIGN_BUILDER_MODE_FULL_PAGE,
 	type DesignBuilderMode,
@@ -17,7 +12,7 @@ const SHADOW_STYLE_ASSET = '/assets/dist/css/design-builder.css';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderElement extends HTMLElement implements DesignBuilderRootElement {
-	public static observedAttributes = ['mode', 'config', 'token-data', 'token-library', 'component-data'];
+	public static observedAttributes = ['mode', 'config', 'token-data', 'token-library', 'component-data', 'override-state'];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
 	private static hasRegistered = false;
@@ -27,6 +22,7 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 	private currentTokenData: unknown;
 	private currentTokenLibraryData: unknown;
 	private currentComponentData: unknown;
+	private currentOverrideState: DesignBuilderOverrideState = createEmptyOverrideState();
 	private hasInitialized = false;
 	private styleReady: Promise<void> | null = null;
 	private renderPromise: Promise<void> | null = null;
@@ -101,6 +97,14 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 		}
 	}
 
+	public get overrideState(): DesignBuilderOverrideState {
+		return this.currentOverrideState;
+	}
+
+	public set overrideState(value: DesignBuilderOverrideState) {
+		this.currentOverrideState = normalizeDesignBuilderOverrideState(value);
+	}
+
 	public connectedCallback(): void {
 		if (!this.hasInitialized) {
 			this.hasInitialized = true;
@@ -169,6 +173,7 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 			propertyTokenData: this.currentTokenData,
 			propertyTokenLibraryData: this.currentTokenLibraryData,
 			propertyComponentData: this.currentComponentData,
+			propertyOverrideState: this.currentOverrideState,
 		});
 
 		this.currentMode = parsedConfiguration.mode;
@@ -176,8 +181,7 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 		this.currentTokenData = parsedConfiguration.tokenData;
 		this.currentTokenLibraryData = parsedConfiguration.tokenLibraryData;
 		this.currentComponentData = parsedConfiguration.componentData;
-		applyPersistedTokenOverrides(new LocalStorageAdapter().load());
-		applyPersistedComponentOverrides(new ComponentStorageAdapter().load());
+		this.currentOverrideState = parsedConfiguration.overrideState;
 
 		const modeAdapter = DesignBuilderElement.modeAdapters.get(parsedConfiguration.mode);
 		if (!modeAdapter) {

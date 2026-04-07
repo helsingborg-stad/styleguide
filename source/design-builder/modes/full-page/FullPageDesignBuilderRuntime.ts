@@ -1,39 +1,37 @@
 import { createControl, createReadOnlyControl, createSwatchBand } from '../../controls';
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createModeSwitcher } from '../../dom/createModeSwitcher';
-import type { DesignBuilderModeSwitch } from '../../root/types';
+import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../root/types';
 import { normalizeDesignBuilderOverrideState } from '../../services/overrideState';
 import { SharedPresetManager } from '../../services/SharedPresetManager';
-import { ComponentStorageAdapter } from '../../services/ComponentStorageAdapter';
 import {
 	applyPersistedComponentOverrides,
 	clearPersistedComponentOverrides,
 	clearPersistedTokenOverrides,
 } from '../../services/applyPersistedOverrides';
-import { STORAGE_KEY, type StorageAdapter } from '../../storage';
 import type { DesignBuilderOverrideState } from '../../services/overrideState';
 import type { TokenCategory, TokenData } from '../../types/runtime';
 
 export class FullPageDesignBuilderRuntime {
 	private container: HTMLElement;
-	private storage: StorageAdapter;
+	private hostElement: DesignBuilderRootElement;
 	private tokens: TokenData;
 	private overrides: Record<string, string>;
-	private saveTimeout: ReturnType<typeof setTimeout> | null = null;
 	private presetManager: SharedPresetManager;
 	private root: HTMLElement | null = null;
 	private presetBarHost: HTMLElement | null = null;
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 
-	constructor(container: HTMLElement, tokens: TokenData, storage: StorageAdapter, modeSwitch?: DesignBuilderModeSwitch) {
+	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch) {
 		this.container = container;
+		this.hostElement = hostElement;
 		this.tokens = tokens;
-		this.storage = storage;
 		this.presetManager = new SharedPresetManager();
-		this.overrides = storage.load();
+		this.overrides = { ...hostElement.overrideState.token };
 		this.modeSwitch = modeSwitch;
 		this.removeLockedOverrides();
+		this.syncOverrideState();
 
 		this.render();
 		this.applyAll();
@@ -59,7 +57,7 @@ export class FullPageDesignBuilderRuntime {
 		}
 
 		if (changed) {
-			this.storage.save(this.overrides);
+			this.syncOverrideState();
 		}
 	}
 
@@ -76,11 +74,6 @@ export class FullPageDesignBuilderRuntime {
 	}
 
 	public destroy(): void {
-		if (this.saveTimeout) {
-			clearTimeout(this.saveTimeout);
-			this.saveTimeout = null;
-		}
-
 		renderTemplate(nothing, this.container);
 		this.root = null;
 		this.presetBarHost = null;
@@ -106,6 +99,7 @@ export class FullPageDesignBuilderRuntime {
 					</label>
 					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
 					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
+					<button type="button" class="db-btn db-btn-primary" data-action="save" @click=${this.handleSaveClick}>Save</button>
 					<button type="button" class="db-btn db-btn-danger" data-action="reset" @click=${this.handleResetClick}>
 						Reset All
 					</button>
@@ -186,16 +180,9 @@ export class FullPageDesignBuilderRuntime {
 			document.documentElement.style.removeProperty(variable);
 		}
 
-		this.debounceSave();
+		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
-	}
-
-	private debounceSave(): void {
-		if (this.saveTimeout) clearTimeout(this.saveTimeout);
-		this.saveTimeout = setTimeout(() => {
-			this.storage.save(this.overrides);
-		}, 300);
 	}
 
 	private applyAll(): void {
@@ -214,21 +201,16 @@ export class FullPageDesignBuilderRuntime {
 		}
 
 		this.overrides = {};
-		this.storage.clear();
+		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.render();
 	}
 
 	private exportJson(): void {
-		let state = normalizeDesignBuilderOverrideState({});
-		try {
-			const raw = localStorage.getItem(STORAGE_KEY);
-			state = raw ? normalizeDesignBuilderOverrideState(JSON.parse(raw)) : state;
-		} catch {
-			state = normalizeDesignBuilderOverrideState({});
-		}
-
-		state.token = { ...this.overrides };
+		const state = normalizeDesignBuilderOverrideState({
+			token: this.overrides,
+			component: this.hostElement.overrideState.component,
+		});
 		const data = JSON.stringify(state, null, 2);
 		const blob = new Blob([data], { type: 'application/json' });
 		const url = URL.createObjectURL(blob);
@@ -286,15 +268,15 @@ export class FullPageDesignBuilderRuntime {
 			document.documentElement.style.removeProperty(prop);
 		}
 
-		const componentStorage = new ComponentStorageAdapter();
-		const currentComponentOverrides = componentStorage.load();
-		clearPersistedComponentOverrides(currentComponentOverrides);
+		clearPersistedComponentOverrides(this.hostElement.overrideState.component);
 		applyPersistedComponentOverrides(importedState.component);
-		componentStorage.save(importedState.component);
 
 		this.overrides = importedOverrides;
 		this.applyAll();
-		this.storage.save(this.overrides);
+		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: importedOverrides,
+			component: importedState.component,
+		});
 		this.presetManager.clearActive();
 
 		this.render();
@@ -365,15 +347,16 @@ export class FullPageDesignBuilderRuntime {
 		if (!presetOverrides) return;
 
 		clearPersistedTokenOverrides(this.overrides);
-		const componentStorage = new ComponentStorageAdapter();
-		clearPersistedComponentOverrides(componentStorage.load());
+		clearPersistedComponentOverrides(this.hostElement.overrideState.component);
 
 		this.overrides = { ...presetOverrides.token };
 		this.removeLockedOverrides();
 		this.applyAll();
 		applyPersistedComponentOverrides(presetOverrides.component);
-		componentStorage.save(presetOverrides.component);
-		this.storage.save(this.overrides);
+		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: this.overrides,
+			component: presetOverrides.component,
+		});
 		this.presetManager.setActive(name);
 		this.render();
 	}
@@ -391,8 +374,15 @@ export class FullPageDesignBuilderRuntime {
 	private getCurrentPresetState(): DesignBuilderOverrideState {
 		return {
 			token: { ...this.overrides },
-			component: new ComponentStorageAdapter().load(),
+			component: this.hostElement.overrideState.component,
 		};
+	}
+
+	private syncOverrideState(): void {
+		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: this.overrides,
+			component: this.hostElement.overrideState.component,
+		});
 	}
 
 	private readonly handleLockedFieldsToggle = (event: Event): void => {
@@ -425,6 +415,19 @@ export class FullPageDesignBuilderRuntime {
 
 	private readonly handleSavePresetClick = (): void => {
 		this.savePreset();
+	};
+
+	private readonly handleSaveClick = (): void => {
+		this.hostElement.dispatchEvent(
+			new CustomEvent('design-builder:save', {
+				detail: {
+					mode: 'full-page',
+					state: this.hostElement.overrideState,
+				},
+				bubbles: true,
+				composed: true,
+			}),
+		);
 	};
 
 	private readonly toggleCategoryCollapsed = (event: Event): void => {
