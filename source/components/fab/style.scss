@@ -61,7 +61,7 @@ $yAxis: (
     gap: tokens.use($_, "space", 2);
     position: relative;
     z-index: 1;
-    max-height: 80vh;
+    max-height: calc(100dvh - tokens.use($_, "space", 18));
     overflow: auto;
 }
 
