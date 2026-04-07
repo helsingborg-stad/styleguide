@@ -1,9 +1,5 @@
-import {
-	createControl,
-	createReadOnlyControl,
-	createSwatchBand,
-	type TokenSetting,
-} from '../../controls';
+import { createControl, createReadOnlyControl, createSwatchBand } from '../../controls';
+import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createModeSwitcher } from '../../dom/createModeSwitcher';
 import type { DesignBuilderModeSwitch } from '../../root/types';
 import { normalizeDesignBuilderOverrideState } from '../../services/overrideState';
@@ -25,7 +21,8 @@ export class FullPageDesignBuilderRuntime {
 	private overrides: Record<string, string>;
 	private saveTimeout: ReturnType<typeof setTimeout> | null = null;
 	private presetManager: SharedPresetManager;
-	private presetBar: HTMLElement | null = null;
+	private root: HTMLElement | null = null;
+	private presetBarHost: HTMLElement | null = null;
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 
@@ -67,65 +64,15 @@ export class FullPageDesignBuilderRuntime {
 	}
 
 	private render(): void {
-		const root = document.createElement('div');
-		root.className = 'db-builder db-builder-fullpage';
-
-		const header = document.createElement('div');
-		header.className = 'db-header';
-		header.innerHTML = `
-      <h1 class="db-header-title">Design Builder</h1>
-      <p class="db-header-subtitle">${this.tokens.name} v${this.tokens.version}</p>
-      <div class="db-header-actions">
-<label class="db-header-toggle-row" title="Show non-editable fields">
-<input type="checkbox" data-action="toggle-locked" ${this.showLockedFields ? 'checked' : ''}>
-<span>Show uneditable</span>
-</label>
-        <button type="button" class="db-btn" data-action="export">Export JSON</button>
-        <button type="button" class="db-btn" data-action="import">Import JSON</button>
-        <button type="button" class="db-btn db-btn-danger" data-action="reset">Reset All</button>
-        <button type="button" class="db-btn db-btn-primary" data-action="save-preset">Save preset</button>
-        <input type="file" accept=".json,application/json" data-action="import-file" hidden>
-      </div>
-    `;
-
-		const headerActions = header.querySelector<HTMLElement>('.db-header-actions');
-		const modeSwitcher = this.modeSwitch ? createModeSwitcher(this.modeSwitch) : null;
-		if (headerActions && modeSwitcher) {
-			headerActions.prepend(modeSwitcher);
+		if (!this.root) {
+			this.root = document.createElement('div');
+			this.root.className = 'db-builder db-builder-fullpage';
+			this.container.appendChild(this.root);
 		}
 
-		root.appendChild(header);
-
-		const importInput = header.querySelector<HTMLInputElement>('[data-action="import-file"]');
-		const toggleLockedInput = header.querySelector<HTMLInputElement>('[data-action="toggle-locked"]');
-		toggleLockedInput?.addEventListener('change', () => {
-			this.showLockedFields = toggleLockedInput.checked;
-			this.container.innerHTML = '';
-			this.render();
-		});
-		header.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson());
-		header.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click());
-		importInput?.addEventListener('change', () => {
-			const file = importInput.files?.[0];
-			if (!file) return;
-			void this.importJson(file);
-			importInput.value = '';
-		});
-		header.querySelector('[data-action="reset"]')?.addEventListener('click', () => this.resetAll());
-		header.querySelector('[data-action="save-preset"]')?.addEventListener('click', () => this.savePreset());
-
-		this.presetBar = this.renderPresetBar();
-		root.appendChild(this.presetBar);
-
-		const categoriesWrap = document.createElement('div');
-		categoriesWrap.className = 'db-categories';
-
-		for (const category of this.tokens.categories) {
-			categoriesWrap.appendChild(this.renderCategory(category));
-		}
-
-		root.appendChild(categoriesWrap);
-		this.container.appendChild(root);
+		renderTemplate(this.renderShellTemplate(), this.root);
+		this.presetBarHost = this.root.querySelector<HTMLElement>('[data-preset-bar]');
+		this.renderPresetBar();
 	}
 
 	public destroy(): void {
@@ -134,55 +81,96 @@ export class FullPageDesignBuilderRuntime {
 			this.saveTimeout = null;
 		}
 
-		this.container.innerHTML = '';
+		renderTemplate(nothing, this.container);
+		this.root = null;
+		this.presetBarHost = null;
 	}
 
-	private renderCategory(category: TokenCategory): HTMLElement {
-		const section = document.createElement('section');
-		section.className = 'db-category';
-		section.dataset.categoryId = category.id;
+	private renderShellTemplate(): TemplateResult {
+		const modeSwitcher = this.modeSwitch ? createModeSwitcher(this.modeSwitch) : null;
 
-		const header = document.createElement('div');
-		header.className = 'db-category-header';
-		header.innerHTML = `
-      <h2 class="db-category-title">${category.label}</h2>
-      ${category.description ? `<p class="db-category-description">${category.description}</p>` : ''}
-      <span class="db-category-toggle" aria-hidden="true"></span>
-    `;
-		section.appendChild(header);
+		return html`
+			<div class="db-header">
+				<h1 class="db-header-title">Design Builder</h1>
+				<p class="db-header-subtitle">${this.tokens.name} v${this.tokens.version}</p>
+				<div class="db-header-actions">
+					${modeSwitcher ?? nothing}
+					<label class="db-header-toggle-row" title="Show non-editable fields">
+						<input
+							type="checkbox"
+							data-action="toggle-locked"
+							?checked=${this.showLockedFields}
+							@change=${this.handleLockedFieldsToggle}
+						>
+						<span>Show uneditable</span>
+					</label>
+					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
+					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
+					<button type="button" class="db-btn db-btn-danger" data-action="reset" @click=${this.handleResetClick}>
+						Reset All
+					</button>
+					<button type="button" class="db-btn db-btn-primary" data-action="save-preset" @click=${this.handleSavePresetClick}>
+						Save preset
+					</button>
+					<input
+						type="file"
+						accept=".json,application/json"
+						data-action="import-file"
+						hidden
+						@change=${this.handleImportFileChange}
+					>
+				</div>
+			</div>
+			<div data-preset-bar></div>
+			<div class="db-categories">
+				${this.tokens.categories.map((category) => this.renderCategoryTemplate(category))}
+			</div>
+		`;
+	}
 
-		const body = document.createElement('div');
-		body.className = 'db-category-body';
+	private renderCategoryTemplate(category: TokenCategory): TemplateResult {
+		return html`
+			<section class="db-category" data-category-id=${category.id}>
+				<div class="db-category-header" @click=${this.toggleCategoryCollapsed}>
+					<h2 class="db-category-title">${category.label}</h2>
+					${category.description
+						? html`<p class="db-category-description">${category.description}</p>`
+						: nothing}
+					<span class="db-category-toggle" aria-hidden="true"></span>
+				</div>
+				<div class="db-category-body">
+					${this.renderCategoryBody(category)}
+				</div>
+			</section>
+		`;
+	}
 
+	private renderCategoryBody(category: TokenCategory): Array<HTMLElement> {
 		if (category.present === 'swatch') {
-			body.appendChild(createSwatchBand(category.settings));
-		} else {
-			for (const setting of category.settings) {
-				if (setting.locked) {
-					if (!this.showLockedFields) {
-						continue;
-					}
+			return [createSwatchBand(category.settings)];
+		}
 
-					const currentValue = this.overrides[setting.variable] || setting.default;
-					body.appendChild(createReadOnlyControl(setting, currentValue));
+		const items: HTMLElement[] = [];
+		for (const setting of category.settings) {
+			if (setting.locked) {
+				if (!this.showLockedFields) {
 					continue;
 				}
 
 				const currentValue = this.overrides[setting.variable] || setting.default;
-				const control = createControl(setting, currentValue, (variable, value) => {
-					this.handleChange(variable, value, setting.default);
-				});
-				body.appendChild(control);
+				items.push(createReadOnlyControl(setting, currentValue));
+				continue;
 			}
+
+			const currentValue = this.overrides[setting.variable] || setting.default;
+			items.push(
+				createControl(setting, currentValue, (variable, value) => {
+					this.handleChange(variable, value, setting.default);
+				}),
+			);
 		}
 
-		section.appendChild(body);
-
-		header.addEventListener('click', () => {
-			section.classList.toggle('db-category-collapsed');
-		});
-
-		return section;
+		return items;
 	}
 
 	private handleChange(variable: string, value: string, defaultValue: string): void {
@@ -228,7 +216,6 @@ export class FullPageDesignBuilderRuntime {
 		this.overrides = {};
 		this.storage.clear();
 		this.presetManager.clearActive();
-		this.container.innerHTML = '';
 		this.render();
 	}
 
@@ -310,56 +297,49 @@ export class FullPageDesignBuilderRuntime {
 		this.storage.save(this.overrides);
 		this.presetManager.clearActive();
 
-		this.container.innerHTML = '';
 		this.render();
 	}
 
-	private renderPresetBar(): HTMLElement {
-		const bar = document.createElement('div');
-		bar.className = 'db-presets';
-
-		const names = this.presetManager.names();
-		if (names.length === 0) {
-			bar.hidden = true;
-			bar.classList.add('u-display--none');
-			return bar;
+	private renderPresetBar(): void {
+		if (!this.presetBarHost) {
+			return;
 		}
-
-		const list = document.createElement('div');
-		list.className = 'db-presets-list';
+		const names = this.presetManager.names();
 		const activeName = this.presetManager.getActive();
 
-		for (const name of names) {
-			list.appendChild(this.createPresetChip(name, name === activeName));
-		}
-
-		bar.appendChild(list);
-		return bar;
+		renderTemplate(
+			html`
+				<div class=${names.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${names.length === 0}>
+					${names.length > 0
+						? html`
+								<div class="db-presets-list">
+									${names.map((name) => this.renderPresetChipTemplate(name, name === activeName))}
+								</div>
+							`
+						: nothing}
+				</div>
+			`,
+			this.presetBarHost,
+		);
 	}
 
-	private createPresetChip(name: string, isActive: boolean): HTMLElement {
-		const chip = document.createElement('button');
-		chip.type = 'button';
-		chip.className = 'db-presets-chip';
-		if (isActive) chip.classList.add('db-presets-chip-active');
-
-		const label = document.createElement('span');
-		label.className = 'db-presets-chip-label';
-		label.textContent = name;
-		chip.appendChild(label);
-
-		const del = document.createElement('span');
-		del.className = 'db-presets-chip-delete';
-		del.textContent = '\u00d7';
-		del.title = `Delete "${name}"`;
-		del.addEventListener('click', (event) => {
-			event.stopPropagation();
-			this.deletePreset(name);
-		});
-		chip.appendChild(del);
-
-		chip.addEventListener('click', () => this.loadPreset(name));
-		return chip;
+	private renderPresetChipTemplate(name: string, isActive: boolean): TemplateResult {
+		return html`
+			<button
+				type="button"
+				class=${isActive ? 'db-presets-chip db-presets-chip-active' : 'db-presets-chip'}
+				@click=${() => this.loadPreset(name)}
+			>
+				<span class="db-presets-chip-label">${name}</span>
+				<span
+					class="db-presets-chip-delete"
+					title=${`Delete "${name}"`}
+					@click=${(event: Event) => this.handleDeletePresetClick(event, name)}
+				>
+					&times;
+				</span>
+			</button>
+		`;
 	}
 
 	private savePreset(): void {
@@ -395,7 +375,6 @@ export class FullPageDesignBuilderRuntime {
 		componentStorage.save(presetOverrides.component);
 		this.storage.save(this.overrides);
 		this.presetManager.setActive(name);
-		this.container.innerHTML = '';
 		this.render();
 	}
 
@@ -406,10 +385,7 @@ export class FullPageDesignBuilderRuntime {
 	}
 
 	private refreshPresetBar(): void {
-		if (!this.presetBar) return;
-		const newBar = this.renderPresetBar();
-		this.presetBar.replaceWith(newBar);
-		this.presetBar = newBar;
+		this.renderPresetBar();
 	}
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
@@ -418,4 +394,45 @@ export class FullPageDesignBuilderRuntime {
 			component: new ComponentStorageAdapter().load(),
 		};
 	}
+
+	private readonly handleLockedFieldsToggle = (event: Event): void => {
+		this.showLockedFields = (event.currentTarget as HTMLInputElement).checked;
+		this.render();
+	};
+
+	private readonly handleExportClick = (): void => {
+		this.exportJson();
+	};
+
+	private readonly handleImportClick = (): void => {
+		this.root?.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click();
+	};
+
+	private readonly handleImportFileChange = (event: Event): void => {
+		const input = event.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) {
+			return;
+		}
+
+		void this.importJson(file);
+		input.value = '';
+	};
+
+	private readonly handleResetClick = (): void => {
+		this.resetAll();
+	};
+
+	private readonly handleSavePresetClick = (): void => {
+		this.savePreset();
+	};
+
+	private readonly toggleCategoryCollapsed = (event: Event): void => {
+		(event.currentTarget as HTMLElement).closest<HTMLElement>('.db-category')?.classList.toggle('db-category-collapsed');
+	};
+
+	private readonly handleDeletePresetClick = (event: Event, name: string): void => {
+		event.stopPropagation();
+		this.deletePreset(name);
+	};
 }

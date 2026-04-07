@@ -301,7 +301,6 @@
     )
         @fab([
             'position' => 'bottom-right',
-            'heading' => 'Customize components',
             'button' => [
                 'icon' => 'tune',
                 'size' => 'md',
@@ -310,6 +309,7 @@
                 'classList' => ['u-margin--0'],
                 'ariaLabel' => 'Open component customizer'
             ],
+            'classList' => ['c-fab--width-xl'],
             'attributeList' => [
                 'data-customize-init-fab' => 'true',
                 'data-customizable' => 'false'

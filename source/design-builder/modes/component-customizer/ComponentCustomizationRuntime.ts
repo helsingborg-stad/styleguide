@@ -1,4 +1,5 @@
 import { createControl } from '../../controls';
+import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createModeSwitcher } from '../../dom/createModeSwitcher';
 import type { DesignBuilderModeSwitch } from '../../root/types';
 import { ComponentStorageAdapter } from '../../services/ComponentStorageAdapter';
@@ -39,7 +40,7 @@ export class ComponentCustomizationRuntime {
 	private activeTargetElement: HTMLElement | null = null;
 	private cleanupCallbacks: Array<() => void> = [];
 	private modeSwitch?: DesignBuilderModeSwitch;
-	private presetBar: HTMLElement | null = null;
+	private presetBarHost: HTMLElement | null = null;
 	private isTargetSelectionEnabled = false;
 
 	constructor(
@@ -244,122 +245,93 @@ export class ComponentCustomizationRuntime {
 		const root = document.createElement('div');
 		root.className = 'db-builder db-builder-customizer';
 		root.hidden = true;
-		root.innerHTML = `
-			<div class="db-header">
-				<h1 class="db-header-title">Design Builder</h1>
-				<p class="db-header-subtitle">${this.tokenLibrary.name} v${this.tokenLibrary.version}</p>
-				<div class="db-header-actions" data-header-actions>
-					<button type="button" class="db-btn" data-action="toggle-target-selection" aria-pressed="false">
-						<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-							<path fill="currentColor" d="M4 3h7v2H6v5H4V3Zm10 0h6v7h-2V5h-4V3ZM4 14h2v4h5v2H4v-6Zm14 0h2v6h-7v-2h5v-4Zm-6-3 6-6v4h4l-6 6V11h-4Z" />
-						</svg>
-						<span data-role="toggle-target-selection-label">Pick on page</span>
-					</button>
-					<button type="button" class="db-btn" data-action="export">Export JSON</button>
-					<button type="button" class="db-btn" data-action="import">Import JSON</button>
-					<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components">Reset all</button>
-					<button type="button" class="db-btn db-btn-primary" data-action="save-preset">Save preset</button>
-					<input type="file" accept=".json,application/json" data-action="import-file" hidden>
-				</div>
-			</div>
-			<div data-preset-bar></div>
-			<div class="db-presets">
-				<div class="db-builder-context-grid">
-					<label class="db-builder-context-row" for="db-component-select">Component
-						<select id="db-component-select" class="db-control-text" data-action="select-component"></select>
-					</label>
-					<label class="db-builder-context-row" for="db-scope-select">Scope
-						<select id="db-scope-select" class="db-control-text" data-action="select-scope"></select>
-					</label>
-				</div>
-				<div class="db-header-actions">
-					<button type="button" class="db-btn" data-action="reset-component">Reset selected</button>
-				</div>
-			</div>
-			<div class="db-categories" data-component-controls></div>
-		`;
-
 		this.mountElement.appendChild(root);
 		this.root = root;
+
+		renderTemplate(this.renderShellTemplate(), root);
+
 		this.controlsContainer = root.querySelector<HTMLElement>('[data-component-controls]');
 		this.componentSelect = root.querySelector<HTMLSelectElement>('[data-action="select-component"]');
 		this.scopeSelect = root.querySelector<HTMLSelectElement>('[data-action="select-scope"]');
 		this.toggleTargetSelectionButton = root.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
 		this.toggleTargetSelectionLabel = root.querySelector<HTMLElement>('[data-role="toggle-target-selection-label"]');
-		this.presetBar = this.renderPresetBar();
-		root.querySelector<HTMLElement>('[data-preset-bar]')?.replaceWith(this.presetBar);
-		const headerActions = root.querySelector<HTMLElement>('[data-header-actions]');
-		const modeSwitcher = this.modeSwitch ? createModeSwitcher(this.modeSwitch) : null;
-		if (headerActions && modeSwitcher) {
-			headerActions.prepend(modeSwitcher);
-		}
+		this.presetBarHost = root.querySelector<HTMLElement>('[data-preset-bar]');
 
-		const closeButton = root.querySelector<HTMLElement>('[data-action="close-panel"]');
-		closeButton?.addEventListener('click', () => {
-			root.hidden = true;
-		});
-
-		const importInput = root.querySelector<HTMLInputElement>('[data-action="import-file"]');
-		root.querySelector('[data-action="export"]')?.addEventListener('click', () => this.exportJson());
-		root.querySelector('[data-action="import"]')?.addEventListener('click', () => importInput?.click());
-		importInput?.addEventListener('change', () => {
-			const file = importInput.files?.[0];
-			if (!file) return;
-			void this.importJson(file);
-			importInput.value = '';
-		});
-		root.querySelector('[data-action="save-preset"]')?.addEventListener('click', () => this.savePreset());
-		this.toggleTargetSelectionButton?.addEventListener('click', () => {
-			this.setTargetSelectionEnabled(!this.isTargetSelectionEnabled);
-		});
+		this.renderPresetBar();
+		this.renderComponentOptions();
+		this.refreshScopeSelect();
 		this.updateTargetSelectionButton();
-
-		if (this.componentSelect) {
-			this.componentSelect.innerHTML = '';
-
-			for (const componentName of this.getSortedComponentNames()) {
-				const option = document.createElement('option');
-				option.value = componentName;
-				option.textContent = this.getComponentLabel(componentName);
-				this.componentSelect.appendChild(option);
-			}
-
-			if (this.activeComponent && this.getSortedComponentNames().includes(this.activeComponent)) {
-				this.componentSelect.value = this.activeComponent;
-			}
-
-			this.refreshScopeSelect();
-
-			this.componentSelect.addEventListener('change', () => {
-				this.activeComponent = this.componentSelect?.value || null;
-				if (this.activeComponent) {
-					this.refreshScopeSelect();
-					this.setActiveTarget(this.activeComponent, this.activeScopeKey);
-				}
-				this.renderControls();
-			});
-		}
-
-		if (this.scopeSelect) {
-			this.scopeSelect.addEventListener('change', () => {
-				this.activeScopeKey = this.scopeSelect?.value || GENERAL_SCOPE_KEY;
-				if (this.activeComponent) {
-					this.setActiveTarget(this.activeComponent, this.activeScopeKey);
-				}
-				this.renderControls();
-			});
-		}
-
-		root.querySelector('[data-action="reset-component"]')?.addEventListener('click', () => {
-			if (!this.activeComponent) return;
-			this.resetComponent(this.activeComponent);
-		});
-
-		root.querySelector('[data-action="reset-all-components"]')?.addEventListener('click', () => {
-			this.resetAllComponents();
-		});
-
 		this.renderControls();
+	}
+
+	private renderShellTemplate(): TemplateResult {
+		const modeSwitcher = this.modeSwitch ? createModeSwitcher(this.modeSwitch) : null;
+
+		return html`
+			<div class="db-header">
+				<h1 class="db-header-title">Design Builder</h1>
+				<p class="db-header-subtitle">${this.tokenLibrary.name} v${this.tokenLibrary.version}</p>
+				<div class="db-header-actions" data-header-actions>
+					${modeSwitcher ?? nothing}
+					<button
+						type="button"
+						class="db-btn"
+						data-action="toggle-target-selection"
+						aria-pressed="false"
+						@click=${this.handleToggleTargetSelectionClick}
+					>
+						<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M4 3h7v2H6v5H4V3Zm10 0h6v7h-2V5h-4V3ZM4 14h2v4h5v2H4v-6Zm14 0h2v6h-7v-2h5v-4Zm-6-3 6-6v4h4l-6 6V11h-4Z" />
+						</svg>
+						<span data-role="toggle-target-selection-label">Pick on page</span>
+					</button>
+					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
+					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
+					<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" @click=${this.handleResetAllClick}>
+						Reset all
+					</button>
+					<button type="button" class="db-btn db-btn-primary" data-action="save-preset" @click=${this.handleSavePresetClick}>
+						Save preset
+					</button>
+					<input
+						type="file"
+						accept=".json,application/json"
+						data-action="import-file"
+						hidden
+						@change=${this.handleImportFileChange}
+					>
+				</div>
+			</div>
+			<div data-preset-bar></div>
+			<div class="db-presets">
+				<div class="db-builder-context-grid">
+					<label class="db-builder-context-row" for="db-component-select"
+						>Component
+						<select
+							id="db-component-select"
+							class="db-control-text"
+							data-action="select-component"
+							@change=${this.handleComponentSelectChange}
+						></select>
+					</label>
+					<label class="db-builder-context-row" for="db-scope-select"
+						>Scope
+						<select
+							id="db-scope-select"
+							class="db-control-text"
+							data-action="select-scope"
+							@change=${this.handleScopeSelectChange}
+						></select>
+					</label>
+				</div>
+				<div class="db-header-actions">
+					<button type="button" class="db-btn" data-action="reset-component" @click=${this.handleResetComponentClick}>
+						Reset selected
+					</button>
+				</div>
+			</div>
+			<div class="db-categories" data-component-controls></div>
+		`;
 	}
 
 	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
@@ -428,15 +400,14 @@ export class ComponentCustomizationRuntime {
 			this.activeScopeKey = GENERAL_SCOPE_KEY;
 		}
 
-		this.scopeSelect.innerHTML = '';
-
-		for (const scopeKey of availableScopeKeys) {
-			const option = document.createElement('option');
-			option.value = scopeKey;
-			option.textContent = this.getScopeOptionLabel(scopeKey);
-			this.scopeSelect.appendChild(option);
-		}
-
+		renderTemplate(
+			html`
+				${availableScopeKeys.map(
+					(scopeKey) => html`<option value=${scopeKey}>${this.getScopeOptionLabel(scopeKey)}</option>`,
+				)}
+			`,
+			this.scopeSelect,
+		);
 		this.scopeSelect.value = this.activeScopeKey;
 	}
 
@@ -480,54 +451,46 @@ export class ComponentCustomizationRuntime {
 		return componentName;
 	}
 
-	private renderPresetBar(): HTMLElement {
-		const bar = document.createElement('div');
-		bar.className = 'db-presets';
-
-		const names = this.presetManager.names();
-		if (names.length === 0) {
-			bar.hidden = true;
-			bar.classList.add('u-display--none');
-			return bar;
+	private renderPresetBar(): void {
+		if (!this.presetBarHost) {
+			return;
 		}
-
-		const list = document.createElement('div');
-		list.className = 'db-presets-list';
+		const names = this.presetManager.names();
 		const activeName = this.presetManager.getActive();
 
-		for (const name of names) {
-			list.appendChild(this.createPresetChip(name, name === activeName));
-		}
-
-		bar.appendChild(list);
-		return bar;
+		renderTemplate(
+			html`
+				<div class=${names.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${names.length === 0}>
+					${names.length > 0
+						? html`
+								<div class="db-presets-list">
+									${names.map((name) => this.renderPresetChipTemplate(name, name === activeName))}
+								</div>
+							`
+						: nothing}
+				</div>
+			`,
+			this.presetBarHost,
+		);
 	}
 
-	private createPresetChip(name: string, isActive: boolean): HTMLElement {
-		const chip = document.createElement('button');
-		chip.type = 'button';
-		chip.className = 'db-presets-chip';
-		if (isActive) {
-			chip.classList.add('db-presets-chip-active');
-		}
-
-		const label = document.createElement('span');
-		label.className = 'db-presets-chip-label';
-		label.textContent = name;
-		chip.appendChild(label);
-
-		const del = document.createElement('span');
-		del.className = 'db-presets-chip-delete';
-		del.textContent = '\u00d7';
-		del.title = `Delete "${name}"`;
-		del.addEventListener('click', (event) => {
-			event.stopPropagation();
-			this.deletePreset(name);
-		});
-		chip.appendChild(del);
-
-		chip.addEventListener('click', () => this.loadPreset(name));
-		return chip;
+	private renderPresetChipTemplate(name: string, isActive: boolean): TemplateResult {
+		return html`
+			<button
+				type="button"
+				class=${isActive ? 'db-presets-chip db-presets-chip-active' : 'db-presets-chip'}
+				@click=${() => this.loadPreset(name)}
+			>
+				<span class="db-presets-chip-label">${name}</span>
+				<span
+					class="db-presets-chip-delete"
+					title=${`Delete "${name}"`}
+					@click=${(event: Event) => this.handleDeletePresetClick(event, name)}
+				>
+					&times;
+				</span>
+			</button>
+		`;
 	}
 
 	private savePreset(): void {
@@ -573,13 +536,7 @@ export class ComponentCustomizationRuntime {
 	}
 
 	private refreshPresetBar(): void {
-		if (!this.presetBar) {
-			return;
-		}
-
-		const newBar = this.renderPresetBar();
-		this.presetBar.replaceWith(newBar);
-		this.presetBar = newBar;
+		this.renderPresetBar();
 	}
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
@@ -650,43 +607,63 @@ export class ComponentCustomizationRuntime {
 
 	private renderControls(): void {
 		if (!this.controlsContainer) return;
-		this.controlsContainer.innerHTML = '';
 
 		if (!this.activeComponent) {
-			this.controlsContainer.textContent = 'No component selected.';
+			renderTemplate(html`No component selected.`, this.controlsContainer);
 			return;
 		}
 
 		const categories = this.buildCategoriesForComponent(this.activeComponent);
 		if (categories.length === 0) {
-			this.controlsContainer.textContent = 'No token customization options were found for this component.';
+			renderTemplate(html`No token customization options were found for this component.`, this.controlsContainer);
 			return;
 		}
 
-		for (const category of categories) {
-			const section = document.createElement('section');
-			section.className = 'db-category';
+		renderTemplate(
+			html`${categories.map((category) => this.renderControlsCategoryTemplate(category))}`,
+			this.controlsContainer,
+		);
+	}
 
-			const header = document.createElement('div');
-			header.className = 'db-category-header';
-			header.innerHTML = `<h2 class="db-category-title">${category.label}</h2>`;
-			section.appendChild(header);
-
-			const body = document.createElement('div');
-			body.className = 'db-category-body';
-
-			for (const setting of category.settings) {
-				const currentValue =
-					this.overrides[this.activeScopeKey]?.[this.activeComponent]?.[setting.variable] || setting.default;
-				const control = createControl(setting, currentValue, (variable, value) => {
-					this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default);
-				});
-				body.appendChild(control);
-			}
-
-			section.appendChild(body);
-			this.controlsContainer.appendChild(section);
+	private renderComponentOptions(): void {
+		if (!this.componentSelect) {
+			return;
 		}
+
+		const componentNames = this.getSortedComponentNames();
+		renderTemplate(
+			html`
+				${componentNames.map(
+					(componentName) => html`<option value=${componentName}>${this.getComponentLabel(componentName)}</option>`,
+				)}
+			`,
+			this.componentSelect,
+		);
+
+		if (this.activeComponent && componentNames.includes(this.activeComponent)) {
+			this.componentSelect.value = this.activeComponent;
+		}
+	}
+
+	private renderControlsCategoryTemplate(category: TokenCategory): TemplateResult {
+		return html`
+			<section class="db-category">
+				<div class="db-category-header">
+					<h2 class="db-category-title">${category.label}</h2>
+				</div>
+				<div class="db-category-body">
+					${category.settings.map((setting) => this.renderControl(setting))}
+				</div>
+			</section>
+		`;
+	}
+
+	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {
+		const currentValue =
+			this.overrides[this.activeScopeKey]?.[this.activeComponent as string]?.[setting.variable] || setting.default;
+		return createControl(setting, currentValue, (variable, value) => {
+			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default);
+		});
 	}
 
 	private buildCategoriesForComponent(componentName: string): TokenCategory[] {
@@ -861,6 +838,67 @@ export class ComponentCustomizationRuntime {
 		this.scopeSelect = null;
 		this.toggleTargetSelectionButton = null;
 		this.toggleTargetSelectionLabel = null;
-		this.presetBar = null;
+		this.presetBarHost = null;
 	}
+
+	private readonly handleToggleTargetSelectionClick = (): void => {
+		this.setTargetSelectionEnabled(!this.isTargetSelectionEnabled);
+	};
+
+	private readonly handleExportClick = (): void => {
+		this.exportJson();
+	};
+
+	private readonly handleImportClick = (): void => {
+		this.root?.querySelector<HTMLInputElement>('[data-action="import-file"]')?.click();
+	};
+
+	private readonly handleImportFileChange = (event: Event): void => {
+		const input = event.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) {
+			return;
+		}
+
+		void this.importJson(file);
+		input.value = '';
+	};
+
+	private readonly handleSavePresetClick = (): void => {
+		this.savePreset();
+	};
+
+	private readonly handleComponentSelectChange = (event: Event): void => {
+		this.activeComponent = (event.currentTarget as HTMLSelectElement).value || null;
+		if (this.activeComponent) {
+			this.refreshScopeSelect();
+			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
+		}
+		this.renderControls();
+	};
+
+	private readonly handleScopeSelectChange = (event: Event): void => {
+		this.activeScopeKey = (event.currentTarget as HTMLSelectElement).value || GENERAL_SCOPE_KEY;
+		if (this.activeComponent) {
+			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
+		}
+		this.renderControls();
+	};
+
+	private readonly handleResetComponentClick = (): void => {
+		if (!this.activeComponent) {
+			return;
+		}
+
+		this.resetComponent(this.activeComponent);
+	};
+
+	private readonly handleResetAllClick = (): void => {
+		this.resetAllComponents();
+	};
+
+	private readonly handleDeletePresetClick = (event: Event, name: string): void => {
+		event.stopPropagation();
+		this.deletePreset(name);
+	};
 }
