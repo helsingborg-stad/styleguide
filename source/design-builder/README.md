@@ -12,9 +12,24 @@ Root element contract:
 - `token-data`: JSON payload used in `full-page` mode
 - `token-library`: JSON payload used in `component-customizer` mode
 - `component-data`: JSON payload used in `component-customizer` mode
+- `override-state`: optional JSON payload used to hydrate draft token/component overrides
 - `config`: JSON object for mode-specific options
   - `initMode`: `onload` or `manual` for `component-customizer`
   - `customizerContainerSelector`: optional CSS selector for host-provided customizer mount container
+
+Root element runtime API:
+- `mode`
+- `config`
+- `tokenData`
+- `tokenLibraryData`
+- `componentData`
+- `overrideState`
+- `switchMode(mode)`
+
+Root element events:
+- `design-builder:initialized`
+- `design-builder:save`
+- `design-builder:error`
 
 The Design Builder runtime has two execution modes in the same entry file:
 
@@ -58,23 +73,26 @@ Template source:
 ### Behavior
 
 - Renders categorized controls from source/data/design-tokens.json payload.
-- Applies token overrides directly on :root.
-- Persists overrides in localStorage.
+- Applies token overrides directly on `:root`.
+- Keeps draft overrides on the root element until the user explicitly clicks **Save**.
 - Supports:
   - reset all
   - import/export JSON
   - presets (save/load/delete)
+  - explicit save event emission
   - optional display of locked fields
   - draggable split between controls and preview
 
 ### Storage keys
 
-From source/design-builder/storage.ts, source/design-builder/state/runtimeConstants.ts and source/design-builder/index.ts:
+Used by the styleguide host integration and shared preset helpers:
 
 - design-builder-overrides
 - design-builder-presets
 - design-builder-active-preset
 - design-builder-split
+
+The generic `<design-builder>` element no longer writes to localStorage while the user edits. In the styleguide app, `source/design-builder/app/rootElement.ts` hydrates `override-state` from storage and listens for `design-builder:save` to persist the current override document.
 
 ## Mode 2: Component-level customization
 
@@ -152,6 +170,7 @@ Features:
 - Manually activate page-picking to choose a component by clicking it on the page
 - Save/load/delete shared presets that include both token and component overrides
 - Import/export component override JSON
+- Emit an explicit save event with the full override document
 - Reset selected component (current scope only)
 - Reset all components (all scopes)
 - Render controls for mapped token categories
@@ -201,13 +220,12 @@ Example:
 
 Changes in one scope do not affect the other.
 
-## Storage model
+## Override state and save boundary
 
-Both modes now share the same override document and read/write different slices of it.
+Both modes share the same override document and mutate different slices of it in memory on the root element.
 On startup, the runtime reapplies both slices so token and component overrides are active regardless of which mode is currently open.
 
-Storage key:
-- design-builder-overrides
+Draft state is passed in through `override-state` / `rootElement.overrideState`.
 
 Current shape:
 
@@ -229,9 +247,37 @@ Current shape:
   }
 }
 
+When the user clicks **Save**, the active runtime emits:
+
+```js
+new CustomEvent('design-builder:save', {
+  detail: {
+    mode: 'full-page' | 'component-customizer',
+    state: rootElement.overrideState
+  },
+  bubbles: true,
+  composed: true
+})
+```
+
+This lets hosts decide how persistence works:
+
+- write to localStorage
+- POST to an API
+- sync to WordPress / another CMS
+- ignore save entirely and keep Design Builder draft-only
+
 ### Legacy migration
 
 Legacy flat token overrides and legacy component-only saved data are still accepted and migrated into the shared override document in-memory.
+
+### Styleguide host behavior
+
+The styleguide bootstrap in `source/design-builder/app/rootElement.ts` preserves current site behavior by:
+
+- hydrating `override-state` from `LocalStorageAdapter` and `ComponentStorageAdapter` when the attribute is missing
+- listening for `design-builder:save`
+- writing token and component slices back through those adapters
 
 ## Data contracts
 
@@ -332,6 +378,14 @@ Wrap region with:
 Any data-component targets inside that region become scope-bound for apply/reset.
 
 ## Troubleshooting
+
+### Save does nothing
+
+Check:
+
+- the host listens for `design-builder:save`, or uses the styleguide bootstrap that binds the default localStorage save adapter
+- the root has a valid `override-state` or has produced draft changes before save
+- custom hosts do not replace the root element before reading the event
 
 ### Component panel does not show
 
