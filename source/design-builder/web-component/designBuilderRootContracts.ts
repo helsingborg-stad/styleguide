@@ -8,7 +8,6 @@ export type DesignBuilderMode = typeof DESIGN_BUILDER_MODE_FULL_PAGE | typeof DE
 export interface DesignBuilderRootConfiguration {
 	mode: DesignBuilderMode;
 	availableModes: DesignBuilderMode[];
-	config: Record<string, unknown>;
 	tokenData: unknown;
 	tokenLibraryData: unknown;
 	componentData: unknown;
@@ -35,12 +34,9 @@ export interface DesignBuilderModeAdapterResult {
 export type DesignBuilderModeAdapter = (context: DesignBuilderModeAdapterContext) => DesignBuilderModeAdapterResult | void | Promise<DesignBuilderModeAdapterResult | void>;
 
 export interface DesignBuilderRootElement extends HTMLElement {
-	mode: DesignBuilderMode;
-	config: Record<string, unknown>;
 	tokenData: unknown;
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
 	getRenderContainer(): ShadowRoot;
-	switchMode(mode: DesignBuilderMode): void;
 }

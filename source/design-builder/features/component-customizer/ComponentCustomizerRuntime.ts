@@ -1,6 +1,7 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
 import { createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
@@ -228,7 +229,6 @@ export class ComponentCustomizerRuntime {
 
 		const root = document.createElement('div');
 		root.className = 'db-builder db-builder-customizer';
-		root.hidden = true;
 		this.mountElement.appendChild(root);
 		this.root = root;
 
@@ -490,6 +490,9 @@ export class ComponentCustomizerRuntime {
 		this.presetManager.save(trimmed, this.getCurrentPresetState());
 		this.presetManager.setActive(trimmed);
 		this.refreshPresetBar();
+		this.emitAction('preset-save', {
+			presetName: trimmed,
+		});
 	}
 
 	private loadPreset(name: string): void {
@@ -507,12 +510,18 @@ export class ComponentCustomizerRuntime {
 		this.presetManager.setActive(name);
 		this.refreshPresetBar();
 		this.renderControls();
+		this.emitAction('preset-load', {
+			presetName: name,
+		});
 	}
 
 	private deletePreset(name: string): void {
 		if (!confirm(`Delete preset "${name}"?`)) return;
 		this.presetManager.delete(name);
 		this.refreshPresetBar();
+		this.emitAction('preset-delete', {
+			presetName: name,
+		});
 	}
 
 	private refreshPresetBar(): void {
@@ -539,6 +548,9 @@ export class ComponentCustomizerRuntime {
 		anchor.download = 'design-builder-overrides.json';
 		anchor.click();
 		URL.revokeObjectURL(url);
+		this.emitAction('export', {
+			fileName: anchor.download,
+		});
 	}
 
 	private async importJson(file: File): Promise<void> {
@@ -576,6 +588,11 @@ export class ComponentCustomizerRuntime {
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
+		this.emitAction('import', {
+			fileName: file.name,
+			tokenOverrideCount: Object.keys(importedState.token).length,
+			componentScopeCount: Object.keys(importedOverrides).length,
+		});
 	}
 
 	private renderControls(): void {
@@ -694,6 +711,13 @@ export class ComponentCustomizerRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
+		this.emitAction('change', {
+			componentName,
+			scopeKey,
+			variable,
+			value,
+			defaultValue,
+		});
 	}
 
 	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {
@@ -760,6 +784,10 @@ export class ComponentCustomizerRuntime {
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
+		this.emitAction('reset-component', {
+			componentName,
+			scopeKey: this.activeScopeKey,
+		});
 	}
 
 	private resetAllComponents(): void {
@@ -773,6 +801,7 @@ export class ComponentCustomizerRuntime {
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
+		this.emitAction('reset-all');
 	}
 
 	public dispose(): void {
@@ -810,6 +839,22 @@ export class ComponentCustomizerRuntime {
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: tokenOverrides ?? this.hostElement.overrideState.token,
 			component: this.overrides,
+		});
+	}
+
+	private emitAction(
+		action: 'change' | 'save' | 'reset-all' | 'reset-component' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete',
+		metadata?: Record<string, unknown>,
+	): void {
+		if (!this.hostElement) {
+			return;
+		}
+
+		emitDesignBuilderActionEvent(this.hostElement, {
+			action,
+			mode: 'component-customizer',
+			state: this.hostElement.overrideState,
+			metadata,
 		});
 	}
 
@@ -870,16 +915,7 @@ export class ComponentCustomizerRuntime {
 	};
 
 	private readonly handleSaveClick = (): void => {
-		this.hostElement?.dispatchEvent(
-			new CustomEvent('design-builder:save', {
-				detail: {
-					mode: 'component-customizer',
-					state: this.hostElement.overrideState,
-				},
-				bubbles: true,
-				composed: true,
-			}),
-		);
+		this.emitAction('save');
 	};
 
 	private readonly handleDeletePresetClick = (event: Event, name: string): void => {

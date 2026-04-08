@@ -9,15 +9,6 @@ export function isTokenData(value: unknown): value is TokenData {
 	return Array.isArray(maybeData.categories);
 }
 
-export async function readEmbeddedDesignTokenLibrary(): Promise<TokenData | null> {
-	const embeddedLibrary = window.styleguideDesignTokenLibrary;
-	if (isTokenData(embeddedLibrary)) {
-		return embeddedLibrary;
-	}
-
-	return null;
-}
-
 export function parseDesignTokenLibraryData(rawValue: unknown): TokenData | null {
 	if (!rawValue) {
 		return null;

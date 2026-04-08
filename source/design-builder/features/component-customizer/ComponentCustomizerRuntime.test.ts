@@ -3,6 +3,9 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 }));
 
 import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
+import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
+import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
 import type { ComponentTokenData, TokenData } from '../../shared/types/designBuilderDataTypes';
 
 describe('ComponentCustomizerRuntime pick mode', () => {
@@ -66,5 +69,60 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		target?.click();
 		expect(target?.classList.contains('db-component-target')).toBe(false);
 		expect(toggleLabel()).toBe('Pick on page');
+	});
+
+	it('emits action events for component changes, resets, and saves', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		const actionEvents: DesignBuilderActionEventDetail[] = [];
+		const saveEvents: DesignBuilderActionEventDetail[] = [];
+		hostElement.addEventListener('design-builder:action', (event) => {
+			actionEvents.push((event as CustomEvent<DesignBuilderActionEventDetail>).detail);
+		});
+		hostElement.addEventListener('design-builder:save', (event) => {
+			saveEvents.push((event as CustomEvent<DesignBuilderActionEventDetail>).detail);
+		});
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
+			handleSaveClick(): void;
+			resetAllComponents(): void;
+		};
+
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--color--primary', '#123456', '#000000');
+		expect(actionEvents.at(-1)).toMatchObject({
+			action: 'change',
+			mode: 'component-customizer',
+			metadata: {
+				componentName: 'button',
+				scopeKey: GENERAL_SCOPE_KEY,
+				variable: '--c-button--color--primary',
+				value: '#123456',
+			},
+		});
+
+		const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
+		runtimeInternals.resetAllComponents();
+		expect(actionEvents.at(-1)).toMatchObject({
+			action: 'reset-all',
+			mode: 'component-customizer',
+		});
+
+		runtimeInternals.handleSaveClick();
+		expect(saveEvents.at(-1)).toMatchObject({
+			action: 'save',
+			mode: 'component-customizer',
+		});
+
+		confirmSpy.mockRestore();
+		hostElement.remove();
+		mount.remove();
 	});
 });

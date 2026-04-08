@@ -1,4 +1,5 @@
 import { designBuilderStyles } from '../shared/styling/designBuilderStyleText';
+import { emitDesignBuilderActionEvent } from '../shared/events/designBuilderActionEvents';
 import { createEmptyOverrideState, type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
 import { resolveDesignBuilderRootConfiguration } from './resolveDesignBuilderRootConfiguration';
 import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderMode, type DesignBuilderModeAdapter, type DesignBuilderRootElement } from './designBuilderRootContracts';
@@ -7,13 +8,12 @@ const ROOT_ELEMENT_TAG_NAME = 'design-builder';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRootElement {
-	public static observedAttributes = ['mode', 'config', 'token-data', 'token-library', 'component-data', 'override-state'];
+	public static observedAttributes = ['token-data', 'token-library', 'component-data', 'override-state'];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
 	private static hasRegistered = false;
 
 	private currentMode: DesignBuilderMode | null = null;
-	private currentConfig: Record<string, unknown> | null = null;
 	private currentTokenData: unknown;
 	private currentTokenLibraryData: unknown;
 	private currentComponentData: unknown;
@@ -31,31 +31,8 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 		return this.shadowRoot as ShadowRoot;
 	}
 
-	public get mode(): DesignBuilderMode {
+	private get mode(): DesignBuilderMode {
 		return this.currentMode ?? DESIGN_BUILDER_MODE_FULL_PAGE;
-	}
-
-	public set mode(value: DesignBuilderMode) {
-		this.currentMode = value;
-		if (this.getAttribute('mode') !== value) {
-			this.setAttribute('mode', value);
-			return;
-		}
-
-		if (this.hasInitialized) {
-			void this.scheduleRender();
-		}
-	}
-
-	public get config(): Record<string, unknown> {
-		return this.currentConfig ?? {};
-	}
-
-	public set config(value: Record<string, unknown>) {
-		this.currentConfig = value;
-		if (this.hasInitialized) {
-			void this.scheduleRender();
-		}
 	}
 
 	public get tokenLibraryData(): unknown {
@@ -116,23 +93,33 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 			return;
 		}
 
-		if (name === 'mode') {
-			this.currentMode = newValue ? (newValue as DesignBuilderMode) : null;
-		}
-
 		if (!this.hasInitialized) {
 			return;
 		}
 
+		void name;
 		void this.scheduleRender();
 	}
 
-	public switchMode(value: DesignBuilderMode): void {
+	private switchMode(value: DesignBuilderMode): void {
 		if (this.mode === value) {
 			return;
 		}
 
-		this.mode = value;
+		const previousMode = this.mode;
+		this.currentMode = value;
+		if (this.hasInitialized) {
+			emitDesignBuilderActionEvent(this, {
+				action: 'mode-change',
+				mode: value,
+				state: this.currentOverrideState,
+				metadata: {
+					fromMode: previousMode,
+					toMode: value,
+				},
+			});
+			void this.scheduleRender();
+		}
 	}
 
 	private async scheduleRender(): Promise<void> {
@@ -163,7 +150,7 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 
 		const parsedConfiguration = resolveDesignBuilderRootConfiguration({
 			hostElement: this,
-			propertyConfig: this.currentConfig,
+			preferredMode: this.currentMode,
 			propertyTokenData: this.currentTokenData,
 			propertyTokenLibraryData: this.currentTokenLibraryData,
 			propertyComponentData: this.currentComponentData,
@@ -171,7 +158,6 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 		});
 
 		this.currentMode = parsedConfiguration.mode;
-		this.currentConfig = parsedConfiguration.config;
 		this.currentTokenData = parsedConfiguration.tokenData;
 		this.currentTokenLibraryData = parsedConfiguration.tokenLibraryData;
 		this.currentComponentData = parsedConfiguration.componentData;

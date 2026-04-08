@@ -67,4 +67,30 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 			},
 		});
 	});
+
+	it('normalizes legacy containers into explicit design-builder roots', () => {
+		document.body.innerHTML = `
+			<div
+				data-design-builder
+				data-component-data='{"button":{"name":"Button","tokens":["color--primary"]}}'
+				data-token-library='{"name":"tokens","version":"1.0.0","categories":[]}'
+			>
+				Legacy content
+			</div>
+		`;
+
+		const [root] = resolveStyleguideDesignBuilderRootElements();
+
+		expect(root.tagName.toLowerCase()).toBe('design-builder');
+		expect(root.getAttribute('component-data')).toContain('"button"');
+		expect(root.getAttribute('token-library')).toContain('"categories"');
+		expect(root.innerHTML).toContain('Legacy content');
+	});
+
+	it('does not create hidden roots when no design-builder markup exists', () => {
+		document.body.innerHTML = '<div>No design builder root</div>';
+
+		expect(resolveStyleguideDesignBuilderRootElements()).toEqual([]);
+		expect(document.querySelector('design-builder')).toBeNull();
+	});
 });

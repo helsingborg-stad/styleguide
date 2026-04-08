@@ -3,28 +3,11 @@ import { normalizeDesignBuilderOverrideState } from '../shared/state/designBuild
 
 interface ParseRootConfigurationInput {
 	hostElement: DesignBuilderRootElement;
-	propertyConfig: Record<string, unknown> | null;
+	preferredMode?: DesignBuilderMode | null;
 	propertyTokenData: unknown;
 	propertyTokenLibraryData: unknown;
 	propertyComponentData: unknown;
 	propertyOverrideState?: unknown;
-}
-
-function parseJsonObject(value: string | null): Record<string, unknown> {
-	if (!value) {
-		return {};
-	}
-
-	try {
-		const parsed = JSON.parse(value) as unknown;
-		if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-			return {};
-		}
-
-		return parsed as Record<string, unknown>;
-	} catch {
-		return {};
-	}
 }
 
 function parseJsonUnknown(value: string | null): unknown {
@@ -75,33 +58,24 @@ function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, co
 }
 
 export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurationInput): DesignBuilderRootConfiguration {
-	const { hostElement, propertyConfig, propertyTokenData, propertyTokenLibraryData, propertyComponentData, propertyOverrideState } = input;
-
-	const configFromAttribute = parseJsonObject(hostElement.getAttribute('config'));
-	const modeFromConfig = resolveMode(configFromAttribute.mode);
-	const modeFromAttribute = resolveMode(hostElement.getAttribute('mode'));
-
-	const config = {
-		...configFromAttribute,
-		...(propertyConfig ?? {}),
-	};
+	const { hostElement, preferredMode, propertyTokenData, propertyTokenLibraryData, propertyComponentData, propertyOverrideState } = input;
 
 	const tokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
 	const tokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
 	const overrideState = normalizeDesignBuilderOverrideState(propertyOverrideState ?? parseJsonUnknown(hostElement.getAttribute('override-state')));
 	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
-
-	const resolvedMode = modeFromAttribute ?? modeFromConfig ?? (hasPayload(tokenData) ? DESIGN_BUILDER_MODE_FULL_PAGE : hasPayload(componentData) && hasPayload(tokenLibraryData) ? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER : (availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE));
-
-	if (!availableModes.includes(resolvedMode)) {
-		availableModes.unshift(resolvedMode);
-	}
+	const resolvedMode = preferredMode && availableModes.includes(preferredMode)
+		? preferredMode
+		: hasPayload(tokenData)
+			? DESIGN_BUILDER_MODE_FULL_PAGE
+			: hasPayload(componentData) && hasPayload(tokenLibraryData)
+				? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER
+				: availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE;
 
 	return {
 		mode: resolvedMode,
 		availableModes,
-		config,
 		tokenData,
 		tokenLibraryData,
 		componentData,

@@ -1,5 +1,22 @@
 import { GENERAL_SCOPE_KEY } from '../../../shared/constants/designBuilderRuntimeConstants';
 import { COMPONENT_STORAGE_KEY, LEGACY_COMPONENT_STORAGE_KEY, ComponentOverrideLocalStorageStore } from './ComponentOverrideLocalStorageStore';
+import type { DesignBuilderStorageAdapter } from '../../../shared/persistence/DesignBuilderStorageAdapter';
+
+function createMemoryStorage(initialState: Record<string, string> = {}): DesignBuilderStorageAdapter {
+	const storage = new Map(Object.entries(initialState));
+
+	return {
+		getItem(key) {
+			return storage.get(key) ?? null;
+		},
+		setItem(key, value) {
+			storage.set(key, value);
+		},
+		removeItem(key) {
+			storage.delete(key);
+		},
+	};
+}
 
 describe('ComponentOverrideLocalStorageStore compatibility', () => {
 	beforeEach(() => {
@@ -70,6 +87,33 @@ describe('ComponentOverrideLocalStorageStore compatibility', () => {
 		);
 
 		const adapter = new ComponentOverrideLocalStorageStore();
+
+		expect(adapter.load()).toEqual({
+			[GENERAL_SCOPE_KEY]: {
+				button: {
+					'--c-button--color-bg': '#abc',
+				},
+			},
+		});
+	});
+
+	it('supports injected storage adapters', () => {
+		const storage = createMemoryStorage({
+			[COMPONENT_STORAGE_KEY]: JSON.stringify({
+				token: {
+					'--color-primary': '#123456',
+				},
+				component: {
+					[GENERAL_SCOPE_KEY]: {
+						button: {
+							'--c-button--color-bg': '#abc',
+						},
+					},
+				},
+			}),
+		});
+
+		const adapter = new ComponentOverrideLocalStorageStore(COMPONENT_STORAGE_KEY, storage);
 
 		expect(adapter.load()).toEqual({
 			[GENERAL_SCOPE_KEY]: {

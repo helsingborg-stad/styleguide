@@ -14,7 +14,7 @@ export function initializeFullPageEditor(tokenData: unknown, renderContainer: Sh
 	}
 
 	const runtime = new FullPageEditorRuntime(mountElement, tokens, hostElement, modeSwitch);
-	initializePreviewSplitDivider();
+	initializePreviewSplitDivider(undefined, hostElement);
 	return runtime;
 }
 

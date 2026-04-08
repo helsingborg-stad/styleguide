@@ -1,8 +1,12 @@
-const SPLIT_STORAGE_KEY = 'design-builder-split';
-const MINIMUM_SPLIT_PERCENT = 20;
-const MAXIMUM_SPLIT_PERCENT = 80;
+import { MAX_SPLIT, MIN_SPLIT } from '../../shared/constants/designBuilderRuntimeConstants';
+import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
+import type { DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
+import { DesignBuilderSplitLocalStorageStore, type DesignBuilderSplitStore } from './DesignBuilderSplitLocalStorageStore';
 
-export function initializePreviewSplitDivider(): void {
+export function initializePreviewSplitDivider(
+	splitStore: DesignBuilderSplitStore = new DesignBuilderSplitLocalStorageStore(),
+	hostElement?: DesignBuilderRootElement,
+): void {
 	const layout = document.querySelector<HTMLElement>('.db-layout');
 	const divider = document.querySelector<HTMLElement>('[data-db-divider]');
 	if (!layout || !divider) return;
@@ -10,18 +14,15 @@ export function initializePreviewSplitDivider(): void {
 
 	divider.dataset.dbDividerInitialized = 'true';
 
-	const saved = localStorage.getItem(SPLIT_STORAGE_KEY);
-	if (saved) {
-		const ratio = parseFloat(saved);
-		if (ratio >= MINIMUM_SPLIT_PERCENT && ratio <= MAXIMUM_SPLIT_PERCENT) {
-			layout.style.setProperty('--db-split', `${ratio}%`);
-		}
+	const saved = splitStore.load();
+	if (saved !== null) {
+		layout.style.setProperty('--db-split', `${saved}%`);
 	}
 
 	const onPointerMove = (event: PointerEvent) => {
 		const rect = layout.getBoundingClientRect();
 		let ratio = ((event.clientX - rect.left) / rect.width) * 100;
-		ratio = Math.max(MINIMUM_SPLIT_PERCENT, Math.min(MAXIMUM_SPLIT_PERCENT, ratio));
+		ratio = Math.max(MIN_SPLIT, Math.min(MAX_SPLIT, ratio));
 		layout.style.setProperty('--db-split', `${ratio}%`);
 	};
 
@@ -35,7 +36,16 @@ export function initializePreviewSplitDivider(): void {
 
 		const current = layout.style.getPropertyValue('--db-split');
 		if (current) {
-			localStorage.setItem(SPLIT_STORAGE_KEY, parseFloat(current).toString());
+			const split = parseFloat(current);
+			splitStore.save(split);
+			if (hostElement) {
+				emitDesignBuilderActionEvent(hostElement, {
+					action: 'split-change',
+					mode: 'full-page',
+					state: hostElement.overrideState,
+					metadata: { split },
+				});
+			}
 		}
 	};
 

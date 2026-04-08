@@ -311,7 +311,6 @@
             ],
             'classList' => ['c-fab--width-xl'],
             'attributeList' => [
-                'data-customize-init-fab' => 'true',
                 'data-customizable' => 'false'
             ]
         ])
@@ -322,7 +321,6 @@
             <design-builder
                 component-data='@json($customizeComponentData)'
                 token-library='@json($customizeTokenLibrary)'
-                config='@json(["initMode" => "manual"])'
                 class="design-builder"
                 data-customizable="false"
             ></design-builder>

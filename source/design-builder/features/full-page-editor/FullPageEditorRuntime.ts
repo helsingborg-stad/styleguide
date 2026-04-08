@@ -1,6 +1,7 @@
 import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
+import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
@@ -176,6 +177,11 @@ export class FullPageEditorRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
+		this.emitAction('change', {
+			variable,
+			value,
+			defaultValue,
+		});
 	}
 
 	private applyAll(): void {
@@ -197,6 +203,7 @@ export class FullPageEditorRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.render();
+		this.emitAction('reset-all');
 	}
 
 	private exportJson(): void {
@@ -212,6 +219,9 @@ export class FullPageEditorRuntime {
 		anchor.download = 'design-builder-overrides.json';
 		anchor.click();
 		URL.revokeObjectURL(url);
+		this.emitAction('export', {
+			fileName: anchor.download,
+		});
 	}
 
 	private async importJson(file: File): Promise<void> {
@@ -273,6 +283,11 @@ export class FullPageEditorRuntime {
 		this.presetManager.clearActive();
 
 		this.render();
+		this.emitAction('import', {
+			fileName: file.name,
+			tokenOverrideCount: Object.keys(importedOverrides).length,
+			componentScopeCount: Object.keys(importedState.component).length,
+		});
 	}
 
 	private renderPresetBar(): void {
@@ -334,6 +349,9 @@ export class FullPageEditorRuntime {
 		this.presetManager.save(trimmed, this.getCurrentPresetState());
 		this.presetManager.setActive(trimmed);
 		this.refreshPresetBar();
+		this.emitAction('preset-save', {
+			presetName: trimmed,
+		});
 	}
 
 	private loadPreset(name: string): void {
@@ -354,12 +372,18 @@ export class FullPageEditorRuntime {
 		});
 		this.presetManager.setActive(name);
 		this.render();
+		this.emitAction('preset-load', {
+			presetName: name,
+		});
 	}
 
 	private deletePreset(name: string): void {
 		if (!confirm(`Delete preset "${name}"?`)) return;
 		this.presetManager.delete(name);
 		this.refreshPresetBar();
+		this.emitAction('preset-delete', {
+			presetName: name,
+		});
 	}
 
 	private refreshPresetBar(): void {
@@ -377,6 +401,15 @@ export class FullPageEditorRuntime {
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: this.overrides,
 			component: this.hostElement.overrideState.component,
+		});
+	}
+
+	private emitAction(action: 'change' | 'save' | 'reset-all' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete', metadata?: Record<string, unknown>): void {
+		emitDesignBuilderActionEvent(this.hostElement, {
+			action,
+			mode: 'full-page',
+			state: this.hostElement.overrideState,
+			metadata,
 		});
 	}
 
@@ -413,16 +446,7 @@ export class FullPageEditorRuntime {
 	};
 
 	private readonly handleSaveClick = (): void => {
-		this.hostElement.dispatchEvent(
-			new CustomEvent('design-builder:save', {
-				detail: {
-					mode: 'full-page',
-					state: this.hostElement.overrideState,
-				},
-				bubbles: true,
-				composed: true,
-			}),
-		);
+		this.emitAction('save');
 	};
 
 	private readonly toggleCategoryCollapsed = (event: Event): void => {

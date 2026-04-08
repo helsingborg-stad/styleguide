@@ -7,6 +7,7 @@
 
 import { LEGACY_COMPONENT_STORAGE_KEY } from '../../features/component-customizer/persistence/ComponentOverrideLocalStorageStore';
 import { createEmptyOverrideState, type DesignBuilderOverrideState, hasOverrideStateData, normalizeDesignBuilderOverrideState, normalizeTokenOverrides } from '../state/designBuilderOverrideState';
+import { browserLocalStorageAdapter, type DesignBuilderStorageAdapter } from './DesignBuilderStorageAdapter';
 
 export const STORAGE_KEY = 'design-builder-overrides';
 export const LEGACY_TOKEN_STORAGE_KEY = 'design-tokens-overrides';
@@ -21,19 +22,21 @@ export interface TokenOverrideStore {
 
 export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 	private key: string;
+	private storage: DesignBuilderStorageAdapter;
 
-	constructor(key: string = STORAGE_KEY) {
+	constructor(key: string = STORAGE_KEY, storage: DesignBuilderStorageAdapter = browserLocalStorageAdapter) {
 		this.key = key;
+		this.storage = storage;
 	}
 
 	load(): Record<string, string> {
 		try {
-			const raw = localStorage.getItem(this.key);
+			const raw = this.storage.getItem(this.key);
 			if (raw) {
 				return normalizeDesignBuilderOverrideState(JSON.parse(raw)).token;
 			}
 
-			const legacyRaw = localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY);
+			const legacyRaw = this.storage.getItem(LEGACY_TOKEN_STORAGE_KEY);
 			if (!legacyRaw) {
 				return {};
 			}
@@ -61,7 +64,7 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		const fallbackState = createEmptyOverrideState();
 
 		try {
-			const raw = localStorage.getItem(this.key);
+			const raw = this.storage.getItem(this.key);
 			if (raw) {
 				return normalizeDesignBuilderOverrideState(JSON.parse(raw));
 			}
@@ -70,7 +73,7 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		}
 
 		try {
-			const legacyRaw = localStorage.getItem(LEGACY_TOKEN_STORAGE_KEY);
+			const legacyRaw = this.storage.getItem(LEGACY_TOKEN_STORAGE_KEY);
 			if (legacyRaw) {
 				fallbackState.token = normalizeTokenOverrides(JSON.parse(legacyRaw));
 			}
@@ -79,7 +82,7 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		}
 
 		try {
-			const legacyComponentRaw = localStorage.getItem(LEGACY_COMPONENT_STORAGE_KEY);
+			const legacyComponentRaw = this.storage.getItem(LEGACY_COMPONENT_STORAGE_KEY);
 			if (legacyComponentRaw) {
 				fallbackState.component = normalizeDesignBuilderOverrideState(JSON.parse(legacyComponentRaw)).component;
 			}
@@ -92,10 +95,10 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 
 	private saveState(state: DesignBuilderOverrideState): void {
 		if (!hasOverrideStateData(state)) {
-			localStorage.removeItem(this.key);
+			this.storage.removeItem(this.key);
 			return;
 		}
 
-		localStorage.setItem(this.key, JSON.stringify(state));
+		this.storage.setItem(this.key, JSON.stringify(state));
 	}
 }
