@@ -552,13 +552,7 @@ rgba-control {
 	flex-shrink: 0;
 	border-radius: var(--db-radius-s);
 	border: 1px solid color-mix(in srgb, var(--db-border) 80%, var(--db-text) 20%);
-	background-image: conic-gradient(
-		from 45deg,
-		#d8dce5 0deg 90deg,
-		#edf0f6 90deg 180deg,
-		#d8dce5 180deg 270deg,
-		#edf0f6 270deg
-	);
+	background-image: conic-gradient(from 45deg, #d8dce5 0deg 90deg, #edf0f6 90deg 180deg, #d8dce5 180deg 270deg, #edf0f6 270deg);
 	background-size: 8px 8px;
 	overflow: hidden;
 }

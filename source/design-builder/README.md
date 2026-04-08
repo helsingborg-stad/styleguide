@@ -39,19 +39,26 @@ The Design Builder runtime has two execution modes in the same entry file:
 Entry file:
 - source/design-builder/index.ts
 
+Internal architecture:
+- source/design-builder/web-component/* - generic `<design-builder>` custom element and root configuration resolution
+- source/design-builder/hosts/styleguide/* - styleguide-specific bootstrap, root discovery, global payload hydration, and default save adapter
+- source/design-builder/features/full-page-editor/* - full-page token editor mode
+- source/design-builder/features/component-customizer/* - component customizer mode
+- source/design-builder/shared/* - shared controls, state normalization, presets, persistence helpers, styling, and shared types
+
 Styles:
 - source/design-builder/design-builder.css
 
 Control rendering entry:
-- source/design-builder/controls.ts
+- source/design-builder/shared/control-elements/createDesignBuilderControls.ts
 
 Control rendering modules:
-- source/design-builder/controls/layout/*
-- source/design-builder/controls/shared/*
-- source/design-builder/controls/types.ts
+- source/design-builder/shared/control-elements/controls/layout/*
+- source/design-builder/shared/control-elements/controls/*
 
 Global token/preset storage helpers (full page mode):
-- source/design-builder/storage.ts
+- source/design-builder/shared/persistence/TokenOverrideLocalStorageStore.ts
+- source/design-builder/shared/presets/DesignBuilderPresetManager.ts
 
 ## Mode 1: Full page Design Builder
 
@@ -92,7 +99,7 @@ Used by the styleguide host integration and shared preset helpers:
 - design-builder-active-preset
 - design-builder-split
 
-The generic `<design-builder>` element no longer writes to localStorage while the user edits. In the styleguide app, `source/design-builder/app/rootElement.ts` hydrates `override-state` from storage and listens for `design-builder:save` to persist the current override document.
+The generic `<design-builder>` element no longer writes to localStorage while the user edits. In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from storage and listens for `design-builder:save` to persist the current override document.
 
 ## Mode 2: Component-level customization
 
@@ -273,9 +280,9 @@ Legacy flat token overrides and legacy component-only saved data are still accep
 
 ### Styleguide host behavior
 
-The styleguide bootstrap in `source/design-builder/app/rootElement.ts` preserves current site behavior by:
+The styleguide bootstrap in `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` preserves current site behavior by:
 
-- hydrating `override-state` from `LocalStorageAdapter` and `ComponentStorageAdapter` when the attribute is missing
+- hydrating `override-state` from `TokenOverrideLocalStorageStore` and `ComponentOverrideLocalStorageStore` when the attribute is missing
 - listening for `design-builder:save`
 - writing token and component slices back through those adapters
 
@@ -357,9 +364,9 @@ Build generates:
 
 ### Add new token control behavior
 
-- Add or update layout components in source/design-builder/controls/layout/
-- Add or update shared helpers in source/design-builder/controls/shared/
-- Keep source/design-builder/controls.ts as thin composition/adapter entry
+- Add or update control elements in source/design-builder/shared/control-elements/controls/
+- Add or update layout components in source/design-builder/shared/control-elements/controls/layout/
+- Keep source/design-builder/shared/control-elements/createDesignBuilderControls.ts as the thin composition/adapter entry
 - Ensure source/data/design-tokens.json has correct type/options metadata
 
 ### Add new customizable component

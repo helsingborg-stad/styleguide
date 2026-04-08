@@ -2,16 +2,16 @@
  * Design Builder runtime entrypoint.
  */
 
-import './controls/RangeControl';
-import './controls/SelectControl';
-import './controls/ColorControl';
-import './controls/RgbaControl';
-import './controls/FontControl';
+import './shared/control-elements/controls/RangeControl';
+import './shared/control-elements/controls/SelectControl';
+import './shared/control-elements/controls/ColorControl';
+import './shared/control-elements/controls/RgbaControl';
+import './shared/control-elements/controls/FontControl';
 
-import { initializeDesignBuilderRootRuntime } from './app/initializeDesignBuilderRootRuntime';
+import { initializeStyleguideDesignBuilder } from './hosts/styleguide/initializeStyleguideDesignBuilder';
 
 function init(): void {
-	initializeDesignBuilderRootRuntime();
+	initializeStyleguideDesignBuilder();
 }
 
 if (document.readyState === 'loading') {
