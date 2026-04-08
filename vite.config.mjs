@@ -6,7 +6,6 @@ const entries = {
 	'js/styleguide-js': './source/js/main.js',
 	'css/styleguide-css': './source/sass/main.scss',
 	'js/design-builder': './source/design-builder/index.ts',
-	'css/design-builder': './source/design-builder/design-builder.css',
 	'css/design-builder-external': './source/design-builder/design-builder-external.css',
 };
 

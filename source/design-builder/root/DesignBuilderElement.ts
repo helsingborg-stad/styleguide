@@ -1,9 +1,10 @@
-import { parseDesignBuilderRootConfiguration } from './config';
+import { designBuilderStyles } from '../designBuilderStyleText';
 import {
 	createEmptyOverrideState,
-	normalizeDesignBuilderOverrideState,
 	type DesignBuilderOverrideState,
+	normalizeDesignBuilderOverrideState,
 } from '../services/overrideState';
+import { parseDesignBuilderRootConfiguration } from './config';
 import {
 	DESIGN_BUILDER_MODE_FULL_PAGE,
 	type DesignBuilderMode,
@@ -12,7 +13,6 @@ import {
 } from './types';
 
 const ROOT_ELEMENT_TAG_NAME = 'design-builder';
-const SHADOW_STYLE_ASSET = '/assets/dist/css/design-builder.css';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderElement extends HTMLElement implements DesignBuilderRootElement {
@@ -35,7 +35,6 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 	private currentComponentData: unknown;
 	private currentOverrideState: DesignBuilderOverrideState = createEmptyOverrideState();
 	private hasInitialized = false;
-	private styleReady: Promise<void> | null = null;
 	private renderPromise: Promise<void> | null = null;
 	private hasPendingRender = false;
 	private activeDisposer: (() => void | Promise<void>) | null = null;
@@ -174,7 +173,7 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 
 	private async renderWithAdapter(): Promise<void> {
 		const renderContainer = this.getRenderContainer();
-		await this.ensureShadowStyles();
+		this.ensureShadowStyles();
 		await this.disposeActiveAdapter();
 		this.resetRenderContainer(renderContainer);
 
@@ -254,7 +253,7 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 		DesignBuilderElement.modeAdapters.set(mode, adapter);
 	}
 
-	private async ensureShadowStyles(): Promise<void> {
+	private ensureShadowStyles(): void {
 		const shadowRoot = this.shadowRoot;
 		if (!shadowRoot) {
 			return;
@@ -264,38 +263,10 @@ class DesignBuilderElement extends HTMLElement implements DesignBuilderRootEleme
 			return;
 		}
 
-		if (this.styleReady) {
-			await this.styleReady;
-			return;
-		}
-
-		this.styleReady = (async () => {
-			const style = document.createElement('style');
-			style.id = SHADOW_STYLE_ID;
-			style.textContent = '';
-			shadowRoot.prepend(style);
-
-			try {
-				const response = await fetch(SHADOW_STYLE_ASSET, { credentials: 'same-origin' });
-				if (!response.ok) {
-					throw new Error(`Failed to load design-builder styles (${response.status}).`);
-				}
-				style.textContent = await response.text();
-			} catch (error) {
-				this.dispatchEvent(
-					new CustomEvent('design-builder:error', {
-						detail: {
-							message:
-								error instanceof Error ? error.message : 'Failed to load encapsulated design-builder stylesheet.',
-						},
-						bubbles: true,
-						composed: true,
-					}),
-				);
-			}
-		})();
-
-		await this.styleReady;
+		const style = document.createElement('style');
+		style.id = SHADOW_STYLE_ID;
+		style.textContent = designBuilderStyles;
+		shadowRoot.prepend(style);
 	}
 
 	public static define(): void {

@@ -331,7 +331,7 @@ References:
 ## Styling notes
 
 Component-level styles are split into:
-- source/design-builder/design-builder.css (shadow-root/internal UI styles)
+- source/design-builder/design-builder.css (internal UI styles, bundled into the design-builder JavaScript and injected into the shadow root or document when needed)
 - source/design-builder/design-builder-external.css (intentional global target highlighting)
 
 Relevant class groups:
@@ -351,7 +351,6 @@ Typical commands:
 Build generates:
 
 - assets/dist/js/design-builder.js
-- assets/dist/css/design-builder.css
 - assets/dist/css/design-builder-external.css
 
 ## Adding or extending functionality
