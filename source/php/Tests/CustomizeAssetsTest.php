@@ -24,7 +24,7 @@ class CustomizeAssetsTest extends TestCase
             $tempBasePath . 'assets/dist/manifest.json',
             json_encode([
                 'js/design-builder.js' => 'js/design-builder.abc.js',
-                'css/design-builder.css' => 'css/design-builder.abc.css',
+                'css/design-builder-external.css' => 'css/design-builder-external.abc.css',
             ]),
         );
 
@@ -51,7 +51,7 @@ class CustomizeAssetsTest extends TestCase
         $result = CustomizeAssets::get();
 
         $this->assertSame('/assets/dist/js/design-builder.abc.js', $result['script']);
-        $this->assertSame('/assets/dist/css/design-builder.abc.css', $result['style']);
+        $this->assertSame('/assets/dist/css/design-builder-external.abc.css', $result['style']);
         $this->assertSame('{"category":"theme","tokens":{"--color":"#ffffff"}}', $result['data']);
         $this->assertSame('{"name":"Design tokens","version":"1.0.0","categories":[]}', $result['tokenLibrary']);
 

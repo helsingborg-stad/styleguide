@@ -266,25 +266,6 @@
         }
     </style>
 
-    @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']) && isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
-        @fab([
-            'position' => 'bottom-right',
-            'button' => [
-                'icon' => 'tune',
-                'size' => 'md',
-                'color' => 'primary',
-                'shape' => 'pill',
-                'classList' => ['u-margin--0'],
-                'ariaLabel' => 'Open component customization'
-            ],
-            'attributeList' => [
-                'data-customize-init-fab' => 'true',
-                'data-customizable' => 'false'
-            ]
-        ])
-        @endfab
-    @endif
-
     @fab([
         'position' => 'bottom-right',
         'heading' => 'Theme presets',
@@ -308,17 +289,42 @@
         </div>
     @endfab
 
-    @if(isset($customizeAssets['data']) && !empty($customizeAssets['data']))
-        <script>
-            window.styleguideCustomizeData = {!! $customizeAssets['data'] !!};
-            window.styleguideCustomizeInitMode = 'manual';
-        </script>
-    @endif
-
-    @if(isset($customizeAssets['tokenLibrary']) && !empty($customizeAssets['tokenLibrary']))
-        <script>
-            window.styleguideDesignTokenLibrary = {!! $customizeAssets['tokenLibrary'] !!};
-        </script>
+    @php
+        $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    @endphp
+    @if(
+        $currentPath !== '/design-builder' &&
+        isset($customizeAssets['data']) &&
+        !empty($customizeAssets['data']) &&
+        isset($customizeAssets['tokenLibrary']) &&
+        !empty($customizeAssets['tokenLibrary'])
+    )
+        @fab([
+            'position' => 'bottom-right',
+            'button' => [
+                'icon' => 'tune',
+                'size' => 'md',
+                'color' => 'primary',
+                'shape' => 'pill',
+                'classList' => ['u-margin--0'],
+                'ariaLabel' => 'Open component customizer'
+            ],
+            'classList' => ['c-fab--width-xl'],
+            'attributeList' => [
+                'data-customizable' => 'false'
+            ]
+        ])
+            @php
+                $customizeComponentData = json_decode($customizeAssets['data'] ?? 'null', true);
+                $customizeTokenLibrary = json_decode($customizeAssets['tokenLibrary'] ?? 'null', true);
+            @endphp
+            <design-builder
+                component-data='@json($customizeComponentData)'
+                token-library='@json($customizeTokenLibrary)'
+                class="design-builder"
+                data-customizable="false"
+            ></design-builder>
+        @endfab
     @endif
 
     <!-- Styleguide - js -->

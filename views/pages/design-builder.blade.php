@@ -3,15 +3,22 @@
 @section('content')
 @php
     $tokens = json_decode(file_get_contents(BASEPATH . 'source/data/design-tokens.json'), true);
+    $customizeComponentData = json_decode($customizeAssets['data'] ?? 'null', true);
+    $customizeTokenLibrary = json_decode($customizeAssets['tokenLibrary'] ?? 'null', true);
 @endphp
 
 <div class="db-layout">
     {{-- Left: Token controls --}}
-    <div class="design-builder" data-design-builder data-tokens='@json($tokens)'>
+    <design-builder
+        class="design-builder"
+        token-data='@json($tokens)'
+        token-library='@json($customizeTokenLibrary)'
+        component-data='@json($customizeComponentData)'
+    >
         <noscript>
             <p>The Design Builder requires JavaScript to function.</p>
         </noscript>
-    </div>
+    </design-builder>
 
     {{-- Draggable divider --}}
     <div class="db-divider" data-db-divider></div>
@@ -230,10 +237,6 @@
     </div>
 </div>
 
-{{-- Builder-specific assets (excluded from global Asset loading) --}}
-@if(isset($assets['manifest']['css/design-builder.css']))
-    <link rel="stylesheet" href="/assets/dist/{{ $assets['manifest']['css/design-builder.css'] }}">
-@endif
 @if(isset($assets['manifest']['js/design-builder.js']))
     <script src="/assets/dist/{{ $assets['manifest']['js/design-builder.js'] }}" type="module"></script>
 @endif

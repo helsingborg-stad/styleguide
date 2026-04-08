@@ -13,5 +13,5 @@
 		"lib": ["DOM", "ES2023", "DOM.Iterable"],
 		"outDir": "assets/dist"
 	},
-	"include": ["source/js/**/*", "global.d.ts"]
+	"include": ["source/**/*", "global.d.ts"]
 }

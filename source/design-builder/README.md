@@ -4,6 +4,37 @@ Complete documentation for the Design Builder runtime and component-level custom
 
 ## Overview
 
+The runtime is now bootstrapped through a root web component:
+- `<design-builder>`
+
+Root element contract:
+- `token-data`: JSON payload used in `full-page` mode
+- `token-library`: JSON payload used in `component-customizer` mode
+- `component-data`: JSON payload used in `component-customizer` mode
+- `override-state`: optional JSON payload used to hydrate draft token/component overrides
+
+Root element runtime API:
+- `tokenData`
+- `tokenLibraryData`
+- `componentData`
+- `overrideState`
+
+Root element events:
+- `design-builder:initialized`
+- `design-builder:action`
+- `design-builder:change`
+- `design-builder:save`
+- `design-builder:reset-all`
+- `design-builder:reset-component`
+- `design-builder:import`
+- `design-builder:export`
+- `design-builder:preset-save`
+- `design-builder:preset-load`
+- `design-builder:preset-delete`
+- `design-builder:mode-change`
+- `design-builder:split-change`
+- `design-builder:error`
+
 The Design Builder runtime has two execution modes in the same entry file:
 
 1. Full page mode (route: /design-builder)
@@ -12,24 +43,98 @@ The Design Builder runtime has two execution modes in the same entry file:
 Entry file:
 - source/design-builder/index.ts
 
-Styles:
-- source/design-builder/design-builder.scss
+Internal architecture:
+- source/design-builder/web-component/* - generic `<design-builder>` custom element and root configuration resolution
+- source/design-builder/hosts/styleguide/* - styleguide-specific bootstrap, root discovery, legacy DOM normalization, and default save adapter
+- source/design-builder/features/full-page-editor/* - full-page token editor mode
+- source/design-builder/features/component-customizer/* - component customizer mode
+- source/design-builder/shared/* - shared controls, state normalization, presets, persistence helpers, styling, and shared types
 
-Control rendering helpers:
-- source/design-builder/controls.ts
+Styles:
+- source/design-builder/design-builder.css
+
+Control rendering entry:
+- source/design-builder/shared/control-elements/createDesignBuilderControls.ts
+
+Control rendering modules:
+- source/design-builder/shared/control-elements/controls/layout/*
+- source/design-builder/shared/control-elements/controls/*
 
 Global token/preset storage helpers (full page mode):
-- source/design-builder/storage.ts
+- source/design-builder/shared/persistence/TokenOverrideLocalStorageStore.ts
+- source/design-builder/shared/presets/DesignBuilderPresetManager.ts
+
+## Attribute-first usage examples
+
+### Example 1: Full-page editor root
+
+```html
+<design-builder
+  token-data='{"name":"Tokens","version":"1.0.0","categories":[]}'
+></design-builder>
+```
+
+### Example 2: Component customizer root
+
+```html
+<design-builder
+  component-data='{"button":{"name":"Button","tokens":["color--primary"]}}'
+  token-library='{"name":"Tokens","version":"1.0.0","categories":[]}'
+></design-builder>
+```
+
+### Example 3: Update the root by attributes only
+
+```js
+const root = document.querySelector('design-builder');
+
+root?.setAttribute(
+  'override-state',
+  JSON.stringify({
+    token: { '--color--primary': '#0055aa' },
+    component: {}
+  })
+);
+```
+
+### Example 4: Update the root by web component properties
+
+```js
+const root = document.querySelector('design-builder');
+
+if (root) {
+  root.overrideState = {
+    token: { '--color--primary': '#0055aa' },
+    component: {}
+  };
+}
+```
+
+### Example 5: Listen for actions
+
+```js
+const root = document.querySelector('design-builder');
+
+root?.addEventListener('design-builder:action', (event) => {
+  const { action, mode, state, metadata } = event.detail;
+  console.log(action, mode, state, metadata);
+});
+
+root?.addEventListener('design-builder:save', (event) => {
+  localStorage.setItem('design-builder-overrides', JSON.stringify(event.detail.state));
+});
+```
 
 ## Mode 1: Full page Design Builder
 
 ### Activation
 
 Full page mode starts when the DOM contains:
-- [data-design-builder]
+- `<design-builder token-data="...json...">`
 
-The container must also include:
-- data-tokens="...json..."
+Legacy compatibility is preserved for older markup:
+- `[data-design-builder]`
+- `data-tokens="...json..."`
 
 Template source:
 - views/pages/design-builder.blade.php
@@ -37,46 +142,55 @@ Template source:
 ### Behavior
 
 - Renders categorized controls from source/data/design-tokens.json payload.
-- Applies token overrides directly on :root.
-- Persists overrides in localStorage.
+- Applies token overrides directly on `:root`.
+- Keeps draft overrides on the root element until the user explicitly clicks **Save**.
 - Supports:
   - reset all
   - import/export JSON
   - presets (save/load/delete)
+  - explicit save event emission
   - optional display of locked fields
   - draggable split between controls and preview
 
-### Storage keys (full page mode)
+### Storage keys
 
-From source/design-builder/storage.ts and source/design-builder/index.ts:
+Used by the styleguide host integration and shared preset helpers:
 
-- design-tokens-overrides
-- design-tokens-presets
-- design-tokens-active-preset
+- design-builder-overrides
+- design-builder-presets
+- design-builder-active-preset
 - design-builder-split
+
+Temporary persistence is adapter-driven. The default adapters in the styleguide app still use localStorage, but the runtime-facing contract no longer depends on localStorage directly.
+
+Relevant adapter entry points:
+
+- `source/design-builder/shared/persistence/DesignBuilderStorageAdapter.ts`
+- `source/design-builder/shared/persistence/TokenOverrideLocalStorageStore.ts`
+- `source/design-builder/features/component-customizer/persistence/ComponentOverrideLocalStorageStore.ts`
+- `source/design-builder/shared/presets/DesignBuilderPresetManager.ts`
+- `source/design-builder/features/full-page-editor/DesignBuilderSplitLocalStorageStore.ts`
+
+In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document.
 
 ## Mode 2: Component-level customization
 
 ### Activation
 
-Component mode starts when:
+Component mode starts when a `<design-builder>` root has both:
 
-1. No [data-design-builder] container is found, and
-2. window.styleguideCustomizeData exists, and
-3. window.styleguideDesignTokenLibrary exists and is valid
+1. `component-data`
+2. `token-library`
 
-Init mode is controlled by:
-- window.styleguideCustomizeInitMode = "onload" | "manual"
+The runtime no longer reads payloads, mode, or initialization settings from `window.*` or root attributes.
+
+Legacy full-page container detection (`[data-design-builder]`) still works for full-page markup normalization.
 
 Behavior:
-- onload: component customizer initializes automatically
-- manual: waits for click on [data-customize-init-fab]
+- the component customizer initializes as soon as the root element is connected
+- the customizer mounts inside the `<design-builder>` instance where it is declared
 
-Styleguide default:
-- manual mode via views/layout/master.blade.php
-
-Theme / WP customizer usage:
-- set window.styleguideCustomizeInitMode = "onload" before loading design-builder script
+When both full-page and component-customizer payloads are available, Design Builder renders an internal mode switcher so the active experience can be changed from inside the component.
 
 Payloads are injected in:
 - views/layout/master.blade.php
@@ -103,17 +217,24 @@ Component names are normalized to lowercase and c- prefix is removed.
 ### Editable determination
 
 A component is editable when:
-- It appears in styleguideCustomizeData, and
+- It appears in `component-data`, and
 - It has declared tokens that can be matched against token library categories/settings.
 
 ### Floating customizer panel
 
 Rendered as:
-- .db-component-tool
+- `.db-builder.db-builder-customizer`
+
+Placement is root-controlled by default:
+- When an explicit `<design-builder>` root is present, the customizer UI renders inside that root so mode switching can happen within the component.
 
 Features:
 - Open/close panel
 - Select editable component
+- Manually activate page-picking to choose a component by clicking it on the page
+- Save/load/delete shared presets that include both token and component overrides
+- Import/export component override JSON
+- Emit an explicit save event with the full override document
 - Reset selected component (current scope only)
 - Reset all components (all scopes)
 - Render controls for mapped token categories
@@ -122,13 +243,13 @@ Features:
 
 Editable targets get:
 
-- Hover affordance
+- Hover affordance when page-picking is manually activated
 - Active selection highlight
-- Tooltip text
+- Tooltip text while page-picking is active
   - "Customize [Component Name]"
   - If scoped: "Customize [Component Name] ([scope])"
 - Link click prevention inside editable targets
-  - Prevents accidental navigation while customizing
+  - Prevents accidental navigation while page-picking is active
 
 ## Scopes
 
@@ -163,61 +284,114 @@ Example:
 
 Changes in one scope do not affect the other.
 
-## Storage model (component-level mode)
+## Override state and save boundary
 
-Storage key:
-- design-tokens-component-overrides
+Both modes share the same override document and mutate different slices of it in memory on the root element.
+On startup, the runtime reapplies both slices so token and component overrides are active regardless of which mode is currently open.
+
+Draft state is passed in through `override-state` / `rootElement.overrideState`.
 
 Current shape:
 
 {
-  "__global__": {
-    "button": {
-      "--c-button--color--primary": "#0055aa"
-    }
+  "token": {
+    "--color--primary": "#0055aa"
   },
-  "scope:content-card": {
-    "typography": {
-      "--c-typography--font-size-200": "1.125rem"
+  "component": {
+    "__general__": {
+      "button": {
+        "--c-button--color--primary": "#0055aa"
+      }
+    },
+    "scope:content-card": {
+      "typography": {
+        "--c-typography--font-size-200": "1.125rem"
+      }
     }
   }
 }
 
+When the user clicks **Save**, the active runtime emits:
+
+```js
+new CustomEvent('design-builder:save', {
+  detail: {
+    action: 'save',
+    mode: 'full-page' | 'component-customizer',
+    state: rootElement.overrideState,
+    metadata: undefined
+  },
+  bubbles: true,
+  composed: true
+})
+```
+
+All user-triggered state-changing actions also emit:
+
+- a generic `design-builder:action` event
+- a specific action event such as `design-builder:reset-all` or `design-builder:preset-load`
+
+Current action names:
+
+- `change`
+- `save`
+- `reset-all`
+- `reset-component`
+- `import`
+- `export`
+- `preset-save`
+- `preset-load`
+- `preset-delete`
+- `mode-change`
+- `split-change`
+
+This lets hosts decide how persistence and integrations work:
+
+- write to localStorage
+- POST to an API
+- sync to WordPress / another CMS
+- ignore save entirely and keep Design Builder draft-only
+
 ### Legacy migration
 
-Legacy unscoped saved data is still accepted.
-If old shape is detected (component -> variables), runtime migrates it in-memory to:
+Legacy flat token overrides and legacy component-only saved data are still accepted and migrated into the shared override document in-memory.
 
-- __global__ -> component -> variables
+### Styleguide host behavior
 
-and continues with scoped model.
+The styleguide bootstrap in `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` preserves current site behavior by:
+
+- hydrating `override-state` from `TokenOverrideLocalStorageStore` and `ComponentOverrideLocalStorageStore` when the attribute is missing
+- listening for `design-builder:save`
+- writing token and component slices back through those adapters
 
 ## Data contracts
 
-### styleguideCustomizeData
+### component-data
 
 Source file generated at project root:
 - component-design-tokens.json
 
-Injected as:
-- window.styleguideCustomizeData
+Injected as a root attribute/property:
+- `component-data`
+- `rootElement.componentData`
 
 Contains per-component metadata, including token names used to map editable controls.
 
-### styleguideDesignTokenLibrary
+### token-library
 
 Source file:
 - source/data/design-tokens.json
 
-Injected as:
-- window.styleguideDesignTokenLibrary
+Injected as a root attribute/property:
+- `token-library`
+- `rootElement.tokenLibraryData`
 
 Contains categories and settings used to render controls.
 
 ### Important
 
 Component-level mode is DOM payload driven.
-No fetch fallback is used for token library in current implementation.
+No window fallback or fetch fallback is used for token library in current implementation.
 
 ## Token mapping logic in component mode
 
@@ -243,14 +417,15 @@ References:
 
 ## Styling notes
 
-Component-level tool and target styles live in:
-- source/design-builder/design-builder.scss
+Component-level styles are split into:
+- source/design-builder/design-builder.css (internal UI styles, bundled into the design-builder JavaScript and injected into the shadow root or document when needed)
+- source/design-builder/design-builder-external.css (intentional global target highlighting)
 
 Relevant class groups:
 
-- .db-component-tool*
-- .db-component-target
-- .db-component-target--active
+- `.db-builder*`
+- `.db-component-target`
+- `.db-component-target-active`
 
 ## Development workflow
 
@@ -263,13 +438,15 @@ Typical commands:
 Build generates:
 
 - assets/dist/js/design-builder.js
-- assets/dist/css/design-builder.css
+- assets/dist/css/design-builder-external.css
 
 ## Adding or extending functionality
 
 ### Add new token control behavior
 
-- Update control model and renderers in source/design-builder/controls.ts
+- Add or update control elements in source/design-builder/shared/control-elements/controls/
+- Add or update layout components in source/design-builder/shared/control-elements/controls/layout/
+- Keep source/design-builder/shared/control-elements/createDesignBuilderControls.ts as the thin composition/adapter entry
 - Ensure source/data/design-tokens.json has correct type/options metadata
 
 ### Add new customizable component
@@ -288,13 +465,21 @@ Any data-component targets inside that region become scope-bound for apply/reset
 
 ## Troubleshooting
 
+### Save does nothing
+
+Check:
+
+- the host listens for `design-builder:save`, or uses the styleguide bootstrap that binds the default localStorage save adapter
+- the root has a valid `override-state` or has produced draft changes before save
+- custom hosts do not replace the root element before reading the event
+
 ### Component panel does not show
 
 Check:
 
 - customize assets script/style loaded in layout
-- window.styleguideCustomizeData exists
-- window.styleguideDesignTokenLibrary exists
+- the `<design-builder>` root has valid `component-data`
+- the `<design-builder>` root has valid `token-library`
 - page has at least one editable [data-component]
 
 ### Component not selectable

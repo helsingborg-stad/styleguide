@@ -13,7 +13,7 @@ class CustomizeAssets
     private const CUSTOMIZE_DATA_PATH = 'component-design-tokens.json';
     private const TOKEN_LIBRARY_DATA_PATH = 'source/data/design-tokens.json';
     private const CUSTOMIZE_SCRIPT_KEY = 'js/design-builder.js';
-    private const CUSTOMIZE_STYLE_KEY = 'css/design-builder.css';
+    private const CUSTOMIZE_STYLE_KEY = 'css/design-builder-external.css';
 
     /**
      * Builds customize asset and payload data for view rendering.
