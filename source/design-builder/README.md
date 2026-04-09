@@ -15,6 +15,7 @@ Root element contract:
 | `token-library` | The token catalog used to build controls and resolve token metadata. Shape: `TokenData`. | Component customization mode (`component-customizer`) |
 | `component-data` | The component-to-token mapping used by the customizer. Shape: `Record<string, { name?, slug?, tokens?[] }>` | Component customization mode (`component-customizer`) |
 | `override-state` | The initial draft state for token and component overrides. | Hydrate initial state in either mode |
+| `presets` | Optional provided presets that should be available in the preset picker on first render. Accepts either an array or object map of preset definitions. | Seed host-provided presets in either mode |
 
 Quick mental model:
 
@@ -22,6 +23,7 @@ Quick mental model:
 - `token-library` = the **token reference library** the component customizer reads from
 - `component-data` = the **editable components and their token mappings**
 - `override-state` = the **initial draft state**
+- `presets` = the **host-provided preset definitions**
 
 `token-data` and `token-library` intentionally share the same JSON shape. The difference is their **role**, not their structure.
 
@@ -30,6 +32,7 @@ Root element runtime API:
 - `tokenLibraryData`
 - `componentData`
 - `overrideState`
+- `presets`
 
 Root element events:
 - `design-builder:initialized`
@@ -113,7 +116,39 @@ root?.setAttribute(
 );
 ```
 
-### Example 4: Update the root by web component properties
+### Example 4: Provide presets from root attributes
+
+```html
+<design-builder
+  token-data='{"name":"Tokens","version":"1.0.0","categories":[]}'
+  presets='[
+    {
+      "id": "dark",
+      "label": "Dark",
+      "token": {
+        "--color--primary": "#111111"
+      }
+    },
+    {
+      "id": "marketing-hero",
+      "label": "Marketing Hero",
+      "state": {
+        "component": {
+          "__general__": {
+            "hero": {
+              "--c-hero--spacing--top": "6rem"
+            }
+          }
+        }
+      }
+    }
+  ]'
+></design-builder>
+```
+
+Use `presets` when the host should seed the preset picker with known preset options instead of relying only on user-saved storage-backed presets.
+
+### Example 5: Update the root by web component properties
 
 ```js
 const root = document.querySelector('design-builder');
@@ -123,10 +158,25 @@ if (root) {
     token: { '--color--primary': '#0055aa' },
     component: {}
   };
+
+  root.presets = [
+    {
+      id: 'dark',
+      label: 'Dark',
+      state: {
+        token: { '--color--primary': '#111111' },
+        component: {}
+      },
+      targets: {
+        token: true,
+        component: false
+      }
+    }
+  ];
 }
 ```
 
-### Example 5: Listen for actions
+### Example 6: Listen for actions
 
 ```js
 const root = document.querySelector('design-builder');
@@ -190,6 +240,7 @@ Relevant adapter entry points:
 - `source/design-builder/features/full-page-editor/DesignBuilderSplitLocalStorageStore.ts`
 
 In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document.
+It also normalizes legacy `data-presets` markup to the modern `presets` attribute when older roots are discovered.
 
 ## Mode 2: Component customization (`component-customizer`)
 
@@ -454,6 +505,92 @@ Example:
 
 - `token-data`: Which global token document should the editor edit?
 - `token-library`: Which token catalog should the component customizer read from?
+
+### presets
+
+Injected as a root attribute/property:
+- `presets`
+- `rootElement.presets`
+
+Contains host-provided preset definitions that should be shown together with runtime-managed presets in the preset picker.
+
+Think of it as answering:
+- Which preset options should always be available when Design Builder starts?
+- Should a preset affect token overrides, component overrides, or both?
+
+Accepted input forms:
+
+1. An array of preset definitions
+2. An object map where each key becomes the fallback preset id
+
+Accepted preset fields:
+
+- `id`: required unique identifier (or inferred from the object-map key)
+- `label`: display label
+- `name`: fallback display label when `label` is omitted
+- `state`: explicit shared override state
+- `overrides`: alias for `state`
+- `token`: shorthand for a token-only preset
+- `component`: shorthand for a component-only preset
+
+Normalized runtime shape:
+
+```ts
+type DesignBuilderProvidedPreset = {
+  id: string;
+  label: string;
+  state: {
+    token: Record<string, string>;
+    component: Record<string, Record<string, Record<string, string>>>;
+  };
+  targets: {
+    token: boolean;
+    component: boolean;
+  };
+};
+```
+
+Example array form:
+
+```json
+[
+  {
+    "id": "dark",
+    "label": "Dark",
+    "token": {
+      "--color--primary": "#111111"
+    }
+  },
+  {
+    "id": "button-compact",
+    "label": "Compact Button",
+    "component": {
+      "__general__": {
+        "button": {
+          "--c-button--spacing--y": "0.5rem"
+        }
+      }
+    }
+  }
+]
+```
+
+Example object-map form:
+
+```json
+{
+  "dark": {
+    "label": "Dark",
+    "state": {
+      "token": {
+        "--color--primary": "#111111"
+      }
+    }
+  }
+}
+```
+
+Preset targets are inferred from the provided payload. A token-only preset updates only the token slice, and a component-only preset updates only the component slice. This lets hosts provide focused presets without wiping the other part of the shared override state.
 
 ### Important
 
