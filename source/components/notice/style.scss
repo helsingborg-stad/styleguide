@@ -180,18 +180,18 @@ $_: "c-notice";
                 ". actions";
         }
     }
+}
 
-    .#{$_}+.#{$_} {
-        margin-top: tokens.use($_, "outer-space", 2);
-    }
+.#{$_}+.#{$_} {
+    margin-top: tokens.use($_, "outer-space", 2);
+}
 
-    @media print {
-        .#{$_} {
-            display: none;
-        }
+@media print {
+    .#{$_} {
+        display: none;
     }
+}
 
-    .c-notice {
-        animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-    }
+.c-notice {
+    animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
 }

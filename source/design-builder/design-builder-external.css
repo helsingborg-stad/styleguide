@@ -46,6 +46,11 @@
 	background: var(--color--background, #f5f5f5);
 }
 
+.db-preview__inner {
+	display: grid;
+	gap: 2rem;
+}
+
 @media (max-width: 960px) {
 	.db-layout {
 		grid-template-columns: 1fr;
