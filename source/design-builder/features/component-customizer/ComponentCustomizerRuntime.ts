@@ -254,8 +254,6 @@ export class ComponentCustomizerRuntime {
 
 		return html`
 			<div class="db-header">
-				<h1 class="db-header-title">Design Builder</h1>
-				<p class="db-header-subtitle">${this.tokenLibrary.name} v${this.tokenLibrary.version}</p>
 				<div class="db-header-actions" data-header-actions>
 					${modeSwitcher ?? nothing}
 					<button
@@ -843,10 +841,7 @@ export class ComponentCustomizerRuntime {
 		});
 	}
 
-	private emitAction(
-		action: 'change' | 'save' | 'reset-all' | 'reset-component' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete',
-		metadata?: Record<string, unknown>,
-	): void {
+	private emitAction(action: 'change' | 'save' | 'reset-all' | 'reset-component' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete', metadata?: Record<string, unknown>): void {
 		if (!this.hostElement) {
 			return;
 		}

@@ -162,20 +162,6 @@
 	border-bottom: 1px solid var(--db-border);
 }
 
-.db-header-title {
-	font-size: clamp(1.45rem, 2vw, 1.8rem);
-	font-weight: 700;
-	margin: 0;
-	letter-spacing: -0.0125em;
-}
-
-.db-header-subtitle {
-	color: var(--db-text-muted);
-	font-size: 0.875rem;
-	margin: 0;
-	flex: 1;
-}
-
 .db-header-actions {
 	display: flex;
 	align-items: center;

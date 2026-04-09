@@ -1,10 +1,10 @@
-import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
-import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
+import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
+import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
-import { normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 
@@ -80,8 +80,6 @@ export class FullPageEditorRuntime {
 
 		return html`
 			<div class="db-header">
-				<h1 class="db-header-title">Design Builder</h1>
-				<p class="db-header-subtitle">${this.tokens.name} v${this.tokens.version}</p>
 				<div class="db-header-actions">
 					${modeSwitcher ?? nothing}
 					<label class="db-header-toggle-row" title="Show non-editable fields">
