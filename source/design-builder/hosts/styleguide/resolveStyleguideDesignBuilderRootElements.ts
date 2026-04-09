@@ -71,6 +71,13 @@ function normalizeLegacyRootAttributes(rootElement: DesignBuilderRootElement): v
 		}
 	}
 
+	if (!rootElement.hasAttribute('presets')) {
+		const legacyPresets = rootElement.getAttribute('data-presets');
+		if (legacyPresets) {
+			rootElement.setAttribute('presets', legacyPresets);
+		}
+	}
+
 	hydratePersistedOverrideState(rootElement);
 	bindStyleguideSaveAdapter(rootElement);
 }

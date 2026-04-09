@@ -148,4 +148,61 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		hostElement.remove();
 		mount.remove();
 	});
+
+	it('keeps component overrides when loading a token-only provided preset', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			presets?: unknown;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			component: {
+				[GENERAL_SCOPE_KEY]: {
+					button: {
+						'--c-button--color--primary': '#abcdef',
+					},
+				},
+			},
+		});
+		hostElement.presets = [
+			{
+				id: 'dark',
+				label: 'Dark Ember',
+				state: {
+					token: {
+						'--color--primary': '#123456',
+					},
+					component: {},
+				},
+				targets: {
+					token: true,
+					component: false,
+				},
+			},
+		];
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+
+		const presetSelect = mount.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
+		if (presetSelect) {
+			presetSelect.value = 'provided:dark';
+			presetSelect.dispatchEvent(new Event('change'));
+		}
+
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		expect(document.documentElement.style.getPropertyValue('--color--primary')).toBe('#123456');
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('#abcdef');
+		expect(hostElement.overrideState.component).toEqual({
+			[GENERAL_SCOPE_KEY]: {
+				button: {
+					'--c-button--color--primary': '#abcdef',
+				},
+			},
+		});
+
+		hostElement.remove();
+		mount.remove();
+	});
 });

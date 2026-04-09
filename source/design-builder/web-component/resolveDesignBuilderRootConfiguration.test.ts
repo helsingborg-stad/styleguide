@@ -75,4 +75,46 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		expect(configuration.mode).toBe('component-customizer');
 		expect(configuration.availableModes).toEqual(['full-page', 'component-customizer']);
 	});
+
+	it('normalizes provided presets from the root attribute', () => {
+		const root = createRoot();
+		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));
+		root.setAttribute(
+			'presets',
+			JSON.stringify([
+				{
+					id: 'dark',
+					label: 'Dark Ember',
+					token: {
+						'--color-primary': '#111111',
+					},
+				},
+			]),
+		);
+
+		const configuration = resolveDesignBuilderRootConfiguration({
+			hostElement: root,
+			preferredMode: null,
+			propertyTokenData: undefined,
+			propertyTokenLibraryData: undefined,
+			propertyComponentData: undefined,
+		});
+
+		expect(configuration.presets).toEqual([
+			{
+				id: 'dark',
+				label: 'Dark Ember',
+				state: {
+					token: {
+						'--color-primary': '#111111',
+					},
+					component: {},
+				},
+				targets: {
+					token: true,
+					component: false,
+				},
+			},
+		]);
+	});
 });
