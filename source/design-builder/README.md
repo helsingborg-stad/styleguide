@@ -8,10 +8,22 @@ The runtime is now bootstrapped through a root web component:
 - `<design-builder>`
 
 Root element contract:
-- `token-data`: JSON payload used in `full-page` mode
-- `token-library`: JSON payload used in `component-customizer` mode
-- `component-data`: JSON payload used in `component-customizer` mode
-- `override-state`: optional JSON payload used to hydrate draft token/component overrides
+
+| Attribute | What it should contain | Main purpose |
+| --- | --- | --- |
+| `token-data` | The global token document that Design Builder should edit. Shape: `TokenData` (`name`, `version`, `categories[]`). | Global tokens mode (`full-page`) |
+| `token-library` | The token catalog used to build controls and resolve token metadata. Shape: `TokenData`. | Component customization mode (`component-customizer`) |
+| `component-data` | The component-to-token mapping used by the customizer. Shape: `Record<string, { name?, slug?, tokens?[] }>` | Component customization mode (`component-customizer`) |
+| `override-state` | The initial draft state for token and component overrides. | Hydrate initial state in either mode |
+
+Quick mental model:
+
+- `token-data` = the **global tokens to edit**
+- `token-library` = the **token reference library** the component customizer reads from
+- `component-data` = the **editable components and their token mappings**
+- `override-state` = the **initial draft state**
+
+`token-data` and `token-library` intentionally share the same JSON shape. The difference is their **role**, not their structure.
 
 Root element runtime API:
 - `tokenData`
@@ -37,8 +49,8 @@ Root element events:
 
 The Design Builder runtime has two execution modes in the same entry file:
 
-1. Full page mode (route: /design-builder)
-2. Component page mode (global docs pages with customize assets loaded)
+1. Global tokens mode (`full-page`, route: /design-builder)
+2. Component customization mode (`component-customizer`, global docs pages with customize assets loaded)
 
 Entry file:
 - source/design-builder/index.ts
@@ -46,7 +58,7 @@ Entry file:
 Internal architecture:
 - source/design-builder/web-component/* - generic `<design-builder>` custom element and root configuration resolution
 - source/design-builder/hosts/styleguide/* - styleguide-specific bootstrap, root discovery, legacy DOM normalization, and default save adapter
-- source/design-builder/features/full-page-editor/* - full-page token editor mode
+- source/design-builder/features/full-page-editor/* - global tokens editor mode
 - source/design-builder/features/component-customizer/* - component customizer mode
 - source/design-builder/shared/* - shared controls, state normalization, presets, persistence helpers, styling, and shared types
 
@@ -60,19 +72,21 @@ Control rendering modules:
 - source/design-builder/shared/control-elements/controls/layout/*
 - source/design-builder/shared/control-elements/controls/*
 
-Global token/preset storage helpers (full page mode):
+Global token/preset storage helpers (global tokens mode):
 - source/design-builder/shared/persistence/TokenOverrideLocalStorageStore.ts
 - source/design-builder/shared/presets/DesignBuilderPresetManager.ts
 
 ## Attribute-first usage examples
 
-### Example 1: Full-page editor root
+### Example 1: Global tokens root
 
 ```html
 <design-builder
   token-data='{"name":"Tokens","version":"1.0.0","categories":[]}'
 ></design-builder>
 ```
+
+Use `token-data` when the root exists to edit the global token document itself.
 
 ### Example 2: Component customizer root
 
@@ -82,6 +96,8 @@ Global token/preset storage helpers (full page mode):
   token-library='{"name":"Tokens","version":"1.0.0","categories":[]}'
 ></design-builder>
 ```
+
+Use `component-data` + `token-library` together when the root exists to customize components on the page.
 
 ### Example 3: Update the root by attributes only
 
@@ -125,12 +141,13 @@ root?.addEventListener('design-builder:save', (event) => {
 });
 ```
 
-## Mode 1: Full page Design Builder
+## Mode 1: Global tokens editor (`full-page`)
 
 ### Activation
 
-Full page mode starts when the DOM contains:
-- `<design-builder token-data="...json...">`
+Global tokens mode starts when token data is available on the root:
+- preferred: `<design-builder token-data="...json...">`
+- fallback: `<design-builder token-library="...json...">`
 
 Legacy compatibility is preserved for older markup:
 - `[data-design-builder]`
@@ -141,7 +158,8 @@ Template source:
 
 ### Behavior
 
-- Renders categorized controls from source/data/design-tokens.json payload.
+- Renders categorized controls from the token payload.
+- Reads that payload from `token-data` first, then falls back to `token-library` if `token-data` is missing.
 - Applies token overrides directly on `:root`.
 - Keeps draft overrides on the root element until the user explicitly clicks **Save**.
 - Supports:
@@ -173,7 +191,7 @@ Relevant adapter entry points:
 
 In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document.
 
-## Mode 2: Component-level customization
+## Mode 2: Component customization (`component-customizer`)
 
 ### Activation
 
@@ -182,15 +200,15 @@ Component mode starts when a `<design-builder>` root has both:
 1. `component-data`
 2. `token-library`
 
-The runtime no longer reads payloads, mode, or initialization settings from `window.*` or root attributes.
+The runtime reads these payloads from root attributes/properties. It no longer depends on `window.*` bootstrap globals for them.
 
-Legacy full-page container detection (`[data-design-builder]`) still works for full-page markup normalization.
+Legacy full-page container detection (`[data-design-builder]`) still works for global tokens markup normalization.
 
 Behavior:
 - the component customizer initializes as soon as the root element is connected
 - the customizer mounts inside the `<design-builder>` instance where it is declared
 
-When both full-page and component-customizer payloads are available, Design Builder renders an internal mode switcher so the active experience can be changed from inside the component.
+When both global-token and component-customizer payloads are available, Design Builder renders an internal mode switcher so the active experience can be changed from inside the component.
 
 Payloads are injected in:
 - views/layout/master.blade.php
@@ -289,7 +307,12 @@ Changes in one scope do not affect the other.
 Both modes share the same override document and mutate different slices of it in memory on the root element.
 On startup, the runtime reapplies both slices so token and component overrides are active regardless of which mode is currently open.
 
-Draft state is passed in through `override-state` / `rootElement.overrideState`.
+Initial draft state is passed in through `override-state` / `rootElement.overrideState`.
+
+`override-state` is the input you use when you want Design Builder to start with preloaded draft values instead of an empty state. On startup, the runtime normalizes that payload and reapplies both slices:
+
+- `token` for global token overrides
+- `component` for component-level overrides
 
 Current shape:
 
@@ -375,7 +398,23 @@ Injected as a root attribute/property:
 - `component-data`
 - `rootElement.componentData`
 
-Contains per-component metadata, including token names used to map editable controls.
+Contains the component-side lookup table used by the customizer.
+
+Think of it as answering:
+- Which components are editable?
+- What should each component be called in the UI?
+- Which token names does each component expose?
+
+Example:
+
+```json
+{
+  "button": {
+    "name": "Button",
+    "tokens": ["color--primary", "spacing--2"]
+  }
+}
+```
 
 ### token-library
 
@@ -386,7 +425,35 @@ Injected as a root attribute/property:
 - `token-library`
 - `rootElement.tokenLibraryData`
 
-Contains categories and settings used to render controls.
+Contains the token catalog used to build control groups and resolve token metadata.
+
+Think of it as answering:
+- Which token categories exist?
+- Which settings live inside each category?
+- What labels, descriptions, types, and options should the controls use?
+
+Example:
+
+```json
+{
+  "name": "Tokens",
+  "version": "1.0.0",
+  "categories": [
+    {
+      "id": "color",
+      "label": "Color",
+      "settings": []
+    }
+  ]
+}
+```
+
+### token-data
+
+`token-data` uses the same `TokenData` shape as `token-library`, but it answers a different question:
+
+- `token-data`: Which global token document should the editor edit?
+- `token-library`: Which token catalog should the component customizer read from?
 
 ### Important
 
