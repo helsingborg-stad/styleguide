@@ -188,6 +188,8 @@ export class FullPageEditorRuntime {
 		for (const [prop, value] of Object.entries(this.overrides)) {
 			document.documentElement.style.setProperty(prop, value);
 		}
+
+		applyComponentOverridesToPage(this.hostElement.overrideState.component);
 	}
 
 	private resetAll(): void {

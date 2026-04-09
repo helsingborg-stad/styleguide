@@ -50,6 +50,7 @@ export class ComponentCustomizerRuntime {
 		this.collectComponentElements();
 		this.collectEditableComponents();
 		this.pruneUnknownOverrides();
+		applyTokenOverridesToRootDocument(this.hostElement?.overrideState.token ?? {});
 		this.applySavedOverrides();
 		this.syncOverrideState();
 		this.render();

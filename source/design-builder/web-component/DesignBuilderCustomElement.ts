@@ -1,6 +1,6 @@
 import { designBuilderStyles } from '../shared/styling/designBuilderStyleText';
 import { emitDesignBuilderActionEvent } from '../shared/events/designBuilderActionEvents';
-import { createEmptyOverrideState, type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
+import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
 import { resolveDesignBuilderRootConfiguration } from './resolveDesignBuilderRootConfiguration';
 import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderMode, type DesignBuilderModeAdapter, type DesignBuilderRootElement } from './designBuilderRootContracts';
 
@@ -17,7 +17,7 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 	private currentTokenData: unknown;
 	private currentTokenLibraryData: unknown;
 	private currentComponentData: unknown;
-	private currentOverrideState: DesignBuilderOverrideState = createEmptyOverrideState();
+	private currentOverrideState?: DesignBuilderOverrideState;
 	private hasInitialized = false;
 	private renderPromise: Promise<void> | null = null;
 	private hasPendingRender = false;
@@ -69,7 +69,7 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 	}
 
 	public get overrideState(): DesignBuilderOverrideState {
-		return this.currentOverrideState;
+		return normalizeDesignBuilderOverrideState(this.currentOverrideState);
 	}
 
 	public set overrideState(value: DesignBuilderOverrideState) {
@@ -93,6 +93,22 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 			return;
 		}
 
+		if (name === 'token-data') {
+			this.currentTokenData = undefined;
+		}
+
+		if (name === 'token-library') {
+			this.currentTokenLibraryData = undefined;
+		}
+
+		if (name === 'component-data') {
+			this.currentComponentData = undefined;
+		}
+
+		if (name === 'override-state') {
+			this.currentOverrideState = undefined;
+		}
+
 		if (!this.hasInitialized) {
 			return;
 		}
@@ -112,7 +128,7 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 			emitDesignBuilderActionEvent(this, {
 				action: 'mode-change',
 				mode: value,
-				state: this.currentOverrideState,
+				state: this.overrideState,
 				metadata: {
 					fromMode: previousMode,
 					toMode: value,

@@ -5,6 +5,7 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 }));
 
 import { FullPageEditorRuntime } from './FullPageEditorRuntime';
+import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
@@ -40,9 +41,18 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 	};
 
 	beforeEach(() => {
+		document.body.innerHTML = '';
 		document.documentElement.style.removeProperty('--color-free');
 		document.documentElement.style.removeProperty('--color-locked');
+		document.documentElement.style.removeProperty('--c-button--color--primary');
 		localStorage.clear();
+	});
+
+	afterEach(() => {
+		document.body.innerHTML = '';
+		document.documentElement.style.removeProperty('--color-free');
+		document.documentElement.style.removeProperty('--color-locked');
+		document.documentElement.style.removeProperty('--c-button--color--primary');
 	});
 
 	it('filters locked variables when loading a preset', () => {
@@ -132,6 +142,33 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		});
 
 		confirmSpy.mockRestore();
+		hostElement.remove();
+		container.remove();
+	});
+
+	it('applies saved component overrides when booting in full-page mode', () => {
+		document.body.innerHTML = '<div data-component="button"></div>';
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			component: {
+				[GENERAL_SCOPE_KEY]: {
+					button: {
+						'--c-button--color--primary': '#123456',
+					},
+				},
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('#123456');
+
 		hostElement.remove();
 		container.remove();
 	});

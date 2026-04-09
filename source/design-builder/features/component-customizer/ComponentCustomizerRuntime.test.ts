@@ -41,11 +41,13 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 				<a href="/test">Button</a>
 			</div>
 		`;
+		document.documentElement.style.removeProperty('--color--primary');
 		localStorage.clear();
 	});
 
 	afterEach(() => {
 		document.body.innerHTML = '';
+		document.documentElement.style.removeProperty('--color--primary');
 		localStorage.clear();
 	});
 
@@ -122,6 +124,27 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		});
 
 		confirmSpy.mockRestore();
+		hostElement.remove();
+		mount.remove();
+	});
+
+	it('applies saved token overrides when booting in component mode', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: {
+				'--color--primary': '#123456',
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+
+		expect(document.documentElement.style.getPropertyValue('--color--primary')).toBe('#123456');
+
 		hostElement.remove();
 		mount.remove();
 	});
