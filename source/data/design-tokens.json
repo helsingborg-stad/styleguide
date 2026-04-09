@@ -22,8 +22,8 @@
 					"label": "Base Font Size",
 					"description": "Root font size. All typographic sizes derive from this.",
 					"type": "select",
-					"default": "1rem",
-					"unit": "rem",
+					"default": "16px",
+					"unit": "px",
 					"options": [
 						{
 							"value": "16px",
@@ -105,15 +105,15 @@
 					"variable": "--corner-shape",
 					"label": "Corner Shape",
 					"type": "select",
-					"default": "rounded",
+					"default": "round",
 					"options": [
 						{
 							"value": "square",
 							"label": "Square"
 						},
 						{
-							"value": "rounded",
-							"label": "Rounded"
+							"value": "round",
+							"label": "Round"
 						},
 						{
 							"value": "squircle",

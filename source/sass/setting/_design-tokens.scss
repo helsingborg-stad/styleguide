@@ -17,7 +17,7 @@
     // Foundation values that drive spacing, radius, and typography scales.
     // ========================================================================
     --base: calc(1rem/2);
-    --base-font-size: 1rem;
+    --base-font-size: 16px;
 
     // ========================================================================
     // Layout
@@ -33,7 +33,7 @@
     // Border radius and corner shape style.
     // ========================================================================
     --border-radius: 1;
-    --corner-shape: rounded;
+    --corner-shape: round;
 
     // ========================================================================
     // Typography
