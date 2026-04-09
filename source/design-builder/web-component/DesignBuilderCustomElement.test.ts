@@ -6,7 +6,7 @@ import { registerDesignBuilderCustomElement, registerDesignBuilderModeAdapter } 
 import { normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
 import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderRootConfiguration } from './designBuilderRootContracts';
 
-describe('DesignBuilderCustomElement override-state hydration', () => {
+describe('DesignBuilderCustomElement root attribute hydration', () => {
 	const configurations: DesignBuilderRootConfiguration[] = [];
 
 	beforeAll(() => {
@@ -80,5 +80,44 @@ describe('DesignBuilderCustomElement override-state hydration', () => {
 				component: {},
 			}),
 		);
+	});
+
+	it('hydrates presets from the root attribute on first render', async () => {
+		const rootElement = document.createElement('design-builder');
+		rootElement.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+		rootElement.setAttribute(
+			'presets',
+			JSON.stringify([
+				{
+					id: 'dark',
+					label: 'Dark Ember',
+					token: {
+						'--color--primary': '#123456',
+					},
+				},
+			]),
+		);
+
+		const initialized = waitForInitialization(rootElement);
+		document.body.appendChild(rootElement);
+		await initialized;
+
+		expect(configurations.at(-1)?.presets).toEqual([
+			{
+				id: 'dark',
+				label: 'Dark Ember',
+				state: {
+					token: {
+						'--color--primary': '#123456',
+					},
+					component: {},
+				},
+				targets: {
+					token: true,
+					component: false,
+				},
+			},
+		]);
+		expect((rootElement as typeof rootElement & { presets: unknown }).presets).toEqual(configurations.at(-1)?.presets);
 	});
 });

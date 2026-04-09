@@ -1,5 +1,6 @@
 import { DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER, DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderMode, type DesignBuilderRootConfiguration, type DesignBuilderRootElement } from './designBuilderRootContracts';
 import { normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
+import { normalizeDesignBuilderProvidedPresets } from '../shared/presets/designBuilderPresetDefinitions';
 
 interface ParseRootConfigurationInput {
 	hostElement: DesignBuilderRootElement;
@@ -8,6 +9,7 @@ interface ParseRootConfigurationInput {
 	propertyTokenLibraryData: unknown;
 	propertyComponentData: unknown;
 	propertyOverrideState?: unknown;
+	propertyPresets?: unknown;
 }
 
 function parseJsonUnknown(value: string | null): unknown {
@@ -58,12 +60,13 @@ function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, co
 }
 
 export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurationInput): DesignBuilderRootConfiguration {
-	const { hostElement, preferredMode, propertyTokenData, propertyTokenLibraryData, propertyComponentData, propertyOverrideState } = input;
+	const { hostElement, preferredMode, propertyTokenData, propertyTokenLibraryData, propertyComponentData, propertyOverrideState, propertyPresets } = input;
 
 	const tokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
 	const tokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
 	const overrideState = normalizeDesignBuilderOverrideState(propertyOverrideState ?? parseJsonUnknown(hostElement.getAttribute('override-state')));
+	const presets = normalizeDesignBuilderProvidedPresets(propertyPresets ?? parseJsonUnknown(hostElement.getAttribute('presets')));
 	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
 	const resolvedMode = preferredMode && availableModes.includes(preferredMode)
 		? preferredMode
@@ -80,5 +83,6 @@ export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurat
 		tokenLibraryData,
 		componentData,
 		overrideState,
+		presets,
 	};
 }

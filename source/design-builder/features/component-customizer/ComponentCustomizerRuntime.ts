@@ -4,6 +4,7 @@ import { createDesignBuilderControl } from '../../shared/control-elements/create
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
+import { designBuilderPresetMatchesState, type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -13,6 +14,15 @@ import { normalizeComponentName } from './componentTokenDefinitions';
 export interface ComponentCustomizerRuntimeOptions {
 	modeSwitch?: DesignBuilderModeSwitch;
 	hostElement?: DesignBuilderRootElement;
+}
+
+interface RuntimePresetOption {
+	key: string;
+	id: string;
+	label: string;
+	source: 'provided' | 'saved';
+	state: DesignBuilderOverrideState;
+	targets: DesignBuilderPresetTargets;
 }
 
 export class ComponentCustomizerRuntime {
@@ -434,44 +444,60 @@ export class ComponentCustomizerRuntime {
 		if (!this.presetBarHost) {
 			return;
 		}
-		const names = this.presetManager.names();
-		const activeName = this.presetManager.getActive();
+		const presetOptions = this.getPresetOptions();
+		const activePresetKey = this.getActivePresetKey(presetOptions);
+		const hasProvidedPresets = presetOptions.some((preset) => preset.source === 'provided');
+		const savedPresetOptions = presetOptions.filter((preset) => preset.source === 'saved');
+		const activeSavedPreset = savedPresetOptions.find((preset) => preset.key === activePresetKey) ?? null;
 
 		renderTemplate(
 			html`
-				<div class=${names.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${names.length === 0}>
-					${
-						names.length > 0
-							? html`
-								<div class="db-presets-list">
-									${names.map((name) => this.renderPresetChipTemplate(name, name === activeName))}
-								</div>
-							`
-							: nothing
-					}
+				<div class=${presetOptions.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${presetOptions.length === 0}>
+					<label class="db-builder-context-row" for="db-component-preset-select">
+						Preset
+						<select
+							id="db-component-preset-select"
+							class="db-control-text"
+							data-action="select-preset"
+							.value=${activePresetKey}
+							@change=${this.handlePresetSelectChange}
+						>
+							<option value="">Choose a preset</option>
+							${
+								hasProvidedPresets
+									? html`
+										<optgroup label="Built-in presets">
+											${presetOptions
+												.filter((preset) => preset.source === 'provided')
+												.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
+										</optgroup>
+									`
+									: nothing
+							}
+							${
+								savedPresetOptions.length > 0
+									? html`
+										<optgroup label="Saved presets">
+											${savedPresetOptions.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
+										</optgroup>
+									`
+									: nothing
+							}
+						</select>
+					</label>
+					<button
+						type="button"
+						class="db-btn"
+						data-action="delete-preset"
+						?disabled=${activeSavedPreset === null}
+						@click=${this.handleDeleteActivePresetClick}
+					>
+						Delete preset
+					</button>
 				</div>
 			`,
 			this.presetBarHost,
 		);
-	}
-
-	private renderPresetChipTemplate(name: string, isActive: boolean): TemplateResult {
-		return html`
-			<button
-				type="button"
-				class=${isActive ? 'db-presets-chip db-presets-chip-active' : 'db-presets-chip'}
-				@click=${() => this.loadPreset(name)}
-			>
-				<span class="db-presets-chip-label">${name}</span>
-				<span
-					class="db-presets-chip-delete"
-					title=${`Delete "${name}"`}
-					@click=${(event: Event) => this.handleDeletePresetClick(event, name)}
-				>
-					&times;
-				</span>
-			</button>
-		`;
 	}
 
 	private savePreset(): void {
@@ -479,6 +505,12 @@ export class ComponentCustomizerRuntime {
 		if (!name || !name.trim()) return;
 
 		const trimmed = name.trim();
+		const normalizedName = trimmed.toLowerCase();
+		if (this.getProvidedPresets().some((preset) => preset.id.toLowerCase() === normalizedName || preset.label.toLowerCase() === normalizedName)) {
+			alert(`A built-in preset already uses the name "${trimmed}". Choose another preset name.`);
+			return;
+		}
+
 		const existing = this.presetManager.names();
 		if (existing.includes(trimmed)) {
 			if (!confirm(`A preset named "${trimmed}" already exists. Overwrite it?`)) {
@@ -494,23 +526,32 @@ export class ComponentCustomizerRuntime {
 		});
 	}
 
-	private loadPreset(name: string): void {
-		const all = this.presetManager.loadAll();
-		const presetOverrides = all[name];
-		if (!presetOverrides) return;
+	private loadPreset(option: RuntimePresetOption): void {
+		const currentTokenOverrides = this.hostElement?.overrideState.token ?? {};
+		const nextTokenOverrides = option.targets.token ? option.state.token : currentTokenOverrides;
+		if (option.targets.token) {
+			clearTokenOverridesFromRootDocument(currentTokenOverrides);
+			applyTokenOverridesToRootDocument(option.state.token);
+		}
 
-		clearTokenOverridesFromRootDocument(this.hostElement?.overrideState.token ?? {});
-		applyTokenOverridesToRootDocument(presetOverrides.token);
+		if (option.targets.component) {
+			this.clearAppliedOverrides();
+			this.overrides = normalizeDesignBuilderOverrideState({ component: option.state.component }).component;
+			this.applySavedOverrides();
+		}
 
-		this.clearAppliedOverrides();
-		this.overrides = normalizeDesignBuilderOverrideState({ component: presetOverrides.component }).component;
-		this.applySavedOverrides();
-		this.syncOverrideState(presetOverrides.token);
-		this.presetManager.setActive(name);
+		this.syncOverrideState(nextTokenOverrides);
+		if (option.source === 'saved') {
+			this.presetManager.setActive(option.id);
+		} else {
+			this.presetManager.clearActive();
+		}
+
 		this.refreshPresetBar();
 		this.renderControls();
 		this.emitAction('preset-load', {
-			presetName: name,
+			presetName: option.label,
+			presetSource: option.source,
 		});
 	}
 
@@ -525,6 +566,59 @@ export class ComponentCustomizerRuntime {
 
 	private refreshPresetBar(): void {
 		this.renderPresetBar();
+	}
+
+	private getProvidedPresets(): DesignBuilderProvidedPreset[] {
+		return Array.isArray(this.hostElement?.presets) ? this.hostElement.presets : [];
+	}
+
+	private getPresetOptions(): RuntimePresetOption[] {
+		const providedOptions = this.getProvidedPresets().map((preset) => ({
+			key: `provided:${preset.id}`,
+			id: preset.id,
+			label: preset.label,
+			source: 'provided' as const,
+			state: preset.state,
+			targets: preset.targets,
+		}));
+
+		const savedOptions = Object.entries(this.presetManager.loadAll())
+			.sort(([leftName], [rightName]) => leftName.localeCompare(rightName))
+			.map(([name, state]) => ({
+				key: `saved:${name}`,
+				id: name,
+				label: name,
+				source: 'saved' as const,
+				state,
+				targets: {
+					token: true,
+					component: true,
+				},
+			}));
+
+		return [...providedOptions, ...savedOptions];
+	}
+
+	private getActivePresetKey(presetOptions: RuntimePresetOption[]): string {
+		const activeSavedPresetName = this.presetManager.getActive();
+		if (activeSavedPresetName) {
+			const activeSavedPreset = presetOptions.find((preset) => preset.source === 'saved' && preset.id === activeSavedPresetName);
+			if (activeSavedPreset) {
+				return activeSavedPreset.key;
+			}
+		}
+
+		const currentState = this.getCurrentPresetState();
+		return presetOptions.find((preset) => designBuilderPresetMatchesState({
+			id: preset.id,
+			label: preset.label,
+			state: preset.state,
+			targets: preset.targets,
+		}, currentState))?.key ?? '';
+	}
+
+	private findPresetOption(key: string): RuntimePresetOption | null {
+		return this.getPresetOptions().find((preset) => preset.key === key) ?? null;
 	}
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
@@ -914,8 +1008,23 @@ export class ComponentCustomizerRuntime {
 		this.emitAction('save');
 	};
 
-	private readonly handleDeletePresetClick = (event: Event, name: string): void => {
-		event.stopPropagation();
-		this.deletePreset(name);
+	private readonly handlePresetSelectChange = (event: Event): void => {
+		const option = this.findPresetOption((event.currentTarget as HTMLSelectElement).value);
+		if (!option) {
+			this.presetManager.clearActive();
+			this.refreshPresetBar();
+			return;
+		}
+
+		this.loadPreset(option);
+	};
+
+	private readonly handleDeleteActivePresetClick = (): void => {
+		const activePreset = this.findPresetOption(this.getActivePresetKey(this.getPresetOptions()));
+		if (!activePreset || activePreset.source !== 'saved') {
+			return;
+		}
+
+		this.deletePreset(activePreset.id);
 	};
 }

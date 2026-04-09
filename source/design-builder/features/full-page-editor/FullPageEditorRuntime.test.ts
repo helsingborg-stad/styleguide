@@ -69,15 +69,18 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		);
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
 			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			presets?: unknown;
 		};
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		document.body.appendChild(hostElement);
 		new FullPageEditorRuntime(container, tokenData, hostElement as any);
 
-		const presetButton = Array.from(container.querySelectorAll<HTMLButtonElement>('.db-presets-chip')).find((button) => button.querySelector('.db-presets-chip-label')?.textContent === 'myPreset');
-
-		expect(presetButton).toBeTruthy();
-		presetButton?.click();
+		const presetSelect = container.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
+		expect(presetSelect).toBeTruthy();
+		if (presetSelect) {
+			presetSelect.value = 'saved:myPreset';
+			presetSelect.dispatchEvent(new Event('change'));
+		}
 
 		expect(document.documentElement.style.getPropertyValue('--color-free')).toBe('#123456');
 		expect(document.documentElement.style.getPropertyValue('--color-locked')).toBe('');
@@ -87,6 +90,64 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 				'--color-free': '#123456',
 			},
 			component: {},
+		});
+
+		hostElement.remove();
+		container.remove();
+	});
+
+	it('keeps component overrides when loading a token-only provided preset', () => {
+		document.body.innerHTML = '<div data-component="button"></div>';
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			presets?: unknown;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			component: {
+				[GENERAL_SCOPE_KEY]: {
+					button: {
+						'--c-button--color--primary': '#abcdef',
+					},
+				},
+			},
+		});
+		hostElement.presets = [
+			{
+				id: 'dark',
+				label: 'Dark Ember',
+				state: {
+					token: {
+						'--color-free': '#123456',
+					},
+					component: {},
+				},
+				targets: {
+					token: true,
+					component: false,
+				},
+			},
+		];
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+
+		const presetSelect = container.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
+		if (presetSelect) {
+			presetSelect.value = 'provided:dark';
+			presetSelect.dispatchEvent(new Event('change'));
+		}
+
+		expect(document.documentElement.style.getPropertyValue('--color-free')).toBe('#123456');
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('#abcdef');
+		expect(hostElement.overrideState.component).toEqual({
+			[GENERAL_SCOPE_KEY]: {
+				button: {
+					'--c-button--color--primary': '#abcdef',
+				},
+			},
 		});
 
 		hostElement.remove();
