@@ -57,6 +57,7 @@ $yAxis: (
 }
 
 .#{$_} .#{$_}__panel {
+    overscroll-behavior: none;
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
     filter: tokens.use($_, "shadow", 3);
@@ -69,6 +70,7 @@ $yAxis: (
         calc(100vw - (tokens.use($_, "space", 4) * 2)));
     max-width: min(calc(tokens.use($_, "space", 45) * var(--#{$_}--size-multiplier)),
         calc(100vw - (tokens.use($_, "space", 4) * 2)));
+    width: 100vw;
     text-align: left;
     padding: var(--#{$_}--panel-padding);
     gap: tokens.use($_, "space", 2);
