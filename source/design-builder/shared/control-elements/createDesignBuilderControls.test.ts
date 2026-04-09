@@ -66,6 +66,35 @@ describe('controls change handling', () => {
 		expect(onChange).toHaveBeenCalledWith('--space-medium', '12');
 	});
 
+	it('emits range control values with unit suffix when defined', () => {
+		const setting: TokenSetting = {
+			variable: '--color--border-mix-amount',
+			label: 'Border mix amount',
+			type: 'range',
+			default: '10%',
+			min: 0,
+			max: 100,
+			step: 1,
+			unit: '%',
+		};
+		const onChange = jest.fn();
+
+		const row = createDesignBuilderControl(setting, '10%', onChange);
+		document.body.appendChild(row);
+
+		const input = row.querySelector('range-control input[type="range"]') as HTMLInputElement;
+		expect(input).toBeTruthy();
+
+		input.value = '12';
+		expect(() => {
+			input.dispatchEvent(new Event('input', { bubbles: true }));
+			input.dispatchEvent(new Event('change', { bubbles: true }));
+		}).not.toThrow();
+
+		expect(onChange).toHaveBeenCalledTimes(1);
+		expect(onChange).toHaveBeenCalledWith('--color--border-mix-amount', '12%');
+	});
+
 	it('ignores native bubbling events for color controls and uses custom event detail value', () => {
 		const setting: TokenSetting = {
 			variable: '--color-primary',

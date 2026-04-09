@@ -65,9 +65,22 @@ class DbControlRow extends HTMLElement {
 	}
 
 	private onControlChange(event: Event) {
-		const value = getControlChangeValue(event);
-		if (value === undefined) {
+		const rawValue = getControlChangeValue(event);
+		if (rawValue === undefined) {
 			return;
+		}
+
+		const setting = this._setting;
+		if (!setting) {
+			return;
+		}
+
+		let value = rawValue;
+		if (setting.type === 'range' && setting.unit) {
+			const unit = setting.unit;
+			if (!value.endsWith(unit)) {
+				value = `${value}${unit}`;
+			}
 		}
 
 		this._value = value;
