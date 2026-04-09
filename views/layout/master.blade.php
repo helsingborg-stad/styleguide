@@ -308,7 +308,7 @@
                 'classList' => ['u-margin--0'],
                 'ariaLabel' => 'Open component customizer'
             ],
-            'classList' => ['c-fab--width-xl'],
+            'classList' => ['c-fab--width-xl', 'c-fab--padding-none'],
             'attributeList' => [
                 'data-customizable' => 'false'
             ]

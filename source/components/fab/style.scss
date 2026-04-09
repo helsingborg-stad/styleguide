@@ -23,6 +23,7 @@ $yAxis: (
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     --#{$_}--size-multiplier: 1;
     --#{$_}--stack-offset: 0px;
+    --#{$_}--panel-padding: tokens.use($_, "space", 2);
     contain: layout;
     position: fixed;
     z-index: 6000;
@@ -32,6 +33,8 @@ $yAxis: (
     z-index: 8000;
 }
 
+
+/* Width Modifiers */
 .#{$_}.#{$_}--width-sm {
     --#{$_}--size-multiplier: 0.75;
 }
@@ -42,6 +45,15 @@ $yAxis: (
 
 .#{$_}.#{$_}--width-xl {
     --#{$_}--size-multiplier: 1.5;
+}
+
+/* Padding Modifiers */
+.#{$_}.#{$_}--padding-none {
+    --#{$_}--panel-padding: 0;
+}
+
+.#{$_}.#{$_}--padding-sm {
+    --#{$_}--panel-padding: tokens.use($_, "space", 1);
 }
 
 .#{$_} .#{$_}__panel {
@@ -58,7 +70,7 @@ $yAxis: (
     max-width: min(calc(tokens.use($_, "space", 45) * var(--#{$_}--size-multiplier)),
         calc(100vw - (tokens.use($_, "space", 4) * 2)));
     text-align: left;
-    padding: tokens.use($_, "space", 2);
+    padding: var(--#{$_}--panel-padding);
     gap: tokens.use($_, "space", 2);
     position: relative;
     z-index: 1;
