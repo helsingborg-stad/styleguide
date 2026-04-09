@@ -1,4 +1,5 @@
 import type { DesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
+import type { DesignBuilderProvidedPreset } from '../shared/presets/designBuilderPresetDefinitions';
 
 export const DESIGN_BUILDER_MODE_FULL_PAGE = 'full-page';
 export const DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER = 'component-customizer';
@@ -12,6 +13,7 @@ export interface DesignBuilderRootConfiguration {
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
+	presets: DesignBuilderProvidedPreset[];
 }
 
 export interface DesignBuilderModeSwitch {
@@ -38,5 +40,6 @@ export interface DesignBuilderRootElement extends HTMLElement {
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
+	presets: DesignBuilderProvidedPreset[];
 	getRenderContainer(): ShadowRoot;
 }

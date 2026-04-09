@@ -2,7 +2,6 @@
 
 // Design token overrides (from localStorage)
 import './designTokenApply.ts';
-import './themePresetFab.ts';
 
 // Core functionality
 import './app.js';

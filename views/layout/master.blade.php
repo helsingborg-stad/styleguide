@@ -266,31 +266,30 @@
         }
     </style>
 
-    @fab([
-        'position' => 'bottom-right',
-        'heading' => 'Theme presets',
-        'button' => [
-            'icon' => 'format_paint',
-            'size' => 'md',
-            'color' => 'secondary',
-            'shape' => 'pill',
-            'classList' => ['u-margin--0'],
-            'ariaLabel' => 'Open theme preset picker'
-        ],
-        'attributeList' => [
-            'data-theme-presets-fab' => 'true',
-            'data-customizable' => 'false'
-        ]
-    ])
-        <div class="d-theme-presets__list" data-theme-presets-list>
-            @typography(['element' => 'p', 'variant' => 'body'])
-                Loading themes...
-            @endtypography
-        </div>
-    @endfab
-
     @php
         $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+        $themePresetDefinitions = [
+            ['id' => 'dark', 'label' => 'Dark Ember', 'path' => 'source/themes/dark.json'],
+            ['id' => 'nordic-dawn', 'label' => 'Nordic Dawn', 'path' => 'source/themes/nordic-dawn.json'],
+            ['id' => 'forest-mist', 'label' => 'Forest Mist', 'path' => 'source/themes/forest-mist.json'],
+            ['id' => 'sunset-clay', 'label' => 'Sunset Clay', 'path' => 'source/themes/sunset-clay.json'],
+            ['id' => 'ocean-ink', 'label' => 'Ocean Ink', 'path' => 'source/themes/ocean-ink.json'],
+            ['id' => 'aurora-light', 'label' => 'Aurora Light', 'path' => 'source/themes/aurora-light.json'],
+            ['id' => 'high-contrast', 'label' => 'High Contrast A11y', 'path' => 'source/themes/high-contrast.json'],
+        ];
+        $designBuilderPresets = [];
+        foreach ($themePresetDefinitions as $themePresetDefinition) {
+            $tokenOverrides = json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
+            if (!is_array($tokenOverrides)) {
+                continue;
+            }
+
+            $designBuilderPresets[] = [
+                'id' => $themePresetDefinition['id'],
+                'label' => $themePresetDefinition['label'],
+                'token' => $tokenOverrides,
+            ];
+        }
     @endphp
     @if(
         $currentPath !== '/design-builder' &&
@@ -321,6 +320,7 @@
             <design-builder
                 component-data='@json($customizeComponentData)'
                 token-library='@json($customizeTokenLibrary)'
+                presets='@json($designBuilderPresets)'
                 class="design-builder"
                 data-customizable="false"
             ></design-builder>
