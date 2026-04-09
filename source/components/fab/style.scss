@@ -23,12 +23,12 @@ $yAxis: (
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     --#{$_}--size-multiplier: 1;
     --#{$_}--stack-offset: 0px;
-    --#{$_}--panel-padding: tokens.use($_, "space", 2);
+    --#{$_}--panel-padding: #{tokens.use($_, "space", 2)};
     contain: layout;
     position: fixed;
     z-index: 6000;
-    bottom: tokens.use($_, "space", 2);
-    right: tokens.use($_, "space", 2);
+    bottom: #{tokens.use($_, "space", 2)};
+    right: #{tokens.use($_, "space", 2)};
     text-align: right;
     z-index: 8000;
 }
@@ -53,30 +53,30 @@ $yAxis: (
 }
 
 .#{$_}.#{$_}--padding-sm {
-    --#{$_}--panel-padding: tokens.use($_, "space", 1);
+    --#{$_}--panel-padding: #{tokens.use($_, "space", 1)};
 }
 
 .#{$_} .#{$_}__panel {
     overscroll-behavior: none;
-    border-radius: tokens.use($_, "border-radius");
+    border-radius: #{tokens.use($_, "border-radius")};
     corner-shape: tokens.get($_, "corner-shape");
-    filter: tokens.use($_, "shadow", 3);
+    filter: #{tokens.use($_, "shadow", 3)};
     border: var(--#{$_}--border);
-    filter: tokens.use($_, "shadow", 3);
+    filter: #{tokens.use($_, "shadow", 3)};
     background: tokens.get($_, "color--surface");
     display: none;
-    margin-bottom: tokens.use($_, "space", 2);
-    min-width: min(calc(tokens.use($_, "space", 30) * var(--#{$_}--size-multiplier)),
-        calc(100vw - (tokens.use($_, "space", 4) * 2)));
-    max-width: min(calc(tokens.use($_, "space", 45) * var(--#{$_}--size-multiplier)),
-        calc(100vw - (tokens.use($_, "space", 4) * 2)));
+    margin-bottom: #{tokens.use($_, "space", 2)};
+    min-width: min(calc(#{tokens.use($_, "base", 30)} * var(--#{$_}--size-multiplier)),
+        calc(100vw - (#{tokens.use($_, "base", 4)} * 2)));
+    max-width: min(calc(#{tokens.use($_, "base", 45)} * var(--#{$_}--size-multiplier)),
+        calc(100vw - (#{tokens.use($_, "base", 4)} * 2)));
     width: 100vw;
     text-align: left;
     padding: var(--#{$_}--panel-padding);
-    gap: tokens.use($_, "space", 2);
+    gap: #{tokens.use($_, "space", 2)};
     position: relative;
     z-index: 1;
-    max-height: calc(100dvh - tokens.use($_, "space", 18) - var(--#{$_}--stack-offset));
+    max-height: calc(100dvh - #{tokens.use($_, "space", 18)} - var(--#{$_}--stack-offset));
     overflow: auto;
 }
 
@@ -99,8 +99,8 @@ $yAxis: (
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
         .#{$_}__#{$sideY}-#{$sideX} {
-            #{$sideX}: tokens.use($_, "space", 2);
-            #{$sideY}: calc(tokens.use($_, "space", 2) + var(--#{$_}--stack-offset));
+            #{$sideX}: #{tokens.use($_, "space", 2)};
+            #{$sideY}: calc(#{tokens.use($_, "space", 2)} + var(--#{$_}--stack-offset));
         }
 
         // Stack adjacent FABs sharing the same corner — button height (~space 6.5) + gap (~space 1) + edge margin (space 2)

@@ -489,6 +489,7 @@
     "name": "Fab",
     "slug": "fab",
     "tokens": [
+      "base",
       "border-radius",
       "color--surface",
       "space",

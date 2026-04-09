@@ -3,17 +3,7 @@
 	"apiVersion": 1,
 	"name": "Fab",
 	"slug": "fab",
-	"tokens": [
-		"border-radius",
-		"color--surface",
-		"space",
-		"border-width",
-		"color--surface-border",
-		"corner-shape",
-		"shadow-color",
-		"shadow-amount",
-		"font-size-400"
-	],
+	"tokens": ["base", "border-radius", "color--surface", "space", "border-width", "color--surface-border", "corner-shape", "shadow-color", "shadow-amount", "font-size-400"],
 	"description": "The Fab component provides a reusable pattern for fab in the interface.",
 	"tags": ["fab", "component"],
 	"similarComponents": ["tabs", "table", "navbar"],
