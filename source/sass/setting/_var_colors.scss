@@ -31,4 +31,4 @@ $color-default-dimmed: var(--color-default-dimmed, #eee) !default;
 
 // Accessibility
 $color-shadow-sharp: #000000 !default;
-$color-focus-outline: var(--color-focus-outline, #4d90fe);
+$color-focus-outline: var(--color--focus, var(--color-focus-outline, #4d90fe));
