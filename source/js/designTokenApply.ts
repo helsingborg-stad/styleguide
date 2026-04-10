@@ -1,20 +1,17 @@
 /**
  * Design Token Apply
  *
- * Reads stored design token overrides from localStorage and applies them
- * as CSS custom properties on :root. Runs on every page load.
+ * Applies persisted design token overrides only when the host has opted in to
+ * localStorage-backed design-builder persistence.
  */
 
-const STORAGE_KEY = 'design-tokens-overrides'
+import { isLocalStoragePersistenceEnabled } from '../design-builder/shared/persistence/designBuilderStorageOptIn';
+import { TokenOverrideLocalStorageStore } from '../design-builder/shared/persistence/TokenOverrideLocalStorageStore';
 
-try {
-  const raw = localStorage.getItem(STORAGE_KEY)
-  if (raw) {
-    const overrides: Record<string, string> = JSON.parse(raw)
-    for (const [prop, value] of Object.entries(overrides)) {
-      document.documentElement.style.setProperty(prop, value)
-    }
-  }
-} catch {
-  // Silently ignore parse errors — corrupted storage is cleared by the builder
+if (isLocalStoragePersistenceEnabled(document.documentElement)) {
+	const overrides = new TokenOverrideLocalStorageStore().load();
+
+	for (const [prop, value] of Object.entries(overrides)) {
+		document.documentElement.style.setProperty(prop, value);
+	}
 }

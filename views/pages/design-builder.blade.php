@@ -37,6 +37,7 @@
         token-library='@json($customizeTokenLibrary)'
         component-data='@json($customizeComponentData)'
         presets='@json($designBuilderPresets)'
+        data-design-builder-storage="local-storage"
     >
         <noscript>
             <p>The Design Builder requires JavaScript to function.</p>

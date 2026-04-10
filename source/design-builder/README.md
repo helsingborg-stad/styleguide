@@ -16,6 +16,7 @@ Root element contract:
 | `component-data` | The component-to-token mapping used by the customizer. Shape: `Record<string, { name?, slug?, tokens?[] }>` | Component customization mode (`component-customizer`) |
 | `override-state` | The initial draft state for token and component overrides. | Hydrate initial state in either mode |
 | `presets` | Optional provided presets that should be available in the preset picker on first render. Accepts either an array or object map of preset definitions. | Seed host-provided presets in either mode |
+| `data-design-builder-storage` | Optional persistence mode. Use `local-storage` to opt in to the styleguide's localStorage-backed hydration/save behavior. | Host-controlled persistence opt-in |
 
 Quick mental model:
 
@@ -24,6 +25,7 @@ Quick mental model:
 - `component-data` = the **editable components and their token mappings**
 - `override-state` = the **initial draft state**
 - `presets` = the **host-provided preset definitions**
+- `data-design-builder-storage="local-storage"` = **enable the built-in localStorage host adapter**
 
 `token-data` and `token-library` intentionally share the same JSON shape. The difference is their **role**, not their structure.
 
@@ -231,6 +233,11 @@ Used by the styleguide host integration and shared preset helpers:
 
 Temporary persistence is adapter-driven. The default adapters in the styleguide app still use localStorage, but the runtime-facing contract no longer depends on localStorage directly.
 
+Local storage is **opt-in**. To enable the built-in styleguide storage behavior, set `data-design-builder-storage="local-storage"` on either:
+
+- the `<html>` element to enable it for the full page
+- an individual `<design-builder>` root to enable it only for that instance
+
 Relevant adapter entry points:
 
 - `source/design-builder/shared/persistence/DesignBuilderStorageAdapter.ts`
@@ -239,7 +246,7 @@ Relevant adapter entry points:
 - `source/design-builder/shared/presets/DesignBuilderPresetManager.ts`
 - `source/design-builder/features/full-page-editor/DesignBuilderSplitLocalStorageStore.ts`
 
-In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document.
+In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document, but only when that opt-in is present.
 It also normalizes legacy `data-presets` markup to the modern `presets` attribute when older roots are discovered.
 
 ## Mode 2: Component customization (`component-customizer`)
@@ -434,9 +441,9 @@ Legacy flat token overrides and legacy component-only saved data are still accep
 
 The styleguide bootstrap in `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` preserves current site behavior by:
 
-- hydrating `override-state` from `TokenOverrideLocalStorageStore` and `ComponentOverrideLocalStorageStore` when the attribute is missing
+- hydrating `override-state` from `TokenOverrideLocalStorageStore` and `ComponentOverrideLocalStorageStore` when the attribute is missing and localStorage persistence has been opted in
 - listening for `design-builder:save`
-- writing token and component slices back through those adapters
+- writing token and component slices back through those adapters when the same opt-in is enabled
 
 ## Data contracts
 

@@ -1,10 +1,12 @@
 import { resolveStyleguideDesignBuilderRootElements } from './resolveStyleguideDesignBuilderRootElements';
+import { DESIGN_BUILDER_STORAGE_ATTRIBUTE, LOCAL_STORAGE_PERSISTENCE_MODE } from '../../shared/persistence/designBuilderStorageOptIn';
 import { STORAGE_KEY } from '../../shared/persistence/TokenOverrideLocalStorageStore';
 
 describe('resolveStyleguideDesignBuilderRootElements', () => {
 	beforeEach(() => {
 		document.body.innerHTML = '';
 		localStorage.clear();
+		document.documentElement.removeAttribute(DESIGN_BUILDER_STORAGE_ATTRIBUTE);
 	});
 
 	it('normalizes and returns all explicit design-builder roots on the page', () => {
@@ -20,7 +22,8 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 		expect(roots[1].getAttribute('token-library')).toContain('"categories"');
 	});
 
-	it('hydrates persisted override state and binds the default save adapter', () => {
+	it('hydrates persisted override state and binds the default save adapter when localStorage is enabled', () => {
+		document.documentElement.setAttribute(DESIGN_BUILDER_STORAGE_ATTRIBUTE, LOCAL_STORAGE_PERSISTENCE_MODE);
 		localStorage.setItem(
 			STORAGE_KEY,
 			JSON.stringify({
@@ -65,6 +68,34 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 					},
 				},
 			},
+		});
+	});
+
+	it('does not hydrate persisted override state or bind save persistence without a localStorage opt-in', () => {
+		localStorage.setItem(
+			STORAGE_KEY,
+			JSON.stringify({
+				token: { '--color-primary': '#123456' },
+			}),
+		);
+		document.body.innerHTML = `<design-builder token-data='{"name":"tokens"}'></design-builder>`;
+
+		const [root] = resolveStyleguideDesignBuilderRootElements();
+		expect(root.hasAttribute('override-state')).toBe(false);
+
+		root.dispatchEvent(
+			new CustomEvent('design-builder:save', {
+				detail: {
+					state: {
+						token: { '--color-primary': '#abcdef' },
+						component: {},
+					},
+				},
+			}),
+		);
+
+		expect(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')).toEqual({
+			token: { '--color-primary': '#123456' },
 		});
 	});
 

@@ -323,6 +323,7 @@
                 presets='@json($designBuilderPresets)'
                 class="design-builder"
                 data-customizable="false"
+                data-design-builder-storage="local-storage"
             ></design-builder>
         @endfab
     @endif

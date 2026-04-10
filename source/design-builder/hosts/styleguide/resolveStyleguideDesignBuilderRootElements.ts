@@ -1,6 +1,7 @@
 import { ComponentOverrideLocalStorageStore } from '../../features/component-customizer/persistence/ComponentOverrideLocalStorageStore';
 import type { DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { hasOverrideStateData, normalizeDesignBuilderOverrideState, type DesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import { isLocalStoragePersistenceEnabled } from '../../shared/persistence/designBuilderStorageOptIn';
 import { TokenOverrideLocalStorageStore } from '../../shared/persistence/TokenOverrideLocalStorageStore';
 
 function getExistingRootElements(): DesignBuilderRootElement[] {
@@ -16,7 +17,7 @@ function serializeOverrideState(state: DesignBuilderOverrideState): string | nul
 }
 
 function hydratePersistedOverrideState(rootElement: DesignBuilderRootElement): void {
-	if (rootElement.hasAttribute('override-state')) {
+	if (rootElement.hasAttribute('override-state') || !isLocalStoragePersistenceEnabled(rootElement)) {
 		return;
 	}
 
@@ -36,7 +37,7 @@ function hydratePersistedOverrideState(rootElement: DesignBuilderRootElement): v
 }
 
 function bindStyleguideSaveAdapter(rootElement: DesignBuilderRootElement): void {
-	if (rootElement.dataset.designBuilderSaveAdapterBound === 'true') {
+	if (rootElement.dataset.designBuilderSaveAdapterBound === 'true' || !isLocalStoragePersistenceEnabled(rootElement)) {
 		return;
 	}
 
