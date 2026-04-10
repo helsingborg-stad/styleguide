@@ -301,4 +301,34 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		hostElement.remove();
 		container.remove();
 	});
+
+	it('closes details menus when selecting an action or clicking outside', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
+
+		const presetMenu = container.querySelector<HTMLDetailsElement>('.db-presets-menu');
+		const savePresetButton = container.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
+		expect(presetMenu).toBeTruthy();
+		const promptSpy = jest.spyOn(window, 'prompt').mockReturnValue(null);
+		presetMenu!.open = true;
+		savePresetButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		expect(presetMenu?.open).toBe(false);
+
+		const headerMenu = container.querySelector<HTMLDetailsElement>('.db-header-menu');
+		expect(headerMenu).toBeTruthy();
+		headerMenu!.open = true;
+		document.body.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+		expect(headerMenu?.open).toBe(false);
+		promptSpy.mockRestore();
+
+		hostElement.remove();
+		container.remove();
+	});
 });

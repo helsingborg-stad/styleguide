@@ -269,4 +269,34 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		hostElement.remove();
 		mount.remove();
 	});
+
+	it('closes details menus when selecting an action or clicking outside', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+
+		const presetMenu = mount.querySelector<HTMLDetailsElement>('.db-presets-menu');
+		const savePresetButton = mount.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
+		expect(presetMenu).toBeTruthy();
+		const promptSpy = jest.spyOn(window, 'prompt').mockReturnValue(null);
+		presetMenu!.open = true;
+		savePresetButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+		expect(presetMenu?.open).toBe(false);
+
+		const headerMenu = mount.querySelector<HTMLDetailsElement>('.db-header-menu');
+		expect(headerMenu).toBeTruthy();
+		headerMenu!.open = true;
+		document.body.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+		expect(headerMenu?.open).toBe(false);
+		promptSpy.mockRestore();
+
+		hostElement.remove();
+		mount.remove();
+	});
 });

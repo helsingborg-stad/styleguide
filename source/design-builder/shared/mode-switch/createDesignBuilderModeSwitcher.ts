@@ -5,7 +5,7 @@ function getModeLabel(mode: DesignBuilderMode): string {
 		return 'Components';
 	}
 
-	return 'Tokens';
+	return 'General';
 }
 
 export function createDesignBuilderModeSwitcher(modeSwitch: DesignBuilderModeSwitch): HTMLElement | null {

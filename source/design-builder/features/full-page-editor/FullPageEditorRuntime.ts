@@ -1,6 +1,7 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
+import { type DetailsMenuDismissController, createDetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
@@ -27,6 +28,7 @@ export class FullPageEditorRuntime {
 	private root: HTMLElement | null = null;
 	private presetBarHost: HTMLElement | null = null;
 	private hoverTipBarHost: HTMLElement | null = null;
+	private menuDismissController: DetailsMenuDismissController | null = null;
 	private hoverTipVariable: string | null = null;
 	private hoverTipDescription = '';
 	private showLockedFields = false;
@@ -79,6 +81,7 @@ export class FullPageEditorRuntime {
 			this.root.addEventListener('focusin', this.handleControlTipFocusIn);
 			this.root.addEventListener('focusout', this.handleControlTipFocusOut);
 			this.container.appendChild(this.root);
+			this.menuDismissController = createDetailsMenuDismissController(this.root);
 		}
 
 		renderTemplate(this.renderShellTemplate(), this.root);
@@ -89,6 +92,8 @@ export class FullPageEditorRuntime {
 	}
 
 	public destroy(): void {
+		this.menuDismissController?.dispose();
+		this.menuDismissController = null;
 		this.root?.removeEventListener('pointerover', this.handleControlTipPointerOver);
 		this.root?.removeEventListener('pointerout', this.handleControlTipPointerOut);
 		this.root?.removeEventListener('focusin', this.handleControlTipFocusIn);

@@ -2,6 +2,7 @@ import { html, nothing, render as renderTemplate, type TemplateResult } from 'li
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
 import { createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
+import { type DetailsMenuDismissController, createDetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
@@ -47,6 +48,7 @@ export class ComponentCustomizerRuntime {
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private presetBarHost: HTMLElement | null = null;
 	private hoverTipBarHost: HTMLElement | null = null;
+	private menuDismissController: DetailsMenuDismissController | null = null;
 	private hoverTipVariable: string | null = null;
 	private hoverTipDescription = '';
 	private isTargetSelectionEnabled = false;
@@ -248,6 +250,7 @@ export class ComponentCustomizerRuntime {
 		root.addEventListener('focusout', this.handleControlTipFocusOut);
 		this.mountElement.appendChild(root);
 		this.root = root;
+		this.menuDismissController = createDetailsMenuDismissController(root);
 
 		renderTemplate(this.renderShellTemplate(), root);
 
@@ -1013,6 +1016,9 @@ export class ComponentCustomizerRuntime {
 			this.activeTargetElement.classList.remove('db-component-target-active');
 			this.activeTargetElement = null;
 		}
+
+		this.menuDismissController?.dispose();
+		this.menuDismissController = null;
 
 		this.root?.removeEventListener('pointerover', this.handleControlTipPointerOver);
 		this.root?.removeEventListener('pointerout', this.handleControlTipPointerOut);
