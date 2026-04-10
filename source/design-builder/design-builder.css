@@ -381,7 +381,7 @@
 	grid-template-columns: auto minmax(0, auto) minmax(0, 1fr);
 	align-items: center;
 	gap: 0.5rem 0.7rem;
-	padding: 0.68rem 0.95rem;
+	padding: 16px 24px;
 	border: 1px solid var(--db-border);
 	border-radius: 0;
 	background: var(--db-surface-2);
@@ -392,6 +392,10 @@
 	z-index: 5;
 	margin: 0;
 	width: 100%;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	left: 0;
 }
 
 .db-hover-tip-bar[data-hover-tip-active="true"] {
