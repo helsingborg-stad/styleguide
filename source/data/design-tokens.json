@@ -564,9 +564,10 @@
 				{
 					"variable": "--color--background-contrast-muted",
 					"label": "Background Contrast Muted",
-					"description": "Used for text and icons on background with less contrast.",
+					"description": "Derived muted contrast for text and icons on background surfaces.",
 					"type": "color",
-					"default": "#6e6e6e"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--background-contrast) 67.5%, var(--color--background))"
 				},
 				{
 					"variable": "--color--background-border",
@@ -593,9 +594,10 @@
 				{
 					"variable": "--color--surface-contrast-muted",
 					"label": "Surface Contrast Muted",
-					"description": "Used for text and icons on surface backgrounds with less contrast.",
+					"description": "Derived muted contrast for text and icons on surface backgrounds.",
 					"type": "color",
-					"default": "#6e6e6e"
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--surface-contrast) 67.5%, var(--color--surface))"
 				},
 				{
 					"variable": "--color--surface-border",
