@@ -291,6 +291,58 @@
 	flex-wrap: wrap;
 }
 
+.db-presets > .db-builder-context-row {
+	flex: 1 1 16rem;
+	min-width: 0;
+}
+
+.db-presets-menu {
+	position: relative;
+	display: inline-flex;
+	align-self: end;
+}
+
+.db-presets-menu summary {
+	list-style: none;
+}
+
+.db-presets-menu summary::-webkit-details-marker {
+	display: none;
+}
+
+.db-presets-menu-trigger {
+	min-width: 2.25rem;
+	height: 2rem;
+	min-height: 2rem;
+	padding-inline: 0.4rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.db-presets-menu-content {
+	position: absolute;
+	top: calc(100% + 0.35rem);
+	right: 0;
+	z-index: 20;
+	display: none;
+	min-width: 11.5rem;
+	padding: 0.35rem;
+	background: var(--db-surface);
+	border: 1px solid var(--db-border);
+	border-radius: var(--db-radius-s);
+	box-shadow: var(--db-shadow);
+}
+
+.db-presets-menu[open] .db-presets-menu-content {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.db-presets-menu-content .db-btn {
+	width: 100%;
+	justify-content: flex-start;
+}
+
 .db-presets-list {
 	display: flex;
 	gap: 0.375rem;

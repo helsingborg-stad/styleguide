@@ -233,4 +233,29 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		hostElement.remove();
 		container.remove();
 	});
+
+	it('renders save and delete preset actions together in the preset bar', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+
+		const savePresetButton = container.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
+		const deletePresetButton = container.querySelector<HTMLButtonElement>('[data-action="delete-preset"]');
+		const presetsMenu = container.querySelector<HTMLElement>('.db-presets-menu-content');
+		expect(savePresetButton).toBeTruthy();
+		expect(deletePresetButton).toBeTruthy();
+		expect(presetsMenu).toBeTruthy();
+		expect(savePresetButton?.closest('.db-presets')).toBe(deletePresetButton?.closest('.db-presets'));
+		expect(savePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+		expect(deletePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+
+		hostElement.remove();
+		container.remove();
+	});
 });

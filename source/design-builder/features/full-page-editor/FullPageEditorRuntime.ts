@@ -107,9 +107,6 @@ export class FullPageEditorRuntime {
 					<button type="button" class="db-btn db-btn-danger" data-action="reset" @click=${this.handleResetClick}>
 						Reset All
 					</button>
-					<button type="button" class="db-btn db-btn-primary" data-action="save-preset" @click=${this.handleSavePresetClick}>
-						Save preset
-					</button>
 					<input
 						type="file"
 						accept=".json,application/json"
@@ -345,15 +342,31 @@ export class FullPageEditorRuntime {
 							}
 						</select>
 					</label>
-					<button
-						type="button"
-						class="db-btn"
-						data-action="delete-preset"
-						?disabled=${activeSavedPreset === null}
-						@click=${this.handleDeleteActivePresetClick}
-					>
-						Delete preset
-					</button>
+					<details class="db-presets-menu">
+						<summary class="db-btn db-presets-menu-trigger" aria-label="Preset actions" title="Preset actions">
+							<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<path
+									fill="currentColor"
+									d="M12 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
+								/>
+							</svg>
+						</summary>
+						<div class="db-presets-menu-content" role="menu" aria-label="Preset actions">
+							<button type="button" class="db-btn db-btn-primary" data-action="save-preset" role="menuitem" @click=${this.handleSavePresetClick}>
+								Save preset
+							</button>
+							<button
+								type="button"
+								class="db-btn"
+								data-action="delete-preset"
+								role="menuitem"
+								?disabled=${activeSavedPreset === null}
+								@click=${this.handleDeleteActivePresetClick}
+							>
+								Delete preset
+							</button>
+						</div>
+					</details>
 				</div>
 			`,
 			this.presetBarHost,

@@ -205,4 +205,29 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		hostElement.remove();
 		mount.remove();
 	});
+
+	it('renders save and delete preset actions together in the preset bar', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+
+		const savePresetButton = mount.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
+		const deletePresetButton = mount.querySelector<HTMLButtonElement>('[data-action="delete-preset"]');
+		const presetsMenu = mount.querySelector<HTMLElement>('.db-presets-menu-content');
+		expect(savePresetButton).toBeTruthy();
+		expect(deletePresetButton).toBeTruthy();
+		expect(presetsMenu).toBeTruthy();
+		expect(savePresetButton?.closest('.db-presets')).toBe(deletePresetButton?.closest('.db-presets'));
+		expect(savePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+		expect(deletePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+
+		hostElement.remove();
+		mount.remove();
+	});
 });
