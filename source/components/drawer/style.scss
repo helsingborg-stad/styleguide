@@ -117,7 +117,7 @@ $_: "c-drawer";
     left: 0;
     top: 0;
     height: 100%;
-    max-width: tokens.use($_, "base", 40);
+    max-width: tokens.use($_, "base", 64);
     width: 90%;
     z-index: 9000;
     transform: translate(-100%);
