@@ -296,6 +296,17 @@
 	min-width: 0;
 }
 
+.db-presets > .db-header-actions {
+	align-self: end;
+}
+
+.db-presets > .db-header-actions .db-btn {
+	height: 2rem;
+	min-height: 2rem;
+	padding-block: 0;
+	align-items: center;
+}
+
 .db-presets-menu {
 	position: relative;
 	display: inline-flex;
