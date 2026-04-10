@@ -2,11 +2,11 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 	createDesignBuilderControl: () => document.createElement('div'),
 }));
 
-import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
-import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
+import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { ComponentTokenData, TokenData } from '../../shared/types/designBuilderDataTypes';
+import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
 
 describe('ComponentCustomizerRuntime pick mode', () => {
 	const componentData: ComponentTokenData = {

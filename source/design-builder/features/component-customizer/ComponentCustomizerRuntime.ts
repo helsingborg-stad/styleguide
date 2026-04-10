@@ -4,7 +4,7 @@ import { createDesignBuilderControl } from '../../shared/control-elements/create
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
-import { designBuilderPresetMatchesState, type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset } from '../../shared/presets/designBuilderPresetDefinitions';
+import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -119,8 +119,7 @@ export class ComponentCustomizerRuntime {
 		});
 
 		for (const scopeKey of orderedScopeKeys) {
-			const scopeOverrides = this.overrides[scopeKey] || {};
-			for (const [componentName, componentOverrides] of Object.entries(scopeOverrides)) {
+			for (const [componentName, componentOverrides] of Object.entries(this.overrides[scopeKey])) {
 				for (const [variable, value] of Object.entries(componentOverrides)) {
 					this.applyVariable(componentName, scopeKey, variable, value);
 				}
@@ -215,7 +214,7 @@ export class ComponentCustomizerRuntime {
 
 		this.isTargetSelectionEnabled = enabled;
 
-		if (enabled) {
+		if (this.isTargetSelectionEnabled) {
 			this.enableTargetSelection();
 		} else {
 			this.disableTargetSelection();
@@ -278,12 +277,40 @@ export class ComponentCustomizerRuntime {
 						</svg>
 						<span data-role="toggle-target-selection-label">Pick on page</span>
 					</button>
-					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
-					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
-					<button type="button" class="db-btn db-btn-primary" data-action="save" @click=${this.handleSaveClick}>Save</button>
-					<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" @click=${this.handleResetAllClick}>
-						Reset all
-					</button>
+					<div class="db-header-actions-right">
+						<details class="db-header-menu">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Import and export JSON" data-tooltip="Import / export JSON">
+								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<title>Import and export JSON</title>
+									<path
+										fill="currentColor"
+										d="M7 4h10v2H7l2.5 2.5L8 10 3 5l5-5 1.5 1.5L7 4Zm10 16H7v-2h10l-2.5-2.5L16 14l5 5-5 5-1.5-1.5L17 20Z"
+									/>
+								</svg>
+							</summary>
+							<div class="db-header-menu-content" role="menu" aria-label="Import and export JSON">
+								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>Export JSON</button>
+								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
+							</div>
+						</details>
+						<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
+							<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
+								<title>Save</title>
+								<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+							</svg>
+						</button>
+						<details class="db-header-menu db-header-menu-danger">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
+								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<title>Reset actions</title>
+									<path fill="currentColor" d="M12 3a9 9 0 1 1-8.66 11.43l1.93-.52A7 7 0 1 0 12 5h-1.59l2.3 2.29-1.42 1.42L6.58 4l4.71-4.71 1.42 1.42L10.41 3H12Z" />
+								</svg>
+							</summary>
+							<div class="db-header-menu-content" role="menu" aria-label="Reset actions">
+								<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" role="menuitem" @click=${this.handleResetAllClick}>Reset all</button>
+							</div>
+						</details>
+					</div>
 					<input
 						type="file"
 						accept=".json,application/json"
@@ -464,9 +491,7 @@ export class ComponentCustomizerRuntime {
 								hasProvidedPresets
 									? html`
 										<optgroup label="Built-in presets">
-											${presetOptions
-												.filter((preset) => preset.source === 'provided')
-												.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
+											${presetOptions.filter((preset) => preset.source === 'provided').map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
 										</optgroup>
 									`
 									: nothing
@@ -483,8 +508,9 @@ export class ComponentCustomizerRuntime {
 						</select>
 					</label>
 					<details class="db-presets-menu">
-						<summary class="db-btn db-presets-menu-trigger" aria-label="Preset actions" title="Preset actions">
+						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="Preset actions" data-tooltip="Preset actions">
 							<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<title>Preset actions</title>
 								<path
 									fill="currentColor"
 									d="M12 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
@@ -622,12 +648,19 @@ export class ComponentCustomizerRuntime {
 		}
 
 		const currentState = this.getCurrentPresetState();
-		return presetOptions.find((preset) => designBuilderPresetMatchesState({
-			id: preset.id,
-			label: preset.label,
-			state: preset.state,
-			targets: preset.targets,
-		}, currentState))?.key ?? '';
+		return (
+			presetOptions.find((preset) =>
+				designBuilderPresetMatchesState(
+					{
+						id: preset.id,
+						label: preset.label,
+						state: preset.state,
+						targets: preset.targets,
+					},
+					currentState,
+				),
+			)?.key ?? ''
+		);
 	}
 
 	private findPresetOption(key: string): RuntimePresetOption | null {

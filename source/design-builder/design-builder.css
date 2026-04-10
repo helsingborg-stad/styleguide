@@ -43,6 +43,8 @@
 	--db-radius-s: 6px;
 	--db-radius-m: 10px;
 	--db-radius-l: 14px;
+	--db-header-control-height: 2rem;
+	--db-header-icon-control-width: 2.25rem;
 	--db-control-label-col: clamp(120px, 34%, 190px);
 	--db-control-action-col: 3.25rem;
 
@@ -166,15 +168,33 @@
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+	flex-wrap: nowrap;
+	width: 100%;
+}
+
+.db-header-actions-right {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
 	flex-wrap: wrap;
+	margin-left: auto;
+}
+
+.db-header-actions-right > .db-btn,
+.db-header-actions-right > .db-header-menu > .db-header-menu-trigger {
+	width: var(--db-header-icon-control-width);
+	min-width: var(--db-header-icon-control-width);
+	padding-inline: 0;
+	justify-content: center;
 }
 
 .db-mode-switch {
 	display: inline-flex;
 	align-items: center;
-	padding: 0.2rem;
+	height: var(--db-header-control-height);
+	padding: 1px;
 	border: 1px solid var(--db-border);
-	border-radius: 999px;
+	border-radius: var(--db-radius-s);
 	background: var(--db-surface-2);
 }
 
@@ -182,9 +202,10 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	padding: 0.35rem 0.7rem;
+	height: 100%;
+	padding: 0 0.7rem;
 	border: 0;
-	border-radius: 999px;
+	border-radius: var(--db-radius-s);
 	background: transparent;
 	color: var(--db-text-muted);
 	font: inherit;
@@ -209,8 +230,10 @@
 .db-header-toggle-row {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.45rem;
-	padding: 0.45rem 0.55rem;
+	justify-content: flex-start;
+	gap: 0.4rem;
+	height: var(--db-header-control-height);
+	padding: 0 0.6rem;
 	border: 1px solid var(--db-border);
 	border-radius: var(--db-radius-s);
 	color: var(--db-text-muted);
@@ -219,16 +242,18 @@
 	user-select: none;
 }
 
-.db-header-toggle-row input {
-	margin: 0;
-	accent-color: var(--db-primary);
+.db-header-toggle-row[aria-pressed="true"] {
+	color: var(--db-primary);
+	border-color: color-mix(in srgb, var(--db-primary) 35%, var(--db-border));
+	background: var(--db-primary-soft);
 }
 
 .db-btn {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.25rem;
-	padding: 0.46rem 0.72rem;
+	gap: 0.5rem;
+	height: var(--db-header-control-height);
+	padding: 0 0.72rem;
 	font-size: 0.8125rem;
 	font-family: inherit;
 	line-height: 1.35;
@@ -258,6 +283,50 @@
 	width: 1rem;
 	height: 1rem;
 	flex: 0 0 auto;
+}
+
+.db-tooltip-target {
+	position: relative;
+}
+
+.db-tooltip-target::before,
+.db-tooltip-target::after {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.12s ease;
+	z-index: 40;
+}
+
+.db-tooltip-target::before {
+	content: "";
+	left: 50%;
+	top: calc(100% + 2px);
+	transform: translateX(-50%);
+	border: 5px solid transparent;
+	border-bottom-color: color-mix(in srgb, var(--db-surface-3) 70%, var(--db-border));
+}
+
+.db-tooltip-target::after {
+	content: attr(data-tooltip);
+	left: 50%;
+	top: calc(100% + 10px);
+	transform: translateX(-50%);
+	padding: 0.3rem 0.45rem;
+	border-radius: var(--db-radius-s);
+	background: color-mix(in srgb, var(--db-surface-3) 70%, var(--db-border));
+	color: var(--db-text);
+	font-size: 0.72rem;
+	line-height: 1.2;
+	white-space: nowrap;
+	box-shadow: var(--db-shadow);
+}
+
+.db-tooltip-target:hover::before,
+.db-tooltip-target:hover::after,
+.db-tooltip-target:focus-visible::before,
+.db-tooltip-target:focus-visible::after {
+	opacity: 1;
 }
 
 .db-btn-primary {
@@ -305,6 +374,60 @@
 	min-height: 2rem;
 	padding-block: 0;
 	align-items: center;
+}
+
+.db-header-menu {
+	position: relative;
+	display: inline-flex;
+}
+
+.db-header-menu summary {
+	list-style: none;
+}
+
+.db-header-menu summary::-webkit-details-marker {
+	display: none;
+}
+
+.db-header-menu-trigger {
+	min-width: 2.25rem;
+	padding-inline: 0.4rem;
+	justify-content: center;
+	align-items: center;
+}
+
+.db-header-menu-content {
+	position: absolute;
+	top: calc(100% + 0.35rem);
+	right: 0;
+	z-index: 20;
+	display: none;
+	min-width: 11.5rem;
+	padding: 0.35rem;
+	background: var(--db-surface);
+	border: 1px solid var(--db-border);
+	border-radius: var(--db-radius-s);
+	box-shadow: var(--db-shadow);
+}
+
+.db-header-menu[open] .db-header-menu-content {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.db-header-menu-content .db-btn {
+	width: 100%;
+	justify-content: flex-start;
+}
+
+.db-header-menu-danger .db-header-menu-trigger {
+	color: var(--db-danger);
+	border-color: color-mix(in srgb, var(--db-danger) 30%, var(--db-border));
+	background: var(--db-danger-soft);
+}
+
+.db-header-menu-danger .db-header-menu-trigger:hover {
+	border-color: color-mix(in srgb, var(--db-danger) 50%, var(--db-border));
 }
 
 .db-presets-menu {
@@ -810,6 +933,11 @@ db-swatch-band .db-swatch-band-pct {
 @container design-builder (max-width: 56rem) {
 	.db-header-actions {
 		width: 100%;
+	}
+
+	.db-header-actions-right {
+		width: 100%;
+		justify-content: flex-end;
 	}
 
 	.db-builder-context-grid {

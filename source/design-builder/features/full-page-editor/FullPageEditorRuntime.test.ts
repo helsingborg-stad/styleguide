@@ -4,11 +4,11 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 	createDesignBuilderSwatchBand: () => document.createElement('div'),
 }));
 
-import { FullPageEditorRuntime } from './FullPageEditorRuntime';
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
+import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { TokenData } from '../../shared/types/designBuilderDataTypes';
-import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
+import { FullPageEditorRuntime } from './FullPageEditorRuntime';
 
 describe('FullPageEditorRuntime preset compatibility', () => {
 	const tokenData: TokenData = {

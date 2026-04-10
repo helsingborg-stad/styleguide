@@ -3,7 +3,7 @@ import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOn
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
-import { designBuilderPresetMatchesState, type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset } from '../../shared/presets/designBuilderPresetDefinitions';
+import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -87,26 +87,61 @@ export class FullPageEditorRuntime {
 
 	private renderShellTemplate(): TemplateResult {
 		const modeSwitcher = this.modeSwitch ? createDesignBuilderModeSwitcher(this.modeSwitch) : null;
+		const lockedFieldsLabel = this.showLockedFields ? 'Hide uneditable' : 'Show uneditable';
+		const lockedFieldsTitle = this.showLockedFields ? 'Hide non-editable fields' : 'Show non-editable fields';
 
 		return html`
 			<div class="db-header">
 				<div class="db-header-actions">
 					${modeSwitcher ?? nothing}
-					<label class="db-header-toggle-row" title="Show non-editable fields">
-						<input
-							type="checkbox"
-							data-action="toggle-locked"
-							?checked=${this.showLockedFields}
-							@change=${this.handleLockedFieldsToggle}
-						>
-						<span>Show uneditable</span>
-					</label>
-					<button type="button" class="db-btn" data-action="export" @click=${this.handleExportClick}>Export JSON</button>
-					<button type="button" class="db-btn" data-action="import" @click=${this.handleImportClick}>Import JSON</button>
-					<button type="button" class="db-btn db-btn-primary" data-action="save" @click=${this.handleSaveClick}>Save</button>
-					<button type="button" class="db-btn db-btn-danger" data-action="reset" @click=${this.handleResetClick}>
-						Reset All
+					<button
+						type="button"
+						class="db-btn db-header-toggle-row"
+						data-action="toggle-locked"
+						aria-pressed=${this.showLockedFields ? 'true' : 'false'}
+						aria-label=${lockedFieldsLabel}
+						title=${lockedFieldsTitle}
+						@click=${this.handleLockedFieldsToggle}
+					>
+						<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="m644-428-58-58q9-47-27-88t-93-32l-58-58q17-8 34.5-12t37.5-4q75 0 127.5 52.5T660-500q0 20-4 37.5T644-428Zm128 126-58-56q38-29 67.5-63.5T832-500q-50-101-143.5-160.5T480-720q-29 0-57 4t-55 12l-62-62q41-17 84-25.5t90-8.5q151 0 269 83.5T920-500q-23 59-60.5 109.5T772-302Zm20 246L624-222q-35 11-70.5 16.5T480-200q-151 0-269-83.5T40-500q21-53 53-98.5t73-81.5L56-792l56-56 736 736-56 56ZM222-624q-29 26-53 57t-41 67q50 101 143.5 160.5T480-280q20 0 39-2.5t39-5.5l-36-38q-11 3-21 4.5t-21 1.5q-75 0-127.5-52.5T300-500q0-11 1.5-21t4.5-21l-84-82Zm319 93Zm-151 75Z" />
+						</svg>
+						<span>${lockedFieldsLabel}</span>
 					</button>
+					<div class="db-header-actions-right">
+						<details class="db-header-menu">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Import and export JSON" data-tooltip="Import / export JSON">
+								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<title>Import and export JSON</title>
+									<path
+										fill="currentColor"
+										d="M7 4h10v2H7l2.5 2.5L8 10 3 5l5-5 1.5 1.5L7 4Zm10 16H7v-2h10l-2.5-2.5L16 14l5 5-5 5-1.5-1.5L17 20Z"
+									/>
+								</svg>
+							</summary>
+							<div class="db-header-menu-content" role="menu" aria-label="Import and export JSON">
+								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>Export JSON</button>
+								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
+							</div>
+						</details>
+						<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
+							<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
+								<title>Save</title>
+								<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+							</svg>
+						</button>
+						<details class="db-header-menu db-header-menu-danger">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
+								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<title>Reset actions</title>
+									<path fill="currentColor" d="M12 3a9 9 0 1 1-8.66 11.43l1.93-.52A7 7 0 1 0 12 5h-1.59l2.3 2.29-1.42 1.42L6.58 4l4.71-4.71 1.42 1.42L10.41 3H12Z" />
+								</svg>
+							</summary>
+							<div class="db-header-menu-content" role="menu" aria-label="Reset actions">
+								<button type="button" class="db-btn db-btn-danger" data-action="reset" role="menuitem" @click=${this.handleResetClick}>Reset all</button>
+							</div>
+						</details>
+					</div>
 					<input
 						type="file"
 						accept=".json,application/json"
@@ -324,9 +359,7 @@ export class FullPageEditorRuntime {
 								hasProvidedPresets
 									? html`
 										<optgroup label="Built-in presets">
-											${presetOptions
-												.filter((preset) => preset.source === 'provided')
-												.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
+											${presetOptions.filter((preset) => preset.source === 'provided').map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
 										</optgroup>
 									`
 									: nothing
@@ -343,8 +376,9 @@ export class FullPageEditorRuntime {
 						</select>
 					</label>
 					<details class="db-presets-menu">
-						<summary class="db-btn db-presets-menu-trigger" aria-label="Preset actions" title="Preset actions">
+						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="Preset actions" data-tooltip="Preset actions">
 							<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<title>Preset actions</title>
 								<path
 									fill="currentColor"
 									d="M12 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
@@ -406,9 +440,7 @@ export class FullPageEditorRuntime {
 			this.removeLockedOverrides();
 		}
 
-		const nextComponentOverrides = option.targets.component
-			? normalizeDesignBuilderOverrideState({ component: option.state.component }).component
-			: this.hostElement.overrideState.component;
+		const nextComponentOverrides = option.targets.component ? normalizeDesignBuilderOverrideState({ component: option.state.component }).component : this.hostElement.overrideState.component;
 		if (option.targets.component) {
 			clearComponentOverridesFromPage(this.hostElement.overrideState.component);
 		}
@@ -487,12 +519,19 @@ export class FullPageEditorRuntime {
 		}
 
 		const currentState = this.getCurrentPresetState();
-		return presetOptions.find((preset) => designBuilderPresetMatchesState({
-			id: preset.id,
-			label: preset.label,
-			state: preset.state,
-			targets: preset.targets,
-		}, currentState))?.key ?? '';
+		return (
+			presetOptions.find((preset) =>
+				designBuilderPresetMatchesState(
+					{
+						id: preset.id,
+						label: preset.label,
+						state: preset.state,
+						targets: preset.targets,
+					},
+					currentState,
+				),
+			)?.key ?? ''
+		);
 	}
 
 	private findPresetOption(key: string): RuntimePresetOption | null {
@@ -522,8 +561,8 @@ export class FullPageEditorRuntime {
 		});
 	}
 
-	private readonly handleLockedFieldsToggle = (event: Event): void => {
-		this.showLockedFields = (event.currentTarget as HTMLInputElement).checked;
+	private readonly handleLockedFieldsToggle = (): void => {
+		this.showLockedFields = !this.showLockedFields;
 		this.render();
 	};
 
