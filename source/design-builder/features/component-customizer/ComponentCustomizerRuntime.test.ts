@@ -1,5 +1,10 @@
 jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
-	createDesignBuilderControl: () => document.createElement('div'),
+	createDesignBuilderControl: (setting: { variable: string; description?: string }) => {
+		const row = document.createElement('div');
+		row.setAttribute('data-tip-variable', setting.variable);
+		row.setAttribute('data-tip-description', setting.description ?? '');
+		return row;
+	},
 }));
 
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
@@ -7,6 +12,8 @@ import type { DesignBuilderActionEventDetail } from '../../shared/events/designB
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { ComponentTokenData, TokenData } from '../../shared/types/designBuilderDataTypes';
 import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
+
+type RuntimeHostElement = NonNullable<NonNullable<ConstructorParameters<typeof ComponentCustomizerRuntime>[3]>['hostElement']>;
 
 describe('ComponentCustomizerRuntime pick mode', () => {
 	const componentData: ComponentTokenData = {
@@ -27,6 +34,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 					{
 						variable: '--color--primary',
 						label: 'Primary',
+						description: 'Primary color for component',
 						type: 'color',
 						default: '#000000',
 					},
@@ -91,7 +99,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			saveEvents.push((event as CustomEvent<DesignBuilderActionEventDetail>).detail);
 		});
 
-		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 		const runtimeInternals = runtime as unknown as {
 			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
 			handleSaveClick(): void;
@@ -141,7 +149,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		});
 		document.body.appendChild(hostElement);
 
-		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 
 		expect(document.documentElement.style.getPropertyValue('--color--primary')).toBe('#123456');
 
@@ -183,7 +191,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		];
 		document.body.appendChild(hostElement);
 
-		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 
 		const presetSelect = mount.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
 		if (presetSelect) {
@@ -215,7 +223,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		document.body.appendChild(hostElement);
 
-		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as any });
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 
 		const savePresetButton = mount.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
 		const deletePresetButton = mount.querySelector<HTMLButtonElement>('[data-action="delete-preset"]');
@@ -226,6 +234,37 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		expect(savePresetButton?.closest('.db-presets')).toBe(deletePresetButton?.closest('.db-presets'));
 		expect(savePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
 		expect(deletePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+
+		hostElement.remove();
+		mount.remove();
+	});
+
+	it('shows variable and description in the hover tip bar when hovering controls', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+
+		const tipVariable = mount.querySelector<HTMLElement>('[data-hover-tip-variable]');
+		const tipDescription = mount.querySelector<HTMLElement>('[data-hover-tip-description]');
+		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
+		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
+
+		const row = mount.querySelector<HTMLElement>('[data-tip-variable="--c-button--color--primary"]');
+		expect(row).toBeTruthy();
+		row?.dispatchEvent(new MouseEvent('pointerover', { bubbles: true }));
+
+		expect(tipVariable?.textContent).toContain('--c-button--color--primary');
+		expect(tipDescription?.textContent).toContain('Primary color for component');
+
+		row?.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: null }));
+		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
+		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
 
 		hostElement.remove();
 		mount.remove();

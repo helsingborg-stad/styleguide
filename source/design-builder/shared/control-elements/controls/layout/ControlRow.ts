@@ -135,8 +135,15 @@ class DbControlRow extends HTMLElement {
 			return;
 		}
 
+		const variableDescription = setting.description?.trim() ?? '';
+
 		const markup = html`
-			<div class="db-control-row" data-variable=${setting.variable}>
+			<div
+				class="db-control-row"
+				data-variable=${setting.variable}
+				data-tip-variable=${setting.variable}
+				data-tip-description=${variableDescription}
+			>
 				<label class="db-control-row-label">${setting.label}</label>
 				${setting.description ? html`<span class="db-control-row-description">${setting.description}</span>` : ''}
 				<code class="db-control-row-variable">${setting.variable}</code>

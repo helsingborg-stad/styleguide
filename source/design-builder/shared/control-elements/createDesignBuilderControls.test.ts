@@ -172,6 +172,7 @@ describe('controls change handling', () => {
 		const setting: TokenSetting = {
 			variable: '--color-fixed',
 			label: 'Fixed color',
+			description: 'Cannot be changed',
 			type: 'color',
 			default: '#112233',
 			locked: true,
@@ -184,6 +185,28 @@ describe('controls change handling', () => {
 		expect(row.hasAttribute('locked')).toBe(true);
 		expect(row.querySelector('.db-control-row-label')?.textContent).toBe('Fixed color');
 		expect(row.querySelector('.db-control-value-readonly')?.textContent).toBe('#112233');
+		expect(row.querySelector('[data-tip-variable]')?.getAttribute('data-tip-variable')).toBe('--color-fixed');
+		expect(row.querySelector('[data-tip-description]')?.getAttribute('data-tip-description')).toBe('Cannot be changed');
+	});
+
+	it('renders editable rows with hover tip data attributes', () => {
+		const setting: TokenSetting = {
+			variable: '--font-size-body',
+			label: 'Body size',
+			description: 'Controls body text size',
+			type: 'select',
+			default: '16px',
+			options: [
+				{ value: '16px', label: '16px' },
+				{ value: '18px', label: '18px' },
+			],
+		};
+
+		const row = createDesignBuilderControl(setting, '16px', jest.fn());
+		document.body.appendChild(row);
+
+		expect(row.querySelector('[data-tip-variable]')?.getAttribute('data-tip-variable')).toBe('--font-size-body');
+		expect(row.querySelector('[data-tip-description]')?.getAttribute('data-tip-description')).toBe('Controls body text size');
 	});
 
 	it('groups swatch band rows by color prefix', () => {

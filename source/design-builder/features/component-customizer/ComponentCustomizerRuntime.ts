@@ -46,6 +46,9 @@ export class ComponentCustomizerRuntime {
 	private cleanupCallbacks: Array<() => void> = [];
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private presetBarHost: HTMLElement | null = null;
+	private hoverTipBarHost: HTMLElement | null = null;
+	private hoverTipVariable: string | null = null;
+	private hoverTipDescription = '';
 	private isTargetSelectionEnabled = false;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement | ShadowRoot, options: ComponentCustomizerRuntimeOptions = {}) {
@@ -239,6 +242,10 @@ export class ComponentCustomizerRuntime {
 
 		const root = document.createElement('div');
 		root.className = 'db-builder db-builder-customizer';
+		root.addEventListener('pointerover', this.handleControlTipPointerOver);
+		root.addEventListener('pointerout', this.handleControlTipPointerOut);
+		root.addEventListener('focusin', this.handleControlTipFocusIn);
+		root.addEventListener('focusout', this.handleControlTipFocusOut);
 		this.mountElement.appendChild(root);
 		this.root = root;
 
@@ -250,8 +257,10 @@ export class ComponentCustomizerRuntime {
 		this.toggleTargetSelectionButton = root.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
 		this.toggleTargetSelectionLabel = root.querySelector<HTMLElement>('[data-role="toggle-target-selection-label"]');
 		this.presetBarHost = root.querySelector<HTMLElement>('[data-preset-bar]');
+		this.hoverTipBarHost = root.querySelector<HTMLElement>('[data-hover-tip-bar]');
 
 		this.renderPresetBar();
+		this.renderHoverTipBar();
 		this.renderComponentOptions();
 		this.refreshScopeSelect();
 		this.updateTargetSelectionButton();
@@ -349,7 +358,63 @@ export class ComponentCustomizerRuntime {
 				</div>
 			</div>
 			<div class="db-categories" data-component-controls></div>
+			<div data-hover-tip-bar></div>
 		`;
+	}
+
+	private renderHoverTipBar(): void {
+		if (!this.hoverTipBarHost) {
+			return;
+		}
+
+		const hasTip = !!this.hoverTipVariable;
+		const variableText = this.hoverTipVariable ?? 'Hover an option to preview token details';
+		const descriptionText = this.hoverTipDescription || 'Token description is shown here when available.';
+
+		renderTemplate(
+			html`
+				<div class="db-hover-tip-bar" data-hover-tip-active=${hasTip ? 'true' : 'false'}>
+					<span class="db-hover-tip-label">Token</span>
+					<code class="db-hover-tip-variable" data-hover-tip-variable>${variableText}</code>
+					<span class="db-hover-tip-description" data-hover-tip-description>${descriptionText}</span>
+				</div>
+			`,
+			this.hoverTipBarHost,
+		);
+	}
+
+	private findTipElement(target: EventTarget | null): HTMLElement | null {
+		if (!(target instanceof Element)) {
+			return null;
+		}
+
+		return target.closest<HTMLElement>('[data-tip-variable]');
+	}
+
+	private setHoverTipFromElement(element: HTMLElement | null): void {
+		const nextVariable = element?.dataset.tipVariable?.trim() ?? '';
+		if (!nextVariable) {
+			return;
+		}
+
+		const nextDescription = element?.dataset.tipDescription?.trim() ?? '';
+		if (this.hoverTipVariable === nextVariable && this.hoverTipDescription === nextDescription) {
+			return;
+		}
+
+		this.hoverTipVariable = nextVariable;
+		this.hoverTipDescription = nextDescription;
+		this.renderHoverTipBar();
+	}
+
+	private clearHoverTip(): void {
+		if (!this.hoverTipVariable && !this.hoverTipDescription) {
+			return;
+		}
+
+		this.hoverTipVariable = null;
+		this.hoverTipDescription = '';
+		this.renderHoverTipBar();
 	}
 
 	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
@@ -949,6 +1014,11 @@ export class ComponentCustomizerRuntime {
 			this.activeTargetElement = null;
 		}
 
+		this.root?.removeEventListener('pointerover', this.handleControlTipPointerOver);
+		this.root?.removeEventListener('pointerout', this.handleControlTipPointerOut);
+		this.root?.removeEventListener('focusin', this.handleControlTipFocusIn);
+		this.root?.removeEventListener('focusout', this.handleControlTipFocusOut);
+
 		for (const cleanup of this.cleanupCallbacks.splice(0).reverse()) {
 			cleanup();
 		}
@@ -968,6 +1038,7 @@ export class ComponentCustomizerRuntime {
 		this.toggleTargetSelectionButton = null;
 		this.toggleTargetSelectionLabel = null;
 		this.presetBarHost = null;
+		this.hoverTipBarHost = null;
 	}
 
 	private syncOverrideState(tokenOverrides: Record<string, string> | null = null): void {
@@ -1072,5 +1143,43 @@ export class ComponentCustomizerRuntime {
 		}
 
 		this.deletePreset(activePreset.id);
+	};
+
+	private readonly handleControlTipPointerOver = (event: Event): void => {
+		this.setHoverTipFromElement(this.findTipElement(event.target));
+	};
+
+	private readonly handleControlTipPointerOut = (event: Event): void => {
+		const currentElement = this.findTipElement(event.target);
+		if (!currentElement) {
+			return;
+		}
+
+		const relatedTarget = (event as MouseEvent).relatedTarget;
+		const nextElement = this.findTipElement(relatedTarget);
+		if (currentElement === nextElement) {
+			return;
+		}
+
+		this.clearHoverTip();
+	};
+
+	private readonly handleControlTipFocusIn = (event: Event): void => {
+		this.setHoverTipFromElement(this.findTipElement(event.target));
+	};
+
+	private readonly handleControlTipFocusOut = (event: Event): void => {
+		const currentElement = this.findTipElement(event.target);
+		if (!currentElement) {
+			return;
+		}
+
+		const relatedTarget = (event as FocusEvent).relatedTarget;
+		const nextElement = this.findTipElement(relatedTarget);
+		if (currentElement === nextElement) {
+			return;
+		}
+
+		this.clearHoverTip();
 	};
 }

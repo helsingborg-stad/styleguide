@@ -1,6 +1,16 @@
 jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
-	createDesignBuilderControl: () => document.createElement('div'),
-	createReadOnlyDesignBuilderControl: () => document.createElement('div'),
+	createDesignBuilderControl: (setting: { variable: string; description?: string }) => {
+		const row = document.createElement('div');
+		row.setAttribute('data-tip-variable', setting.variable);
+		row.setAttribute('data-tip-description', setting.description ?? '');
+		return row;
+	},
+	createReadOnlyDesignBuilderControl: (setting: { variable: string; description?: string }) => {
+		const row = document.createElement('div');
+		row.setAttribute('data-tip-variable', setting.variable);
+		row.setAttribute('data-tip-description', setting.description ?? '');
+		return row;
+	},
 	createDesignBuilderSwatchBand: () => document.createElement('div'),
 }));
 
@@ -9,6 +19,8 @@ import type { DesignBuilderActionEventDetail } from '../../shared/events/designB
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import type { TokenData } from '../../shared/types/designBuilderDataTypes';
 import { FullPageEditorRuntime } from './FullPageEditorRuntime';
+
+type RuntimeHostElement = ConstructorParameters<typeof FullPageEditorRuntime>[2];
 
 describe('FullPageEditorRuntime preset compatibility', () => {
 	const tokenData: TokenData = {
@@ -23,7 +35,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 					{
 						variable: '--color-free',
 						label: 'Free',
-						description: '',
+						description: 'Free color setting',
 						type: 'color',
 						default: '#000',
 					},
@@ -73,7 +85,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		};
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		document.body.appendChild(hostElement);
-		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 
 		const presetSelect = container.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
 		expect(presetSelect).toBeTruthy();
@@ -132,7 +144,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		];
 		document.body.appendChild(hostElement);
 
-		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 
 		const presetSelect = container.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
 		if (presetSelect) {
@@ -172,7 +184,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 			saveEvents.push((event as CustomEvent<DesignBuilderActionEventDetail>).detail);
 		});
 
-		const runtime = new FullPageEditorRuntime(container, tokenData, hostElement as any);
+		const runtime = new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 		const runtimeInternals = runtime as unknown as {
 			handleChange(variable: string, value: string, defaultValue: string): void;
 			handleSaveClick(): void;
@@ -226,7 +238,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		});
 		document.body.appendChild(hostElement);
 
-		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 
 		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('#123456');
 
@@ -243,7 +255,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		document.body.appendChild(hostElement);
 
-		new FullPageEditorRuntime(container, tokenData, hostElement as any);
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 
 		const savePresetButton = container.querySelector<HTMLButtonElement>('[data-action="save-preset"]');
 		const deletePresetButton = container.querySelector<HTMLButtonElement>('[data-action="delete-preset"]');
@@ -254,6 +266,37 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		expect(savePresetButton?.closest('.db-presets')).toBe(deletePresetButton?.closest('.db-presets'));
 		expect(savePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
 		expect(deletePresetButton?.closest('.db-presets-menu-content')).toBe(presetsMenu);
+
+		hostElement.remove();
+		container.remove();
+	});
+
+	it('shows variable and description in the hover tip bar when hovering controls', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
+
+		const tipVariable = container.querySelector<HTMLElement>('[data-hover-tip-variable]');
+		const tipDescription = container.querySelector<HTMLElement>('[data-hover-tip-description]');
+		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
+		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
+
+		const row = container.querySelector<HTMLElement>('[data-tip-variable="--color-free"]');
+		expect(row).toBeTruthy();
+		row?.dispatchEvent(new MouseEvent('pointerover', { bubbles: true }));
+
+		expect(tipVariable?.textContent).toContain('--color-free');
+		expect(tipDescription?.textContent).toContain('Free color setting');
+
+		row?.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: null }));
+		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
+		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
 
 		hostElement.remove();
 		container.remove();

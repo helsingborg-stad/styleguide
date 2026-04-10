@@ -26,6 +26,9 @@ export class FullPageEditorRuntime {
 	private presetManager: DesignBuilderPresetManager;
 	private root: HTMLElement | null = null;
 	private presetBarHost: HTMLElement | null = null;
+	private hoverTipBarHost: HTMLElement | null = null;
+	private hoverTipVariable: string | null = null;
+	private hoverTipDescription = '';
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 
@@ -71,18 +74,29 @@ export class FullPageEditorRuntime {
 		if (!this.root) {
 			this.root = document.createElement('div');
 			this.root.className = 'db-builder db-builder-fullpage';
+			this.root.addEventListener('pointerover', this.handleControlTipPointerOver);
+			this.root.addEventListener('pointerout', this.handleControlTipPointerOut);
+			this.root.addEventListener('focusin', this.handleControlTipFocusIn);
+			this.root.addEventListener('focusout', this.handleControlTipFocusOut);
 			this.container.appendChild(this.root);
 		}
 
 		renderTemplate(this.renderShellTemplate(), this.root);
 		this.presetBarHost = this.root.querySelector<HTMLElement>('[data-preset-bar]');
+		this.hoverTipBarHost = this.root.querySelector<HTMLElement>('[data-hover-tip-bar]');
 		this.renderPresetBar();
+		this.renderHoverTipBar();
 	}
 
 	public destroy(): void {
+		this.root?.removeEventListener('pointerover', this.handleControlTipPointerOver);
+		this.root?.removeEventListener('pointerout', this.handleControlTipPointerOut);
+		this.root?.removeEventListener('focusin', this.handleControlTipFocusIn);
+		this.root?.removeEventListener('focusout', this.handleControlTipFocusOut);
 		renderTemplate(nothing, this.container);
 		this.root = null;
 		this.presetBarHost = null;
+		this.hoverTipBarHost = null;
 	}
 
 	private renderShellTemplate(): TemplateResult {
@@ -155,7 +169,63 @@ export class FullPageEditorRuntime {
 			<div class="db-categories">
 				${this.tokens.categories.map((category) => this.renderCategoryTemplate(category))}
 			</div>
+			<div data-hover-tip-bar></div>
 		`;
+	}
+
+	private renderHoverTipBar(): void {
+		if (!this.hoverTipBarHost) {
+			return;
+		}
+
+		const hasTip = !!this.hoverTipVariable;
+		const variableText = this.hoverTipVariable ?? 'Hover an option to preview token details';
+		const descriptionText = this.hoverTipDescription || 'Token description is shown here when available.';
+
+		renderTemplate(
+			html`
+				<div class="db-hover-tip-bar" data-hover-tip-active=${hasTip ? 'true' : 'false'}>
+					<span class="db-hover-tip-label">Token</span>
+					<code class="db-hover-tip-variable" data-hover-tip-variable>${variableText}</code>
+					<span class="db-hover-tip-description" data-hover-tip-description>${descriptionText}</span>
+				</div>
+			`,
+			this.hoverTipBarHost,
+		);
+	}
+
+	private findTipElement(target: EventTarget | null): HTMLElement | null {
+		if (!(target instanceof Element)) {
+			return null;
+		}
+
+		return target.closest<HTMLElement>('[data-tip-variable]');
+	}
+
+	private setHoverTipFromElement(element: HTMLElement | null): void {
+		const nextVariable = element?.dataset.tipVariable?.trim() ?? '';
+		if (!nextVariable) {
+			return;
+		}
+
+		const nextDescription = element?.dataset.tipDescription?.trim() ?? '';
+		if (this.hoverTipVariable === nextVariable && this.hoverTipDescription === nextDescription) {
+			return;
+		}
+
+		this.hoverTipVariable = nextVariable;
+		this.hoverTipDescription = nextDescription;
+		this.renderHoverTipBar();
+	}
+
+	private clearHoverTip(): void {
+		if (!this.hoverTipVariable && !this.hoverTipDescription) {
+			return;
+		}
+
+		this.hoverTipVariable = null;
+		this.hoverTipDescription = '';
+		this.renderHoverTipBar();
 	}
 
 	private renderCategoryTemplate(category: TokenCategory): TemplateResult {
@@ -619,5 +689,43 @@ export class FullPageEditorRuntime {
 
 	private readonly toggleCategoryCollapsed = (event: Event): void => {
 		(event.currentTarget as HTMLElement).closest<HTMLElement>('.db-category')?.classList.toggle('db-category-collapsed');
+	};
+
+	private readonly handleControlTipPointerOver = (event: Event): void => {
+		this.setHoverTipFromElement(this.findTipElement(event.target));
+	};
+
+	private readonly handleControlTipPointerOut = (event: Event): void => {
+		const currentElement = this.findTipElement(event.target);
+		if (!currentElement) {
+			return;
+		}
+
+		const relatedTarget = (event as MouseEvent).relatedTarget;
+		const nextElement = this.findTipElement(relatedTarget);
+		if (currentElement === nextElement) {
+			return;
+		}
+
+		this.clearHoverTip();
+	};
+
+	private readonly handleControlTipFocusIn = (event: Event): void => {
+		this.setHoverTipFromElement(this.findTipElement(event.target));
+	};
+
+	private readonly handleControlTipFocusOut = (event: Event): void => {
+		const currentElement = this.findTipElement(event.target);
+		if (!currentElement) {
+			return;
+		}
+
+		const relatedTarget = (event as FocusEvent).relatedTarget;
+		const nextElement = this.findTipElement(relatedTarget);
+		if (currentElement === nextElement) {
+			return;
+		}
+
+		this.clearHoverTip();
 	};
 }

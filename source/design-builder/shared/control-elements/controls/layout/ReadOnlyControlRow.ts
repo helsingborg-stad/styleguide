@@ -25,8 +25,15 @@ class DbReadOnlyControlRow extends HTMLElement {
 			return;
 		}
 
+		const variableDescription = setting.description?.trim() ?? '';
+
 		const markup = html`
-			<div class="db-control-row" data-variable=${setting.variable}>
+			<div
+				class="db-control-row"
+				data-variable=${setting.variable}
+				data-tip-variable=${setting.variable}
+				data-tip-description=${variableDescription}
+			>
 				<label class="db-control-row-label">${setting.label}</label>
 				<div class="db-control-row-readonly-value">
 					${setting.type === 'color' || setting.type === 'rgba' ? html`<div class="db-control-row-swatch" style=${`background-color: ${this._value}`}></div>` : ''}
