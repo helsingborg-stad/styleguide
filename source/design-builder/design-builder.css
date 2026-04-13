@@ -1071,15 +1071,23 @@ db-swatch-band .db-swatch-band-pct {
 
 .db-builder-customizer {
 	display: flex;
+	min-width: 0;
+	overflow-x: hidden;
 }
 
 .db-builder-customizer .db-categories {
 	margin-bottom: 0.75rem;
+	min-width: 0;
 }
 
 .db-builder-fullpage .db-category-body,
 .db-builder-customizer .db-category-body {
 	overflow-x: auto;
+}
+
+.db-builder-customizer .db-category,
+.db-builder-customizer .db-category-body {
+	min-width: 0;
 }
 
 .db-builder-fullpage .db-control-row-variable,
@@ -1097,6 +1105,10 @@ db-swatch-band .db-swatch-band-pct {
 	column-gap: 0.7rem;
 	min-width: 360px;
 	align-items: start;
+}
+
+.db-builder-customizer db-control-row .db-control-row {
+	min-width: 0;
 }
 
 .db-builder-fullpage .db-control-row-label,
@@ -1142,6 +1154,13 @@ db-swatch-band .db-swatch-band-pct {
 	overflow-y: hidden;
 }
 
+.db-builder-customizer .db-control-row-input {
+	min-width: 0;
+	white-space: normal;
+	overflow-x: visible;
+	overflow-y: visible;
+}
+
 .db-builder-fullpage .db-control-row-reset,
 .db-builder-customizer .db-control-row-reset {
 	grid-column: 2;
@@ -1155,6 +1174,11 @@ db-swatch-band .db-swatch-band-pct {
 .db-builder-customizer color-control,
 .db-builder-customizer rgba-control {
 	flex-wrap: nowrap;
+}
+
+.db-builder-customizer color-control,
+.db-builder-customizer rgba-control {
+	flex-wrap: wrap;
 }
 
 .db-builder-context-grid {
@@ -1181,12 +1205,6 @@ db-swatch-band .db-swatch-band-pct {
 		width: 100%;
 		justify-content: flex-end;
 	}
-
-	.db-builder-context-grid {
-		grid-template-columns: minmax(0, 1fr);
-		width: 100%;
-	}
-
 
 	.db-builder-fullpage db-control-row .db-control-row,
 	.db-builder-customizer db-control-row .db-control-row {
@@ -1273,6 +1291,10 @@ db-swatch-band .db-swatch-band-pct {
 		white-space: nowrap;
 	}
 
+	.db-builder-customizer .db-control-row-input {
+		white-space: normal;
+	}
+
 	.db-builder-fullpage .db-control-row-reset,
 	.db-builder-customizer .db-control-row-reset {
 		grid-column: 2;
@@ -1286,6 +1308,11 @@ db-swatch-band .db-swatch-band-pct {
 	.db-builder-customizer color-control,
 	.db-builder-customizer rgba-control {
 		flex-wrap: nowrap;
+	}
+
+	.db-builder-customizer color-control,
+	.db-builder-customizer rgba-control {
+		flex-wrap: wrap;
 	}
 }
 

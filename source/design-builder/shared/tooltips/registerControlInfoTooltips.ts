@@ -55,15 +55,12 @@ function getTooltipAnchor(target: EventTarget | null): HTMLElement | null {
 function positionTooltip(anchor: HTMLElement, tooltipElement: HTMLDivElement): void {
 	const anchorRect = anchor.getBoundingClientRect();
 	const tooltipRect = tooltipElement.getBoundingClientRect();
-	const anchorCenter = anchorRect.left + (anchorRect.width / 2);
+	const anchorCenter = anchorRect.left + anchorRect.width / 2;
 	const maxLeft = Math.max(TOOLTIP_VIEWPORT_MARGIN, window.innerWidth - tooltipRect.width - TOOLTIP_VIEWPORT_MARGIN);
-	const preferredLeft = anchorCenter - (tooltipRect.width / 2);
+	const preferredLeft = anchorCenter - tooltipRect.width / 2;
 	const left = Math.min(maxLeft, Math.max(TOOLTIP_VIEWPORT_MARGIN, preferredLeft));
 	const top = anchorRect.bottom + TOOLTIP_OFFSET;
-	const arrowLeft = Math.min(
-		tooltipRect.width - TOOLTIP_ARROW_MARGIN,
-		Math.max(TOOLTIP_ARROW_MARGIN, anchorCenter - left),
-	);
+	const arrowLeft = Math.min(tooltipRect.width - TOOLTIP_ARROW_MARGIN, Math.max(TOOLTIP_ARROW_MARGIN, anchorCenter - left));
 
 	tooltipElement.style.left = `${Math.round(left)}px`;
 	tooltipElement.style.top = `${Math.round(top)}px`;
