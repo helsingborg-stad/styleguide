@@ -1176,11 +1176,6 @@ db-swatch-band .db-swatch-band-pct {
 	flex-wrap: nowrap;
 }
 
-.db-builder-customizer color-control,
-.db-builder-customizer rgba-control {
-	flex-wrap: wrap;
-}
-
 .db-builder-context-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1308,11 +1303,6 @@ db-swatch-band .db-swatch-band-pct {
 	.db-builder-customizer color-control,
 	.db-builder-customizer rgba-control {
 		flex-wrap: nowrap;
-	}
-
-	.db-builder-customizer color-control,
-	.db-builder-customizer rgba-control {
-		flex-wrap: wrap;
 	}
 }
 
