@@ -59,11 +59,7 @@ function positionTooltip(anchor: HTMLElement, tooltipElement: HTMLDivElement): v
 	const maxLeft = Math.max(TOOLTIP_VIEWPORT_MARGIN, window.innerWidth - tooltipRect.width - TOOLTIP_VIEWPORT_MARGIN);
 	const preferredLeft = anchorCenter - (tooltipRect.width / 2);
 	const left = Math.min(maxLeft, Math.max(TOOLTIP_VIEWPORT_MARGIN, preferredLeft));
-	const preferredBottomTop = anchorRect.bottom + TOOLTIP_OFFSET;
-	const fitsBelow = preferredBottomTop + tooltipRect.height <= window.innerHeight - TOOLTIP_VIEWPORT_MARGIN;
-	const top = fitsBelow
-		? preferredBottomTop
-		: Math.max(TOOLTIP_VIEWPORT_MARGIN, anchorRect.top - tooltipRect.height - TOOLTIP_OFFSET);
+	const top = anchorRect.bottom + TOOLTIP_OFFSET;
 	const arrowLeft = Math.min(
 		tooltipRect.width - TOOLTIP_ARROW_MARGIN,
 		Math.max(TOOLTIP_ARROW_MARGIN, anchorCenter - left),
@@ -72,7 +68,7 @@ function positionTooltip(anchor: HTMLElement, tooltipElement: HTMLDivElement): v
 	tooltipElement.style.left = `${Math.round(left)}px`;
 	tooltipElement.style.top = `${Math.round(top)}px`;
 	tooltipElement.style.setProperty('--db-tooltip-arrow-left', `${Math.round(arrowLeft)}px`);
-	tooltipElement.dataset.placement = fitsBelow ? 'bottom' : 'top';
+	tooltipElement.dataset.placement = 'bottom';
 }
 
 /**

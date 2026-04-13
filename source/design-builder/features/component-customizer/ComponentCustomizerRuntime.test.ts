@@ -239,7 +239,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('shows variable and description in the hover tip bar when hovering controls', () => {
+	it('does not render a static hover tip bar', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
@@ -250,21 +250,9 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 
-		const tipVariable = mount.querySelector<HTMLElement>('[data-hover-tip-variable]');
-		const tipDescription = mount.querySelector<HTMLElement>('[data-hover-tip-description]');
-		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
-		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
-
-		const row = mount.querySelector<HTMLElement>('[data-tip-variable="--c-button--color--primary"]');
-		expect(row).toBeTruthy();
-		row?.dispatchEvent(new MouseEvent('pointerover', { bubbles: true }));
-
-		expect(tipVariable?.textContent).toContain('--c-button--color--primary');
-		expect(tipDescription?.textContent).toContain('Primary color for component');
-
-		row?.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: null }));
-		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
-		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
+		expect(mount.querySelector('.db-hover-tip')).toBeNull();
+		expect(mount.querySelector('[data-hover-tip-variable]')).toBeNull();
+		expect(mount.querySelector('[data-hover-tip-description]')).toBeNull();
 
 		hostElement.remove();
 		mount.remove();

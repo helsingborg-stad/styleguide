@@ -2,13 +2,13 @@ import { html, nothing, render as renderTemplate, type TemplateResult } from 'li
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
 import { createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
-import { type DetailsMenuDismissController, createDetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
+import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
-import { type HoverTipController, createHoverTipController } from '../../shared/tooltips/createHoverTipController';
+import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { normalizeComponentName } from './componentTokenDefinitions';
@@ -49,7 +49,6 @@ export class ComponentCustomizerRuntime {
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private presetBarHost: HTMLElement | null = null;
 	private menuDismissController: DetailsMenuDismissController | null = null;
-	private hoverTipController: HoverTipController | null = null;
 	private isTargetSelectionEnabled = false;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement | ShadowRoot, options: ComponentCustomizerRuntimeOptions = {}) {
@@ -241,6 +240,8 @@ export class ComponentCustomizerRuntime {
 	private render(): void {
 		if (this.editableComponents.size === 0) return;
 
+		registerControlInfoTooltips();
+
 		const root = document.createElement('div');
 		root.className = 'db-builder db-builder-customizer';
 		this.mountElement.appendChild(root);
@@ -248,10 +249,6 @@ export class ComponentCustomizerRuntime {
 		this.menuDismissController = createDetailsMenuDismissController(root);
 
 		renderTemplate(this.renderShellTemplate(), root);
-		if (!this.hoverTipController) {
-			this.hoverTipController = createHoverTipController(root);
-		}
-		this.hoverTipController.refresh();
 
 		this.controlsContainer = root.querySelector<HTMLElement>('[data-component-controls]');
 		this.componentSelect = root.querySelector<HTMLSelectElement>('[data-action="select-component"]');
@@ -330,10 +327,6 @@ export class ComponentCustomizerRuntime {
 				</div>
 			</div>
 			<div data-preset-bar></div>
-			<div class="db-hover-tip" aria-live="polite">
-				<code class="db-hover-tip-variable" data-hover-tip-variable></code>
-				<p class="db-hover-tip-description" data-hover-tip-description></p>
-			</div>
 			<div class="db-presets">
 				<div class="db-builder-context-grid">
 					<label class="db-builder-context-row" for="db-component-select"
@@ -964,8 +957,6 @@ export class ComponentCustomizerRuntime {
 
 		this.menuDismissController?.dispose();
 		this.menuDismissController = null;
-		this.hoverTipController?.dispose();
-		this.hoverTipController = null;
 
 		for (const cleanup of this.cleanupCallbacks.splice(0).reverse()) {
 			cleanup();
@@ -1091,5 +1082,4 @@ export class ComponentCustomizerRuntime {
 
 		this.deletePreset(activePreset.id);
 	};
-
 }

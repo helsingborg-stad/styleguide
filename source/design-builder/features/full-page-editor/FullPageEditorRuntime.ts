@@ -1,13 +1,13 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
-import { type DetailsMenuDismissController, createDetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
+import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
-import { type HoverTipController, createHoverTipController } from '../../shared/tooltips/createHoverTipController';
+import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 
@@ -29,7 +29,6 @@ export class FullPageEditorRuntime {
 	private root: HTMLElement | null = null;
 	private presetBarHost: HTMLElement | null = null;
 	private menuDismissController: DetailsMenuDismissController | null = null;
-	private hoverTipController: HoverTipController | null = null;
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 
@@ -72,6 +71,8 @@ export class FullPageEditorRuntime {
 	}
 
 	private render(): void {
+		registerControlInfoTooltips();
+
 		if (!this.root) {
 			this.root = document.createElement('div');
 			this.root.className = 'db-builder db-builder-fullpage';
@@ -80,10 +81,6 @@ export class FullPageEditorRuntime {
 		}
 
 		renderTemplate(this.renderShellTemplate(), this.root);
-		if (!this.hoverTipController) {
-			this.hoverTipController = createHoverTipController(this.root);
-		}
-		this.hoverTipController.refresh();
 		this.presetBarHost = this.root.querySelector<HTMLElement>('[data-preset-bar]');
 		this.renderPresetBar();
 	}
@@ -91,8 +88,6 @@ export class FullPageEditorRuntime {
 	public destroy(): void {
 		this.menuDismissController?.dispose();
 		this.menuDismissController = null;
-		this.hoverTipController?.dispose();
-		this.hoverTipController = null;
 		renderTemplate(nothing, this.container);
 		this.root = null;
 		this.presetBarHost = null;
@@ -165,10 +160,6 @@ export class FullPageEditorRuntime {
 				</div>
 			</div>
 			<div data-preset-bar></div>
-			<div class="db-hover-tip" aria-live="polite">
-				<code class="db-hover-tip-variable" data-hover-tip-variable></code>
-				<p class="db-hover-tip-description" data-hover-tip-description></p>
-			</div>
 			<div class="db-categories">
 				${this.tokens.categories.map((category) => this.renderCategoryTemplate(category))}
 			</div>
@@ -637,5 +628,4 @@ export class FullPageEditorRuntime {
 	private readonly toggleCategoryCollapsed = (event: Event): void => {
 		(event.currentTarget as HTMLElement).closest<HTMLElement>('.db-category')?.classList.toggle('db-category-collapsed');
 	};
-
 }

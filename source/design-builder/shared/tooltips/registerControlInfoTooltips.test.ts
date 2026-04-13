@@ -96,9 +96,9 @@ describe('registerControlInfoTooltips', () => {
 
 		const tooltip = document.body.querySelector<HTMLDivElement>('#db-control-info-tooltip');
 		expect(tooltip?.style.left).toBe('712px');
-		expect(tooltip?.style.top).toBe('12px');
+		expect(tooltip?.style.top).toBe('42px');
 		expect(tooltip?.style.getPropertyValue('--db-tooltip-arrow-left')).toBe('276px');
-		expect(tooltip?.dataset.placement).toBe('top');
+		expect(tooltip?.dataset.placement).toBe('bottom');
 	});
 
 	it('hides the shared tooltip when leaving the info button', () => {

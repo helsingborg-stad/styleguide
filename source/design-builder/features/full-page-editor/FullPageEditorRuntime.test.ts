@@ -271,7 +271,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		container.remove();
 	});
 
-	it('shows variable and description in the hover tip bar when hovering controls', () => {
+	it('does not render a static hover tip bar', () => {
 		const container = document.createElement('div');
 		document.body.appendChild(container);
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
@@ -282,21 +282,9 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 
 		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
 
-		const tipVariable = container.querySelector<HTMLElement>('[data-hover-tip-variable]');
-		const tipDescription = container.querySelector<HTMLElement>('[data-hover-tip-description]');
-		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
-		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
-
-		const row = container.querySelector<HTMLElement>('[data-tip-variable="--color-free"]');
-		expect(row).toBeTruthy();
-		row?.dispatchEvent(new MouseEvent('pointerover', { bubbles: true }));
-
-		expect(tipVariable?.textContent).toContain('--color-free');
-		expect(tipDescription?.textContent).toContain('Free color setting');
-
-		row?.dispatchEvent(new MouseEvent('pointerout', { bubbles: true, relatedTarget: null }));
-		expect(tipVariable?.textContent).toContain('Hover an option to preview token details');
-		expect(tipDescription?.textContent).toContain('Token description is shown here when available.');
+		expect(container.querySelector('.db-hover-tip')).toBeNull();
+		expect(container.querySelector('[data-hover-tip-variable]')).toBeNull();
+		expect(container.querySelector('[data-hover-tip-description]')).toBeNull();
 
 		hostElement.remove();
 		container.remove();

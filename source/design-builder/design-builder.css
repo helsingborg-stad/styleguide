@@ -376,28 +376,6 @@
 	align-items: center;
 }
 
-.db-hover-tip {
-	display: grid;
-	gap: 0.18rem;
-	margin: 0 0 0.85rem;
-	padding: 0.65rem 0.8rem;
-	border: 1px solid color-mix(in srgb, var(--db-border) 80%, transparent);
-	border-radius: var(--db-radius-m);
-	background: color-mix(in srgb, var(--db-surface-2) 82%, transparent);
-}
-
-.db-hover-tip-variable {
-	font-family: var(--db-font-family-mono);
-	font-size: 0.72rem;
-	color: var(--db-text);
-}
-
-.db-hover-tip-description {
-	margin: 0;
-	font-size: 0.76rem;
-	color: var(--db-text-muted);
-}
-
 .db-control-info-btn {
 	display: inline-flex;
 	align-items: center;
@@ -409,7 +387,7 @@
 	border: none;
 	background: none;
 	color: var(--db-text-muted);
-	cursor: default;
+	cursor: help;
 	vertical-align: middle;
 	position: relative;
 	top: -0.08em;
@@ -445,7 +423,10 @@
 	left: 0;
 	top: 0;
 	--db-tooltip-arrow-left: 50%;
+	width: min(22rem, calc(100vw - 1.5rem));
 	max-width: 22rem;
+	max-height: calc(100vh - 1.5rem);
+	overflow: auto;
 	padding: 0.42rem 0.55rem;
 	border-radius: var(--db-radius-s);
 	background: color-mix(in srgb, var(--db-surface-3) 70%, var(--db-border));
@@ -473,14 +454,7 @@
 	background: inherit;
 	border-radius: 2px;
 	transform: translateX(-50%) rotate(45deg);
-}
-
-.db-floating-tooltip[data-placement="bottom"]::before {
 	top: -0.38rem;
-}
-
-.db-floating-tooltip[data-placement="top"]::before {
-	bottom: -0.38rem;
 }
 
 .db-floating-tooltip-visible {
@@ -759,6 +733,60 @@ db-readonly-control-row .db-control-row {
 	grid-row: 1;
 	font-weight: 600;
 	font-size: 0.875rem;
+}
+
+.db-control-row-info {
+	grid-column: 1 / -1;
+	grid-row: 2;
+	display: grid;
+	gap: 0.3rem;
+	padding: 0.55rem 0.7rem;
+	border: 1px solid color-mix(in srgb, var(--db-border) 80%, transparent);
+	border-radius: var(--db-radius-s);
+	background: color-mix(in srgb, var(--db-surface-2) 82%, transparent);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.db-control-row-info-description {
+	margin: 0;
+	font-size: 0.75rem;
+	color: var(--db-text-muted);
+}
+
+.db-control-row-info-variable {
+	display: inline-flex;
+	align-items: center;
+	justify-self: start;
+	max-width: 100%;
+	padding: 0.18rem 0.48rem;
+	border: 1px solid color-mix(in srgb, var(--db-border) 85%, transparent);
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--db-surface) 88%, var(--db-border));
+	font-family: var(--db-font-family-mono);
+	font-size: 0.68rem;
+	color: var(--db-text);
+	overflow-wrap: anywhere;
+}
+
+db-control-row[info-open] .db-control-row {
+	grid-template-rows: auto auto auto auto;
+}
+
+db-control-row[info-open] .db-control-row-variable {
+	grid-row: 3;
+}
+
+db-control-row[info-open] .db-control-row-description {
+	grid-row: 4;
+}
+
+db-control-row[info-open] .db-control-row-input,
+db-control-row[info-open] .db-control-row-reset {
+	grid-row: 1 / 4;
+}
+
+db-readonly-control-row[info-open] .db-control-row {
+	grid-template-rows: auto auto;
 }
 
 .db-control-row-variable {
@@ -1080,6 +1108,18 @@ db-swatch-band .db-swatch-band-pct {
 	gap: 0.2rem;
 	overflow: visible;
 	min-width: 0;
+}
+
+.db-builder-fullpage db-control-row[info-open] .db-control-row,
+.db-builder-customizer db-control-row[info-open] .db-control-row {
+	grid-template-rows: auto auto auto;
+}
+
+.db-builder-fullpage db-control-row[info-open] .db-control-row-input,
+.db-builder-customizer db-control-row[info-open] .db-control-row-input,
+.db-builder-fullpage db-control-row[info-open] .db-control-row-reset,
+.db-builder-customizer db-control-row[info-open] .db-control-row-reset {
+	grid-row: 3;
 }
 
 .db-builder-fullpage .db-control-row-label-text,

@@ -209,6 +209,40 @@ describe('controls change handling', () => {
 		expect(row.querySelector('[data-tip-description]')?.getAttribute('data-tip-description')).toBe('Controls body text size');
 	});
 
+	it('shows an inline info panel when the info button is clicked and hides it on outside click', () => {
+		const setting: TokenSetting = {
+			variable: '--font-size-body',
+			label: 'Body size',
+			description: 'Controls body text size',
+			type: 'select',
+			default: '16px',
+			options: [
+				{ value: '16px', label: '16px' },
+				{ value: '18px', label: '18px' },
+			],
+		};
+
+		const row = createDesignBuilderControl(setting, '16px', jest.fn());
+		document.body.appendChild(row);
+
+		const infoButton = row.querySelector<HTMLButtonElement>('.db-control-info-btn');
+		expect(infoButton).toBeTruthy();
+
+		infoButton?.click();
+
+		const infoPanel = row.querySelector<HTMLElement>('.db-control-row-info');
+		expect(infoButton?.getAttribute('aria-expanded')).toBe('true');
+		expect(row.hasAttribute('info-open')).toBe(true);
+		expect(infoPanel?.textContent).toContain('Controls body text size');
+		expect(infoPanel?.textContent).toContain('--font-size-body');
+
+		document.body.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
+
+		expect(row.querySelector('.db-control-row-info')).toBeNull();
+		expect(infoButton?.getAttribute('aria-expanded')).toBe('false');
+		expect(row.hasAttribute('info-open')).toBe(false);
+	});
+
 	it('groups swatch band rows by color prefix', () => {
 		const band = createDesignBuilderSwatchBand([
 			{
