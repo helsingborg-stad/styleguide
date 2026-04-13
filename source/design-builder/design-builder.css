@@ -376,60 +376,116 @@
 	align-items: center;
 }
 
-.db-hover-tip-bar {
+.db-hover-tip {
 	display: grid;
-	grid-template-columns: auto minmax(0, auto) minmax(0, 1fr);
-	align-items: center;
-	gap: 0.5rem 0.7rem;
-	padding: 16px 24px;
-	border: 1px solid var(--db-border);
-	border-radius: 0;
-	background: var(--db-surface-2);
-	color: var(--db-text-muted);
-	box-shadow: var(--db-shadow);
-	position: sticky;
-	bottom: 0;
-	z-index: 5;
-	margin: 0;
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	left: 0;
-}
-
-.db-hover-tip-bar[data-hover-tip-active="true"] {
-	color: var(--db-text);
-	border-color: color-mix(in srgb, var(--db-primary) 30%, var(--db-border));
-	background: color-mix(in srgb, var(--db-primary-soft) 25%, var(--db-surface));
-}
-
-.db-hover-tip-label {
-	font-size: 0.72rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	line-height: 1;
-	color: inherit;
+	gap: 0.18rem;
+	margin: 0 0 0.85rem;
+	padding: 0.65rem 0.8rem;
+	border: 1px solid color-mix(in srgb, var(--db-border) 80%, transparent);
+	border-radius: var(--db-radius-m);
+	background: color-mix(in srgb, var(--db-surface-2) 82%, transparent);
 }
 
 .db-hover-tip-variable {
-	margin: 0;
-	padding: 0.18rem 0.36rem;
-	font-size: 0.76rem;
-	line-height: 1.35;
-	border-radius: var(--db-radius-s);
-	background: color-mix(in srgb, var(--db-surface) 75%, transparent);
-	border: 1px solid color-mix(in srgb, var(--db-border) 80%, transparent);
-	overflow-wrap: anywhere;
-	max-width: 100%;
+	font-family: var(--db-font-family-mono);
+	font-size: 0.72rem;
+	color: var(--db-text);
 }
 
 .db-hover-tip-description {
-	font-size: 0.78rem;
-	line-height: 1.35;
-	overflow-wrap: anywhere;
-	min-width: 0;
+	margin: 0;
+	font-size: 0.76rem;
+	color: var(--db-text-muted);
+}
+
+.db-control-info-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	padding: 0;
+	margin-left: 0.25rem;
+	border: none;
+	background: none;
+	color: var(--db-text-muted);
+	cursor: default;
+	vertical-align: middle;
+	position: relative;
+	top: -0.08em;
+	flex-shrink: 0;
+}
+
+.db-control-info-btn svg {
+	width: 100%;
+	height: 100%;
+	fill: currentColor;
+}
+
+.db-control-info-btn.db-tooltip-target::before {
+	display: none;
+}
+
+.db-control-info-btn.db-tooltip-target::after {
+	display: none;
+	content: none;
+	white-space: pre;
+	max-width: 22rem;
+	text-wrap: balance;
+	left: auto;
+	right: 0;
+	transform: none;
+	font-style: normal;
+	line-height: 1.4;
+	text-align: left;
+}
+
+.db-floating-tooltip {
+	position: fixed;
+	left: 0;
+	top: 0;
+	--db-tooltip-arrow-left: 50%;
+	max-width: 22rem;
+	padding: 0.42rem 0.55rem;
+	border-radius: var(--db-radius-s);
+	background: color-mix(in srgb, var(--db-surface-3) 70%, var(--db-border));
+	color: var(--db-text);
+	font-size: 0.72rem;
+	font-style: normal;
+	line-height: 1.4;
+	white-space: pre-line;
+	text-wrap: balance;
+	text-align: left;
+	box-shadow: var(--db-shadow);
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 60;
+	transition: opacity 0.12s ease;
+}
+
+.db-floating-tooltip::before {
+	content: "";
+	position: absolute;
+	left: var(--db-tooltip-arrow-left);
+	width: 0.75rem;
+	height: 0.75rem;
+	background: inherit;
+	border-radius: 2px;
+	transform: translateX(-50%) rotate(45deg);
+}
+
+.db-floating-tooltip[data-placement="bottom"]::before {
+	top: -0.38rem;
+}
+
+.db-floating-tooltip[data-placement="top"]::before {
+	bottom: -0.38rem;
+}
+
+.db-floating-tooltip-visible {
+	opacity: 1;
+	visibility: visible;
 }
 
 .db-header-menu {
@@ -1013,17 +1069,25 @@ db-swatch-band .db-swatch-band-pct {
 	column-gap: 0.7rem;
 	min-width: 360px;
 	align-items: start;
-	overflow-x: auto;
-	overflow-y: hidden;
 }
 
 .db-builder-fullpage .db-control-row-label,
 .db-builder-customizer .db-control-row-label {
 	grid-column: 1 / -1;
 	grid-row: 1;
-	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
+	overflow: visible;
+	min-width: 0;
+}
+
+.db-builder-fullpage .db-control-row-label-text,
+.db-builder-customizer .db-control-row-label-text {
 	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
 }
 
 .db-builder-fullpage .db-control-row-input,
@@ -1083,10 +1147,6 @@ db-swatch-band .db-swatch-band-pct {
 		width: 100%;
 	}
 
-	.db-hover-tip-bar {
-		grid-template-columns: minmax(0, 1fr);
-		align-items: start;
-	}
 
 	.db-builder-fullpage db-control-row .db-control-row,
 	.db-builder-customizer db-control-row .db-control-row {
@@ -1149,8 +1209,6 @@ db-swatch-band .db-swatch-band-pct {
 	.db-builder-customizer db-control-row .db-control-row {
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-rows: auto auto;
-		overflow-x: auto;
-		overflow-y: hidden;
 	}
 
 	.db-builder-fullpage .db-control-row-variable,
