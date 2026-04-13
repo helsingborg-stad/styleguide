@@ -4,7 +4,9 @@
 
 import './controls/layout/ControlRow';
 import './controls/layout/ReadOnlyControlRow';
+import './controls/layout/Category';
 import './controls/layout/SwatchBand';
+import type { TokenCategory } from '../types/designBuilderDataTypes';
 import type { ChangeCallback, TokenSetting } from './controls/types';
 
 export type { ChangeCallback, TokenSetting } from './controls/types';
@@ -21,6 +23,12 @@ type ReadOnlyControlRowElement = HTMLElement & {
 
 type SwatchBandElement = HTMLElement & {
 	settings: TokenSetting[];
+};
+
+type CategoryElement = HTMLElement & {
+	category: Pick<TokenCategory, 'id' | 'label' | 'description'>;
+	items: HTMLElement[];
+	collapsible: boolean;
 };
 
 export function createDesignBuilderControl(setting: TokenSetting, currentValue: string, onChange: ChangeCallback): HTMLElement {
@@ -49,4 +57,16 @@ export function createDesignBuilderSwatchBand(settings: TokenSetting[]): HTMLEle
 	const band = document.createElement('db-swatch-band') as SwatchBandElement;
 	band.settings = settings;
 	return band;
+}
+
+export function createDesignBuilderCategory(category: TokenCategory, items: HTMLElement[], collapsible = false): HTMLElement {
+	const categoryElement = document.createElement('db-category') as CategoryElement;
+	categoryElement.category = {
+		id: category.id,
+		label: category.label,
+		description: category.description,
+	};
+	categoryElement.items = items;
+	categoryElement.collapsible = collapsible;
+	return categoryElement;
 }

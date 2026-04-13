@@ -1,6 +1,6 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
-import { createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import { createDesignBuilderCategory, createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
@@ -775,17 +775,8 @@ export class ComponentCustomizerRuntime {
 		}
 	}
 
-	private renderControlsCategoryTemplate(category: TokenCategory): TemplateResult {
-		return html`
-			<section class="db-category">
-				<div class="db-category-header">
-					<h2 class="db-category-title">${category.label}</h2>
-				</div>
-				<div class="db-category-body">
-					${category.settings.map((setting) => this.renderControl(setting))}
-				</div>
-			</section>
-		`;
+	private renderControlsCategoryTemplate(category: TokenCategory): HTMLElement {
+		return createDesignBuilderCategory(category, category.settings.map((setting) => this.renderControl(setting)), false);
 	}
 
 	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {

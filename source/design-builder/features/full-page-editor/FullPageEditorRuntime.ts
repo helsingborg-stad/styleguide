@@ -1,5 +1,5 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
-import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
@@ -161,24 +161,13 @@ export class FullPageEditorRuntime {
 			</div>
 			<div data-preset-bar></div>
 			<div class="db-categories">
-				${this.tokens.categories.map((category) => this.renderCategoryTemplate(category))}
+				${this.tokens.categories.map((category) => this.renderCategoryElement(category))}
 			</div>
 		`;
 	}
 
-	private renderCategoryTemplate(category: TokenCategory): TemplateResult {
-		return html`
-			<section class="db-category" data-category-id=${category.id}>
-				<div class="db-category-header" @click=${this.toggleCategoryCollapsed}>
-					<h2 class="db-category-title">${category.label}</h2>
-					${category.description ? html`<p class="db-category-description">${category.description}</p>` : nothing}
-					<span class="db-category-toggle" aria-hidden="true"></span>
-				</div>
-				<div class="db-category-body">
-					${this.renderCategoryBody(category)}
-				</div>
-			</section>
-		`;
+	private renderCategoryElement(category: TokenCategory): HTMLElement {
+		return createDesignBuilderCategory(category, this.renderCategoryBody(category), true);
 	}
 
 	private renderCategoryBody(category: TokenCategory): Array<HTMLElement> {
@@ -625,7 +614,4 @@ export class FullPageEditorRuntime {
 		this.deletePreset(activePreset.id);
 	};
 
-	private readonly toggleCategoryCollapsed = (event: Event): void => {
-		(event.currentTarget as HTMLElement).closest<HTMLElement>('.db-category')?.classList.toggle('db-category-collapsed');
-	};
 }

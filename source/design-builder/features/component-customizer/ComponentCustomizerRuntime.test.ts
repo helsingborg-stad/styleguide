@@ -5,6 +5,14 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 		row.setAttribute('data-tip-description', setting.description ?? '');
 		return row;
 	},
+	createDesignBuilderCategory: (_category: { id: string }, items: HTMLElement[]) => {
+		const element = document.createElement('section');
+		element.className = 'db-category';
+		for (const item of items) {
+			element.appendChild(item);
+		}
+		return element;
+	},
 }));
 
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';

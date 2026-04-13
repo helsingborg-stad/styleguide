@@ -3,7 +3,7 @@ import './controls/SelectControl';
 import './controls/ColorControl';
 import './controls/RgbaControl';
 import './controls/FontControl';
-import { createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl, type TokenSetting } from './createDesignBuilderControls';
+import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl, type TokenSetting } from './createDesignBuilderControls';
 
 describe('controls change handling', () => {
 	afterEach(() => {
@@ -270,5 +270,37 @@ describe('controls change handling', () => {
 		expect(rows.length).toBe(2);
 		expect(rows[0].querySelector('.db-swatch-band-var')?.textContent).toContain('--color--black-[%]');
 		expect(rows[1].querySelector('.db-swatch-band-var')?.textContent).toContain('--color--white-[%]');
+	});
+
+	it('hides empty categories and renders populated ones', () => {
+		const populatedCategory = createDesignBuilderCategory(
+			{
+				id: 'colors',
+				label: 'Colors',
+				description: 'Color settings',
+				settings: [],
+			},
+			[document.createElement('div')],
+			true,
+		);
+		document.body.appendChild(populatedCategory);
+
+		expect(populatedCategory.hidden).toBe(false);
+		expect(populatedCategory.querySelector('.db-category-title')?.textContent).toBe('Colors');
+		expect(populatedCategory.querySelector('.db-category-toggle')).toBeTruthy();
+
+		const emptyCategory = createDesignBuilderCategory(
+			{
+				id: 'empty',
+				label: 'Empty',
+				settings: [],
+			},
+			[],
+			false,
+		);
+		document.body.appendChild(emptyCategory);
+
+		expect(emptyCategory.hidden).toBe(true);
+		expect(emptyCategory.childElementCount).toBe(0);
 	});
 });
