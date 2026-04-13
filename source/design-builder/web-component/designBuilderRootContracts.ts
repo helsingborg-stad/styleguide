@@ -14,6 +14,7 @@ export interface DesignBuilderRootConfiguration {
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
 	presets: DesignBuilderProvidedPreset[];
+	showSaveButton: boolean;
 }
 
 export interface DesignBuilderModeSwitch {

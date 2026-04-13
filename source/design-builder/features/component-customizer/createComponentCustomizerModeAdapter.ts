@@ -7,6 +7,7 @@ export function createComponentCustomizerModeAdapter(): DesignBuilderModeAdapter
 			mountElement: renderContainer,
 			modeSwitch,
 			hostElement,
+			showSaveButton: configuration.showSaveButton,
 		});
 
 		return {

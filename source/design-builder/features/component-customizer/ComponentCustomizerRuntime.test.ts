@@ -144,6 +144,26 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('does not render the save button when disabled', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, {
+			hostElement: hostElement as RuntimeHostElement,
+			showSaveButton: false,
+		});
+
+		expect(mount.querySelector('[data-action="save"]')).toBeNull();
+
+		hostElement.remove();
+		mount.remove();
+	});
+
 	it('applies saved token overrides when booting in component mode', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

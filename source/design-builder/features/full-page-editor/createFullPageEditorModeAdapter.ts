@@ -3,7 +3,7 @@ import { initializeFullPageEditor } from './initializeFullPageEditor';
 
 export function createFullPageEditorModeAdapter(): DesignBuilderModeAdapter {
 	return ({ hostElement, configuration, renderContainer, modeSwitch }) => {
-		const runtime = initializeFullPageEditor(configuration.tokenData ?? configuration.tokenLibraryData, renderContainer, hostElement, modeSwitch);
+		const runtime = initializeFullPageEditor(configuration.tokenData ?? configuration.tokenLibraryData, renderContainer, hostElement, modeSwitch, configuration.showSaveButton);
 
 		return {
 			dispose: () => {

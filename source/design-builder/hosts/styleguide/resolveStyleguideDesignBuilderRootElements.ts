@@ -79,6 +79,13 @@ function normalizeLegacyRootAttributes(rootElement: DesignBuilderRootElement): v
 		}
 	}
 
+	if (!rootElement.hasAttribute('show-save-button')) {
+		const legacyShowSaveButton = rootElement.getAttribute('data-show-save-button');
+		if (legacyShowSaveButton) {
+			rootElement.setAttribute('show-save-button', legacyShowSaveButton);
+		}
+	}
+
 	hydratePersistedOverrideState(rootElement);
 	bindStyleguideSaveAdapter(rootElement);
 }

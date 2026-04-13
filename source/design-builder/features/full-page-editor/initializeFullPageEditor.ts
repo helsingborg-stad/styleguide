@@ -5,7 +5,13 @@ import { initializePreviewSplitDivider } from './initializePreviewSplitDivider';
 
 const FULL_PAGE_RUNTIME_MOUNT_ID = 'design-builder-full-page-runtime';
 
-export function initializeFullPageEditor(tokenData: unknown, renderContainer: ShadowRoot, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch): FullPageEditorRuntime | null {
+export function initializeFullPageEditor(
+	tokenData: unknown,
+	renderContainer: ShadowRoot,
+	hostElement: DesignBuilderRootElement,
+	modeSwitch?: DesignBuilderModeSwitch,
+	showSaveButton = true,
+): FullPageEditorRuntime | null {
 	const mountElement = ensureFullPageRuntimeMount(renderContainer);
 	const tokens = parseDesignTokenLibraryData(tokenData);
 	if (!tokens) {
@@ -13,7 +19,7 @@ export function initializeFullPageEditor(tokenData: unknown, renderContainer: Sh
 		return null;
 	}
 
-	const runtime = new FullPageEditorRuntime(mountElement, tokens, hostElement, modeSwitch);
+	const runtime = new FullPageEditorRuntime(mountElement, tokens, hostElement, modeSwitch, showSaveButton);
 	initializePreviewSplitDivider(undefined, hostElement);
 	return runtime;
 }

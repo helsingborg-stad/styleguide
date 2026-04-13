@@ -12,7 +12,7 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 	it('normalizes and returns all explicit design-builder roots on the page', () => {
 		document.body.innerHTML = `
 			<design-builder token-data='{"name":"tokens"}'></design-builder>
-			<design-builder data-component-data='{"button":{"name":"Button","tokens":["color--primary"]}}' data-token-library='{"name":"tokens","version":"1.0.0","categories":[]}'></design-builder>
+			<design-builder data-component-data='{"button":{"name":"Button","tokens":["color--primary"]}}' data-token-library='{"name":"tokens","version":"1.0.0","categories":[]}' data-show-save-button="false"></design-builder>
 		`;
 
 		const roots = resolveStyleguideDesignBuilderRootElements();
@@ -20,6 +20,7 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 		expect(roots).toHaveLength(2);
 		expect(roots[1].getAttribute('component-data')).toContain('"button"');
 		expect(roots[1].getAttribute('token-library')).toContain('"categories"');
+		expect(roots[1].getAttribute('show-save-button')).toBe('false');
 	});
 
 	it('hydrates persisted override state and binds the default save adapter when localStorage is enabled', () => {

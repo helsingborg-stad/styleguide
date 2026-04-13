@@ -227,6 +227,23 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		container.remove();
 	});
 
+	it('does not render the save button when disabled', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement, undefined, false);
+
+		expect(container.querySelector('[data-action="save"]')).toBeNull();
+
+		hostElement.remove();
+		container.remove();
+	});
+
 	it('applies saved component overrides when booting in full-page mode', () => {
 		document.body.innerHTML = '<div data-component="button"></div>';
 		const target = document.querySelector<HTMLElement>('[data-component="button"]');

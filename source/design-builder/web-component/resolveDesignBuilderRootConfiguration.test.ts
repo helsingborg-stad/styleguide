@@ -20,6 +20,7 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 
 		expect(configuration.mode).toBe('full-page');
 		expect(configuration.availableModes).toEqual(['full-page']);
+		expect(configuration.showSaveButton).toBe(true);
 	});
 
 	it('defaults to component customization when component payloads are available', () => {
@@ -116,5 +117,21 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 				},
 			},
 		]);
+	});
+
+	it('allows the save button to be disabled from the root attribute', () => {
+		const root = createRoot();
+		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));
+		root.setAttribute('show-save-button', 'false');
+
+		const configuration = resolveDesignBuilderRootConfiguration({
+			hostElement: root,
+			preferredMode: null,
+			propertyTokenData: undefined,
+			propertyTokenLibraryData: undefined,
+			propertyComponentData: undefined,
+		});
+
+		expect(configuration.showSaveButton).toBe(false);
 	});
 });

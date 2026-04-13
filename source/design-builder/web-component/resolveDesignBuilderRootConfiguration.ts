@@ -12,6 +12,9 @@ interface ParseRootConfigurationInput {
 	propertyPresets?: unknown;
 }
 
+const SHOW_SAVE_BUTTON_ATTRIBUTE = 'show-save-button';
+const LEGACY_SHOW_SAVE_BUTTON_ATTRIBUTE = 'data-show-save-button';
+
 function parseJsonUnknown(value: string | null): unknown {
 	if (!value) {
 		return undefined;
@@ -45,6 +48,27 @@ function hasPayload(value: unknown): boolean {
 	return value !== undefined && value !== null;
 }
 
+function parseBooleanAttribute(value: string | null, fallback: boolean): boolean {
+	if (value === null) {
+		return fallback;
+	}
+
+	const normalizedValue = value.trim().toLowerCase();
+	if (normalizedValue === '') {
+		return true;
+	}
+
+	if (['false', '0', 'no', 'off'].includes(normalizedValue)) {
+		return false;
+	}
+
+	if (['true', '1', 'yes', 'on'].includes(normalizedValue)) {
+		return true;
+	}
+
+	return fallback;
+}
+
 function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, componentData: unknown): DesignBuilderMode[] {
 	const availableModes: DesignBuilderMode[] = [];
 
@@ -67,6 +91,10 @@ export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurat
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
 	const overrideState = normalizeDesignBuilderOverrideState(propertyOverrideState ?? parseJsonUnknown(hostElement.getAttribute('override-state')));
 	const presets = normalizeDesignBuilderProvidedPresets(propertyPresets ?? parseJsonUnknown(hostElement.getAttribute('presets')));
+	const showSaveButton = parseBooleanAttribute(
+		hostElement.getAttribute(SHOW_SAVE_BUTTON_ATTRIBUTE) ?? hostElement.getAttribute(LEGACY_SHOW_SAVE_BUTTON_ATTRIBUTE),
+		true,
+	);
 	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
 	const resolvedMode = preferredMode && availableModes.includes(preferredMode)
 		? preferredMode
@@ -84,5 +112,6 @@ export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurat
 		componentData,
 		overrideState,
 		presets,
+		showSaveButton,
 	};
 }

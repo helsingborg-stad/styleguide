@@ -16,6 +16,7 @@ import { normalizeComponentName } from './componentTokenDefinitions';
 export interface ComponentCustomizerRuntimeOptions {
 	modeSwitch?: DesignBuilderModeSwitch;
 	hostElement?: DesignBuilderRootElement;
+	showSaveButton?: boolean;
 }
 
 interface RuntimePresetOption {
@@ -50,6 +51,7 @@ export class ComponentCustomizerRuntime {
 	private presetBarHost: HTMLElement | null = null;
 	private menuDismissController: DetailsMenuDismissController | null = null;
 	private isTargetSelectionEnabled = false;
+	private showSaveButton: boolean;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement | ShadowRoot, options: ComponentCustomizerRuntimeOptions = {}) {
 		this.componentData = componentData;
@@ -59,6 +61,7 @@ export class ComponentCustomizerRuntime {
 		this.overrides = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState).component;
 		this.presetManager = new DesignBuilderPresetManager();
 		this.modeSwitch = options.modeSwitch;
+		this.showSaveButton = options.showSaveButton ?? true;
 
 		this.collectComponentElements();
 		this.collectEditableComponents();
@@ -299,12 +302,18 @@ export class ComponentCustomizerRuntime {
 								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
 							</div>
 						</details>
-						<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
-							<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
-								<title>Save</title>
-								<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
-							</svg>
-						</button>
+						${
+							this.showSaveButton
+								? html`
+									<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
+										<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
+											<title>Save</title>
+											<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+										</svg>
+									</button>
+								`
+								: nothing
+						}
 						<details class="db-header-menu db-header-menu-danger">
 							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">

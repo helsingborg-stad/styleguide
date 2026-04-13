@@ -31,14 +31,16 @@ export class FullPageEditorRuntime {
 	private menuDismissController: DetailsMenuDismissController | null = null;
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
+	private showSaveButton: boolean;
 
-	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch) {
+	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
 		this.hostElement = hostElement;
 		this.tokens = tokens;
 		this.presetManager = new DesignBuilderPresetManager();
 		this.overrides = { ...hostElement.overrideState.token };
 		this.modeSwitch = modeSwitch;
+		this.showSaveButton = showSaveButton;
 		this.removeLockedOverrides();
 		this.syncOverrideState();
 
@@ -132,12 +134,18 @@ export class FullPageEditorRuntime {
 								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
 							</div>
 						</details>
-						<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
-							<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
-								<title>Save</title>
-								<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
-							</svg>
-						</button>
+						${
+							this.showSaveButton
+								? html`
+									<button type="button" class="db-btn db-btn-primary db-tooltip-target" data-action="save" aria-label="Save" data-tooltip="Save" @click=${this.handleSaveClick}>
+										<svg class="db-btn-icon" viewBox="0 -960 960 960" aria-hidden="true" focusable="false">
+											<title>Save</title>
+											<path fill="currentColor" d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM565-275q35-35 35-85t-35-85q-35-35-85-35t-85 35q-35 35-35 85t35 85q35 35 85 35t85-35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+										</svg>
+									</button>
+								`
+								: nothing
+						}
 						<details class="db-header-menu db-header-menu-danger">
 							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">

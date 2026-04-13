@@ -120,4 +120,16 @@ describe('DesignBuilderCustomElement root attribute hydration', () => {
 		]);
 		expect((rootElement as typeof rootElement & { presets: unknown }).presets).toEqual(configurations.at(-1)?.presets);
 	});
+
+	it('hydrates the save button visibility from the root attribute', async () => {
+		const rootElement = document.createElement('design-builder');
+		rootElement.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+		rootElement.setAttribute('show-save-button', 'false');
+
+		const initialized = waitForInitialization(rootElement);
+		document.body.appendChild(rootElement);
+		await initialized;
+
+		expect(configurations.at(-1)?.showSaveButton).toBe(false);
+	});
 });

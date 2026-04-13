@@ -10,6 +10,7 @@ export interface ComponentCustomizerInitializationOptions {
 	mountElement?: HTMLElement | ShadowRoot;
 	modeSwitch?: DesignBuilderModeSwitch;
 	hostElement?: DesignBuilderRootElement;
+	showSaveButton?: boolean;
 }
 
 export async function initializeComponentCustomizer(componentTokenData: unknown, tokenLibraryPayload: unknown, options: ComponentCustomizerInitializationOptions = {}): Promise<ComponentCustomizerRuntime | null> {
@@ -29,6 +30,7 @@ export async function initializeComponentCustomizer(componentTokenData: unknown,
 	const runtime = new ComponentCustomizerRuntime(customizeData, tokenLibrary, mountElement, {
 		modeSwitch: options.modeSwitch,
 		hostElement: options.hostElement,
+		showSaveButton: options.showSaveButton,
 	});
 
 	return runtime;

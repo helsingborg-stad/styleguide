@@ -8,7 +8,7 @@ const ROOT_ELEMENT_TAG_NAME = 'design-builder';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRootElement {
-	public static observedAttributes = ['token-data', 'token-library', 'component-data', 'override-state', 'presets'];
+	public static observedAttributes = ['token-data', 'token-library', 'component-data', 'override-state', 'presets', 'show-save-button', 'data-show-save-button'];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
 	private static hasRegistered = false;

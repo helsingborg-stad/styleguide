@@ -16,6 +16,7 @@ Root element contract:
 | `component-data` | The component-to-token mapping used by the customizer. Shape: `Record<string, { name?, slug?, tokens?[] }>` | Component customization mode (`component-customizer`) |
 | `override-state` | The initial draft state for token and component overrides. | Hydrate initial state in either mode |
 | `presets` | Optional provided presets that should be available in the preset picker on first render. Accepts either an array or object map of preset definitions. | Seed host-provided presets in either mode |
+| `show-save-button` | Optional boolean-like flag for showing the save action. Defaults to `true`; set to `false`, `0`, `no`, or `off` to hide it. | Hide the built-in save button in either mode |
 | `data-design-builder-storage` | Optional persistence mode. Use `local-storage` to opt in to the styleguide's localStorage-backed hydration/save behavior. | Host-controlled persistence opt-in |
 
 Quick mental model:
@@ -25,6 +26,7 @@ Quick mental model:
 - `component-data` = the **editable components and their token mappings**
 - `override-state` = the **initial draft state**
 - `presets` = the **host-provided preset definitions**
+- `show-save-button` = **show or hide the built-in save action**
 - `data-design-builder-storage="local-storage"` = **enable the built-in localStorage host adapter**
 
 `token-data` and `token-library` intentionally share the same JSON shape. The difference is their **role**, not their structure.
@@ -150,7 +152,18 @@ root?.setAttribute(
 
 Use `presets` when the host should seed the preset picker with known preset options instead of relying only on user-saved storage-backed presets.
 
-### Example 5: Update the root by web component properties
+### Example 5: Hide the built-in save button
+
+```html
+<design-builder
+  token-data='{"name":"Tokens","version":"1.0.0","categories":[]}'
+  show-save-button="false"
+></design-builder>
+```
+
+Use `show-save-button="false"` when the host should keep the runtime interactive but remove the built-in save action. This applies in both global tokens and component customization mode.
+
+### Example 6: Update the root by web component properties
 
 ```js
 const root = document.querySelector('design-builder');
@@ -178,7 +191,7 @@ if (root) {
 }
 ```
 
-### Example 6: Listen for actions
+### Example 7: Listen for actions
 
 ```js
 const root = document.querySelector('design-builder');
@@ -248,6 +261,7 @@ Relevant adapter entry points:
 
 In the styleguide app, `source/design-builder/hosts/styleguide/resolveStyleguideDesignBuilderRootElements.ts` hydrates `override-state` from the default localStorage-backed adapters and listens for `design-builder:save` to persist the current override document, but only when that opt-in is present.
 It also normalizes legacy `data-presets` markup to the modern `presets` attribute when older roots are discovered.
+For save button visibility, the styleguide host also normalizes legacy `data-show-save-button` markup to `show-save-button`.
 
 ## Mode 2: Component customization (`component-customizer`)
 
