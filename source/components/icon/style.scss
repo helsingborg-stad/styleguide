@@ -33,6 +33,8 @@ $sizes: xs, sm, md, lg, xl, xxl;
     }
 
     &.#{$_}--svg-path {
+        display: inline-flex;
+
         svg {
             width: auto;
 
