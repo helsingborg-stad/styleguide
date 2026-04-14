@@ -10,7 +10,7 @@ export enum SelectElementSelector {
 	emptySelectCssClass = 'is-empty',
 	expandLessIconCssClass = 'c-icon--expand-less',
 	expandMoreIconCssClass = 'c-icon--expand-more',
-	searchFieldElementAttribute = 'data-js-select-search-input'
+	searchFieldElementAttribute = 'data-js-select-search-input',
 }
 
 export class Select {
@@ -28,7 +28,7 @@ export class Select {
 	private searchFieldElement: HTMLInputElement | null = null;
 
 	constructor(element: HTMLElement) {
-		this.element = element
+		this.element = element;
 		this.selectElement = this.getSelectElement();
 		this.dropdownElement = this.getDropdownElement();
 		this.actionOverlayElement = this.getActionOverlayElement();
@@ -37,7 +37,7 @@ export class Select {
 		this.clearButton = this.element.querySelector(`[${SelectElementSelector.selectClearAttribute}]`);
 		this.expandLessIcon = this.element.querySelector(`.${SelectElementSelector.expandLessIconCssClass}`) as HTMLElement;
 		this.expandMoreIcon = this.element.querySelector(`.${SelectElementSelector.expandMoreIconCssClass}`) as HTMLElement;
-		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || "";
+		this.placeholderText = this.element.querySelector(`[${SelectElementSelector.placeholderAttribute}]`)?.getAttribute(SelectElementSelector.placeholderAttribute) || '';
 		this.optionTemplate = this.element.querySelector('template') as HTMLTemplateElement;
 		this.searchFieldElement = this.element.querySelector(`[${SelectElementSelector.searchFieldElementAttribute}]`);
 
@@ -48,7 +48,7 @@ export class Select {
 		this.setupOptionsObserver();
 		this.selectElement.addEventListener('focusin', (e) => this.triggerDropdown(e));
 		this.element.addEventListener('focusout', (e) => this.triggerBlurEvent(e));
-		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached())
+		this.selectElement.addEventListener('change', () => this.disableMultiSelectOptionsWhenMaxSelectionsReached());
 		this.selectElement.addEventListener('change', () => this.updatePlaceholderText());
 		this.selectElement.addEventListener('change', () => this.setIsEmptyState());
 		this.selectElement.addEventListener('change', () => this.updateClearButtonVisibilityState());
@@ -132,7 +132,7 @@ export class Select {
 		const newValue: string | null = optionElement.getAttribute(SelectElementSelector.selectDropdownOptionElementAttribute);
 
 		if (newValue === null) {
-			return
+			return;
 		}
 
 		if (this.isMultiSelect()) {
@@ -152,16 +152,16 @@ export class Select {
 	openDropdownOnSpacebar(event: KeyboardEvent): any {
 		if (event.key === ' ') {
 			event.preventDefault();
-			this.actionOverlayElement.click()
+			this.actionOverlayElement.click();
 		}
 	}
 
 	runFunctionsRequiredForInitialization() {
-		this.disableMultiSelectOptionsWhenMaxSelectionsReached()
+		this.disableMultiSelectOptionsWhenMaxSelectionsReached();
 		this.updateSelectedItemsListeners();
 		this.updateVisualRepresentation();
 		this.setIsEmptyState();
-		this.updateClearButtonVisibilityState()
+		this.updateClearButtonVisibilityState();
 		this.updatePlaceholderText();
 		this.disableMultiSelectOptionsWhenMaxSelectionsReached();
 		this.setupClassListChangeEventDispatcher();
@@ -177,7 +177,6 @@ export class Select {
 
 	// This function is used to trigger the dropdown the label is clicked
 	private triggerDropdown(e: FocusEvent) {
-
 		if (this.isIos() || this.isAndroid()) {
 			return;
 		}
@@ -195,7 +194,6 @@ export class Select {
 	}
 
 	disableMultiSelectOptionsWhenMaxSelectionsReached() {
-
 		if (!this.isMultiSelect()) return;
 
 		const limitReached = this.maxSelectionsReached();
@@ -206,15 +204,17 @@ export class Select {
 			const optionListElementSelector = `[${SelectElementSelector.selectDropdownOptionElementAttribute}="${optionElement.value}"]`;
 			const optionListElement = this.dropdownElement.querySelector<HTMLElement>(optionListElementSelector);
 
-			optionElement.disabled = disabled
-			optionListElement?.setAttribute('aria-disabled', disabled ? 'true' : 'false')
-		})
+			optionElement.disabled = disabled;
+			optionListElement?.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+		});
 	}
 
 	updatePlaceholderText() {
 		const optionElements = this.selectElement.querySelectorAll<HTMLOptionElement>('option:checked');
-		const placeholderText = Array.from(optionElements).map(option => option.textContent?.trim()).join(', ');
-		this.actionOverlayElement.textContent = Boolean(placeholderText) ? placeholderText : this.placeholderText;
+		const placeholderText = Array.from(optionElements)
+			.map((option) => option.textContent?.trim())
+			.join(', ');
+		this.actionOverlayElement.textContent = placeholderText ? placeholderText : this.placeholderText;
 	}
 
 	updateSelectedItemsListeners(updatedVisualOptionsList: NodeListOf<Element> | false = false): void {
@@ -256,7 +256,7 @@ export class Select {
 				option.classList.add(SelectElementSelector.activeOptionCssClass);
 				option.setAttribute('aria-selected', 'true');
 			}
-		})
+		});
 
 		this.setIsEmptyState();
 	}
@@ -272,7 +272,7 @@ export class Select {
 	}
 
 	selectOption(value: string): void {
-		const option = this.getOptionElementByValue(value)
+		const option = this.getOptionElementByValue(value);
 		if (option) {
 			option.selected = true;
 			option.setAttribute('selected', 'selected');
@@ -281,7 +281,7 @@ export class Select {
 	}
 
 	deSelectOption(value: string): void {
-		const option = this.getOptionElementByValue(value)
+		const option = this.getOptionElementByValue(value);
 		if (option) {
 			option.selected = false;
 			option.removeAttribute('selected');
@@ -308,7 +308,6 @@ export class Select {
 	}
 
 	setIsEmptyState() {
-
 		if (this.selectElement.value === '') {
 			this.element.classList.add(SelectElementSelector.emptySelectCssClass);
 		} else {
@@ -317,8 +316,7 @@ export class Select {
 	}
 
 	updateVisualRepresentation(): void {
-		this.selectElement.addEventListener("change", () => {
-
+		this.selectElement.addEventListener('change', () => {
 			this.resetDropdownElement(this.dropdownElement);
 
 			const selectedValues = this.getSelectedValues();
@@ -329,7 +327,7 @@ export class Select {
 						option.classList.add(SelectElementSelector.activeOptionCssClass);
 						option.setAttribute('aria-selected', 'true');
 					}
-				})
+				});
 			}
 		});
 	}
@@ -371,7 +369,7 @@ export class Select {
 	}
 
 	addNewOptionsToList(options: HTMLOptionElement[]) {
-		options.forEach(option => {
+		options.forEach((option) => {
 			const optionTemplateClone = this.optionTemplate.content.cloneNode(true) as DocumentFragment;
 			const dropdownOptionElement = optionTemplateClone.querySelector('.c-select__option') as HTMLElement;
 			if (!dropdownOptionElement || !optionTemplateClone) return;
@@ -394,9 +392,7 @@ export class Select {
 	}
 
 	getSelectedValues(): string[] {
-		return this.isMultiSelect()
-			? Array.from(this.selectElement.selectedOptions).map((option) => option.value)
-			: [this.selectElement.value];
+		return this.isMultiSelect() ? Array.from(this.selectElement.selectedOptions).map((option) => option.value) : [this.selectElement.value];
 	}
 
 	getVisualOptionsList(): NodeListOf<HTMLElement> {

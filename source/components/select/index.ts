@@ -1,7 +1,6 @@
-import { Select } from "./Select";
+import { Select } from './script/select';
 
 export class SelectComponentObserver {
-
 	private readonly selectComponentElementAttribute = 'data-js-select-component'; //Add to main div of component
 
 	constructor() {
@@ -14,15 +13,15 @@ export class SelectComponentObserver {
 		const container = document.documentElement || document.body;
 		const observerOptions = {
 			childList: true,
-			subtree: true
+			subtree: true,
 		};
 
 		const observer = new MutationObserver((mutations) => {
 			mutations.forEach((mutation) => {
-				if (mutation.type === "childList") {
+				if (mutation.type === 'childList') {
 					mutation.addedNodes.forEach((node) => {
 						if (node instanceof HTMLElement) {
-							let selects = [...node.querySelectorAll(`[${this.selectComponentElementAttribute}]`)];
+							const selects = [...node.querySelectorAll(`[${this.selectComponentElementAttribute}]`)];
 
 							if (node.hasAttribute(this.selectComponentElementAttribute)) {
 								selects.push(node);
@@ -44,3 +43,9 @@ export class SelectComponentObserver {
 		});
 	}
 }
+
+// Initialize the SelectComponentObserver when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+	const selectComponentObserverInstance = new SelectComponentObserver();
+	selectComponentObserverInstance.observe();
+});
