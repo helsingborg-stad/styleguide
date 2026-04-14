@@ -4,7 +4,7 @@
 
 export * from '../components/brand/index.js';
 export * from '../components/gallery/gallery.js';
-export * from '../components/hero/hero.js';
+export * from '../components/hero/index.js';
 export * from '../components/image/image.js';
 export * from '../components/map/index.js';
 export * from '../components/modal/modal';

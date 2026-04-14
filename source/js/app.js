@@ -7,7 +7,6 @@ import DynamicSidebar from './dynamicSidebar';
 import expandSection from './expand-section';
 import { initializeForms } from './fields';
 import Filter from './filter';
-import Hero from './hero';
 import KeepInViewPort from './keepInViewPort';
 import Menu from './menu';
 import Navbar from './navbar';
@@ -66,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const ButtonToggleContentInstance = new ButtonToggleContent();
 	const SimulateClickInstance = new SimulateClick();
 	const StickyKeysInstance = new StickyKeys();
-	const HeroInstance = new Hero();
 	const TooltipInstance = new Tooltip();
 	const KeepInViewPortInstance = new KeepInViewPort();
 	const ResizeByChildrenInstance = new ResizeByChildren();
