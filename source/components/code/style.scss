@@ -5,7 +5,7 @@ $_: "c-code";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--border: 1px solid tokens.get($_, "color--surface-border");
+    --#{$_}--border: 1px solid #{tokens.get($_, "color--surface-border")};
     background-color: tokens.get($_, "color--surface-alt");
     border: var(--#{$_}--border);
     border-radius: tokens.use($_, "border-radius", 1.5);

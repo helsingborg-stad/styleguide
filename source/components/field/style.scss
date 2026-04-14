@@ -21,7 +21,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.get($_, "color--surface-alt")};
     --#{$_}--contrast-color: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--height: tokens.use($_, "base", 6);
+    --#{$_}--height: #{tokens.use($_, "base", 6)};
     --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
     --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
     --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.get($_, "border-width")} * 2);

@@ -41,7 +41,7 @@ $_: "c-modal";
     }
 
     .#{$_}__heading {
-        --inherit-font-size: tokens.get($_, "font-size-500");
+        --inherit-font-size: #{tokens.get($_, "font-size-500")};
     }
 
     .#{$_}__close {

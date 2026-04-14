@@ -5,8 +5,8 @@ $_: "c-acceptance";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--shadow: tokens.use($_, "shadow", 1);
-    --#{$_}--shadow-hover: tokens.use($_, "shadow", 1.5);
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
     --#{$_}--map-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJtNjAwLTEyMC0yNDAtODQtMTg2IDcycS0yMCA4LTM3LTQuNVQxMjAtMTcwdi01NjBxMC0xMyA3LjUtMjN0MjAuNS0xNWwyMTItNzIgMjQwIDg0IDE4Ni03MnEyMC04IDM3IDQuNXQxNyAzMy41djU2MHEwIDEzLTcuNSAyM1Q4MTItMTkybC0yMTIgNzJabS00MC05OHYtNDY4bC0xNjAtNTZ2NDY4bDE2MCA1NlptODAgMCAxMjAtNDB2LTQ3NGwtMTIwIDQ2djQ2OFptLTQ0MC0xMCAxMjAtNDZ2LTQ2OGwtMTIwIDQwdjQ3NFptNDQwLTQ1OHY0NjgtNDY4Wm0tMzIwLTU2djQ2OC00NjhaIi8+PC9zdmc+");
 
     background-color: tokens.get($_, "color--surface");
@@ -48,7 +48,7 @@ $_: "c-acceptance";
     }
 
     .#{$_}__modal-title {
-        --inherit-font-size: tokens.get($_, "font-size-400");
+        --inherit-font-size: #{tokens.get($_, "font-size-400")};
     }
 
     /* Map */

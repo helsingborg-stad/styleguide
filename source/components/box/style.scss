@@ -24,7 +24,7 @@ $_: "c-box";
     transition: all 200ms ease-in;
 
     .#{$_}__heading {
-        --inherit-font-size: tokens.get($_, "font-size-400");
+        --inherit-font-size: #{tokens.get($_, "font-size-400")};
     }
 
     .#{$_}__body {

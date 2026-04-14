@@ -14,9 +14,9 @@ $_modal: "c-modal--gallery";
 .#{$_} {
     --#{$_}--base: var(--base);
     --#{$_}--font-size-caption: var(--font-size-caption, #{tokens.get($_, 'font-size-90')});
-    --#{$_}--line-height-caption: tokens.get($_, "line-height-base");
-    --#{$_}--font-weight-bold: tokens.get($_, "font-weight-bold");
-    --#{$_}--font-family-bold: tokens.get($_, "font-family-bold");
+    --#{$_}--line-height-caption: #{tokens.get($_, "line-height-base")};
+    --#{$_}--font-weight-bold: #{tokens.get($_, "font-weight-bold")};
+    --#{$_}--font-family-bold: #{tokens.get($_, "font-family-bold")};
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     line-height: 0;
     position: relative;

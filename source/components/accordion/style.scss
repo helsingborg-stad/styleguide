@@ -9,7 +9,7 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-    --#{$_}--border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
     border-radius: inherit;
     corner-shape: inherit;
     contain: paint;
@@ -148,7 +148,7 @@ $_: "c-accordion";
 
 .c-accordion__button .c-accordion__button-column,
 .c-accordion__button .c-accordion__button-wrapper {
-    --inherit-font-size: tokens.get($_, "font-size-200");
+    --inherit-font-size: #{tokens.get($_, "font-size-200")};
     --inherit-margin-top: 0;
     --inherit-margin-bottom: 0;
 }

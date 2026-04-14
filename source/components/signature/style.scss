@@ -18,7 +18,7 @@ $_: "c-signature";
 
     &__author {
         line-height: 1;
-        --inherit-font-size: tokens.get($_, "font-size-100");
+        --inherit-font-size: #{tokens.get($_, "font-size-100")};
     }
 
     &__title {

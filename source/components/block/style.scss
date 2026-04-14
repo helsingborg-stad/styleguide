@@ -6,17 +6,17 @@ $_: "c-block";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--shadow: tokens.use($_, "shadow", 1);
-    --#{$_}--shadow-hover: tokens.use($_, "shadow", 2);
-    --#{$_}--radius: tokens.use($_, "border-radius", 1);
-    --#{$_}--color-text: tokens.get($_, "color--alpha-contrast");
-    --#{$_}--color-background: tokens.get($_, "color--alpha");
-    --#{$_}--color-overlay: rgb(from tokens.get($_, "color--alpha") r g b / 1);
-    --#{$_}--color-overlay-middle: rgba(from tokens.get($_, "color--alpha") r g b / .5);
-    --#{$_}--color-overlay-end: rgba(from tokens.get($_, "color--alpha") r g b / 0);
-    --#{$_}--color-secondary: tokens.get($_, "color--secondary");
-    --#{$_}--color-hover-background: tokens.get($_, "color--alpha-border");
-    --#{$_}--color-hover-overlay: tokens.get($_, "color--alpha-border");
+    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 2)};
+    --#{$_}--radius: #{tokens.use($_, "border-radius", 1)};
+    --#{$_}--color-text: #{tokens.get($_, "color--alpha-contrast")};
+    --#{$_}--color-background: #{tokens.get($_, "color--alpha")};
+    --#{$_}--color-overlay: rgb(from #{tokens.get($_, "color--alpha")} r g b / 1);
+    --#{$_}--color-overlay-middle: rgba(from #{tokens.get($_, "color--alpha")} r g b / .5);
+    --#{$_}--color-overlay-end: rgba(from #{tokens.get($_, "color--alpha")} r g b / 0);
+    --#{$_}--color-secondary: #{tokens.get($_, "color--secondary")};
+    --#{$_}--color-hover-background: #{tokens.get($_, "color--alpha-border")};
+    --#{$_}--color-hover-overlay: #{tokens.get($_, "color--alpha-border")};
     position: relative;
     border-radius: var(--#{$_}--radius);
     corner-shape: tokens.get($_, "corner-shape");
@@ -30,7 +30,7 @@ $_: "c-block";
     text-decoration: none;
 
     .#{$_}__heading {
-        --inherit-font-size: tokens.get($_, "font-size-400");
+        --inherit-font-size: #{tokens.get($_, "font-size-400")};
     }
 
     .#{$_}__image {
