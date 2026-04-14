@@ -41,7 +41,6 @@ import { moveElements } from './helpers/moveElements';
 import { initializeIframeAcceptance } from './iframeAcceptance';
 import { initializeMegaMenus } from './megaMenu';
 import { initializeModal } from './modal';
-import { initializeOpenStreetMaps } from './openStreetMap';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
 import { initializeSegments } from './segment';
@@ -93,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Functions
 	initializeResizeMediaQuery();
-	initializeOpenStreetMaps();
 	initializeDrawerAccessibility();
 	initializeForms();
 	initializeSlider();
