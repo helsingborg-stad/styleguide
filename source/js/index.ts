@@ -7,7 +7,7 @@ export * from '../components/gallery/gallery.js';
 export * from '../components/hero/hero.js';
 export * from '../components/image/image.js';
 export * from '../components/modal/modal';
-export * from '../components/nav/nav';
+export * from '../components/nav/index.js';
 export * from '../components/navbar/navbar.js';
 export * from '../components/pagination/pagination';
 export * from '../components/segment/segment.js';
