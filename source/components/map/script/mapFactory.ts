@@ -1,5 +1,7 @@
+import type { MapArgs, MapProviderFactory } from './mapInterface';
+
 class MapFactory {
-	private static providers: Record<string, any> = {};
+	private static providers: Record<string, MapProviderFactory> = {};
 
 	/**
 	 * Creates a map instance for the specified provider using the provided arguments.

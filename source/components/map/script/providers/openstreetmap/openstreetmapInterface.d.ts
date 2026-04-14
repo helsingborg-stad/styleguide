@@ -1,15 +1,15 @@
-import { LatLngObject, type MapStyle, type MarkerOptions, TooltipOptions } from '@helsingborg-stad/openstreetmap';
+import type { MapStyle } from '@helsingborg-stad/openstreetmap';
 
-type OpenstreetmapArgs = {
+export type OpenstreetmapArgs = {
 	id: string;
 	lat: number;
 	lng: number;
 	zoom: number;
 	style: MapStyle;
-	markers: Array<MarkerOptions>;
+	markers: MarkerConfig[];
 };
 
-type MarkerConfig = {
+export type MarkerConfig = {
 	lat: number;
 	lng: number;
 	icon?: string;
@@ -17,6 +17,6 @@ type MarkerConfig = {
 	color?: string;
 };
 
-interface CreateMarker {
+export interface CreateMarker {
 	create(markerConfig: MarkerConfig): void;
 }

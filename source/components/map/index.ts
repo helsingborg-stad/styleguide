@@ -1,4 +1,5 @@
-import MapFactory from './mapFactory';
+import MapFactory from './script/mapFactory';
+import type { MapArgs } from './script/mapInterface';
 
 export function initializeMaps() {
 	document.querySelectorAll('[data-js-map]').forEach((mapContainer) => {
@@ -29,3 +30,5 @@ export function initializeMaps() {
 		MapFactory.create(provider, args);
 	});
 }
+
+document.addEventListener('DOMContentLoaded', initializeMaps);

@@ -1,4 +1,4 @@
-type MapArgs = {
+export type MapArgs = {
 	container: HTMLElement;
 	id: string;
 	lat: string;
@@ -7,3 +7,7 @@ type MapArgs = {
 	style: string | null;
 	markers: string | null;
 };
+
+export interface MapProviderFactory {
+	create(args: MapArgs): unknown;
+}

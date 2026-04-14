@@ -17,3 +17,4 @@ export * from '../components/slider/slider';
 export * from '../components/table/table.js';
 export * from '../components/testimonials/testimonials.js';
 export * from '../components/tooltip/tooltip.js';
+export * from '../components/map/index.js';

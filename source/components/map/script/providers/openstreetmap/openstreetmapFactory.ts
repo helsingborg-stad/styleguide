@@ -1,5 +1,6 @@
-import { LatLngObject, type MapStyle, MarkerOptions, TooltipOptions } from '@helsingborg-stad/openstreetmap';
+import type { MapStyle } from '@helsingborg-stad/openstreetmap';
 import sheet from '@helsingborg-stad/openstreetmap/dist/main.css?inline';
+import type { MapArgs } from '../../mapInterface';
 import Openstreetmap from './openstreetmap';
 import type { MarkerConfig, OpenstreetmapArgs } from './openstreetmapInterface';
 
@@ -50,7 +51,7 @@ class OpenstreetmapFactory {
 			lng: Number(args.lng),
 			zoom,
 			style,
-			markers: markers,
+			markers,
 		};
 
 		return verifiedArgs;
@@ -71,15 +72,19 @@ class OpenstreetmapFactory {
 
 		const markerConfigs: MarkerConfig[] = [];
 		for (const marker of markers) {
-			if (!marker.lat || isNaN(Number(marker.lat)) || !marker.lng || isNaN(Number(marker.lng))) {
+			const lat = Number(marker.lat);
+			const lng = Number(marker.lng);
+
+			if (marker.lat == null || Number.isNaN(lat) || marker.lng == null || Number.isNaN(lng)) {
 				continue;
 			}
 
 			markerConfigs.push({
-				lat: Number(marker.lat),
-				lng: Number(marker.lng),
+				lat,
+				lng,
 				icon: marker.icon || null,
 				content: marker.content || null,
+				color: marker.color || null,
 			});
 		}
 
@@ -111,7 +116,9 @@ class OpenstreetmapFactory {
 	 * @returns A numeric zoom level.
 	 */
 	private getZoom(zoom: string | null): number {
-		return isNaN(Number(zoom)) ? 16 : Number(zoom);
+		const parsedZoom = Number(zoom);
+
+		return Number.isNaN(parsedZoom) ? 16 : parsedZoom;
 	}
 
 	/**
