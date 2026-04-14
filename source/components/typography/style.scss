@@ -22,7 +22,8 @@ $_: "c-typography";
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
 
-.#{$_} {
+:root {
+    // Must be global to be used in any context
     --#{$_}--font-size-caption: #{calc(tokens.get($_, "base-font-size")*pow(tokens.get($_, "font-size-scale-ratio"), -1))};
     --#{$_}--font-size-meta: #{tokens.get($_, "font-size-90")};
     --#{$_}--font-size-subtitle: #{tokens.get($_, "font-size-400")};
