@@ -3,10 +3,11 @@
 // Original files have been moved to: source/components/{component-name}/{component-name}.*
 
 export * from '../components/brand/brand';
-export * from '../components/gallery/gallery.js';
+// Modal - Gallery relation
+export * from '../components/gallery/index.js';
 export * from '../components/hero/hero.js';
-export * from '../components/image/image.js';
-export * from '../components/modal/modal';
+export * from '../components/map/index.js';
+export * from '../components/modal/index.js';
 export * from '../components/nav/index.js';
 export * from '../components/navbar/navbar.js';
 export * from '../components/pagination/pagination';
@@ -17,4 +18,3 @@ export * from '../components/slider/slider';
 export * from '../components/table/table.js';
 export * from '../components/testimonials/testimonials.js';
 export * from '../components/tooltip/tooltip.js';
-export * from '../components/map/index.js';
