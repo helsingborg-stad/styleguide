@@ -43,3 +43,9 @@ export class SelectComponentObserver {
 		});
 	}
 }
+
+// Initialize the SelectComponentObserver when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+	const selectComponentObserverInstance = new SelectComponentObserver();
+	selectComponentObserverInstance.observe();
+});

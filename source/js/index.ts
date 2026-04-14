@@ -11,6 +11,7 @@ export * from '../components/nav/index.js';
 export * from '../components/navbar/navbar.js';
 export * from '../components/pagination/pagination';
 export * from '../components/segment/segment.js';
+export * from '../components/select/index.js';
 export * from '../components/sidebar/sidebar.js';
 export * from '../components/slider/slider';
 export * from '../components/table/table.js';

@@ -45,7 +45,6 @@ import { initializeOpenStreetMaps } from './openStreetMap';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
 import { initializeSegments } from './segment';
-import { SelectComponentObserver } from './select/SelectComponentObserver';
 import { initializeSelectFilter } from './selectFilter';
 import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
@@ -76,14 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const AriaPressedTogglerInstance = new AriaPressedToggler();
 	const QuickLinksHeaderInstance = new QuickLinksHeader();
 	const NavbarInstance = new Navbar();
-	const selectComponentObserverInstance = new SelectComponentObserver();
 	const NotificationInstance = new Notification();
 	const DynamicSidebarInstance = new DynamicSidebar();
 	const filter = new Filter();
 	const MenuInstance = new Menu();
 	const fileInput = new FileInput();
 
-	selectComponentObserverInstance.observe();
 	new ClassToggleInitializer().init();
 	NotificationInstance.setup();
 	SortInstance.applySort();

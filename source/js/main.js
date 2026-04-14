@@ -70,11 +70,6 @@ import './helpers/moveElements.ts';
 import './helpers/swipe.js';
 import './helpers/video.js';
 
-// Select components
-import './select/IsCheckedToggler.ts';
-import './select/Select.ts';
-import './select/SelectComponentObserver.ts';
-
 // All form file input related components
 import './form/fileinput/controller.ts';
 import './form/fileinput/dropzone.ts';
