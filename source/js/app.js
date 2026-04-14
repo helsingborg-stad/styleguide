@@ -40,7 +40,6 @@ import { moveElement } from './helpers/moveElement';
 import { moveElements } from './helpers/moveElements';
 import { initializeIframeAcceptance } from './iframeAcceptance';
 import { initializeMegaMenus } from './megaMenu';
-import { initializeModal } from './modal';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
 import { initializeSegments } from './segment';
@@ -100,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeTestimonials();
 	initializeSegments();
 	initializeTable();
-	initializeModal();
 	initializeIframeAcceptance();
 	expandSection();
 	setupCopy();
