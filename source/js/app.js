@@ -26,7 +26,6 @@ import setScrollbarCSS from './stretch';
 import Tooltip from './tooltip';
 import './helpers/swipe';
 import { AriaPressedToggler } from './AriaPressedToggler';
-import { initializeBrand } from './brand';
 import { initializeClickAways } from './ClickAway';
 import { initializeCompressed } from './compressed';
 import { setupCopy } from './copy';
@@ -111,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeMegaMenus();
 	initializeExtendedDropdownMenu();
 	initializeSizeObserver();
-	initializeBrand();
 	initializeDismissableNotices();
 
 	// Utility functions
