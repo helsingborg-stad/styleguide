@@ -44,7 +44,6 @@ import './filter.js';
 import './iframeAcceptance.js';
 import './keepInViewPort.js';
 import './megaMenu.ts';
-import './menu.js';
 import './notification.js';
 import './notificationDoc.js';
 import './quickLinksHeader.ts';
