@@ -1343,33 +1343,6 @@
     "requiredBy": [],
     "icon": "arrow_drop_down_circle"
   },
-  "sidebar": {
-    "$schema": "../../component-schema.json",
-    "apiVersion": 1,
-    "name": "Sidebar",
-    "slug": "sidebar",
-    "tokens": [
-      "space",
-      "border-width",
-      "color--surface",
-      "color--primary",
-      "color--surface-border",
-      "color--surface-contrast"
-    ],
-    "description": "The Sidebar component provides a reusable pattern for sidebar in the interface.",
-    "tags": [
-      "sidebar",
-      "component"
-    ],
-    "similarComponents": [
-      "slider",
-      "divider",
-      "datebadge"
-    ],
-    "requires": [],
-    "requiredBy": [],
-    "icon": "view_sidebar"
-  },
   "signature": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
