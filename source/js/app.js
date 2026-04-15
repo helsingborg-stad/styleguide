@@ -51,6 +51,8 @@ const SortInstance = new Sort();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
 const NotificationDocInstance = new NotificationDoc();
+const NotificationInstance = new Notification();
+const DynamicSidebarInstance = new DynamicSidebar();
 const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
