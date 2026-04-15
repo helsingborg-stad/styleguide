@@ -40,7 +40,6 @@ import { initializeSelectFilter } from './selectFilter';
 import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
 import { initializeTable } from './table';
-import { initializeTestimonials } from './testimonials';
 
 // Instances
 new DeviceDetect();
@@ -82,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeForms();
 	initializeCompressed();
 	initializeGoogleTranslate();
-	initializeTestimonials();
 	initializeTable();
 	initializeModal();
 	initializeIframeAcceptance();
