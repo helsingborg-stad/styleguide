@@ -318,8 +318,9 @@
                 $customizeTokenLibrary = json_decode($customizeAssets['tokenLibrary'] ?? 'null', true);
             @endphp
             <design-builder
+                mode="component-customizer"
                 component-data='@json($customizeComponentData)'
-                token-library='@json($customizeTokenLibrary)'
+                token-data='@json($customizeTokenLibrary)'
                 presets='@json($designBuilderPresets)'
                 class="design-builder"
                 data-customizable="false"

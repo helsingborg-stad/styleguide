@@ -8,7 +8,7 @@ const ROOT_ELEMENT_TAG_NAME = 'design-builder';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRootElement {
-	public static observedAttributes = ['token-data', 'token-library', 'component-data', 'override-state', 'presets', 'show-save-button', 'data-show-save-button'];
+	public static observedAttributes = ['mode', 'token-data', 'token-library', 'component-data', 'override-state', 'presets', 'show-save-button', 'data-show-save-button'];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
 	private static hasRegistered = false;
@@ -37,11 +37,14 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 	}
 
 	public get tokenLibraryData(): unknown {
-		return this.currentTokenLibraryData;
+		return this.currentTokenLibraryData ?? this.currentTokenData;
 	}
 
 	public set tokenLibraryData(value: unknown) {
 		this.currentTokenLibraryData = value;
+		if (!this.hasAttribute('token-data')) {
+			this.currentTokenData = value;
+		}
 		if (this.hasInitialized) {
 			void this.scheduleRender();
 		}
@@ -109,8 +112,15 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 			this.currentTokenData = undefined;
 		}
 
+		if (name === 'mode') {
+			this.currentMode = null;
+		}
+
 		if (name === 'token-library') {
 			this.currentTokenLibraryData = undefined;
+			if (!this.hasAttribute('token-data')) {
+				this.currentTokenData = undefined;
+			}
 		}
 
 		if (name === 'component-data') {

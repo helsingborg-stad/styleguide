@@ -69,14 +69,14 @@ function parseBooleanAttribute(value: string | null, fallback: boolean): boolean
 	return fallback;
 }
 
-function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, componentData: unknown): DesignBuilderMode[] {
+function resolveAvailableModes(tokenData: unknown, componentData: unknown): DesignBuilderMode[] {
 	const availableModes: DesignBuilderMode[] = [];
 
-	if (hasPayload(tokenData) || hasPayload(tokenLibraryData)) {
+	if (hasPayload(tokenData)) {
 		availableModes.push(DESIGN_BUILDER_MODE_FULL_PAGE);
 	}
 
-	if (hasPayload(tokenLibraryData) && hasPayload(componentData)) {
+	if (hasPayload(tokenData) && hasPayload(componentData)) {
 		availableModes.push(DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER);
 	}
 
@@ -86,22 +86,25 @@ function resolveAvailableModes(tokenData: unknown, tokenLibraryData: unknown, co
 export function resolveDesignBuilderRootConfiguration(input: ParseRootConfigurationInput): DesignBuilderRootConfiguration {
 	const { hostElement, preferredMode, propertyTokenData, propertyTokenLibraryData, propertyComponentData, propertyOverrideState, propertyPresets } = input;
 
-	const tokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
-	const tokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
+	const rootTokenData = propertyTokenData ?? parseJsonUnknown(hostElement.getAttribute('token-data'));
+	const legacyTokenLibraryData = propertyTokenLibraryData ?? parseJsonUnknown(hostElement.getAttribute('token-library'));
+	const tokenData = rootTokenData ?? legacyTokenLibraryData;
+	const tokenLibraryData = legacyTokenLibraryData ?? tokenData;
 	const componentData = propertyComponentData ?? parseJsonUnknown(hostElement.getAttribute('component-data'));
 	const overrideState = normalizeDesignBuilderOverrideState(propertyOverrideState ?? parseJsonUnknown(hostElement.getAttribute('override-state')));
 	const presets = normalizeDesignBuilderProvidedPresets(propertyPresets ?? parseJsonUnknown(hostElement.getAttribute('presets')));
+	const requestedMode = preferredMode ?? resolveMode(hostElement.getAttribute('mode'));
 	const showSaveButton = parseBooleanAttribute(
 		hostElement.getAttribute(SHOW_SAVE_BUTTON_ATTRIBUTE) ?? hostElement.getAttribute(LEGACY_SHOW_SAVE_BUTTON_ATTRIBUTE),
 		true,
 	);
-	const availableModes = resolveAvailableModes(tokenData, tokenLibraryData, componentData);
-	const resolvedMode = preferredMode && availableModes.includes(preferredMode)
-		? preferredMode
-		: hasPayload(tokenData)
-			? DESIGN_BUILDER_MODE_FULL_PAGE
-			: hasPayload(componentData) && hasPayload(tokenLibraryData)
-				? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER
+	const availableModes = resolveAvailableModes(tokenData, componentData);
+	const resolvedMode = requestedMode && availableModes.includes(requestedMode)
+		? requestedMode
+		: hasPayload(componentData) && hasPayload(legacyTokenLibraryData) && !hasPayload(rootTokenData)
+			? DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER
+			: hasPayload(tokenData)
+				? DESIGN_BUILDER_MODE_FULL_PAGE
 				: availableModes[0] ?? DESIGN_BUILDER_MODE_FULL_PAGE;
 
 	return {

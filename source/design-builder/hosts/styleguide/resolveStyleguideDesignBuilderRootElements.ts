@@ -53,15 +53,10 @@ function bindStyleguideSaveAdapter(rootElement: DesignBuilderRootElement): void 
 function normalizeLegacyRootAttributes(rootElement: DesignBuilderRootElement): void {
 	if (!rootElement.hasAttribute('token-data')) {
 		const legacyTokenData = rootElement.getAttribute('data-tokens');
-		if (legacyTokenData) {
-			rootElement.setAttribute('token-data', legacyTokenData);
-		}
-	}
-
-	if (!rootElement.hasAttribute('token-library')) {
 		const legacyTokenLibrary = rootElement.getAttribute('data-token-library');
-		if (legacyTokenLibrary) {
-			rootElement.setAttribute('token-library', legacyTokenLibrary);
+		const normalizedTokenData = legacyTokenData ?? legacyTokenLibrary;
+		if (normalizedTokenData) {
+			rootElement.setAttribute('token-data', normalizedTokenData);
 		}
 	}
 
