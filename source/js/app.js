@@ -8,8 +8,6 @@ import expandSection from './expand-section';
 import { initializeForms } from './fields';
 import Filter from './filter';
 import KeepInViewPort from './keepInViewPort';
-import Menu from './menu';
-import Navbar from './navbar';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import { initializePagination } from './pagination';
@@ -49,7 +47,7 @@ import { initializeTable } from './table';
 import { initializeTestimonials } from './testimonials';
 
 // Instances
-const DeviceDetectInstance = new DeviceDetect();
+new DeviceDetect();
 const SortInstance = new Sort();
 const SplitButtonInstance = new SplitButton();
 const EventCalendarInstance = new EventCalendar();
@@ -62,20 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializePagination();
 
 	// Instances
-	const ButtonToggleContentInstance = new ButtonToggleContent();
-	const SimulateClickInstance = new SimulateClick();
-	const StickyKeysInstance = new StickyKeys();
-	const TooltipInstance = new Tooltip();
-	const KeepInViewPortInstance = new KeepInViewPort();
-	const ResizeByChildrenInstance = new ResizeByChildren();
-	const AriaPressedTogglerInstance = new AriaPressedToggler();
-	const QuickLinksHeaderInstance = new QuickLinksHeader();
-	const NavbarInstance = new Navbar();
-	const NotificationInstance = new Notification();
-	const DynamicSidebarInstance = new DynamicSidebar();
-	const filter = new Filter();
-	const MenuInstance = new Menu();
-	const fileInput = new FileInput();
+	new ButtonToggleContent();
+	new SimulateClick();
+	new StickyKeys();
+	new Tooltip();
+	new KeepInViewPort();
+	new ResizeByChildren();
+	new AriaPressedToggler();
+	new QuickLinksHeader();
+	new Notification();
+	new DynamicSidebar();
+	new Filter();
+	new FileInput();
 
 	new ClassToggleInitializer().init();
 	NotificationInstance.setup();
