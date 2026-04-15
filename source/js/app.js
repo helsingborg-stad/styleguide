@@ -38,7 +38,6 @@ import { initializeMegaMenus } from './megaMenu';
 import { initializeModal } from './modal';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
-import { initializeSegments } from './segment';
 import { initializeSelectFilter } from './selectFilter';
 import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
@@ -89,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeCompressed();
 	initializeGoogleTranslate();
 	initializeTestimonials();
-	initializeSegments();
 	initializeTable();
 	initializeModal();
 	initializeIframeAcceptance();
