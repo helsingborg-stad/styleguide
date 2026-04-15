@@ -9,7 +9,6 @@ export * from '../components/image/image.js';
 export * from '../components/map/index.js';
 export * from '../components/modal/modal';
 export * from '../components/nav/index.js';
-export * from '../components/navbar/navbar.js';
 export * from '../components/pagination/pagination';
 export * from '../components/segment/segment.js';
 export * from '../components/select/index.js';

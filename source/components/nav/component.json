@@ -16,7 +16,7 @@
 	],
 	"description": "The Nav component provides a reusable pattern for nav in the interface.",
 	"tags": ["nav", "component"],
-	"similarComponents": ["navbar", "avatar", "fab"],
+	"similarComponents": ["avatar", "fab"],
 	"requires": [],
 	"requiredBy": [],
 	"icon": "navigation"
