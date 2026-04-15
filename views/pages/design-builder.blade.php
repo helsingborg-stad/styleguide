@@ -33,8 +33,8 @@
     {{-- Left: Token controls --}}
     <design-builder
         class="design-builder"
+        mode="full-page"
         token-data='@json($tokens)'
-        token-library='@json($customizeTokenLibrary)'
         component-data='@json($customizeComponentData)'
         presets='@json($designBuilderPresets)'
         data-design-builder-storage="local-storage"

@@ -23,10 +23,11 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		expect(configuration.showSaveButton).toBe(true);
 	});
 
-	it('defaults to component customization when component payloads are available', () => {
+	it('honors an explicit component-customizer mode when both payloads are available', () => {
 		const root = createRoot();
+		root.setAttribute('mode', 'component-customizer');
 		root.setAttribute('component-data', JSON.stringify({ button: { name: 'Button', tokens: ['color--primary'] } }));
-		root.setAttribute('token-library', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
 
 		const configuration = resolveDesignBuilderRootConfiguration({
 			hostElement: root,
@@ -40,11 +41,28 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		expect(configuration.availableModes).toEqual(['full-page', 'component-customizer']);
 	});
 
+	it('falls back to the legacy token-library payload when token-data is missing', () => {
+		const root = createRoot();
+		root.setAttribute('component-data', JSON.stringify({ button: { name: 'Button', tokens: ['color--primary'] } }));
+		root.setAttribute('token-library', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+
+		const configuration = resolveDesignBuilderRootConfiguration({
+			hostElement: root,
+			preferredMode: null,
+			propertyTokenData: undefined,
+			propertyTokenLibraryData: undefined,
+			propertyComponentData: undefined,
+		});
+
+		expect(configuration.tokenData).toEqual({ name: 'Tokens', version: '1.0.0', categories: [] });
+		expect(configuration.mode).toBe('component-customizer');
+		expect(configuration.availableModes).toEqual(['full-page', 'component-customizer']);
+	});
+
 	it('keeps an internally selected mode when it is still available', () => {
 		const root = createRoot();
 		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));
 		root.setAttribute('component-data', JSON.stringify({ button: { name: 'Button', tokens: ['color--primary'] } }));
-		root.setAttribute('token-library', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
 
 		const configuration = resolveDesignBuilderRootConfiguration({
 			hostElement: root,
@@ -58,12 +76,11 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		expect(configuration.availableModes).toEqual(['full-page', 'component-customizer']);
 	});
 
-	it('ignores legacy mode and config attributes when inferring the initial mode', () => {
+	it('ignores legacy config attributes when inferring the initial mode', () => {
 		const root = createRoot();
-		root.setAttribute('mode', 'full-page');
 		root.setAttribute('config', JSON.stringify({ mode: 'full-page' }));
 		root.setAttribute('component-data', JSON.stringify({ button: { name: 'Button', tokens: ['color--primary'] } }));
-		root.setAttribute('token-library', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
 
 		const configuration = resolveDesignBuilderRootConfiguration({
 			hostElement: root,
@@ -73,7 +90,7 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 			propertyComponentData: undefined,
 		});
 
-		expect(configuration.mode).toBe('component-customizer');
+		expect(configuration.mode).toBe('full-page');
 		expect(configuration.availableModes).toEqual(['full-page', 'component-customizer']);
 	});
 

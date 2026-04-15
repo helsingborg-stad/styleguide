@@ -19,7 +19,7 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 
 		expect(roots).toHaveLength(2);
 		expect(roots[1].getAttribute('component-data')).toContain('"button"');
-		expect(roots[1].getAttribute('token-library')).toContain('"categories"');
+		expect(roots[1].getAttribute('token-data')).toContain('"categories"');
 		expect(roots[1].getAttribute('show-save-button')).toBe('false');
 	});
 
@@ -115,7 +115,7 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 
 		expect(root.tagName.toLowerCase()).toBe('design-builder');
 		expect(root.getAttribute('component-data')).toContain('"button"');
-		expect(root.getAttribute('token-library')).toContain('"categories"');
+		expect(root.getAttribute('token-data')).toContain('"categories"');
 		expect(root.innerHTML).toContain('Legacy content');
 	});
 

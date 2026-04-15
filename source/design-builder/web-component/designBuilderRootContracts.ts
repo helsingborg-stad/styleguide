@@ -10,6 +10,7 @@ export interface DesignBuilderRootConfiguration {
 	mode: DesignBuilderMode;
 	availableModes: DesignBuilderMode[];
 	tokenData: unknown;
+	/** @deprecated Use tokenData. */
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
@@ -38,6 +39,7 @@ export type DesignBuilderModeAdapter = (context: DesignBuilderModeAdapterContext
 
 export interface DesignBuilderRootElement extends HTMLElement {
 	tokenData: unknown;
+	/** @deprecated Use tokenData. */
 	tokenLibraryData: unknown;
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
