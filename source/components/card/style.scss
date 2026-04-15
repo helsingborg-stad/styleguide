@@ -326,7 +326,7 @@ a.#{$_} {
 
     &:hover {
         filter: var(--#{$_}--shadow-hover);
-        background-color: tokens.get($_, "color--surface-border");
+        background-color: tokens.get($_, "color--surface-alt");
         transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
         transition: all 200ms ease-out;
         color: tokens.get($_, "color--surface-contrast");

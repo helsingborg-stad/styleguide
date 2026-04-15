@@ -12,6 +12,7 @@
 		"shadow-color",
 		"shadow-amount",
 		"color--surface-border",
+		"color--surface-alt",
 		"color--secondary",
 		"color--surface-contrast",
 		"corner-shape",
