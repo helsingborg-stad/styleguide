@@ -22,7 +22,6 @@ export * from '../components/gallery/gallery.js';
 export * from '../components/image/image.js';
 
 export * from '../components/modal/modal';
-export * from '../components/segment/segment.js';
 export * from '../components/sidebar/sidebar.js';
 export * from '../components/slider/slider';
 export * from '../components/table/table.js';
