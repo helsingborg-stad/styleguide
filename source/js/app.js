@@ -12,7 +12,6 @@ import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import QuickLinksHeader from './quickLinksHeader';
 import ResizeByChildren from './resizeByChildren';
-import Sidebar from './sidebar';
 import { initializeSlider } from './slider';
 import Sort from './sort';
 import SplitButton from './splitButton';
@@ -52,7 +51,6 @@ const EventCalendarInstance = new EventCalendar();
 const NotificationDocInstance = new NotificationDoc();
 const NotificationInstance = new Notification();
 const DynamicSidebarInstance = new DynamicSidebar();
-const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -76,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	SplitButtonInstance.syncSplitButton();
 	EventCalendarInstance.initiateCalendar();
 	NotificationDocInstance.addListener();
-	SidebarInstance.applySidebar();
 	DynamicSidebarInstance.applySidebar();
 	SteppersInstance.enableStepper();
 
