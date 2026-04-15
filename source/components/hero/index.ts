@@ -22,7 +22,6 @@ class Hero {
 
 export function init() {
 	document.addEventListener('DOMContentLoaded', () => {
-		console.log('Hero component loaded');
 		new Hero();
 	});
 }
