@@ -12,7 +12,6 @@ import Notification from './notification';
 import NotificationDoc from './notificationDoc';
 import QuickLinksHeader from './quickLinksHeader';
 import ResizeByChildren from './resizeByChildren';
-import { initializeSlider } from './slider';
 import Sort from './sort';
 import SplitButton from './splitButton';
 import Steppers from './steppers';
@@ -81,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeResizeMediaQuery();
 	initializeDrawerAccessibility();
 	initializeForms();
-	initializeSlider();
 	initializeCompressed();
 	initializeGoogleTranslate();
 	initializeTestimonials();
