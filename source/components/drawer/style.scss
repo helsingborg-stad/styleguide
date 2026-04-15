@@ -80,7 +80,7 @@ $_: "c-drawer";
         --c-field--background-color: var(--drawer-background);
         --c-field--color--surface-contrast: var(--c-drawer--color--surface-contrast);
         --c-field--color--primary: var(--c-drawer--color--surface-contrast);
-        --c-field--color--surface-border: var(--c-drawer--color--surface-contrast);
+        --c-field--color--surface-border: var(--c-drawer--color--surface-border);
 
         input::placeholder,
         textarea::placeholder {

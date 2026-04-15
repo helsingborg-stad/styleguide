@@ -12,6 +12,7 @@
 		"shadow-color",
 		"shadow-amount",
 		"color--surface-contrast",
+		"color--surface-border",
 		"color--alpha"
 	],
 	"description": "The Drawer component provides a reusable pattern for drawer in the interface.",
