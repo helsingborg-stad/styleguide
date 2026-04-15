@@ -1,4 +1,4 @@
-export class Nav {
+class Nav {
 	private targetItemSelector: string;
 
 	constructor(menu: HTMLElement) {
@@ -77,27 +77,28 @@ export class Nav {
 	}
 }
 
-// Initialize Nav components on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-	const menus = [...document.querySelectorAll('.c-nav.c-nav--depth-1')] as HTMLElement[];
+export function init() {
+	document.addEventListener('DOMContentLoaded', () => {
+		const menus = [...document.querySelectorAll('.c-nav.c-nav--depth-1')] as HTMLElement[];
 
-	menus.forEach((menu) => {
-		new Nav(menu);
-		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && ((mutation.target as HTMLElement)?.classList?.contains('c-nav__item') || (mutation.target as HTMLElement)?.classList?.contains('c-nav__extended-content'))) {
-					[...mutation.addedNodes].forEach((node) => {
-						if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).classList?.contains('c-nav__child-container') && !(node as HTMLElement).querySelector('.c-nav.preloader')) {
-							const element = (node as HTMLElement).classList.contains('c-nav') ? node : (node as HTMLElement).querySelector('.c-nav');
+		menus.forEach((menu) => {
+			new Nav(menu);
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					if (mutation.type === 'childList' && mutation.addedNodes.length > 0 && ((mutation.target as HTMLElement)?.classList?.contains('c-nav__item') || (mutation.target as HTMLElement)?.classList?.contains('c-nav__extended-content'))) {
+						[...mutation.addedNodes].forEach((node) => {
+							if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).classList?.contains('c-nav__child-container') && !(node as HTMLElement).querySelector('.c-nav.preloader')) {
+								const element = (node as HTMLElement).classList.contains('c-nav') ? node : (node as HTMLElement).querySelector('.c-nav');
 
-							if (element) {
-								new Nav(element as HTMLElement);
+								if (element) {
+									new Nav(element as HTMLElement);
+								}
 							}
-						}
-					});
-				}
+						});
+					}
+				});
 			});
+			observer.observe(menu, { childList: true, subtree: true });
 		});
-		observer.observe(menu, { childList: true, subtree: true });
 	});
-});
+}

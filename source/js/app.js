@@ -10,7 +10,6 @@ import Filter from './filter';
 import KeepInViewPort from './keepInViewPort';
 import Notification from './notification';
 import NotificationDoc from './notificationDoc';
-import { initializePagination } from './pagination';
 import QuickLinksHeader from './quickLinksHeader';
 import ResizeByChildren from './resizeByChildren';
 import Sidebar from './sidebar';
@@ -56,9 +55,6 @@ const SidebarInstance = new Sidebar();
 const SteppersInstance = new Steppers();
 
 document.addEventListener('DOMContentLoaded', () => {
-	// Needs to run early
-	initializePagination();
-
 	// Instances
 	new ButtonToggleContent();
 	new SimulateClick();

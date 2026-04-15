@@ -1,6 +1,6 @@
 import { Select } from './script/select';
 
-export class SelectComponentObserver {
+class SelectComponentObserver {
 	private readonly selectComponentElementAttribute = 'data-js-select-component'; //Add to main div of component
 
 	constructor() {
@@ -45,7 +45,9 @@ export class SelectComponentObserver {
 }
 
 // Initialize the SelectComponentObserver when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-	const selectComponentObserverInstance = new SelectComponentObserver();
-	selectComponentObserverInstance.observe();
-});
+export function init() {
+	document.addEventListener('DOMContentLoaded', () => {
+		const selectComponentObserverInstance = new SelectComponentObserver();
+		selectComponentObserverInstance.observe();
+	});
+}

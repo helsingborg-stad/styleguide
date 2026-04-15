@@ -1,5 +1,6 @@
 import VideoControls from '../../js/helpers/video';
-export class Hero {
+
+class Hero {
 	heroVideos: NodeListOf<Element>;
 	isReduced: MediaQueryList;
 	constructor() {
@@ -19,7 +20,9 @@ export class Hero {
 	}
 }
 
-// Initialize Hero component on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-	new Hero();
-});
+export function init() {
+	document.addEventListener('DOMContentLoaded', () => {
+		console.log('Hero component loaded');
+		new Hero();
+	});
+}
