@@ -1,5 +1,6 @@
 @use "../../sass/mixin/tokens";
 @use "../../sass/mixin/animations/ken-burns";
+@use "../mixin/stretch";
 
 $containerWidthSm: 362px;
 $containerWidthMd: 744px;
@@ -137,12 +138,7 @@ $_: "c-hero";
     }
 
     &.#{$_}--stretch {
-        /* Bleed outside container  left&right */
-        border-radius: 0;
-        left: 50%;
-        position: relative;
-        transform: translateX(-50%);
-        width: calc(100vw - var(--scrollbar, 15px));
+        @include stretch.stretch();
     }
 
     /** Sub elements */
@@ -150,7 +146,7 @@ $_: "c-hero";
         position: absolute;
         inset: 0;
         z-index: 1;
-        box-shadow: inset 0 0 20vh rgba(0, 0, 0, .2);
+        box-shadow: inset 0 0 20vh rgba(0, 0, 0, 0.2);
     }
 
     .#{$_}__container {
@@ -158,7 +154,6 @@ $_: "c-hero";
     }
 
     @container hero (min-width: #{$containerWidthMd}) {
-
         .#{$_}__container {
             display: flex;
         }
@@ -196,7 +191,7 @@ $_: "c-hero";
     }
 
     &.#{$_}--overlay .#{$_}__content {
-        text-shadow: 0 0 .8rem rgba(0, 0, 0, .4);
+        text-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.4);
     }
 
     &.#{$_}--has-content-background-color {
@@ -227,11 +222,10 @@ $_: "c-hero";
     .#{$_}__byline,
     .#{$_}__meta,
     .#{$_}__body {
-        animation: hero-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+        animation: hero-slide-in 1s cubic-bezier(0.23, 1, 0.32, 1) both;
     }
 
     &.#{$_}--overlay {
-
         .#{$_}__title,
         .#{$_}__byline,
         .#{$_}__meta,
@@ -261,7 +255,7 @@ $_: "c-hero";
         animation-delay: 600ms;
     }
 
-    .#{$_}__title+.#{$_}__body {
+    .#{$_}__title + .#{$_}__body {
         animation-delay: 400ms;
     }
 
@@ -335,14 +329,13 @@ $_: "c-hero";
 
     @container hero (min-width: #{$containerWidthMd}) {
         &.#{$_}--twoColumn {
-            opacity: .5;
+            opacity: 0.5;
         }
 
         &.#{$_}--twoColumn .#{$_}__content .#{$_}__group {
             flex: 0 0 calc(50% - calc(var(--o-grid-gap, 4) * var(--base, 8px)) * 0.5);
         }
     }
-
 
     /* Call to action hero */
     &.#{$_}--callToActions {
@@ -351,7 +344,7 @@ $_: "c-hero";
         .#{$_}__text {
             padding: tokens.use($_, "base", 5) tokens.use($_, "base", 3);
 
-            &>.o-grid {
+            & > .o-grid {
                 max-width: var(--container-width, 100%);
                 margin: auto;
             }
@@ -409,7 +402,7 @@ $_: "c-hero";
             margin-top: tokens.use($_, "base", 3);
             gap: tokens.use($_, "base", 2);
 
-            .c-button+.c-button {
+            .c-button + .c-button {
                 margin-left: 0;
             }
         }
@@ -459,8 +452,6 @@ $_: "c-hero";
         }
     }
 }
-
-
 
 @keyframes hero-slide-in {
     0% {

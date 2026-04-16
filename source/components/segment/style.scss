@@ -4,6 +4,7 @@
 @use "./layout/fullwidth";
 @use "./layout/split";
 @use "./text";
+@use "../mixin/stretch";
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
@@ -27,7 +28,7 @@ $_observe-breakpoint-md: 768px;
         justify-content: center;
         z-index: 2000;
 
-        >.o-grid {
+        > .o-grid {
             justify-content: center;
         }
     }
@@ -90,19 +91,13 @@ $_observe-breakpoint-md: 768px;
         z-index: 1;
         cursor: pointer;
     }
-
 }
 
 /**
 * Modifiers
 */
 .#{$c}.#{$c}--stretch {
-    /* Bleed outside container  left&right */
-    border-radius: 0;
-    left: 50%;
-    position: relative;
-    transform: translateX(-50%);
-    width: calc(100vw - var(--scrollbar, 15px));
+    @include stretch.stretch();
 }
 
 .#{$c}.#{$c}--svg-background {
@@ -145,7 +140,6 @@ $_observe-breakpoint-md: 768px;
 }
 
 .#{$c}.#{$c}--highlight {
-
     &::after {
         content: "";
         position: absolute;
@@ -155,7 +149,6 @@ $_observe-breakpoint-md: 768px;
     }
 
     @container segment (max-width: #{$_breakpoint-md - 1px}) {
-
         .#{$c}__image {
             z-index: 2;
         }
@@ -166,7 +159,6 @@ $_observe-breakpoint-md: 768px;
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
-
         &::after {
             left: 50%;
         }
