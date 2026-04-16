@@ -1,16 +1,20 @@
 @use "sass:string";
-@use "psuedo";
 
-@mixin ratio($x,$y, $pseudo: false) {
-    $padding: string.unquote( calc($y / $x) * 100 + "%" );
+@mixin ratio($x, $y, $pseudo: false) {
+    $padding: string.unquote(calc($y / $x) * 100 + "%");
+
     @if $pseudo {
 
         &:before {
-            @include psuedo.pseudo($pos: relative);
+            display: block;
+            position: relative;
+            content: "";
             width: 100%;
             padding-top: $padding;
         }
-    } @else {
+    }
+
+    @else {
         padding-top: $padding;
     }
 }

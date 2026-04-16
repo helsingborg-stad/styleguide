@@ -6,7 +6,6 @@
 @use "../mixin/gradient";
 @use "../mixin/list";
 @use "../mixin/mq";
-@use "../mixin/psuedo";
 @use "../mixin/ratio";
 @use "../mixin/responsive-styles";
 @use "../mixin/size";
@@ -72,13 +71,6 @@
 
     @include mq.mq("lg") {
         background-color: blue;
-    }
-}
-
-/* Pseudo */
-.mixin-example-pseudo {
-    &:before {
-        @include psuedo.pseudo(block, static, "hi");
     }
 }
 
