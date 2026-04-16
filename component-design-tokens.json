@@ -967,6 +967,24 @@
     "requiredBy": [],
     "icon": "apps"
   },
+  "map": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Map",
+    "slug": "map",
+    "tokens": [
+      "base"
+    ],
+    "description": "The Map component provides a reusable pattern for displaying maps in the interface.",
+    "tags": [
+      "map",
+      "location",
+      "component"
+    ],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "apps"
+  },
   "megamenu": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
