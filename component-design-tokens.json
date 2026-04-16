@@ -1551,34 +1551,6 @@
     "requiredBy": [],
     "icon": "notifications"
   },
-  "tooltip": {
-    "$schema": "../../component-schema.json",
-    "apiVersion": 1,
-    "name": "Tooltip",
-    "slug": "tooltip",
-    "tokens": [
-      "base",
-      "border-radius",
-      "corner-shape",
-      "color--primary",
-      "color--primary-contrast",
-      "shadow-color",
-      "shadow-amount"
-    ],
-    "description": "The Tooltip component provides a reusable pattern for tooltip in the interface.",
-    "tags": [
-      "tooltip",
-      "component"
-    ],
-    "similarComponents": [
-      "toast",
-      "collection",
-      "footer"
-    ],
-    "requires": [],
-    "requiredBy": [],
-    "icon": "help"
-  },
   "typography": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,

@@ -17,7 +17,6 @@ import SplitButton from './splitButton';
 import Steppers from './steppers';
 import StickyKeys from './stickyKeys';
 import setScrollbarCSS from './stretch';
-import Tooltip from './tooltip';
 import './helpers/swipe';
 import { AriaPressedToggler } from './AriaPressedToggler';
 import { initializeClickAways } from './ClickAway';
@@ -55,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	new ButtonToggleContent();
 	new SimulateClick();
 	new StickyKeys();
-	new Tooltip();
 	new KeepInViewPort();
 	new ResizeByChildren();
 	new AriaPressedToggler();
