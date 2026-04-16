@@ -4,7 +4,7 @@
 @use "./layout/fullwidth";
 @use "./layout/split";
 @use "./text";
-@use "../mixin/stretch";
+@use "../../sass/mixin/stretch";
 
 $c: "c-segment";
 $_breakpoint-md: 896px;
