@@ -7,7 +7,6 @@
 @use "../mixin/mq";
 @use "../mixin/ratio";
 @use "../mixin/responsive-styles";
-@use "../mixin/size";
 @use "../mixin/stretch";
 
 /* Button */
@@ -73,11 +72,6 @@
     @include ratio.ratio(16, 2);
 }
 
-/* Size */
-.mixin-example-size {
-    @include size.size(3, 4, "em");
-}
-
 /* Stretch */
 .mixin-example-stretch {
     @include stretch.stretch();
@@ -86,8 +80,13 @@
 /* Responsive-styles */
 $exampleOrder: 1;
 
-@while($exampleOrder <=2) {
-    @include responsive-styles.responsiveStyles((".mixin-example-responsive-styles--#{$exampleOrder}": (background-color: blue)),
+@while ($exampleOrder <=2) {
+    @include responsive-styles.responsiveStyles(
+        (
+            ".mixin-example-responsive-styles--#{$exampleOrder}": (
+                background-color: blue
+            )
+        )
     );
     $exampleOrder: $exampleOrder + 1;
 }
