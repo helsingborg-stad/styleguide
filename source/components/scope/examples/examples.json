@@ -2,5 +2,9 @@
 	"basic": {
 		"heading": "Scoped Buttons",
 		"text": "This scope element limits the styles of the components within it. This example shows how the styles of the buttons are limited to only the buttons within its scope."
+	},
+	"list": {
+		"heading": "Scope List",
+		"text": "A list of scopes can also be provided to present multiple scopes within the same element."
 	}
 }

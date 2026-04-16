@@ -1,11 +1,7 @@
 import { normalizeComponentName } from '../../features/component-customizer/componentTokenDefinitions';
 import { GENERAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../constants/designBuilderRuntimeConstants';
 import type { ScopedComponentOverrides } from '../types/designBuilderDataTypes';
-
-function getScopeKeyForElement(element: HTMLElement): string {
-	const scope = element.closest<HTMLElement>('[data-scope]')?.dataset.scope?.trim();
-	return scope ? `scope:${scope}` : GENERAL_SCOPE_KEY;
-}
+import { getNamedScopeKeysForElement } from './designBuilderScope';
 
 function getElementsByComponent(): Map<string, HTMLElement[]> {
 	const elementsByComponent = new Map<string, HTMLElement[]>();
@@ -29,13 +25,15 @@ function getElementsByComponent(): Map<string, HTMLElement[]> {
 }
 
 function hasLocalScopeOverrideForElement(overrides: ScopedComponentOverrides, componentName: string, variable: string, element: HTMLElement): boolean {
-	const localScopeKey = getScopeKeyForElement(element);
-	if (localScopeKey === GENERAL_SCOPE_KEY) {
+	const localScopeKeys = getNamedScopeKeysForElement(element);
+	if (localScopeKeys.length === 0) {
 		return false;
 	}
 
-	const localValue = overrides[localScopeKey]?.[componentName]?.[variable];
-	return typeof localValue === 'string' && localValue.trim() !== '';
+	return localScopeKeys.some((localScopeKey) => {
+		const localValue = overrides[localScopeKey]?.[componentName]?.[variable];
+		return typeof localValue === 'string' && localValue.trim() !== '';
+	});
 }
 
 function getElementsForContext(elementsByComponent: Map<string, HTMLElement[]>, componentName: string, scopeKey: string): HTMLElement[] {
@@ -44,7 +42,7 @@ function getElementsForContext(elementsByComponent: Map<string, HTMLElement[]>, 
 		return elements;
 	}
 
-	return elements.filter((element) => getScopeKeyForElement(element) === scopeKey);
+	return elements.filter((element) => getNamedScopeKeysForElement(element).includes(scopeKey));
 }
 
 export function applyTokenOverridesToRootDocument(overrides: Record<string, string>): void {
