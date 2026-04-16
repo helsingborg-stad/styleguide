@@ -74,10 +74,6 @@
 				"type": "string",
 				"pattern": "^[a-z][a-z0-9-]*$"
 			}
-		},
-		"standalone": {
-			"description": "Indicates if the component can be used without any other component as a parent.",
-			"type": "boolean"
 		}
 	},
 	"required": ["apiVersion", "name", "slug"],
