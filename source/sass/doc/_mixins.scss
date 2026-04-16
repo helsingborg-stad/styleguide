@@ -1,4 +1,3 @@
-@use "../mixin/arrow";
 @use "../mixin/button";
 @use "../mixin/cover";
 @use "../mixin/fluid-type";
@@ -10,11 +9,6 @@
 @use "../mixin/responsive-styles";
 @use "../mixin/size";
 @use "../mixin/stretch";
-
-/* Arrows */
-.mixins-example-arrow {
-    @include arrow.arrow("up", 8px, #000);
-}
 
 /* Button */
 .mixins-example-button-mix {
