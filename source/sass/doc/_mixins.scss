@@ -9,7 +9,6 @@
 @use "../mixin/psuedo";
 @use "../mixin/ratio";
 @use "../mixin/responsive-styles";
-@use "../mixin/shadow";
 @use "../mixin/size";
 @use "../mixin/stretch";
 
@@ -86,11 +85,6 @@
 /* Ratio */
 .mixin-example-ratio {
     @include ratio.ratio(16, 2);
-}
-
-/* Shadow */
-.mixin-example-shadow {
-    @include shadow.shadow(2, true);
 }
 
 /* Size */
