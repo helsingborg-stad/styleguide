@@ -39,7 +39,6 @@ import { SimulateClick } from './SimulateClick';
 import { initializeSelectFilter } from './selectFilter';
 import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
-import { initializeTable } from './table';
 
 // Instances
 new DeviceDetect();
@@ -81,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeForms();
 	initializeCompressed();
 	initializeGoogleTranslate();
-	initializeTable();
 	initializeModal();
 	initializeIframeAcceptance();
 	expandSection();

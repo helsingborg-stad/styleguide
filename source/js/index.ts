@@ -10,6 +10,7 @@ import { init as initNav } from '../components/nav/index.js';
 import { init as initPagination } from '../components/pagination/index.js';
 import { init as initSelect } from '../components/select/index.js';
 import { init as initSlider } from '../components/slider/index.js';
+import { init as initTable } from '../components/table/table.js';
 
 // initializing components scripts
 initPagination();
@@ -19,10 +20,10 @@ initHero();
 initMap();
 initSelect();
 initSlider();
+initTable();
 
 export * from '../components/gallery/gallery.js';
 export * from '../components/image/image.js';
 
 export * from '../components/modal/modal';
-export * from '../components/table/table.js';
 export * from '../components/tooltip/tooltip.js';
