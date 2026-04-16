@@ -66,7 +66,7 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__buttons {
-        margin-top: tokens.use($c, "base", 4);
+        margin-top: tokens.use($c, "space", 4);
     }
 
     .#{$c}__image {
@@ -85,8 +85,8 @@ $_observe-breakpoint-md: 768px;
 
     .#{$c}__floating {
         position: absolute;
-        right: tokens.use($c, "base", 1);
-        top: tokens.use($c, "base", 1);
+        right: tokens.use($c, "space", 1);
+        top: tokens.use($c, "space", 1);
         z-index: 1;
         cursor: pointer;
     }
