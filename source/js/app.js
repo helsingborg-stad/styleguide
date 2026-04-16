@@ -1,7 +1,6 @@
 import './dropdown';
 import AnchorMenu from './anchorMenu';
 import ButtonToggleContent from './ButtonToggleContent';
-import EventCalendar from './calendar';
 import ClassToggleInitializer from './classToggle/classToggleInitializer';
 import DynamicSidebar from './dynamicSidebar';
 import expandSection from './expand-section';
@@ -43,7 +42,6 @@ import { initializeSizeObserver } from './sizeObserver';
 new DeviceDetect();
 const SortInstance = new Sort();
 const SplitButtonInstance = new SplitButton();
-const EventCalendarInstance = new EventCalendar();
 const NotificationDocInstance = new NotificationDoc();
 const NotificationInstance = new Notification();
 const DynamicSidebarInstance = new DynamicSidebar();
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	NotificationInstance.setup();
 	SortInstance.applySort();
 	SplitButtonInstance.syncSplitButton();
-	EventCalendarInstance.initiateCalendar();
 	NotificationDocInstance.addListener();
 	DynamicSidebarInstance.applySidebar();
 	SteppersInstance.enableStepper();
