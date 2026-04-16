@@ -26,4 +26,3 @@ export * from '../components/gallery/gallery.js';
 export * from '../components/image/image.js';
 
 export * from '../components/modal/modal';
-export * from '../components/tooltip/tooltip.js';
