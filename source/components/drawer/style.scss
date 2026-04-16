@@ -78,13 +78,13 @@ $_: "c-drawer";
     .c-field {
         --c-field--color--surface: var(--drawer-background);
         --c-field--background-color: var(--drawer-background);
-        --c-field--color--surface-contrast: var(--c-drawer--color--surface-contrast);
-        --c-field--color--primary: var(--c-drawer--color--surface-contrast);
-        --c-field--color--surface-border: var(--c-drawer--color--surface-border);
+        --c-field--color--surface-contrast: #{tokens.get($_, "color--surface-contrast")};
+        --c-field--color--primary: #{tokens.get($_, "color--surface-contrast")};
+        --c-field--color--surface-border: #{tokens.get($_, "color--surface-border")};
 
         input::placeholder,
         textarea::placeholder {
-            color: color-mix(in srgb, var(--c-drawer--color--surface-contrast) 70%, transparent);
+            color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 70%, transparent);
             opacity: 1;
         }
     }

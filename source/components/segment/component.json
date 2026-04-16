@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Segment",
 	"slug": "segment",
-	"tokens": ["space", "base", "border-radius", "color--primary", "color--secondary", "font-size-90", "font-size-200", "color--alpha", "color--surface-contrast", "color--alpha-contrast"],
+	"tokens": ["base", "border-radius", "color--primary", "color--secondary", "font-size-90", "font-size-200", "color--alpha", "color--surface-contrast", "color--alpha-contrast"],
 	"description": "The Segment component provides a reusable pattern for segment in the interface.",
 	"tags": ["segment", "component"],
 	"similarComponents": ["megamenu", "select", "comment"],
