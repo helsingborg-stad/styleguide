@@ -7,6 +7,7 @@ import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/create
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -153,7 +154,7 @@ export class ComponentCustomizerRuntime {
 				if (!isEditable) continue;
 
 				element.classList.add('db-component-target');
-				const scopeLabel = this.getScopeLabel(this.getScopeKeyForElement(element));
+				const scopeLabel = this.getScopeLabelForElement(element);
 				element.dataset.customizeTooltip = scopeLabel ? `Customize ${this.getComponentLabel(componentName)} (${scopeLabel})` : `Customize ${this.getComponentLabel(componentName)}`;
 
 				const links = element.querySelectorAll<HTMLAnchorElement>('a[href]');
@@ -395,12 +396,17 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private getScopeKeyForElement(element: HTMLElement): string {
-		const scope = element.closest<HTMLElement>('[data-scope]')?.dataset.scope?.trim();
-		if (!scope) {
-			return GLOBAL_SCOPE_KEY;
+		return getResolvedScopeKeyForElement(element, GLOBAL_SCOPE_KEY);
+	}
+
+	private getScopeLabelForElement(element: HTMLElement): string {
+		const scopeKeys = getNamedScopeKeysForElement(element);
+		if (scopeKeys.length === 0) {
+			return '';
 		}
 
-		return `scope:${scope}`;
+		const labelPrefix = scopeKeys.length > 1 ? 'Scopes' : 'Scope';
+		return `${labelPrefix}: ${scopeKeys.map((scopeKey) => scopeKey.replace(/^scope:/, '')).join(', ')}`;
 	}
 
 	private getScopeLabel(scopeKey: string): string {
@@ -417,7 +423,7 @@ export class ComponentCustomizerRuntime {
 			return elements;
 		}
 
-		return elements.filter((element) => this.getScopeKeyForElement(element) === scopeKey);
+		return elements.filter((element) => getNamedScopeKeysForElement(element).includes(scopeKey));
 	}
 
 	private refreshScopeSelect(): void {
@@ -444,7 +450,9 @@ export class ComponentCustomizerRuntime {
 		const elements = this.elementsByComponent.get(componentName) || [];
 
 		for (const element of elements) {
-			availableScopes.add(this.getScopeKeyForElement(element));
+			for (const scopeKey of getNamedScopeKeysForElement(element)) {
+				availableScopes.add(scopeKey);
+			}
 		}
 
 		const specificScopes = Array.from(availableScopes)
@@ -866,13 +874,15 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {
-		const localScopeKey = this.getScopeKeyForElement(element);
-		if (localScopeKey === GENERAL_SCOPE_KEY || localScopeKey === GLOBAL_SCOPE_KEY) {
+		const localScopeKeys = getNamedScopeKeysForElement(element);
+		if (localScopeKeys.length === 0) {
 			return false;
 		}
 
-		const localValue = this.overrides[localScopeKey]?.[componentName]?.[variable];
-		return typeof localValue === 'string' && localValue.trim() !== '';
+		return localScopeKeys.some((localScopeKey) => {
+			const localValue = this.overrides[localScopeKey]?.[componentName]?.[variable];
+			return typeof localValue === 'string' && localValue.trim() !== '';
+		});
 	}
 
 	private applyVariable(componentName: string, scopeKey: string, variable: string, value: string): void {

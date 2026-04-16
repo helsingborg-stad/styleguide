@@ -351,6 +351,7 @@ Editable targets get:
 
 Scoped behavior is enabled via:
 - data-scope="your-scope-name"
+- data-scope="scope-one; scope-two;"
 
 Scope resolution is nearest ancestor based:
 - For a clicked/updated target, closest ancestor [data-scope] is used.
@@ -684,6 +685,7 @@ Build generates:
 Wrap region with:
 
 - data-scope="my-scope"
+- data-scope="scope-one; scope-two;"
 
 Any data-component targets inside that region become scope-bound for apply/reset.
 

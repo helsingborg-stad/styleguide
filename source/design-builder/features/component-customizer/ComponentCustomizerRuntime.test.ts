@@ -185,6 +185,34 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('splits semicolon-separated data-scope values into individual scope options', () => {
+		document.body.innerHTML = `
+			<div data-scope="scope-1; scope-2;">
+				<div data-component="button">
+					<a href="/test">Button</a>
+				</div>
+			</div>
+		`;
+
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+
+		const scopeOptions = Array.from(mount.querySelectorAll<HTMLOptionElement>('#db-scope-select option')).map((option) => ({
+			value: option.value,
+			label: option.textContent?.trim(),
+		}));
+
+		expect(scopeOptions).toEqual([
+			{ value: GENERAL_SCOPE_KEY, label: 'Scope: General (all scopes)' },
+			{ value: 'scope:scope-1', label: 'Scope: scope-1' },
+			{ value: 'scope:scope-2', label: 'Scope: scope-2' },
+		]);
+
+		mount.remove();
+	});
+
 	it('keeps component overrides when loading a token-only provided preset', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
