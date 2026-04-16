@@ -1,0 +1,18 @@
+{
+	"basic": {
+		"heading": "Basic OpenStreetMap map",
+		"text": "Default map centered on Helsingborg using the OpenStreetMap provider."
+	},
+	"markers": {
+		"heading": "Map with markers and popup content",
+		"text": "Shows multiple markers with custom icons, colors, and popup content using the markers parameter."
+	},
+	"dark": {
+		"heading": "Dark styled map",
+		"text": "Demonstrates the dark mapStyle variant while keeping the OpenStreetMap provider."
+	},
+	"compact": {
+		"heading": "Compact map with custom height",
+		"text": "Uses a smaller height and a closer zoom level to fit map content in tighter layouts."
+	}
+}
