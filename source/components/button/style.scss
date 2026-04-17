@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "../../sass/mixin/cover";
 @use "../../sass/mixin/tokens";
 
 /* Inheritance properties */
@@ -25,28 +24,33 @@ $_: "c-button";
  * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
-    "primary": ("bg": var(--inerit-color-background, tokens.get($_, "color--primary")),
+    "primary": (
+        "bg": var(--inerit-color-background, tokens.get($_, "color--primary")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--primary-contrast")),
         "hover": tokens.get($_, "color--primary-border"),
         "active": tokens.get($_, "color--primary-alt"),
         "underline": var(--inherit-color-contrast, tokens.get($_, "color--primary")),
-        "stroke": tokens.get($_, "color--primary")),
-    "secondary": ("bg": var(--inherit-color-background, tokens.get($_, "color--secondary")),
+        "stroke": tokens.get($_, "color--primary")
+    ),
+    "secondary": (
+        "bg": var(--inherit-color-background, tokens.get($_, "color--secondary")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--secondary-contrast")),
         "hover": tokens.get($_, "color--secondary-border"),
         "active": tokens.get($_, "color--secondary-alt"),
         "underline": var(--inherit-color-contrast, tokens.get($_, "color--secondary")),
-        "stroke": tokens.get($_, "color--secondary")),
-    "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface-alt")),
+        "stroke": tokens.get($_, "color--secondary")
+    ),
+    "default": (
+        "bg": var(--inherit-color-background, tokens.get($_, "color--surface-alt")),
         "fg": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast")),
         "hover": tokens.get($_, "color--surface-border"),
         "active": tokens.get($_, "color--surface-alt"),
         "underline": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast-muted")),
-        "stroke": tokens.get($_, "color--surface-contrast"))
+        "stroke": tokens.get($_, "color--surface-contrast")
+    )
 );
 
 @each $name, $variant in $button-variants {
-
     .#{$_}__filled--#{$name},
     .#{$_}__basic--#{$name},
     .#{$_}__outlined--#{$name} {
@@ -85,9 +89,31 @@ $button-variants: (
  * --_loader: loader size multiplier (md uses the base default)
  */
 $button-sizes: (
-    "lg": ("height": 8, "min-width": 12, "padding-x": 5, "offset": -1.5, "loader": 4, "font-size": var(--#{$_}--font-size-lg)),
-    "md": ("height": 6.5, "min-width": 9, "padding-x": 4, "offset": -1, "loader": null, "font-size": var(--#{$_}--font-size-md)),
-    "sm": ("height": 5.5, "min-width": 6.75, "padding-x": 2, "offset": -.5, "loader": 2, "font-size": var(--#{$_}--font-size-sm), "letter-spacing": 0.1rem)
+    "lg": (
+        "height": 8,
+        "min-width": 12,
+        "padding-x": 5,
+        "offset": -1.5,
+        "loader": 4,
+        "font-size": var(--#{$_}--font-size-lg)
+    ),
+    "md": (
+        "height": 6.5,
+        "min-width": 9,
+        "padding-x": 4,
+        "offset": -1,
+        "loader": null,
+        "font-size": var(--#{$_}--font-size-md)
+    ),
+    "sm": (
+        "height": 5.5,
+        "min-width": 6.75,
+        "padding-x": 2,
+        "offset": -0.5,
+        "loader": 2,
+        "font-size": var(--#{$_}--font-size-sm),
+        "letter-spacing": 0.1rem
+    )
 );
 
 /* Component base */
@@ -114,7 +140,8 @@ $button-sizes: (
     user-select: none;
     position: relative;
     max-width: 100%;
-    transition: background-color 100ms ease-in-out,
+    transition:
+        background-color 100ms ease-in-out,
         border-color 100ms ease-in-out,
         color 100ms ease-in-out;
 
@@ -180,7 +207,9 @@ $button-sizes: (
         justify-content: center;
         position: relative;
         z-index: 1;
-        transition: opacity 100ms, color 100ms;
+        transition:
+            opacity 100ms,
+            color 100ms;
         text-decoration: none;
         gap: tokens.get($_, "base");
         width: 100%;
@@ -328,16 +357,14 @@ $button-sizes: (
         color: var(--_contrast);
 
         .#{$_}__label {
-            opacity: .8;
+            opacity: 0.8;
         }
     }
 }
 
 /* Outlined: border only, no background fill */
 .#{$_}__outlined {
-    border: clamp(2px,
-        #{tokens.use($_, "border-width")},
-        calc(var(--base) / 2)) solid var(--_color);
+    border: clamp(2px, #{tokens.use($_, "border-width")}, calc(var(--base) / 2)) solid var(--_color);
     color: color-mix(in srgb, var(--#{$_}--color-default-contrast) 50%, var(--_color));
 
     // Light tint on hover: mix a small amount of the button color into the surface.
@@ -372,7 +399,8 @@ $button-sizes: (
 
 /* Toggle: pressed / unpressed visual state */
 .#{$_}__toggle {
-    transition: color 100ms ease-in-out,
+    transition:
+        color 100ms ease-in-out,
         background 100ms ease-in-out,
         outline 100ms ease-in-out,
         outline-offset 100ms ease-in-out;
@@ -430,7 +458,7 @@ $button-sizes: (
     }
 }
 
-.#{$_}+.#{$_} {
+.#{$_} + .#{$_} {
     margin-left: tokens.use($_, "outer-space");
 }
 
