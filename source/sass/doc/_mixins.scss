@@ -1,6 +1,5 @@
 @use "../mixin/button";
 @use "../mixin/cover";
-@use "../mixin/fluid-type";
 @use "../mixin/focus";
 @use "../mixin/list";
 @use "../mixin/mq";
@@ -25,11 +24,6 @@
 .mixin-example-cover {
     @include cover.cover();
     background-color: grey;
-}
-
-/* Fluid-type */
-.mixin-example-fluid-type {
-    @include fluid-type.fluid-type(8px, 24px, 2vw);
 }
 
 /* Focus */
