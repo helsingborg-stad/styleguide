@@ -1,7 +1,3 @@
-@use "sass:map";
-@use "../../sass/setting/var_colors";
-@use "../../sass/setting/var_default";
-@use "../../sass/setting/var_fonts";
 @use "../../sass/mixin/tokens";
 
 /* Component name */
@@ -11,10 +7,11 @@ $_: "c-brand";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-brand {
-    --#{$_}--height: #{tokens.use($_, "base", 12)};
-    --#{$_}--gap: #{tokens.use($_, "space", 3)};
-    --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
-    --#{$_}--font-size: #{tokens.use($_, "base", 4)};
+  --#{$_}--height: #{tokens.use($_, "base", 12)};
+  --#{$_}--gap: #{tokens.use($_, "space", 3)};
+  --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
+  --#{$_}--font-size: #{tokens.get($_, "font-size-400")};
+
   .c-brand__logotype {
     height: var(--#{$_}--height);
   }
