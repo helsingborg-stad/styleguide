@@ -4,7 +4,10 @@
 
 $_: "u-color*";
 
-@include tokens.create($_, ("color-primary",
+@include tokens.create(
+    $_,
+    (
+        "color-primary",
         "color-primary-contrast",
         "color-primary-border",
         "color-secondary",
@@ -24,71 +27,174 @@ $_: "u-color*";
         "color-warning-border",
         "color-surface",
         "color-surface-contrast",
-        "color-surface-border",
-    ));
+        "color-surface-border"
+    )
+);
 
 $color-utils: (
-    (name: "color__text",
-        modifiers: (primary: (color: tokens.get($_, "color-primary")),
-            primary-contrast: (color: tokens.get($_, "color-primary-contrast")),
-            secondary: (color: tokens.get($_, "color-secondary")),
-            secondary-contrast: (color: tokens.get($_, "color-secondary-contrast")),
-            success: (color: tokens.get($_, "color-success")),
-            success-contrast: (color: tokens.get($_, "color-success-contrast")),
-            danger: (color: tokens.get($_, "color-danger")),
-            danger-contrast: (color: tokens.get($_, "color-danger-contrast")),
-            info: (color: tokens.get($_, "color-info")),
-            warning: (color: tokens.get($_, "color-warning")),
-            warning-contrast: (color: tokens.get($_, "color-warning-contrast")),
-            transparent: (color: tokens.get($_, "color-transparent")),
-            surface: (color: tokens.get($_, "color-surface")),
-            surface-contrast: (color: tokens.get($_, "color-surface-contrast")),
-            surface-border: (color: tokens.get($_, "color-surface-border")))),
-    (name: "color__bg",
-        modifiers: (primary: (background-color: tokens.get($_, "color-primary")),
-            primary-contrast: (background-color: tokens.get($_, "color-primary-contrast")),
-            secondary: (background-color: tokens.get($_, "color-secondary")),
-            secondary-contrast: (background-color: tokens.get($_, "color-secondary-contrast")),
-            success: (background-color: tokens.get($_, "color-success")),
-            success-contrast: (background-color: tokens.get($_, "color-success-contrast")),
-            danger: (background-color: tokens.get($_, "color-danger")),
-            danger-contrast: (background-color: tokens.get($_, "color-danger-contrast")),
-            info: (background-color: tokens.get($_, "color-info")),
-            warning: (background-color: tokens.get($_, "color-warning")),
-            warning-contrast: (background-color: tokens.get($_, "color-warning-contrast")),
-            transparent: (background-color: tokens.get($_, "color-transparent")),
-            surface: (background-color: tokens.get($_, "color-surface")),
-            surface-contrast: (background-color: tokens.get($_, "color-surface-contrast")))),
-    (name: "color__border",
-        modifiers: (primary: (border-color: tokens.get($_, "color-primary-border")),
-            secondary: (border-color: tokens.get($_, "color-secondary-border")),
-            success: (border-color: tokens.get($_, "color-success-border")),
-            danger: (border-color: tokens.get($_, "color-danger-border")),
-            info: (border-color: tokens.get($_, "color-info-border")),
-            warning: (border-color: tokens.get($_, "color-warning-border")),
-            surface: (border-color: tokens.get($_, "color-surface-border")))),
-    (name: "color",
-        modifiers: (primary: (color: tokens.get($_, "color-primary-contrast"),
+    (
+        name: "color__text",
+        modifiers: (
+            primary: (
+                color: tokens.get($_, "color-primary")
+            ),
+            primary-contrast: (
+                color: tokens.get($_, "color-primary-contrast")
+            ),
+            secondary: (
+                color: tokens.get($_, "color-secondary")
+            ),
+            secondary-contrast: (
+                color: tokens.get($_, "color-secondary-contrast")
+            ),
+            success: (
+                color: tokens.get($_, "color-success")
+            ),
+            success-contrast: (
+                color: tokens.get($_, "color-success-contrast")
+            ),
+            danger: (
+                color: tokens.get($_, "color-danger")
+            ),
+            danger-contrast: (
+                color: tokens.get($_, "color-danger-contrast")
+            ),
+            info: (
+                color: tokens.get($_, "color-info")
+            ),
+            warning: (
+                color: tokens.get($_, "color-warning")
+            ),
+            warning-contrast: (
+                color: tokens.get($_, "color-warning-contrast")
+            ),
+            transparent: (
+                color: tokens.get($_, "color-transparent")
+            ),
+            surface: (
+                color: tokens.get($_, "color-surface")
+            ),
+            surface-contrast: (
+                color: tokens.get($_, "color-surface-contrast")
+            ),
+            surface-border: (
+                color: tokens.get($_, "color-surface-border")
+            )
+        )
+    ),
+    (
+        name: "color__bg",
+        modifiers: (
+            primary: (
+                background-color: tokens.get($_, "color-primary")
+            ),
+            primary-contrast: (
+                background-color: tokens.get($_, "color-primary-contrast")
+            ),
+            secondary: (
+                background-color: tokens.get($_, "color-secondary")
+            ),
+            secondary-contrast: (
+                background-color: tokens.get($_, "color-secondary-contrast")
+            ),
+            success: (
+                background-color: tokens.get($_, "color-success")
+            ),
+            success-contrast: (
+                background-color: tokens.get($_, "color-success-contrast")
+            ),
+            danger: (
+                background-color: tokens.get($_, "color-danger")
+            ),
+            danger-contrast: (
+                background-color: tokens.get($_, "color-danger-contrast")
+            ),
+            info: (
+                background-color: tokens.get($_, "color-info")
+            ),
+            warning: (
+                background-color: tokens.get($_, "color-warning")
+            ),
+            warning-contrast: (
+                background-color: tokens.get($_, "color-warning-contrast")
+            ),
+            transparent: (
+                background-color: tokens.get($_, "color-transparent")
+            ),
+            surface: (
+                background-color: tokens.get($_, "color-surface")
+            ),
+            surface-contrast: (
+                background-color: tokens.get($_, "color-surface-contrast")
+            )
+        )
+    ),
+    (
+        name: "color__border",
+        modifiers: (
+            primary: (
+                border-color: tokens.get($_, "color-primary-border")
+            ),
+            secondary: (
+                border-color: tokens.get($_, "color-secondary-border")
+            ),
+            success: (
+                border-color: tokens.get($_, "color-success-border")
+            ),
+            danger: (
+                border-color: tokens.get($_, "color-danger-border")
+            ),
+            info: (
+                border-color: tokens.get($_, "color-info-border")
+            ),
+            warning: (
+                border-color: tokens.get($_, "color-warning-border")
+            ),
+            surface: (
+                border-color: tokens.get($_, "color-surface-border")
+            )
+        )
+    ),
+    (
+        name: "color",
+        modifiers: (
+            primary: (
+                color: tokens.get($_, "color-primary-contrast"),
                 background-color: tokens.get($_, "color-primary"),
-                border-color: tokens.get($_, "color-primary-border")),
-            secondary: (color: tokens.get($_, "color-secondary-contrast"),
+                border-color: tokens.get($_, "color-primary-border")
+            ),
+            secondary: (
+                color: tokens.get($_, "color-secondary-contrast"),
                 background-color: tokens.get($_, "color-secondary"),
-                border-color: tokens.get($_, "color-secondary-border")),
-            success: (color: tokens.get($_, "color-success-contrast"),
+                border-color: tokens.get($_, "color-secondary-border")
+            ),
+            success: (
+                color: tokens.get($_, "color-success-contrast"),
                 background-color: tokens.get($_, "color-success"),
-                border-color: tokens.get($_, "color-success-border")),
-            danger: (color: tokens.get($_, "color-danger-contrast"),
+                border-color: tokens.get($_, "color-success-border")
+            ),
+            danger: (
+                color: tokens.get($_, "color-danger-contrast"),
                 background-color: tokens.get($_, "color-danger"),
-                border-color: tokens.get($_, "color-danger-border")),
-            info: (color: tokens.get($_, "color-info-contrast"),
+                border-color: tokens.get($_, "color-danger-border")
+            ),
+            info: (
+                color: tokens.get($_, "color-info-contrast"),
                 background-color: tokens.get($_, "color-info"),
-                border-color: tokens.get($_, "color-info-border")),
-            warning: (color: tokens.get($_, "color-warning-contrast"),
+                border-color: tokens.get($_, "color-info-border")
+            ),
+            warning: (
+                color: tokens.get($_, "color-warning-contrast"),
                 background-color: tokens.get($_, "color-warning"),
-                border-color: tokens.get($_, "color-warning-border")),
-            surface: (color: tokens.get($_, "color-surface-contrast"),
+                border-color: tokens.get($_, "color-warning-border")
+            ),
+            surface: (
+                color: tokens.get($_, "color-surface-contrast"),
                 background-color: tokens.get($_, "color-surface"),
-                border-color: tokens.get($_, "color-surface-border"))))
+                border-color: tokens.get($_, "color-surface-border")
+            )
+        )
+    )
 );
 
 @include build-utility.build-utilities($color-utils);
