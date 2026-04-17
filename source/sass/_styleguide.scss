@@ -58,10 +58,8 @@
 @include meta.load-css("mixin/mq");
 @include meta.load-css("mixin/responsive-styles");
 @include meta.load-css("mixin/ratio");
-@include meta.load-css("mixin/cover");
 @include meta.load-css("mixin/button");
 @include meta.load-css("mixin/list");
-@include meta.load-css("mixin/fluid-type");
 @include meta.load-css("mixin/build-utility");
 @include meta.load-css("mixin/animations/slide");
 @include meta.load-css("mixin/animations/scale-up");
@@ -108,6 +106,7 @@
   @include meta.load-css("object/grid");
   @include meta.load-css("object/layout-grid");
   @include meta.load-css("object/minimal-slider");
+  @include meta.load-css("object/tooltip");
 }
 
 // ***************************************************************

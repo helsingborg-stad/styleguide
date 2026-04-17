@@ -1,4 +1,3 @@
-@use "../../sass/mixin/cover";
 @use "../../sass/mixin/tokens";
 @use "../../sass/generic/animations";
 
@@ -63,7 +62,7 @@ $_: "c-fileinput";
                 text-align: center;
                 line-height: 1;
                 filter: grayscale(100%) brightness(0) contrast(100%);
-                opacity: .2;
+                opacity: 0.2;
                 z-index: 2000;
             }
             &::before {
@@ -86,7 +85,7 @@ $_: "c-fileinput";
     .js-file-input-button,
     .js-file-input-drop,
     .#{$_}__item {
-        animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        animation: puff-in-center 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) both;
     }
 
     .#{$_}__item.is-removing {
@@ -127,7 +126,7 @@ $_: "c-fileinput";
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 tokens.use($_, "space", .5);
+            padding: 0 tokens.use($_, "space", 0.5);
             background-color: tokens.get($_, "color--surface");
             border-radius: tokens.use($_, "border-radius");
             margin: 0;
@@ -230,7 +229,7 @@ $_: "c-fileinput";
         }
 
         &.do-animate {
-            animation: puff-in-center 0.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+            animation: puff-in-center 0.2s cubic-bezier(0.47, 0, 0.745, 0.715) both;
         }
     }
 
@@ -252,11 +251,10 @@ $_: "c-fileinput";
     }
 
     &.#{$_}--preview {
-
         .#{$_}__item-remove-button {
             vertical-align: unset;
-            top: tokens.use($_, "space", .5);
-            right: tokens.use($_, "space", .5);
+            top: tokens.use($_, "space", 0.5);
+            right: tokens.use($_, "space", 0.5);
             border-radius: 100px;
             aspect-ratio: 1;
         }
@@ -287,7 +285,7 @@ $_: "c-fileinput";
         .#{$_}__info-container {
             max-width: tokens.use($_, "space", 25);
             display: flex;
-            gap: tokens.use($_, "space", .5);
+            gap: tokens.use($_, "space", 0.5);
         }
 
         .#{$_}__item-name {
@@ -316,7 +314,7 @@ $_: "c-fileinput";
         }
 
         .#{$_}__item-icon-wrapper {
-            left: tokens.use($_, "space", .5);
+            left: tokens.use($_, "space", 0.5);
         }
 
         .#{$_}__item-preview {

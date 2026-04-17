@@ -1,0 +1,78 @@
+@use "../mixin/tokens";
+
+$_arrow-size: 6px;
+
+$token: "o-tooltip";
+$_: "[data-tooltip]";
+
+@include tokens.create(
+    $token,
+    ("base", "color--alpha", "color--alpha-contrasting", "color--alpha-border", "shadow-1", "radius-lg", "corner-shape")
+);
+
+#{$_} {
+    contain: layout;
+    cursor: pointer;
+    display: inline-block;
+
+    &::after {
+        background-color: tokens.get($token, "color--alpha");
+        border-radius: tokens.get($token, "radius-lg");
+        border: 1px solid tokens.get($token, "color--alpha");
+        bottom: calc(100% + $_arrow-size);
+        color: tokens.get($token, "color--alpha-contrasting");
+        content: attr(data-tooltip);
+        corner-shape: tokens.get($token, "corner-shape");
+        filter: tokens.get($token, "shadow-1");
+        left: 50%;
+        max-width: calc(var(--base) * 25);
+        opacity: 0;
+        padding: tokens.get($token, "base");
+        position: absolute;
+        text-align: center;
+        transform: translateX(-50%);
+        transition:
+            opacity 0.2s ease-in-out,
+            transform 0.2s ease-in-out;
+        visibility: hidden;
+        width: max-content;
+        z-index: 1;
+    }
+
+    &::before {
+        border-color: tokens.get($token, "color--alpha") transparent transparent transparent;
+        border-style: solid;
+        border-width: $_arrow-size;
+        bottom: calc(100% - $_arrow-size);
+        content: " ";
+        left: 50%;
+        margin-left: -$_arrow-size;
+        opacity: 0;
+        position: absolute;
+        transition:
+            opacity 0.2s ease-in-out,
+            transform 0.2s ease-in-out;
+        visibility: hidden;
+    }
+
+    // Reveal both pseudo-elements on hover or keyboard focus
+    &:hover::after,
+    &:focus::after,
+    &:hover::before,
+    &:focus::before {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    // Bubble is interactive so nested links/buttons remain reachable
+    &:hover::after,
+    &:focus::after {
+        pointer-events: unset;
+    }
+
+    // Arrow is purely decorative — keep it out of pointer hit-testing
+    &:hover::before,
+    &:focus::before {
+        pointer-events: none;
+    }
+}
