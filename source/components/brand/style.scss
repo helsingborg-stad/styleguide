@@ -10,7 +10,7 @@ $_: "c-brand";
   --#{$_}--height: #{tokens.use($_, "base", 12)};
   --#{$_}--gap: #{tokens.use($_, "space", 3)};
   --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
-  --#{$_}--font-size: #{tokens.get($_, "font-size-400")};
+  --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")});
 
   .c-brand__logotype {
     height: var(--#{$_}--height);
