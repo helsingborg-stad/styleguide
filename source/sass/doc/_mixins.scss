@@ -2,7 +2,6 @@
 @use "../mixin/cover";
 @use "../mixin/fluid-type";
 @use "../mixin/focus";
-@use "../mixin/gradient";
 @use "../mixin/list";
 @use "../mixin/mq";
 @use "../mixin/ratio";
@@ -44,13 +43,6 @@
 
 .mixin-example-focus-inset {
     @include focus.focus-inset(4px, false);
-}
-
-/* Gradient */
-.mixin-example-gradient {
-    @include gradient.gradient(30deg, #000, #fff);
-    height: 50px;
-    width: 100%;
 }
 
 /* List */
