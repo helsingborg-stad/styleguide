@@ -10,6 +10,7 @@ import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } 
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
+import { translations } from '../translations';
 
 interface RuntimePresetOption {
 	key: string;
@@ -97,7 +98,7 @@ export class FullPageEditorRuntime {
 
 	private renderShellTemplate(): TemplateResult {
 		const modeSwitcher = this.modeSwitch ? createDesignBuilderModeSwitcher(this.modeSwitch) : null;
-		const lockedFieldsLabel = this.showLockedFields ? 'Hide uneditable' : 'Show uneditable';
+		const lockedFieldsLabel = this.showLockedFields ? translations.hideUneditable : translations.showUneditable;
 		const lockedFieldsTitle = this.showLockedFields ? 'Hide non-editable fields' : 'Show non-editable fields';
 
 		return html`
@@ -120,18 +121,18 @@ export class FullPageEditorRuntime {
 					</button>
 					<div class="db-header-actions-right">
 						<details class="db-header-menu">
-							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Import and export JSON" data-tooltip="Import / export JSON">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="${translations.importExportJson}" data-tooltip="${translations.importExportJson}">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-									<title>Import and export JSON</title>
+									<title>${translations.importExportJson}</title>
 									<path
 										fill="currentColor"
 										d="M7 4h10v2H7l2.5 2.5L8 10 3 5l5-5 1.5 1.5L7 4Zm10 16H7v-2h10l-2.5-2.5L16 14l5 5-5 5-1.5-1.5L17 20Z"
 									/>
 								</svg>
 							</summary>
-							<div class="db-header-menu-content" role="menu" aria-label="Import and export JSON">
-								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>Export JSON</button>
-								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
+							<div class="db-header-menu-content" role="menu" aria-label="${translations.importExportJson}">
+								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>${translations.exportJson}</button>
+								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>${translations.importJson}</button>
 							</div>
 						</details>
 						${
@@ -147,14 +148,14 @@ export class FullPageEditorRuntime {
 								: nothing
 						}
 						<details class="db-header-menu db-header-menu-danger">
-							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="${translations.resetActions}" data-tooltip="${translations.resetActions}">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-									<title>Reset actions</title>
+									<title>${translations.resetActions}</title>
 									<path fill="currentColor" d="M12 3a9 9 0 1 1-8.66 11.43l1.93-.52A7 7 0 1 0 12 5h-1.59l2.3 2.29-1.42 1.42L6.58 4l4.71-4.71 1.42 1.42L10.41 3H12Z" />
 								</svg>
 							</summary>
-							<div class="db-header-menu-content" role="menu" aria-label="Reset actions">
-								<button type="button" class="db-btn db-btn-danger" data-action="reset" role="menuitem" @click=${this.handleResetClick}>Reset all</button>
+							<div class="db-header-menu-content" role="menu" aria-label="${translations.resetActions}">
+								<button type="button" class="db-btn db-btn-danger" data-action="reset" role="menuitem" @click=${this.handleResetClick}>${translations.resetAll}</button>
 							</div>
 						</details>
 					</div>
@@ -351,7 +352,7 @@ export class FullPageEditorRuntime {
 			html`
 				<div class=${presetOptions.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${presetOptions.length === 0}>
 					<label class="db-builder-context-row" for="db-full-page-preset-select">
-						Preset
+						${translations.preset}
 						<select
 							id="db-full-page-preset-select"
 							class="db-control-text"
@@ -359,7 +360,7 @@ export class FullPageEditorRuntime {
 							.value=${activePresetKey}
 							@change=${this.handlePresetSelectChange}
 						>
-							<option value="">Choose a preset</option>
+							<option value="">${translations.chooseAPreset}</option>
 							${
 								hasProvidedPresets
 									? html`
@@ -372,7 +373,7 @@ export class FullPageEditorRuntime {
 							${
 								savedPresetOptions.length > 0
 									? html`
-										<optgroup label="Saved presets">
+										<optgroup label="${translations.savedPresets}">
 											${savedPresetOptions.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
 										</optgroup>
 									`
@@ -381,18 +382,18 @@ export class FullPageEditorRuntime {
 						</select>
 					</label>
 					<details class="db-presets-menu">
-						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="Preset actions" data-tooltip="Preset actions">
+						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="${translations.presetActions}" data-tooltip="${translations.presetActions}">
 							<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-								<title>Preset actions</title>
+								<title>${translations.presetActions}</title>
 								<path
 									fill="currentColor"
 									d="M12 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
 								/>
 							</svg>
 						</summary>
-						<div class="db-presets-menu-content" role="menu" aria-label="Preset actions">
+						<div class="db-presets-menu-content" role="menu" aria-label="${translations.presetActions}">
 							<button type="button" class="db-btn db-btn-primary" data-action="save-preset" role="menuitem" @click=${this.handleSavePresetClick}>
-								Save preset
+								${translations.savePreset}
 							</button>
 							<button
 								type="button"
@@ -402,7 +403,7 @@ export class FullPageEditorRuntime {
 								?disabled=${activeSavedPreset === null}
 								@click=${this.handleDeleteActivePresetClick}
 							>
-								Delete preset
+								${translations.deletePreset}
 							</button>
 						</div>
 					</details>
@@ -621,5 +622,4 @@ export class FullPageEditorRuntime {
 
 		this.deletePreset(activePreset.id);
 	};
-
 }

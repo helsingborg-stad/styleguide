@@ -1,11 +1,12 @@
+import { translations } from '../../features/translations';
 import { DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER, DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderMode, type DesignBuilderModeSwitch } from '../../web-component/designBuilderRootContracts';
 
 function getModeLabel(mode: DesignBuilderMode): string {
 	if (mode === DESIGN_BUILDER_MODE_COMPONENT_CUSTOMIZER) {
-		return 'Components';
+		return translations.components;
 	}
 
-	return 'General';
+	return translations.general;
 }
 
 export function createDesignBuilderModeSwitcher(modeSwitch: DesignBuilderModeSwitch): HTMLElement | null {

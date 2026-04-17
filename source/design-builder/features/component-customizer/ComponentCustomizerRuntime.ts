@@ -7,11 +7,12 @@ import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/create
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
-import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
+import { translations } from '../translations';
 import { normalizeComponentName } from './componentTokenDefinitions';
 
 export interface ComponentCustomizerRuntimeOptions {
@@ -235,7 +236,7 @@ export class ComponentCustomizerRuntime {
 			return;
 		}
 
-		this.toggleTargetSelectionLabel.textContent = this.isTargetSelectionEnabled ? 'Stop picking' : 'Pick on page';
+		this.toggleTargetSelectionLabel.textContent = this.isTargetSelectionEnabled ? translations.stopPicking : translations.pickOnPage;
 		this.toggleTargetSelectionButton.setAttribute('aria-pressed', this.isTargetSelectionEnabled ? 'true' : 'false');
 		this.toggleTargetSelectionButton.setAttribute('title', this.isTargetSelectionEnabled ? 'Stop picking a component from the page' : 'Pick a component from the page');
 		this.toggleTargetSelectionButton.classList.toggle('db-btn-primary', this.isTargetSelectionEnabled);
@@ -289,18 +290,18 @@ export class ComponentCustomizerRuntime {
 					</button>
 					<div class="db-header-actions-right">
 						<details class="db-header-menu">
-							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Import and export JSON" data-tooltip="Import / export JSON">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="${translations.importExportJson}" data-tooltip="${translations.importExportJson}">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-									<title>Import and export JSON</title>
+									<title>${translations.importExportJson}</title>
 									<path
 										fill="currentColor"
 										d="M7 4h10v2H7l2.5 2.5L8 10 3 5l5-5 1.5 1.5L7 4Zm10 16H7v-2h10l-2.5-2.5L16 14l5 5-5 5-1.5-1.5L17 20Z"
 									/>
 								</svg>
 							</summary>
-							<div class="db-header-menu-content" role="menu" aria-label="Import and export JSON">
-								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>Export JSON</button>
-								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>Import JSON</button>
+							<div class="db-header-menu-content" role="menu" aria-label="${translations.importExportJson}">
+								<button type="button" class="db-btn" data-action="export" role="menuitem" @click=${this.handleExportClick}>${translations.exportJson}</button>
+								<button type="button" class="db-btn" data-action="import" role="menuitem" @click=${this.handleImportClick}>${translations.importJson}</button>
 							</div>
 						</details>
 						${
@@ -316,14 +317,14 @@ export class ComponentCustomizerRuntime {
 								: nothing
 						}
 						<details class="db-header-menu db-header-menu-danger">
-							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="Reset actions" data-tooltip="Reset actions">
+							<summary class="db-btn db-header-menu-trigger db-tooltip-target" aria-label="${translations.resetActions}" data-tooltip="${translations.resetActions}">
 								<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-									<title>Reset actions</title>
+									<title>${translations.resetActions}</title>
 									<path fill="currentColor" d="M12 3a9 9 0 1 1-8.66 11.43l1.93-.52A7 7 0 1 0 12 5h-1.59l2.3 2.29-1.42 1.42L6.58 4l4.71-4.71 1.42 1.42L10.41 3H12Z" />
 								</svg>
 							</summary>
-							<div class="db-header-menu-content" role="menu" aria-label="Reset actions">
-								<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" role="menuitem" @click=${this.handleResetAllClick}>Reset all</button>
+							<div class="db-header-menu-content" role="menu" aria-label="${translations.resetActions}">
+								<button type="button" class="db-btn db-btn-danger" data-action="reset-all-components" role="menuitem" @click=${this.handleResetAllClick}>${translations.resetAll}</button>
 							</div>
 						</details>
 					</div>
@@ -340,7 +341,7 @@ export class ComponentCustomizerRuntime {
 			<div class="db-presets">
 				<div class="db-builder-context-grid">
 					<label class="db-builder-context-row" for="db-component-select"
-						>Component
+						>${translations.component}
 						<select
 							id="db-component-select"
 							class="db-control-text"
@@ -349,7 +350,7 @@ export class ComponentCustomizerRuntime {
 						></select>
 					</label>
 					<label class="db-builder-context-row" for="db-scope-select"
-						>Scope
+						>${translations.scope}
 						<select
 							id="db-scope-select"
 							class="db-control-text"
@@ -360,7 +361,7 @@ export class ComponentCustomizerRuntime {
 				</div>
 				<div class="db-header-actions">
 					<button type="button" class="db-btn" data-action="reset-component" @click=${this.handleResetComponentClick}>
-						Reset selected
+						${translations.resetSelected}
 					</button>
 				</div>
 			</div>
@@ -414,7 +415,7 @@ export class ComponentCustomizerRuntime {
 			return '';
 		}
 
-		return `Scope: ${scopeKey.replace(/^scope:/, '')}`;
+		return `${translations.scope}: ${scopeKey.replace(/^scope:/, '')}`;
 	}
 
 	private getElementsForContext(componentName: string, scopeKey: string): HTMLElement[] {
@@ -464,14 +465,14 @@ export class ComponentCustomizerRuntime {
 
 	private getScopeOptionLabel(scopeKey: string): string {
 		if (scopeKey === GENERAL_SCOPE_KEY) {
-			return 'Scope: General (all scopes)';
+			return `${translations.scope}: ${translations.generalAllScopes}`;
 		}
 
 		if (scopeKey === GLOBAL_SCOPE_KEY) {
-			return 'Scope: General';
+			return `${translations.scope}: ${translations.general}`;
 		}
 
-		return `Scope: ${scopeKey.replace(/^scope:/, '')}`;
+		return `${translations.scope}: ${scopeKey.replace(/^scope:/, '')}`;
 	}
 
 	private getSortedComponentNames(): string[] {
@@ -501,7 +502,7 @@ export class ComponentCustomizerRuntime {
 			html`
 				<div class=${presetOptions.length === 0 ? 'db-presets u-display--none' : 'db-presets'} ?hidden=${presetOptions.length === 0}>
 					<label class="db-builder-context-row" for="db-component-preset-select">
-						Preset
+						${translations.preset}
 						<select
 							id="db-component-preset-select"
 							class="db-control-text"
@@ -509,7 +510,7 @@ export class ComponentCustomizerRuntime {
 							.value=${activePresetKey}
 							@change=${this.handlePresetSelectChange}
 						>
-							<option value="">Choose a preset</option>
+							<option value="">${translations.chooseAPreset}</option>
 							${
 								hasProvidedPresets
 									? html`
@@ -522,7 +523,7 @@ export class ComponentCustomizerRuntime {
 							${
 								savedPresetOptions.length > 0
 									? html`
-										<optgroup label="Saved presets">
+										<optgroup label="${translations.savedPresets}">
 											${savedPresetOptions.map((preset) => html`<option value=${preset.key}>${preset.label}</option>`)}
 										</optgroup>
 									`
@@ -531,18 +532,18 @@ export class ComponentCustomizerRuntime {
 						</select>
 					</label>
 					<details class="db-presets-menu">
-						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="Preset actions" data-tooltip="Preset actions">
+						<summary class="db-btn db-presets-menu-trigger db-tooltip-target" aria-label="${translations.presetActions}" data-tooltip="${translations.presetActions}">
 							<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-								<title>Preset actions</title>
+								<title>${translations.presetActions}</title>
 								<path
 									fill="currentColor"
 									d="M12 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"
 								/>
 							</svg>
 						</summary>
-						<div class="db-presets-menu-content" role="menu" aria-label="Preset actions">
+						<div class="db-presets-menu-content" role="menu" aria-label="${translations.presetActions}">
 							<button type="button" class="db-btn db-btn-primary" data-action="save-preset" role="menuitem" @click=${this.handleSavePresetClick}>
-								Save preset
+								${translations.savePreset}
 							</button>
 							<button
 								type="button"
@@ -552,7 +553,7 @@ export class ComponentCustomizerRuntime {
 								?disabled=${activeSavedPreset === null}
 								@click=${this.handleDeleteActivePresetClick}
 							>
-								Delete preset
+								${translations.deletePreset}
 							</button>
 						</div>
 					</details>
@@ -793,7 +794,11 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private renderControlsCategoryTemplate(category: TokenCategory): HTMLElement {
-		return createDesignBuilderCategory(category, category.settings.map((setting) => this.renderControl(setting)), false);
+		return createDesignBuilderCategory(
+			category,
+			category.settings.map((setting) => this.renderControl(setting)),
+			false,
+		);
 	}
 
 	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {
