@@ -1,0 +1,56 @@
+{
+	"title": "Tooltip",
+	"summary": ["The tooltip object displays a small text bubble for any element using the `data-tooltip` attribute."],
+	"description": {
+		"main": "Use the tooltip object to provide short, supporting information on hover or keyboard focus. The tooltip is applied automatically through the `[data-tooltip]` selector, so no extra class is required. For non-interactive elements, add `tabindex=\"0\"` if the tooltip should also be reachable by keyboard."
+	},
+	"attributes": {
+		"data-tooltip": "The text content shown inside the tooltip bubble.",
+		"tabindex": "Optional. Add `0` on non-interactive elements to allow keyboard focus and reveal the tooltip on focus."
+	},
+	"available": {
+		"selector": "[data-tooltip]",
+		"data-tooltip": "Any short plain-text tooltip message"
+	},
+	"examples": {
+		"default": {
+			"description": {
+				"heading": "Basic tooltip",
+				"description": "A simple inline element with tooltip text revealed on hover."
+			},
+			"component": "docs.objects.tooltip.examples.default",
+			"html": {
+				"code": "<span data-tooltip=\"Helpful extra information\">Hover me</span>"
+			},
+			"blade": {
+				"code": "<span data-tooltip=\"Helpful extra information\">Hover me</span>"
+			}
+		},
+		"focusable": {
+			"description": {
+				"heading": "Keyboard focusable tooltip",
+				"description": "Shows the tooltip on both hover and keyboard focus by using a focusable element."
+			},
+			"component": "docs.objects.tooltip.examples.focusable",
+			"html": {
+				"code": "<button type=\"button\" data-tooltip=\"Shown on hover and focus\">Focusable trigger</button>"
+			},
+			"blade": {
+				"code": "<button type=\"button\" data-tooltip=\"Shown on hover and focus\">Focusable trigger</button>"
+			}
+		},
+		"longContent": {
+			"description": {
+				"heading": "Longer tooltip content",
+				"description": "Demonstrates how the tooltip bubble handles a longer message within its max-width."
+			},
+			"component": "docs.objects.tooltip.examples.long-content",
+			"html": {
+				"code": "<span tabindex=\"0\" data-tooltip=\"A slightly longer tooltip message that wraps within the tooltip bubble for readability.\">Focusable text</span>"
+			},
+			"blade": {
+				"code": "<span tabindex=\"0\" data-tooltip=\"A slightly longer tooltip message that wraps within the tooltip bubble for readability.\">Focusable text</span>"
+			}
+		}
+	}
+}
