@@ -34,8 +34,6 @@ import './stretch.ts';
 
 // Additional non-component JS files
 import './anchorMenu.js';
-import './calendar-javascript-lib.js';
-import './calendar.js';
 import './dropdown.ts';
 import './dynamicSidebar.js';
 import './expand-section.js';
