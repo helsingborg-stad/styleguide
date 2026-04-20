@@ -3,37 +3,38 @@
 
 /** Adds preload like apperance of any component */
 .u-preloader {
-  position: relative;
-  filter: unset !important;
-  cursor: default;
+    position: relative;
+    filter: unset !important;
+    cursor: default;
 
-  &:after,
-  &:before {
-    content: ""; 
-    @include cover.cover(); 
-    border-radius: inherit;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: placeHolderShimmer;
-    animation-timing-function: linear;
-    background: #f6f7f8;
-    background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-    background-size: 200% 100%;
-  }
-
-  * {
-    visibility: hidden;
-  }
-  
-  @for $i from 1 through 10 {
-    &__opacity--#{$i} {
-      &:after,
-      &:before {
-        opacity: #{$i * 0.1};
-      }
+    &:after,
+    &:before {
+        content: "";
+        @include cover.cover();
+        border-radius: inherit;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        background: #f6f7f8;
+        background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        background-size: 200% 100%;
     }
-  }
+
+    * {
+        visibility: hidden;
+    }
+
+    @for $i from 1 through 10 {
+        &__opacity--#{$i} {
+
+            &:after,
+            &:before {
+                opacity: #{$i * 0.1};
+            }
+        }
+    }
 }
 
 /**
@@ -53,83 +54,95 @@
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
 .u-preloader--inner {
-  .c-typography,
-  .c-button,
-  .c-avatar,
-  .c-field,
-  .c-option,
-  .c-select,
-  .c-option,
-  .c-link,
-  .c-image,
-  .c-table__column-content,
-  .c-date,
-  .c-datebadge {
-    contain: layout paint;
-    filter: unset !important;
-    cursor: default;
-    background: unset;
-    color: transparent;
-
-    &:after,
-    &:before {
-      content: "";
-      @include cover.cover();
-      contain: paint;
-      border-radius: var_border-radius.$border-radius-xs;
-      animation-duration: 2s;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-name: placeHolderShimmer;
-      animation-timing-function: linear;
-      background: #f6f7f8;
-      background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-      background-size: 200% 100%;
+    &.u-preloader--exclude {
+        .c-datebadge {
+            visibility: hidden !important;
+        }
     }
 
-    * {
-      opacity: 0;
+    .u-preloader--exclude {
+        visibility: hidden !important;
     }
-  }
 
-  .c-table__column-content {
-    display: block;
-  }
+    .c-typography,
+    .c-button,
+    .c-avatar,
+    .c-field,
+    .c-option,
+    .c-select,
+    .c-option,
+    .c-link,
+    .c-image,
+    .c-table__column-content,
+    .c-date,
+    .c-datebadge {
+        contain: layout paint;
+        filter: unset !important;
+        cursor: default;
+        background: unset;
+        color: transparent;
 
-  .c-icon { 
-    display: inline-flex;
-    contain: layout paint;
-    filter: unset !important;
-    cursor: default;
-    background: unset;
-    color: transparent;
-    aspect-ratio: 1/1;
+        &:after,
+        &:before {
+            content: "";
+            @include cover.cover();
+            contain: paint;
+            border-radius: var_border-radius.$border-radius-xs;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: placeHolderShimmer;
+            animation-timing-function: linear;
+            background: #f6f7f8;
+            background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            background-size: 200% 100%;
+        }
 
-    &:before {
-      content: "";
-      @include cover.cover();
-      contain: paint;
-      border-radius: 50%;
-      animation-duration: 2s;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-name: placeHolderShimmer;
-      animation-timing-function: linear;
-      background: #f6f7f8;
-      background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
-      background-size: 200% 100%;
+        * {
+            opacity: 0;
+        }
     }
-    &:after {
-      opacity: 0;
+
+    .c-table__column-content {
+        display: block;
     }
-  }
+
+    .c-icon {
+        display: inline-flex;
+        contain: layout paint;
+        filter: unset !important;
+        cursor: default;
+        background: unset;
+        color: transparent;
+        aspect-ratio: 1/1;
+
+        &:before {
+            content: "";
+            @include cover.cover();
+            contain: paint;
+            border-radius: 50%;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: placeHolderShimmer;
+            animation-timing-function: linear;
+            background: #f6f7f8;
+            background: linear-gradient(90deg, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+            background-size: 200% 100%;
+        }
+
+        &:after {
+            opacity: 0;
+        }
+    }
 }
 
 @keyframes placeHolderShimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
