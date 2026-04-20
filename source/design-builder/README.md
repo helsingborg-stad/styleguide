@@ -627,6 +627,77 @@ For selected component "button" and token "color--primary":
 
 Rendered controls are grouped by token category from token library.
 
+### Component-local settings
+
+Components can also define local controls in source/components/{slug}/component.json through componentSettings.
+These controls are intended for values that should be adjustable per component instance or per component family without becoming global design tokens.
+
+Use this for values such as:
+
+- font-size multipliers
+- local spacing multipliers
+- opacity values
+- per-component size or padding scales
+
+componentSettings uses the same category and setting shape as the token library.
+Supported control types are:
+
+- range
+- select
+- color
+- rgba
+- font
+
+Variables must be declared without the component prefix.
+The component customizer localizes them automatically before applying them to the DOM.
+
+Example:
+
+- Declared in component metadata: --font-size-multiplier
+- Applied to Brand instances as: --c-brand--font-size-multiplier
+
+Brand example:
+
+```json
+{
+  "componentSettings": [
+    {
+      "id": "typography",
+      "label": "Typography",
+      "settings": [
+        {
+          "variable": "--font-size-multiplier",
+          "label": "Font Size Multiplier",
+          "type": "range",
+          "default": "1",
+          "min": 0.1,
+          "max": 4,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    }
+  ]
+}
+```
+
+SCSS usage:
+
+```scss
+.c-brand {
+  --c-brand--font-size: calc(
+    var(--c-brand--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")}
+  );
+}
+```
+
+Implementation notes:
+
+- Keep global tokens in the tokens array when the component still depends on shared token values.
+- Use componentSettings only for local override controls that do not belong in source/data/design-tokens.json.
+- If a setting should be editable in the GUI, the component CSS must consume the localized CSS variable.
+- The generated component-design-tokens.json payload includes both tokens and componentSettings.
+
 ## Server integration
 
 CustomizeAssets::get() returns:
