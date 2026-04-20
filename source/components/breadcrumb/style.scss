@@ -1,4 +1,3 @@
-@use "../../sass/mixin/list";
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
@@ -19,7 +18,6 @@ $_: "c-breadcrumb";
     }
 
     &__list {
-        @include list.unlist();
         display: flex;
         flex-wrap: wrap;
         align-items: center;

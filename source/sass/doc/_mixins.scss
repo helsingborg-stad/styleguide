@@ -1,6 +1,5 @@
 @use "../mixin/button";
 @use "../mixin/focus";
-@use "../mixin/list";
 @use "../mixin/mq";
 @use "../mixin/ratio";
 @use "../mixin/responsive-styles";
@@ -30,11 +29,6 @@
 
 .mixin-example-focus-inset {
     @include focus.focus-inset(4px, false);
-}
-
-/* List */
-.mixin-example-unlist {
-    @include list.unlist();
 }
 
 /* Mq */

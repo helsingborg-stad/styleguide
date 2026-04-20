@@ -1,5 +1,3 @@
-@use "../../sass/mixin/list";
-
 .u-unlist {
-  @include list.unlist();
+    list-style-type: none;
 }
