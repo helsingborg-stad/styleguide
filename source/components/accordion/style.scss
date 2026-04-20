@@ -15,7 +15,9 @@ $_: "c-accordion";
     contain: paint;
 
     .#{$_}__button {
-        @include button.button-unstyled;
+        text-align: start;
+        background-color: transparent;
+        box-shadow: none;
         cursor: pointer;
         text-decoration: none;
         width: 100%;
