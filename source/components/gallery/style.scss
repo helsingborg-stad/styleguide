@@ -1,5 +1,4 @@
 @use "../../sass/mixin/tokens";
-@use "../../sass/mixin/list";
 @use "../../sass/mixin/mq";
 
 $_: "c-gallery";
@@ -11,12 +10,12 @@ $_: "c-gallery";
     --#{$_}--gap: #{tokens.use($_, "space", 4)};
     --#{$_}--column-min: #{tokens.use($_, "base", 32)};
     contain: paint;
+    list-style-type: none;
 
     .c-image {
         cursor: pointer;
     }
 
-    @include list.unlist();
 
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--#{$_}--column-min), 1fr));
