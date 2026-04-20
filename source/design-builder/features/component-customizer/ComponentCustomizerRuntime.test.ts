@@ -28,6 +28,24 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		button: {
 			name: 'Button',
 			tokens: ['color--primary'],
+			componentSettings: [
+				{
+					id: 'typography',
+					label: 'Typography',
+					settings: [
+						{
+							variable: '--font-size-multiplier',
+							label: 'Font Size Multiplier',
+							description: 'Scales component font sizes locally',
+							type: 'range',
+							default: '1',
+							min: 0.1,
+							max: 4,
+							step: 0.1,
+						},
+					],
+				},
+			],
 		},
 	};
 
@@ -267,6 +285,31 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		});
 
 		hostElement.remove();
+		mount.remove();
+	});
+
+	it('merges component-local settings into localized controls', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const typographyCategory = categories.find((category) => category.id === 'typography');
+		const multiplierSetting = typographyCategory?.settings.find((setting) => setting.variable === '--c-button--font-size-multiplier');
+
+		expect(multiplierSetting).toMatchObject({
+			label: 'Font Size Multiplier',
+			type: 'range',
+			default: '1',
+			min: 0.1,
+			max: 4,
+			step: 0.1,
+		});
+
 		mount.remove();
 	});
 

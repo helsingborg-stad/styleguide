@@ -183,6 +183,26 @@
       "base",
       "font-size-400"
     ],
+    "componentSettings": [
+      {
+        "id": "typography",
+        "label": "Typography",
+        "description": "Component-local typography adjustments.",
+        "settings": [
+          {
+            "variable": "--font-size-multiplier",
+            "label": "Font Size Multiplier",
+            "description": "Scales the brand text size locally without changing the global typography scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.1,
+            "max": 4,
+            "step": 0.05,
+            "unit": ""
+          }
+        ]
+      }
+    ],
     "description": "The Brand component provides a reusable pattern for brand in the interface.",
     "tags": [
       "brand",
@@ -600,6 +620,26 @@
       "color--surface",
       "color--surface-contrast"
     ],
+    "componentSettings": [
+      {
+        "id": "branding",
+        "label": "Branding",
+        "description": "Component-local branding adjustments.",
+        "settings": [
+          {
+            "variable": "--home-link-height-multiplier",
+            "label": "Home Link Height Multiplier",
+            "description": "Scales the footer home link height locally without changing global sizing.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": ""
+          }
+        ]
+      }
+    ],
     "description": "The Footer component provides a reusable pattern for footer in the interface.",
     "tags": [
       "footer",
@@ -717,6 +757,26 @@
       "color--secondary-contrast",
       "color--secondary-border",
       "base"
+    ],
+    "componentSettings": [
+      {
+        "id": "branding",
+        "label": "Branding",
+        "description": "Component-local branding adjustments.",
+        "settings": [
+          {
+            "variable": "--logotype-height-multiplier",
+            "label": "Logotype Height Multiplier",
+            "description": "Scales the header logotype height locally without changing the global base size.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": ""
+          }
+        ]
+      }
     ],
     "description": "The Header component provides a reusable pattern for header in the interface.",
     "tags": [

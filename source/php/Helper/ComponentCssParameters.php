@@ -33,11 +33,13 @@ class ComponentCssParameters
         }
 
         $componentTokens = self::extractComponentTokens($componentConfig);
-        if ($componentTokens === []) {
+        $componentSettings = self::extractComponentSettings($componentConfig);
+
+        if ($componentTokens === [] && $componentSettings === []) {
             return [];
         }
 
-        return self::resolveParametersFromTokens($slug, $componentTokens, $designTokensConfig);
+        return self::resolveParametersFromTokens($slug, $componentTokens, $componentSettings, $designTokensConfig);
     }
 
     /**
@@ -80,19 +82,41 @@ class ComponentCssParameters
     }
 
     /**
+     * Extract component-local design builder settings from component config.
+     *
+     * @param array<string, mixed> $componentConfig Component config data.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function extractComponentSettings(array $componentConfig): array
+    {
+        if (!isset($componentConfig['componentSettings']) || !is_array($componentConfig['componentSettings'])) {
+            return [];
+        }
+
+        return array_values(
+            array_filter(
+                $componentConfig['componentSettings'],
+                static fn(mixed $category): bool => is_array($category),
+            ),
+        );
+    }
+
+    /**
      * Resolve design-token settings into display-ready CSS parameter declarations.
      *
      * @param string $slug Component slug.
      * @param array<int, string> $componentTokens Tokens declared in component.json.
+     * @param array<int, array<string, mixed>> $componentSettings Component-local setting categories.
      * @param array<string, mixed> $designTokensConfig Parsed design token config.
      *
      * @return array<int, array<string, string>>
      */
-    private static function resolveParametersFromTokens(string $slug, array $componentTokens, array $designTokensConfig): array
+    private static function resolveParametersFromTokens(string $slug, array $componentTokens, array $componentSettings, array $designTokensConfig): array
     {
         $categories = $designTokensConfig['categories'] ?? [];
         if (!is_array($categories)) {
-            return [];
+            return self::buildLocalizedRows($slug, $componentTokens, [], $componentSettings);
         }
 
         $settingsByToken = [];
@@ -119,7 +143,7 @@ class ComponentCssParameters
             }
         }
 
-        return self::buildLocalizedRows($slug, $componentTokens, $settingsByToken);
+        return self::buildLocalizedRows($slug, $componentTokens, $settingsByToken, $componentSettings);
     }
 
     /**
@@ -128,10 +152,11 @@ class ComponentCssParameters
      * @param string $slug
      * @param array<int, string> $componentTokens
      * @param array<string, array<string, mixed>> $settingsByToken
+     * @param array<int, array<string, mixed>> $componentSettings
      *
      * @return array<int, array<string, string>>
      */
-    private static function buildLocalizedRows(string $slug, array $componentTokens, array $settingsByToken): array
+    private static function buildLocalizedRows(string $slug, array $componentTokens, array $settingsByToken, array $componentSettings): array
     {
         $componentPrefix = 'c-' . $slug;
 
@@ -146,6 +171,29 @@ class ComponentCssParameters
                 'var(--' . $token . ')',
                 $settingsByToken[$token] ?? null,
             );
+        }
+
+        foreach ($componentSettings as $category) {
+            $settings = isset($category['settings']) && is_array($category['settings']) ? $category['settings'] : [];
+
+            foreach ($settings as $setting) {
+                if (!is_array($setting)) {
+                    continue;
+                }
+
+                $variable = $setting['variable'] ?? null;
+                if (!is_string($variable) || !str_starts_with($variable, '--')) {
+                    continue;
+                }
+
+                self::appendRow(
+                    $rows,
+                    $seenVariables,
+                    self::toLocalizedVariable($componentPrefix, ltrim($variable, '-')),
+                    isset($setting['default']) ? (string) $setting['default'] : '',
+                    $setting,
+                );
+            }
         }
 
         return $rows;

@@ -9,7 +9,7 @@ $_: "c-header";
 
 /* Component */
 .#{$_} {
-    --#{$_}--logotype-height: #{tokens.use($_, "base", 6)};
+    --#{$_}--logotype-height: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.use($_, "base", 6)});
     --#{$_}--background-color: #{tokens.get($_, "color--surface")};
     --#{$_}--color: #{tokens.get($_, "color--surface-contrast")};
     --#{$_}--border-color: #{tokens.get($_, "color--primary")};

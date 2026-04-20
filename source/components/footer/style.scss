@@ -10,6 +10,7 @@ $_: "c-footer";
 /* Component */
 .#{$_} {
     --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, 6) * var(--base));
+    --#{$_}--home-link-height: calc(var(--#{$_}--home-link-height-multiplier, 1) * 60px);
     --#{$_}--header-border-color: var(--c-footer-header-border-color, rgba(0, 0, 0, 0.55));
     --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base));
     --#{$_}--subfooter-color-background: var(--c-footer-subfooter-color-background, var(--color--white-100, #fff));
@@ -44,7 +45,7 @@ $_: "c-footer";
     &__home-link {
         margin-right: 5%;
         line-height: 0;
-        height: 60px;
+        height: var(--#{$_}--home-link-height);
 
         img,
         svg {

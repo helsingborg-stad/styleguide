@@ -3,17 +3,26 @@
 	"apiVersion": 1,
 	"name": "Header",
 	"slug": "header",
-	"tokens": [
-		"space",
-		"color--surface",
-		"color--surface-contrast",
-		"color--primary",
-		"color--primary-contrast",
-		"color--primary-border",
-		"color--secondary",
-		"color--secondary-contrast",
-		"color--secondary-border",
-		"base"
+	"tokens": ["space", "color--surface", "color--surface-contrast", "color--primary", "color--primary-contrast", "color--primary-border", "color--secondary", "color--secondary-contrast", "color--secondary-border", "base"],
+	"componentSettings": [
+		{
+			"id": "branding",
+			"label": "Branding",
+			"description": "Component-local branding adjustments.",
+			"settings": [
+				{
+					"variable": "--logotype-height-multiplier",
+					"label": "Logotype Height Multiplier",
+					"description": "Scales the header logotype height locally without changing the global base size.",
+					"type": "range",
+					"default": "1",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.05,
+					"unit": ""
+				}
+			]
+		}
 	],
 	"description": "The Header component provides a reusable pattern for header in the interface.",
 	"tags": ["header", "component"],

@@ -18,6 +18,7 @@ export interface ComponentTokenDefinition {
 	name?: string;
 	slug?: string;
 	tokens?: string[];
+	componentSettings?: TokenCategory[];
 }
 
 export type ComponentTokenData = Record<string, ComponentTokenDefinition>;

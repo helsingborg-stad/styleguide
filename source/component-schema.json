@@ -59,6 +59,13 @@
 				"$ref": "./design-tokens-schema.json#/$defs/validToken"
 			}
 		},
+		"componentSettings": {
+			"description": "Optional component-local design builder controls. Settings are declared without the component prefix and will be localized automatically, for example '--font-size-multiplier' becomes '--c-brand--font-size-multiplier'.",
+			"type": "array",
+			"items": {
+				"$ref": "./design-tokens-schema.json#/$defs/category"
+			}
+		},
 		"requires": {
 			"description": "An array of component slugs that this component depends on.",
 			"type": "array",

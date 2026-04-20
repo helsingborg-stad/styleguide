@@ -808,12 +808,46 @@ export class ComponentCustomizerRuntime {
 		});
 	}
 
+	private toLocalizedComponentVariable(componentName: string, variable: string): string {
+		const trimmed = variable.trim();
+		const localizedPrefix = `--c-${componentName}--`;
+
+		if (trimmed.startsWith(localizedPrefix)) {
+			return trimmed;
+		}
+
+		return `${localizedPrefix}${trimmed.replace(/^--/, '')}`;
+	}
+
+	private appendCategory(categories: TokenCategory[], category: TokenCategory): void {
+		if (category.settings.length === 0) {
+			return;
+		}
+
+		const existing = categories.find((item) => item.id === category.id);
+		if (existing) {
+			existing.settings.push(...category.settings);
+			if (!existing.description && category.description) {
+				existing.description = category.description;
+			}
+			if (!existing.present && category.present) {
+				existing.present = category.present;
+			}
+			return;
+		}
+
+		categories.push({
+			...category,
+			settings: [...category.settings],
+		});
+	}
+
 	private buildCategoriesForComponent(componentName: string): TokenCategory[] {
 		const definition = this.componentData[componentName];
 		const tokens = Array.isArray(definition?.tokens) ? definition.tokens : [];
-		if (tokens.length === 0) return [];
-
 		const availableTokenNames = new Set(tokens.map((token) => token.trim()).filter(Boolean));
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+		if (availableTokenNames.size === 0 && componentSettings.length === 0) return [];
 
 		const categories: TokenCategory[] = [];
 		for (const category of this.tokenLibrary.categories) {
@@ -829,7 +863,22 @@ export class ComponentCustomizerRuntime {
 
 			if (matchedSettings.length === 0) continue;
 
-			categories.push({
+			this.appendCategory(categories, {
+				id: category.id,
+				label: category.label,
+				description: category.description,
+				present: category.present,
+				settings: matchedSettings,
+			});
+		}
+
+		for (const category of componentSettings) {
+			const matchedSettings = category.settings.map((setting) => ({
+				...setting,
+				variable: this.toLocalizedComponentVariable(componentName, setting.variable),
+			}));
+
+			this.appendCategory(categories, {
 				id: category.id,
 				label: category.label,
 				description: category.description,
