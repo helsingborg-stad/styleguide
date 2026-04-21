@@ -25,8 +25,9 @@ $_: "c-slider";
         margin: 0;
     }
 
-    &:focus-visible {
-        @include focus.focus-inset(tokens.use($_, "border-radius"), true);
+    &:focus-visible,
+    .#{$_}__item__container > *:focus-visible {
+        outline-offset: -2px;
     }
 
     .#{$_}__item__body {
@@ -53,7 +54,7 @@ $_: "c-slider";
         corner-shape: tokens.get($_, "corner-shape");
 
         &:focus-visible {
-            @include focus.focus-inset;
+            outline-offset: -2px;
         }
     }
 
