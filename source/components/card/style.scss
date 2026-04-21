@@ -1,4 +1,3 @@
-@use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
 
 /* Inheritance properties */
@@ -174,10 +173,6 @@ $_: "c-card";
 
     .#{$_}__content-after {
         margin-top: auto;
-    }
-
-    &--focus-inset:focus {
-        @include focus.focus-inset(tokens.use($_, "border-radius"));
     }
 
     &__header .c-icon {

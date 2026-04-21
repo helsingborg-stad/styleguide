@@ -27,10 +27,6 @@
     @include focus.focus-remove-default();
 }
 
-.mixin-example-focus-inset {
-    @include focus.focus-inset(4px, false);
-}
-
 /* Mq */
 .mixin-example-mq {
     background-color: green;
