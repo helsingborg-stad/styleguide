@@ -12,7 +12,7 @@ $_: "c-group";
     --#{$_}--fluid-3col: calc(100% - #{tokens.get("grid-gap", 2)} / 3);
     --#{$_}--fluid-4col: calc(100% - #{tokens.get("grid-gap", 3)} / 4);
     display: inline-flex;
-    contain: paint;
+    contain: layout;
     border-radius: tokens.use($_, "border-radius");
     corner-shape: tokens.get($_, "corner-shape");
 

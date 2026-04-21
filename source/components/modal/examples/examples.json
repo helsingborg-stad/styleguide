@@ -5,6 +5,6 @@
     },
     "navigation": {
         "heading": "Modal with navigation",
-        "text": "Click any thumbnail to open the gallery modal. Previous and next arrows cycle through images, and stepper dots track the current position."
+        "text": "Click any thumbnail to open the gallery modal. Previous and next arrows cycle through images."
     }
 }

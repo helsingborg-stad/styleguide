@@ -159,15 +159,6 @@ $container-width-md: 640px;
         }
     }
 
-    &.c-slider--has-stepper {
-        margin-bottom: tokens.use($_, "base", 6);
-
-        .c-slider__steppers {
-            margin-bottom: tokens.use($_, "base", -3);
-            transform: translateY(-50%);
-        }
-    }
-
     &.c-slider--16-9,
     &.c-slider--4-3,
     &.c-slider--10-3,

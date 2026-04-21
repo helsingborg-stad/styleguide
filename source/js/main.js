@@ -52,7 +52,6 @@ import './selectFilterInterface.ts';
 import './selectSort.ts';
 import './sort.js';
 import './splitButton.js';
-import './steppers.js';
 import './stickyKeys.js';
 import './datalistAutocomplete.ts';
 import './classToggle/classToggle.ts';
