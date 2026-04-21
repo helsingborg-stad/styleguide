@@ -12,11 +12,11 @@ $_: "c-tabs";
         align-items: center;
         border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
         overflow-x: auto;
-        height: tokens.use($_, "base", 7);
     }
 
     &__button {
-        @include button.button-unstyled;
+        background-color: transparent;
+        box-shadow: none;
         min-width: 160px;
         cursor: pointer;
         text-decoration: none;
@@ -27,9 +27,11 @@ $_: "c-tabs";
 
         &:hover {
             text-decoration: none;
+            background-color: transparent;
         }
 
-        &[aria-expanded="true"] {
+        &[aria-expanded="true"],
+        &:hover {
             border-bottom: 3px solid tokens.get($_, "color--primary");
         }
     }
