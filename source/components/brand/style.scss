@@ -9,8 +9,9 @@ $_: "c-brand";
 .c-brand {
   --#{$_}--height: #{tokens.use($_, "base", 12)};
   --#{$_}--gap: #{tokens.use($_, "space", 3)};
-  --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
+  --#{$_}--text-color: #{tokens.get($_, "color--primary")};
   --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")});
+  --#{$_}--font-family: #{tokens.get($_, "font-family-heading")};
 
   .c-brand__logotype {
     height: var(--#{$_}--height);
@@ -33,7 +34,8 @@ $_: "c-brand";
     align-items: flex-start;
     height: 100%;
     font-size: var(--#{$_}--font-size);
-    color: var(--#{$_}--contrast-color);
+    font-family: var(--#{$_}--font-family);
+    color: var(--#{$_}--text-color);
     line-height: 1.2;
     justify-content: center;
   }

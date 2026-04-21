@@ -28,9 +28,14 @@ class ComponentCssParametersTest extends TestCase
                     'tokens' => ['base', 'shadow-color', 'shadow-color-opacity', 'shadow-amount', 'color--primary'],
                     'componentSettings' => [
                         [
-                            'id' => 'typography',
-                            'label' => 'Typography',
+                            'id' => 'settings',
+                            'label' => 'Settings',
                             'settings' => [
+                                [
+                                    'token' => 'color--primary',
+                                    'label' => 'Accent Color',
+                                    'description' => 'Overrides the component accent color.',
+                                ],
                                 [
                                     'variable' => '--font-size-multiplier',
                                     'label' => 'Font Size Multiplier',
@@ -40,6 +45,10 @@ class ComponentCssParametersTest extends TestCase
                                     'min' => 0.1,
                                     'max' => 4,
                                     'step' => 0.1,
+                                ],
+                                [
+                                    'token' => 'color--primary-contrast',
+                                    'label' => 'Ignored token reference',
                                 ],
                             ],
                         ],
@@ -147,6 +156,7 @@ class ComponentCssParametersTest extends TestCase
         $this->assertSame('--c-alpha--shadow-color-opacity', $rows[2]['key']);
         $this->assertSame('--c-alpha--shadow-amount', $rows[3]['key']);
         $this->assertSame('--c-alpha--color--primary', $rows[4]['key']);
+        $this->assertSame('Overrides the component accent color.', $rows[4]['description']);
         $this->assertSame('--c-alpha--font-size-multiplier', $rows[5]['key']);
         $this->assertSame('1', $rows[5]['defaultValue']);
         $this->assertSame('Scales component font sizes locally.', $rows[5]['description']);

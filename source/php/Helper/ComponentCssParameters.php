@@ -161,12 +161,12 @@ class ComponentCssParameters
         $componentPrefix = 'c-' . $slug;
 
         $rows = [];
-        $seenVariables = [];
+        $rowIndexesByVariable = [];
 
         foreach ($componentTokens as $token) {
-            self::appendRow(
+            self::upsertRow(
                 $rows,
-                $seenVariables,
+                $rowIndexesByVariable,
                 self::toLocalizedVariable($componentPrefix, $token),
                 'var(--' . $token . ')',
                 $settingsByToken[$token] ?? null,
@@ -182,16 +182,30 @@ class ComponentCssParameters
                 }
 
                 $variable = $setting['variable'] ?? null;
-                if (!is_string($variable) || !str_starts_with($variable, '--')) {
+                if (is_string($variable) && str_starts_with($variable, '--')) {
+                    self::upsertRow(
+                        $rows,
+                        $rowIndexesByVariable,
+                        self::toLocalizedVariable($componentPrefix, ltrim($variable, '-')),
+                        isset($setting['default']) ? (string) $setting['default'] : '',
+                        $setting,
+                    );
                     continue;
                 }
 
-                self::appendRow(
+                $resolvedTokenSetting = self::resolveTokenBackedSetting($setting, $componentTokens, $settingsByToken);
+                if ($resolvedTokenSetting === null) {
+                    continue;
+                }
+
+                $token = (string) $resolvedTokenSetting['token'];
+                self::upsertRow(
                     $rows,
-                    $seenVariables,
-                    self::toLocalizedVariable($componentPrefix, ltrim($variable, '-')),
-                    isset($setting['default']) ? (string) $setting['default'] : '',
-                    $setting,
+                    $rowIndexesByVariable,
+                    self::toLocalizedVariable($componentPrefix, $token),
+                    'var(--' . $token . ')',
+                    $resolvedTokenSetting,
+                    true,
                 );
             }
         }
@@ -200,31 +214,98 @@ class ComponentCssParameters
     }
 
     /**
-     * Append a CSS parameter row once.
+     * Resolve a token-backed component setting against the declared tokens and global token definitions.
      *
-     * @param array<int, array<string, string>> $rows
-     * @param array<string, bool> $seenVariables
+     * @param array<string, mixed> $setting
+     * @param array<int, string> $componentTokens
+     * @param array<string, array<string, mixed>> $settingsByToken
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function resolveTokenBackedSetting(array $setting, array $componentTokens, array $settingsByToken): ?array
+    {
+        $token = $setting['token'] ?? null;
+        if (!is_string($token) || $token === '' || !in_array($token, $componentTokens, true)) {
+            return null;
+        }
+
+        $tokenSetting = $settingsByToken[$token] ?? null;
+        if (!is_array($tokenSetting)) {
+            return null;
+        }
+
+        $resolved = $tokenSetting;
+        $resolved['token'] = $token;
+
+        if (isset($setting['label']) && is_string($setting['label']) && trim($setting['label']) !== '') {
+            $resolved['label'] = trim($setting['label']);
+        }
+
+        if (isset($setting['description']) && is_string($setting['description']) && trim($setting['description']) !== '') {
+            $resolved['description'] = trim($setting['description']);
+        }
+
+        return $resolved;
+    }
+
+    /**
+     * Build a CSS parameter row.
+     *
      * @param string $localizedVariable
      * @param string $defaultValue
      * @param array<string, mixed>|null $setting
      *
-     * @return void
+     * @return array<string, string>
      */
-    private static function appendRow(array &$rows, array &$seenVariables, string $localizedVariable, string $defaultValue, ?array $setting): void
+    private static function buildRow(string $localizedVariable, string $defaultValue, ?array $setting): array
     {
-        if (isset($seenVariables[$localizedVariable])) {
-            return;
-        }
-
-        $rows[] = [
+        return [
             'key' => $localizedVariable,
             'defaultValue' => $defaultValue,
             'type' => is_array($setting) && isset($setting['type']) && is_string($setting['type']) ? $setting['type'] : '-',
             'availableValues' => self::formatAvailableValues(is_array($setting) ? $setting['options'] ?? null : null),
             'description' => self::formatDescription($setting ?? []),
         ];
+    }
 
-        $seenVariables[$localizedVariable] = true;
+    /**
+     * Append or enrich a CSS parameter row.
+     *
+     * @param array<int, array<string, string>> $rows
+     * @param array<string, int> $rowIndexesByVariable
+     * @param string $localizedVariable
+     * @param string $defaultValue
+     * @param array<string, mixed>|null $setting
+     * @param bool $enrichExisting
+     *
+     * @return void
+     */
+    private static function upsertRow(array &$rows, array &$rowIndexesByVariable, string $localizedVariable, string $defaultValue, ?array $setting, bool $enrichExisting = false): void
+    {
+        $row = self::buildRow($localizedVariable, $defaultValue, $setting);
+
+        if (!isset($rowIndexesByVariable[$localizedVariable])) {
+            $rowIndexesByVariable[$localizedVariable] = count($rows);
+            $rows[] = $row;
+            return;
+        }
+
+        if (!$enrichExisting) {
+            return;
+        }
+
+        $existingIndex = $rowIndexesByVariable[$localizedVariable];
+        if ($rows[$existingIndex]['type'] === '-' && $row['type'] !== '-') {
+            $rows[$existingIndex]['type'] = $row['type'];
+        }
+
+        if ($rows[$existingIndex]['availableValues'] === '-' && $row['availableValues'] !== '-') {
+            $rows[$existingIndex]['availableValues'] = $row['availableValues'];
+        }
+
+        if ($row['description'] !== '-') {
+            $rows[$existingIndex]['description'] = $row['description'];
+        }
     }
 
     /**

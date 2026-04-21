@@ -14,11 +14,27 @@ export interface TokenData {
 	categories: TokenCategory[];
 }
 
+export interface ComponentTokenReferenceSetting {
+	token: string;
+	label: string;
+	description?: string;
+}
+
+export type ComponentSettingDefinition = TokenSetting | ComponentTokenReferenceSetting;
+
+export interface ComponentSettingCategory {
+	id: string;
+	label: string;
+	description?: string;
+	present?: 'swatch';
+	settings: ComponentSettingDefinition[];
+}
+
 export interface ComponentTokenDefinition {
 	name?: string;
 	slug?: string;
 	tokens?: string[];
-	componentSettings?: TokenCategory[];
+	componentSettings?: ComponentSettingCategory[];
 }
 
 export type ComponentTokenData = Record<string, ComponentTokenDefinition>;
