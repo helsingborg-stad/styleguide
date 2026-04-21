@@ -1,11 +1,16 @@
 import type { TokenSetting } from '../../shared/control-elements/controls/types';
-import type { ComponentTokenData, TokenCategory } from '../../shared/types/designBuilderDataTypes';
+import type {
+	ComponentSettingCategory,
+	ComponentSettingDefinition,
+	ComponentTokenData,
+	ComponentTokenReferenceSetting,
+} from '../../shared/types/designBuilderDataTypes';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
-function normalizeComponentSetting(setting: unknown): TokenSetting | null {
+function normalizeComponentVariableSetting(setting: unknown): TokenSetting | null {
 	if (!isRecord(setting)) {
 		return null;
 	}
@@ -77,7 +82,35 @@ function normalizeComponentSetting(setting: unknown): TokenSetting | null {
 	return normalized;
 }
 
-function normalizeComponentSettings(input: unknown): TokenCategory[] {
+function normalizeComponentTokenReferenceSetting(setting: unknown): ComponentTokenReferenceSetting | null {
+	if (!isRecord(setting)) {
+		return null;
+	}
+
+	const token = typeof setting.token === 'string' ? setting.token.trim() : '';
+	const label = typeof setting.label === 'string' ? setting.label.trim() : '';
+
+	if (token === '' || label === '') {
+		return null;
+	}
+
+	const normalized: ComponentTokenReferenceSetting = {
+		token,
+		label,
+	};
+
+	if (typeof setting.description === 'string' && setting.description.trim() !== '') {
+		normalized.description = setting.description.trim();
+	}
+
+	return normalized;
+}
+
+function normalizeComponentSetting(setting: unknown): ComponentSettingDefinition | null {
+	return normalizeComponentVariableSetting(setting) ?? normalizeComponentTokenReferenceSetting(setting);
+}
+
+function normalizeComponentSettings(input: unknown): ComponentSettingCategory[] {
 	if (!Array.isArray(input)) {
 		return [];
 	}
@@ -87,13 +120,15 @@ function normalizeComponentSettings(input: unknown): TokenCategory[] {
 		.map((category) => {
 			const id = typeof category.id === 'string' ? category.id.trim() : '';
 			const label = typeof category.label === 'string' ? category.label.trim() : '';
-			const settings = Array.isArray(category.settings) ? category.settings.map(normalizeComponentSetting).filter((setting): setting is TokenSetting => setting !== null) : [];
+			const settings = Array.isArray(category.settings)
+				? category.settings.map(normalizeComponentSetting).filter((setting): setting is ComponentSettingDefinition => setting !== null)
+				: [];
 
 			if (id === '' || label === '' || settings.length === 0) {
 				return null;
 			}
 
-			const normalized: TokenCategory = {
+			const normalized: ComponentSettingCategory = {
 				id,
 				label,
 				settings,
@@ -109,7 +144,7 @@ function normalizeComponentSettings(input: unknown): TokenCategory[] {
 
 			return normalized;
 		})
-		.filter((category): category is TokenCategory => category !== null);
+		.filter((category): category is ComponentSettingCategory => category !== null);
 }
 
 export function normalizeComponentName(value: string): string {
@@ -134,7 +169,12 @@ export function parseComponentTokenData(raw: unknown): ComponentTokenData {
 		parsed[normalizedKey] = {
 			name: typeof definition.name === 'string' ? definition.name : undefined,
 			slug: typeof definition.slug === 'string' ? normalizeComponentName(definition.slug) : normalizedKey,
-			tokens: Array.isArray(definition.tokens) ? definition.tokens.filter((token): token is string => typeof token === 'string') : [],
+			tokens: Array.isArray(definition.tokens)
+				? definition.tokens
+						.filter((token): token is string => typeof token === 'string')
+						.map((token) => token.trim())
+						.filter(Boolean)
+				: [],
 			componentSettings: normalizeComponentSettings(definition.componentSettings),
 		};
 	}

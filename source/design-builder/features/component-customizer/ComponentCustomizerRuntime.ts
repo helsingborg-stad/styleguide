@@ -10,7 +10,7 @@ import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument 
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
-import type { ComponentTokenData, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
+import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
 import { normalizeComponentName } from './componentTokenDefinitions';
@@ -842,14 +842,50 @@ export class ComponentCustomizerRuntime {
 		});
 	}
 
-	private buildCategoriesForComponent(componentName: string): TokenCategory[] {
-		const definition = this.componentData[componentName];
-		const tokens = Array.isArray(definition?.tokens) ? definition.tokens : [];
-		const availableTokenNames = new Set(tokens.map((token) => token.trim()).filter(Boolean));
-		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
-		if (availableTokenNames.size === 0 && componentSettings.length === 0) return [];
+	private isTokenReferenceSetting(setting: ComponentSettingDefinition): setting is ComponentTokenReferenceSetting {
+		return 'token' in setting;
+	}
 
+	private findTokenLibrarySetting(tokenName: string): TokenCategory['settings'][number] | null {
+		const variable = `--${tokenName}`;
+		for (const category of this.tokenLibrary.categories) {
+			const matchedSetting = category.settings.find((setting) => setting.variable === variable);
+			if (matchedSetting) {
+				return matchedSetting;
+			}
+		}
+
+		return null;
+	}
+
+	private resolveComponentSetting(componentName: string, availableTokenNames: Set<string>, setting: ComponentSettingDefinition): TokenCategory['settings'][number] | null {
+		if (this.isTokenReferenceSetting(setting)) {
+			if (!availableTokenNames.has(setting.token)) {
+				return null;
+			}
+
+			const tokenSetting = this.findTokenLibrarySetting(setting.token);
+			if (!tokenSetting) {
+				return null;
+			}
+
+			return {
+				...tokenSetting,
+				variable: this.toLocalizedComponentVariable(componentName, setting.token),
+				label: setting.label,
+				description: setting.description ?? tokenSetting.description,
+			};
+		}
+
+		return {
+			...setting,
+			variable: this.toLocalizedComponentVariable(componentName, setting.variable),
+		};
+	}
+
+	private buildLegacyTokenCategories(componentName: string, availableTokenNames: Set<string>): TokenCategory[] {
 		const categories: TokenCategory[] = [];
+
 		for (const category of this.tokenLibrary.categories) {
 			const matchedSettings = category.settings
 				.filter((setting) => availableTokenNames.has(setting.variable.replace(/^--/, '')))
@@ -857,11 +893,9 @@ export class ComponentCustomizerRuntime {
 					const tokenName = setting.variable.replace(/^--/, '');
 					return {
 						...setting,
-						variable: `--c-${componentName}--${tokenName}`,
+						variable: this.toLocalizedComponentVariable(componentName, tokenName),
 					};
 				});
-
-			if (matchedSettings.length === 0) continue;
 
 			this.appendCategory(categories, {
 				id: category.id,
@@ -872,11 +906,22 @@ export class ComponentCustomizerRuntime {
 			});
 		}
 
+		return categories;
+	}
+
+	private buildCategoriesForComponent(componentName: string): TokenCategory[] {
+		const definition = this.componentData[componentName];
+		const tokens = Array.isArray(definition?.tokens) ? definition.tokens : [];
+		const availableTokenNames = new Set(tokens.map((token) => token.trim()).filter(Boolean));
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+
+		if (componentSettings.length === 0) {
+			return this.buildLegacyTokenCategories(componentName, availableTokenNames);
+		}
+
+		const categories: TokenCategory[] = [];
 		for (const category of componentSettings) {
-			const matchedSettings = category.settings.map((setting) => ({
-				...setting,
-				variable: this.toLocalizedComponentVariable(componentName, setting.variable),
-			}));
+			const matchedSettings = category.settings.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, setting)).filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
 
 			this.appendCategory(categories, {
 				id: category.id,

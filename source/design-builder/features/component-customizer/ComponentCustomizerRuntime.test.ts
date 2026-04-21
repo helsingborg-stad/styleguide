@@ -27,12 +27,17 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 	const componentData: ComponentTokenData = {
 		button: {
 			name: 'Button',
-			tokens: ['color--primary'],
+			tokens: ['color--primary', 'space'],
 			componentSettings: [
 				{
-					id: 'typography',
-					label: 'Typography',
+					id: 'settings',
+					label: 'Settings',
 					settings: [
+						{
+							token: 'color--primary',
+							label: 'Text Color',
+							description: 'Overrides the default text color for the button component',
+						},
 						{
 							variable: '--font-size-multiplier',
 							label: 'Font Size Multiplier',
@@ -63,6 +68,18 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 						description: 'Primary color for component',
 						type: 'color',
 						default: '#000000',
+					},
+				],
+			},
+			{
+				id: 'spacing',
+				label: 'Spacing',
+				settings: [
+					{
+						variable: '--space',
+						label: 'Space',
+						type: 'range',
+						default: '1',
 					},
 				],
 			},
@@ -288,7 +305,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('merges component-local settings into localized controls', () => {
+	it('builds explicit token-backed and component-local settings into localized controls', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
 
@@ -298,8 +315,17 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		};
 
 		const categories = runtimeInternals.buildCategoriesForComponent('button');
-		const typographyCategory = categories.find((category) => category.id === 'typography');
-		const multiplierSetting = typographyCategory?.settings.find((setting) => setting.variable === '--c-button--font-size-multiplier');
+		const settingsCategory = categories.find((category) => category.id === 'settings');
+		const colorSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
+		const multiplierSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--font-size-multiplier');
+		const spaceSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--space');
+
+		expect(colorSetting).toMatchObject({
+			label: 'Text Color',
+			description: 'Overrides the default text color for the button component',
+			type: 'color',
+			default: '#000000',
+		});
 
 		expect(multiplierSetting).toMatchObject({
 			label: 'Font Size Multiplier',
@@ -309,6 +335,49 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			max: 4,
 			step: 0.1,
 		});
+		expect(spaceSetting).toBeUndefined();
+
+		mount.remove();
+	});
+
+	it('falls back to token-based controls when componentSettings are not provided', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				button: {
+					name: 'Button',
+					tokens: ['color--primary', 'space'],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const colorCategory = categories.find((category) => category.id === 'colors');
+		const spacingCategory = categories.find((category) => category.id === 'spacing');
+
+		expect(colorCategory?.settings).toEqual([
+			expect.objectContaining({
+				variable: '--c-button--color--primary',
+				label: 'Primary',
+				type: 'color',
+				default: '#000000',
+			}),
+		]);
+		expect(spacingCategory?.settings).toEqual([
+			expect.objectContaining({
+				variable: '--c-button--space',
+				label: 'Space',
+				type: 'range',
+				default: '1',
+			}),
+		]);
 
 		mount.remove();
 	});

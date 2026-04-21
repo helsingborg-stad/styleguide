@@ -60,10 +60,10 @@
 			}
 		},
 		"componentSettings": {
-			"description": "Optional component-local design builder controls. Settings are declared without the component prefix and will be localized automatically, for example '--font-size-multiplier' becomes '--c-brand--font-size-multiplier'.",
+			"description": "Optional component-local design builder controls. Settings can either declare a custom local variable or reference a token from the same file's tokens array. Variables are declared without the component prefix and will be localized automatically, for example '--font-size-multiplier' becomes '--c-brand--font-size-multiplier'.",
 			"type": "array",
 			"items": {
-				"$ref": "./design-tokens-schema.json#/$defs/category"
+				"$ref": "#/$defs/componentSettingCategory"
 			}
 		},
 		"requires": {
@@ -84,5 +84,57 @@
 		}
 	},
 	"required": ["apiVersion", "name", "slug"],
-	"additionalProperties": false
+	"additionalProperties": false,
+	"$defs": {
+		"componentSettingCategory": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"pattern": "^[a-z][a-z0-9-]*$"
+				},
+				"label": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"present": {
+					"type": "string",
+					"enum": ["swatch"]
+				},
+				"settings": {
+					"type": "array",
+					"items": {
+						"oneOf": [
+							{
+								"$ref": "./design-tokens-schema.json#/$defs/setting"
+							},
+							{
+								"$ref": "#/$defs/componentTokenReferenceSetting"
+							}
+						]
+					}
+				}
+			},
+			"required": ["id", "label", "settings"],
+			"additionalProperties": false
+		},
+		"componentTokenReferenceSetting": {
+			"type": "object",
+			"properties": {
+				"token": {
+					"$ref": "./design-tokens-schema.json#/$defs/validToken"
+				},
+				"label": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			},
+			"required": ["token", "label"],
+			"additionalProperties": false
+		}
+	}
 }
