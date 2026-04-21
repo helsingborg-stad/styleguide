@@ -1,5 +1,4 @@
 @slider([
-    'showStepper' => false,
     'autoSlide' => false,
     'attributeList' => [
         'data-slides-per-page' => 4

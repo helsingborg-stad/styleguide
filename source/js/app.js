@@ -13,7 +13,6 @@ import QuickLinksHeader from './quickLinksHeader';
 import ResizeByChildren from './resizeByChildren';
 import Sort from './sort';
 import SplitButton from './splitButton';
-import Steppers from './steppers';
 import StickyKeys from './stickyKeys';
 import setScrollbarCSS from './stretch';
 import './helpers/swipe';
@@ -45,7 +44,6 @@ const SplitButtonInstance = new SplitButton();
 const NotificationDocInstance = new NotificationDoc();
 const NotificationInstance = new Notification();
 const DynamicSidebarInstance = new DynamicSidebar();
-const SteppersInstance = new Steppers();
 
 document.addEventListener('DOMContentLoaded', () => {
 	// Instances
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	SplitButtonInstance.syncSplitButton();
 	NotificationDocInstance.addListener();
 	DynamicSidebarInstance.applySidebar();
-	SteppersInstance.enableStepper();
 
 	// Functions
 	initializeResizeMediaQuery();

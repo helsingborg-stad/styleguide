@@ -1,5 +1,4 @@
 @slider([
-    'showStepper' => true,
     'autoSlide' => false,
     'repeatSlide' => true,
 ])

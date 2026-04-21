@@ -69,11 +69,6 @@ $_: "c-modal";
         display: none;
     }
 
-    /* TODO: Remove when steppers component is removed */
-    .c-steppers {
-        display: none;
-    }
-
     input:focus {
         outline: none;
         outline-offset: 0;
