@@ -35,7 +35,7 @@ $_observe-breakpoint-md: 768px;
       margin-top: 0;
     }
 
-    .#{$c}__content-card {
+    .#{$c}__content-card .c-card__paint-container {
       padding: tokens.use($c, "base", 3) tokens.use($c, "base", 5);
       height: 100%;
     }
@@ -127,7 +127,7 @@ $_observe-breakpoint-md: 768px;
     height: unset;
   }
 
-  .#{$c}--card .#{$c}__content-card {
+  .#{$c}--card .#{$c}__content-card .c-card__paint-container {
     padding: tokens.use($c, "base", 5);
   }
 
