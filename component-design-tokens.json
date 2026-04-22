@@ -75,6 +75,26 @@
       "corner-shape",
       "color--secondary-contrast"
     ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "settings": [
+          {
+            "label": "Shape",
+            "token": "corner-shape"
+          },
+          {
+            "label": "Background color",
+            "token": "color--secondary"
+          },
+          {
+            "label": "Icon & initials color",
+            "token": "color--secondary-contrast"
+          }
+        ]
+      }
+    ],
     "description": "The Avatar component provides a reusable pattern for avatar in the interface.",
     "tags": [
       "avatar",
@@ -111,37 +131,12 @@
       "component"
     ],
     "similarComponents": [
-      "blockquote",
       "box",
       "table"
     ],
     "requires": [],
     "requiredBy": [],
     "icon": "view_agenda"
-  },
-  "blockquote": {
-    "$schema": "../../component-schema.json",
-    "apiVersion": 1,
-    "name": "Blockquote",
-    "slug": "blockquote",
-    "tokens": [
-      "border-radius",
-      "space",
-      "corner-shape"
-    ],
-    "description": "The Blockquote component provides a reusable pattern for blockquote in the interface.",
-    "tags": [
-      "blockquote",
-      "component"
-    ],
-    "similarComponents": [
-      "block",
-      "logotype",
-      "footer"
-    ],
-    "requires": [],
-    "requiredBy": [],
-    "icon": "format_quote"
   },
   "box": {
     "$schema": "../../component-schema.json",
@@ -663,8 +658,7 @@
     ],
     "similarComponents": [
       "logotype",
-      "logotypegrid",
-      "blockquote"
+      "logotypegrid"
     ],
     "requires": [],
     "requiredBy": [],
@@ -1013,8 +1007,7 @@
     ],
     "similarComponents": [
       "logotypegrid",
-      "footer",
-      "blockquote"
+      "footer"
     ],
     "requires": [],
     "requiredBy": [],
@@ -1037,8 +1030,7 @@
     ],
     "similarComponents": [
       "logotype",
-      "footer",
-      "blockquote"
+      "footer"
     ],
     "requires": [],
     "requiredBy": [],

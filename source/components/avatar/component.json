@@ -1,24 +1,33 @@
 {
-  "$schema": "../../component-schema.json",
-  "apiVersion": 1,
-  "name": "Avatar",
-  "slug": "avatar",
-  "tokens": [
-    "base",
-    "color--secondary",
-    "corner-shape",
-    "color--secondary-contrast"
-  ],
-  "description": "The Avatar component provides a reusable pattern for avatar in the interface.",
-  "tags": [
-    "avatar",
-    "component"
-  ],
-  "similarComponents": [
-    "nav",
-    "textarea"
-  ],
-  "requires": [],
-  "requiredBy": [],
-  "icon": "account_circle"
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Avatar",
+	"slug": "avatar",
+	"tokens": ["base", "color--secondary", "corner-shape", "color--secondary-contrast"],
+	"componentSettings": [
+		{
+			"id": "settings",
+			"label": "Settings",
+			"settings": [
+				{
+					"label": "Shape",
+					"token": "corner-shape"
+				},
+				{
+					"label": "Background color",
+					"token": "color--secondary"
+				},
+				{
+					"label": "Icon & initials color",
+					"token": "color--secondary-contrast"
+				}
+			]
+		}
+	],
+	"description": "The Avatar component provides a reusable pattern for avatar in the interface.",
+	"tags": ["avatar", "component"],
+	"similarComponents": ["nav", "textarea"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "account_circle"
 }
