@@ -7,6 +7,50 @@ $_: "c-accordion";
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
 
+
+.c-test {
+    container-name: accordion;
+    container-type: inline-size;
+    contain: paint;
+
+    details {
+        transition: ease .3s grid-template-rows;
+        cursor: pointer;
+        display: grid;
+        grid-template-rows: auto 0fr;
+    }
+
+    summary {
+        display: flex;
+        align-items: center;
+        padding: calc(var(--c-accordion--space)*var(--base)*2);
+    }
+
+    .c-accordion__content {
+        padding: 0 calc(var(--c-accordion--space)*var(--base)*2);
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .c-accordion__icon {
+        transition: ease .3s transform;
+        margin-left: auto;
+    }
+
+    /* States */
+    details[open] summary,
+    summary:hover {
+        background-color: var(--c-accordion--color--surface-alt);
+    }
+
+    details[open] {
+        grid-template-rows: auto 1fr;
+        .c-accordion__icon {
+            transform: rotate(180deg);
+        }
+    }
+}
+
 /* Component */
 .#{$_} {
     --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
