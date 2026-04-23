@@ -15,13 +15,11 @@ $token: "c-chat";
     &.#{$_}--user {
         color: tokens.get($token, "color--secondary-contrast");
         background-color: tokens.get($token, "color--secondary");
-        // color: white;
-        // background-color: rgb(70, 122, 205);
         margin-left: auto;
     }
-    
+
     &.#{$_}--reply {
         color: tokens.get($token, "color--surface-contrast");
-        background-color: tokens.get($token, "color--surface");
+        background-color: tokens.get($token, "color--surface-alt");
     }
 }

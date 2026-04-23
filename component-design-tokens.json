@@ -343,9 +343,32 @@
       "base",
       "border-radius",
       "color--surface",
+      "color--surface-alt",
       "color--surface-contrast",
+      "color--surface-border",
+      "border-width",
       "color--secondary",
       "color--secondary-contrast"
+    ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "description": "Component-local adjustments.",
+        "settings": [
+          {
+            "variable": "--border-radius-multiplier",
+            "label": "Border radius multiplier",
+            "description": "Scales the border radius locally without changing the global border radius scale.",
+            "type": "range",
+            "default": "2",
+            "min": 0.25,
+            "max": 4,
+            "step": 0.25,
+            "unit": ""
+          }
+        ]
+      }
     ],
     "description": "The Chat component provides a reusable pattern for chat in the interface.",
     "tags": [
