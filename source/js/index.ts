@@ -11,8 +11,10 @@ import { init as initPagination } from '../components/pagination/index.js';
 import { init as initSelect } from '../components/select/index.js';
 import { init as initSlider } from '../components/slider/index.js';
 import { init as initTable } from '../components/table/index.js';
+import { init as initChat } from '../components/chat/index.js';
 
 // initializing components scripts
+initChat();
 initPagination();
 initNav();
 initBrand();

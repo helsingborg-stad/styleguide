@@ -1,0 +1,27 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-chat__message";
+$token: "c-chat";
+
+.#{$_} {
+    padding-block: calc(tokens.get($token, "base") * 1.25);
+    padding-inline: calc(tokens.get($token, "base") * 2);
+    max-width: 80%;
+    display: inline-block;
+    corner-shape: superellipse(.98);
+    border-radius: calc(tokens.use($token, "border-radius") * 2.5);
+    word-break: break-word;
+
+    &.#{$_}--user {
+        color: tokens.get($token, "color--secondary-contrast");
+        background-color: tokens.get($token, "color--secondary");
+        // color: white;
+        // background-color: rgb(70, 122, 205);
+        margin-left: auto;
+    }
+    
+    &.#{$_}--reply {
+        color: tokens.get($token, "color--surface-contrast");
+        background-color: tokens.get($token, "color--surface");
+    }
+}

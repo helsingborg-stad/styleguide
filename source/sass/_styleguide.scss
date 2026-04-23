@@ -163,6 +163,7 @@
   @include meta.load-css("../components/toast/style");
   @include meta.load-css("../components/typography/style");
   @include meta.load-css("../components/iconsection/style");
+  @include meta.load-css("../components/chat/style");
 }
 
 // ***************************************************************
