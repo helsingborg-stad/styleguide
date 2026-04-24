@@ -1,37 +1,86 @@
+import { getPendingMarkup } from "./helper/pending";
+import { sanitizeMarkup } from "./helper/sanitize";
+import MessageFactory from "./messageFactory";
+
 class Chat implements ChatInterface {
+    private pendingMessage: MessageInterface | null = null;
+
     constructor(
-        private chat: HTMLElement,
-        private form: HTMLFormElement,
         private messageArea: HTMLElement,
-        private message: MessageInterface,
-        private input: HTMLInputElement,
-        private id: string
+        private input: ChatInputInterface,
+        private messageFactory: MessageFactory,
+        private messageStore: MessageStoreInterface
     ) {
         this.setupFormListener();
-
-        console.log(`Chat ${this.id} initialized successfully with elements:`, {
-            chat: this.chat,
-            form: this.form,
-            messageArea: this.messageArea,
-            input: this.input
-        });
     }
 
     private setupFormListener() {
-        this.form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            console.log(`Chat ${this.id} - User submitted message:`, this.input.value);
-            const message = this.input.value.trim();
-            if (message) {
-                this.addMessage(message, false);
-                this.input.value = '';
+        this.input.subscribeToSend(() => {
+            const messageContent = this.input.get();
+            if (messageContent) {
+                this.addMessage(messageContent, false);
+                this.input.clear();
             }
         });
     }
 
-    public addMessage(messageContent: string, isReply: boolean = false): void {
-        const messageElement = this.message.create(messageContent, isReply);
-        this.messageArea.appendChild(messageElement);
+    public disable(): void {
+        this.input.disable();
+    }
+
+    public enable(): void {
+        this.input.enable();
+    }
+
+    public addPendingMessage(): MessageInterface {
+        if (this.pendingMessage) {
+            this.moveMessageToBottom(this.pendingMessage);
+            return this.pendingMessage;
+        }
+
+        const message = this.messageFactory.create(getPendingMarkup(), true);
+        this.pendingMessage = message;
+        this.moveMessageToBottom(message);
+        this.messageStore.add(message);
+
+        return message;
+    }
+
+    public addMessage(messageContent: string, isReply: boolean = false): MessageInterface {
+        const message = this.messageFactory.create(messageContent, isReply);
+
+        if (this.pendingMessage) {
+            this.messageArea.insertBefore(message.getMessage(), this.pendingMessage.getMessage());
+        } else {
+            this.messageArea.appendChild(message.getMessage());
+        }
+
+        this.messageStore.add(message);
+
+        return message;
+    }
+
+    public editMessage(newContent: string, message: MessageInterface): void {
+        const sanitizedContent = sanitizeMarkup(newContent);
+
+        message.edit(sanitizedContent);
+        if (this.pendingMessage && this.pendingMessage.getId() === message.getId()) {
+            this.pendingMessage = null;
+        }
+
+        message.edit(sanitizedContent);
+    }
+
+    public getPending(): MessageInterface | null {
+        return this.pendingMessage;
+    }
+
+    private moveMessageToBottom(message: MessageInterface): void {
+        this.messageArea.appendChild(message.getMessage());
+    }
+
+    public getMessageStore(): MessageStoreInterface {
+        return this.messageStore;
     }
 }
 

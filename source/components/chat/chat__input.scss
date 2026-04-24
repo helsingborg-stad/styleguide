@@ -7,13 +7,13 @@ $token: "c-chat";
     background-color: tokens.get($token, "color--surface-alt");
     display: grid;
     grid-template-columns: 1fr;
-    corner-shape: superellipse(.98);
-    border-radius: calc(tokens.use($token, "border-radius") * 2.5);
+    corner-shape: tokens.get($token, "corner-shape");
+    border-radius: calc(tokens.use($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
     border: tokens.use($token, "border-width", 1) solid tokens.get($token, "color--surface-border");
 
     .#{$_}__editable {
         padding-block: calc(tokens.get($token, "base") * 1.5);
-        padding-inline: calc(tokens.get($token, "base") * 1);
+        padding-inline: calc(tokens.get($token, "base") * 1.5);
         grid-column: span 12;
 
         &:focus-visible {
@@ -26,5 +26,10 @@ $token: "c-chat";
         gap: calc(tokens.get($token, "base") * 2);
         padding: calc(tokens.get($token, "base") * 1);
         justify-content: flex-end;
+        cursor:text;
+
+        button {
+            border-radius: calc(tokens.use($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
+        }
     }
 }

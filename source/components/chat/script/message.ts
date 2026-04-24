@@ -1,16 +1,36 @@
-class Message {
+class Message implements MessageInterface {
     constructor(
-        private replyMessageTemplate: HTMLTemplateElement,
-        private userMessageTemplate: HTMLTemplateElement
+        private isReply: boolean,
+        private message: HTMLElement,
+        private id: string,
+        private content: string
     ) {
     }
-    public create(message: string, isReply: boolean = false): HTMLElement {
-        const template = isReply ? this.replyMessageTemplate : this.userMessageTemplate;
-        const messageElement = template.content.firstElementChild?.cloneNode(true) as HTMLElement;
 
-        messageElement.textContent = message;
-        messageElement.setAttribute('data-js-message-id', `message-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
-        return messageElement;
+    public getMessage(): HTMLElement {
+        return this.message;
+    }
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public getContent(): string {
+        return this.content;
+    }
+
+    /**
+     * Updates the message content and rendered markup.
+     *
+     * @param content The sanitized message content to display.
+     */
+    public edit(content: string): void {
+        this.content = content;
+        this.message.innerHTML = content;
+    }
+
+    public getIsReply(): boolean {
+        return this.isReply;
     }
 }
 

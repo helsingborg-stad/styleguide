@@ -1,3 +1,7 @@
 interface MessageInterface {
-    create(message: string, isReply?: boolean): HTMLElement;
+    getMessage(): HTMLElement;
+    getId(): string;
+    getContent(): string;
+    getIsReply(): boolean;
+    edit(content: string): void;
 }
