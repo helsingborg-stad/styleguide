@@ -1,0 +1,17 @@
+@use "../../sass/mixin/tokens";
+@use "./chat__message";
+@use "./chat__input";
+
+$_: "c-chat";
+
+@include tokens.create($_, getComponentTokens($_));
+
+.#{$_} {
+    background-color: tokens.get($_, "color--background");
+
+    .#{$_}__message-area {
+        display: grid;
+        gap: calc(tokens.get($_, "base") * 1);
+        padding: calc(tokens.get($_, "base") * 2) 0;
+    }
+}

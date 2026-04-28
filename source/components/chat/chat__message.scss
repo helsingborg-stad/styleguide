@@ -1,0 +1,69 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-chat__message";
+$token: "c-chat";
+
+.#{$_} {
+    padding-block: calc(tokens.get($token, "base") * 1.25);
+    padding-inline: calc(tokens.get($token, "base") * 2);
+    max-width: 80%;
+    display: inline-block;
+    corner-shape: tokens.get($token, "corner-shape");
+    border-radius: calc(tokens.use($token, "border-radius") * 2.5);
+    word-break: break-word;
+    white-space: pre-wrap;
+
+    &.#{$_}--user {
+        color: tokens.get($token, "color--secondary-contrast");
+        background-color: tokens.get($token, "color--secondary");
+        border: tokens.use($token, "border-width") solid tokens.get($token, "color--secondary-border");
+        margin-left: auto;
+    }
+
+    &.#{$_}--reply {
+        color: tokens.get($token, "color--surface-contrast");
+        background-color: tokens.get($token, "color--surface-alt");
+        border: tokens.use($token, "border-width") solid tokens.get($token, "color--surface-border");
+        margin-right: auto;
+    }
+
+    .#{$_}--pending {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(tokens.use($token, "base") * 0.75);
+        height: 100%;
+
+        span {
+            
+            width: calc(tokens.use($token, "base") * 1.5);
+            height: calc(tokens.use($token, "base") * 1.5);
+            border-radius: 50%;
+            background-color: tokens.get($token, "color--surface-contrast-muted");
+            animation: chatTyping 1.4s infinite ease-in-out;
+        }
+
+        span:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        span:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        span:nth-child(3) {
+            animation-delay: 0s;
+        }
+
+        @keyframes chatTyping {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.4;
+            }
+
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    }
+}
