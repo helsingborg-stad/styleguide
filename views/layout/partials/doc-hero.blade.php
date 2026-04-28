@@ -50,58 +50,21 @@
                 ])
                 @endbutton
             </div>
-
-            @if(!empty($shortcuts))
-                <div class="u-margin__top--3">
-                    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--1']])
-                        Jump straight to frequently used areas:
-                    @endtypography
-                    <div class="o-grid o-grid--half-gutter">
-                        @foreach($shortcuts as $shortcut)
-                            <div class="o-grid-12 o-grid-6@sm">
-                                @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-border__radius--md']])
-                                    {{ $shortcut['label'] }}
-                                @endlink
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
         </div>
 
         <div class="o-grid-12 o-grid-5@lg">
             @paper(['padding' => 4, 'classList' => ['u-height--100']])
                 @typography(['element' => 'h4', 'variant' => 'h4'])
-                    Quick search
+                    Frequently used
                 @endtypography
-                @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-                    Filter components or pages directly from here. Press Enter to open the first match.
-                @endtypography
-
-                @form(['action' => '/components', 'method' => 'get'])
-                    @field([
-                        'label' => 'Search the docs',
-                        'name' => 'q',
-                        'type' => 'search',
-                        'placeholder' => 'Buttons, accordions, tokens...',
-                        'attributeList' => ['autocomplete' => 'off']
-                    ])
-                    @endfield
-                @endform
-
-                <div class="u-margin__top--3">
-                    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--1']])
-                        Popular destinations
-                    @endtypography
-                    <div class="o-grid o-grid--half-gutter">
-                        @foreach($shortcuts as $shortcut)
-                            <div class="o-grid-12">
-                                @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-padding__y--1', 'u-border__bottom--1']])
-                                    {{ $shortcut['label'] }}
-                                @endlink
-                            </div>
-                        @endforeach
-                    </div>
+                <div class="o-grid o-grid--half-gutter">
+                    @foreach($shortcuts as $shortcut)
+                        <div class="o-grid-12">
+                            @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-padding__y--1', 'u-border__bottom--1']])
+                                {{ $shortcut['label'] }}
+                            @endlink
+                        </div>
+                    @endforeach
                 </div>
             @endpaper
         </div>
