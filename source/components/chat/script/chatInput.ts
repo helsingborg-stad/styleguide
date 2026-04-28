@@ -18,6 +18,13 @@ class ChatInput implements ChatInputInterface {
             event.preventDefault();
             callback();
         });
+
+        this.input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                callback();
+            }
+        });
     }
     
     public get(): string {
