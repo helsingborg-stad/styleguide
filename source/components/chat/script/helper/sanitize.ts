@@ -8,7 +8,8 @@ export function sanitizeMarkup(html: string): string {
 }
 
 function sanitizeNode(node: Element): void {
-    const forbiddenTags = new Set(['script', 'style', 'iframe', 'object', 'embed', 'form', 'link', 'meta', 'base']);
+    const forbiddenTags = new Set(['script', 'style', 'iframe', 'object', 'embed', 'form', 'link', 'meta', 'base', 'button', 'img']);
+    const forbiddenAttributes = new Set(['style']);
     const unsafeUrlAttributes = new Set(['href', 'src', 'action', 'formaction']);
     const unsafeUrlPattern = /^(javascript|data|vbscript):/i;
 
@@ -20,6 +21,7 @@ function sanitizeNode(node: Element): void {
 
         Array.from(child.attributes).forEach(attribute => {
             if (
+                forbiddenAttributes.has(attribute.name.toLowerCase()) ||
                 attribute.name.startsWith('on') ||
                 (unsafeUrlAttributes.has(attribute.name.toLowerCase()) && unsafeUrlPattern.test(attribute.value.trim()))
             ) {

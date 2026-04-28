@@ -4,6 +4,7 @@ import MessageFactory from "./messageFactory";
 
 class Chat implements ChatInterface {
     private pendingMessage: MessageInterface | null = null;
+    private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
 
     constructor(
         private messageArea: HTMLElement,
@@ -18,8 +19,9 @@ class Chat implements ChatInterface {
         this.input.subscribeToSend(() => {
             const messageContent = this.input.get();
             if (messageContent) {
-                this.addMessage(messageContent, false);
+                const message = this.addMessage(messageContent, false);
                 this.input.clear();
+                this.runUserMessageCallback(message);
             }
         });
     }
@@ -44,6 +46,14 @@ class Chat implements ChatInterface {
         this.messageStore.add(message);
 
         return message;
+    }
+
+    private runUserMessageCallback(message: MessageInterface): void {
+        this.userMessageCallbacks.forEach((callback) => callback(message));
+    }
+
+    public subscribeToUserMessages(callback: (message: MessageInterface) => void): void {
+        this.userMessageCallbacks.push(callback);
     }
 
     public addMessage(messageContent: string, isReply: boolean = false): MessageInterface {

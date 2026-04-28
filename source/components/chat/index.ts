@@ -14,10 +14,9 @@ export function init() {
             const replyMessageTemplate = chatContainer.querySelector('[data-js-reply-message-template]') as HTMLTemplateElement | null;
             const userMessageTemplate = chatContainer.querySelector('[data-js-user-message-template]') as HTMLTemplateElement | null;
             const chatInputContainer = chatContainer.querySelector('[data-js-chat-input]') as HTMLDivElement | null;
-            const chatInput = chatContainer.querySelector('[data-js-chat-editable]') as HTMLInputElement | null;
+            const chatInput = chatContainer.querySelector('[data-js-chat-editable]') as HTMLElement | null;
             const sendButton = chatContainer.querySelector('[data-js-chat-send]') as HTMLInputElement | null;
 
-            console.log(`chat`);
             if (!id || !messageArea || !replyMessageTemplate || !userMessageTemplate || !chatInput || !sendButton || !chatInputContainer) {
                 console.error('Chat component initialization failed: Missing required attributes or elements.');
                 return;
@@ -33,14 +32,6 @@ export function init() {
                 messageFactory,
                 messageStore
             );
-
-            // window.chat.addMessage('Hej! Hur kan jag hjälpa dig idag?', true);
-
-            const testingWindow = window as Window & { chat?: Chat };
-
-            if (!testingWindow.chat) {
-                testingWindow.chat = chat;
-            }
 
             document.dispatchEvent(new CustomEvent('chat:initialized', { detail: { 
                 chat: chat
