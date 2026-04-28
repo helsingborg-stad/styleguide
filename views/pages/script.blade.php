@@ -23,9 +23,6 @@
     @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--1']])
         Scripts
     @endtypography
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-        The script section documents standalone JavaScript helpers used across the design system. Each utility is configured with data attributes and can be combined without coupling logic to a single component.
-    @endtypography
 
     <div class="o-grid o-grid--large">
         <div class="o-grid-12 o-grid-4@md">

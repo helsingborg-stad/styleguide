@@ -23,9 +23,6 @@
 	@typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--1']])
 		Components
 	@endtypography
-	@typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-		Browse all available components.
-	@endtypography
 
 	@if (!empty($componentOverviewItems ?? []))
 		<div class="o-grid">

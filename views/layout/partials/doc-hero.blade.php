@@ -57,10 +57,10 @@
                 @typography(['element' => 'h4', 'variant' => 'h4'])
                     Frequently used
                 @endtypography
-                <div class="o-grid o-grid--half-gutter">
+                <div>
                     @foreach($shortcuts as $shortcut)
-                        <div class="o-grid-12">
-                            @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-padding__y--1', 'u-border__bottom--1']])
+                        <div class="u-border__bottom--1">
+                            @link(['href' => $shortcut['href'], 'classList' => ['u-display--block', 'u-padding__y--1']])
                                 {{ $shortcut['label'] }}
                             @endlink
                         </div>

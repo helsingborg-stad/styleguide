@@ -23,9 +23,6 @@
 	@typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--1']])
 		Objects
 	@endtypography
-	@typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-		Browse all available objects.
-	@endtypography
 
 	@if (!empty($objectsOverviewItems ?? []))
 		<div class="o-grid">

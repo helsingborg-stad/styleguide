@@ -55,18 +55,14 @@ class ObjectPageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'objects',
@@ -82,13 +78,7 @@ class ObjectPageControllerTest extends TestCase
                     $firstItem = $data['objectsOverviewItems'][0];
                     $secondItem = $data['objectsOverviewItems'][1];
 
-                    return ($firstItem['name'] ?? '') === 'Alpha'
-                        && ($firstItem['href'] ?? '') === '/objects/alpha'
-                        && ($firstItem['icon'] ?? '') === 'grid_view'
-                        && ($firstItem['description'] ?? '') === 'Alpha description'
-                        && ($secondItem['name'] ?? '') === 'Zeta'
-                        && ($secondItem['href'] ?? '') === '/objects/zeta'
-                        && ($secondItem['icon'] ?? '') === 'category';
+                    return ($firstItem['name'] ?? '') === 'Alpha' && ($firstItem['href'] ?? '') === '/objects/alpha' && ($firstItem['icon'] ?? '') === 'grid_view' && ($firstItem['description'] ?? '') === 'Alpha description' && ($secondItem['name'] ?? '') === 'Zeta' && ($secondItem['href'] ?? '') === '/objects/zeta' && ($secondItem['icon'] ?? '') === 'category';
                 }),
                 $bladeService,
             );
@@ -142,18 +132,14 @@ class ObjectPageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'objects/grid',
