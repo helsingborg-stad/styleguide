@@ -2,6 +2,7 @@ import { sanitizeMarkup } from "./helper/sanitize";
 
 class ChatInput implements ChatInputInterface {
     private ACTION_BAR_ATTRIBUTE = 'data-js-chat-actions';
+    private EMPTY_CLASS = 'is-empty';
 
     constructor(
         private container: HTMLDivElement,
@@ -10,6 +11,7 @@ class ChatInput implements ChatInputInterface {
     ) {
         this.setupContainerListener();
         this.setupInputListeners();
+        this.updateEmptyState();
     }
 
     
@@ -33,6 +35,7 @@ class ChatInput implements ChatInputInterface {
     
     public clear(): void {
         this.input.innerHTML = '';
+        this.updateEmptyState();
     }
 
     public disable(): void {
@@ -95,11 +98,26 @@ class ChatInput implements ChatInputInterface {
         const sanitizedMarkup = sanitizeMarkup(this.input.innerHTML);
 
         if (sanitizedMarkup === this.input.innerHTML) {
+            this.updateEmptyState();
             return;
         }
 
         this.input.innerHTML = sanitizedMarkup;
         this.placeCaretAtEnd();
+        this.updateEmptyState();
+    }
+
+    private updateEmptyState(): void {
+        this.container.classList.toggle(this.EMPTY_CLASS, this.isEmpty());
+    }
+
+    private isEmpty(): boolean {
+        const normalizedTextContent = (this.input.textContent ?? '')
+            .replace(/\u00A0/g, ' ')
+            .replace(/[\u200B-\u200D\uFEFF]/g, '')
+            .trim();
+
+        return normalizedTextContent.length === 0;
     }
 
     private insertAtCaret(html: string): void {
