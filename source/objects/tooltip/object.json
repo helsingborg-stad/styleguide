@@ -1,0 +1,6 @@
+{
+    "slug": "tooltip",
+    "name": "Tooltip",
+    "description": "Displays a small text bubble for any element using the data-tooltip attribute.",
+    "icon": "help_outline"
+}

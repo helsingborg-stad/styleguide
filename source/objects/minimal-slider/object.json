@@ -1,0 +1,6 @@
+{
+    "slug": "minimal-slider",
+    "name": "Minimal Slider",
+    "description": "A lightweight, scroll-snap based slider with keyboard navigation, touch support, and accessible announcements.",
+    "icon": "view_carousel"
+}
