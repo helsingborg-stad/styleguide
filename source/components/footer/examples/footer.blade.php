@@ -9,7 +9,6 @@
         'Documentation' => [
             'Components' => ['href' => '/components'],
             'Icons' => ['href' => '/icons'],
-            'Mixins' => ['href' => '/mixins'],
             'Scripts' => ['href' => '/script'],
             'Utilities' => ['href' => '/utilities']
         ],
