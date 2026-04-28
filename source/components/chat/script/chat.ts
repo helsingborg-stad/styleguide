@@ -81,7 +81,7 @@ class Chat implements ChatInterface {
         message.edit(sanitizedContent);
     }
 
-    public getPending(): MessageInterface | null {
+    public getPendingMessage(): MessageInterface | null {
         return this.pendingMessage;
     }
 

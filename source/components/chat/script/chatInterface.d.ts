@@ -3,7 +3,7 @@ interface ChatInterface {
     editMessage(newContent: string, message: MessageInterface): void;
     getMessageStore(): MessageStoreInterface;
     addPendingMessage(): MessageInterface;
-    getPending(): MessageInterface | null;
+    getPendingMessage(): MessageInterface | null;
     disable(): void;
     enable(): void;
     subscribeToUserMessages(callback: (message: MessageInterface) => void): void;
