@@ -1,5 +1,5 @@
 @if(isset($similarComponentItems) && is_array($similarComponentItems) && !empty($similarComponentItems))
-    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--3']])
+    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--3', 'u-margin__top--6']])
         @typography(['element' => 'h4', 'variant' => 'h4'])
             Similar components
         @endtypography

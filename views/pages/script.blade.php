@@ -28,7 +28,7 @@
     @endtypography
 
     <div class="o-grid o-grid--large">
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Interaction',
                 'content' => 'Toggle behavior, click-away actions and simulated clicks for predictable UI interactions.',
@@ -37,7 +37,7 @@
             ])
             @endbox
         </div>
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Data & state',
                 'content' => 'Filter, sort, copy and compress content to improve navigation and readability in dense interfaces.',
@@ -46,7 +46,7 @@
             ])
             @endbox
         </div>
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Layout & observer',
                 'content' => 'Move elements and react to container size changes while preserving markup intent.',
@@ -55,7 +55,7 @@
             ])
             @endbox
         </div>
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Animation',
                 'content' => 'Apply controlled motion effects using the documented animation utility patterns.',
