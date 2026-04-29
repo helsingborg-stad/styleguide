@@ -11,12 +11,6 @@ $token: "c-chat";
     border-radius: calc(tokens.use($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
     border: tokens.use($token, "border-width", 1) solid tokens.get($token, "color--surface-border");
 
-    &.is-empty {
-        .#{$_}__editable::before {
-            display: block;
-        }
-    }
-
     .#{$_}__editable {
         padding-block: calc(tokens.get($token, "base") * 1.5);
         padding-inline: calc(tokens.get($token, "base") * 1.5);
@@ -33,6 +27,12 @@ $token: "c-chat";
 
         &:focus-visible {
             outline: unset;
+        }
+    }
+
+    &.is-empty {
+        .#{$_}__editable::before {
+            display: block;
         }
     }
 

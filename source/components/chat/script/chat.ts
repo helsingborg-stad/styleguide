@@ -4,15 +4,26 @@ import MessageFactory from "./messageFactory";
 
 class Chat implements ChatInterface {
     private pendingMessage: MessageInterface | null = null;
+    private messageCallbacks: ((messages: MessageInterface[]) => void)[] = [];
     private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
+    
 
     constructor(
         private messageArea: HTMLElement,
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
-        private messageStore: MessageStoreInterface
+        private messageStore: StorageInterface
     ) {
+        this.loadPersistedMessages();
         this.setupFormListener();
+    }
+
+    private loadPersistedMessages(): void {
+        const persistedMessages = this.messageStore.getSavedMessages();
+
+        persistedMessages.forEach((message) => {
+            this.addMessage(message.content, message.isReply);
+        });
     }
 
     private setupFormListener() {
@@ -43,9 +54,14 @@ class Chat implements ChatInterface {
         const message = this.messageFactory.create(getPendingMarkup(), true);
         this.pendingMessage = message;
         this.moveMessageToBottom(message);
-        this.messageStore.add(message);
+        this.messageStore.save(message);
+        this.runMessageCallbacks();
 
         return message;
+    }
+
+    public subscribeToMessages(callback: (messages: MessageInterface[]) => void): void {
+        this.messageCallbacks.push(callback);
     }
 
     private runUserMessageCallback(message: MessageInterface): void {
@@ -65,7 +81,8 @@ class Chat implements ChatInterface {
             this.messageArea.appendChild(message.getMessage());
         }
 
-        this.messageStore.add(message);
+        this.messageStore.save(message);
+        this.runMessageCallbacks();
 
         return message;
     }
@@ -77,8 +94,8 @@ class Chat implements ChatInterface {
         if (this.pendingMessage && this.pendingMessage.getId() === message.getId()) {
             this.pendingMessage = null;
         }
-
-        message.edit(sanitizedContent);
+        this.messageStore.save(message);
+        this.runMessageCallbacks();
     }
 
     public getPendingMessage(): MessageInterface | null {
@@ -89,8 +106,10 @@ class Chat implements ChatInterface {
         this.messageArea.appendChild(message.getMessage());
     }
 
-    public getMessageStore(): MessageStoreInterface {
-        return this.messageStore;
+    private runMessageCallbacks(): void {
+        const messages = Array.from(this.messageStore.getAll().values());
+
+        this.messageCallbacks.forEach((callback) => callback(messages));
     }
 }
 
