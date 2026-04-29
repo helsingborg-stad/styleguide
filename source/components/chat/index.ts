@@ -1,7 +1,7 @@
 import Chat from "./script/chat";
 import ChatInput from "./script/chatInput";
 import MessageFactory from "./script/messageFactory";
-import MessageStore from "./script/messageStore";
+import StorageFactory from "./script/storage/storageFactory";
 
 /**
  * Initializes all chat component instances on the page.
@@ -24,13 +24,14 @@ export function init() {
 
             const input = new ChatInput(chatInputContainer,chatInput, sendButton);
             const messageFactory = new MessageFactory(replyMessageTemplate, userMessageTemplate);
-            const messageStore = new MessageStore();
+
+            const store = new StorageFactory().create(id, chatContainer.hasAttribute('data-js-chat-persistent'));
 
             const chat = new Chat(
                 messageArea,
                 input,
                 messageFactory,
-                messageStore
+                store
             );
 
             document.dispatchEvent(new CustomEvent('chat:initialized', { detail: { 
