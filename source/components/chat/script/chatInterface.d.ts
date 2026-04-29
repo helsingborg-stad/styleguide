@@ -1,7 +1,7 @@
 interface ChatInterface {
-    addMessage(message: string, isReply?: boolean): MessageInterface;
-    restoreMessage(message: string, isReply: boolean, id: string): MessageInterface;
+    addMessage(message: string, isReply?: boolean, id?: string): MessageInterface;
     clearMessages(): void;
+    deleteMessage(message: MessageInterface): void;
     editMessage(newContent: string, message: MessageInterface): void;
     getElement(): HTMLElement;
     addPendingMessage(): MessageInterface;

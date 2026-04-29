@@ -22,6 +22,11 @@ class LocalStorage implements StorageInterface {
         return this.basicStorage.getAll();
     }
 
+    public delete(message: MessageInterface): void {
+        this.basicStorage.delete(message);
+        this.syncLocalStorage();
+    }
+
     public restore(message: MessageInterface): void {
         this.basicStorage.restore(message);
     }
@@ -38,12 +43,19 @@ class LocalStorage implements StorageInterface {
 
     public save(message: MessageInterface): void {
         this.basicStorage.save(message);
-        this.saveToLocalStorage();
+        this.syncLocalStorage();
     }
 
-    private saveToLocalStorage(): void {
+    private syncLocalStorage(): void {
         try {
-            window.localStorage.setItem(this.storageKey, JSON.stringify(this.basicStorage.getSavedMessages()));
+            const savedMessages = this.basicStorage.getSavedMessages();
+
+            if (savedMessages.length === 0) {
+                window.localStorage.removeItem(this.storageKey);
+                return;
+            }
+
+            window.localStorage.setItem(this.storageKey, JSON.stringify(savedMessages));
         } catch {
             console.warn('Failed to save messages to localStorage. Messages will not persist across page reloads.');
         }
