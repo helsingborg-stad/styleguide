@@ -11,6 +11,10 @@ class Message implements MessageInterface {
         return this.message;
     }
 
+    public delete(): void {
+        this.getMessage().remove();
+    }
+
     public getId(): string {
         return this.id;
     }

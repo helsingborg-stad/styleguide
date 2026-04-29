@@ -4,4 +4,5 @@ interface MessageInterface {
     getContent(): string;
     getIsReply(): boolean;
     edit(content: string): void;
+    delete(): void;
 }

@@ -9,6 +9,21 @@ $_: "c-chat";
 .#{$_} {
     background-color: tokens.get($_, "color--background");
 
+    .#{$_}__title-area {
+        display: flex;
+        align-items: center;
+        gap: calc(tokens.get($_, "base") * 1.5);
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .#{$_}__clear-button {
+        margin-left: auto;
+    }
+
     .#{$_}__message-area {
         display: grid;
         gap: calc(tokens.get($_, "base") * 1.5);

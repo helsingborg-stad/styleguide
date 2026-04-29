@@ -28,6 +28,7 @@ export function init() {
             const store = new StorageFactory().create(id, chatContainer.hasAttribute('data-js-chat-persistent'));
 
             const chat = new Chat(
+                chatContainer as HTMLElement,
                 messageArea,
                 input,
                 messageFactory,

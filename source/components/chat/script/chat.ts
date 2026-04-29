@@ -9,6 +9,7 @@ class Chat implements ChatInterface {
     
 
     constructor(
+        private container: HTMLElement,
         private messageArea: HTMLElement,
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
@@ -39,6 +40,10 @@ class Chat implements ChatInterface {
 
     public disable(): void {
         this.input.disable();
+    }
+
+    public getElement(): HTMLElement {
+        return this.container;
     }
 
     public enable(): void {
