@@ -1,4 +1,4 @@
-import { sanitizeMarkup } from "./helper/sanitize";
+import { sanitizeMarkup } from "../helper/sanitize";
 import Message from "./message";
 
 class MessageFactory {

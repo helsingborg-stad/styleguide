@@ -22,6 +22,20 @@ class LocalStorage implements StorageInterface {
         return this.basicStorage.getAll();
     }
 
+    public restore(message: MessageInterface): void {
+        this.basicStorage.restore(message);
+    }
+
+    public deleteAll(): void {
+        this.basicStorage.deleteAll();
+
+        try {
+            window.localStorage.removeItem(this.storageKey);
+        } catch {
+            console.warn('Failed to clear messages from localStorage. Messages may persist across page reloads.');
+        }
+    }
+
     public save(message: MessageInterface): void {
         this.basicStorage.save(message);
         this.saveToLocalStorage();
@@ -31,7 +45,7 @@ class LocalStorage implements StorageInterface {
         try {
             window.localStorage.setItem(this.storageKey, JSON.stringify(this.basicStorage.getSavedMessages()));
         } catch {
-            // Intentionally ignored. Persistence is best-effort.
+            console.warn('Failed to save messages to localStorage. Messages will not persist across page reloads.');
         }
     }
 

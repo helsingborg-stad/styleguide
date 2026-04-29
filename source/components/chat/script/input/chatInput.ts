@@ -1,4 +1,4 @@
-import { sanitizeMarkup } from "./helper/sanitize";
+import { sanitizeMarkup } from "../helper/sanitize";
 
 class ChatInput implements ChatInputInterface {
     private ACTION_BAR_ATTRIBUTE = 'data-js-chat-actions';
@@ -41,6 +41,14 @@ class ChatInput implements ChatInputInterface {
     public disable(): void {
         this.input.setAttribute('contenteditable', 'false');
         this.sendButton.setAttribute('disabled', 'true');
+    }
+
+    public disableSend(): void {
+        this.sendButton.setAttribute('disabled', 'true');
+    }
+
+    public enableSend(): void {
+        this.sendButton.removeAttribute('disabled');
     }
 
     public enable(): void {

@@ -4,4 +4,6 @@ interface ChatInputInterface {
     clear(): void;
     disable(): void;
     enable(): void;
+    disableSend(): void;
+    enableSend(): void;
 }

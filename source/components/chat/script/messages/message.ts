@@ -1,3 +1,5 @@
+import { sanitizeMarkup } from "../helper/sanitize";
+
 class Message implements MessageInterface {
     constructor(
         private isReply: boolean,
@@ -9,6 +11,10 @@ class Message implements MessageInterface {
 
     public getMessage(): HTMLElement {
         return this.message;
+    }
+
+    public delete(): void {
+        this.getMessage().remove();
     }
 
     public getId(): string {
@@ -25,8 +31,10 @@ class Message implements MessageInterface {
      * @param content The sanitized message content to display.
      */
     public edit(content: string): void {
-        this.content = content;
-        this.message.innerHTML = content;
+        const sanitizedContent = sanitizeMarkup(content);
+
+        this.content = sanitizedContent;
+        this.message.innerHTML = sanitizedContent;
     }
 
     public getIsReply(): boolean {
