@@ -22,8 +22,18 @@ class LocalStorage implements StorageInterface {
         return this.basicStorage.getAll();
     }
 
+    public restore(message: MessageInterface): void {
+        this.basicStorage.restore(message);
+    }
+
     public deleteAll(): void {
-        // this.basicStorage.
+        this.basicStorage.deleteAll();
+
+        try {
+            window.localStorage.removeItem(this.storageKey);
+        } catch {
+            console.warn('Failed to clear messages from localStorage. Messages may persist across page reloads.');
+        }
     }
 
     public save(message: MessageInterface): void {

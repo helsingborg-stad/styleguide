@@ -10,7 +10,7 @@ class Clear implements ClearInterface {
             message.delete();
         });
 
-        // this.storage.clear();
+        this.storage.deleteAll();
     }
 }
 

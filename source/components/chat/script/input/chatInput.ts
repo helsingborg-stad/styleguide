@@ -43,6 +43,14 @@ class ChatInput implements ChatInputInterface {
         this.sendButton.setAttribute('disabled', 'true');
     }
 
+    public disableSend(): void {
+        this.sendButton.setAttribute('disabled', 'true');
+    }
+
+    public enableSend(): void {
+        this.sendButton.removeAttribute('disabled');
+    }
+
     public enable(): void {
         this.input.setAttribute('contenteditable', 'true');
         this.sendButton.removeAttribute('disabled');

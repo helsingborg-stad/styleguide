@@ -1,11 +1,12 @@
-import { getPendingMarkup } from "./helper/pending";
-import { sanitizeMarkup } from "./helper/sanitize";
 import MessageFactory from "./messages/messageFactory";
+import MessageRenderer from "./messages/messageRenderer";
+import PendingMessageManager from "./messages/pendingMessageManager";
 
 class Chat implements ChatInterface {
-    private pendingMessage: MessageInterface | null = null;
     private messageCallbacks: ((messages: MessageInterface[]) => void)[] = [];
     private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
+    private messageRenderer: MessageRenderer;
+    private pendingMessageManager: PendingMessageManager;
     
 
     constructor(
@@ -17,6 +18,8 @@ class Chat implements ChatInterface {
         private clear: ClearInterface
 
     ) {
+        this.messageRenderer = new MessageRenderer(this.messageArea);
+        this.pendingMessageManager = new PendingMessageManager(this.messageFactory);
     }
 
     public init(): void {
@@ -30,12 +33,20 @@ class Chat implements ChatInterface {
         });
     }
 
-    public disable(): void {
-        this.input.disable();
+    public disableSend(): void {
+        this.input.disableSend();
     }
 
     public getElement(): HTMLElement {
         return this.container;
+    }
+
+    public enableSend(): void {
+        this.input.enableSend();
+    }
+
+    public disable(): void {
+        this.input.disable();
     }
 
     public enable(): void {
@@ -43,14 +54,16 @@ class Chat implements ChatInterface {
     }
 
     public addPendingMessage(): MessageInterface {
-        if (this.pendingMessage) {
-            this.moveMessageToBottom(this.pendingMessage);
-            return this.pendingMessage;
+        const existingPendingMessage = this.pendingMessageManager.get();
+
+        if (existingPendingMessage) {
+            this.messageRenderer.moveToBottom(existingPendingMessage);
+            return existingPendingMessage;
         }
 
-        const message = this.messageFactory.create(getPendingMarkup(), true);
-        this.pendingMessage = message;
-        this.moveMessageToBottom(message);
+        const message = this.pendingMessageManager.getOrCreate();
+
+        this.messageRenderer.moveToBottom(message);
         this.messageStore.save(message);
         this.runMessageCallbacks();
 
@@ -70,43 +83,49 @@ class Chat implements ChatInterface {
     }
 
     public addMessage(messageContent: string, isReply: boolean = false): MessageInterface {
-        const message = this.messageFactory.create(messageContent, isReply);
+        return this.createMessage(messageContent, isReply, true);
+    }
 
-        if (this.pendingMessage) {
-            this.messageArea.insertBefore(message.getMessage(), this.pendingMessage.getMessage());
-        } else {
-            this.messageArea.appendChild(message.getMessage());
-        }
+    public restoreMessage(messageContent: string, isReply: boolean, id: string): MessageInterface {
+        return this.createMessage(messageContent, isReply, false, id);
+    }
 
-        this.messageStore.save(message);
+    public clearMessages(): void {
+        this.clear.clear();
+        this.pendingMessageManager.clear();
         this.runMessageCallbacks();
-
-        return message;
     }
 
     public editMessage(newContent: string, message: MessageInterface): void {
-        const sanitizedContent = sanitizeMarkup(newContent);
-
-        message.edit(sanitizedContent);
-
-        if (this.pendingMessage && this.pendingMessage.getId() === message.getId()) {
-            this.pendingMessage = null;
-        }
+        message.edit(newContent);
+        this.pendingMessageManager.resolve(message);
 
         this.messageStore.save(message);
         this.runMessageCallbacks();
     }
 
     public getPendingMessage(): MessageInterface | null {
-        return this.pendingMessage;
+        return this.pendingMessageManager.get();
     }
 
-    private moveMessageToBottom(message: MessageInterface): void {
-        this.messageArea.appendChild(message.getMessage());
+    private createMessage(messageContent: string, isReply: boolean, shouldPersist: boolean, id?: string): MessageInterface {
+        const message = this.messageFactory.create(messageContent, isReply, id);
+
+        this.messageRenderer.render(message, this.pendingMessageManager.get());
+
+        if (shouldPersist) {
+            this.messageStore.save(message);
+        } else {
+            this.messageStore.restore(message);
+        }
+
+        this.runMessageCallbacks();
+
+        return message;
     }
 
     private runMessageCallbacks(): void {
-        const messages = Array.from(this.messageStore.getAll().values());
+        const messages = this.messageStore.getAll();
 
         this.messageCallbacks.forEach((callback) => callback(messages));
     }
