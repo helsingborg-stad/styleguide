@@ -1,4 +1,4 @@
-import { sanitizeMarkup } from "./helper/sanitize";
+import { sanitizeMarkup } from "../helper/sanitize";
 
 class ChatInput implements ChatInputInterface {
     private ACTION_BAR_ATTRIBUTE = 'data-js-chat-actions';

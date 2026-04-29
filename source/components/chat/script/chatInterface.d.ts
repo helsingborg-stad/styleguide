@@ -8,4 +8,5 @@ interface ChatInterface {
     enable(): void;
     subscribeToMessages(callback: (messages: MessageInterface[]) => void): void;
     subscribeToUserMessages(callback: (message: MessageInterface) => void): void;
+    init(): void;
 }

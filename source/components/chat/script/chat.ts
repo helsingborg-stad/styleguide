@@ -1,6 +1,6 @@
 import { getPendingMarkup } from "./helper/pending";
 import { sanitizeMarkup } from "./helper/sanitize";
-import MessageFactory from "./messageFactory";
+import MessageFactory from "./messages/messageFactory";
 
 class Chat implements ChatInterface {
     private pendingMessage: MessageInterface | null = null;
@@ -13,21 +13,13 @@ class Chat implements ChatInterface {
         private messageArea: HTMLElement,
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
-        private messageStore: StorageInterface
+        private messageStore: StorageInterface,
+        private clear: ClearInterface
+
     ) {
-        this.loadPersistedMessages();
-        this.setupFormListener();
     }
 
-    private loadPersistedMessages(): void {
-        const persistedMessages = this.messageStore.getSavedMessages();
-
-        persistedMessages.forEach((message) => {
-            this.addMessage(message.content, message.isReply);
-        });
-    }
-
-    private setupFormListener() {
+    public init(): void {
         this.input.subscribeToSend(() => {
             const messageContent = this.input.get();
             if (messageContent) {
@@ -96,9 +88,11 @@ class Chat implements ChatInterface {
         const sanitizedContent = sanitizeMarkup(newContent);
 
         message.edit(sanitizedContent);
+
         if (this.pendingMessage && this.pendingMessage.getId() === message.getId()) {
             this.pendingMessage = null;
         }
+
         this.messageStore.save(message);
         this.runMessageCallbacks();
     }
