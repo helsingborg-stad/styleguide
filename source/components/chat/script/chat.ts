@@ -64,7 +64,7 @@ class Chat implements ChatInterface {
         const message = this.pendingMessageManager.getOrCreate();
 
         this.messageRenderer.moveToBottom(message);
-        this.messageStore.save(message);
+        this.messageStore.restore(message);
         this.runMessageCallbacks();
 
         return message;
@@ -82,12 +82,15 @@ class Chat implements ChatInterface {
         this.userMessageCallbacks.push(callback);
     }
 
-    public addMessage(messageContent: string, isReply: boolean = false): MessageInterface {
-        return this.createMessage(messageContent, isReply, true);
+    public addMessage(messageContent: string, isReply: boolean = false, id?: string): MessageInterface {
+        return this.createMessage(messageContent, isReply, true, id);
     }
 
-    public restoreMessage(messageContent: string, isReply: boolean, id: string): MessageInterface {
-        return this.createMessage(messageContent, isReply, false, id);
+    public deleteMessage(message: MessageInterface): void {
+        this.pendingMessageManager.resolve(message);
+        message.delete();
+        this.messageStore.delete(message);
+        this.runMessageCallbacks();
     }
 
     public clearMessages(): void {
