@@ -9,7 +9,7 @@ export function sanitizeMarkup(html: string): string {
 
 function sanitizeNode(node: Element): void {
     const forbiddenTags = new Set(['script', 'style', 'iframe', 'object', 'embed', 'form', 'link', 'meta', 'base', 'button', 'img']);
-    const forbiddenAttributes = new Set(['style']);
+    const forbiddenAttributes = new Set(['style', 'class']);
     const unsafeUrlAttributes = new Set(['href', 'src', 'action', 'formaction']);
     const unsafeUrlPattern = /^(javascript|data|vbscript):/i;
 
