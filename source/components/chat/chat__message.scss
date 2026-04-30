@@ -13,6 +13,13 @@ $token: "c-chat";
     word-break: break-word;
     white-space: pre-wrap;
 
+    & > * {
+        display: inline-block;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
     &.#{$_}--user {
         color: tokens.get($token, "color--secondary-contrast");
         background-color: tokens.get($token, "color--secondary");
