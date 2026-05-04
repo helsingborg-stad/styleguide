@@ -15,6 +15,8 @@ $token: "c-chat";
         padding-block: calc(tokens.get($token, "base") * 1.5);
         padding-inline: calc(tokens.get($token, "base") * 1.5);
         grid-column: span 12;
+        max-height: calc(tokens.get($token, "base") * 25);
+        overflow-y: auto;
 
         &::before {
             display: none;
