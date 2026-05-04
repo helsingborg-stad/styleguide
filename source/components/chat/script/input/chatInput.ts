@@ -92,11 +92,11 @@ class ChatInput implements ChatInputInterface {
             return;
         }
 
-        const htmlContent = clipboardData.getData('text/html');
         const plainTextContent = clipboardData.getData('text/plain');
-        const sanitizedContent = htmlContent
-            ? sanitizeMarkup(htmlContent)
-            : this.escapeHtml(plainTextContent);
+        const htmlContent = clipboardData.getData('text/html');
+        const sanitizedContent = plainTextContent.length > 0
+            ? this.convertPlainTextToMarkup(plainTextContent)
+            : sanitizeMarkup(htmlContent);
 
         this.insertAtCaret(sanitizedContent);
         this.sanitizeEditableContent();
@@ -172,6 +172,11 @@ class ChatInput implements ChatInputInterface {
         temporaryContainer.textContent = content;
 
         return temporaryContainer.innerHTML;
+    }
+
+    private convertPlainTextToMarkup(content: string): string {
+        return this.escapeHtml(content)
+            .replace(/\r\n|\r|\n/g, '<br>');
     }
 }
 
