@@ -14,15 +14,12 @@ $_: "c-chat";
         display: flex;
         align-items: center;
         gap: calc(tokens.get($_, "base") * 1.5);
+        padding: 0 calc(tokens.get($_, "base") * 2);
 
         h2 {
             margin-top: 0;
             margin-bottom: 0;
         }
-    }
-
-    .#{$_}__clear-button {
-        margin-left: auto;
     }
 
     .#{$_}__message-area {
