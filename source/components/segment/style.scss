@@ -28,7 +28,7 @@ $_observe-breakpoint-md: 768px;
         justify-content: center;
         z-index: 2000;
 
-        > .o-grid {
+        >.o-grid {
             justify-content: center;
         }
     }
@@ -114,6 +114,19 @@ $_observe-breakpoint-md: 768px;
             font-size: tokens.get("", "font-size-200");
         }
     }
+}
+
+.#{$c}.#{$c}--text-light {
+    color: #fff; // TODO: remove hardcoded color in favor of tokens.
+
+    .c-button {
+        --inherit-color-background: #fff;
+        --inherit-color-contrast: #000;
+    }
+}
+
+.#{$c}.#{$c}--text-dark {
+    color: #000; // TODO: remove hardcoded color in favor of tokens.
 }
 
 .#{$c}.#{$c}--height {
