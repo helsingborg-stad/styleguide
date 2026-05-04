@@ -14,7 +14,7 @@ $_: "c-chat";
         display: flex;
         align-items: center;
         gap: calc(tokens.get($_, "base") * 1.5);
-        padding: 0 calc(tokens.get($_, "base") * 2);
+        padding: calc(tokens.get($_, "base") * 2) calc(tokens.get($_, "base") * 2) 0;
 
         h2 {
             margin-top: 0;
