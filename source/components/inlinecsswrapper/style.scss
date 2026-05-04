@@ -6,5 +6,5 @@ $_: "c-inlinecsswrapper";
 @include tokens.create($_,getComponentTokens($_));
 
 .#{$_} {
-    padding: tokens.use($_, "space", 1);
+    padding: tokens.getCalculatedValue($_, "space", 1);
 }

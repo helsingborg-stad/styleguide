@@ -16,13 +16,13 @@ $_: "o-minimal-slider";
   grid-template-areas:
     "toolbar"
     "viewport";
-  gap: #{tokens.use($_, "space", 4)};
+  gap: #{tokens.getCalculatedValue($_, "space", 4)};
 
   &__toolbar {
     grid-area: toolbar;
     display: flex;
     flex-wrap: wrap;
-    gap: calc(#{tokens.use($_, "space", 4)} * 0.5);
+    gap: calc(#{tokens.getCalculatedValue($_, "space", 4)} * 0.5);
     align-items: end;
   }
 
@@ -40,8 +40,8 @@ $_: "o-minimal-slider";
     grid-area: viewport;
     position: relative;
     overflow: hidden;
-    margin: 0 calc(#{tokens.use($_, "base", 4)} * -1);
-    padding: 0 #{tokens.use($_, "base", 4)};
+    margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
+    padding: 0 #{tokens.getCalculatedValue($_, "base", 4)};
 
     /* Gradient fade on both sides to indicate scrollability */
     /*
@@ -51,32 +51,32 @@ $_: "o-minimal-slider";
       position: absolute;
       top: 0;
       bottom: 0;
-      width: #{tokens.use($_, "base", 4)};
+      width: #{tokens.getCalculatedValue($_, "base", 4)};
       pointer-events: none;
       z-index: 2;
     }
 
     &::before {
       left: 0;
-      background: linear-gradient(to right, var(--inherit-color-background, #{tokens.get($_, "color--surface")}), transparent);
+      background: linear-gradient(to right, var(--inherit-color-background, #{tokens.getRawValue($_, "color--surface")}), transparent);
     }
 
     &::after {
       right: 0;
-      background: linear-gradient(to left, var(--inherit-color-background, #{tokens.get($_, "color--surface")}), transparent);
+      background: linear-gradient(to left, var(--inherit-color-background, #{tokens.getRawValue($_, "color--surface")}), transparent);
     }*/
   }
 
   &__track {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.get($_, "space")} * var(--base) * 4) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
-    gap: #{tokens.use($_, "space", 4)};
+    grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 4) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
+    gap: #{tokens.getCalculatedValue($_, "space", 4)};
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: 0;
     scroll-behavior: smooth;
-    padding: #{tokens.use($_, "outer-space", 4)} 0;
+    padding: #{tokens.getCalculatedValue($_, "outer-space", 4)} 0;
     margin: 0;
     list-style: none;
     touch-action: pan-x;
@@ -117,7 +117,7 @@ $_: "o-minimal-slider";
     z-index: 4;
     pointer-events: none;
     min-height: 100%;
-    margin: 0 calc(#{tokens.use($_, "base", 4)} * -1);
+    margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
   }
 
   &__button {
@@ -128,11 +128,11 @@ $_: "o-minimal-slider";
     margin: 0;
 
     &:first-of-type {
-      left: #{tokens.use($_, "base", 1)};
+      left: #{tokens.getCalculatedValue($_, "base", 1)};
     }
 
     &:last-of-type {
-      right: #{tokens.use($_, "base", 1)};
+      right: #{tokens.getCalculatedValue($_, "base", 1)};
     }
   }
 }
@@ -140,15 +140,15 @@ $_: "o-minimal-slider";
 
 @media (max-width: 900px) {
   .#{$_} {
-    gap: #{tokens.use($_, "space", 2)};
+    gap: #{tokens.getCalculatedValue($_, "space", 2)};
 
     &__toolbar {
-      gap: calc(#{tokens.use($_, "space", 2)} * 0.5);
+      gap: calc(#{tokens.getCalculatedValue($_, "space", 2)} * 0.5);
     }
 
     &__track {
-      grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.get($_, "space")} * var(--base) * 2) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
-      gap: #{tokens.use($_, "space", 2)};
+      grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 2) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
+      gap: #{tokens.getCalculatedValue($_, "space", 2)};
     }
 
     &__button {

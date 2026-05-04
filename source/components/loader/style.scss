@@ -12,8 +12,8 @@ $_: "c-loader";
 
     /* Loader circular  */
     &__circular {
-        color: tokens.get($_, "color--surface-contrast");
-        font-size: tokens.use($_, "base", 2);
+        color: tokens.getRawValue($_, "color--surface-contrast");
+        font-size: tokens.getCalculatedValue($_, "base", 2);
         width: 1em;
         height: 1em;
         margin: 0;
@@ -24,31 +24,31 @@ $_: "c-loader";
         transform: translateZ(0);
 
         &--color--primary {
-            color: tokens.get($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary");
         }
 
         &--color--secondary {
-            color: tokens.get($_, "color--secondary");
+            color: tokens.getRawValue($_, "color--secondary");
         }
 
         &--xl {
-            font-size: tokens.use($_, "base", 2.5);
+            font-size: tokens.getCalculatedValue($_, "base", 2.5);
         }
 
         &--lg {
-            font-size: tokens.use($_, "base", 2);
+            font-size: tokens.getCalculatedValue($_, "base", 2);
         }
 
         &--md {
-            font-size: tokens.use($_, "base", 1.5);
+            font-size: tokens.getCalculatedValue($_, "base", 1.5);
         }
 
         &--sm {
-            font-size: tokens.use($_, "base", 1);
+            font-size: tokens.getCalculatedValue($_, "base", 1);
         }
 
         &--xs {
-            font-size: tokens.use($_, "base", 0.5);
+            font-size: tokens.getCalculatedValue($_, "base", 0.5);
         }
     }
 
@@ -156,8 +156,8 @@ $_: "c-loader";
     }
 
     &__linear {
-        color: tokens.get($_, "color--surface-contrast");
-        font-size: tokens.use($_, "base", 4);
+        color: tokens.getRawValue($_, "color--surface-contrast");
+        font-size: tokens.getCalculatedValue($_, "base", 4);
         margin: 0;
         position: relative;
         text-indent: -9999rem;
@@ -165,31 +165,31 @@ $_: "c-loader";
         animation-delay: -0.16s;
 
         &--color--primary {
-            color: tokens.get($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary");
         }
 
         &--color--secondary {
-            color: tokens.get($_, "color--secondary");
+            color: tokens.getRawValue($_, "color--secondary");
         }
 
         &--xl {
-            font-size: tokens.use($_, "base", 5);
+            font-size: tokens.getCalculatedValue($_, "base", 5);
         }
 
         &--lg {
-            font-size: tokens.use($_, "base", 4);
+            font-size: tokens.getCalculatedValue($_, "base", 4);
         }
 
         &--md {
-            font-size: tokens.use($_, "base", 3);
+            font-size: tokens.getCalculatedValue($_, "base", 3);
         }
 
         &--sm {
-            font-size: tokens.use($_, "base", 2);
+            font-size: tokens.getCalculatedValue($_, "base", 2);
         }
 
         &--xs {
-            font-size: tokens.use($_, "base", 1);
+            font-size: tokens.getCalculatedValue($_, "base", 1);
         }
     }
 

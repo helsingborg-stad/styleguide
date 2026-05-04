@@ -10,14 +10,14 @@ $_: "c-notice";
 
 /* Component */
 .#{$_} {
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid;
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid;
     contain: layout;
     filter: var(--#{$_}--shadow);
     border: var(--#{$_}--border);
-    padding: tokens.use($_, "space", 2) tokens.use($_, "space", 3);
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 3);
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     display: grid;
     grid-template-areas:
@@ -30,16 +30,16 @@ $_: "c-notice";
         grid-area: icon;
         line-height: 1rem;
         opacity: .7;
-        color: tokens.get($_, "color--info-contrast");
-        margin-right: tokens.use($_, "space", 2);
+        color: tokens.getRawValue($_, "color--info-contrast");
+        margin-right: tokens.getCalculatedValue($_, "space", 2);
     }
 
     .#{$_}__title {
         grid-area: title;
         margin: 0;
-        line-height: tokens.get($_, "line-height");
+        line-height: tokens.getRawValue($_, "line-height");
 
-        --inherit-font-size: #{tokens.get($_, "font-size-300")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
     }
 
     .#{$_}__message {
@@ -50,13 +50,13 @@ $_: "c-notice";
     .#{$_}__actions {
         grid-area: actions;
         display: flex;
-        gap: tokens.use($_, "space", 1.5);
+        gap: tokens.getCalculatedValue($_, "space", 1.5);
         align-items: center;
         justify-content: flex-end;
-        margin: tokens.use($_, "space", -1) tokens.use($_, "space", -1) tokens.use($_, "space", -1) 0;
+        margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -1) 0;
 
         >*+* {
-            padding-left: tokens.use($_, "space", 0.75);
+            padding-left: tokens.getCalculatedValue($_, "space", 0.75);
             border-left: 1px solid;
             border-left-color: inherit;
             opacity: 1;
@@ -81,74 +81,74 @@ $_: "c-notice";
     }
 
     &--success {
-        background-color: tokens.get($_, "color--success");
-        color: tokens.get($_, "color--success-contrast");
-        border-color: tokens.get($_, "color--success-border");
+        background-color: tokens.getRawValue($_, "color--success");
+        color: tokens.getRawValue($_, "color--success-contrast");
+        border-color: tokens.getRawValue($_, "color--success-border");
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: tokens.get($_, "color--success-contrast");
+            color: tokens.getRawValue($_, "color--success-contrast");
             text-decoration: underline;
         }
 
         .c-button {
-            color: tokens.get($_, "color--success-contrast");
+            color: tokens.getRawValue($_, "color--success-contrast");
         }
     }
 
     &--danger {
-        background-color: tokens.get($_, "color--danger");
-        color: tokens.get($_, "color--danger-contrast");
-        border-color: tokens.get($_, "color--danger-border");
+        background-color: tokens.getRawValue($_, "color--danger");
+        color: tokens.getRawValue($_, "color--danger-contrast");
+        border-color: tokens.getRawValue($_, "color--danger-border");
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: tokens.get($_, "color--danger-contrast");
+            color: tokens.getRawValue($_, "color--danger-contrast");
             text-decoration: underline;
         }
 
         .c-button {
-            color: tokens.get($_, "color--danger-contrast");
+            color: tokens.getRawValue($_, "color--danger-contrast");
         }
     }
 
     &--info {
-        background-color: tokens.get($_, "color--info");
-        color: tokens.get($_, "color--info-contrast");
-        border-color: tokens.get($_, "color--info-border");
+        background-color: tokens.getRawValue($_, "color--info");
+        color: tokens.getRawValue($_, "color--info-contrast");
+        border-color: tokens.getRawValue($_, "color--info-border");
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: tokens.get($_, "color--info-contrast");
+            color: tokens.getRawValue($_, "color--info-contrast");
             text-decoration: underline;
         }
 
         .c-button {
-            color: tokens.get($_, "color--info-contrast");
+            color: tokens.getRawValue($_, "color--info-contrast");
         }
     }
 
     &--warning {
-        background-color: tokens.get($_, "color--warning");
-        color: tokens.get($_, "color--warning-contrast");
-        border-color: tokens.get($_, "color--warning-border");
+        background-color: tokens.getRawValue($_, "color--warning");
+        color: tokens.getRawValue($_, "color--warning-contrast");
+        border-color: tokens.getRawValue($_, "color--warning-border");
 
         a,
         a:hover,
         a:active,
         a:visited {
-            color: tokens.get($_, "color--warning-contrast");
+            color: tokens.getRawValue($_, "color--warning-contrast");
             text-decoration: underline;
         }
 
         .c-button {
-            color: tokens.get($_, "color--warning-contrast");
+            color: tokens.getRawValue($_, "color--warning-contrast");
         }
     }
 
@@ -164,7 +164,7 @@ $_: "c-notice";
         grid-template-columns: min-content 1fr;
 
         .#{$_}__actions {
-            margin-top: tokens.use($_, "space");
+            margin-top: tokens.getCalculatedValue($_, "space");
             justify-content: flex-start;
         }
 
@@ -183,7 +183,7 @@ $_: "c-notice";
 }
 
 .#{$_}+.#{$_} {
-    margin-top: tokens.use($_, "outer-space", 2);
+    margin-top: tokens.getCalculatedValue($_, "outer-space", 2);
 }
 
 @media print {

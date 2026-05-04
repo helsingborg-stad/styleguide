@@ -7,14 +7,14 @@ $_: "c-chat";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    background-color: tokens.get($_, "color--background");
-    height: min(calc(tokens.get($_, "base") * 80), 80vh);
+    background-color: tokens.getRawValue($_, "color--background");
+    height: min(calc(tokens.getRawValue($_, "base") * 80), 80vh);
 
     .#{$_}__title-area {
         display: flex;
         align-items: center;
-        gap: calc(tokens.get($_, "base") * 1.5);
-        padding: calc(tokens.get($_, "base") * 2) calc(tokens.get($_, "base") * 2) 0;
+        gap: calc(tokens.getRawValue($_, "base") * 1.5);
+        padding: calc(tokens.getRawValue($_, "base") * 2) calc(tokens.getRawValue($_, "base") * 2) 0;
 
         h2 {
             margin-top: 0;
@@ -24,18 +24,18 @@ $_: "c-chat";
 
     .#{$_}__message-area {
         display: grid;
-        gap: calc(tokens.get($_, "base") * 1.5);
-        padding: calc(tokens.get($_, "base") * 3.5) calc(tokens.get($_, "base") * 2);
+        gap: calc(tokens.getRawValue($_, "base") * 1.5);
+        padding: calc(tokens.getRawValue($_, "base") * 3.5) calc(tokens.getRawValue($_, "base") * 2);
     }
 
     .#{$_}__input-area {
-        padding: 0 calc(tokens.get($_, "base") * 2) calc(tokens.get($_, "base") * 2);
+        padding: 0 calc(tokens.getRawValue($_, "base") * 2) calc(tokens.getRawValue($_, "base") * 2);
         position: sticky;
         bottom: 0;
         background: linear-gradient(
             to bottom,
             transparent 50%,
-            tokens.get($_, "color--surface") 50%,
+            tokens.getRawValue($_, "color--surface") 50%,
 
         );
     }

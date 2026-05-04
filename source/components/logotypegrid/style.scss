@@ -6,7 +6,7 @@ $_: "c-logotypegrid";
 
 .#{$_} {
     display: flex;
-    gap: tokens.use($_, "base", 6) tokens.use($_, "base", 14);
+    gap: tokens.getCalculatedValue($_, "base", 6) tokens.getCalculatedValue($_, "base", 14);
     flex-wrap: wrap;
 
     .#{$_}__item {
@@ -15,7 +15,7 @@ $_: "c-logotypegrid";
     }
 
     .#{$_}__logo {
-        height: tokens.use($_, "base", 10);
+        height: tokens.getCalculatedValue($_, "base", 10);
     }
 
     .#{$_}__logo .c-logotype__image {

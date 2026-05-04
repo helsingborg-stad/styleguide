@@ -5,15 +5,15 @@ $_: "c-acceptance";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
-    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.getCalculatedValue($_, "shadow", 1.5)};
     --#{$_}--map-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJtNjAwLTEyMC0yNDAtODQtMTg2IDcycS0yMCA4LTM3LTQuNVQxMjAtMTcwdi01NjBxMC0xMyA3LjUtMjN0MjAuNS0xNWwyMTItNzIgMjQwIDg0IDE4Ni03MnEyMC04IDM3IDQuNXQxNyAzMy41djU2MHEwIDEzLTcuNSAyM1Q4MTItMTkybC0yMTIgNzJabS00MC05OHYtNDY4bC0xNjAtNTZ2NDY4bDE2MCA1NlptODAgMCAxMjAtNDB2LTQ3NGwtMTIwIDQ2djQ2OFptLTQ0MC0xMCAxMjAtNDZ2LTQ2OGwtMTIwIDQwdjQ3NFptNDQwLTQ1OHY0NjgtNDY4Wm0tMzIwLTU2djQ2OC00NjhaIi8+PC9zdmc+");
 
-    background-color: tokens.get($_, "color--surface");
+    background-color: tokens.getRawValue($_, "color--surface");
     background-position: center;
-    border-radius: tokens.use($_, "border-radius");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
     contain: layout;
-    corner-shape: tokens.get($_, "corner-shape");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     &.#{$_}--accepted {
         background-color: transparent;
@@ -25,7 +25,7 @@ $_: "c-acceptance";
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
         width: 100%;
     }
 
@@ -44,11 +44,11 @@ $_: "c-acceptance";
     }
 
     .#{$_}__content iframe {
-        background-color: tokens.get($_, "color--surface");
+        background-color: tokens.getRawValue($_, "color--surface");
     }
 
     .#{$_}__modal-title {
-        --inherit-font-size: #{tokens.get($_, "font-size-400")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
     }
 
     /* Map */
@@ -62,7 +62,7 @@ $_: "c-acceptance";
         }
 
         .#{$_}__modal:before {
-            background-color: tokens.get($_, "color--surface-border");
+            background-color: tokens.getRawValue($_, "color--surface-border");
             background-position: center;
             background-size: contain;
             content: "";
@@ -77,7 +77,7 @@ $_: "c-acceptance";
         }
 
         .#{$_}__modal:after {
-            background-color: tokens.get($_, "color--surface-alt");
+            background-color: tokens.getRawValue($_, "color--surface-alt");
             content: "";
             inset: 0;
             position: absolute;
@@ -98,17 +98,17 @@ $_: "c-acceptance";
         }
 
         .#{$_}__modal {
-            background-color: tokens.get($_, "color--alpha");
-            color: tokens.get($_, "color--alpha-contrast");
+            background-color: tokens.getRawValue($_, "color--alpha");
+            color: tokens.getRawValue($_, "color--alpha-contrast");
             inset: 0;
             position: absolute;
         }
 
         .#{$_}__modal-icon-play {
-            color: tokens.get($_, "color--alpha-contrast");
+            color: tokens.getRawValue($_, "color--alpha-contrast");
             cursor: pointer;
             filter: var(--#{$_}--shadow);
-            font-size: clamp(tokens.use($_, "base", 8), 10vw, tokens.use($_, "base", 10));
+            font-size: clamp(tokens.getCalculatedValue($_, "base", 8), 10vw, tokens.getCalculatedValue($_, "base", 10));
             left: 50%;
             position: absolute;
             top: 50%;
@@ -117,7 +117,7 @@ $_: "c-acceptance";
 
             &:hover {
                 filter: var(--#{$_}--shadow-hover);
-                color: tokens.get($_, "color--alpha-contrast-alt");
+                color: tokens.getRawValue($_, "color--alpha-contrast-alt");
             }
 
             &:hover:before {
@@ -130,9 +130,9 @@ $_: "c-acceptance";
         .#{$_}__modal-info {
             cursor: pointer;
             position: absolute;
-            top: tokens.use($_, "base", 1);
-            right: tokens.use($_, "base", 2);
-            color: tokens.get($_, "color--alpha-contrast");
+            top: tokens.getCalculatedValue($_, "base", 1);
+            right: tokens.getCalculatedValue($_, "base", 2);
+            color: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }
 }

@@ -16,18 +16,18 @@ $_: "[data-tooltip]";
     display: inline-block;
 
     &::after {
-        background-color: tokens.get($token, "color--alpha");
-        border-radius: tokens.get($token, "radius-lg");
-        border: 1px solid tokens.get($token, "color--alpha");
+        background-color: tokens.getRawValue($token, "color--alpha");
+        border-radius: tokens.getRawValue($token, "radius-lg");
+        border: 1px solid tokens.getRawValue($token, "color--alpha");
         bottom: calc(100% + $_arrow-size);
-        color: tokens.get($token, "color--alpha-contrasting");
+        color: tokens.getRawValue($token, "color--alpha-contrasting");
         content: attr(data-tooltip);
-        corner-shape: tokens.get($token, "corner-shape");
-        filter: tokens.get($token, "shadow-1");
+        corner-shape: tokens.getRawValue($token, "corner-shape");
+        filter: tokens.getRawValue($token, "shadow-1");
         left: 50%;
         max-width: calc(var(--base) * 25);
         opacity: 0;
-        padding: tokens.get($token, "base");
+        padding: tokens.getRawValue($token, "base");
         position: absolute;
         text-align: center;
         transform: translateX(-50%);
@@ -40,7 +40,7 @@ $_: "[data-tooltip]";
     }
 
     &::before {
-        border-color: tokens.get($token, "color--alpha") transparent transparent transparent;
+        border-color: tokens.getRawValue($token, "color--alpha") transparent transparent transparent;
         border-style: solid;
         border-width: $_arrow-size;
         bottom: calc(100% - $_arrow-size);

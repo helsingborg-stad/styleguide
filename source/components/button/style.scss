@@ -24,24 +24,24 @@ $_: "c-button";
  * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
-    "primary": ("bg": var(--inherit-color-background, tokens.get($_, "color--primary")),
-        "fg": var(--inherit-color-contrast, tokens.get($_, "color--primary-contrast")),
-        "hover": tokens.get($_, "color--primary-border"),
-        "active": tokens.get($_, "color--primary-alt"),
-        "underline": var(--inherit-color-contrast, tokens.get($_, "color--primary")),
-        "stroke": tokens.get($_, "color--primary")),
-    "secondary": ("bg": var(--inherit-color-background, tokens.get($_, "color--secondary")),
-        "fg": var(--inherit-color-contrast, tokens.get($_, "color--secondary-contrast")),
-        "hover": tokens.get($_, "color--secondary-border"),
-        "active": tokens.get($_, "color--secondary-alt"),
-        "underline": var(--inherit-color-contrast, tokens.get($_, "color--secondary")),
-        "stroke": tokens.get($_, "color--secondary")),
-    "default": ("bg": var(--inherit-color-background, tokens.get($_, "color--surface-alt")),
-        "fg": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast")),
-        "hover": tokens.get($_, "color--surface-border"),
-        "active": tokens.get($_, "color--surface-alt"),
-        "underline": var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast-muted")),
-        "stroke": tokens.get($_, "color--surface-contrast"))
+    "primary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--primary")),
+        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary-contrast")),
+        "hover": tokens.getRawValue($_, "color--primary-border"),
+        "active": tokens.getRawValue($_, "color--primary-alt"),
+        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary")),
+        "stroke": tokens.getRawValue($_, "color--primary")),
+    "secondary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary")),
+        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary-contrast")),
+        "hover": tokens.getRawValue($_, "color--secondary-border"),
+        "active": tokens.getRawValue($_, "color--secondary-alt"),
+        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary")),
+        "stroke": tokens.getRawValue($_, "color--secondary")),
+    "default": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-alt")),
+        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast")),
+        "hover": tokens.getRawValue($_, "color--surface-border"),
+        "active": tokens.getRawValue($_, "color--surface-alt"),
+        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast-muted")),
+        "stroke": tokens.getRawValue($_, "color--surface-contrast"))
 );
 
 .#{$_} {
@@ -137,14 +137,14 @@ $button-sizes: (
 
 /* Component base */
 .#{$_} {
-    --#{$_}--font-weight: #{tokens.get($_, "font-weight-medium")};
-    --#{$_}--font-family: #{tokens.get($_, "font-family-base")};
-    --#{$_}--font-size-lg: #{tokens.get($_, "font-size-200")};
-    --#{$_}--font-size-md: #{tokens.get($_, "font-size-100")};
-    --#{$_}--font-size-sm: #{tokens.get($_, "font-size-90")};
-    --#{$_}--color-default: #{tokens.get($_, "color--surface")};
-    --#{$_}--color-default-contrast: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
+    --#{$_}--font-weight: #{tokens.getRawValue($_, "font-weight-medium")};
+    --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-base")};
+    --#{$_}--font-size-lg: #{tokens.getRawValue($_, "font-size-200")};
+    --#{$_}--font-size-md: #{tokens.getRawValue($_, "font-size-100")};
+    --#{$_}--font-size-sm: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--color-default: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color-default-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     contain: layout;
     display: inline-flex;
     vertical-align: middle;
@@ -167,8 +167,8 @@ $button-sizes: (
     /* Loading spinner (hidden by default) */
     .#{$_}__loader {
         display: none;
-        width: calc(#{tokens.get($_, "base")} * 3);
-        height: calc(#{tokens.get($_, "base")} * 3);
+        width: calc(#{tokens.getRawValue($_, "base")} * 3);
+        height: calc(#{tokens.getRawValue($_, "base")} * 3);
         border: 3px solid;
         border-bottom-color: transparent;
         border-radius: 50%;
@@ -230,7 +230,7 @@ $button-sizes: (
             opacity 100ms,
             color 100ms;
         text-decoration: none;
-        gap: tokens.get($_, "base");
+        gap: tokens.getRawValue($_, "base");
         width: 100%;
         max-width: 100%;
         height: 100%;
@@ -243,12 +243,12 @@ $button-sizes: (
         /* Icon: default order 0 (flex default), so it comes before text */
         .#{$_}__label-icon {
             display: flex;
-            margin-left: calc(#{tokens.get($_, "base")} * var(--_offset, 0));
+            margin-left: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
 
             &--reverse {
                 order: 2; // push icon after text when reversed
                 margin-left: 0;
-                margin-right: calc(#{tokens.get($_, "base")} * var(--_offset, 0));
+                margin-right: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
             }
         }
 
@@ -283,25 +283,25 @@ $button-sizes: (
                 letter-spacing: #{map.get($size, "letter-spacing")};
             }
 
-            height: calc(#{tokens.get($_, "base")} * var(--_h));
-            min-width: calc(#{tokens.get($_, "base")} * var(--_w));
-            padding: 0 calc(#{tokens.get($_, "base")} * var(--_p));
+            height: calc(#{tokens.getRawValue($_, "base")} * var(--_h));
+            min-width: calc(#{tokens.getRawValue($_, "base")} * var(--_w));
+            padding: 0 calc(#{tokens.getRawValue($_, "base")} * var(--_p));
             font-size: var(--_fs);
-            border-radius: min(calc(#{tokens.get($_, "base")} * 6.5 / 4), #{tokens.use($_, "border-radius")});
-            corner-shape: tokens.get($_, "corner-shape");
+            border-radius: min(calc(#{tokens.getRawValue($_, "base")} * 6.5 / 4), #{tokens.getCalculatedValue($_, "border-radius")});
+            corner-shape: tokens.getRawValue($_, "corner-shape");
 
             /* Loader sizing (sm/lg override the default size) */
             .#{$_}__loader {
                 @if map.get($size, "loader") !=null {
-                    width: calc(#{tokens.get($_, "base")} * var(--_loader));
-                    height: calc(#{tokens.get($_, "base")} * var(--_loader));
+                    width: calc(#{tokens.getRawValue($_, "base")} * var(--_loader));
+                    height: calc(#{tokens.getRawValue($_, "base")} * var(--_loader));
                     border-width: calc(var(--_loader) * 1px);
                 }
             }
 
             /* Icon-only: square button, no padding */
             &.#{$_}--icon-only {
-                width: calc(#{tokens.get($_, "base")} * var(--_h));
+                width: calc(#{tokens.getRawValue($_, "base")} * var(--_h));
                 min-width: initial;
                 padding-left: 0;
                 padding-right: 0;
@@ -321,7 +321,7 @@ $button-sizes: (
 
     /* Pill shape */
     &.#{$_}--pill {
-        border-radius: calc(#{tokens.get($_, "base")} * 4);
+        border-radius: calc(#{tokens.getRawValue($_, "base")} * 4);
         corner-shape: unset;
     }
 }
@@ -345,7 +345,7 @@ $button-sizes: (
         content: "";
         position: absolute;
         left: 50%;
-        bottom: tokens.use($_, "space", 1);
+        bottom: tokens.getCalculatedValue($_, "space", 1);
         width: 0%;
         height: 3px;
         transform: translateX(-50%);
@@ -354,7 +354,7 @@ $button-sizes: (
     }
 
     &:not(:disabled):hover:before {
-        width: calc(100% - #{tokens.use($_, "base", 2)});
+        width: calc(100% - #{tokens.getCalculatedValue($_, "base", 2)});
     }
 }
 
@@ -383,15 +383,15 @@ $button-sizes: (
 
 /* Outlined: border only, no background fill */
 .#{$_}__outlined {
-    border: clamp(2px, #{tokens.use($_, "border-width")}, calc(var(--base) / 2)) solid var(--_color);
+    border: clamp(2px, #{tokens.getCalculatedValue($_, "border-width")}, calc(var(--base) / 2)) solid var(--_color);
     color: color-mix(in srgb, var(--#{$_}--color-default-contrast) 50%, var(--_color));
 
     &:hover {
-        background-color: color-mix(in srgb, var(--_color) 15%, #{tokens.get($_, "color--surface")});
+        background-color: color-mix(in srgb, var(--_color) 15%, #{tokens.getRawValue($_, "color--surface")});
     }
 
     &:active {
-        background-color: color-mix(in srgb, var(--_color) 30%, #{tokens.get($_, "color--surface")});
+        background-color: color-mix(in srgb, var(--_color) 30%, #{tokens.getRawValue($_, "color--surface")});
     }
 }
 
@@ -419,7 +419,7 @@ $button-sizes: (
             content: "";
             position: absolute;
             left: 50%;
-            bottom: tokens.use($_, "space", 1);
+            bottom: tokens.getCalculatedValue($_, "space", 1);
             width: 0%;
             height: 3px;
             background-color: var(--_text);
@@ -457,7 +457,7 @@ $button-sizes: (
 }
 
 .#{$_}+.#{$_} {
-    margin-left: tokens.use($_, "outer-space");
+    margin-left: tokens.getCalculatedValue($_, "outer-space");
 }
 
 a.#{$_}:active,

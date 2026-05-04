@@ -14,7 +14,7 @@ $_observe-breakpoint-md: 768px;
 @include tokens.create($c, getComponentTokens($c));
 
 .#{$c} {
-    --#{$c}--image-border-radius: #{tokens.use($c, "border-radius")};
+    --#{$c}--image-border-radius: #{tokens.getCalculatedValue($c, "border-radius")};
     --#{$c}--min-height-card: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -39,7 +39,7 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__meta {
-        font-size: tokens.get($c, "font-size-90");
+        font-size: tokens.getRawValue($c, "font-size-90");
         display: block;
     }
 
@@ -50,24 +50,24 @@ $_observe-breakpoint-md: 768px;
     .#{$c}__title {
         a {
             text-decoration: none;
-            color: tokens.get($c, "color--surface-contrast");
+            color: tokens.getRawValue($c, "color--surface-contrast");
 
             &:hover,
             &:focus,
             &:active {
                 text-decoration: underline;
-                color: tokens.get($c, "color--primary");
+                color: tokens.getRawValue($c, "color--primary");
             }
         }
     }
 
     .#{$c}__date {
-        font-size: tokens.get($c, "font-size-90");
+        font-size: tokens.getRawValue($c, "font-size-90");
         display: block;
     }
 
     .#{$c}__buttons {
-        margin-top: tokens.use($c, "space", 4);
+        margin-top: tokens.getCalculatedValue($c, "space", 4);
     }
 
     .#{$c}__image {
@@ -86,8 +86,8 @@ $_observe-breakpoint-md: 768px;
 
     .#{$c}__floating {
         position: absolute;
-        right: tokens.use($c, "space", 1);
-        top: tokens.use($c, "space", 1);
+        right: tokens.getCalculatedValue($c, "space", 1);
+        top: tokens.getCalculatedValue($c, "space", 1);
         z-index: 1;
         cursor: pointer;
     }
@@ -102,16 +102,16 @@ $_observe-breakpoint-md: 768px;
 
 .#{$c}.#{$c}--svg-background {
     .#{$c}__image {
-        background-size: clamp(tokens.use($c, "base", 3), 50%, tokens.use($c, "base", 8));
+        background-size: clamp(tokens.getCalculatedValue($c, "base", 3), 50%, tokens.getCalculatedValue($c, "base", 8));
         background-repeat: no-repeat;
-        background-color: tokens.get($c, "color--secondary");
+        background-color: tokens.getRawValue($c, "color--secondary");
     }
 }
 
 .#{$c}.#{$c}--text {
     &-large .#{$c}__content {
         @container segment (min-width: #{$_breakpoint-md}) {
-            font-size: tokens.get("", "font-size-200");
+            font-size: tokens.getRawValue("", "font-size-200");
         }
     }
 }
@@ -144,12 +144,12 @@ $_observe-breakpoint-md: 768px;
     content: "";
     position: absolute;
     inset: 0;
-    background-color: tokens.get($c, "color--alpha");
+    background-color: tokens.getRawValue($c, "color--alpha");
 }
 
 .#{$c}.#{$c}--has-overlay .#{$c}__title,
 .#{$c}.#{$c}--has-overlay .#{$c}__text {
-    color: tokens.get($c, "color--alpha-contrast");
+    color: tokens.getRawValue($c, "color--alpha-contrast");
 }
 
 .#{$c}.#{$c}--highlight {
@@ -157,7 +157,7 @@ $_observe-breakpoint-md: 768px;
         content: "";
         position: absolute;
         top: 0;
-        border-left: tokens.use($c, "base", 1) solid tokens.get($c, "color--primary");
+        border-left: tokens.getCalculatedValue($c, "base", 1) solid tokens.getRawValue($c, "color--primary");
         height: 100%;
     }
 
