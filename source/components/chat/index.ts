@@ -39,7 +39,7 @@ export function init() {
                 clear
             );
 
-            new Load(chat, store).load();
+            new Load(chat, store, chatContainer as HTMLElement).load();
             chat.init();
 
             document.dispatchEvent(new CustomEvent('chat:initialized', { detail: { 

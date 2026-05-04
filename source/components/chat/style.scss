@@ -8,7 +8,9 @@ $_: "c-chat";
 
 .#{$_} {
     background-color: tokens.get($_, "color--background");
-    height: min(calc(tokens.get($_, "base") * 80), 80vh);
+    max-height: min(calc(tokens.get($_, "base") * 80), 80vh);
+    overflow: auto;
+    overscroll-behavior: none;
 
     .#{$_}__title-area {
         display: flex;
