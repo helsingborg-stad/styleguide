@@ -4,6 +4,8 @@ import Clear from "./script/clear/clear";
 import MessageFactory from "./script/messages/messageFactory";
 import StorageFactory from "./script/storage/storageFactory";
 import Load from "./script/load/load";
+import PendingMessageManager from "./script/messages/pendingMessageManager";
+import MessageRenderer from "./script/messages/messageRenderer";
 
 /**
  * Initializes all chat component instances on the page.
@@ -29,6 +31,8 @@ export function init() {
 
             const store = new StorageFactory().create(id, chatContainer.hasAttribute('data-js-chat-persistent'));
             const clear = new Clear(store);
+            const messageRenderer = new MessageRenderer(messageArea);
+            const pendingMessageManager = new PendingMessageManager(messageFactory);
 
             const chat = new Chat(
                 chatContainer as HTMLElement,
@@ -36,7 +40,9 @@ export function init() {
                 input,
                 messageFactory,
                 store,
-                clear
+                clear,
+                messageRenderer,
+                pendingMessageManager
             );
 
             new Load(chat, store, chatContainer as HTMLElement).load();
