@@ -3,17 +3,73 @@
 	"apiVersion": 1,
 	"name": "Image",
 	"slug": "image",
-	"tokens": [
-		"space",
-		"border-radius",
-		"color--background",
-		"color--surface",
-		"border-width",
-		"color--surface-border",
-		"color--surface-contrast",
-		"corner-shape",
-		"font-weight-bold",
-		"font-size-90"
+	"tokens": ["space", "color--background", "border-width", "color--surface-border", "color--surface-contrast", "corner-shape", "font-size-90", "font-family-heading", "font-weight-bold"],
+	"componentSettings": [
+		{
+			"id": "border",
+			"label": "Border settings",
+			"settings": [
+				{
+					"label": "Border radius multiplier",
+					"variable": "--border-radius-multiplier",
+					"description": "Scales the border radius locally without changing the global border radius scale.",
+					"type": "range",
+					"default": 1,
+					"min": 0.25,
+					"max": 4,
+					"step": 0.25,
+					"unit": ""
+				},
+				{
+					"label": "Border width",
+					"token": "border-width"
+				},
+				{
+					"label": "Corner shape",
+					"token": "corner-shape"
+				},
+				{
+					"label": "Border color",
+					"token": "color--surface-border"
+				}
+			]
+		},
+		{
+			"id": "placeholder",
+			"label": "Placeholder settings",
+			"settings": [
+				{
+					"label": "Placeholder font family",
+					"token": "font-family-heading"
+				},
+				{
+					"label": "Placeholder font weight",
+					"token": "font-weight-bold"
+				},
+				{
+					"label": "Placeholder background color",
+					"token": "color--background"
+				}
+			]
+		},
+		{
+			"id": "caption",
+			"label": "Caption settings",
+			"settings": [
+				{
+					"label": "Caption font size",
+					"token": "font-size-90"
+				},
+				{
+					"label": "Caption line height",
+					"token": "line-height-base"
+				},
+				{
+					"label": "Caption color",
+					"token": "color--surface-contrast"
+				}
+			]
+		}
 	],
 	"description": "The Image component provides a reusable pattern for image in the interface.",
 	"tags": ["image", "component"],
