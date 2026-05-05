@@ -5,209 +5,230 @@ const SLIDER_ITEM = 'c-slider__item';
 const AUTOSLIDE = 'data-js-slider__autoslide';
 const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
 const IS_PAUSED = 'c-slider--is-paused';
+export const SLIDER_READY_EVENT = 'slider:ready';
 
-class Slider {
-	sliderElement: Element;
-	autoslideToggleButton: any;
-	splide: Splide;
-	sliderAttributes: Options;
+type SliderReadyEventDetail = {
+    sliderElement: Element;
+    splide: Splide;
+};
 
-	constructor(slider: Element) {
-		this.sliderElement = slider;
-		this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
-		const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
-		const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-		const ariaLabels = slider.hasAttribute('data-aria-labels') && slider.getAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
-		this.sliderAttributes = this.getAttributes();
+export default class Slider {
+    sliderElement: Element;
+    autoslideToggleButton: any;
+    splide: Splide;
+    sliderAttributes: Options;
 
-		const buttonContainer = document.querySelector(`#${slider.getAttribute('data-js-slider-buttons')}`);
+    constructor(slider: Element) {
+        this.sliderElement = slider;
+        this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
+        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
+        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
+        this.sliderAttributes = this.getAttributes();
 
-		if (buttonContainer) {
-			this.setupClickNavigation(buttonContainer);
-		} else {
-			console.warn('No button container found for slider: ' + slider);
-		}
+        const buttonContainer = document.querySelector(`#${slider.getAttribute('data-js-slider-buttons')}`);
 
-		this.splide = new Splide(slider as HTMLElement, {
-			type: this.sliderAttributes.sliderType,
-			start: 0,
-			autoWidth: this.sliderAttributes.perPage === 1 ? true : false,
-			perPage: this.sliderAttributes.perPage,
-			perMove: this.sliderAttributes.perMove,
-			focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
-			gap: this.sliderAttributes.gap,
-			padding: this.sliderAttributes.padding,
-			autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
-			interval: autoPlay ? autoPlay * 1000 : 5000,
-			pagination: false,
-			pauseOnHover: true,
-			pauseOnFocus: true,
-			lazyLoad: 'nearby',
-			slideFocus: false,
-			classes: {
-				arrows: 'c-slider__arrows',
-				page: 'c-slider__dot',
-			},
-			arrows: false,
+        if (buttonContainer) {
+            this.setupClickNavigation(buttonContainer);
+        } else {
+            console.warn('No button container found for slider: ' + slider);
+        }
 
-			i18n: {
-				prev: ariaLabels ? ariaLabels.prev : 'Previous slider item',
-				next: ariaLabels ? ariaLabels.next : 'Next slider item',
-				first: ariaLabels ? ariaLabels.first : 'First slider item',
-				last: ariaLabels ? ariaLabels.last : 'Last slider item',
-				slideX: ariaLabels ? ariaLabels.slideX : 'Go to slide %s',
-			},
-			breakpoints: {
-				896: {
-					perPage: 1,
-					perMove: 1,
-					padding: 0,
-				},
-			},
-		});
+        this.splide = new Splide(slider as HTMLElement, {
+            type: this.sliderAttributes.sliderType,
+            start: 0,
+            autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
+            perPage: this.sliderAttributes.perPage,
+            perMove: this.sliderAttributes.perMove,
+            focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
+            gap: this.sliderAttributes.gap,
+            padding: this.sliderAttributes.padding,
+            autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
+            interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
+            pagination: slider.classList.contains('c-slider--has-stepper'),
+            pauseOnHover: true,
+            pauseOnFocus: true,
+            lazyLoad: "nearby",
+            slideFocus: false,
+            classes: {
+                arrows: 'c-slider__arrows',
+                pagination: 'c-slider__steppers',
+                page: 'c-slider__dot',
+            },
+            arrows: false,
 
-		this.changeNavigationButtonsToSpans();
+            i18n: {
+                prev: ariaLabels ? ariaLabels.prev : 'Previous slider item',
+                next: ariaLabels ? ariaLabels.next : 'Next slider item',
+                first: ariaLabels ? ariaLabels.first : 'First slider item',
+                last: ariaLabels ? ariaLabels.last : 'Last slider item',
+                slideX: ariaLabels ? ariaLabels.slideX : 'Go to slide %s',
+            },
+            breakpoints: {
+                896: {
+                    perPage: 1,
+                    perMove: 1,
+                    padding: 0,
+                }
+            }
+        });
 
-		this.splide.on('mounted', () => {
-			this.lazyloadVideo();
-		});
+        this.changeNavigationButtonsToSpans();
 
-		if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
-			this.splide.mount();
-		} else {
-			this.sliderElement.querySelector('.c-slider__arrows')?.remove();
-		}
+        this.splide.on('mounted', () => {
+            this.lazyloadVideo();
+        });
 
-		if (this.sliderElement.classList.contains(IS_PAUSED)) {
-			this.splide.Components.Autoplay.pause();
-		}
+        if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
+            this.splide.mount();
+        } else {
+            this.sliderElement.querySelector('.c-slider__arrows')?.remove();
+        }
 
-		if (this.autoslideToggleButton) {
-			this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
-		}
+        this.dispatchSliderReadyEvent();
 
-		slider.hasAttribute('data-observe-resizes') && this.observe(slider);
-		this.addVideoControls();
-	}
+        if (this.sliderElement.classList.contains(IS_PAUSED)) {
+            this.splide.Components.Autoplay.pause();
+        }
 
-	observe(slider: Element) {
-		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.attributeName === 'class') {
-					if (!slider.classList.contains('c-slider--size-md') && this.splide.options.perPage !== 1) {
-						this.splide.options.perPage = 1;
-						this.splide.options.perMove = 1;
-						handleObserver();
-					}
+        if (this.autoslideToggleButton) {
+            this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
+        }
 
-					if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
-						this.splide.options.perPage = this.sliderAttributes.perPage;
-						this.splide.options.perMove = this.sliderAttributes.perMove;
-						handleObserver();
-					}
-				}
-			});
-		});
+        slider.hasAttribute('data-observe-resizes') && this.observe(slider);
+        this.addVideoControls();
+    }
 
-		const handleObserver = () => {
-			observer.disconnect();
-			this.splide.refresh();
-			observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
-		};
+    private dispatchSliderReadyEvent() {
+        const event: CustomEvent<SliderReadyEventDetail> = new CustomEvent(SLIDER_READY_EVENT, {
+            bubbles: true,
+            detail: {
+                sliderElement: this.sliderElement,
+                splide: this.splide,
+            }
+        });
 
-		observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
-	}
+        document.dispatchEvent(event);
+    }
 
-	getAttributes(): Options {
-		const padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
-		const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
-		const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
-		const slidesPerMove = parseInt(this.sliderElement.getAttribute('data-slides-per-move') || '1', 10);
-		const sliderType = this.sliderElement.hasAttribute('data-slider-loop') ? 'loop' : 'slide';
+    observe(slider: Element) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    if (!slider.classList.contains('c-slider--size-md') && this.splide.options.perPage !== 1) {
+                        this.splide.options.perPage = 1;
+                        this.splide.options.perMove = 1;
+                        handleObserver();
+                    }
 
-		return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, perMove: slidesPerMove, sliderType: sliderType };
-	}
+                    if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
+                        this.splide.options.perPage = this.sliderAttributes.perPage;
+                        this.splide.options.perMove = this.sliderAttributes.perMove;
+                        handleObserver();
+                    }
+                }
+            });
+        });
 
-	private changeNavigationButtonsToSpans() {
-		this.splide.on('pagination:mounted', (data) => {
-			data.items.forEach((item, index) => {
-				const span = document.createElement('span');
+        const handleObserver = () => {
+            observer.disconnect();
+            this.splide.refresh();
+            observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
+        }
 
-				span.className = item.button.className;
-				span.classList.add('c-slider__dot');
-				span.textContent = item.button.textContent;
+        observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
+    }
 
-				item.button.replaceWith(span);
-				item.button = span as HTMLButtonElement;
-			});
-		});
-	}
+    getAttributes(): Options {
+        let padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
+        const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
+        const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
+        const slidesPerMove = parseInt(this.sliderElement.getAttribute('data-slides-per-move') || '1', 10);
+        const sliderType = this.sliderElement.getAttribute('data-slider-type') || 'slide';
 
-	private setupClickNavigation(buttonContainer: Element) {
-		buttonContainer.querySelector('[data-js-slider-prev]')?.addEventListener('click', () => {
-			this.splide.go('<');
-		});
+        return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, perMove: slidesPerMove, sliderType: sliderType };
+    }
 
-		buttonContainer.querySelector('[data-js-slider-next]')?.addEventListener('click', () => {
-			this.splide.go('>');
-		});
-	}
+    private changeNavigationButtonsToSpans() {
+        this.splide.on('pagination:mounted', (data) => {
+            data.items.forEach((item) => {
+                const span = document.createElement('span');
 
-	/**
-	 * Lazyloads videos within the slider by setting their source attributes and loading them.
-	 *
-	 * @returns void
-	 */
-	private lazyloadVideo() {
-		const originalSlides = this.splide.Components.Slides.get(true);
+                span.className = item.button.className;
+                span.classList.add('c-slider__dot');
+                span.textContent = item.button.textContent;
 
-		if (!originalSlides || originalSlides.length === 0) {
-			return;
-		}
+                item.button.replaceWith(span);
+                item.button = span as HTMLButtonElement;
+            });
+        });
+    }
 
-		originalSlides.forEach((slideComponent) => {
-			const videoAttribute = slideComponent.slide.getAttribute('data-js-slider-video');
+    private setupClickNavigation(buttonContainer: Element) {
+        buttonContainer.querySelector('[data-js-slider-prev]')?.addEventListener('click', () => {
+            this.splide.go('<');
+        });
 
-			if (!videoAttribute) {
-				return;
-			}
+        buttonContainer.querySelector('[data-js-slider-next]')?.addEventListener('click', () => {
+            this.splide.go('>');
+        })
+    }
 
-			const video = slideComponent.slide.querySelector('video');
-			const source = video?.querySelector('source');
-			source?.setAttribute('src', videoAttribute);
-			video?.load();
-		});
-	}
+    /**
+     * Lazyloads videos within the slider by setting their source attributes and loading them.
+     * 
+     * @returns void
+     */
+    private lazyloadVideo() {
+        const originalSlides = this.splide.Components.Slides.get(true);
 
-	autoslideToggle() {
-		const { Autoplay } = this.splide.Components;
-		const videos = this.sliderElement.querySelectorAll('video');
-		if (this.sliderElement.classList.contains(IS_PAUSED)) {
-			if (videos && videos.length > 0) {
-				videos.forEach((video) => {
-					video.play();
-				});
-			}
-			Autoplay.play();
-			this.sliderElement.classList.remove(IS_PAUSED);
-		} else {
-			if (videos && videos.length > 0) {
-				videos.forEach((video) => {
-					video.pause();
-				});
-			}
-			Autoplay.pause();
-			this.sliderElement.classList.add(IS_PAUSED);
-		}
-	}
+        if (!originalSlides || originalSlides.length === 0) {
+            return;
+        }
 
-	addVideoControls() {
-		this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
-			if (slide.querySelectorAll('video').length > 0) {
-				new VideoControls(slide);
-			}
-		});
-	}
+        originalSlides.forEach(slideComponent => {
+            const videoAttribute = slideComponent.slide.getAttribute('data-js-slider-video');
+
+            if (!videoAttribute) {
+                return;
+            }
+
+            const video = slideComponent.slide.querySelector('video');
+            const source = video?.querySelector('source');
+            source?.setAttribute('src', videoAttribute);
+            video?.load();
+        });
+    }
+
+    autoslideToggle() {
+        const { Autoplay } = this.splide.Components;
+        const videos = this.sliderElement.querySelectorAll('video');
+        if (this.sliderElement.classList.contains(IS_PAUSED)) {
+            if (videos && videos.length > 0) {
+                videos.forEach(video => {
+                    video.play();
+                });
+            }
+            Autoplay.play();
+            this.sliderElement.classList.remove(IS_PAUSED);
+        } else {
+            if (videos && videos.length > 0) {
+                videos.forEach(video => {
+                    video.pause();
+                });
+            }
+            Autoplay.pause();
+            this.sliderElement.classList.add(IS_PAUSED);
+        }
+    }
+
+    addVideoControls() {
+        this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
+            if (slide.querySelectorAll('video').length > 0) {
+                new VideoControls(slide);
+            }
+        });
+    }
 }
 
 export function init() {

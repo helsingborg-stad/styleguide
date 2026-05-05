@@ -874,6 +874,8 @@ export class ComponentCustomizerRuntime {
 				variable: this.toLocalizedComponentVariable(componentName, setting.token),
 				label: setting.label,
 				description: setting.description ?? tokenSetting.description,
+				// Component-local token references should stay editable even when globally locked.
+				locked: false,
 			};
 		}
 

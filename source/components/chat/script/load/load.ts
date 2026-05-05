@@ -1,7 +1,8 @@
 class Load implements LoadInterface {
     constructor(
         private chat: ChatInterface,
-        private storage: StorageInterface
+        private storage: StorageInterface,
+        private container: HTMLElement
     ) {
 
     }
@@ -12,6 +13,12 @@ class Load implements LoadInterface {
         persistedMessages.forEach((message) => {
             this.chat.addMessage(message.content, message.isReply, message.id);
         });
+
+        this.scrollToBottom();
+    }
+
+    private scrollToBottom(): void {
+        this.container.scrollTop = this.container.scrollHeight;
     }
 }
 

@@ -68,6 +68,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 						description: 'Primary color for component',
 						type: 'color',
 						default: '#000000',
+						locked: true,
 					},
 				],
 			},
@@ -325,6 +326,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			description: 'Overrides the default text color for the button component',
 			type: 'color',
 			default: '#000000',
+			locked: false,
 		});
 
 		expect(multiplierSetting).toMatchObject({

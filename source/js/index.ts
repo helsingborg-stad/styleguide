@@ -4,6 +4,7 @@
 
 /* Other */
 import { init as initBrand } from '../components/brand/index.js';
+import { init as initChat } from '../components/chat/index.js';
 import { init as initHero } from '../components/hero/index.js';
 import { init as initMap } from '../components/map/index.js';
 import { init as initNav } from '../components/nav/index.js';
@@ -11,7 +12,6 @@ import { init as initPagination } from '../components/pagination/index.js';
 import { init as initSelect } from '../components/select/index.js';
 import { init as initSlider } from '../components/slider/index.js';
 import { init as initTable } from '../components/table/index.js';
-import { init as initChat } from '../components/chat/index.js';
 
 // initializing components scripts
 initChat();
@@ -25,6 +25,6 @@ initSlider();
 initTable();
 
 export * from '../components/gallery/gallery.js';
-export * from '../components/image/image.js';
+export * from '../components/gallery/image.js';
 
 export * from '../components/modal/modal';

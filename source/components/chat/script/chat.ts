@@ -5,9 +5,6 @@ import PendingMessageManager from "./messages/pendingMessageManager";
 class Chat implements ChatInterface {
     private messageCallbacks: ((messages: MessageInterface[]) => void)[] = [];
     private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
-    private messageRenderer: MessageRenderer;
-    private pendingMessageManager: PendingMessageManager;
-    
 
     constructor(
         private container: HTMLElement,
@@ -15,11 +12,11 @@ class Chat implements ChatInterface {
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
         private messageStore: StorageInterface,
-        private clear: ClearInterface
+        private clear: ClearInterface,
+        private messageRenderer: MessageRenderer,
+        private pendingMessageManager: PendingMessageManager
 
     ) {
-        this.messageRenderer = new MessageRenderer(this.messageArea);
-        this.pendingMessageManager = new PendingMessageManager(this.messageFactory);
     }
 
     public init(): void {
