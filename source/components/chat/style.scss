@@ -10,7 +10,6 @@ $_: "c-chat";
     background-color: tokens.get($_, "color--background");
     max-height: min(calc(tokens.get($_, "base") * 80), 80vh);
     overflow: auto;
-    overscroll-behavior: none;
 
     .#{$_}__title-area {
         position: sticky;
