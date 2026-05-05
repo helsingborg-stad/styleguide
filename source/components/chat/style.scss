@@ -13,10 +13,13 @@ $_: "c-chat";
     overscroll-behavior: none;
 
     .#{$_}__title-area {
+        position: sticky;
+        top: 0;
+        background-color: tokens.get($_, "color--surface");
         display: flex;
-        align-items: center;
         gap: calc(tokens.get($_, "base") * 1.5);
         padding: calc(tokens.get($_, "base") * 2) calc(tokens.get($_, "base") * 2) 0;
+        z-index: 1;
 
         h2 {
             margin-top: 0;
