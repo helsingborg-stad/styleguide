@@ -29,7 +29,7 @@ $_: "c-chat";
     .#{$_}__message-area {
         display: grid;
         gap: calc(tokens.get($_, "base") * 1.5);
-        padding: calc(tokens.get($_, "base") * 3.5) calc(tokens.get($_, "base") * 2);
+        padding: calc(tokens.get($_, "base") * 2);
     }
 
     .#{$_}__input-area {
