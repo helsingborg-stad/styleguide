@@ -9,25 +9,25 @@ $_: "c-avatar";
 /* Component */
 .#{$_} {
     border-radius: 50%;
-    background: tokens.get($_, "color--secondary");
+    background: tokens.getRawValue($_, "color--secondary");
     line-height: 0;
     position: relative;
     contain: layout paint;
-    corner-shape: tokens.get($_, "corner-shape");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     &--size-sm {
-        width: tokens.use($_, "base", 5);
-        height: tokens.use($_, "base", 5);
+        width: tokens.getCalculatedValue($_, "base", 5);
+        height: tokens.getCalculatedValue($_, "base", 5);
     }
 
     &--size-md {
-        width: tokens.use($_, "base", 9);
-        height: tokens.use($_, "base", 9);
+        width: tokens.getCalculatedValue($_, "base", 9);
+        height: tokens.getCalculatedValue($_, "base", 9);
     }
 
     &--size-lg {
-        width: tokens.use($_, "base", 14);
-        height: tokens.use($_, "base", 14);
+        width: tokens.getCalculatedValue($_, "base", 14);
+        height: tokens.getCalculatedValue($_, "base", 14);
     }
 
     &--size-full {
@@ -38,8 +38,8 @@ $_: "c-avatar";
     &__image,
     &__initials *,
     &__icon {
-        color: tokens.get($_, "color--secondary-contrast");
-        fill: tokens.get($_, "color--secondary-contrast");
+        color: tokens.getRawValue($_, "color--secondary-contrast");
+        fill: tokens.getRawValue($_, "color--secondary-contrast");
         position: absolute;
         inset: 0;
         border-radius: inherit;

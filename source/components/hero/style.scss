@@ -11,16 +11,16 @@ $_: "c-hero";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 2)};
-    --#{$_}--color-overlay: #{tokens.get($_, "color--alpha")};
-    --#{$_}--color-font-contrasting: #{tokens.get($_, "color--alpha-contrast")};
-    --#{$_}--background-color: #{tokens.get($_, "color--alpha")};
-    --#{$_}--content-border-radius: #{tokens.use($_, "border-radius")};
-    --#{$_}--control-color: #{tokens.get($_, "color--primary")};
-    --#{$_}--control-background-color: #{tokens.get($_, "color--primary-contrast")};
-    --#{$_}--font-size-title: calc(#{tokens.get($_, "font-size-500")} + 1vw);
-    --#{$_}--font-size-byline: calc(#{tokens.get($_, "font-size-300")} + 0.5vw);
-    --#{$_}--font-size-body: calc(#{tokens.get($_, "font-size-100")} + 0.2vw);
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 2)};
+    --#{$_}--color-overlay: #{tokens.getRawValue($_, "color--alpha")};
+    --#{$_}--color-font-contrasting: #{tokens.getRawValue($_, "color--alpha-contrast")};
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--alpha")};
+    --#{$_}--content-border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
+    --#{$_}--control-color: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--control-background-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --#{$_}--font-size-title: calc(#{tokens.getRawValue($_, "font-size-500")} + 1vw);
+    --#{$_}--font-size-byline: calc(#{tokens.getRawValue($_, "font-size-300")} + 0.5vw);
+    --#{$_}--font-size-body: calc(#{tokens.getRawValue($_, "font-size-100")} + 0.2vw);
     display: flex;
     contain: layout;
     overflow: hidden;
@@ -37,8 +37,8 @@ $_: "c-hero";
     .#{$_}__controls {
         display: none;
         position: absolute;
-        top: tokens.use($_, "base", 1.5);
-        right: tokens.use($_, "base", 1.5);
+        top: tokens.getCalculatedValue($_, "base", 1.5);
+        right: tokens.getCalculatedValue($_, "base", 1.5);
         cursor: pointer;
         z-index: 3;
 
@@ -46,8 +46,8 @@ $_: "c-hero";
             content: "";
             display: block;
             background: var(--#{$_}--control-background-color);
-            width: tokens.use($_, "base", 3);
-            height: tokens.use($_, "base", 3);
+            width: tokens.getCalculatedValue($_, "base", 3);
+            height: tokens.getCalculatedValue($_, "base", 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -113,7 +113,7 @@ $_: "c-hero";
 
     /** Modifiers - size **/
     &.#{$_}--small {
-        min-height: tokens.use($_, "base", 40);
+        min-height: tokens.getCalculatedValue($_, "base", 40);
 
         &::before {
             padding-top: 20%;
@@ -121,7 +121,7 @@ $_: "c-hero";
     }
 
     &.#{$_}--normal {
-        min-height: tokens.use($_, "base", 50);
+        min-height: tokens.getCalculatedValue($_, "base", 50);
 
         &::before {
             padding-top: 30%;
@@ -130,7 +130,7 @@ $_: "c-hero";
 
     &.#{$_}--large {
         max-height: 70vh;
-        min-height: tokens.use($_, "base", 60);
+        min-height: tokens.getCalculatedValue($_, "base", 60);
 
         &::before {
             padding-top: 56.25%;
@@ -184,8 +184,8 @@ $_: "c-hero";
     }
 
     .#{$_}__content {
-        padding: tokens.use($_, "space", 6) 0;
-        max-width: tokens.use($_, "base", 87);
+        padding: tokens.getCalculatedValue($_, "space", 6) 0;
+        max-width: tokens.getCalculatedValue($_, "base", 87);
         z-index: 2;
         position: relative;
     }
@@ -196,13 +196,13 @@ $_: "c-hero";
 
     &.#{$_}--has-content-background-color {
         .#{$_}__content {
-            margin: tokens.use($_, "base", 3) 0;
-            padding: tokens.use($_, "space", 6);
+            margin: tokens.getCalculatedValue($_, "base", 3) 0;
+            padding: tokens.getCalculatedValue($_, "space", 6);
         }
 
         &.#{$_}--apply-rounded-corners .#{$_}__content {
             border-radius: var(--#{$_}--content-border-radius);
-            corner-shape: tokens.get($_, "corner-shape");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
         }
 
         &.#{$_}--apply-shadows .#{$_}__content {
@@ -280,7 +280,7 @@ $_: "c-hero";
 
     /* TwoColumn hero */
     &.#{$_}--twoColumn {
-        padding: tokens.use($_, "base", 10) 0;
+        padding: tokens.getCalculatedValue($_, "base", 10) 0;
 
         &:before {
             display: none;
@@ -289,7 +289,7 @@ $_: "c-hero";
         .#{$_}__image-container {
             aspect-ratio: 16 / 9;
             border-radius: var(--#{$_}--content-border-radius);
-            corner-shape: tokens.get($_, "corner-shape");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
             contain: paint;
         }
 
@@ -314,7 +314,7 @@ $_: "c-hero";
             padding: 0;
             text-shadow: none;
             border-radius: var(--#{$_}--content-border-radius);
-            corner-shape: tokens.get($_, "corner-shape");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
 
             .#{$_}__group {
                 flex: 0 0 100%;
@@ -339,10 +339,10 @@ $_: "c-hero";
 
     /* Call to action hero */
     &.#{$_}--callToActions {
-        color: tokens.get($_, "color--primary");
+        color: tokens.getRawValue($_, "color--primary");
 
         .#{$_}__text {
-            padding: tokens.use($_, "base", 5) tokens.use($_, "base", 3);
+            padding: tokens.getCalculatedValue($_, "base", 5) tokens.getCalculatedValue($_, "base", 3);
 
             & > .o-grid {
                 max-width: var(--container-width, 100%);
@@ -350,7 +350,7 @@ $_: "c-hero";
             }
 
             p {
-                margin: -0.5em 0 tokens.use($_, "base", 6) 0;
+                margin: -0.5em 0 tokens.getCalculatedValue($_, "base", 6) 0;
             }
         }
 
@@ -399,8 +399,8 @@ $_: "c-hero";
         .#{$_}__buttons {
             display: flex;
             flex-flow: column;
-            margin-top: tokens.use($_, "base", 3);
-            gap: tokens.use($_, "base", 2);
+            margin-top: tokens.getCalculatedValue($_, "base", 3);
+            gap: tokens.getCalculatedValue($_, "base", 2);
 
             .c-button + .c-button {
                 margin-left: 0;
@@ -409,7 +409,7 @@ $_: "c-hero";
 
         @container hero (min-width: #{$containerWidthSm}) {
             .#{$_}__text {
-                padding: tokens.use($_, "base", 6) tokens.use($_, "base", 3);
+                padding: tokens.getCalculatedValue($_, "base", 6) tokens.getCalculatedValue($_, "base", 3);
 
                 p {
                     margin: 0;
@@ -419,7 +419,7 @@ $_: "c-hero";
 
         @container hero (min-width: #{$containerWidthMd}) {
             .#{$_}__text {
-                padding: tokens.use($_, "base", 8) tokens.use($_, "base", 3);
+                padding: tokens.getCalculatedValue($_, "base", 8) tokens.getCalculatedValue($_, "base", 3);
             }
 
             .#{$_}__buttons {
@@ -447,7 +447,7 @@ $_: "c-hero";
 
         @container hero (min-width: #{$containerWidthLg}) {
             .#{$_}__text {
-                padding: tokens.use($_, "base", 10) tokens.use($_, "base", 3);
+                padding: tokens.getCalculatedValue($_, "base", 10) tokens.getCalculatedValue($_, "base", 3);
             }
         }
     }
@@ -455,7 +455,7 @@ $_: "c-hero";
 
 @keyframes hero-slide-in {
     0% {
-        transform: translateY(tokens.use($_, "base", 4));
+        transform: translateY(tokens.getCalculatedValue($_, "base", 4));
         opacity: 0;
     }
 

@@ -8,7 +8,7 @@ $_: "c-listing";
 
     @for $i from 1 through 10 {
         &.#{$_}--padding-#{$i} .#{$_}__sub {
-            padding-left: tokens.use($_, "space", $i);
+            padding-left: tokens.getCalculatedValue($_, "space", $i);
         }
     }
 }

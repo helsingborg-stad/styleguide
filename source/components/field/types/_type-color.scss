@@ -43,7 +43,7 @@
   // Constrain the .c-field wrapper itself to a square so it never grows wider than its height.
   @at-root .#{$component}.#{$component}--color {
     flex: 0 0 auto;
-    width: tokens.get($component, "height");
+    width: tokens.getRawValue($component, "height");
     corner-shape: unset;
   }
 }

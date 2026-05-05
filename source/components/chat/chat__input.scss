@@ -4,25 +4,25 @@ $_: "c-chat__input";
 $token: "c-chat";
 
 .#{$_} {
-    background-color: tokens.get($token, "color--surface-alt");
+    background-color: tokens.getRawValue($token, "color--surface-alt");
     display: grid;
     grid-template-columns: 1fr;
-    corner-shape: tokens.get($token, "corner-shape");
-    border-radius: calc(tokens.use($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
-    border: tokens.use($token, "border-width", 1) solid tokens.get($token, "color--surface-border");
+    corner-shape: tokens.getRawValue($token, "corner-shape");
+    border-radius: calc(tokens.getCalculatedValue($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
+    border: tokens.getCalculatedValue($token, "border-width", 1) solid tokens.getRawValue($token, "color--surface-border");
 
     .#{$_}__editable {
-        padding-block: calc(tokens.get($token, "base") * 1.5);
-        padding-inline: calc(tokens.get($token, "base") * 1.5);
+        padding-block: calc(tokens.getRawValue($token, "base") * 1.5);
+        padding-inline: calc(tokens.getRawValue($token, "base") * 1.5);
         grid-column: span 12;
-        max-height: calc(tokens.get($token, "base") * 25);
+        max-height: calc(tokens.getRawValue($token, "base") * 25);
         overflow-y: auto;
 
         &::before {
             display: none;
             content: attr(data-placeholder);
             position: absolute;
-            color: tokens.get($token, "color--text-placeholder");
+            color: tokens.getRawValue($token, "color--text-placeholder");
             pointer-events: none;
             opacity: 0.5;
         }
@@ -40,13 +40,13 @@ $token: "c-chat";
 
     .#{$_}__actions {
         display: flex;
-        gap: calc(tokens.get($token, "base") * 2);
-        padding: calc(tokens.get($token, "base") * 1);
+        gap: calc(tokens.getRawValue($token, "base") * 2);
+        padding: calc(tokens.getRawValue($token, "base") * 1);
         justify-content: flex-end;
-        cursor:text;
+        cursor: text;
 
         button {
-            border-radius: calc(tokens.use($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
+            border-radius: calc(tokens.getCalculatedValue($token, "border-radius") * var(--#{$token}--border-radius-multiplier, 2));
         }
     }
 }

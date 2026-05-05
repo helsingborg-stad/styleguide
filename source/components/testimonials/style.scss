@@ -12,30 +12,30 @@ $_: "c-testimonials";
     .c-testimonial .c-card__paint-container {
         display: grid;
         grid-template-rows: auto 1fr;
-        grid-template-columns: tokens.use($_, "base", 11) auto;
+        grid-template-columns: tokens.getCalculatedValue($_, "base", 11) auto;
         grid-template-areas: "image header" "quote quote";
-        padding: tokens.use($_, "base", 4);
+        padding: tokens.getCalculatedValue($_, "base", 4);
 
         .c-testimonial__header {
-            margin-left: tokens.use($_, "base", 4);
+            margin-left: tokens.getCalculatedValue($_, "base", 4);
 
             & .c-divider {
                 margin: 0;
-                border-color: tokens.get($_, "color--surface-border");
+                border-color: tokens.getRawValue($_, "color--surface-border");
             }
 
             .c-testimonial__author {
-                font-size: tokens.use($_, "base", 3);
-                color: tokens.get($_, "color--surface-contrast");
+                font-size: tokens.getCalculatedValue($_, "base", 3);
+                color: tokens.getRawValue($_, "color--surface-contrast");
                 overflow-wrap: break-word;
-                margin-top: tokens.use($_, "base", 2);
+                margin-top: tokens.getCalculatedValue($_, "base", 2);
             }
 
             .c-testimonial__title {
-                color: tokens.get($_, "color--primary");
+                color: tokens.getRawValue($_, "color--primary");
                 max-width: 25ch;
-                margin-bottom: tokens.use($_, "base", 1);
-                margin-top: tokens.use($_, "base", 1);
+                margin-bottom: tokens.getCalculatedValue($_, "base", 1);
+                margin-top: tokens.getCalculatedValue($_, "base", 1);
             }
         }
 
@@ -53,12 +53,12 @@ $_: "c-testimonials";
     }
 
     .c-testimonial__image {
-        width: tokens.use($_, "base", 11);
-        max-height: tokens.use($_, "base", 14);
-        border-radius: tokens.use($_, "border-radius", 1);
-        corner-shape: tokens.get($_, "corner-shape");
+        width: tokens.getCalculatedValue($_, "base", 11);
+        max-height: tokens.getCalculatedValue($_, "base", 14);
+        border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
+        corner-shape: tokens.getRawValue($_, "corner-shape");
         overflow: hidden;
-        filter: tokens.use($_, "shadow", 1);
+        filter: tokens.getCalculatedValue($_, "shadow", 1);
         grid-area: image;
 
         &.c-image .c-image__image {
@@ -72,7 +72,7 @@ $_: "c-testimonials";
     .c-testimonials__wrapper {
         display: grid;
         grid-template-columns: 100%;
-        row-gap: tokens.use($_, "base", 7);
+        row-gap: tokens.getCalculatedValue($_, "base", 7);
     }
 
     // Slider style
@@ -111,11 +111,11 @@ $_: "c-testimonials";
         .c-slider__arrows {
             .splide__arrow {
                 &.splide__arrow--prev {
-                    left: tokens.use($_, "base", -2.5);
+                    left: tokens.getCalculatedValue($_, "base", -2.5);
                 }
 
                 &.splide__arrow--next {
-                    right: tokens.use($_, "base", -2.5);
+                    right: tokens.getCalculatedValue($_, "base", -2.5);
                 }
             }
         }
@@ -125,15 +125,15 @@ $_: "c-testimonials";
 @container testimonials (min-width: 1200px) {
     .#{$_} .#{$_}__wrapper {
         grid-template-columns: 1fr 1fr;
-        column-gap: tokens.use($_, "base", 7);
-        row-gap: tokens.use($_, "base", 6);
+        column-gap: tokens.getCalculatedValue($_, "base", 7);
+        row-gap: tokens.getCalculatedValue($_, "base", 6);
 
-        margin-left: tokens.use($_, "base", 8);
-        margin-right: tokens.use($_, "base", 8);
+        margin-left: tokens.getCalculatedValue($_, "base", 8);
+        margin-right: tokens.getCalculatedValue($_, "base", 8);
     }
 
     .#{$_} .#{$_}__slider {
-        padding-left: tokens.use($_, "base", 7);
-        padding-right: tokens.use($_, "base", 7);
+        padding-left: tokens.getCalculatedValue($_, "base", 7);
+        padding-right: tokens.getCalculatedValue($_, "base", 7);
     }
 }

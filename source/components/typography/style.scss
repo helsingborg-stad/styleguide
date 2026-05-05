@@ -24,37 +24,37 @@ $_: "c-typography";
 
 :root {
     // Must be global to be used in any context
-    --#{$_}--font-size-caption: #{calc(tokens.get($_, "base-font-size")*pow(tokens.get($_, "font-size-scale-ratio"), -1))};
-    --#{$_}--font-size-meta: #{tokens.get($_, "font-size-90")};
-    --#{$_}--font-size-subtitle: #{tokens.get($_, "font-size-400")};
-    --#{$_}--font-size-title: #{tokens.get($_, "font-size-500")};
-    --#{$_}--font-size-headline: #{tokens.get($_, "font-size-600")};
-    --#{$_}--font-size-marketing: #{tokens.get($_, "font-size-800")};
-    --#{$_}--font-size-lead: #{tokens.get($_, "font-size-200")};
-    --#{$_}--h1-font-size: #{tokens.get($_, "font-size-700")};
-    --#{$_}--h1-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h1-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h1-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--h2-font-size: #{tokens.get($_, "font-size-600")};
-    --#{$_}--h2-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h2-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h2-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--h3-font-size: #{tokens.get($_, "font-size-500")};
-    --#{$_}--h3-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h3-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h3-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--h4-font-size: #{tokens.get($_, "font-size-400")};
-    --#{$_}--h4-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h4-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h4-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--h5-font-size: #{tokens.get($_, "font-size-300")};
-    --#{$_}--h5-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h5-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h5-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--h6-font-size: #{tokens.get($_, "font-size-200")};
-    --#{$_}--h6-font-weight: #{tokens.get($_, "font-weight-heading")};
-    --#{$_}--h6-line-height: #{tokens.get($_, "line-height-heading")};
-    --#{$_}--h6-font-family: #{tokens.get($_, "font-family-heading")};
+    --#{$_}--font-size-caption: #{calc(tokens.getRawValue($_, "base-font-size")*pow(tokens.getRawValue($_, "font-size-scale-ratio"), -1))};
+    --#{$_}--font-size-meta: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--font-size-subtitle: #{tokens.getRawValue($_, "font-size-400")};
+    --#{$_}--font-size-title: #{tokens.getRawValue($_, "font-size-500")};
+    --#{$_}--font-size-headline: #{tokens.getRawValue($_, "font-size-600")};
+    --#{$_}--font-size-marketing: #{tokens.getRawValue($_, "font-size-800")};
+    --#{$_}--font-size-lead: #{tokens.getRawValue($_, "font-size-200")};
+    --#{$_}--h1-font-size: #{tokens.getRawValue($_, "font-size-700")};
+    --#{$_}--h1-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h1-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h1-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--h2-font-size: #{tokens.getRawValue($_, "font-size-600")};
+    --#{$_}--h2-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h2-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h2-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--h3-font-size: #{tokens.getRawValue($_, "font-size-500")};
+    --#{$_}--h3-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h3-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h3-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--h4-font-size: #{tokens.getRawValue($_, "font-size-400")};
+    --#{$_}--h4-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h4-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h4-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--h5-font-size: #{tokens.getRawValue($_, "font-size-300")};
+    --#{$_}--h5-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h5-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h5-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--h6-font-size: #{tokens.getRawValue($_, "font-size-200")};
+    --#{$_}--h6-font-weight: #{tokens.getRawValue($_, "font-weight-heading")};
+    --#{$_}--h6-line-height: #{tokens.getRawValue($_, "line-height-heading")};
+    --#{$_}--h6-font-family: #{tokens.getRawValue($_, "font-family-heading")};
 }
 
 h1,
@@ -82,7 +82,7 @@ h5,
         h5, .h5, .#{$_}__variant--h5,
         h6, .h6, .#{$_}__variant--h6,
         .subtitle, .#{$_}__variant--subtitle) {
-        margin-top: tokens.use($_, "space");
+        margin-top: tokens.getCalculatedValue($_, "space");
     }
 }
 
@@ -145,11 +145,11 @@ h6,
 }
 
 .#{$_}__variant--title {
-    font-family: tokens.get($_, "font-family-heading");
+    font-family: tokens.getRawValue($_, "font-family-heading");
     font-size: var(--inherit-font-size, var(--#{$_}--font-size-title));
-    font-weight: tokens.get($_, "font-weight-medium");
-    letter-spacing: tokens.get($_, "letter-spacing-base");
-    line-height: tokens.get($_, "line-height-heading");
+    font-weight: tokens.getRawValue($_, "font-weight-medium");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-base");
+    line-height: tokens.getRawValue($_, "line-height-heading");
 }
 
 .#{$_}__variant--subtitle {
@@ -157,20 +157,20 @@ h6,
 }
 
 .#{$_}__variant--bold {
-    font-family: tokens.get($_, "font-family-base");
-    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
-    font-weight: tokens.get($_, "font-weight-bold");
-    letter-spacing: tokens.get($_, "letter-spacing-base");
-    line-height: tokens.get($_, "line-height-base");
+    font-family: tokens.getRawValue($_, "font-family-base");
+    font-size: var(--inherit-font-size, tokens.getRawValue($_, "font-size-base"));
+    font-weight: tokens.getRawValue($_, "font-weight-bold");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-base");
+    line-height: tokens.getRawValue($_, "line-height-base");
 }
 
 .#{$_}__variant--body,
 .#{$_}__variant--p {
-    font-family: tokens.get($_, "font-family-base");
-    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
-    font-weight: tokens.get($_, "font-weight-normal");
-    letter-spacing: tokens.get($_, "letter-spacing-base");
-    line-height: tokens.get($_, "line-height-base");
+    font-family: tokens.getRawValue($_, "font-family-base");
+    font-size: var(--inherit-font-size, tokens.getRawValue($_, "font-size-base"));
+    font-weight: tokens.getRawValue($_, "font-weight-normal");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-base");
+    line-height: tokens.getRawValue($_, "line-height-base");
 }
 
 .#{$_}__variant--caption,
@@ -187,9 +187,9 @@ h6,
 }
 
 .#{$_}__variant--marketing {
-    font-family: tokens.get($_, "font-family-base");
+    font-family: tokens.getRawValue($_, "font-family-base");
     font-size: var(--inherit-font-size, var(--#{$_}--font-size-marketing));
-    font-weight: tokens.get($_, "font-weight-bold");
+    font-weight: tokens.getRawValue($_, "font-weight-bold");
     line-height: 124%;
 }
 
@@ -199,5 +199,5 @@ h6,
 }
 
 .#{$_}__variant--div {
-    font-size: var(--inherit-font-size, tokens.get($_, "font-size-base"));
+    font-size: var(--inherit-font-size, tokens.getRawValue($_, "font-size-base"));
 }

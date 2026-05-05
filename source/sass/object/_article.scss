@@ -11,7 +11,7 @@ $article-content-elements: 'p', 'ul', 'ol', 'blockquote', 'img', 'table', '> div
 
 .c-article {
     #{$article-content-elements} {
-        margin-top: #{tokens.use($_, "space", 2)};
+        margin-top: #{tokens.getCalculatedValue($_, "space", 2)};
     }
 
     >*:first-child {

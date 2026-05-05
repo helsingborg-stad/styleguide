@@ -11,13 +11,13 @@ $_modal: "c-modal--gallery";
 
 /* Component */
 .#{$_} {
-    --#{$_}--font-size-caption: #{tokens.get($_, "font-size-90")};
-    --#{$_}--line-height-caption: #{tokens.get($_, "line-height-base")};
-    --#{$_}--placeholder-font-weight: #{tokens.get($_, "font-weight-bold")};
-    --#{$_}--placeholder-font-family: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--placeholder-background-color: #{tokens.get($_, "color--background")};
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
-    --#{$_}--border-radius: var(--inherit-border-radius, calc(#{tokens.use("", "border-radius", 1)} * var(--#{$_}--border-radius-multiplier, 1)));
+    --#{$_}--font-size-caption: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--line-height-caption: #{tokens.getRawValue($_, "line-height-base")};
+    --#{$_}--placeholder-font-weight: #{tokens.getRawValue($_, "font-weight-bold")};
+    --#{$_}--placeholder-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--placeholder-background-color: #{tokens.getRawValue($_, "color--background")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border-radius: var(--inherit-border-radius, calc(#{tokens.getCalculatedValue("", "border-radius", 1)} * var(--#{$_}--border-radius-multiplier, 1)));
 
     line-height: 0;
     position: relative;
@@ -27,15 +27,15 @@ $_modal: "c-modal--gallery";
         display: inline-block;
         font-size: var(--#{$_}--font-size-caption);
         line-height: var(--#{$_}--line-height-caption);
-        margin-top: tokens.use($_, "space");
+        margin-top: tokens.getCalculatedValue($_, "space");
     }
 
     .#{$_}__caption {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     .#{$_}__byline {
-        color: tokens.get($_, "color--muted-contrast");
+        color: tokens.getRawValue($_, "color--muted-contrast");
     }
 
     .#{$_}__modal {
@@ -141,7 +141,7 @@ $_modal: "c-modal--gallery";
     border-radius: var(--#{$_}--border-radius);
     background-color: var(--#{$_}--placeholder-background-color);
     user-select: none;
-    corner-shape: tokens.get($_, "corner-shape");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 }
 
 .#{$_}__placeholder {
@@ -157,7 +157,7 @@ $_modal: "c-modal--gallery";
     }
 
     .c-icon {
-        color: tokens.get($_, "color--muted");
+        color: tokens.getRawValue($_, "color--muted");
 
         &.c-icon--svg-link {
             width: clamp(1em, 25%, 3em);
@@ -170,16 +170,16 @@ $_modal: "c-modal--gallery";
     }
 
     .#{$_}__placeholder-text {
-        color: tokens.get($_, "color--muted");
+        color: tokens.getRawValue($_, "color--muted");
         font-weight: var(--#{$_}--placeholder-font-weight);
         font-family: var(--#{$_}--placeholder-font-family);
     }
 
     .c-icon+.#{$_}__placeholder-text {
-        margin-top: tokens.use($_, "space", 2);
+        margin-top: tokens.getCalculatedValue($_, "space", 2);
 
         @include mq.mq("sm") {
-            margin-left: tokens.use($_, "space");
+            margin-left: tokens.getCalculatedValue($_, "space");
             margin-top: 0;
         }
     }

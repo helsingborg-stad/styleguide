@@ -4,8 +4,8 @@ $c: "c-segment";
 
 .#{$c}.#{$c}--full-width {
   flex-direction: column;
-  gap: tokens.use($c, "space", 8);
-  padding: tokens.use($c, "space", 8) 0;
+  gap: tokens.getCalculatedValue($c, "space", 8);
+  padding: tokens.getCalculatedValue($c, "space", 8) 0;
 
   .#{$c}__image {
     position: absolute;
@@ -13,15 +13,15 @@ $c: "c-segment";
   }
 
   &.#{$c}--gap-xs {
-    gap: tokens.use($c, "space", 2);
+    gap: tokens.getCalculatedValue($c, "space", 2);
   }
 
   &.#{$c}--gap-sm {
-    gap: tokens.use($c, "space", 4);
+    gap: tokens.getCalculatedValue($c, "space", 4);
   }
 
   &.#{$c}--gap-md {
-    gap: tokens.use($c, "space", 6);
+    gap: tokens.getCalculatedValue($c, "space", 6);
   }
 }
 

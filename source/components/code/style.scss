@@ -5,40 +5,40 @@ $_: "c-code";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--border: 1px solid #{tokens.get($_, "color--surface-border")};
-    background-color: tokens.get($_, "color--surface-alt");
+    --#{$_}--border: 1px solid #{tokens.getRawValue($_, "color--surface-border")};
+    background-color: tokens.getRawValue($_, "color--surface-alt");
     border: var(--#{$_}--border);
-    border-radius: tokens.use($_, "border-radius", 1.5);
-    corner-shape: tokens.get($_, "corner-shape");
+    border-radius: tokens.getCalculatedValue($_, "border-radius", 1.5);
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     overflow: hidden;
     position: relative;
 
     pre[class*="language-"],
     code[class*="language-"] {
-        font-family: tokens.get($_, "font-family-code");
-        color: tokens.get($_, "color--surface-contrast-muted");
+        font-family: tokens.getRawValue($_, "font-family-code");
+        color: tokens.getRawValue($_, "color--surface-contrast-muted");
     }
 
     .code-toolbar {
         overflow: auto;
-        background-color: tokens.get($_, "color--surface-alt");
+        background-color: tokens.getRawValue($_, "color--surface-alt");
 
         >pre[class*="language-"] {
             margin: 0;
-            padding: tokens.use($_, "space", 3);
+            padding: tokens.getCalculatedValue($_, "space", 3);
             background: transparent;
             border: 0;
         }
 
         >.toolbar {
-            top: tokens.use($_, "space", 1);
-            right: tokens.use($_, "space", 1);
+            top: tokens.getCalculatedValue($_, "space", 1);
+            right: tokens.getCalculatedValue($_, "space", 1);
 
         }
     }
 
     &__pre {
-        font-family: tokens.get($_, "font-family-code");
+        font-family: tokens.getRawValue($_, "font-family-code");
         margin: 0;
     }
 

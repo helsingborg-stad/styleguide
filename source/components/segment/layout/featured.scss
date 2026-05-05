@@ -7,10 +7,10 @@ $_breakpoint-md: 896px;
   flex-direction: row;
 
   .#{$c}__padder {
-    max-width: tokens.use($c, "base", 60);
+    max-width: tokens.getCalculatedValue($c, "base", 60);
     margin: auto;
-    padding-top: tokens.use($c, "base", 4);
-    padding-bottom: tokens.use($c, "base", 4);
+    padding-top: tokens.getCalculatedValue($c, "base", 4);
+    padding-bottom: tokens.getCalculatedValue($c, "base", 4);
   }
 
   .#{$c}__image {
@@ -24,10 +24,10 @@ $_breakpoint-md: 896px;
   }
 
   .#{$c}__slot {
-    margin-top: tokens.use($c, "base", 4);
+    margin-top: tokens.getCalculatedValue($c, "base", 4);
 
     @container segment (min-width: #{$_breakpoint-md}) {
-      margin-top: tokens.use($c, "base", 6);
+      margin-top: tokens.getCalculatedValue($c, "base", 6);
     }
   }
 
@@ -37,13 +37,13 @@ $_breakpoint-md: 896px;
 
   @container segment (min-width: #{$_breakpoint-md}) {
     .#{$c}__image {
-      padding: 0 tokens.use($c, "space", 3);
-      margin: tokens.use($c, "space", 7) 0;
+      padding: 0 tokens.getCalculatedValue($c, "space", 3);
+      margin: tokens.getCalculatedValue($c, "space", 7) 0;
       max-width: 70%;
     }
 
     .#{$c}__content {
-      margin: tokens.use($c, "space", 3) 0;
+      margin: tokens.getCalculatedValue($c, "space", 3) 0;
       max-width: 30%;
     }
   }

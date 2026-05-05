@@ -14,7 +14,7 @@ $_: "c-divider";
     &::before,
     &::after {
         border-bottom-style: var(--border-style, solid);
-        border-bottom-width: clamp(1px, tokens.use($_, "border-width"), 6px);
+        border-bottom-width: clamp(1px, tokens.getCalculatedValue($_, "border-width"), 6px);
         content: "";
         flex: 1;
     }
@@ -22,15 +22,15 @@ $_: "c-divider";
     &__title {
         margin-top: 0;
         margin-bottom: 0;
-        padding: tokens.use($_, "space", 1) tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
     }
 
     &--has-frame .#{$_}__title {
-        background: tokens.get($_, "color--surface");
+        background: tokens.getRawValue($_, "color--surface");
         border-style: var(--border-style, solid);
-        border-width: clamp(1px, tokens.use($_, "border-width"), 6px);
-        border-radius: tokens.use($_, "border-radius", 1);
-        corner-shape: tokens.get($_, "corner-shape");
+        border-width: clamp(1px, tokens.getCalculatedValue($_, "border-width"), 6px);
+        border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
+        corner-shape: tokens.getRawValue($_, "corner-shape");
     }
 
     &--has-frame.#{$_}--dashed .#{$_}__title {

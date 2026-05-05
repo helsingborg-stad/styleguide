@@ -34,21 +34,21 @@ $_: "c-{name}";
 
 | Function / mixin | Output | Use for |
 |---|---|---|
-| `tokens.use($_, "base", N)` | `calc(var(--c-{name}--base) * N)` | Spacing/sizing multiples of `--base` |
-| `tokens.use($_, "space", N)` | `calc(var(--c-{name}--space) * var(--base) * N)` | Spacing multiples of `--space` |
-| `tokens.use($_, "shadow", N)` | `drop-shadow(…)` | Filter drop-shadow |
-| `tokens.get($_, "token-name")` | `var(--c-{name}--token-name)` | Raw token reference (colors, border-radius, etc.) |
+| `tokens.getCalculatedValue($_, "base", N)` | `calc(var(--c-{name}--base) * N)` | Spacing/sizing multiples of `--base` |
+| `tokens.getCalculatedValue($_, "space", N)` | `calc(var(--c-{name}--space) * var(--base) * N)` | Spacing multiples of `--space` |
+| `tokens.getCalculatedValue($_, "shadow", N)` | `drop-shadow(…)` | Filter drop-shadow |
+| `tokens.getRawValue($_, "token-name")` | `var(--c-{name}--token-name)` | Raw token reference (colors, border-radius, etc.) |
 | `@include tokens.create($_, list, extras, inner)` | Emits CSS custom properties on `.c-{name}` | Registers all tokens |
 
 ### Token-to-variable mapping
 
 | Old pattern | Token name | New pattern |
 |---|---|---|
-| `calc(#{var_default.$base} * N)` | `base` | `tokens.use($_, "base", N)` |
-| `calc(#{var_default.$base} * N)` (spacing context) | `space` | `tokens.use($_, "space", N)` |
-| `var_colors.$...` or raw color hex | `color--primary`, `color--surface`, etc. | `tokens.get($_, "color--…")` |
-| `var_border-radius.$...` | `border-radius` | `tokens.get($_, "border-radius")` |
-| `var_fonts.$...` or raw font values | `font-size-100` … `font-size-700` etc. | `tokens.get($_, "font-size-…")` |
+| `calc(#{var_default.$base} * N)` | `base` | `tokens.getCalculatedValue($_, "base", N)` |
+| `calc(#{var_default.$base} * N)` (spacing context) | `space` | `tokens.getCalculatedValue($_, "space", N)` |
+| `var_colors.$...` or raw color hex | `color--primary`, `color--surface`, etc. | `tokens.getRawValue($_, "color--…")` |
+| `var_border-radius.$...` | `border-radius` | `tokens.getRawValue($_, "border-radius")` |
+| `var_fonts.$...` or raw font values | `font-size-100` … `font-size-700` etc. | `tokens.getRawValue($_, "font-size-…")` |
 
 ## Step 1 — Take a baseline screenshot
 
@@ -106,9 +106,9 @@ If the file does not exist, create it:
 Only include tokens actually referenced in the SCSS. Common token names: `base`, `space`, `border-radius`, `color--primary`, `color--surface`, `color--alpha`, `shadow-color`, `shadow-amount`, `font-size-100` … `font-size-700`.
 
 **Important token rules:**
-- `base` — include if `tokens.use($_, "base", N)` or `tokens.get($_, "base")` is used anywhere. Do NOT also put `"base": "var(--base)"` in the extras map — that's redundant once `base` is in the JSON.
-- `space` — only include if `tokens.use($_, "space", N)` is actually used in the SCSS. Remove it if present but unused.
-- For shadow usage (`tokens.use($_, "shadow", N)`), include `shadow-color` and `shadow-amount` explicitly in the JSON.
+- `base` — include if `tokens.getCalculatedValue($_, "base", N)` or `tokens.getRawValue($_, "base")` is used anywhere. Do NOT also put `"base": "var(--base)"` in the extras map — that's redundant once `base` is in the JSON.
+- `space` — only include if `tokens.getCalculatedValue($_, "space", N)` is actually used in the SCSS. Remove it if present but unused.
+- For shadow usage (`tokens.getCalculatedValue($_, "shadow", N)`), include `shadow-color` and `shadow-amount` explicitly in the JSON.
 - Color companion tokens (`color--primary-contrast`, `color--surface-border`, etc.) are explicit. List every companion token you consume in SCSS.
 
 **Cleanup tip:** If the JSON already exists, cross-check every entry against the SCSS. Remove any token from the JSON that is never referenced in the SCSS via `tokens.get` or `tokens.use`.
@@ -129,9 +129,9 @@ $_: "c-{ComponentScssName}";
 //     ("my-token": some-value));
 
 .#{$_} {
-    // Replace calc(#{var_default.$base} * N) → tokens.use($_, "base", N)
-    // Replace color vars           → tokens.get($_, "color--…")
-    // Replace border-radius vars   → tokens.get($_, "border-radius")
+    // Replace calc(#{var_default.$base} * N) → tokens.getCalculatedValue($_, "base", N)
+    // Replace color vars           → tokens.getRawValue($_, "color--…")
+    // Replace border-radius vars   → tokens.getRawValue($_, "border-radius")
     // Keep structural CSS (display, flex-wrap, object-fit, etc.) unchanged
 }
 ```

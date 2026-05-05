@@ -20,13 +20,13 @@ The `tokens.create` mixin previously accepted a third `$extras` map argument —
 **Before:**
 ```scss
 @include tokens.create($_, getComponentTokens($_), (
-    "border": tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border"),
-    "shadow": tokens.use($_, "shadow", 1),
+    "border": tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border"),
+    "shadow": tokens.getCalculatedValue($_, "shadow", 1),
 ));
 
 .#{$_} {
-    border-top: tokens.get($_, "border");
-    filter: tokens.get($_, "shadow");
+    border-top: tokens.getRawValue($_, "border");
+    filter: tokens.getRawValue($_, "shadow");
 }
 ```
 
@@ -35,8 +35,8 @@ The `tokens.create` mixin previously accepted a third `$extras` map argument —
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
-    --#{$_}--shadow: tokens.use($_, "shadow", 1);
+    --#{$_}--border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+    --#{$_}--shadow: tokens.getCalculatedValue($_, "shadow", 1);
     border-top: var(--#{$_}--border);
     filter: var(--#{$_}--shadow);
 }
@@ -44,8 +44,8 @@ The `tokens.create` mixin previously accepted a third `$extras` map argument —
 
 Key rules:
 - The extra tokens move to the **top** of the component selector block as `--#{$_}--key: value;`
-- Any `tokens.get($_, "key")` call that referenced an extras key becomes `var(--#{$_}--key)`
-- Global token references (`tokens.get($_, "color--surface")`) and `tokens.use(...)` calls that were NOT in extras remain unchanged
+- Any `tokens.getRawValue($_, "key")` call that referenced an extras key becomes `var(--#{$_}--key)`
+- Global token references (`tokens.getRawValue($_, "color--surface")`) and `tokens.getCalculatedValue(...)` calls that were NOT in extras remain unchanged
 
 ## Step 1 — Read the file
 
@@ -57,7 +57,7 @@ Find the `tokens.create(...)` call and extract every key-value pair from the thi
 
 ## Step 3 — Find usages of extras keys
 
-Search the file for any `tokens.get($_, "{key}")` calls where `{key}` is one of the extras keys. These must be replaced with `var(--#{$_}--{key})`.
+Search the file for any `tokens.getRawValue($_, "{key}")` calls where `{key}` is one of the extras keys. These must be replaced with `var(--#{$_}--{key})`.
 
 Note: only `tokens.get` references to extras keys are affected. `tokens.use` calls that happen to use the same name are not extras references — leave them untouched.
 
@@ -77,7 +77,7 @@ Make these edits using the Edit tool:
        // ... rest of existing styles
    ```
 
-3. **Replace each** `tokens.get($_, "{key}")` that referenced an extras key with `var(--#{$_}--{key})`.
+3. **Replace each** `tokens.getRawValue($_, "{key}")` that referenced an extras key with `var(--#{$_}--{key})`.
 
 ## Step 5 — Verify
 

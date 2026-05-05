@@ -19,11 +19,11 @@ $_: "c-card";
 
 /* Component */
 .#{$_} {
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
-    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
-    --#{$_}--image-bg: #{tokens.get($_, "color--surface-border")};
-    --#{$_}--image-bg-svg: #{tokens.get($_, "color--secondary")};
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.getCalculatedValue($_, "shadow", 1.5)};
+    --#{$_}--image-bg: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -31,10 +31,10 @@ $_: "c-card";
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: var(--inherit-color-background, tokens.get($_, "color--surface"));
-    color: var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast"));
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
+    color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     transition: all 200ms ease-in;
     border: var(--#{$_}--border);
 
@@ -67,7 +67,7 @@ $_: "c-card";
 
     /** Tell child components to inherit font-size from card for better typography scaling */
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.get($_, "font-size-300")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
     }
 
     .#{$_}__header {
@@ -79,26 +79,26 @@ $_: "c-card";
     .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
     }
 
     .#{$_}__content:not(:first-child) {
-        margin-top: tokens.use($_, "space");
+        margin-top: tokens.getCalculatedValue($_, "space");
     }
 
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
         margin-top: auto;
         border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
         display: grid;
-        padding-top: tokens.use($_, "space", 3);
-        padding-bottom: tokens.use($_, "space", 3);
-        gap: tokens.use($_, "space", 0.5);
+        padding-top: tokens.getCalculatedValue($_, "space", 3);
+        padding-bottom: tokens.getCalculatedValue($_, "space", 3);
+        gap: tokens.getCalculatedValue($_, "space", 0.5);
         align-content: center;
 
         > :first-child {
@@ -120,16 +120,16 @@ $_: "c-card";
 
     &__date {
         display: flex;
-        gap: tokens.use($_, "space", 0.5);
+        gap: tokens.getCalculatedValue($_, "space", 0.5);
         align-items: center;
-        margin-top: tokens.use($_, "space", 0.5);
+        margin-top: tokens.getCalculatedValue($_, "space", 0.5);
     }
 
     &__dropdown {
         position: absolute;
         top: 0;
         right: 0;
-        color: tokens.get($_, "color-surface-contrast");
+        color: tokens.getRawValue($_, "color-surface-contrast");
     }
 
     &__dropdown .c-button:hover,
@@ -166,9 +166,9 @@ $_: "c-card";
 
     .#{$_}__floating {
         position: absolute;
-        right: tokens.get($_, "base");
-        top: tokens.get($_, "base");
-        z-index: tokens.get($_, "level-3");
+        right: tokens.getRawValue($_, "base");
+        top: tokens.getRawValue($_, "base");
+        z-index: tokens.getRawValue($_, "level-3");
     }
 
     .#{$_}__content-after {
@@ -190,39 +190,39 @@ $_: "c-card";
     /* Appearance modifiers */
 
     &--outline {
-        border: tokens.get($_, "border-width") solid;
+        border: tokens.getRawValue($_, "border-width") solid;
     }
 
     &--highlight {
 
         .#{$_}__header,
         .#{$_}__body {
-            border-left: tokens.get($_, "base") solid tokens.get($_, "color--primary");
+            border-left: tokens.getRawValue($_, "base") solid tokens.getRawValue($_, "color--primary");
         }
     }
 
     &--accented {
         .#{$_} {
-            margin-bottom: tokens.get($_, "base");
+            margin-bottom: tokens.getRawValue($_, "base");
         }
 
         .#{$_}__header {
-            border-bottom: calc(#{tokens.get($_, "base")} / 2) solid tokens.get($_, "color--primary");
-            background: tokens.get($_, "color-surface-contrast");
+            border-bottom: calc(#{tokens.getRawValue($_, "base")} / 2) solid tokens.getRawValue($_, "color--primary");
+            background: tokens.getRawValue($_, "color-surface-contrast");
         }
 
         .c-typography {
-            color: tokens.get($_, "color-surface-contrast");
+            color: tokens.getRawValue($_, "color-surface-contrast");
         }
     }
 
     &--panel {
         .#{$_}__header {
-            background: tokens.get($_, "color--primary");
-            color: tokens.get($_, "color--primary-contrast");
+            background: tokens.getRawValue($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary-contrast");
 
             * {
-                color: tokens.get($_, "color--primary-contrast");
+                color: tokens.getRawValue($_, "color--primary-contrast");
             }
 
             i,
@@ -246,28 +246,28 @@ $_: "c-card";
 
     .#{$_}__datebadge {
         position: absolute;
-        margin: tokens.use($_, "space", 2);
+        margin: tokens.getCalculatedValue($_, "space", 2);
     }
 
     &.#{$_}--has-datebadge {
         .#{$_}__datebadge {
             margin: 0;
-            left: tokens.use($_, "space", 2);
-            top: tokens.use($_, "space", 2);
+            left: tokens.getCalculatedValue($_, "space", 2);
+            top: tokens.getCalculatedValue($_, "space", 2);
         }
 
         &:not(.#{$_}--has-image) {
 
             .#{$_}__heading-container,
             .#{$_}__content {
-                padding-left: tokens.use($_, "space", 9.5);
+                padding-left: tokens.getCalculatedValue($_, "space", 9.5);
             }
         }
     }
 
     &--svg-background {
         .#{$_}__image-background {
-            background-size: clamp(#{tokens.get($_, "base")} * 3, 50%, #{tokens.get($_, "base")} * 8);
+            background-size: clamp(#{tokens.getRawValue($_, "base")} * 3, 50%, #{tokens.getRawValue($_, "base")} * 8);
             background-repeat: no-repeat;
             background-color: var(--#{$_}--image-bg-svg);
         }
@@ -280,7 +280,7 @@ $_: "c-card";
             flex-direction: row;
 
             .#{$_}__body {
-                padding: tokens.use($_, "space", 4);
+                padding: tokens.getCalculatedValue($_, "space", 4);
             }
 
             .#{$_}__footer {
@@ -305,7 +305,7 @@ $_: "c-card";
 /* Hover effect for linked cards */
 a.#{$_} {
     text-decoration: none;
-    color: tokens.get($_, "color--surface-contrast");
+    color: tokens.getRawValue($_, "color--surface-contrast");
 
     .#{$_}__image:before {
         content: "";
@@ -314,17 +314,17 @@ a.#{$_} {
         transition: opacity 200ms;
         height: 100%;
         width: 100%;
-        background: tokens.get($_, "color--surface-contrast");
+        background: tokens.getRawValue($_, "color--surface-contrast");
         opacity: 0;
         z-index: var(--level-1);
     }
 
     &:hover {
         filter: var(--#{$_}--shadow-hover);
-        background-color: tokens.get($_, "color--surface-alt");
-        transform: translateY(calc(0px - #{tokens.get($_, "base")} * 0.25));
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+        transform: translateY(calc(0px - #{tokens.getRawValue($_, "base")} * 0.25));
         transition: all 200ms ease-out;
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
 
         .#{$_}__heading {
             text-decoration: underline;
@@ -336,7 +336,7 @@ a.#{$_} {
     }
 
     &:focus {
-        background-color: color-mix(in srgb, #{tokens.get($_, "color--surface-contrast")} 6%, #{tokens.get($_, "color--surface")});
+        background-color: color-mix(in srgb, #{tokens.getRawValue($_, "color--surface-contrast")} 6%, #{tokens.getRawValue($_, "color--surface")});
 
         .#{$_}__image-container:before {
             opacity: 0.2;

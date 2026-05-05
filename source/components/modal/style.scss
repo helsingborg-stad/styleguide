@@ -9,14 +9,14 @@ $_: "c-modal";
 }
 
 .#{$_} {
-    --#{$_}--padding: #{tokens.use($_, "space", 4)};
+    --#{$_}--padding: #{tokens.getCalculatedValue($_, "space", 4)};
     --#{$_}--vertical-padding-multiplier: .75;
-    background-color: tokens.get($_, "color--surface");
-    color: tokens.get($_, "color--surface-contrast");
-    border: tokens.use($_, "border", 1);
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.use($_, "corner-shape");
-    filter: tokens.use($_, "shadow", 3);
+    background-color: tokens.getRawValue($_, "color--surface");
+    color: tokens.getRawValue($_, "color--surface-contrast");
+    border: tokens.getCalculatedValue($_, "border", 1);
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getCalculatedValue($_, "corner-shape");
+    filter: tokens.getCalculatedValue($_, "shadow", 3);
 
     position: fixed;
     margin: auto;
@@ -41,7 +41,7 @@ $_: "c-modal";
     }
 
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.get($_, "font-size-500")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-500")};
     }
 
     .#{$_}__close {
@@ -53,14 +53,14 @@ $_: "c-modal";
         filter: none;
 
         .c-button.#{$_}__close {
-            color: tokens.get($_, "color--alpha-contrast");
+            color: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }
 
     &.search-modal {
         #modal-search-form {
-            margin-top: tokens.use($_, "base", 1);
-            margin-bottom: tokens.use($_, "base", 1);
+            margin-top: tokens.getCalculatedValue($_, "base", 1);
+            margin-bottom: tokens.getCalculatedValue($_, "base", 1);
         }
     }
 
@@ -76,7 +76,7 @@ $_: "c-modal";
     }
 
     &::backdrop {
-        background-color: tokens.get($_, "color--alpha");
+        background-color: tokens.getRawValue($_, "color--alpha");
         backdrop-filter: blur(2px);
     }
 
@@ -107,7 +107,7 @@ $_: "c-modal";
 
     @for $i from 0 through 4 {
         &--padding-#{$i} {
-            --c-modal-padding: calc(#{tokens.use($_, "space", $i)} * 2);
+            --c-modal-padding: calc(#{tokens.getCalculatedValue($_, "space", $i)} * 2);
         }
     }
 
@@ -116,7 +116,7 @@ $_: "c-modal";
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-        gap: tokens.use($_, "space", 1);
+        gap: tokens.getCalculatedValue($_, "space", 1);
     }
 
     &__content {
@@ -132,8 +132,8 @@ $_: "c-modal";
         &::before {
             content: "";
             display: block;
-            background-color: tokens.get($_, "color--surface-border");
-            height: tokens.use($_, "border-width", 1);
+            background-color: tokens.getRawValue($_, "color--surface-border");
+            height: tokens.getCalculatedValue($_, "border-width", 1);
             width: calc(100% + 2 * var(--#{$_}--padding) * 2);
             margin: 0 calc(-1 * var(--#{$_}--padding) * 2);
             position: absolute;
@@ -142,8 +142,8 @@ $_: "c-modal";
     }
 
     &::backdrop {
-        background-color: tokens.get($_, "color--alpha");
-        backdrop-filter: blur(tokens.use($_, "base", 1));
+        background-color: tokens.getRawValue($_, "color--alpha");
+        backdrop-filter: blur(tokens.getCalculatedValue($_, "base", 1));
     }
 }
 

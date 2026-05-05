@@ -7,11 +7,11 @@ $_: "c-brand";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-brand {
-  --#{$_}--height: #{tokens.use($_, "base", 12)};
-  --#{$_}--gap: #{tokens.use($_, "space", 3)};
-  --#{$_}--text-color: #{tokens.get($_, "color--primary")};
-  --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")});
-  --#{$_}--font-family: #{tokens.get($_, "font-family-heading")};
+  --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 12)};
+  --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 3)};
+  --#{$_}--text-color: #{tokens.getRawValue($_, "color--primary")};
+  --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")});
+  --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-heading")};
 
   .c-brand__logotype {
     height: var(--#{$_}--height);

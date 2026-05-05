@@ -7,8 +7,8 @@ $_: "c-gallery";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--gap: #{tokens.use($_, "space", 4)};
-    --#{$_}--column-min: #{tokens.use($_, "base", 32)};
+    --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
+    --#{$_}--column-min: #{tokens.getCalculatedValue($_, "base", 32)};
     contain: paint;
     list-style-type: none;
 
@@ -33,22 +33,22 @@ $_: "c-gallery";
             height: auto;
             display: block;
             transition: transform 0.25s ease;
-            filter: tokens.use($_, "shadow", 1);
+            filter: tokens.getCalculatedValue($_, "shadow", 1);
         }
 
         .c-image__image-wrapper {
             position: relative;
             cursor: pointer;
             contain: paint;
-            border-radius: tokens.use($_, "border-radius");
-            corner-shape: tokens.get($_, "corner-shape");
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
 
             &::before {
                 content: "";
                 position: absolute;
                 inset: 0;
-                backdrop-filter: blur(tokens.use($_, "base", 1));
-                background-color: tokens.use($_, "color--alpha");
+                backdrop-filter: blur(tokens.getCalculatedValue($_, "base", 1));
+                background-color: tokens.getCalculatedValue($_, "color--alpha");
                 transition: opacity 0.2s ease;
                 opacity: 0;
                 z-index: 1;
@@ -59,7 +59,7 @@ $_: "c-gallery";
                 position: absolute;
                 inset: 0;
                 margin: auto;
-                width: tokens.use($_, "base", 10);
+                width: tokens.getCalculatedValue($_, "base", 10);
                 aspect-ratio: 1 / 1;
                 pointer-events: none;
                 transition: opacity 0.2s ease;
@@ -78,7 +78,7 @@ $_: "c-gallery";
             }
 
             .c-image__image-wrapper::after {
-                background-color: #{tokens.get($_, "color--alpha-contrast")};
+                background-color: #{tokens.getRawValue($_, "color--alpha-contrast")};
                 mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJNNTc0LjI1LTQwNS45OVE2MTMtNDQ0Ljk3IDYxMy01MDAuMjRxMC01NS4yNi0zOC45OS05NC4wMVE1MzUuMDMtNjMzIDQ3OS43Ni02MzNxLTU1LjI2IDAtOTQuMDEgMzguOTlRMzQ3LTU1NS4wMyAzNDctNDk5Ljc2cTAgNTUuMjYgMzguOTkgOTQuMDFRNDI0Ljk3LTM2NyA0ODAuMjQtMzY3cTU1LjI2IDAgOTQuMDEtMzguOTlabS0xNzAtMTguMjZRMzczLTQ1NS41IDM3My01MDB0MzEuMjUtNzUuNzVRNDM1LjUtNjA3IDQ4MC02MDd0NzUuNzUgMzEuMjVRNTg3LTU0NC41IDU4Ny01MDB0LTMxLjI1IDc1Ljc1UTUyNC41LTM5MyA0ODAtMzkzdC03NS43NS0zMS4yNVpNMjU1LjUtMzIyLjVRMTU0LTM4OSAxMDEuNS01MDAgMTU0LTYxMSAyNTUuMzYtNjc3LjUgMzU2LjcxLTc0NCA0NzkuODYtNzQ0IDYwMy03NDQgNzA0LjUtNjc3LjUgODA2LTYxMSA4NTguNS01MDAgODA2LTM4OSA3MDQuNjQtMzIyLjUgNjAzLjI5LTI1NiA0ODAuMTQtMjU2IDM1Ny0yNTYgMjU1LjUtMzIyLjVaTTQ4MC01MDBabTIwNiAxNTkuNXE5NC01OSAxNDMuNS0xNTkuNVE3ODAtNjAwLjUgNjg2LTY1OS41dC0yMDYtNTlxLTExMiAwLTIwNiA1OVQxMzAuNS01MDBRMTgwLTM5OS41IDI3NC0zNDAuNXQyMDYgNTlxMTEyIDAgMjA2LTU5WiIvPjwvc3ZnPg==");
                 mask-repeat: no-repeat;
                 mask-position: center;
@@ -91,6 +91,6 @@ $_: "c-gallery";
     &__link:visited,
     &__link:visited:hover {
         text-decoration: none;
-        color: tokens.get($_, "color--surface-contrast-muted");
+        color: tokens.getRawValue($_, "color--surface-contrast-muted");
     }
 }

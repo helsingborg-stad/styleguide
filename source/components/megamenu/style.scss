@@ -5,41 +5,41 @@ $_: "c-megamenu";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--font-size-title: #{tokens.get($_, "font-size-300")};
-    padding-top: tokens.use($_, "base", 4);
-    padding-bottom: tokens.use($_, "base", 4);
-    background-color: tokens.get($_, "color--surface");
+    --#{$_}--font-size-title: #{tokens.getRawValue($_, "font-size-300")};
+    padding-top: tokens.getCalculatedValue($_, "base", 4);
+    padding-bottom: tokens.getCalculatedValue($_, "base", 4);
+    background-color: tokens.getRawValue($_, "color--surface");
     position: absolute;
     width: 100%;
     z-index: 8000;
 
     &.#{$_}--secondary {
-        background-color: tokens.get($_, "color--secondary");
+        background-color: tokens.getRawValue($_, "color--secondary");
 
         .#{$_}__link--title,
         .#{$_}__item--child .#{$_}__link {
-            color: tokens.get($_, "color--secondary-contrast");
+            color: tokens.getRawValue($_, "color--secondary-contrast");
         }
     }
 
     &.#{$_}--primary {
-        background-color: tokens.get($_, "color--primary");
+        background-color: tokens.getRawValue($_, "color--primary");
 
         .#{$_}__link--title,
         .#{$_}__item--child .#{$_}__link {
-            color: tokens.get($_, "color--primary-contrast");
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
     }
 
     &.#{$_}--font-heading {
-        font-family: tokens.get($_, "font-family-heading");
+        font-family: tokens.getRawValue($_, "font-family-heading");
     }
 
     .#{$_}__description {
-        border-top: 2px solid tokens.get($_, "color--primary-contrast");
-        color: tokens.get($_, "color--primary-contrast");
-        padding-top: tokens.use($_, "base", 1);
-        margin-top: tokens.use($_, "base", 0.5);
+        border-top: 2px solid tokens.getRawValue($_, "color--primary-contrast");
+        color: tokens.getRawValue($_, "color--primary-contrast");
+        padding-top: tokens.getCalculatedValue($_, "base", 1);
+        margin-top: tokens.getCalculatedValue($_, "base", 0.5);
     }
 
     &.#{$_}--cover {
@@ -48,31 +48,31 @@ $_: "c-megamenu";
 
     .#{$_}__link--title {
         font-size: var(--#{$_}--font-size-title);
-        color: tokens.get($_, "color--primary");
-        font-family: tokens.get($_, "font-family-base");
+        color: tokens.getRawValue($_, "color--primary");
+        font-family: tokens.getRawValue($_, "font-family-base");
     }
 
     .#{$_}__link {
         display: inline-flex;
         align-items: center;
         text-decoration: none;
-        gap: tokens.use($_, "base", 1);
+        gap: tokens.getCalculatedValue($_, "base", 1);
     }
 
     .#{$_}__item--child {
-        padding: tokens.use($_, "base", 0.5) 0;
+        padding: tokens.getCalculatedValue($_, "base", 0.5) 0;
         display: flex;
         align-items: center;
 
         .#{$_}__link {
             text-decoration: none;
-            color: tokens.get($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary");
         }
     }
 
     .#{$_}__sublist.#{$_}__sublist--flex {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 tokens.use($_, "base", 1);
+        gap: 0 tokens.getCalculatedValue($_, "base", 1);
     }
 }

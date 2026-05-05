@@ -124,7 +124,7 @@ This project uses design tokens as the single source of truth for visual values 
    - Exposes a custom Sass function `getComponentTokens($name)` that reads token arrays from `source/data/{name}.json`.
 5. **Component-scoped token mapping**: `source/sass/mixin/_tokens.scss`
    - `@include tokens.create(...)` maps global tokens (`--color--surface`) to component-scoped tokens (`--c-card--color--surface`).
-   - Components then consume these values with `tokens.get(...)` or `tokens.use(...)`.
+   - Components then consume these values with `tokens.getRawValue(...)` or `tokens.getCalculatedValue(...)`.
 
 ### Intended Usage
 
@@ -186,11 +186,11 @@ $_: "c-example";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-example {
-  border-radius: tokens.use($_, "border-radius");
-  background: tokens.get($_, "color--surface");
-  color: tokens.get($_, "color--surface-contrast");
-  filter: tokens.use($_, "shadow", 2);
-  padding: tokens.use($_, "space", 2);
+  border-radius: tokens.getCalculatedValue($_, "border-radius");
+  background: tokens.getRawValue($_, "color--surface");
+  color: tokens.getRawValue($_, "color--surface-contrast");
+  filter: tokens.getCalculatedValue($_, "shadow", 2);
+  padding: tokens.getCalculatedValue($_, "space", 2);
 }
 ```
 
@@ -240,9 +240,9 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
   - Component token arrays are validated against `source/design-tokens-schema.json` enum values.
 - **Component must declare tokens it consumes**:
   - If a token is missing from `source/data/c-<component>.json`, it will not be mapped by `tokens.create(...)`.
-- **`tokens.use(...)` assumes scale-based numeric usage**:
+- **`tokens.getCalculatedValue(...)` assumes scale-based numeric usage**:
   - It returns `calc(var(--c-...--token) * var(--base) * multiplier)` (except special cases like `base` and `shadow`).
-  - For raw values or non-scale tokens, use `tokens.get(...)`.
+  - For raw values or non-scale tokens, use `tokens.getRawValue(...)`.
 - **No implicit companion generation**:
   - Token behavior is declarative; add companion tokens explicitly in token JSON and component manifests.
 
@@ -252,7 +252,7 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 2. Run `npm run tokens`.
 3. Add token usage list in `source/data/c-your-component.json`.
 4. Consume via `@include tokens.create($_, getComponentTokens($_));` in component Sass.
-5. Use `tokens.get(...)` and `tokens.use(...)` in styles.
+5. Use `tokens.getRawValue(...)` and `tokens.getCalculatedValue(...)` in styles.
 6. Validate by running watch/build and checking component previews.
 
 ### Related Files

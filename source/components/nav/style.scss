@@ -11,12 +11,12 @@ $_: "c-nav";
 .c-nav {
     --#{$_}--font-size: var(--base-font-size);
     --#{$_}--background-expanded: rgba(0, 0, 0, .05);
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
-    --#{$_}--item-background-color: #{tokens.get($_, "color--surface")};
-    --#{$_}--item-color: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+    --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--item-background-color-hover: transparent;
-    --#{$_}--item-color-hover: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--item-border-color: #{tokens.get($_, "color--surface-border")};
+    --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
     display: flex;
     width: 100%;
 
@@ -25,20 +25,20 @@ $_: "c-nav";
     }
 
     .c-nav__item .c-nav__item-wrapper {
-        min-height: calc(#{tokens.get($_, "base")} * 6.5);
+        min-height: calc(#{tokens.getRawValue($_, "base")} * 6.5);
     }
 
     &.c-nav--height-sm>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{tokens.get($_, "base")} * 5.5);
+        min-height: calc(#{tokens.getRawValue($_, "base")} * 5.5);
     }
 
     &.c-nav--height-md>.c-nav__item>.c-nav__item-wrapper,
     &.c-nav--height-sm.c-nav--bordered>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{tokens.get($_, "base")} * 6.5);
+        min-height: calc(#{tokens.getRawValue($_, "base")} * 6.5);
     }
 
     &.c-nav--height-lg>.c-nav__item>.c-nav__item-wrapper {
-        min-height: calc(#{tokens.get($_, "base")} * 8);
+        min-height: calc(#{tokens.getRawValue($_, "base")} * 8);
     }
 
     .c-nav__item-wrapper {
@@ -60,7 +60,7 @@ $_: "c-nav";
         text-decoration: none;
         flex: 1;
         align-items: center;
-        gap: #{tokens.get($_, "base")};
+        gap: #{tokens.getRawValue($_, "base")};
     }
 
     .c-nav__item {
@@ -70,17 +70,17 @@ $_: "c-nav";
 
             .preloader,
             .preloader>* {
-                height: calc(20 * #{tokens.get($_, "base")});
+                height: calc(20 * #{tokens.getRawValue($_, "base")});
             }
         }
 
         &.c-nav__item--separator {
             .c-nav__item-wrapper {
-                background-color: tokens.get($_, "color--primary-contrast");
+                background-color: tokens.getRawValue($_, "color--primary-contrast");
             }
 
             .c-nav__link .c-nav__text {
-                color: tokens.get($_, "color--primary");
+                color: tokens.getRawValue($_, "color--primary");
             }
         }
     }
@@ -112,14 +112,14 @@ $_: "c-nav";
         }
 
         .c-nav.c-nav--vertical .c-nav__item .c-nav__link:hover:after {
-            left: calc(#{tokens.get($_, "base")} * 2);
+            left: calc(#{tokens.getRawValue($_, "base")} * 2);
         }
 
         &.c-nav--depth-1 {
-            gap: calc(#{tokens.get($_, "base")} * 2);
+            gap: calc(#{tokens.getRawValue($_, "base")} * 2);
 
             &.c-nav--compressed {
-                gap: calc(#{tokens.get($_, "base")} * 1);
+                gap: calc(#{tokens.getRawValue($_, "base")} * 1);
             }
         }
 
@@ -135,7 +135,7 @@ $_: "c-nav";
         .c-nav__link:after {
             content: "";
             position: absolute;
-            border-bottom: 3px solid #{tokens.get($_, "color--primary-contrast")};
+            border-bottom: 3px solid #{tokens.getRawValue($_, "color--primary-contrast")};
             left: 0;
             width: 0;
             display: none;
@@ -148,8 +148,8 @@ $_: "c-nav";
             position: absolute;
             bottom: 0;
             background: var(--#{$_}--item-background-color);
-            min-width: calc(#{tokens.get($_, "base")} * 28);
-            border-radius: tokens.use($_, "border-radius");
+            min-width: calc(#{tokens.getRawValue($_, "base")} * 28);
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
             filter: var(--#{$_}--shadow);
             transform: translateY(100%);
             animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -158,13 +158,13 @@ $_: "c-nav";
                 position: absolute;
                 background: inherit;
                 content: "";
-                height: calc(#{tokens.get($_, "base")} * 2.5);
-                left: calc(#{tokens.get($_, "base")} * 2.5);
-                top: calc(#{tokens.get($_, "base")} * -1);
+                height: calc(#{tokens.getRawValue($_, "base")} * 2.5);
+                left: calc(#{tokens.getRawValue($_, "base")} * 2.5);
+                top: calc(#{tokens.getRawValue($_, "base")} * -1);
                 transform: rotate(45deg);
-                width: calc(#{tokens.get($_, "base")} * 2.5);
+                width: calc(#{tokens.getRawValue($_, "base")} * 2.5);
                 z-index: 5000;
-                border-top-left-radius: max(calc(#{tokens.get($_, "base")} * .5), #{tokens.use($_, "border-radius")});
+                border-top-left-radius: max(calc(#{tokens.getRawValue($_, "base")} * .5), #{tokens.getCalculatedValue($_, "border-radius")});
             }
         }
     }
@@ -178,11 +178,11 @@ $_: "c-nav";
         }
 
         .c-nav__link {
-            padding: calc(#{tokens.get($_, "base")} * 1) calc(#{tokens.get($_, "base")} * 2);
+            padding: calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2);
         }
 
         &.c-nav--compressed .c-nav__link {
-            padding: calc(#{tokens.get($_, "base")} * 0.5) 0;
+            padding: calc(#{tokens.getRawValue($_, "base")} * 0.5) 0;
         }
 
         &.c-nav--bordered .c-nav__item+.c-nav__item {
@@ -237,7 +237,7 @@ $_: "c-nav";
         }
 
         .c-nav__link {
-            gap: calc(#{tokens.get($_, "base")} * 3);
+            gap: calc(#{tokens.getRawValue($_, "base")} * 3);
         }
     }
 }
@@ -326,10 +326,10 @@ $_: "c-nav";
 
     .c-nav__extended-dropdown-content-area {
         position: relative;
-        padding: calc(#{tokens.get($_, "base")} * 4) 0;
+        padding: calc(#{tokens.getRawValue($_, "base")} * 4) 0;
         width: 100%;
         display: flex;
-        gap: calc(#{tokens.get($_, "base")} * 8);
+        gap: calc(#{tokens.getRawValue($_, "base")} * 8);
         overflow-x: hidden;
     }
 
@@ -340,31 +340,31 @@ $_: "c-nav";
 
         // Only affect the "main subitems"
         &>.c-nav__child-container>ul>li {
-            padding-left: calc(#{tokens.get($_, "base")} * 4);
-            padding-right: calc(#{tokens.get($_, "base")} * 4);
+            padding-left: calc(#{tokens.getRawValue($_, "base")} * 4);
+            padding-right: calc(#{tokens.getRawValue($_, "base")} * 4);
         }
 
         // Only affect the "main subitems"
         &>.c-nav__child-container>ul>li {
-            padding-left: calc(#{tokens.get($_, "base")} * 4);
-            padding-right: calc(#{tokens.get($_, "base")} * 4);
+            padding-left: calc(#{tokens.getRawValue($_, "base")} * 4);
+            padding-right: calc(#{tokens.getRawValue($_, "base")} * 4);
         }
 
         &>.c-nav__child-container>ul.preloader {
-            margin-left: calc(#{tokens.get($_, "base")} * 4);
-            margin-right: calc(#{tokens.get($_, "base")} * 4);
+            margin-left: calc(#{tokens.getRawValue($_, "base")} * 4);
+            margin-right: calc(#{tokens.getRawValue($_, "base")} * 4);
         }
     }
 
     /* Setting parent title styles */
     .c-nav__extended-content h2:first-child.c-nav__extended-dropdown-title {
         white-space: nowrap;
-        margin-top: calc(#{tokens.get($_, "base")} * .5);
-        color: tokens.get($_, "color--primary-contrast");
+        margin-top: calc(#{tokens.getRawValue($_, "base")} * .5);
+        color: tokens.getRawValue($_, "color--primary-contrast");
     }
 
     .c-nav.preloader>li {
-        width: calc(#{tokens.get($_, "base")} * 32);
+        width: calc(#{tokens.getRawValue($_, "base")} * 32);
     }
 
     /* Direct subitems (to main item) styles */
@@ -375,7 +375,7 @@ $_: "c-nav";
         grid-auto-flow: column;
         grid-template-rows: repeat(4, max-content) 1fr;
         gap: 0 1px;
-        background-color: tokens.get($_, "color--surface-contrast");
+        background-color: tokens.getRawValue($_, "color--surface-contrast");
 
         ul.c-nav.c-nav--child {
             background-color: var(--#{$_}--background-expanded);
@@ -387,7 +387,7 @@ $_: "c-nav";
         }
 
         &>li {
-            width: calc(#{tokens.get($_, "base")} * 40);
+            width: calc(#{tokens.getRawValue($_, "base")} * 40);
             background-color: var(--#{$_}--item-background-color);
         }
 
@@ -414,7 +414,7 @@ $_: "c-nav";
         }
 
         &.c-nav__item--separator .c-nav__text {
-            color: tokens.get($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary");
         }
     }
 

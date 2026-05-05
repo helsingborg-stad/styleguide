@@ -5,15 +5,15 @@ $_: "c-iconsection";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-  --#{$_}--shadow: #{tokens.use($_, "shadow", 2)};
+  --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 2)};
   display: flex;
   flex-direction: column;
 
   &.#{$_}--gap-0 {
     filter: var(--#{$_}--shadow);
-    background-color: tokens.get($_, "color--surface");
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    background-color: tokens.getRawValue($_, "color--surface");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     contain: paint;
 
     &>*:nth-child(n+2) {
@@ -43,7 +43,7 @@ $_: "c-iconsection";
 
   @for $i from 0 through 12 {
     &.#{$_}--gap-#{$i} {
-      gap: tokens.use($_, "base", $i * 0.5);
+      gap: tokens.getCalculatedValue($_, "base", $i * 0.5);
     }
   }
 }
@@ -52,13 +52,13 @@ $_: "c-iconsection";
 .#{$_}__item {
   display: grid;
   grid-template-columns: [icon] auto [content] 1fr;
-  border: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+  border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
 
   overflow: hidden;
   filter: var(--#{$_}--shadow);
-  background-color: tokens.get($_, "color--surface");
-  border-radius: tokens.use($_, "border-radius");
-  corner-shape: tokens.get($_, "corner-shape");
+  background-color: tokens.getRawValue($_, "color--surface");
+  border-radius: tokens.getCalculatedValue($_, "border-radius");
+  corner-shape: tokens.getRawValue($_, "corner-shape");
 
   &__content {
 
@@ -69,7 +69,7 @@ $_: "c-iconsection";
     .c-typography__variant--h5,
     .c-typography__variant--h6 {
       &:first-child {
-        --inherit-font-size: #{tokens.get($_, "font-size-300")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         --inherit-margin-top: 0;
       }
     }
@@ -77,14 +77,14 @@ $_: "c-iconsection";
 
   &__icon,
   &__content {
-    padding: tokens.use($_, "base", 2);
+    padding: tokens.getCalculatedValue($_, "base", 2);
   }
 
   &__icon {
     grid-column: icon;
-    background-color: tokens.get($_, "color--surface-alt");
-    border-right: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
-    color: tokens.get($_, "color--surface-contrast");
+    background-color: tokens.getRawValue($_, "color--surface-alt");
+    border-right: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+    color: tokens.getRawValue($_, "color--surface-contrast");
 
     &>* {
       opacity: .5;
