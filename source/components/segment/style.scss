@@ -14,7 +14,6 @@ $_observe-breakpoint-md: 768px;
 @include tokens.create($c, getComponentTokens($c));
 
 .#{$c} {
-    --#{$c}--image-border-radius: #{tokens.getCalculatedValue($c, "border-radius")};
     --#{$c}--min-height-card: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -71,6 +70,7 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__image {
+        --inherit-border-radius: 0;
         display: block;
         width: 100%;
         height: 100%;
@@ -80,7 +80,6 @@ $_observe-breakpoint-md: 768px;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 0;
         }
     }
 
