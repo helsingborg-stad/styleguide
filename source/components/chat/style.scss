@@ -20,7 +20,6 @@ $_: "c-chat";
         top: 0;
         display: flex;
         gap: calc(tokens.getRawValue($_, "base") * 1.5);
-        // padding: calc(tokens.getRawValue($_, "base") * 2) calc(tokens.getRawValue($_, "base") * 2) 0;
         z-index: 1;
 
         h2 {
@@ -38,11 +37,9 @@ $_: "c-chat";
         display: grid;
         gap: calc(tokens.getRawValue($_, "base") * 2);
         margin-bottom: calc(tokens.getRawValue($_, "base") * 4);
-        // padding: calc(tokens.getRawValue($_, "base") * 2);
     }
 
     .#{$_}__input-area {
-        // padding: 0 calc(tokens.getRawValue($_, "base") * 2) calc(tokens.getRawValue($_, "base") * 2);
         position: sticky;
         bottom: 0;
     }
