@@ -57,6 +57,12 @@ $yAxis: (
 }
 
 .#{$_} .#{$_}__panel {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: grid;
+    position: absolute;
+
     overscroll-behavior: none;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
     corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -64,7 +70,6 @@ $yAxis: (
     border: var(--#{$_}--border);
     filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
     background: tokens.getRawValue($_, "color--surface");
-    display: none;
     margin-bottom: #{tokens.getCalculatedValue($_, "space", 2)};
     min-width: min(calc(#{tokens.getCalculatedValue($_, "base", 30)} * var(--#{$_}--size-multiplier)),
         calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
@@ -74,14 +79,16 @@ $yAxis: (
     text-align: left;
     padding: var(--#{$_}--panel-padding);
     gap: #{tokens.getCalculatedValue($_, "space", 2)};
-    position: relative;
     z-index: 1;
     max-height: calc(100dvh - #{tokens.getCalculatedValue($_, "space", 18)} - var(--#{$_}--stack-offset));
     overflow: auto;
 }
 
 .#{$_} .#{$_}__panel--open {
-    display: grid;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    position: relative;
     animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
