@@ -2,9 +2,8 @@ class Load implements LoadInterface {
     constructor(
         private chat: ChatInterface,
         private storage: StorageInterface,
-        private container: HTMLElement
+        private messagesScrollContainer: HTMLElement
     ) {
-
     }
 
     public load(): void {
@@ -18,7 +17,7 @@ class Load implements LoadInterface {
     }
 
     private scrollToBottom(): void {
-        this.container.scrollTop = this.container.scrollHeight;
+        this.messagesScrollContainer.scrollTop = this.messagesScrollContainer.scrollHeight;
     }
 }
 
