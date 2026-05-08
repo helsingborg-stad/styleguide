@@ -24,6 +24,7 @@ $_: "c-card";
     --#{$_}--image-bg: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--content-alignment: start;
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -99,7 +100,11 @@ $_: "c-card";
         padding-top: tokens.getCalculatedValue($_, "space", 3);
         padding-bottom: tokens.getCalculatedValue($_, "space", 3);
         gap: tokens.getCalculatedValue($_, "space", 0.5);
-        align-content: center;
+        align-content: var(--#{$_}--content-alignment);
+
+        .#{$_}__content> :first-child {
+            margin-top: 0;
+        }
 
         > :first-child {
             margin-top: 0;
