@@ -2,6 +2,7 @@
 
 namespace HbgStyleGuide;
 
+use ComponentLibrary\Component\BaseController;
 use \HbgStyleGuide\Helper\Documentation as DocHelper;
 use \HbgStyleGuide\Helper\ModifierExample;
 use HelsingborgStad\BladeService\BladeServiceInterface;
@@ -110,6 +111,13 @@ class View
                     } else {
                         $description = array();
                     }
+
+                    if (isset($viewData['slug']) && !empty($viewData['slug'])) {
+                        $commonComponentParameters = $this->getCommonComponentParameters();
+                        $settings = array_merge($settings, $commonComponentParameters['settings']);
+                        $available = array_merge($available, $commonComponentParameters['available']);
+                        $description = array_merge($description, $commonComponentParameters['description']);
+                    }
                     
                     // Check if has modifiers object.
                     if (isset($configJson['modifiers'])) {
@@ -195,6 +203,44 @@ class View
         }
 
         return $blade;
+    }
+
+    /**
+     * Get common component parameters from the component library base controller.
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    private function getCommonComponentParameters(): array
+    {
+        $reflection = new \ReflectionClass(BaseController::class);
+        $property = $reflection->getProperty('data');
+        $property->setAccessible(true);
+
+        $defaultData = array_intersect_key(
+            $property->getDefaultValue(),
+            array_flip(['id', 'baseClass', 'classList', 'attributeList', 'context', 'isBlock', 'isShortcode'])
+        );
+
+        $defaultData['containerAware'] = false;
+
+        return [
+            'settings' => $defaultData,
+            'available' => [
+                'containerAware' => 'true/false',
+                'isBlock' => 'true/false',
+                'isShortcode' => 'true/false',
+            ],
+            'description' => [
+                'id' => 'The DOM id of the component.',
+                'baseClass' => 'Override the default base CSS class for the component wrapper.',
+                'classList' => 'Array containing wrapping classes.',
+                'attributeList' => 'Array containing keys and values rendered as attributes.',
+                'context' => 'Array or string containing component context values used by filters and modifiers.',
+                'isBlock' => 'Render the component with block specific behavior.',
+                'isShortcode' => 'Render the component with shortcode specific behavior.',
+                'containerAware' => 'Makes the component container aware. Appends modifiers --size--xs/sm/md/lg to the component.',
+            ],
+        ];
     }
 
     private function getVendorPackagePath($package):string {
