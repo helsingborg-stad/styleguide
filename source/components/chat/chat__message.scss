@@ -8,6 +8,7 @@ $token: "c-chat";
     padding-inline: calc(tokens.getRawValue($token, "base") * 2);
     max-width: 80%;
     display: inline-block;
+    display: grid;
     corner-shape: tokens.getRawValue($token, "corner-shape");
     border-radius: calc(tokens.getCalculatedValue($token, "border-radius") * 2.5);
     word-break: break-word;
