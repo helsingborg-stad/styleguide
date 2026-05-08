@@ -1,6 +1,20 @@
 @use "../../sass/mixin/tokens";
+@use "../../sass/mixin/responsive-styles";
 
 $_: "u-border*";
+$responsive-breakpoints: xs, sm, md, lg;
+$responsive-border-resets: (
+    ".u-border--0": ("border-width": 0,
+    ),
+    ".u-border__top--0": ("border-top-width": 0,
+    ),
+    ".u-border__right--0": ("border-right-width": 0,
+    ),
+    ".u-border__bottom--0": ("border-bottom-width": 0,
+    ),
+    ".u-border__left--0": ("border-left-width": 0,
+    ),
+);
 
 /* Design tokens */
 @include tokens.create($_, ("border-width",
@@ -167,6 +181,12 @@ $_: "u-border*";
 .u-border__left--2 {
     border-left-width: tokens.getCalculatedValue($_, "border-width", 2);
 }
+
+/**************************************
+* Responsive Border Resets
+**************************************/
+
+@include responsive-styles.responsiveStyles($responsive-border-resets, $responsive-breakpoints);
 
 /**************************************
 * Border Styles
