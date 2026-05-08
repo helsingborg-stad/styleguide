@@ -52,7 +52,6 @@ export default class Slider {
             slideFocus: false,
             classes: {
                 arrows: 'c-slider__arrows',
-                pagination: 'c-slider__steppers',
                 page: 'c-slider__dot',
             },
             arrows: false,

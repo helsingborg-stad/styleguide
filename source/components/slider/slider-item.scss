@@ -17,6 +17,12 @@ $_: "c-slider";
 
     .#{$_}__item__container {
         backface-visibility: hidden;
+        gap: tokens.getCalculatedValue($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
+
+        >* {
+            margin: 0;
+        }
     }
 
     &:only-child {
@@ -26,7 +32,7 @@ $_: "c-slider";
     }
 
     &:focus-visible,
-    .#{$_}__item__container > *:focus-visible {
+    .#{$_}__item__container>*:focus-visible {
         outline-offset: -2px;
     }
 

@@ -235,6 +235,10 @@ $container-width-md: 640px;
             }
         }
     }
+
+    &__steppers {
+        display: none;
+    }
 }
 
 // Printing

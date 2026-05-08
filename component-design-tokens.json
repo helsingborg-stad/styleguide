@@ -1581,6 +1581,7 @@
     "slug": "slider",
     "tokens": [
       "base",
+      "space",
       "border-radius",
       "color--primary",
       "color--alpha",
