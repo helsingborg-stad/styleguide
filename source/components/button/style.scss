@@ -242,19 +242,21 @@ $button-sizes: (
             color: var(--_text, var(--_contrast));
         }
 
-        /* Icon: default order 0 (flex default), so it comes before text */
+        /* Icon: default order is after text */
         .#{$_}__label-icon {
             display: flex;
-            margin-left: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
+            order: 2;
+            margin-left: 0;
+            margin-right: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
 
             &--reverse {
-                order: 2; // push icon after text when reversed
-                margin-left: 0;
-                margin-right: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
+                order: 0;
+                margin-left: calc(#{tokens.getRawValue($_, "base")} * var(--_offset, 0));
+                margin-right: 0;
             }
         }
 
-        /* Text: order 1, so icon (order 0) naturally precedes it */
+        /* Text stays centered between leading/trailing icon placements */
         .#{$_}__label-text {
             order: 1;
             display: inline-block;
