@@ -233,7 +233,7 @@ class View
             'description' => [
                 'id' => 'The DOM id of the component.',
                 'baseClass' => 'Override the default base CSS class for the component wrapper.',
-                'classList' => 'Array containing wrapping classes array',
+                'classList' => 'Array containing wrapping classes.',
                 'attributeList' => 'Array containing keys and values rendered as attributes.',
                 'context' => 'Array or string containing component context values used by filters and modifiers.',
                 'isBlock' => 'Render the component with block specific behavior.',
