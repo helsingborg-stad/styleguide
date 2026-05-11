@@ -12,6 +12,16 @@
     inherits: false;
 }
 
+@property --inherit-color-background-hover {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-background-active {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-button";
 
@@ -28,20 +38,20 @@ $button-inherit-background: var(--inherit-color-background, #{tokens.getRawValue
 $button-variants: (
     "primary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--primary")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary-contrast")),
-        "hover": var(--inherit-color-background, tokens.getRawValue($_, "color--primary-border")),
-        "active": var(--inherit-color-background, tokens.getRawValue($_, "color--primary-alt")),
+        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--primary-border")),
+        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--primary-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary")),
         "stroke": tokens.getRawValue($_, "color--primary")),
     "secondary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary-contrast")),
-        "hover": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary-border")),
-        "active": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary-alt")),
+        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--secondary-border")),
+        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--secondary-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary")),
         "stroke": tokens.getRawValue($_, "color--secondary")),
     "default": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-alt")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast")),
-        "hover": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-border")),
-        "active": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-alt")),
+        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--surface-border")),
+        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--surface-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast-muted")),
         "stroke": tokens.getRawValue($_, "color--surface-contrast"))
 );

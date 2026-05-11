@@ -56,11 +56,8 @@ $_: "c-header";
     .c-button.c-button__filled:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
         --inherit-color-background: var(--c-header--color);
         --inherit-color-contrast: var(--c-header--background-color);
-
-        &:hover {
-            --inherit-color-background: var(--c-header--color);
-            --inherit-color-contrast: var(--c-header--background-color);
-        }
+        --inherit-color-background-hover: color-mix(in srgb, var(--c-header--color) 85%, var(--c-header--background-color));
+        --inherit-color-background-active: color-mix(in srgb, var(--c-header--color) 70%, var(--c-header--background-color));
     }
 
     .c-button.c-button__outlined:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
