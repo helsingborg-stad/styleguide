@@ -29,7 +29,8 @@ $_: "c-paper";
     /* switch to surface color tokens for nested components */
     .c-card,
     .c-comment,
-    .c-button__filled--default {
+    .c-button__filled--default,
+    .c-chat {
         --inherit-color-background: var(--color--background);
         --inherit-color-contrast: var(--color--background-contrast);
     }

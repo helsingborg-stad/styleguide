@@ -4,7 +4,7 @@ $_: "c-chat__input";
 $token: "c-chat";
 
 .#{$_} {
-    background-color: tokens.getRawValue($token, "color--surface-alt");
+    background-color: tokens.getRawValue($token, "color--surface");
     display: grid;
     grid-template-columns: 1fr;
     corner-shape: tokens.getRawValue($token, "corner-shape");
