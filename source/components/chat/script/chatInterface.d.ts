@@ -1,5 +1,5 @@
 interface ChatInterface {
-    addMessage(message: string, isReply?: boolean, id?: string): MessageInterface;
+    addMessage(message: string, isReply?: boolean, shouldPersist?: boolean, id?: string): MessageInterface;
     clearMessages(): void;
     deleteMessage(message: MessageInterface): void;
     editMessage(newContent: string, message: MessageInterface): void;
@@ -13,4 +13,5 @@ interface ChatInterface {
     subscribeToMessages(callback: (messages: MessageInterface[]) => void): void;
     subscribeToUserMessages(callback: (message: MessageInterface) => void): void;
     init(): void;
+    getMessages(): MessageInterface[];
 }

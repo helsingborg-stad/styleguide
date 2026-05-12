@@ -8,7 +8,6 @@ class Chat implements ChatInterface {
 
     constructor(
         private container: HTMLElement,
-        private messageArea: HTMLElement,
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
         private messageStore: StorageInterface,
@@ -79,8 +78,8 @@ class Chat implements ChatInterface {
         this.userMessageCallbacks.push(callback);
     }
 
-    public addMessage(messageContent: string, isReply: boolean = false, id?: string): MessageInterface {
-        return this.createMessage(messageContent, isReply, true, id);
+    public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string): MessageInterface {
+        return this.createMessage(messageContent, isReply, shouldPersist, id);
     }
 
     public deleteMessage(message: MessageInterface): void {
@@ -102,6 +101,10 @@ class Chat implements ChatInterface {
 
         this.messageStore.save(message);
         this.runMessageCallbacks();
+    }
+
+    public getMessages(): MessageInterface[] {
+        return this.messageStore.getAll();
     }
 
     public getPendingMessage(): MessageInterface | null {
