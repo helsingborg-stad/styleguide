@@ -959,7 +959,8 @@
       "corner-shape",
       "font-size-90",
       "font-family-heading",
-      "font-weight-bold"
+      "font-weight-bold",
+      "line-height-base"
     ],
     "componentSettings": [
       {
