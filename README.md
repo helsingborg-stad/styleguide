@@ -256,66 +256,140 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 5. Use `tokens.getRawValue(...)` and `tokens.getCalculatedValue(...)` in styles.
 6. Validate by running watch/build and checking component previews.
 
-### Block Token Reference
+### Global Token Reference
 
-The Block component declares its allowed token inputs in `source/components/block/component.json` and derives a second layer of component-internal aliases in `source/components/block/style.scss`.
+The base token surface lives in `source/data/design-tokens.json`. These are the system-level tokens that components consume through `tokens.create(...)`.
 
-Use the first table for supported customization inputs. Use the second table to understand the internal aliases the component computes from those inputs.
+In the tables below, `Can the user manipulate it?` means the supported direct customization path in the token source and design-token UI. Tokens marked `No` are locked or derived tokens and should normally be changed indirectly by editing their upstream inputs. They can still be overridden in raw CSS if absolutely necessary, but that is not the intended primary workflow.
 
-#### Block tokens users are expected to override
+#### Base
 
-| Token | Purpose in Block | How it is derived | Can the user manipulate it? |
+| Token | Purpose | How it is derived | Can the user manipulate it? |
 | --- | --- | --- | --- |
-| `--c-block--base` | Drives body padding, gaps, floating action offsets, SVG background size clamp, and hover lift distance. | Mapped by `tokens.create()` from the global `--base` token declared in `source/data/design-tokens.json`. Component spacing values are then calculated with `tokens.getCalculatedValue($_, "base", multiplier)`. | Yes. Prefer overriding `--base` globally. Override `--c-block--base` locally when a single block needs different spacing. |
-| `--c-block--border-radius` | Controls the rounded corners on the block container and nested image. | Mapped from global `--border-radius`. The component then computes `--c-block--radius` as `calc(var(--c-block--border-radius) * var(--base))`. | Yes. This is a supported customization input. |
-| `--c-block--corner-shape` | Controls `corner-shape` on the block and block image. | Mapped directly from global `--corner-shape`. | Yes. This is a supported customization input. |
-| `--c-block--color--alpha` | Sets the base overlay/background color used by the block body overlay. | Mapped directly from global `--color--alpha`. The component also derives opaque and transparent gradient stops from it. | Yes. This is the primary overlay color input. |
-| `--c-block--color--secondary` | Sets the background color for the `c-block--svg-background` modifier. | Mapped directly from global `--color--secondary`. | Yes. Safe to override globally or per block variant. |
-| `--c-block--shadow-color` | Supplies the color used in the block drop shadow. | Mapped directly from global `--shadow-color`. Used together with `--c-block--shadow-amount` by `tokens.getCalculatedValue($_, "shadow", multiplier)`. | Yes, but usually together with `--c-block--shadow-amount` so the shadow stays balanced. |
-| `--c-block--shadow-amount` | Controls elevation intensity for resting and hover shadows. | Mapped directly from global `--shadow-amount`. The component derives `--c-block--shadow` with multiplier `1` and `--c-block--shadow-hover` with multiplier `2`. | Yes. This is the supported way to make the block flatter or more elevated. |
-| `--c-block--color--alpha-contrast` | Sets text and meta color on top of the overlay. | Mapped directly from global `--color--alpha-contrast`. The component aliases it to `--c-block--color-text`. | Yes. This is the supported text-contrast override for the block overlay. |
-| `--c-block--color--alpha-border` | Supplies hover background and hover overlay tint. | Mapped from global `--color--alpha-border`. Its default global value is itself derived in `design-tokens.json` with `color-mix(...)` from `--color--alpha`, `--color--alpha-contrast`, and `--color--border-mix-amount`. | Yes, but it is usually better to let it derive automatically from the alpha colors unless a custom hover state is required. |
-| `--c-block--font-size-400` | Sets the inherited heading size used by `.c-block__heading`. | Mapped from global `--font-size-400`. The default global value is derived from `--base-font-size` and `--font-size-scale-ratio` in the typography scale. | Indirectly, yes. Prefer changing the type scale globally; override per block only when this component must intentionally diverge. |
+| `--base` | Foundation unit for spacing, size, and radius calculations across the system. | Defaults to `calc(1rem/2)`. Locked because it is a system baseline rather than a regular theme knob. | No, not as a primary UI/token-source control. Change indirectly through root sizing or raw CSS only if the whole system baseline must move. |
+| `--base-font-size` | Root type size that drives the type scale. | Defaults to `16px` with a `18px` option. All computed font-size tokens derive from it. | Yes. |
 
-#### Block internal aliases derived in Sass
+#### Layout
 
-| Internal token | Purpose in Block | How it is derived | Should the user manipulate it directly? |
+| Token | Purpose | How it is derived | Can the user manipulate it? |
 | --- | --- | --- | --- |
-| `--c-block--shadow` | Default shadow applied to the block container. | Computed in `style.scss` with `tokens.getCalculatedValue($_, "shadow", 1)`, which expands to a `drop-shadow(...)` using `--c-block--shadow-color`, `--c-block--shadow-amount`, and `--base`. | Usually no. Override the shadow input tokens instead. |
-| `--c-block--shadow-hover` | Stronger hover shadow for anchor blocks. | Computed with `tokens.getCalculatedValue($_, "shadow", 2)`. | Usually no. Override `--c-block--shadow-amount` unless a one-off hover effect is needed. |
-| `--c-block--radius` | Final pixel radius consumed by `border-radius`. | Computed with `tokens.getCalculatedValue($_, "border-radius", 1)`. | Usually no. Override `--c-block--border-radius` instead. |
-| `--c-block--color-text` | Consolidated text color used across heading, meta, date, content, and secondary meta. | Alias of `--c-block--color--alpha-contrast`. | Usually no. Override `--c-block--color--alpha-contrast` instead. |
-| `--c-block--color-background` | Consolidated block background color. | Alias of `--c-block--color--alpha`. | Usually no. Override `--c-block--color--alpha` instead. |
-| `--c-block--color-overlay` | Opaque start color for the body gradient overlay. | Derived from `--c-block--color--alpha` with `rgb(from ... / 1)`. | No. Change `--c-block--color--alpha` to affect all overlay stops consistently. |
-| `--c-block--color-overlay-middle` | Midpoint color for the body gradient overlay. | Derived from `--c-block--color--alpha` with `rgba(from ... / .5)`. | No. Change `--c-block--color--alpha` instead. |
-| `--c-block--color-overlay-end` | Transparent tail color for the body gradient overlay. | Derived from `--c-block--color--alpha` with `rgba(from ... / 0)`. | No. Change `--c-block--color--alpha` instead. |
-| `--c-block--color-secondary` | Internal alias used by the SVG background modifier. | Alias of `--c-block--color--secondary`. | Usually no. Override `--c-block--color--secondary` instead. |
-| `--c-block--color-hover-background` | Hover background tint applied to anchor blocks. | Alias of `--c-block--color--alpha-border`. | Usually no. Override `--c-block--color--alpha-border` instead. |
-| `--c-block--color-hover-overlay` | Hover overlay tint applied through `.c-block__image-background:before`. | Alias of `--c-block--color--alpha-border`. | Usually no. Override `--c-block--color--alpha-border` instead. |
+| `--container-width-multiplier` | Controls the main content width scale. | Direct numeric token. Default `160`. | Yes. |
+| `--container-width` | Final container width token used by layouts. | Derived as `calc(var(--base) * var(--container-width-multiplier))`. | No. Change `--container-width-multiplier` or `--base` instead. |
+| `--container-width-wide-multiplier` | Controls how much wider the wide container is than the default container. | Direct numeric token. Default `1.25`. | Yes. |
+| `--container-width-wide` | Final wide-container width token. | Derived as `calc(var(--container-width) * var(--container-width-wide-multiplier))`. | No. Change `--container-width-wide-multiplier` or upstream container tokens instead. |
 
-#### Block override examples
+#### Radius
 
-Theme-level override:
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--border-radius` | Radius scale input used by components for rounded corners. | Direct numeric token. Default `1`. Components usually multiply it by `--base`. | Yes. |
+| `--corner-shape` | Controls the corner rendering mode where `corner-shape` is used. | Direct select token. Default `round`. | Yes. |
 
-```css
-:root {
-  --color--alpha: rgba(12, 32, 61, 0.72);
-  --color--alpha-contrast: #ffffff;
-  --color--secondary: #0b7a75;
-  --shadow-amount: 0.9;
-}
-```
+#### Typography
 
-Single block override:
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--font-family-base` | Default body font family. | Direct font token. Default `"Roboto", sans-serif`. | Yes. |
+| `--font-family-heading` | Heading font family. | Defaults to `var(--font-family-base)`, so it inherits the body font unless explicitly changed. | Yes. |
+| `--font-family-code` | Monospace/code font family. | Direct token with a fixed default stack. Marked locked. | No, not through the intended token UI flow. |
+| `--font-size-scale-ratio` | Ratio used to generate the full font-size scale. | Direct select token. Default `1.250`. | Yes. |
+| `--font-weight-normal` | Default text weight. | Direct select token. Default `400`. | Yes. |
+| `--font-weight-medium` | Medium emphasis font weight. | Direct select token. Default `500`. | Yes. |
+| `--font-weight-bold` | Strong emphasis font weight. | Direct select token. Default `700`. | Yes. |
+| `--font-weight-heading` | Default heading weight. | Direct select token. Default `700`. | Yes. |
+| `--line-height-base` | Default body line height. | Direct numeric token. Default `1.625`. | Yes. |
+| `--line-height-heading` | Default heading line height. | Direct numeric token. Default `1.33`. | Yes. |
+| `--letter-spacing-base` | Default text letter spacing. | Direct numeric token. Default `0em`. | Yes. |
 
-```css
-.c-block--campaign {
-  --c-block--border-radius: 1.5;
-  --c-block--color--alpha: rgba(27, 54, 93, 0.82);
-  --c-block--color--alpha-contrast: #f7fbff;
-  --c-block--color--secondary: #f28c28;
-}
-```
+#### Font Sizes
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--font-size-80` | Two steps below the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-90` | One step below the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-100` | Base type size token. | Derived as `var(--base-font-size)`. | No. Change `--base-font-size` instead. |
+| `--font-size-200` | One step above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-300` | Two steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 2))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-400` | Three steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 3))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-500` | Four steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 4))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-600` | Five steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 5))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-700` | Six steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 6))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-800` | Seven steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 7))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+
+#### Borders
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--border-width` | Base border width token for UI elements. | Direct numeric token. Default `0.125`. | Yes. |
+| `--color--border-mix-amount` | Mix ratio used when generating derived `*-border` companion colors. | Direct percentage token. Default `10%`. | Yes. |
+
+#### Spacing
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--space` | Standard internal spacing token for paddings and margins inside components. | Direct numeric token. Default `1`. | Yes. |
+| `--outer-space` | Spacing token for gaps between components or outer layout rhythm. | Direct numeric token. Default `1`. | Yes. |
+
+#### Shadows
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--shadow-color` | Base color used by shadow formulas. | Direct RGBA token. Default `rgba(0, 0, 0, 0.1)`. | Yes. |
+| `--shadow-amount` | Global multiplier for shadow intensity. | Direct numeric token. Default `0.7`. Components typically combine it with `--base` in shadow calculations. | Yes. |
+
+#### Brand Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--primary` | Main brand/action color. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--primary-contrast` | Text/icon color on top of primary backgrounds. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--primary-border` | Border/emphasis companion for primary surfaces. | Derived as `color-mix(in srgb, var(--color--primary-contrast) var(--color--border-mix-amount), var(--color--primary))`. | No. Change `--color--primary`, `--color--primary-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--primary-alt` | Softer alternate primary surface. | Derived as `color-mix(in srgb, var(--color--primary-contrast) var(--color--alt-mix-amount), var(--color--primary))`. | No. Change `--color--primary`, `--color--primary-contrast`, or `--color--alt-mix-amount` instead. |
+| `--color--secondary` | Secondary brand color. | Direct color token. Default `#6e6e6e`. | Yes. |
+| `--color--secondary-contrast` | Text/icon color on top of secondary backgrounds. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--secondary-border` | Border/emphasis companion for secondary surfaces. | Derived as `color-mix(in srgb, var(--color--secondary-contrast) var(--color--border-mix-amount), var(--color--secondary))`. | No. Change `--color--secondary`, `--color--secondary-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--secondary-alt` | Softer alternate secondary surface. | Derived as `color-mix(in srgb, var(--color--secondary-contrast) var(--color--alt-mix-amount), var(--color--secondary))`. | No. Change `--color--secondary`, `--color--secondary-contrast`, or `--color--alt-mix-amount` instead. |
+
+#### Layout Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--alt-mix-amount` | Mix ratio used when generating `*-alt` surface colors. | Direct percentage token. Default `4%`. | Yes. |
+| `--color--background` | Main page/application background color. | Direct color token. Default `#f5f5f5`. | Yes. |
+| `--color--background-contrast` | Foreground color for content on background surfaces. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--background-contrast-muted` | Muted foreground for background surfaces. | Derived as `color-mix(in srgb, var(--color--background-contrast) 67.5%, var(--color--background))`. | No. Change `--color--background` or `--color--background-contrast` instead. |
+| `--color--background-border` | Border/emphasis companion for background surfaces. | Derived as `color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background))`. | No. Change `--color--background`, `--color--background-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--surface` | Default elevated/content surface color. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--surface-contrast` | Foreground color for content on surface backgrounds. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--surface-contrast-muted` | Muted foreground for surface backgrounds. | Derived as `color-mix(in srgb, var(--color--surface-contrast) 67.5%, var(--color--surface))`. | No. Change `--color--surface` or `--color--surface-contrast` instead. |
+| `--color--surface-border` | Border/emphasis companion for surface elements. | Derived as `color-mix(in srgb, var(--color--surface-contrast) var(--color--border-mix-amount), var(--color--surface))`. | No. Change `--color--surface`, `--color--surface-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--surface-alt` | Softer alternate surface color. | Derived as `color-mix(in srgb, var(--color--surface-contrast-muted) var(--color--alt-mix-amount), var(--color--surface))`. | No. Change `--color--surface`, `--color--surface-contrast`, or `--color--alt-mix-amount` instead. |
+
+#### UI Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--focus` | Focus ring and focus state color. | Direct color token. Default `#4d90fe`. | Yes. |
+| `--color--alpha` | Overlay color including opacity. | Direct RGBA token. Default `rgba(0, 0, 0, 0.1)`. | Yes. |
+| `--color--alpha-contrast` | Foreground color on top of alpha overlays. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--alpha-border` | Border/emphasis companion for alpha overlays. | Derived as `color-mix(in srgb, var(--color--alpha-contrast) var(--color--border-mix-amount), var(--color--alpha))`. | No. Change `--color--alpha`, `--color--alpha-contrast`, or `--color--border-mix-amount` instead. |
+
+#### State Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--success` | Success state background/accent color. | Direct color token. Default `#4caf50`. | Yes. |
+| `--color--success-contrast` | Foreground color for success surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--success-border` | Border/emphasis companion for success surfaces. | Derived as `color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))`. | No. Change `--color--success`, `--color--success-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--warning` | Warning state background/accent color. | Direct color token. Default `#ffb300`. | Yes. |
+| `--color--warning-contrast` | Foreground color for warning surfaces. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--warning-border` | Border/emphasis companion for warning surfaces. | Derived as `color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))`. | No. Change `--color--warning`, `--color--warning-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--danger` | Danger/error state background/accent color. | Direct color token. Default `#e53935`. | Yes. |
+| `--color--danger-contrast` | Foreground color for danger surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--danger-border` | Border/emphasis companion for danger surfaces. | Derived as `color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))`. | No. Change `--color--danger`, `--color--danger-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--info` | Informational state background/accent color. | Direct color token. Default `#039be5`. | Yes. |
+| `--color--info-contrast` | Foreground color for info surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--info-border` | Border/emphasis companion for info surfaces. | Derived as `color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))`. | No. Change `--color--info`, `--color--info-contrast`, or `--color--border-mix-amount` instead. |
 
 ### Related Files
 
