@@ -80,7 +80,7 @@ $_: "c-modal--gallery";
 
   .c-modal__close {
     margin-left: auto;
-    color: tokens.getRawValue($_, "color--alpha-contrast");
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     z-index: 8;
     pointer-events: auto;
   }
@@ -90,7 +90,7 @@ $_: "c-modal--gallery";
     position: absolute;
     top: auto;
     bottom: tokens.getCalculatedValue($_, "base", 2);
-    color: tokens.getRawValue($_, "color--alpha-contrast");
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     z-index: 3;
     transform: none;
     display: flex;
