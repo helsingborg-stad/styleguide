@@ -19,7 +19,7 @@ import './form/fileInput.ts';
 import './form/policy.js';
 
 // Objects
-import './tooltip.js';
+import './tooltip/tooltip.js';
 
 // Utilities (that are not components)
 import './AriaPressedToggler.ts';
