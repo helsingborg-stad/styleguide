@@ -32,4 +32,8 @@ class Tooltip {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    new Tooltip().init();
+});
+
 export default Tooltip;

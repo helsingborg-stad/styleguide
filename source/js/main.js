@@ -18,6 +18,9 @@ import './form/conditions.js';
 import './form/fileInput.ts';
 import './form/policy.js';
 
+// Objects
+import './tooltip.js';
+
 // Utilities (that are not components)
 import './AriaPressedToggler.ts';
 import './ButtonToggleContent.ts';
