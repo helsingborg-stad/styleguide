@@ -6,7 +6,7 @@ $_: "o-tooltip";
 
 @include tokens.create(
     $_,
-    ("base", "color--alpha", "color--alpha-contrast", "color--alpha-border", "shadow", "shadow-amount", "shadow-color", "border-radius", "corner-shape")
+    ("base", "border-width", "color--alpha", "color--alpha-contrast", "color--alpha-border", "shadow", "shadow-amount", "shadow-color", "border-radius", "corner-shape")
 );
 
 .#{$_} {
@@ -18,12 +18,12 @@ $_: "o-tooltip";
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    min-width: 100px;
-    max-width: min(calc(100vw - 24px), 300px);
-    padding: 8px 12px;
+    min-width: calc(tokens.getRawValue($_, "base") * 13);
+    max-width: min(calc(100vw - calc(tokens.getRawValue($_, "base") * 3)), calc(tokens.getRawValue($_, "base") * 38));
+    padding: tokens.getRawValue($_, "base") calc(tokens.getRawValue($_, "base") * 1.5);
     background-color: var(--#{$_}--color--alpha-solid);
     z-index: 9999;
-    border: 1px solid tokens.getRawValue($_, "color--alpha-border");
+    border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--alpha-border");
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
     box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
@@ -34,8 +34,8 @@ $_: "o-tooltip";
     contain: layout style;
     backface-visibility: hidden;
     translate: var(--o-tooltip-x, 0) var(--o-tooltip-y, 0);
-    transform: translateY(4px) scale(0.98);
-    transition: opacity 0.14s ease, transform 0.14s ease;
+    transform: translateY(calc(tokens.getRawValue($_, "base") * 0.5)) scale(0.98);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 
     &::before,
     &::after {
@@ -50,11 +50,11 @@ $_: "o-tooltip";
 
     &::before {
         top: 100%;
-        border-top: calc($_arrow-size + 1px) solid tokens.getRawValue($_, "color--alpha-border");
+        border-top: calc($_arrow-size + tokens.getCalculatedValue($_, "border-width", 1)) solid tokens.getRawValue($_, "color--alpha-border");
     }
 
     &::after {
-        top: calc(100% - 1px);
+        top: calc(100% - tokens.getCalculatedValue($_, "border-width", 1));
         border-top: $_arrow-size solid var(--#{$_}--color--alpha-solid);
         backdrop-filter: blur(tokens.getRawValue($_, "base"));
     }
