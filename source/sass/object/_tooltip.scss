@@ -8,7 +8,7 @@ $_: "o-tooltip";
 );
 
 .#{$_} {
-    --#{$_}--arrow-size: calc(tokens.getRawValue($_, "base") * 0.75);
+    --#{$_}--arrow-size: calc(#{tokens.getRawValue($_, "base")} * 0.75);
     --#{$_}--color--alpha-solid: color-mix(in srgb,rgb(from #{tokens.getRawValue($_, "color--alpha")} r g b / 1) 90%, transparent 10%);
 
     position: fixed;
