@@ -6,10 +6,12 @@ $_: "o-tooltip";
 
 @include tokens.create(
     $_,
-    ("base", "color--alpha", "color--alpha-contrasting", "color--alpha-border", "shadow-1", "radius-lg", "corner-shape")
+    ("base", "color--alpha", "color--alpha-contrast", "color--alpha-border", "shadow", "shadow-amount", "shadow-color", "border-radius", "corner-shape")
 );
 
 .#{$_} {
+    --#{$_}--color--alpha-solid: color-mix(in srgb,rgb(from #{tokens.getRawValue($_, "color--alpha")} r g b / 1) 90%, transparent 10%);
+
     position: fixed;
     top: 0;
     left: 0;
@@ -19,13 +21,13 @@ $_: "o-tooltip";
     min-width: 100px;
     max-width: min(calc(100vw - 24px), 300px);
     padding: 8px 12px;
-    background-color: tokens.getRawValue($_, "color--alpha");
+    background-color: var(--#{$_}--color--alpha-solid);
     z-index: 9999;
     border: 1px solid tokens.getRawValue($_, "color--alpha-border");
-    border-radius: tokens.getCalculatedValue($_, "radius-lg");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    box-shadow: tokens.getRawValue($_, "shadow-1");
-    color: tokens.getRawValue($_, "color--alpha-contrasting");
+    box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
+    color: tokens.getRawValue($_, "color--alpha-contrast");
     text-align: center;
     white-space: pre-line;
     will-change: translate, transform, opacity;
@@ -43,6 +45,7 @@ $_: "o-tooltip";
         transform: translateX(-50%);
         border-left: $_arrow-size solid transparent;
         border-right: $_arrow-size solid transparent;
+        clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
 
     &::before {
@@ -52,7 +55,8 @@ $_: "o-tooltip";
 
     &::after {
         top: calc(100% - 1px);
-        border-top: $_arrow-size solid tokens.getRawValue($_, "color--alpha");
+        border-top: $_arrow-size solid var(--#{$_}--color--alpha-solid);
+        backdrop-filter: blur(tokens.getRawValue($_, "base"));
     }
 
     &.is-visible {
