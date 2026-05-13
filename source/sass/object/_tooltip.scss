@@ -2,77 +2,62 @@
 
 $_arrow-size: 6px;
 
-$token: "o-tooltip";
-$_: "[data-tooltip]";
+$_: "o-tooltip";
 
 @include tokens.create(
-    $token,
+    $_,
     ("base", "color--alpha", "color--alpha-contrasting", "color--alpha-border", "shadow-1", "radius-lg", "corner-shape")
 );
 
-#{$_} {
-    contain: layout;
-    cursor: pointer;
-    display: inline-block;
+.#{$_} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    min-width: 100px;
+    max-width: min(calc(100vw - 24px), 300px);
+    padding: 8px 12px;
+    background-color: tokens.getRawValue($_, "color--alpha");
+    z-index: 9999;
+    border: 1px solid tokens.getRawValue($_, "color--alpha-border");
+    border-radius: tokens.getCalculatedValue($_, "radius-lg");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
+    box-shadow: tokens.getRawValue($_, "shadow-1");
+    color: tokens.getRawValue($_, "color--alpha-contrasting");
+    text-align: center;
+    white-space: pre-line;
+    will-change: translate, transform, opacity;
+    contain: layout style;
+    backface-visibility: hidden;
+    translate: var(--o-tooltip-x, 0) var(--o-tooltip-y, 0);
+    transform: translateY(4px) scale(0.98);
+    transition: opacity 0.14s ease, transform 0.14s ease;
 
+    &::before,
     &::after {
-        background-color: tokens.getRawValue($token, "color--alpha");
-        border-radius: tokens.getRawValue($token, "radius-lg");
-        border: 1px solid tokens.getRawValue($token, "color--alpha");
-        bottom: calc(100% + $_arrow-size);
-        color: tokens.getRawValue($token, "color--alpha-contrasting");
-        content: attr(data-tooltip);
-        corner-shape: tokens.getRawValue($token, "corner-shape");
-        filter: tokens.getRawValue($token, "shadow-1");
-        left: 50%;
-        max-width: calc(var(--base) * 25);
-        opacity: 0;
-        padding: tokens.getRawValue($token, "base");
+        content: "";
         position: absolute;
-        text-align: center;
+        left: var(--o-tooltip-arrow-left, 50%);
         transform: translateX(-50%);
-        transition:
-            opacity 0.2s ease-in-out,
-            transform 0.2s ease-in-out;
-        visibility: hidden;
-        width: max-content;
-        z-index: 1;
+        border-left: $_arrow-size solid transparent;
+        border-right: $_arrow-size solid transparent;
     }
 
     &::before {
-        border-color: tokens.getRawValue($token, "color--alpha") transparent transparent transparent;
-        border-style: solid;
-        border-width: $_arrow-size;
-        bottom: calc(100% - $_arrow-size);
-        content: " ";
-        left: 50%;
-        margin-left: -$_arrow-size;
-        opacity: 0;
-        position: absolute;
-        transition:
-            opacity 0.2s ease-in-out,
-            transform 0.2s ease-in-out;
-        visibility: hidden;
+        top: 100%;
+        border-top: calc($_arrow-size + 1px) solid tokens.getRawValue($_, "color--alpha-border");
     }
 
-    // Reveal both pseudo-elements on hover or keyboard focus
-    &:hover::after,
-    &:focus::after,
-    &:hover::before,
-    &:focus::before {
-        opacity: 1;
+    &::after {
+        top: calc(100% - 1px);
+        border-top: $_arrow-size solid tokens.getRawValue($_, "color--alpha");
+    }
+
+    &.is-visible {
         visibility: visible;
-    }
-
-    // Bubble is interactive so nested links/buttons remain reachable
-    &:hover::after,
-    &:focus::after {
-        pointer-events: unset;
-    }
-
-    // Arrow is purely decorative — keep it out of pointer hit-testing
-    &:hover::before,
-    &:focus::before {
-        pointer-events: none;
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }

@@ -36,6 +36,7 @@ import { SimulateClick } from './SimulateClick';
 import { initializeSelectFilter } from './selectFilter';
 import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
+import Tooltip from './tooltip';
 
 // Instances
 new DeviceDetect();
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	new DynamicSidebar();
 	new Filter();
 	new FileInput();
+	new Tooltip();
 
 	new ClassToggleInitializer().init();
 	NotificationInstance.setup();
