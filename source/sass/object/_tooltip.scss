@@ -1,7 +1,5 @@
 @use "../mixin/tokens";
 
-$_arrow-size: 6px;
-
 $_: "o-tooltip";
 
 @include tokens.create(
@@ -10,6 +8,7 @@ $_: "o-tooltip";
 );
 
 .#{$_} {
+    --#{$_}--arrow-size: calc(tokens.getRawValue($_, "base") * 0.75);
     --#{$_}--color--alpha-solid: color-mix(in srgb,rgb(from #{tokens.getRawValue($_, "color--alpha")} r g b / 1) 90%, transparent 10%);
 
     position: fixed;
@@ -43,19 +42,19 @@ $_: "o-tooltip";
         position: absolute;
         left: var(--o-tooltip-arrow-left, 50%);
         transform: translateX(-50%);
-        border-left: $_arrow-size solid transparent;
-        border-right: $_arrow-size solid transparent;
+        border-left: var(--#{$_}--arrow-size) solid transparent;
+        border-right: var(--#{$_}--arrow-size) solid transparent;
         clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
 
     &::before {
         top: 100%;
-        border-top: calc($_arrow-size + tokens.getCalculatedValue($_, "border-width", 1)) solid tokens.getRawValue($_, "color--alpha-border");
+        border-top: calc(var(--#{$_}--arrow-size) + tokens.getCalculatedValue($_, "border-width", 1)) solid tokens.getRawValue($_, "color--alpha-border");
     }
 
     &::after {
         top: calc(100% - tokens.getCalculatedValue($_, "border-width", 1));
-        border-top: $_arrow-size solid var(--#{$_}--color--alpha-solid);
+        border-top: var(--#{$_}--arrow-size) solid var(--#{$_}--color--alpha-solid);
         backdrop-filter: blur(tokens.getRawValue($_, "base"));
     }
 
