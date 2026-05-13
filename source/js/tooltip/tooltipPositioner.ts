@@ -1,5 +1,4 @@
 import { TooltipOffset } from './tooltipEnums';
-import type { TooltipPosition } from './tooltipInterfaces';
 
 class TooltipPositioner {
     public calculate(trigger: HTMLElement, tooltip: HTMLElement): TooltipPosition {

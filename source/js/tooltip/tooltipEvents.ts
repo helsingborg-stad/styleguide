@@ -1,5 +1,3 @@
-import type { TooltipEventsCallbacks, TooltipEventsInterface } from './tooltipInterfaces';
-
 class TooltipEvents implements TooltipEventsInterface {
     constructor(private readonly callbacks: TooltipEventsCallbacks) {}
 

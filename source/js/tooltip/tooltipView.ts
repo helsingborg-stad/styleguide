@@ -1,5 +1,4 @@
 import { TooltipAttribute, TooltipClassName, TooltipStyleProperty } from './tooltipEnums';
-import type { TooltipPosition, TooltipViewInterface } from './tooltipInterfaces';
 
 class TooltipView implements TooltipViewInterface {
     public readonly element: HTMLDivElement;

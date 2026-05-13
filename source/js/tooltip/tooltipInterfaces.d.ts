@@ -1,10 +1,10 @@
-export interface TooltipPosition {
+interface TooltipPosition {
     left: number;
     top: number;
     arrowLeft: number;
 }
 
-export interface TooltipViewInterface {
+interface TooltipViewInterface {
     readonly element: HTMLDivElement;
     readonly id: string;
     show(content: string): void;
@@ -14,7 +14,7 @@ export interface TooltipViewInterface {
     isVisible(): boolean;
 }
 
-export interface TooltipEventsCallbacks {
+interface TooltipEventsCallbacks {
     onTriggerEnter(trigger: HTMLElement): void;
     onTriggerLeave(trigger: HTMLElement): void;
     onTriggerFocus(trigger: HTMLElement): void;
@@ -24,7 +24,7 @@ export interface TooltipEventsCallbacks {
     onViewportChange(): void;
 }
 
-export interface TooltipEventsInterface {
+interface TooltipEventsInterface {
     bindTriggers(triggers: HTMLElement[]): void;
     addGlobalListeners(): void;
     removeGlobalListeners(): void;
