@@ -32,7 +32,7 @@ export function init() {
 
             const store = new StorageFactory().create(id, chatContainer.hasAttribute('data-js-chat-persistent'));
             const clear = new Clear(store);
-            const messageRenderer = new MessageRenderer(messagesContainer, chatContainer as HTMLElement);
+            const messageRenderer = new MessageRenderer(messagesContainer, messagesScrollContainer);
             const pendingMessageManager = new PendingMessageManager(messageFactory);
 
             const chat = new Chat(
