@@ -10,7 +10,7 @@ export enum TooltipDom {
 export enum TooltipOffset {
     Top = 7,
     Viewport = 12,
-    Arrow = 12,
+    Arrow = 16,
 }
 
 export enum TooltipAttribute {
