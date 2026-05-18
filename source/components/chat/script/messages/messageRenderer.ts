@@ -4,9 +4,10 @@ class MessageRenderer {
 
     public render(message: MessageInterface, pendingMessage: MessageInterface | null = null): void {
         const shouldAutoScroll = !message.getIsReply();
+        const messageContainer = message.getMessageContainer();
 
         if (pendingMessage && pendingMessage.getId() !== message.getId()) {
-            this.messageArea.insertBefore(message.getMessage(), pendingMessage.getMessage());
+            this.messageArea.insertBefore(messageContainer, pendingMessage.getMessageContainer());
 
             if (shouldAutoScroll) {
                 this.scrollToBottom();
@@ -15,7 +16,7 @@ class MessageRenderer {
             return;
         }
 
-        this.messageArea.appendChild(message.getMessage());
+        this.messageArea.appendChild(messageContainer);
 
         if (shouldAutoScroll) {
             this.scrollToBottom();
@@ -23,7 +24,7 @@ class MessageRenderer {
     }
 
     public moveToBottom(message: MessageInterface): void {
-        this.messageArea.appendChild(message.getMessage());
+        this.messageArea.appendChild(message.getMessageContainer());
     }
 
     private scrollToBottom(): void {
