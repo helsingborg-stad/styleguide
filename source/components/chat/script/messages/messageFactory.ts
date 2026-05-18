@@ -12,12 +12,13 @@ class MessageFactory {
         const template = isReply ? this.replyMessageTemplate : this.userMessageTemplate;
         const sanitizedMessage = sanitizeMarkup(message);
         const messageElement = template.content.firstElementChild?.cloneNode(true) as HTMLElement;
+        const messageContentArea = messageElement.querySelector('[data-js-chat-message]') as HTMLElement;
 
-        messageElement.innerHTML = sanitizedMessage;
+        messageContentArea.innerHTML = sanitizedMessage;
         const messageId = id || `message-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         messageElement.setAttribute('data-js-message-id', messageId);
 
-        return new Message(isReply, messageElement, messageId, sanitizedMessage);
+        return new Message(isReply, messageContentArea, messageElement, messageId, sanitizedMessage);
     }
 }
 

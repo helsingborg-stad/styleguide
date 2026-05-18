@@ -1,5 +1,6 @@
 interface MessageInterface {
     getMessage(): HTMLElement;
+    getMessageContainer(): HTMLElement;
     getId(): string;
     getContent(): string;
     getIsReply(): boolean;

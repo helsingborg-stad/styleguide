@@ -4,6 +4,7 @@ class Message implements MessageInterface {
     constructor(
         private isReply: boolean,
         private message: HTMLElement,
+        private messageContainer: HTMLElement,
         private id: string,
         private content: string
     ) {
@@ -13,8 +14,12 @@ class Message implements MessageInterface {
         return this.message;
     }
 
+    public getMessageContainer(): HTMLElement {
+        return this.messageContainer;
+    }
+
     public delete(): void {
-        this.getMessage().remove();
+        this.getMessageContainer().remove();
     }
 
     public getId(): string {
