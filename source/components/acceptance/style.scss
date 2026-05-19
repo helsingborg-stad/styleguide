@@ -105,6 +105,7 @@ $_: "c-acceptance";
         }
 
         .#{$_}__modal-icon-play {
+            --inherit-color-contrast: tokens.getRawValue($_, "color--alpha-contrast");
             color: tokens.getRawValue($_, "color--alpha-contrast");
             cursor: pointer;
             filter: var(--#{$_}--shadow);
@@ -133,6 +134,7 @@ $_: "c-acceptance";
             top: tokens.getCalculatedValue($_, "base", 1);
             right: tokens.getCalculatedValue($_, "base", 2);
             color: tokens.getRawValue($_, "color--alpha-contrast");
+            --inherit-color-contrast: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }
 }
