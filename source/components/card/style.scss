@@ -73,6 +73,18 @@ $_: "c-card";
 
     .#{$_}__header {
         width: 100%;
+
+        .c-typography {
+            --inherit-margin-bottom: 0;
+            --inherit-margin-top: 0;
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
+        }
+
+        .c-typography+.c-typography {
+            --inherit-margin-bottom: 0;
+            --inherit-margin-top: 0;
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-100")};
+        }
     }
 
     .#{$_}__header,
