@@ -6,7 +6,8 @@ class Message implements MessageInterface {
         private message: HTMLElement,
         private messageContainer: HTMLElement,
         private id: string,
-        private content: string
+        private content: string,
+        private data: MessageData = {}
     ) {
     }
 
@@ -28,6 +29,14 @@ class Message implements MessageInterface {
 
     public getContent(): string {
         return this.content;
+    }
+
+    public getData(): MessageData {
+        return { ...this.data };
+    }
+
+    public setData(data: MessageData): void {
+        this.data = { ...data };
     }
 
     /**

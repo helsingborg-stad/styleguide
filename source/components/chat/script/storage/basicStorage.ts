@@ -32,7 +32,8 @@ class BasicStorage implements StorageInterface {
             .map((message) => ({
                 id: message.getId(),
                 content: message.getContent(),
-                isReply: message.getIsReply()
+                isReply: message.getIsReply(),
+                data: message.getData()
             }));
     }
 }

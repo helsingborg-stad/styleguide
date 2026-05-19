@@ -10,7 +10,7 @@ class Load implements LoadInterface {
         const persistedMessages = this.storage.getSavedMessages();
 
         persistedMessages.forEach((message) => {
-            this.chat.addMessage(message.content, message.isReply, true, message.id);
+            this.chat.addMessage(message.content, message.isReply, true, message.id, message.data);
         });
 
         this.scrollToBottom();

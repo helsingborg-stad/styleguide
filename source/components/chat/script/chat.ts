@@ -2,6 +2,12 @@ import MessageFactory from "./messages/messageFactory";
 import MessageRenderer from "./messages/messageRenderer";
 import PendingMessageManager from "./messages/pendingMessageManager";
 
+type BeforePersistMessageEventDetail = {
+    chat: ChatInterface;
+    message: MessageInterface;
+    data: MessageData;
+};
+
 class Chat implements ChatInterface {
     private messageCallbacks: ((messages: MessageInterface[]) => void)[] = [];
     private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
@@ -78,8 +84,8 @@ class Chat implements ChatInterface {
         this.userMessageCallbacks.push(callback);
     }
 
-    public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string): MessageInterface {
-        return this.createMessage(messageContent, isReply, shouldPersist, id);
+    public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string, data: MessageData = {}): MessageInterface {
+        return this.createMessage(messageContent, isReply, shouldPersist, id, data);
     }
 
     public deleteMessage(message: MessageInterface): void {
@@ -99,25 +105,25 @@ class Chat implements ChatInterface {
         message.edit(newContent);
         this.pendingMessageManager.resolve(message);
 
-        this.messageStore.save(message);
+        this.saveMessage(message);
         this.runMessageCallbacks();
     }
 
-    public getMessages(): MessageInterface[] {
-        return this.messageStore.getAll();
+    public updateMessage(message: MessageInterface): void {
+        this.saveMessage(message);
     }
 
     public getPendingMessage(): MessageInterface | null {
         return this.pendingMessageManager.get();
     }
 
-    private createMessage(messageContent: string, isReply: boolean, shouldPersist: boolean, id?: string): MessageInterface {
-        const message = this.messageFactory.create(messageContent, isReply, id);
+    private createMessage(messageContent: string, isReply: boolean, shouldPersist: boolean, id?: string, data: MessageData = {}): MessageInterface {
+        const message = this.messageFactory.create(messageContent, isReply, id, data);
 
         this.messageRenderer.render(message, this.pendingMessageManager.get());
 
         if (shouldPersist) {
-            this.messageStore.save(message);
+            this.saveMessage(message);
         } else {
             this.messageStore.restore(message);
         }
@@ -125,6 +131,21 @@ class Chat implements ChatInterface {
         this.runMessageCallbacks();
 
         return message;
+    }
+
+    private saveMessage(message: MessageInterface): void {
+        const event = new CustomEvent<BeforePersistMessageEventDetail>('chat:beforePersistMessage', {
+            bubbles: true,
+            detail: {
+                chat: this,
+                message,
+                data: message.getData(),
+            },
+        });
+
+        this.container.dispatchEvent(event);
+        message.setData(event.detail.data);
+        this.messageStore.save(message);
     }
 
     private runMessageCallbacks(): void {

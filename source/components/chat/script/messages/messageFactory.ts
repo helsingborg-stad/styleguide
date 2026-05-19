@@ -8,7 +8,7 @@ class MessageFactory {
     ) {
     }
 
-    public create(message: string, isReply: boolean = false, id?: string): MessageInterface {
+    public create(message: string, isReply: boolean = false, id?: string, data: MessageData = {}): MessageInterface {
         const template = isReply ? this.replyMessageTemplate : this.userMessageTemplate;
         const sanitizedMessage = sanitizeMarkup(message);
         const messageElement = template.content.firstElementChild?.cloneNode(true) as HTMLElement;
@@ -18,7 +18,7 @@ class MessageFactory {
         const messageId = id || `message-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         messageElement.setAttribute('data-js-message-id', messageId);
 
-        return new Message(isReply, messageContentArea, messageElement, messageId, sanitizedMessage);
+        return new Message(isReply, messageContentArea, messageElement, messageId, sanitizedMessage, data);
     }
 }
 
