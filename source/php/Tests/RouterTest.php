@@ -4,6 +4,7 @@ namespace MunicipioStyleGuide\Tests;
 
 use MunicipioStyleGuide\Controllers\ApiController;
 use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ElementPageController;
 use MunicipioStyleGuide\Controllers\ObjectPageController;
 use MunicipioStyleGuide\Controllers\PageController;
 use MunicipioStyleGuide\Controllers\ScriptPageController;
@@ -26,6 +27,7 @@ class RouterTest extends TestCase
 
         $pageController = $this->createMock(PageController::class);
         $componentPageController = $this->createMock(ComponentPageController::class);
+        $elementPageController = $this->createMock(ElementPageController::class);
         $objectPageController = $this->createMock(ObjectPageController::class);
         $scriptPageController = $this->createMock(ScriptPageController::class);
         $utilityPageController = $this->createMock(UtilityPageController::class);
@@ -37,6 +39,7 @@ class RouterTest extends TestCase
 
         $pageController->expects($this->never())->method('handle');
         $componentPageController->expects($this->never())->method('handle');
+        $elementPageController->expects($this->never())->method('handle');
         $objectPageController->expects($this->never())->method('handle');
         $scriptPageController->expects($this->never())->method('handle');
         $utilityPageController->expects($this->never())->method('handle');
@@ -45,6 +48,7 @@ class RouterTest extends TestCase
             $request,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,
@@ -60,10 +64,12 @@ class RouterTest extends TestCase
     public function testDispatchUsesObjectAndScriptControllersForTheirEndpoints(): void
     {
         $objectRequest = new Request('/objects/layout-grid', []);
+        $elementRequest = new Request('/elements/blockquote', []);
         $scriptRequest = new Request('/script/data/filter-list', []);
 
         $pageController = $this->createMock(PageController::class);
         $componentPageController = $this->createMock(ComponentPageController::class);
+        $elementPageController = $this->createMock(ElementPageController::class);
         $objectPageController = $this->createMock(ObjectPageController::class);
         $scriptPageController = $this->createMock(ScriptPageController::class);
         $utilityPageController = $this->createMock(UtilityPageController::class);
@@ -73,6 +79,7 @@ class RouterTest extends TestCase
         $apiController->method('isSidebarChildrenRequest')->willReturn(false);
 
         $objectPageController->expects($this->once())->method('handle');
+        $elementPageController->expects($this->once())->method('handle');
         $scriptPageController->expects($this->once())->method('handle');
 
         $pageController->expects($this->never())->method('handle');
@@ -83,6 +90,18 @@ class RouterTest extends TestCase
             $objectRequest,
             $pageController,
             $componentPageController,
+            $elementPageController,
+            $objectPageController,
+            $scriptPageController,
+            $utilityPageController,
+            $apiController,
+        );
+
+        $elementRouter = new Router(
+            $elementRequest,
+            $pageController,
+            $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,
@@ -93,6 +112,7 @@ class RouterTest extends TestCase
             $scriptRequest,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,
@@ -100,6 +120,7 @@ class RouterTest extends TestCase
         );
 
         $objectRouter->dispatch();
+        $elementRouter->dispatch();
         $scriptRouter->dispatch();
     }
 
@@ -148,6 +169,7 @@ class RouterTest extends TestCase
 
         $pageController = $this->createMock(PageController::class);
         $componentPageController = $this->createMock(ComponentPageController::class);
+        $elementPageController = $this->createMock(ElementPageController::class);
         $objectPageController = $this->createMock(ObjectPageController::class);
         $scriptPageController = $this->createMock(ScriptPageController::class);
         $utilityPageController = $this->createMock(UtilityPageController::class);
@@ -158,11 +180,13 @@ class RouterTest extends TestCase
 
         $componentPageController->expects($this->once())->method('handle');
         $utilityPageController->expects($this->once())->method('handle');
+        $elementPageController->expects($this->never())->method('handle');
 
         $componentRouter = new Router(
             $componentRequest,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,
@@ -173,6 +197,7 @@ class RouterTest extends TestCase
             $utilityRequest,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,
@@ -204,6 +229,7 @@ class RouterTest extends TestCase
 
         $pageController = $this->createMock(PageController::class);
         $componentPageController = $this->createMock(ComponentPageController::class);
+        $elementPageController = $this->createMock(ElementPageController::class);
         $objectPageController = $this->createMock(ObjectPageController::class);
         $scriptPageController = $this->createMock(ScriptPageController::class);
         $utilityPageController = $this->createMock(UtilityPageController::class);
@@ -214,6 +240,7 @@ class RouterTest extends TestCase
 
         $pageController->expects($this->once())->method('handle');
         $componentPageController->expects($this->never())->method('handle');
+        $elementPageController->expects($this->never())->method('handle');
         $objectPageController->expects($this->never())->method('handle');
         $scriptPageController->expects($this->never())->method('handle');
         $utilityPageController->expects($this->never())->method('handle');
@@ -222,6 +249,7 @@ class RouterTest extends TestCase
             $request,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,

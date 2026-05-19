@@ -446,4 +446,22 @@ class ViewTest extends TestCase
 
         $this->assertTrue($resolved);
     }
+
+    /**
+     * Ensure parameter table visibility is enabled for element docs.
+     *
+     * @return void
+     */
+    public function testShouldShowParametersTableReturnsTrueForElementDocumentation(): void
+    {
+        $view = new View();
+
+        $reflection = new \ReflectionClass($view);
+        $method = $reflection->getMethod('shouldShowParametersTable');
+        $method->setAccessible(true);
+
+        $resolved = $method->invoke($view, ['viewDoc' => ['type' => 'elements']]);
+
+        $this->assertTrue($resolved);
+    }
 }

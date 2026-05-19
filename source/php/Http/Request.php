@@ -93,7 +93,7 @@ class Request
             return $defaultPage;
         }
 
-        $segments = array_values(array_filter(explode('/', $path), static fn (string $segment): bool => $segment !== ''));
+        $segments = array_values(array_filter(explode('/', $path), static fn(string $segment): bool => $segment !== ''));
 
         if (($segments[0] ?? '') === 'components') {
             return $this->resolveComponentPagePath($segments);
@@ -101,6 +101,10 @@ class Request
 
         if (($segments[0] ?? '') === 'utilities') {
             return $this->resolveUtilityPagePath($segments);
+        }
+
+        if (($segments[0] ?? '') === 'elements') {
+            return $this->resolveElementPagePath($segments);
         }
 
         return $path;
@@ -166,6 +170,37 @@ class Request
             if ($this->utilityConfigMatchesRequestedSlug($config, $utilityConfigPath, $requestedSlug)) {
                 return 'utility';
             }
+        }
+
+        return implode('/', $segments);
+    }
+
+    /**
+     * Resolves an element view path based on element metadata.
+     *
+     * @param array<int, string> $segments Request path segments.
+     *
+     * @return string
+     */
+    private function resolveElementPagePath(array $segments): string
+    {
+        if (count($segments) === 1) {
+            return 'elements';
+        }
+
+        if (count($segments) !== 2) {
+            return implode('/', $segments);
+        }
+
+        if (!defined('BASEPATH')) {
+            return implode('/', $segments);
+        }
+
+        $elementSlug = $segments[1];
+        $elementPath = BASEPATH . 'source/elements/' . $elementSlug . '/element.json';
+
+        if (is_file($elementPath)) {
+            return 'element';
         }
 
         return implode('/', $segments);

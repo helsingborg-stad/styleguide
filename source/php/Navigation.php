@@ -9,6 +9,7 @@ use MunicipioStyleGuide\Data\JsonDataLoader;
 use MunicipioStyleGuide\Data\NavigationDataParser;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
 use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
@@ -24,6 +25,7 @@ class Navigation
         private string $viewsPath,
         private array $sidebarSections = [],
         private string $componentsPath = '',
+        private string $elementsPath = '',
         private string $utilitiesPath = '',
     ) {}
 
@@ -40,6 +42,7 @@ class Navigation
             VIEWS_PATH,
             self::defaultSidebarSections(),
             BASEPATH . 'source/components',
+            BASEPATH . 'source/elements',
             BASEPATH . 'source/utilities',
         );
 
@@ -50,6 +53,7 @@ class Navigation
     {
         return [
             new ComponentsSection(),
+            new ElementsSection(),
             new ObjectsSection(),
             new ScriptSection(),
             new UtilitiesSection(),
@@ -85,6 +89,10 @@ class Navigation
 
             if ($key === 'components') {
                 $sidebarItem['children'] = $this->buildComponentsMenuItems();
+            }
+
+            if ($key === 'elements') {
+                $sidebarItem['children'] = $this->buildElementsMenuItems();
             }
 
             if ($key === 'script') {
@@ -129,6 +137,53 @@ class Navigation
             $state = isset($config['state']) && is_string($config['state']) ? $config['state'] : null;
 
             $hrefPath = '/components/' . $slug;
+
+            $items[$slug] = [
+                'label' => $this->appendStateToLabel($label, $state),
+                'href' => '//' . $this->getPageDomain() . $hrefPath,
+                'children' => false,
+                'async' => false,
+                'active' => $this->isActiveItem($slug, true),
+            ];
+        }
+
+        uasort($items, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
+
+        return $items;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function buildElementsMenuItems(): array
+    {
+        if ($this->elementsPath === '' && !defined('BASEPATH')) {
+            return [];
+        }
+
+        $basePath = $this->elementsPath !== '' ? rtrim($this->elementsPath, '/') : rtrim(BASEPATH . 'source/elements', '/');
+        $elementConfigPaths = glob($basePath . '/*/element.json') ?: [];
+        $items = [];
+
+        foreach ($elementConfigPaths as $elementConfigPath) {
+            $configContent = file_get_contents($elementConfigPath);
+            if ($configContent === false) {
+                continue;
+            }
+
+            $config = json_decode($configContent, true);
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $label = isset($config['name']) ? (string) $config['name'] : '';
+            if ($slug === '' || $label === '') {
+                continue;
+            }
+
+            $state = isset($config['state']) && is_string($config['state']) ? $config['state'] : null;
+            $hrefPath = '/elements/' . $slug;
 
             $items[$slug] = [
                 'label' => $this->appendStateToLabel($label, $state),
