@@ -3,6 +3,7 @@
 	"icons": {
 		"mixins": "local_bar",
 		"script": "code",
+		"elements": "code_blocks",
 		"icons": "brush",
 		"component": "extension",
 		"utilities": "build"

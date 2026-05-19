@@ -4,6 +4,7 @@ namespace MunicipioStyleGuide;
 
 use MunicipioStyleGuide\Controllers\ApiController;
 use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ElementPageController;
 use MunicipioStyleGuide\Controllers\ObjectPageController;
 use MunicipioStyleGuide\Controllers\PageController;
 use MunicipioStyleGuide\Controllers\ScriptPageController;
@@ -19,6 +20,7 @@ class Router
      * @param Request $request Current request.
      * @param PageController $pageController Page renderer.
      * @param ComponentPageController $componentPageController Component page renderer.
+     * @param ElementPageController $elementPageController Element page renderer.
      * @param ObjectPageController $objectPageController Object page renderer.
      * @param ScriptPageController $scriptPageController Script page renderer.
      * @param UtilityPageController $utilityPageController Utility page renderer.
@@ -28,6 +30,7 @@ class Router
         private Request $request,
         private PageController $pageController,
         private ComponentPageController $componentPageController,
+        private ElementPageController $elementPageController,
         private ObjectPageController $objectPageController,
         private ScriptPageController $scriptPageController,
         private UtilityPageController $utilityPageController,
@@ -59,6 +62,11 @@ class Router
             return;
         }
 
+        if ($page === 'element' || $endpoint === 'elements') {
+            $this->elementPageController->handle();
+            return;
+        }
+
         if ($endpoint === 'objects') {
             $this->objectPageController->handle();
             return;
@@ -81,9 +89,6 @@ class Router
     {
         $endpoint = $this->request->getEndpoint();
 
-        return $endpoint === 'topnav'
-            || $endpoint === 'search'
-            || $this->apiController->isTopNavRequest()
-            || $this->apiController->isSidebarChildrenRequest();
+        return $endpoint === 'topnav' || $endpoint === 'search' || $this->apiController->isTopNavRequest() || $this->apiController->isSidebarChildrenRequest();
     }
 }
