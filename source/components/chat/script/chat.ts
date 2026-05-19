@@ -117,6 +117,10 @@ class Chat implements ChatInterface {
         return this.pendingMessageManager.get();
     }
 
+    public getMessages(): MessageInterface[] {
+        return this.messageStore.getAll();
+    }
+
     private createMessage(messageContent: string, isReply: boolean, shouldPersist: boolean, id?: string, data: MessageData = {}): MessageInterface {
         const message = this.messageFactory.create(messageContent, isReply, id, data);
 
