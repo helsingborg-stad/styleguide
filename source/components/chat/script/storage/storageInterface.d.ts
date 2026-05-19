@@ -1,7 +1,10 @@
+type MessageData = Record<string, unknown>;
+
 type PersistentMessage = {
     id: string;
     content: string;
     isReply: boolean;
+    data: MessageData;
 }
 
 interface StorageInterface {

@@ -86,7 +86,10 @@ class LocalStorage implements StorageInterface {
             && message !== null
             && typeof (message as PersistentMessage).id === 'string'
             && typeof (message as PersistentMessage).content === 'string'
-            && typeof (message as PersistentMessage).isReply === 'boolean';
+            && typeof (message as PersistentMessage).isReply === 'boolean'
+            && typeof (message as PersistentMessage).data === 'object'
+            && (message as PersistentMessage).data !== null
+            && !Array.isArray((message as PersistentMessage).data);
     }
 }
 
