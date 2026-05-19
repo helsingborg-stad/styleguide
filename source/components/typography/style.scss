@@ -16,6 +16,11 @@
     inherits: false;
 }
 
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-typography";
 

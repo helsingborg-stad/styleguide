@@ -7,15 +7,74 @@
 	"entries": {
 		"radius": {
 			"modifiers": {
-				"default": "",
-				"full": "full"
+				"radius": "full, none, 1, 2, 3, 4"
 			},
+
 			"description": {
-				"default": "The .u-rounded utility applies a standard border radius to an element, creating rounded corners.",
-				"full": "The .u-rounded--full modifier applies a fully rounded border radius to an element, creating a pill-shaped or circular appearance depending on the element's dimensions. This do not apply corner-shape token to allow for a complete rounding effect regardless of the design system's defined corner shapes."
+				"radius": "The .u-rounded--{radius} modifier applies a border radius to all corners of an element, creating a rounded appearance. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance depending on the element's dimensions. The 'none' value applies no border radius, creating sharp corners. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
 			},
 			"responsive": true,
-			"format": ".u-rounded--{full}"
+			"format": ".u-rounded--{radius}"
+		},
+		"top-left": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-top-left--{radius} modifier applies a border radius to the top-left corner of an element, creating a rounded appearance on that corner. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that corner depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp corner. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-top-left--{radius}"
+		},
+		"top-right": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-top-right--{radius} modifier applies a border radius to the top-right corner of an element, creating a rounded appearance on that corner. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that corner depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp corner. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-top-right--{radius}"
+		},
+		"bottom-left": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-bottom-left--{radius} modifier applies a border radius to the bottom-left corner of an element, creating a rounded appearance on that corner. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that corner depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp corner. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-bottom-left--{radius}"
+		},
+		"bottom-right": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-bottom-right--{radius} modifier applies a border radius to the bottom-right corner of an element, creating a rounded appearance on that corner. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that corner depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp corner. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-bottom-right--{radius}"
+		},
+		"left": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-left--{radius} modifier applies a border radius to the left side of an element, creating a rounded appearance on that side. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that side depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp edge. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-left--{radius}"
+		},
+		"right": {
+			"modifiers": {
+				"radius": "full, none, 1, 2, 3, 4"
+			},
+			"description": {
+				"radius": "The .u-rounded-right--{radius} modifier applies a border radius to the right side of an element, creating a rounded appearance on that side. The specific radius applied depends on the value of the {radius} modifier, which can be one of the following: full, none, 1, 2, 3, or 4. The 'full' value applies a fully rounded border radius, creating a pill-shaped or circular appearance on that side depending on the element's dimensions. The 'none' value applies no border radius, creating a sharp edge. The numeric values (1, 2, 3, 4) apply increasing levels of border radius, with '1' being the smallest and '4' being the largest."
+			},
+			"responsive": true,
+			"format": ".u-rounded-right--{radius}"
 		}
 	},
 	"icon": "rounded_corner"

@@ -93,6 +93,7 @@
   @include meta.load-css("element/table");
   @include meta.load-css("element/iframe");
   @include meta.load-css("element/fieldset");
+  @include meta.load-css("element/blockquote");
 }
 
 // ***************************************************************
