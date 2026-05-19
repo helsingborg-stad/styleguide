@@ -212,8 +212,7 @@ $_: "c-card";
 
     &--highlight {
 
-        .#{$_}__header,
-        .#{$_}__body {
+        .#{$_}__paint-container {
             border-left: tokens.getRawValue($_, "base") solid tokens.getRawValue($_, "color--primary");
         }
     }
