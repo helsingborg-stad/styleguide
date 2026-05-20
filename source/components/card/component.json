@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Card",
 	"slug": "card",
-	"tokens": ["border-width", "border-radius", "space", "color--surface", "color--primary", "shadow-color", "shadow-amount", "color--surface-border", "color--surface-alt", "color--secondary", "color--surface-contrast", "corner-shape", "base", "color--primary-contrast", "font-size-300", "font-size-100"],
+	"tokens": ["border-width", "border-radius", "space", "color--surface", "color--primary", "shadow-color", "shadow-amount", "color--surface-border", "color--surface-alt", "color--secondary", "color--surface-contrast", "corner-shape", "base", "color--primary-contrast", "font-size-200", "font-size-100"],
 	"description": "The Card component provides a reusable pattern for card in the interface.",
 	"tags": ["card", "component"],
 	"similarComponents": ["code", "accordion", "brand"],
