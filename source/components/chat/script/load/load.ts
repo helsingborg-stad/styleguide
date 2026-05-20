@@ -9,11 +9,17 @@ class Load implements LoadInterface {
     public load(): void {
         const persistedMessages = this.storage.getSavedMessages();
 
+        const loadedMessages: MessageInterface[] = [];
         persistedMessages.forEach((message) => {
-            this.chat.addMessage(message.content, message.isReply, true, message.id, message.data);
+            loadedMessages.push(this.chat.addMessage(message.content, message.isReply, true, message.id, message.data));
         });
 
         this.scrollToBottom();
+        this.dispatchMessagesLoaded(loadedMessages);
+    }
+
+    private dispatchMessagesLoaded(messages: MessageInterface[]): void {
+        this.chat.getElement().dispatchEvent(new CustomEvent('chat:messages-loaded', { detail: messages }));
     }
 
     private scrollToBottom(): void {

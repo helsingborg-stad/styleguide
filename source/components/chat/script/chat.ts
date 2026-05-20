@@ -2,16 +2,8 @@ import MessageFactory from "./messages/messageFactory";
 import MessageRenderer from "./messages/messageRenderer";
 import PendingMessageManager from "./messages/pendingMessageManager";
 
-type BeforePersistMessageEventDetail = {
-    chat: ChatInterface;
-    message: MessageInterface;
-    data: MessageData;
-};
 
 class Chat implements ChatInterface {
-    private messageCallbacks: ((messages: MessageInterface[]) => void)[] = [];
-    private userMessageCallbacks: ((message: MessageInterface) => void)[] = [];
-
     constructor(
         private container: HTMLElement,
         private input: ChatInputInterface,
@@ -30,7 +22,6 @@ class Chat implements ChatInterface {
             if (messageContent) {
                 const message = this.addMessage(messageContent, false);
                 this.input.clear();
-                this.runUserMessageCallback(message);
             }
         });
     }
@@ -67,21 +58,9 @@ class Chat implements ChatInterface {
 
         this.messageRenderer.moveToBottom(message);
         this.messageStore.restore(message);
-        this.runMessageCallbacks();
+        this.getElement().dispatchEvent(new CustomEvent('chat:pending-message-added', { detail: message }));
 
         return message;
-    }
-
-    public subscribeToMessages(callback: (messages: MessageInterface[]) => void): void {
-        this.messageCallbacks.push(callback);
-    }
-
-    private runUserMessageCallback(message: MessageInterface): void {
-        this.userMessageCallbacks.forEach((callback) => callback(message));
-    }
-
-    public subscribeToUserMessages(callback: (message: MessageInterface) => void): void {
-        this.userMessageCallbacks.push(callback);
     }
 
     public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string, data: MessageData = {}): MessageInterface {
@@ -92,25 +71,25 @@ class Chat implements ChatInterface {
         this.pendingMessageManager.resolve(message);
         message.delete();
         this.messageStore.delete(message);
-        this.runMessageCallbacks();
+        this.getElement().dispatchEvent(new CustomEvent('chat:message-deleted', { detail: message }));
     }
 
     public clearMessages(): void {
         this.clear.clear();
         this.pendingMessageManager.clear();
-        this.runMessageCallbacks();
+        this.getElement().dispatchEvent(new CustomEvent('chat:messages-cleared'));
     }
 
     public editMessage(newContent: string, message: MessageInterface): void {
         message.edit(newContent);
         this.pendingMessageManager.resolve(message);
 
-        this.saveMessage(message);
-        this.runMessageCallbacks();
+        this.messageStore.save(message);
+        this.getElement().dispatchEvent(new CustomEvent('chat:message-edited', { detail: message }));
     }
 
     public updateMessage(message: MessageInterface): void {
-        this.saveMessage(message);
+        this.messageStore.save(message);
     }
 
     public getPendingMessage(): MessageInterface | null {
@@ -126,36 +105,15 @@ class Chat implements ChatInterface {
 
         this.messageRenderer.render(message, this.pendingMessageManager.get());
 
+        this.getElement().dispatchEvent(new CustomEvent('chat:message-added', { detail: message }));
+
         if (shouldPersist) {
-            this.saveMessage(message);
+            this.messageStore.save(message);
         } else {
             this.messageStore.restore(message);
         }
 
-        this.runMessageCallbacks();
-
         return message;
-    }
-
-    private saveMessage(message: MessageInterface): void {
-        const event = new CustomEvent<BeforePersistMessageEventDetail>('chat:beforePersistMessage', {
-            bubbles: true,
-            detail: {
-                chat: this,
-                message,
-                data: message.getData(),
-            },
-        });
-
-        this.container.dispatchEvent(event);
-        message.setData(event.detail.data);
-        this.messageStore.save(message);
-    }
-
-    private runMessageCallbacks(): void {
-        const messages = this.messageStore.getAll();
-
-        this.messageCallbacks.forEach((callback) => callback(messages));
     }
 }
 

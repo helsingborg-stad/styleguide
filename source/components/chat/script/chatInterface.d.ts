@@ -11,8 +11,6 @@ interface ChatInterface {
     enable(): void;
     disableSend(): void;
     enableSend(): void;
-    subscribeToMessages(callback: (messages: MessageInterface[]) => void): void;
-    subscribeToUserMessages(callback: (message: MessageInterface) => void): void;
     init(): void;
     getMessages(): MessageInterface[];
 }

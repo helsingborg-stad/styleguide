@@ -48,9 +48,7 @@ export function init() {
             new Load(chat, store, messagesScrollContainer).load();
             chat.init();
 
-            document.dispatchEvent(new CustomEvent('chat:initialized', { detail: { 
-                chat: chat
-            }}));
+            document.dispatchEvent(new CustomEvent('chat:initialized', { detail: chat }));
         });
     }, { once: true });
 }
