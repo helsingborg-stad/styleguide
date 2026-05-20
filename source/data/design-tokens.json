@@ -349,7 +349,7 @@
 					"label": "Font Size 90",
 					"description": "One step below base in the type scale.",
 					"type": "range",
-					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))",
+					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -0.6))",
 					"locked": true
 				},
 				{

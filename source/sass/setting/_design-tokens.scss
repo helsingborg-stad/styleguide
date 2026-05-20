@@ -56,7 +56,7 @@
     // Computed font size scale derived from base font size and type scale ratio.
     // ========================================================================
     --font-size-80: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2));
-    --font-size-90: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1));
+    --font-size-90: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -0.6));
     --font-size-100: var(--base-font-size);
     --font-size-200: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1));
     --font-size-300: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 2));
