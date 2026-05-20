@@ -28,7 +28,7 @@ $_: "c-modal";
 
     &[open] {
         display: grid;
-        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-rows: auto minmax(0, 1fr);
         gap: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1));
     }
 
@@ -41,11 +41,13 @@ $_: "c-modal";
     }
 
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.getRawValue($_, "font-size-500")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
+        --inherit-margin-bottom: 0;
+        --inherit-margin-top: 0;
     }
 
     .#{$_}__close {
-        height: 100%;
+        margin-bottom: auto;
     }
 
     &.#{$_}--transparent {
