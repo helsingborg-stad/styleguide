@@ -68,7 +68,7 @@ $_: "c-card";
 
     /** Tell child components to inherit font-size from card for better typography scaling */
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
     }
 
     .#{$_}__header {
@@ -77,7 +77,7 @@ $_: "c-card";
         .c-typography {
             --inherit-margin-bottom: 0;
             --inherit-margin-top: 0;
-            --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
         }
 
         .c-typography+.c-typography {
