@@ -188,10 +188,20 @@ $_: "c-nav";
 
         .c-nav__item.c-nav__item--button .c-nav__item-wrapper {
             padding: calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2);
+
+            [data-component="button"] {
+                width: 100%;
+            }
         }
 
-        &.c-nav--compressed .c-nav__link {
-            padding: calc(#{tokens.getRawValue($_, "base")} * 0.5) 0;
+        &.c-nav--compressed {
+            .c-nav__link {
+                padding: calc(#{tokens.getRawValue($_, "base")} * 0.75) calc(#{tokens.getRawValue($_, "base")} * 1.5);
+            }
+
+            .c-nav__item.c-nav__item--button .c-nav__item-wrapper {
+                padding: calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5);
+            }
         }
 
         &.c-nav--bordered .c-nav__item+.c-nav__item {
