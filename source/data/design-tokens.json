@@ -349,7 +349,7 @@
 					"label": "Font Size 90",
 					"description": "One step below base in the type scale.",
 					"type": "range",
-					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))",
+					"default": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -0.6))",
 					"locked": true
 				},
 				{
@@ -673,7 +673,7 @@
 					"label": "Alpha Color",
 					"description": "Used for overlays. Includes opacity — set both color and alpha together.",
 					"type": "rgba",
-					"default": "rgba(0, 0, 0, 0.1)"
+					"default": "rgba(0, 0, 0, .55)"
 				},
 				{
 					"variable": "--color--alpha-contrast",

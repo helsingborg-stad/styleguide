@@ -153,6 +153,7 @@ $_modal: "c-modal--gallery";
 .#{$_}--is-placeholder {
     @include ratio.ratio(16, 9, true);
     position: relative;
+    height: 100%;
     line-height: 0;
     border: var(--inherit-border, --#{$_}--border);
     border-radius: var(--#{$_}--border-radius);
