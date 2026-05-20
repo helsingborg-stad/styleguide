@@ -673,7 +673,7 @@
 					"label": "Alpha Color",
 					"description": "Used for overlays. Includes opacity — set both color and alpha together.",
 					"type": "rgba",
-					"default": "rgba(0, 0, 0, 0.1)"
+					"default": "rgba(0, 0, 0, .55)"
 				},
 				{
 					"variable": "--color--alpha-contrast",
