@@ -63,6 +63,11 @@ $_: "c-nav";
         gap: #{tokens.getRawValue($_, "base")};
     }
 
+    .c-nav__link.c-paper {
+        padding-left: calc(#{tokens.getRawValue($_, "base")} * 2);
+        padding-right: calc(#{tokens.getRawValue($_, "base")} * 2);
+    }
+
     .c-nav__item {
         position: relative;
 
@@ -76,7 +81,7 @@ $_: "c-nav";
 
         &.c-nav__item--separator {
             .c-nav__item-wrapper {
-                background-color: tokens.getRawValue($_, "color--primary-contrast");
+                background-color: #{tokens.getRawValue($_, "color--primary-contrast")};
             }
 
             .c-nav__link .c-nav__text {
@@ -186,60 +191,72 @@ $_: "c-nav";
         }
 
         &.c-nav--bordered .c-nav__item+.c-nav__item {
-            border-top: 1px solid #{var(--#{$_}--item-border-color)};
+            border-top: 1px solid #{var(--#{$_}--item-border-color)
         }
 
-        .c-nav__item.is-current>.c-nav__link,
-        .c-nav__item.is-current>.c-nav__item-wrapper>.c-nav__link {
-            color: var(--#{$_}--item-color);
-            font-weight: var(--font-weight-bold, 700);
-            font-family: var(--font-family-bold);
-        }
+        ;
+    }
 
-        .c-nav__item.is-current>.c-nav__link,
-        .c-nav__item.is-current>.c-button {
-            background-color: var(--#{$_}--item-background-color);
-        }
+    .c-nav__item.is-current>.c-nav__link,
+    .c-nav__item.is-current>.c-nav__item-wrapper>.c-nav__link {
+        color: var(--#{$_}--item-color);
+        font-weight: var(--font-weight-bold, 700);
+        font-family: var(--font-family-bold);
+    }
 
-        &.c-nav--indent-sublevels {
-            @for $i from 1 through 5 {
-                li.has-children[data-depth="#{$i}"]>.c-nav__child-container>ul>li>.c-nav__item-wrapper {
-                    padding-left: calc(var(--base, 8px) * (2 * $i));
-                }
+    .c-nav__item.is-current>.c-nav__link,
+    .c-nav__item.is-current>.c-button {
+        background-color: var(--#{$_}--item-background-color);
+    }
+
+    &.c-nav--indent-sublevels {
+        @for $i from 1 through 5 {
+            li.has-children[data-depth="#{$i}"]>.c-nav__child-container>ul>li>.c-nav__item-wrapper {
+                padding-left: calc(var(--base, 8px) * (2 * $i));
             }
         }
     }
+}
 
-    // Drawer
-    &.c-nav--drawer {
-        &.c-nav--bordered {
-            border-bottom: 1px solid #{var(--#{$_}--item-border-color)};
-
-            .c-nav {
-                border-top: 1px solid #{var(--#{$_}--item-border-color)};
-            }
-        }
-
-        &.c-nav--bordered.c-nav--bordered-top-level {
-            border-bottom: none;
-
-            .c-nav {
-                border-top: none;
-            }
-
-            & .c-nav__item+.c-nav__item {
-                border-top: none;
-            }
-
-            &>.c-nav__item {
-                border-bottom: 1px solid #{var(--#{$_}--item-border-color)};
-            }
-        }
-
-        .c-nav__link {
-            gap: calc(#{tokens.getRawValue($_, "base")} * 3);
-        }
+// Drawer
+&.c-nav--drawer {
+    &.c-nav--bordered {
+        border-bottom: 1px solid #{var(--#{$_}--item-border-color)
     }
+
+    ;
+
+    .c-nav {
+        border-top: 1px solid #{var(--#{$_}--item-border-color)
+    }
+
+    ;
+}
+}
+
+&.c-nav--bordered.c-nav--bordered-top-level {
+    border-bottom: none;
+
+    .c-nav {
+        border-top: none;
+    }
+
+    & .c-nav__item+.c-nav__item {
+        border-top: none;
+    }
+
+    &>.c-nav__item {
+        border-bottom: 1px solid #{var(--#{$_}--item-border-color)
+    }
+
+    ;
+}
+}
+
+.c-nav__link {
+    gap: calc(#{tokens.getRawValue($_, "base")} * 3);
+}
+}
 }
 
 .c-nav.c-nav.c-nav--horizontal {
