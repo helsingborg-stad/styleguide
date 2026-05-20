@@ -1,3 +1,3 @@
 interface LoadInterface {
-    load(): MessageInterface[];
+    load(): void;
 }

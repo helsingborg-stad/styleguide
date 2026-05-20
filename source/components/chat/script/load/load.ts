@@ -6,7 +6,7 @@ class Load implements LoadInterface {
     ) {
     }
 
-    public load(): MessageInterface[] {
+    public load(): void {
         const persistedMessages = this.storage.getSavedMessages();
 
         const loadedMessages: MessageInterface[] = [];
@@ -16,7 +16,6 @@ class Load implements LoadInterface {
         });
 
         this.scrollToBottom();
-        return loadedMessages;
     }
 
     private scrollToBottom(): void {
