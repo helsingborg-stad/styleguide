@@ -26,6 +26,7 @@ $_: "c-table";
     .#{$_}__title {
         --inherit-margin-top: 0;
         --inherit-margin-bottom: 0;
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
     }
 
     .#{$_}__inner {
