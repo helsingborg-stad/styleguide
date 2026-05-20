@@ -222,8 +222,28 @@ $_: "c-collection";
     }
 }
 
-.#{$_}.#{$_}--compact .#{$_}__content {
-    padding: var(--#{$_}--padding-y-compact) var(--#{$_}--padding-x-compact);
+.#{$_}.#{$_}--compact {
+
+    &.#{$_}--bordered {
+        padding-top: tokens.getCalculatedValue($_, "space", 0.5);
+        padding-bottom: tokens.getCalculatedValue($_, "space", 0.5);
+    }
+
+    .#{$_}__content,
+    .#{$_}__icon,
+    .#{$_}__item>.#{$_}__secondary {
+        padding: var(--#{$_}--padding-y-compact) var(--#{$_}--padding-x-compact);
+    }
+
+    .#{$_}__icon+.#{$_}__content {
+        padding-left: 0;
+    }
+
+    .#{$_}__icon {
+        --c-icon-size: #{tokens.getCalculatedValue($_, "space", 2)};
+        padding-right: tokens.getCalculatedValue($_, "space", 0.5);
+        align-self: center;
+    }
 }
 
 // Modifiers - Bordered
