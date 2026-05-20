@@ -6,6 +6,7 @@ $token: "c-chat";
 .#{$_} {
     max-width: 80%;
     display: grid;
+    position: relative;
 
     &.#{$_}--user {
         margin-left: auto;
