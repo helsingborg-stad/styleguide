@@ -48,7 +48,8 @@ $_: "c-card";
     }
 
     .#{$_}__image {
-        --c-image--color-background: var(--#{$_}--image-bg);
+        --inherit-color-background: #{tokens.getRawValue($_, "color--surface-alt")};
+        --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
         --c-image--border-radius: 0;
     }
 

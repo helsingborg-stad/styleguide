@@ -109,6 +109,7 @@
     --color--background-contrast: #2d2d2d;
     --color--background-contrast-muted: color-mix(in srgb, var(--color--background-contrast) 67.5%, var(--color--background));
     --color--background-border: color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background));
+    --color--background-alt: color-mix(in srgb, var(--color--background-contrast-muted) var(--color--alt-mix-amount), var(--color--background));
     --color--surface: #ffffff;
     --color--surface-contrast: #2d2d2d;
     --color--surface-contrast-muted: color-mix(in srgb, var(--color--surface-contrast) 67.5%, var(--color--surface));

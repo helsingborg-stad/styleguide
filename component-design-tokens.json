@@ -953,7 +953,7 @@
     "slug": "image",
     "tokens": [
       "space",
-      "color--background",
+      "color--background-alt",
       "color--background-contrast-muted",
       "border-width",
       "color--surface-border",
@@ -1008,7 +1008,7 @@
           },
           {
             "label": "Placeholder background color",
-            "token": "color--background"
+            "token": "color--background-alt"
           }
         ]
       },

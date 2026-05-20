@@ -610,6 +610,14 @@
 					"default": "color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background))"
 				},
 				{
+					"variable": "--color--background-alt",
+					"label": "Background Alt",
+					"description": "Manual companion token for subtle background surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--background-contrast-muted) var(--color--alt-mix-amount), var(--color--background))"
+				},
+				{
 					"variable": "--color--surface",
 					"label": "Surface",
 					"type": "color",
