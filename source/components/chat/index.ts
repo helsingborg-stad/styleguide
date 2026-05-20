@@ -45,10 +45,11 @@ export function init() {
                 pendingMessageManager
             );
 
-            new Load(chat, store, messagesScrollContainer).load();
+            const loadedMessages = new Load(chat, store, messagesScrollContainer).load();
             chat.init();
 
             document.dispatchEvent(new CustomEvent('chat:initialized', { detail: chat }));
+            chat.getElement().dispatchEvent(new CustomEvent('chat:messages-loaded', { detail: loadedMessages }));
         });
     }, { once: true });
 }
