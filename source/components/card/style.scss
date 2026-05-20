@@ -52,6 +52,10 @@ $_: "c-card";
         --c-image--border-radius: 0;
     }
 
+    .c-image__placeholder {
+        --inherit-border: none;
+    }
+
     .#{$_}__paint-container {
         contain: paint;
         border-radius: inherit;

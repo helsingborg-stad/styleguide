@@ -2,6 +2,12 @@
 @use "../../sass/mixin/ratio";
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-border {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-image";
 $_modal: "c-modal--gallery";
@@ -137,7 +143,7 @@ $_modal: "c-modal--gallery";
     @include ratio.ratio(16, 9, true);
     position: relative;
     line-height: 0;
-    border: var(--#{$_}--border);
+    border: var(--inherit-border, --#{$_}--border);
     border-radius: var(--#{$_}--border-radius);
     background-color: var(--#{$_}--placeholder-background-color);
     user-select: none;
