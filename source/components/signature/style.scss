@@ -6,7 +6,7 @@ $_: "c-signature";
 
 .#{$_} {
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: max-content auto;
     text-decoration: none;
     column-gap: tokens.getCalculatedValue($_, "space", 2);
 
