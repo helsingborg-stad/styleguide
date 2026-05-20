@@ -954,6 +954,7 @@
     "tokens": [
       "space",
       "color--background",
+      "color--background-contrast-muted",
       "border-width",
       "color--surface-border",
       "color--surface-contrast",

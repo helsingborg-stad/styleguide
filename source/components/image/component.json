@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Image",
 	"slug": "image",
-	"tokens": ["space", "color--background", "border-width", "color--surface-border", "color--surface-contrast", "corner-shape", "font-size-90", "font-family-heading", "font-weight-bold", "line-height-base"],
+	"tokens": ["space", "color--background", "color--background-contrast-muted", "border-width", "color--surface-border", "color--surface-contrast", "corner-shape", "font-size-90", "font-family-heading", "font-weight-bold", "line-height-base"],
 	"componentSettings": [
 		{
 			"id": "border",
