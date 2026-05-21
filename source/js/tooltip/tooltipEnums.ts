@@ -1,6 +1,8 @@
 export enum TooltipSetup {
     TriggerSelector = '[data-tooltip]',
     TooltipId = 'styleguide-tooltip',
+    InitializedAttribute = 'data-tooltip-initialized',
+    UninitializedSelector = '[data-tooltip]:not([data-tooltip-initialized])',
 }
 
 export enum TooltipDom {
