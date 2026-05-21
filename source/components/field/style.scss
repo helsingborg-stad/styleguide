@@ -21,10 +21,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface-alt")};
     --#{$_}--contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--height-sm: #{tokens.getCalculatedValue($_, "base", 4.5)};
     --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 6)};
+    --#{$_}--height-lg: #{tokens.getCalculatedValue($_, "base", 8)};
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     --#{$_}--shadow-hover: #{tokens.getCalculatedValue($_, "shadow", 1.5)};
-    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.getRawValue($_, "border-width")} * 2);
+    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.getCalculatedValue($_, "border-width", 2)});
+    --#{$_}--height-sm-computed: calc(var(--#{$_}--height-sm) - #{tokens.getCalculatedValue($_, "border-width", 2)});
+    --#{$_}--height-lg-computed: calc(var(--#{$_}--height-lg) - #{tokens.getCalculatedValue($_, "border-width", 2)});
 
     flex: 1;
 
@@ -296,18 +300,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         #{$fields} {
             padding: tokens.getCalculatedValue($_, "space");
-            height: calc(tokens.getCalculatedValue($_, "base", 4.5));
+            height: var(--#{$_}--height-sm-computed);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(tokens.getCalculatedValue($_, "base", 4.5));
+                height: var(--#{$_}--height-sm);
             }
         }
 
         textarea {
             padding: tokens.getCalculatedValue($_, "space");
-            min-height: calc(tokens.getCalculatedValue($_, "base", 4.5));
+            min-height: var(--#{$_}--height-sm-computed);
         }
 
         .#{$_}__icon,
@@ -353,18 +357,18 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         #{$fields} {
             padding: tokens.getCalculatedValue($_, "space", 2.5);
-            height: calc(tokens.getCalculatedValue($_, "base", 8));
+            height: var(--#{$_}--height-lg-computed);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(tokens.getCalculatedValue($_, "base", 8));
+                height: var(--#{$_}--height-lg);
             }
         }
 
         textarea {
             padding: tokens.getCalculatedValue($_, "space", 2.5);
-            min-height: calc(tokens.getCalculatedValue($_, "base", 8));
+            min-height: var(--#{$_}--height-lg);
         }
 
         .#{$_}__icon,
