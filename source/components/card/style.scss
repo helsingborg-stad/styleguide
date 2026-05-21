@@ -300,6 +300,10 @@ $_: "c-card";
             flex-wrap: wrap;
             flex-direction: row;
 
+            .#{$_}__header {
+                padding: tokens.getCalculatedValue($_, "space", 4);
+            }
+
             .#{$_}__body {
                 padding: tokens.getCalculatedValue($_, "space", 4);
             }
