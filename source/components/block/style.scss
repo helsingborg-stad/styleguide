@@ -33,6 +33,10 @@ $_: "c-block";
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
     }
 
+    .#{$_}__icon {
+        border-radius: 999px;
+    }
+
     .#{$_}__image {
         border-radius: var(--#{$_}--radius);
         corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -127,6 +131,10 @@ $_: "c-block";
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    [data-component="group"] {
+        width: 100%;
     }
 }
 

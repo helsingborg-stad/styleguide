@@ -20,7 +20,7 @@ $_: "c-group";
         filter: tokens.getCalculatedValue($_, "shadow");
     }
 
-    >* {
+    &:not(.#{$_}--skip-child-normalization)>* {
         border-radius: 0 !important;
         margin: 0 !important;
     }
