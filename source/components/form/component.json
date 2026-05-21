@@ -1,0 +1,13 @@
+{
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Form",
+	"slug": "form",
+	"tokens": [],
+	"description": "The Form component provides a reusable pattern for forms in the interface.",
+	"tags": ["form", "component"],
+	"similarComponents": [],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "assignment"
+}

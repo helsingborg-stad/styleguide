@@ -1,0 +1,19 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-form";
+
+.#{$_} {
+
+    .#{$_}__notice-success,
+    .#{$_}__notice-failed {
+        display: none;
+    }
+
+    &.is-valid .#{$_}__notice-success {
+        display: block;
+    }
+
+    &.is-invalid .#{$_}__notice-failed {
+        display: block;
+    }
+}
