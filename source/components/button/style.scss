@@ -455,18 +455,13 @@ $button-sizes: (
     }
 
     &.#{$_}__outlined {
+        outline-offset: 4px;
+        outline: 0 solid rgba(0, 0, 0, 0.5);
+
         &[aria-pressed="true"] {
-            background-color: var(--_color);
-            --_text: var(--_contrast);
-
-            &:after {
-                display: none;
-            }
+            outline-width: 4px;
+            outline-color: var(--_color);
         }
-    }
-
-    &.#{$_}__outlined--default[aria-pressed="true"] {
-        background-color: var(--_active);
     }
 }
 
