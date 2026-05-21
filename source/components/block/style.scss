@@ -122,6 +122,12 @@ $_: "c-block";
         background-repeat: no-repeat;
         background-color: var(--#{$_}--color-secondary);
     }
+
+    [data-component="datebadge"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
 
 a.#{$_} {
