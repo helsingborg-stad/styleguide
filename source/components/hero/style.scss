@@ -188,6 +188,15 @@ $_: "c-hero";
         max-width: tokens.getCalculatedValue($_, "base", 87);
         z-index: 2;
         position: relative;
+
+        [data-component="typography"] {
+            --inherit-margin-top: 0;
+            --inherit-margin-bottom: 0;
+        }
+
+        [data-component="typography"] + [data-component="typography"] {
+            --inherit-margin-top: tokens.getCalculatedValue($_, "space", 2);
+        }
     }
 
     &.#{$_}--overlay .#{$_}__content {

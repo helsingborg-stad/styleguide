@@ -57,6 +57,10 @@ $_: "c-megamenu";
         align-items: center;
         text-decoration: none;
         gap: tokens.getCalculatedValue($_, "base", 1);
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .#{$_}__item--child {
@@ -67,6 +71,10 @@ $_: "c-megamenu";
         .#{$_}__link {
             text-decoration: none;
             color: tokens.getRawValue($_, "color--primary");
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 

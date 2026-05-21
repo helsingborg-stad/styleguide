@@ -68,7 +68,7 @@ $button-variants: (
         --_text: var(--inherit-color-contrast, #{map.get($button-variants, "default", "stroke")});
 
         &:before {
-            background-color: #{map.get($button-variants, "default", "fg")};
+            background-color: var(--_text);
         }
     }
 
@@ -96,7 +96,7 @@ $button-variants: (
             }
 
             &.#{$_}__basic--#{$name}:before {
-                background-color: #{map.get($variant, "underline")};
+                background-color: var(--_text);
             }
 
             &.#{$_}__outlined--#{$name} {
@@ -132,13 +132,13 @@ $button-sizes: (
         "offset": -1.5,
         "loader": 4,
         "font-size": var(--#{$_}--font-size-lg)),
-    "md": ("height": 6.5,
+    "md": ("height": 6,
         "min-width": 9,
         "padding-x": 4,
         "offset": -1,
         "loader": null,
         "font-size": var(--#{$_}--font-size-md)),
-    "sm": ("height": 5.5,
+    "sm": ("height": 4.5,
         "min-width": 6.75,
         "padding-x": 2,
         "offset": -0.5,
@@ -455,18 +455,13 @@ $button-sizes: (
     }
 
     &.#{$_}__outlined {
+        outline-offset: 4px;
+        outline: 0 solid rgba(0, 0, 0, 0.5);
+
         &[aria-pressed="true"] {
-            background-color: var(--_color);
-            --_text: var(--_contrast);
-
-            &:after {
-                display: none;
-            }
+            outline-width: 4px;
+            outline-color: var(--_color);
         }
-    }
-
-    &.#{$_}__outlined--default[aria-pressed="true"] {
-        background-color: var(--_active);
     }
 }
 
