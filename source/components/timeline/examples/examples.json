@@ -1,0 +1,10 @@
+{
+	"basic": {
+		"heading": "Default timeline",
+		"description": "Displays dated milestones with the current step highlighted."
+	},
+	"sequential": {
+		"heading": "Sequential timeline",
+		"description": "Collapses the date column for step-by-step process presentations."
+	}
+}
