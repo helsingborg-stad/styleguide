@@ -142,7 +142,3 @@ a.#{$_} {
         @include _stacked;
     }
 }
-
-.#{$_}+.#{$_} {
-    margin-top: tokens.getCalculatedValue($_, "space", 6);
-}
