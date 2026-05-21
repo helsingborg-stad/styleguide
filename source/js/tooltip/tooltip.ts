@@ -6,11 +6,7 @@ import TooltipView from './tooltipView';
 
 class Tooltip {
     public init(): void {
-        const triggers = Array.from(document.querySelectorAll<HTMLElement>(TooltipSetup.TriggerSelector));
-
-        if (triggers.length === 0) {
-            return;
-        }
+        const triggers = Array.from(document.querySelectorAll<HTMLElement>(TooltipSetup.UninitializedSelector));
 
         const view = new TooltipView(TooltipSetup.TooltipId);
         const positioner = new TooltipPositioner();
@@ -29,6 +25,36 @@ class Tooltip {
 
         controller = new TooltipController(triggers, view, positioner, events);
         controller.init();
+
+        triggers.forEach((trigger) => {
+            trigger.setAttribute(TooltipSetup.InitializedAttribute, '');
+        });
+
+        this.observeDom(controller);
+    }
+
+    private observeDom(controller: TooltipController): void {
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                for (const node of Array.from(mutation.addedNodes)) {
+                    if (!(node instanceof HTMLElement)) {
+                        continue;
+                    }
+
+                    const newTriggers = [
+                        ...(node.matches(TooltipSetup.UninitializedSelector) ? [node] : []),
+                        ...Array.from(node.querySelectorAll<HTMLElement>(TooltipSetup.UninitializedSelector)),
+                    ];
+
+                    for (const trigger of newTriggers) {
+                        trigger.setAttribute(TooltipSetup.InitializedAttribute, '');
+                        controller.registerTrigger(trigger);
+                    }
+                }
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
     }
 }
 

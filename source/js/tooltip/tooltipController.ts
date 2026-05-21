@@ -20,6 +20,10 @@ class TooltipController {
         this.events.bindTriggers(this.triggers);
     }
 
+    public registerTrigger(trigger: HTMLElement): void {
+        this.events.bindTriggers([trigger]);
+    }
+
     public show(trigger: HTMLElement): void {
         const content = trigger.dataset.tooltip?.trim();
 
