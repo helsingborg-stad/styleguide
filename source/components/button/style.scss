@@ -68,7 +68,7 @@ $button-variants: (
         --_text: var(--inherit-color-contrast, #{map.get($button-variants, "default", "stroke")});
 
         &:before {
-            background-color: #{map.get($button-variants, "default", "fg")};
+            background-color: var(--_text);
         }
     }
 
@@ -96,7 +96,7 @@ $button-variants: (
             }
 
             &.#{$_}__basic--#{$name}:before {
-                background-color: #{map.get($variant, "underline")};
+                background-color: var(--_text);
             }
 
             &.#{$_}__outlined--#{$name} {
