@@ -96,6 +96,10 @@ $_: "c-group";
     &.#{$_}--single-column {
         grid-template-columns: 1fr;
     }
+
+    &.#{$_}--full-width {
+        width: 100%;
+    }
 }
 
 .#{$_}--vertical {
