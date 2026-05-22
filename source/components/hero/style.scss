@@ -194,8 +194,8 @@ $_: "c-hero";
             --inherit-margin-bottom: 0;
         }
 
-        [data-component="typography"] + [data-component="typography"] {
-            --inherit-margin-top: tokens.getCalculatedValue($_, "space", 2);
+        [data-component="typography"]+[data-component="typography"] {
+            --inherit-margin-top: #{tokens.getCalculatedValue($_, "space", 2)};
         }
     }
 
@@ -235,6 +235,7 @@ $_: "c-hero";
     }
 
     &.#{$_}--overlay {
+
         .#{$_}__title,
         .#{$_}__byline,
         .#{$_}__meta,
@@ -264,7 +265,7 @@ $_: "c-hero";
         animation-delay: 600ms;
     }
 
-    .#{$_}__title + .#{$_}__body {
+    .#{$_}__title+.#{$_}__body {
         animation-delay: 400ms;
     }
 
@@ -353,7 +354,7 @@ $_: "c-hero";
         .#{$_}__text {
             padding: tokens.getCalculatedValue($_, "base", 5) tokens.getCalculatedValue($_, "base", 3);
 
-            & > .o-grid {
+            &>.o-grid {
                 max-width: var(--container-width, 100%);
                 margin: auto;
             }
@@ -411,7 +412,7 @@ $_: "c-hero";
             margin-top: tokens.getCalculatedValue($_, "base", 3);
             gap: tokens.getCalculatedValue($_, "base", 2);
 
-            .c-button + .c-button {
+            .c-button+.c-button {
                 margin-left: 0;
             }
         }
