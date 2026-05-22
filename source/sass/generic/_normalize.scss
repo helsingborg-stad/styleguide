@@ -17,6 +17,10 @@ html {
     text-size-adjust: 100%;
     /* 2 */
     scroll-behavior: smooth;
+
+    @supports (interpolate-size: allow-keywords) {
+        interpolate-size: allow-keywords;
+    }
 }
 
 /* Sections
