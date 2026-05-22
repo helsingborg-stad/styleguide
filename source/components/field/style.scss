@@ -18,13 +18,17 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
 /* Component */
 .#{$_} {
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
-    --#{$_}--background-color: #{tokens.get($_, "color--surface-alt")};
-    --#{$_}--contrast-color: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--height: #{tokens.use($_, "base", 6)};
-    --#{$_}--shadow: #{tokens.use($_, "shadow", 1)};
-    --#{$_}--shadow-hover: #{tokens.use($_, "shadow", 1.5)};
-    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.get($_, "border-width")} * 2);
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--height-sm: #{tokens.getCalculatedValue($_, "base", 4.5)};
+    --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 6)};
+    --#{$_}--height-lg: #{tokens.getCalculatedValue($_, "base", 8)};
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+    --#{$_}--shadow-hover: #{tokens.getCalculatedValue($_, "shadow", 1.5)};
+    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.getCalculatedValue($_, "border-width", 2)});
+    --#{$_}--height-sm-computed: calc(var(--#{$_}--height-sm) - #{tokens.getCalculatedValue($_, "border-width", 2)});
+    --#{$_}--height-lg-computed: calc(var(--#{$_}--height-lg) - #{tokens.getCalculatedValue($_, "border-width", 2)});
 
     flex: 1;
 
@@ -39,7 +43,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: tokens.use($_, "space", 0.5);
+        margin-bottom: tokens.getCalculatedValue($_, "space", 0.5);
         letter-spacing: 0.05rem;
     }
 
@@ -53,8 +57,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         font-family: var(--font-family-base);
         font-size: var(--font-size-caption, 0.875rem);
         color: var(--#{$_}--contrast-color);
-        margin-top: tokens.use($_, "space", 0.5);
-        margin-left: tokens.use($_, "space", 0.25);
+        margin-top: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-left: tokens.getCalculatedValue($_, "space", 0.25);
     }
 
     #{$fields},
@@ -64,7 +68,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         border: 0;
         background: none;
         height: var(--#{$_}--height);
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
         outline: 0;
         margin: 0;
         color: var(--#{$_}--contrast-color);
@@ -77,14 +81,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         flex-wrap: nowrap;
         align-items: center;
         width: 100%;
-        min-width: calc(tokens.use($_, "base", 10));
+        min-width: calc(tokens.getCalculatedValue($_, "base", 10));
         font-size: 0.95rem;
         line-height: calc(var(--base) * 2);
         border: var(--#{$_}--border);
         background: var(--inherit-color-background, var(--#{$_}--background-color));
         color: var(--#{$_}--contrast-color);
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
 
         &:focus-within {
             @include focus.focus-remove-default();
@@ -92,8 +96,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         input {
-            border-radius: tokens.use($_, "border-radius");
-            corner-shape: tokens.get($_, "corner-shape");
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
 
             &[type="date"],
             &[type="time"],
@@ -124,7 +128,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
             &[list] {
                 cursor: text;
-                padding-right: tokens.use($_, "base", 7);
+                padding-right: tokens.getCalculatedValue($_, "base", 7);
 
                 &::-webkit-calendar-picker-indicator {
                     opacity: 0;
@@ -144,13 +148,13 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 top: 0;
                 right: 0;
                 height: 100%;
-                width: calc(tokens.use($_, "base", 5));
-                border-left: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+                width: calc(tokens.getCalculatedValue($_, "base", 5));
+                border-left: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
                 background-image: linear-gradient(to bottom,
-                    color-mix(in srgb, tokens.get($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
-                    color-mix(in srgb, tokens.get($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
-                border-top-right-radius: tokens.use($_, "border-radius");
-                border-bottom-right-radius: tokens.use($_, "border-radius");
+                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
+                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
+                border-top-right-radius: tokens.getCalculatedValue($_, "border-radius");
+                border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 pointer-events: none;
             }
 
@@ -158,11 +162,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 content: "";
                 position: absolute;
                 top: 50%;
-                right: calc(tokens.use($_, "base", 2));
+                right: calc(tokens.getCalculatedValue($_, "base", 2));
                 width: 0.55em;
                 height: 0.55em;
-                border-right: 2px solid tokens.get($_, "color--primary");
-                border-bottom: 2px solid tokens.get($_, "color--primary");
+                border-right: 2px solid tokens.getRawValue($_, "color--primary");
+                border-bottom: 2px solid tokens.getRawValue($_, "color--primary");
                 transform: translateY(-65%) rotate(45deg);
                 opacity: 1;
                 pointer-events: none;
@@ -177,20 +181,20 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         .#{$_}__icon,
         .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2);
+            padding-left: tokens.getCalculatedValue($_, "space", 2);
         }
 
         .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2);
+            padding-right: tokens.getCalculatedValue($_, "space", 2);
         }
 
         .#{$_}__error-icon {
-            color: tokens.get($_, "color--danger");
+            color: tokens.getRawValue($_, "color--danger");
             display: none;
         }
 
         .#{$_}__success-icon {
-            color: tokens.get($_, "color--success");
+            color: tokens.getRawValue($_, "color--success");
             display: none;
         }
 
@@ -198,8 +202,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         &.#{$_}__inner--textarea .#{$_}__success-icon {
             position: absolute;
             padding: 0;
-            right: tokens.use($_, "space", 2);
-            bottom: tokens.use($_, "space", 2);
+            right: tokens.getCalculatedValue($_, "space", 2);
+            bottom: tokens.getCalculatedValue($_, "space", 2);
         }
 
         &--search {
@@ -265,7 +269,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         .#{$_}__inner,
         .#{$_}__inner input {
-            border-radius: calc(tokens.use($_, "base", 3));
+            border-radius: calc(tokens.getCalculatedValue($_, "base", 3));
             border: none;
 
             input::placeholder {
@@ -274,7 +278,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         .#{$_}__label {
-            margin-left: calc(tokens.use($_, "base", 2));
+            margin-left: calc(tokens.getCalculatedValue($_, "base", 2));
         }
 
         &.#{$_}--rounded-border {
@@ -285,44 +289,44 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         input:focus+.#{$_}_focus-styler,
         textarea:focus+.#{$_}_focus-styler {
-            border-radius: calc(tokens.use($_, "base", 3));
+            border-radius: calc(tokens.getCalculatedValue($_, "base", 3));
         }
     }
 
     /* Size modifiers */
     &.#{$_}--sm {
         font-size: 0.775rem;
-        line-height: calc(tokens.use($_, "base", 1.5));
+        line-height: calc(tokens.getCalculatedValue($_, "base", 1.5));
 
         #{$fields} {
-            padding: tokens.use($_, "space");
-            height: calc(tokens.use($_, "base", 4.5));
+            padding: tokens.getCalculatedValue($_, "space");
+            height: var(--#{$_}--height-sm-computed);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(tokens.use($_, "base", 4.5));
+                height: var(--#{$_}--height-sm);
             }
         }
 
         textarea {
-            padding: tokens.use($_, "space");
-            min-height: calc(tokens.use($_, "base", 4.5));
+            padding: tokens.getCalculatedValue($_, "space");
+            min-height: var(--#{$_}--height-sm-computed);
         }
 
         .#{$_}__icon,
         .#{$_}__prefix {
-            padding-left: tokens.use($_, "space");
+            padding-left: tokens.getCalculatedValue($_, "space");
         }
 
         .#{$_}__suffix {
-            padding-right: tokens.use($_, "space");
+            padding-right: tokens.getCalculatedValue($_, "space");
         }
     }
 
     &.#{$_}--md {
         #{$fields} {
-            padding: tokens.use($_, "space", 2);
+            padding: tokens.getCalculatedValue($_, "space", 2);
             height: var(--#{$_}--height-computed);
         }
 
@@ -333,17 +337,17 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         textarea {
-            padding: tokens.use($_, "space", 2);
+            padding: tokens.getCalculatedValue($_, "space", 2);
             min-height: var(--#{$_}--height-computed);
         }
 
         .#{$_}__icon,
         .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2);
+            padding-left: tokens.getCalculatedValue($_, "space", 2);
         }
 
         .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2);
+            padding-right: tokens.getCalculatedValue($_, "space", 2);
         }
     }
 
@@ -352,28 +356,28 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         line-height: calc(var(--base) * 2);
 
         #{$fields} {
-            padding: tokens.use($_, "space", 2.5);
-            height: calc(tokens.use($_, "base", 8));
+            padding: tokens.getCalculatedValue($_, "space", 2.5);
+            height: var(--#{$_}--height-lg-computed);
         }
 
         &.#{$_}--borderless {
             #{$fields} {
-                height: calc(tokens.use($_, "base", 8));
+                height: var(--#{$_}--height-lg);
             }
         }
 
         textarea {
-            padding: tokens.use($_, "space", 2.5);
-            min-height: calc(tokens.use($_, "base", 8));
+            padding: tokens.getCalculatedValue($_, "space", 2.5);
+            min-height: var(--#{$_}--height-lg);
         }
 
         .#{$_}__icon,
         .#{$_}__prefix {
-            padding-left: tokens.use($_, "space", 2.5);
+            padding-left: tokens.getCalculatedValue($_, "space", 2.5);
         }
 
         .#{$_}__suffix {
-            padding-right: tokens.use($_, "space", 2.5);
+            padding-right: tokens.getCalculatedValue($_, "space", 2.5);
         }
     }
 
@@ -387,7 +391,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             &:focus,
             &:focus-within,
             &:active {
-                border-color: tokens.get($_, "color--danger");
+                border-color: tokens.getRawValue($_, "color--danger");
             }
 
             .#{$_}__error-icon {
@@ -396,7 +400,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         }
 
         .#{$_}__helper {
-            color: tokens.get($_, "color--danger");
+            color: tokens.getRawValue($_, "color--danger");
         }
 
         .#{$_}__inner {
@@ -406,11 +410,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         .#{$_}__error {
             display: block;
-            padding: tokens.use($_, "space", 0.5) tokens.use($_, "space", 2);
-            color: tokens.get($_, "color--danger-contrast");
-            background-color: tokens.get($_, "color--danger");
-            border-radius: 0 0 #{tokens.use($_, "border-radius")} #{tokens.use($_, "border-radius")};
-            corner-shape: tokens.get($_, "corner-shape");
+            padding: tokens.getCalculatedValue($_, "space", 0.5) tokens.getCalculatedValue($_, "space", 2);
+            color: tokens.getRawValue($_, "color--danger-contrast");
+            background-color: tokens.getRawValue($_, "color--danger");
+            border-radius: 0 0 #{tokens.getCalculatedValue($_, "border-radius")} #{tokens.getCalculatedValue($_, "border-radius")};
+            corner-shape: tokens.getRawValue($_, "corner-shape");
         }
     }
 
@@ -420,7 +424,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             &,
             &:focus,
             &:active {
-                border-color: tokens.get($_, "color--success");
+                border-color: tokens.getRawValue($_, "color--success");
             }
 
             .#{$_}__success-icon {
@@ -439,16 +443,16 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
     .#{$_}__search-results {
         position: absolute;
-        top: calc(100% + #{tokens.use($_, "space", 0.5)});
+        top: calc(100% + #{tokens.getCalculatedValue($_, "space", 0.5)});
         left: 0;
         right: 0;
         z-index: 4500;
         background-color: var(--inherit-color-background, var(--#{$_}--background-color));
         border: var(--#{$_}--border);
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
         box-shadow: var(--#{$_}--shadow);
-        max-height: calc(tokens.use($_, "base", 28));
+        max-height: calc(tokens.getCalculatedValue($_, "base", 28));
         overflow-y: auto;
     }
 
@@ -459,7 +463,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     .#{$_}__search-results-item {
-        border-bottom: tokens.use($_, "border-width", 1) solid tokens.get($_, "color--surface-border");
+        border-bottom: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
 
         &:last-child {
             border-bottom: 0;
@@ -470,11 +474,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         display: block;
         text-decoration: none;
         color: var(--#{$_}--contrast-color);
-        padding: tokens.use($_, "space", 1.25) tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 1.25) tokens.getCalculatedValue($_, "space", 2);
 
         &:hover,
         &:focus-visible {
-            background-color: tokens.get($_, "background-color-alt");
+            background-color: tokens.getRawValue($_, "background-color-alt");
         }
     }
 }

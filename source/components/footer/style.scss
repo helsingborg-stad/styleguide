@@ -18,18 +18,18 @@ $_: "c-footer";
     --#{$_}--subfooter-alignment: var(--c-footer-subfooter-alignment, center);
     --#{$_}--subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
     --#{$_}--subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3);
-    background-color: tokens.get($_, "color--surface");
-    color: tokens.get($_, "color--surface-contrast");
+    background-color: tokens.getRawValue($_, "color--surface");
+    color: tokens.getRawValue($_, "color--surface-contrast");
 
     a,
     a:hover,
     a:visited,
     a:active {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     &__main-wrapper {
-        padding: tokens.use($_, "space", 3) 0;
+        padding: tokens.getCalculatedValue($_, "space", 3) 0;
     }
 
     &__body {
@@ -37,7 +37,7 @@ $_: "c-footer";
         max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
-        padding: tokens.use($_, "space", 5) 0;
+        padding: tokens.getCalculatedValue($_, "space", 5) 0;
         display: flex;
         flex-wrap: nowrap;
     }
@@ -54,7 +54,7 @@ $_: "c-footer";
     }
 
     &__links {
-        margin-bottom: tokens.use($_, "space", 3);
+        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
 
         & h4 {
             font-weight: var(--h4-font-weight);
@@ -78,18 +78,18 @@ $_: "c-footer";
         display: inline-block;
         background-color: #565656;
         border-radius: 50%;
-        height: tokens.use($_, "space", 0.5);
-        width: tokens.use($_, "space", 0.5);
-        margin-bottom: tokens.use($_, "space", 0.5);
-        margin-left: tokens.use($_, "space");
-        margin-right: tokens.use($_, "space");
+        height: tokens.getCalculatedValue($_, "space", 0.5);
+        width: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-bottom: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-left: tokens.getCalculatedValue($_, "space");
+        margin-right: tokens.getCalculatedValue($_, "space");
     }
 
     &__widget-area {
-        gap: tokens.use($_, "space", 2);
+        gap: tokens.getCalculatedValue($_, "space", 2);
 
         .footer-title {
-            margin-bottom: tokens.use($_, "space", 2);
+            margin-bottom: tokens.getCalculatedValue($_, "space", 2);
         }
 
         li {
@@ -106,11 +106,11 @@ $_: "c-footer";
         height: var(--#{$_}--logotype-height);
 
         @include mq.mq("xs") {
-            height: clamp(#{tokens.use($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
         }
 
         @include mq.mq("md") {
-            height: clamp(#{tokens.use($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
         }
 
         @include mq.mq("lg") {
@@ -119,7 +119,7 @@ $_: "c-footer";
     }
 
     &__header-wrapper {
-        margin-bottom: tokens.use($_, "space", 3);
+        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
     }
 
     &__prefooter-wrapper,
@@ -129,21 +129,21 @@ $_: "c-footer";
         p,
         figure {
             margin: 0;
-            margin-bottom: tokens.use($_, "space");
+            margin-bottom: tokens.getCalculatedValue($_, "space");
         }
     }
 
     &--header-border {
         .#{$_}__header-wrapper {
-            border-bottom: tokens.use($_, "border-width") solid var(--#{$_}--header-border-color);
-            padding-bottom: tokens.use($_, "space", 3);
+            border-bottom: tokens.getCalculatedValue($_, "border-width") solid var(--#{$_}--header-border-color);
+            padding-bottom: tokens.getCalculatedValue($_, "space", 3);
         }
     }
 
     &__subfooter {
         color: var(--#{$_}--subfooter-color-text);
         background: var(--#{$_}--subfooter-color-background);
-        padding: tokens.use($_, "space", 3) 0;
+        padding: tokens.getCalculatedValue($_, "space", 3) 0;
         font-size: .9rem;
 
         a,
@@ -167,7 +167,7 @@ $_: "c-footer";
             justify-content: var(--#{$_}--subfooter-alignment);
             align-items: var(--#{$_}--subfooter-alignment);
             flex-direction: var(--#{$_}--subfooter-flex-direction);
-            margin: tokens.use($_, "space", -1) tokens.use($_, "space", -5);
+            margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
             margin-left: 0;
             padding: 0;
             list-style: none;
@@ -177,7 +177,7 @@ $_: "c-footer";
             li {
                 position: relative;
                 margin: 0;
-                padding: tokens.use($_, "space") tokens.use($_, "space", 5);
+                padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
                 padding-left: 0;
                 line-height: 1;
 
@@ -208,11 +208,11 @@ $_: "c-footer";
         // Fix for separator dots showing on new lines
         &--align-flex-end {
             .#{$_}__subfooter__list {
-                margin: tokens.use($_, "space", -1) tokens.use($_, "space", -5);
+                margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
                 margin-right: 0;
 
                 li {
-                    padding: tokens.use($_, "space") tokens.use($_, "space", 5);
+                    padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
                     padding-right: 0;
 
                     &:before {
@@ -234,7 +234,7 @@ $_: "c-footer";
             }
 
             .#{$_}__subfooter__logotype-wrapper {
-                margin-right: tokens.use($_, "space", 7);
+                margin-right: tokens.getCalculatedValue($_, "space", 7);
                 margin-bottom: 0;
             }
         }
@@ -249,7 +249,7 @@ $_: "c-footer";
             }
 
             .#{$_}__subfooter__logotype-wrapper {
-                margin-bottom: tokens.use($_, "space", 3);
+                margin-bottom: tokens.getCalculatedValue($_, "space", 3);
                 margin-right: 0;
             }
         }
@@ -266,14 +266,14 @@ $_: "c-footer";
     .#{$_} {
 
         &__body {
-            padding: tokens.use($_, "space", 5) tokens.use($_, "space", 4);
+            padding: tokens.getCalculatedValue($_, "space", 5) tokens.getCalculatedValue($_, "space", 4);
             display: block;
             text-align: center;
         }
 
         &__home-link {
             display: block;
-            margin-bottom: tokens.use($_, "space", 5);
+            margin-bottom: tokens.getCalculatedValue($_, "space", 5);
         }
 
         &__link-divider {
@@ -282,7 +282,7 @@ $_: "c-footer";
 
         &__links a {
             display: block;
-            margin-bottom: tokens.use($_, "space", 2);
+            margin-bottom: tokens.getCalculatedValue($_, "space", 2);
         }
 
         &__subfooter {
@@ -303,12 +303,12 @@ $_: "c-footer";
             }
 
             &__logotype {
-                height: clamp(#{tokens.use($_, "space", 3)}, calc(#{var(--#{$_}--subfooter-logotype-height)} * 0.75), #{var(--#{$_}--subfooter-logotype-height)});
+                height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--subfooter-logotype-height)} * 0.75), #{var(--#{$_}--subfooter-logotype-height)});
             }
 
             &--horizontal {
                 .#{$_}__subfooter__logotype-wrapper {
-                    margin-bottom: tokens.use($_, "space", 3);
+                    margin-bottom: tokens.getCalculatedValue($_, "space", 3);
                     margin-right: 0;
                 }
             }

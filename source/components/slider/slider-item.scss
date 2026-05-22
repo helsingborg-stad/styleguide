@@ -10,13 +10,24 @@ $_: "c-slider";
     contain: layout paint;
     width: 100%;
     max-height: 80vh;
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     container-name: slider-item;
     container-type: inline-size;
 
     .#{$_}__item__container {
         backface-visibility: hidden;
+        gap: tokens.getCalculatedValue($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
+
+        >* {
+            margin: 0;
+        }
+    }
+
+    .#{$_}__item__container:not(figure + .#{$_}__item__container) {
+        // If the container is not preceded by a figure, we assume it's not a common text container and remove the background to avoid background color conflicts.
+        background-color: unset;
     }
 
     &:only-child {
@@ -26,7 +37,7 @@ $_: "c-slider";
     }
 
     &:focus-visible,
-    .#{$_}__item__container > *:focus-visible {
+    .#{$_}__item__container>*:focus-visible {
         outline-offset: -2px;
     }
 
@@ -50,8 +61,8 @@ $_: "c-slider";
         top: 0;
         left: 0;
         z-index: 3;
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
 
         &:focus-visible {
             outline-offset: -2px;
@@ -79,15 +90,15 @@ $_: "c-slider";
 
     &__background--video__play__btn {
         position: absolute;
-        right: tokens.use($_, "space", 2);
-        top: tokens.use($_, "space", 2);
+        right: tokens.getCalculatedValue($_, "space", 2);
+        top: tokens.getCalculatedValue($_, "space", 2);
         z-index: 5;
         opacity: 1;
     }
 
     // Modifiers
     &.#{$_}__item {
-        margin-right: tokens.get($_, "gap");
+        margin-right: tokens.getRawValue($_, "gap");
 
         &.#{$_}__item--layout-center {
             &.#{$_}__item--text-align-center {
@@ -107,12 +118,12 @@ $_: "c-slider";
             left: 0;
             height: 100%;
             width: 100%;
-            border-radius: tokens.use($_, "border-radius");
-            corner-shape: tokens.get($_, "corner-shape");
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
         }
 
         &--overlay-dark::before {
-            background-color: tokens.get($_, "color--overlay");
+            background-color: tokens.getRawValue($_, "color--overlay");
         }
 
         &--hero {
@@ -123,8 +134,8 @@ $_: "c-slider";
             }
 
             .#{$_}__item__body {
-                font-family: tokens.get($_, "font-family");
-                font-size: tokens.get($_, "font-size");
+                font-family: tokens.getRawValue($_, "font-family");
+                font-size: tokens.getRawValue($_, "font-size");
                 animation: hero-slider-slide-in 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
                 animation-delay: 400ms;
             }
@@ -164,13 +175,13 @@ $_: "c-slider";
     }
 
     .#{$_}__item__container {
-        padding: tokens.use($_, "space", 3);
-        border-bottom-left-radius: tokens.use($_, "border-radius");
-        border-bottom-right-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
+        padding: tokens.getCalculatedValue($_, "space", 3);
+        border-bottom-left-radius: tokens.getCalculatedValue($_, "border-radius");
+        border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
         z-index: 4;
-        color: tokens.get($_, "color--overlay-contrast");
-        background-color: tokens.get($_, "color--overlay");
+        color: tokens.getRawValue($_, "color--overlay-contrast");
+        background-color: tokens.getRawValue($_, "color--overlay");
     }
 
     .#{$_}__item__heading {
@@ -194,7 +205,7 @@ $_: "c-slider";
 
         .#{$_}__item__cta {
             grid-area: 1 / 2 / 3 / 3;
-            margin: auto 0 auto tokens.use($_, "space", 2);
+            margin: auto 0 auto tokens.getCalculatedValue($_, "space", 2);
             white-space: nowrap;
         }
     }
@@ -208,23 +219,23 @@ $_: "c-slider";
     }
 
     .#{$_}__item__container {
-        padding: tokens.use($_, "space", 4);
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
+        padding: tokens.getCalculatedValue($_, "space", 4);
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
         margin: auto;
-        width: calc(100% - tokens.use($_, "base", 10));
-        max-width: tokens.get($_, "item-container-max-width");
-        max-height: calc(100% - tokens.use($_, "base", 10));
+        width: calc(100% - tokens.getCalculatedValue($_, "base", 10));
+        max-width: tokens.getRawValue($_, "item-container-max-width");
+        max-height: calc(100% - tokens.getCalculatedValue($_, "base", 10));
         align-self: center;
         overflow: auto;
         z-index: 4;
-        color: tokens.get($_, "color--overlay-contrast");
-        background-color: tokens.get($_, "color--overlay");
+        color: tokens.getRawValue($_, "color--overlay-contrast");
+        background-color: tokens.getRawValue($_, "color--overlay");
         width: 100%;
     }
 
     .#{$_}__item__cta {
-        margin-top: tokens.use($_, "space", 2);
+        margin-top: tokens.getCalculatedValue($_, "space", 2);
     }
 }
 
@@ -236,7 +247,7 @@ $_: "c-slider";
 
 @keyframes hero-slider-slide-in {
     0% {
-        transform: translateY(tokens.use($_, "base", 4));
+        transform: translateY(tokens.getCalculatedValue($_, "base", 4));
         opacity: 0;
     }
 

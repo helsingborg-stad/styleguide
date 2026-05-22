@@ -2,8 +2,10 @@
 
 namespace MunicipioStyleGuide;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Controllers\ApiController;
 use MunicipioStyleGuide\Controllers\ComponentPageController;
+use MunicipioStyleGuide\Controllers\ElementPageController;
 use MunicipioStyleGuide\Controllers\ObjectPageController;
 use MunicipioStyleGuide\Controllers\PageController;
 use MunicipioStyleGuide\Controllers\ScriptPageController;
@@ -16,10 +18,10 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Search\DataSources\ComponentsDataSource;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
 use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
-use HelsingborgStad\BladeService\BladeServiceInterface;
 
 /**
  * Application bootstrap and runtime orchestration.
@@ -48,11 +50,13 @@ class App
             VIEWS_PATH,
             [
                 new ComponentsSection(),
+                new ElementsSection(),
                 new ObjectsSection(),
                 new ScriptSection(),
                 new UtilitiesSection(),
             ],
             BASEPATH . 'source/components',
+            BASEPATH . 'source/elements',
         );
         $search = new Search(
             new ComponentsDataSource(BASEPATH . 'source/components'),
@@ -78,6 +82,15 @@ class App
         );
 
         $objectPageController = new ObjectPageController(
+            $request,
+            $response,
+            $bladeService,
+            $view,
+            $navigation,
+            $search,
+        );
+
+        $elementPageController = new ElementPageController(
             $request,
             $response,
             $bladeService,
@@ -115,6 +128,7 @@ class App
             $request,
             $pageController,
             $componentPageController,
+            $elementPageController,
             $objectPageController,
             $scriptPageController,
             $utilityPageController,

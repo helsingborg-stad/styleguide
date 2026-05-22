@@ -5,21 +5,21 @@ $_: "c-progressbar";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    height: tokens.use($_, "base", 1.5);
+    height: tokens.getCalculatedValue($_, "base", 1.5);
     width: 100%;
-    background-color: tokens.get($_, "color--background-border");
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    background-color: tokens.getRawValue($_, "color--background-border");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     .#{$_}__value {
         height: 100%;
-        background-color: tokens.get($_, "color--success");
+        background-color: tokens.getRawValue($_, "color--success");
         border-radius: inherit;
     }
 
     &.#{$_}--cancelled {
         .#{$_}__value {
-            background-color: tokens.get($_, "color--background-contrast-muted");
+            background-color: tokens.getRawValue($_, "color--background-contrast-muted");
         }
     }
 }

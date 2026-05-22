@@ -1,45 +1,33 @@
 {
-  "$schema": "../../component-schema.json",
-  "apiVersion": 1,
-  "name": "Footer",
-  "slug": "footer",
-  "tokens": [
-    "space",
-    "border-width",
-    "color--surface",
-    "color--surface-contrast"
-  ],
-  "componentSettings": [
-    {
-      "id": "branding",
-      "label": "Branding",
-      "description": "Component-local branding adjustments.",
-      "settings": [
-        {
-          "variable": "--home-link-height-multiplier",
-          "label": "Home Link Height Multiplier",
-          "description": "Scales the footer home link height locally without changing global sizing.",
-          "type": "range",
-          "default": "1",
-          "min": 0.5,
-          "max": 3,
-          "step": 0.05,
-          "unit": ""
-        }
-      ]
-    }
-  ],
-  "description": "The Footer component provides a reusable pattern for footer in the interface.",
-  "tags": [
-    "footer",
-    "component"
-  ],
-  "similarComponents": [
-    "logotype",
-    "logotypegrid",
-    "blockquote"
-  ],
-  "requires": [],
-  "requiredBy": [],
-  "icon": "vertical_align_bottom"
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Footer",
+	"slug": "footer",
+	"tokens": ["space", "border-width", "color--surface", "color--surface-contrast"],
+	"componentSettings": [
+		{
+			"id": "branding",
+			"label": "Branding",
+			"description": "Component-local branding adjustments.",
+			"settings": [
+				{
+					"variable": "--home-link-height-multiplier",
+					"label": "Home Link Height Multiplier",
+					"description": "Scales the footer home link height locally without changing global sizing.",
+					"type": "range",
+					"default": "1",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.05,
+					"unit": ""
+				}
+			]
+		}
+	],
+	"description": "The Footer component provides a reusable pattern for footer in the interface.",
+	"tags": ["footer", "component"],
+	"similarComponents": ["logotype", "logotypegrid"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "vertical_align_bottom"
 }

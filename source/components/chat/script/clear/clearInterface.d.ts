@@ -1,0 +1,3 @@
+interface ClearInterface {
+    clear(): void;
+}

@@ -9,12 +9,12 @@ $sizes: xs, sm, md, lg, xl, xxl;
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    --#{$_}--size-xs: #{tokens.use($_, "base", 1)};
-    --#{$_}--size-sm: #{tokens.use($_, "base", 2)};
-    --#{$_}--size-md: #{tokens.use($_, "base", 3)};
-    --#{$_}--size-lg: #{tokens.use($_, "base", 4)};
-    --#{$_}--size-xl: #{tokens.use($_, "base", 5)};
-    --#{$_}--size-xxl: #{tokens.use($_, "base", 6)};
+    --#{$_}--size-xs: #{tokens.getCalculatedValue($_, "base", 1)};
+    --#{$_}--size-sm: #{tokens.getCalculatedValue($_, "base", 2)};
+    --#{$_}--size-md: #{tokens.getCalculatedValue($_, "base", 3)};
+    --#{$_}--size-lg: #{tokens.getCalculatedValue($_, "base", 4)};
+    --#{$_}--size-xl: #{tokens.getCalculatedValue($_, "base", 5)};
+    --#{$_}--size-xxl: #{tokens.getCalculatedValue($_, "base", 6)};
     color: inherit;
     line-height: 1;
 

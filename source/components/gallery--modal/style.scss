@@ -7,7 +7,7 @@ $_: "c-modal--gallery";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-modal.#{$_} {
-  --#{$_}--color--alpha-solid: rgb(from #{tokens.get($_, "color--alpha")} r g b / 1);
+  --#{$_}--color--alpha-solid: rgb(from #{tokens.getRawValue($_, "color--alpha")} r g b / 1);
   height: 100vh;
   width: 100vw;
   max-width: none;
@@ -22,28 +22,28 @@ $_: "c-modal--gallery";
   .c-modal__header {
     inset: 0 0 auto;
     z-index: 4;
-    padding: tokens.use($_, "space", 0.75) tokens.use($_, "space", 2) 0;
+    padding: tokens.getCalculatedValue($_, "space", 0.75) tokens.getCalculatedValue($_, "space", 2) 0;
     pointer-events: none;
   }
 
   .c-modal__content {
     position: relative;
     isolation: isolate;
-    padding-inline: tokens.use($_, "space", 2);
+    padding-inline: tokens.getCalculatedValue($_, "space", 2);
     max-width: none;
     overflow-y: unset;
     display: flex;
 
     .c-image,
     .c-image .c-image__image {
-      border-radius: tokens.use($_, "border-radius");
-      corner-shape: tokens.use($_, "corner-shape");
+      border-radius: tokens.getCalculatedValue($_, "border-radius");
+      corner-shape: tokens.getCalculatedValue($_, "corner-shape");
     }
 
     .c-image {
       margin: auto;
       width: fit-content;
-      max-width: min(75rem, calc(100vw - (tokens.use($_, "base", 2) * 2)));
+      max-width: min(75rem, calc(100vw - (tokens.getCalculatedValue($_, "base", 2) * 2)));
       margin-inline: auto;
     }
 
@@ -51,7 +51,7 @@ $_: "c-modal--gallery";
       display: block;
       width: auto;
       max-width: 100%;
-      filter: tokens.use($_, "shadow", 3);
+      filter: tokens.getCalculatedValue($_, "shadow", 3);
       opacity: 1;
       visibility: visible;
       transition: opacity 180ms ease, visibility 0s linear 180ms;
@@ -80,7 +80,7 @@ $_: "c-modal--gallery";
 
   .c-modal__close {
     margin-left: auto;
-    color: tokens.get($_, "color--alpha-contrast");
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     z-index: 8;
     pointer-events: auto;
   }
@@ -89,8 +89,8 @@ $_: "c-modal--gallery";
   .c-modal__next {
     position: absolute;
     top: auto;
-    bottom: tokens.use($_, "base", 2);
-    color: tokens.get($_, "color--alpha-contrast");
+    bottom: tokens.getCalculatedValue($_, "base", 2);
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     z-index: 3;
     transform: none;
     display: flex;
@@ -124,18 +124,18 @@ $_: "c-modal--gallery";
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: tokens.use($_, "base", -6);
+    top: tokens.getCalculatedValue($_, "base", -6);
     display: inline-flex;
     z-index: 4;
     min-width: 5rem;
     justify-content: center;
-    padding: tokens.use($_, "base", 1) tokens.use($_, "base", 1.5);
-    color: tokens.get($_, "color--alpha-contrast");
+    padding: tokens.getCalculatedValue($_, "base", 1) tokens.getCalculatedValue($_, "base", 1.5);
+    color: tokens.getRawValue($_, "color--alpha-contrast");
     font-size: 0.875rem;
   }
 
   .c-image .c-image__caption {
-    color: tokens.get($_, "color--alpha-contrast");
+    color: tokens.getRawValue($_, "color--alpha-contrast");
     text-align: center;
     max-width: 75ch;
     margin-left: auto;
@@ -146,7 +146,7 @@ $_: "c-modal--gallery";
 
   .#{$_}__header,
   .#{$_}__footer {
-    padding-inline: tokens.use($_, "base", 1);
+    padding-inline: tokens.getCalculatedValue($_, "base", 1);
   }
 
   .#{$_}__content {
@@ -156,11 +156,11 @@ $_: "c-modal--gallery";
 
   .#{$_}__prev,
   .#{$_}__next {
-    color: tokens.get($_, "color--alpha-contrast");
+    color: tokens.getRawValue($_, "color--alpha-contrast");
   }
 
   .#{$_}__caption {
-    padding: tokens.use($_, "base", 1);
-    color: tokens.get($_, "color--alpha-contrast");
+    padding: tokens.getCalculatedValue($_, "base", 1);
+    color: tokens.getRawValue($_, "color--alpha-contrast");
   }
 }

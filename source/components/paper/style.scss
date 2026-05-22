@@ -8,19 +8,19 @@ $_: "c-paper";
 
 /* Component */
 .#{$_} {
-    --#{$_}--border-color: #{tokens.get($_, "color--surface-border")};
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid var(--#{$_}--border-color);
+    --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
     --#{$_}--padding: 0;
-    --#{$_}--background-color: #{tokens.get($_, "color--surface")};
-    --#{$_}--color: #{tokens.get($_, "color--surface-contrast")};
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     contain: layout;
     background-color: var(--#{$_}--background-color);
     color: var(--#{$_}--color);
     border: var(--#{$_}--border);
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     padding: var(--#{$_}--padding);
-    filter: tokens.use($_, "shadow", 1);
+    filter: tokens.getCalculatedValue($_, "shadow", 1);
 
     > :first-child {
         --inherit-margin-top: 0;
@@ -29,19 +29,20 @@ $_: "c-paper";
     /* switch to surface color tokens for nested components */
     .c-card,
     .c-comment,
-    .c-button__filled--default {
+    .c-button__filled--default,
+    .c-chat {
         --inherit-color-background: var(--color--background);
         --inherit-color-contrast: var(--color--background-contrast);
     }
 
     @for $i from 0 through 8 {
         &--padding-#{$i} {
-            padding: calc(#{tokens.use($_, "space")} * #{$i});
+            padding: calc(#{tokens.getCalculatedValue($_, "space")} * #{$i});
         }
     }
 
     &--divider {
         border-top: var(--#{$_}--border);
-        padding-top: tokens.use($_, "space", 3);
+        padding-top: tokens.getCalculatedValue($_, "space", 3);
     }
 }

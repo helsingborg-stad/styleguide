@@ -5,7 +5,7 @@
 @endphp
 
 @php
-    $classes = array_merge(['l-docs--sidebar', 'c-sidebar', 'c-sidebar--fixed'], $classList);
+    $classes = array_merge(['l-docs--sidebar', 'c-sidebar', 'c-sidebar--fixed', 'u-border__right--1', 'u-color--surface'], $classList);
 @endphp
 
 <aside class="{{ implode(' ', $classes) }}" @foreach($attributeList as $attrKey => $attrVal) {{ $attrKey }}="{{ $attrVal }}" @endforeach>

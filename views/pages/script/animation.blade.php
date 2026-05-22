@@ -9,7 +9,7 @@
     @endtypography
 
     <div class="o-grid o-grid--large">
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box(['heading' => 'Animate', 'content' => 'Configure predefined animation effects and bindings.', 'link' => '/script/animation/animate', 'icon' => 'animation'])
             @endbox
         </div>

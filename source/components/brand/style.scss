@@ -7,10 +7,11 @@ $_: "c-brand";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-brand {
-  --#{$_}--height: #{tokens.use($_, "base", 12)};
-  --#{$_}--gap: #{tokens.use($_, "space", 3)};
-  --#{$_}--contrast-color: #{tokens.get($_, "color--primary")};
-  --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")});
+  --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 12)};
+  --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 3)};
+  --#{$_}--text-color: #{tokens.getRawValue($_, "color--primary")};
+  --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")});
+  --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-heading")};
 
   .c-brand__logotype {
     height: var(--#{$_}--height);
@@ -33,7 +34,8 @@ $_: "c-brand";
     align-items: flex-start;
     height: 100%;
     font-size: var(--#{$_}--font-size);
-    color: var(--#{$_}--contrast-color);
+    font-family: var(--#{$_}--font-family);
+    color: var(--#{$_}--text-color);
     line-height: 1.2;
     justify-content: center;
   }

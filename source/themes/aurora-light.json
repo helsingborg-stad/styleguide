@@ -46,6 +46,7 @@
 	"--color--background-contrast": "#2f2748",
 	"--color--background-contrast-muted": "#6f6892",
 	"--color--background-border": "color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background))",
+	"--color--background-alt": "color-mix(in srgb, var(--color--background-contrast-muted) var(--color--alt-mix-amount), var(--color--background))",
 	"--color--surface": "#ffffff",
 	"--color--surface-contrast": "#342c4d",
 	"--color--surface-contrast-muted": "#7a739d",

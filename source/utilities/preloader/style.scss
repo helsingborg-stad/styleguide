@@ -8,8 +8,8 @@ $_inner: "u-preloader--inner";
 
 /** Adds preload like apperance of any component */
 .#{$_} {
-  --#{$_}--color: #{tokens.get($_, "color--surface")};
-  --#{$_}--color-shimmer: #{tokens.get($_, "color--surface-border")};
+  --#{$_}--color: #{tokens.getRawValue($_, "color--surface")};
+  --#{$_}--color-shimmer: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--shimmer: linear-gradient(90deg, var(--#{$_}--color) 8%, var(--#{$_}--color-shimmer) 18%, var(--#{$_}--color) 33%);
   position: relative;
   filter: unset !important;
@@ -63,8 +63,8 @@ $_inner: "u-preloader--inner";
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
 .#{$_inner} {
-  --#{$_inner}--color: #{tokens.get($_inner, "color--surface")};
-  --#{$_inner}--color-shimmer: #{tokens.get($_inner, "color--surface-border")};
+  --#{$_inner}--color: #{tokens.getRawValue($_inner, "color--surface")};
+  --#{$_inner}--color-shimmer: #{tokens.getRawValue($_inner, "color--surface-border")};
   --#{$_inner}--shimmer: linear-gradient(90deg, var(--#{$_inner}--color) 8%, var(--#{$_inner}--color-shimmer) 18%, var(--#{$_inner}--color) 33%);
   &.#{$_}--exclude {
     .c-datebadge {
@@ -98,7 +98,7 @@ $_inner: "u-preloader--inner";
     &:before {
       content: "";
       contain: paint;
-      border-radius: tokens.use($_inner, "border-radius");
+      border-radius: tokens.getCalculatedValue($_inner, "border-radius");
       animation-duration: 2s;
       animation-fill-mode: forwards;
       animation-iteration-count: infinite;

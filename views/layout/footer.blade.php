@@ -3,15 +3,10 @@
     'logotype' => '/assets/img/logotype-grey-full.svg',
     'links' => [
         'About' => [
-            'The styleguide' => ['href' => '/about/styleguide-structure'],
             'Atomic design' => ['href' => '/components'],
-            'Accessability' => ['href' => '/about/accessability'],
-            'Authors' => ['href' => '/about/authors']
         ],
         'Documentation' => [
             'Components' => ['href' => '/components'],
-            'Icons' => ['href' => '/icons'],
-            'Mixins' => ['href' => '/mixins'],
             'Scripts' => ['href' => '/script'],
             'Utilities' => ['href' => '/utilities']
         ],

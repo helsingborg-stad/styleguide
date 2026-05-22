@@ -9,17 +9,17 @@ $container-width-md: 640px;
 @include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
-    --#{$_}--gap: #{tokens.use($_, "base", 2)};
-    --#{$_}--inset: #{tokens.use($_, "base", 7)};
-    --#{$_}--font-family-heading: #{tokens.get($_, "font-family-heading")};
-    --#{$_}--font-size-heading: #{tokens.get("", "font-size-400")};
-    --#{$_}--font-family: #{tokens.get($_, "font-family-base")};
-    --#{$_}--font-size: #{tokens.get($_, "font-size-100")};
-    --#{$_}--item-container-max-width: #{tokens.use($_, "base", 118)};
-    --#{$_}--color--overlay: rgba(from #{tokens.get($_, "color--alpha")} r g b / 0.8); // Ensures text is background is dark enough for text to be readable.
-    --#{$_}--color--overlay-contrast: #{tokens.get($_, "color--alpha-contrast")};
+    --#{$_}--gap: #{tokens.getCalculatedValue($_, "base", 2)};
+    --#{$_}--inset: #{tokens.getCalculatedValue($_, "base", 7)};
+    --#{$_}--font-family-heading: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--font-size-heading: #{tokens.getRawValue("", "font-size-400")};
+    --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-base")};
+    --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
+    --#{$_}--item-container-max-width: #{tokens.getCalculatedValue($_, "base", 118)};
+    --#{$_}--color--overlay: rgba(from #{tokens.getRawValue($_, "color--alpha")} r g b / 0.8); // Ensures text is background is dark enough for text to be readable.
+    --#{$_}--color--overlay-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     position: relative;
-    border-radius: tokens.use($_, "border-radius", 1);
+    border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
     container-name: slider;
     container-type: inline-size;
 
@@ -42,7 +42,7 @@ $container-width-md: 640px;
 
     &.c-slider--shadow {
         .c-slider__container {
-            filter: tokens.use($_, "shadow", 1);
+            filter: tokens.getCalculatedValue($_, "shadow", 1);
         }
     }
 
@@ -58,29 +58,29 @@ $container-width-md: 640px;
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: tokens.use($_, "base", 4);
-            height: tokens.use($_, "base", 4);
+            width: tokens.getCalculatedValue($_, "base", 4);
+            height: tokens.getCalculatedValue($_, "base", 4);
 
             &.c-slider__arrow--prev {
-                left: tokens.use($_, "base", -1.5);
+                left: tokens.getCalculatedValue($_, "base", -1.5);
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: tokens.use($_, "base", -1.5);
+                right: tokens.getCalculatedValue($_, "base", -1.5);
                 transform: translateY(-50%);
             }
 
             @container slider (min-width: #{$container-width-md}) {
-                width: tokens.use($_, "base", 6);
-                height: tokens.use($_, "base", 6);
+                width: tokens.getCalculatedValue($_, "base", 6);
+                height: tokens.getCalculatedValue($_, "base", 6);
 
                 &.c-slider__arrow--prev {
-                    left: tokens.use($_, "base", 2.5);
+                    left: tokens.getCalculatedValue($_, "base", 2.5);
                 }
 
                 &.c-slider__arrow--next {
-                    right: tokens.use($_, "base", 2.5);
+                    right: tokens.getCalculatedValue($_, "base", 2.5);
                 }
             }
         }
@@ -113,14 +113,14 @@ $container-width-md: 640px;
         position: relative;
         display: none;
         cursor: pointer;
-        width: tokens.use($_, "base", 5);
-        height: tokens.use($_, "base", 5);
-        color: tokens.get($_, "color--primary");
+        width: tokens.getCalculatedValue($_, "base", 5);
+        height: tokens.getCalculatedValue($_, "base", 5);
+        color: tokens.getRawValue($_, "color--primary");
         z-index: 1;
-        margin: tokens.use($_, "base", 1);
+        margin: tokens.getCalculatedValue($_, "base", 1);
 
         @container slider (min-width: #{$container-width-md}) {
-            margin: tokens.use($_, "base", 3);
+            margin: tokens.getCalculatedValue($_, "base", 3);
         }
 
         .c-slider__autoslide-play {
@@ -131,8 +131,8 @@ $container-width-md: 640px;
             content: "";
             display: block;
             background: #fff;
-            width: tokens.use($_, "base", 3);
-            height: tokens.use($_, "base", 3);
+            width: tokens.getCalculatedValue($_, "base", 3);
+            height: tokens.getCalculatedValue($_, "base", 3);
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -192,7 +192,7 @@ $container-width-md: 640px;
 
         .c-slider__shadow {
             .c-slider__container {
-                filter: tokens.use($_, "shadow", 1);
+                filter: tokens.getCalculatedValue($_, "shadow", 1);
             }
         }
 
@@ -201,11 +201,11 @@ $container-width-md: 640px;
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--prev {
-            left: tokens.use($_, "base", -1);
+            left: tokens.getCalculatedValue($_, "base", -1);
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--next {
-            right: tokens.use($_, "base", -1);
+            right: tokens.getCalculatedValue($_, "base", -1);
         }
 
         .c-slider__item {
@@ -234,6 +234,10 @@ $container-width-md: 640px;
                 color: unset;
             }
         }
+    }
+
+    &__steppers {
+        display: none;
     }
 }
 

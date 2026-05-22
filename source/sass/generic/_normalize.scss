@@ -12,11 +12,15 @@
  */
 
 html {
-    line-height: 1.15;
+    line-height: 1.5;
     /* 1 */
     text-size-adjust: 100%;
     /* 2 */
     scroll-behavior: smooth;
+
+    @supports (interpolate-size: allow-keywords) {
+        interpolate-size: allow-keywords;
+    }
 }
 
 /* Sections
@@ -192,7 +196,7 @@ textarea {
     /* 1 */
     font-size: 100%;
     /* 1 */
-    line-height: 1.15;
+    line-height: 1.5;
     /* 1 */
     margin: 0;
     /* 2 */

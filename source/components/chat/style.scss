@@ -1,0 +1,78 @@
+@use "../../sass/mixin/tokens";
+@use "./chat__message";
+@use "./chat__input";
+
+$_: "c-chat";
+
+@include tokens.create($_, getComponentTokens($_));
+
+/* Variable definitions */
+.#{$_} {
+    --#{$_}--background: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--border: 1px solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--padding-multiplier: 1;
+
+    &.#{$_}--flat {
+        --#{$_}--background: unset;
+        --#{$_}--border: unset;
+        --#{$_}--padding-multiplier: 0;
+    }
+}
+
+.#{$_} {
+    overflow: auto;
+
+    .#{$_}__title-area {
+        position: sticky;
+        top: 0;
+        display: flex;
+        gap: calc(tokens.getRawValue($_, "base") * 1.5);
+        z-index: 1;
+        padding: calc(tokens.getRawValue($_, "base") * 1) calc(tokens.getRawValue($_, "base") * 2 * var(--#{$_}--padding-multiplier));
+        padding-bottom: calc(tokens.getRawValue($_, "base") * 1);
+        background-color: var(--#{$_}--background);
+        border-bottom: var(--#{$_}--border);
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .#{$_}__message-area {
+        overflow: auto;
+        padding: calc(tokens.getRawValue($_, "base") * 2.5) calc(tokens.getRawValue($_, "base") * 2 * var(--#{$_}--padding-multiplier));
+        height: min(80vh, calc(var(--base, 8px) * 105));
+    }
+
+    &.#{$_}--md {
+        .#{$_}__message-area {
+            height: min(80vh, calc(var(--base, 8px) * 90));
+        }
+    }
+
+    &.#{$_}--sm {
+        .#{$_}__message-area {
+            height: min(75vh, calc(var(--base, 8px) * 75));
+        }
+    }
+
+    &.#{$_}--xs {
+        .#{$_}__message-area {
+            height: min(60vh, calc(var(--base, 8px) * 60));
+        }
+    }
+
+    .#{$_}__messages {
+        display: grid;
+        gap: calc(tokens.getRawValue($_, "base") * 2);
+    }
+
+    .#{$_}__input-area {
+        background-color: var(--#{$_}--background);
+        border-top: var(--#{$_}--border);
+        padding: calc(tokens.getRawValue($_, "base") * 1.5) calc(tokens.getRawValue($_, "base") * 2 * var(--#{$_}--padding-multiplier));
+        position: sticky;
+        bottom: 0;
+    }
+}

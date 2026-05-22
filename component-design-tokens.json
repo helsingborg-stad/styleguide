@@ -75,6 +75,26 @@
       "corner-shape",
       "color--secondary-contrast"
     ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "settings": [
+          {
+            "label": "Shape",
+            "token": "corner-shape"
+          },
+          {
+            "label": "Background color",
+            "token": "color--secondary"
+          },
+          {
+            "label": "Icon & initials color",
+            "token": "color--secondary-contrast"
+          }
+        ]
+      }
+    ],
     "description": "The Avatar component provides a reusable pattern for avatar in the interface.",
     "tags": [
       "avatar",
@@ -111,37 +131,12 @@
       "component"
     ],
     "similarComponents": [
-      "blockquote",
       "box",
       "table"
     ],
     "requires": [],
     "requiredBy": [],
     "icon": "view_agenda"
-  },
-  "blockquote": {
-    "$schema": "../../component-schema.json",
-    "apiVersion": 1,
-    "name": "Blockquote",
-    "slug": "blockquote",
-    "tokens": [
-      "border-radius",
-      "space",
-      "corner-shape"
-    ],
-    "description": "The Blockquote component provides a reusable pattern for blockquote in the interface.",
-    "tags": [
-      "blockquote",
-      "component"
-    ],
-    "similarComponents": [
-      "block",
-      "logotype",
-      "footer"
-    ],
-    "requires": [],
-    "requiredBy": [],
-    "icon": "format_quote"
   },
   "box": {
     "$schema": "../../component-schema.json",
@@ -178,17 +173,28 @@
     "name": "Brand",
     "slug": "brand",
     "tokens": [
-      "color--primary",
       "space",
       "base",
+      "color--primary",
+      "font-family-heading",
       "font-size-400"
     ],
     "componentSettings": [
       {
-        "id": "typography",
-        "label": "Typography",
-        "description": "Component-local typography adjustments.",
+        "id": "settings",
+        "label": "Settings",
+        "description": "Component-local adjustments.",
         "settings": [
+          {
+            "label": "Space",
+            "description": "Adjusts the spacing between logo and text.",
+            "token": "space"
+          },
+          {
+            "label": "Text Color",
+            "description": "Overrides the default text color for the brand component.",
+            "token": "color--primary"
+          },
           {
             "variable": "--font-size-multiplier",
             "label": "Font Size Multiplier",
@@ -199,6 +205,11 @@
             "max": 4,
             "step": 0.05,
             "unit": ""
+          },
+          {
+            "label": "Font Family",
+            "description": "Overrides the default font family for the brand component.",
+            "token": "font-family-heading"
           }
         ]
       }
@@ -307,7 +318,8 @@
       "corner-shape",
       "base",
       "color--primary-contrast",
-      "font-size-300"
+      "font-size-200",
+      "font-size-100"
     ],
     "description": "The Card component provides a reusable pattern for card in the interface.",
     "tags": [
@@ -322,6 +334,58 @@
     "requires": [],
     "requiredBy": [],
     "icon": "credit_card"
+  },
+  "chat": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Chat",
+    "slug": "chat",
+    "tokens": [
+      "base",
+      "border-radius",
+      "color--surface",
+      "color--surface-alt",
+      "color--surface-contrast",
+      "color--surface-border",
+      "color--surface-contrast-muted",
+      "border-width",
+      "color--secondary",
+      "color--secondary-contrast",
+      "color--secondary-border",
+      "corner-shape"
+    ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "description": "Component-local adjustments.",
+        "settings": [
+          {
+            "variable": "--border-radius-multiplier",
+            "label": "Border radius multiplier",
+            "description": "Scales the border radius locally without changing the global border radius scale.",
+            "type": "range",
+            "default": 2,
+            "min": 0.25,
+            "max": 4,
+            "step": 0.25,
+            "unit": ""
+          }
+        ]
+      }
+    ],
+    "description": "The Chat component provides a reusable pattern for chat in the interface.",
+    "tags": [
+      "chat",
+      "component"
+    ],
+    "similarComponents": [
+      "code",
+      "form"
+    ],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "chat_bubble"
   },
   "code": {
     "$schema": "../../component-schema.json",
@@ -647,12 +711,27 @@
     ],
     "similarComponents": [
       "logotype",
-      "logotypegrid",
-      "blockquote"
+      "logotypegrid"
     ],
     "requires": [],
     "requiredBy": [],
     "icon": "vertical_align_bottom"
+  },
+  "form": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Form",
+    "slug": "form",
+    "tokens": [],
+    "description": "The Form component provides a reusable pattern for forms in the interface.",
+    "tags": [
+      "form",
+      "component"
+    ],
+    "similarComponents": [],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "assignment"
   },
   "gallery": {
     "$schema": "../../component-schema.json",
@@ -751,9 +830,11 @@
       "color--surface",
       "color--surface-contrast",
       "color--primary",
+      "color--primary-alt",
       "color--primary-contrast",
       "color--primary-border",
       "color--secondary",
+      "color--secondary-alt",
       "color--secondary-contrast",
       "color--secondary-border",
       "base"
@@ -888,15 +969,83 @@
     "slug": "image",
     "tokens": [
       "space",
-      "border-radius",
-      "color--background",
-      "color--surface",
+      "color--background-alt",
+      "color--background-contrast-muted",
       "border-width",
       "color--surface-border",
       "color--surface-contrast",
       "corner-shape",
+      "font-size-90",
+      "font-family-heading",
       "font-weight-bold",
-      "font-size-90"
+      "line-height-base"
+    ],
+    "componentSettings": [
+      {
+        "id": "border",
+        "label": "Border settings",
+        "settings": [
+          {
+            "label": "Border radius multiplier",
+            "variable": "--border-radius-multiplier",
+            "description": "Scales the border radius locally without changing the global border radius scale.",
+            "type": "range",
+            "default": 1,
+            "min": 0.25,
+            "max": 4,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "label": "Border width",
+            "token": "border-width"
+          },
+          {
+            "label": "Corner shape",
+            "token": "corner-shape"
+          },
+          {
+            "label": "Border color",
+            "token": "color--surface-border"
+          }
+        ]
+      },
+      {
+        "id": "placeholder",
+        "label": "Placeholder settings",
+        "settings": [
+          {
+            "label": "Placeholder font family",
+            "token": "font-family-heading"
+          },
+          {
+            "label": "Placeholder font weight",
+            "token": "font-weight-bold"
+          },
+          {
+            "label": "Placeholder background color",
+            "token": "color--background-alt"
+          }
+        ]
+      },
+      {
+        "id": "caption",
+        "label": "Caption settings",
+        "settings": [
+          {
+            "label": "Caption font size",
+            "token": "font-size-90"
+          },
+          {
+            "label": "Caption line height",
+            "token": "line-height-base"
+          },
+          {
+            "label": "Caption color",
+            "token": "color--surface-contrast"
+          }
+        ]
+      }
     ],
     "description": "The Image component provides a reusable pattern for image in the interface.",
     "tags": [
@@ -997,8 +1146,7 @@
     ],
     "similarComponents": [
       "logotypegrid",
-      "footer",
-      "blockquote"
+      "footer"
     ],
     "requires": [],
     "requiredBy": [],
@@ -1021,8 +1169,7 @@
     ],
     "similarComponents": [
       "logotype",
-      "footer",
-      "blockquote"
+      "footer"
     ],
     "requires": [],
     "requiredBy": [],
@@ -1094,7 +1241,7 @@
       "shadow-amount",
       "color--alpha-contrast",
       "color--surface-border",
-      "font-size-500"
+      "font-size-400"
     ],
     "description": "The Modal component provides a reusable pattern for modal in the interface.",
     "tags": [
@@ -1370,7 +1517,14 @@
       "color--primary",
       "color--secondary",
       "font-size-90",
+      "font-size-100",
       "font-size-200",
+      "font-size-300",
+      "font-size-400",
+      "font-size-500",
+      "font-size-600",
+      "font-size-700",
+      "font-size-800",
       "color--alpha",
       "color--surface-contrast",
       "color--alpha-contrast"
@@ -1453,6 +1607,7 @@
     "slug": "slider",
     "tokens": [
       "base",
+      "space",
       "border-radius",
       "color--primary",
       "color--alpha",
@@ -1492,7 +1647,8 @@
       "color--surface-contrast",
       "shadow-color",
       "shadow-amount",
-      "color--surface-alt"
+      "color--surface-alt",
+      "font-size-200"
     ],
     "description": "The Table component provides a reusable pattern for table in the interface.",
     "tags": [
@@ -1589,6 +1745,41 @@
     "requires": [],
     "requiredBy": [],
     "icon": "rate_review"
+  },
+  "timeline": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Timeline",
+    "slug": "timeline",
+    "tokens": [
+      "base",
+      "space",
+      "border-width",
+      "border-radius",
+      "corner-shape",
+      "color--primary",
+      "color--primary-contrast",
+      "color--surface",
+      "color--surface-alt",
+      "color--surface-border",
+      "color--surface-contrast",
+      "font-size-100"
+    ],
+    "description": "The Timeline component provides a vertical overview of events, milestones, or steps in a process.",
+    "tags": [
+      "timeline",
+      "component"
+    ],
+    "similarComponents": [
+      "listing",
+      "card",
+      "progressbar"
+    ],
+    "requires": [
+      "card"
+    ],
+    "requiredBy": [],
+    "icon": "timeline"
   },
   "toast": {
     "$schema": "../../component-schema.json",

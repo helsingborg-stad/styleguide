@@ -3,21 +3,10 @@
 	"apiVersion": 1,
 	"name": "Block",
 	"slug": "block",
-	"tokens": [
-		"base",
-		"border-radius",
-		"corner-shape",
-		"color--alpha",
-		"color--secondary",
-		"shadow-color",
-		"shadow-amount",
-		"color--alpha-contrast",
-		"color--alpha-border",
-		"font-size-400"
-	],
+	"tokens": ["base", "border-radius", "corner-shape", "color--alpha", "color--secondary", "shadow-color", "shadow-amount", "color--alpha-contrast", "color--alpha-border", "font-size-400"],
 	"description": "The Block component provides a reusable pattern for block in the interface.",
 	"tags": ["block", "component"],
-	"similarComponents": ["blockquote", "box", "table"],
+	"similarComponents": ["box", "table"],
 	"requires": [],
 	"requiredBy": [],
 	"icon": "view_agenda"

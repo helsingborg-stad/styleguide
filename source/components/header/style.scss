@@ -9,17 +9,17 @@ $_: "c-header";
 
 /* Component */
 .#{$_} {
-    --#{$_}--logotype-height: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.use($_, "base", 6)});
-    --#{$_}--background-color: #{tokens.get($_, "color--surface")};
-    --#{$_}--color: #{tokens.get($_, "color--surface-contrast")};
-    --#{$_}--border-color: #{tokens.get($_, "color--primary")};
+    --#{$_}--logotype-height: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 6)});
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--border-color: #{tokens.getRawValue($_, "color--primary")};
     position: relative;
     background-color: var(--#{$_}--background-color);
     color: var(--#{$_}--color);
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
-        scroll-margin-top: tokens.use($_, "space", 2);
+        scroll-margin-top: tokens.getCalculatedValue($_, "space", 2);
     }
 
     &.#{$_}--sticky {
@@ -29,15 +29,15 @@ $_: "c-header";
     }
 
     &.#{$_}--primary {
-        --c-header--background-color: #{tokens.get($_, "color--primary")};
-        --c-header--color: #{tokens.get($_, "color--primary-contrast")};
-        --c-header--border-color: #{tokens.get($_, "color--primary-border")};
+        --c-header--background-color: #{tokens.getRawValue($_, "color--primary")};
+        --c-header--color: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --c-header--border-color: #{tokens.getRawValue($_, "color--primary-border")};
     }
 
     &.#{$_}--secondary {
-        --c-header--background-color: #{tokens.get($_, "color--secondary")};
-        --c-header--color: #{tokens.get($_, "color--secondary-contrast")};
-        --c-header--border-color: #{tokens.get($_, "color--secondary-border")};
+        --c-header--background-color: #{tokens.getRawValue($_, "color--secondary")};
+        --c-header--color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --c-header--border-color: #{tokens.getRawValue($_, "color--secondary-border")};
     }
 
     .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
@@ -56,6 +56,8 @@ $_: "c-header";
     .c-button.c-button__filled:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
         --inherit-color-background: var(--c-header--color);
         --inherit-color-contrast: var(--c-header--background-color);
+        --inherit-color-background-hover: color-mix(in srgb, var(--c-header--color) 85%, var(--c-header--background-color));
+        --inherit-color-background-active: color-mix(in srgb, var(--c-header--color) 70%, var(--c-header--background-color));
     }
 
     .c-button.c-button__outlined:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
@@ -64,17 +66,17 @@ $_: "c-header";
     }
 
     &.#{$_}--accented {
-        border-bottom: tokens.use($_, "base", 1) solid var(--#{$_}--border-color);
+        border-bottom: tokens.getCalculatedValue($_, "base", 1) solid var(--#{$_}--border-color);
     }
 
     &.#{$_}--text-primary *,
     &.#{$_}--text-primary .c-nav .c-nav__link {
-        color: tokens.get($_, "color--primary");
+        color: tokens.getRawValue($_, "color--primary");
     }
 
     &.#{$_}--text-secondary *,
     &.#{$_}--text-secondary .c-nav .c-nav__link {
-        color: tokens.get($_, "color--secondary");
+        color: tokens.getRawValue($_, "color--secondary");
     }
 
     &.#{$_}--casual {

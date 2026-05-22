@@ -80,7 +80,7 @@ class NoSassVariablesTest extends TestCase
         $filePath = tempnam(sys_get_temp_dir(), 'sass_');
         $this->assertNotFalse($filePath);
 
-        $content = 'font-family: tokens.get($_, "h6-font-family");' . PHP_EOL;
+        $content = 'font-family: tokens.getRawValue($_, "h6-font-family");' . PHP_EOL;
         file_put_contents($filePath, $content);
 
         $validator = new NoSassVariablesValidator([

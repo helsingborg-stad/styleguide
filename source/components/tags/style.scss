@@ -7,7 +7,7 @@ $_: "c-tags";
 .#{$_} {
     display: flex;
     flex-wrap: wrap;
-    gap: tokens.use($_, "base", 1);
+    gap: tokens.getCalculatedValue($_, "base", 1);
 
     &--format .#{$_}__tag {
         word-spacing: -0.5ex;
@@ -16,12 +16,12 @@ $_: "c-tags";
 
     &.#{$_}--pill {
         .#{$_}__tag {
-            background-color: tokens.get($_, "color--surface");
-            color: tokens.get($_, "color--surface-contrast");
-            padding: tokens.use($_, "base", 0.5) tokens.use($_, "base", 1.5);
-            border-radius: tokens.use($_, "base", 3);
-            corner-shape: tokens.get($_, "corner-shape");
-            filter: tokens.use($_, "shadow");
+            background-color: tokens.getRawValue($_, "color--surface");
+            color: tokens.getRawValue($_, "color--surface-contrast");
+            padding: tokens.getCalculatedValue($_, "base", 0.5) tokens.getCalculatedValue($_, "base", 1.5);
+            border-radius: tokens.getCalculatedValue($_, "base", 3);
+            corner-shape: tokens.getRawValue($_, "corner-shape");
+            filter: tokens.getCalculatedValue($_, "shadow");
         }
     }
 

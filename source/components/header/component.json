@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Header",
 	"slug": "header",
-	"tokens": ["space", "color--surface", "color--surface-contrast", "color--primary", "color--primary-contrast", "color--primary-border", "color--secondary", "color--secondary-contrast", "color--secondary-border", "base"],
+	"tokens": ["space", "color--surface", "color--surface-contrast", "color--primary", "color--primary-alt", "color--primary-contrast", "color--primary-border", "color--secondary", "color--secondary-alt", "color--secondary-contrast", "color--secondary-border", "base"],
 	"componentSettings": [
 		{
 			"id": "branding",

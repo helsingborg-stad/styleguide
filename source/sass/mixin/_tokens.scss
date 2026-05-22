@@ -50,12 +50,12 @@
     }
 }
 
-/// Returns a scaled token value: calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
+/// Returns a calculated token value: calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
 ///
 /// @param {String} $prefix - Component prefix
 /// @param {String} $token - Token name
 /// @param {Number} $multiplier [1] - Scale multiplier
-@function use($prefix, $token, $multiplier: 1) {
+@function getCalculatedValue($prefix, $token, $multiplier: 1) {
 
     $p: _clean-prefix($prefix);
 
@@ -82,7 +82,7 @@
 ///
 /// @param {String} $prefix - Component prefix
 /// @param {String} $token - Token name
-@function get($prefix, $token) {
+@function getRawValue($prefix, $token) {
     $p: _clean-prefix($prefix);
 
     @if($p !="") {

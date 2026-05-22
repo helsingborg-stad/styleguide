@@ -93,6 +93,7 @@
   @include meta.load-css("element/table");
   @include meta.load-css("element/iframe");
   @include meta.load-css("element/fieldset");
+  @include meta.load-css("element/blockquote");
 }
 
 // ***************************************************************
@@ -116,7 +117,6 @@
   @include meta.load-css("../components/accordion/style");
   @include meta.load-css("../components/avatar/style");
   @include meta.load-css("../components/block/style");
-  @include meta.load-css("../components/blockquote/style");
   @include meta.load-css("../components/box/style");
   @include meta.load-css("../components/brand/style");
   @include meta.load-css("../components/breadcrumb/style");
@@ -132,6 +132,7 @@
   @include meta.load-css("../components/field/style");
   @include meta.load-css("../components/fileinput/style");
   @include meta.load-css("../components/footer/style");
+  @include meta.load-css("../components/form/style");
   @include meta.load-css("../components/gallery--modal/style");
   @include meta.load-css("../components/gallery/style");
   @include meta.load-css("../components/group/style");
@@ -161,9 +162,11 @@
   @include meta.load-css("../components/tabs/style");
   @include meta.load-css("../components/tags/style");
   @include meta.load-css("../components/testimonials/style");
+  @include meta.load-css("../components/timeline/style");
   @include meta.load-css("../components/toast/style");
   @include meta.load-css("../components/typography/style");
   @include meta.load-css("../components/iconsection/style");
+  @include meta.load-css("../components/chat/style");
 }
 
 // ***************************************************************

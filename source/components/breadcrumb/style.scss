@@ -10,7 +10,7 @@ $_: "c-breadcrumb";
 /* Component */
 .#{$_} {
     display: flex;
-    gap: tokens.use($_, "space");
+    gap: tokens.getCalculatedValue($_, "space");
 
     &__prefix {
         font-weight: bold;
@@ -25,11 +25,11 @@ $_: "c-breadcrumb";
     }
 
     &__item {
-        padding-right: tokens.use($_, "space");
+        padding-right: tokens.getCalculatedValue($_, "space");
         margin: 0;
         display: flex;
-        gap: tokens.use($_, "space");
-        color: tokens.get($_, "color--background-contrast-muted");
+        gap: tokens.getCalculatedValue($_, "space");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
 
         @include mq.mq($until: "sm") {
             &:not(:nth-last-child(2)) {
@@ -47,17 +47,17 @@ $_: "c-breadcrumb";
     &__link,
     &__link:visited {
         text-decoration: none;
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
     }
 
     &__link:hover {
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
         text-decoration: underline;
     }
 
     .c-icon {
         align-self: center;
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
 
         @include mq.mq($until: "sm") {
             transform: scaleX(-1);

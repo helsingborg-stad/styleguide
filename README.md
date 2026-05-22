@@ -118,13 +118,14 @@ This project uses design tokens as the single source of truth for visual values 
    ```sh
    npm run tokens
    ```
-3. **Component token declaration**: `source/data/c-*.json`
-   - Each component lists which global tokens it is allowed to consume in its `tokens` array.
+3. **Component token declaration**: `source/components/<component>/component.json`
+  - Each component lists which global tokens it is allowed to consume in its `tokens` array.
+  - Vite still supports the legacy `source/data/c-*.json` lookup as a fallback, but new component work should use the component-local `component.json` file.
 4. **Build-time token injection**: `vite.config.mjs`
-   - Exposes a custom Sass function `getComponentTokens($name)` that reads token arrays from `source/data/{name}.json`.
+  - Exposes a custom Sass function `getComponentTokens($name)` that reads token arrays from `source/components/<component>/component.json`.
 5. **Component-scoped token mapping**: `source/sass/mixin/_tokens.scss`
    - `@include tokens.create(...)` maps global tokens (`--color--surface`) to component-scoped tokens (`--c-card--color--surface`).
-   - Components then consume these values with `tokens.get(...)` or `tokens.use(...)`.
+   - Components then consume these values with `tokens.getRawValue(...)` or `tokens.getCalculatedValue(...)`.
 
 ### Intended Usage
 
@@ -160,7 +161,7 @@ Example (global token):
 
 #### 2) Declare which tokens a component may consume
 
-Example in `source/data/c-button.json`:
+Example in `source/components/button/component.json`:
 
 ```json
 {
@@ -186,11 +187,11 @@ $_: "c-example";
 @include tokens.create($_, getComponentTokens($_));
 
 .c-example {
-  border-radius: tokens.use($_, "border-radius");
-  background: tokens.get($_, "color--surface");
-  color: tokens.get($_, "color--surface-contrast");
-  filter: tokens.use($_, "shadow", 2);
-  padding: tokens.use($_, "space", 2);
+  border-radius: tokens.getCalculatedValue($_, "border-radius");
+  background: tokens.getRawValue($_, "color--surface");
+  color: tokens.getRawValue($_, "color--surface-contrast");
+  filter: tokens.getCalculatedValue($_, "shadow", 2);
+  padding: tokens.getCalculatedValue($_, "space", 2);
 }
 ```
 
@@ -239,10 +240,10 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - **Allowed token names are schema-driven**:
   - Component token arrays are validated against `source/design-tokens-schema.json` enum values.
 - **Component must declare tokens it consumes**:
-  - If a token is missing from `source/data/c-<component>.json`, it will not be mapped by `tokens.create(...)`.
-- **`tokens.use(...)` assumes scale-based numeric usage**:
+  - If a token is missing from `source/components/<component>/component.json`, it will not be mapped by `tokens.create(...)`.
+- **`tokens.getCalculatedValue(...)` assumes scale-based numeric usage**:
   - It returns `calc(var(--c-...--token) * var(--base) * multiplier)` (except special cases like `base` and `shadow`).
-  - For raw values or non-scale tokens, use `tokens.get(...)`.
+  - For raw values or non-scale tokens, use `tokens.getRawValue(...)`.
 - **No implicit companion generation**:
   - Token behavior is declarative; add companion tokens explicitly in token JSON and component manifests.
 
@@ -250,10 +251,145 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 
 1. Add/update token definitions in `source/data/design-tokens.json`.
 2. Run `npm run tokens`.
-3. Add token usage list in `source/data/c-your-component.json`.
+3. Add token usage list in `source/components/your-component/component.json`.
 4. Consume via `@include tokens.create($_, getComponentTokens($_));` in component Sass.
-5. Use `tokens.get(...)` and `tokens.use(...)` in styles.
+5. Use `tokens.getRawValue(...)` and `tokens.getCalculatedValue(...)` in styles.
 6. Validate by running watch/build and checking component previews.
+
+### Global Token Reference
+
+The base token surface lives in `source/data/design-tokens.json`. These are the system-level tokens that components consume through `tokens.create(...)`.
+
+In the tables below, `Can the user manipulate it?` means the supported direct customization path in the token source and design-token UI. Tokens marked `No` are locked or derived tokens and should normally be changed indirectly by editing their upstream inputs. They can still be overridden in raw CSS if absolutely necessary, but that is not the intended primary workflow.
+
+#### Base
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--base` | Foundation unit for spacing, size, and radius calculations across the system. | Defaults to `calc(1rem/2)`. Locked because it is a system baseline rather than a regular theme knob. | No, not as a primary UI/token-source control. Change indirectly through root sizing or raw CSS only if the whole system baseline must move. |
+| `--base-font-size` | Root type size that drives the type scale. | Defaults to `16px` with a `18px` option. All computed font-size tokens derive from it. | Yes. |
+
+#### Layout
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--container-width-multiplier` | Controls the main content width scale. | Direct numeric token. Default `160`. | Yes. |
+| `--container-width` | Final container width token used by layouts. | Derived as `calc(var(--base) * var(--container-width-multiplier))`. | No. Change `--container-width-multiplier` or `--base` instead. |
+| `--container-width-wide-multiplier` | Controls how much wider the wide container is than the default container. | Direct numeric token. Default `1.25`. | Yes. |
+| `--container-width-wide` | Final wide-container width token. | Derived as `calc(var(--container-width) * var(--container-width-wide-multiplier))`. | No. Change `--container-width-wide-multiplier` or upstream container tokens instead. |
+
+#### Radius
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--border-radius` | Radius scale input used by components for rounded corners. | Direct numeric token. Default `1`. Components usually multiply it by `--base`. | Yes. |
+| `--corner-shape` | Controls the corner rendering mode where `corner-shape` is used. | Direct select token. Default `round`. | Yes. |
+
+#### Typography
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--font-family-base` | Default body font family. | Direct font token. Default `"Roboto", sans-serif`. | Yes. |
+| `--font-family-heading` | Heading font family. | Defaults to `var(--font-family-base)`, so it inherits the body font unless explicitly changed. | Yes. |
+| `--font-family-code` | Monospace/code font family. | Direct token with a fixed default stack. Marked locked. | No, not through the intended token UI flow. |
+| `--font-size-scale-ratio` | Ratio used to generate the full font-size scale. | Direct select token. Default `1.250`. | Yes. |
+| `--font-weight-normal` | Default text weight. | Direct select token. Default `400`. | Yes. |
+| `--font-weight-medium` | Medium emphasis font weight. | Direct select token. Default `500`. | Yes. |
+| `--font-weight-bold` | Strong emphasis font weight. | Direct select token. Default `700`. | Yes. |
+| `--font-weight-heading` | Default heading weight. | Direct select token. Default `700`. | Yes. |
+| `--line-height-base` | Default body line height. | Direct numeric token. Default `1.625`. | Yes. |
+| `--line-height-heading` | Default heading line height. | Direct numeric token. Default `1.33`. | Yes. |
+| `--letter-spacing-base` | Default text letter spacing. | Direct numeric token. Default `0em`. | Yes. |
+
+#### Font Sizes
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--font-size-80` | Two steps below the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-90` | One step below the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-100` | Base type size token. | Derived as `var(--base-font-size)`. | No. Change `--base-font-size` instead. |
+| `--font-size-200` | One step above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-300` | Two steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 2))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-400` | Three steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 3))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-500` | Four steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 4))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-600` | Five steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 5))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-700` | Six steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 6))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+| `--font-size-800` | Seven steps above the base type size. | Derived as `calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 7))`. | No. Change `--base-font-size` or `--font-size-scale-ratio` instead. |
+
+#### Borders
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--border-width` | Base border width token for UI elements. | Direct numeric token. Default `0.125`. | Yes. |
+| `--color--border-mix-amount` | Mix ratio used when generating derived `*-border` companion colors. | Direct percentage token. Default `10%`. | Yes. |
+
+#### Spacing
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--space` | Standard internal spacing token for paddings and margins inside components. | Direct numeric token. Default `1`. | Yes. |
+| `--outer-space` | Spacing token for gaps between components or outer layout rhythm. | Direct numeric token. Default `1`. | Yes. |
+
+#### Shadows
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--shadow-color` | Base color used by shadow formulas. | Direct RGBA token. Default `rgba(0, 0, 0, 0.1)`. | Yes. |
+| `--shadow-amount` | Global multiplier for shadow intensity. | Direct numeric token. Default `0.7`. Components typically combine it with `--base` in shadow calculations. | Yes. |
+
+#### Brand Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--primary` | Main brand/action color. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--primary-contrast` | Text/icon color on top of primary backgrounds. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--primary-border` | Border/emphasis companion for primary surfaces. | Derived as `color-mix(in srgb, var(--color--primary-contrast) var(--color--border-mix-amount), var(--color--primary))`. | No. Change `--color--primary`, `--color--primary-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--primary-alt` | Softer alternate primary surface. | Derived as `color-mix(in srgb, var(--color--primary-contrast) var(--color--alt-mix-amount), var(--color--primary))`. | No. Change `--color--primary`, `--color--primary-contrast`, or `--color--alt-mix-amount` instead. |
+| `--color--secondary` | Secondary brand color. | Direct color token. Default `#6e6e6e`. | Yes. |
+| `--color--secondary-contrast` | Text/icon color on top of secondary backgrounds. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--secondary-border` | Border/emphasis companion for secondary surfaces. | Derived as `color-mix(in srgb, var(--color--secondary-contrast) var(--color--border-mix-amount), var(--color--secondary))`. | No. Change `--color--secondary`, `--color--secondary-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--secondary-alt` | Softer alternate secondary surface. | Derived as `color-mix(in srgb, var(--color--secondary-contrast) var(--color--alt-mix-amount), var(--color--secondary))`. | No. Change `--color--secondary`, `--color--secondary-contrast`, or `--color--alt-mix-amount` instead. |
+
+#### Layout Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--alt-mix-amount` | Mix ratio used when generating `*-alt` surface colors. | Direct percentage token. Default `4%`. | Yes. |
+| `--color--background` | Main page/application background color. | Direct color token. Default `#f5f5f5`. | Yes. |
+| `--color--background-contrast` | Foreground color for content on background surfaces. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--background-contrast-muted` | Muted foreground for background surfaces. | Derived as `color-mix(in srgb, var(--color--background-contrast) 67.5%, var(--color--background))`. | No. Change `--color--background` or `--color--background-contrast` instead. |
+| `--color--background-border` | Border/emphasis companion for background surfaces. | Derived as `color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background))`. | No. Change `--color--background`, `--color--background-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--surface` | Default elevated/content surface color. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--surface-contrast` | Foreground color for content on surface backgrounds. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--surface-contrast-muted` | Muted foreground for surface backgrounds. | Derived as `color-mix(in srgb, var(--color--surface-contrast) 67.5%, var(--color--surface))`. | No. Change `--color--surface` or `--color--surface-contrast` instead. |
+| `--color--surface-border` | Border/emphasis companion for surface elements. | Derived as `color-mix(in srgb, var(--color--surface-contrast) var(--color--border-mix-amount), var(--color--surface))`. | No. Change `--color--surface`, `--color--surface-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--surface-alt` | Softer alternate surface color. | Derived as `color-mix(in srgb, var(--color--surface-contrast-muted) var(--color--alt-mix-amount), var(--color--surface))`. | No. Change `--color--surface`, `--color--surface-contrast`, or `--color--alt-mix-amount` instead. |
+
+#### UI Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--focus` | Focus ring and focus state color. | Direct color token. Default `#4d90fe`. | Yes. |
+| `--color--alpha` | Overlay color including opacity. | Direct RGBA token. Default `rgba(0, 0, 0, 0.1)`. | Yes. |
+| `--color--alpha-contrast` | Foreground color on top of alpha overlays. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--alpha-border` | Border/emphasis companion for alpha overlays. | Derived as `color-mix(in srgb, var(--color--alpha-contrast) var(--color--border-mix-amount), var(--color--alpha))`. | No. Change `--color--alpha`, `--color--alpha-contrast`, or `--color--border-mix-amount` instead. |
+
+#### State Colors
+
+| Token | Purpose | How it is derived | Can the user manipulate it? |
+| --- | --- | --- | --- |
+| `--color--success` | Success state background/accent color. | Direct color token. Default `#4caf50`. | Yes. |
+| `--color--success-contrast` | Foreground color for success surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--success-border` | Border/emphasis companion for success surfaces. | Derived as `color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))`. | No. Change `--color--success`, `--color--success-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--warning` | Warning state background/accent color. | Direct color token. Default `#ffb300`. | Yes. |
+| `--color--warning-contrast` | Foreground color for warning surfaces. | Direct color token. Default `#2d2d2d`. | Yes. |
+| `--color--warning-border` | Border/emphasis companion for warning surfaces. | Derived as `color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))`. | No. Change `--color--warning`, `--color--warning-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--danger` | Danger/error state background/accent color. | Direct color token. Default `#e53935`. | Yes. |
+| `--color--danger-contrast` | Foreground color for danger surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--danger-border` | Border/emphasis companion for danger surfaces. | Derived as `color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))`. | No. Change `--color--danger`, `--color--danger-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--info` | Informational state background/accent color. | Direct color token. Default `#039be5`. | Yes. |
+| `--color--info-contrast` | Foreground color for info surfaces. | Direct color token. Default `#ffffff`. | Yes. |
+| `--color--info-border` | Border/emphasis companion for info surfaces. | Derived as `color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))`. | No. Change `--color--info`, `--color--info-contrast`, or `--color--border-mix-amount` instead. |
 
 ### Related Files
 
@@ -261,7 +397,7 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - `build-design-tokens.mjs` (JSON -> generated Sass compiler)
 - `source/sass/setting/_design-tokens.scss` (generated root CSS vars)
 - `source/sass/mixin/_tokens.scss` (token API for components)
-- `source/data/c-*.json` (component token whitelists)
+- `source/components/*/component.json` (component token whitelists)
 - `source/design-tokens-schema.json`, `source/component-schema.json`, and `source/utility-schema.json` (validation/contracts)
 
 ## Testing
@@ -273,7 +409,7 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 #### Do
 
 - **Do use design tokens as the source of truth** in component styles.
-- **Do declare component token usage** in `source/data/c-<component>.json`.
+- **Do declare component token usage** in `source/components/<component>/component.json`.
 - **Do namespace component CSS custom properties** so they remain component-scoped.
 - **Do declare each `--inherit-*` variable with `@property` and `inherits: false`** when used.
 - **Do keep JavaScript tests adjacent to the file under test** (`*.test.ts` / `*.test.js`).

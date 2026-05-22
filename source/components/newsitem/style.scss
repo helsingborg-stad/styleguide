@@ -29,9 +29,9 @@ $_: "c-newsitem";
 
 /* Component */
 .#{$_} {
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     display: grid;
-    gap: tokens.use($_, "space", 2);
+    gap: tokens.getCalculatedValue($_, "space", 2);
     grid-template-columns: repeat(12, 1fr);
     container-type: inline-size;
     container-name: newsitem;
@@ -52,10 +52,10 @@ $_: "c-newsitem";
     .#{$_}__header {
         grid-column: span 12;
         display: flex;
-        row-gap: tokens.use($_, "space");
+        row-gap: tokens.getCalculatedValue($_, "space");
         flex-wrap: wrap;
         justify-content: space-between;
-        padding: tokens.use($_, "space") 0;
+        padding: tokens.getCalculatedValue($_, "space") 0;
         border-top: var(--#{$_}--border);
         border-bottom: var(--#{$_}--border);
     }
@@ -64,7 +64,7 @@ $_: "c-newsitem";
         grid-column: span 12;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: tokens.use($_, "space", 3);
+        gap: tokens.getCalculatedValue($_, "space", 3);
     }
 
     .#{$_}__title-left.cover {
@@ -72,23 +72,23 @@ $_: "c-newsitem";
     }
 
     .#{$_}__heading {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
         margin-top: 0;
-        --inherit-font-size: #{tokens.get($_, "font-size-400")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
     }
 
     .#{$_}__header-left,
     .#{$_}__header-right {
         display: flex;
         align-items: center;
-        gap: tokens.use($_, "space", 2);
+        gap: tokens.getCalculatedValue($_, "space", 2);
     }
 
     .#{$_}__date,
     .#{$_}__read-time {
         display: flex;
         align-items: center;
-        gap: tokens.use($_, "space", 0.5);
+        gap: tokens.getCalculatedValue($_, "space", 0.5);
         font-size: 0.875rem;
     }
 
@@ -141,8 +141,4 @@ a.#{$_} {
     @supports not (container-type: inline-size) {
         @include _stacked;
     }
-}
-
-.#{$_}+.#{$_} {
-    margin-top: tokens.use($_, "space", 6);
 }

@@ -20,15 +20,15 @@ $yAxis: (
 
 //Standard styling
 .#{$_} {
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--size-multiplier: 1;
     --#{$_}--stack-offset: 0px;
-    --#{$_}--panel-padding: #{tokens.use($_, "space", 2)};
+    --#{$_}--panel-padding: #{tokens.getCalculatedValue($_, "space", 2)};
     contain: layout;
     position: fixed;
     z-index: 6000;
-    bottom: #{tokens.use($_, "space", 2)};
-    right: #{tokens.use($_, "space", 2)};
+    bottom: #{tokens.getCalculatedValue($_, "space", 2)};
+    right: #{tokens.getCalculatedValue($_, "space", 2)};
     text-align: right;
     z-index: 8000;
 }
@@ -53,35 +53,42 @@ $yAxis: (
 }
 
 .#{$_}.#{$_}--padding-sm {
-    --#{$_}--panel-padding: #{tokens.use($_, "space", 1)};
+    --#{$_}--panel-padding: #{tokens.getCalculatedValue($_, "space", 1)};
 }
 
 .#{$_} .#{$_}__panel {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: grid;
+    position: absolute;
+
     overscroll-behavior: none;
-    border-radius: #{tokens.use($_, "border-radius")};
-    corner-shape: tokens.get($_, "corner-shape");
-    filter: #{tokens.use($_, "shadow", 3)};
+    border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
+    corner-shape: tokens.getRawValue($_, "corner-shape");
+    filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
     border: var(--#{$_}--border);
-    filter: #{tokens.use($_, "shadow", 3)};
-    background: tokens.get($_, "color--surface");
-    display: none;
-    margin-bottom: #{tokens.use($_, "space", 2)};
-    min-width: min(calc(#{tokens.use($_, "base", 30)} * var(--#{$_}--size-multiplier)),
-        calc(100vw - (#{tokens.use($_, "base", 4)} * 2)));
-    max-width: min(calc(#{tokens.use($_, "base", 45)} * var(--#{$_}--size-multiplier)),
-        calc(100vw - (#{tokens.use($_, "base", 4)} * 2)));
+    filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
+    background: tokens.getRawValue($_, "color--surface");
+    margin-bottom: #{tokens.getCalculatedValue($_, "space", 2)};
+    min-width: min(calc(#{tokens.getCalculatedValue($_, "base", 30)} * var(--#{$_}--size-multiplier)),
+        calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
+    max-width: min(calc(#{tokens.getCalculatedValue($_, "base", 45)} * var(--#{$_}--size-multiplier)),
+        calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
     width: 100vw;
     text-align: left;
     padding: var(--#{$_}--panel-padding);
-    gap: #{tokens.use($_, "space", 2)};
-    position: relative;
+    gap: #{tokens.getCalculatedValue($_, "space", 2)};
     z-index: 1;
-    max-height: calc(100dvh - #{tokens.use($_, "space", 18)} - var(--#{$_}--stack-offset));
+    max-height: calc(100dvh - #{tokens.getCalculatedValue($_, "space", 18)} - var(--#{$_}--stack-offset));
     overflow: auto;
 }
 
 .#{$_} .#{$_}__panel--open {
-    display: grid;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    position: relative;
     animation: fab-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -92,20 +99,20 @@ $yAxis: (
 
 .#{$_}__panel .#{$_}__heading {
     margin: 0;
-    --inherit-font-size: #{tokens.get($_, "font-size-400")};
+    --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
 }
 
 //Loop to generate the different positions and spacings
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
         .#{$_}__#{$sideY}-#{$sideX} {
-            #{$sideX}: #{tokens.use($_, "space", 2)};
-            #{$sideY}: calc(#{tokens.use($_, "space", 2)} + var(--#{$_}--stack-offset));
+            #{$sideX}: #{tokens.getCalculatedValue($_, "space", 2)};
+            #{$sideY}: calc(#{tokens.getCalculatedValue($_, "space", 2)} + var(--#{$_}--stack-offset));
         }
 
         // Stack adjacent FABs sharing the same corner — button height (~space 6.5) + gap (~space 1) + edge margin (space 2)
         .#{$_}.#{$_}__#{$sideY}-#{$sideX}+.#{$_}.#{$_}__#{$sideY}-#{$sideX} {
-            --#{$_}--stack-offset: #{tokens.use($_, "space", 8)};
+            --#{$_}--stack-offset: #{tokens.getCalculatedValue($_, "space", 8)};
         }
     }
 }

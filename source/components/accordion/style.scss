@@ -46,7 +46,7 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     border-radius: inherit;
     corner-shape: inherit;
     contain: paint;
@@ -56,11 +56,11 @@ $_: "c-accordion";
         cursor: pointer;
         text-decoration: none;
         width: 100%;
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
 
         &:hover,
         &:focus {
-            background-color: tokens.get($_, "color--surface-alt");
+            background-color: tokens.getRawValue($_, "color--surface-alt");
             text-decoration: none;
         }
 
@@ -69,7 +69,7 @@ $_: "c-accordion";
         }
 
         &[aria-expanded="true"] {
-            background-color: tokens.get($_, "color--surface-alt");
+            background-color: tokens.getRawValue($_, "color--surface-alt");
 
             .#{$_}__icon {
                 transform: rotate(180deg);
@@ -80,12 +80,12 @@ $_: "c-accordion";
 
     .#{$_}__button:focus>.#{$_}__button-wrapper {
         outline-offset: 1px;
-        outline: 1px dashed tokens.get($_, "color--surface-border");
+        outline: 1px dashed tokens.getRawValue($_, "color--surface-border");
     }
 
     .#{$_}__section {
         scroll-margin-top: var(--c-accordion--scroll-margin, 0);
-        border-color: tokens.get($_, "color--surface-border");
+        border-color: tokens.getRawValue($_, "color--surface-border");
         contain: paint;
     }
 
@@ -94,9 +94,9 @@ $_: "c-accordion";
     }
 
     .#{$_}__button-wrapper {
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
         display: flex;
-        gap: tokens.use($_, "space", 2);
+        gap: tokens.getCalculatedValue($_, "space", 2);
         align-items: center;
         font-weight: var(--font-weight-bold, 700);
         font-family: var(--font-family-bold, var(--font-family-base));
@@ -112,7 +112,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__content {
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
 
         &[aria-hidden="true"] {
             display: none;
@@ -135,14 +135,14 @@ $_: "c-accordion";
     &.#{$_}--spaced-sections {
         display: flex;
         flex-flow: row wrap;
-        gap: tokens.use($_, "space", 2);
+        gap: tokens.getCalculatedValue($_, "space", 2);
         padding: 0;
 
         .#{$_}__section {
-            background-color: tokens.get($_, "color--surface");
-            border-radius: tokens.use($_, "border-radius");
-            corner-shape: tokens.get($_, "corner-shape");
-            filter: tokens.use($_, "shadow");
+            background-color: tokens.getRawValue($_, "color--surface");
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
+            filter: tokens.getCalculatedValue($_, "shadow");
             border: var(--#{$_}--border);
             width: 100%;
         }
@@ -185,7 +185,7 @@ $_: "c-accordion";
 
 .c-accordion__button .c-accordion__button-column,
 .c-accordion__button .c-accordion__button-wrapper {
-    --inherit-font-size: #{tokens.get($_, "font-size-200")};
+    --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
     --inherit-margin-top: 0;
     --inherit-margin-bottom: 0;
 }

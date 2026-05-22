@@ -30,7 +30,7 @@ $_: "u-text*";
 
 .u-bold,
 .u-strong {
-    font-weight: tokens.get($_, "font-weight-bold");
+    font-weight: tokens.getRawValue($_, "font-weight-bold");
 }
 
 .u-italic {
@@ -56,16 +56,16 @@ $_: "u-text*";
 
 /* Font size */
 $font-sizes: (
-    "base": tokens.get($_, "font-size-100"),
-    "lead": tokens.get($_, "font-size-200"),
-    "caption": tokens.get($_, "font-size-90"),
-    "marketing": tokens.get($_, "font-size-800"),
-    "headline": tokens.get($_, "font-size-600"),
-    "title": tokens.get($_, "font-size-500"),
-    "subtitle": tokens.get($_, "font-size-400"),
-    "subtitle-small": tokens.get($_, "font-size-200"),
-    "meta": tokens.get($_, "font-size-90"),
-    "brand": tokens.get($_, "font-size-700"),
+    "base": tokens.getRawValue($_, "font-size-100"),
+    "lead": tokens.getRawValue($_, "font-size-200"),
+    "caption": tokens.getRawValue($_, "font-size-90"),
+    "marketing": tokens.getRawValue($_, "font-size-800"),
+    "headline": tokens.getRawValue($_, "font-size-600"),
+    "title": tokens.getRawValue($_, "font-size-500"),
+    "subtitle": tokens.getRawValue($_, "font-size-400"),
+    "subtitle-small": tokens.getRawValue($_, "font-size-200"),
+    "meta": tokens.getRawValue($_, "font-size-90"),
+    "brand": tokens.getRawValue($_, "font-size-700"),
 );
 
 @each $name, $value in $font-sizes {
@@ -77,19 +77,19 @@ $font-sizes: (
 /* Text size */
 
 .u-text-small {
-    font-size: tokens.get($_, "font-size-90");
+    font-size: tokens.getRawValue($_, "font-size-90");
 }
 
 .u-text-normal {
-    font-size: tokens.get($_, "font-size-100");
+    font-size: tokens.getRawValue($_, "font-size-100");
 }
 
 .u-text-large {
-    font-size: tokens.get($_, "font-size-400");
+    font-size: tokens.getRawValue($_, "font-size-400");
 }
 
 .u-text-xlarge {
-    font-size: tokens.get($_, "font-size-500");
+    font-size: tokens.getRawValue($_, "font-size-500");
 }
 
 /* Apperance */

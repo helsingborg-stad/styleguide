@@ -432,6 +432,22 @@ class View
     }
 
     /**
+     * Determine if current doc render target is an element documentation page.
+     *
+     * @param array<string, mixed> $viewData
+     *
+     * @return bool
+     */
+    private function isElementDocumentationView(array $viewData): bool
+    {
+        if (!isset($viewData['viewDoc']) || !is_array($viewData['viewDoc'])) {
+            return false;
+        }
+
+        return strtolower((string) ($viewData['viewDoc']['type'] ?? '')) === 'elements';
+    }
+
+    /**
      * Determine whether parameter tables should be rendered in docs.
      *
      * Components and script docs should expose parameter tables.
@@ -450,7 +466,11 @@ class View
             return true;
         }
 
-        return $this->isObjectDocumentationView($viewData);
+        if ($this->isObjectDocumentationView($viewData)) {
+            return true;
+        }
+
+        return $this->isElementDocumentationView($viewData);
     }
 
     /**

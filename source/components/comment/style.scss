@@ -19,73 +19,73 @@ $_: "c-comment";
 
 /* Component */
 .#{$_}+.#{$_} {
-    margin-top: tokens.use($_, "outer-space", 3);
+    margin-top: tokens.getCalculatedValue($_, "outer-space", 3);
 }
 
 .#{$_} {
     contain: layout;
     display: flex;
     flex-direction: row;
-    gap: tokens.use($_, "space", 2);
+    gap: tokens.getCalculatedValue($_, "space", 2);
 
     .#{$_}__top {
         display: flex;
-        gap: tokens.use($_, "space", 2);
-        margin-bottom: tokens.use($_, "space", 0.5);
+        gap: tokens.getCalculatedValue($_, "space", 2);
+        margin-bottom: tokens.getCalculatedValue($_, "space", 0.5);
     }
 
     .#{$_}__top .#{$_}__author {
         margin: 0;
-        font-size: tokens.get($_, "font-size-90");
-        color: tokens.get($_, "color--contrast");
+        font-size: tokens.getRawValue($_, "font-size-90");
+        color: tokens.getRawValue($_, "color--contrast");
     }
 
     .c-avatar {
-        width: tokens.use($_, "space", 6);
-        height: tokens.use($_, "space", 6);
+        width: tokens.getCalculatedValue($_, "space", 6);
+        height: tokens.getCalculatedValue($_, "space", 6);
     }
 
     .#{$_}__link {
-        color: tokens.get($_, "color--contrast");
+        color: tokens.getRawValue($_, "color--contrast");
         text-decoration: none;
         text-decoration-style: unset;
 
         &:visited,
         &:active {
-            color: tokens.get($_, "color--contrast");
+            color: tokens.getRawValue($_, "color--contrast");
             text-decoration: none;
             text-decoration-style: unset;
         }
 
         &:hover {
-            color: tokens.get($_, "color--contrast");
+            color: tokens.getRawValue($_, "color--contrast");
             text-decoration: underline;
         }
     }
 
     &__bubble--inner {
         width: 100%;
-        border-radius: tokens.use($_, "border-radius");
-        corner-shape: tokens.get($_, "corner-shape");
-        border-top-left-radius: tokens.use($_, "border-radius", 0.5);
-        padding: tokens.use($_, "space", 1.5) tokens.use($_, "space", 2);
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
+        border-top-left-radius: tokens.getCalculatedValue($_, "border-radius", 0.5);
+        padding: tokens.getCalculatedValue($_, "space", 1.5) tokens.getCalculatedValue($_, "space", 2);
         margin: 0;
-        background-color: var(--inherit-color-background, tokens.get($_, "color--surface"));
-        color: var(--inherit-color-contrast, tokens.get($_, "color--surface-contrast"));
+        background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
+        color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
     }
 
     .#{$_}__actions {
         display: flex;
-        gap: tokens.use($_, "space", 2);
+        gap: tokens.getCalculatedValue($_, "space", 2);
     }
 
     &__date {
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
         display: flex;
 
         &:before {
             content: "•";
-            margin-right: tokens.use($_, "space", 1.5);
+            margin-right: tokens.getCalculatedValue($_, "space", 1.5);
             text-indent: -.2em;
         }
     }
@@ -98,6 +98,6 @@ $_: "c-comment";
     }
 
     &__is-reply {
-        margin-left: tokens.use($_, "space", 8);
+        margin-left: tokens.getCalculatedValue($_, "space", 8);
     }
 }

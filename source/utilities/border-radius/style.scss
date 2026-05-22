@@ -5,15 +5,48 @@ $_: "u-rounded*";
 @include tokens.create($_, ("border-radius", "corner-shape"));
 
 [class*="u-rounded"]:not(.u-rounded--full):not(.u-rounded--0):not(.u-rounded--none) {
-    corner-shape: tokens.get($_, "corner-shape");
-    border-radius: tokens.use($_, "border-radius", 1);
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 }
 
-.u-rounded--full {
-    border-radius: 9999px;
+// Maps each class suffix to the CSS properties it should set.
+$_corners: (
+    "": (border-radius, ),
+    "-left": (border-top-left-radius, border-bottom-left-radius),
+    "-right": (border-top-right-radius, border-bottom-right-radius),
+    "-top-left": (border-top-left-radius, ),
+    "-top-right": (border-top-right-radius, ),
+    "-bottom-left": (border-bottom-left-radius, ),
+    "-bottom-right": (border-bottom-right-radius, ),
+);
+
+// Static modifiers: --full and --none
+$_static-values: (
+    "full": 9999px,
+    "none": 0
+);
+
+@each $modifier, $value in $_static-values {
+    @each $suffix, $properties in $_corners {
+        .u-rounded#{$suffix}--#{$modifier} {
+            @each $prop in $properties {
+                #{$prop}: $value;
+            }
+        }
+    }
 }
 
-.u-rounded--0,
-.u-rounded--none {
+// --0 is an alias for --none on the base class
+.u-rounded--0 {
     border-radius: 0;
+}
+
+// Scale modifiers: --1 through --4
+@for $i from 1 through 4 {
+    @each $suffix, $properties in $_corners {
+        .u-rounded#{$suffix}--#{$i} {
+            @each $prop in $properties {
+                #{$prop}: tokens.getCalculatedValue($_, "border-radius", $i);
+            }
+        }
+    }
 }

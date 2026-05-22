@@ -7,6 +7,7 @@ use MunicipioStyleGuide\Data\NavigationDataParser;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
 use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
@@ -29,6 +30,7 @@ class NavigationSidebarSectionsTest extends TestCase
         mkdir($this->tempProjectRoot . '/assets/data', 0777, true);
         mkdir($this->tempProjectRoot . '/source/components/alpha', 0777, true);
         mkdir($this->tempProjectRoot . '/source/components/beta', 0777, true);
+        mkdir($this->tempProjectRoot . '/source/elements/blockquote', 0777, true);
         mkdir($this->tempProjectRoot . '/source/utilities/alpha-utility', 0777, true);
         mkdir($this->tempProjectRoot . '/source/utilities/beta-utility', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/atoms', 0777, true);
@@ -63,6 +65,14 @@ class NavigationSidebarSectionsTest extends TestCase
             json_encode([
                 'name' => 'Beta Component',
                 'slug' => 'beta',
+            ]),
+        );
+
+        file_put_contents(
+            $this->tempProjectRoot . '/source/elements/blockquote/element.json',
+            json_encode([
+                'name' => 'Blockquote',
+                'slug' => 'blockquote',
             ]),
         );
 
@@ -118,13 +128,16 @@ class NavigationSidebarSectionsTest extends TestCase
 
         @unlink($this->tempProjectRoot . '/source/components/alpha/component.json');
         @unlink($this->tempProjectRoot . '/source/components/beta/component.json');
+        @unlink($this->tempProjectRoot . '/source/elements/blockquote/element.json');
         @unlink($this->tempProjectRoot . '/source/utilities/alpha-utility/utility.json');
         @unlink($this->tempProjectRoot . '/source/utilities/beta-utility/utility.json');
         @rmdir($this->tempProjectRoot . '/source/components/alpha');
         @rmdir($this->tempProjectRoot . '/source/components/beta');
+        @rmdir($this->tempProjectRoot . '/source/elements/blockquote');
         @rmdir($this->tempProjectRoot . '/source/utilities/alpha-utility');
         @rmdir($this->tempProjectRoot . '/source/utilities/beta-utility');
         @rmdir($this->tempProjectRoot . '/source/components');
+        @rmdir($this->tempProjectRoot . '/source/elements');
         @rmdir($this->tempProjectRoot . '/source/utilities');
         @rmdir($this->tempProjectRoot . '/source');
 
@@ -157,21 +170,25 @@ class NavigationSidebarSectionsTest extends TestCase
             $this->tempProjectRoot . '/views/',
             [
                 new ComponentsSection(),
+                new ElementsSection(),
                 new ObjectsSection(),
                 new ScriptSection(),
                 new UtilitiesSection(),
             ],
             $this->tempProjectRoot . '/source/components',
+            $this->tempProjectRoot . '/source/elements',
             $this->tempProjectRoot . '/source/utilities',
         );
 
         $result = $navigation->buildSidebarNavigation();
 
-        $this->assertSame(['components', 'objects', 'script', 'utilities'], array_keys($result));
+        $this->assertSame(['components', 'elements', 'objects', 'script', 'utilities'], array_keys($result));
         $this->assertSame('Alpha Component (Beta)', $result['components']['children']['alpha']['label']);
         $this->assertSame('Beta Component', $result['components']['children']['beta']['label']);
         $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);
         $this->assertSame('//localhost/components/beta', $result['components']['children']['beta']['href']);
+        $this->assertSame('Blockquote', $result['elements']['children']['blockquote']['label']);
+        $this->assertSame('//localhost/elements/blockquote', $result['elements']['children']['blockquote']['href']);
         $this->assertSame('Alpha Utility (Deprecated)', $result['utilities']['children']['alpha-utility']['label']);
         $this->assertSame('Beta Utility', $result['utilities']['children']['beta-utility']['label']);
         $this->assertSame('//localhost/utilities/alpha-utility', $result['utilities']['children']['alpha-utility']['href']);

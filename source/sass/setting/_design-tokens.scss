@@ -56,7 +56,7 @@
     // Computed font size scale derived from base font size and type scale ratio.
     // ========================================================================
     --font-size-80: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2));
-    --font-size-90: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1));
+    --font-size-90: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -0.6));
     --font-size-100: var(--base-font-size);
     --font-size-200: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1));
     --font-size-300: calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 2));
@@ -109,6 +109,7 @@
     --color--background-contrast: #2d2d2d;
     --color--background-contrast-muted: color-mix(in srgb, var(--color--background-contrast) 67.5%, var(--color--background));
     --color--background-border: color-mix(in srgb, var(--color--background-contrast) var(--color--border-mix-amount), var(--color--background));
+    --color--background-alt: color-mix(in srgb, var(--color--background-contrast-muted) var(--color--alt-mix-amount), var(--color--background));
     --color--surface: #ffffff;
     --color--surface-contrast: #2d2d2d;
     --color--surface-contrast-muted: color-mix(in srgb, var(--color--surface-contrast) 67.5%, var(--color--surface));
@@ -120,7 +121,7 @@
     // Borders, focus, and interactive states.
     // ========================================================================
     --color--focus: #4d90fe;
-    --color--alpha: rgba(0, 0, 0, 0.1);
+    --color--alpha: rgba(0, 0, 0, .55);
     --color--alpha-contrast: #ffffff;
     --color--alpha-border: color-mix(in srgb, var(--color--alpha-contrast) var(--color--border-mix-amount), var(--color--alpha));
 

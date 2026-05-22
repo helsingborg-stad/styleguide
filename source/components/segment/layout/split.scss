@@ -8,10 +8,10 @@ $_breakpoint-md: 896px;
   align-items: center;
 
   .#{$c}__padder {
-    max-width: tokens.use($c, "base", 60);
+    max-width: tokens.getCalculatedValue($c, "base", 60);
     margin: auto;
-    padding-top: tokens.use($c, "base", 4);
-    padding-bottom: tokens.use($c, "base", 4);
+    padding-top: tokens.getCalculatedValue($c, "base", 4);
+    padding-bottom: tokens.getCalculatedValue($c, "base", 4);
   }
 
   .#{$c}__image {
@@ -20,10 +20,10 @@ $_breakpoint-md: 896px;
   }
 
   .#{$c}__slot {
-    margin-top: tokens.use($c, "base", 4);
+    margin-top: tokens.getCalculatedValue($c, "base", 4);
 
     @container segment (min-width: #{$_breakpoint-md}) {
-      margin-top: tokens.use($c, "base", 6);
+      margin-top: tokens.getCalculatedValue($c, "base", 6);
     }
   }
 

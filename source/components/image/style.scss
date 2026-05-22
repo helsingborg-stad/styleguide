@@ -2,6 +2,22 @@
 @use "../../sass/mixin/ratio";
 @use "../../sass/mixin/tokens";
 
+/* Inheritance properties */
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-border {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-image";
 $_modal: "c-modal--gallery";
@@ -11,12 +27,15 @@ $_modal: "c-modal--gallery";
 
 /* Component */
 .#{$_} {
-    --#{$_}--base: var(--base);
-    --#{$_}--font-size-caption: var(--font-size-caption, #{tokens.get($_, "font-size-90")});
-    --#{$_}--line-height-caption: #{tokens.get($_, "line-height-base")};
-    --#{$_}--font-weight-bold: #{tokens.get($_, "font-weight-bold")};
-    --#{$_}--font-family-bold: #{tokens.get($_, "font-family-bold")};
-    --#{$_}--border: #{tokens.use($_, "border-width", 1)} solid #{tokens.get($_, "color--surface-border")};
+    --#{$_}--font-size-caption: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--line-height-caption: #{tokens.getRawValue($_, "line-height-base")};
+    --#{$_}--placeholder-font-weight: #{tokens.getRawValue($_, "font-weight-bold")};
+    --#{$_}--placeholder-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--placeholder-background-color: #{tokens.getRawValue($_, "color--background-alt")};
+    --#{$_}--placeholder-color: #{tokens.getRawValue($_, "color--background-contrast-muted")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border-radius: var(--inherit-border-radius, calc(#{tokens.getCalculatedValue("", "border-radius", 1)} * var(--#{$_}--border-radius-multiplier, 1)));
+
     line-height: 0;
     position: relative;
 
@@ -25,15 +44,15 @@ $_modal: "c-modal--gallery";
         display: inline-block;
         font-size: var(--#{$_}--font-size-caption);
         line-height: var(--#{$_}--line-height-caption);
-        margin-top: tokens.use($_, "space");
+        margin-top: tokens.getCalculatedValue($_, "space");
     }
 
     .#{$_}__caption {
-        color: tokens.get($_, "color--surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     .#{$_}__byline {
-        color: tokens.get($_, "color--muted-contrast");
+        color: tokens.getRawValue($_, "color--muted-contrast");
     }
 
     .#{$_}__modal {
@@ -41,11 +60,11 @@ $_modal: "c-modal--gallery";
     }
 
     .#{$_}__image-wrapper {
-        border-radius: tokens.use($_, "border-radius", 1);
+        border-radius: var(--#{$_}--border-radius);
     }
 
     .#{$_}__image {
-        border-radius: tokens.use($_, "border-radius", 1);
+        border-radius: var(--#{$_}--border-radius);
         max-width: 100%;
         margin: 0;
         width: inherit;
@@ -56,26 +75,6 @@ $_modal: "c-modal--gallery";
     /* Modifiers */
     &--custom-width {
         width: auto;
-    }
-
-    &--radius-xs .#{$_}__image,
-    &--radius-xs .#{$_}__image-wrapper {
-        border-radius: tokens.use($_, "border-radius", 0.25);
-    }
-
-    &--radius-sm .#{$_}__image,
-    &--radius-sm .#{$_}__image-wrapper {
-        border-radius: tokens.use($_, "border-radius", 0.5);
-    }
-
-    &--radius-md .#{$_}__image,
-    &--radius-md .#{$_}__image-wrapper {
-        border-radius: tokens.use($_, "border-radius");
-    }
-
-    &--radius-lg .#{$_}__image,
-    &--radius-lg .#{$_}__image-wrapper {
-        border-radius: tokens.use($_, "border-radius", 2);
     }
 
     &--radius-full .#{$_}__image,
@@ -106,21 +105,6 @@ $_modal: "c-modal--gallery";
             height: 100%;
             object-fit: cover;
             object-position: 50% 50%;
-        }
-    }
-
-    .#{$_modal} .#{$_}__caption {
-        margin: 0 auto;
-        position: absolute;
-        bottom: calc(#{tokens.use($_, "space", 8)} * -1);
-        color: tokens.get($_, "color--surface");
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%);
-
-        @include mq.mq("xs", "sm") {
-            bottom: calc(#{tokens.use($_, "space", 8)} * -1);
-            overflow-wrap: break-word;
         }
     }
 
@@ -169,12 +153,14 @@ $_modal: "c-modal--gallery";
 .#{$_}--is-placeholder {
     @include ratio.ratio(16, 9, true);
     position: relative;
+    height: 100%;
     line-height: 0;
-    border: var(--#{$_}--border);
-    background-color: tokens.get($_, "color--background");
+    border: var(--inherit-border, --#{$_}--border);
+    border-radius: var(--#{$_}--border-radius);
+    background-color: var(--inherit-color-background, var(--#{$_}--placeholder-background-color));
+    color: var(--inherit-color-contrast, var(--#{$_}--placeholder-color));
     user-select: none;
-    border-radius: tokens.use($_, "border-radius");
-    corner-shape: tokens.get($_, "corner-shape");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 }
 
 .#{$_}__placeholder {
@@ -190,7 +176,7 @@ $_modal: "c-modal--gallery";
     }
 
     .c-icon {
-        color: tokens.get($_, "color--muted");
+        color: tokens.getRawValue($_, "color--muted");
 
         &.c-icon--svg-link {
             width: clamp(1em, 25%, 3em);
@@ -203,16 +189,16 @@ $_modal: "c-modal--gallery";
     }
 
     .#{$_}__placeholder-text {
-        color: tokens.get($_, "color--muted");
-        font-weight: var(--#{$_}--font-weight-bold);
-        font-family: var(--#{$_}--font-family-bold);
+        color: tokens.getRawValue($_, "color--muted");
+        font-weight: var(--#{$_}--placeholder-font-weight);
+        font-family: var(--#{$_}--placeholder-font-family);
     }
 
-    .c-icon + .#{$_}__placeholder-text {
-        margin-top: tokens.use($_, "space", 2);
+    .c-icon+.#{$_}__placeholder-text {
+        margin-top: tokens.getCalculatedValue($_, "space", 2);
 
         @include mq.mq("sm") {
-            margin-left: tokens.use($_, "space");
+            margin-left: tokens.getCalculatedValue($_, "space");
             margin-top: 0;
         }
     }

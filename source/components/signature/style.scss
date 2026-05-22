@@ -6,9 +6,9 @@ $_: "c-signature";
 
 .#{$_} {
     display: grid;
-    grid-template-columns: max-content max-content;
+    grid-template-columns: max-content auto;
     text-decoration: none;
-    column-gap: tokens.use($_, "space", 2);
+    column-gap: tokens.getCalculatedValue($_, "space", 2);
 
     &__author-box {
         display: flex;
@@ -18,17 +18,17 @@ $_: "c-signature";
 
     &__author {
         line-height: 1;
-        --inherit-font-size: #{tokens.get($_, "font-size-100")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-100")};
     }
 
     &__title {
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
         display: block;
     }
 
     &__published,
     &__updated {
-        color: tokens.get($_, "color--background-contrast-muted");
+        color: tokens.getRawValue($_, "color--background-contrast-muted");
         display: block;
     }
 }

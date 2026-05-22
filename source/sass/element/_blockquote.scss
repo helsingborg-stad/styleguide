@@ -1,0 +1,71 @@
+@use "../mixin/tokens";
+
+/* Inheritance properties */
+@property --inherit-color-contrast {
+  syntax: "*";
+  inherits: false;
+}
+
+@property --inherit-color-background {
+  syntax: "*";
+  inherits: false;
+}
+
+
+/* Element name */
+$_: "e-blockquote";
+
+/* Design tokens */
+@include tokens.create($_, ("border-radius",
+    "space",
+    "color-secondary",
+    "color-secondary-contrast",
+  ));
+
+/* Element */
+.#{$_},
+blockquote {
+  background-color: tokens.getRawValue($_, "color-secondary");
+  color: tokens.getRawValue($_, "color-secondary-contrast");
+  margin: 0;
+  padding: tokens.getCalculatedValue($_, "space", 10) tokens.getCalculatedValue($_, "space", 5) tokens.getCalculatedValue($_, "space", 5);
+  border-radius: tokens.getCalculatedValue($_, "border-radius");
+  corner-shape: tokens.getRawValue($_, "corner-shape");
+  position: relative;
+
+  *:first-child {
+    margin-top: 0;
+  }
+
+  * {
+    color: tokens.getRawValue($_, "color-secondary-contrast");
+  }
+
+  &::before,
+  &::after {
+    font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
+    content: '\e244';
+    position: absolute;
+    font-size: tokens.getCalculatedValue($_, "space", 4);
+    font-variation-settings:
+      'FILL' 1,
+      'wght' var(--current-material-symbols-weight, 400),
+      'GRAD' var(--current-material-symbols-grade, 0),
+      'opsz' var(--current-material-symbols-optical-size, 48);
+  }
+
+  &::before {
+    top: tokens.getCalculatedValue($_, "space", 3.5);
+    transform: rotate(180deg);
+  }
+
+  &::after {
+    right: tokens.getCalculatedValue($_, "space", 5);
+    bottom: tokens.getCalculatedValue($_, "space", 3.5);
+    transform: rotate(180deg);
+  }
+
+  &> :last-child {
+    margin-right: tokens.getCalculatedValue($_, "space", 5);
+  }
+}

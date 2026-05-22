@@ -5,11 +5,11 @@ $_: "c-person";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-    background-color: tokens.get($_, "color--surface");
+    background-color: tokens.getRawValue($_, "color--surface");
     background-position: center;
-    border-radius: tokens.use($_, "border-radius");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
     contain: layout;
-    corner-shape: tokens.get($_, "corner-shape");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     &.#{$_}--accepted {
         background-color: transparent;
@@ -21,7 +21,7 @@ $_: "c-person";
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: tokens.use($_, "space", 2);
+        padding: tokens.getCalculatedValue($_, "space", 2);
         width: 100%;
     }
 
@@ -40,7 +40,7 @@ $_: "c-person";
     }
 
     .#{$_}__content iframe {
-        background-color: tokens.get($_, "color--surface");
+        background-color: tokens.getRawValue($_, "color--surface");
     }
 
     .#{$_}__modal-title {
@@ -58,12 +58,12 @@ $_: "c-person";
         }
 
         .#{$_}__modal:before {
-            background-color: tokens.get($_, "color--surface-border");
+            background-color: tokens.getRawValue($_, "color--surface-border");
             background-position: center;
             background-size: cover;
             content: "";
             inset: 0;
-            mask-image: tokens.get($_, "map-image");
+            mask-image: tokens.getRawValue($_, "map-image");
             mask-position: center;
             mask-repeat: no-repeat;
             mask-size: cover;
@@ -72,7 +72,7 @@ $_: "c-person";
         }
 
         .#{$_}__modal:after {
-            background-color: tokens.get($_, "color--surface-alt");
+            background-color: tokens.getRawValue($_, "color--surface-alt");
             content: "";
             inset: 0;
             position: absolute;
@@ -93,17 +93,17 @@ $_: "c-person";
         }
 
         .#{$_}__modal {
-            background-color: tokens.get($_, "color--alpha");
-            color: tokens.get($_, "color--alpha-contrast");
+            background-color: tokens.getRawValue($_, "color--alpha");
+            color: tokens.getRawValue($_, "color--alpha-contrast");
             inset: 0;
             position: absolute;
         }
 
         .#{$_}__modal-icon-play {
-            color: tokens.get($_, "color--alpha-contrast");
+            color: tokens.getRawValue($_, "color--alpha-contrast");
             cursor: pointer;
-            filter: tokens.get($_, "shadow");
-            font-size: clamp(tokens.use($_, "base", 8), 10vw, tokens.use($_, "base", 10));
+            filter: tokens.getRawValue($_, "shadow");
+            font-size: clamp(tokens.getCalculatedValue($_, "base", 8), 10vw, tokens.getCalculatedValue($_, "base", 10));
             left: 50%;
             position: absolute;
             top: 50%;
@@ -111,16 +111,16 @@ $_: "c-person";
             transition: filter 100ms linear;
 
             &:hover {
-                filter: tokens.get($_, "shadow-hover");
+                filter: tokens.getRawValue($_, "shadow-hover");
             }
         }
 
         .#{$_}__modal-info {
             cursor: pointer;
             position: absolute;
-            top: tokens.use($_, "base", 1);
-            right: tokens.use($_, "base", 2);
-            color: tokens.get($_, "color--alpha-contrast");
+            top: tokens.getCalculatedValue($_, "base", 1);
+            right: tokens.getCalculatedValue($_, "base", 2);
+            color: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }
 }

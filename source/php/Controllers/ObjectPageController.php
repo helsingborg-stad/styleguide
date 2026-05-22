@@ -26,8 +26,59 @@ class ObjectPageController extends PageController
     public function viewData(): array
     {
         $page = $this->resolveObjectPage();
+        $data = $this->buildBaseViewData($page);
 
-        return $this->buildBaseViewData($page);
+        $this->appendObjectsOverviewPageData($data, $page);
+
+        return $data;
+    }
+
+    /**
+     * Appends objects overview items to view data when on the objects overview page.
+     *
+     * @param array<string, mixed> $data
+     * @param string $page
+     *
+     * @return void
+     */
+    private function appendObjectsOverviewPageData(array &$data, string $page): void
+    {
+        if ($page !== 'objects') {
+            return;
+        }
+
+        $objectConfigPaths = glob(BASEPATH . 'source/objects/*/object.json') ?: [];
+        $objectsOverviewItems = [];
+
+        foreach ($objectConfigPaths as $objectConfigPath) {
+            $configContent = file_get_contents($objectConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $slug = isset($config['slug']) ? strtolower((string) $config['slug']) : '';
+            $name = isset($config['name']) ? (string) $config['name'] : '';
+
+            if ($slug === '' || $name === '') {
+                continue;
+            }
+
+            $objectsOverviewItems[] = [
+                'slug' => $slug,
+                'name' => $name,
+                'description' => isset($config['description']) && is_string($config['description']) ? $config['description'] : '',
+                'icon' => isset($config['icon']) && is_string($config['icon']) && $config['icon'] !== '' ? $config['icon'] : 'category',
+                'href' => '/objects/' . $slug,
+            ];
+        }
+
+        usort(
+            $objectsOverviewItems,
+            static fn(array $left, array $right): int => strcmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? '')),
+        );
+
+        $data['objectsOverviewItems'] = $objectsOverviewItems;
     }
 
     /**

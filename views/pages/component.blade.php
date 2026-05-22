@@ -45,4 +45,7 @@
     {{-- Component: CSS Api --}}
     @include('pages.partials.component.css')
 
+    {{-- Component: Similar components --}}
+    @include('layout.partials.doc-aside')
+
 @stop

@@ -686,7 +686,7 @@ SCSS usage:
 ```scss
 .c-brand {
   --c-brand--font-size: calc(
-    var(--c-brand--font-size-multiplier, 1) * #{tokens.get($_, "font-size-400")}
+    var(--c-brand--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")}
   );
 }
 ```
