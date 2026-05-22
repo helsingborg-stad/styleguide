@@ -36,7 +36,7 @@ $_: "c-modal";
 
     &:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 50rem;
-        --c-modal-max-height: 90vh;
+        --c-modal-max-height: 80vh;
         width: min(92vw, var(--c-modal-max-width));
         max-width: var(--c-modal-max-width);
         max-height: var(--c-modal-max-height);
@@ -94,14 +94,17 @@ $_: "c-modal";
 
     &.#{$_}--size-sm:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 32.5em;
+        --c-modal-max-height: 70vh;
     }
 
     &.#{$_}--size-md:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 56em;
+        --c-modal-max-height: 85vh;
     }
 
     &.#{$_}--size-lg:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 78em;
+        --c-modal-max-height: 100vh;
     }
 
     &--is-panel {
