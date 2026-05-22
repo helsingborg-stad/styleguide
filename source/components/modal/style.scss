@@ -54,7 +54,7 @@ $_: "c-modal";
         background-color: transparent;
         filter: none;
 
-        .c-button.#{$_}__close {
+        [data-component="button"].#{$_}__close {
             color: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }

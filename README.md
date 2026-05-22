@@ -423,6 +423,28 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 - **Don't reference CSS variables that are not declared in design tokens / generated variable sources**.
 - **Don't edit generated token output directly** (for example `source/sass/setting/_design-tokens.scss`), as it will be overwritten.
 
+#### When A Component Affects Another Component
+
+When a component needs to affect the appearance or functionality of an inner component, only two methods are allowed.
+
+##### 1. Inherit Variables
+
+Some components declare `--inherit-*` variables specifically to pass settings down to another component. These variables always take precedence over the receiving component's default values and should be the first choice when the receiving component explicitly supports them.
+
+Example flow:
+
+- Override: [`source/components/segment/text.scss`](./source/components/segment/text.scss#L9-L15)
+- Declaration: [`source/components/typography/style.scss`](./source/components/typography/style.scss#L3-L18)
+- Implementation: [`source/components/typography/style.scss`](./source/components/typography/style.scss#L81-L115)
+
+##### 2. Direct Component Targeting
+
+Direct targeting may be used for smaller modifications, especially when the affected property is not exposed through an inherit variable. This is only allowed for outer-context adaptation on the outermost element of the inner component.
+
+Example:
+
+- [`source/components/block/style.scss`](./source/components/block/style.scss#L131-L138)
+
 #### Test-Backed Rules (Source of Truth)
 
 - `source/validators/Tests/NoSassVariablesTest.php`
