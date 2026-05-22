@@ -7,11 +7,12 @@ $_: "c-timeline";
 
 .#{$_} {
   --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
-  --#{$_}--line-width: max(1px, #{tokens.getCalculatedValue($_, "border-width")});
+  --#{$_}--line-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
   --#{$_}--line-color: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--line-color-active: #{tokens.getRawValue($_, "color--primary")};
-  --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 3)};
-  --#{$_}--marker-border-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
+  --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 2.5)};
+  --#{$_}--marker-border-width: max(4px, #{tokens.getCalculatedValue($_, "border-width")});
+  --#{$_}--marker-border-color: #{tokens.getRawValue($_, "color--surface")};
   --#{$_}--track-width: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 2)});
   --#{$_}--card-width: min(100%, #{tokens.getCalculatedValue($_, "base", 44)});
   --#{$_}--card-arrow-size: #{tokens.getCalculatedValue($_, "base", 1.25)};
@@ -51,6 +52,7 @@ $_: "c-timeline";
     align-items: center;
     list-style: none;
     z-index: 1;
+    padding: 0;
   }
 
   .#{$_}__date {
@@ -86,8 +88,8 @@ $_: "c-timeline";
       width: var(--#{$_}--marker-size);
       height: var(--#{$_}--marker-size);
       border-radius: 999px;
-      border: var(--#{$_}--marker-border-width) solid var(--#{$_}--line-color);
-      background-color: var(--#{$_}--card-background);
+      outline: var(--#{$_}--marker-border-width) solid var(--#{$_}--marker-border-color);
+      background-color: var(--inherit-color-background, var(--#{$_}--line-color));
       box-sizing: border-box;
       box-shadow: none;
     }
@@ -115,8 +117,8 @@ $_: "c-timeline";
       transform: translateY(-50%) rotate(45deg);
       width: var(--#{$_}--card-arrow-size);
       height: var(--#{$_}--card-arrow-size);
-      background-color: var(--#{$_}--card-background);
-      border: var(--#{$_}--line-width) solid var(--#{$_}--line-color);
+      background-color: var(--inherit-color-background, var(--#{$_}--card-background));
+      border: var(--c-card--border, var(--#{$_}--line-width) solid var(--#{$_}--line-color));
       z-index: -1;
     }
 
