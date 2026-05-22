@@ -43,9 +43,13 @@ $_: "c-modal";
     }
 
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
         --inherit-margin-bottom: 0;
         --inherit-margin-top: 0;
+
+        [data-component="typography"] {
+            align-self: center;
+        }
     }
 
     .#{$_}__close {

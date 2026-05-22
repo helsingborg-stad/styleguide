@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Modal",
 	"slug": "modal",
-	"tokens": ["base", "space", "border-width", "border-radius", "color--surface", "color--surface-alt", "color--alpha", "color--surface-contrast", "corner-shape", "shadow-color", "shadow-amount", "color--alpha-contrast", "color--surface-border", "font-size-400"],
+	"tokens": ["base", "space", "border-width", "border-radius", "color--surface", "color--surface-alt", "color--alpha", "color--surface-contrast", "corner-shape", "shadow-color", "shadow-amount", "color--alpha-contrast", "color--surface-border", "font-size-200"],
 	"description": "The Modal component provides a reusable pattern for modal in the interface.",
 	"tags": ["modal", "component"],
 	"similarComponents": ["gallery--modal", "testimonials", "code"],
