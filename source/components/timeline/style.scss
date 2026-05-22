@@ -170,6 +170,11 @@ $_: "c-timeline";
       border-color: var(--#{$_}--accent);
       color: var(--#{$_}--accent-contrast);
       box-shadow: none;
+
+      &::before {
+        border-left-color: var(--#{$_}--accent);
+        border-bottom-color: var(--#{$_}--accent);
+      }
     }
   }
 
@@ -279,8 +284,9 @@ $_: "c-timeline";
     }
 
     &.#{$_}--sequential {
-      .#{$_}__event__card {
-        margin-top: #{tokens.getCalculatedValue($_, "space", 4)};
+      .#{$_}__event__card,
+      .#{$_}__event:nth-child(even) .#{$_}__event__card {
+        margin-top: 0;
 
         &::before {
           display: block;
@@ -288,6 +294,13 @@ $_: "c-timeline";
           right: auto;
           top: var(--#{$_}--card-arrow-top);
           transform: translateY(-50%) rotate(45deg);
+        }
+      }
+
+      .#{$_}__event--active {
+        .#{$_}__event__card::before {
+          background-color: var(--#{$_}--accent);
+          border-color: var(--#{$_}--accent);
         }
       }
     }
