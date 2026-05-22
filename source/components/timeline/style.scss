@@ -228,18 +228,34 @@ $_: "c-timeline";
     }
 
     .#{$_}__marker {
+      grid-column: 1;
       justify-content: center;
-      align-items: flex-start;
-      padding-top: #{tokens.getCalculatedValue($_, "space", 0.25)};
+      align-items: center;
+      padding-top: 0;
 
       .#{$_}__date {
-        display: inline-flex;
+        display: inline-flex !important;
         position: absolute;
         top: 50%;
         left: calc(100% + #{tokens.getCalculatedValue($_, "space", 1.25)});
         transform: translateY(-50%);
+        visibility: visible !important;
         white-space: nowrap;
         z-index: 1;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+          top: 50%;
+          width: var(--#{$_}--card-arrow-size);
+          height: var(--#{$_}--card-arrow-size);
+          transform: translateY(-50%) rotate(45deg);
+          background-color: var(--#{$_}--date-background);
+          border-left: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+          border-bottom: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+          z-index: -1;
+        }
       }
     }
 
@@ -252,14 +268,25 @@ $_: "c-timeline";
       grid-column: 2;
       justify-self: start;
       width: 100%;
-      margin-top: #{tokens.getCalculatedValue($_, "space", 4)};
+      margin-top: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 3)});
       transform-origin: center left;
 
       &::before {
-        left: calc(var(--#{$_}--card-arrow-size) * -0.6);
-        right: auto;
-        top: var(--#{$_}--card-arrow-top);
-        transform: translateY(-50%) rotate(45deg);
+        display: none;
+      }
+    }
+
+    &.#{$_}--sequential {
+      .#{$_}__event__card {
+        margin-top: #{tokens.getCalculatedValue($_, "space", 4)};
+
+        &::before {
+          display: block;
+          left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+          right: auto;
+          top: var(--#{$_}--card-arrow-top);
+          transform: translateY(-50%) rotate(45deg);
+        }
       }
     }
   }
