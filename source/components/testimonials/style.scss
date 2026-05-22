@@ -36,6 +36,7 @@ $_: "c-testimonials";
                 max-width: 25ch;
                 margin-bottom: tokens.getCalculatedValue($_, "base", 1);
                 margin-top: tokens.getCalculatedValue($_, "base", 1);
+                --inherit-font-size: #{tokens.getRawValue("", "font-size-200")};
             }
         }
 
