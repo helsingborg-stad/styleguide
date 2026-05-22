@@ -6,7 +6,9 @@ $_: "c-accordion";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
-
+:root {
+  interpolate-size: allow-keywords;
+}
 
 .c-test {
     container-name: accordion;
@@ -14,10 +16,19 @@ $_: "c-accordion";
     contain: paint;
 
     details {
-        transition: ease .3s grid-template-rows;
-        cursor: pointer;
         display: grid;
-        grid-template-rows: auto 0fr;
+        max-height: 100px;
+        transition: max-height 600ms ease-out;
+    }
+
+    details::details-content {
+        transition: height 0.5s ease, content-visibility 0.5s ease allow-discrete;
+        height: 0;
+        overflow: clip;
+    }
+
+    details[open]::details-content {
+        height: auto;
     }
 
     summary {
@@ -26,28 +37,10 @@ $_: "c-accordion";
         padding: calc(var(--c-accordion--space)*var(--base)*2);
     }
 
-    .c-accordion__content {
-        padding: 0 calc(var(--c-accordion--space)*var(--base)*2);
-        min-height: 0;
-        overflow: hidden;
-    }
-
-    .c-accordion__icon {
-        transition: ease .3s transform;
-        margin-left: auto;
-    }
-
     /* States */
     details[open] summary,
     summary:hover {
         background-color: var(--c-accordion--color--surface-alt);
-    }
-
-    details[open] {
-        grid-template-rows: auto 1fr;
-        .c-accordion__icon {
-            transform: rotate(180deg);
-        }
     }
 }
 
