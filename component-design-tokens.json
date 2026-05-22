@@ -522,7 +522,8 @@
       "border-width",
       "border-radius",
       "space",
-      "corner-shape"
+      "corner-shape",
+      "font-size-300"
     ],
     "description": "The Divider component provides a reusable pattern for divider in the interface.",
     "tags": [

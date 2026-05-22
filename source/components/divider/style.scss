@@ -23,6 +23,7 @@ $_: "c-divider";
         margin-top: 0;
         margin-bottom: 0;
         padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
     }
 
     &--has-frame .#{$_}__title {
