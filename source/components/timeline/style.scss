@@ -296,13 +296,6 @@ $_: "c-timeline";
           transform: translateY(-50%) rotate(45deg);
         }
       }
-
-      .#{$_}__event--active {
-        .#{$_}__event__card::before {
-          background-color: var(--#{$_}--accent);
-          border-color: var(--#{$_}--accent);
-        }
-      }
     }
   }
 }
