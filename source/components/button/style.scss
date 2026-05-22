@@ -301,7 +301,7 @@ $button-sizes: (
             min-width: calc(#{tokens.getRawValue($_, "base")} * var(--_w));
             padding: 0 calc(#{tokens.getRawValue($_, "base")} * var(--_p));
             font-size: var(--_fs);
-            border-radius: min(calc(#{tokens.getRawValue($_, "base")} * 6.5 / 4), #{tokens.getCalculatedValue($_, "border-radius")});
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
             corner-shape: tokens.getRawValue($_, "corner-shape");
 
             /* Loader sizing (sm/lg override the default size) */
