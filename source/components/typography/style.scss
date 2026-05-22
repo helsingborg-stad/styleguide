@@ -89,6 +89,10 @@ h5,
         .subtitle, .#{$_}__variant--subtitle) {
         margin-top: tokens.getCalculatedValue($_, "space");
     }
+
+    &:first-child {
+        margin-top: 0;
+    }
 }
 
 h1,
