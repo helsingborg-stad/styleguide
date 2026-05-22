@@ -237,21 +237,23 @@ $_: "c-timeline";
         display: inline-flex !important;
         position: absolute;
         top: 50%;
-        left: calc(100% + #{tokens.getCalculatedValue($_, "space", 1.25)});
+        left: calc(100% + #{tokens.getCalculatedValue($_, "space", 2)});
         transform: translateY(-50%);
         visibility: visible !important;
-        white-space: nowrap;
+        width: auto !important;
+        max-width: calc(100vw - var(--#{$_}--track-width) - #{tokens.getCalculatedValue($_, "space", 6)}) !important;
+        line-height: 1.2;
         z-index: 1;
 
         &::before {
           content: "";
           position: absolute;
-          left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+          left: calc(var(--#{$_}--card-arrow-size) * -0.75);
           top: 50%;
           width: var(--#{$_}--card-arrow-size);
           height: var(--#{$_}--card-arrow-size);
           transform: translateY(-50%) rotate(45deg);
-          background-color: var(--#{$_}--date-background);
+          background-color: inherit;
           border-left: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
           border-bottom: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
           z-index: -1;
