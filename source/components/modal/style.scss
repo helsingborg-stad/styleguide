@@ -49,7 +49,7 @@ $_: "c-modal";
         align-self: center;
     }
 
-    .#{$_}__close {
+    .c-modal__heading+.#{$_}__close {
         height: 100%;
 
         &:hover:before {
@@ -123,7 +123,7 @@ $_: "c-modal";
         }
     }
 
-    &__header {
+    &:not(.#{$_}--gallery) .#{$_}__header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;

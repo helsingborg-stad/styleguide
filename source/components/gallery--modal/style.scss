@@ -20,10 +20,23 @@ $_: "c-modal--gallery";
   }
 
   .c-modal__header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    box-sizing: border-box;
     inset: 0 0 auto;
     z-index: 4;
     padding: tokens.getCalculatedValue($_, "space", 0.75) tokens.getCalculatedValue($_, "space", 2) 0;
     pointer-events: none;
+    background-color: transparent;
+
+    &::after {
+      display: none;
+    }
   }
 
   .c-modal__content {
@@ -33,6 +46,7 @@ $_: "c-modal--gallery";
     max-width: none;
     overflow-y: unset;
     display: flex;
+    height: 100vh;
 
     .c-image,
     .c-image .c-image__image {
@@ -80,6 +94,8 @@ $_: "c-modal--gallery";
 
   .c-modal__close {
     margin-left: auto;
+    flex-shrink: 0;
+    align-self: flex-start;
     --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     z-index: 8;
     pointer-events: auto;
