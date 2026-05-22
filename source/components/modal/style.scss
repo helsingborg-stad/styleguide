@@ -46,10 +46,7 @@ $_: "c-modal";
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
         --inherit-margin-bottom: 0;
         --inherit-margin-top: 0;
-
-        [data-component="typography"] {
-            align-self: center;
-        }
+        align-self: center;
     }
 
     .#{$_}__close {
