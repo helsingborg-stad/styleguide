@@ -25,6 +25,11 @@ $_: "c-slider";
         }
     }
 
+    .#{$_}__item__container:not(figure + .#{$_}__item__container) {
+        // If the container is not preceded by a figure, we assume it's not a common text container and remove the background to avoid background color conflicts.
+        background-color: unset;
+    }
+
     &:only-child {
         width: 100%;
         max-width: 100%;
@@ -227,11 +232,6 @@ $_: "c-slider";
         color: tokens.getRawValue($_, "color--overlay-contrast");
         background-color: tokens.getRawValue($_, "color--overlay");
         width: 100%;
-    }
-
-    .#{$_}__item__container:not(figure + .#{$_}__item__container) {
-        // If the container is not preceded by a figure, we assume it's not a common text container and remove the background to avoid background color conflicts.
-        background-color: unset;
     }
 
     .#{$_}__item__cta {
