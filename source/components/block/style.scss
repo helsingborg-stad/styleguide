@@ -170,5 +170,5 @@ a.#{$_} {
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} .c-image {
     border-radius: unset;
     --inherit-border-radius: unset;
-    --inherit-filter: none;
+    --inherit-filter: unset;
 }
