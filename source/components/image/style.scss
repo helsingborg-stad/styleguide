@@ -18,6 +18,36 @@
     inherits: false;
 }
 
+@property --inherit-border-radius {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-display {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-width {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-height {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-object-fit {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-filter {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-image";
 $_modal: "c-modal--gallery";
@@ -67,9 +97,11 @@ $_modal: "c-modal--gallery";
         border-radius: var(--#{$_}--border-radius);
         max-width: 100%;
         margin: 0;
-        width: inherit;
-        height: inherit;
-        object-fit: cover;
+        display: var(--inherit-display, initial);
+        width: var(--inherit-width, inherit);
+        height: var(--inherit-height, inherit);
+        object-fit: var(--inherit-object-fit, cover);
+        filter: var(--inherit-filter, none);
     }
 
     /* Modifiers */

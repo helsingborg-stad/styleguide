@@ -17,10 +17,7 @@ $_breakpoint-md: 896px;
     height: auto;
     aspect-ratio: 16/9;
     background-size: 0;
-  }
-
-  .#{$c}__image .c-image__image {
-    object-fit: contain;
+    --inherit-object-fit: contain;
   }
 
   .#{$c}__slot {

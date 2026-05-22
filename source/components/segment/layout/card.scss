@@ -15,10 +15,7 @@ $_observe-breakpoint-md: 768px;
       height: unset;
       border-radius: tokens.getRawValue($c, "image-border-radius");
       corner-shape: tokens.getRawValue($c, "corner-shape");
-
-      .c-image__image {
-        object-fit: cover;
-      }
+      --inherit-object-fit: cover;
     }
 
     .#{$c}__content {

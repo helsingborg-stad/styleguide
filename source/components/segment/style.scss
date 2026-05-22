@@ -71,16 +71,14 @@ $_observe-breakpoint-md: 768px;
 
     .#{$c}__image {
         --inherit-border-radius: 0;
+        --inherit-display: block;
+        --inherit-width: 100%;
+        --inherit-height: 100%;
+        --inherit-object-fit: cover;
         display: block;
         width: 100%;
         height: 100%;
         overflow: hidden;
-
-        .c-image__image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     }
 
     .#{$c}__floating {
