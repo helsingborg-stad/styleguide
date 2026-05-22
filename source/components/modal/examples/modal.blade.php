@@ -7,17 +7,14 @@
         ],
         'small' => [
             'size' => 'sm',
-            'padding' => 2,
             'borderRadius' => 'lg',
         ],
         'medium' => [
             'size' => 'md',
-            'padding' => 3,
             'borderRadius' => 'md',
         ],
         'large' => [
             'size' => 'lg',
-            'padding' => 4,
             'borderRadius' => 'sm',
         ],
         'panel' => [

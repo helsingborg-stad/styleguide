@@ -1235,6 +1235,7 @@
       "border-width",
       "border-radius",
       "color--surface",
+      "color--surface-alt",
       "color--alpha",
       "color--surface-contrast",
       "corner-shape",

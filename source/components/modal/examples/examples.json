@@ -1,10 +1,14 @@
 {
-    "modal": {
-        "heading": "Modal",
-        "text": ""
-    },
-    "navigation": {
-        "heading": "Modal with navigation",
-        "text": "Click any thumbnail to open the gallery modal. Previous and next arrows cycle through images."
-    }
+	"modal": {
+		"heading": "Modal with normal content",
+		"text": ""
+	},
+	"largecontent": {
+		"heading": "Modal with large content",
+		"text": "This modal contains a large amount of content to demonstrate scrolling behavior."
+	},
+	"navigation": {
+		"heading": "Modal with navigation",
+		"text": "Click any thumbnail to open the gallery modal. Previous and next arrows cycle through images."
+	}
 }
