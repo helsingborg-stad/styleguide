@@ -229,6 +229,11 @@ $_: "c-slider";
         width: 100%;
     }
 
+    .#{$_}__item__container:not(figure + .#{$_}__item__container) {
+        // If the container is not preceded by a figure, we assume it's not a common text container and remove the background to avoid background color conflicts.
+        background-color: unset;
+    }
+
     .#{$_}__item__cta {
         margin-top: tokens.getCalculatedValue($_, "space", 2);
     }
