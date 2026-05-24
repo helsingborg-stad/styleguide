@@ -38,18 +38,21 @@ $button-inherit-background: var(--inherit-color-background, #{tokens.getRawValue
 $button-variants: (
     "primary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--primary")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary-contrast")),
+        "border": tokens.getRawValue($_, "color--primary-border"),
         "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--primary-border")),
         "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--primary-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary")),
         "stroke": tokens.getRawValue($_, "color--primary")),
     "secondary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary-contrast")),
+        "border": tokens.getRawValue($_, "color--secondary-border"),
         "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--secondary-border")),
         "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--secondary-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary")),
         "stroke": tokens.getRawValue($_, "color--secondary")),
     "default": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-alt")),
         "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast")),
+        "border": tokens.getRawValue($_, "color--surface-border"),
         "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--surface-border")),
         "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--surface-alt")),
         "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast-muted")),
@@ -60,6 +63,7 @@ $button-variants: (
     &.#{$_}__filled {
         --_color: #{map.get($button-variants, "default", "bg")};
         --_contrast: #{map.get($button-variants, "default", "fg")};
+        --_border: #{map.get($button-variants, "default", "border")};
         --_hover: #{map.get($button-variants, "default", "hover")};
         --_active: #{map.get($button-variants, "default", "active")};
     }
@@ -87,6 +91,7 @@ $button-variants: (
             &.#{$_}__outlined--#{$name} {
                 --_color: #{map.get($variant, "bg")};
                 --_contrast: #{map.get($variant, "fg")};
+                --_border: #{map.get($variant, "border")};
                 --_hover: #{map.get($variant, "hover")};
                 --_active: #{map.get($variant, "active")};
             }
@@ -378,6 +383,7 @@ $button-sizes: (
     filter: var(--#{$_}--shadow);
     transition: filter 200ms ease-in-out;
     background-color: var(--_color);
+    border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--_border);
     color: var(--_contrast);
 
     &:hover {
