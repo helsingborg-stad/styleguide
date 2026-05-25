@@ -52,6 +52,7 @@ export class FullPageEditorRuntime {
 		this.tokens = tokens;
 		this.presetManager = new DesignBuilderPresetManager();
 		this.overrides = { ...hostElement.overrideState.token };
+		this.showLockedFields = hostElement.showLockedFields;
 		this.modeSwitch = modeSwitch;
 		this.showSaveButton = showSaveButton;
 		this.removeLockedOverrides();
@@ -722,6 +723,7 @@ export class FullPageEditorRuntime {
 
 	private readonly handleLockedFieldsToggle = (): void => {
 		this.showLockedFields = !this.showLockedFields;
+		this.hostElement.showLockedFields = this.showLockedFields;
 		this.render();
 	};
 

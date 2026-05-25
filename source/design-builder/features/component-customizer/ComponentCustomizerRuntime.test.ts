@@ -369,6 +369,17 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 	it('hides locked-only component views until uneditable fields are shown', () => {
 		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+
+		expect(mount.querySelector('[data-action="toggle-locked"]')).toBeNull();
+
+		mount.remove();
+	});
+
+	it('uses the shared general-view locked visibility to expose locked-only component views', () => {
+		const mount = document.createElement('div');
 		document.body.innerHTML = `
 			<div data-component="button">
 				<a href="/test">Button</a>
@@ -378,24 +389,25 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			</div>
 		`;
 		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			showLockedFields: boolean;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		hostElement.showLockedFields = true;
+		document.body.appendChild(hostElement);
 
-		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 
 		const componentOptions = () => Array.from(mount.querySelectorAll<HTMLOptionElement>('#db-component-select option')).map((option) => option.value);
-		const toggleLockedButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-locked"]');
 		const togglePickButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
 		const buttonTarget = document.querySelector<HTMLElement>('[data-component="button"]');
 		const imageTarget = document.querySelector<HTMLElement>('[data-component="image"]');
 
-		expect(componentOptions()).toEqual(['button']);
+		expect(componentOptions()).toEqual(['button', 'image']);
+		expect(mount.querySelector('[data-action="toggle-locked"]')).toBeNull();
 
 		togglePickButton?.click();
-		expect(buttonTarget?.classList.contains('db-component-target')).toBe(true);
-		expect(imageTarget?.classList.contains('db-component-target')).toBe(false);
-
-		toggleLockedButton?.click();
-		expect(componentOptions()).toEqual(['button', 'image']);
-		expect(toggleLockedButton?.textContent).toContain('Hide uneditable');
 		expect(buttonTarget?.classList.contains('db-component-target')).toBe(true);
 		expect(imageTarget?.classList.contains('db-component-target')).toBe(true);
 
@@ -405,6 +417,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		expect(mount.querySelector('[data-tip-variable="--c-image--color--primary-border"]')?.getAttribute('data-readonly')).toBe('true');
 
+		hostElement.remove();
 		mount.remove();
 	});
 

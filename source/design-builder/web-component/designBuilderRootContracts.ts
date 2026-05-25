@@ -44,5 +44,6 @@ export interface DesignBuilderRootElement extends HTMLElement {
 	componentData: unknown;
 	overrideState: DesignBuilderOverrideState;
 	presets: DesignBuilderProvidedPreset[];
+	showLockedFields: boolean;
 	getRenderContainer(): ShadowRoot;
 }

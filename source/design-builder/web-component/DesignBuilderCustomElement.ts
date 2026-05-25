@@ -19,6 +19,7 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 	private currentComponentData: unknown;
 	private currentOverrideState?: DesignBuilderOverrideState;
 	private currentPresets: DesignBuilderRootElement['presets'] | undefined = undefined;
+	private currentShowLockedFields = false;
 	private hasInitialized = false;
 	private renderPromise: Promise<void> | null = null;
 	private hasPendingRender = false;
@@ -89,6 +90,14 @@ class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRoo
 		if (this.hasInitialized) {
 			void this.scheduleRender();
 		}
+	}
+
+	public get showLockedFields(): boolean {
+		return this.currentShowLockedFields;
+	}
+
+	public set showLockedFields(value: boolean) {
+		this.currentShowLockedFields = value === true;
 	}
 
 	public connectedCallback(): void {

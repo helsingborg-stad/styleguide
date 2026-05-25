@@ -132,4 +132,19 @@ describe('DesignBuilderCustomElement root attribute hydration', () => {
 
 		expect(configurations.at(-1)?.showSaveButton).toBe(false);
 	});
+
+	it('persists shared locked-field visibility on the root element', async () => {
+		const rootElement = document.createElement('design-builder') as HTMLElement & { showLockedFields: boolean };
+		rootElement.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+
+		const initialized = waitForInitialization(rootElement);
+		document.body.appendChild(rootElement);
+		await initialized;
+
+		expect(rootElement.showLockedFields).toBe(false);
+
+		rootElement.showLockedFields = true;
+
+		expect(rootElement.showLockedFields).toBe(true);
+	});
 });
