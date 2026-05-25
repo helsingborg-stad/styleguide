@@ -572,6 +572,7 @@
     "name": "Drawer",
     "slug": "drawer",
     "tokens": [
+      "space",
       "base",
       "color--primary",
       "color--primary-contrast",

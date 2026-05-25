@@ -140,7 +140,7 @@ $_: "c-drawer";
 }
 
 .c-drawer__header {
-    padding: tokens.getCalculatedValue($_, "base", 1) tokens.getCalculatedValue($_, "base", 2);
+    padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -149,7 +149,16 @@ $_: "c-drawer";
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: tokens.getCalculatedValue($_, "base", 4) tokens.getCalculatedValue($_, "base", 4) tokens.getCalculatedValue($_, "base", 12) tokens.getCalculatedValue($_, "base", 4);
+    padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 12) tokens.getCalculatedValue($_, "space", 4);
+}
+
+.c-drawer {
+    .c-nav.c-nav--drawer.c-nav--vertical {
+        --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
+        --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
+        --inherit-padding-compressed: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+        --inherit-button-padding-compressed: #{tokens.getCalculatedValue($_, "space", 1.25)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+    }
 }
 
 // Drawer Modifiers

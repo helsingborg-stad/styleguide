@@ -17,6 +17,10 @@ $_: "c-nav";
     --#{$_}--item-background-color-hover: transparent;
     --#{$_}--item-color-hover: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
+    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75) calc(#{tokens.getRawValue($_, "base")} * 1.5));
+    --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));
+    --#{$_}--vertical-button-padding-compressed: var(--inherit-button-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5));
     display: flex;
     width: 100%;
 
@@ -183,11 +187,11 @@ $_: "c-nav";
         }
 
         .c-nav__link {
-            padding: calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2);
+            padding: var(--#{$_}--vertical-link-padding);
         }
 
         .c-nav__item.c-nav__item--button .c-nav__item-wrapper {
-            padding: calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2);
+            padding: var(--#{$_}--vertical-button-padding);
 
             [data-component="button"] {
                 width: 100%;
@@ -196,11 +200,11 @@ $_: "c-nav";
 
         &.c-nav--compressed {
             .c-nav__link {
-                padding: calc(#{tokens.getRawValue($_, "base")} * 0.75) calc(#{tokens.getRawValue($_, "base")} * 1.5);
+                padding: var(--#{$_}--vertical-link-padding-compressed);
             }
 
             .c-nav__item.c-nav__item--button .c-nav__item-wrapper {
-                padding: calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5);
+                padding: var(--#{$_}--vertical-button-padding-compressed);
             }
         }
 
