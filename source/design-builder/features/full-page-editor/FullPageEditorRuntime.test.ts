@@ -57,6 +57,39 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 					},
 				],
 			},
+			{
+				id: 'colors-brand-palette',
+				label: 'Brand Palette',
+				description: '',
+				settings: [
+					{
+						variable: '--color--palette-1',
+						label: 'Palette 1',
+						type: 'color',
+						default: 'transparent',
+						contrast: '--color--palette-1-contrast',
+					},
+					{
+						variable: '--color--palette-1-contrast',
+						label: 'Palette 1 Contrast',
+						type: 'color',
+						default: 'transparent',
+					},
+					{
+						variable: '--color--palette-2',
+						label: 'Palette 2',
+						type: 'color',
+						default: 'transparent',
+						contrast: '--color--palette-2-contrast',
+					},
+					{
+						variable: '--color--palette-2-contrast',
+						label: 'Palette 2 Contrast',
+						type: 'color',
+						default: 'transparent',
+					},
+				],
+			},
 		],
 	};
 
@@ -64,6 +97,10 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		document.body.innerHTML = '';
 		document.documentElement.style.removeProperty('--color-free');
 		document.documentElement.style.removeProperty('--color-locked');
+		document.documentElement.style.removeProperty('--color--palette-1');
+		document.documentElement.style.removeProperty('--color--palette-1-contrast');
+		document.documentElement.style.removeProperty('--color--palette-2');
+		document.documentElement.style.removeProperty('--color--palette-2-contrast');
 		document.documentElement.style.removeProperty('--c-button--color--primary');
 		localStorage.clear();
 	});
@@ -72,7 +109,55 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		document.body.innerHTML = '';
 		document.documentElement.style.removeProperty('--color-free');
 		document.documentElement.style.removeProperty('--color-locked');
+		document.documentElement.style.removeProperty('--color--palette-1');
+		document.documentElement.style.removeProperty('--color--palette-1-contrast');
+		document.documentElement.style.removeProperty('--color--palette-2');
+		document.documentElement.style.removeProperty('--color--palette-2-contrast');
 		document.documentElement.style.removeProperty('--c-button--color--primary');
+	});
+
+	it('renders palette slots as addable groups instead of all static controls', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		new FullPageEditorRuntime(container, tokenData, hostElement as RuntimeHostElement);
+
+		expect(container.querySelector('[data-tip-variable="--color--palette-1"]')).toBeNull();
+		expect(container.querySelector('[data-tip-variable="--color--palette-2"]')).toBeNull();
+
+		const addButton = container.querySelector<HTMLButtonElement>('[data-action="add-palette-family"]');
+		expect(addButton).toBeTruthy();
+		expect(addButton?.querySelector('svg')).toBeTruthy();
+		expect(addButton?.querySelector('span')?.textContent).toBe('Add palette color');
+		addButton?.click();
+
+		expect(container.querySelector('[data-tip-variable="--color--palette-1"]')).toBeTruthy();
+		expect(container.querySelector('[data-tip-variable="--color--palette-1-contrast"]')).toBeTruthy();
+		expect(container.querySelector('[data-tip-variable="--color--palette-2"]')).toBeNull();
+		expect(container.querySelector('.db-palette-family-title')?.textContent).toBe('Palette 1');
+		expect(document.documentElement.style.getPropertyValue('--color--palette-1')).toBe('#ffffff');
+		expect(document.documentElement.style.getPropertyValue('--color--palette-1-contrast')).toBe('#000000');
+		expect(hostElement.overrideState.token['--color--palette-1']).toBe('#ffffff');
+		expect(hostElement.overrideState.token['--color--palette-1-contrast']).toBe('#000000');
+
+		const removeButton = container.querySelector<HTMLButtonElement>('[data-action="remove-palette-family"]');
+		expect(removeButton).toBeTruthy();
+		expect(removeButton?.querySelector('.db-material-symbol')?.textContent).toBe('close');
+		expect(removeButton?.textContent?.trim()).toBe('');
+		expect(removeButton?.getAttribute('aria-label')).toBe('Remove palette color: Palette 1');
+		removeButton?.click();
+
+		expect(container.querySelector('[data-tip-variable="--color--palette-1"]')).toBeNull();
+		expect(document.documentElement.style.getPropertyValue('--color--palette-1')).toBe('');
+		expect(document.documentElement.style.getPropertyValue('--color--palette-1-contrast')).toBe('');
+
+		hostElement.remove();
+		container.remove();
 	});
 
 	it('filters locked variables when loading a preset', () => {

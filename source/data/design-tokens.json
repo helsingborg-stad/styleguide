@@ -564,6 +564,143 @@
 			]
 		},
 		{
+			"id": "colors-brand-palette",
+			"label": "Brand Palette",
+			"description": "Optional brand palette slots for reusable campaign and accent colors.",
+			"settings": [
+				{
+					"variable": "--color--palette-1",
+					"label": "Palette 1",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-1-contrast"
+				},
+				{
+					"variable": "--color--palette-1-contrast",
+					"label": "Palette 1 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-2",
+					"label": "Palette 2",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-2-contrast"
+				},
+				{
+					"variable": "--color--palette-2-contrast",
+					"label": "Palette 2 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-3",
+					"label": "Palette 3",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-3-contrast"
+				},
+				{
+					"variable": "--color--palette-3-contrast",
+					"label": "Palette 3 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-4",
+					"label": "Palette 4",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-4-contrast"
+				},
+				{
+					"variable": "--color--palette-4-contrast",
+					"label": "Palette 4 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-5",
+					"label": "Palette 5",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-5-contrast"
+				},
+				{
+					"variable": "--color--palette-5-contrast",
+					"label": "Palette 5 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-6",
+					"label": "Palette 6",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-6-contrast"
+				},
+				{
+					"variable": "--color--palette-6-contrast",
+					"label": "Palette 6 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-7",
+					"label": "Palette 7",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-7-contrast"
+				},
+				{
+					"variable": "--color--palette-7-contrast",
+					"label": "Palette 7 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-8",
+					"label": "Palette 8",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-8-contrast"
+				},
+				{
+					"variable": "--color--palette-8-contrast",
+					"label": "Palette 8 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-9",
+					"label": "Palette 9",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-9-contrast"
+				},
+				{
+					"variable": "--color--palette-9-contrast",
+					"label": "Palette 9 Contrast",
+					"type": "color",
+					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-10",
+					"label": "Palette 10",
+					"type": "color",
+					"default": "transparent",
+					"contrast": "--color--palette-10-contrast"
+				},
+				{
+					"variable": "--color--palette-10-contrast",
+					"label": "Palette 10 Contrast",
+					"type": "color",
+					"default": "transparent"
+				}
+			]
+		},
+		{
 			"id": "colors-layout",
 			"label": "Layout Colors",
 			"description": "Background and surface colors.",
@@ -673,7 +810,8 @@
 					"label": "Alpha Color",
 					"description": "Used for overlays. Includes opacity — set both color and alpha together.",
 					"type": "rgba",
-					"default": "rgba(0, 0, 0, .55)"
+					"default": "rgba(0, 0, 0, .55)",
+					"contrast": "--color--alpha-contrast"
 				},
 				{
 					"variable": "--color--alpha-contrast",

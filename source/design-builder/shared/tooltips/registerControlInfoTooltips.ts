@@ -2,7 +2,7 @@
  * Registers a floating tooltip for design-builder control info buttons.
  */
 
-const CONTROL_INFO_TOOLTIP_SELECTOR = '.db-control-info-btn.db-tooltip-target[data-tooltip]';
+const CONTROL_INFO_TOOLTIP_SELECTOR = '.db-tooltip-target[data-tooltip]';
 const TOOLTIP_ID = 'db-control-info-tooltip';
 const TOOLTIP_VIEWPORT_MARGIN = 12;
 const TOOLTIP_OFFSET = 6;

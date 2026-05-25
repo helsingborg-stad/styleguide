@@ -25,6 +25,39 @@
 		"color--success-border",
 		"font-size-300"
 	],
+	"componentSettings": [
+		{
+			"id": "colors",
+			"label": "Colors",
+			"description": "Selects the token families used by each notice state.",
+			"settings": [
+				{
+					"token": "color--info",
+					"label": "Info State",
+					"description": "Selects the token family used for informational notices.",
+					"includeStateColors": true
+				},
+				{
+					"token": "color--danger",
+					"label": "Danger State",
+					"description": "Selects the token family used for danger notices.",
+					"includeStateColors": true
+				},
+				{
+					"token": "color--warning",
+					"label": "Warning State",
+					"description": "Selects the token family used for warning notices.",
+					"includeStateColors": true
+				},
+				{
+					"token": "color--success",
+					"label": "Success State",
+					"description": "Selects the token family used for success notices.",
+					"includeStateColors": true
+				}
+			]
+		}
+	],
 	"description": "The Notice component provides a reusable pattern for notice in the interface.",
 	"tags": ["notice", "component"],
 	"similarComponents": ["footer", "option", "tooltip"],

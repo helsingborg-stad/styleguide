@@ -1,10 +1,5 @@
 import type { TokenSetting } from '../../shared/control-elements/controls/types';
-import type {
-	ComponentSettingCategory,
-	ComponentSettingDefinition,
-	ComponentTokenData,
-	ComponentTokenReferenceSetting,
-} from '../../shared/types/designBuilderDataTypes';
+import type { ComponentSettingCategory, ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting } from '../../shared/types/designBuilderDataTypes';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
@@ -103,6 +98,10 @@ function normalizeComponentTokenReferenceSetting(setting: unknown): ComponentTok
 		normalized.description = setting.description.trim();
 	}
 
+	if (typeof setting.includeStateColors === 'boolean') {
+		normalized.includeStateColors = setting.includeStateColors;
+	}
+
 	return normalized;
 }
 
@@ -120,9 +119,7 @@ function normalizeComponentSettings(input: unknown): ComponentSettingCategory[] 
 		.map((category) => {
 			const id = typeof category.id === 'string' ? category.id.trim() : '';
 			const label = typeof category.label === 'string' ? category.label.trim() : '';
-			const settings = Array.isArray(category.settings)
-				? category.settings.map(normalizeComponentSetting).filter((setting): setting is ComponentSettingDefinition => setting !== null)
-				: [];
+			const settings = Array.isArray(category.settings) ? category.settings.map(normalizeComponentSetting).filter((setting): setting is ComponentSettingDefinition => setting !== null) : [];
 
 			if (id === '' || label === '' || settings.length === 0) {
 				return null;

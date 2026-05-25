@@ -36,12 +36,12 @@ export function createDesignBuilderControl(setting: TokenSetting, currentValue: 
 	row.setting = setting;
 	row.value = currentValue;
 	row.addEventListener('control-change', (event) => {
-		const detail = (event as CustomEvent<{ variable: string; value: string }>).detail;
+		const detail = (event as CustomEvent<{ variable: string; value: string; extraValues?: Record<string, string> }>).detail;
 		if (!detail) {
 			return;
 		}
 
-		onChange(detail.variable, detail.value);
+		onChange(detail.variable, detail.value, detail.extraValues);
 	});
 	return row;
 }

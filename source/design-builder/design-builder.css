@@ -703,6 +703,95 @@
 	padding: 0.6rem 1.1rem;
 }
 
+.db-palette-family {
+	position: relative;
+	display: grid;
+	gap: 0.2rem;
+	padding: 0.9rem 1rem 0.35rem;
+	margin-bottom: 0.85rem;
+	border: 1px solid color-mix(in srgb, var(--db-border) 78%, transparent);
+	border-radius: var(--db-radius-m);
+	background: color-mix(in srgb, var(--db-surface-2) 82%, transparent);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.db-palette-family-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	margin-bottom: 0.25rem;
+}
+
+.db-palette-family-title {
+	margin: 0;
+	font-size: 0.875rem;
+	font-weight: 600;
+	color: var(--db-text);
+}
+
+.db-palette-add {
+	margin-top: 0.9rem;
+}
+
+.db-palette-add,
+.db-palette-family-remove {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.45rem;
+}
+
+.db-palette-family-remove {
+	padding: 0.2rem;
+	min-width: 1.5rem;
+	min-height: 1.5rem;
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	color: var(--db-text);
+}
+
+.db-palette-family-remove:hover {
+	color: var(--db-text);
+	border-color: transparent;
+	background: transparent;
+}
+
+.db-material-symbol {
+	font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp", sans-serif;
+	font-style: normal;
+	font-size: 1rem;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	direction: ltr;
+	font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variation-settings:
+		"FILL" 0,
+		"wght" 500,
+		"GRAD" 0,
+		"opsz" 20;
+}
+
+.db-palette-family > db-control-row:last-child .db-control-row,
+.db-palette-family > db-readonly-control-row:last-child .db-control-row {
+	border-bottom: none;
+}
+
+db-control-row,
+db-readonly-control-row,
+db-swatch-band {
+	display: block;
+	width: 100%;
+}
+
 db-control-row .db-control-row {
 	display: grid;
 	grid-template-columns: var(--db-control-label-col) minmax(0, 1fr) var(--db-control-action-col);
@@ -725,7 +814,13 @@ db-readonly-control-row .db-control-row {
 	grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
 	grid-template-rows: auto;
 	gap: 0.5rem 1rem;
+	padding: 0.82rem 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--db-border) 70%, transparent);
 	opacity: 1;
+}
+
+db-readonly-control-row .db-control-row:last-child {
+	border-bottom: none;
 }
 
 .db-control-row-label {
@@ -817,7 +912,8 @@ db-readonly-control-row[info-open] .db-control-row {
 }
 
 font-control,
-select-control {
+select-control,
+swatch-select-control {
 	display: block;
 	width: 100%;
 	min-width: 0;
@@ -915,6 +1011,106 @@ select-control select {
 	color: var(--db-text);
 	font: inherit;
 	font-size: 0.825rem;
+}
+
+swatch-select-control {
+	align-self: stretch;
+	width: 100%;
+	min-width: 0;
+}
+
+.db-swatch-select {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(40px, 40px));
+	grid-auto-rows: 40px;
+	gap: 0.35rem;
+	align-content: start;
+	justify-content: start;
+	padding: 0.15rem 0.2rem 0.3rem;
+}
+
+.db-swatch-select-option {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border-radius: var(--db-radius-s);
+	border: 1px solid transparent;
+	background: transparent;
+	cursor: pointer;
+	outline: none;
+	outline-offset: 3px;
+}
+
+.db-swatch-select-option[aria-selected="true"] {
+	outline: 2px solid var(--db-primary);
+	background: color-mix(in srgb, var(--db-primary) 10%, transparent);
+}
+
+.db-swatch-select-option:hover {
+	border-color: var(--db-border-strong);
+	background: var(--db-surface-2);
+}
+
+.db-swatch-select-option:focus-visible {
+	outline: 2px solid var(--db-primary);
+}
+
+.db-swatch-select-chip {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 0.35rem;
+	border: 1px solid color-mix(in srgb, var(--db-border) 80%, var(--db-text) 20%);
+	overflow: hidden;
+	background-image: conic-gradient(from 45deg, #d8dce5 0deg 90deg, #edf0f6 90deg 180deg, #d8dce5 180deg 270deg, #edf0f6 270deg);
+	background-size: 8px 8px;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+	flex: 0 0 auto;
+}
+
+.db-swatch-select-chip-fill {
+	position: absolute;
+	inset: 0;
+}
+
+.db-swatch-select-chip-contrast {
+	position: relative;
+	z-index: 1;
+	font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp", sans-serif;
+	font-style: normal;
+	font-size: 1rem;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	white-space: nowrap;
+	direction: ltr;
+	font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variation-settings:
+		"FILL" 1,
+		"wght" 500,
+		"GRAD" 0,
+		"opsz" 20;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.db-swatch-select-empty {
+	width: 40px;
+	height: 40px;
+	border-radius: 0.35rem;
+	border: 1px dashed var(--db-border);
+	background: var(--db-surface-2);
 }
 
 .db-control-text::placeholder {
@@ -1098,7 +1294,9 @@ db-swatch-band .db-swatch-band-pct {
 }
 
 .db-builder-fullpage db-control-row .db-control-row,
-.db-builder-customizer db-control-row .db-control-row {
+.db-builder-fullpage db-readonly-control-row .db-control-row,
+.db-builder-customizer db-control-row .db-control-row,
+.db-builder-customizer db-readonly-control-row .db-control-row {
 	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-rows: auto auto;
 	row-gap: 0.45rem;
@@ -1107,7 +1305,8 @@ db-swatch-band .db-swatch-band-pct {
 	align-items: start;
 }
 
-.db-builder-customizer db-control-row .db-control-row {
+.db-builder-customizer db-control-row .db-control-row,
+.db-builder-customizer db-readonly-control-row .db-control-row {
 	min-width: 0;
 }
 
@@ -1202,7 +1401,9 @@ db-swatch-band .db-swatch-band-pct {
 	}
 
 	.db-builder-fullpage db-control-row .db-control-row,
-	.db-builder-customizer db-control-row .db-control-row {
+	.db-builder-fullpage db-readonly-control-row .db-control-row,
+	.db-builder-customizer db-control-row .db-control-row,
+	.db-builder-customizer db-readonly-control-row .db-control-row {
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-rows: auto auto;
 	}
@@ -1259,7 +1460,9 @@ db-swatch-band .db-swatch-band-pct {
 
 @container design-builder (max-width: 56rem) {
 	.db-builder-fullpage db-control-row .db-control-row,
-	.db-builder-customizer db-control-row .db-control-row {
+	.db-builder-fullpage db-readonly-control-row .db-control-row,
+	.db-builder-customizer db-control-row .db-control-row,
+	.db-builder-customizer db-readonly-control-row .db-control-row {
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-rows: auto auto;
 	}
