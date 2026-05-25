@@ -105,6 +105,38 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 				],
 			},
 			{
+				id: 'colors-brand-palette',
+				label: 'Brand Palette',
+				settings: [
+					{
+						variable: '--color--palette-1',
+						label: 'Palette 1',
+						type: 'color',
+						default: 'transparent',
+						contrast: '--color--palette-1-contrast',
+					},
+					{
+						variable: '--color--palette-1-contrast',
+						label: 'Palette 1 Contrast',
+						type: 'color',
+						default: 'transparent',
+					},
+					{
+						variable: '--color--palette-2',
+						label: 'Palette 2',
+						type: 'color',
+						default: 'transparent',
+						contrast: '--color--palette-2-contrast',
+					},
+					{
+						variable: '--color--palette-2-contrast',
+						label: 'Palette 2 Contrast',
+						type: 'color',
+						default: 'transparent',
+					},
+				],
+			},
+			{
 				id: 'colors-state',
 				label: 'State Colors',
 				settings: [
@@ -227,6 +259,49 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		});
 
 		confirmSpy.mockRestore();
+		hostElement.remove();
+		mount.remove();
+	});
+
+	it('only exposes configured palette variants in token-color options', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: {
+				'--color--palette-2': '#224466',
+				'--color--palette-2-contrast': '#ffffff',
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const settingsCategory = categories.find((category) => category.id === 'settings');
+		const colorSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
+
+		expect(colorSetting?.options).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					label: 'Palette 2',
+					value: 'var(--color--palette-2)',
+				}),
+			]),
+		);
+		expect(colorSetting?.options).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					label: 'Palette 1',
+				}),
+			]),
+		);
+
 		hostElement.remove();
 		mount.remove();
 	});

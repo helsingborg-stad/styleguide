@@ -703,6 +703,33 @@
 	padding: 0.6rem 1.1rem;
 }
 
+.db-palette-family {
+	padding: 0.9rem 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--db-border) 70%, transparent);
+}
+
+.db-palette-family:last-child {
+	border-bottom: none;
+}
+
+.db-palette-family-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 0.25rem;
+}
+
+.db-palette-family-title {
+	margin: 0;
+	font-size: 0.875rem;
+	font-weight: 600;
+}
+
+.db-palette-add {
+	margin-top: 0.9rem;
+}
+
 db-control-row .db-control-row {
 	display: grid;
 	grid-template-columns: var(--db-control-label-col) minmax(0, 1fr) var(--db-control-action-col);

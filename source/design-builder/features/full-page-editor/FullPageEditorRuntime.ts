@@ -21,6 +21,17 @@ interface RuntimePresetOption {
 	targets: DesignBuilderPresetTargets;
 }
 
+interface PaletteFamilyGroup {
+	family: string;
+	label: string;
+	order: number;
+	baseSetting?: TokenCategory['settings'][number];
+	contrastSetting?: TokenCategory['settings'][number];
+}
+
+const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
+const PALETTE_VARIABLE_PATTERN = /^--color--(palette-(\d+))(?:-(contrast))?$/;
+
 export class FullPageEditorRuntime {
 	private container: HTMLElement;
 	private hostElement: DesignBuilderRootElement;
@@ -33,6 +44,7 @@ export class FullPageEditorRuntime {
 	private showLockedFields = false;
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private showSaveButton: boolean;
+	private activePaletteFamilies = new Set<string>();
 
 	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
@@ -43,6 +55,7 @@ export class FullPageEditorRuntime {
 		this.modeSwitch = modeSwitch;
 		this.showSaveButton = showSaveButton;
 		this.removeLockedOverrides();
+		this.syncPaletteFamiliesFromOverrides();
 		this.syncOverrideState();
 
 		this.render();
@@ -184,6 +197,10 @@ export class FullPageEditorRuntime {
 			return [createDesignBuilderSwatchBand(category.settings)];
 		}
 
+		if (category.id === BRAND_PALETTE_CATEGORY_ID) {
+			return this.renderPaletteCategoryBody(category);
+		}
+
 		const items: HTMLElement[] = [];
 		for (const setting of category.settings) {
 			if (setting.locked) {
@@ -205,6 +222,139 @@ export class FullPageEditorRuntime {
 		}
 
 		return items;
+	}
+
+	private parsePaletteVariable(variable: string): { family: string; order: number; isContrast: boolean } | null {
+		const match = variable.match(PALETTE_VARIABLE_PATTERN);
+		if (!match) {
+			return null;
+		}
+
+		return {
+			family: match[1],
+			order: Number(match[2]),
+			isContrast: match[3] === 'contrast',
+		};
+	}
+
+	private syncPaletteFamiliesFromOverrides(): void {
+		this.activePaletteFamilies.clear();
+		for (const variable of Object.keys(this.overrides)) {
+			const paletteToken = this.parsePaletteVariable(variable);
+			if (paletteToken) {
+				this.activePaletteFamilies.add(paletteToken.family);
+			}
+		}
+	}
+
+	private getPaletteFamilyGroups(category: TokenCategory): PaletteFamilyGroup[] {
+		const groups = new Map<string, PaletteFamilyGroup>();
+
+		for (const setting of category.settings) {
+			const paletteToken = this.parsePaletteVariable(setting.variable);
+			if (!paletteToken) {
+				continue;
+			}
+
+			const group = groups.get(paletteToken.family) ?? {
+				family: paletteToken.family,
+				label: `Palette ${paletteToken.order}`,
+				order: paletteToken.order,
+			};
+
+			if (paletteToken.isContrast) {
+				group.contrastSetting = setting;
+			} else {
+				group.baseSetting = setting;
+				group.label = setting.label;
+			}
+
+			groups.set(paletteToken.family, group);
+		}
+
+		return [...groups.values()].sort((left, right) => left.order - right.order);
+	}
+
+	private createPaletteFamilyElement(group: PaletteFamilyGroup): HTMLElement {
+		const wrapper = document.createElement('div');
+		wrapper.className = 'db-palette-family';
+		wrapper.dataset.paletteFamily = group.family;
+
+		const header = document.createElement('div');
+		header.className = 'db-palette-family-header';
+
+		const title = document.createElement('p');
+		title.className = 'db-palette-family-title';
+		title.textContent = group.label;
+		header.appendChild(title);
+
+		const removeButton = document.createElement('button');
+		removeButton.type = 'button';
+		removeButton.className = 'db-btn';
+		removeButton.dataset.action = 'remove-palette-family';
+		removeButton.dataset.paletteFamily = group.family;
+		removeButton.textContent = translations.removePaletteColor;
+		removeButton.addEventListener('click', () => this.removePaletteFamily(group));
+		header.appendChild(removeButton);
+
+		wrapper.appendChild(header);
+
+		for (const setting of [group.baseSetting, group.contrastSetting]) {
+			if (!setting) {
+				continue;
+			}
+
+			const currentValue = this.overrides[setting.variable] || setting.default;
+			wrapper.appendChild(
+				createDesignBuilderControl(setting, currentValue, (variable, value) => {
+					this.handleChange(variable, value, setting.default);
+				}),
+			);
+		}
+
+		return wrapper;
+	}
+
+	private renderPaletteCategoryBody(category: TokenCategory): Array<HTMLElement> {
+		const groups = this.getPaletteFamilyGroups(category);
+		const items = groups
+			.filter((group) => this.activePaletteFamilies.has(group.family))
+			.map((group) => this.createPaletteFamilyElement(group));
+
+		const nextGroup = groups.find((group) => !this.activePaletteFamilies.has(group.family));
+		if (nextGroup) {
+			const addButton = document.createElement('button');
+			addButton.type = 'button';
+			addButton.className = 'db-btn db-btn-primary db-palette-add';
+			addButton.dataset.action = 'add-palette-family';
+			addButton.textContent = translations.addPaletteColor;
+			addButton.addEventListener('click', () => {
+				this.activePaletteFamilies.add(nextGroup.family);
+				this.render();
+			});
+			items.push(addButton);
+		}
+
+		return items;
+	}
+
+	private removePaletteFamily(group: PaletteFamilyGroup): void {
+		this.activePaletteFamilies.delete(group.family);
+		for (const setting of [group.baseSetting, group.contrastSetting]) {
+			if (!setting) {
+				continue;
+			}
+
+			delete this.overrides[setting.variable];
+			document.documentElement.style.removeProperty(setting.variable);
+		}
+
+		this.syncOverrideState();
+		this.render();
+		this.emitAction('change', {
+			family: group.family,
+			value: '',
+		});
 	}
 
 	private handleChange(variable: string, value: string, defaultValue: string): void {
@@ -248,6 +398,7 @@ export class FullPageEditorRuntime {
 		}
 
 		this.overrides = {};
+		this.syncPaletteFamiliesFromOverrides();
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.render();
@@ -323,6 +474,7 @@ export class FullPageEditorRuntime {
 		applyComponentOverridesToPage(importedState.component);
 
 		this.overrides = importedOverrides;
+		this.syncPaletteFamiliesFromOverrides();
 		this.applyAll();
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: importedOverrides,
@@ -444,6 +596,7 @@ export class FullPageEditorRuntime {
 			clearTokenOverridesFromRootDocument(this.overrides);
 			this.overrides = { ...option.state.token };
 			this.removeLockedOverrides();
+			this.syncPaletteFamiliesFromOverrides();
 		}
 
 		const nextComponentOverrides = option.targets.component ? normalizeDesignBuilderOverrideState({ component: option.state.component }).component : this.hostElement.overrideState.component;

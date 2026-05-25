@@ -46,6 +46,7 @@ type ColorTokenSourceFamily = {
 
 const LOCAL_COLOR_SOURCE_CATEGORY_IDS = new Set(['colors-brand-palette', 'colors-brand', 'colors-layout', 'colors-ui', 'colors-state']);
 const STATE_COLOR_SOURCE_CATEGORY_ID = 'colors-state';
+const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
 
 export class ComponentCustomizerRuntime {
 	private componentData: ComponentTokenData;
@@ -979,6 +980,15 @@ export class ComponentCustomizerRuntime {
 		}
 	}
 
+	private isPaletteFamilyConfigured(sourceFamily: ColorTokenSourceFamily): boolean {
+		if (sourceFamily.categoryId !== BRAND_PALETTE_CATEGORY_ID) {
+			return true;
+		}
+
+		const tokenOverrides = this.hostElement?.overrideState.token ?? {};
+		return Object.values(sourceFamily.variants).some((tokenName) => Boolean(tokenName && tokenOverrides[`--${tokenName}`]));
+	}
+
 	private buildSelectableColorFamilies(includeStateColors: boolean): ColorTokenSourceFamily[] {
 		const families = new Map<string, ColorTokenSourceFamily>();
 
@@ -1017,7 +1027,7 @@ export class ComponentCustomizerRuntime {
 			}
 		}
 
-		return [...families.values()].filter((family) => Boolean(family.variants.base));
+		return [...families.values()].filter((family) => Boolean(family.variants.base) && this.isPaletteFamilyConfigured(family));
 	}
 
 	private buildColorLinkedDefaults(componentName: string, targetContrastTokens: string[]): Record<string, string> {
