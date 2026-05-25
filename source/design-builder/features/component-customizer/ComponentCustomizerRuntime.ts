@@ -1083,7 +1083,7 @@ export class ComponentCustomizerRuntime {
 			description,
 			type: 'token-color',
 			default: `var(--${tokenName})`,
-			locked: false,
+			locked: setting.locked,
 			options,
 			linkedDefaults: this.buildColorLinkedDefaults(componentName, targetContrastTokens),
 		};
@@ -1148,8 +1148,7 @@ export class ComponentCustomizerRuntime {
 				variable: this.toLocalizedComponentVariable(componentName, setting.token),
 				label: setting.label,
 				description: setting.description ?? tokenSetting.description,
-				// Component-local token references should stay editable even when globally locked.
-				locked: false,
+				locked: tokenSetting.locked,
 			};
 		}
 

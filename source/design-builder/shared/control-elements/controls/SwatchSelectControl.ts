@@ -112,12 +112,13 @@ class SwatchSelectControl extends HTMLElement {
 								(option) => html`
 									<button
 										type="button"
-										class="db-swatch-select-option"
+										class="db-swatch-select-option db-tooltip-target"
 										role="option"
 										?disabled=${isDisabled}
 										aria-selected=${selectedOption?.value === option.value ? 'true' : 'false'}
 										title=${option.label}
 										aria-label=${option.label}
+										data-tooltip=${option.label}
 										@click=${() => this.selectOption(option)}
 									>
 										${this.renderSwatch(option, selectedOption?.value === option.value)}

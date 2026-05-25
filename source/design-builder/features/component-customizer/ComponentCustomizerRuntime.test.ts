@@ -53,6 +53,10 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 				},
 			],
 		},
+		image: {
+			name: 'Image',
+			tokens: ['color--primary-border'],
+		},
 	};
 
 	const tokenLibrary: TokenData = {
@@ -77,6 +81,13 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 						label: 'Primary Contrast',
 						type: 'color',
 						default: '#ffffff',
+					},
+					{
+						variable: '--color--primary-border',
+						label: 'Primary Border',
+						type: 'color',
+						default: '#111111',
+						locked: true,
 					},
 					{
 						variable: '--color--secondary',
@@ -217,6 +228,35 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		confirmSpy.mockRestore();
 		hostElement.remove();
+		mount.remove();
+	});
+
+	it('keeps derived locked colors uneditable in legacy component controls', () => {
+		const mount = document.createElement('div');
+		document.body.innerHTML = `
+			<div data-component="image">
+				<div>Image</div>
+			</div>
+		`;
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('image');
+		const colorCategory = categories.find((category) => category.id === 'colors-brand');
+		const borderSetting = colorCategory?.settings.find((setting) => setting.variable === '--c-image--color--primary-border');
+
+		expect(borderSetting).toMatchObject({
+			variable: '--c-image--color--primary-border',
+			label: 'Primary Border',
+			type: 'token-color',
+			locked: true,
+			default: 'var(--color--primary-border)',
+		});
+
 		mount.remove();
 	});
 
