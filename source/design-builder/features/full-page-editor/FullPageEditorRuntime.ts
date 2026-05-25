@@ -267,7 +267,6 @@ export class FullPageEditorRuntime {
 				group.contrastSetting = setting;
 			} else {
 				group.baseSetting = setting;
-				group.label = setting.label;
 			}
 
 			groups.set(paletteToken.family, group);
@@ -291,10 +290,14 @@ export class FullPageEditorRuntime {
 
 		const removeButton = document.createElement('button');
 		removeButton.type = 'button';
-		removeButton.className = 'db-btn';
+		removeButton.className = 'db-btn db-palette-family-remove';
 		removeButton.dataset.action = 'remove-palette-family';
 		removeButton.dataset.paletteFamily = group.family;
-		removeButton.textContent = translations.removePaletteColor;
+		removeButton.setAttribute('aria-label', `${translations.removePaletteColor}: ${group.label}`);
+		removeButton.setAttribute('title', translations.removePaletteColor);
+		removeButton.innerHTML = `
+			<span class="db-material-symbol" aria-hidden="true">close</span>
+		`;
 		removeButton.addEventListener('click', () => this.removePaletteFamily(group));
 		header.appendChild(removeButton);
 
@@ -305,9 +308,13 @@ export class FullPageEditorRuntime {
 				continue;
 			}
 
+			const paletteSetting = {
+				...setting,
+				label: setting === group.baseSetting ? 'Color' : 'Contrast',
+			};
 			const currentValue = this.overrides[setting.variable] || setting.default;
 			wrapper.appendChild(
-				createDesignBuilderControl(setting, currentValue, (variable, value) => {
+				createDesignBuilderControl(paletteSetting, currentValue, (variable, value) => {
 					this.handleChange(variable, value, setting.default);
 				}),
 			);
@@ -326,8 +333,21 @@ export class FullPageEditorRuntime {
 			addButton.type = 'button';
 			addButton.className = 'db-btn db-btn-primary db-palette-add';
 			addButton.dataset.action = 'add-palette-family';
-			addButton.textContent = translations.addPaletteColor;
+			addButton.innerHTML = `
+				<svg class="db-btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+					<path fill="currentColor" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z" />
+				</svg>
+				<span>${translations.addPaletteColor}</span>
+			`;
 			addButton.addEventListener('click', () => {
+				if (nextGroup.baseSetting) {
+					this.handleChange(nextGroup.baseSetting.variable, '#ffffff', nextGroup.baseSetting.default);
+				}
+
+				if (nextGroup.contrastSetting) {
+					this.handleChange(nextGroup.contrastSetting.variable, '#000000', nextGroup.contrastSetting.default);
+				}
+
 				this.activePaletteFamilies.add(nextGroup.family);
 				this.render();
 			});
