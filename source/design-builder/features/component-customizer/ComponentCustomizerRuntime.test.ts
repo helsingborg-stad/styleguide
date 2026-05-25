@@ -5,6 +5,13 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 		row.setAttribute('data-tip-description', setting.description ?? '');
 		return row;
 	},
+	createReadOnlyDesignBuilderControl: (setting: { variable: string; description?: string }) => {
+		const row = document.createElement('div');
+		row.setAttribute('data-tip-variable', setting.variable);
+		row.setAttribute('data-tip-description', setting.description ?? '');
+		row.setAttribute('data-readonly', 'true');
+		return row;
+	},
 	createDesignBuilderCategory: (_category: { id: string }, items: HTMLElement[]) => {
 		const element = document.createElement('section');
 		element.className = 'db-category';
@@ -356,6 +363,47 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			locked: true,
 			default: 'var(--color--primary-border)',
 		});
+
+		mount.remove();
+	});
+
+	it('hides locked-only component views until uneditable fields are shown', () => {
+		const mount = document.createElement('div');
+		document.body.innerHTML = `
+			<div data-component="button">
+				<a href="/test">Button</a>
+			</div>
+			<div data-component="image">
+				<div>Image</div>
+			</div>
+		`;
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+
+		const componentOptions = () => Array.from(mount.querySelectorAll<HTMLOptionElement>('#db-component-select option')).map((option) => option.value);
+		const toggleLockedButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-locked"]');
+		const togglePickButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
+		const buttonTarget = document.querySelector<HTMLElement>('[data-component="button"]');
+		const imageTarget = document.querySelector<HTMLElement>('[data-component="image"]');
+
+		expect(componentOptions()).toEqual(['button']);
+
+		togglePickButton?.click();
+		expect(buttonTarget?.classList.contains('db-component-target')).toBe(true);
+		expect(imageTarget?.classList.contains('db-component-target')).toBe(false);
+
+		toggleLockedButton?.click();
+		expect(componentOptions()).toEqual(['button', 'image']);
+		expect(toggleLockedButton?.textContent).toContain('Hide uneditable');
+		expect(buttonTarget?.classList.contains('db-component-target')).toBe(true);
+		expect(imageTarget?.classList.contains('db-component-target')).toBe(true);
+
+		const componentSelect = mount.querySelector<HTMLSelectElement>('#db-component-select');
+		componentSelect!.value = 'image';
+		componentSelect?.dispatchEvent(new Event('change'));
+
+		expect(mount.querySelector('[data-tip-variable="--c-image--color--primary-border"]')?.getAttribute('data-readonly')).toBe('true');
 
 		mount.remove();
 	});
