@@ -123,7 +123,7 @@ $_: "c-drawer";
     height: 100%;
     max-width: tokens.getCalculatedValue($_, "base", 64);
     width: 90%;
-    z-index: 9000;
+    z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
     var(--#{$_}--drawer-transition-ms) ease-in transform,
@@ -212,7 +212,7 @@ $_overlay: "drawer-overlay";
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 8999;
+    z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
     var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;

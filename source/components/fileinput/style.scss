@@ -63,14 +63,14 @@ $_: "c-fileinput";
                 line-height: 1;
                 filter: grayscale(100%) brightness(0) contrast(100%);
                 opacity: 0.2;
-                z-index: 2000;
+                z-index: 2;
             }
             &::before {
                 content: "";
                 position: absolute;
                 inset: 0;
                 background: color-mix(in srgb, tokens.getRawValue($_, "color--surface-alt"), transparent 80%);
-                z-index: 1000;
+                z-index: 1;
                 backdrop-filter: blur(4px);
             }
         }

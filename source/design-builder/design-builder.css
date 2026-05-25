@@ -295,7 +295,7 @@
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.12s ease;
-	z-index: 40;
+	z-index: 3;
 }
 
 .db-tooltip-target::before {
@@ -441,7 +441,7 @@
 	pointer-events: none;
 	opacity: 0;
 	visibility: hidden;
-	z-index: 60;
+	z-index: 4;
 	transition: opacity 0.12s ease;
 }
 
@@ -486,7 +486,7 @@
 	position: absolute;
 	top: calc(100% + 0.35rem);
 	right: 0;
-	z-index: 20;
+	z-index: 2;
 	display: none;
 	min-width: 11.5rem;
 	padding: 0.35rem;
@@ -543,7 +543,7 @@
 	position: absolute;
 	top: calc(100% + 0.35rem);
 	right: 0;
-	z-index: 20;
+	z-index: 2;
 	display: none;
 	min-width: 11.5rem;
 	padding: 0.35rem;

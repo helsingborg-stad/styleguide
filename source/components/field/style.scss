@@ -446,7 +446,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         top: calc(100% + #{tokens.getCalculatedValue($_, "space", 0.5)});
         left: 0;
         right: 0;
-        z-index: 4500;
+        z-index: 4;
         background-color: var(--inherit-color-background, var(--#{$_}--background-color));
         border: var(--#{$_}--border);
         border-radius: tokens.getCalculatedValue($_, "border-radius");

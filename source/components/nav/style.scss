@@ -153,7 +153,7 @@ $_: "c-nav";
         }
 
         .c-nav.c-nav--child {
-            z-index: 5000;
+            z-index: 5;
             position: absolute;
             bottom: 0;
             background: var(--#{$_}--item-background-color);
@@ -172,7 +172,7 @@ $_: "c-nav";
                 top: calc(#{tokens.getRawValue($_, "base")} * -1);
                 transform: rotate(45deg);
                 width: calc(#{tokens.getRawValue($_, "base")} * 2.5);
-                z-index: 5000;
+                z-index: 5;
                 border-top-left-radius: max(calc(#{tokens.getRawValue($_, "base")} * .5), #{tokens.getCalculatedValue($_, "border-radius")});
             }
         }
@@ -343,7 +343,7 @@ $_: "c-nav";
         top: 100%;
         left: 0;
         width: 100%;
-        z-index: 5000;
+        z-index: 5;
         background-color: var(--#{$_}--item-background-color);
         justify-content: center;
     }

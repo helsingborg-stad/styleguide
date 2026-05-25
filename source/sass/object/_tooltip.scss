@@ -21,7 +21,7 @@ $_: "o-tooltip";
     max-width: min(calc(100vw - calc(tokens.getRawValue($_, "base") * 3)), calc(tokens.getRawValue($_, "base") * 38));
     padding: tokens.getRawValue($_, "base") calc(tokens.getRawValue($_, "base") * 1.5);
     background-color: var(--#{$_}--color--alpha-solid);
-    z-index: 9999;
+    z-index: 11;
     border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--alpha-border");
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
