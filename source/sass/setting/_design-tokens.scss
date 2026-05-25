@@ -101,6 +101,31 @@
     --color--secondary-alt: color-mix(in srgb, var(--color--secondary-contrast) var(--color--alt-mix-amount), var(--color--secondary));
 
     // ========================================================================
+    // Brand Palette
+    // Optional brand palette slots for reusable campaign and accent colors.
+    // ========================================================================
+    --color--palette-1: #0057b8;
+    --color--palette-1-contrast: #ffffff;
+    --color--palette-2: #00875a;
+    --color--palette-2-contrast: #ffffff;
+    --color--palette-3: #ff8c00;
+    --color--palette-3-contrast: #2d2d2d;
+    --color--palette-4: #8a3ffc;
+    --color--palette-4-contrast: #ffffff;
+    --color--palette-5: #d7263d;
+    --color--palette-5-contrast: #ffffff;
+    --color--palette-6: #00a3a3;
+    --color--palette-6-contrast: #ffffff;
+    --color--palette-7: #f2c94c;
+    --color--palette-7-contrast: #2d2d2d;
+    --color--palette-8: #264653;
+    --color--palette-8-contrast: #ffffff;
+    --color--palette-9: #e76f51;
+    --color--palette-9-contrast: #2d2d2d;
+    --color--palette-10: #6c757d;
+    --color--palette-10-contrast: #ffffff;
+
+    // ========================================================================
     // Layout Colors
     // Background and surface colors.
     // ========================================================================

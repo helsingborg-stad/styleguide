@@ -27,7 +27,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 	const componentData: ComponentTokenData = {
 		button: {
 			name: 'Button',
-			tokens: ['color--primary', 'space'],
+			tokens: ['color--primary', 'color--primary-contrast', 'space'],
 			componentSettings: [
 				{
 					id: 'settings',
@@ -37,6 +37,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 							token: 'color--primary',
 							label: 'Text Color',
 							description: 'Overrides the default text color for the button component',
+							includeStateColors: false,
 						},
 						{
 							variable: '--font-size-multiplier',
@@ -59,8 +60,8 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		version: '1.0.0',
 		categories: [
 			{
-				id: 'colors',
-				label: 'Colors',
+				id: 'colors-brand',
+				label: 'Brand Colors',
 				settings: [
 					{
 						variable: '--color--primary',
@@ -68,7 +69,46 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 						description: 'Primary color for component',
 						type: 'color',
 						default: '#000000',
+						contrast: '--color--primary-contrast',
 						locked: true,
+					},
+					{
+						variable: '--color--primary-contrast',
+						label: 'Primary Contrast',
+						type: 'color',
+						default: '#ffffff',
+					},
+					{
+						variable: '--color--secondary',
+						label: 'Secondary',
+						type: 'color',
+						default: '#444444',
+						contrast: '--color--secondary-contrast',
+					},
+					{
+						variable: '--color--secondary-contrast',
+						label: 'Secondary Contrast',
+						type: 'color',
+						default: '#fefefe',
+					},
+				],
+			},
+			{
+				id: 'colors-state',
+				label: 'State Colors',
+				settings: [
+					{
+						variable: '--color--success',
+						label: 'Success',
+						type: 'color',
+						default: '#00875a',
+						contrast: '--color--success-contrast',
+					},
+					{
+						variable: '--color--success-contrast',
+						label: 'Success Contrast',
+						type: 'color',
+						default: '#ffffff',
 					},
 				],
 			},
@@ -324,10 +364,23 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		expect(colorSetting).toMatchObject({
 			label: 'Text Color',
 			description: 'Overrides the default text color for the button component',
-			type: 'color',
-			default: '#000000',
+			type: 'token-color',
+			default: 'var(--color--primary)',
 			locked: false,
+			linkedDefaults: {
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
 		});
+		expect(colorSetting?.options).toEqual([
+			expect.objectContaining({
+				label: 'Primary',
+				value: 'var(--color--primary)',
+			}),
+			expect.objectContaining({
+				label: 'Secondary',
+				value: 'var(--color--secondary)',
+			}),
+		]);
 
 		expect(multiplierSetting).toMatchObject({
 			label: 'Font Size Multiplier',
@@ -337,7 +390,36 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			max: 4,
 			step: 0.1,
 		});
-		expect(spaceSetting).toBeUndefined();
+		expect(spaceSetting).toMatchObject({
+			variable: '--c-button--space',
+			label: 'Space',
+			type: 'range',
+			default: '1',
+		});
+
+		mount.remove();
+	});
+
+	it('hides state color options unless a component setting explicitly opts in', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const settingsCategory = categories.find((category) => category.id === 'settings');
+		const colorSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
+
+		expect(colorSetting?.options).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					label: 'Success',
+				}),
+			]),
+		);
 
 		mount.remove();
 	});
@@ -361,15 +443,15 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		};
 
 		const categories = runtimeInternals.buildCategoriesForComponent('button');
-		const colorCategory = categories.find((category) => category.id === 'colors');
+		const colorCategory = categories.find((category) => category.id === 'colors-brand');
 		const spacingCategory = categories.find((category) => category.id === 'spacing');
 
 		expect(colorCategory?.settings).toEqual([
 			expect.objectContaining({
 				variable: '--c-button--color--primary',
 				label: 'Primary',
-				type: 'color',
-				default: '#000000',
+				type: 'token-color',
+				default: 'var(--color--primary)',
 			}),
 		]);
 		expect(spacingCategory?.settings).toEqual([
@@ -380,6 +462,36 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 				default: '1',
 			}),
 		]);
+
+		mount.remove();
+	});
+
+	it('applies linked contrast overrides together with a token-color selection', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults?: Record<string, string>, extraValues?: Record<string, string>): void;
+		};
+
+		runtimeInternals.handleChange(
+			'button',
+			GENERAL_SCOPE_KEY,
+			'--c-button--color--primary',
+			'var(--color--secondary)',
+			'var(--color--primary)',
+			{
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
+			{
+				'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+			},
+		);
+
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--secondary)');
+		expect(target?.style.getPropertyValue('--c-button--color--primary-contrast')).toBe('var(--color--secondary-contrast)');
 
 		mount.remove();
 	});

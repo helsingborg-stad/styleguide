@@ -4,9 +4,15 @@ import type { TokenSetting } from '../types';
 export type ControlRowValueChangeDetail = {
 	variable: string;
 	value: string;
+	extraValues?: Record<string, string>;
 };
 
-function getControlChangeValue(event: Event): string | undefined {
+type ControlChangePayload = {
+	value: string;
+	extraValues?: Record<string, string>;
+};
+
+function getControlChangePayload(event: Event): ControlChangePayload | undefined {
 	if (!(event instanceof CustomEvent)) {
 		return undefined;
 	}
@@ -17,7 +23,17 @@ function getControlChangeValue(event: Event): string | undefined {
 	}
 
 	const value = (detail as { value?: unknown }).value;
-	return value === undefined || value === null ? undefined : String(value);
+	if (value === undefined || value === null) {
+		return undefined;
+	}
+
+	const extraValuesRaw = (detail as { extraValues?: unknown }).extraValues;
+	const extraValues = extraValuesRaw && typeof extraValuesRaw === 'object' && !Array.isArray(extraValuesRaw) ? Object.fromEntries(Object.entries(extraValuesRaw as Record<string, unknown>).filter(([, entryValue]) => typeof entryValue === 'string')) : undefined;
+
+	return {
+		value: String(value),
+		extraValues: extraValues && Object.keys(extraValues).length > 0 ? (extraValues as Record<string, string>) : undefined,
+	};
 }
 
 class DbControlRow extends HTMLElement {
@@ -66,7 +82,7 @@ class DbControlRow extends HTMLElement {
 		document.removeEventListener('pointerdown', this.handleDocumentPointerDown, true);
 	}
 
-	private emitChange(value: string) {
+	private emitChange(value: string, extraValues?: Record<string, string>) {
 		const setting = this._setting;
 		if (!setting) {
 			return;
@@ -77,6 +93,7 @@ class DbControlRow extends HTMLElement {
 				detail: {
 					variable: setting.variable,
 					value,
+					extraValues,
 				},
 				bubbles: true,
 				composed: true,
@@ -85,8 +102,8 @@ class DbControlRow extends HTMLElement {
 	}
 
 	private onControlChange(event: Event) {
-		const rawValue = getControlChangeValue(event);
-		if (rawValue === undefined) {
+		const payload = getControlChangePayload(event);
+		if (!payload) {
 			return;
 		}
 
@@ -95,7 +112,7 @@ class DbControlRow extends HTMLElement {
 			return;
 		}
 
-		let value = rawValue;
+		let value = payload.value;
 		if (setting.type === 'range' && setting.unit) {
 			const unit = setting.unit;
 			if (!value.endsWith(unit)) {
@@ -105,7 +122,7 @@ class DbControlRow extends HTMLElement {
 
 		this._value = value;
 		this.render();
-		this.emitChange(value);
+		this.emitChange(value, payload.extraValues);
 	}
 
 	private onReset() {
@@ -128,6 +145,8 @@ class DbControlRow extends HTMLElement {
 
 	private renderInput(setting: TokenSetting) {
 		switch (setting.type) {
+			case 'token-color':
+				return html`<swatch-select-control value=${this._value} ?locked=${setting.locked === true} options=${JSON.stringify(setting.options || [])} @change=${(e: Event) => this.onControlChange(e)} />`;
 			case 'color':
 				return html`<color-control value=${this._value} ?locked=${setting.locked === true} placeholder=${setting.default} @change=${(e: Event) => this.onControlChange(e)} />`;
 			case 'rgba':

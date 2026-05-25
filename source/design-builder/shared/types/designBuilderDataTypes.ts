@@ -18,6 +18,7 @@ export interface ComponentTokenReferenceSetting {
 	token: string;
 	label: string;
 	description?: string;
+	includeStateColors?: boolean;
 }
 
 export type ComponentSettingDefinition = TokenSetting | ComponentTokenReferenceSetting;

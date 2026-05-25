@@ -108,7 +108,7 @@
 					"items": {
 						"oneOf": [
 							{
-								"$ref": "./design-tokens-schema.json#/$defs/setting"
+								"$ref": "#/$defs/componentVariableSetting"
 							},
 							{
 								"$ref": "#/$defs/componentTokenReferenceSetting"
@@ -118,6 +118,50 @@
 				}
 			},
 			"required": ["id", "label", "settings"],
+			"additionalProperties": false
+		},
+		"componentVariableSetting": {
+			"type": "object",
+			"properties": {
+				"variable": {
+					"description": "CSS custom property name. Must start with '--' followed by a lowercase letter.",
+					"type": "string",
+					"pattern": "^--[a-z][a-z0-9-]*$"
+				},
+				"label": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string",
+					"enum": ["range", "select", "font"]
+				},
+				"default": {},
+				"unit": {
+					"type": "string"
+				},
+				"locked": {
+					"type": "boolean"
+				},
+				"min": {
+					"type": "number"
+				},
+				"max": {
+					"type": "number"
+				},
+				"step": {
+					"type": "number"
+				},
+				"options": {
+					"type": "array",
+					"items": {
+						"$ref": "./design-tokens-schema.json#/$defs/option"
+					}
+				}
+			},
+			"required": ["variable", "label", "type", "default"],
 			"additionalProperties": false
 		},
 		"componentTokenReferenceSetting": {
@@ -131,6 +175,9 @@
 				},
 				"description": {
 					"type": "string"
+				},
+				"includeStateColors": {
+					"type": "boolean"
 				}
 			},
 			"required": ["token", "label"],

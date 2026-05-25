@@ -31,6 +31,33 @@
 		"font-size-100",
 		"font-size-200"
 	],
+	"componentSettings": [
+		{
+			"id": "colors",
+			"label": "Colors",
+			"description": "Variant color selection for button surfaces.",
+			"settings": [
+				{
+					"token": "color--primary",
+					"label": "Primary Variant",
+					"description": "Selects the token family used for primary button variants.",
+					"includeStateColors": true
+				},
+				{
+					"token": "color--secondary",
+					"label": "Secondary Variant",
+					"description": "Selects the token family used for secondary button variants.",
+					"includeStateColors": true
+				},
+				{
+					"token": "color--surface",
+					"label": "Default Variant",
+					"description": "Selects the token family used for default button variants.",
+					"includeStateColors": true
+				}
+			]
+		}
+	],
 	"description": "The Button component provides a reusable pattern for button in the interface.",
 	"tags": ["button", "component"],
 	"similarComponents": ["option", "box", "testimonials"],

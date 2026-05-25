@@ -3,6 +3,7 @@ import './controls/SelectControl';
 import './controls/ColorControl';
 import './controls/RgbaControl';
 import './controls/FontControl';
+import './controls/SwatchSelectControl';
 import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl, type TokenSetting } from './createDesignBuilderControls';
 
 describe('controls change handling', () => {
@@ -117,6 +118,49 @@ describe('controls change handling', () => {
 
 		expect(onChange).toHaveBeenCalledTimes(1);
 		expect(onChange).toHaveBeenCalledWith('--color-primary', '#00ff00');
+	});
+
+	it('emits linked token values for token-color controls', () => {
+		const setting: TokenSetting = {
+			variable: '--c-button--color--primary',
+			label: 'Primary color',
+			type: 'token-color',
+			default: 'var(--color--primary)',
+			options: [
+				{
+					value: 'var(--color--primary)',
+					label: 'Primary',
+					swatch: 'var(--color--primary)',
+					contrastSwatch: 'var(--color--primary-contrast)',
+				},
+				{
+					value: 'var(--color--secondary)',
+					label: 'Secondary',
+					swatch: 'var(--color--secondary)',
+					contrastSwatch: 'var(--color--secondary-contrast)',
+					extraValues: {
+						'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+					},
+				},
+			],
+		};
+		const onChange = jest.fn();
+
+		const row = createDesignBuilderControl(setting, 'var(--color--primary)', onChange);
+		document.body.appendChild(row);
+
+		const trigger = row.querySelector('.db-swatch-select-trigger') as HTMLButtonElement;
+		expect(trigger).toBeTruthy();
+		trigger.click();
+
+		const options = row.querySelectorAll<HTMLButtonElement>('.db-swatch-select-option');
+		expect(options.length).toBe(2);
+		options[1].click();
+
+		expect(onChange).toHaveBeenCalledTimes(1);
+		expect(onChange).toHaveBeenCalledWith('--c-button--color--primary', 'var(--color--secondary)', {
+			'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+		});
 	});
 
 	it('ignores native bubbling events for rgba controls and uses custom event detail value', () => {
