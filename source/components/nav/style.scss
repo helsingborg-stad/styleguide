@@ -12,10 +12,10 @@ $_: "c-nav";
     --#{$_}--font-size: var(--base-font-size);
     --#{$_}--background-expanded: rgba(0, 0, 0, .05);
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
-    --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface")};
-    --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--item-background-color: var(--inherit-background-color, #{tokens.getRawValue($_, "color--surface")});
+    --#{$_}--item-color: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--item-background-color-hover: transparent;
-    --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--item-color-hover: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
     display: flex;
     width: 100%;
@@ -378,6 +378,7 @@ $_: "c-nav";
 
     /* Setting parent title styles */
     .c-nav__extended-content h2:first-child.c-nav__extended-dropdown-title {
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         white-space: nowrap;
         margin-top: calc(#{tokens.getRawValue($_, "base")} * .5);
         color: tokens.getRawValue($_, "color--primary-contrast");
