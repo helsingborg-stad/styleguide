@@ -318,9 +318,7 @@ export class FullPageEditorRuntime {
 
 	private renderPaletteCategoryBody(category: TokenCategory): Array<HTMLElement> {
 		const groups = this.getPaletteFamilyGroups(category);
-		const items = groups
-			.filter((group) => this.activePaletteFamilies.has(group.family))
-			.map((group) => this.createPaletteFamilyElement(group));
+		const items = groups.filter((group) => this.activePaletteFamilies.has(group.family)).map((group) => this.createPaletteFamilyElement(group));
 
 		const nextGroup = groups.find((group) => !this.activePaletteFamilies.has(group.family));
 		if (nextGroup) {

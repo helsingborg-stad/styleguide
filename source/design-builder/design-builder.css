@@ -730,6 +730,13 @@
 	margin-top: 0.9rem;
 }
 
+db-control-row,
+db-readonly-control-row,
+db-swatch-band {
+	display: block;
+	width: 100%;
+}
+
 db-control-row .db-control-row {
 	display: grid;
 	grid-template-columns: var(--db-control-label-col) minmax(0, 1fr) var(--db-control-action-col);
@@ -752,7 +759,13 @@ db-readonly-control-row .db-control-row {
 	grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
 	grid-template-rows: auto;
 	gap: 0.5rem 1rem;
+	padding: 0.82rem 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--db-border) 70%, transparent);
 	opacity: 1;
+}
+
+db-readonly-control-row .db-control-row:last-child {
+	border-bottom: none;
 }
 
 .db-control-row-label {
@@ -1015,7 +1028,7 @@ swatch-select-control {
 .db-swatch-select-chip-contrast {
 	position: relative;
 	z-index: 1;
-	font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp', sans-serif;
+	font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp", sans-serif;
 	font-style: normal;
 	font-size: 1rem;
 	line-height: 1;
@@ -1026,14 +1039,14 @@ swatch-select-control {
 	justify-content: center;
 	white-space: nowrap;
 	direction: ltr;
-	font-feature-settings: 'liga';
+	font-feature-settings: "liga";
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-variation-settings:
-		'FILL' 1,
-		'wght' 500,
-		'GRAD' 0,
-		'opsz' 20;
+		"FILL" 1,
+		"wght" 500,
+		"GRAD" 0,
+		"opsz" 20;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -1226,7 +1239,9 @@ db-swatch-band .db-swatch-band-pct {
 }
 
 .db-builder-fullpage db-control-row .db-control-row,
-.db-builder-customizer db-control-row .db-control-row {
+.db-builder-fullpage db-readonly-control-row .db-control-row,
+.db-builder-customizer db-control-row .db-control-row,
+.db-builder-customizer db-readonly-control-row .db-control-row {
 	grid-template-columns: minmax(0, 1fr) auto;
 	grid-template-rows: auto auto;
 	row-gap: 0.45rem;
@@ -1235,7 +1250,8 @@ db-swatch-band .db-swatch-band-pct {
 	align-items: start;
 }
 
-.db-builder-customizer db-control-row .db-control-row {
+.db-builder-customizer db-control-row .db-control-row,
+.db-builder-customizer db-readonly-control-row .db-control-row {
 	min-width: 0;
 }
 
@@ -1330,7 +1346,9 @@ db-swatch-band .db-swatch-band-pct {
 	}
 
 	.db-builder-fullpage db-control-row .db-control-row,
-	.db-builder-customizer db-control-row .db-control-row {
+	.db-builder-fullpage db-readonly-control-row .db-control-row,
+	.db-builder-customizer db-control-row .db-control-row,
+	.db-builder-customizer db-readonly-control-row .db-control-row {
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-rows: auto auto;
 	}
@@ -1387,7 +1405,9 @@ db-swatch-band .db-swatch-band-pct {
 
 @container design-builder (max-width: 56rem) {
 	.db-builder-fullpage db-control-row .db-control-row,
-	.db-builder-customizer db-control-row .db-control-row {
+	.db-builder-fullpage db-readonly-control-row .db-control-row,
+	.db-builder-customizer db-control-row .db-control-row,
+	.db-builder-customizer db-readonly-control-row .db-control-row {
 		grid-template-columns: minmax(0, 1fr) auto;
 		grid-template-rows: auto auto;
 	}

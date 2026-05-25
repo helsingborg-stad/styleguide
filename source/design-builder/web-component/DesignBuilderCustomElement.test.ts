@@ -2,8 +2,8 @@ jest.mock('../shared/styling/designBuilderStyleText', () => ({
 	designBuilderStyles: '',
 }));
 
-import { registerDesignBuilderCustomElement, registerDesignBuilderModeAdapter } from './DesignBuilderCustomElement';
 import { normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
+import { registerDesignBuilderCustomElement, registerDesignBuilderModeAdapter } from './DesignBuilderCustomElement';
 import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderRootConfiguration } from './designBuilderRootContracts';
 
 describe('DesignBuilderCustomElement root attribute hydration', () => {
