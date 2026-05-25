@@ -61,6 +61,10 @@ $_: "c-modal";
         background-color: transparent;
         filter: none;
 
+        .#{$_}__header {
+            background-color: transparent;
+        }
+
         [data-component="button"].#{$_}__close {
             color: tokens.getRawValue($_, "color--alpha-contrast");
         }
@@ -142,6 +146,15 @@ $_: "c-modal";
             left: 0;
             height: tokens.getCalculatedValue($_, "border-width", 1);
             background-color: tokens.getRawValue($_, "color--surface-border");
+        }
+    }
+
+    &.#{$_}--transparent:not(.#{$_}--gallery) .#{$_}__header {
+        background-color: transparent;
+        border: none;
+
+        &:after {
+            content: unset;
         }
     }
 
