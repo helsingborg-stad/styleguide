@@ -18,6 +18,10 @@ $_: "c-drawer";
     .c-drawer__header {
         --drawer-background: #{tokens.getRawValue($_, "color--surface")};
     }
+
+    .c-nav {
+        --inherit-color: var(--color--surface-contrast);
+    }
 }
 
 .c-drawer.c-drawer--primary,
