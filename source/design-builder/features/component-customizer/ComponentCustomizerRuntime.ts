@@ -47,6 +47,7 @@ type ColorTokenSourceFamily = {
 const LOCAL_COLOR_SOURCE_CATEGORY_IDS = new Set(['colors-brand-palette', 'colors-brand', 'colors-layout', 'colors-ui', 'colors-state']);
 const STATE_COLOR_SOURCE_CATEGORY_ID = 'colors-state';
 const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
+const EXCLUDED_SWATCH_COLOR_FAMILIES = new Set(['alpha', 'focus']);
 
 export class ComponentCustomizerRuntime {
 	private componentData: ComponentTokenData;
@@ -989,6 +990,10 @@ export class ComponentCustomizerRuntime {
 		return Object.values(sourceFamily.variants).some((tokenName) => Boolean(tokenName && tokenOverrides[`--${tokenName}`]));
 	}
 
+	private isSelectableSwatchFamily(sourceFamily: ColorTokenSourceFamily): boolean {
+		return !EXCLUDED_SWATCH_COLOR_FAMILIES.has(sourceFamily.family) && this.isPaletteFamilyConfigured(sourceFamily);
+	}
+
 	private buildSelectableColorFamilies(includeStateColors: boolean): ColorTokenSourceFamily[] {
 		const families = new Map<string, ColorTokenSourceFamily>();
 
@@ -1027,7 +1032,7 @@ export class ComponentCustomizerRuntime {
 			}
 		}
 
-		return [...families.values()].filter((family) => Boolean(family.variants.base) && this.isPaletteFamilyConfigured(family));
+		return [...families.values()].filter((family) => Boolean(family.variants.base) && this.isSelectableSwatchFamily(family));
 	}
 
 	private buildColorLinkedDefaults(componentName: string, targetContrastTokens: string[]): Record<string, string> {

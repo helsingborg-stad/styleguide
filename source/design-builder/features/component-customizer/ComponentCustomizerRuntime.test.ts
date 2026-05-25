@@ -156,6 +156,31 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 				],
 			},
 			{
+				id: 'colors-ui',
+				label: 'UI Colors',
+				settings: [
+					{
+						variable: '--color--focus',
+						label: 'Focus',
+						type: 'color',
+						default: '#0066cc',
+					},
+					{
+						variable: '--color--alpha',
+						label: 'Alpha Color',
+						type: 'rgba',
+						default: 'rgba(0, 0, 0, 0.4)',
+						contrast: '--color--alpha-contrast',
+					},
+					{
+						variable: '--color--alpha-contrast',
+						label: 'Alpha Contrast',
+						type: 'color',
+						default: '#ffffff',
+					},
+				],
+			},
+			{
 				id: 'spacing',
 				label: 'Spacing',
 				settings: [
@@ -530,6 +555,12 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		expect(colorSetting?.options).not.toEqual(
 			expect.arrayContaining([
+				expect.objectContaining({
+					label: 'Focus',
+				}),
+				expect.objectContaining({
+					label: 'Alpha Color',
+				}),
 				expect.objectContaining({
 					label: 'Success',
 				}),
