@@ -4,6 +4,7 @@ $c: "c-segment";
 $_breakpoint-md: 896px;
 
 .#{$c}.#{$c}--split {
+  container-name: segment segment-split;
   flex-direction: row;
   align-items: center;
 
@@ -22,7 +23,7 @@ $_breakpoint-md: 896px;
   .#{$c}__slot {
     margin-top: tokens.getCalculatedValue($c, "base", 4);
 
-    @container segment (min-width: #{$_breakpoint-md}) {
+    @container segment-split (min-width: #{$_breakpoint-md}) {
       margin-top: tokens.getCalculatedValue($c, "base", 6);
     }
   }
@@ -31,7 +32,7 @@ $_breakpoint-md: 896px;
     flex-direction: row-reverse;
   }
 
-  @container segment (min-width: #{$_breakpoint-md}) {
+  @container segment-split (min-width: #{$_breakpoint-md}) {
 
     .#{$c}__image,
     .#{$c}__content {
