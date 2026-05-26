@@ -18,7 +18,7 @@ $_: "c-nav";
     --#{$_}--item-color-hover: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
-    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75) calc(#{tokens.getRawValue($_, "base")} * 1.5));
+    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75)  0);
     --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));
     --#{$_}--vertical-button-padding-compressed: var(--inherit-button-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5));
     display: flex;
