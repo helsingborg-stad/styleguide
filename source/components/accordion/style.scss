@@ -83,7 +83,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__content {
-        padding: var(--#{$_}--inset-padding);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
 
         &[aria-hidden="true"] {
             display: none;
