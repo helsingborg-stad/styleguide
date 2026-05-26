@@ -294,7 +294,9 @@ $_: "c-card";
         }
     }
 
+    /* TODO: when inner component can respect this, activate 
     .#{$_}__paint-container {
+
         @container (min-width: 500px) {
             display: flex;
             flex-wrap: wrap;
@@ -325,7 +327,9 @@ $_: "c-card";
                 flex-basis: calc(100% - 30%);
             }
         }
+        
     }
+    */
 }
 
 /* Hover effect for linked cards */
