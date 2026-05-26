@@ -1,3 +1,4 @@
+@use "sass:meta";
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
 
@@ -6,210 +7,40 @@ $_: "c-accordion";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
-:root {
-  interpolate-size: allow-keywords;
-}
 
-.c-test {
+.#{$_} {
+    --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     container-name: accordion;
     container-type: inline-size;
     contain: paint;
-
-    details {
-        display: grid;
-        max-height: 100px;
-        transition: max-height 600ms ease-out;
-    }
-
-    details::details-content {
-        transition: height 0.5s ease, content-visibility 0.5s ease allow-discrete;
-        height: 0;
-        overflow: clip;
-    }
-
-    details[open]::details-content {
-        height: auto;
-    }
-
-    summary {
-        display: flex;
-        align-items: center;
-        padding: calc(var(--c-accordion--space)*var(--base)*2);
-    }
-
-    /* States */
-    details[open] summary,
-    summary:hover {
-        background-color: var(--c-accordion--color--surface-alt);
-    }
-}
-
-/* Component */
-.#{$_} {
-    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
-    border-radius: inherit;
+    border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
     corner-shape: inherit;
-    contain: paint;
 
-    .#{$_}__button {
-        @include button.button-unstyled;
-        cursor: pointer;
-        text-decoration: none;
-        width: 100%;
-        color: tokens.getRawValue($_, "color--surface-contrast");
+    .#{$_}__heading {
+        display: grid;
+        gap: calc(tokens.getRawValue($_, "base") *  2);
+        grid-template-columns: var(--#{$_}--heading-columns);
+        padding: calc(tokens.getRawValue($_, "base") *  1) calc(tokens.getRawValue($_, "base") *  2);
+        padding-right: calc(tokens.getRawValue($_, "base") *  6);
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+    }
+    .#{$_}__heading-item {
+        font-size: #{tokens.getRawValue($_, "font-size-90")};
+    }
 
-        &:hover,
-        &:focus {
-            background-color: tokens.getRawValue($_, "color--surface-alt");
-            text-decoration: none;
-        }
+    /* Modifiers */
+    &.#{$_}--bordered {
+        border: var(--#{$_}--border);
 
-        .#{$_}__icon {
-            transition: ease .3s transform;
-        }
-
-        &[aria-expanded="true"] {
-            background-color: tokens.getRawValue($_, "color--surface-alt");
-
-            .#{$_}__icon {
-                transform: rotate(180deg);
-                transition: ease .3s transform;
-            }
+        > details:first-child {
+            border-top: none;
         }
     }
 
-    .#{$_}__button:focus>.#{$_}__button-wrapper {
-        outline-offset: 1px;
-        outline: 1px dashed tokens.getRawValue($_, "color--surface-border");
-    }
-
-    .#{$_}__section {
-        scroll-margin-top: var(--c-accordion--scroll-margin, 0);
-        border-color: tokens.getRawValue($_, "color--surface-border");
-        contain: paint;
-    }
-
-    .#{$_}__section+.#{$_}__section {
-        border-top: var(--#{$_}--border);
-    }
-
-    .#{$_}__button-wrapper {
-        padding: tokens.getCalculatedValue($_, "space", 2);
-        display: flex;
-        gap: tokens.getCalculatedValue($_, "space", 2);
-        align-items: center;
-        font-weight: var(--font-weight-bold, 700);
-        font-family: var(--font-family-bold, var(--font-family-base));
-    }
-
-    .#{$_}__icon {
-        margin-left: auto;
-
-        &:before {
-            display: inline-block;
-            transform: rotate(90deg);
-        }
-    }
-
-    .#{$_}__content {
-        padding: tokens.getCalculatedValue($_, "space", 2);
-
-        &[aria-hidden="true"] {
-            display: none;
-        }
-
-        &[aria-hidden="false"] {
-            display: block;
-            transition: ease .3s all;
-            animation-name: fadeIn;
-            animation-duration: .3s;
-            animation-fill-mode: both;
-            will-change: transform;
-        }
-
-        *:first-child {
-            margin-top: 0;
-        }
-    }
-
-    &.#{$_}--spaced-sections {
-        display: flex;
-        flex-flow: row wrap;
-        gap: tokens.getCalculatedValue($_, "space", 2);
-        padding: 0;
-
-        .#{$_}__section {
-            background-color: tokens.getRawValue($_, "color--surface");
-            border-radius: tokens.getCalculatedValue($_, "border-radius");
-            corner-shape: tokens.getRawValue($_, "corner-shape");
-            filter: tokens.getCalculatedValue($_, "shadow");
-            border: var(--#{$_}--border);
-            width: 100%;
-        }
-
-        .#{$_}__content {
-            border-top: var(--#{$_}--border);
-        }
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
+    &.#{$_}--spaced {
+        gap: calc(tokens.getRawValue($_, "base") *  4);
     }
 }
 
-/* Accordion with table columns */
-
-.accordion-table__head {
-    display: flex;
-    padding: var(--base, 8px) calc(var(--base, 8px) * 6) var(--base, 8px) calc(var(--base, 8px) * 3);
-    background: var(--color--background);
-    font-size: .8rem;
-}
-
-.accordion-table__head-column-icon,
-.c-accordion-table .c-icon {
-    flex-grow: 0;
-}
-
-.c-accordion__button .c-accordion__button-column,
-.accordion-table__head-column {
-    width: 20%;
-    flex-grow: 1;
-}
-
-.c-accordion__button .c-accordion__button-column,
-.c-accordion__button .c-accordion__button-wrapper {
-    --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
-    --inherit-margin-top: 0;
-    --inherit-margin-bottom: 0;
-}
-
-.c-accordion-table .c-accordion__button {
-    position: relative;
-}
-
-.c-accordion-table .c-accordion__icon,
-.c-accordion-table .c-accordion__button[aria-expanded="true"] .c-accordion__icon {
-    position: absolute;
-    right: calc(var(--base, 8px) * 3);
-}
-
-// Card that has accordion with spaced sections should have no background color
-.c-card:has(.c-accordion--spaced-sections) {
-    background-color: transparent;
-}
-
-/* Expand accordion when print page */
-@media print {
-
-    .c-accordion .c-accordion__content[aria-hidden="true"],
-    .c-accordion .c-accordion__content[aria-hidden="false"] {
-        display: block;
-    }
-}
+@include meta.load-css("./accordion-item");

@@ -1,15 +1,11 @@
-@paper(['padding' => 0])
-@accordion([])
-    @accordion__item([
-        'heading' => 'First item'
-    ])
-        First item content
-    @endaccordion__item
-
-    @accordion__item([
-        'heading' => 'Second Item'
-    ])
-        Second item content
-    @endaccordion__item
+@accordion(
+    [
+        'list'=> [
+            ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
+            ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
+            ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
+            ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."]
+        ]
+    ]
+)
 @endaccordion
-@endpaper

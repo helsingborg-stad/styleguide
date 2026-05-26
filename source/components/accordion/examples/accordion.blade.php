@@ -1,19 +1,14 @@
-@paper(['padding' => 0]) 
-    @accordion(
+@accordion([
+    'classList' => ['c-accordion'],
+    'list' => [
         [
-            'list'=> [
-                ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
-                ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
-                ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."],
-                ['heading' => "Your heading", 'content' => "Lorem ipsum dolor sit amet."]
-            ]
+            'heading' => ["My heading", 'Heading 2'],
+            'content' => "Lorem ipsum dolor sit amet."
         ]
-    )
-    @endaccordion
-@endpaper
-
-@element(['classList' => ['c-test']])
-<details>
+    ]
+])
+@endaccordion
+{{-- <details name="1">
   <summary>Title</summary>
   <div class="content">
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
@@ -22,4 +17,12 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
   </div>
 </details>
-@endelement
+<details name="2">
+  <summary>Title</summary>
+  <div class="content">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
+  </div>
+</details> --}}

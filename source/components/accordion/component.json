@@ -14,7 +14,9 @@
 		"corner-shape",
 		"shadow-color",
 		"shadow-amount",
-		"font-size-200"
+		"font-size-90",
+		"font-size-200",
+		"base"
 	],
 	"description": "The Accordion component provides a reusable pattern for accordion in the interface.",
 	"tags": ["accordion", "component"],

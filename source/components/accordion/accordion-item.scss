@@ -1,0 +1,61 @@
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-accordion__item";
+$token: "c-accordion";
+
+
+details.#{$_} {
+    --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
+    position: relative;
+    display: grid;
+    padding: calc(tokens.getRawValue($token, "base") *  2);
+
+    summary {
+        position: relative;
+        padding: calc(tokens.getRawValue($token, "base") *  2);
+        padding-right: calc(tokens.getRawValue($token, "base") *  6);
+        margin: calc(tokens.getRawValue($token, "base") *  -2);
+        list-style: none;
+        cursor: pointer;
+        display: grid;
+        gap: calc(tokens.getRawValue($token, "base") *  2);
+        grid-template-columns: var(--#{$_}--heading-columns);
+    }
+
+    .#{$_}__icon {
+        position: absolute;
+        right: calc(tokens.getRawValue($token, "base") *  2);
+        top: calc(tokens.getRawValue($token, "base") *  2);
+        transition: transform 0.2s ease;
+    }
+
+    .#{$_}__content {
+        margin-top: calc(tokens.getRawValue($token, "base") *  4);
+    }
+
+    &::details-content {
+        transition: height 0.3s ease, content-visibility 0.3s ease allow-discrete;
+        height: 0;
+        overflow: clip;
+    }
+
+    /* Modifiers */
+    &.#{$_}--bordered {
+        border-top: var(--#{$token}--border);
+    }
+    
+    /* States */
+    &[open] .#{$_}__icon {
+        transform: rotate(180deg);
+    }
+
+    &[open]::details-content {
+        height: auto;
+    }
+
+    &[open] summary,
+    &:hover summary {
+        background-color: tokens.getRawValue($token, "color--surface-alt");
+    }
+}
