@@ -63,8 +63,8 @@ $_: "c-card";
 
     .#{$_}__paint-container {
         --#{$_}--inset-multiplier: 1;
-        --#{$_}--inset-padding: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
-        --#{$_}--body-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
         --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
         --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
         contain: paint;
@@ -106,7 +106,7 @@ $_: "c-card";
     .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: var(--#{$_}--inset-padding);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
     }
 
     .#{$_}__content:not(:first-child) {
@@ -116,15 +116,13 @@ $_: "c-card";
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: var(--#{$_}--inset-padding);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         margin-top: auto;
         border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
         display: grid;
-        padding-top: var(--#{$_}--body-padding-y);
-        padding-bottom: var(--#{$_}--body-padding-y);
         gap: var(--#{$_}--content-gap);
         align-content: var(--#{$_}--content-alignment);
 
