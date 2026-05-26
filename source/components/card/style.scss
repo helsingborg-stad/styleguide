@@ -294,7 +294,7 @@ $_: "c-card";
         }
     }
 
-    /* TODO: when inner component can respect this, activate 
+
     .#{$_}__paint-container {
 
         @container (min-width: 500px) {
@@ -302,14 +302,15 @@ $_: "c-card";
             flex-wrap: wrap;
             flex-direction: row;
 
+            /* TODO: when inner component can respect this
             .#{$_}__header {
                 padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4);
             }
 
             .#{$_}__body {
                 padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4);
-
             }
+            */
 
             .#{$_}__footer {
                 flex: 1;
@@ -327,9 +328,8 @@ $_: "c-card";
                 flex-basis: calc(100% - 30%);
             }
         }
-        
+
     }
-    */
 }
 
 /* Hover effect for linked cards */
