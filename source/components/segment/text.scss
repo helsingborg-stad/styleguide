@@ -56,7 +56,7 @@ $_observe-breakpoint-xl: 1680px;
 
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-    --inherit-font-size: #{tokens.getRawValue($c, "font-size-700")};
+    --inherit-font-size: #{tokens.getRawValue($c, "font-size-600")};
   }
 
   .#{$c} .#{$c}__text {
@@ -68,7 +68,7 @@ $_observe-breakpoint-xl: 1680px;
 
   .#{$c} .#{$c}__title,
   .#{$c} .#{$c}__title :is(h1, h2, h3, h4, h5, h6, [class*="c-typography__variant--"]) {
-    --inherit-font-size: #{tokens.getRawValue($c, "font-size-800")};
+    --inherit-font-size: #{tokens.getRawValue($c, "font-size-600")};
   }
 
   .#{$c} .#{$c}__text {
