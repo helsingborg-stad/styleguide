@@ -4,6 +4,7 @@ $c: "c-segment";
 $_breakpoint-md: 896px;
 
 .#{$c}.#{$c}--featured {
+  container-name: segment segment-featured;
   flex-direction: row;
 
   .#{$c}__padder {
@@ -26,7 +27,7 @@ $_breakpoint-md: 896px;
   .#{$c}__slot {
     margin-top: tokens.getCalculatedValue($c, "base", 4);
 
-    @container segment (min-width: #{$_breakpoint-md}) {
+    @container segment-featured (min-width: #{$_breakpoint-md}) {
       margin-top: tokens.getCalculatedValue($c, "base", 6);
     }
   }
@@ -35,7 +36,7 @@ $_breakpoint-md: 896px;
     flex-direction: row-reverse;
   }
 
-  @container segment (min-width: #{$_breakpoint-md}) {
+  @container segment-featured (min-width: #{$_breakpoint-md}) {
     .#{$c}__image {
       padding: 0 tokens.getCalculatedValue($c, "space", 3);
       margin: tokens.getCalculatedValue($c, "space", 7) 0;
