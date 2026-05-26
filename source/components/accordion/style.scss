@@ -14,9 +14,9 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-    --inset-multiplier: var(--inherit-inset-multiplier, 1);
-    --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--inset-multiplier));
-    --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--inset-multiplier) * 0.75));
+    --#{$_}--inset-multiplier: var(--inherit-inset-multiplier, 1);
+    --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     border-radius: inherit;
     corner-shape: inherit;

@@ -25,11 +25,6 @@ $_: "c-card";
     --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--content-alignment: start;
-    --#{$_}--inset-multiplier: 1;
-    --#{$_}--inset-padding: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
-    --#{$_}--body-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
-    --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
-    --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -66,14 +61,12 @@ $_: "c-card";
         --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
     }
 
-    .#{$_}__header [data-component="button"],
-    .#{$_}__body [data-component="button"],
-    .#{$_}__content-after [data-component="button"],
-    .#{$_}__footer [data-component="button"] {
-        --inherit-size-multiplier: var(--#{$_}--inset-multiplier);
-    }
-
     .#{$_}__paint-container {
+        --#{$_}--inset-multiplier: 1;
+        --#{$_}--inset-padding: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--body-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
         contain: paint;
         border-radius: inherit;
         display: inherit;

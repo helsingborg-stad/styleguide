@@ -9,6 +9,11 @@
             ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
         ],
     ])
+        <div class="c-card__header">
+            <h3 class="c-card__heading">Heading</h3>
+        </div>
+
+
         @accordion([
             'list' => [
                 [
