@@ -1,6 +1,11 @@
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
 
+@property --inherit-inset-multiplier {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-accordion";
 
@@ -9,6 +14,9 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
+    --inset-multiplier: var(--inherit-inset-multiplier, 1);
+    --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--inset-multiplier));
+    --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--inset-multiplier) * 0.75));
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     border-radius: inherit;
     corner-shape: inherit;
@@ -57,7 +65,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__button-wrapper {
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         display: flex;
         gap: tokens.getCalculatedValue($_, "space", 2);
         align-items: center;
@@ -75,7 +83,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__content {
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding);
 
         &[aria-hidden="true"] {
             display: none;

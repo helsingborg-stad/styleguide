@@ -25,6 +25,11 @@ $_: "c-card";
     --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--content-alignment: start;
+    --#{$_}--inset-multiplier: 1;
+    --#{$_}--inset-padding: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--body-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -40,14 +45,14 @@ $_: "c-card";
     border: var(--#{$_}--border);
 
     /* switch to surface color tokens for nested components */
-    .c-paper,
-    .c-comment,
-    .c-button__filled--default {
-        --inherit-color-background: var(--color--background);
-        --inherit-color-contrast: var(--color--background-contrast);
+    [data-component="paper"],
+    [data-component="comment"],
+    [data-component="button"].c-button__filled--default {
+        --inherit-color-background: var(--color--surface);
+        --inherit-color-contrast: var(--color--surface-contrast);
     }
 
-    .#{$_}__image {
+    [data-component="image"] {
         --inherit-color-background: #{tokens.getRawValue($_, "color--surface-alt")};
         --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
         --c-image--border-radius: 0;
@@ -55,6 +60,17 @@ $_: "c-card";
 
     .c-image__placeholder {
         --inherit-border: none;
+    }
+
+    [data-component="accordion"] {
+        --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
+    }
+
+    .#{$_}__header [data-component="button"],
+    .#{$_}__body [data-component="button"],
+    .#{$_}__content-after [data-component="button"],
+    .#{$_}__footer [data-component="button"] {
+        --inherit-size-multiplier: var(--#{$_}--inset-multiplier);
     }
 
     .#{$_}__paint-container {
@@ -97,26 +113,26 @@ $_: "c-card";
     .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding);
     }
 
     .#{$_}__content:not(:first-child) {
-        margin-top: tokens.getCalculatedValue($_, "space");
+        margin-top: var(--#{$_}--stack-gap);
     }
 
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding);
         margin-top: auto;
         border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
         display: grid;
-        padding-top: tokens.getCalculatedValue($_, "space", 3);
-        padding-bottom: tokens.getCalculatedValue($_, "space", 3);
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        padding-top: var(--#{$_}--body-padding-y);
+        padding-bottom: var(--#{$_}--body-padding-y);
+        gap: var(--#{$_}--content-gap);
         align-content: var(--#{$_}--content-alignment);
 
         .#{$_}__content> :first-child {
@@ -142,9 +158,9 @@ $_: "c-card";
 
     &__date {
         display: flex;
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        gap: var(--#{$_}--content-gap);
         align-items: center;
-        margin-top: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-top: var(--#{$_}--content-gap);
     }
 
     &__dropdown {
@@ -297,20 +313,20 @@ $_: "c-card";
 
     .#{$_}__paint-container {
 
+        @container (min-width: 350px) {
+            --inherit-inset-multiplier: 1.5;
+            --#{$_}--inset-multiplier: 1.5;
+        }
+
+        @container (min-width: 500px) {
+            --inherit-inset-multiplier: 2;
+            --#{$_}--inset-multiplier: 2;
+        }
+
         @container (min-width: 500px) {
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
-
-            /* TODO: when inner component can respect this
-            .#{$_}__header {
-                padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4);
-            }
-
-            .#{$_}__body {
-                padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4);
-            }
-            */
 
             .#{$_}__footer {
                 flex: 1;
