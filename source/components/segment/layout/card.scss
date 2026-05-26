@@ -6,6 +6,7 @@ $_observe-breakpoint-md: 768px;
 
 .#{$c} {
   &.#{$c}--card {
+    container-name: segment segment-card;
     flex-direction: column;
     min-height: tokens.getRawValue($c, "min-height-card");
     flex-wrap: unset;
@@ -56,13 +57,13 @@ $_observe-breakpoint-md: 768px;
   }
 }
 
-@container segment (max-width: #{$_observe-breakpoint-md - 1px}) {
+@container segment-card (max-width: #{$_observe-breakpoint-md - 1px}) {
   .#{$c}--card .#{$c}__content {
     margin: calc(#{tokens.getCalculatedValue($c, "base", 4)} * -1) tokens.getCalculatedValue($c, "base", 2) 0 tokens.getCalculatedValue($c, "base", 2);
   }
 }
 
-@container segment (min-width: #{$_observe-breakpoint-sm}) {
+@container segment-card (min-width: #{$_observe-breakpoint-sm}) {
   .#{$c}--card .#{$c}__content {
     width: min(60%, tokens.getCalculatedValue($c, "base", 60));
     min-height: tokens.getCalculatedValue($c, "base", 40);
@@ -89,7 +90,7 @@ $_observe-breakpoint-md: 768px;
   }
 }
 
-@container segment (min-width: #{$_observe-breakpoint-md}) {
+@container segment-card (min-width: #{$_observe-breakpoint-md}) {
   .#{$c}--card {
     flex-direction: row;
   }
