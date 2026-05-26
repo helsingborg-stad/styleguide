@@ -27,12 +27,12 @@ $_: "c-group";
 
     @for $i from 1 through 12 {
         &.#{$_}--gap-#{$i} {
-            --grid-gap: #{tokens.getCalculatedValue($_, "base", $i)};
+            --#{$_}--grid-gap: #{tokens.getCalculatedValue($_, "base", $i)};
             gap: var(--#{$_}--grid-gap);
         }
 
         &.#{$_}--columns-#{$i} {
-            --#{$_}-column-width: calc((100% - var(--grid-gap, var(--base, 8px) * 4)) / #{$i});
+            --#{$_}-column-width: calc((100% - var(--#{$_}--grid-gap, #{tokens.getRawValue($_, "base")} * 4)) / #{$i});
 
             >* {
                 flex-basis: var(--#{$_}-column-width);
