@@ -16,6 +16,7 @@ $_: "c-accordion";
     contain: paint;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
     corner-shape: inherit;
+    display: grid;
 
     .#{$_}__heading {
         display: grid;
@@ -33,13 +34,37 @@ $_: "c-accordion";
     &.#{$_}--bordered {
         border: var(--#{$_}--border);
 
-        > details:first-child {
+        details {
+            border-top: var(--#{$_}--border);
+        }
+
+        &:not(.#{$_}--spaced) > details:first-child {
             border-top: none;
+        }
+
+        > * {
+            border-radius: 0;
+        }
+    }
+
+    &.#{$_}--divided details {
+        &:not(:first-child) {
+            border-top: var(--#{$_}--border);
         }
     }
 
     &.#{$_}--spaced {
         gap: calc(tokens.getRawValue($_, "base") *  4);
+
+        &.#{$_}--bordered {
+            border: unset;
+            border-radius: unset;
+
+            > * {
+                border: var(--#{$_}--border);
+                border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
+            }
+        }
     }
 }
 

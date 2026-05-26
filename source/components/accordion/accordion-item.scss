@@ -10,6 +10,7 @@ details.#{$_} {
     position: relative;
     display: grid;
     padding: calc(tokens.getRawValue($token, "base") *  2);
+    contain: paint;
 
     summary {
         position: relative;
@@ -38,11 +39,6 @@ details.#{$_} {
         transition: height 0.3s ease, content-visibility 0.3s ease allow-discrete;
         height: 0;
         overflow: clip;
-    }
-
-    /* Modifiers */
-    &.#{$_}--bordered {
-        border-top: var(--#{$token}--border);
     }
     
     /* States */

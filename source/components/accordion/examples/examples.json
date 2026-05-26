@@ -3,12 +3,16 @@
         "heading": "Accordion",
         "text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
     },
-    "slot": {
-        "heading": "Using a slot",
-        "text": "The accordion will see if you're using the slot. In this example we're using the sub component accordion item to fill the accordion with items"
+    "column-headings": {
+        "heading": "Using column headings"
     },
-    "spaced": {
-        "heading": "A accordion with spaced items",
-        "text": "This accordion style adds spacing between the items.."
+    "divider": {
+        "heading": "Using dividers between items"
+    },
+    "spacing": {
+        "heading": "Using spacing between items"
+    },
+    "no-border": {
+        "heading": "Using no border between items"
     }
 }
