@@ -9,6 +9,28 @@
             ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
         ],
     ])
+        <div class="c-card__header">
+            <h3 class="c-card__heading">Heading</h3>
+        </div>
+
+
+        @accordion([
+            'list' => [
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ],
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ],
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ]
+            ]
+        ])
+        @endaccordion
     @endcard
 </div>
 <br/>
@@ -27,5 +49,5 @@
 @typography([
     'variant' => 'meta'
 ])
-    Drag the container above, to see the card's container aware feature.
+    Drag the container above to see the card and nested accordion inherit the inset spacing.
 @endtypography

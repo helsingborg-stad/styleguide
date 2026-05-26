@@ -40,14 +40,14 @@ $_: "c-card";
     border: var(--#{$_}--border);
 
     /* switch to surface color tokens for nested components */
-    .c-paper,
-    .c-comment,
-    .c-button__filled--default {
-        --inherit-color-background: var(--color--background);
-        --inherit-color-contrast: var(--color--background-contrast);
+    [data-component="paper"],
+    [data-component="comment"],
+    [data-component="button"].c-button__filled--default {
+        --inherit-color-background: var(--color--surface);
+        --inherit-color-contrast: var(--color--surface-contrast);
     }
 
-    .#{$_}__image {
+    [data-component="image"] {
         --inherit-color-background: #{tokens.getRawValue($_, "color--surface-alt")};
         --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
         --c-image--border-radius: 0;
@@ -57,7 +57,16 @@ $_: "c-card";
         --inherit-border: none;
     }
 
+    [data-component="accordion"] {
+        --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
+    }
+
     .#{$_}__paint-container {
+        --#{$_}--inset-multiplier: 1;
+        --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
+        --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
+        --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
         contain: paint;
         border-radius: inherit;
         display: inherit;
@@ -97,26 +106,24 @@ $_: "c-card";
     .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
     }
 
     .#{$_}__content:not(:first-child) {
-        margin-top: tokens.getCalculatedValue($_, "space");
+        margin-top: var(--#{$_}--stack-gap);
     }
 
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         margin-top: auto;
         border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
         display: grid;
-        padding-top: tokens.getCalculatedValue($_, "space", 3);
-        padding-bottom: tokens.getCalculatedValue($_, "space", 3);
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        gap: var(--#{$_}--content-gap);
         align-content: var(--#{$_}--content-alignment);
 
         .#{$_}__content> :first-child {
@@ -142,9 +149,9 @@ $_: "c-card";
 
     &__date {
         display: flex;
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        gap: var(--#{$_}--content-gap);
         align-items: center;
-        margin-top: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-top: var(--#{$_}--content-gap);
     }
 
     &__dropdown {
@@ -297,20 +304,20 @@ $_: "c-card";
 
     .#{$_}__paint-container {
 
+        @container (min-width: 350px) {
+            --inherit-inset-multiplier: 1.5;
+            --#{$_}--inset-multiplier: 1.5;
+        }
+
+        @container (min-width: 500px) {
+            --inherit-inset-multiplier: 2;
+            --#{$_}--inset-multiplier: 2;
+        }
+
         @container (min-width: 500px) {
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
-
-            /* TODO: when inner component can respect this
-            .#{$_}__header {
-                padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4);
-            }
-
-            .#{$_}__body {
-                padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4);
-            }
-            */
 
             .#{$_}__footer {
                 flex: 1;
