@@ -1,6 +1,36 @@
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
 
+@property --inherit-background-color {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-color {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-padding {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-padding-compressed {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-button-padding {
+    syntax: "*";
+    inherits: false;
+}
+
+@property --inherit-button-padding-compressed {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-nav";
 

@@ -1,6 +1,11 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
+@property --inherit-color-background {
+  syntax: "*";
+  inherits: false;
+}
+
 $_: "c-timeline";
 
 @include tokens.create($_, getComponentTokens($_));
@@ -284,6 +289,7 @@ $_: "c-timeline";
     }
 
     &.#{$_}--sequential {
+
       .#{$_}__event__card,
       .#{$_}__event:nth-child(even) .#{$_}__event__card {
         margin-top: 0;
