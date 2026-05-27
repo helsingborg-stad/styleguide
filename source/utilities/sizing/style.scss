@@ -8,13 +8,11 @@ $sizings: (
     "75%",
     "100%",
     "auto",
-    "unset"
+    "unset",
 );
 
-$width: (
-);
-$height: (
-);
+$width: ();
+$height: ();
 
 @each $modifier in $sizings {
     $mod: (
@@ -31,8 +29,12 @@ $height: (
 }
 
 @include build-utility.build-utilities((
-    (name: "width",
-    modifiers: $width ),
-    (name: "height",
-        modifiers: $height )
+    (
+        name: "width",
+        modifiers: $width,
+    ),
+    (
+        name: "height",
+        modifiers: $height,
+    )
 ));

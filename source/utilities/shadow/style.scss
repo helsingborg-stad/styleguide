@@ -10,10 +10,14 @@
 $_: "u-shadow-*";
 
 /* Design tokens */
-@include tokens.create($_, ("shadow",
-"shadow-color",
+@include tokens.create(
+    $_,
+    (
+        "shadow",
+        "shadow-color",
         "shadow-amount",
-    ));
+    )
+);
 
 .u-box-shadow--1,
 .u-shadow--1 {

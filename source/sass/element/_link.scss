@@ -3,11 +3,14 @@
 /* Component name */
 $_: "c-link";
 
-@include tokens.create($_,
-("color--background",
+@include tokens.create(
+    $_,
+    (
+        "color--background",
         "color--background-contrast",
-        "color--background--contrast-muted"
-    ));
+        "color--background--contrast-muted",
+    )
+);
 
 a,
 .#{$_} {
@@ -38,6 +41,5 @@ a,
     &:visited:hover,
     &:visited:active {
         color: tokens.getRawValue($_, "color--background--contrast-muted");
-
     }
 }

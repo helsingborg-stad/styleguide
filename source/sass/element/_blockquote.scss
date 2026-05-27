@@ -15,11 +15,15 @@
 $_: "e-blockquote";
 
 /* Design tokens */
-@include tokens.create($_, ("border-radius",
-"space",
-    "color-secondary",
-    "color-secondary-contrast",
-  ));
+@include tokens.create(
+    $_,
+    (
+        "border-radius",
+        "space",
+        "color-secondary",
+        "color-secondary-contrast",
+    )
+);
 
 /* Element */
 .#{$_},

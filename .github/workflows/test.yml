@@ -50,3 +50,6 @@ jobs:
 
     - name: Run CSS validation (W3C)
       run: npm run test:css-validator
+
+    - name: Run CSS linting (Stylelint)
+      run: npm run lint:css
