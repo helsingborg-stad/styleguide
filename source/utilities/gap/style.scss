@@ -27,7 +27,7 @@ $mods: (
 }
 
 @include build-utility.build-utilities(((name: "gap",
-            modifiers: $mods)));
+modifiers: $mods)));
 
 // Temporary compatibility layer for legacy class names: .u-gap-4
 $legacy-mods: (

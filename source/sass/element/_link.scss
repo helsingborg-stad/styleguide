@@ -4,7 +4,7 @@
 $_: "c-link";
 
 @include tokens.create($_,
-    ("color--background",
+("color--background",
         "color--background-contrast",
         "color--background--contrast-muted"
     ));

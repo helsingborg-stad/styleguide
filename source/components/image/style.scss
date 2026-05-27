@@ -78,6 +78,7 @@ $_modal: "c-modal--gallery";
     }
 
     /* Modifiers */
+
     &--custom-width {
         width: auto;
     }
@@ -114,6 +115,7 @@ $_modal: "c-modal--gallery";
     }
 
     /* Inline images resized */
+
     &.is-resized {
         width: auto;
         display: inline;

@@ -11,6 +11,7 @@ $_: "c-loader";
     transform: translate(-50%, -50%);
 
     /* Loader circular  */
+
     &__circular {
         color: tokens.getRawValue($_, "color--surface-contrast");
         font-size: tokens.getCalculatedValue($_, "base", 2);
@@ -145,6 +146,7 @@ $_: "c-loader";
     }
 
     /* Loader linear */
+
     &__linear,
     &__linear:before,
     &__linear:after {
@@ -210,6 +212,7 @@ $_: "c-loader";
     }
 
     @keyframes loader--linear-anim {
+
         0%,
         80%,
         100% {

@@ -40,6 +40,7 @@ $_: "c-card";
     border: var(--#{$_}--border);
 
     /* switch to surface color tokens for nested components */
+
     [data-component="paper"],
     [data-component="comment"],
     [data-component="button"].c-button__filled--default {
@@ -207,7 +208,7 @@ $_: "c-card";
     &__header .c-icon {
         vertical-align: top;
 
-        &~ :is(h1, h2, h3, h4, h5, h6) {
+        &~:is(h1, h2, h3, h4, h5, h6) {
             display: inline;
         }
     }
@@ -300,7 +301,6 @@ $_: "c-card";
             background-color: var(--#{$_}--image-bg-svg);
         }
     }
-
 
     .#{$_}__paint-container {
 

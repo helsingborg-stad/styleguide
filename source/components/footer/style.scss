@@ -17,7 +17,7 @@ $_: "c-footer";
     --#{$_}--subfooter-color-text: var(--c-footer-subfooter-color-text, var(--color--black-100, #000));
     --#{$_}--subfooter-alignment: var(--c-footer-subfooter-alignment, center);
     --#{$_}--subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
-    --#{$_}--subfooter-color-separator: var(--c-footer-subfooter-color-separator, #A3A3A3);
+    --#{$_}--subfooter-color-separator: var(--c-footer-subfooter-color-separator, #a3a3a3);
     background-color: tokens.getRawValue($_, "color--surface");
     color: tokens.getRawValue($_, "color--surface-contrast");
 
@@ -102,6 +102,7 @@ $_: "c-footer";
     }
 
     // Logo
+
     &__logotype {
         height: var(--#{$_}--logotype-height);
 
@@ -201,11 +202,13 @@ $_: "c-footer";
         }
 
         // Logo
+
         &__logotype {
             height: var(--#{$_}--subfooter-logotype-height);
         }
 
         // Fix for separator dots showing on new lines
+
         &--align-flex-end {
             .#{$_}__subfooter__list {
                 margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);

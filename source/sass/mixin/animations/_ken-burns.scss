@@ -3,10 +3,12 @@
 }
 
 @keyframes ken-burns-animation {
+
     0% {
         transform-origin: bottom left;
         transform: scale(1.0);
     }
+
     100% {
         transform: scale(1.2);
     }

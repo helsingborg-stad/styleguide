@@ -8,42 +8,41 @@ $_inner: "u-preloader--inner";
 
 /** Adds preload like apperance of any component */
 .#{$_} {
-  --#{$_}--color: #{tokens.getRawValue($_, "color--surface")};
-  --#{$_}--color-shimmer: #{tokens.getRawValue($_, "color--surface-border")};
-  --#{$_}--shimmer: linear-gradient(90deg, var(--#{$_}--color) 8%, var(--#{$_}--color-shimmer) 18%, var(--#{$_}--color) 33%);
-  position: relative;
-  filter: unset !important;
-  cursor: default;
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color-shimmer: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--shimmer: linear-gradient(90deg, var(--#{$_}--color) 8%, var(--#{$_}--color-shimmer) 18%, var(--#{$_}--color) 33%);
+    position: relative;
+    filter: unset !important;
+    cursor: default;
 
-  &:after,
-  &:before {
-    content: "";
-    border-radius: inherit;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: placeHolderShimmer;
-    animation-timing-function: linear;
-    background: #f6f7f8;
-    background: var(--#{$_}--shimmer);
-    background-size: 200% 100%;
-    inset: 0;
-    position: absolute;
-  }
-
-  * {
-    visibility: hidden;
-  }
-
-  @for $i from 1 through 10 {
-    &__opacity--#{$i} {
-
-      &:after,
-      &:before {
-        opacity: #{$i * 0.1};
-      }
+    &:after,
+    &:before {
+        content: "";
+        border-radius: inherit;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        background: var(--#{$_}--shimmer);
+        background-size: 200% 100%;
+        inset: 0;
+        position: absolute;
     }
-  }
+
+    * {
+        visibility: hidden;
+    }
+
+    @for $i from 1 through 10 {
+        &__opacity--#{$i} {
+
+            &:after,
+            &:before {
+                opacity: #{$i * 0.1};
+            }
+        }
+    }
 }
 
 /**
@@ -63,100 +62,100 @@ $_inner: "u-preloader--inner";
  * within content-rich components, enhancing user experience during asynchronous operations.
  */
 .#{$_inner} {
-  --#{$_inner}--color: #{tokens.getRawValue($_inner, "color--surface")};
-  --#{$_inner}--color-shimmer: #{tokens.getRawValue($_inner, "color--surface-border")};
-  --#{$_inner}--shimmer: linear-gradient(90deg, var(--#{$_inner}--color) 8%, var(--#{$_inner}--color-shimmer) 18%, var(--#{$_inner}--color) 33%);
-  &.#{$_}--exclude {
+    --#{$_inner}--color: #{tokens.getRawValue($_inner, "color--surface")};
+    --#{$_inner}--color-shimmer: #{tokens.getRawValue($_inner, "color--surface-border")};
+    --#{$_inner}--shimmer: linear-gradient(90deg, var(--#{$_inner}--color) 8%, var(--#{$_inner}--color-shimmer) 18%, var(--#{$_inner}--color) 33%);
+    &.#{$_}--exclude {
+
+        .c-datebadge {
+            visibility: hidden !important;
+        }
+    }
+
+    .#{$_}--exclude {
+        visibility: hidden !important;
+    }
+
+    .c-typography,
+    .c-button,
+    .c-avatar,
+    .c-field,
+    .c-option,
+    .c-select,
+    .c-option,
+    .c-link,
+    .c-image,
+    .c-table__column-content,
+    .c-date,
     .c-datebadge {
-      visibility: hidden !important;
-    }
-  }
+        contain: layout paint;
+        filter: unset !important;
+        cursor: default;
+        background: unset;
+        color: transparent;
 
-  .#{$_}--exclude {
-    visibility: hidden !important;
-  }
+        &:after,
+        &:before {
+            content: "";
+            contain: paint;
+            border-radius: tokens.getCalculatedValue($_inner, "border-radius");
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: placeHolderShimmer;
+            animation-timing-function: linear;
+            background: var(--#{$_inner}--shimmer);
+            background-size: 200% 100%;
+            inset: 0;
+            position: absolute;
+        }
 
-  .c-typography,
-  .c-button,
-  .c-avatar,
-  .c-field,
-  .c-option,
-  .c-select,
-  .c-option,
-  .c-link,
-  .c-image,
-  .c-table__column-content,
-  .c-date,
-  .c-datebadge {
-    contain: layout paint;
-    filter: unset !important;
-    cursor: default;
-    background: unset;
-    color: transparent;
-
-    &:after,
-    &:before {
-      content: "";
-      contain: paint;
-      border-radius: tokens.getCalculatedValue($_inner, "border-radius");
-      animation-duration: 2s;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-name: placeHolderShimmer;
-      animation-timing-function: linear;
-      background: #f6f7f8;
-      background: var(--#{$_inner}--shimmer);
-      background-size: 200% 100%;
-      inset: 0;
-      position: absolute;
+        * {
+            opacity: 0;
+        }
     }
 
-    * {
-      opacity: 0;
-    }
-  }
-
-  .c-table__column-content {
-    display: block;
-  }
-
-  .c-icon {
-    display: inline-flex;
-    contain: layout paint;
-    filter: unset !important;
-    cursor: default;
-    background: unset;
-    color: transparent;
-    aspect-ratio: 1/1;
-
-    &:before {
-      content: "";
-      contain: paint;
-      border-radius: 50%;
-      animation-duration: 2s;
-      animation-fill-mode: forwards;
-      animation-iteration-count: infinite;
-      animation-name: placeHolderShimmer;
-      animation-timing-function: linear;
-      background: #f6f7f8;
-      background: var(--#{$_inner}--shimmer);
-      background-size: 200% 100%;
-      inset: 0;
-      position: absolute;
+    .c-table__column-content {
+        display: block;
     }
 
-    &:after {
-      opacity: 0;
+    .c-icon {
+        display: inline-flex;
+        contain: layout paint;
+        filter: unset !important;
+        cursor: default;
+        background: unset;
+        color: transparent;
+        aspect-ratio: 1/1;
+
+        &:before {
+            content: "";
+            contain: paint;
+            border-radius: 50%;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: placeHolderShimmer;
+            animation-timing-function: linear;
+            background: var(--#{$_inner}--shimmer);
+            background-size: 200% 100%;
+            inset: 0;
+            position: absolute;
+        }
+
+        &:after {
+            opacity: 0;
+        }
     }
-  }
 }
 
 @keyframes placeHolderShimmer {
-  0% {
-    background-position: 200% 0;
-  }
 
-  100% {
-    background-position: -200% 0;
-  }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }

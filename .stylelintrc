@@ -39,7 +39,7 @@
         "at-rule-semicolon-space-before": "never",
         "linebreaks": "unix",
         "max-empty-lines": 1,
-        "max-line-length": 100,
+        "max-line-length": null,
         "no-eol-whitespace": true,
         "no-empty-first-line": true
     }

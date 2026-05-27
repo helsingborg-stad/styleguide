@@ -26,7 +26,7 @@
             order: #{$i};
         }
     }
-    
+
     /* Columns & Span */
     @for $i from 1 through 12 {
         &--cols-#{$i} {
@@ -43,21 +43,33 @@
     }
 
     /* Rows */
+
     &--grid-auto-rows-auto { grid-auto-rows: auto; }
+
     &--grid-auto-rows-min-content { grid-auto-rows: min-content; }
+
     &--grid-auto-rows-max-content { grid-auto-rows: max-content; }
+
     &--grid-auto-rows-equal { grid-auto-rows: 1fr; }
 
     /* Alignment helpers (for the inner items) */
-    &--align-start   { align-self: start; }
-    &--align-center  { align-self: center; }
-    &--align-end     { align-self: end; }
+
+    &--align-start { align-self: start; }
+
+    &--align-center { align-self: center; }
+
+    &--align-end { align-self: end; }
+
     &--align-stretch { align-self: stretch; }
 
     /* Justify helpers (for the inner items) */
-    &--justify-start   { justify-self: start; }
-    &--justify-center  { justify-self: center; }
-    &--justify-end     { justify-self: end; }
+
+    &--justify-start { justify-self: start; }
+
+    &--justify-center { justify-self: center; }
+
+    &--justify-end { justify-self: end; }
+
     &--justify-stretch { justify-self: stretch; }
 
     /* Responsive Variants (Media Queries) */
@@ -103,15 +115,15 @@
             &--grid-auto-rows-equal\@#{$breakpoint} { grid-auto-rows: 1fr; }
 
             // Align (responsive)
-            &--align-start\@#{$breakpoint}   { align-self: start; }
-            &--align-center\@#{$breakpoint}  { align-self: center; }
-            &--align-end\@#{$breakpoint}     { align-self: end; }
+            &--align-start\@#{$breakpoint} { align-self: start; }
+            &--align-center\@#{$breakpoint} { align-self: center; }
+            &--align-end\@#{$breakpoint} { align-self: end; }
             &--align-stretch\@#{$breakpoint} { align-self: stretch; }
 
             // Justify (responsive)
-            &--justify-start\@#{$breakpoint}   { justify-self: start; }
-            &--justify-center\@#{$breakpoint}  { justify-self: center; }
-            &--justify-end\@#{$breakpoint}     { justify-self: end; }
+            &--justify-start\@#{$breakpoint} { justify-self: start; }
+            &--justify-center\@#{$breakpoint} { justify-self: center; }
+            &--justify-end\@#{$breakpoint} { justify-self: end; }
             &--justify-stretch\@#{$breakpoint} { justify-self: stretch; }
         }
     }
@@ -159,15 +171,15 @@
             &--grid-auto-rows-equal\@cq-#{$container-breakpoint} { grid-auto-rows: 1fr; }
 
             // Align (responsive)
-            &--align-start\@cq-#{$container-breakpoint}   { align-self: start; }
-            &--align-center\@cq-#{$container-breakpoint}  { align-self: center; }
-            &--align-end\@cq-#{$container-breakpoint}     { align-self: end; }
+            &--align-start\@cq-#{$container-breakpoint} { align-self: start; }
+            &--align-center\@cq-#{$container-breakpoint} { align-self: center; }
+            &--align-end\@cq-#{$container-breakpoint} { align-self: end; }
             &--align-stretch\@cq-#{$container-breakpoint} { align-self: stretch; }
 
             // Justify (responsive)
-            &--justify-start\@cq-#{$container-breakpoint}   { justify-self: start; }
-            &--justify-center\@cq-#{$container-breakpoint}  { justify-self: center; }
-            &--justify-end\@cq-#{$container-breakpoint}     { justify-self: end; }
+            &--justify-start\@cq-#{$container-breakpoint} { justify-self: start; }
+            &--justify-center\@cq-#{$container-breakpoint} { justify-self: center; }
+            &--justify-end\@cq-#{$container-breakpoint} { justify-self: end; }
             &--justify-stretch\@cq-#{$container-breakpoint} { justify-self: stretch; }
         }
     }

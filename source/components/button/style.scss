@@ -37,26 +37,26 @@ $button-inherit-background: var(--inherit-color-background, #{tokens.getRawValue
  */
 $button-variants: (
     "primary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--primary")),
-        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary-contrast")),
-        "border": tokens.getRawValue($_, "color--primary-border"),
-        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--primary-border")),
-        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--primary-alt")),
-        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary")),
-        "stroke": tokens.getRawValue($_, "color--primary")),
+    "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary-contrast")),
+    "border": tokens.getRawValue($_, "color--primary-border"),
+    "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--primary-border")),
+    "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--primary-alt")),
+    "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--primary")),
+    "stroke": tokens.getRawValue($_, "color--primary")),
     "secondary": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--secondary")),
-        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary-contrast")),
-        "border": tokens.getRawValue($_, "color--secondary-border"),
-        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--secondary-border")),
-        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--secondary-alt")),
-        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary")),
-        "stroke": tokens.getRawValue($_, "color--secondary")),
+    "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary-contrast")),
+    "border": tokens.getRawValue($_, "color--secondary-border"),
+    "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--secondary-border")),
+    "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--secondary-alt")),
+    "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--secondary")),
+    "stroke": tokens.getRawValue($_, "color--secondary")),
     "default": ("bg": var(--inherit-color-background, tokens.getRawValue($_, "color--surface-alt")),
-        "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast")),
-        "border": tokens.getRawValue($_, "color--surface-border"),
-        "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--surface-border")),
-        "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--surface-alt")),
-        "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast-muted")),
-        "stroke": tokens.getRawValue($_, "color--surface-contrast"))
+    "fg": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast")),
+    "border": tokens.getRawValue($_, "color--surface-border"),
+    "hover": var(--inherit-color-background-hover, tokens.getRawValue($_, "color--surface-border")),
+    "active": var(--inherit-color-background-active, tokens.getRawValue($_, "color--surface-alt")),
+    "underline": var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast-muted")),
+    "stroke": tokens.getRawValue($_, "color--surface-contrast"))
 );
 
 .#{$_} {
@@ -113,6 +113,7 @@ $button-variants: (
 }
 
 @keyframes c-button-rotation {
+
     0% {
         transform: rotate(0deg);
     }
@@ -132,24 +133,24 @@ $button-variants: (
  */
 $button-sizes: (
     "lg": ("height": 8,
-        "min-width": 12,
-        "padding-x": 5,
-        "offset": -1.5,
-        "loader": 4,
-        "font-size": var(--#{$_}--font-size-lg)),
+    "min-width": 12,
+    "padding-x": 5,
+    "offset": -1.5,
+    "loader": 4,
+    "font-size": var(--#{$_}--font-size-lg)),
     "md": ("height": 6,
-        "min-width": 9,
-        "padding-x": 4,
-        "offset": -1,
-        "loader": null,
-        "font-size": var(--#{$_}--font-size-md)),
+    "min-width": 9,
+    "padding-x": 4,
+    "offset": -1,
+    "loader": null,
+    "font-size": var(--#{$_}--font-size-md)),
     "sm": ("height": 4.5,
-        "min-width": 6.75,
-        "padding-x": 2,
-        "offset": -0.5,
-        "loader": 2,
-        "font-size": var(--#{$_}--font-size-sm),
-        "letter-spacing": 0.1rem)
+    "min-width": 6.75,
+    "padding-x": 2,
+    "offset": -0.5,
+    "loader": 2,
+    "font-size": var(--#{$_}--font-size-sm),
+    "letter-spacing": 0.1rem)
 );
 
 /* Component base */
@@ -194,6 +195,7 @@ $button-sizes: (
     }
 
     /* Working state: hides icon, shows spinner */
+
     &.is-working {
         .#{$_}__label-icon {
             display: none;
@@ -206,6 +208,7 @@ $button-sizes: (
     }
 
     /* Disabled state */
+
     &:disabled {
         cursor: not-allowed;
 
@@ -215,6 +218,7 @@ $button-sizes: (
     }
 
     /* Full width */
+
     &__full-width {
         width: 100%;
         display: flex;
@@ -331,7 +335,7 @@ $button-sizes: (
                     margin-left: 0;
                 }
 
-                .c-icon::after {
+                .c-icon:after {
                     vertical-align: baseline;
                 }
             }
@@ -435,6 +439,7 @@ $button-sizes: (
     }
 
     &.#{$_}__basic {
+
         &:before {
             content: "";
             position: absolute;
@@ -449,6 +454,7 @@ $button-sizes: (
         }
 
         &[aria-pressed="true"] {
+
             &:before {
                 width: 80%;
                 border-color: var(--_color);

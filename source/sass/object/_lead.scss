@@ -1,6 +1,5 @@
 @use "../setting/var_fonts";
 
-
 $lead-font-size: var(--lead-font-size, var_fonts.$font-size-lead);
 $lead-line-height: var(--lead-line-height, var_fonts.$line-height-base);
 $lead-font-weight: var(--lead-font-weight, var_fonts.$font-weight-medium);

@@ -32,12 +32,14 @@ $_: "c-breadcrumb";
         color: tokens.getRawValue($_, "color--background-contrast-muted");
 
         @include mq.mq($until: "sm") {
+
             &:not(:nth-last-child(2)) {
                 display: none;
             }
 
             &:nth-last-child(2) {
-                [data-material-symbol="home"]::after {
+
+                [data-material-symbol="home"]:after {
                     content: "chevron_right";
                 }
             }

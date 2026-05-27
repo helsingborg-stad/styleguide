@@ -37,7 +37,6 @@ $_: "c-nav";
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
 
-
 .c-nav {
     --#{$_}--font-size: var(--base-font-size);
     --#{$_}--background-expanded: rgba(0, 0, 0, .05);
@@ -114,6 +113,7 @@ $_: "c-nav";
         }
 
         &.c-nav__item--separator {
+
             .c-nav__item-wrapper {
                 background-color: #{tokens.getRawValue($_, "color--primary-contrast")};
             }
@@ -143,6 +143,7 @@ $_: "c-nav";
     }
 
     // Horizontal
+
     &.c-nav--horizontal {
         flex-direction: row;
 
@@ -209,6 +210,7 @@ $_: "c-nav";
     }
 
     // Vertical
+
     &.c-nav--vertical {
         flex-direction: column;
 
@@ -229,6 +231,7 @@ $_: "c-nav";
         }
 
         &.c-nav--compressed {
+
             .c-nav__link {
                 padding: var(--#{$_}--vertical-link-padding-compressed);
             }
@@ -251,7 +254,9 @@ $_: "c-nav";
         }
 
         // Drawer
+
         &.c-nav--drawer {
+
             &.c-nav--bordered {
                 border-bottom: 1px solid var(--#{$_}--item-border-color);
 
@@ -313,9 +318,11 @@ $_: "c-nav";
 }
 
 /* Extended Dropdown */
+
 .c-nav.c-nav--extended-dropdown {
 
     // Change preloader styles
+
     .c-nav.preloader>li {
         position: relative;
     }
@@ -334,6 +341,7 @@ $_: "c-nav";
     }
 
     /* Removing animation */
+
     .c-nav.c-nav--child {
         animation: none;
         position: relative;
@@ -342,6 +350,7 @@ $_: "c-nav";
     }
 
     /* Opening subitems animation */
+
     .c-nav.c-nav__extended-child-menu .c-nav__item.is-open>.c-nav__child-container {
         grid-template-rows: 1fr;
     }
@@ -358,11 +367,13 @@ $_: "c-nav";
     }
 
     /* Opening main items animation */
+
     .c-nav__item.is-open .c-nav__extended-dropdown-container {
         transform: scaleY(1);
     }
 
     /* Container */
+
     .c-nav__extended-dropdown-container {
         transform-origin: top;
         transform: scaleY(0);
@@ -393,12 +404,14 @@ $_: "c-nav";
         position: relative;
 
         // Only affect the "main subitems"
+
         &>.c-nav__child-container>ul>li {
             padding-left: calc(#{tokens.getRawValue($_, "base")} * 4);
             padding-right: calc(#{tokens.getRawValue($_, "base")} * 4);
         }
 
         // Only affect the "main subitems"
+
         &>.c-nav__child-container>ul>li {
             padding-left: calc(#{tokens.getRawValue($_, "base")} * 4);
             padding-right: calc(#{tokens.getRawValue($_, "base")} * 4);
@@ -411,6 +424,7 @@ $_: "c-nav";
     }
 
     /* Setting parent title styles */
+
     .c-nav__extended-content h2:first-child.c-nav__extended-dropdown-title {
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         white-space: nowrap;
@@ -423,8 +437,8 @@ $_: "c-nav";
     }
 
     /* Direct subitems (to main item) styles */
-    &>li ul.c-nav__extended-child-menu {
 
+    &>li ul.c-nav__extended-child-menu {
 
         display: grid;
         grid-auto-flow: column;
@@ -435,7 +449,7 @@ $_: "c-nav";
         ul.c-nav.c-nav--child {
             background-color: var(--#{$_}--background-expanded);
 
-            &::after {
+            &:after {
                 content: none;
                 display: none;
             }
@@ -453,6 +467,7 @@ $_: "c-nav";
 }
 
 /* Vertical Navigation */
+
 .c-nav.c-nav.c-nav--vertical {
     font-size: var(--#{$_}--font-size);
 
@@ -487,6 +502,7 @@ $_: "c-nav";
 
 // Dropdown animation
 @keyframes c-nav-popout {
+
     0% {
         transform: translateY(120%);
         opacity: 0;
@@ -508,6 +524,7 @@ $_: "c-nav";
 
 // Active state animation
 @keyframes c-nav-hover-bounce {
+
     0% {
         width: 0;
     }
@@ -522,6 +539,7 @@ $_: "c-nav";
 }
 
 @keyframes blink {
+
     0% {}
 
     25% {

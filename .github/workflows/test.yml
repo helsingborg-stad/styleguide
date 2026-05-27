@@ -39,6 +39,9 @@ jobs:
     - name: Run tests (Jest)
       run: npm test
 
+    - name: Run typecheck (TypeScript)
+      run: npm run typecheck
+
     - name: Run Tests (PHPUnit)
       run: composer test
 

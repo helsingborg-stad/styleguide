@@ -5,7 +5,7 @@ $_: "o-body";
 
 /* Design tokens */
 @include tokens.create($_, ("color--background",
-        "color--background-contrast",
+"color--background-contrast",
     ));
 
 /* Object */

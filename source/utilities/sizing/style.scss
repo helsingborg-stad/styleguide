@@ -20,19 +20,19 @@ $height: (
     $mod: (
         string-replace.str-replace($modifier, "%"): ("width": $modifier)
     );
-$width: map.merge($width, $mod);
+    $width: map.merge($width, $mod);
 }
 
 @each $modifier in $sizings {
     $mod: (
         string-replace.str-replace($modifier, "%"): ("height": $modifier)
     );
-$height: map.merge($height, $mod);
+    $height: map.merge($height, $mod);
 }
 
 @include build-utility.build-utilities((
     (name: "width",
-        modifiers: $width ),
+    modifiers: $width ),
     (name: "height",
         modifiers: $height )
 ));

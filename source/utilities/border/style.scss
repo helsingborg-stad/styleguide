@@ -5,20 +5,20 @@ $_: "u-border*";
 $responsive-breakpoints: xs, sm, md, lg;
 $responsive-border-resets: (
     ".u-border--0": ("border-width": 0,
-    ),
-    ".u-border__top--0": ("border-top-width": 0,
-    ),
-    ".u-border__right--0": ("border-right-width": 0,
-    ),
-    ".u-border__bottom--0": ("border-bottom-width": 0,
-    ),
-    ".u-border__left--0": ("border-left-width": 0,
-    ),
+),
+".u-border__top--0": ("border-top-width": 0,
+),
+".u-border__right--0": ("border-right-width": 0,
+),
+".u-border__bottom--0": ("border-bottom-width": 0,
+),
+".u-border__left--0": ("border-left-width": 0,
+),
 );
 
 /* Design tokens */
 @include tokens.create($_, ("border-width",
-        "color--surface-border",
+"color--surface-border",
         "color--primary-border",
         "color--secondary-border",
         "color--success-border",
@@ -98,6 +98,7 @@ $responsive-border-resets: (
 /**************************************
 * Border Sides Resetter
 **************************************/
+
 .u-border__top,
 .u-border__right,
 .u-border__bottom,
@@ -147,7 +148,6 @@ $responsive-border-resets: (
     border-right-width: tokens.getCalculatedValue($_, "border-width", 2);
 }
 
-
 /**************************************
 * Border Bottom
 **************************************/
@@ -191,6 +191,7 @@ $responsive-border-resets: (
 /**************************************
 * Border Styles
 **************************************/
+
 .u-border__style--solid {
     border-style: solid;
 }
