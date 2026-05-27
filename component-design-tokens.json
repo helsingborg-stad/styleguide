@@ -859,11 +859,9 @@
       "color--surface",
       "color--surface-contrast",
       "color--primary",
-      "color--primary-alt",
       "color--primary-contrast",
       "color--primary-border",
       "color--secondary",
-      "color--secondary-alt",
       "color--secondary-contrast",
       "color--secondary-border",
       "base"
