@@ -161,6 +161,7 @@ function normalizeValidatorText(value: string): string {
  */
 function formatFailureMessage(results: BundleValidationResult[]): string {
 	return results
+		.filter((result) => result.issues.length > 0)
 		.map((result) => {
 			const relativeBundlePath = path.relative(projectRoot, result.bundle);
 			const activeIssues = result.issues
@@ -170,13 +171,11 @@ function formatFailureMessage(results: BundleValidationResult[]): string {
 					return `- [${issue.severity}]${lineSuffix} ${issue.message ?? 'Unknown issue'}${contextSuffix}`;
 				})
 				.join('\n');
-			const ignoredIssues = result.ignoredIssues.map((issue) => `- [${issue.severity}] ${issue.message ?? 'Unknown issue'}`).join('\n');
 
 			return [
 				`${relativeBundlePath}`,
-				`Reported errors: ${result.responseSummary.errorcount ?? 0}, warnings: ${result.responseSummary.warningcount ?? 0}`,
-				result.ignoredIssues.length > 0 ? `Ignored issues:\n${ignoredIssues}` : 'Ignored issues: none',
-				result.issues.length > 0 ? `Remaining issues:\n${activeIssues}` : 'Remaining issues: none',
+				`Reported errors: ${result.responseSummary.errorcount ?? 0}, warnings: ${result.responseSummary.warningcount ?? 0} (${result.ignoredIssues.length} suppressed by ignore list)`,
+				`Remaining issues:\n${activeIssues}`,
 			].join('\n');
 		})
 		.join('\n\n');
@@ -194,7 +193,7 @@ describe('CssBuiltOutputValidation', () => {
 			const resultsWithIssues = results.filter((result) => result.issues.length > 0);
 
 			if (resultsWithIssues.length > 0) {
-				throw new Error(formatFailureMessage(results));
+				throw new Error(formatFailureMessage(resultsWithIssues));
 			}
 		},
 		120000,

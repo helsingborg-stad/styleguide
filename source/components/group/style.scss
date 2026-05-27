@@ -32,7 +32,7 @@ $_: "c-group";
         }
 
         &.#{$_}--columns-#{$i} {
-            --#{$_}-column-width: calc((100% - var(--#{$_}--grid-gap, #{tokens.getRawValue($_, "base")} * 4)) / #{$i});
+            --#{$_}-column-width: calc((100% - var(--#{$_}--grid-gap, calc(#{tokens.getRawValue($_, "base")} * 4))) / #{$i});
 
             >* {
                 flex-basis: var(--#{$_}-column-width);

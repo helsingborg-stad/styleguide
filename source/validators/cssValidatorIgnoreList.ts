@@ -7,12 +7,23 @@ export interface CssValidatorIgnoreRule {
 
 export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 	{
-		messageIncludes: "Property corner-shape doesn't exist",
+		messageIncludes: '"corner-shape" doesn\'t exist',
 		type: 'error',
 	},
 	{
 		messageIncludes: 'Unrecognized at-rule "@property"',
-		type: 'warning',
+	},
+	{
+		messageIncludes: 'Unrecognized at-rule "@container"',
+		type: 'error',
+	},
+	{
+		messageIncludes: 'Property "container-name" doesn\'t exist',
+		type: 'error',
+	},
+	{
+		messageIncludes: 'Invalid type:',
+		type: 'error',
 	},
 	{
 		messageIncludes: 'text-wrap',

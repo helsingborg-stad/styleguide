@@ -33,3 +33,9 @@ jobs:
 
     - name: Run Tests (PHPUnit)
       run: composer test
+
+    - name: Build CSS
+      run: npm run build
+
+    - name: Run CSS validation (W3C)
+      run: npm run test:css-validator
