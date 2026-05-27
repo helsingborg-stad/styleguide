@@ -54,6 +54,9 @@ $_: "c-testimonials";
     }
 
     .c-testimonial__image {
+        --inherit-width: 100%;
+        --inherit-height: 100%;
+        --inherit-object-fit: cover;
         width: tokens.getCalculatedValue($_, "base", 11);
         max-height: tokens.getCalculatedValue($_, "base", 14);
         border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
@@ -61,12 +64,6 @@ $_: "c-testimonials";
         overflow: hidden;
         filter: tokens.getCalculatedValue($_, "shadow", 1);
         grid-area: image;
-
-        &.c-image .c-image__image {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
     }
 
     // Non-carousel

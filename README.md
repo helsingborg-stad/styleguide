@@ -412,6 +412,7 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 - **Do declare component token usage** in `source/components/<component>/component.json`.
 - **Do namespace component CSS custom properties** so they remain component-scoped.
 - **Do declare each `--inherit-*` variable with `@property` and `inherits: false`** when used.
+- **Do affect nested components through `--inherit-*` hooks or by targeting only the nested component's outermost element**.
 - **Do keep JavaScript tests adjacent to the file under test** (`*.test.ts` / `*.test.js`).
 - **Do run validator and unit tests before opening a PR**.
 
@@ -421,6 +422,7 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 - **Don't mix token/Sass variable patterns in utility files** that should rely on CSS custom properties.
 - **Don't use un-namespaced CSS custom properties** in component SCSS.
 - **Don't reference CSS variables that are not declared in design tokens / generated variable sources**.
+- **Don't target another component's internal selectors** (for example `.c-child .c-child__element`) from a parent component; use `--inherit-*` hooks or the nested component's root selector instead.
 - **Don't edit generated token output directly** (for example `source/sass/setting/_design-tokens.scss`), as it will be overwritten.
 
 #### When A Component Affects Another Component
@@ -452,6 +454,7 @@ Example:
 - `source/validators/Tests/CssVariablesNamespacedTest.php`
 - `source/validators/Tests/CssVariablesReferencesDesignTokensTest.php`
 - `source/validators/Tests/InheritVariablesDeclaredTest.php`
+- `source/validators/Tests/ComponentCompositionArchitectureValidatorTest.php`
 
 #### Quick Verification Before PR
 

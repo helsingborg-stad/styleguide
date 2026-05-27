@@ -40,11 +40,7 @@ $_: "c-block";
     .#{$_}__image {
         border-radius: var(--#{$_}--radius);
         corner-shape: tokens.getRawValue($_, "corner-shape");
-
-        .c-image__image {
-            border-radius: var(--#{$_}--radius);
-            corner-shape: tokens.getRawValue($_, "corner-shape");
-        }
+        --inherit-border-radius: var(--#{$_}--radius);
     }
 
     .#{$_}__body {
@@ -171,7 +167,8 @@ a.#{$_} {
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_},
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="c-block"],
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="c-block"]:after,
-.o-grid--no-gutter>[class*="o-grid-"] .#{$_} .c-image__image {
+.o-grid--no-gutter>[class*="o-grid-"] .#{$_} .c-image {
     border-radius: unset;
-    filter: none;
+    --inherit-border-radius: unset;
+    --inherit-filter: none;
 }

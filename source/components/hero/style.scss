@@ -85,8 +85,8 @@ $_: "c-hero";
             height: 100%;
             position: absolute;
 
-            .c-image.c-image--type-svg .c-image__image {
-                object-fit: cover; //Override the default object-fit: scale-down;
+            .c-image.c-image--type-svg {
+                --inherit-object-fit: cover;
             }
         }
     }
@@ -304,8 +304,9 @@ $_: "c-hero";
         }
 
         .#{$_}__group-image,
-        .c-image__image {
+        .c-image {
             border-radius: inherit;
+            --inherit-border-radius: inherit;
         }
 
         .#{$_}__background {

@@ -71,14 +71,22 @@ $_: "c-header";
         border-bottom: tokens.getCalculatedValue($_, "base", 1) solid var(--#{$_}--border-color);
     }
 
-    &.#{$_}--text-primary *,
-    &.#{$_}--text-primary .c-nav .c-nav__link {
+    &.#{$_}--text-primary * {
         color: tokens.getRawValue($_, "color--primary");
     }
 
-    &.#{$_}--text-secondary *,
-    &.#{$_}--text-secondary .c-nav .c-nav__link {
+    &.#{$_}--text-primary .c-nav {
+        --c-nav--item-color: #{tokens.getRawValue($_, "color--primary")};
+        --c-nav--item-color-hover: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &.#{$_}--text-secondary * {
         color: tokens.getRawValue($_, "color--secondary");
+    }
+
+    &.#{$_}--text-secondary .c-nav {
+        --c-nav--item-color: #{tokens.getRawValue($_, "color--secondary")};
+        --c-nav--item-color-hover: #{tokens.getRawValue($_, "color--secondary")};
     }
 
     &.#{$_}--casual {
