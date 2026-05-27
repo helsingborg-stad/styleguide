@@ -14,24 +14,56 @@ class UnusedTokensTest extends TestCase
      * @testdox component utilizes all tokens declared in component.json
      * @dataProvider componentFilesProvider
      */
-    public function testComponentUtilizeAllTokens(string $component, string $tokenFile, string $styleFile): void
+    public function testComponentUtilizeAllTokens(string $component, string $tokenFile, string $componentDir): void
     {
         $tokens = self::extractTokensFromTokenFile($tokenFile);
-        $styleFileContents = (string) file_get_contents($styleFile);
+        $scssContents = self::readAllScssFiles($componentDir);
 
-        self::assertShadowDependenciesAreDeclared($tokens, $styleFileContents, $component);
-        $unusedTokens = self::findUnusedTokens($tokens, $styleFileContents, self::TOKEN_EXCEPTIONS);
+        self::assertShadowDependenciesAreDeclared($tokens, $scssContents, $component);
+        $unusedTokens = self::findUnusedTokens($tokens, $scssContents, self::TOKEN_EXCEPTIONS);
 
-        $errorMessage = sprintf("Component '%s' has declared but unused tokens in %s:%s- %s", $component, $styleFile, PHP_EOL, implode(PHP_EOL . '- ', $unusedTokens));
+        $errorMessage = sprintf("Component '%s' has declared but unused tokens in %s:%s- %s", $component, $componentDir, PHP_EOL, implode(PHP_EOL . '- ', $unusedTokens));
         $this->assertEmpty($unusedTokens, $errorMessage);
+    }
+
+    private static function componentHasScssFiles(string $componentDir): bool
+    {
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $file) {
+            if ($file->getExtension() === 'scss') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static function readAllScssFiles(string $componentDir): string
+    {
+        $contents = [];
+
+        $iterator = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS)
+        );
+
+        foreach ($iterator as $file) {
+            if ($file->getExtension() === 'scss') {
+                $contents[] = (string) file_get_contents($file->getPathname());
+            }
+        }
+
+        return implode("\n", $contents);
     }
 
     private static function assertShadowDependenciesAreDeclared(
         array $tokens,
-        string $styleFileContents,
+        string $scssContents,
         string $component,
     ): void {
-        if (!self::styleFileUsesToken($styleFileContents, self::SHADOW_TOKEN)) {
+        if (!self::styleFileUsesToken($scssContents, self::SHADOW_TOKEN)) {
             return;
         }
 
@@ -47,7 +79,7 @@ class UnusedTokensTest extends TestCase
         );
     }
 
-    private static function findUnusedTokens(array $tokens, string $styleFileContents, array $excludedTokens): array
+    private static function findUnusedTokens(array $tokens, string $scssContents, array $excludedTokens): array
     {
         $unusedTokens = [];
 
@@ -56,7 +88,7 @@ class UnusedTokensTest extends TestCase
                 continue;
             }
 
-            if (!self::styleFileUsesToken($styleFileContents, $token)) {
+            if (!self::styleFileUsesToken($scssContents, $token)) {
                 $unusedTokens[] = $token;
             }
         }
@@ -64,12 +96,12 @@ class UnusedTokensTest extends TestCase
         return $unusedTokens;
     }
 
-    private static function styleFileUsesToken(string $styleFileContents, string $token): bool
+    private static function styleFileUsesToken(string $scssContents, string $token): bool
     {
-        // Match tokens.use/get(<anything>, '<token>'[, <optional args>])
-        $pattern = '/tokens\.(use|get)\s*\([^,]+,\s*[\'\"]' . preg_quote($token, '/') . '[\'\"](?:\s*,[^)]*)?\s*\)/m';
+        // Match tokens.<any-function>(<anything>, '<token>'[, <optional args>])
+        $pattern = '/tokens\.\w+\s*\([^,]+,\s*[\'\"]' . preg_quote($token, '/') . '[\'\"](?:\s*,[^)]*)?\s*\)/m';
 
-        return preg_match($pattern, $styleFileContents) === 1;
+        return preg_match($pattern, $scssContents) === 1;
     }
 
     private static function extractTokensFromTokenFile(string $tokenFile): array
@@ -94,11 +126,17 @@ class UnusedTokensTest extends TestCase
 
         foreach ($components as $component) {
             $tokenFile = $componentsDir . $component . '/component.json';
-            $styleFile = $componentsDir . $component . '/style.scss';
+            $componentDir = $componentsDir . $component;
 
-            yield $component => [$component, $tokenFile, $styleFile];
+            if (!file_exists($tokenFile)) {
+                continue;
+            }
+
+            if (!self::componentHasScssFiles($componentDir)) {
+                continue;
+            }
+
+            yield $component => [$component, $tokenFile, $componentDir];
         }
-
-        return;
     }
 }
