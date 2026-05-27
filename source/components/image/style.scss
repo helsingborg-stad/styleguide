@@ -18,6 +18,11 @@
     inherits: false;
 }
 
+@property --inherit-border-radius {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-image";
 $_modal: "c-modal--gallery";
