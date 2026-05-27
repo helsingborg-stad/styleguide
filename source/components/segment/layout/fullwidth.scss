@@ -7,7 +7,7 @@ $c: "c-segment";
   gap: tokens.getCalculatedValue($c, "space", 8);
   padding: tokens.getCalculatedValue($c, "space", 8) 0;
 
-  .#{$c}__image {
+  > .#{$c}__image {
     position: absolute;
     inset: 0;
   }
