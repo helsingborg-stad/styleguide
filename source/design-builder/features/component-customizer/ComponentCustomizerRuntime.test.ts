@@ -560,14 +560,14 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		const settingsCategory = categories.find((category) => category.id === 'settings');
 		const colorSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
 		const multiplierSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--font-size-multiplier');
-		const spaceSetting = settingsCategory?.settings.find((setting) => setting.variable === '--c-button--space');
+		const spaceSetting = categories.flatMap((category) => category.settings).find((setting) => setting.variable === '--c-button--space');
 
 		expect(colorSetting).toMatchObject({
 			label: 'Text Color',
 			description: 'Overrides the default text color for the button component',
 			type: 'token-color',
 			default: 'var(--color--primary)',
-			locked: false,
+			locked: true,
 			linkedDefaults: {
 				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
 			},

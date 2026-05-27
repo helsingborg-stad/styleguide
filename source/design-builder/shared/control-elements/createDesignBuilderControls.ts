@@ -41,7 +41,12 @@ export function createDesignBuilderControl(setting: TokenSetting, currentValue: 
 			return;
 		}
 
-		onChange(detail.variable, detail.value, detail.extraValues);
+		if (detail.extraValues) {
+			onChange(detail.variable, detail.value, detail.extraValues);
+			return;
+		}
+
+		onChange(detail.variable, detail.value);
 	});
 	return row;
 }

@@ -1,10 +1,10 @@
 import { getByTestId, getByText, screen } from "@testing-library/dom"
-import ComponentRenderer from '../../../js/helpers/ComponentRenderer'
+import { IComponentData, renderComponent } from '../../../js/helpers/ComponentRenderer'
 import Modal from "../modal"
 import userEvent from "@testing-library/user-event"
 import Gallery from "../../gallery/gallery"
 
-jest.mock('./gallery')
+jest.mock('../../gallery/gallery')
 
 interface IModalData extends IComponentData {
     heading?: string,

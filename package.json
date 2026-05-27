@@ -94,7 +94,8 @@
 		},
 		"collectCoverageFrom": [
 			"source/**/*.js",
-			"source/**/*.ts"
+			"source/**/*.ts",
+			"!source/design-builder/shared/styling/designBuilderStyleText.ts"
 		],
 		"moduleFileExtensions": [
 			"js",
