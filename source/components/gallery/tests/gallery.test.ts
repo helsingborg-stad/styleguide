@@ -1,212 +1,206 @@
-import Gallery from "../gallery"
+import Gallery from '../gallery';
 
 describe('Gallery', () => {
+	describe('cycleImage', () => {
+		function createImageDataSet() {
+			return [
+				{ image: 'imageOne', imageStep: '0', imageCaption: '' },
+				{ image: 'imageTwo', imageStep: '1', imageCaption: '' },
+				{ image: 'imageThree', imageStep: '2', imageCaption: '' },
+			];
+		}
 
-    describe('cycleImage', () => {
+		it('returns next image when input param is "next"', () => {
+			// Given
+			const gallery = new Gallery();
+			gallery.container = document.createElement('div');
+			gallery.imageDataSet = createImageDataSet();
+			gallery.imageData = { imageStep: '0' };
+			jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn());
 
-        function createImageDataSet() {
-            return [
-                { image: 'imageOne', imageStep: '0', imageCaption: '' },
-                { image: 'imageTwo', imageStep: '1', imageCaption: '' },
-                { image: 'imageThree', imageStep: '2', imageCaption: '' }
-            ]
-        }
+			// When
+			const nextImage = gallery.cycleImage('next');
 
-        it('returns next image when input param is "next"', () => {
-            // Given
-            const gallery = new Gallery
-            gallery.container = document.createElement('div')
-            gallery.imageDataSet = createImageDataSet()
-            gallery.imageData = { imageStep: '0' }
-            jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn())
+			// Then
+			expect(nextImage).toEqual(gallery.imageDataSet[1]);
+		});
 
-            // When
-            const nextImage = gallery.cycleImage('next')
+		it('returns first image when input param is "next" and current is last image', () => {
+			// Given
+			const gallery = new Gallery();
+			gallery.container = document.createElement('div');
+			gallery.imageDataSet = createImageDataSet();
+			gallery.imageData = { imageStep: '2' };
+			jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn());
 
-            // Then
-            expect(nextImage).toEqual(gallery.imageDataSet[1])
-        })
-        
-        it('returns first image when input param is "next" and current is last image', () => {
-            // Given
-            const gallery = new Gallery
-            gallery.container = document.createElement('div')
-            gallery.imageDataSet = createImageDataSet()
-            gallery.imageData = { imageStep: '2' }
-            jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn())
+			// When
+			const nextImage = gallery.cycleImage('next');
 
-            // When
-            const nextImage = gallery.cycleImage('next')
+			// Then
+			expect(nextImage).toEqual(gallery.imageDataSet[0]);
+		});
 
-            // Then
-            expect(nextImage).toEqual(gallery.imageDataSet[0])
-        })
-        
-        it('returns previous image when input param is not "next"', () => {
-            // Given
-            const gallery = new Gallery
-            gallery.container = document.createElement('div')
-            gallery.imageDataSet = createImageDataSet()
-            gallery.imageData = { imageStep: '1' }
-            jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn())
+		it('returns previous image when input param is not "next"', () => {
+			// Given
+			const gallery = new Gallery();
+			gallery.container = document.createElement('div');
+			gallery.imageDataSet = createImageDataSet();
+			gallery.imageData = { imageStep: '1' };
+			jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn());
 
-            // When
-            const nextImage = gallery.cycleImage()
+			// When
+			const nextImage = gallery.cycleImage();
 
-            // Then
-            expect(nextImage).toEqual(gallery.imageDataSet[0])
-        })
-        
-        it('returns last image when input param is not "next" and current is first image', () => {
-            // Given
-            const gallery = new Gallery
-            gallery.container = document.createElement('div')
-            gallery.imageDataSet = createImageDataSet()
-            gallery.imageData = { imageStep: '0' }
-            jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn())
+			// Then
+			expect(nextImage).toEqual(gallery.imageDataSet[0]);
+		});
 
-            // When
-            const nextImage = gallery.cycleImage()
+		it('returns last image when input param is not "next" and current is first image', () => {
+			// Given
+			const gallery = new Gallery();
+			gallery.container = document.createElement('div');
+			gallery.imageDataSet = createImageDataSet();
+			gallery.imageData = { imageStep: '0' };
+			jest.spyOn(gallery, 'createImg').mockImplementation(jest.fn());
 
-            // Then
-            expect(nextImage).toEqual(gallery.imageDataSet[2])
-        })
+			// When
+			const nextImage = gallery.cycleImage();
 
-        it('returns null when gallery state is incomplete', () => {
-            // Given
-            const gallery = new Gallery
-            gallery.imageDataSet = createImageDataSet()
-            gallery.imageData = { imageStep: '0' }
+			// Then
+			expect(nextImage).toEqual(gallery.imageDataSet[2]);
+		});
 
-            // When
-            const nextImage = gallery.cycleImage('next')
+		it('returns null when gallery state is incomplete', () => {
+			// Given
+			const gallery = new Gallery();
+			gallery.imageDataSet = createImageDataSet();
+			gallery.imageData = { imageStep: '0' };
 
-            // Then
-            expect(nextImage).toBeNull()
-        })
+			// When
+			const nextImage = gallery.cycleImage('next');
 
-    })
+			// Then
+			expect(nextImage).toBeNull();
+		});
+	});
 
-    describe('updateImageCounter', () => {
+	describe('updateImageCounter', () => {
+		it('writes current and total image counter into modal counter container', () => {
+			// Arrange
+			const gallery = new Gallery();
+			const container = document.createElement('div');
+			const modalContent = document.createElement('section');
+			modalContent.className = 'c-modal__content';
+			const counter = document.createElement('div');
+			counter.className = 'c-modal__counter';
+			modalContent.appendChild(counter);
+			container.appendChild(modalContent);
 
-        it('writes current and total image counter into modal counter container', () => {
-            // Arrange
-            const gallery = new Gallery
-            const container = document.createElement('div')
-            const modalContent = document.createElement('section')
-            modalContent.className = 'c-modal__content'
-            const counter = document.createElement('div')
-            counter.className = 'c-modal__counter'
-            modalContent.appendChild(counter)
-            container.appendChild(modalContent)
+			gallery.imageDataSet = [
+				{ image: 'imageOne', imageStep: '0', imageCaption: '' },
+				{ image: 'imageTwo', imageStep: '1', imageCaption: '' },
+			];
+			gallery.imageData = { image: 'imageTwo', imageStep: '1', imageCaption: '' };
 
-            gallery.imageDataSet = [
-                { image: 'imageOne', imageStep: '0', imageCaption: '' },
-                { image: 'imageTwo', imageStep: '1', imageCaption: '' }
-            ]
-            gallery.imageData = { image: 'imageTwo', imageStep: '1', imageCaption: '' }
+			// Act
+			gallery.updateImageCounter(container);
 
-            // Act
-            gallery.updateImageCounter(container)
+			// Assert
+			expect(counter.textContent).toEqual('2/2');
+		});
 
-            // Assert
-            expect(counter.textContent).toEqual('2/2')
-        })
+		it('creates counter container when missing', () => {
+			// Arrange
+			const gallery = new Gallery();
+			const container = document.createElement('div');
+			const modalContent = document.createElement('section');
+			modalContent.className = 'c-modal__content';
+			container.appendChild(modalContent);
+			gallery.imageDataSet = [{ image: 'imageOne', imageStep: '0', imageCaption: '' }];
+			gallery.imageData = { image: 'imageOne', imageStep: '0', imageCaption: '' };
 
-        it('creates counter container when missing', () => {
-            // Arrange
-            const gallery = new Gallery
-            const container = document.createElement('div')
-            const modalContent = document.createElement('section')
-            modalContent.className = 'c-modal__content'
-            container.appendChild(modalContent)
-            gallery.imageDataSet = [{ image: 'imageOne', imageStep: '0', imageCaption: '' }]
-            gallery.imageData = { image: 'imageOne', imageStep: '0', imageCaption: '' }
+			// Act
+			gallery.updateImageCounter(container);
 
-            // Act
-            gallery.updateImageCounter(container)
+			// Assert
+			expect(container.querySelector('.c-modal__counter')?.textContent).toEqual('1/1');
+		});
+	});
 
-            // Assert
-            expect(container.querySelector('.c-modal__counter')?.textContent).toEqual('1/1')
-        })
-    })
+	describe('transitionImage', () => {
+		it('keeps latest image when previous preload resolves late', () => {
+			// Arrange
+			jest.useFakeTimers();
 
-    describe('transitionImage', () => {
+			const originalWindowImage = window.Image;
+			const originalRequestAnimationFrame = window.requestAnimationFrame;
+			const preloadInstances: Array<{ triggerLoad: () => void }> = [];
 
-        it('keeps latest image when previous preload resolves late', () => {
-            // Arrange
-            jest.useFakeTimers()
+			class MockWindowImage {
+				loadListener: null | (() => void);
+				errorListener: null | (() => void);
 
-            const originalWindowImage = window.Image
-            const originalRequestAnimationFrame = window.requestAnimationFrame
-            const preloadInstances: Array<{ triggerLoad: () => void }> = []
+				constructor() {
+					this.loadListener = null;
+					this.errorListener = null;
+				}
 
-            class MockWindowImage {
-                loadListener: null | (() => void)
-                errorListener: null | (() => void)
+				addEventListener(eventName: string, callback: () => void) {
+					if (eventName === 'load') {
+						this.loadListener = callback;
+					}
 
-                constructor() {
-                    this.loadListener = null
-                    this.errorListener = null
-                }
+					if (eventName === 'error') {
+						this.errorListener = callback;
+					}
+				}
 
-                addEventListener(eventName: string, callback: () => void) {
-                    if (eventName === 'load') {
-                        this.loadListener = callback
-                    }
+				set src(_value: string) {
+					preloadInstances.push({
+						triggerLoad: () => {
+							if (this.loadListener) {
+								this.loadListener();
+							}
+						},
+					});
+				}
+			}
 
-                    if (eventName === 'error') {
-                        this.errorListener = callback
-                    }
-                }
+			window.Image = MockWindowImage as unknown as typeof window.Image;
+			window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+				callback(0);
+				return 1;
+			}) as typeof window.requestAnimationFrame;
 
-                set src(_value: string) {
-                    preloadInstances.push({
-                        triggerLoad: () => {
-                            if (this.loadListener) {
-                                this.loadListener()
-                            }
-                        }
-                    })
-                }
-            }
+			const gallery = new Gallery();
+			jest.spyOn(gallery, 'getImageTransitionDuration').mockReturnValue(0);
 
-            window.Image = MockWindowImage as unknown as typeof window.Image
-            window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
-                callback(0)
-                return 1
-            }) as typeof window.requestAnimationFrame
+			const imageElement = document.createElement('img');
+			imageElement.className = 'c-image__image c-image__image--is-visible';
+			imageElement.setAttribute('src', 'imageZero');
 
-            const gallery = new Gallery
-            jest.spyOn(gallery, 'getImageTransitionDuration').mockReturnValue(0)
+			const firstImage = { image: 'imageOne', imageStep: '0', imageCaption: '' };
+			const secondImage = { image: 'imageTwo', imageStep: '1', imageCaption: '' };
 
-            const imageElement = document.createElement('img')
-            imageElement.className = 'c-image__image c-image__image--is-visible'
-            imageElement.setAttribute('src', 'imageZero')
+			// Act
+			gallery.transitionImage(imageElement, firstImage);
+			jest.runOnlyPendingTimers();
 
-            const firstImage = { image: 'imageOne', imageStep: '0', imageCaption: '' }
-            const secondImage = { image: 'imageTwo', imageStep: '1', imageCaption: '' }
+			gallery.transitionImage(imageElement, secondImage);
+			jest.runOnlyPendingTimers();
 
-            // Act
-            gallery.transitionImage(imageElement, firstImage)
-            jest.runOnlyPendingTimers()
+			preloadInstances[1].triggerLoad();
+			preloadInstances[0].triggerLoad();
 
-            gallery.transitionImage(imageElement, secondImage)
-            jest.runOnlyPendingTimers()
+			// Assert
+			expect(imageElement.getAttribute('src')).toContain('imageTwo');
+			expect(imageElement.getAttribute('data-step')).toEqual('1');
+			expect(imageElement.classList.contains('c-image__image--is-visible')).toEqual(true);
 
-            preloadInstances[1].triggerLoad()
-            preloadInstances[0].triggerLoad()
-
-            // Assert
-            expect(imageElement.getAttribute('src')).toContain('imageTwo')
-            expect(imageElement.getAttribute('data-step')).toEqual('1')
-            expect(imageElement.classList.contains('c-image__image--is-visible')).toEqual(true)
-
-            // Cleanup
-            window.Image = originalWindowImage
-            window.requestAnimationFrame = originalRequestAnimationFrame
-            jest.useRealTimers()
-        })
-    })
-
-})
+			// Cleanup
+			window.Image = originalWindowImage;
+			window.requestAnimationFrame = originalRequestAnimationFrame;
+			jest.useRealTimers();
+		});
+	});
+});
