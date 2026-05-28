@@ -24,17 +24,33 @@
     <div class="o-container o-container--content c-segment__content">
         <div class="c-segment__padder">
             @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['c-segment__title', 'u-margin__bottom--1']])
-                Forced context with one local opt-out
+                One scoped button set in a full view
             @endtypography
 
             @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['c-segment__text']])
-                The section forces a readable inherited contrast for default buttons. The scope wrapper marks this button as one local customization target for Design Builder.
+                The section forces a readable inherited contrast for the buttons. The scope wrapper marks this rendered button set as one local customization target for Design Builder.
             @endtypography
 
             <div class="c-segment__buttons">
                 @scope(['name' => 'campaign-hero'])
                     @button([
-                        'text' => 'Scoped button in full view',
+                        'text' => 'Primary',
+                        'style' => 'filled',
+                        'color' => 'primary',
+                        'classList' => ['u-margin__right--2', 'u-margin__bottom--2'],
+                    ])
+                    @endbutton
+
+                    @button([
+                        'text' => 'Secondary',
+                        'style' => 'filled',
+                        'color' => 'secondary',
+                        'classList' => ['u-margin__right--2', 'u-margin__bottom--2'],
+                    ])
+                    @endbutton
+
+                    @button([
+                        'text' => 'Default',
                         'style' => 'filled',
                         'color' => 'default',
                         'classList' => ['u-margin__bottom--2'],

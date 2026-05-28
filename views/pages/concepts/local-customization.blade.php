@@ -3,7 +3,7 @@
 @section('doc-hero')
     @include('layout.partials.doc-hero', [
         'title' => 'Local Customization',
-        'subtitle' => 'A full-width view can define one local scope for the design tool, so a single button can be customized in that context without affecting buttons elsewhere.',
+        'subtitle' => 'A full-width view can define one local scope for the design tool, so a rendered set of buttons can be customized together in that context without affecting buttons elsewhere.',
         'metaTags' => [
             ['label' => 'Concepts'],
             ['label' => 'Scoped customization'],
@@ -49,12 +49,16 @@
             @endtypography
 
             @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['c-segment__text']])
-                The view defines one scope around a single button. Design Builder can then target that scope without changing buttons outside this full-width context.
+                The view defines one scope around a rendered set of buttons. Design Builder can then target that scope without changing buttons outside this full-width context.
             @endtypography
 
             <div class="c-segment__buttons">
                 @scope(['name' => 'campaign-hero'])
-                    @button(['text' => 'Scoped button in full view', 'style' => 'filled', 'color' => 'default'])
+                    @button(['text' => 'Primary', 'style' => 'filled', 'color' => 'primary'])
+                    @endbutton
+                    @button(['text' => 'Secondary', 'style' => 'filled', 'color' => 'secondary'])
+                    @endbutton
+                    @button(['text' => 'Default', 'style' => 'filled', 'color' => 'default'])
                     @endbutton
                 @endscope
             </div>
@@ -75,9 +79,9 @@ SCSS),
             [
                 'title' => 'Design tool scope',
                 'content' => $buildCodeTabContent('html', <<<'HTML'
-<a class="c-button ..." data-scope="s-campaign-hero;">
-    Scoped button in full view
-</a>
+<a class="c-button ..." data-scope="s-campaign-hero;">Primary</a>
+<a class="c-button ..." data-scope="s-campaign-hero;">Secondary</a>
+<a class="c-button ..." data-scope="s-campaign-hero;">Default</a>
 HTML),
             ],
         ];
@@ -88,7 +92,7 @@ HTML),
     @endtypography
 
     @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--4']])
-        This concept demonstrates a single local scope inside a full-width view. The section still provides the inherited button contrast, but the scope wrapper defines the exact area that Design Builder should customize.
+        This concept demonstrates a single local scope inside a full-width view. The section still provides the inherited button contrast, but the scope wrapper defines the exact area that Design Builder should customize for all buttons in that scoped group.
     @endtypography
 
     @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5']])
@@ -99,7 +103,7 @@ HTML),
         @listing([
             'list' => [
                 ['label' => 'View context: the full-width section forces inherited button colors that stay readable against the dark surface.'],
-                ['label' => 'Local scope: the `@scope` wrapper adds a `data-scope` attribute to the button, which gives Design Builder one isolated customization target inside that view.'],
+                ['label' => 'Local scope: the `@scope` wrapper adds the same `data-scope` attribute to every wrapped button, which gives Design Builder one isolated customization target inside that view.'],
             ],
             'elementType' => 'ul',
         ])
@@ -112,7 +116,7 @@ HTML),
         @endtypography
 
         @typography(['element' => 'p', 'variant' => 'body'])
-            This example uses one button only. The button inherits a reasonable contrast from the full-width section, and its scope wrapper marks the exact full-view context that Design Builder can customize later.
+            This example uses the real rendered primary, secondary, and default button variants inside one shared scope. They inherit a reasonable contrast from the full-width section, and the scope wrapper marks that full-view context for Design Builder.
         @endtypography
     </article>
 
@@ -126,7 +130,7 @@ HTML),
     @notice([
         'type' => 'info',
         'message' => [
-            'text' => 'Use this pattern when the page should keep safe inherited defaults, but Design Builder needs one named local scope to customize a component only in that full-view context.',
+            'text' => 'Use this pattern when the page should keep safe inherited defaults, but Design Builder needs one named local scope to customize a rendered group of components only in that full-view context.',
         ],
     ])
     @endnotice
