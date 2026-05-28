@@ -43,28 +43,47 @@
 
     @button([
         'text' => 'Explicit override wins',
-        'style' => 'filled',
+                'description' => 'Field background color is resolved with an explicit CSS variable chain. Because the inherit hook is read on the rendered field surface, this example targets the field instance itself. The inherited case uses the secondary color, while the second field keeps the same inherited context but overrides the component background with a different value.',
         'color' => 'default',
         'attributeList' => [
-            'style' => '--c-button--color--surface-alt: var(--color--secondary); --c-button--color--surface-contrast: var(--color--secondary-contrast); --c-button--color--surface-border: var(--color--secondary-border);',
-        ],
-    ])
-    @endbutton
-</div>
-BLADE,
-                'implementationCode' => <<<'SCSS'
-background-color: tokens.getRawValue(
-    $prefix: $_,
-    $token: 'color--surface-alt',
-    $inheritVariable: 'color-background'
-);
+<style>
+    .field-demo--inherited .c-field {
+        --c-field--contrast-color: var(--color--secondary-contrast);
+    }
 
-color: tokens.getRawValue(
-    $prefix: $_,
-    $token: 'color--surface-contrast',
-    $inheritVariable: 'color-contrast'
-);
-SCSS,
+    .field-demo--inherited .c-field__inner {
+        --inherit-color-background: var(--color--secondary);
+    }
+
+    .field-demo--explicit .c-field {
+        --c-field--contrast-color: var(--color--primary);
+    }
+
+    .field-demo--explicit .c-field__inner {
+        --inherit-color-background: var(--color--secondary);
+        --c-field--background-color: var(--color--primary-contrast);
+    }
+</style>
+
+<div class="field-demo--inherited">
+    @field([
+        'label' => 'Inherited field background',
+        'name' => 'inheritance-field-default',
+        'type' => 'text',
+        'placeholder' => 'Reads the inherited secondary background',
+    ])
+    @endfield
+</div>
+
+<div class="field-demo--explicit">
+    @field([
+        'label' => 'Explicit field override',
+        'name' => 'inheritance-field-explicit',
+        'type' => 'text',
+        'placeholder' => 'Uses the explicit component background',
+    ])
+    @endfield
+</div>
                 'implementationLanguage' => 'scss',
             ],
             [
@@ -90,26 +109,25 @@ SCSS,
             ],
             [
                 'title' => 'Field explicit-var-first chain',
-                'description' => 'Field background color is resolved with an explicit CSS variable chain. The container can still influence the component through the inherit hook, but a component-level variable remains the first choice.',
+                'description' => 'Field background color is resolved with an explicit CSS variable chain. In this example the inherited case uses the secondary color, while the second field keeps the same inherited context but overrides the component background with a different value.',
                 'previewView' => 'pages.partials.concepts.inheritance.field-preview',
                 'bladeCode' => <<<'BLADE'
-<div style="--inherit-color-background: var(--color--primary-contrast);">
+<div style="--inherit-color-background: var(--color--secondary); --c-field--contrast-color: var(--color--secondary-contrast);">
     @field([
         'label' => 'Inherited field background',
         'name' => 'inheritance-field-default',
         'type' => 'text',
-        'placeholder' => 'Reads the inherited background',
+        'placeholder' => 'Reads the inherited secondary background',
     ])
     @endfield
+</div>
 
+<div style="--inherit-color-background: var(--color--secondary); --c-field--background-color: var(--color--primary-contrast); --c-field--contrast-color: var(--color--primary);">
     @field([
         'label' => 'Explicit field override',
         'name' => 'inheritance-field-explicit',
         'type' => 'text',
-        'placeholder' => 'Uses the component override',
-        'attributeList' => [
-            'style' => '--c-field--background-color: var(--color--surface);',
-        ],
+        'placeholder' => 'Uses the explicit component background',
     ])
     @endfield
 </div>
