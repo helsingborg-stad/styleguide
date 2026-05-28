@@ -40,7 +40,7 @@ class LocalizedColorTokenFamilyCoverageValidator implements ValidatorInterface
 
         $componentTokens = array_values(array_filter(
             $componentDefinition['tokens'] ?? [],
-            static fn ($token): bool => is_string($token) && $token !== '',
+            static fn($token): bool => is_string($token) && $token !== '',
         ));
         $tokenLookup = array_fill_keys($componentTokens, true);
 
