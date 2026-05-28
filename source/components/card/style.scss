@@ -15,7 +15,7 @@
 $_: "c-card";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_} {
@@ -32,8 +32,8 @@ $_: "c-card";
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
-    color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
+    background-color: tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background");
+    color: tokens.getRawValue($prefix: $_, $token: "color--surface-contrast", $inheritVariable: "color-contrast");
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
     transition: all 200ms ease-in;

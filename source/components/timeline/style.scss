@@ -13,7 +13,7 @@ $_: "c-timeline";
 .#{$_} {
   --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
   --#{$_}--line-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
-  --#{$_}--line-color: #{tokens.getRawValue($_, "color--surface-border")};
+  --#{$_}--line-color-default: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--line-color-active: #{tokens.getRawValue($_, "color--primary")};
   --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 2.5)};
   --#{$_}--marker-border-width: max(4px, #{tokens.getCalculatedValue($_, "border-width")});
@@ -46,7 +46,7 @@ $_: "c-timeline";
     transform: translateX(-50%);
     width: var(--#{$_}--line-width);
     border-radius: 999px;
-    background-color: var(--#{$_}--line-color);
+    background-color: var(--#{$_}--line-color, var(--#{$_}--line-color-default));
   }
 
   .#{$_}__event {
@@ -96,7 +96,7 @@ $_: "c-timeline";
       height: var(--#{$_}--marker-size);
       border-radius: 999px;
       outline: var(--#{$_}--marker-border-width) solid var(--#{$_}--marker-border-color);
-      background-color: var(--inherit-color-background, var(--#{$_}--line-color));
+      background-color: var(--#{$_}--line-color, var(--inherit-color-background, var(--#{$_}--line-color-default)));
       box-sizing: border-box;
       box-shadow: none;
     }

@@ -33,13 +33,11 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
             return $result;
         }
 
-        if (!$this->usesTokenBackedComponentSettings($filePath)) {
-            return $result;
-        }
-
         $legacyPatterns = [
             '/var\(\s*--inherit-[\w-]+\s*,\s*tokens\.getRawValue\(/',
             '/var\(\s*--inherit-[\w-]+\s*,\s*#\{\s*map\.get\(/',
+            '/var\(\s*--inherit-[\w-]+\s*,\s*var\(--#\{\$_\}--/',
+            '/var\(\s*--inherit-[\w-]+\s*,\s*--#\{\$_\}--/',
         ];
         $usesLegacyPattern = false;
         foreach ($legacyPatterns as $pattern) {
@@ -59,6 +57,9 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
             '/tokens\.getRawValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,[^)]*\)/',
             '/tokens\.getCalculatedValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,\s*' . $inheritStringPattern . '\s*\)/',
             '/tokens\.getCalculatedValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$multiplier\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,[^)]*,[^)]*\)/',
+        ];
+        $explicitVarFirstPatterns = [
+            '/var\(\s*--#\{\$_\}--[^,]+,\s*var\(\s*--inherit-[\w-]+\s*,/',
         ];
         $usesNewPattern = false;
         foreach (explode("\n", $content) as $line) {
@@ -82,11 +83,23 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
 
         $lines = explode("\n", $content);
         foreach ($lines as $index => $line) {
+            $trimmedLine = trim($line);
+
             foreach ($legacyPatterns as $pattern) {
+                if (str_starts_with($trimmedLine, '--')) {
+                    continue;
+                }
+
+                foreach ($explicitVarFirstPatterns as $explicitVarFirstPattern) {
+                    if (preg_match($explicitVarFirstPattern, $line)) {
+                        continue 2;
+                    }
+                }
+
                 if (preg_match($pattern, $line)) {
                     $result->addViolation(
                         $index + 1,
-                        'Use tokens.getRawValue(..., "color-background") or tokens.getCalculatedValue(..., "space", "color-background") so component overrides take precedence over --inherit-* fallbacks.',
+                        'Use inherit-aware token helpers or an explicit-var-first fallback chain so component overrides take precedence over --inherit-* fallbacks.',
                         trim($line),
                     );
                     break;
@@ -106,59 +119,5 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
         }
 
         return $result;
-    }
-
-    /**
-     * Checks whether the component adjacent to the SCSS file declares any
-     * token-backed component settings.
-     *
-     * @param string $filePath Absolute path to the SCSS file.
-     *
-     * @return bool
-     */
-    private function usesTokenBackedComponentSettings(string $filePath): bool
-    {
-        $componentConfigPath = dirname($filePath) . '/component.json';
-        if (!is_readable($componentConfigPath)) {
-            return false;
-        }
-
-        $rawConfig = file_get_contents($componentConfigPath);
-        if ($rawConfig === false) {
-            return false;
-        }
-
-        $componentConfig = json_decode($rawConfig, true);
-        if (!is_array($componentConfig)) {
-            return false;
-        }
-
-        $componentSettings = $componentConfig['componentSettings'] ?? null;
-        if (!is_array($componentSettings)) {
-            return false;
-        }
-
-        foreach ($componentSettings as $category) {
-            if (!is_array($category)) {
-                continue;
-            }
-
-            $settings = $category['settings'] ?? null;
-            if (!is_array($settings)) {
-                continue;
-            }
-
-            foreach ($settings as $setting) {
-                if (!is_array($setting)) {
-                    continue;
-                }
-
-                if (isset($setting['token']) && is_string($setting['token']) && trim($setting['token']) !== '') {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }

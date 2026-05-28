@@ -15,7 +15,7 @@
 $_: "c-comment";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_}+.#{$_} {
@@ -70,8 +70,8 @@ $_: "c-comment";
         border-top-left-radius: tokens.getCalculatedValue($_, "border-radius", 0.5);
         padding: tokens.getCalculatedValue($_, "space", 1.5) tokens.getCalculatedValue($_, "space", 2);
         margin: 0;
-        background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
-        color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
+        background-color: tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background");
+        color: tokens.getRawValue($prefix: $_, $token: "color--surface-contrast", $inheritVariable: "color-contrast");
     }
 
     .#{$_}__actions {

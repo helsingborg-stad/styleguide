@@ -36,9 +36,9 @@ $_modal: "c-modal--gallery";
     --#{$_}--line-height-caption: #{tokens.getRawValue($_, "line-height-base")};
     --#{$_}--placeholder-font-weight: #{tokens.getRawValue($_, "font-weight-bold")};
     --#{$_}--placeholder-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--placeholder-background-color: #{tokens.getRawValue($_, "color--background-alt")};
-    --#{$_}--placeholder-color: #{tokens.getRawValue($_, "color--background-contrast-muted")};
-    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--placeholder-background-color-default: #{tokens.getRawValue($_, "color--background-alt")};
+    --#{$_}--placeholder-color-default: #{tokens.getRawValue($_, "color--background-contrast-muted")};
+    --#{$_}--border-default: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--border-radius: var(--inherit-border-radius, calc(#{tokens.getCalculatedValue("", "border-radius", 1)} * var(--#{$_}--border-radius-multiplier, 1)));
 
     line-height: 0;
@@ -162,10 +162,10 @@ $_modal: "c-modal--gallery";
     position: relative;
     height: 100%;
     line-height: 0;
-    border: var(--inherit-border, --#{$_}--border);
+    border: var(--#{$_}--border, var(--inherit-border, var(--#{$_}--border-default)));
     border-radius: var(--#{$_}--border-radius);
-    background-color: var(--inherit-color-background, var(--#{$_}--placeholder-background-color));
-    color: var(--inherit-color-contrast, var(--#{$_}--placeholder-color));
+    background-color: var(--#{$_}--placeholder-background-color, var(--inherit-color-background, var(--#{$_}--placeholder-background-color-default)));
+    color: var(--#{$_}--placeholder-color, var(--inherit-color-contrast, var(--#{$_}--placeholder-color-default)));
     user-select: none;
     corner-shape: tokens.getRawValue($_, "corner-shape");
 }
