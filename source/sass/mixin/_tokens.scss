@@ -1,4 +1,5 @@
 @use "sass:list";
+@use "sass:meta";
 @use "sass:string";
 
 /// Strips a trailing "-*" wildcard from a prefix.
@@ -19,6 +20,10 @@
 /// Normalizes global token names to current naming conventions.
 /// Keeps existing names unchanged except for legacy color-* aliases.
 @function _normalize-global-token($token) {
+    @if meta.type-of($token) != "string" {
+        @return $token;
+    }
+
     @if string.index($token, "color-")==1 and string.index($token, "color--") !=1 {
         @return "color--#{string.slice($token, 7)}";
     }
@@ -51,13 +56,76 @@
     }
 }
 
+/// Creates component default tokens without defining the override variable itself.
+///
+/// This is used when a component needs explicit instance overrides to outrank
+/// `--inherit-*` values while still keeping a token-backed default.
+///
+/// @param {String} $prefix - Component prefix (e.g., "c-button")
+/// @param {List} $tokens - Token names to register as defaults
+@mixin createDefaults($prefix, $tokens) {
+    $p: _clean-prefix($prefix);
+
+    :root {
+        @each $token in $tokens {
+            --#{$p}--#{$token}-default: var(--#{_normalize-global-token($token)});
+        }
+    }
+}
+
+/// Returns the default token reference for a component token.
+///
+/// Components using `createDefaults()` read from the `-default` variable,
+/// while legacy components still fall back to the global token.
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+@function getDefaultRawValue($prefix, $token) {
+    $p: _clean-prefix($prefix);
+
+    @if($p == "") {
+        @return var(--#{_normalize-global-token($token)});
+    }
+
+    @return var(--#{$p}--#{$token}-default, var(--#{_normalize-global-token($token)}));
+}
+
+/// Returns a component token value where explicit overrides win over defaults.
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+@function getComponentValue($prefix, $token) {
+    $p: _clean-prefix($prefix);
+
+    @if($p == "") {
+        @return getDefaultRawValue($prefix, $token);
+    }
+
+    @return var(--#{$p}--#{$token}, #{getDefaultRawValue($prefix, $token)});
+}
+
+/// Returns a component token value where explicit overrides win over inherit
+/// hooks, and inherit hooks win over token defaults.
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+/// @param {String} $inheritVariable - The inherit hook name, including `--`
+@function getInheritableValue($prefix, $token, $inheritVariable) {
+    $p: _clean-prefix($prefix);
+
+    @if($p == "") {
+        @return var(#{$inheritVariable}, #{getDefaultRawValue($prefix, $token)});
+    }
+
+    @return var(--#{$p}--#{$token}, var(#{$inheritVariable}, #{getDefaultRawValue($prefix, $token)}));
+}
+
 /// Returns a calculated token value: calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
 ///
 /// @param {String} $prefix - Component prefix
 /// @param {String} $token - Token name
 /// @param {Number} $multiplier [1] - Scale multiplier
 @function getCalculatedValue($prefix, $token, $multiplier: 1) {
-
     $p: _clean-prefix($prefix);
 
     @if($p !="") {
@@ -76,6 +144,26 @@
 
     // Default behavior: return scaled token value, pixel from int
     @return calc(var(#{$p}--#{$token}) * var(--base) * #{$multiplier});
+}
+
+/// Returns a calculated component token value where explicit overrides win over defaults.
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $token - Token name
+/// @param {Number} $multiplier [1] - Scale multiplier
+@function getCalculatedComponentValue($prefix, $token, $multiplier: 1) {
+    //If token is shadow, construct the drop-shadow value using the color and amount tokens
+    @if $token =="shadow" {
+        @return drop-shadow(0 calc((var(--base) * 0.5) * #{getComponentValue($prefix, "shadow-amount")}) calc(#{getComponentValue($prefix, "shadow-amount")} * var(--base) * #{$multiplier}) #{getComponentValue($prefix, "shadow-color")});
+    }
+
+    // If base is used as a token, return it directly without multiply with base to avoid circular reference
+    @if $token =="base" {
+        @return calc(#{getComponentValue($prefix, $token)} * #{$multiplier});
+    }
+
+    // Default behavior: return scaled token value, pixel from int
+    @return calc(#{getComponentValue($prefix, $token)} * var(--base) * #{$multiplier});
 }
 
 /// Returns a raw token reference: var(--{prefix}--{token}).
