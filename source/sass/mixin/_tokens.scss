@@ -54,10 +54,11 @@
 ///   A trailing "-*" wildcard (e.g., "u-border-*") emits an attribute selector
 ///   so every class that contains the prefix receives the tokens.
 /// @param {List} $tokens - Token names to register
-/// @param {Bool} $defaultsOnly [false] - When true, writes `-default` token
-///   variables instead of the main component variable names. Use this when a
-///   component needs instance overrides to outrank inherited values.
-@mixin create($prefix, $tokens, $defaultsOnly: false) {
+/// @param {Bool} $emitDefaultTokenVariables [false] - When true, writes
+///   `-default` token variables instead of the main component variable names.
+///   Use this when a component needs instance overrides to outrank inherited
+///   values.
+@mixin create($prefix, $tokens, $emitDefaultTokenVariables: false) {
     $p: _clean-prefix($prefix);
 
     // Wildcard prefix → attribute selector; otherwise plain class selector
@@ -71,7 +72,7 @@
 
     :root {
         @each $token in $tokens {
-            @if $defaultsOnly {
+            @if $emitDefaultTokenVariables {
                 --#{$p}--#{$token}-default: var(--#{_normalize-global-token($token)});
             }
 
@@ -84,7 +85,7 @@
 
 /// Returns the default token reference for a component token.
 ///
-/// Components using `create(..., $defaultsOnly: true)` read from the `-default` variable,
+/// Components using `create(..., $emitDefaultTokenVariables: true)` read from the `-default` variable,
 /// while legacy components still fall back to the global token.
 ///
 /// @param {String} $prefix - Component prefix

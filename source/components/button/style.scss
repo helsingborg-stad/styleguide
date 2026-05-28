@@ -26,7 +26,7 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), $defaultsOnly: true);
+@include tokens.create($_, getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 $button-inherit-background: #{tokens.getRawValue($_, "color--surface", "color-background")};
 

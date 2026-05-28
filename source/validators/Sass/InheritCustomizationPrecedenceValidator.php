@@ -68,10 +68,10 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
             return $result;
         }
 
-        if ($usesNewPattern && !preg_match('/@include\s+tokens\.create\([^\n]*\$defaultsOnly:\s*true/', $content)) {
+        if ($usesNewPattern && !preg_match('/@include\s+tokens\.create\([^\n]*\$emitDefaultTokenVariables:\s*true/', $content)) {
             $result->addViolation(
                 0,
-                'Components that combine token-backed component settings with --inherit-* hooks must register token defaults with @include tokens.create(..., $defaultsOnly: true).',
+                'Components that combine token-backed component settings with --inherit-* hooks must register token defaults with @include tokens.create(..., $emitDefaultTokenVariables: true).',
             );
         }
 
