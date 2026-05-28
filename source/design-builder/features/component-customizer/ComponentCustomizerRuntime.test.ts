@@ -866,11 +866,21 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 	it('maps full companion families for the real button component data', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: {
+				'--color--palette-1': '#0055aa',
+				'--color--palette-1-contrast': '#ffffff',
+			},
+		});
+		document.body.appendChild(hostElement);
 
 		const realComponentData = require('../../../../component-design-tokens.json') as ComponentTokenData;
 		const realTokenLibrary = require('../../../data/design-tokens.json') as TokenData;
 
-		const runtime = new ComponentCustomizerRuntime(realComponentData, realTokenLibrary, mount);
+		const runtime = new ComponentCustomizerRuntime(realComponentData, realTokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
 		const runtimeInternals = runtime as unknown as {
 			buildCategoriesForComponent(componentName: string): TokenData['categories'];
 		};
@@ -899,6 +909,16 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			}),
 		);
 
+		const palettePrimaryOption = primarySetting?.options?.find((option) => option.label === 'Palette 1');
+		expect(palettePrimaryOption?.extraValues).toEqual(
+			expect.objectContaining({
+				'--c-button--color--primary-contrast': 'var(--color--palette-1-contrast)',
+				'--c-button--color--primary-border': 'var(--color--palette-1-border)',
+				'--c-button--color--primary-alt': 'var(--color--palette-1-alt)',
+			}),
+		);
+
+		hostElement.remove();
 		mount.remove();
 	});
 

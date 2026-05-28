@@ -582,6 +582,22 @@
 					"default": "transparent"
 				},
 				{
+					"variable": "--color--palette-1-border",
+					"label": "Palette 1 Border",
+					"description": "Manual companion token for palette 1 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-1-contrast) var(--color--border-mix-amount), var(--color--palette-1))"
+				},
+				{
+					"variable": "--color--palette-1-alt",
+					"label": "Palette 1 Alt",
+					"description": "Manual companion token for subtle palette 1 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-1-contrast) var(--color--alt-mix-amount), var(--color--palette-1))"
+				},
+				{
 					"variable": "--color--palette-2",
 					"label": "Palette 2",
 					"type": "color",
@@ -593,6 +609,22 @@
 					"label": "Palette 2 Contrast",
 					"type": "color",
 					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-2-border",
+					"label": "Palette 2 Border",
+					"description": "Manual companion token for palette 2 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-2-contrast) var(--color--border-mix-amount), var(--color--palette-2))"
+				},
+				{
+					"variable": "--color--palette-2-alt",
+					"label": "Palette 2 Alt",
+					"description": "Manual companion token for subtle palette 2 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-2-contrast) var(--color--alt-mix-amount), var(--color--palette-2))"
 				},
 				{
 					"variable": "--color--palette-3",
@@ -608,6 +640,22 @@
 					"default": "transparent"
 				},
 				{
+					"variable": "--color--palette-3-border",
+					"label": "Palette 3 Border",
+					"description": "Manual companion token for palette 3 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-3-contrast) var(--color--border-mix-amount), var(--color--palette-3))"
+				},
+				{
+					"variable": "--color--palette-3-alt",
+					"label": "Palette 3 Alt",
+					"description": "Manual companion token for subtle palette 3 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-3-contrast) var(--color--alt-mix-amount), var(--color--palette-3))"
+				},
+				{
 					"variable": "--color--palette-4",
 					"label": "Palette 4",
 					"type": "color",
@@ -619,6 +667,22 @@
 					"label": "Palette 4 Contrast",
 					"type": "color",
 					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-4-border",
+					"label": "Palette 4 Border",
+					"description": "Manual companion token for palette 4 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-4-contrast) var(--color--border-mix-amount), var(--color--palette-4))"
+				},
+				{
+					"variable": "--color--palette-4-alt",
+					"label": "Palette 4 Alt",
+					"description": "Manual companion token for subtle palette 4 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-4-contrast) var(--color--alt-mix-amount), var(--color--palette-4))"
 				},
 				{
 					"variable": "--color--palette-5",
@@ -634,6 +698,22 @@
 					"default": "transparent"
 				},
 				{
+					"variable": "--color--palette-5-border",
+					"label": "Palette 5 Border",
+					"description": "Manual companion token for palette 5 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-5-contrast) var(--color--border-mix-amount), var(--color--palette-5))"
+				},
+				{
+					"variable": "--color--palette-5-alt",
+					"label": "Palette 5 Alt",
+					"description": "Manual companion token for subtle palette 5 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-5-contrast) var(--color--alt-mix-amount), var(--color--palette-5))"
+				},
+				{
 					"variable": "--color--palette-6",
 					"label": "Palette 6",
 					"type": "color",
@@ -645,6 +725,22 @@
 					"label": "Palette 6 Contrast",
 					"type": "color",
 					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-6-border",
+					"label": "Palette 6 Border",
+					"description": "Manual companion token for palette 6 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-6-contrast) var(--color--border-mix-amount), var(--color--palette-6))"
+				},
+				{
+					"variable": "--color--palette-6-alt",
+					"label": "Palette 6 Alt",
+					"description": "Manual companion token for subtle palette 6 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-6-contrast) var(--color--alt-mix-amount), var(--color--palette-6))"
 				},
 				{
 					"variable": "--color--palette-7",
@@ -660,6 +756,22 @@
 					"default": "transparent"
 				},
 				{
+					"variable": "--color--palette-7-border",
+					"label": "Palette 7 Border",
+					"description": "Manual companion token for palette 7 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-7-contrast) var(--color--border-mix-amount), var(--color--palette-7))"
+				},
+				{
+					"variable": "--color--palette-7-alt",
+					"label": "Palette 7 Alt",
+					"description": "Manual companion token for subtle palette 7 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-7-contrast) var(--color--alt-mix-amount), var(--color--palette-7))"
+				},
+				{
 					"variable": "--color--palette-8",
 					"label": "Palette 8",
 					"type": "color",
@@ -671,6 +783,22 @@
 					"label": "Palette 8 Contrast",
 					"type": "color",
 					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-8-border",
+					"label": "Palette 8 Border",
+					"description": "Manual companion token for palette 8 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-8-contrast) var(--color--border-mix-amount), var(--color--palette-8))"
+				},
+				{
+					"variable": "--color--palette-8-alt",
+					"label": "Palette 8 Alt",
+					"description": "Manual companion token for subtle palette 8 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-8-contrast) var(--color--alt-mix-amount), var(--color--palette-8))"
 				},
 				{
 					"variable": "--color--palette-9",
@@ -686,6 +814,22 @@
 					"default": "transparent"
 				},
 				{
+					"variable": "--color--palette-9-border",
+					"label": "Palette 9 Border",
+					"description": "Manual companion token for palette 9 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-9-contrast) var(--color--border-mix-amount), var(--color--palette-9))"
+				},
+				{
+					"variable": "--color--palette-9-alt",
+					"label": "Palette 9 Alt",
+					"description": "Manual companion token for subtle palette 9 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-9-contrast) var(--color--alt-mix-amount), var(--color--palette-9))"
+				},
+				{
 					"variable": "--color--palette-10",
 					"label": "Palette 10",
 					"type": "color",
@@ -697,6 +841,22 @@
 					"label": "Palette 10 Contrast",
 					"type": "color",
 					"default": "transparent"
+				},
+				{
+					"variable": "--color--palette-10-border",
+					"label": "Palette 10 Border",
+					"description": "Manual companion token for palette 10 border and hover states.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-10-contrast) var(--color--border-mix-amount), var(--color--palette-10))"
+				},
+				{
+					"variable": "--color--palette-10-alt",
+					"label": "Palette 10 Alt",
+					"description": "Manual companion token for subtle palette 10 surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--palette-10-contrast) var(--color--alt-mix-amount), var(--color--palette-10))"
 				}
 			]
 		},
