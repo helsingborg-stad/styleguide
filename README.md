@@ -125,7 +125,22 @@ This project uses design tokens as the single source of truth for visual values 
   - Exposes a custom Sass function `getComponentTokens($name)` that reads token arrays from `source/components/<component>/component.json`.
 5. **Component-scoped token mapping**: `source/sass/mixin/_tokens.scss`
    - `@include tokens.create(...)` maps global tokens (`--color--surface`) to component-scoped tokens (`--c-card--color--surface`).
-   - Components then consume these values with `tokens.getRawValue(...)` or `tokens.getCalculatedValue(...)`.
+   - Components then consume these values with `tokens.getRawValue(...)`, `tokens.getCalculatedValue(...)`, or `tokens.getDerivedAliasValue(...)` for derived component aliases.
+
+### Token Helper Functions
+
+- `tokens.getRawValue($prefix, $token)`
+  - Reads a raw component token such as color, font family, or border token.
+- `tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background")`
+  - Use this when a real token should resolve as explicit component override -> inherit hook -> token default.
+- `tokens.getCalculatedValue($prefix, $token, $multiplier)`
+  - Reads a scale-based numeric token and applies the multiplier against `var(--base)`.
+- `tokens.getCalculatedValue($prefix: $_, $token: "space", $multiplier: 2, $inheritVariable: "space")`
+  - Use this when a scale-based token also needs inherit precedence.
+- `tokens.getDefaultRawValue($prefix, $token)`
+  - Reads the `-default` token variable emitted by `tokens.create(..., $emitDefaultTokenVariables: true)`.
+- `tokens.getDerivedAliasValue($prefix, $variable, $inheritVariable)`
+  - Use this for derived component aliases such as `--c-typography--h2-font-size`, where precedence must be explicit alias override -> inherit hook -> alias default.
 
 ### Intended Usage
 
@@ -195,6 +210,24 @@ $_: "c-example";
 }
 ```
 
+Derived alias example:
+
+```scss
+@use "../mixin/tokens";
+
+$_: "c-typography";
+
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
+
+:root {
+  --#{$_}--font-size-lead-default: #{tokens.getRawValue($_, "font-size-200")};
+}
+
+.#{$_}__variant--lead {
+  font-size: tokens.getDerivedAliasValue($_, "font-size-lead", "font-size");
+}
+```
+
 #### 4) Override tokens in implementation (theme or local instance)
 
 Global theme override:
@@ -244,6 +277,9 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - **`tokens.getCalculatedValue(...)` assumes scale-based numeric usage**:
   - It returns `calc(var(--c-...--token) * var(--base) * multiplier)` (except special cases like `base` and `shadow`).
   - For raw values or non-scale tokens, use `tokens.getRawValue(...)`.
+- **Use `tokens.getDerivedAliasValue(...)` for derived component aliases**:
+  - This applies when the runtime variable is not itself a token, but a component alias such as `--c-typography--h2-font-size`.
+  - Keep the `-default` alias variable token-only, and apply inherit precedence at the usage site.
 - **No implicit companion generation**:
   - Token behavior is declarative; add companion tokens explicitly in token JSON and component manifests.
 

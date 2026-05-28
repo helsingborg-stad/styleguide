@@ -18,6 +18,7 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Search\DataSources\ComponentsDataSource;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ConceptsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
@@ -49,6 +50,7 @@ class App
             $navigationDataParser,
             VIEWS_PATH,
             [
+                new ConceptsSection(),
                 new ComponentsSection(),
                 new ElementsSection(),
                 new ObjectsSection(),

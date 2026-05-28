@@ -9,6 +9,7 @@ use MunicipioStyleGuide\Data\JsonDataLoader;
 use MunicipioStyleGuide\Data\NavigationDataParser;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ConceptsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
@@ -52,6 +53,7 @@ class Navigation
     public static function defaultSidebarSections(): array
     {
         return [
+            new ConceptsSection(),
             new ComponentsSection(),
             new ElementsSection(),
             new ObjectsSection(),

@@ -133,6 +133,39 @@
     @return var(--#{$p}--#{$token}, #{$defaultValue});
 }
 
+/// Returns a derived component alias value with explicit override precedence.
+///
+/// This is intended for derived component variables such as
+/// `--c-typography--h2-font-size`, where the runtime value should resolve as
+/// explicit component override -> inherit hook -> alias default variable.
+///
+/// @param {String} $prefix - Component prefix
+/// @param {String} $variable - Alias variable name without the component prefix
+/// @param {String|null} $inheritVariable - Optional inherit hook name,
+///   either as a bare suffix or a full custom property name.
+/// @param {String|null} $defaultVariable - Optional default alias variable name.
+///   When omitted, `{variable}-default` is used.
+@function getDerivedAliasValue($prefix, $variable, $inheritVariable: null, $defaultVariable: null) {
+    $p: _clean-prefix($prefix);
+
+    @if($p !="") {
+        $p: "--#{$p}";
+    }
+
+    @if $defaultVariable ==null {
+        $defaultVariable: "#{$variable}-default";
+    }
+
+    $defaultValue: var(#{$p}--#{$defaultVariable});
+
+    @if $inheritVariable !=null {
+        $inheritVariable: _normalize-inherit-variable($inheritVariable);
+        $defaultValue: var(#{$inheritVariable}, #{$defaultValue});
+    }
+
+    @return var(#{$p}--#{$variable}, #{$defaultValue});
+}
+
 /// Returns a calculated token value: calc(var(--{prefix}--{token}) * var(--base) * {multiplier}).
 ///
 /// @param {String} $prefix - Component prefix

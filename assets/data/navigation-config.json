@@ -1,6 +1,7 @@
 {
 	"unlisted": [".", "..", ".DS_Store", "layout", "404.blade.php", "home.blade.php", "about"],
 	"icons": {
+		"concepts": "lightbulb",
 		"mixins": "local_bar",
 		"script": "code",
 		"elements": "code_blocks",
