@@ -10,6 +10,7 @@ import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument 
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
+import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
@@ -870,8 +871,8 @@ export class ComponentCustomizerRuntime {
 			return createReadOnlyDesignBuilderControl(setting, currentValue);
 		}
 
-		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues) => {
-			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues);
+		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues, options) => {
+			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues, options);
 		});
 	}
 
@@ -1329,7 +1330,7 @@ export class ComponentCustomizerRuntime {
 		return categories;
 	}
 
-	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults: Record<string, string> = {}, extraValues: Record<string, string> = {}): void {
+	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults: Record<string, string> = {}, extraValues: Record<string, string> = {}, options: ControlChangeOptions = {}): void {
 		if (!this.overrides[scopeKey]) {
 			this.overrides[scopeKey] = {};
 		}
@@ -1349,7 +1350,8 @@ export class ComponentCustomizerRuntime {
 
 		for (const [currentVariable, currentDefaultValue] of Object.entries(defaultValues)) {
 			const nextValue = nextValues[currentVariable] ?? '';
-			if (!nextValue || nextValue === currentDefaultValue) {
+			const shouldRemoveOverride = !nextValue || (!options.preserveMatchingDefault && nextValue === currentDefaultValue);
+			if (shouldRemoveOverride) {
 				delete this.overrides[scopeKey][componentName][currentVariable];
 				this.removeVariable(componentName, scopeKey, currentVariable);
 				continue;

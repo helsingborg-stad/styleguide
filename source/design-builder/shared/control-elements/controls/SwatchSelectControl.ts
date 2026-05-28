@@ -78,6 +78,9 @@ class SwatchSelectControl extends HTMLElement {
 				detail: {
 					value: option.value,
 					extraValues: option.extraValues,
+					options: {
+						preserveMatchingDefault: true,
+					},
 				},
 				bubbles: true,
 				composed: true,

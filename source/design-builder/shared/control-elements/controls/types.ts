@@ -23,4 +23,8 @@ export interface TokenSetting {
 	linkedDefaults?: Record<string, string>;
 }
 
-export type ChangeCallback = (variable: string, value: string, extraValues?: Record<string, string>) => void;
+export interface ControlChangeOptions {
+	preserveMatchingDefault?: boolean;
+}
+
+export type ChangeCallback = (variable: string, value: string, extraValues?: Record<string, string>, options?: ControlChangeOptions) => void;

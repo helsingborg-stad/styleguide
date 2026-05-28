@@ -703,6 +703,39 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('keeps explicit token-color selections when they match the nominal default', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults?: Record<string, string>, extraValues?: Record<string, string>, options?: { preserveMatchingDefault?: boolean }): void;
+		};
+
+		runtimeInternals.handleChange(
+			'button',
+			GENERAL_SCOPE_KEY,
+			'--c-button--color--primary',
+			'var(--color--primary)',
+			'var(--color--primary)',
+			{
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
+			{
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
+			{
+				preserveMatchingDefault: true,
+			},
+		);
+
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		expect(target?.style.getPropertyValue('--c-button--color--primary-contrast')).toBe('var(--color--primary-contrast)');
+
+		mount.remove();
+	});
+
 	it('links companion family variants for localized token-color selections', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

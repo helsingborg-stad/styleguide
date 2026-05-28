@@ -47,6 +47,9 @@ describe('SwatchSelectControl', () => {
 					extraValues: {
 						'--c-card--color--primary-contrast': 'var(--color--secondary-contrast)',
 					},
+					options: {
+						preserveMatchingDefault: true,
+					},
 				},
 			}),
 		);

@@ -1,15 +1,17 @@
 import { html, render } from 'lit-html';
-import type { TokenSetting } from '../types';
+import type { ControlChangeOptions, TokenSetting } from '../types';
 
 export type ControlRowValueChangeDetail = {
 	variable: string;
 	value: string;
 	extraValues?: Record<string, string>;
+	options?: ControlChangeOptions;
 };
 
 type ControlChangePayload = {
 	value: string;
 	extraValues?: Record<string, string>;
+	options?: ControlChangeOptions;
 };
 
 function getControlChangePayload(event: Event): ControlChangePayload | undefined {
@@ -29,10 +31,17 @@ function getControlChangePayload(event: Event): ControlChangePayload | undefined
 
 	const extraValuesRaw = (detail as { extraValues?: unknown }).extraValues;
 	const extraValues = extraValuesRaw && typeof extraValuesRaw === 'object' && !Array.isArray(extraValuesRaw) ? Object.fromEntries(Object.entries(extraValuesRaw as Record<string, unknown>).filter(([, entryValue]) => typeof entryValue === 'string')) : undefined;
+	const optionsRaw = (detail as { options?: unknown }).options;
+	const options = optionsRaw && typeof optionsRaw === 'object' && !Array.isArray(optionsRaw)
+		? {
+				preserveMatchingDefault: (optionsRaw as { preserveMatchingDefault?: unknown }).preserveMatchingDefault === true,
+			}
+		: undefined;
 
 	return {
 		value: String(value),
 		extraValues: extraValues && Object.keys(extraValues).length > 0 ? (extraValues as Record<string, string>) : undefined,
+		options: options?.preserveMatchingDefault ? options : undefined,
 	};
 }
 
@@ -82,7 +91,7 @@ class DbControlRow extends HTMLElement {
 		document.removeEventListener('pointerdown', this.handleDocumentPointerDown, true);
 	}
 
-	private emitChange(value: string, extraValues?: Record<string, string>) {
+	private emitChange(value: string, extraValues?: Record<string, string>, options?: ControlChangeOptions) {
 		const setting = this._setting;
 		if (!setting) {
 			return;
@@ -94,6 +103,7 @@ class DbControlRow extends HTMLElement {
 					variable: setting.variable,
 					value,
 					extraValues,
+					options,
 				},
 				bubbles: true,
 				composed: true,
@@ -122,7 +132,7 @@ class DbControlRow extends HTMLElement {
 
 		this._value = value;
 		this.render();
-		this.emitChange(value, payload.extraValues);
+		this.emitChange(value, payload.extraValues, payload.options);
 	}
 
 	private onReset() {

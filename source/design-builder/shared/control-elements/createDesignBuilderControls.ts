@@ -7,7 +7,7 @@ import './controls/layout/ReadOnlyControlRow';
 import './controls/layout/Category';
 import './controls/layout/SwatchBand';
 import type { TokenCategory } from '../types/designBuilderDataTypes';
-import type { ChangeCallback, TokenSetting } from './controls/types';
+import type { ChangeCallback, ControlChangeOptions, TokenSetting } from './controls/types';
 
 export type { ChangeCallback, TokenSetting } from './controls/types';
 
@@ -36,17 +36,17 @@ export function createDesignBuilderControl(setting: TokenSetting, currentValue: 
 	row.setting = setting;
 	row.value = currentValue;
 	row.addEventListener('control-change', (event) => {
-		const detail = (event as CustomEvent<{ variable: string; value: string; extraValues?: Record<string, string> }>).detail;
+		const detail = (event as CustomEvent<{ variable: string; value: string; extraValues?: Record<string, string>; options?: ControlChangeOptions }>).detail;
 		if (!detail) {
 			return;
 		}
 
 		if (detail.extraValues) {
-			onChange(detail.variable, detail.value, detail.extraValues);
+			onChange(detail.variable, detail.value, detail.extraValues, detail.options);
 			return;
 		}
 
-		onChange(detail.variable, detail.value);
+		onChange(detail.variable, detail.value, undefined, detail.options);
 	});
 	return row;
 }

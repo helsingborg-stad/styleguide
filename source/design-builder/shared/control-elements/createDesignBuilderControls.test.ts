@@ -156,6 +156,8 @@ describe('controls change handling', () => {
 		expect(onChange).toHaveBeenCalledTimes(1);
 		expect(onChange).toHaveBeenCalledWith('--c-button--color--primary', 'var(--color--secondary)', {
 			'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+		}, {
+			preserveMatchingDefault: true,
 		});
 	});
 
