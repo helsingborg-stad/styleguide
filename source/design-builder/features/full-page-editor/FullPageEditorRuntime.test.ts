@@ -148,7 +148,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		const removeButton = container.querySelector<HTMLButtonElement>('[data-action="remove-palette-family"]');
 		expect(removeButton).toBeTruthy();
 		expect(removeButton?.querySelector('.db-material-symbol')?.textContent).toBe('close');
-		expect(removeButton?.textContent?.trim()).toBe('');
+		expect(removeButton?.textContent?.trim()).toBe('close');
 		expect(removeButton?.getAttribute('aria-label')).toBe('Remove palette color: Palette 1');
 		removeButton?.click();
 

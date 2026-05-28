@@ -9,6 +9,7 @@ $_: "c-testimonials";
     container-type: inline-size;
 
     // General
+
     .c-testimonial .c-card__paint-container {
         display: grid;
         grid-template-rows: auto 1fr;
@@ -41,7 +42,9 @@ $_: "c-testimonials";
         }
 
         // Flat card
+
         &.c-card--flat {
+
             .c-testimonial__image {
                 filter: none;
             }
@@ -70,6 +73,7 @@ $_: "c-testimonials";
     }
 
     // Non-carousel
+
     .c-testimonials__wrapper {
         display: grid;
         grid-template-columns: 100%;
@@ -77,7 +81,9 @@ $_: "c-testimonials";
     }
 
     // Slider style
+
     .c-testimonials__slider {
+
         .c-slider {
             max-height: unset;
 
@@ -110,7 +116,9 @@ $_: "c-testimonials";
         }
 
         .c-slider__arrows {
+
             .splide__arrow {
+
                 &.splide__arrow--prev {
                     left: tokens.getCalculatedValue($_, "base", -2.5);
                 }

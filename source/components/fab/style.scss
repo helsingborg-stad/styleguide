@@ -32,7 +32,6 @@ $yAxis: (
     z-index: 7;
 }
 
-
 /* Width Modifiers */
 .#{$_}.#{$_}--width-sm {
     --#{$_}--size-multiplier: 0.75;
@@ -65,15 +64,14 @@ $yAxis: (
     overscroll-behavior: none;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
     border: var(--#{$_}--border);
     filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
     background: tokens.getRawValue($_, "color--surface");
     margin-bottom: #{tokens.getCalculatedValue($_, "space", 2)};
     min-width: min(calc(#{tokens.getCalculatedValue($_, "base", 30)} * var(--#{$_}--size-multiplier)),
-        calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
+    calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
     max-width: min(calc(#{tokens.getCalculatedValue($_, "base", 45)} * var(--#{$_}--size-multiplier)),
-        calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
+    calc(100vw - (#{tokens.getCalculatedValue($_, "base", 4)} * 2)));
     width: 100vw;
     text-align: left;
     padding: var(--#{$_}--panel-padding);
@@ -117,6 +115,7 @@ $yAxis: (
 }
 
 @keyframes fab-popout {
+
     0% {
         transform: translateY(-20%);
         opacity: 0;

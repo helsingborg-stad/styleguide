@@ -134,6 +134,7 @@ $_: "c-table";
     /**
      * Sorting
      */
+
     &[js-sort-container] th {
         cursor: pointer;
 
@@ -168,6 +169,7 @@ $_: "c-table";
      * Modifier: multidimensional scroll
      */
     &.#{$_}--multidimensional {
+
         &.is-collapsed {
             .#{$_}__column-0 {
                 min-width: tokens.getCalculatedValue($_, "space", 10);

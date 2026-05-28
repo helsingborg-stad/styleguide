@@ -1,8 +1,8 @@
 import { findByRole, getByRole, getByText } from '@testing-library/dom';
 import UserEvent from '@testing-library/user-event';
-import { renderComponent } from '../helpers/ComponentRenderer';
-import { Select, SelectElementSelector } from './Select';
-import { SelectComponentObserver } from './SelectComponentObserver';
+import { renderComponent } from '../../../../js/helpers/ComponentRenderer';
+import { SelectComponentObserver } from '../../index';
+import { Select, SelectElementSelector } from '../select';
 
 interface ISelectData {
 	label: string;

@@ -55,12 +55,9 @@ $_: "c-box";
         .#{$_}__image {
             max-width: tokens.getCalculatedValue($_, "space", 10);
         }
-
-
     }
 
     @container box (max-width: 225px) {
-
         .#{$_}__content,
         .#{$_}__date,
         .#{$_}__meta {

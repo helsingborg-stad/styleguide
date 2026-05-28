@@ -1,6 +1,6 @@
 import { Select } from './script/select';
 
-class SelectComponentObserver {
+export class SelectComponentObserver {
 	private readonly selectComponentElementAttribute = 'data-js-select-component'; //Add to main div of component
 
 	constructor() {

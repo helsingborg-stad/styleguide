@@ -6,6 +6,7 @@
 @use "../mixin/stretch";
 
 /* Button */
+
 .mixins-example-button-mix {
     @include button.button-mix(#000, #42c765, #ac42c7);
 }
@@ -19,6 +20,7 @@
 }
 
 /* Focus */
+
 .mixin-example-focus {
     @include focus.focus();
 }
@@ -28,6 +30,7 @@
 }
 
 /* Mq */
+
 .mixin-example-mq {
     background-color: green;
 
@@ -37,11 +40,13 @@
 }
 
 /* Ratio */
+
 .mixin-example-ratio {
     @include ratio.ratio(16, 2);
 }
 
 /* Stretch */
+
 .mixin-example-stretch {
     @include stretch.stretch();
 }

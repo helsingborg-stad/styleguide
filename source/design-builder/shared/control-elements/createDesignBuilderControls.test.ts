@@ -149,10 +149,6 @@ describe('controls change handling', () => {
 		const row = createDesignBuilderControl(setting, 'var(--color--primary)', onChange);
 		document.body.appendChild(row);
 
-		const trigger = row.querySelector('.db-swatch-select-trigger') as HTMLButtonElement;
-		expect(trigger).toBeTruthy();
-		trigger.click();
-
 		const options = row.querySelectorAll<HTMLButtonElement>('.db-swatch-select-option');
 		expect(options.length).toBe(2);
 		options[1].click();

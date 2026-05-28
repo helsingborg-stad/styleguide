@@ -5,6 +5,7 @@ $_: "c-drawer";
 @include tokens.create($_, getComponentTokens($_));
 
 /* Colors */
+
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--drawer-transition-ms: 300ms;
@@ -37,6 +38,7 @@ $_: "c-drawer";
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
+
 .c-drawer.c-drawer--duotone {
 
     &,
@@ -71,6 +73,7 @@ $_: "c-drawer";
 }
 
 // Actual css
+
 .c-drawer {
     background-color: var(--drawer-background);
 
@@ -116,6 +119,7 @@ $_: "c-drawer";
 /* Colors END */
 
 // Drawer
+
 .c-drawer {
     position: fixed;
     left: 0;
@@ -126,8 +130,8 @@ $_: "c-drawer";
     z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
-    var(--#{$_}--drawer-transition-ms) ease-in transform,
-    var(--#{$_}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_}--drawer-transition-ms) ease-in transform,
+        var(--#{$_}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -157,6 +161,7 @@ $_: "c-drawer";
 }
 
 .c-drawer {
+
     .c-nav.c-nav--drawer.c-nav--vertical {
         --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
         --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
@@ -166,6 +171,7 @@ $_: "c-drawer";
 }
 
 // Drawer Modifiers
+
 .c-drawer.c-drawer--right {
     transform: translate(100%);
     right: 0;
@@ -176,23 +182,25 @@ $_: "c-drawer";
 
     .c-drawer__header,
     .site-nav-mobile__primary {
+
         * {
             color: tokens.getRawValue($_, "color--surface-contrast");
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
-        .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
-        .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
+        .hamburger.hamburger--drawer.is-active .hamburger-inner:before,
+        .hamburger.hamburger--drawer.is-active .hamburger-inner:after {
             background-color: tokens.getRawValue($_, "color--surface-contrast");
         }
     }
 }
 
 // Drawer States
+
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out transform,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out transform,
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
@@ -201,7 +209,7 @@ $_: "c-drawer";
 
 $_overlay: "drawer-overlay";
 @include tokens.create($_overlay, ("color--alpha"
-    ));
+));
 
 // Overlay
 .#{$_overlay} {
@@ -214,16 +222,17 @@ $_overlay: "drawer-overlay";
     height: 100%;
     z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
-    var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
 }
 
 // Overlay states
+
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
 }

@@ -58,7 +58,6 @@ $_: "c-notice";
         >*+* {
             padding-left: tokens.getCalculatedValue($_, "space", 0.75);
             border-left: 1px solid;
-            border-left-color: inherit;
             opacity: 1;
             border-left-color: color-mix(in srgb, currentColor 30%, transparent);
         }

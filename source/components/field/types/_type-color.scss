@@ -5,45 +5,46 @@
 ///
 /// @param {String} $component - The BEM component name (e.g. "c-field")
 @mixin apply($component) {
-  &--color {
-    padding: 0;
-    border-radius: 500px;
-    corner-shape: unset;
-    height: var(--c-field--height);
-    width: var(--c-field--height);
-    min-width: 0;
 
-    >input[type="color"] {
-      flex: 0 0 auto;
-      cursor: pointer;
-      aspect-ratio: 1 / 1;
-
-      &::-webkit-color-swatch-wrapper {
+    &--color {
         padding: 0;
-        border-radius: 50%;
-      }
+        border-radius: 500px;
+        corner-shape: unset;
+        height: var(--c-field--height);
+        width: var(--c-field--height);
+        min-width: 0;
 
-      &::-webkit-color-swatch {
-        border: none;
-        border-radius: 50%;
-      }
+        >input[type="color"] {
+            flex: 0 0 auto;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
 
-      &::-moz-color-swatch {
-        border: none;
-        border-radius: 50%;
-      }
+            &::-webkit-color-swatch-wrapper {
+                padding: 0;
+                border-radius: 50%;
+            }
+
+            &::-webkit-color-swatch {
+                border: none;
+                border-radius: 50%;
+            }
+
+            &::-moz-color-swatch {
+                border: none;
+                border-radius: 50%;
+            }
+        }
     }
-  }
 
-  @at-root .#{$component} .#{$component}__inner.#{$component}__inner--color>input[type="color"] {
-    padding: 0;
-    width: 100%;
-  }
+    @at-root .#{$component} .#{$component}__inner.#{$component}__inner--color>input[type="color"] {
+        padding: 0;
+        width: 100%;
+    }
 
-  // Constrain the .c-field wrapper itself to a square so it never grows wider than its height.
-  @at-root .#{$component}.#{$component}--color {
-    flex: 0 0 auto;
-    width: tokens.getRawValue($component, "height");
-    corner-shape: unset;
-  }
+    // Constrain the .c-field wrapper itself to a square so it never grows wider than its height.
+    @at-root .#{$component}.#{$component}--color {
+        flex: 0 0 auto;
+        width: tokens.getRawValue($component, "height");
+        corner-shape: unset;
+    }
 }

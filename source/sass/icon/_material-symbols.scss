@@ -1,9 +1,10 @@
 @use "../setting/var_default";
 
 /* Support all types */
-.material-symbols, 
+
+.material-symbols,
 .material-icons {
-    font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
+    font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp";
     font-style: normal;
     font-size: calc(var_default.$base * 3);
     letter-spacing: normal;
@@ -15,20 +16,20 @@
     font-feature-settings: "liga";
 
     font-variation-settings:
-    'FILL' 0,
-    'wght' var(--current-material-symbols-weight, 400),
-    'GRAD' var(--current-material-symbols-grade, 0),
-    'opsz' var(--current-material-symbols-optical-size, 48);
+        "FILL" 0,
+        "wght" var(--current-material-symbols-weight, 400),
+        "GRAD" var(--current-material-symbols-grade, 0),
+        "opsz" var(--current-material-symbols-optical-size, 48);
 
     &--filled {
         font-variation-settings:
-        'FILL' 1,
-        'wght' var(--current-material-symbols-weight, 400),
-        'GRAD' var(--current-material-symbols-grade, 0),
-        'opsz' var(--current-material-symbols-optical-size, 48);
+            "FILL" 1,
+            "wght" var(--current-material-symbols-weight, 400),
+            "GRAD" var(--current-material-symbols-grade, 0),
+            "opsz" var(--current-material-symbols-optical-size, 48);
     }
 
-    &::after {
+    &:after {
         content: attr(data-material-symbol);
     }
 }
