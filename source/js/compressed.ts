@@ -47,7 +47,6 @@ class Compressed {
     private handleClick() {
         if (this.element?.hasAttribute('is-compressed')) {
             this.element.removeAttribute('is-compressed');
-            console.log("has element attribute")
             this.toggleSiblingElements(false);
         } else {
             this.element?.setAttribute('is-compressed', '');
