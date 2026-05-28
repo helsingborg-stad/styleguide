@@ -33,7 +33,7 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
             return $result;
         }
 
-        if (!$this->usesTokenBackedComponentSettings($filePath) || !str_contains($content, 'var(--inherit-')) {
+        if (!$this->usesTokenBackedComponentSettings($filePath)) {
             return $result;
         }
 
@@ -49,15 +49,29 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
             }
         }
 
-        $usesNewPattern = preg_match('/tokens\.getInheritableValue\(/', $content) === 1;
+        $inheritStringPattern = '"(?:--inherit-[^"]+|[^"-][^"]*)"';
+        $helperPatterns = [
+            '/tokens\.getRawValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getCalculatedValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getCalculatedValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*[^,\n()]+\s*,\s*' . $inheritStringPattern . '\s*\)/',
+        ];
+        $usesNewPattern = false;
+        foreach (explode("\n", $content) as $line) {
+            foreach ($helperPatterns as $pattern) {
+                if (preg_match($pattern, $line) === 1) {
+                    $usesNewPattern = true;
+                    break 2;
+                }
+            }
+        }
         if (!$usesLegacyPattern && !$usesNewPattern) {
             return $result;
         }
 
-        if ($usesNewPattern && !preg_match('/@include\s+tokens\.createDefaults\(/', $content)) {
+        if ($usesNewPattern && !preg_match('/@include\s+tokens\.create\([^\n]*\$defaultsOnly:\s*true/', $content)) {
             $result->addViolation(
                 0,
-                'Components that combine token-backed component settings with --inherit-* hooks must register token defaults with @include tokens.createDefaults(...).',
+                'Components that combine token-backed component settings with --inherit-* hooks must register token defaults with @include tokens.create(..., $defaultsOnly: true).',
             );
         }
 
@@ -67,7 +81,7 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
                 if (preg_match($pattern, $line)) {
                     $result->addViolation(
                         $index + 1,
-                        'Use tokens.getInheritableValue(...) so component overrides take precedence over --inherit-* fallbacks.',
+                        'Use tokens.getRawValue(..., "color-background") or tokens.getCalculatedValue(..., "space", "color-background") so component overrides take precedence over --inherit-* fallbacks.',
                         trim($line),
                     );
                     break;

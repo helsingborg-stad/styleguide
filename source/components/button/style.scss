@@ -26,9 +26,9 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.createDefaults($_, getComponentTokens($_));
+@include tokens.create($_, getComponentTokens($_), $defaultsOnly: true);
 
-$button-inherit-background: #{tokens.getInheritableValue($_, "color--surface", "--inherit-color-background")};
+$button-inherit-background: #{tokens.getRawValue($_, "color--surface", "color-background")};
 
 /**
  * Variant color schemes
@@ -36,27 +36,27 @@ $button-inherit-background: #{tokens.getInheritableValue($_, "color--surface", "
  * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
-    "primary": ("bg": tokens.getInheritableValue($_, "color--primary", "--inherit-color-background"),
-    "fg": tokens.getInheritableValue($_, "color--primary-contrast", "--inherit-color-contrast"),
-    "border": tokens.getComponentValue($_, "color--primary-border"),
-    "hover": tokens.getInheritableValue($_, "color--primary-border", "--inherit-color-background-hover"),
-    "active": tokens.getInheritableValue($_, "color--primary-alt", "--inherit-color-background-active"),
-    "underline": tokens.getInheritableValue($_, "color--primary", "--inherit-color-contrast"),
-    "stroke": tokens.getComponentValue($_, "color--primary")),
-    "secondary": ("bg": tokens.getInheritableValue($_, "color--secondary", "--inherit-color-background"),
-    "fg": tokens.getInheritableValue($_, "color--secondary-contrast", "--inherit-color-contrast"),
-    "border": tokens.getComponentValue($_, "color--secondary-border"),
-    "hover": tokens.getInheritableValue($_, "color--secondary-border", "--inherit-color-background-hover"),
-    "active": tokens.getInheritableValue($_, "color--secondary-alt", "--inherit-color-background-active"),
-    "underline": tokens.getInheritableValue($_, "color--secondary", "--inherit-color-contrast"),
-    "stroke": tokens.getComponentValue($_, "color--secondary")),
-    "default": ("bg": tokens.getInheritableValue($_, "color--surface-alt", "--inherit-color-background"),
-    "fg": tokens.getInheritableValue($_, "color--surface-contrast", "--inherit-color-contrast"),
-    "border": tokens.getComponentValue($_, "color--surface-border"),
-    "hover": tokens.getInheritableValue($_, "color--surface-border", "--inherit-color-background-hover"),
-    "active": tokens.getInheritableValue($_, "color--surface-alt", "--inherit-color-background-active"),
-    "underline": tokens.getInheritableValue($_, "color--surface-contrast-muted", "--inherit-color-contrast"),
-    "stroke": tokens.getComponentValue($_, "color--surface-contrast"))
+    "primary": ("bg": tokens.getRawValue($_, "color--primary", "color-background"),
+        "fg": tokens.getRawValue($_, "color--primary-contrast", "color-contrast"),
+        "border": var(--#{$_}--color--primary-border, #{tokens.getDefaultRawValue($_, "color--primary-border")}),
+        "hover": tokens.getRawValue($_, "color--primary-border", "color-background-hover"),
+        "active": tokens.getRawValue($_, "color--primary-alt", "color-background-active"),
+        "underline": tokens.getRawValue($_, "color--primary", "color-contrast"),
+        "stroke": var(--#{$_}--color--primary, #{tokens.getDefaultRawValue($_, "color--primary")})),
+    "secondary": ("bg": tokens.getRawValue($_, "color--secondary", "color-background"),
+        "fg": tokens.getRawValue($_, "color--secondary-contrast", "color-contrast"),
+        "border": var(--#{$_}--color--secondary-border, #{tokens.getDefaultRawValue($_, "color--secondary-border")}),
+        "hover": tokens.getRawValue($_, "color--secondary-border", "color-background-hover"),
+        "active": tokens.getRawValue($_, "color--secondary-alt", "color-background-active"),
+        "underline": tokens.getRawValue($_, "color--secondary", "color-contrast"),
+        "stroke": var(--#{$_}--color--secondary, #{tokens.getDefaultRawValue($_, "color--secondary")})),
+    "default": ("bg": tokens.getRawValue($_, "color--surface-alt", "color-background"),
+        "fg": tokens.getRawValue($_, "color--surface-contrast", "color-contrast"),
+        "border": var(--#{$_}--color--surface-border, #{tokens.getDefaultRawValue($_, "color--surface-border")}),
+        "hover": tokens.getRawValue($_, "color--surface-border", "color-background-hover"),
+        "active": tokens.getRawValue($_, "color--surface-alt", "color-background-active"),
+        "underline": tokens.getRawValue($_, "color--surface-contrast-muted", "color-contrast"),
+        "stroke": var(--#{$_}--color--surface-contrast, #{tokens.getDefaultRawValue($_, "color--surface-contrast")}))
 );
 
 .#{$_} {
@@ -77,8 +77,8 @@ $button-variants: (
     }
 
     &.#{$_}__outlined {
-        --_contrast: #{tokens.getInheritableValue($_, "color--surface-contrast", "--inherit-color-background")};
-        --_color: #{tokens.getInheritableValue($_, "color--surface-contrast", "--inherit-color-background")};
+        --_contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
+        --_color: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
     }
 
     @each $name, $variant in $button-variants {
@@ -133,42 +133,42 @@ $button-variants: (
  */
 $button-sizes: (
     "lg": ("height": 8,
-    "min-width": 12,
-    "padding-x": 5,
-    "offset": -1.5,
-    "loader": 4,
-    "font-size": var(--#{$_}--font-size-lg)),
+        "min-width": 12,
+        "padding-x": 5,
+        "offset": -1.5,
+        "loader": 4,
+        "font-size": var(--#{$_}--font-size-lg)),
     "md": ("height": 6,
-    "min-width": 9,
-    "padding-x": 4,
-    "offset": -1,
-    "loader": null,
-    "font-size": var(--#{$_}--font-size-md)),
+        "min-width": 9,
+        "padding-x": 4,
+        "offset": -1,
+        "loader": null,
+        "font-size": var(--#{$_}--font-size-md)),
     "sm": ("height": 4.5,
-    "min-width": 6.75,
-    "padding-x": 2,
-    "offset": -0.5,
-    "loader": 2,
-    "font-size": var(--#{$_}--font-size-sm),
-    "letter-spacing": 0.1rem)
+        "min-width": 6.75,
+        "padding-x": 2,
+        "offset": -0.5,
+        "loader": 2,
+        "font-size": var(--#{$_}--font-size-sm),
+        "letter-spacing": 0.1rem)
 );
 
 /* Component base */
 .#{$_} {
-    --#{$_}--base-value: #{tokens.getComponentValue($_, "base")};
-    --#{$_}--space-value: #{tokens.getComponentValue($_, "space")};
-    --#{$_}--outer-space-value: #{tokens.getComponentValue($_, "outer-space")};
-    --#{$_}--border-width-value: #{tokens.getComponentValue($_, "border-width")};
-    --#{$_}--border-radius-value: #{tokens.getComponentValue($_, "border-radius")};
-    --#{$_}--shadow-amount-value: #{tokens.getComponentValue($_, "shadow-amount")};
-    --#{$_}--shadow-color-value: #{tokens.getComponentValue($_, "shadow-color")};
-    --#{$_}--font-weight: #{tokens.getComponentValue($_, "font-weight-medium")};
-    --#{$_}--font-family: #{tokens.getComponentValue($_, "font-family-base")};
-    --#{$_}--font-size-lg: #{tokens.getComponentValue($_, "font-size-200")};
-    --#{$_}--font-size-md: #{tokens.getComponentValue($_, "font-size-100")};
-    --#{$_}--font-size-sm: #{tokens.getComponentValue($_, "font-size-90")};
-    --#{$_}--color-default: #{tokens.getComponentValue($_, "color--surface")};
-    --#{$_}--color-default-contrast: #{tokens.getComponentValue($_, "color--surface-contrast")};
+    --#{$_}--base-value: var(--#{$_}--base, #{tokens.getDefaultRawValue($_, "base")});
+    --#{$_}--space-value: var(--#{$_}--space, #{tokens.getDefaultRawValue($_, "space")});
+    --#{$_}--outer-space-value: var(--#{$_}--outer-space, #{tokens.getDefaultRawValue($_, "outer-space")});
+    --#{$_}--border-width-value: var(--#{$_}--border-width, #{tokens.getDefaultRawValue($_, "border-width")});
+    --#{$_}--border-radius-value: var(--#{$_}--border-radius, #{tokens.getDefaultRawValue($_, "border-radius")});
+    --#{$_}--shadow-amount-value: var(--#{$_}--shadow-amount, #{tokens.getDefaultRawValue($_, "shadow-amount")});
+    --#{$_}--shadow-color-value: var(--#{$_}--shadow-color, #{tokens.getDefaultRawValue($_, "shadow-color")});
+    --#{$_}--font-weight: var(--#{$_}--font-weight-medium, #{tokens.getDefaultRawValue($_, "font-weight-medium")});
+    --#{$_}--font-family: var(--#{$_}--font-family-base, #{tokens.getDefaultRawValue($_, "font-family-base")});
+    --#{$_}--font-size-lg: var(--#{$_}--font-size-200, #{tokens.getDefaultRawValue($_, "font-size-200")});
+    --#{$_}--font-size-md: var(--#{$_}--font-size-100, #{tokens.getDefaultRawValue($_, "font-size-100")});
+    --#{$_}--font-size-sm: var(--#{$_}--font-size-90, #{tokens.getDefaultRawValue($_, "font-size-90")});
+    --#{$_}--color-default: var(--#{$_}--color--surface, #{tokens.getDefaultRawValue($_, "color--surface")});
+    --#{$_}--color-default-contrast: var(--#{$_}--color--surface-contrast, #{tokens.getDefaultRawValue($_, "color--surface-contrast")});
     --#{$_}--shadow: drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$_}--shadow-amount-value)) calc(var(--#{$_}--shadow-amount-value) * var(--base)) var(--#{$_}--shadow-color-value));
     contain: layout;
     display: inline-flex;
@@ -318,7 +318,7 @@ $button-sizes: (
             padding: 0 calc(var(--#{$_}--base-value) * var(--_p));
             font-size: var(--_fs);
             border-radius: calc(var(--#{$_}--border-radius-value) * var(--base));
-            corner-shape: tokens.getComponentValue($_, "corner-shape");
+            corner-shape: var(--#{$_}--corner-shape, #{tokens.getDefaultRawValue($_, "corner-shape")});
 
             /* Loader sizing (sm/lg override the default size) */
             .#{$_}__loader {
