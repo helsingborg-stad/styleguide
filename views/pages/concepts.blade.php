@@ -13,7 +13,7 @@
         'shortcuts' => [
             ['label' => 'Inheritance', 'href' => '/concepts/inheritance'],
             ['label' => 'Local customization', 'href' => '/concepts/local-customization'],
-            ['label' => 'Components', 'href' => '/components'],
+            ['label' => 'Color system', 'href' => '/concepts/color-system'],
             ['label' => 'Design builder', 'href' => '/design-builder'],
         ],
     ])
@@ -40,6 +40,15 @@
                 'content' => 'See how a section can force reasonable inherited button contrast while still allowing a single button instance to opt out locally.',
                 'link' => '/concepts/local-customization',
                 'icon' => 'tune',
+            ])
+            @endbox
+        </div>
+        <div class="o-grid-12 o-grid-6@md">
+            @box([
+                'heading' => 'Color system',
+                'content' => 'All design token colors as live swatches, with derivation formulas, mix amounts, and usage guidance for every token in the system.',
+                'link' => '/concepts/color-system',
+                'icon' => 'palette',
             ])
             @endbox
         </div>
