@@ -47,7 +47,7 @@ $_: "c-nav";
     --#{$_}--item-color-hover: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
-    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75)  0);
+    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75) 0);
     --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));
     --#{$_}--vertical-button-padding-compressed: var(--inherit-button-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5));
     display: flex;
@@ -241,7 +241,7 @@ $_: "c-nav";
             }
         }
 
-        &.c-nav--bordered .c-nav__item+.c-nav__item {
+        &.c-nav--bordered:not(.c-nav.c-nav__extended-child-menu) .c-nav__item+.c-nav__item {
             border-top: 1px solid var(--#{$_}--item-border-color);
         }
 
@@ -437,14 +437,12 @@ $_: "c-nav";
     }
 
     /* Direct subitems (to main item) styles */
-
     &>li ul.c-nav__extended-child-menu {
-
         display: grid;
         grid-auto-flow: column;
         grid-template-rows: repeat(4, max-content) 1fr;
         gap: 0 1px;
-        background-color: tokens.getRawValue($_, "color--surface-contrast");
+        background-color: var(--#{$_}--item-color);
 
         ul.c-nav.c-nav--child {
             background-color: var(--#{$_}--background-expanded);
