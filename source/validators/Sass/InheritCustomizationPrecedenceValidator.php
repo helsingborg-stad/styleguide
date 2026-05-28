@@ -51,9 +51,14 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
 
         $inheritStringPattern = '"(?:--inherit-[^"]+|[^"-][^"]*)"';
         $helperPatterns = [
-            '/tokens\.getRawValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*' . $inheritStringPattern . '\s*\)/',
-            '/tokens\.getCalculatedValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*' . $inheritStringPattern . '\s*\)/',
-            '/tokens\.getCalculatedValue\([^,\n]+,\s*' . $inheritStringPattern . '\s*,\s*[^,\n()]+\s*,\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getRawValue\(\s*\$prefix:\s*[^,\n]+,\s*\$token:\s*' . $inheritStringPattern . '\s*,\s*\$inheritVariable:\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getCalculatedValue\(\s*\$prefix:\s*[^,\n]+,\s*\$token:\s*' . $inheritStringPattern . '\s*,\s*\$inheritVariable:\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getCalculatedValue\(\s*\$prefix:\s*[^,\n]+,\s*\$token:\s*' . $inheritStringPattern . '\s*,\s*\$multiplier:\s*[^,\n()]+,\s*\$inheritVariable:\s*' . $inheritStringPattern . '\s*\)/',
+        ];
+        $positionalHelperPatterns = [
+            '/tokens\.getRawValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,[^)]*\)/',
+            '/tokens\.getCalculatedValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,\s*' . $inheritStringPattern . '\s*\)/',
+            '/tokens\.getCalculatedValue\((?![^)]*\$prefix\s*:)(?![^)]*\$token\s*:)(?![^)]*\$multiplier\s*:)(?![^)]*\$inheritVariable\s*:)[^)]*,[^)]*,[^)]*,[^)]*\)/',
         ];
         $usesNewPattern = false;
         foreach (explode("\n", $content) as $line) {
@@ -82,6 +87,17 @@ class InheritCustomizationPrecedenceValidator implements ValidatorInterface
                     $result->addViolation(
                         $index + 1,
                         'Use tokens.getRawValue(..., "color-background") or tokens.getCalculatedValue(..., "space", "color-background") so component overrides take precedence over --inherit-* fallbacks.',
+                        trim($line),
+                    );
+                    break;
+                }
+            }
+
+            foreach ($positionalHelperPatterns as $pattern) {
+                if (preg_match($pattern, $line)) {
+                    $result->addViolation(
+                        $index + 1,
+                        'Use named arguments for inherit-aware token helpers, for example tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background").',
                         trim($line),
                     );
                     break;

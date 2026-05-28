@@ -26,9 +26,9 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_), $emitDefaultTokenVariables: true);
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
-$button-inherit-background: #{tokens.getRawValue($_, "color--surface", "color-background")};
+$button-inherit-background: #{tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background")};
 
 /**
  * Variant color schemes
@@ -36,26 +36,26 @@ $button-inherit-background: #{tokens.getRawValue($_, "color--surface", "color-ba
  * consumed by __filled, __outlined, and __basic.
  */
 $button-variants: (
-    "primary": ("bg": tokens.getRawValue($_, "color--primary", "color-background"),
-        "fg": tokens.getRawValue($_, "color--primary-contrast", "color-contrast"),
+    "primary": ("bg": tokens.getRawValue($prefix: $_, $token: "color--primary", $inheritVariable: "color-background"),
+        "fg": tokens.getRawValue($prefix: $_, $token: "color--primary-contrast", $inheritVariable: "color-contrast"),
         "border": var(--#{$_}--color--primary-border, #{tokens.getDefaultRawValue($_, "color--primary-border")}),
-        "hover": tokens.getRawValue($_, "color--primary-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--primary-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--primary", "color-contrast"),
+        "hover": tokens.getRawValue($prefix: $_, $token: "color--primary-border", $inheritVariable: "color-background-hover"),
+        "active": tokens.getRawValue($prefix: $_, $token: "color--primary-alt", $inheritVariable: "color-background-active"),
+        "underline": tokens.getRawValue($prefix: $_, $token: "color--primary", $inheritVariable: "color-contrast"),
         "stroke": var(--#{$_}--color--primary, #{tokens.getDefaultRawValue($_, "color--primary")})),
-    "secondary": ("bg": tokens.getRawValue($_, "color--secondary", "color-background"),
-        "fg": tokens.getRawValue($_, "color--secondary-contrast", "color-contrast"),
+    "secondary": ("bg": tokens.getRawValue($prefix: $_, $token: "color--secondary", $inheritVariable: "color-background"),
+        "fg": tokens.getRawValue($prefix: $_, $token: "color--secondary-contrast", $inheritVariable: "color-contrast"),
         "border": var(--#{$_}--color--secondary-border, #{tokens.getDefaultRawValue($_, "color--secondary-border")}),
-        "hover": tokens.getRawValue($_, "color--secondary-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--secondary-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--secondary", "color-contrast"),
+        "hover": tokens.getRawValue($prefix: $_, $token: "color--secondary-border", $inheritVariable: "color-background-hover"),
+        "active": tokens.getRawValue($prefix: $_, $token: "color--secondary-alt", $inheritVariable: "color-background-active"),
+        "underline": tokens.getRawValue($prefix: $_, $token: "color--secondary", $inheritVariable: "color-contrast"),
         "stroke": var(--#{$_}--color--secondary, #{tokens.getDefaultRawValue($_, "color--secondary")})),
-    "default": ("bg": tokens.getRawValue($_, "color--surface-alt", "color-background"),
-        "fg": tokens.getRawValue($_, "color--surface-contrast", "color-contrast"),
+    "default": ("bg": tokens.getRawValue($prefix: $_, $token: "color--surface-alt", $inheritVariable: "color-background"),
+        "fg": tokens.getRawValue($prefix: $_, $token: "color--surface-contrast", $inheritVariable: "color-contrast"),
         "border": var(--#{$_}--color--surface-border, #{tokens.getDefaultRawValue($_, "color--surface-border")}),
-        "hover": tokens.getRawValue($_, "color--surface-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--surface-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--surface-contrast-muted", "color-contrast"),
+        "hover": tokens.getRawValue($prefix: $_, $token: "color--surface-border", $inheritVariable: "color-background-hover"),
+        "active": tokens.getRawValue($prefix: $_, $token: "color--surface-alt", $inheritVariable: "color-background-active"),
+        "underline": tokens.getRawValue($prefix: $_, $token: "color--surface-contrast-muted", $inheritVariable: "color-contrast"),
         "stroke": var(--#{$_}--color--surface-contrast, #{tokens.getDefaultRawValue($_, "color--surface-contrast")}))
 );
 
@@ -77,8 +77,8 @@ $button-variants: (
     }
 
     &.#{$_}__outlined {
-        --_contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
-        --_color: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
+        --_contrast: #{tokens.getRawValue($prefix: $_, $token: "color--surface-contrast", $inheritVariable: "color-background")};
+        --_color: #{tokens.getRawValue($prefix: $_, $token: "color--surface-contrast", $inheritVariable: "color-background")};
     }
 
     @each $name, $variant in $button-variants {
