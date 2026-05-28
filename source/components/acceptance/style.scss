@@ -140,7 +140,9 @@ $_: "c-acceptance";
 }
 
 /* Since video module uses padding for ratio */
+
 .c-card__video {
+
     .embed {
         .#{$_}.#{$_}--video {
             position: static;

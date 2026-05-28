@@ -18,7 +18,7 @@ $token: "c-chat";
         max-height: calc(tokens.getRawValue($token, "base") * 25);
         overflow-y: auto;
 
-        &::before {
+        &:before {
             display: none;
             content: attr(data-placeholder);
             position: absolute;

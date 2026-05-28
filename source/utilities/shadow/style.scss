@@ -2,18 +2,22 @@
 
 /***
 * Deprecation notice
-* Part of this utility is deprecated and will be removed in a future release. 
-* Please do NOT use the .u-box-shadow--* classes as they will be removed. 
+* Part of this utility is deprecated and will be removed in a future release.
+* Please do NOT use the .u-box-shadow--* classes as they will be removed.
 * Use the .u-shadow--* classes instead.
 */
 
 $_: "u-shadow-*";
 
 /* Design tokens */
-@include tokens.create($_, ("shadow",
+@include tokens.create(
+    $_,
+    (
+        "shadow",
         "shadow-color",
         "shadow-amount",
-    ));
+    )
+);
 
 .u-box-shadow--1,
 .u-shadow--1 {

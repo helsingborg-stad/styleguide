@@ -11,8 +11,8 @@ $_: "c-divider";
     align-items: center;
     text-align: center;
 
-    &::before,
-    &::after {
+    &:before,
+    &:after {
         border-bottom-style: var(--border-style, solid);
         border-bottom-width: clamp(1px, tokens.getCalculatedValue($_, "border-width"), 6px);
         content: "";
@@ -51,23 +51,26 @@ $_: "c-divider";
     }
 
     &--align-left {
-        &::before {
+
+        &:before {
             display: none;
         }
     }
 
     &--align-right {
-        &::after {
+
+        &:after {
             display: none;
         }
     }
 
     &--without-title {
-        &::before {
+
+        &:before {
             display: block;
         }
 
-        &::after {
+        &:after {
             display: none;
         }
     }
@@ -92,13 +95,13 @@ $_: "c-divider";
         width: 100%;
     }
 
-    &--dashed::before,
-    &--dashed::after {
+    &--dashed:before,
+    &--dashed:after {
         --border-style: dashed;
     }
 
-    &--dotted::before,
-    &--dotted::after {
+    &--dotted:before,
+    &--dotted:after {
         --border-style: dotted;
     }
 }

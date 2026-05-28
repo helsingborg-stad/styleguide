@@ -71,6 +71,7 @@ $_: "c-modal";
     }
 
     &.search-modal {
+
         #modal-search-form {
             margin-top: tokens.getCalculatedValue($_, "base", 1);
             margin-bottom: tokens.getCalculatedValue($_, "base", 1);
@@ -138,7 +139,7 @@ $_: "c-modal";
         padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
         position: relative;
 
-        &::after {
+        &:after {
             content: "";
             position: absolute;
             right: 0;
@@ -170,7 +171,7 @@ $_: "c-modal";
         flex-shrink: 0;
         position: relative;
 
-        &::before {
+        &:before {
             content: "";
             background-color: tokens.getRawValue($_, "color--surface-border");
             height: tokens.getCalculatedValue($_, "border-width", 1);
@@ -192,6 +193,7 @@ $_: "c-modal";
 }
 
 @keyframes modalSlideUp {
+
     from {
         opacity: 0;
         transform: translateY(50vh);

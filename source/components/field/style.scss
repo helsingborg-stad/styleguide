@@ -142,7 +142,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         &.#{$_}__inner--datalist,
         &:has(input[list]) {
-            &::before {
+
+            &:before {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -151,14 +152,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 width: calc(tokens.getCalculatedValue($_, "base", 5));
                 border-left: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
                 background-image: linear-gradient(to bottom,
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
+                color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
+                color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
                 border-top-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 pointer-events: none;
             }
 
-            &::after {
+            &:after {
                 content: "";
                 position: absolute;
                 top: 50%;
@@ -223,6 +224,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         &--url,
         &--time,
         &--date {
+
             input:focus {
                 box-shadow: none;
             }
@@ -234,7 +236,6 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             border: unset;
         }
     }
-
 
     textarea {
         min-height: var(--#{$_}--height);
@@ -484,8 +485,10 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 }
 
 /* For the search-field in a megamenu */
+
 .c-megamenu .c-form {
     @include mq.mq("xs") {
+
         .c-group {
             justify-content: center;
         }
@@ -496,6 +499,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     @include mq.mq("sm") {
+
         .c-button {
             padding: 0 calc(var(--base, 8px) * 4);
         }

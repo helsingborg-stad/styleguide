@@ -133,25 +133,28 @@ $c-product-custom-color: var(--#{$_}-custom-color, blue);
     gap: tokens.getCalculatedValue($_, "space", 2);
     text-align: center;
 
-    &::after {
-        content: '';
+    &:after {
+        content: "";
         width: 100%;
     }
 
     &--primary {
-        &::after {
+
+        &:after {
             border: 1px solid tokens.getRawValue($_, "color--primary");
         }
     }
 
     &--secondary {
-        &::after {
+
+        &:after {
             border: 1px solid tokens.getRawValue($_, "color--secondary");
         }
     }
 
     &--custom {
-        &::after {
+
+        &:after {
             border: 1px solid $c-product-custom-color;
         }
     }
@@ -162,24 +165,24 @@ $c-product-custom-color: var(--#{$_}-custom-color, blue);
 
     &--primary {
 
-        .c-listing__label::before,
-        .c-listing__label::after {
+        .c-listing__label:before,
+        .c-listing__label:after {
             color: tokens.getRawValue($_, "color--primary");
         }
     }
 
     &--secondary {
 
-        .c-listing__label::before,
-        .c-listing__label::after {
+        .c-listing__label:before,
+        .c-listing__label:after {
             color: tokens.getRawValue($_, "color--secondary");
         }
     }
 
     &--custom {
 
-        .c-listing__label::before,
-        .c-listing__label::after {
+        .c-listing__label:before,
+        .c-listing__label:after {
             color: $c-product-custom-color;
         }
     }
@@ -196,6 +199,7 @@ $c-product-custom-color: var(--#{$_}-custom-color, blue);
     }
 
     .c-listing__link {
+
         .c-icon:last-child {
             transition: 100ms ease-in-out;
         }

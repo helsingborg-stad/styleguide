@@ -6,15 +6,16 @@
     margin-inline: auto;
     padding-inline: clamp(1rem, 4vw, 2rem);
 
-    @include mq.mq('sm') {
+    @include mq.mq("sm") {
         padding: 0 calc(#{var_default.$base} * 3);
     }
 
-    @include mq.mq('sm', 'md') {
+    @include mq.mq("sm", "md") {
         max-width: calc(#{var_default.$base} * 90);
     }
 
     /* If first child is taking margin adjustments */
+
     > :first-child {
         --inherit-margin-top: 0;
     }

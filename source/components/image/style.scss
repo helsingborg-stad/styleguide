@@ -18,6 +18,11 @@
     inherits: false;
 }
 
+@property --inherit-border-radius {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-image";
 $_modal: "c-modal--gallery";
@@ -73,6 +78,7 @@ $_modal: "c-modal--gallery";
     }
 
     /* Modifiers */
+
     &--custom-width {
         width: auto;
     }
@@ -109,6 +115,7 @@ $_modal: "c-modal--gallery";
     }
 
     /* Inline images resized */
+
     &.is-resized {
         width: auto;
         display: inline;

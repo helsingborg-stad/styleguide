@@ -32,7 +32,7 @@ $_: "c-group";
         }
 
         &.#{$_}--columns-#{$i} {
-            --#{$_}-column-width: calc((100% - var(--#{$_}--grid-gap, #{tokens.getRawValue($_, "base")} * 4)) / #{$i});
+            --#{$_}-column-width: calc((100% - var(--#{$_}--grid-gap)) / #{$i});
 
             >* {
                 flex-basis: var(--#{$_}-column-width);
@@ -139,7 +139,7 @@ $_: "c-group";
 
 /* Fluid grid using flex */
 .#{$_}.#{$_}--fluid-grid:not(.#{$_}--display-grid) {
-    --c-group-fluid-2col: calc(100% - #{tokens.getRawValue('grid-gap', 1)} / 2);
+    --c-group-fluid-2col: calc(100% - #{tokens.getRawValue("grid-gap", 1)} / 2);
     --c-group-fluid-3col: calc(100% - #{tokens.getRawValue("grid-gap", 2)} / 3);
     --c-group-fluid-4col: calc(100% - #{tokens.getRawValue("grid-gap", 3)} / 4);
 

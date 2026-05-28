@@ -82,6 +82,7 @@ $_: "c-header";
     }
 
     &.#{$_}--casual {
+
         #main-menu {
             display: flex;
             flex-grow: 1;
@@ -106,6 +107,7 @@ $_: "c-header";
     }
 
     &.#{$_}--business {
+
         .c-nav--business-left {
             justify-content: flex-start;
 
@@ -124,12 +126,14 @@ $_: "c-header";
     }
 
     // Logo
+
     &__logotype {
         height: var(--#{$_}--logotype-height);
     }
 }
 
 @keyframes blink {
+
     0% {}
 
     25% {

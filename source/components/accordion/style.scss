@@ -124,6 +124,7 @@ $_: "c-accordion";
     }
 
     @keyframes fadeIn {
+
         from {
             opacity: 0;
         }
@@ -172,6 +173,7 @@ $_: "c-accordion";
 }
 
 // Card that has accordion with spaced sections should have no background color
+
 .c-card:has(.c-accordion--spaced-sections) {
     background-color: transparent;
 }

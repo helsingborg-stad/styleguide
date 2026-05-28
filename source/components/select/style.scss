@@ -63,6 +63,7 @@ $_: "c-select";
 
     &.is-ios,
     &.is-android {
+
         select {
             display: block;
             height: 100%;
@@ -77,317 +78,321 @@ $_: "c-select";
     }
 
     * 1.325);
-    --_clear-icon-offset: calc(var(--_clear-icon-size) * 0.063);
-    position: absolute;
-    right: 2em;
-    top: 0;
-    left: auto;
-    padding: tokens.getCalculatedValue($_, "base", 2);
-    z-index: 5;
-    height: 100%;
-    color: tokens.getRawValue($_, "color--primary");
-    --inherit-color-contrast: #{tokens.getRawValue($_, "color--primary")};
-    display: flex;
-    align-items: center;
-
-    .c-button__label {
+        --_clear-icon-offset: calc(var(--_clear-icon-size) * 0.063);
+        position: absolute;
+        right: 2em;
+        top: 0;
+        left: auto;
+        padding: tokens.getCalculatedValue($_, "base", 2);
+        z-index: 5;
         height: 100%;
+        color: tokens.getRawValue($_, "color--primary");
+        --inherit-color-contrast: #{tokens.getRawValue($_, "color--primary")};
+        display: flex;
         align-items: center;
-    }
 
-    .c-button__label-icon {
-        margin-left: 0;
-    }
-
-    .c-icon {
-        font-size: var(--_clear-icon-size);
-        transform: translateY(var(--_clear-icon-offset));
-    }
-
-    &[aria-hidden="true"] {
-        display: none;
-    }
-}
-
-.#{$_}__expand-button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    left: auto;
-    padding: tokens.getCalculatedValue($_, "base", 2);
-    z-index: 1;
-    transition: none;
-    height: 100%;
-    color: tokens.getRawValue($_, "color--primary");
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-
-    .#{$_}__expand-more-icon {
-        animation: c-select-expand-rotate 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-    }
-
-    .#{$_}__expand-less-icon {
-        animation: c-select-expand-rotate-inverted 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-    }
-
-    .#{$_}__expand-less-icon {
-        display: none;
-    }
-}
-
-&.#{$_}--rounded {
-    select {
-        border-radius: tokens.getCalculatedValue($_, "base", 3);
-        border: none;
-        font-weight: 700;
-    }
-
-    .c-field__label {
-        margin-left: tokens.getCalculatedValue($_, "base", 2);
-    }
-
-    &.#{$_}--rounded-border {
-        select {
-            border: var(--c-field--border-width) solid var(--c-field--border-color);
+        .c-button__label {
+            height: 100%;
+            align-items: center;
         }
-    }
-}
 
-.#{$_}__dropdown .#{$_}__option[aria-disabled="true"] {
-
-    .c-icon {
-        color: tokens.getRawValue($_, "color--surface-border");
-    }
-
-    .#{$_}__option-label {
-        color: tokens.getRawValue($_, "color--surface-contrast-muted");
-        font-style: italic;
-    }
-}
-
-/* Size modifiers */
-&.#{$_}--sm {
-
-    .#{$_}__clear-button,
-    .#{$_}__expand-button {
-        padding: 0 tokens.getCalculatedValue($_, "base", 1);
-        font-size: var(--#{$_}--font-size-btn-sm);
-        line-height: tokens.getCalculatedValue($_, "base", 1.5);
-    }
-
-    .#{$_}__clear-button {
-        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-sm)
-    }
-
-    * 1.325);
-}
-
-.#{$_}__dropdown .#{$_}__option {
-    padding: tokens.getCalculatedValue($_, "base", 0.75) tokens.getCalculatedValue($_, "base", 1.5);
-}
-}
-
-&.#{$_}--md {
-
-    .#{$_}__clear-button,
-    .#{$_}__expand-button {
-        padding: 0 tokens.getCalculatedValue($_, "base", 2);
-        font-size: var(--#{$_}--font-size-btn-md);
-        line-height: tokens.getCalculatedValue($_, "base", 2);
-    }
-
-    .#{$_}__clear-button {
-        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)
-    }
-
-    * 1.325);
-}
-
-.#{$_}__dropdown .#{$_}__option {
-    padding: tokens.getCalculatedValue($_, "base", 1) tokens.getCalculatedValue($_, "base", 1.75);
-}
-}
-
-&.#{$_}--lg {
-
-    .#{$_}__clear-button,
-    .#{$_}__expand-button {
-        padding: 0 tokens.getCalculatedValue($_, "base", 2.5);
-        font-size: var(--#{$_}--font-size-btn-lg);
-        line-height: tokens.getCalculatedValue($_, "base", 2);
-    }
-
-    .#{$_}__clear-button {
-        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-lg)
-    }
-
-    * 1.325);
-}
-
-.#{$_}__dropdown .#{$_}__option {
-    padding: tokens.getCalculatedValue($_, "base", 1.5) tokens.getCalculatedValue($_, "base", 2.5);
-}
-}
-
-.error.active {
-    padding: 0.3rem;
-}
-
-.#{$_}__select-invalid-message {
-    width: 100%;
-    padding: tokens.getCalculatedValue($_, "base", 1);
-    display: none;
-    font-size: 80%;
-    color: tokens.getRawValue($_, "color--danger-contrast");
-    background-color: tokens.getRawValue($_, "color--danger");
-    border: none;
-    border-radius: 0 0 tokens.getCalculatedValue($_, "border-radius", 0.25) tokens.getCalculatedValue($_, "border-radius", 0.25);
-    box-sizing: border-box;
-
-    &.error {
-        display: block;
-        transition: ease-in-out .3s;
-    }
-
-    .c-icon {
-        position: relative;
-        top: 3px;
-    }
-}
-
-.#{$_}__field-container {
-    position: relative;
-    line-height: 0;
-
-    &:focus-within {
-        @include focus.focus();
-    }
-}
-
-/* States */
-&.is-invalid {
-    .#{$_} {
-
-        &,
-        &:focus,
-        &:active {
-            border-color: tokens.getRawValue($_, "color--danger");
+        .c-button__label-icon {
+            margin-left: 0;
         }
-    }
 
-    .c-field__helper {
-        color: tokens.getRawValue($_, "color--danger");
-    }
-}
-
-&.is-valid {
-    .#{$_} {
-
-        &,
-        &:focus,
-        &:active {
-            border-color: tokens.getRawValue($_, "color--success");
+        .c-icon {
+            font-size: var(--_clear-icon-size);
+            transform: translateY(var(--_clear-icon-offset));
         }
-    }
 
-    .c-field__helper {
-        color: tokens.getRawValue($_, "color--success");
-    }
-}
-
-&.is-open {
-
-    .#{$_}__dropdown {
-        z-index: 6;
-        display: block;
-        border-top: none;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .#{$_}__expand-button {
-        .#{$_}__expand-more-icon {
+        &[aria-hidden="true"] {
             display: none;
+        }
+    }
+
+    .#{$_}__expand-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: auto;
+        padding: tokens.getCalculatedValue($_, "base", 2);
+        z-index: 1;
+        transition: none;
+        height: 100%;
+        color: tokens.getRawValue($_, "color--primary");
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+
+        .#{$_}__expand-more-icon {
+            animation: c-select-expand-rotate 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
         .#{$_}__expand-less-icon {
-            display: flex;
+            animation: c-select-expand-rotate-inverted 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+        }
+
+        .#{$_}__expand-less-icon {
+            display: none;
         }
     }
-}
 
-.#{$_}__dropdown {
-    animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-    display: none;
-    background-color: tokens.getRawValue($_, "color--surface");
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    max-height: tokens.getCalculatedValue($_, "base", 30);
-    overflow-y: auto;
-    z-index: 2;
-    padding: tokens.getCalculatedValue($_, "base", 1) 0;
-    border: var(--border-width-input, 1px) solid tokens.getRawValue($_, "color--surface-border");
-}
+    &.#{$_}--rounded {
 
-.#{$_}__option {
-    display: flex;
-    gap: tokens.getCalculatedValue($_, "base", 1.5);
-    padding: tokens.getCalculatedValue($_, "base", 1.5) tokens.getCalculatedValue($_, "base", 2);
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-    margin-top: 0;
+        select {
+            border-radius: tokens.getCalculatedValue($_, "base", 3);
+            border: none;
+            font-weight: 700;
+        }
 
-    &:hover {
-        background-color: rgba(#000, .2);
+        .c-field__label {
+            margin-left: tokens.getCalculatedValue($_, "base", 2);
+        }
+
+        &.#{$_}--rounded-border {
+
+            select {
+                border: var(--c-field--border-width) solid var(--c-field--border-color);
+            }
+        }
     }
 
-    .#{$_}__option-icon {
-        animation: c-select-option-puff 100ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    .#{$_}__dropdown .#{$_}__option[aria-disabled="true"] {
+
+        .c-icon {
+            color: tokens.getRawValue($_, "color--surface-border");
+        }
+
+        .#{$_}__option-label {
+            color: tokens.getRawValue($_, "color--surface-contrast-muted");
+            font-style: italic;
+        }
     }
 
-    .#{$_}__checked-icon {
+    /* Size modifiers */
+    &.#{$_}--sm {
+
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.getCalculatedValue($_, "base", 1);
+            font-size: var(--#{$_}--font-size-btn-sm);
+            line-height: tokens.getCalculatedValue($_, "base", 1.5);
+        }
+
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-sm)
+        }
+
+        * 1.325);
+        }
+
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.getCalculatedValue($_, "base", 0.75) tokens.getCalculatedValue($_, "base", 1.5);
+        }
+    }
+
+    &.#{$_}--md {
+
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.getCalculatedValue($_, "base", 2);
+            font-size: var(--#{$_}--font-size-btn-md);
+            line-height: tokens.getCalculatedValue($_, "base", 2);
+        }
+
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)
+        }
+
+        * 1.325);
+        }
+
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.getCalculatedValue($_, "base", 1) tokens.getCalculatedValue($_, "base", 1.75);
+        }
+    }
+
+    &.#{$_}--lg {
+
+        .#{$_}__clear-button,
+        .#{$_}__expand-button {
+            padding: 0 tokens.getCalculatedValue($_, "base", 2.5);
+            font-size: var(--#{$_}--font-size-btn-lg);
+            line-height: tokens.getCalculatedValue($_, "base", 2);
+        }
+
+        .#{$_}__clear-button {
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-lg)
+        }
+
+        * 1.325);
+        }
+
+        .#{$_}__dropdown .#{$_}__option {
+            padding: tokens.getCalculatedValue($_, "base", 1.5) tokens.getCalculatedValue($_, "base", 2.5);
+        }
+    }
+
+    .error.active {
+        padding: 0.3rem;
+    }
+
+    .#{$_}__select-invalid-message {
+        width: 100%;
+        padding: tokens.getCalculatedValue($_, "base", 1);
         display: none;
+        font-size: 80%;
+        color: tokens.getRawValue($_, "color--danger-contrast");
+        background-color: tokens.getRawValue($_, "color--danger");
+        border: none;
+        border-radius: 0 0 tokens.getCalculatedValue($_, "border-radius", 0.25) tokens.getCalculatedValue($_, "border-radius", 0.25);
+        box-sizing: border-box;
+
+        &.error {
+            display: block;
+            transition: ease-in-out .3s;
+        }
+
+        .c-icon {
+            position: relative;
+            top: 3px;
+        }
     }
 
-    &.is-selected {
-        .#{$_}__unchecked-icon {
-            display: none;
+    .#{$_}__field-container {
+        position: relative;
+        line-height: 0;
+
+        &:focus-within {
+            @include focus.focus();
+        }
+    }
+
+    /* States */
+
+    &.is-invalid {
+        .#{$_} {
+
+            &,
+            &:focus,
+            &:active {
+                border-color: tokens.getRawValue($_, "color--danger");
+            }
+        }
+
+        .c-field__helper {
+            color: tokens.getRawValue($_, "color--danger");
+        }
+    }
+
+    &.is-valid {
+        .#{$_} {
+
+            &,
+            &:focus,
+            &:active {
+                border-color: tokens.getRawValue($_, "color--success");
+            }
+        }
+
+        .c-field__helper {
+            color: tokens.getRawValue($_, "color--success");
+        }
+    }
+
+    &.is-open {
+
+        .#{$_}__dropdown {
+            z-index: 6;
+            display: block;
+            border-top: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .#{$_}__expand-button {
+            .#{$_}__expand-more-icon {
+                display: none;
+            }
+
+            .#{$_}__expand-less-icon {
+                display: flex;
+            }
+        }
+    }
+
+    .#{$_}__dropdown {
+        animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        display: none;
+        background-color: tokens.getRawValue($_, "color--surface");
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        max-height: tokens.getCalculatedValue($_, "base", 30);
+        overflow-y: auto;
+        z-index: 2;
+        padding: tokens.getCalculatedValue($_, "base", 1) 0;
+        border: var(--border-width-input, 1px) solid tokens.getRawValue($_, "color--surface-border");
+    }
+
+    .#{$_}__option {
+        display: flex;
+        gap: tokens.getCalculatedValue($_, "base", 1.5);
+        padding: tokens.getCalculatedValue($_, "base", 1.5) tokens.getCalculatedValue($_, "base", 2);
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        margin-top: 0;
+
+        &:hover {
+            background-color: rgba(#000, .2);
+        }
+
+        .#{$_}__option-icon {
+            animation: c-select-option-puff 100ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
         }
 
         .#{$_}__checked-icon {
-            display: block;
+            display: none;
+        }
+
+        &.is-selected {
+            .#{$_}__unchecked-icon {
+                display: none;
+            }
+
+            .#{$_}__checked-icon {
+                display: block;
+            }
+        }
+
+        &.is-disabled {
+            opacity: .4;
         }
     }
 
-    &.is-disabled {
-        opacity: .4;
-    }
-}
+    .#{$_}__option {
+        .#{$_}__option-label {
+            transition: transform 400ms;
+        }
 
-.#{$_}__option {
-    .#{$_}__option-label {
-        transition: transform 400ms;
-    }
-
-    .#{$_}__option-icon {
-        transition: transform 300ms;
-    }
-
-    &:hover {
-
-        .#{$_}__option-label,
         .#{$_}__option-icon {
-            transform: translateX(tokens.getCalculatedValue($_, "base", 0.5));
+            transition: transform 300ms;
+        }
+
+        &:hover {
+
+            .#{$_}__option-label,
+            .#{$_}__option-icon {
+                transform: translateX(tokens.getCalculatedValue($_, "base", 0.5));
+            }
         }
     }
-}
 
 }
 
 @keyframes c-select-dropdown-expand {
+
     0% {
         transform-origin: top;
         opacity: 0;
@@ -401,6 +406,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-option-puff {
+
     0% {
         filter: blur(4px);
         opacity: 0;
@@ -413,6 +419,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-expand-rotate {
+
     0% {
         transform: rotate(180deg);
     }
@@ -423,6 +430,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-expand-rotate-inverted {
+
     0% {
         transform: rotate(-180deg);
     }
