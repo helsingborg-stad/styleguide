@@ -62,6 +62,14 @@ $_: "c-typography";
     --#{$_}--h6-font-family: #{tokens.getDefaultRawValue($_, "font-family-heading")};
 }
 
+.#{$_} {
+    font-family: tokens.getRawValue($_, "font-family-base");
+    font-size: var(--inherit-font-size, tokens.getRawValue($_, "font-size-base"));
+    font-weight: tokens.getRawValue($_, "font-weight-normal");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-base");
+    line-height: tokens.getRawValue($_, "line-height-base");
+}
+
 h1,
 .h1,
 .#{$_}__variant--h1,
@@ -173,15 +181,6 @@ h6,
     line-height: tokens.getDefaultRawValue($_, "line-height-base");
 }
 
-.#{$_}__variant--body,
-.#{$_}__variant--p {
-    font-family: tokens.getDefaultRawValue($_, "font-family-base");
-    font-size: tokens.getRawValue($prefix: $_, $token: "font-size-base", $inheritVariable: "font-size");
-    font-weight: tokens.getDefaultRawValue($_, "font-weight-normal");
-    letter-spacing: tokens.getDefaultRawValue($_, "letter-spacing-base");
-    line-height: tokens.getDefaultRawValue($_, "line-height-base");
-}
-
 .#{$_}__variant--caption,
 .#{$_}__variant--byline {
     font-size: tokens.getDerivedAliasValue($_, "font-size-caption", "font-size");
@@ -205,8 +204,4 @@ h6,
 .#{$_}__variant--email {
     word-break: break-all;
     hyphens: auto;
-}
-
-.#{$_}__variant--div {
-    font-size: tokens.getRawValue($prefix: $_, $token: "font-size-base", $inheritVariable: "font-size");
 }
