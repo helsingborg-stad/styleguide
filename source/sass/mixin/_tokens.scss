@@ -48,6 +48,33 @@
     @return "--inherit-#{$inheritVariable}";
 }
 
+/// Maps common surface color tokens to their inheritance hooks.
+@function _get-default-inherit-variable($token) {
+    $token: _normalize-global-token($token);
+
+    @if $token =="color--surface" {
+        @return "color-background";
+    }
+
+    @if $token =="color--surface-alt" {
+        @return "color-background-hover";
+    }
+
+    @if $token =="color--surface-border" {
+        @return "color-border";
+    }
+
+    @if $token =="color--surface-contrast" {
+        @return "color-contrast";
+    }
+
+    @if $token =="color--surface-contrast-muted" {
+        @return "color-contrast-muted";
+    }
+
+    @return null;
+}
+
 /// Creates component tokens that fall back to global tokens.
 ///
 /// @param {String} $prefix - Component prefix (e.g., "c-notice"), also used as selector.
@@ -115,11 +142,17 @@
     $p: _clean-prefix($prefix);
 
     @if $inheritVariable ==null {
+        $inheritVariable: _get-default-inherit-variable($token);
+
+        @if $inheritVariable !=null {
+            @return getRawValue($prefix, $token, $inheritVariable);
+        }
+
         @if($p =="") {
             @return var(--#{_normalize-global-token($token)});
         }
 
-        @return var(--#{$p}--#{$token}, #{getDefaultRawValue($prefix, $token)});
+        @return var(--#{$p}--#{$token}, var(--#{_normalize-global-token($token)}));
     }
 
     $inheritVariable: _normalize-inherit-variable($inheritVariable);
@@ -192,14 +225,14 @@
 
     //If token is shadow, construct the drop-shadow value using the color and amount tokens
     @if $token =="shadow" {
-        @return drop-shadow(0 calc((var(--base) * 0.5) * #{getRawValue($prefix, "shadow-amount", $inheritVariable)}) calc(#{getRawValue($prefix, "shadow-amount", $inheritVariable)} * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)});
+        @return drop-shadow(0 calc((var(--base) * 0.5) * (#{getRawValue($prefix, "shadow-amount", $inheritVariable)})) calc((#{getRawValue($prefix, "shadow-amount", $inheritVariable)}) * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)});
     }
 
     // If base is used as a token, return it directly without multiply with base to avoid circular reference
     @if $token =="base" {
-        @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * #{$multiplier});
+        @return calc((#{getRawValue($prefix, $token, $inheritVariable)}) * #{$multiplier});
     }
 
     // Default behavior: return scaled token value, pixel from int
-    @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * var(--base) * #{$multiplier});
+    @return calc((#{getRawValue($prefix, $token, $inheritVariable)}) * var(--base) * #{$multiplier});
 }

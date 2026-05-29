@@ -4,22 +4,22 @@
 /* Inheritance properties */
 @property --inherit-color-contrast {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background-hover {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background-active {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Component name */

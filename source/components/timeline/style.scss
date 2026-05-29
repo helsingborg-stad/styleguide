@@ -3,7 +3,7 @@
 
 @property --inherit-color-background {
   syntax: "*";
-  inherits: false;
+  inherits: true;
 }
 
 $_: "c-timeline";

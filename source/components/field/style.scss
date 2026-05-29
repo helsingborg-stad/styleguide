@@ -5,7 +5,7 @@
 /* Inheritance properties */
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Component name */
