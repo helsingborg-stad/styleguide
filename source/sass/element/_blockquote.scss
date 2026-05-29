@@ -3,12 +3,12 @@
 /* Inheritance properties */
 @property --inherit-color-contrast {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Element name */

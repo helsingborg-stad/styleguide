@@ -10,7 +10,7 @@
 $_: "c-accordion";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_} {

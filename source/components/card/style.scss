@@ -3,19 +3,19 @@
 /* Inheritance properties */
 @property --inherit-color-contrast {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Component name */
 $_: "c-card";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_} {
@@ -25,6 +25,11 @@ $_: "c-card";
     --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--content-alignment: start;
+    --#{$_}--surface-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--surface-contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--surface-alt-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--surface-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -32,8 +37,8 @@ $_: "c-card";
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
-    color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
+    background-color: var(--#{$_}--surface-color);
+    color: var(--#{$_}--surface-contrast-color);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
     transition: all 200ms ease-in;
@@ -43,14 +48,21 @@ $_: "c-card";
 
     [data-component="paper"],
     [data-component="comment"],
+    [data-component="accordion"],
+    [data-component="table"],
+    table:not(.c-table *),
     [data-component="button"].c-button__filled--default {
-        --inherit-color-background: var(--color--surface);
-        --inherit-color-contrast: var(--color--surface-contrast);
+        --inherit-color-background: var(--#{$_}--surface-color);
+        --inherit-color-contrast: var(--#{$_}--surface-contrast-color);
+        --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
+        --inherit-color-background-active: var(--#{$_}--surface-alt-color);
+        --inherit-color-border: var(--#{$_}--surface-border-color);
+        --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
     }
 
     [data-component="image"] {
-        --inherit-color-background: #{tokens.getRawValue($_, "color--surface-alt")};
-        --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+        --inherit-color-background: var(--#{$_}--surface-alt-color);
+        --inherit-color-contrast: var(--#{$_}--surface-contrast-muted-color);
         --c-image--border-radius: 0;
     }
 
@@ -159,7 +171,7 @@ $_: "c-card";
         position: absolute;
         top: 0;
         right: 0;
-        color: tokens.getRawValue($_, "color-surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     &__dropdown .c-button:hover,
@@ -237,11 +249,12 @@ $_: "c-card";
 
         .#{$_}__header {
             border-bottom: calc(#{tokens.getRawValue($_, "base")} / 2) solid tokens.getRawValue($_, "color--primary");
-            background: tokens.getRawValue($_, "color-surface-contrast");
+            background: tokens.getRawValue($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
 
-        .c-typography {
-            color: tokens.getRawValue($_, "color-surface-contrast");
+        .#{$_}__header .c-typography {
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
     }
 

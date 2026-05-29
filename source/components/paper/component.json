@@ -3,17 +3,7 @@
 	"apiVersion": 1,
 	"name": "Paper",
 	"slug": "paper",
-	"tokens": [
-		"border-radius",
-		"space",
-		"border-width",
-		"color--surface",
-		"color--surface-border",
-		"shadow-color",
-		"shadow-amount",
-		"color--surface-contrast",
-		"corner-shape"
-	],
+	"tokens": ["border-radius", "space", "border-width", "color--surface", "color--surface-alt", "color--surface-border", "shadow-color", "shadow-amount", "color--surface-contrast", "color--surface-contrast-muted", "corner-shape"],
 	"description": "The Paper component provides a reusable pattern for paper in the interface.",
 	"tags": ["paper", "component"],
 	"similarComponents": ["drawer", "header", "loader"],

@@ -106,24 +106,44 @@
     // ========================================================================
     --color--palette-1: transparent;
     --color--palette-1-contrast: transparent;
+    --color--palette-1-border: color-mix(in srgb, var(--color--palette-1-contrast) var(--color--border-mix-amount), var(--color--palette-1));
+    --color--palette-1-alt: color-mix(in srgb, var(--color--palette-1-contrast) var(--color--alt-mix-amount), var(--color--palette-1));
     --color--palette-2: transparent;
     --color--palette-2-contrast: transparent;
+    --color--palette-2-border: color-mix(in srgb, var(--color--palette-2-contrast) var(--color--border-mix-amount), var(--color--palette-2));
+    --color--palette-2-alt: color-mix(in srgb, var(--color--palette-2-contrast) var(--color--alt-mix-amount), var(--color--palette-2));
     --color--palette-3: transparent;
     --color--palette-3-contrast: transparent;
+    --color--palette-3-border: color-mix(in srgb, var(--color--palette-3-contrast) var(--color--border-mix-amount), var(--color--palette-3));
+    --color--palette-3-alt: color-mix(in srgb, var(--color--palette-3-contrast) var(--color--alt-mix-amount), var(--color--palette-3));
     --color--palette-4: transparent;
     --color--palette-4-contrast: transparent;
+    --color--palette-4-border: color-mix(in srgb, var(--color--palette-4-contrast) var(--color--border-mix-amount), var(--color--palette-4));
+    --color--palette-4-alt: color-mix(in srgb, var(--color--palette-4-contrast) var(--color--alt-mix-amount), var(--color--palette-4));
     --color--palette-5: transparent;
     --color--palette-5-contrast: transparent;
+    --color--palette-5-border: color-mix(in srgb, var(--color--palette-5-contrast) var(--color--border-mix-amount), var(--color--palette-5));
+    --color--palette-5-alt: color-mix(in srgb, var(--color--palette-5-contrast) var(--color--alt-mix-amount), var(--color--palette-5));
     --color--palette-6: transparent;
     --color--palette-6-contrast: transparent;
+    --color--palette-6-border: color-mix(in srgb, var(--color--palette-6-contrast) var(--color--border-mix-amount), var(--color--palette-6));
+    --color--palette-6-alt: color-mix(in srgb, var(--color--palette-6-contrast) var(--color--alt-mix-amount), var(--color--palette-6));
     --color--palette-7: transparent;
     --color--palette-7-contrast: transparent;
+    --color--palette-7-border: color-mix(in srgb, var(--color--palette-7-contrast) var(--color--border-mix-amount), var(--color--palette-7));
+    --color--palette-7-alt: color-mix(in srgb, var(--color--palette-7-contrast) var(--color--alt-mix-amount), var(--color--palette-7));
     --color--palette-8: transparent;
     --color--palette-8-contrast: transparent;
+    --color--palette-8-border: color-mix(in srgb, var(--color--palette-8-contrast) var(--color--border-mix-amount), var(--color--palette-8));
+    --color--palette-8-alt: color-mix(in srgb, var(--color--palette-8-contrast) var(--color--alt-mix-amount), var(--color--palette-8));
     --color--palette-9: transparent;
     --color--palette-9-contrast: transparent;
+    --color--palette-9-border: color-mix(in srgb, var(--color--palette-9-contrast) var(--color--border-mix-amount), var(--color--palette-9));
+    --color--palette-9-alt: color-mix(in srgb, var(--color--palette-9-contrast) var(--color--alt-mix-amount), var(--color--palette-9));
     --color--palette-10: transparent;
     --color--palette-10-contrast: transparent;
+    --color--palette-10-border: color-mix(in srgb, var(--color--palette-10-contrast) var(--color--border-mix-amount), var(--color--palette-10));
+    --color--palette-10-alt: color-mix(in srgb, var(--color--palette-10-contrast) var(--color--alt-mix-amount), var(--color--palette-10));
 
     // ========================================================================
     // Layout Colors

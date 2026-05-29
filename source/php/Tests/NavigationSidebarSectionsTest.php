@@ -7,6 +7,7 @@ use MunicipioStyleGuide\Data\NavigationDataParser;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
+use MunicipioStyleGuide\Sidebar\Sections\ConceptsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ElementsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ObjectsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
@@ -36,6 +37,7 @@ class NavigationSidebarSectionsTest extends TestCase
         mkdir($this->tempProjectRoot . '/views/pages/components/atoms', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/molecules', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/organisms', 0777, true);
+        mkdir($this->tempProjectRoot . '/views/pages/concepts', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/objects', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/script', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/script/interaction', 0777, true);
@@ -114,6 +116,8 @@ class NavigationSidebarSectionsTest extends TestCase
 
         file_put_contents($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php', '');
         file_put_contents($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php', '');
+        file_put_contents($this->tempProjectRoot . '/views/pages/concepts.blade.php', '');
+        file_put_contents($this->tempProjectRoot . '/views/pages/concepts/inheritance.blade.php', '');
         file_put_contents($this->tempProjectRoot . '/views/pages/script/interaction/class-toggle.blade.php', '');
         file_put_contents($this->tempProjectRoot . '/views/pages/script/data/sort.blade.php', '');
     }
@@ -143,6 +147,8 @@ class NavigationSidebarSectionsTest extends TestCase
 
         @unlink($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php');
         @unlink($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php');
+        @unlink($this->tempProjectRoot . '/views/pages/concepts.blade.php');
+        @unlink($this->tempProjectRoot . '/views/pages/concepts/inheritance.blade.php');
         @unlink($this->tempProjectRoot . '/views/pages/script/interaction/class-toggle.blade.php');
         @unlink($this->tempProjectRoot . '/views/pages/script/data/sort.blade.php');
 
@@ -150,6 +156,7 @@ class NavigationSidebarSectionsTest extends TestCase
         @rmdir($this->tempProjectRoot . '/views/pages/components/molecules');
         @rmdir($this->tempProjectRoot . '/views/pages/components/organisms');
         @rmdir($this->tempProjectRoot . '/views/pages/components');
+        @rmdir($this->tempProjectRoot . '/views/pages/concepts');
         @rmdir($this->tempProjectRoot . '/views/pages/objects');
         @rmdir($this->tempProjectRoot . '/views/pages/script/interaction');
         @rmdir($this->tempProjectRoot . '/views/pages/script/data');
@@ -169,6 +176,7 @@ class NavigationSidebarSectionsTest extends TestCase
             new NavigationDataParser(),
             $this->tempProjectRoot . '/views/',
             [
+                new ConceptsSection(),
                 new ComponentsSection(),
                 new ElementsSection(),
                 new ObjectsSection(),
@@ -182,7 +190,9 @@ class NavigationSidebarSectionsTest extends TestCase
 
         $result = $navigation->buildSidebarNavigation();
 
-        $this->assertSame(['components', 'elements', 'objects', 'script', 'utilities'], array_keys($result));
+        $this->assertSame(['concepts', 'components', 'elements', 'objects', 'script', 'utilities'], array_keys($result));
+        $this->assertSame('Concepts', $result['concepts']['label']);
+        $this->assertSame('//localhost/concepts/inheritance', $result['concepts']['children']['inheritance']['href']);
         $this->assertSame('Alpha Component (Beta)', $result['components']['children']['alpha']['label']);
         $this->assertSame('Beta Component', $result['components']['children']['beta']['label']);
         $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);

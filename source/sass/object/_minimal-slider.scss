@@ -2,7 +2,7 @@
 
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 $_: "o-minimal-slider";

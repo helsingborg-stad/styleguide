@@ -10,6 +10,7 @@ import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument 
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
+import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
@@ -870,8 +871,8 @@ export class ComponentCustomizerRuntime {
 			return createReadOnlyDesignBuilderControl(setting, currentValue);
 		}
 
-		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues) => {
-			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues);
+		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues, options) => {
+			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues, options);
 		});
 	}
 
@@ -1087,6 +1088,42 @@ export class ComponentCustomizerRuntime {
 		return Object.fromEntries(targetContrastTokens.map((tokenName) => [this.toLocalizedComponentVariable(componentName, tokenName), `var(--${tokenName})`]));
 	}
 
+	private collectLinkedTargetColorTokens(tokenNames: Iterable<string>, tokenName: string, contrast: string | string[] | undefined): string[] {
+		const descriptor = this.describeColorToken(tokenName);
+		if (!descriptor || descriptor.variant !== 'base') {
+			return [];
+		}
+
+		const linkedTokens = new Set<string>(this.normalizeContrastTokenNames(contrast));
+		for (const candidateTokenName of tokenNames) {
+			const normalizedCandidateTokenName = this.normalizeColorTokenName(candidateTokenName);
+			const candidateDescriptor = this.describeColorToken(normalizedCandidateTokenName);
+			if (!candidateDescriptor || candidateDescriptor.family !== descriptor.family || candidateDescriptor.variant === 'base') {
+				continue;
+			}
+
+			linkedTokens.add(this.composeColorTokenName(candidateDescriptor.family, candidateDescriptor.variant));
+		}
+
+		const variantOrder: Record<ColorTokenVariant, number> = {
+			base: 0,
+			contrast: 1,
+			'contrast-muted': 2,
+			border: 3,
+			alt: 4,
+		};
+
+		return [...linkedTokens].sort((left, right) => {
+			const leftDescriptor = this.describeColorToken(left);
+			const rightDescriptor = this.describeColorToken(right);
+			if (!leftDescriptor || !rightDescriptor) {
+				return left.localeCompare(right);
+			}
+
+			return variantOrder[leftDescriptor.variant] - variantOrder[rightDescriptor.variant];
+		});
+	}
+
 	private buildColorExtraValues(componentName: string, targetContrastTokens: string[], sourceFamily: ColorTokenSourceFamily): Record<string, string> | undefined {
 		if (targetContrastTokens.length === 0) {
 			return undefined;
@@ -1106,13 +1143,13 @@ export class ComponentCustomizerRuntime {
 		return Object.keys(extraValues).length > 0 ? extraValues : undefined;
 	}
 
-	private createLocalizedColorSelectionSetting(componentName: string, tokenName: string, setting: TokenCategory['settings'][number], label: string, description: string | undefined, includeStateColors: boolean): TokenCategory['settings'][number] | null {
+	private createLocalizedColorSelectionSetting(componentName: string, availableTokenNames: Iterable<string>, tokenName: string, setting: TokenCategory['settings'][number], label: string, description: string | undefined, includeStateColors: boolean): TokenCategory['settings'][number] | null {
 		const descriptor = this.describeColorToken(tokenName);
 		if (!descriptor) {
 			return null;
 		}
 
-		const targetContrastTokens = descriptor.variant === 'base' ? this.normalizeContrastTokenNames(setting.contrast) : [];
+		const targetContrastTokens = this.collectLinkedTargetColorTokens(availableTokenNames, tokenName, setting.contrast);
 		const options = this.buildSelectableColorFamilies(includeStateColors)
 			.map((sourceFamily) => {
 				const sourceToken = this.resolveSourceTokenForVariant(sourceFamily, descriptor.variant);
@@ -1203,7 +1240,7 @@ export class ComponentCustomizerRuntime {
 
 			const tokenSetting = tokenEntry.setting;
 			if (this.isSelectableLocalColorSetting(tokenEntry.category.id, tokenSetting)) {
-				return this.createLocalizedColorSelectionSetting(componentName, setting.token, tokenSetting, setting.label, setting.description ?? tokenSetting.description, setting.includeStateColors === true);
+				return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, setting.token, tokenSetting, setting.label, setting.description ?? tokenSetting.description, setting.includeStateColors === true);
 			}
 
 			return {
@@ -1218,7 +1255,7 @@ export class ComponentCustomizerRuntime {
 		const localizedVariable = this.toLocalizedComponentVariable(componentName, setting.variable);
 		const tokenEntry = this.findTokenLibraryEntry(setting.variable.replace(/^--/, ''));
 		if (tokenEntry && this.isSelectableLocalColorSetting(tokenEntry.category.id, tokenEntry.setting)) {
-			return this.createLocalizedColorSelectionSetting(componentName, setting.variable.replace(/^--/, ''), tokenEntry.setting, setting.label, setting.description, false);
+			return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, setting.variable.replace(/^--/, ''), tokenEntry.setting, setting.label, setting.description, false);
 		}
 
 		return {
@@ -1237,7 +1274,7 @@ export class ComponentCustomizerRuntime {
 				.map((setting) => {
 					const tokenName = setting.variable.replace(/^--/, '');
 					if (this.isSelectableLocalColorSetting(category.id, setting)) {
-						return this.createLocalizedColorSelectionSetting(componentName, tokenName, setting, setting.label, setting.description, includeStateColors);
+						return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, tokenName, setting, setting.label, setting.description, includeStateColors);
 					}
 
 					return {
@@ -1293,7 +1330,7 @@ export class ComponentCustomizerRuntime {
 		return categories;
 	}
 
-	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults: Record<string, string> = {}, extraValues: Record<string, string> = {}): void {
+	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults: Record<string, string> = {}, extraValues: Record<string, string> = {}, options: ControlChangeOptions = {}): void {
 		if (!this.overrides[scopeKey]) {
 			this.overrides[scopeKey] = {};
 		}
@@ -1313,7 +1350,8 @@ export class ComponentCustomizerRuntime {
 
 		for (const [currentVariable, currentDefaultValue] of Object.entries(defaultValues)) {
 			const nextValue = nextValues[currentVariable] ?? '';
-			if (!nextValue || nextValue === currentDefaultValue) {
+			const shouldRemoveOverride = !nextValue || (!options.preserveMatchingDefault && nextValue === currentDefaultValue);
+			if (shouldRemoveOverride) {
 				delete this.overrides[scopeKey][componentName][currentVariable];
 				this.removeVariable(componentName, scopeKey, currentVariable);
 				continue;

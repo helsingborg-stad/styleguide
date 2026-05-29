@@ -703,6 +703,225 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('keeps explicit token-color selections when they match the nominal default', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults?: Record<string, string>, extraValues?: Record<string, string>, options?: { preserveMatchingDefault?: boolean }): void;
+		};
+
+		runtimeInternals.handleChange(
+			'button',
+			GENERAL_SCOPE_KEY,
+			'--c-button--color--primary',
+			'var(--color--primary)',
+			'var(--color--primary)',
+			{
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
+			{
+				'--c-button--color--primary-contrast': 'var(--color--primary-contrast)',
+			},
+			{
+				preserveMatchingDefault: true,
+			},
+		);
+
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		expect(target?.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		expect(target?.style.getPropertyValue('--c-button--color--primary-contrast')).toBe('var(--color--primary-contrast)');
+
+		mount.remove();
+	});
+
+	it('links companion family variants for localized token-color selections', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const componentDataWithCompanions: ComponentTokenData = {
+			button: {
+				name: 'Button',
+				tokens: ['color--surface', 'color--surface-contrast', 'color--surface-contrast-muted', 'color--surface-border', 'color--surface-alt', 'color--primary', 'color--primary-contrast', 'color--primary-border', 'color--primary-alt'],
+				componentSettings: [
+					{
+						id: 'settings',
+						label: 'Settings',
+						settings: [
+							{
+								token: 'color--surface',
+								label: 'Default Variant',
+								description: 'Selects the token family used for default button variants.',
+							},
+						],
+					},
+				],
+			},
+		};
+
+		const tokenLibraryWithCompanions: TokenData = {
+			name: 'Tokens',
+			version: '1.0.0',
+			categories: [
+				{
+					id: 'colors-brand',
+					label: 'Brand Colors',
+					settings: [
+						{
+							variable: '--color--primary',
+							label: 'Primary',
+							type: 'color',
+							default: '#000000',
+							contrast: '--color--primary-contrast',
+						},
+						{
+							variable: '--color--primary-contrast',
+							label: 'Primary Contrast',
+							type: 'color',
+							default: '#ffffff',
+						},
+						{
+							variable: '--color--primary-border',
+							label: 'Primary Border',
+							type: 'color',
+							default: '#111111',
+						},
+						{
+							variable: '--color--primary-alt',
+							label: 'Primary Alt',
+							type: 'color',
+							default: '#222222',
+						},
+					],
+				},
+				{
+					id: 'colors-layout',
+					label: 'Layout Colors',
+					settings: [
+						{
+							variable: '--color--surface',
+							label: 'Surface',
+							type: 'color',
+							default: '#f5f5f5',
+							contrast: ['--color--surface-contrast', '--color--surface-contrast-muted'],
+						},
+						{
+							variable: '--color--surface-contrast',
+							label: 'Surface Contrast',
+							type: 'color',
+							default: '#111111',
+						},
+						{
+							variable: '--color--surface-contrast-muted',
+							label: 'Surface Contrast Muted',
+							type: 'color',
+							default: '#444444',
+						},
+						{
+							variable: '--color--surface-border',
+							label: 'Surface Border',
+							type: 'color',
+							default: '#dddddd',
+						},
+						{
+							variable: '--color--surface-alt',
+							label: 'Surface Alt',
+							type: 'color',
+							default: '#fafafa',
+						},
+					],
+				},
+			],
+		};
+
+		const runtime = new ComponentCustomizerRuntime(componentDataWithCompanions, tokenLibraryWithCompanions, mount);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const colorSetting = categories[0]?.settings[0];
+		const primaryOption = colorSetting?.options?.find((option) => option.label === 'Primary');
+
+		expect(colorSetting).toMatchObject({
+			variable: '--c-button--color--surface',
+			linkedDefaults: {
+				'--c-button--color--surface-contrast': 'var(--color--surface-contrast)',
+				'--c-button--color--surface-contrast-muted': 'var(--color--surface-contrast-muted)',
+				'--c-button--color--surface-border': 'var(--color--surface-border)',
+				'--c-button--color--surface-alt': 'var(--color--surface-alt)',
+			},
+		});
+		expect(primaryOption?.extraValues).toEqual({
+			'--c-button--color--surface-contrast': 'var(--color--primary-contrast)',
+			'--c-button--color--surface-contrast-muted': 'var(--color--primary-contrast)',
+			'--c-button--color--surface-border': 'var(--color--primary-border)',
+			'--c-button--color--surface-alt': 'var(--color--primary-alt)',
+		});
+
+		mount.remove();
+	});
+
+	it('maps full companion families for the real button component data', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: {
+				'--color--palette-1': '#0055aa',
+				'--color--palette-1-contrast': '#ffffff',
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		const realComponentData = require('../../../../component-design-tokens.json') as ComponentTokenData;
+		const realTokenLibrary = require('../../../data/design-tokens.json') as TokenData;
+
+		const runtime = new ComponentCustomizerRuntime(realComponentData, realTokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('button');
+		const colorCategory = categories.find((category) => category.id === 'colors');
+		const primarySetting = colorCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
+		const defaultSetting = colorCategory?.settings.find((setting) => setting.variable === '--c-button--color--surface');
+		const secondaryPrimaryOption = primarySetting?.options?.find((option) => option.label === 'Secondary');
+		const backgroundDefaultOption = defaultSetting?.options?.find((option) => option.label === 'Background');
+
+		expect(secondaryPrimaryOption?.extraValues).toEqual(
+			expect.objectContaining({
+				'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+				'--c-button--color--primary-border': 'var(--color--secondary-border)',
+				'--c-button--color--primary-alt': 'var(--color--secondary-alt)',
+			}),
+		);
+
+		expect(backgroundDefaultOption?.extraValues).toEqual(
+			expect.objectContaining({
+				'--c-button--color--surface-contrast': 'var(--color--background-contrast)',
+				'--c-button--color--surface-contrast-muted': 'var(--color--background-contrast-muted)',
+				'--c-button--color--surface-border': 'var(--color--background-border)',
+				'--c-button--color--surface-alt': 'var(--color--background-alt)',
+			}),
+		);
+
+		const palettePrimaryOption = primarySetting?.options?.find((option) => option.label === 'Palette 1');
+		expect(palettePrimaryOption?.extraValues).toEqual(
+			expect.objectContaining({
+				'--c-button--color--primary-contrast': 'var(--color--palette-1-contrast)',
+				'--c-button--color--primary-border': 'var(--color--palette-1-border)',
+				'--c-button--color--primary-alt': 'var(--color--palette-1-alt)',
+			}),
+		);
+
+		hostElement.remove();
+		mount.remove();
+	});
+
 	it('renders save and delete preset actions together in the preset bar', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
