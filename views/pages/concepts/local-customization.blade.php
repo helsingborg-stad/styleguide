@@ -35,55 +35,7 @@
             [
                 'title' => 'Preview',
                 'content' => '<div class="markup-preview">' . $renderView('pages.partials.concepts.local-customization.segment-button-preview') . '</div>',
-            ],
-            [
-                'title' => 'Blade usage',
-                'content' => $buildCodeTabContent('php', <<<'BLADE'
-<section class="c-segment c-segment--full-width c-segment--text-light c-segment--alignment-left c-segment--has-overlay local-customization-demo">
-    <div class="c-segment__image"></div>
-
-    <div class="o-container o-container--content c-segment__content">
-        <div class="c-segment__padder">
-            @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['c-segment__title']])
-                Forced context with one local opt-out
-            @endtypography
-
-            @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['c-segment__text']])
-                The view defines one scope around a rendered set of buttons. Design Builder can then target that scope without changing buttons outside this full-width context.
-            @endtypography
-
-            <div class="c-segment__buttons">
-                @scope(['name' => 'campaign-hero'])
-                    @button(['text' => 'Primary', 'style' => 'filled', 'color' => 'primary'])
-                    @endbutton
-                    @button(['text' => 'Secondary', 'style' => 'filled', 'color' => 'secondary'])
-                    @endbutton
-                    @button(['text' => 'Default', 'style' => 'filled', 'color' => 'default'])
-                    @endbutton
-                @endscope
-            </div>
-        </div>
-    </div>
-</section>
-BLADE),
-            ],
-            [
-                'title' => 'Inherited context',
-                'content' => $buildCodeTabContent('scss', <<<'SCSS'
-.c-segment.c-segment--text-light .c-button {
-    --inherit-color-background: #fff;
-    --inherit-color-contrast: #000;
-}
-SCSS),
-            ],
-            [
-                'title' => 'Design tool scope',
-                'content' => $buildCodeTabContent('html', <<<'HTML'
-<a class="c-button ..." data-scope="s-campaign-hero;">Primary</a>
-<a class="c-button ..." data-scope="s-campaign-hero;">Secondary</a>
-<a class="c-button ..." data-scope="s-campaign-hero;">Default</a>
-HTML),
-            ],
+            ]
         ];
     @endphp
 
