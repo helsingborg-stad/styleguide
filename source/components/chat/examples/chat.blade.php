@@ -19,16 +19,26 @@
     }
 
     document.addEventListener('chat:initialized', (e) => {
-        const chat = e.detail.chat;
-        chat.addMessage('Hello, how can i help you?', true);
+        const chat = e.detail;
+        chat.addMessage("Hello! I'm your friendly chatbot. How can I assist you today?", true);
 
-        chat.subscribeToUserMessages((message) => {
+        chat.getElement().addEventListener('chat:message-added', (e) => {
+			const message = e.detail;
+
+			if (message.getIsReply()) {
+				return;
+			}
+
+            chat.disableSend();
             const pendingMessage = chat.addPendingMessage();
             const responseToCome = getRandomResponse();
+
             setTimeout(() => {
                 chat.editMessage(responseToCome, pendingMessage);
+                chat.enableSend();
             }, Math.random() * (2000 - 500) + 500);
-        })
+
+		});
     });
 </script>
 
