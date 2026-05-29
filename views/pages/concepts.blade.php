@@ -25,7 +25,7 @@
     @endtypography
 
     <div class="o-grid o-grid--large">
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Inheritance',
                 'content' => 'See how explicit component overrides, inherit hooks and token defaults resolve in live examples.',
@@ -34,7 +34,7 @@
             ])
             @endbox
         </div>
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Local customization',
                 'content' => 'See how a section can force reasonable inherited button contrast while still allowing a single button instance to opt out locally.',
@@ -43,7 +43,7 @@
             ])
             @endbox
         </div>
-        <div class="o-grid-12 o-grid-6@md">
+        <div class="o-grid-12 o-grid-4@md">
             @box([
                 'heading' => 'Color system',
                 'content' => 'All design token colors as live swatches, with derivation formulas, mix amounts, and usage guidance for every token in the system.',

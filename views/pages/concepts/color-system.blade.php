@@ -1,25 +1,31 @@
 @extends('layout.containers.doc')
 
-@section('doc-hero')
-    @include('layout.partials.doc-hero', [
-        'title' => 'Color System',
-        'subtitle' => 'An overview-first guide to the color token families, how companion tones are derived, and where each group belongs in the component layer.',
-        'metaTags' => [
-            ['label' => 'Concepts'],
-            ['label' => 'Design tokens'],
-        ],
-        'primaryCta' => ['label' => 'Open design builder', 'href' => '/design-builder'],
-        'secondaryCta' => ['label' => 'Browse components', 'href' => '/components'],
-        'shortcuts' => [
-            ['label' => 'Overview', 'href' => '#overview'],
-            ['label' => 'Token anatomy', 'href' => '#token-anatomy'],
-            ['label' => 'Families', 'href' => '#brand-colors'],
-            ['label' => 'Palette', 'href' => '#brand-palette'],
-        ],
-    ])
-@endsection
-
 @section('doc-content')
+    @breadcrumb([
+        'classList' => ['u-margin__bottom--3'],
+        'list' => [
+            ['href' => '/', 'label' => 'Home'],
+            ['href' => '/concepts', 'label' => 'Concepts'],
+            ['label' => 'Color system'],
+        ]
+    ])
+    @endbreadcrumb
+
+    @typography([
+        'element' => 'h1',
+        'variant' => 'h1',
+        'classList' => ['u-margin__bottom--2']
+    ])
+        Color System
+    @endtypography
+
+    @typography(['element' => 'p', 'variant' => 'body'])
+        An overview-first guide to the color token families, how companion tones are derived, and where each group belongs in the component layer.
+    @endtypography
+
+    @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
+    @enddivider
+
     <style>
         .color-system-summary-card {
             height: 100%;

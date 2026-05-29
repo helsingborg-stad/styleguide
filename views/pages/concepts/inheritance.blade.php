@@ -1,25 +1,16 @@
 @extends('layout.containers.doc')
 
-@section('doc-hero')
-    @include('layout.partials.doc-hero', [
-        'title' => 'Inheritance',
-        'subtitle' => 'Examples showing where inherit hooks participate in runtime styling, and how explicit component values now take precedence over inherited fallbacks.',
-        'metaTags' => [
-            ['label' => 'Concepts'],
-            ['label' => 'Precedence examples'],
-        ],
-        'primaryCta' => ['label' => 'Browse button docs', 'href' => '/components/button'],
-        'secondaryCta' => ['label' => 'View typography docs', 'href' => '/components/typography'],
-        'shortcuts' => [
-            ['label' => 'Button', 'href' => '/components/button'],
-            ['label' => 'Typography', 'href' => '/components/typography'],
-            ['label' => 'Field', 'href' => '/components/field'],
-            ['label' => 'Timeline', 'href' => '/components/timeline'],
-        ],
-    ])
-@endsection
-
 @section('doc-content')
+    @breadcrumb([
+        'classList' => ['u-margin__bottom--3'],
+        'list' => [
+            ['href' => '/', 'label' => 'Home'],
+            ['href' => '/concepts', 'label' => 'Concepts'],
+            ['label' => 'Inheritance'],
+        ]
+    ])
+    @endbreadcrumb
+
     @php
         $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
             return $__env->make($viewPath, $viewData)->render();
@@ -175,13 +166,16 @@ CSS),
         ];
     @endphp
 
-    @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--1']])
+    @typography(['element' => 'h1', 'variant' => 'h1', 'classList' => ['u-margin__bottom--2']])
         Inheritance
     @endtypography
 
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--4']])
-        These examples demonstrate the same precedence chain now used across the affected components: explicit component override first, then inherit hook, then default token or derived alias fallback.
+    @typography(['element' => 'p', 'variant' => 'body'])
+        Examples showing where inherit hooks participate in runtime styling, and how explicit component values now take precedence over inherited fallbacks.
     @endtypography
+
+    @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
+    @enddivider
 
     @notice([
         'type' => 'info',
