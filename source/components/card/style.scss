@@ -171,7 +171,7 @@ $_: "c-card";
         position: absolute;
         top: 0;
         right: 0;
-        color: tokens.getRawValue($_, "color-surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     &__dropdown .c-button:hover,
@@ -249,11 +249,12 @@ $_: "c-card";
 
         .#{$_}__header {
             border-bottom: calc(#{tokens.getRawValue($_, "base")} / 2) solid tokens.getRawValue($_, "color--primary");
-            background: tokens.getRawValue($_, "color-surface-contrast");
+            background: tokens.getRawValue($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
 
-        .c-typography {
-            color: tokens.getRawValue($_, "color-surface-contrast");
+        .#{$_}__header .c-typography {
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
     }
 
