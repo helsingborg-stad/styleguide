@@ -217,6 +217,11 @@
             overflow: hidden;
         }
 
+        .color-system-palette-card[hidden],
+        .color-system-palette-section[hidden] {
+            display: none;
+        }
+
         .color-system-palette-card__swatch {
             min-height: 120px;
             padding: 0.9rem;
@@ -544,7 +549,7 @@
         @endpaper
     @endforeach
 
-    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5'], 'attributeList' => ['id' => 'brand-palette']])
+    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5', 'color-system-palette-section'], 'attributeList' => ['id' => 'brand-palette']])
         <span class="color-system-kicker">Optional accent slots</span>
         @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
             Brand Palette
@@ -556,8 +561,8 @@
 
         <div class="color-system-palette-grid u-margin__bottom--3">
             @for($i = 1; $i <= 10; $i++)
-                <article class="color-system-palette-card">
-                    <div class="color-system-palette-card__swatch" style="background: var(--color--palette-{{ $i }}); color: var(--color--palette-{{ $i }}-contrast, var(--color--surface-contrast));">
+                <article class="color-system-palette-card" data-palette-card="{{ $i }}">
+                    <div class="color-system-palette-card__swatch" data-palette-swatch="{{ $i }}" style="background: var(--color--palette-{{ $i }}); color: var(--color--palette-{{ $i }}-contrast, var(--color--surface-contrast));">
                         <span class="color-system-palette-card__token">--color--palette-{{ $i }}</span>
                         <span class="color-system-base-swatch__meta">Palette {{ $i }} · transparent by default</span>
                     </div>
@@ -578,6 +583,41 @@
         ])
         @endnotice
     @endpaper
+
+    <script>
+        (function() {
+            var paletteSection = document.querySelector('.color-system-palette-section');
+
+            if (!paletteSection) {
+                return;
+            }
+
+            var paletteCards = Array.from(paletteSection.querySelectorAll('[data-palette-card]'));
+            var visibleCards = 0;
+
+            paletteCards.forEach(function(card) {
+                var swatch = card.querySelector('[data-palette-swatch]');
+
+                if (!swatch) {
+                    return;
+                }
+
+                var backgroundColor = window.getComputedStyle(swatch).backgroundColor;
+                var isTransparent = backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent';
+
+                if (isTransparent) {
+                    card.hidden = true;
+                    return;
+                }
+
+                visibleCards += 1;
+            });
+
+            if (visibleCards === 0) {
+                paletteSection.hidden = true;
+            }
+        })();
+    </script>
 
     @paper(['padding' => 4])
         <span class="color-system-kicker">Editing rules</span>
