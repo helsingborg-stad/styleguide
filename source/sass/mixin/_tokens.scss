@@ -115,11 +115,11 @@
     $p: _clean-prefix($prefix);
 
     @if $inheritVariable ==null {
-        @if($p !="") {
-            $p: "--#{$p}";
+        @if($p =="") {
+            @return var(--#{_normalize-global-token($token)});
         }
 
-        @return var(#{$p}--#{$token});
+        @return var(--#{$p}--#{$token}, #{getDefaultRawValue($prefix, $token)});
     }
 
     $inheritVariable: _normalize-inherit-variable($inheritVariable);
@@ -192,26 +192,14 @@
 
     //If token is shadow, construct the drop-shadow value using the color and amount tokens
     @if $token =="shadow" {
-        @if $inheritVariable !=null {
-            @return drop-shadow(0 calc((var(--base) * 0.5) * #{getRawValue($prefix, "shadow-amount", $inheritVariable)}) calc(#{getRawValue($prefix, "shadow-amount", $inheritVariable)} * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)});
-        }
-
-        @return drop-shadow(0 calc((var(--base) * 0.5) * var(#{$p}--shadow-amount)) calc(var(#{$p}--shadow-amount) * var(--base) * #{$multiplier}) var(#{$p}--shadow-color));
+        @return drop-shadow(0 calc((var(--base) * 0.5) * #{getRawValue($prefix, "shadow-amount", $inheritVariable)}) calc(#{getRawValue($prefix, "shadow-amount", $inheritVariable)} * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)});
     }
 
     // If base is used as a token, return it directly without multiply with base to avoid circular reference
     @if $token =="base" {
-        @if $inheritVariable !=null {
-            @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * #{$multiplier});
-        }
-
-        @return calc(var(#{$p}--base) * #{$multiplier});
+        @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * #{$multiplier});
     }
 
     // Default behavior: return scaled token value, pixel from int
-    @if $inheritVariable !=null {
-        @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * var(--base) * #{$multiplier});
-    }
-
-    @return calc(var(#{$p}--#{$token}) * var(--base) * #{$multiplier});
+    @return calc(#{getRawValue($prefix, $token, $inheritVariable)} * var(--base) * #{$multiplier});
 }
