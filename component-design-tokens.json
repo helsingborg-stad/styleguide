@@ -1114,6 +1114,34 @@
     "requiredBy": [],
     "icon": "css"
   },
+  "link": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Link",
+    "slug": "link",
+    "description": "The Link component outputs a link to a URL.",
+    "tokens": [
+      "color--background-contrast"
+    ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "settings": [
+          {
+            "token": "color--background-contrast",
+            "label": "Color",
+            "description": "The contrast of the selected palette will be used."
+          }
+        ]
+      }
+    ],
+    "tags": [],
+    "similarComponents": [],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "link_2"
+  },
   "listing": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,

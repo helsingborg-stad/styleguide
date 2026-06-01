@@ -1,16 +1,12 @@
-@use "../mixin/tokens";
+@use "../../sass/mixin/tokens";
 
-/* Component name */
 $_: "c-link";
 
-@include tokens.create(
-    $_,
-    (
-        "color--background",
-        "color--background-contrast",
-        "color--background--contrast-muted",
-    )
-);
+@include tokens.create($_, getComponentTokens($_));
+
+@include tokens.create($_,
+    ("color--background-contrast",
+    ));
 
 a,
 .#{$_} {
@@ -34,12 +30,12 @@ a,
 
     &:active,
     &:hover {
-        color: tokens.getRawValue($_, "color--background-contrast");
+        color: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} 65%, gray);
     }
 
     &:visited,
     &:visited:hover,
     &:visited:active {
-        color: tokens.getRawValue($_, "color--background--contrast-muted");
+        color: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} 65%, gray);
     }
 }

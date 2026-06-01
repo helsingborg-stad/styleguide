@@ -88,7 +88,6 @@
     @include meta.load-css("element/paragraph");
     @include meta.load-css("element/hr");
     @include meta.load-css("element/list");
-    @include meta.load-css("element/link");
     @include meta.load-css("element/strong");
     @include meta.load-css("element/table");
     @include meta.load-css("element/iframe");
@@ -142,6 +141,7 @@
     @include meta.load-css("../components/image/style");
     @include meta.load-css("../components/inlinecsswrapper/style");
     @include meta.load-css("../components/listing/style");
+    @include meta.load-css("../components/link/style");
     @include meta.load-css("../components/loader/style");
     @include meta.load-css("../components/logotype/style");
     @include meta.load-css("../components/logotypegrid/style");
