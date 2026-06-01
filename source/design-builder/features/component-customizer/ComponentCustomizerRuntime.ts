@@ -50,6 +50,7 @@ const LOCAL_COLOR_SOURCE_CATEGORY_IDS = new Set(['colors-brand-palette', 'colors
 const STATE_COLOR_SOURCE_CATEGORY_ID = 'colors-state';
 const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
 const EXCLUDED_SWATCH_COLOR_FAMILIES = new Set(['alpha', 'focus']);
+const LAST_EDITED_COMPONENT_STORAGE_KEY = 'design-builder-last-edited-component';
 
 export class ComponentCustomizerRuntime {
 	private componentData: ComponentTokenData;
@@ -166,9 +167,34 @@ export class ComponentCustomizerRuntime {
 			}
 		}
 
+		const lastEditedComponent = this.getLastEditedComponent();
+		if (lastEditedComponent && this.editableComponents.has(lastEditedComponent) && this.elementsByComponent.has(lastEditedComponent)) {
+			this.activeComponent = lastEditedComponent;
+		}
+
 		if (this.activeComponent && !this.editableComponents.has(this.activeComponent)) {
 			const firstEditable = this.editableComponents.values().next().value;
 			this.activeComponent = typeof firstEditable === 'string' ? firstEditable : null;
+		}
+	}
+
+	private getLastEditedComponent(): string | null {
+		try {
+			return normalizeComponentName(localStorage.getItem(LAST_EDITED_COMPONENT_STORAGE_KEY) || '');
+		} catch {
+			return null;
+		}
+	}
+
+	private rememberLastEditedComponent(componentName: string | null): void {
+		if (!componentName || !this.editableComponents.has(componentName)) {
+			return;
+		}
+
+		try {
+			localStorage.setItem(LAST_EDITED_COMPONENT_STORAGE_KEY, componentName);
+		} catch {
+			// Ignore storage failures; component selection should still work.
 		}
 	}
 
@@ -208,6 +234,7 @@ export class ComponentCustomizerRuntime {
 					if (!this.root) return;
 
 					this.activeComponent = componentName;
+					this.rememberLastEditedComponent(componentName);
 					this.activeScopeKey = this.getScopeKeyForElement(element);
 					this.refreshScopeSelect();
 					this.setActiveTarget(componentName, this.activeScopeKey, element, true);
@@ -1595,6 +1622,7 @@ export class ComponentCustomizerRuntime {
 
 	private readonly handleComponentSelectChange = (event: Event): void => {
 		this.activeComponent = (event.currentTarget as HTMLSelectElement).value || null;
+		this.rememberLastEditedComponent(this.activeComponent);
 		this.activeTargetWasPicked = false;
 		if (this.activeComponent) {
 			this.refreshScopeSelect();

@@ -240,6 +240,63 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		expect(toggleLabel()).toBe('Pick on page');
 	});
 
+	it('defaults to the last selected component when it is available on the page', () => {
+		document.body.innerHTML = `
+			<div data-component="header"></div>
+			<div data-component="button"></div>
+			<div data-component="drawer"></div>
+		`;
+		const componentDataWithDrawer: ComponentTokenData = {
+			...componentData,
+			drawer: {
+				name: 'Drawer',
+				tokens: ['color--secondary'],
+				componentSettings: [
+					{
+						id: 'colors',
+						label: 'Colors',
+						settings: [
+							{
+								token: 'color--secondary',
+								label: 'Secondary Navigation Color',
+							},
+						],
+					},
+				],
+			},
+		};
+		const firstMount = document.createElement('div');
+		document.body.appendChild(firstMount);
+
+		new ComponentCustomizerRuntime(componentDataWithDrawer, tokenLibrary, firstMount);
+		const firstComponentSelect = firstMount.querySelector<HTMLSelectElement>('[data-action="select-component"]');
+		if (firstComponentSelect) {
+			firstComponentSelect.value = 'drawer';
+			firstComponentSelect.dispatchEvent(new Event('change'));
+		}
+		firstMount.remove();
+
+		const secondMount = document.createElement('div');
+		document.body.appendChild(secondMount);
+		new ComponentCustomizerRuntime(componentDataWithDrawer, tokenLibrary, secondMount);
+
+		expect(secondMount.querySelector<HTMLSelectElement>('[data-action="select-component"]')?.value).toBe('drawer');
+
+		secondMount.remove();
+	});
+
+	it('ignores the last selected component when it is not available on the page', () => {
+		localStorage.setItem('design-builder-last-edited-component', 'drawer');
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+
+		expect(mount.querySelector<HTMLSelectElement>('[data-action="select-component"]')?.value).toBe('button');
+
+		mount.remove();
+	});
+
 	it('emits action events for component changes, resets, and saves', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
