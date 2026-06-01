@@ -694,7 +694,9 @@ SCSS usage:
 Implementation notes:
 
 - Keep global tokens in the tokens array when the component still depends on shared token values.
-- Use componentSettings only for local override controls that do not belong in source/data/design-tokens.json.
+- When componentSettings is defined, it replaces the automatically generated token controls for that component.
+- Add token-backed componentSettings entries for every global token that should remain editable in the component customizer.
+- Use componentSettings for local override controls that do not belong in source/data/design-tokens.json.
 - If a setting should be editable in the GUI, the component CSS must consume the localized CSS variable.
 - The generated component-design-tokens.json payload includes both tokens and componentSettings.
 

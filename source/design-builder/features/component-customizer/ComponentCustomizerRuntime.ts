@@ -1321,12 +1321,6 @@ export class ComponentCustomizerRuntime {
 			});
 		}
 
-		const remainingTokenNames = new Set([...availableTokenNames].filter((tokenName) => !exposedTokenNames.has(tokenName) && !hiddenTokenNames.has(tokenName)));
-
-		for (const legacyCategory of this.buildLegacyTokenCategories(componentName, remainingTokenNames)) {
-			this.appendCategory(categories, legacyCategory);
-		}
-
 		return categories;
 	}
 

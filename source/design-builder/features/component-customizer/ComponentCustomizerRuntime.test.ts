@@ -547,7 +547,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('builds explicit token-backed and component-local settings into localized controls', () => {
+	it('builds explicit token-backed and component-local settings into localized controls without appending undeclared token controls', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
 
@@ -591,12 +591,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			max: 4,
 			step: 0.1,
 		});
-		expect(spaceSetting).toMatchObject({
-			variable: '--c-button--space',
-			label: 'Space',
-			type: 'range',
-			default: '1',
-		});
+		expect(spaceSetting).toBeUndefined();
 
 		mount.remove();
 	});

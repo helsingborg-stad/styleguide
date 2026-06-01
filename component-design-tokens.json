@@ -349,6 +349,42 @@
       "font-size-200",
       "font-size-100"
     ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "description": "Component-local adjustments for card appearance and spacing.",
+        "settings": [
+          {
+            "label": "Color",
+            "description": "Controls the card surface, text contrast, border, and alternate layout colors.",
+            "token": "color--surface",
+            "includeStateColors": false
+          },
+          {
+            "label": "Accent Color",
+            "description": "Controls highlighted card details, including accent borders and accented header backgrounds.",
+            "token": "color--primary",
+            "includeStateColors": false
+          },
+          {
+            "label": "Image Background Color",
+            "description": "Controls the background shown behind transparent images and SVG illustrations.",
+            "token": "color--secondary"
+          },
+          {
+            "label": "Spacing & Padding",
+            "description": "Controls padding inside the card and spacing between card elements.",
+            "token": "space"
+          },
+          {
+            "label": "Border & Divider Width",
+            "description": "Controls the width of card borders and internal dividers.",
+            "token": "border-width"
+          }
+        ]
+      }
+    ],
     "description": "The Card component provides a reusable pattern for card in the interface.",
     "tags": [
       "card",
