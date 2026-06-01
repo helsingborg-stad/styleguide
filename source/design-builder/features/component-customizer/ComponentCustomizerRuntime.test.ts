@@ -1019,12 +1019,11 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		);
 		const runtimeInternals = runtime as unknown as {
 			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+			setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement, wasPicked?: boolean): void;
 		};
 		const buttons = document.querySelectorAll<HTMLElement>('[data-component="button"]');
-		const togglePickButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
 
-		togglePickButton?.click();
-		buttons[1]?.click();
+		runtimeInternals.setActiveTarget('button', GENERAL_SCOPE_KEY, buttons[1], true);
 
 		const settingVariables = runtimeInternals
 			.buildCategoriesForComponent('button')
@@ -1326,6 +1325,10 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 	});
 
 	it('maps full companion families for the real button component data', () => {
+		document.body.innerHTML = `
+			<button class="c-button c-button__filled" data-component="button"></button>
+			<button class="c-button c-button__filled--primary" data-component="button"></button>
+		`;
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
