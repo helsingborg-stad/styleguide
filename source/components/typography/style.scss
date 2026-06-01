@@ -6,6 +6,11 @@
     inherits: false;
 }
 
+@property --inherit-letter-spacing {
+    syntax: "*";
+    inherits: false;
+}
+
 @property --inherit-margin-top {
     syntax: "*";
     inherits: false;
@@ -66,7 +71,7 @@ $_: "c-typography";
     font-family: tokens.getRawValue($_, "font-family-base");
     font-size: var(--inherit-font-size, tokens.getRawValue($_, "font-size-base"));
     font-weight: tokens.getRawValue($_, "font-weight-normal");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-base");
+    letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
     line-height: tokens.getRawValue($_, "line-height-base");
 }
 
@@ -165,7 +170,7 @@ h6,
     font-family: tokens.getDefaultRawValue($_, "font-family-heading");
     font-size: tokens.getDerivedAliasValue($_, "font-size-title", "font-size");
     font-weight: tokens.getDefaultRawValue($_, "font-weight-medium");
-    letter-spacing: tokens.getDefaultRawValue($_, "letter-spacing-base");
+    letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
     line-height: tokens.getDefaultRawValue($_, "line-height-heading");
 }
 
@@ -177,7 +182,7 @@ h6,
     font-family: tokens.getDefaultRawValue($_, "font-family-base");
     font-size: tokens.getRawValue($prefix: $_, $token: "font-size-base", $inheritVariable: "font-size");
     font-weight: tokens.getDefaultRawValue($_, "font-weight-bold");
-    letter-spacing: tokens.getDefaultRawValue($_, "letter-spacing-base");
+    letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
     line-height: tokens.getDefaultRawValue($_, "line-height-base");
 }
 

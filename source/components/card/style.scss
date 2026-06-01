@@ -148,6 +148,11 @@ $_: "c-card";
         }
     }
 
+    &__eyebrow {
+        text-transform: uppercase;
+        --inherit-letter-spacing: .1em;
+    }
+
     &__title {
 
         &-expand-button {
