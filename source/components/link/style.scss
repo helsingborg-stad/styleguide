@@ -10,7 +10,7 @@ $_: "c-link";
 
 a,
 .#{$_} {
-    color: tokens.getRawValue($_, "color--background-contrast");
+    color: tokens.getRawValue($_, $token: "color--background-contrast", $inheritVariable: "color-contrast");
     text-decoration-style: solid;
     transition: 100ms color;
 
